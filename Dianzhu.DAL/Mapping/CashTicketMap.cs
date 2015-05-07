@@ -15,7 +15,7 @@ namespace Dianzhu.DAL.Mapping
        {
             Id(x => x.Id);
             References<CashTicketTemplate>(x => x.CashTicketTemplate);
-            Map(x => x.TicketCode);
+            Map(x => x.TicketCode).Unique();
             Map(x => x.BusinessAssigned);
             
             References<CashTicketCreateRecord>(x => x.CashTicketCreateRecord);

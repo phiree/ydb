@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2E67AA78-6780-42BD-A3AB-AD953781E511}</ProjectGuid>
+    <ProjectGuid>{01C757F2-5937-43A3-AF31-4B0B064492B2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dianzhu.DAL</RootNamespace>
-    <AssemblyName>Dianzhu.DAL</AssemblyName>
+    <RootNamespace>Dianzhu.IDAL</RootNamespace>
+    <AssemblyName>Dianzhu.IDAL</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,7 +45,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,27 +52,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DALBase.cs" />
-    <Compile Include="HybridSessionBuilder.cs" />
-    <Compile Include="Mapping\CashTicketTemplateMap.cs" />
-    <Compile Include="Mapping\CashTicketMap.cs" />
-    <Compile Include="Mapping\CashTicketCreateRecord.cs" />
-    <Compile Include="Mapping\BusinessMap.cs" />
-    <Compile Include="Mapping\User.cs" />
+    <Compile Include="IDALBase.cs" />
+    <Compile Include="IDALCashTicket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DALCashTicketTemplate.cs" />
-    <Compile Include="DALCashTicketCreateRecord.cs" />
-    <Compile Include="DALBusiness.cs" />
+    <Compile Include="IDALCashTicketTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DALCashTicket.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
-      <Project>{01C757F2-5937-43A3-AF31-4B0B064492B2}</Project>
-      <Name>Dianzhu.IDAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>

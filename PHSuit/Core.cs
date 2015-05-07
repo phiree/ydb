@@ -12,6 +12,11 @@ namespace PHSuit
             DateTime nextDay =Convert.ToDateTime(date.AddDays(1).ToShortDateString());
             return nextDay;
         }
+        /// <summary>
+        /// 随机生成由数字组成的字符串
+        /// </summary>
+        /// <param name="size">长度</param>
+        /// <returns></returns>
         public static string GetRandom(int size)
         { 
             string max_str=string.Empty;

@@ -6,19 +6,23 @@ using NHibernate;
 using NHibernate.Hql;
 using System.Web.Security;
 using System.Data.SqlClient;
+using Dianzhu.IDAL;
 namespace Dianzhu.DAL
 {
-    public class DalBase<T>
+    public class DalBase<T>:IDALBase<T>
     {
 
-        protected ISession session = null;// new HybridSessionBuilder().GetSession();
+        public ISession session = null;// new HybridSessionBuilder().GetSession();
         public DalBase()
         {
 
             session = new HybridSessionBuilder().GetSession();
 
         }
-        public void Delete(T o)
+        public ISession Session {
+            get { return session; }
+        }
+        public virtual void Delete(T o)
         {
             session.Delete(o);
             session.Flush();
@@ -35,7 +39,10 @@ namespace Dianzhu.DAL
             session.Flush();
             
         }
-
+        /// <summary>
+        /// 保存列表
+        /// </summary>
+        /// <param name="list"></param>
         public virtual void SaveList(IList<T> list)
         {
             using (var trans = session.BeginTransaction())
@@ -68,7 +75,7 @@ namespace Dianzhu.DAL
         {
             return session.Get<T>(id);
         }
-        protected T GetOneByQuery(IQueryOver<T> queryOver)
+        public T GetOneByQuery(IQueryOver<T> queryOver)
         {
             return GetOneByQuery(queryOver.List());
         }
@@ -76,7 +83,7 @@ namespace Dianzhu.DAL
         {
             return GetOneByQuery(GetList(query));
         }
-        private T GetOneByQuery(IList<T> listT)
+        public T GetOneByQuery(IList<T> listT)
         {
 
             if (listT.Count == 1)
@@ -108,7 +115,7 @@ namespace Dianzhu.DAL
             int totalRecords;
             return GetList(query, 0, 99999, out totalRecords);
         }
-        protected IList<T> GetList(IQueryOver<T, T> queryOver)
+        public IList<T> GetList(IQueryOver<T, T> queryOver)
         {
             return queryOver.List();
         }

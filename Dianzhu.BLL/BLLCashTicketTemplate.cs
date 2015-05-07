@@ -5,6 +5,7 @@ using System.Text;
 using Dianzhu.Model;
 using PHSuit;
 using Dianzhu.DAL;
+using Dianzhu.IDAL;
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -12,7 +13,20 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLCashTicketTemplate
     {
-        DalCashTicketTemplate dal = new DalCashTicketTemplate();
+        IDALCashTicketTemplate dal = null;
+        public BLLCashTicketTemplate()
+        {
+            if (dal == null)
+            {
+                dal = DalFactory.GetDalCashTicketTemplate();
+            }
+            
+        }
+        public BLLCashTicketTemplate(IDALCashTicketTemplate dalctt)
+        {
+            dal = dalctt;
+        }
+       
 
         /// <summary>
         /// 创建一张现金券模板
@@ -39,12 +53,12 @@ namespace Dianzhu.BLL
                  ValidDate=PHCore.GetNextDay(DateTime.Now),
                  Enabled=true,
             };
-            dal.Save(ctt);
+            dal.DalBase.Save(ctt);
             return ctt;
         }
         public void Update(CashTicketTemplate t)
         {
-            dal.Update(t);
+            dal.DalBase.Update(t);
         }
 
         

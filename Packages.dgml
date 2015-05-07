@@ -1,30 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="Tge.Test" Label="Tge.Test" Category="Project" />
-    <Node Id="NUnit 2.6.4" Label="NUnit 2.6.4" Category="Package" />
-    <Node Id="Tge.Data" Label="Tge.Data" Category="Project" />
-    <Node Id="FluentNHibernate 2.0.1.0" Label="FluentNHibernate 2.0.1.0" Category="Package" />
-    <Node Id="Iesi.Collections 4.0.0.4000" Label="Iesi.Collections 4.0.0.4000" Category="Package" />
-    <Node Id="NHibernate 4.0.0.4000" Label="NHibernate 4.0.0.4000" Category="Package" />
+    <Node Id="PHSuit" Label="PHSuit" Category="项目" />
+    <Node Id="NUnit 2.6.4" Label="NUnit 2.6.4" Category="包" />
+    <Node Id="Dianzhu.Test" Label="Dianzhu.Test" Category="项目" />
+    <Node Id="NUnit 2.6.4" Label="NUnit 2.6.4" Category="包" />
+    <Node Id="Dianzhu.DAL" Label="Dianzhu.DAL" Category="项目" />
+    <Node Id="FluentNHibernate 2.0.1.0" Label="FluentNHibernate 2.0.1.0" Category="包" />
+    <Node Id="Iesi.Collections 4.0.0.4000" Label="Iesi.Collections 4.0.0.4000" Category="包" />
+    <Node Id="NHibernate 4.0.0.4000" Label="NHibernate 4.0.0.4000" Category="包" />
+    <Node Id="E:\Projects\src\dianzhu\AdminWeb\" Label="E:\Projects\src\dianzhu\AdminWeb\" Category="项目" />
+    <Node Id="bootstrap 3.3.4" Label="bootstrap 3.3.4" Category="包" />
+    <Node Id="jQuery 1.9.1" Label="jQuery 1.9.1" Category="包" />
   </Nodes>
   <Links>
-    <Link Source="Tge.Test" Target="NUnit 2.6.4" Category="Installed Package" />
-    <Link Source="FluentNHibernate 2.0.1.0" Target="NHibernate 4.0.0.4000" Category="Package Dependency" />
-    <Link Source="NHibernate 4.0.0.4000" Target="Iesi.Collections 4.0.0.4000" Category="Package Dependency" />
-    <Link Source="Tge.Data" Target="FluentNHibernate 2.0.1.0" Category="Installed Package" />
+    <Link Source="PHSuit" Target="NUnit 2.6.4" Category="安装的程序包" />
+    <Link Source="Dianzhu.Test" Target="NUnit 2.6.4" Category="安装的程序包" />
+    <Link Source="FluentNHibernate 2.0.1.0" Target="NHibernate 4.0.0.4000" Category="程序包依赖项" />
+    <Link Source="NHibernate 4.0.0.4000" Target="Iesi.Collections 4.0.0.4000" Category="程序包依赖项" />
+    <Link Source="Dianzhu.DAL" Target="FluentNHibernate 2.0.1.0" Category="安装的程序包" />
+    <Link Source="bootstrap 3.3.4" Target="jQuery 1.9.1" Category="程序包依赖项" />
+    <Link Source="E:\Projects\src\dianzhu\AdminWeb\" Target="bootstrap 3.3.4" Category="安装的程序包" />
   </Links>
   <Categories>
-    <Category Id="Project" />
-    <Category Id="Package" />
+    <Category Id="项目" />
+    <Category Id="包" />
   </Categories>
   <Styles>
-    <Style TargetType="Node" GroupLabel="Project" ValueLabel="True">
-      <Condition Expression="HasCategory('Project')" />
+    <Style TargetType="Node" GroupLabel="项目" ValueLabel="True">
+      <Condition Expression="HasCategory('项目')" />
       <Setter Property="Background" Value="Blue" />
     </Style>
-    <Style TargetType="Link" GroupLabel="Package Dependency" ValueLabel="True">
-      <Condition Expression="HasCategory('Package Dependency')" />
+    <Style TargetType="Link" GroupLabel="程序包依赖项" ValueLabel="True">
+      <Condition Expression="HasCategory('程序包依赖项')" />
       <Setter Property="Background" Value="Yellow" />
     </Style>
   </Styles>
