@@ -6,16 +6,18 @@ using System.Text;
 
 namespace Dianzhu.Model
 {
+    public class Business_Abs
+    {
+        public virtual Guid Id { get; set; }
+        public virtual string Name { get; set; }
+    }
+
     /// <summary>
     /// 商家
     /// </summary>
-   public class Business
+   public class Business:Business_Abs
     {
-       public virtual Guid Id { get; set; }
-       /// <summary>
-       ///名称
-       /// </summary>
-       public virtual string Name{ get; set; }
+     
        /// <summary>
        /// 公司地址
        /// </summary>
