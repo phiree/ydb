@@ -18,6 +18,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x=>x.Description);
             Map(x => x.Latitude);
             Map(x => x.Longitude);
+            
            
         }
     }

@@ -42,5 +42,9 @@ namespace Dianzhu.Model
         /// 覆盖范围。单位公里。
         /// </summary>
         public float Coverage { get; set; }
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        public bool Enabled { get; set; }
     }
 }
