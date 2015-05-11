@@ -1,48 +1,26 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="adminBusiness.master.cs"
-    Inherits="adminBusiness" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="adminBusiness.master.cs" Inherits="adminBusiness" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/modernizr.js"
-        type="text/javascript"></script>
-    <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Content/foundation/foundation.css"
-        rel="stylesheet" type="text/css" />
-    <asp:ContentPlaceHolder ID="head" runat="server">
+    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/modernizr.js" type="text/javascript"></script>
+    <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Content/foundation/foundation.css" rel="stylesheet" type="text/css" />
+   
+    <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-    <nav class='top-bar' data-topbar role="navigation">
-            <ul class="title-area">
-    <li class="name">
-      <h1><a href="#">点助商家后台管理</a> </h1> 
-    </li>
-     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-  </ul>
-        </nav>
-    <div class='row'>
-        <div class='large-3 medium-3 columns'>
-            <ul class="side-nav">
-                <li class='<asp:ContentPlaceHolder ID="css_holder" runat="server">
-            </asp:ContentPlaceHolder>'><a href="/CashTicketTemplateEdit.aspx">基本资料</a></li>
-                <li><a href="#">创建现金券</a></li>
-                <li><a href="#">生成现金券</a></li>
-                <li><a href="#">查看报表</a></li>
-            </ul>
-        </div>
-        <div class='large-9 medium-9 columns'>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
+    <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
     </div>
     </form>
-    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/jquery.js"></script>
+     <script  src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/jquery.js"></script>
     <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/foundation.min.js"></script>
-    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/foundation.topbar.min.js"></script>
-    
     <script>
         $(document).foundation();
     </script>
