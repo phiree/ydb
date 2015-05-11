@@ -33,18 +33,18 @@ namespace Dianzhu.Model
         /// <summary>
         /// 面额
         /// </summary>
-        public int Amount { get; set; }
+        public virtual int Amount { get; set; }
         /// <summary>
         /// 使用条件
         /// </summary>
-        public string Conditions { get; set; }
+        public virtual string Conditions { get; set; }
         /// <summary>
         /// 覆盖范围。单位公里。
         /// </summary>
-        public float Coverage { get; set; }
+        public virtual float Coverage { get; set; }
         /// <summary>
         /// 是否启用
         /// </summary>
-        public bool Enabled { get; set; }
+        public virtual bool Enabled { get; set; }
     }
 }

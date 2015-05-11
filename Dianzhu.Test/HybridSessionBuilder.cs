@@ -8,7 +8,7 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
 using NHibernate.Hql;
 using NHibernate.Criterion.Lambda;
-namespace Dianzhu.DAL
+namespace Dianzhu.Test
 {
     public class HybridSessionBuilder
     {
@@ -44,7 +44,7 @@ namespace Dianzhu.DAL
                              MySQLConfiguration
                             .Standard
                             .ConnectionString(c => c
-                            .FromConnectionStringWithKey("DianzhuConnectionString"))
+                            .FromConnectionStringWithKey("DianzhuConnectionString_Test"))
                       )
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
                     .ExposeConfiguration(BuildSchema)

@@ -8,11 +8,38 @@ using Dianzhu.BLL;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Dianzhu.IDAL;
+using NUnit.Framework;
+using FluentNHibernate.Testing;
+using NHibernate;
 namespace Dianzhu.Test
 {
     [TestFixture]
     public class CashTicketCreateTest
     {
+        ISession session = null;
+        [SetUp]
+        public void SetUp()
+        {
+             session = new HybridSessionBuilder().GetSession();
+        }
+       
+        [Test]
+        public void CanCorrectlyMapCashTicketTemplate()
+        {
+           
+            new PersistenceSpecification<CashTicketTemplate>(session)
+                //.CheckProperty(c => c.Id, new Guid("06f5d2bf-4499-4575-8945-a49200c30a0f"))
+                .CheckProperty(c => c.Amount, 10)
+                .CheckProperty(c => c.Conditions,"No Limited")
+                .CheckProperty(c=>c.Owner,null)
+                .CheckProperty(c => c.Coverage, 1.4f)
+               // .CheckProperty(c => c.Enabled, false)
+               // .CheckProperty(c => c.ExpiredDate, DateTime.Now.AddMonths(1))
+                .CheckProperty(c => c.Name,"CashTicketTemplate1")
+               // .CheckProperty(c => c.ValidDate, DateTime.Now.AddDays(1))
+                
+                .VerifyTheMappings();
+        }
         [Test]
         public void CreateTicketTemplate()
         {

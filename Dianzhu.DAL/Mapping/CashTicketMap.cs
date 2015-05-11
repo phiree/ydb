@@ -16,13 +16,13 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             References<CashTicketTemplate>(x => x.CashTicketTemplate);
             Map(x => x.TicketCode).Unique();
-            Map(x => x.BusinessAssigned);
+            References<Business>(x => x.BusinessAssigned);
             
             References<CashTicketCreateRecord>(x => x.CashTicketCreateRecord);
             
-            References<User>(x => x.UserAssigned);
-            References<User>(x => x.UserAssignedTime);
-            References<User>(x => x.UserUsedTime);
+            References<DZMembership>(x => x.UserAssigned);
+            Map(x => x.UserAssignedTime);
+            Map(x => x.UserUsedTime);
        }
     }
  

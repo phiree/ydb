@@ -34,7 +34,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 领取的用户
         /// </summary>
-        public virtual User UserAssigned { get; set; }
+        public virtual DZMembership UserAssigned { get; set; }
         /// <summary>
         /// 用户获券时间
         /// </summary>

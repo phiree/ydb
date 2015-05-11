@@ -6,17 +6,22 @@ using FluentNHibernate.Mapping;
 using Dianzhu.Model;
 namespace Dianzhu.DAL.Mapping
 {
-    public class UserMap:ClassMap<User>
+    public class DZMembershipMap:ClassMap<DZMembership>
     {
-        public UserMap()
+        public DZMembershipMap()
         {
             Id(x => x.Id);
             Map(x => x.UserName);
             Map(x => x.Password);
             Map(x => x.TimeCreated);
         }
-         
-        
-        
+               
+    }
+    public class BusinessUserMap : SubclassMap<BusinessUser>
+    {
+        public BusinessUserMap()
+        {
+            References<Business>(x => x.BelongTo);
+        }
     }
 }
