@@ -6,7 +6,7 @@ using NHibernate;
 using Dianzhu;
 namespace Dianzhu.DAL
 {
-    public class DALMembership : IDAL.IMembership
+    public class DALMembership : IDAL.IDALMembership
     {
         IDAL.IDALBase<Model.DZMembership> dalBase = null;
         public IDAL.IDALBase<Model.DZMembership> DalBase
@@ -31,7 +31,7 @@ namespace Dianzhu.DAL
         {
             //  User user = session.QueryOver<User>(x=>x.User);
             bool result = false;
-            IQuery query = DalBase.Session.CreateQuery("select u from DZMembership as u where u.Name='" + username + "' and u.Password='" + password + "'");
+            IQuery query = DalBase.Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
             int matchLength = query.Future<Model.DZMembership>().ToArray().Length;
 
             if (matchLength == 1) { result = true; }
@@ -46,7 +46,7 @@ namespace Dianzhu.DAL
         public Model.DZMembership GetMemberByName(string username)
         {
             if (string.IsNullOrEmpty(username)) return null;
-            IQuery query =DalBase.Session.CreateQuery("select m from  DZMembership as m where Name='" + username + "'");
+            IQuery query =DalBase.Session.CreateQuery("select m from  DZMembership as m where UserName='" + username + "'");
             var temp = query.FutureValue<Model.DZMembership>();
             var user = temp.Value;
             return user;
@@ -100,6 +100,12 @@ namespace Dianzhu.DAL
         }
 
 
+        public Model.BusinessUser GetBusinessUser(Guid id)
+        {
+            IQuery query = DalBase.Session.CreateQuery("select m from  BusinessUser as m where Id='" + id + "'");
+            Model.BusinessUser member = query.FutureValue<Model.BusinessUser>().Value;
+            return member;
+        }
         
     }
 }

@@ -12,13 +12,23 @@ namespace Dianzhu.BLL
     /// 现金券边界类，负责各种操作
     /// </summary>
     public class BLLCashTicket
+
     {
+        IDALCashTicket dal = null;
+        public IDALCashTicket DalCashTicket
+        {
+            get { return dal ?? new DalCashTicket(); }
+            set { dal = value; }
+        }
+        public BLLCashTicket()
+        { 
+        }
         public string CreateBatch(Business_Abs owner, int amount, CashTicketTemplate tt)
         {
             string msg = string.Empty;
             try
             {
-                CashTicketBatchCreator batchCreateor = new CashTicketBatchCreator(owner, amount, tt);
+                CashTicketBatchCreator batchCreateor = new CashTicketBatchCreator(owner, amount, tt,DalCashTicket);
             }
             catch(Exception e)
             {
@@ -26,23 +36,21 @@ namespace Dianzhu.BLL
             }
             return msg;
         }
+       
     }
     public class CashTicketBatchCreator {
         public Business_Abs Owner { get; set; }
         public int Amount { get; set; }
         public CashTicketTemplate TT { get; set; }
         IDALCashTicket dal = null;
-        public CashTicketBatchCreator(Business_Abs owner, int amount, CashTicketTemplate tt, IDALCashTicket idal)
+        public CashTicketBatchCreator(Business_Abs owner, int amount, CashTicketTemplate tt, IDALCashTicket dal)
         {
             this.Owner = owner;
             this.Amount = amount;
             this.TT = tt;
-            dal = DalFactory.GetDalCashTicket();
+            this.dal = dal;
         }
-        public CashTicketBatchCreator(Business_Abs owner,int amount,CashTicketTemplate tt)
-                                :this(owner,amount,tt,new DalCashTicket())
-        {
-        }
+        
         /// <summary>
         /// 批量生成现金券.
         /// </summary>

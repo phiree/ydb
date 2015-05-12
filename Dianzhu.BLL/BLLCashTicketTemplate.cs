@@ -13,6 +13,9 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLCashTicketTemplate
     {
+        /// <summary>
+        /// 数据库操作接口应该作为参数传入,便于测试.
+        /// </summary>
         IDALCashTicketTemplate dal = null;
         public BLLCashTicketTemplate()
         {

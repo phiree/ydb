@@ -6,8 +6,9 @@ using Dianzhu;
 
 namespace Dianzhu.IDAL
 {
-    public interface IMembership
+    public interface IDALMembership
     {
+        #region for membership provier;
         IDALBase<Model.DZMembership> DalBase { get; set; }
         //创建用户
         void CreateUser(Model.DZMembership user);
@@ -32,11 +33,14 @@ namespace Dianzhu.IDAL
         //通过guid获取membership
         Model.DZMembership GetMemberById(Guid memberId);
 
-         
 
         //更改密码
         void ChangePassword(Model.DZMembership member);
         //更改信息
-       
+
+        #endregion 
+        #region additional method
+        Model.BusinessUser GetBusinessUser(Guid id);
+        #endregion
     }
 }

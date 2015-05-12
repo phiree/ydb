@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="DALCashTicket.cs" />
     <None Include="packages.config" />
+    <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">

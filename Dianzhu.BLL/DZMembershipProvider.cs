@@ -11,23 +11,8 @@ namespace Dianzhu.BLL
     public class DZMembershipProvider : MembershipProvider
     {
 
-        IMembership imem;
-        public IMembership Imem
-        {
-            get
-            {
-                if (imem == null)
-                {
-                    imem = new DALMembership();
-                }
-                return imem;
-            }
-            set
-            {
-                imem = value;
-            }
-        }
-
+        IDALMembership dal = DalFactory.GetDalMembership();
+        #region override of membership provider
         public override string ApplicationName
         {
             get
@@ -42,12 +27,12 @@ namespace Dianzhu.BLL
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            DZMembership member = imem.GetMemberByName(username);
-            string encryptedOldPsw = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(oldPassword, "MD5");
-            string encryptedNewPsw = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(newPassword, "MD5");
+            DZMembership member = dal.GetMemberByName(username);
+            string encryptedOldPsw =  FormsAuthentication.HashPasswordForStoringInConfigFile(oldPassword, "MD5");
+            string encryptedNewPsw = FormsAuthentication.HashPasswordForStoringInConfigFile(newPassword, "MD5");
             if (member.Password != encryptedOldPsw) return false;
             member.Password = encryptedNewPsw;
-            imem.ChangePassword(member);
+            dal.ChangePassword(member);
             return true;
         }
 
@@ -58,7 +43,16 @@ namespace Dianzhu.BLL
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-            throw new NotImplementedException();
+            DZMembership user = new DZMembership { UserName=username, 
+                        Password= FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"),
+                         TimeCreated=DateTime.Now};
+            dal.CreateUser(user);
+            MembershipUser mu = new MembershipUser("DZMembershipProvider",
+                 username, user.Id, "", "", string.Empty,
+                 true, true, DateTime.Now,
+                 DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
+            status= MembershipCreateStatus.Success;
+            return mu;
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
@@ -104,9 +98,9 @@ namespace Dianzhu.BLL
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
 
-            DZMembership user = Imem.GetMemberByName(username);
+            DZMembership user = dal.GetMemberByName(username);
             if (user == null) return null;
-            MembershipUser mu = new MembershipUser("TourMembershipProvider",
+            MembershipUser mu = new MembershipUser("DZMembershipProvider",
                  username, user.Id, "", "", string.Empty,
                  true, true, DateTime.Now,
                  DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
@@ -183,7 +177,15 @@ namespace Dianzhu.BLL
         {
             string encryptedPwd = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
 
-            return Imem.ValidateUser(username, encryptedPwd);
+            return dal.ValidateUser(username, encryptedPwd);
         }
+        #endregion
+
+#region additional method for user
+        public BusinessUser GetBusinessUser(Guid id)
+        {
+            return dal.GetBusinessUser(id);
+        }
+#endregion
     }
 }

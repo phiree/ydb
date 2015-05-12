@@ -10,6 +10,11 @@ namespace Dianzhu.BLL
     {
         static IDALCashTicketTemplate iDALCashTicketTemplate = null;
         static IDALCashTicket iDALCashTicket = null;
+        static IDALMembership iDalMembership = null;
+        public static IDAL.IDALMembership GetDalMembership()
+        {
+            return iDalMembership ?? new DALMembership();
+        }
         public static IDAL.IDALCashTicketTemplate GetDalCashTicketTemplate()
         { 
             if (iDALCashTicketTemplate==null)
