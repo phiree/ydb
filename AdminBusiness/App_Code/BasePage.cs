@@ -31,6 +31,10 @@ public class BasePage:System.Web.UI.Page
         if (currentUser == null)
         {
             MembershipUser mu = Membership.GetUser();
+            if (mu == null)
+            {
+                Response.Redirect("login.aspx", true);
+            }
             currentUser = mp.GetBusinessUser((Guid)mu.ProviderUserKey);
         }
         base.OnLoad(e);

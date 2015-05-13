@@ -17,19 +17,15 @@ namespace Dianzhu.BLL
         /// 数据库操作接口应该作为参数传入,便于测试.
         /// </summary>
         IDALCashTicketTemplate dal = null;
+       
         public BLLCashTicketTemplate()
         {
-            if (dal == null)
-            {
-                dal = DalFactory.GetDalCashTicketTemplate();
-            }
-            
+             dal = DalFactory.GetDalCashTicketTemplate(); 
         }
         public BLLCashTicketTemplate(IDALCashTicketTemplate dalctt)
         {
             dal = dalctt;
         }
-       
 
         /// <summary>
         /// 创建一张现金券模板

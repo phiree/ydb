@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLCashTicket.cs" />
     <Compile Include="BLLCashTicketTemplate.cs" />
     <Compile Include="DalFactory.cs" />

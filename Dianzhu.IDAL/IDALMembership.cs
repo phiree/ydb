@@ -41,6 +41,8 @@ namespace Dianzhu.IDAL
         #endregion 
         #region additional method
         Model.BusinessUser GetBusinessUser(Guid id);
+        IList<Model.DZMembership> GetAll();
+        Model.BusinessUser CreateBusinessUser(string username,string password,Model.Business business);
         #endregion
     }
 }

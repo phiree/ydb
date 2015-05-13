@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDALBusiness.cs" />
     <Compile Include="IDALMembership.cs" />
     <Compile Include="IDALBase.cs" />
     <Compile Include="IDALCashTicket.cs" />

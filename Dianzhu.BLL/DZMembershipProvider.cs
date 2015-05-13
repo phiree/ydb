@@ -186,6 +186,15 @@ namespace Dianzhu.BLL
         {
             return dal.GetBusinessUser(id);
         }
+        public IList<DZMembership> GetAll()
+        {
+            return dal.GetAll();
+        }
+        public DZMembership CreateBusinessUser(string username, string password,Business b)
+        {
+
+            return dal.CreateBusinessUser(username, password, b);
+        }
 #endregion
     }
 }

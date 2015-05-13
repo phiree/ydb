@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Dianzhu.Model
 {
+    /// <summary>
+    /// 商户
+    /// </summary>
     public class Business_Abs
     {
         public virtual Guid Id { get; set; }
@@ -17,15 +20,11 @@ namespace Dianzhu.Model
     /// </summary>
    public class Business:Business_Abs
     {
-     
        /// <summary>
        /// 公司地址
        /// </summary>
-       public virtual string AddressOffice{ get; set; }
-       /// <summary>
-       /// 店铺地址
-       /// </summary>
-       public virtual string AddressShop { get; set; }
+       public virtual string Address{ get; set; }
+       
        /// <summary>
        /// 店铺地理坐标,精度，维度。
        /// </summary>
@@ -35,6 +34,15 @@ namespace Dianzhu.Model
        /// 商家介绍
        /// </summary>
        public virtual string Description { get; set; }
+
+       /// <summary>
+       /// 是否通过了审核.
+       /// </summary>
+       public virtual bool IsApplyApproved { get; set; }
+       /// <summary>
+       /// 审核拒绝信息.
+       /// </summary>
+       public virtual string ApplyRejectMessage { get; set; }
       
        
 

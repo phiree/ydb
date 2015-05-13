@@ -106,6 +106,16 @@ namespace Dianzhu.DAL
             Model.BusinessUser member = query.FutureValue<Model.BusinessUser>().Value;
             return member;
         }
+        public IList<Model.DZMembership> GetAll()
+        {
+            return DalBase.GetAll<Model.DZMembership>();
+        }
+        public Model.BusinessUser CreateBusinessUser(string username, string password, Model.Business business)
+        {
+            Model.BusinessUser member = new Model.BusinessUser { UserName = username, Password = password, TimeCreated = DateTime.Now, BelongTo = business };
+            DalBase.Save(member);
+            return member;
+        }
         
     }
 }
