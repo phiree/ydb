@@ -192,8 +192,8 @@ namespace Dianzhu.BLL
         }
         public DZMembership CreateBusinessUser(string username, string password,Business b)
         {
-
-            return dal.CreateBusinessUser(username, password, b);
+            string encrypted = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
+            return dal.CreateBusinessUser(username,encrypted, b);
         }
 #endregion
     }

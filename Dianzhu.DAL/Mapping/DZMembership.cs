@@ -11,7 +11,7 @@ namespace Dianzhu.DAL.Mapping
         public DZMembershipMap()
         {
             Id(x => x.Id);
-            Map(x => x.UserName);
+            Map(x => x.UserName).Unique();
             Map(x => x.Password);
             Map(x => x.TimeCreated);
         }
