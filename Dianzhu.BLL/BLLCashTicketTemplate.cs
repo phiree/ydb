@@ -59,6 +59,10 @@ namespace Dianzhu.BLL
         {
             dal.DalBase.Update(t);
         }
+        public IList<CashTicketTemplate> GetTemplateList(Business owner)
+        {
+            return dal.GetListByBusiness(owner);
+        }
 
         
     }

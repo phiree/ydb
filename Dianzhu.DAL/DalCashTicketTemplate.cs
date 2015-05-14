@@ -14,5 +14,10 @@ namespace Dianzhu.DAL
            get { return new DalBase<CashTicketTemplate>(); }
            set { dalBase = value; }
        }
+       public IList<CashTicketTemplate> GetListByBusiness(Business business)
+       {
+           return DalBase.GetList("select t from CashTicketTemplate  t where  Owner.Id='" + business.Id+"'");
+
+       }
     }
 }

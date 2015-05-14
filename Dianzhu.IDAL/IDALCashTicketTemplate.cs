@@ -8,5 +8,6 @@ namespace Dianzhu.IDAL
     public interface IDALCashTicketTemplate
     {
         IDALBase<CashTicketTemplate> DalBase { get; set; }
+        IList<CashTicketTemplate> GetListByBusiness(Business business);
     }
 }

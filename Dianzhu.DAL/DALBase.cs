@@ -136,6 +136,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<T> GetList(string query, string orderColumns, bool orderDesc, int pageIndex, int pageSize, out int totalRecords, string query_count)
         {
+            totalRecords = 0;
             string strOrder = string.Empty;
             if (!string.IsNullOrEmpty(orderColumns))
             {
@@ -147,12 +148,14 @@ namespace Dianzhu.DAL
 
 
             string queryCount = query_count;
-            //if (string.IsNullOrEmpty(queryCount))
-            //{ queryCount = NLibrary.StringHelper.BuildCountQuery(query); }
+            //todo 
+            if (!string.IsNullOrEmpty(queryCount))
+            { 
+            //queryCount = NLibrary.StringHelper.BuildCountQuery(query);
 
             IQuery qryCount = session.CreateQuery(queryCount);
             totalRecords = (int)qryCount.UniqueResult<long>();
-
+            }
             var returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
             return returnList;
         }
