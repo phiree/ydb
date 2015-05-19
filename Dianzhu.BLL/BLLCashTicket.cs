@@ -20,6 +20,12 @@ namespace Dianzhu.BLL
             get { return dal ?? new DalCashTicket(); }
             set { dal = value; }
         }
+        IDALCashTicketCreateRecord idalCashticketCreateRecord = null;
+        public IDALCashTicketCreateRecord IDALCashTicketCreateRocord
+        {
+            get { return idalCashticketCreateRecord ?? new DALCashTicketCreateRecord(); }
+            set { idalCashticketCreateRecord = value; }
+        }
         public BLLCashTicket()
         { 
         }
@@ -28,7 +34,19 @@ namespace Dianzhu.BLL
             string msg = string.Empty;
             try
             {
-                CashTicketBatchCreator batchCreateor = new CashTicketBatchCreator(owner, amount, tt,DalCashTicket);
+                CashTicketGenerator generator = new CashTicketGenerator((Business)owner, tt, amount, IDALCashTicketCreateRocord, DalCashTicket);
+               
+                 IList<CashTicket> ticketListCreated=   generator.Generate();
+
+                 CashTicketCreateRecord record = new CashTicketCreateRecord();
+                 record.Amount = amount;
+                 record.Business = (Business)owner;
+                 record.CashTickets = ticketListCreated;
+                 record.CashTicketTemplate = tt;
+                 record.TimeCreated = DateTime.Now;
+                 IDALCashTicketCreateRocord.DALBase.Save(record);
+                
+                
             }
             catch(Exception e)
             {
@@ -38,61 +56,5 @@ namespace Dianzhu.BLL
         }
        
     }
-    public class CashTicketBatchCreator {
-        public Business_Abs Owner { get; set; }
-        public int Amount { get; set; }
-        public CashTicketTemplate TT { get; set; }
-        IDALCashTicket dal = null;
-        public CashTicketBatchCreator(Business_Abs owner, int amount, CashTicketTemplate tt, IDALCashTicket dal)
-        {
-            this.Owner = owner;
-            this.Amount = amount;
-            this.TT = tt;
-            this.dal = dal;
-        }
-        
-        /// <summary>
-        /// 批量生成现金券.
-        /// </summary>
-        /// <returns></returns>
-        public IList<CashTicket> BatchCreate()
-        {
-            string[] code_list=GenerateCodeList();
-            List<CashTicket> ct_list = new List<CashTicket>();
-            for (int i = 0; i < Amount; i++)
-            {
-                CashTicket ct = new CashTicket();
-                ct.CashTicketTemplate = TT;
-                ct.TicketCode = code_list[i];
-                ct_list.Add(ct);
-                
-            }
-            dal.DalBase.SaveList(ct_list);
-            return ct_list;
-        }
-        /// <summary>
-        /// 生成可以使用的优惠券编码。
-        /// </summary>
-        /// <returns></returns>
-        private string[] GenerateCodeList()
-        {
-            List<string> valid_codes = new List<string>();
-            for (int i = 0; i < Amount; i++)
-            {
-               string code =PHCore.GetRandom(12);
-               if (!dal.CheckTicketCodeExists(code))
-               {
-                   valid_codes.Add(code);
-               }
-               else
-               {
-                   i--;
-               }
-              
-            }
-            return valid_codes.ToArray();
-            
-
-        }
-    }
+     
 }

@@ -26,10 +26,11 @@
         <div  class="row " id="body">
              
                 <ul class="side-nav large-3 columns">
+                 <li><a href="/cashticket/">现金券列表</a></li>
                     <li class='<asp:ContentPlaceHolder ID="nav_active_css" runat="server">
                     </asp:ContentPlaceHolder>'><a href="/cashticket/CashTicketTemplateEdit.aspx">创建现金券</a></li>
-                    <li><a href="">生成现金券</a></li>
-                    <li><a href="/cashticket">现金券列表</a></li>
+                    <li><a href="/cashticket/">生成现金券</a></li>
+                   
                 </ul>
              
             <div class="large-9 columns" id="mainContent">

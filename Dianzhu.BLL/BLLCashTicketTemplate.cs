@@ -63,6 +63,10 @@ namespace Dianzhu.BLL
         {
             return dal.GetListByBusiness(owner);
         }
+        public CashTicketTemplate GetOne(Guid id)
+        {
+            return dal.DalBase.GetOne(id);
+        }
 
         
     }

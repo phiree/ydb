@@ -29,9 +29,9 @@
         <div class="clear span-24 " id="adminBody">
             <div class="span-4 last" id="leftMenu">
                 <ul>
-                    <li><a href="">创建现金券</a></li>
+                    <li><a href="/business">商家列表</a></li>
                      
-                    <li><a href="">生成现金券</a></li>
+                    <li><a href=""></a></li>
                      
                 </ul>
             </div>

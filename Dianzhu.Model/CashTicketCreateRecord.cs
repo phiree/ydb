@@ -16,6 +16,7 @@ namespace Dianzhu.Model
         {
             
         }
+        
         public virtual Guid Id { get; set; }
         /// <summary>
         /// 生成时间
@@ -29,6 +30,19 @@ namespace Dianzhu.Model
         ///操作员
         /// </summary>
         public virtual string  Operator { get; set; }
+        /// <summary>
+        /// 所属商家
+        /// </summary>
+        public virtual Business_Abs Business { get; set; }
+        /// <summary>
+        /// 现金券模板
+        /// </summary>
+        public virtual CashTicketTemplate CashTicketTemplate { get; set; }
+
+        public virtual IList<CashTicket> CashTickets { get; set; }
+
+        
+
         
        
         

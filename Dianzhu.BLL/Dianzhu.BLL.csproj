@@ -45,7 +45,9 @@
   <ItemGroup>
     <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLCashTicket.cs" />
+    <Compile Include="BLLCashticketCreateRecord.cs" />
     <Compile Include="BLLCashTicketTemplate.cs" />
+    <Compile Include="CashTicketGenerator.cs" />
     <Compile Include="DalFactory.cs" />
     <Compile Include="DZMembershipProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

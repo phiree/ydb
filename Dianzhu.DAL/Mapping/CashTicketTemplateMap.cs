@@ -19,6 +19,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.ExpiredDate);
             Map(x => x.ValidDate);
             Map(x => x.Coverage);
+            
          
         }
     }

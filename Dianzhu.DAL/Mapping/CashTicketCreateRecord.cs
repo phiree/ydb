@@ -18,7 +18,9 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Amount);
             Map(x => x.Operator);
             Map(x => x.TimeCreated);
- 
+            References<Business_Abs>(x => x.Business);
+            References<CashTicketTemplate>(x => x.CashTicketTemplate);
+            HasMany<CashTicket>(x => x.CashTickets).Cascade.All();
         }
 
     }
