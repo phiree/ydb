@@ -63,27 +63,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Model", "Dianzhu.Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Test", "Dianzhu.Test\Dianzhu.Test.csproj", "{F8D0123D-2E12-4FC6-8A84-EECC0447F8CC}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "cdn", "cdn\", "{FF6CABDD-B566-49D8-9533-94D1E9E5955A}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/cdn"
-		Debug.AspNetCompiler.PhysicalPath = "cdn\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\cdn\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/cdn"
-		Release.AspNetCompiler.PhysicalPath = "cdn\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\cdn\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "8464"
-		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusiness\", "{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
@@ -165,10 +144,6 @@ Global
 		{F8D0123D-2E12-4FC6-8A84-EECC0447F8CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8D0123D-2E12-4FC6-8A84-EECC0447F8CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8D0123D-2E12-4FC6-8A84-EECC0447F8CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF6CABDD-B566-49D8-9533-94D1E9E5955A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF6CABDD-B566-49D8-9533-94D1E9E5955A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF6CABDD-B566-49D8-9533-94D1E9E5955A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF6CABDD-B566-49D8-9533-94D1E9E5955A}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|Any CPU.ActiveCfg = Debug|Any CPU
