@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using PHSuit;
 using System.Web.Security;
 public partial class CashTicketTemplateEdit :BasePage
 {
@@ -23,6 +24,7 @@ public partial class CashTicketTemplateEdit :BasePage
 
      CashTicketTemplate ctt=bllctt.Create(tbx_name.Text.Trim(),((BusinessUser)CurrentUser).BelongTo, DateTime.Today.AddDays(1), DateTime.Today.AddMonths(1),
             Convert.ToInt32(tbx_amount.Text.Trim()), tbx_conditions.Text.Trim(), Convert.ToSingle(tbx_coverage.Text.Trim()));
+     Notification.Show(Page, "", "现金券创建成功", this.Request.Url.AbsolutePath);
         
     }
     

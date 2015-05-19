@@ -47,6 +47,7 @@
     <Compile Include="BLLCashTicket.cs" />
     <Compile Include="BLLCashticketCreateRecord.cs" />
     <Compile Include="BLLCashTicketTemplate.cs" />
+    <Compile Include="CashTicketAssigner.cs" />
     <Compile Include="CashTicketGenerator.cs" />
     <Compile Include="DalFactory.cs" />
     <Compile Include="DZMembershipProvider.cs" />
