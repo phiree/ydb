@@ -13,7 +13,9 @@ namespace PHSuit
         error
 
     }
-
+    /// <summary>
+    /// 页面操作完成后,弹出对应的消息框. 页面需要引用jqueryUI
+    /// </summary>
     public class Notification
     {
 
