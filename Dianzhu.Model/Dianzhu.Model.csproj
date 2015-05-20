@@ -42,7 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Area.cs" />
     <Compile Include="CashTicketTemplate.cs" />
+    <Compile Include="DZService.cs" />
+    <Compile Include="DZServiceValue.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Business.cs" />
     <Compile Include="CashTicketCreateRecord.cs" />
@@ -50,6 +53,9 @@
     <Compile Include="DZMembershipUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CashTicketAssignRecord.cs" />
+    <Compile Include="ServiceProperty.cs" />
+    <Compile Include="ServiceType.cs" />
+    <Compile Include="ServiceTypePropertyValue.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

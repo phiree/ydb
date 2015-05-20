@@ -13,6 +13,12 @@ namespace Dianzhu.DAL.Mapping
         {
             Id(x => x.Id);
             Map(x => x.Name);
+            Map(x => x.Contact);
+            Map(x => x.Description);
+            Map(x => x.Email);
+            Map(x => x.Phone);
+            
+
         }
     }
     public class BusinessMap : SubclassMap<Business>
@@ -20,13 +26,15 @@ namespace Dianzhu.DAL.Mapping
         public BusinessMap()
         {
             Map(x => x.Address);
-           
             Map(x=>x.Description);
             Map(x => x.Latitude);
             Map(x => x.Longitude);
             Map(x => x.IsApplyApproved);
             Map(x => x.ApplyRejectMessage);
-           
+            References<Area>(x => x.AreaBelongTo);
+            HasMany<Area>(x => x.AreaServiceTo);
+            Map(x => x.DateApply);
+            Map(x => x.DateApproved);
         }
     }
 

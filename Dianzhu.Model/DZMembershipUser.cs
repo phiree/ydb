@@ -21,6 +21,9 @@ namespace Dianzhu.Model
     /// </summary>
     public class BusinessUser : DZMembership
     {
+        /// <summary>
+        /// 用户所属商家.
+        /// </summary>
         public virtual Business BelongTo { get; set; }
     }
 }
