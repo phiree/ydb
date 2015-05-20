@@ -1,4 +1,11 @@
-ҳ��滮:
-	AdminBusiness/ServiceType/Default.aspx ���������б�
-		                 /Edit.aspx    ��������
-		     			
+﻿页面规划:
+	AdminBusiness/ServiceType/Default.aspx 			服务类型列表
+		                 /Edit.aspx    			新增/编辑服务类型,包括基本信息和服务对应的属性
+		     /Service/Default.aspx    			服务列表
+		             /Edit.aspx                         新增/编辑服务内容.
+                     /Account/Default.aspx	 #naige		展示商家基本信息
+			     /Edit.aspx		 #naige		修改商家基本信息
+			     /Security.aspx      #naige               修改密码,邮箱等安全相关的信息
+		     
+				 
+		     		 	
