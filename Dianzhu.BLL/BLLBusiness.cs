@@ -46,6 +46,12 @@ namespace Dianzhu.BLL
              
              
         }
+
+        public IList<Business> GetAll()
+        {
+            return idal.DalBase.GetAll<Business>();
+        }
+       
        
     }
 }
