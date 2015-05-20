@@ -1,0 +1,7 @@
+html,body{ background:#263650;}
+.mainContent{ height:auto;}
+.leftContent{ width:78px; height:100%; float:left; }
+.rightContent{ width:922px;height:100%; float:left; background:#FFF;}
+.left_top_bj{ height:1120px;background:#4b6c8b;}
+.left_bottom_bj{ height:18px;background:url(../image/bottombj.png) no-repeat;}
+
