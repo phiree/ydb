@@ -1,0 +1,4 @@
+页面规划:
+	AdminBusiness/ServiceType/Default.aspx 服务类型列表
+		                 /Edit.aspx    新增服务
+		     			

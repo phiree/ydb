@@ -7,7 +7,7 @@ using System.Text;
 namespace Dianzhu.Model
 {
     /// <summary>
-    /// 商户
+    /// 商户基类.
     /// </summary>
     public class Business_Abs
     {
@@ -43,8 +43,5 @@ namespace Dianzhu.Model
        /// 审核拒绝信息.
        /// </summary>
        public virtual string ApplyRejectMessage { get; set; }
-      
-       
-
     }
 }
