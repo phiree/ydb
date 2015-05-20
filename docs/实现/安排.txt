@@ -5,7 +5,7 @@
 		             /Edit.aspx                         新增/编辑服务内容.
                      /Account/Default.aspx	 #naige		展示商家基本信息
 			     /Edit.aspx		 #naige		修改商家基本信息
-			     /Security.aspx      #naige               修改密码,邮箱等安全相关的信息
+			     /Security.aspx      #naige         修改密码,邮箱等安全相关的信息
 		     
 				 
 		     		 	
