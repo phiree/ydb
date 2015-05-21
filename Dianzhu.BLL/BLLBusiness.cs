@@ -59,6 +59,10 @@ namespace Dianzhu.BLL
         {
              idal.DalBase.Update(business);
         }
+        public void Delete(Business business)
+        {
+            idal.DalBase.Delete(business);
+        }
        /// <summary>
        /// 根据条件返回商户列表
        /// </summary>
