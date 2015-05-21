@@ -51,6 +51,22 @@ namespace Dianzhu.BLL
         {
             return idal.DalBase.GetAll<Business>();
         }
+        public Business GetOne(Guid id)
+        {
+            return idal.DalBase.GetOne(id);
+        }
+       /// <summary>
+       /// 根据条件返回商户列表
+       /// </summary>
+       /// <param name="query">查询语句</param>
+       /// <param name="pageIndex">分页数</param>
+       /// <param name="pageSize">每页数量</param>
+       /// <param name="totalRecords">符合条件的总数</param>
+       /// <returns></returns>
+        public IList<Business> GetList(string query,int pageIndex,int pageSize,out int totalRecords)
+        {
+            return idal.DalBase.GetList(query, pageIndex, pageSize, out totalRecords);
+        }
        
        
     }
