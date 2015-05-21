@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALArea.cs" />
     <Compile Include="DALMembership.cs" />
     <Compile Include="DALBase.cs" />
     <Compile Include="HybridSessionBuilder.cs" />

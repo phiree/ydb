@@ -20,7 +20,7 @@
         <div class="span-24 last" id="adminHead">
         
             <h1>
-                商家管理中心</h1>
+                点助系统管理平台</h1>
             <h3>
                 <a href="/"></a></h3>
             <hr />
@@ -31,7 +31,7 @@
                 <ul>
                     <li><a href="/business">商家列表</a></li>
                      
-                    <li><a href=""></a></li>
+                    <li><a href="/area/">行政区域管理</a></li>
                      
                 </ul>
             </div>

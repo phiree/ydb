@@ -5,16 +5,45 @@ using System.Text;
 
 namespace Dianzhu.Model
 {
-    /// <summary>
-    /// 行政区划
-    /// </summary>
     public class Area
     {
-        public virtual Guid Id { get; set; }
+        public virtual int Id { get; set; }
         public virtual string Name { get; set; }
+        public virtual string SeoName { get; set; }
+        public virtual string Code { get; set; }
+        public virtual int AreaOrder { get; set; }
+        public virtual string MetaDescription { get; set; }
+
         /// <summary>
-        /// 上级行政单位
+        ///行政级别:省,市,区
         /// </summary>
-        public virtual Area Parent { get; set; }
+        public virtual AreaLevel Level
+        {
+            get
+            {
+                AreaLevel level;
+                if (Code.EndsWith("0000"))
+                    {
+                        level = AreaLevel.省;
+                    }
+                    else if (Code.EndsWith("00"))
+                    {
+                        level = AreaLevel.市;
+                    }
+                    else
+                    {
+                        level = AreaLevel.区县;
+                    }
+                
+                return level;
+            }
+        }
+     
+    }
+    public enum AreaLevel
+    {
+        省,
+        市,
+        区县
     }
 }
