@@ -6,30 +6,20 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-public partial class Account_Default : System.Web.UI.Page
+public partial class Account_Default : BasePage
 {
-    BLLBusiness bllBusiness = new BLLBusiness();
-    Business businessModle = new Business();
-    public string PageTile = "商家基本信息列表";
+
+    public string PageTile = "商家基本信息";
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-            data_rp.DataSource = bllBusiness.GetAll();
-            data_rp.DataBind();
-        
-        }
-
-    }
-
-    protected void delbt_Command(object sender, CommandEventArgs e)
-    {
-
-        int id = int.Parse(e.CommandArgument.ToString());
-
-        //NewsSql.Delete(id);
-        Response.Redirect(Request.UrlReferrer.ToString());
+        Business b = ((BusinessUser)CurrentUser).BelongTo;
+        username.Text = ((BusinessUser)CurrentUser).UserName+"登陆了";
+        businessName.Text = b.Name;
+        Longitude.Text = b.Longitude.ToString();
+        Latitude.Text = b.Latitude.ToString();
+        Description.Text = b.Description;
+        Address.Text = b.Address;
 
     }
 }

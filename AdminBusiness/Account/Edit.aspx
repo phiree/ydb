@@ -1,16 +1,21 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Edit.aspx.cs" Inherits="Account_Edit" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true" CodeFile="Edit.aspx.cs" Inherits="Account_Edit" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<asp:Content ID="Content3" ContentPlaceHolderID="pageDesc" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
     <div>
-    
+     <p>
+         <asp:Label ID="username" runat="server" Text=""></asp:Label></p>
+     <p>商家名称：<asp:TextBox ID="businessName" runat="server"></asp:TextBox></p>
+     <p>经度：<asp:TextBox ID="Longitude" runat="server"></asp:TextBox></p>
+     <p>纬度：<asp:TextBox ID="Latitude" runat="server"></asp:TextBox></p>
+     <p>公司介绍：<asp:TextBox ID="Description" runat="server"></asp:TextBox></p>
+     <p>公司地址：<asp:TextBox ID="Address" runat="server"></asp:TextBox></p>  
+     <p>
+         <asp:Button ID="Button1" runat="server" Text="确认提交" OnClick="dataSub" /></p>    
     </div>
-    </form>
-</body>
-</html>
+</asp:Content>
