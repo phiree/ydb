@@ -49,7 +49,11 @@ namespace Dianzhu.Model
        /// 公司地址
        /// </summary>
        public virtual string Address{ get; set; }
-       
+
+       /// <summary>
+       /// 证书照片地址,暂时不考虑多张
+       /// </summary>
+       public virtual string Certification { get; set; }
        /// <summary>
        /// 店铺地理坐标,精度，维度。
        /// </summary>
