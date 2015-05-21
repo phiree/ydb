@@ -55,6 +55,10 @@ namespace Dianzhu.BLL
         {
             return idal.DalBase.GetOne(id);
         }
+        public void Updte(Business business)
+        {
+             idal.DalBase.Update(business);
+        }
        /// <summary>
        /// 根据条件返回商户列表
        /// </summary>
