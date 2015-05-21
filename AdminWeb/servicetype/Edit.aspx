@@ -1,0 +1,26 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin.master" AutoEventWireup="true" CodeFile="Edit.aspx.cs" Inherits="servicetype_Edit" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<table>
+<tr>
+<td>名称</td><td><asp:TextBox  runat="server" ID="tbxName"></asp:TextBox> </td>
+</tr>
+<tr>
+<td>父类</td><td>
+已选父类:<asp:Label runat="server" ID="lblParentName"></asp:Label>
+<br />
+修改父类:
+<asp:RadioButtonList runat="server" ID="rbl_Parent" DataTextField="Name" DataValueField="Id"></asp:RadioButtonList>
+</td>
+</tr>
+<tr>
+<td colspan="2"></td><td><asp:Button runat="server" ID="btnOK" OnClick="btnOK_Click" Text="确定" /></td>
+</tr>
+ 
+</table>
+</asp:Content>
+

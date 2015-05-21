@@ -73,7 +73,12 @@ namespace Dianzhu.DAL
         }
         public T GetOne(object id)
         {
-            return session.Get<T>(id);
+            T r= session.Get<T>(id);
+            if (!session.Transaction.IsActive)
+            {
+                session.Flush();
+            }
+            return r;
         }
         public T GetOneByQuery(IQueryOver<T> queryOver)
         {

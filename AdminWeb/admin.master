@@ -32,7 +32,7 @@
                     <li><a href="/business">商家列表</a></li>
                      
                     <li><a href="/area/">行政区域管理</a></li>
-                     
+                      <li><a href="/servicetype/">服务类别管理</a></li>
                 </ul>
             </div>
             <div class="span-19 last" id="mainContent">

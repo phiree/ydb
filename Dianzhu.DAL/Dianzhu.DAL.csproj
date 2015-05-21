@@ -63,10 +63,12 @@
     <Compile Include="Mapping\CashTicketCreateRecord.cs" />
     <Compile Include="Mapping\BusinessMap.cs" />
     <Compile Include="Mapping\DZMembership.cs" />
+    <Compile Include="Mapping\ServiceTypeMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DALCashTicketTemplate.cs" />
     <Compile Include="DALCashTicketCreateRecord.cs" />
     <Compile Include="DALBusiness.cs" />
+    <Compile Include="DALServiceType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALCashTicket.cs" />

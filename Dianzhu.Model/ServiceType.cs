@@ -15,7 +15,12 @@ namespace Dianzhu.Model
         /// <summary>
         /// 上级类型
         /// </summary>
-        public ServiceType Parent { get; set; }
+        public virtual ServiceType Parent { get; set; }
+        /// <summary>
+        /// 层级结构中的层数.
+        /// </summary>
+        public virtual int DeepLevel { get; set; }
+
         
     }
 }
