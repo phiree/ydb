@@ -13,8 +13,7 @@ namespace Dianzhu.DAL.Mapping
         {
             Id(x => x.Id);
             Map(x => x.Name);
-            HasMany<Staff>(x => x.AvailableStaffs);
-            References<Business>(x => x.Business);
+              References<Business>(x => x.Business);
             Map(x => x.Description);
             References<ServiceType>(x => x.ServiceType);
             
