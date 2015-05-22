@@ -18,6 +18,11 @@ namespace Dianzhu.BLL
       public BLLStaff()
           : this(new DALStaff())
       { }
+      public IList<Staff> GetList(Guid businessId, Guid serviceTypeId, int pageindex, int pagesize, out int totalRecords)
+      {
+          totalRecords = 0;
+          return null;
+      }
        
     }
 }

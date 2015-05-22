@@ -32,7 +32,7 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <li  ><a href="#"><img src="/image/xiaoxi_2.png" /></a></li>
-  <li><a href="#"><img src="/image/yuangongguanli_1.png" /></a></li>
+  <li><a href="/staff/"><img src="/image/yuangongguanli_1.png" /></a></li>
    <li><a href="#"><img src="/image/dingdan_1.png" /></a></li>
    <li><a href="#"><img src="/image/fuwuxinxi_1.png" /></a></li>
     <li><a href="/account/default.aspx"><img src="/image/dianpuxinxi_1.png" /></a></li>
