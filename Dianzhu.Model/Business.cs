@@ -38,17 +38,21 @@ namespace Dianzhu.Model
    public class Business:Business_Abs
     {
        /// <summary>
-       /// 公司所在辖区
+       ///  所在辖区
        /// </summary>
        public virtual Area AreaBelongTo { get; set; }
        /// <summary>
-       /// 公司服务范围
+       ///  服务范围
        /// </summary>
        public virtual IList<Area> AreaServiceTo { get; set; }
        /// <summary>
-       /// 公司地址
+       ///  地址
        /// </summary>
        public virtual string Address{ get; set; }
+       /// <summary>
+       /// 服务类型.
+       /// </summary>
+       public virtual IList<ServiceType> ServiceType { get; set; }
 
        /// <summary>
        /// 证书照片地址,暂时不考虑多张

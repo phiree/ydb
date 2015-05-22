@@ -28,5 +28,10 @@ namespace Dianzhu.Model
        /// </summary>
        public virtual string Description { get; set; }
 
+       /// <summary>
+       /// 服务相关的职员.
+       /// </summary>
+       public virtual IList<Staff> AvailableStaffs { get; set; }
+
     }
 }

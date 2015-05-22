@@ -54,8 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CashTicketAssignRecord.cs" />
     <Compile Include="ServiceProperty.cs" />
+    <Compile Include="ServiceOrder.cs" />
     <Compile Include="ServiceType.cs" />
     <Compile Include="ServiceTypePropertyValue.cs" />
+    <Compile Include="Staff.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

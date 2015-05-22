@@ -26,4 +26,19 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual Business BelongTo { get; set; }
     }
+    public class Customer : DZMembership
+    {
+        /// <summary>
+        /// 客户姓名
+        /// </summary>
+        public virtual string Name { get; set; }
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public virtual string Gender { get; set; }
+        /// <summary>
+        /// 电话号码
+        /// </summary>
+        public virtual string Phone { get; set; }
+    }
 }

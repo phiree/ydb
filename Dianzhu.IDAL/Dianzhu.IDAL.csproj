@@ -60,6 +60,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IDALCashTicketTemplate.cs" />
     <Compile Include="IDALServiceType.cs" />
+    <Compile Include="IDALDZService.cs" />
+    <Compile Include="IDALStaff.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

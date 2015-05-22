@@ -12,7 +12,7 @@ namespace Dianzhu.DAL
         public IDAL.IDALBase<Model.CashTicketCreateRecord> DALBase
         {
             get{return dalBase ?? new DalBase<Model.CashTicketCreateRecord>();}
-            set { dalBase = value; }
+            set { dalBase = value; }  
         }
         public IList<CashTicketCreateRecord> GetMonthRecord(Business_Abs business,int year,int month)
         {

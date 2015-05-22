@@ -16,5 +16,9 @@ namespace Dianzhu.Model
        /// 所属类别
        /// </summary>
        public virtual ServiceType ServiceType { get; set; }
+       /// <summary>
+       /// 商家自定义的属性.
+       /// </summary>
+       public virtual Business BelongsTo { get; set; }
     }
 }

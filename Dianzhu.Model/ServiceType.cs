@@ -14,7 +14,7 @@ namespace Dianzhu.Model
         public virtual string Name { get; set; }
         /// <summary>
         /// 上级类型
-        /// </summary>
+        /// </summary> 
         public virtual ServiceType Parent { get; set; }
         /// <summary>
         /// 层级结构中的层数.
