@@ -6,6 +6,12 @@
                      /Account/Default.aspx	 #naige		展示商家基本信息
 			     /Edit.aspx		 #naige		修改商家基本信息
 			     /Security.aspx      #naige               修改密码,邮箱等安全相关的信息
+
+2015-5-22新增
+	adminBusiness/Service/Default.aspx 			服务列表
+			     /Edit.aspx				服务新增/编辑
+		     /Staff/default.aspx        #naige		职员列表
+			   /Edit.aspx		#naige		职员编辑.参考代码 AdminWeb/ServiceType/Edit.aspx
 		     
 				 
 		     		 	
