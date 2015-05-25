@@ -29,7 +29,7 @@
                 服务分类
             </td>
             <td>
-                <asp:Label runat="server" ID="lblServiceCate"></asp:Label>
+              <%=ServiceType.ToString()%>
             </td>
         </tr>
          <asp:Repeater runat="server" ID="rptProperties">

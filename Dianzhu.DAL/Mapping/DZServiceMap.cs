@@ -15,7 +15,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Name);
               References<Business>(x => x.Business);
             Map(x => x.Description);
-            References<ServiceType>(x => x.ServiceType);
+            References<ServiceType>(x => x.ServiceType).Not.LazyLoad();
             HasMany<ServicePropertyValue>(x => x.PropertyValues);
             
 

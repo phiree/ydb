@@ -20,8 +20,8 @@ public partial class DZService_Edit : BasePage
     public IList<ServiceProperty>  TypeProperties = new List<ServiceProperty>();
     private bool IsNew { get { return ServiceId == Guid.Empty; } }
     
-    DZService CurrentService = new DZService();//当前的服务 对象.
-    ServiceType ServiceType = new ServiceType();
+   public DZService CurrentService = new DZService();//当前的服务 对象.
+   public ServiceType ServiceType = new ServiceType();
     protected void Page_Load(object sender, EventArgs e)
     {
         string paramId = Request.Params["id"];

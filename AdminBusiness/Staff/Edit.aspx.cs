@@ -7,8 +7,18 @@ using System.Web.UI.WebControls;
 
 public partial class Staff_Edit : System.Web.UI.Page
 {
+    private Guid StaffId = Guid.Empty;
+    private bool IsNew { get { return StaffId == Guid.Empty; } }
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
+    private void LoadInit()
+    { }
+    private void LoadForm()
+    { }
+    private void UpdateForm()
+    { }
+
+
 }

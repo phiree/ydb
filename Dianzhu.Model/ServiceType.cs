@@ -30,6 +30,21 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual IList<ServiceType> Children { get; set; }
         public virtual IList<ServiceProperty> Properties { get; set; }
+        //private string fullTypeName = string.Empty;
+        public override string ToString()
+        {
+            string fulleTypeName = Name;
+            ServiceType parent = this.Parent;
+            while(parent!=null)
+            {
+                fulleTypeName = Parent.Name + ">" + fulleTypeName;
+
+                parent = parent.Parent;
+            }
+            
+            return fulleTypeName;
+
+        }
         
 
         
