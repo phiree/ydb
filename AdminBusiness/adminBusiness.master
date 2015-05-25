@@ -31,8 +31,8 @@
   <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
-      <li  ><a href="#"><img src="/image/xiaoxi_2.png" /></a></li>
-  <li><a href="/staff/"><img src="/image/yuangongguanli_1.png" /></a></li>
+      <li><a href="#"><img src="/image/xiaoxi_2.png" /></a></li>
+    <li><a href="/staff/"><img src="/image/yuangongguanli_1.png" /></a></li>
    <li><a href="#"><img src="/image/dingdan_1.png" /></a></li>
    <li><a href="/dzservice/"><img src="/image/fuwuxinxi_1.png" /></a></li>
     <li><a href="/account/default.aspx"><img src="/image/dianpuxinxi_1.png" /></a></li>
@@ -46,7 +46,6 @@
     <div id="header" class="row">
     </div>
     <div class="row " id="body">
-        
         <div class="large-12 columns" id="mainContent">
             <div class="info">
                 <asp:ContentPlaceHolder ID="pageDesc" runat="server">

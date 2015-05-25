@@ -10,12 +10,13 @@ using PHSuit;
 /// <summary>
 /// 编辑/新增 服务信息.
 /// </summary>
-public partial class DZService_Edit : System.Web.UI.Page
+public partial class DZService_Edit : BasePage
 {
     private Guid ServiceId = Guid.Empty;
     BLLDZService bllService = new BLLDZService();
     BLLServiceType bllServiceType = new BLLServiceType();
     BLLServiceProperty bllServiceProperty = new BLLServiceProperty();
+    BLLServicePropertyValue bllServicePropertyValue = new BLLServicePropertyValue();
     public IList<ServiceProperty>  TypeProperties = new List<ServiceProperty>();
     private bool IsNew { get { return ServiceId == Guid.Empty; } }
     
@@ -28,6 +29,7 @@ public partial class DZService_Edit : System.Web.UI.Page
         {
             ServiceId = new Guid(paramId);
             CurrentService = bllService.GetOne(ServiceId);
+            ServiceType = CurrentService.ServiceType;
         }
         else //新建服务一定要传入typeid
         {
@@ -38,7 +40,7 @@ public partial class DZService_Edit : System.Web.UI.Page
             }
             Guid typeId = new Guid(paramTypeId);
             ServiceType = bllServiceType.GetOne(typeId);
-            TypeProperties = bllServiceProperty.GetList(typeId);
+            TypeProperties = ServiceType.Properties;
 
 
         }
@@ -49,14 +51,60 @@ public partial class DZService_Edit : System.Web.UI.Page
         }
     }
     public void LoadInit()
-    { }
-    public void LoadForm()
-    { }
-    public void UpdateForm()
-    { }
-
-    public void Save()
     { 
-        
+        //加载服务属性
+        rptProperties.DataSource = ServiceType.Properties;
+        rptProperties.ItemDataBound += new RepeaterItemEventHandler(rptProperties_ItemDataBound);
+        rptProperties.DataBind();
+    }
+
+    void rptProperties_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            ServiceProperty p=e.Item.DataItem as ServiceProperty;
+            RadioButtonList rbl = e.Item.FindControl("rblValues") as RadioButtonList;
+            rbl.DataSource = p.Values;
+            rbl.DataTextField = "PropertyValue";
+            rbl.DataValueField = "Id";
+            rbl.DataBind();
+            ServicePropertyValue selectedValue=CurrentService.PropertyValues.SingleOrDefault(x => x.ServiceProperty == p);
+            if(selectedValue!=null)
+            {
+                rbl.SelectedValue = selectedValue.Id.ToString();
+            }
+        }
+    }
+    public void LoadForm()
+    {
+        tbxDescription.Text = CurrentService.Description;
+        tbxName.Text = CurrentService.Name;
+    }
+    public void UpdateForm()
+    {
+        CurrentService.Name = tbxName.Text;
+        CurrentService.Description = tbxName.Text;
+        CurrentService.Business = ((BusinessUser)CurrentUser).BelongTo;
+        CurrentService.ServiceType = ServiceType;
+        IList<ServicePropertyValue> values = new List<ServicePropertyValue>();
+        foreach (RepeaterItem item in rptProperties.Items)
+        {
+            RadioButtonList rblPv = item.FindControl("rblValues") as RadioButtonList;
+            foreach(ListItem rb in rblPv.Items)
+            {
+                if (rb.Selected)
+                {
+                    ServicePropertyValue v = bllServicePropertyValue.GetOne(new Guid(rb.Value));
+                    values.Add(v);
+                }
+            }
+        }
+        CurrentService.PropertyValues = values;
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        UpdateForm();
+        bllService.SaveOrUpdate(CurrentService);
     }
 }

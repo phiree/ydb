@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
     CodeFile="Edit.aspx.cs" Inherits="DZService_Edit" %>
-    <%@ import  Namespace="Dianzhu.Model" %>
+
+<%@ Import Namespace="Dianzhu.Model" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
@@ -28,72 +29,27 @@
                 服务分类
             </td>
             <td>
-               <asp:Label runat="server" ID="lblServiceCate"></asp:Label>
+                <asp:Label runat="server" ID="lblServiceCate"></asp:Label>
             </td>
         </tr>
-         <% foreach (ServiceProperty tp in TypeProperties)
-            { %>
+         <asp:Repeater runat="server" ID="rptProperties">
+         <ItemTemplate>
         <tr>
-            <td><%=tp.Name %>
+            <td>
+             <%#Eval("Name") %>   
             </td>
             <td>
-            <asp:DropDownList  runat="server"></asp:DropDownList>
+                <asp:RadioButtonList   runat="server" id="rblValues"/>
             </td>
         </tr>
-        <%} %>
+        </ItemTemplate>
+        </asp:Repeater>
+      
         <tr>
-            <td>
+            <td colspan="2">
+            <asp:Button runat="server" ID="btnSave" OnClick="btnSave_Click" Text="保存" />
             </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            </td>
-            <td>
-            </td>
+            
         </tr>
     </table>
 </asp:Content>

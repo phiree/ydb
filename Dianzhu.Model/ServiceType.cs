@@ -10,6 +10,11 @@ namespace Dianzhu.Model
     /// </summary>
     public class ServiceType
     {
+        public ServiceType()
+        {
+            Properties = new List<ServiceProperty>();
+            Children = new List<ServiceType>();
+        }
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
         /// <summary>
@@ -25,6 +30,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual IList<ServiceType> Children { get; set; }
         public virtual IList<ServiceProperty> Properties { get; set; }
+        
 
         
     }

@@ -20,7 +20,7 @@ namespace Dianzhu.DAL
         public IList<DZService> GetList(Guid businessId, Guid  serviceTypeId, int pageindex, int pagesize, out int totalRecord)
         {
             string where = "s.Business.Id='" + businessId + "'";
-            if (serviceTypeId!=Guid.Empty || serviceTypeId!=null)
+            if (serviceTypeId!=Guid.Empty && serviceTypeId!=null)
             {
                 where += " and s.ServiceType.Id='" + serviceTypeId + "'";
             }

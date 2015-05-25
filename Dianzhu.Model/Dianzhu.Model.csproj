@@ -45,7 +45,6 @@
     <Compile Include="Area.cs" />
     <Compile Include="CashTicketTemplate.cs" />
     <Compile Include="DZService.cs" />
-    <Compile Include="DZServiceValue.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Business.cs" />
     <Compile Include="CashTicketCreateRecord.cs" />

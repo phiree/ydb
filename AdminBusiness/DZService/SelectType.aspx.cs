@@ -36,12 +36,17 @@ public partial class DZService_SelectType : System.Web.UI.Page
    
     private void BindChildren(ServiceType st,RepeaterItem ri)
     {
-     
-        Label lblServiceType = new Label();
-        lblServiceType.Text=currentType.Name;
-        ri.Controls.Add(lblServiceType);
+         
+        HyperLink hlServiceType = new HyperLink();
+        hlServiceType.Font.Size = 20 - currentType.DeepLevel;
+        hlServiceType.Style["display"] = "block";
+        hlServiceType.Text = currentType.Name;
+        hlServiceType.NavigateUrl = "edit.aspx?typeid=" + currentType.Id;
+        
+        ri.Controls.Add(hlServiceType);
         Repeater rpt = new Repeater();
         ri.Controls.Add(rpt);
+        
         rpt.DataSource = currentType.Children;
         rpt.ItemDataBound += new RepeaterItemEventHandler(rpt_ItemDataBound);
         rpt.DataBind();

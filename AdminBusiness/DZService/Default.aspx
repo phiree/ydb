@@ -6,8 +6,10 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <asp:GridView runat="server" ID="gvServices">
-
+<Columns>
+<asp:HyperLinkField  DataNavigateUrlFields="Id" DataNavigateUrlFormatString="edit.aspx?id={0}" DataTextField="Name"/>
+</Columns>
 </asp:GridView>
-<a href="edit.aspx">增加服务</a>
+<a href="SelectType.aspx">增加服务</a>
 </asp:Content>
 

@@ -76,6 +76,7 @@
     <Compile Include="DALDZService.cs" />
     <Compile Include="DALStaff.cs" />
     <Compile Include="DALServiceProperty.cs" />
+    <Compile Include="DALServicePropertyValue.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALCashTicket.cs" />

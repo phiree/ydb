@@ -57,6 +57,7 @@
     <Compile Include="BLLDZService.cs" />
     <Compile Include="BLLStaff.cs" />
     <Compile Include="BLLServiceProperty.cs" />
+    <Compile Include="BLLServicePropertyValue.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">

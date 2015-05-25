@@ -22,7 +22,7 @@ namespace Dianzhu.DAL
 
        public IList<ServiceProperty> GetList(Guid serviceTypeId)
        {
-         return   DalBase.GetList("select p from ServiceProperty where p.ServiceType.id='"+serviceTypeId+"'");
+         return   DalBase.GetList("select p from ServiceProperty p where p.ServiceType.id='"+serviceTypeId+"'");
        }
        public void   Save(ServiceProperty property)
        {

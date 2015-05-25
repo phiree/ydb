@@ -7,9 +7,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <div>请选择服务类别:</div>
 <asp:Repeater runat="server" ID="rptServiceType">
-<ItemTemplate>
-
-</ItemTemplate>
+ 
 </asp:Repeater>
 </asp:Content>
 

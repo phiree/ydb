@@ -10,6 +10,10 @@ namespace Dianzhu.Model
     /// </summary>
    public class DZService
     {
+       public DZService()
+       {
+           PropertyValues = new List<ServicePropertyValue>();
+       }
        public virtual Guid Id { get; set; }
        /// <summary>
        /// 服务项目所属类别
@@ -27,6 +31,8 @@ namespace Dianzhu.Model
        /// 详细描述
        /// </summary>
        public virtual string Description { get; set; }
+       public virtual IList<ServicePropertyValue> PropertyValues { get; set; }
+
  
         
 

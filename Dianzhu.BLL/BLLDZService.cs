@@ -27,6 +27,10 @@ namespace Dianzhu.BLL
       {
           return iDALDZService.DalBase.GetOne(serviceId);
       }
+      public void SaveOrUpdate(DZService service)
+      {
+          iDALDZService.DalBase.SaveOrUpdate(service);
+      }
        
     }
 }
