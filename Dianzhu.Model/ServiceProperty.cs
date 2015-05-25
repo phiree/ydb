@@ -10,6 +10,10 @@ namespace Dianzhu.Model
     /// </summary>
    public class ServiceProperty
     {
+       public ServiceProperty()
+       {
+           Values = new List<ServicePropertyValue>();
+       }
        public virtual Guid Id { get; set; }
        public virtual string Name { get; set; }
        /// <summary>
@@ -21,5 +25,15 @@ namespace Dianzhu.Model
        /// </summary>
        public virtual Business BelongsTo { get; set; }
        public virtual IList<ServicePropertyValue> Values { get; set; }
+
+       public virtual string GetValuesStringFormat()
+       {
+           string r = string.Empty;
+           foreach (ServicePropertyValue v in Values)
+           {
+               r += v.PropertyValue + ",";
+           }
+           return r.TrimEnd(',');
+       }
     }
 }

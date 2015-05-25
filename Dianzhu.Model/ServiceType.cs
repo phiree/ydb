@@ -24,6 +24,7 @@ namespace Dianzhu.Model
         /// 直接子类型.
         /// </summary>
         public virtual IList<ServiceType> Children { get; set; }
+        public virtual IList<ServiceProperty> Properties { get; set; }
 
         
     }

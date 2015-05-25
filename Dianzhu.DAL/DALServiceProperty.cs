@@ -28,5 +28,6 @@ namespace Dianzhu.DAL
        {
             DalBase.Save(property);
        }
+     
     }
 }

@@ -20,10 +20,17 @@ namespace Dianzhu.BLL
       public BLLServiceProperty()
           : this(new DALServiceProperty ())
       { }
-
+      public ServiceProperty GetOne(Guid id)
+      {
+          return iDALServiceProperty.DalBase.GetOne(id);
+      }
       public IList<ServiceProperty> GetList(Guid serviceTypeId)
       {
           return iDALServiceProperty.GetList(serviceTypeId);
+      }
+      public void Delete(ServiceProperty p)
+      {
+          iDALServiceProperty.DalBase.Delete(p);
       }
       /// <summary>
       /// 保存
@@ -32,13 +39,16 @@ namespace Dianzhu.BLL
       /// <param name="parentId">所属分类ID</param>
       /// <param name="values">属性值, 多个用逗号分隔</param>
       /// <returns></returns>
-      public ServiceProperty Create(string propertyName, Guid serviceTypeId, string values)
+      public ServiceProperty SaveOrUpdate(Guid propertyId, string propertyName, Guid serviceTypeId, string values)
       {
 
 
           ServiceType currentServiceType = bllServiceType.GetOne(serviceTypeId);
           ServiceProperty serviceProperty = new ServiceProperty { Name = propertyName, ServiceType = currentServiceType };
-
+          if (propertyId!=null && propertyId != Guid.Empty)
+          { 
+            serviceProperty=GetOne(propertyId);
+          }
           IList<ServicePropertyValue> propertyValues = new List<ServicePropertyValue>();
           string[] arrPropertyValues = values.Split(',');
           foreach (string value in arrPropertyValues)
@@ -46,8 +56,9 @@ namespace Dianzhu.BLL
               ServicePropertyValue propertyValue = new ServicePropertyValue { PropertyValue = value, ServiceProperty = serviceProperty };
               propertyValues.Add(propertyValue);
           }
+          serviceProperty.Values.Clear();
           serviceProperty.Values = propertyValues;
-          iDALServiceProperty.DalBase.Save(serviceProperty);
+          iDALServiceProperty.DalBase.SaveOrUpdate(serviceProperty);
           return serviceProperty;
       }
     }
