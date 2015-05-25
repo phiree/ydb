@@ -62,6 +62,7 @@
     <Compile Include="IDALServiceType.cs" />
     <Compile Include="IDALDZService.cs" />
     <Compile Include="IDALStaff.cs" />
+    <Compile Include="IDALServiceProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

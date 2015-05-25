@@ -24,7 +24,7 @@ namespace Dianzhu.DAL
             {
                 where += " and s.ServiceType.Id='" + serviceTypeId + "'";
             }
-            return dalBase.GetList("select s from DZService s where "+where, pageindex, pagesize, out totalRecord);
+            return DalBase.GetList("select s from DZService s where "+where, pageindex, pagesize, out totalRecord);
         }
     }
 }

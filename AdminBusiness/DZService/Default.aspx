@@ -6,6 +6,8 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <asp:GridView runat="server" ID="gvServices">
+
 </asp:GridView>
+<a href="edit.aspx">增加服务</a>
 </asp:Content>
 

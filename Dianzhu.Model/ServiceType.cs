@@ -20,6 +20,10 @@ namespace Dianzhu.Model
         /// 层级结构中的层数.
         /// </summary>
         public virtual int DeepLevel { get; set; }
+        /// <summary>
+        /// 直接子类型.
+        /// </summary>
+        public virtual IList<ServiceType> Children { get; set; }
 
         
     }

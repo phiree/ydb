@@ -8,6 +8,7 @@
 <asp:GridView runat="server" ID="gvServiceType">
 <Columns>
 <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="edit.aspx?id={0}" />
+<asp:HyperLinkField  Text="编辑属性" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="service_property.aspx?typeid={0}" />
 </Columns>
 </asp:GridView>
 <a href=Edit.aspx>增加新类别</a>

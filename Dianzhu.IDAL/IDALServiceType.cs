@@ -8,6 +8,6 @@ namespace Dianzhu.IDAL
     public interface IDALServiceType
     {
         IDALBase<ServiceType> DalBase { get; set; }
-       
+        IList<ServiceType> GetTopList();
     }
 }

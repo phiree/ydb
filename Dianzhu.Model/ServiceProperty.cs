@@ -20,5 +20,6 @@ namespace Dianzhu.Model
        /// 商家自定义的属性.
        /// </summary>
        public virtual Business BelongsTo { get; set; }
+       public virtual IList<ServicePropertyValue> Values { get; set; }
     }
 }
