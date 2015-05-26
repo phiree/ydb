@@ -20,8 +20,8 @@ namespace Dianzhu.BLL
       { }
       public IList<Staff> GetList(Guid businessId, Guid serviceTypeId, int pageindex, int pagesize, out int totalRecords)
       {
-          totalRecords = 0;
-          return null;
+
+          return iDALStaff.GetList(businessId, serviceTypeId, pageindex, pagesize, out totalRecords);
       }
        
     }

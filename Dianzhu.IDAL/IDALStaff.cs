@@ -8,6 +8,7 @@ namespace Dianzhu.IDAL
     public interface IDALStaff
     {
         IDALBase<Staff> DalBase { get; set; }
+        IList<Staff> GetList(Guid businessId, Guid serviceTypeId, int pageindex, int pagesize, out int totalRecord);
         
     }
 }
