@@ -6,15 +6,12 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <p>职员列表</p>
-<%--<asp:GridView runat="server" ID="gvStaff">
+<asp:GridView runat="server" ID="gvStaff">
 
-</asp:GridView>--%>
+</asp:GridView>
 
-    <asp:Repeater ID="rpStaff" runat="server">
-    <ItemTemplate>
-    <
-    </ItemTemplate>
-    </asp:Repeater>
+
+
 <a href="Edit.aspx">增加职员</a>
 
 
