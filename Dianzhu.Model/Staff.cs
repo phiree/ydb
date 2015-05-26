@@ -30,6 +30,7 @@ namespace Dianzhu.Model
        /// 职员照片
        /// </summary>
        public virtual string Photo { get; set; }
+   
        /// <summary>
        /// 职员的服务分类
        /// </summary>
