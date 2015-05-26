@@ -23,17 +23,7 @@ namespace Dianzhu.BLL
 
           return iDALStaff.GetList(businessId, serviceTypeId, pageindex, pagesize, out totalRecords);
       }
-      /// <summary>
-      /// 保存
-      /// </summary>
-      /// <param name="code">员工编号</param>
-      /// <param name="name">姓名</param>
-      /// <param name="nickname">昵称</param>
-      /// <param name="gender">性别</param>
-      /// <param name="phone">电话</param>
-      /// <param name="photo">照片</param>
-      /// <param name="serviceTypes">服务分类</param>
-      /// <returns></returns>
+      
       public void SaveOrUpdate(Staff staff)
       {
           iDALStaff.DalBase.SaveOrUpdate(staff);
