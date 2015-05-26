@@ -5,7 +5,18 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<asp:GridView runat="server" ID="gv"></asp:GridView>
+<p>职员列表</p>
+<%--<asp:GridView runat="server" ID="gvStaff">
+
+</asp:GridView>--%>
+
+    <asp:Repeater ID="rpStaff" runat="server">
+    <ItemTemplate>
+    <
+    </ItemTemplate>
+    </asp:Repeater>
 <a href="Edit.aspx">增加职员</a>
+
+
 </asp:Content>
 
