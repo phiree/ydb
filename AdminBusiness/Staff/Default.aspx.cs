@@ -21,12 +21,12 @@ public partial class Staff_Default : BasePage
     {
         int total=30;
         Business b = ((BusinessUser)CurrentUser).BelongTo;
-<<<<<<< HEAD
-        gvStaff.DataSource = bllStaff.GetList(b.Id, Guid.Empty, 1, 10, out total);
-=======
+       
+        //gvStaff.DataSource = bllStaff.GetList(b.Id, Guid.Empty, 1, 10, out total);
+
         gvStaff.DataSource = bllStaff.GetList(b.Id, Guid.Empty, 0, 10, out total);
         gvStaff.DataBind();
->>>>>>> origin/master
+
        
     }
 }
