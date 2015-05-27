@@ -37,7 +37,7 @@
                                     已经注册成为点助会员</span>
                             </div>
                             <div class="buttonBox t-c">
-                                <input class="compBtn" type="button" value="" />
+                            <a href="login.aspx" class="compBtn"></a>  
                             </div>
                         </div>
                     </div>

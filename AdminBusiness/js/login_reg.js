@@ -1,5 +1,8 @@
 $(document).ready(function () {
     //验证图标显示控制
+
+    $("#tbxUserName").InlineTip({ 'tip': "手机号码/电子邮箱/用户名" });
+
     var chkIconAnm = function (hide, jdg, icon) {
         if (!hide) {
             if (!jdg) {  //条件不符合
@@ -73,6 +76,7 @@ $(document).ready(function () {
     passCheck($('#regPs'), $('#regPsConf'), $('#psChk'), $('#psConfChk'));
 
     //注册名选择方法
+    
     var selectMeth = function () {
         //        alert($('#regMeth').val());
         var resetMeth = function (objInput, icon) {
@@ -97,39 +101,6 @@ $(document).ready(function () {
     }
 
     //自定义下拉表单
-    function mySelect(selectId, inputSelectId, onChange) {
-        var list = $(selectId).find('ul');
-        var mouseIsOut = false;
-
-        $(selectId).find('cite').click(function () {
-            if (list.css("display") == "none") {
-                list.slideDown("fast")
-            } else {
-                list.slideUp("fast")
-            }
-        });
-        $(selectId).mouseover(function () {
-            mouseIsOut = false
-        });
-        $(selectId).mouseout(function () {
-            mouseIsOut = true
-        });
-        $(document).click(function () {
-            if (mouseIsOut) {
-                list.hide()
-            }
-        });
-        $(list).find('a').click(function () {
-            var txt = $(this).text();
-            var value = $(this).attr('value');
-
-            $(selectId).find('cite').html(txt);
-            inputSelectId.val(value);
-            onChange();
-            list.hide();
-        })
-    }
-    mySelect($('#regMethList'), $('#regMeth'), selectMeth);
 
     var regChang = function () {
         var $regForm1 = $('#regFormUser');
@@ -138,23 +109,12 @@ $(document).ready(function () {
         // $regForm1.submit
         $("#phoneSubmit").click(
             function () {
+                $('#usernameConf').text($("#tbxUserName").val());
                 $('.main-reg').hide();
                 $('.main-psw').show();
             }
         )
-            $("#regPsSubmit").click(function () {
-                $('.main-reg').show();
-                $('.main-psw').hide();
-        });
-
-        $regForm2.submit(
-            function () {
-                $('.main-psw').hide();
-                $('.main-done').show();
-                $('.regLogo').find('a').attr('href', 'http://www.baidu.com');
-                $('.regLogo').find('img').attr('src', 'images/icon_1.png');
-            }
-        )
+ 
     }
     regChang();
 
