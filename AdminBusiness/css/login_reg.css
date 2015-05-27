@@ -1,0 +1,476 @@
+html,body,div,span,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,address,big,cite,code,del,em,font,img,ins,small,strong,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+    font-family:"Arial","Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif;
+}
+
+ol,ul {
+	list-style: none;
+}
+
+:focus {
+	outline: 0;
+}
+
+a img {
+	border: 0;
+}
+
+a{text-decoration: none;}
+
+img {
+	vertical-align: middle;
+}
+
+table {
+	empty-cells: show;
+}
+
+ins {
+	text-decoration: none;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+em {
+	font-style: normal;
+}
+
+button::-moz-focus-inner,input[type=reset]::-moz-focus-inner,input[type=button]::-moz-focus-inner,input[type=submit]::-moz-focus-inner,input[type=file]>input[type=button]::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+.f-l { float: left; }
+.f-r { float: right; }
+.t-c { text-align: center; }
+.t-l { text-align: left; }
+.t-r { text-align: right; }
+.dis-ib {display: inline-block; *zoom:1; *display:inline; }
+.v-m { vertical-align: middle; }
+.clearfix { zoom: 1; } /*IE7*/
+.clearfix:after {  /*清除浮动导致的外层容器高度塌陷*/
+    display: block;
+    clear: both;
+    height: 0;
+    content: "\0020";
+}
+/*全局设置*/
+
+html,body {
+    height: 100%;
+}
+
+.wrap {
+    height: 100%;
+    background: url("../image/login_reg/bg_1.jpg") no-repeat center;
+    overflow: hidden;
+}
+
+.main {
+    height: 100%;
+}
+
+.layout {
+    width: 1000px;
+    margin: 0 auto;
+    height: 100%;
+    position: relative;
+}
+
+/*外包裹*/
+.wrap-login {
+    position: absolute;
+    top: 50%;
+    margin-top: -250px;
+    width: 100%;
+}
+
+.wrap-reg {
+    /*position: absolute;*/
+    top: 150%;
+    /*margin-top: -250px;*/
+    width: 100%;
+}
+
+/*登录内容*/
+.conLogin,
+.conReg {
+    color: #fff;
+    width: 750px;
+    margin: 0 auto;
+}
+
+/*logo内容*/
+.conLogo {
+    margin-bottom: 35px;
+}
+
+.logo-l {
+    display: inline-block;
+    width: 300px;
+    margin-right: 70px;
+    font-size: 20px;
+    vertical-align: bottom;
+    *display:inline;
+    *zoom:1;
+}
+
+.logo-l p{
+    text-align: right;
+    line-height: 1.8em;
+}
+
+.logo-r {
+    display: inline-block;
+    *zoom:1;
+    *display:inline;
+}
+
+.logoTitle {
+    width: 126px;
+    height: 89px;
+    margin-top: 15px;
+    background:url("../image/login_reg/dianzhu_03.png") no-repeat center;
+}
+
+/*标题共同布局*/
+.conMain .box-l {
+    float: left;
+    text-align: right;
+    width: 300px;
+    margin-right: 70px;
+    font-size: 17px;
+}
+
+.conMain .box-l p {
+    margin-bottom: 25px;
+}
+
+.conMain .box-l em {
+    color: #55abdc;
+    margin: 0 7px;
+    font-size: 1.2em;
+    vertical-align: top;
+}
+
+.conMain .box-r {
+    float: left;
+    font-size: 20px;
+}
+
+/*登录页面内容*/
+.conLogin .date {
+    color: #55abdc;
+    margin-bottom: 25px;
+}
+
+.username,
+.password {
+    overflow: hidden;
+    border-radius: 2px;
+    border: 1px;
+    margin-bottom: 10px;
+}
+
+.usernameIcon,
+.passwordIcon { display: block; float: left; }
+.usernameIcon i { display: block; width: 40px; height: 40px; background: url("../image/login_reg/user_1.png") no-repeat left; }
+.passwordIcon i { display: block; width: 40px; height: 40px; background: url("../image/login_reg/lock_1.png") no-repeat left; }
+
+.username input,
+.password input {
+    vertical-align: middle;
+    background: #fff;
+    display: inline-block;
+    width: 300px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px;
+    font-size: 16px;
+    color: #aaa;
+    *display: inline;
+    *zoom: 1;
+    *margin-top: -2px;
+    *height: 39px;
+    *border: 0;
+}
+
+/*信息验证图片*/
+.checkIcon {
+    /*display:none;*/
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+    *margin-left: 10px;
+    width: 19px;
+    height: 19px;
+    vertical-align: middle;
+    /*margin-top: 10px;*/
+    /*margin-left: 10px;*/
+    /*background: url("../image/login_reg/zhengqie_1.png") no-repeat center;*/
+}
+
+.chkRight {
+    background: url("../image/login_reg/zhengqie_1.png") no-repeat center;
+}
+
+.chkError {
+    background: url("../image/login_reg/zhengqie_2.png") no-repeat center;
+}
+
+.loginBox { width: 340px; margin-bottom: 10px; }
+
+.loginBtn {
+    cursor: pointer;
+    display: inline-block;
+    width: 109px;
+    height: 49px;
+    border: 0;
+    background: url("../image/login_reg/button_1.png") no-repeat center;
+    *display: inline;
+    *zoom: 1;
+}
+
+.savePass {
+    display: inline-block;
+    float: right;
+    height: 49px;
+    line-height: 49px;
+    *zoom: 1; /*IE7 below*/
+    *display: inline;
+    *float: none;
+    *vertical-align: bottom;
+    *margin-left: 100px;
+}
+
+.savePass input {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    vertical-align: text-bottom;
+}
+
+.doReg img,
+.doLogin img {
+    cursor: pointer;
+    vertical-align: text-bottom;
+    padding: 0 5px;
+}
+
+
+/*注册页面内容*/
+.conReg .box-l p {
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+}
+
+.conReg .regMeth {
+    margin-bottom: 10px;
+}
+
+.conReg .regMeth select {
+    width: 170px;
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    border-radius: 2px;
+    border: 1px;
+    font-size: 16px;
+    color: #aaa;
+}
+
+.conReg .phoneBox{ margin-bottom: 10px; }
+
+.conReg .phone {
+    display: inline-block;
+    vertical-align: middle;
+    background: #ededed;
+    border-radius: 2px;
+    border: 1px;
+    *display: inline;
+    *zoom: 1;
+}
+
+.conReg .phone em {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    font-size: 16px;
+    color: #000;
+    *zoom: 1;
+    *vertical-align: bottom;
+}
+
+.conReg .phone input {
+    text-indent: 10px;
+    width: 270px;
+    height: 38px;
+    line-height: 38px;
+    background: #fff;
+    border-radius: 2px;
+    border: 1px;
+    font-size: 16px;
+    color: #aaa;
+    *border: 0;
+}
+
+/*.conReg .email{*/
+    /*background: #ededed;*/
+    /*border-radius: 2px;*/
+    /*border: 1px;*/
+    /*margin-bottom: 10px;*/
+/*}*/
+.conReg .emailBox {
+    display: none;
+    margin-bottom: 10px;
+}
+
+.conReg .emailBox input {
+    vertical-align: middle;
+    width: 270px;
+    height: 38px;
+    line-height: 38px;
+    background: #fff;
+    border-radius: 2px;
+    border: 1px;
+    font-size: 16px;
+    text-indent: 10px;
+    color: #aaa;
+    *margin-left: -10px;
+}
+
+.conReg .checkCode{ margin-bottom: 10px; }
+
+.conReg .checkCode .checkInput {
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    border-radius: 2px;
+    border: 1px;
+    font-size: 16px;
+    text-indent: 10px;
+    color: #aaa;
+    margin-right: 50px;
+    *border: 0;
+    *vertical-align: middle;
+    *margin-left: -10px;
+}
+
+.conReg .checkCode .checkFlash{
+    cursor: pointer;
+    vertical-align: middle;
+    height: 40px;
+    width: 40px;
+    border: 0;
+    background: url("../image/login_reg/yanzheng_3.png") no-repeat center;
+}
+
+.conReg .agree {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.conReg .agree input {
+    vertical-align: middle;
+}
+
+.conReg .agree a:visited {
+    color: #55abdc;
+}
+
+.conReg .buttonBox { margin-bottom: 10px; }
+
+.conReg .regBtn {
+    cursor: pointer;
+    display: inline-block;
+    width: 109px;
+    height: 49px;
+    border: 0;
+    background: url("../image/login_reg/xiayibu_1.png") no-repeat center;
+    *zoom: 1;
+    *display: inline;
+}
+
+.regPs,
+.regPsConf {
+    overflow: hidden;
+    border-radius: 2px;
+    border: 1px;
+    margin-bottom: 10px;
+}
+
+.regPs input,
+.regPsConf input {
+    background: #fff;
+    display: inline-block;
+    width: 300px;
+    height: 38px;
+    line-height: 38px;
+    /*border-radius: 2px;*/
+    border: 1px;
+    font-size: 16px;
+    text-indent: 10px;
+    color: #aaa;
+    *margin-left: -10px;
+    *vertical-align: middle;
+    *zoom: 1;
+    *display: inline;
+}
+
+.rPage {
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+
+
+.main-psw
+/*,
+.main-done 
+*/
+{
+    display: none;
+}
+
+.regComp {
+    text-align: center;
+    margin: 60px 0;
+}
+
+.regComp span {
+    text-align: left;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 30px;
+    font-size: 27px;
+    *zoom: 1;
+    *display: inline;
+}
+
+.compBtn {
+    cursor: pointer;
+    display: inline-block;
+    width: 109px;
+    height: 49px;
+    border: 0;
+    background: url("../image/login_reg/queding_1.png") no-repeat center;
+    *zoom: 1;
+    *display: inline;
+}
+
+.selectdiv { width: 170px; margin-bottom: 10px; display: inline-block; }
+.selectMeth { position: relative; z-index: 999; background: #fff; font-size: 16px; border-radius: 2px; border: 1px; }
+.selectMeth cite{ width:170px;height:40px; line-height: 40px; display:block; color: #aaa;font-style: normal; cursor:pointer; text-indent:10px; }
+.selectMeth ul { list-style: none; width: 170px; background-color: #ffffff; position: absolute; z-index: 1000; display: none; }
+.selectMeth ul li { height:40px; line-height: 40px; border-bottom: 1px solid #ccc; }
+.selectMeth ul li a { display: block; height: 40px; color: #aaa; text-decoration: none; text-indent: 10px; }
+.selectMeth ul li a:hover { background-color: #eee; }

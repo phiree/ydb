@@ -12,13 +12,21 @@ public partial class Staff_Default : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        {
+            BindList();
+        }
     }
     private void BindList()
     {
         int total=30;
         Business b = ((BusinessUser)CurrentUser).BelongTo;
+<<<<<<< HEAD
         gvStaff.DataSource = bllStaff.GetList(b.Id, Guid.Empty, 1, 10, out total);
+=======
+        gvStaff.DataSource = bllStaff.GetList(b.Id, Guid.Empty, 0, 10, out total);
+        gvStaff.DataBind();
+>>>>>>> origin/master
        
     }
 }
