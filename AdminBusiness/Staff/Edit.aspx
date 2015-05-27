@@ -7,14 +7,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table>
-        <tr>
-            <td>
-                所属商家
-            </td>
-            <td>
-                <asp:TextBox ID="Belongto" runat="server"></asp:TextBox>
-            </td>
-        </tr>
+         
         <tr>
             <td>
                 编号
@@ -68,8 +61,8 @@
                 所属服务分类
             </td>
             <td>
-                <asp:RadioButtonList runat="server" ID="rbl_Parent" DataTextField="Name" DataValueField="Id">
-                </asp:RadioButtonList>
+                <asp:CheckBoxList runat="server" ID="cbxServices" DataTextField="Name" DataValueField="Id">
+                </asp:CheckBoxList>
             </td>
         </tr>
         <tr>
