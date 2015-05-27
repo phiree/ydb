@@ -18,7 +18,6 @@ public partial class Staff_Default : BasePage
     {
         int total=30;
         Business b = ((BusinessUser)CurrentUser).BelongTo;
-        gvStaff.DataSource = bllStaff.GetList(b.Id, Guid.Empty, 0, 10, out total);
        
     }
 }
