@@ -32,6 +32,10 @@ namespace Dianzhu.BLL
       {
           iDALStaff.DalBase.Delete(staff);
       }
+      public Staff GetOne(Guid id)
+      {
+          return iDALStaff.DalBase.GetOne(id);
+      }
        
     }
 }

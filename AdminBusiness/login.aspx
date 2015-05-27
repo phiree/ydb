@@ -8,12 +8,12 @@
 </head>
 <body>
     <div class="wrap">
-       
         <div class="head">
         </div>
         <div class="main">
             <div class="layout">
-                <div class="wrap-login"> <form id="form1" runat="server">
+                <div class="wrap-login">
+                    <form id="form1" runat="server">
                     <div class="conLogin">
                         <div class="conLogo clearfix">
                             <div class="logo-l">
@@ -48,7 +48,7 @@
                                         <label class="usernameIcon" for="username">
                                             <i></i>
                                         </label>
-                                        <input id="username" type="text" placeholder="手机号/会员名/邮箱" />
+                                        <asp:TextBox runat="server" ID="tbxUserName"></asp:TextBox>
                                     </p>
                                     <!--<i id="userCheck" class="f-l"></i>-->
                                 </div>
@@ -56,28 +56,29 @@
                                     <label class="passwordIcon" for="password">
                                         <i></i>
                                     </label>
-                                    <input id="password" type="password" placeholder="密码" value="" />
+                                    <asp:TextBox runat="server" ID="tbxPassword" TextMode="Password"></asp:TextBox>
                                 </p>
                                 <div class="loginBox">
-                                    <input type="submit" class="loginBtn" value="" />
+                                     
+                                    <asp:Button runat="server" ID="btnLogin" CssClass="loginBtn" OnClick="btnLogin_Click" />
                                     <p class="savePass">
                                         <input id="savePass" type="checkbox" /><label for="savePass">记住密码</label></p>
                                 </div>
                                 <!--<p id="testAjax"></p>-->
                                 <p class="doReg">
-                                    <a href="register.aspx"><img src="image/login_reg/zhuce_1.png">注册会员</a></p>
+                                    <a href="register.aspx">
+                                        <img src="image/login_reg/zhuce_1.png">注册会员</a></p>
                             </div>
                         </div>
-                    </div> </form>
+                    </div>
+                    </form>
                 </div>
-              
             </div>
             <div class="conReg">
             </div>
         </div>
         <div class="footer">
         </div>
-       
     </div>
 </body>
 <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/jquery.js"></script>

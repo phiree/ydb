@@ -7,7 +7,9 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <p>职员列表</p>
 <asp:GridView runat="server" ID="gvStaff">
-
+<Columns>
+<asp:HyperLinkField  DataTextField="Name" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="edit.aspx?id={0}" />
+</Columns>
 </asp:GridView>
 
 

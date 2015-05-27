@@ -20,7 +20,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.NickName);
             Map(x => x.Phone);
             Map(x => x.Photo);
-            HasMany<ServiceType>(x => x.ServiceTypes);
+            HasMany<ServiceType>(x => x.ServiceTypes).Not.LazyLoad();
             
         }
     }

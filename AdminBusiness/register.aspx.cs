@@ -27,8 +27,9 @@ public partial class register : System.Web.UI.Page
         //string description=tbxDescription.Text.Trim();
         //double latitude=Convert.ToDouble( tbxLat.Text.Trim());
         //double longtitude = Convert.ToDouble(tbxLon.Text.Trim());
-        
-       // Membership.CreateUser(
+
+        Membership.CreateUser(tbxUserName.Text, regPs.Text);
+        PHSuit.Notification.Show(Page, "", "注册成功", "register_suc.aspx");
        // bllBusiness.Register(address, description, latitude, longtitude, name, mobilePhone, password);
     }
     
