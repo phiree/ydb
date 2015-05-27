@@ -17,8 +17,8 @@ public partial class login : System.Web.UI.Page
         bool isValid = Membership.ValidateUser(tbxUserName.Text, tbxPassword.Text);
         if (isValid)
         {
-
-            FormsAuthentication.RedirectFromLoginPage(tbxUserName.Text, true);
+            bool remeberMe= savePass.Checked;
+            FormsAuthentication.RedirectFromLoginPage(tbxUserName.Text, remeberMe);
         }
     }
 
