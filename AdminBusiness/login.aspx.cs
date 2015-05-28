@@ -17,8 +17,11 @@ public partial class login : System.Web.UI.Page
         bool isValid = Membership.ValidateUser(tbxUserName.Text, tbxPassword.Text);
         if (isValid)
         {
-            bool remeberMe= savePass.Checked;
+            bool remeberMe = savePass.Checked;
             FormsAuthentication.RedirectFromLoginPage(tbxUserName.Text, remeberMe);
+        }
+        else {
+            PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);
         }
     }
 
