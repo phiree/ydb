@@ -82,7 +82,8 @@ namespace Dianzhu.BLL
 
         public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException();
+
+            throw new NotImplementedException("请调用IList<DZMembership>  DZMembershipProvider.GetALLUsers");
         }
 
         public override int GetNumberOfUsersOnline()
@@ -194,6 +195,10 @@ namespace Dianzhu.BLL
         {
             string encrypted = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
             return dal.CreateBusinessUser(username,encrypted, b);
+        }
+        public IList<DZMembership> GetAllDZMembers(int pageIndex, int pageSize, out long totalRecords)
+        {
+            return dal.GetAllUsers(pageIndex, pageSize, out totalRecords);
         }
 #endregion
     }

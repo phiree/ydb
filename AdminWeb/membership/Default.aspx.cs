@@ -18,8 +18,15 @@ public partial class membership_Default : System.Web.UI.Page
     }
     private void BindList()
     { 
-        int totalRecord;
-        gvMember.DataSource = dzmp.GetAll();
+        long totalRecord;
+        int currentPageIndex=1;
+        string paramPage=Request.Params["page"];
+        if(!string.IsNullOrEmpty(paramPage))
+        {
+         currentPageIndex=int.Parse(paramPage);
+        }
+        gvMember.DataSource = dzmp.GetAllDZMembers(currentPageIndex-1, pager.PageSize, out totalRecord);
+        pager.RecordCount = (int)totalRecord;
         gvMember.DataBind();
     }
     
