@@ -2,10 +2,7 @@
     CodeFile="Edit.aspx.cs" Inherits="DZService_Edit" %>
 
 <%@ Import Namespace="Dianzhu.Model" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
-</asp:Content>
+ 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <table>
         <tr>

@@ -10,7 +10,7 @@ html {
     color:black;
 }
 /* 内外边距通常让各个浏览器样式的表现位置不同 */
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,iframe {
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,menu,nav,section,iframe {
     margin:0;
     padding:0;
 }
@@ -102,8 +102,17 @@ a:focus,*:focus {
     overflow:hidden;
 }
 .clearfix {
-    zoom:1; /* for ie6 & ie7 */
+    zoom:1;  /* for ie6 & ie7 */
 }
+
+/*.clearfix{zoom: 1}*/
+/*.clearfix:after{  *//*清除浮动导致的外层容器高度塌陷*/
+/*display: block;*/
+/*clear: both;*/
+/*height: 0;*/
+/*content: "\0020";*/
+/*}*/
+
 .clear {
     clear:both;
     display:block;
@@ -120,12 +129,53 @@ a:focus,*:focus {
     display:block;
 }
 /* 设置浮动，减少浮动带来的 bug */
-.fl,.fr {
-    display:inline;
-}
+/*.fl,.fr {*/
+/*display:inline;*/
+/*}*/
 .fl {
     float:left;
 }
 .fr {
     float:right;
+}
+
+.t-c {
+    text-align: center;
+}
+
+.t-r {
+    text-align: right;
+}
+
+.v-m {
+    vertical-align: middle;
+}
+
+.d-inb {display: inline-block;*display: inline-block;*zoom: 1;}
+
+.dis-n {
+    display: none;
+}
+
+.m-l20 {
+    margin-left: 20px;
+}
+
+html { background:#263650; }
+.wrap { padding: 50px; background:#263650; }
+.mainContent{ margin: 0 auto; width:1000px; background:#263650;}
+.topnav{ height:70px;}
+.leftContent{ width:78px; float:left; background:#4b6c8b;}
+.rightContent{ width:922px; float:left; background:#FFF;}
+
+.con-wrap {
+    padding: 20px;
+    background: #cadceb;
+}
+
+.icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: cadetblue;
 }
