@@ -27,7 +27,29 @@ public partial class membership_Default : System.Web.UI.Page
         }
         gvMember.DataSource = dzmp.GetAllDZMembers(currentPageIndex-1, pager.PageSize, out totalRecord);
         pager.RecordCount = (int)totalRecord;
+        gvMember.RowDataBound += new GridViewRowEventHandler(gvMember_RowDataBound);
         gvMember.DataBind();
     }
+
+    void gvMember_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            
+            Literal litType = e.Row.FindControl("litType") as Literal;
+            DZMembership member = e.Row.DataItem as DZMembership;
+            if (member is BusinessUser)
+            {
+                BusinessUser memberBusiness = (BusinessUser)member;
+                HyperLink hy = e.Row.FindControl("hlRelative") as HyperLink;
+                litType.Text = "商家用户";
+                hy.Text = memberBusiness.BelongTo.Name;
+                hy.NavigateUrl = "/business/detail.aspx?id=" + memberBusiness.BelongTo.Id;
+                 
+                
+            }
+        }
+    }
+    
     
 }

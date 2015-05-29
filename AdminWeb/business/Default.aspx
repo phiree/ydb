@@ -9,6 +9,10 @@
 <!--
 商户列表
 -->
-<asp:GridView  runat="server" ID="gvBusiness"></asp:GridView>
+<asp:GridView  runat="server" ID="gvBusiness">
+<Columns>
+<asp:HyperLinkField  Text="详情" DataNavigateUrlFields="id" DataNavigateUrlFormatString="detail.aspx?id={0}"/>
+</Columns>
+</asp:GridView>
 </asp:Content>
 
