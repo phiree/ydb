@@ -29,6 +29,10 @@ namespace Dianzhu.Model
         /// 直接子类型.
         /// </summary>
         public virtual IList<ServiceType> Children { get; set; }
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public virtual int OrderNumber { get; set; }
         public virtual IList<ServiceProperty> Properties { get; set; }
         //private string fullTypeName = string.Empty;
         public override string ToString()

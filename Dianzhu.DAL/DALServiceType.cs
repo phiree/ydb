@@ -17,7 +17,7 @@ namespace Dianzhu.DAL
 
         public IList<ServiceType> GetTopList()
         {
-            string query = "select s from ServiceType s where s.Parent is null";
+            string query = "select s from ServiceType s where s.Parent is null order by OrderNumber";
             return DalBase.GetList(query);
         }
          

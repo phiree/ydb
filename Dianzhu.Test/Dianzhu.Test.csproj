@@ -64,12 +64,17 @@
     <Compile Include="CashTicketCreateTest.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ExcelImportTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="TestFiles\个人服务类最新版-表格.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\商务服务类最新版-表格.xls" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
@@ -87,6 +92,10 @@
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHSuit\PHSuit.csproj">
+      <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
+      <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

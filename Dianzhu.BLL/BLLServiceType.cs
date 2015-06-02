@@ -5,6 +5,10 @@ using System.Text;
 using Dianzhu.IDAL;
 using Dianzhu.Model;
 using Dianzhu.DAL;
+using System.IO;
+using System.Data;
+using PHSuit;
+
 namespace Dianzhu.BLL
 {
     public class BLLServiceType
@@ -63,5 +67,66 @@ namespace Dianzhu.BLL
             SaveOrUpdate(currentServiceType);
             return currentServiceType;
         }
+
+
+        public void Import(System.IO.Stream excelFileStream)
+        {
+            PHSuit.ReadExcelToDataTable rtdt = new ReadExcelToDataTable(excelFileStream, false, false, 0);
+            string msg;
+            IList<ServiceType> topServiceTypes = ObjectAdapter(rtdt.Read(out msg));
+            iDALServiceType.DalBase.SaveList(topServiceTypes);
+
+        }
+        public IList<ServiceType> ObjectAdapter(DataTable dtFromExcel)
+        {
+            List<ServiceType> topTypeList = new List<ServiceType>();
+            List<ServiceTypeFromExcel> tfeList = new List<ServiceTypeFromExcel>();
+            //先构建每行的服务类别 和 该类别的层级(列索引)
+            foreach (DataRow row in dtFromExcel.Rows)
+            {
+
+                for (int i = 0; i < dtFromExcel.Columns.Count; i++)
+                {
+
+                    string cellValue = row[i].ToString();
+                    if (!string.IsNullOrEmpty(cellValue))
+                    {
+                        ServiceType s = new ServiceType { Name = cellValue, DeepLevel = i,OrderNumber=dtFromExcel.Rows.IndexOf(row) };
+                        ServiceTypeFromExcel tfe = new ServiceTypeFromExcel { ServiceType = s, ColIndex = i };
+                        tfeList.Add(tfe);
+                    }
+                }
+            }
+            //构建类别之间的父子关系
+            IList<ServiceTypeFromExcel> cacheParents = new List<ServiceTypeFromExcel>();
+
+            foreach (ServiceTypeFromExcel tfe2 in tfeList)
+            {
+                ServiceType currentSt = tfe2.ServiceType;
+                //发现根,清除缓存
+                if (tfe2.ColIndex == 0)
+                {
+                    cacheParents.Clear();
+                    currentSt.Parent = null;
+                    topTypeList.Add(currentSt);
+                }
+                int parentCol = tfe2.ColIndex - 1;
+                ServiceTypeFromExcel parent = cacheParents.LastOrDefault(x => x.ColIndex == parentCol);
+                if (parent != null)
+                {
+                    parent.ServiceType.Children.Add(currentSt);
+                    currentSt.Parent = parent.ServiceType;
+                }
+
+                cacheParents.Add(tfe2);
+
+            }
+            return topTypeList;
+        }
+    }
+    class ServiceTypeFromExcel
+    {
+        public ServiceType ServiceType { get; set; }
+        public int ColIndex { get; set; }
     }
 }
