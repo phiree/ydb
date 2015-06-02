@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>员工管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css" />
+    <!--<link href="css/iframeBase.css" rel="stylesheet" type="text/css" />-->
+    <link href="css/coupon.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="mainContent clearfix">
+    <form action="" method="post">
+        <div id="leftCont" class="leftContent">
+            <div >
+                <ul>
+                    <li><a href="coupon-total.html"><img id="me1" src="image/shop_icon_13.png" /></a></li>
+                    <li><a href="coupon-set.html"><img id="me2" src="image/shop_icon_15.png" /></a></li>
+                    <li><a href="coupon-vip.html"><img id="me3" src="image/shop_icon_15.png" />开通会员</a></li>
+                    <!--<li><a href="coupon-set.html"><img id="me2" src="image/shop_icon_15.png" /></a></li>-->
+                </ul>
+            </div>
+        </div>
+        <div id="rightCont" class="rightContent">
+            <div class="con-wrap">
+                <div class="coup-title">增值服务<i class="icon fr"></i></div>
+                <div class="coup-nav clearfix">
+                    <ul class="coup-nav-l clearfix fl">
+                        <li><a>增发优惠券</a></li>
+                        <li><a>指定推广商户</a></li>
+                        <li><a>推广范围设置</a></li>
+                    </ul>
+                    <!--<div class="vip fr"><a href="#"><i class="icon" id="ad"></i></a></div>-->
+                </div>
+                <!--<div class="coup-m coup-ad"> &lt;!&ndash; 增发优惠卷 &ndash;&gt;-->
+                    <!--<div class="coup-main">-->
+                        <!--<div class="coup-m-ad">-->
+                            <!--<div class="coup-m-t">开通会员可享双重惊喜</div>-->
+                            <!--<div class="coup-m-p"><p class="str">会员专享，活动设置无限制</p><p>balabalabala</p></div>-->
+                        <!--</div>-->
+                        <!--<div class="coup-m-ad">-->
+                            <!--<div class="coup-m-p fr"><p class="str">冲一年会员送半年，超实惠</p><p>balabalabala</p></div>-->
+                        <!--</div>-->
+                        <!--<div class="coup-sub">-->
+                            <!--<div class="coup-on-btn">马上开通</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="coup-m coup-m1"> <!-- 增发优惠卷 -->
+                    <form enctype="multipart/form-data">
+                        <div class="coup-main">
+                            <p class="coup-m-intro">介绍下增加优惠的信息</p>
+                            <div class="coup-m-price clearfix">
+                                <div class="m-price fl">
+                                    <p class="m-price-t">请设定您增发的优惠券金额</p>
+                                    <p><input class="m-price-input" name="coupprice" type="text" /><span>元</span><em>(支付XX元即可增加XX元优惠券额度上限)</em></p>
+                                </div>
+                                <div class="m-price fr">
+                                    <p class="m-price-t">请设定您增发的优惠券发放数量</p>
+                                    <p><input class="m-price-input" name="coupnum" type="text" /><span>元</span><em>(支付XX元即可增加XX元优惠券额度上限)</em></p>
+                                </div>
+                                <div class="m-num"></div>
+                            </div>
+                            <div class="coup-m-set">
+                                <p class="m-set-intro"><i>套餐</i>使用套餐组合，即享优惠省更多</p>
+                                <div class="m-set-option">
+                                    <div class="m-set-l m-set-1">
+                                        <p class="m-set-t">套餐一</p>
+                                        <ul>
+                                            <li><input type="radio" name="setone" value="1">增加发放金额30000元，发放数量3000张。仅需支付<em>200</em>元</li>
+                                            <li><input type="radio" name="setone" value="2">增加发放金额30000元，发放数量3000张。仅需支付<em>200</em>元</li>
+                                            <li><input type="radio" name="setone" value="3">增加发放金额30000元，发放数量3000张。仅需支付<em>200</em>元</li>
+                                        </ul>
+                                    </div>
+                                    <div class="m-set-l m-set-2">
+                                        <p class="m-set-t">套餐二</p>
+                                        <ul>
+                                            <li><input type="radio" name="settwo" value="4">每月增发金额60000元，发放数量6000张。每月仅需支付<em>300</em>元</li>
+                                            <li><input type="radio" name="settwo" value="5">每月增加三次发放次数，数额与张数不限。每月仅需支付<em>400</em>元</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="coup-m-submit t-r">
+                            <span>合计:<em>￥<span id="totalPrice">200</span></em></span><input id="coupPriceSub" class="coup-sub-btn" type="submit" value="确认并提交"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="coup-m coup-m2"> <!-- 指定推广商户 -->
+                    <form enctype="multipart/form-data">
+                        <div class="coup-main">
+                            <p class="coup-m-intro">介绍下增加优惠的信息</p>
+                            <div class="coup-m-shop">
+                                <p class="m-shop-t">商户选择</p>
+                                <div class="m-shop-box clearfix">
+                                    <div class="fl">
+                                        <p class="m-shop-t">指定的商户名称</p>
+                                        <input class="m-shop-input" type="text"/>
+                                    </div>
+                                    <i class="icon fl"></i>
+                                    <div class="fl">
+                                        <p class="m-shop-t">指定商户的详细地址</p>
+                                        <input class="m-shop-input" type="text"/>
+                                    </div>
+                                    <div class="fl">
+                                        <span>无法找到指定店铺试试<a>地图功能</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="coup-m-shop">
+                                <p class="m-shop-t">商户选择</p>
+                                <div class="m-shop-box clearfix">
+                                    <div class="fl">
+                                        <p class="m-shop-t">指定的商户名称</p>
+                                        <input class="m-shop-input" type="text"/>
+                                    </div>
+                                    <i class="icon fl"></i>
+                                    <div class="fl">
+                                        <p class="m-shop-t">指定商户的详细地址</p>
+                                        <input class="m-shop-input" type="text"/>
+                                    </div>
+                                    <div class="fl">
+                                        <span>无法找到指定店铺试试<a>地图功能</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="coup-m-submit t-r">
+                            <span>合计:<em>￥<span id="totalPrice2">200</span></em></span><input id="coupPriceSub2" class="coup-sub-btn" type="submit" value="确认并提交"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="coup-m coup-m3">
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="js/global.js">
+</script>
+</html>

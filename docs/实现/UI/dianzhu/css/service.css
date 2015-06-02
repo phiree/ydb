@@ -1,0 +1,98 @@
+.userInfoArea{background:#FFF; height:198px;position:relative; margin:0 auto; width:878px;}
+.infoTilte1{ height:71px; position:relative; line-height:71px; color:#58789a; font-size:16px; font-weight:bold;}
+
+
+.decoration1{ height:20px; background:#dfebf6;}
+.decoration2{ height:31px; background:#cadbec;}
+.decoration3{ height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; position:relative;}
+.headInfoArea{ width:100%; height:108px; background:#f6fafe; position:relative;border-bottom:#dbe6f2 1px solid;}
+.decoration3 img{ position:absolute; top:20px; left:20px;}
+.ShopDetails{ margin-left:15px; color:#58789a; font-size:18px; font-weight:bold;}
+.ShopDetailsArea{ position:relative;}
+.ShopDetailsAreaLeft{ float:left; width:162px;color:#58789a; position:relative;  }
+.ShopDetailsAreaRight{ float:left;width:755px;color:#58789a;position:relative;border-left:#dbe6f2 1px solid;}
+.LeftClearance{ margin-left:5px;}
+.LeftClearance2{ margin-left:20px; clear:both; display:block;}
+.LeftClearance3{ clear:both; display:block;}
+.TopClearance{ margin-top:20px;}
+.AddServiceArea{ position:relative; width:157px; height:65px; background:url(../image/weixuan_3.png) no-repeat; cursor:pointer;
+}
+#leftMeunList a{text-decoration:none;color:#58789a;}
+#leftMeunList a:hove{text-decoration:none;}
+.AddServiceArea img{ position:absolute; top:15px; left:30px;}
+.AddServiceArea span{ position:absolute; top:42px; left:18px;}
+.newServicebtn{ width:157px; height:41px; background:url(../image/weixuan_2.png) no-repeat; position:relative; text-align:center; font-size:14px; line-height:41px;}
+.newServicebtn2{ width:157px; height:41px; background:url(../image/weixuan_1.png) no-repeat; position:relative; text-align:center; font-size:14px; line-height:41px;}
+.listColor1{ color:#31b6fc;}
+.listColor2{ color:#58789a;}
+.ServiceLeft{ float:left; width:48%;position:relative; }
+.ServiceRight{ float:left;width:52%;position:relative;}
+
+.p_ServiceType{ background:url(../image/icon_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px;font-size:15px; font-weight:bold;}
+.p_serviceIntroduced{ background:url(../image/icon_2.png) no-repeat; height:32px; line-height:32px; padding-left:30px; font-size:15px; font-weight:bold;}
+.serviceIntroduced textarea{ width:295px; height:120px; border:#dbe6f2 1px solid; margin-top:5px; background:#f6fafe; color:#58789a; font-size:13px;}
+
+.p_QualificationCertificate{ background:url(../image/yingyezhaopian_1.png) no-repeat; height:23px; line-height:23px; padding-left:30px; font-size:15px; font-weight:bold; margin-top:10px;}
+
+.QualificationCertificate img{ margin-right:5px;  margin-top:6px;}
+
+.p_areaChoose{ background:url(../image/icon_4.png) no-repeat; height:32px; line-height:32px; padding-left:30px; font-size:15px; font-weight:bold; margin-top:10px;}
+
+.p_LocationArea{ background:url(../image/icon_9.png) no-repeat; height:32px; line-height:32px; padding-left:30px; font-size:15px; font-weight:bold; }
+.Locationbt1{ margin-left:8px; display:block; margin-bottom:10px; }
+.Locationbt2{ margin-left:8px; display:block; margin-bottom:10px; clear:both; position:relative}
+.Locationbt2 img{ position:absolute; top:-3px;}
+.mapdiv{ width:131px; height:131px; border:#dbe6f2 1px solid; position:absolute; top:60px; left:210px;}
+.p_ServiceTimeSet{ background:url(../image/congyeshijian_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px; font-size:15px; font-weight:bold; margin-top:10px;}
+.cleardiv{clear:both; display:block;}
+.PeriodTimeul{ font-size:15px;}
+.PeriodTimeul li{ text-align:center;float:left; margin-right:30px;display:block;width:60px; height:20px; margin-bottom:15px; }
+.PeriodTimeul li a{display:block;text-decoration:none;width:60px; height:20px; color:#58789a }
+.PeriodTimeul li a:hover{text-decoration:none;border-bottom:#0FF 2px solid; }
+.PeriodTime span{clear:both; display:block;}
+.p_SeDate{ background:url(../image/icon_6.png) no-repeat; height:32px; line-height:32px; padding-left:30px; font-size:15px; font-weight:bold; margin-top:10px;}
+.p_SetTheTime{ background:url(../image/congyeshijian_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px; font-size:15px; font-weight:bold; margin-top:10px;}
+.delAndUpdate{margin-bottom:30px;}
+.delAndUpdate input{ margin-top:10px; margin-right:10px;}
+
+
+
+
+.WorkingTimediv{ width:130px; position:relative; float:left; background:url(../image/congyeshijian_2.png) no-repeat; font-size:16px; margin-bottom:10px;}
+
+.WorkingTimediv cite{width:130px; height:31px;line-height:31px; display:block; color:#58789a; font-size:14px; cursor:pointer;font-style:normal; margin-left:5px;}
+.employees{ position:relative;}
+.employees span{ position:absolute; left:140px; top:40px; color:#31b6fc; font-size:14px;}
+.WorkingTimediv ul{ list-style:none;width:128px;border:1px solid #CCC; background-color:#ffffff; position:absolute; z-index:10; margin-top:-1px; display:none; }
+.WorkingTime{ margin-bottom:20px; }
+.WorkingTimediv ul li{height:36px; line-height:36px;}
+.WorkingTimediv ul li a{display:block; height:36px; color:#58789a; font-size:14px; text-decoration:none; padding-left:5px; padding-right:5px;}
+.WorkingTimediv ul li a:hover{background-color:#C9E0E7;}
+
+.WorkingTimediv2{ width:171px; position:relative; float:left; background:url(../image/xuankuang_7.png) no-repeat; font-size:16px; margin-bottom:10px;}
+
+.WorkingTimediv2 cite{width:171px; height:32px;line-height:32px; display:block; color:#58789a; font-size:14px; cursor:pointer;font-style:normal; margin-left:5px;}
+.WorkingTimediv2 ul{ list-style:none;width:171px;border:1px solid #CCC; background-color:#ffffff; position:absolute; z-index:10; margin-top:-1px; display:none; }
+.WorkingTime2{ margin-bottom:20px;}
+.WorkingTimediv2 ul li{height:36px; line-height:36px;}
+.WorkingTimediv2 ul li a{display:block; height:36px; color:#58789a; font-size:14px; text-decoration:none; padding-left:5px; padding-right:5px;}
+.WorkingTimediv2 ul li a:hover{background-color:#C9E0E7;}
+
+.jiangexian{ height:31px; width:21px; background:url(../image/jiangexian.jpg) no-repeat;float:left; margin-left:7px; margin-right:7px;}
+.bottomArea{ position:relative; width:100%; background:#cadbec; height:98px;clear: both;display: block; line-height:98px; text-align:center;}
+.bottomArea input{ margin:20px; margin-top:30px;}
+.account{ height:1138px; display:none;}
+
+
+
+.headDecoration1{ width:4px; height:108px; float:left; background:#31b6fc;}
+.headImage{ width:110px; height:108px; float:left; position:relative}
+.headImage img{ position:absolute; top:12px; left:12px;}
+.headInfo{ width:208px; height:108px; float:left; color:#58789a; font-size:12px;}
+.ServiceShops{ margin-top:20px; font-size:20px; display:block;}
+
+.InfoCompletetxt{ margin-top:10px; display:block;}
+.headEditImg{ width:115px; height:108px; float:right; background:url(../image/xuankuang_10.png) no-repeat; position:relative}
+.satisfaction{ font-size:40px; color:#FFF; font-weight:bold; position:absolute; top:26px; left:30px;}
+
+

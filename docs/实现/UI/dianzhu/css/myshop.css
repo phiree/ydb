@@ -1,0 +1,126 @@
+.userInfoArea{background:#FFF; height:198px;position:relative; padding: 0 20px; border-bottom: 20px solid #dfebf6; }
+.infoTilte1{ height:71px; position:relative; line-height:71px; color:#58789a; font-size:16px; font-weight:bold;}
+
+
+.infoTilte1 img{ position:absolute; top:23px; left:110px;}
+/*.decoration1{ height:20px; background:#dfebf6;}*/
+/*.decoration2{ height:31px; background:#cadbec;}*/
+.decoration3{ height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; position:relative;}
+.headInfoArea{ width:100%; height:108px; background:#f6fafe; position:relative;border-bottom:#dbe6f2 1px solid;}
+.decoration3 img{ position:absolute; top:20px; left:20px;}
+.ShopDetails{ margin-left:48px; color:#58789a; font-size:18px; font-weight:bold;}
+.ShopDetailsArea{ position:relative; height:auto; width:100%;}
+.ShopDetailsAreaLeft{ float:left; width:50%;color:#58789a; position:relative; margin-bottom:20px;}
+.ShopDetailsAreaRight{ float:left;width:50%;color:#58789a;position:relative;}
+/*.LeftClearance1{ margin-left:40px; margin-top:20px; font-size:15px; font-weight:bold;}*/
+.LeftClearance1{ margin-left:40px; margin-top:20px; }
+.RightClearance1{ margin-top:20px; }
+.p_introduced{ background:url(../image/dianpujieshao_1.png) no-repeat; height:20px; line-height:20px; padding-left:25px;}
+.shopIntroduced textarea{ width:300px; height:120px; border:#dbe6f2 1px solid; margin-top:10px; background:#f6fafe; color:#58789a; font-size:13px;}
+.p_ContactPhone{ background:url(../image/lianxifangshi_1.png) no-repeat; _background: url(../image/lianxifangshi_1.png) no-repeat !important; 
+filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=noscale, src="../image/lianxifangshi_1.png");
+height:19px; line-height:19px; padding-left:25px;}
+.pinput input{ width:300px; height:30px; border:#dbe6f2 1px solid; margin-top:10px; background:#f6fafe; color:#58789a; font-size:14px;}
+.pinput2 input{ width:130px; height:30px; border:#dbe6f2 1px solid; margin-top:10px; background:#f6fafe; color:#58789a; font-size:14px;}
+.pinput3 input{ width:200px; height:30px; border:#dbe6f2 1px solid; margin-top:10px; background:#f6fafe; color:#58789a; font-size:14px;}
+.p_addressDetail{ background:url(../image/xiangxidizhi_1.png) no-repeat; height:32px; line-height:32px; padding-left:25px;}
+
+.p_email{ background:url(../image/youxiangdizhi_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px;}
+.p_WorkingTime{ background:url(../image/congyeshijian_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px; margin-bottom:8px;}
+
+.WorkingTimediv{ width:130px; position:relative; float:left; background:url(../image/congyeshijian_2.png) no-repeat; font-size:16px;}
+
+.WorkingTimediv cite{width:130px; height:31px;line-height:31px; display:block; color:#58789a; font-size:14px; cursor:pointer;font-style:normal; margin-left:5px;}
+.employees{ position:relative;}
+.employees span{ position:absolute; left:140px; top:40px; color:#31b6fc; font-size:14px;}
+.WorkingTimediv ul{ list-style:none;width:128px;border:1px solid #CCC; background-color:#ffffff; position:absolute; z-index:10; margin-top:-1px; display:none; }
+.WorkingTime{ margin-bottom:20px;}
+.WorkingTimediv ul li{height:36px; line-height:36px;}
+.WorkingTimediv ul li a{display:block; height:36px; color:#58789a; font-size:14px; text-decoration:none; padding-left:5px; padding-right:5px;}
+.WorkingTimediv ul li a:hover{background-color:#C9E0E7;}
+.p_BusinessLicense{ background:url(../image/yingyezhaopian_1.png) no-repeat; height:25px; margin-top:60px; line-height:25px; padding-left:30px;}
+.BusinessLicense img{ margin-right:5px; margin-left:5px; margin-top:6px;}
+.p_ShopFigure{background:url(../image/yingyezhaopian_1.png) no-repeat; height:25px; margin-top:-5px; line-height:25px; padding-left:30px;}
+.ShopFigure img{ margin-right:5px; margin-left:5px; margin-top:8px;}
+.picture{ float:left; position:relative}
+.picEditBtn{ position:absolute; left:70px; top:-5px; cursor:pointer;}
+.picDelBtn{ position:absolute;left:90px; top:-5px;cursor:pointer;}
+
+.p_employees{background:url(../image/yuangongrenshu_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px;}
+.p_DirectorName{background:url(../image/fuzerenxingming_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px; margin-top:50px;}
+.p_DocumentType{background:url(../image/zhengjianleixing_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px; margin-top:20px; margin-bottom:10px;}
+.p_DocumentNumber{background:url(../image/zhengjianleixing_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px; margin-top:60px; }
+.p_HeadProfilePicture{background:url(../image/yingyezhaopian_1.png) no-repeat; height:25px; line-height:25px; padding-left:30px;}
+.HeadProfilePicture img{ margin-right:5px; margin-left:5px; margin-top:6px;}
+.bottomArea{ position:relative; width:100%; background:#cadbec; height:98px;clear: both;display: block; line-height:98px; text-align:center;}
+.bottomArea input{ margin:20px; margin-top:30px;}
+.account{ height:1138px; display:none;}
+
+
+
+.headDecoration1{ width:4px; height:108px; float:left; background:#31b6fc;}
+.headImage{ width:110px; height:108px; float:left; position:relative}
+.headImage img{ position:absolute; top:12px; left:12px;}
+.headInfo{ width:208px; height:108px; float:left; color:#58789a; font-size:12px;}
+.inputShopName{ width:185px; height:25px; border:#dbe6f2 1px solid;font-size:12px; color:#58789a; margin-top:15px; padding-left:10px;}
+.InfoPercentage{position:relative; width:100%; height:auto; }
+.InfoComplete{ width:163px; height:15px; border:#31b6fc 1px solid;margin-top:10px;display:block; position:relative;}
+.progress{ height:100%; width:90%; background:#31b6fc; display:block;}
+.completePercentage{ position:absolute;width:20px;color:#31b6fc; font-size:16px; top:0px; left:170px;}
+.InfoCompletetxt{ margin-top:10px; display:block;}
+.headEditImg{ width:115px; height:108px; float:right; background:url(../image/userEditimg.png) no-repeat;}
+
+/* 账号安全页面内容 by lichang 2015/5/28 */
+.secret-cont {
+    padding: 30px;
+    color: #58789a;
+}
+
+.secret-cont a {
+    color: #31b6fc;
+}
+
+.secret-title {
+    width: 318px;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 15px;
+}
+
+.secret-m .t-1 { background: url("../image/myshop/shop_title_01.png") no-repeat; }
+.secret-m .t-2 { background: url("../image/myshop/shop_title_02.png") no-repeat; }
+
+.secret-detail {
+    padding: 20px 10px;
+}
+
+.secret-detail > div {
+    margin-bottom: 10px;
+}
+
+.secret-d-t {
+    margin-right: 20px;
+}
+
+.secret-d-tip {
+    float: right;
+    width: 60px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.8em;
+    margin-right: 20px;
+}
+
+.secret-d-a {
+    width: 200px;
+    margin-right: 20px;
+}
+.secret-d-p {
+    width: 550px;
+    /*margin-right: 20px;*/
+    word-break: break-all;
+    vertical-align: top;
+}
+
+.icon-scret-1 { background: url("../image/myshop/shop_title_05.png") }
+.icon-scret-2 { background: url("../image/myshop/shop_title_04.png") }

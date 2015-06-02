@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name=”viewport” content=”width=device-width, initial-scale=1, maximum-scale=1″>
+    <title>商家后台主页</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css" />
+    <!--<link href="css/iframeBase.css" rel="stylesheet" type="text/css" />-->
+    <!--<link href="css/main.css" rel="stylesheet" type="text/css" />-->
+</head>
+
+<body>
+<div class="wrap">
+    <div class="mainContent">
+        <!--<div class="middleContent">-->
+        <div class="topnav">
+            <iframe src="topnav.html" width="100%" height="72px" scrolling="no" frameborder="0"></iframe>
+        </div>
+        <div class="content">
+            <iframe id="iframepage" src="myshop.html" name="content" frameBorder=0 scrolling=no width="100%" onLoad="iFrameHeight()"></iframe>
+        </div>
+        <!--</div>-->
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+    window.onload = function(){
+        var iFrameHeight = function () {
+            var ifm= document.getElementById("iframepage");
+            var subWeb = document.frames ? document.frames["content"].document : ifm.contentDocument;
+            console.log(subWeb.body.offsetHeight);
+            if( ifm != null ) {
+                ifm.height = subWeb.body.offsetHeight;
+            }
+        }
+        iFrameHeight();
+    }
+</script>
+</body>
+</html>

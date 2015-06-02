@@ -1,0 +1,293 @@
+.con-wrap {
+    background: #cadceb;
+}
+
+.t-con {
+    padding: 20px;
+}
+
+.calendar {
+    width: 300px;
+    height: 500px;
+}
+
+.rec-order {
+    margin-left: 10px;
+    color: #ffffff;
+}
+
+.order-remind {
+    margin-bottom: 10px;
+}
+
+.today-remind,
+.tomorrow-remind {
+    color: #ffffff;
+    border: 0;
+    height: 35px;
+    width: 132px;
+}
+
+.today-remind {
+    background: url("../image/order/shop_icon_37.png") no-repeat center ;
+}
+
+.tomorrow-remind {
+    background: url("../image/order/shop_icon_39.png") no-repeat center ;
+}
+
+.remind-con {
+    padding: 20px;
+    background: #f0f6fb;
+    border-radius: 5px;
+}
+
+
+.remind-detail .detail-item {
+    width: 250px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 1px #aaa;
+
+}
+
+.detail-item-title {
+    padding: 10px 10px 10px 10px;
+    font-size: 16px;
+    /*background: #5ec4cb;*/
+    background: url("../image/order/shop_bg_35.png") repeat-x;
+    border-bottom: 2px solid #1d8d9a;
+}
+
+.detail-item-title .icon {
+    width: 26px;
+    height: 26px;
+    background: url("../image/order/shop_icon_25.png");
+    margin-right: 5px;
+}
+
+.title-type { display:block; height: 26px; line-height: 26px; font-size: 18px; text-shadow: 0 1px 1px #666;}
+
+.title-d { margin-left: 31px; line-height: 1.4em; text-shadow: 0 1px 1px #666; }
+
+.detail-item-inf {
+    /*height: 300px;*/
+    color: #ccc;
+    padding: 10px;
+    background: #fff;
+}
+
+.inf-name {
+    width: 230px;
+    background: #f6fafe;
+    color: #7893b0;
+}
+
+.inf-name .head-icon {
+    width: 26px;
+    height: 26px;
+    margin: 5px;
+    border-radius: 50%;
+    /*background: url("../image/order/");*/
+}
+
+.inf-con {
+    margin: 5px 0;
+    padding-left: 26px;
+    color: #777;
+    font-size: 13px;
+}
+
+.inf-pra {
+    position: relative;
+    padding: 5px ;
+}
+
+.inf-pra .icon {
+    position: absolute;
+    left: -26px;
+    display: block;
+    width: 26px;
+    height: 26px;
+}
+
+.remind-con .inf-pra .pra-icon1 { background: url("../image/order/shop_icon_28.png") no-repeat center; }
+.remind-con .inf-pra .pra-icon2 { background: url("../image/order/shop_icon_26.png") no-repeat center; }
+.remind-con .inf-pra .pra-icon3 { background: url("../image/order/shop_icon_27.png") no-repeat center; }
+.remind-con .inf-pra .pra-icon4 { background: url("../image/order/shop_icon_29.png") no-repeat center; }
+.detail-item-p .icon:after {
+    width: 26px;
+    height: 26px;
+    background: url("../image/order/shop_icon_30.png") no-repeat center;
+}
+
+.detail-item-p {
+    color: #90cac6;
+    font-size: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #f3f2f1;
+}
+
+.detail-item-p .icon {
+    width: 30px;
+    height: 30px;
+    background: url("../image/order/shop_icon_30.png") no-repeat center;
+}
+
+
+.more-order {
+    padding: 10px 0;
+    text-align: right;
+    color: #05b1ec;
+}
+
+/* 我的预约订单bar */
+.my-order-bar {
+    padding: 10px 0;
+    text-align: center;
+    background: #f6fafe;
+}
+
+/* 我的预约订单内容 */
+.my-order-con {
+    min-height: 572px;
+    padding: 20px;
+    font-size: 13px;
+    color: #6f8ba9;
+}
+
+.order-bar-btn {
+    width: 225px;
+    margin: 0 auto;
+    padding: 12px;
+    background: #f6fafe;
+    border: 1px solid #dde8f2;
+    font-size: 16px;
+    color: #7fa1c2;
+}
+
+.order-bar-icon1{
+    background: ;
+}
+
+/* 我的预约订单标题及列表 */
+.my-order-t,
+.order-l-item {
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.my-order-t .t-btn{
+    background: #f6fafe;
+    border: 0;
+    padding: 5px;
+}
+
+.order-con-l {
+    width: 100%;
+    float: left;
+}
+
+.order-l-btn {
+    color: #fff;
+    background: #75c1f0;
+    border: 0;
+    padding: 7px 5px;
+    border-radius: 3px;
+}
+
+
+/* 展开订单详情样式 */
+.order-con-r {
+    float: right;
+    width: 440px;
+}
+
+.order-d-t {
+    padding: 20px;
+    background: #f2f8fb;
+    position: relative;
+    height: 33px;
+    line-height: 33px;
+}
+
+.order-d-icon1 {
+    width: 36px;
+    height: 33px;
+    margin-right: -20px;
+    background: url("../image/order/shop_bgg_3.png") no-repeat center;
+}
+
+.order-d-inf {
+    background: #fff;
+}
+
+.order-d-inf > div {
+    padding: 20px;
+}
+
+.order-d-inf > div > p{
+    font-size: 14px;
+    height: 18px;
+    line-height: 18px;
+}
+
+.d-inf-t {
+    font-size: 18px;
+    padding-bottom: 5px;
+}
+
+.d-inf-need,
+.d-inf-status{
+    background: #f2f8fb;
+}
+
+.order-more {
+    padding: 0 20px 20px 20px;
+    text-align: center;
+}
+
+.order-more input {
+    border: none;
+    width: 93px;
+    height: 30px;
+    background: #f6fafe;
+}
+
+.order-nmb {
+    margin-left: 170px;
+}
+
+.order-d-sub {
+    text-align: right;
+    padding: 20px;
+}
+
+.order-d-sub input{
+    width: 90px;
+    height: 35px;
+    margin-left: 10px;
+}
+
+/* 列表列样式 */
+.my-order-con .col{
+    /*float: left;*/
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.my-order-con .col-1 { width: 150px; }
+.my-order-con .col-2 { width: 130px; padding-left: 20px; }
+.my-order-con .col-3 { width: 80px; padding-left: 60px; }
+.my-order-con .col-4 { width: 90px; padding-left: 60px; }
+.my-order-con .col-5 { width: 70px; padding-left: 50px; }
+.my-order-con .col-6 { width: 43px; padding-left: 50px; }
+
+.i-t {
+    color: #ffffff;
+    padding: 5px;
+    display: block;
+    background: #f78c99;
+    border-radius: 5px;
+}

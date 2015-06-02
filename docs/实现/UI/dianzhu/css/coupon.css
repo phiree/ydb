@@ -1,0 +1,310 @@
+
+
+.coup-title {
+    padding: 20px;
+    background: #e6f0f5;
+}
+
+.coup-nav {
+    background: #f6fafe;
+}
+
+.coup-nav-l li{
+    float: left;
+    padding: 20px;
+}
+
+.coup-nav .vip {
+    width: 103px;
+    height: 54px;
+    background: #ffba3e;
+}
+
+.coup-m {
+    background: #fff;
+    padding: 20px;
+}
+
+/*.coup-main {*/
+    /*margin-bottom: 20px;*/
+/*}*/
+
+.coup-m-ad {
+    height: 300px;
+    background: #fff;
+}
+
+.coup-m-t {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.coup-m-p {
+    width: 520px;
+}
+
+.coup-m-p .str {
+    font-size: 16px;
+    height: 22px;
+    line-height: 22px;
+}
+
+.coup-sub {
+    padding-bottom: 20px;
+}
+
+.coup-on-btn {
+    text-align: center;
+    margin:  0 auto;
+    height: 42px;
+    line-height: 42px;
+    width: 130px;
+    background: #ffba3e;
+}
+
+/* 增发优惠卷 */
+.coup-m1 .coup-main,
+.coup-m2 .coup-main,
+.coup-m3 .coup-main {
+    padding: 38px;
+}
+
+.coup-m-price {
+    margin-bottom: 20px;
+}
+
+.coup-m-intro {
+    color: #ddd;
+    margin-bottom: 10px;
+}
+
+.m-price-t {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.m-price-input {
+    margin-right: 20px;
+}
+
+.m-set-intro {
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.m-set-intro i {
+    font-size: 16px;
+    margin-right: 20px;
+    background: #04d5b5;
+}
+
+.m-set-t {
+    width: 140px;
+    height: 30px;
+    line-height: 30px;
+    background: #04d5b5;
+    text-align: center;
+    color: #fff;
+}
+
+.m-set-l li{
+    padding: 10px 0;
+}
+
+.m-set-l li input {
+    margin-right: 10px;
+}
+
+.m-set-l li em {
+    font-size: 16px;
+    color: #06b5ec;
+}
+
+.coup-m-submit {
+    height: 70px;
+    line-height: 70px;
+    padding: 10px;
+    background: #f6fafe;
+}
+
+.coup-sub-btn {
+    color: #fff;
+    width: 130px;
+    height: 45px;
+    border: none;
+    margin-left: 20px;
+    text-align: center;
+    background: #06b5ec;
+}
+
+
+/* 优惠劵统计页面 */
+.coupon-total-con {
+    padding-top: 35px;
+    background: #f6fafe;
+}
+
+.total-head {
+    padding: 36px 50px;
+}
+
+.head-item-data {
+    margin: 0 20px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.head-item-pic {
+    width: 203px;
+    height: 126px;
+    background: #06b5ec;
+}
+
+.total-main {
+    padding: 20px;
+    background: #e6f0f5;
+}
+
+.total-tree {
+    width: 350px;
+    padding: 15px;
+    background: #fff;
+}
+
+.total-tree-title {
+    height: 65px;
+    text-align: center;
+ }
+
+.total-tree .tree-item {
+    width: 157px;
+    height: 157px;
+    background: #ccc;
+    font-size: 14px;
+}
+
+.total-tree-btn {
+    display: block;
+    width: 141px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto;
+}
+
+.total-info {
+    padding: 20px;
+    width: 440px;
+    background: #fff;
+    font-size: 14px;
+}
+
+.total-info .col {
+    float: left;
+    display: block;
+    padding-left: 20px;
+}
+
+.total-info .col-1 { width: 14em; }
+.total-info .col-2 { width: 5em; }
+.total-info .col-3 { width: 4em; }
+.total-info .col-4 { width: 2em; }
+
+.total-info-title {
+    height: 33px;
+    line-height: 33px;
+    background: #f8fafc;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #d6d8d8;
+}
+
+.total-list-item {
+    height: 50px;
+    line-height: 50px;
+    background: #f8fafc;
+    margin-bottom: 5px;
+    border: 1px solid #eef3f4;
+}
+
+.total-list-item .h-icon {
+    width: 40px;
+    height: 40px;
+}
+
+/* 优惠劵设置页面*/
+.coup-set-wrap {
+    border-top: 30px solid #dbe6f2;
+    background: #fff;
+}
+
+.coup-set-main {
+    padding: 30px;
+}
+
+.set-title {
+    width: 320px;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 15px;
+    background: #dbe6f2;
+    margin-bottom: 10px;
+}
+
+.set-cont {
+    padding: 12px 12px 30px 12px;
+}
+
+.set-cont-l {
+    width: 320px;
+}
+
+.set-cont-r {
+    width: 365px;
+}
+
+.set-cont-h {
+    margin-bottom: 10px;
+}
+
+.set-cont-detail {
+    margin-bottom: 20px;
+}
+
+.set-input-area {
+    width: 304px;
+    height: 120px;
+}
+
+
+.coup-set-district .set-input-area {
+    width: 168px;
+    height: 70px;
+    margin-bottom: 12px;
+}
+
+.coup-set-main .map {
+    width: 135px;
+    height: 135px;
+    background: #ccc;
+}
+
+.input-file-box {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+}
+
+.input-file-btn {
+    position: absolute;
+    z-index: 2;
+    width: 90px;
+    height: 90px;
+    opacity: 0;
+}
+
+.input-file-bg {
+    position: absolute;
+    background: #ccc;
+    width: 90px;
+    height: 90px;
+}

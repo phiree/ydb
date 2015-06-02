@@ -1,0 +1,36 @@
+.msg-head {
+    padding: 20px;
+}
+
+.msg-main {
+    padding: 0 20px;
+}
+
+.msg-main-l {
+    width: 70px;
+    height: 100px;
+    background: #ccc;
+}
+
+.msg-main-r {
+    width: 720px;
+}
+
+.msg-item {
+    position: relative;
+}
+
+.msg-item-tab {
+    position: absolute;
+    top: 0px;
+    left: -70px;
+    text-align: center;
+    width: 70px;
+    font-size: 12px;
+}
+
+.msg-item-detail .item-detail-pra {
+    word-break: break-all;
+    overflow: hidden;
+    padding-bottom: 20px;
+}

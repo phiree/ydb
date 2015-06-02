@@ -65,7 +65,7 @@
                     </div>
                     <div class="muenuul">
                         <ul>
-                            <li><a href="myshop.html" target="content">
+                            <li><a href="/account/edit.aspx" target="content">
                                 <img id="me1" src="image/dianpuxinxi_2.png" /></a></li>
                             <li><a href="service.html" target="content">
                                 <img id="me2" src="image/fuwuxinxi_1.png" /></a></li>

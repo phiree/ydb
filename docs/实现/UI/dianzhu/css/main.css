@@ -1,0 +1,7 @@
+.topnav { background:#263650; }
+.logo{ background:url('../image/topnavbj.png') no-repeat; height:70px; width:79px; float:left;}
+.muenu { width:921px; height:70px; float:left; background:#3d5b77;}
+.muenu ul{ margin-right:79px;}
+.muenu ul li{ float:right; }
+.touxianicon{ width:79px; height:70px; position:absolute; right:0px;}
+.touxianicon img{position:absolute; top:15px; left:15px;}

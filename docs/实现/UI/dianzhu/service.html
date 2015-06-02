@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>服务信息</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css" />
+    <!--<link href="css/iframeBase.css" rel="stylesheet" type="text/css" />-->
+    <link href="css/service.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="mainContent clearfix">
+    <form action="" method="post">
+        <div class="leftContent" id="leftCont">
+            <div>
+                <ul>
+                    <li><a href="service.html"><img id="me1" src="image/button_6.png" /></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="rightContent" id="rightCont">
+            <div id="userInfoAreaid">
+                <div class="userInfoArea">
+                    <div class="infoTilte1">
+                        <span>服务等级</span>
+                    </div>
+                    <div class="headInfoArea">
+                        <div class="headDecoration1"></div>
+                        <div class="headImage">
+                            <img src="image/touxiangkuang_11.png" />
+                        </div>
+                        <div class="headInfo">
+                            <span class="ServiceShops">点助的服务店铺</span>
+                            <span class="InfoCompletetxt">信誉度</span>
+                            <div class="Servicexing">
+                                <img src="image/icon_10.png" />
+                                <img src="image/icon_10.png" />
+                                <img src="image/icon_10.png" />
+                                <img src="image/icon_10.png" />
+                            </div>
+                        </div>
+                        <div class="headEditImg">
+                            <span class="satisfaction">98%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="decoration1"></div>
+                <div class="decoration2"></div>
+                <div class="decoration3">
+                    <span class="ShopDetails">详细服务信息</span>
+                </div>
+                <div class="ShopDetailsArea clearfix">
+                    <div class="ShopDetailsAreaLeft">
+                        <div id="AddServiceArea" class="AddServiceArea LeftClearance">
+                            <img src="image/tianjia_3.png" />
+                            <span>点击添加新的服务项目</span>
+                        </div>
+                        <div id="leftMeunList" class="leftMeunList">
+                            <a href="javascript:;" onclick="meliFun('#meli1');">
+                                <div id="meli1" class="newServicebtn LeftClearance listColor1">
+                                    新服务
+                                </div></a>
+                        </div>
+                    </div>
+                    <div class="ShopDetailsAreaRight">
+                        <div class="ServiceLeft  TopClearance">
+                            <div class="LeftClearance2">
+                                <p class="p_ServiceType">请选择您的服务类型</p>
+                                <div id="ServiceTypeid1" class="WorkingTimediv">
+                                    <cite>照顾1</cite>
+                                    <ul>
+                                        <li><a href="javascript:;" value="1">照顾1</a></li>
+                                        <li><a href="javascript:;" value="2">照顾2</a></li>
+                                        <li><a href="javascript:;" value="3">照顾3</a></li>
+                                    </ul>
+                                    <input type="hidden" value="1" id="ServiceType1" />
+                                </div>
+                                <div class="jiangexian"></div>
+                                <div id="ServiceTypeid2" class="WorkingTimediv">
+                                    <cite>月嫂</cite>
+                                    <ul>
+                                        <!--
+                                     <li><a href="javascript:;" value="1">月嫂</a></li>
+                                     <li><a href="javascript:;" value="2">家庭保洁</a></li>
+                                     <li><a href="javascript:;" value="3">家电清洗</a></li>
+                                     -->
+                                    </ul>
+                                    <input type="hidden" value="1" id="ServiceType2" />
+                                </div>
+                            </div>
+                            <div class="LeftClearance2 serviceIntroduced">
+                                <p class="p_serviceIntroduced">服务介绍</p>
+                                <p><textarea name="serviceIntroduced">(可输入60个字)</textarea></p>
+                            </div>
+                            <div class="LeftClearance2 QualificationCertificate">
+                                <p class="p_QualificationCertificate">资质证书</p>
+                                <p><img src="image/dianjishangchuan_1.png" /></p>
+                            </div>
+                            <div class="LeftClearance2">
+                                <p class="p_areaChoose">服务区域选择</p>
+                                <div id="areaChooseid" class="WorkingTimediv">
+                                    <cite>东城区</cite>
+                                    <ul>
+                                        <li><a href="javascript:;" value="1">东城区</a></li>
+                                        <li><a href="javascript:;" value="2">中城区</a></li>
+                                        <li><a href="javascript:;" value="3">西城区</a></li>
+                                    </ul>
+                                    <input type="hidden" value="1" id="areaChoose" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ServiceRight TopClearance">
+                            <div class="LocationArea">
+                                <p class="p_LocationArea">定位服务区域</p>
+                                <span class="Locationbt1">服务中心点定位（为您的服务区域进行定位）</span>
+                                <div id="LocationAreaid" class="WorkingTimediv2">
+                                    <cite>1</cite>
+                                    <ul>
+                                        <li><a href="javascript:;" value="1">1</a></li>
+                                        <li><a href="javascript:;" value="2">2</a></li>
+                                        <li><a href="javascript:;" value="3">3</a></li>
+                                    </ul>
+                                    <input type="hidden" value="1" id="LocationArea" />
+                                </div>
+                                <span class="Locationbt2"> 点击打开地图，在地图上选取您<img src="image/icon_8.png" /><br />的服务中心点</span>
+                                <span class="Locationbt2"> 服务半径（确认您的服务范围）</span>
+                                <div id="LocationAreaid2" class="WorkingTimediv2">
+                                    <cite>1000M</cite>
+                                    <ul>
+                                        <li><a href="javascript:;" value="1">1000M</a></li>
+                                        <li><a href="javascript:;" value="2">2000M</a></li>
+                                        <li><a href="javascript:;" value="3">3000M</a></li>
+                                    </ul>
+                                    <input type="hidden" value="1" id="LocationArea2" />
+                                </div>
+                                <div class="mapdiv">
+                                    地图
+                                </div>
+                                <div class="LeftClearance3 ServiceTimeSet">
+                                    <p class="p_ServiceTimeSet">服务时间设置</p>
+                                    <div id="ServiceTimeSetid" class="WorkingTimediv">
+                                        <cite>单独设置</cite>
+                                        <ul>
+                                            <li><a href="javascript:;" value="1">单独设置</a></li>
+                                            <li><a href="javascript:;" value="2">单独设置2</a></li>
+                                            <li><a href="javascript:;" value="3">单独设置3</a></li>
+                                        </ul>
+                                        <input type="hidden" value="1" id="ServiceTimeSet" />
+                                    </div>
+                                    <div id="PeriodTime" class="cleardiv">
+                                        <ul class="PeriodTimeul">
+                                            <li id="pt1"><a href="javascript:;" onclick="PeriodTimeFun('#pt1');">时段一</a></li>
+                                            <li id="pt2"><a href="javascript:;" onclick="PeriodTimeFun('#pt2');">时段二</a></li>
+                                            <li id="pt3"><a href="javascript:;" onclick="PeriodTimeFun('#pt3');">时段三</a></li>
+                                            <li id="pt4"><a href="javascript:;" onclick="PeriodTimeFun('#pt4');">时段四</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="cleardiv">
+                                        <span>该时段不受主界面的时间开关限制，为可接单状态。</span>
+                                        <p class="p_SeDate">日期设定</p>
+                                        <div id="SeDateid" class="WorkingTimediv">
+                                            <cite>2015-04-07</cite>
+                                            <ul>
+                                                <li><a href="javascript:;" value="1">2015-04-07</a></li>
+                                                <li><a href="javascript:;" value="2">2015-04-08</a></li>
+                                                <li><a href="javascript:;" value="3">2015-04-09</a></li>
+                                            </ul>
+                                            <input type="hidden" value="1" id="SeDate" />
+                                        </div>
+                                        <p class="p_SetTheTime cleardiv">时段设定</p>
+                                        <div id="SetTheTimeid1" class="WorkingTimediv">
+                                            <cite>9:00</cite>
+                                            <ul>
+                                                <li><a href="javascript:;" value="1">8:00</a></li>
+                                                <li><a href="javascript:;" value="2">9:00</a></li>
+                                                <li><a href="javascript:;" value="3">10:00</a></li>
+                                            </ul>
+                                            <input type="hidden" value="1" id="SetTheTime1" />
+                                        </div>
+                                        <div class="jiangexian"></div>
+                                        <div id="SetTheTimeid2" class="WorkingTimediv">
+                                            <cite>9:00</cite>
+                                            <ul>
+                                                <li><a href="javascript:;" value="1">8:00</a></li>
+                                                <li><a href="javascript:;" value="2">9:00</a></li>
+                                                <li><a href="javascript:;" value="3">10:00</a></li>
+                                            </ul>
+                                            <input type="hidden" value="1" id="SetTheTimeData2" />
+                                        </div>
+                                        <p class="delAndUpdate cleardiv"> <input name="imagedelete" type="image" id="imagedelete" src="image/button_3.png" /> <input name="imageupdate" type="image" id="imageupdate" src="image/button_4.png" /> </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottomArea">
+                    <input name="imageSave" type="image" id="imageSave" src="image/baocun_1.png" />
+                    <input name="imageCancel" type="image" id="imageCancel" src="image/baocun_2.png" />
+                </div>
+            </div>
+            <div id="account" class="account">
+                活动设置
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.min.js"></script>
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var m1 = true;
+        var liid=1;
+        var m2 = false;
+        var uldata1 = ["月嫂", "家庭保洁", "家电清洗"];//列表数据源
+
+        var addtxt="月嫂";//定义需要添加的左侧菜单内容
+        var leftlistM=new Array();//定义左侧列表数组
+        function meinit(str){
+            m1=false;
+            m2=false;
+            str=true;
+            $("#me1").attr("src", "image/button_7.png");
+            $("#me2").attr("src", "image/button_9.png");
+
+        }
+
+        function addleftmenu(divid,v){
+            //alert($("#leftMeunList").children().length);
+            $("#leftMeunList").prepend("<a href='javascript:;' onClick='meliFun("+divid+");'><div id='"+divid+"' class='newServicebtn2 LeftClearance listColor2'>"+v+"</div></a>");
+        }
+        function meliFun(e){
+
+            var divlength=$("#leftMeunList").children().length;
+            for(i=1;i<=divlength;i++){
+                $("#meli"+i).css("background","url(image/weixuan_1.png)")
+                $("#meli"+i).removeClass("listColor1").addClass("listColor2")
+            }
+            $(e).css("background","url(image/weixuan_2.png)")
+            $(e).removeClass("listColor2").addClass("listColor1")
+            //var tarname=$(e).parent();
+            //$($(e).parent()+" a").css("color","#F00");
+            //alert($(e))
+        }
+
+        function addlilist(divid,arr,inputid){
+
+            $(divid+" cite").html(arr[0]);
+            //alert(arr.length)
+            for(i=1;i<=arr.length;i++){
+                $(divid+" ul").append("<li><a href='javascript:;' value="+i+">"+arr[i-1]+"</a></li>");
+            }
+            //alert(arr.length)
+            myselect(divid,inputid);
+        }
+        function PeriodTimeFun(e){
+            var divelength=$("#PeriodTime ul>li").length;
+            //alert(divelength)
+            for(i=1;i<=divelength;i++){
+                $("#PeriodTime ul>li a").css("border-bottom","none");
+            }
+            $(e+" a").css("border-bottom","#0FF 2px solid");
+
+        }
+
+        function myselect(divselectid,inputselectid) {
+            var list = $(divselectid+" ul");
+            var inputselect = $(inputselectid);
+            $(divselectid+" cite").click(function(){
+                if(list.css("display")=="none"){
+                    list.slideDown("fast");
+                }else{
+                    list.slideUp("fast");
+                }
+            });
+            var mouseisout=false;
+            $(divselectid).mouseover(function(){
+                mouseisout=false;
+            });
+            $(divselectid).mouseout(function(){
+                mouseisout=true;
+            });
+            $(document).click(function(){
+                if(mouseisout){
+                    list.hide();
+                }
+            });
+
+            $(divselectid+" ul li a").click(function(){
+                var txt = $(this).text();
+                $(divselectid+" cite").html(txt);
+                var value = $(this).attr("value");
+                inputselect.val(value);
+                list.hide();
+                if(divselectid=="#ServiceTypeid2"){
+                    addtxt=txt;
+                }
+            });
+        }
+
+
+        var rheight=$("#rightContent").height()-18;
+        $("#me1").click(function() {
+            meinit(m1);
+            $("#me1").attr("src", "image/button_6.png");
+            $("#userInfoAreaid").css("display", "block");
+            $("#account").css("display", "none");
+        });
+
+        $("#me2").click(function() {
+            meinit(m2);
+            $("#me2").attr("src", "image/button_8.png");
+            $("#userInfoAreaid").css("display", "none");
+            $("#account").css("display", "block");
+        });
+
+        $("#AddServiceArea ").click(function() {
+            if(liid<uldata1.length+1){
+
+                liid++;
+                var divid="meli"+liid;
+                var isadd=true;
+
+
+
+                if(leftlistM.length>0){
+                    for(j=0;j<leftlistM.length;j++){
+                        if(leftlistM[j]==addtxt){
+                            isadd=false
+                            liid--;
+                            alert("列表已经有了，不能再添加了")
+                        }else{
+                            isadd=true;
+                        }
+
+                    }
+
+
+                    if(isadd){
+                        addleftmenu(divid,addtxt);
+                        leftlistM[leftlistM.length]=addtxt;
+                    }
+
+                }else if(leftlistM.length==0){
+                    addleftmenu(divid,addtxt);
+                    leftlistM[leftlistM.length]=addtxt;
+                }
+
+                var divlength=$("#leftMeunList").children().length;
+                for(i=1;i<=divlength;i++){
+                    $("#meli"+i).css("background","url(image/weixuan_1.png)")
+                    $("#meli"+i).removeClass("listColor1").addClass("listColor2")
+                }
+                $("#meli1").css("background","url(image/weixuan_2.png)")
+                $("#meli1").removeClass("listColor2").addClass("listColor1")
+            }else{
+                alert("服务类型数据已经完，不能再添加")
+            }
+
+        })
+
+        addlilist("#ServiceTypeid2",uldata1,"#ServiceTypeid2");
+
+        $("#pt1 a").css("border-bottom","#0FF 2px solid");
+
+        myselect("#ServiceTypeid1","#ServiceType1");
+        myselect("#areaChooseid","#areaChoose");
+        myselect("#LocationAreaid","#LocationArea");
+        myselect("#LocationAreaid2","#LocationArea2");
+        myselect("#ServiceTimeSetid","#ServiceTimeSet");
+        myselect("#SeDateid","#SeDate");
+        myselect("#SetTheTimeid1","#SetTheTime1");
+        myselect("#SetTheTimeid2","#SetTheTime2");
+
+
+    });
+
+</script>
+</html>
