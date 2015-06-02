@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using System.Web.UI.HtmlControls;
 
 public partial class Account_Edit : BasePage
 {
@@ -16,11 +17,14 @@ public partial class Account_Edit : BasePage
         {
             Business b = ((BusinessUser)CurrentUser).BelongTo;
             username.Text = ((BusinessUser)CurrentUser).UserName + "登陆了";
-            businessName.Text = b.Name;
+            tbxName.Value = b.Name;
             Longitude.Text = b.Longitude.ToString();
             Latitude.Text = b.Latitude.ToString();
-            Description.Text = b.Description;
-            Address.Text = b.Address;
+            tbxIntroduced.Value = b.Description;
+            tbxAddress.Value = b.Address;
+            tbxContactPhone.Value = b.Phone;
+            tbxEmail.Value = b.Email;
+            tbxBusinessYears.Value = b.WorkingYears.ToString() ;
         }
       
     }

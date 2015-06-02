@@ -26,6 +26,7 @@ namespace Dianzhu.DAL.Mapping
         public BusinessMap()
         {
             Map(x => x.Address);
+            Map(x => x.WorkingYears);
             Map(x=>x.Description);
             Map(x => x.Latitude);
             Map(x => x.Longitude);

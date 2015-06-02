@@ -1,4 +1,6 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="adminBusiness.master.cs" Inherits="adminBusiness"%>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="adminBusiness.master.cs"
+    Inherits="adminBusiness" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,35 +8,27 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1″">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
-    <link href="css/base.css" rel="stylesheet" type="text/css" />
-    <!--<link href="css/iframeBase.css" rel="stylesheet" type="text/css" />-->
-    <!--<link href="css/main.css" rel="stylesheet" type="text/css" />-->
+    <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         /*html{ background:#263650;}*/
         .topnav
         {
-            background: #263650;
+            background: #3d5b77;
         }
         .dianzhuicon
         {
-            background: url(image/topnavbj.png) no-repeat;
+            background: url(/image/topnavbj.png) no-repeat center;
             height: 70px;
             width: 79px;
             float: left;
         }
         .muenuul
         {
-            width: 921px;
-            height: 70px;
-            float: left;
-            background: #3d5b77;
+            float: right;
         }
-        .muenuul ul
-        {
-            margin-right: 79px;
-        }
+        /*.muenuul ul{ margin-right:79px;}*/
         .muenuul ul li
         {
             float: right;
@@ -53,53 +47,101 @@
             left: 15px;
         }
     </style>
-<asp:ContentPlaceHolder ID="head"  Runat="Server">
-</asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="head" runat="Server">
+    </asp:ContentPlaceHolder>
 </head>
 <body>
     <div class="wrap">
         <div class="mainContent">
+            <!--<div class="middleContent">-->
             <div class="topnav">
                 <div class="topnav clearfix">
                     <div class="dianzhuicon">
                     </div>
                     <div class="muenuul">
-                        <ul>
-                            <li><a href="/account/edit.aspx" target="content">
-                                <img id="me1" src="image/dianpuxinxi_2.png" /></a></li>
-                            <li><a href="service.html" target="content">
-                                <img id="me2" src="image/fuwuxinxi_1.png" /></a></li>
+                        <ul class="clearfix">
+                            <li><a href="coupon-total.html" target="content">
+                                <img id="me6" src="/image/shop_icon_6.png" /></a></li>
+                            <li><a href="/account" target="content">
+                                <img id="Img1" src="/image/dianpuxinxi_2.png" /></a></li>
+                            <li><a href="/dzservice" target="content">
+                                <img id="Img2" src="/image/fuwuxinxi_1.png" /></a></li>
                             <li><a href="order.html" target="content">
-                                <img id="me3" src="image/dingdan_1.png" /></a></li>
-                            <li><a href="employee.html" target="content">
-                                <img id="me4" src="image/yuangongguanli_1.png" /></a></li>
+                                <img id="Img3" src="/image/dingdan_1.png" /></a></li>
+                            <li><a href="/staff" target="content">
+                                <img id="Img4" src="/image/yuangongguanli_1.png" /></a></li>
                             <li><a href="msg.html" target="content">
-                                <img id="me5" src="image/xiaoxi_1.png" /></a></li>
+                                <img id="Img5" src="/image/xiaoxi_1.png" /></a></li>
                         </ul>
-                        <div class="touxianicon">
-                            <a href="msg.html" target="content">
-                                <img src="image/touxiangicon.png" /></a>
-                        </div>
+                        <!--<div class="touxianicon">-->
+                        <!--<a href="msg.html" target="content"><img src="image/touxiangicon.png" /></a>-->
+                        <!--</div>-->
                     </div>
                 </div>
             </div>
             <div class="content">
                 <form id="form1" runat="server">
-
-                    <asp:ContentPlaceHolder ID="pageDesc" runat="server"> </asp:ContentPlaceHolder>
- 
+                <asp:ContentPlaceHolder ID="pageDesc" runat="server">
+                </asp:ContentPlaceHolder>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
                 </form>
             </div>
-            <!--<div class="middleContent">-->
+            <!--</div>-->
         </div>
     </div>
-
-    <div class="row" id="adminFoot">
-        -----------奥山网络-----------
-    </div>
-    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.9.1.min.js"></script>
-     
+   
 </body>
+<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/jquery.js"></script>
+<script type="text/javascript">
+    var m1 = true;
+    var m2 = false;
+    var m3 = false;
+    var m4 = false;
+    var m5 = false;
+    function meinit(str) {
+        m1 = false;
+        m2 = false;
+        m3 = false;
+        m4 = false;
+        m5 = false;
+        str = true;
+        $("#me1").attr("src", "image/dianpuxinxi_1.png");
+        $("#me2").attr("src", "image/fuwuxinxi_1.png");
+        $("#me3").attr("src", "image/dingdan_1.png");
+        $("#me4").attr("src", "image/yuangongguanli_1.png");
+        $("#me5").attr("src", "image/xiaoxi_1.png");
+
+    }
+    $(document).ready(function () {
+        $("#me1").click(function () {
+            meinit(m1);
+            $("#me1").attr("src", "image/dianpuxinxi_2.png");
+
+        });
+        $("#me2").click(function () {
+            meinit(m2);
+            $("#me2").attr("src", "image/fuwuxinxi_2.png");
+
+        });
+        $("#me3").click(function () {
+            meinit(m3);
+            $("#me3").attr("src", "image/dingdan_2.png");
+
+        });
+        $("#me4").click(function () {
+            meinit(m4);
+            $("#me4").attr("src", "image/yuangongguanli_2.png");
+
+        });
+        $("#me5").click(function () {
+            meinit(m5);
+            $("#me5").attr("src", "image/xiaoxi_2.png");
+
+        });
+    });
+</script>
+
+   <asp:ContentPlaceHolder ID="bottom" runat="Server">
+    </asp:ContentPlaceHolder>
 </html>

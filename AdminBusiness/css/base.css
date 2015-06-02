@@ -15,7 +15,7 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
     padding:0;
 }
 /* 要注意表单元素并不继承父级 font 的问题 */
-body,button,input,select,textarea {
+button,input,select,textarea {
     font:12px \5b8b\4f53,arial,sans-serif;
 }
 input,select,textarea {
@@ -92,6 +92,11 @@ ins,a {
 a:focus,*:focus {
     outline:none;
 }
+
+a:visited {
+    color: inherit;
+}
+
 /* 清除浮动 */
 .clearfix:before,.clearfix:after {
     content:"";
@@ -104,6 +109,7 @@ a:focus,*:focus {
 .clearfix {
     zoom:1;  /* for ie6 & ie7 */
 }
+
 
 /*.clearfix{zoom: 1}*/
 /*.clearfix:after{  *//*清除浮动导致的外层容器高度塌陷*/
@@ -132,36 +138,32 @@ a:focus,*:focus {
 /*.fl,.fr {*/
 /*display:inline;*/
 /*}*/
-.fl {
-    float:left;
-}
-.fr {
-    float:right;
-}
-
-.t-c {
-    text-align: center;
-}
-
-.t-r {
-    text-align: right;
-}
-
-.v-m {
-    vertical-align: middle;
-}
-
-.d-inb {display: inline-block;*display: inline-block;*zoom: 1;}
-
-.dis-n {
-    display: none;
-}
-
-.m-l20 {
-    margin-left: 20px;
-}
-
 html { background:#263650; }
+body { font-size: 17px ;
+    line-height: 1.2em;
+    font-family:"Arial","Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif; }
+
+.fl { float:left; }
+.fr { float:right; }
+
+.t-c { text-align: center; }
+.t-r { text-align: right; }
+
+.v-m { vertical-align: middle; }
+
+.d-inb { display: inline-block; *display: inline-block;*zoom: 1;}
+.dis-n { display: none; }
+
+.m-l20 { margin-left: 20px; }
+.m-l50 { margin-left: 50px; }
+
+.p-20 { padding: 20px; }
+
+.f-s15 { font-size: 15px; }
+.f-s20 { font-size: 20px; }
+
+.l-h16 { line-height: 1.6em; }
+
 .wrap { padding: 50px; background:#263650; }
 .mainContent{ margin: 0 auto; width:1000px; background:#263650;}
 .topnav{ height:70px;}
@@ -169,13 +171,18 @@ html { background:#263650; }
 .rightContent{ width:922px; float:left; background:#FFF;}
 
 .con-wrap {
-    padding: 20px;
+    /*padding: 20px;*/
     background: #cadceb;
 }
 
 .icon {
-    display: block;
+    /*display: block;*/
+    display: inline-block;
+    *display: inline-block;
+    *zoom: 1;
     width: 20px;
     height: 20px;
     background: cadetblue;
+    vertical-align: middle;
+    content: "";
 }
