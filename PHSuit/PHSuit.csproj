@@ -57,6 +57,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -65,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOHelper.cs" />
     <Compile Include="ReadExcelToDataTable.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="Notification.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="ParamEnsure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="test.cs" />
+    <Compile Include="ThumbnailMaker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

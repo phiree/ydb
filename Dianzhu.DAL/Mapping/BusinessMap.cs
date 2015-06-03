@@ -36,6 +36,21 @@ namespace Dianzhu.DAL.Mapping
             HasMany<Area>(x => x.AreaServiceTo);
             Map(x => x.DateApply);
             Map(x => x.DateApproved);
+            HasMany<BusinessImage>(x => x.BusinessImages).Cascade.All();
+        }
+    }
+    public class BusinessImageMap : ClassMap<BusinessImage>
+    {
+        public BusinessImageMap()
+        {
+            Id(x => x.Id);
+            Map(x => x.Description);
+            Map(x => x.ImageName);
+            Map(x => x.ImageType).CustomType<int>();
+            Map(x => x.OrderNumber);
+            Map(x => x.Size);
+            Map(x => x.UploadTime);
+            
         }
     }
 
