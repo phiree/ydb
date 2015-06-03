@@ -178,7 +178,10 @@ namespace Dianzhu.BLL
         {
             string encryptedPwd = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
 
-            return dal.ValidateUser(username, encryptedPwd);
+            bool isValid= dal.ValidateUser(username, encryptedPwd);
+           
+
+            return isValid;
         }
         #endregion
 

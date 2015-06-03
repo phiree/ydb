@@ -4,11 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dianzhu.BLL;
-using Dianzhu.Model;
-public partial class Account_Security :BasePage
+
+public partial class Account_ChangePassword : System.Web.UI.Page
 {
-    
     protected void Page_Load(object sender, EventArgs e)
     {
 

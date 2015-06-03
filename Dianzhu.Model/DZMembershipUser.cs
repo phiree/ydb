@@ -14,6 +14,9 @@ namespace Dianzhu.Model
         public virtual string UserName { get; set; }
         public virtual string Password { get; set; }
         public virtual DateTime TimeCreated { get; set; }
+        public virtual DateTime LastLoginTime { get; set; }
+        public virtual string Email{ get; set; }
+        public virtual string  Phone{ get; set; }
         
     }
     /// <summary>
@@ -36,9 +39,7 @@ namespace Dianzhu.Model
         /// 性别
         /// </summary>
         public virtual string Gender { get; set; }
-        /// <summary>
-        /// 电话号码
-        /// </summary>
-        public virtual string Phone { get; set; }
+         
+        
     }
 }
