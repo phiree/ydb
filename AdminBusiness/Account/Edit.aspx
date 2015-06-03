@@ -103,11 +103,12 @@
                                 店铺图片展示</p>
                             <div>
                                 <div class="picture">
-                                    <asp:Repeater runat="server" ID="rpt_show">
+                                    <asp:Repeater runat="server" ID="rpt_show"  OnItemCommand="rpt_show_ItemCommand">
                                         <ItemTemplate>
                                             <img class="picEditBtn" src="/image/bianjji_1.png" />
-                                            <img class="picDelBtn" src="/image/delete_1.png" />
-                                             
+                                            <!--<img class="picDelBtn" src="/image/delete_1.png" runat="server" CommandArgument="Id"  />-->
+                                            <asp:ImageButton runat="server" CommandName="delete" ImageUrl="/image/delete_1.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
+                                          
                                              <a href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
 
                                              
@@ -170,7 +171,7 @@
                             <p>
                                <a href='<%=Config.BusinessImagePath+"/original/"+b.ChargePersonIdCard.ImageName %>'>
                              
-                             <img    runat="server" id="img1" src="/image/dianjishangchuan_1.png" /></a>   
+                             <img    runat="server" id="imgChargePerson" src="/image/dianjishangchuan_1.png" /></a>   
                                 <asp:FileUpload runat="server" ID="fuChargePerson" />
                              
                              </p>

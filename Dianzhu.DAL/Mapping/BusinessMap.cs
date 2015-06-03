@@ -36,7 +36,7 @@ namespace Dianzhu.DAL.Mapping
             HasMany<Area>(x => x.AreaServiceTo);
             Map(x => x.DateApply);
             Map(x => x.DateApproved);
-            HasMany<BusinessImage>(x => x.BusinessImages).Cascade.All();
+            HasMany<BusinessImage>(x => x.BusinessImages).Cascade.AllDeleteOrphan();
         }
     }
     public class BusinessImageMap : ClassMap<BusinessImage>

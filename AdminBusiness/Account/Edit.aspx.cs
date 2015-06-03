@@ -14,6 +14,7 @@ using System.IO;
 public partial class Account_Edit : BasePage
 {
     public Business b = new Business();
+    BLLBusinessImage bllBi = new BLLBusinessImage();
     protected void Page_Load(object sender, EventArgs e)
     {
         b = ((BusinessUser)CurrentUser).BelongTo;
@@ -32,7 +33,7 @@ public partial class Account_Edit : BasePage
             string imgLicencePath=string.Empty, imgChargePersonPath=string.Empty;
             if (b.ChargePersonIdCard != null)
             {
-                imgChargePersonPath = Config.BusinessImagePath + b.ChargePersonIdCard.ImageName;
+                imgChargePersonPath = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.ChargePersonIdCard.ImageName) + "&width=50&height=50&tt=2";
             } if (b.BusinessLicence != null)
             {
                 imgLicencePath = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.BusinessLicence.ImageName) + "&width=50&height=50&tt=2";
@@ -40,10 +41,27 @@ public partial class Account_Edit : BasePage
             }
             imgLicence.Src = imgLicencePath;
             imgChargePerson.Src = imgChargePersonPath;
-            rpt_show.DataSource = b.BusinessShows;
-            rpt_show.DataBind();
+
+            BindShowImages();
         }
       
+    }
+    private void BindShowImages()
+    {
+      
+        rpt_show.DataSource = b.BusinessShows;
+         rpt_show.DataBind();
+    }
+
+   protected void rpt_show_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        if (e.CommandName.ToLower().Trim() == "delete")
+        {
+            Guid imageId = new Guid(e.CommandArgument.ToString());
+            bllBi.Delete(imageId);
+            PHSuit.Notification.Show(Page, "", "删除成功", Request.RawUrl);
+            BindShowImages();
+        }
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
@@ -62,7 +80,7 @@ public partial class Account_Edit : BasePage
         //upload pictures
          if (fuBusinessLicence.PostedFile.ContentLength != 0)
          {
-             string licenceImageName = b.Id + ImageType.Business_Licence.ToString() + Path.GetExtension(fuBusinessLicence.FileName);
+             string licenceImageName = b.Id + ImageType.Business_Licence.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuBusinessLicence.FileName);
              fuBusinessLicence.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + licenceImageName);
              BusinessImage biLicence = new BusinessImage
              {
@@ -71,12 +89,13 @@ public partial class Account_Edit : BasePage
                  ImageName = licenceImageName,
                  Size = fuBusinessLicence.PostedFile.ContentLength
              };
+
              b.BusinessLicence = biLicence;
          }
 
          if (fuChargePerson.PostedFile.ContentLength != 0)
          {
-             string chargeIdImageName = b.Id + ImageType.Business_Licence.ToString() + Path.GetExtension(fuChargePerson.FileName);
+             string chargeIdImageName = b.Id + ImageType.Business_ChargePersonIdCard.ToString() +  Guid.NewGuid().GetHashCode() + Path.GetExtension(fuChargePerson.FileName);
              fuChargePerson.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + chargeIdImageName);
              BusinessImage biChargeId = new BusinessImage
              {
@@ -85,7 +104,7 @@ public partial class Account_Edit : BasePage
                  ImageName = chargeIdImageName,
                  Size = fuChargePerson.PostedFile.ContentLength
              };
-             b.BusinessLicence = biChargeId;
+             b.ChargePersonIdCard = biChargeId;
          }
 
 
