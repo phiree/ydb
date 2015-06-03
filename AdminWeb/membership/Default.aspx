@@ -19,7 +19,7 @@
     </asp:GridView>
 
  <uc:AspNetPager runat=server  UrlPaging="true" ID="pager" CssClass="anpager" 
-        CurrentPageButtonClass="cpb"   PageSize="3" 
+        CurrentPageButtonClass="cpb"   PageSize="10" 
         CustomInfoHTML="第 %CurrentPageIndex% / %PageCount%页 共%RecordCount%条" 
         ShowCustomInfoSection="Right"></uc:AspNetPager>
 </asp:Content>

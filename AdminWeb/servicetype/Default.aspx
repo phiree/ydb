@@ -2,6 +2,12 @@
     CodeFile="Default.aspx.cs" Inherits="servicetype_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <style>
+        #mainContent span{
+            margin: 5px;
+            display: inline-block;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
@@ -44,6 +50,7 @@
             </asp:Repeater>
         </ItemTemplate>
     </asp:Repeater>
+    <hr/>
     <a href="Edit.aspx">增加新类别</a>
     <asp:FileUpload runat="server" ID="fu" /><asp:Button runat="server" ID="btnUpload"
         Text="导入" OnClick="btnUpload_Click" />
