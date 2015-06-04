@@ -179,8 +179,8 @@
                              </p>
                         </div>
                         <div id="tabsServiceType">
-                            <ul><li><a href="#tab1">tab1</a></li></ul>
-                            <div id="tab1">tab1 content</div>
+                            <ul> </ul>
+                             
                         </div>
                     </div>
                 </div>
@@ -209,7 +209,10 @@
                 [
                     { "name": "维修", "id": 1, "parentid": 0 },
                     { "name": "家电维修", "id": 2, "parentid": 1 },
-                    { "name": "冰箱维修", "id": 3, "parentid": 2 },
+                    { "name": "冰箱维修", "id": 6, "parentid": 2 },
+                    { "name": "冰箱维修", "id": 7, "parentid": 2 },
+                    { "name": "冰箱维修", "id": 8, "parentid": 2 },
+
                     { "name": "更换氟利昂", "id": 4, "parentid": 3 },
                     { "name": "交通服务", "id": 5, "parentid": 0 }
                 ]

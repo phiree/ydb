@@ -1,34 +1,41 @@
-/**
+ï»¿/**
  * display tree structure data in jquery-ui tabs
  
  */
-$.fn.TabSelection= function(options) {
+$.fn.TabSelection = function (options) {
 
-   
+
     var params = $.extend({
-        "datasource":null
-    },options);
+        "datasource": null
+    }, options);
     if (!params.datasource) {
         return false;
     }
 
     var tabs = $(this).tabs();
     //load top-level data
-    
-    
-    function loadcontent(tabIndex, parentid) {
-        
-    }
-    $('.ui-tabs-panel').not('.ui-tabs-hide').html(content);
-    /*tabÄÚµÄÒ»¸ö°´Å¥µã»÷Ö®ºó
-          ±»µã»÷ÏîÄ¿ÊÇ·ñÓĞ×ÓÊı¾İ
-     Ã»ÓĞ:ÆäËû´¦Àí             ÓĞ:ÒÆ³ı¸ÃtabÖ®ºóµÄËùÓĞtab,È»ºó´´½¨Ò»¸öĞÂtab,¼ÓÔØ×ÓÊı¾İ.
-                               ĞèÒªÅĞ¶Ïµ±Ç°tabµÄ index.ÓÃÒÔÈ·¶¨ÆäÎ»ÖÃ.¿ÉÒÔÊ¹ÓÃ
+    $(this).tabs({
+        activate: function (event, ui) {
+
+            var tab_name = $(ui.newTab[0]).text();
+            var item_names = $(ui.newPanel[0]).children("div").children("span");
+            for (var i in item_names) {
+                var item = item_names[i];
+                if ($(item).text() == tab_name) {
+                   // $(item).attr("style","font-weight:900");
+                }
+            }
+        }
+    });
+
+
+
+    /*
+    tabå†…çš„ä¸€ä¸ªæŒ‰é’®ç‚¹å‡»ä¹‹å
+    è¢«ç‚¹å‡»é¡¹ç›®æ˜¯å¦æœ‰å­æ•°æ®
+    æ²¡æœ‰:å…¶ä»–å¤„ç†             æœ‰:ç§»é™¤è¯¥tabä¹‹åçš„æ‰€æœ‰tab,ç„¶ååˆ›å»ºä¸€ä¸ªæ–°tab,åŠ è½½å­æ•°æ®.
+    éœ€è¦åˆ¤æ–­å½“å‰tabçš„ index.ç”¨ä»¥ç¡®å®šå…¶ä½ç½®.å¯ä»¥ä½¿ç”¨
     */
-    $(".item").click(function () {
-
-
-    })
 
     function get_children(parentid) {
         var list = [];
@@ -36,20 +43,99 @@ $.fn.TabSelection= function(options) {
             var item = params.datasource[i];
             if (item.parentid == parentid) {
 
-            
                 list.push(item);
             }
         }
+        return list;
     }
-    this.build_children_panel= function(parentid) {
-        
+
+
+    function item_click(that, id, name) {
+        //å°†å½“å‰tabçš„å€¼è®¾ç½®ä¸ºname,å¦‚æœæœ‰å­é¡¹,æ¿€æ´»ä¸‹ä¸€ä¸ªtab,
+
+        $(".ui-tabs-active a").html(name);
+
         var tab_panel_content = "";
-        var item_list = get_children(parentid);
+        //ç§»é™¤åé¢çš„tabé¡µé¢
+        var tabs_panel = $(that).parents('.ui-tabs-panel')[0];
+        var tabs_panels = $($(that).parents('.ui-tabs').children('div'));
+        var tabs_headers = $($(that).parents('.ui-tabs').children('ul').children('li'));
+
+        var tabs_panel_index = tabs_panels.index(tabs_panel);
+        for (var i = 0; i < tabs_panels.length; i++) {
+            if (i > tabs_panel_index) {
+                $(tabs_panels[i]).remove();
+                $(tabs_headers[i]).remove();
+            }
+        }
+        var item_list = get_children(id);
+        if (item_list.length == 0) {
+            $("div#tabsServiceType").tabs("option", "active", tabs_panel_index);
+        return false; }
+        var num_tabs = $("div#tabsServiceType ul li").length + 1;
         for (var i in item_list) {
-            tab_panel_content += "<span item_id=" + item_list[i].id + "'>" + item_list[i].name + "</span>";
+            var item_content = "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
+
+            tab_panel_content += item_content;
         }
         tab_panel_content = "<div>" + tab_panel_content + "</div>";
-        $(tab_panel_content).appendTo(tabs);
+
+        $("div#tabsServiceType ul").append(
+            "<li><a href='#tab" + num_tabs + "'>" + "è¯·é€‰æ‹©" + "</a></li>"
+        );
+        $("div#tabsServiceType").append(
+            "<div id='tab" + num_tabs + "'>" + tab_panel_content + "</div>"
+        );
+
+
+        $("div#tabsServiceType").tabs("refresh");
+        $("div#tabsServiceType").tabs("option", "active", num_tabs - 1);
     }
+    function build_children_panel(id) {
+        /*var tab_panel_content = "";
+        var item_list = get_children(parentid);
+        if (item_list.length == 0) { return false; }
+        for (var i in item_list) {
+        var item_content = "<span class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
+
+        tab_panel_content += item_content;
+
+
+        }
+        tab_panel_content = "<div>" + tab_panel_content + "</div>";
+        return tab_panel_content;
+        */
+
+        var item_list = get_children(id);
+        if (item_list.length == 0) { return false; }
+        var num_tabs = $("div#tabsServiceType ul li").length + 1;
+        var tab_panel_content = "";
+        for (var i in item_list) {
+            var item_content = "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
+
+            tab_panel_content += item_content;
+        }
+        tab_panel_content = "<div>" + tab_panel_content + "</div>";
+
+        $("div#tabsServiceType ul").append(
+            "<li><a href='#tab" + num_tabs + "'>" + "è¯·é€‰æ‹©" + "</a></li>"
+        );
+        $("div#tabsServiceType").append(
+            "<div id='tab" + num_tabs + "'>" + tab_panel_content + "</div>"
+        );
+
+
+        $("div#tabsServiceType").tabs("refresh");
+        $("div#tabsServiceType").tabs("option", "active", num_tabs - 1);
+    }
+    build_children_panel(0);
+    //$('.ui-tabs-panel').not('.ui-tabs-hide').html(build_children_panel(0));
+    $('div#tabsServiceType').on('click', '.item', function () {
+        var that = this;
+        var id = $(that).attr('item_id');
+        var name = $(that).html();
+        item_click(that, id, name);
+    });
+
 
 }
