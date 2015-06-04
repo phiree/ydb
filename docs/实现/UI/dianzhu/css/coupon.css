@@ -2,7 +2,6 @@
 
 .coup-title {
     padding: 20px;
-    background: #e6f0f5;
 }
 
 .coup-nav {
@@ -11,28 +10,65 @@
 
 .coup-nav-l li{
     float: left;
-    padding: 20px;
+    padding: 20px 40px;
+    background: url("../image/coupon/youhuiquan_mid%204x60.png") no-repeat right;
 }
+
+
 
 .coup-nav .vip {
-    width: 103px;
-    height: 54px;
+    width: 90px;
+    height: 52px;
+    padding-top: 5px;
+    color: #fff;
+    border-bottom: 1px solid #e89707;
     background: #ffba3e;
+    text-align: center;
 }
 
-.coup-m {
+.coup-vip-icon {
+    width: 26px;
+    height: 26px;
+    background: url("../image/coupon/gengduo_up.png");
+}
+
+
+/* 开通会员页 */
+.vip-title {
+    font-size: 17px;
+    height: 41px;
+    line-height: 41px;
+}
+
+.vip-icon-close {
+    width: 41px;
+    height: 36px;
+    background: url("../image/vip/shop_back_3.png") no-repeat center;
+}
+
+.vip-wrap {
+    padding:25px ;
+}
+
+.coup-ad {
     background: #fff;
     padding: 20px;
 }
 
-/*.coup-main {*/
-    /*margin-bottom: 20px;*/
-/*}*/
-
-.coup-m-ad {
+.coup-ad-top {
     height: 300px;
-    background: #fff;
+    background: url("../image/vip/shop_youhui_1.png") no-repeat center;
 }
+
+.coup-ad-bottom {
+    height: 300px;
+    background: url("../image/vip/shop_youhui_2.png") no-repeat center;
+}
+
+/*.coup-m {*/
+    /*background: #fff;*/
+    /*padding: 20px;*/
+/*}*/
 
 .coup-m-t {
     font-size: 20px;
@@ -54,26 +90,31 @@
 }
 
 .coup-on-btn {
+    color: #fff;
     text-align: center;
     margin:  0 auto;
-    height: 42px;
-    line-height: 42px;
-    width: 130px;
-    background: #ffba3e;
+    height: 44px;
+    line-height: 44px;
+    width: 131px;
+    background: url("../image/vip/shop_burrton_2.png") no-repeat center;
 }
 
-/* 增发优惠卷 */
-.coup-m1 .coup-main,
-.coup-m2 .coup-main,
-.coup-m3 .coup-main {
-    padding: 38px;
+/* 增发优惠卷页 */
+.extend-main {
+    background: #fff;
+    padding: 20px 38px;
 }
 
-.coup-m-price {
+.extend-nav-l li{
+    float: left;
+    padding: 20px 40px;
+}
+
+.extend-m-price {
     margin-bottom: 20px;
 }
 
-.coup-m-intro {
+.extend-m-intro {
     color: #ddd;
     margin-bottom: 10px;
 }
@@ -120,14 +161,14 @@
     color: #06b5ec;
 }
 
-.coup-m-submit {
+.extend-m-submit {
     height: 70px;
     line-height: 70px;
     padding: 10px;
     background: #f6fafe;
 }
 
-.coup-sub-btn {
+.extend-sub-btn {
     color: #fff;
     width: 130px;
     height: 45px;
@@ -240,8 +281,48 @@
     padding: 30px;
 }
 
+/* 图标设置 */
+.coup-set-main .icon{
+    width: 26px;
+    height: 26px;
+}
+
+.set-icon-price { background: url("../image/coupon/Money_mid.png"); }
+.set-icon-num { background: url("../image/coupon/sheding_up.png"); }
+.set-icon-name { background: url("../image/coupon/shangchuan_up.png"); }
+.set-icon-intro { background: url("../image/coupon/dianpu_up.png"); }
+.set-icon-position { background: url("../image/coupon/shangquan_up.png"); }
+.set-icon-address { background: url("../image/coupon/xiangxi_up.png"); }
+.set-icon-act { background: url("../image/coupon/huodong_up.png"); }
+.set-icon-act-intro { background: url("../image/coupon/jieshao_up.png"); }
+.set-icon-upload { background: url("../image/coupon/shangchuan_up.png"); }
+
+.set-icon-change {
+    width: 66px;
+    height: 32px;
+    border: 0;
+    background: url("../image/coupon/xiugai_right%2066x32.png") no-repeat center;
+}
+
+.set-icon-sub {
+    width: 150px;
+    height: 54px;
+    border: 0;
+    background: url("../image/coupon/queding_down%20150x54.png") no-repeat center;
+}
+
+
+.coup-set-stand .set-input {
+    width: 130px;
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid #b9cdda;
+    border-radius: 2px;
+    background: #f6fafe;
+}
+
 .set-title {
-    width: 320px;
+    width: 303px;
     height: 35px;
     line-height: 35px;
     padding-left: 15px;
@@ -249,8 +330,19 @@
     margin-bottom: 10px;
 }
 
+.set-title-stand { background: url("../image/coupon/Money_up%20318x34.png") no-repeat center;}
+.set-title-more { background: url("../image/coupon/shanghu_up%20318x34.png") no-repeat center;}
+
 .set-cont {
     padding: 12px 12px 30px 12px;
+}
+
+.coup-set-more .set-input {
+    width: 320px;
+    height: 32px;
+    border: 1px solid #b9cdda;
+    border-radius: 2px;
+    background: #f6fafe;
 }
 
 .set-cont-l {
@@ -269,16 +361,18 @@
     margin-bottom: 20px;
 }
 
-.set-input-area {
+.coup-set-more .set-input-area {
     width: 304px;
     height: 120px;
 }
-
 
 .coup-set-district .set-input-area {
     width: 168px;
     height: 70px;
     margin-bottom: 12px;
+    border: 1px solid #b9cdda;
+    border-radius: 2px;
+    background: #f6fafe;
 }
 
 .coup-set-main .map {

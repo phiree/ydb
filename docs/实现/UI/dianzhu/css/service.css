@@ -1,7 +1,6 @@
 .userInfoArea{background:#FFF; height:198px;position:relative; margin:0 auto; width:878px;}
 .infoTilte1{ height:71px; position:relative; line-height:71px; color:#58789a; font-size:16px; font-weight:bold;}
 
-
 .decoration1{ height:20px; background:#dfebf6;}
 .decoration2{ height:31px; background:#cadbec;}
 .decoration3{ height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; position:relative;}
@@ -10,7 +9,8 @@
 .ShopDetails{ margin-left:15px; color:#58789a; font-size:18px; font-weight:bold;}
 .ShopDetailsArea{ position:relative;}
 .ShopDetailsAreaLeft{ float:left; width:162px;color:#58789a; position:relative;  }
-.ShopDetailsAreaRight{ float:left;width:755px;color:#58789a;position:relative;border-left:#dbe6f2 1px solid;}
+/*.ShopDetailsAreaRight{ float:left;width:755px;color:#58789a;position:relative;border-left:#dbe6f2 1px solid;}*/
+.ShopDetailsAreaRight{ color:#58789a; position:relative;}
 .LeftClearance{ margin-left:5px;}
 .LeftClearance2{ margin-left:20px; clear:both; display:block;}
 .LeftClearance3{ clear:both; display:block;}

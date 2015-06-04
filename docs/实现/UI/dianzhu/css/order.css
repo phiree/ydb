@@ -136,7 +136,7 @@
 
 
 .more-order {
-    padding: 10px 0;
+    padding-top: 15px;
     text-align: right;
     color: #05b1ec;
 }
@@ -145,9 +145,29 @@
 .my-order-bar {
     padding: 10px 0;
     text-align: center;
-    background: #f6fafe;
+    background: url("../image/order/order_bg_ox.png") repeat-x center;
 }
 
+.order-bar-btn {
+    padding: 12px;
+    background: #f6fafe;
+    border: 1px solid #dde8f2;
+    font-size: 16px;
+    color: #7fa1c2;
+}
+
+.order-bar-icon1 {
+    width: 27px;
+    height: 27px;
+    margin-right: 10px;
+    background: url("../image/order/shop_button_39.png") no-repeat center;
+}
+
+.order-bar-icon2 {
+    width: 27px;
+    height: 27px;
+    background: url("../image/order/shop_button_40.png") no-repeat center;
+}
 /* 我的预约订单内容 */
 .my-order-con {
     min-height: 572px;
@@ -156,36 +176,59 @@
     color: #6f8ba9;
 }
 
-.order-bar-btn {
-    width: 225px;
-    margin: 0 auto;
-    padding: 12px;
-    background: #f6fafe;
-    border: 1px solid #dde8f2;
-    font-size: 16px;
-    color: #7fa1c2;
+/* 列表列样式 */
+.my-order-con .col{
+    /*float: left;*/
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.order-bar-icon1{
-    background: ;
-}
+.my-order-con .col-1 { width: 150px; }
+.my-order-con .col-2 { width: 130px; padding-left: 20px; }
+.my-order-con .col-3 { width: 80px; padding-left: 60px; }
+.my-order-con .col-4 { width: 90px; padding-left: 60px; }
+.my-order-con .col-5 { width: 70px; padding-left: 50px; }
+.my-order-con .col-6 { width: 43px; padding-left: 50px; }
 
 /* 我的预约订单标题及列表 */
-.my-order-t,
-.order-l-item {
+.order-con-l {
+    width: 100%;
+    float: left;
+}
+
+.my-order-t {
     padding: 15px;
     margin-bottom: 15px;
+}
+
+.order-l-item {
+    padding: 20px 15px;
+    margin-bottom: 15px;
+}
+
+.my-order-t {
+    background: url("../image/order/order_bg_ox1.png") repeat-x center;
 }
 
 .my-order-t .t-btn{
     background: #f6fafe;
     border: 0;
     padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-.order-con-l {
-    width: 100%;
-    float: left;
+.order-l-item {
+    background: url("../image/order/order_bg_ox2.png") repeat-x center;
+}
+
+.order-l-item .i-t {
+    color: #ffffff;
+    padding: 10px;
+    display: block;
+    background: #f78c99;
+    border-radius: 5px;
 }
 
 .order-l-btn {
@@ -201,6 +244,12 @@
 .order-con-r {
     float: right;
     width: 440px;
+}
+
+.my-order-d {
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0px 1px 1px #aaa;
 }
 
 .order-d-t {
@@ -237,11 +286,37 @@
     padding-bottom: 5px;
 }
 
+.d-inf-t .icon {
+    width: 26px;
+    height: 26px;
+}
+
+
+.order-d-sub {
+    text-align: right;
+    padding: 20px;
+    background: #fff;
+}
+
+.order-d-sub input{
+    width: 96px;
+    height: 36px;
+    margin-left: 10px;
+    border: 0;
+    /*opacity: 0;*/
+}
+
+.inf-user-icon1 { background: url("../image/order/shop_bgg_4.png") no-repeat center; }
+.inf-user-icon2 { background: url("../image/order/shop_bgg_5.png") no-repeat center; }
+.inf-user-icon3 { background: url("../image/order/shop_bgg_6.png") no-repeat center; }
+.inf-user-icon4 { background: url("../image/order/shop_bgg_7.png") no-repeat center; }
+
 .d-inf-need,
 .d-inf-status{
     background: #f2f8fb;
 }
 
+/* 查看更多订单 */
 .order-more {
     padding: 0 20px 20px 20px;
     text-align: center;
@@ -249,45 +324,20 @@
 
 .order-more input {
     border: none;
-    width: 93px;
-    height: 30px;
-    background: #f6fafe;
+    width: 96px;
+    height: 31px;
+    font-size: 13px;
+    color: #6f8ba9;
+    background: url("../image/order/shop_more_01.png");
 }
 
 .order-nmb {
     margin-left: 170px;
 }
 
-.order-d-sub {
-    text-align: right;
-    padding: 20px;
+.sub-done {
+    background: url("../image/order/shop_bgg_10.png") no-repeat center;
 }
-
-.order-d-sub input{
-    width: 90px;
-    height: 35px;
-    margin-left: 10px;
-}
-
-/* 列表列样式 */
-.my-order-con .col{
-    /*float: left;*/
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.my-order-con .col-1 { width: 150px; }
-.my-order-con .col-2 { width: 130px; padding-left: 20px; }
-.my-order-con .col-3 { width: 80px; padding-left: 60px; }
-.my-order-con .col-4 { width: 90px; padding-left: 60px; }
-.my-order-con .col-5 { width: 70px; padding-left: 50px; }
-.my-order-con .col-6 { width: 43px; padding-left: 50px; }
-
-.i-t {
-    color: #ffffff;
-    padding: 5px;
-    display: block;
-    background: #f78c99;
-    border-radius: 5px;
+.sub-ser {
+    background: url("../image/order/shop_bgg_9.png") no-repeat center;
 }
