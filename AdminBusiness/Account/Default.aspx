@@ -3,6 +3,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="/css/myshop.css" rel="stylesheet" type="text/css" />
+    <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/base/minified/jquery-ui.min.css' rel="stylesheet" type="text/css" />
+    
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
@@ -176,6 +178,10 @@
                              
                              </p>
                         </div>
+                        <div id="tabsServiceType">
+                            <ul><li><a href="#tab1">tab1</a></li></ul>
+                            <div id="tab1">tab1 content</div>
+                        </div>
                     </div>
                 </div>
                 <div class="bottomArea">
@@ -191,7 +197,26 @@
     </div>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
+    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
+
+    <script src="/js/TabSelection.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/global.js"></script>
+    <script type="text/javascript">
+        $(function() {
+
+            $("#tabsServiceType").TabSelection({
+                "datasource":
+                [
+                    { "name": "维修", "id": 1, "parentid": 0 },
+                    { "name": "家电维修", "id": 2, "parentid": 1 },
+                    { "name": "冰箱维修", "id": 3, "parentid": 2 },
+                    { "name": "更换氟利昂", "id": 4, "parentid": 3 },
+                    { "name": "交通服务", "id": 5, "parentid": 0 }
+                ]
+            });
+        });
+        
+    </script>
     <script type="text/javascript">
         var m1 = true;
         var m2 = false;
@@ -255,17 +280,17 @@
 
             });
             $(".picture").hover(function () {
-                $(".picDelBtn").css("display", "block");
-                $(".picEditBtn").css("display", "block");
+                    $(".picDelBtn").css("display", "block");
+                    $(".picEditBtn").css("display", "block");
 
-            }, function () {
-                $(".picDelBtn").css("display", "none");
-                $(".picEditBtn").css("display", "none");
+                }, function () {
+                    $(".picDelBtn").css("display", "none");
+                    $(".picEditBtn").css("display", "none");
 
-            }
+                }
 
 
-        );
+            );
 
             $(".picDelBtn").css("display", "none");
             $(".picEditBtn").css("display", "none");
