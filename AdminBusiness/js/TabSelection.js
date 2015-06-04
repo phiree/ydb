@@ -2,6 +2,7 @@
  * display tree structure data in jquery-ui tabs
  
  */
+
 $.fn.TabSelection = function (options) {
 
 
@@ -50,6 +51,33 @@ $.fn.TabSelection = function (options) {
     }
 
 
+   
+        function build_children_panel(id) {
+       
+        var item_list = get_children(id);
+        if (item_list.length == 0) { return false; }
+        var num_tabs = $("div#tabsServiceType ul li").length + 1;
+        var tab_panel_content = "";
+        for (var i in item_list) {
+            var item_content = "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
+
+            tab_panel_content += item_content;
+        }
+        tab_panel_content = "<div>" + tab_panel_content + "</div>";
+
+        $("div#tabsServiceType ul").append(
+//            "<li><a href='/ajaxservice.ashx'>" + "请选择" + "</a></li>"
+             "<li><a href='#tab" + num_tabs + "'>" + "请选择" + "</a></li>"
+        );
+        $("div#tabsServiceType").append(
+            "<div id='tab" + num_tabs + "'>" + tab_panel_content + "</div>"
+        );
+
+
+        $("div#tabsServiceType").tabs("refresh");
+        $("div#tabsServiceType").tabs("option", "active", num_tabs - 1);
+    }
+    build_children_panel(0);
     function item_click(that, id, name) {
         //将当前tab的值设置为name,如果有子项,激活下一个tab,
 
@@ -68,67 +96,8 @@ $.fn.TabSelection = function (options) {
                 $(tabs_headers[i]).remove();
             }
         }
-        var item_list = get_children(id);
-        if (item_list.length == 0) {
-            $("div#tabsServiceType").tabs("option", "active", tabs_panel_index);
-        return false; }
-        var num_tabs = $("div#tabsServiceType ul li").length + 1;
-        for (var i in item_list) {
-            var item_content = "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
-
-            tab_panel_content += item_content;
-        }
-        tab_panel_content = "<div>" + tab_panel_content + "</div>";
-
-        $("div#tabsServiceType ul").append(
-            "<li><a href='#tab" + num_tabs + "'>" + "请选择" + "</a></li>"
-        );
-        $("div#tabsServiceType").append(
-            "<div id='tab" + num_tabs + "'>" + tab_panel_content + "</div>"
-        );
-
-
-        $("div#tabsServiceType").tabs("refresh");
-        $("div#tabsServiceType").tabs("option", "active", num_tabs - 1);
+        build_children_panel(id);
     }
-    function build_children_panel(id) {
-        /*var tab_panel_content = "";
-        var item_list = get_children(parentid);
-        if (item_list.length == 0) { return false; }
-        for (var i in item_list) {
-        var item_content = "<span class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
-
-        tab_panel_content += item_content;
-
-
-        }
-        tab_panel_content = "<div>" + tab_panel_content + "</div>";
-        return tab_panel_content;
-        */
-
-        var item_list = get_children(id);
-        if (item_list.length == 0) { return false; }
-        var num_tabs = $("div#tabsServiceType ul li").length + 1;
-        var tab_panel_content = "";
-        for (var i in item_list) {
-            var item_content = "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
-
-            tab_panel_content += item_content;
-        }
-        tab_panel_content = "<div>" + tab_panel_content + "</div>";
-
-        $("div#tabsServiceType ul").append(
-            "<li><a href='#tab" + num_tabs + "'>" + "请选择" + "</a></li>"
-        );
-        $("div#tabsServiceType").append(
-            "<div id='tab" + num_tabs + "'>" + tab_panel_content + "</div>"
-        );
-
-
-        $("div#tabsServiceType").tabs("refresh");
-        $("div#tabsServiceType").tabs("option", "active", num_tabs - 1);
-    }
-    build_children_panel(0);
     //$('.ui-tabs-panel').not('.ui-tabs-hide').html(build_children_panel(0));
     $('div#tabsServiceType').on('click', '.item', function () {
         var that = this;

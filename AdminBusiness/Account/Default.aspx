@@ -209,6 +209,7 @@
                 [
                     { "name": "维修", "id": 1, "parentid": 0 },
                     { "name": "家电维修", "id": 2, "parentid": 1 },
+                     { "name": "冰箱维修", "id":3, "parentid": 2 },
                     { "name": "冰箱维修", "id": 6, "parentid": 2 },
                     { "name": "冰箱维修", "id": 7, "parentid": 2 },
                     { "name": "冰箱维修", "id": 8, "parentid": 2 },
