@@ -204,22 +204,26 @@
     <script type="text/javascript">
         $(function() {
 
-            $("#tabsServiceType").TabSelection({
-                "datasource":
-                [
-                    { "name": "维修", "id": 1, "parentid": 0 },
-                    { "name": "家电维修", "id": 2, "parentid": 1 },
-                     { "name": "冰箱维修", "id":3, "parentid": 2 },
-                    { "name": "冰箱维修", "id": 6, "parentid": 2 },
-                    { "name": "冰箱维修", "id": 7, "parentid": 2 },
-                    { "name": "冰箱维修", "id": 8, "parentid": 2 },
+//            $("#tabsServiceType").TabSelection({
+//                "datasource":
+//                [
+//                    { "name": "维修", "id": 1, "parentid": 0 },
+//                    { "name": "家电维修", "id": 2, "parentid": 1 },
+//                     { "name": "冰箱维修", "id":3, "parentid": 2 },
+//                    { "name": "冰箱维修", "id": 6, "parentid": 2 },
+//                    { "name": "冰箱维修", "id": 7, "parentid": 2 },
+//                    { "name": "冰箱维修", "id": 8, "parentid": 2 },
 
-                    { "name": "更换氟利昂", "id": 4, "parentid": 3 },
-                    { "name": "交通服务", "id": 5, "parentid": 0 }
-                ]
+//                    { "name": "更换氟利昂", "id": 4, "parentid": 3 },
+//                    { "name": "交通服务", "id": 5, "parentid": 0 }
+//                ]
+//            });
+//        });
+            $("#tabsServiceType").TabSelection({
+                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype"
+            
             });
         });
-        
     </script>
     <script type="text/javascript">
         var m1 = true;

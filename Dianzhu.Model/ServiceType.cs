@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Newtonsoft.Json;
 namespace Dianzhu.Model
 {
     /// <summary>
     /// 服务类型
     /// </summary>
+    [JsonObject(MemberSerialization.OptIn)]
     public class ServiceType
     {
         public ServiceType()
@@ -15,11 +16,14 @@ namespace Dianzhu.Model
             Properties = new List<ServiceProperty>();
             Children = new List<ServiceType>();
         }
+        [JsonProperty(PropertyName = "id")]
         public virtual Guid Id { get; set; }
+        [JsonProperty(PropertyName = "name")]
         public virtual string Name { get; set; }
         /// <summary>
         /// 上级类型
         /// </summary> 
+        
         public virtual ServiceType Parent { get; set; }
         /// <summary>
         /// 层级结构中的层数.

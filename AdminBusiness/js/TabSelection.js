@@ -1,20 +1,21 @@
 ﻿/**
- * TabSelection by phiree@gmail.com
- * 2015-6-5
+* TabSelection by phiree@gmail.com
+* 2015-6-5
 * display tree-view structure data in jquery-ui tabs
- * demo:http://codepen.io/phiree/pen/xGqNzE
+* demo:http://codepen.io/phiree/pen/xGqNzE
 * 
 feature:-------------------------------------
 when click a item in the tab-panel, the children items will load in a new created tab.
 requirements:----------------------
 
-1) datasource must be an json array,each object has 3 properties: id, parentid(0 is top level),name,
+1) datasource must be an json array,each object has 3 properties: id, parentid(0 is top level),name;
+    or is an url to fetch json array from server.
 example:
-[
-{'name':'food','id':1,'parentid':0},
-{'name':'fruit','id':2,'parentid':1},
-{'name':'apple','id':3,'parentid':2},
-]
+    [
+        {'name':'food','id':1,'parentid':0},
+        {'name':'fruit','id':2,'parentid':1},
+        {'name':'apple','id':3,'parentid':2},   
+    ]
 2) html structure:
 <div id="tabs">
 <ul></ul>
@@ -27,10 +28,17 @@ $.fn.TabSelection = function (options) {
 
 
     var params = $.extend({
+
         "datasource": null
     }, options);
-    if (!params.datasource) {
-        return false;
+     
+    //determin the datasource is a ajax_url or a local json object
+    var is_ajax = false;
+    try {
+        var json = $.parseJSON(params.datasource);
+    }
+    catch (err) {
+        is_ajax = true;
     }
     var tabs = $(this).tabs();
     //load top-level data
@@ -42,7 +50,7 @@ $.fn.TabSelection = function (options) {
             for (var i in item_names) {
                 var item = item_names[i];
                 if ($(item).text() == tab_name) {
-                   // $(item).attr("style","font-weight:900");
+                    // $(item).attr("style","font-weight:900");
                 }
             }
         }
@@ -56,20 +64,33 @@ $.fn.TabSelection = function (options) {
 
     function get_children(parentid) {
         var list = [];
-        for (var i = 0; i < params.datasource.length; i++) {
-            var item = params.datasource[i];
-            if (item.parentid == parentid) {
+        if (is_ajax) {
+            jQuery.ajax({
+                url:params.datasource+"&id="+parentid,
+                   
+                success: function (result) {
+                    list=result;
+                },
+                async: false
+            });          
+        } 
+        else {
+            for (var i = 0; i < params.datasource.length; i++) {
+                var item = params.datasource[i];
+                if (item.parentid == parentid) {
 
-                list.push(item);
+                    list.push(item);
+                }
             }
         }
+
         return list;
     }
 
 
-   
-        function build_children_panel(id) {
-       
+
+    function build_children_panel(id) {
+
         var item_list = get_children(id);
         if (item_list.length == 0) { return false; }
         var num_tabs = $("div#tabsServiceType ul li").length + 1;
@@ -82,7 +103,7 @@ $.fn.TabSelection = function (options) {
         tab_panel_content = "<div>" + tab_panel_content + "</div>";
 
         $("div#tabsServiceType ul").append(
-//            "<li><a href='/ajaxservice.ashx'>" + "请选择" + "</a></li>"
+        //            "<li><a href='/ajaxservice.ashx'>" + "请选择" + "</a></li>"
              "<li><a href='#tab" + num_tabs + "'>" + "请选择" + "</a></li>"
         );
         $("div#tabsServiceType").append(
