@@ -96,7 +96,7 @@ $.fn.TabSelection = function (options) {
         var num_tabs = $("div#tabsServiceType ul li").length + 1;
         var tab_panel_content = "";
         for (var i in item_list) {
-            var item_content = "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
+            var item_content = "<input type='checkbox' value='" + item_list[i].id + "' /> <span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
 
             tab_panel_content += item_content;
         }

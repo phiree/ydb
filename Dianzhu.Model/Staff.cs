@@ -20,6 +20,11 @@ namespace Dianzhu.Model
        /// </summary>
        public virtual string Code{get;set;}
        public virtual string Name { get; set; }
+       public virtual int Age { get; set; }
+       /// <summary>
+       /// 工作年数
+       /// </summary>
+       public virtual int WorkingYears { get; set; }
        /// <summary>
        /// 昵称
        /// </summary>
