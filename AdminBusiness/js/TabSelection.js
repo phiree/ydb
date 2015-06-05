@@ -1,7 +1,27 @@
 ﻿/**
- * display tree structure data in jquery-ui tabs
- 
- */
+ * TabSelection by phiree@gmail.com
+ * 2015-6-5
+* display tree-view structure data in jquery-ui tabs
+ * demo:http://codepen.io/phiree/pen/xGqNzE
+* 
+feature:-------------------------------------
+when click a item in the tab-panel, the children items will load in a new created tab.
+requirements:----------------------
+
+1) datasource must be an json array,each object has 3 properties: id, parentid(0 is top level),name,
+example:
+[
+{'name':'food','id':1,'parentid':0},
+{'name':'fruit','id':2,'parentid':1},
+{'name':'apple','id':3,'parentid':2},
+]
+2) html structure:
+<div id="tabs">
+<ul></ul>
+</div>
+usage:---------------------------------
+
+*/
 
 $.fn.TabSelection = function (options) {
 
@@ -12,7 +32,6 @@ $.fn.TabSelection = function (options) {
     if (!params.datasource) {
         return false;
     }
-
     var tabs = $(this).tabs();
     //load top-level data
     $(this).tabs({
@@ -28,9 +47,6 @@ $.fn.TabSelection = function (options) {
             }
         }
     });
-
-
-
     /*
     tab内的一个按钮点击之后
     被点击项目是否有子数据
