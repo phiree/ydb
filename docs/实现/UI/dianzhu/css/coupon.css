@@ -2,10 +2,11 @@
 
 .coup-title {
     padding: 20px;
+    background: url("../image/coupon/shop_blue_bg_3.png") repeat-x center;
 }
 
 .coup-nav {
-    background: #f6fafe;
+    background: url("../image/coupon/shop_line_01.png") repeat-x center;
 }
 
 .coup-nav-l li{
@@ -13,8 +14,6 @@
     padding: 20px 40px;
     background: url("../image/coupon/youhuiquan_mid%204x60.png") no-repeat right;
 }
-
-
 
 .coup-nav .vip {
     width: 90px;
@@ -32,17 +31,25 @@
     background: url("../image/coupon/gengduo_up.png");
 }
 
-
 /* 开通会员页 */
 .vip-title {
+    width: 810px;
+    height: 57px;
+    line-height: 57px;
+    padding: 0 20px;
+    margin: 0 auto;
     font-size: 17px;
-    height: 41px;
-    line-height: 41px;
+    position: relative;
+    overflow: hidden;
+    background: url("../image/vip/shop_blue_bg_3.png") repeat-x center;
 }
 
 .vip-icon-close {
     width: 41px;
     height: 36px;
+    position: absolute;
+    right: 0;
+    top: 10px;
     background: url("../image/vip/shop_back_3.png") no-repeat center;
 }
 
@@ -50,25 +57,26 @@
     padding:25px ;
 }
 
-.coup-ad {
+.coup-ad-m {
+    width: 850px;
     background: #fff;
-    padding: 20px;
+    margin: 0 auto;
 }
 
 .coup-ad-top {
-    height: 300px;
+    height: 259px;
+    width: 810px;
+    padding: 20px;
     background: url("../image/vip/shop_youhui_1.png") no-repeat center;
 }
 
 .coup-ad-bottom {
-    height: 300px;
+    height: 259px;
+    width: 810px;
+    padding: 20px;
+    color: #fff;
     background: url("../image/vip/shop_youhui_2.png") no-repeat center;
 }
-
-/*.coup-m {*/
-    /*background: #fff;*/
-    /*padding: 20px;*/
-/*}*/
 
 .coup-m-t {
     font-size: 20px;
@@ -81,12 +89,12 @@
 
 .coup-m-p .str {
     font-size: 16px;
-    height: 22px;
-    line-height: 22px;
+    height: 35px;
+    line-height: 25px;
 }
 
 .coup-sub {
-    padding-bottom: 20px;
+    padding: 20px 0;
 }
 
 .coup-on-btn {
@@ -99,15 +107,43 @@
     background: url("../image/vip/shop_burrton_2.png") no-repeat center;
 }
 
+/*更多服务子页面样式*/
+.extend-wrap {
+    padding: 30px;
+
+}
+
+.extend-title {
+    padding: 20px;
+    background: url("../image/coupon/shop_blue_bg_3.png") repeat-x center;
+    position: relative;
+}
+
+.extend-icon-back {
+    width: 41px;
+    height: 36px;
+    position: absolute;
+    top: 50%;
+    margin-top: -18px;
+    right: 0;
+    background: url("../image/extend/shop_back_3.png") no-repeat center;
+}
+
 /* 增发优惠卷页 */
 .extend-main {
     background: #fff;
     padding: 20px 38px;
 }
 
+.extend-nav {
+    background: #f6f9fe;
+}
+
 .extend-nav-l li{
     float: left;
     padding: 20px 40px;
+    background: url("../image/coupon/youhuiquan_mid%204x60.png") no-repeat right;
+
 }
 
 .extend-m-price {
@@ -125,7 +161,23 @@
 }
 
 .m-price-input {
-    margin-right: 20px;
+    width: 100px;
+    height: 26px;
+    background: #e8f1f7;
+    border: 1px solid #c1ced7;
+    border-radius: 5px;
+}
+
+.m-price-uni {
+    padding: 0 10px;
+}
+
+.m-price-note {
+    width: 200px;
+    font-size: 13px;
+    vertical-align: top;
+    line-height: 1.6em;
+
 }
 
 .m-set-intro {
@@ -134,9 +186,13 @@
 }
 
 .m-set-intro i {
-    font-size: 16px;
+    color: #fff;
+    padding: 3px 6px;
+    font-size: 13px;
+    font-style: normal;
     margin-right: 20px;
     background: #04d5b5;
+    border-radius: 5px;
 }
 
 .m-set-t {
@@ -144,8 +200,13 @@
     height: 30px;
     line-height: 30px;
     background: #04d5b5;
+    /*background: url("../image/");*/
     text-align: center;
     color: #fff;
+}
+
+.m-set-l {
+    padding: 10px 0;
 }
 
 .m-set-l li{
@@ -179,26 +240,104 @@
 }
 
 
+/*指定推广商户*/
+.extend-m-shop {
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.extend-m-shop .m-shop-title {
+    background: #f6f9fe;
+    padding: 20px;
+    font-size: 17px;
+}
+
+.m-shop-box {
+    padding: 20px;
+}
+
+.m-shop-box .m-shop-t {
+    line-height: 2em;
+}
+
+.m-shop-box .m-shop-input {
+    width: 220px;
+    height: 26px;
+    background: #e8f1f7;
+    border: 1px solid #c1ced7;
+    border-radius: 2px;
+}
+
+.m-shop-line {
+    padding: 0 15px;
+    background: url("../image/extend/shop_kuang_03.png") no-repeat center;
+}
+
+.extend-shop-new {
+    background: #fff;
+    text-align: right;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px 20px 20px;
+}
+
+.shop-new-a {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    vertical-align: middle;
+    border: 0;
+    background: url("../image/extend/shop_button_01.png") no-repeat center;
+}
+
+.extend-shop-new em {
+    color: #00FFFF;
+    font-size: 16px;
+}
+
+.m-shop-box
 /* 优惠劵统计页面 */
 .coupon-total-con {
     padding-top: 35px;
-    background: #f6fafe;
+    background: #cadbeb;
+}
+
+.head-item-left {
+    padding-right: 70px;
+    border-right: 1px solid #e3eaf0;
 }
 
 .total-head {
     padding: 36px 50px;
+    background: #fff;
+    border-bottom: 1px solid #06b5ec;
 }
 
 .head-item-data {
-    margin: 0 20px;
-    padding-top: 20px;
+    margin:25px 30px 0 0;
     text-align: center;
+}
+
+.head-item-data .item-num {
+    font-size: 35px;
+    font-weight: 700;
+    line-height: 1.4em;
+}
+
+.head-item-data .item-text {
+    color: #919ba5;
 }
 
 .head-item-pic {
     width: 203px;
     height: 126px;
-    background: #06b5ec;
+}
+
+.total-head .pic-left {
+    background: url("../image/coupon/shop_juan_01.png") no-repeat center;
+}
+.total-head .pic-right {
+    background: url("../image/coupon/shop_juan_02.png") no-repeat center;
 }
 
 .total-main {
@@ -208,21 +347,96 @@
 
 .total-tree {
     width: 350px;
-    padding: 15px;
+    padding: 15px 20px;
     background: #fff;
 }
 
 .total-tree-title {
-    height: 65px;
-    text-align: center;
- }
+    width: 180px;
+    height: 68px;
+    content: "";
+    background: url("../image/coupon/tongji_up%20180x68.png") no-repeat center;
+    margin: 0 auto;
+}
+
+.total-tree-main {
+    padding-bottom: 20px;
+    position: relative;
+    background: url("../image/coupon/coupon_tree_bg.png") repeat-y center;
+}
+
+.tree-icon-circle {
+    width: 12px;
+    height: 13px;
+    position: absolute;
+    left: 50%;
+    margin-left: -6px;
+    background: url("../image/coupon/coupon_cicle.png") no-repeat center;
+}
 
 .total-tree .tree-item {
-    width: 157px;
-    height: 157px;
-    background: #ccc;
-    font-size: 14px;
+    width: 134px;
+    font-size: 13px;
+    position: absolute;
+    box-shadow: 0 1px 1px #ccc;
 }
+
+.tree-item-h {
+    width: 134px;
+    height: 32px;
+    line-height: 32px;
+    color: #fff;
+    background: url("../image/coupon/shop_title_02.png") no-repeat center;
+    position: relative;
+}
+
+.tree-icon-t {
+    width: 16px;
+    height: 16px;
+    margin: 0 10px;
+    background: url("../image/coupon/shop_icon_02.png") no-repeat center;
+}
+
+.tree-tipl {
+    width: 6px;
+    height: 10px;
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    margin-top: -5px;
+    background: url("../image/coupon/shop_left_02.png") no-repeat center;
+    z-index: 2;
+}
+
+.tree-tipr {
+    width: 6px;
+    height: 10px;
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    margin-top: -5px;
+    background: url("../image/coupon/shop_right_01.png") no-repeat center;
+}
+
+.tree-item-m {
+    background: #f6f9fe;
+    padding: 10px;
+    font-size: 10px;
+}
+
+.tree-item-m > div {
+    margin-bottom: 5px;
+}
+
+.tree-item-m .icon{
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+}
+
+.tree-icon-price { background: url("../image/coupon/shop_icon_04.png") no-repeat center; }
+.tree-icon-pnum { background: url("../image/coupon/shop_icon_03.png") no-repeat center; }
+.tree-icon-cnum { background: url("../image/coupon/shop_icon_05.png") no-repeat center; }
 
 .total-tree-btn {
     display: block;
@@ -230,6 +444,8 @@
     height: 40px;
     line-height: 40px;
     margin: 0 auto;
+    text-align: center;
+    background: url("../image/coupon/jiazai_down%20140x42.png") no-repeat center;
 }
 
 .total-info {
@@ -271,6 +487,10 @@
     height: 40px;
 }
 
+.total-icon-push {
+    background: url("../image/coupon/shop_zeng_01.png") no-repeat center;
+}
+
 /* 优惠劵设置页面*/
 .coup-set-wrap {
     border-top: 30px solid #dbe6f2;
@@ -308,7 +528,8 @@
     width: 150px;
     height: 54px;
     border: 0;
-    background: url("../image/coupon/queding_down%20150x54.png") no-repeat center;
+    color: #fff;
+    background: url("../image/coupon/shop_button_01.png") no-repeat center;
 }
 
 
