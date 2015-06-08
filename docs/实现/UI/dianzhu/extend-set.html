@@ -24,53 +24,56 @@
             </div>
         </div>
         <div id="rightCont" class="rightContent">
-            <div class="con-wrap">
-                <div class="coup-title">增值服务<i class="icon fr"></i></div>
-                <div class="coup-nav clearfix">
-                    <ul class="coup-nav-l clearfix fl">
+            <div class="con-wrap extend-wrap">
+                <div class="extend-title">增值服务<a href="coupon-set.html" class="fr"><i class="icon extend-icon-back"></i></a></div>
+                <div class="extend-nav clearfix">
+                    <ul class="extend-nav-l clearfix fl">
                         <li><a href="extend-add.html">增发优惠券</a></li>
                         <li><a href="extend-set.html">指定推广商户</a></li>
                         <li><a href="extend-round.html">推广范围设置</a></li>
                     </ul>
                 </div>
-                <div class="coup-m coup-m2"> <!-- 指定推广商户 -->
+                <div class="coup-m"> <!-- 指定推广商户 -->
                     <form enctype="multipart/form-data">
                         <div class="extend-main">
-                            <p class="extend-m-intro">介绍下增加优惠的信息</p>
-                            <div class="coup-m-shop">
-                                <p class="m-shop-t">商户选择</p>
+                            <div class="extend-m-intro">介绍下增加优惠的信息</div>
+                            <div class="extend-m-shop">
+                                <div class="m-shop-title">商户选择</div>
                                 <div class="m-shop-box clearfix">
-                                    <div class="fl">
+                                    <div class="d-inb">
                                         <p class="m-shop-t">指定的商户名称</p>
                                         <input class="m-shop-input" type="text"/>
                                     </div>
-                                    <i class="icon fl"></i>
-                                    <div class="fl">
+                                    <i class="icon m-shop-line"></i>
+                                    <div class="d-inb">
                                         <p class="m-shop-t">指定商户的详细地址</p>
                                         <input class="m-shop-input" type="text"/>
                                     </div>
-                                    <div class="fl">
+                                    <div class="d-inb">
                                         <span>无法找到指定店铺试试<a>地图功能</a></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="coup-m-shop">
-                                <p class="m-shop-t">商户选择</p>
+                            <div class="extend-m-shop">
+                                <div class="m-shop-title">商户选择</div>
                                 <div class="m-shop-box clearfix">
-                                    <div class="fl">
+                                    <div class="d-inb">
                                         <p class="m-shop-t">指定的商户名称</p>
                                         <input class="m-shop-input" type="text"/>
                                     </div>
-                                    <i class="icon fl"></i>
-                                    <div class="fl">
+                                    <i class="icon m-shop-line"></i>
+                                    <div class="d-inb">
                                         <p class="m-shop-t">指定商户的详细地址</p>
                                         <input class="m-shop-input" type="text"/>
                                     </div>
-                                    <div class="fl">
+                                    <div class="d-inb">
                                         <span>无法找到指定店铺试试<a>地图功能</a></span>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="extend-shop-new">
+                            <input type="button" class="shop-new-a d-inb" /><span>添加新的商户(您还可以添加<em class="shop-new-num">4</em>家商户)</span>
                         </div>
                         <div class="extend-m-submit t-r">
                             <span>合计:<em>￥<span id="totalPrice2">200</span></em></span><input id="coupPriceSub2" class="extend-sub-btn" type="submit" value="确认并提交"/>
@@ -82,7 +85,7 @@
     </form>
 </div>
 </body>
-<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
-<script type="text/javascript" src="js/global.js">
+<script type="text/javascript" src="./js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="./js/global.js">
 </script>
 </html>

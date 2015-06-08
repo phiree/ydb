@@ -24,8 +24,8 @@
             </div>
         </div>
         <div id="rightCont" class="rightContent">
-            <div class="con-wrap">
-                <div class="coup-title">增值服务<i class="icon fr"></i></div>
+            <div class="con-wrap extend-wrap">
+                <div class="extend-title">增值服务<a href="coupon-set.html" class="fr"><i class="icon extend-icon-back"></i></a></div>
                 <div class="coup-nav clearfix">
                     <ul class="extend-nav-l clearfix fl">
                         <li><a href="extend-add.html">增发优惠券</a></li>
@@ -33,35 +33,35 @@
                         <li><a href="extend-round.html">推广范围设置</a></li>
                     </ul>
                 </div>
-                <div class="coup-m coup-m1"> <!-- 增发优惠卷 -->
+                <div class="coup-m"> <!-- 增发优惠卷 -->
                     <form enctype="multipart/form-data">
                         <div class="extend-main">
                             <p class="extend-m-intro">介绍下增加优惠的信息</p>
                             <div class="extend-m-price clearfix">
                                 <div class="m-price fl">
                                     <p class="m-price-t">请设定您增发的优惠券金额</p>
-                                    <div><input class="m-price-input" name="coupprice" type="text" /><span>元</span><p class="f-s13">(支付XX元即可增加XX元优惠券额度上限)</p></div>
+                                    <div><input class="m-price-input" name="coupprice" type="text" /><span class="m-price-uni">元</span><span class="m-price-note d-inb">(支付XX元即可增加XX元优惠券额度上限)</span></div>
                                 </div>
                                 <div class="m-price m-l50 fl">
                                     <p class="m-price-t">请设定您增发的优惠券发放数量</p>
-                                    <div><input class="m-price-input" name="coupnum" type="text" /><span>元</span><p class="f-s13">(支付XX元即可增加XX元优惠券额度上限)</p></div>
+                                    <div><input class="m-price-input" name="coupnum" type="text" /><span class="m-price-uni">元</span><span class="m-price-note d-inb">(支付XX元即可增加XX元优惠券额度上限)</span></div>
                                 </div>
                                 <div class="m-num"></div>
                             </div>
                             <div class="extend-m-set">
                                 <p class="m-set-intro"><i>套餐</i>使用套餐组合，即享优惠省更多</p>
                                 <div class="m-set-option">
-                                    <div class="m-set-l m-set-1">
+                                    <div class="m-set-1">
                                         <p class="m-set-t">套餐一</p>
-                                        <ul>
+                                        <ul class="m-set-l">
                                             <li><input type="radio" name="setone" value="1">增加发放金额30000元，发放数量3000张。仅需支付<em>200</em>元</li>
                                             <li><input type="radio" name="setone" value="2">增加发放金额30000元，发放数量3000张。仅需支付<em>200</em>元</li>
                                             <li><input type="radio" name="setone" value="3">增加发放金额30000元，发放数量3000张。仅需支付<em>200</em>元</li>
                                         </ul>
                                     </div>
-                                    <div class="m-set-l m-set-2">
+                                    <div class="m-set-2">
                                         <p class="m-set-t">套餐二</p>
-                                        <ul>
+                                        <ul class="m-set-l">
                                             <li><input type="radio" name="settwo" value="4">每月增发金额60000元，发放数量6000张。每月仅需支付<em>300</em>元</li>
                                             <li><input type="radio" name="settwo" value="5">每月增加三次发放次数，数额与张数不限。每月仅需支付<em>400</em>元</li>
                                         </ul>
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="extend-m-submit t-r">
-                            <span>合计:<em>￥<span id="totalPrice">200</span></em></span><input id="coupPriceSub" class="extend-sub-btn" type="submit" value="确认并提交"/>
+                            <span>合计:<em>￥<span class="f-s20" id="totalPrice">200</span></em></span><input id="coupPriceSub" class="extend-sub-btn" type="submit" value="确认并提交"/>
                         </div>
                     </form>
                 </div>
@@ -79,7 +79,7 @@
     </form>
 </div>
 </body>
-<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
-<script type="text/javascript" src="js/global.js">
+<script type="text/javascript" src="./js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="./js/global.js">
 </script>
 </html>
