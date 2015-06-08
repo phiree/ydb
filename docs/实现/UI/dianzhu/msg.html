@@ -22,83 +22,83 @@
             </div>
         </div>
         <div id="rightCont" class="rightContent">
-            <div class="con-wrap">
+            <div class="con-wrap msg-wrap">
                 <div class="msg-head clearfix">
-                    <h2 class="msg-head-t fl">全部消息</h2>
+                    <h2 class="msg-head-t fl f-s20">消息</h2>
                     <div class="fr">
-                        <input type="button" value="全选"/>
-                        <input type="button" value="删除"/>
+                        <input class="msg-btn-all" type="button" />
+                        <input class="msg-btn-del" type="button" />
                     </div>
                 </div>
                 <div class="msg-main clearfix">
-                    <div class="msg-main-l fl">
+                    <div class="msg-main-r">
 
-                    </div>
-                    <div class="msg-main-r fl">
-                        <div class="msg-today t-c">今天</div>
+                        <div class="msg-today t-c"><i class="icon msg-line-left"></i><span>今天</span><i class="icon msg-line-right"></i></div>
                         <div class="msg-item">
-                            <div class="msg-item-tab">
+                            <div class="msg-item-date">
                                 <p class="f-s20">04</p>
                                 <p>2015年05月</p>
                             </div>
-                            <div class="msg-item-h p-20">
+                            <div class="msg-item-h">
+                                <i class="icon msg-icon-arrowb"></i>
                                 <div class="msg-item-t clearfix">
-                                    <i class="icon"></i>
+                                    <i class="icon msg-icon-read"></i>
                                     <div class="d-inb v-m">
-                                        <p><span>点助系统消息提醒</span><i class="icon"></i> </p>
+                                        <p class="msg-item-fav"><span class="v-m">点助系统消息提醒</span><i class="icon msg-icon-favon"></i> </p>
                                         <p>14:50PM</p>
                                     </div>
-                                    <i class="icon fr"></i>
+                                    <i class="icon msg-icon-check fr"></i>
                                 </div>
                             </div>
                             <div class="msg-item-detail p-20">
                                 <div class="item-detail-top clearfix">
-                                    <i class="icon"></i>
+                                    <i class="icon msg-icon-ulogo"></i>
                                     <span>点助</span>
                                     <div class="item-detail-tip fr">
-                                        <i class="icon"></i>
-                                        <span>已读</span>
+                                        <i class="icon msg-icon-readed"></i>
+                                        <span class="v-m">已读</span>
                                     </div>
                                 </div>
                                 <div class="item-detail-pra">
-                                    <p>亲爱的<span>sumile</span></p>
-                                    <p class="">balbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbal</p>
+                                    <p class="item-detail-name">亲爱的<span>sumile</span></p>
+                                    <p class="item-detail-word">balbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbal</p>
                                 </div>
                                 <div class="msg-detail-close t-r">
-                                    <input type="button" value="收起"/>
+                                    <input  type="button" value="收起"/><i class="icon msg-icon-close"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="msg-item">
-                            <div class="msg-item-tab">
+                            <div class="msg-item-date">
                                 <p class="f-s20">04</p>
                                 <p>2015年05月</p>
                             </div>
-                            <div class="msg-item-h p-20">
+                            <div class="msg-item-h">
+                                <i class="icon msg-icon-arrowb"></i>
                                 <div class="msg-item-t clearfix">
-                                    <i class="icon"></i>
+                                    <i class="icon msg-icon-read"></i>
                                     <div class="d-inb v-m">
-                                        <p><span>点助系统消息提醒</span><i class="icon"></i> </p>
+                                        <p class="msg-item-fav"><span class="v-m">点助系统消息提醒</span><i class="icon msg-icon-favon"></i> </p>
                                         <p>14:50PM</p>
                                     </div>
-                                    <i class="icon fr"></i>
+                                    <i class="icon msg-icon-check fr"></i>
                                 </div>
                             </div>
                             <div class="msg-item-detail p-20">
                                 <div class="item-detail-top clearfix">
-                                    <i class="icon"></i>
+                                    <i class="icon msg-icon-ulogo"></i>
                                     <span>点助</span>
                                     <div class="item-detail-tip fr">
-                                        <i class="icon"></i>
-                                        <span>已读</span>
+                                        <i class="icon msg-icon-readed"></i>
+                                        <span class="v-m">已读</span>
                                     </div>
                                 </div>
                                 <div class="item-detail-pra">
-                                    <p>亲爱的<span>sumile</span></p>
-                                    <p class="">balbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbal</p>
+                                    <p class="item-detail-name">亲爱的<span>sumile</span></p>
+                                    <p class="item-detail-word">balbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbalbalbabalbal</p>
                                 </div>
                                 <div class="msg-detail-close t-r">
-                                    <input type="button" value="收起"/>
+                                    <input  type="button" value="收起"/><i class="icon msg-icon-close"></i>
                                 </div>
                             </div>
                         </div>
@@ -112,8 +112,8 @@
     </form>
 </div>
 </body>
-<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
-<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="./js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="./js/global.js"></script>
 <script>
 
 </script>
