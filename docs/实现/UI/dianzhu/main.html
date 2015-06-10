@@ -11,18 +11,6 @@
     <!--<link href="css/iframeBase.css" rel="stylesheet" type="text/css" />-->
     <!--<link href="css/main.css" rel="stylesheet" type="text/css" />-->
 </head>
-
-<body>
-<div class="wrap">
-    <div class="mainContent">
-        <div class="topnav">
-            <iframe src="topnav.html" width="100%" height="72px" scrolling="no" frameborder="0"></iframe>
-        </div>
-        <div class="content">
-            <iframe id="iframepage" src="myshop.html" name="content" frameBorder=0 scrolling=no width="100%" onLoad="iFrameHeight()"></iframe>
-        </div>
-    </div>
-</div>
 <script type="text/javascript" language="javascript">
     window.onload = function(){
         var iFrameHeight = function () {
@@ -36,5 +24,17 @@
         iFrameHeight();
     }
 </script>
+<body>
+<div class="wrap">
+    <div class="mainContent">
+        <div class="topnav">
+            <iframe src="topnav.html" width="100%" height="72px" scrolling="no" frameborder="0"></iframe>
+        </div>
+        <div class="content">
+            <iframe id="iframepage" src="myshop.html" name="content" frameBorder=0 scrolling=no width="100%" ></iframe>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
