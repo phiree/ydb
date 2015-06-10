@@ -78,99 +78,30 @@
                                     <li class="d-list-i clearfix">
                                         <ul class="clearfix">
                                             <li class="col col-1"><input type="checkbox" /><i class="icon user-pic"></i></li>
-                                            <li class="col col-2"><a href="javascript:void(0)" onclick="light()">米特佳</a></li>
-                                            <li class="col col-3">女</li>
-                                            <li class="col col-4">25</li>
-                                            <li class="col col-5">10年</li>
-                                            <li class="col col-6">育婴师</li>
-                                            <li class="col col-7"><div><input class="d-list-btn" type="button" value="指派"/></div></li>
+                                            <li class="col col-2">姓名</li>
+                                            <li class="col col-3">性别</li>
+                                            <li class="col col-4">年龄</li>
+                                            <li class="col col-5">工作年限</li>
+                                            <li class="col col-6">服务类别</li>
+                                            <li class="col col-7"><div><input class="d-list-btn" type="button"/></div></li>
                                         </ul>
                                     </li>
                                 </ul>
+
                             </div>
                             <div class="emp-d-switch">
-                                <div id="tagSwitch" ><input class="d-switch-btn" type="button" value="下一页"></div>
+                                <div id="tagSwitch" ><input class="d-switch-btn" type="button" value="0"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-            <div id="lightBox" class="dis-n">
-                <div class="emp-edit">
-                    <div class="emp-edit-title">
-                        <span>编辑资料</span>
-                        <i class="icon close icon-close"></i>
-                    </div>
-                    <div class="emp-edit-m clearfix">
-                        <div class="emp-edit-left fl">
-                            <h3>基本资料</h3>
-                            <div class="emp-edit-item">
-                                <p><i class="icon emp-icon-name"></i>姓名</p>
-                                <input class="emp-edit-input" type="text" />
-                            </div>
-                            <div class="emp-edit-item clearfix">
-                                <div class="fl">
-                                    <p><i class="icon emp-icon-pic"></i>上传照片</p>
-                                    <div class="input-file-box d-inb">
-                                        <input class="input-file-btn" type="file">
-                                        <i class="input-file-bg"></i>
-                                        <i class="input-file-mark"></i>
-                                    </div>
-                                </div>
-                                <div class="m-l20 fr">
-                                    <div class="m-b20">
-                                        <p><i class="icon emp-icon-sex"></i>性别</p>
-                                        <input type="text" />
-                                    </div>
-                                    <div>
-                                        <p><i class="icon emp-icon-borth"></i>出生日期</p>
-                                        <input type="text" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="emp-edit-item">
-                                <p><i class="icon emp-icon-intro"></i>员工介绍</p>
-                                <textarea class="emp-input-textarea" ></textarea>
-                            </div>
-                        </div>
-                        <div class="emp-edit-right p-l20 fl">
-                            <h3>基本资料</h3>
-                            <div class="emp-edit-item">
-                                <p><i class="icon emp-icon-type"></i>服务类别</p>
-                                <input type="text" />
-                            </div>
-                            <div class="emp-edit-item">
-                                <p><i class="icon emp-icon-year"></i>工作年限</p>
-                                <input type="text" />
-                            </div>
-                            <div class="emp-edit-item">
-                                <p><i class="icon emp-icon-buss"></i>资质证书上传</p>
-                                <div class="input-file-box d-inb">
-                                    <input class="input-file-btn" type="file">
-                                    <i class="input-file-bg"></i>
-                                    <i class="input-file-mark"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="emp-edit-sub t-c">
-                        <input type="button"/>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </form>
 </div>
 </body>
 <script type="text/javascript" src="./js/jquery-1.11.1.js"></script>
-<script type="text/javascript" src="./js/jquery.lightbox_me.js"></script>
 <script type="text/javascript" src="./js/global.js"></script>
-<script>
-    var light =  function(e){
-        $('#lightBox').lightbox_me({
-            centered: true
-        });
-        e.preventDefault();
-    }
-</script>
 </html>

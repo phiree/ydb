@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- 订单页面 by lichang -->
 <!-- 2015/05/13 -->
-<html id="ng-app" ng-app="orderList" ng-controller="orderCtrl">
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content=""/>
@@ -105,61 +105,42 @@
                     <div class="my-order-bar">
                         <div class="order-bar-btn d-inb"><i class="icon order-bar-icon1"></i>我的预约订单<i class="icon order-bar-icon2"></i></div>
                     </div>
-                    <div class="my-order-con clearfix" >
+                    <div class="my-order-con clearfix">
                         <div class="order-con-l ">
-                            <!--<div class="my-order-t f-s15 clearfix">-->
-                                <!--<p class="col col-1">服务种类</p>-->
-                                <!--<p class="col col-2">服务地点</p>-->
-                                <!--<p class="col col-3">服务时间</p>-->
-                                <!--<p class="col col-4">联系电话</p>-->
-                                <!--<p class="col col-5">订单号</p>-->
-                                <!--<p class="col col-6"><input class="t-btn" type="button" value="时间"/></p>-->
-                            <!--</div>-->
-                            <!--<ul class="my-order-l">-->
-                                <!--<li class="order-l-item clearfix">-->
-                                    <!--<div class="col col-1"><span class="i-t">全方位一次性保洁</span></div>-->
-                                    <!--<div class="col col-2">北京市朝阳区朝外街道建国路48号</div>-->
-                                    <!--<div class="col col-3">2015年05月04日</div>-->
-                                    <!--<div class="col col-4">139000000</div>-->
-                                    <!--<div class="col col-5">09097087</div>-->
-                                    <!--<div class="col col-6"><input class="order-l-btn" id="moreDetail" type="button" value="+详情"/></div>-->
-                                <!--</li>-->
-                            <!--</ul>-->
                             <div class="my-order-t f-s15 clearfix">
                                 <p class="col col-1">服务种类</p>
-                                <p class="col col-2" ng-show="itemShow" >服务地点</p>
-                                <p class="col col-3" ng-show="itemShow" >服务时间</p>
-                                <p class="col col-4" ng-show="itemShow" >联系电话</p>
-                                <p class="col col-5" >订单号</p>
+                                <p class="col col-2">服务地点</p>
+                                <p class="col col-3">服务时间</p>
+                                <p class="col col-4">联系电话</p>
+                                <p class="col col-5">订单号</p>
                                 <p class="col col-6"><input class="t-btn" type="button" value="时间"/></p>
                             </div>
-                            <ul class="my-order-l" ng-repeat="x in data">
+                            <ul class="my-order-l">
                                 <li class="order-l-item clearfix">
-                                    <div class="col col-1"><span class="i-t">{{ x.Type }}</span></div>
-                                    <div class="col col-2" ng-show="itemShow">{{ x.Local }}</div>
-                                    <div class="col col-3" ng-show="itemShow">{{ x.Data }}</div>
-                                    <div class="col col-4" ng-show="itemShow">{{ x.Phone }}</div>
-                                    <div class="col col-5">{{ x.OrderNum }}</div>
-                                    <div class="col col-6"><input class="order-l-btn" id="moreDetail" ng-click="detailSetShow()" type="button" value="+详情"/></div>
+                                    <div class="col col-1"><span class="i-t">全方位一次性保洁</span></div>
+                                    <div class="col col-2">北京市朝阳区朝外街道建国路48号</div>
+                                    <div class="col col-3">2015年05月04日</div>
+                                    <div class="col col-4">139000000</div>
+                                    <div class="col col-5">09097087</div>
+                                    <div class="col col-6"><input class="order-l-btn" id="moreDetail" type="button" value="+详情"/></div>
                                 </li>
                             </ul>
                         </div>
-                        <!--<div class="order-con-r dis-n m-l20" >-->
-                        <div class="order-con-r m-l20" ng-hide="detailHide">
+                        <div class="order-con-r dis-n m-l20">
                             <div class="my-order-d">
-                                <p class="order-d-t clearfix"><span>订单详情</span><span class="order-nmb">订单号<em>{{ currentOrderDetail.OrderNum }}</em></span><i ng-click="detailSetHide()" class="icon order-d-icon1 fr"></i></p>
+                                <p class="order-d-t clearfix"><span>订单详情</span><span class="order-nmb">订单号<em>08988260</em></span><i class="icon order-d-icon1 fr"></i></p>
                                 <div class="order-d-inf">
                                     <div class="d-inf-user">
                                         <div class="d-inf-t"><i class="icon inf-user-icon1"></i>用户信息</div>
                                         <p><span>预约用户：</span><span class="d-inf-con">张小姐</span></p>
-                                        <p><span>联系电话：</span><span class="d-inf-con">{{ currentOrderDetail.Phone }}</span></p>
-                                        <p><span>服务地址：</span><span class="d-inf-con">{{ currentOrderDetail.Local }}</span></p>
+                                        <p><span>联系电话：</span><span class="d-inf-con">13900000000</span></p>
+                                        <p><span>服务地址：</span><span class="d-inf-con">朝阳区大越成巴拉巴拉巴拉巴</span></p>
                                     </div>
                                     <div class="d-inf-need">
                                         <div class="d-inf-t"><i class="icon inf-user-icon2"></i>用户的服务需求信息</div>
-                                        <p><span>服务项目：</span><span class="d-inf-con">{{ currentOrderDetail.Type }}</span></p>
+                                        <p><span>服务项目：</span><span class="d-inf-con">家庭保洁</span></p>
                                         <p><span>特殊要求：</span><span class="d-inf-con">自带工具</span></p>
-                                        <p><span>下单时间：</span><span class="d-inf-con">{{ currentOrderDetail.Data }}</span></p>
+                                        <p><span>下单时间：</span><span class="d-inf-con">2015-04-05 08:00</span></p>
                                         <p><span>服务时间：</span><span class="d-inf-con">2015-04-05 08:00</span></p>
                                         <p><span>订单状态：</span><span class="d-inf-con">预约</span></p>
                                     </div>
@@ -177,37 +158,6 @@
                                     <input class="sub-ser" type="button" />
                                 </p>
                             </div>
-                            <!--<div class="my-order-d">-->
-                                <!--<p class="order-d-t clearfix"><span>订单详情</span><span class="order-nmb">订单号<em>08988260</em></span><i class="icon order-d-icon1 fr"></i></p>-->
-                                <!--<div class="order-d-inf">-->
-                                    <!--<div class="d-inf-user">-->
-                                        <!--<div class="d-inf-t"><i class="icon inf-user-icon1"></i>用户信息</div>-->
-                                        <!--<p><span>预约用户：</span><span class="d-inf-con">张小姐</span></p>-->
-                                        <!--<p><span>联系电话：</span><span class="d-inf-con">13900000000</span></p>-->
-                                        <!--<p><span>服务地址：</span><span class="d-inf-con">朝阳区大越成巴拉巴拉巴拉巴</span></p>-->
-                                    <!--</div>-->
-                                    <!--<div class="d-inf-need">-->
-                                        <!--<div class="d-inf-t"><i class="icon inf-user-icon2"></i>用户的服务需求信息</div>-->
-                                        <!--<p><span>服务项目：</span><span class="d-inf-con">家庭保洁</span></p>-->
-                                        <!--<p><span>特殊要求：</span><span class="d-inf-con">自带工具</span></p>-->
-                                        <!--<p><span>下单时间：</span><span class="d-inf-con">2015-04-05 08:00</span></p>-->
-                                        <!--<p><span>服务时间：</span><span class="d-inf-con">2015-04-05 08:00</span></p>-->
-                                        <!--<p><span>订单状态：</span><span class="d-inf-con">预约</span></p>-->
-                                    <!--</div>-->
-                                    <!--<div class="d-inf-worker">-->
-                                        <!--<div class="d-inf-t"><i class="icon inf-user-icon3"></i>商家的服务信息</div>-->
-                                        <!--<p><span>提供服务员工：</span><span class="d-inf-con">王大妈</span></p>-->
-                                    <!--</div>-->
-                                    <!--<div class="d-inf-status">-->
-                                        <!--<div class="d-inf-t"><i class="icon inf-user-icon4"></i>付款状态</div>-->
-                                        <!--<p><span>付款方式：</span><span class="d-inf-con">线下支付</span></p>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<p class="order-d-sub">-->
-                                    <!--<input class="sub-done" type="button" />-->
-                                    <!--<input class="sub-ser" type="button" />-->
-                                <!--</p>-->
-                            <!--</div>-->
                         </div>
                     </div>
                     <div class="order-more">
@@ -221,244 +171,210 @@
 </div>
 </body>
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
-<script src="http://apps.bdimg.com/libs/angular.js/1.2.0/angular.min.js"></script>
 <script type="text/javascript" src="js/global.js"></script>
+<!--<script type="text/javascript" src="js/PIE_IE678.js"></script>-->
 <script type="text/javascript">
-    var orderList = angular.module("orderList",[]);
+    $(document).ready(function(){
+        var m1 = true;
+        var liid=1;
+        var m2 = false;
+        var uldata1 = ["月嫂", "家庭保洁", "家电清洗"];//列表数据源
 
-    orderList.controller("orderCtrl",function($scope,$http){
-        $http.get("http://localhost:63342/dianzhu/testdata.json").success(
-                function(response){
-                    $scope.data = response;
-//                    console.log($scope.data);
+        var addtxt = "月嫂";//定义需要添加的左侧菜单内容
+        var leftlistM = new Array();//定义左侧列表数组
+        function meinit(str){
+            m1=false;
+            m2=false;
+            str=true;
+            $("#me1").attr("src", "image/button_7.png");
+            $("#me2").attr("src", "image/button_9.png");
+
+        }
+
+        function addleftmenu(divid,v){
+            //alert($("#leftMeunList").children().length);
+            $("#leftMeunList").prepend("<a href='javascript:;' onClick='meliFun("+divid+");'><div id='"+divid+"' class='newServicebtn2 LeftClearance listColor2'>"+v+"</div></a>");
+        }
+        function meliFun(e){
+
+            var divlength=$("#leftMeunList").children().length;
+            for(i=1;i<=divlength;i++){
+                $("#meli"+i).css("background","url(image/weixuan_1.png)")
+                $("#meli"+i).removeClass("listColor1").addClass("listColor2")
+            }
+            $(e).css("background","url(image/weixuan_2.png)")
+            $(e).removeClass("listColor2").addClass("listColor1")
+            //var tarname=$(e).parent();
+            //$($(e).parent()+" a").css("color","#F00");
+            //alert($(e))
+        }
+
+        function addlilist(divid,arr,inputid){
+
+            $(divid+" cite").html(arr[0]);
+            //alert(arr.length)
+            for(i=1;i<=arr.length;i++){
+                $(divid+" ul").append("<li><a href='javascript:;' value="+i+">"+arr[i-1]+"</a></li>");
+            }
+            //alert(arr.length)
+            myselect(divid,inputid);
+        }
+        function PeriodTimeFun(e){
+            var divelength=$("#PeriodTime ul>li").length;
+            //alert(divelength)
+            for(i=1;i<=divelength;i++){
+                $("#PeriodTime ul>li a").css("border-bottom","none");
+            }
+            $(e+" a").css("border-bottom","#0FF 2px solid");
+
+        }
+
+        function myselect(divselectid,inputselectid) {
+            // alert("ddd");
+
+
+            var list = $(divselectid+" ul");
+            var inputselect = $(inputselectid);
+            $(divselectid+" cite").click(function(){
+                if(list.css("display")=="none"){
+                    list.slideDown("fast");
+                }else{
+                    list.slideUp("fast");
                 }
-        );
-        $scope.detailHide = true;
-        $scope.itemShow = true;
+            });
+            var mouseisout=false;
+            $(divselectid).mouseover(function(){
+                mouseisout=false;
+            });
+            $(divselectid).mouseout(function(){
+                mouseisout=true;
+            });
+            $(document).click(function(){
+                if(mouseisout){
+                    list.hide();
+                }
+            });
 
-        $scope.detailSetShow = function (){
-            if ( !$scope.detailHide ) {
-                $scope.currentOrderDetail = $scope.data[this.$index];
-            } else {
-                $scope.currentOrderDetail = $scope.data[this.$index];
-                $scope.itemShow = !$scope.itemShow;
-                $scope.detailHide = !$scope.detailHide;
-                $scope.itemBoxChang();
+            $(divselectid+" ul li a").click(function(){
+                var txt = $(this).text();
+                $(divselectid+" cite").html(txt);
+                var value = $(this).attr("value");
+                inputselect.val(value);
+                list.hide();
+                if(divselectid=="#ServiceTypeid2"){
+                    addtxt=txt;
+                }
+            });
+        }
+
+        var rheight=$("#rightContent").height()-18;
+        $("#me1").click(function() {
+            meinit(m1);
+
+            $("#me1").attr("src", "image/button_6.png");
+            $("#userInfoAreaid").css("display", "block");
+            $("#account").css("display", "none");
+            //  alert(rheight);
+
+        });
+        $("#me2").click(function() {
+            meinit(m2);
+            $("#me2").attr("src", "image/button_8.png");
+            $("#userInfoAreaid").css("display", "none");
+            $("#account").css("display", "block");
+            //alert(rheight);
+            //$("#account").height(rheight+18);
+
+
+        });
+        $("#AddServiceArea ").click(function() {
+            if(liid<uldata1.length+1){
+
+                liid++;
+                var divid="meli"+liid;
+                var isadd=true;
+
+
+
+                if(leftlistM.length>0){
+                    for(j=0;j<leftlistM.length;j++){
+                        if(leftlistM[j]==addtxt){
+                            isadd=false
+                            liid--;
+                            alert("列表已经有了，不能再添加了")
+                        }else{
+                            isadd=true;
+                        }
+
+                    }
+
+
+                    if(isadd){
+                        addleftmenu(divid,addtxt);
+                        leftlistM[leftlistM.length]=addtxt;
+                    }
+
+                }else if(leftlistM.length==0){
+                    addleftmenu(divid,addtxt);
+                    leftlistM[leftlistM.length]=addtxt;
+                }
+
+                var divlength=$("#leftMeunList").children().length;
+                for(i=1;i<=divlength;i++){
+                    $("#meli"+i).css("background","url(image/weixuan_1.png)")
+                    $("#meli"+i).removeClass("listColor1").addClass("listColor2")
+                }
+                $("#meli1").css("background","url(image/weixuan_2.png)")
+                $("#meli1").removeClass("listColor2").addClass("listColor1")
+
+
+
+
+            }else{
+                alert("服务类型数据已经完，不能再添加")
             }
-        }
 
-        $scope.detailSetHide = function (){
-            $scope.detailHide = true;
-            $scope.itemShow = true;
-            $scope.itemBoxChang();
-        }
+        })
 
-        $scope.itemBoxChang = function (){
+        addlilist("#ServiceTypeid2",uldata1,"#ServiceTypeid2");
+
+//  $("#PeriodTime ul>li").get(0).ad
+        $("#pt1 a").css("border-bottom","#0FF 2px solid");
+
+        myselect("#ServiceTypeid1","#ServiceType1");
+        myselect("#areaChooseid","#areaChoose");
+        myselect("#LocationAreaid","#LocationArea");
+        myselect("#LocationAreaid2","#LocationArea2");
+        myselect("#ServiceTimeSetid","#ServiceTimeSet");
+        myselect("#SeDateid","#SeDate");
+        myselect("#SetTheTimeid1","#SetTheTime1");
+        myselect("#SetTheTimeid2","#SetTheTime2");
+
+// $("#account").height(rheight);
+// $("#left_top_bj").height(rheight);
+
+        (function(){
             var orderL = $('.order-con-l');
-            if ( orderL.width() > 420 ){
-                orderL.width(420);
-            } else {
-                orderL.width('100%');
-            }
-        }
-    });
-//    $(document).ready(function(){
-//        var m1 = true;
-//        var liid=1;
-//        var m2 = false;
-//        var uldata1 = ["月嫂", "家庭保洁", "家电清洗"];//列表数据源
-//
-//        var addtxt = "月嫂";//定义需要添加的左侧菜单内容
-//        var leftlistM = new Array();//定义左侧列表数组
-//        function meinit(str){
-//            m1=false;
-//            m2=false;
-//            str=true;
-//            $("#me1").attr("src", "image/button_7.png");
-//            $("#me2").attr("src", "image/button_9.png");
-//
-//        }
-//
-//        function addleftmenu(divid,v){
-//            //alert($("#leftMeunList").children().length);
-//            $("#leftMeunList").prepend("<a href='javascript:;' onClick='meliFun("+divid+");'><div id='"+divid+"' class='newServicebtn2 LeftClearance listColor2'>"+v+"</div></a>");
-//        }
-//        function meliFun(e){
-//
-//            var divlength=$("#leftMeunList").children().length;
-//            for(i=1;i<=divlength;i++){
-//                $("#meli"+i).css("background","url(image/weixuan_1.png)")
-//                $("#meli"+i).removeClass("listColor1").addClass("listColor2")
-//            }
-//            $(e).css("background","url(image/weixuan_2.png)")
-//            $(e).removeClass("listColor2").addClass("listColor1")
-//            //var tarname=$(e).parent();
-//            //$($(e).parent()+" a").css("color","#F00");
-//            //alert($(e))
-//        }
-//
-//        function addlilist(divid,arr,inputid){
-//
-//            $(divid+" cite").html(arr[0]);
-//            //alert(arr.length)
-//            for(i=1;i<=arr.length;i++){
-//                $(divid+" ul").append("<li><a href='javascript:;' value="+i+">"+arr[i-1]+"</a></li>");
-//            }
-//            //alert(arr.length)
-//            myselect(divid,inputid);
-//        }
-//        function PeriodTimeFun(e){
-//            var divelength=$("#PeriodTime ul>li").length;
-//            //alert(divelength)
-//            for(i=1;i<=divelength;i++){
-//                $("#PeriodTime ul>li a").css("border-bottom","none");
-//            }
-//            $(e+" a").css("border-bottom","#0FF 2px solid");
-//
-//        }
-//
-//        function myselect(divselectid,inputselectid) {
-//            // alert("ddd");
-//
-//
-//            var list = $(divselectid+" ul");
-//            var inputselect = $(inputselectid);
-//            $(divselectid+" cite").click(function(){
-//                if(list.css("display")=="none"){
-//                    list.slideDown("fast");
-//                }else{
-//                    list.slideUp("fast");
-//                }
-//            });
-//            var mouseisout=false;
-//            $(divselectid).mouseover(function(){
-//                mouseisout=false;
-//            });
-//            $(divselectid).mouseout(function(){
-//                mouseisout=true;
-//            });
-//            $(document).click(function(){
-//                if(mouseisout){
-//                    list.hide();
-//                }
-//            });
-//
-//            $(divselectid+" ul li a").click(function(){
-//                var txt = $(this).text();
-//                $(divselectid+" cite").html(txt);
-//                var value = $(this).attr("value");
-//                inputselect.val(value);
-//                list.hide();
-//                if(divselectid=="#ServiceTypeid2"){
-//                    addtxt=txt;
-//                }
-//            });
-//        }
-//
-//        var rheight=$("#rightContent").height()-18;
-//        $("#me1").click(function() {
-//            meinit(m1);
-//
-//            $("#me1").attr("src", "image/button_6.png");
-//            $("#userInfoAreaid").css("display", "block");
-//            $("#account").css("display", "none");
-//            //  alert(rheight);
-//
-//        });
-//        $("#me2").click(function() {
-//            meinit(m2);
-//            $("#me2").attr("src", "image/button_8.png");
-//            $("#userInfoAreaid").css("display", "none");
-//            $("#account").css("display", "block");
-//            //alert(rheight);
-//            //$("#account").height(rheight+18);
-//
-//
-//        });
-//        $("#AddServiceArea ").click(function() {
-//            if(liid<uldata1.length+1){
-//
-//                liid++;
-//                var divid="meli"+liid;
-//                var isadd=true;
-//
-//                if(leftlistM.length>0){
-//                    for(j=0;j<leftlistM.length;j++){
-//                        if(leftlistM[j]==addtxt){
-//                            isadd=false
-//                            liid--;
-//                            alert("列表已经有了，不能再添加了")
-//                        }else{
-//                            isadd=true;
-//                        }
-//
-//                    }
-//
-//
-//                    if(isadd){
-//                        addleftmenu(divid,addtxt);
-//                        leftlistM[leftlistM.length]=addtxt;
-//                    }
-//
-//                }else if(leftlistM.length==0){
-//                    addleftmenu(divid,addtxt);
-//                    leftlistM[leftlistM.length]=addtxt;
-//                }
-//
-//                var divlength=$("#leftMeunList").children().length;
-//                for(i=1;i<=divlength;i++){
-//                    $("#meli"+i).css("background","url(image/weixuan_1.png)")
-//                    $("#meli"+i).removeClass("listColor1").addClass("listColor2")
-//                }
-//                $("#meli1").css("background","url(image/weixuan_2.png)")
-//                $("#meli1").removeClass("listColor2").addClass("listColor1")
-//
-//
-//
-//
-//            }else{
-//                alert("服务类型数据已经完，不能再添加")
-//            }
-//
-//        })
-//
-//        addlilist("#ServiceTypeid2",uldata1,"#ServiceTypeid2");
-//
-////  $("#PeriodTime ul>li").get(0).ad
-//        $("#pt1 a").css("border-bottom","#0FF 2px solid");
-//
-//        myselect("#ServiceTypeid1","#ServiceType1");
-//        myselect("#areaChooseid","#areaChoose");
-//        myselect("#LocationAreaid","#LocationArea");
-//        myselect("#LocationAreaid2","#LocationArea2");
-//        myselect("#ServiceTimeSetid","#ServiceTimeSet");
-//        myselect("#SeDateid","#SeDate");
-//        myselect("#SetTheTimeid1","#SetTheTime1");
-//        myselect("#SetTheTimeid2","#SetTheTime2");
-//
-//// $("#account").height(rheight);
-//// $("#left_top_bj").height(rheight);
+            var orderR = $('.order-con-r');
+            var moreDetail = $('#moreDetail');
 
-//        (function(){
-//            var orderL = $('.order-con-l');
-//            var orderR = $('.order-con-r');
-//            var moreDetail = $('#moreDetail');
-//
-//            var showDetail = function(){
-//                for ( var i = 2 ; i < 5 ; i++ ) {
-////                    console.log(orderL.find('.col-' + i));
-//                    orderL.find('.col-' + i ).toggle();
-//                }
-//                if ( orderL.width() > 420 ){
-//                    orderL.width(420);
-//                } else {
-//                    orderL.width('100%');
-//                }
-//                orderR.toggle();
-//            }
-//            moreDetail.bind('click' ,showDetail);
-//        })();
-//    });
+            var showDetail = function(){
+                for ( var i = 2 ; i < 5 ; i++ ) {
+//                    console.log(orderL.find('.col-' + i));
+                    orderL.find('.col-' + i ).toggle();
+                }
+                if ( orderL.width() > 420 ){
+                    orderL.width(420);
+                } else {
+                    orderL.width('100%');
+                }
+                orderR.toggle();
+            }
+
+            moreDetail.bind('click' ,showDetail);
+        })();
+
+    });
 
 </script>
 </html>

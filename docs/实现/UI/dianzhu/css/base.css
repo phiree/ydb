@@ -137,12 +137,9 @@ a:visited {
 }
 
 html { background:#263650; }
-body {
-    /*font-size: 15px ;*/
-    /*line-height: 1.2em;*/
-    /*font-family:"Arial","Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif; */
-    font: 15px/1.2 Arial,"Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif;
-}
+body { font-size: 15px ;
+    line-height: 1.2em;
+    font-family:"Arial","Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif; }
 
 .fl { float:left; }
 .fr { float:right; }
@@ -155,13 +152,8 @@ body {
 .d-inb { display: inline-block; *display: inline-block;*zoom: 1;}
 .dis-n { display: none; }
 
-.m-auto { margin:0 auto; }
 .m-l20 { margin-left: 20px; }
 .m-l50 { margin-left: 50px; }
-.m-r20 { margin-right: 20px; }
-.m-r50 { margin-right: 50px; }
-.m-b20 { margin-bottom: 20px; }
-.m-b50 { margin-bottom: 50px; }
 
 .p-20 { padding: 20px; }
 .p-l20 { padding-left: 20px; }
