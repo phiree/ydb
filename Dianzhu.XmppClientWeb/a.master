@@ -1,0 +1,34 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="a.master.cs" Inherits="a" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    
+      <link href=<%=ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/base/minified/jquery-ui.min.css
+      rel="stylesheet" type="text/css" />
+    <script type="text/javascript"
+            src='<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/jquery.js'></script>
+            <script type="text/javascript"
+            src='<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js'></script>
+   <script type="text/javascript"
+            src='<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/strophe/strophe.js'></script>
+<script type="text/javascript"
+            src='<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/flXHR/flXHR.js'></script>
+ <script type="text/javascript"
+            src='<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/strophe/plugins/strophe.flxhr.min.js'></script>
+
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

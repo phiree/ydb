@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+       <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/base/minified/jquery-ui.min.css' rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript"
+            src='<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/jquery.js'></script>
+            <script type="text/javascript"
+            src='<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js'></script>
+   <script type="text/javascript"
+            src='<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/strophe/strophe.js'></script>
+<script type="text/javascript"
+            src='<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/flXHR/flXHR.js'></script>
+ <script type="text/javascript"
+            src='<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/strophe/plugins/strophe.flxhr.min.js'></script>
+
+</head>
+<body>
+<h1>Hello</h1>
+<div id="log"></div>
+<div id="login_dialog" class="hidden">
+    <label>JID:</label><input type="text" id="jid"/>
+    <label>Password:</label><input type="password" id="password" />
+</div>
+<script language="javascript" type="text/javascript">
+    $(ducoment).ready(function () {
+        $("#login_dialog").dialog(
+        {
+            autoOpen: true,
+            modal: true,
+            title: "Connect to xmpp server",
+            buttons: {
+                "Connect": function () {
+                    $(document).trigger('connect', {
+                        jid: $("#jid").val(),
+                        password: $("#password").val()
+                    });
+                    $("#password").val("");
+                    $(this).dialog("close");
+
+                }
+            }
+        }
+        );
+
+        $(document).bind("connect", function (ev, data) {
+            var conn = new Strophe.Connection("http://yuanfei-pc:7070/http-bind/");
+            conn.connect(data.jid, data.password, function (status) {
+                if (status === Strophe.Status.CONNECTED) {
+                    $(document).trigger("connected");
+                }
+                else if (status === Strophe.Status.DISCONNECTED) {
+                    $(document).trigger("disconnected");
+                }
+                else if (status === Strophe.Status.AUTHENTICATING) {
+                    $(document).trigger("authenticating");
+                }
+                else if (status === Strophe.Status.DISCONNECTING) {
+                    $(document).trigger("disconnecting");
+                }
+                else if (status === Strophe.Status.CONNFAIL) {
+                    $(document).trigger("connfail");
+                }
+                else if (status === Strophe.Status.AUTHFAIL) {
+                    $(document).trigger("authfail");
+                }
+            });
+        });
+        $(document).bind("connected", function () {
+
+        });
+        $(document).bind("connecting", function () {
+            $("#log").append("connecting");
+        });
+    });
+</script>
+</body>
+</html>
