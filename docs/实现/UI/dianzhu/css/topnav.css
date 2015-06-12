@@ -1,0 +1,41 @@
+.topnav { background:#3d5b77; height:71px;}
+.dianzhuicon{ background:url("../image/topnavbj.png") no-repeat center; height:71px; width:79px; float:left;}
+.menuList {float:right;}
+.menuList ul li{ float:right; }
+
+/*顶栏与侧边栏图标*/
+.nav-btn {
+    display: inline-block;
+    *display: inline-block;
+    *zoom: 1;
+    width: 79px;
+    height: 71px;
+    background: url("../image/nav_btn.png") no-repeat center;
+    vertical-align: middle;
+    content: "";
+}
+
+.nav-btn-coup { background:url("../image/shop_icon_6.png"); width: 79px; height: 70px; }
+.nav-btn-myshop { background-position: -0px -217px; width: 79px; height: 70px; }
+.nav-btn-service { background-position: -810px -145px; width: 79px; height: 70px; }
+.nav-btn-order { background-position: -648px -145px; width: 79px; height: 70px; }
+.nav-btn-employee { background-position: -486px -145px; width: 79px; height: 70px; }
+.nav-btn-msg { background-position: -324px -145px; width: 79px; height: 70px; }
+
+.side-btn-coupTotal { background-position: -162px -0px; width: 79px; height: 70px; }
+.side-btn-coupSet { background-position: -0px -0px; width: 79px; height: 70px; }
+.side-btn-coupVip { background-position: -162px -216px; width: 79px; height: 70px; }
+
+.side-btn-myshop { background-position: -324px -145px; width: 79px; height: 70px; }
+.side-btn-secret { background-position: -648px -72px; width: 79px; height: 70px; }
+
+.side-btn-order { background-position: -648px -0px; width: 79px; height: 70px; }
+.side-btn-orderDeal { background-position: -810px -0px; width: 79px; height: 70px; }
+.side-btn-orderHis { background-position: -0px -72px; width: 79px; height: 70px; }
+
+.side-btn-service { background-position: -162px -72px; width: 79px; height: 70px; }
+.side-btn-serviceSet { background-position: -324px -72px; width: 79px; height: 70px; }
+
+.side-btn-msgDeal { background-position: -324px -144px; width: 79px; height: 70px; }
+.side-btn-msgFav { background-position: -162px -144px; width: 79px; height: 70px; }
+.side-btn-msgHis { background-position: -0px -144px; width: 79px; height: 70px; }
