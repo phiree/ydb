@@ -24,8 +24,8 @@
 
     <!-- login dialog -->
     <div id='login_dialog' class='hidden'>
-      <label>JID:</label><input type='text' id='jid'>
-      <label>Password:</label><input type='password' id='password'>
+      <label>JID:</label><input type='text' id='jid' value='yuanfei@yuanfei-pc'>
+      <label>Password:</label><input value='1' type='password' id='password'>
     </div>
 
     <!-- contact dialog -->
