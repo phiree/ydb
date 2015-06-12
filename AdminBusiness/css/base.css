@@ -21,6 +21,9 @@ button,input,select,textarea {
 input,select,textarea {
     font-size:100%;
 }
+input {
+    cursor: pointer;
+}
 /* 去掉 table cell 的边距并让其边重合 */
 table {
     border-collapse:collapse;
@@ -77,12 +80,18 @@ sub,sup {
 sup {
     top:-0.5em;
 }
+
 sub {
     bottom:-0.25em;
 }
-/* 让链接在 hover 状态下显示下划线 */
+
+a {
+    color : inherit;
+}
+
+/* 让链接在 hover 状态下不显示下划线 */
 a:hover {
-    text-decoration:underline;
+    text-decoration:none;
 }
 /* 默认不显示下划线，保持页面简洁 */
 ins,a {
@@ -110,15 +119,6 @@ a:visited {
     zoom:1;  /* for ie6 & ie7 */
 }
 
-
-/*.clearfix{zoom: 1}*/
-/*.clearfix:after{  *//*清除浮动导致的外层容器高度塌陷*/
-/*display: block;*/
-/*clear: both;*/
-/*height: 0;*/
-/*content: "\0020";*/
-/*}*/
-
 .clear {
     clear:both;
     display:block;
@@ -127,6 +127,7 @@ a:visited {
     line-height:0;
     overflow:hidden;
 }
+
 /* 设置显示和隐藏，通常用来与 js 配合 */
 .hide {
     display:none;
@@ -134,14 +135,12 @@ a:visited {
 .block {
     display:block;
 }
-/* 设置浮动，减少浮动带来的 bug */
-/*.fl,.fr {*/
-/*display:inline;*/
-/*}*/
+
 html { background:#263650; }
-body { font-size: 17px ;
-    line-height: 1.2em;
-    font-family:"Arial","Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif; }
+
+body {
+    font: 15px/1.2 Arial,"Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif;
+}
 
 .fl { float:left; }
 .fr { float:right; }
@@ -154,35 +153,121 @@ body { font-size: 17px ;
 .d-inb { display: inline-block; *display: inline-block;*zoom: 1;}
 .dis-n { display: none; }
 
+.m-auto { margin:0 auto; }
 .m-l20 { margin-left: 20px; }
 .m-l50 { margin-left: 50px; }
+.m-r20 { margin-right: 20px; }
+.m-r50 { margin-right: 50px; }
+.m-b20 { margin-bottom: 20px; }
+.m-b50 { margin-bottom: 50px; }
 
 .p-20 { padding: 20px; }
+.p-l20 { padding-left: 20px; }
 
+.f-s13 { font-size: 13px; }
 .f-s15 { font-size: 15px; }
+.f-s17 { font-size: 17px; }
 .f-s20 { font-size: 20px; }
 
 .l-h16 { line-height: 1.6em; }
 
-.wrap { padding: 50px; background:#263650; }
-.mainContent{ margin: 0 auto; width:1000px; background:#263650;}
-.topnav{ height:70px;}
-.leftContent{ width:78px; float:left; background:#4b6c8b;}
-.rightContent{ width:922px; float:left; background:#FFF;}
-
-.con-wrap {
-    /*padding: 20px;*/
-    background: #cadceb;
-}
-
 .icon {
-    /*display: block;*/
     display: inline-block;
     *display: inline-block;
     *zoom: 1;
     width: 20px;
     height: 20px;
-    background: cadetblue;
+    background: cadetblue no-repeat center;
     vertical-align: middle;
     content: "";
+}
+
+.wrap { padding: 50px 0; background:#263650; }
+
+.mainContent{ margin: 0 auto; width:1000px; }
+
+.leftContent{ width:79px; float:left; background:#4b6c8b;}
+
+.rightContent{ width:921px; float:left; background:#fff;}
+
+.con-wrap {
+    background: #cadceb;
+    color: #58789a;
+}
+
+
+/* 顶栏样式 */
+.topnav { background:#3d5b77; height:71px;}
+
+.dianzhuicon{ background:url("../image/topnavbj.png") no-repeat center; height:71px; width:79px; float:left;}
+
+.menuList {float:right;}
+
+.menuList ul li{ float:right; }
+
+/* 顶栏与侧边栏图标 */
+.nav-btn {
+    display: inline-block;
+    *display: inline-block;
+    *zoom: 1;
+    width: 79px;
+    height: 71px;
+    background: url("../image/nav_btn.png") no-repeat center;
+    vertical-align: middle;
+    content: "";
+}
+
+.nav-btn-coup { background:url("../image/shop_icon_6.png"); width: 79px; height: 70px; }
+.nav-btn-myshop { background-position: -0px -217px; width: 79px; height: 70px; }
+.nav-btn-service { background-position: -810px -145px; width: 79px; height: 70px; }
+.nav-btn-order { background-position: -648px -145px; width: 79px; height: 70px; }
+.nav-btn-employee { background-position: -486px -145px; width: 79px; height: 70px; }
+.nav-btn-msg { background-position: -324px -145px; width: 79px; height: 70px; }
+
+.side-btn-coupTotal { background-position: -162px -0px; width: 79px; height: 70px; }
+.side-btn-coupSet { background-position: -0px -0px; width: 79px; height: 70px; }
+.side-btn-coupVip { background-position: -162px -216px; width: 79px; height: 70px; }
+
+.side-btn-myshop { background-position: -324px -0px; width: 79px; height: 70px; }
+.side-btn-secret { background-position: -648px -72px; width: 79px; height: 70px; }
+
+.side-btn-order { background-position: -648px -0px; width: 79px; height: 70px; }
+.side-btn-orderDeal { background-position: -810px -0px; width: 79px; height: 70px; }
+.side-btn-orderHis { background-position: -0px -72px; width: 79px; height: 70px; }
+
+.side-btn-service { background-position: -162px -72px; width: 79px; height: 70px; }
+.side-btn-serviceSet { background-position: -324px -72px; width: 79px; height: 70px; }
+
+.side-btn-msgDeal { background-position: -324px -144px; width: 79px; height: 70px; }
+.side-btn-msgFav { background-position: -162px -144px; width: 79px; height: 70px; }
+.side-btn-msgHis { background-position: -0px -144px; width: 79px; height: 70px; }
+
+/*select 初始化样式*/
+.select { display:block; position: relative; background: url("../image/select_icon.png") no-repeat right;}
+.select cite { display: block; text-indent: 0.8em; border: 1px solid #e7ebee; }
+.select ul { position: absolute; border: 1px solid #e7ebee; z-index:10; background: #fff;}
+.select a { display: block; text-indent: 0.8em; }
+.select a:hover { background: #f6fafe; }
+
+/* 图片上传框样式 */
+.input-file-box {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+}
+
+.input-file-btn {
+    position: absolute;
+    z-index: 2;
+    width: 90px;
+    height: 90px;
+    opacity: 0;
+}
+
+.input-file-bg {
+    position: absolute;
+    background: #ccc;
+    width: 90px;
+    height: 90px;
 }

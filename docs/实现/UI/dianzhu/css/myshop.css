@@ -30,7 +30,7 @@ height:19px; line-height:19px; padding-left:25px;}
 .BusinessLicense img{ margin-right:5px; margin-left:5px; margin-top:6px;}
 .p_ShopFigure{background:url(../image/yingyezhaopian_1.png) no-repeat; height:25px; margin-top:-5px; line-height:25px; padding-left:30px;}
 .ShopFigure img{ margin-right:5px; margin-left:5px; margin-top:8px;}
-.picture{ float:left; position:relative}
+.picture{ position:relative}
 .picEditBtn{ position:absolute; left:70px; top:-5px; cursor:pointer;}
 .picDelBtn{ position:absolute;left:90px; top:-5px;cursor:pointer;}
 

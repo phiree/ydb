@@ -249,3 +249,30 @@ body {
 .select a { display: block; text-indent: 0.8em; }
 .select a:hover { background: #f6fafe; }
 
+/* 图片上传框样式 */
+.input-file-box {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+}
+
+.input-file-btn {
+    position: absolute;
+    z-index: 3;
+    width: 90px;
+    height: 90px;
+    opacity: 0;
+}
+
+.input-file-bg {
+    position: absolute;
+    z-index: 1;
+    background: #ccc;
+    width: 90px;
+    height: 90px;
+}
+
+.input-file-mark {
+
+}

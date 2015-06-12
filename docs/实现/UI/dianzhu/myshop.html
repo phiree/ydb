@@ -82,20 +82,36 @@
                         </div>
                         <div class="LeftClearance1 BusinessLicense">
                             <p class="p_BusinessLicense">营业执照</p>
-                            <p><img src="image/dianjishangchuan_1.png" /></p>
+                            <div>
+                                <div class="input-file-box d-inb">
+                                    <input class="input-file-btn" type="file">
+                                    <i class="input-file-bg"></i>
+                                    <i class="input-file-mark"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="ShopDetailsAreaRight">
                         <div class="RightClearance1 ShopFigure">
                             <p class="p_ShopFigure">店铺图片展示</p>
                             <div>
-                                <div class="picture">
-                                    <img class="picEditBtn" src="image/bianjji_1.png" />
-                                    <img class="picDelBtn" src="image/delete_1.png" />
-                                    <img src="image/picture_1.png" />
+                                <div class="picture clearfix">
+                                    <div class="input-file-box d-inb">
+                                        <input class="input-file-btn" type="file">
+                                        <i class="input-file-bg"></i>
+                                        <i class="input-file-mark"></i>
+                                    </div>
+                                    <div class="input-file-box d-inb">
+                                        <input class="input-file-btn" type="file">
+                                        <i class="input-file-bg"></i>
+                                        <i class="input-file-mark"></i>
+                                    </div>
+                                    <div class="input-file-box d-inb">
+                                        <input class="input-file-btn" type="file">
+                                        <i class="input-file-bg"></i>
+                                        <i class="input-file-mark"></i>
+                                    </div>
                                 </div>
-                                <img src="image/dianjishangchuan_1.png" />
-                                <img src="image/dianjishangchuan_1.png" />
                             </div>
                         </div>
                         <div class="RightClearance1 employees">
@@ -131,7 +147,13 @@
                         </div>
                         <div class="RightClearance1 HeadProfilePicture">
                             <p class="p_HeadProfilePicture">负责人证件照上传</p>
-                            <p><img src="image/dianjishangchuan_1.png" /></p>
+                            <div>
+                            <div class="input-file-box d-inb">
+                                <input class="input-file-btn" type="file">
+                                <i class="input-file-bg"></i>
+                                <i class="input-file-mark"></i>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -150,45 +172,45 @@
 <script type="text/javascript" src="./js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="./js/global.js"></script>
 <script type="text/javascript">
-    function myselect(divselectid,inputselectid) {
-
-        var list = $(divselectid+" ul");
-        var inputselect = $(inputselectid);
-        $(divselectid+" cite").click(function(){
-            if(list.css("display")=="none"){
-                list.slideDown("fast");
-            }else{
-                list.slideUp("fast");
-            }
-        });
-        var mouseisout=false;
-        $(divselectid).mouseover(function(){
-            mouseisout=false;
-        });
-        $(divselectid).mouseout(function(){
-            mouseisout=true;
-        });
-        $(document).click(function(){
-            if(mouseisout){
-                list.hide();
-            }
-        });
-
-        $(divselectid+" ul li a").click(function(){
-            var txt = $(this).text();
-            $(divselectid+" cite").html(txt);
-            var value = $(this).attr("value");
-            inputselect.val(value);
-            list.hide();
-        });
-    }
-
-    $(document).ready(function(){
-
-        myselect("#WorkingTimeid","#WorkingTime");
-        myselect("#employeesid","#employees");
-        myselect("#DocumentTypeid","#DocumentType");
-
-    });
+//    function myselect(divselectid,inputselectid) {
+//
+//        var list = $(divselectid+" ul");
+//        var inputselect = $(inputselectid);
+//        $(divselectid+" cite").click(function(){
+//            if(list.css("display")=="none"){
+//                list.slideDown("fast");
+//            }else{
+//                list.slideUp("fast");
+//            }
+//        });
+//        var mouseisout=false;
+//        $(divselectid).mouseover(function(){
+//            mouseisout=false;
+//        });
+//        $(divselectid).mouseout(function(){
+//            mouseisout=true;
+//        });
+//        $(document).click(function(){
+//            if(mouseisout){
+//                list.hide();
+//            }
+//        });
+//
+//        $(divselectid+" ul li a").click(function(){
+//            var txt = $(this).text();
+//            $(divselectid+" cite").html(txt);
+//            var value = $(this).attr("value");
+//            inputselect.val(value);
+//            list.hide();
+//        });
+//    }
+//
+//    $(document).ready(function(){
+//
+//        myselect("#WorkingTimeid","#WorkingTime");
+//        myselect("#employeesid","#employees");
+//        myselect("#DocumentTypeid","#DocumentType");
+//
+//    });
 </script>
 </html>
