@@ -16,7 +16,8 @@
         <div class="leftContent" id="leftCont">
             <div>
                 <ul>
-                    <li><a href="service.html"><img id="me1" src="image/button_6.png" /></a></li>
+                    <li><a href="service.html"><i class="nav-btn side-btn-service"></i></a></li>
+                    <li><a href="service-set.html"><i class="nav-btn side-btn-serviceSet"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -65,89 +66,94 @@
                         <!--</div>-->
                     <!--</div>-->
                     <div class="ShopDetailsAreaRight">
-                        <div class="ServiceLeft  TopClearance">
-                            <div class="LeftClearance2">
-                                <p class="p_ServiceType">请选择您的服务类型</p>
-                                <div id="ServiceTypeid1" class="WorkingTimediv">
-                                    <cite>照顾1</cite>
-                                    <ul>
-                                        <li><a href="javascript:;" value="1">照顾1</a></li>
-                                        <li><a href="javascript:;" value="2">照顾2</a></li>
-                                        <li><a href="javascript:;" value="3">照顾3</a></li>
-                                    </ul>
-                                    <input type="hidden" value="1" id="ServiceType1" />
+                        <div class="ServiceLeft">
+                            <div class="p-20">
+                                <div class="m-b20">
+                                    <p class="p_ServiceType">请选择您的服务类型</p>
+                                    <div class="clearfix">
+                                        <div class="select fl select-sm">
+                                            <ul>
+                                                <li><a>照顾1</a></li>
+                                                <li><a>照顾2</a></li>
+                                                <li><a>照顾3</a></li>
+                                            </ul>
+                                            <input type="hidden" />
+                                        </div>
+                                        <div class="jiangexian fl"></div>
+                                        <div class="select fl select-sm">
+                                            <ul>
+                                                <li><a>月嫂</a></li>
+                                                <li><a>家庭保洁</a></li>
+                                                <li><a>家电清洗</a></li>
+                                            </ul>
+                                            <input type="hidden" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="jiangexian"></div>
-                                <div id="ServiceTypeid2" class="WorkingTimediv">
-                                    <cite>月嫂</cite>
-                                    <ul>
-                                        <!--
-                                     <li><a href="javascript:;" value="1">月嫂</a></li>
-                                     <li><a href="javascript:;" value="2">家庭保洁</a></li>
-                                     <li><a href="javascript:;" value="3">家电清洗</a></li>
-                                     -->
-                                    </ul>
-                                    <input type="hidden" value="1" id="ServiceType2" />
+                                <div class="m-b20">
+                                    <p class="p_serviceIntroduced">服务介绍</p>
+                                    <p><textarea class="serviceIntroduced" name="serviceIntroduced">(可输入60个字)</textarea></p>
                                 </div>
-                            </div>
-                            <div class="LeftClearance2 serviceIntroduced">
-                                <p class="p_serviceIntroduced">服务介绍</p>
-                                <p><textarea name="serviceIntroduced">(可输入60个字)</textarea></p>
-                            </div>
-                            <div class="LeftClearance2 QualificationCertificate">
-                                <p class="p_QualificationCertificate">资质证书</p>
-                                <p><img src="image/dianjishangchuan_1.png" /></p>
-                            </div>
-                            <div class="LeftClearance2">
-                                <p class="p_areaChoose">服务区域选择</p>
-                                <div id="areaChooseid" class="WorkingTimediv">
-                                    <cite>东城区</cite>
-                                    <ul>
-                                        <li><a href="javascript:;" value="1">东城区</a></li>
-                                        <li><a href="javascript:;" value="2">中城区</a></li>
-                                        <li><a href="javascript:;" value="3">西城区</a></li>
-                                    </ul>
-                                    <input type="hidden" value="1" id="areaChoose" />
+                                <div class="QualificationCertificate">
+                                    <p class="p_QualificationCertificate">资质证书</p>
+                                    <p><img src="image/dianjishangchuan_1.png" /></p>
+                                </div>
+                                <div>
+                                    <p class="p_areaChoose">服务区域选择</p>
+                                    <div id="areaChooseid" class="select select-sm">
+                                        <ul>
+                                            <li><a>东城区</a></li>
+                                            <li><a>中城区</a></li>
+                                            <li><a>西城区</a></li>
+                                        </ul>
+                                        <input type="hidden" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="ServiceRight TopClearance">
-                            <div class="LocationArea">
-                                <p class="p_LocationArea">定位服务区域</p>
-                                <span class="Locationbt1">服务中心点定位（为您的服务区域进行定位）</span>
-                                <div id="LocationAreaid" class="WorkingTimediv2">
-                                    <cite>1</cite>
-                                    <ul>
-                                        <li><a href="javascript:;" value="1">1</a></li>
-                                        <li><a href="javascript:;" value="2">2</a></li>
-                                        <li><a href="javascript:;" value="3">3</a></li>
-                                    </ul>
-                                    <input type="hidden" value="1" id="LocationArea" />
+                        <div class="ServiceRight">
+                            <div class="p-20">
+
+                                <div class="setLocation">
+                                    <p class="p_LocationArea">定位服务区域</p>
+                                    <p class="">服务中心点定位(为您的服务区域进行定位)</p>
+
+                                    <div class="clearfix">
+                                        <div class="setLocationDate fl">
+                                            <div class="select select-sm">
+                                                <ul>
+                                                    <li><a>1</a></li>
+                                                    <li><a>2</a></li>
+                                                    <li><a>3</a></li>
+                                                </ul>
+                                                <input type="hidden" />
+                                            </div>
+                                            <p class=""> 点击打开地图，在地图上选取您的服务中心点</p>
+                                            <p>服务半径（确认您的服务范围）</p>
+                                            <div class="select select-sm">
+                                                <ul>
+                                                    <li><a>1000M</a></li>
+                                                    <li><a>2000M</a></li>
+                                                    <li><a>3000M</a></li>
+                                                </ul>
+                                                <input type="hidden" />
+                                            </div>
+                                        </div>
+                                        <div class="setLocationMap fr">
+
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <span class="Locationbt2"> 点击打开地图，在地图上选取您<img src="image/icon_8.png" /><br />的服务中心点</span>
-                                <span class="Locationbt2"> 服务半径（确认您的服务范围）</span>
-                                <div id="LocationAreaid2" class="WorkingTimediv2">
-                                    <cite>1000M</cite>
-                                    <ul>
-                                        <li><a href="javascript:;" value="1">1000M</a></li>
-                                        <li><a href="javascript:;" value="2">2000M</a></li>
-                                        <li><a href="javascript:;" value="3">3000M</a></li>
-                                    </ul>
-                                    <input type="hidden" value="1" id="LocationArea2" />
-                                </div>
-                                <div class="mapdiv">
-                                    地图
-                                </div>
-                                <div class="LeftClearance3 ServiceTimeSet">
+                                <div class="">
                                     <p class="p_ServiceTimeSet">服务时间设置</p>
-                                    <div id="ServiceTimeSetid" class="WorkingTimediv">
-                                        <cite>单独设置</cite>
+                                    <div class="select select-sm">
                                         <ul>
-                                            <li><a href="javascript:;" value="1">单独设置</a></li>
-                                            <li><a href="javascript:;" value="2">单独设置2</a></li>
-                                            <li><a href="javascript:;" value="3">单独设置3</a></li>
+                                            <li><a>单独设置</a></li>
+                                            <li><a>单独设置2</a></li>
+                                            <li><a>单独设置3</a></li>
                                         </ul>
-                                        <input type="hidden" value="1" id="ServiceTimeSet" />
+                                        <input type="hidden" />
                                     </div>
                                     <div id="PeriodTime" class="cleardiv">
                                         <ul class="PeriodTimeul">
@@ -160,36 +166,33 @@
                                     <div class="cleardiv">
                                         <span>该时段不受主界面的时间开关限制，为可接单状态。</span>
                                         <p class="p_SeDate">日期设定</p>
-                                        <div id="SeDateid" class="WorkingTimediv">
-                                            <cite>2015-04-07</cite>
+                                        <div class="select select-sm">
                                             <ul>
-                                                <li><a href="javascript:;" value="1">2015-04-07</a></li>
-                                                <li><a href="javascript:;" value="2">2015-04-08</a></li>
-                                                <li><a href="javascript:;" value="3">2015-04-09</a></li>
+                                                <li><a>2015-04-07</a></li>
+                                                <li><a>2015-04-08</a></li>
+                                                <li><a>2015-04-09</a></li>
                                             </ul>
-                                            <input type="hidden" value="1" id="SeDate" />
+                                            <input type="hidden" />
                                         </div>
-                                        <p class="p_SetTheTime cleardiv">时段设定</p>
-                                        <div id="SetTheTimeid1" class="WorkingTimediv">
-                                            <cite>9:00</cite>
+                                        <p class="p_SetTheTime">时段设定</p>
+                                        <div class="select select-sm">
                                             <ul>
-                                                <li><a href="javascript:;" value="1">8:00</a></li>
-                                                <li><a href="javascript:;" value="2">9:00</a></li>
-                                                <li><a href="javascript:;" value="3">10:00</a></li>
+                                                <li><a>8:00</a></li>
+                                                <li><a>9:00</a></li>
+                                                <li><a>10:00</a></li>
                                             </ul>
-                                            <input type="hidden" value="1" id="SetTheTime1" />
+                                            <input type="hidden" />
                                         </div>
                                         <div class="jiangexian"></div>
-                                        <div id="SetTheTimeid2" class="WorkingTimediv">
-                                            <cite>9:00</cite>
+                                        <div class="select select-sm">
                                             <ul>
-                                                <li><a href="javascript:;" value="1">8:00</a></li>
-                                                <li><a href="javascript:;" value="2">9:00</a></li>
-                                                <li><a href="javascript:;" value="3">10:00</a></li>
+                                                <li><a>8:00</a></li>
+                                                <li><a>9:00</a></li>
+                                                <li><a>10:00</a></li>
                                             </ul>
-                                            <input type="hidden" value="1" id="SetTheTimeData2" />
+                                            <input type="hidden" />
                                         </div>
-                                        <p class="delAndUpdate cleardiv"> <input name="imagedelete" type="image" id="imagedelete" src="image/button_3.png" /> <input name="imageupdate" type="image" id="imageupdate" src="image/button_4.png" /> </p>
+                                        <p class="delAndUpdate"> <input name="imagedelete" type="image" id="imagedelete" src="image/button_3.png" /> <input name="imageupdate" type="image" id="imageupdate" src="image/button_4.png" /> </p>
                                     </div>
                                 </div>
                             </div>
@@ -212,21 +215,6 @@
 <script type="text/javascript" src="./js/global.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        var m1 = true;
-        var liid=1;
-        var m2 = false;
-        var uldata1 = ["月嫂", "家庭保洁", "家电清洗"];//列表数据源
-
-        var addtxt="月嫂";//定义需要添加的左侧菜单内容
-        var leftlistM=new Array();//定义左侧列表数组
-        function meinit(str){
-            m1=false;
-            m2=false;
-            str=true;
-            $("#me1").attr("src", "image/button_7.png");
-            $("#me2").attr("src", "image/button_9.png");
-
-        }
 
         function addleftmenu(divid,v){
             //alert($("#leftMeunList").children().length);
@@ -265,42 +253,6 @@
             $(e+" a").css("border-bottom","#0FF 2px solid");
 
         }
-
-        function myselect(divselectid,inputselectid) {
-            var list = $(divselectid+" ul");
-            var inputselect = $(inputselectid);
-            $(divselectid+" cite").click(function(){
-                if(list.css("display")=="none"){
-                    list.slideDown("fast");
-                }else{
-                    list.slideUp("fast");
-                }
-            });
-            var mouseisout=false;
-            $(divselectid).mouseover(function(){
-                mouseisout=false;
-            });
-            $(divselectid).mouseout(function(){
-                mouseisout=true;
-            });
-            $(document).click(function(){
-                if(mouseisout){
-                    list.hide();
-                }
-            });
-
-            $(divselectid+" ul li a").click(function(){
-                var txt = $(this).text();
-                $(divselectid+" cite").html(txt);
-                var value = $(this).attr("value");
-                inputselect.val(value);
-                list.hide();
-                if(divselectid=="#ServiceTypeid2"){
-                    addtxt=txt;
-                }
-            });
-        }
-
 
         var rheight=$("#rightContent").height()-18;
         $("#me1").click(function() {
@@ -362,19 +314,9 @@
 
         })
 
-        addlilist("#ServiceTypeid2",uldata1,"#ServiceTypeid2");
+//        addlilist("#ServiceTypeid2",uldata1,"#ServiceTypeid2");
 
         $("#pt1 a").css("border-bottom","#0FF 2px solid");
-
-        myselect("#ServiceTypeid1","#ServiceType1");
-        myselect("#areaChooseid","#areaChoose");
-        myselect("#LocationAreaid","#LocationArea");
-        myselect("#LocationAreaid2","#LocationArea2");
-        myselect("#ServiceTimeSetid","#ServiceTimeSet");
-        myselect("#SeDateid","#SeDate");
-        myselect("#SetTheTimeid1","#SetTheTime1");
-        myselect("#SetTheTimeid2","#SetTheTime2");
-
 
     });
 

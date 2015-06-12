@@ -137,10 +137,8 @@ a:visited {
 }
 
 html { background:#263650; }
+
 body {
-    /*font-size: 15px ;*/
-    /*line-height: 1.2em;*/
-    /*font-family:"Arial","Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif; */
     font: 15px/1.2 Arial,"Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif;
 }
 
@@ -179,20 +177,102 @@ body {
     *zoom: 1;
     width: 20px;
     height: 20px;
-    background: cadetblue;
-    background-repeat: no-repeat ;
-    background-position: center;
+    background: cadetblue no-repeat center;
     vertical-align: middle;
     content: "";
 }
 
 .wrap { padding: 50px 0; background:#263650; }
+
 .mainContent{ margin: 0 auto; width:1000px; }
-.topnav{ height:70px;}
-.leftContent{ width:78px; float:left; background:#4b6c8b;}
-.rightContent{ width:922px; float:left; background:#fff;}
+
+.leftContent{ width:79px; float:left; background:#4b6c8b;}
+
+.rightContent{ width:921px; float:left; background:#fff;}
 
 .con-wrap {
     background: #cadceb;
     color: #58789a;
+}
+
+
+/* 顶栏样式 */
+.topnav { background:#3d5b77; height:71px;}
+
+.dianzhuicon{ background:url("../image/topnavbj.png") no-repeat center; height:71px; width:79px; float:left;}
+
+.menuList {float:right;}
+
+.menuList ul li{ float:right; }
+
+/* 顶栏与侧边栏图标 */
+.nav-btn {
+    display: inline-block;
+    *display: inline-block;
+    *zoom: 1;
+    width: 79px;
+    height: 71px;
+    background: url("../image/nav_btn.png") no-repeat center;
+    vertical-align: middle;
+    content: "";
+}
+
+.nav-btn-coup { background:url("../image/shop_icon_6.png"); width: 79px; height: 70px; }
+.nav-btn-myshop { background-position: -0px -217px; width: 79px; height: 70px; }
+.nav-btn-service { background-position: -810px -145px; width: 79px; height: 70px; }
+.nav-btn-order { background-position: -648px -145px; width: 79px; height: 70px; }
+.nav-btn-employee { background-position: -486px -145px; width: 79px; height: 70px; }
+.nav-btn-msg { background-position: -324px -145px; width: 79px; height: 70px; }
+
+.side-btn-coupTotal { background-position: -162px -0px; width: 79px; height: 70px; }
+.side-btn-coupSet { background-position: -0px -0px; width: 79px; height: 70px; }
+.side-btn-coupVip { background-position: -162px -216px; width: 79px; height: 70px; }
+
+.side-btn-myshop { background-position: -324px -0px; width: 79px; height: 70px; }
+.side-btn-secret { background-position: -648px -72px; width: 79px; height: 70px; }
+
+.side-btn-order { background-position: -648px -0px; width: 79px; height: 70px; }
+.side-btn-orderDeal { background-position: -810px -0px; width: 79px; height: 70px; }
+.side-btn-orderHis { background-position: -0px -72px; width: 79px; height: 70px; }
+
+.side-btn-service { background-position: -162px -72px; width: 79px; height: 70px; }
+.side-btn-serviceSet { background-position: -324px -72px; width: 79px; height: 70px; }
+
+.side-btn-msgDeal { background-position: -324px -144px; width: 79px; height: 70px; }
+.side-btn-msgFav { background-position: -162px -144px; width: 79px; height: 70px; }
+.side-btn-msgHis { background-position: -0px -144px; width: 79px; height: 70px; }
+
+/*select 初始化样式*/
+.select { display:block; position: relative; background: url("../image/select_icon.png") no-repeat right;}
+.select cite { display: block; text-indent: 0.8em; border: 1px solid #e7ebee; }
+.select ul { position: absolute; border: 1px solid #e7ebee; z-index:10; background: #fff;}
+.select a { display: block; text-indent: 0.8em; }
+.select a:hover { background: #f6fafe; }
+
+/* 图片上传框样式 */
+.input-file-box {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+}
+
+.input-file-btn {
+    position: absolute;
+    z-index: 3;
+    width: 90px;
+    height: 90px;
+    opacity: 0;
+}
+
+.input-file-bg {
+    position: absolute;
+    z-index: 1;
+    background: #ccc;
+    width: 90px;
+    height: 90px;
+}
+
+.input-file-mark {
+
 }

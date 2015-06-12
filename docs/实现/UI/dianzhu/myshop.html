@@ -16,8 +16,8 @@
         <div class="leftContent" id="leftCont">
             <div>
                 <ul>
-                    <li><a href="myshop.html"><img id="me1" src="image/jibenxinxi_3.png" /></a></li>
-                    <li><a href="secret.html"><img id="me2" src="image/zhanghaoanquan_2.png" /></a></li>
+                    <li><a href="myshop.html"><i class="nav-btn side-btn-myshop"></i></a></li>
+                    <li><a href="secret.html"><i class="nav-btn side-btn-secret"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -47,8 +47,6 @@
                         <div class="headEditImg"></div>
                     </div>
                 </div>
-                <!--<div class="decoration1"></div>-->
-                <!--<div class="decoration2"></div>-->
                 <div class="decoration3">
                     <img src="image/shopicon.jpg" />
                     <span class="ShopDetails">店铺详细资料</span>
@@ -73,44 +71,58 @@
                         </div>
                         <div class="LeftClearance1 pinput">
                             <p class="p_WorkingTime">从业时间</p>
-                            <div id="WorkingTimeid" class="WorkingTimediv">
-                                <cite>9:00</cite>
+                            <div class="select select-sm">
                                 <ul>
-                                    <li><a href="javascript:;" value="1">8:00</a></li>
-                                    <li><a href="javascript:;" value="2">9:00</a></li>
-                                    <li><a href="javascript:;" value="3">10:00</a></li>
+                                    <li><a>8:00</a></li>
+                                    <li><a>9:00</a></li>
+                                    <li><a>10:00</a></li>
                                 </ul>
-                                <input type="hidden" value="1" id="WorkingTime" />
+                                <input type="hidden" />
                             </div>
                         </div>
                         <div class="LeftClearance1 BusinessLicense">
                             <p class="p_BusinessLicense">营业执照</p>
-                            <p><img src="image/dianjishangchuan_1.png" /></p>
+                            <div>
+                                <div class="input-file-box d-inb">
+                                    <input class="input-file-btn" type="file">
+                                    <i class="input-file-bg"></i>
+                                    <i class="input-file-mark"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="ShopDetailsAreaRight">
                         <div class="RightClearance1 ShopFigure">
                             <p class="p_ShopFigure">店铺图片展示</p>
                             <div>
-                                <div class="picture">
-                                    <img class="picEditBtn" src="image/bianjji_1.png" />
-                                    <img class="picDelBtn" src="image/delete_1.png" />
-                                    <img src="image/picture_1.png" />
+                                <div class="picture clearfix">
+                                    <div class="input-file-box d-inb">
+                                        <input class="input-file-btn" type="file">
+                                        <i class="input-file-bg"></i>
+                                        <i class="input-file-mark"></i>
+                                    </div>
+                                    <div class="input-file-box d-inb">
+                                        <input class="input-file-btn" type="file">
+                                        <i class="input-file-bg"></i>
+                                        <i class="input-file-mark"></i>
+                                    </div>
+                                    <div class="input-file-box d-inb">
+                                        <input class="input-file-btn" type="file">
+                                        <i class="input-file-bg"></i>
+                                        <i class="input-file-mark"></i>
+                                    </div>
                                 </div>
-                                <img src="image/dianjishangchuan_1.png" />
-                                <img src="image/dianjishangchuan_1.png" />
                             </div>
                         </div>
                         <div class="RightClearance1 employees">
                             <p class="p_employees">员工人数</p>
-                            <div id="employeesid" class="WorkingTimediv">
-                                <cite>10人</cite>
+                            <div class="select select-sm">
                                 <ul>
-                                    <li><a href="javascript:;" value="1">10人</a></li>
-                                    <li><a href="javascript:;" value="2">20人</a></li>
-                                    <li><a href="javascript:;" value="3">50人</a></li>
+                                    <li><a>10人</a></li>
+                                    <li><a>20人</a></li>
+                                    <li><a>50人</a></li>
                                 </ul>
-                                <input type="hidden" value="1" id="employees" />
+                                <input type="hidden" />
                             </div>
                             <span>员工信息编辑</span>
                         </div>
@@ -120,14 +132,13 @@
                         </div>
                         <div class="RightClearance1 employees">
                             <p class="p_DocumentType">证件类型</p>
-                            <div id="DocumentTypeid" class="WorkingTimediv">
-                                <cite>身份证</cite>
+                            <div class="select select-sm">
                                 <ul>
-                                    <li><a href="javascript:;" value="1">身份证</a></li>
-                                    <li><a href="javascript:;" value="2">学生证</a></li>
-                                    <li><a href="javascript:;" value="3">其它</a></li>
+                                    <li><a>身份证</a></li>
+                                    <li><a>学生证</a></li>
+                                    <li><a>其它</a></li>
                                 </ul>
-                                <input type="hidden" value="1" id="DocumentType" />
+                                <input type="hidden" />
                             </div>
                         </div>
                         <div class="RightClearance1 pinput3">
@@ -136,7 +147,13 @@
                         </div>
                         <div class="RightClearance1 HeadProfilePicture">
                             <p class="p_HeadProfilePicture">负责人证件照上传</p>
-                            <p><img src="image/dianjishangchuan_1.png" /></p>
+                            <div>
+                            <div class="input-file-box d-inb">
+                                <input class="input-file-btn" type="file">
+                                <i class="input-file-bg"></i>
+                                <i class="input-file-mark"></i>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -155,90 +172,45 @@
 <script type="text/javascript" src="./js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="./js/global.js"></script>
 <script type="text/javascript">
-    var m1 = true;
-    var m2 = false;
-    function meinit(str){
-        m1=false;
-        m2=false;
-        str=true;
-        $("#me1").attr("src", "image/jibenxinxi_4.png");
-        $("#me2").attr("src", "image/zhanghaoanquan_2.png");
-
-    }
-    function myselect(divselectid,inputselectid) {
-        // alert("ddd");
-
-
-        var list = $(divselectid+" ul");
-        var inputselect = $(inputselectid);
-        $(divselectid+" cite").click(function(){
-            if(list.css("display")=="none"){
-                list.slideDown("fast");
-            }else{
-                list.slideUp("fast");
-            }
-        });
-        var mouseisout=false;
-        $(divselectid).mouseover(function(){
-            mouseisout=false;
-        });
-        $(divselectid).mouseout(function(){
-            mouseisout=true;
-        });
-        $(document).click(function(){
-            if(mouseisout){
-                list.hide();
-            }
-        });
-
-        $(divselectid+" ul li a").click(function(){
-            var txt = $(this).text();
-            $(divselectid+" cite").html(txt);
-            var value = $(this).attr("value");
-            inputselect.val(value);
-            list.hide();
-        });
-    }
-    $(document).ready(function(){
-        $("#me1").click(function() {
-            meinit(m1);
-
-            $("#me1").attr("src", "image/jibenxinxi_3.png");
-            $("#userInfoAreaid").css("display", "block");
-            $("#account").css("display", "none");
-
-
-        });
-        $("#me2").click(function() {
-            meinit(m2);
-            $("#me2").attr("src", "image/zhanghaoanquan_1.png");
-            $("#userInfoAreaid").css("display", "none");
-            $("#account").css("display", "block");
-
-        });
-        $(".picture").hover(function() {
-                    $(".picDelBtn").css("display", "block");
-                    $(".picEditBtn").css("display", "block");
-
-                },function() {
-                    $(".picDelBtn").css("display", "none");
-                    $(".picEditBtn").css("display", "none");
-
-                }
-
-
-        );
-
-        $(".picDelBtn").css("display", "none");
-        $(".picEditBtn").css("display", "none");
-
-        $(".progress").css("width", "90%");
-        $(".completePercentage").html("90%");
-
-        myselect("#WorkingTimeid","#WorkingTime");
-        myselect("#employeesid","#employees");
-        myselect("#DocumentTypeid","#DocumentType");
-
-    });
+//    function myselect(divselectid,inputselectid) {
+//
+//        var list = $(divselectid+" ul");
+//        var inputselect = $(inputselectid);
+//        $(divselectid+" cite").click(function(){
+//            if(list.css("display")=="none"){
+//                list.slideDown("fast");
+//            }else{
+//                list.slideUp("fast");
+//            }
+//        });
+//        var mouseisout=false;
+//        $(divselectid).mouseover(function(){
+//            mouseisout=false;
+//        });
+//        $(divselectid).mouseout(function(){
+//            mouseisout=true;
+//        });
+//        $(document).click(function(){
+//            if(mouseisout){
+//                list.hide();
+//            }
+//        });
+//
+//        $(divselectid+" ul li a").click(function(){
+//            var txt = $(this).text();
+//            $(divselectid+" cite").html(txt);
+//            var value = $(this).attr("value");
+//            inputselect.val(value);
+//            list.hide();
+//        });
+//    }
+//
+//    $(document).ready(function(){
+//
+//        myselect("#WorkingTimeid","#WorkingTime");
+//        myselect("#employeesid","#employees");
+//        myselect("#DocumentTypeid","#DocumentType");
+//
+//    });
 </script>
 </html>

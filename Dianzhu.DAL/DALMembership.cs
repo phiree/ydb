@@ -37,7 +37,7 @@ namespace Dianzhu.DAL
             if (matchLength == 1) { result = true;
 
             IQuery queryUpdate = DalBase.Session.CreateQuery("update DZMembership u  set u.LastLoginTime='" + DateTime.Now.ToString() + "'   where u.UserName='" + username + "' and u.Password='" + password + "'");
-            queryUpdate.ExecuteUpdate();
+           // queryUpdate.ExecuteUpdate();
             }
             if (matchLength > 1)
             {

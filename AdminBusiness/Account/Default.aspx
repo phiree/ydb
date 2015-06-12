@@ -4,20 +4,27 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="/css/myshop.css" rel="stylesheet" type="text/css" />
     <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/base/minified/jquery-ui.min.css' rel="stylesheet" type="text/css" />
-    
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="mainContent clearfix">
         <div class="leftContent" id="leftCont">
-            <div>
-                <ul>
-                    <li><a href="/account/">
-                        <img id="me1" src="/image/jibenxinxi_3.png" /></a></li>
-                    <li><a href="/account/security.aspx">
-                        <img id="me2" src="/image/zhanghaoanquan_2.png" /></a></li>
-                </ul>
+            <!--<div>-->
+                <!--<ul>-->
+                    <!--<li><a href="/account/">-->
+                        <!--<img id="me1" src="/image/jibenxinxi_3.png" /></a></li>-->
+                    <!--<li><a href="/account/security.aspx">-->
+                        <!--<img id="me2" src="/image/zhanghaoanquan_2.png" /></a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <div class="leftContent" id="leftCont">
+                <div>
+                    <ul>
+                        <li><a href="myshop.html"><i class="nav-btn side-btn-myshop"></i></a></li>
+                        <li><a href="secret.html"><i class="nav-btn side-btn-secret"></i></a></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="rightContent" id="rightCont">
@@ -49,8 +56,6 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="decoration1"></div>-->
-                <!--<div class="decoration2"></div>-->
                 <div class="decoration3">
                     <img src="/image/shopicon.jpg" />
                     <span class="ShopDetails">店铺详细资料</span>
@@ -58,10 +63,10 @@
                 <div class="ShopDetailsArea clearfix">
                     <div class="ShopDetailsAreaLeft">
                         <div class="LeftClearance1 shopIntroduced">
-                            <p class="p_introduced">
-                                店铺介绍</p>
+                            <p class="p_introduced">店铺介绍</p>
                             <p>
-                                <textarea id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入60个字)</textarea></p>
+                                <textarea id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入60个字)</textarea>
+                            </p>
                         </div>
                         <div class="LeftClearance1 pinput">
                             <p class="p_ContactPhone">
@@ -90,13 +95,16 @@
                         <div class="LeftClearance1 BusinessLicense">
                             <p class="p_BusinessLicense">
                                 营业执照</p>
-                            <p>
-                            
-                             <a href='<%=Config.BusinessImagePath+"/original/"+b.BusinessLicence.ImageName %>'>
-                             
-                             <img    runat="server" id="imgLicence" src="/image/dianjishangchuan_1.png" /></a>   
-                                <asp:FileUpload runat="server" ID="fuBusinessLicence" />
-                            </p>
+                            <div>
+                                <div class="input-file-box d-inb">
+                                    <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
+                                    <i class="input-file-bg"></i>
+                                    <i class="input-file-mark"></i>
+                                </div>
+                            <a href='<%=Config.BusinessImagePath+"/original/"+b.BusinessLicence.ImageName %>'>
+                                <img runat="server" id="imgLicence" src="/image/dianjishangchuan_1.png" />
+                            </a>
+                            </div>
                         </div>
                     </div>
                     <div class="ShopDetailsAreaRight">
@@ -114,16 +122,26 @@
                                              <a href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
 
                                              
-                                             <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=50&height=50&tt=2'   id="imgLicence"  />
-                                             </a>   
-  
-                                            
+                                             <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=50&height=50&tt=2'  id="imgLicence"  />
+                                             </a>
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </div>
-                                <asp:FileUpload runat="server" ID="fuShow1" />
-                                <asp:FileUpload runat="server" ID="fuShow2" />
-                                <asp:FileUpload runat="server" ID="fuShow3" />
+                                <div class="input-file-box d-inb">
+                                    <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow1" />
+                                    <i class="input-file-bg"></i>
+                                    <i class="input-file-mark"></i>
+                                </div>
+                                <div class="input-file-box d-inb">
+                                    <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow2" />
+                                    <i class="input-file-bg"></i>
+                                    <i class="input-file-mark"></i>
+                                </div>
+                                <div class="input-file-box d-inb">
+                                    <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow3" />
+                                    <i class="input-file-bg"></i>
+                                    <i class="input-file-mark"></i>
+                                </div>
                                 <!--<img src="/image/dianjishangchuan_1.png" />
                                 <img src="/image/dianjishangchuan_1.png" />-->
                             </div>
@@ -131,52 +149,52 @@
                         <div class="RightClearance1 employees">
                             <p class="p_employees">
                                 员工人数</p>
-                            <div id="employeesid" class="WorkingTimediv">
-                                <cite>10人</cite>
+                            <div class="select select-sm">
                                 <ul>
-                                    <li><a href="javascript:;" value="1">10人</a></li>
-                                    <li><a href="javascript:;" value="2">20人</a></li>
-                                    <li><a href="javascript:;" value="3">50人</a></li>
+                                    <li><a>10人</a></li>
+                                    <li><a>20人</a></li>
+                                    <li><a>50人</a></li>
                                 </ul>
-                                <input type="hidden" value="1" id="employees" />
+                                <input type="hidden" />
                             </div>
                             <span>员工信息编辑</span>
                         </div>
                         <div class="RightClearance1 pinput2">
-                            <p class="p_DirectorName">
-                                负责人姓名</p>
+                            <p class="p_DirectorName">负责人姓名</p>
                             <p>
-                                <input type="text" name="DirectorName" /></p>
+                                <input type="text" name="DirectorName" />
+                            </p>
                         </div>
                         <div class="RightClearance1 employees">
-                            <p class="p_DocumentType">
-                                证件类型</p>
-                            <div id="DocumentTypeid" class="WorkingTimediv">
-                                <cite>身份证</cite>
+                            <p class="p_DocumentType">证件类型</p>
+                            <div class="select select-sm">
                                 <ul>
-                                    <li><a href="javascript:;" value="1">身份证</a></li>
-                                    <li><a href="javascript:;" value="2">学生证</a></li>
-                                    <li><a href="javascript:;" value="3">其它</a></li>
+                                    <li><a>身份证</a></li>
+                                    <li><a>学生证</a></li>
+                                    <li><a>其它</a></li>
                                 </ul>
-                                <input type="hidden" value="1" id="DocumentType" />
+                                <input type="hidden" />
                             </div>
                         </div>
                         <div class="RightClearance1 pinput3">
-                            <p class="p_DocumentNumber">
-                                证件号码</p>
+                            <p class="p_DocumentNumber">证件号码</p>
                             <p>
-                                <input type="text" name="DocumentNumber" /></p>
+                                <input type="text" name="DocumentNumber" />
+                            </p>
                         </div>
                         <div class="RightClearance1 HeadProfilePicture">
                             <p class="p_HeadProfilePicture">
                                 负责人证件照上传</p>
-                            <p>
-                               <a href='<%=Config.BusinessImagePath+"/original/"+b.ChargePersonIdCard.ImageName %>'>
-                             
-                             <img    runat="server" id="imgChargePerson" src="/image/dianjishangchuan_1.png" /></a>   
-                                <asp:FileUpload runat="server" ID="fuChargePerson" />
-                             
-                             </p>
+
+                            <div>
+                            <a href='<%=Config.BusinessImagePath+"/original/"+b.ChargePersonIdCard.ImageName %>'>
+                            <img runat="server" id="imgChargePerson" src="/image/dianjishangchuan_1.png" /></a>
+                            <div class="input-file-box d-inb">
+                                <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuChargePerson" />
+                                <i class="input-file-bg"></i>
+                                <i class="input-file-mark"></i>
+                            </div>
+                            </div>
                         </div>
                         <div id="tabsServiceType">
                             <ul> </ul>
@@ -197,8 +215,8 @@
     </div>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
+    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
-
     <script src="/js/TabSelection.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript">
