@@ -9,7 +9,7 @@ when click a item in the tab-panel, the children items will load in a new create
 requirements:----------------------
 
 1) datasource must be an json array,each object has 3 properties: id, parentid(0 is top level),name;
-    or is an url to fetch json array from server.
+    or  an url to fetch json array with  same structure  from server.
 example:
     [
         {'name':'food','id':1,'parentid':0},
@@ -21,7 +21,10 @@ example:
 <ul></ul>
 </div>
 usage:---------------------------------
-
+ $("#tabs").TabSelection();
+  $("#tabs").TabSelection({
+  //options go here
+  });
 */
 
 $.fn.TabSelection = function (options) {
@@ -29,9 +32,13 @@ $.fn.TabSelection = function (options) {
 
     var params = $.extend({
 
-        "datasource": null
+        "datasource": null,//support ajax_url string or json list.
+        "leaf_clicked": null,// 
+
+        "enable_multiselect": false,
+        "check_changed":null,//checkbox chaged callback,only works when enable_multiselect is true
     }, options);
-     
+
     //determin the datasource is a ajax_url or a local json object
     var is_ajax = false;
     try {
@@ -66,14 +73,14 @@ $.fn.TabSelection = function (options) {
         var list = [];
         if (is_ajax) {
             jQuery.ajax({
-                url:params.datasource+"&id="+parentid,
-                   
+                url: params.datasource + "&id=" + parentid,
+
                 success: function (result) {
-                    list=result;
+                    list = result;
                 },
                 async: false
-            });          
-        } 
+            });
+        }
         else {
             for (var i = 0; i < params.datasource.length; i++) {
                 var item = params.datasource[i];
@@ -87,16 +94,21 @@ $.fn.TabSelection = function (options) {
         return list;
     }
 
-
-
     function build_children_panel(id) {
 
         var item_list = get_children(id);
-        if (item_list.length == 0) { return false; }
+        if (item_list.length == 0) {   ;;// is last leaf
+        if(!params.enable_multiselect)
+        {params.leaf_clicked(id);}
+         return false; }
         var num_tabs = $("div#tabsServiceType ul li").length + 1;
         var tab_panel_content = "";
         for (var i in item_list) {
-            var item_content = "<input type='checkbox' value='" + item_list[i].id + "' /> <span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
+            var item_check = "";
+            if (params.enable_multiselect) { 
+            item_check="<input type='checkbox' name='item_id' class='check_item' value='" + item_list[i].id + "' />";
+            }
+            var item_content =item_check+ "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
 
             tab_panel_content += item_content;
         }
@@ -141,6 +153,13 @@ $.fn.TabSelection = function (options) {
         var id = $(that).attr('item_id');
         var name = $(that).html();
         item_click(that, id, name);
+        
+    });
+    $('div#tabsServiceType').on('change', '.check_item', function (ev) {
+        var that = this;
+        var id = $(that).val();
+        var checked = $(that).is(":checked");
+        params.check_changed(id,checked);
     });
 
 
