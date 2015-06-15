@@ -254,8 +254,48 @@ $(document).bind("contact_added",function(ev,data){
     Gab.connection.sendIQ(iq);
     var subscribe=$pres({to:data.jid,"type":"subscribe"});
     Gab.connection.send(subscribe);
-});
 
+});
+ //点击好友, 打开聊天窗口
+ $("#roster-area").on("click",".roster-contact", function (event) {
+        var jid = $(this).find(".roster-jid").text();
+        var name = $(this).find(".roster-name").text();
+        var jid_id = Gab.jid_to_id(jid);
+        var tabIndex=0;
+        if ($('#chat-' + jid_id).length === 0) {
+          //  $('#chat-area').tabs('add', '#chat-' + jid_id, name);
+            $('#chat-area ul').append(
+              "<li><a href='#chat-" +jid_id+ "'>" + name + "</a></li>"
+            );
+            var chat_area_each=$(
+            "<div id='chat-"+jid_id+"'>"
+            +"<div class='chat-messages'></div>"
+            +"<input type='text' class='chat-input' />"
+            +"</div>"
+            );
+            $('#chat-area').append(chat_area_each);
+            $('#chat-' + jid_id).data('jid', jid);
+           $('#chat-area').tabs();
+          // $('#chat-area').tabs("option","active",2);
+       
+        }  tabIndex=$("#chat-area>div").index($('#chat-' + jid_id));
+         $('#chat-area').tabs("refresh");
+         $('#chat-area').tabs("option","active",tabIndex);
+        //$('#chat-area').tabs('active', '#chat-' + jid_id);
+        
+        $('#chat-' + jid_id + ' input').focus();
+    });
+    //输入消息,回车发送
+    $("#chat-area").on("keypress",".chat-input",function(ev){
+      var jid = $(this).parent().data('jid');
+      if (ev.which === 13) {
+            ev.preventDefault();
+             var body = $(this).val();
+             var message=$msg({
+             to:jid,.//todo
+             });
+        }
+    });
 //$(document).trigger("connect",{
 //                jid:'yuanfei@yuanfei-pc',
 //                password:'1'

@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
  <link rel='stylesheet' href='static/css/chat.css'>
-    <script src='static/js/chat.js'></script>
+   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -44,6 +44,15 @@
       <p><span id='approve-jid'></span> has requested a subscription
         to your presence.  Approve or deny?</p>
     </div>
-
+   
+   
+</asp:Content>
+<asp:Content ContentPlaceHolderID="bottom" runat="server">
+ <script src='static/js/chat.js'></script>
+   <script>
+       $(function () {
+           $("#tabs").tabs();
+       });
+  </script>
 </asp:Content>
 
