@@ -399,13 +399,16 @@ $(document).ready(function () {
 
 $(document).bind('connect', function (ev, data) {
     var conn = new Strophe.Connection(
-        'http://localhost:7070/http-bind/');
+        'http://yuanfei-pc:7070/http-bind/');
 
     conn.connect(data.jid, data.password, function (status) {
         if (status === Strophe.Status.CONNECTED) {
             $(document).trigger('connected');
         } else if (status === Strophe.Status.DISCONNECTED) {
             $(document).trigger('disconnected');
+        }
+        else if (status === Strophe.Status.CONNFAIL) {
+            $(document).trigger('connfail');
         }
     });
 
@@ -422,6 +425,8 @@ $(document).bind('connected', function () {
     Gab.connection.addHandler(Gab.on_message,
                               null, "message", "chat");
 });
+$(document).bind("connfail", function () { alert("Conn Failed"); });
+$(document).bind("authfail", function () { alert("Auth Failed"); });
 
 $(document).bind('disconnected', function () {
     Gab.connection = null;
