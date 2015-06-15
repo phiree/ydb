@@ -122,3 +122,7 @@ height:19px; line-height:19px; padding-left:25px;}
 
 /*设置下拉选框宽高*/
 .select-sm { width: 130px; height: 30px; line-height: 30px; }
+
+.tabsServiceType {
+    width: 304px;
+}

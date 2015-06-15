@@ -40,6 +40,7 @@ $.fn.TabSelection = function (options) {
     catch (err) {
         is_ajax = true;
     }
+
     var tabs = $(this).tabs();
     //load top-level data
     $(this).tabs({
@@ -50,7 +51,7 @@ $.fn.TabSelection = function (options) {
             for (var i in item_names) {
                 var item = item_names[i];
                 if ($(item).text() == tab_name) {
-                    // $(item).attr("style","font-weight:900");
+//                    $(item).attr("style","font-weight:900");
                 }
             }
         }
@@ -96,7 +97,7 @@ $.fn.TabSelection = function (options) {
         var num_tabs = $("div#tabsServiceType ul li").length + 1;
         var tab_panel_content = "";
         for (var i in item_list) {
-            var item_content = "<input type='checkbox' value='" + item_list[i].id + "' /> <span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
+            var item_content = "<div class=''> <input type='checkbox' value='" + item_list[i].id + "' /> <span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + "> " + item_list[i].name + "</span>" + "</div>";
 
             tab_panel_content += item_content;
         }
@@ -106,6 +107,7 @@ $.fn.TabSelection = function (options) {
         //            "<li><a href='/ajaxservice.ashx'>" + "请选择" + "</a></li>"
              "<li><a href='#tab" + num_tabs + "'>" + "请选择" + "</a></li>"
         );
+
         $("div#tabsServiceType").append(
             "<div id='tab" + num_tabs + "'>" + tab_panel_content + "</div>"
         );
@@ -115,6 +117,7 @@ $.fn.TabSelection = function (options) {
         $("div#tabsServiceType").tabs("option", "active", num_tabs - 1);
     }
     build_children_panel(0);
+
     function item_click(that, id, name) {
         //将当前tab的值设置为name,如果有子项,激活下一个tab,
 
@@ -142,6 +145,5 @@ $.fn.TabSelection = function (options) {
         var name = $(that).html();
         item_click(that, id, name);
     });
-
 
 }
