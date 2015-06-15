@@ -259,7 +259,7 @@ body {
 
 .input-file-btn {
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     width: 90px;
     height: 90px;
     opacity: 0;
@@ -267,7 +267,23 @@ body {
 
 .input-file-bg {
     position: absolute;
+    z-index: 1;
     background: #ccc;
+    width: 90px;
+    height: 90px;
+}
+
+.input-file-mark {
+    position: absolute;
+    z-index: 2;
+    background: #ccc;
+    width: 90px;
+    height: 90px;
+}
+
+.input-file-pre {
+    position: absolute;
+    z-index: 2;
     width: 90px;
     height: 90px;
 }

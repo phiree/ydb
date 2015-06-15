@@ -56,8 +56,7 @@ height:19px; line-height:19px; padding-left:25px;}
 .InfoCompletetxt{ margin-top:10px; display:block;}
 .headEditImg{ width:115px; height:108px; float:right; background:url(../image/userEditimg.png) no-repeat;}
 
-/*设置下拉选框宽高*/
-.select-sm { width: 130px; height: 30px; line-height: 30px; }
+
 
 /* 账号安全页面内容 by lichang 2015/5/28 */
 .secret-cont {
@@ -217,3 +216,6 @@ height:19px; line-height:19px; padding-left:25px;}
 
 .secret-icon-1 { background: url("../image/myshop/shop_title_05.png") }
 .secret-icon-2 { background: url("../image/myshop/shop_title_04.png") }
+
+/*设置下拉选框宽高*/
+.select-sm { width: 130px; height: 30px; line-height: 30px; }

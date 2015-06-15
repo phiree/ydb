@@ -273,6 +273,9 @@ body {
     height: 90px;
 }
 
-.input-file-mark {
-
+.input-file-pre {
+    position: absolute;
+    z-index: 2;
+    width: 90px;
+    height: 90px;
 }

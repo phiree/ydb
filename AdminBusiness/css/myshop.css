@@ -39,24 +39,19 @@ height:19px; line-height:19px; padding-left:25px;}
 .WorkingTimediv ul li a{display:block; height:36px; color:#58789a; font-size:14px; text-decoration:none; padding-left:5px; padding-right:5px;}
 .WorkingTimediv ul li a:hover{background-color:#C9E0E7;}
 .p_BusinessLicense{ background:url(../image/yingyezhaopian_1.png) no-repeat; height:25px; margin-top:60px; line-height:25px; padding-left:30px;}
-.BusinessLicense img{ margin-right:5px; margin-left:5px; margin-top:6px;}
 .p_ShopFigure{background:url(../image/yingyezhaopian_1.png) no-repeat; height:25px; margin-top:-5px; line-height:25px; padding-left:30px;}
-.ShopFigure img{ margin-right:5px; margin-left:5px; margin-top:8px;}
 .picture{ float:left; position:relative}
 .picEditBtn{ position:absolute; left:70px; top:-5px; cursor:pointer;}
 .picDelBtn{ position:absolute;left:90px; top:-5px;cursor:pointer;}
 
 .p_employees{background:url(../image/yuangongrenshu_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px;}
-.p_DirectorName{background:url(../image/fuzerenxingming_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px; margin-top:50px;}
+.p_DirectorName{background:url(../image/fuzerenxingming_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px;}
 .p_DocumentType{background:url(../image/zhengjianleixing_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px; margin-top:20px; margin-bottom:10px;}
-.p_DocumentNumber{background:url(../image/zhengjianleixing_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px; margin-top:60px; }
+.p_DocumentNumber{background:url(../image/zhengjianleixing_1.png) no-repeat; height:32px; line-height:32px; padding-left:30px; }
 .p_HeadProfilePicture{background:url(../image/yingyezhaopian_1.png) no-repeat; height:25px; line-height:25px; padding-left:30px;}
-.HeadProfilePicture img{ margin-right:5px; margin-left:5px; margin-top:6px;}
 .bottomArea{ position:relative; width:100%; background:#cadbec; height:98px;clear: both;display: block; line-height:98px; text-align:center;}
 .bottomArea input{ margin:20px; margin-top:30px;}
 .account{ height:1138px; display:none;}
-
-
 
 .headDecoration1{ width:4px; height:108px; float:left; background:#31b6fc;}
 .headImage{ width:110px; height:108px; float:left; position:relative}
@@ -124,3 +119,6 @@ height:19px; line-height:19px; padding-left:25px;}
 
 .icon-scret-1 { background: url("../image/myshop/shop_title_05.png") }
 .icon-scret-2 { background: url("../image/myshop/shop_title_04.png") }
+
+/*设置下拉选框宽高*/
+.select-sm { width: 130px; height: 30px; line-height: 30px; }

@@ -89,8 +89,16 @@
                         <div class="LeftClearance1 pinput">
                             <p class="p_WorkingTime">
                                 从业时间</p>
-                            <p>
-                                <input type="text" runat="server" id="tbxBusinessYears" name="email" /></p>
+
+                            <div class="select select-sm">
+                            <ul>
+                                <li><a>8:00</a></li>
+                                <li><a>9:00</a></li>
+                                <li><a>10:00</a></li>
+                            </ul>
+                            <input type="hidden" runat="server" id="tbxBusinessYears" name="email" />
+                            </div>
+
                         </div>
                         <div class="LeftClearance1 BusinessLicense">
                             <p class="p_BusinessLicense">
@@ -100,6 +108,7 @@
                                     <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
                                     <i class="input-file-bg"></i>
                                     <i class="input-file-mark"></i>
+                                    <img class="input-file-pre" />
                                 </div>
                             <a href='<%=Config.BusinessImagePath+"/original/"+b.BusinessLicence.ImageName %>'>
                                 <img runat="server" id="imgLicence" src="/image/dianjishangchuan_1.png" />
@@ -116,13 +125,10 @@
                                     <asp:Repeater runat="server" ID="rpt_show"  OnItemCommand="rpt_show_ItemCommand">
                                         <ItemTemplate>
                                             <img class="picEditBtn" src="/image/bianjji_1.png" />
-                                            <!--<img class="picDelBtn" src="/image/delete_1.png" runat="server" CommandArgument="Id"  />-->
+                                            <img class="picDelBtn" src="/image/delete_1.png" runat="server" CommandArgument="Id"  />
                                             <asp:ImageButton runat="server" CommandName="delete" ImageUrl="/image/delete_1.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
-                                          
                                              <a href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-
-                                             
-                                             <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=50&height=50&tt=2'  id="imgLicence"  />
+                                                <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'  id="imgLicence"  />
                                              </a>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -131,19 +137,21 @@
                                     <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow1" />
                                     <i class="input-file-bg"></i>
                                     <i class="input-file-mark"></i>
+                                    <img class="input-file-pre" />
                                 </div>
                                 <div class="input-file-box d-inb">
                                     <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow2" />
                                     <i class="input-file-bg"></i>
                                     <i class="input-file-mark"></i>
+                                    <img class="input-file-pre"  />
                                 </div>
                                 <div class="input-file-box d-inb">
                                     <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow3" />
                                     <i class="input-file-bg"></i>
                                     <i class="input-file-mark"></i>
+                                    <img class="input-file-pre"  />
                                 </div>
-                                <!--<img src="/image/dianjishangchuan_1.png" />
-                                <img src="/image/dianjishangchuan_1.png" />-->
+
                             </div>
                         </div>
                         <div class="RightClearance1 employees">
@@ -188,11 +196,13 @@
 
                             <div>
                             <a href='<%=Config.BusinessImagePath+"/original/"+b.ChargePersonIdCard.ImageName %>'>
-                            <img runat="server" id="imgChargePerson" src="/image/dianjishangchuan_1.png" /></a>
+                                <img runat="server" id="imgChargePerson" src="/image/dianjishangchuan_1.png" />
+                            </a>
                             <div class="input-file-box d-inb">
                                 <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuChargePerson" />
                                 <i class="input-file-bg"></i>
                                 <i class="input-file-mark"></i>
+                                <img class="input-file-pre"  />
                             </div>
                             </div>
                         </div>
@@ -218,25 +228,10 @@
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
     <script src="/js/TabSelection.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/js/global.js"></script>
+    <script type="text/javascript" src="../js/global.js"></script>
     <script type="text/javascript">
         $(function() {
 
-//            $("#tabsServiceType").TabSelection({
-//                "datasource":
-//                [
-//                    { "name": "维修", "id": 1, "parentid": 0 },
-//                    { "name": "家电维修", "id": 2, "parentid": 1 },
-//                     { "name": "冰箱维修", "id":3, "parentid": 2 },
-//                    { "name": "冰箱维修", "id": 6, "parentid": 2 },
-//                    { "name": "冰箱维修", "id": 7, "parentid": 2 },
-//                    { "name": "冰箱维修", "id": 8, "parentid": 2 },
-
-//                    { "name": "更换氟利昂", "id": 4, "parentid": 3 },
-//                    { "name": "交通服务", "id": 5, "parentid": 0 }
-//                ]
-//            });
-//        });
             $("#tabsServiceType").TabSelection({
                 "datasource": "/ajaxservice/tabselection.ashx?type=servicetype"
             
