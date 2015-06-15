@@ -1,0 +1,17 @@
+diff a/AdminBusiness/Account/Default.aspx b/AdminBusiness/Account/Default.aspx	(rejected hunks)
+@@ -116,10 +116,13 @@
+                                     <asp:Repeater runat="server" ID="rpt_show"  OnItemCommand="rpt_show_ItemCommand">
+                                         <ItemTemplate>
+                                             <img class="picEditBtn" src="/image/bianjji_1.png" />
+-                                            <img class="picDelBtn" src="/image/delete_1.png" runat="server" CommandArgument="Id"  />
++                                            <!--<img class="picDelBtn" src="/image/delete_1.png" runat="server" CommandArgument="Id"  />-->
+                                             <asp:ImageButton runat="server" CommandName="delete" ImageUrl="/image/delete_1.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
++                                          
+                                              <a href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
+-                                                <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'  id="imgLicence"  />
++
++                                             
++                                             <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=50&height=50&tt=2'  id="imgLicence"  />
+                                              </a>
+                                         </ItemTemplate>
+                                     </asp:Repeater>
