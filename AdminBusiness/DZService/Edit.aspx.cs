@@ -21,7 +21,21 @@ public partial class DZService_Edit : BasePage
     private bool IsNew { get { return ServiceId == Guid.Empty; } }
     
    public DZService CurrentService = new DZService();//当前的服务 对象.
-   public ServiceType ServiceType = new ServiceType();
+   ServiceType _servicetype;
+   public ServiceType ServiceType {
+       get
+       {
+           if (_servicetype == null)
+           {
+               Guid typeId = new Guid(hiTypeId.Value);
+               _servicetype= bllServiceType.GetOne(typeId);
+           }
+           return _servicetype;
+       }
+       set { _servicetype = value; }
+   }
+
+ 
     protected void Page_Load(object sender, EventArgs e)
     {
         string paramId = Request.Params["id"];
@@ -33,14 +47,14 @@ public partial class DZService_Edit : BasePage
         }
         else //新建服务一定要传入typeid
         {
-            string paramTypeId = Request.Params["typeId"];
-            if (string.IsNullOrEmpty(paramTypeId))
-            {
-                Notification.Show(Page, "抱歉", "页面参数有误,请从正常入口访问本页面", "/");
-            }
-            Guid typeId = new Guid(paramTypeId);
-            ServiceType = bllServiceType.GetOne(typeId);
-            TypeProperties = ServiceType.Properties;
+            //string paramTypeId = hiTypeId.Value;// Request.Params["typeId"];
+            //if (string.IsNullOrEmpty(paramTypeId))
+            //{
+            //    Notification.Show(Page, "抱歉", "页面参数有误,请从正常入口访问本页面", "/");
+            //}
+            //Guid typeId = new Guid(paramTypeId);
+            //ServiceType = bllServiceType.GetOne(typeId);
+            //TypeProperties = ServiceType.Properties;
 
 
         }
@@ -53,9 +67,9 @@ public partial class DZService_Edit : BasePage
     public void LoadInit()
     { 
         //加载服务属性
-        rptProperties.DataSource = ServiceType.Properties;
-        rptProperties.ItemDataBound += new RepeaterItemEventHandler(rptProperties_ItemDataBound);
-        rptProperties.DataBind();
+        //rptProperties.DataSource = ServiceType.Properties;
+        //rptProperties.ItemDataBound += new RepeaterItemEventHandler(rptProperties_ItemDataBound);
+        //rptProperties.DataBind();
     }
 
     void rptProperties_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -106,5 +120,6 @@ public partial class DZService_Edit : BasePage
     {
         UpdateForm();
         bllService.SaveOrUpdate(CurrentService);
+        PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
     }
 }
