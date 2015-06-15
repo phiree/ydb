@@ -292,7 +292,7 @@ $(document).bind("contact_added",function(ev,data){
             ev.preventDefault();
              var body = $(this).val();
              var message=$msg({
-             to:jid,.//todo
+            // to:jid,.//todo
              });
         }
     });
