@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-    <h1>Gab</h1>
+    <h1>Dianzhu</h1>
 
     <div id='toolbar'>
       <span class='button' id='new-contact'>add contact...</span> ||
@@ -24,7 +24,7 @@
 
     <!-- login dialog -->
     <div id='login_dialog' class='hidden'>
-      <label>JID:</label><input type='text' id='jid' value='yuanfei@yuanfei-pc'>
+      <label>JID:</label><input type='text' id='jid' value='yuanfei'>
       <label>Password:</label><input value='1' type='password' id='password'>
     </div>
 
