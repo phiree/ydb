@@ -36,7 +36,7 @@ $.fn.TabSelection = function (options) {
         "leaf_clicked": null,// 
 
         "enable_multiselect": false,
-        "check_changed":null,//checkbox chaged callback,only works when enable_multiselect is true
+        "check_changed":null//checkbox chaged callback,only works when enable_multiselect is true
     }, options);
 
     //determin the datasource is a ajax_url or a local json object
@@ -108,7 +108,7 @@ $.fn.TabSelection = function (options) {
             if (params.enable_multiselect) { 
             item_check="<input type='checkbox' name='item_id' class='check_item' value='" + item_list[i].id + "' />";
             }
-            var item_content =item_check+ "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>";
+            var item_content ="<div class='serviceTabsItem'>" + item_check+ "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>" +"</div>";
 
             tab_panel_content += item_content;
         }
@@ -119,7 +119,7 @@ $.fn.TabSelection = function (options) {
              "<li><a href='#tab" + num_tabs + "'>" + "请选择" + "</a></li>"
         );
         $("div#tabsServiceType").append(
-            "<div id='tab" + num_tabs + "'>" + tab_panel_content + "</div>"
+            "<div class='clearfix' id='tab" + num_tabs + "'>" + tab_panel_content + "</div>"
         );
 
 
@@ -159,7 +159,8 @@ $.fn.TabSelection = function (options) {
         var that = this;
         var id = $(that).val();
         var checked = $(that).is(":checked");
-        params.check_changed(id,checked);
+//        params.check_changed(id,checked);
+        params.check_changed(that,id,checked);
     });
 
 
