@@ -290,7 +290,7 @@ $(document).ready(function () {
 
     /*******event bind*********/
     $(document).bind("connect", function (ev, data) {
-        var conn = new Strophe.Connection('http://localhost:7070/http-bind/');
+        var conn = new Strophe.Connection('http://192.168.1.129:7070/http-bind/');
         conn.connect(data.jid, data.password, function (status) {
             switch (status) {
                 case Strophe.Status.CONNECTING:
