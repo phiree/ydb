@@ -1,13 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
-    CodeFile="Edit.aspx.cs" Inherits="DZService_Edit" %>
-
-<%@ Import Namespace="Dianzhu.Model" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/base/minified/jquery-ui.min.css'
-        rel="stylesheet" type="text/css" />
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <table>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ServiceEdit.ascx.cs" Inherits="DZService_ServiceEdit" %>
+ <table>
         <tr>
             <td colspan="2">
                 <div id="tabsServiceType">
@@ -97,7 +89,7 @@
                 收款方式
             </td>
             <td>
-                <asp:RadioButtonList runat="server">
+                <asp:RadioButtonList ID="RadioButtonList1" runat="server">
                     <asp:ListItem Value="1" Text="线下"></asp:ListItem>
                     <asp:ListItem Value="2" Text="支付宝"></asp:ListItem>
                     <asp:ListItem Value="3" Text="微支付"></asp:ListItem>
@@ -165,10 +157,6 @@
             </td>
         </tr>
     </table>
-</asp:Content>
-<asp:Content ContentPlaceHolderID="bottom" runat="server">
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
     <script src="/js/TabSelection.js" type="text/javascript"></script>
     <script   type="text/javascript">
         $(function () {
@@ -181,4 +169,3 @@
             });
         });
     </script>
-</asp:Content>

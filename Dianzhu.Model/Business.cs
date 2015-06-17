@@ -49,7 +49,10 @@ namespace Dianzhu.Model
         ///  地址
         /// </summary>
         public virtual string Address { get; set; }
-
+        /// <summary>
+        /// 员工总人数
+        /// </summary>
+        public virtual int StaffAmount { get; set; }
         /// <summary>
         /// 从业时长, 比如 1915年进入该行业的, 则是 百  --年老 --店,该值为100.
         /// </summary>

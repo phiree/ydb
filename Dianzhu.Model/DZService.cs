@@ -40,12 +40,18 @@ namespace Dianzhu.Model
        /// 服务开始时间?如果是多段
        /// </summary>
        public virtual DateTime ServiceTimeBegin { get; set; }
-
+       /// <summary>
+       /// 
+       /// </summary>
        public virtual DateTime ServiceTimeEnd { get; set; }
        /// <summary>
        /// 每日接单总量
        /// </summary>
-       public virtual int TotalOrdersPerDay { get; set; }
+       public virtual int MaxOrdersPerDay { get; set; }
+       /// <summary>
+       /// 单位时间内(小时)最大接单量
+       /// </summary>
+       public virtual int MaxOrdersPerHour { get; set; }
 
        /// <summary>
        /// 服务范围,商圈名称
@@ -60,9 +66,13 @@ namespace Dianzhu.Model
        public virtual bool IsCompensationAdvance
        { get; set; }
        /// <summary>
+       /// 服务准备时长(提前多长时间预约).单位分钟.
+       /// </summary>
+       public virtual int OrderDelay { get; set; }
+       /// <summary>
        /// 是否可以对公. 否:只能为私人提供
        /// </summary>
-       public virtual bool IsForBusiness { get; set; }
+       public virtual bool? IsForBusiness { get; set; }
        /// <summary>
        /// 是否通过平台标准认证"
        /// </summary>
