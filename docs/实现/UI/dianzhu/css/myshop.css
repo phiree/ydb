@@ -1,17 +1,17 @@
-.userInfoArea{background:#FFF; height:198px;position:relative; padding: 0 20px; border-bottom: 20px solid #dfebf6; }
-.infoTilte1{ height:71px; position:relative; line-height:71px; color:#58789a; font-size:16px; font-weight:bold;}
-.infoTilte1 img{ position:absolute; top:23px; left:110px;}
+.myshopInfoArea {background:#FFF; height:198px;position:relative; padding: 0 20px; border-bottom: 20px solid #dfebf6; }
+.myshopInfoTilte { height:71px; position:relative; line-height:71px; color:#58789a; font-size:16px; font-weight:bold;}
+.myshopInfoTilte img{ position:absolute; top:23px; left:110px;}
 
-.decoration3{ height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; position:relative;}
+.secert-title { height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; position:relative;}
 .headInfoArea{ width:100%; height:108px; background:#f6fafe; position:relative;border-bottom:#dbe6f2 1px solid;}
-.decoration3 img{ position:absolute; top:20px; left:20px;}
+.secert-title img{ position:absolute; top:20px; left:20px;}
 .ShopDetails{ margin-left:48px; color:#58789a; font-size:18px; font-weight:bold;}
-.ShopDetailsArea{ position:relative; height:auto; width:100%;}
+.ShopDetailsMain { position:relative; height:auto; width:100%;}
 .ShopDetailsAreaLeft{ float:left; width:50%;color:#58789a; position:relative; margin-bottom:20px;}
 .ShopDetailsAreaRight{ float:left;width:50%;color:#58789a;position:relative;}
 
-.LeftClearance1{ margin-left:40px; margin-top:20px; }
-.RightClearance1{ margin-top:20px; }
+.myshopLeftCont { margin-left:40px; margin-top:20px; }
+.myshopRightCont { margin-top:20px; }
 .p_introduced{ background:url(../image/dianpujieshao_1.png) no-repeat; height:20px; line-height:20px; padding-left:25px;}
 .shopIntroduced textarea{ width:300px; height:120px; border:#dbe6f2 1px solid; margin-top:10px; background:#f6fafe; color:#58789a; font-size:13px;}
 .p_ContactPhone{ background:url(../image/lianxifangshi_1.png) no-repeat; _background: url(../image/lianxifangshi_1.png) no-repeat !important; 
@@ -68,7 +68,7 @@ height:19px; line-height:19px; padding-left:25px;}
     color: #31b6fc;
 }
 
-.secret-title {
+.secret-m-title {
     width: 318px;
     height: 35px;
     line-height: 35px;

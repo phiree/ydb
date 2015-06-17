@@ -1,4 +1,4 @@
-.userInfoArea {
+.myshopInfoArea {
     background: #FFF;
     height: 198px;
     position: relative;
@@ -6,7 +6,7 @@
     width: 878px;
 }
 
-.infoTilte1 {
+.myshopInfoTilte {
     height: 71px;
     position: relative;
     line-height: 71px;
@@ -25,13 +25,13 @@
     background: #cadbec;
 }
 
-.decoration3 {
-    height: 60px;
-    background: #f6fafe;
-    border-bottom: #dbe6f2 1px solid;
-    line-height: 60px;
-    position: relative;
-}
+/*.secert-title {*/
+    /*height: 60px;*/
+    /*background: #f6fafe;*/
+    /*border-bottom: #dbe6f2 1px solid;*/
+    /*line-height: 60px;*/
+    /*position: relative;*/
+/*}*/
 
 .headInfoArea {
     width: 100%;
@@ -41,11 +41,11 @@
     border-bottom: #dbe6f2 1px solid;
 }
 
-.decoration3 img {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
+/*.secert-title img {*/
+    /*position: absolute;*/
+    /*top: 20px;*/
+    /*left: 20px;*/
+/*}*/
 
 .ShopDetails {
     margin-left: 15px;
@@ -54,7 +54,7 @@
     font-weight: bold;
 }
 
-.ShopDetailsArea {
+.ShopDetailsMain {
     position: relative;
 }
 
