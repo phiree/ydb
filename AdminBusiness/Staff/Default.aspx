@@ -24,7 +24,7 @@
                             <div class="emp-bar-t fl">
                                 员工管理</div>
                             <div class="emp-bar-btn fr">
-                                <input class="emp-btn-bg1" type="button" /><input class="emp-btn-bg2" type="button" />
+                                <input id="addEmployee" class="emp-btn-bg1" type="button" /><input class="emp-btn-bg2" type="button" />
                             </div>
                         </div>
                         <div class="emp-nav">
@@ -92,7 +92,8 @@
                                                     <li class="col col-6"></li>
                                                     <li class="col col-7">
                                                         <div>
-                                                            <input class="d-list-btn" type="button" /></div>
+                                                            <input class="d-list-btn" type="button" />
+                                                        </div>
                                                     </li>
                                                 </ItemTemplate>
                                             </asp:Repeater>
@@ -105,6 +106,70 @@
                                     <input class="d-switch-btn" type="button" value="0"></div>
                             </div>
                         </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="lightBox" class="dis-n">
+                <div class="emp-edit">
+                    <div class="emp-edit-title">
+                        <span>编辑资料</span>
+                        <i class="icon close icon-close"></i>
+                    </div>
+                    <div class="emp-edit-m clearfix">
+                        <div class="emp-edit-left fl">
+                            <h3>基本资料</h3>
+                            <div class="emp-edit-item">
+                                <p><i class="icon emp-icon-name"></i>姓名</p>
+                                <input class="emp-edit-input" type="text" />
+                            </div>
+                            <div class="emp-edit-item clearfix">
+                                <div class="fl">
+                                    <p><i class="icon emp-icon-pic"></i>上传照片</p>
+                                    <div class="input-file-box d-inb">
+                                        <input class="input-file-btn" type="file">
+                                        <i class="input-file-bg"></i>
+                                        <i class="input-file-mark"></i>
+                                    </div>
+                                </div>
+                                <div class="m-l20 fr">
+                                    <div class="m-b20">
+                                        <p><i class="icon emp-icon-sex"></i>性别</p>
+                                        <input type="text" />
+                                    </div>
+                                    <div>
+                                        <p><i class="icon emp-icon-borth"></i>出生日期</p>
+                                        <input type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="emp-edit-item">
+                                <p><i class="icon emp-icon-intro"></i>员工介绍</p>
+                                <textarea class="emp-input-textarea" ></textarea>
+                            </div>
+                        </div>
+                        <div class="emp-edit-right p-l20 fl">
+                            <h3>基本资料</h3>
+                            <div class="emp-edit-item">
+                                <p><i class="icon emp-icon-type"></i>服务类别</p>
+                                <input type="text" />
+                            </div>
+                            <div class="emp-edit-item">
+                                <p><i class="icon emp-icon-year"></i>工作年限</p>
+                                <input type="text" />
+                            </div>
+                            <div class="emp-edit-item">
+                                <p><i class="icon emp-icon-buss"></i>资质证书上传</p>
+                                <div class="input-file-box d-inb">
+                                    <input class="input-file-btn" type="file">
+                                    <i class="input-file-bg"></i>
+                                    <i class="input-file-mark"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="emp-edit-sub t-c">
+                        <input type="button"/>
                     </div>
                 </div>
             </div>
@@ -117,5 +182,68 @@
             <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="edit.aspx?id={0}" />
         </Columns>
     </asp:GridView>
+
     <a href="Edit.aspx">增加职员</a>
+        <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.9.1.min.js"></script>-->
+        <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.10.2.js"></script>
+        <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>-->
+        <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+        <script type="text/javascript" src="/js/TabSelection.js" ></script>
+        <script type="text/javascript" src="/js/jquery.lightbox_me.js" ></script>
+        <script type="text/javascript" src="../js/global.js"></script>
+        <script type="text/javascript">
+            var tabCheckedShow = function(that,checked){
+    //        console.log($('.item').html());
+                if (checked == true) {
+                    var checkedShowBox = $('#serCheckedShow');
+                    var checkedItem = $($(that).parents('.serviceTabsItem')).find('.item');
+                    var checkText = checkedItem.html();
+                    var checkTextNode = "<span>" + ' ' + checkText + ' ' + "</span>";
+                    checkedShowBox.append(checkTextNode);
+                } else {
+                    return;
+                }
+            }
+
+            $(function () {
+                //            $("#tabsServiceType").TabSelection({
+                //                "datasource":
+                //                [
+                //                    { "name": "维修", "id": 1, "parentid": 0 },
+                //                    { "name": "家电维修", "id": 2, "parentid": 1 },
+                //                     { "name": "冰箱维修", "id":3, "parentid": 2 },
+                //                    { "name": "冰箱维修", "id": 6, "parentid": 2 },
+                //                    { "name": "冰箱维修", "id": 7, "parentid": 2 },
+                //                    { "name": "冰箱维修", "id": 8, "parentid": 2 },
+
+                //                    { "name": "更换氟利昂", "id": 4, "parentid": 3 },
+                //                    { "name": "交通服务", "id": 5, "parentid": 0 }
+                //                ]
+                //            });
+                //        });
+                $("#tabsServiceType").TabSelection({
+                    "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
+                    "enable_multiselect":true,
+                    'check_changed': function (that,id, checked) {
+    //                    alert(id + '' + checked);
+                          tabCheckedShow(that,checked);
+                    },
+
+                    'leaf_ clicked': function (id, checked) {
+    //                alert(id);
+                    }
+                });
+            });
+
+
+            $("#addEmployee").click(function(e){
+                $('#SerlightBox').lightbox_me({
+                    centered: true
+                });
+                e.preventDefault();
+            })
+
+
+        </script>
+
 </asp:Content>

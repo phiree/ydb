@@ -1,24 +1,24 @@
-.userInfoArea{background:#FFF; height:198px;position:relative; margin:0 auto; width:878px;}
-.infoTilte1{ height:71px; position:relative; line-height:71px; color:#58789a; font-size:16px; font-weight:bold;}
+.myshopInfoArea {background:#FFF; height:198px;position:relative; margin:0 auto; width:878px;}
+.myshopInfoTilte { height:71px; position:relative; line-height:71px; color:#58789a; font-size:16px; font-weight:bold;}
 
 
-.decoration1{ height:20px; background:#dfebf6;}
-.decoration2{ height:31px; background:#cadbec;}
-.decoration3{ height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; position:relative;}
+/*.decoration1{ height:20px; background:#dfebf6;}*/
+/*.decoration2{ height:31px; background:#cadbec;}*/
+/*.decoration3{ height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; position:relative;}*/
 .headInfoArea{ width:100%; height:108px; background:#f6fafe; position:relative;border-bottom:#dbe6f2 1px solid;}
-.decoration3 img{ position:absolute; top:20px; left:20px;}
-.ShopDetails{ margin-left:15px; color:#58789a; font-size:18px; font-weight:bold;}
-.ShopDetailsArea{ position:relative;}
-.ShopDetailsAreaLeft{ float:left; width:162px;color:#58789a; position:relative;  }
-.ShopDetailsAreaRight{ float:left;width:755px;color:#58789a;position:relative;border-left:#dbe6f2 1px solid;}
-.LeftClearance{ margin-left:5px;}
+/*.decoration3 img{ position:absolute; top:20px; left:20px;}*/
+/*.ShopDetails{ margin-left:15px; color:#58789a; font-size:18px; font-weight:bold;}*/
+/*.ShopDetailsArea{ position:relative;}*/
+/*.ShopDetailsAreaLeft{ float:left; width:162px;color:#58789a; position:relative;  }*/
+/*.ShopDetailsAreaRight{ float:left;width:755px;color:#58789a;position:relative;border-left:#dbe6f2 1px solid;}*/
+/*.LeftClearance{ margin-left:5px;}*/
 .LeftClearance2{ margin-left:20px; clear:both; display:block;}
 .LeftClearance3{ clear:both; display:block;}
 .TopClearance{ margin-top:20px;}
 .AddServiceArea{ position:relative; width:157px; height:65px; background:url(../image/weixuan_3.png) no-repeat; cursor:pointer;
 }
 #leftMeunList a{text-decoration:none;color:#58789a;}
-#leftMeunList a:hove{text-decoration:none;}
+#leftMeunList a:hover{text-decoration:none;}
 .AddServiceArea img{ position:absolute; top:15px; left:30px;}
 .AddServiceArea span{ position:absolute; top:42px; left:18px;}
 .newServicebtn{ width:157px; height:41px; background:url(../image/weixuan_2.png) no-repeat; position:relative; text-align:center; font-size:14px; line-height:41px;}
@@ -78,7 +78,7 @@
 .WorkingTimediv2 ul li a{display:block; height:36px; color:#58789a; font-size:14px; text-decoration:none; padding-left:5px; padding-right:5px;}
 .WorkingTimediv2 ul li a:hover{background-color:#C9E0E7;}
 
-.jiangexian{ height:31px; width:21px; background:url(../image/jiangexian.jpg) no-repeat;float:left; margin-left:7px; margin-right:7px;}
+/*.jiangexian{ height:31px; width:21px; background:url(../image/jiangexian.jpg) no-repeat;float:left; margin-left:7px; margin-right:7px;}*/
 .bottomArea{ position:relative; width:100%; background:#cadbec; height:98px;clear: both;display: block; line-height:98px; text-align:center;}
 .bottomArea input{ margin:20px; margin-top:30px;}
 .account{ height:1138px; display:none;}
