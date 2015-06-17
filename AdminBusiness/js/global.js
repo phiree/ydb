@@ -27,7 +27,7 @@ $(document).ready(function ($) {
             selectList.width($(this).width());
 
             (function () {
-                selectPrint.html(selectOption.eq(0).text());
+                selectPrint.html(selectOption.eq(0).html());
                 for (var i = 0; i < selectOption.length; i++) {
                     selectOption.eq(i).attr({ value: i, href: "javascript:void(0)" });
                 }
@@ -86,22 +86,23 @@ $(document).ready(function ($) {
             }
             else {
 
-                this.select();
-                var imgSrc = document.selection.createRange().text;
-                var localImagId = document.getElementById("localImag");
-
-                localImagId.style.width = "90px";
-                localImagId.style.height = "90px";
-
-                try {
-                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
-                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
-                }
-                catch (e) {
-                    return false;
-                }
-                imgObjPreview.style.display = 'none';
-                document.selection.empty();
+//                this.select();
+//                var imgSrc = document.selection.createRange().text;
+//                var localImagId = document.getElementById("localImag");
+//
+//                localImagId.style.width = "90px";
+//                localImagId.style.height = "90px";
+//
+//                try {
+//                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+//                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+//                }
+//                catch (e) {
+//                    return false;
+//                }
+//                imgObjPreview.style.display = 'none';
+//                document.selection.empty();
+                return
             }
             return true;
         })
