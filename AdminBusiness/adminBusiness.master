@@ -11,137 +11,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        /*html{ background:#263650;}*/
-        .topnav
-        {
-            background: #3d5b77;
-        }
-        .dianzhuicon
-        {
-            background: url(/image/topnavbj.png) no-repeat center;
-            height: 70px;
-            width: 79px;
-            float: left;
-        }
-        .muenuul
-        {
-            float: right;
-        }
-        /*.muenuul ul{ margin-right:79px;}*/
-        .muenuul ul li
-        {
-            float: right;
-        }
-        .touxianicon
-        {
-            width: 79px;
-            height: 70px;
-            position: absolute;
-            right: 0px;
-        }
-        .touxianicon img
-        {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-        }
-    </style>
+
     <asp:ContentPlaceHolder ID="head" runat="Server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <div class="wrap">
         <div class="mainContent">
-            <!--<div class="middleContent">-->
-            <div class="topnav">
                 <div class="topnav clearfix">
-                    <div class="dianzhuicon">
+                        <h1 title="点助" class="dianzhuicon"></h1>
+                        <div class="menuList">
+                            <ul class="clearfix">
+                                <li><a href="coupon-total.html" target="content"><i class="nav-btn nav-btn-coup"></i></a></li>
+                                <li><a href="/account" target="content"><i class="nav-btn nav-btn-myshop"></i></a></li>
+                                <li><a href="/dzservice" target="content"><i class="nav-btn nav-btn-service"></i></a></li>
+                                <li><a href="order.html" target="content"><i class="nav-btn nav-btn-order"></i></a></li>
+                                <li><a href="/staff" target="content"><i class="nav-btn nav-btn-employee"></i></a></li>
+                                <li><a href="msg.html" target="content"><i class="nav-btn nav-btn-msg"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="muenuul">
-                        <ul class="clearfix">
-                            <li><a href="coupon-total.html" target="content">
-                                <img id="me6" src="/image/shop_icon_6.png" /></a></li>
-                            <li><a href="/account" target="content">
-                                <img id="Img1" src="/image/dianpuxinxi_2.png" /></a></li>
-                            <li><a href="/dzservice" target="content">
-                                <img id="Img2" src="/image/fuwuxinxi_1.png" /></a></li>
-                            <li><a href="order.html" target="content">
-                                <img id="Img3" src="/image/dingdan_1.png" /></a></li>
-                            <li><a href="/staff" target="content">
-                                <img id="Img4" src="/image/yuangongguanli_1.png" /></a></li>
-                            <li><a href="msg.html" target="content">
-                                <img id="Img5" src="/image/xiaoxi_1.png" /></a></li>
-                        </ul>
-                        <!--<div class="touxianicon">-->
-                        <!--<a href="msg.html" target="content"><img src="image/touxiangicon.png" /></a>-->
-                        <!--</div>-->
-                    </div>
-                </div>
-            </div>
+
             <div class="content">
                 <form id="form1" runat="server">
+                <div style="border:solid 1px red">
+                <asp:LoginName runat="server" /><asp:LoginStatus runat="server" />
+                </div>
                 <asp:ContentPlaceHolder ID="pageDesc" runat="server">
                 </asp:ContentPlaceHolder>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
                 </form>
             </div>
-            <!--</div>-->
         </div>
     </div>
    
 </body>
 <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/jquery.js"></script>
-<script type="text/javascript">
-    var m1 = true;
-    var m2 = false;
-    var m3 = false;
-    var m4 = false;
-    var m5 = false;
-    function meinit(str) {
-        m1 = false;
-        m2 = false;
-        m3 = false;
-        m4 = false;
-        m5 = false;
-        str = true;
-        $("#me1").attr("src", "image/dianpuxinxi_1.png");
-        $("#me2").attr("src", "image/fuwuxinxi_1.png");
-        $("#me3").attr("src", "image/dingdan_1.png");
-        $("#me4").attr("src", "image/yuangongguanli_1.png");
-        $("#me5").attr("src", "image/xiaoxi_1.png");
-
-    }
-    $(document).ready(function () {
-        $("#me1").click(function () {
-            meinit(m1);
-            $("#me1").attr("src", "image/dianpuxinxi_2.png");
-
-        });
-        $("#me2").click(function () {
-            meinit(m2);
-            $("#me2").attr("src", "image/fuwuxinxi_2.png");
-
-        });
-        $("#me3").click(function () {
-            meinit(m3);
-            $("#me3").attr("src", "image/dingdan_2.png");
-
-        });
-        $("#me4").click(function () {
-            meinit(m4);
-            $("#me4").attr("src", "image/yuangongguanli_2.png");
-
-        });
-        $("#me5").click(function () {
-            meinit(m5);
-            $("#me5").attr("src", "image/xiaoxi_2.png");
-
-        });
-    });
-</script>
-
    <asp:ContentPlaceHolder ID="bottom" runat="Server">
     </asp:ContentPlaceHolder>
 </html>

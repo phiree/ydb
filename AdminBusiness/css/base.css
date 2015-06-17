@@ -160,6 +160,8 @@ body {
 .m-r50 { margin-right: 50px; }
 .m-b20 { margin-bottom: 20px; }
 .m-b50 { margin-bottom: 50px; }
+.m-t20 { margin-top: 20px; }
+.m-t50 { margin-top: 50px; }
 
 .p-20 { padding: 20px; }
 .p-l20 { padding-left: 20px; }
@@ -175,20 +177,23 @@ body {
     display: inline-block;
     *display: inline-block;
     *zoom: 1;
-    width: 20px;
-    height: 20px;
-    background: cadetblue no-repeat center;
+    width: 26px;
+    height: 26px;
+    background: cadetblue;
+    background-repeat: no-repeat;
+    background-position: center;
     vertical-align: middle;
     content: "";
 }
 
 .wrap { padding: 50px 0; background:#263650; }
 
-.mainContent{ margin: 0 auto; width:1000px; }
+.mainContent{ margin: 0 auto; width:1000px;background: #4b6c8b; }
 
-.leftContent{ width:79px; float:left; background:#4b6c8b;}
+/*.leftContent{ width:79px; float:left; background:#4b6c8b;}*/
+.leftContent{ width:79px; float:left; }
 
-.rightContent{ width:921px; float:left; background:#fff;}
+.rightContent{ width:921px; float:left; background:#fff; }
 
 .con-wrap {
     background: #cadceb;
@@ -243,7 +248,7 @@ body {
 .side-btn-msgHis { background-position: -0px -144px; width: 79px; height: 70px; }
 
 /*select 初始化样式*/
-.select { display:block; position: relative; background: url("../image/select_icon.png") no-repeat right;}
+.select { display:inline-block; position: relative; background: url("../image/select_icon.png") no-repeat right;}
 .select cite { display: block; text-indent: 0.8em; border: 1px solid #e7ebee; }
 .select ul { position: absolute; border: 1px solid #e7ebee; z-index:10; background: #fff;}
 .select a { display: block; text-indent: 0.8em; }
