@@ -2,11 +2,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
  <link rel='stylesheet' href='static/css/chat.css'>
-    <script src='static/js/chat.js'></script>
+   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-    <h1>Gab</h1>
+    <h1>Dianzhu</h1>
 
     <div id='toolbar'>
       <span class='button' id='new-contact'>add contact...</span> ||
@@ -24,7 +24,7 @@
 
     <!-- login dialog -->
     <div id='login_dialog' class='hidden'>
-      <label>JID:</label><input type='text' id='jid' value='yuanfei@yuanfei-pc'>
+      <label>JID:</label><input type='text' id='jid' value='yuanfei'>
       <label>Password:</label><input value='1' type='password' id='password'>
     </div>
 
@@ -44,6 +44,15 @@
       <p><span id='approve-jid'></span> has requested a subscription
         to your presence.  Approve or deny?</p>
     </div>
-
+   
+   
+</asp:Content>
+<asp:Content ContentPlaceHolderID="bottom" runat="server">
+ <script src='static/js/chat.js'></script>
+   <script>
+       $(function () {
+           $("#tabs").tabs();
+       });
+  </script>
 </asp:Content>
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -11,4 +12,26 @@ namespace Dianzhu.Model.Enums
         Business_Show,//商家展示图片
         Business_ChargePersonIdCard,//负责人证件照片
     }
+    public enum PayType
+    { 
+        Offline,
+        Online_AliPay,
+        Online_WechatPay
+    }
+    /// <summary>
+    /// 计费单位
+    /// </summary>
+    public enum ChargeUnit
+    { 
+        Hour,//每小时
+        Day, //每天
+        Times //每次
+    }
+
+    public enum ServiceMode
+    { 
+        ToHouse,//上门
+        NotToHouse,//不上门
+    }
+     
 }
