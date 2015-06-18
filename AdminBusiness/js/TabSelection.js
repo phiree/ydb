@@ -107,9 +107,9 @@ $.fn.TabSelection = function (options) {
         for (var i in item_list) {
             var item_check = "";
             if (params.enable_multiselect) { 
-            item_check="<input type='checkbox' name='item_id' class='check_item' value='" + item_list[i].id + "' />";
+            item_check="<input type='checkbox' name='item_id' class='check_item' value='" + item_list[i].id + "' level='" + item_list[i].level + "' parent_id='" + item_list[i].parent_id + "' />";
             }
-            var item_content ="<div class='serviceTabsItem'>" + item_check+ "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + ">" + item_list[i].name + "</span>" +"</div>";
+            var item_content ="<div class='serviceTabsItem'>" + item_check+ "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + " level=" + item_list[i].level + " parent_id=" + item_list[i].parent_id + ">" + item_list[i].name + "</span></div>";
 
             tab_panel_content += item_content;
         }
@@ -160,8 +160,9 @@ $.fn.TabSelection = function (options) {
         var that = this;
         var id = $(that).val();
         var checked = $(that).is(":checked");
+        var level = $(that).attr("level");
 //        params.check_changed(id,checked);
-        params.check_changed(that,id,checked);
+        params.check_changed(that,id,checked,level);
     });
 
 

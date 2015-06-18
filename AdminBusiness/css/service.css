@@ -98,6 +98,15 @@
     background: #31b6fb;
 }
 
+.serviceTabsItem .item:hover {
+    background: #fff;
+}
+
+.level0{display: block; padding:5px 10px; background: #f6fafe; border: 1px solid #ccc;font-size: 13px; margin: 3px; border-radius: 5px;}
+.level1{display: block; padding:5px 10px; background: #76aafe; border: 1px solid #ccc;font-size: 13px; margin: 3px; border-radius: 5px;}
+.level2{display: inline-block; padding:5px 10px; background: #cae8fe; border: 1px solid #ccc;font-size: 13px; margin: 3px; border-radius: 5px;}
+.level3{display: inline-block; padding:5px 10px; background: #92d5fe; border: 1px solid #ccc;font-size: 13px; margin: 3px; border-radius: 5px;}
+
 /*服务页面条目标题样式*/
 .service-item-title {
     height: 26px;
@@ -448,7 +457,7 @@
     width: 115px;
     height: 108px;
     float: right;
-    background: url(../image/xuankuang_10.png) no-repeat;
+    /*background: url(../image/xuankuang_10.png) no-repeat;*/
     position: relative
 }
 

@@ -34,6 +34,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 层级结构中的层数.
         /// </summary>
+        [JsonProperty(PropertyName = "level")]
         public virtual int DeepLevel { get; set; }
         /// <summary>
         /// 直接子类型.

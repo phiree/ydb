@@ -345,9 +345,9 @@
         $("#tabsServiceType").TabSelection({
            "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
            "enable_multiselect":true,
-           'check_changed': function (that, id, checked) {
+           'check_changed': function (that,id, checked,level) {
         //                    alert(id + '' + checked);
-                 tabCheckedShow(that,id,checked);
+                 tabCheckedShow(that,id,checked,level);
            },
 
            'leaf_ clicked': function (id, checked) {
@@ -357,23 +357,69 @@
     });
 
 //    选择的服务类型显示
-    var tabCheckedShow = function(that,id,checked){
+    function tabCheckedShow(that,id,checked,level){
         var checkedShowBox = $('#serCheckedShow');
-        var v_id= id;
+        var v_id = id;
+        var v_level = level;
+        var checkedItem = $($(that).parents('.serviceTabsItem')).find('.item');
+        var checkedText = checkedItem.html();
+        var checkedParentId = checkedItem.attr("parent_id");
 
         if (checked == true) {
-            var checkedItem = $($(that).parents('.serviceTabsItem')).find('.item');
-            var checkedText = checkedItem.html();
-            var checkedTextNode = "<span" + " " + "id='" + v_id + "'>" + checkedText + "</span>";
 
-            checkedShowBox.append(checkedTextNode);
+            console.log(checkedParentId);
+            createTypeBox($(that),checkedParentId,checkedText,v_level);
+
+//            var checkedTextNode = "<span id=" + v_id + " level=" + level + " >" + checkedText + "</span>";
+
+//            checkedShowBox.append(checkedTextNode);
         } else {
+            removeTypeBox($(that),checkedParentId,checkedText,v_level);
             checkedShowBox.children('span').remove("#" + v_id + "");
         }
-        return checkedTextNode;
+//        return checkedTextNode;
+
+        function createTypeBox (that,p_id,text,level) {
+//            var p_id = that.attr("parent_id");
+            console.log(level);
+            var printBox = checkedShowBox;
+            var TypeNodeBox = "<div id="+ v_id + ">" + text + "</div>";
+
+            switch (level)
+            {
+                case "0":
+//                    printBox = checkedShowBox;
+                    printBox.append(TypeNodeBox);
+                    console.log(printBox);
+                    $(printBox.find("div" + "#" + v_id)).attr("class","level0");
+                    break;
+                case "1":
+                    printBox = $(checkedShowBox.find("#" + p_id + ""));
+                    printBox.append(TypeNodeBox);
+                    $(printBox.find("div" + "#" + v_id)).attr("class","level1");
+                    break;
+                case "2":
+                    printBox = $(checkedShowBox.find("#" + p_id + ""));
+                    printBox.append(TypeNodeBox);
+                    $(printBox.find("div" + "#" + v_id)).attr("class","level2");
+                    break;
+                case "3":
+                    printBox = $(checkedShowBox.find("#" + p_id + ""));
+                    printBox.append(TypeNodeBox);
+                    $(printBox.find("div" + "#" + v_id)).attr("class","level3");
+                    break;
+                default :
+                    break;
+                    console.log("break");
+            };
+        };
+
+        function removeTypeBox(that,p_id,text,level){
+            var printBox = checkedShowBox;
+            var TypeNodeBox = "<div id="+ v_id + ">" + text + "</div>";
+            $(checkedShowBox.find('div')).remove("#" + v_id + "");
+        }
     }
-
-
 
     $("#setSerType").click(function(e){
         $('#SerlightBox').lightbox_me({
