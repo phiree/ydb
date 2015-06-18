@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link href="/css/service.css" rel="stylesheet" type="text/css" />
+    <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css' rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
@@ -22,35 +23,44 @@
             </div>
         </div>
         <div class="rightContent" id="rightCont">
-            <div id="userInfoAreaid">
-                <div class="serviceInfoArea">
-                    <div class="serviceInfoTilte">
-                        <span>服务等级</span>
-                    </div>
-                    <div class="headInfoArea">
-                        <div class="headImage">
-                            <img src="image/touxiangkuang_11.png" />
+                <div id="userInfoAreaid">
+                    <div class="serviceInfoArea">
+                        <div class="serviceInfoTilte">
+                            <span>服务等级</span>
                         </div>
-                        <div class="headInfo">
-                            <span class="ServiceShops">点助的服务店铺</span>
-                            <span class="InfoCompletetxt">信誉度</span>
-                            <div class="Servicexing">
-                                <img src="image/icon_10.png" />
-                                <img src="image/icon_10.png" />
-                                <img src="image/icon_10.png" />
-                                <img src="image/icon_10.png" />
+                        <div class="headInfoArea">
+                            <div class="headImage">
+                                <img src="image/touxiangkuang_11.png" />
                             </div>
-                        </div>
-                        <div class="headEditImg">
-                            <span class="satisfaction">98%</span>
+                            <div class="headInfo">
+                                <span class="ServiceShops">点助的服务店铺</span>
+                                <span class="InfoCompletetxt">信誉度</span>
+                                <div class="Servicexing">
+                                    <img src="image/icon_10.png" />
+                                    <img src="image/icon_10.png" />
+                                    <img src="image/icon_10.png" />
+                                    <img src="image/icon_10.png" />
+                                </div>
+                            </div>
+                            <div class="headEditImg">
+                                <span class="satisfaction">98%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="service-title">
                     <span>详细服务信息</span>
                 </div>
-                <div class="serviceDetailsMain clearfix">
-                    <div class="serviceDetailsAreaLeft">
+                <div class="serviceMain clearfix">
+                    <div class="serviceLeft">
+                        <div class="serviceChoice">
+                            <ul>
+                                <li><a>服务一</a></li>
+                                <li><a>服务二</a></li>
+                                <li><a>服务三</a></li>
+                            </ul>
+                        </div>
+
                         <!--<div id="AddServiceArea" >-->
                         <!--<div >-->
                             <!--<img src="image/tianjia_3.png" />-->
@@ -65,19 +75,36 @@
                             <!--</a>-->
                         <!--</div>-->
                     </div>
-                    <div class="serviceDetailsAreaRight">
-                        <div class="ServiceLeft">
+                    <div class="serviceRightWrap">
+                    <div class="serviceRight">
+                        <div class="serviceDetailsLeft">
                             <div class="p-20">
                                 <div class="service-m">
                                     <p class="p_ServiceType service-item-title"><i class="icon service-icon-serType"></i>请选择您的服务类型</p>
                                     <div class="clearfix">
-                                        <div class="select fl select-sm">
-                                            <ul>
-                                                <li><a>照顾1</a></li>
-                                                <li><a>照顾2</a></li>
-                                                <li><a>照顾3</a></li>
-                                            </ul>
-                                            <input type="hidden" />
+                                        <div>
+                                            <div>
+                                                <input id="setSerType" class="ser-btn-SerType" type="button" value="选择服务信息" />
+                                                <!--<div id="serCheckedShow" class="ser-chk-show">-->
+                                                <!--&lt;!&ndash;<div id="serCheckedShow">&ndash;&gt;-->
+
+                                                <!--</div>-->
+                                                <div id="setSerTypeShow">
+
+                                                </div>
+                                            </div>
+                                            <div id="SerlightBox" class="serviceTabs dis-n">
+                                                <div id="tabsServiceType" class="" >
+                                                    <ul></ul>
+                                                </div>
+                                                <div id="serCheckedShow" class="ser-chk-show">
+
+                                                </div>
+                                                <div>
+                                                    <input id="confirmSer" class="close btn-SerTypeConfirm" type="button" value="确定" />
+                                                    <input class="close btn-SerTypeCancel" type="button" value="取消" />
+                                                </div>
+                                            </div>
                                         </div>
                                         <!--<i class="icon service-icon-hr fl"></i>-->
                                         <!--<div class="select fl select-sm">-->
@@ -102,7 +129,7 @@
                                             <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
-                                            <img class="input-file-pre" />
+                                            <img class="input-file-pre" src="" />
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +148,7 @@
                                     <p class="p_LocationArea service-item-title"><i class="icon service-icon-serLocal"></i>定位服务区域</p>
                                     <!--<p class="f-s13 l-h16">服务中心点定位(为您的服务区域进行定位)</p>-->
                                     <p class="f-s13 l-h16">(点击选择商圈范围)</p>
-                                    <div class="clearfix">
+                                    <div  class="clearfix">
                                         <!--<div class="setLocationDate fl">-->
                                             <!--<div class="select select-sm">-->
                                                 <!--<ul>-->
@@ -143,17 +170,17 @@
                                             <!--</div>-->
 
                                         <!--</div>-->
-                                        <div class="setLocationMap">
+                                        <div id="setBusiness" class="setLocationMap">
 
                                         </div>
-                                        <p><span>上海</span></p>
+                                        <input id="businiessSeletValue" type="hidden">
+                                        <p id="businessText"></p>
                                     </div>
                                 </div>
 
-                                </div>
                             </div>
                         </div>
-                        <div class="ServiceRight">
+                        <div class="serviceDetailsRight">
                             <div class="p-20">
 
                                 <div class="service-m">
@@ -251,25 +278,24 @@
                                         </div>
                                         <p class="delAndUpdate"> <input name="imagedelete" type="image" id="imagedelete" src="image/button_3.png" /> <input name="imageupdate" type="image" id="imageupdate" src="image/button_4.png" /> </p>
                                     </div>-->
-
+                            <div id="mapLightBox" class="dis-n">
+                                <div id="businessMap"></div>
+                                <div id="businessCity"></div>
+                                <div><input id="confBusiness" class="close" type="button" value="确定"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+                    </div>
+
                 <div class="bottomArea">
                     <input name="imageSave" type="image" id="imageSave" src="image/baocun_1.png" />
                     <input name="imageCancel" type="image" id="imageCancel" src="image/baocun_2.png" />
                 </div>
             </div>
-            <div id="account" class="account">
-                活动设置
-            </div>
-        </div>
+    </div>
     </div>
     </body>
-    <script type="text/javascript">
-
-    </script>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.9.1.min.js"></script>-->
@@ -278,9 +304,84 @@
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js" ></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js" ></script>
-    <script type="text/javascript" src="../js/global.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
+    <script type="text/javascript" src="/js/CityList.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript">
- $(document).ready(function(){
+    var map = new BMap.Map("businessMap");
+    var cityListObject = new BMapLib.CityList({container : "businessCity"});
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+    map.enableScrollWheelZoom();
+
+//    商圈设置
+    $("#setBusiness").click(function(e){
+        $('#mapLightBox').lightbox_me({
+            centered: true
+        });
+        e.preventDefault();
+    });
+
+    $('#confBusiness').click(function(){
+        var businessSelet = $('#businessCity').find('select');
+        var businiessText = $('#businessText');
+        var businessvalue = "";
+        var businessNode = "";
+
+        for (var i = 0 ; i < businessSelet.length; i++ ){
+            if (businessSelet.eq(i).val() != null ){
+                    console.log(businessSelet.eq(i).val());
+                    businessvalue += "m/" + businessSelet.eq(i).val();//获取商圈个段的code,以“/m”区分各字段
+                    businessNode += '<span>' + businessSelet.eq(i).get(0).options[businessSelet.eq(i).get(0).selectedIndex].title + '</span>';//
+            } else {
+                break;
+            }
+        }
+        $('#businiessSeletValue').val(businessvalue);
+        businiessText.html(businessNode);
+    });
+
+
+    $(function () {
+        $("#tabsServiceType").TabSelection({
+           "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
+           "enable_multiselect":true,
+           'check_changed': function (that, id, checked) {
+        //                    alert(id + '' + checked);
+                 tabCheckedShow(that,id,checked);
+           },
+
+           'leaf_ clicked': function (id, checked) {
+        //                alert(id);
+           }
+        });
+    });
+
+//    选择的服务类型显示
+    var tabCheckedShow = function(that,id,checked){
+        var checkedShowBox = $('#serCheckedShow');
+        var v_id= id;
+
+        if (checked == true) {
+            var checkedItem = $($(that).parents('.serviceTabsItem')).find('.item');
+            var checkedText = checkedItem.html();
+            var checkedTextNode = "<span" + " " + "id='" + v_id + "'>" + checkedText + "</span>";
+
+            checkedShowBox.append(checkedTextNode);
+        } else {
+            checkedShowBox.children('span').remove("#" + v_id + "");
+        }
+        return checkedTextNode;
+    }
+
+
+
+    $("#setSerType").click(function(e){
+        $('#SerlightBox').lightbox_me({
+            centered: true
+        });
+        e.preventDefault();
+    })
+// $(document).ready(function(){
 
 //            function addleftmenu(divid,v){
 //                //alert($("#leftMeunList").children().length);
@@ -383,7 +484,7 @@
 
 //            $("#pt1 a").css("border-bottom","#0FF 2px solid");
 
-        });
+//        });
     </script>
 
 </asp:Content>

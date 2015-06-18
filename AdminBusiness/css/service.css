@@ -12,22 +12,93 @@
 .service-title { padding: 0 20px; height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; }
 .service-title span { color:#58789a; font-size:17px; font-weight:bold; vertical-align: middle; }
 
-.serviceDetailsMain { color: #58789a;}
+.serviceMain { color: #58789a; }
 
-.serviceDetailsAreaLeft {
+.serviceLeft {
     float: left;
     width: 162px;
-    height: 100px;
+    height: 100%;
+    /*border-right: 1px solid #ccc;*/
     /*color: #58789a;*/
     /*position: relative;*/
 }
 
-.serviceDetailsAreaRight {
+/*服务选择样式*/
+.serviceChoice {
+    padding: 20px 0 0 20px;
+
+}
+
+.serviceChoice ul li a{
+    display: block;
+    padding: 5px;
+    text-align: center;
+    border-left: 1px solid #f1fbff;
+    border-top: 1px solid #f1fbff;
+    border-bottom: 1px solid #c3cfdb;
+    border-radius: 5px 0 0 5px;
+    background: #dfebf6;
+}
+
+.serviceChoice ul li a:hover{
+    /*padding: 5px;*/
+    border-left: 1px solid #96b2ca;
+    border-top: 1px solid #58789a;
+    border-bottom: 1px solid #c4cdd4;
+    border-radius: 5px 0 0 5px;
+    background: #fff;
+}
+
+/*服务细节条目包围*/
+.serviceRightWrap {
+    border-left: 1px solid #dfe3e6;
     float: left;
-    /*color: #58789a;*/
-    /*position: relative;*/
+    background: #fff;
 }
 
+/*服务选项弹窗样式*/
+
+.serviceTabs {
+    width: 700px;
+    background: #fff;
+    padding: 10px;
+}
+
+.serviceTabsItem {
+    float: left;
+    font-size: 13px;
+    width: 200px;
+}
+
+.ser-chk-show {
+    box-sizing: border-box;
+    padding: 10px;
+    border: #dbe6f2 1px solid;
+    border-radius: 3px;
+    width: 100%;
+    margin:10px 0;
+}
+
+.ser-chk-show span {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    border: #dbe6f2 1px solid;
+    border-radius: 3px;
+    background: #f6fafe;
+    color: #58789a;
+    font-size: 13px;
+}
+
+.ser-btn-SerType {
+    border: 0;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: #31b6fb;
+}
+
+/*服务页面条目标题样式*/
 .service-item-title {
     height: 26px;
     line-height: 26px;
@@ -100,13 +171,14 @@
     /*color: #58789a;*/
 /*}*/
 
-.ServiceLeft {
+.serviceDetailsLeft {
     float: left;
+    width: 290px;
     /*width: 50%;*/
     /*position: relative;*/
 }
 
-.ServiceRight {
+.serviceDetailsRight {
     float: right;
     padding-left: 20px;
     /*width: 50%;*/
@@ -133,7 +205,6 @@
 
 .service-m {
     margin-bottom: 10px;
-
 }
 
 .service-input-mid {
@@ -396,4 +467,9 @@
     width: 130px;
     height: 30px;
     line-height: 30px;
+}
+
+#businessMap {
+    width: 100%;
+    height: 300px;
 }
