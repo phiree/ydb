@@ -262,6 +262,10 @@ body {
     overflow: hidden;
 }
 
+.input-file-box ul li a{
+    display: none;
+}
+
 .input-file-btn {
     position: absolute;
     z-index: 3;

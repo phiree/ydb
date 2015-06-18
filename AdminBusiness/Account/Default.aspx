@@ -2,7 +2,7 @@
     CodeFile="Default.aspx.cs" Inherits="Account_Edit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <link href="../css/myshop.css" rel="stylesheet" type="text/css" />
+    <link href="/css/myshop.css" rel="stylesheet" type="text/css" />
     <%--<link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/base/minified/jquery-ui.min.css' rel="stylesheet" type="text/css" />--%>
     <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css' rel="stylesheet" type="text/css" />
 </asp:Content>
@@ -190,10 +190,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div id="tabsServiceType" class="tabsServiceType" >-->
-                            <!--<ul> </ul>-->
-                             <!---->
-                        <!--</div>-->
+
                     </div>
                 </div>
                 <div>
@@ -289,49 +286,11 @@
 
     </script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            var m1 = true;
-            var m2 = false;
-            function meinit(str) {
-                m1 = false;
-                m2 = false;
-                $("#me1").attr("src", "/image/jibenxinxi_4.png");
-                $("#me2").attr("src", "/image/zhanghaoanquan_2.png");
-            }
-
-            $("#me1").click(function () {
-                meinit(m1);
-
-                $("#me1").attr("src", "/image/jibenxinxi_3.png");
-                $("#userInfoAreaid").css("display", "block");
-                $("#account").css("display", "none");
-
-
-            });
-            $("#me2").click(function () {
-                meinit(m2);
-                $("#me2").attr("src", "/image/zhanghaoanquan_1.png");
-                $("#userInfoAreaid").css("display", "none");
-                $("#account").css("display", "block");
-
-            });
-            $(".picture").hover(function () {
-                    $(".picDelBtn").css("display", "block");
-                    $(".picEditBtn").css("display", "block");
-
-                }, function () {
-                    $(".picDelBtn").css("display", "none");
-                    $(".picEditBtn").css("display", "none");
-
-                }
-            );
-
-//            $(".picDelBtn").css("display", "none");
-//            $(".picEditBtn").css("display", "none");
-
-            $(".progress").css("width", "90%");
-            $(".completePercentage").html("90%");
-
-        });
+//        $(document).ready(function () {
+//
+//            $(".progress").css("width", "90%");
+//            $(".completePercentage").html("90%");
+//
+//        });
     </script>
 </asp:Content>

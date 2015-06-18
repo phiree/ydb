@@ -260,24 +260,24 @@
     display: block;
 }
 
-.p_SeDate {
-    background: url(../image/icon_6.png) no-repeat;
-    height: 32px;
-    line-height: 32px;
-    padding-left: 30px;
-    font-size: 15px;
-    font-weight: bold;
-    margin-top: 10px;
-}
+/*.p_SeDate {*/
+    /*background: url(../image/icon_6.png) no-repeat;*/
+    /*height: 32px;*/
+    /*line-height: 32px;*/
+    /*padding-left: 30px;*/
+    /*font-size: 15px;*/
+    /*font-weight: bold;*/
+    /*margin-top: 10px;*/
+/*}*/
 
-.p_SetTheTime {
-    background: url(../image/congyeshijian_1.png) no-repeat;
-    height: 32px;
-    line-height: 32px;
-    padding-left: 30px;
-    font-size: 15px;
-    font-weight: bold;
-}
+/*.p_SetTheTime {*/
+    /*background: url(../image/congyeshijian_1.png) no-repeat;*/
+    /*height: 32px;*/
+    /*line-height: 32px;*/
+    /*padding-left: 30px;*/
+    /*font-size: 15px;*/
+    /*font-weight: bold;*/
+/*}*/
 
 .delAndUpdate {
     margin-bottom: 30px;
