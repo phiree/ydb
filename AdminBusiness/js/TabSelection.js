@@ -32,11 +32,11 @@ $.fn.TabSelection = function (options) {
 
     var params = $.extend({
 
-        "datasource": null,//support ajax_url string or json list.
-        "leaf_clicked": null,// 
-
+        "datasource": null, //local json list,or  ajax_url that return a  jsonlist .
         "enable_multiselect": false,
-        "check_changed":null//checkbox chaged callback,only works when enable_multiselect is true
+        "leaf_clicked": null,// when leaf clicked ,works when enable_multiselect is 
+        "check_changed": null,// checkbox chaged callback,only works when enable_multiselect is true
+        "init_data":[],//
     }, options);
 
     //determin the datasource is a ajax_url or a local json object

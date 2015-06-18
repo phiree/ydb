@@ -1,0 +1,32 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="3g.master.cs" Inherits="_3g_3g" %>
+
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>我的店铺</title>
+<link rel="stylesheet" href="mobile/jquery.mobile-1.4.5.min.css" />
+<link rel="stylesheet" href="mobile/jquery.mobile.theme-1.4.5.css" />
+<link rel="stylesheet" href="css/global.css" />
+<link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="css/myshop.css" />
+<link rel="stylesheet" href="css/device.css" 
+media="screen and (max-device-width : 1280px)">
+<!--上面的代码意思是，如果屏幕宽度小于1280像素（max-device-width: 1280px），就加载device.css文件-->
+<asp:ContentPlaceHolder ID="head" runat="Server">
+    </asp:ContentPlaceHolder>
+</head> 
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+    <script src="/3g/mobile/jquery-1.11.1.min.js"></script>
+<script src="/3g/mobile/jquery.mobile-1.4.5.min.js"></script>
+<script src="/3g/js/global.js"></script>
+</body>
+</html>
