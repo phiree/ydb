@@ -62,7 +62,7 @@ public partial class Account_Edit : BasePage
         }
     }
 
-    protected void btnSave_Click(object sender, EventArgs e)
+   protected void btnSave_Click(object sender, EventArgs e)
     {
         
         BLLBusiness bll = new BLLBusiness();
@@ -76,7 +76,7 @@ public partial class Account_Edit : BasePage
          b.WorkingYears = int.Parse(tbxBusinessYears.Value);  
 
         //upload pictures
-         if (fuBusinessLicence.PostedFile.ContentLength != 0)
+         if (fuBusinessLicence.PostedFile!=null&&fuBusinessLicence.PostedFile.ContentLength != 0)
          {
              string licenceImageName = b.Id + ImageType.Business_Licence.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuBusinessLicence.FileName);
              fuBusinessLicence.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + licenceImageName);
@@ -91,7 +91,7 @@ public partial class Account_Edit : BasePage
              b.BusinessLicence = biLicence;
          }
 
-         if (fuChargePerson.PostedFile.ContentLength != 0)
+         if (fuChargePerson.PostedFile!=null&&fuChargePerson.PostedFile.ContentLength != 0)
          {
              string chargeIdImageName = b.Id + ImageType.Business_ChargePersonIdCard.ToString() +  Guid.NewGuid().GetHashCode() + Path.GetExtension(fuChargePerson.FileName);
              fuChargePerson.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + chargeIdImageName);
@@ -110,7 +110,7 @@ public partial class Account_Edit : BasePage
         string showImage1 = b.Id + ImageType.Business_Show.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuShow1.FileName);
         string showImage2 = b.Id + ImageType.Business_Show.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuShow2.FileName);
         string showImage3 = b.Id + ImageType.Business_Show.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuShow3.FileName);
-        if (fuShow1.PostedFile.ContentLength != 0)
+        if (fuShow1.PostedFile!=null&&fuShow1.PostedFile.ContentLength != 0)
         {
             fuShow1.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + showImage1);
             BusinessImage biShow1 = new BusinessImage
@@ -122,7 +122,7 @@ public partial class Account_Edit : BasePage
             };
             b.BusinessImages.Add(biShow1);
         }
-        if (fuShow2.PostedFile.ContentLength != 0)
+        if (fuShow2.PostedFile!=null&&fuShow2.PostedFile.ContentLength != 0)
         {
             fuShow2.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + showImage2);
             BusinessImage biShow2 = new BusinessImage
@@ -134,7 +134,7 @@ public partial class Account_Edit : BasePage
             };
             b.BusinessImages.Add(biShow2);
         }
-        if (fuShow3.PostedFile.ContentLength != 0)
+        if (fuShow3.PostedFile!=null&&fuShow3.PostedFile.ContentLength != 0)
         {
             fuShow3.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + showImage3);
             BusinessImage biShow3 = new BusinessImage

@@ -1,0 +1,22 @@
+/* CSS Document */
+.top-edit-div{ background:#54789a; height:60px; line-height:60px;}
+.info-title{ height:40px; line-height:40px; color:#617e9c;}
+.info-content{ background:#FFF; overflow:hidden;}
+.my-li{ height:42px; line-height:42px; border-bottom:#cadbec solid 1px;}
+.my-li2{border-bottom:#cadbec solid 1px;overflow:hidden; padding-top:10px; padding-bottom:5px;}
+.my-li3{overflow:hidden; padding-top:10px;padding-top:5px;}
+.my-li4{overflow:hidden; padding-top:10px;padding-top:5px;border-bottom:#cadbec solid 1px;}
+.my-li5{overflow:hidden; padding-top:10px;padding-top:5px;height:42px; line-height:42px;}
+.info-content a{color:#617e9c;}
+.info-content a:hover{color:#617e9c;}
+.ul-left{ float:left;}
+.ul-left3{ float:left;margin-right:10px;}
+.ul-left2{ float:left;height:80px; line-height:80px;margin-right:10px;}
+.ul-right{ float:right; position:relative;}
+.li-inco{ background:url(../images/ul-jt.png) no-repeat; width:11px; height:42px; margin-left:8px;}
+.li-inco2{ background:url(../images/ul-jt2.png) no-repeat; width:20px; height:42px; margin-left:8px;}
+.ul-edit li{ float:left; margin-left:10px;}
+.li-del a{height:20px;background:url(../images/del-inco.png) no-repeat; padding-left:25px;}
+
+.li-edit a{height:20px; background:url(../images/edit-inco.png) no-repeat; padding-left:25px;}
+.map-div{ width:120px; height:120px; border:#CCC solid 1px; margin-top:10px; margin-bottom:10px;}
