@@ -141,6 +141,17 @@
                                     <input type="hidden" runat="server" id="tbxBusinessYears" name="email" /></div>
                             </li>
                         </a>
+                    </ul> <ul class="panel-ul">
+                        <a href="#" target="_parent">
+                            <li class="my-li">
+                                <div class="ul-left">
+                                    <div class="m-top">
+                                        员工人数</div>
+                                </div>
+                                <div class="ul-right li-inco">
+                                    <input type="hidden" runat="server" id="selStaffAmount" /></div>
+                            </li>
+                        </a>
                     </ul>
                     <ul class="panel-ul">
                         <li class="my-li3">
@@ -171,7 +182,7 @@
                                 <div class="ul-left">
                                     <div class="m-top">
                                         负责人姓名:</span><span id="personName-txt">张三</span></div>
-                                    <input type="hidden" name="personName" id="personName" value="" />
+                                    <input type="hidden" id="tbxContact" runat="server" name="personName"  value="" />
                                 </div>
                                 <div class="ul-right li-inco">
                                 </div>
@@ -185,7 +196,7 @@
                                     证件类型</div>
                             </div>
                             <div style="float: right">
-                                <select name="card-tyle" id="iphone-tyle" data-theme="a">
+                                <select runat="server" id="selCardType" name="card-tyle"   data-theme="a">
                                     <option value="1">学生证</option>
                                     <option value="2">身份证</option>
                                 </select>
@@ -198,7 +209,7 @@
                                 <div class="ul-left">
                                     <div class="m-top">
                                         证件号码:</span><span id="carNum-txt">12345678</span></div>
-                                    <input type="hidden" name="carNum" id="carNum" value="" />
+                                   <input type="text" runat="server" id="tbxCardIdNo" clientidmode="Static" />
                                 </div>
                                 <div class="ul-right li-inco">
                                 </div>

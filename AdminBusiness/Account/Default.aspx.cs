@@ -27,7 +27,13 @@ public partial class Account_Edit : BasePage
             tbxAddress.Value = b.Address;
             tbxContactPhone.Value = b.Phone;
             tbxEmail.Value = b.Email;
+
             tbxBusinessYears.Value = b.WorkingYears.ToString();
+            tbxContact.Value = b.Contact;
+            selStaffAmount.Value = b.StaffAmount.ToString();
+            selCardType.Value = ((int)b.ChargePersonIdCardType).ToString();
+            tbxCardIdNo.Value = b.ChargePersonIdCardNo; 
+
             string imgLicencePath=string.Empty, imgChargePersonPath=string.Empty;
             if (b.ChargePersonIdCard != null)
             {
@@ -73,8 +79,13 @@ public partial class Account_Edit : BasePage
          b.Address = tbxAddress.Value;
          b.Phone = tbxContactPhone.Value;
          b.Email=tbxEmail.Value ;
-         b.WorkingYears = int.Parse(tbxBusinessYears.Value);  
-
+         b.WorkingYears = int.Parse(tbxBusinessYears.Value);
+       
+         b.WorkingYears =int.Parse(tbxBusinessYears.Value);
+         b.Contact = tbxContact.Value;
+         b.StaffAmount = int.Parse(selStaffAmount.Value);
+         b.ChargePersonIdCardType = (IDCardType)int.Parse(selCardType.Value);
+         b.ChargePersonIdCardNo = tbxCardIdNo.Value;
         //upload pictures
          if (fuBusinessLicence.PostedFile!=null&&fuBusinessLicence.PostedFile.ContentLength != 0)
          {

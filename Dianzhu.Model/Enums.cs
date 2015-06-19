@@ -33,5 +33,13 @@ namespace Dianzhu.Model.Enums
         ToHouse,//上门
         NotToHouse,//不上门
     }
+    public enum IDCardType
+    { 
+        身份证,
+        学生证,
+        军官证,
+        护照,
+        其他
+    }
      
 }

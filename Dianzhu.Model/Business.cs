@@ -111,6 +111,16 @@ namespace Dianzhu.Model
                 BusinessImages.Add(value);
             }
         }
+        public virtual Enums.IDCardType ChargePersonIdCardType
+        {
+            get;
+            set;
+        }
+        public virtual string ChargePersonIdCardNo
+        {
+            get;
+            set;
+        }
         public virtual BusinessImage ChargePersonIdCard
         {
             get
