@@ -29,6 +29,10 @@ namespace Dianzhu.Model
        /// </summary>
        public virtual Business Business { get; set; }
        /// <summary>
+       /// 商圈代码.
+       /// </summary>
+       public virtual string BusinessAreaCode { get; set; }
+       /// <summary>
        /// 详细描述
        /// </summary>
        public virtual string Description { get; set; }
@@ -53,10 +57,7 @@ namespace Dianzhu.Model
        /// </summary>
        public virtual int MaxOrdersPerHour { get; set; }
 
-       /// <summary>
-       /// 服务范围,商圈名称
-       /// </summary>
-       public virtual string ServiceScope { get; set; }
+       
 
        public virtual PayType PayType { get; set; }
 
