@@ -113,7 +113,7 @@
                                 <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                     <ItemTemplate>
                                         <div class="picture">
-                                              <asp:ImageButton ID="ImageButton1" runat="server" CommandName="delete" ImageUrl="/image/shared/delete_1.png"
+                                            <asp:ImageButton ID="ImageButton1" runat="server" CommandName="delete" ImageUrl="/image/shared/delete_1.png"
                                                 ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                             <a href='<%#Config.BusinessImagePath+"original/"+Eval("ImageName") %>'>
                                                 <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
@@ -127,7 +127,6 @@
                                     <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                     <img class="input-file-pre" />
                                 </div>
-                                
                             </div>
                         </li>
                     </ul>
@@ -159,74 +158,74 @@
                         </li>
                     </ul>
                 </div>
-               
             </div>
-        </div> <div class="m-p-size pd-size">
-                    <div class="info-title">
-                        负责人信息</div>
-                </div>
-                <div class="info-content">
-                    <div class="pd-size2">
-                        <ul class="panel-ul">
-                            <a href="#right-panel" onclick="goToRightPanel('#personName','#personName-txt')">
-                                <li class="my-li">
-                                    <div class="ul-left">
-                                        <div class="m-top">
-                                            负责人姓名:</span><span id="personName-txt">张三</span></div>
-                                        <input type="hidden" name="personName" id="personName" value="" />
-                                    </div>
-                                    <div class="ul-right li-inco">
-                                    </div>
-                                </li>
-                            </a>
-                        </ul>
-                        <ul class="panel-ul">
+            <div class="m-p-size pd-size">
+                <div class="info-title">
+                    负责人信息</div>
+            </div>
+            <div class="info-content">
+                <div class="pd-size2">
+                    <ul class="panel-ul">
+                        <a href="#right-panel" onclick="goToRightPanel('#personName','#personName-txt')">
                             <li class="my-li">
                                 <div class="ul-left">
-                                    <div style="margin-top: 20px;">
-                                        证件类型</div>
+                                    <div class="m-top">
+                                        负责人姓名:</span><span id="personName-txt">张三</span></div>
+                                    <input type="hidden" name="personName" id="personName" value="" />
                                 </div>
-                                <div style="float: right">
-                                    <select name="card-tyle" id="iphone-tyle" data-theme="a">
-                                        <option value="1">学生证</option>
-                                        <option value="2">身份证</option>
-                                    </select>
+                                <div class="ul-right li-inco">
                                 </div>
                             </li>
-                        </ul>
-                        <ul class="panel-ul">
-                            <a href="#right-panel" onclick="goToRightPanel('#carNum','#carNum-txt')">
-                                <li class="my-li">
-                                    <div class="ul-left">
-                                        <div class="m-top">
-                                            证件号码:</span><span id="carNum-txt">12345678</span></div>
-                                        <input type="hidden" name="carNum" id="carNum" value="" />
-                                    </div>
-                                    <div class="ul-right li-inco">
-                                    </div>
-                                </li>
-                            </a>
-                        </ul>
-                        <ul class="panel-ul">
-                            <li class="my-li2">
-                                <div class="ul-left2">
-                                    证件照
-                                </div>
+                        </a>
+                    </ul>
+                    <ul class="panel-ul">
+                        <li class="my-li">
+                            <div class="ul-left">
+                                <div style="margin-top: 20px;">
+                                    证件类型</div>
+                            </div>
+                            <div style="float: right">
+                                <select name="card-tyle" id="iphone-tyle" data-theme="a">
+                                    <option value="1">学生证</option>
+                                    <option value="2">身份证</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="panel-ul">
+                        <a href="#right-panel" onclick="goToRightPanel('#carNum','#carNum-txt')">
+                            <li class="my-li">
                                 <div class="ul-left">
-                                    <img runat="server" id="imgChargePerson" src="/image/dianjishangchuan_1.png" />
-                                    <div class="input-file-box d-inb">
-                                        <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
-                                        <i class="input-file-bg"></i><i class="input-file-mark"></i>
-                                        <img class="input-file-pre" />
-                                    </div>
+                                    <div class="m-top">
+                                        证件号码:</span><span id="carNum-txt">12345678</span></div>
+                                    <input type="hidden" name="carNum" id="carNum" value="" />
+                                </div>
+                                <div class="ul-right li-inco">
                                 </div>
                             </li>
-                        </ul>
-                        <div style="text-align: right; margin-top: 10px;">
-                            <asp:Button runat="server" ID="btnSave" OnClick="btnSave_Click" Text="保存" />
-                        </div>
+                        </a>
+                    </ul>
+                    <ul class="panel-ul">
+                        <li class="my-li2">
+                            <div class="ul-left2">
+                                证件照
+                            </div>
+                            <div class="ul-left">
+                                <img runat="server" id="imgChargePerson" src="/image/dianjishangchuan_1.png" />
+                                <div class="input-file-box d-inb">
+                                    <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
+                                    <i class="input-file-bg"></i><i class="input-file-mark"></i>
+                                    <img class="input-file-pre" />
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div style="text-align: right; margin-top: 10px;">
+                        <asp:Button runat="server" ID="btnSave" OnClick="btnSave_Click" Text="保存" />
                     </div>
                 </div>
+            </div>
+        </div>
         <!-- /content -->
         <div data-role="panel" id="left-panel" style="background: #4c6f8f; color: #80abd2;">
             <div class="lefe-top">
@@ -264,4 +263,3 @@
         <!-- /panel -->
     </div>
 </asp:Content>
-
