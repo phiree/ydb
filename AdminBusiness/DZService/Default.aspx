@@ -77,180 +77,174 @@
                         <!--</div>-->
                     </div>
                     <div class="serviceRightWrap">
-                    <div class="serviceRight">
-                        <div class="serviceDetailsLeft">
-                            <div class="p-20">
-                                <div class="service-m">
-                                    <p class="p_ServiceType service-item-title"><i class="icon service-icon-serType"></i>请选择您的服务类型</p>
-                                    <div class="clearfix">
-                                        <div>
+                    <div class="serviceRight clearfix">
+                        <div class="service-md">
+                            <div class="service-md-title">基本信息<i class="icon servie-icon-mdStand"></i></div>
+                            <div class="service-md-main clearfix">
+                                <div class="service-md-mleft">
+                                    <div class="service-m">
+                                        <p class="p_ServiceType service-item-title"><i class="icon service-icon-serType"></i>请选择您的服务类型</p>
+                                        <div class="clearfix">
                                             <div>
-                                                <input id="setSerType" class="ser-btn-SerType" type="button" value="选择服务信息" />
-                                                <div id="setSerTypeShow">
-
-                                                </div>
-                                            </div>
-                                            <div id="SerlightBox" class="serviceTabs dis-n">
-                                                <div id="tabsServiceType" class="" >
-                                                    <ul></ul>
-                                                </div>
-                                                <p class="ser-chk-title">已选中的服务</p>
-                                                <div id="serCheckedShow" class="ser-chk-show">
-
-                                                </div>
                                                 <div>
-                                                    <input id="confirmSer" class="close btn-SerTypeConfirm" type="button" value="确定" />
-                                                    <input class="close btn-SerTypeCancel" type="button" value="取消" />
+                                                    <input id="setSerType" class="ser-btn-SerType" type="button" value="选择服务信息" />
+                                                    <div id="setSerTypeShow">
+
+                                                    </div>
+                                                </div>
+                                                <div id="SerlightBox" class="serviceTabs dis-n">
+                                                    <div id="tabsServiceType" class="" >
+                                                        <ul></ul>
+                                                    </div>
+                                                    <p class="ser-chk-title">已选中的服务</p>
+                                                    <div id="serCheckedShow" class="ser-chk-show">
+
+                                                    </div>
+                                                    <div>
+                                                        <input id="confirmSer" class="close ser-sm-input" type="button" value="确定" />
+                                                        <input class="close ser-sm-input" type="button" value="取消" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-
+                                    </div>
+                                    <div class="service-m">
+                                        <p class="p_serviceIntroduced service-item-title"><i class="icon service-icon-serIntro"></i>服务介绍</p>
+                                        <p><textarea class="serviceIntroduced" name="tbxDescription" placeholder="(可输入60个字)"></textarea></p>
                                     </div>
                                 </div>
-                                <div class="service-m">
-                                    <p class="p_serviceIntroduced service-item-title"><i class="icon service-icon-serIntro"></i>服务介绍</p>
-                                    <p><textarea class="serviceIntroduced" name="tbxDescription" placeholder="(可输入60个字)"></textarea></p>
-                                </div>
-                                <div class="service-m">
-                                    <p class="p_QualificationCertificate service-item-title"><i class="icon service-icon-LIC"></i>资质证书</p>
-                                    <div>
-                                        <div class="input-file-box d-inb">
-                                            <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
-                                            <i class="input-file-bg"></i>
-                                            <i class="input-file-mark"></i>
-                                            <img class="input-file-pre" src="" />
+                                <div class="service-md-mright">
+                                    <div class="service-m">
+                                        <p class="p_QualificationCertificate service-item-title"><i class="icon service-icon-LIC"></i>资质证书</p>
+                                        <div>
+                                            <div class="input-file-box d-inb">
+                                                <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
+                                                <i class="input-file-bg"></i>
+                                                <i class="input-file-mark"></i>
+                                                <img class="input-file-pre" src="" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="setLocation service-m">
+                            </div>
+                        </div>
+                        <div class="service-md">
+                            <div class="service-md-title">服务范围<i class="icon servie-icon-mdRound"></i></div>
+                            <div class="service-md-main">
+                                <div class="service-m">
+
                                     <p class="p_LocationArea service-item-title"><i class="icon service-icon-serLocal"></i>定位服务区域</p>
                                     <!--<p class="f-s13 l-h16">服务中心点定位(为您的服务区域进行定位)</p>-->
-                                    <p class="f-s13 l-h16">(点击选择商圈范围)</p>
-                                    <div  class="clearfix">
-                                        <div id="setBusiness" class="setLocationMap">
-
-                                        </div>
-                                        <input id="businiessSeletValue" type="hidden">
-                                        <p id="businessText"></p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="serviceDetailsRight">
-                            <div class="p-20">
-
-                                <div class="service-m">
-                                    <p class="service-item-title"><i class="icon service-icon-serIntro"></i>服务起步价</p>
-                                    <div>
-                                        <input class="service-input-mid" type="text" name="tbxMinPrice">&nbsp;元
-                                    </div>
-                                </div>
-                                <div class="service-m">
-                                    <p class="service-item-title"><i class="icon service-icon-serIntro"></i>服务单价</p>
-                                    <div>
-                                        <input class="service-input-mid" type="text" name="tbxUnitPrice">&nbsp;元&nbsp;/&nbsp;每&nbsp;( <input type="radio" name="tbxUnit">&nbsp;小时&nbsp;&nbsp;<input type="radio" name="tbxUnit">&nbsp;天&nbsp;&nbsp;<input type="radio" name="tbxUnit">&nbsp;次 )
-                                    </div>
-                                </div>
-                                <div class="service-m">
-                                    <p class="service-item-title"><i class="icon service-icon-serIntro"></i>是否上门</p>
-                                    <div><input type="radio" name="rblServiceMode" value="y"/>&nbsp;是&nbsp;&nbsp;<input type="radio" name="rblServiceMode" value="n"/>&nbsp;否</div>
-                                </div>
-                                <div class="service-m">
-                                    <p class="service-item-title"><i class="icon service-icon-serIntro"></i>服务时间</p>
-                                    <div><input class="service-input-sm" type="text" name="tbxServiceTimeBegin">&nbsp;至&nbsp;<input class="service-input-sm" type="text" name="tbxServiceTimeEnd"></div>
-                                </div>
-                                <div class="service-m">
-                                    <p class="service-item-title"><i class="icon service-icon-serIntro"></i>每日最大接单量</p>
-                                    <div><input class="service-input-mid" type="text" name="tbxMaxOrdersPerDay">&nbsp;单</div>
-                                </div>
-                                <div class="service-m">
-                                    <p class="service-item-title"><i class="icon service-icon-serIntro"></i>每小时最大接单量</p>
-                                    <div><input class="service-input-mid" type="text" name="tbxMaxOrdersPerHour">&nbsp;单</div>
-                                </div>
-                                <div class="service-m">
-                                    <p class="service-item-title"><i class="icon service-icon-serIntro"></i>提前预约时间</p>
-                                    <div>至少&nbsp;<input class="service-input-mid" type="text" name="tbxOrderDelay">&nbsp;分钟</div>
-                                </div>
-                                <div class="service-m">
-                                    <p class="service-item-title"><i class="icon service-icon-serIntro"></i>服务对象</p>
-                                    <div><input type="radio" name="cblIsForBusiness" value="1"/>&nbsp;对公&nbsp;&nbsp;<input type="radio" name="cblIsForBusiness" value=""/>&nbsp;对私</div>
-                                </div>
-                                <div class="service-m">
-                                    <p class="service-item-title"><i class="icon service-icon-serIntro"></i>平台认证</p>
-                                    <input type="checkbox" name="cbxIsCertificated">&nbsp;已通过平台认证
-                                </div>
-                                <div class="service-m">
-                                    <p class="service-item-title"><i class="icon service-icon-serIntro"></i>服务保障</p>
-                                    <input type="checkbox" name="tbxIsCompensationAdvance">&nbsp;加入先行赔付
-                                </div>
-                                <!--<div class="service-m">-->
-                                    <!--<p class="p_ServiceTimeSet service-item-title"><i class="icon service-icon-serTimeSet"></i>服务时间设置</p>-->
-                                    <!--<div class="select select-sm">-->
-                                        <!--<ul>-->
-                                            <!--<li><a>单独设置</a></li>-->
-                                            <!--<li><a>单独设置2</a></li>-->
-                                            <!--<li><a>单独设置3</a></li>-->
-                                        <!--</ul>-->
-                                        <!--<input type="hidden" />-->
-                                    <!--</div>-->
-                                <!--</div>-->
-
-                                    <!--<div id="PeriodTime" class="clearfix">
-                                        <ul class="PeriodTimeul">
-                                            <li id="pt1"><a href="javascript:;" onclick="PeriodTimeFun('#pt1');">时段一</a></li>
-                                            <li id="pt2"><a href="javascript:;" onclick="PeriodTimeFun('#pt2');">时段二</a></li>
-                                            <li id="pt3"><a href="javascript:;" onclick="PeriodTimeFun('#pt3');">时段三</a></li>
-                                            <li id="pt4"><a href="javascript:;" onclick="PeriodTimeFun('#pt4');">时段四</a></li>
-                                        </ul>
-                                    </div>
                                     <div class="clearfix">
-                                        <span>该时段不受主界面的时间开关限制，为可接单状态。</span>
-                                        <p class="p_SeDate"><i class="icon service-icon-dateSet"></i>日期设定</p>
-                                        <div class="select select-sm">
-                                            <ul>
-                                                <li><a>2015-04-07</a></li>
-                                                <li><a>2015-04-08</a></li>
-                                                <li><a>2015-04-09</a></li>
-                                            </ul>
-                                            <input type="hidden" />
+                                        <div  class="fl clearfix">
+                                            <div id="setBusiness" class="setLocationMap">
+
+                                            </div>
+                                            <input id="businiessSeletValue" type="hidden">
+                                            <!--<p id="businessText"></p>-->
                                         </div>
-                                        <p class="p_SetTheTime"><i class="icon service-icon-timeSet"></i>时段设定</p>
-                                        <div class="select select-sm">
-                                            <ul>
-                                                <li><a>8:00</a></li>
-                                                <li><a>9:00</a></li>
-                                                <li><a>10:00</a></li>
-                                            </ul>
-                                            <input type="hidden" />
+                                        <div class="fl m-l20">
+                                            <p class="m-b20">您选择的位置：</p>
+                                            <p id="businessText" class="m-b50"></p>
+                                            <p class="l-h16">←点击选择商圈范围</p>
                                         </div>
-                                        <div class="jiangexian"></div>
-                                        <div class="select select-sm">
-                                            <ul>
-                                                <li><a>8:00</a></li>
-                                                <li><a>9:00</a></li>
-                                                <li><a>10:00</a></li>
-                                            </ul>
-                                            <input type="hidden" />
-                                        </div>
-                                        <p class="delAndUpdate"> <input name="imagedelete" type="image" id="imagedelete" src="image/button_3.png" /> <input name="imageupdate" type="image" id="imageupdate" src="image/button_4.png" /> </p>
-                                    </div>-->
-                            <div id="mapLightBox" class="dis-n">
-                                <div id="businessMap"></div>
-                                <div id="businessCity"></div>
-                                <div><input id="confBusiness" class="close" type="button" value="确定"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                    </div>
+                        <div class="service-md">
+                            <div class="service-md-title">服务信息<i class="icon servie-icon-mdItem"></i></div>
+                            <div class="service-md-main">
+                                <div class="service-md-box clearfix">
+                                    <div class="service-md-mleft">
+                                        <div class="service-m">
+                                            <p class="service-item-title"><i class="icon service-icon-serIntro"></i>服务起步价</p>
+                                            <div>
+                                                <input class="service-input-mid" type="text" name="tbxMinPrice">&nbsp;&nbsp;元
+                                            </div>
+                                        </div>
+                                        <div class="service-m">
+                                            <p class="service-item-title"><i class="icon service-icon-serIntro"></i>服务单价</p>
+                                            <div>
+                                                <input class="service-input-mid" type="text" name="tbxUnitPrice">&nbsp;&nbsp;元&nbsp;/&nbsp;每&nbsp;( <input type="radio" name="tbxUnit">&nbsp;小时&nbsp;<input type="radio" name="tbxUnit">&nbsp;天&nbsp;<input type="radio" name="tbxUnit">&nbsp;次 )
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="service-md-mright">
+                                        <div class="service-m">
+                                            <p class="service-item-title"><i class="icon service-icon-serIntro"></i>提前预约时间</p>
+                                            <div>至少&nbsp;&nbsp;<input class="service-input-mid" type="text" name="tbxOrderDelay">&nbsp;&nbsp;分钟</div>
+                                        </div>
+                                        <div class="service-m">
+                                            <p class="service-item-title"><i class="icon service-icon-serIntro"></i>服务时间</p>
+                                            <div><input class="service-input-sm" type="text" name="tbxServiceTimeBegin">&nbsp;&nbsp;至&nbsp;&nbsp;<input class="service-input-sm" type="text" name="tbxServiceTimeEnd"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="service-md-box clearfix">
+                                    <div class="service-md-mleft">
+                                        <div class="service-m">
+                                            <p class="service-item-title"><i class="icon service-icon-serIntro"></i>每日最大接单量</p>
+                                            <div><input class="service-input-mid" type="text" name="tbxMaxOrdersPerDay">&nbsp;&nbsp;单</div>
+                                        </div>
+                                        <div class="service-m">
+                                            <p class="service-item-title"><i class="icon service-icon-serIntro"></i>每小时最大接单量</p>
+                                            <div><input class="service-input-mid" type="text" name="tbxMaxOrdersPerHour">&nbsp;&nbsp;单</div>
+                                        </div>
+                                    </div>
+                                    <div class="service-md-mright">
+                                        <div class="service-m">
+                                            <p class="service-item-title"><i class="icon service-icon-serIntro"></i>是否上门</p>
+                                            <div><input type="radio" name="rblServiceMode" value="y"/>&nbsp;&nbsp;是&nbsp;&nbsp;<input type="radio" name="rblServiceMode" value="n"/>&nbsp;&nbsp;否</div>
+                                        </div>
+                                        <div class="service-m">
+                                            <p class="service-item-title"><i class="icon service-icon-serIntro"></i>服务对象</p>
+                                            <div><input type="radio" name="cblIsForBusiness" value="1"/>&nbsp;&nbsp;对公&nbsp;&nbsp;<input type="radio" name="cblIsForBusiness" value=""/>&nbsp;&nbsp;对私</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="service-md-box clearfix">
+                                    <div class="service-md-mleft">
+                                        <div class="service-m">
+                                            <p class="service-item-title"><i class="icon service-icon-serIntro"></i>服务保障</p>
+                                            <input type="checkbox" name="tbxIsCompensationAdvance">&nbsp;&nbsp;加入先行赔付
+                                        </div>
+                                    </div>
+                                    <div class="service-md-mright">
+                                        <div class="service-m">
+                                            <p class="service-item-title"><i class="icon service-icon-serIntro"></i>平台认证</p>
+                                            <input type="checkbox" name="cbxIsCertificated">&nbsp;&nbsp;已通过平台认证
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="bottomArea">
+                        <!--<div class="serviceDetailsLeft">-->
+                            <!--<div class="p-20">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="serviceDetailsRight">-->
+                            <!--<div class="p-20">-->
+                                <!--百度地图选择商圈-->
+                                <div id="mapLightBox" class="dis-n">
+                                    <div class="mapWrap">
+                                        <div id="businessMap" class="mapMain"></div>
+                                        <div id="businessCity" class="mapCity"></div>
+                                        <div class="mapButton"><input id="confBusiness" class="close ser-sm-input" type="button" value="确定"></div>
+                                        <input id="businessValue" type="hidden" value=""/>
+                                    </div>
+                                </div>
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    </div>
+                    <div class="bottomArea">
                     <!--<input name="imageSave" type="image" id="imageSave" src="image/baocun_1.png" />-->
                     <!--<input name="imageCancel" type="image" id="imageCancel" src="image/baocun_2.png" />-->
+                    </div>
                 </div>
-            </div>
-    </div>
+        </div>
     </div>
     </body>
 </asp:Content>
@@ -288,6 +282,7 @@
             if (businessSelet.eq(i).val() != null ){
                     console.log(businessSelet.eq(i).val());
                     businessvalue += "m/" + businessSelet.eq(i).val();//获取商圈个段的code,以“/m”区分各字段
+
                     businessNode += '<span>' + businessSelet.eq(i).get(0).options[businessSelet.eq(i).get(0).selectedIndex].title + '</span>';//
             } else {
                 break;
@@ -371,8 +366,6 @@
         };
 
         function removeTypeBox(that,p_id,text,level){
-//            var printBox = checkedShowBox;
-//            var TypeNodeBox = "<div id="+ v_id + ">" + text + "</div>";
             $(checkedShowBox.find($("div[v_id=" + v_id + "]"))).remove();
         }
     }
