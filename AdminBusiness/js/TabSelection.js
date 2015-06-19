@@ -26,7 +26,7 @@ usage:---------------------------------
   //options go here
   });
 */
-
+(function ( $ ) {
 $.fn.TabSelection = function (options) {
 
 
@@ -36,7 +36,7 @@ $.fn.TabSelection = function (options) {
         "enable_multiselect": false,
         "leaf_clicked": null,// when leaf clicked ,works when enable_multiselect is 
         "check_changed": null,// checkbox chaged callback,only works when enable_multiselect is true
-        "init_data":[],//
+        "init_data":[]//
     }, options);
 
     //determin the datasource is a ajax_url or a local json object
@@ -54,7 +54,7 @@ $.fn.TabSelection = function (options) {
 
             var tab_name = $(ui.newTab[0]).text();
             var item_names = $(ui.newPanel[0]).children("div").children("span");
-            for (var i in item_names) {
+            for (var i=0;i<item_names.length;i++) {
                 var item = item_names[i];
                 if ($(item).text() == tab_name) {
                     // $(item).attr("style","font-weight:900");
@@ -104,15 +104,16 @@ $.fn.TabSelection = function (options) {
          return false; }
         var num_tabs = $("div#tabsServiceType ul li").length + 1;
         var tab_panel_content = "";
-        for (var i in item_list) {
+        for (var i=0; i<item_list.length;i++) {
             var item_check = "";
             if (params.enable_multiselect) { 
 //            item_check="<input type='checkbox' name='item_id' class='check_item' value='" + item_list[i].id + "' level='" + item_list[i].level + "' parent_id='" + item_list[i].parent_id + "' />";
             //input添加ID
             item_check="<input type='checkbox' name='item_id' class='check_item' id=" + item_list[i].id +" value='" + item_list[i].id + "' level='" + item_list[i].level + "' parent_id='" + item_list[i].parent_id + "' />";
             }
-            var item_content ="<div class='serviceTabsItem'>" + item_check+ "<span style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + " level=" + item_list[i].level + " parent_id=" + item_list[i].parent_id + ">" + item_list[i].name + "</span></div>";
-//            var item_content ="<div class='serviceTabsItem'>" + item_check+ "<label for=" + item_list[i].id + " style='display:inline-block;margin:5px;' class='item'  item_id=" + item_list[i].id + " level=" + item_list[i].level + " parent_id=" + item_list[i].parent_id + ">" + item_list[i].name + "</label></div>";
+ 
+            var item_content ="<div class='serviceTabsItem'>" + item_check+ "<span style='display:inline-block;margin:5px;' class='item'  item_id='" + item_list[i].id + "' level='" + item_list[i].level + "' parent_id='" + item_list[i].parent_id + "'>" + item_list[i].name + "</span></div>";
+
 
             tab_panel_content += item_content;
         }
@@ -170,3 +171,4 @@ $.fn.TabSelection = function (options) {
 
 
 }
+}( jQuery ));

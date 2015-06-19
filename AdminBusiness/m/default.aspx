@@ -159,7 +159,9 @@
                         </li>
                     </ul>
                 </div>
-                <div class="m-p-size pd-size">
+               
+            </div>
+        </div> <div class="m-p-size pd-size">
                     <div class="info-title">
                         负责人信息</div>
                 </div>
@@ -225,8 +227,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
         <!-- /content -->
         <div data-role="panel" id="left-panel" style="background: #4c6f8f; color: #80abd2;">
             <div class="lefe-top">
