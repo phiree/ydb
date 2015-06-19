@@ -108,9 +108,7 @@ public partial class Account_Edit : BasePage
 
         List<BusinessImage> showImages = new List<BusinessImage>();
         string showImage1 = b.Id + ImageType.Business_Show.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuShow1.FileName);
-        string showImage2 = b.Id + ImageType.Business_Show.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuShow2.FileName);
-        string showImage3 = b.Id + ImageType.Business_Show.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuShow3.FileName);
-        if (fuShow1.PostedFile!=null&&fuShow1.PostedFile.ContentLength != 0)
+         if (fuShow1.PostedFile!=null&&fuShow1.PostedFile.ContentLength != 0)
         {
             fuShow1.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + showImage1);
             BusinessImage biShow1 = new BusinessImage
@@ -122,30 +120,7 @@ public partial class Account_Edit : BasePage
             };
             b.BusinessImages.Add(biShow1);
         }
-        if (fuShow2.PostedFile!=null&&fuShow2.PostedFile.ContentLength != 0)
-        {
-            fuShow2.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + showImage2);
-            BusinessImage biShow2 = new BusinessImage
-            {
-                ImageType = ImageType.Business_Show,
-                UploadTime = DateTime.Now,
-                ImageName = showImage2,
-                Size = fuShow2.PostedFile.ContentLength
-            };
-            b.BusinessImages.Add(biShow2);
-        }
-        if (fuShow3.PostedFile!=null&&fuShow3.PostedFile.ContentLength != 0)
-        {
-            fuShow3.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + showImage3);
-            BusinessImage biShow3 = new BusinessImage
-            {
-                ImageType = ImageType.Business_Show,
-                UploadTime = DateTime.Now,
-                ImageName = showImage3,
-                Size = fuShow3.PostedFile.ContentLength
-            };
-            b.BusinessImages.Add(biShow3);
-        }
+        
         
         bll.Updte(b);
         Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");

@@ -13,8 +13,9 @@ $(document).ready(function ($) {
 //            leftCont.style.height = rightCont.offsetHeight + 'px';
 //        }
 //    })();
-
+  
     (function () {
+    
         return $('.select').each(function () {
             $(this).prepend("<cite></cite>");
 
