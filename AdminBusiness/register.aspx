@@ -36,10 +36,10 @@
                             </div>
                         </div>
                         <div class="conMain main-reg clearfix">
-                             
+                            <div class="reg-user-l box-l"></div>
                             <div class="box-r">
                                 <!--<p class="regMeth">-->
-                                <div class="selectdiv" style="display:none">
+                                <!--<div class="selectdiv" style="display:none">
                                     <div id="regMethList" class="selectMeth">
                                         <cite>手机号码 </cite>
                                         <ul>
@@ -48,7 +48,7 @@
                                         </ul>
                                         <input type="hidden" value="2" id="regMeth" />
                                     </div>
-                                </div>
+                                </div>-->
                                 <!--<select id="regMeth" name="regMeth">-->
                                 <!--<option value="1">手机号码</option>-->
                                 <!--<option value="2">邮箱</option>-->
@@ -56,7 +56,6 @@
                                 <!--</p>-->
                                 
                                 <div class="emailBox">
-                                   
                                     <asp:TextBox runat="server" ID="tbxUserName" ClientIDMode="Static"></asp:TextBox>
                                     <i id="emailCheck" class="checkIcon"></i>
                                 </div>
@@ -64,14 +63,14 @@
                                 
                                 <p class="agree">
                                     <input id="agree" name="agree" type="checkbox" /><label class="v-m" for="agree">我已经仔细阅读过<a
-                                        href="#">点助服务协议</a>,并同意所有条款</label></p>
+                                        class="agreeLIC-a" href="#">点助服务协议</a>,并同意所有条款</label></p>
                                 <div class="buttonBox">
                                     <input id="phoneSubmit" type="button" class="regBtn" value="" />
                                     <!--<p class="savePass" ><input id="savePass" type="checkbox"/><label for="savePass">记住密码</label></p>-->
                                 </div>
                                 <!--<iframe name="uploadForm1" ></iframe>-->
                                 <p class="doLogin">
-                                    <a href="login.aspx">
+                                    <a class="logReg-a" href="login.aspx">
                                         <img src="image/login_reg/back_2.png">返回登录</a>
                                 </p>
                             </div>
@@ -122,6 +121,4 @@
         </div>
     </div>
 </body>
-
- 
 </html>

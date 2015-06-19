@@ -92,9 +92,9 @@ html,body {
 }
 
 .wrap-reg {
-    /*position: absolute;*/
-    top: 150%;
-    /*margin-top: -250px;*/
+    position: absolute;
+    top: 50%;
+    margin-top: -250px;
     width: 100%;
 }
 
@@ -164,6 +164,10 @@ html,body {
     font-size: 20px;
 }
 
+.reg-user-l {
+    height: 300px;
+}
+
 /*登录页面内容*/
 .conLogin .date {
     color: #55abdc;
@@ -200,6 +204,7 @@ html,body {
     *height: 39px;
     *border: 0;
 }
+
 
 /*信息验证图片*/
 .checkIcon {
@@ -474,3 +479,9 @@ html,body {
 .selectMeth ul li { height:40px; line-height: 40px; border-bottom: 1px solid #ccc; }
 .selectMeth ul li a { display: block; height: 40px; color: #aaa; text-decoration: none; text-indent: 10px; }
 .selectMeth ul li a:hover { background-color: #eee; }
+
+.logReg-a { color: #fff; }
+.logReg-a:visited{ color: #fff; }
+
+.agreeLIC-a {color: #fff;text-decoration: underline;}
+.agreeLIC-a:visited {color: #fff;text-decoration: underline;}
