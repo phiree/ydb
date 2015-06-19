@@ -13,10 +13,25 @@ namespace Dianzhu.DAL.Mapping
         {
             Id(x => x.Id);
             Map(x => x.Name);
-              References<Business>(x => x.Business);
+            References<Business>(x => x.Business);
             Map(x => x.Description);
             References<ServiceType>(x => x.ServiceType).Not.LazyLoad();
             HasMany<ServicePropertyValue>(x => x.PropertyValues);
+            Map(x => x.BusinessAreaCode);
+            Map(x => x.ChargeUnit).CustomType<int>();
+            Map(x => x.FixedPrice);
+            Map(x => x.IsCertificated);
+            Map(x => x.IsCompensationAdvance);
+            Map(x => x.IsForBusiness);
+            Map(x => x.MaxOrdersPerDay);
+            Map(x => x.MaxOrdersPerHour);
+            Map(x => x.MinPrice);
+            Map(x => x.OrderDelay);
+            Map(x => x.PayType).CustomType<int>();
+            Map(x => x.ServiceMode).CustomType<int>();
+            Map(x => x.ServiceTimeBegin);
+            Map(x => x.ServiceTimeEnd);
+            Map(x => x.UnitPrice);
             
 
         }
