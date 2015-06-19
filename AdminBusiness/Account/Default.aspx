@@ -91,7 +91,7 @@
                             <div>
                             <div class="download-img-pre fl">
                                 <a href='<%=Config.BusinessImagePath+"/original/"+b.BusinessLicence.ImageName %>' class="download-img-pre">
-                                    <img runat="server" id="imgLicence" src="/image/dianjishangchuan_1.png" />
+                                    <img  runat="server" id="imgLicence" src="/image/dianjishangchuan_1.png" />
                                 </a>
                             </div>
                             <div class="input-file-box fl">
@@ -108,28 +108,23 @@
                         <div class="myshopRightCont ShopFigure">
                             <p class="myshop-item-title"><i class="icon myshop-icon-shopFigure"></i>店铺图片展示</p>
                             <div class="clearfix">
-                                <div class="download-img-pre fl">
-                                    <asp:Repeater runat="server" ID="rpt_show"  OnItemCommand="rpt_show_ItemCommand">
-                                        <ItemTemplate>
-                                        <div class="picture">
+                                <asp:Repeater runat="server" ID="rpt_show"  OnItemCommand="rpt_show_ItemCommand">
+                                    <ItemTemplate>
+                                    <div class="download-img-pre fl">
+                                         <asp:ImageButton CssClass="download-img-delete" runat="server" CommandName="delete" ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
+                                         <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
+                                            <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'  id="imgLicence"  />
+                                         </a>
+                                     </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
 
-                                              <asp:ImageButton runat="server" CommandName="delete" ImageUrl="/image/shared/delete_1.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
-                                             <a href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
 
-                                                <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'  id="imgLicence"  />
-                                             </a>
-                                         </div>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </div>
-                                <div class="shopPicAdd">
-                                    <div class="input-file-box d-inb">
-                                        <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow1" />
-                                        <i class="input-file-bg"></i>
-                                        <i class="input-file-mark"></i>
-                                        <img class="input-file-pre" />
-                                    </div>
-
+                                <div class="input-file-box d-inb">
+                                    <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow1" />
+                                    <i class="input-file-bg"></i>
+                                    <i class="input-file-mark"></i>
+                                    <img class="input-file-pre" />
                                 </div>
                             </div>
                         </div>
