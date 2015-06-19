@@ -148,7 +148,7 @@
                                 </div>
                                 <span>员工信息编辑</span>
                             </div>
-<<<<<<< HEAD
+ 
                             <div class="myshopRightCont pinput2">
                                 <p class="myshop-item-title">
                                     <i class="icon myshop-icon-owner"></i>负责人姓名</p>
