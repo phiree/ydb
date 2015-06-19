@@ -190,7 +190,6 @@ body {
 
 .mainContent{ margin: 0 auto; width:1000px;background: #4b6c8b; }
 
-/*.leftContent{ width:79px; float:left; background:#4b6c8b;}*/
 .leftContent{ width:79px; float:left; }
 
 .rightContent{ width:921px; float:left; background:#fff; }
@@ -201,8 +200,33 @@ body {
 }
 
 
+
+
 /* 顶栏样式 */
 .topnav { background:#3d5b77; height:71px;}
+
+/* 登出样式 */
+.logoutBox {
+    float: left;
+    color: #fff;
+    background: #4b6b8a;
+    height: 70px;
+    line-height: 70px;
+    padding: 0 20px;
+    border-right: 1px solid #324f6a;
+    border-bottom: 1px solid #324f6a;
+}
+
+.logoutBox span {
+    display: inline-block;
+    /*padding: 10px;*/
+    margin-right: 10px;
+}
+
+.logoutBox input {
+    /*display: ;*/
+    vertical-align: middle;
+}
 
 .dianzhuicon{ background:url("../image/topnavbj.png") no-repeat center; height:71px; width:79px; float:left;}
 
@@ -248,7 +272,7 @@ body {
 .side-btn-msgHis { background-position: -0px -144px; width: 79px; height: 70px; }
 
 /*select 初始化样式*/
-.select { display:inline-block; position: relative; background: url("../image/select_icon.png") no-repeat right;}
+.select { display:inline-block; position: relative; background: url("../image/shop_green_09.png") no-repeat right;}
 .select cite { display: block; text-indent: 0.8em; border: 1px solid #e7ebee; }
 .select ul { position: absolute; border: 1px solid #e7ebee; z-index:10; background: #fff;}
 .select a { display: block; text-indent: 0.8em; }
@@ -277,7 +301,7 @@ body {
 .input-file-bg {
     position: absolute;
     z-index: 1;
-    background: #ccc;
+    background: url("../image/myshop/shop_tx_102.png") no-repeat center;
     width: 90px;
     height: 90px;
 }
@@ -285,7 +309,6 @@ body {
 .input-file-mark {
     position: absolute;
     z-index: 2;
-    background: #ccc;
     width: 90px;
     height: 90px;
 }
@@ -295,4 +318,16 @@ body {
     z-index: 2;
     width: 90px;
     height: 90px;
+}
+
+.download-img-pre {
+    float: left;
+    display: block;
+    width: 90px;
+    height: 90px;
+    margin-right: 10px;
+    line-height: 90px;
+    position: relative;
+    /*vertical-align: middle;*/
+    text-align: center;
 }
