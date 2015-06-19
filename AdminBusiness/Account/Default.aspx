@@ -107,9 +107,8 @@
                                     <asp:Repeater runat="server" ID="rpt_show"  OnItemCommand="rpt_show_ItemCommand">
                                         <ItemTemplate>
                                         <div class="picture">
-                                            <img class="picEditBtn" src="/image/bianjji_1.png" />
-                                            <img class="picDelBtn" src="/image/delete_1.png" runat="server" CommandArgument="Id"  />
-                                            <asp:ImageButton runat="server" CommandName="delete" ImageUrl="/image/delete_1.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
+                                             
+                                              <asp:ImageButton runat="server" CommandName="delete" ImageUrl="/image/shared/delete_1.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
                                              <a href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                 <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'  id="imgLicence"  />
                                              </a>
@@ -124,18 +123,7 @@
                                         <i class="input-file-mark"></i>
                                         <img class="input-file-pre" />
                                     </div>
-                                    <div class="input-file-box d-inb">
-                                        <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow2" />
-                                        <i class="input-file-bg"></i>
-                                        <i class="input-file-mark"></i>
-                                        <img class="input-file-pre"  />
-                                    </div>
-                                    <div class="input-file-box d-inb">
-                                        <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow3" />
-                                        <i class="input-file-bg"></i>
-                                        <i class="input-file-mark"></i>
-                                        <img class="input-file-pre"  />
-                                    </div>
+                                     
                                 </div>
 
 
@@ -225,12 +213,11 @@
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.9.1.min.js"></script>-->
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.10.2.js"></script>
     <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>-->
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js" ></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js" ></script>
-    <script type="text/javascript" src="../js/global.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript">
         var tabCheckedShow = function(that,checked){
 //        console.log($('.item').html());

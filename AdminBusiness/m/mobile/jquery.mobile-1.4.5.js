@@ -5941,17 +5941,17 @@ $.widget( "mobile.page", {
 		};
 
 		//bind to form submit events, handle with Ajax
-		$.mobile.document.delegate( "form", "submit", function( event ) {
-			var formData;
+//		$.mobile.document.delegate( "form", "submit", function( event ) {
+//			var formData;
 
-			if ( !event.isDefaultPrevented() ) {
-				formData = getAjaxFormData( $( this ) );
-				if ( formData ) {
-					$.mobile.changePage( formData.url, formData.options );
-					event.preventDefault();
-				}
-			}
-		});
+//			if ( !event.isDefaultPrevented() ) {
+//				formData = getAjaxFormData( $( this ) );
+//				if ( formData ) {
+//					$.mobile.changePage( formData.url, formData.options );
+//					event.preventDefault();
+//				}
+//			}
+//		});
 
 		//add active state on vclick
 		$.mobile.document.bind( "vclick", function( event ) {
