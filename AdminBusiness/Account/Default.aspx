@@ -166,7 +166,7 @@
                         <div class="myshopRightCont HeadProfilePicture">
 
 
-         
+
                             <p class="myshop-item-title"><i class="icon myshop-icon-ownerPic"></i>负责人证件照上传</p>
                             <div class="clearfix">
                                 <div class="download-img-pre fl">

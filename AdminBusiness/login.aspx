@@ -66,7 +66,7 @@
                                 </div>
                                 <!--<p id="testAjax"></p>-->
                                 <p class="doReg">
-                                    <a href="register.aspx">
+                                    <a class="logReg-a" href="register.aspx">
                                         <img src="image/login_reg/zhuce_1.png">注册会员</a></p>
                             </div>
                         </div>
