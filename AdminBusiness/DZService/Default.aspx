@@ -12,7 +12,7 @@
     <asp:HyperLinkField  DataNavigateUrlFields="Id" DataNavigateUrlFormatString="edit.aspx?id={0}" DataTextField="Name"/>
     </Columns>
     </asp:GridView>
-    <a href="SelectType.aspx">增加服务</a>
+    <!--<a href="SelectType.aspx">增加服务</a>-->
     <div class="mainContent clearfix">
         <div class="leftContent" id="leftCont">
             <div>
@@ -30,20 +30,21 @@
                         </div>
                         <div class="headInfoArea">
                             <div class="headImage">
-                                <img src="image/touxiangkuang_11.png" />
+                                <img src="..\image\myshop\touxiangkuang_11.png" alt="头像" />
                             </div>
                             <div class="headInfo">
                                 <span class="ServiceShops">点助的服务店铺</span>
                                 <span class="InfoCompletetxt">信誉度</span>
                                 <div class="Servicexing">
-                                    <img src="image/icon_10.png" />
-                                    <img src="image/icon_10.png" />
-                                    <img src="image/icon_10.png" />
-                                    <img src="image/icon_10.png" />
+                                    <i class="icon service-icon-star"></i>
+                                    <i class="icon service-icon-star"></i>
+                                    <i class="icon service-icon-star"></i>
+                                    <i class="icon service-icon-star"></i>
+                                    <i class="icon service-icon-star"></i>
                                 </div>
                             </div>
                             <div class="headEditImg">
-                                <span class="satisfaction">98%</span>
+                                <span class="satisfaction">100%</span>
                             </div>
                         </div>
                     </div>
@@ -85,10 +86,6 @@
                                         <div>
                                             <div>
                                                 <input id="setSerType" class="ser-btn-SerType" type="button" value="选择服务信息" />
-                                                <!--<div id="serCheckedShow" class="ser-chk-show">-->
-                                                <!--&lt;!&ndash;<div id="serCheckedShow">&ndash;&gt;-->
-
-                                                <!--</div>-->
                                                 <div id="setSerTypeShow">
 
                                                 </div>
@@ -97,6 +94,7 @@
                                                 <div id="tabsServiceType" class="" >
                                                     <ul></ul>
                                                 </div>
+                                                <p class="ser-chk-title">已选中的服务</p>
                                                 <div id="serCheckedShow" class="ser-chk-show">
 
                                                 </div>
@@ -106,22 +104,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--<i class="icon service-icon-hr fl"></i>-->
-                                        <!--<div class="select fl select-sm">-->
-                                            <!--<ul>-->
-                                                <!--<li><a>月嫂</a></li>-->
-                                                <!--<li><a>家庭保洁</a></li>-->
-                                                <!--<li><a>家电清洗</a></li>-->
-                                            <!--</ul>-->
-                                            <!--<input type="hidden" />-->
-                                        <!--</div>-->
+
                                     </div>
                                 </div>
                                 <div class="service-m">
                                     <p class="p_serviceIntroduced service-item-title"><i class="icon service-icon-serIntro"></i>服务介绍</p>
                                     <p><textarea class="serviceIntroduced" name="tbxDescription" placeholder="(可输入60个字)"></textarea></p>
                                 </div>
-                                <!--<div class="QualificationCertificate">-->
                                 <div class="service-m">
                                     <p class="p_QualificationCertificate service-item-title"><i class="icon service-icon-LIC"></i>资质证书</p>
                                     <div>
@@ -133,43 +122,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--<div>-->
-                                    <!--<p class="p_areaChoose service-item-title"><i class="icon service-icon-serArea"></i>服务区域选择</p>-->
-                                    <!--<div id="areaChooseid" class="select select-sm">-->
-                                        <!--<ul>-->
-                                            <!--<li><a>东城区</a></li>-->
-                                            <!--<li><a>中城区</a></li>-->
-                                            <!--<li><a>西城区</a></li>-->
-                                        <!--</ul>-->
-                                        <!--<input type="hidden" />-->
-                                    <!--</div>-->
-                                <!--</div>-->
                                 <div class="setLocation service-m">
                                     <p class="p_LocationArea service-item-title"><i class="icon service-icon-serLocal"></i>定位服务区域</p>
                                     <!--<p class="f-s13 l-h16">服务中心点定位(为您的服务区域进行定位)</p>-->
                                     <p class="f-s13 l-h16">(点击选择商圈范围)</p>
                                     <div  class="clearfix">
-                                        <!--<div class="setLocationDate fl">-->
-                                            <!--<div class="select select-sm">-->
-                                                <!--<ul>-->
-                                                    <!--<li><a>1</a></li>-->
-                                                    <!--<li><a>2</a></li>-->
-                                                    <!--<li><a>3</a></li>-->
-                                                <!--</ul>-->
-                                                <!--<input type="hidden" />-->
-                                            <!--</div>-->
-                                            <!--<p class="setLocationHint"> 点击打开地图，在地图上选取您的服务中心点</p>-->
-                                            <!--<p class="f-s13 l-h16">服务半径（服务范围）</p>-->
-                                            <!--<div class="select select-sm">-->
-                                                <!--<ul>-->
-                                                    <!--<li><a>1000M</a></li>-->
-                                                    <!--<li><a>2000M</a></li>-->
-                                                    <!--<li><a>3000M</a></li>-->
-                                                <!--</ul>-->
-                                                <!--<input type="hidden" />-->
-                                            <!--</div>-->
-
-                                        <!--</div>-->
                                         <div id="setBusiness" class="setLocationMap">
 
                                         </div>
@@ -289,8 +246,8 @@
                     </div>
 
                 <div class="bottomArea">
-                    <input name="imageSave" type="image" id="imageSave" src="image/baocun_1.png" />
-                    <input name="imageCancel" type="image" id="imageCancel" src="image/baocun_2.png" />
+                    <!--<input name="imageSave" type="image" id="imageSave" src="image/baocun_1.png" />-->
+                    <!--<input name="imageCancel" type="image" id="imageCancel" src="image/baocun_2.png" />-->
                 </div>
             </div>
     </div>
@@ -367,7 +324,7 @@
 
         if (checked == true) {
 
-            console.log(checkedParentId);
+//            console.log(checkedParentId);
             createTypeBox($(that),checkedParentId,checkedText,v_level);
 
 //            var checkedTextNode = "<span id=" + v_id + " level=" + level + " >" + checkedText + "</span>";
@@ -375,7 +332,7 @@
 //            checkedShowBox.append(checkedTextNode);
         } else {
             removeTypeBox($(that),checkedParentId,checkedText,v_level);
-            checkedShowBox.children('span').remove("#" + v_id + "");
+//            checkedShowBox.children('span').remove("#" + v_id + "");
         }
 //        return checkedTextNode;
 
@@ -383,41 +340,40 @@
 //            var p_id = that.attr("parent_id");
             console.log(level);
             var printBox = checkedShowBox;
-            var TypeNodeBox = "<div id="+ v_id + ">" + text + "</div>";
+            var TypeNodeBox = "<div v_id="+ v_id + ">" + text + "</div>";
 
             switch (level)
             {
                 case "0":
-//                    printBox = checkedShowBox;
+                    printBox = checkedShowBox;
                     printBox.append(TypeNodeBox);
-                    console.log(printBox);
-                    $(printBox.find("div" + "#" + v_id)).attr("class","level0");
+                    $(printBox.find($("div[v_id=" + v_id + "]"))).attr("class","level0");
                     break;
                 case "1":
-                    printBox = $(checkedShowBox.find("#" + p_id + ""));
+                    printBox = $(checkedShowBox.find($("div[v_id=" + p_id + "]")));
                     printBox.append(TypeNodeBox);
-                    $(printBox.find("div" + "#" + v_id)).attr("class","level1");
+                    $(printBox.find($("div[v_id=" + v_id + "]"))).attr("class","level1");
                     break;
                 case "2":
-                    printBox = $(checkedShowBox.find("#" + p_id + ""));
+                    printBox = $(checkedShowBox.find($("div[v_id=" + p_id + "]")));
                     printBox.append(TypeNodeBox);
-                    $(printBox.find("div" + "#" + v_id)).attr("class","level2");
+                    $(printBox.find($("div[v_id=" + v_id + "]"))).attr("class","level2");
                     break;
                 case "3":
-                    printBox = $(checkedShowBox.find("#" + p_id + ""));
+                    printBox = $(checkedShowBox.find($("div[v_id=" + p_id + "]")));
                     printBox.append(TypeNodeBox);
-                    $(printBox.find("div" + "#" + v_id)).attr("class","level3");
+                    $(printBox.find($("div[v_id=" + v_id + "]"))).attr("class","level3");
                     break;
                 default :
                     break;
-                    console.log("break");
+//                    console.log("break");
             };
         };
 
         function removeTypeBox(that,p_id,text,level){
-            var printBox = checkedShowBox;
-            var TypeNodeBox = "<div id="+ v_id + ">" + text + "</div>";
-            $(checkedShowBox.find('div')).remove("#" + v_id + "");
+//            var printBox = checkedShowBox;
+//            var TypeNodeBox = "<div id="+ v_id + ">" + text + "</div>";
+            $(checkedShowBox.find($("div[v_id=" + v_id + "]"))).remove();
         }
     }
 

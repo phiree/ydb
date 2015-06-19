@@ -36,7 +36,7 @@ $.fn.TabSelection = function (options) {
         "enable_multiselect": false,
         "leaf_clicked": null,// when leaf clicked ,works when enable_multiselect is 
         "check_changed": null,// checkbox chaged callback,only works when enable_multiselect is true
-        "init_data":[],//
+        "init_data":[]//
     }, options);
 
     //determin the datasource is a ajax_url or a local json object
@@ -107,9 +107,13 @@ $.fn.TabSelection = function (options) {
         for (var i=0; i<item_list.length;i++) {
             var item_check = "";
             if (params.enable_multiselect) { 
-            item_check="<input type='checkbox' name='item_id' class='check_item' value='" + item_list[i].id + "' level='" + item_list[i].level + "' parent_id='" + item_list[i].parent_id + "' />";
+//            item_check="<input type='checkbox' name='item_id' class='check_item' value='" + item_list[i].id + "' level='" + item_list[i].level + "' parent_id='" + item_list[i].parent_id + "' />";
+            //input添加ID
+            item_check="<input type='checkbox' name='item_id' class='check_item' id=" + item_list[i].id +" value='" + item_list[i].id + "' level='" + item_list[i].level + "' parent_id='" + item_list[i].parent_id + "' />";
             }
+ 
             var item_content ="<div class='serviceTabsItem'>" + item_check+ "<span style='display:inline-block;margin:5px;' class='item'  item_id='" + item_list[i].id + "' level='" + item_list[i].level + "' parent_id='" + item_list[i].parent_id + "'>" + item_list[i].name + "</span></div>";
+
 
             tab_panel_content += item_content;
         }

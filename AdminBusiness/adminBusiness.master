@@ -18,8 +18,12 @@
 <body>
     <div class="wrap">
         <div class="mainContent">
+                <form id="form1" runat="server">
                 <div class="topnav clearfix">
                         <h1 title="点助" class="dianzhuicon"></h1>
+                        <div class="logoutBox">
+                            <asp:LoginName ID="LoginName1" runat="server" /><asp:LoginStatus ID="LoginStatus1" runat="server" LogoutImageUrl="image\shop_icon_17.png"/>
+                        </div>
                         <div class="menuList">
                             <ul class="clearfix">
                                 <li><a href="coupon-total.html" target="content"><i class="nav-btn nav-btn-coup"></i></a></li>
@@ -32,11 +36,7 @@
                         </div>
                     </div>
 
-            <div class="content">
-                <form id="form1" runat="server">
-                <div style="border:solid 1px red">
-                <asp:LoginName runat="server" /><asp:LoginStatus runat="server" />
-                </div>
+                <div class="content">
                 <asp:ContentPlaceHolder ID="pageDesc" runat="server">
                 </asp:ContentPlaceHolder>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

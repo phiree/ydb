@@ -63,12 +63,12 @@
                             <span class="secret-d-t">登陆密码&nbsp;:</span><span class="secret-d-p d-inb" >安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</span>
                             <!--<a class="m-l20" href="Changepassword.aspx">修改</a>-->
                             <a id="passChange" class="m-l20" href="javascript:void(0);">修改</a>
-                            <div class="secret-d-tip"><i class="icon icon-scret-1"></i><div>强</div></div>
+                            <div class="secret-d-tip"><i class="icon secret-icon-1"></i><div>强</div></div>
                         </div>
                         <div class="clearfix">
                             <span class="secret-d-t">身份认证&nbsp;:</span><span class="secret-d-p d-inb">重新上传负责人证件照</span>
                             <a class="m-l20" href="Default.aspx">修改</a>
-                            <div class="secret-d-tip"><i class="icon icon-scret-2"></i><div>已认证</div></div>
+                            <div class="secret-d-tip"><i class="icon secret-icon-2"></i><div>已认证</div></div>
                         </div>
                     </div>
                 </div>
@@ -140,7 +140,6 @@
 <script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.2.5/angular.min.js"></script>
 <script type="text/javascript" src="/js/global.js"></script>
 <script type="text/javascript">
-//    var changePass = angular.module("changePass",[]);
     var changecontinueBtn = $('#ContentPlaceHolder1_ChangePassword1_ChangePasswordContainerID_ChangePasswordImageButton')
 
 

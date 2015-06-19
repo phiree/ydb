@@ -31,10 +31,10 @@ public partial class Account_Edit : BasePage
             string imgLicencePath=string.Empty, imgChargePersonPath=string.Empty;
             if (b.ChargePersonIdCard != null)
             {
-                imgChargePersonPath = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.ChargePersonIdCard.ImageName) + "&width=50&height=50&tt=2";
+                imgChargePersonPath = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.ChargePersonIdCard.ImageName) + "&width=90&height=90&tt=2";
             } if (b.BusinessLicence != null)
             {
-                imgLicencePath = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.BusinessLicence.ImageName) + "&width=50&height=50&tt=2";
+                imgLicencePath = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.BusinessLicence.ImageName) + "&width=90&height=90&tt=2";
                // imgLicencePath = Config.BusinessImagePath + b.BusinessLicence.ImageName;
             }
             imgLicence.Src = imgLicencePath;
