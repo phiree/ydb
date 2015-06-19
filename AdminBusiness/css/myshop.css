@@ -264,8 +264,9 @@
     text-align: left;
 }
 
-.secret-icon-1 { background: url("../image/myshop/shop_title_05.png") }
-.secret-icon-2 { background: url("../image/myshop/shop_title_04.png") }
+.secret-icon-1 { background: url("../image/myshop/shop_title_05.png") no-repeat center; }
+.secret-icon-2 { background: url("../image/myshop/shop_title_04.png") no-repeat center; }
+
 
 /*设置下拉选框宽高*/
 .select-sm { width: 130px; height: 32px; line-height: 32px; }

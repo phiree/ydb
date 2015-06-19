@@ -88,29 +88,34 @@
                         </div>
                         <div class="BusinessLicense">
                             <p class="p_BusinessLicense myshop-item-title"><i class="icon myshop-icon-businessLic"></i>营业执照</p>
-                            <a href='<%=Config.BusinessImagePath+"/original/"+b.BusinessLicence.ImageName %>'>
-                                <img runat="server" id="imgLicence" src="/image/dianjishangchuan_1.png" />
-                            </a>
-                                <div class="input-file-box d-inb">
-                                    <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
-                                    <i class="input-file-bg"></i>
-                                    <i class="input-file-mark"></i>
-                                    <img class="input-file-pre" />
-                                </div>
+                            <div>
+                            <div class="download-img-pre fl">
+                                <a href='<%=Config.BusinessImagePath+"/original/"+b.BusinessLicence.ImageName %>' class="download-img-pre">
+                                    <img runat="server" id="imgLicence" src="/image/dianjishangchuan_1.png" />
+                                </a>
+                            </div>
+                            <div class="input-file-box fl">
+                                <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
+                                <i class="input-file-bg"></i>
+                                <i class="input-file-mark"></i>
+                                <img class="input-file-pre" />
+                            </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="ShopDetailsAreaRight">
                         <div class="myshopRightCont ShopFigure">
                             <p class="myshop-item-title"><i class="icon myshop-icon-shopFigure"></i>店铺图片展示</p>
-                            <div>
-                                <div class="clearfix">
+                            <div class="clearfix">
+                                <div class="download-img-pre fl">
                                     <asp:Repeater runat="server" ID="rpt_show"  OnItemCommand="rpt_show_ItemCommand">
                                         <ItemTemplate>
                                         <div class="picture">
                                             <img class="picEditBtn" src="/image/bianjji_1.png" />
                                             <img class="picDelBtn" src="/image/delete_1.png" runat="server" CommandArgument="Id"  />
                                             <asp:ImageButton runat="server" CommandName="delete" ImageUrl="/image/delete_1.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
-                                             <a href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
+                                             <a href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>' class="download-img-pre">
                                                 <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'  id="imgLicence"  />
                                              </a>
                                          </div>
@@ -124,21 +129,7 @@
                                         <i class="input-file-mark"></i>
                                         <img class="input-file-pre" />
                                     </div>
-                                    <div class="input-file-box d-inb">
-                                        <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow2" />
-                                        <i class="input-file-bg"></i>
-                                        <i class="input-file-mark"></i>
-                                        <img class="input-file-pre"  />
-                                    </div>
-                                    <div class="input-file-box d-inb">
-                                        <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuShow3" />
-                                        <i class="input-file-bg"></i>
-                                        <i class="input-file-mark"></i>
-                                        <img class="input-file-pre"  />
-                                    </div>
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="myshopRightCont">
@@ -178,11 +169,13 @@
                         </div>
                         <div class="myshopRightCont HeadProfilePicture">
                             <p class="myshop-item-title"><i class="icon myshop-icon-ownerPic"></i>负责人证件照上传</p>
-                            <div>
-                                <a href='<%=Config.BusinessImagePath+"/original/"+b.ChargePersonIdCard.ImageName %>'>
-                                    <img runat="server" id="imgChargePerson" src="/image/dianjishangchuan_1.png" />
-                                </a>
-                                <div class="input-file-box d-inb">
+                            <div class="clearfix">
+                                <div class="download-img-pre fl">
+                                    <a href='<%=Config.BusinessImagePath+"/original/"+b.ChargePersonIdCard.ImageName %>' >
+                                        <img runat="server" id="imgChargePerson" src="/image/dianjishangchuan_1.png" />
+                                    </a>
+                                </div>
+                                <div class="input-file-box fl">
                                     <asp:FileUpload cssclass="input-file-btn" runat="server" ID="fuChargePerson" />
                                     <i class="input-file-bg"></i>
                                     <i class="input-file-mark"></i>
