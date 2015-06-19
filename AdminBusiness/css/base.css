@@ -328,6 +328,23 @@ body {
     margin-right: 10px;
     line-height: 90px;
     position: relative;
-    /*vertical-align: middle;*/
     text-align: center;
+    border: 1px solid #eee;
+}
+
+.download-img-delete {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    z-index: 2;
+}
+
+.download-img-show {
+    display: block;
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }

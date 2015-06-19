@@ -55,12 +55,6 @@
 /*.p_DocumentNumber{background:url(../image/zhengjianleixing_1.png) no-repeat;}*/
 /*.p_HeadProfilePicture{background:url(../image/yingyezhaopian_1.png) no-repeat;}*/
 
-.shopPicAdd { height: 90px; overflow: hidden }
-
-.picture{ float:left; position:relative}
-.picEditBtn{ position:absolute; left:70px; top:-5px; cursor:pointer;}
-.picDelBtn{ position:absolute; left:90px; top:-5px;cursor:pointer;}
-
 .bottomArea{ position:relative; width:100%; background:#cadbec; height:98px;clear: both;display: block; line-height:98px; text-align:center;}
 .bottomArea input{ margin:20px; margin-top:30px;}
 .account{ height:1138px; display:none;}
