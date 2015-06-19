@@ -1,5 +1,51 @@
-.serviceInfoArea { height:198px; padding: 0 20px; border-bottom: 20px solid #dfebf6; }
+.serviceInfoArea { height:198px; padding: 0 20px; border-bottom: 20px solid #dfebf6; color: #58789a;}
 .serviceInfoTilte { height:71px; line-height:71px; color:#58789a; font-size:19px; font-weight:bold; }
+
+.headInfo {
+    width: 208px;
+    height: 108px;
+    float: left;
+    font-size: 13px;
+}
+
+.headImage {
+    width: 110px;
+    height: 110px;
+    text-align: center;
+    line-height: 110px;
+    float: left;
+}
+
+.headImage img {
+    margin: 0 auto;
+    vertical-align: middle;
+}
+
+.ServiceShops {
+    margin-top: 20px;
+    font-size: 20px;
+    display: block;
+}
+
+.InfoCompletetxt {
+    margin-top: 10px;
+    display: block;
+}
+
+.headEditImg {
+    width: 115px;
+    height: 108px;
+    line-height: 108px;
+    text-align: center;
+    float: right;
+    background: url("../image/service/shop_guanli_14.png") no-repeat;
+}
+
+.satisfaction {
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+}
 
 .headInfoArea {
     width: 100%;
@@ -70,13 +116,20 @@
     width: 200px;
 }
 
+.ser-chk-title {
+    padding: 10px;
+    font-size: 13px;
+    color: #58789a;
+}
+
 .ser-chk-show {
     box-sizing: border-box;
     padding: 10px;
+    color: #58789a;
     border: #dbe6f2 1px solid;
     border-radius: 3px;
     width: 100%;
-    margin:10px 0;
+    margin-bottom: 10px;
 }
 
 .ser-chk-show span {
@@ -102,10 +155,10 @@
     background: #fff;
 }
 
-.level0{display: block; padding:5px 10px; background: #f6fafe; border: 1px solid #ccc;font-size: 13px; margin: 3px; border-radius: 5px;}
-.level1{display: block; padding:5px 10px; background: #76aafe; border: 1px solid #ccc;font-size: 13px; margin: 3px; border-radius: 5px;}
-.level2{display: inline-block; padding:5px 10px; background: #cae8fe; border: 1px solid #ccc;font-size: 13px; margin: 3px; border-radius: 5px;}
-.level3{display: inline-block; padding:5px 10px; background: #92d5fe; border: 1px solid #ccc;font-size: 13px; margin: 3px; border-radius: 5px;}
+.level0{display: block; padding:5px 10px; background: #f6fafe; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}
+.level1{display: block; padding:5px 10px; background: #76aafe; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}
+.level2{display: inline-block; padding:5px 10px; background: #cae8fe; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}
+.level3{display: inline-block; padding:5px 10px; background: #92d5fe; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}
 
 /*服务页面条目标题样式*/
 .service-item-title {
@@ -115,14 +168,20 @@
     /*background: #dbe6f2;*/
 }
 
-.service-icon-serType { background: url("../image/service/shop_guanli_06.png")  }
-.service-icon-serIntro { background: url("../image/service/shop_guanli_07.png")  }
-.service-icon-serArea { background: url("../image/service/shop_guanli_08.png")  }
-.service-icon-serLocal { background: url("../image/service/shop_guanli_05.png")  }
-.service-icon-LIC { background: url("../image/service/shop_guanli_12_1.png")  }
-.service-icon-serTimeSet { background: url("../image/service/shop_guanli_11.png")  }
-.service-icon-dateSet { background: url("../image/service/shop_guanli_09.png")  }
-.service-icon-timeSet { background: url("../image/service/shop_guanli_10.png")  }
+.service-icon-star {
+    width: 21px;
+    height: 21px;
+    background: url("../image/service/icon_10.png") no-repeat center;
+}
+
+.service-icon-serType { background: url("../image/service/shop_guanli_06.png");  }
+.service-icon-serIntro { background: url("../image/service/shop_guanli_07.png");  }
+.service-icon-serArea { background: url("../image/service/shop_guanli_08.png");  }
+.service-icon-serLocal { background: url("../image/service/shop_guanli_05.png");  }
+.service-icon-LIC { background: url("../image/service/shop_guanli_12_1.png");  }
+.service-icon-serTimeSet { background: url("../image/service/shop_guanli_11.png");  }
+.service-icon-dateSet { background: url("../image/service/shop_guanli_09.png");  }
+.service-icon-timeSet { background: url("../image/service/shop_guanli_10.png");  }
 /*.AddServiceArea {*/
     /*position: relative;*/
     /*width: 157px;*/
@@ -421,54 +480,7 @@
     /*background: #31b6fc;*/
 /*}*/
 
-.headImage {
-    width: 110px;
-    height: 108px;
-    float: left;
-    position: relative
-}
 
-.headImage img {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-}
-
-.headInfo {
-    width: 208px;
-    height: 108px;
-    float: left;
-    color: #58789a;
-    font-size: 12px;
-}
-
-.ServiceShops {
-    margin-top: 20px;
-    font-size: 20px;
-    display: block;
-}
-
-.InfoCompletetxt {
-    margin-top: 10px;
-    display: block;
-}
-
-.headEditImg {
-    width: 115px;
-    height: 108px;
-    float: right;
-    /*background: url(../image/xuankuang_10.png) no-repeat;*/
-    position: relative
-}
-
-.satisfaction {
-    font-size: 40px;
-    color: #FFF;
-    font-weight: bold;
-    position: absolute;
-    top: 26px;
-    left: 30px;
-}
 
 
 /*设置下拉选框宽高*/
