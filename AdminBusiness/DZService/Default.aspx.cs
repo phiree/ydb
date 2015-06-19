@@ -19,7 +19,7 @@ public partial class DZService_Default : BasePage
     private void BindList()
     {
         int totalRecords;
-        gvServices.DataSource = bllService.GetServiceByBusiness(((BusinessUser)CurrentUser).BelongTo.Id, Guid.Empty, 0, 999, out totalRecords);
-        gvServices.DataBind();
+        rptServiceList.DataSource = bllService.GetServiceByBusiness(((BusinessUser)CurrentUser).BelongTo.Id, Guid.Empty, 0, 999, out totalRecords);
+        rptServiceList.DataBind();
     }
 }

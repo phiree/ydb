@@ -86,7 +86,7 @@
                                 <p>
                                     <input type="text" runat="server" id="tbxEmail" name="email" /></p>
                             </div>
-                            <div class="myshopLeftCont">
+                            <div class="myshopLeftCont pinput">
                                 <p class="myshop-item-title">
                                     <i class="icon myshop-icon-workTime"></i>从业时间</p>
                                 <p>

@@ -44,19 +44,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             CurrentService = bllService.GetOne(ServiceId);
             ServiceType = CurrentService.ServiceType;
         }
-        else //新建服务一定要传入typeid
-        {
-            //string paramTypeId = hiTypeId.Value;// Request.Params["typeId"];
-            //if (string.IsNullOrEmpty(paramTypeId))
-            //{
-            //    Notification.Show(Page, "抱歉", "页面参数有误,请从正常入口访问本页面", "/");
-            //}
-            //Guid typeId = new Guid(paramTypeId);
-            //ServiceType = bllServiceType.GetOne(typeId);
-            //TypeProperties = ServiceType.Properties;
-
-
-        }
+        
         if (!IsPostBack)
         {
             LoadInit();
@@ -65,10 +53,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     }
     public void LoadInit()
     {
-        //加载服务属性
-        //rptProperties.DataSource = ServiceType.Properties;
-        //rptProperties.ItemDataBound += new RepeaterItemEventHandler(rptProperties_ItemDataBound);
-        //rptProperties.DataBind();
+        
     }
 
     void rptProperties_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -92,27 +77,17 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     {
         tbxDescription.Text = CurrentService.Description;
         tbxName.Text = CurrentService.Name;
+        
     }
     public void UpdateForm()
     {
         CurrentService.Name = tbxName.Text;
-        CurrentService.Description = tbxName.Text;
+        CurrentService.Description = tbxDescription.Text;
 
         CurrentService.Business = ((BusinessUser)((BasePage)this.Page).CurrentUser).BelongTo;
         CurrentService.ServiceType = ServiceType;
         IList<ServicePropertyValue> values = new List<ServicePropertyValue>();
-        foreach (RepeaterItem item in rptProperties.Items)
-        {
-            RadioButtonList rblPv = item.FindControl("rblValues") as RadioButtonList;
-            foreach (ListItem rb in rblPv.Items)
-            {
-                if (rb.Selected)
-                {
-                    ServicePropertyValue v = bllServicePropertyValue.GetOne(new Guid(rb.Value));
-                    values.Add(v);
-                }
-            }
-        }
+       
         CurrentService.PropertyValues = values;
     }
 
