@@ -43,11 +43,11 @@ namespace Dianzhu.Model
        /// <summary>
        /// 服务开始时间?如果是多段
        /// </summary>
-       public virtual DateTime ServiceTimeBegin { get; set; }
+       public virtual string ServiceTimeBegin { get; set; }
        /// <summary>
        /// 
        /// </summary>
-       public virtual DateTime ServiceTimeEnd { get; set; }
+       public virtual string ServiceTimeEnd { get; set; }
        /// <summary>
        /// 每日接单总量
        /// </summary>
@@ -73,7 +73,7 @@ namespace Dianzhu.Model
        /// <summary>
        /// 是否可以对公. 否:只能为私人提供
        /// </summary>
-       public virtual bool? IsForBusiness { get; set; }
+       public virtual bool IsForBusiness { get; set; }
        /// <summary>
        /// 是否通过平台标准认证"
        /// </summary>

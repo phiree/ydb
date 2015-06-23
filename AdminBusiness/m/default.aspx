@@ -1,11 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m/m.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m/c.master" AutoEventWireup="true"
     CodeFile="~/Account/default.aspx.cs" Inherits="Account_Edit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link rel="stylesheet" href="css/myshop.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div data-role="page" data-title="我的店铺" data-theme="myb">
+    
         <div data-role="header" style="background: #4b6c8b; border: none;">
             <a data-role="none" href="#left-panel" data-iconpos="notext" data-shadow="false"
                 data-iconshadow="false">
@@ -238,25 +238,7 @@
             </div>
         </div>
         <!-- /content -->
-        <div data-role="panel" id="left-panel" style="background: #4c6f8f; color: #80abd2;">
-            <div class="lefe-top">
-                <div>
-                    <img src="images/left-user-inco.png" /></div>
-                <div style="padding-left: 15%; padding-right: 15%;">
-                    <a href="#" data-role="button" data-theme="mya">立即登录</a></div>
-                <div>
-                    快登陆，抢客源咯~</div>
-            </div>
-            <div class="lefe-bottom">
-                <ul>
-                    <li><a href="message.html" target="_parent">消息</a></li>
-                    <li><a href="employee-management.html" target="_parent">员工管理</a></li>
-                    <li><a href="main.html" target="_parent">订单</a></li>
-                    <li><a href="service_info.html" target="_parent">服务信息</a></li>
-                    <li class="my-ui-btn-active"><a href="myshop.html" target="_parent">店铺信息</a></li>
-                </ul>
-            </div>
-        </div>
+         
         <!-- /panel -->
         <div data-role="panel" id="right-panel" data-display="push" data-position="right">
             <div class="m-p-size pd-size">
@@ -272,5 +254,8 @@
             </div>
         </div>
         <!-- /panel -->
-    </div>
+    
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="menu_status_shop" runat="Server">
+  my-ui-btn-active
 </asp:Content>

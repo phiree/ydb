@@ -1,0 +1,43 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/m/m.master" AutoEventWireup="true" CodeFile="c.master.cs" Inherits="m_c" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:ContentPlaceHolder runat="server" ID="head"></asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<div data-role="page" data-title="我的店铺" data-theme="myb">
+<asp:ContentPlaceHolder runat="server" ID="ContentPlaceHolder1"></asp:ContentPlaceHolder>
+<!--左侧-->
+<div data-role="panel" id="left-panel" style="background:#4c6f8f; color:#80abd2;" >
+       
+         <div class="lefe-top">
+           <div><img src="images/left-user-inco.png"/></div>
+           <asp:LoginView runat="server">
+           <AnonymousTemplate> <div style="padding-left:15%; padding-right:15%;"><a href="/m/login.aspx" data-role="button" data-theme="mya">立即登录</a></div>
+           <div>快登陆，抢客源咯~</div>
+           </AnonymousTemplate>
+           <LoggedInTemplate>
+           <asp:LoginName runat="server" /> <asp:LoginStatus   LogoutPageUrl="~/m/login.aspx" runat="server"/>
+           </LoggedInTemplate>
+           </asp:LoginView>
+          
+         </div>
+        
+       
+         <div class="lefe-bottom">
+            <ul>
+              <li><a href="#" title="正在完善中" target="_parent">消息</a></li>
+              <li><a href="#"  title="正在完善中" target="_parent">员工管理</a></li>
+              <li><a href="#" title="正在完善中"  target="_parent">订单</a></li>
+              <li class='<asp:ContentPlaceHolder runat="server" ID="menu_status_service"></asp:ContentPlaceHolder>'><a href="/m/service.aspx" target="_parent">服务信息</a></li>
+              <li class='<asp:ContentPlaceHolder runat="server" ID="menu_status_shop"></asp:ContentPlaceHolder>'><a href="/m/" target="_parent">店铺信息</a></li>
+            </ul>
+         </div>
+        
+    </div>
+    </div>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="bottom" Runat="Server">
+<asp:ContentPlaceHolder runat="server" ID="bottom"></asp:ContentPlaceHolder>
+
+</asp:Content>
+

@@ -18,7 +18,14 @@ public partial class login : System.Web.UI.Page
         if (isValid)
         {
             bool remeberMe = savePass.Checked;
-            FormsAuthentication.RedirectFromLoginPage(tbxUserName.Text, remeberMe);
+            FormsAuthentication.SetAuthCookie(tbxUserName.Text, remeberMe);
+            if (Request.RawUrl.Contains("/m/"))
+            {
+                Response.Redirect("~/m/",true);
+            }
+            else {
+                Response.Redirect("~/account/",true);
+            }
         }
         else {
             PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);

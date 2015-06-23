@@ -92,7 +92,13 @@
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>服务起步价</p>
                                             <div>
-                                                <asp:TextBox CssClass="service-input-mid m-r10" runat="server" ID="tbxMinPrice"></asp:TextBox>元
+ 
+                                                <asp:TextBox  CssClass="service-input-mid m-r10" runat="server" ID="tbxMinPrice"></asp:TextBox>&nbsp;&nbsp;元 
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                                                    ErrorMessage="*" ControlToValidate="tbxMinPrice"></asp:RequiredFieldValidator><asp:RegularExpressionValidator ID="RegularExpressionValidator1"
+                                                        runat="server" ErrorMessage="数字" ControlToValidate="tbxMinPrice" 
+                                                    ValidationExpression="\d+(\.\d+)?"  ></asp:RegularExpressionValidator>
+ 
                                             </div>
                                         </div>
                                         <div class="service-m">
@@ -100,7 +106,8 @@
                                                 <i class="icon service-icon-serIntro"></i>服务单价</p>
                                             <div>
                                                 <asp:TextBox CssClass="service-input-mid m-r10" runat="server" ID="tbxUnitPrice"></asp:TextBox>元&nbsp;/&nbsp;每(
-                                                    <asp:ListItem CssClass="service-input-sm m-l10" Value="0" Text="小时"></asp:ListItem>
+                                                 <asp:RadioButtonList runat="server" ID="rblChargeUnit">  
+                                                    <asp:ListItem  Selected="True" Value="0" Text="小时"></asp:ListItem>
                                                     <asp:ListItem Value="1" Text="天"></asp:ListItem>
                                                     <asp:ListItem Value="2" Text="次"></asp:ListItem>
                                                 </asp:RadioButtonList>
@@ -145,7 +152,7 @@
                                                 <i class="icon service-icon-serIntro"></i>是否上门</p>
                                             <div>
                                                 <asp:RadioButtonList CssClass="service-input-radio" runat="server" ID="rblServiceMode">
-                                                    <asp:ListItem Value="0" Text="是"></asp:ListItem>
+                                                    <asp:ListItem Selected="True" Value="0" Text="是"></asp:ListItem>
                                                     <asp:ListItem Value="1" Text="否"></asp:ListItem>
                                                 </asp:RadioButtonList>
                                             </div>
@@ -154,10 +161,10 @@
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>服务对象</p>
                                             <div>
-                                                <asp:CheckBoxList CssClass="service-input-radio" runat="server" ID="cblIsForBusiness">
-                                                    <asp:ListItem Value="1" Text="对公"></asp:ListItem>
-                                                    <asp:ListItem Value="2" Text="对私"></asp:ListItem>
-                                                </asp:CheckBoxList>
+ 
+                                                <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cblIsForBusiness" Text="可以对公"/>
+                                                    
+ 
                                             </div>
                                         </div>
                                     </div>
@@ -184,10 +191,10 @@
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>付款方式</p>
                                             <div>
-                                                <asp:CheckBoxList CssClass="service-input-radio" runat="server" >
-                                                    <asp:ListItem Value="1" Text="线上"></asp:ListItem>
+                                                <asp:RadioButtonList CssClass="service-input-radio" id="rblPayType" runat="server" >
+                                                    <asp:ListItem Selected="True" Value="1" Text="线上"></asp:ListItem>
                                                     <asp:ListItem Value="2" Text="线下"></asp:ListItem>
-                                                </asp:CheckBoxList>
+                                                </asp:RadioButtonList>
                                             </div>
                                         </div>
                                     </div>

@@ -5,9 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class _3g_shop_edit : BasePage
+public partial class m_c : System.Web.UI.MasterPage
 {
-   
     protected void Page_Load(object sender, EventArgs e)
     {
 

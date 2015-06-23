@@ -33,7 +33,14 @@ public class BasePage:System.Web.UI.Page
             MembershipUser mu = Membership.GetUser();
             if (mu == null)
             {
+                if(Request.RawUrl.Contains("/m/"))
+                {
+                    Response.Redirect("/m/login.aspx?returnurl=" + HttpUtility.UrlEncode(Request.RawUrl), true);
+             
+                }
+                else{
                 Response.Redirect("/login.aspx?returnurl="+HttpUtility.UrlEncode(Request.RawUrl), true);
+                }
             }
             currentUser = mp.GetBusinessUser((Guid)mu.ProviderUserKey);
         }
