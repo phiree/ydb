@@ -246,7 +246,7 @@
                 </div>
         </div>
     </div>
-    </body>
+
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.9.1.min.js"></script>-->
