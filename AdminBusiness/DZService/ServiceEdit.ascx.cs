@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Dianzhu.Model.Enums;
 using PHSuit;
 public partial class DZService_ServiceEdit : System.Web.UI.UserControl
 {
@@ -48,7 +49,10 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         if (!IsPostBack)
         {
             LoadInit();
-            LoadForm();
+            if (!IsNew)
+            {
+                LoadForm();
+            }
         }
     }
     public void LoadInit()
@@ -77,7 +81,23 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     {
         tbxDescription.Text = CurrentService.Description;
         tbxName.Text = CurrentService.Name;
-        
+        if (!IsNew)
+        {
+            lblSelectedType.Text = CurrentService.ServiceType.ToString();
+        }
+        hiBusinessAreaCode.Value = CurrentService.BusinessAreaCode;
+        tbxMinPrice.Text = CurrentService.MinPrice.ToString();
+        tbxUnitPrice.Text = CurrentService.UnitPrice.ToString();
+        rblChargeUnit.SelectedValue =((int) CurrentService.ChargeUnit).ToString();
+        tbxOrderDelay.Text = CurrentService.OrderDelay.ToString();
+        tbxServiceTimeBegin.Text = CurrentService.ServiceTimeBegin.ToString();
+        tbxServiceTimeEnd.Text = CurrentService.ServiceTimeEnd.ToString();
+        tbxMaxOrdersPerDay.Text = CurrentService.MaxOrdersPerDay.ToString();
+        tbxMaxOrdersPerHour.Text = CurrentService.MaxOrdersPerHour.ToString();
+        rblServiceMode.SelectedValue=((int)CurrentService.ServiceMode).ToString();
+        cblIsForBusiness.Checked = CurrentService.IsForBusiness;
+        cbxIsCompensationAdvance.Checked = CurrentService.IsCompensationAdvance;
+        cbxIsCertificated.Checked = CurrentService.IsCertificated;
     }
     public void UpdateForm()
     {
@@ -89,6 +109,19 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         IList<ServicePropertyValue> values = new List<ServicePropertyValue>();
        
         CurrentService.PropertyValues = values;
+        CurrentService.BusinessAreaCode = hiBusinessAreaCode.Value;
+        CurrentService.ChargeUnit = (ChargeUnit)(Convert.ToInt16(rblChargeUnit.SelectedValue));
+        CurrentService.IsCertificated = cbxIsCertificated.Checked;
+        CurrentService.IsCompensationAdvance = cbxIsCompensationAdvance.Checked;
+        CurrentService.IsForBusiness = cblIsForBusiness.Checked;
+        CurrentService.MaxOrdersPerDay = Convert.ToInt32(tbxMaxOrdersPerDay.Text);
+        CurrentService.MaxOrdersPerHour = Convert.ToInt32(tbxMaxOrdersPerHour.Text);
+        CurrentService.MinPrice = Convert.ToDecimal(tbxMinPrice.Text);
+        CurrentService.OrderDelay = Convert.ToInt32(tbxOrderDelay.Text);
+        CurrentService.ServiceMode =(ServiceMode)(Convert.ToInt32( rblServiceMode.SelectedValue));
+        CurrentService.ServiceTimeBegin = tbxServiceTimeBegin.Text;
+        CurrentService.ServiceTimeEnd = tbxServiceTimeEnd.Text;
+        CurrentService.UnitPrice = Convert.ToInt32(tbxUnitPrice.Text);
     }
 
     protected void btnSave_Click(object sender, EventArgs e)

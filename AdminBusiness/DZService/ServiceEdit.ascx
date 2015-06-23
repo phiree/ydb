@@ -74,7 +74,11 @@
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>服务起步价</p>
                                             <div>
-                                                <asp:TextBox runat="server" ID="tbxMinPrice"></asp:TextBox>&nbsp;&nbsp;元
+                                                <asp:TextBox runat="server" ID="tbxMinPrice"></asp:TextBox>&nbsp;&nbsp;元 
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                                                    ErrorMessage="*" ControlToValidate="tbxMinPrice"></asp:RequiredFieldValidator><asp:RegularExpressionValidator ID="RegularExpressionValidator1"
+                                                        runat="server" ErrorMessage="数字" ControlToValidate="tbxMinPrice" 
+                                                    ValidationExpression="\d+"  ></asp:RegularExpressionValidator>
                                             </div>
                                         </div>
                                         <div class="service-m">
@@ -137,10 +141,8 @@
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>服务对象</p>
                                             <div>
-                                                <asp:CheckBoxList runat="server" ID="cblIsForBusiness">
-                                                    <asp:ListItem Value="1" Text="对公"></asp:ListItem>
-                                                    <asp:ListItem Value="2" Text="对私"></asp:ListItem>
-                                                </asp:CheckBoxList>
+                                                <asp:CheckBox  runat="server" ID="cblIsForBusiness"/>
+                                                    
                                             </div>
                                         </div>
                                     </div>

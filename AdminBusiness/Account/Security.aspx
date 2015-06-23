@@ -35,7 +35,7 @@
                             <div class="InfoComplete">
                                 <span class="progress"></span>
                             </div>
-                            <span class="completePercentage">90%</span>
+                            <span class="completePercentage">100%</span>
                         </div>
                     </div>
                     <div class="headEditImg">
