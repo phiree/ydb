@@ -86,8 +86,8 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             lblSelectedType.Text = CurrentService.ServiceType.ToString();
         }
         hiBusinessAreaCode.Value = CurrentService.BusinessAreaCode;
-        tbxMinPrice.Text = CurrentService.MinPrice.ToString();
-        tbxUnitPrice.Text = CurrentService.UnitPrice.ToString();
+        tbxMinPrice.Text = CurrentService.MinPrice.ToString("#.#");
+        tbxUnitPrice.Text = CurrentService.UnitPrice.ToString("#");
         rblChargeUnit.SelectedValue =((int) CurrentService.ChargeUnit).ToString();
         tbxOrderDelay.Text = CurrentService.OrderDelay.ToString();
         tbxServiceTimeBegin.Text = CurrentService.ServiceTimeBegin.ToString();
@@ -98,6 +98,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         cblIsForBusiness.Checked = CurrentService.IsForBusiness;
         cbxIsCompensationAdvance.Checked = CurrentService.IsCompensationAdvance;
         cbxIsCertificated.Checked = CurrentService.IsCertificated;
+        rblPayType.SelectedValue =((int) CurrentService.PayType).ToString();
     }
     public void UpdateForm()
     {
@@ -110,7 +111,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
        
         CurrentService.PropertyValues = values;
         CurrentService.BusinessAreaCode = hiBusinessAreaCode.Value;
-        CurrentService.ChargeUnit = (ChargeUnit)(Convert.ToInt16(rblChargeUnit.SelectedValue));
+        CurrentService.ChargeUnit = (ChargeUnit)(Convert.ToInt32(rblChargeUnit.SelectedValue));
         CurrentService.IsCertificated = cbxIsCertificated.Checked;
         CurrentService.IsCompensationAdvance = cbxIsCompensationAdvance.Checked;
         CurrentService.IsForBusiness = cblIsForBusiness.Checked;
@@ -121,7 +122,8 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.ServiceMode =(ServiceMode)(Convert.ToInt32( rblServiceMode.SelectedValue));
         CurrentService.ServiceTimeBegin = tbxServiceTimeBegin.Text;
         CurrentService.ServiceTimeEnd = tbxServiceTimeEnd.Text;
-        CurrentService.UnitPrice = Convert.ToInt32(tbxUnitPrice.Text);
+        CurrentService.UnitPrice =int.Parse(tbxUnitPrice.Text, System.Globalization.NumberStyles.AllowDecimalPoint);
+        CurrentService.PayType=(PayType)(Convert.ToInt32(rblPayType.SelectedValue));
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
