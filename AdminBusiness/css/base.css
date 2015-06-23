@@ -154,14 +154,20 @@ body {
 .dis-n { display: none; }
 
 .m-auto { margin:0 auto; }
+.m-l10 { margin-left: 10px; }
 .m-l20 { margin-left: 20px; }
 .m-l50 { margin-left: 50px; }
+.m-r10 { margin-right: 10px; }
 .m-r20 { margin-right: 20px; }
 .m-r50 { margin-right: 50px; }
+.m-b10 { margin-bottom: 10px; }
 .m-b20 { margin-bottom: 20px; }
 .m-b50 { margin-bottom: 50px; }
+.m-t10 { margin-top: 10px; }
 .m-t20 { margin-top: 20px; }
 .m-t50 { margin-top: 50px; }
+
+.m-lr10 { margin:0 10px; }
 
 .p-20 { padding: 20px; }
 .p-l20 { padding-left: 20px; }
