@@ -157,8 +157,27 @@
     background: #31b6fb;
 }
 
+.serviceTabsItem .item {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+}
+
 .serviceTabsItem .item:hover {
-    background: #fff;
+    background: #31b6fb;
+    color: #fff;
+}
+
+.serviceTabsItem .radioCk {
+    background : #63c5ce;
+    color : #fff;
+}
+
+.business-radioCk{
+    padding: 5px;
+    color: #fff;
+    background: #63c5ce;
+    border-radius: 5px;
 }
 
 .level0{display: block; padding:5px 10px; background: #f6fafe; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}
@@ -325,7 +344,7 @@
 
 .business-text {
     padding: 10px;
-    background: #31b6fb;
+    background: #63c5ce;
     color: #fff;
     border-radius: 5px;
 }

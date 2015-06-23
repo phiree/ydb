@@ -68,7 +68,7 @@
                 "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
                 'enable_multi':false,
                 "leaf_clicked": function (id) {
-                    $("#hiTypeId").val(id);
+                    tabRadioShow(id);
                 }
 
             });
@@ -110,9 +110,39 @@
             businiessText.html(businessNode);
         });
 
- 
+        // 单选时，选择的服务类型显示
+        function tabRadioShow(id){
+            var radioShowBox = $('#radioShowBox');
 
-        //    选择的服务类型显示
+//            var TypeNodeBox = "<div item_id=" + id + ">" + radioText + "</div>";
+            var TypeNodeBox = $(document.createElement("div"));
+
+
+            if ( id ) {
+                var radioItem = $(event.currentTarget).find($("span[item_id=" + id + "]"));
+                var radioText = radioItem.text();
+
+                $("#hiTypeId").val(id);
+                TypeNodeBox.attr("item_id",id);
+                radioItem.addClass('radioCk');
+                console.log(radioItem.siblings());
+                $(event.currentTarget).find($("span[item_id!=" + id + "]")).each(function(){
+                    $(this).removeClass('radioCk');
+                });
+
+                if ( radioShowBox.html() != "" ){
+                    radioShowBox.find('div').text(radioText);
+                } else {
+                    TypeNodeBox.text(radioText);
+                    TypeNodeBox.addClass('business-radioCk');
+                    radioShowBox.append(TypeNodeBox);
+                }
+            } else {
+                return
+            }
+        }
+
+        //  多选时,选择的服务类型显示
         function tabCheckedShow(that, id, checked, level) {
             var checkedShowBox = $('#serCheckedShow');
             var v_id = id;
