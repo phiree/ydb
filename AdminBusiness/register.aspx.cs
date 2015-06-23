@@ -31,7 +31,8 @@ public partial class register : System.Web.UI.Page
        // Membership.CreateUser(tbxUserName.Text, regPs.Text);
        
         bllBusiness.Register(address, description, latitude, longtitude, name, mobilePhone, password);
-        PHSuit.Notification.Show(Page, "", "注册成功", "register_suc.aspx");
+        //PHSuit.Notification.Show(Page, "", "注册成功", "register_suc.aspx");
+        Response.Redirect("register_suc.aspx",true);
     }
     
     

@@ -63,6 +63,7 @@
                                 </div>
                                 
                                 
+                                
                                 <p class="agree">
                                     <input id="agree" name="agree" type="checkbox" /><label class="v-m" for="agree">我已经仔细阅读过<a
                                         class="agreeLIC-a" href="#">点助服务协议</a>,并同意所有条款</label></p>

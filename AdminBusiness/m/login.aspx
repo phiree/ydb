@@ -29,7 +29,7 @@ CodeFile="~/login.aspx.cs" Inherits="login" %>
             </div>
       </div>
       <br/>
-      <a href="#regpage" data-transition="slideup"  class="my-a">会员注册</a>
+      <a href="/m/register.aspx" data-transition="slideup"  class="my-a">会员注册</a>
   
      
      
