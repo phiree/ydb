@@ -112,7 +112,7 @@ $.fn.TabSelection = function (options) {
             item_check="<input type='checkbox' name='item_id' class='check_item' id=" + item_list[i].id +" value='" + item_list[i].id + "' level='" + item_list[i].level + "' parent_id='" + item_list[i].parent_id + "' />";
             }
  
-            var item_content ="<div class='serviceTabsItem'>" + item_check+ "<span style='display:inline-block;margin:5px;' class='item'  item_id='" + item_list[i].id + "' level='" + item_list[i].level + "' parent_id='" + item_list[i].parent_id + "'>" + item_list[i].name + "</span></div>";
+            var item_content ="<div class='serviceTabsItem'>" + item_check+ "<span class='item d-inb'  item_id='" + item_list[i].id + "' level='" + item_list[i].level + "' parent_id='" + item_list[i].parent_id + "'>" + item_list[i].name + "</span></div>";
 
 
             tab_panel_content += item_content;

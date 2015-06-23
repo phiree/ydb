@@ -79,6 +79,18 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
     <script type="text/javascript" src="/js/CityList.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
+    <script   type="text/javascript">
+        $(function () {
+            $("#tabsServiceType").TabSelection({
+                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
+                'enable_multi':false,
+                "leaf_clicked": function (id) {
+                    tabRadioShow(id);
+                }
+
+            });
+        });
+    </script>
     <script type="text/javascript">
         var map = new BMap.Map("businessMap");
         var cityListObject = new BMapLib.CityList({ container: "businessCity" });
@@ -104,26 +116,60 @@
                     console.log(businessSelet.eq(i).val());
                     businessvalue += "m/" + businessSelet.eq(i).val(); //获取商圈个段的code,以“/m”区分各字段
 
-                    businessNode += '<span>' + businessSelet.eq(i).get(0).options[businessSelet.eq(i).get(0).selectedIndex].title + '</span>'; //
+                    businessNode += ("<span>"  + businessSelet.eq(i).get(0).options[businessSelet.eq(i).get(0).selectedIndex].title + "&nbsp;" + "</span>");
                 } else {
                     break;
                 }
             }
-            $('#businiessSeletValue').val(businessvalue);
+            $('#hiBusinessAreaCode').val(businessvalue);
             businiessText.html(businessNode);
         });
 
 
-        $(function () {
-            $("#tabsServiceType").TabSelection({
-                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
-                'enable_multi': false,
-                "leaf_clicked": function (id) {
-                    $("#hiTypeId").val(id);
-                }
+//        $(function () {
+//            $("#tabsServiceType").TabSelection({
+//                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
+//                'enable_multi': false,
+//                "leaf_clicked": function (id) {
+//                    $("#hiTypeId").val(id);
+//                    console.log(event.currentTarget);
+////                    $(printBox.find($("div[v_id=" + v_id + "]"))).attr("class", "level0")
+//                }
+//
+//            });
+//        });
 
-            });
-        });
+        // 单选时，选择的服务类型显示
+        function tabRadioShow(id){
+            var radioShowBox = $('#radioShowBox');
+
+//            var TypeNodeBox = "<div item_id=" + id + ">" + radioText + "</div>";
+            var TypeNodeBox = $(document.createElement("div"));
+
+
+            if ( id ) {
+                var radioItem = $(event.currentTarget).find($("span[item_id=" + id + "]"));
+                var radioText = radioItem.text();
+
+                $("#hiTypeId").val(id);
+                TypeNodeBox.attr("item_id",id);
+                radioItem.addClass('radioCk');
+                console.log(radioItem.siblings());
+                $(event.currentTarget).find($("span[item_id!=" + id + "]")).each(function(){
+                    $(this).removeClass('radioCk');
+                });
+
+                if ( radioShowBox.html() != "" ){
+                    radioShowBox.find('div').text(radioText);
+                } else {
+                    TypeNodeBox.text(radioText);
+                    TypeNodeBox.addClass('business-radioCk');
+                    radioShowBox.append(TypeNodeBox);
+                }
+            } else {
+                return
+            }
+        }
 
         //    选择的服务类型显示
         function tabCheckedShow(that, id, checked, level) {
@@ -177,7 +223,7 @@
                         break;
                     default:
                         break;
-                    //                    console.log("break");    
+                    //                    console.log("break");
                 };
             };
 
@@ -192,6 +238,8 @@
             });
             e.preventDefault();
         })
-      
+
+
+
     </script>
 </asp:Content>
