@@ -1,12 +1,23 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ServiceEdit.ascx.cs" Inherits="DZService_ServiceEdit" %>
-    <div class="serviceRightWrap">
+
                     <div class="serviceRight clearfix">
                         <div class="service-md">
                             <div class="service-md-title">
                                 基本信息<i class="icon servie-icon-mdStand"></i></div>
-                                <asp:TextBox runat="server" ID="tbxName"></asp:TextBox>
+
                             <div class="service-md-main clearfix">
                                 <div class="service-md-mleft">
+                                    <div class="service-m">
+                                        <p class="p_ServiceType service-item-title">
+                                            <i class="icon service-icon-serType"></i>服务名称</p>
+                                        <div class="clearfix">
+                                            <div>
+                                                <div>
+                                                    <asp:TextBox runat="server" CssClass="service-input-mid" ID="tbxName"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="service-m">
                                         <p class="p_ServiceType service-item-title">
                                             <i class="icon service-icon-serType"></i>请选择您的服务类型</p>
@@ -23,16 +34,19 @@
                                                         <ul>
                                                         </ul>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                </div>
+                                <div class="service-md-mright">
                                     <div class="service-m">
                                         <p class="p_serviceIntroduced service-item-title">
                                             <i class="icon service-icon-serIntro"></i>服务介绍</p>
                                         <p>
-                                            <asp:TextBox runat="server" TextMode="MultiLine" ID="tbxDescription"> </asp:TextBox></p>
+                                            <asp:TextBox CssClass="service-input-area" runat="server" TextMode="MultiLine" ID="tbxDescription"> </asp:TextBox></p>
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +69,7 @@
                                         <div class="fl m-l20">
                                             <p class="m-b20">
                                                 您选择的位置：</p>
-                                            <p id="businessText" class="m-b50">
+                                            <p id="businessText" class="business-text m-b50">
                                             </p>
                                             <p class="l-h16">
                                                 ←点击选择商圈范围</p>
@@ -74,16 +88,15 @@
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>服务起步价</p>
                                             <div>
-                                                <asp:TextBox runat="server" ID="tbxMinPrice"></asp:TextBox>&nbsp;&nbsp;元
+                                                <asp:TextBox CssClass="service-input-mid m-r10" runat="server" ID="tbxMinPrice"></asp:TextBox>元
                                             </div>
                                         </div>
                                         <div class="service-m">
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>服务单价</p>
                                             <div>
-                                                <asp:TextBox runat="server" ID="tbxUnitPrice"></asp:TextBox>&nbsp;&nbsp;元&nbsp;/&nbsp;每&nbsp;(
-                                                <asp:RadioButtonList runat="server" ID="rblChargeUnit">
-                                                    <asp:ListItem Value="0" Text="小时"></asp:ListItem>
+                                                <asp:TextBox CssClass="service-input-mid m-r10" runat="server" ID="tbxUnitPrice"></asp:TextBox>元&nbsp;/&nbsp;每(
+                                                    <asp:ListItem CssClass="service-input-sm m-l10" Value="0" Text="小时"></asp:ListItem>
                                                     <asp:ListItem Value="1" Text="天"></asp:ListItem>
                                                     <asp:ListItem Value="2" Text="次"></asp:ListItem>
                                                 </asp:RadioButtonList>
@@ -96,14 +109,14 @@
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>提前预约时间</p>
                                             <div>
-                                                至少&nbsp;&nbsp;<asp:TextBox runat="server" ID="tbxOrderDelay">60</asp:TextBox>分钟&nbsp;&nbsp;分钟</div>
+                                                至少<asp:TextBox runat="server" CssClass="service-input-sm m-lr10" ID="tbxOrderDelay">60</asp:TextBox>分钟</div>
                                         </div>
                                         <div class="service-m">
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>服务时间</p>
                                             <div>
-                                                <asp:TextBox runat="server" ID="tbxServiceTimeBegin">8:30</asp:TextBox>&nbsp;&nbsp;至&nbsp;&nbsp;
-                                                <asp:TextBox runat="server" ID="tbxServiceTimeEnd">21:00</asp:TextBox></div>
+                                                <asp:TextBox CssClass="service-input-sm m-r10" runat="server" ID="tbxServiceTimeBegin">8:30</asp:TextBox>至
+                                                <asp:TextBox CssClass="service-input-sm m-l10" runat="server" ID="tbxServiceTimeEnd">21:00</asp:TextBox></div>
                                         </div>
                                     </div>
                                 </div>
@@ -113,13 +126,13 @@
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>每日最大接单量</p>
                                             <div>
-                                                <asp:TextBox runat="server" ID="tbxMaxOrdersPerDay">50</asp:TextBox>&nbsp;&nbsp;单</div>
+                                                <asp:TextBox CssClass="service-input-mid m-r10" runat="server" ID="tbxMaxOrdersPerDay">50</asp:TextBox>单</div>
                                         </div>
                                         <div class="service-m">
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>每小时最大接单量</p>
                                             <div>
-                                                <asp:TextBox runat="server" ID="tbxMaxOrdersPerHour">20</asp:TextBox>&nbsp;&nbsp;单</div>
+                                                <asp:TextBox CssClass="service-input-mid m-r10" runat="server" ID="tbxMaxOrdersPerHour">20</asp:TextBox>单</div>
                                         </div>
                                     </div>
                                     <div class="service-md-mright">
@@ -127,7 +140,7 @@
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>是否上门</p>
                                             <div>
-                                                <asp:RadioButtonList runat="server" ID="rblServiceMode">
+                                                <asp:RadioButtonList CssClass="service-input-radio" runat="server" ID="rblServiceMode">
                                                     <asp:ListItem Value="0" Text="是"></asp:ListItem>
                                                     <asp:ListItem Value="1" Text="否"></asp:ListItem>
                                                 </asp:RadioButtonList>
@@ -137,7 +150,7 @@
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>服务对象</p>
                                             <div>
-                                                <asp:CheckBoxList runat="server" ID="cblIsForBusiness">
+                                                <asp:CheckBoxList CssClass="service-input-radio" runat="server" ID="cblIsForBusiness">
                                                     <asp:ListItem Value="1" Text="对公"></asp:ListItem>
                                                     <asp:ListItem Value="2" Text="对私"></asp:ListItem>
                                                 </asp:CheckBoxList>
@@ -150,14 +163,28 @@
                                         <div class="service-m">
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>服务保障</p>
-                                           <asp:CheckBox runat="server" ID="cbxIsCompensationAdvance" Text="加入先行赔付" />
+                                           <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCompensationAdvance" Text="加入先行赔付" />
                                         </div>
                                     </div>
                                     <div class="service-md-mright">
                                         <div class="service-m">
                                             <p class="service-item-title">
                                                 <i class="icon service-icon-serIntro"></i>平台认证</p>
-                                              <asp:CheckBox runat="server" ID="cbxIsCertificated" Text="已通过" />
+                                              <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCertificated" Text="已通过" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="service-md-box clearfix">
+                                    <div class="service-md-mleft">
+                                        <div class="service-m">
+                                            <p class="service-item-title">
+                                                <i class="icon service-icon-serIntro"></i>付款方式</p>
+                                            <div>
+                                                <asp:CheckBoxList CssClass="service-input-radio" runat="server" >
+                                                    <asp:ListItem Value="1" Text="线上"></asp:ListItem>
+                                                    <asp:ListItem Value="2" Text="线下"></asp:ListItem>
+                                                </asp:CheckBoxList>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -184,9 +211,9 @@
                         <!--</div>-->
                         <!--</div>-->
                     </div>
+                    <div class="service-saveSubmit">
+                        <asp:Button CssClass="service-saveSubmit-btn" runat="server" ID="btnSave" OnClick="btnSave_Click" />
+                    </div>
 
-                      <asp:Button runat="server" ID="btnSave" OnClick="btnSave_Click" Text="保存" />
-
-                </div>
    
     

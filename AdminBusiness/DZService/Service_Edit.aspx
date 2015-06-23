@@ -8,7 +8,50 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <UC:ServiceEdit runat="server" />
+        <div class="mainContent clearfix">
+            <div class="leftContent" id="leftCont">
+                <div>
+                    <ul>
+                        <li><a href="../DZService"><i class="nav-btn side-btn-service"></i></a></li>
+                        <li><a href="../DZService/Service_Edit.aspx"><i class="nav-btn side-btn-serviceSet"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="rightContent" id="rightCont">
+                <div id="userInfoAreaid">
+                    <div class="serviceInfoArea">
+                        <div class="serviceInfoTilte">
+                            <span>服务等级</span>
+                        </div>
+                        <div class="headInfoArea">
+                            <div class="headImage">
+                                <img src="..\image\myshop\touxiangkuang_11.png" alt="头像" />
+                            </div>
+                            <div class="headInfo">
+                                <span class="ServiceShops">点助的服务店铺</span> <span class="InfoCompletetxt">信誉度</span>
+                                <div class="Servicexing">
+                                    <i class="icon service-icon-star"></i><i class="icon service-icon-star"></i><i class="icon service-icon-star">
+                                    </i><i class="icon service-icon-star"></i><i class="icon service-icon-star"></i>
+                                </div>
+                            </div>
+                            <div class="headEditImg">
+                                <span class="satisfaction">100%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-title">
+                    <span>添加服务信息</span>
+                </div>
+                <div class="serviceMain clearfix">
+                     <UC:ServiceEdit runat="server" />
+                    <div class="bottomArea">
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
       <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
@@ -57,12 +100,13 @@
                     console.log(businessSelet.eq(i).val());
                     businessvalue += "m/" + businessSelet.eq(i).val(); //获取商圈个段的code,以“/m”区分各字段
 
-                    businessNode += '<span>' + businessSelet.eq(i).get(0).options[businessSelet.eq(i).get(0).selectedIndex].title + '</span>'; //
+//                    businessNode += '<span>' + businessSelet.eq(i).get(0).options[businessSelet.eq(i).get(0).selectedIndex].title + '</span>';
+                    businessNode += ("<span>"  + businessSelet.eq(i).get(0).options[businessSelet.eq(i).get(0).selectedIndex].title + "&nbsp;" + "</span>");
                 } else {
                     break;
                 }
             }
-            $('#businiessSeletValue').val(businessvalue);
+            $('#hiBusinessAreaCode').val(businessvalue);
             businiessText.html(businessNode);
         });
 
@@ -78,21 +122,13 @@
             var checkedParentId = checkedItem.attr("parent_id");
 
             if (checked == true) {
-
-                //            console.log(checkedParentId);
                 createTypeBox($(that), checkedParentId, checkedText, v_level);
 
-                //            var checkedTextNode = "<span id=" + v_id + " level=" + level + " >" + checkedText + "</span>";
-
-                //            checkedShowBox.append(checkedTextNode);
             } else {
                 removeTypeBox($(that), checkedParentId, checkedText, v_level);
-                //            checkedShowBox.children('span').remove("#" + v_id + "");
             }
-            //        return checkedTextNode;
 
             function createTypeBox(that, p_id, text, level) {
-                //            var p_id = that.attr("parent_id");
                 console.log(level);
                 var printBox = checkedShowBox;
                 var TypeNodeBox = "<div v_id=" + v_id + ">" + text + "</div>";
@@ -120,7 +156,6 @@
                         break;
                     default:
                         break;
-                    //                    console.log("break");     
                 };
             };
 

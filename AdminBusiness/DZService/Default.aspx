@@ -15,7 +15,7 @@
             <div>
                 <ul>
                     <li><a href="../DZService"><i class="nav-btn side-btn-service"></i></a></li>
-                    <li><a href="../DZService/Edit.aspx"><i class="nav-btn side-btn-serviceSet"></i></a>
+                    <li><a href="../DZService/Service_Edit.aspx"><i class="nav-btn side-btn-serviceSet"></i></a>
                     </li>
                 </ul>
             </div>
@@ -59,7 +59,9 @@
                     </div>
                      
                 </div>
-                 <UC:ServiceEdit ID="ServiceEdit1" runat="server" />
+                <div class="serviceRightWrap">
+                    <UC:ServiceEdit ID="ServiceEdit1" runat="server" />
+                </div>
                 <div class="bottomArea">
                     <!--<input name="imageSave" type="image" id="imageSave" src="image/baocun_1.png" />-->
                     <!--<input name="imageCancel" type="image" id="imageCancel" src="image/baocun_2.png" />-->
