@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class DZService_Service_Edit : System.Web.UI.Page
+public partial class DZService_Service_Edit : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

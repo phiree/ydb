@@ -26,7 +26,7 @@ usage:---------------------------------
   //options go here
   });
 */
-(function ( $ ) {
+ 
 $.fn.TabSelection = function (options) {
 
 
@@ -171,4 +171,4 @@ $.fn.TabSelection = function (options) {
 
 
 }
-}( jQuery ));
+ 

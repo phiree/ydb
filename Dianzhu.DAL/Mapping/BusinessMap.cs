@@ -17,8 +17,6 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Description);
             Map(x => x.Email);
             Map(x => x.Phone);
-            
-
         }
     }
     public class BusinessMap : SubclassMap<Business>
@@ -36,7 +34,12 @@ namespace Dianzhu.DAL.Mapping
             HasMany<Area>(x => x.AreaServiceTo);
             Map(x => x.DateApply);
             Map(x => x.DateApproved);
+           
             HasMany<BusinessImage>(x => x.BusinessImages).Cascade.AllDeleteOrphan();
+            Map(x => x.ChargePersonIdCardNo);
+            Map(x => x.StaffAmount);
+            Map(x => x.ChargePersonIdCardType).CustomType<int>();
+            
         }
     }
     public class BusinessImageMap : ClassMap<BusinessImage>
