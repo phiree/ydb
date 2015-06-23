@@ -24,6 +24,11 @@ input,select,textarea {
 input {
     cursor: pointer;
 }
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
 /* 去掉 table cell 的边距并让其边重合 */
 table {
     border-collapse:collapse;
