@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="Stylesheet" href="css/base.css" type="text/css" />
     <link rel="Stylesheet" href="css/login_reg.css" type="text/css" />
 </head>
 <body>
