@@ -46,5 +46,9 @@ namespace Dianzhu.Model
         /// 是否启用
         /// </summary>
         public virtual bool Enabled { get; set; }
+        /// <summary>
+        /// 自留比例 百分比数,如20 代表20%
+        /// </summary>
+        public virtual int KeepPercent { get; set; }
     }
 }
