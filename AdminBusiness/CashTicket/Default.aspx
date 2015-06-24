@@ -9,8 +9,10 @@
 <asp:GridView runat="server" ID="gv">
     <Columns>
         <asp:HyperLinkField  Text="生成现金券"  DataNavigateUrlFields="Id" DataNavigateUrlFormatString="/CashTicket/Generator.aspx?templateid={0}" />
+        
     </Columns>
 
 </asp:GridView>
+ <a herf="CashTicketTemplateEdit.aspx">创建现金券</a>
 </asp:Content>
 

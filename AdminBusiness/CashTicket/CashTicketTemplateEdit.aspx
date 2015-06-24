@@ -2,9 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
-<asp:Content ID="css_holder" ContentPlaceHolderID="nav_active_css" runat="server">
-active
-</asp:Content>
+ 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <table>
 <thead>
