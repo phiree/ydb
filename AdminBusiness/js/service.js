@@ -4,6 +4,13 @@ var cityListObject = new BMapLib.CityList({ container: "businessCity" });
 map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
 map.enableScrollWheelZoom();
 
+
+//商圈缩略图
+var submap = new BMap.Map("businessMapSub");
+submap.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
+submap.disableDoubleClickZoom();
+submap.disableDragging();
+
 //    商圈设置
 $("#setBusiness").click(function (e) {
     $('#mapLightBox').lightbox_me({
@@ -12,26 +19,80 @@ $("#setBusiness").click(function (e) {
     e.preventDefault();
 });
 
-$('#confBusiness').click(function () {
-    var businessSelet = $('#businessCity').find('select');
-    var businiessText = $('#businessText');
-    var businessvalue = "";
-    var businessNode = "";
+var businessJson = "", //商圈JSON信息
+    provinceName = "", //省
+    cityName = "", //市
+    boroughName = "", //区
+    businessName = "";
 
-    for (var i = 0; i < businessSelet.length; i++) {
-        if (businessSelet.eq(i).val() != null) {
-            console.log(businessSelet.eq(i).val());
-            businessvalue += "m/" + businessSelet.eq(i).val(); //获取商圈个段的code,以“/m”区分各字段
-
-//                    businessNode += '<span>' + businessSelet.eq(i).get(0).options[businessSelet.eq(i).get(0).selectedIndex].title + '</span>';
-            businessNode += ("<span>"  + businessSelet.eq(i).get(0).options[businessSelet.eq(i).get(0).selectedIndex].title + "&nbsp;" + "</span>");
-        } else {
+cityListObject.addEventListener("cityclick",function(e){
+    switch( e.area_type ){
+        case 1 :
+            provinceName = e.area_name;
+            cityName = "", //重新选择省时，清空其他内容
+            boroughName = "",
+            businessName = ""
             break;
-        }
-    }
-    $('#hiBusinessAreaCode').val(businessvalue);
+        case 2 :
+            if ( e.area_code == 132 || e.area_code == 332  || e.area_code == 332 || e.area_code == 131 ) {
+                provinceName = cityName = e.area_name;
+            } else {
+                cityName = e.area_name;
+            };
+            break;
+        case 3 :
+            boroughName = e.area_name;
+            break;
+        case 10 :
+            businessName = e.area_name;
+            break;
+        default :
+            console.log("error");
+    };
+
+    if (e.geo) {
+        submap.panTo(e.geo);
+    } else {
+        return
+    };
+
+    console.log(e.geo);
+
+    businessJson = {
+        "provinceName" : provinceName,
+        "cityName" : cityName,
+        "boroughName" : boroughName,
+        "businessName" : businessName,
+        "businessLocLng" : e.geo.lng,
+        "businessLocLat" : e.geo.lat
+    };
+
+});
+
+
+$('#confBusiness').click(function () {
+    $('#hiBusinessAreaCode').val(JSON.stringify(businessJson));
+
+    var businiessText = $('#businessText');
+    var businessNode = "<span>" + businessJson.provinceName + "</span><span>" + businessJson.cityName + "</span><span>" + businessJson.boroughName + "</span><span>" + businessJson.businessName + "</span>"
     businiessText.html(businessNode);
 });
+
+//信息载入是读取地图信息
+(function readBusinessLoc() {
+    if ( $('#hiBusinessAreaCode').val() ){
+        var readBusinessJson = jQuery.parseJSON($('#hiBusinessAreaCode').val());
+        var subMapPoint = new BMap.Point();
+            subMapPoint.lng = readBusinessJson.businessLocLng;
+            subMapPoint.lat = readBusinessJson.businessLocLat;
+        submap.panTo(subMapPoint);
+
+        var businessNode = "<span>" + readBusinessJson.provinceName + "</span><span>" + readBusinessJson.cityName + "</span><span>" + readBusinessJson.boroughName + "</span><span>" + readBusinessJson.businessName + "</span>"
+        var businiessText = $('#businessText');
+        businiessText.html(businessNode);
+    }
+})();
+
 
 //服务选择
 $(function () {

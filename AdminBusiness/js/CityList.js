@@ -819,4 +819,5 @@ var BMapLib = window.BMapLib = BMapLib || {};
         selectArea(1, provinceDom, 12);
     }
 
+
 })();

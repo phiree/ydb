@@ -336,17 +336,22 @@
     padding: 5px 0;
 }
 
-.setLocationMap {
-    width: 200px;
-    height: 150px;
-    background: url("../image/service/img_map.png") no-repeat center;
-}
+/*.setLocationMap {*/
+    /*width: 200px;*/
+    /*height: 150px;*/
+    /*background: url("../image/service/img_map.png") no-repeat center;*/
+/*}*/
 
 .business-text {
     padding: 10px;
     background: #63c5ce;
     color: #fff;
     border-radius: 5px;
+    height: 17px;
+}
+
+.business-text span {
+    margin-right: 5px;
 }
 
 #businessMap {
@@ -362,6 +367,11 @@
 
 .mapMain {
     position: absolute;
+}
+
+.mapSub {
+    width: 200px;
+    height: 150px;
 }
 
 .mapCity {
