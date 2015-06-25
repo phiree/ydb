@@ -19,9 +19,9 @@ ul li{ list-style:none;}
 .persion-see img{ margin-top:10px;}
 .per-name{ padding-top:10px;text-align:left; font-size:16px; overflow:hidden;}
 .per-info{  text-align:left; font-size:12px; overflow:hidden;}
-.per-sex{ background:url(../images/per-sex.png) no-repeat;}
-.per-age{ background:url(../images/per-age.png) no-repeat;}
-.per-work-age{ background:url(../images/per-work-age.png) no-repeat;}
+.per-sex{ background:url(/m/images/per-sex.png) no-repeat;}
+.per-age{ background:url(/m/images/per-age.png) no-repeat;}
+.per-work-age{ background:url(/m/images/per-work-age.png) no-repeat;}
 .per-info ul li{ float:left; height:14px; line-height:14px; padding-left:14px; margin-top:5px; margin-bottom:5px;}
 .per-list a{color:#58789a;}
 .per-list a:hover{color:#58789a;}

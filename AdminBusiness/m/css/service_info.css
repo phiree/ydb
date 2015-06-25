@@ -15,10 +15,10 @@
 .ul-left3{ float:left;margin-right:10px;}
 .ul-left2{ float:left;height:80px; line-height:80px;margin-right:10px;}
 .ul-right{ float:right; position:relative;}
-.li-inco{ background:url(../images/ul-jt.png) no-repeat; width:11px; height:42px; margin-left:8px;}
-.li-inco2{ background:url(../images/ul-jt2.png) no-repeat; width:20px; height:42px; margin-left:8px;}
+.li-inco{ background:url(/m/images/ul-jt.png) no-repeat; width:11px; height:42px; margin-left:8px;}
+.li-inco2{ background:url(/m/images/ul-jt2.png) no-repeat; width:20px; height:42px; margin-left:8px;}
 .ul-edit li{ float:left; margin-left:10px;}
-.li-del a{height:20px;background:url(../images/del-inco.png) no-repeat; padding-left:25px;}
+.li-del a{height:20px;background:url(/m/images/del-inco.png) no-repeat; padding-left:25px;}
 .hrefClass{ color:#039;}
-.li-edit a{height:20px; background:url(../images/edit-inco.png) no-repeat; padding-left:25px;}
+.li-edit a{height:20px; background:url(/m/images/edit-inco.png) no-repeat; padding-left:25px;}
 .map-div{ width:120px; height:120px; border:#CCC solid 1px; margin-top:10px; margin-bottom:10px;}

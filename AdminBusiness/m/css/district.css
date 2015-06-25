@@ -15,8 +15,8 @@ dis-panel-a-c{overflow:hidden;}
 .volume-month-li-c{background:#FFF;overflow:hidden; }
 .v-m-li-line{ height:1px;border-bottom:#a7b8ca dashed 1px; margin-left:5px; margin-right:5px;}
 .v-m-li-top{overflow:hidden; margin-top:10px; font-size:16px; padding:5px;}
-.v-m-li-top-left{ float:left; background:url(../images/volume-left-inco.png) no-repeat; padding-left:20px; line-height:20px;}
-.v-m-li-top-right{ float:right;  background:url(../images/volume-right-inco.png) no-repeat; padding-left:25px; line-height:18px;}
+.v-m-li-top-left{ float:left; background:url(/m/images/volume-left-inco.png) no-repeat; padding-left:20px; line-height:20px;}
+.v-m-li-top-right{ float:right;  background:url(/m/images/volume-right-inco.png) no-repeat; padding-left:25px; line-height:18px;}
 .v-m-td{ width:15px;}
 .v-m-li-top-right td{ margin:0; padding:0;}
 .v-m-li-d-c{overflow:hidden; margin-top:10px;font-size:14px; text-align:center;}
