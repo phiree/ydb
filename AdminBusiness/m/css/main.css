@@ -4,7 +4,7 @@
 	background-image: url(images/my-more.png);
 }
 
-.ui-icon-my-more2 .ui-icon {background:url(images/my-more.png) no-repeat 0 50%; background-size: 18px 18px;
+.ui-icon-my-more2 .ui-icon {background:url(/m/images/my-more.png) no-repeat 0 50%; background-size: 18px 18px;
            border-radius: 0; /*图标形态，0=方形，不设置就是默认的圆形*/}
 .myhead{ width:100%; background:#36F;}
 .my-l-d{ float:left; background:#900; width:10%;}
@@ -26,11 +26,11 @@
 .panel-ul{color:#7893b0; margin:0; padding:0;}
 
 .s-inco-style{padding-left:20px; margin-top:10px; margin-bottom:10px;}
-.s-time{ background:url(../images/s-time.jpg) no-repeat; }
-.s-addr{background:url(../images/s-addr.jpg) no-repeat;}
-.s-per{background:url(../images/s-per.jpg) no-repeat; padding-top:3px;}
-.s-order{background:url(../images/s-order.jpg) no-repeat;padding-top:3px;}
-.s-tel{ background:url(../images/s-tel.jpg) no-repeat; height:33px; padding-left:35px; padding-top:2px; color:#60b0be; font-size:18px; }
+.s-time{ background:url(/m/images/s-time.jpg) no-repeat; }
+.s-addr{background:url(/m/images/s-addr.jpg) no-repeat;}
+.s-per{background:url(/m/images/s-per.jpg) no-repeat; padding-top:3px;}
+.s-order{background:url(/m/images/s-order.jpg) no-repeat;padding-top:3px;}
+.s-tel{ background:url(/m/images/s-tel.jpg) no-repeat; height:33px; padding-left:35px; padding-top:2px; color:#60b0be; font-size:18px; }
 .panel-bottom{ border-top:#f3f2f1 solid 1px; margin-top:2px; padding-top:10px;}
 .m-f-div{ height:18px; background:#cadbec;}
 .order-s-d{ height:55px; padding-top:5px; padding-bottom:5px; background:#f0f5fa;}
@@ -54,7 +54,7 @@
 .lefe-bottom ul li{ height:40px; margin-top:5px; margin-bottom:5px; padding-left:30px; line-height:40px;}
 .lefe-bottom ul li a{ height:36px;line-height:36px;display:block;padding-left:40px;}
 
-.message-btn a{ background:url(../images/messaeg-inco2.jpg) no-repeat;}
+.message-btn a{ background:url(/m/images/messaeg-inco2.jpg) no-repeat;}
 .my-ui-btn-active{ background:#31b6fc;}
 .my-order-btn{ background:#f6fafe; padding:5px; border:#dde8f2 solid 1px; border-radius:3px; color:#6f8ba9; height:20px; line-height:20px; }
 

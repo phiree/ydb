@@ -19,6 +19,12 @@ function saveInputVal(){
 	
 	}
 }
+function saveprice() {
+    $("#spanUnitPrice").text($("tbxUnitPrice").val());
+    $("#spanChargeUnit").text(
+     $('input[name=rblChargeUnit]:checked').val()
+    );
+}
 function goToRightPanel(iName,tName){
 	
 	hiddenName=iName;
