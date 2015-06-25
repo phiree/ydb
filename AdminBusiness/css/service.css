@@ -169,11 +169,22 @@
 }
 
 .serviceTabsItem .radioCk {
-    background : #63c5ce;
+    background : #ffa81f;
     color : #fff;
 }
+#setSerTypeShow {
+    overflow: hidden;
+}
+/*end*/
 
 .business-radioCk{
+    padding: 5px;
+    color: #fff;
+    background: #ffa81f;
+    border-radius: 5px;
+}
+
+.business-radioCf {
     padding: 5px;
     color: #fff;
     background: #63c5ce;

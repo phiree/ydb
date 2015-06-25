@@ -25,11 +25,11 @@
                                             <div>
                                                 <div>
                                                     <div class="m-b10">
-                                                        <input id="setSerType" class="ser-btn-SerType" type="button" value="选择服务信息" /><input type="hidden" runat="server" clientidmode="Static" id="hiTypeId" />
+                                                        <input id="setSerType" class="ser-btn-SerType" type="button" value="请选择服务信息" /><input type="hidden" runat="server" clientidmode="Static" id="hiTypeId" />
                                                         <div id="radioShowBox" class="d-inb"></div>
                                                     </div>
                                                     <div id="setSerTypeShow" >
-                                                        <asp:Label CssClass="business-radioCk" runat="server" ID="lblSelectedType"></asp:Label>
+                                                        <asp:Label CssClass="business-radioCf d-inb" runat="server" ID="lblSelectedType"></asp:Label>
                                                     </div>
                                                 </div>
                                                 <div id="SerlightBox" class="serviceTabs dis-n">
