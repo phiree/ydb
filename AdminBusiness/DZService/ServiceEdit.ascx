@@ -24,12 +24,13 @@
                                         <div class="clearfix">
                                             <div>
                                                 <div>
-                                                    <input id="setSerType" class="ser-btn-SerType" type="button" value="选择服务信息" /><input type="hidden" runat="server" clientidmode="Static" id="hiTypeId" />
-                                                    <div id="radioShowBox" class="d-inb"></div>
-                                                    <div id="setSerTypeShow" >
-                                                    <asp:Label runat="server" ID="lblSelectedType"></asp:Label>
+                                                    <div class="m-b10">
+                                                        <input id="setSerType" class="ser-btn-SerType" type="button" value="请选择服务信息" /><input type="hidden" runat="server" clientidmode="Static" id="hiTypeId" />
+                                                        <div id="radioShowBox" class="d-inb"></div>
                                                     </div>
-
+                                                    <div id="setSerTypeShow" >
+                                                        <asp:Label CssClass="business-radioCf d-inb" runat="server" ID="lblSelectedType"></asp:Label>
+                                                    </div>
                                                 </div>
                                                 <div id="SerlightBox" class="serviceTabs dis-n">
                                                     <div id="tabsServiceType">
@@ -66,6 +67,8 @@
                                     <div class="clearfix">
                                         <div class="fl clearfix">
                                             <div id="setBusiness" class="setLocationMap">
+                                                <div id="businessMapSub" class="mapSub">
+                                                                                </div>
                                             </div>
                                             <input id="hiBusinessAreaCode" runat="server" clientidmode="Static" type="hidden">
                                             <!--<p id="businessText"></p>-->
@@ -106,7 +109,7 @@
                                                 <i class="icon service-icon-serIntro"></i>服务单价</p>
                                             <div>
                                                 <asp:TextBox CssClass="service-input-mid m-r10" runat="server" ID="tbxUnitPrice"></asp:TextBox>元&nbsp;/&nbsp;每(
-                                                 <asp:RadioButtonList runat="server" ID="rblChargeUnit">  
+                                                 <asp:RadioButtonList CssClass="serviceDataRadio d-inb" runat="server" ID="rblChargeUnit">
                                                     <asp:ListItem  Selected="True" Value="0" Text="小时"></asp:ListItem>
                                                     <asp:ListItem Value="1" Text="天"></asp:ListItem>
                                                     <asp:ListItem Value="2" Text="次"></asp:ListItem>
