@@ -16,6 +16,10 @@ public class BasePage:System.Web.UI.Page
         get { return currentUser; }
          
     }
+    public Business CurrentBusiness
+    {
+        get { return ((BusinessUser)CurrentUser).BelongTo; }
+    }
     
     DZMembershipProvider mp = new DZMembershipProvider();
 	public BasePage()
@@ -26,6 +30,7 @@ public class BasePage:System.Web.UI.Page
 		//TODO: 在此处添加构造函数逻辑
 		//
 	}
+    //如果没有登录,则跳转至登录界面
     protected override void OnLoad(EventArgs e)
     {
         if (currentUser == null)

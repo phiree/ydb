@@ -22,6 +22,10 @@ namespace Dianzhu.BLL
         {
             return iDAL.GetMonthRecord(business, year, month);
         }
+        public CashTicketCreateRecord GetOne(Guid id)
+        {
+            return iDAL.DALBase.GetOne(id);
+        }
 
         private bool CheckRule(Business business,int year,int month,int amountCreated, CashTicketTemplate cashticketTemplate, out string message)
         {
