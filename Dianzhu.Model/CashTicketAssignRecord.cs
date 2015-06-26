@@ -14,13 +14,18 @@ namespace Dianzhu.Model
     {
         public CashTicketAssignRecord()
         {
-            
+            AssignDetail = new List<CashTIcketAssignDetail>();
         }
         public virtual Guid Id { get; set; }
         /// <summary>
-        /// 分派时间
+        /// 分派开始时间
         /// </summary>
-        public virtual DateTime TimeAssigned { get; set; }
+        public virtual DateTime TimeBegin { get; set; }
+
+        /// <summary>
+        /// 分派结束时间
+        /// </summary>
+        public virtual DateTime TimeEnd { get; set; }
         /// <summary>
         /// 商家总数
         /// </summary>
@@ -29,6 +34,12 @@ namespace Dianzhu.Model
         ///现金券总数
         /// </summary>
         public virtual int  AmountCashTicket{ get; set; }
+
+        /// <summary>
+        /// 分派结果
+        /// </summary>
+        public virtual bool IsSuccess { get; set; }
+        public virtual IList<CashTIcketAssignDetail> AssignDetail { get; set; }
         
        
         

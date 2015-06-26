@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Area.cs" />
+    <Compile Include="CashTIcketAssignDetail.cs" />
     <Compile Include="CashTicketTemplate.cs" />
     <Compile Include="DZService.cs" />
     <Compile Include="Enums.cs" />

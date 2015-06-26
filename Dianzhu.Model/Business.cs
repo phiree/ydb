@@ -37,6 +37,12 @@ namespace Dianzhu.Model
     /// </summary>
     public class Business : Business_Abs
     {
+        public Business()
+        {
+            AreaServiceTo = new List<Area>();
+            BusinessImages = new List<BusinessImage>();
+            ServiceType = new List<ServiceType>();
+        }
         /// <summary>
         ///  所在辖区
         /// </summary>
@@ -142,6 +148,9 @@ namespace Dianzhu.Model
             }
 
         }
+        /// <summary>
+        /// 店铺图片展示
+        /// </summary>
         public virtual IList<BusinessImage> BusinessShows
         {
             get
@@ -149,6 +158,84 @@ namespace Dianzhu.Model
                 return BusinessImages.Where(x => x.ImageType == Enums.ImageType.Business_Show).ToList();
             }
 
+        }
+        /// <summary>
+        /// 资料完成度
+        /// </summary>
+        public virtual int CompetePercent
+        {
+            get {
+                int percent = 0;
+                if (!string.IsNullOrEmpty(this.Address))
+                {
+                    percent += 7;
+                }
+                if ( this.AreaBelongTo!=null)
+                {
+                    percent += 7;
+                }
+                if (this.AreaServiceTo.Count>0)
+                {
+                    percent += 7;
+                }
+                if (this.BusinessImages.Count>0)
+                {
+                    percent += 7;
+                }
+                if (this.BusinessLicence!=null)//5
+                {
+                    percent += 6;
+                }
+                if (this.BusinessShows.Count>0)
+                {
+                    percent += 6;
+                }
+                if (!string.IsNullOrEmpty(this.Certification))
+                {
+                    percent += 6;
+                }
+                if (this.ChargePersonIdCard!=null)
+                {
+                    percent += 6;
+                }
+                if (!string.IsNullOrEmpty(this.ChargePersonIdCardNo))
+                {
+                    percent += 6;
+                }
+                if (!string.IsNullOrEmpty(this.Contact))//10
+                {
+                    percent += 6;
+                }
+                if (!string.IsNullOrEmpty(this.Description))
+                {
+                    percent += 6;
+                }
+
+                if (!string.IsNullOrEmpty(this.Email))
+                {
+                    percent += 6;
+                }
+
+                if (!string.IsNullOrEmpty(this.Name))
+                {
+                    percent += 6;
+                }
+                if (!string.IsNullOrEmpty(this.Phone))
+                {
+                    percent += 6;
+                }
+                if (this.ServiceType.Count>0)//15
+                {
+                    percent += 6;
+                }
+                if (this.WorkingYears>0)
+                {
+                    percent += 6;
+                }
+
+
+                return percent;
+            }
         }
     }
 

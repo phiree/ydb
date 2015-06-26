@@ -4,14 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title></title>
-    <link rel="Stylesheet" href="css/login_reg.css" type="text/css" />
-    <link rel="Stylesheet" href="css/bass.css" type="text/css" />
-    <link rel="Stylesheet" href="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/base/jquery.ui.all.css" type="text/css" />
-<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/jquery.js"></script>
-<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
-<script src="js/InlineTip.js" type="text/javascript"></script>
-<script src="js/login_reg.js" type="text/javascript"></script>
-
+    <link rel="Stylesheet" href="/css/login_reg.css" type="text/css" />
+ 
 </head>
 <body>
     <div class="wrap">
@@ -58,17 +52,20 @@
                                 <!--</p>-->
                                 
                                 <div class="emailBox">
-                                    <asp:TextBox runat="server" ID="tbxUserName" ClientIDMode="Static"></asp:TextBox>
-                                    <i id="emailCheck" class="checkIcon"></i>
+                                    <asp:TextBox runat="server"  ID="tbxUserName" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
+                                     <i id="emailCheck" class="checkIcon"></i>
                                 </div>
-                                
+                                <div style="color:red;"><asp:RequiredFieldValidator Display="Dynamic" ID="rfvUserName" runat="server" ErrorMessage="必填" ControlToValidate="tbxUserName"></asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="revUserName" Display="Dynamic" ControlToValidate="tbxUserName"
+                                     runat="server"  ForeColor="Red" ValidationExpression="^1\d{10}$|^.+@.+\..+$" ErrorMessage="格式有误">
+                                     </asp:RegularExpressionValidator></div>
                                 
                                 
                                 <p class="agree">
                                     <input id="agree" name="agree" type="checkbox" /><label class="v-m" for="agree">我已经仔细阅读过<a
                                         class="agreeLIC-a" href="#">点助服务协议</a>,并同意所有条款</label></p>
                                 <div class="buttonBox">
-                                    <input id="phoneSubmit" type="button" class="regBtn" value="" />
+                                    <input id="phoneSubmit"  type="button" class="regBtn" value="" />
                                     <!--<p class="savePass" ><input id="savePass" type="checkbox"/><label for="savePass">记住密码</label></p>-->
                                 </div>
                                 <!--<iframe name="uploadForm1" ></iframe>-->
@@ -124,4 +121,8 @@
         </div>
     </div>
 </body>
+<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.10.2.js"></script>
+
+<script src="/js/InlineTip.js" type="text/javascript"></script>
+<script src="/js/login_reg.js" type="text/javascript"></script>
 </html>

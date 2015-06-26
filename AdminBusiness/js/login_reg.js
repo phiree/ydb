@@ -19,21 +19,23 @@ $(document).ready(function () {
     var showCheck = function (objInput, icon) {
         objInput.blur(function () {
             var val = objInput.val();
-            var transData = { num: [val] };
+            var transData = { username: val };
 
             if (objInput.val() != '') {
                 $.ajax({
                     type: 'GET',
                     async: false,
-                    url: "http://localhost/test.php?",
+                    url: "/AjaxService/is_username_duplicate.ashx",
                     data: transData,
-                    dataType: 'jsonp',
+                    
                     //            jsonp:"callback",
                     success: function (json) {//后台返回json,json=1用户不存在,json=0用户存在
+                        if (json == "N") json = 1;
+                        else if (json == "Y") json = 0;
                         chkIconAnm(false, json, icon);
                     },
-                    error: function () {
-                        alert('error!');
+                    error: function (e) {
+                        alert('error!'+e);
                     }
                 });
             } else {
@@ -42,8 +44,7 @@ $(document).ready(function () {
             }
         });
     };
-    showCheck($('#phone'), $('#phoneCheck'));
-    showCheck($('#email'), $('#emailCheck'));
+    showCheck($('#tbxUserName'), $('#phoneCheck'));
 
     //密码验证
     var passCheck = function (psw, pswConf, pswChk, pswConfChk) {
@@ -76,7 +77,7 @@ $(document).ready(function () {
     passCheck($('#regPs'), $('#regPsConf'), $('#psChk'), $('#psConfChk'));
 
     //注册名选择方法
-    
+
     var selectMeth = function () {
         //        alert($('#regMeth').val());
         var resetMeth = function (objInput, icon) {
@@ -114,7 +115,7 @@ $(document).ready(function () {
                 $('.main-psw').show();
             }
         )
- 
+
     }
     regChang();
 

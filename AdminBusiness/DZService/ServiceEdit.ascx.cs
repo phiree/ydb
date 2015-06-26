@@ -20,21 +20,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     private bool IsNew { get { return ServiceId == Guid.Empty; } }
 
     public DZService CurrentService = new DZService();//当前的服务 对象.
-    ServiceType _servicetype;
-    public ServiceType ServiceType
-    {
-        get
-        {
-            if (_servicetype == null)
-            {
-                Guid typeId = new Guid(hiTypeId.Value);
-                _servicetype = bllServiceType.GetOne(typeId);
-            }
-            return _servicetype;
-        }
-        set { _servicetype = value; }
-    }
-
+    ServiceType ServiceType;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -106,6 +92,8 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.Description = tbxDescription.Text;
 
         CurrentService.Business = ((BusinessUser)((BasePage)this.Page).CurrentUser).BelongTo;
+        Guid typeId = new Guid(hiTypeId.Value);
+        ServiceType = bllServiceType.GetOne(typeId);
         CurrentService.ServiceType = ServiceType;
         IList<ServicePropertyValue> values = new List<ServicePropertyValue>();
        
@@ -130,6 +118,6 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     {
         UpdateForm();
         bllService.SaveOrUpdate(CurrentService);
-        PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
+        Response.Redirect(Request.RawUrl);
     }
 }

@@ -6,6 +6,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:DropDownList  ID="ddlTemplate" runat="server">
+</asp:DropDownList>
 <asp:TextBox runat="server" id="tbxTotal"></asp:TextBox>
 <asp:Button runat="server"  ID="btnGenerate" OnClick="btnGenerate_Click" Text="确定生成"/>
 </asp:Content>
