@@ -2,9 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{65578E32-3BC2-4470-8637-6DD1074E4603}"
-	ProjectSection(SolutionItems) = preProject
-		docs\商圈原型.rp = docs\商圈原型.rp
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "needs", "needs", "{9FAC3956-8A8F-439C-A2FB-50AEA11792B3}"
 EndProject

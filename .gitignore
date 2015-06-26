@@ -1,4 +1,5 @@
 #Phiree Define#
+/config/connectionStrings.config
 /cdn
 .idea/
 ## Ignore Visual Studio temporary files, build results, and
@@ -198,3 +199,4 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 cdn.zip
+AdminBusiness/config/connectionStrings.config

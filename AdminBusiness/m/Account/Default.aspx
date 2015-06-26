@@ -2,7 +2,7 @@
     CodeFile="~/Account/default.aspx.cs" Inherits="Account_Edit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <link rel="stylesheet" href="css/myshop.css" />
+    <link rel="stylesheet" href="/m/css/myshop.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     
@@ -10,14 +10,14 @@
             <a data-role="none" href="#left-panel" data-iconpos="notext" data-shadow="false"
                 data-iconshadow="false">
                 <div style="width: 42.375px; height: 42.375px;">
-                    <img src="images/my-more.png" /></div>
+                    <img src="/m/images/my-more.png" /></div>
             </a>
             <h1 style="color: #FFF;">
-                <span style="background: url(images/my-o-icon2.png) no-repeat; padding-left: 25px;">
+                <span style="background: url(/m/images/my-o-icon2.png) no-repeat; padding-left: 25px;">
                     我的店铺</span></h1>
             <a href="#" data-theme="d" data-icon="arrow-l" data-iconpos="notext" data-shadow="false"
                 data-iconshadow="false" data-role="none">
-                <img src="images/my-r-icon.png" /></a>
+                <img src="/m/images/my-r-icon.png" /></a>
             <nav data-role="navbar" data-theme="myb">
         <ul>
          <li><a href="myshop.html" target="_parent" data-theme="mytile-active">店铺信息</a></li>

@@ -8,6 +8,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <!--page-->
     <!--header-->
+   
     <div data-role="header" style="background: #4b6c8b; border: none;">
         <a data-role="none" href="#left-panel" data-iconpos="notext" data-shadow="false"
             data-iconshadow="false">
@@ -20,13 +21,15 @@
         <a href="#" data-theme="d" data-icon="arrow-l" data-iconpos="notext" data-shadow="false"
             data-iconshadow="false" data-role="none">
             <img src="/m/images/my-r-icon.png" /></a>
+            
         <nav data-role="navbar" data-theme="myb">
         <ul>
-         <li><a href="#" target="_parent" data-theme="mytile">信息管理</a></li>
-          <li><a href="#" target="_parent" data-theme="mytile-active">信息设置</a></li>
+         <li><a href="/m/DZService/" target="_parent" data-theme="mytile">信息管理</a></li>
+          <li><a href="/m/DZService/Service_Edit.aspx" target="_parent" data-theme="mytile-active">信息设置</a></li>
           </ul>
      </nav>
     </div> 
+    
     <!--/header-->
     <!--customer control--> 
     <UC:ServiceEdit runat="server" ID="UC_ServiceEdit" />
