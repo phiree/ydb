@@ -45,7 +45,7 @@ public partial class CashTicket_Generator : BasePage
         Guid templateId=new Guid(ddlTemplate.SelectedValue);
         CashTicketTemplate cashTicketTemplate=bllCashTicketTemplate.GetOne(templateId);
         string result=  bllcashticket.CreateBatch(businessuser.BelongTo, Convert.ToInt32(tbxTotal.Text.Trim()), cashTicketTemplate);
-        Response.Write(result);
+        Response.Write("<p style='color:red'>"+result+"</p>");
 
     }
 }

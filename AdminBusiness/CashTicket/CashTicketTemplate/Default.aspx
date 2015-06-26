@@ -8,7 +8,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <asp:GridView runat="server" ID="gv">
     <Columns>
-        <asp:HyperLinkField  Text="生成现金券"  DataNavigateUrlFields="Id" DataNavigateUrlFormatString="/CashTicket/Generator.aspx?templateid={0}" />
+        <asp:HyperLinkField  Text="生成现金券"  DataNavigateUrlFields="Id" DataNavigateUrlFormatString="/CashTicket/Generator/Generator.aspx?templateid={0}" />
         
     </Columns>
 
