@@ -1,5 +1,5 @@
 #Phiree Define#
-config/connectionStrings.config
+/config/connectionStrings.config
 /cdn
 .idea/
 ## Ignore Visual Studio temporary files, build results, and
