@@ -8,8 +8,16 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 public partial class business_detail : System.Web.UI.Page
 {
+    Business b;
+    BLLBusiness bllBusiness = new BLLBusiness();
     protected void Page_Load(object sender, EventArgs e)
     {
+        string paramId = Request.Params["id"];
+        if (!string.IsNullOrEmpty(paramId))
+        {
+          
+            b = bllBusiness.GetOne(new Guid(paramId));
+        }
         if (!IsPostBack)
         {
             BindData();
@@ -17,17 +25,29 @@ public partial class business_detail : System.Web.UI.Page
     }
     private void BindData()
     {
-        string paramId = Request.Params["id"];
-        if (!string.IsNullOrEmpty(paramId))
-        {
-            BLLBusiness bllBusiness = new BLLBusiness();
-
-            DetailsView1.DataSource = new List<Business> { bllBusiness.GetOne(new Guid(paramId)) };
+      
+            DetailsView1.DataSource = new List<Business> { b };
             DetailsView1.DataBind();
-        }
-        else { 
-            
-        }
+            BindUI(b);
+        
+         
 
+    }
+    private void BindUI(Business b)
+    {
+        if (b.IsApplyApproved)
+        {
+            btnApprove.Text = "已认证. 点击取消认证";
+        }
+        else
+        {
+            btnApprove.Text = "未认证通过. 点击通过认证.";
+        }
+    }
+    protected void btnApprove_Click(object sender, EventArgs e)
+    {
+        b.IsApplyApproved = !b.IsApplyApproved;
+        bllBusiness.Updte(b);
+        PHSuit.Notification.Show(Page, "", "操作成功", Request.RawUrl);
     }
 }
