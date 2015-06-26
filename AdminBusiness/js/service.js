@@ -7,17 +7,31 @@ map.enableScrollWheelZoom();
 
 //商圈缩略图
 var submap = new BMap.Map("businessMapSub");
-submap.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
+submap.centerAndZoom(new BMap.Point(116.404, 39.915), 10);
 submap.disableDoubleClickZoom();
 submap.disableDragging();
+
+
+//ip定位
+var myCity = new BMap.LocalCity();
+myCity.get(function(result){
+    submap.panTo(result.center);
+});
 
 //    商圈设置
 $("#setBusiness").click(function (e) {
     $('#mapLightBox').lightbox_me({
-        centered: true
+        centered: true,
+        onLoad : function(){
+            myCity.get(function(result){
+                map.panTo(result.center);
+            });
+        }
     });
+
     e.preventDefault();
 });
+
 
 var businessJson = "", //商圈JSON信息
     provinceName = "", //省
