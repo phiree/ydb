@@ -83,5 +83,6 @@
     </div>
 </body>
 <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/jquery.js"></script>
-<script src="js/login_reg.js" type="text/javascript"></script>
+<script src="/js/InlineTip.js" type="text/javascript"></script>
+<script src="/js/login_reg.js" type="text/javascript"></script>
 </html>
