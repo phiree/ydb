@@ -26,6 +26,12 @@ ul li{ list-style:none;}
 .per-list a{color:#58789a;}
 .per-list a:hover{color:#58789a;}
 .m-top{ margin-top:8px; display:block;}
+
+.maskdiv{width:100%; height:100%; margin:0 auto; z-index:5; position:fixed; background:rgba(0, 0, 0, 0.52) none repeat scroll 0% 0%; opacity:1;display:none; }
+.maskContent{ background:#f2f5fb; overflow:hidden; margin-top:60px ; padding-bottom:10px; }
+.maskC_top{padding:10px; color:#617e9c; border-bottom:#cadbec solid 1px; font-size:15px;}
+.maskC_main{padding:10px;}
+.mask_li{ float:left; margin-right:10px;}
 .my-li-style{
 	height:33px; 
 	padding:0 15px;
@@ -198,5 +204,6 @@ html head + body .ui-btn.ui-btn-mytile-active:visited{
 	text-shadow:none;
 	
 }
+
 	
 

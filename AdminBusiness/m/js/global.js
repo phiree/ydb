@@ -94,6 +94,7 @@ function getSelectVal(selectID,targetID){
 
 }
 
+
 $(document).ready(function () {
     	       $('.input-file-btn').change(function () {
                 var imgObjPreview = $(this).parent().siblings(".input-file-pre").get(0);
@@ -107,4 +108,5 @@ $(document).ready(function () {
                
                 return true;
             })
-});
+        });
+
