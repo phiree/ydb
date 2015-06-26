@@ -43,9 +43,9 @@
                                 资料完成程度</p>
                             <div class="InfoPercentage">
                                 <div class="InfoComplete">
-                                    <span class="progress"></span>
+                                    <span  style='width:<%=b.CompetePercent %>%' class="progress"></span>
                                 </div>
-                                <span class="completePercentage">90%</span>
+                                <span class="completePercentage"><%=b.CompetePercent %>%</span>
                             </div>
                         </div>
                         <div class="headEditImg">
@@ -119,7 +119,7 @@
                                     <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                         <ItemTemplate>
                                             <div class="download-img-pre fl">
-                                                <asp:ImageButton CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                <asp:ImageButton OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
                                                     ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                 <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                     <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'

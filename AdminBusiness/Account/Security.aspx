@@ -29,13 +29,13 @@
                         <img src="../image/myshop/touxiangkuang_11.png" alt="头像"/>
                     </div>
                     <div class="headInfo">
-                        <p><input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="inputShopName" /></p>
+                        <h3 style="margin-top:15px;"><%=CurrentBusiness.Name %></h3>
                         <p class="InfoCompletetxt">资料完成程度</p>
                         <div class="InfoPercentage">
                             <div class="InfoComplete">
-                                <span class="progress"></span>
+                                <span class="progress" style="width:<%=CurrentBusiness.CompetePercent%>%" ></span>
                             </div>
-                            <span class="completePercentage">100%</span>
+                            <span class="completePercentage"> <%=CurrentBusiness.CompetePercent%>%</span>
                         </div>
                     </div>
                     <div class="headEditImg">
@@ -51,9 +51,9 @@
                     <div class="secret-m-title t-1">基础信息</div>
                     <div class="secret-detail">
                         <div><span class="secret-d-t">登录账号&nbsp;:</span><span><%=CurrentUser.UserName%></span></div>
-                        <div><span class="secret-d-t">手机号码&nbsp;:</span><p class="secret-d-a d-inb">XXXXXX</p><a href="">更换号码</a></div>
-                        <div><span class="secret-d-t">绑定邮箱&nbsp;:</span><p class="secret-d-a d-inb">XXXXXX</p><a href="">更换邮箱</a></div>
-                        <div><span class="secret-d-t">上次登陆&nbsp;:</span><span>XXXX年XX月XX日</span><span class="m-l20">14:00</span></div>
+                        <div><span class="secret-d-t">手机号码&nbsp;:</span><p class="secret-d-a d-inb"><%=CurrentBusiness.Phone%></p><a href="default.aspx">更换号码</a></div>
+                        <div><span class="secret-d-t">绑定邮箱&nbsp;:</span><p class="secret-d-a d-inb"><%=CurrentBusiness.Email%></p><a href="default.aspx">更换邮箱</a></div>
+                        <div><span class="secret-d-t">上次登陆&nbsp;:</span><span><%=CurrentUser.LastLoginTime.ToString("yyyy年MM月dd日 HH:mm:ss")%></span> </div>
                     </div>
                 </div>
                 <div class="secret-m secert-info">
@@ -110,6 +110,7 @@
                         TextBoxStyle-CssClass="CPTextBox"
                         ChangePasswordFailureText=""
                         SuccessText="密码修改成功"
+                          
                         
                         >
                         <SuccessTemplate>
@@ -142,59 +143,7 @@
 <script type="text/javascript">
     var changecontinueBtn = $('#ContentPlaceHolder1_ChangePassword1_ChangePasswordContainerID_ChangePasswordImageButton')
 
-
-//
-//    changePass.controller("changePass",function($scope){
-//        $scope.CPassSuccess = true;
-//        $scope.CPassNext = function(){
-//            $scope.CPassSuccess = !$scope.CPassSuccess;
-//            passSwitch();
-//        }
-//        changecontinueBtn.click(function(){
-//           $scope.CPassSuccess = !$scope.CPassSuccess;
-////           $('.CPBox').css({
-////           "display" : "none"
-////           });
-////           $('#CPResult').css({
-////           "display" : "block"
-////           })
-//           passSwitch();
-//        });
-//
-//        $scope.CPassReset = function(){
-//            $scope.CPassSuccess = true;
-//            console.log($scope.CPassSuccess);
-//            passSwitchReset();
-//        }
-//
-//    });
-//
-//    $('.secret-change-nav').append('<div class="passSwitchBG"></div>');
-//    $('.passSwitchBG').css({
-//        'width' : 155 + 'px',
-//        'position' : 'absolute',
-//        'left' : '150px',
-//        'right' : 0,
-//        'bottom' : '-3px',
-//        'border-bottom' : '3px solid #04b1eb'
-//    });
-//
-//    var passSwitch = function () {
-//        $('.passSwitchBG').animate({
-//            left : '+355px'
-//        },300);
-//    }
-//
-//    var passSwitchReset = function () {
-//        $('.passSwitchBG').css({
-//            'width' : 155 + 'px',
-//            'position' : 'absolute',
-//            'left' : '150px',
-//            'right' : 0,
-//            'bottom' : '-3px',
-//            'border-bottom' : '3px solid #04b1eb'
-//        });
-//    }
+     
 
     $('#passChange').click(function(e){
         $('#lightBox').lightbox_me({
