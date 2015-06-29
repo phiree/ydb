@@ -21,6 +21,8 @@ public partial class register : System.Web.UI.Page
         string mobilePhone = tbxUserName.Text.Trim();// tbx_MobilePhone.Text.Trim();
         string name = string.Empty;// tbxUserName.Text.Trim();
          string password=regPs.Text.Trim();
+         string password2 = regPsConf.Text.Trim();
+         
          string address = string.Empty;// tbxAddress.Text.Trim();
          string category = string.Empty;//  tbxCategory.Text.Trim();
          string cert = string.Empty;// tbxCertification.Text.Trim();

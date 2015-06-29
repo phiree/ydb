@@ -17,7 +17,10 @@
     void Application_Error(object sender, EventArgs e) 
     { 
       Exception exc = Server.GetLastError();
-      throw (exc);
+      Server.ClearError();
+      HttpContext.Current.Response.Redirect("error.aspx?msg=" 
+          + HttpContext.Current.Server.UrlEncode(exc.InnerException.Message));
+     
   // Handle HTTP errors
  
 
