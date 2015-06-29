@@ -100,5 +100,10 @@ namespace Dianzhu.Model
        /// </summary>
        public virtual ServiceMode ServiceMode { get; set; }
 
+       public virtual DateTime CreatedTime { get; set; }
+       public virtual DateTime LastModifiedTime { get; set; }
+
+       public virtual bool Enabled { get; set; }
+
     }
 }

@@ -94,6 +94,25 @@ function getSelectVal(selectID,targetID){
 
 }
 
+function getMapAddrText(targetID, targetHID) {//获得地图的地址
+   
+    var targetTxt = "";
+    var provincetxt = $("#provinceID option:selected").text();
+    var citytxt = $("#cityID option:selected").text();
+    var boroughtxt = $("#boroughID option:selected").text();
+    var businesstxt = $("#businessID option:selected").text();
+    if (provincetxt == citytxt) {
+        targetTxt = provincetxt + boroughtxt + businesstxt;
+    } else {
+        targetTxt = provincetxt + citytxt + boroughtxt + businesstxt;
+    }
+
+    $(targetID).text(targetTxt);
+   
+    $(targetHID).text(targetTxt);
+
+
+}
 
 $(document).ready(function () {
     	       $('.input-file-btn').change(function () {

@@ -18,6 +18,7 @@ $(function () {
     //打开右侧panel
 
     $(".panel-ul a.hrefClass").attr("href", "#right-panel-super");
+    $(".panel-ul a.getMaphrefClass").attr("href", "#secondview");
 
     /*打开右侧panel时
     1)隐藏右侧panel中的其他元素,
@@ -45,10 +46,22 @@ $(function () {
             open_click("description", displayDescription);
         }
     );
+     
     function displayDescription() { $("#serInfo-txt").text($("#tbxDescription").val()); }
+    $("#open_enable").click(
+        function () {
+            open_click("enable", displayEnable);
+        }
+    );
 
-
-
+        function displayEnable() {
+           
+            var enable=$("#cbxEnable[type=checkbox]")[0].checked;
+            if(enable)
+                $("#spanEnable").text("启用");
+            else
+                $("#spanEnable").text("未启用");
+         }
     //服务范围
     $("#open_servicescope").click(
         function () {

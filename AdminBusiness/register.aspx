@@ -73,7 +73,7 @@
                                 
                                 <div class="regPs">
                                     <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password"></asp:TextBox>
-                                   <!-- <input id="regPs" name="regPs" type="password" placeholder="6-20个字符，包含数字字母" />-->
+                                    <asp:RequiredFieldValidator ID="rfv" ControlToValidate="regPs" runat="server" ErrorMessage="必填"></asp:RequiredFieldValidator><!-- <input id="regPs" name="regPs" type="password" placeholder="6-20个字符，包含数字字母" />-->
                                     <i id="psChk" class="checkIcon"></i>
                                     <div id="passCheckText" class="regWarnText dis-n">密码不符合要求，要求6-20个字符</div>
                                 </div>

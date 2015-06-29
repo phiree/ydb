@@ -35,11 +35,11 @@ namespace Dianzhu.Model.Enums
     }
     public enum IDCardType
     { 
-        身份证,
-        学生证,
-        军官证,
-        护照,
-        其他
+        身份证=0,
+        学生证=1,
+        军官证=2,
+        护照=3,
+        其他=4
     }
      
 }
