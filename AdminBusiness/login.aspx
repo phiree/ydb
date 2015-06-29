@@ -8,7 +8,7 @@
     <link rel="Stylesheet" href="css/login_reg.css" type="text/css" />
 </head>
 <body>
-    <div class="wrap">
+    <div class="reg-wrap">
         <div class="head">
         </div>
         <div class="main">
