@@ -14,9 +14,9 @@ CodeFile="~/login.aspx.cs" Inherits="login" %>
        </div>
        <br/>
      
-        <p>  <asp:TextBox runat="server" ID="tbxUserName"></asp:TextBox> </p>      
+        <p><span id="vUserName" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxUserName" Text="用户邮箱/手机号" onFocus="myFocus(this)"  onBlur="myBlur(this,'#vUserName')" ></asp:TextBox> </p>      
        
-        <p>  <asp:TextBox runat="server" ID="tbxPassword" TextMode="Password"></asp:TextBox>
+        <p><span id="vPassword" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxPassword" TextMode="Password" ></asp:TextBox>
                                </p>
       <div class="ui-grid-a">  
          <div class="ui-block-a">
@@ -24,7 +24,7 @@ CodeFile="~/login.aspx.cs" Inherits="login" %>
             <div class="ui-block-b" data-theme="mya">
                <div style="width:100%;height:60.375px; line-height:60.375px; position:relative;">
      
-               <input runat="server" id="savePass" type="checkbox" /><span style="left:30px; top:-8px; position:absolute;">记住密码</span>
+               <input runat="server" id="savePass" type="checkbox" style=" margin-top:13px;" /><span style="left:30px; top:-8px; position:absolute;">记住密码</span>
                </div>
             </div>
       </div>
@@ -35,7 +35,10 @@ CodeFile="~/login.aspx.cs" Inherits="login" %>
      
   </div>
 </div>
+<script type="text/javascript">
 
+    
+</script>
   
 
 </asp:Content>
