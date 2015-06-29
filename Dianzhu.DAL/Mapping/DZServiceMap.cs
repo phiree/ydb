@@ -32,6 +32,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.ServiceTimeBegin);
             Map(x => x.ServiceTimeEnd);
             Map(x => x.UnitPrice);
+            Map(x => x.Enabled).Default("True");
             
 
         }

@@ -52,6 +52,24 @@
                     </li>
                 </a>
             </ul>
+             <ul class="panel-ul">
+                <a  class="hrefClass" id="open_enable" style="color: #58789a;">
+                    <li class="my-li3">
+                        <div class="ul-left">
+                             
+                                启用 
+                             
+                        </div>
+                         <div class="ul-right">
+                            <span id="spanEnable">
+                                 </span>
+                            <div class="ul-right li-inco">
+                            </div>
+                        </div>
+                        
+                    </li>
+                </a>
+            </ul>
         </div>
         <div class="m-p-size pd-size">
             <div class="info-title">
@@ -62,6 +80,8 @@
             <div class="pd-size2">
                 <ul class="panel-ul">
                     <a class="getMaphrefClass" href="#secondview" data-transition="slidedown" style="color: #58789a;">
+
+
                         <li class="my-li6">
                             <div class="ul-left">
                                 服务范围
@@ -242,7 +262,8 @@
     <div class="m-p-size pd-size">
         <div class="info-title">
             <span class="rp name">服务名称</span> <span class="rp servicetype">服务类别</span> <span
-                class="rp description">服务介绍</span> <span class="rp servicescope">服务范围</span>
+                class="rp description">服务介绍</span> <span
+                class="rp enable">启用状态</span> 
             <span class="rp minprice">最低服务价</span> <span class="rp unitprice">单价</span> <span
                 class="rp preorder_delay">提前预约时间</span> <span class="rp open_period">接单时间</span>
             <span class="rp maxorder_day">每日最大接单量</span> <span class="rp maxorder_hour">每小时最大接单量</span>
@@ -267,6 +288,9 @@
                 <asp:TextBox CssClass="service-input-area" ClientIDMode="Static" runat="server" TextMode="MultiLine"
                     ID="tbxDescription"> </asp:TextBox>
             </div>
+              <div class="rp enable">
+               <asp:CheckBox runat="server" ClientIDMode="Static" Text="启用" ID="cbxEnable" />
+            </div>
             <div class="rp servicescope">
                 <input id="hiBusinessAreaCode" runat="server" clientidmode="Static" type="hidden">
                 <p class="p_LocationArea service-item-title">
@@ -279,8 +303,12 @@
                         <!--<p id="businessText"></p>-->
                     </div>
                     <div class="fl m-l20">
+<<<<<<< HEAD
                      
                       
+=======
+                  
+>>>>>>> 2b4b5b1d165694a17103965bbb768821e47726df
                     </div>
                 </div>
             </div>
@@ -353,7 +381,14 @@
 
 <script src="/m/js/service_edit.js" type="text/javascript"></script>
 <script src="/js/TabSelection.js" type="text/javascript"></script>
+<<<<<<< HEAD
 
+=======
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
+<script src="/m/js/CityList.js" type="text/javascript"></script>
+<script src="/m/js/getMap.js" type="text/javascript"></script>
+<script src="/m/js/global.js" type="text/javascript"></script>
+>>>>>>> 2b4b5b1d165694a17103965bbb768821e47726df
 <script type="text/javascript">
 
     $(function () {

@@ -100,5 +100,7 @@ namespace Dianzhu.Model
        /// </summary>
        public virtual ServiceMode ServiceMode { get; set; }
 
+       public virtual bool Enabled { get; set; }
+
     }
 }
