@@ -241,6 +241,13 @@ html,body {
     vertical-align: middle;
 }
 
+.userConfirm-Back {
+    border: 0;
+    width: 112px;
+    height: 50px;
+    background: url("../image/login_reg/shop_button_01.png") no-repeat center;
+}
+
 .loginBox { width: 340px; margin-bottom: 10px; }
 
 .loginBtn {

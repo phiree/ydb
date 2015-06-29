@@ -98,7 +98,7 @@
                                     <i id="psConfChk" class="checkIcon"></i>
                                 </div>
                                 <div class="buttonBox">
-                                    <input type="button" id="userConfirmBack"/>
+                                    <input type="button" id="userConfirmBack" class="userConfirm-Back"/>
                                     <asp:Button runat="server" ID="regPsSubmit" ClientIDMode="Static" OnClick="regPsSubmit_OnClick"
                                         CssClass="regBtn" />
                                 </div>
