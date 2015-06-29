@@ -68,29 +68,29 @@
                                     <textarea class="myshop-input-textarea" id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入60个字)</textarea>
                                 </div>
                             </div>
-                            <div class="myshopLeftCont pinput">
+                            <div class="myshopLeftCont">
                                 <p class="p_ContactPhone myshop-item-title">
                                     <i class="icon myshop-icon-phone"></i>联系电话</p>
                                 <p>
-                                    <input type="text" id="tbxContactPhone" runat="server" name="ContactPhone" /></p>
+                                    <input type="text" class="myshop-input-lg" id="tbxContactPhone" runat="server" name="ContactPhone" /></p>
                             </div>
-                            <div class="myshopLeftCont pinput">
+                            <div class="myshopLeftCont">
                                 <p class="p_addressDetail myshop-item-title">
                                     <i class="icon myshop-icon-address"></i>详细店址</p>
                                 <p>
-                                    <input type="text" id="tbxAddress" runat="server" name="addressDetail" /></p>
+                                    <input type="text" class="myshop-input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
                             </div>
-                            <div class="myshopLeftCont pinput">
+                            <div class="myshopLeftCont">
                                 <p class="p_email myshop-item-title">
                                     <i class="icon myshop-icon-email"></i>邮箱地址</p>
                                 <p>
-                                    <input type="text" runat="server" id="tbxEmail" name="email" /></p>
+                                    <input type="text" class="myshop-input-lg" runat="server" id="tbxEmail" name="email" /></p>
                             </div>
-                            <div class="myshopLeftCont pinput">
+                            <div class="myshopLeftCont">
                                 <p class="myshop-item-title">
                                     <i class="icon myshop-icon-workTime"></i>从业时间</p>
                                 <p>
-                                    <input type="text" runat="server" id="tbxBusinessYears" />
+                                    <input type="text" class="myshop-input-lg" runat="server" id="tbxBusinessYears" />
                                 </p>
                             </div>
                             <div class="BusinessLicense">
@@ -149,11 +149,11 @@
                                 <span>员工信息编辑</span>
                             </div>
  
-                            <div class="myshopRightCont pinput2">
+                            <div class="myshopRightCont">
                                 <p class="myshop-item-title">
                                     <i class="icon myshop-icon-owner"></i>负责人姓名</p>
                                 <p>
-                                    <input type="text" runat="server" clientidmode="Static" id="tbxContact" />
+                                    <input type="text" class="myshop-input-mid" runat="server" clientidmode="Static" id="tbxContact" />
                                 </p>
                             </div>
                             <div class="myshopRightCont">
@@ -169,11 +169,11 @@
               
                                 </div>
                             </div>
-                            <div class="myshopRightCont pinput3">
+                            <div class="myshopRightCont">
                                 <p class="myshop-item-title">
                                     <i class="icon myshop-icon-licenseNum"></i>证件号码</p>
                                 <p>
-                                    <input type="text" runat="server" id="tbxCardIdNo" clientidmode="Static" />
+                                    <input type="text" class="myshop-input-mid" runat="server" id="tbxCardIdNo" clientidmode="Static" />
                                 </p>
                             </div>
                             <div class="myshopRightCont HeadProfilePicture">
