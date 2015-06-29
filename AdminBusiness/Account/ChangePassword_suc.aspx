@@ -45,8 +45,8 @@
                 </div>
                 <div class="secret-cont">
                     <div class="secret-m standard-info">
-                        <div class="secret-m-title t-1">基础信息</div>
-                        <div class="secret-detail">
+                        <!--<div class="secret-m-title t-1">基础信息</div>-->
+                        <!--<div class="secret-detail">-->
                             <div class="secret-change-m">
                                 <div id="CPResult" class="m-auto">
                                     <div class="t-c">
@@ -56,10 +56,10 @@
                                             <p>修改密码成功</p>
                                         </div>
                                     </div>
-                                    <div class="secret-change-sub"><input class="close secret-btn-done" ng-click="CPassReset()" type="button" value="确认" /></div>
+                                    <div class="secret-change-sub"><a class="secret-a-done white-a" href="ChangePassword.aspx">确认</a></div>
                                 </div>
                             </div>
-                        </div>
+                        <!--</div>-->
                     </div>
                 </div>
             </div>

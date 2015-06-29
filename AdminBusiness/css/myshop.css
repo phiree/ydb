@@ -1,14 +1,13 @@
 .myshopInfoArea { height:198px; padding: 0 20px; border-bottom: 20px solid #dfebf6; }
 .myshopInfoTilte { height:71px; line-height:71px; color:#58789a; font-size:19px; font-weight:bold;}
 .myshopInfoTilte h1 { font-weight: bold; }
-/*.myshopInfoTilte img{ position:absolute; top:23px; left:110px;}*/
 
 .headInfoArea { height:108px; background:#f6fafe; position:relative; border-bottom:#dbe6f2 1px solid;}
 
 .ShopDetailsTitle { padding: 0 20px; height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; }
 .shop-icon-Title { background: url("../image/myshop/shopicon.jpg") no-repeat center; }
 .ShopDetailsTitle span { color:#58789a; font-size:17px; font-weight:bold; vertical-align: middle; }
-/*.ShopDetailsTitle img { position:absolute; top:20px; left:20px;}*/
+
 
 
 .ShopDetailsMain { padding: 20px 40px; color:#58789a;}
@@ -17,12 +16,6 @@
 
 .myshopLeftCont { margin-bottom:20px; }
 
-/*.p_introduced{ background:url(../image/dianpujieshao_1.png) no-repeat; }*/
-/*.p_ContactPhone{ background:url(../image/lianxifangshi_1.png) no-repeat;}*/
-/*.p_addressDetail{ background:url(../image/xiangxidizhi_1.png) no-repeat;}*/
-/*.p_email{ background:url(../image/youxiangdizhi_1.png) no-repeat;}*/
-/*.p_WorkingTime{ background:url(../image/congyeshijian_1.png) no-repeat; }*/
-/*.p_BusinessLicense{ background:url(../image/yingyezhaopian_1.png) no-repeat; }*/
 
 .myshop-item-title { height: 26px; line-height: 26px; margin-bottom: 10px;}
 
@@ -48,12 +41,6 @@
 .myshop-icon-licenseNum { background: url("../image/myshop/shop_icon_87.png"); }
 .myshop-icon-ownerPic { background: url("../image/myshop/shop_icon_88.png"); }
 
-/*.p_ShopFigure{background:url(../image/yingyezhaopian_1.png) no-repeat; }*/
-/*.p_employees{background:url(../image/yuangongrenshu_1.png) no-repeat; }*/
-/*.p_DirectorName{background:url(../image/fuzerenxingming_1.png) no-repeat; }*/
-/*.p_DocumentType{background:url(../image/zhengjianleixing_1.png) no-repeat; }*/
-/*.p_DocumentNumber{background:url(../image/zhengjianleixing_1.png) no-repeat;}*/
-/*.p_HeadProfilePicture{background:url(../image/yingyezhaopian_1.png) no-repeat;}*/
 
 .bottomArea{ position:relative; width:100%; background:#cadbec; height:98px;clear: both;display: block; line-height:98px; text-align:center;}
 .bottomArea input{ margin:20px; margin-top:30px;}
@@ -238,6 +225,17 @@
     width: 250px;
     height: 50px;
     color:#fff;
+    font-weight: 700;
+    border: 0;
+    background: url("../image/myshop/shop_button_02.png") no-repeat center;
+}
+
+.secret-a-done {
+    display: block;
+    width: 80px;
+    height: 32px;
+    margin: 0 auto;
+    line-height: 32px;
     font-weight: 700;
     border: 0;
     background: url("../image/myshop/shop_button_02.png") no-repeat center;

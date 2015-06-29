@@ -51,8 +51,8 @@
                     <div class="secret-m-title t-1">基础信息</div>
                     <div class="secret-detail">
                         <div><span class="secret-d-t">登录账号&nbsp;:</span><span><%=CurrentUser.UserName%></span></div>
-                        <div><span class="secret-d-t">手机号码&nbsp;:</span><p class="secret-d-a d-inb"><%=CurrentBusiness.Phone%></p><a href="default.aspx">更换号码</a></div>
-                        <div><span class="secret-d-t">绑定邮箱&nbsp;:</span><p class="secret-d-a d-inb"><%=CurrentBusiness.Email%></p><a href="default.aspx">更换邮箱</a></div>
+                        <div><span class="secret-d-t">手机号码&nbsp;:</span><p class="secret-d-a d-inb"><%=CurrentBusiness.Phone%></p><a class="blue-a" href="default.aspx">更换号码</a></div>
+                        <div><span class="secret-d-t">绑定邮箱&nbsp;:</span><p class="secret-d-a d-inb"><%=CurrentBusiness.Email%></p><a class="blue-a" href="default.aspx">更换邮箱</a></div>
                         <div><span class="secret-d-t">上次登陆&nbsp;:</span><span><%=CurrentUser.LastLoginTime.ToString("yyyy年MM月dd日 HH:mm:ss")%></span> </div>
                     </div>
                 </div>
@@ -62,12 +62,12 @@
                         <div class="clearfix">
                             <span class="secret-d-t">登陆密码&nbsp;:</span><span class="secret-d-p d-inb" >安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</span>
                             <!--<a class="m-l20" href="Changepassword.aspx">修改</a>-->
-                            <a id="passChange" class="m-l20" href="javascript:void(0);">修改</a>
+                            <a id="passChange" class="m-l20 blue-a" href="javascript:void(0);">修改</a>
                             <div class="secret-d-tip"><i class="icon secret-icon-1"></i><div>强</div></div>
                         </div>
                         <div class="clearfix">
                             <span class="secret-d-t">身份认证&nbsp;:</span><span class="secret-d-p d-inb">重新上传负责人证件照</span>
-                            <a class="m-l20" href="Default.aspx">修改</a>
+                            <a class="m-l20 blue-a" href="Default.aspx">修改</a>
                             <div class="secret-d-tip"><i class="icon secret-icon-2"></i><div>已认证</div></div>
                         </div>
                     </div>
