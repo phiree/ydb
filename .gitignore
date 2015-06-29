@@ -200,3 +200,6 @@ FakesAssemblies/
 *.opt
 cdn.zip
 AdminBusiness/config/connectionStrings.config
+cdn.rar
+AdminBusiness/AdminBusiness.rar
+AdminWeb/AdminWeb.rar

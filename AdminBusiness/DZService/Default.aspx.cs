@@ -28,7 +28,10 @@ public partial class DZService_Default : BasePage
       IList<DZService> serviceList=  bllService.GetServiceByBusiness(((BusinessUser)CurrentUser).BelongTo.Id, Guid.Empty, 0, 999, out totalRecords);
       if (serviceList.Count > 0 && string.IsNullOrEmpty(Request.Params["id"]))
       {
-          Response.Redirect(Request.RawUrl + "?id=" + serviceList.Last<DZService>().Id,true);
+          Guid lastId=serviceList.Last<DZService>().Id;
+          string url = Request.Url.GetLeftPart(UriPartial.Path);
+            url += (Request.QueryString.ToString() == "" ) ? "?id="+lastId: "?" + Request.QueryString.ToString() + "&id="+lastId;
+            Response.Redirect(url);
       }
         rptServiceList.DataSource = bllService.GetServiceByBusiness(((BusinessUser)CurrentUser).BelongTo.Id, Guid.Empty, 0, 999, out totalRecords);
         rptServiceList.DataBind();
