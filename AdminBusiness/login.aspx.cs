@@ -21,7 +21,7 @@ public partial class login : System.Web.UI.Page
             FormsAuthentication.SetAuthCookie(tbxUserName.Text, remeberMe);
             if (Request.RawUrl.Contains("/m/"))
             {
-                Response.Redirect("~/m/",true);
+                Response.Redirect("~/m/account/",true);
             }
             else {
                 Response.Redirect("~/account/",true);
