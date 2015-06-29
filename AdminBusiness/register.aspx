@@ -34,31 +34,15 @@
                         <div class="conMain main-reg clearfix">
                             <div class="reg-user-l box-l"></div>
                             <div class="box-r">
-                                <!--<p class="regMeth">-->
-                                <!--<div class="selectdiv" style="display:none">
-                                    <div id="regMethList" class="selectMeth">
-                                        <cite>手机号码 </cite>
-                                        <ul>
-                                            <li><a href="javascript:;" value="1">手机号码 </a></li>
-                                            <li><a href="javascript:;" value="2">邮箱 </a></li>
-                                        </ul>
-                                        <input type="hidden" value="2" id="regMeth" />
-                                    </div>
-                                </div>-->
-                                <!--<select id="regMeth" name="regMeth">-->
-                                <!--<option value="1">手机号码</option>-->
-                                <!--<option value="2">邮箱</option>-->
-                                <!--</select>-->
-                                <!--</p>-->
                                 
                                 <div class="emailBox">
                                     <asp:TextBox runat="server" ID="tbxUserName" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
-                                     <i id="userCheck" class="checkIcon chkError"></i><span class="userCheckText"></span>
+                                     <i id="userCheck" class="checkIcon"></i><span id="userCheckText" class="regWarnText"></span>
                                 </div>
 
 
                                 <p class="agree">
-                                    <input id="agree" name="agree" type="checkbox" /><label class="v-m" for="agree">我已经仔细阅读过<a
+                                    <input id="agreeLic" name="agreeLic" type="checkbox" value="yes" /><label class="v-m" for="agreeLic">我已经仔细阅读过<a
                                         class="agreeLIC-a" href="#">点助服务协议</a>,并同意所有条款</label></p>
                                 <div class="buttonBox">
                                     <input id="userConfirm"  type="button" class="regBtn"/>
@@ -91,15 +75,17 @@
                                     <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password"></asp:TextBox>
                                    <!-- <input id="regPs" name="regPs" type="password" placeholder="6-20个字符，包含数字字母" />-->
                                     <i id="psChk" class="checkIcon"></i>
+                                    <div id="passCheckText" class="regWarnText dis-n">密码不符合要求，要求6-20个字符</div>
                                 </div>
                                 <div class="regPsConf">
                                     <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"></asp:TextBox>
                                     <!--<input id="regPsConf" name="regPsConf" type="password" placeholder="6-20个字符，包含数字字母" />-->
                                     <i id="psConfChk" class="checkIcon"></i>
+                                    <div id="passConfText" class="regWarnText dis-n">两次密码不一致</div>
                                 </div>
                                 <div class="buttonBox">
                                     <input type="button" id="userConfirmBack" class="userConfirm-Back"/>
-                                    <asp:Button runat="server" ID="regPsSubmit" ClientIDMode="Static" OnClick="regPsSubmit_OnClick"
+                                    <asp:Button runat="server" ID="regPsSubmit" onClientClick="javascipt:return false;" ClientIDMode="Static" OnClick="regPsSubmit_OnClick"
                                         CssClass="regBtn" />
                                 </div>
                                 <iframe name="uploadForm1" style="display: none"></iframe>
@@ -121,4 +107,5 @@
 
 <script src="/js/InlineTip.js" type="text/javascript"></script>
 <script src="/js/login_reg.js" type="text/javascript"></script>
+
 </html>

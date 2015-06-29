@@ -222,10 +222,12 @@ html,body {
 }
 
 .chkRight {
+    display: inline-block;
     background: url("../image/login_reg/zhengqie_1.png") no-repeat center;
 }
 
 .chkError {
+    display: inline-block;
     background: url("../image/login_reg/zhengqie_2.png") no-repeat center;
 }
 
@@ -234,10 +236,10 @@ html,body {
     font-size: 13px;
 }
 
-.userCheckText {
+.regWarnText {
     color: #df7081;
     font-size: 13px;
-    margin-left: 5px;
+    padding: 10px 0 0 0;
     vertical-align: middle;
 }
 
