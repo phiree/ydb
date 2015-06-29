@@ -3,7 +3,7 @@
     var myCityListObject = new BMapLib.CityList({container : "city-container"});
     map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
     map.enableScrollWheelZoom();
-	
+    alert("555");
 	
 	
     //百度地图自动填充关键词

@@ -6,7 +6,7 @@
     </asp:ContentPlaceHolder>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div data-role="page" data-title="我的店铺" data-theme="myb">
+    <div data-role="page" data-title="我的店铺" data-theme="myb" id="firstview">
         <asp:ContentPlaceHolder runat="server" ID="ContentPlaceHolder1">
         </asp:ContentPlaceHolder>
         <!--左侧-->
@@ -48,6 +48,9 @@
             </div>
         </div>
     </div>
+   
+    
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="bottom" runat="Server">
     <asp:ContentPlaceHolder runat="server" ID="bottom">

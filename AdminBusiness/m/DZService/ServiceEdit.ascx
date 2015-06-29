@@ -61,7 +61,7 @@
         <div class="info-content">
             <div class="pd-size2">
                 <ul class="panel-ul">
-                    <a class="hrefClass" id="open_servicescope" style="color: #58789a;">
+                    <a class="getMaphrefClass" href="#secondview" data-transition="slidedown" style="color: #58789a;">
                         <li class="my-li6">
                             <div class="ul-left">
                                 服务范围
@@ -279,9 +279,7 @@
                         <!--<p id="businessText"></p>-->
                     </div>
                     <div class="fl m-l20">
-                      <div style="width:100%;height:300px;" id="container"></div>
-                      <div id="city-container"></div>
-                      <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none; "></div>
+                     
                       
                     </div>
                 </div>
@@ -351,12 +349,11 @@
         </div>
     </div>
 </div>
+
+
 <script src="/m/js/service_edit.js" type="text/javascript"></script>
 <script src="/js/TabSelection.js" type="text/javascript"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
-<script src="../js/CityList.js" type="text/javascript"></script>
-<script src="../js/getMap.js" type="text/javascript"></script>
-<script src="../js/global.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 
     $(function () {

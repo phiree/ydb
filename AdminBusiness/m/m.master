@@ -14,8 +14,7 @@
     <link rel="stylesheet" href="/m/css/device.css" media="screen and (max-device-width : 1280px)" />
     <script type="text/javascript" src="/js/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="/m/mobile/jquery.mobile-1.4.5.js"></script>
-    
-   
+
     <!--上面的代码意思是，如果屏幕宽度小于1280像素（max-device-width: 1280px），就加载device.css文件-->
     <asp:ContentPlaceHolder ID="head" runat="Server">
     </asp:ContentPlaceHolder>

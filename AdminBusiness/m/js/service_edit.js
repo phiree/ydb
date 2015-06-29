@@ -18,6 +18,7 @@ $(function () {
     //打开右侧panel
 
     $(".panel-ul a.hrefClass").attr("href", "#right-panel-super");
+    $(".panel-ul a.getMaphrefClass").attr("href", "#secondview");
 
     /*打开右侧panel时
     1)隐藏右侧panel中的其他元素,

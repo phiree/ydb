@@ -108,7 +108,7 @@ function getMapAddrText(targetID, targetHID) {//获得地图的地址
     }
 
     $(targetID).text(targetTxt);
-    alert(targetTxt);
+   
     $(targetHID).text(targetTxt);
 
 
