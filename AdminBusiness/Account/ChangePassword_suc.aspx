@@ -56,7 +56,7 @@
                                             <p>修改密码成功</p>
                                         </div>
                                     </div>
-                                    <div class="secret-change-sub"><a class="secret-a-done white-a" href="ChangePassword.aspx">确认</a></div>
+                                    <div class="secret-change-sub"><a class="secret-a-done white-a" href="Security.aspx">确认</a></div>
                                 </div>
                             </div>
                         <!--</div>-->

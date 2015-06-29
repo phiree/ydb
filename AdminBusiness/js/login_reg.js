@@ -128,9 +128,11 @@ $(document).ready(function () {
                     $("#userCheckText").text("请填写用户名");
                 } else if ( !$("#tbxUserName").val().match(regFilter) ) {
                     $('#userCheck').addClass('chkError');
-                    $("#userCheckText").text("格式不正确");
+                    $("#userCheckText").text("格式错误");
                 } else if ( !agreeLic.val() ) {
-                    $("#userCheckText").text("没有同意协议");
+                    $('#userCheck').addClass('chkError');
+
+                    $("#userCheckText").text("请同意协议");
                 } else {
                     $('#usernameConf').text($("#tbxUserName").val());
                     $('#userCheck').hide();
