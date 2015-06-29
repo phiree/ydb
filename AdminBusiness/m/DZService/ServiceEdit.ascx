@@ -52,6 +52,24 @@
                     </li>
                 </a>
             </ul>
+             <ul class="panel-ul">
+                <a  class="hrefClass" id="open_enable" style="color: #58789a;">
+                    <li class="my-li3">
+                        <div class="ul-left">
+                             
+                                启用 
+                             
+                        </div>
+                         <div class="ul-right">
+                            <span id="spanEnable">
+                                 </span>
+                            <div class="ul-right li-inco">
+                            </div>
+                        </div>
+                        
+                    </li>
+                </a>
+            </ul>
         </div>
         <div class="m-p-size pd-size">
             <div class="info-title">
@@ -242,7 +260,8 @@
     <div class="m-p-size pd-size">
         <div class="info-title">
             <span class="rp name">服务名称</span> <span class="rp servicetype">服务类别</span> <span
-                class="rp description">服务介绍</span> 
+                class="rp description">服务介绍</span> <span
+                class="rp enable">启用状态</span> 
             <span class="rp minprice">最低服务价</span> <span class="rp unitprice">单价</span> <span
                 class="rp preorder_delay">提前预约时间</span> <span class="rp open_period">接单时间</span>
             <span class="rp maxorder_day">每日最大接单量</span> <span class="rp maxorder_hour">每小时最大接单量</span>
@@ -266,6 +285,9 @@
             <div class="rp description">
                 <asp:TextBox CssClass="service-input-area" ClientIDMode="Static" runat="server" TextMode="MultiLine"
                     ID="tbxDescription"> </asp:TextBox>
+            </div>
+              <div class="rp enable">
+               <asp:CheckBox runat="server" ClientIDMode="Static" Text="启用" ID="cbxEnable" />
             </div>
             <div class="rp servicescope">
                 <input id="hiBusinessAreaCode" runat="server" clientidmode="Static" type="hidden">
