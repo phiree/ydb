@@ -89,6 +89,28 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function getMapAddrText(targetID, targetHID) {//获得地图的地址
+           
+            var targetTxt = "";
+            var provincetxt = $("#provinceID option:selected").text();
+            var citytxt = $("#cityID option:selected").text();
+            var boroughtxt = $("#boroughID option:selected").text();
+            var businesstxt = $("#businessID option:selected").text();
+            if (provincetxt == citytxt) {
+                targetTxt = provincetxt + boroughtxt + businesstxt;
+            } else {
+                targetTxt = provincetxt + citytxt + boroughtxt + businesstxt;
+            }
+
+            $(targetID).text(targetTxt);
+            alert(targetTxt);
+            $(targetHID).text(targetTxt);
+
+
+        }
+    
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="bottom" runat="Server">
     <asp:ContentPlaceHolder runat="server" ID="bottom">

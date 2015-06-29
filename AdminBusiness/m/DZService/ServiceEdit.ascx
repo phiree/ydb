@@ -303,12 +303,7 @@
                         <!--<p id="businessText"></p>-->
                     </div>
                     <div class="fl m-l20">
-<<<<<<< HEAD
-                     
-                      
-=======
-                  
->>>>>>> 2b4b5b1d165694a17103965bbb768821e47726df
+
                     </div>
                 </div>
             </div>
@@ -381,16 +376,9 @@
 
 <script src="/m/js/service_edit.js" type="text/javascript"></script>
 <script src="/js/TabSelection.js" type="text/javascript"></script>
-<<<<<<< HEAD
 
-=======
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
-<script src="/m/js/CityList.js" type="text/javascript"></script>
-<script src="/m/js/getMap.js" type="text/javascript"></script>
-<script src="/m/js/global.js" type="text/javascript"></script>
->>>>>>> 2b4b5b1d165694a17103965bbb768821e47726df
 <script type="text/javascript">
-
+   
     $(function () {
         $("#tabsServiceType").TabSelection({
             "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
