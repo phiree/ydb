@@ -76,20 +76,19 @@
         </div>
         <div id="lightBox" class="dis-n">
         <!--<div id="lightBox">-->
-            <div class="secret-change" ng-app="changePass" ng-controller="changePass">
+            <!--<div class="secret-change" ng-app="changePass" ng-controller="changePass">-->
+            <div class="secret-change">
                 <div class="secret-change-title">
                     <span>修改密码</span>
-                    <i class="icon close icon-close" ng-click="CPassReset()"></i>
+                    <i class="icon close icon-close"></i>
+                    <!--<i class="icon close icon-close" ng-click="CPassReset()"></i>-->
                 </div>
-                <div class="secret-change-nav clearfix">
-                    <div class="change-nav fl"><i class="icon"></i>设置新密码</div>
-                    <div class="change-nav m-l50 fr"><i class="icon" ></i>修改密码成功</div>
-                </div>
+                <!--<div class="secret-change-nav clearfix">-->
+                    <!--<div class="change-nav fl"><i class="icon"></i>设置新密码</div>-->
+                    <!--<div class="change-nav m-l50 fr"><i class="icon" ></i>修改密码成功</div>-->
+                <!--</div>-->
                 <div class="secret-change-m">
                     <div class="m-auto" ng-hide="!CPassSuccess">
-                        <!--<div class="m-b20"><span class="m-r20">验证码</span><input class="secret-input-setVCode" type="text" /><input class="secret-btn-VCode m-l20" type="button" value="发送验证码"></div>-->
-                        <!--<div><span class="m-r20">新密码</span><input class="secret-input-newPass" type="password"  /><span><i class="icon m-l20"></i>强</span></div>-->
-                        <!--<div class="secret-change-sub"><input class="secret-btn-next" ng-click="CPassNext()" type="button" value="下一步" /></div>-->
                         <asp:ChangePassword ID="ChangePassword1"
                         runat="server"
                         ChangePasswordTitleText="修改密码"
@@ -110,7 +109,7 @@
                         TextBoxStyle-CssClass="CPTextBox"
                         ChangePasswordFailureText=""
                         SuccessText="密码修改成功"
-                          
+                        SuccessPageUrl="./ChangePassword_suc.aspx"
                         
                         >
                         <SuccessTemplate>
@@ -141,9 +140,9 @@
 <script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.2.5/angular.min.js"></script>
 <script type="text/javascript" src="/js/global.js"></script>
 <script type="text/javascript">
-    var changecontinueBtn = $('#ContentPlaceHolder1_ChangePassword1_ChangePasswordContainerID_ChangePasswordImageButton')
+//    var changecontinueBtn = $('#ContentPlaceHolder1_ChangePassword1_ChangePasswordContainerID_ChangePasswordImageButton')
 
-     
+
 
     $('#passChange').click(function(e){
         $('#lightBox').lightbox_me({
