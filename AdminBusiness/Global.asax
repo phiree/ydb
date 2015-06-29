@@ -19,7 +19,7 @@
       Exception exc = Server.GetLastError();
       Server.ClearError();
       HttpContext.Current.Response.Redirect("error.aspx?msg=" 
-          + HttpContext.Current.Server.UrlEncode(exc.InnerException.Message));
+          + HttpContext.Current.Server.UrlEncode(exc.Message+"<br/>"+ exc.InnerException.Message));
      
   // Handle HTTP errors
  
