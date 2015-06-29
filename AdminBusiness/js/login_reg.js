@@ -130,7 +130,7 @@ $(document).ready(function () {
                     $('#userCheck').addClass('chkError');
                     $("#userCheckText").text("格式不正确");
                 } else if ( !agreeLic.val() ) {
-                    $(".userCheckText").text("没有同意协议");
+                    $("#userCheckText").text("没有同意协议");
                 } else {
                     $('#usernameConf').text($("#tbxUserName").val());
                     $('#userCheck').hide();
