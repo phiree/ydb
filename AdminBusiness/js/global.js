@@ -27,14 +27,17 @@ $(document).ready(function ($) {
             selectPrint.width($(this).width());
             selectList.width($(this).width());
 
-            (function () {
-                selectPrint.html(selectOption.eq(0).html());
-                for (var i = 0; i < selectOption.length; i++) {
-                    selectOption.eq(i).attr({ value: i, href: "javascript:void(0)" });
-                }
+            selectPrint.html(selectOption.eq(0).html());
+            for (var i = 0; i < selectOption.length; i++) {
+                selectOption.eq(i).attr({ value: i, href: "javascript:void(0)" });
+            }
+            if ( !selectInput.val() ) {
                 selectInput.val(selectOption.eq(0).attr("value"));
-                selectList.hide();
-            })();
+            } else {
+                selectPrint.html(selectOption.eq(selectInput.val()).html());
+            }
+            selectList.hide();
+
 
             selectPrint.click(function () {
                 if (selectList.css("display") != "none") {

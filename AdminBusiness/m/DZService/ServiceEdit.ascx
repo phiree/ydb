@@ -279,12 +279,10 @@
                         <!--<p id="businessText"></p>-->
                     </div>
                     <div class="fl m-l20">
-                        <p class="m-b20">
-                            您选择的位置：</p>
-                        <p id="businessText" class="business-text m-b50">
-                        </p>
-                        <p class="l-h16">
-                            ←点击选择商圈范围</p>
+                      <div style="width:100%;height:300px;" id="container"></div>
+                      <div id="city-container"></div>
+                      <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none; "></div>
+                      
                     </div>
                 </div>
             </div>
@@ -348,13 +346,17 @@
                     <asp:ListItem Value="2" Text="线下"></asp:ListItem>
                 </asp:RadioButtonList>
             </div>
-            <a href="#" id="rp_save" data-rel="close" data-role="button" data-inline="true">确定</a>
+            <a href="#" id="rp_save" data-rel="close" data-role="button" data-inline="true" onClick="getMapAddrText('#serArea-txt','#hiBusinessAreaCode')">确定</a>
             <a href="#" data-rel="close" data-role="button" data-inline="true">取消</a>
         </div>
     </div>
 </div>
 <script src="/m/js/service_edit.js" type="text/javascript"></script>
 <script src="/js/TabSelection.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
+<script src="../js/CityList.js" type="text/javascript"></script>
+<script src="../js/getMap.js" type="text/javascript"></script>
+<script src="../js/global.js" type="text/javascript"></script>
 <script type="text/javascript">
 
     $(function () {
