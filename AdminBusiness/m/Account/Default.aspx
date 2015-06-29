@@ -36,15 +36,14 @@
                         <div class="ul-left">
                             店铺名:<span class="display_holder"><%=b.Name %></span>
                         </div>
-                         
                     </li>
                 </ul>
                 <ul class="panel-ul">
                     <li class="my-li" target="description">
                         <div class="ul-left">
-                           店铺介绍 
+                            店铺介绍
                             <div class="display_holder" id="shopDetailedTxt" style="font-size: 14px;">
-                            <%=b.Description %>
+                                <%=b.Description %>
                             </div>
                         </div>
                     </li>
@@ -52,7 +51,8 @@
                 <ul class="panel-ul">
                     <li class="my-li" target="phone">
                         <div class="ul-left">
-                            联系电话: <span class="display_holder"><%=b.Phone %></span>
+                            联系电话: <span class="display_holder">
+                                <%=b.Phone %></span>
                         </div>
                     </li>
                 </ul>
@@ -61,7 +61,7 @@
                         <div class="ul-left">
                             详细店址
                             <div id="shopAddrTxt" class="display_holder" style="font-size: 14px;">
-                            <%=b.Address %>
+                                <%=b.Address %>
                             </div>
                     </li>
                 </ul>
@@ -69,7 +69,7 @@
                     <li class="my-li" target="email">
                         <div class="ul-left">
                             邮箱: <span class="display_holder">
-                            <%=b.Email %>
+                                <%=b.Email %>
                             </span>
                         </div>
                     </li>
@@ -109,7 +109,8 @@
                 <ul class="panel-ul">
                     <li class="my-li" target="staffamount">
                         <div class="ul-left">
-                            员工人数 <span class="display_holder"><%=b.StaffAmount %></span>
+                            员工人数 <span class="display_holder">
+                                <%=b.StaffAmount %></span>
                         </div>
                     </li>
                 </ul>
@@ -148,13 +149,13 @@
                         <div class="ul-left">
                             证件类型 :<span class="display_holder"><%=b.ChargePersonIdCardType %></span>
                         </div>
-                       
                     </li>
                 </ul>
                 <ul class="panel-ul">
                     <li class="my-li" target="idno">
                         <div class="ul-left">
-                            证件号码: <span class="display_holder"><%=b.ChargePersonIdCardNo %></span>
+                            证件号码: <span class="display_holder">
+                                <%=b.ChargePersonIdCardNo %></span>
                         </div>
                     </li>
                 </ul>
@@ -195,42 +196,40 @@
         <div class="info-content">
             <div class="pd-size2">
                 <div class="rp name">
-                    <input id="tbxName" runat="server" class="inputShopName" clientidmode="Static" 
-                        name="inputShopName"  type="text" value="请输入您的店铺名称" />
+                    <input id="tbxName" runat="server" class="inputShopName" clientidmode="Static" name="inputShopName"
+                        type="text" value="请输入您的店铺名称" />
                 </div>
                 <div class="rp description">
-                    <textarea class="myshop-input-textarea"  clientidmode="Static"
-                        id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入60个字)</textarea>
+                    <textarea class="myshop-input-textarea" clientidmode="Static" id="tbxIntroduced"
+                        runat="server" name="shopIntroduced">(可输入60个字)</textarea>
                 </div>
                 <div class="rp phone">
                     <input type="text" id="tbxContactPhone" clientidmode="Static" runat="server" name="ContactPhone" /></textarea>
                 </div>
-                
                 <div class="rp address">
-                    <input type="text" id="tbxAddress"  clientidmode="Static" runat="server" name="addressDetail" />
+                    <input type="text" id="tbxAddress" clientidmode="Static" runat="server" name="addressDetail" />
                 </div>
                 <div class="rp email">
-                    <input type="text" runat="server"  clientidmode="Static" id="tbxEmail" name="email" />
+                    <input type="text" runat="server" clientidmode="Static" id="tbxEmail" name="email" />
                 </div>
                 <div class="rp workingyears">
-                    <input type="text" runat="server" clientidmode="Static"  id="tbxBusinessYears" />
+                    <input type="text" runat="server" clientidmode="Static" id="tbxBusinessYears" />
                 </div>
                 <div class="rp staffamount">
-                    <select id="selStaffAmount" clientidmode="Static"  runat="server">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
+                    <select id="selStaffAmount" clientidmode="Static" runat="server">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
                     </select>
-                 
                 </div>
                 <div class="rp chargename">
                     <input type="text" runat="server" clientidmode="Static" id="tbxContact" />
                 </div>
                 <div class="rp idtype">
-                    <select runat="server" id="selCardType" clientidmode="Static"  name="card-tyle" data-theme="a">
-                                <option value="1">学生证</option>
-                                <option value="2">身份证</option>
-                            </select>
+                    <select runat="server" id="selCardType" clientidmode="Static" name="card-tyle" data-theme="a">
+                        <option value="1">学生证</option>
+                        <option value="2">身份证</option>
+                    </select>
                 </div>
                 <div class="rp idno">
                     <input type="text" runat="server" id="tbxCardIdNo" clientidmode="Static" />
@@ -240,10 +239,11 @@
             </div>
         </div>
         <!--/super right panel-->
+    </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="menu_status_shop" runat="Server">
     my-ui-btn-active
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
-<script  src="../js/shop_edit.js"></script>
+    <script src="../js/shop_edit.js"></script>
 </asp:Content>

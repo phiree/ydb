@@ -78,44 +78,60 @@ $(document).ready(function () {
 
     //注册名选择方法
 
-    var selectMeth = function () {
-        //        alert($('#regMeth').val());
-        var resetMeth = function (objInput, icon) {
-            objInput.val(null);
-            chkIconAnm(true, false, icon);
-        };
+//    var selectMeth = function () {
+//        //        alert($('#regMeth').val());
+//        var resetMeth = function (objInput, icon) {
+//            objInput.val(null);
+//            chkIconAnm(true, false, icon);
+//        };
+//
+//        if ($('#regMeth').val() == '1') {
+//            resetMeth($('#email'), $('#emailCheck'));
+//            $('.methText').text('输入号码');
+//            $('.emailBox').hide();
+//            $('.phoneBox').show();
+//        } else if ($('#regMeth').val() == '2') {
+//            //            alert($('#regMeth').val());
+//            resetMeth($('#phone'), $('#phoneCheck'));
+//            $('.methText').text('输入邮箱');
+//            $('.phoneBox').hide();
+//            $('.emailBox').show();
+//        } else {
+//            return null;
+//        }
+//    }
 
-        if ($('#regMeth').val() == '1') {
-            resetMeth($('#email'), $('#emailCheck'));
-            $('.methText').text('输入号码');
-            $('.emailBox').hide();
-            $('.phoneBox').show();
-        } else if ($('#regMeth').val() == '2') {
-            //            alert($('#regMeth').val());
-            resetMeth($('#phone'), $('#phoneCheck'));
-            $('.methText').text('输入邮箱');
-            $('.phoneBox').hide();
-            $('.emailBox').show();
-        } else {
-            return null;
-        }
-    }
-
-    //自定义下拉表单
-
+    //用户名验证
+    var regFilter = /^1\d{10}$|^.+@.+\..+$/;
     var regChang = function () {
-        var $regForm1 = $('#regFormUser');
-        var $regForm2 = $('#regFormPass');
+//        var $regForm1 = $('#regFormUser');
+//        var $regForm2 = $('#regFormPass');
 
         // $regForm1.submit
-        $("#phoneSubmit").click(
+        $("#userConfirm").bind("click",
             function () {
-                $('#usernameConf').text($("#tbxUserName").val());
-                $('.main-reg').hide();
-                $('.main-psw').show();
+                console.log($("#tbxUserName").val().match(regFilter));
+                if ( $("#tbxUserName").val() == null || $("#tbxUserName").val() == "手机号码/电子邮箱/用户名" ){
+                    $('#userCheck').css("display","inline-block");
+                    $(".userCheckText").text("请填写用户名");
+                } else if ( !$("#tbxUserName").val().match(regFilter) ) {
+                    $('#userCheck').css("display","inline-block");
+                    $(".userCheckText").text("格式不正确");
+                } else {
+                    $('#usernameConf').text($("#tbxUserName").val());
+                    $('#userCheck').hide();
+                    $(".userCheckText").text("");
+                    $('.main-reg').toggle();
+                    $('.main-psw').toggle();
+                }
             }
         )
-
+        $("#userConfirmBack").bind("click",
+            function(){
+                $('.main-reg').toggle();
+                $('.main-psw').toggle();
+            }
+        )
     }
     regChang();
 

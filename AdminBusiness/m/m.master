@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/m/css/device.css" media="screen and (max-device-width : 1280px)" />
     <script type="text/javascript" src="/js/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="/m/mobile/jquery.mobile-1.4.5.js"></script>
+    
    
     <!--上面的代码意思是，如果屏幕宽度小于1280像素（max-device-width: 1280px），就加载device.css文件-->
     <asp:ContentPlaceHolder ID="head" runat="Server">
@@ -29,12 +30,89 @@
     <asp:ContentPlaceHolder ID="bottom" runat="Server">
   
     </asp:ContentPlaceHolder>
-      <script>
+      <script type="text/javascript">
+          function myFocus(e) {
+              // alert(e)
+              if (e.value == '用户邮箱/手机号') {
+                  e.value = '';
+              }
+          }
+
+          function myBlur(e,targetdiv) {
+              // alert(e)
+
+              if (e.value == '') {
+                  e.value = '用户邮箱/手机号';
+              } else {
+                  var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                  if (!pattern.test(e.value)) {
+                   //   $(targetdiv).html("请输入正确的邮箱地址。");
+                      e.focus();
+                      //return false;
+                  } else {
+                      $(targetdiv).html("");
+                  }
+               // alert(e.value.length)
+              }
+          }
+
+          function getSelectVal() {
+              var txt = $("#iphone-tyle  option:selected").text();
+              if (txt == "电子邮箱") {
+                  $("#email-div").css("display", "block");
+                  $("#iphone-div").css("display", "none");
+              } else {
+                  $("#email-div").css("display", "none");
+                  $("#iphone-div").css("display", "block");
+              }
+
+          }
+          /**
+          邮箱验证
+          **/
+          function emailCheck(objName, targetTxt) {
+              if (objName.value == '') {
+                  $(targetTxt).html("");
+              } else {
+                  var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                  if (!pattern.test(objName.value)) {
+                      $(targetTxt).html("请输入正确的邮箱地址");
+                      objName.focus();
+
+                  } else {
+                      $(targetTxt).html("");
+                  }
+              }
+          }
+          /**
+          验证手机号码
+          **/
+
+          function validatemobile(objName, targetTxt) {
+              if (objName.value == '') {
+                  $(targetTxt).html("");
+              } else {
+                  var myreg = /^(((13[0-9]{1})|159|153|183|171)+\d{8})$/;
+                  if (!myreg.test(objName.value)) {
+                      $(targetTxt).html("请输入有效的手机号码！");
+                      objName.focus();
+
+                  } else {
+                      $(targetTxt).html("");
+                  }
+                
+              }
+          }
+
+          $(document).ready(function () {
+
+          }); 
           $(document).on("mobileinit", function () {
               $.extend($.mobile, {
                   ajaxEnabled: false
               });
           });
+          
     </script>
 </body>
 </html>
