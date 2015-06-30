@@ -136,7 +136,7 @@
 </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
-<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="/js/jquery.lightbox_me.js" ></script>
 <script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.2.5/angular.min.js"></script>
 <script type="text/javascript" src="/js/global.js"></script>
