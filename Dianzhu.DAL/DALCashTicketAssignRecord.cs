@@ -7,12 +7,8 @@ using NHibernate;
 using Dianzhu.IDAL;
 namespace Dianzhu.DAL
 {
-   public class DALServicePropertyValue:DALBase<ServicePropertyValue>
+   public class DALCashTicketAssignRecord:DALBase<CashTicketAssignRecord>
     {
-     
         
-       
-      
-     
     }
 }

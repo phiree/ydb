@@ -11,7 +11,7 @@ namespace Dianzhu.BLL
     public class DZMembershipProvider : MembershipProvider
     {
 
-        IDALMembership dal = DalFactory.GetDalMembership();
+       public DALMembership DALMembership = DALFactory.DALMembership;
         #region override of membership provider
         public override string ApplicationName
         {
@@ -27,12 +27,12 @@ namespace Dianzhu.BLL
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            DZMembership member = dal.GetMemberByName(username);
+            DZMembership member = DALMembership.GetMemberByName(username);
             string encryptedOldPsw =  FormsAuthentication.HashPasswordForStoringInConfigFile(oldPassword, "MD5");
             string encryptedNewPsw = FormsAuthentication.HashPasswordForStoringInConfigFile(newPassword, "MD5");
             if (member.Password != encryptedOldPsw) return false;
             member.Password = encryptedNewPsw;
-            dal.ChangePassword(member);
+            DALMembership.ChangePassword(member);
             return true;
         }
 
@@ -46,7 +46,7 @@ namespace Dianzhu.BLL
             DZMembership user = new DZMembership { UserName=username, 
                         Password= FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"),
                          TimeCreated=DateTime.Now};
-            dal.CreateUser(user);
+            DALMembership.CreateUser(user);
             MembershipUser mu = new MembershipUser("DZMembershipProvider",
                  username, user.Id, "", "", string.Empty,
                  true, true, DateTime.Now,
@@ -99,7 +99,7 @@ namespace Dianzhu.BLL
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
 
-            DZMembership user = dal.GetMemberByName(username);
+            DZMembership user = DALMembership.GetMemberByName(username);
             if (user == null) return null;
             MembershipUser mu = new MembershipUser("DZMembershipProvider",
                  username, user.Id, "", "", string.Empty,
@@ -178,7 +178,7 @@ namespace Dianzhu.BLL
         {
             string encryptedPwd = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
 
-            bool isValid= dal.ValidateUser(username, encryptedPwd);
+            bool isValid = DALMembership.ValidateUser(username, encryptedPwd);
            
 
             return isValid;
@@ -188,20 +188,20 @@ namespace Dianzhu.BLL
 #region additional method for user
         public BusinessUser GetBusinessUser(Guid id)
         {
-            return dal.GetBusinessUser(id);
+            return DALMembership.GetBusinessUser(id);
         }
         public IList<DZMembership> GetAll()
         {
-            return dal.GetAll();
+            return DALMembership.GetAll();
         }
         public DZMembership CreateBusinessUser(string username, string password,Business b)
         {
             string encrypted = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
-            return dal.CreateBusinessUser(username,encrypted, b);
+            return DALMembership.CreateBusinessUser(username, encrypted, b);
         }
         public IList<DZMembership> GetAllDZMembers(int pageIndex, int pageSize, out long totalRecords)
         {
-            return dal.GetAllUsers(pageIndex, pageSize, out totalRecords);
+            return DALMembership.GetAllUsers(pageIndex, pageSize, out totalRecords);
         }
 #endregion
     }

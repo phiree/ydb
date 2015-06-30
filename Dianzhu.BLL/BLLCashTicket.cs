@@ -12,49 +12,45 @@ namespace Dianzhu.BLL
     /// 现金券边界类，负责各种操作
     /// </summary>
     public class BLLCashTicket
-
     {
-        IDALCashTicket dal = null;
-        public IDALCashTicket DalCashTicket
-        {
-            get { return dal ?? new DalCashTicket(); }
-            set { dal = value; }
-        }
-        IDALCashTicketCreateRecord idalCashticketCreateRecord = null;
-        public IDALCashTicketCreateRecord IDALCashTicketCreateRocord
-        {
-            get { return idalCashticketCreateRecord ?? new DALCashTicketCreateRecord(); }
-            set { idalCashticketCreateRecord = value; }
-        }
+       
+        public DALCashTicket DALCashTicket=DALFactory.DALCashTicket;
+
+        public DALCashTicketCreateRecord DALCashTicketCreateRecord = DALFactory.DALCashTicketCreateRecord;
+        
         public BLLCashTicket()
-        { 
+        {
         }
         public string CreateBatch(Business_Abs owner, int amount, CashTicketTemplate tt)
         {
             string msg = string.Empty;
             try
             {
-                CashTicketGenerator generator = new CashTicketGenerator((Business)owner, tt, amount, IDALCashTicketCreateRocord, DalCashTicket);
-               
-                 IList<CashTicket> ticketListCreated=   generator.Generate();
+                CashTicketGenerator generator = new CashTicketGenerator((Business)owner, tt, amount);
 
-                 CashTicketCreateRecord record = new CashTicketCreateRecord();
-                 record.Amount = amount;
-                 record.Business = (Business)owner;
-                 record.CashTickets = ticketListCreated;
-                 record.CashTicketTemplate = tt;
-                 record.TimeCreated = DateTime.Now;
-                 IDALCashTicketCreateRocord.DALBase.Save(record);
-                
-                
+                IList<CashTicket> ticketListCreated = generator.Generate();
+
+                CashTicketCreateRecord record = new CashTicketCreateRecord();
+                record.Amount = amount;
+                record.Business = (Business)owner;
+                record.CashTickets = ticketListCreated;
+                record.CashTicketTemplate = tt;
+                record.TimeCreated = DateTime.Now;
+                DALCashTicketCreateRecord.Save(record);
+
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 msg = e.Message;
             }
             return msg;
         }
-       
+
+        public IList<CashTicket> GetListForBusiness(Guid businessId)
+        {
+            return DALCashTicket.GetCashTicketListForBusiness(businessId);
+        }
     }
-     
+
 }

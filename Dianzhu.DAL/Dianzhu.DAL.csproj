@@ -86,6 +86,8 @@
     <Compile Include="DALServiceProperty.cs" />
     <Compile Include="DALServicePropertyValue.cs" />
     <Compile Include="DALBusinessImage.cs" />
+    <Compile Include="DALCashTicketAssignRecord.cs" />
+    <Compile Include="DALCashTicketAssignDetail.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALCashTicket.cs" />

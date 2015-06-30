@@ -10,19 +10,14 @@ namespace Dianzhu.BLL
   public  class BLLServicePropertyValue
     {
 
-   
-      IDALServicePropertyValue iDALServicePropertyValue;
+
+      public DALServicePropertyValue DALServicePropertyValue = DALFactory.DALServicePropertyValue;
+       
       
-      public BLLServicePropertyValue(IDALServicePropertyValue iDALServicePropertyValue)
-      {
-          this.iDALServicePropertyValue = iDALServicePropertyValue;
-      }
-      public BLLServicePropertyValue()
-          : this(new DALServicePropertyValue())
-      { }
+      
       public ServicePropertyValue GetOne(Guid id)
       {
-          return iDALServicePropertyValue.DalBase.GetOne(id);
+          return DALServicePropertyValue.GetOne(id);
       }
      
     }

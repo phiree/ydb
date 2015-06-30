@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-
+ 
 namespace Dianzhu.Model
 {
     /// <summary>
@@ -81,6 +80,10 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual double Longitude { get; set; }
         public virtual double Latitude { get; set; }
+        /// <summary>
+        /// 优惠推广的范围.所有的优惠券都是一样的.
+        /// </summary>
+        public virtual double PromoteScope { get; set; }
         /// <summary>
         /// 是否通过了审核.
         /// </summary>

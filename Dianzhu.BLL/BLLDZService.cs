@@ -9,24 +9,18 @@ namespace Dianzhu.BLL
 {
     public class BLLDZService
     {
-        DALDZService iDALDZService;
-
-        public BLLDZService(DALDZService iDALDZService)
-        {
-            this.iDALDZService = iDALDZService;
-        }
-        public BLLDZService()
-            : this(new DALDZService())
-        { }
+        
+        public DALDZService DALDZService=DALFactory.DALDZService;
+        
 
         public IList<DZService> GetServiceByBusiness(Guid businessId, Guid serviceTypeId, int pageindex, int pagesize, out int totalRecords)
         {
-            return iDALDZService.GetList(businessId, serviceTypeId, pageindex, pagesize, out totalRecords);
+            return DALDZService.GetList(businessId, serviceTypeId, pageindex, pagesize, out totalRecords);
         }
         
         public DZService GetOne(Guid serviceId)
         {
-            return iDALDZService.DalBase.GetOne(serviceId);
+            return DALDZService.GetOne(serviceId);
         }
         public void SaveOrUpdate(DZService service)
         {
@@ -36,7 +30,7 @@ namespace Dianzhu.BLL
             }
 
             service.LastModifiedTime = DateTime.Now;
-            iDALDZService.DalBase.SaveOrUpdate(service);
+            DALDZService.SaveOrUpdate(service);
         }
 
     }

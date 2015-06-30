@@ -13,27 +13,9 @@ namespace Dianzhu.BLL
     /// </summary>
    public  class BLLBusiness
     {
-        IDALBusiness idal = null;
-        IDALMembership iDalMembership = null;
-       
-        public BLLBusiness(IDALBusiness idal,IDALMembership iDalMembership)
-        {
-            this.idal = idal;
-            this.iDalMembership = iDalMembership;
-        }
-        public BLLBusiness()
-            : this(new DALBusiness(),new DAL.DALMembership())
-        { }
-       /// <summary>
-       /// 跨两个实体类的逻辑 传入dal 还是 bll?
-       /// </summary>
-       /// <param name="address"></param>
-       /// <param name="description"></param>
-       /// <param name="latitude"></param>
-       /// <param name="longtitude"></param>
-       /// <param name="name"></param>
-       /// <param name="mobilePhone"></param>
-       /// <param name="password"></param>
+        public DALBusiness DALBusiness = DALFactory.DALBusiness;
+        public DALMembership dalMembership = DALFactory.DALMembership;
+
         public void Register(string address,string description
                             ,double latitude,double longtitude,string name,string mobilePhone,string password
             )
@@ -44,27 +26,27 @@ namespace Dianzhu.BLL
                                         DateApproved = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue
             };
 
-                idal.DalBase.Save(b);
-                BusinessUser bu = iDalMembership.CreateBusinessUser(mobilePhone, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);
+                DALBusiness.Save(b);
+                BusinessUser bu = dalMembership.CreateBusinessUser(mobilePhone, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);
              
              
         }
 
         public IList<Business> GetAll()
         {
-            return idal.DalBase.GetAll<Business>();
+            return DALBusiness.GetAll<Business>();
         }
         public Business GetOne(Guid id)
         {
-            return idal.DalBase.GetOne(id);
+            return DALBusiness.GetOne(id);
         }
         public void Updte(Business business)
         {
-             idal.DalBase.Update(business);
+            DALBusiness.Update(business);
         }
         public void Delete(Business business)
         {
-            idal.DalBase.Delete(business);
+            DALBusiness.Delete(business);
         }
        /// <summary>
        /// 根据条件返回商户列表
@@ -76,7 +58,7 @@ namespace Dianzhu.BLL
        /// <returns></returns>
         public IList<Business> GetList(string query,int pageIndex,int pageSize,out int totalRecords)
         {
-            return idal.DalBase.GetList(query, pageIndex, pageSize, out totalRecords);
+            return DALBusiness.GetList(query, pageIndex, pageSize, out totalRecords);
         }
        
        

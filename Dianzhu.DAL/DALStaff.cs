@@ -6,14 +6,9 @@ using Dianzhu.Model;
 using NHibernate;
 namespace Dianzhu.DAL
 {
-    public class DALStaff : IDAL.IDALStaff
+    public class DALStaff : DALBase<Staff>
     {
-        IDAL.IDALBase<Staff> dalBase = null;
-        public IDAL.IDALBase<Staff> DalBase
-        {
-            get { return new DalBase<Staff>(); }
-            set { dalBase = value; }
-        }
+       
         public IList<Staff> GetList(Guid businessId, Guid serviceTypeId, int pageindex, int pagesize, out int totalRecord)
         {
             string where = "s.Belongto.Id='" + businessId + "'";
@@ -21,7 +16,7 @@ namespace Dianzhu.DAL
             {
                 where += " and s.ServiceType.Id='" + serviceTypeId + "'";
             }
-            return DalBase.GetList("select s from Staff s where " + where, pageindex, pagesize, out totalRecord);
+            return GetList("select s from Staff s where " + where, pageindex, pagesize, out totalRecord);
         }
         
     }

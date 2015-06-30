@@ -4,15 +4,11 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using NHibernate;
+using Dianzhu.IDAL;
 namespace Dianzhu.DAL
 {
-    public class DALBusiness :DALBase<Business>
+   public class DALCashTicketAssignDetail:DALBase<CashTIcketAssignDetail>
     {
        
-
-        public void CreateBusinessAndUser(string code)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

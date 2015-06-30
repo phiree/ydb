@@ -7,7 +7,7 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALArea : DalBase<Model.Area>
+    public class DALArea : DALBase<Model.Area>
     {
         public IList<Model.Area> GetArea(int areaid)
         {
