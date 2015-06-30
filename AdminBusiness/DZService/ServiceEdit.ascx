@@ -52,8 +52,18 @@
                                             <i class="icon service-icon-serIntro"></i>服务介绍</p>
                                         <p>
                                             <asp:TextBox CssClass="service-input-area" runat="server" TextMode="MultiLine" ID="tbxDescription"> </asp:TextBox></p>
+
+
+                                    </div>
+                                    <div class="service-m">
+                                        <p class="p_serviceIntroduced service-item-title">
+                                            <i class="icon service-icon-serIntro"></i>启用</p>
+                                        <p>
+                                            <asp:CheckBox runat="server" ID="cbxEnable" Text="启用"  />
+                                            </p>
                                     </div>
                                 </div>
+                                 
                             </div>
                         </div>
                         <div class="service-md">
@@ -227,7 +237,7 @@
                     </div>
                     <div class="service-saveSubmit">
                         <asp:Button CssClass="service-saveSubmit-btn" runat="server" ID="btnSave" OnClick="btnSave_Click" />
-                    </div>
+                       </div>
 
    
     

@@ -47,6 +47,7 @@ ul li{ list-style:none;}
 	}
 .my-ui-btn-active{ background:#F00;}
 .mybtn-see-div{ background:url(../images/ck_btn.png) no-repeat; width:69px; height:45px;}
+.erroTxt{ color:#F00}
 /*以下是自定义的样式*/
 /***查看按钮样式
 引用是html head + body .ui-btn.ui-btn-后面的名字,即是(mybtn-see)

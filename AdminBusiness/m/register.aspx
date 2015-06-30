@@ -24,15 +24,17 @@
                 <label for="iphone">
                     输入号码：</label>
                 <div style="position: relative;">
-                    <input type="text" class="username" name="iphone" id="iphone" data-inline="true">
+                    <input type="text" class="username" name="iphone" id="iphone" data-inline="true" onBlur="validatemobile(this,'#vregPhonetxt')">
                     <span style="position: absolute; top: 10px; left: 8px; color: #333;">+86</span>
+                    <span id="vregPhonetxt" class="erroTxt"></span>
                 </div>
             </div>
-            <div id="email-div">
+            <div id="email-div" style=" display:none;">
                 <label for="email">
                     输入邮箱：</label>
                 <div style="position: relative;">
-                    <input type="text" class="username" name="email" id="email" data-inline="true">
+                    <input type="text" class="username" name="email" id="email" data-inline="true" onBlur="emailCheck(this,'#vregEmailtxt')">
+                    <span id="vregEmailtxt" class="erroTxt"></span>
                 </div>
             </div>
             <div style="display:none">
@@ -46,7 +48,7 @@
             <a data-role="button" href="#okpage" id="btn_next" disabled="disabled" data-transition="slideup">
                 下一步</a>
             <br />
-            <a href="#loginpage" data-transition="slidedown" class="my-a-2">返回登录页</a>
+            <a href="login.aspx" data-transition="slidedown" class="my-a-2">返回登录页</a>
         </div>
     </div>
     <div data-role="page" style="background: none;" id="okpage" data-theme="mya" data-title="会员注册密码确认">
@@ -79,17 +81,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="bottom" runat="Server">
     <script type="text/javascript">
 
-        function getSelectVal() {
-            var txt = $("#iphone-tyle  option:selected").text();
-            if (txt == "电子邮箱") {
-                $("#email-div").css("display", "block");
-                $("#iphone-div").css("display", "none");
-            } else {
-                $("#email-div").css("display", "none");
-                $("#iphone-div").css("display", "block");
-            }
-
-        }
+       
         $(document).ready(function () {
             $("#email-div").css("display", "none");
             $("#iphone-div").css("display", "block");

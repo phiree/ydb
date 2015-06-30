@@ -184,6 +184,12 @@ body {
 
 .l-h16 { line-height: 1.6em; }
 
+.blue-a { color: #31b6fc; }
+.blue-a:visited { color: #31b6fc; }
+
+.white-a { color: #fff; }
+.white-a:visited { color: #fff; }
+
 .icon {
     display: inline-block;
     *display: inline-block;

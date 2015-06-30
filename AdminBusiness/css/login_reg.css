@@ -66,7 +66,7 @@ html,body {
     height: 100%;
 }
 
-.wrap {
+.reg-wrap {
     height: 100%;
     background: url("../image/login_reg/bg_1.jpg") no-repeat center;
     overflow: hidden;
@@ -208,8 +208,8 @@ html,body {
 
 /*信息验证图片*/
 .checkIcon {
-    /*display:none;*/
-    display: inline-block;
+    display:none;
+    /*display: inline-block;*/
     *zoom: 1;
     *display: inline;
     *margin-left: 10px;
@@ -222,11 +222,32 @@ html,body {
 }
 
 .chkRight {
+    display: inline-block;
     background: url("../image/login_reg/zhengqie_1.png") no-repeat center;
 }
 
 .chkError {
+    display: inline-block;
     background: url("../image/login_reg/zhengqie_2.png") no-repeat center;
+}
+
+.errorText {
+    color: #df7081;
+    font-size: 13px;
+}
+
+.regWarnText {
+    color: #df7081;
+    font-size: 13px;
+    padding: 10px 0 0 0;
+    vertical-align: middle;
+}
+
+.userConfirm-Back {
+    border: 0;
+    width: 112px;
+    height: 50px;
+    background: url("../image/login_reg/shop_button_01.png") no-repeat center;
 }
 
 .loginBox { width: 340px; margin-bottom: 10px; }

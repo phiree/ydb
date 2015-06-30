@@ -1,73 +1,87 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="~/DZService/ServiceEdit.ascx.cs"
     Inherits="DZService_ServiceEdit" %>
-    <link rel="stylesheet" href="/m/css/global.css" />
-    <link rel="stylesheet" href="/m/css/service_info.css" />
-
-    
- 
+<link rel="stylesheet" href="/m/css/global.css" />
+<link rel="stylesheet" href="/m/css/service_info.css" />
 <div data-role="content" style="background: #cadbec; color: #617e9c; margin: 0; padding: 0;">
- 
-    <div class="m-p-size pd-size">
-        <div class="info-title">服务基本信息</div>
-    </div>
-    <div class="info-content">
-            <div class="pd-size2">
-                <ul class="panel-ul">
-                    <a class="hrefClass" id="open_name" style="color:#58789a;">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                服务名称
-                            </div>
-                            <div class="ul-right">
-                                <span id="serviceName"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
-                        </li>
-                    </a>
-                </ul>
-                <ul class="panel-ul">
-                    <a class="hrefClass" id="open_servicetype" style="color:#58789a;">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                服务类别
-                            </div>
-                            <div class="ul-right">
-                                <span id="targetid-txt">
-                                    <asp:Label runat="server" ID="lblSelectedType"></asp:Label></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
-                        </li>
-                    </a>
-                </ul>
-                <ul class="panel-ul">
-                    <a class="hrefClass" id="open_description" style="color:#58789a;">
-                        <li class="my-li3">
-                            <div class="ul-left">
-                                <div>服务介绍</div>
-                                <div id="serInfo-txt" style="margin-bottom:5px; font-size:14px;">请输入服务介绍</div>
-                            </div>
-                            
-                                
-                                <div class="ul-right li-inco"></div>
-                            
-                        </li>
-                    </a>
-                </ul>
-
-            
-        
-    </div>
     <div class="m-p-size pd-size">
         <div class="info-title">
-            服务详情
-        </div>
+            服务基本信息</div>
     </div>
+    <div class="info-content">
+        <div class="pd-size2">
+            <ul class="panel-ul">
+                <a class="hrefClass" id="open_name" style="color: #58789a;">
+                    <li class="my-li6">
+                        <div class="ul-left">
+                            服务名称
+                        </div>
+                        <div class="ul-right">
+                            <span id="serviceName"></span>
+                            <div class="ul-right li-inco">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+            </ul>
+            <ul class="panel-ul">
+                <a class="hrefClass" id="open_servicetype" style="color: #58789a;">
+                    <li class="my-li6">
+                        <div class="ul-left">
+                            服务类别
+                        </div>
+                        <div class="ul-right">
+                            <span id="targetid-txt">
+                                <asp:Label runat="server" ID="lblSelectedType"></asp:Label></span>
+                            <div class="ul-right li-inco">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+            </ul>
+            <ul class="panel-ul">
+                <a class="hrefClass" id="open_description" style="color: #58789a;">
+                    <li class="my-li3">
+                        <div class="ul-left">
+                            <div>
+                                服务介绍</div>
+                            <div id="serInfo-txt" style="margin-bottom: 5px; font-size: 14px;">
+                                请输入服务介绍</div>
+                        </div>
+                        <div class="ul-right li-inco">
+                        </div>
+                    </li>
+                </a>
+            </ul>
+             <ul class="panel-ul">
+                <a  class="hrefClass" id="open_enable" style="color: #58789a;">
+                    <li class="my-li3">
+                        <div class="ul-left">
+                             
+                                启用 
+                             
+                        </div>
+                         <div class="ul-right">
+                            <span id="spanEnable">
+                                 </span>
+                            <div class="ul-right li-inco">
+                            </div>
+                        </div>
+                        
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div class="m-p-size pd-size">
+            <div class="info-title">
+                服务详情
+            </div>
+        </div>
         <div class="info-content">
             <div class="pd-size2">
                 <ul class="panel-ul">
-                    <a class="hrefClass" id="open_servicescope" style="color:#58789a;">
+                    <a class="getMaphrefClass" href="#secondview" data-transition="slidedown" style="color: #58789a;">
+
+
                         <li class="my-li6">
                             <div class="ul-left">
                                 服务范围
@@ -95,7 +109,7 @@
                     </a>
                 </ul>
                 <ul class="panel-ul">
-                    <a class="hrefClass" id="open_unitprice" style="color:#58789a;">
+                    <a class="hrefClass" id="open_unitprice" style="color: #58789a;">
                         <li class="my-li6">
                             <div class="ul-left">
                                 服务单价
@@ -109,7 +123,7 @@
                     </a>
                 </ul>
                 <ul class="panel-ul">
-                    <a class="hrefClass" id="open_preorder_delay" style="color:#58789a;">
+                    <a class="hrefClass" id="open_preorder_delay" style="color: #58789a;">
                         <li class="my-li6">
                             <div class="ul-left">
                                 提前预约时长
@@ -137,7 +151,7 @@
                     </a>
                 </ul>
                 <ul class="panel-ul">
-                    <a class="hrefClass" id="open_maxorder_day" style="color:#58789a;">
+                    <a class="hrefClass" id="open_maxorder_day" style="color: #58789a;">
                         <li class="my-li6">
                             <div class="ul-left">
                                 每日最大接单量
@@ -151,7 +165,7 @@
                     </a>
                 </ul>
                 <ul class="panel-ul">
-                    <a class="hrefClass" id="open_maxorder_hour" style="color:#58789a;">
+                    <a class="hrefClass" id="open_maxorder_hour" style="color: #58789a;">
                         <li class="my-li6">
                             <div class="ul-left">
                                 每小时最大接单量
@@ -165,7 +179,7 @@
                     </a>
                 </ul>
                 <ul class="panel-ul">
-                    <a class="hrefClass" id="open_servicemode" style="color:#58789a;">
+                    <a class="hrefClass" id="open_servicemode" style="color: #58789a;">
                         <li class="my-li6">
                             <div class="ul-left">
                                 是否上门
@@ -179,7 +193,7 @@
                     </a>
                 </ul>
                 <ul class="panel-ul">
-                    <a class="hrefClass" id="open_is_for_business" style="color:#58789a;">
+                    <a class="hrefClass" id="open_is_for_business" style="color: #58789a;">
                         <li class="my-li6">
                             <div class="ul-left">
                                 可以对公
@@ -193,7 +207,7 @@
                     </a>
                 </ul>
                 <ul class="panel-ul">
-                    <a class="hrefClass" id="open_compensation" style="color:#58789a;">
+                    <a class="hrefClass" id="open_compensation" style="color: #58789a;">
                         <li class="my-li6">
                             <div class="ul-left">
                                 先行赔付
@@ -207,7 +221,7 @@
                     </a>
                 </ul>
                 <ul class="panel-ul">
-                    <a class="hrefClass" id="open_certificated" style="color:#58789a;">
+                    <a class="hrefClass" id="open_certificated" style="color: #58789a;">
                         <li class="my-li6">
                             <div class="ul-left">
                                 平台认证
@@ -221,7 +235,7 @@
                     </a>
                 </ul>
                 <ul class="panel-ul">
-                    <a class="hrefClass" id="open_paytype" style="color:#58789a;">
+                    <a class="hrefClass" id="open_paytype" style="color: #58789a;">
                         <li class="my-li6">
                             <div class="ul-left">
                                 支付方式
@@ -236,16 +250,11 @@
                 </ul>
             </div>
         </div>
-        <div style="padding:10px;">
-            
+        <div style="padding: 10px;">
             <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="保存" data-theme="mybtn2" />
-
-          
-          </div>
+        </div>
     </div>
-    </div>
-    
-
+</div>
 <!-- left-slided-panel -->
 <!--/left-slided-panel-->
 <!-- right-slided-panel -->
@@ -253,7 +262,8 @@
     <div class="m-p-size pd-size">
         <div class="info-title">
             <span class="rp name">服务名称</span> <span class="rp servicetype">服务类别</span> <span
-                class="rp description">服务介绍</span> <span class="rp servicescope">服务范围</span>
+                class="rp description">服务介绍</span> <span
+                class="rp enable">启用状态</span> 
             <span class="rp minprice">最低服务价</span> <span class="rp unitprice">单价</span> <span
                 class="rp preorder_delay">提前预约时间</span> <span class="rp open_period">接单时间</span>
             <span class="rp maxorder_day">每日最大接单量</span> <span class="rp maxorder_hour">每小时最大接单量</span>
@@ -278,6 +288,9 @@
                 <asp:TextBox CssClass="service-input-area" ClientIDMode="Static" runat="server" TextMode="MultiLine"
                     ID="tbxDescription"> </asp:TextBox>
             </div>
+              <div class="rp enable">
+               <asp:CheckBox runat="server" ClientIDMode="Static" Text="启用" ID="cbxEnable" />
+            </div>
             <div class="rp servicescope">
                 <input id="hiBusinessAreaCode" runat="server" clientidmode="Static" type="hidden">
                 <p class="p_LocationArea service-item-title">
@@ -290,12 +303,7 @@
                         <!--<p id="businessText"></p>-->
                     </div>
                     <div class="fl m-l20">
-                        <p class="m-b20">
-                            您选择的位置：</p>
-                        <p id="businessText" class="business-text m-b50">
-                        </p>
-                        <p class="l-h16">
-                            ←点击选择商圈范围</p>
+
                     </div>
                 </div>
             </div>
@@ -359,15 +367,18 @@
                     <asp:ListItem Value="2" Text="线下"></asp:ListItem>
                 </asp:RadioButtonList>
             </div>
-            <a href="#" id="rp_save" data-rel="close" data-role="button" data-inline="true">确定</a>
+            <a href="#" id="rp_save" data-rel="close" data-role="button" data-inline="true" onClick="getMapAddrText('#serArea-txt','#hiBusinessAreaCode')">确定</a>
             <a href="#" data-rel="close" data-role="button" data-inline="true">取消</a>
         </div>
     </div>
 </div>
+
+
 <script src="/m/js/service_edit.js" type="text/javascript"></script>
 <script src="/js/TabSelection.js" type="text/javascript"></script>
-<script type="text/javascript">
 
+<script type="text/javascript">
+   
     $(function () {
         $("#tabsServiceType").TabSelection({
             "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",

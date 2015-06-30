@@ -39,7 +39,10 @@ namespace Dianzhu.BLL
             )
         {
             Business b = new Business { Address=address,
-             Description=description, Latitude=latitude,Longitude=longtitude, Name=name};
+             Description=description, Latitude=latitude,Longitude=longtitude, Name=name,
+             DateApply=(DateTime)System.Data.SqlTypes.SqlDateTime.MinValue,
+                                        DateApproved = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue
+            };
 
                 idal.DalBase.Save(b);
                 BusinessUser bu = iDalMembership.CreateBusinessUser(mobilePhone, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);

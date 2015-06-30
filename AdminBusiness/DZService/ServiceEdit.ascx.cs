@@ -71,6 +71,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         {
             lblSelectedType.Text = CurrentService.ServiceType.ToString();
         }
+        cbxEnable.Checked = CurrentService.Enabled;
         hiBusinessAreaCode.Value = CurrentService.BusinessAreaCode;
         tbxMinPrice.Text = CurrentService.MinPrice.ToString("#.#");
         tbxUnitPrice.Text = CurrentService.UnitPrice.ToString("#");
@@ -90,7 +91,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     {
         CurrentService.Name = tbxName.Text;
         CurrentService.Description = tbxDescription.Text;
-
+        CurrentService.Enabled = cbxEnable.Checked;
         CurrentService.Business = ((BusinessUser)((BasePage)this.Page).CurrentUser).BelongTo;
         Guid typeId = new Guid(hiTypeId.Value);
         ServiceType = bllServiceType.GetOne(typeId);
@@ -120,4 +121,5 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         bllService.SaveOrUpdate(CurrentService);
         Response.Redirect(Request.RawUrl);
     }
+   
 }

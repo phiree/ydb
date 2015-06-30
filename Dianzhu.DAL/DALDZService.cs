@@ -17,6 +17,8 @@ namespace Dianzhu.DAL
 
 
 
+
+
         public IList<DZService> GetList(Guid businessId, Guid  serviceTypeId, int pageindex, int pagesize, out int totalRecord)
         {
             string where = "s.Business.Id='" + businessId + "'";
@@ -24,7 +26,10 @@ namespace Dianzhu.DAL
             {
                 where += " and s.ServiceType.Id='" + serviceTypeId + "'";
             }
-            return DalBase.GetList("select s from DZService s where "+where, pageindex, pagesize, out totalRecord);
+            return DalBase.GetList("select s from DZService s where "
+                +where +" order by s.LastModifiedTime desc",
+                pageindex, pagesize, out totalRecord);
         }
+        
     }
 }

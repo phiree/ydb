@@ -116,7 +116,9 @@ namespace Dianzhu.DAL
         }
         public Model.BusinessUser CreateBusinessUser(string username, string password, Model.Business business)
         {
-            Model.BusinessUser member = new Model.BusinessUser { UserName = username, Password = password, TimeCreated = DateTime.Now, BelongTo = business };
+            Model.BusinessUser member = new Model.BusinessUser
+            { UserName = username, Password = password, TimeCreated = DateTime.Now, BelongTo = business,
+             LastLoginTime=DateTime.Now};
             DalBase.Save(member);
             return member;
         }
