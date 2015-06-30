@@ -5,7 +5,7 @@ using System.Text;
 using Dianzhu.Model;
 using Dianzhu.DAL;
 using PHSuit;
-using Dianzhu.IDAL;
+
 namespace Dianzhu.BLL
 {
     /// <summary>

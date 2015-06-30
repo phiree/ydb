@@ -6,7 +6,7 @@ using NHibernate;
 using NHibernate.Hql;
 using System.Web.Security;
 using System.Data.SqlClient;
-using Dianzhu.IDAL;
+
 namespace Dianzhu.DAL
 {
     public class DALBase<T>

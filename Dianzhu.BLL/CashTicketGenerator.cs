@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-using Dianzhu.IDAL;
+
 using Dianzhu.DAL;
 using PHSuit;
 namespace Dianzhu.BLL
