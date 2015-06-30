@@ -48,6 +48,24 @@
                         </div>
                     </li>
                 </ul>
+                 <ul class="panel-ul">
+                    <li class="my-li2">
+                        <div class="ul-left2">
+                            店铺投降
+                        </div>
+                        <div class="ul-left">
+                               
+                                    
+                            <div class="input-file-box d-inb">
+                              <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuAvater" />
+                                  <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
+                                      
+                                <i class="input-file-mark"></i>
+                                <img class="input-file-pre" />
+                            </div>
+                        </div>
+                    </li>
+                </ul>
                 <ul class="panel-ul">
                     <li class="my-li" target="phone">
                         <div class="ul-left">
@@ -120,7 +138,7 @@
                             营业执照
                         </div>
                         <div class="ul-left">
-                            <img runat="server" id="imgLicence" src="/image/dianjishangchuan_1.png" />
+                             <asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink>
                             <div class="input-file-box d-inb">
                                 <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
                                 <i class="input-file-bg"></i><i class="input-file-mark"></i>
@@ -165,7 +183,8 @@
                             证件照
                         </div>
                         <div class="ul-left">
-                            <img runat="server" id="imgChargePerson" src="/image/dianjishangchuan_1.png" />
+                              <asp:HyperLink runat="server" ID="imgChargePerson"></asp:HyperLink>
+                                    
                             <div class="input-file-box d-inb">
                                 <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
                                 <i class="input-file-bg"></i><i class="input-file-mark"></i>

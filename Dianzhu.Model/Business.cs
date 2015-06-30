@@ -117,6 +117,26 @@ namespace Dianzhu.Model
                 BusinessImages.Add(value);
             }
         }
+        public virtual BusinessImage BusinessAvatar
+        {
+            get
+            {
+                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.ImageType.Business_Avatar).ToArray();
+                if (bi.Count() >= 1)
+                    return bi[0];
+                return new BusinessImage();
+            }
+            set
+            {
+
+                IList<BusinessImage> images = BusinessImages.Where(x => x.ImageType == Enums.ImageType.Business_Avatar).ToList();
+                foreach (BusinessImage i in images)
+                {
+                    BusinessImages.Remove(i);
+                }
+                BusinessImages.Add(value);
+            }
+        }
         public virtual Enums.IDCardType ChargePersonIdCardType
         {
             get;

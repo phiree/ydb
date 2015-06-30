@@ -35,16 +35,29 @@ public partial class Account_Edit : BasePage
             tbxCardIdNo.Value = b.ChargePersonIdCardNo; 
 
             string imgLicencePath=string.Empty, imgChargePersonPath=string.Empty;
-            if (b.ChargePersonIdCard != null)
+            if (b.ChargePersonIdCard .Id!=Guid.Empty)
             {
-                imgChargePersonPath = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.ChargePersonIdCard.ImageName) + "&width=90&height=90&tt=2";
-            } if (b.BusinessLicence != null)
-            {
-                imgLicencePath = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.BusinessLicence.ImageName) + "&width=90&height=90&tt=2";
-               // imgLicencePath = Config.BusinessImagePath + b.BusinessLicence.ImageName;
+                imgChargePerson.ImageUrl = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.ChargePersonIdCard.ImageName) + "&width=90&height=90&tt=2";
+                imgChargePerson.NavigateUrl = Config.BusinessImagePath + "original/" + b.ChargePersonIdCard.ImageName;
             }
-            imgLicence.Src = imgLicencePath;
-            imgChargePerson.Src = imgChargePersonPath;
+            else
+            {
+                imgChargePerson.Visible = false;
+            }
+            if (b.BusinessLicence.Id != Guid.Empty)
+            {
+                imgBusinessImage.ImageUrl = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.BusinessLicence.ImageName) + "&width=90&height=90&tt=2";
+                //imgLicencePath = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.BusinessLicence.ImageName) + "&width=90&height=90&tt=2";
+                imgBusinessImage.NavigateUrl = Config.BusinessImagePath + "original/" + b.BusinessLicence.ImageName;
+                // imgLicencePath = Config.BusinessImagePath + b.BusinessLicence.ImageName;
+            }
+            else {
+                imgBusinessImage.Visible = false;
+            }
+            
+            
+            //imgLicence.Src = imgLicencePath;
+            //imgChargePerson.Src = imgChargePersonPath;
 
             BindShowImages();
         }
@@ -100,6 +113,20 @@ public partial class Account_Edit : BasePage
              };
 
              b.BusinessLicence = biLicence;
+         }
+         if (fuAvater.PostedFile != null && fuAvater.PostedFile.ContentLength != 0)
+         {
+             string avatar_name = b.Id + ImageType.Business_Avatar.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuAvater.FileName);
+             fuAvater.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + avatar_name);
+             BusinessImage biAvatar = new BusinessImage
+             {
+                 ImageType = ImageType.Business_Avatar,
+                 UploadTime = DateTime.Now,
+                 ImageName = avatar_name,
+                 Size = fuAvater.PostedFile.ContentLength
+             };
+
+             b.BusinessAvatar = biAvatar;
          }
 
          if (fuChargePerson.PostedFile!=null&&fuChargePerson.PostedFile.ContentLength != 0)
