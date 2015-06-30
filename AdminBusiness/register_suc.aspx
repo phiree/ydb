@@ -51,6 +51,6 @@
         </div>
     </div>
 </body>
-<script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/vendor/jquery.js"></script>
+<script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min"></script>
 <script src="js/login_reg.js" type="text/javascript"></script>
 </html>

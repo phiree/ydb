@@ -33,7 +33,13 @@
                         <!--<div class="headDecoration1">-->
                         <!--</div>-->
                         <div class="headImage">
-                            <img src="../image/myshop/touxiangkuang_11.png" alt="头像" />
+                        <div class="input-file-box fl">   
+                                        <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuAvater" />
+                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
+                                        <i  class="input-file-mark"></i>
+                                        <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" />
+                                    </div>
+                            
                         </div>
                         <div class="headInfo">
                             <p>
@@ -98,10 +104,8 @@
                                     <i class="icon myshop-icon-businessLic"></i>营业执照</p>
                                 <div>
                                     <div class="download-img-pre fl">
-                                        <a href='<%=Config.BusinessImagePath+"/original/"+b.BusinessLicence.ImageName %>'
-                                            class="download-img-pre">
-                                            <img runat="server" id="imgLicence" src="/image/dianjishangchuan_1.png" />
-                                        </a>
+                                        <asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink>
+                                        
                                     </div>
                                     <div class="input-file-box fl">
                                         <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
@@ -181,9 +185,8 @@
                                     <i class="icon myshop-icon-ownerPic"></i>负责人证件照上传</p>
                                 <div class="clearfix">
                                     <div class="download-img-pre fl">
-                                        <a href='<%=Config.BusinessImagePath+"/original/"+b.ChargePersonIdCard.ImageName %>'>
-                                            <img runat="server" id="imgChargePerson" src="/image/dianjishangchuan_1.png" />
-                                        </a>
+                                    <asp:HyperLink runat="server" ID="imgChargePerson"></asp:HyperLink>
+                                         
                                     </div>
                                     <div class="input-file-box fl">
                                         <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuChargePerson" />

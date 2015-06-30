@@ -104,7 +104,7 @@
             }
 
             $(targetID).text(targetTxt);
-            alert(targetTxt);
+          //  alert(targetTxt);
             $(targetHID).text(targetTxt);
 
 

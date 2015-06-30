@@ -51,7 +51,7 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
 <asp:ContentPlaceHolder id="bottom" runat="Server">
     </asp:ContentPlaceHolder>
 </html>
