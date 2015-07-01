@@ -8,11 +8,11 @@ using Dianzhu.BLL;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-using NUnit.Framework;
+ 
 using FluentNHibernate.Testing;
 using NHibernate;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+
+ 
 using PHSuit;
 using System.IO;
 namespace Dianzhu.Test

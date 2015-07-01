@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.DAL;
-
+using System.Device.Location;
 using Dianzhu.Model;
 using System.Web.Security;
 namespace Dianzhu.BLL
