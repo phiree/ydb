@@ -40,7 +40,7 @@
             </ul>
             <ul class="panel-ul">
                 <a class="hrefClass" id="open_description" style="color: #58789a;">
-                    <li class="my-li3">
+                    <li class="my-li">
                         <div class="ul-left">
                             <div>
                                 服务介绍</div>
@@ -57,13 +57,15 @@
                     <li class="my-li3">
                         <div class="ul-left">
                              
-                                启用 
+                                 <div class="m-top">启用 </div>
                              
                         </div>
                          <div class="ul-right">
+                          <div class="m-top">
                             <span id="spanEnable">
                                  </span>
                             <div class="ul-right li-inco">
+                            </div>
                             </div>
                         </div>
                         
