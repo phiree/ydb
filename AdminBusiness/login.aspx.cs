@@ -28,7 +28,8 @@ public partial class login : System.Web.UI.Page
             }
         }
         else {
-            PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);
+            lblMsg.Text = "登录失败,用户名/密码有误,请重试.";
+           // PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);
         }
     }
 
