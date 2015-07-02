@@ -34,24 +34,40 @@
               // alert(e)
               if (e.value == '用户邮箱/手机号') {
                   e.value = '';
+              } else {
+                
               }
           }
 
           function myBlur(e,targetdiv) {
-              // alert(e)
+              
 
               if (e.value == '') {
                   e.value = '用户邮箱/手机号';
+                  $(targetdiv).html("");
               } else {
+
+                  if (!isNaN(e.value)) {
+                      validatemobile(e, targetdiv);
+                      //alert("是数字");
+                  } else {
+                      emailCheck(e, targetdiv);
+                    //  alert("不全是数字");
+                  }
+              /*
                   var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
                   if (!pattern.test(e.value)) {
-                   //   $(targetdiv).html("请输入正确的邮箱地址。");
+                    $(targetdiv).html("请输入正确的邮箱地址。");
                       e.focus();
-                      //return false;
+                    return false;
                   } else {
                       $(targetdiv).html("");
                   }
                // alert(e.value.length)
+               */
+                  //emailCheck(e, targetdiv);
+                 // validatemobile(e, targetdiv);
+
               }
           }
 
