@@ -41,11 +41,19 @@ public partial class CashTicket_Generator : BasePage
     protected void btnGenerate_Click(object sender, EventArgs e)
     {
         BLLCashTicket bllcashticket = new BLLCashTicket();
-        BusinessUser businessuser = (BusinessUser)CurrentUser;
+ 
         Guid templateId=new Guid(ddlTemplate.SelectedValue);
         CashTicketTemplate cashTicketTemplate=bllCashTicketTemplate.GetOne(templateId);
-        string result=  bllcashticket.CreateBatch(businessuser.BelongTo, Convert.ToInt32(tbxTotal.Text.Trim()), cashTicketTemplate);
-        Response.Write("<p style='color:red'>"+result+"</p>");
+        string result=  bllcashticket.CreateBatch(CurrentBusiness, Convert.ToInt32(tbxTotal.Text.Trim()), cashTicketTemplate);
+
+        if (string.IsNullOrEmpty(result))
+        {
+            PHSuit.Notification.Show(Page, "","创建成功",null);
+        }
+        else
+        {
+            PHSuit.Notification.Show(Page, "创建失败", result, null);
+        }
 
     }
 }

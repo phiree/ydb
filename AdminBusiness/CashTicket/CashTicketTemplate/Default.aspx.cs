@@ -18,7 +18,7 @@ public partial class CashTicket_Default :BasePage
     }
     private void BindList()
     {
-        gv.DataSource = bll.GetTemplateList(((BusinessUser)CurrentUser).BelongTo);
+        gv.DataSource = bll.GetTemplateList(CurrentBusiness);
         gv.DataBind();
     }
 }

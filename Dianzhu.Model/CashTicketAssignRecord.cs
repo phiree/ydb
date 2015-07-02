@@ -23,6 +23,10 @@ namespace Dianzhu.Model
         public virtual DateTime TimeBegin { get; set; }
 
         /// <summary>
+        /// 分发的范围(行政区域)
+        /// </summary>
+        public virtual Area Area { get; set; }
+        /// <summary>
         /// 分派结束时间
         /// </summary>
         public virtual DateTime TimeEnd { get; set; }

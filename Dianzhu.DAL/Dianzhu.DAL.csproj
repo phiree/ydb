@@ -76,6 +76,7 @@
     <Compile Include="Mapping\StaffMap.cs" />
     <Compile Include="Mapping\ServicePropertyMap.cs" />
     <Compile Include="Mapping\ServicePropertyValueMap.cs" />
+    <Compile Include="Mapping\CashTicketAssignRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DALCashTicketTemplate.cs" />
     <Compile Include="DALCashTicketCreateRecord.cs" />

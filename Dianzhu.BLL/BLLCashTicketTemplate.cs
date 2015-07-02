@@ -61,6 +61,10 @@ namespace Dianzhu.BLL
             return DALCashTicketTemplate.GetOne(id);
         }
 
+        public void SaveOrUpdate(CashTicketTemplate ctt)
+        {
+            DALCashTicketTemplate.SaveOrUpdate(ctt);
+        }
         
     }
 }

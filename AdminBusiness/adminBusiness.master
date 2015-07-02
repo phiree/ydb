@@ -11,7 +11,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
-    <asp:ContentPlaceHolder ID="head" runat="Server">
+      <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
+  
+    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
+    
+     <asp:ContentPlaceHolder ID="head" runat="Server">
     </asp:ContentPlaceHolder>
 </head>
 
@@ -52,7 +57,6 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
 <asp:ContentPlaceHolder id="bottom" runat="Server">
     </asp:ContentPlaceHolder>
 </html>

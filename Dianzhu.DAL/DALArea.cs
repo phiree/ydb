@@ -12,25 +12,25 @@ namespace Dianzhu.DAL
         public IList<Model.Area> GetArea(int areaid)
         {
             string sqlstr = "select a from Area a where a.Code like '" + areaid + "__00'";
-            IQuery query = session.CreateQuery(sqlstr);
+            IQuery query = Session.CreateQuery(sqlstr);
 
             return query.Future<Model.Area>().ToList<Model.Area>();
         }
         public Model.Area GetAreaByAreaid(int areaid)
         {
-            IQuery query = session.CreateQuery("select a from Area a where a.Id=" + areaid + "");
+            IQuery query = Session.CreateQuery("select a from Area a where a.Id=" + areaid + "");
             return query.FutureValue<Model.Area>().Value;
         }
 
         public Model.Area GetAreaByAreaname(string areaname)
         {
-            IQuery query = session.CreateQuery("select a from Area a where a.Name='" + areaname + "'");
+            IQuery query = Session.CreateQuery("select a from Area a where a.Name='" + areaname + "'");
             return query.FutureValue<Model.Area>().Value;
         }
 
         public Model.Area GetAreaByAreanamelike(string areaname)
         {
-            IQuery query = session.CreateQuery("select a from Area a where a.Name like '%" + areaname + "%'");
+            IQuery query = Session.CreateQuery("select a from Area a where a.Name like '%" + areaname + "%'");
             return query.FutureValue<Model.Area>().Value;
         }
 
@@ -39,7 +39,7 @@ namespace Dianzhu.DAL
             //IQuery query = session.CreateQuery("select a from Area a where a.SeoName='" + seoName + "'");
             //return query.FutureValue<Model.Area>().Value;
             string sql = "select top 1 Id,Name,SeoName,Code,AreaOrder,MetaDescription from Area a where a.seoname=:seoname";
-            IQuery query = session.CreateSQLQuery(sql)
+            IQuery query = Session.CreateSQLQuery(sql)
                 .SetParameter("seoname", seoName);
             var result = query.UniqueResult<object[]>();
             if (result != null)
@@ -91,7 +91,7 @@ namespace Dianzhu.DAL
                     + "00'";
             }
             if (string.IsNullOrEmpty(sql)) return null;
-            IQuery query = session.CreateQuery(sql);
+            IQuery query = Session.CreateQuery(sql);
             return query.Future<Model.Area>().ToList<Model.Area>();
         }
         /// <summary>
@@ -126,7 +126,7 @@ namespace Dianzhu.DAL
         public IList<Model.Area> GetAreaProvince()
         {
             string strQuery = "select a from Area a where a.Code like '__0000'";
-            IQuery query = session.CreateQuery(strQuery);
+            IQuery query = Session.CreateQuery(strQuery);
             return query.Future<Model.Area>().ToList<Model.Area>();
         }
 
@@ -134,7 +134,7 @@ namespace Dianzhu.DAL
         public Model.Area GetAreaByCode(string code)
         {
             string sql = "select a from Area a where a.Code='" + code + "'";
-            IQuery query = session.CreateQuery(sql);
+            IQuery query = Session.CreateQuery(sql);
             return query.FutureValue<Model.Area>().Value;
         }
     }

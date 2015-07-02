@@ -21,6 +21,7 @@ namespace Dianzhu.DAL.Mapping
             References<Business_Abs>(x => x.Business);
             References<CashTicketTemplate>(x => x.CashTicketTemplate);
             HasMany<CashTicket>(x => x.CashTickets).Cascade.All();
+            
         }
 
     }

@@ -60,6 +60,14 @@ namespace Dianzhu.BLL
         {
             return DALBusiness.GetList(query, pageIndex, pageSize, out totalRecords);
         }
+        public IList<Area> GetAreasOfBusiness()
+        { 
+            return DALBusiness.GetAreasOfBusiness();
+        }
+        public IList<Business> GetBusinessInSameCity(Area area)
+        {
+            return DALBusiness.GetBusinessInSameCity(area);
+        }
        
        
     }

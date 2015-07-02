@@ -40,6 +40,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.StaffAmount);
             Map(x => x.ChargePersonIdCardType).CustomType<int>();
             Map(x => x.PromoteScope);
+            HasMany(x => x.CashTicketTemplates);
         }
     }
     public class BusinessImageMap : ClassMap<BusinessImage>

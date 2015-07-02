@@ -40,6 +40,7 @@ namespace PHSuit
         {
             string injectedScript = BuildInjectScript(title, content, type, returnUrl, autoClose, autoCloseDuaratio);
             page.ClientScript.RegisterStartupScript(page.GetType(), "_nf", injectedScript, true);
+            
         }
 
         private static string BuildInjectScript(string title, string content,

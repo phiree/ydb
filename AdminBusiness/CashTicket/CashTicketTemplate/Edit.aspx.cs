@@ -11,20 +11,57 @@ using System.Web.Security;
 public partial class CashTicketTemplateEdit :BasePage
 {
     DZMembershipProvider dzp = new DZMembershipProvider();
+    private bool IsNew=true;
+    CashTicketTemplate currentCashTicketTemplate=new CashTicketTemplate();
+    BLLCashTicketTemplate bllctt = new BLLCashTicketTemplate();
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        string paramId = Request.Params["id"];
+        if (!string.IsNullOrEmpty(paramId))
+        {
+            IsNew = false;
+            currentCashTicketTemplate = bllctt.GetOne(new Guid(paramId));
+        }
+        if (!IsPostBack)
+        {
+            if (!IsNew)
+            {
+                LoadForm();
+            }
+        }
+    }
+    private void LoadForm()
+    {
+        tbx_amount.Text = currentCashTicketTemplate.Amount.ToString();
+        tbx_conditions.Text = currentCashTicketTemplate.Conditions;
+        tbx_coverage.Text = currentCashTicketTemplate.Coverage.ToString();
+        tbx_expiredDate.Text = currentCashTicketTemplate.ExpiredDate.ToString();
+        tbx_name.Text = currentCashTicketTemplate.Name;
+        cbxEnable.Checked = currentCashTicketTemplate.Enabled;
+    }
+    private void UpdateForm()
+    {
+        currentCashTicketTemplate.Amount = Convert.ToInt32(tbx_amount.Text);
+        currentCashTicketTemplate.Conditions = tbx_conditions.Text;
+        currentCashTicketTemplate.Coverage = Convert.ToSingle(tbx_coverage.Text);
+        currentCashTicketTemplate.ExpiredDate = Convert.ToDateTime(tbx_expiredDate.Text);
+        currentCashTicketTemplate.Name = tbx_name.Text;
+        currentCashTicketTemplate.Enabled = cbxEnable.Checked;
+        currentCashTicketTemplate.Owner = CurrentBusiness;
+         
     }
     protected void btnOK_Click(object sender, EventArgs e)
     {
-        BLLCashTicketTemplate bllctt = new BLLCashTicketTemplate();
-       
-      
-       
+        UpdateForm();
+         bllctt.SaveOrUpdate(currentCashTicketTemplate);
+         string result_url = Request.RawUrl;
+         if (IsNew)
+         {
+             result_url = result_url + "?id=" + currentCashTicketTemplate.Id;
+         }
 
-     CashTicketTemplate ctt=bllctt.Create(tbx_name.Text.Trim(),((BusinessUser)CurrentUser).BelongTo, DateTime.Today.AddDays(1), DateTime.Today.AddMonths(1),
-            Convert.ToInt32(tbx_amount.Text.Trim()), tbx_conditions.Text.Trim(), Convert.ToSingle(tbx_coverage.Text.Trim()));
-     Notification.Show(Page, "", "现金券创建成功", this.Request.Url.AbsolutePath);
+         Notification.Show(Page, "", "保存成功", result_url);
+ 
         
     }
     

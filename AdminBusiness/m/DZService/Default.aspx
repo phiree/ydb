@@ -15,14 +15,14 @@
         </a>
         <h1 style="color: #FFF;">
             <span style="background: url(/m/images/my-o-icon2.png) no-repeat; padding-left: 25px;">
-                服务信息</span></h1>
+                服务列表</span></h1>
         <a href="#" data-theme="d" data-icon="arrow-l" data-iconpos="notext" data-shadow="false"
             data-iconshadow="false" data-role="none">
             <img src="/m/images/my-r-icon.png" /></a>
            
         <nav data-role="navbar" data-theme="myb">
         <ul>
-         <li><a href="/m/DZService/" target="_parent" data-theme="mytile-active">信息管理</a></li>
+         <li><a href="/m/DZService/" target="_parent" data-theme="mytile-active">新建服务</a></li>
           <li><a href="/m/DZService/Service_Edit.aspx" target="_parent" data-theme="mytile">信息设置</a></li>
           </ul>
      </nav>

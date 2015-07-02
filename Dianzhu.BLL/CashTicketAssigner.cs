@@ -14,10 +14,19 @@ namespace Dianzhu.BLL
     /// </summary>
     public class CashTicketAssigner_Task
     {
+        BLLBusiness bllBusiness = new BLLBusiness();
         private static readonly ILog log = LogManager.GetLogger("dz");
         public CashTicketAssigner_Task()
         {
-            log.Debug("task_fired");
+            IList<Area> areas = bllBusiness.GetAreasOfBusiness();
+            foreach (Area area in areas)
+            {
+                IList<Business> businessesInSameCity = bllBusiness.GetBusinessInSameCity(area);
+                CashTicketAssignRecord assignRecord = new CashTicketAssignRecord { 
+                     AmountBusiness=businessesInSameCity.Count,
+                     
+                };
+            }
         }
          
     }

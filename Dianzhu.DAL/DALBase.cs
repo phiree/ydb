@@ -12,7 +12,7 @@ namespace Dianzhu.DAL
     public class DALBase<T>
     {
 
-        public ISession session = null;// new HybridSessionBuilder().GetSession();
+        private ISession session = null;// new HybridSessionBuilder().GetSession();
         public DALBase()
         {
 
