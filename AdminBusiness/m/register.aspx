@@ -45,7 +45,7 @@
                 <span style="left: 30px; top: -32px; position: absolute; font-size: 12px;">我已经仔细阅读过点助服务协议,并同意所有条款。
                 </span>
             </div>
-            <a data-role="button" href="#okpage" id="btn_next" disabled="disabled" data-transition="slideup">
+            <a data-role="button" href="#okpage" id="btn_next" data-transition="slideup">
                 下一步</a>
             <br />
             <a href="login.aspx" data-transition="slidedown" class="my-a-2">返回登录页</a>
