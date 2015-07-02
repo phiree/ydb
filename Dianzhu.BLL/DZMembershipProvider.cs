@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Security;
-
+using System.Web.Util;
 using Dianzhu.DAL;
 using Dianzhu.Model;
 namespace Dianzhu.BLL
@@ -27,7 +27,19 @@ namespace Dianzhu.BLL
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
+
+            if (!this.ValidateUser(username, oldPassword))
+            {
+                return false;
+            }
+            if (newPassword.Length < this.MinRequiredPasswordLength)
+            {
+                
+                throw new ArgumentException("密码长度至少"+this.MinRequiredPasswordLength+"位");
+            }
+
             DZMembership member = DALMembership.GetMemberByName(username);
+            
             string encryptedOldPsw =  FormsAuthentication.HashPasswordForStoringInConfigFile(oldPassword, "MD5");
             string encryptedNewPsw = FormsAuthentication.HashPasswordForStoringInConfigFile(newPassword, "MD5");
             if (member.Password != encryptedOldPsw) return false;

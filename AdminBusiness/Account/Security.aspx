@@ -110,8 +110,9 @@
                         ChangePasswordFailureText=""
                         SuccessText="密码修改成功"
                         SuccessPageUrl="./ChangePassword_suc.aspx"
-                        
+                         OnChangePasswordError="change_error"
                         >
+                        
                         <SuccessTemplate>
                             <div id="CPResult" class="m-auto" ng-hide="CPassSuccess">
                                 <div class="t-c">
@@ -149,7 +150,7 @@
             centered: true
         });
         $("#lightBox").appendTo($("form:first"));
-       e.preventDefault();
+     //  e.preventDefault();
     })
 </script>
 </asp:Content>
