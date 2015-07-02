@@ -19,8 +19,8 @@
             <img src="/m/images/my-r-icon.png" /></a>
         <nav data-role="navbar" data-theme="myb">
             <ul>
-                <li><a href="myshop.html" target="_parent" data-theme="mytile-active">店铺信息</a></li>
-                <li><a href="account.html" target="_parent" data-theme="mytile">账号安全</a></li>
+                <li><a href="#" target="_parent" data-theme="mytile-active">店铺信息</a></li>
+                <li><a href="#" target="_parent" data-theme="mytile">账号安全</a></li>
             </ul>
         </nav>
     </div>
