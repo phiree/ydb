@@ -7,8 +7,6 @@
 .ShopDetailsTitle { padding: 0 20px; height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; }
 .shop-icon-Title { background: url("../image/myshop/shopicon.jpg") no-repeat center; }
 .ShopDetailsTitle span { color:#58789a; font-size:17px; font-weight:bold; vertical-align: middle; }
-
-
 .ShopDetailsMain { padding: 20px 40px; color:#58789a;}
 .ShopDetailsAreaLeft { float:left; width:50%;}
 .ShopDetailsAreaRight { float:left; width:50%;}
@@ -20,9 +18,7 @@
 
 .myshop-input-textarea { display:block; width:290px; height:78px; padding: 5px; border:#dbe6f2 1px solid; border-radius: 3px; background:#f6fafe; color:#58789a; font-size:15px; }
 
-/*.pinput input{ width:300px; height:30px; border:#dbe6f2 1px solid; background:#f6fafe; color:#58789a; font-size:15px; text-indent: 5px;}*/
-/*.pinput2 input{ width:130px; height:30px; border:#dbe6f2 1px solid; background:#f6fafe; color:#58789a; font-size:15px; text-indent: 5px;}*/
-/*.pinput3 input{ width:200px; height:30px; border:#dbe6f2 1px solid; background:#f6fafe; color:#58789a; font-size:15px; text-indent: 5px;}*/
+
 
 .myshop-input-lg {
     width: 290px;
@@ -59,6 +55,14 @@
     color: #58789a;
     font-size: 15px;
     vertical-align: middle;
+}
+
+.myshop-btn-setAddress {
+    border: 0;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: #31b6fb;
 }
 
 .myshopRightCont { margin-bottom:20px; }
@@ -110,6 +114,17 @@
     float: left;
     font-size: 13px;
     width: 200px;
+}
+
+/*地址地图弹窗样式*/
+.mapWrap {
+    position: relative;
+    width: 700px;
+    height: 500px;
+}
+
+.mapMain {
+    position: absolute;
 }
 
 /* 账号安全页面内容 by lichang 2015/5/28 */

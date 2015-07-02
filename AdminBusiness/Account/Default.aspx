@@ -3,7 +3,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="/css/myshop.css" rel="stylesheet" type="text/css" />
-    <%--<link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/base/minified/jquery-ui.min.css' rel="stylesheet" type="text/css" />--%>
     <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
         rel="stylesheet" type="text/css" />
 </asp:Content>
@@ -83,6 +82,7 @@
                             <div class="myshopLeftCont">
                                 <p class="p_addressDetail myshop-item-title">
                                     <i class="icon myshop-icon-address"></i>详细店址</p>
+                                    <input id="setAddress" class="myshop-btn-setAddress" type="button" value="请选择服务信息" /><input type="hidden" runat="server" clientidmode="Static" id="hiTypeId" />
                                 <p>
                                     <input type="text" class="myshop-input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
                             </div>
@@ -197,7 +197,17 @@
                             </div>
                         </div>
                     </div>
-                   
+                    <div id="addrlightBox" class="dis-n">
+                        <div class="mapWrap">
+                            <div id="addressMap" class="mapMain">
+                            </div>
+                            <div id="businessCity" class="mapCity">
+                            </div>
+                            <div class="mapButton">
+                                <input id="confBusiness" class="close ser-sm-input" type="button" value="确定"></div>
+                            <input id="businessValue" type="hidden" value="" />
+                        </div>
+                    </div>
                 </div>
                 <div class="bottomArea">
                     <input name="imageField" runat="server" onserverclick="btnSave_Click" type="image"
@@ -212,13 +222,17 @@
     </div>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
-    <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.9.1.min.js"></script>-->
-    <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>-->
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript">
+        var map = new BMap.Map("addressMap");
+        var cityListObject = new BMapLib.CityList({ container: "addressMap" });
+        map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+        map.enableScrollWheelZoom();
+
         var tabCheckedShow = function (that, checked) {
             //        console.log($('.item').html());
             if (checked == true) {
@@ -233,51 +247,27 @@
         }
 
         $(function () {
-            //            $("#tabsServiceType").TabSelection({
-            //                "datasource":
-            //                [
-            //                    { "name": "维修", "id": 1, "parentid": 0 },
-            //                    { "name": "家电维修", "id": 2, "parentid": 1 },
-            //                     { "name": "冰箱维修", "id":3, "parentid": 2 },
-            //                    { "name": "冰箱维修", "id": 6, "parentid": 2 },
-            //                    { "name": "冰箱维修", "id": 7, "parentid": 2 },
-            //                    { "name": "冰箱维修", "id": 8, "parentid": 2 },
 
-            //                    { "name": "更换氟利昂", "id": 4, "parentid": 3 },
-            //                    { "name": "交通服务", "id": 5, "parentid": 0 }
-            //                ]
-            //            });
-            //        });
             $("#tabsServiceType").TabSelection({
                 "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
                 "enable_multiselect": true,
                 'check_changed': function (that, id, checked) {
-                    //                    alert(id + '' + checked);
                     tabCheckedShow(that, checked);
                 },
 
                 'leaf_ clicked': function (id, checked) {
-                    //                alert(id);
                 }
             });
         });
 
 
-        $("#setSerType").click(function (e) {
-            $('#SerlightBox').lightbox_me({
+        $("#setAddress").click(function (e) {
+            $('#addrlightBox').lightbox_me({
                 centered: true
             });
             e.preventDefault();
         })
 
 
-    </script>
-    <script type="text/javascript">
-        //        $(document).ready(function () {
-        //
-        //            $(".progress").css("width", "90%");
-        //            $(".completePercentage").html("90%");
-        //
-        //        });
     </script>
 </asp:Content>

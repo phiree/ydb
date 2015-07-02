@@ -14,6 +14,7 @@
     <asp:ContentPlaceHolder ID="head" runat="Server">
     </asp:ContentPlaceHolder>
 </head>
+
 <body>
     <div class="wrap">
         <div class="mainContent">
