@@ -1,7 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="~/DZService/ServiceEdit.ascx.cs"
     Inherits="DZService_ServiceEdit" %>
 <link rel="stylesheet" href="/m/css/global.css" />
-<link rel="stylesheet" href="/m/css/service_info.css" />
+
+<link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
+        rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="/m/css/service_info.css" />
 <div data-role="content" style="background: #cadbec; color: #617e9c; margin: 0; padding: 0;">
     <div class="m-p-size pd-size">
         <div class="info-title">
@@ -284,6 +287,7 @@
                 <div id="tabsServiceType">
                     <ul>
                     </ul>
+                   
                 </div>
             </div>
             <div class="rp description">

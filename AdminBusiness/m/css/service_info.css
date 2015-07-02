@@ -22,3 +22,5 @@
 .hrefClass{ color:#039;}
 .li-edit a{height:20px; background:url(/m/images/edit-inco.png) no-repeat; padding-left:25px;}
 .map-div{ width:120px; height:120px; border:#CCC solid 1px; margin-top:10px; margin-bottom:10px;}
+.serviceTabsItem span{ margin-top:5px; margin-bottom:5px; background:#31b6fb
+; border-radius:5px; display:block; padding:10px; color:#FFF;}
