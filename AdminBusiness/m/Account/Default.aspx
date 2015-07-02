@@ -51,7 +51,7 @@
                  <ul class="panel-ul">
                     <li class="my-li2">
                         <div class="ul-left2">
-                            店铺投降
+                            店铺头像
                         </div>
                         <div class="ul-left">
                                
