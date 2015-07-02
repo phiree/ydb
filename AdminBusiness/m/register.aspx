@@ -64,13 +64,15 @@
                 登录名 <span id="rs_username"></span></p>
             <p>
                 设置登录密码 此密码可以登录点助</p>
-            <form method="post" action="" enctype="multipart/form-data" onsubmit="goRegOk()">
+            <form method="post" action="" enctype="multipart/form-data"  onsubmit="goRegOk()">
             <label for="login-pwd">
                 登录密码：</label>
-            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password"></asp:TextBox>
+            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password" onBlur="valPwdBlur(this,'#vregPwdTxt1')"></asp:TextBox>
+             <span id="vregPwdTxt1" class="erroTxt"></span>
             <label for="login-rpwd">
                 确认密码：</label>
-            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"></asp:TextBox>
+            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"  onBlur="valPwdBlur(this,'#vregPwdTxt2')"></asp:TextBox>
+             <span id="vregPwdTxt2" class="erroTxt"></span>
             <br />
              <asp:Button runat="server" ID="regPsSubmit" ClientIDMode="Static" OnClick="regPsSubmit_OnClick"
                                    Text="确定"      CssClass="regBtn" />

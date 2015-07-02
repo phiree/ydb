@@ -54,23 +54,40 @@
                       emailCheck(e, targetdiv);
                     //  alert("不全是数字");
                   }
-              /*
-                  var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
-                  if (!pattern.test(e.value)) {
-                    $(targetdiv).html("请输入正确的邮箱地址。");
-                      e.focus();
-                    return false;
-                  } else {
-                      $(targetdiv).html("");
-                  }
-               // alert(e.value.length)
-               */
-                  //emailCheck(e, targetdiv);
-                 // validatemobile(e, targetdiv);
+             
 
               }
           }
 
+          function valPwdFocus() {
+             
+          }
+          function valPwdBlur(e, targetTxt) {
+
+              if (e.value == '') {
+                  $(targetTxt).html("密码不能为空");
+              } else {
+
+              if (e.value.length < 6) {
+                  $(targetTxt).html("密码不能小于6位");
+              } else if (e.value.length > 20) {
+                  $(targetTxt).html("密码不能大于20位");
+
+              } else {
+
+                  if (e.id == "regPsConf") {
+
+                      if ($("#regPs").val() != $("#" + e.id).val()) {
+                          $(targetTxt).html("密码不一致");
+                      } else {
+
+                          $(targetTxt).html("");
+                      }
+                  }
+                 
+              }
+              }
+          }
           function getSelectVal() {
               var txt = $("#iphone-tyle  option:selected").text();
               if (txt == "电子邮箱") {
