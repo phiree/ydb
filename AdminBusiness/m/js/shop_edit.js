@@ -9,13 +9,13 @@ $(function () {
 
     $('.my-li').click(function () {
         var target = $(this).attr("target");
-        alert("空");
-        if (target == "") {
+     
+      
            
-            //  $("#secondview").page("open")
-        } else {
-            $("#super_right_panel").panel("open");
-        }
+          
+       
+         $("#super_right_panel").panel("open");
+      
         var that = this;
         //隐藏/显示
         open_click(target, function () {

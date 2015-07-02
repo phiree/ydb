@@ -17,7 +17,7 @@
                 <asp:LoginView runat="server">
                     <AnonymousTemplate>
                         <div style="padding-left: 15%; padding-right: 15%;">
-                            <a href="/m/login.aspx" data-role="button" data-theme="mya">立即登录</a></div>
+                            <a href="/m/login.aspx" target="_top" data-role="button" data-theme="mya">立即登录</a></div>
                         <div>
                             快登陆，抢客源咯~</div>
                     </AnonymousTemplate>
@@ -53,13 +53,13 @@
                             top: 8px; left: 10px;" />
                         订单</a></li>
                     <li class='<asp:ContentPlaceHolder runat="server" ID="menu_status_service"></asp:ContentPlaceHolder>'>
-                        <a onclick="listMen('#navMenu4')" href="/m/dzservice/" target="_parent" style="position: relative;">
+                        <a onclick="listMen('#navMenu4')" href="/m/dzservice/" target="_top" style="position: relative;">
                             <img src="/m/images/my-o-icon3.png" style="position: absolute; top: 8px; left: 10px;" />
                             <img class="s-menu s-serverIno" src="/m/images/my-o-icon3_2.png" style="position: absolute;
                                 top: 8px; left: 10px;" />
                             服务信息</a></li>
                     <li class='<asp:ContentPlaceHolder runat="server" ID="menu_status_shop"></asp:ContentPlaceHolder>'>
-                        <a href="/m/Account/" target="_parent" style="position: relative;">
+                        <a href="/m/Account/" target="_top" style="position: relative;">
                             <img src="/m/images/my-o-icon2.png" style="position: absolute; top: 8px; left: 7px;" />
                             <img class="s-menu s-shopIno" src="/m/images/my-o-icon2_2.png" style="position: absolute;
                                 top: 8px; left: 7px;" />

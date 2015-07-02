@@ -28,17 +28,17 @@
                 </div>
                 <div class="menuList">
                     <ul class="clearfix">
-                        <li><a href="coupon-total.html" target="content"><i class="nav-btn nav-btn-coup"></i>
+                        <li><a href="#" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-coup"></i>
                         </a></li>
                         <li><a href="/account" target="content"><i class="nav-btn nav-btn-myshop"></i></a>
                         </li>
                         <li><a href="/dzservice" target="content"><i class="nav-btn nav-btn-service"></i></a>
                         </li>
-                        <li><a href="order.html" target="content"><i class="nav-btn nav-btn-order"></i></a>
+                        <li><a href="#" title="正在开发,敬请期待" target="content"><i class="nav-btn nav-btn-order"></i></a>
                         </li>
-                        <li><a href="/staff" target="content"><i class="nav-btn nav-btn-employee"></i></a>
+                        <li><ahref="#" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-employee"></i></a>
                         </li>
-                        <li><a href="msg.html" target="content"><i class="nav-btn nav-btn-msg"></i></a></li>
+                        <li><a href="#" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-msg"></i></a></li>
                     </ul>
                 </div>
             </div>
