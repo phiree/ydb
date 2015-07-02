@@ -5,7 +5,7 @@ using System.Text;
 using Dianzhu.Model;
 using PHSuit;
 using Dianzhu.DAL;
-using Dianzhu.IDAL;
+
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -16,16 +16,9 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 数据库操作接口应该作为参数传入,便于测试.
         /// </summary>
-        IDALCashTicketTemplate dal = null;
+        public DALCashTicketTemplate DALCashTicketTemplate=DALFactory.DALCashTicketTemplate;
        
-        public BLLCashTicketTemplate()
-        {
-             dal = DalFactory.GetDalCashTicketTemplate(); 
-        }
-        public BLLCashTicketTemplate(IDALCashTicketTemplate dalctt)
-        {
-            dal = dalctt;
-        }
+        
 
         /// <summary>
         /// 创建一张现金券模板
@@ -52,20 +45,20 @@ namespace Dianzhu.BLL
                  ValidDate=PHCore.GetNextDay(DateTime.Now),
                  Enabled=true,
             };
-            dal.DalBase.Save(ctt);
+            DALCashTicketTemplate.Save(ctt);
             return ctt;
         }
         public void Update(CashTicketTemplate t)
         {
-            dal.DalBase.Update(t);
+            DALCashTicketTemplate.Update(t);
         }
         public IList<CashTicketTemplate> GetTemplateList(Business owner)
         {
-            return dal.GetListByBusiness(owner);
+            return DALCashTicketTemplate.GetListByBusiness(owner);
         }
         public CashTicketTemplate GetOne(Guid id)
         {
-            return dal.DalBase.GetOne(id);
+            return DALCashTicketTemplate.GetOne(id);
         }
 
         

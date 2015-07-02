@@ -2,39 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.IDAL;
+
 using Dianzhu.Model;
 using Dianzhu.DAL;
 namespace Dianzhu.BLL
 {
   public  class BLLStaff
     {
-      IDALStaff iDALStaff;
+      public DALStaff DALStaff=DALFactory.DALStaff;
 
-      public BLLStaff(IDALStaff iDALStaff)
-      {
-          this.iDALStaff = iDALStaff;
-      }
-      public BLLStaff()
-          : this(new DALStaff())
-      { }
+      
       public IList<Staff> GetList(Guid businessId, Guid serviceTypeId, int pageindex, int pagesize, out int totalRecords)
       {
 
-          return iDALStaff.GetList(businessId, serviceTypeId, pageindex, pagesize, out totalRecords);
+          return DALStaff.GetList(businessId, serviceTypeId, pageindex, pagesize, out totalRecords);
       }
       
       public void SaveOrUpdate(Staff staff)
       {
-          iDALStaff.DalBase.SaveOrUpdate(staff);
+          DALStaff.SaveOrUpdate(staff);
       }
       public void Delete(Staff staff)
       {
-          iDALStaff.DalBase.Delete(staff);
+          DALStaff.Delete(staff);
       }
       public Staff GetOne(Guid id)
       {
-          return iDALStaff.DalBase.GetOne(id);
+          return DALStaff.GetOne(id);
       }
        
     }

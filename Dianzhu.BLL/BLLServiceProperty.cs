@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.IDAL;
+
 using Dianzhu.Model;
 using Dianzhu.DAL;
 namespace Dianzhu.BLL
@@ -11,26 +11,21 @@ namespace Dianzhu.BLL
     {
 
       BLLServiceType bllServiceType = new BLLServiceType();
-      IDALServiceProperty iDALServiceProperty;
+
       
-      public BLLServiceProperty(IDALServiceProperty iDALServiceProperty)
-      {
-          this.iDALServiceProperty = iDALServiceProperty;
-      }
-      public BLLServiceProperty()
-          : this(new DALServiceProperty ())
-      { }
+      public DALServiceProperty DALServiceProperty=DALFactory.DALServiceProperty;
+    
       public ServiceProperty GetOne(Guid id)
       {
-          return iDALServiceProperty.DalBase.GetOne(id);
+          return DALServiceProperty.GetOne(id);
       }
       public IList<ServiceProperty> GetList(Guid serviceTypeId)
       {
-          return iDALServiceProperty.GetList(serviceTypeId);
+          return DALServiceProperty.GetList(serviceTypeId);
       }
       public void Delete(ServiceProperty p)
       {
-          iDALServiceProperty.DalBase.Delete(p);
+          DALServiceProperty.Delete(p);
       }
       /// <summary>
       /// 保存
@@ -58,7 +53,7 @@ namespace Dianzhu.BLL
           }
           serviceProperty.Values.Clear();
           serviceProperty.Values = propertyValues;
-          iDALServiceProperty.DalBase.SaveOrUpdate(serviceProperty);
+          DALServiceProperty.SaveOrUpdate(serviceProperty);
           return serviceProperty;
       }
     }

@@ -7,12 +7,12 @@ using Dianzhu.DAL;
 using Dianzhu.BLL;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Dianzhu.IDAL;
-using NUnit.Framework;
+
+ 
 using FluentNHibernate.Testing;
 using NHibernate;
-using Dianzhu.Model;
-using Dianzhu.BLL;
+
+ 
 using PHSuit;
 using System.IO;
 namespace Dianzhu.Test

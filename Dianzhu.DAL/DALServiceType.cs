@@ -6,19 +6,14 @@ using Dianzhu.Model;
 using NHibernate;
 namespace Dianzhu.DAL
 {
-    public class DALServiceType : IDAL.IDALServiceType
+    public class DALServiceType :DALBase<ServiceType>
     {
-        IDAL.IDALBase<ServiceType> dalBase = null;
-        public IDAL.IDALBase<ServiceType> DalBase
-        {
-            get { return new DalBase<ServiceType>(); }
-            set { dalBase = value; }
-        }
+        
 
         public IList<ServiceType> GetTopList()
         {
             string query = "select s from ServiceType s where s.Parent is null order by OrderNumber";
-            return DalBase.GetList(query);
+            return GetList(query);
         }
          
         

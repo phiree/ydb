@@ -4,19 +4,15 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using NHibernate;
-using Dianzhu.IDAL;
+
 namespace Dianzhu.DAL
 {
-   public class DALCashTicketTemplate:IDALCashTicketTemplate
+   public class DALCashTicketTemplate:DALBase<CashTicketTemplate>
     {
-       IDALBase<CashTicketTemplate> dalBase = null;
-       public IDALBase<CashTicketTemplate> DalBase{
-           get { return new DalBase<CashTicketTemplate>(); }
-           set { dalBase = value; }
-       }
+       
        public IList<CashTicketTemplate> GetListByBusiness(Business business)
        {
-           return DalBase.GetList("select t from CashTicketTemplate  t where  Owner.Id='" + business.Id+"'");
+           return GetList("select t from CashTicketTemplate  t where  Owner.Id='" + business.Id+"'");
 
        }
     }

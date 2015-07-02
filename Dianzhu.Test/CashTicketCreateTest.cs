@@ -7,8 +7,7 @@ using Dianzhu.DAL;
 using Dianzhu.BLL;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Dianzhu.IDAL;
-using NUnit.Framework;
+ 
 using FluentNHibernate.Testing;
 using NHibernate;
 namespace Dianzhu.Test
@@ -43,9 +42,9 @@ namespace Dianzhu.Test
         [Test]
         public void CreateTicketTemplate()
         {
-            var dal = MockRepository.GenerateStub<IDALCashTicketTemplate>();
-            var dalBase = MockRepository.GenerateStub<IDALBase<CashTicketTemplate>>();
-           
+            var dal = MockRepository.GenerateStub<DALCashTicketTemplate>();
+            var dalBase = MockRepository.GenerateStub<DALBase<CashTicketTemplate>>();
+            Console.WriteLine("aa");
             CashTicketTemplate tt=new CashTicketTemplate{
              Amount=10,
              Conditions="饮料除外",
@@ -58,9 +57,9 @@ namespace Dianzhu.Test
             };
 
             dalBase.Stub(x => x.Save(tt));
-            dal.DalBase = dalBase;
-            BLLCashTicketTemplate bll = new BLLCashTicketTemplate(dal);
-            
+           
+            BLLCashTicketTemplate bll = new BLLCashTicketTemplate();
+            bll.DALCashTicketTemplate = dal;
              CashTicketTemplate ttt=bll.Create("琳琅现金券10元", new Business(), DateTime.Now, DateTime.Now.AddDays(10)
                 , 10, "饮料除外",1.4f);
              Assert.AreEqual(ttt.Amount, 10);

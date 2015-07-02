@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dianzhu.IDAL;
+
 using Dianzhu.Model;
 using Dianzhu.DAL;
 using System.IO;
@@ -13,26 +13,20 @@ namespace Dianzhu.BLL
 {
     public class BLLServiceType
     {
-        IDALServiceType iDALServiceType;
+        public DALServiceType DALServiceType=DALFactory.DALServiceType;
 
-        public BLLServiceType(IDALServiceType iDALServiceType)
-        {
-            this.iDALServiceType = iDALServiceType;
-        }
-        public BLLServiceType()
-            : this(new DALServiceType())
-        { }
+         
         public ServiceType GetOne(Guid id)
         {
-            return iDALServiceType.DalBase.GetOne(id);
+            return DALServiceType.GetOne(id);
         }
         public IList<ServiceType> GetAll()
         {
-            return iDALServiceType.DalBase.GetAll<ServiceType>();
+            return DALServiceType.GetAll<ServiceType>();
         }
         public void SaveOrUpdate(ServiceType serviceType)
         {
-            iDALServiceType.DalBase.SaveOrUpdate(serviceType);
+            DALServiceType.SaveOrUpdate(serviceType);
         }
         /// <summary>
         /// 获取最顶层的类型
@@ -40,7 +34,7 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public IList<ServiceType> GetTopList()
         {
-            return iDALServiceType.GetTopList();
+            return DALServiceType.GetTopList();
         }
         /// <summary>
         /// 保存
@@ -74,7 +68,7 @@ namespace Dianzhu.BLL
             PHSuit.ReadExcelToDataTable rtdt = new ReadExcelToDataTable(excelFileStream, false, false, 0);
             string msg;
             IList<ServiceType> topServiceTypes = ObjectAdapter(rtdt.Read(out msg));
-            iDALServiceType.DalBase.SaveList(topServiceTypes);
+            DALServiceType.SaveList(topServiceTypes);
 
         }
         public IList<ServiceType> ObjectAdapter(DataTable dtFromExcel)

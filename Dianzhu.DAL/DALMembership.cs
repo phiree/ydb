@@ -6,24 +6,18 @@ using NHibernate;
 using Dianzhu;
 namespace Dianzhu.DAL
 {
-    public class DALMembership : IDAL.IDALMembership
+    public class DALMembership :DALBase<Model.DZMembership>
     {
-        IDAL.IDALBase<Model.DZMembership> dalBase = null;
-        public IDAL.IDALBase<Model.DZMembership> DalBase
-        {
-            get { return new DalBase<Model.DZMembership>(); }
-            set { dalBase = value; }
-        }
-
+         
         public void CreateUser(Model.DZMembership user)
         {
-            DalBase.Save(user);
+            Save(user);
         }
 
         public void CreateUpdateMember(Model.DZMembership member)
         {
 
-            DalBase.SaveOrUpdate(member);
+            SaveOrUpdate(member);
              
         }
 
@@ -31,12 +25,12 @@ namespace Dianzhu.DAL
         {
             //  User user = session.QueryOver<User>(x=>x.User);
             bool result = false;
-            IQuery query = DalBase.Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
+            IQuery query = Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
             int matchLength = query.Future<Model.DZMembership>().ToArray().Length;
 
             if (matchLength == 1) { result = true;
 
-            IQuery queryUpdate = DalBase.Session.CreateQuery("update DZMembership u  set u.LastLoginTime='" + DateTime.Now.ToString() + "'   where u.UserName='" + username + "' and u.Password='" + password + "'");
+            IQuery queryUpdate = Session.CreateQuery("update DZMembership u  set u.LastLoginTime='" + DateTime.Now.ToString() + "'   where u.UserName='" + username + "' and u.Password='" + password + "'");
            // queryUpdate.ExecuteUpdate();
             }
             if (matchLength > 1)
@@ -50,7 +44,7 @@ namespace Dianzhu.DAL
         public Model.DZMembership GetMemberByName(string username)
         {
             if (string.IsNullOrEmpty(username)) return null;
-            IQuery query =DalBase.Session.CreateQuery("select m from  DZMembership as m where UserName='" + username + "'");
+            IQuery query =Session.CreateQuery("select m from  DZMembership as m where UserName='" + username + "'");
             var temp = query.FutureValue<Model.DZMembership>();
             var user = temp.Value;
             return user;
@@ -59,21 +53,21 @@ namespace Dianzhu.DAL
          
         public Model.DZMembership GetMemberById(Guid memberId)
         {
-            IQuery query = DalBase.Session.CreateQuery("select m from  DZMembership as m where Id='" + memberId + "'");
+            IQuery query = Session.CreateQuery("select m from  DZMembership as m where Id='" + memberId + "'");
             Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
             return member;
         }
 
         public IList<Model.DZMembership> GetAllUsers()
         {
-            IQuery query = DalBase.Session.CreateQuery("select u from DZMembership u ");
+            IQuery query = Session.CreateQuery("select u from DZMembership u ");
             return query.Future<Model.DZMembership>().ToList();
         }
 
         public IList<Model.DZMembership> GetAllUsers(int pageIndex, int pageSize, out long totalRecord)
         {
-            IQuery qry = DalBase.Session.CreateQuery("select u from DZMembership u ");
-            IQuery qryTotal = DalBase.Session.CreateQuery("select count(*) from DZMembership u ");
+            IQuery qry = Session.CreateQuery("select u from DZMembership u ");
+            IQuery qryTotal = Session.CreateQuery("select count(*) from DZMembership u ");
             List<Model.DZMembership> memList = qry.Future<Model.DZMembership>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
             totalRecord = qryTotal.FutureValue<long>().Value;
             return memList;
@@ -94,10 +88,10 @@ namespace Dianzhu.DAL
       
         public void ChangePassword(Model.DZMembership member)
         {
-            using (var x = DalBase.Session.Transaction)
+            using (var x = Session.Transaction)
             {
                 x.Begin();
-                DalBase.Session.Update(member);
+                Session.Update(member);
                 x.Commit();
             }
 
@@ -106,20 +100,20 @@ namespace Dianzhu.DAL
 
         public Model.BusinessUser GetBusinessUser(Guid id)
         {
-            IQuery query = DalBase.Session.CreateQuery("select m from  BusinessUser as m where Id='" + id + "'");
+            IQuery query = Session.CreateQuery("select m from  BusinessUser as m where Id='" + id + "'");
             Model.BusinessUser member = query.FutureValue<Model.BusinessUser>().Value;
             return member;
         }
         public IList<Model.DZMembership> GetAll()
         {
-            return DalBase.GetAll<Model.DZMembership>();
+            return GetAll<Model.DZMembership>();
         }
         public Model.BusinessUser CreateBusinessUser(string username, string password, Model.Business business)
         {
             Model.BusinessUser member = new Model.BusinessUser
             { UserName = username, Password = password, TimeCreated = DateTime.Now, BelongTo = business,
              LastLoginTime=DateTime.Now};
-            DalBase.Save(member);
+            Save(member);
             return member;
         }
         

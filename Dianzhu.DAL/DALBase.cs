@@ -6,14 +6,14 @@ using NHibernate;
 using NHibernate.Hql;
 using System.Web.Security;
 using System.Data.SqlClient;
-using Dianzhu.IDAL;
+
 namespace Dianzhu.DAL
 {
-    public class DalBase<T>:IDALBase<T>
+    public class DALBase<T>
     {
 
         public ISession session = null;// new HybridSessionBuilder().GetSession();
-        public DalBase()
+        public DALBase()
         {
 
             session = new HybridSessionBuilder().GetSession();

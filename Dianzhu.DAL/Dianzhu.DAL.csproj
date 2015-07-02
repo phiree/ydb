@@ -86,6 +86,8 @@
     <Compile Include="DALServiceProperty.cs" />
     <Compile Include="DALServicePropertyValue.cs" />
     <Compile Include="DALBusinessImage.cs" />
+    <Compile Include="DALCashTicketAssignRecord.cs" />
+    <Compile Include="DALCashTicketAssignDetail.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALCashTicket.cs" />
@@ -94,10 +96,6 @@
     <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
-      <Project>{01C757F2-5937-43A3-AF31-4B0B064492B2}</Project>
-      <Name>Dianzhu.IDAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>

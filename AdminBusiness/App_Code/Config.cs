@@ -15,4 +15,5 @@ public static class Config
             return ConfigurationManager.AppSettings["business_image_root"];
         }
     }
+    
 }

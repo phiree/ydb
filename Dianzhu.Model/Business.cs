@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-
+ 
 namespace Dianzhu.Model
 {
     /// <summary>
@@ -42,6 +41,7 @@ namespace Dianzhu.Model
             AreaServiceTo = new List<Area>();
             BusinessImages = new List<BusinessImage>();
             ServiceType = new List<ServiceType>();
+            CashTicketTemplates = new List<CashTicketTemplate>();
         }
         /// <summary>
         ///  所在辖区
@@ -81,6 +81,10 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual double Longitude { get; set; }
         public virtual double Latitude { get; set; }
+        /// <summary>
+        /// 优惠推广的范围.所有的优惠券都是一样的.
+        /// </summary>
+        public virtual double PromoteScope { get; set; }
         /// <summary>
         /// 是否通过了审核.
         /// </summary>
@@ -257,6 +261,27 @@ namespace Dianzhu.Model
                 return percent;
             }
         }
+        public virtual IList<CashTicketTemplate> CashTicketTemplates
+        {
+            get;
+            set;
+        }
+
+        public virtual IList<CashTicket> CashTickets
+        {
+            get {
+                IList<CashTicket> cashtickets = new List<CashTicket>();
+                foreach (CashTicketTemplate temp in CashTicketTemplates)
+                {
+                    foreach (CashTicket cashticket in temp.CashTickets)
+                    {
+                        cashtickets.Add(cashticket);
+                    }
+                }
+                return cashtickets;
+            }
+        }
+
     }
 
     /// <summary>

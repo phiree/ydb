@@ -3,31 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-using Dianzhu.IDAL;
+
 using Dianzhu.DAL;
 namespace Dianzhu.BLL
 {
     public class BLLCashticketCreateRecord
     {
-        IDALCashTicketCreateRecord iDAL = null;
-        public BLLCashticketCreateRecord(IDALCashTicketCreateRecord iDAL)
-        {
-            this.iDAL = iDAL;
-        }
-        public BLLCashticketCreateRecord():this(new DALCashTicketCreateRecord()){}
+        public DALCashTicketCreateRecord DALCashTicketCreateRecord=DALFactory.DALCashTicketCreateRecord;
 
 
-        
-        public IList<CashTicketCreateRecord> GetMonthRecord(Business business,int  year, int month)
+        public IList<CashTicketCreateRecord> GetMonthRecord(Business business, int year, int month)
         {
-            return iDAL.GetMonthRecord(business, year, month);
+            return DALCashTicketCreateRecord.GetMonthRecord(business, year, month);
         }
         public CashTicketCreateRecord GetOne(Guid id)
         {
-            return iDAL.DALBase.GetOne(id);
+            return DALCashTicketCreateRecord.GetOne(id);
         }
 
-        private bool CheckRule(Business business,int year,int month,int amountCreated, CashTicketTemplate cashticketTemplate, out string message)
+        private bool CheckRule(Business business, int year, int month, int amountCreated, CashTicketTemplate cashticketTemplate, out string message)
         {
             message = string.Empty;
             bool result = false;
@@ -47,10 +41,10 @@ namespace Dianzhu.BLL
                 return false;
             }
             return true;
-            
+
         }
-  
+
     }
 
-    
+
 }

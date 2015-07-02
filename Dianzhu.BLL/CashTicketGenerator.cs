@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-using Dianzhu.IDAL;
+
+using Dianzhu.DAL;
 using PHSuit;
 namespace Dianzhu.BLL
 {
@@ -15,21 +16,21 @@ namespace Dianzhu.BLL
        Business business;
        CashTicketTemplate cashticketTemplate;
        int amount;
-       IDALCashTicketCreateRecord idalCashTicketCreateRecord;
-       
-       IDALCashTicket idalCashticket;
-       public CashTicketGenerator(Business business, CashTicketTemplate cashticketTemplate, int amount,IDALCashTicketCreateRecord idalCashTicketCreateRecord,IDALCashTicket idalCashticket)
+      public DALCashTicketCreateRecord DALCashTicketCreateRecord=DALFactory.DALCashTicketCreateRecord;
+
+
+      public DALCashTicket DALCashTicket = DALFactory.DALCashTicket;
+       public CashTicketGenerator(Business business, CashTicketTemplate cashticketTemplate, int amount)
        {
            this.amount = amount;
            this.cashticketTemplate = cashticketTemplate;
            this.business = business;
-           this.idalCashTicketCreateRecord = idalCashTicketCreateRecord;
-           this.idalCashticket = idalCashticket;
+           
        }
        private bool CheckRule(int year, int month, int amountCreated, CashTicketTemplate cashticketTemplate, out string message)
        {
            message = string.Empty;
-           IList<CashTicketCreateRecord> recordList =idalCashTicketCreateRecord.GetMonthRecord(business, year, month);
+           IList<CashTicketCreateRecord> recordList = DALCashTicketCreateRecord.GetMonthRecord(business, year, month);
            if (recordList.Count >= 5) { message = "抱歉,本月的创建次数已经用完."; return false; }
            int cashTicketTotalAmount = 0;
            foreach (CashTicketCreateRecord r in recordList)
@@ -67,7 +68,7 @@ namespace Dianzhu.BLL
                ct_list.Add(ct);
 
            }
-           idalCashticket.DalBase.SaveList(ct_list);
+           DALCashTicket.SaveList(ct_list);
            return ct_list;
        }
        private string[] GenerateCodeList()
@@ -76,7 +77,7 @@ namespace Dianzhu.BLL
            for (int i = 0; i < amount; i++)
            {
                string code = PHCore.GetRandom(12);
-               if (!idalCashticket.CheckTicketCodeExists(code))
+               if (!DALCashTicket.CheckTicketCodeExists(code))
                {
                    valid_codes.Add(code);
                }

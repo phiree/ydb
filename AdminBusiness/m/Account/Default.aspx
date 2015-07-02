@@ -19,8 +19,8 @@
             <img src="/m/images/my-r-icon.png" /></a>
         <nav data-role="navbar" data-theme="myb">
             <ul>
-                <li><a href="myshop.html" target="_parent" data-theme="mytile-active">店铺信息</a></li>
-                <li><a href="account.html" target="_parent" data-theme="mytile">账号安全</a></li>
+                <li><a href="#" target="_parent" data-theme="mytile-active">店铺信息</a></li>
+                <li><a href="#" target="_parent" data-theme="mytile">账号安全</a></li>
             </ul>
         </nav>
     </div>
@@ -77,11 +77,23 @@
                 <ul class="panel-ul">
                     <li class="my-li" target="address">
                         <div class="ul-left">
-                            <span class="m-top"> 详细店址</div>
+                            <div class="m-top"> 详细店址</div>
                             <div id="shopAddrTxt" class="display_holder" style="font-size: 14px;">
                                 <%=b.Address %>
                             </div>
                     </li>
+                </ul>
+                <ul class="panel-ul">
+                    <a class="getMaphrefClass" href="#secondview" data-transition="slidedown" style="color: #58789a;"> <li class="my-li">
+                        <div class="ul-left">
+                                <div class="m-top"> 服务范围:
+                                 <span id="serArea-txt">请输入服务区域</span></div>
+                          </div>
+                           
+                               
+
+                    </li>
+                    </a>
                 </ul>
                 <ul class="panel-ul">
                     <li class="my-li" target="email">
@@ -267,5 +279,11 @@
     my-ui-btn-active
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
+
     <script src="../js/shop_edit.js"></script>
+       
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
+    
+    <script src="../js/CityList.js" type="text/javascript"></script>
+    <script src="../js/getMap.js" type="text/javascript"></script>
 </asp:Content>
