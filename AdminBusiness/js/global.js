@@ -72,6 +72,7 @@ $(document).ready(function ($) {
     })();
 
     (function () {
+
         $('.input-file-btn').change(function () {
             //          var docObj=document.getElementById("doc");
             //          var imgObjPreview = document.getElementById("ImgPreview");
@@ -84,14 +85,25 @@ $(document).ready(function ($) {
                 //              imgObjPreview.style.height is= '180px';
                 //              imgObjPreview.src = this.files[0].getAsDataURL();
 
-
                 imgObjPreview.src = window.URL.createObjectURL(this.files[0]);
                 console.log(imgObjPreview.src);
             }
             else {
+                this.select();
+                this.blur();
+                var imgSrc = document.selection.createRange().text;
+                console.log(imgSrc);
 
-//                this.select();
-//                var imgSrc = document.selection.createRange().text;
+                try {
+//                    console.log(imgObjPreview.getAttribute("src"));
+                    imgObjPreview.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    imgObjPreview.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+                }
+                catch (e) {
+                    return false;
+                }
+                document.selection.empty();
+
 //                var localImagId = document.getElementById("localImag");
 //
 //                localImagId.style.width = "90px";
@@ -110,5 +122,6 @@ $(document).ready(function ($) {
             }
             return true;
         })
+
     })();
 });

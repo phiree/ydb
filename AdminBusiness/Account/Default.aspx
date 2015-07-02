@@ -36,7 +36,7 @@
                                         <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuAvater" />
                                         <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
                                         <i  class="input-file-mark"></i>
-                                        <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" />
+                                        <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
                                     </div>
                             
                         </div>
@@ -110,7 +110,7 @@
                                     <div class="input-file-box fl">
                                         <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
                                         <i class="input-file-bg"></i><i class="input-file-mark"></i>
-                                        <img class="input-file-pre" />
+                                        <img class="input-file-pre" src="..\image\00.png" />
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@
                                     <div class="input-file-box d-inb">
                                         <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuShow1" />
                                         <i class="input-file-bg"></i><i class="input-file-mark"></i>
-                                        <img class="input-file-pre" />
+                                        <img class="input-file-pre" src="..\image\00.png" />
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +191,7 @@
                                     <div class="input-file-box fl">
                                         <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
                                         <i class="input-file-bg"></i><i class="input-file-mark"></i>
-                                        <img class="input-file-pre" />
+                                        <img class="input-file-pre" src="..\image\00.png" />
                                     </div>
                                 </div>
                             </div>
@@ -226,6 +226,7 @@
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
+    <script type="text/javascript" src="/js/CityList.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript">
         var map = new BMap.Map("addressMap");

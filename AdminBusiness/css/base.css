@@ -309,10 +309,11 @@ body {
 
 .input-file-btn {
     position: absolute;
-    z-index: 3;
+    z-index: 4;
     width: 90px;
     height: 90px;
     opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
 }
 
 .input-file-bg {
@@ -332,9 +333,10 @@ body {
 
 .input-file-pre {
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     width: 90px;
     height: 90px;
+    border: 0 none;
 }
 
 .download-img-pre {
@@ -346,7 +348,7 @@ body {
     line-height: 90px;
     position: relative;
     text-align: center;
-    border: 1px solid #eee;
+    /*border: 1px solid #eee;*/
 }
 
 .download-img-delete {
