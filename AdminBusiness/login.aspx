@@ -4,6 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
+<script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
+
     <link rel="Stylesheet" href="css/base.css" type="text/css" />
     <link rel="Stylesheet" href="css/login_reg.css" type="text/css" />
 </head>
@@ -65,6 +68,9 @@
                                     <p class="savePass">
                                         <input runat="server" id="savePass" type="checkbox" /><label for="savePass">记住密码</label></p>
                                 </div>
+                                <div class="err_msg" style="color:Red;">
+                                <asp:Label runat="server" ID="lblMsg"></asp:Label>
+                                </div>
                                 <!--<p id="testAjax"></p>-->
                                 <p class="doReg">
                                     <a class="logReg-a" href="register.aspx">
@@ -82,7 +88,7 @@
         </div>
     </div>
 </body>
-<script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
+
 <script src="/js/InlineTip.js" type="text/javascript"></script>
 <script src="/js/login_reg.js" type="text/javascript"></script>
 </html>

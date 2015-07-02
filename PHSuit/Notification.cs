@@ -39,7 +39,7 @@ namespace PHSuit
             , int autoCloseDuaratio)
         {
             string injectedScript = BuildInjectScript(title, content, type, returnUrl, autoClose, autoCloseDuaratio);
-            page.ClientScript.RegisterClientScriptBlock(page.GetType(), "_nf", injectedScript, true);
+            page.ClientScript.RegisterStartupScript(page.GetType(), "_nf", injectedScript, true);
         }
 
         private static string BuildInjectScript(string title, string content,
@@ -57,6 +57,8 @@ namespace PHSuit
                     break;
             }
             string injectedScript = @"
+$(document).ready(function(){
+
 $(function(){PopMsg('_title_','<div class=""_notificationStyle_"">_content_</div>','_returnUrl_',_autoclose_);});
 
 function PopMsg(title,content, redirecturl,autoClose) {
@@ -99,7 +101,8 @@ modal:true,
                     sec++;
                 }
             }
-        }";
+        }
+});";
             injectedScript = injectedScript.Replace("_title_", title).Replace("_content_", content).Replace("_returnUrl_", returnUrl)
                 .Replace("_autocloseduration_", autocloseduration.ToString())
                 .Replace("_notificationStyle_", notificationStyle)
