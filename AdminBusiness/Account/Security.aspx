@@ -111,6 +111,8 @@
                         SuccessText="密码修改成功"
                         SuccessPageUrl="./ChangePassword_suc.aspx"
                          OnChangePasswordError="change_error"
+                          NewPasswordRegularExpression=".{6,}"
+                           NewPasswordRegularExpressionErrorMessage="密码至少6位数"
                         >
                         
                         <SuccessTemplate>
@@ -126,6 +128,7 @@
                             </div>
                         </SuccessTemplate>
                         </asp:ChangePassword>
+                       
                     </div>
 
                 </div>

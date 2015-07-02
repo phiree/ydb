@@ -11,9 +11,9 @@
     <div>
     <h1>出错了............</h1>
     <div style="color:#888">
-    <label>技术详情:</label>
+    <label>技术细节:</label>
     <p>
-    <%=Server.UrlDecode(Request.Params["msg"]) %>>
+    <%=Server.UrlDecode(Request.Params["msg"]) %>
     </p>
     </div>
     </div>

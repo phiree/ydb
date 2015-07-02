@@ -11,11 +11,11 @@ public partial class Account_Security :BasePage
     
     protected void Page_Load(object sender, EventArgs e)
     {
-            }
+    }
 
    protected void change_error(object sender, EventArgs e)
     {
-       Exception ex= Server.GetLastError();
+        Response.Redirect("~/error.aspx?msg="+HttpUtility.UrlEncode("密码长度至少6位"));
     }
     
      
