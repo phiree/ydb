@@ -30,7 +30,7 @@ CodeFile="~/login.aspx.cs" Inherits="login" %>
       </div>
       <asp:Label ForeColor="Red" runat="server" ID="lblMsg"></asp:Label>
       <br/>
-      <a href="/m/register.aspx" data-transition="slideup"  class="my-a">会员注册</a>
+      <a href="/m/register.aspx" target="_top" data-transition="slideup"  class="my-a">会员注册</a>
   
      
      
