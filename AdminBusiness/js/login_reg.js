@@ -51,7 +51,7 @@ $(document).ready(function () {
         var passRule = /^[A-Za-z0-9_-]+$/;
         var ruleR;
 //        psw.change(function () { //密码是否符合规则
-                    psw.bind('input',function(){ //密码是否符合规则
+                    psw.bind('input propertychange',function(){ //密码是否符合规则
             if ((psw.val().length >= 6) && (psw.val().length <= 20) && passRule.test(psw.val())) {
                 chkIconAnm(false, true, pswChk);
                 $('#passCheckText').hide();
@@ -64,7 +64,7 @@ $(document).ready(function () {
         });
 
 //        pswConf.change(function () { //密码确认是否一致
-            pswConf.bind('input',function(){ //密码确认是否一致
+            pswConf.bind('input propertychange',function(){ //密码确认是否一致
                 if (!ruleR) {
                 chkIconAnm(true, false, pswConfChk);
             } else {

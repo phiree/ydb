@@ -37,12 +37,12 @@
                                 
                                 <div class="emailBox">
                                     <asp:TextBox runat="server" ID="tbxUserName" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
-                                     <i id="userCheck" class="checkIcon"></i><span id="userCheckText" class="regWarnText"></span>
+                                     <i id="userCheck" class="checkIcon"></i><span id="userCheckText" class="regWarnTexti"></span>
                                 </div>
 
 
                                 <p class="agree">
-                                    <input id="agreeLic" name="agreeLic" type="checkbox" value="yes" /><label class="v-m" for="agreeLic">我已经仔细阅读过<a
+                                    <input id="agreeLic" name="agreeLic" type="checkbox" value="yes" /><label class="v-m m-l10" for="agreeLic">我已经仔细阅读过<a
                                         class="agreeLIC-a" href="#">点助服务协议</a>,并同意所有条款</label></p>
                                 <div class="buttonBox">
                                     <input id="userConfirm"  type="button" class="regBtn"/>

@@ -102,7 +102,7 @@ html,body {
 .conLogin,
 .conReg {
     color: #fff;
-    width: 750px;
+    width: 800px;
     margin: 0 auto;
 }
 
@@ -160,6 +160,7 @@ html,body {
 }
 
 .conMain .box-r {
+    width: 430px;
     float: left;
     font-size: 20px;
 }
@@ -243,6 +244,13 @@ html,body {
     vertical-align: middle;
 }
 
+.regWarnTexti {
+    color: #df7081;
+    font-size: 13px;
+    padding: 0 0 0 5px;
+    vertical-align: middle;
+}
+
 .userConfirm-Back {
     border: 0;
     width: 112px;
@@ -280,6 +288,13 @@ html,body {
     height: 20px;
     margin: 0 5px;
     vertical-align: text-bottom;
+}
+
+.err_msg {
+    color: #DF7081;
+    font-size: 13px;
+    line-height: 1.2em;
+    margin-bottom: 10px;
 }
 
 .doReg img,
