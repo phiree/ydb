@@ -7,7 +7,18 @@
         //在应用程序启动时运行的代码
         //log4net.Config.XmlConfigurator.Configure();
         log4net.Config.XmlConfigurator.Configure();
+
+        System.Timers.Timer timer_ticket_assigner = new System.Timers.Timer();
+        timer_ticket_assigner.Interval = 3000;
+        timer_ticket_assigner.Elapsed += new System.Timers.ElapsedEventHandler(timer_ticket_assigner_Elapsed);
+        timer_ticket_assigner.Start();
     }
+
+    void timer_ticket_assigner_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+    {
+        var cc = new Dianzhu.BLL.CashTicketAssigner_Task();
+    }
+ 
     
     void Application_End(object sender, EventArgs e) 
     {

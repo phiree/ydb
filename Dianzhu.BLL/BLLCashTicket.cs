@@ -51,6 +51,8 @@ namespace Dianzhu.BLL
         {
             return DALCashTicket.GetCashTicketListForBusiness(businessId);
         }
+
+        
     }
 
 }

@@ -3,54 +3,102 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-
 using PHSuit;
 using System.Device.Location;
+using log4net;
 namespace Dianzhu.BLL
 {
-
+    
+    /// <summary>
+    ///优惠券分配,供计时器调用,
+    /// </summary>
+    public class CashTicketAssigner_Task
+    {
+        private static readonly ILog log = LogManager.GetLogger("dz");
+        public CashTicketAssigner_Task()
+        {
+            log.Debug("task_fired");
+        }
+         
+    }
     /// <summary>
     /// 分配现金券到商圈.
     /// </summary>
     public class CashTicketAssigner
     {
-        
+
         /// <summary>
         /// 参与现金券分配的商家列表.
         /// </summary>
         public IList<Business> BusinessList { get; set; }
-        
+
+
+        private CashTicketAssignRecord cashTicketAssignRecord;
         public CashTicketAssigner()
         { }
+        public CashTicketAssigner(CashTicketAssignRecord cashTicketAssignRecord)
+        {
+            this.cashTicketAssignRecord = cashTicketAssignRecord;
+        }
+
+        
         /// <summary>
         /// 准备需要分配的现金券,(尚未使用的,未被停用的),同一个城市的
-        /// todo:耦合性太高,难以单元测试.
+ 
         /// </summary>
 
-        private void PrepareCashTickets()
+        public void Assign()
         {
-            //
-            IList<Business> businessList = new List<Business>();
-            Dictionary<Business, List<Business>> all_neighbours = FindNeighbour(BusinessList);
-            IList<CashTicket> tickets = new List<CashTicket>();
-
-            foreach (Business b in businessList)
+            Dictionary<Business, IList<Business>> all_neighbours = FindNeighbour(BusinessList);
+             
+            foreach (Business b in this.BusinessList)
             {
-                IList<CashTicket> businessCashTickts = b.CashTickets;
-                int amount_tickets = businessCashTickts.Count;
-                //随机分配到相邻的商户
-                int amount_neighbours = all_neighbours[b].Count;
-                IList<int> assign_amounts = PHSuit.PHNumber.Divid(amount_tickets, amount_neighbours);
-                for(int i=0;i<amount_neighbours;i++)
+                AssignForOne(b, all_neighbours[b], 0.2m);
+            }
+        }
+        /// <summary>
+        /// 将一个商家的优惠券分配给推广范围内的邻居商家.
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="neighbours">邻居商家</param>
+        /// <param name="percentKeepForSelf">自己保留的比例</param>
+        public void AssignForOne(Business b, IList<Business> neighbours,decimal percentKeepForSelf)
+        {
+            foreach (CashTicketTemplate t in b.CashTicketTemplates)
+            {
+                //重新分配 已经启用 而且还未被领取的券
+                var cashTickets = t.CashTickets.Where(x=>x.CashTicketTemplate.Enabled==true&&
+                    x.UserAssigned==null
+                    ).ToList();
+                //为自己保留
+                int amountKeep =(int)(cashTickets.Count * percentKeepForSelf);
+                var cashTicketsForSelf = cashTickets.Take<CashTicket>(amountKeep).ToList();
+                cashTicketsForSelf.ForEach(x => x.BusinessAssigned = b);
+                
+                foreach (CashTicket ct in cashTicketsForSelf)
                 {
-                    IList<CashTicket> for_a_neighbour = businessCashTickts.Take<CashTicket>(assign_amounts[i]).ToList();
-
-                    foreach (CashTicket t in for_a_neighbour)
-                    {
-                        businessCashTickts.Remove(t);
-                    }
+                    ct.BusinessAssigned = b;
+                    ct.CashTicketAssigneRecord = this.cashTicketAssignRecord;
+                    
                 }
-
+                //分配给邻居商户
+                if (neighbours.Count == 0)
+                {
+                    continue;
+                }
+                int amountToBeAssign = cashTickets.Count - amountKeep;
+                //每个邻居要分配的数量
+                
+                IList<int> assign_amounts = PHSuit.PHNumber.Divid(amountToBeAssign, neighbours.Count);
+                for (int i=0;i< assign_amounts.Count;i++)
+                {
+                    var neighbour = neighbours[i];
+                    var tickets_for_the_neighbour = cashTickets
+                        .Where(x => x.BusinessAssigned == null).Take<CashTicket>(assign_amounts[i]).ToList();;
+                    tickets_for_the_neighbour.ForEach(x => x.BusinessAssigned = neighbour);
+                }
+                cashTickets.ForEach(x => x.CashTicketAssigneRecord = this.cashTicketAssignRecord);
+                
             }
         }
 
@@ -58,12 +106,12 @@ namespace Dianzhu.BLL
         /// 构建商家的邻居列表
         /// </summary>
         /// <param name="area">涉及的范围</param>
-        public Dictionary<Business, List<Business>> FindNeighbour(IList<Business> businessList)
+        public Dictionary<Business, IList<Business>> FindNeighbour(IList<Business> businessList)
         {
 
             //  每两个商家进行比较 
-            Dictionary<Business, List<Business>> all_neighbours = new Dictionary<Business, List<Business>>();
-            for (int i = 0; i < businessList.Count; i++)
+            Dictionary<Business, IList<Business>> all_neighbours = new Dictionary<Business, IList<Business>>();
+            for (int i = 0; i < businessList.Count - 1; i++)
             {
                 Business b1 = businessList[i];
                 if (!all_neighbours.ContainsKey(b1))
@@ -71,7 +119,7 @@ namespace Dianzhu.BLL
                     all_neighbours.Add(b1, new List<Business>());
                 }
 
-                for (int j = 0; j < businessList.Count - i; j++)
+                for (int j = i + 1; j <= businessList.Count - j; j++)
                 {
                     Business b2 = businessList[j];
                     if (!all_neighbours.ContainsKey(b2))
@@ -95,6 +143,6 @@ namespace Dianzhu.BLL
             return all_neighbours;
 
         }
-       
+
     }
 }
