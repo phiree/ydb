@@ -9,7 +9,7 @@
         log4net.Config.XmlConfigurator.Configure();
 
         System.Timers.Timer timer_ticket_assigner = new System.Timers.Timer();
-        timer_ticket_assigner.Interval = 3000;
+        timer_ticket_assigner.Interval = 1000*60*60;
         timer_ticket_assigner.Elapsed += new System.Timers.ElapsedEventHandler(timer_ticket_assigner_Elapsed);
         timer_ticket_assigner.Start();
     }
