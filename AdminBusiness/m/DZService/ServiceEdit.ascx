@@ -34,7 +34,9 @@
                         </div>
                         <div class="ul-right">
                             <span id="targetid-txt">
-                                <asp:Label runat="server" ID="lblSelectedType"></asp:Label></span>
+                             <asp:Label runat="server" ID="lblSelectedType"></asp:Label>
+                                </span>
+                               
                             <div class="ul-right li-inco">
                             </div>
                         </div>
@@ -384,13 +386,24 @@
 <script src="/js/TabSelection.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-   
+
     $(function () {
+        // 单选时，选择的服务类型显示
+        function tabRadioShow(id) {
+
+            var radioItem = $("#tabsServiceType").find($("span[item_id=" + id + "]"));
+            // console.log(radioItem.text());
+            $("#targetid-txt").text(radioItem.text());
+            //alert()
+        }
+
+
         $("#tabsServiceType").TabSelection({
             "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
             "leaf_clicked": function (id) {
                 $("#hiTypeId").val(id);
-                $("#targetid-txt").text(id);
+                // $("#targetid-txt").text(id);
+                tabRadioShow(id);
             }
 
         });
