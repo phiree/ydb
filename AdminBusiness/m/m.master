@@ -31,27 +31,31 @@
     </asp:ContentPlaceHolder>
       <script type="text/javascript">
           function myFocus(e) {
-              // alert(e)
+            
               if (e.value == '用户邮箱/手机号') {
                   e.value = '';
+                  $("#vuserid").val('');
               } else {
-                
+                  $("#vuserid").val(e.value);
               }
           }
 
           function myBlur(e,targetdiv) {
-              
 
-              if (e.value == '') {
-                  e.value = '用户邮箱/手机号';
+              
+              if ($(e).val() == '') {
+
+                  e.value = '用户邮箱/手机号'
+                  $("#vuserid").val('');
                   $(targetdiv).html("");
               } else {
-
+                  $("#vuserid").val(e.value);
                   if (!isNaN(e.value)) {
-                      validatemobile(e, targetdiv);
+                      validatemobile2(e, targetdiv);
+                      
                       //alert("是数字");
                   } else {
-                      emailCheck(e, targetdiv);
+                      emailCheck2(e, targetdiv);
                     //  alert("不全是数字");
                   }
              
@@ -113,7 +117,7 @@
 
           }
           /**
-          邮箱验证
+          注册邮箱验证
           **/
           function emailCheck(objName, targetTxt) {
              
@@ -131,8 +135,28 @@
                   }
               }
           }
+
           /**
-          验证手机号码
+          登录邮箱验证
+          **/
+          function emailCheck2(objName, targetTxt) {
+
+              if (objName.value == '') {
+                  $(targetTxt).html("");
+              } else {
+                  var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                  if (!pattern.test(objName.value)) {
+                      $(targetTxt).html("请输入正确的邮箱地址");
+                      objName.focus();
+                      return false;
+                  } else {
+                      $(targetTxt).html("");
+                      return true;
+                  }
+              }
+          }
+          /**
+          注册验证手机号码
           **/
 
           function validatemobile(objName, targetTxt) {
@@ -153,6 +177,56 @@
           }
 
           /**
+          登录验证手机号码
+          **/
+
+          function validatemobile2(objName, targetTxt) {
+              if (objName.value == '') {
+                  $(targetTxt).html("");
+              } else {
+                  var myreg = /^(((13[0-9]{1})|159|153|183|171)+\d{8})$/;
+                  if (!myreg.test(objName.value())) {
+                      $(targetTxt).html("请输入有效的手机号码！");
+                      objName.focus();
+                      return false;
+                  } else {
+                      $(targetTxt).html("");
+                      return true;
+                  }
+
+              }
+          }
+
+
+          /**
+          点击登录按钮时验证
+          **/
+          function vLoginFun() {
+              if ($("#vuserid").val() == '') {
+                  $('#vUserName').text("登录帐号不能为空")
+                  return false;
+              } else {
+                  if (!isNaN(e.value)) {
+                      if (validatemobile("#vuserid", "#vUserName")) {
+                          return true;
+                      } else {
+                          return false;
+                      }
+
+                  } else {
+
+                      if (emailCheck("#vuserid", "#vUserName")) {
+                          return true;
+                      } else {
+                          return false;
+                      }
+                 
+                  
+              }
+                 
+              }
+          }
+          /**
           注册点击下一步认证
           ***/
 
@@ -170,13 +244,16 @@
                         if (isAgreechecked) {
 
                             location.href = "#okpage";
+                            return true;
                         } else {
 
                             $("#agreetxt").html("您还没同意条款");
+                            return false;
+
                         }
                      
                     
-                      return true;
+                     
                   } else {
                  
                       $("#vregEmailtxt").html("请输入正确的邮箱地址");
@@ -212,10 +289,10 @@
           **/
           function vregPwdFun() {
               if (valPwdBlur('#regPs', '#vregPwdTxt1') && valPwdBlur('#regPsConf', '#vregPwdTxt2')) {
-               
+              
                   return true;
               } else {
-                 
+               
                   return false;
               }
           }

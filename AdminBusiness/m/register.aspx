@@ -49,7 +49,7 @@
             <a data-role="button" href="#" onclick="regNextvalid();"id="btn_next" target="_top" data-transition="slideup">
                 下一步</a>
             <br />
-            <a href="login.aspx" data-transition="slidedown" class="my-a-2">返回登录页</a>
+            <a href="login.aspx" target="_top" data-transition="slidedown" class="my-a-2">返回登录页</a>
         </div>
     </div>
     <div data-role="page" style="background: none;" id="okpage" data-theme="mya" data-title="会员注册密码确认">
@@ -75,7 +75,7 @@
             <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"  onBlur="valPwdBlur('#regPsConf','#vregPwdTxt2')"></asp:TextBox>
              <span id="vregPwdTxt2" class="erroTxt"></span>
             <br />
-             <asp:Button runat="server" ID="regPsSubmit" ClientIDMode="Static" OnClientClick="vregPwdFun()" OnClick="regPsSubmit_OnClick"
+             <asp:Button runat="server" ID="regPsSubmit" ClientIDMode="Static" OnClientClick="return vregPwdFun()" OnClick="regPsSubmit_OnClick"
                                    Text="确定"      CssClass="regBtn" />
             </form>
         </div>

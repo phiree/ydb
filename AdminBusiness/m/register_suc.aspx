@@ -28,7 +28,7 @@
    
    </table>
    <div style="text-align:center;">
-    <a href="login.aspx" data-transition="slidedown" data-role="button" data-inline="true" style="margin-top:35px;">确定</a>
+    <a href="login.aspx" target="_top" data-transition="slidedown" data-role="button" data-inline="true" style="margin-top:35px;">确定</a>
     </div>
   </div>
 </div>

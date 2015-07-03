@@ -14,13 +14,13 @@ CodeFile="~/login.aspx.cs" Inherits="login" %>
        </div>
        <br/>
      
-        <p><span id="vUserName" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxUserName" Text="用户邮箱/手机号" onFocus="myFocus(this)"  onBlur="myBlur(this,'#vUserName')" ></asp:TextBox> </p>      
+        <p><span id="vUserName" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxUserName" Text="用户邮箱/手机号" onFocus="myFocus(this)"  onBlur="myBlur(this,'#vUserName')" ></asp:TextBox> <input type="hidden" id="vuserid"/></p>      
        
-        <p><span id="vPassword" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxPassword" TextMode="Password" ></asp:TextBox>
+        <p><span id="vPassword" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxPassword" TextMode="Password" ></asp:TextBox><input type="hidden" id="vpwdid"/>
                                </p>
       <div class="ui-grid-a">  
          <div class="ui-block-a">
-          <asp:Button runat="server" ID="btnLogin" Text="登录" CssClass="loginBtn" OnClick="btnLogin_Click" /></div>
+          <asp:Button runat="server" ID="btnLogin" Text="登录" CssClass="loginBtn" OnClientClick="return vLoginFun()" OnClick="btnLogin_Click" /></div>
             <div class="ui-block-b" data-theme="mya">
                <div style="width:100%;height:60.375px; line-height:60.375px; position:relative;">
      
