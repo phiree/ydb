@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="http://192.168.1.111:8464/static/Scripts/jquery-1.11.3.min.js"></script>
  
 </head>
 <body>
