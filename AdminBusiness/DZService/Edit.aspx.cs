@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using PHSuit;
+using FluentValidation.Results;
 /// <summary>
 /// 编辑/新增 服务信息.
 /// </summary>
@@ -119,7 +120,19 @@ public partial class DZService_Edit : BasePage
     protected void btnSave_Click(object sender, EventArgs e)
     {
         UpdateForm();
-        bllService.SaveOrUpdate(CurrentService);
-        PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
+        ValidationResult result;
+        bllService.SaveOrUpdate(CurrentService,out result);
+        if (result.IsValid)
+        { PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl); }
+        else
+        {
+            string err = string.Empty;
+            foreach (ValidationFailure f in result.Errors)
+            {
+                err += f.ErrorMessage + "<br/>";
+            }
+            PHSuit.Notification.Show(Page, "保存失败", err, Request.RawUrl);
+        }
+       
     }
 }

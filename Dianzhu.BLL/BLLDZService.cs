@@ -5,6 +5,9 @@ using System.Text;
 
 using Dianzhu.Model;
 using Dianzhu.DAL;
+using Dianzhu.BLL.Validator;
+using FluentValidation;
+using FluentValidation.Results;
 namespace Dianzhu.BLL
 {
     public class BLLDZService
@@ -22,8 +25,14 @@ namespace Dianzhu.BLL
         {
             return DALDZService.GetOne(serviceId);
         }
-        public void SaveOrUpdate(DZService service)
+        public void SaveOrUpdate(DZService service,out ValidationResult validationResult)
         {
+         ValidatorDZService v = new ValidatorDZService();
+         validationResult = v.Validate(service);
+         bool isValid = validationResult.IsValid;
+
+         if (!isValid) return;
+
             if (service.Id == Guid.Empty)
             {
                 service.CreatedTime = DateTime.Now;
