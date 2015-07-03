@@ -99,9 +99,11 @@ $.fn.TabSelection = function (options) {
 
         var item_list = get_children(id);
         if (item_list.length == 0) {   ;;// is last leaf
-        if(!params.enable_multiselect)
-        {params.leaf_clicked(id);}
-         return false; }
+            if(!params.enable_multiselect){
+                params.leaf_clicked(id);
+            }
+        return false;
+        }
         var num_tabs = $("div#tabsServiceType ul li").length + 1;
         var tab_panel_content = "";
         for (var i=0; i<item_list.length;i++) {
