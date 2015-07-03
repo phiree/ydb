@@ -243,6 +243,8 @@
         map.disableDoubleClickZoom();
         map.clearOverlays();
 
+        var myCity = new BMap.LocalCity();
+
 //        function G(id) {
 //                return document.getElementById(id);
 //            }
@@ -372,7 +374,12 @@
 
         $("#setAddress").click(function (e) {
             $('#addrlightBox').lightbox_me({
-                centered: true
+                centered: true,
+                onLoad : function(){
+                    myCity.get(function(result){
+                        map.panTo(result.center);
+                    });
+                }
             });
             e.preventDefault();
         })
