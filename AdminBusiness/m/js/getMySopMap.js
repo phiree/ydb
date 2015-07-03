@@ -32,9 +32,9 @@
             var mapAddr = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
             var lngLat = e.point.lng + "," + e.point.lat;
 
-            $("#lngLat").val(lngLat);
+            $("#lngLat").val(lngLat);//经度与纬度
            
-            $(".showAdd").html(mapAddr)
+            $(".showAdd").html(mapAddr)//地点
 
         });
 
