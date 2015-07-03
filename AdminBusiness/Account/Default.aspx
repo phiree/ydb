@@ -243,6 +243,10 @@
         map.disableDoubleClickZoom();
         map.clearOverlays();
 
+        var myCity = new BMap.LocalCity();
+        myCity.get(function(result){
+            map.panTo(result.center);
+        });
 //        function G(id) {
 //                return document.getElementById(id);
 //            }
