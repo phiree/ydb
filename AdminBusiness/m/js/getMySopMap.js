@@ -5,12 +5,48 @@
     map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
   //  map.centerAndZoom("海口", 11);     // 初始化地图,设置中心点坐标和地图级别
     map.enableScrollWheelZoom();
+
     map.addEventListener("tilesloaded", function (e) {
-        $(".showAdd").css("display", "none");
-        
+        //  var point = new BMap.Point(116.404, 39.915);
+        // var marker = new BMap.Marker(point);           
+        //   map.addOverlay(marker);
+        //$("#businessID-button").css("display","none");
+
+        $("#city-container .ui-select:eq(3)").css("display", "none");
+        $("#city-container .ui-select:eq(3)").p
     });
-	
-	
+
+
+    var gc = new BMap.Geocoder(); //地址解析类
+    function showInfo(e) {
+        //alert(e.point.lng + ", " + e.point.lat);
+
+        //alert(allOverlay.length-1)
+        deletePoint();
+        var point = new BMap.Point(e.point.lng, e.point.lat)
+        var marker = new BMap.Marker(point); // 创建点
+        map.addOverlay(marker);    //增加点
+        var gc = new BMap.Geocoder();
+        gc.getLocation(point, function (rs) {
+            var addComp = rs.addressComponents;
+            var mapAddr = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+            var lngLat = e.point.lng + "," + e.point.lat;
+
+            $("#lngLat").val(lngLat);
+           
+            $(".showAdd").html(mapAddr)
+
+        });
+
+
+    }
+    function deletePoint() {
+        var allOverlay = map.getOverlays();
+
+        map.clearOverlays();
+    }
+
+    map.addEventListener("click", showInfo); 
     //百度地图自动填充关键词
     function G(id) {
         return document.getElementById(id);

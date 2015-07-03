@@ -286,5 +286,5 @@
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
     
     <script src="../js/CityList.js" type="text/javascript"></script>
-    <script src="../js/getMap.js" type="text/javascript"></script>
+    <script src="../js/getMySopMap.js" type="text/javascript"></script>
 </asp:Content>
