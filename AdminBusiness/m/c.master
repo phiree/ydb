@@ -102,7 +102,7 @@
             } else {
                 targetTxt = provincetxt + citytxt + boroughtxt + businesstxt;
             }
-
+            $(targetID).text(targetTxt);
             $(targetID).text(targetTxt);
           //  alert(targetTxt);
             $(targetHID).text(targetTxt);
