@@ -138,6 +138,7 @@ function tabRadioShow(id){
         var radioText = radioItem.text();
 
         $("#hiTypeId").attr("value", id );
+        console.log($("#hiTypeId").attr("value"));
         TypeNodeBox.attr("item_id",id);
         radioItem.addClass('radioCk');
 

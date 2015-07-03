@@ -85,7 +85,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         cblIsForBusiness.Checked = CurrentService.IsForBusiness;
         cbxIsCompensationAdvance.Checked = CurrentService.IsCompensationAdvance;
         cbxIsCertificated.Checked = CurrentService.IsCertificated;
-        rblPayType.SelectedValue =((int) CurrentService.PayType).ToString();
+        rblPayType.SelectedValue = ((int)CurrentService.PayType).ToString(); hiTypeId.Value= CurrentService.ServiceType.Id.ToString();
     }
     public void UpdateForm()
     {
