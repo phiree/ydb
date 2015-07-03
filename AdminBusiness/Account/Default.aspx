@@ -82,9 +82,9 @@
                             <div class="myshopLeftCont">
                                 <p class="p_addressDetail myshop-item-title">
                                     <i class="icon myshop-icon-address"></i>详细店址</p>
-                                    <input id="setAddress" class="myshop-btn-setAddress" type="button" value="请选择服务信息" /><input type="hidden" runat="server" clientidmode="Static" id="hiTypeId" />
-                                <p>
-                                    <input type="text" class="myshop-input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
+                                    <input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" value="请放置店铺坐标" /><input type="hidden" runat="server" clientidmode="Static" id="hiAddrId" />
+                                <div id="addPrintBox"></div>
+                                <p><input type="text" class="myshop-input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
                             </div>
                             <div class="myshopLeftCont">
                                 <p class="p_email myshop-item-title">
@@ -201,10 +201,13 @@
                         <div class="mapWrap">
                             <div id="addressMap" class="mapMain">
                             </div>
-                            <div id="businessCity" class="mapCity">
+                            <div id="addressCity" class="mapCity">
+                            </div>
+                            <div id="addressText" class="mapAddrsText">
+
                             </div>
                             <div class="mapButton">
-                                <input id="confBusiness" class="close ser-sm-input" type="button" value="确定"></div>
+                                <input id="confBusiness" class="close myshop-sm-input" type="button" value="确定"></div>
                             <input id="businessValue" type="hidden" value="" />
                         </div>
                     </div>
@@ -230,36 +233,141 @@
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript">
         var map = new BMap.Map("addressMap");
-        var cityListObject = new BMapLib.CityList({ container: "addressMap" });
+        var cityListObject = new BMapLib.CityList({ container: "addressCity", map : map});
+        var geoc = new BMap.Geocoder();
+        var addressText = $("#addressText");
+        var myGeo = new BMap.Geocoder();
+
         map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
         map.enableScrollWheelZoom();
+        map.disableDoubleClickZoom();
+        map.clearOverlays();
 
-        var tabCheckedShow = function (that, checked) {
-            //        console.log($('.item').html());
-            if (checked == true) {
-                var checkedShowBox = $('#serCheckedShow');
-                var checkedItem = $($(that).parents('.serviceTabsItem')).find('.item');
-                var checkText = checkedItem.html();
-                var checkTextNode = "<span>" + checkText + "</span>";
-                checkedShowBox.append(checkTextNode);
-            } else {
-                return;
-            }
-        }
+//        function G(id) {
+//                return document.getElementById(id);
+//            }
+//
+//            var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+//                    {"input" : "suggestId"
+//                        ,"location" : map
+//                    });
+//
+//            ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+//                var str = "";
+//                var _value = e.fromitem.value;
+//                var value = "";
+//                if (e.fromitem.index > -1) {
+//                    value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+//                }
+//                str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+//
+//                value = "";
+//                if (e.toitem.index > -1) {
+//                    _value = e.toitem.value;
+//                    value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+//                }
+//                str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+//                G("searchResultPanel").innerHTML = str;
+//            });
+//
+//            var myValue;
+//            ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+//                var _value = e.item.value;
+//                myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+//                G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+//
+//                setPlace();
+//            });
+//
+//            function setPlace(){
+//                map.clearOverlays();    //清除地图上所有覆盖物
+//                function myFun(){
+//                    var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+//                    map.centerAndZoom(pp, 18);
+//                    map.addOverlay(new BMap.Marker(pp));    //添加标注
+//
+//                }
+//                var local = new BMap.LocalSearch(map, { //智能搜索
+//                    onSearchComplete: myFun
+//                });
+//                local.search(myValue);
+//            }
 
-        $(function () {
+//        // 将地址解析结果显示在地图上,并调整地图视野
+//        myGeo.getPoint("海南省海口市龙华区海秀中路125号", function(point){
+//            if (point) {
+//                map.centerAndZoom(point, 18);
+//                map.addOverlay(new BMap.Marker(point));
+//            }else{
+//                alert("您选择地址没有解析到结果!");
+//            }
+//        }, "北京市");
 
-            $("#tabsServiceType").TabSelection({
-                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
-                "enable_multiselect": true,
-                'check_changed': function (that, id, checked) {
-                    tabCheckedShow(that, checked);
-                },
+        map.addEventListener("click",setAddressPoint);
+        function setAddressPoint (e){
+            map.clearOverlays();
 
-                'leaf_ clicked': function (id, checked) {
+            var addPrintBox = $("#addPrintBox");
+            var addressP = new BMap.Point(e.point.lng, e.point.lat);
+            var addressMark = new BMap.Marker(addressP);
+            var addrNodeBox = $(document.createElement("div"));
+
+
+            geoc.getLocation(addressP, function(rs){
+                var addComp = rs.addressComponents;
+                var addJson = {
+                    "province": addComp.province,
+                    "city": addComp.city,
+                    "district": addComp.district,
+                    "lat" : rs.point.lng,
+                    "lng" : rs.point.lat
+                };
+
+                console.log(JSON.stringify(addJson));
+                $('#hiAddrId').attr("value",JSON.stringify(addJson));
+                var addressNode = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber
+                addressText.text(addressNode);
+
+            if ( addPrintBox.html() != "" ){
+                    addPrintBox.find('div').text(addressNode);
+                } else {
+                    addrNodeBox.text(addressNode);
+                    addrNodeBox.addClass('myshop-addPrint');
+                    addPrintBox.append(addrNodeBox);
                 }
             });
-        });
+            map.addOverlay(addressMark);
+//            addressMark.setAnimation(BMAP_ANIMATION_BOUNCE);
+
+        }
+
+
+//        var tabCheckedShow = function (that, checked) {
+//            //        console.log($('.item').html());
+//            if (checked == true) {
+//                var checkedShowBox = $('#serCheckedShow');
+//                var checkedItem = $($(that).parents('.serviceTabsItem')).find('.item');
+//                var checkText = checkedItem.html();
+//                var checkTextNode = "<span>" + checkText + "</span>";
+//                checkedShowBox.append(checkTextNode);
+//            } else {
+//                return;
+//            }
+//        }
+//
+//        $(function () {
+//
+//            $("#tabsServiceType").TabSelection({
+//                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
+//                "enable_multiselect": true,
+//                'check_changed': function (that, id, checked) {
+//                    tabCheckedShow(that, checked);
+//                },
+//
+//                'leaf_ clicked': function (id, checked) {
+//                }
+//            });
+//        });
 
 
         $("#setAddress").click(function (e) {
