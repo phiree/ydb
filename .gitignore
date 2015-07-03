@@ -1,4 +1,5 @@
 #Phiree Define#
+/AdminWeb/config/connectionStrings.config
 /config/connectionStrings.config
 /cdn
 .idea/
