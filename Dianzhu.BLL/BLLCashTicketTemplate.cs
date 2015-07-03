@@ -41,7 +41,7 @@ namespace Dianzhu.BLL
              Coverage=coverage,
               ExpiredDate=ExpiredDate,
                Name=name,
-                Owner=owner,
+                Business=owner,
                  ValidDate=PHCore.GetNextDay(DateTime.Now),
                  Enabled=true,
             };

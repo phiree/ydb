@@ -9,6 +9,7 @@ using Dianzhu.Model;
 public partial class CashTicket_Default :BasePage
 {
     BLLCashTicketTemplate bll = new BLLCashTicketTemplate();
+    BLLBusiness bllBusiness = new BLLBusiness();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -18,7 +19,7 @@ public partial class CashTicket_Default :BasePage
     }
     private void BindList()
     {
-        gv.DataSource = bll.GetTemplateList(CurrentBusiness);
+        gv.DataSource = CurrentBusiness.CashTicketTemplates;// bll.GetTemplateList(CurrentBusiness);
         gv.DataBind();
     }
 }

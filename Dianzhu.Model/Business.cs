@@ -281,6 +281,48 @@ namespace Dianzhu.Model
                 return cashtickets;
             }
         }
+        /// <summary>
+        /// 可供分配的现金券
+        /// </summary>
+        public virtual IList<CashTicket> CashTicketsAvaiableToAssign
+        {
+            get
+            {
+                IList<CashTicket> cashtickets = new List<CashTicket>();
+                foreach (CashTicketTemplate temp in CashTicketTemplates)
+                {
+                    if (!temp.Enabled) continue;
+                    foreach (CashTicket cashticket in temp.CashTickets)
+                    {
+                        if (cashticket.UserAssigned != null) continue;
+                        cashtickets.Add(cashticket);
+                    }
+                }
+                return cashtickets;
+            }
+        }
+        /// <summary>
+        /// 可供分配的现金券的总金额
+        /// </summary>
+        public virtual int CashTicketsAvaiableToAssignAmount
+        {
+            get
+            {
+                int amount = 0;
+                IList<CashTicket> cashtickets = new List<CashTicket>();
+                foreach (CashTicketTemplate temp in CashTicketTemplates)
+                {
+                    if (!temp.Enabled) continue;
+                    foreach (CashTicket cashticket in temp.CashTickets)
+                    {
+                        if (cashticket.UserAssigned != null) continue;
+                        amount += temp.Amount;
+                         
+                    }
+                }
+                return amount;
+            }
+        }
 
     }
 

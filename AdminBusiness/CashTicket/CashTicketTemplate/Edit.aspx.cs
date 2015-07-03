@@ -47,7 +47,7 @@ public partial class CashTicketTemplateEdit :BasePage
         currentCashTicketTemplate.ExpiredDate = Convert.ToDateTime(tbx_expiredDate.Text);
         currentCashTicketTemplate.Name = tbx_name.Text;
         currentCashTicketTemplate.Enabled = cbxEnable.Checked;
-        currentCashTicketTemplate.Owner = CurrentBusiness;
+        currentCashTicketTemplate.Business = CurrentBusiness;
          
     }
     protected void btnOK_Click(object sender, EventArgs e)

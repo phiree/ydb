@@ -126,19 +126,9 @@ namespace Dianzhu.BLL
             return DalArea.GetSubAreaIds(areacode);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cityname"></param>
-        /// <returns></returns>
-        //public Model.Area ParseArea(string cityname)
-        //{
-        //    Model.Area area = new Model.Area();
-        //    if (!cityname.EndsWith("市"))
-        //    {
-        //        cityname += "市";
-        //    }
-        //    return area;
-        //}
+        public Model.Area GetOne(int id)
+        {
+            return DalArea.GetOne(id);
+        }
     }
 }

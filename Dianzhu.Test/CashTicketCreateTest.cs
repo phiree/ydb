@@ -30,7 +30,7 @@ namespace Dianzhu.Test
                 //.CheckProperty(c => c.Id, new Guid("06f5d2bf-4499-4575-8945-a49200c30a0f"))
                 .CheckProperty(c => c.Amount, 10)
                 .CheckProperty(c => c.Conditions,"No Limited")
-                .CheckProperty(c=>c.Owner,null)
+                .CheckProperty(c=>c.Business,null)
                 .CheckProperty(c => c.Coverage, 1.4f)
                // .CheckProperty(c => c.Enabled, false)
                // .CheckProperty(c => c.ExpiredDate, DateTime.Now.AddMonths(1))
@@ -52,7 +52,7 @@ namespace Dianzhu.Test
                Enabled=true,
                 ExpiredDate=DateTime.Now.AddDays(30),
                  Name="琳琅现金券10元",
-                  Owner=new Business(),
+                  Business=new Business(),
                    ValidDate=DateTime.Today.AddDays(1)
             };
 

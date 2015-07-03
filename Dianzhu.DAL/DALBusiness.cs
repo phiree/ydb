@@ -16,7 +16,7 @@ namespace Dianzhu.DAL
         }
         public IList<Area> GetAreasOfBusiness()
         {
-            string sql = "select distinct a from Area a inner join Business b";
+            string sql = "select  distinct b.AreaBelongTo from Business b";
             IQuery query = Session.CreateQuery(sql);
            IList<Area> result= query.List<Area>();
            return result;
@@ -24,10 +24,14 @@ namespace Dianzhu.DAL
         }
         public IList<Business> GetBusinessInSameCity(Area area)
         {
-            string sql = "select  b from Business b  inner join Area a on b.area_id=a.id"+
-                         "where left(a.code,4)='" + area.Code.Substring(0,4)+"'";
-            IQuery query = Session.CreateSQLQuery(sql);
-            IList<Business> result = query.List<Business>();
+            string sql = "select  b from Business   b"+
+                         "   inner join b.AreaBelongTo  a  "
+                         +"left join fetch b.CashTicketTemplates ct "
+                          +"   where a.Code like '%" + area.Code.Substring(0,4)+"%'";
+            
+            IQuery query = Session.CreateQuery(sql);
+            var result = query.List<Business>();
+            
             return result;
         }
     }

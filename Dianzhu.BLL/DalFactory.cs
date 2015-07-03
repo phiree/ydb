@@ -24,6 +24,7 @@ namespace Dianzhu.BLL
         static DALServicePropertyValue dalServicePropertyValue;
         static DALServiceType dalServiceType;
         static DALStaff dalStaff;
+            
 
         public static DALStaff DALStaff
         {

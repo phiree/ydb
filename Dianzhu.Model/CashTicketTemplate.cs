@@ -21,7 +21,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 所属商家
         /// </summary>
-        public virtual Business Owner { get; set; }
+        public virtual Business Business { get; set; }
         /// <summary>
         /// 生效日期
         /// </summary>
