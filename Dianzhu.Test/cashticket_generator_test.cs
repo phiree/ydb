@@ -34,7 +34,7 @@ namespace Dianzhu.Test
                  .Build();
               //    商户1的现金券模板
              IList<CashTicketTemplate> tc_list1 = Builder<CashTicketTemplate>
-                 .CreateListOfSize(10).All().With(x => x.Owner = b1).With(x=>x.Enabled=true).Build();
+                 .CreateListOfSize(10).All().With(x => x.Business = b1).With(x=>x.Enabled=true).Build();
               //        商户1的现金券
              foreach (CashTicketTemplate tc in tc_list1)
              {
@@ -53,7 +53,7 @@ namespace Dianzhu.Test
                  .Build();
 
              IList<CashTicketTemplate> tc_list2 = Builder<CashTicketTemplate>
-                .CreateListOfSize(10).All().With(x => x.Owner = b2).With(x => x.Enabled = true).Build();
+                .CreateListOfSize(10).All().With(x => x.Business = b2).With(x => x.Enabled = true).Build();
              //        商户1的现金券
              foreach (CashTicketTemplate tc in tc_list2)
              {

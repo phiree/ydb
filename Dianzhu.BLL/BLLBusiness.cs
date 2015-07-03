@@ -68,6 +68,10 @@ namespace Dianzhu.BLL
         {
             return DALBusiness.GetBusinessInSameCity(area);
         }
+        public void SaveList(IList<Business> businesses)
+        {
+            DALBusiness.SaveList(businesses);
+        }
        
        
     }

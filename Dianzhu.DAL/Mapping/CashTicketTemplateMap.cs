@@ -13,12 +13,14 @@ namespace Dianzhu.DAL.Mapping
         {
             Id(x => x.Id);
             Map(x => x.Name);
-            References(x => x.Owner);
+            References(x => x.Business);
             Map(x => x.Amount);
             Map(x => x.Conditions);
             Map(x => x.ExpiredDate);
             Map(x => x.ValidDate);
             Map(x => x.Coverage);
+            Map(x => x.Enabled);
+            HasMany(x => x.CashTickets);
             
          
         }

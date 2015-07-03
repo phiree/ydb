@@ -38,6 +38,7 @@ namespace Dianzhu.Model
                 return level;
             }
         }
+
      
     }
     public enum AreaLevel

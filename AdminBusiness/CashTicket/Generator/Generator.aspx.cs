@@ -33,7 +33,7 @@ public partial class CashTicket_Generator : BasePage
     }
     private void BindTemplateList()
     {
-        ddlTemplate.DataSource = bllCashTicketTemplate.GetTemplateList(CurrentBusiness);
+        ddlTemplate.DataSource = CurrentBusiness.CashTicketTemplates;// bllCashTicketTemplate.GetTemplateList(CurrentBusiness);
         ddlTemplate.DataTextField = "Name";
         ddlTemplate.DataValueField = "Id";
         ddlTemplate.DataBind();

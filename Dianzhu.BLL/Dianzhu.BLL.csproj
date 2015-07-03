@@ -66,6 +66,7 @@
     <Compile Include="BLLServiceProperty.cs" />
     <Compile Include="BLLServicePropertyValue.cs" />
     <Compile Include="BLLCashTIcketAssignDetail.cs" />
+    <Compile Include="SiteConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">

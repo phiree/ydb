@@ -21,14 +21,42 @@ namespace Dianzhu.BLL
             IList<Area> areas = bllBusiness.GetAreasOfBusiness();
             foreach (Area area in areas)
             {
-                IList<Business> businessesInSameCity = bllBusiness.GetBusinessInSameCity(area);
-                CashTicketAssignRecord assignRecord = new CashTicketAssignRecord { 
-                     AmountBusiness=businessesInSameCity.Count,
-                     
-                };
+                var businesses=bllBusiness.GetBusinessInSameCity(area);
+                CashTicketAssignForArea cta_area = new CashTicketAssignForArea(area, businesses);
+                CashTicketAssignRecord ctar= cta_area.Assign();
+                bllBusiness.SaveList(businesses);
+                ctar.TimeEnd = DateTime.Now;
+
             }
         }
          
+    }
+    /// <summary>
+    /// 分配一个行政区域的现金券
+    /// </summary>
+    public class CashTicketAssignForArea
+    {
+        Area area;
+        IList<Business> businesses;
+        public CashTicketAssignForArea(Area area,IList<Business> businesses)
+        {
+            this.area = area;
+            this.businesses = businesses;
+        }
+        public CashTicketAssignRecord Assign()
+        {
+           
+            CashTicketAssignRecord assignRecord = new CashTicketAssignRecord
+            {
+                AmountBusiness = businesses.Count,
+                Area = area,
+                TimeBegin = DateTime.Now
+            };
+            CashTicketAssigner assigner = new CashTicketAssigner(assignRecord);
+            assigner.BusinessList = businesses;
+            assigner.Assign();
+            return assignRecord;
+        }
     }
     /// <summary>
     /// 分配现金券到商圈.
