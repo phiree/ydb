@@ -125,7 +125,68 @@
 
 .mapMain {
     position: absolute;
+    width: 100%;
+    height: 500px;
 }
+
+.mapCity {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    background: #f6fafe;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.mapAddrsText {
+    position: absolute;
+    left: 5px;
+    top: 55px;
+    background: #f6fafe;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.myshop-addPrint {
+    padding: 5px;
+    width: 290px;
+    color: #fff;
+    background: #ffa81f;
+    border-radius: 5px;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+.mapButton {
+    position: absolute;
+    top: 12px;
+    left: 427px;
+
+}
+
+.myshop-sm-input {
+    border: 1px solid #dbe6f2;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    background: #31b6fb;
+}
+
+/*.mapAutoText {*/
+    /*position: absolute;*/
+    /*left: 5px;*/
+    /*top: 105px;*/
+    /*background: #f6fafe;*/
+    /*border: 1px solid #ccc;*/
+    /*border-radius: 5px;*/
+    /*padding: 10px;*/
+/*}*/
+
+/*.mapAutoTextBox {*/
+    /*position: relative;*/
+/*}*/
 
 /* 账号安全页面内容 by lichang 2015/5/28 */
 .secret-cont {

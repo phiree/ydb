@@ -791,7 +791,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
 
         var polygon = new BMap.Polygon();
         map.addOverlay(polygon);
-        polygon.disableMassClear();/*禁止删除商圈覆盖 by lichang*/
+//        polygon.disableMassClear();/*禁止删除商圈覆盖 by lichang*/
         polygon.hide();
         baidu.on(businessDom, "change", function(e){
             var s_value = businessDom.value;
