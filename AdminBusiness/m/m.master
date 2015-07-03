@@ -64,26 +64,35 @@
           }
           function valPwdBlur(e, targetTxt) {
 
-              if (e.value == '') {
+              if ($(e).val() == '') {
                   $(targetTxt).html("密码不能为空");
+                  return false;
               } else {
 
-              if (e.value.length < 6) {
+                  if ($(e).val().length < 6) {
                   $(targetTxt).html("密码不能小于6位");
-              } else if (e.value.length > 20) {
+                  return false;
+              } else if ($(e).val().length > 20) {
+
                   $(targetTxt).html("密码不能大于20位");
+                  return false;
 
               } else {
 
-                  if (e.id == "regPsConf") {
+              if (e == "#regPsConf") {
 
-                      if ($("#regPs").val() != $("#" + e.id).val()) {
-                          $(targetTxt).html("密码不一致");
-                      } else {
+                  if ($("#regPs").val() != $(e).val()) {
+                      $(targetTxt).html("密码不一致");
+                      return false;
+                  } else {
 
-                          $(targetTxt).html("");
-                      }
+                      $(targetTxt).html("");
+                      return true;
                   }
+              } else {
+                  $(targetTxt).html("");
+                  return true;
+              }
                  
               }
               }
@@ -93,9 +102,13 @@
               if (txt == "电子邮箱") {
                   $("#email-div").css("display", "block");
                   $("#iphone-div").css("display", "none");
+                  $("#iphone").val("");
+                  return true;
               } else {
                   $("#email-div").css("display", "none");
                   $("#iphone-div").css("display", "block");
+                  $("#email").val("");
+                  return false;
               }
 
           }
@@ -103,16 +116,18 @@
           邮箱验证
           **/
           function emailCheck(objName, targetTxt) {
-              if (objName.value == '') {
+             
+              if ($(objName).val() == '') {
                   $(targetTxt).html("");
               } else {
                   var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
-                  if (!pattern.test(objName.value)) {
+                  if (!pattern.test($(objName).val())) {
                       $(targetTxt).html("请输入正确的邮箱地址");
-                      objName.focus();
-
+                      $(objName).focus();
+                      return false;
                   } else {
                       $(targetTxt).html("");
+                      return true;
                   }
               }
           }
@@ -121,21 +136,89 @@
           **/
 
           function validatemobile(objName, targetTxt) {
-              if (objName.value == '') {
+              if ($(objName).val() == '') {
                   $(targetTxt).html("");
               } else {
                   var myreg = /^(((13[0-9]{1})|159|153|183|171)+\d{8})$/;
-                  if (!myreg.test(objName.value)) {
+                  if (!myreg.test($(objName).val())) {
                       $(targetTxt).html("请输入有效的手机号码！");
-                      objName.focus();
-
+                      $(objName).focus();
+                      return false;
                   } else {
                       $(targetTxt).html("");
+                      return true;
                   }
                 
               }
           }
 
+          /**
+          注册点击下一步认证
+          ***/
+
+          function regNextvalid() {
+              var isAgreechecked = $('#agree').is(':checked');
+             
+              if (getSelectVal()) {
+                  if($("#email").val() == ""){
+                      $("#vregEmailtxt").html("邮箱地址不能为空");
+                        return false;
+
+                  }
+                    if (emailCheck("#email", "#vregEmailtxt")) {
+                       
+                        if (isAgreechecked) {
+
+                            location.href = "#okpage";
+                        } else {
+
+                            $("#agreetxt").html("您还没同意条款");
+                        }
+                     
+                    
+                      return true;
+                  } else {
+                 
+                      $("#vregEmailtxt").html("请输入正确的邮箱地址");
+                  
+                    
+                      return false;
+                  }
+
+              } else {
+                  if ($("#iphone").val() == "") {
+                      $("#vregPhonetxt").html("手机号码不能为空");
+                      return false;
+
+                  }
+                  if (validatemobile("#iphone", "#vregPhonetxt")) {
+                      if (isAgreechecked) {
+                          location.href = "#okpage";
+                      } else {
+                          $("#agreetxt").html("您还没同意条款"); 
+                      }
+                      return true;
+                  } else {
+                      $("#vregPhonetxt").html("请输入有效的手机号码!");
+                  }
+
+
+              }
+
+          }
+
+          /**
+          点击注册输入密码时按确定时验证
+          **/
+          function vregPwdFun() {
+              if (valPwdBlur('#regPs', '#vregPwdTxt1') && valPwdBlur('#regPsConf', '#vregPwdTxt2')) {
+               
+                  return true;
+              } else {
+                 
+                  return false;
+              }
+          }
           $(document).ready(function () {
 
           }); 
