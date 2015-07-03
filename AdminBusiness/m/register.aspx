@@ -24,7 +24,7 @@
                 <label for="iphone">
                     输入号码：</label>
                 <div style="position: relative;">
-                    <input type="text" class="username" name="iphone" id="iphone" data-inline="true" onBlur="validatemobile(this,'#vregPhonetxt')">
+                    <input type="text" class="username" name="iphone" id="iphone" data-inline="true" onBlur="validatemobile('#iphone','#vregPhonetxt')">
                     <span style="position: absolute; top: 10px; left: 8px; color: #333;">+86</span>
                     <span id="vregPhonetxt" class="erroTxt"></span>
                 </div>
@@ -33,7 +33,7 @@
                 <label for="email">
                     输入邮箱：</label>
                 <div style="position: relative;">
-                    <input type="text" class="username" name="email" id="email" data-inline="true" onBlur="emailCheck(this,'#vregEmailtxt')">
+                    <input type="text" class="username" name="email" id="email" data-inline="true" onBlur="emailCheck('#email','#vregEmailtxt')">
                     <span id="vregEmailtxt" class="erroTxt"></span>
                 </div>
             </div>
@@ -44,8 +44,9 @@
                 <input type="checkbox" name="agree" id="agree" value="agree" checked data-inline="true" />
                 <span style="left: 30px; top: -32px; position: absolute; font-size: 12px;">我已经仔细阅读过点助服务协议,并同意所有条款。
                 </span>
+                <div id="agreetxt" class="erroTxt"></div>
             </div>
-            <a data-role="button" href="#okpage" id="btn_next" target="_top" data-transition="slideup">
+            <a data-role="button" href="#" onclick="regNextvalid();"id="btn_next" target="_top" data-transition="slideup">
                 下一步</a>
             <br />
             <a href="login.aspx" data-transition="slidedown" class="my-a-2">返回登录页</a>
@@ -67,14 +68,14 @@
             <form method="post" action="" enctype="multipart/form-data"  onsubmit="goRegOk()">
             <label for="login-pwd">
                 登录密码：</label>
-            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password" onBlur="valPwdBlur(this,'#vregPwdTxt1')"></asp:TextBox>
+            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password" onBlur="valPwdBlur('#regPs','#vregPwdTxt1')"></asp:TextBox>
              <span id="vregPwdTxt1" class="erroTxt"></span>
             <label for="login-rpwd">
                 确认密码：</label>
-            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"  onBlur="valPwdBlur(this,'#vregPwdTxt2')"></asp:TextBox>
+            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"  onBlur="valPwdBlur('#regPsConf','#vregPwdTxt2')"></asp:TextBox>
              <span id="vregPwdTxt2" class="erroTxt"></span>
             <br />
-             <asp:Button runat="server" ID="regPsSubmit" ClientIDMode="Static" OnClick="regPsSubmit_OnClick"
+             <asp:Button runat="server" ID="regPsSubmit" ClientIDMode="Static" OnClientClick="vregPwdFun()" OnClick="regPsSubmit_OnClick"
                                    Text="确定"      CssClass="regBtn" />
             </form>
         </div>
@@ -106,7 +107,7 @@
                         else {
                             $("#tbxUserName").val(username);
                             $("#rs_username").text(username);
-                            $("#btn_next").attr("href", "#okpage");
+                           // $("#btn_next").attr("href", "#okpage");
                         }
                     },
                     async: false
