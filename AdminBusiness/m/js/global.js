@@ -93,21 +93,28 @@ function getSelectVal(selectID,targetID){
 	$(targetID).text(txt);
 
 }
-
-
+//建立一個可存取到該file的url
+function getObjectURL(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) { // basic
+        url = window.createObjectURL(file);
+    } else if (window.URL != undefined) { // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+}
 
 $(document).ready(function () {
-    	       $('.input-file-btn').change(function () {
-                var imgObjPreview = $(this).parent().siblings(".input-file-pre").get(0);
-                if (this.files && this.files[0]) {
 
+    $('.input-file-btn').change(function () {
+        var objUrl = getObjectURL(this.files[0]);
+        console.log("objUrl = " + objUrl);
+        if (objUrl) {
+            $("#fuAvaterImg").attr("src", objUrl);
+        }
+    })
 
-                    imgObjPreview.src=window.URL.createObjectURL(this.files[0]);
-
-                    console.log(imgObjPreview.src);
-                }
-               
-                return true;
-            })
-        });
+});
 

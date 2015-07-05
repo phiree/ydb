@@ -43,7 +43,7 @@
           function myBlur(e,targetdiv) {
 
               
-              if ($(e).val() == '') {
+              if (e.value == '') {
 
                   e.value = '用户邮箱/手机号'
                   $("#vuserid").val('');
@@ -62,9 +62,36 @@
 
               }
           }
+          function valPwdFocus(e) {
 
-          function valPwdFocus() {
-             
+              if (e.value == '') {
+                  e.value = '';
+                  $("#vuserid").val('');
+              } else {
+                  $("#vuserid").val(e.value);
+              }
+          }
+          function valPwdBlur(e, targetTxt) {
+              if ( e.value == '') {
+               $("#vpwdid").val('');
+                  $(targetTxt).html("密码不能为空");
+                  return false;
+               } else {
+                  $("#vpwdid").val(e.value);
+                  if (e.value.length < 6) {
+                      $(targetTxt).html("密码不能小于6位");
+                      return false;
+                  } else if (e.value.length > 20) {
+                      $("#vpwdid").val(e.value);
+                      $(targetTxt).html("密码不能大于20位");
+                      return false;
+
+                  } else {
+                      $("#vpwdid").val(e.value);
+                      $(targetTxt).html("");
+                      return true;
+                  }
+               }
           }
           function valPwdBlur(e, targetTxt) {
 
@@ -202,29 +229,41 @@
           点击登录按钮时验证
           **/
           function vLoginFun() {
-              if ($("#vuserid").val() == '') {
+              if ($("#ContentPlaceHolder1_tbxUserName").val() == '') {
                   $('#vUserName').text("登录帐号不能为空")
+
                   return false;
               } else {
                   if (!isNaN(e.value)) {
-                      if (validatemobile("#vuserid", "#vUserName")) {
-                          return true;
+                      if (validatemobile("#ContentPlaceHolder1_tbxUserName", "#vUserName")) {
+                          if (valPwdBlur("#ContentPlaceHolder1_tbxPassword", "#vPassword")) {
+                           return true;
+                          }else{
+                           return false;
+                          }
+                         
                       } else {
                           return false;
                       }
 
                   } else {
 
-                      if (emailCheck("#vuserid", "#vUserName")) {
-                          return true;
+                      if (emailCheck("#ContentPlaceHolder1_tbxUserName", "#vUserName")) {
+                          if (valPwdBlur("#ContentPlaceHolder1_tbxPassword", "#vPassword")) {
+                           return true;
+                          }else{
+                           return false;
+                          }
                       } else {
+                     
                           return false;
                       }
                  
                   
-              }
+                  }
                  
               }
+
           }
           /**
           注册点击下一步认证

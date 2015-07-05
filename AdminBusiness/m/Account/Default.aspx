@@ -61,7 +61,7 @@
                                   <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
                                       
                                 <i class="input-file-mark"></i>
-                                <img class="input-file-pre" />
+                                <img class="input-file-pre" id="fuAvaterImg"/>
                             </div>
                         </div>
                     </li>
