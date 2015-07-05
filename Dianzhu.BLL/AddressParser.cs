@@ -41,7 +41,14 @@ namespace Dianzhu.BLL
             public double lng { get; set; }
             public string BuildWholeArea()
             {
-                return province + city + district;
+                if (province == city)
+                {
+                    return city + district;
+                }
+                else
+                {
+                    return province + city + district;
+                }
             }
         }
     }
