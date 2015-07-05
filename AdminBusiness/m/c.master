@@ -82,7 +82,7 @@
                 <div id="searchResultPanel" style="border: 1px solid #C0C0C0; width: 150px; height: auto;
                     display: none;">
                 </div>
-                <div class="showAdd">FFFFF</div>
+                <div class="showAdd"></div>
                 <div><input type="hidden" id="lngLat" /></div>
                 <a href="#firstview" data-transition="slideup" data-rel="close" data-role="button"
                     data-inline="true" onclick="getMapAddrText('#serArea-txt','#serArea')">确定</a>
@@ -93,7 +93,7 @@
     </div>
     <script type="text/javascript">
         function getMapAddrText(targetID, targetHID) {//获得地图的地址
-           
+         
             var targetTxt = "";
             var provincetxt = $("#provinceID option:selected").text();
             var citytxt = $("#cityID option:selected").text();
@@ -111,6 +111,7 @@
                 $(targetID).text(targetTxt);
                 $(targetHID).text(targetTxt);
             } else {
+
                 $(targetID).text($('.showAdd').html());
                 $(targetHID).text($('.showAdd').html());
             }
