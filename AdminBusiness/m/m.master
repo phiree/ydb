@@ -335,7 +335,64 @@
                   return false;
               }
           }
+
+     
+          //建立一個可存取到該file的url
+          function getObjectURL(file) {
+              var url = null;
+              if (window.createObjectURL != undefined) { // basic
+                  url = window.createObjectURL(file);
+              } else if (window.URL != undefined) { // mozilla(firefox)
+                  url = window.URL.createObjectURL(file);
+              } else if (window.webkitURL != undefined) { // webkit or chrome
+                  url = window.webkitURL.createObjectURL(file);
+              }
+              return url;
+          }
+
+
+
+
+
+
+
+
+
           $(document).ready(function () {
+              //头像的上传变化
+              $('#ContentPlaceHolder1_ContentPlaceHolder1_fuAvater').change(function () {
+                  var objUrl = getObjectURL(this.files[0]);
+                  console.log("objUrl = " + objUrl);
+                  if (objUrl) {
+                      $("#fuAvaterImg").attr("src", objUrl);
+                  }
+              });
+            /**图片展示上传变化**/
+              $('#ContentPlaceHolder1_ContentPlaceHolder1_fuShow1').change(function () {
+                  var objUrl = getObjectURL(this.files[0]);
+                  console.log("objUrl = " + objUrl);
+                  if (objUrl) {
+                      $("#imgshow").attr("src", objUrl);
+                  }
+              });
+
+              /**营业执照上传变化**/
+              $('#ContentPlaceHolder1_ContentPlaceHolder1_fuBusinessLicence').change(function () {
+                  var objUrl = getObjectURL(this.files[0]);
+                  console.log("objUrl = " + objUrl);
+                  if (objUrl) {
+                      $("#BusinessImage").attr("src", objUrl);
+                  }
+              });
+
+              /**证件照上传变化**/
+              $('#ContentPlaceHolder1_ContentPlaceHolder1_fuChargePerson').change(function () {
+                  var objUrl = getObjectURL(this.files[0]);
+                  console.log("objUrl = " + objUrl);
+                  if (objUrl) {
+                      $("#licenceimg").attr("src", objUrl);
+                  }
+              });
 
           }); 
           $(document).on("mobileinit", function () {

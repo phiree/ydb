@@ -58,7 +58,7 @@
                                     
                             <div class="input-file-box d-inb">
                               <asp:FileUpload data-role="none"  CssClass="input-file-btn" runat="server" ID="fuAvater" />
-                                  <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
+                                  <i class="input-file-bg"  style='background:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=80&height=79&tt=2) ":"../image/myshop/touxiangkuang_11.png" %> ' ></i>
                                       
                                 <i class="input-file-mark"></i>
                                 <img class="input-file-pre" id="fuAvaterImg"/>
@@ -110,24 +110,29 @@
                         <div class="ul-left2">
                             图片展示
                         </div>
-                        <div class="ul-left">
+                        <div class="ul-left"> 
+                          <div class="picture">
                             <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                 <ItemTemplate>
-                                    <div class="picture">
+                                   
                                         <asp:ImageButton data-role="none" ID="ImageButton1" runat="server" CommandName="delete" ImageUrl="/image/shared/delete_1.png"
                                             ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                         <a href='<%#Config.BusinessImagePath+"original/"+Eval("ImageName") %>'>
-                                            <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
+                                            <img width=80 height=79 src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=80&height=79&tt=2'
                                                 id="imgLicence" />
                                         </a>
-                                    </div>
+                                        
+                                  
                                 </ItemTemplate>
                             </asp:Repeater>
-                            <div class="input-file-box d-inb">
+
+                        </div>
+                                <div class="input-file-box">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuShow1" />
                                 <i class="input-file-bg"></i><i class="input-file-mark"></i>
-                                <img class="input-file-pre" />
-                            </div>
+                                <img class="input-file-pre" id="imgshow" />
+                                </div>
+
                         </div>
                     </li>
                 </ul>
@@ -156,7 +161,7 @@
                             <div class="input-file-box d-inb">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
                                 <i class="input-file-bg"></i><i class="input-file-mark"></i>
-                                <img class="input-file-pre" />
+                                <img class="input-file-pre" id="BusinessImage" />
                             </div>
                         </div>
                     </li>
@@ -202,8 +207,9 @@
                                     
                             <div class="input-file-box d-inb">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
-                                <i class="input-file-bg"></i><i class="input-file-mark"></i>
-                                <img class="input-file-pre" />
+                                <i class="input-file-bg"></i>
+                                <i class="input-file-mark"></i>
+                                <img class="input-file-pre" id="licenceimg"/>
                             </div>
                         </div>
                     </li>
