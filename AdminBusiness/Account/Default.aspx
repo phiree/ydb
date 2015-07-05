@@ -321,6 +321,8 @@
                     "province": addComp.province,
                     "city": addComp.city,
                     "district": addComp.district,
+                    "street" : addComp.street,
+                    "streetNumber" : addComp.streetNumber,
                     "lat" : rs.point.lng,
                     "lng" : rs.point.lat
                 };
@@ -333,6 +335,7 @@
             if ( addPrintBox.html() != "" ){
                     addPrintBox.find('div').text(addressNode);
                 } else {
+
                     addrNodeBox.text(addressNode);
                     addrNodeBox.addClass('myshop-addPrint');
                     addPrintBox.append(addrNodeBox);
@@ -342,6 +345,21 @@
 //            addressMark.setAnimation(BMAP_ANIMATION_BOUNCE);
 
         }
+
+        //信息载入时读取地图信息
+        (function readBusinessLoc() {
+
+            if ( $('#hiAddrId').attr("value") ){
+                var readAddrJson = jQuery.parseJSON($('#hiAddrId').attr("value"));
+                var addrNodeBox = $(document.createElement("div"));
+                
+                var addressNode = readAddrJson.province + ", " + readAddrJson.city + ", " + readAddrJson.district + ", " + readAddrJson.street + ", " + readAddrJson.streetNumber
+                var addPrintBox = $("#addPrintBox");
+                addrNodeBox.text(addressNode);
+                addrNodeBox.addClass('myshop-addPrint');
+                addPrintBox.append(addrNodeBox);
+            }
+        })();
 
 
 //        var tabCheckedShow = function (that, checked) {
@@ -376,9 +394,12 @@
             $('#addrlightBox').lightbox_me({
                 centered: true,
                 onLoad : function(){
-                    myCity.get(function(result){
-                        map.panTo(result.center);
-                    });
+                    if( $("hiAddrId").attr("value") == null ) {
+                        myCity.get(function(result){
+                            map.panTo(result.center);
+                        });
+                    }
+
                 }
             });
             e.preventDefault();
