@@ -237,7 +237,7 @@
         var geoc = new BMap.Geocoder();
         var myGeo = new BMap.Geocoder();
 
-        map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+//        map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
         map.enableScrollWheelZoom();
         map.disableDoubleClickZoom();
         map.clearOverlays();
@@ -323,8 +323,8 @@
                     "district": addComp.district,
                     "street" : addComp.street,
                     "streetNumber" : addComp.streetNumber,
-                    "lat" : rs.point.lng,
-                    "lng" : rs.point.lat
+                    "lng" : rs.point.lng,
+                    "lat" : rs.point.lat
                 };
 
                 console.log(JSON.stringify(addJson));
@@ -335,7 +335,6 @@
             if ( addPrintBox.html() != "" ){
                     addPrintBox.find('div').html(addressNode);
                 } else {
-
                     addrNodeBox.html(addressNode);
                     addrNodeBox.addClass('myshop-addPrint');
                     addPrintBox.append(addrNodeBox);
@@ -348,13 +347,18 @@
 
         //信息载入时读取地图信息
         (function readAddressLoc() {
-
             if ( $('#hiAddrId').attr("value") ){
                 var readAddrJson = jQuery.parseJSON($('#hiAddrId').attr("value"));
                 var addrNodeBox = $(document.createElement("div"));
-
                 var addressNode = "<span>" + readAddrJson.province + "</span><span>" + readAddrJson.city + "</span><span>" + readAddrJson.district + "</span><span>" + readAddrJson.street + "</span><span>" + readAddrJson.streetNumber + "</span>"
                 var addPrintBox = $("#addPrintBox");
+                var addressText = $("#addressText");
+
+
+//                var nPoint = new BMap.Point(readAddrJson.lng, readAddrJson.lat)
+//                map.panTo(nPoint);
+
+                addressText.html(addressNode);
                 addrNodeBox.html(addressNode);
                 addrNodeBox.addClass('myshop-addPrint m-b10');
                 addPrintBox.append(addrNodeBox);
@@ -367,10 +371,20 @@
             $('#addrlightBox').lightbox_me({
                 centered: true,
                 onLoad : function(){
-                    if( $("hiAddrId").attr("value") == null ) {
+                    if( !$("#hiAddrId").attr("value") ) {
+                        console.log($("#hiAddrId").attr("value"))
                         myCity.get(function(result){
                             map.panTo(result.center);
                         });
+                    } else {
+                        console.log($("#hiAddrId").attr("value") + "2")
+                        var readAddrJson = jQuery.parseJSON($('#hiAddrId').attr("value"));
+                        var nPoint = new BMap.Point(readAddrJson.lng, readAddrJson.lat);
+                        var addressMark = new BMap.Marker(nPoint);
+
+                        console.log(nPoint);
+                        map.centerAndZoom(nPoint,13);
+                        map.addOverlay(addressMark);
                     }
 
                 }
