@@ -31,7 +31,7 @@
                             <img src="..\image\myshop\touxiangkuang_11.png" alt="头像" />
                         </div>
                         <div class="headInfo">
-                            <span class="ServiceShops">点助的服务店铺</span> <span class="InfoCompletetxt">信誉度</span>
+                            <span class="ServiceShops"><%=CurrentBusiness.Name %></span> <span class="InfoCompletetxt">信誉度</span>
                             <div class="Servicexing">
                                 <i class="icon service-icon-star"></i><i class="icon service-icon-star"></i><i class="icon service-icon-star">
                                 </i><i class="icon service-icon-star"></i><i class="icon service-icon-star"></i>
