@@ -111,22 +111,22 @@
                             图片展示
                         </div>
                         <div class="ul-left"> 
-                          <div class="picture">
+                          
                             <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                 <ItemTemplate>
-                                   
-                                        <asp:ImageButton data-role="none" ID="ImageButton1" runat="server" CommandName="delete" ImageUrl="/image/shared/delete_1.png"
+                                   <div class="picture">
+                                        <asp:ImageButton data-role="none" ID="ImageButton1" CssClass="itemDele-img" runat="server" CommandName="delete" ImageUrl="/image/shared/delete_1.png"
                                             ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
-                                        <a href='<%#Config.BusinessImagePath+"original/"+Eval("ImageName") %>'>
+                                        <a data-ajax="false" href='<%#Config.BusinessImagePath+"original/"+Eval("ImageName") %>'>
                                             <img width=80 height=79 src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=80&height=79&tt=2'
                                                 id="imgLicence" />
                                         </a>
                                         
-                                  
+                                  </div>
                                 </ItemTemplate>
                             </asp:Repeater>
 
-                        </div>
+                        
                                 <div class="input-file-box">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuShow1" />
                                 <i class="input-file-bg"></i><i class="input-file-mark"></i>
@@ -157,7 +157,7 @@
                             营业执照
                         </div>
                         <div class="ul-left">
-                             <asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink>
+                             <div class="BusinessImageDiv"><asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink></div>
                             <div class="input-file-box d-inb">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
                                 <i class="input-file-bg"></i><i class="input-file-mark"></i>
@@ -203,7 +203,7 @@
                             证件照
                         </div>
                         <div class="ul-left">
-                              <asp:HyperLink runat="server" ID="imgChargePerson"></asp:HyperLink>
+                              <div class="BusinessImageDiv"><asp:HyperLink runat="server" ID="imgChargePerson"></asp:HyperLink></div>
                                     
                             <div class="input-file-box d-inb">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
