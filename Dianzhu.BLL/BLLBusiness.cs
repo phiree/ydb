@@ -6,30 +6,36 @@ using Dianzhu.DAL;
 using System.Device.Location;
 using Dianzhu.Model;
 using System.Web.Security;
+using Newtonsoft.Json;
 namespace Dianzhu.BLL
 {
     /// <summary>
     /// 
     /// </summary>
-   public  class BLLBusiness
+    public class BLLBusiness
     {
         public DALBusiness DALBusiness = DALFactory.DALBusiness;
         public DALMembership dalMembership = DALFactory.DALMembership;
 
-        public void Register(string address,string description
-                            ,double latitude,double longtitude,string name,string mobilePhone,string password
+        public void Register(string address, string description
+                            , double latitude, double longtitude, string name, string mobilePhone, string password
             )
         {
-            Business b = new Business { Address=address,
-             Description=description, Latitude=latitude,Longitude=longtitude, Name=name,
-             DateApply=(DateTime)System.Data.SqlTypes.SqlDateTime.MinValue,
-                                        DateApproved = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue
+            Business b = new Business
+            {
+                Address = address,
+                Description = description,
+                Latitude = latitude,
+                Longitude = longtitude,
+                Name = name,
+                DateApply = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue,
+                DateApproved = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue
             };
 
-                DALBusiness.Save(b);
-                BusinessUser bu = dalMembership.CreateBusinessUser(mobilePhone, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);
-             
-             
+            DALBusiness.Save(b);
+            BusinessUser bu = dalMembership.CreateBusinessUser(mobilePhone, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);
+
+
         }
 
         public IList<Business> GetAll()
@@ -48,20 +54,20 @@ namespace Dianzhu.BLL
         {
             DALBusiness.Delete(business);
         }
-       /// <summary>
-       /// 根据条件返回商户列表
-       /// </summary>
-       /// <param name="query">查询语句</param>
-       /// <param name="pageIndex">分页数</param>
-       /// <param name="pageSize">每页数量</param>
-       /// <param name="totalRecords">符合条件的总数</param>
-       /// <returns></returns>
-        public IList<Business> GetList(string query,int pageIndex,int pageSize,out int totalRecords)
+        /// <summary>
+        /// 根据条件返回商户列表
+        /// </summary>
+        /// <param name="query">查询语句</param>
+        /// <param name="pageIndex">分页数</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <param name="totalRecords">符合条件的总数</param>
+        /// <returns></returns>
+        public IList<Business> GetList(string query, int pageIndex, int pageSize, out int totalRecords)
         {
             return DALBusiness.GetList(query, pageIndex, pageSize, out totalRecords);
         }
         public IList<Area> GetAreasOfBusiness()
-        { 
+        {
             return DALBusiness.GetAreasOfBusiness();
         }
         public IList<Business> GetBusinessInSameCity(Area area)
@@ -72,7 +78,13 @@ namespace Dianzhu.BLL
         {
             DALBusiness.SaveList(businesses);
         }
+
+        /// <summary>
+        /// 解析传递过来的 string, 
+        /// </summary>
        
-       
+
+
     }
+
 }

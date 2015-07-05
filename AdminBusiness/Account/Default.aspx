@@ -203,11 +203,11 @@
                             </div>
                             <div id="addressCity" class="mapCity">
                             </div>
-                            <div id="addressText" class="mapAddrsText">
+                            <div id="addressText" class="mapAddrsText myshop-addPrint">
 
                             </div>
                             <div class="mapButton">
-                                <input id="confBusiness" class="close myshop-sm-input" type="button" value="确定"></div>
+                                <input id="confBusiness" class="close myshop-sm-input" type="button" value="确定"><span class="myshop-locTip">点击地图放置地点哦！</span></div>
                             <input id="businessValue" type="hidden" value="" />
                         </div>
                     </div>
@@ -235,7 +235,6 @@
         var map = new BMap.Map("addressMap");
         var cityListObject = new BMapLib.CityList({ container: "addressCity", map : map});
         var geoc = new BMap.Geocoder();
-        var addressText = $("#addressText");
         var myGeo = new BMap.Geocoder();
 
         map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
@@ -310,6 +309,7 @@
             map.clearOverlays();
 
             var addPrintBox = $("#addPrintBox");
+            var addressText = $("#addressText");
             var addressP = new BMap.Point(e.point.lng, e.point.lat);
             var addressMark = new BMap.Marker(addressP);
             var addrNodeBox = $(document.createElement("div"));
@@ -321,19 +321,22 @@
                     "province": addComp.province,
                     "city": addComp.city,
                     "district": addComp.district,
+                    "street" : addComp.street,
+                    "streetNumber" : addComp.streetNumber,
                     "lat" : rs.point.lng,
                     "lng" : rs.point.lat
                 };
 
                 console.log(JSON.stringify(addJson));
                 $('#hiAddrId').attr("value",JSON.stringify(addJson));
-                var addressNode = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber
-                addressText.text(addressNode);
+                var addressNode = "<span>" + addComp.province + "</span><span>" + addComp.city + "</span><span>" + addComp.district + "</span><span>" + addComp.street + "</span><span>" + addComp.streetNumber + "</span>"
+                addressText.html(addressNode);
 
             if ( addPrintBox.html() != "" ){
-                    addPrintBox.find('div').text(addressNode);
+                    addPrintBox.find('div').html(addressNode);
                 } else {
-                    addrNodeBox.text(addressNode);
+
+                    addrNodeBox.html(addressNode);
                     addrNodeBox.addClass('myshop-addPrint');
                     addPrintBox.append(addrNodeBox);
                 }
@@ -343,42 +346,33 @@
 
         }
 
+        //信息载入时读取地图信息
+        (function readAddressLoc() {
 
-//        var tabCheckedShow = function (that, checked) {
-//            //        console.log($('.item').html());
-//            if (checked == true) {
-//                var checkedShowBox = $('#serCheckedShow');
-//                var checkedItem = $($(that).parents('.serviceTabsItem')).find('.item');
-//                var checkText = checkedItem.html();
-//                var checkTextNode = "<span>" + checkText + "</span>";
-//                checkedShowBox.append(checkTextNode);
-//            } else {
-//                return;
-//            }
-//        }
-//
-//        $(function () {
-//
-//            $("#tabsServiceType").TabSelection({
-//                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
-//                "enable_multiselect": true,
-//                'check_changed': function (that, id, checked) {
-//                    tabCheckedShow(that, checked);
-//                },
-//
-//                'leaf_ clicked': function (id, checked) {
-//                }
-//            });
-//        });
+            if ( $('#hiAddrId').attr("value") ){
+                var readAddrJson = jQuery.parseJSON($('#hiAddrId').attr("value"));
+                var addrNodeBox = $(document.createElement("div"));
+
+                var addressNode = "<span>" + readAddrJson.province + "</span><span>" + readAddrJson.city + "</span><span>" + readAddrJson.district + "</span><span>" + readAddrJson.street + "</span><span>" + readAddrJson.streetNumber + "</span>"
+                var addPrintBox = $("#addPrintBox");
+                addrNodeBox.html(addressNode);
+                addrNodeBox.addClass('myshop-addPrint m-b10');
+                addPrintBox.append(addrNodeBox);
+            }
+        })();
+
 
 
         $("#setAddress").click(function (e) {
             $('#addrlightBox').lightbox_me({
                 centered: true,
                 onLoad : function(){
-                    myCity.get(function(result){
-                        map.panTo(result.center);
-                    });
+                    if( $("hiAddrId").attr("value") == null ) {
+                        myCity.get(function(result){
+                            map.panTo(result.center);
+                        });
+                    }
+
                 }
             });
             e.preventDefault();

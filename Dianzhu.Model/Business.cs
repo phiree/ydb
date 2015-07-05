@@ -81,6 +81,8 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual double Longitude { get; set; }
         public virtual double Latitude { get; set; }
+
+        public virtual string RawAddressFromMapAPI { get; set; }
         /// <summary>
         /// 优惠推广的范围.所有的优惠券都是一样的.
         /// </summary>
@@ -323,6 +325,8 @@ namespace Dianzhu.Model
                 return amount;
             }
         }
+
+       
 
     }
 

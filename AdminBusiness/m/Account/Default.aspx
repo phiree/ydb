@@ -77,7 +77,7 @@
                 <ul class="panel-ul">
                     <li class="my-li" target="address">
                         <div class="ul-left">
-                            <div class="m-top"> 详细店址</div>
+                            <div class="m-top"> 详细店址</div><input type="hidden" runat="server" clientidmode="Static" id="hiAddrId" />
                             <div id="shopAddrTxt" class="display_holder" style="font-size: 14px;">
                                 <%=b.Address %>
                             </div>

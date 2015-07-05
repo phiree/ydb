@@ -143,10 +143,6 @@
     position: absolute;
     left: 5px;
     top: 55px;
-    background: #f6fafe;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
 }
 
 .myshop-addPrint {
@@ -157,6 +153,10 @@
     border-radius: 5px;
     overflow: hidden;
     word-break: break-all;
+}
+
+.myshop-addPrint span {
+    margin-right: 5px;
 }
 
 .mapButton {
@@ -172,6 +172,16 @@
     border-radius: 5px;
     padding: 5px;
     background: #31b6fb;
+}
+
+.myshop-locTip {
+
+    background: #fff;
+    color: #ffa81f;
+    border: 1px solid #dbe6f2;
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 5px;
 }
 
 /*.mapAutoText {*/
