@@ -1,5 +1,7 @@
 $(function () {
 
+
+
     //样式处理
     $('.my-li').append('<div class="ul-right">' +
                             '<span></span>' +
@@ -9,13 +11,13 @@ $(function () {
 
     $('.my-li').click(function () {
         var target = $(this).attr("target");
-     
-      
-           
-          
-       
-         $("#super_right_panel").panel("open");
-      
+
+
+
+
+
+        $("#super_right_panel").panel("open");
+
         var that = this;
         //隐藏/显示
         open_click(target, function () {

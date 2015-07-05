@@ -304,26 +304,28 @@
     width: 122px;
     height: 20px;
     padding: 5px;
-    line-height: 30px;
+    line-height: 20px;
     border: #dbe6f2 1px solid;
     border-radius: 3px;
     background: #f6fafe;
     color: #58789a;
     font-size: 13px;
     vertical-align: middle;
+    box-sizing: content-box\9;
 }
 
 .service-input-sm {
     width: 52px;
     height: 20px;
     padding: 5px;
-    line-height: 30px;
+    line-height: 20px;
     border: #dbe6f2 1px solid;
     border-radius: 3px;
     background: #f6fafe;
     color: #58789a;
     font-size: 13px;
     vertical-align: middle;
+    box-sizing: content-box\9;
 }
 
 .serviceIntroduced {

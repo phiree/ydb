@@ -74,22 +74,14 @@
                         </div>
                     </li>
                 </ul>
-                <ul class="panel-ul">
-                    <li class="my-li" target="address">
-                        <div class="ul-left">
-                            <div class="m-top"> 详细店址</div><input type="hidden" runat="server" clientidmode="Static" id="hiAddrId" />
-                            <div id="shopAddrTxt" class="display_holder" style="font-size: 14px;">
-                                <%=b.Address %>
-                            </div>
-                    </li>
-                </ul>
+   
                 <ul class="panel-ul">
                     <a class="getMaphrefClass" href="#secondview" data-transition="slidedown" style="color: #58789a;"> <li class="my-li">
                         <div class="ul-left">
-                                <div class="m-top"> 服务范围:
-                                 <span id="serArea-txt">请输入服务区域</span></div>
+                                <div class="m-top"> 详细店址:
+                                 <span id="serArea-txt">  <%=b.Address %></span></div>
                           </div>
-                           
+                         <input type="hidden" runat="server" clientidmode="Static" id="hiAddrId" />  
                                
 
                     </li>
@@ -111,22 +103,22 @@
                             图片展示
                         </div>
                         <div class="ul-left"> 
-                          <div class="picture">
+                          
                             <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                 <ItemTemplate>
-                                   
-                                        <asp:ImageButton data-role="none" ID="ImageButton1" runat="server" CommandName="delete" ImageUrl="/image/shared/delete_1.png"
+                                   <div class="picture">
+                                        <asp:ImageButton data-role="none" ID="ImageButton1" CssClass="itemDele-img" runat="server" CommandName="delete" ImageUrl="/image/shared/delete_1.png"
                                             ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
-                                        <a href='<%#Config.BusinessImagePath+"original/"+Eval("ImageName") %>'>
+                                        <a data-ajax="false" href='<%#Config.BusinessImagePath+"original/"+Eval("ImageName") %>'>
                                             <img width=80 height=79 src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=80&height=79&tt=2'
                                                 id="imgLicence" />
                                         </a>
                                         
-                                  
+                                  </div>
                                 </ItemTemplate>
                             </asp:Repeater>
 
-                        </div>
+                        
                                 <div class="input-file-box">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuShow1" />
                                 <i class="input-file-bg"></i><i class="input-file-mark"></i>
@@ -157,7 +149,7 @@
                             营业执照
                         </div>
                         <div class="ul-left">
-                             <asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink>
+                             <div class="BusinessImageDiv"><asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink></div>
                             <div class="input-file-box d-inb">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
                                 <i class="input-file-bg"></i><i class="input-file-mark"></i>
@@ -203,7 +195,7 @@
                             证件照
                         </div>
                         <div class="ul-left">
-                              <asp:HyperLink runat="server" ID="imgChargePerson"></asp:HyperLink>
+                              <div class="BusinessImageDiv"><asp:HyperLink runat="server" ID="imgChargePerson"></asp:HyperLink></div>
                                     
                             <div class="input-file-box d-inb">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuChargePerson" />

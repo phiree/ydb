@@ -32,10 +32,13 @@
                             </div>
                         </div>
                         <div class="conMain main-reg clearfix">
-                            <div class="reg-user-l box-l"></div>
+                            <div class="reg-user-l box-l">
+                                <p>
+                                                                   请输入用户名</p>
+                            </div>
                             <div class="box-r">
                                 
-                                <div class="emailBox">
+                                <div class="emailBox m-b10">
                                     <asp:TextBox runat="server" ID="tbxUserName" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
                                      <i id="userCheck" class="checkIcon"></i><span id="userCheckText" class="regWarnTexti"></span>
                                 </div>
@@ -58,14 +61,11 @@
                         <div class="conMain main-psw clearfix">
                             <div class="box-l">
                                 <p>
-                                    登录名</p>
-                               
+                                    用户名</p>
                                 <p>
-                                    <em>
-                                        <img src="image/login_reg/lock_2.png"></em>登录密码</p>
+                                    登录密码</p>
                                 <p>
-                                    <em>
-                                        <img src="image/login_reg/lock_2.png"></em>确认密码</p>
+                                    确认密码</p>
                             </div>
                             <div class="box-r">
                                 <p class="rPage" id="usernameConf">
