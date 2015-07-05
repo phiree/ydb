@@ -27,7 +27,7 @@ public partial class Account_Edit : BasePage
             tbxAddress.Value = b.Address;
             tbxContactPhone.Value = b.Phone;
             tbxEmail.Value = b.Email;
-
+            hiAddrId.Value = b.RawAddressFromMapAPI;
             tbxBusinessYears.Value = b.WorkingYears.ToString();
             tbxContact.Value = b.Contact;
             selStaffAmount.Value = b.StaffAmount.ToString();
@@ -89,7 +89,7 @@ public partial class Account_Edit : BasePage
         //b.Longitude =Convert.ToDouble(Longitude.Text);
         //b.Latitude = Convert.ToDouble(Latitude.Text);
         b.Description = tbxIntroduced.Value;
-         b.Address = tbxAddress.Value;
+       
          b.Phone = tbxContactPhone.Value;
          b.Email=tbxEmail.Value ;
          b.WorkingYears = int.Parse(tbxBusinessYears.Value);
@@ -99,6 +99,18 @@ public partial class Account_Edit : BasePage
          b.StaffAmount = int.Parse(selStaffAmount.Value);
          b.ChargePersonIdCardType = (IDCardType)int.Parse(selCardType.Value);
          b.ChargePersonIdCardNo = tbxCardIdNo.Value;
+
+         AddressParser addressParser = new AddressParser(hiAddrId.Value);
+       Area area;
+       double latitude;
+       double longtitude;
+       addressParser.ParseAddress(out area,out latitude,out longtitude);
+       CurrentBusiness.RawAddressFromMapAPI = hiAddrId.Value;
+       CurrentBusiness.Latitude = latitude;
+       CurrentBusiness.Longitude = longtitude;
+       CurrentBusiness.AreaBelongTo = area;
+       
+       b.Address = tbxAddress.Value;
         //upload pictures
          if (fuBusinessLicence.PostedFile!=null&&fuBusinessLicence.PostedFile.ContentLength != 0)
          {
