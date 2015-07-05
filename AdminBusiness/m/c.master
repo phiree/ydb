@@ -82,6 +82,8 @@
                 <div id="searchResultPanel" style="border: 1px solid #C0C0C0; width: 150px; height: auto;
                     display: none;">
                 </div>
+                <div class="showAdd">FFFFF</div>
+                <div><input type="hidden" id="lngLat" /></div>
                 <a href="#firstview" data-transition="slideup" data-rel="close" data-role="button"
                     data-inline="true" onclick="getMapAddrText('#serArea-txt','#serArea')">确定</a>
                 <a href="#firstview" data-transition="slideup" data-rel="close" data-role="button"
@@ -97,15 +99,26 @@
             var citytxt = $("#cityID option:selected").text();
             var boroughtxt = $("#boroughID option:selected").text();
             var businesstxt = $("#businessID option:selected").text();
-            if (provincetxt == citytxt) {
-                targetTxt = provincetxt + boroughtxt + businesstxt;
+            
+
+            var display =$('.showAdd').css('display');
+            if (display == 'none') {
+                if (provincetxt == citytxt) {
+                    targetTxt = provincetxt + boroughtxt + businesstxt;
+                } else {
+                    targetTxt = provincetxt + citytxt + boroughtxt + businesstxt;
+                }
+                $(targetID).text(targetTxt);
+                $(targetHID).text(targetTxt);
             } else {
-                targetTxt = provincetxt + citytxt + boroughtxt + businesstxt;
+                $(targetID).text($('.showAdd').html());
+                $(targetHID).text($('.showAdd').html());
             }
-            $(targetID).text(targetTxt);
-            $(targetID).text(targetTxt);
+           
+            
+            
           //  alert(targetTxt);
-            $(targetHID).text(targetTxt);
+          
 
 
         }

@@ -35,7 +35,7 @@ $(function () {
         });
 
     });
-    // $(".panel-ul a.getMaphrefClass").attr("href", "#secondview");
+    $(".panel-ul a.getMaphrefClass").attr("href", "#secondview");
     function display(li, value) {
         $(li).find(".display_holder").text(value);
     }

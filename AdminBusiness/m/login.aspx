@@ -16,7 +16,7 @@ CodeFile="~/login.aspx.cs" Inherits="login" %>
      
         <p><span id="vUserName" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxUserName" Text="用户邮箱/手机号" onFocus="myFocus(this)"  onBlur="myBlur(this,'#vUserName')" ></asp:TextBox> <input type="hidden" id="vuserid"/></p>      
        
-        <p><span id="vPassword" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxPassword" TextMode="Password" ></asp:TextBox><input type="hidden" id="vpwdid"/>
+        <p><span id="vPassword" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxPassword" TextMode="Password"  onBlur="valPwdBlur(this,'#vPassword')"></asp:TextBox><input type="hidden" id="vpwdid"/>
                                </p>
       <div class="ui-grid-a">  
          <div class="ui-block-a">
