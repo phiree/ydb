@@ -152,11 +152,15 @@ html,body {
     margin-bottom: 25px;
 }
 
-.conMain .box-l em {
+.conMain .log-intro em {
     color: #55abdc;
     margin: 0 7px;
     font-size: 1.2em;
-    vertical-align: top;
+    vertical-align: middle;
+}
+
+.conMain .log-intro span {
+    vertical-align: middle;
 }
 
 .conMain .box-r {
@@ -177,25 +181,30 @@ html,body {
 
 .username,
 .password {
+    width: 300px;
     overflow: hidden;
+    background: #fff;
     border-radius: 2px;
     border: 1px;
     margin-bottom: 10px;
+    position: relative;
 }
 
 .usernameIcon,
-.passwordIcon { display: block; float: left; }
-.usernameIcon i { display: block; width: 40px; height: 40px; background: url("../image/login_reg/user_1.png") no-repeat left; }
-.passwordIcon i { display: block; width: 40px; height: 40px; background: url("../image/login_reg/lock_1.png") no-repeat left; }
+.passwordIcon { display: block; width: 40px; height: 40px; float: left; position: absolute; left: 0 ; right: 0; z-index: 2;}
+
+.usernameIcon i { width: 40px; height: 40px;  background: url("../image/login_reg/shop_user_01.png") no-repeat left; }
+.passwordIcon i { width: 40px; height: 40px;  background: url("../image/login_reg/shop_user_02.png") no-repeat left; }
 
 .username input,
 .password input {
     vertical-align: middle;
-    background: #fff;
+    /*background: #fff;*/
     display: inline-block;
-    width: 300px;
-    height: 40px;
-    line-height: 40px;
+    width: 250px;
+    padding: 10px 10px 10px 40px;
+    height: 20px;
+    line-height: 20px;
     border: 1px;
     font-size: 15px;
     font-family: inherit;
@@ -254,11 +263,11 @@ html,body {
 .userConfirm-Back {
     border: 0;
     width: 112px;
-    height: 50px;
+    height: 49px;
     background: url("../image/login_reg/shop_button_01.png") no-repeat center;
 }
 
-.loginBox { width: 340px; margin-bottom: 10px; }
+.loginBox { width: 300px; margin-bottom: 10px; }
 
 .loginBtn {
     cursor: pointer;
@@ -368,20 +377,18 @@ html,body {
     /*border: 1px;*/
     /*margin-bottom: 10px;*/
 /*}*/
-.conReg .emailBox {
-    
-    margin-bottom: 10px;
-}
 
 .conReg .emailBox input {
     vertical-align: middle;
-    width: 270px;
-    height: 38px;
-    line-height: 38px;
+    width: 290px;
+    height: 20px;
+    padding: 10px 5px;
+    line-height: 20px;
     background: #fff;
     border-radius: 2px;
     border: 1px;
-    font-size: 16px;
+    font-size: 15px;
+    font-family: inherit;
     text-indent: 10px;
     color: #aaa;
     *margin-left: -10px;
@@ -396,7 +403,7 @@ html,body {
     background: #fff;
     border-radius: 2px;
     border: 1px;
-    font-size: 16px;
+    font-size: 15px;
     text-indent: 10px;
     color: #aaa;
     margin-right: 50px;
@@ -443,8 +450,6 @@ html,body {
 .regPs,
 .regPsConf {
     overflow: hidden;
-    border-radius: 2px;
-    border: 1px;
     margin-bottom: 10px;
 }
 
@@ -452,12 +457,14 @@ html,body {
 .regPsConf input {
     background: #fff;
     display: inline-block;
-    width: 300px;
-    height: 38px;
-    line-height: 38px;
-    /*border-radius: 2px;*/
+    width: 290px;
+    height: 20px;
+    padding: 10px 5px;
+    line-height: 20px;
     border: 1px;
-    font-size: 16px;
+    border-radius: 2px ;
+    font-size: 15px;
+    font-family: inherit;
     text-indent: 10px;
     color: #aaa;
     *margin-left: -10px;
@@ -509,7 +516,7 @@ html,body {
 }
 
 .selectdiv { width: 170px; margin-bottom: 10px; display: inline-block; }
-.selectMeth { position: relative; z-index: 999; background: #fff; font-size: 16px; border-radius: 2px; border: 1px; }
+.selectMeth { position: relative; z-index: 999; background: #fff; font-size: 15px; border-radius: 2px; border: 1px; }
 .selectMeth cite{ width:170px;height:40px; line-height: 40px; display:block; color: #aaa;font-style: normal; cursor:pointer; text-indent:10px; }
 .selectMeth ul { list-style: none; width: 170px; background-color: #ffffff; position: absolute; z-index: 1000; display: none; }
 .selectMeth ul li { height:40px; line-height: 40px; border-bottom: 1px solid #ccc; }

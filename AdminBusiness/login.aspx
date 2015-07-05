@@ -34,31 +34,31 @@
                             </div>
                         </div>
                         <div class="conMain main-login clearfix">
-                            <div class="box-l">
+                            <div class="box-l log-intro">
                                 <p>
-                                    <em>0</em>2o的终极商业模式</p>
+                                    <em>O</em><span>2O的终极商业模式</span></p>
                                 <p>
-                                    <em>1</em>个全新的平台</p>
+                                    <em>1</em><span>个全新的平台</span></p>
                                 <p>
-                                    <em>2</em>4小时服务</p>
+                                    <em>2</em><span>4小时服务</span></p>
                                 <p>
-                                    <em>3</em>步接单</p>
+                                    <em>3</em><span>步接单</span></p>
                             </div>
                             <div class="box-r">
                                 <p class="date">
                                     四月 08 , 2015</p>
                                 <div class="clearfix">
                                     <p class="username">
-                                        <label class="usernameIcon" for="username">
-                                            <i></i>
+                                        <label class="usernameIcon" for="tbxUserName">
+                                            <i class="icon"></i>
                                         </label>
                                         <asp:TextBox runat="server" ID="tbxUserName"></asp:TextBox>
                                     </p>
                                     <!--<i id="userCheck" class="f-l"></i>-->
                                 </div>
                                 <p class="password">
-                                    <label class="passwordIcon" for="password">
-                                        <i></i>
+                                    <label class="passwordIcon" for="tbxPassword">
+                                        <i class="icon"></i>
                                     </label>
                                     <asp:TextBox runat="server" ID="tbxPassword" TextMode="Password"></asp:TextBox>
                                 </p>

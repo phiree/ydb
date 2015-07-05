@@ -2,7 +2,7 @@
 
     var params = $.extend({ tip: "在此输入",
         style: {
-            color: "#777"
+            color: "rgb(187, 187, 187)"
         }
     },
      option);
