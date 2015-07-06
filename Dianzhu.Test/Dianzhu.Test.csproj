@@ -92,6 +92,7 @@
     <Compile Include="jsontest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExcelImportTest.cs" />
+    <Compile Include="SecurityTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

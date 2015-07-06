@@ -188,6 +188,7 @@ namespace Dianzhu.BLL
 
         public override bool ValidateUser(string username, string password)
         {
+            
             string encryptedPwd = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
 
             bool isValid = DALMembership.ValidateUser(username, encryptedPwd);
@@ -211,13 +212,40 @@ namespace Dianzhu.BLL
             string encrypted = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
             return DALMembership.CreateBusinessUser(username, encrypted, b);
         }
-        public DZMembership GetUser(string name)
+        public DZMembership CreateUser(string userName,string userPhone,string userEmail, string password,out MembershipCreateStatus createStatus)
+        {
+            createStatus = MembershipCreateStatus.ProviderError;
+            var savedUserName=!string.IsNullOrEmpty(userName)?userName:string.IsNullOrEmpty(userPhone)?userEmail:userPhone;
+            var user = GetUserByName(savedUserName);
+            if (user != null)
+            {
+                createStatus = MembershipCreateStatus.DuplicateUserName;
+                return null;
+            }
+            else
+            {
+                var password_cred = FormsAuthentication.HashPasswordForStoringInConfigFile(PHSuit.Security.Decrypt(password,false), "MD5");
+                DZMembership newMember = new DZMembership { UserName = savedUserName, Password = password_cred };
+               DALMembership.Save(newMember);
+               createStatus = MembershipCreateStatus.Success;
+               return newMember;
+            }
+        }
+        public DZMembership GetUserByName(string name)
         {
             return DALMembership.GetMemberByName(name);
+        }
+        public DZMembership GetUserById(Guid id)
+        {
+            return DALMembership.GetOne(id);
         }
         public IList<DZMembership> GetAllDZMembers(int pageIndex, int pageSize, out long totalRecords)
         {
             return DALMembership.GetAllUsers(pageIndex, pageSize, out totalRecords);
+        }
+        public void UpdateDZMembership(DZMembership member)
+        {
+            DALMembership.Update(member);
         }
 #endregion
     }

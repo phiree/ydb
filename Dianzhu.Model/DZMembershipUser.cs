@@ -17,6 +17,8 @@ namespace Dianzhu.Model
         public virtual DateTime LastLoginTime { get; set; }
         public virtual string Email{ get; set; }
         public virtual string  Phone{ get; set; }
+        public virtual string NickName { get; set; }
+        public virtual string Address { get; set; }
         
     }
     /// <summary>

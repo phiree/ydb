@@ -7,9 +7,26 @@ namespace PHSuit
 {
     public class StringHelper
     {
+        //
         public static string InsertToId(string guidWithNo)
         {
-            return "";
+            /*45bc9230   8
+             * -9e4f   4
+             * -4fec    4
+             * -ab65    4
+             * -a4c700a45c99 12
+             */
+            if (guidWithNo.Length != 32)
+            {
+                throw new ArgumentException("传入字符串长度不是36");
+            }
+            string result = guidWithNo.Substring(0, 8)
+                + "-" + guidWithNo.Substring(8, 4)
+                + "-" + guidWithNo.Substring(12, 4)
+                + "-" + guidWithNo.Substring(16, 4)
+                + "-" + guidWithNo.Substring(20, 12);
+       
+        return result;
         }
         public static string ReplaceSpace(string input)
         {

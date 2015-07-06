@@ -15,6 +15,10 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Password);
             Map(x => x.TimeCreated);
             Map(x => x.LastLoginTime);
+            Map(x=>x.NickName);
+            Map(x => x.Address);
+            Map(x => x.Email).Unique();
+            Map(x => x.Phone).Unique();
             
         }
                
