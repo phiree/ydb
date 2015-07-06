@@ -156,7 +156,7 @@ namespace Dianzhu.BLL
                     all_neighbours.Add(b1, new List<Business>());
                 }
 
-                for (int j = i + 1; j <= businessList.Count - j; j++)
+                for (int j = i + 1; j <= businessList.Count - i-1; j++)
                 {
                     Business b2 = businessList[j];
                     if (!all_neighbours.ContainsKey(b2))
