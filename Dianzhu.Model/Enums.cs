@@ -42,5 +42,10 @@ namespace Dianzhu.Model.Enums
         护照=3,
         其他=4
     }
+
+    public enum DeviceBindStatus { 
+        
+
+    }
      
 }

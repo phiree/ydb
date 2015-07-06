@@ -32,6 +32,10 @@ public class ResponseFactory
                 break;
             case "usm001003":
                 return new ResponseUSM001003(request);
+                break;
+            case "usm001004":
+                return new ResponseUSM001004(request);
+                break;
             default: break;
         }
         throw new Exception("No Such Api");

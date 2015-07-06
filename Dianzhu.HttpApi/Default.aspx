@@ -52,7 +52,18 @@
                     }, 
                     "stamp_TIMES": "1490192929222", 
                     "serial_NUMBER": "00147001015869149756" 
+                },
+                { 
+                    "protocol_CODE": "USM001004", 
+                    "ReqData": { 
+                        "uid": "9343d2583fd34de0adc4a4c700a47f0e", 
+                        "appName": "IOS", 
+                        "appToken": "326a866223956ceb2705d8b88758dc77e6420c3ff7ee3cab2388352a461c7b47", 
+                        }, 
+                    "stamp_TIMES": "1490192929212", 
+                    "serial_NUMBER": "00147001015869149751" 
                 }
+
             ],
     begin:function(){
             for(var  i=0;i<this.requestArray.length;i++)

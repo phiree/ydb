@@ -78,6 +78,7 @@
     <Compile Include="SiteConfig.cs" />
     <Compile Include="Validator\ValidatorDZService.cs" />
     <Compile Include="AddressParser.cs" />
+    <Compile Include="BLLDeviceBind.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">

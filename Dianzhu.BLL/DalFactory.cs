@@ -24,8 +24,13 @@ namespace Dianzhu.BLL
         static DALServicePropertyValue dalServicePropertyValue;
         static DALServiceType dalServiceType;
         static DALStaff dalStaff;
-            
+        static DALDeviceBind dalDeviceBind;
 
+        public static DALDeviceBind DALDeviceBind
+        {
+            get { return dalDeviceBind ?? new DALDeviceBind(); }
+            set { dalDeviceBind = value; }
+        }
         public static DALStaff DALStaff
         {
             get { return dalStaff ?? new DALStaff(); }

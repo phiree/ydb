@@ -19,8 +19,6 @@ public class DianzhuApi : IHttpHandler,IRequiresSessionState
         string jsonResponse = JsonConvert.SerializeObject(response);
         context.Response.Write(jsonResponse);
     }
-
-
     public bool IsReusable
     {
         get { throw new NotImplementedException(); }
