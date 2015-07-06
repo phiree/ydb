@@ -7,6 +7,10 @@ namespace PHSuit
 {
     public class StringHelper
     {
+        public static string InsertToId(string guidWithNo)
+        {
+            return "";
+        }
         public static string ReplaceSpace(string input)
         {
             string patern = @"\s*";

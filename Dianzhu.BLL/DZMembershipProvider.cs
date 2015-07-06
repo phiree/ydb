@@ -211,6 +211,10 @@ namespace Dianzhu.BLL
             string encrypted = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
             return DALMembership.CreateBusinessUser(username, encrypted, b);
         }
+        public DZMembership GetUser(string name)
+        {
+            return DALMembership.GetMemberByName(name);
+        }
         public IList<DZMembership> GetAllDZMembers(int pageIndex, int pageSize, out long totalRecords)
         {
             return DALMembership.GetAllUsers(pageIndex, pageSize, out totalRecords);

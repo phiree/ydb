@@ -4,7 +4,9 @@ using System;
 using System.Web;
 using Newtonsoft.Json;
 using System.Text;
-public class DianzhuApi : IHttpHandler
+using System.IO;
+using System.Web.SessionState;
+public class DianzhuApi : IHttpHandler,IRequiresSessionState
 {
 
     //-----------------------接口--------------------------
@@ -20,6 +22,16 @@ public class DianzhuApi : IHttpHandler
         context.Response.ContentType = "application/json";
         context.Response.ContentEncoding = Encoding.UTF8;
         string jsonStr = context.Request["protocol_CODE"];
+        jsonStr = new StreamReader(context.Request.InputStream).ReadToEnd();
+        
+        apiRequest request = JsonConvert.DeserializeObject<apiRequest>(jsonStr);
+        apiResponse response = new apiResponse(request);
+
+        string jsonResponse = JsonConvert.SerializeObject(response);
+
+        context.Response.Write(jsonResponse);
+        
+        
         //JsonObject jo = JsonConvert.DeserializeObject<JsonObject>(jsonStr);
         switch (jsonStr)
         {
@@ -50,7 +62,8 @@ public class DianzhuApi : IHttpHandler
                         'srvBizID': '4F9619FF8B86D011B42D00C04FC964FF',
                         'vcsStartTime': '201506162223', 
                         'vcsEndTime': '000000000000', 
-                        'vcsMoney': '500',                        'vcsStatus': 'Ry','vcsExdes': '自带工具,线下结算'
+                        'vcsMoney': '500',
+                        'vcsStatus': 'Ry','vcsExdes': '自带工具,线下结算'
                     } 
             }, 
     'stamp_TIMES': '1490192929335', 
