@@ -207,7 +207,7 @@
                     </li>
                 </ul>
                 <div style="text-align: right; margin-top: 10px;">
-                    <asp:Button runat="server" ID="btnSave" OnClick="btnSave_Click" Text="保存" />
+                    <asp:Button runat="server" ID="btnSave" OnClientClick="return MyshopSaveFun()" OnClick="btnSave_Click" Text="保存" />
                 </div>
             </div>
         </div>
