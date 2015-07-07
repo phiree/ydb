@@ -24,3 +24,7 @@
 .map-div{ width:120px; height:120px; border:#CCC solid 1px; margin-top:10px; margin-bottom:10px;}
 .serviceTabsItem span{ margin-top:5px; margin-bottom:5px; background:#31b6fb
 ; border-radius:5px; display:block; padding:10px; color:#FFF;}
+
+.my-ui-btn-active2{ background:#31b6fc;}
+#my-a-active2{ color:#FFF;}
+.s-serverIno{ display:block;}

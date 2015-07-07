@@ -72,7 +72,7 @@
     <Compile Include="Mapping\CashTicketMap.cs" />
     <Compile Include="Mapping\CashTicketCreateRecord.cs" />
     <Compile Include="Mapping\BusinessMap.cs" />
-    <Compile Include="Mapping\DZMembership.cs" />
+    <Compile Include="Mapping\DZMembershipMap.cs" />
     <Compile Include="Mapping\ServiceTypeMap.cs" />
     <Compile Include="Mapping\DZServiceMap.cs" />
     <Compile Include="Mapping\StaffMap.cs" />

@@ -2,7 +2,7 @@
 // 百度地图API功能
     var map = new BMap.Map("container");
     var myCityListObject = new BMapLib.CityList({container : "city-container"});
-    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+    //map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
   //  map.centerAndZoom("海口", 11);     // 初始化地图,设置中心点坐标和地图级别
     map.enableScrollWheelZoom();
     map.clearOverlays();    //清除地图上所有覆盖物
@@ -30,8 +30,13 @@
         $("#serArea-txt").html(addressNode);
         $(".showAdd").html(addressNode);
         var vpoint = new BMap.Point(readAddrJson.lng, readAddrJson.lat)
-        // console.log(vpoint);
-        map.centerAndZoom(readAddrJson.city, 12);     // 初始化地图,设置中心点坐标和地图级别
+         console.log(vpoint);
+       //var vpoint = new BMap.Point(110, 30)
+        //map.centerAndZoom(readAddrJson.city, 12);     // 初始化地图,设置中心点坐标和地图级别
+        map.centerAndZoom(vpoint, 12);     // 初始化地图,设置中心点坐标和地图级别
+        // map.panTo(vpoint);
+        // console.log(map);
+       //console.log(vpoint)
         var rmarker = new BMap.Marker(vpoint); // 创建点
         map.addOverlay(rmarker);    //增加点
 
