@@ -354,17 +354,12 @@
                 var addPrintBox = $("#addPrintBox");
                 var addressText = $("#addressText");
 
-
-//                var nPoint = new BMap.Point(readAddrJson.lng, readAddrJson.lat)
-//                map.panTo(nPoint);
-
                 addressText.html(addressNode);
                 addrNodeBox.html(addressNode);
                 addrNodeBox.addClass('myshop-addPrint m-b10');
                 addPrintBox.append(addrNodeBox);
             }
         })();
-
 
 
         $("#setAddress").click(function (e) {
