@@ -11,7 +11,8 @@ using Newtonsoft.Json.Linq;
 /// </summary>
 public class BaseResponse
 {
-
+    
+    
     public string protocol_CODE { get; set; }
     public string state_CODE { get; set; }
     public string RespData { get; set; }
@@ -24,12 +25,18 @@ public class BaseResponse
         this.request = request;
         this.protocol_CODE = request.protocol_CODE;
         this.serial_NUMBER = request.serial_NUMBER;
-        BuildResponse();
+        BuildRespData();
         this.stamp_TIMES = GetStampTimes();
 
     }
-
-    protected virtual void BuildResponse() { }
+    public virtual string BuildJsonResponse()
+    {
+        return JsonConvert.SerializeObject(this,Formatting.Indented);
+    }
+    /// <summary>
+    /// 构建返回对象
+    /// </summary>
+    protected virtual void BuildRespData() { }
     protected string GetStampTimes()
     { return (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(); }
 }

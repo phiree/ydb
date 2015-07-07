@@ -48,6 +48,11 @@ public class BasePage:System.Web.UI.Page
                 }
             }
             currentUser = mp.GetBusinessUser((Guid)mu.ProviderUserKey);
+            if (currentUser == null)
+            {
+                Response.Redirect("/error.aspx?msg=您不是商户管理员,不能登录", true);
+               
+            }
         }
         base.OnLoad(e);
     }

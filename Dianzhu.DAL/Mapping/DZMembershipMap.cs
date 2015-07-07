@@ -6,6 +6,7 @@ using FluentNHibernate.Mapping;
 using Dianzhu.Model;
 namespace Dianzhu.DAL.Mapping
 {
+    
     public class DZMembershipMap:ClassMap<DZMembership>
     {
         public DZMembershipMap()

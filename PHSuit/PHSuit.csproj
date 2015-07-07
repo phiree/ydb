@@ -79,6 +79,7 @@
     <Compile Include="test.cs" />
     <Compile Include="ThumbnailMaker.cs" />
     <Compile Include="Security.cs" />
+    <Compile Include="ObjectCopier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

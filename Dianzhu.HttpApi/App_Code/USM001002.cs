@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 public class ResponseUSM001002 : BaseResponse
 {
     public ResponseUSM001002(BaseRequest request) : base(request) { }
-    protected override void BuildResponse()
+    protected override void BuildRespData()
     {
         ReqDataUSM001001 requestData = request.ReqData.ToObject<ReqDataUSM001001>();
         DZMembershipProvider p = new DZMembershipProvider();

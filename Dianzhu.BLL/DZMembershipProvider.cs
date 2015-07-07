@@ -224,7 +224,7 @@ namespace Dianzhu.BLL
             }
             else
             {
-                var password_cred = FormsAuthentication.HashPasswordForStoringInConfigFile(PHSuit.Security.Decrypt(password,false), "MD5");
+                var password_cred = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
                 DZMembership newMember = new DZMembership { UserName = savedUserName, Password = password_cred };
                DALMembership.Save(newMember);
                createStatus = MembershipCreateStatus.Success;

@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 public class ResponseUSM001004 : BaseResponse
 {
     public ResponseUSM001004(BaseRequest request) : base(request) { }
-    protected override void BuildResponse()
+    protected override void BuildRespData()
     {
         ReqDataUSM001004 requestData = this.request.ReqData.ToObject<ReqDataUSM001004>();
 
@@ -21,8 +21,14 @@ public class ResponseUSM001004 : BaseResponse
         {
             Guid uid = new Guid(PHSuit.StringHelper.InsertToId(raw_id));
             DZMembership member = p.GetUserById(uid);
+            if (member == null)
+            {
+                this.state_CODE ="用户不存在,可能是传入的uid有误";
+                return;
+            }
             BLLDeviceBind bllDeviceBind = new BLLDeviceBind();
             //验证用户的密码
+
             try
             {
                 bllDeviceBind.UpdateDeviceBindStatus(member, requestData.appToken, requestData.appName);
@@ -42,6 +48,11 @@ public class ResponseUSM001004 : BaseResponse
 
         }
 
+    }
+    public override string BuildJsonResponse()
+    {
+
+        return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
     }
 }
 

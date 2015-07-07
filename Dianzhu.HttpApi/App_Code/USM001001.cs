@@ -12,24 +12,21 @@ using Newtonsoft.Json.Linq;
 public class ResponseUSM001001 : BaseResponse
 {
     public ResponseUSM001001(BaseRequest request) : base(request) { }
-    protected override void BuildResponse()
+    protected override void BuildRespData()
     {
         ReqDataUSM001001 requestData = request.ReqData.ToObject<ReqDataUSM001001>();
         DZMembershipProvider p = new DZMembershipProvider();
-        MembershipCreateStatus createStatus;
-        DZMembership newMember = p.CreateUser(string.Empty,
-             requestData.userPhone,
-             requestData.userEmail,
-             requestData.userPWord,
-             out createStatus);
-        if (createStatus == MembershipCreateStatus.DuplicateUserName)
+        string userName = requestData.userPhone ?? requestData.userEmail;
+        bool result = p.ValidateUser(userName, requestData.userPWord);
+        if (!result)
         {
-            this.state_CODE = Dicts.StateCode[3];
-            this.err_Msg = "该用户名已经注册";
-            return;
+            this.state_CODE = Dicts.StateCode[9];
+            this.err_Msg = "用户名或者密码有误"; return;
         }
-        RespDataUSM001001 respModel = new RespDataUSM001001().Adapt(newMember);
-        this.RespData = JsonConvert.SerializeObject(respModel);
+        this.state_CODE = Dicts.StateCode[0];
+        DZMembership member = p.GetUserByName(userName);
+        RespDataUSM001001 resp = new RespDataUSM001001().Adapt(member);
+        this.RespData = JsonConvert.SerializeObject(resp);
 
 
     }

@@ -8,6 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 基本的用户类.
     /// </summary>
+  
     public class DZMembership
     {
         public virtual Guid Id { get; set; }
@@ -19,6 +20,20 @@ namespace Dianzhu.Model
         public virtual string  Phone{ get; set; }
         public virtual string NickName { get; set; }
         public virtual string Address { get; set; }
+
+        public virtual void CopyTo(DZMembership newMember)
+        {
+            newMember.Id = Id;
+            newMember.UserName = UserName;
+            newMember.Password = Password;
+            newMember.TimeCreated = TimeCreated;
+            newMember.LastLoginTime = LastLoginTime;
+            newMember.Email = Email;
+            newMember.Phone = Phone;
+            newMember.NickName = NickName;
+            newMember.Address = Address;
+        }
+
         
     }
     /// <summary>

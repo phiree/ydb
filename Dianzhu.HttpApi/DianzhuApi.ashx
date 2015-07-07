@@ -16,7 +16,7 @@ public class DianzhuApi : IHttpHandler,IRequiresSessionState
         string jsonStr = new StreamReader(context.Request.InputStream).ReadToEnd();
         BaseRequest request = JsonConvert.DeserializeObject<BaseRequest>(jsonStr);
         BaseResponse response = ResponseFactory.GetApiResponse(request);
-        string jsonResponse = JsonConvert.SerializeObject(response);
+        string jsonResponse = response.BuildJsonResponse();
         context.Response.Write(jsonResponse);
     }
     public bool IsReusable

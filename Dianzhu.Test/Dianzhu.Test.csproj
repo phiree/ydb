@@ -89,6 +89,7 @@
     <Compile Include="cashticket_generator_test.cs" />
     <Compile Include="dianzhu_test.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
+    <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExcelImportTest.cs" />
