@@ -1,6 +1,6 @@
 //商圈地图
 var map = new BMap.Map("businessMap");
-var cityListObject = new BMapLib.CityList({ container: "businessCity" });
+var cityListObject = new BMapLib.CityList({ container: "businessCity" , map : map });
 map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
 map.enableScrollWheelZoom();
 
