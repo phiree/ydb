@@ -92,6 +92,17 @@
         </div>
     </div>
     <script type="text/javascript">
+        function MyshopSaveFun() {
+            if ($("#hiAddrId").val() == '') {
+                alert("详细地址不能为空")
+                return false;
+            } else {
+
+            }
+
+        }
+
+
         function getMapAddrText(targetID, targetHID) {//获得地图的地址
          
             var targetTxt = "";

@@ -2,7 +2,7 @@
 // 百度地图API功能
     var map = new BMap.Map("container");
     var myCityListObject = new BMapLib.CityList({container : "city-container"});
-    
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
   //  map.centerAndZoom("海口", 11);     // 初始化地图,设置中心点坐标和地图级别
     map.enableScrollWheelZoom();
     map.clearOverlays();    //清除地图上所有覆盖物
@@ -13,7 +13,7 @@
         //$("#businessID-button").css("display","none");
 
         $("#city-container .ui-select:eq(3)").css("display", "none");
-        $("#city-container .ui-select:eq(3)").p
+      //  $("#city-container .ui-select:eq(3)").p
 
 
 
@@ -23,7 +23,7 @@
 
 
     });
-    alert($('#hiAddrId').attr("value"));
+  //  alert($('#hiAddrId').attr("value"));
     if ($('#hiAddrId').attr("value")) {
         var readAddrJson = jQuery.parseJSON($('#hiAddrId').attr("value"));
         var addressNode = readAddrJson.province + readAddrJson.city + readAddrJson.district + readAddrJson.street + readAddrJson.streetNumber
@@ -31,12 +31,12 @@
         $(".showAdd").html(addressNode);
         var vpoint = new BMap.Point(readAddrJson.lng, readAddrJson.lat)
         // console.log(vpoint);
-        map.centerAndZoom(vpoint, 11);     // 初始化地图,设置中心点坐标和地图级别
+        map.centerAndZoom(readAddrJson.city, 12);     // 初始化地图,设置中心点坐标和地图级别
         var rmarker = new BMap.Marker(vpoint); // 创建点
         map.addOverlay(rmarker);    //增加点
 
     } else {
-        map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+       
 
     }
     var gc = new BMap.Geocoder(); //地址解析类
