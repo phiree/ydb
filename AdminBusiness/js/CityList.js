@@ -790,6 +790,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
         }
 
         var polygon = new BMap.Polygon();
+        var map = this._opts.map; /* 修复构造函数中用户自定义的map没有传入 By LiChang at 2015/07/07 */
         map.addOverlay(polygon);
 //        polygon.disableMassClear();/*禁止删除商圈覆盖 by lichang*/
         polygon.hide();
