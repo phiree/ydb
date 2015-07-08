@@ -1,5 +1,3 @@
-$(document).ready(function(){
-
 
 // 百度地图API功能
     var map = new BMap.Map("container");
@@ -79,6 +77,5 @@ $(document).ready(function(){
 //        map.clearOverlays();
 //    }
 
-    map.addEventListener("click", showInfo);
 
-});
+    map.addEventListener("click", showInfo);
