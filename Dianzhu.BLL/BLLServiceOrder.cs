@@ -31,6 +31,10 @@ namespace Dianzhu.BLL
         {
             return DALServiceOrder.GetServiceOrderCount(userId, searchType);
         }
+        public IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize)
+        {
+            return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
+        }
     }
     //订单创建类.
     public class ServiceOrderCreator

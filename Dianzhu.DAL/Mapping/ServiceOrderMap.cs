@@ -17,6 +17,8 @@ namespace Dianzhu.DAL.Mapping
            Map(x => x.OrderStatus);
            References<DZService>(x => x.Service);
            HasMany<Staff>(x => x.Staff);
+           Map(x => x.TargetAddress);
+           Map(x => x.TotalPrice);
            
        }
     }

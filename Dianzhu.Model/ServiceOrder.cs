@@ -33,8 +33,12 @@ namespace Dianzhu.Model
       /// </summary>
         
         public virtual enum_OrderStatus OrderStatus { get; set; }
-        
+        /// <summary>
+        /// 服务的目标地址
+        /// </summary>
+        public virtual string TargetAddress { get; set; }
 
+        public virtual decimal TotalPrice { get; set; }
 
     }
 }
