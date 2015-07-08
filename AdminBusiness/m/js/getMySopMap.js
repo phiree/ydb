@@ -1,6 +1,3 @@
-//$(document).ready(function(){
-
-
 // 百度地图API功能
     var map = new BMap.Map("container");
     var myCityListObject = new BMapLib.CityList({container : "city-container"});
@@ -130,5 +127,3 @@
         local.search(myValue);
     }
 
-
-//});
