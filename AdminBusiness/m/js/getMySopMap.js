@@ -3,7 +3,7 @@
 
 // 百度地图API功能
     var map = new BMap.Map("container");
-    var myCityListObject = new BMapLib.CityList({container : "city-container"});
+//    var myCityListObject = new BMapLib.CityList({container : "city-container" , map : map });
     //map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
 
     map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
@@ -45,7 +45,7 @@
         var rmarker = new BMap.Marker(vpoint); // 创建点
         map.addOverlay(rmarker);    //增加点
 
-    } else {
+    }
        
     (function(){
         if ($('#hiAddrId').attr("value")) {
@@ -65,6 +65,7 @@
             map.addOverlay(rMarker);    //增加点
         }
     })();
+
     var gc = new BMap.Geocoder(); //地址解析类
     function showInfo(e) {
         //alert(e.point.lng + ", " + e.point.lat);
