@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
+using Dianzhu.Model.Enums;
 using FluentNHibernate.Mapping;
 namespace Dianzhu.DAL.Mapping
 {
@@ -13,7 +14,7 @@ namespace Dianzhu.DAL.Mapping
            Id(x => x.Id);
            References<DZMembership>(x => x.Customer);
            Map(x => x.OrderCreated);
-           Map(x => x.OrderStatus).CustomType<int>();
+           Map(x => x.OrderStatus);
            References<DZService>(x => x.Service);
            HasMany<Staff>(x => x.Staff);
            

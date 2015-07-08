@@ -107,7 +107,7 @@ namespace Dianzhu.Model
         {
             get
             {
-                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.ImageType.Business_Licence).ToArray();
+                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_Licence).ToArray();
                 if (bi.Count() >= 1)
                     return bi[0];
                 return new BusinessImage();
@@ -115,7 +115,7 @@ namespace Dianzhu.Model
             set
             {
 
-                IList<BusinessImage> images = BusinessImages.Where(x => x.ImageType == Enums.ImageType.Business_Licence).ToList();
+                IList<BusinessImage> images = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_Licence).ToList();
                 foreach (BusinessImage i in images)
                 {
                     BusinessImages.Remove(i);
@@ -127,7 +127,7 @@ namespace Dianzhu.Model
         {
             get
             {
-                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.ImageType.Business_Avatar).ToArray();
+                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_Avatar).ToArray();
                 if (bi.Count() >= 1)
                     return bi[0];
                 return new BusinessImage();
@@ -135,7 +135,7 @@ namespace Dianzhu.Model
             set
             {
 
-                IList<BusinessImage> images = BusinessImages.Where(x => x.ImageType == Enums.ImageType.Business_Avatar).ToList();
+                IList<BusinessImage> images = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_Avatar).ToList();
                 foreach (BusinessImage i in images)
                 {
                     BusinessImages.Remove(i);
@@ -143,7 +143,7 @@ namespace Dianzhu.Model
                 BusinessImages.Add(value);
             }
         }
-        public virtual Enums.IDCardType ChargePersonIdCardType
+        public virtual Enums.enum_IDCardType ChargePersonIdCardType
         {
             get;
             set;
@@ -157,7 +157,7 @@ namespace Dianzhu.Model
         {
             get
             {
-                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.ImageType.Business_ChargePersonIdCard).ToArray();
+                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_ChargePersonIdCard).ToArray();
                 if (bi.Count() >= 1)
                     return bi[0];
                 return new BusinessImage();
@@ -165,7 +165,7 @@ namespace Dianzhu.Model
             set
             {
 
-                IList<BusinessImage> images = BusinessImages.Where(x => x.ImageType == Enums.ImageType.Business_ChargePersonIdCard).ToList();
+                IList<BusinessImage> images = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_ChargePersonIdCard).ToList();
                 foreach (BusinessImage i in images)
                 {
                     BusinessImages.Remove(i);
@@ -181,7 +181,7 @@ namespace Dianzhu.Model
         {
             get
             {
-                return BusinessImages.Where(x => x.ImageType == Enums.ImageType.Business_Show).ToList();
+                return BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_Show).ToList();
             }
 
         }
@@ -356,7 +356,7 @@ namespace Dianzhu.Model
         /// 图片大小, 单位 KB
         /// </summary>
         public virtual int Size { get; set; }
-        public virtual Enums.ImageType ImageType { get; set; }
+        public virtual Enums.enum_ImageType ImageType { get; set; }
     }
 
 }

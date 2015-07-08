@@ -115,6 +115,29 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.XmppClientWeb", "Di
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "FrontWeb", "FrontWeb\", "{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/FrontWeb"
+		Debug.AspNetCompiler.PhysicalPath = "FrontWeb\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\FrontWeb\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/FrontWeb"
+		Release.AspNetCompiler.PhysicalPath = "FrontWeb\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\FrontWeb\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "8310"
+		VWDVirtualPath = "/"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi
@@ -238,6 +261,16 @@ Global
 		{4A1A2BC3-DB56-4652-8870-FC7C15FCEC1C}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{4A1A2BC3-DB56-4652-8870-FC7C15FCEC1C}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{4A1A2BC3-DB56-4652-8870-FC7C15FCEC1C}.Release|x86.ActiveCfg = Debug|Any CPU
+		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Release|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

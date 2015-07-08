@@ -74,6 +74,37 @@
                         }, 
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
+                },
+                { 
+                    "protocol_CODE": "SVM001001", 
+                    "ReqData": { 
+                        "uid": "9343d2583fd34de0adc4a4c700a47f0e", 
+                        "userPWord": "123456", 
+                        "srvTarget": "ALL", 
+                        }, 
+                    "stamp_TIMES": "1490192929212", 
+                    "serial_NUMBER": "00147001015869149751" 
+                },
+                { 
+                    "protocol_CODE": "SVM001001", 
+                    "ReqData": { 
+                        "uid": "9343d2583fd34de0adc4a4c700a47f0e", 
+                        "userPWord": "123456", 
+                        "srvTarget": "Nt", 
+                        }, 
+                    "stamp_TIMES": "1490192929212", 
+                    "serial_NUMBER": "00147001015869149751" 
+                }
+                ,
+                { 
+                    "protocol_CODE": "SVM001001", 
+                    "ReqData": { 
+                        "uid": "9343d2583fd34de0adc4a4c700a47f0e", 
+                        "userPWord": "123456", 
+                        "srvTarget": "De", 
+                        }, 
+                    "stamp_TIMES": "1490192929212", 
+                    "serial_NUMBER": "00147001015869149751" 
                 }
 
             ],

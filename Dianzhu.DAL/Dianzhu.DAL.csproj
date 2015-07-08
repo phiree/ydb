@@ -94,6 +94,7 @@
     <Compile Include="DALCashTicketAssignRecord.cs" />
     <Compile Include="DALCashTicketAssignDetail.cs" />
     <Compile Include="DALDeviceBind.cs" />
+    <Compile Include="DALServiceOrder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALCashTicket.cs" />

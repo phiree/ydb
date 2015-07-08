@@ -97,7 +97,7 @@ public partial class Account_Edit : BasePage
          b.WorkingYears =int.Parse(tbxBusinessYears.Value);
          b.Contact = tbxContact.Value;
          b.StaffAmount = int.Parse(selStaffAmount.Value);
-         b.ChargePersonIdCardType = (IDCardType)int.Parse(selCardType.Value);
+         b.ChargePersonIdCardType = (enum_IDCardType)int.Parse(selCardType.Value);
          b.ChargePersonIdCardNo = tbxCardIdNo.Value;
 
          AddressParser addressParser = new AddressParser(hiAddrId.Value);
@@ -114,11 +114,11 @@ public partial class Account_Edit : BasePage
         //upload pictures
          if (fuBusinessLicence.PostedFile!=null&&fuBusinessLicence.PostedFile.ContentLength != 0)
          {
-             string licenceImageName = b.Id + ImageType.Business_Licence.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuBusinessLicence.FileName);
+             string licenceImageName = b.Id + enum_ImageType.Business_Licence.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuBusinessLicence.FileName);
              fuBusinessLicence.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + licenceImageName);
              BusinessImage biLicence = new BusinessImage
              {
-                 ImageType = ImageType.Business_Licence,
+                 ImageType = enum_ImageType.Business_Licence,
                  UploadTime = DateTime.Now,
                  ImageName = licenceImageName,
                  Size = fuBusinessLicence.PostedFile.ContentLength
@@ -128,11 +128,11 @@ public partial class Account_Edit : BasePage
          }
          if (fuAvater.PostedFile != null && fuAvater.PostedFile.ContentLength != 0)
          {
-             string avatar_name = b.Id + ImageType.Business_Avatar.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuAvater.FileName);
+             string avatar_name = b.Id + enum_ImageType.Business_Avatar.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuAvater.FileName);
              fuAvater.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + avatar_name);
              BusinessImage biAvatar = new BusinessImage
              {
-                 ImageType = ImageType.Business_Avatar,
+                 ImageType = enum_ImageType.Business_Avatar,
                  UploadTime = DateTime.Now,
                  ImageName = avatar_name,
                  Size = fuAvater.PostedFile.ContentLength
@@ -143,11 +143,11 @@ public partial class Account_Edit : BasePage
 
          if (fuChargePerson.PostedFile!=null&&fuChargePerson.PostedFile.ContentLength != 0)
          {
-             string chargeIdImageName = b.Id + ImageType.Business_ChargePersonIdCard.ToString() +  Guid.NewGuid().GetHashCode() + Path.GetExtension(fuChargePerson.FileName);
+             string chargeIdImageName = b.Id + enum_ImageType.Business_ChargePersonIdCard.ToString() +  Guid.NewGuid().GetHashCode() + Path.GetExtension(fuChargePerson.FileName);
              fuChargePerson.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + chargeIdImageName);
              BusinessImage biChargeId = new BusinessImage
              {
-                 ImageType = ImageType.Business_ChargePersonIdCard,
+                 ImageType = enum_ImageType.Business_ChargePersonIdCard,
                  UploadTime = DateTime.Now,
                  ImageName = chargeIdImageName,
                  Size = fuChargePerson.PostedFile.ContentLength
@@ -157,13 +157,13 @@ public partial class Account_Edit : BasePage
 
 
         List<BusinessImage> showImages = new List<BusinessImage>();
-        string showImage1 = b.Id + ImageType.Business_Show.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuShow1.FileName);
+        string showImage1 = b.Id + enum_ImageType.Business_Show.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuShow1.FileName);
          if (fuShow1.PostedFile!=null&&fuShow1.PostedFile.ContentLength != 0)
         {
             fuShow1.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + showImage1);
             BusinessImage biShow1 = new BusinessImage
             {
-                ImageType = ImageType.Business_Show,
+                ImageType = enum_ImageType.Business_Show,
                 UploadTime = DateTime.Now,
                 ImageName = showImage1,
                 Size = fuShow1.PostedFile.ContentLength

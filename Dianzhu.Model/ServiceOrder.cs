@@ -28,11 +28,11 @@ namespace Dianzhu.Model
         /// 下单时间
         /// </summary>
         public virtual DateTime OrderCreated { get; set; }
-        /// <summary>
-        /// 是否已经完成. 如果完成 则将职员状态更新为 闲.
-        /// </summary>
+      /// <summary>
+      /// 订单状态.
+      /// </summary>
         
-        public virtual OrderStatus OrderStatus { get; set; }
+        public virtual enum_OrderStatus OrderStatus { get; set; }
         
 
 

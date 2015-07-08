@@ -42,5 +42,9 @@ namespace Dianzhu.BLL
             DALDZService.SaveOrUpdate(service);
         }
 
+        public IList<DZService> GetAll()
+        {
+            return DALDZService.GetAll<DZService>();
+        }
     }
 }

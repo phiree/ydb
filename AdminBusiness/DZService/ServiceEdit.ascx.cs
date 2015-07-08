@@ -101,7 +101,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
        
         CurrentService.PropertyValues = values;
         CurrentService.BusinessAreaCode = hiBusinessAreaCode.Value;
-        CurrentService.ChargeUnit = (ChargeUnit)(Convert.ToInt32(rblChargeUnit.SelectedValue));
+        CurrentService.ChargeUnit = (enum_ChargeUnit)(Convert.ToInt32(rblChargeUnit.SelectedValue));
         CurrentService.IsCertificated = cbxIsCertificated.Checked;
         CurrentService.IsCompensationAdvance = cbxIsCompensationAdvance.Checked;
         CurrentService.IsForBusiness = cblIsForBusiness.Checked;
@@ -109,7 +109,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.MaxOrdersPerHour = Convert.ToInt32(tbxMaxOrdersPerHour.Text);
         CurrentService.MinPrice = Convert.ToDecimal(tbxMinPrice.Text);
         CurrentService.OrderDelay = Convert.ToInt32(tbxOrderDelay.Text);
-        CurrentService.ServiceMode =(ServiceMode)(Convert.ToInt32( rblServiceMode.SelectedValue));
+        CurrentService.ServiceMode =(enum_ServiceMode)(Convert.ToInt32( rblServiceMode.SelectedValue));
         CurrentService.ServiceTimeBegin = tbxServiceTimeBegin.Text;
         CurrentService.ServiceTimeEnd = tbxServiceTimeEnd.Text;
         CurrentService.UnitPrice =int.Parse(tbxUnitPrice.Text, System.Globalization.NumberStyles.AllowDecimalPoint);

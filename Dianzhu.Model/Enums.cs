@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Dianzhu.Model.Enums
 {
-    public enum ImageType
+    public enum enum_ImageType
     {
         Business_Licence,//商家营业执照
         Business_Show,//商家展示图片
@@ -22,19 +22,19 @@ namespace Dianzhu.Model.Enums
     /// <summary>
     /// 计费单位
     /// </summary>
-    public enum ChargeUnit
+    public enum enum_ChargeUnit
     {
         Hour,//每小时
         Day, //每天
         Times //每次
     }
 
-    public enum ServiceMode
+    public enum enum_ServiceMode
     {
         ToHouse,//上门
         NotToHouse,//不上门
     }
-    public enum IDCardType
+    public enum enum_IDCardType
     {
         身份证 = 0,
         学生证 = 1,
@@ -43,7 +43,7 @@ namespace Dianzhu.Model.Enums
         其他 = 4
     }
 
-    public enum OrderStatus
+    public enum enum_OrderStatus
     {
         Wt,//Wait 
         Ry,//Ready 
@@ -53,6 +53,12 @@ namespace Dianzhu.Model.Enums
         Nu,//Can
         Dy,//Delay 
         Ed,//End
+    }
+    public enum enum_OrderSearchType
+    { 
+    Nt,//未完成的服务
+        De,//完成的服务
+        ALL//全部
     }
 
 

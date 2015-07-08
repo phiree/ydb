@@ -89,7 +89,7 @@ namespace Dianzhu.Model
        /// <summary>
        /// 计费单位: 小时, 天,次等
        /// </summary>
-       public virtual ChargeUnit ChargeUnit { get; set; }
+       public virtual enum_ChargeUnit ChargeUnit { get; set; }
        /// <summary>
        /// 一口价
        /// </summary>
@@ -98,7 +98,7 @@ namespace Dianzhu.Model
        /// <summary>
        /// 服务提供方式:上门, 不上门..等.
        /// </summary>
-       public virtual ServiceMode ServiceMode { get; set; }
+       public virtual enum_ServiceMode ServiceMode { get; set; }
 
        public virtual DateTime CreatedTime { get; set; }
        public virtual DateTime LastModifiedTime { get; set; }
