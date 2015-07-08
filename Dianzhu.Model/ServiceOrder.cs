@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Dianzhu.Model.Enums;
 namespace Dianzhu.Model
 {
     /// <summary>
@@ -22,7 +22,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 客户
         /// </summary>
-        public virtual Customer Customer { get; set; }
+        public virtual DZMembership Customer { get; set; }
 
         /// <summary>
         /// 下单时间
@@ -31,7 +31,9 @@ namespace Dianzhu.Model
         /// <summary>
         /// 是否已经完成. 如果完成 则将职员状态更新为 闲.
         /// </summary>
-        public virtual bool IsCompleted { get; set; }
+        
+        public virtual OrderStatus OrderStatus { get; set; }
+        
 
 
     }

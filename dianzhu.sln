@@ -90,27 +90,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHSuit", "PHSuit\PHSuit.csproj", "{0122C6D5-6348-4B65-88B7-3C43A6E642F3}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "web", "web\", "{3B63C839-3438-4169-88CD-2A8445E0353C}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/web"
-		Debug.AspNetCompiler.PhysicalPath = "web\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\web\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/web"
-		Release.AspNetCompiler.PhysicalPath = "web\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\web\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "2233"
-		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Xmpp", "Dianzhu.Xmpp\Dianzhu.Xmpp.csproj", "{49E0356B-F800-4399-9910-8664045553D4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.XmppClient", "Dianzhu.XmppClient\Dianzhu.XmppClient.csproj", "{CF85A083-3E1C-44BB-AC4F-287FDD9895FF}"
@@ -229,16 +208,6 @@ Global
 		{0122C6D5-6348-4B65-88B7-3C43A6E642F3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0122C6D5-6348-4B65-88B7-3C43A6E642F3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0122C6D5-6348-4B65-88B7-3C43A6E642F3}.Release|x86.ActiveCfg = Release|Any CPU
-		{3B63C839-3438-4169-88CD-2A8445E0353C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B63C839-3438-4169-88CD-2A8445E0353C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B63C839-3438-4169-88CD-2A8445E0353C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3B63C839-3438-4169-88CD-2A8445E0353C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{3B63C839-3438-4169-88CD-2A8445E0353C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3B63C839-3438-4169-88CD-2A8445E0353C}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B63C839-3438-4169-88CD-2A8445E0353C}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{3B63C839-3438-4169-88CD-2A8445E0353C}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3B63C839-3438-4169-88CD-2A8445E0353C}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{3B63C839-3438-4169-88CD-2A8445E0353C}.Release|x86.ActiveCfg = Debug|Any CPU
 		{49E0356B-F800-4399-9910-8664045553D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49E0356B-F800-4399-9910-8664045553D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49E0356B-F800-4399-9910-8664045553D4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
