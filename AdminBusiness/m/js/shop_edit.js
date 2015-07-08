@@ -1,5 +1,7 @@
 $(function () {
 
+   
+
 
     $("#ContentPlaceHolder1_ContentPlaceHolder1_imgBusinessImage").attr("data-ajax", "false");
     $("#ContentPlaceHolder1_ContentPlaceHolder1_imgChargePerson").attr("data-ajax", "false");

@@ -76,7 +76,7 @@
                 </ul>
    
                 <ul class="panel-ul">
-                    <a class="getMaphrefClass" onclick="tiemout()" href="#secondview" data-transition="slidedown" style="color: #58789a;"> <li class="my-li">
+                    <a class="getMaphrefClass" href="#secondview" data-transition="slidedown" style="color: #58789a;"> <li class="my-li">
                         <div class="ul-left">
                                 <div class="m-top"> 详细店址:
                                  <span id="serArea-txt">  <%=b.Address %></span></div>

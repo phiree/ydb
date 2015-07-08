@@ -19,21 +19,15 @@
       //  $("#city-container .ui-select:eq(3)").p
 
     });
-    function tiemout() {
-        setTimeout(function () {
-            defaultSetPoint();
-        }, 500);
-    }
+    $(document).on("pageshow", "#secondview", function () {
+        defaultSetPoint();
+    });
     function defaultSetPoint (){
         if ($('#hiAddrId').attr("value")) {
             var readAddrJson = jQuery.parseJSON($('#hiAddrId').attr("value"));
             var addressNode = readAddrJson.province + readAddrJson.city + readAddrJson.district + readAddrJson.street + readAddrJson.streetNumber;
             var vPoint = new BMap.Point(readAddrJson.lng, readAddrJson.lat);
             var rMarker = new BMap.Marker(vPoint); // 创建点
-
-            $("#serArea-txt").html(addressNode);
-            $(".showAdd").html(addressNode);
-
             map.setCenter(vPoint);     // 初始化地图,设置中心点坐标和地图级别
             map.setZoom(12);
             console.log(vPoint);
@@ -41,7 +35,16 @@
             map.addOverlay(rMarker);    //增加点
         }
     }
-    setTimeout(defaultSetPoint, 500); //简单粗暴的通过延时解决页面初始化时，中心点被CityList的DataMgr初始覆盖;
+    function setJsonData() {
+     if ($('#hiAddrId').attr("value")) {
+        var readAddrJson = jQuery.parseJSON($('#hiAddrId').attr("value"));
+        var addressNode = readAddrJson.province + readAddrJson.city + readAddrJson.district + readAddrJson.street + readAddrJson.streetNumber;
+        $("#serArea-txt").html(addressNode);
+        $(".showAdd").html(addressNode);
+    }
+}
+setJsonData();
+   // setTimeout(defaultSetPoint, 500); //简单粗暴的通过延时解决页面初始化时，中心点被CityList的DataMgr初始覆盖;
 
     var gc = new BMap.Geocoder(); //地址解析类
     function showInfo(e) {
