@@ -236,7 +236,7 @@
                         runat="server" name="shopIntroduced">(可输入60个字)</textarea>
                 </div>
                 <div class="rp phone">
-                    <input type="text" id="tbxContactPhone" clientidmode="Static" runat="server" name="ContactPhone" /></textarea>
+                    <input type="text" id="tbxContactPhone" clientidmode="Static" runat="server" name="ContactPhone" />
                 </div>
                 <div class="rp address">
                     <input type="text" id="tbxAddress" clientidmode="Static" runat="server" name="addressDetail" />
@@ -274,7 +274,7 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="menu_status_shop" runat="Server">
-    my-ui-btn-active
+    my-ui-btn-active1
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
 

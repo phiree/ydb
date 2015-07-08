@@ -821,7 +821,7 @@ var BMapLib = window.BMapLib = BMapLib || {};
 //            map.centerAndZoom(point, 10);
         });
 
-//        selectArea(1, provinceDom, 12); /* mobile端暂时不初始化select */
+        selectArea(1, provinceDom, 12); 
     }
 
 })();
