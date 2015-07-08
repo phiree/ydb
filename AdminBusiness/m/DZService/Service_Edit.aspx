@@ -45,7 +45,7 @@
     <script src="../js/getMap.js" type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="menu_status_service" runat="Server">
-    my-ui-btn-active
+    my-ui-btn-active2
 </asp:Content>
 
 

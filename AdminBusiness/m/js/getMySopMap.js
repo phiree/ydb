@@ -19,7 +19,11 @@
       //  $("#city-container .ui-select:eq(3)").p
 
     });
-
+    function tiemout() {
+        setTimeout(function () {
+            defaultSetPoint();
+        }, 500);
+    }
     function defaultSetPoint (){
         if ($('#hiAddrId').attr("value")) {
             var readAddrJson = jQuery.parseJSON($('#hiAddrId').attr("value"));

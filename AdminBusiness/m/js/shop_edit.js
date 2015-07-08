@@ -1,6 +1,8 @@
 $(function () {
 
 
+    $("#ContentPlaceHolder1_ContentPlaceHolder1_imgBusinessImage").attr("data-ajax", "false");
+    $("#ContentPlaceHolder1_ContentPlaceHolder1_imgChargePerson").attr("data-ajax", "false");
 
     //样式处理
     $('.my-li').append('<div class="ul-right">' +
@@ -14,8 +16,7 @@ $(function () {
 
 
 
-
-
+       
         $("#super_right_panel").panel("open");
 
         var that = this;

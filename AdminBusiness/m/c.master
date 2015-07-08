@@ -53,13 +53,13 @@
                             top: 8px; left: 10px;" />
                         订单</a></li>
                     <li class='<asp:ContentPlaceHolder runat="server" ID="menu_status_service"></asp:ContentPlaceHolder>'>
-                        <a onclick="listMen('#navMenu4')" id="my-a-active2" href="/m/dzservice/" target="_top" style="position: relative;">
+                        <a onclick="listMen('#navMenu4')" id="my-a-active2" href="/m/dzservice/" target="_top" data-ajax="false" style="position: relative;">
                             <img src="/m/images/my-o-icon3.png" style="position: absolute; top: 8px; left: 10px;" />
                             <img class="s-menu s-serverIno" src="/m/images/my-o-icon3_2.png" style="position: absolute;
                                 top: 8px; left: 10px;" />
                             服务信息</a></li>
                     <li class='<asp:ContentPlaceHolder runat="server" ID="menu_status_shop"></asp:ContentPlaceHolder>'>
-                        <a href="/m/Account/" target="_top" id="my-a-active1" style="position: relative;">
+                        <a href="/m/Account/" target="_top" data-ajax="false" id="my-a-active1" style="position: relative;">
                             <img src="/m/images/my-o-icon2.png" style="position: absolute; top: 8px; left: 7px;" />
                             <img class="s-menu s-shopIno" src="/m/images/my-o-icon2_2.png" style="position: absolute;
                                 top: 8px; left: 7px;" />
@@ -110,10 +110,11 @@
             var citytxt = $("#cityID option:selected").text();
             var boroughtxt = $("#boroughID option:selected").text();
             var businesstxt = $("#businessID option:selected").text();
-            
+           
 
             var display =$('.showAdd').css('display');
             if (display == 'none') {
+           
                 if (provincetxt == citytxt) {
                     targetTxt = provincetxt + boroughtxt + businesstxt;
                 } else {
@@ -121,6 +122,7 @@
                 }
                 $(targetID).text(targetTxt);
                 $(targetHID).text(targetTxt);
+                
             } else {
 
                 $(targetID).text($('.showAdd').html());
@@ -130,7 +132,7 @@
             
             
           //  alert(targetTxt);
-          
+         
 
 
         }
