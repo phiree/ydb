@@ -35,6 +35,11 @@ namespace Dianzhu.BLL
         {
             return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
         }
+
+        public ServiceOrder GetOne(Guid guid)
+        {
+            return DALServiceOrder.GetOne(guid);
+        }
     }
     //订单创建类.
     public class ServiceOrderCreator

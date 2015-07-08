@@ -117,6 +117,17 @@
                         }, 
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
+                },
+                { 
+                    "protocol_CODE": "SVM001003", 
+                    "ReqData": { 
+                        "uid": "9343d2583fd34de0adc4a4c700a47f0e", 
+                        "userPWord": "123456", 
+                        "srvID": "30d488196c93480fa5f4a4cf010d3cdc"
+                         
+                        }, 
+                    "stamp_TIMES": "1490192929212", 
+                    "serial_NUMBER": "00147001015869149751" 
                 }
 
             ],

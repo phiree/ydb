@@ -8,12 +8,12 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-public class ResponseSVM001002 : BaseResponse
+public class ResponseSVM001003 : BaseResponse
 {
-    public ResponseSVM001002(BaseRequest request) : base(request) { }
+    public ResponseSVM001003(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataSVM001002 requestData = this.request.ReqData.ToObject<ReqDataSVM001002>();
+        ReqDataSVM001003 requestData = this.request.ReqData.ToObject<ReqDataSVM001003>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
@@ -39,24 +39,21 @@ public class ResponseSVM001002 : BaseResponse
             }
             try
             {
-                string srvTarget = requestData.srvTarget;
-                string strPageSize = requestData.pageSize;
-                string strPageNum = requestData.pageNum;//base on 1
-                int pageSize, pageNum;
-                if (!int.TryParse(strPageSize, out pageSize) ||
-                 !int.TryParse(strPageNum, out pageNum))
-                {
-                    this.state_CODE = Dicts.StateCode[1];
-                    this.err_Msg = "分页大小或者分页索引不是数值格式";
-                    return;
-                }
-                enum_OrderSearchType searchType = (enum_OrderSearchType)Enum.Parse(typeof(enum_OrderSearchType), srvTarget);
+                string srvID =PHSuit.StringHelper.InsertToId(requestData.srvID);
+                
+                 ServiceOrder order = bllServiceOrder.GetOne(new Guid(srvID));
 
-                IList<ServiceOrder> orderList = bllServiceOrder.GetServiceOrderList(uid, searchType, pageNum, pageSize);
+                 if (order == null)
+                 {
+                     this.state_CODE = Dicts.StateCode[4];
+                     this.err_Msg ="没有对应的服务,请检查传入的srvID";
+                     return;
+                 }
+                RespDataSVM001003 respData = new RespDataSVM001003();
 
-                RespDataSVM001002 respData = new RespDataSVM001002();
 
-                respData.AdapList(orderList);
+                RespDataSVM001003_Order order_adapted = new RespDataSVM001003_Order().Adap(order);
+                respData.srvObj = order_adapted;
 
                 this.RespData = JsonConvert.SerializeObject(respData);
                 this.state_CODE = Dicts.StateCode[0];
@@ -81,35 +78,19 @@ public class ResponseSVM001002 : BaseResponse
     
 }
 
-public class ReqDataSVM001002
+public class ReqDataSVM001003
 {
     public string uid { get; set; }
     public string userPWord { get; set; }
-    public string srvTarget { get; set; }
-    public string pageSize { get; set; }
-    public string pageNum { get; set; }
+    public string srvID { get; set; }
+    
 
 }
-public class RespDataSVM001002
+public class RespDataSVM001003
 {
-    public IList<RespDataSVM001002_Order> arrayData { get; set; }
-    public RespDataSVM001002()
-    {
-
-        arrayData = new List<RespDataSVM001002_Order>();
-    }
-
-    public void AdapList(IList<ServiceOrder> serviceOrderList)
-    {
-        foreach (ServiceOrder order in serviceOrderList)
-        {
-            RespDataSVM001002_Order adapted_order = new RespDataSVM001002_Order().Adap(order);
-            arrayData.Add(adapted_order);
-        }
-
-    }
+    public  RespDataSVM001003_Order srvObj { get; set; }
 }
-public class RespDataSVM001002_Order
+public class RespDataSVM001003_Order
 {
     public string srvID { get; set; }
     public string srvBiz { get; set; }
@@ -121,9 +102,9 @@ public class RespDataSVM001002_Order
     public string srvStatus { get; set; }
     public string srvAdress { get; set; }
     public string srvExdes { get; set; }
-    public RespDataSVM001002_Order Adap(ServiceOrder order)
+    public RespDataSVM001003_Order Adap(ServiceOrder order)
     {
-        this.srvID = order.Service.Id.ToString().Replace("-",string.Empty);
+        this.srvID = order.Service.Id.ToString();
         this.srvBiz = order.Service.Business.Name;
         this.srvBizID = order.Service.Business.Id.ToString();
         this.srvType = order.Service.ServiceType.ToString();
