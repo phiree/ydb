@@ -39,6 +39,9 @@ public class ResponseFactory
             case "svm001001":
                 return new ResponseSVM001001(request);
                 break;
+            case "svm001002":
+                return new ResponseSVM001002(request);
+                break;
             default: break;
         }
         throw new Exception("No Such Api");

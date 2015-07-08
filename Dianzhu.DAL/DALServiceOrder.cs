@@ -38,6 +38,27 @@ namespace Dianzhu.DAL
             int rowCount = iqueryover.RowCount();
             return rowCount;
         }
-        
+
+
+        public  IList<ServiceOrder> GetServiceOrderList(Guid userId, enum_OrderSearchType searchType, int pageNum, int pageSize)
+        {
+            IQueryOver<ServiceOrder, ServiceOrder> iqueryover = Session.QueryOver<ServiceOrder>().Where(x => x.Customer.Id == userId);
+
+            switch (searchType)
+            {
+
+                case enum_OrderSearchType.De:
+                    iqueryover = iqueryover.Where(x => x.OrderStatus == enum_OrderStatus.Ed);
+                    break;
+                case enum_OrderSearchType.Nt:
+                    iqueryover = iqueryover.Where(x => x.OrderStatus != enum_OrderStatus.Ed);
+                    break;
+                default:
+                case enum_OrderSearchType.ALL:
+                    break;
+            }
+            var result = iqueryover.Skip(pageNum - 1).Take(pageSize).List();
+            return result;
+        }
     }
 }
