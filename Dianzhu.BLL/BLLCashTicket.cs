@@ -64,6 +64,10 @@ namespace Dianzhu.BLL
         {
             return DALCashTicket.GetCount(memberid, searchType);
         }
+        public IList<CashTicket> GetCashTicketList(Guid memberId, enum_CashTicketSearchType searchType, int pageIndex, int pageSize)
+        {
+            return DALCashTicket.GetCashTicketList(memberId, searchType, pageIndex, pageSize);
+        }
 
         
     }

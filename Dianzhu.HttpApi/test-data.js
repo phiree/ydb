@@ -118,6 +118,18 @@
                         }, 
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
+                } ,
+                { 
+                    "protocol_CODE": "VCM001002", 
+                    "ReqData": { 
+                        "uid": "6b05796ed6ee456489d5a4c60150adbe", 
+                        "userPWord": "123456", 
+                        "vcsTarget":"All",
+                        "pageSize": "10",
+                        "pageNum":"1" 
+                        }, 
+                    "stamp_TIMES": "1490192929212", 
+                    "serial_NUMBER": "00147001015869149751" 
                 }
 
             ];

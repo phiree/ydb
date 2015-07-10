@@ -55,7 +55,7 @@ namespace Dianzhu.DAL
            }
            return iqueryover;
        }
-       public IList<CashTicket> GetServiceOrderList(Guid userId, enum_CashTicketSearchType searchType, int pageNum, int pageSize)
+       public IList<CashTicket> GetCashTicketList(Guid userId, enum_CashTicketSearchType searchType, int pageNum, int pageSize)
        {
 
            var result = GetList(userId, searchType);
