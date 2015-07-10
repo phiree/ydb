@@ -14,7 +14,7 @@ namespace Dianzhu.BLL.Validator
             RuleFor(x => x.Name).NotEmpty().WithMessage("名称不能为空");
             RuleFor(x => x.Business).NotNull().WithMessage("所属商家未指定");
             RuleFor(x => x.BusinessAreaCode).NotEmpty().WithMessage("服务商圈未指定");
-            RuleFor(x => x.ChargeUnit).NotEmpty().WithMessage("计费单位不能为空");
+            RuleFor(x => x.ChargeUnit).NotNull().WithMessage("计费单位不能为空");
             RuleFor(x => x.Description).NotEmpty().WithMessage("服务描述不能为空");
             RuleFor(x => x.FixedPrice).SetValidator(new DataTypeValidator()).WithMessage("一口价格式有误,请输入数字");
 

@@ -64,7 +64,7 @@ $(function(){PopMsg('_title_','<div class=""_notificationStyle_"">_content_</div
 
 function PopMsg(title,content, redirecturl,autoClose) {
             
-            var ele = '<div id=""popMsg""></div>';
+            var ele = '<div id=""popMsg"" style=""z-index:9999""></div>';
             $('form').append(ele);
             $('#popMsg').append(content);
 $('#popMsg').append(""<div style='color:#999; position:absolute;bottom:5px;'>窗口将在<span id='altimer'></span>后自动关闭</div>"");
