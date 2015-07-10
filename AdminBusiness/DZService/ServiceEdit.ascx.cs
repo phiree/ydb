@@ -123,7 +123,9 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         bllService.SaveOrUpdate(CurrentService, out result);
         if (result.IsValid)
         {
-            PHSuit.Notification.Alert(Page, "保存成功");
+           
+             string redirectUrl=PHSuit.StringHelper.BuildUrlWithParameters(Request,"id",CurrentService.Id.ToString());
+             PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
             //PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
         }
         else

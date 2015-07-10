@@ -25,7 +25,17 @@ namespace PHSuit
         }
         public static void Alert(Page page, string alertConetnt)
         {
-            page.ClientScript.RegisterStartupScript(page.GetType(), "ph_alert", "alert('"+alertConetnt+"');", true);
+            Alert(page, alertConetnt, null);
+        }
+        public static void Alert(Page page, string alertConetnt,string redirectUrl)
+        {
+            string injectedAlertScript = "alert('"+alertConetnt+"');";
+            if (!string.IsNullOrEmpty(redirectUrl))
+            { 
+                injectedAlertScript+="window.location.href='"+redirectUrl+"';";
+            }
+            page.ClientScript.RegisterStartupScript(page.GetType(), "ph_alert",
+              injectedAlertScript, true);
         }
         public static void Show(Page page, string title, string content, string returnUrl)
         {

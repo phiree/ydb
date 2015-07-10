@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 namespace PHSuit
 {
     public class StringHelper
@@ -195,6 +196,21 @@ namespace PHSuit
             return s.Substring(s.Length - width);
         }
 
+        /// <summary>
+        /// 更新url
+        /// </summary>
+        /// <param name="original">Request.QueryString.Tostring()</param>
+        /// <param name="paramName">休要更新的参数名</param>
+        /// <param name="value">新值</param>
+        /// <returns></returns>
+        public static string BuildUrlWithParameters(HttpRequest request, string paramName, string value)
+        {
+            var nameValues = HttpUtility.ParseQueryString(request.QueryString.ToString());
+            nameValues.Set(paramName, value);
+            string url = request.Url.AbsolutePath;
+            string updatedQueryString = "?" + nameValues.ToString();
+           return (url + updatedQueryString);
+        }
 
     }
 }
