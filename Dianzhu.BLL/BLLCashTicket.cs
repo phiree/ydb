@@ -5,6 +5,7 @@ using System.Text;
 using Dianzhu.Model;
 using Dianzhu.DAL;
 using PHSuit;
+using Dianzhu.Model.Enums;
 
 namespace Dianzhu.BLL
 {
@@ -54,6 +55,14 @@ namespace Dianzhu.BLL
         public void SaveOrUpdate(CashTicket cashticket)
         {
             DALCashTicket.SaveOrUpdate(cashticket);
+        }
+        public IList<CashTicket> GetListForCustomer(Guid memebrId)
+        {
+            return DALCashTicket.GetListForCustomer(memebrId);
+        }
+        public int GetCount(Guid memberid, enum_CashTicketSearchType searchType)
+        {
+            return DALCashTicket.GetCount(memberid, searchType);
         }
 
         

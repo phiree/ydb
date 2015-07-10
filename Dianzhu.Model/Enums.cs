@@ -60,6 +60,25 @@ namespace Dianzhu.Model.Enums
         De,//完成的服务
         ALL//全部
     }
+    public enum enum_CashTicketSearchType
+    { 
+        /// <summary>
+        /// 尚未使用的
+        /// </summary>
+    Nt,
+        /// <summary>
+        /// 已经使用的
+        /// </summary>
+        Us,
+        /// <summary>
+        /// 已经过期的
+        /// </summary>
+        Ps,
+        /// <summary>
+        ///所有
+        /// </summary>
+        All
+    }
 
 
 
