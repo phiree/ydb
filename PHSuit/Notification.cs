@@ -23,6 +23,10 @@ namespace PHSuit
         {
 
         }
+        public static void Alert(Page page, string alertConetnt)
+        {
+            page.ClientScript.RegisterStartupScript(page.GetType(), "ph_alert", "alert('"+alertConetnt+"');", true);
+        }
         public static void Show(Page page, string title, string content, string returnUrl)
         {
             Show(page, title, content, NotificationType.success, returnUrl, true, 3);

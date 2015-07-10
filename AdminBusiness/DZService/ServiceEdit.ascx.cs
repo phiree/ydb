@@ -122,15 +122,19 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         ValidationResult result;
         bllService.SaveOrUpdate(CurrentService, out result);
         if (result.IsValid)
-        { PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl); }
+        {
+            PHSuit.Notification.Alert(Page, "保存成功");
+            //PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
+        }
         else
         {
             string err = string.Empty;
             foreach (ValidationFailure f in result.Errors)
             {
-                err += f.ErrorMessage + "<br/>";
+                err += f.ErrorMessage + ";";
             }
-            PHSuit.Notification.Show(Page, "保存失败", err, Request.RawUrl);
+            PHSuit.Notification.Alert(Page, err);
+            // PHSuit.Notification.Show(Page, "保存失败", err, Request.RawUrl);
         }
     }
    
