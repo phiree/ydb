@@ -45,8 +45,9 @@ public partial class cashticket_assigner_Default : System.Web.UI.Page
     protected void btnAssign_Click(object sender,EventArgs e)
     {
         GetData();
-        CashTicketAssignForArea cashticketAssignerArea = new CashTicketAssignForArea(Area, Businesses);
-        cashticketAssignerArea.Assign();
+        //CashTicketAssignForArea cashticketAssignerArea = new CashTicketAssignForArea(Area, Businesses);
+        //cashticketAssignerArea.Assign();
+        CashTicketAssigner_Task task = new CashTicketAssigner_Task();
     }
     protected void ddlArea_SelectedIndexChanged(object sender, EventArgs e)
     {

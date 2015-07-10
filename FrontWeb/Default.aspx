@@ -1,15 +1,18 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/master.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<asp:Label runat="server" ID="lblResult"></asp:Label>
-<asp:GridView runat="server" ID="gvServiceList" 
-       DataKeyNames="Id"  onrowcommand="gvServiceList_RowCommand" >
-<Columns>
-<asp:ButtonField CommandName="btnOrder" Text="预订"/>
-</Columns>
-</asp:GridView>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-</asp:Content>
-
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+   <a href="DZService/Default.aspx">预订服务Demo</a> 
+    <a href="CashTicket/Default.aspx">领取优惠券Demo</a> 
+    </div>
+    </div>
+    </form>
+</body>
+</html>

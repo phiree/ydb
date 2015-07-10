@@ -165,7 +165,7 @@ namespace Dianzhu.BLL
                     }
                     GeoCoordinate geo = new GeoCoordinate(b1.Latitude, b1.Longitude);
                     GeoCoordinate geo2 = new GeoCoordinate(b2.Latitude, b2.Longitude);
-                    double distance = geo.GetDistanceTo(geo2);
+                    double distance = geo.GetDistanceTo(geo2)/1000;
                     if (distance <= b1.PromoteScope)
                     {
                         all_neighbours[b1].Add(b2);

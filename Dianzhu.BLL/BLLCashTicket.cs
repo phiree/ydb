@@ -51,6 +51,10 @@ namespace Dianzhu.BLL
         {
             return DALCashTicket.GetCashTicketListForBusiness(businessId);
         }
+        public void SaveOrUpdate(CashTicket cashticket)
+        {
+            DALCashTicket.SaveOrUpdate(cashticket);
+        }
 
         
     }

@@ -44,6 +44,8 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual DateTime UserUsedTime { get; set; }
 
+        
+
     }
   
 

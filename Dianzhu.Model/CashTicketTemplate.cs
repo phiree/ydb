@@ -55,5 +55,18 @@ namespace Dianzhu.Model
         /// 该模板生成的现金券.
         /// </summary>
         public virtual IList<CashTicket> CashTickets { get; set; }
+
+        /// <summary>
+        /// 可以被领用的现金券
+        /// </summary>
+        public virtual IList<CashTicket> CashTicketsReadyForClaim {
+
+            get {
+                var list = CashTickets.Where(x => x.BusinessAssigned != null
+                    && x.UserAssigned == null).ToList();
+                return list;
+                
+            }
+        }
     }
 }

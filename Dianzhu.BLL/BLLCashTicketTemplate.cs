@@ -17,7 +17,7 @@ namespace Dianzhu.BLL
         /// 数据库操作接口应该作为参数传入,便于测试.
         /// </summary>
         public DALCashTicketTemplate DALCashTicketTemplate=DALFactory.DALCashTicketTemplate;
-       
+        public BLLCashTicket BLLCashTicket = new BLLCashTicket();
         
 
         /// <summary>
@@ -64,6 +64,49 @@ namespace Dianzhu.BLL
         public void SaveOrUpdate(CashTicketTemplate ctt)
         {
             DALCashTicketTemplate.SaveOrUpdate(ctt);
+        
+        }
+        public IList<CashTicketTemplate> GetAll()
+        {
+            return DALCashTicketTemplate.GetAll<CashTicketTemplate>();
+        }
+
+        /// <summary>
+        /// 用户领取一张优惠券
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <param name="template"></param>
+        public CashTicket ClaimForAnCashTicket(DZMembership customer, Guid templateId,out string errMsg)
+        {
+            CashTicketTemplate template = GetOne(templateId);
+              DateTime now=DateTime.Now;
+              errMsg = string.Empty;
+              if (!template.Enabled)
+              {
+                  errMsg = "现金券已禁用";
+                  return null;
+              }
+              if (now > template.ExpiredDate)
+              {
+                  errMsg = "现金券已过期";
+                  return null;
+              }
+              if (now < template.ValidDate)
+              {
+                  errMsg = "现金券尚未开启";
+                  return null;
+              }
+              var validCashTickets = template.CashTicketsReadyForClaim;
+              if (validCashTickets.Count == 0)
+              {
+                  errMsg = "已被领完";
+                  return null;
+              }
+             CashTicket ticket= validCashTickets.First();
+             ticket.UserAssigned = customer;
+
+             BLLCashTicket.SaveOrUpdate(ticket);
+             return ticket;
         }
         
     }
