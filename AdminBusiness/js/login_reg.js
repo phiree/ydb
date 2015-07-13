@@ -98,6 +98,7 @@ $(document).ready(function () {
         var agreeLic =  $('input[name="agreeLic"]:checked');
 
         var userNameCheck = function(){
+            
             if ( $("#tbxUserName").val() == null || $("#tbxUserName").val() == "手机号码/电子邮箱" ){
                 $('#userCheck').addClass('chkError');
                 $("#userCheckText").text("请填写用户名");
