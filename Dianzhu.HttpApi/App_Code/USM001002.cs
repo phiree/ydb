@@ -28,7 +28,7 @@ public class ResponseUSM001002 : BaseResponse
             return;
         }
         RespDataUSM001001 respModel = new RespDataUSM001001().Adapt(newMember);
-        this.RespData = JsonConvert.SerializeObject(respModel);
+        this.RespData = respModel ;
 
 
     }

@@ -58,7 +58,7 @@ public class ResponseVCM001002 : BaseResponse
 
                 respData.AdapList(cashTicketList);
 
-                this.RespData = JsonConvert.SerializeObject(respData);
+                this.RespData =  respData ;
                 this.state_CODE = Dicts.StateCode[0];
 
             }

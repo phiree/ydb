@@ -8,6 +8,9 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+/// <summary>
+/// 获取一条服务信息的详情
+/// </summary>
 public class ResponseSVM001003 : BaseResponse
 {
     public ResponseSVM001003(BaseRequest request) : base(request) { }
@@ -55,7 +58,7 @@ public class ResponseSVM001003 : BaseResponse
                 RespDataSVM001003_Order order_adapted = new RespDataSVM001003_Order().Adap(order);
                 respData.srvObj = order_adapted;
 
-                this.RespData = JsonConvert.SerializeObject(respData);
+                this.RespData =  respData ;
                 this.state_CODE = Dicts.StateCode[0];
 
             }

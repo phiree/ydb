@@ -48,7 +48,7 @@
                 { 
                     "protocol_CODE": "USM001004", 
                     "ReqData": { 
-                        "uid": "a8a3d8aad5e04f478425a4ce00bf0bd1", 
+                        "uid": "6b05796ed6ee456489d5a4c60150adbe", 
                         "appName": "IOS", 
                         "appToken": "326a866223956ceb2705d8b88758dc77e6420c3ff7ee3cab2388352a461c7b47", 
                         }, 
@@ -58,7 +58,7 @@
                 { 
                     "protocol_CODE": "SVM001001", 
                     "ReqData": { 
-                        "uid": "9343d2583fd34de0adc4a4c700a47f0e", 
+                        "uid": "6b05796ed6ee456489d5a4c60150adbe", 
                         "userPWord": "123456", 
                         "srvTarget": "ALL", 
                         }, 
@@ -68,7 +68,7 @@
                 { 
                     "protocol_CODE": "SVM001001", 
                     "ReqData": { 
-                        "uid": "9343d2583fd34de0adc4a4c700a47f0e", 
+                        "uid": "6b05796ed6ee456489d5a4c60150adbe", 
                         "userPWord": "123456", 
                         "srvTarget": "Nt", 
                         }, 
@@ -79,7 +79,7 @@
                 { 
                     "protocol_CODE": "SVM001001", 
                     "ReqData": { 
-                        "uid": "9343d2583fd34de0adc4a4c700a47f0e", 
+                        "uid": "6b05796ed6ee456489d5a4c60150adbe", 
                         "userPWord": "123456", 
                         "srvTarget": "De", 
                         }, 
@@ -89,7 +89,7 @@
                 { 
                     "protocol_CODE": "SVM001002", 
                     "ReqData": { 
-                        "uid": "9343d2583fd34de0adc4a4c700a47f0e", 
+                        "uid": "6b05796ed6ee456489d5a4c60150adbe", 
                         "userPWord": "123456", 
                         "srvTarget": "ALL", 
                         "pageSize":"10",
@@ -101,9 +101,9 @@
                 { 
                     "protocol_CODE": "SVM001003", 
                     "ReqData": { 
-                        "uid": "9343d2583fd34de0adc4a4c700a47f0e", 
+                        "uid": "6b05796ed6ee456489d5a4c60150adbe", 
                         "userPWord": "123456", 
-                        "srvID": "30d488196c93480fa5f4a4cf010d3cdc"
+                        "srvID": "e71fd0e2cb5f4a7e8adba4d400b7224a"
                          
                         }, 
                     "stamp_TIMES": "1490192929212", 
@@ -127,6 +127,15 @@
                         "vcsTarget":"All",
                         "pageSize": "10",
                         "pageNum":"1" 
+                        }, 
+                    "stamp_TIMES": "1490192929212", 
+                    "serial_NUMBER": "00147001015869149751" 
+                },
+                { 
+                    "protocol_CODE": "VCM001003", 
+                    "ReqData": { 
+                        "vcsID": "8ac953dfc658438ea308a4d1010bb4ac", 
+                        
                         }, 
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 

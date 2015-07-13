@@ -44,7 +44,7 @@ public class ResponseVCM001001 : BaseResponse
 
                 int rowCount = bllCashTicket.GetCount(uid, searchType);
                 RespDataVCM001001 respData = new RespDataVCM001001 { sum = rowCount.ToString() };
-                this.RespData = JsonConvert.SerializeObject(respData);
+                this.RespData = respData ;
                 this.state_CODE = Dicts.StateCode[0];
 
             }

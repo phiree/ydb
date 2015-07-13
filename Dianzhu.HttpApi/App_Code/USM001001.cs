@@ -26,7 +26,7 @@ public class ResponseUSM001001 : BaseResponse
         this.state_CODE = Dicts.StateCode[0];
         DZMembership member = p.GetUserByName(userName);
         RespDataUSM001001 resp = new RespDataUSM001001().Adapt(member);
-        this.RespData = JsonConvert.SerializeObject(resp);
+        this.RespData =resp ;
 
 
     }

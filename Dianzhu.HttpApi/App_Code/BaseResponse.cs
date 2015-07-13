@@ -15,10 +15,11 @@ public class BaseResponse
     
     public string protocol_CODE { get; set; }
     public string state_CODE { get; set; }
-    public string RespData { get; set; }
+    //public string RespData { get; set; }
     public string err_Msg { get; set; }
     public string stamp_TIMES { get; set; }
     public string serial_NUMBER { get; set; }
+    public object RespData { get; set; }
     protected BaseRequest request;
     public BaseResponse(BaseRequest request)
     {

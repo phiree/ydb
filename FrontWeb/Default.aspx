@@ -12,7 +12,7 @@
    <a href="DZService/Default.aspx">预订服务Demo</a> 
     <a href="CashTicket/Default.aspx">领取优惠券Demo</a> 
     </div>
-    </div>
+    
     </form>
 </body>
 </html>

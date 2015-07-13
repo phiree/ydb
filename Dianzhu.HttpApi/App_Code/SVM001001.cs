@@ -8,6 +8,9 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+/// <summary>
+/// 服务信息总数获取.
+/// </summary>
 public class ResponseSVM001001 : BaseResponse
 {
     public ResponseSVM001001(BaseRequest request) : base(request) { }
@@ -44,7 +47,7 @@ public class ResponseSVM001001 : BaseResponse
                
                 int rowCount = bllServiceOrder.GetServiceOrderCount(uid,searchType);
                 RespDataSVM001001 respData=new RespDataSVM001001{ sum=rowCount.ToString()};
-                this.RespData = JsonConvert.SerializeObject(respData);
+                this.RespData =  respData ;
                 this.state_CODE = Dicts.StateCode[0];
                 
             }
