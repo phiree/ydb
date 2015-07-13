@@ -24,14 +24,14 @@
             for(var  i=0;i<this.requestArray.length;i++)
             {
                     var data=this.requestArray[i];
-                    var data_str=JSON.stringify(data);
+                    var data_str=JSON.stringify(data,null,4);
                     $.ajax({
                             url:"DianzhuApi.ashx",
                             method:"POST",
                             data:data_str, 
                             async:false,
-                            success:function (result) { 
-                               apiTest.writelog("请求Code:"+data.protocol_CODE+ ":<br/>------返回值"+JSON.stringify(result));
+                            success:function (result) {
+                                apiTest.writelog("请求:" + data_str + ":<br/>------返回值" + JSON.stringify(result)+"<hr/>");
                                 },//success
                             error:function(errmsg)
                             {

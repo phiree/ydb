@@ -8,6 +8,9 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+/// <summary>
+/// 获取用户的服务订单列表
+/// </summary>
 public class ResponseSVM001002 : BaseResponse
 {
     public ResponseSVM001002(BaseRequest request) : base(request) { }

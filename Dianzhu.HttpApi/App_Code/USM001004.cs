@@ -7,6 +7,9 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+/// <summary>
+/// 用户设备认证
+/// </summary>
 public class ResponseUSM001004 : BaseResponse
 {
     public ResponseUSM001004(BaseRequest request) : base(request) { }

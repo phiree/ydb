@@ -18,7 +18,11 @@ namespace Dianzhu.BLL
         public DALCashTicket DALCashTicket=DALFactory.DALCashTicket;
 
         public DALCashTicketCreateRecord DALCashTicketCreateRecord = DALFactory.DALCashTicketCreateRecord;
-        
+
+        public CashTicket GetOne(Guid id)
+        {
+            return DALCashTicket.GetOne(id);
+        }
         public BLLCashTicket()
         {
         }
