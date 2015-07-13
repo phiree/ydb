@@ -24,8 +24,7 @@
                             </div>
                             <div class="logo-r">
                                 <div class="logo regLogo">
-                                    <a href="#">
-                                        <img src="image/login_reg/zhuce_2.png" alt="logo" /></a>
+                                        <img src="image/login_reg/zhuce_2.png" alt="logo" />
                                 </div>
                                 <div class="logoTitle">
                                 </div>
@@ -33,25 +32,37 @@
                         </div>
                         <div class="conMain main-reg clearfix">
                             <div class="reg-user-l box-l">
-                                <p>
-                                                                   请输入用户名</p>
+                                <p>注册帐号</p>
+                                <p>登录密码</p>
+                                <p>确认密码</p>
                             </div>
                             <div class="box-r">
-                                
                                 <div class="emailBox m-b10">
                                     <asp:TextBox runat="server" ID="tbxUserName" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
                                      <i id="userCheck" class="checkIcon"></i><span id="userCheckText" class="regWarnTexti"></span>
                                 </div>
-
-
-                                <p class="agree">
-                                    <input id="agreeLic" name="agreeLic" type="checkbox" value="yes" /><label class="v-m m-l10" for="agreeLic">我已经仔细阅读过<a
-                                        class="agreeLIC-a" href="#">点助服务协议</a>,并同意所有条款</label></p>
-                                <div class="buttonBox">
-                                    <input id="userConfirm"  type="button" class="regBtn"/>
-                                    <!--<p class="savePass" ><input id="savePass" type="checkbox"/><label for="savePass">记住密码</label></p>-->
+                                <!--<p class="rPage" id="usernameConf"></p>-->
+                                <div class="regPs">
+                                    <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password"></asp:TextBox>
+                                    <i id="psChk" class="checkIcon"></i>
+                                    <div id="passCheckText" class="regWarnText dis-n">密码不符合要求，要求6-20个字符</div>
                                 </div>
-                                <!--<iframe name="uploadForm1" ></iframe>-->
+                                <div class="regPsConf">
+                                    <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"></asp:TextBox>
+                                    <i id="psConfChk" class="checkIcon"></i>
+                                    <div id="passConfText" class="regWarnText dis-n">两次密码不一致</div>
+                                </div>
+                                <p class="agree">
+                                    <input id="agreeLic" name="agreeLic" type="checkbox" value="yes" /><label class="v-m m-l10" for="agreeLic">我已经仔细阅读过《<a
+                                        class="agreeLIC-a" href="#">点助服务协议</a>》，并同意所有条款。</label></p>
+                                <!--<div class="buttonBox">-->
+                                    <!--<input id="userConfirm"  type="button" class="regBtn"/>-->
+                                <!--</div>-->
+                                <div class="buttonBox">
+                                    <!--<input type="button" id="userConfirmBack" class="userConfirm-Back"/>-->
+                                    <asp:Button runat="server" ID="regPsSubmit" onClientClick="javascipt:return false;" ClientIDMode="Static" OnClick="regPsSubmit_OnClick"
+                                        CssClass="regBtn" />
+                                </div>
                                 <p class="doLogin">
                                     <a class="logReg-a" href="login.aspx">
                                         <img src="image/login_reg/back_2.png">返回登录</a>
@@ -60,37 +71,11 @@
                         </div>
                         <div class="conMain main-psw clearfix">
                             <div class="box-l">
-                                <p>
-                                    用户名</p>
-                                <p>
-                                    登录密码</p>
-                                <p>
-                                    确认密码</p>
                             </div>
                             <div class="box-r">
-                                <p class="rPage" id="usernameConf">
-                                    XXXXXXXX</p>
-                                
-                                <div class="regPs">
-                                    <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password"></asp:TextBox>
-                                    <i id="psChk" class="checkIcon"></i>
-                                    <div id="passCheckText" class="regWarnText dis-n">密码不符合要求，要求6-20个字符</div>
-                                </div>
-                                <div class="regPsConf">
-                                    <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"></asp:TextBox>
-                                    <!--<input id="regPsConf" name="regPsConf" type="password" placeholder="6-20个字符，包含数字字母" />-->
-                                    <i id="psConfChk" class="checkIcon"></i>
-                                    <div id="passConfText" class="regWarnText dis-n">两次密码不一致</div>
-                                </div>
-                                <div class="buttonBox">
-                                    <input type="button" id="userConfirmBack" class="userConfirm-Back"/>
-                                    <asp:Button runat="server" ID="regPsSubmit" onClientClick="javascipt:return false;" ClientIDMode="Static" OnClick="regPsSubmit_OnClick"
-                                        CssClass="regBtn" />
-                                </div>
-                                <iframe name="uploadForm1" style="display: none"></iframe>
+                                <%--<iframe name="uploadForm1" style="display: none"></iframe>--%>
                             </div>
                         </div>
-                        
                     </div>
                     </form>
                 </div>

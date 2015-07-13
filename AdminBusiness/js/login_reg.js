@@ -11,7 +11,7 @@ $(document).ready(function () {
                 icon.removeClass('chkError').addClass('chkRight');
             }
         } else {
-            icon.fadeOut(300);
+            icon.removeClass('chkError').removeClass('chkRight');
         }
     };
 
@@ -47,42 +47,76 @@ $(document).ready(function () {
 //    showCheck($('#tbxUserName'), $('#phoneCheck'));
 
     //密码验证
-    var passCheck = function (psw, pswConf, pswChk, pswConfChk) {
+    var passCheck = function (psw, pswConf, iconChk, iconConfChk) {
         var passRule = /^[A-Za-z0-9_-]+$/;
         var ruleR;
-//        psw.change(function () { //密码是否符合规则
-                    psw.bind('input propertychange',function(){ //密码是否符合规则
-            if ((psw.val().length >= 6) && (psw.val().length <= 20) && passRule.test(psw.val())) {
-                chkIconAnm(false, true, pswChk);
+
+
+        psw.bind('input propertychange',function(){ //密码是否符合规则
+            if ( !psw.val() ){
+                chkIconAnm(true, false , iconChk);
                 $('#passCheckText').hide();
-                ruleR = true;
-            } else {
-                chkIconAnm(false, false, pswChk);
-                $('#passCheckText').show();
                 ruleR = false;
+            } else {
+                if (( psw.val().length >= 6 ) && ( psw.val().length <= 20 ) && passRule.test( psw.val() ) ) {
+                    chkIconAnm(false, true, iconChk);
+                    $('#passCheckText').hide();
+                    ruleR = true;
+                } else {
+                    chkIconAnm(false, false, iconChk);
+                    $('#passCheckText').show();
+                    ruleR = false;
+                }
             }
         });
 
-//        pswConf.change(function () { //密码确认是否一致
-            pswConf.bind('input propertychange',function(){ //密码确认是否一致
-                if (!ruleR) {
-                chkIconAnm(true, false, pswConfChk);
+        pswConf.bind('input propertychange',function(){ //密码确认是否一致
+            if ( !ruleR ) {
+                chkIconAnm(true, false, iconConfChk);
             } else {
                 if (pswConf.val() == psw.val()) {
-                    chkIconAnm(false, true, pswConfChk);
+                    chkIconAnm(false, true, iconConfChk);
                     $('#passConfText').hide();
                     $('#regPsSubmit').attr("onclick","return true;");
-                    return true;
                 } else {
-                    chkIconAnm(false, false, pswConfChk);
+                    chkIconAnm(false, false, iconConfChk);
                     $('#passConfText').show();
+                    $('#regPsSubmit').attr("onclick","return false;");
                 }
             }
         });
 
 
-    }
+    };
     passCheck($('#regPs'), $('#regPsConf'), $('#psChk'), $('#psConfChk'));
+
+    var regCheck = function(){
+        var userName = $("#tbxUserName");
+
+        var userNameRule = /^1\d{10}$|^.+@.+\..+$/;
+
+        var agreeLic =  $('input[name="agreeLic"]:checked');
+
+        var userNameCheck = function(){
+            if ( $("#tbxUserName").val() == null || $("#tbxUserName").val() == "手机号码/电子邮箱" ){
+                $('#userCheck').addClass('chkError');
+                $("#userCheckText").text("请填写用户名");
+            } else if ( !$("#tbxUserName").val().match(regFilter) ) {
+                $('#userCheck').addClass('chkError');
+                $("#userCheckText").text("格式错误");
+            } else if ( !agreeLic.val() ) {
+                $('#userCheck').addClass('chkError');
+
+                $("#userCheckText").text("请同意协议");
+            } else {
+                $('#usernameConf').text($("#tbxUserName").val());
+                $('#userCheck').hide();
+                $("#userCheckText").text("");
+                $('.main-reg').toggle();
+                $('.main-psw').toggle();
+            }
+        }
+    }
 
 
     //注册名选择方法
@@ -142,47 +176,47 @@ $(document).ready(function () {
                 }
             }
         )
-        $("#userConfirmBack").bind("click",
-            function(){
-                $('.main-reg').toggle();
-                $('.main-psw').toggle();
-            }
-        )
+        //$("#userConfirmBack").bind("click",
+        //    function(){
+        //        $('.main-reg').toggle();
+        //        $('.main-psw').toggle();
+        //    }
+        //)
     }
     regChang();
 
 
-    var regOrLogin = function () {
-        $('.doReg').click(
-            function () {
-                return;
-                $('.wrap-login').animate(
-                    {
-                        top: -50 + '%'
-                    },
-                    1000, false);
-                $('.wrap-reg').animate(
-                    {
-                        top: 50 + '%'
-                    },
-                    1000, false)
-            });
-
-        $('.doLogin').click(
-            function () {
-                return;
-                $('.wrap-login').animate(
-                    {
-                        top: 50 + '%'
-                    },
-                    1000, false);
-                $('.wrap-reg').animate(
-                    {
-                        top: 150 + '%'
-                    },
-                    1000, false)
-            });
-    }
-    regOrLogin();
+    //var regOrLogin = function () {
+    //    $('.doReg').click(
+    //        function () {
+    //            return;
+    //            $('.wrap-login').animate(
+    //                {
+    //                    top: -50 + '%'
+    //                },
+    //                1000, false);
+    //            $('.wrap-reg').animate(
+    //                {
+    //                    top: 50 + '%'
+    //                },
+    //                1000, false)
+    //        });
+    //
+    //    $('.doLogin').click(
+    //        function () {
+    //            return;
+    //            $('.wrap-login').animate(
+    //                {
+    //                    top: 50 + '%'
+    //                },
+    //                1000, false);
+    //            $('.wrap-reg').animate(
+    //                {
+    //                    top: 150 + '%'
+    //                },
+    //                1000, false)
+    //        });
+    //}
+    //regOrLogin();
 
 });
