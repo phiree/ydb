@@ -38,7 +38,8 @@ public class ResponseVCM001003 : BaseResponse
                 RespDataVCM001002_Cashticket cash_adapted = new RespDataVCM001002_Cashticket().Adap(ticket);
                 respData.vcsObj = cash_adapted;
 
-                this.RespData = JsonConvert.SerializeObject(respData);
+                this.RespData = respData ;
+               
                 this.state_CODE = Dicts.StateCode[0];
 
             }

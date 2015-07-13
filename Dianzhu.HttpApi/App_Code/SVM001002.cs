@@ -61,7 +61,7 @@ public class ResponseSVM001002 : BaseResponse
 
                 respData.AdapList(orderList);
 
-                this.RespData = JsonConvert.SerializeObject(respData);
+                this.RespData = respData ;
                 this.state_CODE = Dicts.StateCode[0];
 
             }

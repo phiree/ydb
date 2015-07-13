@@ -58,7 +58,7 @@ public class ResponseSVM001003 : BaseResponse
                 RespDataSVM001003_Order order_adapted = new RespDataSVM001003_Order().Adap(order);
                 respData.srvObj = order_adapted;
 
-                this.RespData = JsonConvert.SerializeObject(respData);
+                this.RespData =  respData ;
                 this.state_CODE = Dicts.StateCode[0];
 
             }

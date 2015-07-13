@@ -73,7 +73,7 @@ public class ResponseUSM001003 : BaseResponse
             }
             p.UpdateDZMembership(member);
             this.state_CODE = Dicts.StateCode[0];
-            this.RespData = JsonConvert.SerializeObject(new RespDataUSM001003().Adapt(memberForSerialize), new JsonSerializerSettings {  DefaultValueHandling= DefaultValueHandling.Ignore});
+            this.RespData = new RespDataUSM001003().Adapt(memberForSerialize) ;
         }
         catch (Exception e)
         {

@@ -55,7 +55,7 @@ public class ResponseUSM001004 : BaseResponse
     public override string BuildJsonResponse()
     {
 
-        return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+        return JsonConvert.SerializeObject(this, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
     }
 }
 

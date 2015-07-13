@@ -47,7 +47,7 @@ public class ResponseSVM001001 : BaseResponse
                
                 int rowCount = bllServiceOrder.GetServiceOrderCount(uid,searchType);
                 RespDataSVM001001 respData=new RespDataSVM001001{ sum=rowCount.ToString()};
-                this.RespData = JsonConvert.SerializeObject(respData);
+                this.RespData =  respData ;
                 this.state_CODE = Dicts.StateCode[0];
                 
             }

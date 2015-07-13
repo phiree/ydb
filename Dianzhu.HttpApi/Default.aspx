@@ -31,7 +31,7 @@
                             data:data_str, 
                             async:false,
                             success:function (result) {
-                                apiTest.writelog("请求:" + data_str + ":<br/>------返回值" + JSON.stringify(result)+"<hr/>");
+                                apiTest.writelog("请求:<br/><pre>" + data_str + "</pre><br/>返回值:<br/><pre>" + JSON.stringify(result,null,4) + "</pre><hr/>");
                                 },//success
                             error:function(errmsg)
                             {
@@ -42,7 +42,7 @@
                 }//for
        },//begin
     writelog:function(msg){
-        $("#dvResults").append(msg+"<br/>");
+        $("#dvResults").append(msg);
     }//writelog
 };//apitest
  
