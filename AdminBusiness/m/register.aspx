@@ -6,10 +6,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div data-role="page" id="regpage" data-theme="mya" data-title="会员注册" style="background: none;">
+      <form method="post" action="" enctype="multipart/form-data"  onsubmit="goRegOk()">
         <div class="main-content">
             <div class="main-logo">
                 <div class="logo-inco">
-                    <img src="images/logo-2.png" width="100%" /></div>
+                    <img src="images/shop_icon_002.png" width="100%" /></div>
                 <p style="text-align: center;">
                     欢迎来到点助商户会员注册页面开启移动智能O2O新历程</p>
             </div>
@@ -39,33 +40,7 @@
             </div>
             <div style="display:none">
            <asp:TextBox runat="server" ID="tbxUserName" ClientIDMode="Static"></asp:TextBox></div>
-            <div style="width: 100%; height: 60.375px; line-height: 60.375px; position: relative;
-                top: 20px;">
-                <input type="checkbox" name="agree" id="agree" value="agree" checked data-inline="true" />
-                <span style="left: 30px; top: -32px; position: absolute; font-size: 12px;">我已经仔细阅读过点助服务协议,并同意所有条款。
-                </span>
-                <div id="agreetxt" class="erroTxt"></div>
-            </div>
-            <a data-role="button" href="#" onclick="regNextvalid();"id="btn_next" target="_top" data-transition="slideup">
-                下一步</a>
-            <br />
-            <a href="login.aspx" target="_top" data-transition="slidedown" class="my-a-2">返回登录页</a>
-        </div>
-    </div>
-    <div data-role="page" style="background: none;" id="okpage" data-theme="mya" data-title="会员注册密码确认">
-        <div class="main-content">
-            <div class="main-logo">
-                <div class="logo-inco">
-                    <img src="images/logo-2.png" width="100%" /></div>
-                <p style="text-align: center;">
-                    欢迎来到点助商户会员注册页面开启移动智能O2O新历程</p>
-            </div>
-            <br />
-            <p>
-                登录名 <span id="rs_username"></span></p>
-            <p>
-                设置登录密码 此密码可以登录点助</p>
-            <form method="post" action="" enctype="multipart/form-data"  onsubmit="goRegOk()">
+          
             <label for="login-pwd">
                 登录密码：</label>
             <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password" onBlur="valPwdBlur('#regPs','#vregPwdTxt1')"></asp:TextBox>
@@ -75,16 +50,29 @@
             <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"  onBlur="valPwdBlur('#regPsConf','#vregPwdTxt2')"></asp:TextBox>
              <span id="vregPwdTxt2" class="erroTxt"></span>
             <br />
-             <asp:Button runat="server" ID="regPsSubmit" ClientIDMode="Static" OnClientClick="return vregPwdFun()" OnClick="regPsSubmit_OnClick"
+              <div style="width: 100%; height: 60.375px; line-height: 60.375px; position: relative;
+                ">
+                <input type="checkbox" name="agree" id="agree" value="agree" checked data-inline="true" />
+                <span style="left: 30px; top: -32px; position: absolute; font-size: 12px;">我已经仔细阅读过点助服务协议,并同意所有条款。
+                </span>
+                <div id="agreetxt" class="erroTxt"></div>
+            </div>
+             <asp:Button runat="server" ID="Button1" ClientIDMode="Static" OnClientClick="return vregPwdFun()" OnClick="regPsSubmit_OnClick"
                                    Text="确定"      CssClass="regBtn" />
-            </form>
+            
+            <br />
+            <span id="Span3">
+            <a href="login.aspx" target="_top" data-transition="slidedown" class="my-a-2">返回登录页</a>
+           
         </div>
+          </form>
     </div>
+    
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="bottom" runat="Server">
     <script type="text/javascript">
 
-       
+
         $(document).ready(function () {
             $("#email-div").css("display", "none");
             $("#iphone-div").css("display", "block");
@@ -101,13 +89,16 @@
                         if (result == "Y") {
                             //如果同名,阻止跳转下一步
                             $("#btn_next").attr("href", "#");
-                            $(that).parent().append("<span>重名</span>");
-                            
+
+                            $("#vregEmailtxt").html("重名");
+                            $("#vregPhonetxt").html("重名");
+                            //  $(that).parent().append("<span></span>");
+
                         }
                         else {
                             $("#tbxUserName").val(username);
                             $("#rs_username").text(username);
-                           // $("#btn_next").attr("href", "#okpage");
+                            // $("#btn_next").attr("href", "#okpage");
                         }
                     },
                     async: false

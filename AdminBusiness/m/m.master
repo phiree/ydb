@@ -134,11 +134,14 @@
                   $("#email-div").css("display", "block");
                   $("#iphone-div").css("display", "none");
                   $("#iphone").val("");
+                  $("#vregEmailtxt").html("");
+                
                   return true;
               } else {
                   $("#email-div").css("display", "none");
                   $("#iphone-div").css("display", "block");
                   $("#email").val("");
+                  $("#vregPhonetxt").html("");
                   return false;
               }
 
@@ -282,7 +285,7 @@
                        
                         if (isAgreechecked) {
 
-                            location.href = "#okpage";
+                           // location.href = "#okpage";
                             return true;
                         } else {
 
@@ -309,7 +312,7 @@
                   }
                   if (validatemobile("#iphone", "#vregPhonetxt")) {
                       if (isAgreechecked) {
-                          location.href = "#okpage";
+                        //  location.href = "#okpage";
                       } else {
                           $("#agreetxt").html("您还没同意条款"); 
                       }
@@ -327,7 +330,7 @@
           点击注册输入密码时按确定时验证
           **/
           function vregPwdFun() {
-              if (valPwdBlur('#regPs', '#vregPwdTxt1') && valPwdBlur('#regPsConf', '#vregPwdTxt2')) {
+              if (regNextvalid()&&valPwdBlur('#regPs', '#vregPwdTxt1') && valPwdBlur('#regPsConf', '#vregPwdTxt2')) {
               
                   return true;
               } else {

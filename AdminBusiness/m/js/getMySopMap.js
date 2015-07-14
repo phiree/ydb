@@ -9,18 +9,11 @@
     console.log(map.getCenter());
     map.enableScrollWheelZoom();
     map.clearOverlays();    //清除地图上所有覆盖物
-
-    map.addEventListener("tilesloaded", function (e) {
-        //  var point = new BMap.Point(116.404, 39.915);
-        // var marker = new BMap.Marker(point);
-        //   map.addOverlay(marker);
-        //$("#businessID-button").css("display","none");
-        $("#city-container .ui-select:eq(3)").css("display", "none");
-      //  $("#city-container .ui-select:eq(3)").p
-
-    });
     $(document).on("pageshow", "#secondview", function () {
         defaultSetPoint();
+        $("#city-container .ui-select:eq(0) select").attr("data-inline", "true");
+        $("#city-container .ui-select:eq(3)").css("display", "none");
+
     });
     function defaultSetPoint (){
         if ($('#hiAddrId').attr("value")) {
