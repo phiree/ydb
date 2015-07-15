@@ -8,7 +8,7 @@ CodeFile="~/login.aspx.cs" Inherits="login" %>
 <div data-role="page" id="loginpage" data-theme="mya"  data-title="登录" style=" background:none;" >
     <div class="main-content">
        <div class="main-logo">
-               <div class="logo-inco"><img src="images/logo.png" width="100%"/></div>
+               <div class="logo-inco"><img src="images/shop_icon_001.png" width="100%"/></div>
              <p style=" text-align:center;" data-theme="mya">解决万事找对点，一切帮你妥妥办让你生活有变化</p>
              
        </div>
