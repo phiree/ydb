@@ -106,9 +106,9 @@ html,body {
     font-size: 20px;
 }
 
-.reg-user-l {
-    height: 300px;
-}
+/*.reg-user-l {*/
+    /*height: 300px;*/
+/*}*/
 
 /*登录页面内容*/
 .conLogin .date {
