@@ -17,25 +17,30 @@
                     <form id="form1" runat="server">
                     <div class="conReg">
                         <div class="conLogo">
-                            <div class="logo-l">
-                                <p>
-                                    欢迎来到点助商户会员注册页面<br />
+                            <div class="logo">
+                                <div class="logo-title-l"></div>
+                                <div class="logo-title-r">
+                                    <img src="image/login_reg/zhuce_2.png" alt="logo" />
+                                </div>
+
+
+                            </div>
+                            <div>
+                                <div class="logo-title-l">
+                                    <p>欢迎来到点助商户会员注册页面<br />
                                     开启移动智能O2O新历程</p>
-                            </div>
-                            <div class="logo-r">
-                                <div class="logo regLogo">
-                                        <img src="image/login_reg/zhuce_2.png" alt="logo" />
                                 </div>
-                                <div class="logoTitle">
+                                <div class="logo-title-r">
+                                    <i class="icon logoTitle"></i>
                                 </div>
                             </div>
+
                         </div>
                         <div class="conMain main-reg clearfix">
                             <div class="reg-box">
-
                                 <div class="reg-box-userName">
-                                    <div class="box-l"><p>注册帐号</p></div>
-                                    <div class="box-r">
+                                    <div class="reg-box-l"><p>注册帐号</p></div>
+                                    <div class="reg-box-r">
                                         <div class="reg-input">
                                             <asp:TextBox runat="server" CssClass="regUserName" ID="tbxUserName" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
                                             <i class="checkIcon"></i>
@@ -43,8 +48,8 @@
                                     </div>
                                 </div>
                                 <div class="reg-box-pass">
-                                    <div class="box-l"><p>登录密码</p></div>
-                                    <div class="box-r">
+                                    <div class="reg-box-l"><p>登录密码</p></div>
+                                    <div class="reg-box-r">
                                         <div class="reg-input">
                                             <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password"></asp:TextBox>
                                             <i class="checkIcon"></i>
@@ -52,8 +57,8 @@
                                     </div>
                                 </div>
                                 <div class="reg-box-passConf">
-                                    <div class="box-l"><p>确认密码</p></div>
-                                    <div class="box-r">
+                                    <div class="reg-box-l"><p>确认密码</p></div>
+                                    <div class="reg-box-r">
                                         <div class="reg-input">
                                             <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"></asp:TextBox>
                                             <i class="checkIcon"></i>
@@ -73,13 +78,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="conMain main-psw clearfix">
-                            <div class="box-l">
-                            </div>
-                            <div class="box-r">
-                                <%--<iframe name="uploadForm1" style="display: none"></iframe>--%>
                             </div>
                         </div>
                     </div>
