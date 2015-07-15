@@ -10,10 +10,6 @@ $(document).ready(function () {
         var user_warn_element = document.createElement("div");
         var user_warn_text = document.createTextNode("");
 
-        var user_right = false,
-            pass_right = false,
-            pass_conf_right = false,
-            agree_right = false;
 
         $(user_warn_element).addClass("err_msg");
         $user_name_box.parent().append(user_warn_element);
@@ -46,9 +42,9 @@ $(document).ready(function () {
                 user_warn_text = "用户名已存在";
                 $(user_warn_element).text(user_warn_text);
             } else {
-                user_right = true;
                 chkIconAnm(false, true, $_checkIcon);
                 $(user_warn_element).hide();
+                return true;
             }
         };
 
@@ -92,22 +88,15 @@ $(document).ready(function () {
             var _pass_value = $pass_box.val();
             var $_checkIcon = $pass_box.parent().find(".checkIcon");
             if ( !_pass_value ){
-                if ( eve.type == "input" || eve.type == "propertychange" ){
                     chkIconAnm(true, false , $_checkIcon);
                     $(pass_warn_element).hide();
-                } else {
-                    chkIconAnm(false, false , $_checkIcon);
-                    $(pass_warn_element).show();
-                    pass_warn_text = "密码不符合要求，要求6-20个字符";
-                    $(pass_warn_element).text(pass_warn_text);
                     ruleR = false;
-                }
             } else {
                 if (( _pass_value.length >= 6 ) && ( _pass_value.length <= 20 ) && pass_rule.test( _pass_value ) ) {
-                    pass_right = true;
                     chkIconAnm(false, true, $_checkIcon);
                     $(pass_warn_element).hide();
                     ruleR = true;
+                    return true;
                 } else {
                     chkIconAnm(false, false, $_checkIcon);
                     $(pass_warn_element).show();
@@ -127,15 +116,20 @@ $(document).ready(function () {
             if ( !ruleR ) {
                 chkIconAnm(true, false, $_checkIcon);
             } else {
-                if (_pass_conf_value == $pass_box.val()) {
-                    pass_conf_right = true;
-                    chkIconAnm(false, true, $_checkIcon);
+                if ( !_pass_conf_value ) {
+                    chkIconAnm(true, false, $_checkIcon);
                     $(pass_conf_warn_element).hide();
                 } else {
-                    chkIconAnm(false, false, $_checkIcon);
-                    $(pass_conf_warn_element).show();
-                    pass_conf_warn_text = "两次密码不一致";
-                    $(pass_conf_warn_element).text(pass_conf_warn_text);
+                    if ( _pass_conf_value == $pass_box.val() ) {
+                        chkIconAnm(false, true, $_checkIcon);
+                        $(pass_conf_warn_element).hide();
+                        return true;
+                    } else {
+                        chkIconAnm(false, false, $_checkIcon);
+                        $(pass_conf_warn_element).show();
+                        pass_conf_warn_text = "两次密码不一致";
+                        $(pass_conf_warn_element).text(pass_conf_warn_text);
+                    }
                 }
             }
         };
@@ -146,7 +140,6 @@ $(document).ready(function () {
         var $agree_LIC =  $('input[name="agreeLic"]:checkbox');
         if ( $agree_LIC.get(0) ) {
             $agree_LIC.get(0).checked = true;
-            agree_right = true;
         }
 
         var agree_warn_element = document.createElement("div");
@@ -157,15 +150,14 @@ $(document).ready(function () {
         $(agree_warn_element).hide();
 
         var agreeCheck = function() {
-            //console.log($agree_LIC.get(0).checked);
-            if (!$agree_LIC.get(0).checked) {
+            if ( !$agree_LIC.get(0).checked ) {
                 agree_warn_text = "请仔细阅读协议，同意协议条例方可可注册。";
                 $(agree_warn_element).text(agree_warn_text);
                 $(agree_warn_element).show();
-                agree_right = false;
+
             } else {
                 $(agree_warn_element).hide();
-                agree_right = true;
+                return true;
             }
         };
 
@@ -177,11 +169,7 @@ $(document).ready(function () {
 
         $reg_submit.click(function(eve){
             var e = eve || window.event;
-            userNameCheck();
-            passCheck();
-            passConfCheck();
-            agreeCheck();
-            if ( user_right && pass_right && pass_conf_right && agree_right ) {
+            if ( userNameCheck() && passCheck() && passConfCheck() && agreeCheck() ) {
                 return true;
             } else {
                 e.preventDefault();

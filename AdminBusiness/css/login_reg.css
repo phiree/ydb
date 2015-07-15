@@ -343,13 +343,13 @@ html,body {
     *display: inline;
 }
 
-.selectdiv { width: 170px; margin-bottom: 10px; display: inline-block; }
-.selectMeth { position: relative; z-index: 999; background: #fff; font-size: 15px; border-radius: 2px; border: 1px; }
-.selectMeth cite{ width:170px;height:40px; line-height: 40px; display:block; color: #aaa;font-style: normal; cursor:pointer; text-indent:10px; }
-.selectMeth ul { list-style: none; width: 170px; background-color: #ffffff; position: absolute; z-index: 1000; display: none; }
-.selectMeth ul li { height:40px; line-height: 40px; border-bottom: 1px solid #ccc; }
-.selectMeth ul li a { display: block; height: 40px; color: #aaa; text-decoration: none; text-indent: 10px; }
-.selectMeth ul li a:hover { background-color: #eee; }
+/*.selectdiv { width: 170px; margin-bottom: 10px; display: inline-block; }*/
+/*.selectMeth { position: relative; z-index: 999; background: #fff; font-size: 15px; border-radius: 2px; border: 1px; }*/
+/*.selectMeth cite{ width:170px;height:40px; line-height: 40px; display:block; color: #aaa;font-style: normal; cursor:pointer; text-indent:10px; }*/
+/*.selectMeth ul { list-style: none; width: 170px; background-color: #ffffff; position: absolute; z-index: 1000; display: none; }*/
+/*.selectMeth ul li { height:40px; line-height: 40px; border-bottom: 1px solid #ccc; }*/
+/*.selectMeth ul li a { display: block; height: 40px; color: #aaa; text-decoration: none; text-indent: 10px; }*/
+/*.selectMeth ul li a:hover { background-color: #eee; }*/
 
 .logReg-a { color: #fff; }
 .logReg-a:visited{ color: #fff; }
