@@ -217,4 +217,14 @@ $(document).ready(function () {
 
     regCheck();
 
+    var today = function(){
+        var $date = $(".date");
+        var now = document.createElement("span");
+        var nowDate = new Date();
+
+        $(now).text( nowDate.getFullYear() + " 年 " + ( nowDate.getMonth() + 1 )  + " 月 " + nowDate.getDate() + " 号 " );
+        $date.append(now);
+    };
+    today();
+
 });

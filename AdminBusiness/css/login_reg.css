@@ -243,6 +243,13 @@ html,body {
     padding-top: 10px;
 }
 
+.login_err_msg {
+    color: #DF7081;
+    font-size: 13px;
+    line-height: 1.2em;
+    margin-bottom: 10px;
+}
+
 .doReg img,
 .doLogin img {
     cursor: pointer;

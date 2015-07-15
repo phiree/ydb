@@ -46,7 +46,7 @@
                             </div>
                             <div class="box-r">
                                 <p class="date">
-                                    四月 08 , 2015</p>
+                                    </p>
                                 <div class="clearfix">
                                     <p class="username">
                                         <label class="usernameIcon" for="tbxUserName">
@@ -68,7 +68,7 @@
                                     <p class="savePass">
                                         <input runat="server" id="savePass" type="checkbox" /><label for="savePass">记住密码</label></p>
                                 </div>
-                                <div class="err_msg" >
+                                <div class="login_err_msg" >
                                 <asp:Label runat="server" ID="lblMsg"></asp:Label>
                                 </div>
                                 <!--<p id="testAjax"></p>-->
