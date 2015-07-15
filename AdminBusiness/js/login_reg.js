@@ -16,6 +16,9 @@ $(document).ready(function () {
         $(user_warn_element).hide();
 
 
+        /**
+         * 用户验证函数
+         */
         var userNameCheck = function(){
             var _user_name = $user_name_box.val();
             var $_checkIcon = $user_name_box.parent().find(".checkIcon");
@@ -48,6 +51,10 @@ $(document).ready(function () {
             }
         };
 
+        /**
+         * AJAX验证用户是否存在函数
+         * @param {string}  用户名
+         */
         var userNameDupChk = function(username){
 
             var dup_ajax = $.ajax({
@@ -83,6 +90,10 @@ $(document).ready(function () {
         $(pass_warn_element).hide();
         $(pass_conf_warn_element).hide();
 
+
+        /**
+         * 密码规则验证函数
+         */
         var passCheck = function (e) {
             var eve = e || window.event;
             var _pass_value = $pass_box.val();
@@ -107,7 +118,9 @@ $(document).ready(function () {
             }
         };
 
-
+        /**
+         * 确认密码验证函数
+         */
         var passConfCheck = function(){
             var _pass_conf_value = $pass_conf_box.val();
             var $_checkIcon = $pass_conf_box.parent().find(".checkIcon");
@@ -149,6 +162,7 @@ $(document).ready(function () {
         $agree_LIC.parent().append(agree_warn_element);
         $(agree_warn_element).hide();
 
+
         var agreeCheck = function() {
             if ( !$agree_LIC.get(0).checked ) {
                 agree_warn_text = "请仔细阅读协议，同意协议条例方可可注册。";
@@ -176,9 +190,15 @@ $(document).ready(function () {
             }
         });
 
+        /**
+         * 注册框旁边图标动画函数
+         * @param {boolean}  是否隐藏icon
+         * @param {boolean}  是否符合条件
+         * @param {jquery object}  图标jquery对象
+         */
         var chkIconAnm = function (hide, jdg, icon) {
-            var _hide = hide;// 隐藏标志
-            var _judge = jdg;// 是否符合条件
+            var _hide = hide;//
+            var _judge = jdg;//
             var $_icon = icon;// 图标对象
 
 
