@@ -20,16 +20,20 @@
                     <form id="form1" runat="server">
                     <div class="conLogin">
                         <div class="conLogo clearfix">
-                            <div class="logo-l">
-                                <p>
-                                    解决万事找对点，一切帮你妥妥办<br />
-                                    让你生活有变化</p>
-                            </div>
-                            <div class="logo-r">
-                                <div class="logo">
+                            <div class="logo">
+                                <div class="logo-title-l"></div>
+                                <div class="logo-title-r">
                                     <img src="image/login_reg/icon_1.png" alt="logo" />
                                 </div>
-                                <div class="logoTitle">
+                            </div>
+                            <div>
+                                <div class="logo-title-l">
+                                    <p>
+                                        解决万事找对点，一切帮你妥妥办<br />
+                                        让你生活有变化</p>
+                                </div>
+                                <div class="logo-title-r">
+                                    <i class="icon logoTitle"></i>
                                 </div>
                             </div>
                         </div>

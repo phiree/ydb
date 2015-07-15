@@ -45,34 +45,57 @@ html,body {
 
 /*logo内容*/
 .conLogo {
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
-.logo-l {
+.logo {
+    margin-bottom: 20px;
+}
+
+/*.logo-l {*/
+    /*display: inline-block;*/
+    /*width: 300px;*/
+    /*margin-right: 70px;*/
+    /*font-size: 20px;*/
+    /*vertical-align: bottom;*/
+    /**display:inline;*/
+    /**zoom:1;*/
+/*}*/
+
+/*.logo-l p{*/
+    /*text-align: right;*/
+    /*line-height: 1.8em;*/
+/*}*/
+
+/*.logo-r {*/
+    /*display: inline-block;*/
+    /**zoom:1;*/
+    /**display:inline;*/
+/*}*/
+
+.logo-title-l {
     display: inline-block;
+    text-align: right;
     width: 300px;
     margin-right: 70px;
     font-size: 20px;
-    vertical-align: bottom;
+    vertical-align: middle;
     *display:inline;
     *zoom:1;
 }
 
-.logo-l p{
-    text-align: right;
-    line-height: 1.8em;
-}
-
-.logo-r {
+.logo-title-r {
+    width: 200px;
+    text-align: center;
     display: inline-block;
     *zoom:1;
     *display:inline;
+    vertical-align: middle;
 }
 
 .logoTitle {
-    width: 126px;
-    height: 89px;
-    margin-top: 15px;
+    width: 189px;
+    height: 56px;
     background:url("../image/login_reg/dianzhu_03.png") no-repeat center;
 }
 
@@ -205,6 +228,21 @@ html,body {
 }
 
 .loginBox { width: 300px; margin-bottom: 10px; }
+
+.reg-box-l {
+    float: left;
+    text-align: right;
+    width: 300px;
+    height: 40px;
+    line-height: 40px;
+    margin-right: 70px;
+    font-size: 17px;
+}
+.reg-box-r {
+    width: 430px;
+    float: left;
+    font-size: 20px;
+}
 
 .loginBtn {
     cursor: pointer;
