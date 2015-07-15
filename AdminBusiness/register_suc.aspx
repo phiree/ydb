@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title></title>
+    <link rel="Stylesheet" href="/css/base.css" type="text/css" />
     <link rel="Stylesheet" href="css/login_reg.css" type="text/css" />
 </head>
 <body>
@@ -33,7 +34,7 @@
                      
                         <div class="conMain main-done clearfix">
                             <div class="regComp">
-                                <img src="image/login_reg/zhengque_1.png"><span>恭喜你<br />
+                                <i class="icon icon-regComp"></i><span>恭喜你<br />
                                     已经注册成为点助会员</span>
                             </div>
                             <div class="buttonBox t-c">
@@ -51,6 +52,6 @@
         </div>
     </div>
 </body>
-<script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min"></script>
-<script src="js/login_reg.js" type="text/javascript"></script>
+<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
+<!--<script src="js/login_reg.js" type="text/javascript"></script>-->
 </html>

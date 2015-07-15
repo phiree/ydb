@@ -31,42 +31,48 @@
                             </div>
                         </div>
                         <div class="conMain main-reg clearfix">
-                            <div class="reg-user-l box-l">
-                                <p>注册帐号</p>
-                                <p>登录密码</p>
-                                <p>确认密码</p>
-                            </div>
-                            <div class="box-r">
-                                <div class="emailBox m-b10">
-                                    <asp:TextBox runat="server" ID="tbxUserName" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
-                                     <i id="userCheck" class="checkIcon"></i><span id="userCheckText" class="regWarnTexti"></span>
+                            <div class="reg-box">
+
+                                <div class="reg-box-userName">
+                                    <div class="box-l"><p>注册帐号</p></div>
+                                    <div class="box-r">
+                                        <div class="reg-input">
+                                            <asp:TextBox runat="server" CssClass="regUserName" ID="tbxUserName" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
+                                            <i class="checkIcon"></i>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!--<p class="rPage" id="usernameConf"></p>-->
-                                <div class="regPs">
-                                    <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password"></asp:TextBox>
-                                    <i id="psChk" class="checkIcon"></i>
-                                    <div id="passCheckText" class="regWarnText dis-n">密码不符合要求，要求6-20个字符</div>
+                                <div class="reg-box-pass">
+                                    <div class="box-l"><p>登录密码</p></div>
+                                    <div class="box-r">
+                                        <div class="reg-input">
+                                            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password"></asp:TextBox>
+                                            <i class="checkIcon"></i>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="regPsConf">
-                                    <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"></asp:TextBox>
-                                    <i id="psConfChk" class="checkIcon"></i>
-                                    <div id="passConfText" class="regWarnText dis-n">两次密码不一致</div>
+                                <div class="reg-box-passConf">
+                                    <div class="box-l"><p>确认密码</p></div>
+                                    <div class="box-r">
+                                        <div class="reg-input">
+                                            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"></asp:TextBox>
+                                            <i class="checkIcon"></i>
+                                        </div>
+                                        <div>
+                                            <div class="agree">
+                                                <input id="agreeLic" name="agreeLic" type="checkbox" value="yes" /><label class="v-m m-l10" for="agreeLic">我已经仔细阅读过《<a
+                                                    class="agreeLIC-a" href="#">点助服务协议</a>》，并同意所有条款。</label>
+                                            </div>
+                                            <div class="buttonBox">
+                                                <asp:Button runat="server" ID="regPsSubmit"  ClientIDMode="Static" OnClick="regPsSubmit_OnClick"
+                                                    CssClass="regBtn" />
+                                            </div>
+                                            <div class="doLogin">
+                                                <a class="logReg-a" href="login.aspx"><img src="image/login_reg/back_2.png">返回登录</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p class="agree">
-                                    <input id="agreeLic" name="agreeLic" type="checkbox" value="yes" /><label class="v-m m-l10" for="agreeLic">我已经仔细阅读过《<a
-                                        class="agreeLIC-a" href="#">点助服务协议</a>》，并同意所有条款。</label></p>
-                                <!--<div class="buttonBox">-->
-                                    <!--<input id="userConfirm"  type="button" class="regBtn"/>-->
-                                <!--</div>-->
-                                <div class="buttonBox">
-                                    <!--<input type="button" id="userConfirmBack" class="userConfirm-Back"/>-->
-                                    <asp:Button runat="server" ID="regPsSubmit" onClientClick="javascipt:return false;" ClientIDMode="Static" OnClick="regPsSubmit_OnClick"
-                                        CssClass="regBtn" />
-                                </div>
-                                <p class="doLogin">
-                                    <a class="logReg-a" href="login.aspx">
-                                        <img src="image/login_reg/back_2.png">返回登录</a>
-                                </p>
                             </div>
                         </div>
                         <div class="conMain main-psw clearfix">
@@ -79,8 +85,6 @@
                     </div>
                     </form>
                 </div>
-            </div>
-            <div class="conReg">
             </div>
         </div>
         <div class="footer">
