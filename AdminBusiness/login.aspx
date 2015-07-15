@@ -51,7 +51,7 @@
                             <div class="box-r">
                                 <p class="date">
                                     </p>
-                                <div class="clearfix">
+                                <!--<div class="clearfix">-->
                                     <p class="username">
                                         <label class="usernameIcon" for="tbxUserName">
                                             <i class="icon"></i>
@@ -59,7 +59,7 @@
                                         <asp:TextBox runat="server" ID="tbxUserName"></asp:TextBox>
                                     </p>
                                     <!--<i id="userCheck" class="f-l"></i>-->
-                                </div>
+                                <!--</div>-->
                                 <p class="password">
                                     <label class="passwordIcon" for="tbxPassword">
                                         <i class="icon"></i>

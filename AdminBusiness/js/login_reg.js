@@ -165,7 +165,7 @@ $(document).ready(function () {
 
         var agreeCheck = function() {
             if ( !$agree_LIC.get(0).checked ) {
-                agree_warn_text = "请仔细阅读协议，同意协议条例方可可注册。";
+                agree_warn_text = "请仔细阅读协议，同意协议条例方可注册。";
                 $(agree_warn_element).text(agree_warn_text);
                 $(agree_warn_element).show();
 
