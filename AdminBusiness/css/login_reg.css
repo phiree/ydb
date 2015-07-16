@@ -3,6 +3,31 @@ html,body {
     height: 100%;
 }
 
+/*输入框动画效果*/
+
+input[type="text"]:focus,input[type="password"]:focus {
+    box-shadow: 0 0 4px 4px #55abdc;
+    -webkit-animation-name: breath;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+}
+
+@-webkit-keyframes breath {
+    0% {
+        box-shadow: 0 0 1px 1px #55abdc;
+    }
+    50% {
+        box-shadow: 0 0 4px 4px #55abdc;
+    }
+    100% {
+        box-shadow: 0 0 1px 1px #55abdc;
+    }
+}
+
+
 .reg-wrap {
     height: 100%;
     background: url("../image/login_reg/bg_1.jpg") no-repeat center;
@@ -142,7 +167,7 @@ html,body {
 .username,
 .password {
     width: 300px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     background: #fff;
     border-radius: 2px;
     border: 1px;
@@ -151,7 +176,7 @@ html,body {
 }
 
 .usernameIcon,
-.passwordIcon { display: block; width: 40px; height: 40px; float: left; position: absolute; left: 0 ; right: 0; z-index: 2;}
+.passwordIcon { display: block; width: 40px; height: 40px; border-radius: 2px; float: left; position: absolute; left: 0 ; right: 0; z-index: 2;}
 
 .usernameIcon i { width: 40px; height: 40px;  background: url("../image/login_reg/shop_user_01.png") no-repeat left; }
 .passwordIcon i { width: 40px; height: 40px;  background: url("../image/login_reg/shop_user_02.png") no-repeat left; }
@@ -162,8 +187,9 @@ html,body {
     /*background: #fff;*/
     display: inline-block;
     width: 250px;
-    padding: 10px 10px 10px 40px;
     height: 20px;
+    padding: 10px 10px 10px 40px;
+    border-radius: 2px;
     line-height: 20px;
     border: 1px;
     font-size: 15px;
@@ -332,7 +358,7 @@ html,body {
 }
 
 .reg-input {
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin-bottom: 10px;
 }
 
