@@ -40,19 +40,22 @@
             </div>
             <div style="display:none">
            <asp:TextBox runat="server" ID="tbxUserName" ClientIDMode="Static"></asp:TextBox></div>
-          
+            <div class="pwd-div">
             <label for="login-pwd">
                 登录密码：</label>
             <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password" onBlur="valPwdBlur('#regPs','#vregPwdTxt1')"></asp:TextBox>
              <span id="vregPwdTxt1" class="erroTxt"></span>
+             </div>
+             <div class="rpwd-div">
             <label for="login-rpwd">
                 确认密码：</label>
             <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"  onBlur="valPwdBlur('#regPsConf','#vregPwdTxt2')"></asp:TextBox>
              <span id="vregPwdTxt2" class="erroTxt"></span>
+             </div>
             <br />
               <div style="width: 100%; height: 60.375px; line-height: 60.375px; position: relative;
                 ">
-                <input type="checkbox" name="agree" id="agree" value="agree" checked data-inline="true" />
+                <input type="checkbox" onchange="mycheckbo()" name="agree" id="agree" value="agree" data-inline="true" />
                 <span style="left: 30px; top: -32px; position: absolute; font-size: 12px;">我已经仔细阅读过点助服务协议,并同意所有条款。
                 </span>
                 <div id="agreetxt" class="erroTxt"></div>

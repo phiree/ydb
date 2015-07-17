@@ -14,9 +14,9 @@ CodeFile="~/login.aspx.cs" Inherits="login" %>
        </div>
        <br/>
      
-        <p><span id="vUserName" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxUserName" Text="用户邮箱/手机号" onFocus="myFocus(this)"  onBlur="myBlur(this,'#vUserName')" ></asp:TextBox> <input type="hidden" id="vuserid"/></p>      
+        <p><span id="vUserName" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxUserName"  onFocus="myFocus(this)"  onBlur="myBlur(this,'#vUserName')" ></asp:TextBox> <input type="hidden" id="vuserid"/></p>      
        
-        <p><span id="vPassword" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxPassword" TextMode="Password"  onBlur="valPwdBlur(this,'#vPassword')"></asp:TextBox><input type="hidden" id="vpwdid"/>
+        <p><span id="vPassword" class="erroTxt"></span>  <asp:TextBox runat="server" ID="tbxPassword" TextMode="Password"  onFocus="valPwdFocus(this)" onBlur="mydlpwdBlur(this,'#vPassword')"></asp:TextBox><input type="hidden" id="vpwdid"/>
                                </p>
       <div class="ui-grid-a">  
          <div class="ui-block-a">
@@ -30,7 +30,7 @@ CodeFile="~/login.aspx.cs" Inherits="login" %>
       </div>
       <asp:Label ForeColor="Red" runat="server" ID="lblMsg"></asp:Label>
       <br/>
-      <a href="/m/register.aspx" target="_top" data-transition="slideup"  class="my-a">会员注册</a>
+      <a href="/m/register.aspx" target="_top" data-transition="slideup"  class="my-a-n">新会员注册</a>
   
      
      
