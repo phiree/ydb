@@ -1,7 +1,19 @@
 ﻿var Chat =
 { pending_subscriber: null,
-    server:"@yuanfei-pc",
+    server: "@yuanfei-pc",
     connection: null,
+    file_type: [{ 'name': 'image', 'ext': ["jpg", "jpeg", "bmp", "gif", "png"] },
+                { 'name': 'audio', 'ext': ["mp3", "wav", "wma"] },
+                ],
+    decide_file_type: function (filename) {
+        var ext = filename.split('.').pop();
+        for (var i=0;i<this.file_type.length;i++) {
+            if ($.inArray(ext, this.file_type[i].ext) > -1) {
+                return  this.file_type[i].name;
+            }
+        }
+        return null;
+    }, //decide_file_type
     on_roster: function (iq) {
         $(iq).find('item').each(function () {
             var jid = $(this).attr('jid');
@@ -133,6 +145,21 @@
         var div = $('#chat-' + jid_id + ' .chat-messages').get(0);
         div.scrollTop = div.scrollHeight;
     }, //scrool_chat
+    //
+    display_media: function (message_body,is_local) {
+        var fileType = this.decide_file_type(message_body);
+        if(is_local)
+        {
+            if (fileType == "image") {
+                return "<img src='" + message_body + "' />";
+            }
+        }
+        else
+        {
+
+
+        }
+    }, //display_media
     on_message: function (message) {
         var full_jid = $(message).attr('from');
         var jid = Strophe.getBareJidFromJid(full_jid);
@@ -144,6 +171,7 @@
             $("#chat-area").append("<div id='chat-" + jid_id + "'>"
                                       + "<div class='chat-messages'></div>"
                                       + "<input type='text' class='chat-input' />"
+                                      +"<input type='file'  class='chat-file'/>"
                                   + "</div>");
 
             $('#chat-area').tabs();
@@ -155,7 +183,7 @@
         //$('#chat-area').tabs('active', '#chat-' + jid_id);
 
         $('#chat-' + jid_id + ' input').focus();
-        
+
         //显示对方 正在输入 的信息
         var composing = $(message).find('composing');
         if (composing.length > 0) {
@@ -178,7 +206,7 @@
             }
         } else {
             body = body.contents();
-
+            //body = this.display_media(body);
             var span = $("<span></span>");
             body.each(function () {
                 if (document.importNode) {
@@ -193,8 +221,10 @@
         }
 
         if (body) {
+
+           Chat.display_local_message(body,$('#chat-' + jid_id + ' .chat-messages').parent(),jid);
             // remove notifications since user is now active
-            $('#chat-' + jid_id + ' .chat-event').remove();
+           /* $('#chat-' + jid_id + ' .chat-event').remove();
 
             // add the new message
             $('#chat-' + jid_id + ' .chat-messages').append(
@@ -207,12 +237,41 @@
             $('#chat-' + jid_id + ' .chat-message:last .chat-text')
                 .append(body);
 
-            Chat.scroll_chat(jid_id);
+            Chat.scroll_chat(jid_id);*/
         }
 
         return true;
-    } //on_message
-};   //var Chat
+    }, //on_message,
+    send_message: function (body,jid) {
+        //发送消息
+        var message = $msg({
+            to: jid, //todo
+            "type": "chat"
+        }).c("body").t(body).up()
+             .c('active', { xmlns: "http://jabber.org.protocal/chatstates" });
+        Chat.connection.send(message);
+    },//send_message
+    //显示自己发送的消息,如果是文件,显示的是服务器路径.
+    display_local_message:function(message,chat_body_container,jid){
+        var fileType=this.decide_file_type(message);
+        switch (fileType)
+        {
+            case 'image':message="<img src='"+message+"'/>"; break;
+            case 'audio':message="<a href='"+message+"'>"+message+"</a>";break;
+        }
+        chat_body_container.find('.chat-messages').append(
+            "<div class='chat-message'>&lt;" +
+            "<span class='chat-name me'>" +
+            Strophe.getNodeFromJid(Chat.connection.jid) +
+            "</span>&gt;<span class='chat-text'>" +
+            message+
+            "<img class='img-preview'>"+
+            "</span></div>");
+
+        Chat.scroll_chat(this.jid_to_id(jid));
+
+    }//display_local_message
+};             //var Chat
 
 $(document).ready(function () {
     /********contact_dialog*************/
@@ -224,7 +283,7 @@ $(document).ready(function () {
         buttons: {
             "Add": function () {
                 $(document).trigger("contact_added", {
-                    jid: $("#contact-jid").val()+Chat.server,
+                    jid: $("#contact-jid").val() + Chat.server,
                     name: $("#contact-name").val()
                 });
                 $("#contact-jid").val("");
@@ -290,7 +349,7 @@ $(document).ready(function () {
 
     /*******event bind*********/
     $(document).bind("connect", function (ev, data) {
-        var conn = new Strophe.Connection('http://192.168.1.129:7070/http-bind/');
+        var conn = new Strophe.Connection('http://192.168.1.140:7070/http-bind/');
         conn.connect(data.jid, data.password, function (status) {
             switch (status) {
                 case Strophe.Status.CONNECTING:
@@ -357,6 +416,7 @@ $(document).ready(function () {
             "<div id='chat-" + jid_id + "'>"
             + "<div class='chat-messages'></div>"
             + "<input type='text' class='chat-input' />"
+               + "<input type='file' class='chat-file' />"
             + "</div>"
             );
             $('#chat-area').append(chat_area_each);
@@ -373,28 +433,40 @@ $(document).ready(function () {
 
         $('#chat-' + jid_id + ' input').focus();
     });
-    //输入消息,回车发送
+    //文件上传
+    $(document).on('change','.chat-file',function (ev) {
+        var that=this;
+        var formData = new FormData($('form')[0]);
+        formData.append('file', $(that)[0].files[0]);
+        $.ajax(
+                {
+                    url: '/FileUploader.ashx',
+                    type: "post",
+                    async: false,
+                    processData: false,
+                    contentType: false,
+                    data:formData,
+                    success: function (filepath) {
+
+                        var jid = $(that).parent().data('jid');
+                        var container=$(that).parent();
+                        ev.preventDefault();
+                        var remote_message=filepath;
+                        Chat.display_local_message(remote_message,container,jid)
+                        Chat.send_message(remote_message, jid);
+                    }, //success
+                    error: function (errmsg) {
+                        alert('transfer error:' + errmsg);
+                    } //error
+                }); //ajax
+    });
     $("#chat-area").on("keypress", ".chat-input", function (ev) {
         var jid = $(this).parent().data('jid');
         if (ev.which === 13) {
             ev.preventDefault();
             var body = $(this).val();
-            var message = $msg({
-                to: jid, //todo
-                "type": "chat"
-            }).c("body").t(body).up()
-             .c('active', { xmlns: "http://jabber.org.protocal/chatstates" });
-
-            Chat.connection.send(message);
-            //显示已发送的msg
-            $(this).parent().find('.chat-messages').append(
-                "<div class='chat-message'>&lt;" +
-                "<span class='chat-name me'>" +
-                Strophe.getNodeFromJid(Chat.connection.jid) +
-                "</span>&gt;<span class='chat-text'>" +
-                body +
-                "</span></div>");
-            Chat.scroll_chat(Chat.jid_to_id(jid));
+            Chat.display_local_message(body,$(this).parent(),jid);
+            Chat.send_message(body, jid);
             $(this).val('');
             $(this).parent().data('composing', false);
         }
@@ -414,4 +486,4 @@ $(document).ready(function () {
     //                password:'1'
     //            });
 
-});  //$(document).ready()
+});        //$(document).ready()

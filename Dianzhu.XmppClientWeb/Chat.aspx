@@ -35,10 +35,11 @@
     </div>
 
     <!-- chat dialog -->
+    <form id="fm_chat_area" content>
     <div id='chat_dialog' class='hidden'>
       <label>JID:</label><input type='text' id='chat-jid'>
     </div>
-
+    </form>
     <!-- approval dialog -->
     <div id='approve_dialog' class='hidden'>
       <p><span id='approve-jid'></span> has requested a subscription
