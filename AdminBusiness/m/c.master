@@ -37,17 +37,17 @@
             </script>
             <div class="lefe-bottom">
                 <ul>
-                    <li><a href="#" title="正在完善中" target="_parent" style="position: relative;">
+                    <li><a href="#" title="正在完善中" target="_parent" style="position: relative; color:#5e88ae">
                         <img src="/m/images/my-o-icon6.png" style="position: absolute; top: 8px; left: 7px;" />
                         <img class="s-menu s-message" src="/m/images/my-o-icon6_2.png" style="position: absolute;
                             top: 8px; left: 7px;" />
                         消息</a></li>
-                    <li><a href="#" title="正在完善中" target="_parent" style="position: relative;">
+                    <li><a href="#" title="正在完善中" target="_parent" style="position: relative;color:#5e88ae">
                         <img src="/m/images/my-o-icon5.png" style="position: absolute; top: 8px; left: 8px;" />
                         <img class="s-menu s-emp" src="/m/images/my-o-icon5_2.png" style="position: absolute;
                             top: 8px; left: 8px;" />
                         员工管理</a></li>
-                    <li><a href="#" title="正在完善中" target="_parent" style="position: relative;">
+                    <li><a href="#" title="正在完善中" target="_parent" style="position: relative;color:#5e88ae">
                         <img src="/m/images/my-o-icon4.png" style="position: absolute; top: 8px; left: 10px;" />
                         <img class="s-menu s-order" src="/m/images/my-o-icon4_2.png" style="position: absolute;
                             top: 8px; left: 10px;" />
