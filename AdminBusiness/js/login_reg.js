@@ -63,11 +63,12 @@ $(document).ready(function () {
                 async: false
             });
 
-            if ( dup_ajax.status == 200 ){
-                var _dup = dup_ajax.responseText == "Y" ? true : false;
-                return _dup;
-            } else {
-                return "error";
+            if ( dup_ajax.readyState == 4 ) {
+                if ( dup_ajax.status == 200 || dup_ajax.status == 0 ){
+                    return dup_ajax.responseText == "Y";
+                } else {
+                    return "error";
+                }
             }
 
         };
