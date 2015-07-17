@@ -4,6 +4,7 @@
     connection: null,
     file_type: [{ 'name': 'image', 'ext': ["jpg", "jpeg", "bmp", "gif", "png"] },
                 { 'name': 'audio', 'ext': ["mp3", "wav", "wma"] },
+                { 'name': 'video', 'ext': ["mp4", "wmv", "rmbv"] },
                 ],
     decide_file_type: function (filename) {
         var ext = filename.split('.').pop();
@@ -146,20 +147,7 @@
         div.scrollTop = div.scrollHeight;
     }, //scrool_chat
     //
-    display_media: function (message_body,is_local) {
-        var fileType = this.decide_file_type(message_body);
-        if(is_local)
-        {
-            if (fileType == "image") {
-                return "<img src='" + message_body + "' />";
-            }
-        }
-        else
-        {
-
-
-        }
-    }, //display_media
+     
     on_message: function (message) {
         var full_jid = $(message).attr('from');
         var jid = Strophe.getBareJidFromJid(full_jid);
@@ -257,7 +245,9 @@
         switch (fileType)
         {
             case 'image':message="<img src='"+message+"'/>"; break;
-            case 'audio':message="<a href='"+message+"'>"+message+"</a>";break;
+            case 'audio':message="<audio controls><source src='"+message+"'/></audio>";break;
+            case 'video':message="<video controls><source src='"+message+"'/></video>";break;
+
         }
         chat_body_container.find('.chat-messages').append(
             "<div class='chat-message'>&lt;" +
@@ -265,7 +255,6 @@
             Strophe.getNodeFromJid(Chat.connection.jid) +
             "</span>&gt;<span class='chat-text'>" +
             message+
-            "<img class='img-preview'>"+
             "</span></div>");
 
         Chat.scroll_chat(this.jid_to_id(jid));

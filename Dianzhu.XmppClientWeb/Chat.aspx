@@ -7,7 +7,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <h1>Dianzhu</h1>
-
+<audio controls>
+<source src="/media/11.mp3" />
+</audio>
     <div id='toolbar'>
       <span class='button' id='new-contact'>add contact...</span> ||
       <span class='button' id='new-chat'>chat with...</span> ||
