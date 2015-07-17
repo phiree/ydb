@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/m/mobile/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="/m/mobile/jquery.mobile.theme-1.4.5.css" />
       <link rel="stylesheet" href="/m/css/jquery.mobile.less.css" />
+    <link rel="stylesheet" href="/m/css/custom-panel.css" />
     <link rel="stylesheet" href="/m/css/global.css" />
     <link rel="stylesheet" href="/m/css/main.css" />
     <link rel="stylesheet" href="/m/css/device.css" media="screen and (max-device-width : 1280px)" />
