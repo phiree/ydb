@@ -16,22 +16,24 @@
                 <div class="wrap-reg">
                     <form id="form1" runat="server">
                     <div class="conReg">
-                        <div class="conLogo">
-                            <div class="logo-l">
-                                <p>
-                                    欢迎来到点助商户会员注册页面<br />
-                                    开启移动智能O2O新历程</p>
-                            </div>
-                            <div class="logo-r">
-                                <div class="logo regLogo">
-                                    <a href="#">
-                                        <img src="image/login_reg/zhuce_2.png" alt="logo" /></a>
+                        <div class="conLogo clearfix">
+                            <div class="logo">
+                                <div class="logo-title-l"></div>
+                                <div class="logo-title-r">
+                                    <img src="image/login_reg/zhuce_2.png" alt="logo" />
                                 </div>
-                                <div class="logoTitle">
+                            </div>
+                            <div>
+                                <div class="logo-title-l">
+                                    <p>
+                                        注册成功<br />
+                                        开启移动智能O2O新历程</p>
+                                </div>
+                                <div class="logo-title-r">
+                                    <i class="icon logoTitle"></i>
                                 </div>
                             </div>
                         </div>
-                     
                         <div class="conMain main-done clearfix">
                             <div class="regComp">
                                 <i class="icon icon-regComp"></i><span>恭喜你<br />
@@ -44,8 +46,6 @@
                     </div>
                     </form>
                 </div>
-            </div>
-            <div class="conReg">
             </div>
         </div>
         <div class="footer">

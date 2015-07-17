@@ -70,7 +70,7 @@
                                      
                                     <asp:Button runat="server" ID="btnLogin" CssClass="loginBtn" OnClick="btnLogin_Click" />
                                     <p class="savePass">
-                                        <input runat="server" id="savePass" type="checkbox" /><label for="savePass">记住密码</label></p>
+                                        <input runat="server" id="savePass" type="checkbox" /><label for="savePass">记住我</label></p>
                                 </div>
                                 <div class="login_err_msg" >
                                 <asp:Label runat="server" ID="lblMsg"></asp:Label>
