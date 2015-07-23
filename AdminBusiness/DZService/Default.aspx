@@ -63,8 +63,6 @@
                     <UC:ServiceEdit ID="ServiceEdit1" runat="server" />
                 </div>
                 <div class="bottomArea">
-                    <!--<input name="imageSave" type="image" id="imageSave" src="image/baocun_1.png" />-->
-                    <!--<input name="imageCancel" type="image" id="imageCancel" src="image/baocun_2.png" />-->
                 </div>
             </div>
         </div>

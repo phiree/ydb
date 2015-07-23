@@ -73,7 +73,6 @@
                                 <div class="service-m">
                                     <p class="p_LocationArea service-item-title">
                                         <i class="icon service-icon-serLocal"></i>定位服务区域</p>
-                                    <!--<p class="f-s13 l-h16">服务中心点定位(为您的服务区域进行定位)</p>-->
                                     <div class="clearfix">
                                         <div class="fl clearfix">
                                             <div id="setBusiness" class="setLocationMap">
@@ -81,7 +80,6 @@
                                                                                 </div>
                                             </div>
                                             <input id="hiBusinessAreaCode" runat="server" clientidmode="Static" type="hidden">
-                                            <!--<p id="businessText"></p>-->
                                         </div>
                                         <div class="fl m-l20">
                                             <p class="m-b20">
@@ -214,13 +212,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="serviceDetailsLeft">-->
-                        <!--<div class="p-20">-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="serviceDetailsRight">-->
-                        <!--<div class="p-20">-->
-                        <!--百度地图选择商圈-->
                         <div id="mapLightBox" class="dis-n">
                             <div class="mapWrap">
                                 <div id="businessMap" class="mapMain">
@@ -232,12 +223,7 @@
                                 <input id="businessValue" type="hidden" value="" />
                             </div>
                         </div>
-                        <!--</div>-->
-                        <!--</div>-->
                     </div>
                     <div class="service-saveSubmit">
                         <asp:Button CssClass="service-saveSubmit-btn" runat="server" ID="btnSave" OnClick="btnSave_Click" />
-                       </div>
-
-   
-    
+                   </div>

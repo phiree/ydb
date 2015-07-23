@@ -1,24 +1,29 @@
-//商圈地图
+/**
+* 初始化商圈地图
+*/
 var map = new BMap.Map("businessMap");
 var cityListObject = new BMapLib.CityList({ container: "businessCity" , map : map });
 map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
 map.enableScrollWheelZoom();
 
 
-//商圈缩略图
+/**
+* 初始化商圈缩略地图
+*/
 var submap = new BMap.Map("businessMapSub");
 submap.centerAndZoom(new BMap.Point(116.404, 39.915), 10);
 submap.disableDoubleClickZoom();
 submap.disableDragging();
 
 
-//ip定位
+/**
+ * 根据ip定位当前位置
+ */
 var myCity = new BMap.LocalCity();
 myCity.get(function(result){
     submap.panTo(result.center);
 });
 
-//    商圈设置
 $("#setBusiness").click(function (e) {
     $('#mapLightBox').lightbox_me({
         centered: true,
@@ -28,25 +33,32 @@ $("#setBusiness").click(function (e) {
             });
         }
     });
-
     e.preventDefault();
 });
 
 
-
-var businessJson = "", //商圈JSON信息
-    provinceName = "", //省
-    cityName = "", //市
-    boroughName = "", //区
+/**
+ * JSON格式商圈信息
+ * @JSON
+ */
+var businessJson = {};
+var provinceName = "",
+    cityName = "",
+    boroughName = "",
     businessName = "";
 
+/**
+ * 点击城市时地图定位到指定城市
+ * @param e
+ */
 function writeBusinessJson (e) {
     switch (e.area_type) {
+        //重新选择省时，清空其他内容。
         case 1 :
             provinceName = e.area_name;
-            cityName = "", //重新选择省时，清空其他内容
-                boroughName = "",
-                businessName = ""
+            cityName = "";
+            boroughName = "";
+            businessName = "";
             break;
         case 2 :
             if (e.area_code == 132 || e.area_code == 332 || e.area_code == 332 || e.area_code == 131) {
@@ -54,7 +66,6 @@ function writeBusinessJson (e) {
             } else {
                 cityName = e.area_name;
             }
-            ;
             break;
         case 3 :
             boroughName = e.area_name;
@@ -63,16 +74,14 @@ function writeBusinessJson (e) {
             businessName = e.area_name;
             break;
         default :
-            console.log("error");
+            alert("error");
     }
-    ;
 
     if (e.geo) {
         submap.panTo(e.geo);
     } else {
         return
     }
-    ;
 
     businessJson = {
         "provinceName": provinceName,
@@ -98,8 +107,10 @@ $('#confBusiness').click(function () {
     businiessText.html(businessNode);
 });
 
-//信息载入时读取地图信息
-(function readBusinessLoc() {
+/**
+ * 载入时读取地图信息
+ */
+(function() {
     if ( $('#hiBusinessAreaCode').attr("value") ){
         var readBusinessJson = jQuery.parseJSON($('#hiBusinessAreaCode').attr("value"));
         var subMapPoint = new BMap.Point();
@@ -114,21 +125,23 @@ $('#confBusiness').click(function () {
 })();
 
 
-//服务选择
-$(function () {
+/**
+ * 初始化服务选择
+ */
+(function () {
     $("#tabsServiceType").TabSelection({
         "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
         'enable_multi':false,
         "leaf_clicked": function (id) {
             tabRadioShow(id);
         }
-
     });
-});
+})();
 
-// 单选时，选择的服务类型显示
+/**
+ * 单选时，选择的服务类型显示。
+ */
 function tabRadioShow(id){
-//    alert(id);
     var radioShowBox = $('#radioShowBox');
     var TypeNodeBox = $(document.createElement("div"));
     var radioContainer = $('#tabsServiceType');
@@ -138,7 +151,6 @@ function tabRadioShow(id){
         var radioText = radioItem.text();
 
         $("#hiTypeId").attr("value", id );
-        console.log($("#hiTypeId").attr("value"));
         TypeNodeBox.attr("item_id",id);
         radioItem.addClass('radioCk');
 
@@ -158,37 +170,10 @@ function tabRadioShow(id){
     }
 }
 
-//    if ( id ) {
-//        var radioItem;
-//        if ( event.srcElement ) {
-//            radioItem = $(event.srcElement);
-//        } else {
-//            radioItem = $(event.currentTarget).find($("span[item_id=" + id + "]"));
-//        }
-//        var radioText = radioItem.text();
-//
-//        $("#hiTypeId").attr("value", id );
-//        TypeNodeBox.attr("item_id",id);
-//        radioItem.addClass('radioCk');
-//
-//
-//        $(event.currentTarget).find($("span[item_id!=" + id + "]")).each(function(){
-//            $(this).removeClass('radioCk');
-//        });
-//
-//        if ( radioShowBox.html() != "" ){
-//            radioShowBox.find('div').text(radioText);
-//        } else {
-//            TypeNodeBox.text(radioText);
-//            TypeNodeBox.addClass('business-radioCk');
-//            radioShowBox.append(TypeNodeBox);
-//        }
-//    } else {
-//        return
-//    }
-//}
 
-//  多选时,选择的服务类型显示
+/**
+ * 多选时,选择的服务类型显示。
+ */
 function tabCheckedShow(that, id, checked, level) {
     var checkedShowBox = $('#serCheckedShow');
     var v_id = id;
@@ -205,7 +190,6 @@ function tabCheckedShow(that, id, checked, level) {
     }
 
     function createTypeBox(that, p_id, text, level) {
-        console.log(level);
         var printBox = checkedShowBox;
         var TypeNodeBox = "<div v_id=" + v_id + ">" + text + "</div>";
 
@@ -245,4 +229,4 @@ $("#setSerType").click(function (e) {
         centered: true
     });
     e.preventDefault();
-})
+});

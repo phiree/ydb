@@ -3,16 +3,6 @@
  */
 
 $(document).ready(function ($) {
-//    (function () {
-//        var leftCont = document.getElementById('leftCont');
-//        var rightCont = document.getElementById('rightCont');
-//
-//        console.log(leftCont.offsetHeight);
-//        console.log(rightCont.offsetHeight);
-//        if (rightCont.offsetHeight != 0) {
-//            leftCont.style.height = rightCont.offsetHeight + 'px';
-//        }
-//    })();
   
     (function () {
     
@@ -74,28 +64,17 @@ $(document).ready(function ($) {
     (function () {
 
         $('.input-file-btn').change(function () {
-            //          var docObj=document.getElementById("doc");
-            //          var imgObjPreview = document.getElementById("ImgPreview");
             var imgObjPreview = $(this).siblings(".input-file-pre").get(0);
 
             if (this.files && this.files[0]) {
-
-                //              imgObjPreview.style.display = 'block';
-                //              imgObjPreview.style.width = '150px';
-                //              imgObjPreview.style.height is= '180px';
-                //              imgObjPreview.src = this.files[0].getAsDataURL();
-
                 imgObjPreview.src = window.URL.createObjectURL(this.files[0]);
-                console.log(imgObjPreview.src);
             }
             else {
                 this.select();
                 this.blur();
                 var imgSrc = document.selection.createRange().text;
-                console.log(imgSrc);
 
                 try {
-//                    console.log(imgObjPreview.getAttribute("src"));
                     imgObjPreview.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
                     imgObjPreview.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
                 }
@@ -104,20 +83,6 @@ $(document).ready(function ($) {
                 }
                 document.selection.empty();
 
-//                var localImagId = document.getElementById("localImag");
-//
-//                localImagId.style.width = "90px";
-//                localImagId.style.height = "90px";
-//
-//                try {
-//                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
-//                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
-//                }
-//                catch (e) {
-//                    return false;
-//                }
-//                imgObjPreview.style.display = 'none';
-//                document.selection.empty();
                 return
             }
             return true;

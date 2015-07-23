@@ -45,8 +45,6 @@
                 </div>
                 <div class="secret-cont">
                     <div class="secret-m standard-info">
-                        <!--<div class="secret-m-title t-1">基础信息</div>-->
-                        <!--<div class="secret-detail">-->
                             <div class="secret-change-m">
                                 <div id="CPResult" class="m-auto">
                                     <div class="t-c">
@@ -59,7 +57,6 @@
                                     <div class="secret-change-sub"><a class="secret-a-done white-a" href="Security.aspx">确认</a></div>
                                 </div>
                             </div>
-                        <!--</div>-->
                     </div>
                 </div>
             </div>

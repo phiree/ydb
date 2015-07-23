@@ -20,11 +20,8 @@
             <div class="myshopInfoArea clearfix">
                 <div class="myshopInfoTilte">
                     <h1>商家基本信息</h1>
-                    <!--<img src="../image/touxiangkuang11.png" alt="头像"/>-->
                 </div>
                 <div class="headInfoArea clearfix">
-                    <!--<div class="headDecoration1">-->
-                    <!--</div>-->
                     <div class="headImage">
                         <img src="../image/myshop/touxiangkuang_11.png" alt="头像"/>
                     </div>
@@ -61,7 +58,6 @@
                     <div class="secret-detail">
                         <div class="clearfix">
                             <span class="secret-d-t">登陆密码&nbsp;:</span><span class="secret-d-p d-inb" >安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</span>
-                            <!--<a class="m-l20" href="Changepassword.aspx">修改</a>-->
                             <a id="passChange" class="m-l20 blue-a" href="javascript:void(0);">修改</a>
                             <div class="secret-d-tip"><i class="icon secret-icon-1"></i><div>强</div></div>
                         </div>
@@ -75,18 +71,11 @@
             </div>
         </div>
         <div id="lightBox" class="dis-n">
-        <!--<div id="lightBox">-->
-            <!--<div class="secret-change" ng-app="changePass" ng-controller="changePass">-->
             <div class="secret-change">
                 <div class="secret-change-title">
                     <span>修改密码</span>
                     <i class="icon close icon-close"></i>
-                    <!--<i class="icon close icon-close" ng-click="CPassReset()"></i>-->
                 </div>
-                <!--<div class="secret-change-nav clearfix">-->
-                    <!--<div class="change-nav fl"><i class="icon"></i>设置新密码</div>-->
-                    <!--<div class="change-nav m-l50 fr"><i class="icon" ></i>修改密码成功</div>-->
-                <!--</div>-->
                 <div class="secret-change-m">
                     <div class="m-auto" ng-hide="!CPassSuccess">
                         <asp:ChangePassword ID="ChangePassword1"
@@ -144,10 +133,6 @@
 <script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.2.5/angular.min.js"></script>
 <script type="text/javascript" src="/js/global.js"></script>
 <script type="text/javascript">
-//    var changecontinueBtn = $('#ContentPlaceHolder1_ChangePassword1_ChangePasswordContainerID_ChangePasswordImageButton')
-
-
-
     $('#passChange').click(function(e){
         $('#lightBox').lightbox_me({
             centered: true

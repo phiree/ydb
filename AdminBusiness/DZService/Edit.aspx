@@ -177,7 +177,6 @@
                 "leaf_clicked": function (id) {
                     $("#hiTypeId").val(id);
                 }
-
             });
         });
     </script>

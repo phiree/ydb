@@ -198,15 +198,16 @@ $(document).ready(function () {
          * @param {jquery object}  图标jquery对象
          */
         var chkIconAnm = function (hide, jdg, icon) {
-            var _hide = hide;//
-            var _judge = jdg;//
-            var $_icon = icon;// 图标对象
+            var _hide = hide;
+            var _judge = jdg;
+            var $_icon = icon;
 
 
             if (!_hide) {
-                if (!_judge) {  //条件不符合
+                //条件不符合
+                if (!_judge) {
                     $_icon.removeClass('chkRight').addClass('chkError');
-                } else {  //条件符合
+                } else {
                     $_icon.removeClass('chkError').addClass('chkRight');
                 }
             } else {
