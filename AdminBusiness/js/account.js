@@ -51,7 +51,7 @@ function setAddressPoint (e){
 }
 
 /**
- * ÔØÈëÊ±¶ÁÈ¡µØÍ¼ĞÅÏ¢
+ * è½½å…¥æ—¶è¯»å–åœ°å›¾ä¿¡æ¯
  */
 (function readAddressLoc() {
     if ( $('#hiAddrId').attr("value") ){
@@ -69,7 +69,7 @@ function setAddressPoint (e){
 })();
 
 /**
- * ´ò¿ªµØÍ¼Ê±¼ÓÔØ±£´æµÄÊı¾İ
+ * æ‰“å¼€åœ°å›¾æ—¶åŠ è½½ä¿å­˜çš„æ•°æ®
  */
 $("#setAddress").click(function (e) {
     $('#addrlightBox').lightbox_me({
@@ -97,12 +97,12 @@ $("#setAddress").click(function (e) {
 //                return document.getElementById(id);
 //            }
 //
-//            var ac = new BMap.Autocomplete(    //½¨Á¢Ò»¸ö×Ô¶¯Íê³ÉµÄ¶ÔÏó
+//            var ac = new BMap.Autocomplete(    //å»ºç«‹ä¸€ä¸ªè‡ªåŠ¨å®Œæˆçš„å¯¹è±¡
 //                    {"input" : "suggestId"
 //                        ,"location" : map
 //                    });
 //
-//            ac.addEventListener("onhighlight", function(e) {  //Êó±ê·ÅÔÚÏÂÀ­ÁĞ±íÉÏµÄÊÂ¼ş
+//            ac.addEventListener("onhighlight", function(e) {  //é¼ æ ‡æ”¾åœ¨ä¸‹æ‹‰åˆ—è¡¨ä¸Šçš„äº‹ä»¶
 //                var str = "";
 //                var _value = e.fromitem.value;
 //                var value = "";
@@ -121,7 +121,7 @@ $("#setAddress").click(function (e) {
 //            });
 //
 //            var myValue;
-//            ac.addEventListener("onconfirm", function(e) {    //Êó±êµã»÷ÏÂÀ­ÁĞ±íºóµÄÊÂ¼ş
+//            ac.addEventListener("onconfirm", function(e) {    //é¼ æ ‡ç‚¹å‡»ä¸‹æ‹‰åˆ—è¡¨åçš„äº‹ä»¶
 //                var _value = e.item.value;
 //                myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
 //                G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
@@ -130,25 +130,25 @@ $("#setAddress").click(function (e) {
 //            });
 //
 //            function setPlace(){
-//                map.clearOverlays();    //Çå³ıµØÍ¼ÉÏËùÓĞ¸²¸ÇÎï
+//                map.clearOverlays();    //æ¸…é™¤åœ°å›¾ä¸Šæ‰€æœ‰è¦†ç›–ç‰©
 //                function myFun(){
-//                    var pp = local.getResults().getPoi(0).point;    //»ñÈ¡µÚÒ»¸öÖÇÄÜËÑË÷µÄ½á¹û
+//                    var pp = local.getResults().getPoi(0).point;    //è·å–ç¬¬ä¸€ä¸ªæ™ºèƒ½æœç´¢çš„ç»“æœ
 //                    map.centerAndZoom(pp, 18);
-//                    map.addOverlay(new BMap.Marker(pp));    //Ìí¼Ó±ê×¢
+//                    map.addOverlay(new BMap.Marker(pp));    //æ·»åŠ æ ‡æ³¨
 //
 //                }
-//                var local = new BMap.LocalSearch(map, { //ÖÇÄÜËÑË÷
+//                var local = new BMap.LocalSearch(map, { //æ™ºèƒ½æœç´¢
 //                    onSearchComplete: myFun
 //                });
 //                local.search(myValue);
 //            }
 
-//        // ½«µØÖ·½âÎö½á¹ûÏÔÊ¾ÔÚµØÍ¼ÉÏ,²¢µ÷ÕûµØÍ¼ÊÓÒ°
-//        myGeo.getPoint("º£ÄÏÊ¡º£¿ÚÊĞÁú»ªÇøº£ĞãÖĞÂ·125ºÅ", function(point){
+//        // å°†åœ°å€è§£æç»“æœæ˜¾ç¤ºåœ¨åœ°å›¾ä¸Š,å¹¶è°ƒæ•´åœ°å›¾è§†é‡
+//        myGeo.getPoint("æµ·å—çœæµ·å£å¸‚é¾™ååŒºæµ·ç§€ä¸­è·¯125å·", function(point){
 //            if (point) {
 //                map.centerAndZoom(point, 18);
 //                map.addOverlay(new BMap.Marker(point));
 //            }else{
-//                alert("ÄúÑ¡ÔñµØÖ·Ã»ÓĞ½âÎöµ½½á¹û!");
+//                alert("æ‚¨é€‰æ‹©åœ°å€æ²¡æœ‰è§£æåˆ°ç»“æœ!");
 //            }
-//        }, "±±¾©ÊĞ");
+//        }, "åŒ—äº¬å¸‚");
