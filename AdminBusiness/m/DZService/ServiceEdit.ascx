@@ -375,8 +375,10 @@
                     <asp:ListItem Value="2" Text="线下"></asp:ListItem>
                 </asp:RadioButtonList>
             </div>
+             <div style="text-align: right; ">
             <a href="#" id="rp_save" data-rel="close" data-role="button" data-inline="true" onClick="getMapAddrText('#serArea-txt','#hiBusinessAreaCode')">确定</a>
             <a href="#" data-rel="close" data-role="button" data-inline="true">取消</a>
+            </div>
         </div>
     </div>
 </div>

@@ -266,8 +266,10 @@
                 <div class="rp idno">
                     <input type="text" runat="server" id="tbxCardIdNo" clientidmode="Static" />
                 </div>
+                 <div style="text-align: right; ">
                 <a href="#" id="rp_save" data-rel="close" data-role="button" data-inline="true">确定</a>
                 <a href="#" data-rel="close" data-role="button" data-inline="true">取消</a>
+                </div>
             </div>
         </div>
         <!--/super right panel-->
@@ -279,8 +281,8 @@
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
 
 
-    <script src="../js/shop_edit.js"></script>
-       
+  
+    <script src="../js/shop_edit.js" type="text/javascript"></script>
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
     <script src="../js/CityList.js" type="text/javascript"></script>
     <script src="../js/getMySopMap.js" type="text/javascript"></script>

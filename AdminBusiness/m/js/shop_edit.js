@@ -1,11 +1,11 @@
 $(function () {
 
-   
+
 
 
     $("#ContentPlaceHolder1_ContentPlaceHolder1_imgBusinessImage").attr("data-ajax", "false");
     $("#ContentPlaceHolder1_ContentPlaceHolder1_imgChargePerson").attr("data-ajax", "false");
-
+   
     //样式处理
     $('.my-li').append('<div class="ul-right">' +
                             '<span></span>' +
@@ -18,12 +18,13 @@ $(function () {
 
 
 
-       
+
         $("#super_right_panel").panel("open");
 
         var that = this;
         //隐藏/显示
         open_click(target, function () {
+          
             switch (target) {
                 case "name": display(that, $("#tbxName").val()); break;
                 case 'description': display(that, $("#tbxIntroduced").val()); break;
@@ -41,8 +42,10 @@ $(function () {
 
     });
     $(".panel-ul a.getMaphrefClass").attr("href", "#secondview");
+   
     function display(li, value) {
         $(li).find(".display_holder").text(value);
+
     }
 
 
@@ -52,7 +55,10 @@ $(function () {
         $(".rp").hide();
         $("." + open_classname).show();
         //2 更改右侧保存按钮的事件
-        $("#rp_save").on('click', display_fun);
+        
+       $("#rp_save").on('click', display_fun);
     }
+
+    
 
 });
