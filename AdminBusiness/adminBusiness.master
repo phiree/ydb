@@ -11,12 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
-      <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
-  
+    <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
     
-     <asp:ContentPlaceHolder ID="head" runat="Server">
+    <asp:ContentPlaceHolder ID="head" runat="Server">
     </asp:ContentPlaceHolder>
 </head>
 
@@ -33,17 +32,17 @@
                 </div>
                 <div class="menuList">
                     <ul class="clearfix">
-                        <li><a href="#" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-coup"></i>
+                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-coup"></i>
                         </a></li>
                         <li><a href="/account" target="content"><i class="nav-btn nav-btn-myshop"></i></a>
                         </li>
                         <li><a href="/dzservice" target="content"><i class="nav-btn nav-btn-service"></i></a>
                         </li>
-                        <li><a href="#" title="正在开发,敬请期待" target="content"><i class="nav-btn nav-btn-order"></i></a>
+                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待" target="content"><i class="nav-btn nav-btn-order"></i></a>
                         </li>
-                        <li><ahref="#" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-employee"></i></a>
+                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-employee"></i></a>
                         </li>
-                        <li><a href="#" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-msg"></i></a></li>
+                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-msg"></i></a></li>
                     </ul>
                 </div>
             </div>

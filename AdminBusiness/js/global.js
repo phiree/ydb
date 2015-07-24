@@ -89,4 +89,20 @@ $(document).ready(function ($) {
         })
 
     })();
+
+    (function (){
+        var $navBtn = $(".nav-btn");
+        var pageHref = window.location.href;
+
+        $navBtn.each(function(){
+            var btnHref = $(this).parent().attr("href");
+            var bgPosition = parseInt($(this).css("background-positionX"));
+            if ( pageHref.indexOf(btnHref) >= 0 ) {
+                $(this).css({
+                    backgroundPositionX : bgPosition - 81
+            })
+            }
+        })
+
+    })()
 });
