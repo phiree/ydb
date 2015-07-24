@@ -20,17 +20,12 @@ submap.disableDragging();
  * 根据ip定位当前位置
  */
 var myCity = new BMap.LocalCity();
-myCity.get(function(result){
-    submap.panTo(result.center);
-});
 
 $("#setBusiness").click(function (e) {
     $('#mapLightBox').lightbox_me({
         centered: true,
         onLoad : function(){
-            myCity.get(function(result){
-                map.panTo(result.center);
-            });
+            mapInit();
         }
     });
     e.preventDefault();
@@ -110,33 +105,41 @@ $('#confBusiness').click(function () {
 /**
  * 载入时读取地图信息
  */
-(function() {
+function mapInit() {
     if ( $('#hiBusinessAreaCode').attr("value") ){
         var readBusinessJson = jQuery.parseJSON($('#hiBusinessAreaCode').attr("value"));
         var subMapPoint = new BMap.Point();
-            subMapPoint.lng = readBusinessJson.businessLocLng;
-            subMapPoint.lat = readBusinessJson.businessLocLat;
+        subMapPoint.lng = readBusinessJson.businessLocLng;
+        subMapPoint.lat = readBusinessJson.businessLocLat;
         submap.panTo(subMapPoint);
+        map.panTo(subMapPoint);
 
         var businessNode = "<span>" + readBusinessJson.provinceName + "</span><span>" + readBusinessJson.cityName + "</span><span>" + readBusinessJson.boroughName + "</span><span>" + readBusinessJson.businessName + "</span>"
         var businiessText = $('#businessText');
         businiessText.html(businessNode);
+    } else {
+        myCity.get(function(result){
+            submap.panTo(result.center);
+        });
+        myCity.get(function(result){
+            map.panTo(result.center);
+        });
     }
-})();
+};
+
+mapInit();
 
 
 /**
  * 初始化服务选择
  */
-(function () {
-    $("#tabsServiceType").TabSelection({
-        "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
-        'enable_multi':false,
-        "leaf_clicked": function (id) {
-            tabRadioShow(id);
-        }
-    });
-})();
+$("#tabsServiceType").TabSelection({
+    "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
+    'enable_multi':false,
+    "leaf_clicked": function (id) {
+        tabRadioShow(id);
+    }
+});
 
 /**
  * 单选时，选择的服务类型显示。
