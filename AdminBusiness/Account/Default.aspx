@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="rightContent" id="rightCont">
-            <div id="myshop-wrap">
+            <div id="myshop-wrap" ng-app="" ng-controller="init">
                 <div class="myshopInfoArea clearfix">
                     <div class="myshopInfoTilte">
                         <h1>
@@ -29,18 +29,16 @@
                     </div>
                     <div class="headInfoArea clearfix">
                         <div class="headImage">
-                        <div class="input-file-box fl">   
-                                        <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuAvater" />
-                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
-                                        <i  class="input-file-mark"></i>
-                                        <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
-                                    </div>
-                            
+                            <div class="input-file-box fl">
+                                <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuAvater" />
+                                <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
+                                <i  class="input-file-mark"></i>
+                                <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
+                            </div>
                         </div>
                         <div class="headInfo">
                             <p>
-                                <input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称"
-                                    class="inputShopName" /></p>
+                                <input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="inputShopName" /></p>
                             <p class="InfoCompletetxt">
                                 资料完成程度</p>
                             <div class="InfoPercentage">
@@ -72,12 +70,12 @@
                                 <p class="p_ContactPhone myshop-item-title">
                                     <i class="icon myshop-icon-phone"></i>联系电话</p>
                                 <p>
-                                    <input type="text" class="myshop-input-lg" id="tbxContactPhone" runat="server" name="ContactPhone" /></p>
+                                    <input type="text" class="myshop-input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/></p>
                             </div>
                             <div class="myshopLeftCont">
                                 <p class="p_addressDetail myshop-item-title">
                                     <i class="icon myshop-icon-address"></i>详细店址</p>
-                                    <input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" value="请放置店铺坐标" /><input type="hidden" runat="server" clientidmode="Static" id="hiAddrId" />
+                                    <input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress" value="请放置店铺坐标" /><input type="hidden" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide" />
                                 <div id="addPrintBox"></div>
                                 <p><input type="text" class="myshop-input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
                             </div>
@@ -91,7 +89,7 @@
                                 <p class="myshop-item-title">
                                     <i class="icon myshop-icon-workTime"></i>从业时间</p>
                                 <p>
-                                    <input type="text" class="myshop-input-lg" runat="server" id="tbxBusinessYears" />
+                                    <input type="text" class="myshop-input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
                                 </p>
                             </div>
                             <div class="BusinessLicense">
@@ -99,7 +97,7 @@
                                     <i class="icon myshop-icon-businessLic"></i>营业执照</p>
                                 <div>
                                     <div class="download-img-pre fl">
-                                        <asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink>
+                                        <asp:HyperLink  runat="server" CssClass="download-img-show" ID="imgBusinessImage"></asp:HyperLink>
                                         
                                     </div>
                                     <div class="input-file-box fl">
@@ -161,7 +159,6 @@
                                 <div class="select select-sm">
                                     <ul>
                                         <li><a>身份证</a></li>
-                                        <li><a>学生证</a></li>
                                         <li><a>其它</a></li>
                                     </ul>
                                     <input type="hidden" id="selCardType" value="0" runat="server" clientidmode="Static" />
@@ -180,8 +177,7 @@
                                     <i class="icon myshop-icon-ownerPic"></i>负责人证件照上传</p>
                                 <div class="clearfix">
                                     <div class="download-img-pre fl">
-                                    <asp:HyperLink runat="server" ID="imgChargePerson"></asp:HyperLink>
-                                         
+                                    <asp:HyperLink runat="server" CssClass="download-img-show" ID="imgChargePerson"></asp:HyperLink>
                                     </div>
                                     <div class="input-file-box fl">
                                         <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
@@ -221,6 +217,8 @@
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+    <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>-->
+    <!--<script type="text/javascript" src="/js/messages_vali.js"></script>-->
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>

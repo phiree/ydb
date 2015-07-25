@@ -289,9 +289,9 @@ body {
 .side-btn-msgHis { background-position: -0px -144px; width: 79px; height: 70px; }
 
 /*select 初始化样式*/
-.select { display:inline-block; position: relative; background: url("../image/shop_green_09.png") no-repeat right;}
-.select cite { display: block; text-indent: 0.8em; border: 1px solid #e7ebee; }
-.select ul { position: absolute; border: 1px solid #e7ebee; z-index:10; background: #fff;}
+.select { display:inline-block;  width: 130px; height: 32px; position: relative; background: url("../image/shop_green_09.png") no-repeat right; vertical-align: middle; border: 1px solid #e7ebee;}
+.select cite { display: block; width: 130px; text-indent: 0.8em;  }
+.select ul { position: absolute;  width: 130px; border: 1px solid #e7ebee; z-index:10; background: #fff; display: none;}
 .select a { display: block; text-indent: 0.8em; }
 .select a:hover { background: #f6fafe; }
 
@@ -348,7 +348,6 @@ body {
     line-height: 90px;
     position: relative;
     text-align: center;
-    /*border: 1px solid #eee;*/
 }
 
 .download-img-delete {
@@ -360,10 +359,17 @@ body {
 
 .download-img-show {
     display: block;
+    border: 1px solid #dbe6f2 ;
+    background: #cccccc;
+    border-radius: 3px;
     width: 90px;
     height: 90px;
     line-height: 90px;
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.download-img-show img{
+    vertical-align: middle;
 }
