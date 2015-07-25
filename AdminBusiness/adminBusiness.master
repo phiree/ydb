@@ -15,6 +15,9 @@
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
  
+    <script>
+        
+     </script>
      <asp:ContentPlaceHolder ID="head" runat="Server">
      
  
@@ -28,9 +31,10 @@
             <div class="topnav clearfix">
                 <h1 title="点助" class="dianzhuicon">
                 </h1>
+                
                 <div class="logoutBox">
                     <asp:LoginName ID="LoginName1" runat="server" />
-                    <asp:LoginStatus ID="LoginStatus1" onclick="javascript:Page_ValidationActive = false;" formnovalidate CssClass="cancel" runat="server"  LogoutImageUrl="image\shop_icon_17.png" />
+                    <asp:LoginStatus ID="LoginStatus1"   formnovalidate  runat="server"  />
                 </div>
                 <div class="menuList">
                     <ul class="clearfix">
