@@ -57,8 +57,7 @@
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
     <script src="/js/setname.js" type="text/javascript"></script> 
-    <script src="/js/validation_service_edit.js" type="text/javascript"></script>
-    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
+   
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
@@ -66,16 +65,11 @@
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript" src="/js/service.js"></script>
    <script type="text/javascript">
-       $(function () {
-           $($("form")[0]).validate(
-                { rules: service_validate_rules,
-                 messages:service_validate_messages,
-                 invalidHandler: invalidHandler
-                }
-         );
-
-       });
+       var name_prefix = 'ctl00$ContentPlaceHolder1$ctl00$';
+   
       
    </script>
+    <script src="/js/validation_service_edit.js" type="text/javascript"></script>
+    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
 </asp:Content>
 

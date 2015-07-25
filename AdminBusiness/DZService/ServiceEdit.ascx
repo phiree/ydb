@@ -12,7 +12,7 @@
                     <div class="clearfix">
                         <div>
                             <div>
-                                <asp:TextBox  runat="server" snsi CssClass="service-input-mid" ID="tbxName"></asp:TextBox>
+                                <asp:TextBox  runat="server"   CssClass="service-input-mid" ID="tbxName"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -24,8 +24,8 @@
                         <div>
                             <div>
                                 <div class="m-b10">
-                                    <input id="setSerType" class="ser-btn-SerType" type="button" value="请选择服务信息" /><input
-                                        type="hidden" runat="server" snsi focusid="setSerType" id="hiTypeId" />
+                                    <input id="setSerType" class="ser-btn-SerType"  type="button" value="请选择服务信息" /><input
+                                        type="hidden" runat="server"     focusid="setSerType" id="hiTypeId" />
                                     <div id="radioShowBox" class="d-inb">
                                     </div>
                                 </div>
@@ -51,7 +51,7 @@
                     <p class="p_serviceIntroduced service-item-title">
                         <i class="icon service-icon-serIntro"></i>服务介绍</p>
                     <p>
-                        <asp:TextBox required CssClass="service-input-area" snsi runat="server" TextMode="MultiLine"
+                        <asp:TextBox   CssClass="service-input-area"   runat="server" TextMode="MultiLine"
                             ID="tbxDescription"> </asp:TextBox></p>
                 </div>
                 <div class="service-m">
@@ -221,13 +221,38 @@
 </div>
 <script>
 
-    
- 
+
+
     $(document).ready(function () {
         // set_name_as_id('snsi');
         $.validator.setDefaults({
             ignore: []
         });
 
-    });  //document.ready
+        $.validator.addMethod("time24", function (value, element) {
+            return /([01]?[0-9]|2[0-3])(:[0-5][0-9])/.test(value);
+        }, "Invalid time format.");
+
+        $.validator.addMethod("endtime_should_greater_starttime", function (value, element) {
+
+            var date_str = "2000-1-1";
+            var start = $("#tbxServiceTimeBegin").val();
+            var end = $("#tbxServiceTimeEnd").val();
+            var date_start = Date.parse(date_str + " " + start);
+            var date_end = Date.parse(date_str + " " + end);
+            return date_end > date_start;
+
+
+        }, "结束时间应该大于开始时间");
+
+
+        
+            $($("form")[0]).validate(
+                { rules: service_validate_rules,
+                    messages: service_validate_messages,
+                    invalidHandler: invalidHandler
+                }
+         );
+ 
+    });       //document.ready
 </script>
