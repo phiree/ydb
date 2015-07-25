@@ -10,9 +10,9 @@ using agsXMPP.protocol.client;
 
 namespace Dianzhu.XmppClient
 {
-    public partial class Form1 : Form
+    public partial class FmMain : Form
     {
-        public Form1()
+        public FmMain()
         {
             InitializeComponent();
             InitXmpp();
@@ -46,7 +46,7 @@ namespace Dianzhu.XmppClient
 
         private void button1_Click(object sender, System.EventArgs e)
         {
-          sendMsg(textBox1.Text);
+          //sendMsg(textBox1.Text);
         }
 
         private void label1_Click(object sender, System.EventArgs e)

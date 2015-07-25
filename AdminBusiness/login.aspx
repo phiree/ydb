@@ -56,7 +56,7 @@
                                         <label class="usernameIcon" for="tbxUserName">
                                             <i class="icon"></i>
                                         </label>
-                                        <asp:TextBox runat="server" ID="tbxUserName"></asp:TextBox>
+                                        <asp:TextBox runat="server"  placeholder="手机号码/电子邮箱" ID="tbxUserName"></asp:TextBox>
                                     </p>
                                     <!--<i id="userCheck" class="f-l"></i>-->
                                 <!--</div>-->
@@ -64,7 +64,7 @@
                                     <label class="passwordIcon" for="tbxPassword">
                                         <i class="icon"></i>
                                     </label>
-                                    <asp:TextBox runat="server" ID="tbxPassword" TextMode="Password"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbxPassword" placeholder="密码" TextMode="Password"></asp:TextBox>
                                 </p>
                                 <div class="loginBox">
                                      
