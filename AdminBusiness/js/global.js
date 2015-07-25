@@ -14,36 +14,37 @@ $(document).ready(function ($) {
                 selectPrint = $(this).find("cite"),
                 selectInput = $(this).find("input");
 
-            selectPrint.width($(this).width());
-            selectList.width($(this).width());
 
             selectPrint.html(selectOption.eq(0).html());
             for (var i = 0; i < selectOption.length; i++) {
-                selectOption.eq(i).attr({ value: i, href: "javascript:void(0)" });
+                selectOption.eq(i).attr({
+                    value : i,
+                    href : "javascript:void(0)"
+                });
             }
+
             if ( !selectInput.val() ) {
                 selectInput.val(selectOption.eq(0).attr("value"));
             } else {
                 selectPrint.html(selectOption.eq(selectInput.val()).html());
             }
-            selectList.hide();
-
 
             selectPrint.click(function () {
-                if (selectList.css("display") != "none") {
-                    selectList.slideUp("fast");
-                } else {
+                if (selectList.css("display") == "none") {
                     selectList.slideDown("fast");
+
+                } else {
+                    selectList.slideUp("fast");
                 }
             });
 
             var mouseOut = true;
-            $(this).mouseover(function () {
-                mouseOut = false;
-            });
-
-            $(this).mouseout(function () {
-                mouseOut = true;
+            $(this).bind("mouseover mouseout",function(e){
+                if (e.type == "mouseover"){
+                    mouseOut = false;
+                }else if(e.type == "mouseout"){
+                    mouseOut = true;
+                }
             });
 
             $(document).click(function () {
@@ -89,4 +90,20 @@ $(document).ready(function ($) {
         })
 
     })();
+
+    (function (){
+        var $navBtn = $(".nav-btn");
+        var pageHref = window.location.href;
+
+        $navBtn.each(function(){
+            var btnHref = $(this).parent().attr("href");
+            var bgPosition = parseInt($(this).css("background-positionX"));
+            if ( pageHref.indexOf(btnHref) >= 0 ) {
+                $(this).css({
+                    backgroundPositionX : bgPosition - 81
+            })
+            }
+        })
+
+    })()
 });
