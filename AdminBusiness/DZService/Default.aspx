@@ -80,4 +80,12 @@
     <script type="text/javascript" src="/js/CityList.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript" src="/js/service.js"></script>
+
+       <script type="text/javascript">
+           var name_prefix = 'ctl00$ContentPlaceHolder1$ServiceEdit1$';
+   
+      
+   </script>
+    <script src="/js/validation_service_edit.js" type="text/javascript"></script>
+    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
 </asp:Content>
