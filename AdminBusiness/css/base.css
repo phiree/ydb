@@ -216,9 +216,6 @@ body {
     color: #58789a;
 }
 
-
-
-
 /* 顶栏样式 */
 .topnav { background:#3d5b77; height:71px;}
 
@@ -253,6 +250,17 @@ body {
 
 /* 顶栏与侧边栏图标 */
 .nav-btn {
+    display: inline-block;
+    *display: inline-block;
+    *zoom: 1;
+    width: 79px;
+    height: 71px;
+    background: url("../image/nav_btn.png") no-repeat center;
+    vertical-align: middle;
+    content: "";
+}
+
+.side-btn {
     display: inline-block;
     *display: inline-block;
     *zoom: 1;

@@ -12,8 +12,8 @@
             <div class="leftContent" id="leftCont">
                 <div>
                     <ul>
-                        <li><a href="../DZService"><i class="nav-btn side-btn-service"></i></a></li>
-                        <li><a href="../DZService/Service_Edit.aspx"><i class="nav-btn side-btn-serviceSet"></i></a>
+                        <li><a href="../DZService"><i class="side-btn side-btn-service"></i></a></li>
+                        <li><a href="../DZService/Service_Edit.aspx"><i class="side-btn side-btn-serviceSet"></i></a>
                         </li>
                     </ul>
                 </div>

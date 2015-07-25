@@ -93,6 +93,7 @@ $(document).ready(function ($) {
 
     (function (){
         var $navBtn = $(".nav-btn");
+        var $sideBtn = $(".side-btn");
         var pageHref = window.location.href;
 
         $navBtn.each(function(){
@@ -105,5 +106,16 @@ $(document).ready(function ($) {
             }
         })
 
+        $sideBtn.each(function(){
+            var btnHref = $(this).parent().attr("href");
+            console.log(btnHref);
+            console.log(pageHref.indexOf(btnHref));
+            var bgPosition = parseInt($(this).css("background-positionX"));
+            if ( pageHref.indexOf(btnHref) >= 0 ) {
+                $(this).css({
+                    backgroundPositionX : bgPosition - 81
+                })
+            }
+        })
     })()
 });

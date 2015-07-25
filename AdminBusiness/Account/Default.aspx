@@ -14,8 +14,8 @@
             <div class="leftContent" id="leftCont">
                 <div>
                     <ul>
-                        <li><a href="./Default.aspx"><i class="nav-btn side-btn-myshop"></i></a></li>
-                        <li><a href="./Security.aspx"><i class="nav-btn side-btn-secret"></i></a></li>
+                        <li><a href="./Default.aspx"><i class="side-btn side-btn-myshop"></i></a></li>
+                        <li><a href="./Security.aspx"><i class="side-btn side-btn-secret"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -53,160 +53,173 @@
                         </div>
                     </div>
                 </div>
-                <div class="ShopDetailsTitle">
-                    <span>店铺详细资料</span>
-                </div>
-                <div class="ShopDetailsMain">
-                    <div class="clearfix">
-                        <div class="ShopDetailsAreaLeft">
-                            <div class="myshopLeftCont">
-                                <p class="myshop-item-title">
-                                    <i class="icon myshop-icon-shopIntro"></i>店铺介绍</p>
-                                <div>
-                                    <textarea class="myshop-input-textarea" id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入60个字)</textarea>
-                                </div>
-                            </div>
-                            <div class="myshopLeftCont">
-                                <p class="p_ContactPhone myshop-item-title">
-                                    <i class="icon myshop-icon-phone"></i>联系电话</p>
-                                <p>
-                                    <input type="text" class="myshop-input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/></p>
-                            </div>
-                            <div class="myshopLeftCont">
-                                <p class="p_addressDetail myshop-item-title">
-                                    <i class="icon myshop-icon-address"></i>详细店址</p>
-                                    <input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress" value="请放置店铺坐标" /><input type="hidden" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide" />
-                                <div id="addPrintBox"></div>
-                                <p><input type="text" class="myshop-input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
-                            </div>
-                            <div class="myshopLeftCont">
-                                <p class="p_email myshop-item-title">
-                                    <i class="icon myshop-icon-email"></i>邮箱地址</p>
-                                <p>
-                                    <input type="text" class="myshop-input-lg" runat="server" id="tbxEmail" name="email" /></p>
-                            </div>
-                            <div class="myshopLeftCont">
-                                <p class="myshop-item-title">
-                                    <i class="icon myshop-icon-workTime"></i>从业时间</p>
-                                <p>
-                                    <input type="text" class="myshop-input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
-                                </p>
-                            </div>
-                            <div class="BusinessLicense">
-                                <p class="p_BusinessLicense myshop-item-title">
-                                    <i class="icon myshop-icon-businessLic"></i>营业执照</p>
-                                <div>
-                                    <div class="download-img-pre fl">
-                                        <asp:HyperLink  runat="server" CssClass="download-img-show" ID="imgBusinessImage"></asp:HyperLink>
-                                        
-                                    </div>
-                                    <div class="input-file-box fl">
-                                        <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
-                                        <i class="input-file-bg"></i><i class="input-file-mark"></i>
-                                        <img class="input-file-pre" src="..\image\00.png" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ShopDetailsAreaRight">
-                            <div class="myshopRightCont ShopFigure">
-                                <p class="myshop-item-title">
-                                    <i class="icon myshop-icon-shopFigure"></i>店铺图片展示</p>
-                                <div class="clearfix">
-                                    <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
-                                        <ItemTemplate>
-                                            <div class="download-img-pre fl">
-                                                <asp:ImageButton OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
-                                                    ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
-                                                <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
-                                                        id="imgLicence" />
-                                                </a>
-                                            </div>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                    <div class="input-file-box d-inb">
-                                        <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuShow1" />
-                                        <i class="input-file-bg"></i><i class="input-file-mark"></i>
-                                        <img class="input-file-pre" src="..\image\00.png" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="myshopRightCont">
-                                <p class="myshop-item-title">
-                                    <i class="icon myshop-icon-empNum"></i>员工人数</p>
-                                <div class="d-inb select select-sm">
-                                    <ul>
-                                        <li><a>10人</a></li>
-                                        <li><a>20人</a></li>
-                                        <li><a>50人</a></li>
-                                    </ul>
-                                    <input type="hidden" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
-                                </div>
-                                <span>员工信息编辑</span>
-                            </div>
- 
-                            <div class="myshopRightCont">
-                                <p class="myshop-item-title">
-                                    <i class="icon myshop-icon-owner"></i>负责人姓名</p>
-                                <p>
-                                    <input type="text" class="myshop-input-mid" runat="server" clientidmode="Static" id="tbxContact" />
-                                </p>
-                            </div>
-                            <div class="myshopRightCont">
-                                <p class="myshop-item-title">
-                                    <i class="icon myshop-icon-licenseType"></i>证件类型</p>
-                                <div class="select select-sm">
-                                    <ul>
-                                        <li><a>身份证</a></li>
-                                        <li><a>其它</a></li>
-                                    </ul>
-                                    <input type="hidden" id="selCardType" value="0" runat="server" clientidmode="Static" />
-              
-                                </div>
-                            </div>
-                            <div class="myshopRightCont">
-                                <p class="myshop-item-title">
-                                    <i class="icon myshop-icon-licenseNum"></i>证件号码</p>
-                                <p>
-                                    <input type="text" class="myshop-input-mid" runat="server" id="tbxCardIdNo" clientidmode="Static" />
-                                </p>
-                            </div>
-                            <div class="myshopRightCont HeadProfilePicture">
-                                <p class="myshop-item-title">
-                                    <i class="icon myshop-icon-ownerPic"></i>负责人证件照上传</p>
-                                <div class="clearfix">
-                                    <div class="download-img-pre fl">
-                                    <asp:HyperLink runat="server" CssClass="download-img-show" ID="imgChargePerson"></asp:HyperLink>
-                                    </div>
-                                    <div class="input-file-box fl">
-                                        <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
-                                        <i class="input-file-bg"></i><i class="input-file-mark"></i>
-                                        <img class="input-file-pre" src="..\image\00.png" />
-                                    </div>
-                                </div>
-                            </div>
+                <div class="ShopShowWrap">
+                    <div class="ShopDetailsTitle">
+                        <span>店铺资料编辑</span>
+                    </div>
+                    <div class="ShopDetailsMain">
+                        <div>
+                            <p>店铺介绍</p>
+                            <p>联系电话</p>
                         </div>
                     </div>
-                    <div id="addrlightBox" class="dis-n">
-                        <div class="mapWrap">
-                            <div id="addressMap" class="mapMain">
-                            </div>
-                            <div id="addressCity" class="mapCity">
-                            </div>
-                            <div id="addressText" class="mapAddrsText myshop-addPrint">
+                </div>
+                <div class="ShopMainWrap">
+                    <div class="ShopDetailsTitle">
+                        <span>店铺详细资料</span>
+                    </div>
+                    <div class="ShopDetailsMain">
+                        <div class="clearfix">
+                            <div class="ShopDetailsAreaLeft">
+                                <div class="myshopLeftCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-shopIntro"></i>店铺介绍</p>
+                                    <div>
+                                        <textarea class="myshop-input-textarea" id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入60个字)</textarea>
+                                    </div>
+                                </div>
+                                <div class="myshopLeftCont">
+                                    <p class="p_ContactPhone myshop-item-title">
+                                        <i class="icon myshop-icon-phone"></i>联系电话</p>
+                                    <p>
+                                        <input type="text" class="myshop-input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/></p>
+                                </div>
+                                <div class="myshopLeftCont">
+                                    <p class="p_addressDetail myshop-item-title">
+                                        <i class="icon myshop-icon-address"></i>详细店址</p>
+                                        <input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress" value="请放置店铺坐标" /><input type="hidden" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide" />
+                                    <div id="addPrintBox"></div>
+                                    <p><input type="text" class="myshop-input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
+                                </div>
+                                <div class="myshopLeftCont">
+                                    <p class="p_email myshop-item-title">
+                                        <i class="icon myshop-icon-email"></i>邮箱地址</p>
+                                    <p>
+                                        <input type="text" class="myshop-input-lg" runat="server" id="tbxEmail" name="email" /></p>
+                                </div>
+                                <div class="myshopLeftCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-workTime"></i>从业时间</p>
+                                    <p>
+                                        <input type="text" class="myshop-input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
+                                    </p>
+                                </div>
+                                <div class="BusinessLicense">
+                                    <p class="p_BusinessLicense myshop-item-title">
+                                        <i class="icon myshop-icon-businessLic"></i>营业执照</p>
+                                    <div>
+                                        <div class="download-img-pre fl">
+                                            <asp:HyperLink  runat="server" CssClass="download-img-show" ID="imgBusinessImage"></asp:HyperLink>
 
+                                        </div>
+                                        <div class="input-file-box fl">
+                                            <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
+                                            <i class="input-file-bg"></i><i class="input-file-mark"></i>
+                                            <img class="input-file-pre" src="..\image\00.png" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mapButton">
-                                <input id="confBusiness" class="close myshop-sm-input" type="button" value="确定"><span class="myshop-locTip">点击地图放置地点哦！</span></div>
-                            <input id="businessValue" type="hidden" value="" />
+                            <div class="ShopDetailsAreaRight">
+                                <div class="myshopRightCont ShopFigure">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-shopFigure"></i>店铺图片展示</p>
+                                    <div class="clearfix">
+                                        <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
+                                            <ItemTemplate>
+                                                <div class="download-img-pre fl">
+                                                    <asp:ImageButton OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                        ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
+                                                    <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
+                                                        <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
+                                                            id="imgLicence" />
+                                                    </a>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                        <div class="input-file-box d-inb">
+                                            <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuShow1" />
+                                            <i class="input-file-bg"></i><i class="input-file-mark"></i>
+                                            <img class="input-file-pre" src="..\image\00.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="myshopRightCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-empNum"></i>员工人数</p>
+                                    <div class="d-inb select select-sm">
+                                        <ul>
+                                            <li><a>10人</a></li>
+                                            <li><a>20人</a></li>
+                                            <li><a>50人</a></li>
+                                        </ul>
+                                        <input type="hidden" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
+                                    </div>
+                                    <span>员工信息编辑</span>
+                                </div>
+
+                                <div class="myshopRightCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-owner"></i>负责人姓名</p>
+                                    <p>
+                                        <input type="text" class="myshop-input-mid" runat="server" clientidmode="Static" id="tbxContact" />
+                                    </p>
+                                </div>
+                                <div class="myshopRightCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-licenseType"></i>证件类型</p>
+                                    <div class="select select-sm">
+                                        <ul>
+                                            <li><a>身份证</a></li>
+                                            <li><a>其它</a></li>
+                                        </ul>
+                                        <input type="hidden" id="selCardType" value="0" runat="server" clientidmode="Static" />
+
+                                    </div>
+                                </div>
+                                <div class="myshopRightCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-licenseNum"></i>证件号码</p>
+                                    <p>
+                                        <input type="text" class="myshop-input-mid" runat="server" id="tbxCardIdNo" clientidmode="Static" />
+                                    </p>
+                                </div>
+                                <div class="myshopRightCont HeadProfilePicture">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-ownerPic"></i>负责人证件照上传</p>
+                                    <div class="clearfix">
+                                        <div class="download-img-pre fl">
+                                        <asp:HyperLink runat="server" CssClass="download-img-show" ID="imgChargePerson"></asp:HyperLink>
+                                        </div>
+                                        <div class="input-file-box fl">
+                                            <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
+                                            <i class="input-file-bg"></i><i class="input-file-mark"></i>
+                                            <img class="input-file-pre" src="..\image\00.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="addrlightBox" class="dis-n">
+                            <div class="mapWrap">
+                                <div id="addressMap" class="mapMain">
+                                </div>
+                                <div id="addressCity" class="mapCity">
+                                </div>
+                                <div id="addressText" class="mapAddrsText myshop-addPrint">
+
+                                </div>
+                                <div class="mapButton">
+                                    <input id="confBusiness" class="close myshop-sm-input" type="button" value="确定"><span class="myshop-locTip">点击地图放置地点哦！</span></div>
+                                <input id="businessValue" type="hidden" value="" />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="bottomArea">
-                    <input name="imageField" runat="server" onserverclick="btnSave_Click" type="image"
-                        id="imageField1" src="../image/myshop/shop_tx_107.png" />
-                    <input name="imageField" type="image" id="imageField2" src="../image/myshop/shop_tx_108.png" />
+                    <div class="bottomArea">
+                        <input name="imageField" runat="server" onserverclick="btnSave_Click" type="image"
+                            id="imageField1" src="../image/myshop/shop_tx_107.png" />
+                        <input name="imageField" type="image" id="imageField2" src="../image/myshop/shop_tx_108.png" />
+                    </div>
                 </div>
             </div>
             <div id="account" class="account">

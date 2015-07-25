@@ -11,8 +11,8 @@
             <div class="leftContent" id="leftCont">
                 <div>
                     <ul>
-                        <li><a href="./Default.aspx"><i class="nav-btn side-btn-myshop"></i></a></li>
-                        <li><a href="./Security.aspx"><i class="nav-btn side-btn-secret"></i></a></li>
+                        <li><a href="./Default.aspx"><i class="side-btn side-btn-myshop"></i></a></li>
+                        <li><a href="./Security.aspx"><i class="side-btn side-btn-secret"></i></a></li>
                     </ul>
                 </div>
             </div>
