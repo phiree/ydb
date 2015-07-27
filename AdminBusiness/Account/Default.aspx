@@ -76,7 +76,7 @@
                                 <div class="myshopLeftCont">
                                     <p class="p_addressDetail myshop-item-title">
                                         <i class="icon myshop-icon-address"></i>详细店址</p>
-                                        <input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress" value="请放置店铺坐标" /><input type="hidden" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide" />
+                                        <input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress" value="请放置店铺坐标" /><input type="hidden" focusID="setAddress" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide" />
                                     <div id="addPrintBox"></div>
                                     <p><input type="text" class="myshop-input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
                                 </div>
@@ -144,7 +144,7 @@
                                         </ul>
                                         <input type="hidden" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
                                     </div>
-                                    <span>员工信息编辑</span>
+                                     
                                 </div>
 
                                 <div class="myshopRightCont">
@@ -170,7 +170,7 @@
                                     <p class="myshop-item-title">
                                         <i class="icon myshop-icon-licenseNum"></i>证件号码</p>
                                     <p>
-                                        <input type="text" class="myshop-input-mid" runat="server" id="tbxCardIdNo" clientidmode="Static" />
+                                        <input type="text" class="myshop-input-mid" runat="server" id="tbxCardIdNo" name="tbxCardIdNo" clientidmode="Static" />
                                     </p>
                                 </div>
                                 <div class="myshopRightCont HeadProfilePicture">
@@ -219,6 +219,8 @@
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
+   
     <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>-->
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
@@ -226,4 +228,34 @@
     <script type="text/javascript" src="/js/CityList.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript" src="/js/account.js"></script>
+     <script type="text/javascript">
+         var name_prefix = 'ctl00$ContentPlaceHolder1$';
+   
+   </script>
+    <script>
+        $(document).ready(function () {
+            // set_name_as_id('snsi');
+            $.validator.setDefaults({
+                ignore: []
+            });
+
+            $.validator.addMethod("phone", function (value, element) {
+                return /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/.test(value);
+            }, "请输入有效的电话号码");
+            $.validator.addMethod("idcard", function (value, element) {
+                return /^(\d{15}$)|(^\d{17}([0-9]|X))$/.test(value);
+            }, "请输入有效的身份证号码");
+
+            $($("form")[0]).validate(
+                { rules: service_validate_rules,
+                    messages: service_validate_messages,
+                    invalidHandler: invalidHandler
+                }
+         );
+
+        });  
+    </script>
+       <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
+    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
+
 </asp:Content>
