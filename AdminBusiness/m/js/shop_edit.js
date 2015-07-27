@@ -5,13 +5,10 @@ $(function () {
 
     $("#ContentPlaceHolder1_ContentPlaceHolder1_imgBusinessImage").attr("data-ajax", "false");
     $("#ContentPlaceHolder1_ContentPlaceHolder1_imgChargePerson").attr("data-ajax", "false");
-   
+
     //样式处理
-    $('.my-li').append('<div class="ul-right">' +
-                            '<span></span>' +
-                            '<div class="ul-right li-inco">' +
-                           ' </div>' +
-                           '</div>');
+
+  $('.myche3').append('<div class="li-inco">' +'</div>');
 
     $('.my-li').click(function () {
         var target = $(this).attr("target");

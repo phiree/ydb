@@ -104,14 +104,14 @@
 
       
         function getMapAddrText(targetID, targetHID) {//获得地图的地址
-         
+            
             var targetTxt = "";
             var provincetxt = $("#provinceID option:selected").text();
             var citytxt = $("#cityID option:selected").text();
             var boroughtxt = $("#boroughID option:selected").text();
             var businesstxt = $("#businessID option:selected").text();
-           
 
+            
             var display =$('.showAdd').css('display');
             if (display == 'none') {
            
@@ -121,17 +121,35 @@
                     targetTxt = provincetxt + citytxt + boroughtxt + businesstxt;
                 }
                 $(targetID).text(targetTxt);
-                $(targetHID).text(targetTxt);
+
+                var addJson = {
+                    "province": provincetxt,
+                    "city": citytxt,
+                    "district": boroughtxt,
+                    "street": businesstxt,
+                    "streetNumber":""
+                    
+                };
+
+                $('#hiBusinessAreaCode').attr("value", JSON.stringify(addJson));
+               
+                // $(targetHID).text(targetTxt);
+             //   alert("555");
+           
+        ///   $(targetHID).attr("value", JSON.stringify(addJson));
                 
             } else {
-
+              
                 $(targetID).text($('.showAdd').html());
-                $(targetHID).text($('.showAdd').html());
+               
+               $(targetHID).text($('.showAdd').html());
             }
+            
+
            
             
             
-          //  alert(targetTxt);
+        //  alert(targetTxt);
          
 
 

@@ -11,9 +11,10 @@
     map.clearOverlays();    //清除地图上所有覆盖物
     $(document).on("pageshow", "#secondview", function () {
         defaultSetPoint();
+        
         $("#city-container .ui-select:eq(0) select").attr("data-inline", "true");
         $("#city-container .ui-select:eq(3)").css("display", "none");
-
+        $("#provinceID")[0].selectedIndex = 1; 
     });
     function defaultSetPoint (){
         if ($('#hiAddrId').attr("value")) {

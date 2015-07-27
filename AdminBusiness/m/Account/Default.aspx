@@ -32,79 +32,88 @@
         <div class="info-content">
             <div class="pd-size2">
                 <ul class="panel-ul">
+              
                     <li class="my-li" target="name">
-                        <div class="ul-left">
-                             <div class="m-top">店铺名:<span class="display_holder"><%=b.Name %></span></div>
+                       <div class="myche">
+                          <div class="myche1">店铺名:</div>
+                          <div class="myche2"><span class="display_holder"><%=b.Name %></span></div>
+                          <div class="myche3"></div>
                         </div>
+                        
                     </li>
+                   
                 </ul>
                 <ul class="panel-ul">
                     <li class="my-li" target="description">
-                        <div class="ul-left">
-                            <span class="m-top">店铺介绍</span>
-                            <div class="display_holder" id="shopDetailedTxt" style="font-size: 14px;">
-                                <%=b.Description %>
-                            </div>
+
+
+                        <div class="myche">
+                          <div class="myche1">店铺介绍:</div>
+                          <div class="myche2"><span class="display_holder" id="shopDetailedTxt" style="font-size: 14px;"><%=b.Description %></span></div>
+                          <div class="myche3"></div>
                         </div>
+                        
                     </li>
                 </ul>
                  <ul class="panel-ul">
                     <li class="my-li2">
-                        <div class="ul-left2">
-                            店铺头像
-                        </div>
-                        <div class="ul-left">
-                               
-                                    
-                            <div class="input-file-box d-inb">
+
+                         <div class="myche">
+                          <div class="myche1">店铺头像:</div>
+                          <div class="myche2">
+                               <div class="input-file-box d-inb">
                               <asp:FileUpload data-role="none"  CssClass="input-file-btn" runat="server" ID="fuAvater" />
                                   <i class="input-file-bg"  style='background:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=80&height=79&tt=2) ":"../image/myshop/touxiangkuang_11.png" %> ' ></i>
                                       
                                 <i class="input-file-mark"></i>
                                 <img class="input-file-pre" id="fuAvaterImg"/>
                             </div>
+                          </div>
+                          
                         </div>
+                        
                     </li>
                 </ul>
                 <ul class="panel-ul">
                     <li class="my-li" target="phone">
-                        <div class="ul-left">
-                            <div class="m-top"> 联系电话: <span class="display_holder">
-                                <%=b.Phone %></span></div>
+
+                       <div class="myche">
+                          <div class="myche1">联系电话:</div>
+                          <div class="myche2"> <span class="display_holder"><%=b.Phone %></span></div>
+                          <div class="myche3"></div>
                         </div>
+                        
                     </li>
                 </ul>
    
                 <ul class="panel-ul">
                     <a class="getMaphrefClass" href="#secondview" data-transition="slidedown" style="color: #58789a;"> <li class="my-li">
-                        <div class="ul-left">
-                                <div class="m-top"> 详细店址:
-                                 <span id="serArea-txt">  <%=b.Address %></span></div>
-                          </div>
-                         <input type="hidden" runat="server" clientidmode="Static" id="hiAddrId" />  
-                               
+                         <div class="myche">
+                          <div class="myche1">详细店址:</div>
+                          <div class="myche2"><span id="serArea-txt"><%=b.Address %></span></div>
+                          <div class="myche3"></div>
+                           <input type="hidden" runat="server" clientidmode="Static" id="hiAddrId" /> 
+
+                        </div>    
 
                     </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <li class="my-li" target="email">
-                        <div class="ul-left">
-                             <div class="m-top">邮箱: <span class="display_holder">
-                                <%=b.Email %>
-                            </span>
-                            </div>
+                         <div class="myche">
+                          <div class="myche1">邮箱:</div>
+                          <div class="myche2"> <span class="display_holder"><%=b.Email%></span></div>
+                          <div class="myche3"></div>
                         </div>
                     </li>
                 </ul>
                 <ul class="panel-ul">
                     <li class="my-li2">
-                        <div class="ul-left2">
-                            图片展示
-                        </div>
-                        <div class="ul-left"> 
-                          
-                            <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
+                   <div class="myche">
+                          <div class="myche1">图片展示:</div>
+                          <div class="myche2">
+                               <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                 <ItemTemplate>
                                    <div class="picture">
                                         <asp:ImageButton data-role="none" ID="ImageButton1" CssClass="itemDele-img" runat="server" CommandName="delete" ImageUrl="/image/shared/delete_1.png"
@@ -124,43 +133,56 @@
                                 <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                 <img class="input-file-pre" id="imgshow" />
                                 </div>
-
+                          
+                          </div>
+                          
                         </div>
+                       
                     </li>
                 </ul>
                 <ul class="panel-ul">
                     <li class="my-li" target="workingyears">
-                        <div class="ul-left">
-                             <div class="m-top">店铺从业时间:<span class="display_holder"><%=b.WorkingYears %></span></div>
+
+                        <div class="myche">
+                          <div>店铺从业时间:</div>
+                          <div class="myche2"> <span class="display_holder"><%=b.WorkingYears%></span></div>
+                          <div class="myche3"></div>
+                        </div>
                     </li>
                 </ul>
                 <ul class="panel-ul">
                     <li class="my-li" target="staffamount">
-                        <div class="ul-left">
-                            <div class="m-top"> 员工人数 <span class="display_holder">
-                                <%=b.StaffAmount %></span>
-                                </div>
+                         <div class="myche">
+                          <div class="myche1">员工人数:</div>
+                          <div class="myche2"> <span class="display_holder"><%=b.StaffAmount%></span></div>
+                          <div class="myche3"></div>
                         </div>
+                        
                     </li>
                 </ul>
                 <ul class="panel-ul">
-                    <li class="my-li3">
-                        <div class="ul-left2">
-                            营业执照
-                        </div>
-                        <div class="ul-left">
-                             <div class="BusinessImageDiv"><asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink></div>
-                            <div class="input-file-box d-inb">
+                    <li class="my-li">
+
+                       <div class="myche">
+                          <div class="myche1">营业执照:</div>
+                          <div class="myche2">
+                               <div class="BusinessImageDiv"><asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink></div>
+                                <div class="input-file-box d-inb">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
                                 <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                 <img class="input-file-pre" id="BusinessImage" />
                             </div>
+                          
+                          </div>
+                         
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="m-p-size pd-size">
+
+
             <div class="info-title">
                 负责人信息</div>
         </div>
@@ -168,42 +190,49 @@
             <div class="pd-size2">
                 <ul class="panel-ul">
                     <li class="my-li" target="chargename">
-                        <div class="ul-left">
-                             <div class="m-top">负责人姓名:<span class="display_holder"><%=b.Contact %></span></div>
+
+                        <div class="myche">
+                          <div>负责人姓名:</div>
+                          <div class="myche2"> <span class="display_holder"><%=b.Contact%></span></div>
+                          <div class="myche3"></div>
                         </div>
                     </li>
                 </ul>
                 <ul class="panel-ul">
                     <li class="my-li" target="idtype">
-                        <div class="ul-left">
-                            <div class="m-top"> 证件类型 :<span class="display_holder"><%=b.ChargePersonIdCardType %></span></div>
+                        <div class="myche">
+                          <div class="myche1">证件类型:</div>
+                          <div class="myche2"> <span class="display_holder"><%=b.ChargePersonIdCardType%></span></div>
+                          <div class="myche3"></div>
                         </div>
                     </li>
                 </ul>
                 <ul class="panel-ul">
                     <li class="my-li" target="idno">
-                        <div class="ul-left">
-                           <div class="m-top">  证件号码: <span class="display_holder">
-                                <%=b.ChargePersonIdCardNo %></span>
-                                </div>
+                        <div class="myche">
+                          <div class="myche1">证件号码:</div>
+                          <div class="myche2"> <span class="display_holder"><%=b.ChargePersonIdCardNo%></span></div>
+                          <div class="myche3"></div>
                         </div>
                     </li>
                 </ul>
                 <ul class="panel-ul">
-                    <li class="my-li2">
-                        <div class="ul-left2">
-                            证件照
-                        </div>
-                        <div class="ul-left">
-                              <div class="BusinessImageDiv"><asp:HyperLink runat="server" ID="imgChargePerson"></asp:HyperLink></div>
+                    <li class="my-li">
+                             <div class="myche">
+                          <div class="myche1">证件照:</div>
+                          <div class="myche2"> 
+                                 <div class="BusinessImageDiv"><asp:HyperLink runat="server" ID="imgChargePerson"></asp:HyperLink></div>
                                     
-                            <div class="input-file-box d-inb">
+                                <div class="input-file-box d-inb">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
                                 <i class="input-file-bg"></i>
                                 <i class="input-file-mark"></i>
                                 <img class="input-file-pre" id="licenceimg"/>
                             </div>
-                        </div>
+                          </div>
+                          
+                        </div
+                        
                     </li>
                 </ul>
                 <div style="text-align: right; margin-top: 10px;">

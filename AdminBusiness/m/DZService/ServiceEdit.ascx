@@ -14,66 +14,54 @@
         <div class="pd-size2">
             <ul class="panel-ul">
                 <a class="hrefClass" id="open_name" style="color: #58789a;">
-                    <li class="my-li6">
-                        <div class="ul-left">
-                            服务名称
+                    <li class="my-li">
+                        <div class="myche">
+                          <div class="myche1">服务名称:</div>
+                          <div class="myche2"> <span id="serviceName"></div>
+                          <div class="myche3"><div class="li-inco"></div>
                         </div>
-                        <div class="ul-right">
-                            <span id="serviceName"></span>
-                            <div class="ul-right li-inco">
-                            </div>
-                        </div>
+
                     </li>
                 </a>
             </ul>
             <ul class="panel-ul">
                 <a class="hrefClass" id="open_servicetype" style="color: #58789a;">
-                    <li class="my-li6">
-                        <div class="ul-left">
-                            服务类别
-                        </div>
-                        <div class="ul-right">
-                            <span id="targetid-txt">
+                    <li class="my-li">
+                        <div class="myche">
+                          <div class="myche1">服务类别:</div>
+                          <div class="myche2"> <span id="targetid-txt">
                              <asp:Label runat="server" ID="lblSelectedType"></asp:Label>
-                                </span>
-                               
-                            <div class="ul-right li-inco">
-                            </div>
+                                </span></div>
+                          <div class="myche3"><div class="li-inco"></div>
                         </div>
+                        
                     </li>
                 </a>
             </ul>
             <ul class="panel-ul">
                 <a class="hrefClass" id="open_description" style="color: #58789a;">
                     <li class="my-li">
-                        <div class="ul-left">
-                            <div>
-                                服务介绍</div>
-                            <div id="serInfo-txt" style="margin-bottom: 5px; font-size: 14px;">
-                                请输入服务介绍</div>
-                        </div>
-                        <div class="ul-right li-inco">
-                        </div>
+
+                     <div class="myche">
+                          <div class="myche1">服务介绍:</div>
+                          <div class="myche2"> <span id="serInfo-txt"></span> </div>
+                          <div class="myche3"><div class="li-inco"></div>
+                     </div>
+
+                       
                     </li>
                 </a>
             </ul>
              <ul class="panel-ul">
                 <a  class="hrefClass" id="open_enable" style="color: #58789a;">
                     <li class="my-li3">
-                        <div class="ul-left">
-                             
-                                 <div class="m-top">启用 </div>
-                             
-                        </div>
-                         <div class="ul-right">
-                          <div class="m-top">
-                            <span id="spanEnable">
-                                 </span>
-                            <div class="ul-right li-inco">
-                            </div>
-                            </div>
-                        </div>
-                        
+                         
+                       <div class="myche">
+                          <div class="myche1">启用:</div>
+                          <div class="myche2s"> <span id="spanEnable"></span> </div>
+                          <div class="myche3"><div class="li-inco"></div>
+                      </div>
+
                     </li>
                 </a>
             </ul>
@@ -89,169 +77,150 @@
                     <a class="getMaphrefClass" href="#secondview" data-transition="slidedown" style="color: #58789a;">
 
 
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                服务范围
-                            </div>
-                            <div class="ul-right">
-                                <span id="serArea-txt">请输入服务区域</span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+
+                          <div class="myche">
+                             <div class="myche1">服务范围:</div>
+                             <div class="myche2s"> <span id="serArea-txt">请输入服务区域</span> </div>
+                             <div class="myche3"><div class="li-inco"></div>
+                          </div>
+                            
                         </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <a class="hrefClass" id="open_minprice">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                最低服务费
-                            </div>
-                            <div class="ul-right">
-                                <span id="serMinPrice-txt"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+                              <div class="myche">
+                                 <div class="myche1s">最低服务费:</div>
+                                 <div class="myche2s"> <span id="serMinPrice-txt">请输入服务区域</span> </div>
+                                 <div class="myche3"><div class="li-inco"></div>
+                              </div>
+
                         </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <a class="hrefClass" id="open_unitprice" style="color: #58789a;">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                服务单价
-                            </div>
-                            <div class="ul-right">
-                                <span id="spanUnitPrice"></span><span id="spanChargeUnit"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+
+                             <div class="myche">
+                                 <div class="myche1"> 服务单价:</div>
+                                 <div class="myche2s"> <span id="spanUnitPrice"></span><span id="spanChargeUnit"></span> </div>
+                                 <div class="myche3"><div class="li-inco"></div>
+                              </div>
+
                         </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <a class="hrefClass" id="open_preorder_delay" style="color: #58789a;">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                提前预约时长
-                            </div>
-                            <div class="ul-right">
-                                <span id="serPreorder_delay_txt"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+                              <div class="myche">
+                                 <div class="myche1s">提前预约时长:</div>
+                                 <div class="myche2s"> <span id="serPreorder_delay_txt"></span></div>
+                                 <div class="myche3"><div class="li-inco"></div>
+                              </div>
+                            
                         </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <a class="hrefClass" id="open_openperiod">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                接单时间
-                            </div>
-                            <div class="ul-right">
-                                <span id="serPeriod-txt"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+
+                            <div class="myche">
+                                 <div class="myche1s">接单时间:</div>
+                                 <div class="myche2s"> <span id="serPeriod-txt"></span></div>
+                                 <div class="myche3"><div class="li-inco"></div>
+                              </div>
+                            
                         </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <a class="hrefClass" id="open_maxorder_day" style="color: #58789a;">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                每日最大接单量
-                            </div>
-                            <div class="ul-right">
-                                <span id="spanMax_order_day"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+                             <div class="myche">
+                                 <div class="myche1s">每日最大接单量:</div>
+                                 <div class="myche2s"> <span id="spanMax_order_day"></span></div>
+                                 <div class="myche3"><div class="li-inco"></div>
+                              </div>
+                            
                         </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <a class="hrefClass" id="open_maxorder_hour" style="color: #58789a;">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                每小时最大接单量
-                            </div>
-                            <div class="ul-right">
-                                <span id="span_maxorder_hour"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+                            <div class="myche">
+                                 <div class="myche1s">每小时最大接单量:</div>
+                                 <div class="myche2s"> <span id="span_maxorder_hour"></span></div>
+                                 <div class="myche3"><div class="li-inco"></div>
+                              </div>
+                            
                         </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <a class="hrefClass" id="open_servicemode" style="color: #58789a;">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                是否上门
-                            </div>
-                            <div class="ul-right">
-                                <span id="spanServicemode"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+                             <div class="myche">
+                                 <div class="myche1">是否上门:</div>
+                                 <div class="myche2s"> <span id="spanServicemode"></span></div>
+                                 <div class="myche3"><div class="li-inco"></div>
+                              </div>
+
+                            
                         </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <a class="hrefClass" id="open_is_for_business" style="color: #58789a;">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                可以对公
-                            </div>
-                            <div class="ul-right">
-                                <span id="span_forbusiness"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+
+                           <div class="myche">
+                                 <div class="myche1">可以对公:</div>
+                                 <div class="myche2s"> <span id="span_forbusiness"></span></div>
+                                 <div class="myche3"><div class="li-inco"></div>
+                              </div>
+                           
                         </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <a class="hrefClass" id="open_compensation" style="color: #58789a;">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                先行赔付
-                            </div>
-                            <div class="ul-right">
-                                <span id="span_compensation"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+                            <div class="myche">
+                                 <div class="myche1">先行赔付:</div>
+                                 <div class="myche2s"> <span id="span_compensation"></span></div>
+                                 <div class="myche3"><div class="li-inco"></div>
+                              </div>
+                            
                         </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <a class="hrefClass" id="open_certificated" style="color: #58789a;">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                平台认证
-                            </div>
-                            <div class="ul-right">
-                                <span id="span_certificated"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+                            <div class="myche">
+                                 <div class="myche1">平台认证:</div>
+                                 <div class="myche2s"> <span id="span_certificated"></span></div>
+                                 <div class="myche3"><div class="li-inco"></div>
+                              </div>
+                           
                         </li>
                     </a>
                 </ul>
                 <ul class="panel-ul">
                     <a class="hrefClass" id="open_paytype" style="color: #58789a;">
-                        <li class="my-li6">
-                            <div class="ul-left">
-                                支付方式
-                            </div>
-                            <div class="ul-right">
-                                <span id="span_paytype"></span>
-                                <div class="ul-right li-inco">
-                                </div>
-                            </div>
+                        <li class="my-li">
+                              <div class="myche">
+                                 <div class="myche1">支付方式:</div>
+                                 <div class="myche2s"> <span id="span_paytype"></span></div>
+                                 <div class="myche3"><div class="li-inco"></div>
+                              </div>
+                           
                         </li>
                     </a>
                 </ul>
@@ -376,7 +345,7 @@
                 </asp:RadioButtonList>
             </div>
              <div style="text-align: right; ">
-            <a href="#" id="rp_save" data-rel="close" data-role="button" data-inline="true" onClick="getMapAddrText('#serArea-txt','#hiBusinessAreaCode')">确定</a>
+            <a href="#" id="rp_save" data-rel="close" data-role="button" data-inline="true">确定</a>
             <a href="#" data-rel="close" data-role="button" data-inline="true">取消</a>
             </div>
         </div>

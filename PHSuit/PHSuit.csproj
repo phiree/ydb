@@ -56,6 +56,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Device" />
     <Reference Include="System.Drawing" />
@@ -68,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IOHelper.cs" />
+    <Compile Include="NetHelper.cs" />
     <Compile Include="PHGeography.cs" />
     <Compile Include="PHNumber.cs" />
     <Compile Include="ReadExcelToDataTable.cs" />
