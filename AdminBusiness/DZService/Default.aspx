@@ -6,6 +6,7 @@
     <link href="/css/service.css" rel="stylesheet" type="text/css" />
     <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
         rel="stylesheet" type="text/css" />
+    <link href="/css/validation.css" rel="stylesheet" type="text/css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
