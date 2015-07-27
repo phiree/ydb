@@ -3,7 +3,17 @@
  */
 
 $(document).ready(function ($) {
-  
+
+    (function(){
+        return $('.time-select').each(function () {
+                var selectList = $(this).find("ul");
+                for ( var i = 0 ; i < 25 ; i++ ) {
+                    selectList.append("<li><a>"+ i + ":00" +"</a></li>");
+                }
+            }
+        )
+    })();
+
     (function () {
     
         return $('.select').each(function () {
@@ -118,4 +128,5 @@ $(document).ready(function ($) {
             }
         })
     })()
+
 });

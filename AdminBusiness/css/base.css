@@ -303,6 +303,11 @@ body {
 .select a { display: block; text-indent: 0.8em; }
 .select a:hover { background: #f6fafe; }
 
+/*timeSelect 初始化*/
+.time-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #e7ebee; z-index:10; background: #fff; display: none;}
+
+
+
 /* 图片上传框样式 */
 .input-file-box {
     position: relative;
