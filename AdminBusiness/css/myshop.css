@@ -126,6 +126,8 @@
     position: relative;
     width: 700px;
     height: 500px;
+    border: 5px solid #58789a;
+    border-radius: 5px;
 }
 
 .mapMain {
@@ -161,6 +163,19 @@
 }
 
 .myshop-addPrint span {
+    margin-right: 5px;
+}
+
+.myshop-addPrint-map {
+    padding: 5px;
+    color: #fff;
+    background: #ffa81f;
+    border-radius: 5px;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+.myshop-addPrint-map span {
     margin-right: 5px;
 }
 
