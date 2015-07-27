@@ -15,6 +15,7 @@
                     <ul>
                     </ul>
                 </div>
+                <div id="serList"></div>
                 <input type="hidden" id="hiTypeId" clientidmode="Static" runat="server" />
             </td>
         </tr>
@@ -172,13 +173,13 @@
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
     <script src="/js/TabSelection.js" type="text/javascript"></script>
     <script   type="text/javascript">
-        $(function () {
-            $("#tabsServiceType").TabSelection({
-                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
-                "leaf_clicked": function (id) {
-                    $("#hiTypeId").val(id);
-                }
-            });
-        });
+//        $(function () {
+//            $("#tabsServiceType").TabSelection({
+//                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
+//                "leaf_clicked": function (id) {
+//                    $("#hiTypeId").val(id);
+//                }
+//            });
+//        });
     </script>
 </asp:Content>

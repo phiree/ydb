@@ -1,0 +1,10 @@
+#serList ul {
+    width: 150px;
+    height: 200px;
+    overflow-y: scroll;
+    float: left;
+}
+
+.choiceSer {
+    background: #33cc33;
+}

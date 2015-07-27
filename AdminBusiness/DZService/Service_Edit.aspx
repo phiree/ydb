@@ -5,6 +5,7 @@
     <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
         rel="stylesheet" type="text/css" />
     <link href="/css/validation.css" rel="stylesheet" type="text/css">
+    <link href="/css/ServiceSelect.css" rel="stylesheet" type="text/css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
@@ -57,19 +58,32 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
-    <script src="/js/setname.js" type="text/javascript"></script> 
-   
+    <script src="/js/setname.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/ServiceSelect.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
     <script type="text/javascript" src="/js/CityList.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript" src="/js/service.js"></script>
-   <script type="text/javascript">
-       var name_prefix = 'ctl00$ContentPlaceHolder1$ctl00$';
-   
+    <script>
+        $(function () {
+            $("#tabsServiceType").TabSelection({
+                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
+                "leaf_clicked": function (id) {
+                    $("#hiTypeId").val(id);
+                }
+            });
+
+            $("#serList").ServiceSelect({
+                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype"
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        var name_prefix = 'ctl00$ContentPlaceHolder1$ctl00$';
       
-   </script>
+    </script>
     <script src="/js/validation_service_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
 </asp:Content>
