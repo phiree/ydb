@@ -220,9 +220,6 @@
     <asp:Button CssClass="service-saveSubmit-btn" runat="server" ID="btnSave" OnClick="btnSave_Click" />
 </div>
 <script>
-
-
-
     $(document).ready(function () {
         // set_name_as_id('snsi');
         $.validator.setDefaults({
@@ -242,16 +239,20 @@
             var date_end = Date.parse(date_str + " " + end);
             return date_end > date_start;
 
-
         }, "结束时间应该大于开始时间");
 
 
         
             $($("form")[0]).validate(
-                { rules: service_validate_rules,
+                {
+//                    debug: true,
+                    rules: service_validate_rules,
                     messages: service_validate_messages,
-                    invalidHandler: invalidHandler
+                    invalidHandler: invalidHandler,
+                    onsubmit: true,
+                    onfocusout: true
                 }
+
          );
  
     });       //document.ready

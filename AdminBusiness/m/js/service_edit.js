@@ -13,7 +13,7 @@ $(function () {
     displaypaytype();
     displaypreorder_delay();
     displayservicemode();
-    displayServiceScope();
+    // displayServiceScope();
     displayunitprice();
     //打开右侧panel
 
@@ -46,7 +46,7 @@ $(function () {
             open_click("description", displayDescription);
         }
     );
-     
+
     function displayDescription() { $("#serInfo-txt").text($("#tbxDescription").val()); }
     $("#open_enable").click(
         function () {
@@ -54,21 +54,21 @@ $(function () {
         }
     );
 
-        function displayEnable() {
-           
-            var enable=$("#cbxEnable[type=checkbox]")[0].checked;
-            if(enable)
-                $("#spanEnable").text("启用");
-            else
-                $("#spanEnable").text("未启用");
-         }
+    function displayEnable() {
+
+        var enable = $("#cbxEnable[type=checkbox]")[0].checked;
+        if (enable)
+            $("#spanEnable").text("启用");
+        else
+            $("#spanEnable").text("未启用");
+    }
     //服务范围
     $("#open_servicescope").click(
         function () {
             open_click("servicescope", displayServiceScope);
         }
     );
-    function displayServiceScope() { $("#serArea-txt").text($("#hiBusinessAreaCode").val()); }
+    function displayServiceScope() {("#serArea-txt").text($("#hiBusinessAreaCode").val()); }
     //最低服务费
     $("#open_minprice").click(
         function () {
@@ -181,7 +181,7 @@ $(function () {
     }
 
 
-    
+
 
 
 

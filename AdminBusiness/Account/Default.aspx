@@ -14,14 +14,14 @@
             <div class="leftContent" id="leftCont">
                 <div>
                     <ul>
-                        <li><a href="./Default.aspx"><i class="side-btn side-btn-myshop"></i></a></li>
-                        <li><a href="./Security.aspx"><i class="side-btn side-btn-secret"></i></a></li>
+                        <li><a href="/account/Default.aspx"><i class="side-btn side-btn-myshop"></i></a></li>
+                        <li><a href="/account/Security.aspx"><i class="side-btn side-btn-secret"></i></a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="rightContent" id="rightCont">
-            <div id="myshop-wrap" ng-app="" ng-controller="init">
+            <div id="myshop-wrap">
                 <div class="myshopInfoArea clearfix">
                     <div class="myshopInfoTilte">
                         <h1>
@@ -53,20 +53,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="ShopShowWrap">
-                    <div class="ShopDetailsTitle">
-                        <span>店铺资料编辑</span>
-                    </div>
-                    <div class="ShopDetailsMain">
-                        <div>
-                            <p>店铺介绍</p>
-                            <p>联系电话</p>
-                        </div>
-                    </div>
-                </div>
                 <div class="ShopMainWrap">
                     <div class="ShopDetailsTitle">
-                        <span>店铺详细资料</span>
+                        <span>店铺资料编辑</span>
                     </div>
                     <div class="ShopDetailsMain">
                         <div class="clearfix">
@@ -206,7 +195,7 @@
                                 </div>
                                 <div id="addressCity" class="mapCity">
                                 </div>
-                                <div id="addressText" class="mapAddrsText myshop-addPrint">
+                                <div id="addressText" class="mapAddrsText myshop-addPrint-map">
 
                                 </div>
                                 <div class="mapButton">
@@ -233,7 +222,6 @@
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
    
     <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>-->
-    <!--<script type="text/javascript" src="/js/messages_vali.js"></script>-->
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>

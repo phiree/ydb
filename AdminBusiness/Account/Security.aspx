@@ -11,8 +11,8 @@
         <div class="leftContent" id="leftCont">
             <div>
                 <ul>
-                    <li><a href="./Default.aspx"><i class="side-btn side-btn-myshop"></i></a></li>
-                    <li><a href="./Security.aspx"><i class="side-btn side-btn-secret"></i></a></li>
+                    <li><a href="/account/Default.aspx"><i class="side-btn side-btn-myshop"></i></a></li>
+                    <li><a href="/account/Security.aspx"><i class="side-btn side-btn-secret"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -32,7 +32,7 @@
                             <div class="InfoComplete">
                                 <span class="progress" style="width:<%=CurrentBusiness.CompetePercent%>%" ></span>
                             </div>
-                            <span class="completePercentage"> <%=CurrentBusiness.CompetePercent%>%</span>
+                            <span class="completePercentage"><%=CurrentBusiness.CompetePercent%>%</span>
                         </div>
                     </div>
                     <div class="headEditImg">

@@ -2,7 +2,7 @@
 
 .info-title{ height:40px; line-height:40px; color:#617e9c;}
 .info-content{ background:#FFF; overflow:hidden;}
-.my-li{ border-bottom:#cadbec solid 1px; overflow:hidden;}
+.my-li{ border-bottom:#cadbec solid 1px; overflow:hidden; padding-bottom:8px; padding-top:12px;}
 .my-li2{border-bottom:#cadbec solid 1px;overflow:hidden; padding-top:10px; padding-bottom:5px;}
 
 .my-li3{overflow:hidden; padding-top:10px;padding-top:5px;}
@@ -12,7 +12,7 @@
 .ul-left{ float:left; overflow:hidden;}
 .ul-left2{ float:left;height:80px; line-height:80px;margin-right:10px;}
 .ul-right{ float:right; position:relative;}
-.li-inco{ background:url(../images/ul-jt.png) no-repeat; width:11px; height:42px; margin-left:8px;}
+.li-inco{ background:url(../images/ul-jt.png) no-repeat; width:11px; height:23px; margin-left:8px;}
 .picture{ margin-right:5px; float:left; position:relative;}
 .itemDele-img{ position:absolute;}
 .BusinessImageDiv{ float:left;}
