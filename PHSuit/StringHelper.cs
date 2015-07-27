@@ -212,5 +212,10 @@ namespace PHSuit
            return (url + updatedQueryString);
         }
 
+        public static bool IsEamil(string str)
+        {
+            return true;
+        }
+
     }
 }

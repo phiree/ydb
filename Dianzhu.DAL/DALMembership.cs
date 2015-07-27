@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using NHibernate;
 using Dianzhu;
+ 
+using System.Net.Mail;
 namespace Dianzhu.DAL
 {
     public class DALMembership :DALBase<Model.DZMembership>
@@ -110,12 +112,18 @@ namespace Dianzhu.DAL
         }
         public Model.BusinessUser CreateBusinessUser(string username, string password, Model.Business business)
         {
+            
             Model.BusinessUser member = new Model.BusinessUser
             { UserName = username, Password = password, TimeCreated = DateTime.Now, BelongTo = business,
-             LastLoginTime=DateTime.Now};
+             LastLoginTime=DateTime.Now,
+            RegisterValidateCode=new Guid().ToString(),IsRegisterValidated=false};
             Save(member);
+
+            //send validation email
+
             return member;
         }
+        
         
     }
 }

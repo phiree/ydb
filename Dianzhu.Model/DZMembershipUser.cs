@@ -20,6 +20,14 @@ namespace Dianzhu.Model
         public virtual string  Phone{ get; set; }
         public virtual string NickName { get; set; }
         public virtual string Address { get; set; }
+        /// <summary>
+        /// 注册验证码(邮箱验证链接,手机验证码)
+        /// </summary>
+        public virtual string RegisterValidateCode { get; set; }
+        /// <summary>
+        /// 是否通过了验证.
+        /// </summary>
+        public virtual bool IsRegisterValidated { get; set; }
 
         public virtual void CopyTo(DZMembership newMember)
         {

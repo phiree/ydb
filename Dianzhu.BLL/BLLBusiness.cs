@@ -18,9 +18,10 @@ namespace Dianzhu.BLL
         public DALMembership dalMembership = DALFactory.DALMembership;
 
         public void Register(string address, string description
-                            , double latitude, double longtitude, string name, string mobilePhone, string password
+                            , double latitude, double longtitude, string name, string username, string password
             )
         {
+            
             Business b = new Business
             {
                 Address = address,
@@ -33,7 +34,7 @@ namespace Dianzhu.BLL
             };
 
             DALBusiness.Save(b);
-            BusinessUser bu = dalMembership.CreateBusinessUser(mobilePhone, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);
+            BusinessUser bu = dalMembership.CreateBusinessUser(username, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);
 
 
         }

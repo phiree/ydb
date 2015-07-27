@@ -6,6 +6,10 @@ using System.Web.Security;
 using System.Web.Util;
 using Dianzhu.DAL;
 using Dianzhu.Model;
+using System.Net.Mail;
+using System.Net.Configuration;
+using System.Configuration;
+using System.Net;
 namespace Dianzhu.BLL
 {
     public class DZMembershipProvider : MembershipProvider
@@ -210,7 +214,20 @@ namespace Dianzhu.BLL
         public DZMembership CreateBusinessUser(string username, string password,Business b)
         {
             string encrypted = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
-            return DALMembership.CreateBusinessUser(username, encrypted, b);
+            DZMembership member= DALMembership.CreateBusinessUser(username, encrypted, b);
+            SendValidationMail();
+            return member;
+        }
+        public  void SendValidationMail()
+        {
+            PHSuit.EmailHelper.SendEmail("550700860@qq.com", "su", "body");
+            //SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+            //SmtpClient client = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port);
+            //client.Credentials = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
+            //MailMessage mail = new MailMessage(smtpSection.From, "550700860@qq.com");
+            //mail.Subject = "this is a test email.";
+            //mail.Body = "this is my test email body";
+            //client.Send(mail);
         }
         public DZMembership CreateUser(string userName,string userPhone,string userEmail, string password,out MembershipCreateStatus createStatus)
         {

@@ -18,7 +18,8 @@ public partial class register : System.Web.UI.Page
 
     protected void regPsSubmit_OnClick(object sender, EventArgs e)
     {
-        string mobilePhone = tbxUserName.Text.Trim();// tbx_MobilePhone.Text.Trim();
+        string userName = tbxUserName.Text.Trim();// tbx_MobilePhone.Text.Trim();
+
         string name = string.Empty;// tbxUserName.Text.Trim();
          string password=regPs.Text.Trim();
          string password2 = regPsConf.Text.Trim();
@@ -31,8 +32,8 @@ public partial class register : System.Web.UI.Page
          double longtitude = 0;// Convert.ToDouble(tbxLon.Text.Trim());
 
        // Membership.CreateUser(tbxUserName.Text, regPs.Text);
-       
-        bllBusiness.Register(address, description, latitude, longtitude, name, mobilePhone, password);
+
+         bllBusiness.Register(address, description, latitude, longtitude, name, userName, password);
         //PHSuit.Notification.Show(Page, "", "注册成功", "register_suc.aspx");
         Response.Redirect("register_suc.aspx",true);
     }
