@@ -15,7 +15,7 @@ namespace Dianzhu.Test
         {
             DZMembershipProvider dp = new DZMembershipProvider();
             dp.DALMembership = null;
-            dp.SendValidationMail();
+            //dp.SendValidationMail();
         }
     }
 }

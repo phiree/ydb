@@ -15,7 +15,7 @@ namespace Dianzhu.BLL
     public class DZMembershipProvider : MembershipProvider
     {
 
-       public DALMembership DALMembership = DALFactory.DALMembership;
+        public DALMembership DALMembership = DALFactory.DALMembership;
         #region override of membership provider
         public override string ApplicationName
         {
@@ -38,13 +38,13 @@ namespace Dianzhu.BLL
             }
             if (newPassword.Length < this.MinRequiredPasswordLength)
             {
-                
-                throw new ArgumentException("密码长度至少"+this.MinRequiredPasswordLength+"位");
+
+                throw new ArgumentException("密码长度至少" + this.MinRequiredPasswordLength + "位");
             }
 
             DZMembership member = DALMembership.GetMemberByName(username);
-            
-            string encryptedOldPsw =  FormsAuthentication.HashPasswordForStoringInConfigFile(oldPassword, "MD5");
+
+            string encryptedOldPsw = FormsAuthentication.HashPasswordForStoringInConfigFile(oldPassword, "MD5");
             string encryptedNewPsw = FormsAuthentication.HashPasswordForStoringInConfigFile(newPassword, "MD5");
             if (member.Password != encryptedOldPsw) return false;
             member.Password = encryptedNewPsw;
@@ -59,15 +59,18 @@ namespace Dianzhu.BLL
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-            DZMembership user = new DZMembership { UserName=username, 
-                        Password= FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"),
-                         TimeCreated=DateTime.Now};
+            DZMembership user = new DZMembership
+            {
+                UserName = username,
+                Password = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"),
+                TimeCreated = DateTime.Now
+            };
             DALMembership.CreateUser(user);
             MembershipUser mu = new MembershipUser("DZMembershipProvider",
                  username, user.Id, "", "", string.Empty,
                  true, true, DateTime.Now,
                  DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
-            status= MembershipCreateStatus.Success;
+            status = MembershipCreateStatus.Success;
             return mu;
         }
 
@@ -192,17 +195,17 @@ namespace Dianzhu.BLL
 
         public override bool ValidateUser(string username, string password)
         {
-            
+
             string encryptedPwd = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
 
             bool isValid = DALMembership.ValidateUser(username, encryptedPwd);
-           
+
 
             return isValid;
         }
         #endregion
 
-#region additional method for user
+        #region additional method for user
         public BusinessUser GetBusinessUser(Guid id)
         {
             return DALMembership.GetBusinessUser(id);
@@ -211,16 +214,26 @@ namespace Dianzhu.BLL
         {
             return DALMembership.GetAll();
         }
-        public DZMembership CreateBusinessUser(string username, string password,Business b)
+        public DZMembership CreateBusinessUser(string username, string password, Business b)
         {
             string encrypted = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
-            DZMembership member= DALMembership.CreateBusinessUser(username, encrypted, b);
-            SendValidationMail();
+            DZMembership member = DALMembership.CreateBusinessUser(username, encrypted, b);
+            
+            
             return member;
         }
-        public  void SendValidationMail()
+        public void SendValidationMail(string to,string verifyUrl)
         {
-            PHSuit.EmailHelper.SendEmail("550700860@qq.com", "su", "body");
+            string subjecst = "一点半注册验证邮件";
+           
+            string body = "感谢您注册一点半.请点击下面的连接验证您的注册邮箱.</br>"
+                        + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
+                            + verifyUrl + "'>点击验证</a><br/><br/><br/>"
+                        + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
+                        + verifyUrl;
+                ;
+
+            PHSuit.EmailHelper.SendEmail(to, subjecst, body);
             //SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
             //SmtpClient client = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port);
             //client.Credentials = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
@@ -229,10 +242,10 @@ namespace Dianzhu.BLL
             //mail.Body = "this is my test email body";
             //client.Send(mail);
         }
-        public DZMembership CreateUser(string userName,string userPhone,string userEmail, string password,out MembershipCreateStatus createStatus)
+        public DZMembership CreateUser(string userName, string userPhone, string userEmail, string password, out MembershipCreateStatus createStatus)
         {
             createStatus = MembershipCreateStatus.ProviderError;
-            var savedUserName=!string.IsNullOrEmpty(userName)?userName:string.IsNullOrEmpty(userPhone)?userEmail:userPhone;
+            var savedUserName = !string.IsNullOrEmpty(userName) ? userName : string.IsNullOrEmpty(userPhone) ? userEmail : userPhone;
             var user = GetUserByName(savedUserName);
             if (user != null)
             {
@@ -243,9 +256,9 @@ namespace Dianzhu.BLL
             {
                 var password_cred = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
                 DZMembership newMember = new DZMembership { UserName = savedUserName, Password = password_cred };
-               DALMembership.Save(newMember);
-               createStatus = MembershipCreateStatus.Success;
-               return newMember;
+                DALMembership.Save(newMember);
+                createStatus = MembershipCreateStatus.Success;
+                return newMember;
             }
         }
         public DZMembership GetUserByName(string name)
@@ -264,6 +277,6 @@ namespace Dianzhu.BLL
         {
             DALMembership.Update(member);
         }
-#endregion
+        #endregion
     }
 }

@@ -35,6 +35,7 @@ namespace PHSuit
             MailMessage mail = new MailMessage(from,to);
             mail.Subject = subject;
             mail.Body = body;
+            mail.IsBodyHtml = true;
             client.Send(mail);
         }
     }

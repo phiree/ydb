@@ -116,7 +116,7 @@ namespace Dianzhu.DAL
             Model.BusinessUser member = new Model.BusinessUser
             { UserName = username, Password = password, TimeCreated = DateTime.Now, BelongTo = business,
              LastLoginTime=DateTime.Now,
-            RegisterValidateCode=new Guid().ToString(),IsRegisterValidated=false};
+            RegisterValidateCode=Guid.NewGuid().ToString(),IsRegisterValidated=false};
             Save(member);
 
             //send validation email
