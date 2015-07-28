@@ -111,66 +111,8 @@ public partial class Account_Edit : BasePage
        CurrentBusiness.AreaBelongTo = area;
        
        b.Address = tbxAddress.Value;
-        //upload pictures
-         if (fuBusinessLicence.PostedFile!=null&&fuBusinessLicence.PostedFile.ContentLength != 0)
-         {
-             string licenceImageName = b.Id + enum_ImageType.Business_Licence.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuBusinessLicence.FileName);
-             fuBusinessLicence.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + licenceImageName);
-             BusinessImage biLicence = new BusinessImage
-             {
-                 ImageType = enum_ImageType.Business_Licence,
-                 UploadTime = DateTime.Now,
-                 ImageName = licenceImageName,
-                 Size = fuBusinessLicence.PostedFile.ContentLength
-             };
-
-             b.BusinessLicence = biLicence;
-         }
-         if (fuAvater.PostedFile != null && fuAvater.PostedFile.ContentLength != 0)
-         {
-             string avatar_name = b.Id + enum_ImageType.Business_Avatar.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuAvater.FileName);
-             fuAvater.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + avatar_name);
-             BusinessImage biAvatar = new BusinessImage
-             {
-                 ImageType = enum_ImageType.Business_Avatar,
-                 UploadTime = DateTime.Now,
-                 ImageName = avatar_name,
-                 Size = fuAvater.PostedFile.ContentLength
-             };
-
-             b.BusinessAvatar = biAvatar;
-         }
-
-         if (fuChargePerson.PostedFile!=null&&fuChargePerson.PostedFile.ContentLength != 0)
-         {
-             string chargeIdImageName = b.Id + enum_ImageType.Business_ChargePersonIdCard.ToString() +  Guid.NewGuid().GetHashCode() + Path.GetExtension(fuChargePerson.FileName);
-             fuChargePerson.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + chargeIdImageName);
-             BusinessImage biChargeId = new BusinessImage
-             {
-                 ImageType = enum_ImageType.Business_ChargePersonIdCard,
-                 UploadTime = DateTime.Now,
-                 ImageName = chargeIdImageName,
-                 Size = fuChargePerson.PostedFile.ContentLength
-             };
-             b.ChargePersonIdCard = biChargeId;
-         }
-
-
-        List<BusinessImage> showImages = new List<BusinessImage>();
-        string showImage1 = b.Id + enum_ImageType.Business_Show.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(fuShow1.FileName);
-         if (fuShow1.PostedFile!=null&&fuShow1.PostedFile.ContentLength != 0)
-        {
-            fuShow1.SaveAs(Server.MapPath(Config.BusinessImagePath + "/original/") + showImage1);
-            BusinessImage biShow1 = new BusinessImage
-            {
-                ImageType = enum_ImageType.Business_Show,
-                UploadTime = DateTime.Now,
-                ImageName = showImage1,
-                Size = fuShow1.PostedFile.ContentLength
-            };
-            b.BusinessImages.Add(biShow1);
-        }
-        
+        //图片使用ajax上传,
+          
         
         bll.Updte(b);
         Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");

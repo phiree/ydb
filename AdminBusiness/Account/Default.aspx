@@ -30,7 +30,9 @@
                     <div class="headInfoArea clearfix">
                         <div class="headImage">
                             <div class="input-file-box fl">
-                                <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuAvater" />
+                              <input type=file class="input-file-btn" imageType="businessavater" />
+                                         
+                                         
                                 <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
                                 <i  class="input-file-mark"></i>
                                 <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
@@ -102,8 +104,9 @@
 
                                         </div>
                                         <div class="input-file-box fl">
-                                            <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
-                                            <i class="input-file-bg"></i><i class="input-file-mark"></i>
+                                         <input type=file class="input-file-btn" imageType="businesslicense" />
+                                         
+                                             <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
@@ -127,8 +130,8 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                         <div class="input-file-box d-inb">
-                                            <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuShow1" />
-                                            <i class="input-file-bg"></i><i class="input-file-mark"></i>
+                                          <input type=file class="input-file-btn" imageType="businessshow" />
+                                              <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
@@ -181,8 +184,8 @@
                                         <asp:HyperLink runat="server" CssClass="download-img-show" ID="imgChargePerson"></asp:HyperLink>
                                         </div>
                                         <div class="input-file-box fl">
-                                            <asp:FileUpload CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
-                                            <i class="input-file-bg"></i><i class="input-file-mark"></i>
+                                        <input type=file class="input-file-btn" imageType="businesschargeperson" />
+                                               <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
@@ -218,7 +221,6 @@
     </div>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
    
     <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>-->
@@ -253,7 +255,38 @@
                 }
          );
 
-        });  
+            });
+
+            //图片上传
+            $(document).on('change', 'input[type=file]', function (ev) {
+                var that = this;
+                var formData = new FormData($('form')[0]);
+                formData.append('file', $(that)[0].files[0]);
+                //传入图片种类和商家ID
+                var imageType = $(that).attr('imageType');
+                var businessId = "<%=CurrentBusiness.Id %>";
+                formData.append("imageType", imageType);
+                formData.append("businessId", businessId);
+
+                $.ajax(
+                {
+                    url: '/AjaxService/FileUploader.ashx',
+                    type: "post",
+                    async: false,
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function (filepath) {
+                        var n = $("<span class='tip'>上传成功</span>");
+                        $(that).after(n);
+                        n.show("slow");
+                        n.fadeOut(3000);
+                    }, //success
+                    error: function (errmsg) {
+                        alert('transfer error:' + errmsg);
+                    } //error
+                }); //ajax
+            }); 
     </script>
        <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
