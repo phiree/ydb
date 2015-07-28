@@ -166,7 +166,20 @@
                        <div class="myche">
                           <div class="myche1">营业执照:</div>
                           <div class="myche2">
-                               <div class="BusinessImageDiv"><asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink></div>
+                               <div class="BusinessImageDiv">
+                               <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
+                                            <ItemTemplate>
+                                                <div class="download-img-pre fl">
+                                                    <asp:ImageButton ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                        ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
+                                                    <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
+                                                        <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
+                                                            class="imgCharge" />
+                                                    </a>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                               <asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink></div>
                                 <div class="input-file-box d-inb">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuBusinessLicence" />
                                 <i class="input-file-bg"></i><i class="input-file-mark"></i>
@@ -221,7 +234,20 @@
                              <div class="myche">
                           <div class="myche1">证件照:</div>
                           <div class="myche2"> 
-                                 <div class="BusinessImageDiv"><asp:HyperLink runat="server" ID="imgChargePerson"></asp:HyperLink></div>
+                                 <div class="BusinessImageDiv">
+                                  <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rpt_show_ItemCommand">
+                                            <ItemTemplate>
+                                                <div class="download-img-pre fl">
+                                                    <asp:ImageButton ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                        ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
+                                                    <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
+                                                        <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
+                                                            class="imgCharge" />
+                                                    </a>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                 <asp:HyperLink runat="server" ID="imgChargePerson"></asp:HyperLink></div>
                                     
                                 <div class="input-file-box d-inb">
                                 <asp:FileUpload data-role="none" CssClass="input-file-btn" runat="server" ID="fuChargePerson" />
