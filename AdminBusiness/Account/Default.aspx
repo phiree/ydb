@@ -257,7 +257,7 @@
             //图片上传
             $(document).on('change', 'input[type=file]', function (ev) {
                 var that = this;
-                var formData = new FormData($('form')[0]);
+                var formData = new FormData();
                 formData.append('file', $(that)[0].files[0]);
                 //传入图片种类和商家ID
                 var imageType = $(that).attr('imageType');
