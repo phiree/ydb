@@ -18,7 +18,7 @@ public partial class Account_Edit : BasePage
         b = ((BusinessUser)CurrentUser).BelongTo;
         if (!IsPostBack)
         {
-             
+
             //username.Text = ((BusinessUser)CurrentUser).UserName + "登陆了";
             tbxName.Value = b.Name;
             //Longitude.Text = b.Longitude.ToString();
@@ -32,45 +32,34 @@ public partial class Account_Edit : BasePage
             tbxContact.Value = b.Contact;
             selStaffAmount.Value = b.StaffAmount.ToString();
             selCardType.Value = ((int)b.ChargePersonIdCardType).ToString();
-            tbxCardIdNo.Value = b.ChargePersonIdCardNo; 
-
-            string imgLicencePath=string.Empty, imgChargePersonPath=string.Empty;
-            if (b.ChargePersonIdCard .Id!=Guid.Empty)
-            {
-                imgChargePerson.ImageUrl = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.ChargePersonIdCard.ImageName) + "&width=90&height=90&tt=2";
-                imgChargePerson.NavigateUrl = Config.BusinessImagePath + "original/" + b.ChargePersonIdCard.ImageName;
-            }
-            else
-            {
-                imgChargePerson.Visible = false;
-            }
-            if (b.BusinessLicence.Id != Guid.Empty)
-            {
-                imgBusinessImage.ImageUrl = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.BusinessLicence.ImageName) + "&width=90&height=90&tt=2";
-                //imgLicencePath = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(b.BusinessLicence.ImageName) + "&width=90&height=90&tt=2";
-                imgBusinessImage.NavigateUrl = Config.BusinessImagePath + "original/" + b.BusinessLicence.ImageName;
-                // imgLicencePath = Config.BusinessImagePath + b.BusinessLicence.ImageName;
-            }
-            else {
-                imgBusinessImage.Visible = false;
-            }
-            
-            
+            tbxCardIdNo.Value = b.ChargePersonIdCardNo;
             //imgLicence.Src = imgLicencePath;
             //imgChargePerson.Src = imgChargePersonPath;
-
             BindShowImages();
+            BindChargerIdCards();
+            BindBusinessLicenses();
         }
-      
+
     }
     private void BindShowImages()
     {
-      
         rpt_show.DataSource = b.BusinessShows;
-         rpt_show.DataBind();
+        rpt_show.DataBind();
+    }
+    private void BindChargerIdCards()
+    {
+        rptChargePersonIdCards.DataSource = b.BusinessChargePersonIdCards;
+        rptChargePersonIdCards.DataBind();
+    }
+    private void BindBusinessLicenses()
+    {
+        rptLicenseImages.DataSource = b.BusinessLicenses;
+        rptLicenseImages.DataBind();
     }
 
-   protected void rpt_show_ItemCommand(object source, RepeaterCommandEventArgs e)
+
+
+    protected void rpt_show_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         if (e.CommandName.ToLower().Trim() == "delete")
         {
@@ -81,41 +70,39 @@ public partial class Account_Edit : BasePage
         }
     }
 
-   protected void btnSave_Click(object sender, EventArgs e)
+    protected void btnSave_Click(object sender, EventArgs e)
     {
-        
+
         BLLBusiness bll = new BLLBusiness();
-         b.Name = tbxName.Value;
+        b.Name = tbxName.Value;
         //b.Longitude =Convert.ToDouble(Longitude.Text);
         //b.Latitude = Convert.ToDouble(Latitude.Text);
         b.Description = tbxIntroduced.Value;
-       
-         b.Phone = tbxContactPhone.Value;
-         b.Email=tbxEmail.Value ;
-         b.WorkingYears = int.Parse(tbxBusinessYears.Value);
-       
-         b.WorkingYears =int.Parse(tbxBusinessYears.Value);
-         b.Contact = tbxContact.Value;
-         b.StaffAmount = int.Parse(selStaffAmount.Value);
-         b.ChargePersonIdCardType = (enum_IDCardType)int.Parse(selCardType.Value);
-         b.ChargePersonIdCardNo = tbxCardIdNo.Value;
 
-         AddressParser addressParser = new AddressParser(hiAddrId.Value);
-       Area area;
-       double latitude;
-       double longtitude;
-       addressParser.ParseAddress(out area,out latitude,out longtitude);
-       CurrentBusiness.RawAddressFromMapAPI = hiAddrId.Value;
-       CurrentBusiness.Latitude = latitude;
-       CurrentBusiness.Longitude = longtitude;
-       CurrentBusiness.AreaBelongTo = area;
-       
-       b.Address = tbxAddress.Value;
+        b.Phone = tbxContactPhone.Value;
+        b.Email = tbxEmail.Value;
+        b.WorkingYears = int.Parse(tbxBusinessYears.Value);
+
+        b.WorkingYears = int.Parse(tbxBusinessYears.Value);
+        b.Contact = tbxContact.Value;
+        b.StaffAmount = int.Parse(selStaffAmount.Value);
+        b.ChargePersonIdCardType = (enum_IDCardType)int.Parse(selCardType.Value);
+        b.ChargePersonIdCardNo = tbxCardIdNo.Value;
+
+        AddressParser addressParser = new AddressParser(hiAddrId.Value);
+        Area area;
+        double latitude;
+        double longtitude;
+        addressParser.ParseAddress(out area, out latitude, out longtitude);
+        CurrentBusiness.RawAddressFromMapAPI = hiAddrId.Value;
+        CurrentBusiness.Latitude = latitude;
+        CurrentBusiness.Longitude = longtitude;
+        CurrentBusiness.AreaBelongTo = area;
+
+        b.Address = tbxAddress.Value;
         //图片使用ajax上传,
-          
-        
         bll.Updte(b);
         Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");
-    
+
     }
 }

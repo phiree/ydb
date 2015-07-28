@@ -35,31 +35,12 @@ namespace Dianzhu.BLL
                imageFile.SaveAs(savedPath);
                BusinessImage biImage = new BusinessImage
                {
-                   
                    ImageType= imageType,
                    UploadTime = DateTime.Now,
                    ImageName = imageName,
                    Size = imageFile.ContentLength
                };
-               switch (imageType)
-               {
-                   case enum_ImageType.Business_Avatar:
-                       b.BusinessAvatar = biImage;
-                       break;
-                   case enum_ImageType.Business_ChargePersonIdCard:
-                       b.ChargePersonIdCard = biImage;
-                       break;
-                   case enum_ImageType.Business_Licence:
-                       b.BusinessLicence = biImage;
-                       break;
-                   case enum_ImageType.Business_Show:
-                       
-                       b.BusinessImages.Add(biImage);
-                       break;
-                   default: break;
-               }
-                
-
+               b.BusinessImages.Add(biImage);
            }
            BLLBusiness.Updte(b);
            return savedPath;

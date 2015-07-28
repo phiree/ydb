@@ -34,5 +34,17 @@ namespace Dianzhu.DAL
             
             return result;
         }
+        public Business GetBusinessByPhone(string phone)
+        {
+            Business b = Session.QueryOver<Business>().Where(x => x.Phone == phone).SingleOrDefault();
+
+            return b;
+        }
+        public Business GetBusinessByEmail(string email)
+        {
+            Business b = Session.QueryOver<Business>().Where(x => x.Email == email).SingleOrDefault();
+
+            return b;
+        }
     }
 }

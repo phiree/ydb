@@ -6,20 +6,43 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+using System.Text.RegularExpressions;
 public partial class Account_Security :BasePage
 {
-    
+    DZMembershipProvider dzp = new DZMembershipProvider();
+    BLLBusinessImage bllBi = new BLLBusinessImage();
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            BindChargePersonIdCards();
+        }
     }
 
    protected void change_error(object sender, EventArgs e)
     {
         Exception ex= Server.GetLastError();
-         
         Response.Redirect("~/error.aspx?msg="+ex.Message);
     }
-    
-     
+
+   private void BindChargePersonIdCards()
+   {
+
+       rptChargePersonIdCards.DataSource = CurrentBusiness.BusinessChargePersonIdCards;
+       rptChargePersonIdCards.ItemCommand += new RepeaterCommandEventHandler(rptChargePersonIdCards_ItemCommand);
+       rptChargePersonIdCards.DataBind();
+   }
+
+   void rptChargePersonIdCards_ItemCommand(object source, RepeaterCommandEventArgs e)
+   {
+       if (e.CommandName.ToLower().Trim() == "delete")
+       {
+           Guid imageId = new Guid(e.CommandArgument.ToString());
+           bllBi.Delete(imageId);
+           PHSuit.Notification.Show(Page, "", "删除成功", Request.RawUrl);
+           BindChargePersonIdCards();
+       }
+   }
+ 
 
 }

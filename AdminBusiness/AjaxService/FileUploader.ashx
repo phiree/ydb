@@ -19,7 +19,7 @@ public class FileUploader : IHttpHandler {
         switch (imageType)
         {
             case "businesslicense":
-                enum_imagetype = enum_ImageType.Business_Licence;
+                enum_imagetype = enum_ImageType.Business_License;
                 break;
             case "businessshow":
                 enum_imagetype = enum_ImageType.Business_Show;

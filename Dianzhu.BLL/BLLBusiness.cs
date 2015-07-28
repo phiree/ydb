@@ -79,6 +79,14 @@ namespace Dianzhu.BLL
         {
             DALBusiness.SaveList(businesses);
         }
+        public Business GetBusinessByPhone(string phone)
+        {
+            return DALBusiness.GetBusinessByPhone(phone);
+        }
+        public Business GetBusinessByEmail(string email)
+        {
+            return DALBusiness.GetBusinessByEmail(email);
+        }
 
         /// <summary>
         /// 解析传递过来的 string, 

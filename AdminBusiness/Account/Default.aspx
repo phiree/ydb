@@ -30,7 +30,7 @@
                     <div class="headInfoArea clearfix">
                         <div class="headImage">
                             <div class="input-file-box fl">
-                              <input type=file class="input-file-btn" imageType="businessavater" />
+                              <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businessavater" />
                                          
                                          
                                 <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
@@ -102,12 +102,24 @@
                                     <p class="p_BusinessLicense myshop-item-title">
                                         <i class="icon myshop-icon-businessLic"></i>营业执照</p>
                                     <div>
+                                     <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
+                                            <ItemTemplate>
+                                                <div class="download-img-pre fl">
+                                                    <asp:ImageButton ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                        ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
+                                                    <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
+                                                        <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
+                                                            class="imgCharge" />
+                                                    </a>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
                                         <div class="download-img-pre fl">
-                                            <asp:HyperLink  runat="server" CssClass="download-img-show" ID="imgBusinessImage"></asp:HyperLink>
+                                       
 
                                         </div>
                                         <div class="input-file-box fl">
-                                         <input type=file class="input-file-btn" imageType="businesslicense" />
+                                         <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businesslicense" />
                                          
                                              <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -133,7 +145,7 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                         <div class="input-file-box d-inb">
-                                          <input type=file class="input-file-btn" imageType="businessshow" />
+                                          <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businessshow" />
                                               <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
@@ -177,11 +189,22 @@
                                     <p class="myshop-item-title">
                                         <i class="icon myshop-icon-ownerPic"></i>负责人证件照上传</p>
                                     <div class="clearfix">
+                                    <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rpt_show_ItemCommand">
+                                            <ItemTemplate>
+                                                <div class="download-img-pre fl">
+                                                    <asp:ImageButton ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                        ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
+                                                    <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
+                                                        <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
+                                                            class="imgCharge" />
+                                                    </a>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
                                         <div class="download-img-pre fl">
-                                        <asp:HyperLink runat="server" CssClass="download-img-show" ID="imgChargePerson"></asp:HyperLink>
-                                        </div>
+                                          </div>
                                         <div class="input-file-box fl">
-                                        <input type=file class="input-file-btn" imageType="businesschargeperson" />
+                                        <input type=file class="input-file-btn" businessId="<%=CurrentBusiness.Id %>" imageType="businesschargeperson" />
                                                <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
@@ -255,36 +278,9 @@
             });
 
             //图片上传
-            $(document).on('change', 'input[type=file]', function (ev) {
-                var that = this;
-                var formData = new FormData();
-                formData.append('file', $(that)[0].files[0]);
-                //传入图片种类和商家ID
-                var imageType = $(that).attr('imageType');
-                var businessId = "<%=CurrentBusiness.Id %>";
-                formData.append("imageType", imageType);
-                formData.append("businessId", businessId);
-
-                $.ajax(
-                {
-                    url: '/AjaxService/FileUploader.ashx',
-                    type: "post",
-                    async: false,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: function (filepath) {
-                        var n = $("<span class='tip'>上传成功</span>");
-                        $(that).after(n);
-                        n.show("slow");
-                        n.fadeOut(3000);
-                    }, //success
-                    error: function (errmsg) {
-                        alert('transfer error:' + errmsg);
-                    } //error
-                }); //ajax
-            }); 
+            
     </script>
+        <script src="/js/FileUpload.js" type="text/javascript"></script>
        <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
 

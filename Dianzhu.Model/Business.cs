@@ -107,7 +107,7 @@ namespace Dianzhu.Model
         {
             get
             {
-                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_Licence).ToArray();
+                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_License).ToArray();
                 if (bi.Count() >= 1)
                     return bi[0];
                 return new BusinessImage();
@@ -115,7 +115,7 @@ namespace Dianzhu.Model
             set
             {
 
-                IList<BusinessImage> images = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_Licence).ToList();
+                IList<BusinessImage> images = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_License).ToList();
                 foreach (BusinessImage i in images)
                 {
                     BusinessImages.Remove(i);
@@ -174,6 +174,28 @@ namespace Dianzhu.Model
             }
 
         }
+
+        /// <summary>
+        /// 负责人照片
+        /// </summary>
+        public virtual IList<BusinessImage> BusinessChargePersonIdCards
+        {
+            get
+            {
+                return BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_ChargePersonIdCard).ToList();
+            }
+        }
+        /// <summary>
+        /// 营业执照
+        /// </summary>
+        public virtual IList<BusinessImage> BusinessLicenses
+        {
+            get
+            {
+                return BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_License).ToList();
+            }
+        }
+
         /// <summary>
         /// 店铺图片展示
         /// </summary>
@@ -356,6 +378,9 @@ namespace Dianzhu.Model
         /// 图片大小, 单位 KB
         /// </summary>
         public virtual int Size { get; set; }
+        /// <summary>
+        /// 图片的类型,
+        /// </summary>
         public virtual Enums.enum_ImageType ImageType { get; set; }
     }
 

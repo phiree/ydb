@@ -8,7 +8,8 @@ namespace Dianzhu.Model.Enums
 {
     public enum enum_ImageType
     {
-        Business_Licence,//商家营业执照
+        Business_License,//商家营业执照
+        Business_License_B,//营业执照
         Business_Show,//商家展示图片
         Business_ChargePersonIdCard,//负责人证件照片
         Business_Avatar,//店铺头像
