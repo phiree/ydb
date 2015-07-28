@@ -1,11 +1,9 @@
 /**
- * TabSelection by phiree@gmail.com
- * 2015-6-5
- * display tree-view structure data in jquery-ui tabs
- * demo:http://codepen.io/phiree/pen/xGqNzE
+ * ServiceSelect by licdream@126.com
+ * 2015-7-28
  *
  feature:-------------------------------------
- when click a item in the tab-panel, the children items will load in a new created tab.
+ when click a option in the select list, the children selects will load in a new list.
  requirements:----------------------
 
  1) datasource must be an json array,each object has 3 properties: id, parentid(0 is top level),name;
@@ -17,12 +15,11 @@
  {'name':'apple','id':3,'parentid':2},
  ]
  2) html structure:
- <div id="tabs">
- <ul></ul>
+ <div id="ServiceSelect">
  </div>
  usage:---------------------------------
- $("#tabs").TabSelection();
- $("#tabs").TabSelection({
+ $("#ServiceSelect").ServiceSelect();
+ $("#ServiceSelect").ServiceSelect({
   //options go here
   });
  */
@@ -32,18 +29,22 @@ $.fn.ServiceSelect = function (options) {
 
     var params = $.extend({
         "datasource": null, //local json list,or  ajax_url that return a  jsonlist .
-        //"enable_multiselect": true,
-        //"leaf_clicked": null,// when leaf clicked ,works when enable_multiselect is
-        //"check_changed": null,// checkbox chaged callback,only works when enable_multiselect is true
-        //"init_data":[]//
-        "this": this,
+        "element": this,
+        "choiceContainer": null,
+        "choiceConfBtn": null,
         "lastClickFunc": null,
-        "choiceClass": "choiceSer"
+        "choiceClass": "choiceSer",
+        "printInputID" : null
     }, options);
 
     function init(){
-        var _this = params.this;
+        var _this = params.element;
         var AjaxData = null;
+        var valueInput = $("#" + params.printInputID);
+        var choiceContainer = $("#" + params.choiceContainer);
+        var choiceConfBtn = $("#" + params.choiceConfBtn);
+        var confirmValue = "";
+        //console.log(valueInput);
 
         jQuery.ajax({
             url: params.datasource + "&id=0",
@@ -56,21 +57,23 @@ $.fn.ServiceSelect = function (options) {
         });
 
         function dataRequest (id){
-        var data = [];
-            jQuery.ajax({
-                url: params.datasource + "&id=" + id,
+            var data = [];
+                jQuery.ajax({
+                    url: params.datasource + "&id=" + id,
 
-                success: function (result) {
-                    data = result;
-                },
-                async: false
-            });
-        return data;
+                    success: function (result) {
+                        data = result;
+                    },
+                    async: false
+                });
+            return data;
         }
 
         function createList ( data ) {
             var $serList = $(document.createElement("ul"));
             var dataArray = data;
+
+            $serList.addClass("serListUl")
             if ( data[0] && data[0].level != "undefined"){
                 var dataLevel = data[0].level;
                 $serList.attr("list-level", dataLevel);
@@ -80,8 +83,10 @@ $.fn.ServiceSelect = function (options) {
 
             for (var i = 0; i < dataArray.length ; i++) {
                 var $serListItem = $(document.createElement("li"));
+                $serListItem.addClass("serListItem");
                 $serListItem.text( data[i].name );
                 $serListItem.attr("data-level",data[i].level);
+                $serListItem.attr("data-name",data[i].name);
                 $serListItem.attr("data-id",data[i].id);
                 $serListItem.bind("click",serviceClick);
                 $serList.append( $serListItem );
@@ -96,7 +101,7 @@ $.fn.ServiceSelect = function (options) {
             var childDataArray = dataRequest(thisID);
             var childLevel = thisLevel + 1;
             var childList = $("ul[list-level=" + childLevel +"]");
-            var isLastChild = null;
+            //var isLastChild = null;
             //console.log(restChildLevel);
 
 
@@ -113,21 +118,50 @@ $.fn.ServiceSelect = function (options) {
             }
 
             _this.find("ul").find("li").removeClass(params.choiceClass);
-            console.log( !childDataArray.length );
+            //console.log( !childDataArray.length );
             if ( !childDataArray.length ){
-                isLastChild = true;
+                //isLastChild = true;
+                var lastChoiceValue = $(this).attr("data-id");
+                //console.log(valueInput);
+                confirmValue = lastChoiceValue;
+                //valueInput.attr("value",lastChoiceValue);
+                printChoice($(this).attr("data-name"));
                 params.lastChildFunc ? params.lastChildFunc : lastSerClick(this);
             } else {
-                isLastChild = false;
+                //isLastChild = false;
+                confirmValue = null;
+                //valueInput.attr("value",null);
+                printChoice(null);
+                choiceConfBtn.hide();
             }
 
+        }
 
+        function printChoice (name){
+            choiceContainer.find("span").remove();
+            if ( !name ){
+                choiceContainer.find("span").remove();
+            } else {
+                var $choiceEle = $(document.createElement("span"));
+                $choiceEle.text(name);
+                choiceContainer.append($choiceEle);
+            }
 
         }
 
         function lastSerClick(ele){
             var $ele = $(ele);
             $ele.addClass(params.choiceClass);
+            choiceConfBtn.show()
+        }
+
+        choiceConfBtn.bind("click",function(){
+            valueInput.attr("value",confirmValue);
+        });
+
+        function reset (){
+            choiceContainer.find("span").remove();
+            _this.find("ul").find("li").removeClass(params.choiceClass);
         }
     }
 

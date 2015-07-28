@@ -20,32 +20,38 @@
                 <div class="service-m">
                     <p class="p_ServiceType service-item-title">
                         <i class="icon service-icon-serType"></i>请选择您的服务类型</p>
-                    <div class="clearfix">
+                    <!--<div class="clearfix">-->
+                        <!--<div>-->
+                            <!--<div>-->
+                                <!--<div class="m-b10">-->
+                                    <!--<input id="setSerType" class="ser-btn-SerType"  type="button" value="请选择服务信息" />-->
+                                    <!--<div id="radioShowBox" class="d-inb">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div id="setSerTypeShow">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div id="SerlightBox" class="serviceTabs dis-n">-->
+                                <!--<div id="tabsServiceType">-->
+                                    <!--<ul>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                                <!--<div class="m-t10">-->
+                                    <!--<input class="ser-btn-SerType close" type="button" value="确定">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <input id="setSerType" class="ser-btn-SerType"  type="button" value="请选择服务信息" />
+                    <input type="hidden" runat="server" focusid="setSerType" id="hiTypeId" />
+                    <asp:Label CssClass="business-radioCf d-inb" runat="server" ID="lblSelectedType"></asp:Label>
+                    <div id="serLightContainer" class="serviceTabs dis-n">
                         <div>
-                            <div>
-                                <div class="m-b10">
-                                    <input id="setSerType" class="ser-btn-SerType"  type="button" value="请选择服务信息" /><input
-                                        type="hidden" runat="server"     focusid="setSerType" id="hiTypeId" />
-                                    <div id="radioShowBox" class="d-inb">
-                                    </div>
-                                </div>
-                                <div id="setSerTypeShow">
-                                    <asp:Label CssClass="business-radioCf d-inb" runat="server" ID="lblSelectedType"></asp:Label>
-                                </div>
-                            </div>
-                            <div id="SerlightBox" class="serviceTabs dis-n">
-                                <div id="tabsServiceType">
-                                    <ul>
-                                    </ul>
-                                </div>
-                                <div class="m-t10">
-                                    <input class="ser-btn-SerType close" type="button" value="确定">
-                                </div>
-                            </div>
+                            <div id="serChoiceContainer"></div>
+                            <div id="serChoiceConf" class="close dis-n" >确认</div>
+                            <div id="serChoiceCancel" class="close" >取消</div>
+                            <div id="serList" class="serList clearfix"></div>
                         </div>
-                    </div>
-                    <div id="serList" class="clearfix">
-
                     </div>
                 </div>
             </div>

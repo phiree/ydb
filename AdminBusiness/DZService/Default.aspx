@@ -7,6 +7,7 @@
     <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
         rel="stylesheet" type="text/css" />
     <link href="/css/validation.css" rel="stylesheet" type="text/css">
+    <link href="/css/ServiceSelect.css" rel="stylesheet" type="text/css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
@@ -73,20 +74,34 @@
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
-     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
-   
+    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="/js/ServiceSelect.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
     <script type="text/javascript" src="/js/CityList.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript" src="/js/service.js"></script>
+    <script type="text/javascript">
+       var name_prefix = 'ctl00$ContentPlaceHolder1$ServiceEdit1$';
+       $(function () {
+           $("#serList").ServiceSelect({
+               "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
+               "choiceContainer": "serChoiceContainer",
+               "printInputID": "hiTypeId",
+               "choiceConfBtn" : "serChoiceConf"
+           });
 
-       <script type="text/javascript">
-           var name_prefix = 'ctl00$ContentPlaceHolder1$ServiceEdit1$';
-   
-      
-   </script>
+           $("#setSerType").click(function (e) {
+//                $('#SerlightBox').lightbox_me({
+               $('#serLightContainer').lightbox_me({
+                   centered: true,
+                   preventScroll: true
+               });
+               e.preventDefault();
+           });
+       });
+    </script>
     <script src="/js/validation_service_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
 </asp:Content>
