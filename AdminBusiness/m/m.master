@@ -38,7 +38,9 @@
         //  $("#ContentPlaceHolder1_lblMsg").html("");
           
           $('#agree').checked = false
-         
+          function myFoucuss(e) {
+               $(e).focus();
+          }
           function myFocus(e) {
             
               if (e.value == '') {
@@ -301,7 +303,7 @@
                   var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
                   if (!pattern.test($(objName).val())) {
                       $(targetTxt).html("请输入正确的邮箱地址");
-                      $(objName).focus();
+                    //  $(objName).focus();
                       return false;
                   } else {
                       $(targetTxt).html("");
@@ -321,7 +323,7 @@
                   var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
                   if (!pattern.test(objName.value)) {
                       $(targetTxt).html("请输入正确的邮箱地址");
-                      objName.focus();
+                      //objName.focus();
                       return false;
                   } else {
                       $(targetTxt).html("");
@@ -340,7 +342,7 @@
                   var myreg = /^(((13[0-9]{1})|159|153|183|171)+\d{8})$/;
                   if (!myreg.test($(objName).val())) {
                       $(targetTxt).html("请输入有效的手机号码！");
-                      $(objName).focus();
+                     // $(objName).focus();
                       return false;
                   } else {
                       $(targetTxt).html("");
@@ -361,7 +363,7 @@
                   var myreg = /^(((13[0-9]{1})|159|153|183|171)+\d{8})$/;
                   if (!myreg.test(objName.value())) {
                       $(targetTxt).html("请输入有效的手机号码！");
-                      objName.focus();
+                   //   objName.focus();
                       return false;
                   } else {
                       $(targetTxt).html("");
