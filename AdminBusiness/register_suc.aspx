@@ -37,7 +37,7 @@
                         <div class="conMain main-done clearfix">
                             <div class="regComp">
                                 <i class="icon icon-regComp"></i><span>恭喜你<br />
-                                    已经注册成为点助会员</span>
+                                    已经注册成为点助会员,<a href="/account/">进入管理页</a></span>
                             </div>
                             <div class="buttonBox t-c">
                             <a href="login.aspx" class="compBtn"></a>  

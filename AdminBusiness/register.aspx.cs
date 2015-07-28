@@ -44,6 +44,7 @@ public partial class register : System.Web.UI.Page
 
        
         //PHSuit.Notification.Show(Page, "", "注册成功", "register_suc.aspx");
+        FormsAuthentication.SetAuthCookie(userName, true);
         Response.Redirect("register_suc.aspx", true);
     }
 
