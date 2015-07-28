@@ -17,7 +17,6 @@
    function setJsonData() {
 
        if ($('#hiBusinessAreaCode').attr("value")) {
-          
            var readAddrJson = jQuery.parseJSON($('#hiBusinessAreaCode').attr("value"));
            var addressNode = readAddrJson.province + readAddrJson.city + readAddrJson.district + readAddrJson.street + readAddrJson.streetNumber;
           // alert(addressNode);

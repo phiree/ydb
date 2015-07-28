@@ -25,7 +25,7 @@
                 <label for="iphone">
                     输入号码：</label>
                 <div style="position: relative;">
-                    <input type="text" class="username" name="iphone" id="iphone" data-inline="true" onBlur="validatemobile('#iphone','#vregPhonetxt')">
+                    <input type="text" class="username" name="iphone" id="iphone" data-inline="true" onfocus="myFoucuss('#iphone')" onBlur="validatemobile('#iphone','#vregPhonetxt')">
                     <span style="position: absolute; top: 10px; left: 8px; color: #333;">+86</span>
                     <span id="vregPhonetxt" class="erroTxt"></span>
                 </div>
@@ -34,7 +34,7 @@
                 <label for="email">
                     输入邮箱：</label>
                 <div style="position: relative;">
-                    <input type="text" class="username" name="email" id="email" data-inline="true" onBlur="emailCheck('#email','#vregEmailtxt')">
+                    <input type="text" class="username" name="email" id="email" data-inline="true" onfocus="myFoucuss('#email')" onBlur="emailCheck('#email','#vregEmailtxt')">
                     <span id="vregEmailtxt" class="erroTxt"></span>
                 </div>
             </div>
@@ -43,13 +43,13 @@
             <div class="pwd-div">
             <label for="login-pwd">
                 登录密码：</label>
-            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password" onBlur="valPwdBlur('#regPs','#vregPwdTxt1')"></asp:TextBox>
+            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password" onfocus="myFoucuss('#regPs')" onBlur="valPwdBlur('#regPs','#vregPwdTxt1')"></asp:TextBox>
              <span id="vregPwdTxt1" class="erroTxt"></span>
              </div>
              <div class="rpwd-div">
             <label for="login-rpwd">
                 确认密码：</label>
-            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"  onBlur="valPwdBlur('#regPsConf','#vregPwdTxt2')"></asp:TextBox>
+            <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"  onfocus="myFoucuss('#regPsConf')" onBlur="valPwdBlur('#regPsConf','#vregPwdTxt2')"></asp:TextBox>
              <span id="vregPwdTxt2" class="erroTxt"></span>
              </div>
             <br />
