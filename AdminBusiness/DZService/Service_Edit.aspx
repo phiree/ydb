@@ -68,21 +68,25 @@
     <script type="text/javascript" src="/js/service.js"></script>
     <script>
         $(function () {
-            $("#tabsServiceType").TabSelection({
+            $("#serList").ServiceSelect({
                 "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
-                "leaf_clicked": function (id) {
-                    $("#hiTypeId").val(id);
-                }
+                "choiceContainer": "serChoiceContainer",
+                "printInputID": "hiTypeId",
+                "choiceConfBtn" : "serChoiceConf"
             });
 
-            $("#serList").ServiceSelect({
-                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype"
+            $("#setSerType").click(function (e) {
+//                $('#SerlightBox').lightbox_me({
+                $('#serLightContainer').lightbox_me({
+                    centered: true,
+                    preventScroll: true
+                });
+                e.preventDefault();
             });
         });
     </script>
     <script type="text/javascript">
         var name_prefix = 'ctl00$ContentPlaceHolder1$ctl00$';
-      
     </script>
     <script src="/js/validation_service_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>

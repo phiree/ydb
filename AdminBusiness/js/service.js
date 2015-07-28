@@ -133,13 +133,13 @@ mapInit();
 /**
  * 初始化服务选择
  */
-$("#tabsServiceType").TabSelection({
-    "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
-    'enable_multi':false,
-    "leaf_clicked": function (id) {
-        tabRadioShow(id);
-    }
-});
+//$("#tabsServiceType").TabSelection({
+//    "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
+//    'enable_multi':false,
+//    "leaf_clicked": function (id) {
+//        tabRadioShow(id);
+//    }
+//});
 
 /**
  * 单选时，选择的服务类型显示。
@@ -226,10 +226,3 @@ function tabCheckedShow(that, id, checked, level) {
         $(checkedShowBox.find($("div[v_id=" + v_id + "]"))).remove();
     }
 }
-
-$("#setSerType").click(function (e) {
-    $('#SerlightBox').lightbox_me({
-        centered: true
-    });
-    e.preventDefault();
-});

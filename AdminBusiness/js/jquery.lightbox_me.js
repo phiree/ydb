@@ -99,6 +99,11 @@
             $self.bind('close', closeLightbox);
             $self.bind('reposition', setSelfPosition);
 
+            /*----------------------------------------------------
+             Bind Events by licdream@126.com . set self position when create a new element in lightBox
+             ---------------------------------------------------- */
+            $self.bind('click', setSelfPosition);
+
 
 
             /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
