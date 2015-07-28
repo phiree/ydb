@@ -44,6 +44,9 @@
                             </div>
                         </div>
                     </div>
+                    <div id="serList" class="clearfix">
+
+                    </div>
                 </div>
             </div>
             <div class="service-md-mright">
@@ -221,7 +224,6 @@
 </div>
 <script>
     $(document).ready(function () {
-        // set_name_as_id('snsi');
         $.validator.setDefaults({
             ignore: []
         });
@@ -256,4 +258,5 @@
          );
  
     });       //document.ready
+
 </script>

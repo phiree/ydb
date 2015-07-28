@@ -91,8 +91,11 @@
                                 <div class="myshopLeftCont">
                                     <p class="myshop-item-title">
                                         <i class="icon myshop-icon-workTime"></i>从业时间</p>
+                                        <div class="d-inb select select-sm time-select">
+                                            <ul></ul>
+                                            <input type="hidden" class="myshop-input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
+                                        </div>
                                     <p>
-                                        <input type="text" class="myshop-input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
                                     </p>
                                 </div>
                                 <div class="BusinessLicense">
@@ -139,15 +142,9 @@
                                 <div class="myshopRightCont">
                                     <p class="myshop-item-title">
                                         <i class="icon myshop-icon-empNum"></i>员工人数</p>
-                                    <div class="d-inb select select-sm">
-                                        <ul>
-                                            <li><a>10人</a></li>
-                                            <li><a>20人</a></li>
-                                            <li><a>50人</a></li>
-                                        </ul>
-                                        <input type="hidden" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
-                                    </div>
-                                     
+                                    <p>
+                                        <input type="text" class="myshop-input-mid" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
+                                    </p>
                                 </div>
 
                                 <div class="myshopRightCont">

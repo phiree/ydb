@@ -3,7 +3,17 @@
  */
 
 $(document).ready(function ($) {
-  
+
+    (function(){
+        return $('.time-select').each(function () {
+                var selectList = $(this).find("ul");
+                for ( var i = 0 ; i < 25 ; i++ ) {
+                    selectList.append("<li><a>"+ i + ":00" +"</a></li>");
+                }
+            }
+        )
+    })();
+
     (function () {
     
         return $('.select').each(function () {
@@ -95,11 +105,14 @@ $(document).ready(function ($) {
         var $navBtn = $(".nav-btn");
         var $sideBtn = $(".side-btn");
         var pageHref = window.location.href;
+        var hrefFiter = /\/\w+/;
 
         $navBtn.each(function(){
             var btnHref = $(this).parent().attr("href");
             var bgPosition = parseInt($(this).css("background-positionX"));
-            if ( pageHref.indexOf(btnHref) >= 0 ) {
+            var realHref = btnHref.match(hrefFiter);
+
+            if ( pageHref.indexOf(realHref) >= 0 ) {
                 $(this).css({
                     backgroundPositionX : bgPosition - 81
             })
@@ -108,8 +121,6 @@ $(document).ready(function ($) {
 
         $sideBtn.each(function(){
             var btnHref = $(this).parent().attr("href");
-            console.log(btnHref);
-            console.log(pageHref.indexOf(btnHref));
             var bgPosition = parseInt($(this).css("background-positionX"));
             if ( pageHref.indexOf(btnHref) >= 0 ) {
                 $(this).css({
@@ -118,4 +129,5 @@ $(document).ready(function ($) {
             }
         })
     })()
+
 });
