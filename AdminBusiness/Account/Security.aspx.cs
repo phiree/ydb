@@ -15,7 +15,9 @@ public partial class Account_Security :BasePage
 
    protected void change_error(object sender, EventArgs e)
     {
-        Response.Redirect("~/error.aspx?msg="+HttpUtility.UrlEncode("密码长度至少6位"));
+        Exception ex= Server.GetLastError();
+         
+        Response.Redirect("~/error.aspx?msg="+ex.Message);
     }
     
      

@@ -30,9 +30,11 @@
     { 
       Exception exc = Server.GetLastError();
       //Server.ClearError();
-      return;
-      HttpContext.Current.Response.Redirect("error.aspx?msg=" 
-          + HttpContext.Current.Server.UrlEncode(exc.Message+"<br/>"+ exc.InnerException.Message));
+#if DEBUG
+    //return;
+#endif
+      HttpContext.Current.Response.Redirect("/error.aspx?msg=" 
+          + HttpContext.Current.Server.UrlEncode(exc.Message+"----"+ exc.InnerException.Message));
      
   // Handle HTTP errors
  

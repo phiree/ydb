@@ -34,7 +34,7 @@ namespace Dianzhu.BLL
 
             if (!this.ValidateUser(username, oldPassword))
             {
-                return false;
+                throw new Exception("原密码有误,请核实后重新输入");
             }
             if (newPassword.Length < this.MinRequiredPasswordLength)
             {
