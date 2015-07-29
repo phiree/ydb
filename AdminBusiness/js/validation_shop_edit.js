@@ -133,8 +133,25 @@ service_validate_messages[name_prefix + "hiAddrId"] =
 {
 
     required: "请选择店铺地址"
-   
 
+};
+$.validator.addMethod('filesize', function(value, element, param) {
+    // param = size (en bytes) 
+    // element = element to validate (<input>)
+    // value = value of the element (file name)
+    return this.optional(element) || (element.files[0].size <= param) 
+});
+service_validate_rules["input-file-btn"]=
+{
+    accept: "image/*",
+    filesize:500*1024
+     
+};
+service_validate_messages["input-file-btn"] =
+{
+
+    accept: "请选择(png,jpg,gif)格式的图片文件",
+    filesize:"请上传小于2M的图片"
 
 };
  
