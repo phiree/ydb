@@ -204,11 +204,10 @@ body {
 }
 
 .wrap { padding: 50px 0; background:#263650; }
+.mainContainer{ margin: 0 auto; width:1000px; background: #4b6c8b; border-radius: 5px; overflow: hidden; }
 
-.mainContent{ margin: 0 auto; width:1000px;background: #4b6c8b; }
-
+.mainContent{ margin: 0 auto; width:1000px; background: #4b6c8b; }
 .leftContent{ width:79px; float:left; }
-
 .rightContent{ width:921px; float:left; background:#fff; }
 
 .con-wrap {

@@ -96,8 +96,6 @@
                                             <ul></ul>
                                             <input type="hidden" class="myshop-input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
                                         </div>
-                                    <p>
-                                    </p>
                                 </div>
                                 <div class="BusinessLicense">
                                     <p class="p_BusinessLicense myshop-item-title">
@@ -243,7 +241,8 @@
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
-    <script type="text/javascript" src="/js/TabSelection.js"></script>
+    <script src="/js/jquery.form.min.js" type="text/javascript"></script>
+     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
     <script type="text/javascript" src="/js/CityList.js"></script>

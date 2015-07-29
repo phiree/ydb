@@ -7,6 +7,7 @@ using System.Device.Location;
 using Dianzhu.Model;
 using System.Web.Security;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -21,7 +22,7 @@ namespace Dianzhu.BLL
                             , double latitude, double longtitude, string name, string username, string password
             )
         {
-            
+           
             Business b = new Business
             {
                 Address = address,
@@ -32,7 +33,15 @@ namespace Dianzhu.BLL
                 DateApply = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue,
                 DateApproved = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue
             };
+            if (Regex.IsMatch(username, @".+@.+\..+"))
+            {
+                b.Email = username;
 
+            }
+            else
+            {
+                b.Phone = username;
+            }
             DALBusiness.Save(b);
             BusinessUser bu = dalMembership.CreateBusinessUser(username, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);
 
