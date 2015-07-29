@@ -182,7 +182,7 @@ namespace Dianzhu.Model
         {
             get
             {
-                return BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_ChargePersonIdCard).ToList();
+                return BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_ChargePersonIdCard).OrderBy(x => x.UploadTime).ToList();
             }
         }
         /// <summary>
@@ -192,7 +192,7 @@ namespace Dianzhu.Model
         {
             get
             {
-                return BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_License).ToList();
+                return BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_License).OrderBy(x => x.UploadTime).ToList();
             }
         }
 
@@ -203,7 +203,7 @@ namespace Dianzhu.Model
         {
             get
             {
-                return BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_Show).ToList();
+                return BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_Show).OrderBy(x => x.UploadTime).ToList();
             }
 
         }
