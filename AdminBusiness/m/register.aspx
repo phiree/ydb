@@ -61,7 +61,7 @@
                 <div id="agreetxt" class="erroTxt"></div>
             </div>
              <asp:Button runat="server" ID="Button1" ClientIDMode="Static" OnClientClick="return vregPwdFun()" OnClick="regPsSubmit_OnClick"
-                                   Text="确定"      CssClass="regBtn" />
+                                   Text="注册"      CssClass="regBtn" />
             
             <br />
             <span id="Span3">
