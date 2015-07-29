@@ -102,8 +102,8 @@ $(document).ready(function ($) {
     //})();
 
     (function (){
-        var $navBtn = $(".nav-btn");
-        var $sideBtn = $(".side-btn");
+        var $navBtn = $(".nav-btn-bg");
+        var $sideBtn = $(".side-btn-bg");
         var pageHref = window.location.href;
         var hrefFiter = /\/\w+/;
 
@@ -114,7 +114,7 @@ $(document).ready(function ($) {
 
             if ( pageHref.indexOf(realHref) >= 0 ) {
                 $(this).css({
-                    backgroundPositionX : bgPosition - 81
+                    backgroundPositionX : bgPosition - 79
             })
             }
         })
@@ -124,7 +124,7 @@ $(document).ready(function ($) {
             var bgPosition = parseInt($(this).css("background-positionX"));
             if ( pageHref.indexOf(btnHref) >= 0 ) {
                 $(this).css({
-                    backgroundPositionX : bgPosition - 81
+                    backgroundPositionX : bgPosition - 79
                 })
             }
         })

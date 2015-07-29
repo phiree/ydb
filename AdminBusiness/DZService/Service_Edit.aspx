@@ -14,8 +14,19 @@
             <div class="leftContent" id="leftCont">
                 <div>
                     <ul>
-                        <li><a href="/DZService/Default.aspx"><i class="side-btn side-btn-service"></i></a></li>
-                        <li><a href="/DZService/Service_Edit.aspx"><i class="side-btn side-btn-serviceSet"></i></a>
+                         <li>
+                            <a href="/DZService/Default.aspx" target="_self">
+                                <div class="side-btn-bg d-inb side-btn-service">
+                                    <h4 class="side-btn-t ">服务管理</h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/DZService/Service_Edit.aspx" target="_self">
+                                <div class="side-btn-bg d-inb side-btn-serviceSet">
+                                    <h4 class="side-btn-t ">服务添加</h4>
+                                </div>
+                            </a>
                         </li>
                     </ul>
                 </div>

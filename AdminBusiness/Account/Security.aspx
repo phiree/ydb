@@ -11,9 +11,19 @@
         <div class="leftContent" id="leftCont">
             <div>
                 <ul>
-                    <li><a href="/account/Default.aspx"><i class="side-btn side-btn-myshop"></i></a>
+                    <li>
+                        <a href="/account/Default.aspx" target="_self">
+                            <div class="side-btn-bg d-inb side-btn-myshop">
+                                <h4 class="side-btn-t ">基本信息</h4>
+                            </div>
+                        </a>
                     </li>
-                    <li><a href="/account/Security.aspx"><i class="side-btn side-btn-secret"></i></a>
+                    <li>
+                        <a href="/account/Security.aspx" target="_self">
+                            <div class="side-btn-bg d-inb side-btn-secret">
+                                <h4 class="side-btn-t ">帐号安全</h4>
+                            </div>
+                        </a>
                     </li>
                 </ul>
             </div>

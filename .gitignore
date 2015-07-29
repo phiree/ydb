@@ -1,4 +1,5 @@
 #Phiree Define#
+/AdminBusiness/config/appSettings.config
 /AdminWeb/config/connectionStrings.config
 /config/connectionStrings.config
 /cdn
