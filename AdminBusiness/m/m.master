@@ -63,12 +63,13 @@
               } else {
                   $("#vuserid").val(e.value);
                   if (!isNaN(e.value)) {
+                     // alert("是数字");
                       validatemobile2(e, targetdiv);
                       
-                      //alert("是数字");
+                    
                   } else {
                       emailCheck2(e, targetdiv);
-                    //  alert("不全是数字");
+                 //   alert("不全是数字");
                   }
              
 
@@ -357,15 +358,20 @@
           **/
 
           function validatemobile2(objName, targetTxt) {
+             
               if (objName.value == '') {
                   $(targetTxt).html("");
               } else {
+
                   var myreg = /^(((13[0-9]{1})|159|153|183|171)+\d{8})$/;
-                  if (!myreg.test(objName.value())) {
+                //  alert(objName.value);
+                  if (!myreg.test(objName.value)) {
+                     
                       $(targetTxt).html("请输入有效的手机号码！");
                    //   objName.focus();
                       return false;
                   } else {
+                      
                       $(targetTxt).html("");
                       return true;
                   }
