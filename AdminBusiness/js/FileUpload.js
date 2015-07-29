@@ -15,21 +15,21 @@ $(document).on('change', 'input[type=file]', function (ev) {
     formData.append("businessId", businessId);
 
     $.ajax(
-                {
-                    url: '/AjaxService/FileUploader.ashx',
-                    type: "post",
-                    async: false,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: function (filepath) {
-                        var n = $("<span class='tip'>上传成功</span>");
-                        $(that).after(n);
-                        n.show("slow");
-                        n.fadeOut(3000);
-                    }, //success
-                    error: function (errmsg) {
-                        alert('transfer error:' + errmsg);
-                    } //error
-                }); //ajax
+        {
+            url: '/AjaxService/FileUploader.ashx',
+            type: "post",
+            async: false,
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (filepath) {
+                //var n = $("<span class='tip'>上传成功</span>");
+                //$(that).after(n);
+                //n.show("slow");
+                //n.fadeOut(3000);
+            }, //success
+            error: function (errmsg) {
+                alert('transfer error:' + errmsg);
+            } //error
+        }); //ajax
 });  //document
