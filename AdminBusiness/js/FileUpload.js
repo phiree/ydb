@@ -5,6 +5,7 @@ ajax图片上传
 ******************/
 $(".input-file-btn").change(function (ev) {
     var that = this;
+    if (this.files[0].size > 2 * 1024 * 1024) { $(that).blur(); return true; }
     var imageType = $(that).attr('imageType');
     var businessId = $(that).attr("businessId");
 
@@ -33,6 +34,8 @@ $(".input-file-btn").change(function (ev) {
     }
     $imgObjMark.show();
 
+   
+
     var myform = document.createElement("form");
     myform.action = "/AjaxService/FileUploader.ashx";
     myform.method = "post";
@@ -58,13 +61,13 @@ $(".input-file-btn").change(function (ev) {
         success: function (data) {
             form.remove();
             $imgObjMark.hide();
-            if ( parent.hasClass("headFile") ){
+            if (parent.hasClass("headFile")) {
                 return;
             } else {
                 parentClone.insertAfter(parent);
             }
         },
-        error: function(){
+        error: function () {
             alert("图片上传失败，请刷新页面重新上传");
         }
     });

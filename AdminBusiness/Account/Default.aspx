@@ -44,7 +44,7 @@
                         <div class="headImage">
  
                             <div class="input-file-box headFile fl">
-                              <input type=file class="input-file-btn"  name="input-file-btn" businessId="<%=CurrentBusiness.Id %>" imageType="businessavater" />
+                              <input type=file class="input-file-btn"  name="input-file-btn-avater" businessId="<%=CurrentBusiness.Id %>" imageType="businessavater" />
                                          
                                          
  
@@ -132,7 +132,7 @@
 
                                         </div>
                                         <div class="input-file-box fl">
-                                         <input type=file class="input-file-btn"   name="input-file-btn" businessId="<%=CurrentBusiness.Id %>" imageType="businesslicense" />
+                                         <input type=file class="input-file-btn"   name="input-file-btn-license" businessId="<%=CurrentBusiness.Id %>" imageType="businesslicense" />
                                          
                                              <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -158,7 +158,7 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                         <div class="input-file-box d-inb">
-                                            <input type=file class="input-file-btn"  name="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businessshow" />
+                                            <input type=file class="input-file-btn"  name="input-file-btn-show"  businessId="<%=CurrentBusiness.Id %>" imageType="businessshow" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -218,7 +218,7 @@
                                         <div class="download-img-pre fl">
                                           </div>
                                         <div class="input-file-box fl">
-                                        <input type=file   name="input-file-btn" class="input-file-btn" businessId="<%=CurrentBusiness.Id %>" imageType="businesschargeperson" />
+                                        <input type=file   name="input-file-btn-idcard" class="input-file-btn" businessId="<%=CurrentBusiness.Id %>" imageType="businesschargeperson" />
                                                <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
