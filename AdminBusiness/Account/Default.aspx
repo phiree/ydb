@@ -96,8 +96,6 @@
                                             <ul></ul>
                                             <input type="hidden" class="myshop-input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
                                         </div>
-                                    <p>
-                                    </p>
                                 </div>
                                 <div class="BusinessLicense">
                                     <p class="p_BusinessLicense myshop-item-title">
