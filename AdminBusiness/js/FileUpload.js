@@ -3,11 +3,35 @@ ajax图片上传
 需求: 
    input type=file 必须指定两个属性:imageType 和 businessId.
 ******************/
-$('input[type = file]').change(function (ev) {
+$(".input-file-btn").change(function (ev) {
     var that = this;
     var imageType = $(that).attr('imageType');
     var businessId = $(that).attr("businessId");
 
+    var parent = $(this).parent();
+    var parentClone = parent.clone(true);
+    var imgObjPreview = $(this).siblings(".input-file-pre").get(0);
+    var $imgObjMark = $(this).siblings(".input-file-mark");
+
+    if (this.files && this.files[0]) {
+        imgObjPreview.src = window.URL.createObjectURL(this.files[0]);
+    }
+    else {
+        this.select();
+        this.blur();
+        var imgSrc = document.selection.createRange().text;
+
+        try {
+            imgObjPreview.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+            imgObjPreview.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+        }
+        catch (e) {
+            return false;
+        }
+        document.selection.empty();
+        //return
+    }
+    $imgObjMark.show();
 
     var myform = document.createElement("form");
     myform.action = "/AjaxService/FileUploader.ashx";
@@ -31,36 +55,13 @@ $('input[type = file]').change(function (ev) {
     form.ajaxSubmit({
         success: function (data) {
             form.remove();
+            $imgObjMark.hide();
+            parentClone.insertAfter(parent);
+        },
+        error: function(){
+            alert("图片上传失败，请刷新页面重新上传");
         }
     });
     return true;
 
-
-    var formData = new FormData();
-    formData.append('file', $(that)[0].files[0]);
-    //传入图片种类和商家ID
-
-
-    formData.append("imageType", imageType);
-    formData.append("businessId", businessId);
-
-    $.ajax(
-
-                {
-                    url: '/AjaxService/FileUploader.ashx',
-                    type: "post",
-                    async: false,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: function (filepath) {
-                        var n = $("<span class='tip'>上传成功</span>");
-                        $(that).after(n);
-                        n.show("slow");
-                        n.fadeOut(3000);
-                    }, //success
-                    error: function (errmsg) {
-                        alert('transfer error:' + errmsg);
-                    } //error
-                }); //ajax
-});              //document
+});

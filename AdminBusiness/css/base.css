@@ -259,6 +259,41 @@ body {
     content: "";
 }
 
+.nav-btn-bg {
+    display: inline-block;
+    *display: inline-block;
+    *zoom: 1;
+    width: 79px;
+    height: 71px;
+    background: url("../image/nav_btn.png") no-repeat;
+    background-position: 0 0;
+    vertical-align: middle;
+    content: "";
+    position: relative;
+    text-align: center;
+}
+
+.nav-btn-icon {
+    display: inline-block;
+    *display: inline-block;
+    *zoom: 1;
+    width: 30px;
+    height: 26px;
+    background: url("../image/nav_btn.png") no-repeat center;
+    vertical-align: middle;
+    content: "";
+    text-align: center;
+    margin-top:20px;
+}
+
+.nav-btn-t {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    line-height: 1.2em;
+}
+
 .side-btn {
     display: inline-block;
     *display: inline-block;
@@ -272,6 +307,7 @@ body {
 
 .nav-btn-coup { background:url("../image/shop_icon_6.png"); width: 79px; height: 70px; }
 .nav-btn-myshop { background-position: -0px -217px; width: 79px; height: 70px; }
+/*.nav-btn-service { background-position: -810px -145px; width: 30px; height: 26px; }*/
 .nav-btn-service { background-position: -810px -145px; width: 79px; height: 70px; }
 .nav-btn-order { background-position: -648px -145px; width: 79px; height: 70px; }
 .nav-btn-employee { background-position: -486px -145px; width: 79px; height: 70px; }
@@ -338,14 +374,16 @@ body {
 
 .input-file-mark {
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     width: 90px;
     height: 90px;
+    background: url("../image/ajax-loader.gif") no-repeat center;
+    display: none;
 }
 
 .input-file-pre {
     position: absolute;
-    z-index: 3;
+    z-index: 2;
     width: 90px;
     height: 90px;
     border: 0 none;
