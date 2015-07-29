@@ -89,7 +89,7 @@
                 { 
                     "protocol_CODE": "SVM001002", 
                     "ReqData": { 
-                        "uid": "6b05796ed6ee456489d5a4c60150adbe", 
+                        "uid": "24ba4944660a4d7eabd3a4de00abf040", 
                         "userPWord": "123456", 
                         "srvTarget": "ALL", 
                         "pageSize":"10",
