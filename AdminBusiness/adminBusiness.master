@@ -16,9 +16,8 @@
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
  
     <script>
-        
-     </script>
-     <asp:ContentPlaceHolder ID="head" runat="Server">
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="Server">
      
  
     </asp:ContentPlaceHolder>
@@ -38,17 +37,62 @@
                 </div>
                 <div class="menuList">
                     <ul class="clearfix">
-                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-coup"></i>
+                        <!--<li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-coup"></i>
                         </a></li>
                         <li><a href="/account/Default.aspx" target="_self"><i class="nav-btn nav-btn-myshop"></i></a>
                         </li>
                         <li><a href="/DZService/Default.aspx" target="_self"><i class="nav-btn nav-btn-service"></i></a>
+                        </li>-->
+
+                        <li>
+                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
+                                <div class="nav-btn-bg nav-btn-coup d-inb">
+                                    <h4 class="nav-btn-t "></h4>
+                                </div>
+                            </a>
                         </li>
-                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待" target="_self"><i class="nav-btn nav-btn-order"></i></a>
+                        <li>
+                            <a href="/account/Default.aspx" target="_self">
+                                <div class="nav-btn-bg d-inb nav-btn-myshop">
+                                    <h4 class="nav-btn-t ">店铺信息</h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/DZService/Default.aspx" target="_self">
+                                <div class="nav-btn-bg d-inb nav-btn-service">
+                                    <h4 class="nav-btn-t ">服务信息</h4>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
+                                <div class="nav-btn-bg d-inb nav-btn-un-order">
+                                    <h4 class="nav-btn-t nav-btn-un-t">订单</h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
+                                <div class="nav-btn-bg d-inb nav-btn-un-employee">
+                                    <h4 class="nav-btn-t nav-btn-un-t">员工</h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
+                                <div class="nav-btn-bg d-inb nav-btn-un-msg">
+                                    <h4 class="nav-btn-t nav-btn-un-t">消息</h4>
+                                </div>
+                            </a>
+                        </li>
+
+                        <!--<li><a href="Javascript: void(0)" title="正在开发,敬请期待" target="_self"><i class="nav-btn nav-btn-order"></i></a>
                         </li>
                         <li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="_self"><i class="nav-btn nav-btn-employee"></i></a>
                         </li>
-                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="_self"><i class="nav-btn nav-btn-msg"></i></a></li>
+                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="_self"><i class="nav-btn nav-btn-msg"></i></a></li>-->
                     </ul>
                 </div>
             </div>

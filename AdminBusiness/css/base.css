@@ -247,18 +247,6 @@ body {
 
 .menuList ul li{ float:right; }
 
-/* 顶栏与侧边栏图标 */
-.nav-btn {
-    display: inline-block;
-    *display: inline-block;
-    *zoom: 1;
-    width: 79px;
-    height: 71px;
-    background: url("../image/nav_btn.png") no-repeat center;
-    vertical-align: middle;
-    content: "";
-}
-
 .nav-btn-bg {
     display: inline-block;
     *display: inline-block;
@@ -287,6 +275,8 @@ body {
 }
 
 .nav-btn-t {
+    color: #c4daef;
+    font-size: 14px;
     position: absolute;
     bottom: 10px;
     width: 100%;
@@ -294,42 +284,76 @@ body {
     line-height: 1.2em;
 }
 
-.side-btn {
+.nav-btn-un-t {
+    color: #CCCCCC;
+}
+
+.side-btn-bg {
     display: inline-block;
     *display: inline-block;
     *zoom: 1;
     width: 79px;
     height: 71px;
-    background: url("../image/nav_btn.png") no-repeat center;
+    background: url("../image/nav_btn.png") no-repeat;
+    background-position: 0 0;
     vertical-align: middle;
     content: "";
+    position: relative;
+    text-align: center;
+}
+
+.side-btn-t {
+    color: #c4daef;
+    font-size: 14px;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    line-height: 1.2em;
 }
 
 .nav-btn-coup { background:url("../image/shop_icon_6.png"); width: 79px; height: 70px; }
-.nav-btn-myshop { background-position: -0px -217px; width: 79px; height: 70px; }
-/*.nav-btn-service { background-position: -810px -145px; width: 30px; height: 26px; }*/
-.nav-btn-service { background-position: -810px -145px; width: 79px; height: 70px; }
-.nav-btn-order { background-position: -648px -145px; width: 79px; height: 70px; }
-.nav-btn-employee { background-position: -486px -145px; width: 79px; height: 70px; }
-.nav-btn-msg { background-position: -324px -145px; width: 79px; height: 70px; }
+.nav-btn-myshop { background-position: -632px 0px; width: 79px; height: 70px; }
+.nav-btn-service { background-position: -474px 0px;; width: 79px; height: 70px; }
+.nav-btn-order { background-position: -316px 0px; width: 79px; height: 70px; }
+.nav-btn-employee { background-position: -158px 0px; width: 79px; height: 70px; }
+.nav-btn-msg { background-position: 0px 0px; width: 79px; height: 70px; }
 
-.side-btn-coupTotal { background-position: -162px -0px; width: 79px; height: 70px; }
-.side-btn-coupSet { background-position: -0px -0px; width: 79px; height: 70px; }
-.side-btn-coupVip { background-position: -162px -216px; width: 79px; height: 70px; }
+.nav-btn-un-order { background: url("../image/un-icon-1.png");width: 79px; height: 70px; }
+.nav-btn-un-employee { background: url("../image/un-icon-2.png");width: 79px; height: 70px; }
+.nav-btn-un-msg { background: url("../image/un-icon-3.png");width: 79px; height: 70px;}
 
-.side-btn-myshop { background-position: -324px -0px; width: 79px; height: 70px; }
-.side-btn-secret { background-position: -648px -72px; width: 79px; height: 70px; }
 
-.side-btn-order { background-position: -648px -0px; width: 79px; height: 70px; }
-.side-btn-orderDeal { background-position: -810px -0px; width: 79px; height: 70px; }
-.side-btn-orderHis { background-position: -0px -72px; width: 79px; height: 70px; }
+.side-btn-myshop { background-position: -948px 0px; width: 79px; height: 70px; }
+.side-btn-secret { background-position: -790px 0px; width: 79px; height: 70px; }
 
-.side-btn-service { background-position: -162px -72px; width: 79px; height: 70px; }
-.side-btn-serviceSet { background-position: -324px -72px; width: 79px; height: 70px; }
+.side-btn-service { background-position: -632px 0px; width: 79px; height: 70px; }
+.side-btn-serviceSet { background-position: -316px 0px;  width: 79px; height: 70px; }
 
-.side-btn-msgDeal { background-position: -324px -144px; width: 79px; height: 70px; }
-.side-btn-msgFav { background-position: -162px -144px; width: 79px; height: 70px; }
-.side-btn-msgHis { background-position: -0px -144px; width: 79px; height: 70px; }
+/*.nav-btn-coup { background:url("../image/shop_icon_6.png"); width: 79px; height: 70px; }*/
+/*.nav-btn-myshop { background-position: -0px -217px; width: 79px; height: 70px; }*/
+/*.nav-btn-service { background-position: -810px -145px; width: 79px; height: 70px; }*/
+/*.nav-btn-order { background-position: -648px -145px; width: 79px; height: 70px; }*/
+/*.nav-btn-employee { background-position: -486px -145px; width: 79px; height: 70px; }*/
+/*.nav-btn-msg { background-position: -324px -145px; width: 79px; height: 70px; }*/
+
+/*.side-btn-myshop { background-position: -324px -0px; width: 79px; height: 70px; }*/
+/*.side-btn-secret { background-position: -648px -72px; width: 79px; height: 70px; }*/
+
+/*.side-btn-service { background-position: -162px -72px; width: 79px; height: 70px; }*/
+/*.side-btn-serviceSet { background-position: -324px -72px; width: 79px; height: 70px; }*/
+
+/*.side-btn-coupTotal { background-position: -162px -0px; width: 79px; height: 70px; }*/
+/*.side-btn-coupSet { background-position: -0px -0px; width: 79px; height: 70px; }*/
+/*.side-btn-coupVip { background-position: -162px -216px; width: 79px; height: 70px; }*/
+
+/*.side-btn-order { background-position: -648px -0px; width: 79px; height: 70px; }*/
+/*.side-btn-orderDeal { background-position: -810px -0px; width: 79px; height: 70px; }*/
+/*.side-btn-orderHis { background-position: -0px -72px; width: 79px; height: 70px; }*/
+
+/*.side-btn-msgDeal { background-position: -324px -144px; width: 79px; height: 70px; }*/
+/*.side-btn-msgFav { background-position: -162px -144px; width: 79px; height: 70px; }*/
+/*.side-btn-msgHis { background-position: -0px -144px; width: 79px; height: 70px; }*/
 
 /*select 初始化样式*/
 .select { display:inline-block;  width: 130px; height: 32px; position: relative; background: url("../image/shop_green_09.png") no-repeat right; vertical-align: middle; border: 1px solid #e7ebee;}
