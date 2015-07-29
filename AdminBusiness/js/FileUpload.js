@@ -10,6 +10,7 @@ $(".input-file-btn").change(function (ev) {
 
     var parent = $(this).parent();
     var parentClone = parent.clone(true);
+
     var imgObjPreview = $(this).siblings(".input-file-pre").get(0);
     var $imgObjMark = $(this).siblings(".input-file-mark");
 
@@ -29,7 +30,6 @@ $(".input-file-btn").change(function (ev) {
             return false;
         }
         document.selection.empty();
-        //return
     }
     $imgObjMark.show();
 
@@ -38,6 +38,7 @@ $(".input-file-btn").change(function (ev) {
     myform.method = "post";
     myform.enctype = "multipart/form-data";
     document.body.appendChild(myform);
+
     var form = $(myform);
     var fu = $(this).clone(true).val("");
     var ipbusinessId = document.createElement("input");
@@ -52,11 +53,16 @@ $(".input-file-btn").change(function (ev) {
 
     var fua = $(this).appendTo(form);
     $(fua).attr("name", "upload_file");
+
     form.ajaxSubmit({
         success: function (data) {
             form.remove();
             $imgObjMark.hide();
-            parentClone.insertAfter(parent);
+            if ( parent.hasClass("headFile") ){
+                return;
+            } else {
+                parentClone.insertAfter(parent);
+            }
         },
         error: function(){
             alert("图片上传失败，请刷新页面重新上传");
