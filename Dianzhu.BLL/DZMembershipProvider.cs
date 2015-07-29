@@ -224,9 +224,9 @@ namespace Dianzhu.BLL
         }
         public void SendValidationMail(string to,string verifyUrl)
         {
-            string subjecst = "一点半注册验证邮件";
+            string subjecst = "一点办验证邮件";
            
-            string body = "感谢您注册一点半.请点击下面的连接验证您的注册邮箱.</br>"
+            string body = "感谢您加入一点办.请点击下面的连接验证您的注册邮箱.</br>"
                         + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
                             + verifyUrl + "'>点击验证</a><br/><br/><br/>"
                         + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
@@ -276,6 +276,14 @@ namespace Dianzhu.BLL
         public void UpdateDZMembership(DZMembership member)
         {
             DALMembership.Update(member);
+        }
+        public DZMembership GetUserByEmail(string email)
+        {
+            return DALMembership.GetMemberByEmail(email);
+        }
+        public DZMembership GetUserByPhone(string phone)
+        {
+            return DALMembership.GetMemberByPhone(phone);
         }
         #endregion
     }

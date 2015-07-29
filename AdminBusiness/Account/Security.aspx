@@ -58,12 +58,20 @@
                             <span class="secret-d-t">登录账号&nbsp;:</span><span><%=CurrentUser.UserName%></span></div>
                         <div>
                             <span class="secret-d-t">手机号码&nbsp;:</span><p class="secret-d-a d-inb">
-                                <%=CurrentBusiness.Phone%></p>
+                                <%=CurrentUser.Phone%></p>
                             <a class="blue-a" href="default.aspx">更换号码</a> <a id="lb_changePhone" class="m-l20 blue-a"
                                 href="javascript:void(0);">修改</a></div>
                         <div>
                             <span class="secret-d-t">绑定邮箱&nbsp;:</span><p class="secret-d-a d-inb">
-                                <%=CurrentBusiness.Email%></p>
+                                <%=CurrentUser.Email%><% if (CurrentUser.IsRegisterValidated)
+                                                         {%>
+                                                         已验证
+                                                         <%}
+                                                         else
+                                                         {%>
+                                                         未验证<asp:Button runat="server"  Text='重新发送验证链接'  ID='btnResendEmailVerify' OnClick="btnResendEmailVerify_Click"/> 
+                                                        <%}%>
+                                                         </p>
                             <a class="blue-a" href="default.aspx">更换邮箱</a> <a id="lb_changeEmail" class="m-l20 blue-a"
                                 href="javascript:void(0);">修改</a></div>
                         <div>
@@ -140,7 +148,7 @@
                     <span>修改邮箱</span> <i class="icon close icon-close"></i>
                 </div>
                 <div class="secret-change-m">
-                    原邮箱:<%=CurrentBusiness.Email %>
+                    原邮箱:<%=CurrentUser.Email %>
                     新邮箱:
                     <input type="text" id="tbxNewEmail" />
                     <input type="button" class="btnChange" id="btnChangeEmail" change_field="email" value="保存" />
@@ -153,8 +161,8 @@
                     <span>修改电话</span> <i class="icon close icon-close"></i>
                 </div>
                 <div class="secret-change-m">
-                    原电话:<%=CurrentBusiness.Phone %><input type="button" value="获取验证码" />
-                    验证码:<input type="text" id="tbxVerifyCode" />
+                    原电话:<%=CurrentUser.Phone %> 
+                    
                     新电话:<input type="text" id="tbxNewPhone" />
                     <input type="button" class="btnChange" id="btnChangePhone" change_field="phone" value="保存" />
                 </div>
@@ -173,7 +181,7 @@
                             <asp:Repeater runat="server" ID="rptChargePersonIdCards">
                                 <ItemTemplate>
                                     <div class="download-img-pre fl">
-                                        <asp:ImageButton ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')"
+                                        <asp:Button Text=" X " ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')"
                                             CssClass="download-img-delete" runat="server" CommandName="delete" ImageUrl="/image/myshop/shop_icon_91.png"
                                             ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                         <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
@@ -255,7 +263,7 @@
                         break;
                 }
                 var changed_data = {};
-                changed_data["id"] = "<%=CurrentBusiness.Id %>";
+                changed_data["id"] = "<%=CurrentUser.Id %>";
                 changed_data["changed_field"] = change_field;
                 changed_data["changed_value"] = newValue;
 
