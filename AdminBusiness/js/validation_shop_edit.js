@@ -70,34 +70,23 @@ service_validate_messages[name_prefix + "tbxContact"] =
     maxlength: "请输入20字以内的姓名(汉字)"
 };
  
-//服务时间
-if ($("#selCardType").val()=="0")
-{
+ 
     service_validate_rules[name_prefix + "tbxCardIdNo"] =
     {
      
             required: true,
-            idcard: true
-
-
-        };
-
-
-    service_validate_messages[name_prefix + "tbxCardIdNo"] =
-    {
-   
-            required: "请填写身份证号码"
-           
-
-        };
-    }
-else
-{
-    service_validate_rules[name_prefix + "tbxCardIdNo"] =
-    {
-     
-            required: true,
-            maxlength:50
+            idcard: function(element){
+            if ($("#selCardType").val()=="0")
+            {
+                return true;
+            }
+            },
+            maxlength:function(element){
+             if ($("#selCardType").val()=="1")
+            {
+                return 50;
+            }
+            }
 
 
         };
@@ -107,11 +96,31 @@ else
     {
    
             required: "请填写证件号码",
-           maxlength:"证件号码超过50个字符,请联系客服."
+            idcard:"请输入正确的证件号码",
+            maxlength:"证件号码超出50个字符,请核实修改或者联系客服"
+           
 
         };
-}
 
+          service_validate_rules[name_prefix + "selStaffAmount"] =
+    {
+     
+            required: true,
+            range: [1,1000]
+
+        };
+
+
+    service_validate_messages[name_prefix + "selStaffAmount"] =
+    {
+   
+            required: "请填写员工人数",
+            range:"请输入1-1000之间的数值"
+           
+
+        };
+ 
+ 
     service_validate_rules[name_prefix + "hiAddrId"] =
 {
 
