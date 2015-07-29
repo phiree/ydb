@@ -42,10 +42,8 @@
                     </div>
                     <div class="headInfoArea clearfix">
                         <div class="headImage">
-                            <div class="input-file-box fl">
-                              <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businessavater" />
-                                         
-                                         
+                            <div class="input-file-box headFile fl" >
+                                <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businessavater" />
                                 <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
                                 <i  class="input-file-mark"></i>
                                 <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
@@ -63,9 +61,9 @@
                                 <span class="completePercentage"><%=b.CompetePercent %>%</span>
                             </div>
                         </div>
-                        <div class="headEditImg">
-                            <a href="javascript:void(0);" class="headEditBtn"></a>
-                        </div>
+                        <!--<div class="headEditImg">-->
+                            <!--<a href="javascript:void(0);" class="headEditBtn"></a>-->
+                        <!--</div>-->
                     </div>
                 </div>
                 <div class="ShopMainWrap">
