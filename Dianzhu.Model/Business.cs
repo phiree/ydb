@@ -72,10 +72,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual IList<ServiceType> ServiceType { get; set; }
 
-        /// <summary>
-        /// 证书照片地址,暂时不考虑多张
-        /// </summary>
-        public virtual string Certification { get; set; }
+       
         /// <summary>
         /// 店铺地理坐标,精度，维度。
         /// </summary>
@@ -127,7 +124,7 @@ namespace Dianzhu.Model
         {
             get
             {
-                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_Avatar).ToArray();
+                BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_Avatar).OrderByDescending(x=>x.UploadTime).ToArray();
                 if (bi.Count() >= 1)
                     return bi[0];
                 return new BusinessImage();
@@ -220,65 +217,56 @@ namespace Dianzhu.Model
                 }
                 if ( this.AreaBelongTo!=null)
                 {
-                    percent += 7;
+                    percent += 14;
                 }
-                if (this.AreaServiceTo.Count>0)
-                {
-                    percent += 7;
-                }
+                
                 if (this.BusinessImages.Count>0)
                 {
                     percent += 7;
                 }
                 if (this.BusinessLicence!=null)//5
                 {
-                    percent += 6;
+                    percent +=7;
                 }
                 if (this.BusinessShows.Count>0)
                 {
-                    percent += 6;
+                    percent += 7;
                 }
-                if (!string.IsNullOrEmpty(this.Certification))
-                {
-                    percent += 6;
-                }
+                
                 if (this.ChargePersonIdCard!=null)
                 {
-                    percent += 6;
+                    percent += 7;
                 }
                 if (!string.IsNullOrEmpty(this.ChargePersonIdCardNo))
                 {
-                    percent += 6;
+                    percent += 7;
                 }
                 if (!string.IsNullOrEmpty(this.Contact))//10
                 {
-                    percent += 6;
+                    percent += 7;
                 }
                 if (!string.IsNullOrEmpty(this.Description))
                 {
-                    percent += 6;
+                    percent += 7;
                 }
 
                 if (!string.IsNullOrEmpty(this.Email))
                 {
-                    percent += 6;
+                    percent += 7;
                 }
 
                 if (!string.IsNullOrEmpty(this.Name))
                 {
-                    percent += 6;
+                    percent += 10;
                 }
                 if (!string.IsNullOrEmpty(this.Phone))
                 {
-                    percent += 6;
+                    percent += 10;
                 }
-                if (this.ServiceType.Count>0)//15
-                {
-                    percent += 6;
-                }
+                 
                 if (this.WorkingYears>0)
                 {
-                    percent += 6;
+                    percent += 10;
                 }
 
 
