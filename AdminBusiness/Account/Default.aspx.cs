@@ -67,6 +67,7 @@ public partial class Account_Edit : BasePage
             bllBi.Delete(imageId);
              
             BindShowImages();
+            Response.Redirect(Request.RawUrl);
         }
     }
 
