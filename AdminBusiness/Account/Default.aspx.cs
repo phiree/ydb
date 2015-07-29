@@ -65,7 +65,7 @@ public partial class Account_Edit : BasePage
         {
             Guid imageId = new Guid(e.CommandArgument.ToString());
             bllBi.Delete(imageId);
-            PHSuit.Notification.Show(Page, "", "删除成功", Request.RawUrl);
+             
             BindShowImages();
         }
     }
