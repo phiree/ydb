@@ -29,11 +29,10 @@ public partial class Account_Security :BasePage
    {
 
        rptChargePersonIdCards.DataSource = CurrentBusiness.BusinessChargePersonIdCards;
-       rptChargePersonIdCards.ItemCommand += new RepeaterCommandEventHandler(rptChargePersonIdCards_ItemCommand);
        rptChargePersonIdCards.DataBind();
    }
 
-   void rptChargePersonIdCards_ItemCommand(object source, RepeaterCommandEventArgs e)
+   protected void rptChargePersonIdCards_ItemCommand(object source, RepeaterCommandEventArgs e)
    {
        if (e.CommandName.ToLower().Trim() == "delete")
        {
