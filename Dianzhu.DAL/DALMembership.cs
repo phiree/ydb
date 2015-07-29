@@ -59,6 +59,12 @@ namespace Dianzhu.DAL
             Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
             return member;
         }
+        public Model.DZMembership GetMemberByEmail(string email)
+        {
+          return  Session.QueryOver<Model.DZMembership>().Where(x => x.Email == email).SingleOrDefault();
+        }
+        public Model.DZMembership GetMemberByPhone(string phone)
+        { return Session.QueryOver<Model.DZMembership>().Where(x => x.Phone == phone).SingleOrDefault(); }
 
         public IList<Model.DZMembership> GetAllUsers()
         {

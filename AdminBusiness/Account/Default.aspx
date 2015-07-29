@@ -144,8 +144,9 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                         <div class="input-file-box d-inb">
-                                          <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businessshow" />
-                                              <i class="input-file-bg"></i><i class="input-file-mark"></i>
+                                            <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businessshow" />
+                                            <i class="input-file-bg"></i>
+                                            <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>

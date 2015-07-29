@@ -72,34 +72,34 @@ $(document).ready(function ($) {
         )
     })();
 
-    (function () {
-
-        $('.input-file-btn').change(function () {
-            var imgObjPreview = $(this).siblings(".input-file-pre").get(0);
-
-            if (this.files && this.files[0]) {
-                imgObjPreview.src = window.URL.createObjectURL(this.files[0]);
-            }
-            else {
-                this.select();
-                this.blur();
-                var imgSrc = document.selection.createRange().text;
-
-                try {
-                    imgObjPreview.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
-                    imgObjPreview.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
-                }
-                catch (e) {
-                    return false;
-                }
-                document.selection.empty();
-
-                return
-            }
-            return true;
-        })
-
-    })();
+    //(function () {
+    //
+    //    $('.input-file-btn').change(function () {
+    //        var imgObjPreview = $(this).siblings(".input-file-pre").get(0);
+    //
+    //        if (this.files && this.files[0]) {
+    //            imgObjPreview.src = window.URL.createObjectURL(this.files[0]);
+    //        }
+    //        else {
+    //            this.select();
+    //            this.blur();
+    //            var imgSrc = document.selection.createRange().text;
+    //
+    //            try {
+    //                imgObjPreview.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+    //                imgObjPreview.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+    //            }
+    //            catch (e) {
+    //                return false;
+    //            }
+    //            document.selection.empty();
+    //
+    //            return
+    //        }
+    //        return true;
+    //    })
+    //
+    //})();
 
     (function (){
         var $navBtn = $(".nav-btn");
