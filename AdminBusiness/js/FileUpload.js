@@ -45,6 +45,7 @@ $('input[type = file]').change(function (ev) {
     formData.append("businessId", businessId);
 
     $.ajax(
+
                 {
                     url: '/AjaxService/FileUploader.ashx',
                     type: "post",
@@ -63,5 +64,3 @@ $('input[type = file]').change(function (ev) {
                     } //error
                 }); //ajax
 });              //document
-
-

@@ -95,8 +95,8 @@
            $("#setSerType").click(function (e) {
 //                $('#SerlightBox').lightbox_me({
                $('#serLightContainer').lightbox_me({
-                   centered: true,
-                   preventScroll: true
+                   centered: true
+//                   preventScroll: true
                });
                e.preventDefault();
            });

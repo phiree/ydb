@@ -24,7 +24,7 @@ CodeFile="~/login.aspx.cs" Inherits="login" %>
             <div class="ui-block-b" data-theme="mya">
                <div style="width:100%;height:60.375px; line-height:60.375px; position:relative;">
      
-               <input runat="server" id="savePass" type="checkbox" style=" margin-top:13px;" /><span style="left:30px; top:-8px; position:absolute;">记住密码</span>
+               <input runat="server" id="savePass" type="checkbox" style=" margin-top:13px;" /><span style="left:30px; top:-8px; position:absolute;">记住我</span>
                </div>
             </div>
       </div>
