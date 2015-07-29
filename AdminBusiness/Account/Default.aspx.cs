@@ -66,7 +66,7 @@ public partial class Account_Edit : BasePage
             Guid imageId = new Guid(e.CommandArgument.ToString());
             bllBi.Delete(imageId);
              
-            BindShowImages();
+            Response.Redirect(Request.RawUrl);
         }
     }
 

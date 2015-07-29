@@ -43,6 +43,14 @@ public partial class Account_Security :BasePage
            BindChargePersonIdCards();
        }
    }
+   protected void btnResendEmailVerify_Click(object sender, EventArgs e)
+   { 
+       string verifyUrl = "http://" + Request.Url.Authority + "/verify.aspx";
+            verifyUrl += "?userId=" + CurrentUser.Id + "&verifyCode=" + CurrentUser.RegisterValidateCode;
+
+            dzp.SendValidationMail(CurrentUser.Email, verifyUrl);
+            Response.Redirect("/send_suc.aspx", true);
+   }
  
 
 }

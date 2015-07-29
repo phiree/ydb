@@ -161,7 +161,7 @@
                     </li>
                 </ul>
                 <ul class="panel-ul">
-                    <li class="my-li">
+                    <li class="my-li4">
 
                        <div class="myche">
                           <div class="myche1">营业执照:</div>
@@ -230,7 +230,7 @@
                     </li>
                 </ul>
                 <ul class="panel-ul">
-                    <li class="my-li">
+                    <li class="my-li4">
                              <div class="myche">
                           <div class="myche1">证件照:</div>
                           <div class="myche2"> 
