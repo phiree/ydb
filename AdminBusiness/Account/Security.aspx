@@ -247,7 +247,10 @@
                 centered: true
             });
             $("#lightBox").appendTo($("form:first"));
-            });
+        });
+
+        var changed_data = {};
+        changed_data["id"] = "<%=CurrentUser.Id %>";
 
     </script>
     <script src="/js/security.js" type="text/javascript"></script>

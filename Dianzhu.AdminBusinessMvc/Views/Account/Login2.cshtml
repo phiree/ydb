@@ -67,9 +67,9 @@
                                     </label>
                                     @Html.PasswordFor(x => x.Password)       </p>
                                 <div class="loginBox">
-                                     <input type="submit" value="登录" />   
+                                     <input type="submit" class="loginBtn" value="" />   
                                     <p class="savePass">
-                                        <input runat="server" id="savePass" type="checkbox" /><label for="savePass">记住我</label></p>
+                                        <input  id="savePass" type="checkbox" /><label for="savePass">记住我</label></p>
                                 </div>
                                 <div class="login_err_msg" >
                                 <asp:Label runat="server" ID="lblMsg"></asp:Label>

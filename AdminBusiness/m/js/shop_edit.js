@@ -25,7 +25,7 @@ $(function () {
             switch (target) {
                 case "name": display(that, $("#tbxName").val()); break;
                 case 'description': display(that, $("#tbxIntroduced").val()); break;
-                case 'phone': display(that, $("#tbxContactPhone").val()); break;
+                case 'phone': phonedisplay(that, $("#tbxContactPhone").val()); break;
                 case 'address': display(that, $("#tbxAddress").val()); break;
                 case 'email': display(that, $("#tbxEmail").val()); break;
                 case 'workingyears': display(that, $("#tbxBusinessYears").val()); break;
@@ -39,11 +39,22 @@ $(function () {
 
     });
     $(".panel-ul a.getMaphrefClass").attr("href", "#secondview");
-   
-    function display(li, value) {
-        $(li).find(".display_holder").text(value);
 
-    }
+    function display(li, value) {
+       
+          $(li).find(".display_holder").text(value);
+     
+
+
+  }
+
+  function phonedisplay(li, value) {
+      if (myShopvalidatemobile('#tbxContactPhone', '#vregPhonetxt')) {
+          $(li).find(".display_holder").text(value);
+      }
+
+
+  }
 
 
     //初始化
