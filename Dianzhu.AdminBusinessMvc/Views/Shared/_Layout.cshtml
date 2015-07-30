@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>商家后台主页</title>
+    <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="http://192.168.1.140:8464/static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://192.168.1.140:8464/static/Scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="http://192.168.1.140:8464/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
+ 
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+     
+</head>
+ 
+   <body>
+    <div class="wrap">
+        <div class="mainContainer">
+            <form id="form1" runat="server">
+            <div class="topnav clearfix">
+                <h1 title="点助" class="dianzhuicon">
+                </h1>
+                
+                <div class="logoutBox">
+                      </div>
+                <div class="menuList">
+                    <ul class="clearfix">
+                        <!--<li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-coup"></i>
+                        </a></li>
+                        <li><a href="/account/Default.aspx" target="_self"><i class="nav-btn nav-btn-myshop"></i></a>
+                        </li>
+                        <li><a href="/DZService/Default.aspx" target="_self"><i class="nav-btn nav-btn-service"></i></a>
+                        </li>-->
+
+                        <li>
+                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
+                                <div class="nav-btn-bg nav-btn-coup d-inb">
+                                    <h4 class="nav-btn-t "></h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/shop/" target="_self">
+                                <div class="nav-btn-bg d-inb nav-btn-myshop">
+                                    <h4 class="nav-btn-t ">店铺信息</h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/DZService/" target="_self">
+                                <div class="nav-btn-bg d-inb nav-btn-service">
+                                    <h4 class="nav-btn-t ">服务信息</h4>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
+                                <div class="nav-btn-bg d-inb nav-btn-un-order">
+                                    <h4 class="nav-btn-t nav-btn-un-t">订单</h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
+                                <div class="nav-btn-bg d-inb nav-btn-un-employee">
+                                    <h4 class="nav-btn-t nav-btn-un-t">员工</h4>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
+                                <div class="nav-btn-bg d-inb nav-btn-un-msg">
+                                    <h4 class="nav-btn-t nav-btn-un-t">消息</h4>
+                                </div>
+                            </a>
+                        </li>
+
+                        <!--<li><a href="Javascript: void(0)" title="正在开发,敬请期待" target="_self"><i class="nav-btn nav-btn-order"></i></a>
+                        </li>
+                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="_self"><i class="nav-btn nav-btn-employee"></i></a>
+                        </li>
+                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="_self"><i class="nav-btn nav-btn-msg"></i></a></li>-->
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                 
+                @RenderSection("featured", required: false)
+                <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+            </div>
+            </form>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
