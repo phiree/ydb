@@ -253,15 +253,12 @@
         
             $($("form")[0]).validate(
                 {
-//                    debug: true,
                     rules: service_validate_rules,
                     messages: service_validate_messages,
                     invalidHandler: invalidHandler,
-                    onsubmit: true,
-                    onfocusout: true
                 }
 
-         );
+        );
  
     });       //document.ready
 

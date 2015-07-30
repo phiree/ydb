@@ -29,7 +29,7 @@ $(document).ready(function () {
                 $(user_warn_element).show();
                 user_warn_text = "请填写用户名";
                 $(user_warn_element).text(user_warn_text);
-            } else if ( !_user_name.match(user_name_rule) ) {
+            } else if ( !user_name_rule.test(_user_name) ) {
                 $(user_warn_element).show();
                 chkIconAnm(false, false, $_checkIcon);
                 user_warn_text = "格式错误";
