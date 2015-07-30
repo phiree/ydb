@@ -1,0 +1,667 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{61F5098D-3C49-4229-956C-E8BF0080A2D5}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dianzhu.AdminBusinessMvc</RootNamespace>
+    <AssemblyName>Dianzhu.AdminBusinessMvc</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.0.3.12153\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\base.css" />
+    <Content Include="Content\login_reg.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="image\00.png" />
+    <Content Include="image\ajax-loader.gif" />
+    <Content Include="image\coupon\coupon_cicle.png" />
+    <Content Include="image\coupon\coupon_tree_bg.png" />
+    <Content Include="image\coupon\dianpu_up.png" />
+    <Content Include="image\coupon\gengduo_down 100x60.png" />
+    <Content Include="image\coupon\gengduo_up.png" />
+    <Content Include="image\coupon\huodong_up.png" />
+    <Content Include="image\coupon\jiazai_down 140x42.png" />
+    <Content Include="image\coupon\jieshao_up.png" />
+    <Content Include="image\coupon\Money_mid.png" />
+    <Content Include="image\coupon\Money_up 318x34.png" />
+    <Content Include="image\coupon\queding_down 150x54.png" />
+    <Content Include="image\coupon\shangchuan_mid 114x114.png" />
+    <Content Include="image\coupon\shangchuan_top 113x17.png" />
+    <Content Include="image\coupon\shangchuan_up.png" />
+    <Content Include="image\coupon\shanghu_left 16x16.png" />
+    <Content Include="image\coupon\shanghu_mid.png" />
+    <Content Include="image\coupon\shanghu_right 16x16.png" />
+    <Content Include="image\coupon\shanghu_up 318x34.png" />
+    <Content Include="image\coupon\shangquan_up.png" />
+    <Content Include="image\coupon\sheding_up.png" />
+    <Content Include="image\coupon\shop_blue_bg_3.png" />
+    <Content Include="image\coupon\shop_button_01.png" />
+    <Content Include="image\coupon\shop_head_01.png" />
+    <Content Include="image\coupon\shop_icon_01.png" />
+    <Content Include="image\coupon\shop_icon_02.png" />
+    <Content Include="image\coupon\shop_icon_03.png" />
+    <Content Include="image\coupon\shop_icon_04.png" />
+    <Content Include="image\coupon\shop_icon_05.png" />
+    <Content Include="image\coupon\shop_juan_01.png" />
+    <Content Include="image\coupon\shop_juan_02.png" />
+    <Content Include="image\coupon\shop_left_02.png" />
+    <Content Include="image\coupon\shop_line_01.png" />
+    <Content Include="image\coupon\shop_point_01.png" />
+    <Content Include="image\coupon\shop_point_02.png" />
+    <Content Include="image\coupon\shop_point_03.png" />
+    <Content Include="image\coupon\shop_right_01.png" />
+    <Content Include="image\coupon\shop_title_01.png" />
+    <Content Include="image\coupon\shop_title_02.png" />
+    <Content Include="image\coupon\shop_zeng_01.png" />
+    <Content Include="image\coupon\tongji_up 180x68.png" />
+    <Content Include="image\coupon\touxiang_left 38x38.png" />
+    <Content Include="image\coupon\xiangxi_up.png" />
+    <Content Include="image\coupon\xiugai_right 66x32.png" />
+    <Content Include="image\coupon\youhuiquan1_up 158x6.png" />
+    <Content Include="image\coupon\youhuiquan_mid 4x60.png" />
+    <Content Include="image\employee\bianji_left6x64.png" />
+    <Content Include="image\employee\chaxun_left24x20.png" />
+    <Content Include="image\employee\fanye_left.png" />
+    <Content Include="image\employee\fanye_right.png" />
+    <Content Include="image\employee\gerenxinxijianbian_up1x47.png" />
+    <Content Include="image\employee\gongzuo_right190x32.png" />
+    <Content Include="image\employee\line_up 1x32.png" />
+    <Content Include="image\employee\shanjian_right100x32.png" />
+    <Content Include="image\employee\shop_button_1.png" />
+    <Content Include="image\employee\shop_button_2.png" />
+    <Content Include="image\employee\shop_icon_1.png" />
+    <Content Include="image\employee\shop_icon_2.png" />
+    <Content Include="image\employee\shop_icon_3.png" />
+    <Content Include="image\employee\shop_icon_4.png" />
+    <Content Include="image\employee\shop_icon_5.png" />
+    <Content Include="image\employee\shop_icon_6.png" />
+    <Content Include="image\employee\shop_icon_7.png" />
+    <Content Include="image\employee\shop_icon_8.png" />
+    <Content Include="image\employee\shop_line_01.png" />
+    <Content Include="image\employee\shop_line_02.png" />
+    <Content Include="image\employee\tianjia_left100x32.png" />
+    <Content Include="image\employee\touxiang_left68x68.png" />
+    <Content Include="image\employee\xingbie_mid328x32.png" />
+    <Content Include="image\employee\xinxi_left4x92.png" />
+    <Content Include="image\employee\xuanze_left 24x20.png" />
+    <Content Include="image\employee\xuanze_right24x20.png" />
+    <Content Include="image\employee\yeshuxinxi_down60x80.png" />
+    <Content Include="image\employee\yeshu_down26x26.png" />
+    <Content Include="image\employee\yeshu_left64x26.png" />
+    <Content Include="image\employee\yeshu_mid26x26.png" />
+    <Content Include="image\employee\yeshu_right64x26.png" />
+    <Content Include="image\employee\yeshu_up26x26.png" />
+    <Content Include="image\employee\yizhipai_down74x34.png" />
+    <Content Include="image\employee\yuesao_down116x2.png" />
+    <Content Include="image\employee\yuesao_up116x50.png" />
+    <Content Include="image\employee\zhipai_up74x34.png" />
+    <Content Include="image\extend\shop_back_3.png" />
+    <Content Include="image\extend\shop_bg_09.png" />
+    <Content Include="image\extend\shop_burrton_1.png" />
+    <Content Include="image\extend\shop_button_01.png" />
+    <Content Include="image\extend\shop_green_01.png" />
+    <Content Include="image\extend\shop_green_03.png" />
+    <Content Include="image\extend\shop_green_04.png" />
+    <Content Include="image\extend\shop_green_06.png" />
+    <Content Include="image\extend\shop_green_07.png" />
+    <Content Include="image\extend\shop_green_08.png" />
+    <Content Include="image\extend\shop_green_09.png" />
+    <Content Include="image\extend\shop_kuang_03.png" />
+    <Content Include="image\extend\shop_line_01.png" />
+    <Content Include="image\jquery-1.4.min.js" />
+    <Content Include="image\login_reg\back_2.png" />
+    <Content Include="image\login_reg\bg_1.jpg" />
+    <Content Include="image\login_reg\bg_1.png" />
+    <Content Include="image\login_reg\button_1.png" />
+    <Content Include="image\login_reg\dianzhu_03.png" />
+    <Content Include="image\login_reg\dianzhu_03_old.png" />
+    <Content Include="image\login_reg\icon_1.png" />
+    <Content Include="image\login_reg\icon_2.png" />
+    <Content Include="image\login_reg\lock_1.png" />
+    <Content Include="image\login_reg\lock_2.png" />
+    <Content Include="image\login_reg\phone_1.png" />
+    <Content Include="image\login_reg\queding_1.png" />
+    <Content Include="image\login_reg\queren_1.png" />
+    <Content Include="image\login_reg\queren_2.png" />
+    <Content Include="image\login_reg\shop_button_01.png" />
+    <Content Include="image\login_reg\shop_user_01.png" />
+    <Content Include="image\login_reg\shop_user_02.png" />
+    <Content Include="image\login_reg\user_1.png" />
+    <Content Include="image\login_reg\xiayibu_1.png" />
+    <Content Include="image\login_reg\yanzheng_2.png" />
+    <Content Include="image\login_reg\yanzheng_3.png" />
+    <Content Include="image\login_reg\zhengqie_1.png" />
+    <Content Include="image\login_reg\zhengqie_2.png" />
+    <Content Include="image\login_reg\zhengque_1.png" />
+    <Content Include="image\login_reg\zhuce_1.png" />
+    <Content Include="image\login_reg\zhuce_2.png" />
+    <Content Include="image\manhuaDate.1.0.js" />
+    <Content Include="image\msg\shop_icon_01.png" />
+    <Content Include="image\msg\shop_icon_02.png" />
+    <Content Include="image\msg\shop_icon_03.png" />
+    <Content Include="image\msg\shop_icon_130.png" />
+    <Content Include="image\msg\shop_icon_134.png" />
+    <Content Include="image\msg\shop_icon_135.png" />
+    <Content Include="image\msg\shop_icon_136.png" />
+    <Content Include="image\msg\shop_icon_141.png" />
+    <Content Include="image\msg\shop_icon_142.png" />
+    <Content Include="image\msg\shop_left_01.png" />
+    <Content Include="image\msg\shop_left_02.png" />
+    <Content Include="image\msg\shop_line_01.png" />
+    <Content Include="image\msg\shop_line_02.png" />
+    <Content Include="image\msg\shop_news_02.png" />
+    <Content Include="image\msg\shop_news_03.png" />
+    <Content Include="image\msg\shop_shang_03.png" />
+    <Content Include="image\msg\shop_user_01.png" />
+    <Content Include="image\msg\shop_user_04.png" />
+    <Content Include="image\msg\shop_xia_01.png" />
+    <Content Include="image\msg\shop_xia_02.png" />
+    <Content Include="image\myshop\shopicon.jpg" />
+    <Content Include="image\myshop\shop_bg_1_98.png" />
+    <Content Include="image\myshop\shop_bg_2_113.png" />
+    <Content Include="image\myshop\shop_bg_2_98.png" />
+    <Content Include="image\myshop\shop_bg_35.png" />
+    <Content Include="image\myshop\shop_bg_92.png" />
+    <Content Include="image\myshop\shop_button_01.png" />
+    <Content Include="image\myshop\shop_button_02.png" />
+    <Content Include="image\myshop\shop_button_03.png" />
+    <Content Include="image\myshop\shop_button_04.png" />
+    <Content Include="image\myshop\shop_button_97.png" />
+    <Content Include="image\myshop\shop_frame_01.png" />
+    <Content Include="image\myshop\shop_frame_02.png" />
+    <Content Include="image\myshop\shop_icon_80.png" />
+    <Content Include="image\myshop\shop_icon_81.png" />
+    <Content Include="image\myshop\shop_icon_82.png" />
+    <Content Include="image\myshop\shop_icon_83.png" />
+    <Content Include="image\myshop\shop_icon_84.png" />
+    <Content Include="image\myshop\shop_icon_85.png" />
+    <Content Include="image\myshop\shop_icon_86.png" />
+    <Content Include="image\myshop\shop_icon_87.png" />
+    <Content Include="image\myshop\shop_icon_88.png" />
+    <Content Include="image\myshop\shop_icon_89.png" />
+    <Content Include="image\myshop\shop_icon_90.png" />
+    <Content Include="image\myshop\shop_icon_91.png" />
+    <Content Include="image\myshop\shop_jindu_95.png" />
+    <Content Include="image\myshop\shop_line_01.png" />
+    <Content Include="image\myshop\shop_line_02.png" />
+    <Content Include="image\myshop\shop_line_03.png" />
+    <Content Include="image\myshop\shop_point_01.png" />
+    <Content Include="image\myshop\shop_point_02.png" />
+    <Content Include="image\myshop\shop_point_03.png" />
+    <Content Include="image\myshop\shop_point_04.png" />
+    <Content Include="image\myshop\shop_point_05.png" />
+    <Content Include="image\myshop\shop_point_06.png" />
+    <Content Include="image\myshop\shop_title_01.png" />
+    <Content Include="image\myshop\shop_title_02.png" />
+    <Content Include="image\myshop\shop_title_03.png" />
+    <Content Include="image\myshop\shop_title_04.png" />
+    <Content Include="image\myshop\shop_title_05.png" />
+    <Content Include="image\myshop\shop_tx_100.png" />
+    <Content Include="image\myshop\shop_tx_101.png" />
+    <Content Include="image\myshop\shop_tx_102.png" />
+    <Content Include="image\myshop\shop_tx_103.png" />
+    <Content Include="image\myshop\shop_tx_103_1.png" />
+    <Content Include="image\myshop\shop_tx_104.png" />
+    <Content Include="image\myshop\shop_tx_105.png" />
+    <Content Include="image\myshop\shop_tx_106.png" />
+    <Content Include="image\myshop\shop_tx_107.png" />
+    <Content Include="image\myshop\shop_tx_108.png" />
+    <Content Include="image\myshop\shop_tx_93.png" />
+    <Content Include="image\myshop\shop_tx_94.png" />
+    <Content Include="image\myshop\shop_tx_96.png" />
+    <Content Include="image\myshop\shop_tx_97.png" />
+    <Content Include="image\myshop\shop_tx_99.png" />
+    <Content Include="image\myshop\touxiangkuang_11.png" />
+    <Content Include="image\nav_btn.png" />
+    <Content Include="image\order\order_bg_ox.png" />
+    <Content Include="image\order\order_bg_ox1.png" />
+    <Content Include="image\order\order_bg_ox2.png" />
+    <Content Include="image\order\shop_bgg_1.png" />
+    <Content Include="image\order\shop_bgg_10.png" />
+    <Content Include="image\order\shop_bgg_11.png" />
+    <Content Include="image\order\shop_bgg_2.png" />
+    <Content Include="image\order\shop_bgg_3.png" />
+    <Content Include="image\order\shop_bgg_4.png" />
+    <Content Include="image\order\shop_bgg_5.png" />
+    <Content Include="image\order\shop_bgg_6.png" />
+    <Content Include="image\order\shop_bgg_7.png" />
+    <Content Include="image\order\shop_bgg_8.png" />
+    <Content Include="image\order\shop_bgg_9.png" />
+    <Content Include="image\order\shop_bg_35.png" />
+    <Content Include="image\order\shop_bg_36.png" />
+    <Content Include="image\order\shop_bg_37.png" />
+    <Content Include="image\order\shop_bg_38.png" />
+    <Content Include="image\order\shop_bg_40.png" />
+    <Content Include="image\order\shop_bg_41.png" />
+    <Content Include="image\order\shop_bg_42.png" />
+    <Content Include="image\order\shop_bg_43.png" />
+    <Content Include="image\order\shop_bg_44.png" />
+    <Content Include="image\order\shop_bg_48.png" />
+    <Content Include="image\order\shop_bg_49.png" />
+    <Content Include="image\order\shop_button_39.png" />
+    <Content Include="image\order\shop_button_40.png" />
+    <Content Include="image\order\shop_button_45.png" />
+    <Content Include="image\order\shop_button_46.png" />
+    <Content Include="image\order\shop_button_47.png" />
+    <Content Include="image\order\shop_date_50.png" />
+    <Content Include="image\order\shop_date_51.png" />
+    <Content Include="image\order\shop_date_52.png" />
+    <Content Include="image\order\shop_date_53.png" />
+    <Content Include="image\order\shop_date_54.png" />
+    <Content Include="image\order\shop_date_55.png" />
+    <Content Include="image\order\shop_icon_25.png" />
+    <Content Include="image\order\shop_icon_26.png" />
+    <Content Include="image\order\shop_icon_27.png" />
+    <Content Include="image\order\shop_icon_28.png" />
+    <Content Include="image\order\shop_icon_29.png" />
+    <Content Include="image\order\shop_icon_30.png" />
+    <Content Include="image\order\shop_icon_33.png" />
+    <Content Include="image\order\shop_icon_34.png" />
+    <Content Include="image\order\shop_icon_35.png" />
+    <Content Include="image\order\shop_icon_36.png" />
+    <Content Include="image\order\shop_icon_37.png" />
+    <Content Include="image\order\shop_icon_38.png" />
+    <Content Include="image\order\shop_icon_39.png" />
+    <Content Include="image\order\shop_icon_40.png" />
+    <Content Include="image\order\shop_line_33.png" />
+    <Content Include="image\order\shop_line_34.png" />
+    <Content Include="image\order\shop_more_01.png" />
+    <Content Include="image\order\shop_point_31.png" />
+    <Content Include="image\order\shop_point_32.png" />
+    <Content Include="image\service\icon_10.png" />
+    <Content Include="image\service\img_map.png" />
+    <Content Include="image\service\shop_guanli_05.png" />
+    <Content Include="image\service\shop_guanli_06.png" />
+    <Content Include="image\service\shop_guanli_07.png" />
+    <Content Include="image\service\shop_guanli_08.png" />
+    <Content Include="image\service\shop_guanli_09.png" />
+    <Content Include="image\service\shop_guanli_10.png" />
+    <Content Include="image\service\shop_guanli_11.png" />
+    <Content Include="image\service\shop_guanli_12.png" />
+    <Content Include="image\service\shop_guanli_12_1.png" />
+    <Content Include="image\service\shop_guanli_13.png" />
+    <Content Include="image\service\shop_guanli_14.png" />
+    <Content Include="image\service\shop_guanli_15.png" />
+    <Content Include="image\service\shop_guanli_16.png" />
+    <Content Include="image\service\shop_guanli_17.png" />
+    <Content Include="image\service\shop_guanli_18.png" />
+    <Content Include="image\service\shop_guanli_19.png" />
+    <Content Include="image\service\shop_guanli_20.png" />
+    <Content Include="image\service\shop_guanli_21.png" />
+    <Content Include="image\service\shop_icon_01.png" />
+    <Content Include="image\service\shop_icon_02.png" />
+    <Content Include="image\service\shop_icon_03.png" />
+    <Content Include="image\service\shop_tx_107.png" />
+    <Content Include="image\service\shop_tx_108.png" />
+    <Content Include="image\service\shop_tx_97.png" />
+    <Content Include="image\shared\bianjji_1.png" />
+    <Content Include="image\shared\delete_1.png" />
+    <Content Include="image\shop_green_09.png" />
+    <Content Include="image\shop_icon_17.png" />
+    <Content Include="image\shop_icon_6.png" />
+    <Content Include="image\topnavbj.png" />
+    <Content Include="image\un-icon-1.png" />
+    <Content Include="image\un-icon-2.png" />
+    <Content Include="image\un-icon-3.png" />
+    <Content Include="image\vip\shop_back_3.png" />
+    <Content Include="image\vip\shop_blue_bg_1.png" />
+    <Content Include="image\vip\shop_blue_bg_2.png" />
+    <Content Include="image\vip\shop_blue_bg_3.png" />
+    <Content Include="image\vip\shop_blue_bg_4.png" />
+    <Content Include="image\vip\shop_blue_bg_5.png" />
+    <Content Include="image\vip\shop_blue_bg_6.png" />
+    <Content Include="image\vip\shop_blue_bg_7.png" />
+    <Content Include="image\vip\shop_burrton_1.png" />
+    <Content Include="image\vip\shop_burrton_2.png" />
+    <Content Include="image\vip\shop_green_08.png" />
+    <Content Include="image\vip\shop_icon_17.png" />
+    <Content Include="image\vip\shop_icon_18.png" />
+    <Content Include="image\vip\shop_line_1.png" />
+    <Content Include="image\vip\shop_red_1.png" />
+    <Content Include="image\vip\shop_tx_2.png" />
+    <Content Include="image\vip\shop_tx_3.png" />
+    <Content Include="image\vip\shop_youhui_1.png" />
+    <Content Include="image\vip\shop_youhui_2.png" />
+    <Content Include="js\account.js" />
+    <Content Include="js\CityList.js" />
+    <Content Include="js\data_tree.js" />
+    <Content Include="js\FileUpload.js" />
+    <Content Include="js\global.js" />
+    <Content Include="js\InlineTip.js" />
+    <Content Include="js\jquery-1.11.1.js" />
+    <Content Include="js\jquery-1.11.3.min.js" />
+    <Content Include="js\jquery.form.min.js" />
+    <Content Include="js\jquery.lightbox_me.js" />
+    <Content Include="js\login_reg.js" />
+    <Content Include="js\service.js" />
+    <Content Include="js\ServiceSelect.js" />
+    <Content Include="js\TabSelection.js" />
+    <Content Include="js\validation_invalidHandler.js" />
+    <Content Include="js\validation_service_edit.js" />
+    <Content Include="js\validation_shop_edit.js" />
+    <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Login2.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
+      <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
+      <Name>Dianzhu.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
+      <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
+      <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>6301</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:6301/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

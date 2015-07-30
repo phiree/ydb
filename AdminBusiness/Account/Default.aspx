@@ -41,9 +41,14 @@
                             商家基本信息</h1>
                     </div>
                     <div class="headInfoArea clearfix">
+
                         <div class="headImage fl m-r10">
-                            <div class="input-file-box headFile" >
-                                <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businessavater" />
+ 
+                            <div class="input-file-box headFile">
+                              <input type=file class="input-file-btn"  name="input-file-btn-avater" businessId="<%=CurrentBusiness.Id %>" imageType="businessavater" />
+                                         
+                                         
+ 
                                 <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
                                 <i  class="input-file-mark"></i>
                                 <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
@@ -125,8 +130,10 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <div class="input-file-box  m-r10 fl">
-                                         <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businesslicense" />
+
+                                        <div class="input-file-box fl">
+                                         <input type=file class="input-file-btn"   name="input-file-btn-license" businessId="<%=CurrentBusiness.Id %>" imageType="businesslicense" />
+
                                          
                                              <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -151,8 +158,10 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <div class="input-file-box  m-r10 fl">
-                                            <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businessshow" />
+
+                                        <div class="input-file-box d-inb">
+                                            <input type=file class="input-file-btn"  name="input-file-btn-show"  businessId="<%=CurrentBusiness.Id %>" imageType="businessshow" />
+
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -211,6 +220,7 @@
                                         </asp:Repeater>
                                         <div class="input-file-box m-r10 fl">
                                         <input type=file class="input-file-btn" businessId="<%=CurrentBusiness.Id %>" imageType="businesschargeperson" />
+
                                                <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
@@ -248,6 +258,7 @@
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
+    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
     <script src="/js/jquery.form.min.js" type="text/javascript"></script>
      <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
@@ -258,7 +269,7 @@
     <script type="text/javascript">
          var name_prefix = 'ctl00$ContentPlaceHolder1$';
     </script>
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
             // set_name_as_id('snsi');
             $.validator.setDefaults({
@@ -271,6 +282,12 @@
             $.validator.addMethod("idcard", function (value, element) {
                 return /^(\d{15}$)|(^\d{17}([0-9]|X))$/.test(value);
             }, "请输入有效的身份证号码");
+            $.validator.addMethod('filesize', function (value, element, param) {
+                // param = size (en bytes) 
+                // element = element to validate (<input>)
+                // value = value of the element (file name)
+                return this.optional(element) || (element.files[0].size <= param)
+            });
 
             $($("form")[0]).validate(
                 { rules: service_validate_rules,

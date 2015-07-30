@@ -1,0 +1,97 @@
+﻿ @model Dianzhu.Model.DZMembership
+ @{
+     Layout = "";}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <script src="http://192.168.1.140:8464/static/Scripts/jquery-1.11.3.min.js"></script>
+<script src="http://192.168.1.140:8464/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
+
+    <link rel="Stylesheet" href="/Content/Site.css" type="text/css" />
+    <link rel="Stylesheet" href="/Content/login_reg.css" type="text/css" />
+</head>
+<body>
+    <div class="reg-wrap">
+        <div class="head">
+        </div>
+        <div class="main">
+            <div class="layout">
+                <div class="wrap-login">
+                    <form id="form1">
+                    <div class="conLogin">
+                        <div class="conLogo clearfix">
+                            <div class="logo">
+                                <div class="logo-title-l"></div>
+                                <div class="logo-title-r">
+                                    <img src="/image/login_reg/icon_1.png" alt="logo" />
+                                </div>
+                            </div>
+                            <div>
+                                <div class="logo-title-l">
+                                    <p>
+                                        解决万事找对点，一切帮你妥妥办<br />
+                                        让你生活有变化</p>
+                                </div>
+                                <div class="logo-title-r">
+                                    <i class="icon logoTitle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="conMain main-login clearfix">
+                            <div class="box-l log-intro">
+                                <p>
+                                    <em>O</em><span>2O的终极商业模式</span></p>
+                                <p>
+                                    <em>1</em><span>个全新的平台</span></p>
+                                <p>
+                                    <em>2</em><span>4小时服务</span></p>
+                                <p>
+                                    <em>3</em><span>步接单</span></p>
+                            </div>
+                            <div class="box-r">
+                                <p class="date">
+                                    </p>
+                                <!--<div class="clearfix">-->
+                                    <p class="username">
+                                        <label class="usernameIcon" for="tbxUserName">
+                                            <i class="icon"></i>
+                                        </label>
+                                       @Html.TextBoxFor(x=>x.UserName)
+                                           </p>
+                                    <!--<i id="userCheck" class="f-l"></i>-->
+                                <!--</div>-->
+                                <p class="password">
+                                    <label class="passwordIcon" for="tbxPassword">
+                                        <i class="icon"></i>
+                                    </label>
+                                    @Html.PasswordFor(x => x.Password)       </p>
+                                <div class="loginBox">
+                                     <input type="submit" value="登录" />   
+                                    <p class="savePass">
+                                        <input runat="server" id="savePass" type="checkbox" /><label for="savePass">记住我</label></p>
+                                </div>
+                                <div class="login_err_msg" >
+                                <asp:Label runat="server" ID="lblMsg"></asp:Label>
+                                </div>
+                                <!--<p id="testAjax"></p>-->
+                                <p class="doReg">
+                                    <a class="logReg-a" href="register.aspx">
+                                        <img src="/image/login_reg/zhuce_1.png">注册会员</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <div class="conReg">
+            </div>
+        </div>
+        <div class="footer">
+        </div>
+    </div>
+</body>
+
+<script src="/js/InlineTip.js" type="text/javascript"></script>
+<script src="/js/login_reg.js" type="text/javascript"></script>
+</html>
