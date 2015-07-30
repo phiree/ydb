@@ -23,8 +23,8 @@ $(".btnChange").click(function (eve) {
     }
 
 
-    var changed_data = {};
-    changed_data["id"] = "<%=CurrentUser.Id %>";
+   
+    
     changed_data["changed_field"] = change_field;
     changed_data["changed_value"] = newValue;
 
