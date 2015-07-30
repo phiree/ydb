@@ -48,9 +48,9 @@
                                     </i><i class="icon service-icon-star"></i><i class="icon service-icon-star"></i>
                                 </div>
                             </div>
-                            <div class="headEditImg">
-                                <span class="satisfaction">100%</span>
-                            </div>
+                            <!--<div class="headEditImg">-->
+                                <!--<span class="satisfaction">100%</span>-->
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>
@@ -87,10 +87,8 @@
             });
 
             $("#setSerType").click(function (e) {
-//                $('#SerlightBox').lightbox_me({
                 $('#serLightContainer').lightbox_me({
                     centered: true
-//                    preventScroll: true
                 });
                 e.preventDefault();
             });

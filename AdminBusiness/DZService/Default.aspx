@@ -50,9 +50,7 @@
                                 </i><i class="icon service-icon-star"></i><i class="icon service-icon-star"></i>
                             </div>
                         </div>
-                        <div class="headEditImg">
-                            <span class="satisfaction">100%</span>
-                        </div>
+
                     </div>
                 </div>
             </div>

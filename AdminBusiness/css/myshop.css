@@ -1,8 +1,8 @@
-.myshopInfoArea { height:198px; padding: 0 20px; border-bottom: 20px solid #dfebf6; }
+.myshopInfoArea { padding: 0 20px; border-bottom: 20px solid #dfebf6; }
 .myshopInfoTilte { height:71px; line-height:71px; color:#58789a; font-size:19px; font-weight:bold;}
 .myshopInfoTilte h1 { font-weight: bold; }
 
-.headInfoArea { height:108px; background:#f6fafe; position:relative; border-bottom:#dbe6f2 1px solid;}
+.headInfoArea { background:#f6fafe; position:relative; border-bottom:#dbe6f2 1px solid; margin-bottom: 20px; padding-bottom: 20px;}
 
 .ShopDetailsTitle { padding: 0 20px; height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; }
 .shop-icon-Title { background: url("../image/myshop/shopicon.jpg") no-repeat center; }
@@ -91,15 +91,19 @@
 .account{ height:1138px; display:none;}
 
 .headDecoration1{ width:4px; height:108px; float:left; background:#31b6fc;}
-.headImage{ width:90px; height:90px; float:left; position:relative}
-.headImage img{ }
-.headInfo{ width:208px; height:108px; float:left; color:#58789a; font-size:13px;}
-.inputShopName{ box-sizing: content-box\9; width:185px; height:25px; line-height: 25px; border:#dbe6f2 1px solid; font-size:13px; color:#58789a; margin-top:15px; padding-left:10px;}
+.headImage{ width:90px; height:90px; line-height: 90px; text-align: center;  display: table; overflow: hidden;}
+.headImageVc { display: table-cell; vertical-align: middle; }
+
+.headInfo{ width:208px; height: 90px; float:left; color:#58789a; font-size:13px; display: table; overflow: hidden;}
+.headInfoVc { display: table-cell; vertical-align: middle; }
+
+.inputShopName{ box-sizing: content-box\9; width:185px; height:25px; line-height: 25px; border:#dbe6f2 1px solid; font-size:13px; color:#58789a;}
+
+.InfoCompletetxt{ line-height: 2em; }
 .InfoPercentage{position:relative; width:100%; height:auto; }
-.InfoComplete{ width:163px; height:15px; border:#31b6fc 1px solid;margin-top:10px;display:block; position:relative;}
+.InfoComplete{ width:163px; height:15px; border:#31b6fc 1px solid;display:block; position:relative;}
 .progress{ height:100%; width:90%; background:#31b6fc; display:block;}
 .completePercentage{ position:absolute;width:20px;color:#31b6fc; font-size:15px; top:0; left:170px;}
-.InfoCompletetxt{ margin-top:10px;}
 .headEditImg{  float:right;  }
 .headEditBtn { display: block; width:115px; height:108px; background:url("../image/myshop/shop_button_97.png") no-repeat center;}
 

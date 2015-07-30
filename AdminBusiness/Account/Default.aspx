@@ -41,24 +41,26 @@
                             商家基本信息</h1>
                     </div>
                     <div class="headInfoArea clearfix">
-                        <div class="headImage">
-                            <div class="input-file-box headFile fl" >
+                        <div class="headImage fl m-r10">
+                            <div class="input-file-box headFile" >
                                 <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businessavater" />
                                 <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
                                 <i  class="input-file-mark"></i>
                                 <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
                             </div>
                         </div>
-                        <div class="headInfo">
-                            <p>
-                                <input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="inputShopName" /></p>
-                            <p class="InfoCompletetxt">
-                                资料完成程度</p>
-                            <div class="InfoPercentage">
-                                <div class="InfoComplete">
-                                    <span  style='width:<%=b.CompetePercent %>%' class="progress"></span>
+                        <div class="headInfo fl">
+                            <div class="headInfoVc">
+                                <p>
+                                    <input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="inputShopName" /></p>
+                                <p class="InfoCompletetxt">
+                                    资料完成程度</p>
+                                <div class="InfoPercentage">
+                                    <div class="InfoComplete">
+                                        <span  style='width:<%=b.CompetePercent %>%' class="progress"></span>
+                                    </div>
+                                    <span class="completePercentage"><%=b.CompetePercent %>%</span>
                                 </div>
-                                <span class="completePercentage"><%=b.CompetePercent %>%</span>
                             </div>
                         </div>
                         <!--<div class="headEditImg">-->
@@ -113,8 +115,8 @@
                                     <div>
                                      <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
-                                                <div class="download-img-pre fl">
-                                                 <asp:Button ID="img" OnClientClick="javascript:return confirm('确定删除?')"  Text=" X "   formnovalidate CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                <div class="download-img-pre m-r10 fl">
+                                                 <asp:Button ID="img" OnClientClick="javascript:return confirm('确定删除?')"  Text=" "   formnovalidate CssClass="download-img-delete" runat="server" CommandName="delete"
                                                           ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                       <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
@@ -123,11 +125,7 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <div class="download-img-pre fl">
-                                       
-
-                                        </div>
-                                        <div class="input-file-box fl">
+                                        <div class="input-file-box  m-r10 fl">
                                          <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businesslicense" />
                                          
                                              <i class="input-file-bg"></i><i class="input-file-mark"></i>
@@ -143,8 +141,8 @@
                                     <div class="clearfix">
                                         <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
-                                                <div class="download-img-pre fl">
-                                                    <asp:Button Text=" X " formnovalidate OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                <div class="download-img-pre  m-r10 fl">
+                                                    <asp:Button Text=" " formnovalidate OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
                                                         ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                     <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
@@ -153,7 +151,7 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <div class="input-file-box d-inb">
+                                        <div class="input-file-box  m-r10 fl">
                                             <input type=file class="input-file-btn"  businessId="<%=CurrentBusiness.Id %>" imageType="businessshow" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
@@ -201,8 +199,8 @@
                                     <div class="clearfix">
                                     <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
-                                                <div class="download-img-pre fl">
-                                                    <asp:Button Text=" X " ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                <div class="download-img-pre  m-r10 fl">
+                                                    <asp:Button Text=" " ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
                                                         ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                     <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
@@ -211,9 +209,7 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <div class="download-img-pre fl">
-                                          </div>
-                                        <div class="input-file-box fl">
+                                        <div class="input-file-box m-r10 fl">
                                         <input type=file class="input-file-btn" businessId="<%=CurrentBusiness.Id %>" imageType="businesschargeperson" />
                                                <i class="input-file-bg"></i><i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
