@@ -300,7 +300,8 @@
                     <input type="text" id="tbxAddress" clientidmode="Static" runat="server" name="addressDetail" />
                 </div>
                 <div class="rp email">
-                    <input type="text" runat="server" clientidmode="Static" id="tbxEmail" name="email" />
+                    <span id="vregEmailtxt" class="erroTxt"></span>
+                    <input type="text" runat="server" clientidmode="Static" id="tbxEmail" name="email" onfocus="myFoucuss('#tbxEmail')" onBlur="myShopemailCheck('#tbxEmail','#vregEmailtxt')"/>
                 </div>
                 <div class="rp workingyears">
                     <input type="text" runat="server" clientidmode="Static" id="tbxBusinessYears" />

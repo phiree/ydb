@@ -104,6 +104,7 @@
                                     <p class="p_email myshop-item-title">
                                         <i class="icon myshop-icon-email"></i>邮箱地址</p>
                                     <p>
+                                        
                                         <input type="text" class="myshop-input-lg" runat="server" id="tbxEmail" name="email" /></p>
                                 </div>
                                 <div class="myshopLeftCont">

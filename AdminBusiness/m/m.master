@@ -587,6 +587,7 @@
               if ($(objName).val() == '') {
                   $(objName).val()
                   $(targetTxt).html("");
+                  return false;
               } else {
                   var myreg = /^(((13[0-9]{1})|159|153|183|171)+\d{8})$/;
                   if (!myreg.test($(objName).val())) {
@@ -598,6 +599,27 @@
                       return true;
                   }
 
+              }
+          }
+
+          /**
+          我的店铺邮箱验证
+          **/
+          function myShopemailCheck(objName, targetTxt) {
+
+              if ($(objName).val() == '') {
+                  $(targetTxt).html("");
+                  return false;
+              } else {
+                  var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                  if (!pattern.test($(objName).val())) {
+                      $(targetTxt).html("请输入正确的邮箱地址");
+                      //  $(objName).focus();
+                      return false;
+                  } else {
+                      $(targetTxt).html("");
+                      return true;
+                  }
               }
           }
           

@@ -96,9 +96,17 @@
             if ($("#hiAddrId").val() == '') {
                 alert("详细地址不能为空")
                 return false;
-            } else {
-
+            } else if (!myShopvalidatemobile('#tbxContactPhone', '#vregPhonetxt')) {
+                alert("联系电话为不能为空或者联系电话格式不对")
+                return false;
+            } else if (!myShopemailCheck('#tbxEmail', '#vregEmailtxt')) {
+                alert("邮箱地址为不能为空或者邮箱地址格式不对")
+                return false;
+            }else{
+                return true;
             }
+          
+        
 
         }
 
