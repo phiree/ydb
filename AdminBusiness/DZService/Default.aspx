@@ -106,7 +106,7 @@
                e.preventDefault();
            });
 
-           (function readTypeData(){
+           function readTypeData(){
                var hiTypeValue = $("#hiTypeId").attr("value");
                if ( hiTypeValue != undefined ) {
                    $("#lblSelectedType").removeClass("dis-n");
@@ -114,7 +114,9 @@
                } else {
                    return;
                }
-           })();
+           };
+
+           readTypeData();
        });
     </script>
     <script src="/js/validation_service_edit.js" type="text/javascript"></script>
