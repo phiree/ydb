@@ -25,9 +25,9 @@ $(function () {
             switch (target) {
                 case "name": display(that, $("#tbxName").val()); break;
                 case 'description': display(that, $("#tbxIntroduced").val()); break;
-                case 'phone': display(that, $("#tbxContactPhone").val()); break;
+                case 'phone': phonedisplay(that, $("#tbxContactPhone").val()); break;
                 case 'address': display(that, $("#tbxAddress").val()); break;
-                case 'email': display(that, $("#tbxEmail").val()); break;
+                case 'email': emaildisplay(that, $("#tbxEmail").val()); break;
                 case 'workingyears': display(that, $("#tbxBusinessYears").val()); break;
                 case 'staffamount': display(that, $("#selStaffAmount").val()); break;
                 case 'chargename': display(that, $("#tbxContact").val()); break;
@@ -39,11 +39,30 @@ $(function () {
 
     });
     $(".panel-ul a.getMaphrefClass").attr("href", "#secondview");
-   
-    function display(li, value) {
-        $(li).find(".display_holder").text(value);
 
-    }
+    function display(li, value) {
+       
+          $(li).find(".display_holder").text(value);
+     
+
+
+  }
+  //点击邮箱的调用
+  function phonedisplay(li, value) {
+      if (myShopvalidatemobile('#tbxContactPhone', '#vregPhonetxt')) {
+          $(li).find(".display_holder").text(value);
+      }
+
+
+  }
+  //点击邮箱的调用
+  function emaildisplay(li, value) {
+      if (myShopemailCheck('#tbxEmail', '#vregEmailtxt')) {
+          $(li).find(".display_holder").text(value);
+      }
+
+
+  }
 
 
     //初始化

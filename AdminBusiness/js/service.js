@@ -129,6 +129,16 @@ function mapInit() {
 
 mapInit();
 
+(function readTypeData(){
+    var hiTypeValue = $("#hiTypeId").attr("value");
+    if ( hiTypeValue != undefined ) {
+        $("#lblSelectedType").removeClass("dis-n");
+        $("#lblSelectedType").addClass("d-inb");
+    } else {
+        return;
+    }
+})();
+
 
 /**
  * 初始化服务选择

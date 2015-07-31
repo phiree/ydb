@@ -44,7 +44,7 @@
                     <!--</div>-->
                     <input id="setSerType" class="ser-btn-SerType"  type="button" value="请选择服务信息" />
                     <input type="hidden" runat="server" focusid="setSerType" id="hiTypeId" />
-                    <asp:Label CssClass="business-radioCf d-inb" runat="server" ID="lblSelectedType"></asp:Label>
+                    <asp:Label CssClass="business-radioCf dis-n" runat="server" ID="lblSelectedType"></asp:Label>
                     <div id="serLightContainer" class="serviceTabs dis-n">
                         <div>
                             <div id="serChoiceContainer"></div>

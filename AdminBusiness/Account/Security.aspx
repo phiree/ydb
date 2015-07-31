@@ -72,16 +72,18 @@
                                 href="javascript:void(0);">修改</a></div>
                         <div>
                             <span class="secret-d-t">绑定邮箱&nbsp;:</span><p class="secret-d-a d-inb">
-                                <%=CurrentUser.Email%><% if (CurrentUser.IsRegisterValidated)
-                                                         {%>
-                                                         已验证
-                                                         <%}
-                                                         else
-                                                         {%>
-                                                         未验证<asp:Button runat="server"  Text='重新发送验证链接'  ID='btnResendEmailVerify' OnClick="btnResendEmailVerify_Click"/>
-                                                        <%}%>
-                                                         </p>
-                            <a id="lb_changeEmail" class="m-l20 blue-a" href="javascript:void(0);">修改</a></div>
+                                <span><%=CurrentUser.Email%></span>
+
+                                     </p>
+
+                            <a id="lb_changeEmail" class="m-l20 blue-a" href="javascript:void(0);">修改</a>
+                            <p class="secret-d-a d-inb"><% if (CurrentUser.IsRegisterValidated)
+                              {%>已验证<%}
+                              else
+                              {%>
+                              <span>未验证</span><asp:Button runat="server"  Text='重新发送验证链接'  ID='btnResendEmailVerify' OnClick="btnResendEmailVerify_Click"/>
+                             <%}%></p>
+                        </div>
                         <div>
                             <span class="secret-d-t">上次登陆&nbsp;:</span><span><%=CurrentUser.LastLoginTime.ToString("yyyy年MM月dd日 HH:mm:ss")%></span>
                         </div>
@@ -156,7 +158,7 @@
                     <span>修改邮箱</span> <i class="icon close icon-close"></i>
                 </div>
                 <div class="secret-change-m">
-                    原邮箱:<%=CurrentUser.Email %>
+
                     新邮箱:
                     <input type="text" id="tbxNewEmail" />
                     <input type="button" class="btnChange" id="btnChangeEmail" change_field="email" value="保存" />
@@ -169,7 +171,7 @@
                     <span>修改电话</span> <i class="icon close icon-close"></i>
                 </div>
                 <div class="secret-change-m">
-                    原电话:<%=CurrentUser.Phone %>
+
                     新电话:<input type="text" id="tbxNewPhone" />
                     <input type="button" class="btnChange" id="btnChangePhone" change_field="phone" value="保存"  />
                 </div>

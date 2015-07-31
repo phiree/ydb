@@ -277,7 +277,7 @@
 
 .secret-d-a {
     width: 200px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin-right: 20px;
 }
 .secret-d-p {

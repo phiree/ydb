@@ -31,6 +31,7 @@ $.fn.ServiceSelect = function (options) {
         "datasource": null, //local json list,or  ajax_url that return a  jsonlist .
         "element": this,
         "choiceContainer": null,
+        "choiceOutContainer": null,
         "choiceConfBtn": null,
         "lastClickFunc": null,
         "choiceClass": "choiceSer",
@@ -42,9 +43,10 @@ $.fn.ServiceSelect = function (options) {
         var AjaxData = null;
         var valueInput = $("#" + params.printInputID);
         var choiceContainer = $("#" + params.choiceContainer);
+        var choiceOutContainer = $("#" + params.choiceOutContainer);
         var choiceConfBtn = $("#" + params.choiceConfBtn);
         var confirmValue = "";
-        //console.log(valueInput);
+        var confirmName = "";
 
         jQuery.ajax({
             url: params.datasource + "&id=0",
@@ -101,8 +103,6 @@ $.fn.ServiceSelect = function (options) {
             var childDataArray = dataRequest(thisID);
             var childLevel = thisLevel + 1;
             var childList = $("ul[list-level=" + childLevel +"]");
-            //var isLastChild = null;
-            //console.log(restChildLevel);
 
 
             if ( !childList ) {
@@ -111,26 +111,21 @@ $.fn.ServiceSelect = function (options) {
                 for ( var i = 0 ; i < restChildLevel ; i++ ){
                     var nextChildLevel = thisLevel + i + 1;
                     var restChildList = $("ul[list-level=" + nextChildLevel +"]");
-                    //console.log(restChildList);
                     restChildList.remove();
                 }
                 createList(childDataArray);
             }
 
             _this.find("ul").find("li").removeClass(params.choiceClass);
-            //console.log( !childDataArray.length );
             if ( !childDataArray.length ){
-                //isLastChild = true;
                 var lastChoiceValue = $(this).attr("data-id");
-                //console.log(valueInput);
+                var lastChoiceName = $(this).attr("data-name");
                 confirmValue = lastChoiceValue;
-                //valueInput.attr("value",lastChoiceValue);
+                confirmName = lastChoiceName;
                 printChoice($(this).attr("data-name"));
                 params.lastChildFunc ? params.lastChildFunc : lastSerClick(this);
             } else {
-                //isLastChild = false;
                 confirmValue = null;
-                //valueInput.attr("value",null);
                 printChoice(null);
                 choiceConfBtn.hide();
             }
@@ -157,6 +152,9 @@ $.fn.ServiceSelect = function (options) {
 
         choiceConfBtn.bind("click",function(){
             valueInput.attr("value",confirmValue);
+            valueInput.attr("data-name",confirmName);
+            choiceOutContainer.removeClass("dis-n");
+            choiceOutContainer.text(confirmName);
         });
 
         function reset (){

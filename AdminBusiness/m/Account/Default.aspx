@@ -169,14 +169,16 @@
                                <div class="BusinessImageDiv">
                                <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
+                                           
                                                 <div class="download-img-pre fl">
-                                                    <asp:ImageButton ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                    <asp:ImageButton ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete itemDele-img" runat="server" CommandName="delete"
                                                         ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
-                                                    <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
+                                                    <a data-ajax="false" class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
                                                             class="imgCharge" />
                                                     </a>
                                                 </div>
+                                            
                                             </ItemTemplate>
                                         </asp:Repeater>
                                <asp:HyperLink  runat="server" ID="imgBusinessImage"></asp:HyperLink></div>
@@ -238,9 +240,9 @@
                                   <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre fl">
-                                                    <asp:ImageButton ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                    <asp:ImageButton ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete itemDele-img" runat="server" CommandName="delete"
                                                         ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
-                                                    <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
+                                                    <a data-ajax="false" class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
                                                             class="imgCharge" />
                                                     </a>
@@ -291,13 +293,15 @@
                         runat="server" name="shopIntroduced">(可输入60个字)</textarea>
                 </div>
                 <div class="rp phone">
-                    <input type="text" id="tbxContactPhone" clientidmode="Static" runat="server" name="ContactPhone" />
+                    <span id="vregPhonetxt" class="erroTxt"></span>
+                    <input type="text" id="tbxContactPhone" clientidmode="Static" runat="server" name="ContactPhone" onfocus="myFoucuss('#iphone')" onBlur="myShopvalidatemobile('#tbxContactPhone','#vregPhonetxt')" />
                 </div>
                 <div class="rp address">
                     <input type="text" id="tbxAddress" clientidmode="Static" runat="server" name="addressDetail" />
                 </div>
                 <div class="rp email">
-                    <input type="text" runat="server" clientidmode="Static" id="tbxEmail" name="email" />
+                    <span id="vregEmailtxt" class="erroTxt"></span>
+                    <input type="text" runat="server" clientidmode="Static" id="tbxEmail" name="email" onfocus="myFoucuss('#tbxEmail')" onBlur="myShopemailCheck('#tbxEmail','#vregEmailtxt')"/>
                 </div>
                 <div class="rp workingyears">
                     <input type="text" runat="server" clientidmode="Static" id="tbxBusinessYears" />

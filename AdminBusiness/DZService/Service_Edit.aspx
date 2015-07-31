@@ -69,7 +69,6 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
-    <script src="/js/setname.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
@@ -82,6 +81,7 @@
             $("#serList").ServiceSelect({
                 "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
                 "choiceContainer": "serChoiceContainer",
+                "choiceOutContainer": "lblSelectedType",
                 "printInputID": "hiTypeId",
                 "choiceConfBtn" : "serChoiceConf"
             });
