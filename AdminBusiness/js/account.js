@@ -1,4 +1,4 @@
-$(document).ready(function(){
+function initialize(){
     var map = new BMap.Map("addressMap");
     var cityListObject = new BMapLib.CityList({ container: "addressCity", map : map});
     var geoc = new BMap.Geocoder();
@@ -93,6 +93,6 @@ $(document).ready(function(){
         });
         e.preventDefault();
     });
-});
+};
 
 

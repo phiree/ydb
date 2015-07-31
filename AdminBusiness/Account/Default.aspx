@@ -296,7 +296,18 @@
     <script src="/js/FileUpload.js" type="text/javascript"></script>
     <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
+    <script>
+        function loadBaiduMapScript() {
+          var script = document.createElement("script");
+          script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initialize";
+          document.body.appendChild(script);
+        }
+
+        $(document).ready(function(){
+            loadBaiduMapScript();
+        })
+    </script>
+    <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>-->
     <script type="text/javascript" src="/js/CityList.js"></script>
     <script type="text/javascript" src="/js/account.js"></script>
 </asp:Content>

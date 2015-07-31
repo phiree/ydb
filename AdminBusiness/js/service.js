@@ -1,4 +1,4 @@
-$(document).ready(function(){
+function initializeService(){
     /**
      * 初始化商圈地图
      */
@@ -241,5 +241,5 @@ $(document).ready(function(){
     //        $(checkedShowBox.find($("div[v_id=" + v_id + "]"))).remove();
     //    }
     //}
-})
+};
 
