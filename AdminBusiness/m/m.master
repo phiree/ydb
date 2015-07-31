@@ -584,11 +584,8 @@
           **/
 
           function myShopvalidatemobile(objName, targetTxt) {
-              if ($(objName).val() == '') {
-                  $(objName).val()
-                  $(targetTxt).html("");
-                  return false;
-              } else {
+         
+               if (myshopInputEmpty(objName, targetTxt, "手机号码不能为空")) {
                   var myreg = /^(((13[0-9]{1})|159|153|183|171)+\d{8})$/;
                   if (!myreg.test($(objName).val())) {
                       $(targetTxt).html("请输入有效的手机号码！");
@@ -607,10 +604,7 @@
           **/
           function myShopemailCheck(objName, targetTxt) {
 
-              if ($(objName).val() == '') {
-                  $(targetTxt).html("");
-                  return false;
-              } else {
+              if (myshopInputEmpty(objName, targetTxt, "邮箱地址不能为空")) {
                   var pattern = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
                   if (!pattern.test($(objName).val())) {
                       $(targetTxt).html("请输入正确的邮箱地址");
@@ -621,6 +615,64 @@
                       return true;
                   }
               }
+
+          }
+
+          /**
+            我的店铺证件号检验
+          **/
+          function myshopCardCheck(objName, targetTxt) {
+              if (myshopInputEmpty(objName, targetTxt, "证件号不能为空")) {
+                  if (cardValidate(objName)) {
+                      $(targetTxt).html("");
+                      return true;
+                  } else {
+                      $(targetTxt).html("请输入正确的证件号");
+                      return false;
+                  }
+              }
+
+          }
+
+          /**
+          我的店铺检验输入框是否为空
+          targerId：要检验输入框的Id，如#targerId
+          showTextId:要显示错误信息的ID，如#showTextId
+          showTextInfo:要显示错误信息的内容，如"邮箱地址不能为空"
+          **/
+          function myshopInputEmpty(targerId,showTextId,showTextInfo) {
+              if ($(targerId).val() == '') {
+                  $(showTextId).html(showTextInfo);
+                  return false;
+              } else {
+                  $(showTextId).html("");
+                  return true;
+              }
+          }
+
+          /**
+          判断输入框的内容长度
+          **/
+
+          function inputLength(targerId) {
+              alert($(targerId).val().length);
+          }
+
+          /**判断证件号格式的合法性**/
+
+          function cardValidate(targerId) {
+              var val = $(targerId).val();
+              var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/; 
+           
+              var result = val.match(reg);
+            
+              if (result == null) {
+
+                  return false;
+              } else {
+                  return true;
+              }
+              
           }
           
     </script>
