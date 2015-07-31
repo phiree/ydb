@@ -14,6 +14,16 @@ $(document).ready(function ($) {
         )
     })();
 
+    (function(){
+        return $('.years-select').each(function () {
+                var selectList = $(this).find("ul");
+                for ( var i = 0 ; i < 100 ; i++ ) {
+                    selectList.append("<li><a>"+ i +"</a></li>");
+                }
+            }
+        )
+    })();
+
     (function () {
     
         return $('.select').each(function () {

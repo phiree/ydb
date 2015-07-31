@@ -107,10 +107,11 @@
                                 <div class="myshopLeftCont">
                                     <p class="myshop-item-title">
                                         <i class="icon myshop-icon-workTime"></i>从业时间</p>
-                                        <div class="d-inb select select-sm time-select">
+                                        <div class="d-inb select select-sm years-select">
                                             <ul></ul>
                                             <input type="hidden" class="myshop-input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
                                         </div>
+                                        年
                                 </div>
                                 <div class="BusinessLicense">
                                     <p class="p_BusinessLicense myshop-item-title">
