@@ -105,6 +105,16 @@
                });
                e.preventDefault();
            });
+
+           (function readTypeData(){
+               var hiTypeValue = $("#hiTypeId").attr("value");
+               if ( hiTypeValue != undefined ) {
+                   $("#lblSelectedType").removeClass("dis-n");
+                   $("#lblSelectedType").addClass("d-inb");
+               } else {
+                   return;
+               }
+           })();
        });
     </script>
     <script src="/js/validation_service_edit.js" type="text/javascript"></script>

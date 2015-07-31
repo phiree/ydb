@@ -120,6 +120,7 @@ $(document).ready(function(){
      * 载入时读取地图信息
      */
     function mapInit() {
+
         if ( $('#hiBusinessAreaCode').attr("value") ){
             var readBusinessJson = jQuery.parseJSON($('#hiBusinessAreaCode').attr("value"));
             var subMapPoint = new BMap.Point();
@@ -142,16 +143,6 @@ $(document).ready(function(){
     };
 
     mapInit();
-
-    (function readTypeData(){
-        var hiTypeValue = $("#hiTypeId").attr("value");
-        if ( hiTypeValue != undefined ) {
-            $("#lblSelectedType").removeClass("dis-n");
-            $("#lblSelectedType").addClass("d-inb");
-        } else {
-            return;
-        }
-    })();
 
 
     /**
