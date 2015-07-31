@@ -237,14 +237,22 @@
         $.validator.addMethod("time24", function (value, element) {
             return /([01]?[0-9]|2[0-3])(:[0-5][0-9])/.test(value);
         }, "Invalid time format.");
-
+        function setTime(date,timeString)
+        {
+            var arr=timeString.split(":");
+            var hour=parseInt(arr[0]);
+            var minites=arr[1]?parseInt(arr[1]):0;
+            var seconds=arr[2]?parseInt(arr[2]):0;
+            return date.setHours(hour,minites,seconds);
+        }
         $.validator.addMethod("endtime_should_greater_starttime", function (value, element) {
 
-            var date_str = "2000-1-1";
+            var x_date =new Date();
             var start = $("#tbxServiceTimeBegin").val();
             var end = $("#tbxServiceTimeEnd").val();
-            var date_start = Date.parse(date_str + " " + start);
-            var date_end = Date.parse(date_str + " " + end);
+
+            var date_start = setTime(x_date,start);
+            var date_end = setTime(x_date,end);
             return date_end > date_start;
 
         }, "结束时间应该大于开始时间");
