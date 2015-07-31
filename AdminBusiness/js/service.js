@@ -31,76 +31,89 @@ $("#setBusiness").click(function (e) {
     e.preventDefault();
 });
 
+function writeBusiness(){
+    /**
+     * JSON格式商圈信息
+     * @JSON
+     */
+    var businessJson = {};
+    var provinceName = "",
+        cityName = "",
+        boroughName = "",
+        businessName = "";
 
-/**
- * JSON格式商圈信息
- * @JSON
- */
-var businessJson = {};
-var provinceName = "",
-    cityName = "",
-    boroughName = "",
-    businessName = "";
+    /**
+     * 点击城市时地图定位到指定城市
+     * @param e
+     */
+    function writeBusinessJson (e) {
+        console.log(e.area_type);
+        console.log(e.area_name);
+        console.log(e.area_code);
 
-/**
- * 点击城市时地图定位到指定城市
- * @param e
- */
-function writeBusinessJson (e) {
-    switch (e.area_type) {
-        //重新选择省时，清空其他内容。
-        case 1 :
-            provinceName = e.area_name;
-            cityName = "";
-            boroughName = "";
-            businessName = "";
-            break;
-        case 2 :
-            if (e.area_code == 132 || e.area_code == 332 || e.area_code == 332 || e.area_code == 131) {
-                provinceName = cityName = e.area_name;
-            } else {
-                cityName = e.area_name;
-            }
-            break;
-        case 3 :
-            boroughName = e.area_name;
-            break;
-        case 10 :
-            businessName = e.area_name;
-            break;
-        default :
-            alert("error");
+        switch (e.area_type) {
+            //重新选择省时，清空其他内容。
+            case 1 :
+                provinceName = e.area_name;
+                cityName = "";
+                boroughName = "";
+                businessName = "";
+                break;
+            case 2 :
+                if (e.area_code == 132 || e.area_code == 332 || e.area_code == 289 || e.area_code == 131) {
+                    provinceName = "";
+                    cityName = e.area_name;
+                } else {
+                    cityName = e.area_name;
+                }
+                break;
+            case 3 :
+                boroughName = e.area_name;
+                break;
+            case 10 :
+                businessName = e.area_name;
+                break;
+            default :
+                alert("地图选择有误");
+        }
+
+        if (e.geo) {
+            submap.panTo(e.geo);
+        } else {
+            return
+        }
+
+        businessJson = {
+            "provinceName": provinceName,
+            "cityName": cityName,
+            "boroughName": boroughName,
+            "businessName": businessName,
+            "businessLocLng": e.geo.lng,
+            "businessLocLat": e.geo.lat
+        };
     }
 
-    if (e.geo) {
-        submap.panTo(e.geo);
-    } else {
-        return
-    }
 
-    businessJson = {
-        "provinceName": provinceName,
-        "cityName": cityName,
-        "boroughName": boroughName,
-        "businessName": businessName,
-        "businessLocLng": e.geo.lng,
-        "businessLocLat": e.geo.lat
-    };
+    cityListObject.addEventListener("cityclick",
+        function(e){
+            writeBusinessJson (e);
+        }
+    );
+
+    $('#confBusiness').click(function () {
+        var businiessText = $("#businessText");
+
+        if ( !$.isEmptyObject(businessJson) ){
+            $('#hiBusinessAreaCode').attr("value",JSON.stringify(businessJson));
+            var businessNode = "<span>" + businessJson.provinceName + "</span><span>" + businessJson.cityName + "</span><span>" + businessJson.boroughName + "</span><span>" + businessJson.businessName + "</span>"
+            businiessText.html(businessNode);
+        } else {
+            return;
+        }
+    });
 }
 
-
-cityListObject.addEventListener("cityclick",
-    function(e){
-        writeBusinessJson (e);
-    }
-);
-
-$('#confBusiness').click(function () {
-    $('#hiBusinessAreaCode').attr("value",JSON.stringify(businessJson));
-    var businiessText = $('#businessText');
-    var businessNode = "<span>" + businessJson.provinceName + "</span><span>" + businessJson.cityName + "</span><span>" + businessJson.boroughName + "</span><span>" + businessJson.businessName + "</span>"
-    businiessText.html(businessNode);
-});
+writeBusiness();
 
 /**
  * 载入时读取地图信息
