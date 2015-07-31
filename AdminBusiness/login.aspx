@@ -51,15 +51,12 @@
                             <div class="box-r">
                                 <p class="date">
                                     </p>
-                                <!--<div class="clearfix">-->
                                     <p class="username">
                                         <label class="usernameIcon" for="tbxUserName">
                                             <i class="icon"></i>
                                         </label>
                                         <asp:TextBox runat="server"  placeholder="手机号码/电子邮箱" ID="tbxUserName"></asp:TextBox>
                                     </p>
-                                    <!--<i id="userCheck" class="f-l"></i>-->
-                                <!--</div>-->
                                 <p class="password">
                                     <label class="passwordIcon" for="tbxPassword">
                                         <i class="icon"></i>
@@ -75,7 +72,6 @@
                                 <div class="login_err_msg" >
                                 <asp:Label runat="server" ID="lblMsg"></asp:Label>
                                 </div>
-                                <!--<p id="testAjax"></p>-->
                                 <p class="doReg">
                                     <a class="logReg-a" href="register.aspx">
                                         <img src="image/login_reg/zhuce_1.png">注册会员</a></p>
@@ -92,7 +88,9 @@
         </div>
     </div>
 </body>
-
-<script src="/js/InlineTip.js" type="text/javascript"></script>
+<!--[if IE 8]>
+<script src="/js/jquery.placeholder.min.js" type="text/javascript"></script>
+<script type="text/javascript">$('input, textarea').placeholder();</script>
+<![endif]-->
 <script src="/js/login_reg.js" type="text/javascript"></script>
 </html>

@@ -97,7 +97,7 @@
 .headInfo{ width:208px; height: 90px; float:left; color:#58789a; font-size:13px; display: table; overflow: hidden;}
 .headInfoVc { display: table-cell; vertical-align: middle; }
 
-.inputShopName{ box-sizing: content-box\9; width:185px; height:25px; line-height: 25px; border:#dbe6f2 1px solid; font-size:13px; color:#58789a;}
+.inputShopName{ box-sizing: content-box\9; width:185px; height:25px; padding: 5px;line-height: 25px; border:#dbe6f2 1px solid; font-size:13px; color:#58789a;}
 
 .InfoCompletetxt{ line-height: 2em; }
 .InfoPercentage{position:relative; width:100%; height:auto; }

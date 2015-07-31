@@ -90,7 +90,7 @@
                 e.preventDefault();
             });
 
-        (function readTypeData(){
+        function readTypeData(){
             var hiTypeValue = $("#hiTypeId").attr("value");
             if ( hiTypeValue != undefined ) {
                 $("#lblSelectedType").removeClass("dis-n");
@@ -98,7 +98,10 @@
             } else {
                 return;
             }
-        })();
+        };
+
+        readTypeData();
+
 
         });
     </script>
