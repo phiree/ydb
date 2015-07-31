@@ -88,11 +88,9 @@
         </div>
     </div>
 </body>
-<!--[if IE 8]><script src="/js/jquery.placeholder.min.js" type="text/javascript"></script><![endif]-->
-<!--<script src="/js/jquery.placeholder.min.js" type="text/javascript"></script>-->
-<!--<script src="/js/InlineTip.js" type="text/javascript"></script>-->
+<!--[if IE 8]>
+<script src="/js/jquery.placeholder.min.js" type="text/javascript"></script>
+<script type="text/javascript">$('input, textarea').placeholder();</script>
+<![endif]-->
 <script src="/js/login_reg.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $('input, textarea').placeholder();
-</script>
 </html>

@@ -90,11 +90,9 @@
     </div>
 </body>
 <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
-<!--[if IE 8]><script src="/js/jquery.placeholder.min.js" type="text/javascript"></script><![endif]-->
-
-<!--<script src="/js/InlineTip.js" type="text/javascript"></script>-->
+<!--[if IE 8]>
+<script src="/js/jquery.placeholder.min.js" type="text/javascript"></script>
+<script>$('input, textarea').placeholder();</script>
+<![endif]-->
 <script src="/js/login_reg.js" type="text/javascript"></script>
-<script>
-    $('input, textarea').placeholder();
-</script>
 </html>
