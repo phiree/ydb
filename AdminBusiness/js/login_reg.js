@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    var default_user_text = "手机号码/电子邮箱";
+    //var default_user_text = "手机号码/电子邮箱";
 
-    $("#tbxUserName").InlineTip({ 'tip': default_user_text });
+    //$("#tbxUserName").InlineTip({ 'tip': default_user_text });
 
     var regCheck = function(){
 
