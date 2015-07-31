@@ -28,7 +28,7 @@ namespace Dianzhu.BLL
            }
            DALBusinessImage.Delete(bi);
        }
-       public string  Save(Guid businessId,System.Web.HttpPostedFile imageFile, Dianzhu.Model.Enums.enum_ImageType imageType)
+       public string  Save(Guid businessId,System.Web.HttpPostedFileBase imageFile, Dianzhu.Model.Enums.enum_ImageType imageType)
        {
            Business b = BLLBusiness.GetOne(businessId);
            string savedPath = string.Empty;

@@ -10,13 +10,15 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using Dianzhu.AdminBusinessMvc.Filters;
 using Dianzhu.AdminBusinessMvc.Models;
-
+using Dianzhu.Model;
+using Dianzhu.BLL;
 namespace Dianzhu.AdminBusinessMvc.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
+     
     public class AccountController : Controller
     {
+        DZMembershipProvider dzp = new DZMembershipProvider();
         //
         // GET: /Account/Login
 
@@ -24,7 +26,7 @@ namespace Dianzhu.AdminBusinessMvc.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View("Login2");
+            return View();
         }
 
         //
@@ -45,6 +47,34 @@ namespace Dianzhu.AdminBusinessMvc.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public ActionResult Login2(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        //
+        // POST: /Account/Login
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login2(DZMembership model, string returnUrl)
+        {
+            bool isValid = dzp.ValidateUser(model.UserName, model.Password);
+            if (isValid)
+            {
+                FormsAuthentication.SetAuthCookie(model.UserName, true);
+                return RedirectToLocal(returnUrl);
+            }
+
+            // 如果我们进行到这一步时某个地方出错，则重新显示表单
+            ModelState.AddModelError("", "提供的用户名或密码不正确。");
+            return View("Login2", model);
+        }
+
+
         //
         // POST: /Account/LogOff
 
@@ -52,8 +82,7 @@ namespace Dianzhu.AdminBusinessMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            WebSecurity.Logout();
-
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 

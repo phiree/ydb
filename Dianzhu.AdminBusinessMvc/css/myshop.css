@@ -1,0 +1,442 @@
+.myshopInfoArea { padding: 0 20px; border-bottom: 20px solid #dfebf6; }
+.myshopInfoTilte { height:71px; line-height:71px; color:#58789a; font-size:19px; font-weight:bold;}
+.myshopInfoTilte h1 { font-weight: bold; }
+
+.headInfoArea { background:#f6fafe; position:relative; border-bottom:#dbe6f2 1px solid; margin-bottom: 20px; padding-bottom: 20px;}
+
+.ShopDetailsTitle { padding: 0 20px; height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; }
+.shop-icon-Title { background: url("../image/myshop/shopicon.jpg") no-repeat center; }
+.ShopDetailsTitle span { color:#58789a; font-size:17px; font-weight:bold; vertical-align: middle; }
+.ShopDetailsMain { padding: 20px 40px; color:#58789a;}
+.ShopDetailsAreaLeft { float:left; width:50%;}
+.ShopDetailsAreaRight { float:left; width:50%;}
+
+.myshopLeftCont { margin-bottom:20px; }
+
+.picture{ margin-right:5px; float:left; position:relative;}
+.itemDele-img{ position:absolute;}
+.myshop-item-title { height: 26px; line-height: 26px; margin-bottom: 10px;}
+.myshop-item-title .icon { margin-right: 5px; }
+
+.myshop-input-textarea { display:block; width:290px; height:78px; padding: 5px; border:#dbe6f2 1px solid; border-radius: 3px; background:#f6fafe; color:#58789a; font-size:15px; }
+
+
+
+.myshop-input-lg {
+    width: 290px;
+    height: 20px;
+    line-height: 20px;
+    padding: 5px;
+    border: #dbe6f2 1px solid;
+    border-radius: 3px;
+    background: #f6fafe;
+    color: #58789a;
+    font-size: 15px;
+    vertical-align: middle;
+    box-sizing: content-box\9;
+}
+.myshop-input-mid {
+    width: 190px;
+    height: 20px;
+    line-height: 20px;
+    padding: 5px;
+    border: #dbe6f2 1px solid;
+    border-radius: 3px;
+    background: #f6fafe;
+    color: #58789a;
+    font-size: 15px;
+    vertical-align: middle;
+    box-sizing: content-box\9;
+}
+.myshop-input-sm {
+    width: 120px;
+    height: 20px;
+    line-height: 20px;
+    padding: 5px;
+    border: #dbe6f2 1px solid;
+    border-radius: 3px;
+    background: #f6fafe;
+    color: #58789a;
+    font-size: 15px;
+    vertical-align: middle;
+    box-sizing: content-box\9;
+}
+
+.myshop-btn-setAddress {
+    border: 0;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: #31b6fb;
+}
+
+.myshopRightCont { margin-bottom:20px; }
+
+.myshop-icon-shopIntro { background: url("../image/myshop/shop_icon_89.png"); }
+.myshop-icon-phone { background: url("../image/myshop/shop_icon_81.png"); }
+.myshop-icon-address { background: url("../image/myshop/shop_icon_83.png"); }
+.myshop-icon-email { background: url("../image/myshop/shop_icon_82.png"); }
+.myshop-icon-workTime { background: url("../image/myshop/shop_icon_84.png"); }
+.myshop-icon-businessLic { background: url("../image/myshop/shop_icon_88.png"); }
+.myshop-icon-shopFigure { background: url("../image/myshop/shop_icon_88.png"); }
+.myshop-icon-empNum { background: url("../image/myshop/shop_icon_85.png"); }
+.myshop-icon-owner { background: url("../image/myshop/shop_icon_86.png"); }
+.myshop-icon-licenseType { background: url("../image/myshop/shop_icon_87.png"); }
+.myshop-icon-licenseNum { background: url("../image/myshop/shop_icon_87.png"); }
+.myshop-icon-ownerPic { background: url("../image/myshop/shop_icon_88.png"); }
+
+
+.bottomArea{ position:relative; width:100%; background:#cadbec; height:98px;clear: both;display: block; line-height:98px; text-align:center;}
+.bottomArea input{ margin:20px; margin-top:30px;}
+.account{ height:1138px; display:none;}
+
+.headDecoration1{ width:4px; height:108px; float:left; background:#31b6fc;}
+.headImage{ width:90px; height:90px; line-height: 90px; text-align: center;  display: table; overflow: hidden;}
+.headImageVc { display: table-cell; vertical-align: middle; }
+
+.headInfo{ width:208px; height: 90px; float:left; color:#58789a; font-size:13px; display: table; overflow: hidden;}
+.headInfoVc { display: table-cell; vertical-align: middle; }
+
+.inputShopName{ box-sizing: content-box\9; width:185px; height:25px; line-height: 25px; border:#dbe6f2 1px solid; font-size:13px; color:#58789a;}
+
+.InfoCompletetxt{ line-height: 2em; }
+.InfoPercentage{position:relative; width:100%; height:auto; }
+.InfoComplete{ width:163px; height:15px; border:#31b6fc 1px solid;display:block; position:relative;}
+.progress{ height:100%; width:90%; background:#31b6fc; display:block;}
+.completePercentage{ position:absolute;width:20px;color:#31b6fc; font-size:15px; top:0; left:170px;}
+.headEditImg{  float:right;  }
+.headEditBtn { display: block; width:115px; height:108px; background:url("../image/myshop/shop_button_97.png") no-repeat center;}
+
+/*服务选项弹窗样式*/
+#serCheckedShow span {
+    margin: 5px;
+    background: #31b6fc;
+    color: #fff;
+}
+
+.serviceTabs {
+    width: 700px;
+
+}
+
+.serviceTabsItem {
+    float: left;
+    font-size: 13px;
+    width: 200px;
+}
+
+/*地址地图弹窗样式*/
+.mapWrap {
+    position: relative;
+    width: 700px;
+    height: 500px;
+    border: 5px solid #58789a;
+    border-radius: 5px;
+}
+
+.mapMain {
+    position: absolute;
+    width: 100%;
+    height: 500px;
+}
+
+.mapCity {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    background: #f6fafe;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.mapAddrsText {
+    position: absolute;
+    left: 5px;
+    top: 55px;
+}
+
+.myshop-addPrint {
+    padding: 5px;
+    width: 290px;
+    color: #fff;
+    background: #ffa81f;
+    border-radius: 5px;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+.myshop-addPrint span {
+    margin-right: 5px;
+}
+
+.myshop-addPrint-map {
+    padding: 5px;
+    color: #fff;
+    background: #ffa81f;
+    border-radius: 5px;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+.myshop-addPrint-map span {
+    margin-right: 5px;
+}
+
+.mapButton {
+    position: absolute;
+    top: 12px;
+    left: 427px;
+
+}
+
+.myshop-sm-input {
+    border: 1px solid #dbe6f2;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    background: #31b6fb;
+}
+
+.myshop-locTip {
+
+    background: #fff;
+    color: #ffa81f;
+    border: 1px solid #dbe6f2;
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 5px;
+}
+
+/*.mapAutoText {*/
+    /*position: absolute;*/
+    /*left: 5px;*/
+    /*top: 105px;*/
+    /*background: #f6fafe;*/
+    /*border: 1px solid #ccc;*/
+    /*border-radius: 5px;*/
+    /*padding: 10px;*/
+/*}*/
+
+/*.mapAutoTextBox {*/
+    /*position: relative;*/
+/*}*/
+
+/* 账号安全页面内容 by lichang 2015/5/28 */
+.secret-cont {
+    padding: 30px;
+    color: #58789a;
+}
+
+.secret-cont a {
+    color: #31b6fc;
+}
+
+.secret-title {
+    padding: 0 20px;
+    height: 60px;
+    background:#f6fafe;
+    border-bottom:1px solid #dbe6f2;
+    line-height:60px;
+    color: #58789a;
+    font-size: 17px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.secret-m-title {
+    width: 318px;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 15px;
+}
+
+.secret-m .t-1 { background: url("../image/myshop/shop_title_01.png") no-repeat; }
+.secret-m .t-2 { background: url("../image/myshop/shop_title_02.png") no-repeat; }
+
+.secret-detail {
+    padding: 20px 10px;
+}
+
+.secret-detail > div {
+    margin-bottom: 10px;
+}
+
+.secret-d-t {
+    margin-right: 20px;
+}
+
+.secret-d-tip {
+    float: right;
+    width: 60px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.8em;
+    margin-right: 20px;
+}
+
+.secret-d-a {
+    width: 200px;
+    overflow: hidden;
+    margin-right: 20px;
+}
+.secret-d-p {
+    width: 550px;
+    word-break: break-all;
+    vertical-align: top;
+}
+
+.secret-change {
+    color: #58789a;
+    background: #fff;
+}
+
+.secret-change-nav {
+    padding: 20px 150px 0 150px;
+    border-bottom: 3px solid #ccc;
+    position: relative;
+}
+
+.change-nav {
+    padding: 10px 30px;
+    margin-bottom: -3px;
+}
+
+.secret-change-title {
+    position: relative;
+    padding: 20px;
+    background: #f6fafe;
+}
+
+.icon-close {
+    width: 36px;
+    height: 33px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -18px;
+    background: url("../image/myshop/shop_button_01.png");
+}
+
+.secret-change-m {
+    width: 400px;
+    margin: 0 auto;
+    padding: 40px 40px;
+}
+
+.secret-btn-VCode {
+    width: 80px;
+    height: 32px;
+    border: none;
+    font-size: 13px;
+    color: #fff;
+    background: url("../image/myshop/shop_button_02.png") no-repeat center;
+}
+
+.secret-input-setVCode {
+    width: 126px;
+    height: 30px;
+    background: #f6f9fe;
+    border: 1px solid #bcccd9;
+}
+
+.secret-input-newPass {
+    width: 250px;
+    height: 30px;
+    background: #f6f9fe;
+    border: 1px solid #bcccd9;
+}
+
+.secret-change-sub {
+    padding-top: 50px;
+    text-align: center;
+}
+
+.secret-btn-next {
+    width: 250px;
+    height: 50px;
+    color:#fff;
+    font-weight: 700;
+    border: 0;
+    background: url("../image/myshop/shop_button_03.png") no-repeat center;
+}
+
+.secret-btn-next:hover {
+    width: 250px;
+    height: 50px;
+    background: url("../image/myshop/shop_button_04.png") no-repeat center;
+}
+
+.secret-btn-done {
+    width: 250px;
+    height: 50px;
+    color:#fff;
+    font-weight: 700;
+    border: 0;
+    background: url("../image/myshop/shop_button_02.png") no-repeat center;
+}
+
+.secret-a-done {
+    display: block;
+    width: 80px;
+    height: 32px;
+    margin: 0 auto;
+    line-height: 32px;
+    font-weight: 700;
+    border: 0;
+    background: url("../image/myshop/shop_button_02.png") no-repeat center;
+}
+
+.secret-icon-done {
+    margin-right: 30px;
+    width: 65px;
+    height: 65px;
+    background: url("../image/myshop/shop_point_06.png") no-repeat center;
+}
+
+.secret-change-done {
+    vertical-align: middle;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2em;
+    text-align: left;
+}
+
+.secret-icon-1 { background: url("../image/myshop/shop_title_05.png") no-repeat center; }
+.secret-icon-2 { background: url("../image/myshop/shop_title_04.png") no-repeat center; }
+
+
+/*设置下拉选框宽高*/
+.select-sm { width: 130px; height: 32px; line-height: 32px; }
+
+.CPBox {
+    margin: 0 auto;
+    color: #58789a;
+}
+
+.CPTitle {
+    font-size: 17px;
+    /*font-weight: 700;*/
+    padding: 10px;
+}
+
+.CPbutton {
+    padding: 20px;
+}
+
+.CPLabel {
+    padding-right: 20px;
+    height: 28px;
+    line-height: 28px;
+}
+
+.CPTextBox {
+    height: 28px;
+    line-height: 28px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    border: 1px solid #dbe6f2;
+    background: #f6fafe;
+    border-radius: 5px;
+}

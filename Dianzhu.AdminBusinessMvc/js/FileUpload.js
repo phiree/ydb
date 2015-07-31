@@ -37,7 +37,7 @@ $(".input-file-btn").change(function (ev) {
    
 
     var myform = document.createElement("form");
-    myform.action = "/AjaxService/FileUploader.ashx";
+    myform.action = "/imagehandler/"+businessId+"/"+imageType;
     myform.method = "post";
     myform.enctype = "multipart/form-data";
     document.body.appendChild(myform);
