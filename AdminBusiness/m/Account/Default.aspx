@@ -3,6 +3,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link rel="stylesheet" href="/m/css/myshop.css" />
+    <link href="../css/mobiscroll-1.6.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div data-role="header" style="background: #4b6c8b; border: none;">
@@ -285,12 +286,13 @@
         <div class="info-content">
             <div class="pd-size2">
                 <div class="rp name">
+                 <span id="errTxtName" class="erroTxt"></span>
                     <input id="tbxName" runat="server" class="inputShopName" clientidmode="Static" name="inputShopName"
-                        type="text" value="请输入您的店铺名称" />
+                        type="text" value="请输入您的店铺名称" placeholder="可输入30个字" onfocus="myFoucuss('#tbxName')" onBlur="myshopInputEmpty('#tbxName','#errTxtName','店铺名称不能为空')" maxlength=30/>
                 </div>
                 <div class="rp description">
                     <textarea class="myshop-input-textarea" clientidmode="Static" id="tbxIntroduced"
-                        runat="server" name="shopIntroduced">(可输入60个字)</textarea>
+                        runat="server" name="shopIntroduced" placeholder="可输入60个字"  maxlength=60></textarea>
                 </div>
                 <div class="rp phone">
                     <span id="vregPhonetxt" class="erroTxt"></span>
@@ -304,7 +306,7 @@
                     <input type="text" runat="server" clientidmode="Static" id="tbxEmail" name="email" onfocus="myFoucuss('#tbxEmail')" onBlur="myShopemailCheck('#tbxEmail','#vregEmailtxt')"/>
                 </div>
                 <div class="rp workingyears">
-                    <input type="text" runat="server" clientidmode="Static" id="tbxBusinessYears" />
+                    <input type="text" runat="server" clientidmode="Static" id="tbxBusinessYears" readonly="true" />
                 </div>
                 <div class="rp staffamount">
                     <select id="selStaffAmount" clientidmode="Static" runat="server">
@@ -314,7 +316,8 @@
                     </select>
                 </div>
                 <div class="rp chargename">
-                    <input type="text" runat="server" clientidmode="Static" id="tbxContact" />
+                    <span id="erroTxtContact" class="erroTxt"></span>
+                    <input type="text" runat="server" clientidmode="Static" id="tbxContact"  onfocus="myFoucuss('#tbxContact')" onBlur="myshopInputEmpty('#tbxContact','#erroTxtContact','负责人姓名不能为空')" />
                 </div>
                 <div class="rp idtype">
                     <select runat="server" id="selCardType" clientidmode="Static" name="card-tyle" data-theme="a">
@@ -323,7 +326,8 @@
                     </select>
                 </div>
                 <div class="rp idno">
-                    <input type="text" runat="server" id="tbxCardIdNo" clientidmode="Static" />
+                <span id="erroTxtCardIdNo" class="erroTxt"></span>
+                    <input type="text" runat="server" id="tbxCardIdNo" clientidmode="Static" onfocus="myFoucuss('#tbxContact')" onBlur="myshopCardCheck('#tbxCardIdNo','#erroTxtCardIdNo')" />
                 </div>
                  <div style="text-align: right; ">
                 <a href="#" id="rp_save" data-rel="close" data-role="button" data-inline="true">确定</a>
@@ -340,7 +344,7 @@
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
 
 
-  
+    <script src="../js/mobiscroll-1.6.js" type="text/javascript"></script>
     <script src="../js/shop_edit.js" type="text/javascript"></script>
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
     <script src="../js/CityList.js" type="text/javascript"></script>
