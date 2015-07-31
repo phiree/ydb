@@ -42,7 +42,7 @@
                                     <div class="reg-box-l"><p>注册帐号</p></div>
                                     <div class="reg-box-r">
                                         <div class="reg-input">
-                                            <asp:TextBox runat="server" CssClass="regUserName" ID="tbxUserName" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
+                                            <asp:TextBox runat="server" CssClass="regUserName" ID="tbxUserName" placeholder="手机号码/电子邮箱" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
                                             <i class="checkIcon"></i>
                                         </div>
                                     </div>
@@ -90,8 +90,11 @@
     </div>
 </body>
 <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
+<!--[if IE 8]><script src="/js/jquery.placeholder.min.js" type="text/javascript"></script><![endif]-->
 
-<script src="/js/InlineTip.js" type="text/javascript"></script>
+<!--<script src="/js/InlineTip.js" type="text/javascript"></script>-->
 <script src="/js/login_reg.js" type="text/javascript"></script>
-
+<script>
+    $('input, textarea').placeholder();
+</script>
 </html>

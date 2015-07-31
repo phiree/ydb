@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    var default_user_text = "手机号码/电子邮箱";
+    //var default_user_text = "手机号码/电子邮箱";
 
-    $("#tbxUserName").InlineTip({ 'tip': default_user_text });
+    //$("#tbxUserName").InlineTip({ 'tip': default_user_text });
 
     var regCheck = function(){
 
@@ -21,10 +21,12 @@ $(document).ready(function () {
          */
         var userNameCheck = function(){
             var _user_name = $user_name_box.val();
+            console.log(_user_name);
             var $_checkIcon = $user_name_box.parent().find(".checkIcon");
 
 
-            if ( _user_name == null || _user_name == default_user_text ){
+            //if ( _user_name == null || _user_name == default_user_text ){
+            if ( _user_name == null || _user_name == "" ){
                 chkIconAnm(false, false, $_checkIcon);
                 $(user_warn_element).show();
                 user_warn_text = "请填写用户名";
