@@ -319,9 +319,9 @@ body {
 .nav-btn-employee { background-position: -158px 0px; width: 79px; height: 70px; }
 .nav-btn-msg { background-position: 0px 0px; width: 79px; height: 70px; }
 
-.nav-btn-un-order { background: url("../image/un-icon-1.png");width: 79px; height: 70px; }
-.nav-btn-un-employee { background: url("../image/un-icon-2.png");width: 79px; height: 70px; }
-.nav-btn-un-msg { background: url("../image/un-icon-3.png");width: 79px; height: 70px;}
+.nav-btn-un-order { background: url("../image/un-icon-1.png");width: 79px; height: 70px; cursor: default;}
+.nav-btn-un-employee { background: url("../image/un-icon-2.png");width: 79px; height: 70px; cursor: default; }
+.nav-btn-un-msg { background: url("../image/un-icon-3.png");width: 79px; height: 70px; cursor: default;}
 
 
 .side-btn-myshop { background-position: -948px 0px; width: 79px; height: 70px; }
@@ -418,7 +418,6 @@ body {
     display: block;
     width: 90px;
     height: 90px;
-    margin-right: 10px;
     line-height: 90px;
     position: relative;
     text-align: center;
@@ -426,9 +425,13 @@ body {
 
 .download-img-delete {
     position: absolute;
+    width: 18px;
+    height: 18px;
     right: 2px;
     top: 2px;
     z-index: 2;
+    border: 0;
+    background: url("../image/delete_icon_91.png") no-repeat center;
 }
 
 .download-img-show {

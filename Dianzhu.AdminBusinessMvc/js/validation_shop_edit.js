@@ -6,7 +6,7 @@ var service_validate_messages={};
 
  
 //tbxname
-service_validate_rules[name_prefix + "tbxName"] =
+service_validate_rules[name_prefix + "Name"] =
 {
     required: true,
     maxlength: 100

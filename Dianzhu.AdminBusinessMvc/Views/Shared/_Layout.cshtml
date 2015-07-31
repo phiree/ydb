@@ -7,12 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
-    <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
+    
     <link href="http://192.168.1.140:8464/static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="http://192.168.1.140:8464/static/Scripts/jquery-1.11.3.min.js"></script>
+         @Styles.Render("~/Content/css")
+        @RenderSection("scripts_head_ref", required: false)
+        <script type="text/javascript" src="http://192.168.1.140:8464/static/Scripts/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="http://192.168.1.140:8464/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
- 
-        @Styles.Render("~/Content/css")
+       
         @Scripts.Render("~/bundles/modernizr")
      
 </head>
@@ -20,12 +21,13 @@
    <body>
     <div class="wrap">
         <div class="mainContainer">
-            <form id="form1" runat="server">
+           
             <div class="topnav clearfix">
                 <h1 title="点助" class="dianzhuicon">
                 </h1>
                 
                 <div class="logoutBox">
+                   @Html.Partial("_loginPartial")
                       </div>
                 <div class="menuList">
                     <ul class="clearfix">
@@ -95,9 +97,10 @@
                 @RenderBody()
             </section>
             </div>
-            </form>
+           
         </div>
     </div>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

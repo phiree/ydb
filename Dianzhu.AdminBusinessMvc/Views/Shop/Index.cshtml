@@ -1,0 +1,313 @@
+﻿@model Dianzhu.Model.Business
+@{
+    ViewBag.Title = "登录";
+    
+}
+@section scripts_head_ref{
+    <link href='http://192.168.1.140:8464/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
+        rel="stylesheet" type="text/css" />
+    <link href="/css/validation.css" rel="stylesheet" type="text/css" />
+    <link href="/css/myshop.css" rel="stylesheet" type="text/css" />
+}
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+    @Html.HiddenFor(x => x.Id)
+    <div class="mainContent clearfix">
+        <div class="leftContent" id="leftCont">
+            <div class="leftContent" id="leftCont">
+                <div>
+                    <ul>
+                        <li><a href="/account/Default.aspx" target="_self">
+                            <div class="side-btn-bg d-inb side-btn-myshop">
+                                <h4 class="side-btn-t ">
+                                    基本信息</h4>
+                            </div>
+                        </a></li>
+                        <li><a href="/account/Security.aspx" target="_self">
+                            <div class="side-btn-bg d-inb side-btn-secret">
+                                <h4 class="side-btn-t ">
+                                    帐号安全</h4>
+                            </div>
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="rightContent" id="rightCont">
+            <div id="myshop-wrap">
+                <div class="myshopInfoArea clearfix">
+                    <div class="myshopInfoTilte">
+                        <h1>
+                            商家基本信息
+                             
+                        </h1>
+                    </div>
+                    <div class="headInfoArea clearfix">
+                        <div class="headImage fl m-r10">
+                            <div class="input-file-box headFile">
+                                <input type=file class="input-file-btn"  name="input-file-btn-avater" businessId="@Model.Id" imageType="businessavater" />
+                                <i class="input-file-bg"  style='background-image:url(/thumbnail/@Model.BusinessAvatar.ImageName/90/90)'>
+                                </i><i class="input-file-mark"></i>
+                                <img style="top: auto; left: auto; position: inherit;" class="input-file-pre" src="..\image\00.png" />
+                            </div>
+                        </div>
+                        <div class="headInfo fl">
+                            <div class="headInfoVc">
+                                <p>
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "inputShopName", @name = "inputShopName" })
+                               </p>
+                                <p class="InfoCompletetxt">
+                                    资料完成程度</p>
+                                <div class="InfoPercentage">
+                                    <div class="InfoComplete">
+                                        <span  style='width:@Model.CompetePercent%' class="progress"></span>
+                                    </div>
+                                    <span class="completePercentage">@Model.CompetePercent</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="headEditImg">-->
+                        <!--<a href="javascript:void(0);" class="headEditBtn"></a>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="ShopMainWrap">
+                    <div class="ShopDetailsTitle">
+                        <span>店铺资料编辑</span>
+                    </div>
+                    <div class="ShopDetailsMain">
+                        <div class="clearfix">
+                            <div class="ShopDetailsAreaLeft">
+                                <div class="myshopLeftCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-shopIntro"></i>店铺介绍</p>
+                                    <div>
+                                        @Html.TextAreaFor(x => x.Description, new { @class = "myshop-input-textarea" })
+                                     </div>
+                                </div>
+                                <div class="myshopLeftCont">
+                                    <p class="p_ContactPhone myshop-item-title">
+                                        <i class="icon myshop-icon-phone"></i>联系电话</p>
+                                    <p>
+                                        @Html.TextAreaFor(x => x.Phone, new { @class = "myshop-input-lg" })
+                                  </div>
+                                <div class="myshopLeftCont">
+                                    <p class="p_addressDetail myshop-item-title">
+                                        <i class="icon myshop-icon-address"></i>详细店址</p>
+                                    <input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress"
+                                        value="请放置店铺坐标" />
+                                    @Html.HiddenFor(x => x.RawAddressFromMapAPI, new { @class = "myshop-input-lg", @focusID = "setAddress" })
+                                    <input type="hidden" focusid="setAddress" runat="server" clientidmode="Static" id="hiAddrId"
+                                        name="addressDetailHide" />
+                                    <div id="addPrintBox">
+                                    </div>
+                                    <p>
+                                        <input type="text" class="myshop-input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
+                                </div>
+                                <div class="myshopLeftCont">
+                                    <p class="p_email myshop-item-title">
+                                        <i class="icon myshop-icon-email"></i>邮箱地址</p>
+                                    <p>
+                                        @Html.TextAreaFor(x => x.Email, new { @class = "myshop-input-lg" })
+                                              </div>
+                                <div class="myshopLeftCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-workTime"></i>从业时间</p>
+                                    @Html.TextAreaFor(x => x.WorkingYears, new { @class = "myshop-input-lg" })
+                                     
+                                </div>
+                                <div class="BusinessLicense">
+                                    <p class="p_BusinessLicense myshop-item-title">
+                                        <i class="icon myshop-icon-businessLic"></i>营业执照</p>
+                                    <div>
+                                        @foreach (var license in @Model.BusinessLicenses)
+                                        { 
+                                             //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
+                                            <div class="download-img-pre m-r10 fl">
+                                                <input type="button" onclick="javascript:return confirm('确定删除?')" value=" " formnovalidate
+                                                    class="download-img-delete" />
+                                                <a class="download-img-show" href='/media/original/@license.ImageName'>
+                                                    <img src='/thumbnail/@license.ImageName/90/90'
+                                                            class="imgCharge" />
+                                                </a>
+                                            </div>
+                                             
+                                        }
+                                        <div class="input-file-box fl">
+                                            <input type="file" class="input-file-btn" name="input-file-btn-license" businessid="@Model.Id"
+                                                imagetype="businesslicense" />
+                                            <i class="input-file-bg"></i><i class="input-file-mark"></i>
+                                            <img class="input-file-pre" src="..\image\00.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ShopDetailsAreaRight">
+                                <div class="myshopRightCont ShopFigure">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-shopFigure"></i>店铺图片展示</p>
+                                    <div class="clearfix">
+                                     @foreach (var show in @Model.BusinessShows)
+                                        { 
+                                             //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
+                                            <div class="download-img-pre m-r10 fl">
+                                                <input type="button" onclick="javascript:return confirm('确定删除?')" value=" " formnovalidate
+                                                    class="download-img-delete" />
+                                                <a class="download-img-show" href='/media/original/@show.ImageName'>
+                                                    <img src='/thumbnail/@show.ImageName/90/90'
+                                                            class="imgCharge" />
+                                                </a>
+                                            </div>
+                                             
+                                        }
+                                         
+                                        <div class="input-file-box d-inb">
+                                            <input type=file class="input-file-btn"  name="input-file-btn-show"  businessId="@Model.Id" imageType="businessshow" />
+                                            <i class="input-file-bg"></i><i class="input-file-mark"></i>
+                                            <img class="input-file-pre" src="..\image\00.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="myshopRightCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-empNum"></i>员工人数</p>
+                                    <p>
+                                    @Html.TextAreaFor(x => x.StaffAmount, new { @class = "myshop-input-mid",@value=0 })
+                                        
+                                    </p>
+                                </div>
+                                <div class="myshopRightCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-owner"></i>负责人姓名</p>
+                                    <p>
+                                    @Html.TextAreaFor(x => x.Contact, new { @class = "myshop-input-mid" })
+                                    
+                                        
+                                    </p>
+                                </div>
+                                <div class="myshopRightCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-licenseType"></i>证件类型</p>
+                                    <div class="select select-sm">
+                                        <ul>
+                                            <li><a>身份证</a></li>
+                                            <li><a>其它</a></li>
+                                        </ul>
+                                        <input type="hidden" name="ChargePersonIdCardType" id="ChargePersonIdCardType" value="0" runat="server" clientidmode="Static" />
+                                    </div>
+                                </div>
+                                <div class="myshopRightCont">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-licenseNum"></i>证件号码</p>
+                                    <p>
+                                    @Html.TextBoxFor(x => x.ChargePersonIdCardNo, new {@class="myshop-input-mid"})
+                                             </p>
+                                </div>
+                                <div class="myshopRightCont HeadProfilePicture">
+                                    <p class="myshop-item-title">
+                                        <i class="icon myshop-icon-ownerPic"></i>负责人证件照上传</p>
+                                    <div class="clearfix">
+                                     @foreach (var idcard in @Model.BusinessChargePersonIdCards)
+                                        { 
+                                             //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
+                                            <div class="download-img-pre m-r10 fl">
+                                                <input type="button" onclick="javascript:return confirm('确定删除?')" value=" " formnovalidate
+                                                    class="download-img-delete" />
+                                                <a class="download-img-show" href='/media/original/@idcard.ImageName'>
+                                                    <img src='/thumbnail/@idcard.ImageName/90/90'
+                                                            class="imgCharge" />
+                                                </a>
+                                            </div>
+                                             
+                                        }
+                                        
+                                        <div class="input-file-box m-r10 fl">
+                                            <input type="file" class="input-file-btn" businessid="@Model.Id" imagetype="businesschargeperson" />
+                                            <i class="input-file-bg"></i><i class="input-file-mark"></i>
+                                            <img class="input-file-pre" src="..\image\00.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="addrlightBox" class="dis-n">
+                            <div class="mapWrap">
+                                <div id="addressMap" class="mapMain">
+                                </div>
+                                <div id="addressCity" class="mapCity">
+                                </div>
+                                <div id="addressText" class="mapAddrsText myshop-addPrint-map">
+                                </div>
+                                <div class="mapButton">
+                                    <input id="confBusiness" class="close myshop-sm-input" type="button" value="确定"><span
+                                        class="myshop-locTip">点击地图放置地点哦！</span></div>
+                                <input id="businessValue" type="hidden" value="" />
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottomArea">
+                        <input type="submit" />
+                       
+                       <a href="#"></a>
+                    </div>
+                </div>
+            </div>
+            <div id="account" class="account">
+                账号安全
+            </div>
+        </div>
+    </div>
+}<!--/form-->
+@section scripts{
+    <script type="text/javascript" src="http://192.168.1.140:8464/static/Scripts/jquery.validate.js"></script>
+    <script src="http://192.168.1.140:8464/static/Scripts/additional-methods.js" type="text/javascript"></script>
+    <script src="/js/jquery.form.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/TabSelection.js"></script>
+    <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>
+    <script type="text/javascript" src="/js/CityList.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
+    <script type="text/javascript" src="/js/account.js"></script>
+    <script type="text/javascript">
+        var name_prefix = '';
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // set_name_as_id('snsi');
+            $.validator.setDefaults({
+                ignore: []
+            });
+
+            $.validator.addMethod("phone", function (value, element) {
+                return /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/.test(value);
+            }, "请输入有效的电话号码");
+            $.validator.addMethod("idcard", function (value, element) {
+                return /^(\d{15}$)|(^\d{17}([0-9]|X))$/.test(value);
+            }, "请输入有效的身份证号码");
+            $.validator.addMethod('filesize', function (value, element, param) {
+                // param = size (en bytes) 
+                // element = element to validate (<input>)
+                // value = value of the element (file name)
+                return this.optional(element) || (element.files[0].size <= param)
+            });
+
+            $($("form")[0]).validate(
+                { rules: service_validate_rules,
+                    messages: service_validate_messages,
+                    invalidHandler: invalidHandler
+                }
+            );
+
+            
+
+        });
+
+        //图片上传
+ 
+            
+    </script>
+    <script src="/js/FileUpload.js" type="text/javascript"></script>
+    <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
+    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
+}

@@ -18,7 +18,9 @@
         <div class="main">
             <div class="layout">
                 <div class="wrap-login">
-                    <form id="form1">
+                   @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+                   {
+                    @Html.AntiForgeryToken()
                     <div class="conLogin">
                         <div class="conLogo clearfix">
                             <div class="logo">
@@ -57,7 +59,7 @@
                                         <label class="usernameIcon" for="tbxUserName">
                                             <i class="icon"></i>
                                         </label>
-                                       @Html.TextBoxFor(x=>x.UserName)
+                                       @Html.TextBoxFor(x => x.UserName)
                                            </p>
                                     <!--<i id="userCheck" class="f-l"></i>-->
                                 <!--</div>-->
@@ -72,7 +74,7 @@
                                         <input  id="savePass" type="checkbox" /><label for="savePass">记住我</label></p>
                                 </div>
                                 <div class="login_err_msg" >
-                                <asp:Label runat="server" ID="lblMsg"></asp:Label>
+                               @Html.ValidationSummary(true)
                                 </div>
                                 <!--<p id="testAjax"></p>-->
                                 <p class="doReg">
@@ -81,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    </form>
+                   }
                 </div>
             </div>
             <div class="conReg">
