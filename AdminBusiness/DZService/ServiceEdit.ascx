@@ -46,12 +46,16 @@
                     <input type="hidden" runat="server" focusid="setSerType" id="hiTypeId" />
                     <asp:Label CssClass="business-radioCf dis-n" runat="server" ID="lblSelectedType"></asp:Label>
                     <div id="serLightContainer" class="serviceTabs dis-n">
-                        <div>
-                            <div id="serChoiceContainer"></div>
-                            <div id="serChoiceConf" class="close dis-n" >确认</div>
-                            <div id="serChoiceCancel" class="close" >取消</div>
-                            <div id="serList" class="serList clearfix"></div>
+                        <div class="serChoiceInfo clearfix">
+                            <div id="serChoiceContainer" class="serChoiceContainer fl"></div>
+                            <div class="serChoiceBtnContainer fr">
+                                <div class="d-inb">
+                                    <div id="serChoiceConf" class="serChoiceBtn close dis-n" >确认</div>
+                                </div>
+                                <div id="serChoiceCancel" class="serChoiceBtn close d-inb" >取消</div>
+                            </div>
                         </div>
+                        <div id="serList" class="serList clearfix"></div>
                     </div>
                 </div>
             </div>

@@ -72,10 +72,13 @@ $.fn.ServiceSelect = function (options) {
         }
 
         function createList ( data ) {
+            var $serListContainer = $(document.createElement("div"));
             var $serList = $(document.createElement("ul"));
             var dataArray = data;
 
-            $serList.addClass("serListUl")
+            $serListContainer.addClass("serListUlContainer");
+            $serList.addClass("serListUl");
+
             if ( data[0] && data[0].level != "undefined"){
                 var dataLevel = data[0].level;
                 $serList.attr("list-level", dataLevel);
@@ -92,8 +95,10 @@ $.fn.ServiceSelect = function (options) {
                 $serListItem.attr("data-id",data[i].id);
                 $serListItem.bind("click",serviceClick);
                 $serList.append( $serListItem );
+                $serListContainer.append( $serList )
             }
-            $(_this).append($serList);
+            //$(_this).append($serList);
+            $(_this).append($serListContainer);
         }
 
         function serviceClick(e){
@@ -111,6 +116,7 @@ $.fn.ServiceSelect = function (options) {
                 for ( var i = 0 ; i < restChildLevel ; i++ ){
                     var nextChildLevel = thisLevel + i + 1;
                     var restChildList = $("ul[list-level=" + nextChildLevel +"]");
+                    restChildList.parent().remove();
                     restChildList.remove();
                 }
                 createList(childDataArray);

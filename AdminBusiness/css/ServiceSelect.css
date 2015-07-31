@@ -1,5 +1,15 @@
 .serList {
-    border: 1px solid #ccc;
+    padding-left: 20px;
+}
+
+.serListUlContainer {
+    float: left;
+    padding: 20px 0 20px 0;
+    margin-left: -20px;
+    background: #ecf0f6;
+    border-left: 1px solid #cbd8e3;
+
+
 }
 
 .serList ul {
@@ -7,12 +17,41 @@
     height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
-    /*margin-right: -18px;*/
-    float: left;
+    background: #ecf0f6;
+}
+
+.serList ul li{
+    line-height: 1.5em;
+    color: #444;
+    padding-left: 20px;
+}
+
+.serChoiceContainer {
+
+}
+
+.serChoiceContainer span {
+    display: inline-block;
+    padding: 3px;
     background: #fff;
-    border: 2px solid #33cc33;
+    color: #5c789c;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 1px #666;
 }
 
 .choiceSer {
-    background: #33cc33;
+    background: #daeefa;
+}
+
+.serChoiceInfo {
+    padding: 10px 20px;
+    background: #5c789c;
+}
+
+.serChoiceBtn {
+    padding: 3px;
+    color: #5c789c;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 1px #666;
 }
