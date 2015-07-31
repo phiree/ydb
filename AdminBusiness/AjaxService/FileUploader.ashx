@@ -32,7 +32,7 @@ public class FileUploader : IHttpHandler {
                 break;
             default: break;
         }
-        HttpPostedFile posted = files["upload_file"];
+        HttpPostedFileBase posted = new HttpPostedFileWrapper(context.Request.Files["upload_file"]);
           string savedPath=  bllBusinessImage.Save(new Guid(strBusinessId), posted, enum_imagetype);
 
           context.Response.Write(savedPath + posted.FileName);

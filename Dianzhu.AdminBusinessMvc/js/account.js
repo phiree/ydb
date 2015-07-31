@@ -34,7 +34,7 @@ function setAddressPoint (e){
         };
 
         //console.log(JSON.stringify(addJson));
-        $('#hiAddrId').attr("value",JSON.stringify(addJson));
+        $('#RawAddressFromMapAPI').attr("value", JSON.stringify(addJson));
         var addressNode = "<span>" + addComp.province + "</span><span>" + addComp.city + "</span><span>" + addComp.district + "</span><span>" + addComp.street + "</span><span>" + addComp.streetNumber + "</span>"
         addressText.html(addressNode);
 
@@ -54,8 +54,8 @@ function setAddressPoint (e){
  * 载入时读取地图信息
  */
 (function readAddressLoc() {
-    if ( $('#hiAddrId').attr("value") ){
-        var readAddrJson = jQuery.parseJSON($('#hiAddrId').attr("value"));
+    if ( $('#RawAddressFromMapAPI').attr("value") ){
+        var readAddrJson = jQuery.parseJSON($('#RawAddressFromMapAPI').attr("value"));
         var addrNodeBox = $(document.createElement("div"));
         var addressNode = "<span>" + readAddrJson.province + "</span><span>" + readAddrJson.city + "</span><span>" + readAddrJson.district + "</span><span>" + readAddrJson.street + "</span><span>" + readAddrJson.streetNumber + "</span>"
         var addPrintBox = $("#addPrintBox");

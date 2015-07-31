@@ -8,8 +8,8 @@
         rel="stylesheet" type="text/css" />
     <link href="/css/validation.css" rel="stylesheet" type="text/css" />
     <link href="/css/myshop.css" rel="stylesheet" type="text/css" />
-}
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+}@{ Html.EnableClientValidation(false); }
+@using (Html.BeginForm("Index","Shop",FormMethod.Post, new {  ReturnUrl = ViewBag.ReturnUrl,id="fmEdit" }))
 {
     @Html.HiddenFor(x => x.Id)
     <div class="mainContent clearfix">
@@ -97,12 +97,11 @@
                                     <input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress"
                                         value="请放置店铺坐标" />
                                     @Html.HiddenFor(x => x.RawAddressFromMapAPI, new { @class = "myshop-input-lg", @focusID = "setAddress" })
-                                    <input type="hidden" focusid="setAddress" runat="server" clientidmode="Static" id="hiAddrId"
-                                        name="addressDetailHide" />
+                                    
                                     <div id="addPrintBox">
                                     </div>
                                     <p>
-                                        <input type="text" class="myshop-input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
+                                        <input type="text" class="myshop-input-lg" id="tbxAddress"  name="addressDetail" /></p>
                                 </div>
                                 <div class="myshopLeftCont">
                                     <p class="p_email myshop-item-title">
@@ -121,8 +120,8 @@
                                         <i class="icon myshop-icon-businessLic"></i>营业执照</p>
                                     <div>
                                         @foreach (var license in @Model.BusinessLicenses)
-                                        { 
-                                             //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
+                                        {
+                                            //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
                                             <div class="download-img-pre m-r10 fl">
                                                 <input type="button" onclick="javascript:return confirm('确定删除?')" value=" " formnovalidate
                                                     class="download-img-delete" />
@@ -148,10 +147,10 @@
                                         <i class="icon myshop-icon-shopFigure"></i>店铺图片展示</p>
                                     <div class="clearfix">
                                      @foreach (var show in @Model.BusinessShows)
-                                        { 
-                                             //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
+                                     {
+                                         //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
                                             <div class="download-img-pre m-r10 fl">
-                                                <input type="button" onclick="javascript:return confirm('确定删除?')" value=" " formnovalidate
+                                                <input type="button" imageId=@show.Id  value=" X " formnovalidate
                                                     class="download-img-delete" />
                                                 <a class="download-img-show" href='/media/original/@show.ImageName'>
                                                     <img src='/thumbnail/@show.ImageName/90/90'
@@ -159,7 +158,7 @@
                                                 </a>
                                             </div>
                                              
-                                        }
+                                     }
                                          
                                         <div class="input-file-box d-inb">
                                             <input type=file class="input-file-btn"  name="input-file-btn-show"  businessId="@Model.Id" imageType="businessshow" />
@@ -172,7 +171,7 @@
                                     <p class="myshop-item-title">
                                         <i class="icon myshop-icon-empNum"></i>员工人数</p>
                                     <p>
-                                    @Html.TextAreaFor(x => x.StaffAmount, new { @class = "myshop-input-mid",@value=0 })
+                                    @Html.TextAreaFor(x => x.StaffAmount, new { @class = "myshop-input-mid", @value = 0 })
                                         
                                     </p>
                                 </div>
@@ -193,14 +192,14 @@
                                             <li><a>身份证</a></li>
                                             <li><a>其它</a></li>
                                         </ul>
-                                        <input type="hidden" name="ChargePersonIdCardType" id="ChargePersonIdCardType" value="0" runat="server" clientidmode="Static" />
+                                        <input type="hidden" name="ChargePersonIdCardType" id="ChargePersonIdCardType" value="0"   />
                                     </div>
                                 </div>
                                 <div class="myshopRightCont">
                                     <p class="myshop-item-title">
                                         <i class="icon myshop-icon-licenseNum"></i>证件号码</p>
                                     <p>
-                                    @Html.TextBoxFor(x => x.ChargePersonIdCardNo, new {@class="myshop-input-mid"})
+                                    @Html.TextBoxFor(x => x.ChargePersonIdCardNo, new { @class = "myshop-input-mid" })
                                              </p>
                                 </div>
                                 <div class="myshopRightCont HeadProfilePicture">
@@ -208,10 +207,10 @@
                                         <i class="icon myshop-icon-ownerPic"></i>负责人证件照上传</p>
                                     <div class="clearfix">
                                      @foreach (var idcard in @Model.BusinessChargePersonIdCards)
-                                        { 
-                                             //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
+                                     {
+                                         //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
                                             <div class="download-img-pre m-r10 fl">
-                                                <input type="button" onclick="javascript:return confirm('确定删除?')" value=" " formnovalidate
+                                                <input type="button"   value=" " formnovalidate
                                                     class="download-img-delete" />
                                                 <a class="download-img-show" href='/media/original/@idcard.ImageName'>
                                                     <img src='/thumbnail/@idcard.ImageName/90/90'
@@ -219,7 +218,7 @@
                                                 </a>
                                             </div>
                                              
-                                        }
+                                     }
                                         
                                         <div class="input-file-box m-r10 fl">
                                             <input type="file" class="input-file-btn" businessid="@Model.Id" imagetype="businesschargeperson" />
@@ -247,7 +246,7 @@
                         </div>
                     </div>
                     <div class="bottomArea">
-                        <input type="submit" />
+                        <input type="submit" />@ViewBag.SaveMessageSuc
                        
                        <a href="#"></a>
                     </div>
@@ -292,14 +291,23 @@
                 return this.optional(element) || (element.files[0].size <= param)
             });
 
-            $($("form")[0]).validate(
+            $($("form#fmEdit")[0]).validate(
                 { rules: service_validate_rules,
                     messages: service_validate_messages,
                     invalidHandler: invalidHandler
                 }
             );
 
-            
+            $(".download-img-delete").click(function (e) {
+                var that = this;
+                var imageId = $(this).attr("imageId");
+                $.post("imagehandler/delete/" + imageId,
+                function (result) {
+                    $(that).parent().remove();
+                });
+            });
+
+
 
         });
 

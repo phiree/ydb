@@ -11,24 +11,24 @@ service_validate_rules[name_prefix + "Name"] =
     required: true,
     maxlength: 100
 };
-service_validate_messages[name_prefix + "tbxName"] =
+service_validate_messages[name_prefix + "Name"] =
 {
     required: "请填写店铺名称",
     maxlength: "不能超过100个字符"
 };
 //hiTypeId
-service_validate_rules[name_prefix + "tbxIntroduced"] =
+service_validate_rules[name_prefix + "Description"] =
 {
     required: true,
      maxlength: 1000
 };
-service_validate_messages[name_prefix + "tbxIntroduced"] =
+service_validate_messages[name_prefix + "Description"] =
 {
     required: "请输入店铺介绍",
     maxlength: "不能超过1000个字符"
 };
 //minprice
-service_validate_rules[name_prefix + "tbxContactPhone"] =
+service_validate_rules[name_prefix + "Phone"] =
 {
     phone: true,
      
@@ -37,12 +37,12 @@ service_validate_rules[name_prefix + "tbxContactPhone"] =
  
  
 //serviceScope
-service_validate_rules[name_prefix + "tbxEmail"] =
+service_validate_rules[name_prefix + "Email"] =
 {
     email: true
      
 };
-service_validate_messages[name_prefix + "tbxEmail"] =
+service_validate_messages[name_prefix + "Email"] =
 {
     email: "请输入正确的email格式"
 };
@@ -53,25 +53,25 @@ service_validate_rules[name_prefix + "tbxBusinessYears"] =
     range: [1, 1000]
 
 };
-service_validate_messages[name_prefix + "tbxBusinessYears"] =
+service_validate_messages[name_prefix + "WoringYears"] =
 {
    
     range: "请输入1-1000之间的数值"
 };
 //预约时间
-service_validate_rules[name_prefix + "tbxContact"] =
+service_validate_rules[name_prefix + "Contact"] =
 {
    maxlength:20
 
 };
-service_validate_messages[name_prefix + "tbxContact"] =
+service_validate_messages[name_prefix + "Contact"] =
 {
      
     maxlength: "请输入20字以内的姓名(汉字)"
 };
  
  
-    service_validate_rules[name_prefix + "tbxCardIdNo"] =
+    service_validate_rules[name_prefix + "ChargePersonIdCardNo"] =
     {
      
             required: true,
@@ -92,7 +92,7 @@ service_validate_messages[name_prefix + "tbxContact"] =
         };
 
 
-    service_validate_messages[name_prefix + "tbxCardIdNo"] =
+    service_validate_messages[name_prefix + "ChargePersonIdCardNo"] =
     {
    
             required: "请填写证件号码",
@@ -102,7 +102,7 @@ service_validate_messages[name_prefix + "tbxContact"] =
 
         };
 
-          service_validate_rules[name_prefix + "selStaffAmount"] =
+          service_validate_rules[name_prefix + "StaffAmount"] =
     {
      
             required: true,
@@ -111,7 +111,7 @@ service_validate_messages[name_prefix + "tbxContact"] =
         };
 
 
-    service_validate_messages[name_prefix + "selStaffAmount"] =
+    service_validate_messages[name_prefix + "StaffAmount"] =
     {
    
             required: "请填写员工人数",
@@ -121,7 +121,7 @@ service_validate_messages[name_prefix + "tbxContact"] =
         };
  
  
-    service_validate_rules[name_prefix + "hiAddrId"] =
+    service_validate_rules[name_prefix + "RawAddressFromMapAPI"] =
 {
 
     required: true
@@ -129,7 +129,7 @@ service_validate_messages[name_prefix + "tbxContact"] =
 
 
 };
-service_validate_messages[name_prefix + "hiAddrId"] =
+service_validate_messages[name_prefix + "RawAddressFromMapAPI"] =
 {
 
     required: "请选择店铺地址"

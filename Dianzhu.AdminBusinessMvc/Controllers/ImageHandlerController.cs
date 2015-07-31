@@ -45,5 +45,14 @@ namespace Dianzhu.AdminBusinessMvc.Controllers
             Response.Write(savedPath);
             return null;
         }
+
+        [HttpPost]
+        public ActionResult Delete(Guid imageId)
+        {
+            
+            bllBusinessImage.Delete(imageId);
+           
+            return Content("OK");
+        }
     }
 }
