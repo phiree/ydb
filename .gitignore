@@ -210,3 +210,4 @@ FrontWeb/config/connectionStrings.config
 Dianzhu.XmppClientWeb/media/
 AdminBusiness/config/appSettings.config
 Dianzhu.AdminBusinessMvc/media/
+Dianzhu.AdminBusinessMvc/image/pic_old/

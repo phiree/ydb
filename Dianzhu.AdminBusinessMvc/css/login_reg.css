@@ -6,7 +6,7 @@ html,body {
 /*输入框动画效果*/
 
 input[type="text"]:focus,input[type="password"]:focus {
-    box-shadow: 0 0 4px 4px #55abdc;
+    box-shadow: 0 0 3px 0 rgba(85, 171, 220, 0.5);
     -webkit-animation-name: breath;
     -webkit-animation-duration: 2s;
     -webkit-animation-timing-function: ease-in-out;
@@ -164,6 +164,10 @@ input[type="text"]:focus,input[type="password"]:focus {
     margin-bottom: 25px;
 }
 
+.placeholder {
+    color: #aaa;
+}
+
 .username,
 .password {
     width: 300px;
@@ -185,6 +189,7 @@ input[type="text"]:focus,input[type="password"]:focus {
 .password input {
     vertical-align: middle;
     /*background: #fff;*/
+    /*color: #444;*/
     display: inline-block;
     width: 250px;
     height: 20px;
@@ -374,7 +379,7 @@ input[type="text"]:focus,input[type="password"]:focus {
     font-size: 15px;
     font-family: inherit;
     text-indent: 10px;
-    color: #aaa;
+    /*color: #aaa;*/
     *margin-left: -10px;
     *vertical-align: middle;
     *zoom: 1;

@@ -247,96 +247,7 @@
             </div>
         </div>
     </div>
-    <!--<div class="service-md">-->
-        <!--<div class="service-md-title">-->
-            <!--基本信息<i class="icon servie-icon-mdStand"></i></div>-->
-        <!--<div class="service-md-main clearfix">-->
-            <!--<div class="service-md-mleft">-->
-                <!--<div class="service-m">-->
-
-                <!--</div>-->
-                <!--<div class="service-m">-->
-
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="service-md-mright">-->
-                <!--<div class="service-m">-->
-                    <!--</div>-->
-
-                <!--<div class="service-m">-->
-
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="service-md">-->
-
-    <!--</div>-->
-    <!--<div class="service-md">-->
-        <!--<div class="service-md-title">-->
-            <!--服务信息<i class="icon servie-icon-mdItem"></i></div>-->
-        <!--<div class="service-md-main">-->
-            <!--<div class="service-md-box clearfix">-->
-                <!--<div class="service-md-mleft">-->
-                    <!--<div class="service-m">-->
-
-
-                    <!--</div>-->
-                    <!--<div class="service-m">-->
-
-
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="service-md-mright">-->
-                    <!--<div class="service-m">-->
-                        <!--<div class="service-m">-->
-                        <!--</div>-->
-
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="service-md-box clearfix">-->
-                <!--<div class="service-md-mleft">-->
-                    <!--<div class="service-m">-->
-
-
-                    <!--</div>-->
-                    <!--<div class="service-m">-->
-
-
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="service-md-mright">-->
-                    <!--<div class="service-m">-->
-
-
-                    <!--</div>-->
-                    <!--<div class="service-m">-->
-
-
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="service-md-box clearfix">-->
-                <!--<div class="service-md-mleft">-->
-
-                <!--</div>-->
-                <!--<div class="service-md-mright">-->
-                    <!--<div class="service-m">-->
-
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="service-md-box clearfix">-->
-                <!--<div class="service-md-mleft">-->
-                    <!--<div class="service-m">-->
-
-
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+     
 
     <div id="mapLightBox" class="dis-n">
         <div class="mapWrap">
@@ -350,7 +261,7 @@
         </div>
     </div>
 </div>
-</div>
+ 
 <div class="service-saveSubmit">
     <asp:Button CssClass="service-saveSubmit-btn" runat="server" ID="btnSave" OnClick="btnSave_Click" />
 </div>

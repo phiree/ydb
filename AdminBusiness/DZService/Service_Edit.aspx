@@ -99,7 +99,7 @@
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
-    <script>
+    <script type="text/javascript">
         $(function () {
             $("#serList").ServiceSelect({
                 "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
