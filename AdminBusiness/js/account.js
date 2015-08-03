@@ -64,7 +64,7 @@ function initialize(){
 
             addressText.html(addressNode);
             addrNodeBox.html(addressNode);
-            addrNodeBox.addClass('myshop-addPrint m-b10');
+            addrNodeBox.addClass('myshop-addPrint d-inb');
             addPrintBox.append(addrNodeBox);
         }
     })();

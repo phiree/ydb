@@ -33,66 +33,50 @@
                 
                 <div class="logoutBox">
                     <asp:LoginName ID="LoginName1" runat="server" />
-                    <asp:LoginStatus ID="LoginStatus1"   formnovalidate  runat="server"  />
+                    <asp:LoginStatus ID="LoginStatus1" formnovalidate  runat="server"  />
                 </div>
                 <div class="menuList">
                     <ul class="clearfix">
-                        <!--<li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="content"><i class="nav-btn nav-btn-coup"></i>
-                        </a></li>
-                        <li><a href="/account/Default.aspx" target="_self"><i class="nav-btn nav-btn-myshop"></i></a>
-                        </li>
-                        <li><a href="/DZService/Default.aspx" target="_self"><i class="nav-btn nav-btn-service"></i></a>
-                        </li>-->
-
-                        <li>
-                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
-                                <div class="nav-btn-bg nav-btn-coup d-inb">
-                                    <h4 class="nav-btn-t "></h4>
-                                </div>
-                            </a>
-                        </li>
                         <li>
                             <a href="/account/Default.aspx" target="_self">
-                                <div class="nav-btn-bg d-inb nav-btn-myshop">
+                                <div class="nav-btn-bg d-inb">
+                                    <i class="icon nav-btn-icon nav-icon-myshop"></i>
                                     <h4 class="nav-btn-t ">店铺信息</h4>
                                 </div>
                             </a>
                         </li>
                         <li>
                             <a href="/DZService/Default.aspx" target="_self">
-                                <div class="nav-btn-bg d-inb nav-btn-service">
+                                <div class="nav-btn-bg d-inb">
+                                    <i class="icon nav-btn-icon nav-icon-service"></i>
                                     <h4 class="nav-btn-t ">服务信息</h4>
                                 </div>
                             </a>
                         </li>
-
                         <li>
                             <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
-                                <div class="nav-btn-bg d-inb nav-btn-un-order">
+                                <div class="nav-btn-bg nav-btn-un d-inb">
+                                    <i class="icon nav-btn-icon nav-icon-un-order"></i>
                                     <h4 class="nav-btn-t nav-btn-un-t">订单</h4>
                                 </div>
                             </a>
                         </li>
                         <li>
                             <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
-                                <div class="nav-btn-bg d-inb nav-btn-un-employee">
+                                <div class="nav-btn-bg nav-btn-un d-inb">
+                                    <i class="icon nav-btn-icon nav-icon-un-employee"></i>
                                     <h4 class="nav-btn-t nav-btn-un-t">员工</h4>
                                 </div>
                             </a>
                         </li>
                         <li>
                             <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
-                                <div class="nav-btn-bg d-inb nav-btn-un-msg">
+                                <div class="nav-btn-bg nav-btn-un d-inb">
+                                    <i class="icon nav-btn-icon nav-icon-un-msg"></i>
                                     <h4 class="nav-btn-t nav-btn-un-t">消息</h4>
                                 </div>
                             </a>
                         </li>
-
-                        <!--<li><a href="Javascript: void(0)" title="正在开发,敬请期待" target="_self"><i class="nav-btn nav-btn-order"></i></a>
-                        </li>
-                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="_self"><i class="nav-btn nav-btn-employee"></i></a>
-                        </li>
-                        <li><a href="Javascript: void(0)" title="正在开发,敬请期待"  target="_self"><i class="nav-btn nav-btn-msg"></i></a></li>-->
                     </ul>
                 </div>
             </div>

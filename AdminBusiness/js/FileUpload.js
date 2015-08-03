@@ -65,7 +65,7 @@ $(".input-file-btn").change(function (ev) {
             if (parent.hasClass("headFile")) {
                 return;
             } else {
-                parentClone.addClass("m-l10");
+                //parentClone.addClass("m-l10");
                 parentClone.insertAfter(parent);
             }
         },
