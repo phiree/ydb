@@ -37,7 +37,7 @@ $(function () {
                 case 'staffamount': display(that, $("#selStaffAmount").val()); break;
                 case 'chargename': display(that, $("#tbxContact").val()); break;
                 case 'idtype': display(that, $("#selCardType option:selected").text()); break;
-                case 'idno': display(that, $("#tbxCardIdNo").val()); break;
+                case 'idno': CardIdNodisplay(that, $("#tbxCardIdNo").val()); break;
 
             }
         });
@@ -68,8 +68,14 @@ $(function () {
 
 
     }
+    //点击证件号的调用
+    function CardIdNodisplay(li, value) {
+        if (myshopCardCheck('#tbxCardIdNo', '#erroTxtCardIdNo')) {
+            $(li).find(".display_holder").text(value);
+        }
 
 
+    }
     //初始化
     //帮助类,open_classname:激活右侧panel的<a> 的class值, save_fun:右侧panel确定按钮click事件应该做的事情.
     function open_click(open_classname, display_fun) {
