@@ -291,8 +291,9 @@
                         type="text" value="请输入您的店铺名称" placeholder="可输入30个字" onfocus="myFoucuss('#tbxName')" onBlur="myshopInputEmpty('#tbxName','#errTxtName','店铺名称不能为空')" maxlength=30/>
                 </div>
                 <div class="rp description">
+                   <span id="erroTxtIntroduced" class="erroTxt"></span>
                     <textarea class="myshop-input-textarea" clientidmode="Static" id="tbxIntroduced"
-                        runat="server" name="shopIntroduced" placeholder="可输入60个字"  maxlength=60></textarea>
+                        runat="server" name="shopIntroduced" placeholder="可输入60个字" onfocus="myFoucuss('#tbxIntroduced')" onBlur="myshopInputEmpty('#tbxIntroduced','#erroTxtIntroduced','店铺介绍不能为空')" maxlength=60></textarea>
                 </div>
                 <div class="rp phone">
                     <span id="vregPhonetxt" class="erroTxt"></span>
@@ -309,6 +310,7 @@
                     <input type="text" runat="server" clientidmode="Static" id="tbxBusinessYears" readonly="true" />
                 </div>
                 <div class="rp staffamount">
+
                     <select id="selStaffAmount" clientidmode="Static" runat="server">
                         <option value="10">10</option>
                         <option value="20">20</option>
