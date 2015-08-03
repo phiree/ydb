@@ -291,7 +291,7 @@
                         type="text" value="请输入您的店铺名称" placeholder="可输入30个字" onfocus="myFoucuss('#tbxName')" onBlur="myshopInputEmpty('#tbxName','#errTxtName','店铺名称不能为空')" maxlength=30/>
                 </div>
                 <div class="rp description">
-                    <textarea class="myshop-input-textarea" clientidmode="Static" id="tbxIntroduced"
+                    <textarea class="input-textarea" clientidmode="Static" id="tbxIntroduced"
                         runat="server" name="shopIntroduced" placeholder="可输入60个字"  maxlength=60></textarea>
                 </div>
                 <div class="rp phone">

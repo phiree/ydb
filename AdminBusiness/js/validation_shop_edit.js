@@ -30,7 +30,7 @@ service_validate_messages[name_prefix + "tbxIntroduced"] =
 //minprice
 service_validate_rules[name_prefix + "tbxContactPhone"] =
 {
-    phone: true,
+    phone: true
      
 };
  
@@ -56,7 +56,7 @@ service_validate_rules[name_prefix + "tbxBusinessYears"] =
 service_validate_messages[name_prefix + "tbxBusinessYears"] =
 {
    
-    range: "请输入1-1000之间的数值"
+    range: "请选择"
 };
 //预约时间
 service_validate_rules[name_prefix + "tbxContact"] =

@@ -52,17 +52,17 @@
     height: 108px;
     background: #f6fafe;
     position: relative;
-    border-bottom: #dbe6f2 1px solid;
+    /*border-bottom: #dbe6f2 1px solid;*/
 }
 
 .service-title { padding: 0 20px; height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; }
 .service-title span { color:#58789a; font-size:17px; font-weight:bold; vertical-align: middle; }
 
-.serviceMain { color: #58789a; }
+/*.serviceMain { color: #58789a; }*/
 
 .serviceLeft {
     float: left;
-    width: 162px;
+    width: 100%;
     height: 100%;
 }
 
@@ -70,43 +70,53 @@
 
 /*服务选择样式*/
 .serviceChoice {
-    padding: 20px 0 0 20px;
+    /*padding: 20px 0 0 20px;*/
 }
 
 .serviceChoice ul li a{
+    color: #fff;
     display: block;
     padding: 5px;
     text-align: center;
-    border-left: 1px solid #f1fbff;
-    border-top: 1px solid #f1fbff;
-    border-bottom: 1px solid #c3cfdb;
-    border-radius: 5px 0 0 5px;
-    background: #dfebf6;
+    text-overflow: clip;
+    word-break: break-all;
+    /*border-left: 1px solid #f1fbff;*/
+    /*border-top: 1px solid #f1fbff;*/
+    /*border-bottom: 1px solid #c3cfdb;*/
+    /*border-radius: 5px 0 0 5px;*/
+    background: #549DC8;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid #fff;
+    border-left: 1px solid transparent;
 }
 
 .serviceChoice ul li a:hover{
     /*padding: 5px;*/
-    border-left: 1px solid #96b2ca;
-    border-top: 1px solid #58789a;
-    border-bottom: 1px solid #c4cdd4;
-    border-radius: 5px 0 0 5px;
+    color: #57789B;
+    /*border-left: 1px solid #96b2ca;*/
+    /*border-top: 1px solid #58789a;*/
+    /*border-bottom: 1px solid #c4cdd4;*/
+    /*border-radius: 5px 0 0 5px;*/
     background: #fff;
+    border-top: 1px solid #549DC8;
+    border-bottom: 1px solid #549DC8;
+    border-left: 1px solid #549DC8;
 }
 
 /*服务细节条目包围*/
 .serviceRightWrap {
-    width: 758px;
-    border-left: 1px solid #dfe3e6;
+    width: 100%;
+    /*border-left: 1px solid #dfe3e6;*/
     float: left;
     background: #fff;
 }
 
-.serviceRight {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 20px;
-    background: #fff;
-}
+/*.serviceRight {*/
+    /*box-sizing: border-box;*/
+    /*width: 100%;*/
+    /*padding: 20px;*/
+    /*background: #fff;*/
+/*}*/
 
 /*服务选项弹窗样式*/
 
@@ -152,8 +162,8 @@
     border: 0;
     color: #fff;
     padding: 10px 20px;
-    border-radius: 5px;
-    background: #31b6fb;
+    border-radius: 2px;
+    background: #549DC8;
 }
 
 .serviceTabsItem .item {
@@ -186,8 +196,8 @@
 .business-radioCf {
     padding: 5px;
     color: #fff;
-    background: #63c5ce;
-    border-radius: 5px;
+    background: #8CC8E4;
+    border-radius: 2px;
 }
 
 .level0{display: block; padding:5px 10px; background: #f6fafe; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}
@@ -209,72 +219,83 @@
     background: url("../image/service/icon_10.png") no-repeat center;
 }
 
-.service-icon-serType { background: url("../image/service/shop_guanli_06.png");  }
-.service-icon-serIntro { background: url("../image/service/shop_guanli_07.png");  }
-.service-icon-serArea { background: url("../image/service/shop_guanli_08.png");  }
-.service-icon-serLocal { background: url("../image/service/shop_guanli_05.png");  }
-.service-icon-LIC { background: url("../image/service/shop_guanli_12_1.png");  }
-.service-icon-serTimeSet { background: url("../image/service/shop_guanli_11.png");  }
-.service-icon-dateSet { background: url("../image/service/shop_guanli_09.png");  }
-.service-icon-timeSet { background: url("../image/service/shop_guanli_10.png");  }
-
-.serviceDetailsLeft {
-    float: left;
-    width: 290px;
-
+.service-detail-title {
+    text-align: right;
+    padding-right: 20px;
+    height: 50px;
+    line-height: 50px;
 }
 
-.serviceDetailsRight {
-    float: right;
-    padding-left: 20px;
-
+.service-checkBox {
+    height: 50px;
+    line-height: 50px;
 }
 
+/*.service-icon-serType { background: url("../image/service/shop_guanli_06.png");  }*/
+/*.service-icon-serIntro { background: url("../image/service/shop_guanli_07.png");  }*/
+/*.service-icon-serArea { background: url("../image/service/shop_guanli_08.png");  }*/
+/*.service-icon-serLocal { background: url("../image/service/shop_guanli_05.png");  }*/
+/*.service-icon-LIC { background: url("../image/service/shop_guanli_12_1.png");  }*/
+/*.service-icon-serTimeSet { background: url("../image/service/shop_guanli_11.png");  }*/
+/*.service-icon-dateSet { background: url("../image/service/shop_guanli_09.png");  }*/
+/*.service-icon-timeSet { background: url("../image/service/shop_guanli_10.png");  }*/
+
+/*.serviceDetailsLeft {*/
+    /*float: left;*/
+    /*width: 290px;*/
+
+/*}*/
+
+/*.serviceDetailsRight {*/
+    /*float: right;*/
+    /*padding-left: 20px;*/
+/*}*/
 
 
-.service-md {
-    margin-bottom: 20px;
-}
 
-.service-md-title {
-    margin-bottom: 10px;
-    position: relative;
-    width: 287px;
-    height: 35px;
-    line-height: 35px;
-    padding-left: 10px;
-    background: #f6f9fe;
-    border-left: 5px solid #60c7ce;
-}
+/*.service-md {*/
+    /*margin-bottom: 20px;*/
+/*}*/
 
-.servie-icon-mdItem { height: 35px; width: 38px; background: url("../image/service/shop_icon_03.png") no-repeat center; position: absolute; right: 0; top: 0; }
-.servie-icon-mdRound { height: 35px; width: 38px; background: url("../image/service/shop_icon_02.png") no-repeat center; position: absolute; right: 0; top: 0; }
-.servie-icon-mdStand { height: 35px; width: 38px; background: url("../image/service/shop_icon_01.png") no-repeat center; position: absolute; right: 0; top: 0; }
+/*.service-md-title {*/
+    /*margin-bottom: 10px;*/
+    /*position: relative;*/
+    /*width: 287px;*/
+    /*height: 35px;*/
+    /*line-height: 35px;*/
+    /*padding-left: 10px;*/
+    /*background: #f6f9fe;*/
+    /*border-left: 5px solid #60c7ce;*/
+/*}*/
 
-.service-md-main {
-    padding-left: 15px;
-}
+/*.servie-icon-mdItem { height: 35px; width: 38px; background: url("../image/service/shop_icon_03.png") no-repeat center; position: absolute; right: 0; top: 0; }*/
+/*.servie-icon-mdRound { height: 35px; width: 38px; background: url("../image/service/shop_icon_02.png") no-repeat center; position: absolute; right: 0; top: 0; }*/
+/*.servie-icon-mdStand { height: 35px; width: 38px; background: url("../image/service/shop_icon_01.png") no-repeat center; position: absolute; right: 0; top: 0; }*/
 
-.service-md-mleft {
-    float: left;
-    width: 329px;
-    margin-right: 50px;
-}
+/*.service-md-main {*/
+    /*padding-left: 15px;*/
+/*}*/
 
-.service-md-mright {
-    float: left;
+/*.service-md-mleft {*/
+    /*float: left;*/
+    /*width: 329px;*/
+    /*margin-right: 50px;*/
+/*}*/
 
-}
+/*.service-md-mright {*/
+    /*float: left;*/
 
-.service-md-box {
-    padding-bottom: 20px;
-    border-bottom: 1px solid #d7e3f1;
-    margin-bottom: 20px;
-}
+/*}*/
 
-.service-m {
-    margin-bottom: 10px;
-}
+/*.service-md-box {*/
+    /*padding-bottom: 20px;*/
+    /*border-bottom: 1px solid #d7e3f1;*/
+    /*margin-bottom: 20px;*/
+/*}*/
+
+/*.service-m {*/
+    /*margin-bottom: 10px;*/
+/*}*/
 
 .service-input-radio tr{
     float: left;
@@ -287,45 +308,45 @@
     margin-right: 10px;
 }
 
-.service-input-area {
-    width: 250px;
-    height: 100px;
-    padding: 5px;
-    border: #dbe6f2 1px solid;
-    border-radius: 3px;
-    background: #f6fafe;
-    color: #58789a;
-    font-size: 13px;
+/*.service-input-area {*/
+    /*width: 250px;*/
+    /*height: 100px;*/
+    /*padding: 5px;*/
+    /*border: #dbe6f2 1px solid;*/
+    /*border-radius: 3px;*/
+    /*background: #f6fafe;*/
+    /*color: #58789a;*/
+    /*font-size: 13px;*/
 
-}
+/*}*/
 
-.service-input-mid {
-    width: 122px;
-    height: 20px;
-    padding: 5px;
-    line-height: 20px;
-    border: #dbe6f2 1px solid;
-    border-radius: 3px;
-    background: #f6fafe;
-    color: #58789a;
-    font-size: 13px;
-    vertical-align: middle;
-    box-sizing: content-box\9;
-}
+/*.service-input-mid {*/
+    /*width: 122px;*/
+    /*height: 20px;*/
+    /*padding: 5px;*/
+    /*line-height: 20px;*/
+    /*border: #dbe6f2 1px solid;*/
+    /*border-radius: 3px;*/
+    /*background: #f6fafe;*/
+    /*color: #58789a;*/
+    /*font-size: 13px;*/
+    /*vertical-align: middle;*/
+    /*box-sizing: content-box\9;*/
+/*}*/
 
-.service-input-sm {
-    width: 52px;
-    height: 20px;
-    padding: 5px;
-    line-height: 20px;
-    border: #dbe6f2 1px solid;
-    border-radius: 3px;
-    background: #f6fafe;
-    color: #58789a;
-    font-size: 13px;
-    vertical-align: middle;
-    box-sizing: content-box\9;
-}
+/*.service-input-sm {*/
+    /*width: 52px;*/
+    /*height: 20px;*/
+    /*padding: 5px;*/
+    /*line-height: 20px;*/
+    /*border: #dbe6f2 1px solid;*/
+    /*border-radius: 3px;*/
+    /*background: #f6fafe;*/
+    /*color: #58789a;*/
+    /*font-size: 13px;*/
+    /*vertical-align: middle;*/
+    /*box-sizing: content-box\9;*/
+/*}*/
 
 .serviceIntroduced {
     width: 285px;
@@ -356,10 +377,12 @@
 /*}*/
 
 .business-text {
+    display: inline-block;
+    min-width: 100px;
     padding: 10px;
-    background: #63c5ce;
+    background: #549DC8;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 2px;
     height: 17px;
 }
 
@@ -376,6 +399,8 @@
     position: relative;
     width: 700px;
     height: 500px;
+    border: 5px solid #58789a;
+    border-radius: 5px;
 }
 
 .mapMain {
@@ -406,12 +431,11 @@
 }
 
 .ser-sm-input {
-
     border: 1px solid #dbe6f2;
     color: #fff;
     border-radius: 5px;
     padding: 5px;
-    background: #31b6fb;
+    background: #549DC8;
 }
 
 .service-icon-hr {
@@ -422,7 +446,7 @@
 }
 
 .service-saveSubmit {
-    padding: 0 20px 20px 20px;
+    padding: 20px;
     text-align: center;
 }
 

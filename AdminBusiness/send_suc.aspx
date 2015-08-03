@@ -36,7 +36,7 @@
                         </div>
                         <div class="conMain main-done clearfix">
                             <div class="regComp">
-                                <i class="icon icon-regComp"></i><span><br />
+                                <i class="icon icon-regComp"></i><span>
                                     验证邮件已经成功,请进入您的邮箱根据提示完成验证</span>
                             </div>
                             <div class="buttonBox t-c">
