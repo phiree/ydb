@@ -9,112 +9,164 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="mainContent clearfix">
         <div class="leftContent" id="leftCont">
-            <div>
+            <div class="side-bar">
                 <ul>
-                    <li>
+                    <li class="side-btn-br">
                         <a href="/account/Default.aspx" target="_self">
-                            <div class="side-btn-bg d-inb side-btn-myshop">
+                            <div class="side-btn-bg d-inb">
+                                <i class="icon side-btn-icon side-icon-myshop"></i>
                                 <h4 class="side-btn-t ">基本信息</h4>
                             </div>
                         </a>
                     </li>
                     <li>
                         <a href="/account/Security.aspx" target="_self">
-                            <div class="side-btn-bg d-inb side-btn-secret">
+                            <div class="side-btn-bg d-inb">
+                                <i class="icon side-btn-icon side-icon-secret"></i>
                                 <h4 class="side-btn-t ">帐号安全</h4>
                             </div>
                         </a>
                     </li>
                 </ul>
+                <i class="icon side-arrow"></i>
             </div>
         </div>
         <div class="rightContent" id="rightCont">
-            <div class="myshopInfoArea clearfix">
-                <div class="myshopInfoTilte">
-                    <h1>
-                        商家基本信息</h1>
-                </div>
-                <div class="headInfoArea clearfix">
-                    <div class="headImage fl">
-                        <img class="headImageVc" src="../image/myshop/touxiangkuang_11.png" alt="头像" />
+            <div class="cont-wrap secret-wrap">
+                <div class="cont-container">
+                    <div class="cont-row">
+                        <div class="cont-title">
+                            <h1 class="cont-head-one">帐号相关信息</h1>
+                        </div>
                     </div>
-                    <div class="headInfo fl">
-                        <div class="headInfoVc">
-                            <h3>
-                                <%=CurrentBusiness.Name %></h3>
-                            <p class="InfoCompletetxt">
-                                资料完成程度</p>
-                            <div class="InfoPercentage">
-                                <div class="InfoComplete">
-                                    <span class="progress" style="width: <%=CurrentBusiness.CompetePercent%>%"></span>
+                    <div class="cont-row secret-row">
+                        <div class="cont-col col-12 standard-cont">
+                                <p class="cont-sub-title">基础信息</p>
+                                <div class="cont-row">
+                                    <div class="cont-col col-2">
+                                        <p class="secret-d-t">登录账号:</p>
+                                    </div>
+                                    <div class="cont-col col-3">
+                                        <span><%=CurrentUser.UserName%></span>
+                                    </div>
                                 </div>
-                                <span class="completePercentage">
-                                    <%=CurrentBusiness.CompetePercent%>%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="secret-title">
-                <span>账号信息相关</span>
-            </div>
-            <div class="secret-cont">
-                <div class="secret-m standard-info">
-                    <div class="secret-m-title t-1">
-                        基础信息</div>
-                    <div class="secret-detail">
-                        <div>
-                            <span class="secret-d-t">登录账号&nbsp;:</span><span><%=CurrentUser.UserName%></span></div>
-                        <div>
-                            <span class="secret-d-t">手机号码&nbsp;:</span><p class="secret-d-a d-inb">
-                                <%=CurrentUser.Phone%></p>
-                            <a id="lb_changePhone" class="m-l20 blue-a"
-                                href="javascript:void(0);">修改</a></div>
-                        <div>
-                            <span class="secret-d-t">绑定邮箱&nbsp;:</span><p class="secret-d-a d-inb">
-                                <span><%=CurrentUser.Email%></span>
+                                <div class="cont-row">
+                                    <div class="cont-col col-2">
+                                        <p class="secret-d-t">手机号码:</p>
+                                    </div>
+                                    <div class="cont-col col-2"><span><%=CurrentUser.Phone%></span></div>
+                                    <div class="cont-col col-2"><a id="lb_changePhone" class="m-l20 blue-a" href="javascript:void(0);">修改</a></div>
+                                </div>
+                                <div class="cont-row">
+                                    <div class="cont-col col-2">
+                                        <p class="secret-d-t">绑定邮箱:</p>
+                                    </div>
+                                    <div class="cont-col col-2">
+                                        <span><%=CurrentUser.Email%></span>
+                                    </div>
+                                    <div class="cont-col col-2">
+                                        <a id="lb_changeEmail" class="m-l20 blue-a" href="javascript:void(0);">修改</a>
 
-                                     </p>
+                                    </div>
+                                    <div class="cont-col col-6">
+                                    <p class="secret-d-a d-inb"><% if (CurrentUser.IsRegisterValidated)
+                                       {%>已验证<%}
+                                       else
+                                       {%>
+                                       <span>未验证</span><asp:Button runat="server" CssClass="reVali"  Text='重新发送验证链接'  ID='btnResendEmailVerify' OnClick="btnResendEmailVerify_Click"/>
+                                      <%}%></p>
+                                    </div>
+                                </div>
+                                <div class="cont-row">
+                                    <div class="cont-col col-2">
+                                        <p class="secret-d-t">上次登陆:</p>
+                                    </div>
+                                    <div class="cont-col col-10"><span><%=CurrentUser.LastLoginTime.ToString("yyyy年MM月dd日 HH:mm:ss")%></span></div>
+                                </div>
 
-                            <a id="lb_changeEmail" class="m-l20 blue-a" href="javascript:void(0);">修改</a>
-                            <p class="secret-d-a d-inb"><% if (CurrentUser.IsRegisterValidated)
-                              {%>已验证<%}
-                              else
-                              {%>
-                              <span>未验证</span><asp:Button runat="server"  Text='重新发送验证链接'  ID='btnResendEmailVerify' OnClick="btnResendEmailVerify_Click"/>
-                             <%}%></p>
-                        </div>
-                        <div>
-                            <span class="secret-d-t">上次登陆&nbsp;:</span><span><%=CurrentUser.LastLoginTime.ToString("yyyy年MM月dd日 HH:mm:ss")%></span>
                         </div>
                     </div>
-                </div>
-                <div class="secret-m secert-info">
-                    <div class="secret-m-title t-2">
-                        账户安全信息</div>
-                    <div class="secret-detail">
-                        <div class="clearfix">
-                            <span class="secret-d-t">登陆密码&nbsp;:</span><span class="secret-d-p d-inb">安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</span>
-                            <a id="passChange" class="m-l20 blue-a" href="javascript:void(0);">修改</a>
-                            <div class="secret-d-tip">
-                                <i class="icon secret-icon-1"></i>
-                                <div>
-                                    强</div>
+                    <div class="cont-row secret-row">
+                        <div class="cont-col col-12">
+                            <p class="cont-sub-title">安全信息</p>
+                            <div class="pass-row m-b20">
+                                <div class="cont-row">
+                                    <div class="cont-col col-2"><span class="secret-d-t">登陆密码&nbsp;:</span></div>
+                                    <div class="cont-col col-6"><p class="secret-d-p d-inb">设置安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</p></div>
+                                    <div class="cont-col col-2"><a id="passChange" class="secret-change-a blue-a" href="javascript:void(0);">修改</a></div>
+                                    <div class="cont-col col-2">
+                                        <div class="secret-d-tip">
+                                            <i class="icon secret-icon-1"></i>
+                                            <div>强</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clearfix">
-                            <span class="secret-d-t">身份认证&nbsp;:</span><span class="secret-d-p d-inb">重新上传负责人证件照</span>
-                            <a id="lb_ChangeIdCards" class="m-l20 blue-a"
-                                href="javascript:void(0);">修改</a>
-                            <div class="secret-d-tip">
-                                <i class="icon secret-icon-2"></i>
-                                <div>
-                                    已认证</div>
+                            <div class="id-row m-b20">
+                                <div class="cont-row">
+                                    <div class="cont-col col-2"><span class="secret-d-t">身份认证&nbsp;:</span></div>
+                                    <div class="cont-col col-6"><span class="secret-d-p d-inb">重新上传负责人证件照</span></div>
+                                    <div class="cont-col col-2"><a id="lb_ChangeIdCards" class="secret-change-a blue-a" href="javascript:void(0);">修改</a></div>
+                                    <div class="cont-col col-2">
+                                        <div class="secret-d-tip">
+                                            <i class="icon secret-icon-2"></i>
+                                            <div>已认证</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <%--<div class="myshopInfoArea clearfix">--%>
+                <%--<div class="myshopInfoTilte">--%>
+                    <%--<h1>--%>
+                        <%--商家基本信息</h1>--%>
+                <%--</div>--%>
+                <%--<div class="headInfoArea clearfix">--%>
+                    <%--<div class="headImage fl">--%>
+                        <%--<img class="headImageVc" src="../image/myshop/touxiangkuang_11.png" alt="头像" />--%>
+                    <%--</div>--%>
+                    <%--<div class="headInfo fl">--%>
+                        <%--<div class="headInfoVc">--%>
+                            <%--<h3>--%>
+                                <%--<%=CurrentBusiness.Name %></h3>--%>
+                            <%--<p class="InfoCompletetxt">--%>
+                                <%--资料完成程度</p>--%>
+                            <%--<div class="InfoPercentage">--%>
+                                <%--<div class="InfoComplete">--%>
+                                    <%--<span class="progress" style="width: <%=CurrentBusiness.CompetePercent%>%"></span>--%>
+                                <%--</div>--%>
+                                <%--<span class="completePercentage">--%>
+                                    <%--<%=CurrentBusiness.CompetePercent%>%</span>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <!--<div class="secret-title">-->
+                <!--<span>账号信息相关</span>-->
+            <!--</div>-->
+            <!--<div class="secret-cont">-->
+
+                <!--<div class="secret-m secert-info">-->
+                    <!--<div class="secret-m-title t-2">-->
+                        <!--账户安全信息</div>-->
+                    <!--<div class="secret-detail">-->
+                        <!--<div class="clearfix">-->
+
+
+
+                        <!--</div>-->
+                        <!--<div class="clearfix">-->
+
+
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
         <div id="lightBox" class="dis-n">
             <div class="secret-change">
@@ -184,7 +236,7 @@
                 </div>
                 <div class="secret-change-m">
                     <div class="myshopRightCont HeadProfilePicture">
-                        <p class="myshop-item-title">
+                        <p class="cont-sub-title">
                             <i class="icon myshop-icon-ownerPic"></i>负责人证件照上传</p>
                         <div class="clearfix">
                             <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rptChargePersonIdCards_ItemCommand">

@@ -12,56 +12,82 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
         <div class="mainContent clearfix">
             <div class="leftContent" id="leftCont">
-                <div>
+                <div class="side-bar">
                     <ul>
-                         <li>
+                        <li class="side-btn-br">
                             <a href="/DZService/Default.aspx" target="_self">
-                                <div class="side-btn-bg d-inb side-btn-service">
+                                <div class="side-btn-bg d-inb">
+                                    <i class="icon side-btn-icon side-icon-service"></i>
                                     <h4 class="side-btn-t ">服务管理</h4>
                                 </div>
                             </a>
                         </li>
                         <li>
                             <a href="/DZService/Service_Edit.aspx" target="_self">
-                                <div class="side-btn-bg d-inb side-btn-serviceSet">
+                                <div class="side-btn-bg d-inb">
+                                    <i class="icon side-btn-icon side-icon-serviceSet"></i>
                                     <h4 class="side-btn-t ">服务添加</h4>
                                 </div>
                             </a>
                         </li>
                     </ul>
+                    <i class="icon side-arrow"></i>
                 </div>
             </div>
             <div class="rightContent" id="rightCont">
-                <div id="userInfoAreaid">
-                    <div class="serviceInfoArea">
-                        <div class="serviceInfoTilte">
-                            <span>服务等级</span>
-                        </div>
-                        <div class="headInfoArea">
-                            <div class="headImage">
-                                <img src="..\image\myshop\touxiangkuang_11.png" alt="头像" />
-                            </div>
-                            <div class="headInfo">
-                                <span class="ServiceShops"><%=CurrentBusiness.Name %></span> <span class="InfoCompletetxt">信誉度</span>
-                                <div class="Servicexing">
-                                    <i class="icon service-icon-star"></i><i class="icon service-icon-star"></i><i class="icon service-icon-star">
-                                    </i><i class="icon service-icon-star"></i><i class="icon service-icon-star"></i>
+                <div class="cont-wrap">
+                    <div class="cont-container">
+                        <div class="cont-row">
+                            <div class="cont-col col-2">
+                                <div class="headInfoArea">
+                                    <div class="headImage">
+                                        <img src="..\image\myshop\touxiangkuang_11.png" alt="头像" />
+                                    </div>
                                 </div>
                             </div>
-                            <!--<div class="headEditImg">-->
-                                <!--<span class="satisfaction">100%</span>-->
-                            <!--</div>-->
+                            <div class="cont-col col-10">
+                                <div class="headInfo">
+                                    <span class="ServiceShops"><%=CurrentBusiness.Name %></span> <span class="InfoCompletetxt">信誉度</span>
+                                    <div class="Servicexing">
+                                        <i class="icon service-icon-star"></i><i class="icon service-icon-star"></i><i class="icon service-icon-star">
+                                        </i><i class="icon service-icon-star"></i><i class="icon service-icon-star"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <%--<div id="userInfoAreaid">--%>
+                        <%--<div class="serviceInfoArea">--%>
+                            <%--<div class="serviceInfoTilte">--%>
+                                <%--<span>服务等级</span>--%>
+                            <%--</div>--%>
+                            <%--<div class="headInfoArea">--%>
+                                <%--<div class="headImage">--%>
+                                    <%--<img src="..\image\myshop\touxiangkuang_11.png" alt="头像" />--%>
+                                <%--</div>--%>
+                                <%--<div class="headInfo">--%>
+                                    <%--<span class="ServiceShops"><%=CurrentBusiness.Name %></span> <span class="InfoCompletetxt">信誉度</span>--%>
+                                    <%--<div class="Servicexing">--%>
+                                        <%--<i class="icon service-icon-star"></i><i class="icon service-icon-star"></i><i class="icon service-icon-star">--%>
+                                        <%--</i><i class="icon service-icon-star"></i><i class="icon service-icon-star"></i>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                                <%--<!--<div class="headEditImg">-->--%>
+                                    <%--<!--<span class="satisfaction">100%</span>-->--%>
+                                <%--<!--</div>-->--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                        <!--<div class="service-title">-->
+                            <!--<span>添加服务信息</span>-->
+                        <!--</div>-->
+                        <div class="serviceMain clearfix">
+                             <UC:ServiceEdit runat="server" />
+                            <!--<div class="bottomArea">-->
+                            <!--</div>-->
+                        </div>
                 </div>
-                <div class="service-title">
-                    <span>添加服务信息</span>
-                </div>
-                <div class="serviceMain clearfix">
-                     <UC:ServiceEdit runat="server" />
-                    <div class="bottomArea">
-                    </div>
-                </div>
+
             </div>
         </div>
 

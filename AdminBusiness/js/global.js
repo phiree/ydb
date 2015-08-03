@@ -112,32 +112,76 @@ $(document).ready(function ($) {
     //})();
 
     (function (){
-        var $navBtn = $(".nav-btn-bg");
-        var $sideBtn = $(".side-btn-bg");
+        var $navBtn = $(".nav-btn-bg:not(.nav-btn-un)");
         var pageHref = window.location.href;
         var hrefFiter = /\/\w+/;
 
         $navBtn.each(function(){
             var btnHref = $(this).parent().attr("href");
-            var bgPosition = parseInt($(this).css("background-positionX"));
+            var btnIcon = $(this).find(".nav-btn-icon");
+            var btnTitle = $(this).find(".nav-btn-t");
+            var bgPosition = parseInt(btnIcon.css("background-position-X"));
             var realHref = btnHref.match(hrefFiter);
+            var currentPage = false;
 
             if ( pageHref.indexOf(realHref) >= 0 ) {
+                currentPage = true;
                 $(this).css({
-                    backgroundPositionX : bgPosition - 79
-            })
+                    borderBottomColor : "#30B5FA"
+                });
+                btnIcon.css({
+                    backgroundPositionX : bgPosition - 32
+                });
+                btnTitle.css({
+                    color : "#30B5FA"
+                })
             }
+
+            $(this).hover(function(){
+                $(this).css({
+                    borderBottomColor : "#30B5FA"
+                });
+                btnIcon.css({
+                    backgroundPositionX : bgPosition - 32
+                });
+                btnTitle.css({
+                    color : "#30B5FA"
+                })
+            },function(){
+                 if ( currentPage ) {
+                     return
+                 } else {
+                     $(this).css({
+                         borderBottomColor : "transparent"
+                     });
+                     btnIcon.css({
+                         backgroundPositionX : bgPosition
+                     });
+                     btnTitle.css({
+                         color : "#B6CCE3"
+                     })
+                 }
+                }
+            );
+
+
         })
+
+        var $sideArrow = $(".side-arrow")
+        var $sideBtn = $(".side-btn-bg");
 
         $sideBtn.each(function(){
             var btnHref = $(this).parent().attr("href");
             var bgPosition = parseInt($(this).css("background-positionX"));
             if ( pageHref.indexOf(btnHref) >= 0 ) {
-                $(this).css({
-                    backgroundPositionX : bgPosition - 79
+                var toTop = $(this).position().top
+                $sideArrow.css({
+                    top :　toTop,
+                    display : "inline-block"
                 })
             }
         })
+
     })()
 
 });
