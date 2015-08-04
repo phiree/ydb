@@ -10,6 +10,7 @@
 @using (Html.BeginForm("Edit", "Business", new { id = @Model.Id }, FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, id = "fmEdit" }))
 {
     <div>
+     
     <div class="mainContent clearfix">
         <div class="leftContent" id="leftCont">
             <div class="side-bar">
@@ -298,6 +299,8 @@
             </div>
         </div>
     </div>
+    
+   
 }<!--/form-->
 @section scripts{
        <script type="text/javascript" src="http://192.168.1.140:8464/static/Scripts/jquery.validate.js"></script>
