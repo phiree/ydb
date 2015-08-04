@@ -24,7 +24,7 @@ public partial class login : System.Web.UI.Page
                 Response.Redirect("~/m/account/",true);
             }
             else {
-                Response.Redirect("~/account/",true);
+                Response.Redirect("~/business/",true);
             }
         }
         else {

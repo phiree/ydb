@@ -17,6 +17,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Description);
             Map(x => x.Email);
             Map(x => x.Phone);
+            References<DZMembership>(x => x.Owner);
         }
     }
     public class BusinessMap : SubclassMap<Business>
