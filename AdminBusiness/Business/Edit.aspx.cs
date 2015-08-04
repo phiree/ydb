@@ -9,7 +9,7 @@ using Dianzhu.BLL;
 using System.Web.UI.HtmlControls;
 using Dianzhu.Model.Enums;
 using System.IO;
-public partial class Account_Edit : BasePage
+public partial class Business_Edit : BasePage
 {
     public Business b = new Business();
     BLLBusinessImage bllBi = new BLLBusinessImage();

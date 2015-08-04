@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m/c.master" AutoEventWireup="true"
-    CodeFile="~/Account/default.aspx.cs" Inherits="Account_Edit" %>
+    CodeFile="~/Business/Edit.aspx.cs" Inherits="Business_Edit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link rel="stylesheet" href="/m/css/myshop.css" />
@@ -296,8 +296,7 @@
                     <textarea class="myshop-input-textarea" clientidmode="Static" id="tbxIntroduced"
                         runat="server" name="shopIntroduced" placeholder="可输入60个字" onfocus="myFoucuss('#tbxIntroduced')" onBlur="myshopInputEmpty('#tbxIntroduced','#erroTxtIntroduced','店铺介绍不能为空')" maxlength=60></textarea>
 
-                    <textarea class="input-textarea" clientidmode="Static" id="tbxIntroduced"
-                        runat="server" name="shopIntroduced" placeholder="可输入60个字"  maxlength=60></textarea>
+                  
                 </div>
                 <div class="rp phone">
                     <span id="vregPhonetxt" class="erroTxt"></span>

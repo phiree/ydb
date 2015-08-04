@@ -1,10 +1,10 @@
-﻿<!--服务列表-->
+﻿
 <%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
     CodeFile="Default.aspx.cs" Inherits="DZService_Default" %>
     <%@ Register  Src="~/DZService/ServiceEdit.ascx" TagName="ServiceEdit" TagPrefix="UC" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <link href="/css/service.css" rel="stylesheet" type="text/css" />
+    <!--服务列表--><link href="/css/service.css" rel="stylesheet" type="text/css" />
     <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
         rel="stylesheet" type="text/css" />
     <link href="/css/validation.css" rel="stylesheet" type="text/css">
