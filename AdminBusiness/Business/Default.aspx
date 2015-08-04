@@ -81,6 +81,16 @@
                             </div>
                          </div>
                      </div>
+                   <asp:Repeater runat="server" ID="rptBusinessList">
+                   <ItemTemplate>
+                   <div class=block>
+                   我的店铺:<%#Eval("Name")%>
+                   <a class="nav-btn-bg" href='Edit.aspx?businessId=<%#Eval("Id") %>'><%#Eval("Name") %>编辑我的店铺</a>
+                   <a class="nav-btn-bg" href='Detail.aspx?businessId=<%#Eval("Id") %>'><%#Eval("Name") %>参看我的店铺</a>
+                   </div>
+
+                   </ItemTemplate>
+                   </asp:Repeater>
                 </form>
             </div>
         </div>

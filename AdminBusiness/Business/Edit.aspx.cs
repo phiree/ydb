@@ -15,7 +15,7 @@ public partial class Business_Edit : BasePage
     BLLBusinessImage bllBi = new BLLBusinessImage();
     protected void Page_Load(object sender, EventArgs e)
     {
-        b = ((BusinessUser)CurrentUser).BelongTo;
+        b = CurrentBusiness;
         if (!IsPostBack)
         {
 

@@ -11,21 +11,36 @@ using Dianzhu.BLL;
 public class BasePage:System.Web.UI.Page
 {
     DZMembership currentUser;
+    BLLBusiness bllBusiness = new BLLBusiness();
     public DZMembership CurrentUser
     {
         get { return currentUser; }
          
     }
+    Business b = null;
     public Business CurrentBusiness
     {
-        get { return ((BusinessUser)CurrentUser).BelongTo; }
+        get {
+            if (b != null) { return b; }
+
+            string strBusinessId = Request["businessId"];
+            
+            if (!string.IsNullOrEmpty(strBusinessId))
+            {
+                Guid bid = new Guid(strBusinessId);
+                b = bllBusiness.GetOne(bid);
+
+            }
+            else {
+                throw new Exception("没有这个店铺");
+            }
+            return b;
+        }
     }
     
     DZMembershipProvider mp = new DZMembershipProvider();
 	public BasePage()
 	{
-
-         
 		//
 		//TODO: 在此处添加构造函数逻辑
 		//
@@ -47,12 +62,12 @@ public class BasePage:System.Web.UI.Page
                 Response.Redirect("/login.aspx?returnurl="+HttpUtility.UrlEncode(Request.RawUrl), true);
                 }
             }
-            currentUser = mp.GetBusinessUser((Guid)mu.ProviderUserKey);
-            if (currentUser == null)
-            {
-                Response.Redirect("/error.aspx?msg=您不是商户管理员,不能登录", true);
+            currentUser = mp.GetUserById((Guid)mu.ProviderUserKey);
+            //if (currentUser == null)
+            //{
+            //    Response.Redirect("/error.aspx?msg=您不是商户管理员,不能登录", true);
                
-            }
+            //}
         }
         base.OnLoad(e);
     }

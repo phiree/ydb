@@ -46,5 +46,9 @@ namespace Dianzhu.DAL
 
             return b;
         }
+        public IList<Business> GetBusinessListByOwner(Guid ownerId)
+        {
+           return  Session.QueryOver<Business>().Where(x => x.Owner.Id == ownerId).List();
+        }
     }
 }

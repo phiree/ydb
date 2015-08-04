@@ -34,11 +34,11 @@ public partial class register : System.Web.UI.Page
 
         // Membership.CreateUser(tbxUserName.Text, regPs.Text);
 
-        BusinessUser bu = bllBusiness.Register(address, description, latitude, longtitude, name, userName, password);
+        DZMembership newUser = bllBusiness.Register(address, description, latitude, longtitude, name, userName, password);
         //如果是电子邮箱,则发送验证邮件
         if(Regex.IsMatch(userName,@".+@.+\..+")){
             string verifyUrl = "http://" + Request.Url.Authority + "/verify.aspx";
-            verifyUrl += "?userId=" + bu.Id + "&verifyCode=" + bu.RegisterValidateCode;
+            verifyUrl += "?userId=" + newUser.Id + "&verifyCode=" + newUser.RegisterValidateCode;
             dz.SendValidationMail(userName, verifyUrl);
         }
 

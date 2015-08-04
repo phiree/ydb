@@ -29,6 +29,11 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string Description { get; set; }
 
+        /// <summary>
+        /// 商户所有者.
+        /// </summary>
+        public virtual DZMembership Owner { get; set; }
+
     }
 
     /// <summary>

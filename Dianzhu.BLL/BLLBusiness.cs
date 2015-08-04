@@ -18,11 +18,34 @@ namespace Dianzhu.BLL
         public DALBusiness DALBusiness = DALFactory.DALBusiness;
         public DALMembership dalMembership = DALFactory.DALMembership;
 
-        public BusinessUser Register(string address, string description
+        /// <summary>
+        /// 注册新用户. 同时注册商户并将该商户的所有者owner设置为新注册用户
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="description"></param>
+        /// <param name="latitude"></param>
+        /// <param name="longtitude"></param>
+        /// <param name="name"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public DZMembership Register(string address, string description
                             , double latitude, double longtitude, string name, string username, string password
             )
         {
-           
+            //注册用户
+            DZMembership member = new DZMembership { UserName=username,Password=FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5")};
+            if (Regex.IsMatch(username, @".+@.+\..+"))
+            {
+               member.Email = username;
+
+            }
+            else
+            {
+                member.Phone = username;
+            }
+            dalMembership.Save(member);
+            //注册商户
             Business b = new Business
             {
                 Address = address,
@@ -31,21 +54,14 @@ namespace Dianzhu.BLL
                 Longitude = longtitude,
                 Name = name,
                 DateApply = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue,
-                DateApproved = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue
+                DateApproved = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue,
+                Owner=member
             };
-            if (Regex.IsMatch(username, @".+@.+\..+"))
-            {
-                b.Email = username;
-
-            }
-            else
-            {
-                b.Phone = username;
-            }
+            
             DALBusiness.Save(b);
-            BusinessUser bu = dalMembership.CreateBusinessUser(username, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);
+           // BusinessUser bu = dalMembership.CreateBusinessUser(username, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);
 
-            return bu;
+            return member;
         }
 
         public IList<Business> GetAll()
@@ -100,7 +116,10 @@ namespace Dianzhu.BLL
         /// <summary>
         /// 解析传递过来的 string, 
         /// </summary>
-       
+        public IList<Business> GetBusinessListByOwner(Guid memberId)
+        {
+            return DALBusiness.GetBusinessListByOwner(memberId);
+        }
 
 
     }
