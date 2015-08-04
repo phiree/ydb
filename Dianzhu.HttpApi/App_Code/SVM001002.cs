@@ -128,7 +128,7 @@ public class RespDataSVM001002_Order
     {
         this.srvID = order.Service.Id.ToString().Replace("-",string.Empty);
         this.srvBiz = order.Service.Business.Name;
-        this.srvBizID = order.Service.Business.Id.ToString();
+        this.srvBizID = order.Service.Business.Id.ToString().Replace("-", string.Empty);
         this.srvType = order.Service.ServiceType.ToString();
         this.srvStartTime = order.Service.ServiceTimeBegin;
         this.srvEndTime = order.Service.ServiceTimeEnd;

@@ -107,12 +107,12 @@ public class RespDataSVM001003_Order
     public string srvExdes { get; set; }
     public RespDataSVM001003_Order Adap(ServiceOrder order)
     {
-        this.srvID = order.Service.Id.ToString();
+        this.srvID = order.Service.Id.ToString().Replace("-", string.Empty);
         this.srvBiz = order.Service.Business.Name;
-        this.srvBizID = order.Service.Business.Id.ToString();
+        this.srvBizID = order.Service.Business.Id.ToString().Replace("-", string.Empty);
         this.srvType = order.Service.ServiceType.ToString();
-        this.srvStartTime = order.Service.ServiceTimeBegin;
-        this.srvEndTime = order.Service.ServiceTimeEnd;
+        this.srvStartTime = order.OrderCreated.ToString("yyyyMMddhhmm");
+        this.srvEndTime = order.OrderFinished.ToString("yyyyMMddhhmm");
         ///这个是服务单价
         this.srvMoney = order.TotalPrice.ToString("#.#");
         this.srvStatus = order.OrderStatus.ToString();

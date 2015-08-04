@@ -28,6 +28,11 @@ namespace Dianzhu.Model
         /// 下单时间
         /// </summary>
         public virtual DateTime OrderCreated { get; set; }
+
+        /// <summary>
+        /// 订单结束的时间.
+        /// </summary>
+        public virtual DateTime OrderFinished { get; set; }
       /// <summary>
       /// 订单状态.
       /// </summary>
