@@ -902,7 +902,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\appSettings.config" />
-    <Content Include="config\connectionStrings.config" />
+    <Content Include="config\connectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="config\log4net.config" />
     <Content Include="config\mailSettings.config" />
     <Content Include="config\pages.config" />

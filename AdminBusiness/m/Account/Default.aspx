@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m/c.master" AutoEventWireup="true"
-    CodeFile="~/business/edit.aspx.cs" Inherits="Account_Edit" %>
+    CodeFile="~/business/edit.aspx.cs" Inherits="Business_Edit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link rel="stylesheet" href="/m/css/myshop.css" />
