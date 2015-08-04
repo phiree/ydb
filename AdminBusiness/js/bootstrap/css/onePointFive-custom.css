@@ -1,0 +1,92 @@
+
+/*boostrap custom*/
+.navbar {
+    margin-bottom: 0;
+}
+
+.navbar .navbar-brand {
+    height: 80px;
+    line-height: 50px;
+}
+
+.navbar .nav li a{
+
+}
+
+.navbar .navbar-nav > li > a {
+    height: 80px;
+    line-height: 50px;
+}
+
+.navbar .nav li .dorpdown-menu li a{
+
+}
+
+.narbar-top-links {
+    margin-right: 0px;
+}
+
+.sidebar {
+    display: block;
+    float: left;
+    width: 150px;
+    background: #f8f8f8;
+    border-right: 1px solid #e7e7e7;
+}
+.content {
+    display: block;
+    overflow: hidden;
+    width: auto;
+}
+
+/*metisMenu custom*/
+.sidebar-nav {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    /*background-image: -webkit-linear-gradient(left, color-stop(#333333 10px), color-stop(#222222 10px));*/
+    /*background-image: linear-gradient(to right, #333333 10px, #222222 10px);*/
+    /*background-repeat: repeat-x;*/
+    /*filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ff333333', endColorstr='#ff222222', GradientType=1);*/
+}
+.sidebar-nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.sidebar-nav a, .sidebar-nav a:hover, .sidebar-nav a:focus, .sidebar-nav a:active {
+    outline: none;
+}
+.sidebar-nav ul li, .sidebar-nav ul a {
+    display: block;
+}
+
+.sidebar-nav ul li.disabled, .sidebar-nav ul li.disabled a {
+    cursor: not-allowed;
+    color: #ccc;
+    background-color: transparent;
+}
+
+.sidebar-nav ul a {
+    padding: 10px 20px;
+    color: #347ab7 ;
+    border-top: 1px solid #e7e7e7;
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.05) inset;
+    text-shadow: 0px 1px 0px rgba(212, 212, 212, 0.5);
+}
+.sidebar-nav ul a:hover, .sidebar-nav ul a:focus, .sidebar-nav ul a:active {
+    /*color: #fff;*/
+    text-decoration: none;
+    background: #EEEEEE;
+}
+.sidebar-nav ul ul a {
+    padding: 10px 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.sidebar-nav ul ul a:hover, .sidebar-nav ul ul a:focus, .sidebar-nav ul ul a:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.sidebar-nav-item {
+    padding-left: 5px;
+}
+.sidebar-nav-item-icon {
+    padding-right: 5px;
+}
