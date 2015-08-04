@@ -102,7 +102,16 @@
             } else if (!myShopemailCheck('#tbxEmail', '#vregEmailtxt')) {
                 alert("邮箱地址为不能为空或者邮箱地址格式不对")
                 return false;
-            }else{
+            } else if (!myshopInputEmpty('#tbxName', '#errTxtName', '店铺名称不能为空')) {
+                alert("店铺名称不能为空")
+                return false;
+            } else if (!myshopInputEmpty('#tbxIntroduced', '#erroTxtIntroduced', '店铺介绍不能为空')) {
+                alert("店铺介绍不能为空")
+                return false;
+            } else if (!myshopInputEmpty('#tbxContact', '#erroTxtContact', '负责人姓名不能为空')) {
+                alert("负责人姓名不能为空")
+                return false;
+            } else {
                 return true;
             }
           

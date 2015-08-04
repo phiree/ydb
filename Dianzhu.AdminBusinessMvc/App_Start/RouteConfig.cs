@@ -29,14 +29,25 @@ namespace Dianzhu.AdminBusinessMvc
               url: "imagehandler/{businessId}/{imageType}",
               defaults: new { controller = "ImageHandler", action = "Upload", businessId = "businessId", imageType = "imageType" }
           );
+            //services_start
+            routes.MapRoute(
+             name: "serviceList",
+             url: "service/{businessId}/list",
+             defaults: new { controller = "DZService", action = "List", businessId = "businessId", imageType = "imageType" }
+         );
+            routes.MapRoute(
+             name: "serviceEdit",
+             url: "service/{serviceId}",
+             defaults: new { controller = "DZService", action = "Edit", serviceId = "serviceId" }
+         );
            
+            //services_end
 
             routes.MapRoute(
-               name: "Default",
-               url: "{controller}/{action}/{id}",
-               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-           );
-            
+              name: "Default",
+              url: "{controller}/{action}/{id}",
+              defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+          );
         }
     }
 }

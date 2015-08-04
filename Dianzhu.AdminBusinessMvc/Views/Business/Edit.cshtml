@@ -1,21 +1,22 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
-    CodeFile="Default.aspx.cs" Inherits="Account_Edit" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <link href="/css/myshop.css" rel="stylesheet" type="text/css" />
-    <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
-        rel="stylesheet" type="text/css" />
+﻿@model Dianzhu.Model.Business
+@{
+    ViewBag.Title = "登录";
+}
+ 
+@section scripts_head_ref{
     <link href="/css/validation.css" rel="stylesheet" type="text/css" />
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="pageDesc" runat="Server">
-</asp:Content>
-<asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <link href="/css/myshop.css" rel="stylesheet" type="text/css" />
+} 
+@using (Html.BeginForm("Edit", "Business", new { id = @Model.Id }, FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl, id = "fmEdit" }))
+{
+    <div>
+     
     <div class="mainContent clearfix">
         <div class="leftContent" id="leftCont">
             <div class="side-bar">
                 <ul>
                     <li class="side-btn-br">
-                        <a href="/account/Default.aspx" target="_self">
+                        <a href="/Business/" target="_self">
                             <div class="side-btn-bg d-inb">
                                 <i class="icon side-btn-icon side-icon-myshop"></i>
                                 <h4 class="side-btn-t ">基本信息</h4>
@@ -46,8 +47,8 @@
                         <div class="cont-col col-2">
                             <div class="headImage">
                                 <div class="input-file-box headFile">
-                                  <input type=file class="input-file-btn"  name="input-file-btn-avater" businessId="<%=CurrentBusiness.Id %>" imageType="businessavater" />
-                                    <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
+                                  <input type=file class="input-file-btn"  name="input-file-btn-avater" businessId="@Model.Id" imageType="businessavater" />
+                                    <i class="input-file-bg" style='background-image:url(/thumbnail/@Model.BusinessAvatar.ImageName/90/90)'></i>
                                     <i  class="input-file-mark"></i>
                                     <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
                                 </div>
@@ -70,7 +71,8 @@
                                 <p class="cont-sub-title"><span>店铺介绍</span><span class="title-tips shop-tips">（必填选项）</span></p>
                                 <div class="cont-row">
                                     <div class="cont-col col-6">
-                                        <textarea class="input-textarea" id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入60个字)</textarea>
+                                     @Html.TextAreaFor(x => x.Description)  
+                                     (可输入60个字)
                                     </div>
                                     <div class="cont-col col-6">
                                         <div class="text-anno myshop-intro-anno vmBox">
@@ -86,13 +88,15 @@
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col col-12">
                             <p class="cont-sub-title"><span>联系电话</span></p>
-                            <div><input type="text" class="input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/></div>
+                            <div>
+                            @Html.TextBoxFor(x => x.Phone, new { @class = "input-lg" })
+                             </div>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col col-12">
-                            <p class="cont-sub-title"><span>公司网站</span></p>
-                            <div><input type="text" class="input-lg" runat="server" id="tbxEmail" name="email" /></div>
+                            <p class="cont-sub-title"><span>公司邮箱</span></p>
+                            <div @Html.TextAreaFor(x => x.Email, new { @class = "input-lg" })</div>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -101,20 +105,21 @@
                             <div class="cont-row">
                                 <div class="cont-col col-6">
                                     <div class="clearfix">
-                                        <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
-                                            <ItemTemplate>
-                                                <div class="download-img-pre m-b10 m-r10 fl">
-                                                    <asp:Button Text=" " formnovalidate OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
-                                                        ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
-                                                    <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                        <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
-                                                            id="imgLicence" />
-                                                    </a>
-                                                </div>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
+                                      @foreach (var show in @Model.BusinessShows)
+                                     {
+                                         //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
+                                            <div class="download-img-pre m-r10 fl">
+                                                <input type="button" imageId=@show.Id  value=" X " formnovalidate
+                                                    class="download-img-delete" />
+                                                <a class="download-img-show" href='/media/original/@show.ImageName'>
+                                                    <img src='/thumbnail/@show.ImageName/90/90'
+                                                            class="imgCharge" />
+                                                </a>
+                                            </div>
+                                             
+                                     }
                                         <div class="input-file-box fl m-b10 m-r10">
-                                            <input type=file class="input-file-btn"  name="input-file-btn-show"  businessId="<%=CurrentBusiness.Id %>" imageType="businessshow" />
+                                            <input type=file class="input-file-btn"  name="input-file-btn-show"  businessId="@Model.Id" imageType="businessshow" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -146,7 +151,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p><input type="hidden" focusID="setAddress" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide" /></p>
+                                <p>@Html.HiddenFor(x => x.RawAddressFromMapAPI, new { @focusID = "setAddress" })</p>
                             </div>
                         </div>
                     </div>
@@ -155,14 +160,17 @@
                             <p class="cont-sub-title">从业时间</p>
                             <div class="d-inb select select-sm years-select">
                                 <ul></ul>
-                                <input type="hidden" class="input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
+                                
+                                
                             </div>
+                            <!--todo:需要修改js-->
+                            @Html.HiddenFor(x => x.WorkingYears)
                             <span class="myshop-span">年</span>
                         </div>
                         <div class="cont-col col-6">
                             <p class="cont-sub-title">员工人数</p>
                             <div>
-                                <input type="text" class="input-mid" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
+                                @Html.TextAreaFor(x => x.StaffAmount, new { @class = "input-mid", @value = 10 })
                                 <span class="myshop-span">人</span>
                             </div>
                         </div>
@@ -173,7 +181,7 @@
                         <div class="cont-col col-4">
                             <p class="cont-sub-title">负责人姓名</p>
                             <div>
-                                <input type="text" class="input-mid" runat="server" clientidmode="Static" id="tbxContact" />
+                                 @Html.TextAreaFor(x => x.Contact, new { @class = "input-mid" })
                             </div>
                         </div>
                         <div class="cont-col col-4">
@@ -184,14 +192,14 @@
                                         <li><a>身份证</a></li>
                                         <li><a>其它</a></li>
                                     </ul>
-                                    <input type="hidden" id="selCardType" value="0" runat="server" clientidmode="Static" />
+                                    <input type="hidden" name="ChargePersonIdCardType" id="ChargePersonIdCardType" value="0"   />
                                 </div>
                             </div>
                         </div>
                         <div class="cont-col col-4">
                             <p class="cont-sub-title">证件号码</p>
                             <div>
-                                <input type="text" class="input-mid" runat="server" id="tbxCardIdNo" name="tbxCardIdNo" clientidmode="Static" />
+                                <@Html.TextBoxFor(x => x.ChargePersonIdCardNo, new { @class = "input-mid" })
                             </div>
                         </div>
                     </div>
@@ -201,20 +209,21 @@
                             <div class="cont-row">
                                 <div class="cont-col col-6">
                                     <div class="clearfix">
-                                        <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rpt_show_ItemCommand">
-                                            <ItemTemplate>
-                                                <div class="download-img-pre m-b10 m-r10 fl">
-                                                    <asp:Button Text=" " ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
-                                                        ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
-                                                    <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                        <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
+                                        @foreach (var idcard in @Model.BusinessChargePersonIdCards)
+                                     {
+                                         //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
+                                            <div class="download-img-pre m-r10 fl">
+                                                <input type="button"   imageId="@idcard.Id" value=" X " formnovalidate
+                                                    class="download-img-delete" />
+                                                <a class="download-img-show" href='/media/original/@idcard.ImageName'>
+                                                    <img src='/thumbnail/@idcard.ImageName/90/90'
                                                             class="imgCharge" />
-                                                    </a>
-                                                </div>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
+                                                </a>
+                                            </div>
+                                             
+                                     }
                                         <div class="input-file-box m-b10 m-r10 m-r10 fl">
-                                            <input type=file class="input-file-btn" businessId="<%=CurrentBusiness.Id %>" imageType="businesschargeperson" />
+                                            <input type=file class="input-file-btn" businessId="@Model.Id" imageType="businesschargeperson" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -238,18 +247,19 @@
                             <div class="cont-row">
                                 <div class="cont-col col-6">
                                     <div class="clearfix">
-                                        <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
-                                            <ItemTemplate>
-                                                <div class="download-img-pre m-r10 fl">
-                                                 <asp:Button ID="img" OnClientClick="javascript:return confirm('确定删除?')"  Text=" "   formnovalidate CssClass="download-img-delete" runat="server" CommandName="delete"
-                                                          ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
-                                                      <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                        <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
+                                        @foreach (var license in @Model.BusinessLicenses)
+                                        {
+                                            //需要用ajax來刪除 如果直接通過submit,則需要嵌套form
+                                            <div class="download-img-pre m-r10 fl">
+                                                <input type="button"imageId="@license.Id")" value=" X " formnovalidate
+                                                    class="download-img-delete" />
+                                                <a class="download-img-show" href='/media/original/@license.ImageName'>
+                                                    <img src='/thumbnail/@license.ImageName/90/90'
                                                             class="imgCharge" />
-                                                    </a>
-                                                </div>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
+                                                </a>
+                                            </div>
+                                             
+                                        }
                                         <div class="input-file-box fl">
                                             <input type=file class="input-file-btn"   name="input-file-btn-license" businessId="<%=CurrentBusiness.Id %>" imageType="businesslicense" />
                                             <i class="input-file-bg"></i>
@@ -267,76 +277,6 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="myshopInfoArea clearfix">
-                    <div class="myshopInfoTilte">
-                        <h1>
-                            商家基本信息</h1>
-                    </div>
-                    <div class="headInfoArea clearfix">
-
-
-                        <div class="headInfo fl">
-                            <div class="headInfoVc">
-
-                                    资料完成程度</p>
-                                <div class="InfoPercentage">
-                                    <div class="InfoComplete">
-                                        <span  style='width:<%=b.CompetePercent %>%' class="progress"></span>
-                                    </div>
-                                    <span class="completePercentage"><%=b.CompetePercent %>%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ShopMainWrap">
-                    <div class="ShopDetailsTitle">
-                        <span>店铺资料编辑</span>
-                    </div>
-                    <div class="ShopDetailsMain">
-                        <div class="clearfix">
-                            <div class="ShopDetailsAreaLeft">
-
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="BusinessLicense">
-
-                                </div>
-                            </div>
-                            <div class="ShopDetailsAreaRight">
-                                <div class="myshopRightCont ShopFigure">
-
-                                </div>
-                                <div class="myshopRightCont">
-
-                                </div>
-
-                                <div class="myshopRightCont">
-
-                                </div>
-                                <div class="myshopRightCont">
-
-                                </div>
-                                <div class="myshopRightCont">
-
-                                </div>
-                                <div class="myshopRightCont HeadProfilePicture">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
                 <div id="addrlightBox" class="dis-n">
                     <div class="mapWrap">
                         <div id="addressMap" class="mapMain">
@@ -352,23 +292,26 @@
                     </div>
                 </div>
                 <div class="bottomArea">
-                    <input name="imageField" runat="server" onserverclick="btnSave_Click" type="image"
-                        id="imageField1" src="../image/myshop/shop_tx_107.png" />
-                    <input name="imageField" type="image" id="imageField2" src="../image/myshop/shop_tx_108.png" />
+                    <input type="submit" />@ViewBag.SaveMessageSuc
+                     
+                    <input name="imageField" type="image" id="imageField2" src="/image/myshop/shop_tx_108.png" />
                 </div>
             </div>
         </div>
     </div>
-</asp:Content>
-<asp:Content ContentPlaceHolderID="bottom" runat="server">
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
-    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
+    
+   
+}<!--/form-->
+@section scripts{
+       <script type="text/javascript" src="http://192.168.1.140:8464/static/Scripts/jquery.validate.js"></script>
+    <script src="http://192.168.1.140:8464/static/Scripts/additional-methods.js" type="text/javascript"></script>
     <script src="/js/jquery.form.min.js" type="text/javascript"></script>
+    
      <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript">
-         var name_prefix = 'ctl00$ContentPlaceHolder1$';
+        var name_prefix = '';
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -387,38 +330,39 @@
                 // param = size (en bytes) 
                 // element = element to validate (<input>)
                 // value = value of the element (file name)
+                return true;
                 return this.optional(element) || (element.files[0].size <= param)
             });
 
             $($("form")[0]).validate(
                 {
-                errorElement: "p",
-                errorPlacement: function(error, element) {
-                    error.appendTo( element.parent() );
-                  },
-                rules: service_validate_rules,
+                    errorElement: "p",
+                    errorPlacement: function (error, element) {
+                        error.appendTo(element.parent());
+                    },
+                    rules: service_validate_rules,
                     messages: service_validate_messages,
                     invalidHandler: invalidHandler
                 }
             );
 
-            });
+        });
     </script>
     <script src="/js/FileUpload.js" type="text/javascript"></script>
     <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
     <script>
         function loadBaiduMapScript() {
-          var script = document.createElement("script");
-          script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initialize";
-          document.body.appendChild(script);
+            var script = document.createElement("script");
+            script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initialize";
+            document.body.appendChild(script);
         }
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             loadBaiduMapScript();
         })
     </script>
     <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>-->
     <script type="text/javascript" src="/js/CityList.js"></script>
     <script type="text/javascript" src="/js/account.js"></script>
-</asp:Content>
+}

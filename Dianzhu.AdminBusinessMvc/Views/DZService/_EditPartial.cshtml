@@ -1,0 +1,298 @@
+﻿@model Dianzhu.Model.DZService
+@section scripts_head_ref{
+}
+<div class="mainContent clearfix">
+    <div class="serviceRight clearfix">
+        <form action="/dzservice/edit/@Model.Id" method=post>
+        <div class="cont-container">
+            <div class="cont-row">
+                <div class="cont-title">
+                    <h1 class="cont-head-one">
+                        服務信息編輯</h1>
+                </div>
+            </div>
+            <div class="cont-row">
+                <div class="cont-col col-6">
+                    <div class="cont-row">
+                        <div class="cont-col col-12">
+                            <p class="cont-sub-title">
+                                服务名称</p>
+                            <div class="clearfix">
+                                <div>
+                                    <div class="m-b20">
+                                        @Html.TextAreaFor(x => x.Name, new { @class = "input-mid" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-row">
+                        <div class="cont-col col-12">
+                            <p class="cont-sub-title">
+                                请选择您的服务类型</p>
+                            <div>
+                                <input id="setSerType" class="ser-btn-SerType" type="button" value="请选择服务信息" />
+                                @Html.HiddenFor(x => x.ServiceType.Id, new { @focuseid = "setSerType" })
+                                @Html.LabelFor(x => x.ServiceType.ToString(), new { @class = "business-radioCf dis-n m-l10" })
+                                <div id="serLightContainer" class="serviceTabs dis-n">
+                                    <div class="serChoiceInfo clearfix">
+                                        <div id="serChoiceContainer" class="serChoiceContainer fl">
+                                        </div>
+                                        <div class="serChoiceBtnContainer fr">
+                                            <div class="d-inb">
+                                                <div id="serChoiceConf" class="serChoiceBtn close dis-n">
+                                                    确认</div>
+                                            </div>
+                                            <div id="serChoiceCancel" class="serChoiceBtn close d-inb">
+                                                取消</div>
+                                        </div>
+                                    </div>
+                                    <div id="serList" class="serList clearfix">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cont-col col-6">
+                    <div class="cont-row">
+                        <div class="cont-col col-12">
+                            <p class="cont-sub-title">
+                                服务介绍</p>
+                            <div class="m-b20">
+                                @Html.TextAreaFor(x => x.Description, new { @class = "input-textarea" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-row">
+                        <div class="cont-col col-12">
+                            <p>
+                                @Html.CheckBoxFor(x => x.Enabled)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cont-container">
+            <p>
+            </p>
+            <div class="cont-row">
+                <div class="cont-col col-12">
+                    <p class="cont-sub-title">
+                        你的服务区域<span class="text-anno m-l20">服务中心点定位（为您的服务区域进行定位）</span></p>
+                    <div class="cont-row">
+                        <div class="cont-col col-4">
+                            <div class="fl clearfix">
+                                <div id="setBusiness" class="setLocationMap">
+                                    <div id="businessMapSub" class="mapSub">
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(x => x.BusinessAreaCode)
+                            </div>
+                        </div>
+                        <div class="cont-col col-8">
+                            <div class="">
+                                <p class="m-b20">
+                                    您选择的位置：</p>
+                                <p id="businessText" class="business-text m-b50">
+                                </p>
+                                <p class="text-anno theme-color-r">
+                                    点击选择商圈范围</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cont-container">
+            <p class="cont-sub-title">
+                服务详细信息</p>
+            <div class="cont-row m-b20">
+                <div class="cont-col col-3">
+                    <p class="service-detail-title">
+                        服务起步价:</p>
+                </div>
+                <div class="cont-col col-9">
+                    <div>
+                        @Html.TextBoxFor(x => x.MinPrice, new { @class = "input-sm" })&nbsp;&nbsp;元
+                    </div>
+                </div>
+            </div>
+            <div class="cont-row m-b20">
+                <div class="cont-col col-3">
+                    <p class="service-detail-title">
+                        服务单价:</p>
+                </div>
+                <div class="cont-col col-9">
+                    <div>
+                        @Html.TextBoxFor(x => x.UnitPrice, new { @class = "input-sm" })
+                        &nbsp;&nbsp;元&nbsp;/&nbsp;每&nbsp;&nbsp;（
+                        <select name="ChargeUnit" class="serviceDataRadio d-inb">
+                            <option selected value="0">小时</option>
+                            <option selected value="1">天</option>
+                            <option selected value="2">月</option>
+                        </select>
+                        ）
+                    </div>
+                </div>
+            </div>
+            <div class="cont-row m-b20">
+                <div class="cont-col col-3">
+                    <p class="service-detail-title">
+                        提前预约时间:</p>
+                </div>
+                <div class="cont-col col-9">
+                    <div>
+                        至少&nbsp;&nbsp;@Html.TextBoxFor(x => x.OrderDelay, new { @class = "input-sm", @value = 60 })&nbsp;&nbsp;分钟
+                    </div>
+                </div>
+            </div>
+            <div class="cont-row m-b20">
+                <div class="cont-col col-3">
+                    <p class="service-detail-title">
+                        服务时间:</p>
+                </div>
+                <div class="cont-col col-9">
+                    <div>
+                        @Html.TextBoxFor(x => x.ServiceTimeBegin, new { @class = "input-sm", @value = "8:30" })
+                        &nbsp;&nbsp;至&nbsp;&nbsp;
+                        @Html.TextBoxFor(x => x.ServiceTimeEnd, new { @class = "input-sm", @value = "18:30" })
+                    </div>
+                </div>
+            </div>
+            <div class="cont-row m-b20">
+                <div class="cont-col col-6">
+                    <div class="cont-row">
+                        <div class="cont-col col-6">
+                            <p class="service-detail-title">
+                                每日最大接单量:</p>
+                        </div>
+                        <div class="cont-col col-6">
+                            <div>
+                                @Html.TextBoxFor(x => x.MaxOrdersPerDay, new { @class = "input-sm", @value = 50 })
+                                &nbsp;&nbsp;单
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cont-col col-6">
+                    <div class="cont-row">
+                        <div class="cont-col col-6">
+                            <p class="service-detail-title">
+                                每小时最大接单量:</p>
+                        </div>
+                        <div class="cont-col col-6">
+                            <div>
+                                @Html.TextBoxFor(x => x.MaxOrdersPerHour, new { @class = "input-sm", @value = 20 })
+                                &nbsp;&nbsp;单
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cont-row m-b20">
+                <div class="cont-col col-6">
+                    <div class="cont-row">
+                        <div class="cont-col col-6">
+                            <p class="service-detail-title">
+                                是否上门:</p>
+                        </div>
+                        <div class="cont-col col-6">
+                            <div class="p-t10">
+                                @Html.RadioButtonFor(x => x.ServiceMode, new { @class = "service-input-radio", @value = "0", @text = "否" })
+                                @Html.RadioButtonFor(x => x.ServiceMode, new { @class = "service-input-radio", @value = "1", @text = "是" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cont-col col-6">
+                    <div class="cont-row">
+                        <div class="cont-col col-6">
+                            <p class="service-detail-title">
+                                服务对象:</p>
+                        </div>
+                        <div class="cont-col col-6">
+                            <div class="service-checkBox">
+                                @Html.CheckBoxFor(x => x.IsForBusiness, new { @class = "service-input-radio", @text = "可以對公" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cont-row m-b20">
+                <div class="cont-col col-6">
+                    <div class="cont-row">
+                        <div class="cont-col col-6">
+                            <p class="service-detail-title">
+                                服务保障:</p>
+                        </div>
+                        <div class="cont-col col-6">
+                            <div class="service-checkBox">
+                                @Html.CheckBoxFor(x => x.IsCompensationAdvance, new { @class = "service-input-radio", @text = "加入先行赔付" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cont-col col-6">
+                    <div class="cont-row">
+                        <div class="cont-col col-6">
+                            <p class="service-detail-title">
+                                平台认证:</p>
+                        </div>
+                        <div class="cont-col col-6">
+                            <div class="service-checkBox">
+                                @Html.CheckBoxFor(x => x.IsCertificated, new { @class = "service-input-radio", @text = "已通过" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cont-row m-b20">
+                <div class="cont-col col-6">
+                    <div class="cont-row">
+                        <div class="cont-col col-6">
+                            <p class="service-detail-title">
+                                付款方式:</p>
+                        </div>
+                        <div class="cont-col col-6">
+                            <div class="p-t10">
+                                @Html.CheckBoxFor(x => x.PayType == Dianzhu.Model.Enums.PayType.Online_AliPay, new { @class = "service-input-radio", @text = "线上" })
+                                @Html.CheckBoxFor(x => x.PayType == Dianzhu.Model.Enums.PayType.Offline, new { @class = "service-input-radio", @text = "线下" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cont-col col-6">
+                    <div class="cont-row">
+                        <div class="cont-col col-6">
+                        </div>
+                        <div class="cont-col col-6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="service-saveSubmit">
+        <input type="submit" class="service-saveSubmit-btn" value="保存" />
+            
+        </div>
+        </form>
+        <form action="dzservice/edit/map">
+        <div id="mapLightBox" class="dis-n">
+            <div class="mapWrap">
+                <div id="businessMap" class="mapMain">
+                </div>
+                <div id="businessCity" class="mapCity">
+                </div>
+                <div class="mapButton">
+                    <input id="confBusiness" class="close ser-sm-input" type="button" value="确定"></div>
+                <input id="businessValue" type="hidden" value="" />
+            </div>
+        </div>
+        </form>
+    </div>
+    <!--/form-->
+</div>
+@section scripts{
+}

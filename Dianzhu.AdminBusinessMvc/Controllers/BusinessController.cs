@@ -9,25 +9,32 @@ using Dianzhu.Model.Enums;
 using System.Web.Security;
 namespace Dianzhu.AdminBusinessMvc.Controllers
 {
-    public class ShopController : Controller
+    public class BusinessController : Controller
     {
         DZMembershipProvider dzp = new DZMembershipProvider();
         BLLBusiness bllBusiness = new BLLBusiness();
         [ValidateInput(false)]
+        [HttpGet]
         public ActionResult Index()
         {
 
             var member = (BusinessUser)dzp.GetUserByName(User.Identity.Name);
             Business b = member.BelongTo;
             ViewBag.Message = "修改此模板以快速启动你的 ASP.NET MVC 应用程序。";
-
+            return Redirect("/Business/Edit/" + b.Id);
+             
+        }
+        public ActionResult Edit(Guid id)
+        {
+            Business b = bllBusiness.GetOne(id);
+            ViewBag.Message = "修改此模板以快速启动你的 ASP.NET MVC 应用程序。";
+ 
             return View(b);
         }
         [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Index(FormCollection form)
+        public ActionResult Edit(Guid id, FormCollection form)
         {
-            Business b=bllBusiness.GetOne(new Guid(form["id"]));
+            Business b = bllBusiness.GetOne(id);
             b.Name = form["Name"];
             b.Address = form["Address"];
             b.Description = form["Description"];

@@ -24,7 +24,7 @@ namespace Dianzhu.AdminBusinessMvc
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
-
+            bundles.Add(new StyleBundle("~/jquery_validate").Include("~/css/validation.css"));
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
                         "~/Content/themes/base/jquery.ui.resizable.css",
