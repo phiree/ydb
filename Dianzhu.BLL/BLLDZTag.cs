@@ -12,10 +12,19 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLDZTag
     {
+        DALDZTag dalTag = DALFactory.DALDZTag;
+
         //增加一个Tag
+        
         public DZTag AddTag(string text, string serviceId, string businessId, string serviceTypeId)
         {
             DZTag dzTag = new DZTag();
+            dzTag.ForPK = serviceId;
+            dzTag.ForPK2 = serviceTypeId;
+            dzTag.ForPK3 = businessId;
+            dzTag.Text = text;
+            dzTag.OriginalText = text;
+            dalTag.Save(dzTag);
             return dzTag;
         }
         //删除tag 

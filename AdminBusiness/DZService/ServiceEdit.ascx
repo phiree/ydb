@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" ClientIDMode="Static" CodeFile="ServiceEdit.ascx.cs"
     Inherits="DZService_ServiceEdit" %>
+    <%@ Register Src="~/TagControl.ascx" TagName="Tag" TagPrefix="DZ" %>
 <div class="serviceRight clearfix">
     <div class="cont-container">
         <div class="cont-row">
@@ -247,7 +248,9 @@
             </div>
         </div>
     </div>
-     
+     <div>
+     <span>标签:</span> <DZ:Tag runat="server" ID="dzTag" />
+     </div>
 
     <div id="mapLightBox" class="dis-n">
         <div class="mapWrap">
