@@ -25,7 +25,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        string paramId = Request.Params["id"];
+        string paramId = Request.Params["serviceid"];
         if (!string.IsNullOrEmpty(paramId))
         {
             ServiceId = new Guid(paramId);
@@ -124,7 +124,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         if (result.IsValid)
         {
            
-             string redirectUrl=PHSuit.StringHelper.BuildUrlWithParameters(Request,"id",CurrentService.Id.ToString());
+             string redirectUrl=PHSuit.StringHelper.BuildUrlWithParameters(Request,"serviceid",CurrentService.Id.ToString());
              PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
             //PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
         }
