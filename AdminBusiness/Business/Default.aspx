@@ -2,8 +2,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="~/Business/Default.aspx.cs" Inherits="Business_Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--<!doctype html>-->
 <!--店铺列表-->
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content="" />
@@ -16,10 +17,8 @@
     <link href="/js/bootstrap/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <%--<link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />--%>
-    <!-- [if lte IE 9 ]>
-    <script src="/js/bootstrap/js/bootstrap.js"></script>
-    <script src="/js/bootstrap/js/bootstrap.js"></script>
-    <!end if-->
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
 </head>
 <body>
@@ -30,12 +29,12 @@
                         <div class="navbar navbar-default navbar-static-top" role="navigation">
                             <div class="container-fluid">
                                 <div class="navbar-header">
-                                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                  </button>
+                                      <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">-->
+                                    <!--<span class="sr-only">Toggle navigation</span>-->
+                                    <!--<span class="icon-bar"></span>-->
+                                    <!--<span class="icon-bar"></span>-->
+                                    <!--<span class="icon-bar"></span>-->
+                                  <!--</button>-->
                                   <a class="navbar-brand" href="#">
                                        <img alt="一点半" src="">
                                   </a>
@@ -80,15 +79,62 @@
                                     </aside>
                             </div>
                          </div>
+                         <!--<nav class="navbar navbar-default">-->
+                           <!--<div class="container-fluid">-->
+                             <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
+                             <!--<div class="navbar-header">-->
+                               <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">-->
+                                 <!--<span class="sr-only">Toggle navigation</span>-->
+                                 <!--<span class="icon-bar"></span>-->
+                                 <!--<span class="icon-bar"></span>-->
+                                 <!--<span class="icon-bar"></span>-->
+                               <!--</button>-->
+                               <!--<a class="navbar-brand" href="#">Brand</a>-->
+                             <!--</div>-->
+
+                             <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
+                             <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+                               <!--<ul class="nav navbar-nav">-->
+                                 <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
+                                 <!--<li><a href="#">Link</a></li>-->
+                                 <!--<li class="dropdown">-->
+                                   <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                                   <!--<ul class="dropdown-menu">-->
+                                     <!--<li><a href="#">Action</a></li>-->
+                                     <!--<li><a href="#">Another action</a></li>-->
+                                     <!--<li><a href="#">Something else here</a></li>-->
+                                     <!--<li role="separator" class="divider"></li>-->
+                                     <!--<li><a href="#">Separated link</a></li>-->
+                                     <!--<li role="separator" class="divider"></li>-->
+                                     <!--<li><a href="#">One more separated link</a></li>-->
+                                   <!--</ul>-->
+                                 <!--</li>-->
+                               <!--</ul>-->
+
+                               <!--<ul class="nav navbar-nav navbar-right">-->
+                                 <!--<li><a href="#">Link</a></li>-->
+                                 <!--<li class="dropdown">-->
+                                   <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                                   <!--<ul class="dropdown-menu">-->
+                                     <!--<li><a href="#">Action</a></li>-->
+                                     <!--<li><a href="#">Another action</a></li>-->
+                                     <!--<li><a href="#">Something else here</a></li>-->
+                                     <!--<li role="separator" class="divider"></li>-->
+                                     <!--<li><a href="#">Separated link</a></li>-->
+                                   <!--</ul>-->
+                                 <!--</li>-->
+                               <!--</ul>-->
+                             <!--</div>&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
+                           <!--</div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
+                         <!--</nav>-->
                      </div>
                    <asp:Repeater runat="server" ID="rptBusinessList">
                    <ItemTemplate>
-                   <div class=block>
-                   我的店铺:<%#Eval("Name")%>
-                   <a class="nav-btn-bg" href='Edit.aspx?businessId=<%#Eval("Id") %>'><%#Eval("Name") %>编辑我的店铺</a>
-                   <a class="nav-btn-bg" href='Detail.aspx?businessId=<%#Eval("Id") %>'><%#Eval("Name") %>参看我的店铺</a>
-                   </div>
-
+                       <div class=block>
+                       <%--我的店铺:<%#Eval("Name")%>--%>
+                       <%--<a class="nav-btn-bg" href='Edit.aspx?businessId=<%#Eval("Id") %>'><%#Eval("Name") %>编辑我的店铺</a>--%>
+                       <a class="nav-btn-bg" href='Detail.aspx?businessId=<%#Eval("Id") %>'><%#Eval("Name") %>参看我的店铺</a>
+                       </div>
                    </ItemTemplate>
                    </asp:Repeater>
                 </form>
