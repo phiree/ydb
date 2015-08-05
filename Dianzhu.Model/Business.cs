@@ -17,17 +17,22 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string Contact { get; set; }
         /// <summary>
-        /// 联系人电话
+        /// 公司电话
         /// </summary>
         public virtual string Phone { get; set; }
         /// <summary>
-        /// 联系人邮箱
+        /// 公司邮箱
         /// </summary>
         public virtual string Email { get; set; }
         /// <summary>
         /// 简介
         /// </summary>
         public virtual string Description { get; set; }
+
+        /// <summary>
+        /// 公司网址
+        /// </summary>
+        public virtual string WebSite { get; set; }
 
         /// <summary>
         /// 商户所有者.

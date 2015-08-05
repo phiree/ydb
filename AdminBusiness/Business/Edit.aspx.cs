@@ -122,6 +122,7 @@ public partial class Business_Edit : BasePage
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
+        UpdateForm();
         //图片使用ajax上传,
         bllBusiness.SaveOrUpdate(b);
         Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");

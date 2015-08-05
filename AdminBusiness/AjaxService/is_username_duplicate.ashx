@@ -5,8 +5,8 @@ using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Web.Security;
-using Dianzhu.BLL;
-using Dianzhu.Model;
+ 
+ 
 public class is_username_duplicate : IHttpHandler {
     
     public void ProcessRequest (HttpContext context) {
