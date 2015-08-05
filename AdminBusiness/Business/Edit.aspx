@@ -37,11 +37,15 @@
         <!--<div class="rightContent" id="rightCont">-->
             <div id="myshop-wrap" class="cont-wrap">
                 <div class="cont-container">
-                    <div class="cont-row">
-                        <div class="cont-title">
-                            <h1 class="cont-head-one">商家基本信息</h1>
-                        </div>
-                    </div>
+                <!--<div class="cont-container">-->
+                    <!--<div class="cont-row">-->
+                        <!--<div class="cont-title">-->
+                            <!--<h1 class="cont-head-one">商家基本信息</h1>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="cont-row step-row">
+                        <div class="cont-col col-1">step 1</div><div class="cont-col col-11">基本信息填写</div>
+</div>
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col col-2">
                             <div class="headImage">
@@ -81,8 +85,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="cont-container">
+                <!--</div>-->
+                <!--<div class="cont-container">-->
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col col-12">
                             <p class="cont-sub-title"><span>联系电话</span></p>
@@ -129,8 +133,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="cont-container">
+                <!--</div>-->
+                <!--<div class="cont-container">-->
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col col-12">
                             <p class="cont-sub-title">店铺地址</p>
@@ -167,8 +171,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="cont-container">
+                    <div class="cont-row step-row">
+                                            <div class="cont-col col-1">step 2</div><div class="cont-col col-11">完善商户营业资质资料</div>
+                    </div>
+                <!--</div>-->
+                <!--<div class="cont-container">-->
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col col-4">
                             <p class="cont-sub-title">负责人姓名</p>
@@ -229,8 +236,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="cont-container">
+                <!--</div>-->
+                <!--<div class="cont-container">-->
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col col-12">
                             <p class="cont-sub-title">营业执照</p>
@@ -267,6 +274,7 @@
                         </div>
                     </div>
                 </div>
+                <!--</div>-->
 <!--                <div class="myshopInfoArea clearfix">
                     <div class="myshopInfoTilte">
                         <h1>
