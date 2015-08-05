@@ -120,7 +120,9 @@
                 if (opts.destroyOnClose) {
                     $self.add($overlay).remove();
                 } else {
-                    $self.add($overlay).hide();
+                    $self.hide();
+                    $overlay.remove(); // fixed a bug that will create overlays infinitely
+                    //$self.add($overlay).hide();
                 }
 
                 //show the hidden parent lightbox
