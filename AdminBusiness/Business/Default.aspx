@@ -86,7 +86,7 @@
                    </ItemTemplate>
                    </asp:Repeater>
  
-                   <div>
+                   <!--</div>-->
                    <a href="Edit.aspx">新建店铺</a>
  
                    </div>

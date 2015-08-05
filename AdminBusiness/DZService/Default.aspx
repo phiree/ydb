@@ -99,7 +99,7 @@
                     <div class="cont-row">
                         <div class="cont-col col-12">
                             <div class="cont-row row-fix">
-                                <div class="cont-col col-12">详细信息服务</div>
+                                <div class="cont-col col-12">添加服务</div>
                             </div>
                             <div class="cont-row row-fix">
                                 <div class="cont-col col-2">服务名称</div>
@@ -111,7 +111,7 @@
                             <div class="cont-row">
                                 <div class="cont-col col-12">
                                     <div class="cont-row">
-                                        <div class="cont-col col-2">洗车</div>
+                                        <div class="cont-col col-2"><a href="#">洗车</a></div>
                                         <div class="cont-col col-2">洗车/保洁</div>
                                         <div class="cont-col col-4">海南省海口市龙华区</div>
                                         <div class="cont-col col-2">14:30-18:30</div>
