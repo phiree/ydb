@@ -14,92 +14,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <!--<div class="mainContent clearfix">
-
-        <div class="leftContent" id="leftCont">
-            <div class="side-bar">
-                <ul>
-                    <li class="side-btn-br">
-                        <a href="/DZService/Default.aspx?businessid=<%=Request["businessId"] %>" target="_self">
-                            <div class="side-btn-bg d-inb">
-                                <i class="icon side-btn-icon side-icon-service"></i>
-                                <h4 class="side-btn-t ">服务管理</h4>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/DZService/Service_Edit.aspx?businessid=<%=Request["businessId"] %>" target="_self">
-                            <div class="side-btn-bg d-inb">
-                                <i class="icon side-btn-icon side-icon-serviceSet"></i>
-                                <h4 class="side-btn-t ">服务添加</h4>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <i class="icon side-arrow"></i>
-            </div>
-        </div>
-        <div class="rightContent" id="rightCont">-->
+    
             <div class="cont-wrap">
-                <!--<div class="cont-container">
-                    <div class="cont-row">
-                        <div class="cont-col col-2">
-                            <div class="headInfoArea">
-                                <div class="headImage">
-                                    <img src="..\image\myshop\touxiangkuang_11.png" alt="头像" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cont-col col-10">
-                            <div class="headInfo">
-                                <span class="ServiceShops"><%=CurrentBusiness.Name %></span> <span class="InfoCompletetxt">信誉度</span>
-                                <div class="Servicexing">
-                                    <i class="icon service-icon-star"></i><i class="icon service-icon-star"></i><i class="icon service-icon-star">
-                                    </i><i class="icon service-icon-star"></i><i class="icon service-icon-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-
-            <!--<div id="userInfoAreaid">-->
-                <!--<div class="serviceInfoArea">-->
-                    <!--<div class="serviceInfoTilte">-->
-                        <!--<span>服务等级</span>-->
-                    <!--</div>-->
-
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="service-title">-->
-                <!--<span>详细服务信息</span>-->
-            <!--</div>-->
-                <!--<div class="cont-container">
-                    <div class="cont-row">
-                        <div class="cont-col col-2">
-                            <div class="serviceLeft">
-                                <div class="serviceChoice">
-                                    <ul>
-                                        <asp:Repeater runat="server" ID="rptServiceList">
-                                            <ItemTemplate>
-                                                <li><a href='default.aspx?id=<%#Eval("id") %>&businessid=<%=Request["businessId"] %>'>
-                                                    <%#Eval("Name") %></a></li></ItemTemplate>
-                                        </asp:Repeater>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cont-col col-10">
-                            <div class="serviceRightWrap">
-                                <UC:ServiceEdit ID="ServiceEdit1" runat="server" />
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
+                
                 <div class="cont-container">
                     <div class="cont-row">
                         <div class="cont-col col-12">
                             <div class="cont-row row-fix">
-                                <div class="cont-col col-12">添加服务</div>
+                                <div class="cont-col col-12"><a href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>">添加服务</a> </div>
                             </div>
                             <div class="cont-row row-fix">
                                 <div class="cont-col col-2">服务名称</div>
@@ -108,28 +30,24 @@
                                 <div class="cont-col col-2">服务时间</div>
                                 <div class="cont-col col-2">是否启用</div>
                             </div>
-                            <div class="cont-row">
+                            <asp:Repeater runat="server" ID="rptServiceList">
+                            <ItemTemplate>
+                             <div class="cont-row">
                                 <div class="cont-col col-12">
                                     <div class="cont-row">
-                                        <div class="cont-col col-2"><a href="/DZSevice/detail.aspx">洗车</a></div>
-                                        <div class="cont-col col-2">洗车/保洁</div>
-                                        <div class="cont-col col-4">海南省海口市龙华区</div>
-                                        <div class="cont-col col-2">14:30-18:30</div>
-                                        <div class="cont-col col-2">启用</div>
+                                        <div class="cont-col col-2">
+             <a href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></div>
+                                        <div class="cont-col col-2"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></div>
+                                        <div class="cont-col col-4"><%#Eval("BusinessAreaCode")%></div>
+                                        <div class="cont-col col-2"><%#Eval("ServiceTimeBegin")%>-<%#Eval("ServiceTimeEnd")%></div>
+                                        <div class="cont-col col-2"><%# ((bool)Eval("Enabled"))?"启用":"禁用" %></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="cont-row">
-                                <div class="cont-col col-12">
-                                    <div class="cont-row">
-                                        <div class="cont-col col-2">洗车</div>
-                                        <div class="cont-col col-2">洗车/保洁</div>
-                                        <div class="cont-col col-4">海南省海口市龙华区</div>
-                                        <div class="cont-col col-2">14:30-18:30</div>
-                                        <div class="cont-col col-2">启用</div>
-                                    </div>
-                                </div>
-                            </div>
+                            </ItemTemplate>
+                            </asp:Repeater>
+                           
+                      
                         </div>
                     </div>
                 </div>
