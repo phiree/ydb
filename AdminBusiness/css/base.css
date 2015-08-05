@@ -223,8 +223,9 @@ body {
 }
 
 .content {
-    background: #fff;
-    padding-top: 71px;
+    float: left;
+    /*background: #fff;*/
+    /*padding-top: 71px;*/
 }
 
 /* 顶栏样式 */
