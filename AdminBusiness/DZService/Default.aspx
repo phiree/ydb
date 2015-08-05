@@ -111,7 +111,7 @@
                             <div class="cont-row">
                                 <div class="cont-col col-12">
                                     <div class="cont-row">
-                                        <div class="cont-col col-2"><a href="#">洗车</a></div>
+                                        <div class="cont-col col-2"><a href="/DZSevice/detail.aspx">洗车</a></div>
                                         <div class="cont-col col-2">洗车/保洁</div>
                                         <div class="cont-col col-4">海南省海口市龙华区</div>
                                         <div class="cont-col col-2">14:30-18:30</div>
