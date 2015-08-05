@@ -82,6 +82,13 @@
                        <%--我的店铺:<%#Eval("Name")%>--%>
                        <%--<a class="nav-btn-bg" href='Edit.aspx?businessId=<%#Eval("Id") %>'><%#Eval("Name") %>编辑我的店铺</a>--%>
                        <a class="nav-btn-bg" href='Detail.aspx?businessId=<%#Eval("Id") %>'><%#Eval("Name") %>参看我的店铺</a>
+                       <ul>
+                        <li>店铺介绍</li>
+                        <li>联系电话</li>
+                        <li>店铺地址</li>
+                        <li>从业时间</li>
+                        <li>员工人数</li>
+</ul>
                        </div>
                    </ItemTemplate>
                    </asp:Repeater>
