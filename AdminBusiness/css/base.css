@@ -210,7 +210,7 @@ body {
     /*background: url("../image/master/img1.jpg");*/
     background-attachment: fixed;
 }
-.mainContainer{ margin: 0 auto; width:1000px; background: #497894; position: relative; overflow: hidden; box-shadow: 0 0 10px 0 rgba(43, 43, 43, 0.71)
+.mainContainer{ margin: 0 auto; width:1000px; background: #fff; position: relative; overflow: hidden; box-shadow: 0 0 10px 0 rgba(43, 43, 43, 0.71)
 }
 
 .mainContent{ margin: 0 auto; width:1000px; background: #3D5B77; }
@@ -223,8 +223,9 @@ body {
 }
 
 .content {
-    background: #fff;
-    padding-top: 71px;
+    float: left;
+    /*background: #fff;*/
+    /*padding-top: 71px;*/
 }
 
 /* 顶栏样式 */
