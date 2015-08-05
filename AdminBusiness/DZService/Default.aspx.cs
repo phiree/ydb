@@ -25,7 +25,7 @@ public partial class DZService_Default : BasePage
     {
         int totalRecords;
         //处理太简单粗暴,需要优化.
-      IList<DZService> serviceList=  bllService.GetServiceByBusiness(((BusinessUser)CurrentUser).BelongTo.Id, Guid.Empty, 0, 999, out totalRecords);
+      IList<DZService> serviceList=  bllService.GetServiceByBusiness(CurrentBusiness.Id, Guid.Empty, 0, 999, out totalRecords);
       if (serviceList.Count > 0 && string.IsNullOrEmpty(Request.Params["id"]))
       {
           Guid lastId=serviceList.Last<DZService>().Id;
@@ -33,7 +33,7 @@ public partial class DZService_Default : BasePage
             url += (Request.QueryString.ToString() == "" ) ? "?id="+lastId: "?" + Request.QueryString.ToString() + "&id="+lastId;
             Response.Redirect(url);
       }
-        rptServiceList.DataSource = bllService.GetServiceByBusiness(((BusinessUser)CurrentUser).BelongTo.Id, Guid.Empty, 0, 999, out totalRecords);
+      rptServiceList.DataSource = bllService.GetServiceByBusiness(CurrentBusiness.Id, Guid.Empty, 0, 999, out totalRecords);
         rptServiceList.DataBind();
     }
 }

@@ -80,6 +80,10 @@ namespace Dianzhu.BLL
         {
             DALBusiness.Delete(business);
         }
+        public void SaveOrUpdate(Business business)
+        {
+            DALBusiness.SaveOrUpdate(business);
+        }
         /// <summary>
         /// 根据条件返回商户列表
         /// </summary>

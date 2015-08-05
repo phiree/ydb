@@ -80,6 +80,7 @@
     <Compile Include="Validator\ValidatorDZService.cs" />
     <Compile Include="AddressParser.cs" />
     <Compile Include="BLLDeviceBind.cs" />
+    <Compile Include="BLLDZTag.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">

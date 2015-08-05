@@ -12,7 +12,7 @@
             <div class="side-bar">
                 <ul>
                     <li class="side-btn-br">
-                        <a href="/account/Default.aspx" target="_self">
+                        <a href="/Business/Edit.aspx?businessId=<%=CurrentBusiness.Id%>" target="_self">
                             <div class="side-btn-bg d-inb">
                                 <i class="icon side-btn-icon side-icon-myshop"></i>
                                 <h4 class="side-btn-t ">基本信息</h4>
@@ -20,7 +20,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/account/Security.aspx" target="_self">
+                        <a href="/account/Security.aspx?businessId=<%=CurrentBusiness.Id%>" target="_self">
                             <div class="side-btn-bg d-inb">
                                 <i class="icon side-btn-icon side-icon-secret"></i>
                                 <h4 class="side-btn-t ">帐号安全</h4>

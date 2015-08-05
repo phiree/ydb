@@ -15,7 +15,7 @@
             <div class="side-bar">
                 <ul>
                     <li class="side-btn-br">
-                        <a href="/account/Default.aspx" target="_self">
+                        <a href="/account/Default.aspx?businessId=<%=b.Id%>" target="_self">
                             <div class="side-btn-bg d-inb">
                                 <i class="icon side-btn-icon side-icon-myshop"></i>
                                 <h4 class="side-btn-t ">基本信息</h4>
@@ -23,7 +23,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/account/Security.aspx" target="_self">
+                        <a href="/account/Security.aspx?businessId=<%=b.Id%>" target="_self">
                             <div class="side-btn-bg d-inb">
                                 <i class="icon side-btn-icon side-icon-secret"></i>
                                 <h4 class="side-btn-t ">帐号安全</h4>
@@ -46,7 +46,7 @@
                         <div class="cont-col col-2">
                             <div class="headImage">
                                 <div class="input-file-box headFile">
-                                  <input type=file class="input-file-btn"  name="input-file-btn-avater" businessId="<%=CurrentBusiness.Id %>" imageType="businessavater" />
+                                  <input type=file class="input-file-btn"  name="input-file-btn-avater" businessId="<%=b.Id %>" imageType="businessavater" />
                                     <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
                                     <i  class="input-file-mark"></i>
                                     <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
@@ -114,7 +114,7 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                         <div class="input-file-box fl m-b10 m-r10">
-                                            <input type=file class="input-file-btn"  name="input-file-btn-show"  businessId="<%=CurrentBusiness.Id %>" imageType="businessshow" />
+                                            <input type=file class="input-file-btn"  name="input-file-btn-show"  businessId="<%=b.Id %>" imageType="businessshow" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -214,7 +214,7 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                         <div class="input-file-box m-b10 m-r10 m-r10 fl">
-                                            <input type=file class="input-file-btn" businessId="<%=CurrentBusiness.Id %>" imageType="businesschargeperson" />
+                                            <input type=file class="input-file-btn" businessId="<%=b.Id %>" imageType="businesschargeperson" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -251,7 +251,7 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                         <div class="input-file-box fl">
-                                            <input type=file class="input-file-btn"   name="input-file-btn-license" businessId="<%=CurrentBusiness.Id %>" imageType="businesslicense" />
+                                            <input type=file class="input-file-btn"   name="input-file-btn-license" businessId="<%=b.Id %>" imageType="businesslicense" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />

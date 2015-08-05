@@ -19,7 +19,7 @@
             <div class="side-bar">
                 <ul>
                     <li class="side-btn-br">
-                        <a href="/DZService/Default.aspx" target="_self">
+                        <a href="/DZService/Default.aspx?businessid=<%=Request["businessId"] %>" target="_self">
                             <div class="side-btn-bg d-inb">
                                 <i class="icon side-btn-icon side-icon-service"></i>
                                 <h4 class="side-btn-t ">服务管理</h4>
@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/DZService/Service_Edit.aspx" target="_self">
+                        <a href="/DZService/Service_Edit.aspx?businessid=<%=Request["businessId"] %>" target="_self">
                             <div class="side-btn-bg d-inb">
                                 <i class="icon side-btn-icon side-icon-serviceSet"></i>
                                 <h4 class="side-btn-t ">服务添加</h4>
@@ -80,7 +80,7 @@
                                     <ul>
                                         <asp:Repeater runat="server" ID="rptServiceList">
                                             <ItemTemplate>
-                                                <li><a href='default.aspx?id=<%#Eval("id") %>'>
+                                                <li><a href='default.aspx?id=<%#Eval("id") %>&businessid=<%=Request["businessId"] %>'>
                                                     <%#Eval("Name") %></a></li></ItemTemplate>
                                         </asp:Repeater>
                                     </ul>

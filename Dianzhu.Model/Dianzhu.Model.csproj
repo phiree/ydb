@@ -51,6 +51,7 @@
     <Compile Include="CashTicketTemplate.cs" />
     <Compile Include="DeviceBind.cs" />
     <Compile Include="DZService.cs" />
+    <Compile Include="DZTag.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Business.cs" />
     <Compile Include="CashTicketCreateRecord.cs" />

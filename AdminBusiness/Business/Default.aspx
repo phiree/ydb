@@ -19,7 +19,9 @@
 <body>
         <div class="wrap">
             <div class="mainContainer">
+           
                 <form id="form1" runat="server">
+                 <asp:LoginName runat="server" /><asp:LoginStatus runat="server" />
                    <asp:Repeater runat="server" ID="rptBusinessList">
                    <ItemTemplate>
                    <div class=block>
@@ -30,7 +32,11 @@
 
                    </ItemTemplate>
                    </asp:Repeater>
+                   <div>
+                   <a href="Edit.aspx">新建店铺</a>
+                   </div>
                 </form>
+
             </div>
         </div>
 

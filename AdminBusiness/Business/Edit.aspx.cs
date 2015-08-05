@@ -12,34 +12,55 @@ using System.IO;
 public partial class Business_Edit : BasePage
 {
     public Business b = new Business();
+    BLLBusiness bllBusiness = new BLLBusiness();
+
     BLLBusinessImage bllBi = new BLLBusinessImage();
+    bool IsNew {get;set;}
     protected void Page_Load(object sender, EventArgs e)
     {
-        b = CurrentBusiness;
+        string strBusinessId = Request["businessId"];
+        Guid? businessId = null;
+        if (!string.IsNullOrEmpty(strBusinessId))
+        {
+            businessId = new Guid(strBusinessId);
+            IsNew = false;
+            b = bllBusiness.GetOne(businessId.Value);
+        }
+        else
+        {
+            b.Owner = CurrentUser;
+            bllBusiness.SaveOrUpdate(b);
+
+            Response.Redirect("edit.aspx?businessid=" + b.Id,true);
+        }
         if (!IsPostBack)
         {
-
+            LoadForm();
             //username.Text = ((BusinessUser)CurrentUser).UserName + "登陆了";
-            tbxName.Value = b.Name;
-            //Longitude.Text = b.Longitude.ToString();
-            //Latitude.Text = b.Latitude.ToString();
-            tbxIntroduced.Value = b.Description;
-            tbxAddress.Value = b.Address;
-            tbxContactPhone.Value = b.Phone;
-            tbxEmail.Value = b.Email;
-            hiAddrId.Value = b.RawAddressFromMapAPI;
-            tbxBusinessYears.Value = b.WorkingYears.ToString();
-            tbxContact.Value = b.Contact;
-            selStaffAmount.Value = b.StaffAmount.ToString();
-            selCardType.Value = ((int)b.ChargePersonIdCardType).ToString();
-            tbxCardIdNo.Value = b.ChargePersonIdCardNo;
-            //imgLicence.Src = imgLicencePath;
-            //imgChargePerson.Src = imgChargePersonPath;
-            BindShowImages();
-            BindChargerIdCards();
-            BindBusinessLicenses();
+           
         }
 
+    }
+    private void LoadForm()
+    {
+        tbxName.Value = b.Name;
+        //Longitude.Text = b.Longitude.ToString();
+        //Latitude.Text = b.Latitude.ToString();
+        tbxIntroduced.Value = b.Description;
+        tbxAddress.Value = b.Address;
+        tbxContactPhone.Value = b.Phone;
+        tbxEmail.Value = b.Email;
+        hiAddrId.Value = b.RawAddressFromMapAPI;
+        tbxBusinessYears.Value = b.WorkingYears.ToString();
+        tbxContact.Value = b.Contact;
+        selStaffAmount.Value = b.StaffAmount.ToString();
+        selCardType.Value = ((int)b.ChargePersonIdCardType).ToString();
+        tbxCardIdNo.Value = b.ChargePersonIdCardNo;
+        //imgLicence.Src = imgLicencePath;
+        //imgChargePerson.Src = imgChargePersonPath;
+        BindShowImages();
+        BindChargerIdCards();
+        BindBusinessLicenses();
     }
     private void BindShowImages()
     {
@@ -69,11 +90,9 @@ public partial class Business_Edit : BasePage
             Response.Redirect(Request.RawUrl);
         }
     }
-
-    protected void btnSave_Click(object sender, EventArgs e)
+    private void UpdateForm()
     {
 
-        BLLBusiness bll = new BLLBusiness();
         b.Name = tbxName.Value;
         //b.Longitude =Convert.ToDouble(Longitude.Text);
         //b.Latitude = Convert.ToDouble(Latitude.Text);
@@ -94,14 +113,17 @@ public partial class Business_Edit : BasePage
         double latitude;
         double longtitude;
         addressParser.ParseAddress(out area, out latitude, out longtitude);
-        CurrentBusiness.RawAddressFromMapAPI = hiAddrId.Value;
-        CurrentBusiness.Latitude = latitude;
-        CurrentBusiness.Longitude = longtitude;
-        CurrentBusiness.AreaBelongTo = area;
+        b.RawAddressFromMapAPI = hiAddrId.Value;
+        b.Latitude = latitude;
+        b.Longitude = longtitude;
+        b.AreaBelongTo = area;
 
         b.Address = tbxAddress.Value;
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
         //图片使用ajax上传,
-        bll.Updte(b);
+        bllBusiness.SaveOrUpdate(b);
         Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");
 
     }
