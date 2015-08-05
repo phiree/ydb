@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="clearfix">
-                    <div class="sidebar">
+
                         <aside class="sidebar">
                           <nav class="sidebar-nav">
                             <ul class="metismenu" id="menu">
@@ -88,59 +88,8 @@
                             </ul>
                           </nav>
                         </aside>
-                    </div>
-            <!--<div class="topnav clearfix">
-                <h1 title="点助" class="dianzhuicon">
-                </h1>
-                
-                <div class="logoutBox">
 
-                </div>
-                <div class="menuList">
-                    <ul class="clearfix">
-                        <li>
-                            <a href='/account/Default.aspx?businessId=<%=Request["businessId"]%>' target="_self">
-                                <div class="nav-btn-bg d-inb">
-                                    <i class="icon nav-btn-icon nav-icon-myshop"></i>
-                                    <h4 class="nav-btn-t ">店铺信息</h4>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href='/DZService/Default.aspx?businessId=<%=Request["businessId"]%>' target="_self">
-                                <div class="nav-btn-bg d-inb">
-                                    <i class="icon nav-btn-icon nav-icon-service"></i>
-                                    <h4 class="nav-btn-t ">服务信息</h4>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
-                                <div class="nav-btn-bg nav-btn-un d-inb">
-                                    <i class="icon nav-btn-icon nav-icon-un-order"></i>
-                                    <h4 class="nav-btn-t nav-btn-un-t">订单</h4>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
-                                <div class="nav-btn-bg nav-btn-un d-inb">
-                                    <i class="icon nav-btn-icon nav-icon-un-employee"></i>
-                                    <h4 class="nav-btn-t nav-btn-un-t">员工</h4>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="Javascript: void(0)" target="_self" title="正在开发,敬请期待">
-                                <div class="nav-btn-bg nav-btn-un d-inb">
-                                    <i class="icon nav-btn-icon nav-icon-un-msg"></i>
-                                    <h4 class="nav-btn-t nav-btn-un-t">消息</h4>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>-->
+
 
             <div class="content">
                 <asp:ContentPlaceHolder ID="pageDesc" runat="server">
