@@ -24,11 +24,8 @@
 <body>
         <div class="wrap">
             <div class="mainContainer">
-           
+
                 <form id="form1" runat="server">
- 
-                 <asp:LoginName runat="server" /><asp:LoginStatus runat="server" />
- 
                     <div class="wrapper">
                         <div class="navbar navbar-default navbar-static-top" role="navigation">
                             <div class="container-fluid">
@@ -47,18 +44,13 @@
                                     </a>
                                 </div>
                                 <ul class="nav navbar-nav navbar-right">
-
                                     <li class="dropdown">
-                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><asp:LoginName ID="LoginName1" runat="server" /><span class="caret"></span></a>
                                       <ul class="dropdown-menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
+                                        <li><a href="#">帐号安全</a></li>
                                       </ul>
                                     </li>
-                                    <li role="presentation" class="disabled" ><a href="#">Link</a></li>
+                                    <li role="presentaion" ><asp:LoginStatus ID="LoginStatus1" formnovalidate  runat="server"  /></li>
                                   </ul>
                             </div>
                         </div>

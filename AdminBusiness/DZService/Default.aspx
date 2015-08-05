@@ -14,7 +14,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="mainContent clearfix">
+    <!--<div class="mainContent clearfix">
+
         <div class="leftContent" id="leftCont">
             <div class="side-bar">
                 <ul>
@@ -38,7 +39,7 @@
                 <i class="icon side-arrow"></i>
             </div>
         </div>
-        <div class="rightContent" id="rightCont">
+        <div class="rightContent" id="rightCont">-->
             <div class="cont-wrap">
                 <div class="cont-container">
                     <div class="cont-row">
@@ -140,8 +141,8 @@
                     <!--</div>-->
                 </div>
             </div>
-        </div>
-    </div>
+        <!--</div>-->
+    <!--</div>-->
 
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">

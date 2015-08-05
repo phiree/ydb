@@ -10,8 +10,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="mainContent clearfix">
-        <div class="leftContent" id="leftCont">
+    <!--<div class="mainContent clearfix">-->
+        <!--<div class="leftContent" id="leftCont">
             <div class="side-bar">
                 <ul>
                     <li class="side-btn-br">
@@ -33,8 +33,8 @@
                 </ul>
                 <i class="icon side-arrow"></i>
             </div>
-        </div>
-        <div class="rightContent" id="rightCont">
+        </div>-->
+        <!--<div class="rightContent" id="rightCont">-->
             <div id="myshop-wrap" class="cont-wrap">
                 <div class="cont-container">
                     <div class="cont-row">
@@ -357,8 +357,8 @@
                     <input name="imageField" type="image" id="imageField2" src="../image/myshop/shop_tx_108.png" />
                 </div>
             </div>
-        </div>
-    </div>
+        <!--</div>-->
+    <!--</div>-->
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>

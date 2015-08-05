@@ -28,7 +28,9 @@
 
 .sidebar {
     display: block;
-    float: left;
+    /*float: left;*/
+    position: absolute;
+    /*padding-top: 81px;*/
     width: 150px;
     background: #f8f8f8;
     border-right: 1px solid #e7e7e7;
