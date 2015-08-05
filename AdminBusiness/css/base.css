@@ -205,7 +205,7 @@ body {
 }
 
 .wrap {
-    padding: 50px 0;
+    /*padding: 50px 0;*/
     background:#497894;
     /*background: url("../image/master/img1.jpg");*/
     background-attachment: fixed;

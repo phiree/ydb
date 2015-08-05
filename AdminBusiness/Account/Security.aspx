@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="mainContent clearfix">
+    <!--<div class="mainContent clearfix">
         <div class="leftContent" id="leftCont">
             <div class="side-bar">
                 <ul>
@@ -31,7 +31,7 @@
                 <i class="icon side-arrow"></i>
             </div>
         </div>
-        <div class="rightContent" id="rightCont">
+        <div class="rightContent" id="rightCont">-->
             <div class="cont-wrap secret-wrap">
                 <div class="cont-container">
                     <div class="cont-row">
@@ -167,7 +167,7 @@
                     <!--</div>-->
                 <!--</div>-->
             <!--</div>-->
-        </div>
+        <!--</div>-->
         <div id="lightBox" class="dis-n">
             <div class="secret-change">
                 <div class="secret-change-title">
@@ -262,7 +262,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!--</div>-->
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" runat="Server">
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>

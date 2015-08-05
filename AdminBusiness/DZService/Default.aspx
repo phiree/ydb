@@ -41,7 +41,7 @@
         </div>
         <div class="rightContent" id="rightCont">-->
             <div class="cont-wrap">
-                <div class="cont-container">
+                <!--<div class="cont-container">
                     <div class="cont-row">
                         <div class="cont-col col-2">
                             <div class="headInfoArea">
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
             <!--<div id="userInfoAreaid">-->
                 <!--<div class="serviceInfoArea">-->
@@ -73,7 +73,7 @@
             <!--<div class="service-title">-->
                 <!--<span>详细服务信息</span>-->
             <!--</div>-->
-                <div class="cont-container">
+                <!--<div class="cont-container">
                     <div class="cont-row">
                         <div class="cont-col col-2">
                             <div class="serviceLeft">
@@ -94,51 +94,44 @@
                             </div>
                         </div>
                     </div>
-                    <div class="cont-container dis-n">
-                        <div class="cont-row">
-                            <div class="cont-col col-12">
-                                <div class="cont-row row-fix">
-                                    <div class="cont-col col-12">详细信息服务</div>
-                                </div>
-                                <div class="cont-row row-fix">
-                                    <div class="cont-col col-2">服务名称</div>
-                                    <div class="cont-col col-2">服务类别</div>
-                                    <div class="cont-col col-4">服务范围</div>
-                                    <div class="cont-col col-2">服务时间</div>
-                                    <div class="cont-col col-2">是否启用</div>
-                                </div>
-                                <div class="cont-row">
-                                    <div class="cont-col col-12">
-                                        <div class="cont-row">
-                                            <div class="cont-col col-2">洗车</div>
-                                            <div class="cont-col col-2">洗车/保洁</div>
-                                            <div class="cont-col col-4">海南省海口市龙华区</div>
-                                            <div class="cont-col col-2">14:30-18:30</div>
-                                            <div class="cont-col col-2">启用</div>
-                                        </div>
+                </div>-->
+                <div class="cont-container">
+                    <div class="cont-row">
+                        <div class="cont-col col-12">
+                            <div class="cont-row row-fix">
+                                <div class="cont-col col-12">详细信息服务</div>
+                            </div>
+                            <div class="cont-row row-fix">
+                                <div class="cont-col col-2">服务名称</div>
+                                <div class="cont-col col-2">服务类别</div>
+                                <div class="cont-col col-4">服务范围</div>
+                                <div class="cont-col col-2">服务时间</div>
+                                <div class="cont-col col-2">是否启用</div>
+                            </div>
+                            <div class="cont-row">
+                                <div class="cont-col col-12">
+                                    <div class="cont-row">
+                                        <div class="cont-col col-2">洗车</div>
+                                        <div class="cont-col col-2">洗车/保洁</div>
+                                        <div class="cont-col col-4">海南省海口市龙华区</div>
+                                        <div class="cont-col col-2">14:30-18:30</div>
+                                        <div class="cont-col col-2">启用</div>
                                     </div>
                                 </div>
-                                <div class="cont-row">
-                                    <div class="cont-col col-12">
-                                        <div class="cont-row">
-                                            <div class="cont-col col-2">洗车</div>
-                                            <div class="cont-col col-2">洗车/保洁</div>
-                                            <div class="cont-col col-4">海南省海口市龙华区</div>
-                                            <div class="cont-col col-2">14:30-18:30</div>
-                                            <div class="cont-col col-2">启用</div>
-                                        </div>
+                            </div>
+                            <div class="cont-row">
+                                <div class="cont-col col-12">
+                                    <div class="cont-row">
+                                        <div class="cont-col col-2">洗车</div>
+                                        <div class="cont-col col-2">洗车/保洁</div>
+                                        <div class="cont-col col-4">海南省海口市龙华区</div>
+                                        <div class="cont-col col-2">14:30-18:30</div>
+                                        <div class="cont-col col-2">启用</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!--<div class="serviceMain clearfix">-->
-
-
-                        <!--<div class="bottomArea">-->
-                        <!--</div>-->
-                    <!--</div>-->
                 </div>
             </div>
         <!--</div>-->
@@ -198,6 +191,6 @@
         })
     </script>
     <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>-->
-    <script type="text/javascript" src="/js/CityList.js"></script>
-    <script type="text/javascript" src="/js/service.js"></script>
+    <!--<script type="text/javascript" src="/js/CityList.js"></script>-->
+    <!--<script type="text/javascript" src="/js/service.js"></script>-->
 </asp:Content>
