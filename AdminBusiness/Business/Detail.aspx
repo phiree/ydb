@@ -20,6 +20,9 @@
         <li>证件类型</li>
         <li>证件号码</li>
         <li>营业执照</li>
+        <li></li>
+        <li><a href="/Business/edit.aspx">信息编辑</a></li>
+        <li></li>
     </ul>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
