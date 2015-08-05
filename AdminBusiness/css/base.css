@@ -223,6 +223,7 @@ body {
 }
 
 .content {
+    min-height: 196px;
     box-sizing: border-box;
     padding-left: 150px;
     /*float: left;*/
