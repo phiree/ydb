@@ -19,28 +19,28 @@
                 
                 <div class="cont-container">
                     <div class="cont-row">
-                        <div class="cont-col col-12">
+                        <div class="cont-col-12">
                             <div class="cont-row row-fix">
-                                <div class="cont-col col-12"><a href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>">添加服务</a> </div>
+                                <div class="cont-col-12"><a href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>">添加服务</a> </div>
                             </div>
                             <div class="cont-row row-fix">
-                                <div class="cont-col col-2">服务名称</div>
-                                <div class="cont-col col-2">服务类别</div>
-                                <div class="cont-col col-4">服务范围</div>
-                                <div class="cont-col col-2">服务时间</div>
-                                <div class="cont-col col-2">是否启用</div>
+                                <div class="cont-col-2">服务名称</div>
+                                <div class="cont-col-2">服务类别</div>
+                                <div class="cont-col-4">服务范围</div>
+                                <div class="cont-col-2">服务时间</div>
+                                <div class="cont-col-2">是否启用</div>
                             </div>
                             <asp:Repeater runat="server" ID="rptServiceList">
                             <ItemTemplate>
                              <div class="cont-row">
-                                <div class="cont-col col-12">
+                                <div class="cont-col-12">
                                     <div class="cont-row">
-                                        <div class="cont-col col-2">
+                                        <div class="cont-col-2">
              <a href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></div>
-                                        <div class="cont-col col-2"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></div>
-                                        <div class="cont-col col-4"><%#Eval("BusinessAreaCode")%></div>
-                                        <div class="cont-col col-2"><%#Eval("ServiceTimeBegin")%>-<%#Eval("ServiceTimeEnd")%></div>
-                                        <div class="cont-col col-2"><%# ((bool)Eval("Enabled"))?"启用":"禁用" %></div>
+                                        <div class="cont-col-2"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></div>
+                                        <div class="cont-col-4"><%#Eval("BusinessAreaCode")%></div>
+                                        <div class="cont-col-2"><%#Eval("ServiceTimeBegin")%>-<%#Eval("ServiceTimeEnd")%></div>
+                                        <div class="cont-col-2"><%# ((bool)Eval("Enabled"))?"启用":"禁用" %></div>
                                     </div>
                                 </div>
                             </div>

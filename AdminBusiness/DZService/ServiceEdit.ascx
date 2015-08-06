@@ -3,77 +3,79 @@
     <%@ Register Src="~/TagControl.ascx" TagName="Tag" TagPrefix="DZ" %>
 <div class="serviceRight clearfix">
     <div class="cont-container">
+    <div class="cont-row step-row">
+                            <div class="cont-col-1">step 1</div><div class="cont-col-11">基本信息填写</div>
+    </div>
         <div class="cont-row">
-            <div class="cont-title">
-                        <h1 class="cont-head-one">商家基本信息</h1>
-                    </div>
-</div>
-        <div class="cont-row">
-            <div class="cont-col col-6">
-                <div class="cont-row">
-                    <div class="cont-col col-12">
-                        <p class="cont-sub-title">服务名称</p>
-                        <div class="clearfix">
-                            <div>
-                                <div class="m-b20">
-                                    <asp:TextBox  runat="server"   CssClass="input-mid" ID="tbxName"></asp:TextBox>
-                                </div>
-                            </div>
-                        </div>
-</div>
-                </div>
-                <div class="cont-row">
-                    <div class="cont-col col-12">
-                        <p class="cont-sub-title">请选择您的服务类型</p>
-                        <div>
-                            <input id="setSerType" class="ser-btn-SerType"  type="button" value="请选择服务信息" />
-                            <input type="hidden" runat="server" focusid="setSerType" id="hiTypeId" />
-                            <asp:Label CssClass="business-radioCf dis-n m-l10" runat="server" ID="lblSelectedType"></asp:Label>
-                            <div id="serLightContainer" class="serviceTabs dis-n">
-                                <div class="serChoiceInfo clearfix">
-                                    <div id="serChoiceContainer" class="serChoiceContainer fl"></div>
-                                    <div class="serChoiceBtnContainer fr">
-                                        <div class="d-inb">
-                                            <div id="serChoiceConf" class="serChoiceBtn close dis-n" >确认</div>
-                                        </div>
-                                        <div id="serChoiceCancel" class="serChoiceBtn close d-inb" >取消</div>
-                                    </div>
-                                </div>
-                                <div id="serList" class="serList clearfix"></div>
-                            </div>
+            <div class="cont-col-2">
+                <p class="cont-sub-title">服务名称</p>
+            </div>
+            <div class="cont-col-10">
+
+                <div class="clearfix">
+                    <div>
+                        <div class="m-b20">
+                            <asp:TextBox  runat="server"   CssClass="input-mid" ID="tbxName"></asp:TextBox>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="cont-col col-6">
+        </div>
+        <div class="cont-row">
+            <div class="cont-col-2">
+                <p class="cont-sub-title">请选择您的服务类型</p>
+            </div>
+            <div class="cont-col-10">
+                <div>
+                    <input id="setSerType" class="ser-btn-SerType"  type="button" value="请选择服务信息" />
+                    <input type="hidden" runat="server" focusid="setSerType" id="hiTypeId" />
+                    <asp:Label CssClass="business-radioCf dis-n m-l10" runat="server" ID="lblSelectedType"></asp:Label>
+                    <div id="serLightContainer" class="serviceTabs dis-n">
+                        <div class="serChoiceInfo clearfix">
+                            <div id="serChoiceContainer" class="serChoiceContainer fl"></div>
+                            <div class="serChoiceBtnContainer fr">
+                                <div class="d-inb">
+                                    <div id="serChoiceConf" class="serChoiceBtn close dis-n" >确认</div>
+                                </div>
+                                <div id="serChoiceCancel" class="serChoiceBtn close d-inb" >取消</div>
+                            </div>
+                        </div>
+                        <div id="serList" class="serList clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cont-row ">
+            <div class="cont-col-2">
+                <p class="cont-sub-title">服务介绍</p>
+            </div>
+            <div class="cont-col-10">
                 <div class="cont-row">
-                    <div class="cont-col col-12">
-                        <p class="cont-sub-title">服务介绍</p>
+                    <div class="cont-col-12">
+
                         <div class="m-b20">
                              <asp:TextBox   CssClass="input-textarea"   runat="server" TextMode="MultiLine"
                                                     ID="tbxDescription"></asp:TextBox>
                         </div>
-</div>
-</div>
+                    </div>
+                </div>
                 <div class="cont-row">
-                    <div class="cont-col col-12">
+                    <div class="cont-col-12">
                         <p>
                             <asp:CheckBox runat="server" ID="cbxEnable" Text="启用" />
                         </p>
-</div>
-</div>
-
+                    </div>
+                </div>
             </div>
-</div>
         </div>
-
-    <div class="cont-container">
-        <p></p>
         <div class="cont-row">
-            <div class="cont-col col-12">
-                <p class="cont-sub-title">你的服务区域<span class="text-anno m-l20">服务中心点定位（为您的服务区域进行定位）</span></p>
+            <div class="cont-col-2">
+                <p class="cont-sub-title">服务区域</p>
+            </div>
+            <div class="cont-col-10">
+
                 <div class="cont-row">
-                    <div class="cont-col col-4">
+                    <div class="cont-col-4">
                         <div class="fl clearfix">
                             <div id="setBusiness" class="setLocationMap">
                                 <div id="businessMapSub" class="mapSub">
@@ -82,34 +84,38 @@
                             <input id="hiBusinessAreaCode" runat="server" snsi type="hidden">
                         </div>
                     </div>
-                    <div class="cont-col col-8">
-                        <div class="">
+                    <div class="cont-col-8">
+                        <div>
                             <p class="m-b20">您选择的位置：</p>
-                            <p id="businessText" class="business-text m-b50"></p>
+                            <p id="businessText" class="business-text"></p>
                             <p class="text-anno theme-color-r">点击选择商圈范围</p>
                         </div>
+
                     </div>
+                    <div class="cont-col-12">
+                        <p><span class="text-anno m-l20">服务中心点定位（为您的服务区域进行定位）</span></p>
+</div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="cont-container">
-        <p class="cont-sub-title">服务详细信息</p>
+        <div class="cont-row step-row">
+                                <div class="cont-col-1">step 1</div><div class="cont-col-11">基本信息填写</div>
+        </div>
         <div class="cont-row m-b20">
-            <div class="cont-col col-3">
-                <p class="service-detail-title">服务起步价:</p>
+            <div class="cont-col-2">
+                <p class="cont-sub-title">服务起步价</p>
             </div>
-            <div class="cont-col col-9">
+            <div class="cont-col-10">
                 <div>
                     <asp:TextBox  CssClass="input-sm" required runat="server" snsi ID="tbxMinPrice"></asp:TextBox>&nbsp;&nbsp;元
                 </div>
             </div>
         </div>
         <div class="cont-row m-b20">
-            <div class="cont-col col-3">
-                <p class="service-detail-title">服务单价:</p>
+            <div class="cont-col-2">
+                <p class="cont-sub-title">服务单价</p>
             </div>
-            <div class="cont-col col-9">
+            <div class="cont-col-10">
                 <div>
                     <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxUnitPrice"></asp:TextBox>&nbsp;&nbsp;元&nbsp;/&nbsp;每&nbsp;&nbsp;（
                     <asp:RadioButtonList CssClass="serviceDataRadio d-inb" runat="server" ID="rblChargeUnit">
@@ -122,20 +128,20 @@
             </div>
         </div>
         <div class="cont-row m-b20">
-            <div class="cont-col col-3">
-                <p class="service-detail-title">提前预约时间:</p>
+            <div class="cont-col-2">
+                <p class="cont-sub-title">提前预约时间</p>
             </div>
-            <div class="cont-col col-9">
+            <div class="cont-col-10">
                 <div >
                         至少&nbsp;&nbsp;<asp:TextBox runat="server" snsi CssClass="input-sm" ID="tbxOrderDelay">60</asp:TextBox>&nbsp;&nbsp;分钟
                 </div>
             </div>
         </div>
         <div class="cont-row m-b20">
-            <div class="cont-col col-3">
-                <p class="service-detail-title">服务时间:</p>
+            <div class="cont-col-2">
+                <p class="cont-sub-title">服务时间</p>
             </div>
-            <div class="cont-col col-9">
+            <div class="cont-col-10">
                 <div>
                     <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxServiceTimeBegin">8:30</asp:TextBox>&nbsp;&nbsp;至&nbsp;&nbsp;
                     <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxServiceTimeEnd">21:00</asp:TextBox>
@@ -143,24 +149,24 @@
             </div>
         </div>
         <div class="cont-row m-b20">
-            <div class="cont-col col-6">
+            <div class="cont-col-6">
                 <div class="cont-row">
-                    <div class="cont-col col-6">
-                        <p class="service-detail-title">每日最大接单量:</p>
+                    <div class="cont-col-4">
+                        <p class="cont-sub-title">每日最大接单量:</p>
                     </div>
-                    <div class="cont-col col-6">
+                    <div class="cont-col-8">
                         <div>
                             <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxMaxOrdersPerDay">50</asp:TextBox>&nbsp;&nbsp;单
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="cont-col col-6">
+            <div class="cont-col-6">
                 <div class="cont-row">
-                    <div class="cont-col col-6">
-                        <p class="service-detail-title">每小时最大接单量:</p>
+                    <div class="cont-col-6">
+                        <p class="cont-sub-title">每小时最大接单量:</p>
                     </div>
-                    <div class="cont-col col-6">
+                    <div class="cont-col-6">
                         <div>
                             <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxMaxOrdersPerHour">20</asp:TextBox>&nbsp;&nbsp;单
                         </div>
@@ -169,89 +175,69 @@
             </div>
         </div>
         <div class="cont-row m-b20">
-            <div class="cont-col col-6">
-                <div class="cont-row">
-                    <div class="cont-col col-6">
-                        <p class="service-detail-title">是否上门:</p>
+            <div class="cont-col-2">
+                <p class="cont-sub-title">是否上门:</p>
 </div>
-                    <div class="cont-col col-6">
-                        <div class="p-t10">
-                            <asp:RadioButtonList CssClass="service-input-radio" runat="server" ID="rblServiceMode">
-                                <asp:ListItem Selected="True" Value="0" Text="是"></asp:ListItem>
-                                <asp:ListItem Value="1" Text="否"></asp:ListItem>
-                            </asp:RadioButtonList>
-                        </div>
-</div>
+            <div class="cont-col-10">
+                <div class="p-t10">
+                    <asp:RadioButtonList CssClass="service-input-radio" runat="server" ID="rblServiceMode">
+                        <asp:ListItem Selected="True" Value="0" Text="是"></asp:ListItem>
+                        <asp:ListItem Value="1" Text="否"></asp:ListItem>
+                    </asp:RadioButtonList>
                 </div>
-            </div>
-            <div class="cont-col col-6">
-                <div class="cont-row">
-                    <div class="cont-col col-6">
-                        <p class="service-detail-title">服务对象:</p>
 </div>
-                    <div class="cont-col col-6">
-                        <div class="service-checkBox">
-                            <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cblIsForBusiness"
-                                Text="可以对公" />
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
+        <div class="cont-row">
+            <div class="cont-col-2">
+                <p class="cont-sub-title">服务对象:</p>
+</div>
+            <div class="cont-col-10">
+                <div class="service-checkBox">
+                    <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cblIsForBusiness"
+                        Text="可以对公" />
+                </div>
+</div>
+</div>
         <div class="cont-row m-b20">
-            <div class="cont-col col-6">
-                <div class="cont-row">
-                    <div class="cont-col col-6">
-                        <p class="service-detail-title">服务保障:</p>
+                    <div class="cont-col-2">
+                        <p class="cont-sub-title">服务保障:</p>
                     </div>
-                    <div class="cont-col col-6">
+                    <div class="cont-col-10">
                         <div class="service-checkBox">
                             <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCompensationAdvance" Text="加入先行赔付" />
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="cont-col col-6">
-                <div class="cont-row">
-                    <div class="cont-col col-6">
-                        <p class="service-detail-title">平台认证:</p>
-                    </div>
-                    <div class="cont-col col-6">
-                        <div class="service-checkBox">
-                            <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCertificated" Text="已通过" />
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
+        <div class="cont-row">
+            <div class="cont-col-2">
+                <p class="cont-sub-title">平台认证:</p>
+</div>
+            <div class="cont-col-10">
+                <div class="service-checkBox">
+                                            <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCertificated" Text="已通过" />
+                                        </div>
+</div>
+</div>
         <div class="cont-row m-b20">
-            <div class="cont-col col-6">
-                <div class="cont-row">
-                    <div class="cont-col col-6">
-                        <p class="service-detail-title">付款方式:</p>
-                    </div>
-                    <div class="cont-col col-6">
-                        <div class="p-t10">
-                            <asp:RadioButtonList CssClass="service-input-radio" ID="rblPayType" runat="server">
-                                <asp:ListItem Selected="True" Value="1" Text="线上"></asp:ListItem>
-                                <asp:ListItem Value="2" Text="线下"></asp:ListItem>
-                            </asp:RadioButtonList>
-                        </div>
-                    </div>
+
+            <div class="cont-col-2">
+                <p class="cont-sub-title">付款方式:</p>
+            </div>
+            <div class="cont-col-10">
+                <div class="p-t10">
+                    <asp:RadioButtonList CssClass="service-input-radio" ID="rblPayType" runat="server">
+                        <asp:ListItem Selected="True" Value="1" Text="线上"></asp:ListItem>
+                        <asp:ListItem Value="2" Text="线下"></asp:ListItem>
+                    </asp:RadioButtonList>
                 </div>
             </div>
-            <div class="cont-col col-6">
-                <div class="cont-row">
-                    <div class="cont-col col-6"></div>
-                    <div class="cont-col col-6"></div>
-                </div>
-            </div>
+
+
         </div>
-    </div>
      <div>
      <span>标签:</span> <DZ:Tag runat="server" ID="dzTag" />
      </div>
-
+    </div>
     <div id="mapLightBox" class="dis-n">
         <div class="mapWrap">
             <div id="businessMap" class="mapMain">

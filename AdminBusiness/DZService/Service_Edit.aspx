@@ -11,55 +11,8 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
                 <div class="cont-wrap">
-                    <div class="cont-container">
-                        <div class="cont-row">
-                            <div class="cont-col col-2">
-                                <div class="headInfoArea">
-                                    <div class="headImage">
-                                        <img src="..\image\myshop\touxiangkuang_11.png" alt="头像" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="cont-col col-10">
-                                <div class="headInfo">
-                                    <span class="ServiceShops"><%=CurrentBusiness.Name %></span> <span class="InfoCompletetxt">信誉度</span>
-                                    <div class="Servicexing">
-                                        <i class="icon service-icon-star"></i><i class="icon service-icon-star"></i><i class="icon service-icon-star">
-                                        </i><i class="icon service-icon-star"></i><i class="icon service-icon-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <%--<div id="userInfoAreaid">--%>
-                        <%--<div class="serviceInfoArea">--%>
-                            <%--<div class="serviceInfoTilte">--%>
-                                <%--<span>服务等级</span>--%>
-                            <%--</div>--%>
-                            <%--<div class="headInfoArea">--%>
-                                <%--<div class="headImage">--%>
-                                    <%--<img src="..\image\myshop\touxiangkuang_11.png" alt="头像" />--%>
-                                <%--</div>--%>
-                                <%--<div class="headInfo">--%>
-                                    <%--<span class="ServiceShops"><%=CurrentBusiness.Name %></span> <span class="InfoCompletetxt">信誉度</span>--%>
-                                    <%--<div class="Servicexing">--%>
-                                        <%--<i class="icon service-icon-star"></i><i class="icon service-icon-star"></i><i class="icon service-icon-star">--%>
-                                        <%--</i><i class="icon service-icon-star"></i><i class="icon service-icon-star"></i>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<!--<div class="headEditImg">-->--%>
-                                    <%--<!--<span class="satisfaction">100%</span>-->--%>
-                                <%--<!--</div>-->--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                        <!--<div class="service-title">-->
-                            <!--<span>添加服务信息</span>-->
-                        <!--</div>-->
                         <div class="serviceMain clearfix">
                              <UC:ServiceEdit runat="server" />
-                            <!--<div class="bottomArea">-->
-                            <!--</div>-->
                         </div>
                 </div>
 
