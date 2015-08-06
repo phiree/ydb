@@ -26,6 +26,11 @@
     padding-left: 20px;
 }
 
+.serList ul li:hover {
+    color: #fff;
+    background: #8CC8E4;
+}
+
 .serChoiceContainer {
 
 }
