@@ -273,7 +273,7 @@
                 <input id="hiBusinessAreaCode" runat="server" clientidmode="Static" type="hidden">
                 <p class="p_LocationArea service-item-title">
                     <i class="icon service-icon-serLocal"></i>定位服务区域</p>
-                <!--<p class="f-s13 l-h16">服务中心点定位(为您的服务区域进行定位)</p>-->
+                <!--<p class="f-s14 l-h16">服务中心点定位(为您的服务区域进行定位)</p>-->
                 <div class="clearfix">
                     <div class="fl clearfix">
                         <div id="setBusiness" class="setLocationMap">

@@ -40,35 +40,35 @@
                         </div>
                     </div>
                     <div class="cont-row secret-row">
-                        <div class="cont-col col-12 standard-cont">
+                        <div class="cont-col-12 standard-cont">
                                 <p class="cont-sub-title">基础信息</p>
                                 <div class="cont-row">
-                                    <div class="cont-col col-2">
+                                    <div class="cont-col-2">
                                         <p class="secret-d-t">登录账号:</p>
                                     </div>
-                                    <div class="cont-col col-3">
+                                    <div class="cont-col-3">
                                         <span><%=CurrentUser.UserName%></span>
                                     </div>
                                 </div>
                                 <div class="cont-row">
-                                    <div class="cont-col col-2">
+                                    <div class="cont-col-2">
                                         <p class="secret-d-t">手机号码:</p>
                                     </div>
-                                    <div class="cont-col col-2"><span><%=CurrentUser.Phone%></span></div>
-                                    <div class="cont-col col-2"><a id="lb_changePhone" class="m-l20 blue-a" href="javascript:void(0);">修改</a></div>
+                                    <div class="cont-col-2"><span><%=CurrentUser.Phone%></span></div>
+                                    <div class="cont-col-2"><a id="lb_changePhone" class="m-l20 blue-a" href="javascript:void(0);">修改</a></div>
                                 </div>
                                 <div class="cont-row">
-                                    <div class="cont-col col-2">
+                                    <div class="cont-col-2">
                                         <p class="secret-d-t">绑定邮箱:</p>
                                     </div>
-                                    <div class="cont-col col-2">
+                                    <div class="cont-col-2">
                                         <span><%=CurrentUser.Email%></span>
                                     </div>
-                                    <div class="cont-col col-2">
+                                    <div class="cont-col-2">
                                         <a id="lb_changeEmail" class="m-l20 blue-a" href="javascript:void(0);">修改</a>
 
                                     </div>
-                                    <div class="cont-col col-6">
+                                    <div class="cont-col-6">
                                     <p class="secret-d-a d-inb"><% if (CurrentUser.IsRegisterValidated)
                                        {%>已验证<%}
                                        else
@@ -78,23 +78,23 @@
                                     </div>
                                 </div>
                                 <div class="cont-row">
-                                    <div class="cont-col col-2">
+                                    <div class="cont-col-2">
                                         <p class="secret-d-t">上次登陆:</p>
                                     </div>
-                                    <div class="cont-col col-10"><span><%=CurrentUser.LastLoginTime.ToString("yyyy年MM月dd日 HH:mm:ss")%></span></div>
+                                    <div class="cont-col-10"><span><%=CurrentUser.LastLoginTime.ToString("yyyy年MM月dd日 HH:mm:ss")%></span></div>
                                 </div>
 
                         </div>
                     </div>
                     <div class="cont-row secret-row">
-                        <div class="cont-col col-12">
+                        <div class="cont-col-12">
                             <p class="cont-sub-title">安全信息</p>
                             <div class="pass-row m-b20">
                                 <div class="cont-row">
-                                    <div class="cont-col col-2"><span class="secret-d-t">登陆密码&nbsp;:</span></div>
-                                    <div class="cont-col col-6"><p class="secret-d-p d-inb">设置安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</p></div>
-                                    <div class="cont-col col-2"><a id="passChange" class="secret-change-a blue-a" href="javascript:void(0);">修改</a></div>
-                                    <div class="cont-col col-2">
+                                    <div class="cont-col-2"><span class="secret-d-t">登陆密码&nbsp;:</span></div>
+                                    <div class="cont-col-6"><p class="secret-d-p d-inb">设置安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</p></div>
+                                    <div class="cont-col-2"><a id="passChange" class="secret-change-a blue-a" href="javascript:void(0);">修改</a></div>
+                                    <div class="cont-col-2">
                                         <div class="secret-d-tip">
                                             <i class="icon secret-icon-1"></i>
                                             <div>强</div>
@@ -104,10 +104,10 @@
                             </div>
                             <div class="id-row m-b20">
                                 <div class="cont-row">
-                                    <div class="cont-col col-2"><span class="secret-d-t">身份认证&nbsp;:</span></div>
-                                    <div class="cont-col col-6"><span class="secret-d-p d-inb">重新上传负责人证件照</span></div>
-                                    <div class="cont-col col-2"><a id="lb_ChangeIdCards" class="secret-change-a blue-a" href="javascript:void(0);">修改</a></div>
-                                    <div class="cont-col col-2">
+                                    <div class="cont-col-2"><span class="secret-d-t">身份认证&nbsp;:</span></div>
+                                    <div class="cont-col-6"><span class="secret-d-p d-inb">重新上传负责人证件照</span></div>
+                                    <div class="cont-col-2"><a id="lb_ChangeIdCards" class="secret-change-a blue-a" href="javascript:void(0);">修改</a></div>
+                                    <div class="cont-col-2">
                                         <div class="secret-d-tip">
                                             <i class="icon secret-icon-2"></i>
                                             <div>已认证</div>

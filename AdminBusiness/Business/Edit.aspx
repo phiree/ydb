@@ -44,10 +44,10 @@
                         <!--</div>-->
                     <!--</div>-->
                     <div class="cont-row step-row">
-                        <div class="cont-col col-1">step 1</div><div class="cont-col col-11">基本信息填写</div>
+                        <div class="cont-col-1">step 1</div><div class="cont-col-11">基本信息填写</div>
 </div>
                     <div class="cont-row myshop-cont-row">
-                        <div class="cont-col col-2">
+                        <div class="cont-col-2">
                             <div class="headImage">
                                 <div class="input-file-box headFile">
                                   <input type=file class="input-file-btn"  name="input-file-btn-avater" businessId="<%=b.Id %>" imageType="businessavater" />
@@ -57,53 +57,59 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="cont-col col-4">
+                        <div class="cont-col-4">
                             <div class="myshop-name">
                                 <p class="vm"><input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="myshop-name-input input-mid" /></p>
                             </div>
                         </div>
-                        <div class="cont-col col-6">
+                        <div class="cont-col-6">
                             <div class="text-anno myshop-name-anno vmBox">
                                 <p class="vm">请上传你的店铺商标，并填写店铺名称。<span class="anno-r">（必填选项）</span></p>
                             </div>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
-                        <div class="cont-col col-12">
-                            <div class="myshop-intro">
-                                <p class="cont-sub-title"><span>店铺介绍</span><span class="title-tips shop-tips">（必填选项）</span></p>
-                                <div class="cont-row">
-                                    <div class="cont-col col-6">
-                                        <textarea class="input-textarea" id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入60个字)</textarea>
-                                    </div>
-                                    <div class="cont-col col-6">
-                                        <div class="text-anno myshop-intro-anno vmBox">
-                                            <p class="vm">请将您的店铺简介在此输入<br/><span class="anno-r">（字数限制在0~80个字符之间）</span></p>
-                                        </div>
+                        <div class="cont-col-2">
+                            <p class="cont-sub-title"><span>店铺介绍</span></p>
+                        </div>
+                        <div class="cont-col-10">
+                            <div class="cont-row">
+                                <div class="cont-col-6">
+                                    <textarea class="input-textarea" id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入60个字)</textarea>
+                                </div>
+                                <div class="cont-col-6">
+                                    <div class="text-anno myshop-intro-anno vmBox">
+
+                                        <p class="vm">
+                                            <p><span class="title-tips shop-tips">（必填选项）</span></p>
+                                        </br>请将您的店铺简介在此输入<span class="anno-r">（字数限制在0~80个字符之间）</span></p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+</div>
                     </div>
-                <!--</div>-->
-                <!--<div class="cont-container">-->
+
                     <div class="cont-row myshop-cont-row">
-                        <div class="cont-col col-12">
+                        <div class="cont-col-2">
                             <p class="cont-sub-title"><span>联系电话</span></p>
-                            <div><input type="text" class="input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/></div>
+                        </div>
+                        <div class="cont-col-10">
+                            <div><input type="text" class="input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/><span class="anno-r">（必填选项）</span></div>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
-                        <div class="cont-col col-12">
+                        <div class="cont-col-2">
                             <p class="cont-sub-title"><span>公司网站</span></p>
-                            <div><input type="text" class="input-lg" runat="server" id="tbxEmail" name="email" /></div>
+                        </div>
+                        <div class="cont-col-10">
+                            <div><input type="text" class="input-lg" runat="server" id="tbxEmail" name="email" /><span class="anno-r">（必填选项）</span></div>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
-                        <div class="cont-col col-12">
-                            <p class="cont-sub-title">店铺图片展示</p>
+                        <div class="cont-col-2"><p class="cont-sub-title">店铺图片展示</p></div>
+                        <div class="cont-col-10">
                             <div class="cont-row">
-                                <div class="cont-col col-6">
+                                <div class="cont-col-12">
                                     <div class="clearfix">
                                         <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
@@ -125,26 +131,30 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="cont-col col-6">
+                            </div>
+                            <div class="cont-row">
+                                <div class="cont-col-12">
                                     <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<br/><span class="anno-r">（图片大小限制在2M以下）</span></p>
+                                        <p class="vm">请至少上传一张图片<span class="anno-r">（图片大小限制在2M以下）</span></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <!--</div>-->
-                <!--<div class="cont-container">-->
+
                     <div class="cont-row myshop-cont-row">
-                        <div class="cont-col col-12">
+                        <div class="cont-col-2">
                             <p class="cont-sub-title">店铺地址</p>
+                        </div>
+                        <div class="cont-col-10">
+
                             <div>
                                 <p><input type="text" class="input-lg m-b20" id="tbxAddress" runat="server" name="addressDetail" /></p>
                                 <div class="cont-row">
-                                    <div class="cont-col col-3">
+                                    <div class="cont-col-3">
                                         <p><input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress" value="点击放置店铺坐标" /></p>
                                     </div>
-                                    <div class="cont-col col-9">
+                                    <div class="cont-col-9">
                                         <div class="addPrint-vm">
                                             <div id="addPrintBox"></div>
                                         </div>
@@ -155,36 +165,53 @@
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
-                        <div class="cont-col col-6">
+                        <div class="cont-col-2">
                             <p class="cont-sub-title">从业时间</p>
+</div>
+                        <div class="cont-col-10">
                             <div class="d-inb select select-sm years-select">
                                 <ul></ul>
                                 <input type="hidden" class="input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
                             </div>
                             <span class="myshop-span">年</span>
                         </div>
-                        <div class="cont-col col-6">
+
+
+
+
+                    </div>
+                    <div class="cont-row myshop-cont-row">
+                        <div class="cont-col-2">
                             <p class="cont-sub-title">员工人数</p>
+</div>
+                        <div class="cont-col-10">
                             <div>
                                 <input type="text" class="input-mid" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
                                 <span class="myshop-span">人</span>
                             </div>
-                        </div>
-                    </div>
+</div>
+
+</div>
                     <div class="cont-row step-row">
-                                            <div class="cont-col col-1">step 2</div><div class="cont-col col-11">完善商户营业资质资料</div>
+                                            <div class="cont-col-1">step 2</div><div class="cont-col-11">完善商户营业资质资料</div>
                     </div>
-                <!--</div>-->
-                <!--<div class="cont-container">-->
+
                     <div class="cont-row myshop-cont-row">
-                        <div class="cont-col col-4">
+                        <div class="cont-col-2">
                             <p class="cont-sub-title">负责人姓名</p>
+</div>
+                        <div class="cont-col-10">
+
                             <div>
                                 <input type="text" class="input-mid" runat="server" clientidmode="Static" id="tbxContact" />
                             </div>
                         </div>
-                        <div class="cont-col col-4">
+                    </div>
+                    <div class="cont-row myshop-cont-row">
+                        <div class="cont-col-2">
                             <p class="cont-sub-title">证件类型</p>
+                        </div>
+                        <div class="cont-col-10">
                             <div>
                                 <div class="select select-sm">
                                     <ul>
@@ -195,18 +222,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="cont-col col-4">
+                    </div>
+                    <div class="cont-row myshop-cont-row">
+                        <div class="cont-col-2">
                             <p class="cont-sub-title">证件号码</p>
+</div>
+                        <div class="cont-col-10">
                             <div>
                                 <input type="text" class="input-mid" runat="server" id="tbxCardIdNo" name="tbxCardIdNo" clientidmode="Static" />
                             </div>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
-                        <div class="cont-col col-12">
+                        <div class="cont-col-2">
                             <p class="cont-sub-title">负责人证件照上传</p>
+                        </div>
+                        <div class="cont-col-10">
                             <div class="cont-row">
-                                <div class="cont-col col-6">
+                                <div class="cont-col-12">
                                     <div class="clearfix">
                                         <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
@@ -228,22 +261,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="cont-col col-6">
+                                <div class="cont-col-12">
                                     <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<br/><span class="anno-r">（图片大小限制在2M以下）</span></p>
+                                        <p class="vm">请至少上传一张图片<span class="anno-r">（图片大小限制在2M以下）</span></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <!--</div>-->
-                <!--<div class="cont-container">-->
-                    <div class="cont-row myshop-cont-row">
-                        <div class="cont-col col-12">
-                            <p class="cont-sub-title">营业执照</p>
 
+                    <div class="cont-row myshop-cont-row">
+                        <div class="cont-col-2">
+                            <p class="cont-sub-title">营业执照</p>
+                        </div>
+                        <div class="cont-col-10">
                             <div class="cont-row">
-                                <div class="cont-col col-6">
+                                <div class="cont-col-12">
                                     <div class="clearfix">
                                         <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
@@ -265,9 +298,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="cont-col col-6">
+                                <div class="cont-col-12">
                                     <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<br/><span class="anno-r">（图片大小限制在2M以下）</span></p>
+                                        <p class="vm">请至少上传一张图片<span class="anno-r">（图片大小限制在2M以下）</span></p>
                                     </div>
                                 </div>
                             </div>
