@@ -362,7 +362,9 @@
                 <div class="bottomArea">
                     <input name="imageField" runat="server" onserverclick="btnSave_Click" type="image"
                         id="imageField1" src="../image/myshop/shop_tx_107.png" />
-                    <input name="imageField" type="image" id="imageField2" src="../image/myshop/shop_tx_108.png" />
+                    <a class="cancel" href="/business/detail.aspx?businessId=<%=Request["businessid"] %>">取消</a>
+
+                    <!--<input name="imageField" type="image" id="imageField2" src="../image/myshop/shop_tx_108.png" />-->
                 </div>
             </div>
         <!--</div>-->

@@ -2,7 +2,7 @@
  * Created by LiChang on 2015/5/15.
  */
 
-$(document).ready(function ($) {
+(function ($) {
 
     (function(){
         return $('.time-select').each(function () {
@@ -110,6 +110,14 @@ $(document).ready(function ($) {
     //    })
     //
     //})();
+    (function(){
+        $(".cancel").each(function(){
+            $(this).click(function(){
+                return confirm("是否取消保存？");
+            })
+        })
+    })();
+
 
     (function (){
         var $navBtn = $(".nav-btn-bg:not(.nav-btn-un)");
@@ -184,7 +192,7 @@ $(document).ready(function ($) {
 
     })()
 
-});
+})(jQuery);
 
 
 (function ($) {
