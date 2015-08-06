@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using Dianzhu.Model;
+using Dianzhu.BLL.Validator;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -22,8 +23,9 @@ public class ResponseUSM001003 : BaseResponse
             Guid uid = new Guid(PHSuit.StringHelper.InsertToId(raw_id));
             DZMembership member = p.GetUserById(uid);
             if (member == null)
-            {this.state_CODE=Dicts.StateCode[8];
-                this.err_Msg="用户不存在,可能是传入的uid有误";
+            {
+                this.state_CODE = Dicts.StateCode[8];
+                this.err_Msg = "用户不存在,可能是传入的uid有误";
                 return;
             }
             //验证用户的密码
@@ -33,47 +35,91 @@ public class ResponseUSM001003 : BaseResponse
                 this.err_Msg = "用户密码错误";
                 return;
             }
-            DZMembership memberForSerialize = new DZMembership();
-             member.CopyTo(memberForSerialize);
+            DZMembership memberOriginal = new DZMembership();
+            member.CopyTo(memberOriginal);
+            RespDataUSM001003 memberUpdateResult = new RespDataUSM001003(raw_id);
             if (requestData.alias != null)
             {
                 member.NickName = requestData.alias;
+                memberUpdateResult.alias = "Y";
             }
-            else {
-                memberForSerialize.NickName = null;
-            }
+             
             if (requestData.email != null)
             {
                 member.Email = requestData.email;
+                memberUpdateResult.email = "Y";
             }
-            else
-            {
-                memberForSerialize.Email = null;
-            }
+             
             if (requestData.phone != null)
             {
                 member.Phone = requestData.phone;
+                memberUpdateResult.phone = "Y";
             }
-            else
-            {
-                memberForSerialize.Phone = null;
-            }
+            
             if (requestData.password != null)
             {
                 member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.password, "MD5");
+                memberUpdateResult.password = "Y";
             }
-            memberForSerialize.Password = null;
+             
             if (requestData.address != null)
             {
                 member.Address = requestData.address;
+                memberUpdateResult.address = "Y";
             }
-            else
+             
+
+            ValidatorDZMembership vd_member = new ValidatorDZMembership();
+
+
+            FluentValidation.Results.ValidationResult result = vd_member.Validate(member);
+            foreach (FluentValidation.Results.ValidationFailure f in result.Errors)
             {
-                memberForSerialize.Address = null;
+                switch (f.PropertyName.ToLower())
+                {
+                        //只有不为null的菜需要
+                    case "alias":
+                        if (memberUpdateResult.alias != null)
+                        {
+                            memberUpdateResult.alias = "N";
+                            member.NickName = memberOriginal.NickName;
+                        }
+                        break;
+                    case "email":
+                        if(memberUpdateResult.email!=null)
+                        {
+                        memberUpdateResult.email = "N";
+                        member.Email = memberOriginal.Email;
+                        }break;
+                    case "phone": 
+                        if(memberUpdateResult.phone!=null)
+                        {
+                            memberUpdateResult.phone = "N"; member.Phone = memberOriginal.Phone;
+                        }
+                        break;
+                    case "password":
+                        if(memberUpdateResult.password!=null)
+                        {
+                        memberUpdateResult.password = "N";
+                        member.Password = memberOriginal.Password;
+                        }break;
+                    case "address": 
+                        if(memberUpdateResult.address!=null)
+                        {
+                        memberUpdateResult.address = "N";
+                        member.Address = memberOriginal.Address;
+                        } break;
+                    default: break;
+                }
+                
+
             }
+
+           
+
             p.UpdateDZMembership(member);
             this.state_CODE = Dicts.StateCode[0];
-            this.RespData = new RespDataUSM001003().Adapt(memberForSerialize) ;
+            this.RespData = memberUpdateResult;
         }
         catch (Exception e)
         {
@@ -85,7 +131,7 @@ public class ResponseUSM001003 : BaseResponse
     }
     public override string BuildJsonResponse()
     {
-        return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling= NullValueHandling.Ignore});
+        return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
     }
 }
 
@@ -116,14 +162,14 @@ public class RespDataUSM001003
     public string phone { get; set; }
     public string password { get; set; } //new password
     public string address { get; set; }
-    public RespDataUSM001003 Adapt(DZMembership member)
+    public RespDataUSM001003(string uid)
     {
         //todo: 如果修改成功,则为"Y" 否则为"N"
-        this.uid = member.Id.ToString().Replace("-", string.Empty);
-        this.alias = member.NickName;
-        this.email = member.Email;
-        //this.password = this.password;
-        this.address = member.Address;
-        return this;
+        this.uid = uid;
+        this.alias = null;
+        this.email =null;
+        this.phone = null;
+        this.password = null;
+        this.address = null;
     }
 }
