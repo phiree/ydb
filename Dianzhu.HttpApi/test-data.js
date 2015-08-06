@@ -39,7 +39,8 @@
                     "ReqData": { 
                     "uid": "a8a3d8aad5e04f478425a4ce00bf0bd1", 
                     "userPWord": "password", 
-                    "address":"海牙国际大厦20A"
+                    "address":"海牙国际大厦20A",
+                    "phone":"13812341234"
                    
                     }, 
                     "stamp_TIMES": "1490192929222", 

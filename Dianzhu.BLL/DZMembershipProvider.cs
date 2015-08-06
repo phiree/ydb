@@ -10,6 +10,8 @@ using System.Net.Mail;
 using System.Net.Configuration;
 using System.Configuration;
 using System.Net;
+using Dianzhu.BLL.Validator;
+using FluentValidation;
 namespace Dianzhu.BLL
 {
     public class DZMembershipProvider : MembershipProvider
@@ -275,6 +277,8 @@ namespace Dianzhu.BLL
         }
         public void UpdateDZMembership(DZMembership member)
         {
+           
+
             DALMembership.Update(member);
         }
         public DZMembership GetUserByEmail(string email)

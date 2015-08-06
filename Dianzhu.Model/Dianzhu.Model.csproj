@@ -56,7 +56,7 @@
     <Compile Include="Business.cs" />
     <Compile Include="CashTicketCreateRecord.cs" />
     <Compile Include="CashTicket.cs" />
-    <Compile Include="DZMembershipUser.cs" />
+    <Compile Include="DZMembership.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CashTicketAssignRecord.cs" />
     <Compile Include="ServicePeriod.cs" />

@@ -81,6 +81,7 @@
     <Compile Include="AddressParser.cs" />
     <Compile Include="BLLDeviceBind.cs" />
     <Compile Include="BLLDZTag.cs" />
+    <Compile Include="Validator\ValidatorDZMemership.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
