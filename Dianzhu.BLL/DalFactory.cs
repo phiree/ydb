@@ -26,6 +26,12 @@ namespace Dianzhu.BLL
         static DALStaff dalStaff;
         static DALDeviceBind dalDeviceBind;
         static DALServiceOrder dalServiceOrder;
+        static DALDZTag dalDZTag;
+        public static DALDZTag DALDZTag
+        {
+            get { return dalDZTag ?? new DALDZTag(); }
+            set { dalDZTag = value; }
+        }
         public static DALServiceOrder DALServiceOrder
         {
             get { return dalServiceOrder ?? new DALServiceOrder(); }

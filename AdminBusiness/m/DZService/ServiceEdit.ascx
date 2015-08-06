@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="~/DZService/ServiceEdit.ascx.cs"
     Inherits="DZService_ServiceEdit" %>
+        <%@ Register Src="~/TagControl.ascx" TagName="Tag" TagPrefix="DZ" %>
 <link rel="stylesheet" href="/m/css/global.css" />
 
 <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
@@ -345,6 +346,7 @@
                 </asp:RadioButtonList>
             </div>
              <div style="text-align: right; ">
+              <span>标签:</span> <DZ:Tag runat="server" ID="dzTag" />
             <a href="#" id="rp_save" data-rel="close" data-role="button" data-inline="true">确定</a>
             <a href="#" data-rel="close" data-role="button" data-inline="true">取消</a>
             </div>

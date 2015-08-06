@@ -31,6 +31,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             ServiceId = new Guid(paramId);
             CurrentService = bllService.GetOne(ServiceId);
             ServiceType = CurrentService.ServiceType;
+            dzTag.ServiceId = paramId;
         }
         
         if (!IsPostBack)
