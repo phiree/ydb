@@ -10,31 +10,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-        <div class="mainContent clearfix">
-            <div class="leftContent" id="leftCont">
-                <div class="side-bar">
-                    <ul>
-                        <li class="side-btn-br">
-                            <a href="/DZService/Default.aspx?businessId=<%=Request["businessid"] %>" target="_self">
-                                <div class="side-btn-bg d-inb">
-                                    <i class="icon side-btn-icon side-icon-service"></i>
-                                    <h4 class="side-btn-t ">服务管理</h4>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/DZService/Service_Edit.aspx?businessId=<%=Request["businessid"] %>" target="_self">
-                                <div class="side-btn-bg d-inb">
-                                    <i class="icon side-btn-icon side-icon-serviceSet"></i>
-                                    <h4 class="side-btn-t ">服务添加</h4>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                    <i class="icon side-arrow"></i>
-                </div>
-            </div>
-            <div class="rightContent" id="rightCont">
                 <div class="cont-wrap">
                     <div class="cont-container">
                         <div class="cont-row">
@@ -88,8 +63,6 @@
                         </div>
                 </div>
 
-            </div>
-        </div>
 
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
