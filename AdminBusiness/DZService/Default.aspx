@@ -43,11 +43,10 @@
                      <a href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></div>
                                                 <div class="cont-col-1"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></div>
                                                  <div class="cont-col-1"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></div>
-                                                <div class="cont-col-1"> <input type="hidden" id="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
-                                                <span id="spServiceArea" class="text-ellipsis">
-                            </span>
+                                                <div class="cont-col-3"><input type="hidden" id="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
+                                                <span id="spServiceArea" class="text-ellipsis"></span>
                                                 </div>
-                                                <div class="cont-col-3"> </div>
+                                                <!--<div class="cont-col-3"> </div>-->
                                                 <div class="cont-col-2"><%#Eval("OrderDelay")%></div>
                                                 <div class="cont-col-1"><%# ((bool)Eval("Enabled"))?"启用":"禁用" %></div>
                                             </div>
