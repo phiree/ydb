@@ -23,6 +23,7 @@ public class BaseResponse
     protected BaseRequest request;
     public BaseResponse(BaseRequest request)
     {
+        this.err_Msg = string.Empty;
         this.request = request;
         this.protocol_CODE = request.protocol_CODE;
         this.serial_NUMBER = request.serial_NUMBER;

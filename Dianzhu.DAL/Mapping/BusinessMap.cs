@@ -32,7 +32,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Longitude);
             Map(x => x.IsApplyApproved);
             Map(x => x.ApplyRejectMessage);
-            References<Area>(x => x.AreaBelongTo);
+            References<Area>(x => x.AreaBelongTo).ForeignKey("none");
             HasMany<Area>(x => x.AreaServiceTo);
             Map(x => x.DateApply);
             Map(x => x.DateApproved);

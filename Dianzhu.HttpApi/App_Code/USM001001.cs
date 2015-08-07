@@ -56,9 +56,9 @@ public class RespDataUSM001001_UserObj
     public RespDataUSM001001_UserObj Adapt(DZMembership membership)
     {
         this.uid = membership.Id.ToString().Replace("-", string.Empty).ToUpper();
-        this.alias = membership.UserName;
-        this.email = membership.Email;
-        this.phone = membership.Phone;
+        this.alias = membership.UserName??"";
+        this.email = membership.Email??"";
+        this.phone = membership.Phone??"";
         this.imgurl = "";
         this.address = "";
         return this;

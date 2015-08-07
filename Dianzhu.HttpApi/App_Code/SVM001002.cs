@@ -130,13 +130,13 @@ public class RespDataSVM001002_Order
         this.srvBiz = order.Service.Business.Name;
         this.srvBizID = order.Service.Business.Id.ToString().Replace("-", string.Empty);
         this.srvType = order.Service.ServiceType.ToString();
-        this.srvStartTime = order.Service.ServiceTimeBegin;
-        this.srvEndTime = order.Service.ServiceTimeEnd;
+        this.srvStartTime = order.Service.ServiceTimeBegin??string.Empty;
+        this.srvEndTime = order.Service.ServiceTimeEnd??string.Empty;
         ///这个是服务单价
         this.srvMoney = order.TotalPrice.ToString("#.#");
         this.srvStatus = order.OrderStatus.ToString();
-        this.srvAdress = order.TargetAddress;
-        this.srvExdes = order.Service.Description;
+        this.srvAdress = order.TargetAddress??string.Empty;
+        this.srvExdes = order.Service.Description??string.Empty;
         return this;
     }
 }

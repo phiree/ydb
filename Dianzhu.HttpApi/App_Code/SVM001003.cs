@@ -116,8 +116,8 @@ public class RespDataSVM001003_Order
         ///这个是服务单价
         this.srvMoney = order.TotalPrice.ToString("#.#");
         this.srvStatus = order.OrderStatus.ToString();
-        this.srvAdress = order.TargetAddress;
-        this.srvExdes = order.Service.Description;
+        this.srvAdress = order.TargetAddress??string.Empty;
+        this.srvExdes = order.Service.Description??string.Empty;
         return this;
     }
 }
