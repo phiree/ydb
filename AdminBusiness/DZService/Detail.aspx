@@ -1,31 +1,75 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="DZService_Detail" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="/css/service.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-               <div class="cont-container">
-                <ul>
-                    <li>服务名称:<%=CurrentService.Name %></li>
-                    <li>服务类型:<%=CurrentService.ServiceType.ToString() %></li>
-                    <li>服务介绍:<%=CurrentService.Description %></li>
-                    <li>服务区域:<%=CurrentService.BusinessAreaCode %></li>
-                    <li>服务起步价:<%=CurrentService.MinPrice.ToString("#.#") %></li>
-                    <li>服务单价:<%=CurrentService.UnitPrice.ToString("#.#") %></li>
-                    <li>提前预约:<%=CurrentService.OrderDelay %></li>
-                    <li>服务服务时间:<%=CurrentService.ServiceTimeBegin %>-<%=CurrentService.ServiceTimeEnd %></li>
-                    <li>每日最大接单量:<%=CurrentService.MaxOrdersPerDay %></li>
-                    <li>每小时最大接单量:<%=CurrentService.MaxOrdersPerHour%></li>
-                    <li>是否上门服务:<%=CurrentService.ServiceMode %></li>
-                    <li>服务对象:<%=CurrentService.IsForBusiness %></li>
-                    <li>服务保障:<%=CurrentService.IsCompensationAdvance %></li>
-                    <li>付款方式:<%=CurrentService.PayType %></li>
-                    <li>认证平台:<%=CurrentService.IsCertificated %></li>
-                    <li><a href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%=CurrentService.Id %>"> 编辑</a></li>
-</ul>
+    <div class="cont-wrap">
+        <div class="cont-container">
+            <div class="service-info info-top">
+                <div class="cont-row">
+                    <div class="cont-col-3">
+                        <div class="cont-row">
+                            <div class="cont-col-4"><p class="service-cont-title">服务名称:</p></div>
+                            <div class="cont-col-8"><%=CurrentService.Name %></div>
+                        </div>
+                    </div>
+                    <div class="cont-col-9">
+                        <div class="cont-row">
+                            <div class="cont-col-2"><p class="service-cont-title">服务类型:</p></div>
+                            <div class="cont-col-10"><%=CurrentService.ServiceType.ToString() %></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cont-row">
+                    <div class="cont-col-3">
+                        <div class="cont-row">
+                            <div class="cont-col-4"><p class="service-info-title">服务标签:</p></div>
+                            <div class="cont-col-8"></div>
+                        </div>
+                    </div>
+                    <div class="cont-col-9">
+                        <div class="cont-row">
+                            <div class="cont-col-2"><p class="service-info-title">服务区域:</p></div>
+                            <div class="cont-col-10"><%=CurrentService.BusinessAreaCode %></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cont-row">
+                    <div class="cont-col-1"><p class="service-info-title">服务介绍:</p></div>
+                    <div class="cont-col-7"><%=CurrentService.Description %></div>
+                </div>
+            </div>
+            <div class="service-info info-bottom">
+                <div class="cont-row">
+                    <div class="cont-col-12"><p class="service-info-title">服务信息</p></div>
+                </div>
+                <div class="cont-row">
+                    <div class="cont-col-3"><span class="service-info-text">服务起步价:</span><%=CurrentService.MinPrice.ToString("#.#") %>元</div>
+                    <div class="cont-col-3"><span class="service-info-text">服务单价:</span><%=CurrentService.UnitPrice.ToString("#.#") %></div>
+                    <div class="cont-col-3"><span class="service-info-text">提前预约:</span><%=CurrentService.OrderDelay %></div>
+                    <div class="cont-col-3"><span class="service-info-text">服务时间:</span><%=CurrentService.ServiceTimeBegin %>-<%=CurrentService.ServiceTimeEnd %></div>
+                </div>
+                <div class="cont-row">
+                    <div class="cont-col-3"><span class="service-info-text">每日最大接单量:</span><%=CurrentService.MaxOrdersPerDay %></div>
+                    <div class="cont-col-3"><span class="service-info-text">每小时最大接单量:</span><%=CurrentService.MaxOrdersPerHour%></div>
+                    <div class="cont-col-3"><span class="service-info-text">是否上门服务:</span><%=CurrentService.ServiceMode %></div>
+                    <div class="cont-col-3"></div>
+                </div>
+                <div class="cont-row">
+                    <div class="cont-col-3"><span class="service-info-text">服务对象:</span><%=CurrentService.IsForBusiness %></div>
+                    <div class="cont-col-3"><span class="service-info-text">服务保障</span>:<%=CurrentService.IsCompensationAdvance %></div>
+                    <div class="cont-col-3"><span class="service-info-text">付款方式:</span><%=CurrentService.PayType %></div>
+                    <div class="cont-col-3"><span class="service-info-text">认证平台:</span><%=CurrentService.IsCertificated %></div>
+                </div>
+            </div>
+            <div class="t-r">
+                <a class="btn btn-default" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%=CurrentService.Id %>"> 编辑</a></div>
+           </div>
+</div>
 
-               </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
 </asp:Content>

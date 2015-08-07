@@ -110,7 +110,7 @@
 
 .serviceTabsItem {
     float: left;
-    font-size: 13px;
+    font-size: 12px;
     width: 200px;
 }
 
@@ -304,7 +304,7 @@
     float: right;
     width: 60px;
     text-align: center;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.8em;
     margin-right: 20px;
 }
@@ -372,7 +372,7 @@
     width: 80px;
     height: 32px;
     border: none;
-    font-size: 13px;
+    font-size: 12px;
     color: #fff;
     background: url("../image/myshop/shop_button_02.png") no-repeat center;
 }
@@ -460,7 +460,7 @@
 }
 
 .CPTitle {
-    font-size: 17px;
+    font-size: 18px;
     /*font-weight: 700;*/
     padding: 10px;
 }
