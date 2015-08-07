@@ -27,6 +27,7 @@ public class ResponseUSM001002 : BaseResponse
             this.err_Msg = "该用户名已经注册";
             return;
         }
+        this.state_CODE = Dicts.StateCode[0];
         RespDataUSM001001_UserObj userObj = new RespDataUSM001001_UserObj().Adapt(newMember);
         RespDataUSM001001 resp = new RespDataUSM001001();
         resp.userObj = userObj;

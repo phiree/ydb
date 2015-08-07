@@ -9,9 +9,9 @@
                     "serial_NUMBER": "00147001015869149751" 
                 },
                 { 
-                    "protocol_CODE": "USM001002", 
+                    "protocol_CODE": "USM001002", //注册
                     "ReqData": { 
-                                "userEmail": "issumao@126.com", 
+                                "userEmail": "fakename121@126.com", 
                                 "userPWord": 'password', 
                                 
                                 }, 
