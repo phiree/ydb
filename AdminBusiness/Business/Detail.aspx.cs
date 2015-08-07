@@ -9,6 +9,14 @@ public partial class Business_Detail :BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if(!IsPostBack)
+        {
+         BindLicense();
+        }
+    }
+    private void BindLicense()
+    {
+        rptImageLicense.DataSource = CurrentBusiness.BusinessLicenses;
+        rptImageLicense.DataBind();
     }
 }
