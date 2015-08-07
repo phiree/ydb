@@ -16,9 +16,10 @@ namespace Dianzhu.Model.Enums
     }
     public enum PayType
     {
-        Offline,
-        Online_AliPay,
-        Online_WechatPay
+        Offline=1,
+        Online_AliPay=2,
+        Online_WechatPay=4,
+        None=8
     }
     /// <summary>
     /// 计费单位

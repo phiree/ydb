@@ -87,7 +87,20 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         cblIsForBusiness.Checked = CurrentService.IsForBusiness;
         cbxIsCompensationAdvance.Checked = CurrentService.IsCompensationAdvance;
         cbxIsCertificated.Checked = CurrentService.IsCertificated;
-        rblPayType.SelectedValue = ((int)CurrentService.PayType).ToString(); hiTypeId.Value= CurrentService.ServiceType.Id.ToString();
+        LoadPayType();
+        //rblPayType.SelectedValue = ((int)CurrentService.PayType).ToString(); hiTypeId.Value= CurrentService.ServiceType.Id.ToString();
+    }
+    private void LoadPayType()
+    { 
+
+        foreach(ListItem item in rblPayType.Items)
+        {
+            PayType v =(PayType) Convert.ToInt32( item.Value);
+            if ((v | CurrentService.PayType) == CurrentService.PayType)
+            {
+                item.Selected = true;
+            }
+        }
     }
     public void UpdateForm()
     {
@@ -114,7 +127,20 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.ServiceTimeBegin = tbxServiceTimeBegin.Text;
         CurrentService.ServiceTimeEnd = tbxServiceTimeEnd.Text;
         CurrentService.UnitPrice =int.Parse(tbxUnitPrice.Text, System.Globalization.NumberStyles.AllowDecimalPoint);
-        CurrentService.PayType=(PayType)(Convert.ToInt32(rblPayType.SelectedValue));
+        UpdatePayType();
+     //   CurrentService.PayType=(PayType)(Convert.ToInt32(rblPayType.SelectedValue));
+    }
+    private void UpdatePayType()
+    {
+        PayType pt = PayType.None;
+        foreach (ListItem item in rblPayType.Items)
+        {
+            if (item.Selected)
+            {
+                pt |= (PayType)(Convert.ToInt32(item.Value));
+            }
+        }
+        CurrentService.PayType = pt;
     }
 
     protected void btnSave_Click(object sender, EventArgs e)

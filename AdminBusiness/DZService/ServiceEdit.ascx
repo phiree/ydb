@@ -225,10 +225,10 @@
             </div>
             <div class="cont-col-10">
                 <div class="p-t10">
-                    <asp:RadioButtonList CssClass="service-input-radio" ID="rblPayType" runat="server">
+                    <asp:CheckBoxList CssClass="service-input-radio" ID="rblPayType" runat="server">
                         <asp:ListItem Selected="True" Value="1" Text="线上"></asp:ListItem>
                         <asp:ListItem Value="2" Text="线下"></asp:ListItem>
-                    </asp:RadioButtonList>
+                    </asp:CheckBoxList>
                 </div>
             </div>
 
