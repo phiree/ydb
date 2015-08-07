@@ -16,6 +16,7 @@
     <link href="/js/metisMenu/metisMenu.css" rel="stylesheet" type="text/css" />
     <link href="/js/bootstrap/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/business.css" rel="stylesheet" type="text/css" />
     <%--<link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />--%>
     <script src="/js/html5shiv.min.js"></script>
     <script src="/js/respond.min.js"></script>
@@ -75,26 +76,62 @@
                                     <!--</aside>-->
                             <!--</div>-->
                          <!--</div>-->
- 
-                   <asp:Repeater runat="server" ID="rptBusinessList">
-                   <ItemTemplate>
-                       <div class="block">
-                       <%--我的店铺:<%#Eval("Name")%>--%>
-                       <%--<a class="nav-btn-bg" href='Edit.aspx?businessId=<%#Eval("Id") %>'><%#Eval("Name") %>编辑我的店铺</a>--%>
-                       <a class="nav-btn-bg" href='Detail.aspx?businessId=<%#Eval("Id") %>'><%#Eval("Name") %>参看我的店铺</a>
-                       <ul>
-                        <li>店铺介绍</li>
-                        <li>联系电话</li>
-                        <li>店铺地址</li>
-                        <li>从业时间</li>
-                        <li>员工人数</li>
-</ul>
-                       </div>
-                   </ItemTemplate>
-                   </asp:Repeater>
+                <div class="business-container">
+                    <div class="business-add">
+                           <a class="btn btn-info" href="Edit.aspx">+&nbsp;新建店铺</a>
+                        </div>
+                       <div class="business-list">
+                           <asp:Repeater runat="server" ID="rptBusinessList">
+                              <ItemTemplate>
+                                  <div class="business-list-item m-b20">
+                                    <div class="cont-container">
+                                        <div class="cont-row">
+                                            <div class="cont-col-4">
+
+                                                <div class="business-h"><%#Eval("Name")%></div>
+</div>
+                                            <div class="cont-col-8">
+                                                <div class="cont-row">
+                                                    <div class="cont-col-12">
+        <p class="business-default-intro">
+            服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。
+</p>
+</div>
+</div>
+                                                <div class="cont-row">
+                                                    <div class="cont-col-6">
+                                                        <div class="business-note">
+                                                        <p><span>联系电话：</span><span></span></p>
+                                                        <p><span>从业时间：</span><span></span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cont-col-6">
+                                                        <div class="business-note">
+                                                            <p><span>店铺地址：</span><span></span></p>
+                                                            <p><span>员工人数：</span><span></span></p>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="cont-row">
+                                                    <div class="cont-col">
+                                                        <p class="t-r"><a class="btn btn-info btn-into" href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a></p>
+                                                    </div>
+
+</div>
+</div>
+</div>
+</div>
+                                  </div>
+                              </ItemTemplate>
+                          </asp:Repeater>
+                        </div>
+                    </div>
+
+
  
                    <!--</div>-->
-                   <a href="Edit.aspx">新建店铺</a>
+
  
                    </div>
                 </form>

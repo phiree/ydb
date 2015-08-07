@@ -33,7 +33,7 @@
                     <div class="cont-col-9">
                         <div class="cont-row">
                             <div class="cont-col-2"><p class="service-info-title">服务区域:</p></div>
-                            <div class="cont-col-10"><%=CurrentService.BusinessAreaCode %></div>
+                            <div class="cont-col-10"><span class="text-ellipsis"><%=CurrentService.BusinessAreaCode %></span></div>
                         </div>
                     </div>
                 </div>

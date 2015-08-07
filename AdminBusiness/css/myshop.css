@@ -96,6 +96,26 @@
 /*.headEditImg{  float:right;  }*/
 /*.headEditBtn { display: block; width:115px; height:108px; background:url("../image/myshop/shop_button_97.png") no-repeat center;}*/
 
+/*店铺编辑页面样式*/
+.step-row {
+    padding: 15px 0;
+    margin-right: -15px;
+}
+
+.step-head {
+    font-size: 30px;
+    vertical-align: middle;
+    font-style: italic;
+}
+
+.step-text {
+
+    background: #c8ecfd;
+    vertical-align: middle;
+    padding: 3px;
+    margin-top: 7px;
+}
+
 /*服务选项弹窗样式*/
 #serCheckedShow span {
     margin: 5px;

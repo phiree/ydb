@@ -111,6 +111,35 @@ a:visited {
     color: inherit;
 }
 
+a.btn-info {
+    background: #5bb6fa;
+    color: #fff;
+}
+
+.btn-info:hover {
+    color: #fff;
+    background-color: #57a9e8;
+    border-color: #57a9e8;
+}
+
+.btn-info:focus, .btn-info.focus {
+    color: #fff;
+    background-color: #57a9e8;
+    border-color: #57a9e8;
+}
+
+.btn-info:active:focus {
+    color: #fff;
+    background-color: #57a9e8;
+    border-color: #57a9e8;
+}
+
+.btn-info:active, a.btn-info.active, .open > .dropdown-toggle.btn-info {
+    color: #fff;
+    background-color: #57a9e8;
+    border-color: #57a9e8;
+}
+
 /* 清除浮动 */
 .clearfix:before,.clearfix:after {
     content:"";
@@ -659,6 +688,15 @@ body {
     font-size: 12px;
     line-height: 1.5em;
     font-weight: 500;
+}
+
+.text-ellipsis {
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    word-break: break-all;
+    white-space: nowrap;
+    text-overflow: ellipsis ;
 }
 
 .text-anno .anno-r {

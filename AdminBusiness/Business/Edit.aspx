@@ -44,7 +44,10 @@
                         <!--</div>-->
                     <!--</div>-->
                     <div class="cont-row step-row">
-                        <div class="cont-col-1">step 1</div><div class="cont-col-11">基本信息填写</div>
+                        <div class="cont-col-1">
+                            <h3 class="step-head">step1</h3>
+                        </div>
+                        <div class="cont-col-11"><p class="step-text">基本信息填写</p></div>
 </div>
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col-2">
@@ -193,7 +196,8 @@
 
 </div>
                     <div class="cont-row step-row">
-                                            <div class="cont-col-1">step 2</div><div class="cont-col-11">完善商户营业资质资料</div>
+                        <div class="cont-col-1"><h3 class="step-head">step2</h3></div>
+                        <div class="cont-col-11"><p class="step-text">完善商户营业资质资料</p></div>
                     </div>
 
                     <div class="cont-row myshop-cont-row">

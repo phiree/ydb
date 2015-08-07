@@ -66,6 +66,26 @@
     height: 100%;
 }
 
+/*服务列表样式*/
+.service-default-titles {
+    font-size: 16px;
+    padding: 14px;
+    color: #fff;
+    background: #8dc2f3;
+}
+
+.service-default-list>.cont-row{
+    padding: 14px;
+    /*border-bottom: 1px solid #ccc;*/
+    border-left: 5px solid transparent;
+}
+
+.service-default-list>.cont-row:hover{
+    padding: 14px;
+    /*border-bottom: 1px solid #ccc;*/
+    border-left: 5px solid #8dc1f2;
+}
+
 /*服务信息查看页面样式*/
 .service-info {
     margin: -14px -14px 0 -14px;
