@@ -78,7 +78,7 @@
                          <!--</div>-->
                 <div class="business-container">
                     <div class="business-add">
-                           <a class="btn btn-info" href="Edit.aspx">+&nbsp;新建店铺</a>
+                           <a id="addNewBusiness" class="btn btn-add">+&nbsp;新建店铺</a>
                         </div>
                        <div class="business-list">
                            <asp:Repeater runat="server" ID="rptBusinessList">
