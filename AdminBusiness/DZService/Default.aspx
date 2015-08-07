@@ -42,8 +42,12 @@
                                                 <div class="cont-col-1">
                      <a href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></div>
                                                 <div class="cont-col-1"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></div>
-                                                <div class="cont-col-1"><%#Eval("ServiceTimeBegin")%>-<%#Eval("ServiceTimeEnd")%></div>
-                                                <div class="cont-col-3"><span class="text-ellipsis"><%#Eval("BusinessAreaCode")%></span></div>
+                                                 <div class="cont-col-1"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></div>
+                                                <div class="cont-col-1"> <input type="hidden" id="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
+                                                <span id="spServiceArea" class="text-ellipsis">
+                            </span>
+                                                </div>
+                                                <div class="cont-col-3"> </div>
                                                 <div class="cont-col-2"><%#Eval("OrderDelay")%></div>
                                                 <div class="cont-col-1"><%# ((bool)Eval("Enabled"))?"启用":"禁用" %></div>
                                             </div>
@@ -100,6 +104,14 @@
            };
 
            readTypeData();
+
+    
+    var jsonServiceArea=$.parseJSON($("#hiServiceArea").val());
+       $("#spServiceArea").html(jsonServiceArea.provinceName
+                               +jsonServiceArea.cityName
+                               +jsonServiceArea.boroughName
+                               +jsonServiceArea.businessName);
+
        });
     </script>
     <script src="/js/validation_service_edit.js" type="text/javascript"></script>

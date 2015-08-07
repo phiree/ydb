@@ -33,7 +33,11 @@
                     <div class="cont-col-9">
                         <div class="cont-row">
                             <div class="cont-col-2"><p class="service-info-title">服务区域:</p></div>
-                            <div class="cont-col-10"><span class="text-ellipsis"><%=CurrentService.BusinessAreaCode %></span></div>
+                            <div class="cont-col-10"><span id="spServiceArea" class="text-ellipsis">
+                            </span>
+                            
+                            </div>
+                            <input type="hidden" id="hiServiceArea" value='<%=CurrentService.BusinessAreaCode %>' />
                         </div>
                     </div>
                 </div>
@@ -55,14 +59,17 @@
                 <div class="cont-row">
                     <div class="cont-col-3"><span class="service-info-text">每日最大接单量:</span><%=CurrentService.MaxOrdersPerDay %></div>
                     <div class="cont-col-3"><span class="service-info-text">每小时最大接单量:</span><%=CurrentService.MaxOrdersPerHour%></div>
-                    <div class="cont-col-3"><span class="service-info-text">是否上门服务:</span><%=CurrentService.ServiceMode %></div>
+                    <div class="cont-col-3"><span class="service-info-text">是否上门服务:</span>
+                    <%=CurrentService.ServiceMode==Dianzhu.Model.Enums.enum_ServiceMode.NotToHouse?"不上门":"上门" %></div>
                     <div class="cont-col-3"></div>
                 </div>
                 <div class="cont-row">
-                    <div class="cont-col-3"><span class="service-info-text">服务对象:</span><%=CurrentService.IsForBusiness %></div>
-                    <div class="cont-col-3"><span class="service-info-text">服务保障</span>:<%=CurrentService.IsCompensationAdvance %></div>
-                    <div class="cont-col-3"><span class="service-info-text">付款方式:</span><%=CurrentService.PayType %></div>
-                    <div class="cont-col-3"><span class="service-info-text">认证平台:</span><%=CurrentService.IsCertificated %></div>
+                    <div class="cont-col-3"><span class="service-info-text">服务对象:</span><%=CurrentService.IsForBusiness?"可以对公":"对私" %></div>
+                    <div class="cont-col-3"><span class="service-info-text">服务保障</span>:<%=CurrentService.IsCompensationAdvance?"有":"无" %></div>
+                    <div class="cont-col-3"><span class="service-info-text">付款方式:</span><%=(CurrentService.PayType & Dianzhu.Model.Enums.PayType.Offline) == Dianzhu.Model.Enums.PayType.Offline?"线下":string.Empty%>
+                    <%=(CurrentService.PayType & Dianzhu.Model.Enums.PayType.Online) == Dianzhu.Model.Enums.PayType.Online ? "线上" : string.Empty%>
+                    </div>
+                    <div class="cont-col-3"><span class="service-info-text">平台认证:</span><%=CurrentService.IsCertificated?"已认证":"未认证" %></div>
                 </div>
             </div>
             <div class="t-r">
@@ -72,5 +79,14 @@
 
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
+<script>
+    $(function () {
+    var jsonServiceArea=$.parseJSON($("#hiServiceArea").val());
+       $("#spServiceArea").html(jsonServiceArea.provinceName
+                               +jsonServiceArea.cityName
+                               +jsonServiceArea.boroughName
+                               +jsonServiceArea.businessName);
+     });
+</script>
 </asp:Content>
 
