@@ -111,35 +111,6 @@ a:visited {
     color: inherit;
 }
 
-a.btn-info {
-    background: #5bb6fa;
-    color: #fff;
-}
-
-.btn-info:hover {
-    color: #fff;
-    background-color: #57a9e8;
-    border-color: #57a9e8;
-}
-
-.btn-info:focus, .btn-info.focus {
-    color: #fff;
-    background-color: #57a9e8;
-    border-color: #57a9e8;
-}
-
-.btn-info:active:focus {
-    color: #fff;
-    background-color: #57a9e8;
-    border-color: #57a9e8;
-}
-
-.btn-info:active, a.btn-info.active, .open > .dropdown-toggle.btn-info {
-    color: #fff;
-    background-color: #57a9e8;
-    border-color: #57a9e8;
-}
-
 /* 清除浮动 */
 .clearfix:before,.clearfix:after {
     content:"";
@@ -255,9 +226,6 @@ body {
     min-height: 196px;
     box-sizing: border-box;
     padding-left: 150px;
-    /*float: left;*/
-    /*background: #fff;*/
-    /*padding-top: 71px;*/
 }
 
 /* 顶栏样式 */
@@ -565,7 +533,7 @@ body {
 
 
 .cont-wrap{
-    color: #58789a;
+    color: #666;
     padding: 14px;
     background: #eceef0;
 }
@@ -609,14 +577,13 @@ body {
 }
 
 .cont-sub-title {
-    color: #57789B;
     font-size: 16px;
     line-height: 2em;
     font-weight: 600;
     margin-bottom: 5px;
 }
 
-.cont-sub-title .title-tips { color: #FF8661; font-size: 12px; font-weight: 500;}
+.cont-title-tips { color: #FF8661; font-size: 12px; font-weight: 500;}
 
 
 .vmBox{ display: table; }
@@ -647,7 +614,7 @@ body {
     line-height: 40px;
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
-    /*border-radius: 3px;*/
+    border-radius: 0;
     background: #f3f5f9;
     color: #58789a;
     font-size: 14px;
@@ -661,7 +628,7 @@ body {
     line-height: 40px;
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
-    /*border-radius: 3px;*/
+    border-radius: 0;
     background: #f3f5f9;
     color: #58789a;
     font-size: 14px;
@@ -675,7 +642,7 @@ body {
     line-height: 40px;
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
-    /*border-radius: 3px;*/
+    border-radius: 0;
     background: #f3f5f9;
     color: #58789a;
     font-size: 14px;
@@ -684,11 +651,19 @@ body {
 }
 
 .text-anno {
-    color: #A0B1C3;
+    color: #58789a;
     font-size: 12px;
     line-height: 1.5em;
     font-weight: 500;
 }
+
+.text-anno-r {
+    color: #FF8661;
+    font-size: 12px;
+    line-height: 1.5em;
+    font-weight: 500;
+}
+
 
 .text-ellipsis {
     overflow: hidden;
@@ -699,10 +674,132 @@ body {
     text-overflow: ellipsis ;
 }
 
-.text-anno .anno-r {
+.theme-color-r {
     color: #FF8661;
 }
 
-.theme-color-r {
-    color: #FF8661;
+.theme-color-58789a {
+    color:#58789a;
+}
+
+
+/*自定义主题颜色按钮*/
+/*编辑按钮*/
+a.btn-info {
+    background: #64c6f8;
+    color: #fff;
+}
+
+.btn-info:hover {
+    color: #fff;
+    background-color: #69ccff;
+    border-color: #64c6f8;
+}
+
+.btn-info:focus, .btn-info.focus {
+    color: #fff;
+    background-color: #448ec6;
+    border-color: #64c6f8;
+}
+
+.btn-info:active:focus {
+    color: #fff;
+    background-color: #448ec6;
+    border-color: #64c6f8;
+}
+
+.btn-info:active, a.btn-info.active, .open > .dropdown-toggle.btn-info {
+    color: #fff;
+    background-color: #448ec6;
+    border-color: #64c6f8;
+}
+
+/*添加按钮*/
+a.btn-add {
+    background: #5ad0b2;
+    color: #fff;
+}
+
+.btn-add:hover {
+    color: #fff;
+    background-color: #5be4c6;
+    border-color: #5ad0b2;
+}
+
+.btn-add:focus, .btn-add.focus {
+    color: #fff;
+    background-color: #30a67e;
+    border-color: #5ad0b2;
+}
+
+.btn-add:active:focus {
+    color: #fff;
+    background-color: #30a67e;
+    border-color: #5ad0b2;
+}
+
+.btn-add:active, a.btn-add.active, .open > .dropdown-toggle.btn-add {
+    color: #fff;
+    background-color: #30a67e;
+    border-color: #5ad0b2;
+}
+
+/*取消按钮*/
+a.btn-cancel {
+    background: #d0d0d0;
+    color: #fff;
+}
+
+.btn-cancel:hover {
+    color: #fff;
+    background-color: #d5d5d5;
+    border-color: #d0d0d0;
+}
+
+.btn-cancel:focus, .btn-cancel.focus {
+    color: #fff;
+    background-color: #aeaaaa;
+    border-color: #d0d0d0;
+}
+
+.btn-cancel:active:focus {
+    color: #fff;
+    background-color: #aeaaaa;
+    border-color: #d0d0d0;
+}
+
+.btn-cancel:active, a.btn-cancel.active, .open > .dropdown-toggle.btn-cancel {
+    color: #fff;
+    background-color: #aeaaaa;
+    border-color: #d0d0d0;
+}
+
+/*删除按钮*/
+a.btn-delete {
+    background: #fd9292;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    color: #fff;
+    background-color: #ffa9a9;
+    border-color: #fd9292;
+}
+
+.btn-delete:focus, .btn-delete.focus {
+    color: #fff;
+    background-color: #e85e5e;
+    border-color: #fd9292;
+}
+
+.btn-delete:active:focus {
+    color: #fff;
+    background-color: #e85e5e;
+    border-color: #fd9292;
+}
+
+.btn-delete:active, a.btn-delete.active, .open > .dropdown-toggle.btn-delete {
+    color: #fff;
+    background-color: #e85e5e;
+    border-color: #fd9292;
 }

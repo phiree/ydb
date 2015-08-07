@@ -78,7 +78,7 @@
                          <!--</div>-->
                 <div class="business-container">
                     <div class="business-add">
-                           <a class="btn btn-info" href="Edit.aspx">+&nbsp;新建店铺</a>
+                           <a id="addNewBusiness" class="btn btn-add">+&nbsp;新建店铺</a>
                         </div>
                        <div class="business-list">
                            <asp:Repeater runat="server" ID="rptBusinessList">
@@ -127,12 +127,12 @@
                           </asp:Repeater>
                         </div>
                     </div>
-
-
- 
                    <!--</div>-->
-
- 
+                   </div>
+                   <div id="newBusslightBox" class="dis-n">
+                       输入店铺名称：<input type="text" />
+                       <input type="button" value="确认创建"/>
+                       <input class="lightClose" type="button" value="残忍取消"/>
                    </div>
                 </form>
 
@@ -141,10 +141,20 @@
 </body>
 <script src="/js/bootstrap/js/bootstrap.js"></script>
 <script src="/js/metisMenu/metisMenu.js"></script>
+<script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
 <script>
     $(function(){
         $("#menu").metisMenu();
     })
 
+    $("#addNewBusiness").click(function (e) {
+            $('#newBusslightBox').lightbox_me({
+                centered: true,
+                onLoad : function(){
+
+                }
+            });
+            e.preventDefault();
+        });
 </script>
 </html>

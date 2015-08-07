@@ -35,9 +35,9 @@
                             <div id="serChoiceContainer" class="serChoiceContainer fl"></div>
                             <div class="serChoiceBtnContainer fr">
                                 <div class="d-inb">
-                                    <div id="serChoiceConf" class="serChoiceBtn close dis-n" >确认</div>
+                                    <div id="serChoiceConf" class="serChoiceBtn lightClose dis-n" >确认</div>
                                 </div>
-                                <div id="serChoiceCancel" class="serChoiceBtn close d-inb" >取消</div>
+                                <div id="serChoiceCancel" class="serChoiceBtn lightClose d-inb" >取消</div>
                             </div>
                         </div>
                         <div id="serList" class="serList clearfix"></div>
@@ -245,7 +245,7 @@
             <div id="businessCity" class="mapCity">
             </div>
             <div class="mapButton">
-                <input id="confBusiness" class="close ser-sm-input" type="button" value="确定"></div>
+                <input id="confBusiness" class="lightClose ser-sm-input" type="button" value="确定"></div>
             <input id="businessValue" type="hidden" value="" />
         </div>
     </div>
