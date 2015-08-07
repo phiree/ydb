@@ -1,3 +1,5 @@
+/*店铺列表页面*/
+
 .business-container {
     padding: 20px 50px;
 }
@@ -35,7 +37,4 @@
     line-height: 3em;
 }
 
-.btn-into {
-    color: #fff;
-    margin-right: 20px;
-}
+/*店铺详情页面*/
