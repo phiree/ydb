@@ -67,7 +67,7 @@
                         </div>
                         <div class="cont-col-6">
                             <div class="text-anno myshop-name-anno vmBox">
-                                <p class="vm">请上传你的店铺商标，并填写店铺名称。<span class="anno-r">（必填选项）</span></p>
+                                <p class="vm"><span class="text-anno-r">（必填选项）</span>请上传你的店铺商标，并填写店铺名称。</p>
                             </div>
                         </div>
                     </div>
@@ -84,8 +84,8 @@
                                     <div class="text-anno myshop-intro-anno vmBox">
 
                                         <p class="vm">
-                                            <p><span class="title-tips shop-tips">（必填选项）</span></p>
-                                        </br>请将您的店铺简介在此输入<span class="anno-r">（字数限制在0~80个字符之间）</span></p>
+                                            <p><span class="cont-title-tips">（必填选项）</span></p>
+                                        </br>请将您的店铺简介在此输入<span class="text-anno-r">（字数限制在0~80个字符之间）</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                             <p class="cont-sub-title"><span>联系电话</span></p>
                         </div>
                         <div class="cont-col-10">
-                            <div><input type="text" class="input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/><span class="anno-r">（必填选项）</span></div>
+                            <div><input type="text" class="input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/><span class="text-anno-r">（必填选项）</span></div>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -105,7 +105,7 @@
                             <p class="cont-sub-title"><span>公司网站</span></p>
                         </div>
                         <div class="cont-col-10">
-                            <div><input type="text" class="input-lg" runat="server" id="tbxEmail" name="email" /><span class="anno-r">（必填选项）</span></div>
+                            <div><input type="text" class="input-lg" runat="server" id="tbxEmail" name="email" /><span class="text-anno-r">（必填选项）</span></div>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -138,7 +138,7 @@
                             <div class="cont-row">
                                 <div class="cont-col-12">
                                     <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<span class="anno-r">（图片大小限制在2M以下）</span></p>
+                                        <p class="vm">请至少上传一张图片<span class="text-anno-r">（图片大小限制在2M以下）</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -267,7 +267,7 @@
                                 </div>
                                 <div class="cont-col-12">
                                     <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<span class="anno-r">（图片大小限制在2M以下）</span></p>
+                                        <p class="vm">请至少上传一张图片<span class="text-anno-r">（图片大小限制在2M以下）</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +284,7 @@
                                     <div class="clearfix">
                                         <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
-                                                <div class="download-img-pre m-r10 fl">
+                                                <div class="download-img-pre m-r10 m-b10 fl">
                                                  <asp:Button ID="img" OnClientClick="javascript:return confirm('确定删除?')"  Text=" "   formnovalidate CssClass="download-img-delete" runat="server" CommandName="delete"
                                                           ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                       <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
@@ -304,7 +304,7 @@
                                 </div>
                                 <div class="cont-col-12">
                                     <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<span class="anno-r">（图片大小限制在2M以下）</span></p>
+                                        <p class="vm">请至少上传一张图片<span class="text-anno-r">（图片大小限制在2M以下）</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -412,7 +412,7 @@
     <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
     <script src="/js/jquery.form.min.js" type="text/javascript"></script>
     <script src="/js/navigator.sayswho.js" type="text/javascript"></script>
-     <script type="text/javascript" src="/js/TabSelection.js"></script>
+    <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript">

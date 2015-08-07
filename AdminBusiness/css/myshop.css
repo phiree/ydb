@@ -15,24 +15,26 @@
 
 /*.picture{ margin-right:5px; float:left; position:relative;}*/
 /*.itemDele-img{ position:absolute;}*/
-
+#myshop-wrap {
+    color:#58789a
+}
 
 .myshop-cont-row {
     margin-bottom: 10px;
     padding-left: 20px;
 }
 
-.shop-tips {
-    margin-left: 20%;
-}
+/*.shop-tips {*/
+    /*margin-left: 20%;*/
+/*}*/
 
 /*.myshop-item-title { color: #57789B; font-size: 16px; line-height: 2em; font-weight: 600; margin-bottom: 5px;}*/
 /*.myshop-item-title .icon { margin-right: 5px; }*/
 /*.myshop-item-title .title-tips { margin-left: 200px; color: #FF8661; font-size: 12px; font-weight: 500;}*/
 
-.myshop-span {
-    color: #58789a;
-}
+/*.myshop-span {*/
+    /*color: #58789a;*/
+/*}*/
 
 .myshop-btn-setAddress {
     border: 0;
