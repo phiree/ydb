@@ -217,7 +217,7 @@
         lightboxSpeed: 300,
 
         // close
-        closeSelector: ".close",
+        closeSelector: ".lightClose",
         closeClick: true,
         closeEsc: true,
 

@@ -392,7 +392,7 @@
 
                         </div>
                         <div class="mapButton">
-                            <input id="confBusiness" class="close myshop-sm-input" type="button" value="确定"><span class="myshop-locTip">点击地图放置地点哦！</span></div>
+                            <input id="confBusiness" class="lightClose myshop-sm-input" type="button" value="确定"><span class="myshop-locTip">点击地图放置地点哦！</span></div>
                         <input id="businessValue" type="hidden" value="" />
                     </div>
                 </div>

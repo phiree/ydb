@@ -114,7 +114,7 @@
                 <div class="emp-edit">
                     <div class="emp-edit-title">
                         <span>编辑资料</span>
-                        <i class="icon close icon-close"></i>
+                        <i class="icon lightClose icon-close"></i>
                     </div>
                     <div class="emp-edit-m clearfix">
                         <div class="emp-edit-left fl">
