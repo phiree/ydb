@@ -53,7 +53,7 @@
                         <div class="cont-col-2">
                             <div class="headImage">
                                 <div class="input-file-box headFile">
-                                  <input type=file class="input-file-btn"  name="input-file-btn-avater" businessId="<%=b.Id %>" imageType="businessavater" />
+                                  <input type=file class="input-file-btn"  name="upload_file" businessId="<%=b.Id %>" imageType="businessavater" />
                                     <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
                                     <i  class="input-file-mark"></i>
                                     <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />

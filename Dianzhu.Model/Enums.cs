@@ -38,10 +38,9 @@ namespace Dianzhu.Model.Enums
     public enum enum_IDCardType
     {
         身份证 = 0,
-        学生证 = 1,
-        军官证 = 2,
-        护照 = 3,
-        其他 = 4
+        其他 = 1,
+        
+        
     }
 
     public enum enum_OrderStatus
