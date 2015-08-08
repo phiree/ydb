@@ -21,8 +21,19 @@ namespace Dianzhu.CSClient
             {
                 this.Show();
             }
-
             InitializeComponent();
+            GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
+        }
+
+        void XMPPConnection_OnMessage(object sender, xmppMessage.Message msg)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender, msg });
+                return;
+            }
+            //判断该客户是否已经出现在列表中.
+            AddNewMessage(msg.From.User, msg.Body);
         }
 
         /// <summary>

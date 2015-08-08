@@ -21,12 +21,12 @@ using agsXMPP.protocol.extensions.bytestreams;
 
 using agsXMPP.protocol.x;
 using agsXMPP.protocol.x.data;
-
+using agsclient= agsXMPP.protocol.client;
 using agsXMPP.Xml;
 using agsXMPP.Xml.Dom;
 
 using agsXMPP.sasl;
- 
+using System.Threading;
  
 using agsXMPP.Collections;
 namespace Dianzhu.XMPPPool
@@ -44,12 +44,25 @@ namespace Dianzhu.XMPPPool
             GlobalViables.XMPPConnection.Open(jid.User, "1");
             GlobalViables.XMPPConnection.OnLogin += new ObjectHandler(XMPPConnection_OnLogin);//开启了新的进程.
             GlobalViables.XMPPConnection.OnMessage +=new MessageHandler(XMPPConnection_OnMessage);
+            GlobalViables.XMPPConnection.OnError += new ErrorHandler(XMPPConnection_OnError);
+
             GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
            
            
             
         }
 
+        void XMPPConnection_OnError(object sender, Exception ex)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new ErrorHandler(XMPPConnection_OnError), new object[] { sender, ex });
+                return;
+            }
+            AddLog("出错了:" + ex.Message);
+        }
+  
+        
         void XMPPConnection_OnMessage(object sender, agsXMPP.protocol.client.Message msg)
         {
             if (InvokeRequired)
@@ -58,19 +71,32 @@ namespace Dianzhu.XMPPPool
                 return;
             }
             AddLog("接收到来自" + msg.From.User + "的消息:" + msg.Body);
+            string　csName="yuanfei";
+            AddLog("分配的接待客服:" + csName);
+            //为该用户分配客服.
+            Jid csId=new Jid("yuanfei@" + GlobalViables.ServerName);
+            //XmppClientConnection assignConnection = new XmppClientConnection(GlobalViables.ServerName);//专用于分配.
+            //assignConnection.Open(csName, "1");
+            ////客服回复客户
+            //assignConnection.Send(new agsclient.Message(msg.From, "我是客服" + csName));
+            //assignConnection.Close();
+            //直接将客户的消息转发给客服
+            Thread t = new Thread(()=>RedirectToCs(msg.From.User,msg.Body));
+            t.Start();
+            
+
         }
-        void MessageCallBack(object sender,
-                                 agsXMPP.protocol.client.Message msg,
-                                 object data)
+       
+        public void RedirectToCs(string customerName,string message)
         {
-            if (msg.Body != null)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("{0}>> {1}", msg.From.User, msg.Body);
-                Console.ForegroundColor = ConsoleColor.Green;
-                AddLog("接收到" + msg.From.User + "的消息:" + msg.Body);
-            }
+            string csid = "yuanfei";
+             XmppClientConnection assignConnection2 = new XmppClientConnection(GlobalViables.ServerName);//专用于分配.
+
+            assignConnection2.Open(customerName, "1");
+            assignConnection2.Send(new agsclient.Message(csid+"@yuanfei-pc", message));
+            assignConnection2.Close();
         }
+         
         void XMPPConnection_OnPresence(object sender, Presence pres)
         {
             if (InvokeRequired)
@@ -108,7 +134,7 @@ namespace Dianzhu.XMPPPool
         void AddLog(string msg)
         {
 
-            tbxLog.Text += msg+Environment.NewLine;
+            tbxLog.Text = msg+Environment.NewLine+tbxLog.Text;
         }
 
     }
