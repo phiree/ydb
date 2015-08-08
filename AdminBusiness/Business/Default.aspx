@@ -14,7 +14,7 @@
     <title>商家后台主页</title>
     <link href="/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/js/metisMenu/metisMenu.css" rel="stylesheet" type="text/css" />
-    <link href="/js/bootstrap/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/business.css" rel="stylesheet" type="text/css" />
     <%--<link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />--%>
@@ -38,7 +38,7 @@
                                     <!--<span class="icon-bar"></span>-->
                                   <!--</button>-->
                                   <a class="navbar-brand" href="#">
-                                       <img alt="一点半" src="">
+                                       <img alt="一点半" src="/image/master/shop-LOGO-1.png">
                                   </a>
                                   <a class="navbar-brand" >
                                     一点半商户后台管理
@@ -130,7 +130,8 @@
                    <!--</div>-->
                    </div>
                    <div id="newBusslightBox" class="dis-n">
-                       输入店铺名称：<input type="text" />
+                       <p>输入店铺名称：<input type="text" /></p>
+                       <p>输入店铺介绍：<textarea class="v-m" rows="5" cols="20"></textarea></p>
                        <input type="button" value="确认创建"/>
                        <input class="lightClose" type="button" value="残忍取消"/>
                    </div>

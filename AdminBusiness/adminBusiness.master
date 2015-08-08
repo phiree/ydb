@@ -12,7 +12,7 @@
     <title>商家后台主页</title>
     <link href="/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/js/metisMenu/metisMenu.css" rel="stylesheet" type="text/css" />
-    <link href="/js/bootstrap/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
     <script src="/js/html5shiv.min.js"></script>
@@ -43,7 +43,7 @@
                             <!--<span class="icon-bar"></span>-->
                           <!--</button>-->
                           <a class="navbar-brand" href="#">
-                               <img alt="一点半" src="">
+                               <img alt="一点半" src="/image/master/shop-LOGO-1.png">
                           </a>
                           <a class="navbar-brand" >
                             一点半商户后台管理
@@ -57,7 +57,10 @@
                                 <li><a href="/account/security.aspx?businessId=<%=Request["businessid"] %>">帐号安全</a></li>
                               </ul>
                             </li>
-                            <li role="presentaion" ><asp:LoginStatus ID="LoginStatus1" formnovalidate  runat="server"  /></li>
+                            <li role="presentaion" >
+                            <asp:LoginStatus ID="LoginStatus1" formnovalidate  runat="server"  />
+
+                            </li>
                           </ul>
                     </div>
                 </div>

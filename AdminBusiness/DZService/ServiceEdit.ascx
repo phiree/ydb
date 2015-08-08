@@ -1,12 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" ClientIDMode="Static" CodeFile="ServiceEdit.ascx.cs"
     Inherits="DZService_ServiceEdit" %>
     <%@ Register Src="~/TagControl.ascx" TagName="Tag" TagPrefix="DZ" %>
-<div class="serviceRight clearfix">
+<div class="cont-wrap theme-color-58789a">
     <div class="cont-container">
     <div class="cont-row step-row">
-                            <div class="cont-col-1">step 1</div><div class="cont-col-11">基本信息填写</div>
+        <div class="cont-col-2">
+            <h3 class="step-head step-1">第<em>1</em>步</h3>
+        </div>
+        <div class="cont-col-10"><p class="step-text step-1">基本服务信息</p></div>
     </div>
-        <div class="cont-row">
+
+        <div class="cont-row service-cont-row">
             <div class="cont-col-2">
                 <p class="cont-sub-title">服务名称</p>
             </div>
@@ -14,16 +18,16 @@
 
                 <div class="clearfix">
                     <div>
-                        <div class="m-b20">
+                        <div>
                             <asp:TextBox  runat="server"   CssClass="input-mid" ID="tbxName"></asp:TextBox>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="cont-row">
+        <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">请选择您的服务类型</p>
+                <p class="cont-sub-title">服务类型</p>
             </div>
             <div class="cont-col-10">
                 <div>
@@ -45,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="cont-row ">
+        <div class="cont-row service-cont-row">
             <div class="cont-col-2">
                 <p class="cont-sub-title">服务介绍</p>
             </div>
@@ -53,30 +57,30 @@
                 <div class="cont-row">
                     <div class="cont-col-12">
 
-                        <div class="m-b20">
+                        <div>
                              <asp:TextBox   CssClass="input-textarea"   runat="server" TextMode="MultiLine"
                                                     ID="tbxDescription"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-                <div class="cont-row">
-                    <div class="cont-col-12">
-                        <p>
-                            <asp:CheckBox runat="server" ID="cbxEnable" Text="启用" />
-                        </p>
-                    </div>
-                </div>
+                <!--<div class="cont-row">-->
+                    <!--<div class="cont-col-12">-->
+                        <!--<p>-->
+                            <!--<asp:CheckBox runat="server" ID="cbxEnable" Text="启用" />-->
+                        <!--</p>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
         </div>
-        <div class="cont-row">
+        <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">服务区域</p>
+                <p class="cont-sub-title">您的服务区域</p>
             </div>
             <div class="cont-col-10">
 
                 <div class="cont-row">
                     <div class="cont-col-4">
-                        <div class="fl clearfix">
+                        <div class="fl clearfix m-b20">
                             <div id="setBusiness" class="setLocationMap">
                                 <div id="businessMapSub" class="mapSub">
                                 </div>
@@ -88,20 +92,22 @@
                         <div>
                             <p class="m-b20">您选择的位置：</p>
                             <p id="businessText" class="business-text"></p>
-                            <p class="text-anno theme-color-r">点击选择商圈范围</p>
                         </div>
 
                     </div>
                     <div class="cont-col-12">
-                        <p><span class="text-anno m-l20">服务中心点定位（为您的服务区域进行定位）</span></p>
+                        <p><span class="text-anno-r">（点击地图为您的服务区域进行定位）</span></p>
 </div>
                 </div>
             </div>
         </div>
         <div class="cont-row step-row">
-                                <div class="cont-col-1">step 1</div><div class="cont-col-11">基本信息填写</div>
+            <div class="cont-col-2">
+                <h3 class="step-head step-2">第<em>2</em>步</h3>
+            </div>
+            <div class="cont-col-10"><p class="step-text step-2">完善服务信息</p></div>
         </div>
-        <div class="cont-row m-b20">
+        <div class="cont-row service-cont-row">
             <div class="cont-col-2">
                 <p class="cont-sub-title">服务起步价</p>
             </div>
@@ -111,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class="cont-row m-b20">
+        <div class="cont-row service-cont-row">
             <div class="cont-col-2">
                 <p class="cont-sub-title">服务单价</p>
             </div>
@@ -127,7 +133,7 @@
                 </div>
             </div>
         </div>
-        <div class="cont-row m-b20">
+        <div class="cont-row service-cont-row">
             <div class="cont-col-2">
                 <p class="cont-sub-title">提前预约时间</p>
             </div>
@@ -137,7 +143,7 @@
                 </div>
             </div>
         </div>
-        <div class="cont-row m-b20">
+        <div class="cont-row service-cont-row">
             <div class="cont-col-2">
                 <p class="cont-sub-title">服务时间</p>
             </div>
@@ -148,7 +154,7 @@
                 </div>
             </div>
         </div>
-        <div class="cont-row m-b20">
+        <div class="cont-row service-cont-row">
             <div class="cont-col-6">
                 <div class="cont-row">
                     <div class="cont-col-4">
@@ -164,7 +170,7 @@
             <div class="cont-col-6">
                 <div class="cont-row">
                     <div class="cont-col-6">
-                        <p class="cont-sub-title">每小时最大接单量:</p>
+                        <p class="cont-sub-title">每小时最大接单量</p>
                     </div>
                     <div class="cont-col-6">
                         <div>
@@ -174,12 +180,12 @@
                 </div>
             </div>
         </div>
-        <div class="cont-row m-b20">
+        <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">是否上门:</p>
+                <p class="cont-sub-title">是否上门</p>
 </div>
             <div class="cont-col-10">
-                <div class="p-t10">
+                <div>
                     <asp:RadioButtonList CssClass="service-input-radio" runat="server" ID="rblServiceMode">
                         <asp:ListItem Selected="True" Value="0" Text="是"></asp:ListItem>
                         <asp:ListItem Value="1" Text="否"></asp:ListItem>
@@ -187,20 +193,20 @@
                 </div>
 </div>
         </div>
-        <div class="cont-row">
+        <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">服务对象:</p>
-</div>
+                <p class="cont-sub-title">服务对象</p>
+            </div>
             <div class="cont-col-10">
                 <div class="service-checkBox">
                     <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cblIsForBusiness"
                         Text="可以对公" />
                 </div>
-</div>
-</div>
-        <div class="cont-row m-b20">
+            </div>
+        </div>
+        <div class="cont-row service-cont-row">
                     <div class="cont-col-2">
-                        <p class="cont-sub-title">服务保障:</p>
+                        <p class="cont-sub-title">服务保障</p>
                     </div>
                     <div class="cont-col-10">
                         <div class="service-checkBox">
@@ -208,35 +214,39 @@
                         </div>
                     </div>
         </div>
-        <div class="cont-row">
+        <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">平台认证:</p>
-</div>
-            <div class="cont-col-10">
-                <div class="service-checkBox">
-                                            <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCertificated" Text="已通过" />
-                                        </div>
-</div>
-</div>
-        <div class="cont-row m-b20">
-
-            <div class="cont-col-2">
-                <p class="cont-sub-title">付款方式:</p>
+                <p class="cont-sub-title">平台认证</p>
             </div>
             <div class="cont-col-10">
-                <div class="p-t10">
+                <div class="service-checkBox">
+                    <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCertificated" Text="已通过" />
+                </div>
+            </div>
+        </div>
+        <div class="cont-row service-cont-row">
+            <div class="cont-col-2">
+                <p class="cont-sub-title">付款方式</p>
+            </div>
+            <div class="cont-col-10">
+                <div>
                     <asp:CheckBoxList CssClass="service-input-radio" ID="rblPayType" runat="server">
                         <asp:ListItem Selected="True" Value="1" Text="线上"></asp:ListItem>
                         <asp:ListItem Value="2" Text="线下"></asp:ListItem>
                     </asp:CheckBoxList>
                 </div>
             </div>
-
-
         </div>
-     <div>
-     <span>标签:</span> <DZ:Tag runat="server" ID="dzTag" />
-     </div>
+        <div class="cont-row service-cont-row">
+            <div class="cont-col-2">
+                <p class="cont-sub-title">服务标签</p>
+            </div>
+            <div class="cont-col-10">
+                <div>
+                    <DZ:Tag runat="server" ID="dzTag" />
+                </div>
+            </div>
+        </div>
     </div>
     <div id="mapLightBox" class="dis-n">
         <div class="mapWrap">
@@ -249,12 +259,13 @@
             <input id="businessValue" type="hidden" value="" />
         </div>
     </div>
+    <div class="service-saveSubmit">
+       <asp:Button Text="保存" CssClass="btn btn-info btn-big" runat="server" ID="btnSave" OnClick="btnSave_Click" />
+       <a class="btn btn-cancel btn-big m-l10" href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">取消</a>
+    </div>
 </div>
- 
-<div class="service-saveSubmit">
-    <asp:Button CssClass="service-saveSubmit-btn" runat="server" ID="btnSave" OnClick="btnSave_Click" />
-    <a class="cancel" href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">取消</a>
-</div>
+
+
 <script>
     $(document).ready(function () {
         $.validator.setDefaults({

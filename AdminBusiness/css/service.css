@@ -1,58 +1,62 @@
-.serviceInfoArea { height:198px; padding: 0 20px; border-bottom: 20px solid #dfebf6; color: #58789a;}
-.serviceInfoTilte { height:71px; line-height:71px; color:#58789a; font-size:19px; font-weight:bold; }
+/*.serviceInfoArea { height:198px; padding: 0 20px; border-bottom: 20px solid #dfebf6; color: #58789a;}*/
+/*.serviceInfoTilte { height:71px; line-height:71px; color:#58789a; font-size:19px; font-weight:bold; }*/
 
-.headInfo {
-    width: 208px;
-    height: 108px;
-    float: left;
-    font-size: 13px;
-}
+/*.headInfo {*/
+    /*width: 208px;*/
+    /*height: 108px;*/
+    /*float: left;*/
+    /*font-size: 13px;*/
+/*}*/
 
-.headImage {
-    width: 110px;
-    height: 110px;
-    text-align: center;
-    line-height: 110px;
-    float: left;
-}
+/*.headImage {*/
+    /*width: 110px;*/
+    /*height: 110px;*/
+    /*text-align: center;*/
+    /*line-height: 110px;*/
+    /*float: left;*/
+/*}*/
 
-.headImage img {
-    margin: 0 auto;
-    vertical-align: middle;
-}
+/*.headImage img {*/
+    /*margin: 0 auto;*/
+    /*vertical-align: middle;*/
+/*}*/
 
-.ServiceShops {
-    margin-top: 20px;
-    font-size: 20px;
-    display: block;
-}
+/*.ServiceShops {*/
+    /*margin-top: 20px;*/
+    /*font-size: 20px;*/
+    /*display: block;*/
+/*}*/
 
-.InfoCompletetxt {
-    margin-top: 10px;
-    display: block;
-}
+/*.InfoCompletetxt {*/
+    /*margin-top: 10px;*/
+    /*display: block;*/
+/*}*/
 
-.headEditImg {
-    width: 115px;
-    height: 108px;
-    line-height: 108px;
-    text-align: center;
-    float: right;
-    background: url("../image/service/shop_guanli_14.png") no-repeat;
-}
+/*.headEditImg {*/
+    /*width: 115px;*/
+    /*height: 108px;*/
+    /*line-height: 108px;*/
+    /*text-align: center;*/
+    /*float: right;*/
+    /*background: url("../image/service/shop_guanli_14.png") no-repeat;*/
+/*}*/
 
-.satisfaction {
-    font-size: 30px;
-    font-weight: bold;
-    color: #fff;
-}
+/*.satisfaction {*/
+    /*font-size: 30px;*/
+    /*font-weight: bold;*/
+    /*color: #fff;*/
+/*}*/
 
-.headInfoArea {
-    width: 100%;
-    height: 108px;
-    background: #f6fafe;
-    position: relative;
-    /*border-bottom: #dbe6f2 1px solid;*/
+/*.headInfoArea {*/
+    /*width: 100%;*/
+    /*height: 108px;*/
+    /*background: #f6fafe;*/
+    /*position: relative;*/
+    /*/!*border-bottom: #dbe6f2 1px solid;*!/*/
+/*}*/
+
+.service-list-container {
+    min-height: 700px;
 }
 
 .service-title { padding: 0 20px; height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; }
@@ -60,11 +64,11 @@
 
 /*.serviceMain { color: #58789a; }*/
 
-.serviceLeft {
-    float: left;
-    width: 100%;
-    height: 100%;
-}
+/*.serviceLeft {*/
+    /*float: left;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+/*}*/
 
 /*服务列表样式*/
 .service-default-titles {
@@ -101,13 +105,66 @@
     border-top: 14px solid #c3f3e2;
 }
 
-.service-info-title {
-    font-size: 15px;
-    font-weight: 700;
-}
+/*.service-info-title {*/
+    /*font-size: 15px;*/
+    /*font-weight: 700;*/
+/*}*/
 
 .service-info-text{
     padding-right: 10px;
+}
+
+/*服务编辑页面样式*/
+.service-cont-row {
+    margin-bottom: 50px;
+    padding-left: 20px;
+}
+
+/*店铺编辑步骤样式*/
+.step-row {
+    padding: 15px 0;
+    margin-right: -15px;
+}
+
+.step-head {
+    font-size: 28px;
+    vertical-align: middle;
+    font-style: italic;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.step-head em{
+    font-style: italic;
+    font-family: fantasy;
+    padding: 0 10px;
+}
+
+.step-head.step-1{
+    color: #76b5d3;
+}
+
+.step-head.step-2{
+    color: #66bc9e;
+}
+
+.step-text {
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 16px;
+    font-style: italic;
+    margin-top: 3px;
+    margin-left: -10px;
+}
+
+.step-text.step-1{
+    background: #c9edfe;
+    color: #448eb3;
+}
+
+.step-text.step-2{
+    background: #c3f3e2;
+    color: #66bc9e;
 }
 
 /*服务选择样式*/
@@ -146,12 +203,12 @@
 }
 
 /*服务细节条目包围*/
-.serviceRightWrap {
-    width: 100%;
-    /*border-left: 1px solid #dfe3e6;*/
-    float: left;
-    background: #fff;
-}
+/*.serviceRightWrap {*/
+    /*width: 100%;*/
+    /*/!*border-left: 1px solid #dfe3e6;*!/*/
+    /*float: left;*/
+    /*background: #fff;*/
+/*}*/
 
 /*.serviceRight {*/
     /*box-sizing: border-box;*/
@@ -162,43 +219,43 @@
 
 /*服务选项弹窗样式*/
 
-.serviceTabs {
-    background: #fff;
+/*.serviceTabs {*/
+    /*background: #fff;*/
+    /*/!*padding: 10px;*!/*/
+/*}*/
+
+/*.serviceTabsItem {*/
+    /*float: left;*/
+    /*font-size: 13px;*/
+    /*width: 200px;*/
+/*}*/
+
+/*.ser-chk-title {*/
     /*padding: 10px;*/
-}
+    /*font-size: 13px;*/
+    /*color: #58789a;*/
+/*}*/
 
-.serviceTabsItem {
-    float: left;
-    font-size: 13px;
-    width: 200px;
-}
+/*.ser-chk-show {*/
+    /*box-sizing: border-box;*/
+    /*padding: 10px;*/
+    /*color: #58789a;*/
+    /*border: #dbe6f2 1px solid;*/
+    /*border-radius: 3px;*/
+    /*width: 100%;*/
+    /*margin-bottom: 10px;*/
+/*}*/
 
-.ser-chk-title {
-    padding: 10px;
-    font-size: 13px;
-    color: #58789a;
-}
-
-.ser-chk-show {
-    box-sizing: border-box;
-    padding: 10px;
-    color: #58789a;
-    border: #dbe6f2 1px solid;
-    border-radius: 3px;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.ser-chk-show span {
-    display: inline-block;
-    margin: 5px;
-    padding: 5px;
-    border: #dbe6f2 1px solid;
-    border-radius: 3px;
-    background: #f6fafe;
-    color: #58789a;
-    font-size: 13px;
-}
+/*.ser-chk-show span {*/
+    /*display: inline-block;*/
+    /*margin: 5px;*/
+    /*padding: 5px;*/
+    /*border: #dbe6f2 1px solid;*/
+    /*border-radius: 3px;*/
+    /*background: #f6fafe;*/
+    /*color: #58789a;*/
+    /*font-size: 13px;*/
+/*}*/
 
 .ser-btn-SerType {
     border: 0;
@@ -208,25 +265,26 @@
     background: #549DC8;
 }
 
-.serviceTabsItem .item {
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 3px;
-}
+/*.serviceTabsItem .item {*/
+    /*cursor: pointer;*/
+    /*padding: 5px;*/
+    /*border-radius: 3px;*/
+/*}*/
 
-.serviceTabsItem .item:hover {
-    background: #31b6fb;
-    color: #fff;
-}
+/*.serviceTabsItem .item:hover {*/
+    /*background: #31b6fb;*/
+    /*color: #fff;*/
+/*}*/
 
-.serviceTabsItem .radioCk {
-    background : #ffa81f;
-    color : #fff;
-}
-#setSerTypeShow {
-    overflow: hidden;
-}
-/*end*/
+/*.serviceTabsItem .radioCk {*/
+    /*background : #ffa81f;*/
+    /*color : #fff;*/
+/*}*/
+/*#setSerTypeShow {*/
+    /*overflow: hidden;*/
+/*}*/
+/*/!*end*!/*/
+
 
 .business-radioCk{
     padding: 5px;
@@ -242,10 +300,10 @@
     border-radius: 2px;
 }
 
-.level0{display: block; padding:5px 10px; background: #f6fafe; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}
-.level1{display: block; padding:5px 10px; background: #eff6fc; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}
-.level2{display: inline-block; padding:5px 10px; background: #e3edf7; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}
-.level3{display: inline-block; padding:5px 10px; background: #d6e2ee; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}
+/*.level0{display: block; padding:5px 10px; background: #f6fafe; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
+/*.level1{display: block; padding:5px 10px; background: #eff6fc; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
+/*.level2{display: inline-block; padding:5px 10px; background: #e3edf7; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
+/*.level3{display: inline-block; padding:5px 10px; background: #d6e2ee; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
 
 /*服务页面条目标题样式*/
 .service-item-title {
@@ -269,8 +327,8 @@
 }
 
 .service-checkBox {
-    height: 50px;
-    line-height: 50px;
+    height: 40px;
+    line-height: 40px;
 }
 
 /*.service-icon-serType { background: url("../image/service/shop_guanli_06.png");  }*/
@@ -342,8 +400,8 @@
 .service-input-radio tr{
     float: left;
     margin-right: 20px;
-    height: 32px;
-    line-height: 32px;
+    height: 40px;
+    line-height: 40px;
 }
 
 .service-input-radio input{
@@ -433,6 +491,8 @@
     margin-right: 5px;
 }
 
+/*服务页面地图样式*/
+
 #businessMap {
     width: 100%;
     height: 500px;
@@ -473,6 +533,7 @@
 
 }
 
+/*服务表单样式*/
 .ser-sm-input {
     border: 1px solid #dbe6f2;
     color: #fff;
@@ -493,12 +554,12 @@
     text-align: center;
 }
 
-.service-saveSubmit-btn {
-    border: 0;
-    width: 104px;
-    height: 42px;
-    background: url("../image/service/shop_tx_107.png") no-repeat center;
-}
+/*.service-saveSubmit-btn {*/
+    /*border: 0;*/
+    /*width: 104px;*/
+    /*height: 42px;*/
+    /*background: url("../image/service/shop_tx_107.png") no-repeat center;*/
+/*}*/
 
 .bottomArea {
     position: relative;
@@ -538,4 +599,18 @@
 .serviceDataRadio tr {
     float: left;
     margin-right: 5px;
+}
+
+.iptag {
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    padding: 5px 10px;
+    border: #C0D1E3 1px solid;
+    border-radius: 0;
+    background: #f3f5f9;
+    color: #58789a;
+    font-size: 14px;
+    vertical-align: middle;
+    box-sizing: content-box\9;
 }

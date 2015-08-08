@@ -16,29 +16,31 @@ service_validate_messages[name_prefix + "tbxName"] =
     required: "请填写店铺名称",
     maxlength: "不能超过100个字符"
 };
+
 //hiTypeId
 service_validate_rules[name_prefix + "tbxIntroduced"] =
 {
     required: true,
-     maxlength: 1000
+    maxlength: 1000
 };
 service_validate_messages[name_prefix + "tbxIntroduced"] =
 {
     required: "请输入店铺介绍",
     maxlength: "不能超过1000个字符"
 };
+
 //minprice
 service_validate_rules[name_prefix + "tbxContactPhone"] =
 {
     phone: true
-     
 };
- 
+
  
  
 //serviceScope
 service_validate_rules[name_prefix + "tbxEmail"] =
 {
+    required: false,
     email: true
      
 };
@@ -46,10 +48,11 @@ service_validate_messages[name_prefix + "tbxEmail"] =
 {
     email: "请输入正确的email格式"
 };
+
 //服务单价
 service_validate_rules[name_prefix + "tbxBusinessYears"] =
 {
-     
+    required: false,
     range: [1, 1000]
 
 };
@@ -71,60 +74,58 @@ service_validate_messages[name_prefix + "tbxContact"] =
 };
  
  
-    service_validate_rules[name_prefix + "tbxCardIdNo"] =
-    {
-     
-            required: true,
-            idcard: function(element){
-            if ($("#selCardType").val()=="0")
-            {
-                return true;
-            }
-            },
-            maxlength:function(element){
-             if ($("#selCardType").val()=="1")
-            {
-                return 50;
-            }
-            }
-
-
-        };
-
-
-    service_validate_messages[name_prefix + "tbxCardIdNo"] =
-    {
-   
-            required: "请填写证件号码",
-            idcard:"请输入正确的证件号码",
-            maxlength:"证件号码超出50个字符,请核实修改或者联系客服"
-           
-
-        };
-
-          service_validate_rules[name_prefix + "selStaffAmount"] =
-    {
-     
-            required: true,
-            range: [1,1000]
-
-        };
-
-
-    service_validate_messages[name_prefix + "selStaffAmount"] =
-    {
-   
-            required: "请填写员工人数",
-            range:"请输入1-1000之间的数值"
-           
-
-        };
- 
- 
-    service_validate_rules[name_prefix + "hiAddrId"] =
+service_validate_rules[name_prefix + "tbxCardIdNo"] =
 {
 
-    required: true
+    required: true,
+    idcard: function(element){
+    if ($("#selCardType").val()=="0")
+    {
+        return true;
+    }
+    },
+    maxlength:function(element){
+     if ($("#selCardType").val()=="1")
+    {
+        return 50;
+    }
+    }
+
+
+};
+
+
+service_validate_messages[name_prefix + "tbxCardIdNo"] =
+{
+
+    required: "请填写证件号码",
+    idcard:"请输入正确的证件号码",
+    maxlength:"证件号码超出50个字符,请核实修改或者联系客服"
+
+
+};
+
+  service_validate_rules[name_prefix + "selStaffAmount"] =
+{
+    required: true,
+    range: [1,1000]
+};
+
+
+service_validate_messages[name_prefix + "selStaffAmount"] =
+{
+
+    required: "请填写员工人数",
+    range:"请输入1-1000之间的数值"
+
+
+};
+
+
+service_validate_rules[name_prefix + "hiAddrId"] =
+{
+
+required: true
      
 
 

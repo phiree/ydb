@@ -35,43 +35,45 @@
             </div>
         </div>-->
         <!--<div class="rightContent" id="rightCont">-->
-            <div id="myshop-wrap" class="cont-wrap">
+            <div class="cont-wrap theme-color-58789a">
                 <div class="cont-container">
                 <!--<div class="cont-container">-->
                     <!--<div class="cont-row">-->
                         <!--<div class="cont-title">-->
-                            <!--<h1 class="cont-head-one">商家基本信息</h1>-->
+                            <!--<h1 class="cont-h1">商家基本信息</h1>-->
                         <!--</div>-->
                     <!--</div>-->
                     <div class="cont-row step-row">
-                        <div class="cont-col-1">
-                            <h3 class="step-head">step1</h3>
+                        <div class="cont-col-2">
+                            <h3 class="step-head step-1">第<em>1</em>步</h3>
                         </div>
-                        <div class="cont-col-11"><p class="step-text">基本信息填写</p></div>
-</div>
+                        <div class="cont-col-10"><p class="step-text step-1">基本信息填写</p></div>
+                    </div>
+
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col-2">
-                            <div class="headImage">
-                                <div class="input-file-box headFile">
-                                  <input type=file class="input-file-btn"  name="upload_file" businessId="<%=b.Id %>" imageType="businessavater" />
-                                    <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
-                                    <i  class="input-file-mark"></i>
-                                    <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
+                            <div class="clearfix">
+                                <div class="headImage fr m-r20">
+                                    <div class="input-file-box headFile">
+                                      <input type=file class="input-file-btn"  name="upload_file" businessId="<%=b.Id %>" imageType="businessavater" />
+                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
+                                        <i  class="input-file-mark"></i>
+                                        <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
-                        <div class="cont-col-4">
+                        <div class="cont-col-5">
                             <div class="myshop-name">
-                                <p class="vm"><input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="myshop-name-input input-mid" /></p>
+                                <p class="vm"><input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="myshop-name-input input-mid" /><span class="text-anno-r">（必填选项）</span></p>
+                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请上传您的店铺商标，并填写您的店铺名称</p>
                             </div>
                         </div>
-                        <div class="cont-col-6">
-                            <div class="text-anno myshop-name-anno vmBox">
-                                <p class="vm"><span class="text-anno-r">（必填选项）</span>请上传你的店铺商标，并填写店铺名称。</p>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="cont-row myshop-cont-row">
+
                         <div class="cont-col-2">
                             <p class="cont-sub-title"><span>店铺介绍</span></p>
                         </div>
@@ -82,14 +84,14 @@
                                 </div>
                                 <div class="cont-col-6">
                                     <div class="text-anno myshop-intro-anno vmBox">
-
                                         <p class="vm">
                                             <p><span class="cont-title-tips">（必填选项）</span></p>
-                                        </br>请将您的店铺简介在此输入<span class="text-anno-r">（字数限制在0~80个字符之间）</span></p>
+                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请将您的店铺简介在此输入（字数限制在0~80个字符之间）</p>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-</div>
+                        </div>
                     </div>
 
                     <div class="cont-row myshop-cont-row">
@@ -98,6 +100,7 @@
                         </div>
                         <div class="cont-col-10">
                             <div><input type="text" class="input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/><span class="text-anno-r">（必填选项）</span></div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写有效的电话号码</p>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -196,8 +199,8 @@
 
 </div>
                     <div class="cont-row step-row">
-                        <div class="cont-col-1"><h3 class="step-head">step2</h3></div>
-                        <div class="cont-col-11"><p class="step-text">完善商户营业资质资料</p></div>
+                        <div class="cont-col-2"><h3 class="step-head step-2">第<em>2</em>步</h3></div>
+                        <div class="cont-col-10"><p class="step-text step-2">完善商户营业资质资料</p></div>
                     </div>
 
                     <div class="cont-row myshop-cont-row">
@@ -397,11 +400,8 @@
                     </div>
                 </div>
                 <div class="bottomArea">
-                    <input name="imageField" runat="server" onserverclick="btnSave_Click" type="image"
-                        id="imageField1" src="../image/myshop/shop_tx_107.png" />
-                    <a class="cancel" href="/business/detail.aspx?businessId=<%=Request["businessid"] %>">取消</a>
-
-                    <!--<input name="imageField" type="image" id="imageField2" src="../image/myshop/shop_tx_108.png" />-->
+                    <input class="btn btn-info btn-big" name="imageField" runat="server" onserverclick="btnSave_Click" type="submit" id="imageField1" value="保存"/>
+                    <a class="btn btn-cancel btn-big m-l10" href="/business/detail.aspx?businessId=<%=Request["businessid"] %>">取消</a>
                 </div>
             </div>
         <!--</div>-->
