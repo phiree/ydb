@@ -2,8 +2,9 @@
 
 /*µÍ∆Ã¡–±Ì“≥√Ê*/
 #newBusslightBox {
-    background: #fff;
+    /*background: #fff;*/
     padding: 15px;
+    width: 620px;
 }
 
 .business-container {

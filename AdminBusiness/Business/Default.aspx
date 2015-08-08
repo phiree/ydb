@@ -130,10 +130,24 @@
                    <!--</div>-->
                    </div>
                    <div id="newBusslightBox" class="dis-n">
-                       <p>输入店铺名称：<input type="text" /></p>
-                       <p>输入店铺介绍：<textarea class="v-m" rows="5" cols="20"></textarea></p>
-                       <input type="button" value="确认创建"/>
-                       <input class="lightClose" type="button" value="残忍取消"/>
+                       <div class="cont-container">
+                        <div class="cont-row m-b10">
+                            <div class="cont-col-4"><p class="cont-h5">输入店铺名称</p></div>
+                            <div class="cont-col-8"><input class="input-mid" type="text" /></div>
+                            </div>
+                        <div class="cont-row m-b10">
+                            <div class="cont-col-4"><p class="cont-h5">输入店铺介绍</p></div>
+                            <div class="cont-col-8"><textarea class="input-textarea v-m" rows="5" cols="20"></textarea></div>
+
+</div>
+                        <div class="cont-row">
+                            <div class="cont-col-12">
+                            <p class="t-c"><input class="btn btn-add" type="button" value="创建"/><input class="lightClose btn btn-cancel m-l20" type="button" value="取消"/></p>
+                            </div>
+</div>
+</div>
+
+
                    </div>
                 </form>
 
