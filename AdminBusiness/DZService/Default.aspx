@@ -18,10 +18,11 @@
             <div class="cont-wrap">
                 
                 <div class="cont-container">
+                    <div class="service-list-container">
                     <div class="cont-row">
                         <div class="cont-col-12">
                             <div class="cont-row row-fix">
-                                <div class="cont-col-12"><a class="btn btn-default m-b20" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a> </div>
+                                <div class="cont-col-12"><a class="btn btn-default btn-add m-b20" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a> </div>
                             </div>
                             <div class="service-default-titles">
                                 <div class="cont-row">
@@ -56,10 +57,13 @@
                                 </asp:Repeater>
                             </div>
 
-                           
-                      
+
+
                         </div>
                     </div>
+
+                </div>
+
                 </div>
             </div>
         <!--</div>-->

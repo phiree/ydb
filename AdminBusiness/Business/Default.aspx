@@ -14,7 +14,7 @@
     <title>商家后台主页</title>
     <link href="/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/js/metisMenu/metisMenu.css" rel="stylesheet" type="text/css" />
-    <link href="/js/bootstrap/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/business.css" rel="stylesheet" type="text/css" />
     <%--<link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />--%>
@@ -38,7 +38,7 @@
                                     <!--<span class="icon-bar"></span>-->
                                   <!--</button>-->
                                   <a class="navbar-brand" href="#">
-                                       <img alt="一点半" src="">
+                                       <img alt="一点半" src="/image/master/shop-LOGO-1.png">
                                   </a>
                                   <a class="navbar-brand" >
                                     一点半商户后台管理
@@ -130,9 +130,24 @@
                    <!--</div>-->
                    </div>
                    <div id="newBusslightBox" class="dis-n">
-                       输入店铺名称：<input type="text" />
-                       <input type="button" value="确认创建"/>
-                       <input class="lightClose" type="button" value="残忍取消"/>
+                       <div class="cont-container">
+                        <div class="cont-row m-b10">
+                            <div class="cont-col-4"><p class="cont-h5">输入店铺名称</p></div>
+                            <div class="cont-col-8"><input class="input-mid" type="text" /></div>
+                            </div>
+                        <div class="cont-row m-b10">
+                            <div class="cont-col-4"><p class="cont-h5">输入店铺介绍</p></div>
+                            <div class="cont-col-8"><textarea class="input-textarea v-m" rows="5" cols="20"></textarea></div>
+
+</div>
+                        <div class="cont-row">
+                            <div class="cont-col-12">
+                            <p class="t-c"><input class="btn btn-add" type="button" value="创建"/><input class="lightClose btn btn-cancel m-l20" type="button" value="取消"/></p>
+                            </div>
+</div>
+</div>
+
+
                    </div>
                 </form>
 

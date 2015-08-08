@@ -10,13 +10,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-                <div class="cont-wrap">
-                        <div class="serviceMain clearfix">
                              <UC:ServiceEdit runat="server" />
-                        </div>
-                </div>
-
-
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
@@ -26,7 +20,26 @@
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript">
+        var name_prefix = 'ctl00$ContentPlaceHolder1$ctl00$';
+    </script>
+    <script src="/js/validation_service_edit.js" type="text/javascript"></script>
+    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
+    <script type="text/javascript">
         $(function () {
+            function readTypeData(){
+                var hiTypeValue = $("#hiTypeId").attr("value");
+                if ( hiTypeValue == undefined ) {
+                    return;
+                } else {
+
+                    $("#lblSelectedType").removeClass("dis-n");
+                    $("#lblSelectedType").addClass("d-inb");
+                }
+            };
+
+            readTypeData();
+
+
             $("#serList").ServiceSelect({
                 "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
                 "choiceContainer": "serChoiceContainer",
@@ -42,26 +55,10 @@
                 e.preventDefault();
             });
 
-        function readTypeData(){
-            var hiTypeValue = $("#hiTypeId").attr("value");
-            if ( hiTypeValue != undefined ) {
-                $("#lblSelectedType").removeClass("dis-n");
-                $("#lblSelectedType").addClass("d-inb");
-            } else {
-                return;
-            }
-        };
-
-        readTypeData();
 
 
         });
     </script>
-    <script type="text/javascript">
-        var name_prefix = 'ctl00$ContentPlaceHolder1$ctl00$';
-    </script>
-    <script src="/js/validation_service_edit.js" type="text/javascript"></script>
-    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
     <script>
         function loadBaiduMapScript() {
           var script = document.createElement("script");

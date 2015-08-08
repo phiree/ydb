@@ -36,7 +36,7 @@
                 <div class="cont-container">
                     <div class="cont-row">
                         <div class="cont-title">
-                            <h1 class="cont-head-one">帐号相关信息</h1>
+                            <h1 class="cont-h1">帐号相关信息</h1>
                         </div>
                     </div>
                     <div class="cont-row secret-row">

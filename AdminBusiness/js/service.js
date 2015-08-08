@@ -6,6 +6,8 @@ function initializeService(){
     var cityListObject = new BMapLib.CityList({ container: "businessCity" , map : map });
     map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
     map.enableScrollWheelZoom();
+    map.disableDoubleClickZoom();
+
 
 
     /**
@@ -14,6 +16,7 @@ function initializeService(){
     var submap = new BMap.Map("businessMapSub");
     submap.centerAndZoom(new BMap.Point(116.404, 39.915), 10);
     submap.disableDoubleClickZoom();
+    submap.disableScrollWheelZoom();
     submap.disableDragging();
 
 

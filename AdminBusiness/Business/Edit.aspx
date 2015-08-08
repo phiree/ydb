@@ -35,43 +35,45 @@
             </div>
         </div>-->
         <!--<div class="rightContent" id="rightCont">-->
-            <div id="myshop-wrap" class="cont-wrap">
+            <div class="cont-wrap theme-color-58789a">
                 <div class="cont-container">
                 <!--<div class="cont-container">-->
                     <!--<div class="cont-row">-->
                         <!--<div class="cont-title">-->
-                            <!--<h1 class="cont-head-one">商家基本信息</h1>-->
+                            <!--<h1 class="cont-h1">商家基本信息</h1>-->
                         <!--</div>-->
                     <!--</div>-->
                     <div class="cont-row step-row">
-                        <div class="cont-col-1">
-                            <h3 class="step-head">step1</h3>
+                        <div class="cont-col-2">
+                            <h3 class="step-head step-1">第<em>1</em>步</h3>
                         </div>
-                        <div class="cont-col-11"><p class="step-text">基本信息填写</p></div>
-</div>
+                        <div class="cont-col-10"><p class="step-text step-1">基本信息填写</p></div>
+                    </div>
+
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col-2">
-                            <div class="headImage">
-                                <div class="input-file-box headFile">
-                                  <input type=file class="input-file-btn"  name="upload_file" businessId="<%=b.Id %>" imageType="businessavater" />
-                                    <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
-                                    <i  class="input-file-mark"></i>
-                                    <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
+                            <div class="clearfix">
+                                <div class="headImage fr m-r20">
+                                    <div class="input-file-box headFile">
+                                      <input type=file class="input-file-btn"  name="upload_file" businessId="<%=b.Id %>" imageType="businessavater" />
+                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
+                                        <i  class="input-file-mark"></i>
+                                        <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
-                        <div class="cont-col-4">
+                        <div class="cont-col-5">
                             <div class="myshop-name">
-                                <p class="vm"><input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="myshop-name-input input-mid" /></p>
+                                <p class="vm"><input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="myshop-name-input input-mid" /><span class="text-anno-r">（必填选项）</span></p>
+                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请上传您的店铺商标，并填写您的店铺名称</p>
                             </div>
                         </div>
-                        <div class="cont-col-6">
-                            <div class="text-anno myshop-name-anno vmBox">
-                                <p class="vm"><span class="text-anno-r">（必填选项）</span>请上传你的店铺商标，并填写店铺名称。</p>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="cont-row myshop-cont-row">
+
                         <div class="cont-col-2">
                             <p class="cont-sub-title"><span>店铺介绍</span></p>
                         </div>
@@ -82,22 +84,24 @@
                                 </div>
                                 <div class="cont-col-6">
                                     <div class="text-anno myshop-intro-anno vmBox">
-
-                                        <p class="vm">
+                                        <div class="vm">
                                             <p><span class="cont-title-tips">（必填选项）</span></p>
-                                        </br>请将您的店铺简介在此输入<span class="text-anno-r">（字数限制在0~80个字符之间）</span></p>
+                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请将您的店铺简介在此输入（字数限制在0~80个字符之间）</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-</div>
+                        </div>
                     </div>
 
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col-2">
                             <p class="cont-sub-title"><span>联系电话</span></p>
+
                         </div>
                         <div class="cont-col-10">
                             <div><input type="text" class="input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/><span class="text-anno-r">（必填选项）</span></div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写有效的电话号码</p>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -106,6 +110,7 @@
                         </div>
                         <div class="cont-col-10">
                             <div><input type="text" class="input-lg" runat="server" id="tbxEmail" name="email" /><span class="text-anno-r">（必填选项）</span></div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>填写公司网站</p>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -133,15 +138,10 @@
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的店铺图片，限制数量为六张，并且图片大小为2M一下</p>
                                 </div>
                             </div>
-                            <div class="cont-row">
-                                <div class="cont-col-12">
-                                    <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<span class="text-anno-r">（图片大小限制在2M以下）</span></p>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
@@ -152,7 +152,8 @@
                         <div class="cont-col-10">
 
                             <div>
-                                <p><input type="text" class="input-lg m-b20" id="tbxAddress" runat="server" name="addressDetail" /></p>
+                                <p><input type="text" class="input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
+                                <p class="cont-input-tip  m-b10"><i class="icon icon-tip"></i>请点击按钮放置店铺坐标</p>
                                 <div class="cont-row">
                                     <div class="cont-col-3">
                                         <p><input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress" value="点击放置店铺坐标" /></p>
@@ -165,6 +166,7 @@
                                 </div>
                                 <p><input type="hidden" focusID="setAddress" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide" /></p>
                             </div>
+
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -172,11 +174,15 @@
                             <p class="cont-sub-title">从业时间</p>
 </div>
                         <div class="cont-col-10">
-                            <div class="d-inb select select-sm years-select">
-                                <ul></ul>
-                                <input type="hidden" class="input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
+                            <div>
+                                <div class="d-inb select select-sm years-select">
+                                    <ul></ul>
+                                    <input type="hidden" class="input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
+                                </div>
+                                <span class="myshop-span">年</span>
                             </div>
-                            <span class="myshop-span">年</span>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>选择你从事该行业的时间</p>
+
                         </div>
 
 
@@ -192,12 +198,13 @@
                                 <input type="text" class="input-mid" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
                                 <span class="myshop-span">人</span>
                             </div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺的员工数量</p>
 </div>
 
 </div>
                     <div class="cont-row step-row">
-                        <div class="cont-col-1"><h3 class="step-head">step2</h3></div>
-                        <div class="cont-col-11"><p class="step-text">完善商户营业资质资料</p></div>
+                        <div class="cont-col-2"><h3 class="step-head step-2">第<em>2</em>步</h3></div>
+                        <div class="cont-col-10"><p class="step-text step-2">完善商户营业资质资料</p></div>
                     </div>
 
                     <div class="cont-row myshop-cont-row">
@@ -209,6 +216,7 @@
                             <div>
                                 <input type="text" class="input-mid" runat="server" clientidmode="Static" id="tbxContact" />
                             </div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人姓名</p>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -225,6 +233,7 @@
                                     <input type="hidden" id="selCardType" value="0" runat="server" clientidmode="Static" />
                                 </div>
                             </div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人证件类型</p>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -235,11 +244,12 @@
                             <div>
                                 <input type="text" class="input-mid" runat="server" id="tbxCardIdNo" name="tbxCardIdNo" clientidmode="Static" />
                             </div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人证件号码</p>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col-2">
-                            <p class="cont-sub-title">负责人证件照上传</p>
+                            <p class="cont-sub-title">负责人证件照</p>
                         </div>
                         <div class="cont-col-10">
                             <div class="cont-row">
@@ -264,11 +274,8 @@
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
-                                </div>
-                                <div class="cont-col-12">
-                                    <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<span class="text-anno-r">（图片大小限制在2M以下）</span></p>
-                                    </div>
+
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传负责人的证件照，限制数量为六张，并且图片大小为2M一下</p>
                                 </div>
                             </div>
                         </div>
@@ -301,11 +308,7 @@
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
-                                </div>
-                                <div class="cont-col-12">
-                                    <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<span class="text-anno-r">（图片大小限制在2M以下）</span></p>
-                                    </div>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的营业执照图片，限制数量为六张，并且图片大小为2M一下</p>
                                 </div>
                             </div>
                         </div>
@@ -397,11 +400,8 @@
                     </div>
                 </div>
                 <div class="bottomArea">
-                    <input name="imageField" runat="server" onserverclick="btnSave_Click" type="image"
-                        id="imageField1" src="../image/myshop/shop_tx_107.png" />
-                    <a class="cancel" href="/business/detail.aspx?businessId=<%=Request["businessid"] %>">取消</a>
-
-                    <!--<input name="imageField" type="image" id="imageField2" src="../image/myshop/shop_tx_108.png" />-->
+                    <input class="btn btn-info btn-big" name="imageField" runat="server" onserverclick="btnSave_Click" type="submit" id="imageField1" value="保存"/>
+                    <a class="btn btn-cancel btn-big m-l10" href="/business/detail.aspx?businessId=<%=Request["businessid"] %>">取消</a>
                 </div>
             </div>
         <!--</div>-->
