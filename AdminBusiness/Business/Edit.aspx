@@ -84,10 +84,10 @@
                                 </div>
                                 <div class="cont-col-6">
                                     <div class="text-anno myshop-intro-anno vmBox">
-                                        <p class="vm">
+                                        <div class="vm">
                                             <p><span class="cont-title-tips">（必填选项）</span></p>
                                             <p class="cont-input-tip"><i class="icon icon-tip"></i>请将您的店铺简介在此输入（字数限制在0~80个字符之间）</p>
-                                        </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -97,6 +97,7 @@
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col-2">
                             <p class="cont-sub-title"><span>联系电话</span></p>
+
                         </div>
                         <div class="cont-col-10">
                             <div><input type="text" class="input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/><span class="text-anno-r">（必填选项）</span></div>
@@ -109,6 +110,7 @@
                         </div>
                         <div class="cont-col-10">
                             <div><input type="text" class="input-lg" runat="server" id="tbxEmail" name="email" /><span class="text-anno-r">（必填选项）</span></div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>填写公司网站</p>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -136,15 +138,10 @@
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的店铺图片，限制数量为六张，并且图片大小为2M一下</p>
                                 </div>
                             </div>
-                            <div class="cont-row">
-                                <div class="cont-col-12">
-                                    <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<span class="text-anno-r">（图片大小限制在2M以下）</span></p>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
@@ -155,7 +152,8 @@
                         <div class="cont-col-10">
 
                             <div>
-                                <p><input type="text" class="input-lg m-b20" id="tbxAddress" runat="server" name="addressDetail" /></p>
+                                <p><input type="text" class="input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
+                                <p class="cont-input-tip  m-b10"><i class="icon icon-tip"></i>请点击按钮放置店铺坐标</p>
                                 <div class="cont-row">
                                     <div class="cont-col-3">
                                         <p><input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress" value="点击放置店铺坐标" /></p>
@@ -168,6 +166,7 @@
                                 </div>
                                 <p><input type="hidden" focusID="setAddress" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide" /></p>
                             </div>
+
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -175,11 +174,15 @@
                             <p class="cont-sub-title">从业时间</p>
 </div>
                         <div class="cont-col-10">
-                            <div class="d-inb select select-sm years-select">
-                                <ul></ul>
-                                <input type="hidden" class="input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
+                            <div>
+                                <div class="d-inb select select-sm years-select">
+                                    <ul></ul>
+                                    <input type="hidden" class="input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
+                                </div>
+                                <span class="myshop-span">年</span>
                             </div>
-                            <span class="myshop-span">年</span>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>选择你从事该行业的时间</p>
+
                         </div>
 
 
@@ -195,6 +198,7 @@
                                 <input type="text" class="input-mid" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
                                 <span class="myshop-span">人</span>
                             </div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺的员工数量</p>
 </div>
 
 </div>
@@ -212,6 +216,7 @@
                             <div>
                                 <input type="text" class="input-mid" runat="server" clientidmode="Static" id="tbxContact" />
                             </div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人姓名</p>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -228,6 +233,7 @@
                                     <input type="hidden" id="selCardType" value="0" runat="server" clientidmode="Static" />
                                 </div>
                             </div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人证件类型</p>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -238,11 +244,12 @@
                             <div>
                                 <input type="text" class="input-mid" runat="server" id="tbxCardIdNo" name="tbxCardIdNo" clientidmode="Static" />
                             </div>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人证件号码</p>
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col-2">
-                            <p class="cont-sub-title">负责人证件照上传</p>
+                            <p class="cont-sub-title">负责人证件照</p>
                         </div>
                         <div class="cont-col-10">
                             <div class="cont-row">
@@ -267,11 +274,8 @@
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
-                                </div>
-                                <div class="cont-col-12">
-                                    <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<span class="text-anno-r">（图片大小限制在2M以下）</span></p>
-                                    </div>
+
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传负责人的证件照，限制数量为六张，并且图片大小为2M一下</p>
                                 </div>
                             </div>
                         </div>
@@ -304,11 +308,7 @@
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
-                                </div>
-                                <div class="cont-col-12">
-                                    <div class="text-anno myshop-pic-anno vmBox">
-                                        <p class="vm">请至少上传一张图片<span class="text-anno-r">（图片大小限制在2M以下）</span></p>
-                                    </div>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的营业执照图片，限制数量为六张，并且图片大小为2M一下</p>
                                 </div>
                             </div>
                         </div>

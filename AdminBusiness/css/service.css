@@ -114,6 +114,22 @@
     padding-right: 10px;
 }
 
+.cont-input-tip {
+    display: inline-block;
+    background: #f9faed;
+    border: 1px solid #fdeb96;
+    padding: 3px 10px 3px 10px;
+    margin-top: 10px;
+    color: #666;
+}
+
+.cont-input-tip .icon-tip{
+    margin-right: 10px;
+    background: url("../image/tip-icon.png") no-repeat center;
+    width: 16px;
+    height: 16px;
+}
+
 /*服务编辑页面样式*/
 .service-cont-row {
     margin-bottom: 50px;
@@ -499,6 +515,7 @@
 }
 
 .mapWrap {
+    box-sizing: content-box;
     position: relative;
     width: 700px;
     height: 500px;
