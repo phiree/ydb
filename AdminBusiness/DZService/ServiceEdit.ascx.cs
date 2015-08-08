@@ -88,7 +88,8 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         cbxIsCompensationAdvance.Checked = CurrentService.IsCompensationAdvance;
         cbxIsCertificated.Checked = CurrentService.IsCertificated;
         LoadPayType();
-        //rblPayType.SelectedValue = ((int)CurrentService.PayType).ToString(); hiTypeId.Value= CurrentService.ServiceType.Id.ToString();
+        //rblPayType.SelectedValue = ((int)CurrentService.PayType).ToString(); 
+        hiTypeId.Value = CurrentService.ServiceType.Id.ToString();
     }
     private void LoadPayType()
     { 

@@ -173,11 +173,14 @@
 
 .cont-input-tip .icon-tip{
     margin-right: 10px;
-
+    background: url("../image/tip-icon.png") no-repeat center;
+    width: 16px;
+    height: 16px;
 }
 
 /*地址地图弹窗样式*/
 .mapWrap {
+    box-sizing: content-box;
     position: relative;
     width: 700px;
     height: 500px;
