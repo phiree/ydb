@@ -429,7 +429,7 @@
                 return /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/.test(value);
             }, "请输入有效的电话号码");
             $.validator.addMethod("idcard", function (value, element) {
-                return /^(\d{15}$)|(^\d{17}([0-9]|X))$/.test(value);
+                return /^(\d{15}$)|(^\d{17}([0-9]|X|x))$/.test(value);
             }, "请输入有效的身份证号码");
             $.validator.addMethod('filesize', function (value, element, param) {
                 // param = size (en bytes) 
@@ -438,7 +438,9 @@
                 return true; 
                 return this.optional(element) || (element.files[0].size <= param)
             });
-
+            $.validator.addMethod("employees", function (value, element) {
+                return /^[1-9]\d*$/.test(value);
+            }, "请输入整数");
             $($("form")[0]).validate(
                 {
                     errorElement: "p",

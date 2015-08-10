@@ -24,6 +24,7 @@
     line-height: 1.5em;
     color: #57789B;
     padding-left: 20px;
+    cursor: pointer;
 }
 
 .serList ul li:hover {

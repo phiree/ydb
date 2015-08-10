@@ -26,12 +26,12 @@
                             </div>
                             <div class="service-default-titles">
                                 <div class="cont-row">
-                                    <div class="cont-col-1">服务名称</div>
-                                    <div class="cont-col-1">服务类别</div>
-                                    <div class="cont-col-1">服务时间</div>
-                                    <div class="cont-col-3">服务范围</div>
-                                    <div class="cont-col-2">提前预约时间</div>
-                                    <div class="cont-col-1">服务状态</div>
+                                    <div class="cont-col-1"><p class="t-c">服务名称</p></div>
+                                    <div class="cont-col-3"><p class="t-c">服务类别</p></div>
+                                    <div class="cont-col-1"><p class="t-c">服务时间</p></div>
+                                    <div class="cont-col-3"><p class="t-c">服务范围</p></div>
+                                    <div class="cont-col-2"><p class="t-c">提前预约时间</p></div>
+                                    <div class="cont-col-2"><p class="t-c">服务状态</p></div>
                                 </div>
                             </div>
                             <div class="service-default-list">
@@ -40,16 +40,16 @@
                                      <div class="cont-row">
                                         <div class="cont-col-12">
                                             <div class="cont-row">
-                                                <div class="cont-col-1">
-                     <a href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></div>
-                                                <div class="cont-col-1"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></div>
-                                                 <div class="cont-col-1"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></div>
-                                                <div class="cont-col-3"><input type="hidden" id="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
-                                                <span id="spServiceArea" class="text-ellipsis"></span>
+                                                <div class="cont-col-1"><p class="t-c text-ellipsis"><a href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></p>
+                     </div>
+                                                <div class="cont-col-3"><p class="t-c"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></p></div>
+                                                 <div class="cont-col-1"><p class="t-c"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></p></div>
+                                                <div class="cont-col-3">
+                                                <span id="spServiceArea" class="t-c text-ellipsis"><input type="hidden" id="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' /></span>
                                                 </div>
                                                 <!--<div class="cont-col-3"> </div>-->
-                                                <div class="cont-col-2"><%#Eval("OrderDelay")%></div>
-                                                <div class="cont-col-1"><%# ((bool)Eval("Enabled"))?"启用":"禁用" %></div>
+                                                <div class="cont-col-2"><p class="t-c"><%#Eval("OrderDelay")%></p></div>
+                                                <div class="cont-col-2"><p class="t-c"><%# ((bool)Eval("Enabled"))?"启用":"禁用" %></p></div>
                                             </div>
                                         </div>
                                     </div>

@@ -14,7 +14,7 @@
                     <div class="cont-col-3">
                         <div class="cont-row">
                             <div class="cont-col-4"><p >服务名称:</p></div>
-                            <div class="cont-col-8"><%=CurrentService.Name %></div>
+                            <div class="cont-col-8"><p class="text-ellipsis"><%=CurrentService.Name %></p></div>
                         </div>
                     </div>
                     <div class="cont-col-9">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="cont-row">
                     <div class="cont-col-1"><p>服务介绍:</p></div>
-                    <div class="cont-col-7"><%=CurrentService.Description %></div>
+                    <div class="cont-col-7"><p class="text-ellipsis"><%=CurrentService.Description %></p></div>
                 </div>
             </div>
             <div class="service-info info-bottom">

@@ -171,7 +171,7 @@
         <div id="lightBox" class="dis-n">
             <div class="secret-change">
                 <div class="secret-change-title">
-                    <span>修改密码</span> <i class="icon close icon-close"></i>
+                    <span>修改密码</span> <i class="icon  lightClose icon-close"></i>
                 </div>
                 <div class="secret-change-m">
                     <div class="m-auto" ng-hide="!CPassSuccess">
@@ -196,7 +196,7 @@
                                         </div>
                                     </div>
                                     <div class="secret-change-sub">
-                                        <input class="close secret-btn-done" ng-click="CPassReset()" type="button" value="确认" /></div>
+                                        <input class=" lightClose secret-btn-done" ng-click="CPassReset()" type="button" value="确认" /></div>
                                 </div>
                             </SuccessTemplate>
                         </asp:ChangePassword>
@@ -207,7 +207,7 @@
         <div id="lightBox_ChangeEmail" class="dis-n">
             <div class="secret-change">
                 <div class="secret-change-title">
-                    <span>修改邮箱</span> <i class="icon close icon-close"></i>
+                    <span>修改邮箱</span> <i class="icon  lightClose icon-close"></i>
                 </div>
                 <div class="secret-change-m">
 
@@ -220,7 +220,7 @@
         <div id="lightBox_ChangePhone" class="dis-n">
             <div class="secret-change">
                 <div class="secret-change-title">
-                    <span>修改电话</span> <i class="icon close icon-close"></i>
+                    <span>修改电话</span> <i class="icon  lightClose icon-close"></i>
                 </div>
                 <div class="secret-change-m">
 
@@ -232,7 +232,7 @@
         <div id="lightBox_ChangeIdCards" class="dis-n">
             <div class="secret-change">
                 <div class="secret-change-title">
-                    <span>修改证件</span> <i class="icon close icon-close"></i>
+                    <span>修改证件</span> <i class="icon  lightClose icon-close"></i>
                 </div>
                 <div class="secret-change-m">
                     <div class="myshopRightCont HeadProfilePicture">

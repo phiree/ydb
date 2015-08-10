@@ -105,16 +105,17 @@ service_validate_messages[name_prefix + "tbxCardIdNo"] =
 
 };
 
-  service_validate_rules[name_prefix + "selStaffAmount"] =
+  service_validate_rules    [name_prefix + "selStaffAmount"] =
 {
     required: true,
+    employees: true,
     range: [1,1000]
 };
 
 
 service_validate_messages[name_prefix + "selStaffAmount"] =
 {
-
+    employees: "请填写整数",
     required: "请填写员工人数",
     range:"请输入1-1000之间的数值"
 
