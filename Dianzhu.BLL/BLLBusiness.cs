@@ -58,7 +58,7 @@ namespace Dianzhu.BLL
                 Owner=member
             };
             
-            DALBusiness.Save(b);
+            //DALBusiness.Save(b);
            // BusinessUser bu = dalMembership.CreateBusinessUser(username, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);
 
             return member;
