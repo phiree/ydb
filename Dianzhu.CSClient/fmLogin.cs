@@ -50,7 +50,7 @@ namespace Dianzhu.CSClient
                 GlobalViables.XMPPConnection.Open(jid.User, tbxPassword.Text);
                 GlobalViables.XMPPConnection.OnLogin += new ObjectHandler(XMPPConnection_OnLogin);
                 GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
-                 
+                GlobalViables.CurrentUserName = tbxUserName.Text;
             }
             else
             {

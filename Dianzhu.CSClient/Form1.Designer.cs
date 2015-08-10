@@ -53,6 +53,7 @@
             this.tbxPassword.PasswordChar = '*';
             this.tbxPassword.Size = new System.Drawing.Size(100, 21);
             this.tbxPassword.TabIndex = 1;
+            this.tbxPassword.Text = "1";
             this.tbxPassword.UseSystemPasswordChar = true;
             // 
             // tbxUserName
@@ -61,6 +62,7 @@
             this.tbxUserName.Name = "tbxUserName";
             this.tbxUserName.Size = new System.Drawing.Size(100, 21);
             this.tbxUserName.TabIndex = 1;
+            this.tbxUserName.Text = "yuanfei";
             // 
             // label1
             // 

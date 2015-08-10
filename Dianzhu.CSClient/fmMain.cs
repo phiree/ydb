@@ -24,7 +24,7 @@ namespace Dianzhu.CSClient
             InitializeComponent();
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
         }
-
+        string CurrentCustomerId = string.Empty;
         void XMPPConnection_OnMessage(object sender, xmppMessage.Message msg)
         {
             if (InvokeRequired)
@@ -33,7 +33,46 @@ namespace Dianzhu.CSClient
                 return;
             }
             //判断该客户是否已经出现在列表中.
+            bool isAdded = false;
+            
+            foreach (Control c in gbCustomerList.Controls)
+            {
+                c.ForeColor =Color.Blue;
+                if (c.GetType() == typeof(Button))
+                {
+                    if (c.Text == msg.From.User)
+                    {
+                        c.ForeColor = Color.Red;
+                        CurrentCustomerId = c.Text;
+                        isAdded = true;
+                    }
+                }
+            }
+            if (!isAdded)
+            {
+                Button btn = new Button();
+                btn.ForeColor = Color.Red;
+             CurrentCustomerId=   btn.Text = msg.From.User;
+                btn.Click += new EventHandler(btnCustomer_Click);
+                gbCustomerList.Controls.Add(btn);
+            }
             AddNewMessage(msg.From.User, msg.Body);
+        }
+        void btnCustomer_Click(object sender, EventArgs e)
+        {
+            foreach (Control c in gbCustomerList.Controls)
+            {
+                c.ForeColor = Color.Blue;
+                if (c.GetType() == typeof(Button))
+                {
+                    
+                        c.ForeColor = Color.Blue;
+                        
+                }
+            }
+            Button btn = (Button)sender;
+            CurrentCustomerId = btn.Text;
+            btn.ForeColor = Color.Red;
         }
 
         /// <summary>
@@ -59,20 +98,17 @@ namespace Dianzhu.CSClient
         /// <param name="msg"></param>
         private void AddNewMessage(string customerName, string msg)
         {
-            Label lbl = new Label();
-            lbl.Text =customerName+":"+msg;
-            pnlChatHistory.Controls.Add(lbl);
-            string outMessage = "请求服务";
-            GlobalViables.XMPPConnection.Send(new xmppMessage.Message(new Jid("dianzhu@yuanfei-pc"),
-                                                MessageType.chat,
-                                            outMessage));
+           
+            tbxChatLog.Text = customerName + ":" + msg + Environment.NewLine+tbxChatLog.Text;
+            
         }
         
         private void btnSendMsg_Click(object sender, EventArgs e)
         {
-            AddNewMessage("staff", tbxMsg.Text);
+            GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(CurrentCustomerId + "@yuanfei-pc", tbxMsg.Text));
+            AddNewMessage(GlobalViables.CurrentUserName, tbxMsg.Text);
         }
-
+        
         #region xmpp
         
         #endregion

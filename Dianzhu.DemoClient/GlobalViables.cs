@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using agsXMPP;
-namespace Dianzhu.CSClient
+namespace Dianzhu.DemoClient
 {
     
     public class GlobalViables
@@ -14,7 +14,6 @@ namespace Dianzhu.CSClient
         {
             XMPPConnection = new XmppClientConnection(ServerName);
         }
-        public static string CurrentUserName = string.Empty;
        
     }
 }
