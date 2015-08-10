@@ -54,6 +54,19 @@
     line-height: 3em;
 }
 
+
+/*店铺创建成功页面*/
+.create-suc {
+    font-size: 40px;
+}
+
+a.create-continue {
+    display: block;
+    padding: 20px;
+    font-size: 20px;
+    color: #1db7d6;
+}
+
 /*店铺详情页面*/
 .business-detail-main {
     background: none;

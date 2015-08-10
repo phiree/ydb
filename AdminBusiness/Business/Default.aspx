@@ -161,8 +161,12 @@
 </body>
 <script src="/js/bootstrap/js/bootstrap.js"></script>
 <script src="/js/metisMenu/metisMenu.js"></script>
+<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
+<script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
 <script>
+    var name_prefix = '';
+
     $(function(){
         $("#menu").metisMenu();
     })
@@ -177,5 +181,48 @@
             $("#newBusslightBox").appendTo($("form:first"));
             e.preventDefault();
         });
+
+    $(function(){
+         $($("form")[0]).validate(
+            {
+                errorElement: "p",
+                errorPlacement: function (error, element) {
+                    error.appendTo(element.parent());
+                },
+                rules: business_validate_rules,
+                messages: business_validate_messages,
+//                invalidHandler: invalidHandler
+            }
+        );
+    })
+
+    var business_validate_rules = [];
+            var business_validate_messages = [];
+
+            //tbxname
+            business_validate_rules["tbxName"]=
+            {
+                required: true,
+                maxlength: 100
+            };
+            business_validate_rules["tbxName"]=
+            {
+                required: "请填写服务名称",
+                maxlength: "不能超过100个字符"
+            };
+
+             //description
+            business_validate_rules["tbxDescription"] =
+            {
+                required: true,
+                rangelength: [1, 1000]
+            };
+            business_validate_messages["tbxDescription"] =
+            {
+                required: "请填写服务介绍",
+                range: "不能超过1000个字符"
+            };
 </script>
+<!--<script src="/js/validation_shop_edit.js" type="text/javascript"></script>-->
+<!--<script src="/js/validation_invalidHandler.js" type="text/javascript"></script>-->
 </html>
