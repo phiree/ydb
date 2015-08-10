@@ -125,7 +125,9 @@ public partial class Business_Edit : BasePage
         UpdateForm();
         //图片使用ajax上传,
         bllBusiness.SaveOrUpdate(b);
-        Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");
+
+        Response.Redirect("/business/edit.aspx?businessid=" + b.Id);
+       // Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");
 
     }
 }
