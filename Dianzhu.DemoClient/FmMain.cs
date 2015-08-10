@@ -59,7 +59,7 @@ namespace Dianzhu.DemoClient
 
             if (string.IsNullOrEmpty(csId))
             {
-                csId = "yuanfei";
+                csId = "17092089640";
             }
              
             GlobalViables.XMPPConnection.Send(new agsc.Message(csId+"@yuanfei-pc",agsc.MessageType.chat, tbxMessage.Text));
