@@ -141,7 +141,7 @@ a:visited {
     display:block;
 }
 
-html { background:#497894; }
+html { background:#DEDEDE; }
 
 body {
     font: 14px/1.2 Arial,"Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif;
@@ -206,11 +206,11 @@ body {
 
 .wrap {
     /*padding: 50px 0;*/
-    background:#497894;
+    background:#DEDEDE;
     /*background: url("../image/master/img1.jpg");*/
     background-attachment: fixed;
 }
-.mainContainer{ margin: 0 auto; width:1200px; background: #fff; position: relative; overflow: hidden; box-shadow: 0 0 10px 0 rgba(43, 43, 43, 0.71)
+.mainContainer{ margin: 0 auto; width:1200px; background: #fff; position: relative; overflow: hidden; box-shadow: 0 0 10px 0 rgba(43, 43, 43, 0.2)
 }
 
 .mainContent{ margin: 0 auto; width:1000px; background: #3D5B77; }
@@ -771,39 +771,71 @@ a.btn-info, .btn-info {
 }
 
 /*添加按钮*/
+/*a.btn-add, .btn-add {*/
+    /*background: #5be4c6;*/
+    /*color: #fff;*/
+    /*text-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
+    /*border-color: #5ad0b2;*/
+    /*/!*box-shadow: 0 7px 0 #5ad0b2, 0 8px 3px rgba(0, 0, 0, 0.3);*!/*/
+    /*/!*position: relative;*!/*/
+/*}*/
+
+/*.btn-add:hover {*/
+    /*color: #fff;*/
+    /*background-color: #5ad0b2;*/
+    /*border-color: #5be4c6;*/
+/*}*/
+
+/*.btn-add:focus, .btn-add.focus {*/
+    /*color: #fff;*/
+    /*background-color: #30a67e;*/
+    /*border-color: #30a67e;*/
+/*}*/
+
+/*.btn-add:active:focus {*/
+    /*color: #fff;*/
+    /*background-color: #30a67e;*/
+    /*border-color: #30a67e;*/
+/*}*/
+
+/*.btn-add:active, a.btn-add.active, .open > .dropdown-toggle.btn-add {*/
+    /*color: #fff;*/
+    /*background-color: #30a67e;*/
+    /*border-color: #30a67e;*/
+    /*/!*top: 3px;*!/*/
+/*}*/
+
 a.btn-add, .btn-add {
-    background: #5be4c6;
+    background: #64c6f8;
     color: #fff;
     text-shadow: 0 1px 1px rgba(0,0,0,0.3);
-    border-color: #5ad0b2;
-    /*box-shadow: 0 7px 0 #5ad0b2, 0 8px 3px rgba(0, 0, 0, 0.3);*/
-    /*position: relative;*/
+    border-color: #64c6f8;
 }
 
 .btn-add:hover {
     color: #fff;
-    background-color: #5be4c6;
-    border-color: #5be4c6;
+    background-color: #69ccff;
+    border-color: #64c6f8;
 }
 
 .btn-add:focus, .btn-add.focus {
     color: #fff;
-    background-color: #30a67e;
-    border-color: #30a67e;
+    background-color: #448ec6;
+    border-color: #448ec6;
 }
 
 .btn-add:active:focus {
     color: #fff;
-    background-color: #30a67e;
-    border-color: #30a67e;
+    background-color: #448ec6;
+    border-color: #448ec6;
 }
 
 .btn-add:active, a.btn-add.active, .open > .dropdown-toggle.btn-add {
     color: #fff;
-    background-color: #30a67e;
-    border-color: #30a67e;
-    /*top: 3px;*/
+    background-color: #448ec6;
+    border-color: #448ec6;
 }
+
 
 /*取消按钮*/
 a.btn-cancel, .btn-cancel {
