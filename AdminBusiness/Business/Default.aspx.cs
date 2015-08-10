@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-public partial class Business_Default :BasePage
+public partial class Business_Default : BasePage
 {
     BLLBusiness bllBusiness = new BLLBusiness();
     protected void Page_Load(object sender, EventArgs e)
@@ -20,5 +20,15 @@ public partial class Business_Default :BasePage
         rptBusinessList.DataSource = businessList;
         rptBusinessList.DataBind();
 
+    }
+    protected void btnCreate_Click(object sender, EventArgs e)
+    {
+        Business b = new Business();
+        b.Name = tbxName.Value;
+        b.Owner = CurrentUser;
+        b.Description = tbxDescription.Value;
+        bllBusiness.SaveOrUpdate(b);
+
+        Response.Redirect("/business/createsuc.aspx?businessid="+b.Id);
     }
 }

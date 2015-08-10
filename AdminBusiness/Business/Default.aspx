@@ -138,22 +138,16 @@
                         </div>
                         <div class="cont-row m-b10">
                             <div class="cont-col-4"><p class="cont-h5 theme-color-58789a">您的商铺名称</p></div>
-                            <div class="cont-col-8">
-                                <input class="input-lg" type="text" />
-                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写商铺名称，请勿带特殊符号</p>
-                            </div>
+                            <div class="cont-col-8"><input class="input-mid" runat="server" id="tbxName" type="text" />
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写商铺名称，请勿带特殊符号</p></div>
                             </div>
                         <div class="cont-row m-b10">
                             <div class="cont-col-4"><p class="cont-h5 theme-color-58789a">输入店铺介绍</p></div>
-                            <div class="cont-col-8">
-                            <textarea class="input-textarea buss-textarea" rows="5" cols="20"></textarea>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请简单的介绍一下你的店铺</p>
-                            </div>
-
+                            <div class="cont-col-8"><textarea class="input-textarea buss-textarea" runat="server" id="tbxDescription" rows="5" cols="20"></textarea></div>
 </div>
                         <div class="cont-row">
                             <div class="cont-col-12">
-                            <p class="t-c"><input class="btn btn-add" type="button" value="创建"/><input class="lightClose btn btn-cancel m-l20" type="button" value="取消"/></p>
+                            <p class="t-c"><input class="btn btn-add" type="button" runat="server" id="btnCreate"  onserverclick="btnCreate_Click" value="创建"/><input class="lightClose btn btn-cancel m-l20" type="button" value="取消"/></p>
                             </div>
 </div>
 </div>
@@ -180,6 +174,7 @@
 
                 }
             });
+            $("#newBusslightBox").appendTo($("form:first"));
             e.preventDefault();
         });
 </script>
