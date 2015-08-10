@@ -96,21 +96,20 @@
                                                 <div class="cont-row">
                                                     <div class="cont-col-12">
         <p class="business-default-intro">
-            服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。服务介绍服务介绍，服务介绍服务介绍。
-</p>
+          <%#Eval("Description")%></p>
 </div>
 </div>
                                                 <div class="cont-row">
                                                     <div class="cont-col-6">
                                                         <div class="business-note">
-                                                        <p><span>联系电话：</span><span></span></p>
-                                                        <p><span>从业时间：</span><span></span></p>
+                                                        <p><span>联系电话：</span><span>  <%#Eval("Phone")%></span></p>
+                                                        <p><span>从业时间：</span><span> <%#Eval("WorkingYears")%></span></p>
                                                         </div>
                                                     </div>
                                                     <div class="cont-col-6">
                                                         <div class="business-note">
-                                                            <p><span>店铺地址：</span><span></span></p>
-                                                            <p><span>员工人数：</span><span></span></p>
+                                                            <p><span>店铺地址：</span><span>  <%#Eval("Address")%></span></p>
+                                                            <p><span>员工人数：</span><span>  <%#Eval("StaffAmount")%></span></p>
                                                         </div>
 
                                                     </div>
