@@ -620,6 +620,21 @@ body {
 
 .cont-title-tips { color: #FF8661; font-size: 12px; font-weight: 500;}
 
+.cont-input-tip {
+    display: inline-block;
+    background: #f9faed;
+    border: 1px solid #fdeb96;
+    padding: 3px 10px 3px 10px;
+    margin-top: 10px;
+    color: #666;
+}
+
+.cont-input-tip .icon-tip{
+    margin-right: 10px;
+    background: url("../image/tip-icon.png") no-repeat center;
+    width: 16px;
+    height: 16px;
+}
 
 .vmBox{ display: table; }
 .vm { display: table-cell; vertical-align: middle; }
@@ -718,20 +733,23 @@ body {
     color:#58789a;
 }
 
+.theme-color-58789a {
+    color:#666666;
+}
 
 /*自定义主题颜色按钮*/
 /*编辑按钮*/
 a.btn-info, .btn-info {
     background: #64c6f8;
     color: #fff;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.5);
-    border-color: #448ec6;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+    border-color: #64c6f8;
 }
 
 .btn-info:hover {
     color: #fff;
     background-color: #69ccff;
-    border-color: #448ec6;
+    border-color: #64c6f8;
 }
 
 .btn-info:focus, .btn-info.focus {
@@ -754,41 +772,44 @@ a.btn-info, .btn-info {
 
 /*添加按钮*/
 a.btn-add, .btn-add {
-    background: #5ad0b2;
+    background: #5be4c6;
     color: #fff;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
     border-color: #5ad0b2;
+    /*box-shadow: 0 7px 0 #5ad0b2, 0 8px 3px rgba(0, 0, 0, 0.3);*/
+    /*position: relative;*/
 }
 
 .btn-add:hover {
     color: #fff;
     background-color: #5be4c6;
-    border-color: #5ad0b2;
+    border-color: #5be4c6;
 }
 
 .btn-add:focus, .btn-add.focus {
     color: #fff;
     background-color: #30a67e;
-    border-color: #5ad0b2;
+    border-color: #30a67e;
 }
 
 .btn-add:active:focus {
     color: #fff;
     background-color: #30a67e;
-    border-color: #5ad0b2;
+    border-color: #30a67e;
 }
 
 .btn-add:active, a.btn-add.active, .open > .dropdown-toggle.btn-add {
     color: #fff;
     background-color: #30a67e;
-    border-color: #5ad0b2;
+    border-color: #30a67e;
+    /*top: 3px;*/
 }
 
 /*取消按钮*/
 a.btn-cancel, .btn-cancel {
     background: #d0d0d0;
     color: #fff;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
     border-color: #d0d0d0;
 }
 
@@ -820,32 +841,32 @@ a.btn-cancel, .btn-cancel {
 a.btn-delete, .btn-delete {
     background: #fd9292;
     color: #fff;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
     border-color: #fd9292;
 }
 
 .btn-delete:hover {
     color: #fff;
     background-color: #ffa9a9;
-    border-color: #fd9292;
+    border-color: #ffa9a9;
 }
 
 .btn-delete:focus, .btn-delete.focus {
     color: #fff;
     background-color: #e85e5e;
-    border-color: #fd9292;
+    border-color: #e85e5e;
 }
 
 .btn-delete:active:focus {
     color: #fff;
     background-color: #e85e5e;
-    border-color: #fd9292;
+    border-color: #e85e5e;
 }
 
 .btn-delete:active, a.btn-delete.active, .open > .dropdown-toggle.btn-delete {
     color: #fff;
     background-color: #e85e5e;
-    border-color: #fd9292;
+    border-color: #e85e5e;
 }
 
 .btn-big {

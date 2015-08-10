@@ -78,7 +78,7 @@
                          <!--</div>-->
                 <div class="business-container">
                     <div class="business-add">
-                           <a id="addNewBusiness" class="btn btn-add">+&nbsp;新建店铺</a>
+                           <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-add">+&nbsp;新建店铺</a>
                         </div>
                        <div class="business-list">
                            <asp:Repeater runat="server" ID="rptBusinessList">
@@ -130,14 +130,25 @@
                    <!--</div>-->
                    </div>
                    <div id="newBusslightBox" class="dis-n">
-                       <div class="cont-container">
+                       <div class="cont-container BusslightBox">
+                       <div class="cont-row">
+                        <div class="cont-col-12">
+                            <p class="cont-h2 t-c p-20 theme-color-58789a">创建新的商铺</p>
+                        </div>
+                        </div>
                         <div class="cont-row m-b10">
-                            <div class="cont-col-4"><p class="cont-h5">输入店铺名称</p></div>
-                            <div class="cont-col-8"><input class="input-mid" type="text" /></div>
+                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a">您的商铺名称</p></div>
+                            <div class="cont-col-8">
+                                <input class="input-lg" type="text" />
+                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写商铺名称，请勿带特殊符号</p>
+                            </div>
                             </div>
                         <div class="cont-row m-b10">
-                            <div class="cont-col-4"><p class="cont-h5">输入店铺介绍</p></div>
-                            <div class="cont-col-8"><textarea class="input-textarea v-m" rows="5" cols="20"></textarea></div>
+                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a">输入店铺介绍</p></div>
+                            <div class="cont-col-8">
+                            <textarea class="input-textarea buss-textarea" rows="5" cols="20"></textarea>
+                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请简单的介绍一下你的店铺</p>
+                            </div>
 
 </div>
                         <div class="cont-row">
