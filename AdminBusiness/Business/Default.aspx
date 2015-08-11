@@ -128,6 +128,18 @@
                           </asp:Repeater>
                         </div>
                     </div>
+                <div class="business-new dis-n">
+                    <div class="cont-container">
+                        <div class="new-box">
+                            <div class="t-c">
+                                <img src="/image/buss-new.png"/>
+                            </div>
+                            <div class="business-new-add">
+                                <a id="addNewBusiness" href="/Business/edit.aspx" class="new-add-btn">点击创建新店铺</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                    <!--</div>-->
                    </div>
                    <div id="newBusslightBox" class="dis-n">
@@ -172,6 +184,14 @@
 <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
 <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
+<script type="text/javascript">
+    $(function(){
+        if ( $(".business-list").find(".business-list-item").length == 0 ){
+            $(".business-new").removeClass("dis-n");
+        }
+    })
+
+</script>
 <script>
     var name_prefix = '';
 
