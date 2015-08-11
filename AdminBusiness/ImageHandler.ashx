@@ -16,12 +16,13 @@ public class ImageHandler : IHttpHandler {
  
         string paramWidth = context.Request["width"];
         string paramHeight = context.Request["height"];
-        string paramType = context.Request["scalingType"];
+        string paramType = context.Request["tt"];
   
         string physicalPath = context.Server.MapPath(Config.BusinessImagePath);
         int width = Convert.ToInt32(paramWidth);
         int height = Convert.ToInt32(paramHeight);
-        ThumbnailType tt =  ThumbnailType.GeometricScalingByWidth;// (NBiz.ThumbnailType)Enum.Parse(typeof(NBiz.ThumbnailType), paramType);
+        
+        ThumbnailType tt =  (ThumbnailType)Enum.Parse(typeof( ThumbnailType), paramType);
         string thumbnailName =  ThumbnailMaker.Make(physicalPath + "original\\", physicalPath + "thumbnail\\", imageName, width, height, tt);
         if (string.IsNullOrEmpty(thumbnailName)) { return; }
         context.Response.ContentType = "image/png";
