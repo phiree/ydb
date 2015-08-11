@@ -33,15 +33,16 @@
         </div>
         <div class="rightContent" id="rightCont">-->
             <div class="cont-wrap secret-wrap">
-                <div class="cont-container">
-                    <div class="cont-row">
+                        <div class="cont-row">
                         <div class="cont-title">
-                            <h1 class="cont-h1">帐号相关信息</h1>
+                            <h1 class="cont-h1 fu-cont-h1">账号安全</h1>
                         </div>
                     </div>
+                <div class="cont-container">
+
                     <div class="cont-row secret-row">
                         <div class="cont-col-12 standard-cont">
-                                <p class="cont-sub-title">基础信息</p>
+                                <p class="fu-cont-sub-title fu-top-height">您的基础信息</p>
                                 <div class="cont-row">
                                     <div class="cont-col-2">
                                         <p class="secret-d-t">登录账号:</p>
@@ -88,7 +89,7 @@
                     </div>
                     <div class="cont-row secret-row">
                         <div class="cont-col-12">
-                            <p class="cont-sub-title">安全信息</p>
+                            <p class="fu-cont-sub-title">您的账安全信息</p>
                             <div class="pass-row m-b20">
                                 <div class="cont-row">
                                     <div class="cont-col-2"><span class="secret-d-t">登陆密码&nbsp;:</span></div>
