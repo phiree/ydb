@@ -118,7 +118,7 @@
                         <div class="cont-col-10">
                             <div class="cont-row">
                                 <div class="cont-col-12">
-                                    <div class="clearfix">
+                                    <div class="img-list clearfix">
                                         <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-b10 m-r10 fl">
@@ -254,7 +254,7 @@
                         <div class="cont-col-10">
                             <div class="cont-row">
                                 <div class="cont-col-12">
-                                    <div class="clearfix">
+                                    <div class="img-list clearfix">
                                         <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-b10 m-r10 fl">
@@ -267,7 +267,7 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <div class="input-file-box m-b10 m-r10 m-r10 fl">
+                                        <div class="input-file-box m-b10 m-r10 fl dis-n">
                                             <input type=file class="input-file-btn" businessId="<%=b.Id %>" imageType="businesschargeperson" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
@@ -288,7 +288,7 @@
                         <div class="cont-col-10">
                             <div class="cont-row">
                                 <div class="cont-col-12">
-                                    <div class="clearfix">
+                                    <div class="img-list clearfix">
                                         <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-r10 m-b10 fl">
@@ -301,7 +301,7 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <div class="input-file-box fl">
+                                        <div class="input-file-box fl dis-n">
                                             <input type=file class="input-file-btn"   name="input-file-btn-license" businessId="<%=b.Id %>" imageType="businesslicense" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
@@ -415,32 +415,14 @@
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
+    <script src="/js/FileUpload.js" type="text/javascript"></script>
     <script type="text/javascript">
          var name_prefix = 'ctl00$ContentPlaceHolder1$';
     </script>
+    <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
+    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            // set_name_as_id('snsi');
-            $.validator.setDefaults({
-                ignore: []
-            });
-
-            $.validator.addMethod("phone", function (value, element) {
-                return /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/.test(value);
-            }, "请输入有效的电话号码");
-            $.validator.addMethod("idcard", function (value, element) {
-                return /^(\d{15}$)|(^\d{17}([0-9]|X|x))$/.test(value);
-            }, "请输入有效的身份证号码");
-            $.validator.addMethod('filesize', function (value, element, param) {
-                // param = size (en bytes) 
-                // element = element to validate (<input>)
-                // value = value of the element (file name)
-                return true; 
-                return this.optional(element) || (element.files[0].size <= param)
-            });
-            $.validator.addMethod("employees", function (value, element) {
-                return /^[1-9]\d*$/.test(value);
-            }, "请输入整数");
             $($("form")[0]).validate(
                 {
                     errorElement: "p",
@@ -455,9 +437,6 @@
 
         });
     </script>
-    <script src="/js/FileUpload.js" type="text/javascript"></script>
-    <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
-    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
     <script>
         function loadBaiduMapScript() {
           var script = document.createElement("script");
@@ -472,4 +451,5 @@
     <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>-->
     <script type="text/javascript" src="/js/CityList.js"></script>
     <script type="text/javascript" src="/js/account.js"></script>
+
 </asp:Content>
