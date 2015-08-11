@@ -5,9 +5,7 @@ ajax图片上传
 ******************/
 $(".input-file-btn").change(function (ev) {
     var that = this;
-     
-       
-     
+    var limitNum = 6;
     var imageType = $(that).attr('imageType');
     var businessId = $(that).attr("businessId");
 
@@ -65,15 +63,48 @@ $(".input-file-btn").change(function (ev) {
             $imgObjMark.hide();
             if (parent.hasClass("headFile")) {
                 return;
-            } else {
+            } else if( imgNumLimit(parent) ){
                 //parentClone.addClass("m-l10");
                 parentClone.insertAfter(parent);
+            } else {
+                return;
             }
         },
         error: function () {
             alert("图片上传失败，请刷新页面重新上传");
         }
     });
+
+    function imgNumLimit(ele){
+        var container = ele.parent();
+        var prevImgNum = container.find(".download-img-pre").length;
+        var inputImgNum = container.find(".input-file-box").length;
+
+        if ( (prevImgNum + inputImgNum) >= limitNum ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     return true;
 
 });
+
+(function(){
+    var imgList = $('.img-list');
+    var limitNum = 6;
+
+    imgList.each(function(){
+        var prevImgNum = $(this).find(".download-img-pre").length;
+        var inputImgNum = $(this).find(".input-file-box").length;
+        var fileBox =  $(this).find(".input-file-box");
+
+        if ( (prevImgNum + inputImgNum) > limitNum ) {
+            return
+        } else {
+            fileBox.removeClass("dis-n");
+        }
+    })
+
+})();
