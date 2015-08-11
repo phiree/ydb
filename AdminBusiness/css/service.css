@@ -132,8 +132,9 @@
 
 /*服务编辑页面样式*/
 .service-cont-row {
-    margin-bottom: 50px;
-    padding-left: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
 }
 
 /*店铺编辑步骤样式*/
@@ -620,8 +621,8 @@
 
 .iptag {
     width: 100px;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
     border-radius: 0;

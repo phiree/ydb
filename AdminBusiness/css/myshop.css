@@ -17,8 +17,9 @@
 /*.itemDele-img{ position:absolute;}*/
 
 .myshop-cont-row {
-    margin-bottom: 50px;
-    padding-left: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
 }
 
 /*.shop-tips {*/
@@ -78,7 +79,7 @@
 /*.account{ height:1138px; display:none;}*/
 
 /*.headDecoration1{ width:4px; height:108px; float:left; background:#31b6fc;}*/
-.headImage{ width:90px; height:90px; line-height: 90px; text-align: center;  display: table; overflow: hidden; border-radius: 30%; background: #f3f5f9; border: #C0D1E3 1px solid}
+.headImage{ width:90px; height:90px; line-height: 90px; text-align: center;  display: table; overflow: hidden; border-radius: 3px; background: #cccccc; border: #C0D1E3 1px solid}
 .headImageVc { display: table-cell; vertical-align: middle; }
 
 .headInfo{ width:208px; height: 90px; float:left; color:#58789a; font-size:13px; display: table; overflow: hidden;}
@@ -517,9 +518,10 @@
 
 
 /*设置下拉选框宽高*/
-.select-sm { width: 170px; height: 40px; line-height: 40px; border: 1px solid #C0D1E3; color: #58789a; }
-.select-sm cite { width: 170px; line-height: 38px; }
-.select-sm ul { width: 170px; line-height: 40px; }
+.select-sm { width: 170px; height: 30px; line-height: 30px; border: 1px solid #C0D1E3; color: #58789a; }
+.select-sm cite { width: 170px; line-height: 28px; }
+.select-sm ul { width: 170px; line-height: 30px; }
+/*.select-sm ul li a:hover { background: #eee }*/
 
 
 .CPBox {
