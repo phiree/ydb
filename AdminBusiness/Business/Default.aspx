@@ -78,7 +78,7 @@
                                     <!--</aside>-->
                             <!--</div>-->
                          <!--</div>-->
-                <div class="business-container">
+                <div class="business-container dis-n">
                     <div class="business-add">
                            <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-add">+&nbsp;新建店铺</a>
                         </div>
@@ -135,7 +135,7 @@
                                 <img src="/image/buss-new.png"/>
                             </div>
                             <div class="business-new-add">
-                                <a id="addNewBusiness" href="/Business/edit.aspx" class="new-add-btn">点击创建新店铺</a>
+                                <a id="firstAddBusiness" class="new-add-btn">点击创建新店铺</a>
                             </div>
                         </div>
                     </div>
@@ -188,9 +188,11 @@
     $(function(){
         if ( $(".business-list").find(".business-list-item").length == 0 ){
             $(".business-new").removeClass("dis-n");
+        } else {
+            $(".business-container").removeClass("dis-n");
+
         }
     })
-
 </script>
 <script>
     var name_prefix = '';
@@ -209,6 +211,17 @@
             $("#newBusslightBox").appendTo($("form:first"));
             e.preventDefault();
         });
+
+    $("#firstAddBusiness").click(function (e) {
+        $('#newBusslightBox').lightbox_me({
+            centered: true,
+            onLoad : function(){
+
+            }
+        });
+        $("#newBusslightBox").appendTo($("form:first"));
+        e.preventDefault();
+    });
 
     $(function(){
          $($("form")[0]).validate(

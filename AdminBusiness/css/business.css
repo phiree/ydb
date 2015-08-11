@@ -70,8 +70,8 @@ a.create-continue {
 
 /*店铺创建页面无内容样式*/
 .business-new {
-    padding: 20px 50px;
-    min-height: 800px;
+    padding: 20px;
+    min-height: 700px;
     background: #eceef0;
 }
 
@@ -84,10 +84,12 @@ a.create-continue {
     height: 58px;
     position: absolute;
     margin: 0 auto;
+    margin-top: -24px;
     top: 50%;
     bottom: 0;
     left: 0;
     right: 0;
+
 }
 
 a.new-add-btn {
