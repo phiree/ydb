@@ -85,45 +85,46 @@
                        <div class="business-list">
                            <asp:Repeater runat="server" ID="rptBusinessList" OnItemCommand="rptBusinessList_ItemCommand">
                               <ItemTemplate>
-                                  <div class="business-list-item m-b20">
-                                    <div class="cont-container">
-                                        <div class="cont-row">
-                                            <div class="cont-col-4">
 
-                                                <div class="business-h"><%#Eval("Name")%></div>
-</div>
-                                            <div class="cont-col-8">
-                                                <div class="cont-row">
-                                                    <div class="cont-col-12">
-        <p class="business-default-intro">
-          <%#Eval("Description")%></p>
-</div>
-</div>
-                                                <div class="cont-row">
-                                                    <div class="cont-col-6">
-                                                        <div class="business-note">
-                                                        <p><span>联系电话：</span><span>  <%#Eval("Phone")%></span></p>
-                                                        <p><span>从业时间：</span><span> <%#Eval("WorkingYears")%></span></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="cont-col-6">
-                                                        <div class="business-note">
-                                                            <p><span>店铺地址：</span><span>  <%#Eval("Address")%></span></p>
-                                                            <p><span>员工人数：</span><span>  <%#Eval("StaffAmount")%></span></p>
-                                                        </div>
+                                    <div class="cont-container m-b20">
+                                        <div class="business-list-item">
+                                           <div class="cont-row">
+                                               <div class="cont-col-5">
 
-                                                    </div>
-                                                </div>
-                                                <div class="cont-row">
-                                                    <div class="cont-col">
-                                               <asp:Button runat="server" OnClientClick="javascript:return confirm('确定要删除该店铺么?')" CommandArgument='<%#Eval("Id") %>' CommandName="delete" Text="删除" />      <p class="t-r"><a class="btn btn-info btn-into" href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a></p>
-                                                    </div>
+                                                   <div class="business-h"><%#Eval("Name")%></div>
+   </div>
+                                               <div class="cont-col-6 business-detail-r">
+                                                   <div class="cont-row">
+                                                       <div class="cont-col-12">
+           <p class="business-default-intro">
+             <%#Eval("Description")%></p>
+   </div>
+   </div>
+                                                   <div class="cont-row">
+                                                       <div class="cont-col-6">
+                                                           <div class="business-note">
+                                                           <p><span>联系电话：</span><span>  <%#Eval("Phone")%></span></p>
+                                                           <p><span>从业时间：</span><span> <%#Eval("WorkingYears")%></span></p>
+                                                           </div>
+                                                       </div>
+                                                       <div class="cont-col-6">
+                                                           <div class="business-note">
+                                                               <p><span>店铺地址：</span><span>  <%#Eval("Address")%></span></p>
+                                                               <p><span>员工人数：</span><span>  <%#Eval("StaffAmount")%></span></p>
+                                                           </div>
 
+                                                       </div>
+                                                   </div>
+                                                   <div class="cont-row">
+                                                       <div class="cont-col">
+                                                        <p class="t-r"><a class="btn btn-info m-r20" href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a><asp:Button CssClass="btn btn-delete" runat="server" OnClientClick="javascript:return confirm('确定要删除该店铺么?')" CommandArgument='<%#Eval("Id") %>' CommandName="delete" Text="删除店铺" /></p>
+                                                       </div>
+
+                                           </div>
+                                           </div>
+                                           </div>
 </div>
-</div>
-</div>
-</div>
-                                  </div>
+                                    </div>
                               </ItemTemplate>
                           </asp:Repeater>
                         </div>
