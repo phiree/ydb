@@ -555,3 +555,29 @@
     background: #f6fafe;
     border-radius: 5px;
 }
+/**fu***/
+
+.fu-cont-h1 {
+    font-size: 26px;
+    font-weight:bold;
+    color: #3794bf;
+    line-height: 2em;
+}
+.fu-cont-sub-title {
+    font-size: 14px;
+    line-height: 40px;
+    font-weight: 600;
+    /*margin-bottom: 5px;*/
+    
+   
+    padding-left: 20px;
+}
+/***fu**/
+.fu-margin-top{ margin-top:20px;}
+#menu-1{ margin-top:25px;background: #3794bd;}
+#menu-1 a {
+    background:url(../image/shop-icon-18.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    color: #fff;
+    }

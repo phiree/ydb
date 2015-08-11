@@ -84,12 +84,11 @@ label {
 }
 
 .sidebar-nav ul a {
-    font-size: 16px;
+    font-size: 14px;
     padding: 10px 20px;
-    color: #1db7d6 ;
+    color: #337ab7 ;
     border-top: 1px solid #e7e7e7;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
-    text-shadow: 0 1px 1px rgba(64, 64, 64, 0.3);
+
 }
 .sidebar-nav ul a:hover, .sidebar-nav ul a:focus, .sidebar-nav ul a:active {
     color: #fff;
@@ -109,3 +108,140 @@ label {
 .sidebar-nav-item-icon {
     padding-right: 5px;
 }
+/*以下是fu自定义样式的内容*****/
+.navbar-header img{ margin-left:30px;}
+.navbar .navbar-brand {
+  
+  color: #1a87ab;
+}
+.navbar .navbar-brand:hover {
+  
+  color: #1a87ab;
+}
+.caret {
+  color:#347ab7;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 10px;
+  vertical-align: middle;
+  border-top: 7px dashed;
+  border-top: 7px solid \9;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  color: #555;
+  background-color: #F8F8F8
+}
+
+.dropdown-menu > li > a {
+  display: block;
+  
+  padding: 3px 3px;
+  padding-left:12px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+   background:url(../image/shop-icon-2.png) no-repeat;
+   background-position: 10px 7px;
+   
+  white-space: nowrap;
+}
+.dropdown-menu > li:hover 
+{
+    background:#3794bf;
+   
+}
+.dropdown-menu > li > a:hover {
+    background:url(../image/shop-icon-5.png) no-repeat;
+    background-position: 10px 7px;
+    color:#FFF;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 80%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 100px;
+  padding: 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align:center;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.sidebar-nav ul #menu-1:hover{
+      background: #3794bd;
+    }
+.sidebar-nav ul #menu-2:hover{
+      background: #3794bd;
+    }
+#menu-1{ margin-top:25px;background: #3794bd;}
+#menu-1 a {
+    background:url(../image/shop-icon-18.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+     color: #fff;
+    }
+ #menu-1 a:hover {
+    background:url(../image/shop-icon-18.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    color: #fff;
+    }
+    
+    #menu-2 a {
+    background:url(../image/menu-2-icon-1.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    }
+ #menu-2 a:hover {
+    background:url(../image/menu-2-icon-2.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    }
+    
+        #menu-3 a {
+    background:url(../image/menu-3-icon-hui.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    }
+ #menu-3 a:hover {
+    background:url(../image/menu-3-icon-hui.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    }
+    
+   #menu-4 a {
+    background:url(../image/menu-4-icon-hui.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    }
+ #menu-4 a:hover {
+    background:url(../image/menu-4-icon-hui.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    }
+     
+ #menu-5 a {
+    background:url(../image/menu-5-icon-hui.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    }
+ #menu-5 a:hover {
+    background:url(../image/menu-5-icon-hui.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    }
+ 
