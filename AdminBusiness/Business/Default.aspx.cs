@@ -20,6 +20,7 @@ public partial class Business_Default : BasePage
     {
 
         var businessList = bllBusiness.GetBusinessListByOwner(CurrentUser.Id).Where(x=>x.Enabled);
+        
         rptBusinessList.DataSource = businessList;
       //  rptBusinessList.ItemCommand+=new RepeaterCommandEventHandler(rptBusinessList_ItemCommand);
         rptBusinessList.DataBind();
