@@ -21,8 +21,12 @@ public class ImageHandler : IHttpHandler {
         string physicalPath = context.Server.MapPath(Config.BusinessImagePath);
         int width = Convert.ToInt32(paramWidth);
         int height = Convert.ToInt32(paramHeight);
-        
-        ThumbnailType tt =  (ThumbnailType)Enum.Parse(typeof( ThumbnailType), paramType);
+        ThumbnailType tt = ThumbnailType.GeometricScalingByHeight;
+        try
+        {
+            tt = (ThumbnailType)Convert.ToInt32(paramType);
+        }
+        catch { }
         string thumbnailName =  ThumbnailMaker.Make(physicalPath + "original\\", physicalPath + "thumbnail\\", imageName, width, height, tt);
         if (string.IsNullOrEmpty(thumbnailName)) { return; }
         context.Response.ContentType = "image/png";
