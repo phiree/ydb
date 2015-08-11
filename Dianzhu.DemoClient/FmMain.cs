@@ -17,8 +17,21 @@ namespace Dianzhu.DemoClient
         public FmMain()
         {
             InitializeComponent();
+            //GlobalViables.XMPPConnection = new XmppClientConnection(GlobalViables.ServerName);
             GlobalViables.XMPPConnection.OnLogin += new agsXMPP.ObjectHandler(XMPPConnection_OnLogin);
             GlobalViables.XMPPConnection.OnMessage += new agsc.MessageHandler(XMPPConnection_OnMessage);
+            GlobalViables.XMPPConnection.OnError += new ErrorHandler(XMPPConnection_OnError);
+            GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
+        }
+
+        void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
+        {
+            throw new NotImplementedException();
+        }
+
+        void XMPPConnection_OnError(object sender, Exception ex)
+        {
+            throw new NotImplementedException();
         }
 
         void XMPPConnection_OnMessage(object sender, agsc.Message msg)
@@ -62,7 +75,7 @@ namespace Dianzhu.DemoClient
                 csId = "17092089640";
             }
              
-            GlobalViables.XMPPConnection.Send(new agsc.Message(csId+"@yuanfei-pc",agsc.MessageType.chat, tbxMessage.Text));
+            GlobalViables.XMPPConnection.Send(new agsc.Message(csId+"@"+GlobalViables.ServerName,agsc.MessageType.chat, tbxMessage.Text));
             AddLog(tbxUserName.Text, tbxMessage.Text);
        
         }

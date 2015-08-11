@@ -13,6 +13,7 @@ namespace Dianzhu.CSClient
 {
     public partial class fmLogin : Form
     {
+       log4net.ILog  log = log4net.LogManager.GetLogger("cs");
         public fmLogin()
         {
             InitializeComponent();
@@ -49,6 +50,7 @@ namespace Dianzhu.CSClient
                 GlobalViables.XMPPConnection = new XmppClientConnection(jid.Server);
                 GlobalViables.XMPPConnection.Open(jid.User, tbxPassword.Text);
                 GlobalViables.XMPPConnection.OnLogin += new ObjectHandler(XMPPConnection_OnLogin);
+                GlobalViables.XMPPConnection.OnError+=new ErrorHandler(XMPPConnection_OnError);
                 GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
                 GlobalViables.CurrentUserName = tbxUserName.Text;
             }
@@ -61,12 +63,24 @@ namespace Dianzhu.CSClient
 
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new XmppElementHandler(XMPPConnection_OnAuthError), new object[] { sender, e });
+                return;
+            }
+            log.Error(e.InnerXml);
             lblResult.Text = "登录通讯服务器失败";
         }
 
         void XMPPConnection_OnError(object sender, Exception ex)
         {
-            
+            if (InvokeRequired)
+            {
+                BeginInvoke(new ErrorHandler(XMPPConnection_OnError), new object[] { sender, ex });
+                return;
+            }
+            log.Error(ex.Message);
+            lblResult.Text = "错误." + ex.Message;
         }
 
         void XMPPConnection_OnLogin(object sender)
@@ -75,8 +89,18 @@ namespace Dianzhu.CSClient
             Presence p = new Presence(ShowType.chat, "Online");
             p.Type = PresenceType.available;
             GlobalViables.XMPPConnection.Send(p);
+            if (InvokeRequired)
+            {
+                BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
+                return;
+            }
             this.DialogResult = DialogResult.OK;
-            this.Close();
+            
+        }
+
+        private void fmLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         }
     }
 }

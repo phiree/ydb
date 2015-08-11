@@ -1,6 +1,6 @@
-﻿namespace Dianzhu.CSClient
+﻿namespace Dianzhu.DemoClient
 {
-    partial class DemoCustomer
+    partial class FmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -35,11 +35,11 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.tbxLog = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblLoginStatus = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnSend = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tbxMessage = new System.Windows.Forms.TextBox();
-            this.lblLoginStatus = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -59,6 +59,7 @@
             this.tbxUserName.Name = "tbxUserName";
             this.tbxUserName.Size = new System.Drawing.Size(128, 21);
             this.tbxUserName.TabIndex = 1;
+            this.tbxUserName.Text = "13012341234";
             // 
             // tbxPwd
             // 
@@ -66,6 +67,7 @@
             this.tbxPwd.Name = "tbxPwd";
             this.tbxPwd.Size = new System.Drawing.Size(133, 21);
             this.tbxPwd.TabIndex = 3;
+            this.tbxPwd.Text = "123456";
             // 
             // label2
             // 
@@ -109,6 +111,15 @@
             this.panel1.Size = new System.Drawing.Size(560, 49);
             this.panel1.TabIndex = 5;
             // 
+            // lblLoginStatus
+            // 
+            this.lblLoginStatus.AutoSize = true;
+            this.lblLoginStatus.ForeColor = System.Drawing.Color.Chocolate;
+            this.lblLoginStatus.Location = new System.Drawing.Point(461, 17);
+            this.lblLoginStatus.Name = "lblLoginStatus";
+            this.lblLoginStatus.Size = new System.Drawing.Size(0, 12);
+            this.lblLoginStatus.TabIndex = 5;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.btnSend);
@@ -129,6 +140,7 @@
             this.btnSend.TabIndex = 4;
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // label4
             // 
@@ -145,16 +157,7 @@
             this.tbxMessage.Size = new System.Drawing.Size(464, 21);
             this.tbxMessage.TabIndex = 1;
             // 
-            // lblLoginStatus
-            // 
-            this.lblLoginStatus.AutoSize = true;
-            this.lblLoginStatus.ForeColor = System.Drawing.Color.Chocolate;
-            this.lblLoginStatus.Location = new System.Drawing.Point(461, 17);
-            this.lblLoginStatus.Name = "lblLoginStatus";
-            this.lblLoginStatus.Size = new System.Drawing.Size(0, 12);
-            this.lblLoginStatus.TabIndex = 5;
-            // 
-            // DemoCustomer
+            // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -162,7 +165,7 @@
             this.Controls.Add(this.tbxLog);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
-            this.Name = "DemoCustomer";
+            this.Name = "FmMain";
             this.Text = "DemoCustomer";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

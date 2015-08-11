@@ -21,8 +21,13 @@ namespace Dianzhu.CSClient
             {
                 this.Show();
             }
+            else
+            {
+              
+          
             InitializeComponent();
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
+            }
         }
         string CurrentCustomerId = string.Empty;
         void XMPPConnection_OnMessage(object sender, xmppMessage.Message msg)
@@ -32,6 +37,7 @@ namespace Dianzhu.CSClient
                 BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender, msg });
                 return;
             }
+            
             //判断该客户是否已经出现在列表中.
             bool isAdded = false;
             
@@ -52,7 +58,7 @@ namespace Dianzhu.CSClient
             {
                 Button btn = new Button();
                 btn.ForeColor = Color.Red;
-             CurrentCustomerId=   btn.Text = msg.From.User;
+                CurrentCustomerId=   btn.Text = msg.From.User;
                 btn.Click += new EventHandler(btnCustomer_Click);
                 gbCustomerList.Controls.Add(btn);
             }
@@ -105,7 +111,11 @@ namespace Dianzhu.CSClient
         
         private void btnSendMsg_Click(object sender, EventArgs e)
         {
-            GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(CurrentCustomerId + "@yuanfei-pc", tbxMsg.Text));
+            if (string.IsNullOrEmpty(CurrentCustomerId))
+            {
+                return;
+            }
+            GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(CurrentCustomerId + "@"+GlobalViables.ServerName,MessageType.chat, tbxMsg.Text));
             AddNewMessage(GlobalViables.CurrentUserName, tbxMsg.Text);
         }
         
