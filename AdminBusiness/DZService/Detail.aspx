@@ -61,15 +61,14 @@
                     <div class="cont-col-3"><span>每日最大接单量:</span>&nbsp;<%=CurrentService.MaxOrdersPerDay %></div>
                     <div class="cont-col-3"><span>每小时最大接单量:</span>&nbsp;<%=CurrentService.MaxOrdersPerHour%></div>
                     <div class="cont-col-3"><span>是否上门服务:</span>&nbsp;<%=CurrentService.ServiceMode==Dianzhu.Model.Enums.enum_ServiceMode.NotToHouse?"不上门":"上门" %></div>
-                    <div class="cont-col-3"></div>
+                    <div class="cont-col-3"><span>服务对象:</span>&nbsp;<%=CurrentService.IsForBusiness?"可以对公":"对私" %></div>
                 </div>
                 <div class="cont-row">
-                    <div class="cont-col-3"><span>服务对象:</span>&nbsp;<%=CurrentService.IsForBusiness?"可以对公":"对私" %></div>
                     <div class="cont-col-3"><span>服务保障</span>:&nbsp;<%=CurrentService.IsCompensationAdvance?"有":"无" %></div>
                     <div class="cont-col-3"><span>付款方式:</span>&nbsp;<%=(CurrentService.PayType & Dianzhu.Model.Enums.PayType.Offline) == Dianzhu.Model.Enums.PayType.Offline?"线下":string.Empty%>
-                    <%=(CurrentService.PayType & Dianzhu.Model.Enums.PayType.Online) == Dianzhu.Model.Enums.PayType.Online ? "线上" : string.Empty%>
-                    </div>
+                                                                <%=(CurrentService.PayType & Dianzhu.Model.Enums.PayType.Online) == Dianzhu.Model.Enums.PayType.Online ? "线上" : string.Empty%></div>
                     <div class="cont-col-3"><span>平台认证:</span>&nbsp;<%=CurrentService.IsCertificated?"已认证":"未认证" %></div>
+                    <div class="cont-col-3"></div>
                 </div>
             </div>
             <div class="t-r">

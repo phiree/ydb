@@ -16,9 +16,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     
             <div class="cont-wrap">
-                
-                <div class="cont-container">
-                    <div class="service-list-container">
+                <div class="cont-container service-list-container dis-n">
                     <div class="cont-row">
                         <div class="cont-col-12">
                             <div class="cont-row row-fix">
@@ -37,7 +35,7 @@
                             <div class="service-default-list">
                                 <asp:Repeater runat="server" ID="rptServiceList"  >
                                     <ItemTemplate>
-                                     <div class="cont-row">
+                                     <div class="cont-row service-list-item">
                                         <div class="cont-col-12">
                                             <div class="cont-row">
                                                 <div class="cont-col-1"><p class="t-c text-ellipsis"><a href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></p>
@@ -61,9 +59,18 @@
 
                         </div>
                     </div>
-
                 </div>
-
+                <div class="service-new">
+                    <div class="cont-container">
+                        <div class="new-box">
+                            <div class="t-c">
+                                <img src="/image/service-new.png"/>
+                            </div>
+                            <div class="service-new-add">
+                                <a id="firstAddBusiness" class="new-add-btn" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>">点击创建新服务</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         <!--</div>-->
@@ -78,6 +85,15 @@
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
+    <script >
+    $(function(){
+        if ( $(".service-default-list").find(".service-list-item").length == 0 ){
+            $(".service-new").removeClass("dis-n");
+        } else {
+            $(".service-list-container").removeClass("dis-n");
+        }
+    })
+    </script>
     <script type="text/javascript">
        var name_prefix = 'ctl00$ContentPlaceHolder1$ServiceEdit1$';
        $(function () {
@@ -130,11 +146,11 @@
            readTypeData();
 
 
-           var jsonServiceArea = $.parseJSON($("#hiServiceArea").val());
-           $("#spServiceArea").html(jsonServiceArea.provinceName
-                               + jsonServiceArea.cityName
-                               + jsonServiceArea.boroughName
-                               + jsonServiceArea.businessName);
+//           var jsonServiceArea = $.parseJSON($("#hiServiceArea").val());
+//           $("#spServiceArea").html(jsonServiceArea.provinceName
+//                               + jsonServiceArea.cityName
+//                               + jsonServiceArea.boroughName
+//                               + jsonServiceArea.businessName);
 
        });
     </script>

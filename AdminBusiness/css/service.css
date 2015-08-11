@@ -62,13 +62,41 @@
 .service-title { padding: 0 20px; height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; }
 .service-title span { color:#58789a; font-size:17px; font-weight:bold; vertical-align: middle; }
 
-/*.serviceMain { color: #58789a; }*/
+/*店铺创建页面无内容样式*/
+.service-new {
+}
 
-/*.serviceLeft {*/
-    /*float: left;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-/*}*/
+.new-box {
+    position: relative;
+}
+
+.service-new-add {
+    width: 240px;
+    height: 58px;
+    position: absolute;
+    margin: 0 auto;
+    margin-top: -24px;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+}
+
+a.new-add-btn {
+    background: #fff;
+    display: block;
+    width: 240px;
+    height: 58px;
+    line-height: 58px;
+    text-align: center;
+    border: 2px solid #3e95bf;
+    color: #3e95bf;
+    font-size: 18px;
+    border-radius: 30px;
+}
+
+/*end*/
 
 /*服务列表样式*/
 .service-default-titles {
@@ -132,8 +160,9 @@
 
 /*服务编辑页面样式*/
 .service-cont-row {
-    margin-bottom: 50px;
-    padding-left: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
 }
 
 /*店铺编辑步骤样式*/
@@ -508,6 +537,25 @@
 }
 
 /*服务页面地图样式*/
+#allmap{width:500px;height:500px;}
+.sp-style {
+    cursor: pointer;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin: 2px;
+    text-align: center;
+    background: #ccc;
+}
+.sp-style-on {
+    background: green;
+}
+#radius-container{padding: 5px;}
+#addError,
+#delError,
+#saveError{color:red;display: none;}
+
 
 #businessMap {
     width: 100%;
@@ -620,8 +668,8 @@
 
 .iptag {
     width: 100px;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
     border-radius: 0;

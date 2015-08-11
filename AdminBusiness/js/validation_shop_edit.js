@@ -1,5 +1,29 @@
 ﻿
- 
+// set_name_as_id('snsi');
+$.validator.setDefaults({
+    ignore: []
+});
+
+$.validator.addMethod("phone", function (value, element) {
+    return /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/.test(value);
+}, "请输入有效的电话号码");
+$.validator.addMethod("idcard", function (value, element) {
+    return /^(\d{15}$)|(^\d{17}([0-9]|X|x))$/.test(value);
+}, "请输入有效的身份证号码");
+$.validator.addMethod('filesize', function (value, element, param) {
+    // param = size (en bytes)
+    // element = element to validate (<input>)
+    // value = value of the element (file name)
+    return true;
+    return this.optional(element) || (element.files[0].size <= param)
+});
+$.validator.addMethod("employees", function (value, element) {
+    return /^[1-9]\d*$/.test(value);
+}, "请输入整数");
+
+$.validator.addMethod("web", function (value, element) {
+    return /^([A-Za-z]+\.){2}[A-Za-z]+$/.test(value);
+}, "请输入有效的网址");
 
 var service_validate_rules ={};
 var service_validate_messages={};
@@ -41,12 +65,14 @@ service_validate_rules[name_prefix + "tbxContactPhone"] =
 service_validate_rules[name_prefix + "tbxWebSite"] =
 {
     required: false,
-    simple_url: true
+    web: true
+
      
 };
-service_validate_messages[name_prefix + "tbxEmail"] =
+service_validate_messages[name_prefix + "tbxWebSite"] =
 {
-    simple_url: "请输入正确的网站格式"
+    web: "请输入正确的网址"
+
 };
 
 //服务单价

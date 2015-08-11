@@ -439,7 +439,7 @@ body {
 .select cite { display: block; width: 130px; text-indent: 0.8em;  }
 .select ul { position: absolute;  width: 130px; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none; margin-left: -1px;}
 .select a { display: block; text-indent: 0.8em; }
-.select a:hover { background: #f6fafe; }
+.select a:hover { background: #eeeeee; }
 
 /*timeSelect 初始化*/
 .time-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}
@@ -598,7 +598,7 @@ body {
 }
 
 .cont-h5 {
-    font-size: 18px;
+    font-size: 16px;
     color: #1db7d6;
     font-weight: bold;
 }
@@ -610,10 +610,11 @@ body {
 }
 
 .cont-sub-title {
-    font-size: 16px;
-    line-height: 40px;
+    color: #58789a;
+    font-size: 15px;
+    line-height: 30px;
     font-weight: 600;
-    /*margin-bottom: 5px;*/
+    /* margin-bottom: 5px; */
     text-align: right;
     padding-right: 20px;
 }
@@ -660,8 +661,8 @@ body {
 
 .input-lg {
     width: 270px;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
     border-radius: 0;
@@ -674,8 +675,8 @@ body {
 
 .input-mid {
     width: 170px;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
     border-radius: 0;
@@ -688,8 +689,8 @@ body {
 
 .input-sm {
     width: 100px;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
     border-radius: 0;
