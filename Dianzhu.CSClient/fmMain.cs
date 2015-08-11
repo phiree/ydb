@@ -21,8 +21,13 @@ namespace Dianzhu.CSClient
             {
                 this.Show();
             }
+            else
+            {
+              
+          
             InitializeComponent();
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
+            }
         }
         string CurrentCustomerId = string.Empty;
         void XMPPConnection_OnMessage(object sender, xmppMessage.Message msg)
@@ -105,7 +110,7 @@ namespace Dianzhu.CSClient
         
         private void btnSendMsg_Click(object sender, EventArgs e)
         {
-            GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(CurrentCustomerId + "@yuanfei-pc", tbxMsg.Text));
+            GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(CurrentCustomerId + "@"+GlobalViables.ServerName, tbxMsg.Text));
             AddNewMessage(GlobalViables.CurrentUserName, tbxMsg.Text);
         }
         

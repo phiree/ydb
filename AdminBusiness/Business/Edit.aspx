@@ -10,39 +10,10 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <!--<div class="mainContent clearfix">-->
-        <!--<div class="leftContent" id="leftCont">
-            <div class="side-bar">
-                <ul>
-                    <li class="side-btn-br">
-                        <a href="/account/Default.aspx?businessId=<%=b.Id%>" target="_self">
-                            <div class="side-btn-bg d-inb">
-                                <i class="icon side-btn-icon side-icon-myshop"></i>
-                                <h4 class="side-btn-t ">基本信息</h4>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/account/Security.aspx?businessId=<%=b.Id%>" target="_self">
-                            <div class="side-btn-bg d-inb">
-                                <i class="icon side-btn-icon side-icon-secret"></i>
-                                <h4 class="side-btn-t ">帐号安全</h4>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <i class="icon side-arrow"></i>
-            </div>
-        </div>-->
-        <!--<div class="rightContent" id="rightCont">-->
+   
             <div class="cont-wrap theme-color-58789a">
                 <div class="cont-container">
-                <!--<div class="cont-container">-->
-                    <!--<div class="cont-row">-->
-                        <!--<div class="cont-title">-->
-                            <!--<h1 class="cont-h1">商家基本信息</h1>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                
                     <div class="cont-row step-row">
                         <div class="cont-col-2">
                             <h3 class="step-head step-1">第<em>1</em>步</h3>
@@ -109,7 +80,7 @@
                             <p class="cont-sub-title"><span>公司网站</span></p>
                         </div>
                         <div class="cont-col-10">
-                            <div><input type="text" class="input-lg" runat="server" id="tbxEmail" name="email" /><span class="text-anno-r">（必填选项）</span></div>
+                            <div><input type="text" class="input-lg" runat="server" id="tbxWebSite" name="website" /><span class="text-anno-r">（必填选项）</span></div>
                             <p class="cont-input-tip"><i class="icon icon-tip"></i>填写公司网站</p>
                         </div>
                     </div>
@@ -428,6 +399,9 @@
             $.validator.addMethod("phone", function (value, element) {
                 return /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/.test(value);
             }, "请输入有效的电话号码");
+            $.validator.addMethod("simple_url", function (value, element) {
+                return /^(http:\/\/)?(www\.)?[^\.]+\.[^\.]+$/.test(value);
+            }, "请输入有效的网址");
             $.validator.addMethod("idcard", function (value, element) {
                 return /^(\d{15}$)|(^\d{17}([0-9]|X|x))$/.test(value);
             }, "请输入有效的身份证号码");

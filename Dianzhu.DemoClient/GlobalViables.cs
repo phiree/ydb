@@ -8,7 +8,7 @@ namespace Dianzhu.DemoClient
     
     public class GlobalViables
     {
-        public static readonly string ServerName = "yuanfei-pc";
+        public static readonly string ServerName = "192.168.1.140";
         public static XmppClientConnection XMPPConnection = null;
         static GlobalViables()
         {

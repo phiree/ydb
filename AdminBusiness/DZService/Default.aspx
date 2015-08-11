@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="service-default-list">
-                                <asp:Repeater runat="server" ID="rptServiceList">
+                                <asp:Repeater runat="server" ID="rptServiceList"  >
                                     <ItemTemplate>
                                      <div class="cont-row">
                                         <div class="cont-col-12">
@@ -49,7 +49,7 @@
                                                 </div>
                                                 <!--<div class="cont-col-3"> </div>-->
                                                 <div class="cont-col-2"><p class="t-c"><%#Eval("OrderDelay")%></p></div>
-                                                <div class="cont-col-2"><p class="t-c"><%# ((bool)Eval("Enabled"))?"启用":"禁用" %></p></div>
+                                                <div class="cont-col-2"><span><%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></span> <p class="t-c  enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"点击禁用":"点击启用" %></p></div>
                                             </div>
                                         </div>
                                     </div>
@@ -86,7 +86,28 @@
                "choiceContainer": "serChoiceContainer",
                "choiceOutContainer": "lblSelectedType",
                "printInputID": "hiTypeId",
-               "choiceConfBtn" : "serChoiceConf"
+               "choiceConfBtn": "serChoiceConf"
+           });
+
+           $(".enable_service").click(function () {
+               var that = this;
+               $.post("/ajaxservice/changeserviceInfo.ashx",
+                        {
+                            "changed_field": "enabled",
+                            "changed_value": false,
+                            "id": $(that).attr("serid")
+                        }, function (data) {
+                            var enabled = data.data;
+                            if (enabled == "True") {
+                                $(that).siblings("span").html("已启用");
+                                $(that).html("点击禁用");
+                            }
+                            else {
+                                $(that).siblings("span").html("已禁用");
+                                $(that).html("点击启用");
+                            }
+
+                        });
            });
 
            $("#setSerType").click(function (e) {
@@ -96,9 +117,9 @@
                e.preventDefault();
            });
 
-           function readTypeData(){
+           function readTypeData() {
                var hiTypeValue = $("#hiTypeId").attr("value");
-               if ( hiTypeValue != undefined ) {
+               if (hiTypeValue != undefined) {
                    $("#lblSelectedType").removeClass("dis-n");
                    $("#lblSelectedType").addClass("d-inb");
                } else {
@@ -108,12 +129,12 @@
 
            readTypeData();
 
-    
-    var jsonServiceArea=$.parseJSON($("#hiServiceArea").val());
-       $("#spServiceArea").html(jsonServiceArea.provinceName
-                               +jsonServiceArea.cityName
-                               +jsonServiceArea.boroughName
-                               +jsonServiceArea.businessName);
+
+           var jsonServiceArea = $.parseJSON($("#hiServiceArea").val());
+           $("#spServiceArea").html(jsonServiceArea.provinceName
+                               + jsonServiceArea.cityName
+                               + jsonServiceArea.boroughName
+                               + jsonServiceArea.businessName);
 
        });
     </script>

@@ -15,7 +15,10 @@ namespace Dianzhu.CSClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fmMain());
+            log4net.Config.XmlConfigurator.Configure();
+             
+                Application.Run(new fmMain());
+            
         }
     }
 }

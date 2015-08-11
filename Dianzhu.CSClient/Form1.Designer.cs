@@ -53,7 +53,7 @@
             this.tbxPassword.PasswordChar = '*';
             this.tbxPassword.Size = new System.Drawing.Size(100, 21);
             this.tbxPassword.TabIndex = 1;
-            this.tbxPassword.Text = "1";
+            this.tbxPassword.Text = "123456";
             this.tbxPassword.UseSystemPasswordChar = true;
             // 
             // tbxUserName
@@ -62,7 +62,7 @@
             this.tbxUserName.Name = "tbxUserName";
             this.tbxUserName.Size = new System.Drawing.Size(100, 21);
             this.tbxUserName.TabIndex = 1;
-            this.tbxUserName.Text = "yuanfei";
+            this.tbxUserName.Text = "17092089640";
             // 
             // label1
             // 
@@ -105,6 +105,7 @@
             this.Controls.Add(this.btnLogin);
             this.Name = "fmLogin";
             this.Text = "Login";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fmLogin_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

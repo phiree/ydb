@@ -32,9 +32,10 @@ namespace Dianzhu.BLL
        {
            Business b = BLLBusiness.GetOne(businessId);
            string savedPath = string.Empty;
+           string imageName=string.Empty;
            if (imageFile != null && imageFile.ContentLength != 0)
            {
-               string imageName = businessId + imageType.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(imageFile.FileName);
+               imageName = businessId + imageType.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(imageFile.FileName);
                savedPath = HttpContext.Current.Server.MapPath(SiteConfig.BusinessImagePath + "/original/") + imageName;
                imageFile.SaveAs(savedPath);
                BusinessImage biImage = new BusinessImage
@@ -47,7 +48,7 @@ namespace Dianzhu.BLL
                b.BusinessImages.Add(biImage);
            }
            BLLBusiness.Updte(b);
-           return savedPath;
+           return "/media/business/original/" + imageName;
        }
     }
 }
