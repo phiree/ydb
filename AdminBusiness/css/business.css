@@ -66,6 +66,44 @@ a.create-continue {
     font-size: 20px;
     color: #1db7d6;
 }
+/*end*/
+
+/*店铺创建页面无内容样式*/
+.business-new {
+    padding: 20px 50px;
+    min-height: 800px;
+    background: #eceef0;
+}
+
+.new-box {
+    position: relative;
+}
+
+.business-new-add {
+    width: 240px;
+    height: 58px;
+    position: absolute;
+    margin: 0 auto;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+a.new-add-btn {
+    background: #fff;
+    display: block;
+    width: 240px;
+    height: 58px;
+    line-height: 58px;
+    text-align: center;
+    border: 2px solid #3e95bf;
+    color: #3e95bf;
+    font-size: 18px;
+    border-radius: 30px;
+}
+
+/*end*/
 
 /*店铺详情页面*/
 .business-detail-main {
