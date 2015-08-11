@@ -56,9 +56,9 @@ public class FileUploader : IHttpHandler {
             context.Response.Write("F,图片大小不能超过2M");
             context.Response.End();
         }
-          string savedPath=  bllBusinessImage.Save(new Guid(strBusinessId), posted, enum_imagetype);
+          string imagePath=  bllBusinessImage.Save(new Guid(strBusinessId), posted, enum_imagetype);
 
-          context.Response.Write(savedPath + posted.FileName);
+          context.Response.Write(imagePath);
         
     }
  

@@ -175,7 +175,10 @@ namespace Dianzhu.Model
                 {
                     BusinessImages.Remove(i);
                 }
-                BusinessImages.Add(value);
+                foreach(BusinessImage i in value)
+                {
+                BusinessImages.Add(i);
+                }
             }
 
         }
