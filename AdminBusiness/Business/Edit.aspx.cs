@@ -28,10 +28,7 @@ public partial class Business_Edit : BasePage
         }
         else
         {
-            b.Owner = CurrentUser;
-            bllBusiness.SaveOrUpdate(b);
-
-            Response.Redirect("edit.aspx?businessid=" + b.Id,true);
+            Response.Redirect("/error.aspx?msg=访问地址有误,请检查.");
         }
         if (!IsPostBack)
         {
@@ -126,7 +123,7 @@ public partial class Business_Edit : BasePage
         //图片使用ajax上传,
         bllBusiness.SaveOrUpdate(b);
 
-        Response.Redirect("/business/edit.aspx?businessid=" + b.Id);
+        Response.Redirect("/business/detail.aspx?businessid=" + b.Id);
        // Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");
 
     }

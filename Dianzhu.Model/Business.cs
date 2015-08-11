@@ -10,6 +10,10 @@ namespace Dianzhu.Model
     /// </summary>
     public class Business_Abs
     {
+        public Business_Abs()
+        {
+            Enabled = true;
+        }
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
         /// <summary>
@@ -38,6 +42,7 @@ namespace Dianzhu.Model
         /// 商户所有者.
         /// </summary>
         public virtual DZMembership Owner { get; set; }
+        public virtual bool Enabled { get; set; }
 
     }
 
@@ -52,6 +57,7 @@ namespace Dianzhu.Model
             BusinessImages = new List<BusinessImage>();
             ServiceType = new List<ServiceType>();
             CashTicketTemplates = new List<CashTicketTemplate>();
+            
         }
         /// <summary>
         ///  所在辖区
@@ -106,6 +112,7 @@ namespace Dianzhu.Model
         /// 申请日期
         /// </summary>
         public virtual DateTime DateApply { get; set; }
+       
         /// <summary>
         /// 审核通过日期
         /// </summary>
