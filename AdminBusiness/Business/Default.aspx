@@ -1,5 +1,5 @@
 ﻿
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="~/Business/Default.aspx.cs" Inherits="Business_Default" %>
+<%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeFile="~/Business/Default.aspx.cs" Inherits="Business_Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--<!doctype html>-->
@@ -83,7 +83,7 @@
                            <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-add">+&nbsp;新建店铺</a>
                         </div>
                        <div class="business-list">
-                           <asp:Repeater runat="server" ID="rptBusinessList">
+                           <asp:Repeater runat="server" ID="rptBusinessList" OnItemCommand="rptBusinessList_ItemCommand">
                               <ItemTemplate>
                                   <div class="business-list-item m-b20">
                                     <div class="cont-container">
@@ -116,7 +116,7 @@
                                                 </div>
                                                 <div class="cont-row">
                                                     <div class="cont-col">
-                                                        <p class="t-r"><a class="btn btn-info btn-into" href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a></p>
+                                               <asp:Button runat="server" OnClientClick="javascript:return confirm('确定要删除该店铺么?')" CommandArgument='<%#Eval("Id") %>' CommandName="delete" Text="删除" />      <p class="t-r"><a class="btn btn-info btn-into" href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a></p>
                                                     </div>
 
 </div>

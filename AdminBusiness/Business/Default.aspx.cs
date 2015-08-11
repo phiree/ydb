@@ -11,13 +11,17 @@ public partial class Business_Default : BasePage
     BLLBusiness bllBusiness = new BLLBusiness();
     protected void Page_Load(object sender, EventArgs e)
     {
-        BindBusinessList();
+        if (!IsPostBack)
+        {
+            BindBusinessList();
+        }
     }
     protected void BindBusinessList()
     {
 
-        var businessList = bllBusiness.GetBusinessListByOwner(CurrentUser.Id);
+        var businessList = bllBusiness.GetBusinessListByOwner(CurrentUser.Id).Where(x=>x.Enabled);
         rptBusinessList.DataSource = businessList;
+      //  rptBusinessList.ItemCommand+=new RepeaterCommandEventHandler(rptBusinessList_ItemCommand);
         rptBusinessList.DataBind();
 
     }
@@ -30,5 +34,17 @@ public partial class Business_Default : BasePage
         bllBusiness.SaveOrUpdate(b);
 
         Response.Redirect("/business/createsuc.aspx?businessid="+b.Id);
+    }
+    protected void rptBusinessList_ItemCommand(object sender, RepeaterCommandEventArgs e)
+    {
+        if (e.CommandName.ToLower() == "delete")
+        {
+            string strBusinessId = e.CommandArgument.ToString();
+            Guid businessId = new Guid(strBusinessId);
+            Business b = bllBusiness.GetOne(businessId);
+            b.Enabled = false;
+            bllBusiness.SaveOrUpdate(b);
+            BindBusinessList();
+        }
     }
 }

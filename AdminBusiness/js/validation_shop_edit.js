@@ -62,15 +62,17 @@ service_validate_rules[name_prefix + "tbxContactPhone"] =
  
  
 //serviceScope
-service_validate_rules[name_prefix + "tbxEmail"] =
+service_validate_rules[name_prefix + "tbxWebSite"] =
 {
     required: false,
     web: true
+
      
 };
-service_validate_messages[name_prefix + "tbxEmail"] =
+service_validate_messages[name_prefix + "tbxWebSite"] =
 {
     web: "请输入正确的网址"
+
 };
 
 //服务单价

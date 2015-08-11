@@ -66,7 +66,7 @@ namespace Dianzhu.CSClient
                 if (c.GetType() == typeof(Button))
                 {
                     
-                        c.ForeColor = Color.Blue;
+                  c.ForeColor = Color.Blue;
                         
                 }
             }

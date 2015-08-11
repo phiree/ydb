@@ -307,7 +307,7 @@
                 </div>
                 <div class="rp email">
                     <span id="vregEmailtxt" class="erroTxt"></span>
-                    <input type="text" runat="server" clientidmode="Static" id="tbxEmail" name="email" onfocus="myFoucuss('#tbxEmail')" onBlur="myShopemailCheck('#tbxEmail','#vregEmailtxt')"/>
+                    <input type="text" runat="server" clientidmode="Static" id="tbxWebSite" name="tbxWebSite" onfocus="myFoucuss('#tbxEmail')" onBlur="myShopemailCheck('#tbxEmail','#vregEmailtxt')"/>
                 </div>
                 <div class="rp workingyears">
                     <input type="text" runat="server" clientidmode="Static" id="tbxBusinessYears" readonly="true" />
