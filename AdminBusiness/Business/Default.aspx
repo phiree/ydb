@@ -86,10 +86,36 @@
                            <asp:Repeater runat="server" ID="rptBusinessList" OnItemCommand="rptBusinessList_ItemCommand">
                               <ItemTemplate>
 
+
                                     <div class="cont-container m-b20">
                                         <div class="business-list-item">
                                            <div class="cont-row">
                                                <div class="cont-col-5">
+
+                                                <div class="business-h"><%#Eval("Name")%></div>
+                                                <div><img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' /></div>
+</div>
+
+                                            <div class="cont-col-8">
+                                                <div class="cont-row">
+                                                    <div class="cont-col-12">
+        <p class="business-default-intro">
+          <%#Eval("Description")%></p>
+</div>
+</div>
+                                                <div class="cont-row">
+                                                    <div class="cont-col-6">
+                                                        <div class="business-note">
+                                                        <p><span>联系电话：</span><span>  <%#Eval("Phone")%></span></p>
+                                                        <p><span>从业时间：</span><span> <%#Eval("WorkingYears")%></span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cont-col-6">
+                                                        <div class="business-note">
+                                                            <p><span>店铺地址：</span><span>  <%#Eval("Address")%></span></p>
+                                                            <p><span>员工人数：</span><span>  <%#Eval("StaffAmount")%></span></p>
+                                                        </div>
+
 
                                                    <div class="business-h"><%#Eval("Name")%></div>
    </div>
