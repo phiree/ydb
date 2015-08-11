@@ -38,15 +38,15 @@ service_validate_rules[name_prefix + "tbxContactPhone"] =
  
  
 //serviceScope
-service_validate_rules[name_prefix + "tbxEmail"] =
+service_validate_rules[name_prefix + "tbxWebSite"] =
 {
     required: false,
-    email: true
+    simple_url: true
      
 };
 service_validate_messages[name_prefix + "tbxEmail"] =
 {
-    email: "请输入正确的email格式"
+    simple_url: "请输入正确的网站格式"
 };
 
 //服务单价

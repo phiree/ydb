@@ -49,7 +49,7 @@ public partial class Business_Edit : BasePage
         tbxIntroduced.Value = b.Description;
         tbxAddress.Value = b.Address;
         tbxContactPhone.Value = b.Phone;
-        tbxEmail.Value = b.Email;
+        tbxWebSite.Value = b.WebSite;
         hiAddrId.Value = b.RawAddressFromMapAPI;
         tbxBusinessYears.Value = b.WorkingYears.ToString();
         tbxContact.Value = b.Contact;
@@ -99,7 +99,7 @@ public partial class Business_Edit : BasePage
         b.Description = tbxIntroduced.Value;
 
         b.Phone = tbxContactPhone.Value;
-        b.Email = tbxEmail.Value;
+        b.WebSite = tbxWebSite.Value;
         b.WorkingYears = int.Parse(tbxBusinessYears.Value);
 
         b.WorkingYears = int.Parse(tbxBusinessYears.Value);

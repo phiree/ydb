@@ -160,14 +160,12 @@ namespace Dianzhu.Model
             get;
             set;
         }
-        public virtual BusinessImage ChargePersonIdCard
+        public virtual IList<BusinessImage> ChargePersonIdCards
         {
             get
             {
                 BusinessImage[] bi = BusinessImages.Where(x => x.ImageType == Enums.enum_ImageType.Business_ChargePersonIdCard).ToArray();
-                if (bi.Count() >= 1)
-                    return bi[0];
-                return new BusinessImage();
+                return bi;
             }
             set
             {
@@ -243,7 +241,7 @@ namespace Dianzhu.Model
                     percent += 7;
                 }
                 
-                if (this.ChargePersonIdCard!=null)
+                if (this.ChargePersonIdCards.Count>0)
                 {
                     percent += 7;
                 }
