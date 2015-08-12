@@ -331,7 +331,12 @@
                 {
                     errorElement: "p",
                     errorPlacement: function (error, element) {
-                        error.appendTo(element.parent());
+                        if ( $(element).attr("id") == "ContentPlaceHolder1_tbxBusinessYears" ) {
+                            error.appendTo((element.parent()).parent());
+                        } else {
+                            error.appendTo(element.parent());
+                        }
+
                     },
                     rules: service_validate_rules,
                     messages: service_validate_messages,
