@@ -111,6 +111,8 @@
     </script>
     <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>-->
     <script type="text/javascript" src="/js/CityList.js"></script>
+    <script type="text/javascript" src="/js/baiduMapLib.js"></script>
     <script type="text/javascript" src="/js/service.js"></script>
+    <!--<script type="text/javascript" src="/js/map.js"></script>-->
 </asp:Content>
 
