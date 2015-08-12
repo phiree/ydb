@@ -134,6 +134,19 @@ a.new-add-btn {
     border: none;
 }
 
+.business-detail-face {
+    border-radius: 50%;
+    border: 10px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.business-detail-name {
+    font-size: 20px;
+    color: #333333;
+    font-weight: bold;
+    padding: 10px 0 20px 0;
+}
+
 .business-detail-stand {
     background: #fff;
     padding: 25px;
@@ -144,15 +157,12 @@ a.new-add-btn {
 
 .business-detail-stand .cont-row {
     font-size: 16px;
-    line-height: 3em;
-
 }
 
 .detail-pra .cont-row {
     font-size: 16px;
-    line-height: 3em;
     border-top: 1px solid #e8e8e8;
-    padding: 0 20px;
+    padding: 20px;
 }
 
 .business-detail-iden {
@@ -175,3 +185,4 @@ a.new-add-btn {
 .business-detail-container {
     box-shadow: 0;
 }
+/*end*/

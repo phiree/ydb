@@ -1,5 +1,14 @@
-﻿
- 
+﻿$.validator.setDefaults({
+    ignore: []
+});
+
+$.validator.addMethod("integer", function (value, element) {
+    return value == "" ? true : /^[1-9]\d*$/.test(value);
+}, "请填写整数");
+
+$.validator.addMethod("time24", function (value, element) {
+    return /([01]\d|2[0-3])(:[0-5]\d)/.test(value);
+}, "Invalid time format.");
 
 var service_validate_rules ={};
 var service_validate_messages={};
@@ -28,11 +37,13 @@ service_validate_messages[name_prefix+"hiTypeId"]=
 //minprice
 service_validate_rules[name_prefix+"tbxMinPrice"]=
 {
+    integer: true,
     required: true,
     range: [1, 2000]
 };
 service_validate_messages[name_prefix+"tbxMinPrice"]=
 {
+    integer: "请填写整数价格",
      required:"请填写最低服务价格",
      range: "请输入1-2000之间的数字"
  };
@@ -60,24 +71,28 @@ service_validate_messages[name_prefix + "hiBusinessAreaCode"] =
 //服务单价
 service_validate_rules[name_prefix + "tbxUnitPrice"] =
 {
+    integer: true,
     required: true,
     range: [1, 1000]
 
 };
 service_validate_messages[name_prefix + "tbxUnitPrice"] =
 {
+    integer: "请填写整数价格",
     required: "请填写单价",
     range: "请输入1-1000之间的数字"
 };
 //预约时间
 service_validate_rules[name_prefix + "tbxOrderDelay"] =
 {
+    integer: "请填写整数价格",
     required: true,
     range: [1, 1440]
 
 };
 service_validate_messages[name_prefix + "tbxOrderDelay"] =
 {
+    integer: "请填写整数分钟",
     required: "请填写预约时长",
     range: "请输入1-1440之间的数字"
 };
@@ -85,7 +100,7 @@ service_validate_messages[name_prefix + "tbxOrderDelay"] =
 //服务时间
 service_validate_rules[name_prefix + "tbxServiceTimeBegin"] =
 {
-     
+
         required: true,
         time24: true
 
@@ -97,7 +112,7 @@ service_validate_messages[name_prefix + "tbxServiceTimeBegin"] =
 {
    
         required: "请填写服务开始时间",
-        time24: "请输入时间"
+        time24: "请输入有效时间"
 
     };
 
@@ -121,7 +136,7 @@ service_validate_messages[name_prefix + "tbxServiceTimeEnd"] =
 //每日最大接单量
 service_validate_rules[name_prefix + "tbxMaxOrdersPerDay"] =
 {
-
+    integer: true,
     required: true,
     range:[1,2000]
 
@@ -138,7 +153,7 @@ service_validate_messages[name_prefix + "tbxMaxOrdersPerDay"] =
 //每小时最大接单量
 service_validate_rules[name_prefix + "tbxMaxOrdersPerHour"] =
 {
-
+    integer: true,
     required: true,
     range: [1, 1000]
 

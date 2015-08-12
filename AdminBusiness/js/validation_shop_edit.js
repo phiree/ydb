@@ -17,12 +17,12 @@ $.validator.addMethod('filesize', function (value, element, param) {
     return true;
     return this.optional(element) || (element.files[0].size <= param)
 });
-$.validator.addMethod("employees", function (value, element) {
-    return /^[1-9]\d*$/.test(value);
+$.validator.addMethod("integer", function (value, element) {
+    return value == "" ? true : /^[1-9]\d*$/.test(value);
 }, "请输入整数");
 
 $.validator.addMethod("web", function (value, element) {
-    return /^([A-Za-z]+\.){2}[A-Za-z]+$/.test(value);
+    return value == "" ? true : /^([A-Za-z]+\.){2}[A-Za-z]+$/.test(value);
 }, "请输入有效的网址");
 
 var service_validate_rules ={};
@@ -134,14 +134,14 @@ service_validate_messages[name_prefix + "tbxCardIdNo"] =
   service_validate_rules    [name_prefix + "selStaffAmount"] =
 {
     required: true,
-    employees: true,
+    integer: true,
     range: [1,1000]
 };
 
 
 service_validate_messages[name_prefix + "selStaffAmount"] =
 {
-    employees: "请填写整数",
+    integer: "请填写整数",
     required: "请填写员工人数",
     range:"请输入1-1000之间的数值"
 
@@ -149,20 +149,20 @@ service_validate_messages[name_prefix + "selStaffAmount"] =
 };
 
 
-service_validate_rules[name_prefix + "hiAddrId"] =
-{
-
-required: true
-     
-
-
-};
-service_validate_messages[name_prefix + "hiAddrId"] =
-{
-
-    required: "请选择店铺地址"
-
-};
+//service_validate_rules[name_prefix + "hiAddrId"] =
+//{
+//
+//required: true
+//
+//
+//
+//};
+//service_validate_messages[name_prefix + "hiAddrId"] =
+//{
+//
+//    required: "请选择店铺地址"
+//
+//};
 
 service_validate_rules["input-file-btn-avatar"]=
 {

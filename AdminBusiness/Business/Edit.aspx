@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
-    CodeFile="Edit.aspx.cs" Inherits="Business_Edit" %>
-
+    CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
+ 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="/css/myshop.css" rel="stylesheet" type="text/css" />
     <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
@@ -75,12 +75,66 @@
                             <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写有效的电话号码</p>
                         </div>
                     </div>
+                        <div class="cont-row myshop-cont-row">
+                            <div class="cont-col-2">
+                                <p class="cont-sub-title">店铺地址</p>
+                            </div>
+                            <div class="cont-col-10">
+
+                                <div>
+                                    <p><input type="text" class="input-lg" id="tbxAddress" runat="server" name="addressDetail" /><span class="text-anno-r">（必填选项）</span></p>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写你的店铺地址</p>
+                                    <p class="cont-input-tip  m-b10"><i class="icon icon-tip"></i>请点击按钮放置店铺坐标</p>
+                                    <div class="cont-row">
+                                        <div class="cont-col-3">
+                                            <p><input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress" value="点击放置店铺坐标" /></p>
+                                        </div>
+                                        <div class="cont-col-9">
+                                            <div class="addPrint-vm">
+                                                <div id="addPrintBox"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p><input type="hidden" focusID="setAddress" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide" /></p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="cont-row myshop-cont-row">
+                            <div class="cont-col-2">
+                                <p class="cont-sub-title">从业时间</p>
+    </div>
+                            <div class="cont-col-10">
+                                <div>
+                                    <div class="d-inb select select-sm years-select">
+                                        <ul></ul>
+                                        <input type="hidden" class="input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
+                                    </div>
+                                    <span class="myshop-span">年</span><span class="text-anno-r">（必填选项）</span>
+                                </div>
+                                <p class="cont-input-tip"><i class="icon icon-tip"></i>选择你从事该行业的时间</p>
+
+                            </div>
+                        </div>
+                        <div class="cont-row myshop-cont-row">
+                            <div class="cont-col-2">
+                                <p class="cont-sub-title">员工人数</p>
+    </div>
+                            <div class="cont-col-10">
+                                <div>
+                                    <input type="text" class="input-mid" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
+                                    <span class="myshop-span">人</span><span class="text-anno-r">（必填选项）</span>
+                                </div>
+                                <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺的员工数量</p>
+    </div>
+
+                        </div>
                     <div class="cont-row myshop-cont-row">
                         <div class="cont-col-2">
                             <p class="cont-sub-title"><span>公司网站</span></p>
                         </div>
                         <div class="cont-col-10">
-                            <div><input type="text" class="input-lg" runat="server" id="tbxWebSite" name="website" /><span class="text-anno-r">（必填选项）</span></div>
+                            <div><input type="text" class="input-lg" runat="server" id="tbxWebSite" name="website" /></div>
                             <p class="cont-input-tip"><i class="icon icon-tip"></i>填写公司网站</p>
                         </div>
                     </div>
@@ -93,7 +147,7 @@
                                         <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-b10 m-r10 fl">
-                                                    <asp:Button Text=" " formnovalidate OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                    <asp:Button Text=" " formnovalidate CssClass="cancel download-img-delete" runat="server" CommandName="delete"
                                                         ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                     <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
@@ -102,8 +156,8 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <div class="input-file-box fl m-b10 m-r10">
-                                            <input type=file class="input-file-btn"  name="input-file-btn-show"  businessId="<%=b.Id %>" imageType="businessshow" />
+                                        <div class="input-file-box fl m-b10 m-r10 dis-n">
+                                            <input type=file class="input-file-btn business-show-"  name="input-file-btn-show"  businessId="<%=b.Id %>" imageType="businessshow" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -116,63 +170,9 @@
                         </div>
                     </div>
 
-                    <div class="cont-row myshop-cont-row">
-                        <div class="cont-col-2">
-                            <p class="cont-sub-title">店铺地址</p>
-                        </div>
-                        <div class="cont-col-10">
-
-                            <div>
-                                <p><input type="text" class="input-lg" id="tbxAddress" runat="server" name="addressDetail" /></p>
-                                <p class="cont-input-tip  m-b10"><i class="icon icon-tip"></i>请点击按钮放置店铺坐标</p>
-                                <div class="cont-row">
-                                    <div class="cont-col-3">
-                                        <p><input id="setAddress" class="myshop-btn-setAddress m-b10" type="button" name="setAddress" value="点击放置店铺坐标" /></p>
-                                    </div>
-                                    <div class="cont-col-9">
-                                        <div class="addPrint-vm">
-                                            <div id="addPrintBox"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p><input type="hidden" focusID="setAddress" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide" /></p>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="cont-row myshop-cont-row">
-                        <div class="cont-col-2">
-                            <p class="cont-sub-title">从业时间</p>
-</div>
-                        <div class="cont-col-10">
-                            <div>
-                                <div class="d-inb select select-sm years-select">
-                                    <ul></ul>
-                                    <input type="hidden" class="input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
-                                </div>
-                                <span class="myshop-span">年</span>
-                            </div>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>选择你从事该行业的时间</p>
-
-                        </div>
 
 
 
-
-                    </div>
-                    <div class="cont-row myshop-cont-row">
-                        <div class="cont-col-2">
-                            <p class="cont-sub-title">员工人数</p>
-</div>
-                        <div class="cont-col-10">
-                            <div>
-                                <input type="text" class="input-mid" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
-                                <span class="myshop-span">人</span>
-                            </div>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺的员工数量</p>
-</div>
-
-</div>
                     <div class="cont-row step-row">
                         <div class="cont-col-2"><h3 class="step-head step-2">第<em>2</em>步</h3></div>
                         <div class="cont-col-10"><p class="step-text step-2">完善商户营业资质资料</p></div>
@@ -229,8 +229,9 @@
                                         <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-b10 m-r10 fl">
-                                                    <asp:Button Text=" " ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
-                                                        ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
+ 
+                                                    <asp:Button Text=" " ID="ibCharge"   CssClass="cancel download-img-delete" runat="server" CommandName="delete"
+   ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                     <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
                                                             class="imgCharge" />
@@ -246,7 +247,7 @@
                                         </div>
                                     </div>
 
-                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传负责人的证件照，限制数量为六张，并且图片大小为2M一下</p>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传负责人的证件照，限制数量为两张，并且图片大小为2M一下</p>
                                 </div>
                             </div>
                         </div>
@@ -263,7 +264,9 @@
                                         <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-r10 m-b10 fl">
-                                                 <asp:Button ID="img" OnClientClick="javascript:return confirm('确定删除?')"  Text=" "   formnovalidate CssClass="download-img-delete" runat="server" CommandName="delete"
+ 
+                                                 <asp:Button ID="img"   Text=" "   formnovalidate CssClass="cancel download-img-delete" runat="server" CommandName="delete"
+ 
                                                           ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                       <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
@@ -272,90 +275,20 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <div class="input-file-box fl dis-n">
+                                        <div class="input-file-box m-r10 m-b10 fl dis-n">
                                             <input type=file class="input-file-btn"   name="input-file-btn-license" businessId="<%=b.Id %>" imageType="businesslicense" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
-                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的营业执照图片，限制数量为六张，并且图片大小为2M一下</p>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的营业执照图片，限制数量为两张，并且图片大小为2M一下</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--</div>-->
-<!--                <div class="myshopInfoArea clearfix">
-                    <div class="myshopInfoTilte">
-                        <h1>
-                            商家基本信息</h1>
-                    </div>
-                    <div class="headInfoArea clearfix">
-
-
-                        <div class="headInfo fl">
-                            <div class="headInfoVc">
-
-                                    资料完成程度</p>
-                                <div class="InfoPercentage">
-                                    <div class="InfoComplete">
-                                        <span  style='width:<%=b.CompetePercent %>%' class="progress"></span>
-                                    </div>
-                                    <span class="completePercentage"><%=b.CompetePercent %>%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ShopMainWrap">
-                    <div class="ShopDetailsTitle">
-                        <span>店铺资料编辑</span>
-                    </div>
-                    <div class="ShopDetailsMain">
-                        <div class="clearfix">
-                            <div class="ShopDetailsAreaLeft">
-
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="BusinessLicense">
-
-                                </div>
-                            </div>
-                            <div class="ShopDetailsAreaRight">
-                                <div class="myshopRightCont ShopFigure">
-
-                                </div>
-                                <div class="myshopRightCont">
-
-                                </div>
-
-                                <div class="myshopRightCont">
-
-                                </div>
-                                <div class="myshopRightCont">
-
-                                </div>
-                                <div class="myshopRightCont">
-
-                                </div>
-                                <div class="myshopRightCont HeadProfilePicture">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
+                
                 <div id="addrlightBox" class="dis-n">
                     <div class="mapWrap">
                         <div id="addressMap" class="mapMain">

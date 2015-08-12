@@ -115,8 +115,16 @@ namespace Dianzhu.CSClient
             {
                 return;
             }
-            GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(CurrentCustomerId + "@"+GlobalViables.ServerName,MessageType.chat, tbxMsg.Text));
+            GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(CurrentCustomerId + "@"+GlobalViables.Domain,MessageType.chat, tbxMsg.Text));
             AddNewMessage(GlobalViables.CurrentUserName, tbxMsg.Text);
+        }
+
+        private void tbxMsg_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                btnSendMsg.PerformClick();
+            }
         }
         
         #region xmpp

@@ -84,7 +84,10 @@ public partial class Business_Edit : BasePage
             Guid imageId = new Guid(e.CommandArgument.ToString());
             bllBi.Delete(imageId);
              
-            Response.Redirect(Request.RawUrl);
+           // Response.Redirect(Request.RawUrl);
+            BindBusinessLicenses();
+            BindChargerIdCards();
+            BindShowImages();
         }
     }
     private void UpdateForm()

@@ -159,7 +159,7 @@
                     <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxServiceTimeBegin">8:30</asp:TextBox>&nbsp;&nbsp;至&nbsp;&nbsp;
                     <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxServiceTimeEnd">21:00</asp:TextBox>
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写该服务的服务时段</p>
+                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写该服务的服务时段，填写格式例: 09:10</p>
             </div>
         </div>
         <div class="cont-row service-cont-row">
@@ -259,10 +259,39 @@
             </div>
             <div class="cont-col-10">
                 <div>
-                    <DZ:Tag runat="server" ID="dzTag" />
+                    <DZ:Tag runat="server" ID="dzTag"   />
                 </div>
                 <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签</p>
             </div>
+        </div>
+        <div class="cont-row">
+            <div class="">
+            <div id="allmap"></div>
+            <!--<p>添加点击地图监听事件，点击地图后显示当前经纬度</p>-->
+            <p>--点击地图放置服务点，拖拽服务圆设置圆（服务）半径--</p>
+            <p>百度地图API商圈功能:</p>
+            <div id="city-container"></div>
+            <p>百度地图API输入功能:</p>
+            <div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
+            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+            <div id="radius-container">
+                <span>通过表单设置服务半径:</span>
+                <select id="ser-radius">
+                    <option value="1000">1000</option>
+                    <option value="1500">1500</option>
+                    <option value="2000">2000</option>
+                    <option value="3000">3000</option>
+                    <option value="4000">4000</option>
+                </select>
+                <span>m</span>
+            </div>
+            <div >
+                <div id="add-sp">添加新服务点<input type="button" id="addSP" value="+" /><span id="addError">当前服务点未设置，无法添加新服务点</span></div>
+                <div id="del-sp">删除服务点<input type="button" id="delSP" value="删除" /><span id="delError">请至少设置一个服务点</span></div>
+                <div id="save-sp">保存服务点<input type="button" id="saveSP" value="保存" /><span id="saveError">当前服务点未设置，无法保存</span></div>
+                <div id="SPContainer"></div>
+            </div>
+        </div>
         </div>
     </div>
     <div id="mapLightBox" class="dis-n">
@@ -282,51 +311,3 @@
     </div>
 </div>
 
-
-<script>
-    $(document).ready(function () {
-        $.validator.setDefaults({
-            ignore: []
-        });
-
-        $.validator.addMethod("time24", function (value, element) {
-            return /([01]?[0-9]|2[0-3])(:[0-5][0-9])/.test(value);
-        }, "Invalid time format.");
-        function setTime(date,timeString)
-        {
-            var arr=timeString.split(":");
-            var hour=parseInt(arr[0]);
-            var minites=arr[1]?parseInt(arr[1]):0;
-            var seconds=arr[2]?parseInt(arr[2]):0;
-            return date.setHours(hour,minites,seconds);
-        }
-        $.validator.addMethod("endtime_should_greater_starttime", function (value, element) {
-
-            var x_date =new Date();
-            var start = $("#tbxServiceTimeBegin").val();
-            var end = $("#tbxServiceTimeEnd").val();
-
-            var date_start = setTime(x_date,start);
-            var date_end = setTime(x_date,end);
-            return date_end > date_start;
-
-        }, "结束时间应该大于开始时间");
-
-
-        
-            $($("form")[0]).validate(
-                {
-                    errorElement: "p",
-                    errorPlacement: function(error, element) {
-                        error.appendTo( element.parent() );
-                    },
-                    rules: service_validate_rules,
-                    messages: service_validate_messages,
-                    invalidHandler: invalidHandler,
-                }
-
-        );
- 
-    });       //document.ready
-
-</script>
