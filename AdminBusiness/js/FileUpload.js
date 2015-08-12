@@ -3,26 +3,45 @@ ajax图片上传
 需求: 
    input type=file 必须指定两个属性:imageType 和 businessId.
 ******************/
+
+
 $(".input-file-btn").change(function (ev) {
-    var that = this;
+    var limit = 6;
+    upLoadImg(this,limit);
+});
 
-    var limitNum = 6;
 
-    var imageType = $(that).attr('imageType');
-    var businessId = $(that).attr("businessId");
+function imgNumLimit(ele,limit){
+    var container = ele.parent();
+    var prevImgNum = container.find(".download-img-pre").length;
+    var inputImgNum = container.find(".input-file-box").length;
 
-    var parent = $(this).parent();
+    if ( (prevImgNum + inputImgNum) >= limit ) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function upLoadImg (ele,limit){
+    var _this = ele;
+    var limitNum = limit;
+
+    var imageType = $(_this).attr('imageType');
+    var businessId = $(_this).attr("businessId");
+
+    var parent = $(_this).parent();
     var parentClone = parent.clone(true);
 
-    var imgObjPreview = $(this).siblings(".input-file-pre").get(0);
-    var $imgObjMark = $(this).siblings(".input-file-mark");
+    var imgObjPreview = $(_this).siblings(".input-file-pre").get(0);
+    var $imgObjMark = $(_this).siblings(".input-file-mark");
 
-    if (this.files && this.files[0]) {
-        imgObjPreview.src = window.URL.createObjectURL(this.files[0]);
+    if (_this.files && _this.files[0]) {
+        imgObjPreview.src = window.URL.createObjectURL(_this.files[0]);
     }
     else {
-        this.select();
-        this.blur();
+        _this.select();
+        _this.blur();
         var imgSrc = document.selection.createRange().text;
 
         try {
@@ -35,8 +54,6 @@ $(".input-file-btn").change(function (ev) {
         document.selection.empty();
     }
     $imgObjMark.show();
-    // if (this.files[0].size > 2 * 1024 * 1024) { $(that).blur(); return true; }
-
 
     var myform = document.createElement("form");
     myform.action = "/AjaxService/FileUploader.ashx";
@@ -45,7 +62,7 @@ $(".input-file-btn").change(function (ev) {
     document.body.appendChild(myform);
 
     var form = $(myform);
-    var fu = $(this).clone(true).val("");
+    var fu = $(_this).clone(true).val("");
     var ipbusinessId = document.createElement("input");
     ipbusinessId.name = "businessId";
     ipbusinessId.value = businessId;
@@ -56,7 +73,7 @@ $(".input-file-btn").change(function (ev) {
     ipimageType.value = imageType;
     $(ipimageType).appendTo(form);
 
-    var fua = $(this).appendTo(form);
+    var fua = $(_this).appendTo(form);
     $(fua).attr("name", "upload_file");
 
     form.ajaxSubmit({
@@ -70,8 +87,7 @@ $(".input-file-btn").change(function (ev) {
             }
             if (parent.hasClass("headFile")) {
                 return;
-            } else if( imgNumLimit(parent) ){
-                //parentClone.addClass("m-l10");
+            } else if( imgNumLimit(parent,limitNum) ){
                 parentClone.insertAfter(parent);
             } else {
                 return;
@@ -81,22 +97,8 @@ $(".input-file-btn").change(function (ev) {
             alert("图片上传失败，请刷新页面重新上传");
         }
     });
-
-    function imgNumLimit(ele){
-        var container = ele.parent();
-        var prevImgNum = container.find(".download-img-pre").length;
-        var inputImgNum = container.find(".input-file-box").length;
-
-        if ( (prevImgNum + inputImgNum) >= limitNum ) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     return true;
-
-});
+}
 
 (function(){
     var imgList = $('.img-list');
@@ -113,5 +115,4 @@ $(".input-file-btn").change(function (ev) {
             fileBox.removeClass("dis-n");
         }
     })
-
 })();
