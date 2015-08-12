@@ -27,7 +27,7 @@
                                 <div class="headImage fr m-r20">
                                     <div class="input-file-box headFile">
                                       <input type=file class="input-file-btn"  name="upload_file" businessId="<%=b.Id %>" imageType="businessavater" />
-                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
+                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiang_90_90.png" %>' ></i>
                                         <i  class="input-file-mark"></i>
                                         <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
                                     </div>
@@ -163,7 +163,7 @@
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
-                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的店铺图片，限制数量为六张，并且图片大小为2M一下</p>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的店铺图片，限制数量为六张，并且图片大小为2M以下</p>
                                 </div>
                             </div>
 
@@ -247,7 +247,7 @@
                                         </div>
                                     </div>
 
-                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传负责人的证件照，限制数量为两张，并且图片大小为2M一下</p>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传负责人的证件照，限制数量为两张，并且图片大小为2M以下</p>
                                 </div>
                             </div>
                         </div>
@@ -282,7 +282,7 @@
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
-                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的营业执照图片，限制数量为两张，并且图片大小为2M一下</p>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的营业执照图片，限制数量为两张，并且图片大小为2M以下</p>
                                 </div>
                             </div>
                         </div>
@@ -331,7 +331,12 @@
                 {
                     errorElement: "p",
                     errorPlacement: function (error, element) {
-                        error.appendTo(element.parent());
+                        if ( $(element).attr("id") == "ContentPlaceHolder1_tbxBusinessYears" ) {
+                            error.appendTo((element.parent()).parent());
+                        } else {
+                            error.appendTo(element.parent());
+                        }
+
                     },
                     rules: service_validate_rules,
                     messages: service_validate_messages,

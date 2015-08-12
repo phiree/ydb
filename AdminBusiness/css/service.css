@@ -537,7 +537,12 @@ a.new-add-btn {
 }
 
 /*服务页面地图样式*/
-#allmap{width:500px;height:500px;}
+#allmap{
+    width:100%;
+    height:500px;
+}
+
+
 .sp-style {
     cursor: pointer;
     display: inline-block;

@@ -93,9 +93,9 @@
                                            <div class="cont-row">
                                                <div class="cont-col-4">
 
-                                                <div class="business-h"><%#Eval("Name")%></div>
+                                                <div class="business-h text-ellipsis"><%#Eval("Name")%></div>
  
-                                               <div class="business-face"><img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=150&height=150&tt=3":"../image/myshop/touxiangkuang_11.png" %>' /></div>
+                                               <div class="business-face"><img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=150&height=150&tt=3":"../image/myshop/touxiang_150_150.png" %>' /></div>
  
 </div>
 

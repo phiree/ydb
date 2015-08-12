@@ -1,5 +1,5 @@
 ﻿<%@ Application Language="C#" %>
-
+<%@ Import Namespace="log4net" %>
 <script runat="server">
 
     void Application_Start(object sender, EventArgs e) 
@@ -26,12 +26,18 @@
 
     }
         
-    void Application_Error(object sender, EventArgs e) 
-    { 
+    void Application_Error(object sender, EventArgs e)
+    {
+        log4net.ILog log = log4net.LogManager.GetLogger("dz");
       Exception exc = Server.GetLastError();
       //Server.ClearError();
+      log.Error(exc.Message);
+      if (exc.InnerException != null)
+      {
+          log.Error(exc.InnerException.Message);
+      }
 #if DEBUG
-    //return;
+    
 #endif
       //HttpContext.Current.Response.Redirect("/error.aspx?msg=" 
       //    + HttpContext.Current.Server.UrlEncode(exc.Message+"----"+ exc.InnerException.Message));
