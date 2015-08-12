@@ -679,4 +679,18 @@ a.new-add-btn {
     vertical-align: middle;
     box-sizing: content-box\9;
 }
-
+/***fu**/
+#menu-1{ margin-top:25px;background: #f8f8f8;}
+#menu-1 a {
+    background:url(../image/shop-icon-12.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    color: #337ab7;
+    }
+#menu-2{background: #3794bd;}
+    #menu-2 a {
+    background:url(../image/menu-2-icon-2.png) no-repeat;
+    background-position: 12px 10px;
+    padding-left:32px;
+    color: #fff;
+    }
