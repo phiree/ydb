@@ -77,6 +77,10 @@
                               <li id="menu-2">
                                 <a href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">我的服务</a>
                               </li>
+                              <li id="menu-5">
+                                    <a href="/Staff/default.aspx?businessId=<%=Request["businessid"] %>" >员工管理</a>
+                                    <!--<a href="#">Menu 2 <span class="glyphicon arrow"></span></a>-->
+                                  </li>
                               <li id="menu-3" role="presentation" class="disabled" title="正在努力开发...">
                                 <a href="#" >我的订单</a>
                                 <!--<a href="#">Menu 2 <span class="glyphicon arrow"></span></a>-->
@@ -85,10 +89,7 @@
                                   <a href="#" >消息管理</a>
                                   <!--<a href="#">Menu 2 <span class="glyphicon arrow"></span></a>-->
                                 </li>
-                                <li id="menu-5" role="presentation" class="disabled" title="正在努力开发...">
-                                    <a href="#" >员工管理</a>
-                                    <!--<a href="#">Menu 2 <span class="glyphicon arrow"></span></a>-->
-                                  </li>
+                                
                             </ul>
                           </nav>
                         </aside>
