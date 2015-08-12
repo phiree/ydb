@@ -82,6 +82,7 @@
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
+    <script type="text/javascript" src="/js/ServiceType.js"></script>
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
@@ -95,14 +96,16 @@
     })
     </script>
     <script type="text/javascript">
-       var name_prefix = 'ctl00$ContentPlaceHolder1$ServiceEdit1$';
+      
+        var name_prefix = 'ctl00$ContentPlaceHolder1$ServiceEdit1$';
        $(function () {
            $("#serList").ServiceSelect({
                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
                "choiceContainer": "serChoiceContainer",
                "choiceOutContainer": "lblSelectedType",
                "printInputID": "hiTypeId",
-               "choiceConfBtn": "serChoiceConf"
+               "choiceConfBtn": "serChoiceConf",
+               "localdata": typeList
            });
 
            $(".enable_service").click(function () {

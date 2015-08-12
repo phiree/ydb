@@ -70,7 +70,7 @@ public partial class Staff_Edit : BasePage
     }
     private void UpdateForm()
     {
-        Business b = ((BusinessUser)CurrentUser).BelongTo;
+        Business b = CurrentBusiness;
         s.Belongto = b;
         s.Code = Code.Text;
         s.Name = Name.Text;

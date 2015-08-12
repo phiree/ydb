@@ -35,10 +35,11 @@ $.fn.ServiceSelect = function (options) {
         "choiceConfBtn": null,
         "lastClickFunc": null,
         "choiceClass": "choiceSer",
-        "printInputID" : null
+        "printInputID": null,
+        "localdata": null
     }, options);
 
-    function init(){
+    function init() {
         var _this = params.element;
         var AjaxData = null;
         var valueInput = $("#" + params.printInputID);
@@ -47,31 +48,38 @@ $.fn.ServiceSelect = function (options) {
         var choiceConfBtn = $("#" + params.choiceConfBtn);
         var confirmValue = "";
         var confirmName = "";
-
+        /**
         jQuery.ajax({
-            url: params.datasource + "&id=0",
+        url: params.datasource + "&id=0",
+
+        success: function (result) {
+        AjaxData = result;
+        createList(AjaxData);
+        },
+        async: false
+        });
+        */
+        
+        AjaxData = intRedayJsion(params.localdata);
+
+        createList(AjaxData);
+        function dataRequest(id) {
+            var data = redayJsion(params.localdata, id);
+
+            /**
+            jQuery.ajax({
+            url: params.datasource + "&id=" + id,
 
             success: function (result) {
-                AjaxData = result;
-                createList(AjaxData);
+            data = result;
             },
             async: false
-        });
-
-        function dataRequest (id){
-            var data = [];
-                jQuery.ajax({
-                    url: params.datasource + "&id=" + id,
-
-                    success: function (result) {
-                        data = result;
-                    },
-                    async: false
-                });
+            });
+            */
             return data;
         }
 
-        function createList ( data ) {
+        function createList(data) {
             var $serListContainer = $(document.createElement("div"));
             var $serList = $(document.createElement("ul"));
             var dataArray = data;
@@ -79,43 +87,43 @@ $.fn.ServiceSelect = function (options) {
             $serListContainer.addClass("serListUlContainer");
             $serList.addClass("serListUl");
 
-            if ( data[0] && data[0].level != "undefined"){
+            if (data[0] && data[0].level != "undefined") {
                 var dataLevel = data[0].level;
                 $serList.attr("list-level", dataLevel);
             } else {
                 return;
             }
 
-            for (var i = 0; i < dataArray.length ; i++) {
+            for (var i = 0; i < dataArray.length; i++) {
                 var $serListItem = $(document.createElement("li"));
                 $serListItem.addClass("serListItem");
-                $serListItem.text( data[i].name );
-                $serListItem.attr("data-level",data[i].level);
-                $serListItem.attr("data-name",data[i].name);
-                $serListItem.attr("data-id",data[i].id);
-                $serListItem.bind("click",serviceClick);
-                $serList.append( $serListItem );
-                $serListContainer.append( $serList )
+                $serListItem.text(data[i].name);
+                $serListItem.attr("data-level", data[i].level);
+                $serListItem.attr("data-name", data[i].name);
+                $serListItem.attr("data-id", data[i].id);
+                $serListItem.bind("click", serviceClick);
+                $serList.append($serListItem);
+                $serListContainer.append($serList)
             }
             //$(_this).append($serList);
             $(_this).append($serListContainer);
         }
 
-        function serviceClick(e){
+        function serviceClick(e) {
             var thisID = $(this).attr("data-id");
             var thisLevel = Number($(this).attr("data-level"));
-            var restChildLevel = ( 3 - thisLevel );
+            var restChildLevel = (3 - thisLevel);
             var childDataArray = dataRequest(thisID);
             var childLevel = thisLevel + 1;
-            var childList = $("ul[list-level=" + childLevel +"]");
+            var childList = $("ul[list-level=" + childLevel + "]");
 
 
-            if ( !childList ) {
+            if (!childList) {
                 createList(childDataArray);
             } else {
-                for ( var i = 0 ; i < restChildLevel ; i++ ){
+                for (var i = 0; i < restChildLevel; i++) {
                     var nextChildLevel = thisLevel + i + 1;
-                    var restChildList = $("ul[list-level=" + nextChildLevel +"]");
+                    var restChildList = $("ul[list-level=" + nextChildLevel + "]");
                     restChildList.parent().remove();
                     restChildList.remove();
                 }
@@ -123,7 +131,7 @@ $.fn.ServiceSelect = function (options) {
             }
 
             _this.find("ul").find("li").removeClass(params.choiceClass);
-            if ( !childDataArray.length ){
+            if (!childDataArray.length) {
                 var lastChoiceValue = $(this).attr("data-id");
                 var lastChoiceName = $(this).attr("data-name");
                 confirmValue = lastChoiceValue;
@@ -138,9 +146,9 @@ $.fn.ServiceSelect = function (options) {
 
         }
 
-        function printChoice (name){
+        function printChoice(name) {
             choiceContainer.find("span").remove();
-            if ( !name ){
+            if (!name) {
                 choiceContainer.find("span").remove();
             } else {
                 var $choiceEle = $(document.createElement("span"));
@@ -150,28 +158,58 @@ $.fn.ServiceSelect = function (options) {
 
         }
 
-        function lastSerClick(ele){
+        function lastSerClick(ele) {
             var $ele = $(ele);
             $ele.addClass(params.choiceClass);
             choiceConfBtn.show()
         }
 
-        choiceConfBtn.bind("click",function(){
-            valueInput.attr("value",confirmValue);
-            valueInput.attr("data-name",confirmName);
+        choiceConfBtn.bind("click", function () {
+            valueInput.attr("value", confirmValue);
+            valueInput.attr("data-name", confirmName);
             choiceOutContainer.removeClass("dis-n");
             choiceOutContainer.text(confirmName);
         });
 
-        function reset (){
+        function reset() {
             choiceContainer.find("span").remove();
             _this.find("ul").find("li").removeClass(params.choiceClass);
         }
+
+        //根据jsion数组与id返回相应的数据
+        function redayJsion(jsionData, id) {
+            var data = [];
+            for (var i = 0; i < jsionData.length; i++) {
+
+                //$("#jsdata").append(ypeList[i].level+"<br/>");
+                if (jsionData[i].parent_id == id) {
+                    data.push(jsionData[i]);
+
+                }
+            }
+            return data
+        }
+
+        //根据jsion数组名返回相应的顶级数据
+        function intRedayJsion(jsionData) {
+            console.log(jsionData);
+            var data = [];
+            for (var i = 0; i < jsionData.length; i++) {
+
+                //$("#jsdata").append(ypeList[i].level+"<br/>");
+                if (jsionData[i].level == 0) {
+                    data.push(jsionData[i]);
+
+                }
+            }
+            return data
+        }
+
     }
 
 
     init();
-    
+
 
 
 }
