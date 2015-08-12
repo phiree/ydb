@@ -46,8 +46,8 @@ namespace Dianzhu.CSClient
             bool useValid = true;
             if (useValid)
             {
-                Jid jid = new Jid(tbxUserName.Text+"@"+GlobalViables.ServerName);
-                GlobalViables.XMPPConnection = new XmppClientConnection(jid.Server);
+                Jid jid = new Jid(tbxUserName.Text+"@"+GlobalViables.Domain);
+                //GlobalViables.XMPPConnection = new XmppClientConnection(jid.Server);
                 GlobalViables.XMPPConnection.Open(jid.User, tbxPassword.Text);
                 GlobalViables.XMPPConnection.OnLogin += new ObjectHandler(XMPPConnection_OnLogin);
                 GlobalViables.XMPPConnection.OnError+=new ErrorHandler(XMPPConnection_OnError);

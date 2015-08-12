@@ -109,6 +109,11 @@ label {
     padding-right: 5px;
 }
 /*以下是fu自定义样式的内容*****/
+.nav-li-bj 
+{
+    background:url(../image/nav-li-bj.png) no-repeat;
+    background-position: 0 40px;
+    }
 .navbar-header img{ margin-left:30px;}
 .navbar .navbar-brand {
   
@@ -181,6 +186,7 @@ label {
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
+
 .sidebar-nav ul #menu-1:hover{
       background: #3794bd;
     }
@@ -212,7 +218,7 @@ label {
     padding-left:32px;
     }
     
-        #menu-3 a {
+  #menu-3 a {
     background:url(../image/menu-3-icon-hui.png) no-repeat;
     background-position: 12px 10px;
     padding-left:32px;

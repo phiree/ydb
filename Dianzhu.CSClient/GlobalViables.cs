@@ -10,6 +10,7 @@ namespace Dianzhu.CSClient
     public class GlobalViables
     {
         public static readonly string ServerName = ConfigurationManager.AppSettings["server"];
+        public static readonly string Domain = ConfigurationManager.AppSettings["domain"];
         public static XmppClientConnection XMPPConnection = null;
         static GlobalViables()
         {
