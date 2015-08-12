@@ -23,13 +23,13 @@
                         <div class="cont-row">
                             <div class="cont-col-12">
                                 <div class="t-c">
-                                   <img src='<%=CurrentBusiness.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(CurrentBusiness.BusinessAvatar.ImageName)+"&width=150&height=150&tt=2":"../image/myshop/touxiangkuang_11.png"%>' />
+                                   <img class="business-detail-face" src='<%=CurrentBusiness.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(CurrentBusiness.BusinessAvatar.ImageName)+"&width=125&height=125&tt=2":"../image/myshop/touxiangkuang_11.png"%>' />
 </div>
                             </div>
                         </div>
                         <div class="cont-row">
                             <div class="cont-col-12">
-                                <p class="t-c"><%=CurrentBusiness.Name %></p>
+                                <p class="t-c business-detail-name"><%=CurrentBusiness.Name %></p>
 
 </div>
 

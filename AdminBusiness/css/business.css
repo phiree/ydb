@@ -134,6 +134,19 @@ a.new-add-btn {
     border: none;
 }
 
+.business-detail-face {
+    border-radius: 50%;
+    border: 10px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.business-detail-name {
+    font-size: 20px;
+    color: #333333;
+    font-weight: bold;
+    padding: 10px 0 20px 0;
+}
+
 .business-detail-stand {
     background: #fff;
     padding: 25px;
