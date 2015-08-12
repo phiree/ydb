@@ -163,7 +163,7 @@
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
-                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的店铺图片，限制数量为六张，并且图片大小为2M一下</p>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的店铺图片，限制数量为六张，并且图片大小为2M以下</p>
                                 </div>
                             </div>
 
@@ -247,7 +247,7 @@
                                         </div>
                                     </div>
 
-                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传负责人的证件照，限制数量为两张，并且图片大小为2M一下</p>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传负责人的证件照，限制数量为两张，并且图片大小为2M以下</p>
                                 </div>
                             </div>
                         </div>
@@ -282,7 +282,7 @@
                                             <img class="input-file-pre" src="..\image\00.png" />
                                         </div>
                                     </div>
-                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的营业执照图片，限制数量为两张，并且图片大小为2M一下</p>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的营业执照图片，限制数量为两张，并且图片大小为2M以下</p>
                                 </div>
                             </div>
                         </div>
