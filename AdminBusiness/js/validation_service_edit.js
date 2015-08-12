@@ -112,7 +112,7 @@ service_validate_messages[name_prefix + "tbxServiceTimeBegin"] =
 {
    
         required: "请填写服务开始时间",
-        time24: "请输入有效时间"
+        time24: "请输入有效的时间"
 
     };
 
@@ -129,7 +129,7 @@ service_validate_messages[name_prefix + "tbxServiceTimeEnd"] =
 {
 
     required: "请填写服务结束时间",
-    time24: "请输入时间"
+    time24: "请输入有效的时间"
 
 
 };

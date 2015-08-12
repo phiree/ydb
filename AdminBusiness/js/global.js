@@ -111,7 +111,7 @@
     //
     //})();
     (function(){
-        $(".cancel").each(function(){
+        $(".btn-cancel").each(function(){
             $(this).click(function(){
                 return confirm("是否取消保存？");
             })

@@ -27,7 +27,7 @@
                                 <div class="headImage fr m-r20">
                                     <div class="input-file-box headFile">
                                       <input type=file class="input-file-btn"  name="upload_file" businessId="<%=b.Id %>" imageType="businessavater" />
-                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiangkuang_11.png" %>' ></i>
+                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiang_90_90.png" %>' ></i>
                                         <i  class="input-file-mark"></i>
                                         <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
                                     </div>
@@ -331,7 +331,12 @@
                 {
                     errorElement: "p",
                     errorPlacement: function (error, element) {
-                        error.appendTo(element.parent());
+                        if ( $(element).attr("id") == "ContentPlaceHolder1_tbxBusinessYears" ) {
+                            error.appendTo((element.parent()).parent());
+                        } else {
+                            error.appendTo(element.parent());
+                        }
+
                     },
                     rules: service_validate_rules,
                     messages: service_validate_messages,

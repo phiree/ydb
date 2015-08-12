@@ -156,7 +156,7 @@
             </div>
             <div class="cont-col-10">
                 <div>
-                    <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxServiceTimeBegin">8:30</asp:TextBox>&nbsp;&nbsp;至&nbsp;&nbsp;
+                    <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxServiceTimeBegin">08:30</asp:TextBox>&nbsp;&nbsp;至&nbsp;&nbsp;
                     <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxServiceTimeEnd">21:00</asp:TextBox>
                 </div>
                 <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写该服务的服务时段，填写格式例: 09:10</p>
