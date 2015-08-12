@@ -7,7 +7,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <div class="cont-wrap">
-    <div class="cont-container">
+    <div class="cont-container min-height700">
         <div class="cont-row">
             <div class="cont-col-12">
                 <div class="cont-col-12 t-c m-b20">
@@ -16,7 +16,6 @@
                 <div class="cont-col-12">
 
                     <p class="create-suc t-c">恭喜你，成功创建新的商铺！</p>
-
 
 </div>
 </div>

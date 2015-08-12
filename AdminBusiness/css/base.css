@@ -191,6 +191,8 @@ body {
 .white-a { color: #fff; }
 .white-a:visited { color: #fff; }
 
+.min-height700 { min-height: 700px; }
+
 .icon {
     display: inline-block;
     *display: inline-block;

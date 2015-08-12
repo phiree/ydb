@@ -105,7 +105,7 @@ a.create-continue {
     bottom: 0;
     left: 0;
     right: 0;
-
+    cursor: pointer;
 }
 
 a.new-add-btn {
