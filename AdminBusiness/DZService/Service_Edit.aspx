@@ -24,6 +24,45 @@
     </script>
     <script src="/js/validation_service_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+                function setTime(date,timeString)
+                {
+                    var arr=timeString.split(":");
+                    var hour=parseInt(arr[0]);
+                    var minites=arr[1]?parseInt(arr[1]):0;
+                    var seconds=arr[2]?parseInt(arr[2]):0;
+                    return date.setHours(hour,minites,seconds);
+                }
+
+                $.validator.addMethod("endtime_should_greater_starttime", function (value, element) {
+
+                    var x_date =new Date();
+                    var start = $("#tbxServiceTimeBegin").val();
+                    var end = $("#tbxServiceTimeEnd").val();
+
+                    var date_start = setTime(x_date,start);
+                    var date_end = setTime(x_date,end);
+                    return date_end > date_start;
+
+                }, "结束时间应该大于开始时间");
+
+                $($("form")[0]).validate(
+                    {
+                        errorElement: "p",
+                        errorPlacement: function(error, element) {
+                            error.appendTo( element.parent() );
+                        },
+                        rules: service_validate_rules,
+                        messages: service_validate_messages,
+                        invalidHandler: invalidHandler
+                    }
+
+            );
+
+        });       //document.ready
+
+    </script>
     <script type="text/javascript">
         $(function () {
             function readTypeData(){
