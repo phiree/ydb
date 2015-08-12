@@ -726,6 +726,11 @@ body {
     text-overflow: ellipsis ;
 }
 
+.text-breakWord {
+    line-height: 1.5em;
+    word-wrap: break-word;
+}
+
 .theme-color-r {
     color: #FF8661;
 }

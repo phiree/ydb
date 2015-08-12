@@ -27,4 +27,5 @@ public partial class DZService_Default : BasePage
      rptServiceList.DataSource = bllService.GetServiceByBusiness(CurrentBusiness.Id, Guid.Empty, 0, 999, out totalRecords);
         rptServiceList.DataBind();
     }
+    
 }

@@ -92,14 +92,14 @@
 
                                                 <div class="business-h"><%#Eval("Name")%></div>
  
-                                               <div class="business-face"><img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=90&height=90&tt=2":"../image/myshop/touxiangkuang_11.png" %>' /></div>
+                                               <div class="business-face"><img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=150&height=150&tt=3":"../image/myshop/touxiangkuang_11.png" %>' /></div>
  
 </div>
 
                                             <div class="cont-col-8">
                                                 <div class="cont-row">
                                                     <div class="cont-col-12">
-        <p class="business-default-intro">
+        <p class="business-default-intro text-breakWord">
           <%#Eval("Description")%></p>
 </div>
 </div>

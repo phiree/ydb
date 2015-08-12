@@ -93,7 +93,7 @@
                                         <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-b10 m-r10 fl">
-                                                    <asp:Button Text=" " formnovalidate OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                    <asp:Button Text=" " formnovalidate CssClass="cancel download-img-delete" runat="server" CommandName="delete"
                                                         ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                     <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
@@ -229,8 +229,9 @@
                                         <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-b10 m-r10 fl">
+ 
                                                     <asp:Button Text=" " ID="ibCharge"   CssClass="cancel download-img-delete" runat="server" CommandName="delete"
-                                                        ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
+   ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                     <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
                                                             class="imgCharge" />
@@ -263,7 +264,9 @@
                                         <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-r10 m-b10 fl">
+ 
                                                  <asp:Button ID="img"   Text=" "   formnovalidate CssClass="cancel download-img-delete" runat="server" CommandName="delete"
+ 
                                                           ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                       <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
