@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
-    CodeFile="Edit.aspx.cs" Inherits="Business_Edit" %>
-
+    CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
+ 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="/css/myshop.css" rel="stylesheet" type="text/css" />
     <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
@@ -229,7 +229,7 @@
                                         <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-b10 m-r10 fl">
-                                                    <asp:Button Text=" " ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')" CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                    <asp:Button Text=" " ID="ibCharge"   CssClass="cancel download-img-delete" runat="server" CommandName="delete"
                                                         ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                     <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
@@ -263,7 +263,7 @@
                                         <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-r10 m-b10 fl">
-                                                 <asp:Button ID="img" OnClientClick="javascript:return confirm('确定删除?')"  Text=" "   formnovalidate CssClass="download-img-delete" runat="server" CommandName="delete"
+                                                 <asp:Button ID="img"   Text=" "   formnovalidate CssClass="cancel download-img-delete" runat="server" CommandName="delete"
                                                           ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
                                                       <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
                                                         <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
@@ -285,77 +285,7 @@
                         </div>
                     </div>
                 </div>
-                <!--</div>-->
-<!--                <div class="myshopInfoArea clearfix">
-                    <div class="myshopInfoTilte">
-                        <h1>
-                            商家基本信息</h1>
-                    </div>
-                    <div class="headInfoArea clearfix">
-
-
-                        <div class="headInfo fl">
-                            <div class="headInfoVc">
-
-                                    资料完成程度</p>
-                                <div class="InfoPercentage">
-                                    <div class="InfoComplete">
-                                        <span  style='width:<%=b.CompetePercent %>%' class="progress"></span>
-                                    </div>
-                                    <span class="completePercentage"><%=b.CompetePercent %>%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ShopMainWrap">
-                    <div class="ShopDetailsTitle">
-                        <span>店铺资料编辑</span>
-                    </div>
-                    <div class="ShopDetailsMain">
-                        <div class="clearfix">
-                            <div class="ShopDetailsAreaLeft">
-
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="myshopLeftCont">
-
-                                </div>
-                                <div class="BusinessLicense">
-
-                                </div>
-                            </div>
-                            <div class="ShopDetailsAreaRight">
-                                <div class="myshopRightCont ShopFigure">
-
-                                </div>
-                                <div class="myshopRightCont">
-
-                                </div>
-
-                                <div class="myshopRightCont">
-
-                                </div>
-                                <div class="myshopRightCont">
-
-                                </div>
-                                <div class="myshopRightCont">
-
-                                </div>
-                                <div class="myshopRightCont HeadProfilePicture">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
+                
                 <div id="addrlightBox" class="dis-n">
                     <div class="mapWrap">
                         <div id="addressMap" class="mapMain">

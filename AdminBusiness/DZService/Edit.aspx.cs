@@ -99,7 +99,7 @@ public partial class DZService_Edit : BasePage
     {
         CurrentService.Name = tbxName.Text;
         CurrentService.Description = tbxName.Text;
-        CurrentService.Business = ((BusinessUser)CurrentUser).BelongTo;
+        CurrentService.Business = CurrentBusiness;
         CurrentService.ServiceType = ServiceType;
         IList<ServicePropertyValue> values = new List<ServicePropertyValue>();
         foreach (RepeaterItem item in rptProperties.Items)
