@@ -87,7 +87,7 @@
 
                         </div>
                     </div>
-                    <div class="cont-row secret-row">
+                    <div class="cont-row secret-row fu-secret-row">
                         <div class="cont-col-12">
                             <p class="fu-cont-sub-title">您的账安全信息</p>
                             <div class="pass-row m-b20">

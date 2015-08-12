@@ -137,7 +137,8 @@ label {
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   color: #555;
-  background-color: #F8F8F8
+ background:url(../image/nav-li-bj.png) no-repeat;
+    background-position: 0 40px;
 }
 
 .dropdown-menu > li > a {
@@ -250,4 +251,6 @@ label {
     background-position: 12px 10px;
     padding-left:32px;
     }
+    
+    
  
