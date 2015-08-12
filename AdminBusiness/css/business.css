@@ -144,15 +144,12 @@ a.new-add-btn {
 
 .business-detail-stand .cont-row {
     font-size: 16px;
-    line-height: 3em;
-
 }
 
 .detail-pra .cont-row {
     font-size: 16px;
-    line-height: 3em;
     border-top: 1px solid #e8e8e8;
-    padding: 0 20px;
+    padding: 20px;
 }
 
 .business-detail-iden {
@@ -175,3 +172,4 @@ a.new-add-btn {
 .business-detail-container {
     box-shadow: 0;
 }
+/*end*/

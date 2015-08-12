@@ -61,7 +61,7 @@
                             </div>
                                                     <div class="cont-row">
                                                         <div class="cont-col-3"><span class="cont-h5">店铺介绍</span></div>
-                                                        <div class="cont-col-9"><p class="text-ellipsis"><%=CurrentBusiness.Description %></p></div>
+                                                        <div class="cont-col-9"><p class="text-breakWord"><%=CurrentBusiness.Description %></p></div>
                             </div>
                         </div>
 

@@ -99,7 +99,7 @@
                                             <div class="cont-col-8">
                                                 <div class="cont-row">
                                                     <div class="cont-col-12">
-        <p class="business-default-intro">
+        <p class="business-default-intro text-breakWord">
           <%#Eval("Description")%></p>
 </div>
 </div>
