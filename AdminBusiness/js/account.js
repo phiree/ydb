@@ -4,6 +4,37 @@ function initialize(){
     var geoc = new BMap.Geocoder();
 //var myGeo = new BMap.Geocoder();
 
+    if (typeof G("ContentPlaceHolder1_tbxAddress").addEventListener != "undefined") {
+        G("ContentPlaceHolder1_tbxAddress").addEventListener("change", addressGoe ,false);
+    } else {
+        G("ContentPlaceHolder1_tbxAddress").attachEvent("onchange", addressGoe );
+    }
+
+    function G(id) {
+        return document.getElementById(id);
+    }
+
+    function addressGoe(){
+        var e = e || window.event;
+        var _this = e.srcElement || e.target;
+        var strAddress = _this.value;
+
+        geoc.getPoint(strAddress, function(point){
+            console.log(point)
+            if(point){
+                geoc.getLocation(point,function(result){
+                    console.log(result);
+
+                    $('#hiAddrId').attr("value",JSON.stringify(result.addressComponents));
+                    //var readAddrJson = jQuery.parseJSON($('#hiAddrId').attr("value"));
+
+                })
+            } else {
+                console.log("无法解析当前地址");
+                alert("地址解析有误");
+            }
+        })
+    }
     map.enableScrollWheelZoom();
     map.disableDoubleClickZoom();
     map.clearOverlays();

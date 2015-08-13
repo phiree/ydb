@@ -108,29 +108,27 @@
                         <!--<div id="save-sp">保存服务点<input type="button" id="saveSP" value="保存" /><span id="saveError">当前服务点未设置，无法保存</span></div>-->
                         <!--<div id="SPContainer"></div>-->
                     </div>
+                    <input id="hiBusinessAreaCode" runat="server" snsi type="hidden">
                 </div>
                 </div>
-                <div class="cont-row">
-                    <div class="cont-col-4">
-                        <div class="fl clearfix m-b20">
-                            <div id="setBusiness" class="setLocationMap">
-                                <div id="businessMapSub" class="mapSub">
-                                </div>
-                            </div>
-                            <input id="hiBusinessAreaCode" runat="server" snsi type="hidden">
-                        </div>
-                    </div>
-                    <div class="cont-col-8">
-                        <div>
-                            <p class="m-b20">您选择的区域：</p>
-                            <p id="businessText" class="business-text"></p>
-                        </div>
-
-                    </div>
-                    <div class="cont-col-12">
-                        <p><span class="text-anno-r">（点击地图为您的服务区域进行定位）</span></p>
-</div>
-                </div>
+                <!--<div class="cont-row">-->
+                    <!--<div class="cont-col-4">-->
+                        <!--<div class="fl clearfix m-b20">-->
+                            <!--<div id="setBusiness" class="setLocationMap">-->
+                                <!--<div id="businessMapSub" class="mapSub"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="cont-col-8">-->
+                        <!--<div>-->
+                            <!--<p class="m-b20">您选择的区域：</p>-->
+                            <!--<p id="businessText" class="business-text"></p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="cont-col-12">-->
+                        <!--<p><span class="text-anno-r">（点击地图为您的服务区域进行定位）</span></p>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <p class="cont-input-tip"><i class="icon icon-tip"></i>请点击地图，设置该服务的服务区域。</p>
             </div>
         </div>

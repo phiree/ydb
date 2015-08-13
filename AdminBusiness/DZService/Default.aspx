@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="service-new">
+                <div class="service-new dis-n">
                     <div class="cont-container">
                         <div class="new-box">
                             <div class="t-c">
