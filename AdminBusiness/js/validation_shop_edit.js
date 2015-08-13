@@ -33,24 +33,24 @@ var service_validate_messages={};
 service_validate_rules[name_prefix + "tbxName"] =
 {
     required: true,
-    maxlength: 100
+    maxlength: 12
 };
 service_validate_messages[name_prefix + "tbxName"] =
 {
     required: "请填写店铺名称",
-    maxlength: "不能超过100个字符"
+    maxlength: "不能超过20个字符"
 };
 
 //hiTypeId
 service_validate_rules[name_prefix + "tbxIntroduced"] =
 {
     required: true,
-    maxlength: 1000
+    maxlength: 200
 };
 service_validate_messages[name_prefix + "tbxIntroduced"] =
 {
     required: "请输入店铺介绍",
-    maxlength: "不能超过1000个字符"
+    maxlength: "不能超过200个字符"
 };
 
 //minprice
