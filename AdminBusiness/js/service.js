@@ -16,11 +16,11 @@ function initializeService(){
     /**
      * 初始化商圈缩略地图
      */
-    var submap = new BMap.Map("businessMapSub");
-    submap.centerAndZoom(new BMap.Point(116.404, 39.915), 10);
-    submap.disableDoubleClickZoom();
-    submap.disableScrollWheelZoom();
-    submap.disableDragging();
+    //var submap = new BMap.Map("businessMapSub");
+    //submap.centerAndZoom(new BMap.Point(116.404, 39.915), 10);
+    //submap.disableDoubleClickZoom();
+    //submap.disableScrollWheelZoom();
+    //submap.disableDragging();
 
 
     /**
@@ -504,28 +504,41 @@ function initializeService(){
             });
         }
         
-        var localAddrJson = jQuery.parseJSON('{"serPointCirle":{"lng":116.338154,"lat":39.896338,"radius":4803.6192093506925},"serPointComp":{"streetNumber":"363号","street":"广安门外大街","district":"西城区","city":"北京市","province":"北京市"},"serPointAddress":"北京市西城区广安门外大街363号"}');
+        //var localAddrJson = jQuery.parseJSON('{"serPointCirle":{"lng":116.338154,"lat":39.896338,"radius":4803.6192093506925},"serPointComp":{"streetNumber":"363号","street":"广安门外大街","district":"西城区","city":"北京市","province":"北京市"},"serPointAddress":"北京市西城区广安门外大街363号"}');
 
-        console.log(localAddrJson);
+        //console.log(localAddrJson);
 
         function readServerPoint(){
-            var readSerPoint = new ServerPoint();
-            var readPoint = new BMap.Point(localAddrJson.serPointCirle.lng, localAddrJson.serPointCirle.lat);
-            var readRadius = localAddrJson.serPointCirle.radius;
-
-            currentSP = readSerPoint;
-            currentSP.setPoint(readPoint);
-            currentSP.setRadius(readRadius);
-            console.log(readSerPoint);
-            currentSP.draw();
-            currentSP.circle.addEventListener("mousedown",mouseDownAction);
-            currentSP.circle.addEventListener("click",evePrevent);
-            currentSP.circle.addEventListener("dblclick",evePrevent);
+            //var readSerPoint = new ServerPoint();
+            //var readPoint = new BMap.Point(localAddrJson.serPointCirle.lng, localAddrJson.serPointCirle.lat);
+            //var readRadius = localAddrJson.serPointCirle.radius;
+            //
+            //currentSP = readSerPoint;
+            //currentSP.setPoint(readPoint);
+            //currentSP.setRadius(readRadius);
+            //console.log(readSerPoint);
+            //currentSP.draw();
+            //currentSP.circle.addEventListener("mousedown",mouseDownAction);
+            //currentSP.circle.addEventListener("click",evePrevent);
+            //currentSP.circle.addEventListener("dblclick",evePrevent);
 
             if ( $('#hiBusinessAreaCode').attr("value") ){
                         var readBusinessJson = jQuery.parseJSON($('#hiBusinessAreaCode').attr("value"));
-                        var subMapPoint = new BMap.Point();
+                        //var subMapPoint = new BMap.Point();
 
+                        var readSerPoint = new ServerPoint();
+                        var readPoint = new BMap.Point(readBusinessJson.serPointCirle.lng, readBusinessJson.serPointCirle.lat);
+                        var readRadius = readBusinessJson.serPointCirle.radius;
+
+                        currentSP = readSerPoint;
+                        currentSP.setPoint(readPoint);
+                        currentSP.setRadius(readRadius);
+                        console.log(readSerPoint);
+                        currentSP.draw();
+                        currentSP.circle.addEventListener("mousedown",mouseDownAction);
+                        currentSP.circle.addEventListener("click",evePrevent);
+                        currentSP.circle.addEventListener("dblclick",evePrevent);
+                        map.centerAndZoom(readPoint,15);
 
                     } else {
                         myCity.get(function(result){
