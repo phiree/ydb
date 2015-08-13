@@ -80,7 +80,36 @@
                 <p class="cont-sub-title">您的服务区域</p>
             </div>
             <div class="cont-col-10">
-
+                <div class="cont-row">
+                    <div>
+                    <div id="allmap"></div>
+                    <!--<p>添加点击地图监听事件，点击地图后显示当前经纬度</p>-->
+                    <!--<p>&#45;&#45;点击地图放置服务点，拖拽服务圆设置圆（服务）半径&#45;&#45;</p>-->
+                    <!--<input id="LocalAddrJson" type="text" value="">-->
+                    <!--<p>百度地图API商圈功能:</p>-->
+                    <!--<div id="city-container"></div>-->
+                    <!--<p>百度地图API输入功能:</p>-->
+                    <div id="r-result">请输入服务点位置:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
+                    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                    <div id="radius-container">
+                        <span>通过表单设置服务半径:</span>
+                        <select id="ser-radius">
+                            <option value="1000">1000</option>
+                            <option value="1500">1500</option>
+                            <option value="2000">2000</option>
+                            <option value="3000">3000</option>
+                            <option value="4000">4000</option>
+                        </select>
+                        <span>m</span>
+                    </div>
+                    <div >
+                        <!--<div id="add-sp">添加新服务点<input type="button" id="addSP" value="+" /><span id="addError">当前服务点未设置，无法添加新服务点</span></div>-->
+                        <!--<div id="del-sp">删除服务点<input type="button" id="delSP" value="删除" /><span id="delError">请至少设置一个服务点</span></div>-->
+                        <!--<div id="save-sp">保存服务点<input type="button" id="saveSP" value="保存" /><span id="saveError">当前服务点未设置，无法保存</span></div>-->
+                        <!--<div id="SPContainer"></div>-->
+                    </div>
+                </div>
+                </div>
                 <div class="cont-row">
                     <div class="cont-col-4">
                         <div class="fl clearfix m-b20">
@@ -264,35 +293,7 @@
                 <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签</p>
             </div>
         </div>
-        <div class="cont-row">
-            <div class="">
-            <div id="allmap"></div>
-            <!--<p>添加点击地图监听事件，点击地图后显示当前经纬度</p>-->
-            <p>--点击地图放置服务点，拖拽服务圆设置圆（服务）半径--</p>
-            <p>百度地图API商圈功能:</p>
-            <div id="city-container"></div>
-            <p>百度地图API输入功能:</p>
-            <div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
-            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-            <div id="radius-container">
-                <span>通过表单设置服务半径:</span>
-                <select id="ser-radius">
-                    <option value="1000">1000</option>
-                    <option value="1500">1500</option>
-                    <option value="2000">2000</option>
-                    <option value="3000">3000</option>
-                    <option value="4000">4000</option>
-                </select>
-                <span>m</span>
-            </div>
-            <div >
-                <div id="add-sp">添加新服务点<input type="button" id="addSP" value="+" /><span id="addError">当前服务点未设置，无法添加新服务点</span></div>
-                <div id="del-sp">删除服务点<input type="button" id="delSP" value="删除" /><span id="delError">请至少设置一个服务点</span></div>
-                <div id="save-sp">保存服务点<input type="button" id="saveSP" value="保存" /><span id="saveError">当前服务点未设置，无法保存</span></div>
-                <div id="SPContainer"></div>
-            </div>
-        </div>
-        </div>
+
     </div>
     <div id="mapLightBox" class="dis-n">
         <div class="mapWrap">
