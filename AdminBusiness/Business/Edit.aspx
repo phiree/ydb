@@ -51,13 +51,13 @@
                         <div class="cont-col-10">
                             <div class="cont-row">
                                 <div class="cont-col-6">
-                                    <textarea class="input-textarea" id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入60个字)</textarea>
+                                    <textarea class="input-textarea" id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入200个字符)</textarea>
                                 </div>
                                 <div class="cont-col-6">
                                     <div class="text-anno myshop-intro-anno vmBox">
                                         <div class="vm">
                                             <p><span class="cont-title-tips">（必填选项）</span></p>
-                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请将您的店铺简介在此输入（字数限制在0~80个字符之间）</p>
+                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请将您的店铺简介在此输入（字数限制在0~200个字符之间）</p>
                                         </div>
                                     </div>
                                 </div>

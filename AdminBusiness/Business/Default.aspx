@@ -47,6 +47,7 @@
                                     </a>
                                 </div>
                                 <ul class="nav navbar-nav navbar-right">
+
                                     <li class="dropdown nav-li-bj">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><asp:LoginName ID="LoginName1" runat="server" /><span class="caret"></span></a>
                               <ul class="dropdown-menu">
@@ -158,14 +159,14 @@
                         </div>
                         </div>
                         <div class="cont-row m-b10">
-                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a">您的商铺名称</p></div>
+                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a business-lightbox-title">您的商铺名称</p></div>
                                 <div class="cont-col-8">
                                 <p><input class="input-mid" runat="server" id="tbxName" type="text" /></p>
                                 <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写商铺名称</p>
                                 </div>
                         </div>
                         <div class="cont-row m-b10">
-                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a">输入店铺介绍</p></div>
+                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a business-lightbox-title">输入店铺介绍</p></div>
                             <div class="cont-col-8">
                                 <div>
                                     <textarea class="input-textarea buss-textarea" runat="server" id="tbxDescription" rows="5" cols="20"></textarea>

@@ -191,6 +191,8 @@ body {
 .white-a { color: #fff; }
 .white-a:visited { color: #fff; }
 
+.min-height700 { min-height: 700px; }
+
 .icon {
     display: inline-block;
     *display: inline-block;
@@ -642,7 +644,7 @@ body {
 .vm { display: table-cell; vertical-align: middle; }
 
 .input-textarea:focus,.input-lg:focus,.input-mid:focus,.input-sm:focus {
-    background: #eafcff;
+    background: #f3f5f9;
     border:#0f9ecc 1px solid;
     box-shadow: 0 0 3px 0 #0f9ecc;
 }
@@ -653,7 +655,7 @@ body {
     height:155px;
     padding: 5px 10px;
     border:#C0D1E3 1px solid;
-    background: #f5f6f5;
+    background: #f3f5f9;
     color:#58789a;
     font-size:14px;
     overflow-y: auto;
@@ -667,7 +669,7 @@ body {
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
     border-radius: 0;
-    background: #f5f6f5;
+    background: #f3f5f9;
     color: #58789a;
     font-size: 14px;
     vertical-align: middle;
@@ -681,7 +683,7 @@ body {
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
     border-radius: 0;
-    background: #f5f6f5;
+    background: #f3f5f9;
     color: #58789a;
     font-size: 14px;
     vertical-align: middle;
@@ -695,7 +697,7 @@ body {
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
     border-radius: 0;
-    background: #f5f6f5;
+    background: #f3f5f9;
     color: #58789a;
     font-size: 14px;
     vertical-align: middle;
