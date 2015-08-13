@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/site.master" AutoEventWireup="true"
     CodeFile="Security.aspx.cs" Inherits="Account_Security" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
