@@ -503,8 +503,7 @@ function initializeService(){
                 hiBussAreaCodee.attr("value",JSON.stringify(jsonTranDate));
             });
         }
-
-
+        
         var localAddrJson = jQuery.parseJSON('{"serPointCirle":{"lng":116.338154,"lat":39.896338,"radius":4803.6192093506925},"serPointComp":{"streetNumber":"363号","street":"广安门外大街","district":"西城区","city":"北京市","province":"北京市"},"serPointAddress":"北京市西城区广安门外大街363号"}');
 
         console.log(localAddrJson);
