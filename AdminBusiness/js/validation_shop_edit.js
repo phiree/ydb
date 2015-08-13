@@ -56,11 +56,11 @@ service_validate_messages[name_prefix + "tbxIntroduced"] =
 //tbxAddress
 service_validate_rules[name_prefix + "tbxAddress"] =
 {
-    required: true,
+    required: true
 };
 service_validate_messages[name_prefix + "tbxAddress"] =
 {
-    required: "请输入店铺地址  ",
+    required: "请输入店铺地址"
 };
 
 

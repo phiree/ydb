@@ -321,7 +321,7 @@
     <script type="text/javascript" src="/js/global.js"></script>
     <script src="/js/FileUpload.js" type="text/javascript"></script>
     <script type="text/javascript">
-         var name_prefix = 'ctl00$ContentPlaceHolder1$';
+         var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
     </script>
     <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
@@ -331,7 +331,7 @@
                 {
                     errorElement: "p",
                     errorPlacement: function (error, element) {
-                        if ( $(element).attr("id") == "ContentPlaceHolder1_tbxBusinessYears" ) {
+                        if ( $(element).attr("name") == name_prefix + "tbxBusinessYears" ) {
                             error.appendTo((element.parent()).parent());
                         } else {
                             error.appendTo(element.parent());

@@ -4,10 +4,13 @@ function initialize(){
     var geoc = new BMap.Geocoder();
 //var myGeo = new BMap.Geocoder();
 
-    if (typeof G("ContentPlaceHolder1_tbxAddress").addEventListener != "undefined") {
-        G("ContentPlaceHolder1_tbxAddress").addEventListener("change", addressGoe ,false);
+    var id_prefix = 'ContentPlaceHolder1_ContentPlaceHolder1_';
+    var addressId = id_prefix + "tbxAddress";
+
+    if (typeof G(addressId).addEventListener != "undefined") {
+        G(addressId).addEventListener("change", addressGoe ,false);
     } else {
-        G("ContentPlaceHolder1_tbxAddress").attachEvent("onchange", addressGoe );
+        G(addressId).attachEvent("onchange", addressGoe );
     }
 
     function G(id) {
