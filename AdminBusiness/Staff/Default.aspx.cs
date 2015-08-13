@@ -22,10 +22,19 @@ public partial class Staff_Default : BasePage
         int total=30;
         Business b = CurrentBusiness; 
         IList<Staff> staffList=bllStaff.GetList(b.Id, Guid.Empty, 0, 10, out total);
-        gvStaff.DataSource = staffList;
-        gvStaff.DataBind();
+        rptStaff.DataSource = staffList;
+        rptStaff.DataBind();
 
-        rpt.DataSource = staffList;
-        rpt.DataBind();
+        
+    }
+    protected void rptStaff_ItemCommand(object sender, RepeaterCommandEventArgs e)
+    {
+        if (e.CommandName == "delete")
+        {
+            Guid id = new Guid(e.CommandArgument.ToString());
+            Staff staff=bllStaff.GetOne(id);
+            bllStaff.Delete(staff);
+            BindList();
+        }
     }
 }

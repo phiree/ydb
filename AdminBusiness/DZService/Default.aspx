@@ -47,7 +47,7 @@
                                                 </div>
                                                 <!--<div class="cont-col-3"> </div>-->
                                                 <div class="cont-col-2"><p class="t-c"><%#Eval("OrderDelay")%></p></div>
-                                                <div class="cont-col-2"><span><%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></span> <p class="t-c  enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"点击禁用":"点击启用" %></p></div>
+                                                <div class="cont-col-2"><span class='<%# ((bool)Eval("Enabled"))?"enbaled":"notenabled" %>'><%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></span> <p class="t-c  enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"点击禁用":"点击启用" %></p></div>
                                             </div>
                                         </div>
                                     </div>

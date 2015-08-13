@@ -40,7 +40,7 @@
                                     验证邮件已经成功,请进入您的邮箱根据提示完成验证</span>
                             </div>
                             <div class="buttonBox t-c">
-                            <a href="login.aspx" class="compBtn"></a>  
+                            <a href="/account/security.aspx" class="compBtn"></a>  
                             </div>
                         </div>
                     </div>

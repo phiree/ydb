@@ -57,6 +57,7 @@ public partial class Staff_Edit : BasePage
         NickName.Text = s.NickName;
         Phone.Text = s.Phone;
         Photo.Text = s.Photo;
+        hiGender.Value = s.Gender;
         foreach (ServiceType servicetype in s.ServiceTypes)
         {
             foreach(ListItem item in cbxServices.Items)
@@ -75,7 +76,7 @@ public partial class Staff_Edit : BasePage
         s.Code = Code.Text;
         s.Name = Name.Text;
         s.NickName = NickName.Text;
-        s.Gender = Gender.Text;
+        s.Gender = hiGender.Value;
         s.Phone = Phone.Text;
         s.Photo = Photo.Text;
         IList<ServiceType> serviceTypes=new List<ServiceType>();
