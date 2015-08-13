@@ -7,31 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <!--<div class="mainContent clearfix">
-        <div class="leftContent" id="leftCont">
-            <div class="side-bar">
-                <ul>
-                    <li class="side-btn-br">
-                        <a href="/Business/Edit.aspx?businessId=<%=CurrentBusiness.Id%>" target="_self">
-                            <div class="side-btn-bg d-inb">
-                                <i class="icon side-btn-icon side-icon-myshop"></i>
-                                <h4 class="side-btn-t ">基本信息</h4>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/account/Security.aspx?businessId=<%=CurrentBusiness.Id%>" target="_self">
-                            <div class="side-btn-bg d-inb">
-                                <i class="icon side-btn-icon side-icon-secret"></i>
-                                <h4 class="side-btn-t ">帐号安全</h4>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <i class="icon side-arrow"></i>
-            </div>
-        </div>
-        <div class="rightContent" id="rightCont">-->
+     
             <div class="cont-wrap secret-wrap">
                         <div class="cont-row">
                         <div class="cont-title">
@@ -103,7 +79,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="id-row m-b20">
+                            <div class="id-row m-b20 none">
                                 <div class="cont-row">
                                     <div class="cont-col-2"><span class="secret-d-t">身份认证&nbsp;:</span></div>
                                     <div class="cont-col-6"><span class="secret-d-p d-inb">重新上传负责人证件照</span></div>
@@ -120,55 +96,7 @@
                     </div>
                 </div>
             </div>
-            <%--<div class="myshopInfoArea clearfix">--%>
-                <%--<div class="myshopInfoTilte">--%>
-                    <%--<h1>--%>
-                        <%--商家基本信息</h1>--%>
-                <%--</div>--%>
-                <%--<div class="headInfoArea clearfix">--%>
-                    <%--<div class="headImage fl">--%>
-                        <%--<img class="headImageVc" src="../image/myshop/touxiangkuang_11.png" alt="头像" />--%>
-                    <%--</div>--%>
-                    <%--<div class="headInfo fl">--%>
-                        <%--<div class="headInfoVc">--%>
-                            <%--<h3>--%>
-                                <%--<%=CurrentBusiness.Name %></h3>--%>
-                            <%--<p class="InfoCompletetxt">--%>
-                                <%--资料完成程度</p>--%>
-                            <%--<div class="InfoPercentage">--%>
-                                <%--<div class="InfoComplete">--%>
-                                    <%--<span class="progress" style="width: <%=CurrentBusiness.CompetePercent%>%"></span>--%>
-                                <%--</div>--%>
-                                <%--<span class="completePercentage">--%>
-                                    <%--<%=CurrentBusiness.CompetePercent%>%</span>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <!--<div class="secret-title">-->
-                <!--<span>账号信息相关</span>-->
-            <!--</div>-->
-            <!--<div class="secret-cont">-->
-
-                <!--<div class="secret-m secert-info">-->
-                    <!--<div class="secret-m-title t-2">-->
-                        <!--账户安全信息</div>-->
-                    <!--<div class="secret-detail">-->
-                        <!--<div class="clearfix">-->
-
-
-
-                        <!--</div>-->
-                        <!--<div class="clearfix">-->
-
-
-
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+            
         <div id="lightBox" class="dis-n">
             <div class="secret-change">
                 <div class="secret-change-title">
@@ -253,11 +181,7 @@
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
-                            <div class="input-file-box fl">
-                                <input type="file" class="input-file-btn" businessid="<%=CurrentBusiness.Id %>" imagetype="businesschargeperson" />
-                                <i class="input-file-bg"></i><i class="input-file-mark"></i>
-                                <img class="input-file-pre" src="..\image\00.png" />
-                            </div>
+                           
                         </div>
                     </div>
                 </div>

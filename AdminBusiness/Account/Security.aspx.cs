@@ -15,7 +15,7 @@ public partial class Account_Security :BasePage
     {
         if (!IsPostBack)
         {
-            BindChargePersonIdCards();
+           // BindChargePersonIdCards();
         }
     }
 

@@ -153,7 +153,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         {
            
              string redirectUrl=PHSuit.StringHelper.BuildUrlWithParameters(Request,"serviceid",CurrentService.Id.ToString());
-             Response.Redirect("/dzservice/detail.aspx?serviceid="+CurrentService.Id);
+             Response.Redirect("/dzservice/detail.aspx?serviceid="+CurrentService.Id+"&businessid="+Request["businessid"]);
              //PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
           //   Response.Redirect(redirectUrl);//PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
         }

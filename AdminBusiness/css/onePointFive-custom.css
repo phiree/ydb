@@ -194,6 +194,9 @@ label {
 .sidebar-nav ul #menu-2:hover{
       background: #3794bd;
     }
+.sidebar-nav ul #menu-5:hover{
+      background: #3794bd;
+    }
 #menu-1{ margin-top:25px;background: #3794bd;}
 #menu-1 a {
     background:url(../image/shop-icon-18.png) no-repeat;
@@ -242,12 +245,12 @@ label {
     }
      
  #menu-5 a {
-    background:url(../image/menu-5-icon-hui.png) no-repeat;
+    background:url(../image/menu-5-icon-1.png) no-repeat;
     background-position: 12px 10px;
     padding-left:32px;
     }
  #menu-5 a:hover {
-    background:url(../image/menu-5-icon-hui.png) no-repeat;
+    background:url(../image/menu-5-icon-2.png) no-repeat;
     background-position: 12px 10px;
     padding-left:32px;
     }
