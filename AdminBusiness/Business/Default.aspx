@@ -50,7 +50,7 @@
                                     <li class="dropdown">
                                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><asp:LoginName ID="LoginName1" runat="server" /><span class="caret"></span></a>
                                       <ul class="dropdown-menu">
-                                        <li><a href="#">帐号安全</a></li>
+                                        <li><a href="/account/security.aspx">帐号安全</a></li>
                                       </ul>
                                     </li>
                                     <li role="presentaion" ><asp:LoginStatus ID="LoginStatus1" formnovalidate  runat="server"  /></li>
