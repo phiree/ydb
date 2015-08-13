@@ -18,75 +18,65 @@
          <div class="emp-content-div">
             <table class="emp-table">
                 <tr class="emp-head-tr">
-                   <th class="emp-th-style"></th>
-                   <th class="emp-th-style">编号</th>
-                   <th class="emp-th-style">姓名</th>
-                   <th class="emp-th-style">昵称</th>
-                   <th class="emp-th-style">性别</th>
-                   <th class="emp-th-style">联系电话</th>
-                   <th class="emp-th-style"></th>
+                   <th class="emp-th-style epm-th-2"></th>
+                   <th class="emp-th-style epm-th-2">编号</th>
+                   <th class="emp-th-style epm-th-2">姓名</th>
+                   <th class="emp-th-style epm-th-2">昵称</th>
+                   <th class="emp-th-style epm-th-2">性别</th>
+                   <th class="emp-th-style epm-th-2">联系电话</th>
+                   <th class="emp-th-style epm-th-2"></th>
                 </tr>
               <tr>
-                  <td class="emp-td-style"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
-                  <td class="emp-td-style">001</td>
-                  <td class="emp-td-style">米特加</td>
-                  <td class="emp-td-style">桃子</td>
-                  <td class="emp-td-style">女</td>
-                  <td class="emp-td-style">13131313131</td>
-                  <td class="emp-td-style"><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
+                  <td class="emp-td-style epm-th-2"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
+                  <td class="emp-td-style epm-th-2">001</td>
+                  <td class="emp-td-style epm-th-2">米特加</td>
+                  <td class="emp-td-style epm-th-2">桃子</td>
+                  <td class="emp-td-style epm-th-2">女</td>
+                  <td class="emp-td-style epm-th-2">13131313131</td>
+                  <td class="emp-td-style epm-btn epm-th-1"><img src="../image/zhipaibtn.png" width="52" height="30"/><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
                 
                 </tr>
-              <tr>
-                  <td class="emp-td-style"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
-                  <td class="emp-td-style">001</td>
-                  <td class="emp-td-style">米特加</td>
-                  <td class="emp-td-style">桃子</td>
-                  <td class="emp-td-style">女</td>
-                  <td class="emp-td-style">13131313131</td>
-                  <td class="emp-td-style"><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
+                 <tr>
+                  <td class="emp-td-style epm-th-2"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
+                  <td class="emp-td-style epm-th-2">001</td>
+                  <td class="emp-td-style epm-th-2">米特加</td>
+                  <td class="emp-td-style epm-th-2">桃子</td>
+                  <td class="emp-td-style epm-th-2">女</td>
+                  <td class="emp-td-style epm-th-2">13131313131</td>
+                  <td class="emp-td-style epm-btn epm-th-1"><img src="../image/zhipaibtn.png" width="52" height="30"/><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
                 
                 </tr>
-                <tr>
-                  <td class="emp-td-style"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
-                  <td class="emp-td-style">001</td>
-                  <td class="emp-td-style">米特加</td>
-                  <td class="emp-td-style">桃子</td>
-                  <td class="emp-td-style">女</td>
-                  <td class="emp-td-style">13131313131</td>
-                  <td class="emp-td-style"><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
+                 <tr>
+                  <td class="emp-td-style epm-th-2"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
+                  <td class="emp-td-style epm-th-2">001</td>
+                  <td class="emp-td-style epm-th-2">米特加</td>
+                  <td class="emp-td-style epm-th-2">桃子</td>
+                  <td class="emp-td-style epm-th-2">女</td>
+                  <td class="emp-td-style epm-th-2">13131313131</td>
+                  <td class="emp-td-style epm-btn epm-th-1"><img src="../image/zhipaibtn.png" width="52" height="30"/><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
                 
                 </tr>
-
-                      <tr>
-                  <td class="emp-td-style"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
-                  <td class="emp-td-style">001</td>
-                  <td class="emp-td-style">米特加</td>
-                  <td class="emp-td-style">桃子</td>
-                  <td class="emp-td-style">女</td>
-                  <td class="emp-td-style">13131313131</td>
-                  <td class="emp-td-style"><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
+                 <tr>
+                  <td class="emp-td-style epm-th-2"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
+                  <td class="emp-td-style epm-th-2">001</td>
+                  <td class="emp-td-style epm-th-2">米特加</td>
+                  <td class="emp-td-style epm-th-2">桃子</td>
+                  <td class="emp-td-style epm-th-2">女</td>
+                  <td class="emp-td-style epm-th-2">13131313131</td>
+                  <td class="emp-td-style epm-btn epm-th-1"><img src="../image/zhipaibtn.png" width="52" height="30"/><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
                 
                 </tr>
-              <tr>
-                  <td class="emp-td-style"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
-                  <td class="emp-td-style">001</td>
-                  <td class="emp-td-style">米特加</td>
-                  <td class="emp-td-style">桃子</td>
-                  <td class="emp-td-style">女</td>
-                  <td class="emp-td-style">13131313131</td>
-                  <td class="emp-td-style"><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
+                 <tr>
+                  <td class="emp-td-style epm-th-2"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
+                  <td class="emp-td-style epm-th-2">001</td>
+                  <td class="emp-td-style epm-th-2">米特加</td>
+                  <td class="emp-td-style epm-th-2">桃子</td>
+                  <td class="emp-td-style epm-th-2">女</td>
+                  <td class="emp-td-style epm-th-2">13131313131</td>
+                  <td class="emp-td-style epm-btn epm-th-1"><img src="../image/zhipaibtn.png" width="52" height="30"/><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
                 
                 </tr>
-                <tr>
-                  <td class="emp-td-style"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
-                  <td class="emp-td-style">001</td>
-                  <td class="emp-td-style">米特加</td>
-                  <td class="emp-td-style">桃子</td>
-                  <td class="emp-td-style">女</td>
-                  <td class="emp-td-style">13131313131</td>
-                  <td class="emp-td-style"><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
-                
-                </tr>
+             
             
             </table>
          </div>
