@@ -98,6 +98,10 @@
                                 </ItemTemplate>
                               </asp:Repeater>
                         </div>
+                        <p class="cont-h4">负责人执照</p>
+                            <div class="p-20">
+
+                            </div>
                     </div>
 </div>
             </div>
