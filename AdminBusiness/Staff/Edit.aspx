@@ -92,7 +92,7 @@
                                          <li><a>男</a></li>
                                          <li><a>女</a></li>
                                         </ul>
-                                        <input type="hidden" class="input-lg" runat="server" id="Gender1" name="Gender1"/>
+                                        <input type="hidden" class="input-lg" runat="server" id="hiGender" name="Gender1"/>
                                     </div>
                                     
                                 </div>

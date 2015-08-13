@@ -1,14 +1,20 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/site.master" AutoEventWireup="true"
     CodeFile="Security.aspx.cs" Inherits="Account_Security" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="../css/myshop.css" rel="stylesheet" type="text/css" />
+    <style>
+    .content
+    {
+        padding-left:0;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
      
-            <div class="cont-wrap secret-wrap">
+            <div style="width:1200px" class="cont-wrap secret-wrap">
                         <div class="cont-row">
                         <div class="cont-title">
                             <h1 class="cont-h1 fu-cont-h1">账号安全</h1>

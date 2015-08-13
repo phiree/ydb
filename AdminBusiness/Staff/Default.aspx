@@ -12,7 +12,7 @@
       <div class="emp-backage">
          <div class="cont-row">
               <div class="add-user-div">
-               <a href="Edit.aspx"><img src="../image/addUserBtn.png" /></a>
+               <a href="Edit.aspx?businessid=<%=Request["businessid"] %>"><img src="../image/addUserBtn.png" /></a>
               </div>
          </div>
          <div class="emp-content-div">
@@ -26,56 +26,23 @@
                    <th class="emp-th-style epm-th-2">联系电话</th>
                    <th class="emp-th-style epm-th-2"></th>
                 </tr>
-              <tr>
-                  <td class="emp-td-style epm-th-2"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
-                  <td class="emp-td-style epm-th-2">001</td>
-                  <td class="emp-td-style epm-th-2">米特加</td>
-                  <td class="emp-td-style epm-th-2">桃子</td>
-                  <td class="emp-td-style epm-th-2">女</td>
-                  <td class="emp-td-style epm-th-2">13131313131</td>
-                  <td class="emp-td-style epm-btn epm-th-1"><img src="../image/zhipaibtn.png" width="52" height="30"/><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
-                
-                </tr>
+                <asp:Repeater runat="server" ID="rptStaff" OnItemCommand="rptStaff_ItemCommand">
+                <ItemTemplate>
                  <tr>
                   <td class="emp-td-style epm-th-2"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
-                  <td class="emp-td-style epm-th-2">001</td>
-                  <td class="emp-td-style epm-th-2">米特加</td>
-                  <td class="emp-td-style epm-th-2">桃子</td>
-                  <td class="emp-td-style epm-th-2">女</td>
-                  <td class="emp-td-style epm-th-2">13131313131</td>
-                  <td class="emp-td-style epm-btn epm-th-1"><img src="../image/zhipaibtn.png" width="52" height="30"/><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
+                  <td class="emp-td-style epm-th-2"><%#Eval("Code") %></td>
+                  <td class="emp-td-style epm-th-2"><a href='edit.aspx?id=<%#Eval("id") %>&businessid=<%=Request["businessid"] %>'><%#Eval("Name") %></a></td>
+                  <td class="emp-td-style epm-th-2"><%#Eval("NickName") %></td>
+                  <td class="emp-td-style epm-th-2"><%#Eval("Gender")%></td>
+                  <td class="emp-td-style epm-th-2"><%#Eval("Phone")%></td>
+                  <td class="emp-td-style epm-btn epm-th-1"><span class='<%# ((bool)Eval("IsAssigned"))?"assigned":"notassigned" %>'><%# (bool)Eval("IsAssigned")?"已指派":"未指派" %></span> <input type="button" staffid='<%#Eval("id") %>' class="btnAssign" value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/> 
+                  
+                  <asp:ImageButton runat="server" CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" ImageUrl="/image/emp-del-btn.png" width="52" height="30"/></td>
                 
-                </tr>
-                 <tr>
-                  <td class="emp-td-style epm-th-2"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
-                  <td class="emp-td-style epm-th-2">001</td>
-                  <td class="emp-td-style epm-th-2">米特加</td>
-                  <td class="emp-td-style epm-th-2">桃子</td>
-                  <td class="emp-td-style epm-th-2">女</td>
-                  <td class="emp-td-style epm-th-2">13131313131</td>
-                  <td class="emp-td-style epm-btn epm-th-1"><img src="../image/zhipaibtn.png" width="52" height="30"/><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
+                </tr></ItemTemplate>
+                </asp:Repeater>
+             
                 
-                </tr>
-                 <tr>
-                  <td class="emp-td-style epm-th-2"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
-                  <td class="emp-td-style epm-th-2">001</td>
-                  <td class="emp-td-style epm-th-2">米特加</td>
-                  <td class="emp-td-style epm-th-2">桃子</td>
-                  <td class="emp-td-style epm-th-2">女</td>
-                  <td class="emp-td-style epm-th-2">13131313131</td>
-                  <td class="emp-td-style epm-btn epm-th-1"><img src="../image/zhipaibtn.png" width="52" height="30"/><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
-                
-                </tr>
-                 <tr>
-                  <td class="emp-td-style epm-th-2"><img src="../image/emp-headinco.png" width="49" height="49" /></td>
-                  <td class="emp-td-style epm-th-2">001</td>
-                  <td class="emp-td-style epm-th-2">米特加</td>
-                  <td class="emp-td-style epm-th-2">桃子</td>
-                  <td class="emp-td-style epm-th-2">女</td>
-                  <td class="emp-td-style epm-th-2">13131313131</td>
-                  <td class="emp-td-style epm-btn epm-th-1"><img src="../image/zhipaibtn.png" width="52" height="30"/><img src="../image/emp-del-btn.png" width="52" height="30"/></td>
-                
-                </tr>
              
             
             </table>
@@ -89,7 +56,7 @@
              <a href="#">第4页</a>|
              <a href="#">下一页</a>|
             <a href="#">尾页</a>
-          </ul>
+          
           
           </div>
       </div>
@@ -169,7 +136,9 @@
                $(".emp-table tr:odd td").css("background-color", color);  //改变奇数行背景色
             /* 把背景色保存到属性中 */
                $(".emp-table tr:odd").attr("bg", color);
-              $(".emp-table tr:even").attr("bg", "#fff");
+               $(".emp-table tr:even").attr("bg", "#fff");
+
+
      
     
 
@@ -212,7 +181,26 @@
                 });
             });
 
+            $(".btnAssign").click(function () {
+                var that = this;
+                $.post("/ajaxservice/changestaffInfo.ashx",
+                        {
+                            "changed_field": "assign",
+                            "changed_value": false,
+                            "id": $(that).attr("staffid")
+                        }, function (data) {
+                            var enabled = data.data;
+                            if (enabled == "True") {
+                                $(that).siblings("span").html("已指派");
+                                $(that).val("取消指派");
+                            }
+                            else {
+                                $(that).siblings("span").html("未指派");
+                                $(that).val("指派");
+                            }
 
+                        });
+            });
             $("#addEmployee").click(function(e){
                 $('#SerlightBox').lightbox_me({
                     centered: true

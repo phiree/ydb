@@ -1,73 +1,20 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="adminBusiness.master.cs"
-    Inherits="adminBusiness" %>
+    Inherits="adminBusiness" MasterPageFile="~/site.master" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>商家后台主页</title>
-    <link href="/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="/js/metisMenu/metisMenu.css" rel="stylesheet" type="text/css" />
-    <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
-    <link href="/css/base.css" rel="stylesheet" type="text/css" />
-    <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
-    <script src="/js/html5shiv.min.js"></script>
-    <script src="/js/respond.min.js"></script>
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
-    <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>-->
- 
-    <script>
-    </script>
-    <asp:ContentPlaceHolder ID="head" runat="Server">
+ <asp:Content runat="server"  ContentPlaceHolderID="head" >
+  <asp:ContentPlaceHolder ID="head" runat="Server">
      
  
     </asp:ContentPlaceHolder>
-</head>
-
-<body>
-    <div class="wrap">
-        <div class="mainContainer">
-            <form id="form1" runat="server">
-            <div class="wrapper">
-                <div class="navbar navbar-default navbar-static-top" role="navigation">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                              <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">-->
-                            <!--<span class="sr-only">Toggle navigation</span>-->
-                            <!--<span class="icon-bar"></span>-->
-                            <!--<span class="icon-bar"></span>-->
-                            <!--<span class="icon-bar"></span>-->
-                          <!--</button>-->
-                          <a class="navbar-brand" href="#">
-                               <img alt="一点半" src="/image/master/shop-LOGO-1.png">
-                          </a>
-                          <a class="navbar-brand" >
-                            一点半商户后台管理
-                            </a>
-                        </div>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li role="presentaion" ><a href="/Business/default.aspx">店铺列表</a></li>
-                            <li class="dropdown nav-li-bj">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><asp:LoginName ID="LoginName1" runat="server" /><span class="caret"></span></a>
-                              <ul class="dropdown-menu">
-                                <li id="accountNum"><a href="/account/security.aspx>">帐号安全</a></li>
-                              </ul>
-                            </li>
-                            <li role="presentaion" class="nav-li-bj ">
-                            <asp:LoginStatus ID="LoginStatus1" formnovalidate  runat="server"  />
-
-                            </li>
-                          </ul>
-                    </div>
-                </div>
-
-                <div class="clearfix">
-
-                        <aside class="sidebar">
+ </asp:Content>
+  <asp:Content ID="Content1" runat="server"  ContentPlaceHolderID="bottom" >
+  <asp:ContentPlaceHolder ID="bottom" runat="Server">
+   
+ 
+    </asp:ContentPlaceHolder>
+ </asp:Content>
+ <asp:Content runat="server" ContentPlaceHolderID="sitenav">
+  <aside class="sidebar">
                           <nav class="sidebar-nav">
                             <ul class="metismenu" id="menu">
 
@@ -93,29 +40,17 @@
                             </ul>
                           </nav>
                         </aside>
+ </asp:Content>
 
-
-
-            <div class="content">
-                <asp:ContentPlaceHolder ID="pageDesc" runat="server">
-                </asp:ContentPlaceHolder>
-                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                </asp:ContentPlaceHolder>
-            </div>
-            </div>
-            </div>
-            </form>
-        </div>
-    </div>
-</body>
-<asp:ContentPlaceHolder id="bottom" runat="Server">
+  <asp:Content ID="Content2" runat="server"  ContentPlaceHolderID="ContentPlaceHolder1" >
+  <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="Server">
+     
+ 
     </asp:ContentPlaceHolder>
-    <script src="/js/bootstrap/js/bootstrap.js"></script>
-    <script src="/js/metisMenu/metisMenu.js"></script>
-    <script>
-        $(function(){
-            $("#menu").metisMenu();
-        })
-
-    </script>
-</html>
+ </asp:Content>
+  <asp:Content ID="Content3" runat="server"  ContentPlaceHolderID="pageDesc" >
+  <asp:ContentPlaceHolder ID="pageDesc" runat="Server">
+     
+ 
+    </asp:ContentPlaceHolder>
+ </asp:Content>
