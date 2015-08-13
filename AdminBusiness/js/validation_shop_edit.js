@@ -53,6 +53,17 @@ service_validate_messages[name_prefix + "tbxIntroduced"] =
     maxlength: "不能超过200个字符"
 };
 
+//tbxAddress
+service_validate_rules[name_prefix + "tbxAddress"] =
+{
+    required: true,
+};
+service_validate_messages[name_prefix + "tbxAddress"] =
+{
+    required: "请输入店铺地址  ",
+};
+
+
 //minprice
 service_validate_rules[name_prefix + "tbxContactPhone"] =
 {
@@ -75,7 +86,7 @@ service_validate_messages[name_prefix + "tbxWebSite"] =
 
 };
 
-//服务单价
+//从业时间
 service_validate_rules[name_prefix + "tbxBusinessYears"] =
 {
     required: false,
