@@ -8,7 +8,12 @@
 }
 
 .BusslightBox {
-    border-left: 10px solid #fad89b;
+    /*border-left: 10px solid #fad89b;*/
+}
+
+.business-lightbox-title {
+    text-align: right;
+    padding-right: 20px;
 }
 
 .buss-textarea {
