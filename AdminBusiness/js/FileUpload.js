@@ -3,13 +3,21 @@ ajax图片上传
 需求: 
    input type=file 必须指定两个属性:imageType 和 businessId.
 ******************/
+//暂时简单粗暴的解决图片上传限制
+$(".input-file-btn.file-limit-2").change(function (ev) {
+    var limit = 2;
+    upLoadImg(this,limit);
+});
 
 
-$(".input-file-btn").change(function (ev) {
+$(".input-file-btn.file-limit-6").change(function (ev) {
     var limit = 6;
     upLoadImg(this,limit);
 });
 
+$(".input-file-btn").change(function (ev) {
+    upLoadImg(this,10);
+});
 
 function imgNumLimit(ele,limit){
     var container = ele.parent();
@@ -101,8 +109,26 @@ function upLoadImg (ele,limit){
 }
 
 (function(){
-    var imgList = $('.img-list');
+    var imgList = $('.img-list.img-list-limit6');
     var limitNum = 6;
+
+    imgList.each(function(){
+        var prevImgNum = $(this).find(".download-img-pre").length;
+        var inputImgNum = $(this).find(".input-file-box").length;
+        var fileBox =  $(this).find(".input-file-box");
+
+        if ( (prevImgNum + inputImgNum) > limitNum ) {
+            return
+        } else {
+            fileBox.removeClass("dis-n");
+        }
+    })
+})();
+
+
+(function(){
+    var imgList = $('.img-list.img-list-limit2');
+    var limitNum = 2;
 
     imgList.each(function(){
         var prevImgNum = $(this).find(".download-img-pre").length;

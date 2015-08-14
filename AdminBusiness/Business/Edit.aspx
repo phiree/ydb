@@ -143,7 +143,7 @@
                         <div class="cont-col-10">
                             <div class="cont-row">
                                 <div class="cont-col-12">
-                                    <div class="img-list clearfix">
+                                    <div class="img-list img-list-limit6 clearfix">
                                         <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-b10 m-r10 fl">
@@ -157,7 +157,7 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                         <div class="input-file-box fl m-b10 m-r10 dis-n">
-                                            <input type=file class="input-file-btn business-show-"  name="input-file-btn-show"  businessId="<%=b.Id %>" imageType="businessshow" />
+                                            <input type=file class="input-file-btn file-limit-6"  name="input-file-btn-show"  businessId="<%=b.Id %>" imageType="businessshow" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -225,7 +225,7 @@
                         <div class="cont-col-10">
                             <div class="cont-row">
                                 <div class="cont-col-12">
-                                    <div class="img-list clearfix">
+                                    <div class="img-list img-list-limit2 clearfix">
                                         <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-b10 m-r10 fl">
@@ -240,7 +240,7 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                         <div class="input-file-box m-b10 m-r10 fl dis-n">
-                                            <input type=file class="input-file-btn" businessId="<%=b.Id %>" imageType="businesschargeperson" />
+                                            <input type=file class="input-file-btn file-limit-2" businessId="<%=b.Id %>" imageType="businesschargeperson" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
@@ -260,7 +260,7 @@
                         <div class="cont-col-10">
                             <div class="cont-row">
                                 <div class="cont-col-12">
-                                    <div class="img-list clearfix">
+                                    <div class="img-list img-list-limit2 clearfix">
                                         <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
                                             <ItemTemplate>
                                                 <div class="download-img-pre m-r10 m-b10 fl">
@@ -276,7 +276,7 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                         <div class="input-file-box m-r10 m-b10 fl dis-n">
-                                            <input type=file class="input-file-btn"   name="input-file-btn-license" businessId="<%=b.Id %>" imageType="businesslicense" />
+                                            <input type=file class="input-file-btn file-limit-2"   name="input-file-btn-license" businessId="<%=b.Id %>" imageType="businesslicense" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
