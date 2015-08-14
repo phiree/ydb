@@ -90,7 +90,7 @@
                               </div>
                         </div>
                         <p class="cont-h4">营业执照</p>
-                        <div class="p-20">
+                        <div class="p-20 detail-img">
                             <asp:Repeater runat="server" ID="rptImageLicense">
                               <ItemTemplate>
                               <a   data-lightbox="lb_license" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=90&height=90&tt=2' />
@@ -99,7 +99,7 @@
                               </asp:Repeater>
                         </div>
                         <p class="cont-h4">负责人执照</p>
-                            <div class="p-20">
+                            <div class="p-20 detail-img">
 
                             </div>
                     </div>
@@ -109,7 +109,7 @@
                 <div class="cont-col-12">
                     <div class="business-detail-pic">
                        <p class="cont-h4">店铺图片</p>
-                       <div class="detail-pra"></div>
+                       <div class="detail-img"></div>
                     </div>
 
                 </div>
@@ -121,5 +121,8 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
 
  <script  src="/js/lightbox/js/lightbox.js"></script>
+ <script>
+    $(".business-detail-iden").height($(".business-detail-stand").height());
+</script>
 </asp:Content>
 
