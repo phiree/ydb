@@ -49,7 +49,7 @@
                             </div>
                                                     <div class="cont-row">
                                                         <div class="cont-col-3"><span class="cont-h5">商家地址</span></div>
-                                                        <div class="cont-col-9"><%=CurrentBusiness.AreaBelongTo==null?"无":CurrentBusiness.AreaBelongTo.Name %><%=CurrentBusiness.Address %></div>
+                                                        <div class="cont-col-9"><%=string.IsNullOrEmpty( CurrentBusiness.Address )? "无" : CurrentBusiness.Address %></div>
                             </div>
                                                     <div class="cont-row">
                                                         <div class="cont-col-3"><span class="cont-h5">从业时间</span></div>

@@ -42,10 +42,7 @@ public partial class Staff_Edit : BasePage
     /// </summary>
     private void LoadInit()
     {
-        cbxServices.DataSource = bllServiceType.GetAll();
-        cbxServices.DataTextField = "Name";
-        cbxServices.DataValueField = "Id";
-        cbxServices.DataBind();
+        
     }
     /// <summary>
     /// 加载对象初始值
@@ -56,18 +53,9 @@ public partial class Staff_Edit : BasePage
         Name.Text = s.Name;
         NickName.Text = s.NickName;
         Phone.Text = s.Phone;
-        Photo.Text = s.Photo;
+       
         hiGender.Value = s.Gender;
-        foreach (ServiceType servicetype in s.ServiceTypes)
-        {
-            foreach(ListItem item in cbxServices.Items)
-            {
-                if (servicetype.Id.ToString() == item.Value)
-                {
-                    item.Selected = true;
-                }
-            }
-        }
+        
     }
     private void UpdateForm()
     {
@@ -78,17 +66,8 @@ public partial class Staff_Edit : BasePage
         s.NickName = NickName.Text;
         s.Gender = hiGender.Value;
         s.Phone = Phone.Text;
-        s.Photo = Photo.Text;
-        IList<ServiceType> serviceTypes=new List<ServiceType>();
-        foreach (ListItem item in cbxServices.Items)
-        {
-            if (item.Selected == true)
-            {
-                ServiceType selectedServiceType = bllServiceType.GetOne(new Guid(item.Value));
-                serviceTypes.Add(selectedServiceType);
-            }
-        }
-        s.ServiceTypes = serviceTypes;
+        
+         
     }
 
     protected void btnOK_Click(object sender, EventArgs e)
