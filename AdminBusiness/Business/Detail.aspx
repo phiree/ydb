@@ -93,7 +93,7 @@
                         <div class="p-20 detail-img">
                             <asp:Repeater runat="server" ID="rptImageLicense">
                               <ItemTemplate>
-                              <a   data-lightbox="lb_license" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=90&height=90&tt=2' />
+                              <a   data-lightbox="lb_license" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=90&height=90&tt=3' />
                              </a>
                                 </ItemTemplate>
                               </asp:Repeater>
@@ -122,7 +122,10 @@
 
  <script  src="/js/lightbox/js/lightbox.js"></script>
  <script>
-    $(".business-detail-iden").height($(".business-detail-stand").height());
+ $(document).ready(function(){
+     $(".business-detail-iden").height($(".business-detail-stand").height());
+ });
+
 </script>
 </asp:Content>
 
