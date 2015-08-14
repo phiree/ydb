@@ -571,9 +571,9 @@ function initializeService(){
     var suggestGeo = new BMap.Geocoder();
 
         if (typeof G("suggestId").addEventListener != "undefined") {
-            G("suggestId").addEventListener("change", serPointGeo ,false);
+            G("suggestId").addEventListener("input", serPointGeo ,false);
         } else {
-            G("suggestId").attachEvent("onchange", serPointGeo );
+            G("suggestId").attachEvent("oninput", serPointGeo );
         }
 
     function serPointGeo(){
@@ -584,14 +584,14 @@ function initializeService(){
         suggestGeo.getPoint(strSuggest, function(point){
             console.log(point)
             if(point){
-                map.panTo(point)
+                map.centerAndZoom(point,15)
                 currentSP.setPoint(point);
                 currentSP.setRadius(radius);
                 currentSP.draw();
                 autoSaveSerPoint();
             } else {
                 console.log("无法解析当前地址");
-                alert("无法定位您的地址，建议手动设置服务点");
+                //alert("无法定位您的地址，建议手动设置服务点");
             }
         })
     }

@@ -81,7 +81,7 @@
             </div>
             <div class="cont-col-10">
                 <div class="cont-row">
-                    <div>
+                    <div class="map-container">
                     <div id="allmap"></div>
                     <!--<p>添加点击地图监听事件，点击地图后显示当前经纬度</p>-->
                     <!--<p>&#45;&#45;点击地图放置服务点，拖拽服务圆设置圆（服务）半径&#45;&#45;</p>-->
@@ -89,11 +89,11 @@
                     <!--<p>百度地图API商圈功能:</p>-->
                     <!--<div id="city-container"></div>-->
                     <!--<p>百度地图API输入功能:</p>-->
-                    <div id="r-result">请输入服务点位置:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
+                    <div id="r-result" class="map-result">请输入服务点位置：<input type="text" id="suggestId" class="map-result-input" size="20" value="百度" /></div>
                     <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-                    <div id="radius-container">
-                        <span>通过表单设置服务半径:</span>
-                        <select id="ser-radius">
+                    <div id="radius-container" class="map-radius-result">
+                        <span>服务半径：</span>
+                        <select id="ser-radius" class="map-radius-select">
                             <option value="1000">1000</option>
                             <option value="1500">1500</option>
                             <option value="2000">2000</option>
