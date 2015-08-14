@@ -47,7 +47,7 @@
                                                 </div>
                                                 <!--<div class="cont-col-3"> </div>-->
                                                 <div class="cont-col-2"><p class="t-c"><%#Eval("OrderDelay")%></p></div>
-                                                <div class="cont-col-2"> <p class="t-c  enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用1":"启用2" %></p></div>
+                                                <div class="cont-col-2"><div class="t-c"><p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-delete":"btn btn-info" %> enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p></div></div>
                                             </div>
                                         </div>
                                     </div>
@@ -120,10 +120,14 @@
                             if (enabled == "True") {
 //                                $(that).siblings("span").html("已启用");
                                 $(that).html("禁用");
+
+                                $(that).removeClass("btn-info").addClass("btn-delete");
                             }
                             else {
 //                                $(that).siblings("span").html("已禁用");
                                 $(that).html("启用");
+                                $(that).addClass("btn-info").removeClass("btn-delete");
+
                             }
 
                         });
