@@ -920,3 +920,28 @@ a.btn-delete, .btn-delete {
 }
 /*fu**/
 .none{ display:none;}
+/*编辑按钮*/
+a.btn-down-info, .btn-down-info {
+    background: #186f98;
+    color: #eaff02;
+    /*text-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
+    border-color: #0d5374;
+}
+
+.btn-down-info:hover {
+    color: #fff;
+    background-color: #1c77a2;
+    border-color: #0d5374;
+}
+
+.btn-down-info:focus, .btn-down-info.focus {
+    color: #fff;
+    background-color: #186f98;
+    border-color: #0d5374;
+}
+
+.btn-down-info:active:focus {
+    color: #fff;
+    background-color: #186f98;
+    border-color: #0d5374;
+}

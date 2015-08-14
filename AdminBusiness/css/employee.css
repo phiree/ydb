@@ -254,20 +254,7 @@
     background: url("../image/employee/shop_button_1.png") no-repeat center;
 }
 
-.input-file-box {
-    position: relative;
-    width: 90px;
-    height: 90px;
-    overflow: hidden;
-}
 
-.input-file-btn {
-    position: absolute;
-    z-index: 2;
-    width: 90px;
-    height: 90px;
-    opacity: 0;
-}
 
 
 
@@ -322,5 +309,5 @@
 .select-sm cite { width: 170px; line-height: 28px; }
 .epm-th-1{width:20%;}
 .epm-th-2{width:13.3%;}
-.btnAssign{ width:56px; height:30px; background:url(../image/zhipaibtn.png);}
-
+.btnAssign{ width:82px; margin-top:-20px;;}
+.add-inco{ font-size:16px; margin-right:5px; font-weight:bold;}

@@ -12,7 +12,7 @@
       <div class="emp-backage">
          <div class="cont-row">
               <div class="add-user-div">
-               <a href="Edit.aspx?businessid=<%=Request["businessid"] %>"><img src="../image/addUserBtn.png" /></a>
+               <a class="btn btn-info" href="Edit.aspx?businessid=<%=Request["businessid"] %>"><span class="add-inco">+</span>添加新员工</a>
               </div>
          </div>
          <div class="emp-content-div">
@@ -35,7 +35,7 @@
                   <td class="emp-td-style epm-th-2"><%#Eval("NickName") %></td>
                   <td class="emp-td-style epm-th-2"><%#Eval("Gender")%></td>
                   <td class="emp-td-style epm-th-2"><%#Eval("Phone")%></td>
-                  <td class="emp-td-style epm-btn epm-th-1"><span class='<%# ((bool)Eval("IsAssigned"))?"assigned":"notassigned" %>'><%# (bool)Eval("IsAssigned")?"已指派":"未指派" %></span> <input type="button" staffid='<%#Eval("id") %>' class="btnAssign" value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/> 
+                  <td class="emp-td-style epm-btn epm-th-1"><span class='<%# ((bool)Eval("IsAssigned"))?"assigned":"notassigned" %> none'><%# (bool)Eval("IsAssigned")?"已指派":"未指派" %></span> <input type="button" staffid='<%#Eval("id") %>' class=' btnAssign btn <%# (bool)Eval("IsAssigned")?"btn-down-info":"btn-info" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/> 
                   
                   <asp:ImageButton runat="server" CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" ImageUrl="/image/emp-del-btn.png" width="52" height="30"/></td>
                 
@@ -192,11 +192,15 @@
                             var enabled = data.data;
                             if (enabled == "True") {
                                 $(that).siblings("span").html("已指派");
+                                $(that).removeClass("btn-info");
+                                $(that).addClass("btn-down-info");
                                 $(that).val("取消指派");
                             }
                             else {
                                 $(that).siblings("span").html("未指派");
                                 $(that).val("指派");
+                                $(that).removeClass("btn-down-info");
+                                $(that).addClass("btn-info");
                             }
 
                         });
