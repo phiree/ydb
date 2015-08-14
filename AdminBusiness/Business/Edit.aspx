@@ -27,7 +27,7 @@
                                 <div class="headImage fr m-r20">
                                     <div class="input-file-box headFile">
                                       <input type=file class="input-file-btn file-default"  name="upload_file" businessId="<%=b.Id %>" imageType="businessavater" />
-                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiang_90_90.png" %>' ></i>
+                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=3)":"../image/myshop/touxiang_90_90.png" %>' ></i>
                                         <i  class="input-file-mark"></i>
                                         <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
                                     </div>
