@@ -38,7 +38,7 @@
                                      <div class="cont-row service-list-item">
                                         <div class="cont-col-12">
                                             <div class="cont-row">
-                                                <div class="cont-col-1"><p class="t-c text-ellipsis"><a href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></p>
+                                                <div class="cont-col-1"><p class="t-c text-ellipsis"><a class="btn btn-info" href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></p>
                      </div>
                                                 <div class="cont-col-3"><p class="t-c"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></p></div>
                                                  <div class="cont-col-1"><p class="t-c"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></p></div>
