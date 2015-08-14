@@ -29,7 +29,7 @@
                                     <div class="cont-col-1"><p class="t-c">服务时间</p></div>
                                     <div class="cont-col-3"><p class="t-c">服务范围</p></div>
                                     <div class="cont-col-2"><p class="t-c">提前预约时间</p></div>
-                                    <div class="cont-col-2"><p class="t-c">服务状态</p></div>
+                                    <div class="cont-col-2"><p class="t-c">服务启用</p></div>
                                 </div>
                             </div>
                             <div class="service-default-list">
@@ -47,7 +47,7 @@
                                                 </div>
                                                 <!--<div class="cont-col-3"> </div>-->
                                                 <div class="cont-col-2"><p class="t-c"><%#Eval("OrderDelay")%></p></div>
-                                                <div class="cont-col-2"><span class='<%# ((bool)Eval("Enabled"))?"enbaled":"notenabled" %>'><%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></span> <p class="t-c  enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"点击禁用":"点击启用" %></p></div>
+                                                <div class="cont-col-2"> <p class="t-c  enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用1":"启用2" %></p></div>
                                             </div>
                                         </div>
                                     </div>
@@ -118,12 +118,12 @@
                         }, function (data) {
                             var enabled = data.data;
                             if (enabled == "True") {
-                                $(that).siblings("span").html("已启用");
-                                $(that).html("点击禁用");
+//                                $(that).siblings("span").html("已启用");
+                                $(that).html("禁用");
                             }
                             else {
-                                $(that).siblings("span").html("已禁用");
-                                $(that).html("点击启用");
+//                                $(that).siblings("span").html("已禁用");
+                                $(that).html("启用");
                             }
 
                         });
