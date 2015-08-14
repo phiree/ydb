@@ -253,24 +253,24 @@
     business_validate_rules["tbxName"] =
     {
         required: true,
-        maxlength: 100
+        maxlength: 12
     };
     business_validate_messages["tbxName"] =
     {
-        required: "请填写服务名称",
-        maxlength: "不能超过100个字符"
+        required: "请填写店铺名称",
+        maxlength: "不能超过12个字符"
     };
 
      //description
     business_validate_rules["tbxDescription"] =
     {
         required: true,
-        rangelength: [1, 1000]
+        rangelength: [1, 200]
     };
     business_validate_messages["tbxDescription"] =
     {
-        required: "请填写服务介绍",
-        range: "不能超过1000个字符"
+        required: "请填写店铺介绍",
+        rangelength: "不能超过200个字符"
     };
 </script>
 <!--<script src="/js/validation_shop_edit.js" type="text/javascript"></script>-->
