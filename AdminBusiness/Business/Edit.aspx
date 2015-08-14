@@ -83,7 +83,7 @@
 
                                 <div>
                                     <p><input type="text" class="input-lg" id="tbxAddress" runat="server" name="addressDetail" /><span class="text-anno-r">（必填选项）</span></p>
-                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写你的店铺地址</p>
+                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写您详细有效的店铺地址</p>
                                     <!--<p class="cont-input-tip  m-b10"><i class="icon icon-tip"></i>请点击按钮放置店铺坐标</p>-->
                                     <!--<div class="cont-row">-->
                                         <!--<div class="cont-col-3">-->
