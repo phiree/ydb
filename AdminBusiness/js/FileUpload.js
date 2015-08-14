@@ -15,7 +15,7 @@ $(".input-file-btn.file-limit-6").change(function (ev) {
     upLoadImg(this,limit);
 });
 
-$(".input-file-btn").change(function (ev) {
+$(".input-file-btn.file-default").change(function (ev) {
     upLoadImg(this,10);
 });
 
