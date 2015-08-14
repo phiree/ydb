@@ -110,12 +110,19 @@ a.new-add-btn {
     padding: 14px;
     /*border-bottom: 1px solid #ccc;*/
     border-left: 5px solid transparent;
+
 }
 
 .service-default-list>.cont-row:hover{
     padding: 14px;
     /*border-bottom: 1px solid #ccc;*/
     border-left: 5px solid #8dc1f2;
+}
+
+
+.service-list-item .cont-row {
+    height: 34px;
+    line-height: 34px;
 }
 
 /*服务信息查看页面样式*/

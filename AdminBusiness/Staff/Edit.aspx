@@ -17,7 +17,7 @@
                             <div class="clearfix">
                                 <div class="headImage">
                                     <div class="input-file-box headFile">
-                                      <input type=file class="input-file-btn" id="empheadimg"  name="empheadimg" />
+                                      <input type=file class="input-file-btn file-default" id="empheadimg"  name="empheadimg" />
                                         <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />

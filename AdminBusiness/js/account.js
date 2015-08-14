@@ -34,7 +34,7 @@ function initialize(){
                 })
             } else {
                 console.log("无法解析当前地址");
-                alert("地址解析有误");
+                alert("请输入详细有效的地址");
             }
         })
     }

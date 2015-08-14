@@ -166,6 +166,10 @@ a.new-add-btn {
     font-size: 16px;
 }
 
+.detail-img {
+    min-height: 90px;
+}
+
 .detail-pra .cont-row {
     font-size: 16px;
     border-top: 1px solid #e8e8e8;

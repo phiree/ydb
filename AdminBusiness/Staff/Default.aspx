@@ -37,7 +37,7 @@
                   <td class="emp-td-style epm-th-2"><%#Eval("Phone")%></td>
                   <td class="emp-td-style epm-btn epm-th-1"><span class='<%# ((bool)Eval("IsAssigned"))?"assigned":"notassigned" %> none'><%# (bool)Eval("IsAssigned")?"已指派":"未指派" %></span> <input type="button" staffid='<%#Eval("id") %>' class=' btnAssign btn <%# (bool)Eval("IsAssigned")?"btn-down-info":"btn-info" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/> 
                   
-                  <asp:ImageButton runat="server" CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" ImageUrl="/image/emp-del-btn.png" width="52" height="30"/></td>
+                  <asp:Button runat="server" CssClass="btn btn-delete" CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" Text="删除"/></td>
                 
                 </tr></ItemTemplate>
                 </asp:Repeater>

@@ -15,16 +15,40 @@ $.validator.addMethod("time24", function (value, element) {
 var service_validate_rules ={};
 var service_validate_messages={};
 //编号
-service_validate_rules[name_prefix + "Code"] =
-{
-    required: true,
-    maxlength: 50
-};
+
 service_validate_messages[name_prefix + "Code"] =
 {
     required: "请填写编号",
     maxlength: "不能超过100个字符"
 };
+
+service_validate_rules[name_prefix + "Code"] =
+{
+    required: true,
+    integer: true,
+    range: [1, 100000]
+};
+
+
+service_validate_messages[name_prefix + "Code"] =
+{
+    integer: "请输入如-xx1---xx1xx-的数字",
+    required: "请填写编号",
+    range: "请输入如-xx1---xx1xx-的数字"
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
 
 //姓名
 service_validate_rules[name_prefix + "Name"] =
