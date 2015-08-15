@@ -77,7 +77,7 @@
 
             selectOption.click(function () {
                 selectPrint.html($(this).text());
-                selectInput.val($(this).attr("value"));
+                selectInput.val($(this).attr("value")).focus().blur();
                 selectList.hide();
             });
         }

@@ -106,9 +106,9 @@
     </div>
                             <div class="cont-col-10">
                                 <div>
-                                    <div class="d-inb select select-sm years-select">
+                                    <div id="yearsSelect" class="d-inb select select-sm years-select">
                                         <ul></ul>
-                                        <input type="hidden" class="input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
+                                        <input type="text" class="input-lg dis-n" runat="server" focusID="yearsSelect" id="tbxBusinessYears" name="workYears"/>
                                     </div>
                                     <span class="myshop-span">年</span><span class="text-anno-r">（必填选项）</span>
                                 </div>
