@@ -40,10 +40,10 @@
                                     <!--<span class="icon-bar"></span>-->
                                   <!--</button>-->
                                   <a class="navbar-brand" href="#">
-                                       <img alt="一点半" src="/image/master/shop-LOGO-1.png">
+                                       <img alt="一点办" src="/image/master/shop-LOGO-1.png">
                                   </a>
                                   <a class="navbar-brand" >
-                                    一点半商户后台管理
+                                    一点办商户后台管理
                                     </a>
                                 </div>
                                 <ul class="nav navbar-nav navbar-right">

@@ -27,7 +27,7 @@
                                 <div class="headImage fr m-r20">
                                     <div class="input-file-box headFile">
                                       <input type=file class="input-file-btn file-default"  name="upload_file" businessId="<%=b.Id %>" imageType="businessavater" />
-                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=2)":"../image/myshop/touxiang_90_90.png" %>' ></i>
+                                        <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=3)":"../image/myshop/touxiang_90_90.png" %>' ></i>
                                         <i  class="input-file-mark"></i>
                                         <img style="top:auto;left:auto;position:inherit;" class="input-file-pre" src="..\image\00.png" />
                                     </div>
@@ -106,9 +106,9 @@
     </div>
                             <div class="cont-col-10">
                                 <div>
-                                    <div class="d-inb select select-sm years-select">
+                                    <div id="yearsSelect" class="d-inb select select-sm years-select">
                                         <ul></ul>
-                                        <input type="hidden" class="input-lg" runat="server" id="tbxBusinessYears" name="workYears"/>
+                                        <input type="text" class="input-lg dis-n" runat="server" focusID="yearsSelect" id="tbxBusinessYears" name="workYears"/>
                                     </div>
                                     <span class="myshop-span">年</span><span class="text-anno-r">（必填选项）</span>
                                 </div>
