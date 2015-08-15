@@ -100,7 +100,12 @@
                         </div>
                         <p class="cont-h4">负责人执照</p>
                             <div class="p-20 detail-img">
-
+                            <asp:Repeater runat="server" ID="rptCharge">
+                              <ItemTemplate>
+                              <a   data-lightbox="lb_charge" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=90&height=90&tt=3' />
+                             </a>
+                                </ItemTemplate>
+                              </asp:Repeater>
                             </div>
                     </div>
 </div>
@@ -109,7 +114,14 @@
                 <div class="cont-col-12">
                     <div class="business-detail-pic">
                        <p class="cont-h4">店铺图片</p>
-                       <div class="detail-img"></div>
+                       <div class="detail-img">
+                        <asp:Repeater runat="server" ID="rptShow">
+                              <ItemTemplate>
+                              <a   data-lightbox="lb_show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=90&height=90&tt=3' />
+                             </a>
+                                </ItemTemplate>
+                              </asp:Repeater>
+                       </div>
                     </div>
 
                 </div>

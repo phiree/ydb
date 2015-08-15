@@ -16,7 +16,8 @@ namespace Dianzhu.DAL
             {
                 where += " and s.ServiceType.Id='" + serviceTypeId + "'";
             }
-            return GetList("select s from Staff s where " + where, pageindex, pagesize, out totalRecord);
+            string total_query = "select count(*) from Staff s where " + where;
+            return GetList("select s from Staff s where " + where,"s.Code",true, pageindex, pagesize, out totalRecord,total_query);
         }
         
     }

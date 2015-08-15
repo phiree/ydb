@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
     CodeFile="Default.aspx.cs" Inherits="Staff_Default" %>
-
+   <%@ Register Namespace="Wuqi.Webdiyer" Assembly="AspNetPager" TagPrefix="UC" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="/css/employee.css" rel="stylesheet" type="text/css" />
 </asp:Content>
@@ -47,16 +47,13 @@
             
             </table>
          </div>
+        
+      
           <div class="pageNum">
          
-             <a href="#">首页</a>|
-             <a href="#">上一页</a>|
-             <a href="#">第2页</a>|
-             <a href="#">第3页</a>|
-             <a href="#">第4页</a>|
-             <a href="#">下一页</a>|
-            <a href="#">尾页</a>
-          
+            <UC:AspNetPager runat="server" FirstPageText="首页" NextPageText="下一页" 
+       PrevPageText="上一页"  
+        id="pager" PageSize="2" UrlPaging="true" LastPageText="尾页"></UC:AspNetPager>
           
           </div>
       </div>

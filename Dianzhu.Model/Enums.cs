@@ -13,6 +13,7 @@ namespace Dianzhu.Model.Enums
         Business_Show,//商家展示图片
         Business_ChargePersonIdCard,//负责人证件照片
         Business_Avatar,//店铺头像
+        Staff_Avatar,//职员头像
     }
     public enum PayType
     {

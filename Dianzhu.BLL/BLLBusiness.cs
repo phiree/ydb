@@ -34,7 +34,9 @@ namespace Dianzhu.BLL
             )
         {
             //注册用户
-            DZMembership member = new DZMembership { UserName=username,Password=FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5")};
+            DZMembership member = new DZMembership { UserName=username,
+                Password=FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"),
+             RegisterValidateCode=Guid.NewGuid().ToString(),IsRegisterValidated=false};
             if (Regex.IsMatch(username, @".+@.+\..+"))
             {
                member.Email = username;

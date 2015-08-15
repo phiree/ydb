@@ -20,8 +20,16 @@ public partial class Staff_Default : BasePage
     private void BindList()
     {
         int total=30;
-        Business b = CurrentBusiness; 
-        IList<Staff> staffList=bllStaff.GetList(b.Id, Guid.Empty, 0, 10, out total);
+        Business b = CurrentBusiness;
+        string strIndex = Request["page"];
+        int index = 0;
+        if (!string.IsNullOrEmpty(strIndex))
+        {
+            index = int.Parse(strIndex);
+        }
+       
+        IList<Staff> staffList=bllStaff.GetList(b.Id, Guid.Empty,index, pager.PageSize, out total);
+        pager.RecordCount = total;
         rptStaff.DataSource = staffList;
         rptStaff.DataBind();
 

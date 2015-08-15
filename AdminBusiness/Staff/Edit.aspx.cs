@@ -53,8 +53,8 @@ public partial class Staff_Edit : BasePage
         Name.Text = s.Name;
         NickName.Text = s.NickName;
         Phone.Text = s.Phone;
-       
-        hiGender.Value = s.Gender;
+
+        hiGender.Value = s.Gender == "男" ? "0" : "1";
         
     }
     private void UpdateForm()
@@ -64,7 +64,7 @@ public partial class Staff_Edit : BasePage
         s.Code = Code.Text;
         s.Name = Name.Text;
         s.NickName = NickName.Text;
-        s.Gender = hiGender.Value;
+        s.Gender = hiGender.Value == "0" ? "男" : "女";
         s.Phone = Phone.Text;
         
          
@@ -74,7 +74,7 @@ public partial class Staff_Edit : BasePage
     {
         UpdateForm();
         bllStaff.SaveOrUpdate(s);
-        PHSuit.Notification.Show(Page, "", "保存成功", Request.Url.OriginalString);
+        Response.Redirect("/staff/default.aspx?businessid="+Request["businessId"]);
        
 
     }

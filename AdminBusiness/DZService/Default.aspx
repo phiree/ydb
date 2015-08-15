@@ -43,7 +43,8 @@
                                                 <div class="cont-col-3"><p class="t-c"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></p></div>
                                                  <div class="cont-col-1"><p class="t-c"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></p></div>
                                                 <div class="cont-col-3">
-                                                <span id="spServiceArea" class="t-c text-ellipsis"><input type="hidden" id="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' /></span>
+                                                <span class="spServiceArea" class="t-c text-ellipsis"></span>
+                                                <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
                                                 </div>
                                                 <!--<div class="cont-col-3"> </div>-->
                                                 <div class="cont-col-2"><p class="t-c"><%#Eval("OrderDelay")%></p></div>
@@ -153,11 +154,12 @@
            readTypeData();
 
 
-//           var jsonServiceArea = $.parseJSON($("#hiServiceArea").val());
-//           $("#spServiceArea").html(jsonServiceArea.provinceName
-//                               + jsonServiceArea.cityName
-//                               + jsonServiceArea.boroughName
-//                               + jsonServiceArea.businessName);
+
+           $(".spServiceArea").each(function () {
+               var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());
+           $(this).html(jsonServiceArea.serPointAddress);
+           });
+                            
 
        });
     </script>
