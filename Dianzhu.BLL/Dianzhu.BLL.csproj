@@ -82,6 +82,7 @@
     <Compile Include="BLLDeviceBind.cs" />
     <Compile Include="BLLDZTag.cs" />
     <Compile Include="Validator\ValidatorDZMemership.cs" />
+    <Compile Include="BLLReception.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
