@@ -10,7 +10,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 <div class="cont-wrap secret-wrap ">
-      <div class="emp-backage">
+      <div class="cont-container">
          <div class="cont-row emp-cont-row emp-mar-top">
               <div class="cont-col-2"><p class="cont-sub-title">头像</p></div>
                <div class="cont-col-10">
@@ -28,8 +28,6 @@
 
           </div>
           </div>
-          
-
 
            <div class="cont-row emp-cont-row">
             <div class="cont-col-2">
@@ -132,15 +130,14 @@
 <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
 <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
 <script src="/js/jquery.form.min.js" type="text/javascript"></script>
- <script src="/js/global.js" type="text/javascript"></script>
+<script src="/js/global.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/TabSelection.js"></script>
 <script src="/js/FileUpload.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
-    </script>
+<script type="text/javascript">
+    var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
+</script>
 <script src="/js/validation_emp_edit.js" type="text/javascript"></script>
-  <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
+<script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $($("form")[0]).validate(
