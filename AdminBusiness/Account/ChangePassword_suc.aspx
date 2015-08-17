@@ -7,23 +7,12 @@
     <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
     </asp:Content>
     <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <div class="mainContent clearfix">
-            <div class="leftContent" id="leftCont">
-                <div>
-                    <ul>
-                        <li><a href="./Default.aspx"><i class="side-btn side-btn-myshop"></i></a></li>
-                        <li><a href="./Security.aspx"><i class="side-btn side-btn-secret"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="rightContent" id="rightCont">
-                
-                <div class="secret-title">
-                    <span >账号信息相关</span>
-                </div>
+    <div>
+
+            <!--<div class="rightContent" id="rightCont">-->
                 <div class="secret-cont">
-                    <div class="secret-m standard-info">
-                            <div class="secret-change-m">
+                    <div class="secret-change-suc min-height700 vmBox">
+                            <div class="change-suc-m vm">
                                 <div id="CPResult" class="m-auto">
                                     <div class="t-c">
                                         <i class="icon secret-icon-done"></i>
@@ -37,7 +26,7 @@
                             </div>
                     </div>
                 </div>
-            </div>
+            <!--</div>-->
     </div>
     </asp:Content>
     <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
