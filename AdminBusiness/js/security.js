@@ -22,8 +22,6 @@ $(".btnChange").click(function (eve) {
             break;
     }
 
-
-   
     
     changed_data["changed_field"] = change_field;
     changed_data["changed_value"] = newValue;
@@ -43,6 +41,10 @@ $(".btnChange").click(function (eve) {
         }); //post
 });     //click
 
+/* 简单判断验证邮箱是否填写，以显示邮箱验证按钮 */
+if ($("#currentUserEmail").html() != ""){
+    $("#currentUserEmailVali").removeClass("dis-n");
+}
 
 function isEmail(value) {
     var email_rlue = /\w+((-w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+/;
@@ -75,3 +77,4 @@ function warnText ( ele , str ){
         $that.parent().find(".warn-text").text(str);
     }
 }
+

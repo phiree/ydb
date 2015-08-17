@@ -45,14 +45,14 @@
                                         <p class="secret-d-t">绑定邮箱:</p>
                                     </div>
                                     <div class="cont-col-2">
-                                        <span><%=CurrentUser.Email%></span>
+                                        <span id="currentUserEmail"><%=CurrentUser.Email%></span>
                                     </div>
                                     <div class="cont-col-2">
                                         <a id="lb_changeEmail" class="m-l20 blue-a" href="javascript:void(0);">修改</a>
 
                                     </div>
                                     <div class="cont-col-6">
-                                    <p class="secret-d-a d-inb"><% if (CurrentUser.IsRegisterValidated)
+                                    <p id="currentUserEmailVali" class="secret-d-a d-inb dis-n"><% if (CurrentUser.IsRegisterValidated)
                                        {%>已验证<%}
                                        else
                                        {%>
