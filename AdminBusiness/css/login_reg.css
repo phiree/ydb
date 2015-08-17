@@ -202,7 +202,7 @@ input[type="text"]:focus,input[type="password"]:focus {
     *display: inline;
     *zoom: 1;
     *margin-top: -2px;
-    *height: 39px;
+    *height: 20px;
     *border: 0;
 }
 
@@ -258,7 +258,7 @@ input[type="text"]:focus,input[type="password"]:focus {
     background: url("../image/login_reg/shop_button_01.png") no-repeat center;
 }
 
-.loginBox { width: 300px; margin-bottom: 10px; }
+.loginBox { width: 300px; margin-bottom: 10px; *width: auto;}
 
 .reg-box-l {
     float: left;
