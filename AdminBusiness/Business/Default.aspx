@@ -55,7 +55,7 @@
                               </ul>
                             </li>
                             <li role="presentaion" class="nav-li-bj ">
-                            <asp:LoginStatus ID="LoginStatus1" formnovalidate  runat="server"  />
+                            <asp:LoginStatus ID="LoginStatus1" formnovalidate  LogoutText="注销" runat="server"  />
 
                             </li>
                                   </ul>

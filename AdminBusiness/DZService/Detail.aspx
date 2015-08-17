@@ -34,12 +34,12 @@
                     <div class="cont-col-9">
                         <div class="cont-row">
                             <div class="cont-col-2"><p>服务区域:</p></div>
-                            <div class="cont-col-10"><span id="spServiceArea" class="text-ellipsis">
-                            </span>
+                            <div class="cont-col-10"><span id="spServiceArea"   class="spServiceArea text-ellipsis">
+                            </span>    <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%=CurrentService.BusinessAreaCode %>' />
+                       
                             
                             </div>
-                            <input type="hidden" id="hiServiceArea" value='<%=CurrentService.BusinessAreaCode %>' />
-                        </div>
+                         </div>
                     </div>
                 </div>
                 <div class="cont-row">
@@ -80,11 +80,11 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
 <script>
     $(function () {
-    var jsonServiceArea=$.parseJSON($("#hiServiceArea").val());
-       $("#spServiceArea").html(jsonServiceArea.provinceName
-                               +jsonServiceArea.cityName
-                               +jsonServiceArea.boroughName
-                               +jsonServiceArea.businessName);
+
+        $(".spServiceArea").each(function () {
+            var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());
+            $(this).html(jsonServiceArea.serPointAddress);
+        });
      });
 </script>
 </asp:Content>

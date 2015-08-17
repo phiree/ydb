@@ -122,16 +122,10 @@
                   
                     <a class="btn btn-cancel btn-big m-l10" href="#">取消</a>
                 </div>
-    </div>
+    
 
     
-                <asp:TextBox ID="Gender" CssClass="none" runat="server"></asp:TextBox>
-
-
-                <asp:TextBox ID="Photo" CssClass="none" runat="server"></asp:TextBox>
-
-                <asp:CheckBoxList runat="server" ID="cbxServices" DataTextField="Name" DataValueField="Id">
-                </asp:CheckBoxList>
+              
 
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" runat="server">

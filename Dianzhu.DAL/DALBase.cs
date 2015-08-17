@@ -156,7 +156,7 @@ namespace Dianzhu.DAL
             //todo 
             if (!string.IsNullOrEmpty(queryCount))
             { 
-            //queryCount = NLibrary.StringHelper.BuildCountQuery(query);
+            //queryCount =phsu.StringHelper.BuildCountQuery(query);
 
             IQuery qryCount = session.CreateQuery(queryCount);
             totalRecords = (int)qryCount.UniqueResult<long>();

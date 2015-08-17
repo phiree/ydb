@@ -12,11 +12,23 @@ public partial class Business_Detail :BasePage
         if(!IsPostBack)
         {
          BindLicense();
+         BindShow();
+         BindCharge();
         }
     }
     private void BindLicense()
     {
         rptImageLicense.DataSource = CurrentBusiness.BusinessLicenses;
         rptImageLicense.DataBind();
+    }
+    private void BindShow()
+    {
+        rptShow.DataSource = CurrentBusiness.BusinessShows;
+        rptShow.DataBind();
+    }
+    private void BindCharge()
+    {
+        rptCharge.DataSource = CurrentBusiness.BusinessChargePersonIdCards;
+        rptCharge.DataBind();
     }
 }

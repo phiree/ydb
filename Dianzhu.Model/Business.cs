@@ -363,6 +363,10 @@ namespace Dianzhu.Model
     /// </summary>
     public class BusinessImage
     {
+        public BusinessImage()
+        {
+            IsCurrent = false;
+        }
         public virtual Guid Id { get; set; }
         /// <summary>
         /// 图片名称,图片存储路径由配置确定.
@@ -388,6 +392,10 @@ namespace Dianzhu.Model
         /// 图片的类型,
         /// </summary>
         public virtual Enums.enum_ImageType ImageType { get; set; }
+        /// <summary>
+        /// 是否是当前使用的图片
+        /// </summary>
+        public virtual bool IsCurrent { get; set; }
     }
 
 }

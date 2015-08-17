@@ -48,6 +48,17 @@
 
                 }, "结束时间应该大于开始时间");
 
+                $.validator.addMethod("totalday_should_greater_totalhour", function (value, element) {
+
+                   
+                    var day =parseInt( $("#tbxMaxOrdersPerDay").val());
+                    var hour =parseInt( $("#tbxMaxOrdersPerHour").val());
+
+                    
+                    return day >= hour;
+
+                }, "每日接单量应该大于每小时最大接单量");
+
                 $($("form")[0]).validate(
                     {
                         errorElement: "p",

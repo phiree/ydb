@@ -42,8 +42,11 @@ namespace Dianzhu.Model
        /// 职员的服务分类
        /// </summary>
        public virtual IList<ServiceType> ServiceTypes { get; set; }
-
-       
+       /// <summary>
+       /// 职员的头像.
+       /// </summary>
+       public virtual IList<BusinessImage> StaffAvatar { get; set; }
        
     }
+    
 }

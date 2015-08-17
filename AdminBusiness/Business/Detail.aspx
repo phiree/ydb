@@ -49,7 +49,7 @@
                             </div>
                                                     <div class="cont-row">
                                                         <div class="cont-col-3"><span class="cont-h5">商家地址</span></div>
-                                                        <div class="cont-col-9"><%=CurrentBusiness.AreaBelongTo==null?"无":CurrentBusiness.AreaBelongTo.Name %><%=CurrentBusiness.Address %></div>
+                                                        <div class="cont-col-9"><%=string.IsNullOrEmpty( CurrentBusiness.Address )? "无" : CurrentBusiness.Address %></div>
                             </div>
                                                     <div class="cont-row">
                                                         <div class="cont-col-3"><span class="cont-h5">从业时间</span></div>
@@ -100,7 +100,12 @@
                         </div>
                         <p class="cont-h4">负责人执照</p>
                             <div class="p-20 detail-img">
-
+                            <asp:Repeater runat="server" ID="rptCharge">
+                              <ItemTemplate>
+                              <a   data-lightbox="lb_charge" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=90&height=90&tt=3' />
+                             </a>
+                                </ItemTemplate>
+                              </asp:Repeater>
                             </div>
                     </div>
 </div>
@@ -109,7 +114,14 @@
                 <div class="cont-col-12">
                     <div class="business-detail-pic">
                        <p class="cont-h4">店铺图片</p>
-                       <div class="detail-img"></div>
+                       <div class="detail-img">
+                        <asp:Repeater runat="server" ID="rptShow">
+                              <ItemTemplate>
+                              <a   data-lightbox="lb_show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=90&height=90&tt=3' />
+                             </a>
+                                </ItemTemplate>
+                              </asp:Repeater>
+                       </div>
                     </div>
 
                 </div>

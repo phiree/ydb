@@ -22,7 +22,7 @@ $.validator.addMethod("integer", function (value, element) {
 }, "请输入整数");
 
 $.validator.addMethod("web", function (value, element) {
-    return value == "" ? true : /^([A-Za-z]+\.){2}[A-Za-z]+$/.test(value);
+    return value == "" ? true : /^([^\.]+\.){1,3}[^\.]+$/.test(value);
 }, "请输入有效的网址");
 
 var service_validate_rules ={};

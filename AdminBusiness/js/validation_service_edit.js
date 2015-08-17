@@ -9,7 +9,7 @@ $.validator.addMethod("integer", function (value, element) {
 $.validator.addMethod("time24", function (value, element) {
     return /([01]\d|2[0-3])(:[0-5]\d)/.test(value);
 }, "Invalid time format.");
-
+ 
 var service_validate_rules ={};
 var service_validate_messages={};
 
@@ -120,7 +120,7 @@ service_validate_messages[name_prefix + "tbxServiceTimeBegin"] =
 {
 
     required: true,
-    endtime_should_greater_starttime:true,
+   // endtime_should_greater_starttime:true,
     time24: true
 
 
@@ -138,7 +138,8 @@ service_validate_rules[name_prefix + "tbxMaxOrdersPerDay"] =
 {
     integer: true,
     required: true,
-    range:[1,2000]
+    range:[1,2000],
+    totalday_should_greater_totalhour: true
 
 
 };
@@ -146,7 +147,9 @@ service_validate_messages[name_prefix + "tbxMaxOrdersPerDay"] =
 {
 
     required: "请填写日最大接单量",
-    range: "请输入1-2000之间的数值"
+    range: "请输入1-2000之间的数值",
+    
+     
 
 
 };
@@ -155,7 +158,8 @@ service_validate_rules[name_prefix + "tbxMaxOrdersPerHour"] =
 {
     integer: true,
     required: true,
-    range: [1, 1000]
+    range: [1, 1000],
+    totalday_should_greater_totalhour: true
 
 
 };
