@@ -38,17 +38,17 @@
                                      <div class="cont-row service-list-item">
                                         <div class="cont-col-12">
                                             <div class="cont-row">
-                                                <div class="cont-col-1"><p class="t-c text-ellipsis"><a class="btn btn-info" href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></p>
+                                                <div class="cont-col-1"><p class="t-c text-ellipsis"><a class="btn btn-info text-ellipsis" href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></p>
                      </div>
                                                 <div class="cont-col-3"><p class="t-c"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></p></div>
                                                  <div class="cont-col-1"><p class="t-c"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></p></div>
                                                 <div class="cont-col-3">
-                                                <span class="spServiceArea" class="t-c text-ellipsis"></span>
+                                                <p class="spServiceArea text-ellipsis t-c"></p>
                                                 <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
                                                 </div>
                                                 <!--<div class="cont-col-3"> </div>-->
                                                 <div class="cont-col-2"><p class="t-c"><%#Eval("OrderDelay")%></p></div>
-                                                <div class="cont-col-2"><div class="t-c"><p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-delete":"btn btn-info" %> enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p></div></div>
+                                                <div class="cont-col-2"><div class="t-c"><p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-delete":"btn btn-info" %> enable_service m-r10" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p><a class="btn btn-delete">删除</a></div></div>
                                             </div>
                                         </div>
                                     </div>
@@ -119,13 +119,10 @@
                         }, function (data) {
                             var enabled = data.data;
                             if (enabled == "True") {
-//                                $(that).siblings("span").html("已启用");
                                 $(that).html("禁用");
-
                                 $(that).removeClass("btn-info").addClass("btn-delete");
                             }
                             else {
-//                                $(that).siblings("span").html("已禁用");
                                 $(that).html("启用");
                                 $(that).addClass("btn-info").removeClass("btn-delete");
 
