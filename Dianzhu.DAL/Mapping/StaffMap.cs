@@ -22,7 +22,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Photo);
             Map(x => x.IsAssigned);
             HasMany<ServiceType>(x => x.ServiceTypes).Not.LazyLoad();
-            HasMany<BusinessImage>(x => x.StaffAvatar);
+            HasMany<BusinessImage>(x => x.StaffAvatar).Cascade.AllDeleteOrphan();
             
         }
     }

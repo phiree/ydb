@@ -13,7 +13,7 @@ public partial class Business_Edit : BasePage
 {
     public Business b = new Business();
     BLLBusiness bllBusiness = new BLLBusiness();
-
+    
     BLLBusinessImage bllBi = new BLLBusinessImage();
     bool IsNew {get;set;}
     protected void Page_Load(object sender, EventArgs e)
@@ -25,6 +25,7 @@ public partial class Business_Edit : BasePage
             businessId = new Guid(strBusinessId);
             IsNew = false;
             b = bllBusiness.GetOne(businessId.Value);
+            
         }
         else
         {
