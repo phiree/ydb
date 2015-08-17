@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/adminBusiness.master"
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/site.master"
     CodeFile="ChangePassword_suc.aspx.cs" Inherits="Account_ChangePassword" %>
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
@@ -17,29 +17,7 @@
                 </div>
             </div>
             <div class="rightContent" id="rightCont">
-                <div class="myshopInfoArea clearfix">
-                    <div class="myshopInfoTilte">
-                        <h1>商家基本信息</h1>
-                    </div>
-                    <div class="headInfoArea clearfix">
-                        <div class="headImage">
-                            <img src="../image/myshop/touxiangkuang_11.png" alt="头像"/>
-                        </div>
-                        <div class="headInfo">
-                            <h3 style="margin-top:15px;"><%=CurrentBusiness.Name %></h3>
-                            <p class="InfoCompletetxt">资料完成程度</p>
-                            <div class="InfoPercentage">
-                                <div class="InfoComplete">
-                                    <span class="progress" style="width:<%=CurrentBusiness.CompetePercent%>%" ></span>
-                                </div>
-                                <span class="completePercentage"> <%=CurrentBusiness.CompetePercent%>%</span>
-                            </div>
-                        </div>
-                        <div class="headEditImg">
-                            <a href="javascript:void(0);" class="headEditBtn"></a>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="secret-title">
                     <span >账号信息相关</span>
                 </div>

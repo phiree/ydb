@@ -12,6 +12,8 @@ public class BasePage:System.Web.UI.Page
 {
     DZMembership currentUser;
     BLLBusiness bllBusiness = new BLLBusiness();
+    bool needBusiness = true;
+    public bool NeedBusiness { get; set; }
     public DZMembership CurrentUser
     {
         get { return currentUser; }
@@ -21,6 +23,7 @@ public class BasePage:System.Web.UI.Page
     public Business CurrentBusiness
     {
         get {
+            if (!needBusiness) { return null; }
             if (b != null) { return b; }
 
             string strBusinessId = Request["businessId"];

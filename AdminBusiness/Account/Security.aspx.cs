@@ -13,9 +13,10 @@ public partial class Account_Security :BasePage
     BLLBusinessImage bllBi = new BLLBusinessImage();
     protected void Page_Load(object sender, EventArgs e)
     {
+        NeedBusiness = false;
         if (!IsPostBack)
         {
-           // BindChargePersonIdCards();
+            
         }
     }
 
@@ -25,23 +26,7 @@ public partial class Account_Security :BasePage
         Response.Redirect("~/error.aspx?msg="+ex.Message);
     }
 
-   private void BindChargePersonIdCards()
-   {
-
-       rptChargePersonIdCards.DataSource = CurrentBusiness.BusinessChargePersonIdCards;
-       rptChargePersonIdCards.DataBind();
-   }
-
-   protected void rptChargePersonIdCards_ItemCommand(object source, RepeaterCommandEventArgs e)
-   {
-       if (e.CommandName.ToLower().Trim() == "delete")
-       {
-           Guid imageId = new Guid(e.CommandArgument.ToString());
-           bllBi.Delete(imageId);
-           PHSuit.Notification.Show(Page, "", "删除成功", Request.RawUrl);
-           BindChargePersonIdCards();
-       }
-   }
+ 
    protected void btnResendEmailVerify_Click(object sender, EventArgs e)
    { 
        string verifyUrl = "http://" + Request.Url.Authority + "/verify.aspx";

@@ -46,5 +46,9 @@ namespace Dianzhu.BLL
         {
             return DALDZService.GetAll<DZService>();
         }
+        public void Delete(DZService dz)
+        {
+            DALDZService.Delete(dz);
+        }
     }
 }

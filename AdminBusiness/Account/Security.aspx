@@ -174,19 +174,7 @@
                         <p class="cont-sub-title">
                             <i class="icon myshop-icon-ownerPic"></i>负责人证件照上传</p>
                         <div class="clearfix">
-                            <asp:Repeater runat="server" ID="rptChargePersonIdCards" OnItemCommand="rptChargePersonIdCards_ItemCommand">
-                                <ItemTemplate>
-                                    <div class="download-img-pre fl">
-                                        <asp:Button Text="" ID="ibCharge" OnClientClick="javascript:return confirm('确定删除?')"
-                                            CssClass="download-img-delete" runat="server" CommandName="delete" ImageUrl="/image/myshop/shop_icon_91.png"
-                                            ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>' />
-                                        <a class="download-img-show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                            <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=2'
-                                                class="imgCharge" />
-                                        </a>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:Repeater>
+                          
                            
                         </div>
                     </div>
