@@ -39,8 +39,8 @@
 #if DEBUG
     
 #endif
-      HttpContext.Current.Response.Redirect("/error.aspx?msg=" 
-          + HttpContext.Current.Server.UrlEncode(exc.Message+"----"+ exc.InnerException.Message));
+      //HttpContext.Current.Response.Redirect("/error.aspx?msg=" 
+      //    + HttpContext.Current.Server.UrlEncode(exc.Message+"----"+ exc.InnerException.Message));
      
   // Handle HTTP errors
  

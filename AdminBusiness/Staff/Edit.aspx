@@ -17,8 +17,8 @@
                             <div class="clearfix">
                                 <div class="headImage">
                                     <div class="input-file-box headFile">
-                                      <input type=file class="input-file-btn file-default" id="empheadimg"  name="empheadimg" />
-                                        <i class="input-file-bg"></i>
+                                      <input type=file class="input-file-btn file-default" runat="server" id="empheadimg"  name="empheadimg" />
+                                        <i class="input-file-bg" style='background-image:url(<%=StaffAvatarUrl%>)'></i>
                                             <i class="input-file-mark"></i>
                                             <img class="input-file-pre" src="..\image\00.png" />
                                     </div>
@@ -134,7 +134,7 @@
 <script src="/js/jquery.form.min.js" type="text/javascript"></script>
  <script src="/js/global.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/TabSelection.js"></script>
-<script src="/js/FileUpload.js" type="text/javascript"></script>
+<!--<script src="/js/FileUpload.js" type="text/javascript"></script>-->
 
     <script type="text/javascript">
         var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';

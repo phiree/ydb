@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+using Dianzhu.Model.Enums;
 //编辑 和 新增,合二为一.
 public partial class Staff_Edit : BasePage
 {
@@ -13,6 +14,7 @@ public partial class Staff_Edit : BasePage
  
     private bool IsNew { get { return StaffId == Guid.Empty; } }//新增. 或者 编辑
     Staff s = new Staff();
+    public string StaffAvatarUrl = "/image/myshop/touxiang_90_90.png";
     BLLStaff bllStaff = new BLLStaff();
     ServiceType ServiceType = new ServiceType();
     BLLServiceType bllServiceType = new BLLServiceType();
@@ -53,27 +55,44 @@ public partial class Staff_Edit : BasePage
         Name.Text = s.Name;
         NickName.Text = s.NickName;
         Phone.Text = s.Phone;
-
-        hiGender.Value = s.Gender == "男" ? "0" : "1";
+        var avatarList = s.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
+        if(avatarList.Count>0)
+        {
+            StaffAvatarUrl = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(avatarList[0].ImageName) + "&width=90&height=90&tt=3)";
+      
+        }
+       hiGender.Value = s.Gender == "男" ? "0" : "1";
         
     }
     private void UpdateForm()
-    {
+    { 
         Business b = CurrentBusiness;
         s.Belongto = b;
         s.Code = Code.Text;
         s.Name = Name.Text;
         s.NickName = NickName.Text;
         s.Gender = hiGender.Value == "0" ? "男" : "女";
-        s.Phone = Phone.Text;
-        
+        s.Phone = Phone.Text;            
          
+    }
+    private void UploadImage()
+    {
+        enum_ImageType enum_imagetype = enum_ImageType.Staff_Avatar;
+        if (empheadimg.PostedFile.ContentLength > 2 * 1024 * 1024)
+        {
+            PHSuit.Notification.Alert(this, "上传的图片超过2M，请重试!");
+        }
+        string imagePath = bllStaff.Save(StaffId, empheadimg.PostedFile, enum_imagetype);
+        
+
     }
 
     protected void btnOK_Click(object sender, EventArgs e)
     {
         UpdateForm();
         bllStaff.SaveOrUpdate(s);
+        StaffId = s.Id;
+        UploadImage();
         Response.Redirect("/staff/default.aspx?businessid="+Request["businessId"]);
        
 
