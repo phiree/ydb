@@ -68,7 +68,7 @@
                 <!--/sidenav-->
 
 
-            <div>
+            <div class="content">
                 <asp:ContentPlaceHolder ID="pageDesc" runat="server">
                 </asp:ContentPlaceHolder>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
