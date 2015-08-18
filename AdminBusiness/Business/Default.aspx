@@ -1,15 +1,13 @@
 ﻿
 <%@ Page Language="C#" EnableEventValidation="false" AutoEventWireup="true" CodeFile="~/Business/Default.aspx.cs" Inherits="Business_Default" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--<!doctype html>-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <!--店铺列表-->
 <html lang="en">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="一点办后台管理系统" />
+    <meta name="keywords" content="一点办" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" >
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
     <link href="/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />

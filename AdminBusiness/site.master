@@ -1,13 +1,12 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="site.master.cs"
     Inherits="site" %>
-
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="一点办后台管理系统" />
+    <meta name="keywords" content="一点办" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" >
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
     <link href="/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
