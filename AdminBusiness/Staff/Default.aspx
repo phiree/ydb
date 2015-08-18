@@ -53,7 +53,7 @@
          
             <UC:AspNetPager runat="server" FirstPageText="首页" NextPageText="下一页" 
        PrevPageText="上一页"  
-        id="pager" PageSize="2" UrlPaging="true" LastPageText="尾页"></UC:AspNetPager>
+        id="pager" PageSize="10" UrlPaging="true" LastPageText="尾页"></UC:AspNetPager>
           
           </div>
       </div>
@@ -101,30 +101,12 @@
         <script type="text/javascript" src="/js/jquery.lightbox_me.js" ></script>
         <script type="text/javascript" src="../js/global.js"></script>
         <script type="text/javascript">
-            var tabCheckedShow = function(that,checked){
-    //        console.log($('.item').html());
-                if (checked == true) {
-                    var checkedShowBox = $('#serCheckedShow');
-                    var checkedItem = $($(that).parents('.serviceTabsItem')).find('.item');
-                    var checkText = checkedItem.html();
-                    var checkTextNode = "<span>" + ' ' + checkText + ' ' + "</span>";
-                    checkedShowBox.append(checkTextNode);
-                } else {
-                    return;
-                }
-            }
-
             $(function () {
-
-               
             /* 当鼠标移到表格上是，当前一行背景变色 */
-
                 $(".emp-table tr td").mouseover(function () {
                     $(this).parent().find("td").css("background-color", "#b0d3f5");
                 });
-     
           /* 当鼠标在表格上移动时，离开的那一行背景恢复 */
-
               $(".emp-table tr td").mouseout(function () {
                 var bgc = $(this).parent().attr("bg");
                 $(this).parent().find("td").css("background-color",bgc);
@@ -135,47 +117,6 @@
                $(".emp-table tr:odd").attr("bg", color);
                $(".emp-table tr:even").attr("bg", "#fff");
 
-
-     
-    
-
-
-
-
-
-
-
-
-
-
-
-                //            $("#tabsServiceType").TabSelection({
-                //                "datasource":
-                //                [
-                //                    { "name": "维修", "id": 1, "parentid": 0 },
-                //                    { "name": "家电维修", "id": 2, "parentid": 1 },
-                //                     { "name": "冰箱维修", "id":3, "parentid": 2 },
-                //                    { "name": "冰箱维修", "id": 6, "parentid": 2 },
-                //                    { "name": "冰箱维修", "id": 7, "parentid": 2 },
-                //                    { "name": "冰箱维修", "id": 8, "parentid": 2 },
-
-                //                    { "name": "更换氟利昂", "id": 4, "parentid": 3 },
-                //                    { "name": "交通服务", "id": 5, "parentid": 0 }
-                //                ]
-                //            });
-                //        });
-                $("#tabsServiceType").TabSelection({
-                    "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
-                    "enable_multiselect":true,
-                    'check_changed': function (that,id, checked) {
-    //                    alert(id + '' + checked);
-                          tabCheckedShow(that,checked);
-                    },
-
-                    'leaf_ clicked': function (id, checked) {
-    //                alert(id);
-                    }
-                });
             });
 
             $(".btnAssign").click(function () {
@@ -202,12 +143,6 @@
 
                         });
             });
-            $("#addEmployee").click(function(e){
-                $('#SerlightBox').lightbox_me({
-                    centered: true
-                });
-                e.preventDefault();
-            })
 
 
         </script>
