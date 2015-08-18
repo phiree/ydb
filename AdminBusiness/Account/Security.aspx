@@ -3,25 +3,16 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="../css/myshop.css" rel="stylesheet" type="text/css" />
-    <style>
-    .content
-    {
-        padding-left:0;
-        }
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
      
-            <div style="width:1200px" class="cont-wrap secret-wrap">
-                        <div class="cont-row">
-                        <div class="cont-title">
-                            <h1 class="cont-h1 fu-cont-h1">账号安全</h1>
-                        </div>
-                    </div>
+            <div class="cont-wrap secret-wrap">
+                <div class="cont-title">
+                    <h1 class="cont-h1 fu-cont-h1">账号安全</h1>
+                </div>
                 <div class="cont-container">
-
                     <div class="cont-row secret-row">
                         <div class="cont-col-12 standard-cont">
                                 <p class="fu-cont-sub-title fu-top-height">您的基础信息</p>

@@ -316,50 +316,6 @@
     padding: 5px 5px;
     background: #549DC8;
 }
-/*.secret-cont {*/
-    /*padding: 30px;*/
-    /*color: #58789a;*/
-/*}*/
-
-/*.secret-cont a {*/
-    /*color: #31b6fc;*/
-/*}*/
-
-/*.secret-title {*/
-    /*padding: 0 20px;*/
-    /*height: 60px;*/
-    /*background:#f6fafe;*/
-    /*border-bottom:1px solid #C0D1E3;*/
-    /*line-height:60px;*/
-    /*color: #58789a;*/
-    /*font-size: 17px;*/
-    /*font-weight: bold;*/
-    /*vertical-align: middle;*/
-/*}*/
-
-/*.secret-m-title {*/
-    /*width: 318px;*/
-    /*height: 35px;*/
-    /*line-height: 35px;*/
-    /*padding-left: 15px;*/
-/*}*/
-
-/*.secret-m .t-1 { background: url("../image/myshop/shop_title_01.png") no-repeat; }*/
-/*.secret-m .t-2 { background: url("../image/myshop/shop_title_02.png") no-repeat; }*/
-
-/*.secret-detail {*/
-    /*padding: 20px 10px;*/
-/*}*/
-
-/*.secret-detail > div {*/
-    /*margin-bottom: 10px;*/
-/*}*/
-
-/*.secret-d-t {*/
-    /*margin-right: 20px;*/
-/*}*/
-
-
 
 .secret-d-t {
     text-align: right;
@@ -378,12 +334,10 @@
 
 .secret-d-a {
     width: 200px;
-    /*overflow: hidden;*/
     margin-right: 20px;
 }
 .secret-d-p {
     line-height: 1.6em;
-    /*vertical-align: top;*/
 }
 
 .secret-change-a {
@@ -515,6 +469,16 @@
 
 .secret-icon-1 { background: url("../image/myshop/shop_title_05.png") no-repeat center; }
 .secret-icon-2 { background: url("../image/myshop/shop_title_04.png") no-repeat center; }
+
+
+.secret-change-suc {
+    width: 100%;
+}
+
+.secret-change-suc .change-suc-m{
+    margin: 0 auto;
+    padding: 40px 40px;
+}
 
 
 /*设置下拉选框宽高*/
