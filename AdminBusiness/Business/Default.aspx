@@ -238,7 +238,7 @@
                     error.appendTo(element.parent());
                 },
                 rules: business_validate_rules,
-                messages: business_validate_messages,
+                messages: business_validate_messages
 //                invalidHandler: invalidHandler
             }
         );

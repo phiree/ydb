@@ -24,6 +24,11 @@ public class BrowserCheck
             cvalue = true;
         }
 
+        if (!cvalue)
+        {
+            HttpContext.Current.Response.Redirect("/browser.html", true);
+        }
+
         return cvalue;
     
     }
