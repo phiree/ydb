@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using agsXMPP;
 using xmppMessage = agsXMPP.protocol.client;
 using agsXMPP.protocol.client;
+using Dianzhu.Model;
+using Dianzhu.BLL;
 namespace Dianzhu.CSClient
 {
     public partial class fmMain : Form
@@ -23,47 +25,12 @@ namespace Dianzhu.CSClient
             }
             else
             {
-              
-          
             InitializeComponent();
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
             }
         }
         string CurrentCustomerId = string.Empty;
-        void XMPPConnection_OnMessage(object sender, xmppMessage.Message msg)
-        {
-            if (InvokeRequired)
-            {
-                BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender, msg });
-                return;
-            }
-            
-            //判断该客户是否已经出现在列表中.
-            bool isAdded = false;
-            
-            foreach (Control c in gbCustomerList.Controls)
-            {
-                c.ForeColor =Color.Blue;
-                if (c.GetType() == typeof(Button))
-                {
-                    if (c.Text == msg.From.User)
-                    {
-                        c.ForeColor = Color.Red;
-                        CurrentCustomerId = c.Text;
-                        isAdded = true;
-                    }
-                }
-            }
-            if (!isAdded)
-            {
-                Button btn = new Button();
-                btn.ForeColor = Color.Red;
-                CurrentCustomerId=   btn.Text = msg.From.User;
-                btn.Click += new EventHandler(btnCustomer_Click);
-                gbCustomerList.Controls.Add(btn);
-            }
-            AddNewMessage(msg.From.User, msg.Body);
-        }
+        
         void btnCustomer_Click(object sender, EventArgs e)
         {
             foreach (Control c in gbCustomerList.Controls)
@@ -128,8 +95,53 @@ namespace Dianzhu.CSClient
         }
         
         #region xmpp
-        
+        void XMPPConnection_OnMessage(object sender, xmppMessage.Message msg)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender, msg });
+                return;
+            }
+
+            //判断该客户是否已经出现在列表中.
+            //创建接待记录,保存聊天信息.
+            bool isAdded = false;
+
+            foreach (Control c in gbCustomerList.Controls)
+            {
+                c.ForeColor = Color.Blue;
+                if (c.GetType() == typeof(Button))
+                {
+                    if (c.Text == msg.From.User)
+                    {
+                        c.ForeColor = Color.Red;
+                        CurrentCustomerId = c.Text;
+                        isAdded = true;
+                    }
+                }
+            }
+            if (!isAdded)
+            {
+                Button btn = new Button();
+                btn.ForeColor = Color.Red;
+                CurrentCustomerId = btn.Text = msg.From.User;
+                btn.Click += new EventHandler(btnCustomer_Click);
+                btn.AutoSize = true;
+                btn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+                btn.TextAlign = ContentAlignment.MiddleLeft;
+                btn.Padding = new Padding(0, 0, 0, 0);
+                gbCustomerList.Controls.Add(btn);
+            }
+            AddNewMessage(msg.From.User, msg.Body);
+        }
         #endregion
+    }
+
+
+    public class FormData
+    {
+        public DZMembership Customer { get; set; }
+        public ReceptionBase Reception { get; set; }
     }
 
 

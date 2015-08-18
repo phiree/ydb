@@ -11,7 +11,8 @@
     <RootNamespace>Dianzhu.CSClient</RootNamespace>
     <AssemblyName>Dianzhu.CSClient</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -42,6 +43,14 @@
       <HintPath>..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MJ.Core, Version=0.16.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MJ.Core.0.16.05\lib\MJ.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MJ.MVC, Version=0.16.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MJ.MVC.0.16.05\lib\MJ.MVC.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -53,6 +62,22 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WinFormsMvp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af6a00a847e9db8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\WinFormsMvp.dll</HintPath>
+    </Reference>
+    <Reference Include="WinFormsMvp.Ninject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9da1e44a5a34ef2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\WinFormsMvp.Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="WinFormsMvp.StructureMap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=db398a0ebed4498c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\WinFormsMvp.StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="WinFormsMvp.Unity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=636cb6cfc2d5d0c9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\WinFormsMvp.Unity.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalViables.cs" />
@@ -68,8 +93,47 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>fmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChatModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CustomerListModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\MainViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presenters\MainViewPresenter.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\ChatView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ChatView.Designer.cs">
+      <DependentUpon>ChatView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomerListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CustomerListView.Designer.cs">
+      <DependentUpon>CustomerListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MainView.Designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewsContracts\IChatView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ViewsContracts\ICustomerListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\ViewsContracts\IMainView.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="XMPPConnection.cs" />
     <EmbeddedResource Include="fmLogin.resx">
       <DependentUpon>fmLogin.cs</DependentUpon>
@@ -85,7 +149,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\MainView.resx">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <EmbeddedResource Include="appSettings.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -103,6 +171,26 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dll\WinFormsMvp.dll" />
+    <Content Include="dll\WinFormsMvp.Ninject.dll" />
+    <Content Include="dll\WinFormsMvp.Ninject.pdb" />
+    <Content Include="dll\WinFormsMvp.pdb" />
+    <Content Include="dll\WinFormsMvp.StructureMap.dll" />
+    <Content Include="dll\WinFormsMvp.StructureMap.pdb" />
+    <Content Include="dll\WinFormsMvp.Unity.dll" />
+    <Content Include="dll\WinFormsMvp.Unity.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
+      <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
+      <Name>Dianzhu.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
+      <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
+      <Name>Dianzhu.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
