@@ -93,13 +93,10 @@
             <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="edit.aspx?id={0}" />
         </Columns>
     </asp:GridView>
-        <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.9.1.min.js"></script>-->
         <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
-        <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>-->
         <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
         <script type="text/javascript" src="/js/TabSelection.js" ></script>
         <script type="text/javascript" src="/js/jquery.lightbox_me.js" ></script>
-        <script type="text/javascript" src="../js/global.js"></script>
         <script type="text/javascript">
             $(function () {
             /* 当鼠标移到表格上是，当前一行背景变色 */

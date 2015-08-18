@@ -318,7 +318,6 @@
     <script src="/js/navigator.sayswho.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
-    <script type="text/javascript" src="/js/global.js"></script>
     <script src="/js/FileUpload.js" type="text/javascript"></script>
     <script type="text/javascript">
          var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';

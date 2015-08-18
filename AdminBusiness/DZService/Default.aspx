@@ -78,18 +78,13 @@
                     </div>
                 </div>
             </div>
-        <!--</div>-->
-    <!--</div>-->
 
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
-    <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript" src="/js/ServiceType.js"></script>
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
-    <script type="text/javascript" src="/js/TabSelection.js"></script>
+    <!--<script type="text/javascript" src="/js/TabSelection.js"></script>-->
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script >
     $(function(){
@@ -101,7 +96,6 @@
     })
     </script>
     <script type="text/javascript">
-      
         var name_prefix = 'ctl00$ContentPlaceHolder1$ServiceEdit1$';
        $(function () {
            $("#serList").ServiceSelect({
@@ -154,8 +148,6 @@
 
            readTypeData();
 
-
-
            $(".spServiceArea").each(function () {
                var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());
            $(this).html(jsonServiceArea.serPointAddress);
@@ -177,7 +169,6 @@
             loadBaiduMapScript();
         })
     </script>
-    <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>-->
     <!--<script type="text/javascript" src="/js/CityList.js"></script>-->
     <!--<script type="text/javascript" src="/js/service.js"></script>-->
 </asp:Content>

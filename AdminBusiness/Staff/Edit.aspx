@@ -130,7 +130,6 @@
 <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
 <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
 <script src="/js/jquery.form.min.js" type="text/javascript"></script>
-<script src="/js/global.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/TabSelection.js"></script>
 <script type="text/javascript" src="/js/imgLocalPrev.js" ></script>
 <script type="text/javascript">

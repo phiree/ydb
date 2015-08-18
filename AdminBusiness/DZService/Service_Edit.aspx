@@ -15,7 +15,6 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
-    <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript" src="/js/ServiceType.js"></script>
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>

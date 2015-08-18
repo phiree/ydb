@@ -16,11 +16,8 @@
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/business.css" rel="stylesheet" type="text/css" />
     <link href="/css/validation.css" rel="stylesheet" type="text/css" />
-
-    <%--<link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />--%>
     <script src="/js/html5shiv.min.js"></script>
     <script src="/js/respond.min.js"></script>
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
 </head>
 <body>
         <div class="wrap">
@@ -186,8 +183,10 @@
             </div>
         </div>
 </body>
+<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
 <script src="/js/bootstrap/js/bootstrap.js"></script>
 <script src="/js/metisMenu/metisMenu.js"></script>
+<script src="/js/global.js"></script>
 <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
 <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
