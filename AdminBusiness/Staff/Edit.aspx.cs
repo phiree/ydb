@@ -18,8 +18,7 @@ public partial class Staff_Edit : BasePage
     BLLStaff bllStaff = new BLLStaff();
     ServiceType ServiceType = new ServiceType();
     BLLServiceType bllServiceType = new BLLServiceType();
-    public DZService CurrentService = new DZService();//当前的服务 对象.
-   
+    
     protected void Page_Load(object sender, EventArgs e)
     {
 

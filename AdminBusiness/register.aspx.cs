@@ -14,7 +14,7 @@ public partial class register : System.Web.UI.Page
     DZMembershipProvider dz = new DZMembershipProvider();
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        BrowserCheck.CheckVersion();
     }
 
     protected void regPsSubmit_OnClick(object sender, EventArgs e)

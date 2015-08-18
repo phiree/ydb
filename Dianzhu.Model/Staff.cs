@@ -9,7 +9,11 @@ namespace Dianzhu.Model
     /// 商家职员信息
     /// </summary>
    public  class Staff
-    {
+   {
+       public Staff() {
+
+           StaffAvatar = new List<BusinessImage>();
+       }
        public virtual Guid Id { get; set; }
        /// <summary>
        /// 所属商家
@@ -46,6 +50,23 @@ namespace Dianzhu.Model
        /// 职员的头像.
        /// </summary>
        public virtual IList<BusinessImage> StaffAvatar { get; set; }
+       public virtual BusinessImage AvatarCurrent {
+           get {
+               IList<BusinessImage> list = StaffAvatar.Where(x => x.IsCurrent).ToList();
+               if (list.Count ==0)
+               {
+                   return null;
+               }
+               else if (list.Count == 1)
+               {
+                   return list[0];
+               }
+               else
+               {
+                   throw new Exception("错误:用户有多个头像");
+               }
+           }
+       }
        
     }
     
