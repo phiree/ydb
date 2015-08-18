@@ -5,10 +5,12 @@ using System.Text;
 using WinFormsMvp;
 namespace Dianzhu.CSClient.Presenters
 {
-   public  class MainViewPresenter:Presenter<Views.ViewsContracts.IMainView>
+   public  class ChatPresenter:Presenter<Views.ViewsContracts.IChatView>
     {
-       public MainViewPresenter(Views.ViewsContracts.IMainView view)
+       public ChatPresenter(Views.ViewsContracts.IChatView view)
            : base(view)
-       { }
+       {
+       
+       }
     }
 }

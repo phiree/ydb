@@ -73,6 +73,6 @@ namespace Dianzhu.Model
         /// 客服编号.
         /// </summary>
         public virtual string CSId { get; set; }
-
+        
     }
 }

@@ -15,7 +15,9 @@ namespace Dianzhu.CSClient
 {
     public partial class fmMain : Form
     {
-
+        /// <summary>
+        /// 聊天主窗口
+        /// </summary>
         public fmMain()
         {
             Form fmLogin=new fmLogin();
@@ -29,6 +31,8 @@ namespace Dianzhu.CSClient
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
             }
         }
+
+        
         string CurrentCustomerId = string.Empty;
         
         void btnCustomer_Click(object sender, EventArgs e)
@@ -52,18 +56,9 @@ namespace Dianzhu.CSClient
         /// 新增一个客户
         /// 顶部增加一个item,并高亮显示(未读标签),声音提示
         /// </summary>
-        private void AddNewCustomer(string customerName)
-        {
-            Button btnNewCustom = new Button();
-            btnNewCustom.Text = customerName;
-            gbCustomerList.Controls.Add(btnNewCustom);
-        }
+         
 
-        private void btnDemoAddCustomer_Click(object sender, EventArgs e)
-        {
-            AddNewCustomer("new customer");
-        }
-
+       
         /// <summary>
         /// 在聊天窗口显示新信息
         /// </summary>
@@ -106,7 +101,6 @@ namespace Dianzhu.CSClient
             //判断该客户是否已经出现在列表中.
             //创建接待记录,保存聊天信息.
             bool isAdded = false;
-
             foreach (Control c in gbCustomerList.Controls)
             {
                 c.ForeColor = Color.Blue;
@@ -120,6 +114,7 @@ namespace Dianzhu.CSClient
                     }
                 }
             }
+            //新增加的用户.
             if (!isAdded)
             {
                 Button btn = new Button();
@@ -132,6 +127,9 @@ namespace Dianzhu.CSClient
                 btn.Padding = new Padding(0, 0, 0, 0);
                 gbCustomerList.Controls.Add(btn);
             }
+
+
+
             AddNewMessage(msg.From.User, msg.Body);
         }
         #endregion

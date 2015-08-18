@@ -10,10 +10,13 @@ using WinFormsMvp.Forms;
 using agsXMPP;
 using xmppMessage = agsXMPP.protocol.client;
 using agsXMPP.protocol.client;
+using dzModels = Dianzhu.Model;
 namespace Dianzhu.CSClient.Views
 {
-    public partial class MainView :Form//MvpForm<Models.MainViewModel>,ViewsContracts.IMainView
+    public partial class MainView : MvpForm<Models.MainModel>,ViewsContracts.IMainView
     {
+        private MvpUserControl<Models.ChatModel> chatPanel;
+        private MvpUserControl<Models.CustomerListModel> customerListPanel;
         public MainView()
         {
             Form fmLogin = new fmLogin();
@@ -39,10 +42,10 @@ namespace Dianzhu.CSClient.Views
             }
 
             //判断该客户是否已经出现在列表中.
-            bool isAdded = false;
-
             
         }
-       
+
+
+        public event EventHandler OnMessage;
     }
 }
