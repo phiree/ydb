@@ -16,7 +16,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     
             <div class="cont-wrap">
-                <div class="cont-container service-list-container dis-n">
+                <div class="cont-container mh-in service-list-container dis-n">
                     <div class="cont-row">
                         <div class="cont-col-12">
                             <div class="cont-row row-fix">
@@ -46,7 +46,6 @@
                                                 <p class="spServiceArea text-ellipsis t-c"></p>
                                                 <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
                                                 </div>
-                                                <!--<div class="cont-col-3"> </div>-->
                                                 <div class="cont-col-2"><p class="t-c"><%#Eval("OrderDelay")%></p></div>
 
                                                       <div class="cont-col-2"><div class="t-c"><p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-delete":"btn btn-info" %> enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p>
@@ -66,7 +65,7 @@
                     </div>
                 </div>
                 <div class="service-new dis-n">
-                    <div class="cont-container">
+                    <div class="cont-container mh-in">
                         <div class="new-box">
                             <div class="t-c">
                                 <img src="/image/service-new.png"/>

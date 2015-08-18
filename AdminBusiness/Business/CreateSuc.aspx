@@ -7,7 +7,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <div class="cont-wrap">
-    <div class="cont-container min-height700">
+    <div class="cont-container mh-in">
         <div class="cont-row">
             <div class="cont-col-12">
                 <div class="cont-col-12 t-c m-b20">

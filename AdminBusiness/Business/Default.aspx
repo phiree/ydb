@@ -28,12 +28,6 @@
                         <div class="navbar navbar-default navbar-static-top" role="navigation">
                             <div class="container-fluid">
                                 <div class="navbar-header">
-                                      <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">-->
-                                    <!--<span class="sr-only">Toggle navigation</span>-->
-                                    <!--<span class="icon-bar"></span>-->
-                                    <!--<span class="icon-bar"></span>-->
-                                    <!--<span class="icon-bar"></span>-->
-                                  <!--</button>-->
                                   <a class="navbar-brand" href="#">
                                        <img alt="一点办" src="/image/master/shop-LOGO-1.png">
                                   </a>
@@ -51,33 +45,14 @@
                             </li>
                             <li role="presentaion" class="nav-li-bj ">
                             <asp:LoginStatus ID="LoginStatus1" formnovalidate  LogoutText="注销" runat="server"  />
-
                             </li>
                                   </ul>
                             </div>
                         </div>
+                <div class="mh">
 
-                        <!--<div class="clearfix">-->
-                            <!--<div class="sidebar">-->
-                                    <!--<aside class="sidebar">-->
-                                      <!--<nav class="sidebar-nav">-->
-                                        <!--<ul class="metismenu" id="menu">-->
-                                          <!--<li>-->
-                                            <!--<a href="#">我的商铺</a>-->
-                                          <!--</li>-->
-                                          <!--<li>-->
-                                            <!--<a href="#">我的服务</a>-->
-                                          <!--</li>-->
-                                          <!--<li role="presentation" class="disabled">-->
-                                            <!--<a href="#" >我的订单</a>-->
-                                            <!--&lt;!&ndash;<a href="#">Menu 2 <span class="glyphicon arrow"></span></a>&ndash;&gt;-->
-                                          <!--</li>-->
-                                        <!--</ul>-->
-                                      <!--</nav>-->
-                                    <!--</aside>-->
-                            <!--</div>-->
-                         <!--</div>-->
-                <div class="business-container dis-n">
+
+                <div class="business-container mh-in dis-n">
                     <div class="business-add">
                            <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-add">+&nbsp;新建店铺</a>
                         </div>
@@ -90,9 +65,9 @@
                                                <div class="cont-col-4">
 
                                                 <div class="business-h text-ellipsis"><%#Eval("Name")%></div>
- 
+
                                                <div class="business-face"><img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=150&height=150&tt=3":"../image/myshop/touxiang_150_150.png" %>' /></div>
- 
+
 </div>
 
                                             <div class="cont-col-8">
@@ -132,8 +107,8 @@
                           </asp:Repeater>
                         </div>
                     </div>
-                <div class="business-new dis-n">
-                    <div class="cont-container">
+                <div class="business-new cont-wrap dis-n">
+                    <div class="cont-container mh-in">
                         <div class="new-box">
                             <div class="t-c">
                                 <img src="/image/buss-new.png"/>
@@ -144,7 +119,7 @@
                         </div>
                     </div>
                 </div>
-                   <!--</div>-->
+                </div>
                    </div>
                    <div id="newBusslightBox" class="dis-n">
                        <div class="cont-container BusslightBox">

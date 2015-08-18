@@ -9,7 +9,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-<div class="cont-wrap secret-wrap ">
+<div class="cont-wrap mh">
       <div class="cont-container">
          <div class="cont-row emp-cont-row emp-mar-top">
               <div class="cont-col-2"><p class="cont-sub-title">头像</p></div>
@@ -114,12 +114,13 @@
             </div>
           </div>
         </div>
+        <div class="bottomArea emp-cont-bottom-row">
+             <asp:Button ID="Button1" runat="server" Text="保存" CssClass="btn btn-info btn-big"  OnClick="btnOK_Click" />
+
+            <a class="btn btn-cancel btn-big m-l10" href="default.aspx?businessid=<%=Request["businessid"] %>">取消</a>
+        </div>
     </div>
-    <div class="bottomArea emp-cont-bottom-row">
-                     <asp:Button ID="Button1" runat="server" Text="保存" CssClass="btn btn-info btn-big"  OnClick="btnOK_Click" />
-                  
-                    <a class="btn btn-cancel btn-big m-l10" href="default.aspx?businessid=<%=Request["businessid"] %>">取消</a>
-                </div>
+
     
 
     

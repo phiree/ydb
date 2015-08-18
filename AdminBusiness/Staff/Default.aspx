@@ -9,7 +9,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
    <div class="cont-wrap secret-wrap ">
-      <div class="cont-container min-height700">
+      <div class="cont-container mh-in">
          <div class="cont-row">
               <div class="add-user-div">
                <a class="btn btn-info" href="Edit.aspx?businessid=<%=Request["businessid"] %>"><span class="add-inco">+</span>添加新员工</a>

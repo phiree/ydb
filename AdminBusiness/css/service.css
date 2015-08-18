@@ -55,9 +55,9 @@
     /*/!*border-bottom: #dbe6f2 1px solid;*!/*/
 /*}*/
 
-.service-list-container {
-    min-height: 700px;
-}
+/*.service-list-container {*/
+    /*min-height: 700px;*/
+/*}*/
 
 .service-title { padding: 0 20px; height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; }
 .service-title span { color:#58789a; font-size:17px; font-weight:bold; vertical-align: middle; }

@@ -5,6 +5,40 @@
 (function ($) {
 
     (function(){
+        var htmlH = $("html").height();
+        var navbarH = $(".navbar").height();
+
+        //return $(window).resize(function(){
+            //$(".mh").css({
+            //    minHeight: htmlH - navbarH
+            //})
+
+            $(window).bind("load resize", function() {
+
+                var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
+                var paddingH = 28;
+                height = height - navbarH;
+                if (height < 1) height = 1;
+                if (height > navbarH) {
+                    $(".mh").css("min-height", (height) + "px");
+                    $(".mh-in").css("min-height", (height - paddingH) + "px");
+                }
+            });
+
+            //var url = window.location;
+            //var element = $('ul.nav a').filter(function() {
+            //    return this.href == url || url.href.indexOf(this.href) == 0;
+            //}).addClass('active').parent().parent().addClass('in').parent();
+            //if (element.is('li')) {
+            //    element.addClass('active');
+            //}
+
+        //})
+
+
+    })();
+
+    (function(){
         return $('.time-select').each(function () {
                 var selectList = $(this).find("ul");
                 for ( var i = 0 ; i < 25 ; i++ ) {
