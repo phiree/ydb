@@ -67,4 +67,12 @@ namespace Dianzhu.Model
          
         
     }
+    public class CustomerService:DZMembership
+    {
+        /// <summary>
+        /// 客服编号.
+        /// </summary>
+        public virtual string CSId { get; set; }
+
+    }
 }
