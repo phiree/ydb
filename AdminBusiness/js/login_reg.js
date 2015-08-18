@@ -22,7 +22,6 @@ $(document).ready(function () {
          */
         var userNameCheck = function(){
             var _user_name = $user_name_box.val();
-            console.log(_user_name);
             var $_checkIcon = $user_name_box.parent().find(".checkIcon");
 
 
