@@ -11,6 +11,7 @@ public partial class Business_Default : BasePage
     BLLBusiness bllBusiness = new BLLBusiness();
     protected void Page_Load(object sender, EventArgs e)
     {
+        BrowserCheck.CheckVersion();
         if (!IsPostBack)
         {
             BindBusinessList();

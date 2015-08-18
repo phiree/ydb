@@ -16,7 +16,8 @@
                 
                     <div class="cont-row step-row">
                         <div class="cont-col-2">
-                            <h3 class="step-head step-1">第<em>1</em>步</h3>
+                            <h3 class="step-head step-1">
+                                <img src="../image/shop-icon-step1.png" /></h3>
                         </div>
                         <div class="cont-col-10"><p class="step-text step-1">基本信息填写</p></div>
                     </div>
@@ -174,7 +175,8 @@
 
 
                     <div class="cont-row step-row">
-                        <div class="cont-col-2"><h3 class="step-head step-2">第<em>2</em>步</h3></div>
+                        <div class="cont-col-2"><h3 class="step-head step-2">
+                            <img src="../image/shop-icon-step2.png" /></h3></div>
                         <div class="cont-col-10"><p class="step-text step-2">完善商户营业资质资料</p></div>
                     </div>
 
