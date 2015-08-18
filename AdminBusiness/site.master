@@ -16,11 +16,6 @@
     <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
     <script src="/js/html5shiv.min.js"></script>
     <script src="/js/respond.min.js"></script>
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
-    <!--<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>-->
- 
-    <script>
-    </script>
     <asp:ContentPlaceHolder ID="head" runat="Server">
      
  
@@ -79,14 +74,17 @@
         </div>
     </div>
 </body>
-<asp:ContentPlaceHolder id="bottom" runat="Server">
-    </asp:ContentPlaceHolder>
+    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script src="/js/bootstrap/js/bootstrap.js"></script>
+    <script src="/js/global.js"></script>
     <script src="/js/metisMenu/metisMenu.js"></script>
     <script>
         $(function () {
             $("#menu").metisMenu();
         })
-
     </script>
+<asp:ContentPlaceHolder id="bottom" runat="Server">
+    </asp:ContentPlaceHolder>
+
 </html>

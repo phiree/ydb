@@ -16,7 +16,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     
             <div class="cont-wrap">
-                <div class="cont-container service-list-container dis-n">
+                <div class="cont-container mh-in service-list-container dis-n">
                     <div class="cont-row">
                         <div class="cont-col-12">
                             <div class="cont-row row-fix">
@@ -46,7 +46,6 @@
                                                 <p class="spServiceArea text-ellipsis t-c"></p>
                                                 <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
                                                 </div>
-                                                <!--<div class="cont-col-3"> </div>-->
                                                 <div class="cont-col-2"><p class="t-c"><%#Eval("OrderDelay")%></p></div>
 
                                                       <div class="cont-col-2"><div class="t-c"><p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-delete":"btn btn-info" %> enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p>
@@ -66,7 +65,7 @@
                     </div>
                 </div>
                 <div class="service-new dis-n">
-                    <div class="cont-container">
+                    <div class="cont-container mh-in">
                         <div class="new-box">
                             <div class="t-c">
                                 <img src="/image/service-new.png"/>
@@ -78,18 +77,13 @@
                     </div>
                 </div>
             </div>
-        <!--</div>-->
-    <!--</div>-->
 
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
-    <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript" src="/js/ServiceType.js"></script>
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
-    <script type="text/javascript" src="/js/TabSelection.js"></script>
+    <!--<script type="text/javascript" src="/js/TabSelection.js"></script>-->
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script >
     $(function(){
@@ -101,7 +95,6 @@
     })
     </script>
     <script type="text/javascript">
-      
         var name_prefix = 'ctl00$ContentPlaceHolder1$ServiceEdit1$';
        $(function () {
            $("#serList").ServiceSelect({
@@ -154,8 +147,6 @@
 
            readTypeData();
 
-
-
            $(".spServiceArea").each(function () {
                var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());
            $(this).html(jsonServiceArea.serPointAddress);
@@ -177,7 +168,6 @@
             loadBaiduMapScript();
         })
     </script>
-    <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>-->
     <!--<script type="text/javascript" src="/js/CityList.js"></script>-->
     <!--<script type="text/javascript" src="/js/service.js"></script>-->
 </asp:Content>
