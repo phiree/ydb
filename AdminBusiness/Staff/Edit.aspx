@@ -17,10 +17,10 @@
                             <div class="clearfix">
                                 <div class="headImage">
                                     <div class="input-file-box headFile">
-                                      <input type=file class="input-file-btn file-default" runat="server" id="empheadimg"  name="empheadimg" />
+                                        <input type=file class="input-file-btn file-default headFileBtn" runat="server" id="empheadimg"  name="empheadimg" />
                                         <i class="input-file-bg" style='background-image:url(<%=StaffAvatarUrl%>)'></i>
-                                            <i class="input-file-mark"></i>
-                                            <img class="input-file-pre" src="..\image\00.png" />
+                                        <i class="input-file-mark"></i>
+                                        <img class="input-file-pre" src="..\image\00.png" />
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
     <div class="bottomArea emp-cont-bottom-row">
                      <asp:Button ID="Button1" runat="server" Text="保存" CssClass="btn btn-info btn-big"  OnClick="btnOK_Click" />
                   
-                    <a class="btn btn-cancel btn-big m-l10" href="#">取消</a>
+                    <a class="btn btn-cancel btn-big m-l10" href="default.aspx?businessid=<%=Request["businessid"] %>">取消</a>
                 </div>
     
 
@@ -132,13 +132,10 @@
 <script src="/js/jquery.form.min.js" type="text/javascript"></script>
 <script src="/js/global.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/TabSelection.js"></script>
-
-<!--<script src="/js/FileUpload.js" type="text/javascript"></script>-->
-
-    <script type="text/javascript">
-        var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
-    </script>
-
+<script type="text/javascript" src="/js/imgLocalPrev.js" ></script>
+<script type="text/javascript">
+    var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
+</script>
 <script src="/js/validation_emp_edit.js" type="text/javascript"></script>
 <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -159,7 +156,7 @@
                     invalidHandler: invalidHandler
                 }
             );
-
     });
+    $(".headFileBtn").imgLocalPrev();
     </script>
 </asp:Content>
