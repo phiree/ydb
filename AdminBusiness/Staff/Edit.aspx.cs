@@ -57,7 +57,7 @@ public partial class Staff_Edit : BasePage
         var avatarList = s.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
         if(avatarList.Count>0)
         {
-            StaffAvatarUrl = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(avatarList[0].ImageName) + "&width=90&height=90&tt=3)";
+            StaffAvatarUrl = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(avatarList[0].ImageName) + "&width=90&height=90&tt=3";
       
         }
        hiGender.Value = s.Gender == "男" ? "0" : "1";
