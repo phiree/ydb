@@ -48,7 +48,7 @@
                                                 </div>
                                                 <div class="cont-col-2"><p class="t-c"><%#Eval("OrderDelay")%></p></div>
 
-                                                      <div class="cont-col-2"><div class="t-c"><p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-delete":"btn btn-info" %> enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p>
+                                                      <div class="cont-col-2"><div class="t-c"><p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p>
                                                           <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-delete" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')">删除</asp:LinkButton>
                                                      </div></div>
 
@@ -87,11 +87,15 @@
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script >
     function listhref(url){
-        var $target = $(event.target)
+
+        var e = event || window.event;
+        var target = e.srcElement || e.target;
+        var $target = $(target);
+
         if($target.hasClass("btn")){
             return false
         }else if(event.target == event.target){
-            window.location.href=url
+            window.location.href = url
         };
     }
 
@@ -129,11 +133,11 @@
                             var enabled = data.data;
                             if (enabled == "True") {
                                 $(that).html("禁用");
-                                $(that).removeClass("btn-info").addClass("btn-delete");
+                                $(that).removeClass("btn-info").addClass("btn-down-info");
                             }
                             else {
                                 $(that).html("启用");
-                                $(that).addClass("btn-info").removeClass("btn-delete");
+                                $(that).addClass("btn-info").removeClass("btn-down-info");
 
                             }
 
