@@ -43,17 +43,10 @@
       <HintPath>..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MJ.Core, Version=0.16.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MJ.Core.0.16.05\lib\MJ.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MJ.MVC, Version=0.16.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MJ.MVC.0.16.05\lib\MJ.MVC.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLFactory.cs" />
     <Compile Include="GlobalViables.cs" />
     <Compile Include="fmMain.cs">
       <SubType>Form</SubType>
@@ -91,11 +85,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Raw\ChatModel.cs" />
+    <Compile Include="Models\Raw\CustomerListModel.cs" />
     <Compile Include="Presenters\MainViewPresenter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Presenters\ChatPresenter.cs" />
     <Compile Include="Presenters\Raw\ChatPresenter.cs" />
+    <Compile Include="Presenters\Raw\CustomerListPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\ChatView.cs" />
@@ -118,7 +114,14 @@
     <Compile Include="Views\Raw\ChatView.Designer.cs">
       <DependentUpon>ChatView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Raw\CustomerList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Raw\CustomerList.Designer.cs">
+      <DependentUpon>CustomerList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Raw\IChatView.cs" />
+    <Compile Include="Views\Raw\ICustomerList.cs" />
     <Compile Include="Views\ViewsContracts\IChatView.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -158,6 +161,9 @@
     <EmbeddedResource Include="appSettings.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="connectionStrings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

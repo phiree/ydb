@@ -17,8 +17,8 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
             log4net.Config.XmlConfigurator.Configure();
              
-            //    Application.Run(new fmMain());
-            Application.Run(new Views.Raw.ChatView());
+               Application.Run(new fmMain());
+            //Application.Run(new Views.Raw.ChatView());
 
             
         }

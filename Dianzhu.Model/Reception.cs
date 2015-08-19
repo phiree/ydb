@@ -10,6 +10,12 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionBase
     {
+        public ReceptionBase()
+        {
+            ChatHistory = new List<ReceptionChat>();
+            IsComplete = false;
+            TimeBegin = DateTime.Now;
+        }
         public virtual Guid Id { get; set; }
         /// <summary>
         /// 接待发起方
@@ -28,7 +34,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 链条记录
         /// </summary>
-        public virtual IList<ReceptionChatHistory> ChatHistory { get; set; }
+        public virtual IList<ReceptionChat> ChatHistory { get; set; }
 
         public virtual bool IsComplete { get; set; }
 
@@ -43,7 +49,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 确认的订单
         /// </summary>
-        public virtual IList<ServiceOrder> Order { get; set; }
+        public virtual IList<ServiceOrder> Orders { get; set; }
          
     }
 
@@ -58,13 +64,14 @@ namespace Dianzhu.Model
     /// <summary>
     /// 接待中的聊天记录.
     /// </summary>
-    public class ReceptionChatHistory
+    public class ReceptionChat
     {
-        public DateTime SendTime { get; set; }
-        public DateTime ReceiveTime { get; set; }
-        public DZMembership From { get; set; }
-        public DZMembership To { get; set; }
-        public string MessageBody { get; set; }
+        public virtual Guid Id { get; set; }
+        public virtual DateTime SendTime { get; set; }
+        public virtual  DateTime ReceiveTime { get; set; }
+        public virtual  DZMembership From { get; set; }
+        public virtual  DZMembership To { get; set; }
+        public virtual  string MessageBody { get; set; }
        
          
 

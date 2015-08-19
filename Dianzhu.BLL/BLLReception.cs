@@ -17,10 +17,23 @@ namespace Dianzhu.BLL
     public class BLLReception
     {
         public DALReception DALReception = DALFactory.DALReception;
-
-        private void Save(ReceptionBase reception)
+        
+        public void Save(ReceptionBase reception)
         {
-            DALReception.Save(reception);
+            DALReception.SaveOrUpdate(reception);
+        }
+        public IList<ReceptionChat> GetHistoryReceptionChat(DZMembership from, DZMembership to,int limit)
+        {
+          var list=  DALReception.Search(from, to, DateTime.MinValue, DateTime.MaxValue,10);
+
+          var chatList = new List<ReceptionChat>();
+          foreach (ReceptionBase re in list)
+          {
+              if (chatList.Count > limit)
+              { break; }
+              chatList.AddRange(re.ChatHistory.OrderBy(x=>x.ReceiveTime));
+          }
+          return chatList;
         }
 
     }
