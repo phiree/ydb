@@ -140,7 +140,7 @@ namespace Dianzhu.CSClient
             //如果消息来自于正在聊天的客户, 则聊天窗口增加消息显示.
             if (currentCustomer != null && currentCustomer.UserName == customerLoginName)
             {
-                string message = newRch.ReceiveTime.ToString("dd号 hh:mm:ss " + newRch.From.UserName + ":" + newRch.MessageBody);
+                string message = newRch.ReceiveTime.ToString("dd号 hh:mm:ss") +" "+ newRch.From.UserName + ":" + newRch.MessageBody;
                 UI_Add_New_Messge(message);
             }
         }
@@ -156,16 +156,23 @@ namespace Dianzhu.CSClient
         {
             Button btn = (Button)sender;
             string customerName = btn.Text;
-            currentCustomer = l_customerList.Single(x => x.UserName == customerName);
+            //判断当前被激活的用户
+            //如果是第一次激活
             if (currentCustomer == null)
             {
-                MessageBox.Show("错误.没有获取到当前客户,请关闭程序,重新登陆");
+                currentCustomer = l_customerList.Single(x => x.UserName == customerName);
             }
-            if (currentCustomer.UserName == customerName)
-            {
-                return;
+            else {
+                //如果相等 返回
+                if (currentCustomer.UserName == customerName)
+                {
+                    return;
+                }
+                else {
+                    currentCustomer = l_customerList.Single(x => x.UserName == customerName);
+                }
             }
-            
+            //currentuuser 不是null,而且不等于当前激活用户
             //1 ui 当前button样式变化.
             UI_Style_Current(btn);
             //2 ui 之前的currentButton变为已读
@@ -215,7 +222,6 @@ namespace Dianzhu.CSClient
         //当前按钮
         private void UI_Style_Current(Button btn)
         {
-            
             btn.BackColor = Color.FromArgb(200);
             btn.ForeColor = Color.FromArgb(100);
         }
@@ -235,7 +241,10 @@ namespace Dianzhu.CSClient
         private void UI_Load_ChatHistory(IList<ReceptionChat> chatHistory)
         {
              chatHistory.OrderBy(x => x.SendTime);
-             tbxChatLog.Lines=   chatHistory.OrderBy(x=>x.ReceiveTime).Select(x =>x.ReceiveTime.ToString("dd号 HH:mm:ss")+"--"+ x.From.UserName+":"+ x.MessageBody).ToArray();
+             tbxChatLog.Lines=chatHistory.OrderBy(x=>x.ReceiveTime)
+                 .Select(x =>x.ReceiveTime.ToString("dd号 HH:mm:ss")
+                     +" "+ x.From.UserName+":"+ x.MessageBody).ToArray();
+             tbxChatLog.SelectionStart = tbxChatLog.Text.Length;
              tbxChatLog.ScrollToCaret();
        
         }
@@ -246,7 +255,10 @@ namespace Dianzhu.CSClient
         /// <param name="from"></param>
         private void UI_Add_New_Messge(string message)
         {
-            tbxChatLog.Text += message+Environment.NewLine;
+            tbxChatLog.AppendText(Environment.NewLine + message);
+            tbxChatLog.SelectionStart = tbxChatLog.Text.Length;
+            tbxChatLog.ScrollToCaret();
+          
         }
         #endregion
     }
