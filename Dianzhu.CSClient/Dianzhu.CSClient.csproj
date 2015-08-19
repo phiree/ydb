@@ -94,6 +94,7 @@
     <Compile Include="Presenters\Raw\CustomerListPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringHelper.cs" />
     <Compile Include="Views\ChatView.cs">
       <SubType>UserControl</SubType>
     </Compile>

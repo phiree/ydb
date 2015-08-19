@@ -11,9 +11,20 @@ namespace Dianzhu.Model
   
     public class DZMembership
     {
+        public DZMembership()
+        {
+            IsRegisterValidated = false;
+          LastLoginTime=  TimeCreated = DateTime.Now;
+            
+        }
         public virtual Guid Id { get; set; }
         public virtual string UserName { get; set; }
+        //用||(双竖线)替换邮箱用户中的@符号
+        public virtual string UserNameForOpenFire { get; set; }
         public virtual string Password { get; set; }
+        //todo: openfire用户验证只能用plain 无法使用md5.
+
+        public virtual string PlainPassword { get; set; }
         public virtual DateTime TimeCreated { get; set; }
         public virtual DateTime LastLoginTime { get; set; }
         public virtual string Email{ get; set; }
