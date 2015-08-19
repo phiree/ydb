@@ -99,6 +99,10 @@ a.new-add-btn {
 /*end*/
 
 /*服务列表样式*/
+.list-item-odd {
+    background-color: #f1f4f7;
+}
+
 .service-default-titles {
     font-size: 16px;
     padding: 14px;
@@ -108,15 +112,16 @@ a.new-add-btn {
 
 .service-default-list>.cont-row{
     padding: 14px;
-    /*border-bottom: 1px solid #ccc;*/
-    border-left: 5px solid transparent;
+
+    /*border-left: 5px solid transparent;*/
 
 }
 
 .service-default-list>.cont-row:hover{
-    padding: 14px;
-    /*border-bottom: 1px solid #ccc;*/
-    border-left: 5px solid #8dc1f2;
+    /*padding: 14px;*/
+    /*border-left: 5px solid #8dc1f2;*/
+    background: #b0d3f5;
+    color: #fff;
 }
 
 
@@ -706,11 +711,10 @@ a.new-add-btn {
 
 
 /*设置下拉选框宽高*/
-.select-sm {
-    width: 130px;
-    height: 30px;
-    line-height: 30px;
-}
+.select-xm { width: 80px; height: 30px; line-height: 30px; border: 1px solid #C0D1E3; color: #58789a; }
+.select-xm cite { width: 80px; line-height: 28px; }
+.select-xm ul { width: 80px; line-height: 30px; }
+
 
 .serviceDataRadio {
     display: inline-block;

@@ -35,12 +35,12 @@
                             <div class="service-default-list">
                                 <asp:Repeater runat="server" ID="rptServiceList"  >
                                     <ItemTemplate>
-                                     <div class="cont-row service-list-item">
+                                     <div  onclick="listhref('/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>')" class="cont-row service-list-item">
                                         <div class="cont-col-12">
                                             <div class="cont-row">
-                                                <div class="cont-col-1"><p class="t-c text-ellipsis"><a class="btn btn-info text-ellipsis" href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></p>
+                                                <div class="cont-col-1"><p class="t-c text-ellipsis"><div class="text-ellipsis" ><%#Eval("Name") %></div></p>
                      </div>
-                                                <div class="cont-col-3"><p class="t-c"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></p></div>
+                                                <div class="cont-col-3"><p class="t-c"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></p></div>
                                                  <div class="cont-col-1"><p class="t-c"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></p></div>
                                                 <div class="cont-col-3">
                                                 <p class="spServiceArea text-ellipsis t-c"></p>
@@ -86,12 +86,24 @@
     <!--<script type="text/javascript" src="/js/TabSelection.js"></script>-->
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script >
+    function listhref(url){
+        var $target = $(event.target)
+        if($target.hasClass("btn")){
+            return false
+        }else if(event.target == event.target){
+            window.location.href=url
+        };
+    }
+
+
     $(function(){
         if ( $(".service-default-list").find(".service-list-item").length == 0 ){
             $(".service-new").removeClass("dis-n");
         } else {
             $(".service-list-container").removeClass("dis-n");
         }
+
+       $(".service-default-list .service-list-item:odd").addClass("list-item-odd");
     })
     </script>
     <script type="text/javascript">

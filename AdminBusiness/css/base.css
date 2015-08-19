@@ -370,7 +370,8 @@ html{
 .select a:hover { background: #eeeeee; }
 
 /*timeSelect 初始化*/
-.time-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}
+.hour-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}
+.minite-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}
 .years-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}
 
 
@@ -846,26 +847,26 @@ a.btn-delete, .btn-delete {
 .none{ display:none;}
 /*编辑按钮*/
 a.btn-down-info, .btn-down-info {
-    background: #186f98;
-    color: #eaff02;
+    background: #fff;
+    color: #45b2e6;
     /*text-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
-    border-color: #0d5374;
+    border-color: #d7e4ef;
 }
 
 .btn-down-info:hover {
-    color: #fff;
-    background-color: #1c77a2;
-    border-color: #0d5374;
+    color: #45b2e6;
+    background-color: #fff;
+    border-color: #d7e4ef;
 }
 
 .btn-down-info:focus, .btn-down-info.focus {
-    color: #fff;
-    background-color: #186f98;
-    border-color: #0d5374;
+    color: #45b2e6;
+    background-color: #fff;
+    border-color: #d7e4ef;
 }
 
 .btn-down-info:active:focus {
-    color: #fff;
-    background-color: #186f98;
-    border-color: #0d5374;
+    color: #45b2e6;
+    background-color: #fff;
+    border-color: #d7e4ef;
 }

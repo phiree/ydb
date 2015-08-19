@@ -324,12 +324,12 @@
 }
 
 .secret-d-tip {
-    float: right;
+    
     width: 60px;
     text-align: center;
     font-size: 14px;
-    line-height: 1.8em;
-    margin-right: 20px;
+    line-height: 44px;
+    margin-left: 20px;
 }
 
 .secret-d-a {
@@ -467,7 +467,7 @@
     text-align: left;
 }
 
-.secret-icon-1 { background: url("../image/myshop/shop_title_05.png") no-repeat center; }
+.secret-icon-1 { background: url("../image/myshop/shop_title_05.png") no-repeat center; height:20px; width:20px; }
 .secret-icon-2 { background: url("../image/myshop/shop_title_04.png") no-repeat center; }
 
 
@@ -485,7 +485,6 @@
 .select-sm { width: 170px; height: 30px; line-height: 30px; border: 1px solid #C0D1E3; color: #58789a; }
 .select-sm cite { width: 170px; line-height: 28px; }
 .select-sm ul { width: 170px; line-height: 30px; }
-/*.select-sm ul li a:hover { background: #eee }*/
 
 
 .CPBox {
@@ -551,3 +550,6 @@
 {
      margin-right:20px;
 }
+.fu-cont-div-right{ text-align:right;}
+.fu-cont-div-center{ text-align:center;}
+.fu-cont-linehight{ line-height:44px;}
