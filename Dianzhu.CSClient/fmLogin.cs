@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using agsXMPP;
 using agsXMPP.protocol.client;
- 
+using System.Text.RegularExpressions;
 namespace Dianzhu.CSClient
 {
     public partial class fmLogin : Form
@@ -46,13 +46,15 @@ namespace Dianzhu.CSClient
             bool useValid = true;
             if (useValid)
             {
-                Jid jid = new Jid(tbxUserName.Text+"@"+GlobalViables.Domain);
+                string userName = tbxUserName.Text;
+                string userForOpenfire = StringHelper.EnsureOpenfireUserName(userName);
+                Jid jid = new Jid(userForOpenfire + "@" + GlobalViables.Domain);
                 //GlobalViables.XMPPConnection = new XmppClientConnection(jid.Server);
                 GlobalViables.XMPPConnection.Open(jid.User, tbxPassword.Text);
                 GlobalViables.XMPPConnection.OnLogin += new ObjectHandler(XMPPConnection_OnLogin);
                 GlobalViables.XMPPConnection.OnError+=new ErrorHandler(XMPPConnection_OnError);
                 GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
-                GlobalViables.CurrentUserName = tbxUserName.Text;
+                
             }
             else
             {
@@ -69,7 +71,7 @@ namespace Dianzhu.CSClient
                 return;
             }
             log.Error(e.InnerXml);
-            lblResult.Text = "登录通讯服务器失败";
+            lblResult.Text = "用户名密码有误";
         }
 
         void XMPPConnection_OnError(object sender, Exception ex)
@@ -96,7 +98,9 @@ namespace Dianzhu.CSClient
                 return;
             }
             //保存当前用户
-            GlobalViables.CurrentCustomerService=  BLLFactory.BLLMembership.GetUserByName(tbxUserName.Text);
+            BLL.DZMembershipProvider bllMembership = new BLL.DZMembershipProvider();
+            Model.DZMembership customerService = BLLFactory.BLLMembership.GetUserByName(tbxUserName.Text);
+            GlobalViables.CurrentCustomerService = customerService;
             this.DialogResult = DialogResult.OK;
             
         }

@@ -15,61 +15,15 @@ namespace Dianzhu.CSClient
 {
     public partial class fmMain : Form
     {
-
-        /// <summary>
-        /// 聊天主窗口
-        /// </summary>
         public fmMain()
         {
-            //Form fmLogin = new fmLogin();
-            //if (fmLogin.ShowDialog() == DialogResult.OK)
-            //{
-            //    this.Show();
-            //    
-            //}
-            //else
-            //{
-            //    Application.Exit();
-            //}
             InitializeComponent();
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
           
         }
 
-
+ 
        
-
-       
-
-        /// <summary>
-        /// 新增一个客户
-        /// 顶部增加一个item,并高亮显示(未读标签),声音提示
-        /// </summary>
-
-
-
-        /// <summary>
-        /// 在聊天窗口显示新信息
-        /// </summary>
-        /// <param name="customerName"></param>
-        /// <param name="msg"></param>
-        private void AddNewMessage(string customerName, string msg)
-        {
-
-            tbxChatLog.Text = customerName + ":" + msg + Environment.NewLine + tbxChatLog.Text;
-
-        }
-
-        private void btnSendMsg_Click(object sender, EventArgs e)
-        {
-            if (currentCustomer==null)
-            {
-                return;
-            }
-            GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(currentCustomer.UserName + "@" + GlobalViables.Domain, MessageType.chat, tbxMsg.Text));
-            AddNewMessage(GlobalViables.CurrentUserName, tbxMsg.Text);
-        }
-
         private void tbxMsg_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
@@ -81,6 +35,8 @@ namespace Dianzhu.CSClient
 
 
         #region 1 收到新消息.
+        
+        
         void XMPPConnection_OnMessage(object sender, xmppMessage.Message msg)
         {
             if (InvokeRequired)
@@ -88,10 +44,11 @@ namespace Dianzhu.CSClient
                 BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender, msg });
                 return;
             }
-
+            string normalUserName =StringHelper.EnsureNormalUserName(msg.From.User);
+             
             //判断该客户是否已经出现在列表中.
             //创建接待记录,保存聊天信息.
-            ReceiveNewMessage(msg.From.User, msg.Body);
+            ReceiveNewMessage(normalUserName, msg.Body);
         }
 
         IList<DZMembership> l_customerList = new List<DZMembership>();
@@ -147,7 +104,6 @@ namespace Dianzhu.CSClient
 
         #endregion
 
-
         #region 2 点击客户名称
 
         DZMembership currentCustomer = null;
@@ -195,6 +151,34 @@ namespace Dianzhu.CSClient
         }
         #endregion
 
+        #region 3 点击发送按钮
+        private void btnSendMsg_Click(object sender, EventArgs e)
+        {
+            if (currentCustomer == null)
+            {
+                return;
+            }
+            string msg = tbxMsg.Text;
+            if (msg == string.Empty)
+            {
+                return;
+            }
+            //1 获取当前的接待记录
+            ReceptionBase reception=l_receptionList[currentCustomer.UserName];
+            ReceptionChat chat = new ReceptionChat { From=GlobalViables.CurrentCustomerService, MessageBody=msg,
+             SendTime=DateTime.Now, To=currentCustomer};
+            reception.ChatHistory.Add(chat);
+            BLLFactory.BLLReception.Save(reception);
+            //2 聊天窗口增加一条消息
+            string formatMsg = chat.SendTime.ToShortTimeString() + chat.From.UserName + ":" + msg;
+            UI_Add_New_Messge(formatMsg);
+            //3 发送消息给客户. 
+            GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(
+               StringHelper.EnsureOpenfireUserName(currentCustomer.UserName)+ "@" + GlobalViables.Domain, MessageType.chat, msg));
+           
+        }
+
+        #endregion
 
         #region UI
         private readonly string pre_customer_btn = "cb_";
@@ -261,6 +245,11 @@ namespace Dianzhu.CSClient
           
         }
         #endregion
+
+        private void tbxMsg_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

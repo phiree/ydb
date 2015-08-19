@@ -94,7 +94,7 @@
             this.tbxLog.Location = new System.Drawing.Point(0, 49);
             this.tbxLog.Multiline = true;
             this.tbxLog.Name = "tbxLog";
-            this.tbxLog.Size = new System.Drawing.Size(560, 224);
+            this.tbxLog.Size = new System.Drawing.Size(560, 248);
             this.tbxLog.TabIndex = 1;
             // 
             // panel1
@@ -122,21 +122,22 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.tbxMessage);
             this.panel2.Controls.Add(this.btnSend);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.tbxMessage);
             this.panel2.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 273);
+            this.panel2.Location = new System.Drawing.Point(0, 297);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(560, 49);
+            this.panel2.Size = new System.Drawing.Size(560, 25);
             this.panel2.TabIndex = 6;
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(482, 15);
+            this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSend.Location = new System.Drawing.Point(485, 0);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(75, 23);
+            this.btnSend.Size = new System.Drawing.Size(75, 25);
             this.btnSend.TabIndex = 4;
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -152,10 +153,12 @@
             // 
             // tbxMessage
             // 
-            this.tbxMessage.Location = new System.Drawing.Point(12, 17);
+            this.tbxMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxMessage.Location = new System.Drawing.Point(0, 0);
             this.tbxMessage.Name = "tbxMessage";
-            this.tbxMessage.Size = new System.Drawing.Size(464, 21);
+            this.tbxMessage.Size = new System.Drawing.Size(485, 21);
             this.tbxMessage.TabIndex = 1;
+            this.tbxMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxMessage_KeyPress);
             // 
             // FmMain
             // 

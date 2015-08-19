@@ -69,7 +69,7 @@
             this.tbxChatLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbxChatLog.Location = new System.Drawing.Point(0, 0);
             this.tbxChatLog.Name = "tbxChatLog";
-            this.tbxChatLog.Size = new System.Drawing.Size(264, 291);
+            this.tbxChatLog.Size = new System.Drawing.Size(264, 326);
             this.tbxChatLog.TabIndex = 4;
             this.tbxChatLog.Text = "";
             // 
@@ -79,23 +79,26 @@
             this.panel5.Controls.Add(this.tbxMsg);
             this.panel5.Controls.Add(this.btnSendMsg);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(0, 291);
+            this.panel5.Location = new System.Drawing.Point(0, 326);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(264, 60);
+            this.panel5.Size = new System.Drawing.Size(264, 25);
             this.panel5.TabIndex = 0;
             // 
             // tbxMsg
             // 
+            this.tbxMsg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbxMsg.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.tbxMsg.Location = new System.Drawing.Point(3, 23);
+            this.tbxMsg.Location = new System.Drawing.Point(0, 0);
             this.tbxMsg.Name = "tbxMsg";
-            this.tbxMsg.Size = new System.Drawing.Size(166, 21);
+            this.tbxMsg.Size = new System.Drawing.Size(187, 21);
             this.tbxMsg.TabIndex = 3;
+            this.tbxMsg.TextChanged += new System.EventHandler(this.tbxMsg_TextChanged);
             this.tbxMsg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxMsg_KeyPress);
             // 
             // btnSendMsg
             // 
-            this.btnSendMsg.Location = new System.Drawing.Point(176, 23);
+            this.btnSendMsg.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSendMsg.Location = new System.Drawing.Point(187, 0);
             this.btnSendMsg.Name = "btnSendMsg";
             this.btnSendMsg.Size = new System.Drawing.Size(75, 23);
             this.btnSendMsg.TabIndex = 2;
