@@ -27,7 +27,7 @@ namespace Dianzhu.CSClient
         /// <param name="pres"></param>
         void XMPPConnection_OnPresence(object sender, Presence pres)
         {
-            throw new NotImplementedException();
+             
         }
         void SendMessage(string customerId, string message)
         { 
@@ -82,7 +82,7 @@ namespace Dianzhu.CSClient
             log.Error(ex.Message);
             lblResult.Text = "错误." + ex.Message;
         }
-
+        //这是一个异步的进程.
         void XMPPConnection_OnLogin(object sender)
         {
             
@@ -103,7 +103,8 @@ namespace Dianzhu.CSClient
 
         private void fmLogin_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+
+             
         }
     }
 }

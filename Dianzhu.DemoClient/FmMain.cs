@@ -26,12 +26,12 @@ namespace Dianzhu.DemoClient
 
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("用户名/密码有误");
         }
 
         void XMPPConnection_OnError(object sender, Exception ex)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("聊天服务器错误");
         }
 
         void XMPPConnection_OnMessage(object sender, agsc.Message msg)
@@ -63,7 +63,8 @@ namespace Dianzhu.DemoClient
         }
         void AddLog(string user, string body)
         {
-            tbxLog.Text = user + ":" + body + Environment.NewLine + tbxLog.Text;
+            tbxLog.Text = tbxLog.Text+ Environment.NewLine+ user + ":" + body ;
+            tbxLog.ScrollToCaret();
        
         }
 

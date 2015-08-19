@@ -24,7 +24,7 @@ namespace Dianzhu.BLL
         }
         public IList<ReceptionChat> GetHistoryReceptionChat(DZMembership from, DZMembership to,int limit)
         {
-          var list=  DALReception.Search(from, to, DateTime.MinValue, DateTime.MaxValue,10);
+          var list=  DALReception.Search(from, to, DateTime.MinValue, DateTime.MaxValue,limit);
 
           var chatList = new List<ReceptionChat>();
           foreach (ReceptionBase re in list)

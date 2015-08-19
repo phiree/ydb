@@ -30,13 +30,13 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.tbxChatLog = new System.Windows.Forms.RichTextBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.tbxMsg = new System.Windows.Forms.TextBox();
             this.btnSendMsg = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.gbCustomerList = new System.Windows.Forms.FlowLayoutPanel();
-            this.tbxChatLog = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -64,6 +64,15 @@
             this.panel3.Size = new System.Drawing.Size(266, 353);
             this.panel3.TabIndex = 1;
             // 
+            // tbxChatLog
+            // 
+            this.tbxChatLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxChatLog.Location = new System.Drawing.Point(0, 0);
+            this.tbxChatLog.Name = "tbxChatLog";
+            this.tbxChatLog.Size = new System.Drawing.Size(264, 291);
+            this.tbxChatLog.TabIndex = 4;
+            this.tbxChatLog.Text = "";
+            // 
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -77,6 +86,7 @@
             // 
             // tbxMsg
             // 
+            this.tbxMsg.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxMsg.Location = new System.Drawing.Point(3, 23);
             this.tbxMsg.Name = "tbxMsg";
             this.tbxMsg.Size = new System.Drawing.Size(166, 21);
@@ -119,15 +129,6 @@
             this.gbCustomerList.Name = "gbCustomerList";
             this.gbCustomerList.Size = new System.Drawing.Size(652, 100);
             this.gbCustomerList.TabIndex = 2;
-            // 
-            // tbxChatLog
-            // 
-            this.tbxChatLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxChatLog.Location = new System.Drawing.Point(0, 0);
-            this.tbxChatLog.Name = "tbxChatLog";
-            this.tbxChatLog.Size = new System.Drawing.Size(264, 291);
-            this.tbxChatLog.TabIndex = 4;
-            this.tbxChatLog.Text = "";
             // 
             // fmMain
             // 

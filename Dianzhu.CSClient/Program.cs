@@ -16,8 +16,15 @@ namespace Dianzhu.CSClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             log4net.Config.XmlConfigurator.Configure();
-             
-               Application.Run(new fmMain());
+            DialogResult result;
+            using (var loginForm = new fmLogin())
+            {
+                  result = loginForm.ShowDialog();
+            }
+            if (result == DialogResult.OK)
+            {
+                Application.Run(new fmMain());
+            }
             //Application.Run(new Views.Raw.ChatView());
 
             
