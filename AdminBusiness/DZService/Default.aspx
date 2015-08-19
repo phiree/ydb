@@ -22,42 +22,34 @@
                             <div class="cont-row row-fix">
                                 <div class="cont-col-12"><a class="btn btn-default btn-add m-b20" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a> </div>
                             </div>
-                            <div class="service-default-titles">
-                                <div class="cont-row">
-                                    <div class="cont-col-1"><p class="t-c">服务名称</p></div>
-                                    <div class="cont-col-3"><p class="t-c">服务类别</p></div>
-                                    <div class="cont-col-1"><p class="t-c">服务时间</p></div>
-                                    <div class="cont-col-3"><p class="t-c">服务范围</p></div>
-                                    <div class="cont-col-2"><p class="t-c">提前预约时间</p></div>
-                                    <div class="cont-col-2"><p class="t-c">服务启用</p></div>
-                                </div>
-                            </div>
-                            <div class="service-default-list">
-                                <asp:Repeater runat="server" ID="rptServiceList"  >
+                            <table class="custom-table">
+                                <thead class="table-head">
+                                    <tr>
+                                        <th>服务名称</th>
+                                        <th>服务类别</th>
+                                        <th>服务时间</th>
+                                        <th>服务范围</th>
+                                        <th>提前预约时间</th>
+                                        <th>服务启用</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="service-table-tbody">
+                                    <asp:Repeater runat="server" ID="rptServiceList"  >
                                     <ItemTemplate>
-                                     <div  onclick="listhref('/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>')" class="cont-row service-list-item">
-                                        <div class="cont-col-12">
-                                            <div class="cont-row">
-                                                <div class="cont-col-1"><p class="t-c text-ellipsis"><div class="text-ellipsis" ><%#Eval("Name") %></div></p>
-                     </div>
-                                                <div class="cont-col-3"><p class="t-c"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></p></div>
-                                                 <div class="cont-col-1"><p class="t-c"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></p></div>
-                                                <div class="cont-col-3">
-                                                <p class="spServiceArea text-ellipsis t-c"></p>
-                                                <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
-                                                </div>
-                                                <div class="cont-col-2"><p class="t-c"><%#Eval("OrderDelay")%></p></div>
-
-                                                      <div class="cont-col-2"><div class="t-c"><p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-delete":"btn btn-info" %> enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p>
-                                                          <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-delete" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')">删除</asp:LinkButton>
-                                                     </div></div>
-
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <tr onclick="listhref('/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>')">
+                                        <td class="table-col-1"><%#Eval("Name") %></td>
+                                        <td class="table-col-2"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></td>
+                                        <td class="table-col-2"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></td>
+                                        <td class="table-col-3"><p class="spServiceArea l-h16 t-c"></p>
+                                                                                            <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' /></td>
+                                        <td class="table-col-2"><%#Eval("OrderDelay")%></td>
+                                        <td class="table-col-2"><p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable_service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p><asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-delete m-l10" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')">删除</asp:LinkButton></td>
+                                    </tr>
                                     </ItemTemplate>
-                                </asp:Repeater>
-                            </div>
+                                    </asp:Repeater>
+                                </tbody>
+                            </table>
+
 
 
 
@@ -87,23 +79,26 @@
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script >
     function listhref(url){
-        var $target = $(event.target)
+        var e = event || window.event;
+        var target = e.srcElement || e.target;
+        var $target = $(target);
+
         if($target.hasClass("btn")){
             return false
         }else if(event.target == event.target){
-            window.location.href=url
+            window.location.href = url
         };
     }
 
 
     $(function(){
-        if ( $(".service-default-list").find(".service-list-item").length == 0 ){
+        if ( $(".service-table-tbody").find("tr").length == 0 ){
             $(".service-new").removeClass("dis-n");
         } else {
             $(".service-list-container").removeClass("dis-n");
         }
 
-       $(".service-default-list .service-list-item:odd").addClass("list-item-odd");
+       $(".service-table-tbody tr:odd").addClass("list-item-odd");
     })
     </script>
     <script type="text/javascript">
@@ -129,11 +124,11 @@
                             var enabled = data.data;
                             if (enabled == "True") {
                                 $(that).html("禁用");
-                                $(that).removeClass("btn-info").addClass("btn-delete");
+                                $(that).removeClass("btn-info").addClass("btn-down-info");
                             }
                             else {
                                 $(that).html("启用");
-                                $(that).addClass("btn-info").removeClass("btn-delete");
+                                $(that).addClass("btn-info").removeClass("btn-down-info");
 
                             }
 

@@ -460,7 +460,7 @@ html{
     vertical-align: baseline;
 }
 
-
+/*自定义内容框架样式*/
 .cont-wrap{
     color: #666;
     padding: 14px;
@@ -509,14 +509,12 @@ html{
     font-size: 26px;
     color: #3794bf;
     font-weight: bold;
-    /*line-height: 2em;*/
 }
 
 .cont-h3 {
     font-size: 27px;
     color: #3794bf;
     font-weight: bold;
-    /*line-height: 2em;*/
 }
 
 .cont-h4 {
@@ -565,9 +563,13 @@ html{
     height: 16px;
 }
 
+
+/*table垂直居中样式*/
 .vmBox{ display: table; }
 .vm { display: table-cell; vertical-align: middle; }
 
+
+/*全局输入框样式*/
 .input-textarea:focus,.input-lg:focus,.input-mid:focus,.input-sm:focus {
     background: #f3f5f9;
     border:#0f9ecc 1px solid;
@@ -629,7 +631,7 @@ html{
     box-sizing: content-box\9;
 }
 
-
+/*全局tips文本样式*/
 .text-anno {
     color: #58789a;
     font-size: 12px;
@@ -659,6 +661,7 @@ html{
     word-wrap: break-word;
 }
 
+/*自定义主题颜色样式*/
 .theme-color-r {
     color: #FF8661;
 }
@@ -705,44 +708,9 @@ a.btn-info, .btn-info {
 }
 
 /*添加按钮*/
-/*a.btn-add, .btn-add {*/
-    /*background: #5be4c6;*/
-    /*color: #fff;*/
-    /*text-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
-    /*border-color: #5ad0b2;*/
-    /*/!*box-shadow: 0 7px 0 #5ad0b2, 0 8px 3px rgba(0, 0, 0, 0.3);*!/*/
-    /*/!*position: relative;*!/*/
-/*}*/
-
-/*.btn-add:hover {*/
-    /*color: #fff;*/
-    /*background-color: #5ad0b2;*/
-    /*border-color: #5be4c6;*/
-/*}*/
-
-/*.btn-add:focus, .btn-add.focus {*/
-    /*color: #fff;*/
-    /*background-color: #30a67e;*/
-    /*border-color: #30a67e;*/
-/*}*/
-
-/*.btn-add:active:focus {*/
-    /*color: #fff;*/
-    /*background-color: #30a67e;*/
-    /*border-color: #30a67e;*/
-/*}*/
-
-/*.btn-add:active, a.btn-add.active, .open > .dropdown-toggle.btn-add {*/
-    /*color: #fff;*/
-    /*background-color: #30a67e;*/
-    /*border-color: #30a67e;*/
-    /*/!*top: 3px;*!/*/
-/*}*/
-
 a.btn-add, .btn-add {
     background: #64c6f8;
     color: #fff;
-    /*text-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
     border-color: #64c6f8;
 }
 
@@ -775,7 +743,6 @@ a.btn-add, .btn-add {
 a.btn-cancel, .btn-cancel {
     background: #d0d0d0;
     color: #fff;
-    /*text-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
     border-color: #d0d0d0;
 }
 
@@ -807,7 +774,6 @@ a.btn-cancel, .btn-cancel {
 a.btn-delete, .btn-delete {
     background: #fd9292;
     color: #fff;
-    /*text-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
     border-color: #fd9292;
 }
 
@@ -843,13 +809,13 @@ a.btn-delete, .btn-delete {
     font-size: 18px;
     font-family: "Microsoft YaHei", "微软雅黑", "黑体", "宋体", sans-serif;
 }
+
 /*fu**/
 .none{ display:none;}
 /*编辑按钮*/
 a.btn-down-info, .btn-down-info {
     background: #fff;
     color: #45b2e6;
-    /*text-shadow: 0 1px 1px rgba(0,0,0,0.3);*/
     border-color: #d7e4ef;
 }
 
@@ -869,4 +835,27 @@ a.btn-down-info, .btn-down-info {
     color: #45b2e6;
     background-color: #fff;
     border-color: #d7e4ef;
+}
+
+/*标签样式*/
+.pTagContainer {
+
+}
+
+.spTag {
+    background: #ececec;
+    color: #424242;
+    padding: 5px;
+    margin-right: 10px;
+}
+.spTagText {
+
+}
+.spTagDel {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    background: url("../image/shop-icon-13.png") no-repeat center;
+    color: transparent;
+    border: 0;
 }
