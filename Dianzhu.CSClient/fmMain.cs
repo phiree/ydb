@@ -21,16 +21,19 @@ namespace Dianzhu.CSClient
         /// </summary>
         public fmMain()
         {
-            Form fmLogin = new fmLogin();
-            if (fmLogin.ShowDialog() == DialogResult.OK)
-            {
-                this.Show();
-            }
-            else
-            {
-                InitializeComponent();
-                GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
-            }
+            //Form fmLogin = new fmLogin();
+            //if (fmLogin.ShowDialog() == DialogResult.OK)
+            //{
+            //    this.Show();
+            //    
+            //}
+            //else
+            //{
+            //    Application.Exit();
+            //}
+            InitializeComponent();
+            GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
+          
         }
 
 
@@ -104,8 +107,11 @@ namespace Dianzhu.CSClient
             if (isAdded)
             {
                 customer = l_customerList.Single(x => x.UserName == customerLoginName);
-                //ui 对应名称变为红色
-                UI_NewMessage(customerLoginName);
+                //ui 如果不是在当前用户的聊天窗口 则设置该按钮为 未读.
+                if (currentCustomer!=null&&currentCustomer.UserName != customerLoginName)
+                {
+                    UI_NewMessage(customerLoginName);
+                }
                
             }
             //新进来的请求
@@ -145,17 +151,33 @@ namespace Dianzhu.CSClient
         #region 2 点击客户名称
 
         DZMembership currentCustomer = null;
+        Button currentButton = null;
         void btnCustomer_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             string customerName = btn.Text;
-            if (currentCustomer!=null &&currentCustomer.UserName == customerName)
+            currentCustomer = l_customerList.Single(x => x.UserName == customerName);
+            if (currentCustomer == null)
+            {
+                MessageBox.Show("错误.没有获取到当前客户,请关闭程序,重新登陆");
+            }
+            if (currentCustomer.UserName == customerName)
             {
                 return;
             }
-            currentCustomer = l_customerList.Single(x => x.UserName == customerName);
+            
             //1 ui 当前button样式变化.
-            UI_Style_Readed(btn);
+            UI_Style_Current(btn);
+            //2 ui 之前的currentButton变为已读
+            if (currentButton != null)
+            {
+                UI_Style_Readed(currentButton);
+            }
+            //将当前button设置为被点击的button
+            currentButton = btn;
+
+
+
             //2 聊天记录窗口 显示与该客户的聊天记录(注意,需要限制显示条数)
            ReceptionBase re= l_receptionList[customerName];
             //加载历史聊天记录
@@ -169,6 +191,7 @@ namespace Dianzhu.CSClient
 
         #region UI
         private readonly string pre_customer_btn = "cb_";
+        //接受到新消息后 修改button的样式.
         private void UI_NewMessage(string userLoginName)
         {
            
@@ -176,15 +199,25 @@ namespace Dianzhu.CSClient
             UI_Style_Unread(btn);
 
         }
+        //未读按钮
         private void UI_Style_Unread(Button btn)
         {
-            btn.ForeColor = Color.Red;
+           
             btn.BackColor = Color.YellowGreen;
+            btn.ForeColor = Color.Red;
         }
+        //已读按钮
         private void UI_Style_Readed(Button btn)
         {
             btn.BackColor = Color.FromArgb(100);
             btn.ForeColor = Color.Black;
+        }
+        //当前按钮
+        private void UI_Style_Current(Button btn)
+        {
+            
+            btn.BackColor = Color.FromArgb(200);
+            btn.ForeColor = Color.FromArgb(100);
         }
         private void UI_AddNewCustomer(string userLoginName)
         {
@@ -202,7 +235,7 @@ namespace Dianzhu.CSClient
         private void UI_Load_ChatHistory(IList<ReceptionChat> chatHistory)
         {
              chatHistory.OrderBy(x => x.SendTime);
-             tbxChatLog.Lines=   chatHistory.Select(x =>x.ReceiveTime.ToString("dd号 HH:mm:ss")+"--"+ x.From.UserName+":"+ x.MessageBody).ToArray();
+             tbxChatLog.Lines=   chatHistory.OrderBy(x=>x.ReceiveTime).Select(x =>x.ReceiveTime.ToString("dd号 HH:mm:ss")+"--"+ x.From.UserName+":"+ x.MessageBody).ToArray();
              tbxChatLog.ScrollToCaret();
        
         }
