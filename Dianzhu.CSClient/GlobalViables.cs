@@ -18,8 +18,9 @@ namespace Dianzhu.CSClient
             
             XMPPConnection = new XmppClientConnection(ServerName);
         }
-        public static string CurrentUserName = string.Empty;
-        public static string CSLoginUser = string.Empty;
+        /// <summary>
+        /// 当前登录的客服
+        /// </summary>
         public static Model.DZMembership CurrentCustomerService = null;
        
     }
