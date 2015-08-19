@@ -65,13 +65,13 @@
                             <p class="fu-cont-sub-title">您的账安全信息</p>
                             <div class="pass-row m-b20">
                                 <div class="cont-row">
-                                    <div class="cont-col-2"><span class="secret-d-t">登陆密码&nbsp;:</span></div>
-                                    <div class="cont-col-6"><p class="secret-d-p d-inb">设置安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</p></div>
-                                    <div class="cont-col-2"><a id="passChange" class="secret-change-a blue-a" href="javascript:void(0);">修改</a></div>
-                                    <div class="cont-col-2">
+                                    <div class="cont-col-2 fu-cont-div-right"><span class="secret-d-t">登陆密码&nbsp;:</span></div>
+                                    <div class="cont-col-5"><p class="secret-d-p d-inb">设置安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</p></div>
+                                    <div class="cont-col-3 fu-cont-div-right fu-cont-linehight"><a id="passChange" class="blue-a" href="javascript:void(0);">修改</a></div>
+                                    <div class="cont-col-2 fu-cont-div-center">
                                         <div class="secret-d-tip">
                                             <i class="icon secret-icon-1"></i>
-                                            <div>强</div>
+                                            <span>强</span>
                                         </div>
                                     </div>
                                 </div>
