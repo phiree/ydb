@@ -4,27 +4,7 @@
 <span class="sptag" tagid='<%#Eval("Id") %>'><%#Eval("Text") %></span>
 </ItemTemplate>
 </asp:Repeater>
-<input type="text"  class="iptag" placeholder="添加新标签" />
-<script type="text/javascript">
-    $(function () {
-        $(".iptag").keypress(function (ev) {
-            if (ev.which == 13) {
-                ev.preventDefault();
-                var that = this;
-                var newTag = $(this).val();
-                var serviceId = "<%=ServiceId %>"
-                $.post(
-                    "/ajaxservice/taghandler.ashx",
-                    {
-                        "tagText": newTag,
-                        "serviceId": serviceId
-                    },
-                    function (result) {
-                        var newtag = $("<span class='sptag' tagid='" + result + "'>" + newTag + "</span>");
-                        newtag.insertAfter(that);
-                    }
-                ); //post
-            } //if (ev.which == 13) {
-        }); // $(".iptag").keypress(function (ev) {
-    });
-</script>
+<p class="m-b10"><input type="text" id="ipTag" class="iptag" serviceId="<%=ServiceId %>" placeholder="添加新标签" />
+   <input class="btn btn-info" type="button" id="ipTagAdd" value="添加标签"/></p>
+
+<p class="ipTagContainer"></p>

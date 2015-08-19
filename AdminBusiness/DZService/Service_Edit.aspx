@@ -125,6 +125,7 @@
     <script type="text/javascript" src="/js/CityList.js"></script>
     <script type="text/javascript" src="/js/baiduMapLib.js"></script>
     <script type="text/javascript" src="/js/service.js"></script>
+    <script type="text/javascript" src="/js/iptag.js"></script>
     <!--<script type="text/javascript" src="/js/map.js"></script>-->
 </asp:Content>
 
