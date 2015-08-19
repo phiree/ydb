@@ -28,10 +28,12 @@
                 </tr>
                 <asp:Repeater runat="server" ID="rptStaff" OnItemCommand="rptStaff_ItemCommand">
                 <ItemTemplate>
-                 <tr>
-                 <td class="emp-td-style epm-th-2"><img src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/image/emp-headinco.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=90&height=90&tt=2)"%>  ' width="49" height="49" /></td>
+               
+                 <tr onclick="listhref('edit.aspx?id=<%#Eval("id") %>&businessid=<%=Request["businessid"] %>')">
+                  
+                 <td class="emp-td-style epm-th-2 epm-headimg"><img src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/image/emp-headinco.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=90&height=90&tt=2)"%>  ' width="49" height="49" /></td>
                   <td class="emp-td-style epm-th-2"><%#Eval("Code") %></td>
-                  <td class="emp-td-style epm-th-2"><a href='edit.aspx?id=<%#Eval("id") %>&businessid=<%=Request["businessid"] %>'><%#Eval("Name") %></a></td>
+                  <td class="emp-td-style epm-th-2"><%#Eval("Name") %></td>
                   <td class="emp-td-style epm-th-2"><%#Eval("NickName") %></td>
                   <td class="emp-td-style epm-th-2"><%#Eval("Gender")%></td>
                   <td class="emp-td-style epm-th-2"><%#Eval("Phone")%></td>
@@ -39,7 +41,9 @@
                   
                   <asp:Button runat="server" CssClass="btn btn-delete" CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" Text="删除"/></td>
                 
-                </tr></ItemTemplate>
+                </tr>
+               
+                </ItemTemplate>
                 </asp:Repeater>
              
                 
@@ -98,21 +102,30 @@
         <script type="text/javascript" src="/js/TabSelection.js" ></script>
         <script type="text/javascript" src="/js/jquery.lightbox_me.js" ></script>
         <script type="text/javascript">
+            function listhref(url) {
+                var $target = $(event.target)
+                if ($target.hasClass("btn")) {
+                    return false
+                } else if (event.target == event.target) {
+                    window.location.href = url
+                };
+            }
             $(function () {
-            /* 当鼠标移到表格上是，当前一行背景变色 */
+
+                /* 当鼠标移到表格上是，当前一行背景变色 */
                 $(".emp-table tr td").mouseover(function () {
                     $(this).parent().find("td").css("background-color", "#b0d3f5");
                 });
-          /* 当鼠标在表格上移动时，离开的那一行背景恢复 */
-              $(".emp-table tr td").mouseout(function () {
-                var bgc = $(this).parent().attr("bg");
-                $(this).parent().find("td").css("background-color",bgc);
-               });
-               var color = "#f1f4f7"
-               $(".emp-table tr:odd td").css("background-color", color);  //改变奇数行背景色
-            /* 把背景色保存到属性中 */
-               $(".emp-table tr:odd").attr("bg", color);
-               $(".emp-table tr:even").attr("bg", "#fff");
+                /* 当鼠标在表格上移动时，离开的那一行背景恢复 */
+                $(".emp-table tr td").mouseout(function () {
+                    var bgc = $(this).parent().attr("bg");
+                    $(this).parent().find("td").css("background-color", bgc);
+                });
+                var color = "#f1f4f7"
+                $(".emp-table tr:odd td").css("background-color", color);  //改变奇数行背景色
+                /* 把背景色保存到属性中 */
+                $(".emp-table tr:odd").attr("bg", color);
+                $(".emp-table tr:even").attr("bg", "#fff");
 
             });
 
