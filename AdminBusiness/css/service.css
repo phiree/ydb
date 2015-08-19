@@ -103,31 +103,50 @@ a.new-add-btn {
     background-color: #f1f4f7;
 }
 
-.service-default-titles {
-    font-size: 16px;
-    padding: 14px;
-    color: #fff;
+.custom-table{
+    width: 100%;
+}
+
+.custom-table .table-col-1 { width:8.33333333%; }
+.custom-table .table-col-2 { width:16.66666667%; }
+.custom-table .table-col-3 { width:25%; }
+.custom-table .table-col-4 { width:33.33333333%; }
+.custom-table .table-col-5 { width:41.66666667%; }
+.custom-table .table-col-6 { width:50%; }
+.custom-table .table-col-7 { width:58.33333333%; }
+.custom-table .table-col-8 { width:66.66666667%; }
+.custom-table .table-col-9 { width: 75%; }
+.custom-table .table-col-10 { width: 83.33333333%; }
+.custom-table .table-col-11 { width:91.66666667%; }
+.custom-table .table-col-12 { width:100%; }
+
+.custom-table .table-head {
     background: #8dc2f3;
 }
 
-.service-default-list>.cont-row{
-    padding: 14px;
-
-    /*border-left: 5px solid transparent;*/
-
-}
-
-.service-default-list>.cont-row:hover{
-    /*padding: 14px;*/
-    /*border-left: 5px solid #8dc1f2;*/
-    background: #b0d3f5;
+.custom-table .table-head tr th{
+    padding: 20px 0;
+    text-align: center;
     color: #fff;
 }
 
+.custom-table thead tr th {
 
-.service-list-item .cont-row {
-    height: 34px;
-    line-height: 34px;
+}
+
+.custom-table tbody tr td {
+    text-align: center;
+    padding: 10px;
+    word-break: break-all;
+}
+
+.service-table-tbody tr{
+    cursor: pointer;
+}
+
+.service-table-tbody tr:hover{
+    background: #b0d3f5;
+    color: #fff;
 }
 
 /*服务信息查看页面样式*/
@@ -280,10 +299,6 @@ a.new-add-btn {
     text-align: center;
     text-overflow: clip;
     word-break: break-all;
-    /*border-left: 1px solid #f1fbff;*/
-    /*border-top: 1px solid #f1fbff;*/
-    /*border-bottom: 1px solid #c3cfdb;*/
-    /*border-radius: 5px 0 0 5px;*/
     background: #549DC8;
     border-top: 1px solid transparent;
     border-bottom: 1px solid #fff;
@@ -291,12 +306,7 @@ a.new-add-btn {
 }
 
 .serviceChoice ul li a:hover{
-    /*padding: 5px;*/
     color: #57789B;
-    /*border-left: 1px solid #96b2ca;*/
-    /*border-top: 1px solid #58789a;*/
-    /*border-bottom: 1px solid #c4cdd4;*/
-    /*border-radius: 5px 0 0 5px;*/
     background: #fff;
     border-top: 1px solid #549DC8;
     border-bottom: 1px solid #549DC8;
