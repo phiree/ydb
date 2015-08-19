@@ -33,4 +33,11 @@ namespace Dianzhu.DAL.Mapping
             References<Business>(x => x.BelongTo);
         }
     }
+    public class CustomerServiceMap : SubclassMap<CustomerService>
+    {
+        public CustomerServiceMap()
+        {
+            Map(x => x.CSId);
+         }
+    }
 }

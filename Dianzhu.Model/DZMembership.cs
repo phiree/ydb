@@ -46,7 +46,9 @@ namespace Dianzhu.Model
     }
     /// <summary>
     /// 商家相关用户.
+    /// 
     /// </summary>
+    [Obsolete]
     public class BusinessUser : DZMembership
     {
         /// <summary>

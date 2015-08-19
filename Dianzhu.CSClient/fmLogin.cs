@@ -13,7 +13,7 @@ namespace Dianzhu.CSClient
 {
     public partial class fmLogin : Form
     {
-       log4net.ILog  log = log4net.LogManager.GetLogger("cs");
+       log4net.ILog log = log4net.LogManager.GetLogger("cs");
         public fmLogin()
         {
             InitializeComponent();
@@ -85,6 +85,7 @@ namespace Dianzhu.CSClient
 
         void XMPPConnection_OnLogin(object sender)
         {
+            
             //告诉世界,我,上线,,,了.
             Presence p = new Presence(ShowType.chat, "Online");
             p.Type = PresenceType.available;
@@ -94,6 +95,8 @@ namespace Dianzhu.CSClient
                 BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
                 return;
             }
+            //保存当前用户
+            GlobalViables.CurrentCustomerService=  BLLFactory.BLLMembership.GetUserByName(tbxUserName.Text);
             this.DialogResult = DialogResult.OK;
             
         }

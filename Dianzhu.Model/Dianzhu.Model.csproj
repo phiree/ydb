@@ -59,7 +59,7 @@
     <Compile Include="DZMembership.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CashTicketAssignRecord.cs" />
-    <Compile Include="ReceptionBase.cs" />
+    <Compile Include="Reception.cs" />
     <Compile Include="ServicePeriod.cs" />
     <Compile Include="ServiceProperty.cs" />
     <Compile Include="ServiceOrder.cs" />

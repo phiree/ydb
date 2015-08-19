@@ -11,5 +11,21 @@ namespace Dianzhu.DAL
     {
 
         
+        public IList<ReceptionBase> Search(DZMembership from,DZMembership to, DateTime timeBegin, DateTime timeEnd,int limit)
+        {
+
+            var result = Session.QueryOver<ReceptionBase>().Where(x => x.TimeBegin >= timeBegin)
+                 .And(x => x.TimeBegin <= timeEnd);
+           if (from!=null)
+           {
+               result = result.And(x => x.Sender == from);
+           }
+           if (to!=null)
+           {
+               result = result.And(x => x.Receiver == to);
+           }
+            result.OrderBy(x => x.TimeBegin).Desc.Take(limit).List();
+           return result.List();
+        }
     }
 }
