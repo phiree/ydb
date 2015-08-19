@@ -12,7 +12,8 @@ namespace Dianzhu.CSClient.Views.ViewsContracts
     /// </summary>
    public interface IChatView:IView<Models.ChatModel>
     {
-       event EventHandler SendMessage;
+       event EventHandler SendMsg;
        
     }
+    
 }

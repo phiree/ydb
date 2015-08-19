@@ -66,18 +66,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\WinFormsMvp.dll</HintPath>
     </Reference>
-    <Reference Include="WinFormsMvp.Ninject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9da1e44a5a34ef2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dll\WinFormsMvp.Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="WinFormsMvp.StructureMap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=db398a0ebed4498c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dll\WinFormsMvp.StructureMap.dll</HintPath>
-    </Reference>
-    <Reference Include="WinFormsMvp.Unity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=636cb6cfc2d5d0c9, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dll\WinFormsMvp.Unity.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalViables.cs" />
@@ -99,12 +87,15 @@
     <Compile Include="Models\CustomerListModel.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\MainViewModel.cs">
+    <Compile Include="Models\MainModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Raw\ChatModel.cs" />
     <Compile Include="Presenters\MainViewPresenter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Presenters\ChatPresenter.cs" />
+    <Compile Include="Presenters\Raw\ChatPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\ChatView.cs">
@@ -125,6 +116,13 @@
     <Compile Include="Views\MainView.Designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Raw\ChatView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Raw\ChatView.Designer.cs">
+      <DependentUpon>ChatView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Raw\IChatView.cs" />
     <Compile Include="Views\ViewsContracts\IChatView.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -151,8 +149,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\ChatView.resx">
+      <DependentUpon>ChatView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Raw\ChatView.resx">
+      <DependentUpon>ChatView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EmbeddedResource Include="appSettings.config">
@@ -173,16 +177,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dll\WinFormsMvp.dll" />
-    <Content Include="dll\WinFormsMvp.Ninject.dll" />
-    <Content Include="dll\WinFormsMvp.Ninject.pdb" />
-    <Content Include="dll\WinFormsMvp.pdb" />
-    <Content Include="dll\WinFormsMvp.StructureMap.dll" />
-    <Content Include="dll\WinFormsMvp.StructureMap.pdb" />
-    <Content Include="dll\WinFormsMvp.Unity.dll" />
-    <Content Include="dll\WinFormsMvp.Unity.pdb" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
       <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
       <Name>Dianzhu.BLL</Name>
@@ -192,6 +186,10 @@
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="dll\WinFormsMvp.dll" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
