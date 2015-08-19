@@ -174,7 +174,14 @@
             </div>
             <div class="cont-col-10">
                 <div >
-                        至少&nbsp;&nbsp;<asp:TextBox runat="server" snsi CssClass="input-sm" ID="tbxOrderDelay">60</asp:TextBox>&nbsp;&nbsp;分钟
+                      至少&nbsp;&nbsp;
+                      <div class="d-inb select select-xm hour-select">
+                          <ul></ul>
+                          <input type="text" class="input-lg dis-n" id="tbxBusinessYears" name="workYears"/>
+                      </div>
+                      小时
+
+                      <!--<asp:TextBox runat="server" snsi CssClass="input-sm" ID="tbxOrderDelay">60</asp:TextBox>-->
                 </div>
                 <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写该服务是否需要提前预约的时间</p>
             </div>
@@ -185,6 +192,23 @@
             </div>
             <div class="cont-col-10">
                 <div>
+                <div class="d-inb select select-xm hour-select">
+                    <ul></ul>
+                    <input type="text" class="input-lg dis-n" id="tbxBusinessYears" name="workYears"/>
+                </div>&nbsp;&nbsp;小时
+                <div class="d-inb select select-xm minite-select">
+                    <ul></ul>
+                    <input type="text" class="input-lg dis-n" id="tbxBusinessYears" name="workYears"/>
+                </div>&nbsp;&nbsp;分钟
+                &nbsp;&nbsp;至&nbsp;&nbsp;
+                <div class="d-inb select select-xm hour-select">
+                    <ul></ul>
+                    <input type="text" class="input-lg dis-n" id="tbxBusinessYears" name="workYears"/>
+                </div>&nbsp;&nbsp;小时
+                <div class="d-inb select select-xm minite-select">
+                    <ul></ul>
+                    <input type="text" class="input-lg dis-n" id="tbxBusinessYears" name="workYears"/>
+                </div>&nbsp;&nbsp;分钟
                     <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxServiceTimeBegin">08:30</asp:TextBox>&nbsp;&nbsp;至&nbsp;&nbsp;
                     <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxServiceTimeEnd">21:00</asp:TextBox>
                 </div>

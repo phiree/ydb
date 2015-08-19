@@ -20,7 +20,7 @@
                     <div class="cont-col-9">
                         <div class="cont-row">
                             <div class="cont-col-2"><p >服务类型:</p></div>
-                            <div class="cont-col-10"><%=CurrentService.ServiceType.ToString() %></div>
+                            <div class="cont-col-10"><%=CurrentService.ServiceType.Name %></div>
                         </div>
                     </div>
                 </div>

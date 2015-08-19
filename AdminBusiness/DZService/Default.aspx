@@ -40,7 +40,7 @@
                                             <div class="cont-row">
                                                 <div class="cont-col-1"><p class="t-c text-ellipsis"><a class="btn btn-info text-ellipsis" href='/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>'><%#Eval("Name") %></a></p>
                      </div>
-                                                <div class="cont-col-3"><p class="t-c"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.ToString()  %></p></div>
+                                                <div class="cont-col-3"><p class="t-c"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></p></div>
                                                  <div class="cont-col-1"><p class="t-c"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></p></div>
                                                 <div class="cont-col-3">
                                                 <p class="spServiceArea text-ellipsis t-c"></p>
@@ -92,6 +92,8 @@
         } else {
             $(".service-list-container").removeClass("dis-n");
         }
+
+       $(".service-default-list .service-list-item:odd").css("background-color", "#f1f4f7");
     })
     </script>
     <script type="text/javascript">
