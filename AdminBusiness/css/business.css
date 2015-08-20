@@ -159,6 +159,7 @@ a.new-add-btn {
     margin-right: 20px;
     box-shadow: 0 0 2px 0 rgba(93, 93, 93, 0.8);
     border-left: 8px solid #c3f3e2;
+    min-height: 731px;
 }
 
 .business-detail-stand .cont-row {
@@ -166,7 +167,11 @@ a.new-add-btn {
 }
 
 .detail-img {
-    min-height: 90px;
+    min-height: 120px;
+}
+
+.detail-img a img{
+    border-radius: 5px;
 }
 
 .detail-pra .cont-row {
@@ -180,7 +185,7 @@ a.new-add-btn {
     padding: 25px;
     box-shadow: 0 0 2px 0 rgba(93, 93, 93, 0.8);
     border-left: 8px solid #E4BFFF;
-    min-height: 523px;
+    min-height: 731px;
 }
 
 .business-detail-pic {
