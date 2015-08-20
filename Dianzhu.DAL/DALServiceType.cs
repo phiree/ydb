@@ -15,6 +15,12 @@ namespace Dianzhu.DAL
             string query = "select s from ServiceType s where s.Parent is null order by OrderNumber";
             return GetList(query);
         }
+        public ServiceType GetOneByCode(string code)
+        {
+            ServiceType s = Session.QueryOver<ServiceType>().Where(x => x.Code == code).SingleOrDefault();
+            return s;
+        }
+        
          
         
 
