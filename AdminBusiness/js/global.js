@@ -5,13 +5,8 @@
 (function ($) {
 
     (function(){
-        var htmlH = $("html").height();
         var navbarH = $(".navbar").height();
 
-        //return $(window).resize(function(){
-            //$(".mh").css({
-            //    minHeight: htmlH - navbarH
-            //})
 
             $(window).bind("load resize", function() {
 
@@ -49,7 +44,7 @@
     })();
 
     (function(){
-        return $('.minite-select').each(function () {
+        return $('.minute-select').each(function () {
                 var selectList = $(this).find("ul");
                 for ( var i = 0 ; i < 60 ; i++ ) {
                     selectList.append("<li><a>"+ i  +"</a></li>");
