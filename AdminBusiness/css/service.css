@@ -152,7 +152,7 @@ a.new-add-btn {
 /*服务信息查看页面样式*/
 .service-info {
     margin: -14px -14px 0 -14px;
-    padding: 40px 14px ;
+    padding: 10px 14px 40px 30px ;
     line-height: 2.5em;
 }
 

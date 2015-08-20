@@ -10,46 +10,52 @@
         <div class="cont-container">
             <div class="service-info info-top">
                 <div class="cont-row">
-                    <div class="cont-col-12"><p class="cont-h4">基本服务信息</p></div>
-                    <div class="cont-col-3">
-                        <div class="cont-row">
-                            <div class="cont-col-4"><p >服务名称:</p></div>
-                            <div class="cont-col-8"><p class="text-ellipsis"><%=CurrentService.Name %></p></div>
-                        </div>
+                    <div class="cont-col-12"><p class="cont-h4 m-b20">基本服务信息</p></div>
+</div>
+                <div>
+                    <div class="cont-row">
+
+                                        <div class="cont-col-3">
+                                            <div class="cont-row">
+                                                <div class="cont-col-4"><p >服务名称:</p></div>
+                                                <div class="cont-col-8"><p class="text-ellipsis"><%=CurrentService.Name %></p></div>
+                                            </div>
+                                        </div>
+                                        <div class="cont-col-9">
+                                            <div class="cont-row">
+                                                <div class="cont-col-2"><p >服务类型:</p></div>
+                                                <div class="cont-col-10"><%=CurrentService.ServiceType.Name %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    <div class="cont-row">
+                                        <div class="cont-col-3">
+                                            <div class="cont-row">
+                                                <div class="cont-col-4"><p>服务标签:</p></div>
+                                                <div class="cont-col-8"></div>
+                                            </div>
+                                        </div>
+                                        <div class="cont-col-9">
+                                            <div class="cont-row">
+                                                <div class="cont-col-2"><p>服务区域:</p></div>
+                                                <div class="cont-col-10"><span id="spServiceArea"   class="spServiceArea text-ellipsis">
+                                                </span>    <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%=CurrentService.BusinessAreaCode %>' />
+
+
+                                                </div>
+                                             </div>
+                                        </div>
+        </div>
+                    <div class="cont-row">
+                        <div class="cont-col-1"><p>服务介绍:</p></div>
+                        <div class="cont-col-7"><p class="text-ellipsis"><%=CurrentService.Description %></p></div>
                     </div>
-                    <div class="cont-col-9">
-                        <div class="cont-row">
-                            <div class="cont-col-2"><p >服务类型:</p></div>
-                            <div class="cont-col-10"><%=CurrentService.ServiceType.Name %></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="cont-row">
-                    <div class="cont-col-3">
-                        <div class="cont-row">
-                            <div class="cont-col-4"><p>服务标签:</p></div>
-                            <div class="cont-col-8"></div>
-                        </div>
-                    </div>
-                    <div class="cont-col-9">
-                        <div class="cont-row">
-                            <div class="cont-col-2"><p>服务区域:</p></div>
-                            <div class="cont-col-10"><span id="spServiceArea"   class="spServiceArea text-ellipsis">
-                            </span>    <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%=CurrentService.BusinessAreaCode %>' />
-                       
-                            
-                            </div>
-                         </div>
-                    </div>
-                </div>
-                <div class="cont-row">
-                    <div class="cont-col-1"><p>服务介绍:</p></div>
-                    <div class="cont-col-7"><p class="text-ellipsis"><%=CurrentService.Description %></p></div>
-                </div>
+</div>
+
             </div>
             <div class="service-info info-bottom">
                 <div class="cont-row">
-                    <div class="cont-col-12"><p class="cont-h4">详细服务信息</p></div>
+                    <div class="cont-col-12"><p class="cont-h4 m-b20">详细服务信息</p></div>
                 </div>
                 <div class="cont-row">
                     <div class="cont-col-3"><span>服务起步价:</span>&nbsp;<%=CurrentService.MinPrice.ToString("#.#") %>元</div>
