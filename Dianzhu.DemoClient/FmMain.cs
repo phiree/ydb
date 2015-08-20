@@ -52,6 +52,15 @@ namespace Dianzhu.DemoClient
                 BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender});
                 return;
             }
+            if (string.IsNullOrEmpty(csId))
+            {
+                csId = "e||e.e";
+            }
+            Presence p = new Presence(ShowType.chat, "Online");
+            p.Type = PresenceType.available;
+            p.To = csId + "@" + GlobalViables.ServerName;
+            p.From = StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName;
+            GlobalViables.XMPPConnection.Send(p);
             lblLoginStatus.Text = "登录成功";
         }
 
@@ -77,11 +86,8 @@ namespace Dianzhu.DemoClient
         private void btnSend_Click(object sender, EventArgs e)
         {
 
-            if (string.IsNullOrEmpty(csId))
-            {
-                csId = "e||e.e";
-            }
-             
+            
+          
             GlobalViables.XMPPConnection.Send(new agsc.Message(csId+"@"+GlobalViables.ServerName,agsc.MessageType.chat, tbxMessage.Text));
             AddLog(tbxUserName.Text, tbxMessage.Text);
        
@@ -93,6 +99,15 @@ namespace Dianzhu.DemoClient
             {
                 btnSend.PerformClick();
             }
+        }
+
+        private void FmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Presence p = new Presence(ShowType.chat, "Offline");
+            p.Type = PresenceType.unavailable;
+            p.To = csId + "@" + GlobalViables.ServerName;
+            p.From = StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName;
+            GlobalViables.XMPPConnection.Send(p);
         }
     }
 }

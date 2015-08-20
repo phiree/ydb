@@ -40,6 +40,7 @@ namespace Dianzhu.DAL.Mapping
         public ReceptionChatMap()
         {
             Id(x => x.Id);
+            Map(x => x.SavedTime);
             Map(x => x.MessageBody);
             Map(x => x.ReceiveTime);
             Map(x => x.SendTime);

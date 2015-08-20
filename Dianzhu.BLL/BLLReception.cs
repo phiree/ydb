@@ -31,9 +31,9 @@ namespace Dianzhu.BLL
           {
               if (chatList.Count > limit)
               { break; }
-              chatList.AddRange(re.ChatHistory.OrderBy(x=>x.ReceiveTime));
+              chatList.AddRange(re.ChatHistory.OrderByDescending(x=>x.SavedTime));
           }
-          return chatList;
+          return chatList.OrderBy(x=>x.SavedTime).ToList();
         }
 
     }

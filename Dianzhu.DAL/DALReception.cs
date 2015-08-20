@@ -24,7 +24,7 @@ namespace Dianzhu.DAL
            {
                result = result.And(x => x.Receiver == to);
            }
-            result.OrderBy(x => x.TimeBegin).Desc.Take(limit).List();
+            result.OrderBy(x => x.TimeBegin).Desc.Take(limit). List();
            return result.List();
         }
     }

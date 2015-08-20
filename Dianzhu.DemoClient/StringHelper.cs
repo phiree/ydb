@@ -14,6 +14,7 @@ namespace Dianzhu.DemoClient
         /// <returns></returns>
         public static string EnsureNormalUserName(string userName)
         {
+            if (string.IsNullOrEmpty(userName)) return userName;
             string normalUserName = userName;
             if (Regex.IsMatch(userName, @"^[^\.@]+||[^\.@]+\.[^\.@]+$"))
             {
@@ -28,6 +29,7 @@ namespace Dianzhu.DemoClient
         /// <returns></returns>
         public static string EnsureOpenfireUserName(string userName)
         {
+            if (string.IsNullOrEmpty(userName)) return userName;
             string openfireName = userName;
             if (Regex.IsMatch(userName, @"^[^\.@]+@[^\.@]+\.[^\.@]+$"))
             {

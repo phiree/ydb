@@ -19,11 +19,39 @@ namespace Dianzhu.CSClient
         {
             InitializeComponent();
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
+            GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
           
         }
 
- 
-       
+        /// <summary>
+        /// 用户上线 下线.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="pres"></param>
+        void XMPPConnection_OnPresence(object sender, Presence pres)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new PresenceHandler(XMPPConnection_OnPresence), new object[] { sender, pres });
+                return;
+            }
+            string incomingUser=StringHelper.EnsureNormalUserName(pres.From.User);
+            var isAdded = l_customerList.Any(x => x.UserName == incomingUser);
+            if (pres.Type == PresenceType.available)
+            {
+                UserLogin(incomingUser);
+
+            }
+            else if (pres.Type == PresenceType.unavailable)
+            {
+                UserLogoff(incomingUser);
+            }
+            else
+            {
+                MessageBox.Show(pres.Type.ToString());
+            }
+        }
+
         private void tbxMsg_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
@@ -31,8 +59,6 @@ namespace Dianzhu.CSClient
                 btnSendMsg.PerformClick();
             }
         }
-
-
 
         #region 1 收到新消息.
         
@@ -55,8 +81,12 @@ namespace Dianzhu.CSClient
         //local variable: 当前的接待列表
         Dictionary<string, ReceptionBase> l_receptionList = new Dictionary<string, ReceptionBase>();
 
+        
+
         private void ReceiveNewMessage(string customerLoginName, string messageBody)
         {
+            //ui button
+            UI_ButtonPresenter(customerLoginName, "unread");
             //1 判断是否已经加入列表
             var isAdded = l_customerList.Any(x => x.UserName == customerLoginName);
             DZMembership customer=null;
@@ -65,7 +95,7 @@ namespace Dianzhu.CSClient
             {
                 customer = l_customerList.Single(x => x.UserName == customerLoginName);
                 //ui 如果不是在当前用户的聊天窗口 则设置该按钮为 未读.
-                if (currentCustomer!=null&&currentCustomer.UserName != customerLoginName)
+                if (currentCustomer==null||currentCustomer.UserName != customerLoginName)
                 {
                     UI_NewMessage(customerLoginName);
                 }
@@ -77,10 +107,8 @@ namespace Dianzhu.CSClient
                 //客户列表增加一个 
                 customer = BLLFactory.BLLMembership.GetUserByName(customerLoginName);
                 l_customerList.Add(customer);
-                //新增接待列表
-                
-                
-                //ui
+                //todo:订阅该客户的,用以监听其在线/离线状态
+               
                 UI_AddNewCustomer(customerLoginName);
             } 
             //bl保存该消息
@@ -180,6 +208,21 @@ namespace Dianzhu.CSClient
 
         #endregion
 
+        #region 4 用户上线下线
+        private void UserLogin(string userName)
+        { 
+            //界面 增加
+            UI_ButtonPresenter(userName, "login");
+            //数据 客户列表
+            FormModel.CheckCustomer(userName);
+        }
+        private void UserLogoff(string userName)
+        {
+            //ui
+            UI_ButtonPresenter(userName, "logoff");
+        }
+        #endregion
+
         #region UI
         private readonly string pre_customer_btn = "cb_";
         //接受到新消息后 修改button的样式.
@@ -200,15 +243,78 @@ namespace Dianzhu.CSClient
         //已读按钮
         private void UI_Style_Readed(Button btn)
         {
-            btn.BackColor = Color.FromArgb(100);
+            btn.BackColor = Color.Gray;
             btn.ForeColor = Color.Black;
         }
         //当前按钮
         private void UI_Style_Current(Button btn)
         {
-            btn.BackColor = Color.FromArgb(200);
-            btn.ForeColor = Color.FromArgb(100);
+            btn.BackColor = Color.Green;
+            btn.ForeColor = Color.Blue;
         }
+        //离线
+        private void UI_Style_Offline(Button btn)
+        {
+            btn.BackColor = Color.Gray;
+            btn.ForeColor = Color.White;
+        }
+        //新登录用户
+        private void UI_ButtonPresenter(string customerName,string targetStyle)
+        {
+            var btns = gbCustomerList.Controls.Find(pre_customer_btn + customerName,true);
+            int count=btns.Count();
+            Button btn = null;
+            if (count == 0)
+            {
+                if (targetStyle == "logoff") {
+                    return;
+                }
+                btn = new Button();
+                btn.Name = pre_customer_btn + customerName;
+                btn.Text = customerName;
+                btn.AutoSize = true;
+                btn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+                btn.TextAlign = ContentAlignment.MiddleLeft;
+                btn.Padding = new Padding(0, 0, 0, 0);
+                btn.Click += new EventHandler(btnCustomer_Click);
+                gbCustomerList.Controls.Add(btn);
+                
+            }
+            else if (count == 1)
+            {
+                btn = btns[0] as Button;
+            }
+            else {
+                MessageBox.Show("错误1");
+            }
+            switch (targetStyle.ToLower())
+            {
+                case "login":
+                    btn.ForeColor = Color.Green;
+                    break;
+                case "unread":
+                    btn.ForeColor = Color.Red;
+                    break;
+                case "readed": btn.ForeColor = Color.White;
+                    break;
+                case "current":
+                    btn.ForeColor = Color.Black;
+                    break;
+                case "logoff": btn.ForeColor = Color.Gray; break;
+                default: break;
+            }
+        }
+        private void UI_ChatLogPresenter(string customerName, string message)
+        { 
+            
+        }
+        private void UI_Style_NewLogin(Button btn)
+        {
+            btn.BackColor = Color.Beige;
+            btn.ForeColor = Color.Blue;
+            
+        }
+  
         private void UI_AddNewCustomer(string userLoginName)
         {
             Button btn = new Button();
@@ -220,7 +326,7 @@ namespace Dianzhu.CSClient
             btn.Padding = new Padding(0, 0, 0, 0);
             btn.Click += new EventHandler(btnCustomer_Click);
             gbCustomerList.Controls.Add(btn);
-            UI_Style_Unread(btn);
+            UI_Style_NewLogin(btn);
         }
         private void UI_Load_ChatHistory(IList<ReceptionChat> chatHistory)
         {
@@ -250,13 +356,25 @@ namespace Dianzhu.CSClient
         {
 
         }
+        
     }
 
 
-    public class FormData
+    public class FormModel
     {
-        public DZMembership Customer { get; set; }
+        static DZMembershipProvider bllMember = new DZMembershipProvider();
+        static IList<DZMembership> CustomerList = new List<DZMembership>();
+        public static void CheckCustomer(string customerName)
+        {
+            bool isAdded = CustomerList.Any(x => x.UserName == customerName);
+            if (!isAdded)
+            {
+                DZMembership newMember = bllMember.GetUserByName(customerName);
+                CustomerList.Add(newMember);
+            }
+        }
         public ReceptionBase Reception { get; set; }
+        
     }
 
 

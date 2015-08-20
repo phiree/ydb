@@ -18,7 +18,10 @@ namespace Dianzhu.Model
         }
         public virtual Guid Id { get; set; }
         /// <summary>
-        /// 接待发起方
+        /// 接待发起方(
+        /// 客户-客服时, 客户是发起方,客服是接收方
+        /// 客户-商家时, 客户是发起方,商家是接收方
+        /// 客服-商家是, 客服是发起方,商家是接收方
         /// </summary>
         public virtual DZMembership Sender { get; set; }
         /// <summary>
@@ -67,12 +70,29 @@ namespace Dianzhu.Model
     public class ReceptionChat
     {
         public virtual Guid Id { get; set; }
+        //保存的时间, 作为排序依据.
+        public virtual DateTime SavedTime { get; set; }
         public virtual DateTime SendTime { get; set; }
         public virtual  DateTime ReceiveTime { get; set; }
         public virtual  DZMembership From { get; set; }
         public virtual  DZMembership To { get; set; }
         public virtual  string MessageBody { get; set; }
-       
+        /// <summary>
+        /// 拼装成可读信息
+        /// </summary>
+        /// <returns></returns>
+        public virtual string BuildLine()
+        {
+            return SendTime.ToString("yyyy-MM-dd HH:mm:ss") + " " + From.UserName + ":    " + MessageBody;
+        }
+        public virtual string BuildLine(DZMembership from)
+        {
+            if (from == this.From)
+                return MessageBody + "   " + From.UserName + " " + SendTime.ToString("yyyy-MM-dd HH:mm:ss");
+            else {
+                return BuildLine();
+            }
+        }
          
 
     }

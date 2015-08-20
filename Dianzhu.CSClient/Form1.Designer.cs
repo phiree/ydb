@@ -62,7 +62,7 @@
             this.tbxUserName.Name = "tbxUserName";
             this.tbxUserName.Size = new System.Drawing.Size(100, 21);
             this.tbxUserName.TabIndex = 1;
-            this.tbxUserName.Text = "17092089640";
+            this.tbxUserName.Text = "e@e.e";
             // 
             // label1
             // 

@@ -23,7 +23,7 @@ namespace Dianzhu.CSClient
             }
             if (result == DialogResult.OK)
             {
-                Application.Run(new fmMain());
+                Application.Run(new FormMain());
             }
             //Application.Run(new Views.Raw.ChatView());
 

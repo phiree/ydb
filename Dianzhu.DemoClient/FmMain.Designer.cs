@@ -37,9 +37,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblLoginStatus = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.tbxMessage = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.tbxMessage = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -59,7 +59,7 @@
             this.tbxUserName.Name = "tbxUserName";
             this.tbxUserName.Size = new System.Drawing.Size(128, 21);
             this.tbxUserName.TabIndex = 1;
-            this.tbxUserName.Text = "13012341234";
+            this.tbxUserName.Text = "f@f.f";
             // 
             // tbxPwd
             // 
@@ -132,6 +132,15 @@
             this.panel2.Size = new System.Drawing.Size(560, 25);
             this.panel2.TabIndex = 6;
             // 
+            // tbxMessage
+            // 
+            this.tbxMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxMessage.Location = new System.Drawing.Point(0, 0);
+            this.tbxMessage.Name = "tbxMessage";
+            this.tbxMessage.Size = new System.Drawing.Size(485, 21);
+            this.tbxMessage.TabIndex = 1;
+            this.tbxMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxMessage_KeyPress);
+            // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
@@ -151,15 +160,6 @@
             this.label4.Size = new System.Drawing.Size(0, 12);
             this.label4.TabIndex = 0;
             // 
-            // tbxMessage
-            // 
-            this.tbxMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxMessage.Location = new System.Drawing.Point(0, 0);
-            this.tbxMessage.Name = "tbxMessage";
-            this.tbxMessage.Size = new System.Drawing.Size(485, 21);
-            this.tbxMessage.TabIndex = 1;
-            this.tbxMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxMessage_KeyPress);
-            // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -170,6 +170,7 @@
             this.Controls.Add(this.panel2);
             this.Name = "FmMain";
             this.Text = "DemoCustomer";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FmMain_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
