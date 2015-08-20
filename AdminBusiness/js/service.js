@@ -9,7 +9,7 @@ function initializeService(){
     //var cityListObject = new BMapLib.CityList({ container: "businessCity" , map : map });
     map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
     map.disableDoubleClickZoom();
-    map.disableScrollWheelZoom();
+    //map.disableScrollWheelZoom();
 
     var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
     var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
