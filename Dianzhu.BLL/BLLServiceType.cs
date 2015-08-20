@@ -13,12 +13,16 @@ namespace Dianzhu.BLL
 {
     public class BLLServiceType
     {
-        public DALServiceType DALServiceType=DALFactory.DALServiceType;
+        public DALServiceType DALServiceType = DALFactory.DALServiceType;
 
-         
+
         public ServiceType GetOne(Guid id)
         {
             return DALServiceType.GetOne(id);
+        }
+        public ServiceType GetOneByCode(string code)
+        {
+            return DALServiceType.GetOneByCode(code);
         }
         public IList<ServiceType> GetAll()
         {
@@ -45,23 +49,23 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public ServiceType Create(string propertyName, Guid serviceTypeId, string values)
         {
-            
-            
-                 ServiceType currentServiceType = GetOne(serviceTypeId);
-                ServiceProperty serviceProperty=new ServiceProperty{ Name=propertyName, ServiceType=currentServiceType};
-            
+
+
+            ServiceType currentServiceType = GetOne(serviceTypeId);
+            ServiceProperty serviceProperty = new ServiceProperty { Name = propertyName, ServiceType = currentServiceType };
+
             IList<ServicePropertyValue> propertyValues = new List<ServicePropertyValue>();
             string[] arrPropertyValues = values.Split(',');
             foreach (string value in arrPropertyValues)
             {
-                ServicePropertyValue propertyValue = new ServicePropertyValue {  PropertyValue=value, ServiceProperty=serviceProperty };
+                ServicePropertyValue propertyValue = new ServicePropertyValue { PropertyValue = value, ServiceProperty = serviceProperty };
                 propertyValues.Add(propertyValue);
             }
             serviceProperty.Values = propertyValues;
             SaveOrUpdate(currentServiceType);
             return currentServiceType;
         }
-         
+
 
         public void Import(System.IO.Stream excelFileStream)
         {
@@ -78,18 +82,41 @@ namespace Dianzhu.BLL
             //先构建每行的服务类别 和 该类别的层级(列索引)
             foreach (DataRow row in dtFromExcel.Rows)
             {
+                string codeValue = row[0].ToString();
+                ServiceType s1;
+                s1 = GetOneByCode(codeValue);
 
-                for (int i = 0; i < dtFromExcel.Columns.Count; i++)
+                for (int i = 1; i < dtFromExcel.Columns.Count; i++)
                 {
 
-                    string cellValue = row[i].ToString();
+                    string cellValue = row[i].ToString().Trim();
                     if (!string.IsNullOrEmpty(cellValue))
                     {
-                        ServiceType s = new ServiceType { Name = cellValue, DeepLevel = i,OrderNumber=dtFromExcel.Rows.IndexOf(row) };
-                        ServiceTypeFromExcel tfe = new ServiceTypeFromExcel { ServiceType = s, ColIndex = i };
-                        tfeList.Add(tfe);
+                        bool needUpdate = true;
+                        if (s1 == null)
+                        {
+                            s1 = new ServiceType { Code = codeValue, Name = cellValue, DeepLevel = i, OrderNumber = dtFromExcel.Rows.IndexOf(row) };
+                        }
+                        else
+                        {
+                            if (s1.Name == cellValue)
+                            {
+                                needUpdate = false;
+                            }
+                            else
+                            {
+                                s1.Name = cellValue;
+                            }
+                        }
+                        if (needUpdate)
+                        {
+
+                            ServiceTypeFromExcel tfe = new ServiceTypeFromExcel { ServiceType = s1, ColIndex = i };
+                            tfeList.Add(tfe);
+                        }
                     }
                 }
+
             }
             //构建类别之间的父子关系
             IList<ServiceTypeFromExcel> cacheParents = new List<ServiceTypeFromExcel>();
@@ -98,7 +125,7 @@ namespace Dianzhu.BLL
             {
                 ServiceType currentSt = tfe2.ServiceType;
                 //发现根,清除缓存
-                if (tfe2.ColIndex == 0)
+                if (tfe2.ColIndex == 1)
                 {
                     cacheParents.Clear();
                     currentSt.Parent = null;

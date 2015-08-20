@@ -152,7 +152,7 @@ a.new-add-btn {
 /*服务信息查看页面样式*/
 .service-info {
     margin: -14px -14px 0 -14px;
-    padding: 40px 14px ;
+    padding: 10px 14px 40px 30px ;
     line-height: 2.5em;
 }
 
@@ -313,6 +313,17 @@ a.new-add-btn {
     border-left: 1px solid #549DC8;
 }
 
+/*服务时间设置样式*/
+/*.time-select {*/
+    /*display: inline-block;*/
+    /*position: relative;*/
+/*}*/
+
+/*.time-select-box {*/
+    /*top:30px;*/
+    /*position: absolute;*/
+    /*width: 200px;*/
+/*}*/
 /*服务细节条目包围*/
 /*.serviceRightWrap {*/
     /*width: 100%;*/

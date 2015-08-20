@@ -4,10 +4,10 @@
 <!--店铺列表-->
 <html lang="en">
 <head runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content="一点办后台管理系统" />
     <meta name="keywords" content="一点办" />
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" >
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
     <link href="/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />

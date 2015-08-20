@@ -53,11 +53,11 @@
                             </div>
                                                     <div class="cont-row">
                                                         <div class="cont-col-3"><span class="cont-h5">从业时间</span></div>
-                                                        <div class="cont-col-9"><%=CurrentBusiness.WorkingYears %></div>
+                                                        <div class="cont-col-9"><%=CurrentBusiness.WorkingYears %>&nbsp;年</div>
                             </div>
                                                     <div class="cont-row">
                                                         <div class="cont-col-3"><span class="cont-h5">员工人数</span></div>
-                                                        <div class="cont-col-9"><%=CurrentBusiness.StaffAmount %></div>
+                                                        <div class="cont-col-9"><%=CurrentBusiness.StaffAmount %>&nbsp;人</div>
                             </div>
                                                     <div class="cont-row">
                                                         <div class="cont-col-3"><span class="cont-h5">店铺介绍</span></div>
@@ -93,7 +93,7 @@
                         <div class="p-20 detail-img">
                             <asp:Repeater runat="server" ID="rptImageLicense">
                               <ItemTemplate>
-                              <a   data-lightbox="lb_license" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=90&height=90&tt=3' />
+                              <a class="m-r20" data-lightbox="lb_license" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3' />
                              </a>
                                 </ItemTemplate>
                               </asp:Repeater>
@@ -102,7 +102,7 @@
                             <div class="p-20 detail-img">
                             <asp:Repeater runat="server" ID="rptCharge">
                               <ItemTemplate>
-                              <a   data-lightbox="lb_charge" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=90&height=90&tt=3' />
+                              <a class="m-r20" data-lightbox="lb_charge" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3' />
                              </a>
                                 </ItemTemplate>
                               </asp:Repeater>
@@ -117,7 +117,7 @@
                        <div class="detail-img">
                         <asp:Repeater runat="server" ID="rptShow">
                               <ItemTemplate>
-                              <a   data-lightbox="lb_show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=90&height=90&tt=3' />
+                              <a class="m-r20"  data-lightbox="lb_show" href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3' />
                              </a>
                                 </ItemTemplate>
                               </asp:Repeater>
@@ -131,7 +131,6 @@
 </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
-
  <script  src="/js/lightbox/js/lightbox.js"></script>
 </asp:Content>
 

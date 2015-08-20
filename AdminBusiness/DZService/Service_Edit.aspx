@@ -24,13 +24,14 @@
     </script>
     <script src="/js/validation_service_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
+    <script src="/js/serviceTimeSelect.js" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
                 function setTime(date,timeString)
                 {
                     var arr=timeString.split(":");
                     var hour=parseInt(arr[0]);
-                    var minites=arr[1]?parseInt(arr[1]):0;
+                    var minites = arr[1]?parseInt(arr[1]):0;
                     var seconds=arr[2]?parseInt(arr[2]):0;
                     return date.setHours(hour,minites,seconds);
                 }
@@ -106,7 +107,7 @@
                 e.preventDefault();
             });
 
-
+            $(".time-select-wrap").timeSelect();
 
         });
     </script>
@@ -121,11 +122,9 @@
             loadBaiduMapScript();
         })
     </script>
-    <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>-->
     <script type="text/javascript" src="/js/CityList.js"></script>
     <script type="text/javascript" src="/js/baiduMapLib.js"></script>
     <script type="text/javascript" src="/js/service.js"></script>
     <script type="text/javascript" src="/js/iptag.js"></script>
-    <!--<script type="text/javascript" src="/js/map.js"></script>-->
 </asp:Content>
 

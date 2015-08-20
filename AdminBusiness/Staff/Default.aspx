@@ -31,7 +31,7 @@
                
                  <tr onclick="listhref('edit.aspx?id=<%#Eval("id") %>&businessid=<%=Request["businessid"] %>')">
                   
-                 <td class="emp-td-style epm-th-2 epm-headimg"><img src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/image/emp-headinco.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=90&height=90&tt=2)"%>  ' width="49" height="49" /></td>
+                 <td class="emp-td-style epm-th-2 epm-headimg"><img src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/image/emp-headinco.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=90&height=90&tt=3)"%>  ' width="49" height="49" /></td>
                   <td class="emp-td-style epm-th-2"><%#Eval("Code") %></td>
                   <td class="emp-td-style epm-th-2"><%#Eval("Name") %></td>
                   <td class="emp-td-style epm-th-2"><%#Eval("NickName") %></td>

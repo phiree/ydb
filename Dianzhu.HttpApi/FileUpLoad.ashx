@@ -6,17 +6,18 @@ using System.IO;
 using System.Text;
 using System.Drawing;
 public class FileUpLoad : IHttpHandler {
-    
-    public void ProcessRequest (HttpContext context) {
-       context.Response.ContentType = "text/plain";
+
+    public void ProcessRequest(HttpContext context)
+    {
+        context.Response.ContentType = "text/plain";
 
         string filetype = context.Request.Params["filetype"].ToString();
         string base64File = HttpUtility.UrlDecode(context.Request.Params["filecode"]);
-        base64File = base64File.Replace(" ", "+");        
-        context.Response.Write(FileUp(filetype,base64File));        
+        base64File = base64File.Replace(" ", "+");
+        context.Response.Write(FileUpload(filetype, base64File));
     }
 
-    public string FileUp(string filetype, string base64file)
+    public string FileUpload(string filetype, string base64file)
     {
         
         byte[] bytefile = Convert.FromBase64String(base64file);
@@ -34,7 +35,6 @@ public class FileUpLoad : IHttpHandler {
         fs.Close();
 
         return "上传文件成功";
-
 
     }
  
