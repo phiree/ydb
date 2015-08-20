@@ -34,19 +34,23 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.tbxMsg = new System.Windows.Forms.TextBox();
             this.btnSendMsg = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.gbCustomerList = new System.Windows.Forms.FlowLayoutPanel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.panel3);
-            this.panel1.Controls.Add(this.panel4);
-            this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 100);
             this.panel1.Name = "panel1";
@@ -56,12 +60,11 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.tbxChatLog);
-            this.panel3.Controls.Add(this.panel5);
+            this.panel3.Controls.Add(this.splitContainer1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(203, 0);
+            this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(266, 353);
+            this.panel3.Size = new System.Drawing.Size(652, 353);
             this.panel3.TabIndex = 1;
             // 
             // tbxChatLog
@@ -69,7 +72,7 @@
             this.tbxChatLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbxChatLog.Location = new System.Drawing.Point(0, 0);
             this.tbxChatLog.Name = "tbxChatLog";
-            this.tbxChatLog.Size = new System.Drawing.Size(264, 291);
+            this.tbxChatLog.Size = new System.Drawing.Size(278, 326);
             this.tbxChatLog.TabIndex = 4;
             this.tbxChatLog.Text = "";
             // 
@@ -79,47 +82,32 @@
             this.panel5.Controls.Add(this.tbxMsg);
             this.panel5.Controls.Add(this.btnSendMsg);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(0, 291);
+            this.panel5.Location = new System.Drawing.Point(0, 326);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(264, 60);
+            this.panel5.Size = new System.Drawing.Size(278, 25);
             this.panel5.TabIndex = 0;
             // 
             // tbxMsg
             // 
+            this.tbxMsg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbxMsg.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.tbxMsg.Location = new System.Drawing.Point(3, 23);
+            this.tbxMsg.Location = new System.Drawing.Point(0, 0);
             this.tbxMsg.Name = "tbxMsg";
-            this.tbxMsg.Size = new System.Drawing.Size(166, 21);
+            this.tbxMsg.Size = new System.Drawing.Size(201, 21);
             this.tbxMsg.TabIndex = 3;
+            this.tbxMsg.TextChanged += new System.EventHandler(this.tbxMsg_TextChanged);
             this.tbxMsg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxMsg_KeyPress);
             // 
             // btnSendMsg
             // 
-            this.btnSendMsg.Location = new System.Drawing.Point(176, 23);
+            this.btnSendMsg.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSendMsg.Location = new System.Drawing.Point(201, 0);
             this.btnSendMsg.Name = "btnSendMsg";
             this.btnSendMsg.Size = new System.Drawing.Size(75, 23);
             this.btnSendMsg.TabIndex = 2;
             this.btnSendMsg.Text = "发送";
             this.btnSendMsg.UseVisualStyleBackColor = true;
             this.btnSendMsg.Click += new System.EventHandler(this.btnSendMsg_Click);
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(469, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(183, 353);
-            this.panel4.TabIndex = 1;
-            // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(203, 353);
-            this.panel2.TabIndex = 0;
             // 
             // gbCustomerList
             // 
@@ -129,6 +117,33 @@
             this.gbCustomerList.Name = "gbCustomerList";
             this.gbCustomerList.Size = new System.Drawing.Size(652, 100);
             this.gbCustomerList.TabIndex = 2;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Size = new System.Drawing.Size(650, 351);
+            this.splitContainer1.SplitterDistance = 182;
+            this.splitContainer1.TabIndex = 5;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.tbxChatLog);
+            this.splitContainer2.Panel1.Controls.Add(this.panel5);
+            this.splitContainer2.Size = new System.Drawing.Size(464, 351);
+            this.splitContainer2.SplitterDistance = 278;
+            this.splitContainer2.TabIndex = 0;
             // 
             // fmMain
             // 
@@ -145,6 +160,12 @@
             this.panel3.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -153,12 +174,12 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.FlowLayoutPanel gbCustomerList;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.TextBox tbxMsg;
         private System.Windows.Forms.Button btnSendMsg;
         private System.Windows.Forms.RichTextBox tbxChatLog;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }

@@ -224,18 +224,25 @@ namespace Dianzhu.BLL
             
             return member;
         }
-        public void SendValidationMail(string to,string verifyUrl)
+        public bool SendValidationMail(string to,string verifyUrl)
         {
             string subjecst = "一点办验证邮件";
-           
+            bool sendSuccess = true;
             string body = "感谢您加入一点办.请点击下面的连接验证您的注册邮箱.</br>"
                         + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
                             + verifyUrl + "'>点击验证</a><br/><br/><br/>"
                         + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
                         + verifyUrl;
                 ;
-
-            PHSuit.EmailHelper.SendEmail(to, subjecst, body);
+                try
+                {
+                    PHSuit.EmailHelper.SendEmail(to, subjecst, body);
+                }
+                catch (Exception ex)
+                {
+                    sendSuccess = false;
+                }
+                return sendSuccess;
             //SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
             //SmtpClient client = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port);
             //client.Credentials = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
@@ -248,6 +255,28 @@ namespace Dianzhu.BLL
         {
             createStatus = MembershipCreateStatus.ProviderError;
             var savedUserName = !string.IsNullOrEmpty(userName) ? userName : string.IsNullOrEmpty(userPhone) ? userEmail : userPhone;
+            string userNameForOpenfire = savedUserName;
+            //验证url
+            Guid validateCode = Guid.Empty;
+            if (System.Text.RegularExpressions.Regex.IsMatch(savedUserName, @".+@.+\..+"))
+            {
+                if (string.IsNullOrEmpty(userEmail))
+                {
+                    userEmail = savedUserName;
+
+                }
+
+                userNameForOpenfire = savedUserName.Replace("@", "||");
+                validateCode=Guid.NewGuid();
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(userPhone))
+                {
+                    userPhone = savedUserName;
+                }
+            }
+            
             var user = GetUserByName(savedUserName);
             if (user != null)
             {
@@ -257,7 +286,17 @@ namespace Dianzhu.BLL
             else
             {
                 var password_cred = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
-                DZMembership newMember = new DZMembership { UserName = savedUserName, Password = password_cred };
+                DZMembership newMember = new DZMembership { UserName = savedUserName, Password = password_cred,
+                  Email=userEmail,
+                   Phone=userPhone,
+                   NickName=savedUserName,
+                    PlainPassword=password,
+                     UserNameForOpenFire=userNameForOpenfire
+                };
+                if (validateCode != Guid.Empty)
+                {
+                    newMember.RegisterValidateCode = validateCode.ToString();
+                }
                 DALMembership.Save(newMember);
                 createStatus = MembershipCreateStatus.Success;
                 return newMember;

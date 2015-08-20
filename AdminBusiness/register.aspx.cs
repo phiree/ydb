@@ -34,18 +34,32 @@ public partial class register : System.Web.UI.Page
 
         // Membership.CreateUser(tbxUserName.Text, regPs.Text);
 
-        DZMembership newUser = bllBusiness.Register(address, description, latitude, longtitude, name, userName, password);
+       
+          //  bllBusiness.Register(address, description, latitude, longtitude, name, userName, password);
+        MembershipCreateStatus createStatus;
+        DZMembership newUser =
+           dz.CreateUser(userName, null, null, password, out createStatus);
         //如果是电子邮箱,则发送验证邮件
+        if (createStatus != MembershipCreateStatus.Success)
+        {
+            Response.Redirect("error.aspx?msg=" + createStatus);
+        }
+        bool sendSuccess = true;
         if(Regex.IsMatch(userName,@".+@.+\..+")){
             string verifyUrl = "http://" + Request.Url.Authority + "/verify.aspx";
             verifyUrl += "?userId=" + newUser.Id + "&verifyCode=" + newUser.RegisterValidateCode;
-            dz.SendValidationMail(userName, verifyUrl);
+            if (!Request.IsLocal)
+            {
+                sendSuccess = dz.SendValidationMail(userName, verifyUrl);
+            }
+            
+             
         }
 
        
         //PHSuit.Notification.Show(Page, "", "注册成功", "register_suc.aspx");
         FormsAuthentication.SetAuthCookie(userName, true);
-        Response.Redirect("register_suc.aspx", true);
+        Response.Redirect("register_suc.aspx?send="+sendSuccess, true);
     }
 
 

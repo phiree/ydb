@@ -39,6 +39,9 @@
                                 <i class="icon icon-regComp"></i><span>恭喜你<br />
                                     已经注册成为点助会员,<a href="/business/">进入管理页</a></span>
                             </div>
+                            <div class=="regComp">
+                            <asp:Label runat="server" ID="lblSendError" CssClass="errorText"></asp:Label>
+                            </div>
                             <div class="buttonBox t-c">
                             <a href="/business/" class="compBtn"></a>  
                             </div>

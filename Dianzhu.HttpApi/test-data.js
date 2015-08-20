@@ -11,7 +11,7 @@
                 { 
                     "protocol_CODE": "USM001002", //注册
                     "ReqData": { 
-                                "userEmail": "fakename121@126.com", 
+                                "userEmail": "fakename1221222@126.com", 
                                 "userPWord": 'password', 
                                 
                                 }, 

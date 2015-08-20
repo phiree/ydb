@@ -32,8 +32,15 @@ public partial class Account_Security :BasePage
        string verifyUrl = "http://" + Request.Url.Authority + "/verify.aspx";
             verifyUrl += "?userId=" + CurrentUser.Id + "&verifyCode=" + CurrentUser.RegisterValidateCode;
 
-            dzp.SendValidationMail(CurrentUser.Email, verifyUrl);
-            Response.Redirect("/send_suc.aspx", true);
+          bool sendSuccess=  dzp.SendValidationMail(CurrentUser.Email, verifyUrl);
+          if (sendSuccess)
+          {
+              Response.Redirect("/send_suc.aspx", true);
+          }
+          else
+          {
+              Response.Redirect("error.aspx?msg=发送邮件失败,您可以在账户安全页面重新发送验证.");
+          }
    }
  
 

@@ -14,6 +14,7 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             Map(x => x.UserName).Unique();
             Map(x => x.Password);
+            Map(x => x.PlainPassword);
             Map(x => x.TimeCreated);
             Map(x => x.LastLoginTime);
             Map(x=>x.NickName);
@@ -22,6 +23,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Phone).Unique();
             Map(x => x.IsRegisterValidated);
             Map(x => x.RegisterValidateCode);
+            Map(x => x.UserNameForOpenFire);
             
         }
                

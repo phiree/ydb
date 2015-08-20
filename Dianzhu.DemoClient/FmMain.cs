@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using agsc=agsXMPP.protocol.client;
 using agsXMPP;
+using System.Text.RegularExpressions;
 using agsXMPP.protocol.client;
 namespace Dianzhu.DemoClient
 {
@@ -17,7 +18,7 @@ namespace Dianzhu.DemoClient
         public FmMain()
         {
             InitializeComponent();
-            //GlobalViables.XMPPConnection = new XmppClientConnection(GlobalViables.ServerName);
+           
             GlobalViables.XMPPConnection.OnLogin += new agsXMPP.ObjectHandler(XMPPConnection_OnLogin);
             GlobalViables.XMPPConnection.OnMessage += new agsc.MessageHandler(XMPPConnection_OnMessage);
             GlobalViables.XMPPConnection.OnError += new ErrorHandler(XMPPConnection_OnError);
@@ -31,7 +32,7 @@ namespace Dianzhu.DemoClient
 
         void XMPPConnection_OnError(object sender, Exception ex)
         {
-            MessageBox.Show("聊天服务器错误");
+           // MessageBox.Show("聊天服务器错误");
         }
 
         void XMPPConnection_OnMessage(object sender, agsc.Message msg)
@@ -41,7 +42,7 @@ namespace Dianzhu.DemoClient
                 BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender,msg });
                 return;
             }
-            AddLog(msg.From.User, msg.Body);
+            AddLog(StringHelper.EnsureNormalUserName( msg.From.User), msg.Body);
         }
 
         void XMPPConnection_OnLogin(object sender)
@@ -57,14 +58,19 @@ namespace Dianzhu.DemoClient
         private void btnLogin_Click(object sender, EventArgs e)
         {
             //为该用户分配客服
-
-            GlobalViables.XMPPConnection.Open(tbxUserName.Text, tbxPwd.Text);
+            string userName = tbxUserName.Text;
+            string userNameForOpenfire = userName;
+            if (Regex.IsMatch(userName, @"^[^\.@]+@[^\.@]+\.[^\.@]+$"))
+            {
+                userNameForOpenfire = userName.Replace("@", "||");
+            }
+            GlobalViables.XMPPConnection.Open(userNameForOpenfire, tbxPwd.Text);
 
         }
         void AddLog(string user, string body)
         {
-            tbxLog.Text = tbxLog.Text+ Environment.NewLine+ user + ":" + body ;
-            tbxLog.ScrollToCaret();
+            tbxLog.AppendText( Environment.NewLine+ user + ":" + body);
+             
        
         }
 
@@ -73,12 +79,20 @@ namespace Dianzhu.DemoClient
 
             if (string.IsNullOrEmpty(csId))
             {
-                csId = "17092089640";
+                csId = "e||e.e";
             }
              
             GlobalViables.XMPPConnection.Send(new agsc.Message(csId+"@"+GlobalViables.ServerName,agsc.MessageType.chat, tbxMessage.Text));
             AddLog(tbxUserName.Text, tbxMessage.Text);
        
+        }
+
+        private void tbxMessage_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                btnSend.PerformClick();
+            }
         }
     }
 }

@@ -16,55 +16,10 @@ namespace Dianzhu.BLL
     public class BLLBusiness
     {
         public DALBusiness DALBusiness = DALFactory.DALBusiness;
+       
         public DALMembership dalMembership = DALFactory.DALMembership;
 
-        /// <summary>
-        /// 注册新用户. 同时注册商户并将该商户的所有者owner设置为新注册用户
-        /// </summary>
-        /// <param name="address"></param>
-        /// <param name="description"></param>
-        /// <param name="latitude"></param>
-        /// <param name="longtitude"></param>
-        /// <param name="name"></param>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        public DZMembership Register(string address, string description
-                            , double latitude, double longtitude, string name, string username, string password
-            )
-        {
-            //注册用户
-            DZMembership member = new DZMembership { UserName=username,
-                Password=FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"),
-             RegisterValidateCode=Guid.NewGuid().ToString(),IsRegisterValidated=false};
-            if (Regex.IsMatch(username, @".+@.+\..+"))
-            {
-               member.Email = username;
-
-            }
-            else
-            {
-                member.Phone = username;
-            }
-            dalMembership.Save(member);
-            //注册商户
-            Business b = new Business
-            {
-                Address = address,
-                Description = description,
-                Latitude = latitude,
-                Longitude = longtitude,
-                Name = name,
-                DateApply = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue,
-                DateApproved = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue,
-                Owner=member
-            };
-            
-            //DALBusiness.Save(b);
-           // BusinessUser bu = dalMembership.CreateBusinessUser(username, FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"), b);
-
-            return member;
-        }
+         
 
         public IList<Business> GetAll()
         {
