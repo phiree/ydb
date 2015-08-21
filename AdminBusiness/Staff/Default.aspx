@@ -8,7 +8,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
-   <div class="cont-wrap secret-wrap ">
+   <div class="cont-wrap">
       <div class="cont-container mh-in">
          <div class="cont-row">
               <div class="add-user-div">
@@ -17,38 +17,40 @@
          </div>
          <div class="emp-content-div">
             <table class="emp-table">
-                <tr class="emp-head-tr">
-                   <th class="emp-th-style epm-th-2"></th>
-                   <th class="emp-th-style epm-th-2">编号</th>
-                   <th class="emp-th-style epm-th-2">姓名</th>
-                   <th class="emp-th-style epm-th-2">昵称</th>
-                   <th class="emp-th-style epm-th-2">性别</th>
-                   <th class="emp-th-style epm-th-2">联系电话</th>
-                   <th class="emp-th-style epm-th-2"></th>
-                </tr>
-                <asp:Repeater runat="server" ID="rptStaff" OnItemCommand="rptStaff_ItemCommand">
-                <ItemTemplate>
-               
-                 <tr onclick="listhref('edit.aspx?id=<%#Eval("id") %>&businessid=<%=Request["businessid"] %>')">
-                  
-                 <td class="emp-td-style epm-th-2 epm-headimg"><img src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/image/emp-headinco.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=90&height=90&tt=3)"%>  ' width="49" height="49" /></td>
-                  <td class="emp-td-style epm-th-2"><%#Eval("Code") %></td>
-                  <td class="emp-td-style epm-th-2"><%#Eval("Name") %></td>
-                  <td class="emp-td-style epm-th-2"><%#Eval("NickName") %></td>
-                  <td class="emp-td-style epm-th-2"><%#Eval("Gender")%></td>
-                  <td class="emp-td-style epm-th-2"><%#Eval("Phone")%></td>
-                  <td class="emp-td-style epm-btn epm-th-1"><span class='<%# ((bool)Eval("IsAssigned"))?"assigned":"notassigned" %> none'><%# (bool)Eval("IsAssigned")?"已指派":"未指派" %></span> <input type="button" staffid='<%#Eval("id") %>' class=' btnAssign btn <%# (bool)Eval("IsAssigned")?"btn-down-info":"btn-info" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/> 
-                  
-                  <asp:Button runat="server" CssClass="btn btn-delete" CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" Text="删除"/></td>
-                
-                </tr>
-               
-                </ItemTemplate>
-                </asp:Repeater>
-             
-                
-             
-            
+                <thead>
+                    <tr class="emp-head-tr">
+                       <th class="emp-th-style epm-th-2"></th>
+                       <th class="emp-th-style epm-th-2">编号</th>
+                       <th class="emp-th-style epm-th-2">姓名</th>
+                       <th class="emp-th-style epm-th-2">昵称</th>
+                       <th class="emp-th-style epm-th-2">性别</th>
+                       <th class="emp-th-style epm-th-2">联系电话</th>
+                       <th class="emp-th-style epm-th-2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <asp:Repeater runat="server" ID="rptStaff" OnItemCommand="rptStaff_ItemCommand">
+                    <ItemTemplate>
+
+                     <tr onclick="listhref('edit.aspx?id=<%#Eval("id") %>&businessid=<%=Request["businessid"] %>')">
+
+                     <td class="emp-td-style epm-th-2 epm-headimg"><img src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/image/emp-headinco.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=90&height=90&tt=3)"%>  ' width="49" height="49" /></td>
+                      <td class="emp-td-style epm-th-2"><%#Eval("Code") %></td>
+                      <td class="emp-td-style epm-th-2"><%#Eval("Name") %></td>
+                      <td class="emp-td-style epm-th-2"><%#Eval("NickName") %></td>
+                      <td class="emp-td-style epm-th-2"><%#Eval("Gender")%></td>
+                      <td class="emp-td-style epm-th-2"><%#Eval("Phone")%></td>
+                      <td class="emp-td-style epm-btn epm-th-1"><span class='<%# ((bool)Eval("IsAssigned"))?"assigned":"notassigned" %> none'><%# (bool)Eval("IsAssigned")?"已指派":"未指派" %></span> <input type="button" staffid='<%#Eval("id") %>' class=' btnAssign btn <%# (bool)Eval("IsAssigned")?"btn-down-info":"btn-info" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/>
+
+                      <asp:Button runat="server" CssClass="btn btn-delete" CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" Text="删除"/></td>
+
+                    </tr>
+
+                    </ItemTemplate>
+                    </asp:Repeater>
+
+                </tbody>
+
             </table>
          </div>
         
@@ -63,34 +65,6 @@
       </div>
    </div>
 
-   <div class="emp-d-item none">
-                                <ul class="emp-d-list">
-                                    <li class="d-list-i clearfix">
-                                        <ul class="clearfix">
-                                            <asp:Repeater runat="server" ID="rpt">
-                                                <ItemTemplate>
-                                                    <li class="col col-1">
-                                                        <input type="checkbox" /><i class="icon user-pic"></i></li>
-                                                    <li class="col col-2">
-                                                        <%#Eval("Name") %></li>
-                                                    <li class="col col-3">
-                                                        <%#Eval("Gender") %></li>
-                                                    <li class="col col-4">
-                                                        <%#Eval("Age") %></li>
-                                                    <li class="col col-5">
-                                                        <%#Eval("WorkingYears") %></li>
-                                                    <li class="col col-6"></li>
-                                                    <li class="col col-7">
-                                                        <div>
-                                                            <input class="d-list-btn" type="button" />
-                                                        </div>
-                                                    </li>
-                                                </ItemTemplate>
-                                            </asp:Repeater>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
 
     <asp:GridView runat="server" ID="gvStaff">
         <Columns>
