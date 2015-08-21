@@ -41,7 +41,7 @@ public partial class DZService_SelectType : System.Web.UI.Page
         hlServiceType.Font.Size = 20 - currentType.DeepLevel;
         hlServiceType.Style["display"] = "block";
         hlServiceType.Text = currentType.Name;
-        hlServiceType.NavigateUrl = "edit.aspx?typeid=" + currentType.Id;
+        hlServiceType.NavigateUrl = "edit.aspx?typeid=" + currentType.Code;
         
         ri.Controls.Add(hlServiceType);
         Repeater rpt = new Repeater();

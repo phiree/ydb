@@ -51,14 +51,14 @@ public partial class servicetype_service_property :BasePage
         string pName = tbxPropertyName.Text.Trim();
         string pValues = tbxPropertyValues.Text.Trim();
         
-            ServiceProperty property = bllServiceProperty.SaveOrUpdate(propertyId, pName, CurrentServiceType.Id, pValues);
+            ServiceProperty property = bllServiceProperty.SaveOrUpdate(propertyId, pName, CurrentServiceType.Code, pValues);
             PHSuit.Notification.Show(Page, "", "保存成功", "service_property.aspx?propertyid="+property.Id);
         
     }
     protected void btnDelete_Click(object sender, EventArgs e)
     {
         bllServiceProperty.Delete(CurrentServiceProperty);
-        PHSuit.Notification.Show(Page, "", "删除成功", "service_property.aspx?typeId="+CurrentServiceType.Id);
+        PHSuit.Notification.Show(Page, "", "删除成功", "service_property.aspx?typeId="+CurrentServiceType.Code);
         
     }
 }

@@ -89,7 +89,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         cbxIsCertificated.Checked = CurrentService.IsCertificated;
         LoadPayType();
         //rblPayType.SelectedValue = ((int)CurrentService.PayType).ToString(); 
-        hiTypeId.Value = CurrentService.ServiceType.Id.ToString();
+        hiTypeId.Value = CurrentService.ServiceType.Code;
     }
     private void LoadPayType()
     { 
@@ -109,8 +109,8 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.Description = tbxDescription.Text;
         CurrentService.Enabled = cbxEnable.Checked;
         CurrentService.Business = (((BasePage)this.Page).CurrentBusiness);
-        Guid typeId = new Guid(hiTypeId.Value);
-        ServiceType = bllServiceType.GetOne(typeId);
+        string typeCode = hiTypeId.Value;
+        ServiceType = bllServiceType.GetOneByCode(typeCode);
         CurrentService.ServiceType = ServiceType;
         IList<ServicePropertyValue> values = new List<ServicePropertyValue>();
        

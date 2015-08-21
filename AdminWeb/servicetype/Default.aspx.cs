@@ -32,7 +32,7 @@ public partial class servicetype_Default : System.Web.UI.Page
     {
         ServiceType st = e.Item.DataItem as ServiceType;
         HyperLink hy = e.Item.Controls[1] as HyperLink;
-        hy.NavigateUrl = "edit.aspx?id=" + st.Id;
+        hy.NavigateUrl = "edit.aspx?id=" + st.Code;
         hy.Style.Add("font-size", 24 - (st.DeepLevel * 2) + "px");
         hy.Style.Add("color","#"+colors[st.DeepLevel] +"");
         

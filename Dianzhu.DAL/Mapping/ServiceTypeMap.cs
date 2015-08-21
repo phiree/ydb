@@ -11,10 +11,9 @@ namespace Dianzhu.DAL.Mapping
     {
         public ServiceTypeMap()
         {
-            Id(x => x.Id);
+            Id(x => x.Code);
             Map(x => x.Name);
             Map(x => x.DeepLevel);
-            Map(x => x.Code);
             Map(x => x.OrderNumber);
             References<ServiceType>(x => x.Parent).Not.LazyLoad();
             HasMany<ServiceType>(x => x.Children).Cascade.All().Inverse().Not.LazyLoad();

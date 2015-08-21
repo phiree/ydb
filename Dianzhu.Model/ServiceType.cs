@@ -16,8 +16,7 @@ namespace Dianzhu.Model
             Properties = new List<ServiceProperty>();
             Children = new List<ServiceType>();
         }
-        [JsonProperty(PropertyName = "id")]
-        public virtual Guid Id { get; set; }
+        
         [JsonProperty(PropertyName = "name")]
         public virtual string Name { get; set; }
 
@@ -34,8 +33,8 @@ namespace Dianzhu.Model
         /// <summary>
         /// json序列化要求的字段.
         /// </summary>
-        [JsonProperty("parent_id", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual Guid? ParentId { get { return Parent == null ? (Guid?)null : Parent.Id; } }
+        [JsonProperty("parent_code", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string ParentCode { get { return Parent==null ?string.Empty:  Parent.Code; } }
         /// <summary>
         /// 层级结构中的层数.
         /// </summary>
