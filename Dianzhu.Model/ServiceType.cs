@@ -15,7 +15,10 @@ namespace Dianzhu.Model
         {
             Properties = new List<ServiceProperty>();
             Children = new List<ServiceType>();
+           
         }
+       
+
         
         [JsonProperty(PropertyName = "name")]
         public virtual string Name { get; set; }
@@ -49,6 +52,9 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual int OrderNumber { get; set; }
         public virtual IList<ServiceProperty> Properties { get; set; }
+
+
+
         //private string fullTypeName = string.Empty;
         public override string ToString()
         {
@@ -65,6 +71,7 @@ namespace Dianzhu.Model
 
         }
         
+
 
         
     }

@@ -13,6 +13,7 @@ namespace Dianzhu.Model
        public DZService()
        {
            PropertyValues = new List<ServicePropertyValue>();
+           OpenTimes = new List<ServiceOpenTime>();
            
        }
        public virtual Guid Id { get; set; }
@@ -104,6 +105,22 @@ namespace Dianzhu.Model
        public virtual DateTime LastModifiedTime { get; set; }
 
        public virtual bool Enabled { get; set; }
+       public IList<ServiceOpenTime> OpenTimes { get; set; }
+       public bool AddOpenTime(ServiceOpenTime openTime, out string errMsg)
+       {
+           errMsg = string.Empty;
+           if (openTime.Day < 1 || openTime.Day > 7)
+           {
+               errMsg = "星期数有误,只能是1到7";
+               return false;
 
+           }
+           if (OpenTimes.Any(x => x.Day == openTime.Day))
+           {
+               errMsg = "已经定义了星期" + openTime.Day + "的时间";
+               return false;
+           }
+           return true;
+       }
     }
 }

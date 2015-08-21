@@ -78,6 +78,7 @@
     <Compile Include="Mapping\DeviceBindMap.cs" />
     <Compile Include="Mapping\DZTagMap.cs" />
     <Compile Include="Mapping\ReceptionMap.cs" />
+    <Compile Include="Mapping\ServiceOpenTimeMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DALCashTicketTemplate.cs" />
     <Compile Include="DALCashTicketCreateRecord.cs" />
