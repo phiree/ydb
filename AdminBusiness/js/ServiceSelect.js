@@ -59,12 +59,12 @@ $.fn.ServiceSelect = function (options) {
         async: false
         });
         */
-        
-        AjaxData = intRedayJsion(params.localdata);
 
-        createList(AjaxData);
+        var arrData = initReadJson(params.localdata);
+        createList(arrData);
+
         function dataRequest(id) {
-            var data = redayJsion(params.localdata, id);
+            var data = readJson(params.localdata, id);
 
             /**
             jQuery.ajax({
@@ -100,12 +100,13 @@ $.fn.ServiceSelect = function (options) {
                 $serListItem.text(data[i].name);
                 $serListItem.attr("data-level", data[i].level);
                 $serListItem.attr("data-name", data[i].name);
+                $serListItem.attr("data-code", data[i].code + "");
                 $serListItem.attr("data-id", data[i].id);
                 $serListItem.bind("click", serviceClick);
                 $serList.append($serListItem);
                 $serListContainer.append($serList)
             }
-            //$(_this).append($serList);
+;
             $(_this).append($serListContainer);
         }
 
@@ -133,8 +134,9 @@ $.fn.ServiceSelect = function (options) {
             _this.find("ul").find("li").removeClass(params.choiceClass);
             if (!childDataArray.length) {
                 var lastChoiceValue = $(this).attr("data-id");
+                var lastChoiceCode = $(this).attr("data-code");
                 var lastChoiceName = $(this).attr("data-name");
-                confirmValue = lastChoiceValue;
+                confirmValue = lastChoiceCode;
                 confirmName = lastChoiceName;
                 printChoice($(this).attr("data-name"));
                 params.lastChildFunc ? params.lastChildFunc : lastSerClick(this);
@@ -176,32 +178,30 @@ $.fn.ServiceSelect = function (options) {
             _this.find("ul").find("li").removeClass(params.choiceClass);
         }
 
-        //¸ù¾ÝjsionÊý×éÓëid·µ»ØÏàÓ¦µÄÊý¾Ý
-        function redayJsion(jsionData, id) {
+        //ï¿½ï¿½ï¿½ï¿½jsionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        function readJson(json, id) {
             var data = [];
-            for (var i = 0; i < jsionData.length; i++) {
+            for (var i = 0; i < json.length; i++) {
 
-                //$("#jsdata").append(ypeList[i].level+"<br/>");
-                if (jsionData[i].parent_id == id) {
-                    data.push(jsionData[i]);
+                if (json[i].parent_id == id) {
+                    data.push(json[i]);
 
                 }
             }
             return data
         }
 
-        //¸ù¾ÝjsionÊý×éÃû·µ»ØÏàÓ¦µÄ¶¥¼¶Êý¾Ý
-        function intRedayJsion(jsionData) {
-            console.log(jsionData);
-            var data = [];
-            for (var i = 0; i < jsionData.length; i++) {
+        //ï¿½ï¿½ï¿½ï¿½jsionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        function initReadJson(json) {
 
-                //$("#jsdata").append(ypeList[i].level+"<br/>");
-                if (jsionData[i].level == 0) {
-                    data.push(jsionData[i]);
+            var data = [];
+            for (var i = 0; i < json.length; i++) {
+                if (json[i].level == 0) {
+                    data.push(json[i]);
 
                 }
             }
+
             return data
         }
 
