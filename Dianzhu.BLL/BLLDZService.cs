@@ -16,9 +16,9 @@ namespace Dianzhu.BLL
         public DALDZService DALDZService=DALFactory.DALDZService;
         
 
-        public IList<DZService> GetServiceByBusiness(Guid businessId, Guid serviceTypeId, int pageindex, int pagesize, out int totalRecords)
+        public IList<DZService> GetServiceByBusiness(Guid businessId, string serviceCode, int pageindex, int pagesize, out int totalRecords)
         {
-            return DALDZService.GetList(businessId, serviceTypeId, pageindex, pagesize, out totalRecords);
+            return DALDZService.GetList(businessId, serviceCode, pageindex, pagesize, out totalRecords);
         }
         
         public DZService GetOne(Guid serviceId)
