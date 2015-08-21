@@ -8,17 +8,15 @@ namespace Dianzhu.CSClient
     public interface IView
     {
         
+        #region Chat
         string ChatHistory { get; set; }
         string CurrentCustomerName { get; set; }
 
         /// <summary>
         /// 搜索关键字.
         /// </summary>
-        string SerachKeyword { get; set; }
-        /// <summary>
-        /// 服务搜索结果.
-        /// </summary>
-        IList<DZService> SearchedService { get; set; }
+       
+         
         /// <summary>
         /// 设置按钮的样式.
         /// </summary>
@@ -36,6 +34,10 @@ namespace Dianzhu.CSClient
         /// </summary>
         /// <param name="message"></param>
         void SendMessage(string message);
+        #endregion
+
+         string SerachKeyword { get; set; }
+         void LoadSearchHistory(IList<DZService> services);
         
 
     }

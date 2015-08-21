@@ -10,6 +10,7 @@ namespace Dianzhu.CSClient
     {
         IView view;
         DZMembershipProvider bllMember;
+        BLLDZService bllService;
         BLLReception bllReception;
         #region local variables
         private static List<DZMembership> CustomerList = new List<DZMembership>();
@@ -17,12 +18,19 @@ namespace Dianzhu.CSClient
         private static Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();
         private static DZMembership CurrentCustomer;
         #endregion
-        public FormController(IView view, DZMembershipProvider bllMember, BLLReception bllReception)
+        
+        public FormController(IView view, DZMembershipProvider bllMember, BLLReception bllReception,
+            BLLDZService bllService)
         {
             this.view = view;
             this.bllMember = bllMember;
             this.bllReception = bllReception;
+            this.bllService = bllService;
         }
+
+        
+        #region Chat
+    
         /*
   public enum PresenceType
      {
@@ -213,11 +221,24 @@ namespace Dianzhu.CSClient
                view.ChatHistory += chat.BuildLine() + Environment.NewLine;
            }
 
-           
 
-          
+
+
 
         }
+        #endregion
+
+        #region searchservice
+
+        public void SearchService(string keyword)
+        {
+            int total;
+            var serviceList = bllService.Search(view.SerachKeyword, 0, 10, out total);
+            view.LoadSearchHistory(serviceList);
+            
+
+        }
+        #endregion
     }
 }
 

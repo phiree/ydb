@@ -10,20 +10,22 @@ using agsXMPP;
 using agsXMPP.protocol.client;
 namespace Dianzhu.CSClient
 {
-    public partial class FormMain : Form,IView
+    public partial class FormMain : Form, IView
     {
         BLL.DZMembershipProvider BLLMember = new BLL.DZMembershipProvider();
         BLL.BLLReception BLLReception = new BLL.BLLReception();
+        BLL.BLLDZService BLLDZService = new BLL.BLLDZService();
         FormController FormController;
         public FormMain()
         {
             InitializeComponent();
-            FormController = new CSClient.FormController(this, BLLMember, BLLReception);
+            FormController = new CSClient.FormController(this, BLLMember, BLLReception, BLLDZService);
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
             GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
         }
+
         #region XMPP
-       
+
         void XMPPConnection_OnPresence(object sender, Presence pres)
         {
             if (InvokeRequired)
@@ -42,9 +44,10 @@ namespace Dianzhu.CSClient
             }
             FormController.ReceiveMessage(StringHelper.EnsureNormalUserName(msg.From.User), msg.Body);
         }
- 
+
         string currentCustomerName;
-        public string CurrentCustomerName {
+        public string CurrentCustomerName
+        {
             get { return currentCustomerName; }
             set { currentCustomerName = value; }
         }
@@ -77,7 +80,7 @@ namespace Dianzhu.CSClient
                 default: break;
             }
             btn.ForeColor = foreColor;
-             
+
         }
         public void AddCustomerButtonWithStyle(string buttonText, em_ButtonStyle buttonStyle)
         {
@@ -97,36 +100,46 @@ namespace Dianzhu.CSClient
         private void btnSend_Click(object sender, EventArgs e)
         {
             string message = tbxChatMsg.Text;
-            if (string.IsNullOrEmpty(message)||string.IsNullOrEmpty(CurrentCustomerName))
+            if (string.IsNullOrEmpty(message) || string.IsNullOrEmpty(CurrentCustomerName))
             {
                 return;
             }
-          
+
             GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(
             StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain, MessageType.chat, message));
             SendMessage(tbxChatMsg.Text);
             tbxChatMsg.Text = string.Empty;
         }
- 
-        public void SendMessage (string message)
+
+        public void SendMessage(string message)
         {
             FormController.SendMessage(message, currentCustomerName);
         }
 
-        
+
+
+        private void tbxChatMsg_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                btnSend.PerformClick();
+            }
+        }
+        #endregion
+
+        #region searchService
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-
+            FormController.SearchService(SerachKeyword);
         }
-        #endregion
 
 
         public string SerachKeyword
         {
             get
             {
-                throw new NotImplementedException();
+                return tbxKeywords.Text;
             }
             set
             {
@@ -142,16 +155,27 @@ namespace Dianzhu.CSClient
             }
             set
             {
-                throw new NotImplementedException();
-            }
-        }
 
-        private void tbxChatMsg_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                btnSend.PerformClick();
             }
         }
+        public void LoadSearchHistory(IList<Model.DZService> serviceList)
+        {
+            pnlResultService.Controls.Clear();
+            foreach (Model.DZService service in serviceList)
+            {
+                LoadServiceToPanel(service);
+            }
+        }
+        public void LoadServiceToPanel(Model.DZService service)
+        {
+            FlowLayoutPanel pnl = new FlowLayoutPanel();
+            Label lblServiceName = new Label();
+            lblServiceName.Text = service.Name;
+            pnl.Controls.Add(lblServiceName);
+            pnlResultService.Controls.Add(pnl);
+
+        }
+        #endregion
+
     }
 }

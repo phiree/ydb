@@ -44,7 +44,7 @@
             this.btnManual = new System.Windows.Forms.Button();
             this.btnSearchOut = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbxKeywords = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -177,7 +177,7 @@
             this.panel2.Controls.Add(this.btnManual);
             this.panel2.Controls.Add(this.btnSearchOut);
             this.panel2.Controls.Add(this.btnSearch);
-            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.tbxKeywords);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
@@ -239,14 +239,14 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // textBox1
+            // tbxKeywords
             // 
-            this.textBox1.Font = new System.Drawing.Font("宋体", 20.5F);
-            this.textBox1.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.textBox1.Location = new System.Drawing.Point(19, 16);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(222, 39);
-            this.textBox1.TabIndex = 0;
+            this.tbxKeywords.Font = new System.Drawing.Font("宋体", 20.5F);
+            this.tbxKeywords.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.tbxKeywords.Location = new System.Drawing.Point(19, 16);
+            this.tbxKeywords.Name = "tbxKeywords";
+            this.tbxKeywords.Size = new System.Drawing.Size(222, 39);
+            this.tbxKeywords.TabIndex = 0;
             // 
             // FormMain
             // 
@@ -288,7 +288,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnSearchOut;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbxKeywords;
         private System.Windows.Forms.Button btnKeywords;
         private System.Windows.Forms.Button btnMap;
         private System.Windows.Forms.Button btnBusiness;
