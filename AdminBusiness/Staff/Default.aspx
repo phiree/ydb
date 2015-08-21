@@ -10,12 +10,13 @@
 
    <div class="cont-wrap">
       <div class="cont-container mh-in">
+         <div class="emp-list-div dis-n">
          <div class="cont-row">
               <div class="add-user-div">
                <a class="btn btn-info" href="Edit.aspx?businessid=<%=Request["businessid"] %>"><span class="add-inco">+</span>添加新员工</a>
               </div>
          </div>
-         <div class="emp-content-div">
+         <div class="emp-content-div ">
             <table class="emp-table">
                 <thead>
                     <tr class="emp-head-tr">
@@ -62,7 +63,25 @@
         id="pager" PageSize="10" UrlPaging="true" LastPageText="尾页"></UC:AspNetPager>
           
           </div>
+          </div>
+           <div class="add-view-emp dis-n">
+                   
+                        <div class="new-box">
+                            <div class="t-c">
+                                <img src="/image/service-new.png"/>
+                            </div>
+                                <div class="service-new-add">
+                                      <a class="new-add-btn" href="Edit.aspx?businessid=<%=Request["businessid"] %>">添加新员工</a>
+                                </div>
+                        </div>
+                    
+                </div>
+
       </div>
+      
+
+
+
    </div>
 
 
@@ -84,7 +103,18 @@
                     window.location.href = url
                 };
             }
+
+
+
+
             $(function () {
+
+                if ($(".emp-table").find("tr").length == 1) {
+                    $(".add-view-emp").removeClass("dis-n");
+                } else {
+                    $(".emp-list-div").removeClass("dis-n");
+                }
+
 
                 /* 当鼠标移到表格上是，当前一行背景变色 */
                 $(".emp-table tr td").mouseover(function () {

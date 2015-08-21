@@ -32,7 +32,7 @@ public partial class DZService_Default : BasePage
     {
         int totalRecords;
         //处理太简单粗暴,需要优化.
-     rptServiceList.DataSource = bllService.GetServiceByBusiness(CurrentBusiness.Id, string.Empty, 0, 999, out totalRecords);
+     rptServiceList.DataSource = bllService.GetServiceByBusiness(CurrentBusiness.Id, 0, 999, out totalRecords);
         rptServiceList.DataBind();
     }
     
