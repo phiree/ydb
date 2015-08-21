@@ -78,7 +78,9 @@
                                 </div>
                                 <p class="doReg">
                                     <a class="logReg-a" href="register.aspx">
-                                        <img src="image/login_reg/zhuce_1.png">注册会员</a></p>
+                                        <img src="image/login_reg/zhuce_1.png">注册会员</a>
+                                       <a href="/account/forget.aspx">忘记密码</a>
+                                        </p>
                             </div>
                         </div>
                     </div>

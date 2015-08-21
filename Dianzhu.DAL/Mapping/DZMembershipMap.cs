@@ -24,6 +24,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.IsRegisterValidated);
             Map(x => x.RegisterValidateCode);
             Map(x => x.UserNameForOpenFire);
+            Map(x => x.RecoveryCode);
             
         }
                

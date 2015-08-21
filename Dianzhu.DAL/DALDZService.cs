@@ -22,8 +22,8 @@ namespace Dianzhu.DAL
         {
             var totalquery = Session.QueryOver<DZService>()
                 // .Where(x => x.Name.Contains(keywords) || x.Description.Contains(keywords));
-               .Where(Restrictions.On<DZService>(x => x.Name).IsLike(keywords)
-               ||Restrictions.On<DZService>(x=>x.Description).IsLike(keywords)
+               .Where(Restrictions.On<DZService>(x => x.Name).IsLike(string.Format("%{0}%",keywords))
+               || Restrictions.On<DZService>(x => x.Description).IsLike(string.Format("%{0}%", keywords))
                );
                ;
             totalRecord = totalquery.RowCount();

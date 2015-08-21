@@ -251,6 +251,32 @@ namespace Dianzhu.BLL
             //mail.Body = "this is my test email body";
             //client.Send(mail);
         }
+        public bool SendRecoveryMail(string to, string recoveryUrl)
+        {
+            string subjecst = "一点办--密码重置邮件";
+            bool sendSuccess = true;
+            string body = "您已申请密码重置.请点击下面的连接重置您的密码.</br>"
+                        + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
+                        + recoveryUrl + "'>点击验证</a><br/><br/><br/>"
+                        + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
+                        + recoveryUrl;
+            try
+            {
+                PHSuit.EmailHelper.SendEmail(to, subjecst, body);
+            }
+            catch (Exception ex)
+            {
+                sendSuccess = false;
+            }
+            return sendSuccess;
+            //SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+            //SmtpClient client = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port);
+            //client.Credentials = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
+            //MailMessage mail = new MailMessage(smtpSection.From, "550700860@qq.com");
+            //mail.Subject = "this is a test email.";
+            //mail.Body = "this is my test email body";
+            //client.Send(mail);
+        }
         public DZMembership CreateUser(string userName, string userPhone, string userEmail, string password, out MembershipCreateStatus createStatus)
         {
             createStatus = MembershipCreateStatus.ProviderError;

@@ -39,7 +39,10 @@ namespace Dianzhu.Model
         /// 是否通过了验证.
         /// </summary>
         public virtual bool IsRegisterValidated { get; set; }
-
+        /// <summary>
+        /// 找回密码时的验证码
+        /// </summary>
+        public virtual Guid RecoveryCode { get; set; }
         public virtual void CopyTo(DZMembership newMember)
         {
             newMember.Id = Id;
