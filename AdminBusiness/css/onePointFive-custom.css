@@ -6,6 +6,8 @@ label {
 /*boostrap custom*/
 .navbar {
     margin-bottom: 0;
+    box-shadow: 2px 0 4px 0 #96a0aa;
+    background: #fff;
 }
 
 .navbar .navbar-brand {
@@ -196,7 +198,7 @@ label {
 .sidebar-nav ul #menu-5:hover{
       background: #3794bd;
     }
-#menu-1{ margin-top:25px;background: #3794bd;}
+#menu-1{ background: #3794bd;}
 #menu-1 a {
     background:url(../image/shop-icon-18.png) no-repeat;
     background-position: 12px 10px;

@@ -268,7 +268,7 @@
 .emp-icon-name { background: url("../image/employee/shop_icon_2.png") ;}
 
 /***fu**/
-#menu-1{ margin-top:25px;background: #f8f8f8;}
+#menu-1{ background: #f8f8f8;}
 #menu-1 a {
     background:url(../image/shop-icon-12.png) no-repeat;
     background-position: 12px 10px;
@@ -311,7 +311,7 @@
 .epm-th-2{width:13.3%;}
 .btnAssign{ width:82px;}
 .add-inco{ font-size:16px; margin-right:5px; font-weight:bold;}
-.epm-headimg img
+.epm-hea    dimg img
 {
 -webkit-border-radius: 24.5px; 
 -moz-border-radius: 24.5px; 
