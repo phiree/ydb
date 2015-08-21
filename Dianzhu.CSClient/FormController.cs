@@ -49,24 +49,26 @@ namespace Dianzhu.CSClient
                     if (isInList)
                     {
                         //改变对应按钮的样式.
-                        view.SetButtonStyle(userName, em_ButtonStyle.Login);
+                        view.SetCustomerButtonStyle(userName, em_ButtonStyle.Login);
                     }
                     else
                     {
                         AddCustomer(userName);
-                        view.AddButtonWithStyle(userName, em_ButtonStyle.Login);
+                        view.AddCustomerButtonWithStyle(userName, em_ButtonStyle.Login);
 
                     }
+                    
                     break;
                 case 4:
                     if (isInList)
                     {
-                        view.SetButtonStyle(userName, em_ButtonStyle.LogOff);
+                        view.SetCustomerButtonStyle(userName, em_ButtonStyle.LogOff);
                     }
                     else
                     {
 
                     }
+                     
                     break;
                 default: break;
             }
@@ -80,7 +82,7 @@ namespace Dianzhu.CSClient
         public void ActiveCustomer(string buttonText)
         {
             LoadChatHistory(buttonText);
-            view.SetButtonStyle(buttonText, em_ButtonStyle.Actived);
+            view.SetCustomerButtonStyle(buttonText, em_ButtonStyle.Actived);
             view.CurrentCustomerName = buttonText;
             CurrentCustomer = CustomerList.Single(x => x.UserName == buttonText);
             //设置当前激活的用户
@@ -89,6 +91,7 @@ namespace Dianzhu.CSClient
         public void SendMessage(string message, string customerName)
         {
             //保存消息
+            if (CurrentCustomer == null) return;
           ReceptionChat chat=  SaveMessage(message, customerName, true);
           view.ChatHistory += chat.BuildLine() + Environment.NewLine;
             //
@@ -193,14 +196,14 @@ namespace Dianzhu.CSClient
            if (!CustomerList.Any(x => x.UserName == customerName))
            {
                AddCustomer(customerName);
-               view.AddButtonWithStyle(customerName, em_ButtonStyle.Unread);
+               view.AddCustomerButtonWithStyle(customerName, em_ButtonStyle.Unread);
            }
 
            else
            {
                if (CurrentCustomer == null || CurrentCustomer.UserName != customerName)
                {
-                   view.SetButtonStyle(customerName, em_ButtonStyle.Unread);
+                   view.SetCustomerButtonStyle(customerName, em_ButtonStyle.Unread);
                }
            }
 

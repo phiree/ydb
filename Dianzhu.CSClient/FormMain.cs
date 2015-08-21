@@ -18,13 +18,12 @@ namespace Dianzhu.CSClient
         public FormMain()
         {
             InitializeComponent();
-            
             FormController = new CSClient.FormController(this, BLLMember, BLLReception);
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
             GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
-            customerList = new List<string>();
         }
-
+        #region XMPP
+       
         void XMPPConnection_OnPresence(object sender, Presence pres)
         {
             if (InvokeRequired)
@@ -34,7 +33,6 @@ namespace Dianzhu.CSClient
             }
             FormController.OnPresent((int)pres.Type, pres.From.User);
         }
-
         void XMPPConnection_OnMessage(object sender, agsXMPP.protocol.client.Message msg)
         {
             if (InvokeRequired)
@@ -44,24 +42,7 @@ namespace Dianzhu.CSClient
             }
             FormController.ReceiveMessage(StringHelper.EnsureNormalUserName(msg.From.User), msg.Body);
         }
-
-        List<string> customerList;
-        public List<string> ButtonList
-        {
-            get
-            {
-                foreach(Control c in pnlCustomerList.Controls)
-                {
-                    if (c.GetType() == typeof(Button))
-                    {
-                        customerList.Add(((Button)c).Text);
-                    }
-                }
-                return customerList;
-            }
-           
-             
-        }
+ 
         string currentCustomerName;
         public string CurrentCustomerName {
             get { return currentCustomerName; }
@@ -78,8 +59,7 @@ namespace Dianzhu.CSClient
                 tbxChatLog.Text = value;
             }
         }
-
-        public void SetButtonStyle(string buttonText, em_ButtonStyle buttonStyle)
+        public void SetCustomerButtonStyle(string buttonText, em_ButtonStyle buttonStyle)
         {
             Button btn = (Button)pnlCustomerList.Controls.Find
                 (GlobalViables.ButtonNamePrefix + buttonText, true)[0];
@@ -99,15 +79,14 @@ namespace Dianzhu.CSClient
             btn.ForeColor = foreColor;
              
         }
-
-        public void AddButtonWithStyle(string buttonText, em_ButtonStyle buttonStyle)
+        public void AddCustomerButtonWithStyle(string buttonText, em_ButtonStyle buttonStyle)
         {
             Button btn = new Button();
             btn.Text = buttonText;
             btn.Name = GlobalViables.ButtonNamePrefix + buttonText;
             btn.Click += new EventHandler(btnCustomer_Click);
             pnlCustomerList.Controls.Add(btn);
-            SetButtonStyle(buttonText, buttonStyle);
+            SetCustomerButtonStyle(buttonText, buttonStyle);
         }
 
         void btnCustomer_Click(object sender, EventArgs e)
@@ -118,10 +97,11 @@ namespace Dianzhu.CSClient
         private void btnSend_Click(object sender, EventArgs e)
         {
             string message = tbxChatMsg.Text;
-            if (string.IsNullOrEmpty(message))
+            if (string.IsNullOrEmpty(message)||string.IsNullOrEmpty(CurrentCustomerName))
             {
                 return;
             }
+          
             GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(
             StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain, MessageType.chat, message));
             SendMessage(tbxChatMsg.Text);
@@ -131,6 +111,47 @@ namespace Dianzhu.CSClient
         public void SendMessage (string message)
         {
             FormController.SendMessage(message, currentCustomerName);
+        }
+
+        
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+
+        public string SerachKeyword
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public IList<Model.DZService> SearchedService
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        private void tbxChatMsg_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                btnSend.PerformClick();
+            }
         }
     }
 }
