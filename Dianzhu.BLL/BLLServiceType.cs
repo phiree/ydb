@@ -95,7 +95,7 @@ namespace Dianzhu.BLL
                         bool needUpdate = true;
                         if (s1 == null)
                         {
-                            s1 = new ServiceType { Code = codeValue, Name = cellValue, DeepLevel = i, OrderNumber = dtFromExcel.Rows.IndexOf(row) };
+                            s1 = new ServiceType { Code = codeValue, Name = cellValue, DeepLevel = i-1, OrderNumber = dtFromExcel.Rows.IndexOf(row) };
                         }
                         else
                         {
