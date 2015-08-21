@@ -1,0 +1,10 @@
+diff a/Dianzhu.BLL/BLLServiceType.cs b/Dianzhu.BLL/BLLServiceType.cs	(rejected hunks)
+@@ -125,7 +125,7 @@
+             {
+                 ServiceType currentSt = tfe2.ServiceType;
+                 //发现根,清除缓存
+-                if (tfe2.ColIndex == 0)
++                if (tfe2.ColIndex == 1)
+                 {
+                     cacheParents.Clear();
+                     currentSt.Parent = null;

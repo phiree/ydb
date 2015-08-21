@@ -26,6 +26,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     protected void Page_Load(object sender, EventArgs e)
     {
         string paramId = Request.Params["serviceid"];
+       
         if (!string.IsNullOrEmpty(paramId))
         {
             ServiceId = new Guid(paramId);
@@ -40,6 +41,10 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             if (!IsNew)
             {
                 LoadForm();
+            }
+            else
+            {
+                dvTag.Visible = false;
             }
         }
     }
@@ -89,7 +94,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         cbxIsCertificated.Checked = CurrentService.IsCertificated;
         LoadPayType();
         //rblPayType.SelectedValue = ((int)CurrentService.PayType).ToString(); 
-        hiTypeId.Value = CurrentService.ServiceType.Code;
+        hiTypeId.Value = CurrentService.ServiceType.Id.ToString();
     }
     private void LoadPayType()
     { 
@@ -109,8 +114,8 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.Description = tbxDescription.Text;
         CurrentService.Enabled = cbxEnable.Checked;
         CurrentService.Business = (((BasePage)this.Page).CurrentBusiness);
-        string typeCode = hiTypeId.Value;
-        ServiceType = bllServiceType.GetOneByCode(typeCode);
+        Guid gid = new Guid(hiTypeId.Value);
+        ServiceType = bllServiceType.GetOne(gid);
         CurrentService.ServiceType = ServiceType;
         IList<ServicePropertyValue> values = new List<ServicePropertyValue>();
        

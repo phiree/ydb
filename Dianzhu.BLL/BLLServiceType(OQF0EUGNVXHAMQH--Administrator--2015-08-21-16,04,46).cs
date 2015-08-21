@@ -86,7 +86,7 @@ namespace Dianzhu.BLL
                     string cellvalue = row[i].ToString();
                     if (!string.IsNullOrEmpty(cellvalue))
                     {
-                        ServiceType s = new ServiceType {Id=gid,Code=code, Name = cellvalue, DeepLevel = i-2, OrderNumber = dtFromExcel.Rows.IndexOf(row) };
+                        ServiceType s = new ServiceType { Name = cellvalue, DeepLevel = i-2, OrderNumber = dtFromExcel.Rows.IndexOf(row) };
                         ServiceTypeFromExcel tfe = new ServiceTypeFromExcel{ServiceType=s, ColIndex=i  };
                         tfeList.Add(tfe);
                     }

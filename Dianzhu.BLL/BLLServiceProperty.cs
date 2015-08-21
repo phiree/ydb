@@ -34,11 +34,11 @@ namespace Dianzhu.BLL
       /// <param name="parentId">所属分类ID</param>
       /// <param name="values">属性值, 多个用逗号分隔</param>
       /// <returns></returns>
-      public ServiceProperty SaveOrUpdate(Guid propertyId, string propertyName, string code, string values)
+      public ServiceProperty SaveOrUpdate(Guid propertyId, string propertyName, Guid id, string values)
       {
 
 
-          ServiceType currentServiceType = bllServiceType.GetOneByCode(code);
+          ServiceType currentServiceType = bllServiceType.GetOne(id);
           ServiceProperty serviceProperty = new ServiceProperty { Name = propertyName, ServiceType = currentServiceType };
           if (propertyId!=null && propertyId != Guid.Empty)
           { 
