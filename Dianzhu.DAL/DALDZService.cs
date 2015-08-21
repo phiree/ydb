@@ -18,7 +18,7 @@ namespace Dianzhu.DAL
                 +where +" order by s.LastModifiedTime desc",
                 pageindex, pagesize, out totalRecord);
         }
-        public IList<DZService> GetList(string keywords, int pageindex, int pagesize, out int totalRecord)
+        public IList<DZService> SearchService(string keywords, int pageindex, int pagesize, out int totalRecord)
         {
             var totalquery = Session.QueryOver<DZService>()
                 // .Where(x => x.Name.Contains(keywords) || x.Description.Contains(keywords));
