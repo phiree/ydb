@@ -262,7 +262,6 @@ a.new-add-btn {
     background: rgba(74, 74, 74, 0.5);
     background: #666\9;
     letter-spacing: 0.1em;
-
 }
 
 .sp-msg span{
@@ -271,6 +270,11 @@ a.new-add-btn {
 
 #saveAddress,#saveRadius,#saveMsg {
 
+}
+
+/*服务时间样式设置*/
+.time-select-all .cont-row{
+    padding: 10px 0;
 }
 
 /*店铺编辑步骤样式*/

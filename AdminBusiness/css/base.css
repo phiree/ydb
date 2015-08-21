@@ -385,6 +385,7 @@ html{
     width: 300px;
     top: 36px;
     left: -122px;
+    z-index: 100;
 }
 
 .time-select-container {

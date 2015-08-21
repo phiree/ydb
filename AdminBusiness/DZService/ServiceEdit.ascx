@@ -189,7 +189,219 @@
             <div class="cont-col-2">
                 <p class="cont-sub-title">服务时间</p>
             </div>
-            <div class="cont-col-10">
+            <div class="cont-col-10 time-select-all">
+                <div class="cont-row">
+                    <div class="cont-col-2">星期一</div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-2">启用</div>
+                </div>
+                <div class="cont-row">
+                    <div class="cont-col-2">星期二</div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-2">启用</div>
+                </div>
+                <div class="cont-row">
+                        <div class="cont-col-2">星期三</div>
+                        <div class="cont-col-4">
+                            <div>
+                                <div class="time-select-wrap">
+                                    <a class="time-trigger"/></a>
+                                    <input class="dis-n time-value" type="text"/>
+                                </div>
+                                &nbsp;&nbsp;至&nbsp;&nbsp;
+                                <div class="time-select-wrap">
+                                   <a class="time-trigger"/></a>
+                                   <input class="dis-n time-value" type="text"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cont-col-4">
+                            <div>
+                                <div class="time-select-wrap">
+                                    <a class="time-trigger"/></a>
+                                    <input class="dis-n time-value" type="text"/>
+                                </div>
+                                &nbsp;&nbsp;至&nbsp;&nbsp;
+                                <div class="time-select-wrap">
+                                   <a class="time-trigger"/></a>
+                                   <input class="dis-n time-value" type="text"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cont-col-2">启用</div>
+                    </div>
+                <div class="cont-row">
+                    <div class="cont-col-2">星期四</div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-2">启用</div>
+                </div>
+                <div class="cont-row">
+                    <div class="cont-col-2">星期五</div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-2">启用</div>
+                </div>
+                <div class="cont-row">
+                    <div class="cont-col-2">星期六</div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-2">启用</div>
+                </div>
+                <div class="cont-row">
+                    <div class="cont-col-2">星期天</div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-4">
+                        <div>
+                            <div class="time-select-wrap">
+                                <a class="time-trigger"/></a>
+                                <input class="dis-n time-value" type="text"/>
+                            </div>
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                            <div class="time-select-wrap">
+                               <a class="time-trigger"/></a>
+                               <input class="dis-n time-value" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-col-2">启用</div>
+                </div>
+
+                <!---------------------------------------------服务时间原值----------------------------------->
                 <div>
                     <div class="time-select-wrap">
                         <a class="time-trigger"/></a>
