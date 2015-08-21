@@ -9,13 +9,14 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
    <div class="cont-wrap secret-wrap ">
-      <div class="cont-container mh-in dis-n">
+      <div class="cont-container mh-in">
+         <div class="emp-list-div dis-n">
          <div class="cont-row">
               <div class="add-user-div">
                <a class="btn btn-info" href="Edit.aspx?businessid=<%=Request["businessid"] %>"><span class="add-inco">+</span>添加新员工</a>
               </div>
          </div>
-         <div class="emp-content-div">
+         <div class="emp-content-div ">
             <table class="emp-table">
                 <tr class="emp-head-tr">
                    <th class="emp-th-style epm-th-2"></th>
@@ -60,9 +61,9 @@
         id="pager" PageSize="10" UrlPaging="true" LastPageText="尾页"></UC:AspNetPager>
           
           </div>
-      </div>
-       <div class="add-view-emp dis-n">
-                    <div class="cont-container">
+          </div>
+           <div class="add-view-emp dis-n">
+                   
                         <div class="new-box">
                             <div class="t-c">
                                 <img src="/image/service-new.png"/>
@@ -71,9 +72,11 @@
                                       <a class="new-add-btn" href="Edit.aspx?businessid=<%=Request["businessid"] %>">添加新员工</a>
                                 </div>
                         </div>
-                    </div>
+                    
                 </div>
 
+      </div>
+      
 
 
 
@@ -135,7 +138,7 @@
                 if ($(".emp-table").find("tr").length == 1) {
                     $(".add-view-emp").removeClass("dis-n");
                 } else {
-                    $(".cont-container").removeClass("dis-n");
+                    $(".emp-list-div").removeClass("dis-n");
                 }
 
 
