@@ -18,6 +18,7 @@ namespace Dianzhu.CSClient
         public FormMain()
         {
             InitializeComponent();
+            
             FormController = new CSClient.FormController(this, BLLMember, BLLReception);
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
             GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);

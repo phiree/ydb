@@ -83,7 +83,7 @@ namespace Dianzhu.Model
         /// <returns></returns>
         public virtual string BuildLine()
         {
-            return SendTime.ToString("yyyy-MM-dd HH:mm:ss") + " " + From.UserName + ":    " + MessageBody;
+            return SavedTime.ToShortTimeString() + " " + From.UserName + ":    " + MessageBody;
         }
         public virtual string BuildLine(DZMembership from)
         {

@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.scmain = new System.Windows.Forms.SplitContainer();
+            this.pnlCustomerList = new System.Windows.Forms.FlowLayoutPanel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.tbxChatLog = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tbxChatMsg = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
-            this.pnlCustomerList = new System.Windows.Forms.FlowLayoutPanel();
+            this.tbxChatLog = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -68,6 +68,14 @@
             this.scmain.SplitterDistance = 84;
             this.scmain.TabIndex = 0;
             // 
+            // pnlCustomerList
+            // 
+            this.pnlCustomerList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCustomerList.Location = new System.Drawing.Point(0, 0);
+            this.pnlCustomerList.Name = "pnlCustomerList";
+            this.pnlCustomerList.Size = new System.Drawing.Size(707, 84);
+            this.pnlCustomerList.TabIndex = 0;
+            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -95,15 +103,6 @@
             this.splitContainer3.SplitterDistance = 264;
             this.splitContainer3.TabIndex = 0;
             // 
-            // tbxChatLog
-            // 
-            this.tbxChatLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxChatLog.Location = new System.Drawing.Point(0, 0);
-            this.tbxChatLog.Multiline = true;
-            this.tbxChatLog.Name = "tbxChatLog";
-            this.tbxChatLog.Size = new System.Drawing.Size(264, 359);
-            this.tbxChatLog.TabIndex = 0;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.tbxChatMsg);
@@ -117,6 +116,7 @@
             // tbxChatMsg
             // 
             this.tbxChatMsg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxChatMsg.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxChatMsg.Location = new System.Drawing.Point(0, 0);
             this.tbxChatMsg.Name = "tbxChatMsg";
             this.tbxChatMsg.Size = new System.Drawing.Size(189, 21);
@@ -133,13 +133,14 @@
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
-            // pnlCustomerList
+            // tbxChatLog
             // 
-            this.pnlCustomerList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlCustomerList.Location = new System.Drawing.Point(0, 0);
-            this.pnlCustomerList.Name = "pnlCustomerList";
-            this.pnlCustomerList.Size = new System.Drawing.Size(707, 84);
-            this.pnlCustomerList.TabIndex = 0;
+            this.tbxChatLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxChatLog.Location = new System.Drawing.Point(0, 0);
+            this.tbxChatLog.Name = "tbxChatLog";
+            this.tbxChatLog.Size = new System.Drawing.Size(264, 359);
+            this.tbxChatLog.TabIndex = 2;
+            this.tbxChatLog.Text = "";
             // 
             // FormMain
             // 
@@ -157,7 +158,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -171,11 +171,11 @@
         private System.Windows.Forms.SplitContainer scmain;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.TextBox tbxChatLog;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox tbxChatMsg;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.FlowLayoutPanel pnlCustomerList;
+        private System.Windows.Forms.RichTextBox tbxChatLog;
 
     }
 }
