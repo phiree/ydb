@@ -24,6 +24,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 自定义编码
         /// </summary>
+        [JsonProperty(PropertyName = "code")]
         public virtual string Code { get; set; }
         /// <summary>
         /// 上级类型
