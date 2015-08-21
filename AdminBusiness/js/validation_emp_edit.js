@@ -32,9 +32,9 @@ service_validate_rules[name_prefix + "Code"] =
 
 service_validate_messages[name_prefix + "Code"] =
 {
-    integer: "请输入如-xx1---xx1xx-的数字",
+    integer: "请输入有效数字",
     required: "请填写编号",
-    range: "请输入如-xx1---xx1xx-的数字"
+    range: "请输入请输入有效数字"
 
 
 };
