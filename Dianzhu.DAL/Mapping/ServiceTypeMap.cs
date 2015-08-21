@@ -11,7 +11,7 @@ namespace Dianzhu.DAL.Mapping
     {
         public ServiceTypeMap()
         {
-            Id(x => x.Code);
+            Id(x => x.Code).GeneratedBy.Assigned();
             Map(x => x.Name);
             Map(x => x.DeepLevel);
             Map(x => x.OrderNumber);
