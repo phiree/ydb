@@ -35,10 +35,10 @@
             var _hourUnit = $("<span class='hour-unit'>小时</span>");
             var _minuUnit = $("<span class='minu-unit'>分钟</span>");
 
-            var _hourPrint = null;
-            var _minuPrint = null;
-            var _defHour = null;
-            var _defMinu = null;
+            var _hourPrint = "00";
+            var _minuPrint = "00";
+            var _defHour = "00";
+            var _defMinu = "00";
 
 
             if( _printValue.attr("value") != "" && _printValue.attr("value") != undefined  ){
@@ -51,6 +51,7 @@
             } else {
                 protoThis.options.hour != "00" ? _defHour = protoThis.options.hour : _defHour = "00";
                 protoThis.options.minu != "00" ? _defMinu = protoThis.options.minu : _defMinu = "00";
+                _printValue.attr("value",_hourPrint + ":" + _minuPrint);
                 _trigger.html(_defHour + ":" + _defMinu);
             }
 
