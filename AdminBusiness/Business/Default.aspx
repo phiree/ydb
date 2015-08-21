@@ -55,6 +55,7 @@
                 <div class="business-container mh-in dis-n">
                     <div class="business-add">
                            <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-add">+&nbsp;新建店铺</a>
+                           <asp:Label runat="server" ID="lblErr"></asp:Label>
                         </div>
                        <div class="business-list">
                            <asp:Repeater runat="server" ID="rptBusinessList" OnItemCommand="rptBusinessList_ItemCommand">

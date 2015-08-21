@@ -12,10 +12,16 @@ public partial class Business_Default : BasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         BrowserCheck.CheckVersion();
+        if (string.IsNullOrEmpty(CurrentUser.Phone))
+        {
+            lblErr.CssClass = "error";
+            lblErr.Text = "您没有填写电话号码,不能创建店铺";
+        }
         if (!IsPostBack)
         {
             BindBusinessList();
         }
+
     }
     protected void BindBusinessList()
     {
@@ -29,6 +35,10 @@ public partial class Business_Default : BasePage
     }
     protected void btnCreate_Click(object sender, EventArgs e)
     {
+        if (string.IsNullOrEmpty(CurrentUser.Phone))
+        {
+            return;
+        }
         Business b = new Business();
         b.Name = tbxName.Value;
         b.Owner = CurrentUser;
