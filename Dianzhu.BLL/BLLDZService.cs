@@ -52,7 +52,7 @@ namespace Dianzhu.BLL
         }
         public IList<DZService> Search(string keywords, int pageIndex, int pagesize, out int total)
         {
-          return  DALDZService.GetList(keywords, pageIndex, pagesize, out total);
+          return  DALDZService.SearchService(keywords, pageIndex, pagesize, out total);
         }
     }
 }
