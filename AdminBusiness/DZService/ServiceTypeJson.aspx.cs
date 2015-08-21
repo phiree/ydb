@@ -24,16 +24,17 @@ public partial class DZService_ServiceTypeJson : System.Web.UI.Page
     {
         string filepath = "/js"+"/ServiceType.js";
 
-        if (!File.Exists(Server.MapPath(filepath)))
-        {
+        //if (!File.Exists(Server.MapPath(filepath)))
+        //{
 
-            FileStream fs1 = new FileStream(Server.MapPath(filepath), FileMode.Create, FileAccess.Write);//创建写入文件 
-            StreamWriter sw = new StreamWriter(fs1);
-            sw.WriteLine("var typeList="+json);//开始写入值
-            sw.Close();
-            fs1.Close();
+        FileStream fs1 = new FileStream(Server.MapPath(filepath), FileMode.Create, FileAccess.Write);//创建写入文件 
+        StreamWriter sw = new StreamWriter(fs1);
+        sw.WriteLine("var typeList=" + json);//开始写入值
+        sw.Close();
+        fs1.Close();
 
-        }
+       // }
+
     
     }
 }
