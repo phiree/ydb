@@ -345,7 +345,7 @@
                     <asp:ListItem Value="2" Text="线下"></asp:ListItem>
                 </asp:RadioButtonList>
             </div>
-             <div style="text-align: right; ">
+             <div style="text-align: right; " runat="server" id="dvTag">
               <span>标签:</span> <DZ:Tag runat="server" ID="dzTag" />
             <a href="#" id="rp_save" data-rel="close" data-role="button" data-inline="true">确定</a>
             <a href="#" data-rel="close" data-role="button" data-inline="true">取消</a>

@@ -105,8 +105,8 @@ namespace Dianzhu.Model
        public virtual DateTime LastModifiedTime { get; set; }
 
        public virtual bool Enabled { get; set; }
-       public IList<ServiceOpenTime> OpenTimes { get; set; }
-       public bool AddOpenTime(ServiceOpenTime openTime, out string errMsg)
+       public virtual IList<ServiceOpenTime> OpenTimes { get; set; }
+       public virtual bool AddOpenTime(ServiceOpenTime openTime, out string errMsg)
        {
            errMsg = string.Empty;
            if (openTime.Day < 1 || openTime.Day > 7)
