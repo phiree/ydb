@@ -9,7 +9,7 @@ function initializeService(){
     //var cityListObject = new BMapLib.CityList({ container: "businessCity" , map : map });
     map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
     map.disableDoubleClickZoom();
-    //map.disableScrollWheelZoom();
+
 
     var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
     var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
@@ -21,11 +21,15 @@ function initializeService(){
     function add_control(){
         map.addControl(top_left_control);
         map.addControl(top_left_navigation);
-        //map.addControl(top_right_navigation);
     }
 
-    add_control();
+    //add_control();
 
+
+    function delete_control(){
+        map.removeControl(top_left_control);
+        map.removeControl(top_left_navigation);
+    }
 
     /**
      * 初始化商圈缩略地图
@@ -204,6 +208,7 @@ function initializeService(){
             map.removeOverlay(this.marker);
             map.removeOverlay(this.circle);
         }
+
     };
 
 
@@ -212,7 +217,8 @@ function initializeService(){
          *  服务点添加，删除，控制
          */
         var addSP = document.getElementById('addSP') ? document.getElementById('addSP') : null;
-        var delSP = document.getElementById('delSP') ? document.getElementById('addSP') : null;
+        var editSP = document.getElementById('editSP') ? document.getElementById('editSP') : null;
+        var delSP = document.getElementById('delSP') ? document.getElementById('delSP') : null;
         var saveSP = document.getElementById('saveSP') ? document.getElementById('saveSP') : null;
         var SPContainer = document.getElementById('SPContainer') ? document.getElementById('SPContainer') : null;
         var arrServerPoint = new Array();//服务点数组
@@ -220,6 +226,9 @@ function initializeService(){
         var currentCont; //当前计数
         var currentSP;  //当前服务点
         var currentSPBtn; //当前服务点按钮
+
+        var rResult = document.getElementById('r-result');
+        var radiusContainer = document.getElementById('radius-container');
 
         newServerPoint(); //默认新建一个服务点
 
@@ -239,9 +248,7 @@ function initializeService(){
 
 
                 currentSP = arrServerPoint[arrServerPoint.length - 1];
-                currentSP.circle.addEventListener("mousedown",mouseDownAction);
-                currentSP.circle.addEventListener("click",evePrevent);
-                currentSP.circle.addEventListener("dblclick",evePrevent);
+                //SPBindAction();
 
                 var a = document.createElement('a');
                 a.innerHTML = arrServerPoint.length;
@@ -375,14 +382,13 @@ function initializeService(){
         /* 放置服务点 */
         map.addEventListener("click",setServerPoint);
         function setServerPoint(e){
-//        console.log(e.type + '5');
             map.clearOverlays();    //清除地图上所有覆盖物
 
             var newPoint = new BMap.Point(e.point.lng, e.point.lat);
             currentSP.setPoint(newPoint);
             currentSP.setRadius(radius);
             currentSP.draw();
-            autoSaveSerPoint()
+            autoSaveSerPoint();
             if ( document.getElementById('delError') != null ) {
                 document.getElementById('delError').style.display = 'none';
             }
@@ -392,6 +398,30 @@ function initializeService(){
             //document.getElementById('delError').style.display = 'none';
             //document.getElementById('addError').style.display = 'none';
         }
+
+        function SPBindAction(){
+            currentSP.circle.addEventListener("mousedown",mouseDownAction);
+            currentSP.circle.addEventListener("click",evePrevent);
+            currentSP.circle.addEventListener("dblclick",evePrevent);
+        }
+
+        function SPUnbindAction(){
+            currentSP.circle.removeEventListener("mousedown",mouseDownAction);
+            currentSP.circle.removeEventListener("click",evePrevent);
+            currentSP.circle.removeEventListener("dblclick",evePrevent);
+        }
+
+        function mouseDownAction(e) {
+            baidu.preventDefault(e);
+            baidu.stopBubble(e);
+            startDragCircle(e);
+        }
+
+        function evePrevent(e){
+            baidu.preventDefault(e);
+            baidu.stopBubble(e);
+        }
+
 
         /* 拖拽服务点函数半径 */
         function startDragCircle(e){ //开始拖拽
@@ -419,16 +449,6 @@ function initializeService(){
         }
 
 
-        function mouseDownAction(e) {
-            baidu.preventDefault(e);
-            baidu.stopBubble(e);
-            startDragCircle(e);
-        }
-
-        function evePrevent(e){
-            baidu.preventDefault(e);
-            baidu.stopBubble(e);
-        }
 
         /* 保存服务点 */
         var hiBussAreaCodee = $('#hiBusinessAreaCode');
@@ -446,13 +466,13 @@ function initializeService(){
 
 
             if ( currentSP.getPoint() != undefined ){
+                //console.log(currentSP.getPoint());
                 //for ( var i = 0 ; i < arrServerPoint.length ; i++ ) {
                 //    arrTransDate[i] = (arrServerPoint[i].getPoint().lng + ',' + arrServerPoint[i].getPoint().lat + ',' + arrServerPoint[i].getRadius());
                 //    });
                 //}
                 //var strTransDate = arrTransDate.join('||');
-                //console.log(arrTransDate);
-                //console.log(strTransDate);
+
                 var jsonTranDate = {
                     serPointCirle: {
                         lng:null,
@@ -472,23 +492,27 @@ function initializeService(){
                     jsonTranDate.serPointComp = result.addressComponents;
                     jsonTranDate.serPointAddress = result.address;
                     console.log(JSON.stringify(jsonTranDate));
-                    //$("#LocalAddrJson").attr("value",jsonTranDate.serPointAddress);
-                    //console.log(jsonTranDate[0].serPointCirle);
-                    //console.log(jsonTranDate[0].serPointAddress);
-                    //console.log(jsonTranDate[0]);
-                    //console.log(addBusiness);
                     hiBussAreaCodee.attr("value",JSON.stringify(jsonTranDate));
+                    addressPrint(jsonTranDate);
+
                 });
-
-
-                console.log(jsonTranDate);
-                document.getElementById('saveError').style.display = 'none';
+                map.panTo(pt);
+                resetServerMap();
+                $("#saveMsg").addClass("dis-n");
+                $(editSP).removeClass("dis-n");
+                $(saveSP).addClass("dis-n");
             } else {
-                console.log('当前服务点未设置，无法保存');
-                document.getElementById('saveError').style.display = 'inline';
+                resetServerMap();
+                $("#saveMsg").removeClass("dis-n");
+                $(editSP).removeClass("dis-n");
+                $(saveSP).addClass("dis-n");
             }
+
+
         }
 
+
+        /*自动保存服务点*/
         function autoSaveSerPoint (){
             var jsonTranDate = {
                 serPointCirle: {
@@ -509,20 +533,61 @@ function initializeService(){
                 jsonTranDate.serPointComp = result.addressComponents;
                 jsonTranDate.serPointAddress = result.address;
                 console.log(JSON.stringify(jsonTranDate));
-                //$("#LocalAddrJson").attr("value",jsonTranDate.serPointAddress);
-                //console.log(jsonTranDate[0].serPointCirle);
-                //console.log(jsonTranDate[0].serPointAddress);
-                //console.log(jsonTranDate[0]);
-                //console.log(addBusiness);
+
                 hiBussAreaCodee.attr("value",JSON.stringify(jsonTranDate));
+                addressPrint(jsonTranDate);
+
             });
+
+
         }
-        
-        //var localAddrJson = jQuery.parseJSON('{"serPointCirle":{"lng":116.338154,"lat":39.896338,"radius":4803.6192093506925},"serPointComp":{"streetNumber":"363号","street":"广安门外大街","district":"西城区","city":"北京市","province":"北京市"},"serPointAddress":"北京市西城区广安门外大街363号"}');
 
-        //console.log(localAddrJson);
 
+        function resetServerMap(){
+            map.disableDragging();
+            map.removeEventListener("click",setServerPoint);
+            map.disableScrollWheelZoom();
+            delete_control();
+            SPUnbindAction();
+            $(radiusContainer).addClass("dis-n");
+            $(rResult).addClass("dis-n");
+        }
+
+        function initServerMap(){
+            map.disableDragging();
+            map.removeEventListener("click",setServerPoint);
+            map.disableScrollWheelZoom();
+        }
+
+
+        if ( editSP != null ){
+            if (typeof editSP.addEventListener != "undefined") {
+                editSP.addEventListener("click", editServerMap,false);
+            } else {
+                editSP.attachEvent("onclick", editServerMap);
+            }
+        }
+
+        function editServerMap(){
+            map.enableDragging();
+            map.addEventListener("click",setServerPoint);
+            map.enableScrollWheelZoom();
+            add_control();
+            SPBindAction();
+            $(radiusContainer).removeClass("dis-n");
+            $(rResult).removeClass("dis-n");
+            $("#saveMsg").addClass("dis-n");
+            $(saveSP).removeClass("dis-n");
+            $(editSP).addClass("dis-n");
+        }
+
+        /*初始读取服务点*/
         function readServerPoint(){
+            initServerMap();
+            //currentSP.circle.removeEventListener("mousedown",mouseDownAction);
+            //currentSP.circle.removeEventListener("click",evePrevent);
+            //currentSP.circle.removeEventListener("dblclick",evePrevent);
+
             //var readSerPoint = new ServerPoint();
             //var readPoint = new BMap.Point(localAddrJson.serPointCirle.lng, localAddrJson.serPointCirle.lat);
             //var readRadius = localAddrJson.serPointCirle.radius;
@@ -532,34 +597,38 @@ function initializeService(){
             //currentSP.setRadius(readRadius);
             //console.log(readSerPoint);
             //currentSP.draw();
-            //currentSP.circle.addEventListener("mousedown",mouseDownAction);
-            //currentSP.circle.addEventListener("click",evePrevent);
-            //currentSP.circle.addEventListener("dblclick",evePrevent);
+
 
             if ( $('#hiBusinessAreaCode').attr("value") ){
-                        var readBusinessJson = jQuery.parseJSON($('#hiBusinessAreaCode').attr("value"));
-                        //var subMapPoint = new BMap.Point();
+                var readBusinessJson = jQuery.parseJSON($('#hiBusinessAreaCode').attr("value"));
+                //var subMapPoint = new BMap.Point();
 
-                        var readSerPoint = new ServerPoint();
-                        var readPoint = new BMap.Point(readBusinessJson.serPointCirle.lng, readBusinessJson.serPointCirle.lat);
-                        var readRadius = readBusinessJson.serPointCirle.radius;
+                var readSerPoint = new ServerPoint();
+                var readPoint = new BMap.Point(readBusinessJson.serPointCirle.lng, readBusinessJson.serPointCirle.lat);
+                var readRadius = readBusinessJson.serPointCirle.radius;
 
-                        currentSP = readSerPoint;
-                        currentSP.setPoint(readPoint);
-                        currentSP.setRadius(readRadius);
-                        console.log(readSerPoint);
-                        currentSP.draw();
-                        currentSP.circle.addEventListener("mousedown",mouseDownAction);
-                        currentSP.circle.addEventListener("click",evePrevent);
-                        currentSP.circle.addEventListener("dblclick",evePrevent);
-                        map.centerAndZoom(readPoint,15);
+                currentSP = readSerPoint;
+                currentSP.setPoint(readPoint);
+                currentSP.setRadius(readRadius);
+                console.log(readSerPoint);
+                currentSP.draw();
 
-                    } else {
-                        myCity.get(function(result){
-                            map.panTo(result.center);
-                        });
+                map.centerAndZoom(readPoint,15);
+                addressPrint(readBusinessJson);
+            } else {
+                $("#saveMsg").removeClass("dis-n");
 
-                    }
+                myCity.get(function(result){
+                    map.panTo(result.center);
+                });
+
+            }
+        }
+
+        function addressPrint(json){
+            $("#saveAddress").text(json.serPointAddress);
+            var radius = new Number(json.serPointCirle.radius);
+            $("#saveRadius").text( "半径" + radius.toFixed(2) + "m");
         }
 
         readServerPoint();
@@ -580,9 +649,9 @@ function initializeService(){
         var e = e || window.event;
         var _this = e.srcElement || e.target;
         var strSuggest = _this.value;
-        console.log(strSuggest);
+
         suggestGeo.getPoint(strSuggest, function(point){
-            console.log(point)
+
             if(point){
                 map.centerAndZoom(point,15)
                 currentSP.setPoint(point);
@@ -590,8 +659,7 @@ function initializeService(){
                 currentSP.draw();
                 autoSaveSerPoint();
             } else {
-                console.log("无法解析当前地址");
-                //alert("无法定位您的地址，建议手动设置服务点");
+                return
             }
         })
     }

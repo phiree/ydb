@@ -90,9 +90,9 @@
                     <!--<p>百度地图API商圈功能:</p>-->
                     <!--<div id="city-container"></div>-->
                     <!--<p>百度地图API输入功能:</p>-->
-                    <div id="r-result" class="map-result">请输入服务点位置：<input type="text" id="suggestId" class="map-result-input" size="20" value="百度" /></div>
+                    <div id="r-result" class="map-result dis-n">请输入服务点位置：<input type="text" id="suggestId" class="map-result-input" size="20" value="百度" /></div>
                     <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-                    <div id="radius-container" class="map-radius-result">
+                    <div id="radius-container" class="map-radius-result dis-n">
                         <span>服务半径：</span>
                         <select id="ser-radius" class="map-radius-select">
                             <option value="1000">1000</option>
@@ -103,12 +103,11 @@
                         </select>
                         <span>m</span>
                     </div>
-                    <div >
                         <!--<div id="add-sp">添加新服务点<input type="button" id="addSP" value="+" /><span id="addError">当前服务点未设置，无法添加新服务点</span></div>-->
                         <!--<div id="del-sp">删除服务点<input type="button" id="delSP" value="删除" /><span id="delError">请至少设置一个服务点</span></div>-->
-                        <!--<div id="save-sp">保存服务点<input type="button" id="saveSP" value="保存" /><span id="saveError">当前服务点未设置，无法保存</span></div>-->
+                        <div class="sp-btn"><input type="button" class="dis-n btn btn-info" id="saveSP" value="确定" /><input type="button" class="btn btn-delete" id="editSP" value="设置服务区域" /></div>
+                        <div class="sp-msg"><span id="saveMsg" class="dis-n">请设置服务区域</span><div><span id="saveAddress"></span><span id="saveRadius"></span></div></div>
                         <!--<div id="SPContainer"></div>-->
-                    </div>
                     <input id="hiBusinessAreaCode" runat="server" snsi type="hidden">
                 </div>
                 </div>
@@ -130,7 +129,7 @@
                         <!--<p><span class="text-anno-r">（点击地图为您的服务区域进行定位）</span></p>-->
                     <!--</div>-->
                 <!--</div>-->
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>请点击地图，设置该服务的服务区域。</p>
+                <p class="cont-input-tip"><i class="icon icon-tip"></i>点击按钮，设置该服务的服务区域。</p>
             </div>
         </div>
         <div class="cont-row step-row">
