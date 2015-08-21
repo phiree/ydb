@@ -136,7 +136,7 @@ $.fn.ServiceSelect = function (options) {
                 var lastChoiceValue = $(this).attr("data-id");
                 var lastChoiceCode = $(this).attr("data-code");
                 var lastChoiceName = $(this).attr("data-name");
-                confirmValue = lastChoiceCode;
+                confirmValue = lastChoiceValue;
                 confirmName = lastChoiceName;
                 printChoice($(this).attr("data-name"));
                 params.lastChildFunc ? params.lastChildFunc : lastSerClick(this);

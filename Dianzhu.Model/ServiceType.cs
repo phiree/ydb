@@ -19,7 +19,11 @@ namespace Dianzhu.Model
         
         [JsonProperty(PropertyName = "name")]
         public virtual string Name { get; set; }
-
+        /// <summary>
+        /// id
+        /// </summary>
+        [JsonProperty(PropertyName = "id")]
+        public virtual Guid Id { get; set; }
         /// <summary>
         /// 自定义编码
         /// </summary>
@@ -33,8 +37,8 @@ namespace Dianzhu.Model
         /// <summary>
         /// json序列化要求的字段.
         /// </summary>
-        [JsonProperty("parent_code", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string ParentCode { get { return Parent==null ?string.Empty:  Parent.Code; } }
+        [JsonProperty("parent_id", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual Guid ParentId { get { return Parent==null ?Guid.Empty:  Parent.Id; } }
         /// <summary>
         /// 层级结构中的层数.
         /// </summary>
