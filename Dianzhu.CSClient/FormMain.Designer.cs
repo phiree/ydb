@@ -45,6 +45,7 @@
             this.btnSearchOut = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.tbxKeywords = new System.Windows.Forms.TextBox();
+            this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -99,7 +100,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer2.Size = new System.Drawing.Size(841, 382);
-            this.splitContainer2.SplitterDistance = 279;
+            this.splitContainer2.SplitterDistance = 213;
             this.splitContainer2.TabIndex = 0;
             // 
             // splitContainer3
@@ -111,6 +112,7 @@
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.pnlChat);
             this.splitContainer3.Panel1.Controls.Add(this.tbxChatLog);
             this.splitContainer3.Panel1.Controls.Add(this.panel1);
             // 
@@ -118,16 +120,15 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.pnlResultService);
             this.splitContainer3.Panel2.Controls.Add(this.panel2);
-            this.splitContainer3.Size = new System.Drawing.Size(558, 382);
-            this.splitContainer3.SplitterDistance = 213;
+            this.splitContainer3.Size = new System.Drawing.Size(624, 382);
+            this.splitContainer3.SplitterDistance = 278;
             this.splitContainer3.TabIndex = 0;
             // 
             // tbxChatLog
             // 
-            this.tbxChatLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbxChatLog.Location = new System.Drawing.Point(0, 0);
             this.tbxChatLog.Name = "tbxChatLog";
-            this.tbxChatLog.Size = new System.Drawing.Size(211, 357);
+            this.tbxChatLog.Size = new System.Drawing.Size(211, 116);
             this.tbxChatLog.TabIndex = 2;
             this.tbxChatLog.Text = "";
             // 
@@ -138,7 +139,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 357);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(211, 23);
+            this.panel1.Size = new System.Drawing.Size(276, 23);
             this.panel1.TabIndex = 1;
             // 
             // tbxChatMsg
@@ -147,14 +148,14 @@
             this.tbxChatMsg.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxChatMsg.Location = new System.Drawing.Point(0, 0);
             this.tbxChatMsg.Name = "tbxChatMsg";
-            this.tbxChatMsg.Size = new System.Drawing.Size(136, 21);
+            this.tbxChatMsg.Size = new System.Drawing.Size(201, 21);
             this.tbxChatMsg.TabIndex = 0;
             this.tbxChatMsg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxChatMsg_KeyPress);
             // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSend.Location = new System.Drawing.Point(136, 0);
+            this.btnSend.Location = new System.Drawing.Point(201, 0);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 1;
@@ -164,9 +165,10 @@
             // 
             // pnlResultService
             // 
-            this.pnlResultService.Location = new System.Drawing.Point(19, 124);
+            this.pnlResultService.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlResultService.Location = new System.Drawing.Point(0, 104);
             this.pnlResultService.Name = "pnlResultService";
-            this.pnlResultService.Size = new System.Drawing.Size(288, 233);
+            this.pnlResultService.Size = new System.Drawing.Size(340, 276);
             this.pnlResultService.TabIndex = 1;
             // 
             // panel2
@@ -181,7 +183,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(339, 104);
+            this.panel2.Size = new System.Drawing.Size(340, 104);
             this.panel2.TabIndex = 0;
             // 
             // btnKeywords
@@ -248,6 +250,19 @@
             this.tbxKeywords.Size = new System.Drawing.Size(222, 39);
             this.tbxKeywords.TabIndex = 0;
             // 
+            // pnlChat
+            // 
+            this.pnlChat.AutoScroll = true;
+            this.pnlChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlChat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlChat.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.pnlChat.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.pnlChat.Location = new System.Drawing.Point(0, 0);
+            this.pnlChat.Name = "pnlChat";
+            this.pnlChat.Size = new System.Drawing.Size(276, 357);
+            this.pnlChat.TabIndex = 3;
+            this.pnlChat.WrapContents = false;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -256,6 +271,7 @@
             this.Controls.Add(this.scmain);
             this.Name = "FormMain";
             this.Text = "FormMain";
+            this.ResizeEnd += new System.EventHandler(this.FormMain_ResizeEnd);
             this.scmain.Panel1.ResumeLayout(false);
             this.scmain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).EndInit();
@@ -294,6 +310,7 @@
         private System.Windows.Forms.Button btnBusiness;
         private System.Windows.Forms.Button btnManual;
         private System.Windows.Forms.FlowLayoutPanel pnlResultService;
+        private System.Windows.Forms.FlowLayoutPanel pnlChat;
 
     }
 }

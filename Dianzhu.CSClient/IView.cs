@@ -9,7 +9,8 @@ namespace Dianzhu.CSClient
     {
         
         #region Chat
-        string ChatHistory { get; set; }
+        IList<ReceptionChat> ChatHistory {  set; }
+        void LoadOneChat(ReceptionChat chat);
         string CurrentCustomerName { get; set; }
 
         /// <summary>

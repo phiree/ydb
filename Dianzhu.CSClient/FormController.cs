@@ -17,6 +17,7 @@ namespace Dianzhu.CSClient
         //接待列表
         private static Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();
         private static DZMembership CurrentCustomer;
+        private static Dictionary<string, IList<DZService>> SearchResultForCustomer = new Dictionary<string, IList<DZService>>();
         #endregion
         
         public FormController(IView view, DZMembershipProvider bllMember, BLLReception bllReception,
@@ -94,6 +95,10 @@ namespace Dianzhu.CSClient
             view.CurrentCustomerName = buttonText;
             CurrentCustomer = CustomerList.Single(x => x.UserName == buttonText);
             //设置当前激活的用户
+            if (SearchResultForCustomer.ContainsKey(buttonText))
+            {
+                view.LoadSearchHistory(SearchResultForCustomer[buttonText]);
+            }
         }
 
         public void SendMessage(string message, string customerName)
@@ -101,7 +106,7 @@ namespace Dianzhu.CSClient
             //保存消息
             if (CurrentCustomer == null) return;
           ReceptionChat chat=  SaveMessage(message, customerName, true);
-          view.ChatHistory += chat.BuildLine() + Environment.NewLine;
+          view.LoadOneChat(chat);
             //
         }
         /// <summary>
@@ -168,14 +173,8 @@ namespace Dianzhu.CSClient
             var chatHistory = bllReception.GetHistoryReceptionChat(
                 CustomerList.Single(x => x.UserName == customerName),
                 GlobalViables.CurrentCustomerService, 10);
-            StringBuilder sb = new StringBuilder();
-           
-            foreach (ReceptionChat rb in chatHistory)
-            {
-                 
-                sb.AppendLine(rb.BuildLine());
-            }
-            view.ChatHistory = sb.ToString();
+
+            view.ChatHistory = chatHistory;
         }
         /// <summary>
         /// 格式化一条聊天信息
@@ -218,7 +217,7 @@ namespace Dianzhu.CSClient
            ReceptionChat chat = SaveMessage(message, customerName, false);
            if (CurrentCustomer != null && customerName == CurrentCustomer.UserName)
            {
-               view.ChatHistory += chat.BuildLine() + Environment.NewLine;
+               view.LoadOneChat(chat);
            }
 
 
@@ -235,8 +234,19 @@ namespace Dianzhu.CSClient
             int total;
             var serviceList = bllService.Search(view.SerachKeyword, 0, 10, out total);
             view.LoadSearchHistory(serviceList);
+            string pushServiceKey=CurrentCustomer==null?"dianzhucs":CurrentCustomer.UserName;
+            if (SearchResultForCustomer.ContainsKey(pushServiceKey))
+            {
+                SearchResultForCustomer[pushServiceKey]=serviceList;
+            }
+            else
+            {
+                SearchResultForCustomer.Add(pushServiceKey, serviceList);
+            }
+        }
+        public void PushService(Guid serviceId)
+        { 
             
-
         }
         #endregion
     }

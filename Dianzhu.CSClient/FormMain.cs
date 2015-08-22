@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using Dianzhu.Model;
 namespace Dianzhu.CSClient
 {
     public partial class FormMain : Form, IView
@@ -51,17 +52,57 @@ namespace Dianzhu.CSClient
             get { return currentCustomerName; }
             set { currentCustomerName = value; }
         }
-        public string ChatHistory
+        public IList<Dianzhu.Model.ReceptionChat> ChatHistory
         {
-            get
-            {
-                return tbxChatLog.Text;
-            }
+             
             set
             {
-                tbxChatLog.Text = value;
+                pnlChat.Controls.Clear();
+                foreach (ReceptionChat chat in value)
+                {
+                    LoadOneChat(chat);
+                }
+                 
             }
         }
+        public void LoadOneChat(ReceptionChat chat)
+        {
+            Label lblTime = new Label();
+            Label lblFrom = new Label();
+            Label lblMessage = new Label();
+            FlowLayoutPanel pnlOneChat = new FlowLayoutPanel();
+            pnlOneChat.Controls.AddRange(new Control[] {  lblMessage });
+            pnlOneChat.FlowDirection = FlowDirection.LeftToRight;
+            _AutoSize(pnlOneChat);
+            pnlOneChat.Dock = DockStyle.Top;
+            foreach (Label c in pnlOneChat.Controls)
+            {
+                c.BorderStyle = BorderStyle.FixedSingle;
+            }
+
+
+            lblTime.Text = chat.SavedTime.ToShortTimeString() + " ";
+             
+            if (GlobalViables.CurrentCustomerService == chat.To)
+            {
+                pnlOneChat.FlowDirection = FlowDirection.RightToLeft;
+                lblMessage.TextAlign = ContentAlignment.MiddleRight;
+            }
+            
+            lblFrom.Text = chat.From.UserName;
+            
+            lblMessage.Text = chat.MessageBody;
+              _AutoSize(lblMessage);
+              pnlOneChat.Width = pnlChat.Size.Width - 6;
+                   
+            pnlChat.Controls.Add(pnlOneChat);
+            pnlChat.ScrollControlIntoView(pnlOneChat);
+             
+        }
+
+        
+        
+        
         public void SetCustomerButtonStyle(string buttonText, em_ButtonStyle buttonStyle)
         {
             Button btn = (Button)pnlCustomerList.Controls.Find
@@ -169,13 +210,50 @@ namespace Dianzhu.CSClient
         public void LoadServiceToPanel(Model.DZService service)
         {
             FlowLayoutPanel pnl = new FlowLayoutPanel();
+            pnl.BorderStyle = BorderStyle.FixedSingle;
+            pnl.FlowDirection = FlowDirection.LeftToRight;
+            Label lblBusinessName = new Label();
+            lblBusinessName.BorderStyle = BorderStyle.FixedSingle;
+            lblBusinessName.Text = service.Business.Name;
+            lblBusinessName.Font = new System.Drawing.Font(this.Font, FontStyle.Bold);
+            pnl.Controls.Add(lblBusinessName);
             Label lblServiceName = new Label();
+            lblServiceName.BorderStyle = BorderStyle.FixedSingle;
             lblServiceName.Text = service.Name;
             pnl.Controls.Add(lblServiceName);
+            Button btnPushService = new Button();
+            btnPushService.Text = "推送";
+            btnPushService.Tag = service.Id;
+            btnPushService.Click += new EventHandler(btnPushService_Click);
+            pnl.Controls.Add(btnPushService);
             pnlResultService.Controls.Add(pnl);
 
         }
+
+        void btnPushService_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
+
+        private void FormMain_ResizeEnd(object sender, EventArgs e)
+        {
+            
+        }
+        private void _AutoSize(Control c)
+        {
+            c.Size = new Size(0, 0);
+            if (c is Label)
+            {
+                ((Label)c).AutoSize = true;
+            }
+            if (c is Panel)
+            {
+                ((Panel)c).AutoSize = true;
+            }
+             
+            
+        }
 
     }
 }
