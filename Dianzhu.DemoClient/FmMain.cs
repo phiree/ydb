@@ -42,7 +42,25 @@ namespace Dianzhu.DemoClient
                 BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender,msg });
                 return;
             }
-            AddLog(StringHelper.EnsureNormalUserName( msg.From.User), msg.Body);
+            string log = msg.Body;
+            foreach (var att in msg.Attributes.Keys)
+            {
+                if(new string[]{"to","from","type"}.Contains(att) )
+                {
+                    continue;
+                }
+                if (att.ToString() == "service_id")
+                {
+                    log += "[" + att + ":" + msg.Attributes[att] + "]";
+                }
+                if (att.ToString() == "service_name")
+                {
+                    log += "[" + att + ":" + msg.Attributes[att] + "]";
+                }
+            }
+
+            AddLog(StringHelper.EnsureNormalUserName(msg.From.User), log);
+            
         }
 
         void XMPPConnection_OnLogin(object sender)

@@ -105,7 +105,7 @@ namespace Dianzhu.CSClient
         {
             //保存消息
             if (CurrentCustomer == null) return;
-          ReceptionChat chat=  SaveMessage(message, customerName, true);
+          ReceptionChat chat=  SaveMessage(message, customerName, true,string.Empty);
           view.LoadOneChat(chat);
             //
         }
@@ -115,7 +115,7 @@ namespace Dianzhu.CSClient
         /// <param name="message"></param>
         /// 
 
-        public ReceptionChat SaveMessage(string message,string customerName,bool isSend)
+        public ReceptionChat SaveMessage(string message,string customerName,bool isSend,string mediaUrl)
         {
 #region 保存聊天消息
             
@@ -133,7 +133,8 @@ namespace Dianzhu.CSClient
                 {
                     Sender = customer,
                     Receiver = GlobalViables.CurrentCustomerService,
-                    TimeBegin = DateTime.Now
+                    TimeBegin = DateTime.Now,
+                   
                 };
                 ReceptionList.Add(customerName, re);
             }
@@ -143,7 +144,8 @@ namespace Dianzhu.CSClient
                   
                     MessageBody = message,
                    
-                    SavedTime=now
+                    SavedTime=now,
+                    MessageMediaUrl=mediaUrl
                 };
                 if (isSend)
                 {
@@ -196,7 +198,7 @@ namespace Dianzhu.CSClient
         /// </summary>
         /// <param name="customerName"></param>
         /// <param name="message"></param>
-        public void ReceiveMessage(string customerName, string message)
+        public void ReceiveMessage(string customerName, string message,string mediaUrl)
         { 
             //保存聊天记录, 改变view的button,聊天窗口增加一条消息
            
@@ -214,7 +216,7 @@ namespace Dianzhu.CSClient
                }
            }
 
-           ReceptionChat chat = SaveMessage(message, customerName, false);
+           ReceptionChat chat = SaveMessage(message, customerName, false,mediaUrl);
            if (CurrentCustomer != null && customerName == CurrentCustomer.UserName)
            {
                view.LoadOneChat(chat);

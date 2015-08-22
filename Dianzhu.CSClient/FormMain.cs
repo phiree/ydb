@@ -43,7 +43,15 @@ namespace Dianzhu.CSClient
                 BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender, msg });
                 return;
             }
-            FormController.ReceiveMessage(StringHelper.EnsureNormalUserName(msg.From.User), msg.Body);
+            //解析消息文件,包含里面的多媒体文件. 为了降低controller对agsxmpp的依赖,将解析放在v
+            string mediaUrl = string.Empty;
+
+            if (msg.Attributes["media"] != null)
+            {
+                mediaUrl = msg.Attributes["media"].ToString();
+            }
+            
+            FormController.ReceiveMessage(StringHelper.EnsureNormalUserName(msg.From.User), msg.Body,mediaUrl);
         }
 
         string currentCustomerName;
@@ -90,11 +98,24 @@ namespace Dianzhu.CSClient
             }
             
             lblFrom.Text = chat.From.UserName;
+         
             
             lblMessage.Text = chat.MessageBody;
               _AutoSize(lblMessage);
               pnlOneChat.Width = pnlChat.Size.Width - 6;
-                   
+
+            //显示多媒体信息.
+              
+              if (!string.IsNullOrEmpty(chat.MessageMediaUrl))
+              {
+                  
+                  PictureBox pb = new PictureBox();
+                  pb.Size = new System.Drawing.Size(100, 100);
+                  pb.Load(chat.MessageMediaUrl);
+                  pnlOneChat.Controls.Add(pb);
+              }
+
+             
             pnlChat.Controls.Add(pnlOneChat);
             pnlChat.ScrollControlIntoView(pnlOneChat);
              
@@ -232,7 +253,11 @@ namespace Dianzhu.CSClient
 
         void btnPushService_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            agsXMPP.protocol.client.Message m = new agsXMPP.protocol.client.Message();
+            m.Type = MessageType.chat;
+            m.SetAttribute("service_id",((Button)sender).Tag.ToString());
+            m.To=StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain;
+            GlobalViables.XMPPConnection.Send(m);
         }
         #endregion
 

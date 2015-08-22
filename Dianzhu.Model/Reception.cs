@@ -78,6 +78,10 @@ namespace Dianzhu.Model
         public virtual  DZMembership To { get; set; }
         public virtual  string MessageBody { get; set; }
         /// <summary>
+        /// 消息中媒体文件的地址
+        /// </summary>
+        public virtual string MessageMediaUrl { get; set; }
+        /// <summary>
         /// 拼装成可读信息
         /// </summary>
         /// <returns></returns>

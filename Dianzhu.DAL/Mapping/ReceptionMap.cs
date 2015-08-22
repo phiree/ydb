@@ -44,6 +44,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.MessageBody);
             Map(x => x.ReceiveTime);
             Map(x => x.SendTime);
+            Map(x => x.MessageMediaUrl);
             References<DZMembership>(x => x.To);
             References<DZMembership>(x => x.From);
         }

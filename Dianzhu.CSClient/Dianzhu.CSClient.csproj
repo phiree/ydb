@@ -84,6 +84,7 @@
       <DependentUpon>fmLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="IView.cs" />
+    <Compile Include="MessagePaser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringHelper.cs" />
