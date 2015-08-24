@@ -57,7 +57,7 @@ function isEmail(value) {
 }
 
 function isPhone(value) {
-    var phone_rule = /0?(13|14|15|17|18)[0-9]{9}/;
+    var phone_rule = /(^[0-9]{3,4}\-[0-9]{7,8}$)|(^[0-9]{7,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)|(13\d{9}$)|(15[0-9]\d{8}$)|(18[0-9]\d{8}$)|(17[0-9]\d{8}$)/;
     if ( value != "" ) {
         return phone_rule.test(value) ? true : false;
     } else {
