@@ -577,6 +577,23 @@ a.time-trigger:hover {
 .cont-col-11 { width:91.66666667%; }
 .cont-col-12 { width:100%; }
 
+.custom-table{
+    width: 100%;
+}
+
+.custom-table .table-col-1 { width:8.33333333%; }
+.custom-table .table-col-2 { width:16.66666667%; }
+.custom-table .table-col-3 { width:25%; }
+.custom-table .table-col-4 { width:33.33333333%; }
+.custom-table .table-col-5 { width:41.66666667%; }
+.custom-table .table-col-6 { width:50%; }
+.custom-table .table-col-7 { width:58.33333333%; }
+.custom-table .table-col-8 { width:66.66666667%; }
+.custom-table .table-col-9 { width: 75%; }
+.custom-table .table-col-10 { width: 83.33333333%; }
+.custom-table .table-col-11 { width:91.66666667%; }
+.custom-table .table-col-12 { width:100%; }
+
 .cont-h1 {
     font-size: 30px;
     color: #66B5ED;

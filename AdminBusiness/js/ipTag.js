@@ -1,5 +1,6 @@
 
 $(function () {
+
     $("#ipTagAdd").click(function () {
         var container = $(".ipTagContainer");
         var ipTag = $("#ipTag").val();
@@ -26,19 +27,20 @@ $(function () {
                 }
             );
         } //
-        $(document).on("click",".spTagDel", function () {
-            var that = this;
-            var tagId = $(that).attr("tagid");
-            $.post("/ajaxservice/taghandler.ashx",
+    })
+    $(document).on("click",".spTagDel", function () {
+        var that = this;
+        var tagId = $(that).attr("tagid");
+        $.post(
+            "/ajaxservice/taghandler.ashx",
             {
                 "action": "delete",
                 "tagId": tagId
-            }, function (result) {
+            },
+            function () {
                 $(that).parent(".spTag").remove();
-                 
-            });
 
-        });
-
-    })
+            }
+        );
+    });
 });

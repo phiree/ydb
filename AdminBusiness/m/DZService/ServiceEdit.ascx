@@ -25,7 +25,7 @@
                     </li>
                 </a>
             </ul>
-            <ul class="panel-ul">
+            <ul class="panel-ul">    <asp:Repeater runat="server" ID="rptOpenTimes"></asp:Repeater>
                 <a class="hrefClass" id="open_servicetype" style="color: #58789a;">
                     <li class="my-li">
                         <div class="myche">

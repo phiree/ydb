@@ -451,7 +451,7 @@ function initializeService(){
 
 
         /* 保存服务点 */
-        var hiBussAreaCodee = $('#hiBusinessAreaCode');
+        var hiBussAreaCode = $('#hiBusinessAreaCode');
         if ( saveSP ){
             if (typeof saveSP.addEventListener != "undefined") {
                 saveSP.addEventListener("click", savaServerPoint,false);
@@ -492,7 +492,7 @@ function initializeService(){
                     jsonTranDate.serPointComp = result.addressComponents;
                     jsonTranDate.serPointAddress = result.address;
                     console.log(JSON.stringify(jsonTranDate));
-                    hiBussAreaCodee.attr("value",JSON.stringify(jsonTranDate));
+                    hiBussAreaCode.attr("value",JSON.stringify(jsonTranDate)).focus().blur();
                     addressPrint(jsonTranDate);
 
                 });
@@ -534,7 +534,7 @@ function initializeService(){
                 jsonTranDate.serPointAddress = result.address;
                 console.log(JSON.stringify(jsonTranDate));
 
-                hiBussAreaCodee.attr("value",JSON.stringify(jsonTranDate));
+                hiBussAreaCode.attr("value",JSON.stringify(jsonTranDate));
                 addressPrint(jsonTranDate);
 
             });

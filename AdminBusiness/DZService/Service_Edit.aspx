@@ -90,6 +90,7 @@
 
             readTypeData();
 
+            $(".service-time-table tbody tr:even").addClass("list-item-odd");
 
             $("#serList").ServiceSelect({
                 "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
