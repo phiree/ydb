@@ -126,25 +126,52 @@
                        <div class="cont-container BusslightBox">
                        <div class="cont-row">
                         <div class="cont-col-12">
-                            <p class="cont-h2 t-c p-20 theme-color-58789a">创建新的商铺</p>
+                            <p class="cont-h2 t-c p-20 theme-color-58789a">创建新的店铺</p>
                         </div>
                         </div>
                         <div class="cont-row m-b10">
-                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a business-lightbox-title">您的商铺名称</p></div>
+                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a business-lightbox-title">您的店铺名称</p></div>
                                 <div class="cont-col-8">
                                 <p><input class="input-mid" runat="server" id="tbxName" type="text" /></p>
-                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写商铺名称</p>
+                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺名称</p>
                                 </div>
                         </div>
                         <div class="cont-row m-b10">
-                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a business-lightbox-title">输入店铺介绍</p></div>
+                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a business-lightbox-title">店铺介绍</p></div>
                             <div class="cont-col-8">
                                 <div>
-                                    <textarea class="input-textarea buss-textarea" runat="server" id="tbxDescription" rows="5" cols="20"></textarea>
+                                    <textarea class="input-textarea buss-textarea" runat="server" id="tbxDescription"></textarea>
                                 </div>
-                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写简单商铺介绍</p>
+                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写简单店铺介绍</p>
                             </div>
-</div>
+                        </div>
+                        <div class="cont-row m-b10">
+                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a business-lightbox-title">店铺地址</p></div>
+                            <div class="cont-col-8">
+                                <div>
+                                    <input class="input-mid" runat="server" id="tbxAddress" type="text"/>
+                                </div>
+                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺的详细地址</p>
+                            </div>
+                        </div>
+                        <div class="cont-row m-b10">
+                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a business-lightbox-title">店铺电话</p></div>
+                            <div class="cont-col-8">
+                                <div>
+                                    <input class="input-mid" runat="server" id="tbxContactPhone" type="text" />
+                                </div>
+                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺的联系电话</p>
+                            </div>
+                        </div>
+                        <div class="cont-row m-b10">
+                            <div class="cont-col-4"><p class="cont-h5 theme-color-58789a business-lightbox-title">店铺邮箱或网址</p></div>
+                            <div class="cont-col-8">
+                                <div>
+                                    <input class="input-mid" runat="server" id="tbxWebSite" type="text"/>
+                                </div>
+                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺邮箱或网址</p>
+                            </div>
+                        </div>
                         <div class="cont-row">
                             <div class="cont-col-12">
                             <p class="t-c"><input class="btn btn-add" type="submit" runat="server" id="btnCreate"  onserverclick="btnCreate_Click" value="创建"/><input class="lightClose btn btn-cancel m-l20" type="button" value="取消"/></p>
@@ -219,6 +246,14 @@
         );
     })
 
+    $.validator.addMethod("web", function (value, element) {
+        return value == "" ? true : /^([^\.]+\.){1,3}[^\.]+$/.test(value);
+    }, "请输入有效的网址");
+
+    $.validator.addMethod("phone", function (value, element) {
+        return /(^[0-9]{3,4}\-[0-9]{7,8}$)|(^[0-9]{7,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)|(13\d{9}$)|(15[0-9]\d{8}$)|(18[0-9]\d{8}$)|(17[0-9]\d{8}$)/.test(value);
+    }, "请输入有效的电话号码");
+
     var business_validate_rules = [];
     var business_validate_messages = [];
 
@@ -226,7 +261,7 @@
     business_validate_rules["tbxName"] =
     {
         required: true,
-        maxlength: 12
+        maxlength: 20
     };
     business_validate_messages["tbxName"] =
     {
@@ -245,6 +280,37 @@
         required: "请填写店铺介绍",
         rangelength: "不能超过200个字符"
     };
+
+    //tbxAddress
+    business_validate_rules["tbxAddress"] =
+    {
+        required: true
+    };
+    business_validate_messages["tbxAddress"] =
+    {
+        required: "请输入店铺地址"
+    };
+
+    //tbxContactPhone
+    business_validate_rules["tbxContactPhone"] =
+    {
+        phone: true
+    };
+
+    //serviceScope
+    business_validate_rules["tbxWebSite"] =
+    {
+        required: true,
+        web: true
+    };
+
+    business_validate_messages["tbxWebSite"] =
+    {
+        web: "请输入正确的网址",
+        required: "请输入正确的网址或邮箱地址"
+    };
+
+
 </script>
 <!--<script src="/js/validation_shop_edit.js" type="text/javascript"></script>-->
 <!--<script src="/js/validation_invalidHandler.js" type="text/javascript"></script>-->
