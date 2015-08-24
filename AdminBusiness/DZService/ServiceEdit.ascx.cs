@@ -9,6 +9,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model.Enums;
 using PHSuit;
 using FluentValidation.Results;
+using System.Web.UI.HtmlControls;
 public partial class DZService_ServiceEdit : System.Web.UI.UserControl
 {
 
@@ -50,7 +51,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     }
     public void LoadInit()
     {
-        
+        LoadServicePeriod();
     }
 
     void rptProperties_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -78,6 +79,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         {
             lblSelectedType.Text = CurrentService.ServiceType.ToString();
         }
+        
         cbxEnable.Checked = CurrentService.Enabled;
         hiBusinessAreaCode.Value = CurrentService.BusinessAreaCode;
         tbxMinPrice.Text = CurrentService.MinPrice.ToString("#.#");
@@ -95,6 +97,40 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         LoadPayType();
         //rblPayType.SelectedValue = ((int)CurrentService.PayType).ToString(); 
         hiTypeId.Value = CurrentService.ServiceType.Id.ToString();
+        
+    }
+    private void LoadServicePeriod()
+    {
+        IList<ServiceOpenTime> opentimes = CurrentService.OpenTimes.OrderBy(x=>x.DayOfWeek).ToList();
+        List<ServiceOpenTime> cc = new List<ServiceOpenTime>();
+        ServiceOpenTime lastsot=null;
+        foreach (ServiceOpenTime sot in opentimes)
+        {
+            if (sot.DayOfWeek == DayOfWeek.Sunday)
+            {
+                lastsot = sot;
+                continue;
+             }
+            cc.Add(sot);
+        }
+        cc.Add(lastsot);
+        rptOpenTimes.DataSource = cc;
+        rptOpenTimes.ItemDataBound += new RepeaterItemEventHandler(rptOpenTimes_ItemDataBound);
+        rptOpenTimes.DataBind();
+
+    }
+
+    void rptOpenTimes_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item|| e.Item.ItemType== ListItemType.AlternatingItem)
+        {
+            ServiceOpenTime sot = e.Item.DataItem as ServiceOpenTime;
+            HtmlInputCheckBox cbx = e.Item.FindControl("cbxChecked") as HtmlInputCheckBox;
+            cbx.Checked = sot.Enabled;
+            Repeater rpt = e.Item.FindControl("rptTimesOneDay") as Repeater;
+            rpt.DataSource = sot.OpenTimeForDay.OrderBy(x=>x.PeriodStart).ToList();
+            rpt.DataBind();
+        }
     }
     private void LoadPayType()
     { 
@@ -134,6 +170,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.ServiceTimeEnd = tbxServiceTimeEnd.Text;
         CurrentService.UnitPrice =int.Parse(tbxUnitPrice.Text, System.Globalization.NumberStyles.AllowDecimalPoint);
         UpdatePayType();
+        UpdateServiceTime();
      //   CurrentService.PayType=(PayType)(Convert.ToInt32(rblPayType.SelectedValue));
     }
     private void UpdatePayType()
@@ -147,6 +184,32 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             }
         }
         CurrentService.PayType = pt;
+    }
+
+    private void UpdateServiceTime()
+    {
+        CurrentService.OpenTimes.Clear();
+        foreach (RepeaterItem li in rptOpenTimes.Items)
+        {
+            HtmlGenericControl spDayOfWeek = li.FindControl("spDayOfWeek") as HtmlGenericControl;
+            DayOfWeek dow = (DayOfWeek)(Enum.Parse(typeof(DayOfWeek),spDayOfWeek.InnerText) );
+            bool enabled = ((HtmlInputCheckBox)li.FindControl("cbxChecked")).Checked;
+            ServiceOpenTime sot = new ServiceOpenTime();
+            sot.DayOfWeek = dow;
+            sot.Enabled = enabled;
+            sot.OpenTimeForDay.Clear();
+            Repeater rptTimesOneDay = li.FindControl("rptTimesOneDay") as Repeater;
+            foreach (RepeaterItem rpi in rptTimesOneDay.Items)
+            {
+                HtmlInputControl tbxTimeBegin = rpi.FindControl("tbxTimeBegin") as HtmlInputControl;
+                HtmlInputControl tbxTimeEnd = rpi.FindControl("tbxTimeEnd") as HtmlInputControl;
+                ServiceOpenTimeForDay sotd = new ServiceOpenTimeForDay();
+                sotd.TimeStart = tbxTimeBegin.Value;
+                sotd.TimeEnd = tbxTimeEnd.Value;
+                sot.OpenTimeForDay.Add(sotd);
+            }
+            CurrentService.OpenTimes.Add(sot);
+        }
     }
 
     protected void btnSave_Click(object sender, EventArgs e)

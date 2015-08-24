@@ -1,135 +1,156 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" ClientIDMode="Static" CodeFile="ServiceEdit.ascx.cs"
     Inherits="DZService_ServiceEdit" %>
-    <%@ Register Src="~/TagControl.ascx" TagName="Tag" TagPrefix="DZ" %>
+<%@ Register Src="~/TagControl.ascx" TagName="Tag" TagPrefix="DZ" %>
 <div class="cont-wrap theme-color-58789a">
     <div class="cont-container">
-    <div class="cont-row step-row">
-        <div class="cont-col-2">
-            <h3 class="step-head step-1">
-                <img src="../image/shop-icon-step1.png" /></h3>
-        </div>
-        <div class="cont-col-10"><p class="step-text step-1">基本服务信息</p></div>
-    </div>
-
-        <div class="cont-row service-cont-row">
+        <div class="cont-row step-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">服务名称</p>
+                <h3 class="step-head step-1">
+                    <img src="../image/shop-icon-step1.png" /></h3>
             </div>
             <div class="cont-col-10">
-
+                <p class="step-text step-1">
+                    基本服务信息</p>
+            </div>
+        </div>
+        <div class="cont-row service-cont-row">
+            <div class="cont-col-2">
+                <p class="cont-sub-title">
+                    服务名称</p>
+            </div>
+            <div class="cont-col-10">
                 <div class="clearfix">
                     <div>
                         <div>
-                            <asp:TextBox  runat="server"   CssClass="input-mid" ID="tbxName"></asp:TextBox>
+                            <asp:TextBox runat="server" CssClass="input-mid" ID="tbxName"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>填写服务名称</p>
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>填写服务名称</p>
             </div>
         </div>
         <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">服务类型</p>
+                <p class="cont-sub-title">
+                    服务类型</p>
             </div>
             <div class="cont-col-10">
                 <div>
-                    <input id="setSerType" class="ser-btn-SerType"  type="button" value="请选择服务信息" />
+                    <input id="setSerType" class="ser-btn-SerType" type="button" value="请选择服务信息" />
                     <input type="hidden" runat="server" focusid="setSerType" id="hiTypeId" />
                     <asp:Label CssClass="business-radioCf dis-n m-l10" runat="server" ID="lblSelectedType"></asp:Label>
                     <div id="serLightContainer" class="serviceTabs dis-n">
                         <div class="serChoiceInfo clearfix">
-                            <div id="serChoiceContainer" class="serChoiceContainer fl"></div>
+                            <div id="serChoiceContainer" class="serChoiceContainer fl">
+                            </div>
                             <div class="serChoiceBtnContainer fr">
                                 <div class="d-inb">
-                                    <div id="serChoiceConf" class="serChoiceBtn lightClose dis-n" >确认</div>
+                                    <div id="serChoiceConf" class="serChoiceBtn lightClose dis-n">
+                                        确认</div>
                                 </div>
-                                <div id="serChoiceCancel" class="serChoiceBtn lightClose d-inb" >取消</div>
+                                <div id="serChoiceCancel" class="serChoiceBtn lightClose d-inb">
+                                    取消</div>
                             </div>
                         </div>
-                        <div id="serList" class="serList clearfix"></div>
+                        <div id="serList" class="serList clearfix">
+                        </div>
                     </div>
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>请选择该服务的类型</p>
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>请选择该服务的类型</p>
             </div>
         </div>
         <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">服务介绍</p>
+                <p class="cont-sub-title">
+                    服务介绍</p>
             </div>
             <div class="cont-col-10">
                 <div class="cont-row">
                     <div class="cont-col-12">
-
                         <div>
-                             <asp:TextBox   CssClass="input-textarea"   runat="server" TextMode="MultiLine"
-                                                    ID="tbxDescription"></asp:TextBox>
+                            <asp:TextBox CssClass="input-textarea" runat="server" TextMode="MultiLine" ID="tbxDescription"></asp:TextBox>
                         </div>
-                        <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写该服务的特色介绍</p>
+                        <p class="cont-input-tip">
+                            <i class="icon icon-tip"></i>请填写该服务的特色介绍</p>
                     </div>
                 </div>
                 <!--<div class="cont-row">-->
-                    <!--<div class="cont-col-12">-->
-                        <!--<p>-->
-                            <!--<asp:CheckBox runat="server" ID="cbxEnable" Text="启用" />-->
-                        <!--</p>-->
-                    <!--</div>-->
+                <!--<div class="cont-col-12">-->
+                <!--<p>-->
+                <!--<asp:CheckBox runat="server" ID="cbxEnable" Text="启用" />-->
+                <!--</p>-->
+                <!--</div>-->
                 <!--</div>-->
             </div>
         </div>
         <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">您的服务区域</p>
+                <p class="cont-sub-title">
+                    您的服务区域</p>
             </div>
             <div class="cont-col-10">
                 <div class="cont-row">
                     <div class="map-container">
-                    <div id="allmap"></div>
-                    <!--<p>添加点击地图监听事件，点击地图后显示当前经纬度</p>-->
-                    <!--<p>&#45;&#45;点击地图放置服务点，拖拽服务圆设置圆（服务）半径&#45;&#45;</p>-->
-                    <!--<input id="LocalAddrJson" type="text" value="">-->
-                    <!--<p>百度地图API商圈功能:</p>-->
-                    <!--<div id="city-container"></div>-->
-                    <!--<p>百度地图API输入功能:</p>-->
-                    <div id="r-result" class="map-result dis-n">请输入服务点位置：<input type="text" id="suggestId" class="map-result-input" size="20" value="百度" /></div>
-                    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-                    <div id="radius-container" class="map-radius-result dis-n">
-                        <span>服务半径：</span>
-                        <select id="ser-radius" class="map-radius-select">
-                            <option value="1000">1000</option>
-                            <option value="1500">1500</option>
-                            <option value="2000">2000</option>
-                            <option value="3000">3000</option>
-                            <option value="4000">4000</option>
-                        </select>
-                        <span>m</span>
-                    </div>
+                        <div id="allmap">
+                        </div>
+                        <!--<p>添加点击地图监听事件，点击地图后显示当前经纬度</p>-->
+                        <!--<p>&#45;&#45;点击地图放置服务点，拖拽服务圆设置圆（服务）半径&#45;&#45;</p>-->
+                        <!--<input id="LocalAddrJson" type="text" value="">-->
+                        <!--<p>百度地图API商圈功能:</p>-->
+                        <!--<div id="city-container"></div>-->
+                        <!--<p>百度地图API输入功能:</p>-->
+                        <div id="r-result" class="map-result dis-n">
+                            请输入服务点位置：<input type="text" id="suggestId" class="map-result-input" size="20" value="百度" /></div>
+                        <div id="searchResultPanel" style="border: 1px solid #C0C0C0; width: 150px; height: auto;
+                            display: none;">
+                        </div>
+                        <div id="radius-container" class="map-radius-result dis-n">
+                            <span>服务半径：</span>
+                            <select id="ser-radius" class="map-radius-select">
+                                <option value="1000">1000</option>
+                                <option value="1500">1500</option>
+                                <option value="2000">2000</option>
+                                <option value="3000">3000</option>
+                                <option value="4000">4000</option>
+                            </select>
+                            <span>m</span>
+                        </div>
                         <!--<div id="add-sp">添加新服务点<input type="button" id="addSP" value="+" /><span id="addError">当前服务点未设置，无法添加新服务点</span></div>-->
                         <!--<div id="del-sp">删除服务点<input type="button" id="delSP" value="删除" /><span id="delError">请至少设置一个服务点</span></div>-->
-                        <div class="sp-btn"><input type="button" class="dis-n btn btn-info" id="saveSP" value="确定" /><input type="button" class="btn btn-delete" id="editSP" value="设置服务区域" /></div>
-                        <div class="sp-msg"><span id="saveMsg" class="dis-n">请设置服务区域</span><div><span id="saveAddress"></span><span id="saveRadius"></span></div></div>
+                        <div class="sp-btn">
+                            <input type="button" class="dis-n btn btn-info" id="saveSP" value="确定" /><input type="button"
+                                class="btn btn-delete" id="editSP" value="设置服务区域" /></div>
+                        <div class="sp-msg">
+                            <span id="saveMsg" class="dis-n">请设置服务区域</span><div>
+                                <span id="saveAddress"></span><span id="saveRadius"></span>
+                            </div>
+                        </div>
                         <!--<div id="SPContainer"></div>-->
-                    <input id="hiBusinessAreaCode" runat="server" snsi type="hidden">
-                </div>
+                        <input id="hiBusinessAreaCode" runat="server" snsi type="hidden">
+                    </div>
                 </div>
                 <!--<div class="cont-row">-->
-                    <!--<div class="cont-col-4">-->
-                        <!--<div class="fl clearfix m-b20">-->
-                            <!--<div id="setBusiness" class="setLocationMap">-->
-                                <!--<div id="businessMapSub" class="mapSub"></div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="cont-col-8">-->
-                        <!--<div>-->
-                            <!--<p class="m-b20">您选择的区域：</p>-->
-                            <!--<p id="businessText" class="business-text"></p>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="cont-col-12">-->
-                        <!--<p><span class="text-anno-r">（点击地图为您的服务区域进行定位）</span></p>-->
-                    <!--</div>-->
+                <!--<div class="cont-col-4">-->
+                <!--<div class="fl clearfix m-b20">-->
+                <!--<div id="setBusiness" class="setLocationMap">-->
+                <!--<div id="businessMapSub" class="mapSub"></div>-->
                 <!--</div>-->
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>点击按钮，设置该服务的服务区域。</p>
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="cont-col-8">-->
+                <!--<div>-->
+                <!--<p class="m-b20">您选择的区域：</p>-->
+                <!--<p id="businessText" class="business-text"></p>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="cont-col-12">-->
+                <!--<p><span class="text-anno-r">（点击地图为您的服务区域进行定位）</span></p>-->
+                <!--</div>-->
+                <!--</div>-->
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>点击按钮，设置该服务的服务区域。</p>
             </div>
         </div>
         <div class="cont-row step-row">
@@ -137,22 +158,28 @@
                 <h3 class="step-head step-2">
                     <img src="../image/shop-icon-step2.png" /></h3>
             </div>
-            <div class="cont-col-10"><p class="step-text step-2">完善服务信息</p></div>
+            <div class="cont-col-10">
+                <p class="step-text step-2">
+                    完善服务信息</p>
+            </div>
         </div>
         <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">服务起步价</p>
+                <p class="cont-sub-title">
+                    服务起步价</p>
             </div>
             <div class="cont-col-10">
                 <div>
-                    <asp:TextBox  CssClass="input-sm" required runat="server" snsi ID="tbxMinPrice"></asp:TextBox>&nbsp;&nbsp;元
+                    <asp:TextBox CssClass="input-sm" required runat="server" snsi ID="tbxMinPrice"></asp:TextBox>&nbsp;&nbsp;元
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写该服务的起步价</p>
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>请填写该服务的起步价</p>
             </div>
         </div>
         <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">服务单价</p>
+                <p class="cont-sub-title">
+                    服务单价</p>
             </div>
             <div class="cont-col-10">
                 <div>
@@ -164,276 +191,114 @@
                     </asp:RadioButtonList>
                     ）
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写该服务的服务价</p>
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>请填写该服务的服务价</p>
             </div>
         </div>
         <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">提前预约时间</p>
+                <p class="cont-sub-title">
+                    提前预约时间</p>
             </div>
             <div class="cont-col-10">
-                <div >
-                      至少&nbsp;&nbsp;
-                      <div class="d-inb select select-xm hour-select">
-                          <ul></ul>
-                          <input type="text" class="input-lg dis-n" id="tbxBusinessYears" name="workYears"/>
-                      </div>
-                      小时
-
-                      <!--<asp:TextBox runat="server" snsi CssClass="input-sm" ID="tbxOrderDelay">60</asp:TextBox>-->
+                <div>
+                    至少&nbsp;&nbsp;
+                    <div class="d-inb select select-xm hour-select">
+                        <ul>
+                        </ul>
+                        <input type="text" class="input-lg dis-n" id="tbxBusinessYears" name="workYears" />
+                    </div>
+                    小时
+                    <!--<asp:TextBox runat="server" snsi CssClass="input-sm" ID="tbxOrderDelay">60</asp:TextBox>-->
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写该服务是否需要提前预约的时间</p>
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>请填写该服务是否需要提前预约的时间</p>
             </div>
         </div>
         <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">服务时间</p>
+                <p class="cont-sub-title">
+                    服务时间</p>
             </div>
             <div class="cont-col-10 time-select-all">
-                <div class="cont-row">
-                    <div class="cont-col-2">星期一</div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
+                <asp:Repeater runat="server" ID="rptOpenTimes">
+                    <ItemTemplate>
+                        <div class="cont-row">
+                            <div class="cont-col-2">
+                                <span runat="server" id="spDayOfWeek">
+                                    <%# Convert.ToInt32( Eval("DayOfWeek"))==1?"星期一":
+                        Convert.ToInt32( Eval("DayOfWeek"))==2?"星期二":
+                         Convert.ToInt32( Eval("DayOfWeek"))==3?"星期三":
+                          Convert.ToInt32( Eval("DayOfWeek"))==4?"星期四":
+                           Convert.ToInt32( Eval("DayOfWeek"))==5?"星期五":
+                            Convert.ToInt32( Eval("DayOfWeek"))==6?"星期六":
+                             Convert.ToInt32( Eval("DayOfWeek"))==0?"星期天":"星期八"
+                                    %>
+                                </span>
                             </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
-                            </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cont-col-2">启用</div>
-                </div>
-                <div class="cont-row">
-                    <div class="cont-col-2">星期二</div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
-                            </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
+                            <asp:Repeater runat="server" ID="rptTimesOneDay">
+                                <ItemTemplate>
+                                    <div class="cont-col-4">
+                                        <div>
+                                            <div class="time-select-wrap">
+                                                <a class="time-trigger" /></a>
+                                                <input class="dis-n time-value" runat="server" id="tbxTimeBegin" value='<%#Eval("TimeStart") %>'
+                                                    type="text" />
+                                            </div>
+                                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                                            <div class="time-select-wrap">
+                                                <a class="time-trigger" />
+                                                <%#Eval("TimeEnd") %></a>
+                                                <input class="dis-n time-value" runat="server" id="tbxTimeEnd" value='<%#Eval("TimeEnd") %>'
+                                                    type="text" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                            <div class="cont-col-2">
+                                <input type="checkbox" runat="server" id="cbxChecked" /><label>启用</label>
                             </div>
                         </div>
-                    </div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
-                            </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cont-col-2">启用</div>
-                </div>
-                <div class="cont-row">
-                        <div class="cont-col-2">星期三</div>
-                        <div class="cont-col-4">
-                            <div>
-                                <div class="time-select-wrap">
-                                    <a class="time-trigger"/></a>
-                                    <input class="dis-n time-value" type="text"/>
-                                </div>
-                                &nbsp;&nbsp;至&nbsp;&nbsp;
-                                <div class="time-select-wrap">
-                                   <a class="time-trigger"/></a>
-                                   <input class="dis-n time-value" type="text"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cont-col-4">
-                            <div>
-                                <div class="time-select-wrap">
-                                    <a class="time-trigger"/></a>
-                                    <input class="dis-n time-value" type="text"/>
-                                </div>
-                                &nbsp;&nbsp;至&nbsp;&nbsp;
-                                <div class="time-select-wrap">
-                                   <a class="time-trigger"/></a>
-                                   <input class="dis-n time-value" type="text"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cont-col-2">启用</div>
-                    </div>
-                <div class="cont-row">
-                    <div class="cont-col-2">星期四</div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
-                            </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
-                            </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cont-col-2">启用</div>
-                </div>
-                <div class="cont-row">
-                    <div class="cont-col-2">星期五</div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
-                            </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
-                            </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cont-col-2">启用</div>
-                </div>
-                <div class="cont-row">
-                    <div class="cont-col-2">星期六</div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
-                            </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
-                            </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cont-col-2">启用</div>
-                </div>
-                <div class="cont-row">
-                    <div class="cont-col-2">星期天</div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
-                            </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cont-col-4">
-                        <div>
-                            <div class="time-select-wrap">
-                                <a class="time-trigger"/></a>
-                                <input class="dis-n time-value" type="text"/>
-                            </div>
-                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                            <div class="time-select-wrap">
-                               <a class="time-trigger"/></a>
-                               <input class="dis-n time-value" type="text"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cont-col-2">启用</div>
-                </div>
-
+                    </ItemTemplate>
+                </asp:Repeater>
                 <!---------------------------------------------服务时间原值----------------------------------->
-                <div>
+                <div style="display: none;">
                     <div class="time-select-wrap">
-                        <a class="time-trigger"/></a>
+                        <a class="time-trigger" /></a>
                         <asp:TextBox CssClass="dis-n time-value" time-role="value" snsi runat="server" ID="tbxServiceTimeBegin"></asp:TextBox>
                     </div>
                     &nbsp;&nbsp;至&nbsp;&nbsp;
                     <div class="time-select-wrap">
-                       <a class="time-trigger"/></a>
-                       <asp:TextBox CssClass="dis-n time-value" snsi runat="server" ID="tbxServiceTimeEnd"></asp:TextBox>
+                        <a class="time-trigger" /></a>
+                        <asp:TextBox CssClass="dis-n time-value" snsi runat="server" ID="tbxServiceTimeEnd"></asp:TextBox>
                     </div>
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>请选择该服务的服务时段</p>
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>请选择该服务的服务时段</p>
             </div>
         </div>
         <div class="cont-row service-cont-row">
             <div class="cont-col-6">
                 <div class="cont-row">
                     <div class="cont-col-4">
-                        <p class="cont-sub-title">每日最大接单量:</p>
+                        <p class="cont-sub-title">
+                            每日最大接单量:</p>
                     </div>
                     <div class="cont-col-8">
                         <div>
                             <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxMaxOrdersPerDay">50</asp:TextBox>&nbsp;&nbsp;单
                         </div>
-                        <p class="cont-input-tip"><i class="icon icon-tip"></i>该服务的每日或每小时最大接单量</p>
+                        <p class="cont-input-tip">
+                            <i class="icon icon-tip"></i>该服务的每日或每小时最大接单量</p>
                     </div>
                 </div>
             </div>
             <div class="cont-col-6">
                 <div class="cont-row">
                     <div class="cont-col-6">
-                        <p class="cont-sub-title">每小时最大接单量</p>
+                        <p class="cont-sub-title">
+                            每小时最大接单量</p>
                     </div>
                     <div class="cont-col-6">
                         <div>
@@ -445,8 +310,9 @@
         </div>
         <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">是否上门</p>
-</div>
+                <p class="cont-sub-title">
+                    是否上门</p>
+            </div>
             <div class="cont-col-10">
                 <div>
                     <asp:RadioButtonList CssClass="service-input-radio" runat="server" ID="rblServiceMode">
@@ -454,47 +320,53 @@
                         <asp:ListItem Value="1" Text="否"></asp:ListItem>
                     </asp:RadioButtonList>
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>选择是否提供上门服务</p>
-</div>
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>选择是否提供上门服务</p>
+            </div>
         </div>
         <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">服务对象</p>
+                <p class="cont-sub-title">
+                    服务对象</p>
             </div>
             <div class="cont-col-10">
                 <div class="service-checkBox">
                     <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cblIsForBusiness"
                         Text="是否可以给公司提供该服务" />
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>选择是否可以给公司提供该服务</p>
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>选择是否可以给公司提供该服务</p>
             </div>
         </div>
         <div class="cont-row service-cont-row">
-                    <div class="cont-col-2">
-                        <p class="cont-sub-title">服务保障</p>
-                    </div>
-                    <div class="cont-col-10">
-                        <div class="service-checkBox">
-                            <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCompensationAdvance" Text="加入先行赔付" />
-                        </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>选择是否加入先行赔付</p>
-
-                    </div>
+            <div class="cont-col-2">
+                <p class="cont-sub-title">
+                    服务保障</p>
+            </div>
+            <div class="cont-col-10">
+                <div class="service-checkBox">
+                    <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCompensationAdvance"
+                        Text="加入先行赔付" />
+                </div>
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>选择是否加入先行赔付</p>
+            </div>
         </div>
         <!--<div class="cont-row service-cont-row">-->
-            <!--<div class="cont-col-2">-->
-                <!--<p class="cont-sub-title">平台认证</p>-->
-            <!--</div>-->
-            <!--<div class="cont-col-10">-->
-                <!--<div class="service-checkBox">-->
-                    <!--<asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCertificated" Text="已通过" />-->
-                <!--</div>-->
-                <!--<p class="cont-input-tip"><i class="icon icon-tip"></i></p>-->
-            <!--</div>-->
+        <!--<div class="cont-col-2">-->
+        <!--<p class="cont-sub-title">平台认证</p>-->
+        <!--</div>-->
+        <!--<div class="cont-col-10">-->
+        <!--<div class="service-checkBox">-->
+        <!--<asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCertificated" Text="已通过" />-->
+        <!--</div>-->
+        <!--<p class="cont-input-tip"><i class="icon icon-tip"></i></p>-->
+        <!--</div>-->
         <!--</div>-->
         <div class="cont-row service-cont-row">
             <div class="cont-col-2">
-                <p class="cont-sub-title">付款方式</p>
+                <p class="cont-sub-title">
+                    付款方式</p>
             </div>
             <div class="cont-col-10">
                 <div>
@@ -503,22 +375,23 @@
                         <asp:ListItem Value="2" Text="当面支付"></asp:ListItem>
                     </asp:CheckBoxList>
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>付款方式选择</p>
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>付款方式选择</p>
             </div>
-
         </div>
         <div class="cont-row service-cont-row" runat="server" id="dvTag">
             <div class="cont-col-2">
-                <p class="cont-sub-title">服务标签</p>
+                <p class="cont-sub-title">
+                    服务标签</p>
             </div>
             <div class="cont-col-10">
                 <div>
-                    <DZ:Tag runat="server" ID="dzTag"   />
+                    <DZ:Tag runat="server" ID="dzTag" />
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签</p>
+                <p class="cont-input-tip">
+                    <i class="icon icon-tip"></i>添加该服务的特色标签</p>
             </div>
         </div>
-
     </div>
     <div id="mapLightBox" class="dis-n">
         <div class="mapWrap">
@@ -532,8 +405,9 @@
         </div>
     </div>
     <div class="service-saveSubmit">
-       <asp:Button Text="保存" CssClass="btn btn-info btn-big" runat="server" ID="btnSave" OnClick="btnSave_Click" />
-       <a class="btn btn-cancel btn-big m-l10" href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">取消</a>
+        <asp:Button Text="保存" CssClass="btn btn-info btn-big" runat="server" ID="btnSave"
+            OnClick="btnSave_Click" />
+        <a class="btn btn-cancel btn-big m-l10" href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">
+            取消</a>
     </div>
 </div>
-

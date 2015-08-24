@@ -12,9 +12,17 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLDZTag
     {
-        DALDZTag dalTag = DALFactory.DALDZTag;
+        DALDZTag dalTag =null;// DALFactory.DALDZTag;
 
         //增加一个Tag
+        public BLLDZTag(DAL.DALDZTag dal)
+        {
+            dalTag = dal;
+        }
+        public BLLDZTag():this(DALFactory.DALDZTag)
+        { 
+        
+        }
         
         public DZTag AddTag(string text, string serviceId, string businessId, string serviceTypeId)
         {
@@ -29,8 +37,9 @@ namespace Dianzhu.BLL
         }
         //删除tag 
         public void DeleteTag(Guid tagId)
-        { 
-        
+        {
+            DZTag tag = dalTag.GetOne(tagId);
+            dalTag.Delete(tag);
         }
         /// <summary>
         /// 获取一个服务的tag
@@ -39,7 +48,7 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public IList<DZTag> GetTagForService(Guid serviceId)
         {
-            return null;
+          return  dalTag.GetTagsForService(serviceId);
         }
 
     }
