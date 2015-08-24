@@ -319,6 +319,10 @@ input[type="text"]:focus,input[type="password"]:focus {
     margin-bottom: 10px;
 }
 
+.doReg {
+    width: 300px; margin-bottom: 10px; *width: auto;
+}
+
 .doReg img,
 .doLogin img {
     cursor: pointer;
@@ -326,6 +330,13 @@ input[type="text"]:focus,input[type="password"]:focus {
     padding: 0 5px;
 }
 
+/*忘记密码*/
+
+a.doReg-forget {
+    font-size: 14px;
+    line-height: 20px;
+    color: #55abdc;
+}
 
 /*注册页面内容*/
 .conReg .box-l p {
@@ -430,5 +441,5 @@ input[type="text"]:focus,input[type="password"]:focus {
 .logReg-a { color: #fff; }
 .logReg-a:visited{ color: #fff; }
 
-.agreeLIC-a {color: #fff;text-decoration: underline;}
+.agreeLIC-a {color: #55abdc;text-decoration: underline;}
 .agreeLIC-a:visited {color: #fff;text-decoration: underline;}

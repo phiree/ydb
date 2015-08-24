@@ -4,12 +4,12 @@
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="一点办后台管理系统" />
+    <meta name="description" content="一点办登录" />
     <meta name="keywords" content="一点办" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title></title>
+    <title>一点办登录</title>
     <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
-<script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
+    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
 
     <link rel="Stylesheet" href="css/base.css" type="text/css" />
     <link rel="Stylesheet" href="css/login_reg.css" type="text/css" />
@@ -76,11 +76,7 @@
                                 <div class="login_err_msg" >
                                 <asp:Label runat="server" ID="lblMsg"></asp:Label>
                                 </div>
-                                <p class="doReg">
-                                    <a class="logReg-a" href="register.aspx">
-                                        <img src="image/login_reg/zhuce_1.png">注册会员</a>
-                                       <a href="/account/forget.aspx">忘记密码</a>
-                                        </p>
+                                <p class="doReg"><a class="logReg-a" href="register.aspx"><img src="image/login_reg/zhuce_1.png">注册会员</a><a class="doReg-forget fr" href="/account/forget.aspx">忘记密码？</a></p>
                             </div>
                         </div>
                     </div>
@@ -94,7 +90,7 @@
         </div>
     </div>
 </body>
-<!--[if IE 8]>
+<!--[if lte IE 9]>
 <script src="/js/jquery.placeholder.min.js" type="text/javascript"></script>
 <script type="text/javascript">$('input, textarea').placeholder();</script>
 <![endif]-->
