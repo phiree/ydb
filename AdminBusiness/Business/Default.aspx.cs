@@ -26,7 +26,7 @@ public partial class Business_Default : BasePage
     protected void BindBusinessList()
     {
 
-        var businessList = bllBusiness.GetBusinessListByOwner(CurrentUser.Id).Where(x=>x.Enabled);
+        var businessList = bllBusiness.GetBusinessListByOwner(CurrentUser.Id);//.Where(x=>x.Enabled);
         
         rptBusinessList.DataSource = businessList;
       //  rptBusinessList.ItemCommand+=new RepeaterCommandEventHandler(rptBusinessList_ItemCommand);
@@ -35,10 +35,10 @@ public partial class Business_Default : BasePage
     }
     protected void btnCreate_Click(object sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(CurrentUser.Phone))
-        {
-            return;
-        }
+        //if (string.IsNullOrEmpty(CurrentUser.Phone))
+        //{
+        //    return;
+        //}
         Business b = new Business();
         b.Name = tbxName.Value;
         

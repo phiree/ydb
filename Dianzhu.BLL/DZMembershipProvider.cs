@@ -342,8 +342,9 @@ namespace Dianzhu.BLL
         }
         public void UpdateDZMembership(DZMembership member)
         {
-           
 
+            //var password_cred = FormsAuthentication.HashPasswordForStoringInConfigFile(member.Password, "MD5");
+            //member.Password = password_cred;
             DALMembership.Update(member);
         }
         public DZMembership GetUserByEmail(string email)
@@ -352,6 +353,7 @@ namespace Dianzhu.BLL
         }
         public DZMembership GetUserByPhone(string phone)
         {
+
             return DALMembership.GetMemberByPhone(phone);
         }
         #endregion

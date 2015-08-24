@@ -57,7 +57,7 @@
                                     <div class="reg-box-l"><p>新密码</p></div>
                                     <div class="reg-box-r">
                                         <div class="reg-input">
-                                            <asp:TextBox runat="server" id="tbxPassword"></asp:TextBox>
+                                            <asp:TextBox runat="server" TextMode="Password" id="tbxPassword"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                     <div class="reg-box-l"><p>确认密码</p></div>
                                     <div class="reg-box-r">
                                         <div class="reg-input">
-                                            <asp:TextBox runat="server" id="tbxPasswordConfirm"></asp:TextBox>
+                                            <asp:TextBox runat="server" TextMode="Password" id="tbxPasswordConfirm"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
