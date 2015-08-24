@@ -128,6 +128,7 @@ a.new-add-btn {
     padding: 20px 0;
     text-align: center;
     color: #fff;
+    border-left: 1px solid #9DD0FF;
 }
 
 .custom-table thead tr th {

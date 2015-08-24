@@ -744,6 +744,14 @@ a.time-trigger:hover {
     color: #FF8661;
 }
 
+.theme-color-delete {
+    color: #FD9292;
+}
+
+.theme-color-right {
+    color: #16D237;
+}
+
 .theme-color-58789a {
     color:#58789a;
 }
