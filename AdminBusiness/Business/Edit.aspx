@@ -215,7 +215,7 @@
 </div>
                         <div class="cont-col-10">
                             <div>
-                                <input type="text" class="input-mid" runat="server" id="tbxCardIdNo" name="tbxCardIdNo" clientidmode="Static" />
+                                <input type="text" class="input-mid" runat="server" id="tbxCardIdNo" name="tbxCardIdNo" clientidmode="Static" /><span class="text-anno-r">（必填选项）</span>
                             </div>
                             <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人证件号码</p>
                         </div>
