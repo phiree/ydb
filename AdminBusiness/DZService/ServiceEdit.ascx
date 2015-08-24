@@ -226,14 +226,8 @@
                         <div class="cont-row">
                             <div class="cont-col-2">
                                 <span runat="server" id="spDayOfWeek">
-                                    <%# Convert.ToInt32( Eval("DayOfWeek"))==1?"星期一":
-                        Convert.ToInt32( Eval("DayOfWeek"))==2?"星期二":
-                         Convert.ToInt32( Eval("DayOfWeek"))==3?"星期三":
-                          Convert.ToInt32( Eval("DayOfWeek"))==4?"星期四":
-                           Convert.ToInt32( Eval("DayOfWeek"))==5?"星期五":
-                            Convert.ToInt32( Eval("DayOfWeek"))==6?"星期六":
-                             Convert.ToInt32( Eval("DayOfWeek"))==0?"星期天":"星期八"
-                                    %>
+                                <%#Eval("DayOfWeek") %>
+                                   
                                 </span>
                             </div>
                             <asp:Repeater runat="server" ID="rptTimesOneDay">
