@@ -38,13 +38,13 @@
                                 <ul class="nav navbar-nav navbar-right">
 
                                     <li class="dropdown nav-li-bj">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><asp:LoginName ID="LoginName1" runat="server" /><span class="caret"></span></a>
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><asp:LoginName ID="LoginName1" CssClass="v-m" runat="server" /><span class="caret"></span></a>
                               <ul class="dropdown-menu">
                                 <li id="accountNum"><a href="/account/security.aspx?businessId=<%=Request["businessid"] %>">帐号安全</a></li>
                               </ul>
                             </li>
                             <li role="presentaion" class="nav-li-bj ">
-                            <asp:LoginStatus ID="LoginStatus1" formnovalidate  LogoutText="注销" runat="server"  />
+                            <asp:LoginStatus ID="LoginStatus1" CssClass="LoginStatus"  formnovalidate  LogoutText="" runat="server"  />
                             </li>
                                   </ul>
                             </div>

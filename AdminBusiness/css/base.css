@@ -235,6 +235,15 @@ html{
     background: #fff;
 }
 
+/*登录0状态样式*/
+#LoginStatus1{
+    background: url("/image/logout.png") no-repeat center;
+    color:transparent;
+    padding: 0 30px;
+
+}
+/*end*/
+
 .nav-btn-bg {
     display: inline-block;
     *display: inline-block;
