@@ -49,12 +49,12 @@ public partial class ForgetPassword : System.Web.UI.Page
 
         if (password.Length < 6)
         {
-            lblMsg.Text = "密码长度应该大于6";
+            //lblMsg.Text = "密码长度应该大于6";
             return;
         }
         if (password != tbxPasswordConfirm.Text)
         {
-            lblMsg.Text = "两次输入的不相等";
+            //lblMsg.Text = "两次输入的不相等";
         }
         member.Password = member.PlainPassword = password;
         member.RecoveryCode = Guid.Empty;

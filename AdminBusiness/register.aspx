@@ -35,7 +35,7 @@
                             </div>
                             <div>
                                 <div class="logo-title-l">
-                                    <p>欢迎来到点助商户会员注册页面<br />
+                                    <p>欢迎来到一点办商户会员注册页面<br />
                                     开启移动智能O2O新历程</p>
                                 </div>
                                 <div class="logo-title-r">
