@@ -51,6 +51,7 @@ public partial class Business_Default : BasePage
         {
             b.WebSite = tbxWebSite.Value;
         }
+        b.RawAddressFromMapAPI = hiAddrId.Value;
         b.Phone = tbxContactPhone.Value;
         
         b.Description = tbxDescription.Value;
