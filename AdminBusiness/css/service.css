@@ -103,49 +103,28 @@ a.new-add-btn {
     background-color: #f1f4f7;
 }
 
-.custom-table{
-    width: 100%;
-}
-
-.custom-table .table-col-1 { width:8.33333333%; }
-.custom-table .table-col-2 { width:16.66666667%; }
-.custom-table .table-col-3 { width:25%; }
-.custom-table .table-col-4 { width:33.33333333%; }
-.custom-table .table-col-5 { width:41.66666667%; }
-.custom-table .table-col-6 { width:50%; }
-.custom-table .table-col-7 { width:58.33333333%; }
-.custom-table .table-col-8 { width:66.66666667%; }
-.custom-table .table-col-9 { width: 75%; }
-.custom-table .table-col-10 { width: 83.33333333%; }
-.custom-table .table-col-11 { width:91.66666667%; }
-.custom-table .table-col-12 { width:100%; }
-
-.custom-table .table-head {
+.service-table thead {
     background: #8dc2f3;
 }
 
-.custom-table .table-head tr th{
+.service-table thead tr th{
     padding: 20px 0;
     text-align: center;
     color: #fff;
     border-left: 1px solid #9DD0FF;
 }
 
-.custom-table thead tr th {
-
-}
-
-.custom-table tbody tr td {
+.service-table tbody tr td {
     text-align: center;
     padding: 10px;
     word-break: break-all;
 }
 
-.service-table-tbody tr{
+.service-table tbody tr{
     cursor: pointer;
 }
 
-.service-table-tbody tr:hover{
+.service-table tbody tr:hover{
     background: #b0d3f5;
     color: #fff;
 }
@@ -276,6 +255,12 @@ a.new-add-btn {
 /*服务时间样式设置*/
 .time-select-all .cont-row{
     padding: 10px 0;
+}
+
+.service-time-table tbody tr td{
+    text-align: center;
+    padding: 10px;
+    word-break: break-all;
 }
 
 /*店铺编辑步骤样式*/

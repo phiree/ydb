@@ -38,7 +38,7 @@
             <div class="cont-col-10">
                 <div>
                     <input id="setSerType" class="ser-btn-SerType" type="button" value="请选择服务信息" />
-                    <input type="hidden" runat="server" focusid="setSerType" id="hiTypeId" />
+                    <input class="dis-n" type="text" runat="server" focusid="setSerType" id="hiTypeId" />
                     <asp:Label CssClass="business-radioCf dis-n m-l10" runat="server" ID="lblSelectedType"></asp:Label>
                     <div id="serLightContainer" class="serviceTabs dis-n">
                         <div class="serChoiceInfo clearfix">
@@ -128,8 +128,9 @@
                             </div>
                         </div>
                         <!--<div id="SPContainer"></div>-->
-                        <input id="hiBusinessAreaCode" runat="server" snsi type="hidden">
+
                     </div>
+                    <input id="hiBusinessAreaCode" class="dis-n" runat="server" snsi type="text">
                 </div>
                 <!--<div class="cont-row">-->
                 <!--<div class="cont-col-4">-->
@@ -206,7 +207,7 @@
                     <div class="d-inb select select-xm hour-select">
                         <ul>
                         </ul>
-                        <input type="text" class="input-lg dis-n" id="tbxBusinessYears" name="workYears" />
+                        <input type="text" class="dis-n" id="tbxBusinessYears" name="workYears" />
                     </div>
                     小时
                     <!--<asp:TextBox runat="server" snsi CssClass="input-sm" ID="tbxOrderDelay">60</asp:TextBox>-->
@@ -221,19 +222,17 @@
                     服务时间</p>
             </div>
             <div class="cont-col-10 time-select-all">
-                <asp:Repeater runat="server" ID="rptOpenTimes">
-                    <ItemTemplate>
-                        <div class="cont-row">
-                            <div class="cont-col-2">
-                                <span runat="server" id="spDayOfWeek">
-                                
-                                  <%# System.Globalization.DateTimeFormatInfo.CurrentInfo.GetDayName((DayOfWeek)Convert.ToInt32( Eval("DayOfWeek")))%> 
-                                </span>
-                                <input type="hidden" id="hiDayOfWeek" runat="server" value='<%#Eval("DayOfWeek") %>'/>
-                            </div>
+                <table class="custom-table service-time-table">
+                    <tbody>
+                    <asp:Repeater runat="server" ID="rptOpenTimes">
+                        <ItemTemplate>
+                        <tr>
+                        <td class="table-col-3">
+                        <span runat="server" id="spDayOfWeek"><%# System.Globalization.DateTimeFormatInfo.CurrentInfo.GetDayName((DayOfWeek)Convert.ToInt32( Eval("DayOfWeek")))%></span>
+                         <input type="hidden" id="hiDayOfWeek" runat="server" value='<%#Eval("DayOfWeek") %>'/></td>
                             <asp:Repeater runat="server" ID="rptTimesOneDay">
                                 <ItemTemplate>
-                                    <div class="cont-col-4">
+                                    <td class="table-col-3">
                                         <div>
                                             <div class="time-select-wrap">
                                                 <a class="time-trigger" /></a>
@@ -242,21 +241,24 @@
                                             </div>
                                             &nbsp;&nbsp;至&nbsp;&nbsp;
                                             <div class="time-select-wrap">
-                                                <a class="time-trigger" />
-                                                <%#Eval("TimeEnd") %></a>
+                                                <a class="time-trigger" ><%#Eval("TimeEnd") %></a>
                                                 <input class="dis-n time-value" runat="server" id="tbxTimeEnd" value='<%#Eval("TimeEnd") %>'
                                                     type="text" />
                                             </div>
                                         </div>
-                                    </div>
+                                    </td>
                                 </ItemTemplate>
                             </asp:Repeater>
-                            <div class="cont-col-2">
+
+                            <td class="table-col-3">
                                 <input type="checkbox" runat="server" id="cbxChecked" /><label>启用</label>
-                            </div>
-                        </div>
-                    </ItemTemplate>
-                </asp:Repeater>
+                            </td>
+                        </tr>
+                        </ItemTemplate>
+                        </asp:Repeater>
+                    </tbody>
+                </table>
+
                 <!---------------------------------------------服务时间原值----------------------------------->
                 <div style="display: none;">
                     <div class="time-select-wrap">
@@ -383,22 +385,11 @@
                 <div>
                     <DZ:Tag runat="server" ID="dzTag" />
                 </div>
-                <p class="cont-input-tip">
-                    <i class="icon icon-tip"></i>添加该服务的特色标签</p>
+                <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签</p>
             </div>
         </div>
     </div>
-    <div id="mapLightBox" class="dis-n">
-        <div class="mapWrap">
-            <div id="businessMap" class="mapMain">
-            </div>
-            <div id="businessCity" class="mapCity">
-            </div>
-            <div class="mapButton">
-                <input id="confBusiness" class="lightClose ser-sm-input" type="button" value="确定"></div>
-            <input id="businessValue" type="hidden" value="" />
-        </div>
-    </div>
+
     <div class="service-saveSubmit">
         <asp:Button Text="保存" CssClass="btn btn-info btn-big" runat="server" ID="btnSave"
             OnClick="btnSave_Click" />

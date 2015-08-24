@@ -22,8 +22,8 @@
                             <div class="cont-row row-fix">
                                 <div class="cont-col-12"><a class="btn btn-default btn-add m-b20" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a> </div>
                             </div>
-                            <table class="custom-table">
-                                <thead class="table-head">
+                            <table class="custom-table service-table">
+                                <thead>
                                     <tr>
                                         <th>服务名称</th>
                                         <th>服务类别</th>
@@ -34,7 +34,7 @@
                                         <th>服务操作</th>
                                     </tr>
                                 </thead>
-                                <tbody class="service-table-tbody">
+                                <tbody>
                                     <asp:Repeater runat="server" ID="rptServiceList"  >
                                     <ItemTemplate>
                                     <tr onclick="listhref('/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>')">
@@ -94,13 +94,13 @@
 
 
     $(function(){
-        if ( $(".service-table-tbody").find("tr").length == 0 ){
+        if ( $(".service-table tbody").find("tr").length == 0 ){
             $(".service-new").removeClass("dis-n");
         } else {
             $(".service-list-container").removeClass("dis-n");
         }
 
-       $(".service-table-tbody tr:odd").addClass("list-item-odd");
+       $(".service-table tbody tr:even").addClass("list-item-odd");
     })
     </script>
     <script type="text/javascript">
