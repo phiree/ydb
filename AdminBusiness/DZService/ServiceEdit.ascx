@@ -226,9 +226,10 @@
                         <div class="cont-row">
                             <div class="cont-col-2">
                                 <span runat="server" id="spDayOfWeek">
-                                <%#Eval("DayOfWeek") %>
-                                   
+                                
+                                  <%# System.Globalization.DateTimeFormatInfo.CurrentInfo.GetDayName((DayOfWeek)Convert.ToInt32( Eval("DayOfWeek")))%> 
                                 </span>
+                                <input type="hidden" id="hiDayOfWeek" runat="server" value='<%#Eval("DayOfWeek") %>'/>
                             </div>
                             <asp:Repeater runat="server" ID="rptTimesOneDay">
                                 <ItemTemplate>

@@ -191,8 +191,9 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.OpenTimes.Clear();
         foreach (RepeaterItem li in rptOpenTimes.Items)
         {
-            HtmlGenericControl spDayOfWeek = li.FindControl("spDayOfWeek") as HtmlGenericControl;
-            DayOfWeek dow = (DayOfWeek)(Enum.Parse(typeof(DayOfWeek),spDayOfWeek.InnerText) );
+            HtmlInputHidden spDayOfWeek = li.FindControl("hiDayOfWeek") as HtmlInputHidden;
+            DayOfWeek dow = (DayOfWeek)(Enum.Parse(typeof(DayOfWeek),spDayOfWeek.Value) );
+             
             bool enabled = ((HtmlInputCheckBox)li.FindControl("cbxChecked")).Checked;
             ServiceOpenTime sot = new ServiceOpenTime();
             sot.DayOfWeek = dow;
