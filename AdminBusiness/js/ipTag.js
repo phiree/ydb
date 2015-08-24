@@ -1,17 +1,17 @@
 
-$(function() {
-    $("#ipTagAdd").click(function(){
+$(function () {
+    $("#ipTagAdd").click(function () {
         var container = $(".ipTagContainer");
         var ipTag = $("#ipTag").val();
         var serviceId = $("#ipTag").attr("serviceId");
 
 
-        if( ipTag == "" ){
+        if (ipTag == "") {
             return;
         } else {
             $.post(
                 "/ajaxservice/taghandler.ashx",
-                {
+                { "action": "add",
                     "tagText": ipTag,
                     "serviceId": serviceId
                 },
@@ -25,7 +25,20 @@ $(function() {
                     newTag.appendTo(container);
                 }
             );
-        }
+        } //
+        $(document).on("click",".spTagDel", function () {
+            var that = this;
+            var tagId = $(that).attr("tagid");
+            $.post("/ajaxservice/taghandler.ashx",
+            {
+                "action": "delete",
+                "tagId": tagId
+            }, function (result) {
+                $(that).parent(".spTag").remove();
+                 
+            });
+
+        });
 
     })
 });
