@@ -150,6 +150,7 @@
                             <div class="cont-col-8">
                                 <div>
                                     <input class="input-mid" runat="server" id="tbxAddress" type="text"/>
+                                    <input type="hidden" focusID="setAddress" runat="server" clientidmode="Static" id="hiAddrId" name="addressDetailHide" />
                                 </div>
                                 <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺的详细地址</p>
                             </div>
@@ -193,13 +194,14 @@
 <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
 <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
+<script src="/js/validation_business_add.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/business.js"></script>
 <script type="text/javascript">
     $(function(){
         if ( $(".business-list").find(".business-list-item").length == 0 ){
             $(".business-new").removeClass("dis-n");
         } else {
             $(".business-container").removeClass("dis-n");
-
         }
     })
 </script>
@@ -246,72 +248,19 @@
         );
     })
 
-    $.validator.addMethod("web", function (value, element) {
-        return value == "" ? true : /^([^\.]+\.){1,3}[^\.]+$/.test(value);
-    }, "请输入有效的网址");
-
-    $.validator.addMethod("phone", function (value, element) {
-        return /(^[0-9]{3,4}\-[0-9]{7,8}$)|(^[0-9]{7,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)|(13\d{9}$)|(15[0-9]\d{8}$)|(18[0-9]\d{8}$)|(17[0-9]\d{8}$)/.test(value);
-    }, "请输入有效的电话号码");
-
-    var business_validate_rules = [];
-    var business_validate_messages = [];
-
-    //tbxname
-    business_validate_rules["tbxName"] =
-    {
-        required: true,
-        maxlength: 20
-    };
-    business_validate_messages["tbxName"] =
-    {
-        required: "请填写店铺名称",
-        maxlength: "不能超过12个字符"
-    };
-
-     //description
-    business_validate_rules["tbxDescription"] =
-    {
-        required: true,
-        rangelength: [1, 200]
-    };
-    business_validate_messages["tbxDescription"] =
-    {
-        required: "请填写店铺介绍",
-        rangelength: "不能超过200个字符"
-    };
-
-    //tbxAddress
-    business_validate_rules["tbxAddress"] =
-    {
-        required: true
-    };
-    business_validate_messages["tbxAddress"] =
-    {
-        required: "请输入店铺地址"
-    };
-
-    //tbxContactPhone
-    business_validate_rules["tbxContactPhone"] =
-    {
-        phone: true
-    };
-
-    //serviceScope
-    business_validate_rules["tbxWebSite"] =
-    {
-        required: true,
-        web: true
-    };
-
-    business_validate_messages["tbxWebSite"] =
-    {
-        web: "请输入正确的网址",
-        required: "请输入正确的网址或邮箱地址"
-    };
-
 
 </script>
-<!--<script src="/js/validation_shop_edit.js" type="text/javascript"></script>-->
+<script>
+    function loadBaiduMapScript() {
+      var script = document.createElement("script");
+      script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initialize";
+      document.body.appendChild(script);
+    }
+
+    $(document).ready(function(){
+        loadBaiduMapScript();
+    })
+</script>
+
 <!--<script src="/js/validation_invalidHandler.js" type="text/javascript"></script>-->
 </html>
