@@ -14,6 +14,11 @@ public partial class ForgetPassword : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         string param = Request["p"];
+        if (string.IsNullOrEmpty(param))
+        {
+            Response.Write("请求参数有误");
+            Response.End();
+        }
         string[] arr = param.Split(new string[]{ Config.pwssword_recovery_spliter},  StringSplitOptions.None);
         if (arr.Length != 2)
         {
