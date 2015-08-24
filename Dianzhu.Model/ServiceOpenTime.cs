@@ -10,46 +10,56 @@ namespace Dianzhu.Model
     /// </summary>
     public class ServiceOpenTime
     {
+        public ServiceOpenTime()
+        {
+            OpenTimeForDay = new List<ServiceOpenTimeForDay>();
+        }
         public virtual Guid Id { get; set; }
         /// <summary>
         /// 1:星期一,2:星期二.........
         /// </summary>
-        public virtual int Day { get; set; }
+        public virtual DayOfWeek DayOfWeek { get; set; }
         /// <summary>
         /// 是否启用
         /// </summary>
         public virtual bool Enabled { get; set; }
         public virtual IList<ServiceOpenTimeForDay> OpenTimeForDay { get; set; }
+        
     }
     public class ServiceOpenTimeForDay
     {
         public virtual Guid Id { get; set; }
         string timeStart;
         string timeEnd;
-        int period;
+        int periodStart, periodEnd;
         public virtual string TimeStart
         {
-            get { return timeStart; }
+            get {
+              //  periodStart = TimeStringToPeriod(timeStart); 
+                return timeStart; }
             set
             {
                 timeStart = value;
-                period = TimeStringToPeriod(timeStart);
+                periodStart = TimeStringToPeriod(timeStart);
 
             }
         }
         public virtual string TimeEnd
         {
-            get { return timeEnd; }
+            get { 
+               // periodEnd = TimeStringToPeriod(timeEnd); 
+                return timeEnd; }
             set
             {
                 timeEnd = value;
-                period = TimeStringToPeriod(timeEnd);
+                periodEnd = TimeStringToPeriod(timeEnd);
             }
         }
         /// <summary>
         /// 
         /// </summary>
-        public virtual int Period { get; set; }
+        public virtual int PeriodStart { get { return periodStart; } set { periodStart = value; } }
+        public virtual int PeriodEnd { get { return periodEnd; } set { periodEnd=value;} }
 
         private int TimeStringToPeriod(string time)
         {

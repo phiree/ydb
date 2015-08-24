@@ -13,9 +13,9 @@ namespace Dianzhu.DAL.Mapping
         {
             Id(x => x.Id);
             Map(x => x.Enabled);
-            Map(x => x.Day);
-            
-            HasMany<ServiceProperty>(x => x.OpenTimeForDay).Cascade.All().Not.LazyLoad();
+            Map(x => x.DayOfWeek).CustomType<int>();
+
+            HasMany<ServiceOpenTimeForDay>(x => x.OpenTimeForDay).Cascade.All().Not.LazyLoad();
             
 
         }
@@ -26,7 +26,8 @@ namespace Dianzhu.DAL.Mapping
         public ServiceOpenTimeForDayMap()
         {
             Id(x => x.Id);
-            Map(x => x.Period);
+            Map(x => x.PeriodStart);
+            Map(x => x.PeriodEnd);
             Map(x => x.TimeEnd);
             Map(x => x.TimeStart);
              

@@ -13,9 +13,34 @@ namespace Dianzhu.Model
        public DZService()
        {
            PropertyValues = new List<ServicePropertyValue>();
-           OpenTimes = new List<ServiceOpenTime>();
+           InitOpenTimes();
            
        }
+       private void InitOpenTimes()
+       {
+           OpenTimes = new List<ServiceOpenTime>();
+           for (int i = 0; i < 7; i++)
+           {
+               ServiceOpenTimeForDay sotd = new ServiceOpenTimeForDay {
+                TimeStart="08:00", TimeEnd="12:00"};
+               ServiceOpenTimeForDay sotd2 = new ServiceOpenTimeForDay
+               {
+                   TimeStart = "13:00",
+                   TimeEnd = "24:00"
+               };
+               var sotdlist=new List<ServiceOpenTimeForDay>();
+               sotdlist.Add(sotd);
+               sotdlist.Add(sotd2);
+               ServiceOpenTime sto = new ServiceOpenTime { 
+                DayOfWeek=(DayOfWeek)i,
+                Enabled=false,
+                OpenTimeForDay=sotdlist
+                };
+               OpenTimes.Add(sto);
+           }
+           
+       }
+
        public virtual Guid Id { get; set; }
        /// <summary>
        /// 服务项目所属类别
@@ -109,15 +134,15 @@ namespace Dianzhu.Model
        public virtual bool AddOpenTime(ServiceOpenTime openTime, out string errMsg)
        {
            errMsg = string.Empty;
-           if (openTime.Day < 1 || openTime.Day > 7)
+           if ((int)openTime.DayOfWeek < 1 || (int)openTime.DayOfWeek > 7)
            {
                errMsg = "星期数有误,只能是1到7";
                return false;
 
            }
-           if (OpenTimes.Any(x => x.Day == openTime.Day))
+           if (OpenTimes.Any(x => x.DayOfWeek == openTime.DayOfWeek))
            {
-               errMsg = "已经定义了星期" + openTime.Day + "的时间";
+               errMsg = "已经定义了星期" + openTime.DayOfWeek + "的时间";
                return false;
            }
            return true;
