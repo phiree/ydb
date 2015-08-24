@@ -134,6 +134,7 @@
                                  <div class="myche1s">接单时间:</div>
                                  <div class="myche2s"> <span id="serPeriod-txt"></span></div>
                                  <div class="myche3"><div class="li-inco"></div>
+                                 <asp:Repeater runat="server" ID="rptOpenTimes"></asp:Repeater>
                               </div>
                             
                         </li>
