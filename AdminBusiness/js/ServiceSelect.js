@@ -167,7 +167,7 @@ $.fn.ServiceSelect = function (options) {
         }
 
         choiceConfBtn.bind("click", function () {
-            valueInput.attr("value", confirmValue);
+            valueInput.attr("value", confirmValue).focus().blur();
             valueInput.attr("data-name", confirmName);
             choiceOutContainer.removeClass("dis-n");
             choiceOutContainer.text(confirmName);
