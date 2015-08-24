@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+ 
 using Dianzhu.Model;
-namespace Dianzhu.CSClient
+namespace Dianzhu.CSClient.IVew
 {
-    public interface IView
+    public interface MainFormView
     {
-        
         #region Chat
-        IList<ReceptionChat> ChatHistory {  set; }
-        void LoadOneChat(ReceptionChat chat);
+        IList<ReceptionChat> ChatLog { set; get; }
+        void LoadOneChat( ReceptionChat chat);
         string CurrentCustomerName { get; set; }
 
         /// <summary>
         /// 搜索关键字.
         /// </summary>
-       
-         
+
+
         /// <summary>
         /// 设置按钮的样式.
         /// </summary>
@@ -37,9 +37,9 @@ namespace Dianzhu.CSClient
         void SendMessage(string message);
         #endregion
 
-         string SerachKeyword { get; set; }
-         void LoadSearchHistory(IList<DZService> services);
-        
+        string SerachKeyword { get; set; }
 
+
+        IList<DZService> SearchedService { get; set; }
     }
 }

@@ -8,10 +8,14 @@ using System.Text;
 using System.Windows.Forms;
 using agsXMPP;
 using agsXMPP.protocol.client;
+
+using Dianzhu.CSClient.IVew;
+using Dianzhu.CSClient.Presenter;
+//using Dianzhu.CSClient.Model;
 using Dianzhu.Model;
 namespace Dianzhu.CSClient
 {
-    public partial class FormMain : Form, IView
+    public partial class FormMain : Form, MainFormView
     {
         BLL.DZMembershipProvider BLLMember = new BLL.DZMembershipProvider();
         BLL.BLLReception BLLReception = new BLL.BLLReception();
@@ -20,7 +24,7 @@ namespace Dianzhu.CSClient
         public FormMain()
         {
             InitializeComponent();
-            FormController = new CSClient.FormController(this, BLLMember, BLLReception, BLLDZService);
+            FormController = new FormController(this, BLLMember, BLLReception, BLLDZService,GlobalViables.CurrentCustomerService);
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
             GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
         }
@@ -50,8 +54,8 @@ namespace Dianzhu.CSClient
             {
                 mediaUrl = msg.Attributes["media"].ToString();
             }
-            
-            FormController.ReceiveMessage(StringHelper.EnsureNormalUserName(msg.From.User), msg.Body,mediaUrl);
+
+            FormController.ReceiveMessage(StringHelper.EnsureNormalUserName(msg.From.User), msg.Body, mediaUrl);
         }
 
         string currentCustomerName;
@@ -60,9 +64,10 @@ namespace Dianzhu.CSClient
             get { return currentCustomerName; }
             set { currentCustomerName = value; }
         }
-        public IList<Dianzhu.Model.ReceptionChat> ChatHistory
+        IList<ReceptionChat> chatLog;
+        public IList<ReceptionChat> ChatLog
         {
-             
+
             set
             {
                 pnlChat.Controls.Clear();
@@ -70,7 +75,12 @@ namespace Dianzhu.CSClient
                 {
                     LoadOneChat(chat);
                 }
-                 
+                chatLog = value;
+
+            }
+            get
+            {
+                return chatLog;
             }
         }
         public void LoadOneChat(ReceptionChat chat)
@@ -79,7 +89,7 @@ namespace Dianzhu.CSClient
             Label lblFrom = new Label();
             Label lblMessage = new Label();
             FlowLayoutPanel pnlOneChat = new FlowLayoutPanel();
-            pnlOneChat.Controls.AddRange(new Control[] {  lblMessage });
+            pnlOneChat.Controls.AddRange(new Control[] { lblMessage });
             pnlOneChat.FlowDirection = FlowDirection.LeftToRight;
             _AutoSize(pnlOneChat);
             pnlOneChat.Dock = DockStyle.Top;
@@ -90,40 +100,38 @@ namespace Dianzhu.CSClient
 
 
             lblTime.Text = chat.SavedTime.ToShortTimeString() + " ";
-             
-            if (GlobalViables.CurrentCustomerService == chat.To)
+
+            if (GlobalViables.CurrentCustomerService.UserName == chat.To.UserName)
             {
                 pnlOneChat.FlowDirection = FlowDirection.RightToLeft;
                 lblMessage.TextAlign = ContentAlignment.MiddleRight;
             }
-            
+
             lblFrom.Text = chat.From.UserName;
-         
-            
             lblMessage.Text = chat.MessageBody;
-              _AutoSize(lblMessage);
-              pnlOneChat.Width = pnlChat.Size.Width - 6;
+            _AutoSize(lblMessage);
+            pnlOneChat.Width = pnlChat.Size.Width - 16;
 
             //显示多媒体信息.
-              
-              if (!string.IsNullOrEmpty(chat.MessageMediaUrl))
-              {
-                  
-                  PictureBox pb = new PictureBox();
-                  pb.Size = new System.Drawing.Size(100, 100);
-                  pb.Load(chat.MessageMediaUrl);
-                  pnlOneChat.Controls.Add(pb);
-              }
 
-             
+            if (!string.IsNullOrEmpty(chat.MessageMediaUrl))
+            {
+
+                PictureBox pb = new PictureBox();
+                pb.Size = new System.Drawing.Size(100, 100);
+                pb.Load(chat.MessageMediaUrl);
+                pnlOneChat.Controls.Add(pb);
+            }
+
+
             pnlChat.Controls.Add(pnlOneChat);
             pnlChat.ScrollControlIntoView(pnlOneChat);
-             
+
         }
 
-        
-        
-        
+
+
+
         public void SetCustomerButtonStyle(string buttonText, em_ButtonStyle buttonStyle)
         {
             Button btn = (Button)pnlCustomerList.Controls.Find
@@ -208,27 +216,25 @@ namespace Dianzhu.CSClient
                 throw new NotImplementedException();
             }
         }
-
-        public IList<Model.DZService> SearchedService
+        IList<DZService> searchedService;
+        public IList<DZService> SearchedService
         {
             get
             {
-                throw new NotImplementedException();
+                return searchedService;
             }
             set
             {
+                searchedService = value;
+                pnlResultService.Controls.Clear();
+                foreach (DZService service in searchedService)
+                {
+                    LoadServiceToPanel(service);
+                }
+            }
+        }
 
-            }
-        }
-        public void LoadSearchHistory(IList<Model.DZService> serviceList)
-        {
-            pnlResultService.Controls.Clear();
-            foreach (Model.DZService service in serviceList)
-            {
-                LoadServiceToPanel(service);
-            }
-        }
-        public void LoadServiceToPanel(Model.DZService service)
+        private void LoadServiceToPanel(DZService service)
         {
             FlowLayoutPanel pnl = new FlowLayoutPanel();
             pnl.BorderStyle = BorderStyle.FixedSingle;
@@ -255,15 +261,15 @@ namespace Dianzhu.CSClient
         {
             agsXMPP.protocol.client.Message m = new agsXMPP.protocol.client.Message();
             m.Type = MessageType.chat;
-            m.SetAttribute("service_id",((Button)sender).Tag.ToString());
-            m.To=StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain;
+            m.SetAttribute("service_id", ((Button)sender).Tag.ToString());
+            m.To = StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain;
             GlobalViables.XMPPConnection.Send(m);
         }
         #endregion
 
         private void FormMain_ResizeEnd(object sender, EventArgs e)
         {
-            
+
         }
         private void _AutoSize(Control c)
         {
@@ -276,8 +282,8 @@ namespace Dianzhu.CSClient
             {
                 ((Panel)c).AutoSize = true;
             }
-             
-            
+
+
         }
 
     }

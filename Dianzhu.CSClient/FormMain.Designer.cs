@@ -32,6 +32,7 @@
             this.pnlCustomerList = new System.Windows.Forms.FlowLayoutPanel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             this.tbxChatLog = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tbxChatMsg = new System.Windows.Forms.TextBox();
@@ -45,7 +46,6 @@
             this.btnSearchOut = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.tbxKeywords = new System.Windows.Forms.TextBox();
-            this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -123,6 +123,19 @@
             this.splitContainer3.Size = new System.Drawing.Size(624, 382);
             this.splitContainer3.SplitterDistance = 278;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // pnlChat
+            // 
+            this.pnlChat.AutoScroll = true;
+            this.pnlChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlChat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlChat.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.pnlChat.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.pnlChat.Location = new System.Drawing.Point(0, 0);
+            this.pnlChat.Name = "pnlChat";
+            this.pnlChat.Size = new System.Drawing.Size(276, 357);
+            this.pnlChat.TabIndex = 3;
+            this.pnlChat.WrapContents = false;
             // 
             // tbxChatLog
             // 
@@ -249,19 +262,6 @@
             this.tbxKeywords.Name = "tbxKeywords";
             this.tbxKeywords.Size = new System.Drawing.Size(222, 39);
             this.tbxKeywords.TabIndex = 0;
-            // 
-            // pnlChat
-            // 
-            this.pnlChat.AutoScroll = true;
-            this.pnlChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlChat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlChat.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnlChat.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.pnlChat.Location = new System.Drawing.Point(0, 0);
-            this.pnlChat.Name = "pnlChat";
-            this.pnlChat.Size = new System.Drawing.Size(276, 357);
-            this.pnlChat.TabIndex = 3;
-            this.pnlChat.WrapContents = false;
             // 
             // FormMain
             // 

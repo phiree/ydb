@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using agsXMPP;
 using System.Configuration;
+using Dianzhu.Model;
 namespace Dianzhu.CSClient
 {
     
@@ -21,7 +22,7 @@ namespace Dianzhu.CSClient
         /// <summary>
         /// 当前登录的客服
         /// </summary>
-        public static Model.DZMembership CurrentCustomerService = null;
+        public static DZMembership CurrentCustomerService = null;
        
     }
 }

@@ -62,8 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLFactory.cs" />
-    <Compile Include="dzEnums.cs" />
-    <Compile Include="FormController.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,29 +69,18 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalViables.cs" />
-    <Compile Include="fmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="fmMain.Designer.cs">
-      <DependentUpon>fmMain.cs</DependentUpon>
-    </Compile>
     <Compile Include="fmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>fmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="IView.cs" />
     <Compile Include="MessagePaser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringHelper.cs" />
     <Compile Include="XMPPConnection.cs" />
     <EmbeddedResource Include="fmLogin.resx">
       <DependentUpon>fmLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fmMain.resx">
-      <DependentUpon>fmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
@@ -133,6 +120,18 @@
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
       <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
       <Name>Dianzhu.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IVew.csproj">
+      <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
+      <Name>Dianzhu.CSClient.IVew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.Model\Dianzhu.CSClient.Model.csproj">
+      <Project>{7B1E5E52-D326-48DE-A3B4-9815B1421479}</Project>
+      <Name>Dianzhu.CSClient.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj">
+      <Project>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</Project>
+      <Name>Dianzhu.CSClient.Presenter</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
