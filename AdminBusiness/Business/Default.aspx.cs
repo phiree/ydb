@@ -41,7 +41,18 @@ public partial class Business_Default : BasePage
         }
         Business b = new Business();
         b.Name = tbxName.Value;
+        
         b.Owner = CurrentUser;
+        if (tbxWebSite.Value.Contains("@"))
+        {
+            b.Email = tbxWebSite.Value;
+        }
+        else
+        {
+            b.WebSite = tbxWebSite.Value;
+        }
+        b.Phone = tbxContactPhone.Value;
+        
         b.Description = tbxDescription.Value;
         bllBusiness.SaveOrUpdate(b);
 
