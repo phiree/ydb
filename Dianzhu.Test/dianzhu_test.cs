@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace Dianzhu.Test
 {
     [TestFixture]
-public     class dianzhu_test
+public     class form
     {
         /// <summary>
         /// 测试 Take<> 方法 是否会clone对象.

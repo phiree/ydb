@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Dianzhu.CSClient
+namespace Dianzhu.CSClient.Presenter
 {
     public class StringHelper
     {

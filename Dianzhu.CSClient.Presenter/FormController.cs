@@ -4,29 +4,32 @@ using System.Linq;
 using System.Text;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-namespace Dianzhu.CSClient
+using Dianzhu.CSClient.IVew;
+ 
+namespace Dianzhu.CSClient.Presenter
 {
     public class FormController
     {
-        IView view;
+        IVew.MainFormView view;
         DZMembershipProvider bllMember;
         BLLDZService bllService;
         BLLReception bllReception;
-        #region local variables
-        private static List<DZMembership> CustomerList = new List<DZMembership>();
-        //接待列表
-        private static Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();
-        private static DZMembership CurrentCustomer;
-        private static Dictionary<string, IList<DZService>> SearchResultForCustomer = new Dictionary<string, IList<DZService>>();
+        #region state 
+        DZMembership customerService; //当前客户
+        DZMembership customer; //客服
+        List<DZMembership> customerList = new List<DZMembership>(); // 客户列表
+        Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();//接待列表
+        Dictionary<string, IList<DZService>> SearchResultForCustomer = new Dictionary<string, IList<DZService>>();//搜索列表
         #endregion
-        
-        public FormController(IView view, DZMembershipProvider bllMember, BLLReception bllReception,
-            BLLDZService bllService)
+        public FormController(IVew.MainFormView view, DZMembershipProvider bllMember, BLLReception bllReception,
+            BLLDZService bllService,DZMembership customerService )
         {
             this.view = view;
             this.bllMember = bllMember;
             this.bllReception = bllReception;
             this.bllService = bllService;
+            this.customerService = customerService;
+            
         }
 
         
@@ -49,7 +52,7 @@ namespace Dianzhu.CSClient
         public void OnPresent(int presentType, string customerName)
         {
             string userName = StringHelper.EnsureNormalUserName(customerName);
-            bool isInList = CustomerList.Any(x => x.UserName == userName);
+            bool isInList = customerList.Any(x => x.UserName == userName);
             switch (presentType)
             {
                 case -1:
@@ -86,25 +89,30 @@ namespace Dianzhu.CSClient
         private void AddCustomer(string customerName)
         {
             DZMembership newCustomer = bllMember.GetUserByName(customerName);
-            CustomerList.Add(newCustomer);
+            customerList.Add(newCustomer);
         }
+        /// <summary>
+        /// 激活一个用户
+        /// </summary>
+        /// <param name="buttonText"></param>
         public void ActiveCustomer(string buttonText)
         {
             LoadChatHistory(buttonText);
             view.SetCustomerButtonStyle(buttonText, em_ButtonStyle.Actived);
             view.CurrentCustomerName = buttonText;
-            CurrentCustomer = CustomerList.Single(x => x.UserName == buttonText);
+            customer = customerList.Single(x => x.UserName == buttonText);
             //设置当前激活的用户
             if (SearchResultForCustomer.ContainsKey(buttonText))
             {
-                view.LoadSearchHistory(SearchResultForCustomer[buttonText]);
+                view.SearchedService= SearchResultForCustomer[buttonText];
+                
             }
         }
 
         public void SendMessage(string message, string customerName)
         {
             //保存消息
-            if (CurrentCustomer == null) return;
+            if (customer == null) return;
           ReceptionChat chat=  SaveMessage(message, customerName, true,string.Empty);
           view.LoadOneChat(chat);
             //
@@ -120,7 +128,7 @@ namespace Dianzhu.CSClient
 #region 保存聊天消息
             
             bool isIn = ReceptionList.ContainsKey(customerName);
-            DZMembership customer = CustomerList.Single(x => x.UserName == customerName);
+            DZMembership customer = customerList.Single(x => x.UserName == customerName);
             ReceptionBase re;
             
             if (isIn)
@@ -132,7 +140,7 @@ namespace Dianzhu.CSClient
                 re = new ReceptionBase
                 {
                     Sender = customer,
-                    Receiver = GlobalViables.CurrentCustomerService,
+                    Receiver = customerService,
                     TimeBegin = DateTime.Now,
                    
                 };
@@ -150,13 +158,13 @@ namespace Dianzhu.CSClient
                 if (isSend)
                 {
                     chat.SendTime = now;
-                    chat.From = GlobalViables.CurrentCustomerService;
+                    chat.From = customerService;
                     chat.To = customer;
                 }
                 else
                 {
                     chat.ReceiveTime = now;
-                    chat.To = GlobalViables.CurrentCustomerService;
+                    chat.To = customerService;
                     chat.From = customer;
                 }
                 re.ChatHistory.Add(chat);
@@ -173,10 +181,10 @@ namespace Dianzhu.CSClient
             bool isContain = ReceptionList.ContainsKey(customerName);
 
             var chatHistory = bllReception.GetHistoryReceptionChat(
-                CustomerList.Single(x => x.UserName == customerName),
-                GlobalViables.CurrentCustomerService, 10);
+                customerList.Single(x => x.UserName == customerName),
+                customerService, 10);
 
-            view.ChatHistory = chatHistory;
+            view.ChatLog = chatHistory;
         }
         /// <summary>
         /// 格式化一条聊天信息
@@ -202,7 +210,7 @@ namespace Dianzhu.CSClient
         { 
             //保存聊天记录, 改变view的button,聊天窗口增加一条消息
            
-           if (!CustomerList.Any(x => x.UserName == customerName))
+           if (!customerList.Any(x => x.UserName == customerName))
            {
                AddCustomer(customerName);
                view.AddCustomerButtonWithStyle(customerName, em_ButtonStyle.Unread);
@@ -210,14 +218,14 @@ namespace Dianzhu.CSClient
 
            else
            {
-               if (CurrentCustomer == null || CurrentCustomer.UserName != customerName)
+               if (customer == null || customer.UserName != customerName)
                {
                    view.SetCustomerButtonStyle(customerName, em_ButtonStyle.Unread);
                }
            }
 
            ReceptionChat chat = SaveMessage(message, customerName, false,mediaUrl);
-           if (CurrentCustomer != null && customerName == CurrentCustomer.UserName)
+           if (customer != null && customerName == customer.UserName)
            {
                view.LoadOneChat(chat);
            }
@@ -235,8 +243,9 @@ namespace Dianzhu.CSClient
         {
             int total;
             var serviceList = bllService.Search(view.SerachKeyword, 0, 10, out total);
-            view.LoadSearchHistory(serviceList);
-            string pushServiceKey=CurrentCustomer==null?"dianzhucs":CurrentCustomer.UserName;
+            view.SearchedService=serviceList;
+           
+            string pushServiceKey = customer == null ? "dianzhucs" : customer.UserName;
             if (SearchResultForCustomer.ContainsKey(pushServiceKey))
             {
                 SearchResultForCustomer[pushServiceKey]=serviceList;

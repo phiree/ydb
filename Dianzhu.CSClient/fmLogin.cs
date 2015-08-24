@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using agsXMPP;
+using Dianzhu.Model;
 using agsXMPP.protocol.client;
 using System.Text.RegularExpressions;
+using Dianzhu.CSClient.Presenter;
 namespace Dianzhu.CSClient
 {
     public partial class fmLogin : Form
@@ -99,7 +101,7 @@ namespace Dianzhu.CSClient
             }
             //保存当前用户
             BLL.DZMembershipProvider bllMembership = new BLL.DZMembershipProvider();
-            Model.DZMembership customerService = BLLFactory.BLLMembership.GetUserByName(tbxUserName.Text);
+            DZMembership customerService = BLLFactory.BLLMembership.GetUserByName(tbxUserName.Text);
             GlobalViables.CurrentCustomerService = customerService;
             this.DialogResult = DialogResult.OK;
             
