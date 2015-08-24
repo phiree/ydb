@@ -1,19 +1,19 @@
 /**
- * ÉùÃ÷baidu°ü
+ * å£°æ˜baiduåŒ…
  */
 var baidu = baidu || {guid : "$BAIDU$"};
 (function() {
-    // Ò»Ğ©Ò³Ãæ¼¶±ğÎ¨Ò»µÄÊôĞÔ£¬ĞèÒª¹ÒÔØÔÚwindow[baidu.guid]ÉÏ
+    // ä¸€äº›é¡µé¢çº§åˆ«å”¯ä¸€çš„å±æ€§ï¼Œéœ€è¦æŒ‚è½½åœ¨window[baidu.guid]ä¸Š
     window[baidu.guid] = {};
 
     /**
-     * ½«Ô´¶ÔÏóµÄËùÓĞÊôĞÔ¿½±´µ½Ä¿±ê¶ÔÏóÖĞ
+     * å°†æºå¯¹è±¡çš„æ‰€æœ‰å±æ€§æ‹·è´åˆ°ç›®æ ‡å¯¹è±¡ä¸­
      * @name baidu.extend
      * @function
      * @grammar baidu.extend(target, source)
-     * @param {Object} target Ä¿±ê¶ÔÏó
-     * @param {Object} source Ô´¶ÔÏó
-     * @returns {Object} Ä¿±ê¶ÔÏó
+     * @param {Object} target ç›®æ ‡å¯¹è±¡
+     * @param {Object} source æºå¯¹è±¡
+     * @returns {Object} ç›®æ ‡å¯¹è±¡
      */
     baidu.extend = function (target, source) {
         for (var p in source) {
@@ -27,16 +27,16 @@ var baidu = baidu || {guid : "$BAIDU$"};
     /**
      * @ignore
      * @namespace
-     * @baidu.lang ¶ÔÓïÑÔ²ãÃæµÄ·â×°£¬°üÀ¨ÀàĞÍÅĞ¶Ï¡¢Ä£¿éÀ©Õ¹¡¢¼Ì³Ğ»ùÀàÒÔ¼°¶ÔÏó×Ô¶¨ÒåÊÂ¼şµÄÖ§³Ö¡£
-     * @property guid ¶ÔÏóµÄÎ¨Ò»±êÊ¶
+     * @baidu.lang å¯¹è¯­è¨€å±‚é¢çš„å°è£…ï¼ŒåŒ…æ‹¬ç±»å‹åˆ¤æ–­ã€æ¨¡å—æ‰©å±•ã€ç»§æ‰¿åŸºç±»ä»¥åŠå¯¹è±¡è‡ªå®šä¹‰äº‹ä»¶çš„æ”¯æŒã€‚
+     * @property guid å¯¹è±¡çš„å”¯ä¸€æ ‡è¯†
      */
     baidu.lang = baidu.lang || {};
 
     /**
-     * ·µ»ØÒ»¸öµ±Ç°Ò³ÃæµÄÎ¨Ò»±êÊ¶×Ö·û´®¡£
+     * è¿”å›ä¸€ä¸ªå½“å‰é¡µé¢çš„å”¯ä¸€æ ‡è¯†å­—ç¬¦ä¸²ã€‚
      * @function
      * @grammar baidu.lang.guid()
-     * @returns {String} µ±Ç°Ò³ÃæµÄÎ¨Ò»±êÊ¶×Ö·û´®
+     * @returns {String} å½“å‰é¡µé¢çš„å”¯ä¸€æ ‡è¯†å­—ç¬¦ä¸²
      */
     baidu.lang.guid = function() {
         return "TANGRAM__" + (window[baidu.guid]._counter ++).toString(36);
@@ -45,21 +45,21 @@ var baidu = baidu || {guid : "$BAIDU$"};
     window[baidu.guid]._counter = window[baidu.guid]._counter || 1;
 
     /**
-     * ËùÓĞÀàµÄÊµÀıµÄÈİÆ÷
-     * keyÎªÃ¿¸öÊµÀıµÄguid
+     * æ‰€æœ‰ç±»çš„å®ä¾‹çš„å®¹å™¨
+     * keyä¸ºæ¯ä¸ªå®ä¾‹çš„guid
      */
     window[baidu.guid]._instances = window[baidu.guid]._instances || {};
 
     /**
-     * Tangram¼Ì³Ğ»úÖÆÌá¹©µÄÒ»¸ö»ùÀà£¬ÓÃ»§¿ÉÒÔÍ¨¹ı¼Ì³Ğbaidu.lang.ClassÀ´»ñÈ¡ËüµÄÊôĞÔ¼°·½·¨¡£
+     * Tangramç»§æ‰¿æœºåˆ¶æä¾›çš„ä¸€ä¸ªåŸºç±»ï¼Œç”¨æˆ·å¯ä»¥é€šè¿‡ç»§æ‰¿baidu.lang.Classæ¥è·å–å®ƒçš„å±æ€§åŠæ–¹æ³•ã€‚
      * @function
      * @name baidu.lang.Class
      * @grammar baidu.lang.Class(guid)
-     * @param {string} guid ¶ÔÏóµÄÎ¨Ò»±êÊ¶
+     * @param {string} guid å¯¹è±¡çš„å”¯ä¸€æ ‡è¯†
      * @meta standard
-     * @remark baidu.lang.ClassºÍËüµÄ×ÓÀàµÄÊµÀı¾ù°üº¬Ò»¸öÈ«¾ÖÎ¨Ò»µÄ±êÊ¶guid¡£
-     * guidÊÇÔÚ¹¹Ôìº¯ÊıÖĞÉú³ÉµÄ£¬Òò´Ë£¬¼Ì³Ğ×Ôbaidu.lang.ClassµÄÀàÓ¦¸ÃÖ±½Ó»òÕß¼ä½Óµ÷ÓÃËüµÄ¹¹Ôìº¯Êı¡£<br>
-     * baidu.lang.ClassµÄ¹¹Ôìº¯ÊıÖĞ²úÉúguidµÄ·½Ê½¿ÉÒÔ±£Ö¤guidµÄÎ¨Ò»ĞÔ£¬¼°Ã¿¸öÊµÀı¶¼ÓĞÒ»¸öÈ«¾ÖÎ¨Ò»µÄguid¡£
+     * @remark baidu.lang.Classå’Œå®ƒçš„å­ç±»çš„å®ä¾‹å‡åŒ…å«ä¸€ä¸ªå…¨å±€å”¯ä¸€çš„æ ‡è¯†guidã€‚
+     * guidæ˜¯åœ¨æ„é€ å‡½æ•°ä¸­ç”Ÿæˆçš„ï¼Œå› æ­¤ï¼Œç»§æ‰¿è‡ªbaidu.lang.Classçš„ç±»åº”è¯¥ç›´æ¥æˆ–è€…é—´æ¥è°ƒç”¨å®ƒçš„æ„é€ å‡½æ•°ã€‚<br>
+     * baidu.lang.Classçš„æ„é€ å‡½æ•°ä¸­äº§ç”Ÿguidçš„æ–¹å¼å¯ä»¥ä¿è¯guidçš„å”¯ä¸€æ€§ï¼ŒåŠæ¯ä¸ªå®ä¾‹éƒ½æœ‰ä¸€ä¸ªå…¨å±€å”¯ä¸€çš„guidã€‚
      */
     baidu.lang.Class = function(guid) {
         this.guid = guid || baidu.lang.guid();
@@ -69,42 +69,42 @@ var baidu = baidu || {guid : "$BAIDU$"};
     window[baidu.guid]._instances = window[baidu.guid]._instances || {};
 
     /**
-     * ÅĞ¶ÏÄ¿±ê²ÎÊıÊÇ·ñstringÀàĞÍ»òString¶ÔÏó
+     * åˆ¤æ–­ç›®æ ‡å‚æ•°æ˜¯å¦stringç±»å‹æˆ–Stringå¯¹è±¡
      * @name baidu.lang.isString
      * @function
      * @grammar baidu.lang.isString(source)
-     * @param {Any} source Ä¿±ê²ÎÊı
+     * @param {Any} source ç›®æ ‡å‚æ•°
      * @shortcut isString
      * @meta standard
      *
-     * @returns {boolean} ÀàĞÍÅĞ¶Ï½á¹û
+     * @returns {boolean} ç±»å‹åˆ¤æ–­ç»“æœ
      */
     baidu.lang.isString = function (source) {
         return '[object String]' == Object.prototype.toString.call(source);
     };
 
     /**
-     * ÅĞ¶ÏÄ¿±ê²ÎÊıÊÇ·ñÎªfunction»òFunctionÊµÀı
+     * åˆ¤æ–­ç›®æ ‡å‚æ•°æ˜¯å¦ä¸ºfunctionæˆ–Functionå®ä¾‹
      * @name baidu.lang.isFunction
      * @function
      * @grammar baidu.lang.isFunction(source)
-     * @param {Any} source Ä¿±ê²ÎÊı
-     * @returns {boolean} ÀàĞÍÅĞ¶Ï½á¹û
+     * @param {Any} source ç›®æ ‡å‚æ•°
+     * @returns {boolean} ç±»å‹åˆ¤æ–­ç»“æœ
      */
     baidu.lang.isFunction = function (source) {
         return '[object Function]' == Object.prototype.toString.call(source);
     };
 
     /**
-     * ÖØÔØÁËÄ¬ÈÏµÄtoString·½·¨£¬Ê¹µÃ·µ»ØĞÅÏ¢¸ü¼Ó×¼È·Ò»Ğ©¡£
-     * @return {string} ¶ÔÏóµÄString±íÊ¾ĞÎÊ½
+     * é‡è½½äº†é»˜è®¤çš„toStringæ–¹æ³•ï¼Œä½¿å¾—è¿”å›ä¿¡æ¯æ›´åŠ å‡†ç¡®ä¸€äº›ã€‚
+     * @return {string} å¯¹è±¡çš„Stringè¡¨ç¤ºå½¢å¼
      */
     baidu.lang.Class.prototype.toString = function(){
         return "[object " + (this._className || "Object" ) + "]";
     };
 
     /**
-     * ÊÍ·Å¶ÔÏóËù³ÖÓĞµÄ×ÊÔ´£¬Ö÷ÒªÊÇ×Ô¶¨ÒåÊÂ¼ş¡£
+     * é‡Šæ”¾å¯¹è±¡æ‰€æŒæœ‰çš„èµ„æºï¼Œä¸»è¦æ˜¯è‡ªå®šä¹‰äº‹ä»¶ã€‚
      * @name dispose
      * @grammar obj.dispose()
      */
@@ -119,14 +119,14 @@ var baidu = baidu || {guid : "$BAIDU$"};
     };
 
     /**
-     * ×Ô¶¨ÒåµÄÊÂ¼ş¶ÔÏó¡£
+     * è‡ªå®šä¹‰çš„äº‹ä»¶å¯¹è±¡ã€‚
      * @function
      * @name baidu.lang.Event
      * @grammar baidu.lang.Event(type[, target])
-     * @param {string} type  ÊÂ¼şÀàĞÍÃû³Æ¡£ÎªÁË·½±ãÇø·ÖÊÂ¼şºÍÒ»¸öÆÕÍ¨µÄ·½·¨£¬ÊÂ¼şÀàĞÍÃû³Æ±ØĞëÒÔ"on"(Ğ¡Ğ´)¿ªÍ·¡£
-     * @param {Object} [target]´¥·¢ÊÂ¼şµÄ¶ÔÏó
+     * @param {string} type  äº‹ä»¶ç±»å‹åç§°ã€‚ä¸ºäº†æ–¹ä¾¿åŒºåˆ†äº‹ä»¶å’Œä¸€ä¸ªæ™®é€šçš„æ–¹æ³•ï¼Œäº‹ä»¶ç±»å‹åç§°å¿…é¡»ä»¥"on"(å°å†™)å¼€å¤´ã€‚
+     * @param {Object} [target]è§¦å‘äº‹ä»¶çš„å¯¹è±¡
      * @meta standard
-     * @remark ÒıÈë¸ÃÄ£¿é£¬»á×Ô¶¯ÎªClassÒıÈë3¸öÊÂ¼şÀ©Õ¹·½·¨£ºaddEventListener¡¢removeEventListenerºÍdispatchEvent¡£
+     * @remark å¼•å…¥è¯¥æ¨¡å—ï¼Œä¼šè‡ªåŠ¨ä¸ºClasså¼•å…¥3ä¸ªäº‹ä»¶æ‰©å±•æ–¹æ³•ï¼šaddEventListenerã€removeEventListenerå’ŒdispatchEventã€‚
      * @see baidu.lang.Class
      */
     baidu.lang.Event = function (type, target) {
@@ -137,12 +137,12 @@ var baidu = baidu || {guid : "$BAIDU$"};
     };
 
     /**
-     * ×¢²á¶ÔÏóµÄÊÂ¼ş¼àÌıÆ÷¡£ÒıÈëbaidu.lang.Eventºó£¬ClassµÄ×ÓÀàÊµÀı²Å»á»ñµÃ¸Ã·½·¨¡£
+     * æ³¨å†Œå¯¹è±¡çš„äº‹ä»¶ç›‘å¬å™¨ã€‚å¼•å…¥baidu.lang.Eventåï¼ŒClassçš„å­ç±»å®ä¾‹æ‰ä¼šè·å¾—è¯¥æ–¹æ³•ã€‚
      * @grammar obj.addEventListener(type, handler[, key])
-     * @param   {string}   type         ×Ô¶¨ÒåÊÂ¼şµÄÃû³Æ
-     * @param   {Function} handler      ×Ô¶¨ÒåÊÂ¼ş±»´¥·¢Ê±Ó¦¸Ãµ÷ÓÃµÄ»Øµ÷º¯Êı
-     * @param   {string}   [key]        ÎªÊÂ¼ş¼àÌıº¯ÊıÖ¸¶¨µÄÃû³Æ£¬¿ÉÔÚÒÆ³ıÊ±Ê¹ÓÃ¡£Èç¹û²»Ìá¹©£¬·½·¨»áÄ¬ÈÏÎªËüÉú³ÉÒ»¸öÈ«¾ÖÎ¨Ò»µÄkey¡£
-     * @remark  ÊÂ¼şÀàĞÍÇø·Ö´óĞ¡Ğ´¡£Èç¹û×Ô¶¨ÒåÊÂ¼şÃû³Æ²»ÊÇÒÔĞ¡Ğ´"on"¿ªÍ·£¬¸Ã·½·¨»á¸øËü¼ÓÉÏ"on"ÔÙ½øĞĞÅĞ¶Ï£¬¼´"click"ºÍ"onclick"»á±»ÈÏÎªÊÇÍ¬Ò»ÖÖÊÂ¼ş¡£
+     * @param   {string}   type         è‡ªå®šä¹‰äº‹ä»¶çš„åç§°
+     * @param   {Function} handler      è‡ªå®šä¹‰äº‹ä»¶è¢«è§¦å‘æ—¶åº”è¯¥è°ƒç”¨çš„å›è°ƒå‡½æ•°
+     * @param   {string}   [key]        ä¸ºäº‹ä»¶ç›‘å¬å‡½æ•°æŒ‡å®šçš„åç§°ï¼Œå¯åœ¨ç§»é™¤æ—¶ä½¿ç”¨ã€‚å¦‚æœä¸æä¾›ï¼Œæ–¹æ³•ä¼šé»˜è®¤ä¸ºå®ƒç”Ÿæˆä¸€ä¸ªå…¨å±€å”¯ä¸€çš„keyã€‚
+     * @remark  äº‹ä»¶ç±»å‹åŒºåˆ†å¤§å°å†™ã€‚å¦‚æœè‡ªå®šä¹‰äº‹ä»¶åç§°ä¸æ˜¯ä»¥å°å†™"on"å¼€å¤´ï¼Œè¯¥æ–¹æ³•ä¼šç»™å®ƒåŠ ä¸Š"on"å†è¿›è¡Œåˆ¤æ–­ï¼Œå³"click"å’Œ"onclick"ä¼šè¢«è®¤ä¸ºæ˜¯åŒä¸€ç§äº‹ä»¶ã€‚
      */
     baidu.lang.Class.prototype.addEventListener = function (type, handler, key) {
         if (!baidu.lang.isFunction(handler)) {
@@ -166,11 +166,11 @@ var baidu = baidu || {guid : "$BAIDU$"};
     };
 
     /**
-     * ÒÆ³ı¶ÔÏóµÄÊÂ¼ş¼àÌıÆ÷¡£ÒıÈëbaidu.lang.Eventºó£¬ClassµÄ×ÓÀàÊµÀı²Å»á»ñµÃ¸Ã·½·¨¡£
+     * ç§»é™¤å¯¹è±¡çš„äº‹ä»¶ç›‘å¬å™¨ã€‚å¼•å…¥baidu.lang.Eventåï¼ŒClassçš„å­ç±»å®ä¾‹æ‰ä¼šè·å¾—è¯¥æ–¹æ³•ã€‚
      * @grammar obj.removeEventListener(type, handler)
-     * @param {string}   type     ÊÂ¼şÀàĞÍ
-     * @param {Function|string} handler  ÒªÒÆ³ıµÄÊÂ¼ş¼àÌıº¯Êı»òÕß¼àÌıº¯ÊıµÄkey
-     * @remark  Èç¹ûµÚ¶ş¸ö²ÎÊıhandlerÃ»ÓĞ±»°ó¶¨µ½¶ÔÓ¦µÄ×Ô¶¨ÒåÊÂ¼şÖĞ£¬Ê²Ã´Ò²²»×ö¡£
+     * @param {string}   type     äº‹ä»¶ç±»å‹
+     * @param {Function|string} handler  è¦ç§»é™¤çš„äº‹ä»¶ç›‘å¬å‡½æ•°æˆ–è€…ç›‘å¬å‡½æ•°çš„key
+     * @remark  å¦‚æœç¬¬äºŒä¸ªå‚æ•°handleræ²¡æœ‰è¢«ç»‘å®šåˆ°å¯¹åº”çš„è‡ªå®šä¹‰äº‹ä»¶ä¸­ï¼Œä»€ä¹ˆä¹Ÿä¸åšã€‚
      */
     baidu.lang.Class.prototype.removeEventListener = function (type, handler) {
         if (baidu.lang.isFunction(handler)) {
@@ -188,12 +188,12 @@ var baidu = baidu || {guid : "$BAIDU$"};
     };
 
     /**
-     * ÅÉ·¢×Ô¶¨ÒåÊÂ¼ş£¬Ê¹µÃ°ó¶¨µ½×Ô¶¨ÒåÊÂ¼şÉÏÃæµÄº¯Êı¶¼»á±»Ö´ĞĞ¡£ÒıÈëbaidu.lang.Eventºó£¬ClassµÄ×ÓÀàÊµÀı²Å»á»ñµÃ¸Ã·½·¨¡£
+     * æ´¾å‘è‡ªå®šä¹‰äº‹ä»¶ï¼Œä½¿å¾—ç»‘å®šåˆ°è‡ªå®šä¹‰äº‹ä»¶ä¸Šé¢çš„å‡½æ•°éƒ½ä¼šè¢«æ‰§è¡Œã€‚å¼•å…¥baidu.lang.Eventåï¼ŒClassçš„å­ç±»å®ä¾‹æ‰ä¼šè·å¾—è¯¥æ–¹æ³•ã€‚
      * @grammar obj.dispatchEvent(event, options)
-     * @param {baidu.lang.Event|String} event   Event¶ÔÏó£¬»òÊÂ¼şÃû³Æ(1.1.1ÆğÖ§³Ö)
-     * @param {Object} options À©Õ¹²ÎÊı,Ëùº¬ÊôĞÔ¼üÖµ»áÀ©Õ¹µ½Event¶ÔÏóÉÏ(1.2ÆğÖ§³Ö)
-     * @remark ´¦Àí»áµ÷ÓÃÍ¨¹ıaddEventListenr°ó¶¨µÄ×Ô¶¨ÒåÊÂ¼ş»Øµ÷º¯ÊıÖ®Íâ£¬»¹»áµ÷ÓÃÖ±½Ó°ó¶¨µ½¶ÔÏóÉÏÃæµÄ×Ô¶¨ÒåÊÂ¼ş¡£
-     * ÀıÈç£º<br>
+     * @param {baidu.lang.Event|String} event   Eventå¯¹è±¡ï¼Œæˆ–äº‹ä»¶åç§°(1.1.1èµ·æ”¯æŒ)
+     * @param {Object} options æ‰©å±•å‚æ•°,æ‰€å«å±æ€§é”®å€¼ä¼šæ‰©å±•åˆ°Eventå¯¹è±¡ä¸Š(1.2èµ·æ”¯æŒ)
+     * @remark å¤„ç†ä¼šè°ƒç”¨é€šè¿‡addEventListenrç»‘å®šçš„è‡ªå®šä¹‰äº‹ä»¶å›è°ƒå‡½æ•°ä¹‹å¤–ï¼Œè¿˜ä¼šè°ƒç”¨ç›´æ¥ç»‘å®šåˆ°å¯¹è±¡ä¸Šé¢çš„è‡ªå®šä¹‰äº‹ä»¶ã€‚
+     * ä¾‹å¦‚ï¼š<br>
      * myobj.onMyEvent = function(){}<br>
      * myobj.addEventListener("onMyEvent", function(){});
      */
@@ -220,17 +220,17 @@ var baidu = baidu || {guid : "$BAIDU$"};
     };
 
     /**
-     * ÎªÀàĞÍ¹¹ÔìÆ÷½¨Á¢¼Ì³Ğ¹ØÏµ
+     * ä¸ºç±»å‹æ„é€ å™¨å»ºç«‹ç»§æ‰¿å…³ç³»
      * @name baidu.lang.inherits
      * @function
      * @grammar baidu.lang.inherits(subClass, superClass[, className])
-     * @param {Function} subClass ×ÓÀà¹¹ÔìÆ÷
-     * @param {Function} superClass ¸¸Àà¹¹ÔìÆ÷
-     * @param {string} className ÀàÃû±êÊ¶
-     * @remark Ê¹subClass¼Ì³ĞsuperClassµÄprototype£¬
-     * Òò´ËsubClassµÄÊµÀıÄÜ¹»Ê¹ÓÃsuperClassµÄprototypeÖĞ¶¨ÒåµÄËùÓĞÊôĞÔºÍ·½·¨¡£<br>
-     * Õâ¸öº¯ÊıÊµ¼ÊÉÏÊÇ½¨Á¢ÁËsubClassºÍsuperClassµÄÔ­ĞÍÁ´¼¯³É£¬²¢¶ÔsubClass½øĞĞÁËconstructorĞŞÕı¡£<br>
-     * <strong>×¢Òâ£ºÈç¹ûÒª¼Ì³Ğ¹¹Ôìº¯Êı£¬ĞèÒªÔÚsubClassÀïÃæcallÒ»ÏÂ£¬¾ßÌå¼ûÏÂÃæµÄdemoÀı×Ó</strong>
+     * @param {Function} subClass å­ç±»æ„é€ å™¨
+     * @param {Function} superClass çˆ¶ç±»æ„é€ å™¨
+     * @param {string} className ç±»åæ ‡è¯†
+     * @remark ä½¿subClassç»§æ‰¿superClassçš„prototypeï¼Œ
+     * å› æ­¤subClassçš„å®ä¾‹èƒ½å¤Ÿä½¿ç”¨superClassçš„prototypeä¸­å®šä¹‰çš„æ‰€æœ‰å±æ€§å’Œæ–¹æ³•ã€‚<br>
+     * è¿™ä¸ªå‡½æ•°å®é™…ä¸Šæ˜¯å»ºç«‹äº†subClasså’ŒsuperClassçš„åŸå‹é“¾é›†æˆï¼Œå¹¶å¯¹subClassè¿›è¡Œäº†constructorä¿®æ­£ã€‚<br>
+     * <strong>æ³¨æ„ï¼šå¦‚æœè¦ç»§æ‰¿æ„é€ å‡½æ•°ï¼Œéœ€è¦åœ¨subClassé‡Œé¢callä¸€ä¸‹ï¼Œå…·ä½“è§ä¸‹é¢çš„demoä¾‹å­</strong>
      * @shortcut inherits
      * @meta standard
      * @see baidu.lang.Class
@@ -254,16 +254,16 @@ var baidu = baidu || {guid : "$BAIDU$"};
 
     /**
      * @ignore
-     * @namespace baidu.dom ²Ù×÷domµÄ·½·¨¡£
+     * @namespace baidu.dom æ“ä½œdomçš„æ–¹æ³•ã€‚
      */
     baidu.dom = baidu.dom || {};
 
     /**
-     * ´ÓÎÄµµÖĞ»ñÈ¡Ö¸¶¨µÄDOMÔªËØ
+     * ä»æ–‡æ¡£ä¸­è·å–æŒ‡å®šçš„DOMå…ƒç´ 
      *
-     * @param {string|HTMLElement} id ÔªËØµÄid»òDOMÔªËØ
+     * @param {string|HTMLElement} id å…ƒç´ çš„idæˆ–DOMå…ƒç´ 
      * @meta standard
-     * @return {HTMLElement} DOMÔªËØ£¬Èç¹û²»´æÔÚ£¬·µ»Ønull£¬Èç¹û²ÎÊı²»ºÏ·¨£¬Ö±½Ó·µ»Ø²ÎÊı
+     * @return {HTMLElement} DOMå…ƒç´ ï¼Œå¦‚æœä¸å­˜åœ¨ï¼Œè¿”å›nullï¼Œå¦‚æœå‚æ•°ä¸åˆæ³•ï¼Œç›´æ¥è¿”å›å‚æ•°
      */
     baidu._g = baidu.dom._g = function (id) {
         if (baidu.lang.isString(id)) {
@@ -273,14 +273,14 @@ var baidu = baidu || {guid : "$BAIDU$"};
     };
 
     /**
-     * ´ÓÎÄµµÖĞ»ñÈ¡Ö¸¶¨µÄDOMÔªËØ
+     * ä»æ–‡æ¡£ä¸­è·å–æŒ‡å®šçš„DOMå…ƒç´ 
      * @name baidu.dom.g
      * @function
      * @grammar baidu.dom.g(id)
-     * @param {string|HTMLElement} id ÔªËØµÄid»òDOMÔªËØ
+     * @param {string|HTMLElement} id å…ƒç´ çš„idæˆ–DOMå…ƒç´ 
      * @meta standard
      *
-     * @returns {HTMLElement|null} »ñÈ¡µÄÔªËØ£¬²éÕÒ²»µ½Ê±·µ»Ønull,Èç¹û²ÎÊı²»ºÏ·¨£¬Ö±½Ó·µ»Ø²ÎÊı
+     * @returns {HTMLElement|null} è·å–çš„å…ƒç´ ï¼ŒæŸ¥æ‰¾ä¸åˆ°æ—¶è¿”å›null,å¦‚æœå‚æ•°ä¸åˆæ³•ï¼Œç›´æ¥è¿”å›å‚æ•°
      */
     baidu.g = baidu.dom.g = function (id) {
         if ('string' == typeof id || id instanceof String) {
@@ -292,23 +292,23 @@ var baidu = baidu || {guid : "$BAIDU$"};
     };
 
     /**
-     * ÔÚÄ¿±êÔªËØµÄÖ¸¶¨Î»ÖÃ²åÈëHTML´úÂë
+     * åœ¨ç›®æ ‡å…ƒç´ çš„æŒ‡å®šä½ç½®æ’å…¥HTMLä»£ç 
      * @name baidu.dom.insertHTML
      * @function
      * @grammar baidu.dom.insertHTML(element, position, html)
-     * @param {HTMLElement|string} element Ä¿±êÔªËØ»òÄ¿±êÔªËØµÄid
-     * @param {string} position ²åÈëhtmlµÄÎ»ÖÃĞÅÏ¢£¬È¡ÖµÎªbeforeBegin,afterBegin,beforeEnd,afterEnd
-     * @param {string} html Òª²åÈëµÄhtml
+     * @param {HTMLElement|string} element ç›®æ ‡å…ƒç´ æˆ–ç›®æ ‡å…ƒç´ çš„id
+     * @param {string} position æ’å…¥htmlçš„ä½ç½®ä¿¡æ¯ï¼Œå–å€¼ä¸ºbeforeBegin,afterBegin,beforeEnd,afterEnd
+     * @param {string} html è¦æ’å…¥çš„html
      * @remark
      *
-     * ¶ÔÓÚposition²ÎÊı£¬´óĞ¡Ğ´²»Ãô¸Ğ<br>
-     * ²ÎÊıµÄÒâË¼£ºbeforeBegin&lt;span&gt;afterBegin   this is span! beforeEnd&lt;/span&gt; afterEnd <br />
-     * ´ËÍâ£¬Èç¹ûÊ¹ÓÃ±¾º¯Êı²åÈë´øÓĞscript±êÇ©µÄHTML×Ö·û´®£¬script±êÇ©¶ÔÓ¦µÄ½Å±¾½«²»»á±»Ö´ĞĞ¡£
+     * å¯¹äºpositionå‚æ•°ï¼Œå¤§å°å†™ä¸æ•æ„Ÿ<br>
+     * å‚æ•°çš„æ„æ€ï¼šbeforeBegin&lt;span&gt;afterBegin   this is span! beforeEnd&lt;/span&gt; afterEnd <br />
+     * æ­¤å¤–ï¼Œå¦‚æœä½¿ç”¨æœ¬å‡½æ•°æ’å…¥å¸¦æœ‰scriptæ ‡ç­¾çš„HTMLå­—ç¬¦ä¸²ï¼Œscriptæ ‡ç­¾å¯¹åº”çš„è„šæœ¬å°†ä¸ä¼šè¢«æ‰§è¡Œã€‚
      *
      * @shortcut insertHTML
      * @meta standard
      *
-     * @returns {HTMLElement} Ä¿±êÔªËØ
+     * @returns {HTMLElement} ç›®æ ‡å…ƒç´ 
      */
     baidu.insertHTML = baidu.dom.insertHTML = function (element, position, html) {
         element = baidu.dom.g(element);
@@ -317,11 +317,11 @@ var baidu = baidu || {guid : "$BAIDU$"};
         if (element.insertAdjacentHTML) {
             element.insertAdjacentHTML(position, html);
         } else {
-            // ÕâÀï²»×ö"undefined" != typeof(HTMLElement) && !window.operaÅĞ¶Ï£¬ÆäËüä¯ÀÀÆ÷½«³ö´í£¿£¡
-            // µ«ÊÇÆäÊµ×öÁËÅĞ¶Ï£¬ÆäËüä¯ÀÀÆ÷ÏÂµÈÓÚÕâ¸öº¯Êı¾Í²»ÄÜÖ´ĞĞÁË
+            // è¿™é‡Œä¸åš"undefined" != typeof(HTMLElement) && !window.operaåˆ¤æ–­ï¼Œå…¶å®ƒæµè§ˆå™¨å°†å‡ºé”™ï¼Ÿï¼
+            // ä½†æ˜¯å…¶å®åšäº†åˆ¤æ–­ï¼Œå…¶å®ƒæµè§ˆå™¨ä¸‹ç­‰äºè¿™ä¸ªå‡½æ•°å°±ä¸èƒ½æ‰§è¡Œäº†
             range = element.ownerDocument.createRange();
-            // FFÏÂrangeµÄÎ»ÖÃÉèÖÃ´íÎó¿ÉÄÜµ¼ÖÂ´´½¨³öÀ´µÄfragmentÔÚ²åÈëdomÊ÷Ö®ºóhtml½á¹¹ÂÒµô
-            // ¸ÄÓÃrange.insertNodeÀ´²åÈëhtml, by wenyuxiang @ 2010-12-14.
+            // FFä¸‹rangeçš„ä½ç½®è®¾ç½®é”™è¯¯å¯èƒ½å¯¼è‡´åˆ›å»ºå‡ºæ¥çš„fragmentåœ¨æ’å…¥domæ ‘ä¹‹åhtmlç»“æ„ä¹±æ‰
+            // æ”¹ç”¨range.insertNodeæ¥æ’å…¥html, by wenyuxiang @ 2010-12-14.
             position = position.toUpperCase();
             if (position == 'AFTERBEGIN' || position == 'BEFOREEND') {
                 range.selectNodeContents(element);
@@ -337,18 +337,18 @@ var baidu = baidu || {guid : "$BAIDU$"};
     };
 
     /**
-     * ÎªÄ¿±êÔªËØÌí¼ÓclassName
+     * ä¸ºç›®æ ‡å…ƒç´ æ·»åŠ className
      * @name baidu.dom.addClass
      * @function
      * @grammar baidu.dom.addClass(element, className)
-     * @param {HTMLElement|string} element Ä¿±êÔªËØ»òÄ¿±êÔªËØµÄid
-     * @param {string} className ÒªÌí¼ÓµÄclassName£¬ÔÊĞíÍ¬Ê±Ìí¼Ó¶à¸öclass£¬ÖĞ¼äÊ¹ÓÃ¿Õ°×·û·Ö¸ô
+     * @param {HTMLElement|string} element ç›®æ ‡å…ƒç´ æˆ–ç›®æ ‡å…ƒç´ çš„id
+     * @param {string} className è¦æ·»åŠ çš„classNameï¼Œå…è®¸åŒæ—¶æ·»åŠ å¤šä¸ªclassï¼Œä¸­é—´ä½¿ç”¨ç©ºç™½ç¬¦åˆ†éš”
      * @remark
-     * Ê¹ÓÃÕßÓ¦±£Ö¤Ìá¹©µÄclassNameºÏ·¨ĞÔ£¬²»Ó¦°üº¬²»ºÏ·¨×Ö·û£¬classNameºÏ·¨×Ö·û²Î¿¼£ºhttp://www.w3.org/TR/CSS2/syndata.html¡£
+     * ä½¿ç”¨è€…åº”ä¿è¯æä¾›çš„classNameåˆæ³•æ€§ï¼Œä¸åº”åŒ…å«ä¸åˆæ³•å­—ç¬¦ï¼ŒclassNameåˆæ³•å­—ç¬¦å‚è€ƒï¼šhttp://www.w3.org/TR/CSS2/syndata.htmlã€‚
      * @shortcut addClass
      * @meta standard
      *
-     * @returns {HTMLElement} Ä¿±êÔªËØ
+     * @returns {HTMLElement} ç›®æ ‡å…ƒç´ 
      */
     baidu.ac = baidu.dom.addClass = function (element, className) {
         element = baidu.dom.g(element);
@@ -370,44 +370,44 @@ var baidu = baidu || {guid : "$BAIDU$"};
 
     /**
      * @ignore
-     * @namespace baidu.event ÆÁ±Îä¯ÀÀÆ÷²îÒìĞÔµÄÊÂ¼ş·â×°¡£
-     * @property target     ÊÂ¼şµÄ´¥·¢ÔªËØ
-     * @property pageX      Êó±êÊÂ¼şµÄÊó±êx×ø±ê
-     * @property pageY      Êó±êÊÂ¼şµÄÊó±êy×ø±ê
-     * @property keyCode    ¼üÅÌÊÂ¼şµÄ¼üÖµ
+     * @namespace baidu.event å±è”½æµè§ˆå™¨å·®å¼‚æ€§çš„äº‹ä»¶å°è£…ã€‚
+     * @property target     äº‹ä»¶çš„è§¦å‘å…ƒç´ 
+     * @property pageX      é¼ æ ‡äº‹ä»¶çš„é¼ æ ‡xåæ ‡
+     * @property pageY      é¼ æ ‡äº‹ä»¶çš„é¼ æ ‡yåæ ‡
+     * @property keyCode    é”®ç›˜äº‹ä»¶çš„é”®å€¼
      */
     baidu.event = baidu.event || {};
 
     /**
-     * ÊÂ¼ş¼àÌıÆ÷µÄ´æ´¢±í
+     * äº‹ä»¶ç›‘å¬å™¨çš„å­˜å‚¨è¡¨
      * @private
      * @meta standard
      */
     baidu.event._listeners = baidu.event._listeners || [];
 
     /**
-     * ÎªÄ¿±êÔªËØÌí¼ÓÊÂ¼ş¼àÌıÆ÷
+     * ä¸ºç›®æ ‡å…ƒç´ æ·»åŠ äº‹ä»¶ç›‘å¬å™¨
      * @name baidu.event.on
      * @function
      * @grammar baidu.event.on(element, type, listener)
-     * @param {HTMLElement|string|window} element Ä¿±êÔªËØ»òÄ¿±êÔªËØid
-     * @param {string} type ÊÂ¼şÀàĞÍ
-     * @param {Function} listener ĞèÒªÌí¼ÓµÄ¼àÌıÆ÷
+     * @param {HTMLElement|string|window} element ç›®æ ‡å…ƒç´ æˆ–ç›®æ ‡å…ƒç´ id
+     * @param {string} type äº‹ä»¶ç±»å‹
+     * @param {Function} listener éœ€è¦æ·»åŠ çš„ç›‘å¬å™¨
      * @remark
-     *  1. ²»Ö§³Ö¿çä¯ÀÀÆ÷µÄÊó±ê¹öÂÖÊÂ¼ş¼àÌıÆ÷Ìí¼Ó<br>
-     *  2. ¸Ä·½·¨²»Îª¼àÌıÆ÷¹àÈëÊÂ¼ş¶ÔÏó£¬ÒÔ·ÀÖ¹¿çiframeÊÂ¼ş¹ÒÔØµÄÊÂ¼ş¶ÔÏó»ñÈ¡Ê§°Ü
+     *  1. ä¸æ”¯æŒè·¨æµè§ˆå™¨çš„é¼ æ ‡æ»šè½®äº‹ä»¶ç›‘å¬å™¨æ·»åŠ <br>
+     *  2. æ”¹æ–¹æ³•ä¸ä¸ºç›‘å¬å™¨çŒå…¥äº‹ä»¶å¯¹è±¡ï¼Œä»¥é˜²æ­¢è·¨iframeäº‹ä»¶æŒ‚è½½çš„äº‹ä»¶å¯¹è±¡è·å–å¤±è´¥
      * @shortcut on
      * @meta standard
      * @see baidu.event.un
      *
-     * @returns {HTMLElement|window} Ä¿±êÔªËØ
+     * @returns {HTMLElement|window} ç›®æ ‡å…ƒç´ 
      */
     baidu.on = baidu.event.on = function (element, type, listener) {
         type = type.replace(/^on/i, '');
         element = baidu._g(element);
         var realListener = function (ev) {
-                // 1. ÕâÀï²»Ö§³ÖEventArgument,  Ô­ÒòÊÇ¿çframeµÄÊÂ¼ş¹ÒÔØ
-                // 2. elementÊÇÎªÁËĞŞÕıthis
+                // 1. è¿™é‡Œä¸æ”¯æŒEventArgument,  åŸå› æ˜¯è·¨frameçš„äº‹ä»¶æŒ‚è½½
+                // 2. elementæ˜¯ä¸ºäº†ä¿®æ­£this
                 listener.call(element, ev);
             },
             lis = baidu.event._listeners,
@@ -415,36 +415,36 @@ var baidu = baidu || {guid : "$BAIDU$"};
             afterFilter,
             realType = type;
         type = type.toLowerCase();
-        // filter¹ıÂË
+        // filterè¿‡æ»¤
         if(filter && filter[type]){
             afterFilter = filter[type](element, type, realListener);
             realType = afterFilter.type;
             realListener = afterFilter.listener;
         }
-        // ÊÂ¼ş¼àÌıÆ÷¹ÒÔØ
+        // äº‹ä»¶ç›‘å¬å™¨æŒ‚è½½
         if (element.addEventListener) {
             element.addEventListener(realType, realListener, false);
         } else if (element.attachEvent) {
             element.attachEvent('on' + realType, realListener);
         }
 
-        // ½«¼àÌıÆ÷´æ´¢µ½Êı×éÖĞ
+        // å°†ç›‘å¬å™¨å­˜å‚¨åˆ°æ•°ç»„ä¸­
         lis[lis.length] = [element, type, listener, realListener, realType];
         return element;
     };
 
     /**
-     * ÎªÄ¿±êÔªËØÒÆ³ıÊÂ¼ş¼àÌıÆ÷
+     * ä¸ºç›®æ ‡å…ƒç´ ç§»é™¤äº‹ä»¶ç›‘å¬å™¨
      * @name baidu.event.un
      * @function
      * @grammar baidu.event.un(element, type, listener)
-     * @param {HTMLElement|string|window} element Ä¿±êÔªËØ»òÄ¿±êÔªËØid
-     * @param {string} type ÊÂ¼şÀàĞÍ
-     * @param {Function} listener ĞèÒªÒÆ³ıµÄ¼àÌıÆ÷
+     * @param {HTMLElement|string|window} element ç›®æ ‡å…ƒç´ æˆ–ç›®æ ‡å…ƒç´ id
+     * @param {string} type äº‹ä»¶ç±»å‹
+     * @param {Function} listener éœ€è¦ç§»é™¤çš„ç›‘å¬å™¨
      * @shortcut un
      * @meta standard
      *
-     * @returns {HTMLElement|window} Ä¿±êÔªËØ
+     * @returns {HTMLElement|window} ç›®æ ‡å…ƒç´ 
      */
     baidu.un = baidu.event.un = function (element, type, listener) {
         element = baidu._g(element);
@@ -456,16 +456,16 @@ var baidu = baidu || {guid : "$BAIDU$"};
             item,
             realType, realListener;
 
-        //Èç¹û½«listenerµÄ½á¹¹¸Ä³Éjson
-        //¿ÉÒÔ½ÚÊ¡µôÕâ¸öÑ­»·£¬ÓÅ»¯ĞÔÄÜ
-        //µ«ÊÇÓÉÓÚunµÄÊ¹ÓÃÆµÂÊ²¢²»¸ß£¬Í¬Ê±ÔÚlistener²»¶àµÄÊ±ºò
-        //±éÀúÊı×éµÄĞÔÄÜÏûºÄ²»»á¶Ô´úÂë²úÉúÓ°Ïì
-        //Ôİ²»¿¼ÂÇ´ËÓÅ»¯
+        //å¦‚æœå°†listenerçš„ç»“æ„æ”¹æˆjson
+        //å¯ä»¥èŠ‚çœæ‰è¿™ä¸ªå¾ªç¯ï¼Œä¼˜åŒ–æ€§èƒ½
+        //ä½†æ˜¯ç”±äºunçš„ä½¿ç”¨é¢‘ç‡å¹¶ä¸é«˜ï¼ŒåŒæ—¶åœ¨listenerä¸å¤šçš„æ—¶å€™
+        //éå†æ•°ç»„çš„æ€§èƒ½æ¶ˆè€—ä¸ä¼šå¯¹ä»£ç äº§ç”Ÿå½±å“
+        //æš‚ä¸è€ƒè™‘æ­¤ä¼˜åŒ–
         while (len--) {
             item = lis[len];
 
-            // listener´æÔÚÊ±£¬ÒÆ³ıelementµÄËùÓĞÒÔlistener¼àÌıµÄtypeÀàĞÍÊÂ¼ş
-            // listener²»´æÔÚÊ±£¬ÒÆ³ıelementµÄËùÓĞtypeÀàĞÍÊÂ¼ş
+            // listenerå­˜åœ¨æ—¶ï¼Œç§»é™¤elementçš„æ‰€æœ‰ä»¥listenerç›‘å¬çš„typeç±»å‹äº‹ä»¶
+            // listenerä¸å­˜åœ¨æ—¶ï¼Œç§»é™¤elementçš„æ‰€æœ‰typeç±»å‹äº‹ä»¶
             if (item[1] === type
                 && item[0] === element
                 && (isRemoveAll || item[2] === listener)) {
@@ -483,7 +483,7 @@ var baidu = baidu || {guid : "$BAIDU$"};
     };
 
     /**
-     * »ñÈ¡eventÊÂ¼ş,½â¾ö²»Í¬ä¯ÀÀÆ÷¼æÈİÎÊÌâ
+     * è·å–eventäº‹ä»¶,è§£å†³ä¸åŒæµè§ˆå™¨å…¼å®¹é—®é¢˜
      * @param {Event}
      * @return {Event}
      */
@@ -492,7 +492,7 @@ var baidu = baidu || {guid : "$BAIDU$"};
     }
 
     /**
-     * »ñÈ¡event.target,½â¾ö²»Í¬ä¯ÀÀÆ÷¼æÈİÎÊÌâ
+     * è·å–event.target,è§£å†³ä¸åŒæµè§ˆå™¨å…¼å®¹é—®é¢˜
      * @param {Event}
      * @return {Target}
      */
@@ -502,11 +502,11 @@ var baidu = baidu || {guid : "$BAIDU$"};
     }
 
     /**
-     * ×èÖ¹ÊÂ¼şµÄÄ¬ÈÏĞĞÎª
+     * é˜»æ­¢äº‹ä»¶çš„é»˜è®¤è¡Œä¸º
      * @name baidu.event.preventDefault
      * @function
      * @grammar baidu.event.preventDefault(event)
-     * @param {Event} event ÊÂ¼ş¶ÔÏó
+     * @param {Event} event äº‹ä»¶å¯¹è±¡
      * @meta standard
      */
     baidu.preventDefault = baidu.event.preventDefault = function (event) {
@@ -519,7 +519,7 @@ var baidu = baidu || {guid : "$BAIDU$"};
     };
 
     /**
-     * Í£Ö¹ÊÂ¼şÃ°Åİ´«²¥
+     * åœæ­¢äº‹ä»¶å†’æ³¡ä¼ æ’­
      * @param {Event}
      */
     baidu.stopBubble = baidu.event.stopBubble = function (event) {
@@ -530,11 +530,11 @@ var baidu = baidu || {guid : "$BAIDU$"};
     baidu.browser = baidu.browser || {};
 
     if (/msie (\d+\.\d)/i.test(navigator.userAgent)) {
-        //IE 8ÏÂ£¬ÒÔdocumentModeÎª×¼
-        //ÔÚ°Ù¶ÈÄ£°åÖĞ£¬¿ÉÄÜ»áÓĞ$£¬·ÀÖ¹³åÍ»£¬½«$1 Ğ´³É \x241
+        //IE 8ä¸‹ï¼Œä»¥documentModeä¸ºå‡†
+        //åœ¨ç™¾åº¦æ¨¡æ¿ä¸­ï¼Œå¯èƒ½ä¼šæœ‰$ï¼Œé˜²æ­¢å†²çªï¼Œå°†$1 å†™æˆ \x241
         /**
-         * ÅĞ¶ÏÊÇ·ñÎªieä¯ÀÀÆ÷
-         * @property ie ie°æ±¾ºÅ
+         * åˆ¤æ–­æ˜¯å¦ä¸ºieæµè§ˆå™¨
+         * @property ie ieç‰ˆæœ¬å·
          * @grammar baidu.browser.ie
          * @meta standard
          * @shortcut ie
