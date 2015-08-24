@@ -6,10 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using agsc=agsXMPP.protocol.client;
+using agsc = agsXMPP.protocol.client;
 using agsXMPP;
 using System.Text.RegularExpressions;
 using agsXMPP.protocol.client;
+using System.IO;
+
 namespace Dianzhu.DemoClient
 {
     public partial class FmMain : Form
@@ -18,7 +20,7 @@ namespace Dianzhu.DemoClient
         public FmMain()
         {
             InitializeComponent();
-           
+
             GlobalViables.XMPPConnection.OnLogin += new agsXMPP.ObjectHandler(XMPPConnection_OnLogin);
             GlobalViables.XMPPConnection.OnMessage += new agsc.MessageHandler(XMPPConnection_OnMessage);
             GlobalViables.XMPPConnection.OnError += new ErrorHandler(XMPPConnection_OnError);
@@ -32,20 +34,20 @@ namespace Dianzhu.DemoClient
 
         void XMPPConnection_OnError(object sender, Exception ex)
         {
-           // MessageBox.Show("聊天服务器错误");
+            // MessageBox.Show("聊天服务器错误");
         }
 
         void XMPPConnection_OnMessage(object sender, agsc.Message msg)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender,msg });
+                BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender, msg });
                 return;
             }
             string log = msg.Body;
             foreach (var att in msg.Attributes.Keys)
             {
-                if(new string[]{"to","from","type"}.Contains(att) )
+                if (new string[] { "to", "from", "type" }.Contains(att))
                 {
                     continue;
                 }
@@ -60,14 +62,14 @@ namespace Dianzhu.DemoClient
             }
 
             AddLog(StringHelper.EnsureNormalUserName(msg.From.User), log);
-            
+
         }
 
         void XMPPConnection_OnLogin(object sender)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender});
+                BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
                 return;
             }
             if (string.IsNullOrEmpty(csId))
@@ -96,19 +98,37 @@ namespace Dianzhu.DemoClient
         }
         void AddLog(string user, string body)
         {
-            tbxLog.AppendText( Environment.NewLine+ user + ":" + body);
-             
-       
+
+            tbxLog.AppendText(Environment.NewLine + user + ":" + body);
+
+
+        }
+        public void InsertImage(string fileName)
+        {
+
+            string lstrFile = fileName;
+            Bitmap myBitmap = new Bitmap(lstrFile);
+            // Copy the bitmap to the clipboard.
+            Clipboard.SetDataObject(myBitmap);
+            // Get the format for the object type.
+            DataFormats.Format myFormat = DataFormats.GetFormat(DataFormats.Bitmap);
+            // After verifying that the data can be pasted, paste
+            if (tbxLog.CanPaste(myFormat))
+            {
+                tbxLog.Paste(myFormat);
+            }
+
+
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
 
-            
-          
-            GlobalViables.XMPPConnection.Send(new agsc.Message(csId+"@"+GlobalViables.ServerName,agsc.MessageType.chat, tbxMessage.Text));
+
+
+            GlobalViables.XMPPConnection.Send(new agsc.Message(csId + "@" + GlobalViables.ServerName, agsc.MessageType.chat, tbxMessage.Text));
             AddLog(tbxUserName.Text, tbxMessage.Text);
-       
+
         }
 
         private void tbxMessage_KeyPress(object sender, KeyPressEventArgs e)
@@ -126,6 +146,33 @@ namespace Dianzhu.DemoClient
             p.To = csId + "@" + GlobalViables.ServerName;
             p.From = StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName;
             GlobalViables.XMPPConnection.Send(p);
+        }
+
+        private void btnSelectImage_Click(object sender, EventArgs e)
+        {
+            if (dlgSelectPic.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                System.IO.FileStream fs = dlgSelectPic.OpenFile() as FileStream;
+                string fileExtension = Path.GetExtension(dlgSelectPic.FileName);
+                byte[] bytes;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    fs.CopyTo(ms);
+                    bytes = ms.ToArray();
+                }
+                string s = Convert.ToBase64String(bytes);
+
+                string result = PHSuit.IOHelper.UploadFileHttp("http://localhost:8033/ajaxservice/FileUploadCommon.ashx",
+                      string.Empty, bytes, fileExtension);
+                agsc.Message m = new agsc.Message(csId + "@" + GlobalViables.ServerName,
+                    agsc.MessageType.chat, string.Empty);
+                m.SetAttribute("media", result);
+                GlobalViables.XMPPConnection.Send(m);
+                AddLog(tbxUserName.Text, tbxMessage.Text);
+
+
+                InsertImage(dlgSelectPic.FileName);
+            }
         }
     }
 }
