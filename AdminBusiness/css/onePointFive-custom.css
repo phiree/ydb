@@ -24,10 +24,11 @@ label {
 }
 
 .navbar .navbar-nav {
-    height: 105px;
-    line-height: 105px;
+    /*height: 105px;*/
+    /*line-height: 105px;*/
     font-size: 16px;
 }
+
 
 .navbar .navbar-nav > li {
     height: 105px;
@@ -37,6 +38,12 @@ label {
 .navbar .navbar-nav > li > a {
     display: table-cell;
     vertical-align: middle;
+    color: #1a87ab;
+    /*line-height: 1.2;*/
+}
+
+.navbar .navbar-nav > li > a:hover {
+    color: #1a87ab;
 }
 
 .narbar-top-links {
@@ -113,7 +120,7 @@ label {
 .nav-li-bj 
 {
     background:url(../image/nav-li-bj.png) no-repeat;
-    background-position: 0 40px;
+    background-position: 0 center;
     }
 .navbar-header img{ margin-left:30px;}
 .navbar .navbar-brand {
@@ -130,31 +137,31 @@ label {
   width: 0;
   height: 0;
   margin-left: 10px;
-  vertical-align: middle;
+  /*vertical-align: middle;*/
   border-top: 7px dashed;
   border-top: 7px solid \9;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  color: #555;
- background:url(../image/nav-li-bj.png) no-repeat;
+    color: #555;
+    background:url(../image/nav-li-bj.png) no-repeat;
     background-position: 0 40px;
 }
 
+.navbar-nav > li > .dropdown-menu {
+    border-radius: 4px;
+}
+
 .dropdown-menu > li > a {
-  display: block;
-  
-  padding: 3px 3px;
-  padding-left:12px;
-  clear: both;
-  font-weight: normal;
-  line-height: 1.42857143;
-  color: #333;
-   background:url(../image/shop-icon-2.png) no-repeat;
-   background-position: 10px 7px;
-   
-  white-space: nowrap;
+    display: block;
+    width: 148px;
+    padding: 3px 3px;
+    padding-left:12px;
+    color: #333;
+    background:url(../image/shop-icon-2.png) no-repeat;
+    background-position: 7px center;
+    white-space: nowrap;
 }
 .dropdown-menu > li:hover 
 {
@@ -163,7 +170,7 @@ label {
 }
 .dropdown-menu > li > a:hover {
     background:url(../image/shop-icon-5.png) no-repeat;
-    background-position: 10px 7px;
+    background-position: 7px center;
     color:#FFF;
 }
 .dropdown-menu {
@@ -185,6 +192,7 @@ label {
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, .15);
   border-radius: 4px;
+    overflow: hidden;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }

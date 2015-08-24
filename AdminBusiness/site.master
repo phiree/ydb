@@ -40,16 +40,15 @@
                             </a>
                         </div>
                         <ul class="nav navbar-nav navbar-right">
-                            <li role="presentaion" ><a href="/Business/default.aspx">店铺列表</a></li>
+                            <li role="presentaion" ><a href="/Business/default.aspx"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="m-l10">店铺列表</span></a></li>
                             <li class="dropdown nav-li-bj">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><asp:LoginName  ID="LoginName1" runat="server" /><span class="caret"></span></a>
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><asp:LoginName  ID="LoginName1" CssClass="v-m" runat="server" /><span class="caret"></span></a>
                               <ul class="dropdown-menu">
                                 <li id="accountNum"><a href="/account/security.aspx">帐号安全</a></li>
                               </ul>
                             </li>
                             <li role="presentaion" class="nav-li-bj ">
-                            <asp:LoginStatus ID="LoginStatus1"  formnovalidate CssClass="cancel"  runat="server" LogoutText="注销" />
-
+                            <asp:LoginStatus ID="LoginStatus1" CssClass="LoginStatus"  formnovalidate   runat="server" LogoutText="" />
                             </li>
                           </ul>
                     </div>

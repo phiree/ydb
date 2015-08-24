@@ -235,6 +235,15 @@ html{
     background: #fff;
 }
 
+/*登录0状态样式*/
+#LoginStatus1{
+    background: url("/image/logout.png") no-repeat center;
+    color:transparent;
+    padding: 0 30px;
+
+}
+/*end*/
+
 .nav-btn-bg {
     display: inline-block;
     *display: inline-block;
@@ -439,9 +448,9 @@ a.time-trigger:hover {
 .time-select a:hover { background: #eeeeee; }
 
 /*timeSelect 初始化*/
-/*.hour-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}*/
+.hour-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}
 /*.minute-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}*/
-/*.years-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}*/
+.years-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}
 
 
 
@@ -733,6 +742,14 @@ a.time-trigger:hover {
 /*自定义主题颜色样式*/
 .theme-color-r {
     color: #FF8661;
+}
+
+.theme-color-delete {
+    color: #FD9292;
+}
+
+.theme-color-right {
+    color: #16D237;
 }
 
 .theme-color-58789a {
