@@ -33,7 +33,7 @@ var service_validate_messages={};
 service_validate_rules[name_prefix + "tbxName"] =
 {
     required: true,
-    maxlength: 12
+    maxlength: 20
 };
 service_validate_messages[name_prefix + "tbxName"] =
 {
@@ -64,7 +64,7 @@ service_validate_messages[name_prefix + "tbxAddress"] =
 };
 
 
-//minprice
+//tbxContactPhone
 service_validate_rules[name_prefix + "tbxContactPhone"] =
 {
     phone: true
@@ -77,9 +77,8 @@ service_validate_rules[name_prefix + "tbxWebSite"] =
 {
     required: false,
     web: true
-
-     
 };
+
 service_validate_messages[name_prefix + "tbxWebSite"] =
 {
     web: "请输入正确的网址"
