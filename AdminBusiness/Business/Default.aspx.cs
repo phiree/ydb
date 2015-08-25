@@ -14,8 +14,14 @@ public partial class Business_Default : BasePage
         BrowserCheck.CheckVersion();
         if (string.IsNullOrEmpty(CurrentUser.Phone))
         {
+            this.ClientScript.RegisterStartupScript(this.GetType(), "nophone", "alert('请先填写电话号码')");
+            
+        }
+        if (string.IsNullOrEmpty(CurrentUser.Phone))
+        {
             lblErr.CssClass = "error";
             lblErr.Text = "您没有填写电话号码,不能创建店铺";
+            hlSecurity.Visible = true;
         }
         if (!IsPostBack)
         {
@@ -26,7 +32,7 @@ public partial class Business_Default : BasePage
     protected void BindBusinessList()
     {
 
-        var businessList = bllBusiness.GetBusinessListByOwner(CurrentUser.Id);//.Where(x=>x.Enabled);
+        var businessList = bllBusiness.GetBusinessListByOwner(CurrentUser.Id).Where(x=>x.Enabled);
         
         rptBusinessList.DataSource = businessList;
       //  rptBusinessList.ItemCommand+=new RepeaterCommandEventHandler(rptBusinessList_ItemCommand);
@@ -35,10 +41,7 @@ public partial class Business_Default : BasePage
     }
     protected void btnCreate_Click(object sender, EventArgs e)
     {
-        //if (string.IsNullOrEmpty(CurrentUser.Phone))
-        //{
-        //    return;
-        //}
+        
         Business b = new Business();
         b.Name = tbxName.Value;
         
@@ -53,6 +56,7 @@ public partial class Business_Default : BasePage
         }
         b.RawAddressFromMapAPI = hiAddrId.Value;
         b.Phone = tbxContactPhone.Value;
+        b.Address = tbxAddress.Value;
         
         b.Description = tbxDescription.Value;
         bllBusiness.SaveOrUpdate(b);
