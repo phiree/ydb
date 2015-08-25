@@ -177,6 +177,15 @@
     margin: 0 auto;
 }
 
+.headImage {
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    border-radius: 13px;
+    background: #cccccc;
+    border: #C0D1E3 1px solid;
+}
+
 /* 编辑员工页面弹窗 */
 .emp-edit {
     /*width: 805px;*/

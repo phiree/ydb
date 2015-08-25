@@ -79,8 +79,7 @@
 /*.account{ height:1138px; display:none;}*/
 
 /*.headDecoration1{ width:4px; height:108px; float:left; background:#31b6fc;}*/
-.headImage{ width:90px; height:90px; line-height: 90px; text-align: center;  display: table; overflow: hidden; border-radius: 13px; background: #cccccc; border: #C0D1E3 1px solid}
-.headImageVc { display: table-cell; vertical-align: middle; }
+.headImage{ width:90px; height:90px; overflow: hidden; border-radius: 13px; background: #cccccc; border: #C0D1E3 1px solid}
 
 .headInfo{ width:208px; height: 90px; float:left; color:#58789a; font-size:13px; display: table; overflow: hidden;}
 .headInfoVc { display: table-cell; vertical-align: middle; }

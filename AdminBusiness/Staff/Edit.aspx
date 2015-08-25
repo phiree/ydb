@@ -20,6 +20,7 @@
                                         <input type=file class="input-file-btn file-default headFileBtn" runat="server" id="empheadimg"  name="empheadimg" />
                                         <i class="input-file-bg" style='background-image:url(<%=StaffAvatarUrl%>)'></i>
                                         <i class="input-file-mark"></i>
+                                        <i  class="input-file-hover">修改头像</i>
                                         <img class="input-file-pre" src="..\image\00.png" />
                                     </div>
                                 </div>

@@ -160,7 +160,7 @@ label {
     padding-left:12px;
     color: #333;
     background:url(../image/shop-icon-2.png) no-repeat;
-    background-position: 7px center;
+    background-position: 30px center;
     white-space: nowrap;
 }
 .dropdown-menu > li:hover 
@@ -170,7 +170,7 @@ label {
 }
 .dropdown-menu > li > a:hover {
     background:url(../image/shop-icon-5.png) no-repeat;
-    background-position: 7px center;
+    background-position: 30px center;
     color:#FFF;
 }
 .dropdown-menu {

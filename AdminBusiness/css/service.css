@@ -223,7 +223,7 @@ a.new-add-btn {
 .sp-btn {
     position: absolute;
     bottom: 35px;
-    right: 10px;
+    right: 35px;
     text-align: right;
 }
 
@@ -234,10 +234,10 @@ a.new-add-btn {
 .sp-msg {
     position: absolute;
     bottom: 35px;
-    left: 10px;
+    left: 35px;
     height: 34px;
     line-height: 34px;
-    /*padding: 0 10px;*/
+    padding: 0 10px;
     color: #fff;
     background: rgba(74, 74, 74, 0.5);
     background: #666\9;

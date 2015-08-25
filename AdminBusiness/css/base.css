@@ -391,6 +391,7 @@ html{
     background: #ffffff;
     border-radius: 5px;
     box-shadow: 0 0 5px 0 rgba(93, 93, 93, 0.8);
+    border: 1px solid #CCCCCC\9;
     width: 300px;
     top: 36px;
     left: -122px;
@@ -490,6 +491,21 @@ a.time-trigger:hover {
     height: 90px;
     background: url("../image/ajax-loader.gif") no-repeat center;
     display: none;
+}
+
+.input-file-hover {
+    font-style: normal;
+    position: absolute;
+    bottom: 0;
+    z-index: 5;
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    background: rgba(112, 112, 112, 0.69);
+    background: #707070\9;
+    text-align: center;
+    /*display: none;*/
 }
 
 .input-file-pre {
