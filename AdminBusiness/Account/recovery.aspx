@@ -6,10 +6,10 @@
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="一点办注册" />
+    <meta name="description" content="一点办重置密码" />
     <meta name="keywords" content="一点办" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>一点办注册</title>
+    <title>一点办重置密码</title>
     <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
     <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
     <!--<link href="/css/validation.css" rel="stylesheet" type="text/css">-->

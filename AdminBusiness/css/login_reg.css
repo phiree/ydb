@@ -443,11 +443,10 @@ a.doReg-forget {
 
 /*忘记密码页面内容*/
 .reset-Pass-btn {
-    background: #55abdc;
+    background: #31b5fb;
     border: 0;
     color: #fff;
     font-family: Arial,"Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif;
-    padding: 5px 10px;
-    border-radius: 5px;
-    letter-spacing: 0.1em;
+    padding: 5px 20px;
+    border-radius: 2px;
 }

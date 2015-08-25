@@ -373,7 +373,7 @@ html{
 
 /*select 初始化样式*/
 .select { display:inline-block;  width: 130px; height: 32px; position: relative; background: url("../image/shop_green_09.png") no-repeat right; vertical-align: middle; border: 1px solid #e7ebee;}
-.select cite { display: block; width: 130px; text-indent: 0.8em;  }
+.select cite { display: block; width: 130px; text-indent: 0.8em; cursor: pointer;}
 .select ul { position: absolute;  width: 130px; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none; margin-left: -1px;}
 .select a { display: block; text-indent: 0.8em; }
 .select a:hover { background: #eeeeee; }
@@ -442,7 +442,7 @@ a.time-trigger:hover {
 }
 
 .time-select { display:inline-block;  width: 80px; height: 32px; position: relative;  vertical-align: middle; border: 1px solid #e7ebee; background: #fff;}
-.time-select cite { display: block; width: 78px; line-height: 30px; text-indent: 0.8em; background: url("../image/shop_green_09.png") no-repeat right; text-align: left;}
+.time-select cite { display: block; width: 78px; line-height: 30px; text-indent: 0.8em; background: url("../image/shop_green_09.png") no-repeat right; text-align: left; cursor: pointer;}
 .time-select ul { position: absolute; height: 10em; line-height: 2em; overflow-y: scroll; width: 80px; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none; margin-left: -1px;}
 .time-select a { display: block; text-indent: 0.8em; text-align: left;}
 .time-select a:hover { background: #eeeeee; }

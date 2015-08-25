@@ -59,7 +59,7 @@
                                         <label class="usernameIcon" for="tbxUserName">
                                             <i class="icon"></i>
                                         </label>
-                                        <asp:TextBox runat="server"  placeholder="手机号码/电子邮箱" ID="tbxUserName"></asp:TextBox>
+                                        <asp:TextBox runat="server"  placeholder="电子邮箱" ID="tbxUserName"></asp:TextBox>
                                     </p>
                                 <p class="password">
                                     <label class="passwordIcon" for="tbxPassword">
