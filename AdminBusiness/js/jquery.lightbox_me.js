@@ -94,7 +94,9 @@
                 $overlay.click(function(e) { closeLightbox(); e.preventDefault; });
             }
             $self.delegate(opts.closeSelector, "click", function(e) {
+
                 closeLightbox(); e.preventDefault();
+
             });
             $self.bind('close', closeLightbox);
             $self.bind('reposition', setSelfPosition);
@@ -102,7 +104,9 @@
             /*----------------------------------------------------
              Bind Events by licdream@126.com . set self position when create a new element in lightBox
              ---------------------------------------------------- */
-            $self.bind('click', setSelfPosition);
+            $self.delegate(opts.fluid, "click", function(e) {
+                setSelfPosition();
+            });
 
 
 
@@ -129,9 +133,11 @@
                 if (opts.parentLightbox) {
                     opts.parentLightbox.fadeIn(200);
                 }
+
                 if (opts.preventScroll) {
                     $('body').css('overflow', '');
                 }
+
                 $iframe.remove();
 
 				        // clean up events.
@@ -220,6 +226,9 @@
         closeSelector: ".lightClose",
         closeClick: true,
         closeEsc: true,
+
+        // fluid
+        fluid: ".lightFluid",
 
         // behavior
         destroyOnClose: false,
