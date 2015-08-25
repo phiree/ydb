@@ -7,7 +7,8 @@ $(document).ready(function () {
 
         var $user_name_box = $(".regUserName");
         //var user_name_rule = /^1\d{10}$|^.+@.+\..+$/;
-        var user_name_rule = /^(\w+((-w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+)$|^(0?(13|14|17|15|18)[0-9]{9})$/;
+        //var user_name_rule = /^(\w+((-w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+)$|^(0?(13|14|17|15|18)[0-9]{9})$/;
+        var user_name_rule = /^(\w+((-w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+)$/;
         var user_warn_element = document.createElement("div");
         var user_warn_text = document.createTextNode("");
 
