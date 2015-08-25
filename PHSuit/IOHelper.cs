@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Net;
 namespace PHSuit
 {
     public class IOHelper
@@ -70,6 +71,30 @@ namespace PHSuit
             else return directoryPath;
         }
 
+        /// <summary>
+        /// 使用http方式 上传一个base64编码过的文件
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="base64"></param>
+        /// <returns></returns>
+        public static string UploadFileHttp(string url, string base64,byte[] fileBytes,string fileExteion)
+        {
+            string uploadedPath = string.Empty;
+            System.Net.WebRequest request = WebRequest.Create(url);
+            request.Credentials = CredentialCache.DefaultCredentials;
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = fileBytes.Length;
+            Stream dataStream = request.GetRequestStream();
+            dataStream.Write(fileBytes,0,fileBytes.Length);
+            WebResponse response = request.GetResponse();
+            Stream data = response.GetResponseStream();
+            StreamReader sr = new StreamReader(data);
+            string result = sr.ReadToEnd();
+            return result;
+            
+        }
+
     }
 
 
@@ -107,4 +132,6 @@ namespace PHSuit
                                                         ,".yuv"});
         }
     }
+
+
 }

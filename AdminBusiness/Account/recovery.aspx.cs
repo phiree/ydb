@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+using System.Web.Security;
 public partial class ForgetPassword : System.Web.UI.Page
 {
 
@@ -56,11 +57,16 @@ public partial class ForgetPassword : System.Web.UI.Page
         {
             //lblMsg.Text = "两次输入的不相等";
         }
-        member.Password = member.PlainPassword = password;
+        member.PlainPassword = password;
         member.RecoveryCode = Guid.Empty;
+        member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
+        //var password_cred = FormsAuthentication.HashPasswordForStoringInConfigFile(member.Password, "MD5");
+      
         bllMember.UpdateDZMembership(member);
 
         lblMsg.Text = "修改完成";
         hlLogin.Visible = true;
+        Response.Redirect("/account/recover_suc.aspx",true);
+        
     }
 }

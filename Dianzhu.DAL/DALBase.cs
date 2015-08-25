@@ -15,7 +15,7 @@ namespace Dianzhu.DAL
         private ISession session = null;// new HybridSessionBuilder().GetSession();
         public DALBase()
         {
-
+            //增加依赖,不利于测试.
             session = new HybridSessionBuilder().GetSession();
 
         }

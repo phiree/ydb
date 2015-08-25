@@ -119,7 +119,7 @@ namespace Dianzhu.CSClient
 
                 PictureBox pb = new PictureBox();
                 pb.Size = new System.Drawing.Size(100, 100);
-                pb.Load(chat.MessageMediaUrl);
+                pb.Load("http://localhost:8033"+ chat.MessageMediaUrl);
                 pnlOneChat.Controls.Add(pb);
             }
 

@@ -33,13 +33,15 @@
             this.tbxPwd = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
-            this.tbxLog = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblLoginStatus = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnSelectImage = new System.Windows.Forms.Button();
             this.tbxMessage = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
+            this.tbxLog = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -88,15 +90,6 @@
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // tbxLog
-            // 
-            this.tbxLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxLog.Location = new System.Drawing.Point(0, 49);
-            this.tbxLog.Multiline = true;
-            this.tbxLog.Name = "tbxLog";
-            this.tbxLog.Size = new System.Drawing.Size(560, 248);
-            this.tbxLog.TabIndex = 1;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.lblLoginStatus);
@@ -122,6 +115,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnSelectImage);
             this.panel2.Controls.Add(this.tbxMessage);
             this.panel2.Controls.Add(this.btnSend);
             this.panel2.Controls.Add(this.label4);
@@ -131,6 +125,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(560, 25);
             this.panel2.TabIndex = 6;
+            // 
+            // btnSelectImage
+            // 
+            this.btnSelectImage.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSelectImage.Location = new System.Drawing.Point(410, 0);
+            this.btnSelectImage.Name = "btnSelectImage";
+            this.btnSelectImage.Size = new System.Drawing.Size(75, 25);
+            this.btnSelectImage.TabIndex = 5;
+            this.btnSelectImage.Text = "图片";
+            this.btnSelectImage.UseVisualStyleBackColor = true;
+            this.btnSelectImage.Click += new System.EventHandler(this.btnSelectImage_Click);
             // 
             // tbxMessage
             // 
@@ -160,6 +165,19 @@
             this.label4.Size = new System.Drawing.Size(0, 12);
             this.label4.TabIndex = 0;
             // 
+            // dlgSelectPic
+            // 
+            this.dlgSelectPic.FileName = "openFileDialog1";
+            // 
+            // tbxLog
+            // 
+            this.tbxLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxLog.Location = new System.Drawing.Point(0, 49);
+            this.tbxLog.Name = "tbxLog";
+            this.tbxLog.Size = new System.Drawing.Size(560, 248);
+            this.tbxLog.TabIndex = 7;
+            this.tbxLog.Text = "";
+            // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -176,7 +194,6 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -187,12 +204,14 @@
         private System.Windows.Forms.TextBox tbxPwd;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnLogin;
-        protected internal System.Windows.Forms.TextBox tbxLog;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbxMessage;
         private System.Windows.Forms.Label lblLoginStatus;
+        private System.Windows.Forms.OpenFileDialog dlgSelectPic;
+        private System.Windows.Forms.Button btnSelectImage;
+        private System.Windows.Forms.RichTextBox tbxLog;
     }
 }
