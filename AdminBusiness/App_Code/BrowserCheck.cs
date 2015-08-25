@@ -16,7 +16,7 @@ public class BrowserCheck
 	}
 
     //判断IE浏览器版本是否小于或等于7.0
-    public static bool CheckVersion()
+    public static bool CheckVersion(bool redirect)
     {
         bool cvalue = false;
         if (Convert.ToInt32(HttpContext.Current.Request.Browser.MajorVersion) > 7)
@@ -24,12 +24,16 @@ public class BrowserCheck
             cvalue = true;
         }
 
-        if (!cvalue)
+        if (!cvalue&& redirect)
         {
-            HttpContext.Current.Response.Redirect("/browser.html", true);
+            HttpContext.Current.Response.Redirect("/browserdetective.aspx?returnurl=" + HttpContext.Current.Server.UrlEncode(HttpContext.Current.Request.RawUrl), true);
         }
 
         return cvalue;
-    
+
+    }
+    public static bool CheckVersion( )
+    {
+        return CheckVersion(true);
     }
 }

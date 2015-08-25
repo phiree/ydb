@@ -127,10 +127,6 @@
       <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
       <Name>Dianzhu.CSClient.IVew</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.Model\Dianzhu.CSClient.Model.csproj">
-      <Project>{7B1E5E52-D326-48DE-A3B4-9815B1421479}</Project>
-      <Name>Dianzhu.CSClient.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj">
       <Project>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</Project>
       <Name>Dianzhu.CSClient.Presenter</Name>
