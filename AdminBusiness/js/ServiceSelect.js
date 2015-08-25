@@ -105,8 +105,8 @@ $.fn.ServiceSelect = function (options) {
                 $serListItem.bind("click", serviceClick);
                 $serList.append($serListItem);
                 $serListContainer.append($serList)
-            }
-;
+            };
+            $serList.find(".serListItem:even").addClass("even");
             $(_this).append($serListContainer);
         }
 
@@ -117,6 +117,8 @@ $.fn.ServiceSelect = function (options) {
             var childDataArray = dataRequest(thisID);
             var childLevel = thisLevel + 1;
             var childList = $("ul[list-level=" + childLevel + "]");
+
+            $(this).addClass("active").siblings().removeClass("active");
 
 
             if (!childList) {

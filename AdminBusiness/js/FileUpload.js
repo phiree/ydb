@@ -72,6 +72,7 @@ function upLoadImg (ele,limit){
     var form = $(myform);
     var fu = $(_this).clone(true).val("");
     var ipbusinessId = document.createElement("input");
+    $(myform).hide();
     ipbusinessId.name = "businessId";
     ipbusinessId.value = businessId;
     $(ipbusinessId).appendTo(form);

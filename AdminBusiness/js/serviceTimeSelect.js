@@ -55,8 +55,8 @@
                 _trigger.html(_defHour + ":" + _defMinu);
             }
 
-            protoThis.createSelect(_hourSelcet,24,null,_defHour,function(val){_hourPrint = val});
-            protoThis.createSelect(_minuSelcet,60,5,_defMinu,function(val){_minuPrint = val});
+            protoThis.createSelect(_hourSelcet,23,null,_defHour,function(val){_hourPrint = val});
+            protoThis.createSelect(_minuSelcet,59,5,_defMinu,function(val){_minuPrint = val});
 
             _trigger.click(function(){
 
