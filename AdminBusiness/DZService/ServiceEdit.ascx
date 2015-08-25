@@ -41,19 +41,23 @@
                     <input class="dis-n" type="text" runat="server" focusid="setSerType" id="hiTypeId" />
                     <asp:Label CssClass="business-radioCf dis-n m-l10" runat="server" ID="lblSelectedType"></asp:Label>
                     <div id="serLightContainer" class="serviceTabs dis-n">
+                        <div class="serChoiceTitle">
+                            选择服务信息
+                        </div>
                         <div class="serChoiceInfo clearfix">
                             <div id="serChoiceContainer" class="serChoiceContainer fl">
+                                <em>已选择</em>
                             </div>
                             <div class="serChoiceBtnContainer fr">
                                 <div class="d-inb">
-                                    <div id="serChoiceConf" class="serChoiceBtn lightClose dis-n">
+                                    <div id="serChoiceConf" class="serChoiceBtn btn-confirm lightClose dis-n">
                                         确认</div>
                                 </div>
-                                <div id="serChoiceCancel" class="serChoiceBtn lightClose d-inb">
+                                <div id="serChoiceCancel" class="serChoiceBtn btn-cancel lightClose d-inb">
                                     取消</div>
                             </div>
                         </div>
-                        <div id="serList" class="serList clearfix">
+                        <div id="serList" class="serListContainer lightFluid clearfix">
                         </div>
                     </div>
                 </div>
