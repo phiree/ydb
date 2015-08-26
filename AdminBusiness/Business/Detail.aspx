@@ -84,10 +84,6 @@
                                   <div class="cont-col-5"><span class="cont-h5">证件号码</span></div>
                                   <div class="cont-col-7"><%=CurrentBusiness.ChargePersonIdCardNo %></div>
                               </div>
-                              <div class="cont-row">
-                                  <div class="cont-col-5"><span class="cont-h5">负责人证件照</span></div>
-                                  <div class="cont-col-12"></div>
-                              </div>
                         </div>
                         <p class="cont-h4">营业执照</p>
                         <div class="p-20 detail-img">
@@ -113,7 +109,7 @@
             <div class="cont-row">
                 <div class="cont-col-12">
                     <div class="business-detail-pic">
-                       <p class="cont-h4">店铺图片</p>
+                       <p class="cont-h4 m-b20">店铺图片</p>
                        <div class="detail-img">
                         <asp:Repeater runat="server" ID="rptShow">
                               <ItemTemplate>
