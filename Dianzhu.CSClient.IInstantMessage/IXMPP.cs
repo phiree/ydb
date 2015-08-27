@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using agsXMPP;
+using agsXMPP.protocol.client;
 namespace Dianzhu.CSClient.IInstantMessage
 {
     public interface IXMPP
@@ -10,8 +11,9 @@ namespace Dianzhu.CSClient.IInstantMessage
         
       
         void OpenConnection(string userName, string password);
+        void SendPresent();
         event ObjectHandler OnLogin;
-        event EventHandler OnPresent;
+        event PresenceHandler OnPresent;
         void SendMessage(string message, string from, string to);
     }
 }

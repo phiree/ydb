@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLFactory.cs" />
     <Compile Include="ChatLoader.cs" />
     <Compile Include="CustomerClient\MainFormPresenter.cs" />
     <Compile Include="FormController.cs" />
@@ -79,6 +80,10 @@
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IVew.csproj">
       <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
       <Name>Dianzhu.CSClient.IVew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
+      <Project>{125F0D3B-E83C-4743-9944-E82392CBA6C5}</Project>
+      <Name>Dianzhu.CSClient.XMPP</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>

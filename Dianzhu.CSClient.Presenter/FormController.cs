@@ -11,27 +11,67 @@ namespace Dianzhu.CSClient.Presenter
     public class FormController
     {
         IVew.MainFormView view;
+        IInstantMessage.IXMPP xmpp;
         DZMembershipProvider bllMember;
         BLLDZService bllService;
         BLLReception bllReception;
         BLLServiceOrder bllOrder;
         #region state 
-        DZMembership customerService; //当前客户
+        DZMembership customerService=GlobalViables.CurrentCustomerService; //当前客户
         DZMembership customer; //客服
         List<DZMembership> customerList = new List<DZMembership>(); // 客户列表
         Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();//接待列表
         Dictionary<string, IList<DZService>> SearchResultForCustomer = new Dictionary<string, IList<DZService>>();//搜索列表
+        
         #endregion
         public FormController(IVew.MainFormView view, DZMembershipProvider bllMember, BLLReception bllReception,
-            BLLDZService bllService,DZMembership customerService,BLLServiceOrder bllOrder )
+            BLLDZService bllService, BLLServiceOrder bllOrder,IInstantMessage.IXMPP xmpp )
         {
             this.view = view;
             this.bllMember = bllMember;
             this.bllReception = bllReception;
             this.bllService = bllService;
-            this.customerService = customerService;
+          
             this.bllOrder = bllOrder;
+            this.xmpp = xmpp;
+            //present 无法测试了...需要把handler 和 event都隔离开去?
+            this.xmpp.OnPresent += new agsXMPP.protocol.client.PresenceHandler(xmpp_OnPresent);
             //this.view.SendMessageHandler += new EventHandler(view_SendMessageHandler);
+        }
+
+        void xmpp_OnPresent(object sender, agsXMPP.protocol.client.Presence pres)
+        {
+            string userName = StringHelper.EnsureNormalUserName(pres.From.User);
+            bool isInList = customerList.Any(x => x.UserName == userName);
+            switch (pres.Type)
+            {
+                case agsXMPP.protocol.client.PresenceType.available:
+                    //登录,判断当前用户是否已经在列表中
+
+                    if (isInList)
+                    {
+                        //改变对应按钮的样式.
+                        view.SetCustomerButtonStyle(userName, em_ButtonStyle.Login);
+                    }
+                    else
+                    {
+                        AddCustomer(userName);
+                        view.AddCustomerButtonWithStyle(userName, em_ButtonStyle.Login);
+                    }
+
+                    break;
+                case agsXMPP.protocol.client.PresenceType.unavailable:
+                    if (isInList)
+                    {
+                        view.SetCustomerButtonStyle(userName, em_ButtonStyle.LogOff);
+                    }
+                    else
+                    {
+                    }
+
+                    break;
+                default: break;
+            }
         }
 
         void view_SendMessageHandler(object sender, EventArgs e)

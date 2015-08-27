@@ -20,13 +20,13 @@ namespace Dianzhu.CSClient
        Presenter.LoginPresenter loginPresenter;
         public fmLogin()
         {
-            CSClient.IInstantMessage.IXMPP xmpp=new XMPP.XMPP();
+            CSClient.IInstantMessage.IXMPP xmpp = GlobalViables.XMPP;
             loginPresenter = new LoginPresenter(this, xmpp);
             InitializeComponent();
             
-             GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
-             GlobalViables.XMPPConnection.OnLogin += new ObjectHandler(XMPPConnection_OnLogin);
-             GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
+             //GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
+             //GlobalViables.XMPPConnection.OnLogin += new ObjectHandler(XMPPConnection_OnLogin);
+             //GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
              btnLogin.Click += new EventHandler(btnLogin_Click2);
 
         }
@@ -79,31 +79,31 @@ namespace Dianzhu.CSClient
         {
             
             //告诉世界,我,上线,,,了.
-            Presence p = new Presence(ShowType.chat, "Online");
-            p.Type = PresenceType.available;
-            GlobalViables.XMPPConnection.Send(p);
-            if (InvokeRequired)
-            {
-                BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
-                return;
-            }
-            //保存当前用户
-            BLL.DZMembershipProvider bllMembership = new BLL.DZMembershipProvider();
-            DZMembership customerService = BLLFactory.BLLMembership.GetUserByName(tbxUserName.Text);
-            GlobalViables.CurrentCustomerService = customerService;
-           // this.DialogResult = DialogResult.OK;
+           // Presence p = new Presence(ShowType.chat, "Online");
+           // p.Type = PresenceType.available;
+           // GlobalViables.XMPPConnection.Send(p);
+           // if (InvokeRequired)
+           // {
+           //     BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
+           //     return;
+           // }
+           // //保存当前用户
+           // BLL.DZMembershipProvider bllMembership = new BLL.DZMembershipProvider();
+           // DZMembership customerService = BLLFactory.BLLMembership.GetUserByName(tbxUserName.Text);
+           // GlobalViables.CurrentCustomerService = customerService;
+           //// this.DialogResult = DialogResult.OK;
              
         }
         public  bool IsLoginSuccess
         {
             set {
                 this.DialogResult = value ? System.Windows.Forms.DialogResult.OK : System.Windows.Forms.DialogResult.Abort;
-                return;
-                Action lambda = () =>this.DialogResult=value? System.Windows.Forms.DialogResult.OK: System.Windows.Forms.DialogResult.Abort;
-                if (InvokeRequired)
-                    Invoke(lambda);
-                else
-                    lambda();
+                //return;
+                //Action lambda = () =>this.DialogResult=value? System.Windows.Forms.DialogResult.OK: System.Windows.Forms.DialogResult.Abort;
+                //if (InvokeRequired)
+                //    Invoke(lambda);
+                //else
+                //    lambda();
 
             } 
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using agsXMPP;
 using agsXMPP.protocol.client;
 namespace Dianzhu.CSClient.XMPP
 {
@@ -10,43 +11,53 @@ namespace Dianzhu.CSClient.XMPP
 
         static readonly string Server = "192.168.1.140";
         static readonly string Domain = "192.168.1.140";
-        static agsXMPP.XmppClientConnection Connection;
+        static agsXMPP.XmppClientConnection XmppClientConnection;
         
         public XMPP()
         {
              
-            Connection = new agsXMPP.XmppClientConnection(Server);
-            Connection.OnLogin += new agsXMPP.ObjectHandler(Connection_OnLogin);
+                XmppClientConnection = new agsXMPP.XmppClientConnection(Server);
+                XmppClientConnection.OnLogin += new agsXMPP.ObjectHandler(Connection_OnLogin);
+                XmppClientConnection.OnPresence += new PresenceHandler(Connection_OnPresence);
+            
+        }
+
+        void Connection_OnPresence(object sender, Presence pres)
+        {
+            OnPresent(sender, pres);
         }
 
         void Connection_OnLogin(object sender)
         {
             OnLogin(sender);
         }
-        
+
+        public void SendPresent()
+        {
+            Presence p = new Presence(ShowType.chat, "Online");
+            p.Type = PresenceType.available;
+            XmppClientConnection.Send(p);
+        }
         
         public void SendMessage(string message, string from, string to)
         {
             
         }
-        
-        public event agsXMPP.ObjectHandler OnPresent;
 
-        public event agsXMPP.ObjectHandler OnLogin;
+         
 
+        public event  ObjectHandler OnLogin;
 
+        public event PresenceHandler OnPresent;
        
 
         public void OpenConnection(string userName, string password)
         {
-            Connection.Open(StringHelper.EnsureOpenfireUserName(userName), password);
+            XmppClientConnection.Open(StringHelper.EnsureOpenfireUserName(userName), password);
         }
 
 
-        event EventHandler IInstantMessage.IXMPP.OnPresent
-        {
-            add { throw new NotImplementedException(); }
-            remove { throw new NotImplementedException(); }
-        }
+         
+         
     }
 }

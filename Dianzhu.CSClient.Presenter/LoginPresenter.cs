@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Dianzhu.CSClient.IInstantMessage;
 using agsXMPP;
+using Dianzhu.Model;
+using Dianzhu.BLL;
 namespace Dianzhu.CSClient.Presenter
 {
    public class LoginPresenter
@@ -20,6 +22,9 @@ namespace Dianzhu.CSClient.Presenter
 
        void xmpp_OnLogin(object sender)
        {
+           BLL.DZMembershipProvider bllMembership = new BLL.DZMembershipProvider();
+           DZMembership customerService = BLLFactory.BLLMembership.GetUserByName(loginView.UserName);
+           GlobalViables.CurrentCustomerService = customerService;
            loginView.IsLoginSuccess = true;
        }
 
@@ -33,18 +38,10 @@ namespace Dianzhu.CSClient.Presenter
        void loginView_Logined(object sender, EventArgs e)
        {
            loginView.IsLoginSuccess = true;
-       }
+        }
 
-       void loginView_ViewLogin(object sender, EventArgs e)
-       {
-           
-       }
-
-       public void Login()
-       {
-           
-       }
-       //$xmpp
+       
+ 
 
     }
 }

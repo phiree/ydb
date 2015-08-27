@@ -21,14 +21,15 @@ namespace Dianzhu.CSClient
         BLL.BLLReception BLLReception = new BLL.BLLReception();
         BLL.BLLDZService BLLDZService = new BLL.BLLDZService();
         BLL.BLLServiceOrder BLLServiceOrder = new BLL.BLLServiceOrder();
+        IInstantMessage.IXMPP xmpp = new XMPP.XMPP();
         FormController FormController;
         public FormMain()
         {
             InitializeComponent();
             FormController = new FormController(this, BLLMember, BLLReception, BLLDZService,
-            GlobalViables.CurrentCustomerService,BLLServiceOrder);
-            GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
-            GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
+             BLLServiceOrder,xmpp);
+            //GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
+            //GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
         }
 
         #region XMPP
@@ -112,11 +113,11 @@ namespace Dianzhu.CSClient
 
             lblTime.Text = chat.SavedTime.ToShortTimeString() + " ";
 
-            if (GlobalViables.CurrentCustomerService.UserName == chat.To.UserName)
-            {
-                pnlOneChat.FlowDirection = FlowDirection.RightToLeft;
-                lblMessage.TextAlign = ContentAlignment.MiddleRight;
-            }
+            //if (GlobalViables.CurrentCustomerService.UserName == chat.To.UserName)
+            //{
+            //    pnlOneChat.FlowDirection = FlowDirection.RightToLeft;
+            //    lblMessage.TextAlign = ContentAlignment.MiddleRight;
+            //}
 
             lblFrom.Text = chat.From.UserName;
             lblMessage.Text = chat.MessageBody;
@@ -158,15 +159,15 @@ namespace Dianzhu.CSClient
         //点击支付
         void btnSendPayLink_Click(object sender, EventArgs e)
         {
-            agsXMPP.protocol.client.Message msg=new agsXMPP.protocol.client.Message
-                (
-                currentCustomerName+"@"+GlobalViables.ServerName,
-                StringHelper.EnsureOpenfireUserName(GlobalViables.CurrentCustomerService.UserName)+"@"+GlobalViables.ServerName
+            //agsXMPP.protocol.client.Message msg=new agsXMPP.protocol.client.Message
+            //    (
+            //    currentCustomerName+"@"+GlobalViables.ServerName,
+            //   // StringHelper.EnsureOpenfireUserName(GlobalViables.CurrentCustomerService.UserName)+"@"+GlobalViables.ServerName
                 
-                );
-            string service_id=((Button)sender).Tag.ToString();
-            FormController.SendPayLink(service_id);
-            GlobalViables.XMPPConnection.Send(msg);
+            //    );
+            //string service_id=((Button)sender).Tag.ToString();
+           // FormController.SendPayLink(service_id);
+           // GlobalViables.XMPPConnection.Send(msg);
         }
 
         void pb_Click(object sender, EventArgs e)
@@ -224,8 +225,8 @@ namespace Dianzhu.CSClient
                 return;
             }
 
-            GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(
-            StringHelper.EnsureOpenfireUserName(customerName) + "@" + GlobalViables.Domain, MessageType.chat, message));
+           // GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(
+          //  StringHelper.EnsureOpenfireUserName(customerName) + "@" + GlobalViables.Domain, MessageType.chat, message));
             //FormController.SendMessage(message, currentCustomerName);
             //SendMessageHandler(sender, e);
             //SendMessage(tbxChatMsg.Text);
@@ -318,7 +319,7 @@ namespace Dianzhu.CSClient
             m.SetAttribute("t", "push");
            // m.SetAttribute("service_name",
             m.To = StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain;
-            GlobalViables.XMPPConnection.Send(m);
+           // GlobalViables.XMPPConnection.Send(m);
             //业务逻辑
             FormController.PushService(new Guid(serviceId));
         }
