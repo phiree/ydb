@@ -94,7 +94,7 @@
                                 </ItemTemplate>
                               </asp:Repeater>
                         </div>
-                        <p class="cont-h4">负责人执照</p>
+                        <p class="cont-h4">负责人证件照</p>
                             <div class="p-20 detail-img">
                             <asp:Repeater runat="server" ID="rptCharge">
                               <ItemTemplate>

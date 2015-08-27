@@ -91,7 +91,7 @@
                 </table>
             </div>
             <div class="t-r">
-                <a class="btn btn-default btn-info" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%=CurrentService.Id %>">修改服务信息</a></div>
+                <a class="btn btn-default btn-info m-r10" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%=CurrentService.Id %>">修改服务信息</a><a href="/dzservice/default.aspx?businessid=<%=Request["businessid"]%>" class="btn btn-default btn-cancel">返回我的服务</a></div>
            </div>
 </div>
 
