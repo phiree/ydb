@@ -154,6 +154,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XMPP", "XMPP", "{63C04316-8F10-49EE-A76A-D9ABC80B3E75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.IInstantMessage", "Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj", "{820A465F-51FB-4F8D-8665-B80F9643281B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.XMPP", "Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj", "{125F0D3B-E83C-4743-9944-E82392CBA6C5}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi
@@ -337,6 +341,26 @@ Global
 		{5AC8D7DE-A53D-4698-8957-C78D9243A793}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5AC8D7DE-A53D-4698-8957-C78D9243A793}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5AC8D7DE-A53D-4698-8957-C78D9243A793}.Release|x86.ActiveCfg = Release|Any CPU
+		{820A465F-51FB-4F8D-8665-B80F9643281B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{820A465F-51FB-4F8D-8665-B80F9643281B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{820A465F-51FB-4F8D-8665-B80F9643281B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{820A465F-51FB-4F8D-8665-B80F9643281B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{820A465F-51FB-4F8D-8665-B80F9643281B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{820A465F-51FB-4F8D-8665-B80F9643281B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{820A465F-51FB-4F8D-8665-B80F9643281B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{820A465F-51FB-4F8D-8665-B80F9643281B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{820A465F-51FB-4F8D-8665-B80F9643281B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{820A465F-51FB-4F8D-8665-B80F9643281B}.Release|x86.ActiveCfg = Release|Any CPU
+		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -353,5 +377,7 @@ Global
 		{755EEA8C-9D5E-406E-83DD-36B3BA4EB158} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{5AC8D7DE-A53D-4698-8957-C78D9243A793} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{6A05019E-F3EA-460A-BC05-0336EB3BFCF4} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{820A465F-51FB-4F8D-8665-B80F9643281B} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{125F0D3B-E83C-4743-9944-E82392CBA6C5} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 	EndGlobalSection
 EndGlobal

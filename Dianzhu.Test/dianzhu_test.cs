@@ -32,5 +32,20 @@ public     class form
            public int id { get; set; }
             public string name { get; set; }
         }
+        [Test]
+        public void linq_test()
+        {
+            List<a> aa = new List<a>();
+            aa.Add(new a { id=1,name="aa" });
+            aa.Add(new a { id = 2, name = "bb" });
+
+           var result = from cc in aa 
+                         select new a { id = cc.id, name = cc.name };
+
+
+           List<a> result2 = result.ToList();
+           Console.Write(result2[0].name);
+            
+        }
     }
 }

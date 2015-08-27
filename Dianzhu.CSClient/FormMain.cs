@@ -20,11 +20,13 @@ namespace Dianzhu.CSClient
         BLL.DZMembershipProvider BLLMember = new BLL.DZMembershipProvider();
         BLL.BLLReception BLLReception = new BLL.BLLReception();
         BLL.BLLDZService BLLDZService = new BLL.BLLDZService();
+        BLL.BLLServiceOrder BLLServiceOrder = new BLL.BLLServiceOrder();
         FormController FormController;
         public FormMain()
         {
             InitializeComponent();
-            FormController = new FormController(this, BLLMember, BLLReception, BLLDZService,GlobalViables.CurrentCustomerService);
+            FormController = new FormController(this, BLLMember, BLLReception, BLLDZService,
+            GlobalViables.CurrentCustomerService,BLLServiceOrder);
             GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
             GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
         }
@@ -48,14 +50,18 @@ namespace Dianzhu.CSClient
                 return;
             }
             //解析消息文件,包含里面的多媒体文件. 为了降低controller对agsxmpp的依赖,将解析放在v
-            string mediaUrl = string.Empty;
+            string mediaUrl=string.Empty;
+            string confirm_service_id = string.Empty;
 
             if (msg.Attributes["media"] != null)
             {
                 mediaUrl = msg.Attributes["media"].ToString();
             }
-
-            FormController.ReceiveMessage(StringHelper.EnsureNormalUserName(msg.From.User), msg.Body, mediaUrl);
+            if (msg.HasAttribute("selected_service_id"))
+            {
+                confirm_service_id = msg.GetAttribute("selected_service_id");
+            }
+            FormController.ReceiveMessage(StringHelper.EnsureNormalUserName(msg.From.User), msg.Body, mediaUrl,confirm_service_id);
         }
 
         string currentCustomerName;
@@ -83,8 +89,13 @@ namespace Dianzhu.CSClient
                 return chatLog;
             }
         }
+        public string MessageTextBox {
+            get { return tbxChatMsg.Text; }
+            set { tbxChatMsg.Text = value; }
+        }
         public void LoadOneChat(ReceptionChat chat)
         {
+            
             Label lblTime = new Label();
             Label lblFrom = new Label();
             Label lblMessage = new Label();
@@ -110,7 +121,7 @@ namespace Dianzhu.CSClient
             lblFrom.Text = chat.From.UserName;
             lblMessage.Text = chat.MessageBody;
             _AutoSize(lblMessage);
-            pnlOneChat.Width = pnlChat.Size.Width - 16;
+            pnlOneChat.Width = pnlChat.Size.Width - 36;
 
             //显示多媒体信息.
 
@@ -118,15 +129,51 @@ namespace Dianzhu.CSClient
             {
 
                 PictureBox pb = new PictureBox();
+                pb.Click += new EventHandler(pb_Click);
                 pb.Size = new System.Drawing.Size(100, 100);
                 pb.Load("http://localhost:8033"+ chat.MessageMediaUrl);
                 pnlOneChat.Controls.Add(pb);
+            }
+            if (!string.IsNullOrEmpty(chat.ServiceId))
+            {
+                FlowLayoutPanel pnl = new FlowLayoutPanel();
+                Label lblServiceId=new Label();
+                lblServiceId.Text=chat.ServiceId;
+                pnl.Controls.Add(lblServiceId);
+
+                Button btnSendPayLink = new Button();
+                btnSendPayLink.Tag = chat.ServiceId;
+                btnSendPayLink.Text = "发送支付链接";
+                //todo:create order for this
+                btnSendPayLink.Click += new EventHandler(btnSendPayLink_Click);
+                pnl.Controls.Add(btnSendPayLink);
+                pnlOneChat.Controls.Add(pnl);
             }
 
 
             pnlChat.Controls.Add(pnlOneChat);
             pnlChat.ScrollControlIntoView(pnlOneChat);
 
+        }
+        //点击支付
+        void btnSendPayLink_Click(object sender, EventArgs e)
+        {
+            agsXMPP.protocol.client.Message msg=new agsXMPP.protocol.client.Message
+                (
+                currentCustomerName+"@"+GlobalViables.ServerName,
+                StringHelper.EnsureOpenfireUserName(GlobalViables.CurrentCustomerService.UserName)+"@"+GlobalViables.ServerName
+                
+                );
+            string service_id=((Button)sender).Tag.ToString();
+            FormController.SendPayLink(service_id);
+            GlobalViables.XMPPConnection.Send(msg);
+        }
+
+        void pb_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            Form fm = new ShowFullImage(pb.Image);
+            fm.ShowDialog();
         }
 
 
@@ -157,7 +204,7 @@ namespace Dianzhu.CSClient
             Button btn = new Button();
             btn.Text = buttonText;
             btn.Name = GlobalViables.ButtonNamePrefix + buttonText;
-            btn.Click += new EventHandler(btnCustomer_Click);
+            btn.Click += SendMessageHandler;
             pnlCustomerList.Controls.Add(btn);
             SetCustomerButtonStyle(buttonText, buttonStyle);
         }
@@ -166,25 +213,25 @@ namespace Dianzhu.CSClient
         {
             FormController.ActiveCustomer(((Button)sender).Text);
         }
-
-        private void btnSend_Click(object sender, EventArgs e)
+        public event EventHandler SendMessageHandler;
+         
+        //xmpp发送消息
+        public void XMPP_SendMessage(string message,string customerName)
         {
-            string message = tbxChatMsg.Text;
+            //string message = tbxChatMsg.Text;
             if (string.IsNullOrEmpty(message) || string.IsNullOrEmpty(CurrentCustomerName))
             {
                 return;
             }
 
             GlobalViables.XMPPConnection.Send(new agsXMPP.protocol.client.Message(
-            StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain, MessageType.chat, message));
-            SendMessage(tbxChatMsg.Text);
-            tbxChatMsg.Text = string.Empty;
+            StringHelper.EnsureOpenfireUserName(customerName) + "@" + GlobalViables.Domain, MessageType.chat, message));
+            //FormController.SendMessage(message, currentCustomerName);
+            //SendMessageHandler(sender, e);
+            //SendMessage(tbxChatMsg.Text);
         }
 
-        public void SendMessage(string message)
-        {
-            FormController.SendMessage(message, currentCustomerName);
-        }
+         
 
 
 
@@ -250,7 +297,7 @@ namespace Dianzhu.CSClient
             pnl.Controls.Add(lblServiceName);
             Button btnPushService = new Button();
             btnPushService.Text = "推送";
-            btnPushService.Tag = service.Id;
+            btnPushService.Tag = service;
             btnPushService.Click += new EventHandler(btnPushService_Click);
             pnl.Controls.Add(btnPushService);
             pnlResultService.Controls.Add(pnl);
@@ -259,12 +306,23 @@ namespace Dianzhu.CSClient
 
         void btnPushService_Click(object sender, EventArgs e)
         {
+            //xmpp发送消息 由xmpp实现,在csclient
             agsXMPP.protocol.client.Message m = new agsXMPP.protocol.client.Message();
             m.Type = MessageType.chat;
-            m.SetAttribute("service_id", ((Button)sender).Tag.ToString());
+            DZService service = (DZService)((Button)sender).Tag;
+            string serviceId = service.Id.ToString();
+            string serviceName = service.Name;
+            m.SetAttribute("service_name", service.Name);
+            m.SetAttribute("service_id", serviceId);
+
+            m.SetAttribute("t", "push");
+           // m.SetAttribute("service_name",
             m.To = StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain;
             GlobalViables.XMPPConnection.Send(m);
+            //业务逻辑
+            FormController.PushService(new Guid(serviceId));
         }
+        
         #endregion
 
         private void FormMain_ResizeEnd(object sender, EventArgs e)

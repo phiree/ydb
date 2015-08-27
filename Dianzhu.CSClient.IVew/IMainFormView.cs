@@ -30,14 +30,11 @@ namespace Dianzhu.CSClient.IVew
         /// <param name="buttonText"></param>
         /// <param name="buttonStyle"></param>
         void AddCustomerButtonWithStyle(string buttonText, em_ButtonStyle buttonStyle);
-        /// <summary>
-        /// 发送消息
-        /// </summary>
-        /// <param name="message"></param>
-        void SendMessage(string message);
+        event EventHandler SendMessageHandler;
         #endregion
 
         string SerachKeyword { get; set; }
+        string MessageTextBox { get; set; }
 
 
         IList<DZService> SearchedService { get; set; }

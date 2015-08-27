@@ -44,6 +44,10 @@ namespace Dianzhu.Model
     }
     public class ReceptionCustomer : ReceptionBase
     {
+        public ReceptionCustomer()
+        {
+            PushedServices = new List<DZService>();
+        }
         /// <summary>
         /// 推送的服务
         /// </summary>
@@ -82,9 +86,10 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string MessageMediaUrl { get; set; }
         /// <summary>
-        /// 拼装成可读信息
+        /// 消息中的服务信息
         /// </summary>
         /// <returns></returns>
+        public virtual string ServiceId { get; set; }
         public virtual string BuildLine()
         {
             return SavedTime.ToShortTimeString() + " " + From.UserName + ":    " + MessageBody;
@@ -100,4 +105,21 @@ namespace Dianzhu.Model
          
 
     }
+    public class ReceptionChatService:ReceptionChat
+    {
+        public ReceptionChatService()
+        {
+            this.MessageMediaUrl = Service.Business.BusinessAvatar.ImageName;
+        }
+        public DZService Service { get; set; }
+    }
+    public class ReceptionChatOrder : ReceptionChat
+    {
+        public ReceptionChatOrder()
+        {
+            this.MessageMediaUrl = ServiceOrder.Service.Business.BusinessAvatar.ImageName;
+        }
+        public ServiceOrder ServiceOrder { get; set; }
+    }
+    
 }

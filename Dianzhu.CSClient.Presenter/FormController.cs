@@ -14,6 +14,7 @@ namespace Dianzhu.CSClient.Presenter
         DZMembershipProvider bllMember;
         BLLDZService bllService;
         BLLReception bllReception;
+        BLLServiceOrder bllOrder;
         #region state 
         DZMembership customerService; //当前客户
         DZMembership customer; //客服
@@ -22,14 +23,20 @@ namespace Dianzhu.CSClient.Presenter
         Dictionary<string, IList<DZService>> SearchResultForCustomer = new Dictionary<string, IList<DZService>>();//搜索列表
         #endregion
         public FormController(IVew.MainFormView view, DZMembershipProvider bllMember, BLLReception bllReception,
-            BLLDZService bllService,DZMembership customerService )
+            BLLDZService bllService,DZMembership customerService,BLLServiceOrder bllOrder )
         {
             this.view = view;
             this.bllMember = bllMember;
             this.bllReception = bllReception;
             this.bllService = bllService;
             this.customerService = customerService;
-            
+            this.bllOrder = bllOrder;
+            //this.view.SendMessageHandler += new EventHandler(view_SendMessageHandler);
+        }
+
+        void view_SendMessageHandler(object sender, EventArgs e)
+        {
+            //SendMessage(view.MessageTextBox, customer.UserName);
         }
 
         
@@ -109,20 +116,29 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
+        
+
         public void SendMessage(string message, string customerName)
         {
             //保存消息
             if (customer == null) return;
           ReceptionChat chat=  SaveMessage(message, customerName, true,string.Empty);
           view.LoadOneChat(chat);
+          view.MessageTextBox = string.Empty;
+           
             //
+        }
+        public void SendPayLink(string service_id)
+        {
+            DZService service = bllService.GetOne(new Guid(service_id));
+            //创建订单.
+
         }
         /// <summary>
         /// 发送消息
         /// </summary>
         /// <param name="message"></param>
         /// 
-
         public ReceptionChat SaveMessage(string message,string customerName,bool isSend,string mediaUrl)
         {
 #region 保存聊天消息
@@ -137,7 +153,7 @@ namespace Dianzhu.CSClient.Presenter
             }
             else
             {
-                re = new ReceptionBase
+                re = new ReceptionCustomer
                 {
                     Sender = customer,
                     Receiver = customerService,
@@ -206,7 +222,7 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         /// <param name="customerName"></param>
         /// <param name="message"></param>
-        public void ReceiveMessage(string customerName, string message,string mediaUrl)
+        public void ReceiveMessage(string customerName, string message,string mediaUrl,string confirm_service_id)
         { 
             //保存聊天记录, 改变view的button,聊天窗口增加一条消息
            
@@ -223,18 +239,24 @@ namespace Dianzhu.CSClient.Presenter
                    view.SetCustomerButtonStyle(customerName, em_ButtonStyle.Unread);
                }
            }
+            
 
            ReceptionChat chat = SaveMessage(message, customerName, false,mediaUrl);
+           chat.ServiceId = confirm_service_id;
+           //收到消息之后创建订单, 还是客服点击发送链接确认之后 创建订单
+           if (!string.IsNullOrEmpty(confirm_service_id))
+           {
+               
+              ServiceOrder order= bllOrder.CreateOrder(customer.Id,new Guid(confirm_service_id));
+           }
+           chat.ServiceId = confirm_service_id;
            if (customer != null && customerName == customer.UserName)
            {
                view.LoadOneChat(chat);
            }
 
-
-
-
-
         }
+        
         #endregion
 
         #region searchservice
@@ -255,9 +277,21 @@ namespace Dianzhu.CSClient.Presenter
                 SearchResultForCustomer.Add(pushServiceKey, serviceList);
             }
         }
-        public void PushService(Guid serviceId)
+        /// <summary>
+        /// 推送一项服务.
+        /// </summary>
+        /// <param name="serviceId"></param>
+        public void  PushService(Guid serviceId)
         { 
-            
+            //接待 加入该服务.
+            ReceptionCustomer reception = (ReceptionCustomer)ReceptionList[customer.UserName];
+            DZService service=bllService.GetOne(serviceId);
+            reception.PushedServices.Add(service);
+            //保存到聊天记录并加入聊天记录
+            string message="已推送服务:" + service.Name;
+            SaveMessage(message, customer.UserName, true, string.Empty);
+            SendMessage(message, customer.UserName);
+
         }
         #endregion
     }
