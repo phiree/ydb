@@ -151,13 +151,13 @@
     //    })
     //
     //})();
-    (function(){
-        $(".btn-cancel").each(function(){
-            $(this).click(function(){
-                return confirm("是否取消？");
-            })
-        })
-    })();
+    //(function(){
+    //    $(".btn-cancel").each(function(){
+    //        $(this).click(function(){
+    //            return confirm("是否取消？");
+    //        })
+    //    })
+    //})();
 
 
     (function (){

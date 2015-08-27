@@ -54,7 +54,7 @@
 
                 <div class="business-container mh-in dis-n">
                     <div class="business-add">
-                           <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-add">+&nbsp;新建店铺</a>
+                           <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-info">+&nbsp;新建店铺</a>
                            <asp:Label runat="server" ID="lblErr"></asp:Label><asp:HyperLink Visible="false" runat="server" ID="hlSecurity" NavigateUrl="/account/security.aspx">进入账号安全,填写电话号码</asp:HyperLink>
                         </div>
                        <div class="business-list">
@@ -175,7 +175,7 @@
                         </div>
                         <div class="cont-row">
                             <div class="cont-col-12">
-                            <p class="t-c"><input class="btn btn-add" type="submit" runat="server" id="btnCreate"  onserverclick="btnCreate_Click" value="创建"/><input class="lightClose btn btn-cancel m-l20" type="button" value="取消"/></p>
+                            <p class="t-c"><input class="btn btn-info" type="submit" runat="server" id="btnCreate"  onserverclick="btnCreate_Click" value="创建"/><input class="lightClose btn btn-cancel m-l20" type="button" value="取消"/></p>
                             </div>
 </div>
 </div>
@@ -213,22 +213,16 @@
     })
 
     $("#addNewBusiness").click(function (e) {
-            $('#newBusslightBox').lightbox_me({
-                centered: true,
-                onLoad : function(){
-
-                }
-            });
-            $("#newBusslightBox").appendTo($("form:first"));
-            e.preventDefault();
+        $('#newBusslightBox').lightbox_me({
+            centered: true,
         });
+        $("#newBusslightBox").appendTo($("form:first"));
+        e.preventDefault();
+    });
 
     $("#firstAddBusiness").click(function (e) {
         $('#newBusslightBox').lightbox_me({
             centered: true,
-            onLoad : function(){
-
-            }
         });
         $("#newBusslightBox").appendTo($("form:first"));
         e.preventDefault();

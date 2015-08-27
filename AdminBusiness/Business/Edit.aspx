@@ -3,8 +3,7 @@
  
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="/css/myshop.css" rel="stylesheet" type="text/css" />
-    <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
-        rel="stylesheet" type="text/css" />
+    <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css' rel="stylesheet" type="text/css" />
     <link href="/css/validation.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="pageDesc" runat="Server">
@@ -39,8 +38,8 @@
                         </div>
                         <div class="cont-col-5">
                             <div class="myshop-name">
-                                <p class="vm"><input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="myshop-name-input input-mid" /><span class="text-anno-r">（必填选项）</span></p>
-                                <p class="cont-input-tip"><i class="icon icon-tip"></i>请上传您的店铺商标，并填写您的店铺名称</p>
+                                <p class="vm"><input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="myshop-name-input input-mid" data-toggle="tooltip" data-placement="top" title="请上传您的店铺商标，并填写您的店铺名称" /><span class="text-anno-r">（必填选项）</span></p>
+                                <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请上传您的店铺商标，并填写您的店铺名称</p>-->
                             </div>
                         </div>
 
@@ -53,13 +52,13 @@
                         <div class="cont-col-10">
                             <div class="cont-row">
                                 <div class="cont-col-6">
-                                    <textarea class="input-textarea" id="tbxIntroduced" runat="server" name="shopIntroduced">(可输入200个字符)</textarea>
+                                    <textarea class="input-textarea" id="tbxIntroduced" runat="server" name="shopIntroduced" data-toggle="tooltip" data-placement="top" title="请将您的店铺简介在此输入（字数限制在0~200个字符之间）">(可输入200个字符)</textarea>
                                 </div>
                                 <div class="cont-col-6">
                                     <div class="text-anno myshop-intro-anno vmBox">
                                         <div class="vm">
                                             <p><span class="cont-title-tips">（必填选项）</span></p>
-                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请将您的店铺简介在此输入（字数限制在0~200个字符之间）</p>
+                                            <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请将您的店铺简介在此输入（字数限制在0~200个字符之间）</p>-->
                                         </div>
                                     </div>
                                 </div>
@@ -73,8 +72,8 @@
 
                         </div>
                         <div class="cont-col-10">
-                            <div><input type="text" class="input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"/><span class="text-anno-r">（必填选项）</span></div>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写有效的电话号码</p>
+                            <div><input type="text" class="input-lg" id="tbxContactPhone" runat="server" name="ContactPhone" data-toggle="tooltip" data-placement="top" title="请填写有效的电话号码"/><span class="text-anno-r">（必填选项）</span></div>
+                            <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请填写有效的电话号码</p>-->
                         </div>
                     </div>
                         <div class="cont-row myshop-cont-row">
@@ -84,8 +83,8 @@
                             <div class="cont-col-10">
 
                                 <div>
-                                    <p><input type="text" class="input-lg" id="tbxAddress" runat="server" name="addressDetail" /><span class="text-anno-r">（必填选项）</span></p>
-                                    <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写您详细有效的店铺地址</p>
+                                    <p><input type="text" class="input-lg" id="tbxAddress" runat="server" name="addressDetail" data-toggle="tooltip" data-placement="top" title="请填写您详细有效的店铺地址"/><span class="text-anno-r">（必填选项）</span></p>
+                                    <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请填写您详细有效的店铺地址</p>-->
                                     <!--<p class="cont-input-tip  m-b10"><i class="icon icon-tip"></i>请点击按钮放置店铺坐标</p>-->
                                     <!--<div class="cont-row">-->
                                         <!--<div class="cont-col-3">-->
@@ -108,13 +107,13 @@
     </div>
                             <div class="cont-col-10">
                                 <div>
-                                    <div id="yearsSelect" class="d-inb select select-sm years-select">
+                                    <div id="yearsSelect" class="d-inb select select-sm years-select" data-toggle="tooltip" data-placement="top" title="选择你从事该行业的时间">
                                         <ul></ul>
                                         <input type="text" class="input-lg dis-n" runat="server" focusID="yearsSelect" id="tbxBusinessYears" name="workYears"/>
                                     </div>
                                     <span class="myshop-span">年</span><span class="text-anno-r">（必填选项）</span>
                                 </div>
-                                <p class="cont-input-tip"><i class="icon icon-tip"></i>选择你从事该行业的时间</p>
+                                <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>选择你从事该行业的时间</p>-->
 
                             </div>
                         </div>
@@ -124,10 +123,10 @@
     </div>
                             <div class="cont-col-10">
                                 <div>
-                                    <input type="text" class="input-mid" runat="server" value="0" clientidmode="Static" id="selStaffAmount" />
+                                    <input type="text" class="input-mid" runat="server" value="0" clientidmode="Static" id="selStaffAmount" data-toggle="tooltip" data-placement="top" title="请填写店铺员工人数"/>
                                     <span class="myshop-span">人</span><span class="text-anno-r">（必填选项）</span>
                                 </div>
-                                <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺的员工数量</p>
+                                <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>店铺的员工数量</p>-->
     </div>
 
                         </div>
@@ -136,8 +135,8 @@
                             <p class="cont-sub-title"><span>公司网站</span></p>
                         </div>
                         <div class="cont-col-10">
-                            <div><input type="text" class="input-lg" runat="server" id="tbxWebSite" name="website" /></div>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>填写公司网站</p>
+                            <div><input type="text" class="input-lg" runat="server" id="tbxWebSite" name="website" data-toggle="tooltip" data-placement="top" title="请填写公司网站"/></div>
+                            <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>填写公司网站</p>-->
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -188,9 +187,9 @@
                         <div class="cont-col-10">
 
                             <div>
-                                <input type="text" class="input-mid" runat="server" clientidmode="Static" id="tbxContact" />
+                                <input type="text" class="input-mid" runat="server" clientidmode="Static" id="tbxContact" data-toggle="tooltip" data-placement="top" title="请填写店铺负责人姓名"/>
                             </div>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人姓名</p>
+                            <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人姓名</p>-->
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -199,7 +198,7 @@
                         </div>
                         <div class="cont-col-10">
                             <div>
-                                <div class="select select-sm">
+                                <div class="select select-sm" data-toggle="tooltip" data-placement="top" title="请选择店铺负责人证件类型">
                                     <ul>
                                         <li><a>身份证</a></li>
                                         <li><a>其它</a></li>
@@ -207,7 +206,7 @@
                                     <input type="hidden" id="selCardType" value="0" runat="server" clientidmode="Static" />
                                 </div>
                             </div>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人证件类型</p>
+                            <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人证件类型</p>-->
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -216,9 +215,9 @@
 </div>
                         <div class="cont-col-10">
                             <div>
-                                <input type="text" class="input-mid" runat="server" id="tbxCardIdNo" name="tbxCardIdNo" clientidmode="Static" /><span class="text-anno-r">（必填选项）</span>
+                                <input type="text" class="input-mid" runat="server" id="tbxCardIdNo" name="tbxCardIdNo" clientidmode="Static" data-toggle="tooltip" data-placement="top" title="请填写店铺负责人证件号码"/><span class="text-anno-r">（必填选项）</span>
                             </div>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人证件号码</p>
+                            <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人证件号码</p>-->
                         </div>
                     </div>
                     <div class="cont-row myshop-cont-row">
@@ -329,6 +328,10 @@
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $(function () {
+              $('[data-toggle="tooltip"]').tooltip()
+            });
+
             $($("form")[0]).validate(
                 {
                     errorElement: "p",
