@@ -11,11 +11,11 @@ namespace Dianzhu.CSClient.Presenter
    public class LoginPresenter
     {
        IVew.ILoginForm loginView;
-       IXMPP xmpp;
-       public LoginPresenter(IVew.ILoginForm loginView,IXMPP xmpp)
+       
+       public LoginPresenter(IVew.ILoginForm loginView )
        {
            this.loginView = loginView;
-           this.xmpp = xmpp;
+           
            loginView.LoginHandler += new EventHandler(loginView_LoginHandler);
            
        }
@@ -30,9 +30,9 @@ namespace Dianzhu.CSClient.Presenter
 
        void loginView_LoginHandler(object sender, EventArgs e)
        {
-           xmpp.OpenConnection(loginView.UserName               
+           GlobalViables.XMPP.OpenConnection(loginView.UserName               
                , loginView.Password);
-           xmpp.OnLogin+=new ObjectHandler(xmpp_OnLogin);
+           GlobalViables.XMPP.OnLogin += new ObjectHandler(xmpp_OnLogin);
        }
 
        void loginView_Logined(object sender, EventArgs e)

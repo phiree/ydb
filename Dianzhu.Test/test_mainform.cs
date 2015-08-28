@@ -48,7 +48,7 @@ namespace Dianzhu.Test
                  bllDZService,
                  
                  Builder<BLLServiceOrder>.CreateNew().Build()
-                 , xmpp);
+                 );
             formController.ReceiveMessage("a@a.a", "hello", "/pic.png",string.Empty);
             string result = view.ToString();
             Assert.AreEqual("hello", result);

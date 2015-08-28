@@ -158,6 +158,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.IInstantMe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.XMPP", "Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj", "{125F0D3B-E83C-4743-9944-E82392CBA6C5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "openfire_customer_userdatabase_config", "openfire_customer_userdatabase_config", "{0D0BC4F3-F049-4BA6-A937-5BD774E767D9}"
+	ProjectSection(SolutionItems) = preProject
+		docs\部署\openfire_customer_userdatabase_config\openfire.xml = docs\部署\openfire_customer_userdatabase_config\openfire.xml
+		docs\部署\openfire_customer_userdatabase_config\openfire2_2015-8-28.sql = docs\部署\openfire_customer_userdatabase_config\openfire2_2015-8-28.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{93755A86-D5F0-4296-A8A5-8A054B24D5EB}"
+	ProjectSection(SolutionItems) = preProject
+		docs\部署\动词服务分类-(2015-8-19)-表格.xls = docs\部署\动词服务分类-(2015-8-19)-表格.xls
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi
@@ -368,6 +379,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9FAC3956-8A8F-439C-A2FB-50AEA11792B3} = {65578E32-3BC2-4470-8637-6DD1074E4603}
 		{11F98609-4A4B-48CD-9C1A-186883C2C125} = {65578E32-3BC2-4470-8637-6DD1074E4603}
+		{93755A86-D5F0-4296-A8A5-8A054B24D5EB} = {65578E32-3BC2-4470-8637-6DD1074E4603}
 		{2E67AA78-6780-42BD-A3AB-AD953781E511} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{84187F7C-DD53-4895-A7FF-191E76756009} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
@@ -379,5 +391,6 @@ Global
 		{6A05019E-F3EA-460A-BC05-0336EB3BFCF4} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{820A465F-51FB-4F8D-8665-B80F9643281B} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{125F0D3B-E83C-4743-9944-E82392CBA6C5} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{0D0BC4F3-F049-4BA6-A937-5BD774E767D9} = {93755A86-D5F0-4296-A8A5-8A054B24D5EB}
 	EndGlobalSection
 EndGlobal

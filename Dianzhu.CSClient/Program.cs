@@ -17,6 +17,7 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
             log4net.Config.XmlConfigurator.Configure();
             DialogResult result;
+            
             using (var loginForm = new fmLogin())
             {
                   result = loginForm.ShowDialog();

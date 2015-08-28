@@ -14,6 +14,7 @@ namespace Dianzhu.CSClient.IInstantMessage
         void SendPresent();
         event ObjectHandler OnLogin;
         event PresenceHandler OnPresent;
-        void SendMessage(string message, string from, string to);
+        void SendMessage(string message, string to);
+      //  void SendMessage(agsXMPP.protocol.client.Message message);
     }
 }

@@ -20,8 +20,8 @@ namespace Dianzhu.CSClient
        Presenter.LoginPresenter loginPresenter;
         public fmLogin()
         {
-            CSClient.IInstantMessage.IXMPP xmpp = GlobalViables.XMPP;
-            loginPresenter = new LoginPresenter(this, xmpp);
+            
+            loginPresenter = new LoginPresenter(this );
             InitializeComponent();
             
              //GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);

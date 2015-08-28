@@ -11,7 +11,6 @@ namespace Dianzhu.CSClient.Presenter
     public class FormController
     {
         IVew.MainFormView view;
-        IInstantMessage.IXMPP xmpp;
         DZMembershipProvider bllMember;
         BLLDZService bllService;
         BLLReception bllReception;
@@ -25,7 +24,7 @@ namespace Dianzhu.CSClient.Presenter
         
         #endregion
         public FormController(IVew.MainFormView view, DZMembershipProvider bllMember, BLLReception bllReception,
-            BLLDZService bllService, BLLServiceOrder bllOrder,IInstantMessage.IXMPP xmpp )
+            BLLDZService bllService, BLLServiceOrder bllOrder )
         {
             this.view = view;
             this.bllMember = bllMember;
@@ -33,11 +32,14 @@ namespace Dianzhu.CSClient.Presenter
             this.bllService = bllService;
           
             this.bllOrder = bllOrder;
-            this.xmpp = xmpp;
+           //
             //present 无法测试了...需要把handler 和 event都隔离开去?
-            this.xmpp.OnPresent += new agsXMPP.protocol.client.PresenceHandler(xmpp_OnPresent);
-            //this.view.SendMessageHandler += new EventHandler(view_SendMessageHandler);
+            GlobalViables.XMPP.OnPresent += new agsXMPP.protocol.client.PresenceHandler(xmpp_OnPresent);
+            this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
+            this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(ActiveCustomer);
         }
+
+        
 
         void xmpp_OnPresent(object sender, agsXMPP.protocol.client.Presence pres)
         {
@@ -74,11 +76,13 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
-        void view_SendMessageHandler(object sender, EventArgs e)
+        void view_SendMessageHandler( )
         {
-            //SendMessage(view.MessageTextBox, customer.UserName);
+            GlobalViables.XMPP.SendMessage(view.MessageTextBox, customer.UserName);
         }
 
+
+    
         
         #region Chat
     
@@ -164,6 +168,7 @@ namespace Dianzhu.CSClient.Presenter
             if (customer == null) return;
           ReceptionChat chat=  SaveMessage(message, customerName, true,string.Empty);
           view.LoadOneChat(chat);
+          GlobalViables.XMPP.SendMessage(message, customer.UserName);
           view.MessageTextBox = string.Empty;
            
             //

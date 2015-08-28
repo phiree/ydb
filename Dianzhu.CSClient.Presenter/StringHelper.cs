@@ -22,6 +22,7 @@ namespace Dianzhu.CSClient.Presenter
             }
             return normalUserName;
         }
+        
         /// <summary>
         ///openfire 用户转换成普通用户.
         /// </summary>

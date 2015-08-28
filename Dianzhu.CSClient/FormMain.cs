@@ -21,13 +21,13 @@ namespace Dianzhu.CSClient
         BLL.BLLReception BLLReception = new BLL.BLLReception();
         BLL.BLLDZService BLLDZService = new BLL.BLLDZService();
         BLL.BLLServiceOrder BLLServiceOrder = new BLL.BLLServiceOrder();
-        IInstantMessage.IXMPP xmpp = new XMPP.XMPP();
+        
         FormController FormController;
         public FormMain()
         {
             InitializeComponent();
             FormController = new FormController(this, BLLMember, BLLReception, BLLDZService,
-             BLLServiceOrder,xmpp);
+             BLLServiceOrder);
             //GlobalViables.XMPPConnection.OnMessage += new MessageHandler(XMPPConnection_OnMessage);
             //GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
         }
@@ -202,19 +202,33 @@ namespace Dianzhu.CSClient
         }
         public void AddCustomerButtonWithStyle(string buttonText, em_ButtonStyle buttonStyle)
         {
-            Button btn = new Button();
-            btn.Text = buttonText;
-            btn.Name = GlobalViables.ButtonNamePrefix + buttonText;
-            btn.Click += SendMessageHandler;
-            pnlCustomerList.Controls.Add(btn);
-            SetCustomerButtonStyle(buttonText, buttonStyle);
+            //Action lambda = () =>this.DialogResult=value? System.Windows.Forms.DialogResult.OK: System.Windows.Forms.DialogResult.Abort;
+           
+            Action lamda = () =>
+            {
+                Button btn = new Button();
+                btn.Text = buttonText;
+                btn.Name = GlobalViables.ButtonNamePrefix + buttonText;
+                btn.Click += new EventHandler(btnCustomer_Click);
+                pnlCustomerList.Controls.Add(btn);
+                SetCustomerButtonStyle(buttonText, buttonStyle);
+            };
+            if (InvokeRequired)
+                Invoke(lamda);
+            else
+                lamda();
         }
 
         void btnCustomer_Click(object sender, EventArgs e)
         {
+            if (ActiveCustomerHandler != null)
+            { 
+                ActiveCustomerHandler(((Button)sender).Text);
+            }
             FormController.ActiveCustomer(((Button)sender).Text);
         }
-        public event EventHandler SendMessageHandler;
+        public event SendMessageHandler SendMessageHandler;
+        public event ActiveCustomerHandler ActiveCustomerHandler;
          
         //xmpp发送消息
         public void XMPP_SendMessage(string message,string customerName)
@@ -342,7 +356,14 @@ namespace Dianzhu.CSClient
                 ((Panel)c).AutoSize = true;
             }
 
+        }
 
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            if (SendMessageHandler != null)
+            {
+                SendMessageHandler();
+            }
         }
 
     }
