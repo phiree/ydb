@@ -125,6 +125,15 @@ a.new-add-btn {
     border-radius: 30px;
 }
 
+.firstAddMsg {
+    margin: 0 auto;
+    margin-top: 20px;
+    color: #3e95bf;
+    font-size: 12px;
+    width: 210px;
+    line-height: 1.4em;
+    text-align: justify;
+}
 /*end*/
 
 /*µÍ∆ÃœÍ«È“≥√Ê*/
@@ -135,6 +144,7 @@ a.new-add-btn {
 }
 
 .business-detail-head {
+    padding: 5px 14px;
     background: none;
     box-shadow: none;
     border: none;

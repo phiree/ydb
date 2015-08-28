@@ -116,12 +116,15 @@
                             </div>
                             <div class="business-new-add">
                                 <a id="firstAddBusiness" class="new-add-btn">点击创建新店铺</a>
+                                <p class="firstAddMsg dis-n">感谢您的使用一点办，为了给您提供更好的服务，建议您进入“帐号安全”绑定您的手机号码。</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--true时为已填写手机-->
+                <input id="hiCreateID" type="hidden" value="false"/>
                 </div>
-                   </div>
+                </div>
                    <div id="newBusslightBox" class="dis-n">
                        <div class="cont-container BusslightBox">
                        <div class="cont-row">
@@ -196,36 +199,40 @@
 <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
 <script src="/js/validation_business_add.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/business.js"></script>
-<script type="text/javascript">
+<script>
     $(function(){
         if ( $(".business-list").find(".business-list-item").length == 0 ){
             $(".business-new").removeClass("dis-n");
         } else {
             $(".business-container").removeClass("dis-n");
         }
-    })
-</script>
-<script>
-    var name_prefix = '';
+
+        $("#addNewBusiness").click(function (e) {
+            $('#newBusslightBox').lightbox_me({
+                centered: true
+            });
+            $("#newBusslightBox").appendTo($("form:first"));
+            e.preventDefault();
+        });
+
+        $("#firstAddBusiness").click(function (e) {
+            $('#newBusslightBox').lightbox_me({
+                centered: true
+            });
+            $("#newBusslightBox").appendTo($("form:first"));
+            e.preventDefault();
+        });
+
+        if ( $("#hiCreateID").attr("value") == "true"){
+            return;
+        } else {
+            $(".firstAddMsg").removeClass("dis-n");
+            return;
+        }
+    });
 
     $(function(){
         $("#menu").metisMenu();
-    })
-
-    $("#addNewBusiness").click(function (e) {
-        $('#newBusslightBox').lightbox_me({
-            centered: true,
-        });
-        $("#newBusslightBox").appendTo($("form:first"));
-        e.preventDefault();
-    });
-
-    $("#firstAddBusiness").click(function (e) {
-        $('#newBusslightBox').lightbox_me({
-            centered: true,
-        });
-        $("#newBusslightBox").appendTo($("form:first"));
-        e.preventDefault();
     });
 
     $(function(){
@@ -237,12 +244,9 @@
                 },
                 rules: business_validate_rules,
                 messages: business_validate_messages
-//                invalidHandler: invalidHandler
             }
         );
-    })
-
-
+    });
 </script>
 <script>
     function loadBaiduMapScript() {
@@ -255,6 +259,4 @@
         loadBaiduMapScript();
     })
 </script>
-
-<!--<script src="/js/validation_invalidHandler.js" type="text/javascript"></script>-->
 </html>
