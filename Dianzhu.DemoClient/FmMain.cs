@@ -17,6 +17,7 @@ namespace Dianzhu.DemoClient
     public partial class FmMain : Form
     {
         string csId = string.Empty;
+
         public FmMain()
         {
             InitializeComponent();
@@ -61,7 +62,7 @@ namespace Dianzhu.DemoClient
                 }
             }
 
-            AddLog(StringHelper.EnsureNormalUserName(msg.From.User), log);
+            AddLog(msg);
 
         }
 
@@ -96,38 +97,83 @@ namespace Dianzhu.DemoClient
             GlobalViables.XMPPConnection.Open(userNameForOpenfire, tbxPwd.Text);
 
         }
-        void AddLog(string user, string body)
+        void AddLog(agsc.Message message)
         {
+           string user = StringHelper.EnsureNormalUserName(message.From.User);
+         string   body = message.Body;
+          string  mediaUrl = message.GetAttribute("media");
+          string serviceId = message.GetAttribute("service_id");
+             string serviceName = message.GetAttribute("service_name");
 
-            tbxLog.AppendText(Environment.NewLine + user + ":" + body);
-
-
-        }
-        public void InsertImage(string fileName)
-        {
-
-            string lstrFile = fileName;
-            Bitmap myBitmap = new Bitmap(lstrFile);
-            // Copy the bitmap to the clipboard.
-            Clipboard.SetDataObject(myBitmap);
-            // Get the format for the object type.
-            DataFormats.Format myFormat = DataFormats.GetFormat(DataFormats.Bitmap);
-            // After verifying that the data can be pasted, paste
-            if (tbxLog.CanPaste(myFormat))
+            Label lblTime = new Label();
+            Label lblFrom = new Label();
+            Label lblMessage = new Label();
+            FlowLayoutPanel pnlOneChat = new FlowLayoutPanel();
+            pnlOneChat.Controls.AddRange(new Control[] { lblMessage });
+            pnlOneChat.FlowDirection = FlowDirection.LeftToRight;
+            _AutoSize(pnlOneChat);
+            pnlOneChat.Dock = DockStyle.Top;
+            foreach (Label c in pnlOneChat.Controls)
             {
-                tbxLog.Paste(myFormat);
+                c.BorderStyle = BorderStyle.FixedSingle;
             }
+            lblFrom.Text =user;
+            lblMessage.Text = body;
+            _AutoSize(lblMessage);
+            pnlOneChat.Width = pnlChat.Size.Width - 16;
+
+            //显示多媒体信息.
+
+            if (!string.IsNullOrEmpty(mediaUrl))
+            {
+
+                PictureBox pb = new PictureBox();
+                pb.Size = new System.Drawing.Size(100, 100);
+                pb.Load("http://localhost:8033" + mediaUrl);
+                pnlOneChat.Controls.Add(pb);
+            }
+            if (!string.IsNullOrEmpty(serviceId))
+            {
+                FlowLayoutPanel pnlservice = new FlowLayoutPanel();
+
+                Label lblServiceName = new Label();
+                lblServiceName.Text= serviceName;
+                Button btnConfirm = new Button();
+                btnConfirm.Text = "选取";
+                btnConfirm.Tag = serviceId;
+                btnConfirm.Click += new EventHandler(btnConfirm_Click);
+                pnlservice.Controls.AddRange(new Control[]{lblServiceName, btnConfirm});
+                pnlOneChat.Controls.Add(pnlservice);
+            }
+            
+            
+
+
+            pnlChat.Controls.Add(pnlOneChat);
+            pnlChat.ScrollControlIntoView(pnlOneChat);
 
 
         }
 
+        void btnConfirm_Click(object sender, EventArgs e)
+        {
+            string serviceId=((Button)sender).Tag.ToString();
+            agsc.Message message = new agsc.Message(csId + "@" + GlobalViables.ServerName,
+                StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName,
+                agsc.MessageType.chat,"已选择服务");
+            message.SetAttribute("selected_service_id", serviceId);
+            GlobalViables.XMPPConnection.Send(message);
+            AddLog(message);
+        }
+      
         private void btnSend_Click(object sender, EventArgs e)
         {
 
+            agsc.Message message = new agsc.Message(csId + "@" + GlobalViables.ServerName,
+                StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName, agsc.MessageType.chat, tbxMessage.Text);
 
-
-            GlobalViables.XMPPConnection.Send(new agsc.Message(csId + "@" + GlobalViables.ServerName, agsc.MessageType.chat, tbxMessage.Text));
-            AddLog(tbxUserName.Text, tbxMessage.Text);
+            GlobalViables.XMPPConnection.Send(message);
+            AddLog(message);
 
         }
 
@@ -165,14 +211,27 @@ namespace Dianzhu.DemoClient
                 string result = PHSuit.IOHelper.UploadFileHttp("http://localhost:8033/ajaxservice/FileUploadCommon.ashx",
                       string.Empty, bytes, fileExtension);
                 agsc.Message m = new agsc.Message(csId + "@" + GlobalViables.ServerName,
+                    StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName,
                     agsc.MessageType.chat, string.Empty);
                 m.SetAttribute("media", result);
                 GlobalViables.XMPPConnection.Send(m);
-                AddLog(tbxUserName.Text, tbxMessage.Text);
-
-
-                InsertImage(dlgSelectPic.FileName);
+                AddLog(m);
             }
         }
+        private void _AutoSize(Control c)
+        {
+            c.Size = new Size(0, 0);
+            if (c is Label)
+            {
+                ((Label)c).AutoSize = true;
+            }
+            if (c is Panel)
+            {
+                ((Panel)c).AutoSize = true;
+            }
+
+
+        }
+
     }
 }

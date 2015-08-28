@@ -6,18 +6,18 @@ using System.Text;
 using Dianzhu.Model;
 namespace Dianzhu.CSClient.IVew
 {
+    public delegate void ActiveCustomerHandler(string customername);
+    public delegate void SendMessageHandler();
     public interface MainFormView
     {
         #region Chat
         IList<ReceptionChat> ChatLog { set; get; }
         void LoadOneChat( ReceptionChat chat);
-        string CurrentCustomerName { get; set; }
-
+        
         /// <summary>
         /// 搜索关键字.
         /// </summary>
-
-
+  
         /// <summary>
         /// 设置按钮的样式.
         /// </summary>
@@ -30,14 +30,12 @@ namespace Dianzhu.CSClient.IVew
         /// <param name="buttonText"></param>
         /// <param name="buttonStyle"></param>
         void AddCustomerButtonWithStyle(string buttonText, em_ButtonStyle buttonStyle);
-        /// <summary>
-        /// 发送消息
-        /// </summary>
-        /// <param name="message"></param>
-        void SendMessage(string message);
+        event SendMessageHandler SendMessageHandler;
+        event ActiveCustomerHandler ActiveCustomerHandler;
         #endregion
 
         string SerachKeyword { get; set; }
+        string MessageTextBox { get; set; }
 
 
         IList<DZService> SearchedService { get; set; }

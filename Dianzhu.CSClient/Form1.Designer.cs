@@ -44,7 +44,6 @@
             this.btnLogin.TabIndex = 0;
             this.btnLogin.Text = "登录";
             this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // tbxPassword
             // 
@@ -72,7 +71,6 @@
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 2;
             this.label1.Text = "助理账号";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -82,8 +80,7 @@
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 2;
             this.label2.Text = "密码";
-            this.label2.Click += new System.EventHandler(this.label1_Click);
-            // 
+             // 
             // lblResult
             // 
             this.lblResult.AutoSize = true;
@@ -105,7 +102,6 @@
             this.Controls.Add(this.btnLogin);
             this.Name = "fmLogin";
             this.Text = "Login";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fmLogin_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

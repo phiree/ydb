@@ -41,7 +41,7 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
-            this.tbxLog = new System.Windows.Forms.RichTextBox();
+            this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -169,21 +169,21 @@
             // 
             this.dlgSelectPic.FileName = "openFileDialog1";
             // 
-            // tbxLog
+            // pnlChat
             // 
-            this.tbxLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxLog.Location = new System.Drawing.Point(0, 49);
-            this.tbxLog.Name = "tbxLog";
-            this.tbxLog.Size = new System.Drawing.Size(560, 248);
-            this.tbxLog.TabIndex = 7;
-            this.tbxLog.Text = "";
+            this.pnlChat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlChat.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.pnlChat.Location = new System.Drawing.Point(0, 49);
+            this.pnlChat.Name = "pnlChat";
+            this.pnlChat.Size = new System.Drawing.Size(560, 248);
+            this.pnlChat.TabIndex = 8;
             // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(560, 322);
-            this.Controls.Add(this.tbxLog);
+            this.Controls.Add(this.pnlChat);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Name = "FmMain";
@@ -212,6 +212,6 @@
         private System.Windows.Forms.Label lblLoginStatus;
         private System.Windows.Forms.OpenFileDialog dlgSelectPic;
         private System.Windows.Forms.Button btnSelectImage;
-        private System.Windows.Forms.RichTextBox tbxLog;
+        private System.Windows.Forms.FlowLayoutPanel pnlChat;
     }
 }

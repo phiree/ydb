@@ -13,16 +13,10 @@ namespace Dianzhu.CSClient
         public static readonly string ServerName = ConfigurationManager.AppSettings["server"];
         public static readonly string Domain = ConfigurationManager.AppSettings["domain"];
         public static readonly string ButtonNamePrefix = "btn";
-        public static XmppClientConnection XMPPConnection = null;
-        static GlobalViables()
-        {
-            
-            XMPPConnection = new XmppClientConnection(ServerName);
-        }
-        /// <summary>
-        /// 当前登录的客服
-        /// </summary>
-        public static DZMembership CurrentCustomerService = null;
+      
+             
+ 
+       
        
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Dianzhu.CSClient.Presenter
+namespace Dianzhu.CSClient.XMPP
 {
     public class StringHelper
     {
@@ -22,7 +22,6 @@ namespace Dianzhu.CSClient.Presenter
             }
             return normalUserName;
         }
-        
         /// <summary>
         ///openfire 用户转换成普通用户.
         /// </summary>

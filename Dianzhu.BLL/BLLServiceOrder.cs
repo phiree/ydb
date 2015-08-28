@@ -16,7 +16,7 @@ namespace Dianzhu.BLL
         DALServiceOrder DALServiceOrder = DALFactory.DALServiceOrder;
         DZMembershipProvider membershipProvider = new DZMembershipProvider();
         BLLDZService bllDzService = new BLLDZService();
-        public void CreateOrder(Guid membershipId,Guid serviceId)
+        public ServiceOrder CreateOrder(Guid membershipId,Guid serviceId)
         {
             DZMembership customer = membershipProvider.GetUserById(membershipId);
   
@@ -24,7 +24,7 @@ namespace Dianzhu.BLL
             ServiceOrderCreator creator = new ServiceOrderCreator(customer, service);
            ServiceOrder order= creator.CreateOrder();
            DALServiceOrder.Save(order);
-            
+           return order;
         }
         
         public int GetServiceOrderCount(Guid userId,Dianzhu.Model.Enums.enum_OrderSearchType searchType)

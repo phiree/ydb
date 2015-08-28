@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{84187F7C-DD53-4895-A7FF-191E76756009}</ProjectGuid>
+    <ProjectGuid>{125F0D3B-E83C-4743-9944-E82392CBA6C5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dianzhu.Model</RootNamespace>
-    <AssemblyName>Dianzhu.Model</AssemblyName>
+    <RootNamespace>Dianzhu.CSClient.XMPP</RootNamespace>
+    <AssemblyName>Dianzhu.CSClient.XMPP</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Dianzhu.Model.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,13 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="agsXMPP, Version=1.1.1.0, Culture=neutral, PublicKeyToken=ff839b81f1debe86, processorArchitecture=MSIL">
+      <HintPath>..\packages\agsXMPP.1.1.1.0\lib\agsXMPP.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,32 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Area.cs" />
-    <Compile Include="CashTIcketAssignDetail.cs" />
-    <Compile Include="CashTicketTemplate.cs" />
-    <Compile Include="DeviceBind.cs" />
-    <Compile Include="DZRole.cs" />
-    <Compile Include="DZService.cs" />
-    <Compile Include="DZTag.cs" />
-    <Compile Include="Enums.cs" />
-    <Compile Include="Business.cs" />
-    <Compile Include="CashTicketCreateRecord.cs" />
-    <Compile Include="CashTicket.cs" />
-    <Compile Include="DZMembership.cs" />
+    <Compile Include="StringHelper.cs" />
+    <Compile Include="XMPP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CashTicketAssignRecord.cs" />
-    <Compile Include="Reception.cs" />
-    <Compile Include="ServiceOpenTime.cs" />
-    <Compile Include="ServiceProperty.cs" />
-    <Compile Include="ServiceOrder.cs" />
-    <Compile Include="ServiceType.cs" />
-    <Compile Include="ServiceTypePropertyValue.cs" />
-    <Compile Include="Staff.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <ProjectReference Include="..\Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj">
+      <Project>{820A465F-51FB-4F8D-8665-B80F9643281B}</Project>
+      <Name>Dianzhu.CSClient.IInstantMessage</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

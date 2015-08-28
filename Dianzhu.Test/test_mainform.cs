@@ -9,6 +9,7 @@ using NUnit.Framework;
 using FizzWare.NBuilder;
 using Dianzhu.CSClient.IVew;
 using Dianzhu.CSClient.Presenter;
+using Dianzhu.CSClient.IInstantMessage;
 namespace Dianzhu.Test
 {
     [TestFixture]
@@ -39,13 +40,16 @@ namespace Dianzhu.Test
             BLLDZService bllDZService = Builder<BLLDZService>.CreateNew().
                 With(x => x.DALDZService = DALDZService).Build();
             MainFormView view = Builder<MainFormView>.CreateNew().Build();
+            IXMPP xmpp = Builder<IXMPP>.CreateNew().Build();
             FormController formController = new FormController(
                 view, 
                 bllMember
                  , bllReception, 
                  bllDZService,
-                 Builder<DZMembership>.CreateNew().Build());
-            formController.ReceiveMessage("a@a.a", "hello", "/pic.png");
+                 
+                 Builder<BLLServiceOrder>.CreateNew().Build()
+                 );
+            formController.ReceiveMessage("a@a.a", "hello", "/pic.png",string.Empty);
             string result = view.ToString();
             Assert.AreEqual("hello", result);
         }

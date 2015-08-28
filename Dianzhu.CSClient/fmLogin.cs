@@ -13,17 +13,26 @@ using System.Text.RegularExpressions;
 using Dianzhu.CSClient.Presenter;
 namespace Dianzhu.CSClient
 {
-    public partial class fmLogin : Form
+    public partial class fmLogin : Form,IVew.ILoginForm
     {
        log4net.ILog log = log4net.LogManager.GetLogger("cs");
+
+       Presenter.LoginPresenter loginPresenter;
         public fmLogin()
         {
+            
+            loginPresenter = new LoginPresenter(this );
             InitializeComponent();
-            GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
-        }
+            
+             //GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
+             //GlobalViables.XMPPConnection.OnLogin += new ObjectHandler(XMPPConnection_OnLogin);
+             //GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
+             btnLogin.Click += new EventHandler(btnLogin_Click2);
 
+        }
+        
         /// <summary>
-        /// 接收新消息
+        /// 接收客服状态
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="pres"></param>
@@ -31,42 +40,21 @@ namespace Dianzhu.CSClient
         {
              
         }
-        void SendMessage(string customerId, string message)
-        { 
-            
-        }
-        private void label1_Click(object sender, EventArgs e)
+    
+        private void btnLogin_Click2(object sender, EventArgs e)
         {
-
-        }
-
-        private void btnLogin_Click(object sender, EventArgs e)
-        {
-           
             
-            //validate User
-            bool useValid = true;
-            if (useValid)
-            {
-                string userName = tbxUserName.Text;
-                string userForOpenfire = StringHelper.EnsureOpenfireUserName(userName);
-                Jid jid = new Jid(userForOpenfire + "@" + GlobalViables.Domain);
-                //GlobalViables.XMPPConnection = new XmppClientConnection(jid.Server);
-                GlobalViables.XMPPConnection.Open(jid.User, tbxPassword.Text);
-                GlobalViables.XMPPConnection.OnLogin += new ObjectHandler(XMPPConnection_OnLogin);
-                GlobalViables.XMPPConnection.OnError+=new ErrorHandler(XMPPConnection_OnError);
-                GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
-                
-            }
-            else
-            {
-                lblResult.Text = "用户认证失败失败";
-            }
+            //Jid jid = new Jid(StringHelper.EnsureOpenfireUserName( tbxUserName.Text) + "@" + GlobalViables.ServerName);
            
+            //GlobalViables.XMPPConnection.Open(jid.User, tbxPassword.Text);
+            LoginHandler(sender, e);
         }
-
+         
+       
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
+            ///todo:如何对这部分解耦?????????
+            //如果无法将xmpp部分解耦出去, 那么 iview的 username password属性是多余的 
             if (InvokeRequired)
             {
                 BeginInvoke(new XmppElementHandler(XMPPConnection_OnAuthError), new object[] { sender, e });
@@ -91,26 +79,46 @@ namespace Dianzhu.CSClient
         {
             
             //告诉世界,我,上线,,,了.
-            Presence p = new Presence(ShowType.chat, "Online");
-            p.Type = PresenceType.available;
-            GlobalViables.XMPPConnection.Send(p);
-            if (InvokeRequired)
-            {
-                BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
-                return;
-            }
-            //保存当前用户
-            BLL.DZMembershipProvider bllMembership = new BLL.DZMembershipProvider();
-            DZMembership customerService = BLLFactory.BLLMembership.GetUserByName(tbxUserName.Text);
-            GlobalViables.CurrentCustomerService = customerService;
-            this.DialogResult = DialogResult.OK;
-            
-        }
-
-        private void fmLogin_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
+           // Presence p = new Presence(ShowType.chat, "Online");
+           // p.Type = PresenceType.available;
+           // GlobalViables.XMPPConnection.Send(p);
+           // if (InvokeRequired)
+           // {
+           //     BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
+           //     return;
+           // }
+           // //保存当前用户
+           // BLL.DZMembershipProvider bllMembership = new BLL.DZMembershipProvider();
+           // DZMembership customerService = BLLFactory.BLLMembership.GetUserByName(tbxUserName.Text);
+           // GlobalViables.CurrentCustomerService = customerService;
+           //// this.DialogResult = DialogResult.OK;
              
         }
+        public  bool IsLoginSuccess
+        {
+            set {
+                this.DialogResult = value ? System.Windows.Forms.DialogResult.OK : System.Windows.Forms.DialogResult.Abort;
+                //return;
+                //Action lambda = () =>this.DialogResult=value? System.Windows.Forms.DialogResult.OK: System.Windows.Forms.DialogResult.Abort;
+                //if (InvokeRequired)
+                //    Invoke(lambda);
+                //else
+                //    lambda();
+
+            } 
+        }
+  
+
+           
+          public event EventHandler LoginHandler;
+          public string UserName
+          {
+              get { return tbxUserName.Text; }
+              
+          }
+          public string Password
+          {
+              get { return tbxPassword.Text; }
+          }
     }
 }

@@ -80,6 +80,16 @@ namespace Dianzhu.Model.Enums
         /// </summary>
         All
     }
+    /// <summary>
+    /// 聊天类型
+    /// </summary>
+    public enum enum_ChatType
+    { 
+        Text,
+        PushedService,//推送的服务
+        ConfirmedService,//被确认的服务
+        Order,//订单.
+    }
 
 
 
