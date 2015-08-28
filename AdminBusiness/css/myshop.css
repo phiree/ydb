@@ -481,10 +481,6 @@
 }
 
 
-/*设置下拉选框宽高*/
-.select-sm { width: 170px; height: 30px; line-height: 30px; border: 1px solid #C0D1E3; color: #58789a; }
-.select-sm cite { width: 170px; line-height: 28px; }
-.select-sm ul { width: 170px; line-height: 30px; }
 
 
 .CPBox {

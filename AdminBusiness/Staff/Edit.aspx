@@ -39,11 +39,11 @@
                 <div class="clearfix">
                     <div>
                         <div>
-                           <asp:TextBox ID="Code" CssClass="input-lg" runat="server"></asp:TextBox>
+                           <asp:TextBox ID="Code" CssClass="input-lg" runat="server" data-toggle="tooltip" data-placement="top" title="请填写员工编号"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>填写编号</p>
+                <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>填写编号</p>-->
             </div>
         </div>
 
@@ -56,11 +56,11 @@
                 <div class="clearfix">
                     <div>
                         <div>
-                           <asp:TextBox ID="Name" CssClass="input-lg" runat="server"></asp:TextBox>
+                           <asp:TextBox ID="Name" CssClass="input-lg" runat="server" data-toggle="tooltip" data-placement="top" title="请填写员工姓名"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>填写姓名</p>
+                <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>填写姓名</p>-->
             </div>
         </div>
         <div class="cont-row emp-cont-row">
@@ -72,11 +72,11 @@
                 <div class="clearfix">
                     <div>
                         <div>
-                           <asp:TextBox ID="NickName" CssClass="input-lg" runat="server"></asp:TextBox>
+                           <asp:TextBox ID="NickName" CssClass="input-lg" runat="server" data-toggle="tooltip" data-placement="top" title="请填写员工昵称"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>填写昵称</p>
+                <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>填写昵称</p>-->
             </div>
         </div>
 
@@ -95,7 +95,7 @@
                                     </div>
                                     
                                 </div>
-                                <p class="cont-input-tip"><i class="icon icon-tip"></i>选择你性别</p>
+                                <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>选择你性别</p>-->
 
                   </div>
          </div>
@@ -107,19 +107,20 @@
                 <div class="clearfix">
                     <div>
                         <div>
-                           <asp:TextBox ID="Phone" CssClass="input-lg" runat="server"></asp:TextBox>
+                           <asp:TextBox ID="Phone" CssClass="input-lg" runat="server" data-toggle="tooltip" data-placement="top" title="请填写员工联系电话"></asp:TextBox>
                         </div>
                     </div>
                 </div>
-                <p class="cont-input-tip"><i class="icon icon-tip"></i>填写联系电话</p>
+                <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>填写联系电话</p>-->
             </div>
           </div>
+
         </div>
         <div class="bottomArea emp-cont-bottom-row">
-             <asp:Button ID="Button1" runat="server" Text="保存" CssClass="btn btn-info btn-big"  OnClick="btnOK_Click" />
+               <asp:Button ID="Button1" runat="server" Text="保存" CssClass="btn btn-info btn-big"  OnClick="btnOK_Click" />
 
-            <a class="btn btn-cancel btn-big m-l10" href="default.aspx?businessid=<%=Request["businessid"] %>">取消</a>
-        </div>
+              <a class="btn btn-cancel btn-big m-l10" href="default.aspx?businessid=<%=Request["businessid"] %>">取消</a>
+          </div>
     </div>
 
     
@@ -141,6 +142,10 @@
 <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+
         $($("form")[0]).validate(
                 {
                     errorElement: "p",
