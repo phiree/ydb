@@ -13,8 +13,7 @@ namespace Dianzhu.CSClient.IVew
         #region Chat
         IList<ReceptionChat> ChatLog { set; get; }
         void LoadOneChat( ReceptionChat chat);
-        string CurrentCustomerName { get; set; }
-
+        
         /// <summary>
         /// 搜索关键字.
         /// </summary>

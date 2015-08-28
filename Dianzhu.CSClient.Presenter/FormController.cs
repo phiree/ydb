@@ -35,8 +35,15 @@ namespace Dianzhu.CSClient.Presenter
            //
             //present 无法测试了...需要把handler 和 event都隔离开去?
             GlobalViables.XMPP.OnPresent += new agsXMPP.protocol.client.PresenceHandler(xmpp_OnPresent);
+            GlobalViables.XMPP.ReceiveMessageHandler += new IInstantMessage.ReceiveMessageHandler(XMPP_ReceiveMessageHandler);
             this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(ActiveCustomer);
+            
+        }
+
+        void XMPP_ReceiveMessageHandler(string userFrom, string message)
+        {
+            ReceiveMessage(StringHelper.EnsureNormalUserName( userFrom), message, string.Empty, string.Empty);
         }
 
         
@@ -78,7 +85,9 @@ namespace Dianzhu.CSClient.Presenter
 
         void view_SendMessageHandler( )
         {
+            
             GlobalViables.XMPP.SendMessage(view.MessageTextBox, customer.UserName);
+            SendMessage(view.MessageTextBox, customer.UserName);
         }
 
 
@@ -150,7 +159,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             LoadChatHistory(buttonText);
             view.SetCustomerButtonStyle(buttonText, em_ButtonStyle.Actived);
-            view.CurrentCustomerName = buttonText;
+             
             customer = customerList.Single(x => x.UserName == buttonText);
             //设置当前激活的用户
             if (SearchResultForCustomer.ContainsKey(buttonText))

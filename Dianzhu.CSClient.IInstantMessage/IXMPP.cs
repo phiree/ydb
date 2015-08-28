@@ -6,6 +6,7 @@ using agsXMPP;
 using agsXMPP.protocol.client;
 namespace Dianzhu.CSClient.IInstantMessage
 {
+    public delegate void ReceiveMessageHandler(string userFrom,string message);
     public interface IXMPP
     {
         
@@ -15,6 +16,7 @@ namespace Dianzhu.CSClient.IInstantMessage
         event ObjectHandler OnLogin;
         event PresenceHandler OnPresent;
         void SendMessage(string message, string to);
+        event ReceiveMessageHandler ReceiveMessageHandler;
       //  void SendMessage(agsXMPP.protocol.client.Message message);
     }
 }

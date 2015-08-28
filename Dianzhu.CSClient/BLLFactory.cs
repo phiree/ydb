@@ -11,8 +11,10 @@ namespace Dianzhu.CSClient
     /// </summary>
    public  class BLLFactory
     {
-       public static BLLReception BLLReception = new BLLReception();
-       public static DZMembershipProvider BLLMembership = new DZMembershipProvider();
+       public static BLL.DZMembershipProvider BLLMember = new BLL.DZMembershipProvider();
+       public static BLL.BLLReception BLLReception = new BLL.BLLReception();
+       public static BLL.BLLDZService BLLDZService = new BLL.BLLDZService();
+       public static BLL.BLLServiceOrder BLLServiceOrder = new BLL.BLLServiceOrder();
 
     }
 }
