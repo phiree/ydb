@@ -9,6 +9,14 @@ namespace Dianzhu.DAL
 {
    public class DALCashTicketAssignRecord:DALBase<CashTicketAssignRecord>
     {
-        
+         public DALCashTicketAssignRecord()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+         public DALCashTicketAssignRecord(string fortest)
+        {
+            
+        }
     }
 }

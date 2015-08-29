@@ -12,16 +12,18 @@ namespace Dianzhu.BLL
 {
     public class BLLDZService
     {
-        
-        public DALDZService DALDZService=DALFactory.DALDZService;
-        
-
+        public DALDZService DALDZService = null;
+        public BLLDZService() {DALDZService= DALFactory.DALDZService; }
+        public BLLDZService(DALDZService dal)
+        {
+            DALDZService = dal;
+        }
         public IList<DZService> GetServiceByBusiness(Guid businessId, int pageindex, int pagesize, out int totalRecords)
         {
             return DALDZService.GetList(businessId , pageindex, pagesize, out totalRecords);
         }
-        
-        public DZService GetOne(Guid serviceId)
+
+        public    DZService GetOne(Guid serviceId)
         {
             return DALDZService.GetOne(serviceId);
         }

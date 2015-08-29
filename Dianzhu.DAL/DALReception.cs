@@ -9,7 +9,15 @@ namespace Dianzhu.DAL
 {
     public class DALReception : DALBase<Model.ReceptionBase>
     {
-
+         public DALReception()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+         public DALReception(string fortest)
+        {
+            
+        }
         
         public IList<ReceptionBase> Search(DZMembership from,DZMembership to, DateTime timeBegin, DateTime timeEnd,int limit)
         {

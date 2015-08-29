@@ -11,7 +11,15 @@ namespace Dianzhu.DAL
     {
      
         
-       
+        public DALServicePropertyValue()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+        public DALServicePropertyValue(string fortest)
+        {
+            
+        }
       
      
     }

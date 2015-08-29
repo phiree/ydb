@@ -8,6 +8,8 @@ namespace Dianzhu.BLL
 {
     public class DALFactory
     {
+        static bool forTest = false;
+        
         static DALCashTicketTemplate dalCashTicketTemplate = null;
         static DALCashTicket dalCashTicket = null;
         static DALMembership dalMembership = null;
@@ -30,7 +32,11 @@ namespace Dianzhu.BLL
         static DALReception dalReception;
         public static DALReception DALReception
         {
-            get { return dalReception ?? new DALReception(); }
+            get
+            {
+                return
+                    dalReception == null ? forTest ? new DALReception("") : new DALReception() : dalReception;
+            }
             set { dalReception = value; }
         }
         public static DALDZTag DALDZTag
@@ -70,7 +76,13 @@ namespace Dianzhu.BLL
         }
         public static DALDZService DALDZService
         {
-            get { return dalDZService ?? new DALDZService(); }
+            get
+            {
+              return  dalDZService == null ? 
+                                            forTest ? new DALDZService("") 
+                                            : new DALDZService() 
+                                        : dalDZService;
+            }
             set { dalDZService = value; }
         }
         public static DALCashTicketCreateRecord DALCashTicketCreateRecord

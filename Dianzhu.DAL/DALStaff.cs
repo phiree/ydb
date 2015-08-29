@@ -8,7 +8,15 @@ namespace Dianzhu.DAL
 {
     public class DALStaff : DALBase<Staff>
     {
-       
+        public DALStaff()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+        public DALStaff(string fortest)
+        {
+            
+        }
         public IList<Staff> GetList(Guid businessId, Guid serviceTypeId, int pageindex, int pagesize, out int totalRecord)
         {
             string where = "s.Belongto.Id='" + businessId + "'";

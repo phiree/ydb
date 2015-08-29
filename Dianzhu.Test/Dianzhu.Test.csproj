@@ -92,6 +92,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="blltest.cs" />
+    <Compile Include="BLLTest\TestBLLArea.cs" />
+    <Compile Include="BLLTest\TestDZService.cs" />
     <Compile Include="CashTicketCreateTest.cs" />
     <Compile Include="cashticket_generator_test.cs" />
     <Compile Include="dianzhu_test.cs" />

@@ -94,7 +94,7 @@ namespace Dianzhu.Model.Enums
     public enum enum_ChatType
     { 
         Text,
-        PushedService,//推送的服务
+        PushedService,// 推送的服务
         ConfirmedService,//被确认的服务
         Order,//订单.
     }

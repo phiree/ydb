@@ -8,7 +8,15 @@ namespace Dianzhu.DAL
 {
     public class DALBusiness :DALBase<Business>
     {
-       
+        public DALBusiness()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+        public DALBusiness(string fortest)
+        {
+            
+        }
 
         public void CreateBusinessAndUser(string code)
         {

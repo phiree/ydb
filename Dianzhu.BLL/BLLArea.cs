@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Dianzhu.DAL;
 
-
+using Dianzhu.IDAL;
 namespace Dianzhu.BLL
 {
     public class BLLArea
@@ -12,8 +12,14 @@ namespace Dianzhu.BLL
         
 
         //暴露 数据库实现,用于单元测试mock
-        public DALArea DalArea=DALFactory.DALArea;
+        public DALArea DalArea = null;
+        public BLLArea() { DalArea = DALFactory.DALArea; }
+        public BLLArea(DALArea dal)
+        {
+            DalArea = dal;
+        }
 
+        
         /// <summary>
         /// 获取省份下的市,
         /// </summary>

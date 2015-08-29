@@ -9,18 +9,14 @@ using System.Data.SqlClient;
 
 namespace Dianzhu.DAL
 {
-    public class DALBase<T>
+    public class DALBase<T> 
     {
 
         private ISession session = null;// new HybridSessionBuilder().GetSession();
-        public DALBase()
-        {
-            //增加依赖,不利于测试.
-            session = new HybridSessionBuilder().GetSession();
-
-        }
+         
         public ISession Session {
             get { return session; }
+            set { session = value; }
         }
         public virtual void Delete(T o)
         {
@@ -71,7 +67,7 @@ namespace Dianzhu.DAL
 
 
         }
-        public T GetOne(object id)
+        public virtual T GetOne(object id)
         {
             T r= session.Get<T>(id);
             if (!session.Transaction.IsActive)
