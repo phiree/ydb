@@ -63,9 +63,14 @@ namespace Dianzhu.CSClient
             get { return tbxChatMsg.Text; }
             set { tbxChatMsg.Text = value; }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chat"></param>
         public void LoadOneChat(ReceptionChat chat)
         {
-
+            
             Label lblTime = new Label();
             Label lblFrom = new Label();
             Label lblMessage = new Label();
@@ -73,21 +78,9 @@ namespace Dianzhu.CSClient
             pnlOneChat.Controls.AddRange(new Control[] { lblMessage });
             pnlOneChat.FlowDirection = FlowDirection.LeftToRight;
             _AutoSize(pnlOneChat);
-            pnlOneChat.Dock = DockStyle.Top;
-            foreach (Label c in pnlOneChat.Controls)
-            {
-                c.BorderStyle = BorderStyle.FixedSingle;
-            }
-
-
+ 
             lblTime.Text = chat.SavedTime.ToShortTimeString() + " ";
-
-            //if (GlobalViables.CurrentCustomerService.UserName == chat.To.UserName)
-            //{
-            //    pnlOneChat.FlowDirection = FlowDirection.RightToLeft;
-            //    lblMessage.TextAlign = ContentAlignment.MiddleRight;
-            //}
-
+ 
             lblFrom.Text = chat.From.UserName;
             lblMessage.Text = chat.MessageBody;
             _AutoSize(lblMessage);
@@ -101,24 +94,32 @@ namespace Dianzhu.CSClient
                 PictureBox pb = new PictureBox();
                 pb.Click += new EventHandler(pb_Click);
                 pb.Size = new System.Drawing.Size(100, 100);
-                pb.Load("http://localhost:8033" + chat.MessageMediaUrl);
+                pb.Load(GlobalViables.WebServerRoot + chat.MessageMediaUrl);
                 pnlOneChat.Controls.Add(pb);
             }
-            if (!string.IsNullOrEmpty(chat.ServiceId))
+            switch (chat.ChatType)
             {
-                FlowLayoutPanel pnl = new FlowLayoutPanel();
-                Label lblServiceId = new Label();
-                lblServiceId.Text = chat.ServiceId;
-                pnl.Controls.Add(lblServiceId);
+                case Model.Enums.enum_ChatType.PushedService: break;
+                case Model.Enums.enum_ChatType.ConfirmedService:
+                    
+                    FlowLayoutPanel pnl = new FlowLayoutPanel();
+                    Label lblServiceId = new Label();
+                    //lblServiceId.Text = chat.ServiceId;
+                    pnl.Controls.Add(lblServiceId);
 
-                Button btnSendPayLink = new Button();
-                btnSendPayLink.Tag = chat.ServiceId;
-                btnSendPayLink.Text = "发送支付链接";
-                //todo:create order for this
-                btnSendPayLink.Click += new EventHandler(btnSendPayLink_Click);
-                pnl.Controls.Add(btnSendPayLink);
-                pnlOneChat.Controls.Add(pnl);
+                    Button btnSendPayLink = new Button();
+                   // btnSendPayLink.Tag = chat.ServiceId;
+                    btnSendPayLink.Text = "发送支付链接";
+                    //todo:create order for this
+                    btnSendPayLink.Click += new EventHandler(btnSendPayLink_Click);
+                    pnl.Controls.Add(btnSendPayLink);
+                    pnlOneChat.Controls.Add(pnl);
+                break;
+                case Model.Enums.enum_ChatType.Order: break;
+                case Model.Enums.enum_ChatType.Text: break;
+                default: break;
             }
+          
 
             Action lambda = () =>
             {
@@ -135,6 +136,8 @@ namespace Dianzhu.CSClient
             }
 
         }
+        
+        
         //点击支付
         void btnSendPayLink_Click(object sender, EventArgs e)
         {
@@ -155,10 +158,7 @@ namespace Dianzhu.CSClient
             Form fm = new ShowFullImage(pb.Image);
             fm.ShowDialog();
         }
-
-
-
-
+ 
         public void SetCustomerButtonStyle(string buttonText, em_ButtonStyle buttonStyle)
         {
             Action lambda=()=>{
@@ -215,12 +215,11 @@ namespace Dianzhu.CSClient
             }
             FormController.ActiveCustomer(((Button)sender).Text);
         }
+        #region Impletion of Iview
         public event SendMessageHandler SendMessageHandler;
         public event ActiveCustomerHandler ActiveCustomerHandler;
 
-        //xmpp发送消息
-        
-
+        #endregion
 
 
 
@@ -304,13 +303,12 @@ namespace Dianzhu.CSClient
             string serviceName = service.Name;
             m.SetAttribute("service_name", service.Name);
             m.SetAttribute("service_id", serviceId);
-
             m.SetAttribute("t", "push");
             // m.SetAttribute("service_name",
            // m.To = StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain;
             // GlobalViables.XMPPConnection.Send(m);
             //业务逻辑
-            FormController.PushService(new Guid(serviceId));
+           // FormController.PushService(new Guid(serviceId));
         }
 
         #endregion

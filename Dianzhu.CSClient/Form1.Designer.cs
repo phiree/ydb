@@ -38,9 +38,9 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(108, 187);
+            this.btnLogin.Location = new System.Drawing.Point(49, 177);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.Size = new System.Drawing.Size(159, 23);
             this.btnLogin.TabIndex = 0;
             this.btnLogin.Text = "登录";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -75,12 +75,12 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(61, 129);
+            this.label2.Location = new System.Drawing.Point(47, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 2;
             this.label2.Text = "密码";
-             // 
+            // 
             // lblResult
             // 
             this.lblResult.AutoSize = true;

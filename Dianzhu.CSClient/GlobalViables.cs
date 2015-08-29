@@ -12,6 +12,7 @@ namespace Dianzhu.CSClient
     {
         public static readonly string ServerName = ConfigurationManager.AppSettings["server"];
         public static readonly string Domain = ConfigurationManager.AppSettings["domain"];
+        public static readonly string WebServerRoot = ConfigurationManager.AppSettings["WebServerRoot"];
         public static readonly string ButtonNamePrefix = "btn";
       
              

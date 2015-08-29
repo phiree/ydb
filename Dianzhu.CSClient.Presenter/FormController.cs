@@ -34,27 +34,27 @@ namespace Dianzhu.CSClient.Presenter
             this.bllOrder = bllOrder;
            //
             //present 无法测试了...需要把handler 和 event都隔离开去?
-            GlobalViables.XMPP.OnPresent += new agsXMPP.protocol.client.PresenceHandler(xmpp_OnPresent);
-            GlobalViables.XMPP.ReceiveMessageHandler += new IInstantMessage.ReceiveMessageHandler(XMPP_ReceiveMessageHandler);
+            GlobalViables.XMPP.IMPresent += new IInstantMessage.IMPresent(IMPresent);
+            GlobalViables.XMPP.IMReceivedMessage += new IInstantMessage.IMReceivedMessage(IMReceivedMessage);
             this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(ActiveCustomer);
             
         }
 
-        void XMPP_ReceiveMessageHandler(string userFrom, string message)
+        void IMReceivedMessage(string userFrom, string message)
         {
             ReceiveMessage(StringHelper.EnsureNormalUserName( userFrom), message, string.Empty, string.Empty);
         }
 
-        
 
-        void xmpp_OnPresent(object sender, agsXMPP.protocol.client.Presence pres)
+
+        void IMPresent(string userFrom,int presentType)
         {
-            string userName = StringHelper.EnsureNormalUserName(pres.From.User);
+            string userName = StringHelper.EnsureNormalUserName(userFrom);
             bool isInList = customerList.Any(x => x.UserName == userName);
-            switch (pres.Type)
+            switch (presentType)
             {
-                case agsXMPP.protocol.client.PresenceType.available:
+                case -1:
                     //登录,判断当前用户是否已经在列表中
 
                     if (isInList)
@@ -69,7 +69,7 @@ namespace Dianzhu.CSClient.Presenter
                     }
 
                     break;
-                case agsXMPP.protocol.client.PresenceType.unavailable:
+                case 4:
                     if (isInList)
                     {
                         view.SetCustomerButtonStyle(userName, em_ButtonStyle.LogOff);
@@ -296,14 +296,10 @@ namespace Dianzhu.CSClient.Presenter
             
 
            ReceptionChat chat = SaveMessage(message, customerName, false,mediaUrl);
-           chat.ServiceId = confirm_service_id;
+           //chat.ServiceId = confirm_service_id;
            //收到消息之后创建订单, 还是客服点击发送链接确认之后 创建订单
-           if (!string.IsNullOrEmpty(confirm_service_id))
-           {
-               
-              ServiceOrder order= bllOrder.CreateOrder(customer.Id,new Guid(confirm_service_id));
-           }
-           chat.ServiceId = confirm_service_id;
+           
+           //chat.ServiceId = confirm_service_id;
            if (customer != null && customerName == customer.UserName)
            {
                view.LoadOneChat(chat);

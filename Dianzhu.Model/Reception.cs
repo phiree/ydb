@@ -68,11 +68,32 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual ServiceOrder Order { get; set; }
     }
+    
     /// <summary>
     /// 接待中的聊天记录.
     /// </summary>
     public class ReceptionChat
     {
+        public ReceptionChat()
+        {
+            ChatType = Enums.enum_ChatType.Text;
+        }
+        public  static ReceptionChat Create(Enums.enum_ChatType chatType)
+        {
+            
+            switch (chatType)
+            {
+                case Enums.enum_ChatType.PushedService:
+                   
+                    
+                case Enums.enum_ChatType.ConfirmedService:
+                    return new ReceptionChatService();
+                    
+                case Enums.enum_ChatType.Order: return new ReceptionChatOrder();
+                default:
+                    return new ReceptionChat();
+            }
+        }
         public virtual Guid Id { get; set; }
         //保存的时间, 作为排序依据.
         public virtual DateTime SavedTime { get; set; }
@@ -81,15 +102,15 @@ namespace Dianzhu.Model
         public virtual  DZMembership From { get; set; }
         public virtual  DZMembership To { get; set; }
         public virtual  string MessageBody { get; set; }
+        public virtual Enums.enum_ChatType ChatType { get; set; }
         /// <summary>
-        /// 消息中媒体文件的地址
+        /// 消息中媒体文件的地址,多个媒体文件用分号风格.
         /// </summary>
         public virtual string MessageMediaUrl { get; set; }
         /// <summary>
         /// 消息中的服务信息
         /// </summary>
         /// <returns></returns>
-        public virtual string ServiceId { get; set; }
         public virtual string BuildLine()
         {
             return SavedTime.ToShortTimeString() + " " + From.UserName + ":    " + MessageBody;
@@ -107,18 +128,12 @@ namespace Dianzhu.Model
     }
     public class ReceptionChatService:ReceptionChat
     {
-        public ReceptionChatService()
-        {
-            this.MessageMediaUrl = Service.Business.BusinessAvatar.ImageName;
-        }
+        
         public DZService Service { get; set; }
     }
     public class ReceptionChatOrder : ReceptionChat
     {
-        public ReceptionChatOrder()
-        {
-            this.MessageMediaUrl = ServiceOrder.Service.Business.BusinessAvatar.ImageName;
-        }
+        
         public ServiceOrder ServiceOrder { get; set; }
     }
     

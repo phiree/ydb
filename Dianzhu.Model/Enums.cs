@@ -46,6 +46,14 @@ namespace Dianzhu.Model.Enums
 
     public enum enum_OrderStatus
     {
+        Created,//已创建,待付款
+        Payed,//已付款
+        CancelledNeedReturn,//已取消待退款
+        Assigned,//已安排工作人员
+        CancelledNeedReAssign,//客户已取消 等待撤销工作人员分配.
+        Finished,//已完成
+        Aborded,//已中止
+         
         Wt,//Wait 
         Ry,//Ready 
         An,//Actionţ 

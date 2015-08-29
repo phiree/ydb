@@ -23,34 +23,17 @@ namespace Dianzhu.CSClient
             
             loginPresenter = new LoginPresenter(this );
             InitializeComponent();
-            
-             //GlobalViables.XMPPConnection.OnPresence += new PresenceHandler(XMPPConnection_OnPresence);
-             //GlobalViables.XMPPConnection.OnLogin += new ObjectHandler(XMPPConnection_OnLogin);
-             //GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
              btnLogin.Click += new EventHandler(btnLogin_Click2);
-
+  
         }
-        
-        /// <summary>
-        /// 接收客服状态
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="pres"></param>
-        void XMPPConnection_OnPresence(object sender, Presence pres)
-        {
-             
-        }
+ 
     
         private void btnLogin_Click2(object sender, EventArgs e)
         {
-            
-            //Jid jid = new Jid(StringHelper.EnsureOpenfireUserName( tbxUserName.Text) + "@" + GlobalViables.ServerName);
-           
-            //GlobalViables.XMPPConnection.Open(jid.User, tbxPassword.Text);
-            LoginHandler(sender, e);
+
+            ViewLogin();
         }
-         
-       
+        
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
             ///todo:如何对这部分解耦?????????
@@ -75,25 +58,7 @@ namespace Dianzhu.CSClient
             lblResult.Text = "错误." + ex.Message;
         }
         //这是一个异步的进程.
-        void XMPPConnection_OnLogin(object sender)
-        {
-            
-            //告诉世界,我,上线,,,了.
-           // Presence p = new Presence(ShowType.chat, "Online");
-           // p.Type = PresenceType.available;
-           // GlobalViables.XMPPConnection.Send(p);
-           // if (InvokeRequired)
-           // {
-           //     BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
-           //     return;
-           // }
-           // //保存当前用户
-           // BLL.DZMembershipProvider bllMembership = new BLL.DZMembershipProvider();
-           // DZMembership customerService = BLLFactory.BLLMembership.GetUserByName(tbxUserName.Text);
-           // GlobalViables.CurrentCustomerService = customerService;
-           //// this.DialogResult = DialogResult.OK;
-             
-        }
+        
         public  bool IsLoginSuccess
         {
             set {
@@ -107,10 +72,10 @@ namespace Dianzhu.CSClient
 
             } 
         }
-  
 
-           
-          public event EventHandler LoginHandler;
+
+
+        public event IVew.ViewLogin ViewLogin;
           public string UserName
           {
               get { return tbxUserName.Text; }
@@ -120,5 +85,28 @@ namespace Dianzhu.CSClient
           {
               get { return tbxPassword.Text; }
           }
+          public string LoginMessage {
+              set {
+                  Action lambda = () =>
+                  {
+                      lblResult.Text = value;
+                  };
+              if(InvokeRequired) Invoke(lambda);
+              else lambda();
+              }
+          }
+          public string ErrorMessage { get; set; }
+          public void ShowError()
+          {
+            
+              Action lambda = () =>
+              {
+                  MessageBox.Show(ErrorMessage);
+              };
+              if (InvokeRequired) Invoke(lambda);
+              else lambda();
+          }
+          public string LoginButtonText { set { btnLogin.Text = value; } }
+          public bool LoginButtonEnabled { set { btnLogin.Enabled = value; } }
     }
 }

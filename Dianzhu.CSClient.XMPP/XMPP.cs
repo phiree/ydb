@@ -10,16 +10,17 @@ namespace Dianzhu.CSClient.XMPP
     public class XMPP : IInstantMessage.IXMPP
     {
 
-       public static readonly string Server = "192.168.1.140";
+        public static readonly string Server = "192.168.1.140";
         public static readonly string Domain = "192.168.1.140";
         static agsXMPP.XmppClientConnection XmppClientConnection;
 
 
 
-        public event ObjectHandler OnLogin;
-
-        public event PresenceHandler OnPresent;
-        public event ReceiveMessageHandler ReceiveMessageHandler;
+        public event IMLogined IMLogined;
+        public event IMAuthError IMAuthError;
+        public event IMPresent IMPresent;
+        public event IMReceivedMessage IMReceivedMessage;
+        public event IMError IMError;
         public XMPP()
         {
             if (XmppClientConnection == null)
@@ -28,25 +29,37 @@ namespace Dianzhu.CSClient.XMPP
                 XmppClientConnection.OnLogin += new agsXMPP.ObjectHandler(Connection_OnLogin);
                 XmppClientConnection.OnPresence += new PresenceHandler(Connection_OnPresence);
                 XmppClientConnection.OnMessage += new MessageHandler(XmppClientConnection_OnMessage);
+                XmppClientConnection.OnAuthError += new XmppElementHandler(XmppClientConnection_OnAuthError);
+                XmppClientConnection.OnError += new ErrorHandler(XmppClientConnection_OnError);
             }
+        }
+
+        void XmppClientConnection_OnError(object sender, Exception ex)
+        {
+            IMError(ex.Message);
+        }
+
+        void XmppClientConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
+        {
+            IMAuthError();
         }
 
         void XmppClientConnection_OnMessage(object sender, Message msg)
         {
-            ReceiveMessageHandler(msg.From.User, msg.Body);
+            IMReceivedMessage(msg.From.User, msg.Body);
         }
 
         void Connection_OnPresence(object sender, Presence pres)
         {
-            if (OnPresent != null)
+            if (IMPresent != null)
             {
-                OnPresent(sender, pres);
+                IMPresent(pres.From.User, (int)pres.Type);
             }
         }
 
         void Connection_OnLogin(object sender)
         {
-            OnLogin(sender);
+            IMLogined();
         }
 
         public void SendPresent()
