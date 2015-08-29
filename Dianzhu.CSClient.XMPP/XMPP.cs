@@ -10,8 +10,8 @@ namespace Dianzhu.CSClient.XMPP
     public class XMPP : IInstantMessage.InstantMessage
     {
 
-        public static readonly string Server = "192.168.1.140";
-        public static readonly string Domain = "192.168.1.140";
+        public static readonly string Server = System.Configuration.ConfigurationManager.AppSettings["server"];
+        public static readonly string Domain = System.Configuration.ConfigurationManager.AppSettings["domain"];
         static agsXMPP.XmppClientConnection XmppClientConnection;
 
 
