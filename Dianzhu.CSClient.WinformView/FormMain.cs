@@ -6,31 +6,28 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using agsXMPP;
-using agsXMPP.protocol.client;
 
-using Dianzhu.CSClient.IVew;
-using Dianzhu.CSClient.Presenter;
-//using Dianzhu.CSClient.Model;
 using Dianzhu.Model;
-namespace Dianzhu.CSClient
+using Dianzhu.CSClient.IVew;
+ 
+//using Dianzhu.CSClient.Model;
+ 
+namespace Dianzhu.CSClient.WinformView
 {
-    public partial class FormMain : Form, MainFormView
+    public partial class FormMain : Form, IMainFormView
     {
-        BLL.DZMembershipProvider BLLMember = BLLFactory.BLLMember;
-        BLL.BLLReception BLLReception = BLLFactory.BLLReception;
-        BLL.BLLDZService BLLDZService = BLLFactory.BLLDZService;
-        BLL.BLLServiceOrder BLLServiceOrder = BLLFactory.BLLServiceOrder;
-
-        FormController FormController;
+       
+        /// <summary>
+        /// todo:view 不需要知道formcontroller , 应该在该窗体初始化的时候 初始化controller
+        /// 
+        /// </summary>
+        
         public FormMain()
         {
             InitializeComponent();
-            FormController = new FormController(this, BLLMember, BLLReception, BLLDZService,
-            BLLServiceOrder);
+       
         }
 
-       
         IList<ReceptionChat> chatLog;
         public IList<ReceptionChat> ChatLog
         {
@@ -63,6 +60,18 @@ namespace Dianzhu.CSClient
             get { return tbxChatMsg.Text; }
             set { tbxChatMsg.Text = value; }
         }
+        string mediaServerRoot;
+        public string MediaServerRoot {
+            get { return mediaServerRoot; }
+            set { mediaServerRoot = value; }
+        }
+        string buttonNamePrefix;
+
+        public string ButtonNamePrefix
+        {
+            get { return buttonNamePrefix; }
+            set { buttonNamePrefix = value; }
+        }
 
         /// <summary>
         /// 
@@ -94,7 +103,7 @@ namespace Dianzhu.CSClient
                 PictureBox pb = new PictureBox();
                 pb.Click += new EventHandler(pb_Click);
                 pb.Size = new System.Drawing.Size(100, 100);
-                pb.Load(GlobalViables.WebServerRoot + chat.MessageMediaUrl);
+                pb.Load(mediaServerRoot + chat.MessageMediaUrl);
                 pnlOneChat.Controls.Add(pb);
             }
             switch (chat.ChatType)
@@ -141,21 +150,13 @@ namespace Dianzhu.CSClient
         //点击支付
         void btnSendPayLink_Click(object sender, EventArgs e)
         {
-            //agsXMPP.protocol.client.Message msg=new agsXMPP.protocol.client.Message
-            //    (
-            //    currentCustomerName+"@"+GlobalViables.ServerName,
-            //   // StringHelper.EnsureOpenfireUserName(GlobalViables.CurrentCustomerService.UserName)+"@"+GlobalViables.ServerName
-
-            //    );
-            //string service_id=((Button)sender).Tag.ToString();
-            // FormController.SendPayLink(service_id);
-            // GlobalViables.XMPPConnection.Send(msg);
+          
         }
 
         void pb_Click(object sender, EventArgs e)
         {
             PictureBox pb = (PictureBox)sender;
-            Form fm = new ShowFullImage(pb.Image);
+            Form fm = new  ShowFullImage(pb.Image);
             fm.ShowDialog();
         }
  
@@ -163,7 +164,7 @@ namespace Dianzhu.CSClient
         {
             Action lambda=()=>{
             Button btn = (Button)pnlCustomerList.Controls.Find
-                (GlobalViables.ButtonNamePrefix + buttonText, true)[0];
+                (buttonNamePrefix + buttonText, true)[0];
             Color foreColor = Color.White;
             switch (buttonStyle)
             {
@@ -196,7 +197,7 @@ namespace Dianzhu.CSClient
             {
                 Button btn = new Button();
                 btn.Text = buttonText;
-                btn.Name = GlobalViables.ButtonNamePrefix + buttonText;
+                btn.Name = buttonNamePrefix + buttonText;
                 btn.Click += new EventHandler(btnCustomer_Click);
                 pnlCustomerList.Controls.Add(btn);
                 SetCustomerButtonStyle(buttonText, buttonStyle);
@@ -213,7 +214,7 @@ namespace Dianzhu.CSClient
             {
                 ActiveCustomerHandler(((Button)sender).Text);
             }
-            FormController.ActiveCustomer(((Button)sender).Text);
+            
         }
         #region Impletion of Iview
         public event SendMessageHandler SendMessageHandler;
@@ -237,7 +238,7 @@ namespace Dianzhu.CSClient
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            FormController.SearchService(SerachKeyword);
+             
         }
 
 
@@ -296,14 +297,14 @@ namespace Dianzhu.CSClient
         void btnPushService_Click(object sender, EventArgs e)
         {
             //xmpp发送消息 由xmpp实现,在csclient
-            agsXMPP.protocol.client.Message m = new agsXMPP.protocol.client.Message();
-            m.Type = MessageType.chat;
-            DZService service = (DZService)((Button)sender).Tag;
-            string serviceId = service.Id.ToString();
-            string serviceName = service.Name;
-            m.SetAttribute("service_name", service.Name);
-            m.SetAttribute("service_id", serviceId);
-            m.SetAttribute("t", "push");
+            //agsXMPP.protocol.client.Message m = new agsXMPP.protocol.client.Message();
+            //m.Type = MessageType.chat;
+            //DZService service = (DZService)((Button)sender).Tag;
+            //string serviceId = service.Id.ToString();
+            //string serviceName = service.Name;
+            //m.SetAttribute("service_name", service.Name);
+            //m.SetAttribute("service_id", serviceId);
+            //m.SetAttribute("t", "push");
             // m.SetAttribute("service_name",
            // m.To = StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain;
             // GlobalViables.XMPPConnection.Send(m);

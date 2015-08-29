@@ -127,6 +127,10 @@
       <Project>{820A465F-51FB-4F8D-8665-B80F9643281B}</Project>
       <Name>Dianzhu.CSClient.IInstantMessage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.IMessageAdapter\Dianzhu.CSClient.IMessageAdapter.csproj">
+      <Project>{74F0963E-57CA-4D57-899C-D85FF096FE1F}</Project>
+      <Name>Dianzhu.CSClient.IMessageAdapter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IVew.csproj">
       <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
       <Name>Dianzhu.CSClient.IVew</Name>
@@ -148,7 +152,9 @@
       <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

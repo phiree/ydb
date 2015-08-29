@@ -8,7 +8,7 @@ namespace Dianzhu.CSClient.IVew
 {
     public delegate void ActiveCustomerHandler(string customername);
     public delegate void SendMessageHandler();
-    public interface MainFormView
+    public interface IMainFormView
     {
         #region Chat
         IList<ReceptionChat> ChatLog { set; get; }

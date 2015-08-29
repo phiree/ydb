@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>CocoStudio_Logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="agsXMPP, Version=1.1.1.0, Culture=neutral, PublicKeyToken=ff839b81f1debe86, processorArchitecture=MSIL">
       <HintPath>..\packages\agsXMPP.1.1.1.0\lib\agsXMPP.dll</HintPath>
@@ -68,44 +71,13 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WinFormsMvp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4af6a00a847e9db8, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dll\WinFormsMvp.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLFactory.cs" />
-    <Compile Include="ChatLoader.cs" />
-    <Compile Include="ClientEnums.cs" />
-    <Compile Include="FormMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormMain.Designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </Compile>
     <Compile Include="GlobalViables.cs" />
-    <Compile Include="fmLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>fmLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MessagePaser.cs" />
+    <Compile Include="MessageAdapter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShowFullImage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ShowFullImage.Designer.cs">
-      <DependentUpon>ShowFullImage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="XMPPConnection.cs" />
-    <EmbeddedResource Include="fmLogin.resx">
-      <DependentUpon>fmLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -116,9 +88,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ShowFullImage.resx">
-      <DependentUpon>ShowFullImage.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -151,6 +120,10 @@
       <Project>{820A465F-51FB-4F8D-8665-B80F9643281B}</Project>
       <Name>Dianzhu.CSClient.IInstantMessage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.IMessageAdapter\Dianzhu.CSClient.IMessageAdapter.csproj">
+      <Project>{74F0963E-57CA-4D57-899C-D85FF096FE1F}</Project>
+      <Name>Dianzhu.CSClient.IMessageAdapter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IVew.csproj">
       <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
       <Name>Dianzhu.CSClient.IVew</Name>
@@ -158,6 +131,10 @@
     <ProjectReference Include="..\Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj">
       <Project>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</Project>
       <Name>Dianzhu.CSClient.Presenter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.WinformView\Dianzhu.CSClient.WinformView.csproj">
+      <Project>{0550CABB-3957-45CC-8CC6-9FBEA653B20D}</Project>
+      <Name>Dianzhu.CSClient.WinformView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
       <Project>{125F0D3B-E83C-4743-9944-E82392CBA6C5}</Project>
@@ -169,6 +146,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CocoStudio_Logo.ico" />
     <Content Include="dll\MySql.Data.dll" />
     <Content Include="dll\WinFormsMvp.dll" />
   </ItemGroup>

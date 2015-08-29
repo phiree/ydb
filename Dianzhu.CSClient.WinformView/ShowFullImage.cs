@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Dianzhu.CSClient
+namespace Dianzhu.CSClient.WinformView
 {
     public partial class ShowFullImage : Form
     {

@@ -7,7 +7,7 @@ using agsXMPP.protocol.client;
 using Dianzhu.CSClient.IInstantMessage;
 namespace Dianzhu.CSClient.XMPP
 {
-    public class XMPP : IInstantMessage.IXMPP
+    public class XMPP : IInstantMessage.InstantMessage
     {
 
         public static readonly string Server = "192.168.1.140";
@@ -21,8 +21,10 @@ namespace Dianzhu.CSClient.XMPP
         public event IMPresent IMPresent;
         public event IMReceivedMessage IMReceivedMessage;
         public event IMError IMError;
-        public XMPP()
+        IMessageAdapter.IAdapter messageAdapter;
+        public XMPP(IMessageAdapter.IAdapter messageAdapter)
         {
+            this.messageAdapter = messageAdapter;
             if (XmppClientConnection == null)
             {
                 XmppClientConnection = new agsXMPP.XmppClientConnection(Server);
@@ -46,7 +48,10 @@ namespace Dianzhu.CSClient.XMPP
 
         void XmppClientConnection_OnMessage(object sender, Message msg)
         {
-            IMReceivedMessage(msg.From.User, msg.Body);
+            //接受消息,由presenter构建chat
+            //message-->chat
+            Model.ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
+            IMReceivedMessage(msg.From.User,  chat);
         }
 
         void Connection_OnPresence(object sender, Presence pres)
@@ -69,10 +74,10 @@ namespace Dianzhu.CSClient.XMPP
             XmppClientConnection.Send(p);
         }
 
-        public void SendMessage(string message,   string to)
+        public void SendMessage(Model.ReceptionChat chat)
         {
-            Message msg = new Message(StringHelper.EnsureOpenfireUserName(to) + "@" + Server,
-                message);
+            //chat-->message
+            Message msg = messageAdapter.ChatToMessage(chat);
             XmppClientConnection.Send(msg);
         }
 

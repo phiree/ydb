@@ -1,6 +1,6 @@
-﻿namespace Dianzhu.CSClient
+﻿namespace Dianzhu.CSClient.WinformView
 {
-    partial class fmLogin
+    partial class FormLogin
     {
         /// <summary>
         /// 必需的设计器变量。

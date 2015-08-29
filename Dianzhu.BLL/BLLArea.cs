@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.DAL;
-
-using Dianzhu.IDAL;
+ 
 namespace Dianzhu.BLL
 {
     public class BLLArea

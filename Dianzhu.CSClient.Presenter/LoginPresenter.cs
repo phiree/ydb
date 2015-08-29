@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.CSClient.IInstantMessage;
-using agsXMPP;
+ 
 using Dianzhu.Model;
 using Dianzhu.BLL;
 namespace Dianzhu.CSClient.Presenter
@@ -11,10 +11,13 @@ namespace Dianzhu.CSClient.Presenter
    public class LoginPresenter
     {
        IVew.ILoginForm loginView;
-       
-       public LoginPresenter(IVew.ILoginForm loginView )
+       InstantMessage instantMessage;
+       public LoginPresenter(IVew.ILoginForm loginView, InstantMessage instantMessage,
+
+            BLL.DZMembershipProvider bllMembership)
        {
            this.loginView = loginView;
+           this.instantMessage = instantMessage;
            loginView.ViewLogin +=new IVew.ViewLogin(loginView_ViewLogin);
   
        }
@@ -25,11 +28,11 @@ namespace Dianzhu.CSClient.Presenter
            loginView.LoginButtonText = "正在登录,请稍后";
            loginView.LoginButtonEnabled = false;
            loginView.LoginMessage = string.Empty;
-           GlobalViables.XMPP.OpenConnection(loginView.UserName               
+           instantMessage.OpenConnection(loginView.UserName               
                , loginView.Password);
-           GlobalViables.XMPP.IMLogined += new IMLogined(IMLogined);
-           GlobalViables.XMPP.IMAuthError += new IMAuthError(XMPP_IMAuthError);
-           GlobalViables.XMPP.IMError += new IMError(XMPP_IMError);
+           instantMessage.IMLogined += new IMLogined(IMLogined);
+           instantMessage.IMAuthError += new IMAuthError(XMPP_IMAuthError);
+           instantMessage.IMError += new IMError(XMPP_IMError);
           
            
        }
@@ -54,7 +57,7 @@ namespace Dianzhu.CSClient.Presenter
 
        void IMLogined()
        {
-           BLL.DZMembershipProvider bllMembership = new BLL.DZMembershipProvider();
+          
            DZMembership customerService = BLLFactory.BLLMembership.GetUserByName(loginView.UserName);
            GlobalViables.CurrentCustomerService = customerService;
            loginView.IsLoginSuccess = true;

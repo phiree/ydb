@@ -17,14 +17,26 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
             log4net.Config.XmlConfigurator.Configure();
             DialogResult result;
-            
-            using (var loginForm = new fmLogin())
+            IMessageAdapter.IAdapter messageAdapter = new MessageAdapter();
+            XMPP.XMPP xmpp = new XMPP.XMPP(messageAdapter);
+            using (var loginForm = new WinformView.FormLogin())
             {
+                Presenter.LoginPresenter loginPresenter = new Presenter.LoginPresenter(loginForm,xmpp,
+                    BLLFactory.BLLMember);
                   result = loginForm.ShowDialog();
             }
             if (result == DialogResult.OK)
             {
-                Application.Run(new FormMain());
+                var mainForm = new WinformView.FormMain();
+
+                Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
+                    mainForm, xmpp, messageAdapter,
+                    BLLFactory.BLLMember,
+                    BLLFactory.BLLReception,
+                    BLLFactory.BLLDZService,
+                    BLLFactory.BLLServiceOrder
+                    );
+                Application.Run(mainForm);
             }
             //Application.Run(new Views.Raw.ChatView());
 

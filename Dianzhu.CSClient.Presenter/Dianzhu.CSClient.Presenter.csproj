@@ -32,10 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="agsXMPP, Version=1.1.1.0, Culture=neutral, PublicKeyToken=ff839b81f1debe86, processorArchitecture=MSIL">
-      <HintPath>..\packages\agsXMPP.1.1.1.0\lib\agsXMPP.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PostSharp, Version=4.1.23.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <HintPath>..\packages\PostSharp.4.1.23\lib\net35-client\PostSharp.dll</HintPath>
       <Private>True</Private>
@@ -61,8 +57,7 @@
   <ItemGroup>
     <Compile Include="BLLFactory.cs" />
     <Compile Include="ChatLoader.cs" />
-    <Compile Include="CustomerClient\MainFormPresenter.cs" />
-    <Compile Include="FormController.cs" />
+    <Compile Include="MainPresenter.cs" />
     <Compile Include="GlobalViables.cs" />
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,13 +72,13 @@
       <Project>{820A465F-51FB-4F8D-8665-B80F9643281B}</Project>
       <Name>Dianzhu.CSClient.IInstantMessage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.IMessageAdapter\Dianzhu.CSClient.IMessageAdapter.csproj">
+      <Project>{74F0963E-57CA-4D57-899C-D85FF096FE1F}</Project>
+      <Name>Dianzhu.CSClient.IMessageAdapter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IVew.csproj">
       <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
       <Name>Dianzhu.CSClient.IVew</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
-      <Project>{125F0D3B-E83C-4743-9944-E82392CBA6C5}</Project>
-      <Name>Dianzhu.CSClient.XMPP</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
@@ -94,9 +89,7 @@
       <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ServiceClient\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

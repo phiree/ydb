@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using agsXMPP;
-using agsXMPP.protocol.client;
+ 
+
 namespace Dianzhu.CSClient.IInstantMessage
 {
-    public delegate void IMReceivedMessage(string userFrom, string message);
+    public delegate void IMReceivedMessage(string userFrom, Model.ReceptionChat chat);
     public delegate void IMLogined();
     public delegate void IMAuthError();
     public delegate void IMPresent(string userFrom,int presentType);
     public delegate void IMError(string error);
-    
-    public interface IXMPP
+
+
+    public interface InstantMessage
     {
   
         void OpenConnection(string userName, string password);
@@ -22,7 +23,8 @@ namespace Dianzhu.CSClient.IInstantMessage
         event IMPresent IMPresent;
         event IMAuthError IMAuthError;
         event IMError IMError;
-        void SendMessage(string message, string to);
+
+        void SendMessage(Model.ReceptionChat chat);
         event IMReceivedMessage IMReceivedMessage;
       //  void SendMessage(agsXMPP.protocol.client.Message message);
     }
