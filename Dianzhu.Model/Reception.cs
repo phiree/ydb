@@ -47,6 +47,7 @@ namespace Dianzhu.Model
         public ReceptionCustomer()
         {
             PushedServices = new List<DZService>();
+
         }
         /// <summary>
         /// 推送的服务
@@ -137,7 +138,7 @@ namespace Dianzhu.Model
     public class ReceptionChatOrder : ReceptionChat
     {
         
-        public ServiceOrder ServiceOrder { get; set; }
+        public virtual ServiceOrder ServiceOrder { get; set; }
     }
     
 }

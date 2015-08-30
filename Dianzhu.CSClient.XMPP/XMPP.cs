@@ -21,6 +21,7 @@ namespace Dianzhu.CSClient.XMPP
         public event IMPresent IMPresent;
         public event IMReceivedMessage IMReceivedMessage;
         public event IMError IMError;
+        public event IMConnectionError IMConnectionError;
         IMessageAdapter.IAdapter messageAdapter;
         public XMPP(IMessageAdapter.IAdapter messageAdapter)
         {
@@ -33,9 +34,14 @@ namespace Dianzhu.CSClient.XMPP
                 XmppClientConnection.OnMessage += new MessageHandler(XmppClientConnection_OnMessage);
                 XmppClientConnection.OnAuthError += new XmppElementHandler(XmppClientConnection_OnAuthError);
                 XmppClientConnection.OnError += new ErrorHandler(XmppClientConnection_OnError);
+                XmppClientConnection.OnSocketError+=new ErrorHandler(XmppClientConnection_OnSocketError);
+                
             }
         }
-
+        void XmppClientConnection_OnSocketError(object sender, Exception ex)
+        {
+            IMConnectionError(ex.Message);
+        }
         void XmppClientConnection_OnError(object sender, Exception ex)
         {
             IMError(ex.Message);
@@ -51,7 +57,7 @@ namespace Dianzhu.CSClient.XMPP
             //接受消息,由presenter构建chat
             //message-->chat
             Model.ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
-            IMReceivedMessage(msg.From.User,  chat);
+            IMReceivedMessage(   chat);
         }
 
         void Connection_OnPresence(object sender, Presence pres)

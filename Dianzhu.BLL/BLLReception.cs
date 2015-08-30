@@ -22,6 +22,13 @@ namespace Dianzhu.BLL
         {
             DALReception.SaveOrUpdate(reception);
         }
+        /// <summary>
+        /// 获取聊天记录,
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         public IList<ReceptionChat> GetHistoryReceptionChat(DZMembership from, DZMembership to,int limit)
         {
           var list=  DALReception.Search(from, to, DateTime.MinValue, DateTime.MaxValue,limit);

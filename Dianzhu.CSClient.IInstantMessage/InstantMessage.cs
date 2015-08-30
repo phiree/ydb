@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Dianzhu.CSClient.IInstantMessage
 {
-    public delegate void IMReceivedMessage(string userFrom, Model.ReceptionChat chat);
+    public delegate void IMReceivedMessage(Model.ReceptionChat chat);
     public delegate void IMLogined();
     public delegate void IMAuthError();
     public delegate void IMPresent(string userFrom,int presentType);
     public delegate void IMError(string error);
-
+    public delegate void IMConnectionError(string error);
 
     public interface InstantMessage
     {
@@ -23,6 +23,7 @@ namespace Dianzhu.CSClient.IInstantMessage
         event IMPresent IMPresent;
         event IMAuthError IMAuthError;
         event IMError IMError;
+        event IMConnectionError IMConnectionError;
 
         void SendMessage(Model.ReceptionChat chat);
         event IMReceivedMessage IMReceivedMessage;

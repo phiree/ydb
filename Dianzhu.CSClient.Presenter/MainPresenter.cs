@@ -18,8 +18,8 @@ namespace Dianzhu.CSClient.Presenter
         BLLServiceOrder bllOrder;
         IMessageAdapter.IAdapter messageAdapter;
         #region state 
-        DZMembership customerService=GlobalViables.CurrentCustomerService; //当前客户
-        DZMembership customer; //客服
+        DZMembership customerService=GlobalViables.CurrentCustomerService; //当前k客服
+        DZMembership customer=null; //
         List<DZMembership> customerList = new List<DZMembership>(); // 客户列表
         Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();//接待列表
         Dictionary<string, IList<DZService>> SearchResultForCustomer = new Dictionary<string, IList<DZService>>();//搜索列表
@@ -49,8 +49,9 @@ namespace Dianzhu.CSClient.Presenter
         }
 
         //从im服务器接收到的消息. 元消息已经被xmpp转换成receptionChat
-        void IMReceivedMessage(string userFrom, ReceptionChat chat)
+        void IMReceivedMessage(ReceptionChat chat)
         {
+            
             string customerName = chat.From.UserName;
             if (!customerList.Any(x => x.UserName ==  customerName))
             {
@@ -70,7 +71,18 @@ namespace Dianzhu.CSClient.Presenter
            // ReceptionChat chat = SaveMessage(message, customerName, false, mediaUrl);
             //chat.ServiceId = confirm_service_id;
             //收到消息之后创建订单, 还是客服点击发送链接确认之后 创建订单
-            
+            ReceptionBase reception = null;
+            if (ReceptionList.ContainsKey(chat.From.UserName))
+            {
+                reception = ReceptionList[chat.From.UserName];
+            }
+            else
+            {
+                reception = new ReceptionCustomer { Receiver=customerService, Sender=chat.From };
+                ReceptionList.Add(chat.From.UserName, reception);
+            }
+            reception.ChatHistory.Add(chat);
+            bllReception.Save(reception);
             //chat.ServiceId = confirm_service_id;
             if (customer != null && customerName == customer.UserName)
             {
@@ -129,6 +141,7 @@ namespace Dianzhu.CSClient.Presenter
               SendTime=DateTime.Now,
               SavedTime=DateTime.Now
             };
+            //需要从当前会话列表中提取对应客户, 所以需要传入客户名称
             SaveMessage(chat);
             view.LoadOneChat(chat);
             instantMessage.SendMessage(chat);
@@ -232,12 +245,12 @@ namespace Dianzhu.CSClient.Presenter
         public ReceptionChat SaveMessage(ReceptionChat chat )
         {
 #region 保存聊天消息
-            string customerName = chat.From.UserName;
+            string customerName = customer.UserName;
             string message = chat.MessageBody;
             bool isSend = chat.From == customerService;
             string mediaUrl = chat.MessageMediaUrl;
             bool isIn = ReceptionList.ContainsKey(customerName);
-            DZMembership customer = customerList.Single(x => x.UserName == customerName);
+             
             ReceptionBase re;
             
             if (isIn)

@@ -28,13 +28,23 @@ namespace Dianzhu.CSClient.Presenter
            loginView.LoginButtonText = "正在登录,请稍后";
            loginView.LoginButtonEnabled = false;
            loginView.LoginMessage = string.Empty;
-           instantMessage.OpenConnection(loginView.UserName               
+           instantMessage.IMConnectionError += new IMConnectionError(instantMessage_IMConenctionError);
+           instantMessage.OpenConnection(PHSuit.StringHelper.EnsureOpenfireUserName( loginView.UserName   )            
                , loginView.Password);
            instantMessage.IMLogined += new IMLogined(IMLogined);
            instantMessage.IMAuthError += new IMAuthError(XMPP_IMAuthError);
            instantMessage.IMError += new IMError(XMPP_IMError);
+           
           
            
+       }
+
+       void instantMessage_IMConenctionError(string error)
+       {
+           loginView.LoginButtonEnabled = true;
+           loginView.LoginButtonText = "重新登录";
+           loginView.ErrorMessage = "服务器错误, 请确保通讯服务器已开启." + error;
+           loginView.ShowError();
        }
 
        
