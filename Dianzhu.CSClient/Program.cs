@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-
+using Dianzhu.CSClient.MessageAdapter;
 namespace Dianzhu.CSClient
 {
     static class Program
@@ -17,7 +17,8 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
             log4net.Config.XmlConfigurator.Configure();
             DialogResult result;
-            IMessageAdapter.IAdapter messageAdapter = new MessageAdapter();
+            IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
+                BLLFactory.BLLMember,BLLFactory.BLLDZService,BLLFactory.BLLServiceOrder);
             XMPP.XMPP xmpp = new XMPP.XMPP(messageAdapter);
             using (var loginForm = new WinformView.FormLogin())
             {

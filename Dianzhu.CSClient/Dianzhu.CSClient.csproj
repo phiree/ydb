@@ -75,7 +75,6 @@
   <ItemGroup>
     <Compile Include="BLLFactory.cs" />
     <Compile Include="GlobalViables.cs" />
-    <Compile Include="MessageAdapter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -128,6 +127,10 @@
       <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
       <Name>Dianzhu.CSClient.IVew</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.MessageAdapter\Dianzhu.CSClient.MessageAdapter.csproj">
+      <Project>{A871C9E1-98A4-412F-A1B3-541189A4C4CF}</Project>
+      <Name>Dianzhu.CSClient.MessageAdapter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj">
       <Project>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</Project>
       <Name>Dianzhu.CSClient.Presenter</Name>
@@ -143,6 +146,10 @@
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHSuit\PHSuit.csproj">
+      <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
+      <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

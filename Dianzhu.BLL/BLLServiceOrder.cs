@@ -13,9 +13,24 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLServiceOrder
     {
-        DALServiceOrder DALServiceOrder = DALFactory.DALServiceOrder;
-        DZMembershipProvider membershipProvider = new DZMembershipProvider();
-        BLLDZService bllDzService = new BLLDZService();
+
+
+        DALServiceOrder DALServiceOrder = null;
+        DZMembershipProvider membershipProvider = null;
+        BLLDZService bllDzService = null;
+
+        public BLLServiceOrder()
+        {
+            DALServiceOrder = DALFactory.DALServiceOrder;
+           membershipProvider= new DZMembershipProvider();
+           bllDzService = new BLLDZService();
+        }
+        public BLLServiceOrder(DALServiceOrder dal)
+        {
+            DALServiceOrder = dal;
+        }
+
+        
         /// <summary>
         /// 创建服务,系统外的服务,未注册用户
         /// </summary>
@@ -45,12 +60,12 @@ namespace Dianzhu.BLL
                 ServiceName = serviceName,
                 ServiceURL = externalUrl,
                 TargetAddress = targetAddress,
-                TotalPrice = unitPrice * unitAmount
+                UnitPrice = unitPrice * unitAmount
 
             };
             if (adjustPrice > 0)
             {
-                order.TotalPrice = adjustPrice;
+                order.UnitPrice = adjustPrice;
             }
             DALServiceOrder.Save(order);
             return order;
@@ -79,7 +94,7 @@ namespace Dianzhu.BLL
                 ServiceName = service.Name,
                 ServiceURL = string.Empty,
                 TargetAddress = targetAddress,
-                TotalPrice = service.UnitPrice * unitAmount
+                UnitPrice = service.UnitPrice * unitAmount
             };
             DALServiceOrder.Save(order);
             return order;

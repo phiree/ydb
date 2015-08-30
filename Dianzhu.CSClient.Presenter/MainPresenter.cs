@@ -82,7 +82,7 @@ namespace Dianzhu.CSClient.Presenter
 
         void IMPresent(string userFrom,int presentType)
         {
-            string userName = StringHelper.EnsureNormalUserName(userFrom);
+            string userName = PHSuit.StringHelper.EnsureNormalUserName(userFrom);
             bool isInList = customerList.Any(x => x.UserName == userName);
             switch (presentType)
             {
@@ -158,7 +158,7 @@ namespace Dianzhu.CSClient.Presenter
   */
         public void OnPresent(int presentType, string customerName)
         {
-            string userName = StringHelper.EnsureNormalUserName(customerName);
+            string userName = PHSuit.StringHelper.EnsureNormalUserName(customerName);
             bool isInList = customerList.Any(x => x.UserName == userName);
             switch (presentType)
             {

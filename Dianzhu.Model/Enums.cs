@@ -93,10 +93,18 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_ChatType
     { 
+        /// <summary>
+        /// 业务流程需要IM完成的工作,
+        /// 不需要IM完成的 比如, 用户取消订单,
+        /// 申请退款等,通过http接口完成.
+        ///  
+        /// 
+        /// </summary>
         Text,
         PushedService,// 推送的服务
         ConfirmedService,//被确认的服务
-        Order,//订单.
+        Order,//订单.包含支付链接
+        BeginPay,//开始支付消息.
     }
 
 

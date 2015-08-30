@@ -32,7 +32,7 @@ namespace Dianzhu.Test
             DAL.DALReception DALReception = Builder<DAL.DALReception>.CreateNew().Build();
             DAL.DALDZService DALDZService = Builder<DAL.DALDZService>.CreateNew().Build();
             DZMembershipProvider bllMember = Builder<DZMembershipProvider>.CreateNew()
-                .With(x=>x.DALMembership=dalmember)
+               
                      .Build();
 
             BLLReception bllReception = Builder<BLLReception>.CreateNew()

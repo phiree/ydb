@@ -57,16 +57,17 @@ namespace Dianzhu.Model
         /// <summary>
         /// 服务的详细网址(平台外,平台内)
         /// </summary>
-        public virtual string ServiceURL { get; set; }
+       
 
         #region 服务冗余信息
         public virtual string ServiceName { get; set; }
         public virtual string ServiceDescription { get; set; }
         public virtual string ServiceBusinessName { get; set; }
-        public virtual decimal TotalPrice { get; set; }
+        public virtual decimal UnitPrice { get; set; }
+        public virtual string ServiceURL { get; set; }
         
         #endregion
-        #region 客户冗余信息
+        #region 客户冗余信息,一定是注册用户
         public virtual string CustomerName { get; set; }
         public virtual string CustomerPhone { get; set; }
         public virtual string CustomerEmail { get; set; }

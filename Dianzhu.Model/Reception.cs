@@ -84,11 +84,8 @@ namespace Dianzhu.Model
             switch (chatType)
             {
                 case Enums.enum_ChatType.PushedService:
-                   
-                    
                 case Enums.enum_ChatType.ConfirmedService:
                     return new ReceptionChatService();
-                    
                 case Enums.enum_ChatType.Order: return new ReceptionChatOrder();
                 default:
                     return new ReceptionChat();
@@ -129,7 +126,13 @@ namespace Dianzhu.Model
     public class ReceptionChatService:ReceptionChat
     {
         
-        public DZService Service { get; set; }
+        public virtual DZService Service { get; set; }
+        //如果是系统外的服务
+        public virtual string ServiceName { get; set; }
+        public virtual string ServiceDescription { get; set; }
+        public virtual string ServiceBusinessName { get; set; }
+        public virtual string ServiceUrl { get; set; }
+        public virtual decimal UnitPrice { get; set; }
     }
     public class ReceptionChatOrder : ReceptionChat
     {

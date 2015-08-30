@@ -86,7 +86,7 @@ namespace Dianzhu.CSClient.XMPP
 
         public void OpenConnection(string userName, string password)
         {
-            XmppClientConnection.Open(StringHelper.EnsureOpenfireUserName(userName), password);
+            XmppClientConnection.Open( userName , password);
         }
 
 
