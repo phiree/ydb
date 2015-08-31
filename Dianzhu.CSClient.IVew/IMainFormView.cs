@@ -8,6 +8,9 @@ namespace Dianzhu.CSClient.IVew
 {
     public delegate void ActiveCustomerHandler(string customername);
     public delegate void SendMessageHandler();
+    public delegate void PushExternalService();
+    public delegate void PushInternalService();
+    public delegate void SearchService();
     public interface IMainFormView
     {
         #region Chat
@@ -30,14 +33,25 @@ namespace Dianzhu.CSClient.IVew
         /// <param name="buttonText"></param>
         /// <param name="buttonStyle"></param>
         void AddCustomerButtonWithStyle(string buttonText, em_ButtonStyle buttonStyle);
+        string ButtonNamePrefix { get; set; }
         event SendMessageHandler SendMessageHandler;
         event ActiveCustomerHandler ActiveCustomerHandler;
         #endregion
 
         string SerachKeyword { get; set; }
         string MessageTextBox { get; set; }
+        string CurrentCustomerName { get; set; }
 
 
         IList<DZService> SearchedService { get; set; }
+        //外部服务
+        string ServiceName { get; set; }
+        string ServiceBusinessName { get; set; }
+        string ServiceDescription { get; set; }
+        string ServiceUnitPrice { get; set; }
+        string ServiceUrl { get; set; }
+        event PushExternalService PushExternalService;
+        event PushInternalService PushInternalService;
+        event SearchService SearchService;
     }
 }

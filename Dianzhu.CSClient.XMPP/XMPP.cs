@@ -57,7 +57,11 @@ namespace Dianzhu.CSClient.XMPP
             //接受消息,由presenter构建chat
             //message-->chat
             Model.ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
-            IMReceivedMessage(   chat);
+
+            if (IMReceivedMessage != null)
+            {
+                IMReceivedMessage(chat);
+            }
         }
 
         void Connection_OnPresence(object sender, Presence pres)

@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="BLLFactory.cs" />
     <Compile Include="ChatLoader.cs" />
+    <Compile Include="IncomingMessageTemplate.cs" />
     <Compile Include="MainPresenter.cs" />
     <Compile Include="GlobalViables.cs" />
     <Compile Include="LoginPresenter.cs" />

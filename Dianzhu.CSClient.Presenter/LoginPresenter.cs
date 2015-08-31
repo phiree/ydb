@@ -28,12 +28,13 @@ namespace Dianzhu.CSClient.Presenter
            loginView.LoginButtonText = "正在登录,请稍后";
            loginView.LoginButtonEnabled = false;
            loginView.LoginMessage = string.Empty;
+           instantMessage.IMError += new IMError(XMPP_IMError);
            instantMessage.IMConnectionError += new IMConnectionError(instantMessage_IMConenctionError);
            instantMessage.OpenConnection(PHSuit.StringHelper.EnsureOpenfireUserName( loginView.UserName   )            
                , loginView.Password);
            instantMessage.IMLogined += new IMLogined(IMLogined);
            instantMessage.IMAuthError += new IMAuthError(XMPP_IMAuthError);
-           instantMessage.IMError += new IMError(XMPP_IMError);
+           
            
           
            

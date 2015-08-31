@@ -27,7 +27,14 @@ namespace Dianzhu.CSClient.WinformView
             InitializeComponent();
        
         }
-
+        /// <summary>
+        /// 界面当前绑定的客户名称,用于判断聊天记录的呈现方式
+        /// </summary>
+        private string currentCustomerName;
+        public string CurrentCustomerName {
+            get { return currentCustomerName; }
+            set { currentCustomerName = value; }
+        }
         IList<ReceptionChat> chatLog;
         public IList<ReceptionChat> ChatLog
         {
@@ -74,20 +81,31 @@ namespace Dianzhu.CSClient.WinformView
         }
 
         /// <summary>
-        /// 
+        /// 加载一条聊天记录,
         /// </summary>
+        /// <param name="IsReceiver">消息是否由本人发出</param>
         /// <param name="chat"></param>
         public void LoadOneChat(ReceptionChat chat)
         {
-            
+
+            bool isSender = chat.From.UserName == currentCustomerName;
             Label lblTime = new Label();
+            _AutoSize(lblTime);
+            lblTime.ForeColor = Color.FromArgb(200);
             Label lblFrom = new Label();
             Label lblMessage = new Label();
             FlowLayoutPanel pnlOneChat = new FlowLayoutPanel();
-            pnlOneChat.Controls.AddRange(new Control[] { lblMessage });
-            pnlOneChat.FlowDirection = FlowDirection.LeftToRight;
+
+            pnlOneChat.Controls.AddRange(new Control[] {lblTime,lblMessage });
+            pnlOneChat.FlowDirection = FlowDirection.LeftToRight  ;
+            pnlOneChat.Dock=isSender? DockStyle.Left: DockStyle.Right;
+                lblTime.BorderStyle 
+                = lblMessage.BorderStyle 
+                = lblFrom.BorderStyle
+                =pnlOneChat.BorderStyle = BorderStyle.FixedSingle;
+            
             _AutoSize(pnlOneChat);
- 
+            
             lblTime.Text = chat.SavedTime.ToShortTimeString() + " ";
  
             lblFrom.Text = chat.From.UserName;
@@ -219,6 +237,9 @@ namespace Dianzhu.CSClient.WinformView
         #region Impletion of Iview
         public event SendMessageHandler SendMessageHandler;
         public event ActiveCustomerHandler ActiveCustomerHandler;
+        public event PushExternalService PushExternalService;
+        public event PushInternalService PushInternalService;
+        public event SearchService SearchService;
 
         #endregion
 
@@ -238,7 +259,7 @@ namespace Dianzhu.CSClient.WinformView
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-             
+            SearchService();    
         }
 
 
@@ -296,6 +317,7 @@ namespace Dianzhu.CSClient.WinformView
 
         void btnPushService_Click(object sender, EventArgs e)
         {
+            PushInternalService();
             //xmpp发送消息 由xmpp实现,在csclient
             //agsXMPP.protocol.client.Message m = new agsXMPP.protocol.client.Message();
             //m.Type = MessageType.chat;
@@ -340,5 +362,71 @@ namespace Dianzhu.CSClient.WinformView
             }
         }
 
+        private void btnPushExternalService_Click(object sender, EventArgs e)
+        {
+            PushExternalService();
+        }
+
+
+
+        public string ServiceName
+        {
+            get
+            {
+                return tbxServiceName.Text;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string ServiceBusinessName
+        {
+            get
+            {
+                return tbxServiceBusinessName.Text;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string ServiceDescription
+        {
+            get
+            {
+                return tbxServiceDescription.Text;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string ServiceUnitPrice
+        {
+            get
+            {
+                return tbxServiceUnitPrice.Text;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string ServiceUrl
+        {
+            get
+            {
+                return tbxServiceUrl.Text;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
