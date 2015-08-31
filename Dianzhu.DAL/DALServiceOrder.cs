@@ -10,7 +10,15 @@ namespace Dianzhu.DAL
 {
     public class DALServiceOrder : DALBase<ServiceOrder>
     {
-
+         public DALServiceOrder()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+         public DALServiceOrder(string fortest)
+        {
+            
+        }
         public IList<ServiceOrder> GetListByUser(Guid userId)
         {
             var iqueryover = GetList(userId, enum_OrderSearchType.ALL);

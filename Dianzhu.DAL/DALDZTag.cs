@@ -9,7 +9,15 @@ namespace Dianzhu.DAL
 {
     public class DALDZTag : DALBase<Model.DZTag>
     {
-         
+          public DALDZTag()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+          public DALDZTag(string fortest)
+        {
+            
+        }
         public IList<DZTag> GetTagsForService(Guid serviceId)
         {
             return Session.QueryOver<DZTag>().Where(x => x.ForPK == serviceId.ToString()).List();

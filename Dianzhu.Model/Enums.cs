@@ -46,6 +46,14 @@ namespace Dianzhu.Model.Enums
 
     public enum enum_OrderStatus
     {
+        Created,//已创建,待付款
+        Payed,//已付款
+        CancelledNeedReturn,//已取消待退款
+        Assigned,//已安排工作人员
+        CancelledNeedReAssign,//客户已取消 等待撤销工作人员分配.
+        Finished,//已完成
+        Aborded,//已中止
+         
         Wt,//Wait 
         Ry,//Ready 
         An,//Actionţ 
@@ -85,10 +93,18 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_ChatType
     { 
+        /// <summary>
+        /// 业务流程需要IM完成的工作,
+        /// 不需要IM完成的 比如, 用户取消订单,
+        /// 申请退款等,通过http接口完成.
+        ///  
+        /// 
+        /// </summary>
         Text,
-        PushedService,//推送的服务
+        PushedService,// 推送的服务
         ConfirmedService,//被确认的服务
-        Order,//订单.
+        Order,//订单.包含支付链接
+        BeginPay,//开始支付消息.
     }
 
 

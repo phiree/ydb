@@ -9,7 +9,23 @@ namespace Dianzhu.DAL
 {
     public class DALArea : DALBase<Model.Area>
     {
-        public IList<Model.Area> GetArea(int areaid)
+        
+        public DALArea()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+        public DALArea(string fortest)
+        {
+            
+        }
+        //protected IDAL.IDALBase<Model.Area> IDALBase
+        //{
+        //    get { return IDALBase; }
+        //    set { iDALBase = value; }
+        //}
+        
+        public virtual IList<Model.Area> GetArea(int areaid)
         {
             string sqlstr = "select a from Area a where a.Code like '" + areaid + "__00'";
             IQuery query = Session.CreateQuery(sqlstr);
@@ -36,7 +52,7 @@ namespace Dianzhu.DAL
 
         public Model.Area GetAreaBySeoName(string seoName)
         {
-            //IQuery query = session.CreateQuery("select a from Area a where a.SeoName='" + seoName + "'");
+            //IQuery query = DALBase.Session.CreateQuery("select a from Area a where a.SeoName='" + seoName + "'");
             //return query.FutureValue<Model.Area>().Value;
             string sql = "select top 1 Id,Name,SeoName,Code,AreaOrder,MetaDescription from Area a where a.seoname=:seoname";
             IQuery query = Session.CreateSQLQuery(sql)
@@ -136,6 +152,10 @@ namespace Dianzhu.DAL
             string sql = "select a from Area a where a.Code='" + code + "'";
             IQuery query = Session.CreateQuery(sql);
             return query.FutureValue<Model.Area>().Value;
+        }
+        public Model.Area GetOne(int code)
+        {
+            return  GetOne(code);
         }
     }
 }

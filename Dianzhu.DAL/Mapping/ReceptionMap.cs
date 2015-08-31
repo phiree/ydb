@@ -47,8 +47,29 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.MessageMediaUrl);
             References<DZMembership>(x => x.To);
             References<DZMembership>(x => x.From);
+            Map(x => x.ChatType).CustomType<int>();
         }
     }
+    public class ReceptionChatServiceMap : SubclassMap<ReceptionChatService>
+    {
+        public ReceptionChatServiceMap()
+        {
+            References<DZService>(x => x.Service).Nullable();
+            Map(x => x.ServiceName);
+            Map(x => x.ServiceBusinessName);
+            Map(x => x.ServiceDescription);
+            Map(x => x.ServiceUrl);
+            Map(x => x.UnitPrice);
+        }
+    }
+    public class ReceptionChatOrderMap : SubclassMap<ReceptionChatOrder>
+    {
+        public ReceptionChatOrderMap()
+        {
+            References(x => x.ServiceOrder);
+        }
+    }
+  
   
 
 }

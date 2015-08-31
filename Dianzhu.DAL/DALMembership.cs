@@ -9,7 +9,15 @@ using System.Net.Mail;
 namespace Dianzhu.DAL
 {
     public class DALMembership :DALBase<Model.DZMembership>
-    {
+    { public DALMembership()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+    public DALMembership(string fortest)
+        {
+            
+        }
          
         public void CreateUser(Model.DZMembership user)
         {

@@ -6,6 +6,7 @@ using Dianzhu.BLL;
 using Dianzhu.CSClient;
 using Dianzhu.Model;
 using NUnit.Framework;
+using Rhino.Mocks;
 using FizzWare.NBuilder;
 using Dianzhu.CSClient.IVew;
 using Dianzhu.CSClient.Presenter;
@@ -31,7 +32,7 @@ namespace Dianzhu.Test
             DAL.DALReception DALReception = Builder<DAL.DALReception>.CreateNew().Build();
             DAL.DALDZService DALDZService = Builder<DAL.DALDZService>.CreateNew().Build();
             DZMembershipProvider bllMember = Builder<DZMembershipProvider>.CreateNew()
-                .With(x=>x.DALMembership=dalmember)
+               
                      .Build();
 
             BLLReception bllReception = Builder<BLLReception>.CreateNew()
@@ -39,14 +40,18 @@ namespace Dianzhu.Test
 
             BLLDZService bllDZService = Builder<BLLDZService>.CreateNew().
                 With(x => x.DALDZService = DALDZService).Build();
-            MainFormView view = Builder<MainFormView>.CreateNew().Build();
-            IXMPP xmpp = Builder<IXMPP>.CreateNew().Build();
-            FormController formController = new FormController(
+            IMainFormView view = MockRepository.GenerateStub<IMainFormView>();
+            InstantMessage xmpp = MockRepository.GenerateStub<InstantMessage>();
+
+            Dianzhu.CSClient.IMessageAdapter.IAdapter adapter = MockRepository.GenerateStub<Dianzhu.CSClient.IMessageAdapter.IAdapter>();
+
+            MainPresenter formController = new MainPresenter(
                 view, 
+                xmpp,
+                adapter,
                 bllMember
                  , bllReception, 
                  bllDZService,
-                 
                  Builder<BLLServiceOrder>.CreateNew().Build()
                  );
             formController.ReceiveMessage("a@a.a", "hello", "/pic.png",string.Empty);

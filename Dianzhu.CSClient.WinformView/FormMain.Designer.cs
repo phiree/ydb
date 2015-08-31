@@ -1,4 +1,4 @@
-﻿namespace Dianzhu.CSClient
+﻿namespace Dianzhu.CSClient.WinformView
 {
     partial class FormMain
     {

@@ -7,46 +7,70 @@ using agsXMPP.protocol.client;
 using Dianzhu.CSClient.IInstantMessage;
 namespace Dianzhu.CSClient.XMPP
 {
-    public class XMPP : IInstantMessage.IXMPP
+    public class XMPP : IInstantMessage.InstantMessage
     {
 
-       public static readonly string Server = "192.168.1.140";
-        public static readonly string Domain = "192.168.1.140";
+        public static readonly string Server = System.Configuration.ConfigurationManager.AppSettings["server"];
+        public static readonly string Domain = System.Configuration.ConfigurationManager.AppSettings["domain"];
         static agsXMPP.XmppClientConnection XmppClientConnection;
 
 
 
-        public event ObjectHandler OnLogin;
-
-        public event PresenceHandler OnPresent;
-        public event ReceiveMessageHandler ReceiveMessageHandler;
-        public XMPP()
+        public event IMLogined IMLogined;
+        public event IMAuthError IMAuthError;
+        public event IMPresent IMPresent;
+        public event IMReceivedMessage IMReceivedMessage;
+        public event IMError IMError;
+        public event IMConnectionError IMConnectionError;
+        IMessageAdapter.IAdapter messageAdapter;
+        public XMPP(IMessageAdapter.IAdapter messageAdapter)
         {
+            this.messageAdapter = messageAdapter;
             if (XmppClientConnection == null)
             {
                 XmppClientConnection = new agsXMPP.XmppClientConnection(Server);
                 XmppClientConnection.OnLogin += new agsXMPP.ObjectHandler(Connection_OnLogin);
                 XmppClientConnection.OnPresence += new PresenceHandler(Connection_OnPresence);
                 XmppClientConnection.OnMessage += new MessageHandler(XmppClientConnection_OnMessage);
+                XmppClientConnection.OnAuthError += new XmppElementHandler(XmppClientConnection_OnAuthError);
+                XmppClientConnection.OnError += new ErrorHandler(XmppClientConnection_OnError);
+                XmppClientConnection.OnSocketError+=new ErrorHandler(XmppClientConnection_OnSocketError);
+                
             }
+        }
+        void XmppClientConnection_OnSocketError(object sender, Exception ex)
+        {
+            IMConnectionError(ex.Message);
+        }
+        void XmppClientConnection_OnError(object sender, Exception ex)
+        {
+            IMError(ex.Message);
+        }
+
+        void XmppClientConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
+        {
+            IMAuthError();
         }
 
         void XmppClientConnection_OnMessage(object sender, Message msg)
         {
-            ReceiveMessageHandler(msg.From.User, msg.Body);
+            //接受消息,由presenter构建chat
+            //message-->chat
+            Model.ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
+            IMReceivedMessage(   chat);
         }
 
         void Connection_OnPresence(object sender, Presence pres)
         {
-            if (OnPresent != null)
+            if (IMPresent != null)
             {
-                OnPresent(sender, pres);
+                IMPresent(pres.From.User, (int)pres.Type);
             }
         }
 
         void Connection_OnLogin(object sender)
         {
-            OnLogin(sender);
+            IMLogined();
         }
 
         public void SendPresent()
@@ -56,10 +80,10 @@ namespace Dianzhu.CSClient.XMPP
             XmppClientConnection.Send(p);
         }
 
-        public void SendMessage(string message,   string to)
+        public void SendMessage(Model.ReceptionChat chat)
         {
-            Message msg = new Message(StringHelper.EnsureOpenfireUserName(to) + "@" + Server,
-                message);
+            //chat-->message
+            Message msg = messageAdapter.ChatToMessage(chat);
             XmppClientConnection.Send(msg);
         }
 
@@ -68,7 +92,7 @@ namespace Dianzhu.CSClient.XMPP
 
         public void OpenConnection(string userName, string password)
         {
-            XmppClientConnection.Open(StringHelper.EnsureOpenfireUserName(userName), password);
+            XmppClientConnection.Open( userName , password);
         }
 
 

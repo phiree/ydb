@@ -5,56 +5,100 @@ using System.Text;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.CSClient.IVew;
- 
+using Dianzhu.CSClient.IInstantMessage;
 namespace Dianzhu.CSClient.Presenter
 {
-    public class FormController
+    public class MainPresenter
     {
-        IVew.MainFormView view;
+        IVew.IMainFormView view;
+        InstantMessage instantMessage;
         DZMembershipProvider bllMember;
         BLLDZService bllService;
         BLLReception bllReception;
         BLLServiceOrder bllOrder;
+        IMessageAdapter.IAdapter messageAdapter;
         #region state 
-        DZMembership customerService=GlobalViables.CurrentCustomerService; //当前客户
-        DZMembership customer; //客服
+        DZMembership customerService=GlobalViables.CurrentCustomerService; //当前k客服
+        DZMembership customer=null; //
         List<DZMembership> customerList = new List<DZMembership>(); // 客户列表
         Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();//接待列表
         Dictionary<string, IList<DZService>> SearchResultForCustomer = new Dictionary<string, IList<DZService>>();//搜索列表
         
         #endregion
-        public FormController(IVew.MainFormView view, DZMembershipProvider bllMember, BLLReception bllReception,
-            BLLDZService bllService, BLLServiceOrder bllOrder )
+        public MainPresenter(IVew.IMainFormView view, 
+            InstantMessage instantMessage,
+            IMessageAdapter.IAdapter messageAdapter,
+            DZMembershipProvider bllMember, BLLReception bllReception,
+            BLLDZService bllService, BLLServiceOrder bllOrder)
         {
             this.view = view;
+            this.instantMessage = instantMessage;
             this.bllMember = bllMember;
             this.bllReception = bllReception;
             this.bllService = bllService;
-          
+            
             this.bllOrder = bllOrder;
-           //
-            //present 无法测试了...需要把handler 和 event都隔离开去?
-            GlobalViables.XMPP.OnPresent += new agsXMPP.protocol.client.PresenceHandler(xmpp_OnPresent);
-            GlobalViables.XMPP.ReceiveMessageHandler += new IInstantMessage.ReceiveMessageHandler(XMPP_ReceiveMessageHandler);
+           
+            //present insancemessage的委托
+            this.instantMessage.IMPresent += new IMPresent(IMPresent);
+            this.instantMessage.IMReceivedMessage += new IMReceivedMessage(IMReceivedMessage);
+            //iview的委托
             this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(ActiveCustomer);
             
         }
 
-        void XMPP_ReceiveMessageHandler(string userFrom, string message)
+        //从im服务器接收到的消息. 元消息已经被xmpp转换成receptionChat
+        void IMReceivedMessage(ReceptionChat chat)
         {
-            ReceiveMessage(StringHelper.EnsureNormalUserName( userFrom), message, string.Empty, string.Empty);
+            
+            string customerName = chat.From.UserName;
+            if (!customerList.Any(x => x.UserName ==  customerName))
+            {
+                AddCustomer(customerName);
+                view.AddCustomerButtonWithStyle(customerName, em_ButtonStyle.Unread);
+            }
+
+            else
+            {
+                if (customer == null || customer.UserName != customerName)
+                {
+                    view.SetCustomerButtonStyle(customerName, em_ButtonStyle.Unread);
+                }
+            }
+
+
+           // ReceptionChat chat = SaveMessage(message, customerName, false, mediaUrl);
+            //chat.ServiceId = confirm_service_id;
+            //收到消息之后创建订单, 还是客服点击发送链接确认之后 创建订单
+            ReceptionBase reception = null;
+            if (ReceptionList.ContainsKey(chat.From.UserName))
+            {
+                reception = ReceptionList[chat.From.UserName];
+            }
+            else
+            {
+                reception = new ReceptionCustomer { Receiver=customerService, Sender=chat.From };
+                ReceptionList.Add(chat.From.UserName, reception);
+            }
+            reception.ChatHistory.Add(chat);
+            bllReception.Save(reception);
+            //chat.ServiceId = confirm_service_id;
+            if (customer != null && customerName == customer.UserName)
+            {
+                view.LoadOneChat(chat);
+            }
         }
 
-        
 
-        void xmpp_OnPresent(object sender, agsXMPP.protocol.client.Presence pres)
+
+        void IMPresent(string userFrom,int presentType)
         {
-            string userName = StringHelper.EnsureNormalUserName(pres.From.User);
+            string userName = PHSuit.StringHelper.EnsureNormalUserName(userFrom);
             bool isInList = customerList.Any(x => x.UserName == userName);
-            switch (pres.Type)
+            switch (presentType)
             {
-                case agsXMPP.protocol.client.PresenceType.available:
+                case -1:
                     //登录,判断当前用户是否已经在列表中
 
                     if (isInList)
@@ -69,7 +113,7 @@ namespace Dianzhu.CSClient.Presenter
                     }
 
                     break;
-                case agsXMPP.protocol.client.PresenceType.unavailable:
+                case 4:
                     if (isInList)
                     {
                         view.SetCustomerButtonStyle(userName, em_ButtonStyle.LogOff);
@@ -85,9 +129,25 @@ namespace Dianzhu.CSClient.Presenter
 
         void view_SendMessageHandler( )
         {
-            
-            GlobalViables.XMPP.SendMessage(view.MessageTextBox, customer.UserName);
-            SendMessage(view.MessageTextBox, customer.UserName);
+             
+            //
+            if (customer == null) return;
+            //todo
+            ReceptionChat chat = new ReceptionChat { 
+             ChatType= Model.Enums.enum_ChatType.Text,
+              From=customerService,
+              To=customer,
+               MessageBody=view.MessageTextBox,
+              SendTime=DateTime.Now,
+              SavedTime=DateTime.Now
+            };
+            //需要从当前会话列表中提取对应客户, 所以需要传入客户名称
+            SaveMessage(chat);
+            view.LoadOneChat(chat);
+            instantMessage.SendMessage(chat);
+           
+            view.MessageTextBox = string.Empty;
+           
         }
 
 
@@ -111,7 +171,7 @@ namespace Dianzhu.CSClient.Presenter
   */
         public void OnPresent(int presentType, string customerName)
         {
-            string userName = StringHelper.EnsureNormalUserName(customerName);
+            string userName = PHSuit.StringHelper.EnsureNormalUserName(customerName);
             bool isInList = customerList.Any(x => x.UserName == userName);
             switch (presentType)
             {
@@ -170,18 +230,7 @@ namespace Dianzhu.CSClient.Presenter
         }
 
         
-
-        public void SendMessage(string message, string customerName)
-        {
-            //保存消息
-            if (customer == null) return;
-          ReceptionChat chat=  SaveMessage(message, customerName, true,string.Empty);
-          view.LoadOneChat(chat);
-          GlobalViables.XMPP.SendMessage(message, customer.UserName);
-          view.MessageTextBox = string.Empty;
-           
-            //
-        }
+ 
         public void SendPayLink(string service_id)
         {
             DZService service = bllService.GetOne(new Guid(service_id));
@@ -193,12 +242,15 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         /// <param name="message"></param>
         /// 
-        public ReceptionChat SaveMessage(string message,string customerName,bool isSend,string mediaUrl)
+        public ReceptionChat SaveMessage(ReceptionChat chat )
         {
 #region 保存聊天消息
-            
+            string customerName = customer.UserName;
+            string message = chat.MessageBody;
+            bool isSend = chat.From == customerService;
+            string mediaUrl = chat.MessageMediaUrl;
             bool isIn = ReceptionList.ContainsKey(customerName);
-            DZMembership customer = customerList.Single(x => x.UserName == customerName);
+             
             ReceptionBase re;
             
             if (isIn)
@@ -217,7 +269,7 @@ namespace Dianzhu.CSClient.Presenter
                 ReceptionList.Add(customerName, re);
             }
             DateTime now = DateTime.Now;
-                var chat = new ReceptionChat
+                var chat2 = new ReceptionChat
                 {
                   
                     MessageBody = message,
@@ -280,34 +332,7 @@ namespace Dianzhu.CSClient.Presenter
         { 
             //保存聊天记录, 改变view的button,聊天窗口增加一条消息
            
-           if (!customerList.Any(x => x.UserName == customerName))
-           {
-               AddCustomer(customerName);
-               view.AddCustomerButtonWithStyle(customerName, em_ButtonStyle.Unread);
-           }
-
-           else
-           {
-               if (customer == null || customer.UserName != customerName)
-               {
-                   view.SetCustomerButtonStyle(customerName, em_ButtonStyle.Unread);
-               }
-           }
-            
-
-           ReceptionChat chat = SaveMessage(message, customerName, false,mediaUrl);
-           chat.ServiceId = confirm_service_id;
-           //收到消息之后创建订单, 还是客服点击发送链接确认之后 创建订单
-           if (!string.IsNullOrEmpty(confirm_service_id))
-           {
-               
-              ServiceOrder order= bllOrder.CreateOrder(customer.Id,new Guid(confirm_service_id));
-           }
-           chat.ServiceId = confirm_service_id;
-           if (customer != null && customerName == customer.UserName)
-           {
-               view.LoadOneChat(chat);
-           }
+          
 
         }
         
@@ -343,8 +368,11 @@ namespace Dianzhu.CSClient.Presenter
             reception.PushedServices.Add(service);
             //保存到聊天记录并加入聊天记录
             string message="已推送服务:" + service.Name;
-            SaveMessage(message, customer.UserName, true, string.Empty);
-            SendMessage(message, customer.UserName);
+            ReceptionChat chat = new ReceptionChat();
+            SaveMessage(chat);
+            //todo
+            instantMessage.SendMessage(chat);
+             
 
         }
         #endregion

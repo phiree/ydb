@@ -13,30 +13,38 @@ namespace Dianzhu.Model
        public DZService()
        {
            PropertyValues = new List<ServicePropertyValue>();
+           
            InitOpenTimes();
            
        }
-       private void InitOpenTimes()
+       private  void InitOpenTimes()
        {
            OpenTimes = new List<ServiceOpenTime>();
            for (int i = 0; i < 7; i++)
            {
-               ServiceOpenTimeForDay sotd = new ServiceOpenTimeForDay {
-                TimeStart="08:00", TimeEnd="12:00"};
+               ServiceOpenTimeForDay sotd = new ServiceOpenTimeForDay
+               {
+                   TimeStart = "08:00",
+                   TimeEnd = "12:00"
+               };
                ServiceOpenTimeForDay sotd2 = new ServiceOpenTimeForDay
                {
                    TimeStart = "13:00",
                    TimeEnd = "24:00"
                };
-               var sotdlist=new List<ServiceOpenTimeForDay>();
+               var sotdlist = new List<ServiceOpenTimeForDay>();
                sotdlist.Add(sotd);
                sotdlist.Add(sotd2);
-               ServiceOpenTime sto = new ServiceOpenTime { 
-                DayOfWeek=(DayOfWeek)i,
-                Enabled=false,
-                OpenTimeForDay=sotdlist
-                };
-               OpenTimes.Add(sto);
+               ServiceOpenTime sto = new ServiceOpenTime
+               {
+                   DayOfWeek = (DayOfWeek)i,
+                   Enabled = false,
+                   OpenTimeForDay = sotdlist
+               };
+               if (OpenTimes != null)
+               {
+                   OpenTimes.Add(sto);
+               }
            }
            
        }

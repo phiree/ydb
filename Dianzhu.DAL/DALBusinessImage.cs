@@ -9,7 +9,15 @@ namespace Dianzhu.DAL
     public class DALBusinessImage : DALBase<BusinessImage>
     {
          
-
+         public DALBusinessImage()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+         public DALBusinessImage(string fortest)
+        {
+            
+        }
       
     }
 }

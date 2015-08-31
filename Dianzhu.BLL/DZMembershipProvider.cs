@@ -16,8 +16,14 @@ namespace Dianzhu.BLL
 {
     public class DZMembershipProvider : MembershipProvider
     {
-
-        public DALMembership DALMembership = DALFactory.DALMembership;
+        DALMembership DALMembership = null;
+        public DZMembershipProvider() {
+           DALMembership = DALFactory.DALMembership;
+        }
+        public DZMembershipProvider(DALMembership dal) {
+            DALMembership = dal;
+        }
+        
         #region override of membership provider
         public override string ApplicationName
         {
@@ -328,7 +334,7 @@ namespace Dianzhu.BLL
                 return newMember;
             }
         }
-        public DZMembership GetUserByName(string name)
+        public virtual DZMembership GetUserByName(string name)
         {
             return DALMembership.GetMemberByName(name);
         }

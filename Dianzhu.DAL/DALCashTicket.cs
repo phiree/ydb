@@ -11,10 +11,15 @@ namespace Dianzhu.DAL
     {
      
         
-       public DALCashTicket()
-       { 
-        
-       }
+        public DALCashTicket()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+        public DALCashTicket(string fortest)
+        {
+            
+        }
         
        public  bool CheckTicketCodeExists(string code)
        {

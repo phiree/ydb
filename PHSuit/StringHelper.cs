@@ -216,6 +216,30 @@ namespace PHSuit
         {
             return true;
         }
-
+        public static string EnsureNormalUserName(string userName)
+        {
+            if (string.IsNullOrEmpty(userName)) return userName;
+            string normalUserName = userName;
+            if (Regex.IsMatch(userName, @"^[^\.@]+||[^\.@]+\.[^\.@]+$"))
+            {
+                normalUserName = userName.Replace("||", "@");
+            }
+            return normalUserName;
+        }
+        /// <summary>
+        ///openfire 用户转换成普通用户.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public static string EnsureOpenfireUserName(string userName)
+        {
+            if (string.IsNullOrEmpty(userName)) return userName;
+            string openfireName = userName;
+            if (Regex.IsMatch(userName, @"^[^\.@]+@[^\.@]+\.[^\.@]+$"))
+            {
+                openfireName = userName.Replace("@", "||");
+            }
+            return openfireName;
+        }
     }
 }

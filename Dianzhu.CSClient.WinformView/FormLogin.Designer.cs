@@ -1,6 +1,6 @@
-﻿namespace Dianzhu.CSClient
+﻿namespace Dianzhu.CSClient.WinformView
 {
-    partial class fmLogin
+    partial class FormLogin
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,35 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.tbxPassword = new System.Windows.Forms.TextBox();
+            this.tbxUserName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.lblResult = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button1
+            // btnLogin
             // 
-            this.button1.Location = new System.Drawing.Point(108, 171);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "登录";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnLogin.Location = new System.Drawing.Point(49, 177);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(159, 23);
+            this.btnLogin.TabIndex = 0;
+            this.btnLogin.Text = "登录";
+            this.btnLogin.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // tbxPassword
             // 
-            this.textBox1.Location = new System.Drawing.Point(108, 125);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
-            this.textBox1.TabIndex = 1;
+            this.tbxPassword.Location = new System.Drawing.Point(108, 125);
+            this.tbxPassword.Name = "tbxPassword";
+            this.tbxPassword.PasswordChar = '*';
+            this.tbxPassword.Size = new System.Drawing.Size(100, 21);
+            this.tbxPassword.TabIndex = 1;
+            this.tbxPassword.Text = "123456";
+            this.tbxPassword.UseSystemPasswordChar = true;
             // 
-            // textBox2
+            // tbxUserName
             // 
-            this.textBox2.Location = new System.Drawing.Point(108, 55);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 21);
-            this.textBox2.TabIndex = 1;
+            this.tbxUserName.Location = new System.Drawing.Point(108, 55);
+            this.tbxUserName.Name = "tbxUserName";
+            this.tbxUserName.Size = new System.Drawing.Size(100, 21);
+            this.tbxUserName.TabIndex = 1;
+            this.tbxUserName.Text = "e@e.e";
             // 
             // label1
             // 
@@ -66,29 +71,36 @@
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 2;
             this.label1.Text = "助理账号";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(61, 129);
+            this.label2.Location = new System.Drawing.Point(47, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 2;
             this.label2.Text = "密码";
-            this.label2.Click += new System.EventHandler(this.label1_Click);
             // 
-            // Form1
+            // lblResult
+            // 
+            this.lblResult.AutoSize = true;
+            this.lblResult.Location = new System.Drawing.Point(106, 162);
+            this.lblResult.Name = "lblResult";
+            this.lblResult.Size = new System.Drawing.Size(0, 12);
+            this.lblResult.TabIndex = 3;
+            // 
+            // fmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.lblResult);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
-            this.Name = "Form1";
+            this.Controls.Add(this.tbxUserName);
+            this.Controls.Add(this.tbxPassword);
+            this.Controls.Add(this.btnLogin);
+            this.Name = "fmLogin";
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -97,11 +109,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.TextBox tbxPassword;
+        private System.Windows.Forms.TextBox tbxUserName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblResult;
     }
 }
 

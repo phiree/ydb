@@ -9,7 +9,15 @@ namespace Dianzhu.DAL
 {
     public class DALDeviceBind : DALBase<DeviceBind>
     {
-
+         public DALDeviceBind()
+        {
+            Session = new HybridSessionBuilder().GetSession();
+        }
+        //注入依赖,供测试使用;
+         public DALDeviceBind(string fortest)
+        {
+            
+        }
 
         public void UpdateBindStatus(DZMembership member, string appToken, string appName)
         {
