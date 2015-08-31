@@ -96,10 +96,11 @@
         <script type="text/javascript" src="/js/jquery.lightbox_me.js" ></script>
         <script type="text/javascript">
             function listhref(url) {
-                var $target = $(event.target)
+                var eve = window.event || arguments.callee.caller.arguments[0];
+                var $target = $(eve.target);
                 if ($target.hasClass("btn")) {
                     return false
-                } else if (event.target == event.target) {
+                } else if (eve.target == eve.target) {
                     window.location.href = url
                 };
             }
