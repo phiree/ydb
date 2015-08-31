@@ -44,6 +44,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             chat.From = from;
             chat.To = to;
             chat.MessageBody = message.Body;
+            chat.SavedTime = DateTime.Now;
             string chatText = message.Body;
             switch (chatType)
             {

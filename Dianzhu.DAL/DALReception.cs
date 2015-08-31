@@ -27,7 +27,7 @@ namespace Dianzhu.DAL
         /// <param name="timeEnd"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public IList<ReceptionBase> Search(DZMembership from,DZMembership to, DateTime timeBegin, DateTime timeEnd,int limit)
+        public virtual IList<ReceptionBase> Search(DZMembership from,DZMembership to, DateTime timeBegin, DateTime timeEnd,int limit)
         {
 
             var result = Session.QueryOver<ReceptionBase>().Where(x => x.TimeBegin >= timeBegin)

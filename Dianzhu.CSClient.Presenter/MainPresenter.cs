@@ -132,6 +132,7 @@ namespace Dianzhu.CSClient.Presenter
              
             //
             if (customer == null) return;
+            if (string.IsNullOrEmpty(view.MessageTextBox.Trim())) return;
             //todo
             ReceptionChat chat = new ReceptionChat { 
              ChatType= Model.Enums.enum_ChatType.Text,
@@ -145,9 +146,7 @@ namespace Dianzhu.CSClient.Presenter
             SaveMessage(chat);
             view.LoadOneChat(chat);
             instantMessage.SendMessage(chat);
-           
             view.MessageTextBox = string.Empty;
-           
         }
 
 
@@ -212,11 +211,12 @@ namespace Dianzhu.CSClient.Presenter
             customerList.Add(newCustomer);
         }
         /// <summary>
-        /// 激活一个用户
+        /// 激活一个用户,如果当前用户,则不需要加载 或者禁用当前用户的按钮.
         /// </summary>
         /// <param name="buttonText"></param>
         public void ActiveCustomer(string buttonText)
         {
+            
             LoadChatHistory(buttonText);
             view.SetCustomerButtonStyle(buttonText, em_ButtonStyle.Actived);
              
@@ -304,7 +304,7 @@ namespace Dianzhu.CSClient.Presenter
 
             var chatHistory = bllReception.GetHistoryReceptionChat(
                 customerList.Single(x => x.UserName == customerName),
-                customerService, 10);
+                customerService,DateTime.Now.AddMonths(-1),DateTime.Now.AddDays(1), 10);
 
             view.ChatLog = chatHistory;
         }
