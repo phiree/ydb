@@ -387,9 +387,9 @@
     </div>
 
     <div class="service-saveSubmit">
-        <asp:Button Text="保存" CssClass="btn btn-info btn-big" runat="server" ID="btnSave"
+        <asp:Button Text="保存" CssClass="btn btn-info btn-lg" runat="server" ID="btnSave"
             OnClick="btnSave_Click" />
-        <a class="btn btn-cancel btn-big m-l10" href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">
+        <a class="btn btn-cancel btn-lg m-l10" href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">
             取消</a>
     </div>
 </div>

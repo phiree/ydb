@@ -1291,22 +1291,22 @@ a.btn-down-info .badge,
     background-color: #45b2e6;
 }
 .btn-lg {
-    padding: 16px 30px;
+    padding: 10px 30px;
     font-size: 16px;
     line-height: 1.2em;
     border-radius: 2px;
 }
 .btn-sm {
-    padding: 10px 20px;
+    padding: 8px 20px;
     font-size: 14px;
     line-height: 1.2em;
-    border-radius: 2em;
+    border-radius: 2px;
 }
 .btn-xs {
-    padding: 8px 10px;
+    padding: 6px 10px;
     font-size: 14px;
     line-height: 1.2em;
-    border-radius: 2em;
+    border-radius: 2px;
 }
 .btn-block {
     display: block;
