@@ -1,12 +1,49 @@
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 8px 10px;
+  font-size: 14px;
+  line-height: 1.2em;
+  border-radius: 2px;
+}
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  color: #45b2e6;
+  text-decoration: none;
+}
+.btn:active,
+.btn.active {
+  outline: 0;
+  background-image: none;
+}
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
+  cursor: not-allowed;
+}
+a.btn.disabled,
+fieldset[disabled] a.btn {
+  pointer-events: none;
+}
 /* 编辑类按钮 */
 a.btn-info,
 .btn-info {
   color: #ffffff;
   background-color: #64c6f8;
   border-color: transparent;
-  -webkit-box-shadow: 0 3px 0 #4cbdf7;
-  -moz-box-shadow: 0 3px 0 #4cbdf7;
-  box-shadow: 0 3px 0 #4cbdf7;
+  background: -webkit-gradient(linear, left top, left bottom, from(#64c6f8), to(#20adf5));
+  background: -moz-linear-gradient(top, #64c6f8, #20adf5);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#64c6f8, endColorstr=#64c6f8);
 }
 a.btn-info:focus,
 .btn-info:focus,
@@ -15,18 +52,12 @@ a.btn-info.focus,
   color: #ffffff;
   background-color: #64c6f8;
   border-color: transparent;
-  -webkit-box-shadow: 0 3px 0 #4cbdf7;
-  -moz-box-shadow: 0 3px 0 #4cbdf7;
-  box-shadow: 0 3px 0 #4cbdf7;
 }
 a.btn-info:hover,
 .btn-info:hover {
   color: #ffffff;
   background-color: #7ccff9;
   border-color: rgba(0, 0, 0, 0);
-  -webkit-box-shadow: 0 3px 0 #4cbdf7;
-  -moz-box-shadow: 0 3px 0 #4cbdf7;
-  box-shadow: 0 3px 0 #4cbdf7;
 }
 a.btn-info:active,
 .btn-info:active,
@@ -118,9 +149,9 @@ a.btn-cancel,
   color: #ffffff;
   background-color: #afafaf;
   border-color: transparent;
-  -webkit-box-shadow: 0 3px 0 #a2a2a2;
-  -moz-box-shadow: 0 3px 0 #a2a2a2;
-  box-shadow: 0 3px 0 #a2a2a2;
+  background: -webkit-gradient(linear, left top, left bottom, from(#afafaf), to(#8b8b8b));
+  background: -moz-linear-gradient(top, #afafaf, #8b8b8b);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#afafaf, endColorstr=#afafaf);
 }
 a.btn-cancel:focus,
 .btn-cancel:focus,
@@ -129,18 +160,12 @@ a.btn-cancel.focus,
   color: #ffffff;
   background-color: #afafaf;
   border-color: transparent;
-  -webkit-box-shadow: 0 3px 0 #a2a2a2;
-  -moz-box-shadow: 0 3px 0 #a2a2a2;
-  box-shadow: 0 3px 0 #a2a2a2;
 }
 a.btn-cancel:hover,
 .btn-cancel:hover {
   color: #ffffff;
   background-color: #bcbcbc;
   border-color: rgba(0, 0, 0, 0);
-  -webkit-box-shadow: 0 3px 0 #a2a2a2;
-  -moz-box-shadow: 0 3px 0 #a2a2a2;
-  box-shadow: 0 3px 0 #a2a2a2;
 }
 a.btn-cancel:active,
 .btn-cancel:active,
@@ -230,31 +255,25 @@ a.btn-cancel .badge,
 a.btn-delete,
 .btn-delete {
   color: #ffffff;
-  background-color: #fd9292;
+  background-color: #fdb2b2;
   border-color: transparent;
-  -webkit-box-shadow: 0 3px 0 #fd7979;
-  -moz-box-shadow: 0 3px 0 #fd7979;
-  box-shadow: 0 3px 0 #fd7979;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fdb2b2), to(#fc8080));
+  background: -moz-linear-gradient(top, #fdb2b2, #fc8080);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#fdb2b2, endColorstr=#fdb2b2);
 }
 a.btn-delete:focus,
 .btn-delete:focus,
 a.btn-delete.focus,
 .btn-delete.focus {
   color: #ffffff;
-  background-color: #fd9292;
+  background-color: #fdb2b2;
   border-color: transparent;
-  -webkit-box-shadow: 0 3px 0 #fd7979;
-  -moz-box-shadow: 0 3px 0 #fd7979;
-  box-shadow: 0 3px 0 #fd7979;
 }
 a.btn-delete:hover,
 .btn-delete:hover {
   color: #ffffff;
-  background-color: #fdabab;
+  background-color: #fecbcb;
   border-color: rgba(0, 0, 0, 0);
-  -webkit-box-shadow: 0 3px 0 #fd7979;
-  -moz-box-shadow: 0 3px 0 #fd7979;
-  box-shadow: 0 3px 0 #fd7979;
 }
 a.btn-delete:active,
 .btn-delete:active,
@@ -263,7 +282,7 @@ a.btn-delete.active,
 .open > .dropdown-togglea.btn-delete,
 .open > .dropdown-toggle.btn-delete {
   color: #ffffff;
-  background-color: #fd9292;
+  background-color: #fdb2b2;
   border-color: transparent;
 }
 a.btn-delete:active:hover,
@@ -285,7 +304,7 @@ a.btn-delete.active.focus,
 .open > .dropdown-togglea.btn-delete.focus,
 .open > .dropdown-toggle.btn-delete.focus {
   color: #ffffff;
-  background-color: #fd9292;
+  background-color: #fdb2b2;
   border-color: transparent;
 }
 a.btn-delete:active,
@@ -332,12 +351,12 @@ a.btn-delete[disabled].active,
 .btn-delete[disabled].active,
 fieldset[disabled] a.btn-delete.active,
 fieldset[disabled] .btn-delete.active {
-  background-color: #fd9292;
+  background-color: #fdb2b2;
   border-color: transparent;
 }
 a.btn-delete .badge,
 .btn-delete .badge {
-  color: #fd9292;
+  color: #fdb2b2;
   background-color: #ffffff;
 }
 /* 可变按钮 */
@@ -346,9 +365,9 @@ a.btn-down-info,
   color: #45b2e6;
   background-color: #ffffff;
   border-color: transparent;
-  -webkit-box-shadow: 0 3px 0 #f2f2f2;
-  -moz-box-shadow: 0 3px 0 #f2f2f2;
-  box-shadow: 0 3px 0 #f2f2f2;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#fcfcfc));
+  background: -moz-linear-gradient(top, #ffffff, #fcfcfc);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#ffffff);
 }
 a.btn-down-info:focus,
 .btn-down-info:focus,
@@ -357,18 +376,12 @@ a.btn-down-info.focus,
   color: #45b2e6;
   background-color: #ffffff;
   border-color: transparent;
-  -webkit-box-shadow: 0 3px 0 #f2f2f2;
-  -moz-box-shadow: 0 3px 0 #f2f2f2;
-  box-shadow: 0 3px 0 #f2f2f2;
 }
 a.btn-down-info:hover,
 .btn-down-info:hover {
   color: #45b2e6;
   background-color: #ffffff;
   border-color: rgba(0, 0, 0, 0);
-  -webkit-box-shadow: 0 3px 0 #f2f2f2;
-  -moz-box-shadow: 0 3px 0 #f2f2f2;
-  box-shadow: 0 3px 0 #f2f2f2;
 }
 a.btn-down-info:active,
 .btn-down-info:active,
@@ -453,4 +466,34 @@ a.btn-down-info .badge,
 .btn-down-info .badge {
   color: #ffffff;
   background-color: #45b2e6;
+}
+.btn-lg {
+  padding: 16px 30px;
+  font-size: 16px;
+  line-height: 1.2em;
+  border-radius: 2px;
+}
+.btn-sm {
+  padding: 10px 20px;
+  font-size: 14px;
+  line-height: 1.2em;
+  border-radius: 2em;
+}
+.btn-xs {
+  padding: 8px 10px;
+  font-size: 14px;
+  line-height: 1.2em;
+  border-radius: 2em;
+}
+.btn-block {
+  display: block;
+  width: 100%;
+}
+.btn-block + .btn-block {
+  margin-top: 5px;
+}
+input[type="submit"].btn-block,
+input[type="reset"].btn-block,
+input[type="button"].btn-block {
+  width: 100%;
 }

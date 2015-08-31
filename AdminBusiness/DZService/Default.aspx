@@ -81,13 +81,13 @@
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script >
     function listhref(url){
-        var e = event || window.event;
+        var e = window.event || arguments.callee.caller.arguments[0];
         var target = e.srcElement || e.target;
         var $target = $(target);
 
         if($target.hasClass("btn")){
             return false
-        }else if(event.target == event.target){
+        }else if(e.target == e.target){
             window.location.href = url
         };
     }

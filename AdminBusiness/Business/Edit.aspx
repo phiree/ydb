@@ -38,7 +38,7 @@
                         </div>
                         <div class="cont-col-5">
                             <div class="myshop-name">
-                                <p class="vm"><input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="myshop-name-input input-mid" data-toggle="tooltip" data-placement="top" title="请上传您的店铺商标，并填写您的店铺名称" /><span class="text-anno-r">（必填选项）</span></p>
+                                <p class="vm"><input runat="server" type="text" id="tbxName" name="inputShopName" value="请输入您的店铺名称" class="myshop-name-input input-mid" data-toggle="tooltip" data-placement="top" title="请填写您的店铺名称" /><span class="text-anno-r">（必填选项）</span></p>
                                 <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请上传您的店铺商标，并填写您的店铺名称</p>-->
                             </div>
                         </div>

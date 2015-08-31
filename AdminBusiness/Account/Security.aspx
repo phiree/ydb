@@ -67,7 +67,7 @@
                                 <div class="cont-row">
                                     <div class="cont-col-2 fu-cont-div-right"><span class="secret-d-t">登陆密码&nbsp;:</span></div>
                                     <div class="cont-col-7"><p class="secret-d-p d-inb">设置安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</p></div>
-                                    <div class="cont-col-3 t-c fu-cont-linehight"><a id="passChange" class="blue-a" href="javascript:void(0);"><修改密码></修改密码></a></div>
+                                    <div class="cont-col-3 t-c fu-cont-linehight"><a id="passChange" class="blue-a" href="javascript:void(0);">修改密码</a></div>
                                     <!--<div class="cont-col-2 fu-cont-div-center">-->
                                         <!--<div class="secret-d-tip">-->
                                             <!--<i class="icon secret-icon-1"></i>-->
@@ -76,19 +76,7 @@
                                     <!--</div>-->
                                 </div>
                             </div>
-                            <div class="id-row m-b20 none">
-                                <div class="cont-row">
-                                    <div class="cont-col-2"><span class="secret-d-t">身份认证&nbsp;:</span></div>
-                                    <div class="cont-col-6"><span class="secret-d-p d-inb">重新上传负责人证件照</span></div>
-                                    <div class="cont-col-2"><a id="lb_ChangeIdCards" class="secret-change-a blue-a" href="javascript:void(0);">修改</a></div>
-                                    <div class="cont-col-2">
-                                        <div class="secret-d-tip">
-                                            <i class="icon secret-icon-2"></i>
-                                            <div>已认证</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
