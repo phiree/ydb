@@ -317,7 +317,7 @@ namespace Dianzhu.CSClient.WinformView
 
         void btnPushService_Click(object sender, EventArgs e)
         {
-            PushInternalService();
+            PushInternalService((DZService)((Button)sender).Tag);
             //xmpp发送消息 由xmpp实现,在csclient
             //agsXMPP.protocol.client.Message m = new agsXMPP.protocol.client.Message();
             //m.Type = MessageType.chat;

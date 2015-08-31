@@ -9,7 +9,7 @@ namespace Dianzhu.CSClient.IVew
     public delegate void ActiveCustomerHandler(string customername);
     public delegate void SendMessageHandler();
     public delegate void PushExternalService();
-    public delegate void PushInternalService();
+    public delegate void PushInternalService(DZService service);
     public delegate void SearchService();
     public interface IMainFormView
     {

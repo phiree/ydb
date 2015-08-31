@@ -52,11 +52,11 @@ namespace Dianzhu.DemoClient
                 {
                     continue;
                 }
-                if (att.ToString() == "service_id")
+                if (att.ToString() == "ServiceId")
                 {
                     log += "[" + att + ":" + msg.Attributes[att] + "]";
                 }
-                if (att.ToString() == "service_name")
+                if (att.ToString() == "ServiceName")
                 {
                     log += "[" + att + ":" + msg.Attributes[att] + "]";
                 }
@@ -102,8 +102,8 @@ namespace Dianzhu.DemoClient
            string user = StringHelper.EnsureNormalUserName(message.From.User);
          string   body = message.Body;
           string  mediaUrl = message.GetAttribute("media");
-          string serviceId = message.GetAttribute("service_id");
-             string serviceName = message.GetAttribute("service_name");
+          string serviceId = message.GetAttribute("ServiceId");
+             string serviceName = message.GetAttribute("ServiceName");
 
             Label lblTime = new Label();
             Label lblFrom = new Label();
@@ -161,7 +161,9 @@ namespace Dianzhu.DemoClient
             agsc.Message message = new agsc.Message(csId + "@" + GlobalViables.ServerName,
                 StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName,
                 agsc.MessageType.chat,"已选择服务");
-            message.SetAttribute("selected_service_id", serviceId);
+            message.SetAttribute("ServiceId", serviceId);
+            message.SetAttribute("MessageType", "ConfirmedService");
+
             GlobalViables.XMPPConnection.Send(message);
             AddLog(message);
         }

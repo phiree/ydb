@@ -52,10 +52,10 @@ namespace Dianzhu.CSClient.MessageAdapter
                 case  enum_ChatType.ConfirmedService:
                     ReceptionChatService chatService = (ReceptionChatService)chat;
                     string strServiceId = string.Empty;
-                    bool hasServiceId = message.HasAttribute("service_id");
+                    bool hasServiceId = message.HasAttribute("ServiceId");
                     if (hasServiceId)
                     {
-                        strServiceId = message.GetAttribute("service_id");
+                        strServiceId = message.GetAttribute("ServiceId");
                         chatService.Service = bllDZService.GetOne(new Guid(strServiceId));
                     }
                     else {

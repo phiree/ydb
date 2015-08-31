@@ -46,8 +46,37 @@ namespace Dianzhu.CSClient.Presenter
             this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(ActiveCustomer);
             this.view.PushExternalService += new PushExternalService(view_PushExternalService);
+            this.view.PushInternalService += new PushInternalService(view_PushInternalService);
             this.view.ButtonNamePrefix = System.Configuration.ConfigurationManager.AppSettings["ButtonNamePrefix"];
+            this.view.SearchService += new IVew.SearchService(view_SearchService);
+        }
 
+        void view_PushInternalService(DZService service)
+        {
+            ReceptionChatService chat = new ReceptionChatService {
+             Service=service,
+             From=customerService,
+             To=customer,
+              MessageBody="已推送服务"
+            };
+            SendMessage(chat);
+        }
+
+        void view_SearchService()
+        {
+            int total;
+            var serviceList = bllService.Search(view.SerachKeyword, 0, 10, out total);
+            view.SearchedService = serviceList;
+
+            string pushServiceKey = customer == null ? "dianzhucs" : customer.UserName;
+            if (SearchResultForCustomer.ContainsKey(pushServiceKey))
+            {
+                SearchResultForCustomer[pushServiceKey] = serviceList;
+            }
+            else
+            {
+                SearchResultForCustomer.Add(pushServiceKey, serviceList);
+            }
         }
 
         /// <summary>
@@ -361,19 +390,7 @@ namespace Dianzhu.CSClient.Presenter
 
         public void SearchService(string keyword)
         {
-            int total;
-            var serviceList = bllService.Search(view.SerachKeyword, 0, 10, out total);
-            view.SearchedService = serviceList;
-
-            string pushServiceKey = customer == null ? "dianzhucs" : customer.UserName;
-            if (SearchResultForCustomer.ContainsKey(pushServiceKey))
-            {
-                SearchResultForCustomer[pushServiceKey] = serviceList;
-            }
-            else
-            {
-                SearchResultForCustomer.Add(pushServiceKey, serviceList);
-            }
+            
         }
         /// <summary>
         /// 推送一项服务.
