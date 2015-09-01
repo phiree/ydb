@@ -44,7 +44,7 @@
             this.btnLogin.TabIndex = 0;
             this.btnLogin.Text = "登录";
             this.btnLogin.UseVisualStyleBackColor = true;
-            // 
+           
             // tbxPassword
             // 
             this.tbxPassword.Location = new System.Drawing.Point(108, 125);
@@ -89,7 +89,7 @@
             this.lblResult.Size = new System.Drawing.Size(0, 12);
             this.lblResult.TabIndex = 3;
             // 
-            // fmLogin
+            // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -100,7 +100,8 @@
             this.Controls.Add(this.tbxUserName);
             this.Controls.Add(this.tbxPassword);
             this.Controls.Add(this.btnLogin);
-            this.Name = "fmLogin";
+            this.Name = "FormLogin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
