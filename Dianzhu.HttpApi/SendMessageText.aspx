@@ -9,10 +9,13 @@
         function ceshi() {
             var xmlHttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
             var m = document.getElementById("mobile");
-            var c = document.getElementById("contents");
-            
+            var Num = "";
+            for (var i = 0; i < 6; i++) {
+                Num += Math.floor(Math.random() * 10);
+            }
+            //var c = document.getElementById("contents");
             //添加参数,以求每次访问不同的url,以避免缓存问题
-            xmlHttp.open("get", encodeURI("http://222.73.117.158/msg/HttpBatchSendSM?account=jiekou-clcs-06&pswd=Tch357159&mobile="+m.value+"&msg="+c.value));
+            xmlHttp.open("get", encodeURI("http://222.73.117.158/msg/HttpBatchSendSM?account=jiekou-clcs-06&pswd=Tch357159&mobile="+m.value+"&msg=你的密码已经被重置为："+Num));
 
             xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
@@ -22,6 +25,7 @@
 
             //发送请求,参数为null
             xmlHttp.send(null);
+            alert("你的密码已经被重置，稍后将以短信的方式发送到您手机，请查收！");
         }
 </script>
 
@@ -30,8 +34,8 @@
     <form id="form1" runat="server">
     <div>
       手机号：  <input id="mobile" type="text" />
-       验证内容： <input id="contents" type="text" />
-        <input id="Button1" type="button" value="button"  onclick="ceshi()" />
+       <%--验证内容： <input id="contents" type="text" />--%>
+        <input id="Button1" type="button" value="输入手机号取回密码"  onclick="ceshi()" />
     </div>
     </form>
 </body>
