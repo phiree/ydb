@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <!--true时为已填写手机-->
-                <input id="hiCreateID" type="hidden" value="false"/>
+                <input id="hiCreateID" type="hidden" runat="server" value="false"/>
                 </div>
                 </div>
                    <div id="newBusslightBox" class="dis-n">

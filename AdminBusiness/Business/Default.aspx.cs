@@ -17,12 +17,10 @@ public partial class Business_Default : BasePage
             this.ClientScript.RegisterStartupScript(this.GetType(), "nophone", "alert('请先填写电话号码')");
             
         }
-        if (string.IsNullOrEmpty(CurrentUser.Phone))
-        {
-            lblErr.CssClass = "error";
-            lblErr.Text = "您没有填写电话号码,不能创建店铺";
-            hlSecurity.Visible = true;
-        }
+
+        hiCreateID.Value = string.IsNullOrEmpty(CurrentUser.Phone) ? "false" : "true";
+           
+       
         if (!IsPostBack)
         {
             BindBusinessList();
