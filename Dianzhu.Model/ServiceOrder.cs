@@ -15,6 +15,7 @@ namespace Dianzhu.Model
         {
             OrderStatus = enum_OrderStatus.Created;
             OrderCreated = DateTime.Now;
+            OrderAmount = UnitAmount * ServiceUnitPrice;
         }
         public virtual Guid Id { get; set; }
 
@@ -55,15 +56,15 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual int UnitAmount { get; set; }
         /// <summary>
-        /// 服务的详细网址(平台外,平台内)
+        ///订单总价
         /// </summary>
-       
+        public virtual decimal OrderAmount { get; set; }
 
         #region 服务冗余信息
         public virtual string ServiceName { get; set; }
         public virtual string ServiceDescription { get; set; }
         public virtual string ServiceBusinessName { get; set; }
-        public virtual decimal UnitPrice { get; set; }
+        public virtual decimal ServiceUnitPrice { get; set; }
         public virtual string ServiceURL { get; set; }
         
         #endregion

@@ -133,7 +133,7 @@ public class RespDataSVM001002_Order
         this.srvStartTime = order.Service.ServiceTimeBegin??string.Empty;
         this.srvEndTime = order.Service.ServiceTimeEnd??string.Empty;
         ///这个是服务单价
-        this.srvMoney = order.UnitPrice.ToString("#.#");
+        this.srvMoney = order.ServiceUnitPrice.ToString("#.#");
         this.srvStatus = order.OrderStatus.ToString();
         this.srvAdress = order.TargetAddress??string.Empty;
         this.srvExdes = order.Service.Description??string.Empty;

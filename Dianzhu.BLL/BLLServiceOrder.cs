@@ -50,7 +50,6 @@ namespace Dianzhu.BLL
 
             ServiceOrder order = new ServiceOrder
             {
-
                 CustomerEmail = customerEmail,
                 CustomerPhone = customerPhone,
                 CustomerName = customerName,
@@ -60,28 +59,27 @@ namespace Dianzhu.BLL
                 ServiceName = serviceName,
                 ServiceURL = externalUrl,
                 TargetAddress = targetAddress,
-                UnitPrice = unitPrice * unitAmount
+                ServiceUnitPrice = unitPrice * unitAmount
 
             };
             if (adjustPrice > 0)
             {
-                order.UnitPrice = adjustPrice;
+                order.ServiceUnitPrice = adjustPrice;
             }
             DALServiceOrder.Save(order);
             return order;
         }
         /// <summary>
-        /// 系统内服务,注册用户
+        /// 未注册用户 系统外服务.
         /// </summary>
         /// <param name="membershipId"></param>
         /// <param name="serviceId"></param>
         /// <param name="targetAddress"></param>
         /// <param name="unitAmount"></param>
         /// <returns></returns>
-        public ServiceOrder CreateOrder(Guid membershipId, Guid serviceId, string targetAddress, int unitAmount)
+        public ServiceOrder CreateOrder(DZMembership customer, Guid serviceId, string targetAddress, int unitAmount)
         {
-            DZMembership customer = membershipProvider.GetUserById(membershipId);
-            DZService service = bllDzService.GetOne(serviceId);
+             DZService service = bllDzService.GetOne(serviceId);
             ServiceOrder order = new ServiceOrder
             {
                 Customer = customer,
@@ -94,12 +92,59 @@ namespace Dianzhu.BLL
                 ServiceName = service.Name,
                 ServiceURL = string.Empty,
                 TargetAddress = targetAddress,
-                UnitPrice = service.UnitPrice * unitAmount
+                ServiceUnitPrice = service.UnitPrice * unitAmount
             };
             DALServiceOrder.Save(order);
             return order;
         }
+        /// <summary>
+        /// 注册用户 系统外服务
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <param name="serviceName"></param>
+        /// <param name="serviceBusinessName"></param>
+        /// <param name="serviceDescription"></param>
+        /// <param name="serviceUnitPrice"></param>
+        /// <param name="serviceUrl"></param>
+        /// <param name="serviceUnitAmount"></param>
+        /// <param name="targetAddress"></param>
+        /// <returns></returns>
+        public ServiceOrder CreateOrder(DZMembership customer, string serviceName,
+            string serviceBusinessName, string serviceDescription, string serviceUnitPrice,
+            string serviceUrl, string serviceUnitAmount, string targetAddress)
+        {
 
+            ServiceOrder order = new ServiceOrder
+            { 
+                Customer=customer,
+                CustomerEmail= customer.Email,
+                CustomerName=customer.UserName,
+                CustomerPhone= customer.Phone,
+                ServiceBusinessName = serviceBusinessName,
+                ServiceDescription = serviceDescription,
+                ServiceName = serviceName,
+                ServiceURL = serviceUrl,
+                TargetAddress = targetAddress,
+                ServiceUnitPrice=Convert.ToDecimal(serviceUnitPrice),
+                UnitAmount=Convert.ToInt32(serviceUnitAmount),
+
+            };
+             
+             
+            DALServiceOrder.Save(order);
+            return order;
+        }
+
+        /// <summary>
+        /// 根据用户确认的服务 创建订单.
+        /// </summary>
+        /// <param name="confirmedService"></param>
+        /// <returns></returns>
+        public ServiceOrder CreateOrder(ReceptionChatService confirmedService)
+        {
+            DZMembership customer = confirmedService.From;
+            throw new NotImplementedException();
+        }
 
         public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
         {
