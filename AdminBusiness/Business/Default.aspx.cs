@@ -12,11 +12,7 @@ public partial class Business_Default : BasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         BrowserCheck.CheckVersion();
-        if (string.IsNullOrEmpty(CurrentUser.Phone))
-        {
-            this.ClientScript.RegisterStartupScript(this.GetType(), "nophone", "alert('请先填写电话号码')");
-            
-        }
+         
 
         hiCreateID.Value = string.IsNullOrEmpty(CurrentUser.Phone) ? "false" : "true";
            
