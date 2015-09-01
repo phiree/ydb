@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Dianzhu.CSClient.MessageAdapter;
+using log4net;
 namespace Dianzhu.CSClient
 {
     static class Program
@@ -13,9 +14,13 @@ namespace Dianzhu.CSClient
         [STAThread]
         static void Main()
         {
+            AppDomain cDomain = AppDomain.CurrentDomain;
+            cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             log4net.Config.XmlConfigurator.Configure();
+            ILog log = LogManager.GetLogger("cs");
+            log.Debug("Start");
             DialogResult result;
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
                 BLLFactory.BLLMember,BLLFactory.BLLDZService,BLLFactory.BLLServiceOrder);
@@ -42,6 +47,11 @@ namespace Dianzhu.CSClient
             //Application.Run(new Views.Raw.ChatView());
 
             
+        }
+
+        static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.ExceptionObject.ToString());
         }
     }
 }

@@ -177,6 +177,7 @@
             this.pnlChat.Name = "pnlChat";
             this.pnlChat.Size = new System.Drawing.Size(560, 248);
             this.pnlChat.TabIndex = 8;
+            this.pnlChat.WrapContents = false;
             // 
             // FmMain
             // 

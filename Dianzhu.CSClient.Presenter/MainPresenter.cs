@@ -49,11 +49,18 @@ namespace Dianzhu.CSClient.Presenter
             this.view.PushInternalService += new PushInternalService(view_PushInternalService);
             this.view.ButtonNamePrefix = System.Configuration.ConfigurationManager.AppSettings["ButtonNamePrefix"];
             this.view.SearchService += new IVew.SearchService(view_SearchService);
+            this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
+        }
+
+        void view_SendPayLink(ReceptionChat chat)
+        {
+             //根据接收到的服务确认消息, 创建订单. 
         }
 
         void view_PushInternalService(DZService service)
         {
             ReceptionChatService chat = new ReceptionChatService {
+                ChatType= Model.Enums.enum_ChatType.PushedService,
              Service=service,
              From=customerService,
              To=customer,
@@ -292,6 +299,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             DZService service = bllService.GetOne(new Guid(service_id));
             //创建订单.
+           // bllOrder.CreateOrder(
 
         }
         /// <summary>
@@ -356,33 +364,7 @@ namespace Dianzhu.CSClient.Presenter
 
             view.ChatLog = chatHistory;
         }
-        /// <summary>
-        /// 格式化一条聊天信息
-        /// </summary>
-        /// <param name="chat">聊天类</param>
-        /// <param name="isFrom">发送方向</param>
-        /// <returns></returns>
-        private string BuildFormatedLine(ReceptionChat chat, bool isFrom)
-        { /*
-           @"{\rtf1\pc \b 02/11/2010 - 05:15 PM 
-           * - Adam:\b0 Another test notes added on 2nd November \par
-           * \b 02/11/2010 - 05:14 PM - Z_kas:\b0 Test Notes. STAGE CHANGED TO: N Enq - Send Quote\par \b 02/11/2010 - 05:12 PM - user32:\b0 Another test notes added on 2nd November"
-           */
-            string line = @"\rtf1\pc";
-            return "";
-        }
-        /// <summary>
-        /// 接收消息
-        /// </summary>
-        /// <param name="customerName"></param>
-        /// <param name="message"></param>
-        public void ReceiveMessage(string customerName, string message, string mediaUrl, string confirm_service_id)
-        {
-            //保存聊天记录, 改变view的button,聊天窗口增加一条消息
-
-
-
-        }
+　　
 
         #endregion
 

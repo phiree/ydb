@@ -11,6 +11,8 @@ namespace Dianzhu.CSClient.IVew
     public delegate void PushExternalService();
     public delegate void PushInternalService(DZService service);
     public delegate void SearchService();
+    public delegate void SendPayLink(ReceptionChat chat);
+
     public interface IMainFormView
     {
         #region Chat
@@ -53,5 +55,6 @@ namespace Dianzhu.CSClient.IVew
         event PushExternalService PushExternalService;
         event PushInternalService PushInternalService;
         event SearchService SearchService;
+        event SendPayLink SendPayLink;
     }
 }
