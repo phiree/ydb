@@ -18,8 +18,8 @@
             <div class="cont-row">
                 <div class="cont-col-12">
                     <div class="cont-row row-fix">
-                        <div class="cont-col-12">
-                            <a class="btn btn-default btn-info m-b20" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>">
+                        <div class="cont-col-12 m-b10">
+                            <a class="btn btn-default btn-info" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>">
                                 +&nbsp;添加新服务</a>
                         </div>
                     </div>
@@ -88,10 +88,12 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="pageNum">
-                    <UC:AspNetPager runat="server" FirstPageText="首页" NextPageText="下一页" PrevPageText="上一页"
-                        ID="pager" PageSize="1" UrlPaging="true" LastPageText="尾页">
-                    </UC:AspNetPager>
+                <div class="cont-col-12">
+                    <div class="pageNum">
+                         <UC:AspNetPager runat="server" FirstPageText="首页" NextPageText="下一页" PrevPageText="上一页"
+                             ID="pager" PageSize="10" UrlPaging="true" LastPageText="尾页">
+                         </UC:AspNetPager>
+                     </div>
                 </div>
             </div>
         </div>
