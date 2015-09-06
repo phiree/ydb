@@ -30,9 +30,16 @@ public partial class DZService_Default : BasePage
     }
     private void BindList()
     {
+        string strIndex = Request["page"];
+        int index = 1;
+        if (!string.IsNullOrEmpty(strIndex))
+        {
+            index = int.Parse(strIndex);
+        }
         int totalRecords;
-        //处理太简单粗暴,需要优化.
-     rptServiceList.DataSource = bllService.GetServiceByBusiness(CurrentBusiness.Id, 0, 999, out totalRecords);
+       
+     rptServiceList.DataSource = bllService.GetServiceByBusiness(CurrentBusiness.Id, index, pager.PageSize, out totalRecords);
+     pager.RecordCount = totalRecords;
         rptServiceList.DataBind();
     }
     
