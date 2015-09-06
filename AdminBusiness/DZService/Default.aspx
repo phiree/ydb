@@ -43,7 +43,7 @@
                                         <td class="table-col-2"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></td>
                                         <td class="table-col-3"><p class="spServiceArea l-h16 t-c"></p>
                                                                                             <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' /></td>
-                                        <td class="table-col-1"><%#Eval("OrderDelay")%>分钟</td>
+                                        <td class="table-col-1"><%#Eval("OrderDelay")%>小时</td>
                                         <td class="table-col-1"><p class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></p></td>
                                         <td class="table-col-2"><p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable-service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p><asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-delete m-l10" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')">删除</asp:LinkButton></td>
                                     </tr>
