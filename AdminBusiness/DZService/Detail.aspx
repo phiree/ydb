@@ -32,7 +32,14 @@
                                         <div class="cont-col-3">
                                             <div class="cont-row">
                                                 <div class="cont-col-4"><p>服务标签:</p></div>
-                                                <div class="cont-col-8"></div>
+                                                <div class="cont-col-8">
+                                             
+                                             <asp:Repeater runat="server" ID="rptTags">
+                                             <ItemTemplate>
+                                             <%#Eval("Text")%>
+                                             </ItemTemplate>
+                                             </asp:Repeater>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="cont-col-9">
