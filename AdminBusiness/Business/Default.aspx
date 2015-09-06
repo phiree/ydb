@@ -55,8 +55,7 @@
                 <div class="business-container mh-in dis-n">
                     <div class="business-add">
                            <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-info">+&nbsp;新建店铺</a>
-                           <asp:Label runat="server" ID="lblErr"></asp:Label><asp:HyperLink Visible="false" runat="server" ID="hlSecurity" NavigateUrl="/account/security.aspx">进入账号安全,填写电话号码</asp:HyperLink>
-                        </div>
+                            </div>
                        <div class="business-list">
                            <asp:Repeater runat="server" ID="rptBusinessList" OnItemCommand="rptBusinessList_ItemCommand">
                               <ItemTemplate>
@@ -116,13 +115,13 @@
                             </div>
                             <div class="business-new-add">
                                 <a id="firstAddBusiness" class="new-add-btn">点击创建新店铺</a>
-                                <p class="firstAddMsg dis-n">感谢您的使用一点办，为了给您提供更好的服务，建议您进入“帐号安全”绑定您的手机号码。</p>
+                                <p class="firstAddMsg dis-n">感谢您的使用一点办，为了给您提供更好的服务，建议您进入<a style="font-weight:800" href="/account/security.aspx">“帐号安全”</a>绑定您的手机号码。</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--true时为已填写手机-->
-                <input id="hiCreateID" type="hidden" value="false"/>
+                <input id="hiCreateID" type="hidden" runat="server" value="false"/>
                 </div>
                 </div>
                    <div id="newBusslightBox" class="dis-n">

@@ -16,8 +16,12 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLReception
     {
-        public DALReception DALReception = DALFactory.DALReception;
-        
+        public DALReception DALReception = null;
+        public BLLReception() {   DALReception = DALFactory.DALReception; }
+        public BLLReception(DALReception dal)
+        {
+            DALReception = dal;
+        }
         public void Save(ReceptionBase reception)
         {
             DALReception.SaveOrUpdate(reception);
@@ -29,9 +33,11 @@ namespace Dianzhu.BLL
         /// <param name="to"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public IList<ReceptionChat> GetHistoryReceptionChat(DZMembership from, DZMembership to,int limit)
+        public IList<ReceptionChat> GetHistoryReceptionChat(DZMembership from, DZMembership to,
+            DateTime begin,DateTime end,
+            int limit)
         {
-          var list=  DALReception.Search(from, to, DateTime.MinValue, DateTime.MaxValue,limit);
+          var list=  DALReception.Search(from, to, begin, end,limit);
 
           var chatList = new List<ReceptionChat>();
           foreach (ReceptionBase re in list)

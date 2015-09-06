@@ -25,7 +25,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         public Model.ReceptionChat MessageToChat( Message message)
         {
 
-            string messageType = message.GetAttribute("message_type");
+            string messageType = message.GetAttribute("MessageType");
             Model.Enums.enum_ChatType chatType;
             bool isChatType = Enum.TryParse(messageType, out  chatType);
             if (!isChatType)
@@ -44,6 +44,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             chat.From = from;
             chat.To = to;
             chat.MessageBody = message.Body;
+            chat.SavedTime = DateTime.Now;
             string chatText = message.Body;
             switch (chatType)
             {
@@ -51,10 +52,10 @@ namespace Dianzhu.CSClient.MessageAdapter
                 case  enum_ChatType.ConfirmedService:
                     ReceptionChatService chatService = (ReceptionChatService)chat;
                     string strServiceId = string.Empty;
-                    bool hasServiceId = message.HasAttribute("service_id");
+                    bool hasServiceId = message.HasAttribute("ServiceId");
                     if (hasServiceId)
                     {
-                        strServiceId = message.GetAttribute("service_id");
+                        strServiceId = message.GetAttribute("ServiceId");
                         chatService.Service = bllDZService.GetOne(new Guid(strServiceId));
                     }
                     else {
@@ -137,49 +138,28 @@ namespace Dianzhu.CSClient.MessageAdapter
         {
             bool hasAttributes = true;
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("错误, 消息缺少以下属性  ");
             switch (chatType)
             {
                 case enum_ChatType.BeginPay:
 
-                    if (!msg.HasAttribute("order_id"))
+                    if (!msg.HasAttribute("OrderId"))
                     {
-                        sb.Append("错误.缺少order_id");
+                        sb.Append(" OrderId");
                     }
 
                     break;
                 case enum_ChatType.ConfirmedService:
-                case enum_ChatType.PushedService:
-                    if (!msg.HasAttribute("service_id"))
+                    //预订的服务数量. N小时,N天?
+                    if (!msg.HasAttribute("ServiceUnitAmount"))
                     {
-                        if (!msg.HasAttribute("ServiceName"))
-                        {
-                            hasAttributes = false;
-                            sb.Append("错误.缺少ServiceName");
-                        }
-                        
-                        if (!msg.HasAttribute("ServiceDescription"))
-                        {
-                            hasAttributes = false;
-                            sb.Append("错误.缺少ServiceDescription");
-                        }
-                        if (!msg.HasAttribute("ServiceBusinessName"))
-                        {
-                            hasAttributes = false;
-                            sb.Append("错误.缺少ServiceBusinessName");
-                        }
-                        
-                        if (!msg.HasAttribute("UnitPrice"))
-                        {
-                            hasAttributes = false;
-                            sb.Append("错误.缺少UnitPrice");
-                        }
-                        if (!msg.HasAttribute("ServiceUrl"))
-                        {
-                            hasAttributes = false;
-                            sb.Append("错误.缺少ServiceUrl");
-                        }
-                         
+                        hasAttributes = false;
+                        sb.Append(" ServiceUnitAmount");
                     }
+                    EnsureServiceAttribute(msg, sb);
+                    break;
+                case enum_ChatType.PushedService:
+                    EnsureServiceAttribute(msg, sb);
 
                     break;
                
@@ -187,6 +167,45 @@ namespace Dianzhu.CSClient.MessageAdapter
             }
 
             errMsg = sb.ToString();
+            return hasAttributes;
+        }
+
+        private bool EnsureServiceAttribute(Message msg,StringBuilder sb)
+        {
+            bool hasAttributes=true;
+            if (!msg.HasAttribute("ServiceId"))
+            {
+                hasAttributes = false;
+                sb.Append(" ServiceId");
+            }
+
+            if (!msg.HasAttribute("ServiceName"))
+            {
+                hasAttributes = false;
+                sb.Append(" ServiceName");
+            }
+
+            if (!msg.HasAttribute("ServiceDescription"))
+            {
+                hasAttributes = false;
+                sb.Append(" ServiceDescription");
+            }
+            if (!msg.HasAttribute("ServiceBusinessName"))
+            {
+                hasAttributes = false;
+                sb.Append(" ServiceBusinessName");
+            }
+
+            if (!msg.HasAttribute("UnitPrice"))
+            {
+                hasAttributes = false;
+                sb.Append(" UnitPrice");
+            }
+            if (!msg.HasAttribute("ServiceUrl"))
+            {
+                hasAttributes = false;
+                sb.Append(" ServiceUrl");
+            }
             return hasAttributes;
         }
     }

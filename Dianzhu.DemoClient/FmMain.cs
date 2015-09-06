@@ -52,11 +52,11 @@ namespace Dianzhu.DemoClient
                 {
                     continue;
                 }
-                if (att.ToString() == "service_id")
+                if (att.ToString() == "ServiceId")
                 {
                     log += "[" + att + ":" + msg.Attributes[att] + "]";
                 }
-                if (att.ToString() == "service_name")
+                if (att.ToString() == "ServiceName")
                 {
                     log += "[" + att + ":" + msg.Attributes[att] + "]";
                 }
@@ -100,11 +100,9 @@ namespace Dianzhu.DemoClient
         void AddLog(agsc.Message message)
         {
            string user = StringHelper.EnsureNormalUserName(message.From.User);
-         string   body = message.Body;
-          string  mediaUrl = message.GetAttribute("media");
-          string serviceId = message.GetAttribute("service_id");
-             string serviceName = message.GetAttribute("service_name");
-
+          string   body = message.Body;
+            string messageType=message.GetAttribute("MessageType");
+          
             Label lblTime = new Label();
             Label lblFrom = new Label();
             Label lblMessage = new Label();
@@ -123,7 +121,8 @@ namespace Dianzhu.DemoClient
             pnlOneChat.Width = pnlChat.Size.Width - 16;
 
             //显示多媒体信息.
-
+            string mediaUrl = message.GetAttribute("media");
+           
             if (!string.IsNullOrEmpty(mediaUrl))
             {
 
@@ -132,21 +131,41 @@ namespace Dianzhu.DemoClient
                 pb.Load("http://localhost:8033" + mediaUrl);
                 pnlOneChat.Controls.Add(pb);
             }
-            if (!string.IsNullOrEmpty(serviceId))
+            if (messageType=="PushedService")
             {
-                FlowLayoutPanel pnlservice = new FlowLayoutPanel();
+                string serviceId = message.GetAttribute("ServiceId");
+                string serviceName = message.GetAttribute("ServiceName");
+                string serviceDescription = message.GetAttribute("ServiceDescription");
+                string serviceBusinessName = message.GetAttribute("ServiceBusinessName");
+                string serviceUnitPrice = message.GetAttribute("ServiceUnitPrice");
+                string serviceUrl = message.GetAttribute("ServiceUrl");
 
-                Label lblServiceName = new Label();
-                lblServiceName.Text= serviceName;
+                FlowLayoutPanel pnlservice = new FlowLayoutPanel();
+                pnlservice.FlowDirection = FlowDirection.LeftToRight;
+
+                Label lblServiceName = CreateNewLabel(serviceName);
+                Label lblDescription = CreateNewLabel(serviceDescription);
+                Label lblServiceBusinessName=CreateNewLabel(serviceBusinessName);
+                Label lblServiceUnitPrice=CreateNewLabel(serviceUnitPrice);
+                
                 Button btnConfirm = new Button();
                 btnConfirm.Text = "选取";
-                btnConfirm.Tag = serviceId;
+                btnConfirm.Tag = message;
                 btnConfirm.Click += new EventHandler(btnConfirm_Click);
-                pnlservice.Controls.AddRange(new Control[]{lblServiceName, btnConfirm});
+
+                pnlservice.Controls.AddRange(new Control[]{lblServiceName,
+                    lblDescription,lblServiceBusinessName,lblServiceUnitPrice,
+                    btnConfirm});
                 pnlOneChat.Controls.Add(pnlservice);
             }
-            
-            
+            if (messageType == "ConfirmedService")
+            {
+                FlowLayoutPanel pnlservice = new FlowLayoutPanel();
+                Label lblServiceName = CreateNewLabel("已选取服务:" + message.GetAttribute("ServiceName"));
+                
+                pnlservice.Controls.AddRange(new Control[] { lblServiceName });
+                pnlOneChat.Controls.Add(pnlservice);
+            }
 
 
             pnlChat.Controls.Add(pnlOneChat);
@@ -154,14 +173,27 @@ namespace Dianzhu.DemoClient
 
 
         }
+        private Label CreateNewLabel(string text)
+        {
+            Label lbl = new Label();
+            lbl.Text = text;
+            return lbl;
+        }
 
         void btnConfirm_Click(object sender, EventArgs e)
         {
-            string serviceId=((Button)sender).Tag.ToString();
+            agsc.Message originalMessage = (agsc.Message)((Button)sender).Tag;
             agsc.Message message = new agsc.Message(csId + "@" + GlobalViables.ServerName,
                 StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName,
                 agsc.MessageType.chat,"已选择服务");
-            message.SetAttribute("selected_service_id", serviceId);
+            message.SetAttribute("MessageType", "ConfirmedService");
+            message.SetAttribute("ServiceUnitAmount", 1);
+            message.SetAttribute("ServiceId", originalMessage.GetAttribute("ServiceId"));
+            message.SetAttribute("ServiceName", originalMessage.GetAttribute("ServiceName"));
+            message.SetAttribute("ServiceBusinessName", originalMessage.GetAttribute("ServiceBusinessName"));
+            message.SetAttribute("ServiceDescription", originalMessage.GetAttribute("ServiceDescription"));
+            message.SetAttribute("ServiceUnitPrice", originalMessage.GetAttribute("ServiceUnitPrice"));
+            message.SetAttribute("ServiceUrl", originalMessage.GetAttribute("ServiceUrl"));
             GlobalViables.XMPPConnection.Send(message);
             AddLog(message);
         }
