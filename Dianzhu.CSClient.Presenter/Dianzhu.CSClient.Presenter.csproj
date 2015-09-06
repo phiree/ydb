@@ -42,12 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLLFactory.cs" />
-    <Compile Include="ChatLoader.cs" />
-    <Compile Include="IncomingMessageTemplate.cs" />
-    <Compile Include="MainPresenter.cs" />
     <Compile Include="GlobalViables.cs" />
+    <Compile Include="MainPresenter\MainPresenter.cs" />
     <Compile Include="LoginPresenter.cs" />
+    <Compile Include="MainPresenter\State.cs" />
+    <Compile Include="MainPresenter\IM.cs" />
+    <Compile Include="MainPresenter\View.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +66,10 @@
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IVew.csproj">
       <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
       <Name>Dianzhu.CSClient.IVew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
+      <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
+      <Name>Dianzhu.CSClient.ViewModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>

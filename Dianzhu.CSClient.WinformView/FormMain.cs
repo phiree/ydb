@@ -35,6 +35,7 @@ namespace Dianzhu.CSClient.WinformView
         public event SearchService SearchService;
         public event SendPayLink SendPayLink;
         public event CreateOrder CreateOrder;
+        public event OrderChanged OrderChanged;
 
         #endregion
 
@@ -388,7 +389,7 @@ namespace Dianzhu.CSClient.WinformView
             }
             set
             {
-                throw new NotImplementedException();
+                tbxServiceName.Text = value;
             }
         }
 
@@ -400,7 +401,7 @@ namespace Dianzhu.CSClient.WinformView
             }
             set
             {
-                throw new NotImplementedException();
+                tbxServiceBusinessName.Text = value;
             }
         }
 
@@ -412,7 +413,7 @@ namespace Dianzhu.CSClient.WinformView
             }
             set
             {
-                throw new NotImplementedException();
+                tbxServiceDescription.Text = value;
             }
         }
 
@@ -420,11 +421,11 @@ namespace Dianzhu.CSClient.WinformView
         {
             get
             {
-                return tbxServiceUnitPrice.Text;
+                return tbxServiceUnitPrice.Text ;
             }
             set
             {
-                throw new NotImplementedException();
+                tbxServiceUnitPrice.Text = value ;
             }
         }
 
@@ -436,13 +437,85 @@ namespace Dianzhu.CSClient.WinformView
             }
             set
             {
-                throw new NotImplementedException();
+                tbxServiceUrl.Text = value;
             }
         }
-
+        public string OrderAmount
+        {
+            get { return tbxAmount.Text ; }
+            set { tbxAmount.Text = value; }
+        }
+        public string TargetAddress
+        {
+            get { return tbxTargetAddress.Text; }
+            set { tbxTargetAddress.Text = value; }
+        }
+        public string Memo {
+            get { return tbxMemo.Text; }
+            set { tbxMemo.Text = value; }
+        }
+        public string ServiceTime {
+            get { return   tbxServiceTime.Text  ; }
+            set { tbxServiceTime.Text = value ; }
+        }
         private void btnCreateOrder_Click(object sender, EventArgs e)
         {
             CreateOrder();
+        }
+
+        private void tbxServiceName_TextChanged(object sender, EventArgs e)
+        {
+            OrderChanged();
+        }
+
+        private void tbxServiceBusinessName_TextChanged(object sender, EventArgs e)
+        {
+            OrderChanged();
+        }
+
+        private void tbxServiceDescription_TextChanged(object sender, EventArgs e)
+        {
+            OrderChanged();
+        }
+
+        private void tbxServiceUnitPrice_TextChanged(object sender, EventArgs e)
+        {
+            OrderChanged();
+        }
+
+        private void tbxServiceUrl_TextChanged(object sender, EventArgs e)
+        {
+            OrderChanged();
+        }
+
+        private void tbxServiceTime_TextChanged(object sender, EventArgs e)
+        {
+            OrderChanged();
+        }
+
+        private void tbxTargetAddress_TextChanged(object sender, EventArgs e)
+        {
+            OrderChanged();
+        }
+
+        private void tbxAmount_TextChanged(object sender, EventArgs e)
+        {
+            OrderChanged();
+        }
+
+        private void tbxMemo_TextChanged(object sender, EventArgs e)
+        {
+            OrderChanged();
+        }
+
+        private void tbxServiceName_MouseLeave(object sender, EventArgs e)
+        {
+            OrderChanged();
+        }
+
+        private void tbxServiceBusinessName_MouseLeave(object sender, EventArgs e)
+        {
+            OrderChanged();
         }
     }
 }

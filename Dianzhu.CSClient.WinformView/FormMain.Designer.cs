@@ -32,6 +32,7 @@
             this.pnlCustomerList = new System.Windows.Forms.FlowLayoutPanel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.pnlOrder = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnOrderList = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tbxServiceName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,11 +45,14 @@
             this.tbxServiceUrl = new System.Windows.Forms.TextBox();
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbxServiceTime = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tbxTargetAddress = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbxAmount = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbxMemo = new System.Windows.Forms.TextBox();
             this.btnCreateOrder = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             this.tbxChatLog = new System.Windows.Forms.RichTextBox();
@@ -64,8 +68,6 @@
             this.btnSearchOut = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.tbxKeywords = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -98,7 +100,7 @@
             // scmain.Panel2
             // 
             this.scmain.Panel2.Controls.Add(this.splitContainer2);
-            this.scmain.Size = new System.Drawing.Size(841, 639);
+            this.scmain.Size = new System.Drawing.Size(893, 639);
             this.scmain.SplitterDistance = 114;
             this.scmain.TabIndex = 0;
             // 
@@ -108,7 +110,7 @@
             this.pnlCustomerList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCustomerList.Location = new System.Drawing.Point(0, 0);
             this.pnlCustomerList.Name = "pnlCustomerList";
-            this.pnlCustomerList.Size = new System.Drawing.Size(841, 114);
+            this.pnlCustomerList.Size = new System.Drawing.Size(893, 114);
             this.pnlCustomerList.TabIndex = 0;
             // 
             // splitContainer2
@@ -125,13 +127,14 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(841, 521);
-            this.splitContainer2.SplitterDistance = 247;
+            this.splitContainer2.Size = new System.Drawing.Size(893, 521);
+            this.splitContainer2.SplitterDistance = 292;
             this.splitContainer2.TabIndex = 0;
             // 
             // pnlOrder
             // 
             this.pnlOrder.AutoScroll = true;
+            this.pnlOrder.Controls.Add(this.btnOrderList);
             this.pnlOrder.Controls.Add(this.label1);
             this.pnlOrder.Controls.Add(this.tbxServiceName);
             this.pnlOrder.Controls.Add(this.label2);
@@ -144,24 +147,34 @@
             this.pnlOrder.Controls.Add(this.tbxServiceUrl);
             this.pnlOrder.Controls.Add(this.btnPushExternalService);
             this.pnlOrder.Controls.Add(this.label6);
-            this.pnlOrder.Controls.Add(this.textBox1);
+            this.pnlOrder.Controls.Add(this.tbxServiceTime);
+            this.pnlOrder.Controls.Add(this.label9);
+            this.pnlOrder.Controls.Add(this.tbxTargetAddress);
             this.pnlOrder.Controls.Add(this.label7);
-            this.pnlOrder.Controls.Add(this.textBox2);
+            this.pnlOrder.Controls.Add(this.tbxAmount);
             this.pnlOrder.Controls.Add(this.label8);
-            this.pnlOrder.Controls.Add(this.textBox3);
+            this.pnlOrder.Controls.Add(this.tbxMemo);
             this.pnlOrder.Controls.Add(this.btnCreateOrder);
-            this.pnlOrder.Controls.Add(this.button2);
             this.pnlOrder.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlOrder.Location = new System.Drawing.Point(3, 3);
             this.pnlOrder.Name = "pnlOrder";
-            this.pnlOrder.Size = new System.Drawing.Size(280, 473);
+            this.pnlOrder.Size = new System.Drawing.Size(280, 505);
             this.pnlOrder.TabIndex = 2;
             this.pnlOrder.WrapContents = false;
+            // 
+            // btnOrderList
+            // 
+            this.btnOrderList.Location = new System.Drawing.Point(3, 3);
+            this.btnOrderList.Name = "btnOrderList";
+            this.btnOrderList.Size = new System.Drawing.Size(100, 23);
+            this.btnOrderList.TabIndex = 8;
+            this.btnOrderList.Text = "查看订单列表";
+            this.btnOrderList.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(3, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 1;
@@ -169,15 +182,16 @@
             // 
             // tbxServiceName
             // 
-            this.tbxServiceName.Location = new System.Drawing.Point(3, 15);
+            this.tbxServiceName.Location = new System.Drawing.Point(3, 44);
             this.tbxServiceName.Name = "tbxServiceName";
             this.tbxServiceName.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceName.TabIndex = 0;
+            this.tbxServiceName.MouseLeave += new System.EventHandler(this.tbxServiceName_MouseLeave);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 39);
+            this.label2.Location = new System.Drawing.Point(3, 68);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 1;
@@ -185,15 +199,16 @@
             // 
             // tbxServiceBusinessName
             // 
-            this.tbxServiceBusinessName.Location = new System.Drawing.Point(3, 54);
+            this.tbxServiceBusinessName.Location = new System.Drawing.Point(3, 83);
             this.tbxServiceBusinessName.Name = "tbxServiceBusinessName";
             this.tbxServiceBusinessName.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceBusinessName.TabIndex = 0;
+            this.tbxServiceBusinessName.MouseLeave += new System.EventHandler(this.tbxServiceBusinessName_MouseLeave);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 78);
+            this.label3.Location = new System.Drawing.Point(3, 107);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 1;
@@ -201,7 +216,7 @@
             // 
             // tbxServiceDescription
             // 
-            this.tbxServiceDescription.Location = new System.Drawing.Point(3, 93);
+            this.tbxServiceDescription.Location = new System.Drawing.Point(3, 122);
             this.tbxServiceDescription.Multiline = true;
             this.tbxServiceDescription.Name = "tbxServiceDescription";
             this.tbxServiceDescription.Size = new System.Drawing.Size(262, 36);
@@ -211,7 +226,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 132);
+            this.label4.Location = new System.Drawing.Point(3, 161);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 12);
             this.label4.TabIndex = 1;
@@ -219,7 +234,7 @@
             // 
             // tbxServiceUnitPrice
             // 
-            this.tbxServiceUnitPrice.Location = new System.Drawing.Point(3, 147);
+            this.tbxServiceUnitPrice.Location = new System.Drawing.Point(3, 176);
             this.tbxServiceUnitPrice.Name = "tbxServiceUnitPrice";
             this.tbxServiceUnitPrice.Size = new System.Drawing.Size(100, 21);
             this.tbxServiceUnitPrice.TabIndex = 0;
@@ -227,7 +242,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 171);
+            this.label5.Location = new System.Drawing.Point(3, 200);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 12);
             this.label5.TabIndex = 1;
@@ -235,71 +250,96 @@
             // 
             // tbxServiceUrl
             // 
-            this.tbxServiceUrl.Location = new System.Drawing.Point(3, 186);
+            this.tbxServiceUrl.Location = new System.Drawing.Point(3, 215);
             this.tbxServiceUrl.Name = "tbxServiceUrl";
             this.tbxServiceUrl.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceUrl.TabIndex = 0;
             // 
             // btnPushExternalService
             // 
-            this.btnPushExternalService.Location = new System.Drawing.Point(3, 213);
+            this.btnPushExternalService.Location = new System.Drawing.Point(3, 242);
             this.btnPushExternalService.Name = "btnPushExternalService";
             this.btnPushExternalService.Size = new System.Drawing.Size(75, 23);
             this.btnPushExternalService.TabIndex = 2;
             this.btnPushExternalService.Text = "推送";
             this.btnPushExternalService.UseVisualStyleBackColor = true;
+            this.btnPushExternalService.Visible = false;
             this.btnPushExternalService.Click += new System.EventHandler(this.btnPushExternalService_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 239);
+            this.label6.Location = new System.Drawing.Point(3, 268);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 12);
             this.label6.TabIndex = 4;
             this.label6.Text = "服务时间";
             // 
-            // textBox1
+            // tbxServiceTime
             // 
-            this.textBox1.Location = new System.Drawing.Point(3, 254);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(262, 21);
-            this.textBox1.TabIndex = 3;
+            this.tbxServiceTime.Location = new System.Drawing.Point(3, 283);
+            this.tbxServiceTime.Name = "tbxServiceTime";
+            this.tbxServiceTime.Size = new System.Drawing.Size(262, 21);
+            this.tbxServiceTime.TabIndex = 3;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 307);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 12);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "服务地点";
+            // 
+            // tbxTargetAddress
+            // 
+            this.tbxTargetAddress.Location = new System.Drawing.Point(3, 322);
+            this.tbxTargetAddress.Name = "tbxTargetAddress";
+            this.tbxTargetAddress.Size = new System.Drawing.Size(262, 21);
+            this.tbxTargetAddress.TabIndex = 11;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 278);
+            this.label7.Location = new System.Drawing.Point(3, 346);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(29, 12);
             this.label7.TabIndex = 6;
             this.label7.Text = "总价";
             // 
-            // textBox2
+            // tbxAmount
             // 
-            this.textBox2.Location = new System.Drawing.Point(3, 293);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(262, 21);
-            this.textBox2.TabIndex = 5;
+            this.tbxAmount.Location = new System.Drawing.Point(3, 361);
+            this.tbxAmount.Name = "tbxAmount";
+            this.tbxAmount.Size = new System.Drawing.Size(262, 21);
+            this.tbxAmount.TabIndex = 5;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 385);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(29, 12);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "备注";
+            // 
+            // tbxMemo
+            // 
+            this.tbxMemo.Location = new System.Drawing.Point(3, 400);
+            this.tbxMemo.Multiline = true;
+            this.tbxMemo.Name = "tbxMemo";
+            this.tbxMemo.Size = new System.Drawing.Size(262, 59);
+            this.tbxMemo.TabIndex = 9;
             // 
             // btnCreateOrder
             // 
-            this.btnCreateOrder.Location = new System.Drawing.Point(3, 397);
+            this.btnCreateOrder.Location = new System.Drawing.Point(3, 465);
             this.btnCreateOrder.Name = "btnCreateOrder";
-            this.btnCreateOrder.Size = new System.Drawing.Size(75, 23);
+            this.btnCreateOrder.Size = new System.Drawing.Size(155, 23);
             this.btnCreateOrder.TabIndex = 7;
-            this.btnCreateOrder.Text = "创建订单";
+            this.btnCreateOrder.Text = "创建订单,发送支付链接";
             this.btnCreateOrder.UseVisualStyleBackColor = true;
             this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(3, 426);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "发送支付链接";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // splitContainer3
             // 
@@ -318,8 +358,8 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.pnlResultService);
             this.splitContainer3.Panel2.Controls.Add(this.panel2);
-            this.splitContainer3.Size = new System.Drawing.Size(590, 521);
-            this.splitContainer3.SplitterDistance = 291;
+            this.splitContainer3.Size = new System.Drawing.Size(597, 521);
+            this.splitContainer3.SplitterDistance = 294;
             this.splitContainer3.TabIndex = 0;
             // 
             // pnlChat
@@ -331,7 +371,7 @@
             this.pnlChat.ImeMode = System.Windows.Forms.ImeMode.On;
             this.pnlChat.Location = new System.Drawing.Point(0, 0);
             this.pnlChat.Name = "pnlChat";
-            this.pnlChat.Size = new System.Drawing.Size(289, 496);
+            this.pnlChat.Size = new System.Drawing.Size(292, 496);
             this.pnlChat.TabIndex = 3;
             this.pnlChat.WrapContents = false;
             // 
@@ -350,7 +390,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 496);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(289, 23);
+            this.panel1.Size = new System.Drawing.Size(292, 23);
             this.panel1.TabIndex = 1;
             // 
             // tbxChatMsg
@@ -359,14 +399,14 @@
             this.tbxChatMsg.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxChatMsg.Location = new System.Drawing.Point(0, 0);
             this.tbxChatMsg.Name = "tbxChatMsg";
-            this.tbxChatMsg.Size = new System.Drawing.Size(214, 21);
+            this.tbxChatMsg.Size = new System.Drawing.Size(217, 21);
             this.tbxChatMsg.TabIndex = 0;
             this.tbxChatMsg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxChatMsg_KeyPress);
             // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSend.Location = new System.Drawing.Point(214, 0);
+            this.btnSend.Location = new System.Drawing.Point(217, 0);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 1;
@@ -395,7 +435,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(293, 104);
+            this.panel2.Size = new System.Drawing.Size(297, 104);
             this.panel2.TabIndex = 0;
             // 
             // btnKeywords
@@ -462,28 +502,11 @@
             this.tbxKeywords.Size = new System.Drawing.Size(222, 39);
             this.tbxKeywords.TabIndex = 0;
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 317);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(29, 12);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "备注";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(3, 332);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(262, 59);
-            this.textBox3.TabIndex = 9;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(841, 639);
+            this.ClientSize = new System.Drawing.Size(893, 639);
             this.Controls.Add(this.scmain);
             this.Name = "FormMain";
             this.Text = "FormMain";
@@ -543,13 +566,15 @@
         private System.Windows.Forms.TextBox tbxServiceUrl;
         private System.Windows.Forms.Button btnPushExternalService;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbxServiceTime;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbxAmount;
         private System.Windows.Forms.Button btnCreateOrder;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnOrderList;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbxMemo;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tbxTargetAddress;
 
     }
 }

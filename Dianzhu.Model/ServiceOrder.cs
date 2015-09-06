@@ -74,6 +74,10 @@ namespace Dianzhu.Model
         public virtual string CustomerEmail { get; set; }
 
         #endregion
+        /// <summary>
+        /// 订单备注.
+        /// </summary>
+        public virtual string Memo { get; set; }
 
     }
  

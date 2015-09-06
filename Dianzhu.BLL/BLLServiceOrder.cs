@@ -110,8 +110,8 @@ namespace Dianzhu.BLL
         /// <param name="targetAddress"></param>
         /// <returns></returns>
         public ServiceOrder CreateOrder(DZMembership customer, string serviceName,
-            string serviceBusinessName, string serviceDescription, string serviceUnitPrice,
-            string serviceUrl, string serviceUnitAmount, string targetAddress)
+            string serviceBusinessName, string serviceDescription, decimal serviceUnitPrice,
+            string serviceUrl, decimal serviceOrderAmount, string targetAddress)
         {
 
             ServiceOrder order = new ServiceOrder
@@ -126,7 +126,7 @@ namespace Dianzhu.BLL
                 ServiceURL = serviceUrl,
                 TargetAddress = targetAddress,
                 ServiceUnitPrice=Convert.ToDecimal(serviceUnitPrice),
-                UnitAmount=Convert.ToInt32(serviceUnitAmount),
+                OrderAmount =  serviceOrderAmount,
 
             };
              

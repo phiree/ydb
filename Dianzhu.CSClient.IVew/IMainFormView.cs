@@ -13,17 +13,17 @@ namespace Dianzhu.CSClient.IVew
     public delegate void SearchService();
     public delegate void SendPayLink(ReceptionChat chat);
     public delegate void CreateOrder();
-
+    public delegate void OrderChanged();
+  
     public interface IMainFormView
     {
         #region Chat
         IList<ReceptionChat> ChatLog { set; get; }
         void LoadOneChat( ReceptionChat chat);
-        
+       
         /// <summary>
         /// 搜索关键字.
         /// </summary>
-  
         /// <summary>
         /// 设置按钮的样式.
         /// </summary>
@@ -53,10 +53,16 @@ namespace Dianzhu.CSClient.IVew
         string ServiceDescription { get; set; }
         string ServiceUnitPrice { get; set; }
         string ServiceUrl { get; set; }
+        string ServiceTime { get; set; }
+        string TargetAddress { get; set; }
+        string OrderAmount { get; set; }
+        string Memo { get; set; }
         event PushExternalService PushExternalService;
         event PushInternalService PushInternalService;
         event SearchService SearchService;
         event SendPayLink SendPayLink;
         event CreateOrder CreateOrder;
+        event OrderChanged OrderChanged;
+
     }
 }

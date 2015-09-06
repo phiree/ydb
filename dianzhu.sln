@@ -10,7 +10,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminWeb", "AdminWeb\", "{16075D17-B45F-4FDE-B48C-FA9534F6FE2D}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
+		ProjectReferences = "{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/AdminWeb"
 		Debug.AspNetCompiler.PhysicalPath = "AdminWeb\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminWeb\"
@@ -42,7 +42,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.HttpApi", "Dianzhu.HttpApi\", "{0D1C0821-004D-4D6B-BB6C-F561895DCC4E}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
+		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Dianzhu.HttpApi"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.HttpApi\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Dianzhu.HttpApi\"
@@ -68,7 +68,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusiness\", "{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
+		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/AdminBusiness"
 		Debug.AspNetCompiler.PhysicalPath = "AdminBusiness\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminBusiness\"
@@ -114,7 +114,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "FrontWeb", "FrontWeb\", "{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
+		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{D7AA114D-AD19-4399-B152-969D240053C7}|Dianzhu.CSClient.ViewModel.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/FrontWeb"
 		Debug.AspNetCompiler.PhysicalPath = "FrontWeb\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\FrontWeb\"

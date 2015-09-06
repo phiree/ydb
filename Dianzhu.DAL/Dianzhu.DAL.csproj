@@ -104,6 +104,10 @@
     <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
+      <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
+      <Name>Dianzhu.CSClient.ViewModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
