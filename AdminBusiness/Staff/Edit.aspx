@@ -117,9 +117,9 @@
 
         </div>
         <div class="bottomArea emp-cont-bottom-row">
-               <asp:Button ID="Button1" runat="server" Text="保存" CssClass="btn btn-info btn-big"  OnClick="btnOK_Click" />
+               <asp:Button ID="Button1" runat="server" Text="保存" CssClass="btn btn-info btn-lg"  OnClick="btnOK_Click" />
 
-              <a class="btn btn-cancel btn-big m-l10" href="default.aspx?businessid=<%=Request["businessid"] %>">取消</a>
+              <a class="btn btn-cancel btn-lg m-l10" href="default.aspx?businessid=<%=Request["businessid"] %>">取消</a>
           </div>
     </div>
 
