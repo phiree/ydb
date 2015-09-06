@@ -23,79 +23,80 @@
                                 +&nbsp;添加新服务</a>
                         </div>
                     </div>
-                    <table class="custom-table service-table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    服务名称
-                                </th>
-                                <th>
-                                    服务类别
-                                </th>
-                                <th>
-                                    服务时间
-                                </th>
-                                <th>
-                                    服务范围
-                                </th>
-                                <th>
-                                    提前预约
-                                </th>
-                                <th>
-                                    服务状态
-                                </th>
-                                <th>
-                                    服务操作
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <asp:Repeater runat="server" ID="rptServiceList">
-                                <ItemTemplate>
-                                    <tr onclick="listhref('/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>')">
-                                        <td class="table-col-1">
-                                            <%#Eval("Name") %>
-                                        </td>
-                                        <td class="table-col-2">
-                                            <%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %>
-                                        </td>
-                                        <td class="table-col-2">
-                                            <%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%>
-                                        </td>
-                                        <td class="table-col-3">
-                                            <p class="spServiceArea l-h16 t-c">
-                                            </p>
-                                            <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
-                                        </td>
-                                        <td class="table-col-1">
-                                            <%#Eval("OrderDelay")%>小时
-                                        </td>
-                                        <td class="table-col-1">
-                                            <p class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>"
-                                                serid='<%#Eval("Id") %>'>
-                                                <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></p>
-                                        </td>
-                                        <td class="table-col-2">
-                                            <p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable-service"
-                                                serid='<%#Eval("Id") %>'>
-                                                <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p>
-                                            <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-delete m-l10" CommandArgument='<%# Eval("Id")%>'
-                                                OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')">删除</asp:LinkButton>
-                                        </td>
-                                    </tr>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="cont-col-12">
-                    <div class="pageNum">
-                         <UC:AspNetPager runat="server" FirstPageText="首页" NextPageText="下一页" PrevPageText="上一页"
-                             ID="pager" PageSize="10" UrlPaging="true" LastPageText="尾页">
-                         </UC:AspNetPager>
-                     </div>
+                    <div>
+                        <table class="custom-table service-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        服务名称
+                                                    </th>
+                                                    <th>
+                                                        服务类别
+                                                    </th>
+                                                    <th>
+                                                        服务时间
+                                                    </th>
+                                                    <th>
+                                                        服务范围
+                                                    </th>
+                                                    <th>
+                                                        提前预约
+                                                    </th>
+                                                    <th>
+                                                        服务状态
+                                                    </th>
+                                                    <th>
+                                                        服务操作
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <asp:Repeater runat="server" ID="rptServiceList">
+                                                    <ItemTemplate>
+                                                        <tr onclick="listhref('/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>')">
+                                                            <td class="table-col-1">
+                                                                <%#Eval("Name") %>
+                                                            </td>
+                                                            <td class="table-col-2">
+                                                                <%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %>
+                                                            </td>
+                                                            <td class="table-col-2">
+                                                                <%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%>
+                                                            </td>
+                                                            <td class="table-col-3">
+                                                                <p class="spServiceArea l-h16 t-c">
+                                                                </p>
+                                                                <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
+                                                            </td>
+                                                            <td class="table-col-1">
+                                                                <%#Eval("OrderDelay")%>小时
+                                                            </td>
+                                                            <td class="table-col-1">
+                                                                <p class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>"
+                                                                    serid='<%#Eval("Id") %>'>
+                                                                    <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></p>
+                                                            </td>
+                                                            <td class="table-col-2">
+                                                                <p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable-service"
+                                                                    serid='<%#Eval("Id") %>'>
+                                                                    <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-delete m-l10" CommandArgument='<%# Eval("Id")%>'
+                                                                    OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')">删除</asp:LinkButton>
+                                                            </td>
+                                                        </tr>
+                                                    </ItemTemplate>
+                                                </asp:Repeater>
+                                            </tbody>
+                                        </table>
+                    </div>
+
                 </div>
             </div>
+            <div class="pageNum">
+                 <UC:AspNetPager runat="server" FirstPageText="首页" NextPageText="下一页" PrevPageText="上一页"
+                     ID="pager" PageSize="10" UrlPaging="true" LastPageText="尾页">
+                 </UC:AspNetPager>
+             </div>
         </div>
         <div class="service-new dis-n">
             <div class="cont-container mh-in">

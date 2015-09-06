@@ -38,6 +38,10 @@ a.new-add-btn {
 /*end*/
 
 /*服务列表样式*/
+.service-list-container {
+    position: relative;
+}
+
 .list-item-odd {
     background-color: #f1f4f7;
 }
@@ -69,7 +73,11 @@ a.new-add-btn {
 }
 
 .pageNum {
-    padding: 20px;
+    width: 100%;
+    margin-left: -14px;
+    padding: 14px;
+    position: absolute;
+    bottom:14px;
 }
 
 .pageNum #pager{
