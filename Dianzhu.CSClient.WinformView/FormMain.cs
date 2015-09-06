@@ -27,6 +27,19 @@ namespace Dianzhu.CSClient.WinformView
             InitializeComponent();
        
         }
+        #region Impletion view event
+        public event SendMessageHandler SendMessageHandler;
+        public event ActiveCustomerHandler ActiveCustomerHandler;
+        public event PushExternalService PushExternalService;
+        public event PushInternalService PushInternalService;
+        public event SearchService SearchService;
+        public event SendPayLink SendPayLink;
+        public event CreateOrder CreateOrder;
+
+        #endregion
+
+
+
         /// <summary>
         /// 界面当前绑定的客户名称,用于判断聊天记录的呈现方式
         /// </summary>
@@ -124,17 +137,20 @@ namespace Dianzhu.CSClient.WinformView
                 pb.Load(mediaServerRoot + chat.MessageMediaUrl);
                 pnlOneChat.Controls.Add(pb);
             }
-            switch (chat.ChatType)
-            {
-                case Model.Enums.enum_ChatType.PushedService:
+            //bye bye. you are abandoned. 2015-9-2
 
-                    pnlOneChat.Controls.Add(new Label { Text="已推送服务:"+((ReceptionChatService)chat).Service.Name});
-                    break;
-                case Model.Enums.enum_ChatType.ConfirmedService:
-                    ReceptionChatService chatService = (ReceptionChatService)chat;
+            #region 不再需要判断.
+            Type chatType=chat.GetType();
+           if(chatType==typeof(ReceptionChatServicePushed))
+           {
+
+                    pnlOneChat.Controls.Add(new Label { Text = "已推送服务:" + ((ReceptionChatServicePushed)chat).Service.Name });
+           }
+           else if(chatType==typeof(ReceptionChatServicePushed)){
+                    ReceptionChatServicePushed chatService = (ReceptionChatServicePushed)chat;
 
                     Button btnSendPayLink = new Button();
-                   // btnSendPayLink.Tag = chat.ServiceId;
+                    // btnSendPayLink.Tag = chat.ServiceId;
                     btnSendPayLink.Text = "发送支付链接";//创建订单,生成支付链接.
                     //todo:create order for this
                     btnSendPayLink.Tag = chatService;
@@ -142,12 +158,15 @@ namespace Dianzhu.CSClient.WinformView
                     pnlOneChat.Controls.AddRange(new Control[]
                     { new Label{ Text="已选择服务:"+chatService.Service.Name },
                         btnSendPayLink});
-                break;
-                case Model.Enums.enum_ChatType.Order: break;
-                case Model.Enums.enum_ChatType.Text: break;
-                default: break;
-            }
+           }
+           else if (chatType == typeof(ReceptionChatOrder))
+           { }
+           else { 
+           //only text loaded
+           }
           
+            
+            #endregion
 
             Action lambda = () =>
             {
@@ -169,7 +188,7 @@ namespace Dianzhu.CSClient.WinformView
         //点击支付
         void btnSendPayLink_Click(object sender, EventArgs e)
         {
-            ReceptionChatService chat=(ReceptionChatService)((Button)sender).Tag;
+            ReceptionChatServicePushed chat=(ReceptionChatServicePushed)((Button)sender).Tag;
             SendPayLink(chat);
         }
 
@@ -236,18 +255,7 @@ namespace Dianzhu.CSClient.WinformView
             }
             
         }
-        #region Impletion of Iview
-        public event SendMessageHandler SendMessageHandler;
-        public event ActiveCustomerHandler ActiveCustomerHandler;
-        public event PushExternalService PushExternalService;
-        public event PushInternalService PushInternalService;
-        public event SearchService SearchService;
-        public event SendPayLink SendPayLink;
-
-        #endregion
-
-
-
+ 
 
         private void tbxChatMsg_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -430,6 +438,11 @@ namespace Dianzhu.CSClient.WinformView
             {
                 throw new NotImplementedException();
             }
+        }
+
+        private void btnCreateOrder_Click(object sender, EventArgs e)
+        {
+            CreateOrder();
         }
     }
 }

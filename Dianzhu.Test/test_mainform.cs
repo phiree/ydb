@@ -54,7 +54,7 @@ namespace Dianzhu.Test
                  bllDZService,
                  Builder<BLLServiceOrder>.CreateNew().Build()
                  );
-            formController.ReceiveMessage("a@a.a", "hello", "/pic.png",string.Empty);
+            formController.IMReceivedMessage(Builder<ReceptionChat>.CreateNew().Build());
             string result = view.ToString();
             Assert.AreEqual("hello", result);
         }

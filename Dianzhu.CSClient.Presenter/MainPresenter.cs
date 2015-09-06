@@ -39,36 +39,54 @@ namespace Dianzhu.CSClient.Presenter
 
             this.bllOrder = bllOrder;
 
-            //present insancemessage的委托
+            //  IM的委托
             this.instantMessage.IMPresent += new IMPresent(IMPresent);
             this.instantMessage.IMReceivedMessage += new IMReceivedMessage(IMReceivedMessage);
             //iview的委托
             this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
+
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(ActiveCustomer);
+            this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(LoadChatHistory);
+            this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(LoadSearchResult);
+
             this.view.PushExternalService += new PushExternalService(view_PushExternalService);
             this.view.PushInternalService += new PushInternalService(view_PushInternalService);
             this.view.ButtonNamePrefix = System.Configuration.ConfigurationManager.AppSettings["ButtonNamePrefix"];
             this.view.SearchService += new IVew.SearchService(view_SearchService);
             this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
+            this.view.CreateOrder += new CreateOrder(view_CreateOrder);
+        }
+
+        /// <summary>
+        /// 创建订单 
+        /// 
+        /// </summary>
+        void view_CreateOrder()
+        {
+          //bllOrder.CreateOrder(customer,view.ServiceName,view.ServiceBusinessName,view.ServiceDescription,
+          //    view.ServiceUnitPrice,view.ServiceUrl,
         }
 
         void view_SendPayLink(ReceptionChat chat)
         {
-             //根据接收到的服务确认消息, 创建订单. 
+            //根据接收到的服务确认消息, 创建订单. 
         }
 
         void view_PushInternalService(DZService service)
         {
-            ReceptionChatService chat = new ReceptionChatService {
-                ChatType= Model.Enums.enum_ChatType.PushedService,
-             Service=service,
-             From=customerService,
-             To=customer,
-              MessageBody="已推送服务"
+            ReceptionChatServicePushed chat = new ReceptionChatServicePushed
+            {
+                ChatType = Model.Enums.enum_ChatType.PushedService,
+                Service = service,
+                From = customerService,
+                To = customer,
+                MessageBody = "已推送服务"
             };
             SendMessage(chat);
         }
-
+        /// <summary>
+        /// 界面的搜索事件
+        /// </summary>
         void view_SearchService()
         {
             int total;
@@ -91,7 +109,7 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_PushExternalService()
         {
-            ReceptionChatService chatService = new ReceptionChatService();
+            ReceptionChatServicePushed chatService = new ReceptionChatServicePushed();
             chatService.ChatType = Model.Enums.enum_ChatType.PushedService;
 
             chatService.MessageBody = "已推送服务";
@@ -111,7 +129,7 @@ namespace Dianzhu.CSClient.Presenter
         /// 2)如果在 则取出该会话, 没有 则创建会话
         /// </summary>
         /// <param name="chat"></param>
-        void IMReceivedMessage(ReceptionChat chat)
+        public void IMReceivedMessage(ReceptionChat chat)
         {
 
             //判断客户列表中是否有该用户
@@ -134,6 +152,7 @@ namespace Dianzhu.CSClient.Presenter
                 view.LoadOneChat(chat);
             }
         }
+
 
 
 
@@ -177,10 +196,10 @@ namespace Dianzhu.CSClient.Presenter
 
             //
             if (customer == null) return;
-            
+
 
             if (string.IsNullOrEmpty(view.MessageTextBox.Trim())) return;
-           
+
             ReceptionChat chat = new ReceptionChat
             {
                 ChatType = Model.Enums.enum_ChatType.Text,
@@ -190,7 +209,7 @@ namespace Dianzhu.CSClient.Presenter
                 SendTime = DateTime.Now,
                 SavedTime = DateTime.Now
             };
-             
+
             SendMessage(chat);
             view.MessageTextBox = string.Empty;
         }
@@ -200,62 +219,12 @@ namespace Dianzhu.CSClient.Presenter
             SaveMessage(chat, true);
             instantMessage.SendMessage(chat);
             view.LoadOneChat(chat);
-            
+
         }
 
 
         #region Chat
 
-        /*
-  public enum PresenceType
-     {
-         available = -1,
-         subscribe = 0,
-         subscribed = 1,
-         unsubscribe = 2,
-         unsubscribed = 3,
-         unavailable = 4,
-         invisible = 5,
-         error = 6,
-         probe = 7,
-     }
-  */
-        public void OnPresent(int presentType, string customerName)
-        {
-            string userName = PHSuit.StringHelper.EnsureNormalUserName(customerName);
-            bool isInList = customerList.Any(x => x.UserName == userName);
-            switch (presentType)
-            {
-                case -1:
-                    //登录,判断当前用户是否已经在列表中
-
-                    if (isInList)
-                    {
-                        //改变对应按钮的样式.
-                        view.SetCustomerButtonStyle(userName, em_ButtonStyle.Login);
-                    }
-                    else
-                    {
-                        AddCustomer(userName);
-                        view.AddCustomerButtonWithStyle(userName, em_ButtonStyle.Login);
-
-                    }
-
-                    break;
-                case 4:
-                    if (isInList)
-                    {
-                        view.SetCustomerButtonStyle(userName, em_ButtonStyle.LogOff);
-                    }
-                    else
-                    {
-
-                    }
-
-                    break;
-                default: break;
-            }
-        }
         /// <summary>
         /// 当前列表添加客户,如果已经存在 则返回true.
         /// </summary>
@@ -275,13 +244,14 @@ namespace Dianzhu.CSClient.Presenter
 
         /// <summary>
         /// 激活一个用户,如果当前用户,则不需要加载 或者禁用当前用户的按钮.
+        /// 这个动作应该被订阅.
         /// </summary>
         /// <param name="buttonText"></param>
         public void ActiveCustomer(string buttonText)
         {
             view.CurrentCustomerName = buttonText;
 
-            LoadChatHistory(buttonText);
+            //LoadChatHistory(buttonText);
             view.SetCustomerButtonStyle(buttonText, em_ButtonStyle.Actived);
 
             customer = customerList.Single(x => x.UserName == buttonText);
@@ -299,7 +269,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             DZService service = bllService.GetOne(new Guid(service_id));
             //创建订单.
-           // bllOrder.CreateOrder(
+            // bllOrder.CreateOrder(
 
         }
         /// <summary>
@@ -312,7 +282,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             #region 保存聊天消息
 
-            DZMembership fromCustomer= isSend ? chat.To : chat.From;
+            DZMembership fromCustomer = isSend ? chat.To : chat.From;
             string customerName = fromCustomer.UserName;
             string message = chat.MessageBody;
 
@@ -327,7 +297,7 @@ namespace Dianzhu.CSClient.Presenter
             }
             else
             {
-                 
+
                 re = new ReceptionCustomer
                 {
                     Sender = fromCustomer,//未点击前customer还未被赋值.为空
@@ -354,6 +324,17 @@ namespace Dianzhu.CSClient.Presenter
             #endregion
         }
 
+        private void LoadSearchResult(string customerName)
+        {
+            if (SearchResultForCustomer.ContainsKey(customerName))
+            {
+                view.SearchedService = SearchResultForCustomer[customerName];
+            }
+        }
+        private void LoadChatHistory()
+        {
+            LoadChatHistory(customer.UserName);
+        }
         private void LoadChatHistory(string customerName)
         {
             bool isContain = ReceptionList.ContainsKey(customerName);
@@ -364,7 +345,7 @@ namespace Dianzhu.CSClient.Presenter
 
             view.ChatLog = chatHistory;
         }
-　　
+
 
         #endregion
 
@@ -372,7 +353,7 @@ namespace Dianzhu.CSClient.Presenter
 
         public void SearchService(string keyword)
         {
-            
+
         }
         /// <summary>
         /// 推送一项服务.
@@ -395,5 +376,17 @@ namespace Dianzhu.CSClient.Presenter
         }
         #endregion
     }
+
+    public interface ICustomerActivedObserver
+    {
+        void CustomerActived(string customerName);
+    }
+    public interface ICustomerActivedPublisher
+    {
+        void AddObserver(ICustomerActivedObserver observer);
+        void RemoveObserver(ICustomerActivedObserver observer);
+        void NoticeObservers();
+    }
+
 }
 

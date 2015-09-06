@@ -68,7 +68,7 @@ namespace Dianzhu.Model
         public virtual string ServiceURL { get; set; }
         
         #endregion
-        #region 客户冗余信息,一定是注册用户
+        #region 客户冗余信息, 
         public virtual string CustomerName { get; set; }
         public virtual string CustomerPhone { get; set; }
         public virtual string CustomerEmail { get; set; }

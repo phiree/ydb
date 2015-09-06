@@ -8,6 +8,10 @@ using Dianzhu.BLL;
 using agsXMPP.protocol.client;
 namespace Dianzhu.CSClient.MessageAdapter
 {
+    /// <summary>
+    /// the whole class is abandoned by new needs.
+    /// dont't be sad, you will be revalued some day if the project live an enough long life.
+    /// </summary>
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
         DZMembershipProvider bllMember;
@@ -50,7 +54,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 case  enum_ChatType.PushedService:
                 case  enum_ChatType.ConfirmedService:
-                    ReceptionChatService chatService = (ReceptionChatService)chat;
+                    ReceptionChatServicePushed chatService = (ReceptionChatServicePushed)chat;
                     string strServiceId = string.Empty;
                     bool hasServiceId = message.HasAttribute("ServiceId");
                     if (hasServiceId)
@@ -95,9 +99,9 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 msg.SetAttribute("MediaUrl", chat.MessageMediaUrl);
             }
-            if (chat is ReceptionChatService)
+            if (chat is ReceptionChatServicePushed)
             {
-               ReceptionChatService chatService = (ReceptionChatService)chat;
+               ReceptionChatServicePushed chatService = (ReceptionChatServicePushed)chat;
                if (chatService.Service != null)
                {
                    msg.SetAttribute("ServiceId", chatService.Service.Id.ToString());

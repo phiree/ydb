@@ -12,6 +12,7 @@ namespace Dianzhu.CSClient.IVew
     public delegate void PushInternalService(DZService service);
     public delegate void SearchService();
     public delegate void SendPayLink(ReceptionChat chat);
+    public delegate void CreateOrder();
 
     public interface IMainFormView
     {
@@ -56,5 +57,6 @@ namespace Dianzhu.CSClient.IVew
         event PushInternalService PushInternalService;
         event SearchService SearchService;
         event SendPayLink SendPayLink;
+        event CreateOrder CreateOrder;
     }
 }
