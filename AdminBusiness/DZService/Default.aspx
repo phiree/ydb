@@ -68,7 +68,7 @@
                                             <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
                                         </td>
                                         <td class="table-col-1">
-                                            <%#Eval("OrderDelay")%>分钟
+                                            <%#Eval("OrderDelay")%>小时
                                         </td>
                                         <td class="table-col-1">
                                             <p class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>"

@@ -65,7 +65,7 @@
                             <td class="table-col-1">服务单价:</td>
                             <td class="table-col-1"><%=CurrentService.UnitPrice.ToString("#.#") %>元</td>
                             <td class="table-col-1">提前预约:</td>
-                            <td class="table-col-1"><%=CurrentService.OrderDelay %>分钟</td>
+                            <td class="table-col-1"><%=CurrentService.OrderDelay %>小时</td>
                             <td class="table-col-1">服务时间:</td>
                             <td class="table-col-1"><%=CurrentService.ServiceTimeBegin %>-<%=CurrentService.ServiceTimeEnd %></td>
                         </tr>

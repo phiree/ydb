@@ -49,7 +49,7 @@
                 </asp:Repeater>       
                 </ul>
             </div>
-           
+           <UC:AspNetPager runat="server" ID="pager"></UC:AspNetPager>
          </div>
       </div>
       

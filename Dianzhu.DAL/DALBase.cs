@@ -151,12 +151,19 @@ namespace Dianzhu.DAL
             string queryCount = query_count;
             //todo 
             if (!string.IsNullOrEmpty(queryCount))
-            { 
-            //queryCount =phsu.StringHelper.BuildCountQuery(query);
+            {
 
+
+              
+            }
+            else
+            {
+                queryCount =PHSuit.StringHelper.BuildCountQuery(query);
+                
+                
+            }
             IQuery qryCount = session.CreateQuery(queryCount);
             totalRecords = (int)qryCount.UniqueResult<long>();
-            }
             var returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
             return returnList;
         }
