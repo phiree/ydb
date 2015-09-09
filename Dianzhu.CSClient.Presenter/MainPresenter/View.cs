@@ -61,11 +61,17 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_OrderChanged()
         {
+            
+        }
+        void view_SaveOrderBeforeCustomerChange()
+        {
             SaveCurrentOrder();
         }
         //加载当前用户的数据
         void LoadCurrentOrder(string customerName)
         {
+           // SaveCurrentOrder();
+            //先保存当前
             if (string.IsNullOrEmpty(customerName))
             {
                 return;
@@ -97,8 +103,17 @@ namespace Dianzhu.CSClient.Presenter
             {
                 return;
             }
-            ViewModel.ViewOrder viewOrder = CustomerCurrentOrder[customer.UserName];
-            viewOrder.ServiceName = view.ServiceName;
+            ViewModel.ViewOrder viewOrder;
+            if (CustomerCurrentOrder.ContainsKey(customer.UserName))
+            {
+                viewOrder = CustomerCurrentOrder[customer.UserName];
+            }
+            else
+            {
+                viewOrder = new ViewModel.ViewOrder();
+                CustomerCurrentOrder.Add(customer.UserName, viewOrder);
+            }
+           viewOrder.ServiceName = view.ServiceName;
             viewOrder.ServiceBusinessName = view.ServiceBusinessName;
             viewOrder.ServiceDescription = view.ServiceDescription;
             viewOrder.ServiceUnitPrice = view.ServiceUnitPrice;

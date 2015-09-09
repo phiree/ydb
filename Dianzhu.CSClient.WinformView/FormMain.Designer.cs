@@ -186,7 +186,6 @@
             this.tbxServiceName.Name = "tbxServiceName";
             this.tbxServiceName.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceName.TabIndex = 0;
-            this.tbxServiceName.MouseLeave += new System.EventHandler(this.tbxServiceName_MouseLeave);
             // 
             // label2
             // 
@@ -203,7 +202,6 @@
             this.tbxServiceBusinessName.Name = "tbxServiceBusinessName";
             this.tbxServiceBusinessName.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceBusinessName.TabIndex = 0;
-            this.tbxServiceBusinessName.MouseLeave += new System.EventHandler(this.tbxServiceBusinessName_MouseLeave);
             // 
             // label3
             // 

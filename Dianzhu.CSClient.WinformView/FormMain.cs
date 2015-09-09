@@ -35,7 +35,8 @@ namespace Dianzhu.CSClient.WinformView
         public event SearchService SearchService;
         public event SendPayLink SendPayLink;
         public event CreateOrder CreateOrder;
-        public event OrderChanged OrderChanged;
+      
+        public event SaveOrderBeforeCustomerChange SaveOrderBeforeCustomerChange;
 
         #endregion
 
@@ -239,6 +240,7 @@ namespace Dianzhu.CSClient.WinformView
                 btn.Text = buttonText;
                 btn.Name = buttonNamePrefix + buttonText;
                 btn.Click += new EventHandler(btnCustomer_Click);
+                
                 pnlCustomerList.Controls.Add(btn);
                 SetCustomerButtonStyle(buttonText, buttonStyle);
             };
@@ -252,6 +254,8 @@ namespace Dianzhu.CSClient.WinformView
         {
             if (ActiveCustomerHandler != null)
             {
+                //save currentorder before change customer
+                SaveOrderBeforeCustomerChange();
                 ActiveCustomerHandler(((Button)sender).Text);
             }
             
@@ -463,59 +467,6 @@ namespace Dianzhu.CSClient.WinformView
             CreateOrder();
         }
 
-        private void tbxServiceName_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceBusinessName_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceDescription_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceUnitPrice_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceUrl_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceTime_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxTargetAddress_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxAmount_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxMemo_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceName_MouseLeave(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceBusinessName_MouseLeave(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
+        
     }
 }

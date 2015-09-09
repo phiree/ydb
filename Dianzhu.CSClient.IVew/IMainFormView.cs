@@ -6,6 +6,7 @@ using System.Text;
 using Dianzhu.Model;
 namespace Dianzhu.CSClient.IVew
 {
+    public delegate void SaveOrderBeforeCustomerChange();
     public delegate void ActiveCustomerHandler(string customername);
     public delegate void SendMessageHandler();
     public delegate void PushExternalService();
@@ -13,7 +14,7 @@ namespace Dianzhu.CSClient.IVew
     public delegate void SearchService();
     public delegate void SendPayLink(ReceptionChat chat);
     public delegate void CreateOrder();
-    public delegate void OrderChanged();
+   
   
     public interface IMainFormView
     {
@@ -62,7 +63,8 @@ namespace Dianzhu.CSClient.IVew
         event SearchService SearchService;
         event SendPayLink SendPayLink;
         event CreateOrder CreateOrder;
-        event OrderChanged OrderChanged;
+     
+        event SaveOrderBeforeCustomerChange SaveOrderBeforeCustomerChange;
 
     }
 }
