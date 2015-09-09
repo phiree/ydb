@@ -11,7 +11,10 @@ namespace Dianzhu.Model
     public class ServiceOrder
     {
          
-        private ServiceOrder()
+        /// <summary>
+        /// 请不要直接调用此方法创建订单.
+        /// </summary>
+        public ServiceOrder()
         {
             OrderStatus = enum_OrderStatus.Created;
             OrderCreated = DateTime.Now;
