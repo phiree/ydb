@@ -11,17 +11,17 @@ using Newtonsoft.Json.Linq;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
-public class ResponseSVM001002 : BaseResponse
+public class ResponseORM001003 : BaseResponse
 {
-    public ResponseSVM001002(BaseRequest request) : base(request) { }
+    public ResponseORM001003(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataSVM001002 requestData = this.request.ReqData.ToObject<ReqDataSVM001002>();
+        ReqDataORM001003 requestData = this.request.ReqData.ToObject<ReqDataORM001003>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        string raw_id = requestData.uid;
+        string raw_id = requestData.userID;
 
         try
         {
@@ -34,7 +34,7 @@ public class ResponseSVM001002 : BaseResponse
                 return;
             }
             //验证用户的密码
-            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.userPWord, "MD5"))
+            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
             {
                 this.state_CODE = Dicts.StateCode[9];
                 this.err_Msg = "用户密码错误";
@@ -42,7 +42,7 @@ public class ResponseSVM001002 : BaseResponse
             }
             try
             {
-                string srvTarget = requestData.srvTarget;
+                string srvTarget = requestData.target;
                 string strPageSize = requestData.pageSize;
                 string strPageNum = requestData.pageNum;//base on 1
                 int pageSize, pageNum;
@@ -57,11 +57,11 @@ public class ResponseSVM001002 : BaseResponse
 
                 IList<ServiceOrder> orderList = bllServiceOrder.GetServiceOrderList(uid, searchType, pageNum, pageSize);
 
-                RespDataSVM001002 respData = new RespDataSVM001002();
+                RespDataORM001003 respData = new RespDataORM001003();
 
                 respData.AdapList(orderList);
 
-                this.RespData = respData ;
+                this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];
 
             }
@@ -81,64 +81,40 @@ public class ResponseSVM001002 : BaseResponse
         }
 
     }
-    
+
 }
 
-public class ReqDataSVM001002
+public class ReqDataORM001003
 {
-    public string uid { get; set; }
-    public string userPWord { get; set; }
-    public string srvTarget { get; set; }
+    public string userID { get; set; }
+    public string pWord { get; set; }
+    public string target { get; set; }
     public string pageSize { get; set; }
     public string pageNum { get; set; }
 
 }
-public class RespDataSVM001002
+public class RespDataORM001003
 {
-    public IList<RespDataSVM001002_Order> arrayData { get; set; }
-    public RespDataSVM001002()
+    public IList<RespDataORM_Order> arrayData { get; set; }
+ 
+    public RespDataORM001003()
     {
 
-        arrayData = new List<RespDataSVM001002_Order>();
+        arrayData = new List<RespDataORM_Order>();
+        
     }
 
     public void AdapList(IList<ServiceOrder> serviceOrderList)
     {
         foreach (ServiceOrder order in serviceOrderList)
         {
-            RespDataSVM001002_Order adapted_order = new RespDataSVM001002_Order().Adap(order);
+            RespDataORM_Order adapted_order = new RespDataORM_Order().Adap(order);
             arrayData.Add(adapted_order);
         }
 
     }
 }
-public class RespDataSVM001002_Order
-{
-    public string srvID { get; set; }
-    public string srvBiz { get; set; }
-    public string srvBizID { get; set; }
-    public string srvType { get; set; }
-    public string srvStartTime { get; set; }
-    public string srvEndTime { get; set; }
-    public string srvMoney { get; set; }
-    public string srvStatus { get; set; }
-    public string srvAdress { get; set; }
-    public string srvExdes { get; set; }
-    public RespDataSVM001002_Order Adap(ServiceOrder order)
-    {
-        this.srvID = order.Service.Id.ToString();
-        this.srvBiz = order.Service.Business.Name;
-        this.srvBizID = order.Service.Business.Id.ToString();
-        this.srvType = order.Service.ServiceType.ToString();
-        this.srvStartTime = order.Service.ServiceTimeBegin??string.Empty;
-        this.srvEndTime = order.Service.ServiceTimeEnd??string.Empty;
-        ///这个是服务单价
-        this.srvMoney = order.ServiceUnitPrice.ToString("#.#");
-        this.srvStatus = order.OrderStatus.ToString();
-        this.srvAdress = order.TargetAddress??string.Empty;
-        this.srvExdes = order.Service.Description??string.Empty;
-        return this;
-    }
-}
+
+ 
 
 

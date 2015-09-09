@@ -18,36 +18,24 @@ public class ResponseUSM001004 : BaseResponse
         ReqDataUSM001004 requestData = this.request.ReqData.ToObject<ReqDataUSM001004>();
 
         DZMembershipProvider p = new DZMembershipProvider();
-        string raw_id = requestData.userID;
+        string raw_id = requestData.uid;
 
         try
         {
-            Guid uid = new Guid(raw_id);// new Guid(PHSuit.StringHelper.InsertToId(raw_id));
+            Guid uid = new Guid(PHSuit.StringHelper.InsertToId(raw_id));
             DZMembership member = p.GetUserById(uid);
             if (member == null)
             {
                 this.state_CODE ="用户不存在,可能是传入的uid有误";
                 return;
             }
-            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
-            
-            {
-                this.state_CODE = Dicts.StateCode[9];
-                this.err_Msg = "密码有误"; return;
-            }
+            BLLDeviceBind bllDeviceBind = new BLLDeviceBind();
+            //验证用户的密码
 
             try
             {
-                //上传图片.
-                //bllDeviceBind.UpdateDeviceBindStatus(member, requestData.appToken, requestData.appName);
-                string fileName = Guid.NewGuid() + ".png";
-                string filePath = HttpContext.Current.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["user_avatar_image_root"]);
-                PHSuit.IOHelper.SaveFileFromBase64(requestData.imgData, filePath+fileName);
+                bllDeviceBind.UpdateDeviceBindStatus(member, requestData.appToken, requestData.appName);
                 this.state_CODE = Dicts.StateCode[0];
-                RespDataUSM001004 respData = new RespDataUSM001004();
-                respData.userID = requestData.userID;
-                respData.imgUrl = HttpContext.Current.Request.UserHostName + "/" + fileName;
-                this.RespData = respData;
                 
             }
             catch (Exception ex)
@@ -73,15 +61,9 @@ public class ResponseUSM001004 : BaseResponse
 
 public class ReqDataUSM001004
 {
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string imgData { get; set; }
+    public string uid { get; set; }
+    public string appName { get; set; }
+    public string appToken { get; set; }
  
 }
-public class RespDataUSM001004
-{
-    public string userID { get; set; }
-    public string imgUrl { get; set; }
-}
-
  

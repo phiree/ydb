@@ -25,7 +25,7 @@ public partial class UploadImageTest : System.Web.UI.Page
         string base64str = getImageByteToBase64("image/ceshi.png");
 
         //POST提交方式编码,GET方式不需要
-        string postDataStr = "filetype=img&filecode=" + HttpUtility.UrlEncode(base64str);
+        string postDataStr = "filetype=img&imageData=" + HttpUtility.UrlEncode(base64str);
 
         Encoding encoding = Encoding.UTF8;//根据网站的编码自定义  
         byte[] postData = encoding.GetBytes(postDataStr);//postDataStr即为发送的数据，格式还是和上次说的一样  

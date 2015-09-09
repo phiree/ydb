@@ -11,6 +11,7 @@ namespace PHSuit
         //
         public static string InsertToId(string guidWithNo)
         {
+            return guidWithNo;
             /*45bc9230   8
              * -9e4f   4
              * -4fec    4

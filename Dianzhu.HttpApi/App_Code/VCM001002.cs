@@ -122,9 +122,9 @@ public class RespDataVCM001002_Cashticket
 
     public RespDataVCM001002_Cashticket Adap(CashTicket cashTicket)
     {
-        this.vcsID = cashTicket.TicketCode.Replace("-", string.Empty);
+        this.vcsID = cashTicket.TicketCode;
         this.srvBiz = cashTicket.CashTicketTemplate.Business.Name;
-        this.srvBizID = cashTicket.CashTicketTemplate.Business.Id.ToString().Replace("-", string.Empty);
+        this.srvBizID = cashTicket.CashTicketTemplate.Business.Id.ToString();
         this.vcsStartTime = cashTicket.CashTicketTemplate.ValidDate.ToString("yyyyMMddHHmm");// ServiceTimeBegin;
         this.vcsEndTime = cashTicket.CashTicketTemplate.ExpiredDate.ToString("yyyyMMddHHmm");
         ///这个是服务单价

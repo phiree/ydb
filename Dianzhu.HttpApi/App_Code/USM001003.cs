@@ -16,7 +16,7 @@ public class ResponseUSM001003 : BaseResponse
         ReqDataUSM001003 requestData = this.request.ReqData.ToObject<ReqDataUSM001003>();
 
         DZMembershipProvider p = new DZMembershipProvider();
-        string raw_id = requestData.uid;
+        string raw_id = requestData.userID;
 
         try
         {
@@ -29,7 +29,7 @@ public class ResponseUSM001003 : BaseResponse
                 return;
             }
             //验证用户的密码
-            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.userPWord, "MD5"))
+            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
             {
                 this.state_CODE = Dicts.StateCode[9];
                 this.err_Msg = "用户密码错误";
@@ -146,8 +146,8 @@ public class ReqDataUSM001003
         //password = "nosuchpassword#$#";
         //address = "nosuchaddress#$#";
     }
-    public string uid { get; set; }
-    public string userPWord { get; set; }
+    public string userID { get; set; }
+    public string pWord { get; set; }
     public string alias { get; set; }
     public string email { get; set; }
     public string phone { get; set; }
@@ -156,7 +156,7 @@ public class ReqDataUSM001003
 }
 public class RespDataUSM001003
 {
-    public string uid { get; set; }
+    public string userID { get; set; }
     public string alias { get; set; }
     public string email { get; set; }
     public string phone { get; set; }
@@ -165,7 +165,7 @@ public class RespDataUSM001003
     public RespDataUSM001003(string uid)
     {
         //todo: 如果修改成功,则为"Y" 否则为"N"
-        this.uid = uid;
+        this.userID = uid;
         this.alias = null;
         this.email =null;
         this.phone = null;

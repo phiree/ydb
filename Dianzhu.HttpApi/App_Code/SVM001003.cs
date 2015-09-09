@@ -107,9 +107,9 @@ public class RespDataSVM001003_Order
     public string srvExdes { get; set; }
     public RespDataSVM001003_Order Adap(ServiceOrder order)
     {
-        this.srvID = order.Service.Id.ToString().Replace("-", string.Empty);
+        this.srvID = order.Service.Id.ToString();
         this.srvBiz = order.Service.Business.Name;
-        this.srvBizID = order.Service.Business.Id.ToString().Replace("-", string.Empty);
+        this.srvBizID = order.Service.Business.Id.ToString();
         this.srvType = order.Service.ServiceType.ToString();
         this.srvStartTime = order.OrderCreated.ToString("yyyyMMddhhmm");
         this.srvEndTime = order.OrderFinished.ToString("yyyyMMddhhmm");

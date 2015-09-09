@@ -94,7 +94,21 @@ namespace PHSuit
             return result;
             
         }
-
+        /// <summary>
+        /// 保存base64编码过的文件
+        /// </summary>
+        /// <param name="base64">编码</param>
+        /// <param name="targetFullFileName">完整的本地保存路径</param>
+ 
+        public static void SaveFileFromBase64(string base64, string targetFullFileName)
+        {
+            byte[] bytefile = Convert.FromBase64String(base64);
+            FileStream fs = new FileStream(targetFullFileName, FileMode.Create, FileAccess.Write);
+            fs.Write(bytefile, 0, bytefile.Length);
+            fs.Flush();
+            fs.Close();
+ 
+        }
     }
 
 

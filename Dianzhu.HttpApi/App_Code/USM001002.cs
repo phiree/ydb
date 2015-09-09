@@ -17,9 +17,9 @@ public class ResponseUSM001002 : BaseResponse
         DZMembershipProvider p = new DZMembershipProvider();
         MembershipCreateStatus createStatus;
         DZMembership newMember = p.CreateUser(string.Empty,
-             requestData.userPhone,
-             requestData.userEmail,
-             requestData.userPWord,
+             requestData.phone,
+             requestData.email,
+             requestData.pWord,
              out createStatus);
         if (createStatus == MembershipCreateStatus.DuplicateUserName)
         {
