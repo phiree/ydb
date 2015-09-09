@@ -12,7 +12,8 @@ namespace Dianzhu.CSClient.IVew
     public delegate void PushInternalService(DZService service);
     public delegate void SearchService();
     public delegate void SendPayLink(ReceptionChat chat);
-
+    //保存当前订单的信息.不存入数据库
+    public delegate void SaveCurrentOrderInfo();
     public interface IMainFormView
     {
         #region Chat
@@ -56,5 +57,6 @@ namespace Dianzhu.CSClient.IVew
         event PushInternalService PushInternalService;
         event SearchService SearchService;
         event SendPayLink SendPayLink;
+        
     }
 }

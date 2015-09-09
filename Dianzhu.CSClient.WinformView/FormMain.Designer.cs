@@ -37,6 +37,18 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tbxChatMsg = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
+            this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbxServiceName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbxServiceBusinessName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbxServiceDescription = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbxServiceUnitPrice = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbxServiceUrl = new System.Windows.Forms.TextBox();
+            this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlResultService = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnKeywords = new System.Windows.Forms.Button();
@@ -46,18 +58,6 @@
             this.btnSearchOut = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.tbxKeywords = new System.Windows.Forms.TextBox();
-            this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
-            this.tbxServiceUnitPrice = new System.Windows.Forms.TextBox();
-            this.tbxServiceName = new System.Windows.Forms.TextBox();
-            this.tbxServiceBusinessName = new System.Windows.Forms.TextBox();
-            this.tbxServiceDescription = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.tbxServiceUrl = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnPushExternalService = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -70,8 +70,8 @@
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.pnlExternService.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // scmain
@@ -190,6 +190,119 @@
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
+            // pnlExternService
+            // 
+            this.pnlExternService.AutoScroll = true;
+            this.pnlExternService.Controls.Add(this.label1);
+            this.pnlExternService.Controls.Add(this.tbxServiceName);
+            this.pnlExternService.Controls.Add(this.label2);
+            this.pnlExternService.Controls.Add(this.tbxServiceBusinessName);
+            this.pnlExternService.Controls.Add(this.label3);
+            this.pnlExternService.Controls.Add(this.tbxServiceDescription);
+            this.pnlExternService.Controls.Add(this.label4);
+            this.pnlExternService.Controls.Add(this.tbxServiceUnitPrice);
+            this.pnlExternService.Controls.Add(this.label5);
+            this.pnlExternService.Controls.Add(this.tbxServiceUrl);
+            this.pnlExternService.Controls.Add(this.btnPushExternalService);
+            this.pnlExternService.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.pnlExternService.Location = new System.Drawing.Point(4, 110);
+            this.pnlExternService.Name = "pnlExternService";
+            this.pnlExternService.Size = new System.Drawing.Size(333, 242);
+            this.pnlExternService.TabIndex = 2;
+            this.pnlExternService.WrapContents = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "服务名称";
+            // 
+            // tbxServiceName
+            // 
+            this.tbxServiceName.Location = new System.Drawing.Point(3, 15);
+            this.tbxServiceName.Name = "tbxServiceName";
+            this.tbxServiceName.Size = new System.Drawing.Size(262, 21);
+            this.tbxServiceName.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 39);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "商家名称";
+            // 
+            // tbxServiceBusinessName
+            // 
+            this.tbxServiceBusinessName.Location = new System.Drawing.Point(3, 54);
+            this.tbxServiceBusinessName.Name = "tbxServiceBusinessName";
+            this.tbxServiceBusinessName.Size = new System.Drawing.Size(262, 21);
+            this.tbxServiceBusinessName.TabIndex = 0;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "服务描述";
+            // 
+            // tbxServiceDescription
+            // 
+            this.tbxServiceDescription.Location = new System.Drawing.Point(3, 93);
+            this.tbxServiceDescription.Multiline = true;
+            this.tbxServiceDescription.Name = "tbxServiceDescription";
+            this.tbxServiceDescription.Size = new System.Drawing.Size(262, 36);
+            this.tbxServiceDescription.TabIndex = 0;
+            this.tbxServiceDescription.WordWrap = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 132);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "价格";
+            // 
+            // tbxServiceUnitPrice
+            // 
+            this.tbxServiceUnitPrice.Location = new System.Drawing.Point(3, 147);
+            this.tbxServiceUnitPrice.Name = "tbxServiceUnitPrice";
+            this.tbxServiceUnitPrice.Size = new System.Drawing.Size(100, 21);
+            this.tbxServiceUnitPrice.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 171);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "服务网址";
+            // 
+            // tbxServiceUrl
+            // 
+            this.tbxServiceUrl.Location = new System.Drawing.Point(3, 186);
+            this.tbxServiceUrl.Name = "tbxServiceUrl";
+            this.tbxServiceUrl.Size = new System.Drawing.Size(262, 21);
+            this.tbxServiceUrl.TabIndex = 0;
+            // 
+            // btnPushExternalService
+            // 
+            this.btnPushExternalService.Location = new System.Drawing.Point(3, 213);
+            this.btnPushExternalService.Name = "btnPushExternalService";
+            this.btnPushExternalService.Size = new System.Drawing.Size(75, 23);
+            this.btnPushExternalService.TabIndex = 2;
+            this.btnPushExternalService.Text = "推送";
+            this.btnPushExternalService.UseVisualStyleBackColor = true;
+            this.btnPushExternalService.Click += new System.EventHandler(this.btnPushExternalService_Click);
+            // 
             // pnlResultService
             // 
             this.pnlResultService.AutoScroll = true;
@@ -278,119 +391,6 @@
             this.tbxKeywords.Size = new System.Drawing.Size(222, 39);
             this.tbxKeywords.TabIndex = 0;
             // 
-            // pnlExternService
-            // 
-            this.pnlExternService.AutoScroll = true;
-            this.pnlExternService.Controls.Add(this.label1);
-            this.pnlExternService.Controls.Add(this.tbxServiceName);
-            this.pnlExternService.Controls.Add(this.label2);
-            this.pnlExternService.Controls.Add(this.tbxServiceBusinessName);
-            this.pnlExternService.Controls.Add(this.label3);
-            this.pnlExternService.Controls.Add(this.tbxServiceDescription);
-            this.pnlExternService.Controls.Add(this.label4);
-            this.pnlExternService.Controls.Add(this.tbxServiceUnitPrice);
-            this.pnlExternService.Controls.Add(this.label5);
-            this.pnlExternService.Controls.Add(this.tbxServiceUrl);
-            this.pnlExternService.Controls.Add(this.btnPushExternalService);
-            this.pnlExternService.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnlExternService.Location = new System.Drawing.Point(4, 110);
-            this.pnlExternService.Name = "pnlExternService";
-            this.pnlExternService.Size = new System.Drawing.Size(333, 242);
-            this.pnlExternService.TabIndex = 2;
-            this.pnlExternService.WrapContents = false;
-            // 
-            // tbxServiceUnitPrice
-            // 
-            this.tbxServiceUnitPrice.Location = new System.Drawing.Point(3, 147);
-            this.tbxServiceUnitPrice.Name = "tbxServiceUnitPrice";
-            this.tbxServiceUnitPrice.Size = new System.Drawing.Size(100, 21);
-            this.tbxServiceUnitPrice.TabIndex = 0;
-            // 
-            // tbxServiceName
-            // 
-            this.tbxServiceName.Location = new System.Drawing.Point(3, 15);
-            this.tbxServiceName.Name = "tbxServiceName";
-            this.tbxServiceName.Size = new System.Drawing.Size(262, 21);
-            this.tbxServiceName.TabIndex = 0;
-            // 
-            // tbxServiceBusinessName
-            // 
-            this.tbxServiceBusinessName.Location = new System.Drawing.Point(3, 54);
-            this.tbxServiceBusinessName.Name = "tbxServiceBusinessName";
-            this.tbxServiceBusinessName.Size = new System.Drawing.Size(262, 21);
-            this.tbxServiceBusinessName.TabIndex = 0;
-            // 
-            // tbxServiceDescription
-            // 
-            this.tbxServiceDescription.Location = new System.Drawing.Point(3, 93);
-            this.tbxServiceDescription.Multiline = true;
-            this.tbxServiceDescription.Name = "tbxServiceDescription";
-            this.tbxServiceDescription.Size = new System.Drawing.Size(262, 36);
-            this.tbxServiceDescription.TabIndex = 0;
-            this.tbxServiceDescription.WordWrap = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "服务名称";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 39);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "商家名称";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 78);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "服务描述";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 132);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 12);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "价格";
-            // 
-            // tbxServiceUrl
-            // 
-            this.tbxServiceUrl.Location = new System.Drawing.Point(3, 186);
-            this.tbxServiceUrl.Name = "tbxServiceUrl";
-            this.tbxServiceUrl.Size = new System.Drawing.Size(262, 21);
-            this.tbxServiceUrl.TabIndex = 0;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 171);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 12);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "服务网址";
-            // 
-            // btnPushExternalService
-            // 
-            this.btnPushExternalService.Location = new System.Drawing.Point(3, 213);
-            this.btnPushExternalService.Name = "btnPushExternalService";
-            this.btnPushExternalService.Size = new System.Drawing.Size(75, 23);
-            this.btnPushExternalService.TabIndex = 2;
-            this.btnPushExternalService.Text = "推送";
-            this.btnPushExternalService.UseVisualStyleBackColor = true;
-            this.btnPushExternalService.Click += new System.EventHandler(this.btnPushExternalService_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -413,10 +413,10 @@
             this.splitContainer3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.pnlExternService.ResumeLayout(false);
             this.pnlExternService.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
