@@ -35,7 +35,7 @@ namespace Dianzhu.CSClient.WinformView
         public event SearchService SearchService;
         public event SendPayLink SendPayLink;
         public event CreateOrder CreateOrder;
-        public event OrderChanged OrderChanged;
+        public event BeforeCustomerChanged BeforeCustomerChanged;
 
         #endregion
 
@@ -142,13 +142,12 @@ namespace Dianzhu.CSClient.WinformView
 
             #region 不再需要判断.
             Type chatType=chat.GetType();
-           if(chatType==typeof(ReceptionChatServicePushed))
+           if(chatType==typeof(ReceptionChatService))
            {
 
-                    pnlOneChat.Controls.Add(new Label { Text = "已推送服务:" + ((ReceptionChatServicePushed)chat).Service.Name });
-           }
-           else if(chatType==typeof(ReceptionChatServicePushed)){
-                    ReceptionChatServicePushed chatService = (ReceptionChatServicePushed)chat;
+               pnlOneChat.Controls.Add(new Label { Text = "已推送服务:" + ((ReceptionChatService)chat).Service.Name });
+
+                    ReceptionChatService chatService = (ReceptionChatService)chat;
 
                     Button btnSendPayLink = new Button();
                     // btnSendPayLink.Tag = chat.ServiceId;
@@ -189,7 +188,7 @@ namespace Dianzhu.CSClient.WinformView
         //点击支付
         void btnSendPayLink_Click(object sender, EventArgs e)
         {
-            ReceptionChatServicePushed chat=(ReceptionChatServicePushed)((Button)sender).Tag;
+            ReceptionChatService chat = (ReceptionChatService)((Button)sender).Tag;
             SendPayLink(chat);
         }
 
@@ -252,6 +251,7 @@ namespace Dianzhu.CSClient.WinformView
         {
             if (ActiveCustomerHandler != null)
             {
+                BeforeCustomerChanged();
                 ActiveCustomerHandler(((Button)sender).Text);
             }
             
@@ -463,59 +463,11 @@ namespace Dianzhu.CSClient.WinformView
             CreateOrder();
         }
 
-        private void tbxServiceName_TextChanged(object sender, EventArgs e)
+        private void btnSearchOut_Click(object sender, EventArgs e)
         {
-            OrderChanged();
+
         }
 
-        private void tbxServiceBusinessName_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceDescription_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceUnitPrice_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceUrl_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceTime_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxTargetAddress_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxAmount_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxMemo_TextChanged(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceName_MouseLeave(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
-
-        private void tbxServiceBusinessName_MouseLeave(object sender, EventArgs e)
-        {
-            OrderChanged();
-        }
+        
     }
 }

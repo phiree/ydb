@@ -84,10 +84,10 @@ namespace Dianzhu.Model
 
             switch (chatType)
             {
-                case Enums.enum_ChatType.PushedService: return new ReceptionChatServicePushed();
+                case Enums.enum_ChatType.PushedService:  
                 case Enums.enum_ChatType.ConfirmedService:
 
-                    return new ReceptionChatServicePushed();
+                    return new ReceptionChatService();
 
 
                 case Enums.enum_ChatType.Order: return new ReceptionChatOrder();
@@ -132,7 +132,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 客服推送的服务信息
     /// </summary>
-    public class ReceptionChatServicePushed : ReceptionChat
+    public class ReceptionChatService  : ReceptionChat
     {
 
         public virtual DZService Service { get; set; }
@@ -145,28 +145,11 @@ namespace Dianzhu.Model
 
 
     }
-    /// <summary>
-    /// 客户确认的服务
-    /// </summary>
-    public class ReceptionChatServiceConfirmed : ReceptionChatServicePushed
-    {
-        /// <summary>
-        /// 服务实施地点
-        /// </summary>
-        public virtual decimal ServiceTargetAddress { get; set; }
-        /// <summary>
-        /// 总量(3小时?2天?)
-        /// </summary>
-        public virtual int UnitAmount { get; set; }
-    }
+    
     /// <summary>
     /// 客服推送的订单,
     /// </summary>
-    public class ReceptionChatOrder : ReceptionChat
-    {
-
-
-    }
+    
     public class ReceptionChatOrder : ReceptionChat
     {
 

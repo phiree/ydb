@@ -140,7 +140,7 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="confirmedService"></param>
         /// <returns></returns>
-        public ServiceOrder CreateOrder(ReceptionChatService confirmedService)
+        public ServiceOrder CreateOrder(ReceptionChatService  confirmedService)
         {
             DZMembership customer = confirmedService.From;
             throw new NotImplementedException();

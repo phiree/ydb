@@ -6,6 +6,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.CSClient.IVew;
 using Dianzhu.CSClient.IInstantMessage;
+using Dianzhu.CSClient.ViewModel;
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -25,7 +26,7 @@ namespace Dianzhu.CSClient.Presenter
         Dictionary<string, IList<DZService>> SearchResultForCustomer
             = new Dictionary<string, IList<DZService>>();
         //当前正在编辑的订单
-        Dictionary<string, ViewModel.ViewOrder> CustomerCurrentOrder = new Dictionary<string, ViewModel.ViewOrder>();
+        Dictionary<string, ViewOrder> CustomerCurrentOrder = new Dictionary<string, ViewOrder>();
         //当前客户的历史订单
         Dictionary<string, IList<ServiceOrder>> CustomerOrderList = new Dictionary<string, IList<ServiceOrder>>();
        

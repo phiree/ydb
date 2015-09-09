@@ -37,6 +37,7 @@ namespace Dianzhu.CSClient.Presenter
             //iview的委托
             this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
 
+            this.view.BeforeCustomerChanged += new BeforeCustomerChanged(view_BeforeCustomerChanged);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(ActiveCustomer);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(LoadChatHistory);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(LoadSearchResult);
@@ -48,8 +49,10 @@ namespace Dianzhu.CSClient.Presenter
             this.view.SearchService += new IVew.SearchService(view_SearchService);
             this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
             this.view.CreateOrder += new CreateOrder(view_CreateOrder);
-            this.view.OrderChanged += new OrderChanged(view_OrderChanged);
+            
         }
+
+       
 
        
 

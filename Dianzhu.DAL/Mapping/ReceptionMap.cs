@@ -62,6 +62,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.UnitPrice);
         }
     }
+ 
     public class ReceptionChatOrderMap : SubclassMap<ReceptionChatOrder>
     {
         public ReceptionChatOrderMap()

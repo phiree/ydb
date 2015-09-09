@@ -186,7 +186,6 @@
             this.tbxServiceName.Name = "tbxServiceName";
             this.tbxServiceName.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceName.TabIndex = 0;
-            this.tbxServiceName.MouseLeave += new System.EventHandler(this.tbxServiceName_MouseLeave);
             // 
             // label2
             // 
@@ -203,7 +202,6 @@
             this.tbxServiceBusinessName.Name = "tbxServiceBusinessName";
             this.tbxServiceBusinessName.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceBusinessName.TabIndex = 0;
-            this.tbxServiceBusinessName.MouseLeave += new System.EventHandler(this.tbxServiceBusinessName_MouseLeave);
             // 
             // label3
             // 
@@ -440,6 +438,7 @@
             // 
             // btnKeywords
             // 
+            this.btnKeywords.Enabled = false;
             this.btnKeywords.Location = new System.Drawing.Point(85, 69);
             this.btnKeywords.Name = "btnKeywords";
             this.btnKeywords.Size = new System.Drawing.Size(75, 23);
@@ -449,6 +448,7 @@
             // 
             // btnMap
             // 
+            this.btnMap.Enabled = false;
             this.btnMap.Location = new System.Drawing.Point(247, 69);
             this.btnMap.Name = "btnMap";
             this.btnMap.Size = new System.Drawing.Size(75, 23);
@@ -458,6 +458,7 @@
             // 
             // btnBusiness
             // 
+            this.btnBusiness.Enabled = false;
             this.btnBusiness.Location = new System.Drawing.Point(166, 69);
             this.btnBusiness.Name = "btnBusiness";
             this.btnBusiness.Size = new System.Drawing.Size(75, 23);
@@ -467,6 +468,7 @@
             // 
             // btnManual
             // 
+            this.btnManual.Enabled = false;
             this.btnManual.Location = new System.Drawing.Point(4, 69);
             this.btnManual.Name = "btnManual";
             this.btnManual.Size = new System.Drawing.Size(75, 23);
@@ -482,6 +484,7 @@
             this.btnSearchOut.TabIndex = 2;
             this.btnSearchOut.Text = "外部搜索";
             this.btnSearchOut.UseVisualStyleBackColor = true;
+            this.btnSearchOut.Click += new System.EventHandler(this.btnSearchOut_Click);
             // 
             // btnSearch
             // 

@@ -40,8 +40,9 @@ namespace Dianzhu.CSClient.Presenter
             decimal unitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
             decimal orderAmount = Convert.ToDecimal(view.OrderAmount);
             
-            ServiceOrder order = bllOrder.CreateOrder(customer, view.ServiceName, view.ServiceBusinessName, view.ServiceDescription,
-            unitPrice, view.ServiceUrl, orderAmount, view.TargetAddress);
+            ServiceOrder order = bllOrder.CreateOrder(customer, view.ServiceName, 
+                view.ServiceBusinessName, view.ServiceDescription,
+             view.ServiceUnitPrice, view.ServiceUrl, view.OrderAmount, view.TargetAddress);
 
         }
         /// <summary>
@@ -59,7 +60,7 @@ namespace Dianzhu.CSClient.Presenter
         /// <summary>
         /// 订单数据变化
         /// </summary>
-        void view_OrderChanged()
+        void view_BeforeCustomerChanged()
         {
             SaveCurrentOrder();
         }
@@ -97,7 +98,16 @@ namespace Dianzhu.CSClient.Presenter
             {
                 return;
             }
-            ViewModel.ViewOrder viewOrder = CustomerCurrentOrder[customer.UserName];
+            ViewModel.ViewOrder viewOrder;
+            if (CustomerCurrentOrder.ContainsKey(customer.UserName))
+            {
+                viewOrder = CustomerCurrentOrder[customer.UserName];
+            }
+            else
+            {
+                viewOrder = new ViewModel.ViewOrder();
+                CustomerCurrentOrder.Add(customer.UserName, viewOrder);
+            }
             viewOrder.ServiceName = view.ServiceName;
             viewOrder.ServiceBusinessName = view.ServiceBusinessName;
             viewOrder.ServiceDescription = view.ServiceDescription;
@@ -111,15 +121,15 @@ namespace Dianzhu.CSClient.Presenter
 
         void view_PushInternalService(DZService service)
         {
-            ReceptionChatServicePushed chat = new ReceptionChatServicePushed
-            {
-                ChatType = Model.Enums.enum_ChatType.PushedService,
-                Service = service,
-                From = customerService,
-                To = customer,
-                MessageBody = "已推送服务"
-            };
-            SendMessage(chat);
+            //ReceptionChatServicePushed chat = new ReceptionChatServicePushed
+            //{
+            //    ChatType = Model.Enums.enum_ChatType.PushedService,
+            //    Service = service,
+            //    From = customerService,
+            //    To = customer,
+            //    MessageBody = "已推送服务"
+            //};
+            //SendMessage(chat);
         }
         /// <summary>
         /// 界面的搜索事件
@@ -146,19 +156,19 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_PushExternalService()
         {
-            ReceptionChatServicePushed chatService = new ReceptionChatServicePushed();
-            chatService.ChatType = Model.Enums.enum_ChatType.PushedService;
+            //ReceptionChatServicePushed chatService = new ReceptionChatServicePushed();
+            //chatService.ChatType = Model.Enums.enum_ChatType.PushedService;
 
-            chatService.MessageBody = "已推送服务";
+            //chatService.MessageBody = "已推送服务";
 
-            chatService.ServiceBusinessName = view.ServiceBusinessName;
-            chatService.ServiceDescription = view.ServiceDescription;
-            chatService.ServiceName = view.ServiceName;
-            chatService.UnitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
-            chatService.ServiceUrl = view.ServiceUrl;
+            //chatService.ServiceBusinessName = view.ServiceBusinessName;
+            //chatService.ServiceDescription = view.ServiceDescription;
+            //chatService.ServiceName = view.ServiceName;
+            //chatService.UnitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
+            //chatService.ServiceUrl = view.ServiceUrl;
 
-            SaveMessage(chatService, true);
-            instantMessage.SendMessage(chatService);
+            //SaveMessage(chatService, true);
+            //instantMessage.SendMessage(chatService);
         }
 
         /// <summary>
