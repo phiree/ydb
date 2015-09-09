@@ -37,12 +37,11 @@ namespace Dianzhu.CSClient.Presenter
             //iview的委托
             this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
 
-            this.view.SaveOrderBeforeCustomerChange += new SaveOrderBeforeCustomerChange(view_SaveOrderBeforeCustomerChange);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(ActiveCustomer);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(LoadChatHistory);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(LoadSearchResult);
-            this.view.ActiveCustomerHandler +=   new ActiveCustomerHandler(LoadCurrentOrder);
-            
+            this.view.ActiveCustomerHandler += new ActiveCustomerHandler(LoadCurrentOrder);
+
             this.view.PushExternalService += new PushExternalService(view_PushExternalService);
             this.view.PushInternalService += new PushInternalService(view_PushInternalService);
             this.view.ButtonNamePrefix = System.Configuration.ConfigurationManager.AppSettings["ButtonNamePrefix"];
@@ -51,8 +50,6 @@ namespace Dianzhu.CSClient.Presenter
             this.view.CreateOrder += new CreateOrder(view_CreateOrder);
             this.view.OrderChanged += new OrderChanged(view_OrderChanged);
         }
-
-       
 
        
 
