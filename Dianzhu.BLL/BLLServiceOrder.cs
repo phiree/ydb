@@ -47,27 +47,27 @@ namespace Dianzhu.BLL
             string customerName, string customerPhone, string customerEmail,
             string externalUrl, string targetAddress, decimal adjustPrice)
         {
+            throw new Exception("to do tomorrow");
+            //ServiceOrder order =  ServiceOrder.
+            //{
+            //    CustomerEmail = customerEmail,
+            //    CustomerPhone = customerPhone,
+            //    CustomerName = customerName,
 
-            ServiceOrder order = new ServiceOrder
-            {
-                CustomerEmail = customerEmail,
-                CustomerPhone = customerPhone,
-                CustomerName = customerName,
+            //    ServiceBusinessName = businessName,
+            //    ServiceDescription = serviceDescription,
+            //    ServiceName = serviceName,
+            //    ServiceURL = externalUrl,
+            //    TargetAddress = targetAddress,
+            //    ServiceUnitPrice = unitPrice * unitAmount
 
-                ServiceBusinessName = businessName,
-                ServiceDescription = serviceDescription,
-                ServiceName = serviceName,
-                ServiceURL = externalUrl,
-                TargetAddress = targetAddress,
-                ServiceUnitPrice = unitPrice * unitAmount
-
-            };
-            if (adjustPrice > 0)
-            {
-                order.ServiceUnitPrice = adjustPrice;
-            }
-            DALServiceOrder.Save(order);
-            return order;
+            //};
+            //if (adjustPrice > 0)
+            //{
+            //    order.ServiceUnitPrice = adjustPrice;
+            //}
+            //DALServiceOrder.Save(order);
+            //return order;
         }
         /// <summary>
         /// 未注册用户 系统外服务.
@@ -79,23 +79,7 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public ServiceOrder CreateOrder(DZMembership customer, Guid serviceId, string targetAddress, int unitAmount)
         {
-             DZService service = bllDzService.GetOne(serviceId);
-            ServiceOrder order = new ServiceOrder
-            {
-                Customer = customer,
-                CustomerEmail = customer.Email,
-                CustomerPhone = customer.Phone,
-                CustomerName = customer.NickName,
-                Service = service,
-                ServiceBusinessName = service.Business.Name,
-                ServiceDescription = service.Description,
-                ServiceName = service.Name,
-                ServiceURL = string.Empty,
-                TargetAddress = targetAddress,
-                ServiceUnitPrice = service.UnitPrice * unitAmount
-            };
-            DALServiceOrder.Save(order);
-            return order;
+            throw new Exception("to do tomorrow");
         }
         /// <summary>
         /// 注册用户 系统外服务
@@ -114,25 +98,7 @@ namespace Dianzhu.BLL
             string serviceUrl, string serviceUnitAmount, string targetAddress)
         {
 
-            ServiceOrder order = new ServiceOrder
-            { 
-                Customer=customer,
-                CustomerEmail= customer.Email,
-                CustomerName=customer.UserName,
-                CustomerPhone= customer.Phone,
-                ServiceBusinessName = serviceBusinessName,
-                ServiceDescription = serviceDescription,
-                ServiceName = serviceName,
-                ServiceURL = serviceUrl,
-                TargetAddress = targetAddress,
-                ServiceUnitPrice=Convert.ToDecimal(serviceUnitPrice),
-                UnitAmount=Convert.ToInt32(serviceUnitAmount),
-
-            };
-             
-             
-            DALServiceOrder.Save(order);
-            return order;
+            throw new Exception("to do tomorrow");
         }
 
         /// <summary>

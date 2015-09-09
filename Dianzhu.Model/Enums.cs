@@ -17,10 +17,10 @@ namespace Dianzhu.Model.Enums
     }
     public enum PayType
     {
-        Offline=1,
-        Online=2,
-        None=4,
-           }
+        Offline = 1,
+        Online = 2,
+        None = 4,
+    }
     /// <summary>
     /// 计费单位
     /// </summary>
@@ -40,8 +40,8 @@ namespace Dianzhu.Model.Enums
     {
         身份证 = 0,
         其他 = 1,
-        
-        
+
+
     }
 
     public enum enum_OrderStatus
@@ -53,7 +53,7 @@ namespace Dianzhu.Model.Enums
         CancelledNeedReAssign,//客户已取消 等待撤销工作人员分配.
         Finished,//已完成
         Aborded,//已中止
-         
+
         Wt,//Wait 
         Ry,//Ready 
         An,//Actionţ 
@@ -64,17 +64,17 @@ namespace Dianzhu.Model.Enums
         Ed,//End
     }
     public enum enum_OrderSearchType
-    { 
-    Nt,//未完成的服务
+    {
+        Nt,//未完成的服务
         De,//完成的服务
         ALL//全部
     }
     public enum enum_CashTicketSearchType
-    { 
+    {
         /// <summary>
         /// 尚未使用的
         /// </summary>
-    Nt,
+        Nt,
         /// <summary>
         /// 已经使用的
         /// </summary>
@@ -92,7 +92,7 @@ namespace Dianzhu.Model.Enums
     /// 聊天类型
     /// </summary>
     public enum enum_ChatType
-    { 
+    {
         /// <summary>
         /// 业务流程需要IM完成的工作,
         /// 不需要IM完成的 比如, 用户取消订单,
@@ -105,6 +105,16 @@ namespace Dianzhu.Model.Enums
         ConfirmedService,//被确认的服务
         Order,//订单.包含支付链接
         BeginPay,//开始支付消息.
+    }
+    /// <summary>
+    /// 订单范围类型..这个名字好拗口.
+    /// </summary>
+    public enum enum_ServiceScopeType
+    {
+        ISIM,//系统内服务,系统内用户
+        ISOM,//系统内服务,系统外用户
+        OSIM,//系统外服务,系统内用户
+        OSOM,//系统外服务,系统外用户
     }
 
 
