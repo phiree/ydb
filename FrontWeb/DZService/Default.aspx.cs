@@ -27,7 +27,7 @@ public partial class _Default : BasePage
         int rowIndex=Convert.ToInt32(e.CommandArgument);
         string strServiceId = gvServiceList.DataKeys[rowIndex].Value.ToString();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        bllServiceOrder.CreateOrder(CurrentUser.Id, new Guid(strServiceId),string.Empty,1);
+        bllServiceOrder.CreateOrder(CurrentUser, new Guid(strServiceId),string.Empty,1);
         lblResult.Text = "成功预订" + strServiceId;
     }
 }
