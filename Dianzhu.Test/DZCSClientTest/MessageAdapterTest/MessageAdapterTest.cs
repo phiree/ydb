@@ -51,7 +51,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
             message.From = "cs1";
             message.SetAttribute("service_id", serviceId.ToString());
             message.SetAttribute("message_type", "PushedService");
-            Model.ReceptionChatServicePushed chat = (Model.ReceptionChatServicePushed)adapter.MessageToChat(message);
+            Model.ReceptionChatService chat = (Model.ReceptionChatService)adapter.MessageToChat(message);
             Assert.AreEqual(serviceId,chat.Service.Id);
         }
 
@@ -66,7 +66,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
             message.SetAttribute("ServiceBusinessName", "business1");
             message.SetAttribute("UnitPrice", 13);
             message.SetAttribute("ServiceUrl", "taopbao.com");
-            Model.ReceptionChatServicePushed chat = (Model.ReceptionChatServicePushed)adapter.MessageToChat(message);
+            Model.ReceptionChatService chat = (Model.ReceptionChatService)adapter.MessageToChat(message);
             Assert.AreEqual("name1",chat.ServiceName);
             Assert.AreEqual(13, chat.UnitPrice);
         }

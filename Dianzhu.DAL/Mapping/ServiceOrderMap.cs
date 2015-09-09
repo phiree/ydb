@@ -14,7 +14,7 @@ namespace Dianzhu.DAL.Mapping
            Id(x => x.Id);
            References<DZMembership>(x => x.Customer);
            Map(x => x.OrderCreated);
-           Map(x => x.OrderStatus).CustomType<int>();
+           Map(x => x.OrderStatus);
            References<DZService>(x => x.Service);
            HasMany<Staff>(x => x.Staff);
            Map(x => x.TargetAddress);
@@ -28,7 +28,6 @@ namespace Dianzhu.DAL.Mapping
            Map(x => x.CustomerName);
            Map(x => x.CustomerEmail);
            Map(x => x.CustomerPhone);
-           Map(x => x.Memo);
             
 
 

@@ -1,3 +1,64 @@
+/*.serviceInfoArea { height:198px; padding: 0 20px; border-bottom: 20px solid #dfebf6; color: #58789a;}*/
+/*.serviceInfoTilte { height:71px; line-height:71px; color:#58789a; font-size:19px; font-weight:bold; }*/
+
+/*.headInfo {*/
+    /*width: 208px;*/
+    /*height: 108px;*/
+    /*float: left;*/
+    /*font-size: 13px;*/
+/*}*/
+
+/*.headImage {*/
+    /*width: 110px;*/
+    /*height: 110px;*/
+    /*text-align: center;*/
+    /*line-height: 110px;*/
+    /*float: left;*/
+/*}*/
+
+/*.headImage img {*/
+    /*margin: 0 auto;*/
+    /*vertical-align: middle;*/
+/*}*/
+
+/*.ServiceShops {*/
+    /*margin-top: 20px;*/
+    /*font-size: 20px;*/
+    /*display: block;*/
+/*}*/
+
+/*.InfoCompletetxt {*/
+    /*margin-top: 10px;*/
+    /*display: block;*/
+/*}*/
+
+/*.headEditImg {*/
+    /*width: 115px;*/
+    /*height: 108px;*/
+    /*line-height: 108px;*/
+    /*text-align: center;*/
+    /*float: right;*/
+    /*background: url("../image/service/shop_guanli_14.png") no-repeat;*/
+/*}*/
+
+/*.satisfaction {*/
+    /*font-size: 30px;*/
+    /*font-weight: bold;*/
+    /*color: #fff;*/
+/*}*/
+
+/*.headInfoArea {*/
+    /*width: 100%;*/
+    /*height: 108px;*/
+    /*background: #f6fafe;*/
+    /*position: relative;*/
+    /*/!*border-bottom: #dbe6f2 1px solid;*!/*/
+/*}*/
+
+/*.service-list-container {*/
+    /*min-height: 700px;*/
+/*}*/
+
 .service-title { padding: 0 20px; height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; }
 .service-title span { color:#58789a; font-size:17px; font-weight:bold; vertical-align: middle; }
 
@@ -38,10 +99,6 @@ a.new-add-btn {
 /*end*/
 
 /*服务列表样式*/
-.service-list-container {
-    position: relative;
-}
-
 .list-item-odd {
     background-color: #f1f4f7;
 }
@@ -72,19 +129,6 @@ a.new-add-btn {
     color: #fff;
 }
 
-.pageNum {
-    width: 100%;
-    margin-left: -14px;
-    padding: 14px;
-    position: absolute;
-    bottom:14px;
-}
-
-.pageNum #pager{
-    text-align: center;
-}
-
-
 /*服务信息查看页面样式*/
 .service-info {
     margin: -14px -14px 0 -14px;
@@ -100,6 +144,10 @@ a.new-add-btn {
     border-top: 14px solid #c3f3e2;
 }
 
+/*.service-info-title {*/
+    /*font-size: 15px;*/
+    /*font-weight: 700;*/
+/*}*/
 
 .service-info-text{
     padding-right: 10px;
@@ -215,7 +263,7 @@ a.new-add-btn {
     word-break: break-all;
 }
 
-/*编辑步骤样式*/
+/*店铺编辑步骤样式*/
 .step-row {
     padding: 15px 0;
     margin-right: -15px;
@@ -288,7 +336,71 @@ a.new-add-btn {
     border-left: 1px solid #549DC8;
 }
 
+/*服务时间设置样式*/
+/*.time-select {*/
+    /*display: inline-block;*/
+    /*position: relative;*/
+/*}*/
 
+/*.time-select-box {*/
+    /*top:30px;*/
+    /*position: absolute;*/
+    /*width: 200px;*/
+/*}*/
+/*服务细节条目包围*/
+/*.serviceRightWrap {*/
+    /*width: 100%;*/
+    /*/!*border-left: 1px solid #dfe3e6;*!/*/
+    /*float: left;*/
+    /*background: #fff;*/
+/*}*/
+
+/*.serviceRight {*/
+    /*box-sizing: border-box;*/
+    /*width: 100%;*/
+    /*padding: 20px;*/
+    /*background: #fff;*/
+/*}*/
+
+/*服务选项弹窗样式*/
+
+/*.serviceTabs {*/
+    /*background: #fff;*/
+    /*/!*padding: 10px;*!/*/
+/*}*/
+
+/*.serviceTabsItem {*/
+    /*float: left;*/
+    /*font-size: 13px;*/
+    /*width: 200px;*/
+/*}*/
+
+/*.ser-chk-title {*/
+    /*padding: 10px;*/
+    /*font-size: 13px;*/
+    /*color: #58789a;*/
+/*}*/
+
+/*.ser-chk-show {*/
+    /*box-sizing: border-box;*/
+    /*padding: 10px;*/
+    /*color: #58789a;*/
+    /*border: #dbe6f2 1px solid;*/
+    /*border-radius: 3px;*/
+    /*width: 100%;*/
+    /*margin-bottom: 10px;*/
+/*}*/
+
+/*.ser-chk-show span {*/
+    /*display: inline-block;*/
+    /*margin: 5px;*/
+    /*padding: 5px;*/
+    /*border: #dbe6f2 1px solid;*/
+    /*border-radius: 3px;*/
+    /*background: #f6fafe;*/
+    /*color: #58789a;*/
+    /*font-size: 13px;*/
+/*}*/
 
 .ser-btn-SerType {
     border: 0;
@@ -297,6 +409,27 @@ a.new-add-btn {
     border-radius: 2px;
     background: #549DC8;
 }
+
+/*.serviceTabsItem .item {*/
+    /*cursor: pointer;*/
+    /*padding: 5px;*/
+    /*border-radius: 3px;*/
+/*}*/
+
+/*.serviceTabsItem .item:hover {*/
+    /*background: #31b6fb;*/
+    /*color: #fff;*/
+/*}*/
+
+/*.serviceTabsItem .radioCk {*/
+    /*background : #ffa81f;*/
+    /*color : #fff;*/
+/*}*/
+/*#setSerTypeShow {*/
+    /*overflow: hidden;*/
+/*}*/
+/*/!*end*!/*/
+
 
 .business-radioCk{
     padding: 5px;
@@ -312,6 +445,10 @@ a.new-add-btn {
     border-radius: 2px;
 }
 
+/*.level0{display: block; padding:5px 10px; background: #f6fafe; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
+/*.level1{display: block; padding:5px 10px; background: #eff6fc; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
+/*.level2{display: inline-block; padding:5px 10px; background: #e3edf7; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
+/*.level3{display: inline-block; padding:5px 10px; background: #d6e2ee; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
 
 /*服务页面条目标题样式*/
 .service-item-title {
@@ -339,6 +476,72 @@ a.new-add-btn {
     line-height: 40px;
 }
 
+/*.service-icon-serType { background: url("../image/service/shop_guanli_06.png");  }*/
+/*.service-icon-serIntro { background: url("../image/service/shop_guanli_07.png");  }*/
+/*.service-icon-serArea { background: url("../image/service/shop_guanli_08.png");  }*/
+/*.service-icon-serLocal { background: url("../image/service/shop_guanli_05.png");  }*/
+/*.service-icon-LIC { background: url("../image/service/shop_guanli_12_1.png");  }*/
+/*.service-icon-serTimeSet { background: url("../image/service/shop_guanli_11.png");  }*/
+/*.service-icon-dateSet { background: url("../image/service/shop_guanli_09.png");  }*/
+/*.service-icon-timeSet { background: url("../image/service/shop_guanli_10.png");  }*/
+
+/*.serviceDetailsLeft {*/
+    /*float: left;*/
+    /*width: 290px;*/
+
+/*}*/
+
+/*.serviceDetailsRight {*/
+    /*float: right;*/
+    /*padding-left: 20px;*/
+/*}*/
+
+
+
+/*.service-md {*/
+    /*margin-bottom: 20px;*/
+/*}*/
+
+/*.service-md-title {*/
+    /*margin-bottom: 10px;*/
+    /*position: relative;*/
+    /*width: 287px;*/
+    /*height: 35px;*/
+    /*line-height: 35px;*/
+    /*padding-left: 10px;*/
+    /*background: #f6f9fe;*/
+    /*border-left: 5px solid #60c7ce;*/
+/*}*/
+
+/*.servie-icon-mdItem { height: 35px; width: 38px; background: url("../image/service/shop_icon_03.png") no-repeat center; position: absolute; right: 0; top: 0; }*/
+/*.servie-icon-mdRound { height: 35px; width: 38px; background: url("../image/service/shop_icon_02.png") no-repeat center; position: absolute; right: 0; top: 0; }*/
+/*.servie-icon-mdStand { height: 35px; width: 38px; background: url("../image/service/shop_icon_01.png") no-repeat center; position: absolute; right: 0; top: 0; }*/
+
+/*.service-md-main {*/
+    /*padding-left: 15px;*/
+/*}*/
+
+/*.service-md-mleft {*/
+    /*float: left;*/
+    /*width: 329px;*/
+    /*margin-right: 50px;*/
+/*}*/
+
+/*.service-md-mright {*/
+    /*float: left;*/
+
+/*}*/
+
+/*.service-md-box {*/
+    /*padding-bottom: 20px;*/
+    /*border-bottom: 1px solid #d7e3f1;*/
+    /*margin-bottom: 20px;*/
+/*}*/
+
+/*.service-m {*/
+    /*margin-bottom: 10px;*/
+/*}*/
+
 .service-input-radio tr{
     float: left;
     margin-right: 20px;
@@ -350,6 +553,45 @@ a.new-add-btn {
     margin-right: 10px;
 }
 
+/*.service-input-area {*/
+    /*width: 250px;*/
+    /*height: 100px;*/
+    /*padding: 5px;*/
+    /*border: #dbe6f2 1px solid;*/
+    /*border-radius: 3px;*/
+    /*background: #f6fafe;*/
+    /*color: #58789a;*/
+    /*font-size: 13px;*/
+
+/*}*/
+
+/*.service-input-mid {*/
+    /*width: 122px;*/
+    /*height: 20px;*/
+    /*padding: 5px;*/
+    /*line-height: 20px;*/
+    /*border: #dbe6f2 1px solid;*/
+    /*border-radius: 3px;*/
+    /*background: #f6fafe;*/
+    /*color: #58789a;*/
+    /*font-size: 13px;*/
+    /*vertical-align: middle;*/
+    /*box-sizing: content-box\9;*/
+/*}*/
+
+/*.service-input-sm {*/
+    /*width: 52px;*/
+    /*height: 20px;*/
+    /*padding: 5px;*/
+    /*line-height: 20px;*/
+    /*border: #dbe6f2 1px solid;*/
+    /*border-radius: 3px;*/
+    /*background: #f6fafe;*/
+    /*color: #58789a;*/
+    /*font-size: 13px;*/
+    /*vertical-align: middle;*/
+    /*box-sizing: content-box\9;*/
+/*}*/
 
 .serviceIntroduced {
     width: 285px;

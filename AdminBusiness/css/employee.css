@@ -293,7 +293,7 @@
     }
    /*****fu*******/
    .emp-backage{ background:#fff; border:1px solid #e9eaeb; margin-top:10px;}
-  .add-user-div{ margin-bottom:10px;}
+  .add-user-div{ margin-left:20px; margin-top:20px; margin-bottom:20px;}
   .emp-content-div{ width:100%; margin-bottom:50px; }
   .emp-table{ width:100%;}
   .emp-head-tr{  background:url(../image/emp-th-bj.png) repeat-x; height:40px; font-size:16px; color:#fff;}

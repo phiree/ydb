@@ -12,7 +12,7 @@ namespace Dianzhu.DAL.Mapping
         public Business_AbsMap()
         {
             Id(x => x.Id);
-            Map(x => x.Name).Length(200);
+            Map(x => x.Name);
             Map(x => x.Contact);
             Map(x => x.Description);
             Map(x => x.Email);

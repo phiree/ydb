@@ -58,7 +58,7 @@ namespace Dianzhu.Model
         /// 确认的订单
         /// </summary>
         public virtual IList<ServiceOrder> Orders { get; set; }
-
+         
     }
 
     public class ReceptionBusiness : ReceptionBase
@@ -69,7 +69,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual ServiceOrder Order { get; set; }
     }
-
+    
     /// <summary>
     /// 接待中的聊天记录.
     /// </summary>
@@ -79,17 +79,18 @@ namespace Dianzhu.Model
         {
             ChatType = Enums.enum_ChatType.Text;
         }
-        public static ReceptionChat Create(Enums.enum_ChatType chatType)
+        public  static ReceptionChat Create(Enums.enum_ChatType chatType)
         {
-
+            
             switch (chatType)
             {
-                case Enums.enum_ChatType.PushedService: return new ReceptionChatServicePushed();
+                case Enums.enum_ChatType.PushedService:
                 case Enums.enum_ChatType.ConfirmedService:
-
+<<<<<<< .merge_file_a05568
                     return new ReceptionChatServicePushed();
-
-
+=======
+                    return new ReceptionChatService();
+>>>>>>> .merge_file_a05144
                 case Enums.enum_ChatType.Order: return new ReceptionChatOrder();
                 default:
                     return new ReceptionChat();
@@ -99,10 +100,10 @@ namespace Dianzhu.Model
         //保存的时间, 作为排序依据.
         public virtual DateTime SavedTime { get; set; }
         public virtual DateTime SendTime { get; set; }
-        public virtual DateTime ReceiveTime { get; set; }
-        public virtual DZMembership From { get; set; }
-        public virtual DZMembership To { get; set; }
-        public virtual string MessageBody { get; set; }
+        public virtual  DateTime ReceiveTime { get; set; }
+        public virtual  DZMembership From { get; set; }
+        public virtual  DZMembership To { get; set; }
+        public virtual  string MessageBody { get; set; }
         public virtual Enums.enum_ChatType ChatType { get; set; }
         /// <summary>
         /// 消息中媒体文件的地址,多个媒体文件用分号风格.
@@ -120,21 +121,23 @@ namespace Dianzhu.Model
         {
             if (from == this.From)
                 return MessageBody + "   " + From.UserName + " " + SendTime.ToString("yyyy-MM-dd HH:mm:ss");
-            else
-            {
+            else {
                 return BuildLine();
             }
         }
-
+         
 
     }
-
+<<<<<<< .merge_file_a05568
     /// <summary>
     /// 客服推送的服务信息
     /// </summary>
-    public class ReceptionChatServicePushed : ReceptionChat
+    public class ReceptionChatServicePushed:ReceptionChat
+=======
+    public class ReceptionChatService:ReceptionChat
+>>>>>>> .merge_file_a05144
     {
-
+        
         public virtual DZService Service { get; set; }
         //如果是系统外的服务
         public virtual string ServiceName { get; set; }
@@ -142,8 +145,8 @@ namespace Dianzhu.Model
         public virtual string ServiceBusinessName { get; set; }
         public virtual string ServiceUrl { get; set; }
         public virtual decimal UnitPrice { get; set; }
-
-
+<<<<<<< .merge_file_a05568
+         
     }
     /// <summary>
     /// 客户确认的服务
@@ -164,14 +167,14 @@ namespace Dianzhu.Model
     /// </summary>
     public class ReceptionChatOrder : ReceptionChat
     {
-
-
+ 
+=======
     }
     public class ReceptionChatOrder : ReceptionChat
     {
-
-
+        
+>>>>>>> .merge_file_a05144
         public virtual ServiceOrder ServiceOrder { get; set; }
     }
-
+    
 }

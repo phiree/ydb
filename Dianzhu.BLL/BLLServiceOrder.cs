@@ -110,8 +110,8 @@ namespace Dianzhu.BLL
         /// <param name="targetAddress"></param>
         /// <returns></returns>
         public ServiceOrder CreateOrder(DZMembership customer, string serviceName,
-            string serviceBusinessName, string serviceDescription, decimal serviceUnitPrice,
-            string serviceUrl, decimal serviceOrderAmount, string targetAddress)
+            string serviceBusinessName, string serviceDescription, string serviceUnitPrice,
+            string serviceUrl, string serviceUnitAmount, string targetAddress)
         {
 
             ServiceOrder order = new ServiceOrder
@@ -126,7 +126,7 @@ namespace Dianzhu.BLL
                 ServiceURL = serviceUrl,
                 TargetAddress = targetAddress,
                 ServiceUnitPrice=Convert.ToDecimal(serviceUnitPrice),
-                OrderAmount =  serviceOrderAmount,
+                UnitAmount=Convert.ToInt32(serviceUnitAmount),
 
             };
              
@@ -140,17 +140,9 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="confirmedService"></param>
         /// <returns></returns>
-        public ServiceOrder CreateOrder(ReceptionChatServiceConfirmed confirmedService)
+        public ServiceOrder CreateOrder(ReceptionChatService confirmedService)
         {
             DZMembership customer = confirmedService.From;
-            ServiceOrder order = new ServiceOrder { 
-             Customer=confirmedService.From,
-               ServiceUnitPrice=confirmedService.UnitPrice,
-               UnitAmount=confirmedService.UnitAmount,
-                ServiceBusinessName=confirmedService.ServiceName,
-                Service=confirmedService.Service
-                
-            };
             throw new NotImplementedException();
         }
 

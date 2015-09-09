@@ -32,14 +32,7 @@
                                         <div class="cont-col-3">
                                             <div class="cont-row">
                                                 <div class="cont-col-4"><p>服务标签:</p></div>
-                                                <div class="cont-col-8">
-                                             
-                                             <asp:Repeater runat="server" ID="rptTags">
-                                             <ItemTemplate>
-                                             <%#Eval("Text")%>
-                                             </ItemTemplate>
-                                             </asp:Repeater>
-                                                </div>
+                                                <div class="cont-col-8"></div>
                                             </div>
                                         </div>
                                         <div class="cont-col-9">
@@ -72,7 +65,7 @@
                             <td class="table-col-1">服务单价:</td>
                             <td class="table-col-1"><%=CurrentService.UnitPrice.ToString("#.#") %>元</td>
                             <td class="table-col-1">提前预约:</td>
-                            <td class="table-col-1"><%=CurrentService.OrderDelay %>小时</td>
+                            <td class="table-col-1"><%=CurrentService.OrderDelay %>分钟</td>
                             <td class="table-col-1">服务时间:</td>
                             <td class="table-col-1"><%=CurrentService.ServiceTimeBegin %>-<%=CurrentService.ServiceTimeEnd %></td>
                         </tr>

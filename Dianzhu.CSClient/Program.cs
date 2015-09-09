@@ -23,12 +23,12 @@ namespace Dianzhu.CSClient
             log.Debug("Start");
             DialogResult result;
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
-                GlobalViables.BLLMembership, GlobalViables.BLLDZService, GlobalViables.BLLServiceOrder);
+                BLLFactory.BLLMember,BLLFactory.BLLDZService,BLLFactory.BLLServiceOrder);
             XMPP.XMPP xmpp = new XMPP.XMPP(messageAdapter);
             using (var loginForm = new WinformView.FormLogin())
             {
                 Presenter.LoginPresenter loginPresenter = new Presenter.LoginPresenter(loginForm,xmpp,
-                    GlobalViables.BLLMembership);
+                    BLLFactory.BLLMember);
                   result = loginForm.ShowDialog();
             }
             if (result == DialogResult.OK)
@@ -37,10 +37,10 @@ namespace Dianzhu.CSClient
 
                 Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
                     mainForm, xmpp, messageAdapter,
-                    GlobalViables.BLLMembership,
-                    GlobalViables.BLLReception,
-                    GlobalViables.BLLDZService,
-                    GlobalViables.BLLServiceOrder
+                    BLLFactory.BLLMember,
+                    BLLFactory.BLLReception,
+                    BLLFactory.BLLDZService,
+                    BLLFactory.BLLServiceOrder
                     );
                 Application.Run(mainForm);
             }

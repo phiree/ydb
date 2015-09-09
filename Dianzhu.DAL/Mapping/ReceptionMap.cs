@@ -50,7 +50,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.ChatType).CustomType<int>();
         }
     }
-    public class ReceptionChatServiceMap : SubclassMap<ReceptionChatServicePushed>
+    public class ReceptionChatServiceMap : SubclassMap<ReceptionChatService>
     {
         public ReceptionChatServiceMap()
         {

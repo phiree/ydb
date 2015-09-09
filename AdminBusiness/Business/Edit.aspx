@@ -306,8 +306,8 @@
                     </div>
                 </div>
                 <div class="bottomArea">
-                    <input class="btn btn-info btn-lg" name="imageField" runat="server" onserverclick="btnSave_Click" type="submit" id="imageField1" value="保存"/>
-                    <a class="btn btn-cancel btn-lg m-l10" href="/business/detail.aspx?businessId=<%=Request["businessid"] %>">取消</a>
+                    <input class="btn btn-info btn-big" name="imageField" runat="server" onserverclick="btnSave_Click" type="submit" id="imageField1" value="保存"/>
+                    <a class="btn btn-cancel btn-big m-l10" href="/business/detail.aspx?businessId=<%=Request["businessid"] %>">取消</a>
                 </div>
             </div>
         <!--</div>-->
