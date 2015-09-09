@@ -54,9 +54,14 @@ namespace Dianzhu.DAL
 
             return b;
         }
+        /// <summary>
+        /// 全部已经启用的商铺
+        /// </summary>
+        /// <param name="ownerId"></param>
         public IList<Business> GetBusinessListByOwner(Guid ownerId)
         {
-           return  Session.QueryOver<Business>().Where(x => x.Owner.Id == ownerId).List();
+            return Session.QueryOver<Business>().Where(x => x.Owner.Id == ownerId).And(x => x.Enabled == true).List();
         }
+        
     }
 }
