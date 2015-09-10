@@ -65,6 +65,7 @@
     <Compile Include="BLLCashTicket.cs" />
     <Compile Include="BLLCashticketCreateRecord.cs" />
     <Compile Include="BLLCashTicketTemplate.cs" />
+    <Compile Include="BLLOnlineStatus.cs" />
     <Compile Include="BLLServiceOrder.cs" />
     <Compile Include="BLLServiceType.cs" />
     <Compile Include="CashTicketAssigner.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="BLLDZTag.cs" />
     <Compile Include="Validator\ValidatorDZMemership.cs" />
     <Compile Include="BLLReception.cs" />
+    <Compile Include="ReceptionAssigner.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">

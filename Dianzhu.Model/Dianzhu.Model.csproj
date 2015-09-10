@@ -69,6 +69,7 @@
     <Compile Include="ServiceType.cs" />
     <Compile Include="ServiceTypePropertyValue.cs" />
     <Compile Include="Staff.cs" />
+    <Compile Include="OnlineStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
