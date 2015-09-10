@@ -27,14 +27,14 @@ public class ResponseFactory
             case "usm001001":
                 return new ResponseUSM001001(request);
                
-            case "usm001002":
-                return new ResponseUSM001002(request);
+            case "usm001005":
+                return new ResponseUSM001005(request);
                 
             case "usm001003":
                 return new ResponseUSM001003(request);
                
-            case "usm001004":
-                return new ResponseUSM001004(request);
+            case "usm001007":
+                return new ResponseUSM001007(request);
                 
             case "svm001001":
                 return new ResponseSVM001001(request);

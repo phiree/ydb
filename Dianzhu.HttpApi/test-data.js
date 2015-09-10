@@ -11,7 +11,7 @@
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
                 },
-                /*
+              
                 { //订单详情
                     "protocol_CODE": "SVM001002", 
                     "ReqData": { 
@@ -43,7 +43,7 @@
                     "serial_NUMBER": "00147001015869149751" 
                 },
                 { 
-                    "protocol_CODE": "USM001001", 
+                    "protocol_CODE": "USM001005", //用户信息获取
                     "ReqData": { 
                                 "email": "issumao@126.com", 
                                 "pWord": "password", 
@@ -52,9 +52,9 @@
                     "serial_NUMBER": "00147001015869149751" 
                 },
                 { 
-                    "protocol_CODE": "USM001002", //注册
+                    "protocol_CODE": "USM001001", //注册
                     "ReqData": { 
-                                "email": "fakename1221222@126.com", 
+                                "email": "12345", 
                                 "pWord": 'password', 
                                 
                                 }, 
@@ -62,7 +62,7 @@
                 "serial_NUMBER": "00147001015869149751" 
                 },
                 { 
-                    "protocol_CODE": "USM001003", 
+                    "protocol_CODE": "USM001003", //信息修改
                     "ReqData": { 
                     "userID": "a8a3d8aa-d5e0-4f47-8425-a4ce00bf0bd1", 
                     "pWord": "password", 
@@ -90,9 +90,9 @@
                     "serial_NUMBER": "00147001015869149756" 
                 },
                  { 
-                    "protocol_CODE": "USM001004", 
+                    "protocol_CODE": "USM001007",  //上传头像
                     "ReqData": { 
-                        "userID": "a8a3d8aa-d5e0-4f47-8425-a4ce00bf0bd1", 
+                        "userID": "ace957b9-33b6-4d54-ac23-a4d101213be3", 
                         "pWord": "password", 
                         "imgData":"iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII="
                         }, 
@@ -132,6 +132,6 @@
                         }, 
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
-                }*/
+                } 
 
             ];

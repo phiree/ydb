@@ -8,12 +8,12 @@ using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public class ResponseUSM001002 : BaseResponse
+public class ResponseUSM001001 : BaseResponse
 {
-    public ResponseUSM001002(BaseRequest request) : base(request) { }
+    public ResponseUSM001001(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataUSM001001 requestData = request.ReqData.ToObject<ReqDataUSM001001>();
+        ReqDataUSM requestData = request.ReqData.ToObject<ReqDataUSM>();
         DZMembershipProvider p = new DZMembershipProvider();
         MembershipCreateStatus createStatus;
         DZMembership newMember = p.CreateUser(string.Empty,
@@ -28,8 +28,8 @@ public class ResponseUSM001002 : BaseResponse
             return;
         }
         this.state_CODE = Dicts.StateCode[0];
-        RespDataUSM001001_UserObj userObj = new RespDataUSM001001_UserObj().Adapt(newMember);
-        RespDataUSM001001 resp = new RespDataUSM001001();
+        RespDataUSM_userObj userObj = new RespDataUSM_userObj().Adapt(newMember);
+        RespDataUSM resp = new RespDataUSM();
         resp.userObj = userObj;
         this.RespData = resp;
 
