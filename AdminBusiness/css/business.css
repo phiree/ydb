@@ -1,6 +1,6 @@
 
 
-/*µêÆÌÁÐ±íÒ³Ãæ*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½Ò³ï¿½ï¿½*/
 #newBusslightBox {
     /*background: #fff;*/
     /*padding: 15px;*/
@@ -22,7 +22,6 @@
 
 .business-container {
     padding: 20px 100px;
-    min-height: 800px;
     background: #f1f2f1;
 }
 
@@ -76,7 +75,7 @@
 }
 
 
-/*µêÆÌ´´½¨³É¹¦Ò³Ãæ*/
+/*ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ò³ï¿½ï¿½*/
 .create-suc {
     font-size: 40px;
 }
@@ -89,7 +88,7 @@ a.create-continue {
 }
 /*end*/
 
-/*µêÆÌ´´½¨Ò³ÃæÎÞÄÚÈÝÑùÊ½*/
+/*ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½*/
 /*.business-new {*/
     /*padding: 20px;*/
     /*min-height: 700px;*/
@@ -136,7 +135,7 @@ a.new-add-btn {
 }
 /*end*/
 
-/*µêÆÌÏêÇéÒ³Ãæ*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½*/
 .business-detail-main {
     background: none;
     box-shadow: none;

@@ -211,6 +211,11 @@ html{
 
 .mh {
     background: #f1f2f1;
+    min-height: 100%;
+}
+
+.mh-in {
+    min-height: 100%;
 }
 
 .wrap {

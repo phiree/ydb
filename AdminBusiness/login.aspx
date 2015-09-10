@@ -95,4 +95,11 @@
 <script type="text/javascript">$('input, textarea').placeholder();</script>
 <![endif]-->
 <script src="/js/login_reg.js" type="text/javascript"></script>
+<%if (!Request.IsLocal){ %>
+<script type="text/javascript">
+  var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+  document.write(unescape("%3Cspan id='cnzz_stat_icon_1256240621' style='display:none'%3E%3C/span%3E%3Cscript src='"
+      + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256240621%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <% }%>
 </html>
