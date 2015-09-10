@@ -64,9 +64,9 @@
                 { 
                     "protocol_CODE": "USM001003", //信息修改
                     "ReqData": { 
-                    "userID": "a8a3d8aa-d5e0-4f47-8425-a4ce00bf0bd1", 
+                    "userID": "ace957b9-33b6-4d54-ac23-a4d101213be3", 
                     "pWord": "password", 
-                    "alias": "*%+", 
+                    "alias": "1805", 
                     "email": "12333@126.com", 
                     "phone": "1999938xxxx", 
                     "password":"password",
@@ -80,7 +80,7 @@
                 { 
                     "protocol_CODE": "USM001003", 
                     "ReqData": { 
-                    "userID": "a8a3d8aa-d5e0-4f47-8425-a4ce00bf0bd1", 
+                    "userID": "ace957b9-33b6-4d54-ac23-a4d101213be3", 
                     "pWord": "password", 
                     "address":"海牙国际大厦20A",
                     "phone":"13812341234"
