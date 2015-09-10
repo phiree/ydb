@@ -1,19 +1,18 @@
 /**
  * Created by LiChang on 2015/5/15.
  */
-
-(function ($) {
-
-    (function(){
+    $(function(){
         var navbarH = $(".navbar").height();
-
 
             $(window).bind("load resize", function() {
 
                 var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
                 var paddingH = 28;
                 height = height - navbarH;
-                if (height < 1) height = 1;
+
+                if (height < 1) {
+                    height = 1;
+                }
                 if (height > navbarH) {
                     $(".mh").css("min-height", (height) + "px");
                     $(".mh-in").css("min-height", (height - paddingH) + "px");
@@ -27,45 +26,42 @@
             //if (element.is('li')) {
             //    element.addClass('active');
             //}
-
         //})
+    });
 
-
-    })();
-
-    (function(){
+    $(function(){
         return $('.hour-select').each(function () {
                 var selectList = $(this).find("ul");
                 for ( var i = 0 ; i < 25 ; i++ ) {
                     selectList.append("<li><a>"+ i  +"</a></li>");
                 }
             }
-        )
-    })();
+        );
+    });
 
-    (function(){
+    $(function(){
         return $('.minute-select').each(function () {
                 var selectList = $(this).find("ul");
                 for ( var i = 0 ; i < 60 ; i++ ) {
                     selectList.append("<li><a>"+ i  +"</a></li>");
                 }
             }
-        )
-    })();
+        );
+    });
 
-    (function(){
+    $(function(){
         return $('.years-select').each(function () {
                 var selectList = $(this).find("ul");
                 for ( var i = 0 ; i < 100 ; i++ ) {
                     selectList.append("<li><a>"+ i +"</a></li>");
                 }
             }
-        )
-        })();
+        );
+    });
 
 
 
-    (function () {
+    $(function () {
     
         return $('.select').each(function () {
             $(this).prepend("<cite></cite>");
@@ -120,8 +116,8 @@
                 selectList.hide();
             });
         }
-        )
-    })();
+        );
+    });
 
     //(function () {
     //
@@ -160,7 +156,7 @@
     //})();
 
 
-    (function (){
+    $(function (){
         var $navBtn = $(".nav-btn-bg:not(.nav-btn-un)");
         var pageHref = window.location.href;
         var hrefFiter = /\/\w+/;
@@ -183,7 +179,7 @@
                 });
                 btnTitle.css({
                     color : "#30B5FA"
-                })
+                });
             }
 
             $(this).hover(function(){
@@ -195,7 +191,7 @@
                 });
                 btnTitle.css({
                     color : "#30B5FA"
-                })
+                });
             },function(){
                  if ( currentPage ) {
                      return
@@ -208,13 +204,13 @@
                      });
                      btnTitle.css({
                          color : "#B6CCE3"
-                     })
+                     });
                  }
                 }
             );
 
 
-        })
+        });
 
         var $sideArrow = $(".side-arrow")
         var $sideBtn = $(".side-btn-bg");
@@ -227,13 +223,13 @@
                 $sideArrow.css({
                     top :　toTop,
                     display : "inline-block"
-                })
+                });
             }
-        })
+        });
 
-    })()
+    });
 
-})(jQuery);
+
 
 
 (function ($) {
