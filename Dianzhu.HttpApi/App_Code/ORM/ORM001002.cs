@@ -11,12 +11,12 @@ using Newtonsoft.Json.Linq;
 /// <summary>
 /// 获取一条服务信息的详情
 /// </summary>
-public class ResponseSVM001003 : BaseResponse
+public class ResponseORM001002 : BaseResponse
 {
-    public ResponseSVM001003(BaseRequest request) : base(request) { }
+    public ResponseORM001002(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataSVM001003 requestData = this.request.ReqData.ToObject<ReqDataSVM001003>();
+        ReqDataORM001002 requestData = this.request.ReqData.ToObject<ReqDataORM001002>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
@@ -52,10 +52,10 @@ public class ResponseSVM001003 : BaseResponse
                      this.err_Msg ="没有对应的服务,请检查传入的srvID";
                      return;
                  }
-                RespDataSVM001003 respData = new RespDataSVM001003();
+                RespDataORM001002 respData = new RespDataORM001002();
 
 
-                RespDataSVM001003_Order order_adapted = new RespDataSVM001003_Order().Adap(order);
+                RespDataORM001002_Order order_adapted = new RespDataORM001002_Order().Adap(order);
                 respData.srvObj = order_adapted;
 
                 this.RespData =  respData ;
@@ -81,7 +81,7 @@ public class ResponseSVM001003 : BaseResponse
     
 }
 
-public class ReqDataSVM001003
+public class ReqDataORM001002
 {
     public string uid { get; set; }
     public string userPWord { get; set; }
@@ -89,11 +89,11 @@ public class ReqDataSVM001003
     
 
 }
-public class RespDataSVM001003
+public class RespDataORM001002
 {
-    public  RespDataSVM001003_Order srvObj { get; set; }
+    public  RespDataORM001002_Order srvObj { get; set; }
 }
-public class RespDataSVM001003_Order
+public class RespDataORM001002_Order
 {
     public string srvID { get; set; }
     public string srvBiz { get; set; }
@@ -105,7 +105,7 @@ public class RespDataSVM001003_Order
     public string srvStatus { get; set; }
     public string srvAdress { get; set; }
     public string srvExdes { get; set; }
-    public RespDataSVM001003_Order Adap(ServiceOrder order)
+    public RespDataORM001002_Order Adap(ServiceOrder order)
     {
         this.srvID = order.Service.Id.ToString();
         this.srvBiz = order.Service.Business.Name;
