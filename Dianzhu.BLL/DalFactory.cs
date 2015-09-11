@@ -30,6 +30,12 @@ namespace Dianzhu.BLL
         static DALServiceOrder dalServiceOrder;
         static DALDZTag dalDZTag;
         static DALReception dalReception;
+        static DALReceptionStatus dalReceptionStatus;
+        public static DALReceptionStatus DALReceptionStatus
+        {
+            get { return dalReceptionStatus ?? new DALReceptionStatus(); }
+            set { dalReceptionStatus = value; }
+        }
         public static DALReception DALReception
         {
             get

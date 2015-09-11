@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
- 
+
 namespace Dianzhu.Model
 {
     /// <summary>
-    /// 在线概况 当前在线接待情况
+    /// 当前接待情况.
     /// </summary>
-    public class OnlineStatus
+  public   class ReceptionStatus
     {
-        public OnlineStatus()
-        {
-            
-        }
+      public virtual Guid Id { get; set; }
         public virtual DZMembership CustomerService { get; set; }
         public virtual DZMembership Customer { get; set; }
-     
+        
     }
-
 }

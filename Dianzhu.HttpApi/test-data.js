@@ -15,7 +15,7 @@
                 { //订单详情
                     "protocol_CODE": "SVM001002", 
                     "ReqData": { 
-                        "uid": "24ba4944-660a-4d7e-abd3-a4de00abf040", 
+                        "userID": "24ba4944-660a-4d7e-abd3-a4de00abf040", 
                         "userPWord": "123456", 
                         "srvID": "e71fd0e2-cb5f-4a7e-8adb-a4d400b7224a"
                          

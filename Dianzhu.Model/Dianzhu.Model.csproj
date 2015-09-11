@@ -63,13 +63,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CashTicketAssignRecord.cs" />
     <Compile Include="Reception.cs" />
+    <Compile Include="ReceptionStatus.cs" />
     <Compile Include="ServiceOpenTime.cs" />
     <Compile Include="ServiceProperty.cs" />
     <Compile Include="ServiceOrder.cs" />
     <Compile Include="ServiceType.cs" />
     <Compile Include="ServiceTypePropertyValue.cs" />
     <Compile Include="Staff.cs" />
-    <Compile Include="OnlineStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

@@ -10,8 +10,10 @@ namespace Dianzhu.CSClient.Presenter
 {
    public class LoginPresenter
     {
+     
        IVew.ILoginForm loginView;
        InstantMessage instantMessage;
+
        public LoginPresenter(IVew.ILoginForm loginView, InstantMessage instantMessage,
 
             BLL.DZMembershipProvider bllMembership)
@@ -22,6 +24,7 @@ namespace Dianzhu.CSClient.Presenter
   
        }
 
+       BLLReceptionStatus BLLReceptionStatus = new BLLReceptionStatus();
 
        void loginView_ViewLogin()
        {
@@ -72,6 +75,8 @@ namespace Dianzhu.CSClient.Presenter
            DZMembership customerService = BLLFactory.BLLMembership.GetUserByName(loginView.UserName);
            GlobalViables.CurrentCustomerService = customerService;
            loginView.IsLoginSuccess = true;
+           //
+           BLLReceptionStatus.CustomerServiceLogin(customerService);
        }
 
        void loginView_Logined(object sender, EventArgs e)

@@ -18,10 +18,8 @@ namespace Dianzhu.AdminBusinessMvc.Controllers
         public ActionResult Index()
         {
 
-            var member = (BusinessUser)dzp.GetUserByName(User.Identity.Name);
-            Business b = member.BelongTo;
-            ViewBag.Message = "修改此模板以快速启动你的 ASP.NET MVC 应用程序。";
-            return Redirect("/Business/Edit/" + b.Id);
+           IList<Business> list= bllBusiness.GetAll();
+           return View(list);
              
         }
         public ActionResult Edit(Guid id)

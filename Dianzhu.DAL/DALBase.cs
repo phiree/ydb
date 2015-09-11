@@ -11,7 +11,7 @@ namespace Dianzhu.DAL
 {
     public class DALBase<T> 
     {
-
+         
         private ISession session = null;// new HybridSessionBuilder().GetSession();
          
         public ISession Session {
@@ -105,7 +105,7 @@ namespace Dianzhu.DAL
             }
         }
 
-        public IList<T> GetAll<T>() where T : class
+        public virtual IList<T> GetAll<T>() where T : class
         {
             session.Clear();
             return session.QueryOver<T>().List();

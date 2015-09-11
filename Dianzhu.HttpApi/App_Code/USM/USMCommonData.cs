@@ -23,11 +23,11 @@ public class RespDataUSM_userObj
     public RespDataUSM_userObj Adapt(DZMembership membership)
     {
         this.userID = membership.Id.ToString();
-        this.alias = membership.UserName ?? "";
+        this.alias = membership.NickName ?? "";
         this.email = membership.Email ?? "";
         this.phone = membership.Phone ?? "";
         this.imgUrl = "";
-        this.address = "";
+        this.address =membership.Address?? "";
         return this;
 
     }

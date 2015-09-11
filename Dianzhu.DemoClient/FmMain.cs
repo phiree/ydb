@@ -11,21 +11,62 @@ using agsXMPP;
 using System.Text.RegularExpressions;
 using agsXMPP.protocol.client;
 using System.IO;
-
+using System.Net;
+using Newtonsoft.Json.Converters;
 namespace Dianzhu.DemoClient
 {
     public partial class FmMain : Form
     {
-        string csId = string.Empty;
+        string csId;
 
         public FmMain()
         {
+             
             InitializeComponent();
 
             GlobalViables.XMPPConnection.OnLogin += new agsXMPP.ObjectHandler(XMPPConnection_OnLogin);
             GlobalViables.XMPPConnection.OnMessage += new agsc.MessageHandler(XMPPConnection_OnMessage);
             GlobalViables.XMPPConnection.OnError += new ErrorHandler(XMPPConnection_OnError);
             GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
+        }
+        public string GetCustomerService()
+        {
+            WebRequest request = WebRequest.Create(GlobalViables.APIBaseURL);
+            request.Method = "POST";
+           
+            string postData=
+                @"{ //订单详情
+                     ""protocol_CODE"": ""ORM002001"", 
+                    ""ReqData"": { 
+                    ""userID"": ""c68e14cb-3678-41d2-b8d0-a50e0127d9fe"", 
+                    ""pWord"": ""password"", 
+                    ""orderID"": ""e71fd0e2-cb5f-4a7e-8adb-a4d400b7224a""   
+                    }, 
+                    ""stamp_TIMES"": ""1490192929212"", 
+                    ""serial_NUMBER"": ""00147001015869149751"" 
+                }";
+            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+            request.ContentLength = byteArray.Length;
+            request.ContentType = "application/x-www-form-urlencoded";
+            Stream dataStream = request.GetRequestStream();
+            dataStream.Write(byteArray, 0, byteArray.Length);
+            dataStream.Close();
+            // Get the response.
+            WebResponse response = request.GetResponse();
+            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+            dataStream = response.GetResponseStream();
+            // Open the stream using a StreamReader for easy access.
+            StreamReader reader = new StreamReader(dataStream);
+            // Read the content.
+            string responseFromServer = reader.ReadToEnd();
+            // Display the content.
+           object c=  Newtonsoft.Json.JsonConvert.DeserializeObject(responseFromServer);
+           string userName = ((Newtonsoft.Json.Linq.JObject)c)["RespData"]["cerObj"]["userName"].ToString();
+            reader.Close();
+            dataStream.Close();
+            response.Close();
+            
+            return StringHelper.EnsureOpenfireUserName( userName);
         }
 
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
@@ -263,6 +304,15 @@ namespace Dianzhu.DemoClient
             }
 
 
+        }
+
+        private void btnGetCS_Click(object sender, EventArgs e)
+        {
+          csId=  GetCustomerService();
+          if (!string.IsNullOrEmpty(csId))
+          {
+              lblGetCSResult.Text = csId;
+          }
         }
 
     }

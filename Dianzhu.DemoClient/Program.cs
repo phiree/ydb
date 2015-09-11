@@ -15,6 +15,7 @@ namespace Dianzhu.DemoClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //获取分配的客服.
             Application.Run(new FmMain());
         }
     }

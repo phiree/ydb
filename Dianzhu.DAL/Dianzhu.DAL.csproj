@@ -81,6 +81,7 @@
     <Compile Include="Mapping\DZTagMap.cs" />
     <Compile Include="Mapping\ReceptionMap.cs" />
     <Compile Include="Mapping\ServiceOpenTimeMap.cs" />
+    <Compile Include="Mapping\ReceptionStatusMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DALCashTicketTemplate.cs" />
     <Compile Include="DALCashTicketCreateRecord.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="DALDeviceBind.cs" />
     <Compile Include="DALServiceOrder.cs" />
     <Compile Include="DALReception.cs" />
+    <Compile Include="DALReceptionStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALCashTicket.cs" />

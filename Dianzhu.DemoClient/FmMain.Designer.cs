@@ -42,6 +42,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnGetCS = new System.Windows.Forms.Button();
+            this.lblGetCSResult = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -67,7 +69,7 @@
             // 
             this.tbxPwd.Location = new System.Drawing.Point(240, 14);
             this.tbxPwd.Name = "tbxPwd";
-            this.tbxPwd.Size = new System.Drawing.Size(133, 21);
+            this.tbxPwd.Size = new System.Drawing.Size(68, 21);
             this.tbxPwd.TabIndex = 3;
             this.tbxPwd.Text = "123456";
             // 
@@ -82,7 +84,7 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(379, 14);
+            this.btnLogin.Location = new System.Drawing.Point(314, 12);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(75, 23);
             this.btnLogin.TabIndex = 4;
@@ -92,6 +94,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblGetCSResult);
+            this.panel1.Controls.Add(this.btnGetCS);
             this.panel1.Controls.Add(this.lblLoginStatus);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnLogin);
@@ -108,10 +112,11 @@
             // 
             this.lblLoginStatus.AutoSize = true;
             this.lblLoginStatus.ForeColor = System.Drawing.Color.Chocolate;
-            this.lblLoginStatus.Location = new System.Drawing.Point(461, 17);
+            this.lblLoginStatus.Location = new System.Drawing.Point(395, 17);
             this.lblLoginStatus.Name = "lblLoginStatus";
-            this.lblLoginStatus.Size = new System.Drawing.Size(0, 12);
+            this.lblLoginStatus.Size = new System.Drawing.Size(17, 12);
             this.lblLoginStatus.TabIndex = 5;
+            this.lblLoginStatus.Text = "--";
             // 
             // panel2
             // 
@@ -179,6 +184,25 @@
             this.pnlChat.TabIndex = 8;
             this.pnlChat.WrapContents = false;
             // 
+            // btnGetCS
+            // 
+            this.btnGetCS.Location = new System.Drawing.Point(448, 12);
+            this.btnGetCS.Name = "btnGetCS";
+            this.btnGetCS.Size = new System.Drawing.Size(75, 23);
+            this.btnGetCS.TabIndex = 6;
+            this.btnGetCS.Text = "获取客服";
+            this.btnGetCS.UseVisualStyleBackColor = true;
+            this.btnGetCS.Click += new System.EventHandler(this.btnGetCS_Click);
+            // 
+            // lblGetCSResult
+            // 
+            this.lblGetCSResult.AutoSize = true;
+            this.lblGetCSResult.Location = new System.Drawing.Point(531, 21);
+            this.lblGetCSResult.Name = "lblGetCSResult";
+            this.lblGetCSResult.Size = new System.Drawing.Size(17, 12);
+            this.lblGetCSResult.TabIndex = 7;
+            this.lblGetCSResult.Text = "--";
+            // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -214,5 +238,7 @@
         private System.Windows.Forms.OpenFileDialog dlgSelectPic;
         private System.Windows.Forms.Button btnSelectImage;
         private System.Windows.Forms.FlowLayoutPanel pnlChat;
+        private System.Windows.Forms.Label lblGetCSResult;
+        private System.Windows.Forms.Button btnGetCS;
     }
 }

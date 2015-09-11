@@ -54,7 +54,9 @@ public class ResponseFactory
             case "orm001001":
                 return new ResponseORM001001(request);
             case "orm001003":
-                return new ResponseORM001003(request); 
+                return new ResponseORM001003(request);
+            case "orm002001":
+                return new ResponseORM002001(request); 
             default: break;
         }
         throw new Exception("No Such Api");
