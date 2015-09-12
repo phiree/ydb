@@ -15,6 +15,7 @@ namespace Dianzhu.CSClient
        public static BLL.BLLReception BLLReception = new BLL.BLLReception();
        public static BLL.BLLDZService BLLDZService = new BLL.BLLDZService();
        public static BLL.BLLServiceOrder BLLServiceOrder = new BLL.BLLServiceOrder();
+       public static BLL.BLLReceptionStatus BLLRecetionStatus = new BLLReceptionStatus();
 
     }
 }

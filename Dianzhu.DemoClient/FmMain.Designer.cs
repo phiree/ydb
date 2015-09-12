@@ -34,6 +34,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblGetCSResult = new System.Windows.Forms.Label();
+            this.btnGetCS = new System.Windows.Forms.Button();
             this.lblLoginStatus = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnSelectImage = new System.Windows.Forms.Button();
@@ -42,8 +44,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnGetCS = new System.Windows.Forms.Button();
-            this.lblGetCSResult = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -107,6 +107,25 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(560, 49);
             this.panel1.TabIndex = 5;
+            // 
+            // lblGetCSResult
+            // 
+            this.lblGetCSResult.AutoSize = true;
+            this.lblGetCSResult.Location = new System.Drawing.Point(531, 21);
+            this.lblGetCSResult.Name = "lblGetCSResult";
+            this.lblGetCSResult.Size = new System.Drawing.Size(17, 12);
+            this.lblGetCSResult.TabIndex = 7;
+            this.lblGetCSResult.Text = "--";
+            // 
+            // btnGetCS
+            // 
+            this.btnGetCS.Location = new System.Drawing.Point(448, 12);
+            this.btnGetCS.Name = "btnGetCS";
+            this.btnGetCS.Size = new System.Drawing.Size(75, 23);
+            this.btnGetCS.TabIndex = 6;
+            this.btnGetCS.Text = "获取客服";
+            this.btnGetCS.UseVisualStyleBackColor = true;
+            this.btnGetCS.Click += new System.EventHandler(this.btnGetCS_Click);
             // 
             // lblLoginStatus
             // 
@@ -183,25 +202,6 @@
             this.pnlChat.Size = new System.Drawing.Size(560, 248);
             this.pnlChat.TabIndex = 8;
             this.pnlChat.WrapContents = false;
-            // 
-            // btnGetCS
-            // 
-            this.btnGetCS.Location = new System.Drawing.Point(448, 12);
-            this.btnGetCS.Name = "btnGetCS";
-            this.btnGetCS.Size = new System.Drawing.Size(75, 23);
-            this.btnGetCS.TabIndex = 6;
-            this.btnGetCS.Text = "获取客服";
-            this.btnGetCS.UseVisualStyleBackColor = true;
-            this.btnGetCS.Click += new System.EventHandler(this.btnGetCS_Click);
-            // 
-            // lblGetCSResult
-            // 
-            this.lblGetCSResult.AutoSize = true;
-            this.lblGetCSResult.Location = new System.Drawing.Point(531, 21);
-            this.lblGetCSResult.Name = "lblGetCSResult";
-            this.lblGetCSResult.Size = new System.Drawing.Size(17, 12);
-            this.lblGetCSResult.TabIndex = 7;
-            this.lblGetCSResult.Text = "--";
             // 
             // FmMain
             // 

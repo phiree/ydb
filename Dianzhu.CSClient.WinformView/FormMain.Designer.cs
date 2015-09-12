@@ -73,6 +73,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnLogout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -129,6 +130,7 @@
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.Controls.Add(this.pnlOrder);
+            this.splitContainer2.Panel1.Controls.Add(this.btnLogout);
             // 
             // splitContainer2.Panel2
             // 
@@ -561,6 +563,16 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
+            // btnLogout
+            // 
+            this.btnLogout.Location = new System.Drawing.Point(-1, 494);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(155, 23);
+            this.btnLogout.TabIndex = 17;
+            this.btnLogout.Text = "退出";
+            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -569,6 +581,8 @@
             this.Controls.Add(this.scmain);
             this.Name = "FormMain";
             this.Text = "FormMain";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
             this.ResizeEnd += new System.EventHandler(this.FormMain_ResizeEnd);
             this.scmain.Panel1.ResumeLayout(false);
             this.scmain.Panel2.ResumeLayout(false);
@@ -641,6 +655,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox tbxServiceUnitPrice;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button btnLogout;
 
     }
 }

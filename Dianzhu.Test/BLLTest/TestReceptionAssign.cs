@@ -31,9 +31,9 @@ namespace Dianzhu.Test.BLLTest
                 .Build());
 
             DZMembership customer = Builder<DZMembership>.CreateNew().Build();
-            AssignStratage ass = new AssignStratageRandom();
+            ReceptionAssigner ass = new ReceptionAssigner(new AssignStratageRandom());
             ass.dalRS = dalMock;
-            DZMembership customerService = bll.Assign(customer.UserName,ass);
+            DZMembership customerService = bll.Assign(customer,null);
             Console.WriteLine(customerService.UserName);
             Assert.Contains(customerService.UserName,new string[]{"a","b"});
         }

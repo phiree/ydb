@@ -40,7 +40,8 @@ namespace Dianzhu.CSClient
                     BLLFactory.BLLMember,
                     BLLFactory.BLLReception,
                     BLLFactory.BLLDZService,
-                    BLLFactory.BLLServiceOrder
+                    BLLFactory.BLLServiceOrder,
+                    BLLFactory.BLLRecetionStatus
                     );
                 Application.Run(mainForm);
             }

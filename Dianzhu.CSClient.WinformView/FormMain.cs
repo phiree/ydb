@@ -36,6 +36,7 @@ namespace Dianzhu.CSClient.WinformView
         public event SendPayLink SendPayLink;
         public event CreateOrder CreateOrder;
         public event BeforeCustomerChanged BeforeCustomerChanged;
+        public event ViewClosed ViewClosed;
 
         #endregion
 
@@ -471,6 +472,25 @@ namespace Dianzhu.CSClient.WinformView
         private void label12_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+           // ViewClosed();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+
+            ViewClosed();
+             
+            
+        }
+
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ViewClosed();
         }
 
         

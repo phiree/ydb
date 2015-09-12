@@ -6,86 +6,159 @@ using Dianzhu.DAL;
 using Dianzhu.Model;
 namespace Dianzhu.BLL
 {
-   public  class BLLReceptionStatus
+    public class BLLReceptionStatus
     {
-       DAL.DALReceptionStatus dalRS;
-       public BLLReceptionStatus(DALReceptionStatus dalRs)
-       {
-           this.dalRS = dalRs;
-       }
-       public BLLReceptionStatus()
-       {
-           this.dalRS = DALFactory.DALReceptionStatus;
-       }
-       /// <summary>
-       /// 客服登录
-       /// </summary>
-       /// <param name="customerService"></param>
-       public void CustomerServiceLogin(DZMembership customerService)
-       {
-          IList<ReceptionStatus> existedRS= dalRS.GetListByCustomerService(customerService);
-          if (existedRS.Count > 0)
-          { return; }
-           ReceptionStatus rs = new ReceptionStatus { CustomerService=customerService };
-           dalRS.Save(rs);
-       }
-       /// <summary>
-       /// 给客户分配一个客服,默认使用随机方式.
-       /// </summary>
-       /// <param name="customerUserName"></param>
-       /// <returns></returns>
-       
-       public DZMembership Assign(string customerUserName)
-       {
-           return Assign(customerUserName, new AssignStratageRandom { dalRS=this.dalRS});
-         
-       }
-       public DZMembership Assign(string customerUserName, AssignStratage assignStratage)
-       {
-           DZMembership assigned= assignStratage.Assign(customerUserName);
-           //判断用户是否已经存在
+        DAL.DALReceptionStatus dalRS;
+        public BLLReceptionStatus(DALReceptionStatus dalRs)
+        {
+            this.dalRS = dalRs;
+        }
+        public BLLReceptionStatus()
+        {
+            this.dalRS = DALFactory.DALReceptionStatus;
+        }
+        /// <summary>
+        /// 客服登录
+        /// </summary>
+        /// <param name="customerService"></param>
+        public void CustomerServiceLogin(DZMembership customerService)
+        {
+            IList<ReceptionStatus> existedRS = dalRS.GetListByCustomerService(customerService);
+            if (existedRS.Count > 0)
+            {
+                return;
+            }
+            ReceptionStatus rs = new ReceptionStatus { CustomerService = customerService };
+            dalRS.Save(rs);
+        }
+        /// <summary>
+        /// 客服下线,将用户分配给其他客服.
+        /// </summary>
+        public IList<ReceptionStatus> CustomerServiceLogout(DZMembership customerService)
+        {
+            //将当前所有客户分配给其他在线客服
+            IList<ReceptionStatus> existedRS = dalRS.GetListByCustomerService(customerService);
 
-           return assigned;
-       }
+            IList<ReceptionStatus> reAssignedList = new List<ReceptionStatus>();
+            foreach (ReceptionStatus rs in existedRS)
+            {
+
+                if (rs.Customer != null)
+                {
+                    DZMembership reassignedCS = Assign(rs.Customer, customerService);
+                    ReceptionStatus reassignedRS = new ReceptionStatus { Customer = rs.Customer, CustomerService = reassignedCS, LastUpdateTime = DateTime.Now };
+                    reAssignedList.Add(reassignedRS);
+
+                    dalRS.Save(reassignedRS);
+                }
+                    dalRS.Delete(rs);
+                
+            }
+            return reAssignedList;
+        }
+        public void CustomerLogOut(DZMembership customer)
+        {
+            IList<ReceptionStatus> existedRS = dalRS.GetListByCustomer(customer);
+            if (existedRS.Count != 1)
+            {
+            //log error            
+            }
+            foreach (ReceptionStatus rs in existedRS)
+            {
+                dalRS.Delete(rs);
+            }
+        }
+        /// <summary>
+        /// 给客户分配一个客服,默认使用随机方式.
+        /// </summary>
+        /// <param name="customerUserName"></param>
+        /// <param name="excluedCS">被排除的客服</param>
+        /// <returns></returns>
+
+        public DZMembership Assign(DZMembership customer, DZMembership excluedCS)
+        {
+            ReceptionAssigner assigner = new ReceptionAssigner(new AssignStratageRandom()) {  dalRS=dalRS, excluedCustomerService=excluedCS};
+            //todo:检查数据库内是否有已经存在的分配.以防异常退出导致的残留数据
+            DZMembership cs=assigner.Assign(customer);
+            if(cs==null)
+            {
+                //没有在线客服.
+            }
+            ReceptionStatus rs = new ReceptionStatus { Customer=customer,CustomerService=cs,LastUpdateTime=DateTime.Now };
+            dalRS.Save(rs);
+
+            return cs;
+        }
+      
+
     }
-   public class AssignStratage
-   {
-       public DAL.DALReceptionStatus dalRS { get; set; }
-       
+    public class ReceptionAssigner
+    {
+        public DAL.DALReceptionStatus dalRS { get; set; }
+
+        //被排除的客服.
+        public DZMembership excluedCustomerService { get; set; }
+
         //在线客服列表
-       IList<DZMembership> customerServiceList;
-       protected IList<DZMembership> CustomerServiceList { get {
-           if (customerServiceList == null)
-           {
-               customerServiceList = dalRS.GetAll<ReceptionStatus>().Select(x => x.CustomerService).ToArray();
-           }
-           return customerServiceList;
-       } }
-       protected int CustomerServiceCount { get { return CustomerServiceList.Count; } }
-       
-       public virtual DZMembership Assign(string customerUserName) {
-           throw new MethodAccessException("不准直接调用,必须调用子类的重写方法.");
-       
-       }
-        
-   }
+        IList<DZMembership> customerServiceList;
+        IAssignStratage stratage;
+        public ReceptionAssigner(IAssignStratage stratage)
+        {
+            this.stratage = stratage;
+        }
+        protected IList<DZMembership> CustomerServiceList
+        {
+            get
+            {
+                if (customerServiceList == null)
+                {
+                    var allOnlineCs = dalRS.GetAll<ReceptionStatus>();
+                    if (excluedCustomerService != null)
+                    {
+                        allOnlineCs.Where(x => x.CustomerService.Id != excluedCustomerService.Id);
+                    }
+
+                    customerServiceList = allOnlineCs.Select(x => x.CustomerService).ToArray();
+                }
+                return customerServiceList;
+            }
+        }
+        /// <summary>
+        /// 被排除的客服
+        /// </summary>
+        /// <param name="excluedCS"></param>
+
+
+        protected int CustomerServiceCount { get { return CustomerServiceList.Count; } }
+
+        public virtual DZMembership Assign(DZMembership customer)
+        {
+
+          return  stratage.Assign(customer, CustomerServiceList);
+        }
+
+    }
+    public interface IAssignStratage
+    {
+        DZMembership Assign(DZMembership customer, IList<DZMembership> csList);
+    }
     /// <summary>
     /// 返回一个随机客服.
     /// </summary>
-   public class AssignStratageRandom:AssignStratage
-   {
+    public class AssignStratageRandom : IAssignStratage
+    {
 
-       public override DZMembership Assign(string customerUserName)
-       {
-           if (CustomerServiceCount == 0)
-           { 
-            //r如果没有在线客服 怎么处理
-               throw new Exception("客服离线");
-           }
-           Random r = new Random();
-           int i = r.Next(CustomerServiceCount );
-           return CustomerServiceList[i];
+        public DZMembership Assign(DZMembership customer, IList<DZMembership> csList)
+        {
+            if (csList.Count == 0)
+            {
+                //r如果没有在线客服 怎么处理
+                throw new Exception("客服离线");
+            }
+            Random r = new Random();
+            int i = r.Next(csList.Count);
+            return csList[i];
 
-       }
-   }
+        }
+    }
 }

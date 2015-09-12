@@ -13,7 +13,7 @@ namespace Dianzhu.CSClient.IVew
     public delegate void SearchService();
     public delegate void SendPayLink(ReceptionChat chat);
     public delegate void CreateOrder();
-   
+    public delegate void ViewClosed();
     public delegate void BeforeCustomerChanged();
     public interface IMainFormView
     {
@@ -62,6 +62,7 @@ namespace Dianzhu.CSClient.IVew
         event SearchService SearchService;
         event SendPayLink SendPayLink;
         event CreateOrder CreateOrder;
+        event ViewClosed ViewClosed;
         
         event BeforeCustomerChanged BeforeCustomerChanged;
     }

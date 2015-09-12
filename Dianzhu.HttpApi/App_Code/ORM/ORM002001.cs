@@ -47,7 +47,7 @@ public class ResponseORM002001 : BaseResponse
 
                 RespDataORM002001 respData = new RespDataORM002001();
 
-                DZMembership assignedCustomerService = BLLReceptionStatus.Assign(member.UserName);
+                DZMembership assignedCustomerService = BLLReceptionStatus.Assign(member,null);
                 RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(assignedCustomerService);
                 respData.cerObj = cerObj;
                 this.RespData = respData;

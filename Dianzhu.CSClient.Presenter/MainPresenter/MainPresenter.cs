@@ -16,24 +16,28 @@ namespace Dianzhu.CSClient.Presenter
         BLLDZService bllService;
         BLLReception bllReception;
         BLLServiceOrder bllOrder;
+        BLLReceptionStatus bllReceptionStatus;
        
         public MainPresenter(IVew.IMainFormView view,
             InstantMessage instantMessage,
             IMessageAdapter.IAdapter messageAdapter,
             DZMembershipProvider bllMember, BLLReception bllReception,
-            BLLDZService bllService, BLLServiceOrder bllOrder)
+            BLLDZService bllService, BLLServiceOrder bllOrder,
+            BLLReceptionStatus bllReceptionStatus)
         {
             this.view = view;
             this.instantMessage = instantMessage;
             this.bllMember = bllMember;
             this.bllReception = bllReception;
             this.bllService = bllService;
+            this.bllReceptionStatus = bllReceptionStatus;
 
             this.bllOrder = bllOrder;
 
             //  IM的委托
             this.instantMessage.IMPresent += new IMPresent(IMPresent);
             this.instantMessage.IMReceivedMessage += new IMReceivedMessage(IMReceivedMessage);
+            this.instantMessage.IMClosed += new IMClosed(instantMessage_IMClosed);
             //iview的委托
             this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
 
@@ -49,7 +53,18 @@ namespace Dianzhu.CSClient.Presenter
             this.view.SearchService += new IVew.SearchService(view_SearchService);
             this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
             this.view.CreateOrder += new CreateOrder(view_CreateOrder);
+            this.view.ViewClosed += new ViewClosed(view_ViewClosed);
             
+        }
+
+        void instantMessage_IMClosed()
+        {
+            bllReceptionStatus.CustomerServiceLogout(customerService);
+        }
+
+        void view_ViewClosed()
+        {
+            this.instantMessage.Close();    
         }
 
        

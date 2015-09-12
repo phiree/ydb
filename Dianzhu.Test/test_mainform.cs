@@ -53,6 +53,7 @@ namespace Dianzhu.Test
                  , bllReception, 
                  bllDZService,
                  Builder<BLLServiceOrder>.CreateNew().Build()
+                 ,MockRepository.GenerateMock<BLLReceptionStatus>()
                  );
            // formController.ReceiveMessage("a@a.a", "hello", "/pic.png",string.Empty);
             string result = view.ToString();

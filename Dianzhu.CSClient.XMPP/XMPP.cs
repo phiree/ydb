@@ -15,7 +15,7 @@ namespace Dianzhu.CSClient.XMPP
         static agsXMPP.XmppClientConnection XmppClientConnection;
 
 
-
+        public event IMClosed IMClosed;
         public event IMLogined IMLogined;
         public event IMAuthError IMAuthError;
         public event IMPresent IMPresent;
@@ -35,6 +35,7 @@ namespace Dianzhu.CSClient.XMPP
                 XmppClientConnection.OnAuthError += new XmppElementHandler(XmppClientConnection_OnAuthError);
                 XmppClientConnection.OnError += new ErrorHandler(XmppClientConnection_OnError);
                 XmppClientConnection.OnSocketError+=new ErrorHandler(XmppClientConnection_OnSocketError);
+                XmppClientConnection.OnClose+=new ObjectHandler(XmppClientConnection_OnClose);
                 
             }
         }
@@ -90,7 +91,10 @@ namespace Dianzhu.CSClient.XMPP
             Message msg = messageAdapter.ChatToMessage(chat);
             XmppClientConnection.Send(msg);
         }
-
+        public void Close()
+        {
+            XmppClientConnection.Close();
+        }
 
 
 
@@ -102,5 +106,11 @@ namespace Dianzhu.CSClient.XMPP
 
 
 
+
+        public void XmppClientConnection_OnClose(object sender)
+        {
+            IMClosed();
+        }
+        
     }
 }

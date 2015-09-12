@@ -13,6 +13,7 @@ namespace Dianzhu.Model
       public virtual Guid Id { get; set; }
         public virtual DZMembership CustomerService { get; set; }
         public virtual DZMembership Customer { get; set; }
+        public virtual DateTime LastUpdateTime { get; set; }
         
     }
 }

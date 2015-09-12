@@ -24,6 +24,11 @@ namespace Dianzhu.DAL
          {
            return   Session.QueryOver<ReceptionStatus>().Where(x => x.CustomerService.Id == customerService.Id).List();
          }
+         public IList<ReceptionStatus> GetListByCustomer(DZMembership customer)
+         {
+             return Session.QueryOver<ReceptionStatus>().Where(x => x.Customer.Id == customer.Id).List();
+      
+         }
    
     }
 }
