@@ -6,5 +6,5 @@
 <h2>Index</h2>
 @foreach (Dianzhu.Model.Business b in Model)
 {
-   @Html.Label(b.Name);
+   @Html.ActionLink(b.Name,"Edit/"+b.Id);
 }

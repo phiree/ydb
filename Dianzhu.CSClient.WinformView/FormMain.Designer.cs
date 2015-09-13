@@ -50,6 +50,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tbxMemo = new System.Windows.Forms.TextBox();
             this.btnCreateOrder = new System.Windows.Forms.Button();
+            this.btnLogout = new System.Windows.Forms.Button();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             this.tbxChatLog = new System.Windows.Forms.RichTextBox();
@@ -73,7 +74,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnLogout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -316,6 +316,16 @@
             this.btnCreateOrder.Text = "创建订单,发送支付链接";
             this.btnCreateOrder.UseVisualStyleBackColor = true;
             this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
+            // 
+            // btnLogout
+            // 
+            this.btnLogout.Location = new System.Drawing.Point(-1, 494);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(155, 23);
+            this.btnLogout.TabIndex = 17;
+            this.btnLogout.Text = "退出";
+            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // splitContainer3
             // 
@@ -562,16 +572,6 @@
             this.pnlExternService.Size = new System.Drawing.Size(333, 242);
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
-            // 
-            // btnLogout
-            // 
-            this.btnLogout.Location = new System.Drawing.Point(-1, 494);
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(155, 23);
-            this.btnLogout.TabIndex = 17;
-            this.btnLogout.Text = "退出";
-            this.btnLogout.UseVisualStyleBackColor = true;
-            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // FormMain
             // 
