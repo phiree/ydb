@@ -34,6 +34,12 @@ namespace Dianzhu.DemoClient
             GlobalViables.XMPPConnection.OnMessage += new agsc.MessageHandler(XMPPConnection_OnMessage);
             GlobalViables.XMPPConnection.OnError += new ErrorHandler(XMPPConnection_OnError);
             GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
+            GlobalViables.XMPPConnection.OnSocketError += new ErrorHandler(XMPPConnection_OnSocketError);
+        }
+
+        void XMPPConnection_OnSocketError(object sender, Exception ex)
+        {
+            MessageBox.Show("socket error");
         }
         private void GetCustomerInfo(string userName)
         {
@@ -62,7 +68,14 @@ namespace Dianzhu.DemoClient
                     ""stamp_TIMES"": ""1490192929212"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
                 }}",customerId,tbxPwd.Text));
-
+            string state_Code = result["state_CODE"].ToString();
+            if (state_Code != "009000")
+            {
+                string errMsg = result["err_Msg"].ToString();
+                MessageBox.Show(errMsg);
+                lblAssignedCS.Text = "客服离线";
+                throw new Exception(state_Code+"_" +errMsg);
+            }
             string userName = result["RespData"]["cerObj"]["userName"].ToString();
 
             return StringHelper.EnsureOpenfireUserName(userName);
@@ -75,7 +88,7 @@ namespace Dianzhu.DemoClient
 
         void XMPPConnection_OnError(object sender, Exception ex)
         {
-            // MessageBox.Show("聊天服务器错误");
+            MessageBox.Show("OnError");
         }
 
         void XMPPConnection_OnMessage(object sender, agsc.Message msg)

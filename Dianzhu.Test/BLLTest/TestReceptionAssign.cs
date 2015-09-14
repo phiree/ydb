@@ -15,15 +15,23 @@ namespace Dianzhu.Test.BLLTest
     [TestFixture]
     public class TestReceptionAssign
     {
-        //
+        private static List<ReceptionStatus> db = new List<ReceptionStatus>();
+
+        private class DbMocker 
+        {
+            
+        }
+
         [Test]
         public void assign_customer_login()
         {
+
+
             var dalMock = MockRepository.GenerateStub<DAL.DALReceptionStatus>(string.Empty);
             BLLReceptionStatus bll = new BLLReceptionStatus(dalMock);
             IList<DZMembership> csList = Builder<DZMembership>.CreateListOfSize(2)
-                .TheFirst(1) .With(x=>x.UserName="a")
-                .TheNext(1).With(x=>x.UserName="b")
+                .TheFirst(1) .With(x=>x.UserName="b")
+                .TheNext(1).With(x=>x.UserName="a")
                 .Build();
             dalMock.Stub(x => x.GetAll<ReceptionStatus>()).Return(Builder<ReceptionStatus>.CreateListOfSize(2)
                 .TheFirst(1).With(x=>x.CustomerService=csList[0])
