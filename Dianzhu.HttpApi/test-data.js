@@ -1,4 +1,7 @@
-﻿var need_to_test=["usm001003","usm001005","usm001007"];
+﻿var need_to_test=[
+//"usm001003","usm001005","usm001007",
+"merm001005",
+];
 var test_data=[
         { //订单列表
                     "protocol_CODE": "ORM001003", 
@@ -34,8 +37,8 @@ var test_data=[
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
                 },
-        { 
-                    "protocol_CODE": "MERM001001", 
+        { //商户信息获取
+                    "protocol_CODE": "MERM001005", 
                     "ReqData": { 
                                 "email": "phiree@gmail.com", 
                                 "pWord": "121212", 
