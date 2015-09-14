@@ -124,7 +124,7 @@ public class ResponseUSM001003 : BaseResponse
         catch (Exception e)
         {
             this.state_CODE = Dicts.StateCode[1];
-            this.err_Msg = e.Message;
+            this.err_Msg = e.Message+e.InnerException==null?string.Empty:e.InnerException.Message;
 
         }
 

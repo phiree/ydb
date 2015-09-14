@@ -26,7 +26,9 @@ public class RespDataUSM_userObj
         this.alias = membership.NickName ?? "";
         this.email = membership.Email ?? "";
         this.phone = membership.Phone ?? "";
-        this.imgUrl = "";
+        this.imgUrl = HttpContext.Current.Request.Url.Authority
+                + System.Configuration.ConfigurationManager.AppSettings["user_avatar_image_root"]
+                +membership.AvatarUrl ?? "";
         this.address =membership.Address?? "";
         return this;
 

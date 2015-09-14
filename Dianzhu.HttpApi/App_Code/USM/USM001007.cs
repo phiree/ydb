@@ -48,6 +48,8 @@ public class ResponseUSM001007 : BaseResponse
                 RespDataUSM001007 respData = new RespDataUSM001007();
                 respData.userID = requestData.userID;
                 respData.imgUrl = HttpContext.Current.Request.Url.Authority + relativePath  + fileName;
+                member.AvatarUrl = fileName;
+                p.UpdateDZMembership(member);
                 this.RespData = respData;
                 
             }
