@@ -1,9 +1,11 @@
 ﻿var need_to_test=[
 //"usm001003","usm001005","usm001007",
-"merm001005",
+"merm001001","merm001005",
 ];
 var test_data=[
-        { //订单列表
+        {
+        /***************订单*****************/
+         //订单列表
                     "protocol_CODE": "ORM001003", 
                     "ReqData": { 
                         "userID": "eb2ae597-5adb-4242-b22e-a4f901275654", //13022222222
@@ -37,7 +39,19 @@ var test_data=[
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
                 },
-        { //商户信息获取
+       
+        /*******************商家******************/
+        {//商户注册.
+                    "protocol_CODE": "MERM001001", 
+                    "ReqData": { 
+                                "email": "phiree2@gmail.com", 
+                                "pWord": "121212", 
+                                }, 
+                    "stamp_TIMES": "1490192929212", 
+                    "serial_NUMBER": "00147001015869149751" 
+                },
+         //商户信息获取
+                  {
                     "protocol_CODE": "MERM001005", 
                     "ReqData": { 
                                 "email": "phiree@gmail.com", 
@@ -46,8 +60,10 @@ var test_data=[
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
                 },
-                { 
-                    "protocol_CODE": "USM001005", //用户信息获取
+                
+        /********************用户********************/
+                 {  //用户信息获取
+                    "protocol_CODE": "USM001005",
                     "ReqData": { 
                                 "email": "13022222222", 
                                 "pWord": "123456", 

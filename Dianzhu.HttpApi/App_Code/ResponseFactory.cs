@@ -49,6 +49,8 @@ public class ResponseFactory
                 return new ResponseVCM001002(request);
             case "vcm001003":
                 return new ResponseVCM001003(request);
+            case "merm001001":
+                return new ResponseMERM001001(request);
             case "merm001005":
                 return new ResponseMERM001005(request);
             case "orm001001":
