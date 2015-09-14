@@ -1,10 +1,22 @@
 ﻿var need_to_test=[
 //"usm001003","usm001005","usm001007",
-"merm001001","merm001003","merm001005",
+//"merm001001","merm001003","merm001005",
+"orm001004"
 ];
 var test_data=[
+  /***************订单*****************/
+    { 
+                    "protocol_CODE": "ORM001004", 
+                    "ReqData": { 
+                        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", 
+                        "pWord": "123456", 
+                        "target": "ALL", 
+                        }, 
+                    "stamp_TIMES": "1490192929212", 
+                    "serial_NUMBER": "00147001015869149751" 
+                },
         {
-        /***************订单*****************/
+      
          //订单列表
                     "protocol_CODE": "ORM001003", 
                     "ReqData": { 
@@ -18,27 +30,8 @@ var test_data=[
                     "serial_NUMBER": "00147001015869149751" 
                 },
               
-                { //订单详情
-                    "protocol_CODE": "SVM001002", 
-                    "ReqData": { 
-                        "userID": "24ba4944-660a-4d7e-abd3-a4de00abf040", 
-                        "userPWord": "123456", 
-                        "srvID": "e71fd0e2-cb5f-4a7e-8adb-a4d400b7224a"
-                         
-                        }, 
-                    "stamp_TIMES": "1490192929212", 
-                    "serial_NUMBER": "00147001015869149751" 
-                } ,
-        { 
-                    "protocol_CODE": "ORM001001", 
-                    "ReqData": { 
-                        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", 
-                        "pWord": "123456", 
-                        "target": "ALL", 
-                        }, 
-                    "stamp_TIMES": "1490192929212", 
-                    "serial_NUMBER": "00147001015869149751" 
-                },
+                 
+        
        
         /*******************商家******************/
         {//商户注册.

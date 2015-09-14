@@ -11,12 +11,12 @@ using Newtonsoft.Json.Linq;
 /// <summary>
 /// 服务信息总数获取.
 /// </summary>
-public class ResponseORM001001 : BaseResponse
+public class ResponseORM001004 : BaseResponse
 {
-    public ResponseORM001001(BaseRequest request) : base(request) { }
+    public ResponseORM001004(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataORM001001 requestData = this.request.ReqData.ToObject<ReqDataORM001001>();
+        ReqDataORM001004 requestData = this.request.ReqData.ToObject<ReqDataORM001004>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
@@ -46,7 +46,7 @@ public class ResponseORM001001 : BaseResponse
                 enum_OrderSearchType searchType = (enum_OrderSearchType)Enum.Parse(typeof(enum_OrderSearchType), srvTarget);
                
                 int rowCount = bllServiceOrder.GetServiceOrderCount(uid,searchType);
-                RespDataORM001001 respData=new RespDataORM001001{ sum=rowCount.ToString()};
+                RespDataORM001004 respData=new RespDataORM001004{ sum=rowCount.ToString()};
                 this.RespData =  respData ;
                 this.state_CODE = Dicts.StateCode[0];
                 
@@ -73,14 +73,14 @@ public class ResponseORM001001 : BaseResponse
     }
 }
 
-public class ReqDataORM001001
+public class ReqDataORM001004
 {
     public string userID { get; set; }
     public string pWord { get; set; }
     public string target { get; set; }
  
 }
-public class RespDataORM001001
+public class RespDataORM001004
 {
     public string sum { get; set; }
 }
