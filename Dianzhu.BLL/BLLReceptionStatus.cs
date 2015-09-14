@@ -18,7 +18,7 @@ namespace Dianzhu.BLL
             this.dalRS = DALFactory.DALReceptionStatus;
         }
         /// <summary>
-        /// 客服登录
+        /// 客服登录.
         /// </summary>
         /// <param name="customerService"></param>
         public void CustomerServiceLogin(DZMembership customerService)
@@ -38,6 +38,21 @@ namespace Dianzhu.BLL
         {
             //将当前所有客户分配给其他在线客服
             IList<ReceptionStatus> existedRS = dalRS.GetListByCustomerService(customerService);
+ 
+            for (int i = 0; i < existedRS.Count;i++) {
+                dalRS.Delete(existedRS[i]);
+            }
+
+            IList<ReceptionStatus> reAssignedList = ReAssign(existedRS, customerService);
+ 
+            dalRS.SaveList(reAssignedList);
+            return reAssignedList;
+            
+
+        }
+        protected IList<ReceptionStatus> ReAssign(IList<ReceptionStatus> existedRS, DZMembership excludeCS)
+        {
+            //将当前所有客户分配给其他在线客服
 
             IList<ReceptionStatus> reAssignedList = new List<ReceptionStatus>();
             foreach (ReceptionStatus rs in existedRS)
@@ -45,14 +60,10 @@ namespace Dianzhu.BLL
 
                 if (rs.Customer != null)
                 {
-                    DZMembership reassignedCS = Assign(rs.Customer, customerService);
+                    DZMembership reassignedCS = Assign(rs.Customer, excludeCS);
                     ReceptionStatus reassignedRS = new ReceptionStatus { Customer = rs.Customer, CustomerService = reassignedCS, LastUpdateTime = DateTime.Now };
                     reAssignedList.Add(reassignedRS);
-
-                    dalRS.Save(reassignedRS);
                 }
-                    dalRS.Delete(rs);
-                
             }
             return reAssignedList;
         }
@@ -61,7 +72,7 @@ namespace Dianzhu.BLL
             IList<ReceptionStatus> existedRS = dalRS.GetListByCustomer(customer);
             if (existedRS.Count != 1)
             {
-            //log error            
+                //log error            
             }
             foreach (ReceptionStatus rs in existedRS)
             {
@@ -77,19 +88,21 @@ namespace Dianzhu.BLL
 
         public DZMembership Assign(DZMembership customer, DZMembership excluedCS)
         {
-            ReceptionAssigner assigner = new ReceptionAssigner(new AssignStratageRandom()) {  dalRS=dalRS, excluedCustomerService=excluedCS};
+            ReceptionAssigner assigner = new ReceptionAssigner(new AssignStratageRandom()) { dalRS = dalRS, excluedCustomerService = excluedCS };
             //todo:检查数据库内是否有已经存在的分配.以防异常退出导致的残留数据
-            DZMembership cs=assigner.Assign(customer);
-            if(cs==null)
+
+
+            DZMembership cs = assigner.Assign(customer);
+            if (cs == null)
             {
                 //没有在线客服.
             }
-            ReceptionStatus rs = new ReceptionStatus { Customer=customer,CustomerService=cs,LastUpdateTime=DateTime.Now };
+            ReceptionStatus rs = new ReceptionStatus { Customer = customer, CustomerService = cs, LastUpdateTime = DateTime.Now };
             dalRS.Save(rs);
 
             return cs;
         }
-      
+
 
     }
     public class ReceptionAssigner
@@ -134,7 +147,7 @@ namespace Dianzhu.BLL
         public virtual DZMembership Assign(DZMembership customer)
         {
 
-          return  stratage.Assign(customer, CustomerServiceList);
+            return stratage.Assign(customer, CustomerServiceList);
         }
 
     }

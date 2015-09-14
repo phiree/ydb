@@ -59,11 +59,25 @@ namespace Dianzhu.CSClient.Presenter
 
         void instantMessage_IMClosed()
         {
-            bllReceptionStatus.CustomerServiceLogout(customerService);
+           
         }
 
         void view_ViewClosed()
         {
+            IList<ReceptionStatus> reassignList = bllReceptionStatus.CustomerServiceLogout(customerService);
+            //将新分配的客服发送给客户端.
+            foreach (ReceptionStatus rs in reassignList)
+            {
+                ReceptionChat rc = new ReceptionChatReAssign
+                {
+                    From = customerService,
+                    ChatType = Model.Enums.enum_ChatType.ReAssign,
+                    ReassignedCustomerService = rs.CustomerService,
+                    To = rs.Customer,
+                    SendTime = DateTime.Now
+                };
+                SendMessage(rc);
+            }
             this.instantMessage.Close();    
         }
 

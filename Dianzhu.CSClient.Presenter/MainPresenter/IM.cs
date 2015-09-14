@@ -74,6 +74,7 @@ namespace Dianzhu.CSClient.Presenter
                     if (isInList)
                     {
                         view.SetCustomerButtonStyle(userName, em_ButtonStyle.LogOff);
+                        bllReceptionStatus.CustomerLogOut(customer);
                     }
                     else
                     {

@@ -34,9 +34,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblGetCSResult = new System.Windows.Forms.Label();
-            this.btnGetCS = new System.Windows.Forms.Button();
+            this.lblAssignedCS = new System.Windows.Forms.Label();
             this.lblLoginStatus = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnSelectImage = new System.Windows.Forms.Button();
             this.tbxMessage = new System.Windows.Forms.TextBox();
@@ -76,7 +76,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(193, 17);
+            this.label2.Location = new System.Drawing.Point(205, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 2;
@@ -94,9 +94,9 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.lblGetCSResult);
-            this.panel1.Controls.Add(this.btnGetCS);
+            this.panel1.Controls.Add(this.lblAssignedCS);
             this.panel1.Controls.Add(this.lblLoginStatus);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnLogin);
             this.panel1.Controls.Add(this.label1);
@@ -108,24 +108,14 @@
             this.panel1.Size = new System.Drawing.Size(560, 49);
             this.panel1.TabIndex = 5;
             // 
-            // lblGetCSResult
+            // lblAssignedCS
             // 
-            this.lblGetCSResult.AutoSize = true;
-            this.lblGetCSResult.Location = new System.Drawing.Point(531, 21);
-            this.lblGetCSResult.Name = "lblGetCSResult";
-            this.lblGetCSResult.Size = new System.Drawing.Size(17, 12);
-            this.lblGetCSResult.TabIndex = 7;
-            this.lblGetCSResult.Text = "--";
-            // 
-            // btnGetCS
-            // 
-            this.btnGetCS.Location = new System.Drawing.Point(448, 12);
-            this.btnGetCS.Name = "btnGetCS";
-            this.btnGetCS.Size = new System.Drawing.Size(75, 23);
-            this.btnGetCS.TabIndex = 6;
-            this.btnGetCS.Text = "获取客服";
-            this.btnGetCS.UseVisualStyleBackColor = true;
-            this.btnGetCS.Click += new System.EventHandler(this.btnGetCS_Click);
+            this.lblAssignedCS.AutoSize = true;
+            this.lblAssignedCS.Location = new System.Drawing.Point(510, 18);
+            this.lblAssignedCS.Name = "lblAssignedCS";
+            this.lblAssignedCS.Size = new System.Drawing.Size(17, 12);
+            this.lblAssignedCS.TabIndex = 7;
+            this.lblAssignedCS.Text = "--";
             // 
             // lblLoginStatus
             // 
@@ -136,6 +126,15 @@
             this.lblLoginStatus.Size = new System.Drawing.Size(17, 12);
             this.lblLoginStatus.TabIndex = 5;
             this.lblLoginStatus.Text = "--";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(441, 17);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "当前客服";
             // 
             // panel2
             // 
@@ -238,7 +237,7 @@
         private System.Windows.Forms.OpenFileDialog dlgSelectPic;
         private System.Windows.Forms.Button btnSelectImage;
         private System.Windows.Forms.FlowLayoutPanel pnlChat;
-        private System.Windows.Forms.Label lblGetCSResult;
-        private System.Windows.Forms.Button btnGetCS;
+        private System.Windows.Forms.Label lblAssignedCS;
+        private System.Windows.Forms.Label label3;
     }
 }

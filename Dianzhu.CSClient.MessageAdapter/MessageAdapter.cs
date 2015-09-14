@@ -122,6 +122,11 @@ namespace Dianzhu.CSClient.MessageAdapter
                 ReceptionChatOrder chatOrder = (ReceptionChatOrder)chat;
                 msg.SetAttribute("OrderId", chatOrder.ServiceOrder.Id.ToString());
             }
+            if (chat is ReceptionChatReAssign)
+            {
+                ReceptionChatReAssign chatReassign = (ReceptionChatReAssign)chat;
+                msg.SetAttribute("ReAssignCSName", PHSuit.StringHelper.EnsureOpenfireUserName( chatReassign.ReassignedCustomerService.UserName));
+            }
             return msg;
 
         }

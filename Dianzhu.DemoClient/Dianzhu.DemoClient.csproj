@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API.cs" />
     <Compile Include="FileUploader.cs" />
     <Compile Include="FmMain.cs">
       <SubType>Form</SubType>

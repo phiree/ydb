@@ -13,7 +13,7 @@ namespace Dianzhu.DAL.Mapping
             Id(x=>x.Id);
             References<DZMembership>(x => x.CustomerService);
             References<DZMembership>(x => x.Customer);
-          
+            Map(x => x.LastUpdateTime);
         }
     }
 }
