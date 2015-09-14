@@ -1,6 +1,6 @@
 ﻿var need_to_test=[
 //"usm001003","usm001005","usm001007",
-"merm001001","merm001005",
+"merm001001","merm001003","merm001005",
 ];
 var test_data=[
         {
@@ -50,6 +50,22 @@ var test_data=[
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
                 },
+         //商户信息修改
+                  {
+                     "protocol_CODE": "MERM001003", 
+                    "ReqData": { 
+                    "userID": "d9b54c42-c027-426c-81be-a51301346a9d", //phiree2@gmail.com
+                    "pWord": "121212", 
+                    "alias": "1805", 
+                    "email": "phirea126.com", 
+                    "phone": "1999938xxxx", 
+                    "password":"121212",
+                    
+                   
+                    }, 
+                    "stamp_TIMES": "1490192929222", 
+                    "serial_NUMBER": "00147001015869149756" 
+                },
          //商户信息获取
                   {
                     "protocol_CODE": "MERM001005", 
@@ -60,6 +76,7 @@ var test_data=[
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
                 },
+               
                 
         /********************用户********************/
                  {  //用户信息获取
@@ -81,8 +98,8 @@ var test_data=[
                 "stamp_TIMES": "1490192929212", 
                 "serial_NUMBER": "00147001015869149751" 
                 },
-                { 
-                    "protocol_CODE": "USM001003", //信息修改
+                { //信息修改
+                    "protocol_CODE": "USM001003", 
                     "ReqData": { 
                     "userID": "eb2ae597-5adb-4242-b22e-a4f901275654", 
                     "pWord": "123456", 
