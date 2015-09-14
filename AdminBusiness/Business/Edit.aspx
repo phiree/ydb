@@ -26,7 +26,7 @@
                             <div class="clearfix">
                                 <div class="headImage fr m-r20">
                                     <div class="input-file-box headFile">
-                                      <input type=file class="input-file-btn file-default"  name="upload_file" businessId="<%=b.Id %>" imageType="businessavater" />
+                                        <input type=file class="input-file-btn file-default"  name="upload_file" businessId="<%=b.Id %>" imageType="businessavater" />
                                         <i class="input-file-bg"  style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=3)":"../image/myshop/touxiang_90_90.png" %>' ></i>
                                         <i  class="input-file-mark"></i>
                                         <i  class="input-file-hover">修改头像</i>
@@ -277,7 +277,7 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <div class="input-file-box m-r10 m-b10 fl dis-n">
+                                        <div class="input-file-box m-r10 m-b10 dis-n fl">
                                             <input type=file class="input-file-btn file-limit-2"   name="input-file-btn-license" businessId="<%=b.Id %>" imageType="businesslicense" />
                                             <i class="input-file-bg"></i>
                                             <i class="input-file-mark"></i>
@@ -320,7 +320,7 @@
     <script src="/js/navigator.sayswho.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
-    <script src="/js/FileUpload.js" type="text/javascript"></script>
+    <script src="/js/imgUpload.js" type="text/javascript"></script>
     <script type="text/javascript">
          var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
     </script>
@@ -329,7 +329,17 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $(function () {
-              $('[data-toggle="tooltip"]').tooltip()
+                $('[data-toggle="tooltip"]').tooltip()
+
+                $('.file-default').imgUpload({
+                    limitNum: 1
+                });
+                $('.file-limit-2').imgUpload({
+                    limitNum: 2
+                });
+                $('.file-limit-6').imgUpload({
+                    limitNum: 6
+                });
             });
 
             $($("form")[0]).validate(
