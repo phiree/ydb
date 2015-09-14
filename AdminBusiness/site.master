@@ -80,7 +80,7 @@
     <script src="/js/metisMenu/metisMenu.js"></script>
     <script>
         $(function () {
-            $("#menu").metisMenu();
+            return $("#menu").length == 0 ? null : $("#menu").metisMenu();
         })
     </script>
     <%if (!Request.IsLocal){ %>

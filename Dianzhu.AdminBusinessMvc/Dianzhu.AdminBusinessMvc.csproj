@@ -804,7 +804,7 @@
     <Content Include="js\account.js" />
     <Content Include="js\CityList.js" />
     <Content Include="js\data_tree.js" />
-    <Content Include="js\FileUpload.js" />
+    <Content Include="js\imgUpload.js" />
     <Content Include="js\global.js" />
     <Content Include="js\InlineTip.js" />
     <Content Include="js\jquery-1.11.1.js" />
