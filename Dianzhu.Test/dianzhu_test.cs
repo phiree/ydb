@@ -47,5 +47,23 @@ public     class form
            Console.Write(result2[0].name);
             
         }
+
+        [Test]
+        public void string_format_test()
+        {
+            string postData = string.Format(
+                       "{{"
+                       + "\"protocol_CODE\": \"USM001005\"" //用户信息获取
+                       + "\"ReqData\": {{"
+                        + "\"email\": {0},"
+                         + "\"pWord\": {1},"
+                          + " }}, "
+                       + "\"stamp_TIMES\": \"1490192929212\", "
+                       + "\"serial_NUMBER\": \"00147001015869149751\" "
+                        + "}}"
+
+                       ,"f", "123455");
+
+        }
     }
 }

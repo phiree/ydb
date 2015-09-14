@@ -105,6 +105,7 @@ namespace Dianzhu.Model.Enums
         ConfirmedService,//被确认的服务
         Order,//订单.包含支付链接
         BeginPay,//开始支付消息.
+        ReAssign,//重新分配客服
     }
     /// <summary>
     /// 订单范围类型..这个名字好拗口.
