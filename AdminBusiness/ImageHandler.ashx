@@ -11,8 +11,8 @@ public class ImageHandler : IHttpHandler {
 
    // NBiz.ThumbnailMaker thumbnailMaker = new NBiz.ThumbnailMaker();
     public void ProcessRequest (HttpContext context) {
-       
- 
+
+        context.Response.ContentType = "image/png";
         string imageName =context.Request["imagename"];
  
         string regp=@"(_(\d+)[x|X](\d+))\.";
@@ -29,29 +29,30 @@ public class ImageHandler : IHttpHandler {
             paramHeight = regexMatch.Groups[3].Value;
             imageName = imageName.Replace(regexMatch.Groups[1].Value, string.Empty);
             paramType = "3";
-          
-        }
-       
-        
-       
-        
-        
-        
-  
-        string physicalPath = context.Server.MapPath(Config.BusinessImagePath);
-        int width = Convert.ToInt32(paramWidth);
-        int height = Convert.ToInt32(paramHeight);
-        ThumbnailType tt = ThumbnailType.GeometricScalingByHeight;
-        try
+
+        } string physicalPath = context.Server.MapPath(Config.BusinessImagePath);
+        if (paramWidth == null||paramHeight==null)
         {
-            tt = (ThumbnailType)Convert.ToInt32(paramType);
+            context.Response.WriteFile(physicalPath + "original\\" + imageName);
         }
-        catch { }
-        string thumbnailName =  ThumbnailMaker.Make(physicalPath + "original\\", physicalPath + "thumbnail\\", imageName, width, height, tt);
-        if (string.IsNullOrEmpty(thumbnailName)) { return; }
-        context.Response.ContentType = "image/png";
+        else
+        {
+
+
+            int width = Convert.ToInt32(paramWidth);
+            int height = Convert.ToInt32(paramHeight);
+            ThumbnailType tt = ThumbnailType.GeometricScalingByHeight;
+            try
+            {
+                tt = (ThumbnailType)Convert.ToInt32(paramType);
+            }
+            catch { }
+            string thumbnailName = ThumbnailMaker.Make(physicalPath + "original\\", physicalPath + "thumbnail\\", imageName, width, height, tt);
+            if (string.IsNullOrEmpty(thumbnailName)) { return; }
+            context.Response.WriteFile(thumbnailName);
+        }
       // context.Response.TransmitFile(physicalPath + imageName);
-        context.Response.WriteFile(thumbnailName);
+       
       //  context.Response.WriteFile(@"E:\workspace\code\resources\VirtualDirectory\NTSBase\ProductImages\1080271.JPG");
     }
     
