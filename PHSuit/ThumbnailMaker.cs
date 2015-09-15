@@ -40,7 +40,7 @@ namespace PHSuit
             try
             {
                 //以jpg格式保存缩略图 
-                bitmap.Save(thumbnailPath, System.Drawing.Imaging.ImageFormat.Jpeg); 
+                bitmap.Save(thumbnailPath, System.Drawing.Imaging.ImageFormat.Png); 
             }
             catch (System.Exception e)
             {
@@ -103,8 +103,8 @@ namespace PHSuit
 
             }
             //新建一个bmp图片 
-            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(towidth, toheight);
-
+            System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(width, height);
+           
             //新建一个画板 
             Graphics g = System.Drawing.Graphics.FromImage(bitmap);
 
@@ -112,16 +112,16 @@ namespace PHSuit
             g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
 
             //设置高质量,低速度呈现平滑程度 
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+           g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
             //清空画布并以透明背景色填充 
             g.Clear(Color.Transparent);
-
+ 
             //在指定位置并且按指定大小绘制原图片的指定部分 
-            g.DrawImage(originalImage, new Rectangle(0, 0, towidth, toheight),
+            g.DrawImage(originalImage, new Rectangle((width-towidth)/2, (height-toheight)/2, towidth, toheight),
              new Rectangle(x, y, ow, oh),
              GraphicsUnit.Pixel);
-
+         
             return bitmap;
 
         }
