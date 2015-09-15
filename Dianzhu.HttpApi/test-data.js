@@ -1,7 +1,7 @@
 ﻿var need_to_test=[
-//"usm001003","usm001005","usm001007",
+"usm001003","usm001005","usm001007",
 //"merm001001","merm001003","merm001005",
-"orm001004","orm001005","orm001006"
+//"orm001004","orm001005","orm001006"
 ];
 var test_data=[
   /***************订单*****************/
@@ -105,9 +105,9 @@ var test_data=[
                     "protocol_CODE": "USM001003", 
                     "ReqData": { 
                     "userID": "eb2ae597-5adb-4242-b22e-a4f901275654", 
-                    "pWord": "123456", 
+                    "pWord": "1234526", 
                     "alias": "1805", 
-                    "email": "123331@126.com", 
+                    "email": "1233311@126.com", 
                     "phone": "1999938xxxx", 
                     "password":"123456",
                     "address":"海牙国际大厦20B"
@@ -123,7 +123,7 @@ var test_data=[
                     "userID": "eb2ae597-5adb-4242-b22e-a4f901275654", 
                     "pWord": "123456", 
                     "address":"海牙国际大厦20A",
-                    "phone":"13812341234"
+                    "phone":"13023123412"
                    
                     }, 
                     "stamp_TIMES": "1490192929222", 

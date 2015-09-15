@@ -20,19 +20,10 @@ public class ResponseMERM001003 : BaseResponse
 
         try
         {
-            Guid uid = new Guid(PHSuit.StringHelper.InsertToId(raw_id));
-            DZMembership member = p.GetUserById(uid);
-            if (member == null)
+            DZMembership member;
+            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+            if (!validated)
             {
-                this.state_CODE = Dicts.StateCode[8];
-                this.err_Msg = "用户不存在,可能是传入的uid有误";
-                return;
-            }
-            //验证用户的密码
-            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
-            {
-                this.state_CODE = Dicts.StateCode[9];
-                this.err_Msg = "用户密码错误";
                 return;
             }
             DZMembership memberOriginal = new DZMembership();
