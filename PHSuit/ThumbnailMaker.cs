@@ -17,7 +17,7 @@ namespace PHSuit
             {
                 return string.Empty;
             }
-            string thumbnailName = Path.GetFileNameWithoutExtension(originalName) + "_" + width + "-" + height + Path.GetExtension(originalName);
+            string thumbnailName = Path.GetFileNameWithoutExtension(originalName) + "_" + width + "-" + height+ "-"+(int)type + Path.GetExtension(originalName);
             string thumbnailPath = targetdir +  width + "_" + height + "\\";
             string thumbnailFullName = thumbnailPath + thumbnailName;
             IOHelper.EnsureFileDirectory(thumbnailPath);
@@ -76,6 +76,14 @@ namespace PHSuit
                 case ThumbnailType.GeometricScalingByHeight://指定高，宽按比例 
                     towidth = originalImage.Width * height / originalImage.Height;
                     break;
+                case ThumbnailType.GeometricScalingByMax://
+                    var orginalScal = ow / oh;
+                    var toScal=towidth / toheight;
+                    if(orginalScal>toScal)
+                        toheight = originalImage.Height * width / originalImage.Width;
+                    else
+                        towidth = originalImage.Width * height / originalImage.Height;
+                    break;
                 default://指定高宽裁减（不变形）                 
                     if ((double)originalImage.Width / (double)originalImage.Height > (double)towidth / (double)toheight)
                     {
@@ -126,7 +134,10 @@ namespace PHSuit
         //按照给定的 长 或者 宽等比缩放
         GeometricScalingByWidth,
         GeometricScalingByHeight,
-        ScalingByBoth
+    
+        ScalingByBoth,
+        //
+        GeometricScalingByMax,
 
     }
 }
