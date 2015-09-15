@@ -55,10 +55,14 @@ public class ResponseFactory
                 return new ResponseMERM001003(request);
             case "merm001005":
                 return new ResponseMERM001005(request);
+
             case "orm001004":
                 return new ResponseORM001004(request);
             case "orm001003":
                 return new ResponseORM001003(request);
+            case "orm001005":
+                return new ResponseORM001005(request);
+
             case "orm002001":
                 return new ResponseORM002001(request); 
             default: break;
