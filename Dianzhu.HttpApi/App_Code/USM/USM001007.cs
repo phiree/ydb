@@ -7,6 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Configuration;
 /// <summary>
 /// 用户设备认证
 /// </summary>
@@ -22,32 +23,28 @@ public class ResponseUSM001007 : BaseResponse
 
         try
         {
-            Guid uid = new Guid(raw_id);// new Guid(PHSuit.StringHelper.InsertToId(raw_id));
-            DZMembership member = p.GetUserById(uid);
-            if (member == null)
+           
+            
+             DZMembership member;
+             bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+            if (!validated)
             {
-                this.state_CODE ="用户不存在,可能是传入的uid有误";
                 return;
             }
-            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
-            
-            {
-                this.state_CODE = Dicts.StateCode[9];
-                this.err_Msg = "密码有误"; return;
-            }
-
             try
             {
                 //上传图片.
                 //bllDeviceBind.UpdateDeviceBindStatus(member, requestData.appToken, requestData.appName);
                 string fileName = Guid.NewGuid() + ".png";
-                string relativePath = System.Configuration.ConfigurationManager.AppSettings["user_avatar_image_root"];
+                string relativePath = System.Configuration.ConfigurationManager.AppSettings["business_image_root"];
                 string filePath = HttpContext.Current.Server.MapPath(relativePath);
                 PHSuit.IOHelper.SaveFileFromBase64(requestData.imgData, filePath+fileName);
                 this.state_CODE = Dicts.StateCode[0];
                 RespDataUSM001007 respData = new RespDataUSM001007();
                 respData.userID = requestData.userID;
-                respData.imgUrl = HttpContext.Current.Request.Url.Authority + relativePath  + fileName;
+                respData.imgUrl =ConfigurationManager.AppSettings["media_server"]+"imagehandler.ashx?imagename="+fileName;
+                member.AvatarUrl = fileName;
+                p.UpdateDZMembership(member);
                 this.RespData = respData;
                 
             }

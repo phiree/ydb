@@ -1,40 +1,77 @@
-﻿var test_data=[
-        { //订单列表
-                    "protocol_CODE": "ORM001003", 
+﻿var need_to_test=[
+"usm001003","usm001005","usm001007",
+//"merm001001","merm001003","merm001005",
+//"orm001004","orm001005","orm001006"
+];
+var test_data=[
+  /***************订单*****************/
+ 
+
+              
+    { //订单总数
+                    "protocol_CODE": "ORM001004", 
                     "ReqData": { 
                         "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", 
                         "pWord": "123456", 
                         "target": "ALL", 
-                        "pageSize":"10",
+                        }, 
+                    "stamp_TIMES": "1490192929212", 
+                    "serial_NUMBER": "00147001015869149751" 
+                },
+        
+                { //订单详情
+                    "protocol_CODE": "ORM001005", 
+                    "ReqData": { 
+                        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", 
+                        "pWord": "123456", 
+                        "orderID": "7d06debd-ed45-4678-b86c-a500014ce48e", 
+                        }, 
+                    "stamp_TIMES": "1490192929212", 
+                    "serial_NUMBER": "00147001015869149751" 
+                },    
+              
+          {//订单列表
+                    "protocol_CODE": "ORM001006", 
+                    "ReqData": { 
+                        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", //13022222222
+                        "pWord": "123456", 
+                        "target": "ALL", 
+                        "pageSize":"3",
                         "pageNum":"1"
                         }, 
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
                 },
-              
-                { //订单详情
-                    "protocol_CODE": "SVM001002", 
+       
+        /*******************商家******************/
+        {//商户注册.
+                    "protocol_CODE": "MERM001001", 
                     "ReqData": { 
-                        "userID": "24ba4944-660a-4d7e-abd3-a4de00abf040", 
-                        "userPWord": "123456", 
-                        "srvID": "e71fd0e2-cb5f-4a7e-8adb-a4d400b7224a"
-                         
-                        }, 
-                    "stamp_TIMES": "1490192929212", 
-                    "serial_NUMBER": "00147001015869149751" 
-                } ,
-        { 
-                    "protocol_CODE": "ORM001001", 
-                    "ReqData": { 
-                        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", 
-                        "pWord": "123456", 
-                        "target": "ALL", 
-                        }, 
+                                "email": "phiree2@gmail.com", 
+                                "pWord": "121212", 
+                                }, 
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
                 },
-        { 
-                    "protocol_CODE": "MERM001001", 
+         //商户信息修改
+                  {
+                     "protocol_CODE": "MERM001003", 
+                    "ReqData": { 
+                    "userID": "d9b54c42-c027-426c-81be-a51301346a9d", //phiree2@gmail.com
+                    "pWord": "121212", 
+                    "alias": "1805", 
+                    "email": "phirea126.com", 
+                    "phone": "1999938xxxx", 
+                    "password":"121212",
+                    
+                   
+                    }, 
+                    "stamp_TIMES": "1490192929222", 
+                    "serial_NUMBER": "00147001015869149756" 
+                },
+         //商户信息获取
+                  {
+                    "protocol_CODE": "MERM001005", 
                     "ReqData": { 
                                 "email": "phiree@gmail.com", 
                                 "pWord": "121212", 
@@ -42,11 +79,14 @@
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
                 },
-                { 
-                    "protocol_CODE": "USM001005", //用户信息获取
+               
+                
+        /********************用户********************/
+                 {  //用户信息获取
+                    "protocol_CODE": "USM001005",
                     "ReqData": { 
-                                "email": "issumao@126.com", 
-                                "pWord": "password", 
+                                "email": "13022222222", 
+                                "pWord": "123456", 
                                 }, 
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
@@ -54,22 +94,22 @@
                 { 
                     "protocol_CODE": "USM001001", //注册
                     "ReqData": { 
-                                "email": "12345", 
+                                "email": "sdf", 
                                 "pWord": 'password', 
                                 
                                 }, 
                 "stamp_TIMES": "1490192929212", 
                 "serial_NUMBER": "00147001015869149751" 
                 },
-                { 
-                    "protocol_CODE": "USM001003", //信息修改
+                { //信息修改
+                    "protocol_CODE": "USM001003", 
                     "ReqData": { 
-                    "userID": "ace957b9-33b6-4d54-ac23-a4d101213be3", 
-                    "pWord": "password", 
+                    "userID": "eb2ae597-5adb-4242-b22e-a4f901275654", 
+                    "pWord": "1234526", 
                     "alias": "1805", 
-                    "email": "12333@126.com", 
+                    "email": "1233311@126.com", 
                     "phone": "1999938xxxx", 
-                    "password":"password",
+                    "password":"123456",
                     "address":"海牙国际大厦20B"
                    
                     }, 
@@ -80,10 +120,10 @@
                 { 
                     "protocol_CODE": "USM001003", 
                     "ReqData": { 
-                    "userID": "ace957b9-33b6-4d54-ac23-a4d101213be3", 
-                    "pWord": "password", 
+                    "userID": "eb2ae597-5adb-4242-b22e-a4f901275654", 
+                    "pWord": "123456", 
                     "address":"海牙国际大厦20A",
-                    "phone":"13812341234"
+                    "phone":"13023123412"
                    
                     }, 
                     "stamp_TIMES": "1490192929222", 
@@ -92,8 +132,8 @@
                  { 
                     "protocol_CODE": "USM001007",  //上传头像
                     "ReqData": { 
-                        "userID": "ace957b9-33b6-4d54-ac23-a4d101213be3", 
-                        "pWord": "password", 
+                        "userID": "eb2ae597-5adb-4242-b22e-a4f901275654", 
+                        "pWord": "123456", 
                         "imgData":"iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII="
                         }, 
                     "stamp_TIMES": "1490192929212", 

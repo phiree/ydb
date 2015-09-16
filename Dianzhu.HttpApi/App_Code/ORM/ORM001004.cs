@@ -9,19 +9,19 @@ using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 /// <summary>
-/// 服务信息总数获取.
+/// 订单信息总数获取.
 /// </summary>
-public class ResponseSVM001001 : BaseResponse
+public class ResponseORM001004 : BaseResponse
 {
-    public ResponseSVM001001(BaseRequest request) : base(request) { }
+    public ResponseORM001004(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataSVM001001 requestData = this.request.ReqData.ToObject<ReqDataSVM001001>();
+        ReqDataORM001004 requestData = this.request.ReqData.ToObject<ReqDataORM001004>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        string raw_id = requestData.uid;
+        string raw_id = requestData.userID;
 
         try
         {
@@ -30,11 +30,11 @@ public class ResponseSVM001001 : BaseResponse
             if (member == null)
             {
                 this.state_CODE = Dicts.StateCode[8];
-                this.err_Msg = "用户不存在,可能是传入的uid有误";
+                this.err_Msg = "用户不存在,可能是传入的userID有误";
                 return;
             }
             //验证用户的密码
-            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.userPWord, "MD5"))
+            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
             {
                 this.state_CODE = Dicts.StateCode[9];
                 this.err_Msg = "用户密码错误";
@@ -42,11 +42,11 @@ public class ResponseSVM001001 : BaseResponse
             }
             try
             {
-                string srvTarget = requestData.srvTarget;
+                string srvTarget = requestData.target;
                 enum_OrderSearchType searchType = (enum_OrderSearchType)Enum.Parse(typeof(enum_OrderSearchType), srvTarget);
                
                 int rowCount = bllServiceOrder.GetServiceOrderCount(uid,searchType);
-                RespDataSVM001001 respData=new RespDataSVM001001{ sum=rowCount.ToString()};
+                RespDataORM001004 respData=new RespDataORM001004{ sum=rowCount.ToString()};
                 this.RespData =  respData ;
                 this.state_CODE = Dicts.StateCode[0];
                 
@@ -73,14 +73,14 @@ public class ResponseSVM001001 : BaseResponse
     }
 }
 
-public class ReqDataSVM001001
+public class ReqDataORM001004
 {
-    public string uid { get; set; }
-    public string userPWord { get; set; }
-    public string srvTarget { get; set; }
+    public string userID { get; set; }
+    public string pWord { get; set; }
+    public string target { get; set; }
  
 }
-public class RespDataSVM001001
+public class RespDataORM001004
 {
     public string sum { get; set; }
 }

@@ -8,15 +8,16 @@ using Dianzhu.BLL.Validator;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-public class ResponseUSM001003 : BaseResponse
+public class ResponseMERM001003 : BaseResponse
 {
-    public ResponseUSM001003(BaseRequest request) : base(request) { }
+    public ResponseMERM001003(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataUSM001003 requestData = this.request.ReqData.ToObject<ReqDataUSM001003>();
+        ReqDataMERM001003 requestData = this.request.ReqData.ToObject<ReqDataMERM001003>();
 
-          string raw_id = requestData.userID;
-          DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = new DZMembershipProvider();
+        string raw_id = requestData.userID;
+
         try
         {
             DZMembership member;
@@ -27,7 +28,7 @@ public class ResponseUSM001003 : BaseResponse
             }
             DZMembership memberOriginal = new DZMembership();
             member.CopyTo(memberOriginal);
-            RespDataUSM001003 memberUpdateResult = new RespDataUSM001003(raw_id);
+            ReqDataMERM001003 memberUpdateResult = new ReqDataMERM001003();
             if (requestData.alias != null)
             {
                 member.NickName = requestData.alias;
@@ -52,11 +53,7 @@ public class ResponseUSM001003 : BaseResponse
                 memberUpdateResult.password = "Y";
             }
              
-            if (requestData.address != null)
-            {
-                member.Address = requestData.address;
-                memberUpdateResult.address = "Y";
-            }
+            
              
 
             ValidatorDZMembership vd_member = new ValidatorDZMembership();
@@ -93,12 +90,7 @@ public class ResponseUSM001003 : BaseResponse
                         memberUpdateResult.password = "N";
                         member.Password = memberOriginal.Password;
                         }break;
-                    case "address": 
-                        if(memberUpdateResult.address!=null)
-                        {
-                        memberUpdateResult.address = "N";
-                        member.Address = memberOriginal.Address;
-                        } break;
+                    
                     default: break;
                 }
                 
@@ -114,7 +106,7 @@ public class ResponseUSM001003 : BaseResponse
         catch (Exception e)
         {
             this.state_CODE = Dicts.StateCode[1];
-            this.err_Msg = e.Message+(e.InnerException==null?string.Empty:e.InnerException.Message);
+            this.err_Msg = e.Message+e.InnerException==null?string.Empty:e.InnerException.Message;
 
         }
 
@@ -125,10 +117,10 @@ public class ResponseUSM001003 : BaseResponse
     }
 }
 
-public class ReqDataUSM001003
+public class ReqDataMERM001003
 {
     //todo:初始化为不可能传递进来值,序列化之后对比,用以判断是否传递了该值.
-    public ReqDataUSM001003()
+    public ReqDataMERM001003()
     {
         //alias = "nosuchalias#$#";
         //email = "a@nosuch.email";
@@ -142,24 +134,5 @@ public class ReqDataUSM001003
     public string email { get; set; }
     public string phone { get; set; }
     public string password { get; set; } //new password
-    public string address { get; set; }
-}
-public class RespDataUSM001003
-{
-    public string userID { get; set; }
-    public string alias { get; set; }
-    public string email { get; set; }
-    public string phone { get; set; }
-    public string password { get; set; } //new password
-    public string address { get; set; }
-    public RespDataUSM001003(string uid)
-    {
-        //todo: 如果修改成功,则为"Y" 否则为"N"
-        this.userID = uid;
-        this.alias = null;
-        this.email =null;
-        this.phone = null;
-        this.password = null;
-        this.address = null;
-    }
-}
+ 
+} 

@@ -10,6 +10,7 @@
 <body>
 
     <form id="form1" runat="server">
+    <input type="button" value="全部接口" onclick="textall()" />
     <div> 
         <div id="dvResults">
         </div>
@@ -17,36 +18,42 @@
     </form>
     <script src="test-data.js"></script>
     <script>
- 
-    var apiTest={
-    requestArray:test_data,
-    begin:function(){
-            for(var  i=0;i<this.requestArray.length;i++)
-            {
-                    var data=this.requestArray[i];
-                    var data_str=JSON.stringify(data,null,4);
+
+        var apiTest = {
+            requestArray: test_data,
+            need_to_test: need_to_test,
+            test_all:false,
+            begin: function () {
+                for (var i = 0; i < this.requestArray.length; i++) {
+                    var data = this.requestArray[i];
+                    if (!this.test_all && $.inArray(data.protocol_CODE.toLowerCase(), need_to_test)<0)
+                    { continue; }
+                    var data_str = JSON.stringify(data, null, 4);
                     $.ajax({
-                            url:"DianzhuApi.ashx",
-                            method:"POST",
-                            data:data_str, 
-                            async:false,
-                            success:function (result) {
-                                apiTest.writelog("请求:<br/><pre>" + data_str + "</pre><br/>返回值:<br/><pre>" + JSON.stringify(result,null,4) + "</pre><hr/>");
-                                },//success
-                            error:function(errmsg)
-                            {
-                                
-                            },//error
-                            complete:function(result){}//complete
-                        });//ajax
-                }//for
-       },//begin
-    writelog:function(msg){
-        $("#dvResults").append(msg);
-    }//writelog
-};//apitest
- 
- apiTest.begin();
+                        url: "DianzhuApi.ashx",
+                        method: "POST",
+                        data: data_str,
+                        async: false,
+                        success: function (result) {
+                            apiTest.writelog("请求:<br/><pre>" + data_str + "</pre><br/>返回值:<br/><pre>" + JSON.stringify(result, null, 4) + "</pre><hr/>");
+                        }, //success
+                        error: function (errmsg) {
+
+                        }, //error
+                        complete: function (result) { } //complete
+                    }); //ajax
+                } //for
+            }, //begin
+            writelog: function (msg) {
+                $("#dvResults").append(msg);
+            } //writelog
+        };  //apitest
+
+        apiTest.begin();
+        function textall() {
+            apiTest.test_all = true;
+            apiTest.begin();
+        }
     </script>
 </body>
 </html>

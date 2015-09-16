@@ -11,12 +11,12 @@ using Newtonsoft.Json.Linq;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
-public class ResponseORM001003 : BaseResponse
+public class ResponseORM001006 : BaseResponse
 {
-    public ResponseORM001003(BaseRequest request) : base(request) { }
+    public ResponseORM001006(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataORM001003 requestData = this.request.ReqData.ToObject<ReqDataORM001003>();
+        ReqDataORM001006 requestData = this.request.ReqData.ToObject<ReqDataORM001006>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
@@ -57,7 +57,7 @@ public class ResponseORM001003 : BaseResponse
 
                 IList<ServiceOrder> orderList = bllServiceOrder.GetServiceOrderList(uid, searchType, pageNum, pageSize);
 
-                RespDataORM001003 respData = new RespDataORM001003();
+                RespDataORM001006 respData = new RespDataORM001006();
 
                 respData.AdapList(orderList);
 
@@ -84,7 +84,7 @@ public class ResponseORM001003 : BaseResponse
 
 }
 
-public class ReqDataORM001003
+public class ReqDataORM001006
 {
     public string userID { get; set; }
     public string pWord { get; set; }
@@ -93,11 +93,11 @@ public class ReqDataORM001003
     public string pageNum { get; set; }
 
 }
-public class RespDataORM001003
+public class RespDataORM001006
 {
     public IList<RespDataORM_Order> arrayData { get; set; }
  
-    public RespDataORM001003()
+    public RespDataORM001006()
     {
 
         arrayData = new List<RespDataORM_Order>();
