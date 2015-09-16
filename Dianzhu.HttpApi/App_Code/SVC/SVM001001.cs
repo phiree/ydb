@@ -11,44 +11,36 @@ using Newtonsoft.Json.Linq;
 /// <summary>
 /// 服务信息总数获取.
 /// </summary>
-public class ResponseSVM001001 : BaseResponse
+public class ResponseSVC001001 : BaseResponse
 {
-    public ResponseSVM001001(BaseRequest request) : base(request) { }
+    public ResponseSVC001001(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataSVM001001 requestData = this.request.ReqData.ToObject<ReqDataSVM001001>();
+        ReqDataSVC001001 requestData = this.request.ReqData.ToObject<ReqDataSVC001001>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        string raw_id = requestData.uid;
+        string raw_id = requestData.userID;
 
         try
         {
-            Guid uid = new Guid(PHSuit.StringHelper.InsertToId(raw_id));
-            DZMembership member = p.GetUserById(uid);
-            if (member == null)
+            DZMembership member;
+            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+            if (!validated)
             {
-                this.state_CODE = Dicts.StateCode[8];
-                this.err_Msg = "用户不存在,可能是传入的uid有误";
-                return;
-            }
-            //验证用户的密码
-            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.userPWord, "MD5"))
-            {
-                this.state_CODE = Dicts.StateCode[9];
-                this.err_Msg = "用户密码错误";
                 return;
             }
             try
-            {
-                string srvTarget = requestData.srvTarget;
-                enum_OrderSearchType searchType = (enum_OrderSearchType)Enum.Parse(typeof(enum_OrderSearchType), srvTarget);
+            {   //old svc001001
+                //string srvTarget = requestData.srvTarget;
+                //enum_OrderSearchType searchType = (enum_OrderSearchType)Enum.Parse(typeof(enum_OrderSearchType), srvTarget);
                
-                int rowCount = bllServiceOrder.GetServiceOrderCount(uid,searchType);
-                RespDataSVM001001 respData=new RespDataSVM001001{ sum=rowCount.ToString()};
-                this.RespData =  respData ;
-                this.state_CODE = Dicts.StateCode[0];
+                //int rowCount = bllServiceOrder.GetServiceOrderCount(uid,searchType);
+                //RespDataSVC001001 respData=new RespDataSVC001001{ sum=rowCount.ToString()};
+                //this.RespData =  respData ;
+                //this.state_CODE = Dicts.StateCode[0];
+                //创建.
                 
             }
             catch (Exception ex)
@@ -73,15 +65,12 @@ public class ResponseSVM001001 : BaseResponse
     }
 }
 
-public class ReqDataSVM001001
+public class ReqDataSVC001001
 {
-    public string uid { get; set; }
-    public string userPWord { get; set; }
-    public string srvTarget { get; set; }
+    public string userID { get; set; }
+    public string pWord { get; set; }
+    public RespDataSVC_svcObj svcObj { get; set; }
  
 }
-public class RespDataSVM001001
-{
-    public string sum { get; set; }
-}
+ 
  

@@ -54,6 +54,10 @@ public class RespDataSVC_svcObj
         return this;
 
     }
+    public DZService Adap(RespDataSVC_svcObj svcObj)
+    {
+        throw new NotImplementedException();
+    }
 }
  
 
