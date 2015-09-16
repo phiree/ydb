@@ -50,7 +50,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
             message.To = "user1";
             message.From = "cs1";
             message.SetAttribute("service_id", serviceId.ToString());
-            message.SetAttribute("message_type", "PushedService");
+            message.SetAttribute("MessageType", "PushedService");
             Model.ReceptionChatService chat = (Model.ReceptionChatService)adapter.MessageToChat(message);
             Assert.AreEqual(serviceId,chat.Service.Id);
         }
@@ -60,7 +60,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
         {
             message.To = "user1";
             message.From = "cs1";
-            message.SetAttribute("message_type", "PushedService");
+            message.SetAttribute("MessageType", "PushedService");
             message.SetAttribute("ServiceName", "name1");
             message.SetAttribute("ServiceDescription", "ServiceDescription1");
             message.SetAttribute("ServiceBusinessName", "business1");

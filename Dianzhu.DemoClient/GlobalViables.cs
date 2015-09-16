@@ -15,6 +15,7 @@ namespace Dianzhu.DemoClient
         static GlobalViables()
         {
             XMPPConnection = new XmppClientConnection(ServerName);
+            XMPPConnection.AutoResolveConnectServer = false;
         }
        
     }
