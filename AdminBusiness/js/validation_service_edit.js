@@ -100,11 +100,8 @@ service_validate_messages[name_prefix + "tbxOrderDelay"] =
 //服务时间
 service_validate_rules[name_prefix + "tbxServiceTimeBegin"] =
 {
-
         required: true,
         time24: true
-
-
     };
 
 
@@ -140,18 +137,11 @@ service_validate_rules[name_prefix + "tbxMaxOrdersPerDay"] =
     required: true,
     range:[1,2000],
     totalday_should_greater_totalhour: true
-
-
 };
 service_validate_messages[name_prefix + "tbxMaxOrdersPerDay"] =
 {
-
     required: "请填写日最大接单量",
-    range: "请输入1-2000之间的数值",
-    
-     
-
-
+    range: "请输入1-2000之间的数值"
 };
 //每小时最大接单量
 service_validate_rules[name_prefix + "tbxMaxOrdersPerHour"] =
@@ -161,14 +151,12 @@ service_validate_rules[name_prefix + "tbxMaxOrdersPerHour"] =
     range: [1, 1000],
     totalday_should_greater_totalhour: true
 
-
 };
 service_validate_messages[name_prefix + "tbxMaxOrdersPerHour"] =
 {
 
     required: "请填写小时最大接单量",
     range: "请输入1-1000之间的数值"
-
 
 };
 

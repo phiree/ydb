@@ -364,7 +364,7 @@ function initializeService(){
                     arrSPBtn[i].title = (i + 1);
                 }
             } else {
-                console.log('至少设置一个服务点');
+                //console.log('至少设置一个服务点');
                 document.getElementById('delError').style.display = 'inline';
                 return false;
             }
@@ -491,7 +491,7 @@ function initializeService(){
                     jsonTranDate.serPointCirle.radius = currentSP.getRadius();
                     jsonTranDate.serPointComp = result.addressComponents;
                     jsonTranDate.serPointAddress = result.address;
-                    console.log(JSON.stringify(jsonTranDate));
+                    //console.log(JSON.stringify(jsonTranDate));
                     hiBussAreaCode.attr("value",JSON.stringify(jsonTranDate)).focus().blur();
                     addressPrint(jsonTranDate);
 
@@ -532,7 +532,7 @@ function initializeService(){
                 jsonTranDate.serPointCirle.radius = currentSP.getRadius();
                 jsonTranDate.serPointComp = result.addressComponents;
                 jsonTranDate.serPointAddress = result.address;
-                console.log(JSON.stringify(jsonTranDate));
+                //console.log(JSON.stringify(jsonTranDate));
 
                 hiBussAreaCode.attr("value",JSON.stringify(jsonTranDate));
                 addressPrint(jsonTranDate);
@@ -610,7 +610,7 @@ function initializeService(){
                 currentSP = readSerPoint;
                 currentSP.setPoint(readPoint);
                 currentSP.setRadius(readRadius);
-                console.log(readSerPoint);
+                //console.log(readSerPoint);
                 currentSP.draw();
 
                 map.centerAndZoom(readPoint,15);

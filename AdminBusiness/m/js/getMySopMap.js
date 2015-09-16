@@ -6,7 +6,7 @@
         container : "city-container",
         map : map
     });
-    console.log(map.getCenter());
+    //console.log(map.getCenter());
     map.enableScrollWheelZoom();
     map.clearOverlays();    //清除地图上所有覆盖物
     $(document).on("pageshow", "#secondview", function () {
@@ -24,8 +24,8 @@
             var rMarker = new BMap.Marker(vPoint); // 创建点
             map.setCenter(vPoint);     // 初始化地图,设置中心点坐标和地图级别
             map.setZoom(12);
-            console.log(vPoint);
-            console.log(map.getCenter());
+            //console.log(vPoint);
+            //console.log(map.getCenter());
             map.addOverlay(rMarker);    //增加点
         }
     }

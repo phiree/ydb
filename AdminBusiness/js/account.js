@@ -25,7 +25,7 @@ function initialize(){
         geoc.getPoint(strAddress, function(point){
             if(point){
                 geoc.getLocation(point,function(result){
-                    console.log(result);
+                    //console.log(result);
 
                     $('#hiAddrId').attr("value",JSON.stringify(result.addressComponents));
 

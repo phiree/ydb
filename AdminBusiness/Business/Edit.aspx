@@ -326,7 +326,7 @@
     </script>
     <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
-    <script type="text/javascript">
+    <script>
         $(document).ready(function () {
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
@@ -351,7 +351,6 @@
                         } else {
                             error.appendTo(element.parent());
                         }
-
                     },
                     rules: service_validate_rules,
                     messages: service_validate_messages,
