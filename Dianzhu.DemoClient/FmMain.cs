@@ -143,8 +143,8 @@ namespace Dianzhu.DemoClient
 
             Presence p = new Presence(ShowType.chat, "Online");
             p.Type = PresenceType.available;
-            p.To = csName + "@" + GlobalViables.ServerName;
-            p.From = StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName;
+            p.To =new Jid( csName + "@" + GlobalViables.ServerName);
+            p.From =new Jid( StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName);
             GlobalViables.XMPPConnection.Send(p);
 
             lblLoginStatus.Text = "登录成功";
@@ -248,8 +248,8 @@ namespace Dianzhu.DemoClient
         void btnConfirm_Click(object sender, EventArgs e)
         {
             agsc.Message originalMessage = (agsc.Message)((Button)sender).Tag;
-            agsc.Message message = new agsc.Message(csName + "@" + GlobalViables.ServerName,
-                StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName,
+            agsc.Message message = new agsc.Message(new Jid(csName + "@" + GlobalViables.ServerName),
+            new Jid(    StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName),
                 agsc.MessageType.chat, "已选择服务");
             message.SetAttribute("MessageType", "ConfirmedService");
             message.SetAttribute("ServiceUnitAmount", 1);
@@ -266,8 +266,9 @@ namespace Dianzhu.DemoClient
         private void btnSend_Click(object sender, EventArgs e)
         {
 
-            agsc.Message message = new agsc.Message(csName + "@" + GlobalViables.ServerName,
-                StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName, agsc.MessageType.chat, tbxMessage.Text);
+            agsc.Message message = new agsc.Message( new Jid( csName + "@" + GlobalViables.ServerName),
+                new Jid(  StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName)
+                , agsc.MessageType.chat, tbxMessage.Text);
 
             GlobalViables.XMPPConnection.Send(message);
             AddLog(message);
@@ -286,8 +287,8 @@ namespace Dianzhu.DemoClient
         {
             Presence p = new Presence(ShowType.chat, "Offline");
             p.Type = PresenceType.unavailable;
-            p.To = csName + "@" + GlobalViables.ServerName;
-            p.From = StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName;
+            p.To =new Jid( csName + "@" + GlobalViables.ServerName);
+            p.From =new Jid( StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName);
             GlobalViables.XMPPConnection.Send(p);
         }
 
@@ -307,8 +308,8 @@ namespace Dianzhu.DemoClient
 
                 string result = PHSuit.IOHelper.UploadFileHttp("http://localhost:8033/ajaxservice/FileUploadCommon.ashx",
                       string.Empty, bytes, fileExtension);
-                agsc.Message m = new agsc.Message(csName + "@" + GlobalViables.ServerName,
-                    StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName,
+                agsc.Message m = new agsc.Message(new Jid(csName + "@" + GlobalViables.ServerName),
+                    new Jid( StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName),
                     agsc.MessageType.chat, string.Empty);
                 m.SetAttribute("media", result);
                 GlobalViables.XMPPConnection.Send(m);

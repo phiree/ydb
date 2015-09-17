@@ -40,7 +40,7 @@ public class ResponseSVC001001 : BaseResponse
                 //RespDataSVC001001 respData=new RespDataSVC001001{ sum=rowCount.ToString()};
                 //this.RespData =  respData ;
                 //this.state_CODE = Dicts.StateCode[0];
-                //创建.
+                //创建一项服务.
                 
             }
             catch (Exception ex)

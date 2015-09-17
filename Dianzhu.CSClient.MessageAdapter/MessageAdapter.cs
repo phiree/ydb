@@ -89,10 +89,11 @@ namespace Dianzhu.CSClient.MessageAdapter
             string server=System.Configuration.ConfigurationManager.AppSettings["server"];
             Message msg = new Message();
             msg.SetAttribute("MessageType", chat.ChatType.ToString());
-            msg.To = PHSuit.StringHelper.EnsureOpenfireUserName(chat.To.UserName) + "@" + server;
+            msg.To =new agsXMPP.Jid(PHSuit.StringHelper.EnsureOpenfireUserName(chat.To.UserName) + "@" + server);
             msg.Body = chat.MessageBody;
             if (!string.IsNullOrEmpty(chat.MessageMediaUrl))
             {
+                
                 msg.SetAttribute("MediaUrl", chat.MessageMediaUrl);
             }
             if (chat is ReceptionChatService)
