@@ -208,16 +208,12 @@
                         if (enabled == "True") {
                             $this.siblings("span").html("已指派");
                             $this.val("取消指派");
-//                            $(that).removeClass("btn-info");
-//                            $(that).addClass("btn-down-info");
                             $this.addClass("btn-text-cancel").removeClass("btn-text-info");
                             $assign.addClass("assigned").removeClass("noassign");
                         }
                         else {
                             $this.siblings("span").html("未指派");
                             $this.val("指派");
-//                            $(that).removeClass("btn-down-info");
-//                            $(that).addClass("btn-info");
                             $this.addClass("btn-text-info").removeClass("btn-text-cancel");
                             $assign.removeClass("assigned").addClass("noassign");
                         }
