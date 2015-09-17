@@ -795,11 +795,15 @@ a.time-trigger:hover {
     color: #16D237;
 }
 
+.theme-color-info {
+
+}
+
 .theme-color-58789a {
     color:#58789a;
 }
 
-.theme-color-58789a {
+.theme-color-666666 {
     color:#666666;
 }
 
@@ -827,6 +831,7 @@ a.time-trigger:hover {
 }
 
 .btn {
+    font: inherit;
     display: inline-block;
     margin-bottom: 0;
     font-weight: 500;
@@ -1295,6 +1300,328 @@ a.btn-down-info .badge,
     color: #ffffff;
     background-color: #45b2e6;
 }
+/* 文本按钮 */
+/* 编辑类按钮 */
+a.btn-text,
+.btn-text-info {
+    color: #64c6f8;
+    background-color: transparent;
+    border-color: transparent;
+    text-shadow: none;
+    box-shadow: none;
+}
+a.btn-text:focus,
+.btn-text-info:focus,
+a.btn-text.focus,
+.btn-text-info.focus {
+    color: #64c6f8;
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text:hover,
+.btn-text-info:hover {
+    color: #64c6f8;
+    background-color: rgba(13, 13, 13, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+a.btn-text:active,
+.btn-text-info:active,
+a.btn-text.active,
+.btn-text-info.active,
+.open > .dropdown-togglea.btn-text,
+.open > .dropdown-toggle.btn-text-info {
+    color: #64c6f8;
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text:active:hover,
+.btn-text-info:active:hover,
+a.btn-text.active:hover,
+.btn-text-info.active:hover,
+.open > .dropdown-togglea.btn-text:hover,
+.open > .dropdown-toggle.btn-text-info:hover,
+a.btn-text:active:focus,
+.btn-text-info:active:focus,
+a.btn-text.active:focus,
+.btn-text-info.active:focus,
+.open > .dropdown-togglea.btn-text:focus,
+.open > .dropdown-toggle.btn-text-info:focus,
+a.btn-text:active.focus,
+.btn-text-info:active.focus,
+a.btn-text.active.focus,
+.btn-text-info.active.focus,
+.open > .dropdown-togglea.btn-text.focus,
+.open > .dropdown-toggle.btn-text-info.focus {
+    color: #64c6f8;
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text:active,
+.btn-text-info:active,
+a.btn-text.active,
+.btn-text-info.active,
+.open > .dropdown-togglea.btn-text,
+.open > .dropdown-toggle.btn-text-info {
+    background-image: none;
+}
+a.btn-text.disabled,
+.btn-text-info.disabled,
+a.btn-text[disabled],
+.btn-text-info[disabled],
+fieldset[disabled] a.btn-text,
+fieldset[disabled] .btn-text-info,
+a.btn-text.disabled:hover,
+.btn-text-info.disabled:hover,
+a.btn-text[disabled]:hover,
+.btn-text-info[disabled]:hover,
+fieldset[disabled] a.btn-text:hover,
+fieldset[disabled] .btn-text-info:hover,
+a.btn-text.disabled:focus,
+.btn-text-info.disabled:focus,
+a.btn-text[disabled]:focus,
+.btn-text-info[disabled]:focus,
+fieldset[disabled] a.btn-text:focus,
+fieldset[disabled] .btn-text-info:focus,
+a.btn-text.disabled.focus,
+.btn-text-info.disabled.focus,
+a.btn-text[disabled].focus,
+.btn-text-info[disabled].focus,
+fieldset[disabled] a.btn-text.focus,
+fieldset[disabled] .btn-text-info.focus,
+a.btn-text.disabled:active,
+.btn-text-info.disabled:active,
+a.btn-text[disabled]:active,
+.btn-text-info[disabled]:active,
+fieldset[disabled] a.btn-text:active,
+fieldset[disabled] .btn-text-info:active,
+a.btn-text.disabled.active,
+.btn-text-info.disabled.active,
+a.btn-text[disabled].active,
+.btn-text-info[disabled].active,
+fieldset[disabled] a.btn-text.active,
+fieldset[disabled] .btn-text-info.active {
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text .badge,
+.btn-text-info .badge {
+    color: transparent;
+    background-color: #64c6f8;
+}
+/* 取消类按钮 */
+a.btn-text-cancel,
+.btn-text-cancel {
+    color: #afafaf;
+    background-color: transparent;
+    border-color: transparent;
+    text-shadow: none;
+    box-shadow: none;
+}
+a.btn-text-cancel:focus,
+.btn-text-cancel:focus,
+a.btn-text-cancel.focus,
+.btn-text-cancel.focus {
+    color: #afafaf;
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text-cancel:hover,
+.btn-text-cancel:hover {
+    color: #afafaf;
+    background-color: rgba(13, 13, 13, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+a.btn-text-cancel:active,
+.btn-text-cancel:active,
+a.btn-text-cancel.active,
+.btn-text-cancel.active,
+.open > .dropdown-togglea.btn-text-cancel,
+.open > .dropdown-toggle.btn-text-cancel {
+    color: #afafaf;
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text-cancel:active:hover,
+.btn-text-cancel:active:hover,
+a.btn-text-cancel.active:hover,
+.btn-text-cancel.active:hover,
+.open > .dropdown-togglea.btn-text-cancel:hover,
+.open > .dropdown-toggle.btn-text-cancel:hover,
+a.btn-text-cancel:active:focus,
+.btn-text-cancel:active:focus,
+a.btn-text-cancel.active:focus,
+.btn-text-cancel.active:focus,
+.open > .dropdown-togglea.btn-text-cancel:focus,
+.open > .dropdown-toggle.btn-text-cancel:focus,
+a.btn-text-cancel:active.focus,
+.btn-text-cancel:active.focus,
+a.btn-text-cancel.active.focus,
+.btn-text-cancel.active.focus,
+.open > .dropdown-togglea.btn-text-cancel.focus,
+.open > .dropdown-toggle.btn-text-cancel.focus {
+    color: #afafaf;
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text-cancel:active,
+.btn-text-cancel:active,
+a.btn-text-cancel.active,
+.btn-text-cancel.active,
+.open > .dropdown-togglea.btn-text-cancel,
+.open > .dropdown-toggle.btn-text-cancel {
+    background-image: none;
+}
+a.btn-text-cancel.disabled,
+.btn-text-cancel.disabled,
+a.btn-text-cancel[disabled],
+.btn-text-cancel[disabled],
+fieldset[disabled] a.btn-text-cancel,
+fieldset[disabled] .btn-text-cancel,
+a.btn-text-cancel.disabled:hover,
+.btn-text-cancel.disabled:hover,
+a.btn-text-cancel[disabled]:hover,
+.btn-text-cancel[disabled]:hover,
+fieldset[disabled] a.btn-text-cancel:hover,
+fieldset[disabled] .btn-text-cancel:hover,
+a.btn-text-cancel.disabled:focus,
+.btn-text-cancel.disabled:focus,
+a.btn-text-cancel[disabled]:focus,
+.btn-text-cancel[disabled]:focus,
+fieldset[disabled] a.btn-text-cancel:focus,
+fieldset[disabled] .btn-text-cancel:focus,
+a.btn-text-cancel.disabled.focus,
+.btn-text-cancel.disabled.focus,
+a.btn-text-cancel[disabled].focus,
+.btn-text-cancel[disabled].focus,
+fieldset[disabled] a.btn-text-cancel.focus,
+fieldset[disabled] .btn-text-cancel.focus,
+a.btn-text-cancel.disabled:active,
+.btn-text-cancel.disabled:active,
+a.btn-text-cancel[disabled]:active,
+.btn-text-cancel[disabled]:active,
+fieldset[disabled] a.btn-text-cancel:active,
+fieldset[disabled] .btn-text-cancel:active,
+a.btn-text-cancel.disabled.active,
+.btn-text-cancel.disabled.active,
+a.btn-text-cancel[disabled].active,
+.btn-text-cancel[disabled].active,
+fieldset[disabled] a.btn-text-cancel.active,
+fieldset[disabled] .btn-text-cancel.active {
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text-cancel .badge,
+.btn-text-cancel .badge {
+    color: transparent;
+    background-color: #afafaf;
+}
+/* 删除类按钮 */
+a.btn-text-delete,
+.btn-text-delete {
+    color: #fdb2b2;
+    background-color: transparent;
+    border-color: transparent;
+    text-shadow: none;
+    box-shadow: none;
+}
+a.btn-text-delete:focus,
+.btn-text-delete:focus,
+a.btn-text-delete.focus,
+.btn-text-delete.focus {
+    color: #fdb2b2;
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text-delete:hover,
+.btn-text-delete:hover {
+    color: #fdb2b2;
+    background-color: rgba(13, 13, 13, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+a.btn-text-delete:active,
+.btn-text-delete:active,
+a.btn-text-delete.active,
+.btn-text-delete.active,
+.open > .dropdown-togglea.btn-text-delete,
+.open > .dropdown-toggle.btn-text-delete {
+    color: #fdb2b2;
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text-delete:active:hover,
+.btn-text-delete:active:hover,
+a.btn-text-delete.active:hover,
+.btn-text-delete.active:hover,
+.open > .dropdown-togglea.btn-text-delete:hover,
+.open > .dropdown-toggle.btn-text-delete:hover,
+a.btn-text-delete:active:focus,
+.btn-text-delete:active:focus,
+a.btn-text-delete.active:focus,
+.btn-text-delete.active:focus,
+.open > .dropdown-togglea.btn-text-delete:focus,
+.open > .dropdown-toggle.btn-text-delete:focus,
+a.btn-text-delete:active.focus,
+.btn-text-delete:active.focus,
+a.btn-text-delete.active.focus,
+.btn-text-delete.active.focus,
+.open > .dropdown-togglea.btn-text-delete.focus,
+.open > .dropdown-toggle.btn-text-delete.focus {
+    color: #fdb2b2;
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text-delete:active,
+.btn-text-delete:active,
+a.btn-text-delete.active,
+.btn-text-delete.active,
+.open > .dropdown-togglea.btn-text-delete,
+.open > .dropdown-toggle.btn-text-delete {
+    background-image: none;
+}
+a.btn-text-delete.disabled,
+.btn-text-delete.disabled,
+a.btn-text-delete[disabled],
+.btn-text-delete[disabled],
+fieldset[disabled] a.btn-text-delete,
+fieldset[disabled] .btn-text-delete,
+a.btn-text-delete.disabled:hover,
+.btn-text-delete.disabled:hover,
+a.btn-text-delete[disabled]:hover,
+.btn-text-delete[disabled]:hover,
+fieldset[disabled] a.btn-text-delete:hover,
+fieldset[disabled] .btn-text-delete:hover,
+a.btn-text-delete.disabled:focus,
+.btn-text-delete.disabled:focus,
+a.btn-text-delete[disabled]:focus,
+.btn-text-delete[disabled]:focus,
+fieldset[disabled] a.btn-text-delete:focus,
+fieldset[disabled] .btn-text-delete:focus,
+a.btn-text-delete.disabled.focus,
+.btn-text-delete.disabled.focus,
+a.btn-text-delete[disabled].focus,
+.btn-text-delete[disabled].focus,
+fieldset[disabled] a.btn-text-delete.focus,
+fieldset[disabled] .btn-text-delete.focus,
+a.btn-text-delete.disabled:active,
+.btn-text-delete.disabled:active,
+a.btn-text-delete[disabled]:active,
+.btn-text-delete[disabled]:active,
+fieldset[disabled] a.btn-text-delete:active,
+fieldset[disabled] .btn-text-delete:active,
+a.btn-text-delete.disabled.active,
+.btn-text-delete.disabled.active,
+a.btn-text-delete[disabled].active,
+.btn-text-delete[disabled].active,
+fieldset[disabled] a.btn-text-delete.active,
+fieldset[disabled] .btn-text-delete.active {
+    background-color: transparent;
+    border-color: transparent;
+}
+a.btn-text-delete .badge,
+.btn-text-delete .badge {
+    color: transparent;
+    background-color: #fdb2b2;
+}
 .btn-lg {
     padding: 16px 30px;
     font-size: 16px;
@@ -1325,6 +1652,7 @@ input[type="reset"].btn-block,
 input[type="button"].btn-block {
     width: 100%;
 }
+
 
 
 .d-inb { display: inline-block; *display: inline-block;*zoom: 1;}
