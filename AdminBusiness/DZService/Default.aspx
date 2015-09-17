@@ -20,7 +20,7 @@
                     <div class="cont-row">
                         <div class="cont-col-12">
                             <div class="cont-row row-fix">
-                                <div class="cont-col-12"><a class="btn btn-default btn-info m-b20" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a> </div>
+                                <div class="cont-col-12 m-b20"><a class="btn btn-default btn-info" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a> </div>
                             </div>
                             <table class="custom-table service-table">
                                 <thead>

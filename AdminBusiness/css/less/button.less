@@ -60,6 +60,8 @@
   }
 }
 
+
+
 // Button sizes
 .button-size(@padding-vertical; @padding-horizontal; @font-size; @line-height; @border-radius) {
   padding: @padding-vertical @padding-horizontal;
@@ -97,6 +99,7 @@
 @cursor-disabled: not-allowed;
 
 .btn {
+  font: inherit;
   display: inline-block;
   margin-bottom: 0; // For input.btn
   font-weight: @btn-font-weight;
@@ -200,7 +203,27 @@ a.btn-down-info,.btn-down-info {
   .h-gradient(#fff; darken(#fff, 1%));
 }
 
+/* 文本按钮 */
+/* 编辑类按钮 */
+a.btn-text,.btn-text-info {
+  .button-variant(#64c6f8; transparent; transparent);
+  text-shadow: none;
+  box-shadow: none;
+}
 
+/* 取消类按钮 */
+a.btn-text-cancel,.btn-text-cancel {
+  .button-variant(#afafaf; transparent; transparent);
+  text-shadow: none;
+  box-shadow: none;
+}
+
+/* 删除类按钮 */
+a.btn-text-delete,.btn-text-delete {
+  .button-variant(#FDB2B2; transparent; transparent);
+  text-shadow: none;
+  box-shadow: none;
+}
 
 // Link buttons
 // -------------------------
