@@ -1,0 +1,34 @@
+.navbar {
+  margin-bottom: 0;
+  box-shadow: 2px 0 4px 0 #96a0aa;
+  background: #fff;
+}
+.navbar .navbar-brand {
+  height: 75px;
+  line-height: 45px;
+  font-family: "Microsoft YaHei", "微软雅黑", "黑体", "宋体", sans-serif;
+  font-size: 27px;
+  font-weight: 700;
+  color: #444444;
+}
+.navbar .navbar-brand.brand-logo {
+  width: 69px;
+}
+.navbar .navbar-brand:hover {
+  color: #444444;
+}
+.navbar .navbar-nav {
+  font-size: 16px;
+}
+.navbar .navbar-nav > li {
+  height: 75px;
+  display: table;
+}
+.navbar .navbar-nav > li > a {
+  display: table-cell;
+  vertical-align: middle;
+  color: #444444;
+}
+.navbar .navbar-nav > li > a:hover {
+  color: #444444;
+}

@@ -11,8 +11,9 @@
     <title>商家后台主页</title>
     <link href="/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/js/metisMenu/metisMenu.css" rel="stylesheet" type="text/css" />
-    <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
+
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
     <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
     <script src="/js/html5shiv.min.js"></script>
     <script src="/js/respond.min.js"></script>
@@ -31,12 +32,11 @@
                 <div class="navbar navbar-default navbar-static-top" role="navigation">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                             
-                          <a class="navbar-brand" href="/Business/default.aspx">
-                               <img alt="一点办" src="/image/master/shop-LOGO-1.png">
-                          </a>
-                          <a class="navbar-brand" >
-                            一点办商户后台管理
+                            <a class="navbar-brand brand-logo" href="/Business/default.aspx">
+                                <div id="logo"></div>
+                            </a>
+                            <a class="navbar-brand brand-h">
+                                一点办商户后台管理
                             </a>
                         </div>
                         <ul class="nav navbar-nav navbar-right">
@@ -54,20 +54,18 @@
                     </div>
                 </div>
             <!--/top-->
-                <div class="clearfix">
+                <div class="main">
                 <!--sidenav-->
                 <asp:ContentPlaceHolder runat="server" ID="sitenav"></asp:ContentPlaceHolder>
-                        
                 <!--/sidenav-->
 
-
-            <div class="content">
-                <asp:ContentPlaceHolder ID="pageDesc" runat="server">
-                </asp:ContentPlaceHolder>
-                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                </asp:ContentPlaceHolder>
-            </div>
-            </div>
+                    <div class="content">
+                        <asp:ContentPlaceHolder ID="pageDesc" runat="server">
+                        </asp:ContentPlaceHolder>
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
             </div>
             </form>
         </div>
@@ -81,7 +79,24 @@
     <script>
         $(function () {
             return $("#menu").length == 0 ? null : $("#menu").metisMenu();
-        })
+        });
+        $(function(){
+            var sideTop = $('.sidebar').offset().top;
+            if ( $('body').scrollTop() >= sideTop ){
+                $('.sidebar').addClass('sidebar-fixed');
+            } else {
+                $('.sidebar').removeClass('sidebar-fixed');
+            }
+            $(window).scroll(function(){
+                console.log($('body').scrollTop());
+                console.log($('.sidebar').offset().top + "side");
+                if ( $('body').scrollTop() >= sideTop ){
+                    $('.sidebar').addClass('sidebar-fixed');
+                } else {
+                    $('.sidebar').removeClass('sidebar-fixed');
+                }
+            })
+        });
     </script>
     <%if (!Request.IsLocal){ %>
     <script type="text/javascript">
@@ -91,6 +106,6 @@
           </script>
           <% }%>
 <asp:ContentPlaceHolder id="bottom" runat="Server">
-    </asp:ContentPlaceHolder>
+</asp:ContentPlaceHolder>
 
 </html>

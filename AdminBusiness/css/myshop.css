@@ -286,7 +286,7 @@
 /* 账号安全页面内容 by lichang 2015/5/28 */
 .secret-wrap {
     color: #57789B;
-    min-height: 800px;
+    /*min-height: 800px;*/
 }
 
 .secret-row {
