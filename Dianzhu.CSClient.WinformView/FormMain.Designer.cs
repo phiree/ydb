@@ -486,7 +486,7 @@
             // 
             // tbxKeywords
             // 
-            this.tbxKeywords.Font = new System.Drawing.Font("宋体", 20.5F);
+            this.tbxKeywords.Font = new System.Drawing.Font("SimSun", 20.5F);
             this.tbxKeywords.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxKeywords.Location = new System.Drawing.Point(19, 16);
             this.tbxKeywords.Name = "tbxKeywords";

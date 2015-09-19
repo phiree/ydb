@@ -455,10 +455,7 @@ namespace Dianzhu.CSClient.WinformView
             get { return tbxMemo.Text; }
             set { tbxMemo.Text = value; }
         }
-        public string ServiceTime {
-            get { return   tbxServiceTime.Text  ; }
-            set { tbxServiceTime.Text = value ; }
-        }
+        
         private void btnCreateOrder_Click(object sender, EventArgs e)
         {
             CreateOrder();
@@ -493,6 +490,19 @@ namespace Dianzhu.CSClient.WinformView
             ViewClosed();
         }
 
-        
+
+
+
+        public string ServiceTime
+        {
+            get
+            {
+                return tbxServiceTime.Text;
+            }
+            set
+            {
+                tbxServiceTime.Text = value;
+            }
+        }
     }
 }

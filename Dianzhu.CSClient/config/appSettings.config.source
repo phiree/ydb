@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+ 
+  <appSettings>
+    <!--cdn 网址，不末尾不要加斜杠（/）-->
+    <add key="server" value="20141220-pc"/>
+    <add key="domain" value="20141220-pc"/>
+    <add key="ButtonNamePrefix" value="btn"/>
+    <add key="WebServerRoot" value="http://localhost:8033"/>
+  </appSettings>
