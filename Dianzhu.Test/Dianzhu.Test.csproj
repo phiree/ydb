@@ -103,6 +103,7 @@
     <Compile Include="cashticket_generator_test.cs" />
     <Compile Include="dianzhu_test.cs" />
     <Compile Include="DZCSClientTest\MessageAdapterTest\MessageAdapterTest.cs" />
+    <Compile Include="DZCSClientTest\MessageBuildTest.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />

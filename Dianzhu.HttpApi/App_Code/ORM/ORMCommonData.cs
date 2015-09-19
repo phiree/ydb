@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 /// </summary>
 public class RespDataORM_Order
 {
+   
     public string orderID { get; set; }
     public string alias { get; set; }
     public string merID { get; set; }
@@ -24,7 +25,7 @@ public class RespDataORM_Order
     public string address { get; set; }
     public string exDoc { get; set; }
     public RespDataORM_UserObj userObj { get; set; }
-    public RespDataORM_MerObj merObj { get; set; }
+    public RespDataORM_storeObj storeObj { get; set; }
     public RespDataORM_Order Adap(ServiceOrder order)
     {
         //todo: 如果是外部订单?
@@ -49,7 +50,7 @@ public class RespDataORM_Order
         //todo,这里只能获取系统内订单
         if (order.Service != null)
         {
-            this.merObj = new RespDataORM_MerObj().Adap(order.Service.Business);
+            this.storeObj = new RespDataORM_storeObj().Adap(order.Service.Business);
         }
         return this;
     }
@@ -63,19 +64,19 @@ public class RespDataORM_UserObj
     {
         this.userID = member.Id.ToString();
         this.alias = member.NickName;
-        this.imgUrl = "需要增加这个属性";
+        this.imgUrl =member.AvatarUrl??string.Empty;
         return this;
     }
     
 }
-public class RespDataORM_MerObj
+public class RespDataORM_storeObj
 {
-    public string merID { get; set; }
+    public string storeID { get; set; }
     public string alias { get; set; }
     public string imgUrl { get; set; }
-    public RespDataORM_MerObj Adap(Business business)
+    public RespDataORM_storeObj Adap(Business business)
     {
-        this.merID = business.Id.ToString();
+        this.storeID = business.Id.ToString();
         this.alias = business.Name;
         this.imgUrl = business.BusinessAvatar.ImageName;
         return this;

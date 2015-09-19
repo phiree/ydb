@@ -1,0 +1,118 @@
+﻿2015/9/17 12:38:07     ============ 单次支付开始 ===============
+
+2015/9/17 12:38:07     传递支付参数：OrderSN=、Body=、TotalFee=、Attach=、UserOpenId=
+
+2015/9/17 12:38:07     WeiPay 页面  sign：01390080BF36AB7E529A5A13061EF7AA
+
+2015/9/17 12:39:00     ============ 单次支付开始 ===============
+
+2015/9/17 12:39:00     传递支付参数：OrderSN=、Body=、TotalFee=、Attach=、UserOpenId=
+
+2015/9/17 12:39:00     WeiPay 页面  sign：DDFF6351A082C05E37E5EB67BF7A5A38
+
+2015/9/17 12:41:18     ============ 单次支付开始 ===============
+
+2015/9/17 12:41:18     传递支付参数：OrderSN=、Body=、TotalFee=、Attach=、UserOpenId=
+
+2015/9/17 12:41:18     WeiPay 页面  sign：FB2128D1E809D30A1BDAC32F4696C853
+
+2015/9/17 12:45:35     ============ 单次支付开始 ===============
+
+2015/9/17 12:45:35     传递支付参数：OrderSN=、Body=、TotalFee=、Attach=、UserOpenId=
+
+2015/9/17 12:45:35     WeiPay 页面  sign：9BCC4DD54B1CC900AC63E2188A1B48D0
+
+2015/9/17 12:45:35     WeiPay 页面  package（XML）：<xml>
+
+2015/9/17 12:45:36     WeiPay 页面  package（Back_XML）：<xml><return_code><![CDATA[FAIL]]></return_code>
+<return_msg><![CDATA[XML格式错误]]></return_msg>
+</xml>
+
+2015/9/17 12:45:36     WeiPay 页面  paySign：D06FA162E80192D8E02BAAC064A384B7
+
+2015/9/17 12:48:19     ============ 单次支付开始 ===============
+
+2015/9/17 12:48:19     传递支付参数：OrderSN=、Body=、TotalFee=、Attach=、UserOpenId=
+
+2015/9/17 12:48:19     WeiPay 页面  sign：DE282B19BDC66ECF1F28BAF4F132CD0A
+
+2015/9/17 12:51:22     ============ 单次支付开始 ===============
+
+2015/9/17 12:51:22     传递支付参数：OrderSN=111、Body=222、TotalFee=333、Attach=444、UserOpenId=555
+
+2015/9/17 12:51:22     WeiPay 页面  sign：737FC09C843106545DB5EB1BCD84C194
+
+2015/9/17 12:51:22     WeiPay 页面  package（XML）：<xml><appid><![CDATA[XXXXXXXXXXXXXXXXX]]></appid><trade_type><![CDATA[JSAPI]]></trade_type><sign><![CDATA[737FC09C843106545DB5EB1BCD84C194]]></sign><spbill_create_ip><![CDATA[::1]]></spbill_create_ip><total_fee><![CDATA[333]]></total_fee><openid><![CDATA[555]]></openid><out_trade_no><![CDATA[111]]></out_trade_no><attach><![CDATA[444]]></attach><mch_id><![CDATA[XXXXXXXXXXXXXXXXX]]></mch_id><body><![CDATA[222]]></body><nonce_str><![CDATA[6aab1270668d8cac7cef2566a1c5f569]]></nonce_str><notify_url><![CDATA[http://zousky.com/WXPay/Notify.aspx]]></notify_url></xml>
+
+2015/9/17 12:51:23     WeiPay 页面  package（Back_XML）：<xml><return_code><![CDATA[FAIL]]></return_code>
+<return_msg><![CDATA[appid不存在]]></return_msg>
+</xml>
+
+2015/9/17 12:51:23     WeiPay 页面  paySign：809E15206F6DE61D0275238305357095
+
+2015/9/17 14:04:46     Notify 页面  发送异常错误：未将对象引用设置到对象的实例。
+
+2015/9/17 14:04:46     Notify 页面  发送异常错误：未将对象引用设置到对象的实例。
+
+2015/9/17 17:03:37     ============ 单次支付开始 ===============
+
+2015/9/17 17:03:37     传递支付参数：OrderSN=20150917170322、Body=商品描述、TotalFee=1、Attach=test、UserOpenId=wx820385453f506a79
+
+2015/9/17 17:03:37     WeiPay 页面  sign：7A06A7F20E6C68028E728331F590111A
+
+2015/9/17 17:03:37     WeiPay 页面  package（XML）：<xml><appid><![CDATA[XXXXXXXXXXXXXXXXX]]></appid><trade_type><![CDATA[JSAPI]]></trade_type><sign><![CDATA[7A06A7F20E6C68028E728331F590111A]]></sign><spbill_create_ip><![CDATA[::1]]></spbill_create_ip><total_fee>1</total_fee><openid><![CDATA[wx820385453f506a79]]></openid><out_trade_no><![CDATA[20150917170322]]></out_trade_no><attach><![CDATA[test]]></attach><mch_id><![CDATA[XXXXXXXXXXXXXXXXX]]></mch_id><body><![CDATA[商品描述]]></body><nonce_str><![CDATA[e1e32e235eee1f970470a3a6658dfdd5]]></nonce_str><notify_url><![CDATA[http://zousky.com/WXPay/Notify.aspx]]></notify_url></xml>
+
+2015/9/17 17:03:38     WeiPay 页面  package（Back_XML）：<xml><return_code><![CDATA[FAIL]]></return_code>
+<return_msg><![CDATA[appid不存在]]></return_msg>
+</xml>
+
+2015/9/17 17:03:38     WeiPay 页面  paySign：720F3C4D9F624C20A169069B701ED135
+
+2015/9/17 17:04:55     ============ 单次支付开始 ===============
+
+2015/9/17 17:04:55     传递支付参数：OrderSN=20150917170445、Body=商品描述、TotalFee=1、Attach=test、UserOpenId=wx820385453f506a79
+
+2015/9/17 17:04:55     WeiPay 页面  sign：AB10B49EE392E12FB5F1AF5D7DF073BE
+
+2015/9/17 17:04:55     WeiPay 页面  package（XML）：<xml><appid><![CDATA[XXXXXXXXXXXXXXXXX]]></appid><trade_type><![CDATA[JSAPI]]></trade_type><sign><![CDATA[AB10B49EE392E12FB5F1AF5D7DF073BE]]></sign><spbill_create_ip><![CDATA[::1]]></spbill_create_ip><total_fee>1</total_fee><openid><![CDATA[wx820385453f506a79]]></openid><out_trade_no><![CDATA[20150917170445]]></out_trade_no><attach><![CDATA[test]]></attach><mch_id><![CDATA[XXXXXXXXXXXXXXXXX]]></mch_id><body><![CDATA[商品描述]]></body><nonce_str><![CDATA[32bb90e8976aab5298d5da10fe66f21d]]></nonce_str><notify_url><![CDATA[http://zousky.com/WXPay/Notify.aspx]]></notify_url></xml>
+
+2015/9/17 17:04:56     WeiPay 页面  package（Back_XML）：<xml><return_code><![CDATA[FAIL]]></return_code>
+<return_msg><![CDATA[appid不存在]]></return_msg>
+</xml>
+
+2015/9/17 17:04:56     WeiPay 页面  paySign：F3EF28908010D7A5FBD7E3D58CCC8CE7
+
+2015/9/17 17:06:49     ============ 单次支付开始 ===============
+
+2015/9/17 17:06:49     传递支付参数：OrderSN=20150917170647、Body=商品描述、TotalFee=1、Attach=test、UserOpenId=o3LEvt9FvHf67mM7XxhyqAdFZb6s
+
+2015/9/17 17:06:49     WeiPay 页面  sign：62B5458FEDBB6C065483EC4EACE6158B
+
+2015/9/17 17:06:49     WeiPay 页面  package（XML）：<xml><appid><![CDATA[XXXXXXXXXXXXXXXXX]]></appid><trade_type><![CDATA[JSAPI]]></trade_type><sign><![CDATA[62B5458FEDBB6C065483EC4EACE6158B]]></sign><spbill_create_ip><![CDATA[::1]]></spbill_create_ip><total_fee>1</total_fee><openid><![CDATA[o3LEvt9FvHf67mM7XxhyqAdFZb6s]]></openid><out_trade_no><![CDATA[20150917170647]]></out_trade_no><attach><![CDATA[test]]></attach><mch_id><![CDATA[XXXXXXXXXXXXXXXXX]]></mch_id><body><![CDATA[商品描述]]></body><nonce_str><![CDATA[4ffce04d92a4d6cb21c1494cdfcd6dc1]]></nonce_str><notify_url><![CDATA[http://zousky.com/WXPay/Notify.aspx]]></notify_url></xml>
+
+2015/9/17 17:06:50     WeiPay 页面  package（Back_XML）：<xml><return_code><![CDATA[FAIL]]></return_code>
+<return_msg><![CDATA[appid不存在]]></return_msg>
+</xml>
+
+2015/9/17 17:06:50     WeiPay 页面  paySign：91C88A622A24CC3DACDBB98CDBC09101
+
+2015/9/17 17:08:17     ============ 单次支付开始 ===============
+
+2015/9/17 17:08:17     传递支付参数：OrderSN=20150917170657、Body=商品描述、TotalFee=1、Attach=test11、UserOpenId=o3LEvt9FvHf67mM7XxhyqAdFZb6s
+
+2015/9/17 17:08:17     WeiPay 页面  sign：3CF97F1B0AB87782969A66262D577B73
+
+2015/9/17 17:08:17     WeiPay 页面  package（XML）：<xml><appid><![CDATA[XXXXXXXXXXXXXXXXX]]></appid><trade_type><![CDATA[JSAPI]]></trade_type><sign><![CDATA[3CF97F1B0AB87782969A66262D577B73]]></sign><spbill_create_ip><![CDATA[::1]]></spbill_create_ip><total_fee>1</total_fee><openid><![CDATA[o3LEvt9FvHf67mM7XxhyqAdFZb6s]]></openid><out_trade_no><![CDATA[20150917170657]]></out_trade_no><attach><![CDATA[test11]]></attach><mch_id><![CDATA[XXXXXXXXXXXXXXXXX]]></mch_id><body><![CDATA[商品描述]]></body><nonce_str><![CDATA[88ae6372cfdc5df69a976e893f4d554b]]></nonce_str><notify_url><![CDATA[http://zousky.com/WXPay/Notify.aspx]]></notify_url></xml>
+
+2015/9/17 17:08:18     WeiPay 页面  package（Back_XML）：<xml><return_code><![CDATA[FAIL]]></return_code>
+<return_msg><![CDATA[appid不存在]]></return_msg>
+</xml>
+
+2015/9/17 17:08:18     WeiPay 页面  paySign：7DBDC339350ED8EDD3D19EBA2CEA2995
+
+2015/9/17 17:33:05     ============ 单次支付开始 ===============
+
+2015/9/17 17:33:06     传递支付参数：OrderSN=、Body=、TotalFee=、Attach=、UserOpenId=
+
+2015/9/17 17:33:06     WeiPay 页面  sign：E6572BCDB40314CBB1A425300FF07FDC
+

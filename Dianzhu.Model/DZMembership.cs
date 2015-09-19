@@ -55,6 +55,10 @@ namespace Dianzhu.Model
             newMember.NickName = NickName;
             newMember.Address = Address;
         }
+        /// <summary>
+        /// 头像图片相对路径.
+        /// </summary>
+        public virtual string AvatarUrl { get; set; }
 
         
     }

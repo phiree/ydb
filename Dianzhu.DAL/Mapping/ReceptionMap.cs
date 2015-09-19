@@ -70,6 +70,13 @@ namespace Dianzhu.DAL.Mapping
             References(x => x.ServiceOrder);
         }
     }
+    public class ReceptionChatReAssignMap : SubclassMap<ReceptionChatReAssign>
+    {
+        public ReceptionChatReAssignMap()
+        {
+            References(x => x.ReassignedCustomerService);
+        }
+    }
   
   
 

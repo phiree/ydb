@@ -36,8 +36,8 @@ public class ResponseFactory
             case "usm001007":
                 return new ResponseUSM001007(request);
                 
-            case "svm001001":
-                return new ResponseSVM001001(request);
+            case "svc001001":
+                return new ResponseSVC001001(request);
                 
             case "svm001002":
                 return new ResponseSVM001002(request);
@@ -51,10 +51,18 @@ public class ResponseFactory
                 return new ResponseVCM001003(request);
             case "merm001001":
                 return new ResponseMERM001001(request);
-            case "orm001001":
-                return new ResponseORM001001(request);
-            case "orm001003":
-                return new ResponseORM001003(request);
+            case "merm001003":
+                return new ResponseMERM001003(request);
+            case "merm001005":
+                return new ResponseMERM001005(request);
+
+            case "orm001004":
+                return new ResponseORM001004(request);
+            case "orm001006":
+                return new ResponseORM001006(request);
+            case "orm001005":
+                return new ResponseORM001005(request);
+
             case "orm002001":
                 return new ResponseORM002001(request); 
             default: break;

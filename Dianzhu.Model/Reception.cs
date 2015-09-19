@@ -78,6 +78,7 @@ namespace Dianzhu.Model
         public ReceptionChat()
         {
             ChatType = Enums.enum_ChatType.Text;
+            SavedTime = DateTime.Now;
         }
         public static ReceptionChat Create(Enums.enum_ChatType chatType)
         {
@@ -152,9 +153,11 @@ namespace Dianzhu.Model
     
     public class ReceptionChatOrder : ReceptionChat
     {
-
-
         public virtual ServiceOrder ServiceOrder { get; set; }
+    }
+    public class ReceptionChatReAssign : ReceptionChat
+    {
+        public virtual DZMembership ReassignedCustomerService { get; set; }
     }
 
 }

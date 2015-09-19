@@ -48,6 +48,12 @@ public class ResponseORM002001 : BaseResponse
                 RespDataORM002001 respData = new RespDataORM002001();
 
                 DZMembership assignedCustomerService = BLLReceptionStatus.Assign(member,null);
+                if (assignedCustomerService == null)
+                {
+                    this.state_CODE = Dicts.StateCode[4];
+                    this.err_Msg = "没有在线客服";
+                    return;
+                }
                 RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(assignedCustomerService);
                 respData.cerObj = cerObj;
                 this.RespData = respData;

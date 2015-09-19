@@ -65,7 +65,6 @@
     <Compile Include="BLLCashTicket.cs" />
     <Compile Include="BLLCashticketCreateRecord.cs" />
     <Compile Include="BLLCashTicketTemplate.cs" />
-    <Compile Include="BLLOnlineStatus.cs" />
     <Compile Include="BLLReceptionStatus.cs" />
     <Compile Include="BLLServiceOrder.cs" />
     <Compile Include="BLLServiceType.cs" />

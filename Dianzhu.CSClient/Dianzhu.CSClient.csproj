@@ -18,16 +18,20 @@
     <PublishUrl>http://192.168.1.140:8035/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>客服工具测试版</ProductName>
+    <PublisherName>Ydban</PublisherName>
+    <SuiteName>csclient</SuiteName>
+    <MinimumRequiredVersion>1.0.0.9</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>12</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -53,7 +57,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>buttonicon.ico</ApplicationIcon>
+    <ApplicationIcon>favicon %281%29.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>D52DFEBCEB2322EA07C1D7D19D20292C9C0CD5A4</ManifestCertificateThumbprint>
@@ -62,22 +66,12 @@
     <ManifestKeyFile>Dianzhu.CSClient_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="agsXMPP, Version=1.1.1.0, Culture=neutral, PublicKeyToken=ff839b81f1debe86, processorArchitecture=MSIL">
-      <HintPath>..\packages\agsXMPP.1.1.1.0\lib\agsXMPP.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
       <Private>True</Private>
@@ -117,21 +111,18 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="config\appSettings.config">
+    <Content Include="appSettings.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\connectionStrings.config">
+    <Content Include="connectionStrings.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="config\log4net.config">
+    <Content Include="favicon %281%29.ico" />
+    <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="config\appSettings.config.source">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -183,9 +174,6 @@
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="buttonicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

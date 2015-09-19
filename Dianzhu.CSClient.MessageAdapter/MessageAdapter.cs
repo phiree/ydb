@@ -89,10 +89,11 @@ namespace Dianzhu.CSClient.MessageAdapter
             string server=System.Configuration.ConfigurationManager.AppSettings["server"];
             Message msg = new Message();
             msg.SetAttribute("MessageType", chat.ChatType.ToString());
-            msg.To = PHSuit.StringHelper.EnsureOpenfireUserName(chat.To.UserName) + "@" + server;
+            msg.To =new agsXMPP.Jid(PHSuit.StringHelper.EnsureOpenfireUserName(chat.To.UserName) + "@" + server);
             msg.Body = chat.MessageBody;
             if (!string.IsNullOrEmpty(chat.MessageMediaUrl))
             {
+                
                 msg.SetAttribute("MediaUrl", chat.MessageMediaUrl);
             }
             if (chat is ReceptionChatService)
@@ -121,6 +122,11 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 ReceptionChatOrder chatOrder = (ReceptionChatOrder)chat;
                 msg.SetAttribute("OrderId", chatOrder.ServiceOrder.Id.ToString());
+            }
+            if (chat is ReceptionChatReAssign)
+            {
+                ReceptionChatReAssign chatReassign = (ReceptionChatReAssign)chat;
+                msg.SetAttribute("ReAssignCSName", PHSuit.StringHelper.EnsureOpenfireUserName( chatReassign.ReassignedCustomerService.UserName));
             }
             return msg;
 

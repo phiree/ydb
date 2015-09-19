@@ -132,7 +132,7 @@
                     _selectListItem.appendTo(_selectList);
 
                     _selectListLink.click(function () {
-                        console.log($(this).attr("value"))
+                        //console.log($(this).attr("value"))
                         _cite.html($(this).attr("value"));
                         printFunc($(this).attr("value"));
 

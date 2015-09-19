@@ -8,6 +8,7 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Configuration;
 /// <summary>
  ///orm接口 公用的类
 /// </summary>
@@ -26,7 +27,10 @@ public class RespDataUSM_userObj
         this.alias = membership.NickName ?? "";
         this.email = membership.Email ?? "";
         this.phone = membership.Phone ?? "";
-        this.imgUrl = "";
+        this.imgUrl = membership.AvatarUrl == null 
+            ? string.Empty 
+            : ConfigurationManager.AppSettings["media_server"] + "imagehandler.ashx?imagename="
+                + membership.AvatarUrl;
         this.address =membership.Address?? "";
         return this;
 

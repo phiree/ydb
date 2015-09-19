@@ -17,15 +17,15 @@ public class ResponseUSM001005 : BaseResponse
         ReqDataUSM requestData = request.ReqData.ToObject<ReqDataUSM>();
         DZMembershipProvider p = new DZMembershipProvider();
         string userName = requestData.phone ?? requestData.email;
-        bool result = p.ValidateUser(userName, requestData.pWord);
-        if (!result)
+         
+        DZMembership member;
+        bool validated = new Account(p).ValidateUser(userName, requestData.pWord, this, out member);
+        if (!validated)
         {
-            this.state_CODE = Dicts.StateCode[9];
-            this.err_Msg = "用户名或者密码有误"; return;
+            return;
         }
-       
         this.state_CODE = Dicts.StateCode[0];
-        DZMembership member = p.GetUserByName(userName);
+        
         RespDataUSM_userObj userObj = new RespDataUSM_userObj().Adapt(member);
         RespDataUSM resp = new RespDataUSM();
         resp.userObj = userObj;
