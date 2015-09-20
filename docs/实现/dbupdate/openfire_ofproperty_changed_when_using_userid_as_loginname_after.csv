@@ -1,0 +1,40 @@
+admin.authorizedJIDs	13c82684-ee12-409b-90c0-a4f4011516b8@20141220-pc
+adminConsole.port	9090
+adminConsole.securePort	9091
+connectionProvider.className	org.jivesoftware.database.DefaultConnectionProvider
+database.defaultProvider.connectionTimeout	1.0
+database.defaultProvider.driver	com.mysql.jdbc.Driver
+database.defaultProvider.maxConnections	25
+database.defaultProvider.minConnections	5
+database.defaultProvider.password	b1bba1329a38edb222d94d1bda1691686d03bd5ae3728814
+database.defaultProvider.serverURL	jdbc:mysql://localhost:3306/openfire3_10_2?rewriteBatchedStatements=true
+database.defaultProvider.testAfterUse	false
+database.defaultProvider.testBeforeUse	false
+database.defaultProvider.testSQL	select 1
+database.defaultProvider.username	4735ce306ad7096ad470e8f92b9c0f449193af798c6822f3
+jdbcAuthProvider.passwordSQL	SELECT plainPassword FROM dzmembership WHERE id= ?
+jdbcAuthProvider.passwordType	plain
+jdbcProvider.connectionString	jdbc:mysql://localhost:3306/dianzhu_dev?user=root&password=root
+jdbcProvider.driver	com.mysql.jdbc.Driver
+jdbcUserProvider.allUsersSQL	SELECT username FROM dzmembership
+jdbcUserProvider.emailField	email
+jdbcUserProvider.loadUserSQL	SELECT username AS NAME,id FROM dzmembership WHERE id=?
+jdbcUserProvider.nameField	usernameforopenfire
+jdbcUserProvider.searchSQL	SELECT id FROM dzmembership WHERE
+jdbcUserProvider.userCountSQL	SELECT COUNT(*) FROM dzmembership
+jdbcUserProvider.usernameField	id
+locale	en
+passwordKey	uo8r3Wvl7t9fDV3
+provider.admin.className	org.jivesoftware.openfire.admin.DefaultAdminProvider
+provider.auth.className	org.jivesoftware.openfire.auth.JDBCAuthProvider
+provider.group.className	org.jivesoftware.openfire.group.DefaultGroupProvider
+provider.lockout.className	org.jivesoftware.openfire.lockout.DefaultLockOutProvider
+provider.securityAudit.className	org.jivesoftware.openfire.security.DefaultSecurityAuditProvider
+provider.user.className	org.jivesoftware.openfire.user.JDBCUserProvider
+provider.vcard.className	org.jivesoftware.openfire.vcard.DefaultVCardProvider
+setup	true
+update.lastCheck	1442647407546
+xmpp.auth.anonymous	true
+xmpp.domain	20141220-pc
+xmpp.session.conflict-limit	0
+xmpp.socket.ssl.active	true

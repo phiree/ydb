@@ -59,6 +59,9 @@ namespace Dianzhu.Model
         /// 头像图片相对路径.
         /// </summary>
         public virtual string AvatarUrl { get; set; }
+        public virtual string DisplayName {
+            get { return string.IsNullOrEmpty(NickName) ? UserName : NickName; }
+        }
 
         
     }

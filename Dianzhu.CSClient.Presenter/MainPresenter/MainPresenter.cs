@@ -80,12 +80,6 @@ namespace Dianzhu.CSClient.Presenter
             }
             this.instantMessage.Close();    
         }
-
-       
-
-       
-
-
       
         /// <summary>
         /// 保存消息.

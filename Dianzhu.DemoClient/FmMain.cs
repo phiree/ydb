@@ -18,6 +18,7 @@ namespace Dianzhu.DemoClient
     public partial class FmMain : Form
     {
         string csName;
+        string csDisplayName;
         string customerId;
         public FmMain()
         {
@@ -55,10 +56,10 @@ namespace Dianzhu.DemoClient
            Newtonsoft.Json.Linq.JObject result=  API.GetApiResult(postData);
            customerId = result["RespData"]["userObj"]["userID"].ToString();
         }
-        public string GetCustomerService()
+        public void GetCustomerService()
         {
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(
-                string.Format( @"{{ //订单详情
+                string.Format( @"{{ // 
                      ""protocol_CODE"": ""ORM002001"", 
                     ""ReqData"": {{ 
                     ""userID"": ""{0}"", 
@@ -76,9 +77,9 @@ namespace Dianzhu.DemoClient
                 lblAssignedCS.Text = "客服离线";
                 throw new Exception(state_Code+"_" +errMsg);
             }
-            string userName = result["RespData"]["cerObj"]["userName"].ToString();
+            csDisplayName = result["RespData"]["cerObj"]["alias"].ToString();
 
-            return StringHelper.EnsureOpenfireUserName(userName);
+            csName = result["RespData"]["cerObj"]["userID"].ToString();
         }
 
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
@@ -136,15 +137,16 @@ namespace Dianzhu.DemoClient
             //}
             
 
-            //获取客服信息
-            GetCustomerInfo(tbxUserName.Text);
-            csName= lblAssignedCS.Text= GetCustomerService();
+            //客户自己的信息
+            //GetCustomerInfo(tbxUserName.Text);
+             GetCustomerService();
+             lblAssignedCS.Text = csDisplayName;
 
 
             Presence p = new Presence(ShowType.chat, "Online");
             p.Type = PresenceType.available;
             p.To =new Jid( csName + "@" + GlobalViables.ServerName);
-            p.From =new Jid( StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName);
+            p.From =new Jid(customerId + "@" + GlobalViables.ServerName);
             GlobalViables.XMPPConnection.Send(p);
 
             lblLoginStatus.Text = "登录成功";
@@ -159,7 +161,8 @@ namespace Dianzhu.DemoClient
             {
                 userNameForOpenfire = userName.Replace("@", "||");
             }
-            GlobalViables.XMPPConnection.Open(userNameForOpenfire, tbxPwd.Text);
+             GetCustomerInfo(userName);
+            GlobalViables.XMPPConnection.Open(customerId, tbxPwd.Text);
 
         }
         void AddLog(agsc.Message message)
@@ -172,7 +175,7 @@ namespace Dianzhu.DemoClient
             Label lblFrom = new Label();
             Label lblMessage = new Label();
             FlowLayoutPanel pnlOneChat = new FlowLayoutPanel();
-            pnlOneChat.Controls.AddRange(new Control[] { lblMessage });
+            pnlOneChat.Controls.AddRange(new Control[] {lblFrom, lblMessage });
             pnlOneChat.FlowDirection = FlowDirection.LeftToRight;
             _AutoSize(pnlOneChat);
             pnlOneChat.Dock = DockStyle.Top;
@@ -267,7 +270,7 @@ namespace Dianzhu.DemoClient
         {
 
             agsc.Message message = new agsc.Message( new Jid( csName + "@" + GlobalViables.ServerName),
-                new Jid(  StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName)
+                new Jid(customerId+ "@" + GlobalViables.ServerName)
                 , agsc.MessageType.chat, tbxMessage.Text);
 
             GlobalViables.XMPPConnection.Send(message);
