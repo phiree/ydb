@@ -1,21 +1,26 @@
 /**
  * Created by LiChang on 2015/5/15.
  */
+    //页面最小高度设为100%的方法
     $(function(){
-        var navbarH = $(".navbar").height();
+        var navbarH = $(".navbar").outerHeight();
+        var footerH = $(".footer").outerHeight();
 
             $(window).bind("load resize", function() {
-
                 var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
-                var paddingH = 28;
-                height = height - navbarH;
+                //cont-container的padding上下值
+                var parentPadding = 28;
+                var heightOut = height - navbarH;
+                var heightIn = height - navbarH - footerH - parentPadding;
+                var heightCtnr = height - navbarH - footerH - parentPadding*2;
 
                 if (height < 1) {
                     height = 1;
                 }
                 if (height > navbarH) {
-                    $(".mh").css("min-height", (height) + "px");
-                    $(".mh-in").css("min-height", (height - paddingH) + "px");
+                    $(".mh").css("min-height", (heightOut) + "px");
+                    $(".mh-in").css("min-height", (heightIn) + "px");
+                    $(".mh-ctnr").css("min-height", (heightCtnr) + "px");
                 }
             });
 

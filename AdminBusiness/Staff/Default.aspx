@@ -11,7 +11,7 @@
 
     <div class="cont-wrap">
         <div class="cont-container mh-in">
-            <div class="emp-list-div">
+            <div class="emp-list-div dis-n">
                 <div class="cont-row">
                     <div class="cont-col-12 m-b20">
                     <a class="btn btn-info" href="Edit.aspx?businessid=<%=Request["businessid"] %>"><span class="add-inco">+</span>添加新员工</a>
@@ -170,7 +170,7 @@
 
             $(function () {
 
-                if ($(".emp-table").find("tr").length == 1) {
+                if ($(".emp-list-div").find(".card").length == 0) {
                     $(".add-view-emp").removeClass("dis-n");
                 } else {
                     $(".emp-list-div").removeClass("dis-n");

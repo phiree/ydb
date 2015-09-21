@@ -16,8 +16,6 @@
 </head>
 <body>
     <div class="reg-wrap">
-        <div class="head">
-        </div>
         <div class="main">
             <div class="layout">
                 <div class="wrap-login">
@@ -82,12 +80,12 @@
                     </div>
                     </form>
                 </div>
-            </div>
-            <div class="conReg">
+                <div class="footer">
+                    <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
+                </div>
             </div>
         </div>
-        <div class="footer">
-        </div>
+
     </div>
 </body>
 <!--[if lte IE 9]>
