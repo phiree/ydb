@@ -28,11 +28,11 @@
                         <div class="navbar navbar-default navbar-static-top" role="navigation">
                             <div class="container-fluid">
                                 <div class="navbar-header">
-                                  <a class="navbar-brand" href="#">
-                                       <img alt="一点办" src="/image/master/shop-LOGO-1.png">
-                                  </a>
-                                  <a class="navbar-brand" >
-                                    一点办商户后台管理
+                                    <a class="navbar-brand brand-logo" href="/Business/default.aspx">
+                                        <div id="logo"></div>
+                                    </a>
+                                    <a class="navbar-brand brand-h">
+                                        一点办商户管理系统
                                     </a>
                                 </div>
                                 <ul class="nav navbar-nav navbar-right">

@@ -4,17 +4,12 @@
   width: auto;
   margin-left: 150px;
 }
-#logo {
-  display: inline-block;
-  width: 54px;
-  height: 54px;
-  background: url("../image/master/shop-LOGO-1.png") no-repeat center;
-}
 /* navbar style */
 .navbar {
   margin-bottom: 0;
   box-shadow: 2px 0 4px 0 #96a0aa;
   background: #fff;
+  border-bottom: 3px solid #60b7ea;
 }
 .navbar .navbar-brand {
   height: 75px;
@@ -25,25 +20,38 @@
   color: #444444;
 }
 .navbar .navbar-brand.brand-logo {
-  width: 69px;
+  display: table;
+  padding: 0;
+  margin: 0 15px;
+}
+.navbar .navbar-brand.brand-logo #logo {
+  display: table-cell;
+  width: 54px;
+  height: 54px;
+  background: url("../image/master/shop-LOGO-1.png") no-repeat center;
 }
 .navbar .navbar-brand:hover {
   color: #444444;
 }
 .navbar .navbar-nav {
   font-size: 16px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 .navbar .navbar-nav > li {
-  height: 75px;
-  display: table;
+  background: #60b7ea;
+  margin-right: 10px;
 }
 .navbar .navbar-nav > li > a {
-  display: table-cell;
+  padding: 15px 30px;
+  font-size: 16px;
+  line-height: 16px;
   vertical-align: middle;
-  color: #444444;
+  color: #ffffff;
 }
 .navbar .navbar-nav > li > a:hover {
-  color: #444444;
+  color: #ffffff;
 }
 /* sidebar style */
 .sidebar {

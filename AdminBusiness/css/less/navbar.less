@@ -1,11 +1,14 @@
 @navbarHeight: 75px;
-@navbarColor: #444;
+@navbarColor: #fff;
+@navbarBrandColor: #444;
+@navbarBtnBg: #60b7ea;
 @default-padding: 15px;
 
 .navbar {
   margin-bottom: 0;
   box-shadow: 2px 0 4px 0 #96a0aa;
   background: #fff;
+  border-bottom: 3px solid @navbarBtnBg;
 
   .navbar-brand {
     height: @navbarHeight;
@@ -13,27 +16,46 @@
     font-family: "Microsoft YaHei", "微软雅黑","黑体","宋体", sans-serif;
     font-size: 27px;
     font-weight: 700;
-    color: @navbarColor;
+    color: @navbarBrandColor;
 
     &.brand-logo {
-      width: 54px + @default-padding;
-      width: 54px + @default-padding ;
+      display: table;
+      padding: 0;
+      margin: 0 15px;
+
+      #logo {
+          display: table-cell;
+          width: 54px;
+          height: 54px;
+          background: url("../image/master/shop-LOGO-1.png") no-repeat center;
+      }
+      //width: 54px + @default-padding;
+      //width: 54px + @default-padding ;
     }
 
     &:hover {
-      color: @navbarColor;
+      color: @navbarBrandColor;
     }
   }
 
   .navbar-nav {
     font-size: 16px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 
     >li{
-      height: @navbarHeight;
-      display: table;
+      //height: @navbarHeight;
+      //display: table;
+      background: @navbarBtnBg;
+      margin-right: 10px;
+
 
       >a{
-        display: table-cell;
+        padding: 15px 30px;
+        font-size: 16px;
+        line-height: 16px;
+        //display: table-cell;
         vertical-align: middle;
         color: @navbarColor;
 
