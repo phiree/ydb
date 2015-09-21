@@ -1,11 +1,35 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{65578E32-3BC2-4470-8637-6DD1074E4603}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "needs", "needs", "{9FAC3956-8A8F-439C-A2FB-50AEA11792B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "design", "design", "{11F98609-4A4B-48CD-9C1A-186883C2C125}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A599EEFC-FEF1-4746-B13E-2D1348F60AA3}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSClient", "CSClient", "{8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{5FD3A571-E4B7-413C-A0A3-7725A70CCC15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "openfire_customer_userdatabase_config", "openfire_customer_userdatabase_config", "{0D0BC4F3-F049-4BA6-A937-5BD774E767D9}"
+	ProjectSection(SolutionItems) = preProject
+		docs\部署\openfire_customer_userdatabase_config\openfire.xml = docs\部署\openfire_customer_userdatabase_config\openfire.xml
+		docs\部署\openfire_customer_userdatabase_config\openfire2_2015-8-28.sql = docs\部署\openfire_customer_userdatabase_config\openfire2_2015-8-28.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{93755A86-D5F0-4296-A8A5-8A054B24D5EB}"
+	ProjectSection(SolutionItems) = preProject
+		docs\部署\动词服务分类-(2015-8-19)-表格.xls = docs\部署\动词服务分类-(2015-8-19)-表格.xls
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9997B328-FAC6-4192-84BE-BA83D2870CD4}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminWeb", "AdminWeb\", "{16075D17-B45F-4FDE-B48C-FA9534F6FE2D}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -28,11 +52,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminWeb", "AdminWeb\", "{1
 		VWDPort = "54359"
 		VWDVirtualPath = "/"
 		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A599EEFC-FEF1-4746-B13E-2D1348F60AA3}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.BLL", "Dianzhu.BLL\Dianzhu.BLL.csproj", "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}"
@@ -144,32 +163,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.IVew", "Di
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.Presenter", "Dianzhu.CSClient.Presenter\Dianzhu.CSClient.Presenter.csproj", "{5AC8D7DE-A53D-4698-8957-C78D9243A793}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSClient", "CSClient", "{8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{5FD3A571-E4B7-413C-A0A3-7725A70CCC15}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.IInstantMessage", "Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj", "{820A465F-51FB-4F8D-8665-B80F9643281B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.XMPP", "Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj", "{125F0D3B-E83C-4743-9944-E82392CBA6C5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "openfire_customer_userdatabase_config", "openfire_customer_userdatabase_config", "{0D0BC4F3-F049-4BA6-A937-5BD774E767D9}"
-	ProjectSection(SolutionItems) = preProject
-		docs\部署\openfire_customer_userdatabase_config\openfire.xml = docs\部署\openfire_customer_userdatabase_config\openfire.xml
-		docs\部署\openfire_customer_userdatabase_config\openfire2_2015-8-28.sql = docs\部署\openfire_customer_userdatabase_config\openfire2_2015-8-28.sql
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{93755A86-D5F0-4296-A8A5-8A054B24D5EB}"
-	ProjectSection(SolutionItems) = preProject
-		docs\部署\动词服务分类-(2015-8-19)-表格.xls = docs\部署\动词服务分类-(2015-8-19)-表格.xls
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.WinformView", "Dianzhu.CSClient.WinformView\Dianzhu.CSClient.WinformView.csproj", "{0550CABB-3957-45CC-8CC6-9FBEA653B20D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.IMessageAdapter", "Dianzhu.CSClient.IMessageAdapter\Dianzhu.CSClient.IMessageAdapter.csproj", "{74F0963E-57CA-4D57-899C-D85FF096FE1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.MessageAdapter", "Dianzhu.CSClient.MessageAdapter\Dianzhu.CSClient.MessageAdapter.csproj", "{A871C9E1-98A4-412F-A1B3-541189A4C4CF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9997B328-FAC6-4192-84BE-BA83D2870CD4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.ViewModel", "Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj", "{D7AA114D-AD19-4399-B152-969D240053C7}"
 EndProject
@@ -178,9 +180,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeiPay", "WeiPay\WeiPay.csproj", "{8BD73D13-5EFF-45CE-9B9C-355056711FA0}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = TourGuideExam.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -430,27 +429,30 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9FAC3956-8A8F-439C-A2FB-50AEA11792B3} = {65578E32-3BC2-4470-8637-6DD1074E4603}
 		{11F98609-4A4B-48CD-9C1A-186883C2C125} = {65578E32-3BC2-4470-8637-6DD1074E4603}
+		{0D0BC4F3-F049-4BA6-A937-5BD774E767D9} = {93755A86-D5F0-4296-A8A5-8A054B24D5EB}
 		{93755A86-D5F0-4296-A8A5-8A054B24D5EB} = {65578E32-3BC2-4470-8637-6DD1074E4603}
+		{16075D17-B45F-4FDE-B48C-FA9534F6FE2D} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{2E67AA78-6780-42BD-A3AB-AD953781E511} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{0D1C0821-004D-4D6B-BB6C-F561895DCC4E} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{84187F7C-DD53-4895-A7FF-191E76756009} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{4A1A2BC3-DB56-4652-8870-FC7C15FCEC1C} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{61F5098D-3C49-4229-956C-E8BF0080A2D5} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{16075D17-B45F-4FDE-B48C-FA9534F6FE2D} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{2E67AA78-6780-42BD-A3AB-AD953781E511} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
-		{84187F7C-DD53-4895-A7FF-191E76756009} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
-		{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{6A05019E-F3EA-460A-BC05-0336EB3BFCF4} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{BE4F5CD3-E748-46D9-A9D0-941EF2FA3CDB} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{755EEA8C-9D5E-406E-83DD-36B3BA4EB158} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{5AC8D7DE-A53D-4698-8957-C78D9243A793} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
-		{6A05019E-F3EA-460A-BC05-0336EB3BFCF4} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{820A465F-51FB-4F8D-8665-B80F9643281B} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{125F0D3B-E83C-4743-9944-E82392CBA6C5} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{0550CABB-3957-45CC-8CC6-9FBEA653B20D} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{74F0963E-57CA-4D57-899C-D85FF096FE1F} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{A871C9E1-98A4-412F-A1B3-541189A4C4CF} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{D7AA114D-AD19-4399-B152-969D240053C7} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
-		{0D0BC4F3-F049-4BA6-A937-5BD774E767D9} = {93755A86-D5F0-4296-A8A5-8A054B24D5EB}
+		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = TourGuideExam.vsmdi
 	EndGlobalSection
 EndGlobal
