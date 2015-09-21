@@ -19,8 +19,10 @@ public class FileUpLoad : IHttpHandler {
 
     public string FileUpload(string filetype, string base64file)
     {
-        
+
         byte[] bytefile = Convert.FromBase64String(base64file);
+        string fileExtnsion = string.Empty;
+         
         string saveName = Guid.NewGuid() + ".png";
         string filePath = HttpContext.Current.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["user_avatar_image_root"]);
 
@@ -32,7 +34,7 @@ public class FileUpLoad : IHttpHandler {
         return saveName;
 
     }
- 
+
     public bool IsReusable {
         get {
             return false;
