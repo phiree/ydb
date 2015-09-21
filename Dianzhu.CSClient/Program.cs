@@ -8,6 +8,7 @@ namespace Dianzhu.CSClient
 {
     static class Program
     {
+        static ILog log = LogManager.GetLogger("cs");
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
@@ -19,7 +20,7 @@ namespace Dianzhu.CSClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             log4net.Config.XmlConfigurator.Configure();
-            ILog log = LogManager.GetLogger("cs");
+           
             log.Debug("Start");
             DialogResult result;
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
@@ -52,6 +53,7 @@ namespace Dianzhu.CSClient
 
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            log.Error(e.ExceptionObject.ToString());
             MessageBox.Show(e.ExceptionObject.ToString());
         }
     }

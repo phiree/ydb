@@ -1,0 +1,276 @@
+html,body,div,span,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,address,big,cite,code,del,em,font,img,ins,small,strong,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend {
+	margin: 0;
+	padding: 0;
+}
+
+body{
+    font-family:"Arial","Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif;
+}
+
+ol,ul {
+	list-style: none;
+}
+
+:focus {
+	outline: 0;
+}
+
+a img {
+	border: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+	vertical-align: middle;
+}
+
+table {
+	empty-cells: show;
+}
+
+ins {
+	text-decoration: none;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+em {
+	font-style: normal;
+}
+
+button::-moz-focus-inner,input[type=reset]::-moz-focus-inner,input[type=button]::-moz-focus-inner,input[type=submit]::-moz-focus-inner,input[type=file]>input[type=button]::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+.f-l {float: left;}
+.f-r {float: right;}
+.t-c {text-align: center;}
+.t-l {text-align: left;}
+.t-r {text-align: right;}
+.clearfix{zoom: 1}
+.clearfix:after{  /*清除浮动导致的外层容器高度塌陷*/
+    display: block;
+    clear: both;
+    height: 0;
+    content: "\0020";
+}
+/*全局设置*/
+
+.layout{width:1000px;margin: 0 auto;}
+
+.wrap{
+    height: 1898px;
+    background: url("../images/bg_1.jpg") no-repeat center;
+}
+
+.head{}
+.headCon{height: 65px;}
+.head .logoBox{
+    margin-top: 12px;
+    margin-left: 140px;
+    /*background: url("../images/tubiao_4.png") no-repeat center;*/
+}
+.head .logo{
+    /*vertical-align: bottom;*/
+}
+.head .logoTitle{
+    padding-top: 5px \9;/* IE6/IE7/8 */
+    margin-left: 5px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: normal;
+}
+.head .sellLink{
+    width: 98px;
+    height: 30px;
+    margin-top: 17px;
+    margin-right: 170px;
+    /*background: url("../images/enter_5.png") no-repeat center;*/
+}
+
+.main{}
+
+/*第一部分内容*/
+.conOne{margin-bottom: 170px;overflow: hidden;}
+.conImg1{
+    width: 180px;
+    height: 361px;
+    margin-left: 130px;
+    background: url("../images/shouji_3.png") no-repeat center;
+}
+.conBox1{
+    margin-right: 60px;
+    /*background: url("../images/shoudai_2.png") no-repeat center;*/
+}
+/*.conBox1 .conBoxLeft{margin-top: 90px;}*/
+.conBox1 .conBoxLeft{padding-top: 90px;}
+.conBox1 .dz{
+    width: 235px;
+    height: 111px;
+    /*margin: 0 auto;*/
+    background: url("../images/dianzhu_6.png") no-repeat center;
+}
+.conBox1 .dzTitle{
+    width: 235px;
+    height: 29px;
+    margin-top: 14px;
+    background: url("../images/lanre_7.png") no-repeat center;
+}
+.conBox1 .conBoxRight{margin-left: 60px;margin-top: 30px;}
+.conBox1 .code{
+    text-align: center;
+}
+.conBox1 .ios {
+    display: block;
+    width: 137px;
+    height: 38px;
+    margin-top: 60px;
+    background: url("../images/iphone_8.png") no-repeat center;
+}
+.conBox1 .android {
+    display: block;
+    width: 137px;
+    height: 38px;
+    margin-top: 7px;
+    background: url("../images/android_9.png") no-repeat center;
+}
+
+/*第二部分内容*/
+.conTwo{margin-bottom: 80px;}
+.conBox2{margin-top: 70px;}
+.conBox2 .t{
+    color:#37c7f9;
+    font-size: 54px;
+}
+.conBox2 .p{
+    margin-top: 27px;
+    color: #646464;
+    font-size: 33px;
+}
+
+.conImg2 {
+    margin-left: 50px;
+}
+
+.conAnm1{
+    width: 640px;
+    height:428px;
+    position: relative;}
+.conAnm1 .r{
+    /*width:50px;*/
+    /*height:50px;*/
+    position: absolute;
+    z-index: 3;
+    left: 290px;
+    top: 310px;
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0); /* IE6/IE7/8 */
+}
+.round1{width:100px;height:102px; background: url("../images/icon_2.png") no-repeat center; }
+.round2{width:68px; height:68px;background: url("../images/icon_6.png") no-repeat center;}
+.round3{width:124px;height:128px;background: url("../images/icon_3.png") no-repeat center;}
+.round4{width:88px;height:91px;background: url("../images/icon_4.png") no-repeat center;}
+.round5{width:67px;height:68px;background: url("../images/icon_5.png") no-repeat center;}
+.conAnm1 .layer1{
+    width: 377px;
+    height: 310px;
+    position: absolute;
+    left: 120px;
+    z-index: 2;
+    margin: 0 auto;
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0); /* IE6/IE7/8 */
+    background: url("../images/icon_1.png") no-repeat center;
+}
+
+.conAnm1 .layer2{
+    width: 640px;
+    height: 118px;
+    position: absolute;
+    bottom: -20px;
+    /*opacity: 0;*/
+    z-index: 1;
+    background: url("../images/shouji_11.png") no-repeat center;
+}
+
+/*第三部分内容*/
+.conThree{
+
+}
+.conBox3{margin-top: 120px;}
+.conBox3 .t{
+    color: #ffffff;
+    font-size: 50px;
+}
+.conBox3 .p{
+    text-align: right;
+    margin-top: 27px;
+    color: #646464;
+    font-size: 33px;
+}
+.conAnm2{
+    width: 600px;
+    height: 547px;
+    position: relative;
+}
+.conAnm2 .layer1{ /*layer1,2,3为动画图层*/
+    width: 807px;
+    height: 547px;
+    position: absolute;
+    background: url("../images/shouji_12.png") no-repeat center;
+    z-index: 1;
+    /*left: -540px;*/
+    left: -600px;
+ }
+
+.conAnm2 .layer2{
+    width: 203px;
+    height: 366px;
+    opacity: 0;
+    position: absolute;
+    top: 90px;
+    left: 30px;
+    /*left: 160px;*/
+    z-index: 2;
+    background: url("../images/shouji_13.png") no-repeat center;
+}
+.conAnm2 .layer3{
+    width: 190px;
+    height: 317px;
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0); /* IE6/IE7/8 */
+    position: absolute;
+    top: 110px;
+    left: 80px;
+    /*left: 320px;*/
+    z-index: 3;
+    background: url("../images/shouji_14.png") no-repeat center;
+}
+
+.footer{
+    background: #f5f5f5;
+    color: #808080;
+    font-size: 17px;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.footLink {margin-bottom: 20px;}
+.footLink a,a:visited,a:link{
+    color: #808080;
+}
+.footLink a{
+    display: inline;
+    vertical-align: middle;
+}
+.copyRight {
+    line-height: 1.5em;
+}
+
+

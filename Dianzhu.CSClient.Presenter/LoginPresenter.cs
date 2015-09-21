@@ -13,7 +13,7 @@ namespace Dianzhu.CSClient.Presenter
      
        IVew.ILoginForm loginView;
        InstantMessage instantMessage;
-
+       DZMembershipProvider bllMembership;
        public LoginPresenter(IVew.ILoginForm loginView, InstantMessage instantMessage,
 
             BLL.DZMembershipProvider bllMembership)
@@ -21,7 +21,7 @@ namespace Dianzhu.CSClient.Presenter
            this.loginView = loginView;
            this.instantMessage = instantMessage;
            loginView.ViewLogin +=new IVew.ViewLogin(loginView_ViewLogin);
-  
+           this.bllMembership = bllMembership;
        }
 
        BLLReceptionStatus BLLReceptionStatus = new BLLReceptionStatus();
@@ -33,8 +33,16 @@ namespace Dianzhu.CSClient.Presenter
            loginView.LoginMessage = string.Empty;
            instantMessage.IMError += new IMError(XMPP_IMError);
            instantMessage.IMConnectionError += new IMConnectionError(instantMessage_IMConenctionError);
-           instantMessage.OpenConnection(PHSuit.StringHelper.EnsureOpenfireUserName( loginView.UserName   )            
-               , loginView.Password);
+           DZMembership member = bllMembership.GetUserByName(loginView.UserName);
+           if (member == null)
+           {
+               XMPP_IMAuthError();
+           }
+           else
+           {
+               instantMessage.OpenConnection(member.Id.ToString()
+                   , loginView.Password);
+           }
            instantMessage.IMLogined += new IMLogined(IMLogined);
            instantMessage.IMAuthError += new IMAuthError(XMPP_IMAuthError);
            

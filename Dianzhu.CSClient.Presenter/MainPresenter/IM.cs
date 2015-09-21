@@ -51,8 +51,10 @@ namespace Dianzhu.CSClient.Presenter
 
         void IMPresent(string userFrom, int presentType)
         {
-            string userName = PHSuit.StringHelper.EnsureNormalUserName(userFrom);
-            bool isInList = customerList.Any(x => x.UserName == userName);
+            //string userName = PHSuit.StringHelper.EnsureNormalUserName(userFrom);
+            DZMembership userPresent= bllMember.GetUserById(new Guid(userFrom));
+            string userName = userPresent.DisplayName;
+            bool isInList = customerList.Contains(userPresent);
             switch (presentType)
             {
                 case -1:

@@ -103,7 +103,7 @@ public class RespDataORM002001_cerObj
     {
         this.userID = customerService.Id.ToString();
         this.imgUrl = string.Empty;
-        this.alias = customerService.NickName;
+        this.alias = customerService.DisplayName;
         this.userName = customerService.UserName;
         return this;
     }

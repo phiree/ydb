@@ -39,8 +39,8 @@ namespace Dianzhu.CSClient.MessageAdapter
                 throw new ArgumentException(attributeErr);
             }
             ReceptionChat chat = ReceptionChat.Create(chatType);
-            DZMembership from = bllMember.GetUserByName(PHSuit.StringHelper.EnsureNormalUserName(message.From.User));
-            DZMembership to = bllMember.GetUserByName(PHSuit.StringHelper.EnsureNormalUserName(message.To.User));
+            DZMembership from = bllMember.GetUserById(new Guid( message.From.User));
+            DZMembership to = bllMember.GetUserById(new Guid( message.To.User));
             chat.From = from;
             chat.To = to;
             chat.MessageBody = message.Body;
@@ -89,7 +89,8 @@ namespace Dianzhu.CSClient.MessageAdapter
             string server=System.Configuration.ConfigurationManager.AppSettings["server"];
             Message msg = new Message();
             msg.SetAttribute("MessageType", chat.ChatType.ToString());
-            msg.To =new agsXMPP.Jid(PHSuit.StringHelper.EnsureOpenfireUserName(chat.To.UserName) + "@" + server);
+            msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
+            msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server);
             msg.Body = chat.MessageBody;
             if (!string.IsNullOrEmpty(chat.MessageMediaUrl))
             {
