@@ -1,0 +1,25 @@
+/* 店铺展示列表 */
+.biz-list-wrap {
+  background: #fff;
+}
+.biz-list {
+  background: #eee;
+  margin-left: 140px;
+}
+.biz-item-left {
+  margin-left: -140px;
+  float: left;
+}
+.biz-item-right .biz-item-main {
+  margin: 0 auto;
+  width: 400px;
+  height: 300px;
+  background: #fff;
+}
+.biz-item-right .biz-item-h {
+  background: #0000FF;
+}
+.biz-item-right .biz-item-m {
+  width: 400px;
+  background: #fff;
+}

@@ -15,6 +15,7 @@
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
     <link href="/css/business.css" rel="stylesheet" type="text/css" />
+    <link href="/css/less/biz-list.css" rel="stylesheet" type="text/css" />
     <link href="/css/validation.css" rel="stylesheet" type="text/css" />
     <script src="/js/html5shiv.min.js"></script>
     <script src="/js/respond.min.js"></script>
@@ -49,8 +50,41 @@
                                   </ul>
                             </div>
                         </div>
-                <div class="mh">
-
+                <div class="mh main">
+                <div class="biz-list-wrap">
+                    <div class="biz-list">
+                        <div class="biz-list-item">
+                            <div class="biz-item-left">
+                                <div class="biz-item-tip">
+                                    总店
+                                </div>
+                            </div>
+                            <div class="biz-item-right">
+                                <div class="biz-item-main">
+                                    <div class="biz-item-h">XXXXXXX</div>
+                                    <div class="biz-item-m">
+                                        <div class="biz-info">
+                                           <div>
+                                               <h3>店铺星级</h3>
+                                               <span></span>
+                                           </div>
+                                           <div>
+                                               <h3>店铺电话</h3>
+                                               <span></span>
+                                           </div>
+                                           <div>
+                                               <h3>详细地址</h3>
+                                               <span></span></div>
+                                        </div>
+                                        <div class="biz-img"></div>
+                                    </div>
+                                    <div class="biz-item-svc"></div>
+                                    <div class="biz-item-href">xxx</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="business-container mh-in dis-n">
                     <div class="business-add">
@@ -64,10 +98,9 @@
                                            <div class="cont-row">
                                                <div class="cont-col-4">
 
-                                                <div class="business-h text-ellipsis"><%#Eval("Name")%></div>
+                                               <div class="business-h text-ellipsis"><%#Eval("Name")%></div>
 
                                                <div class="business-face"><img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=150&height=150&tt=3":"../image/myshop/touxiang_150_150.png" %>' /></div>
-
 </div>
 
                                             <div class="cont-col-8">
