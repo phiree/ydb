@@ -45,6 +45,16 @@ input[type="text"]:focus,input[type="password"]:focus {
     position: relative;
 }
 
+.footer {
+    background: transparent;
+    width: 100%;
+    padding: 10px;
+    color: #698395;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+}
+
 /*外包裹*/
 .wrap-login {
     position: absolute;

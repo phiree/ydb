@@ -50,78 +50,89 @@
                             </div>
                         </div>
                 <div class="mh">
+                <div class="business-main cont-wrap dis-n">
 
-
-                <div class="business-container mh-in dis-n">
-                    <div class="business-add">
-                           <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-info">+&nbsp;新建店铺</a>
+                        <div class="mh-in">
+                            <div class="business-container">
+                            <div class="business-add">
+                                <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-info">+&nbsp;新建店铺</a>
                             </div>
-                       <div class="business-list">
-                           <asp:Repeater runat="server" ID="rptBusinessList" OnItemCommand="rptBusinessList_ItemCommand">
-                              <ItemTemplate>
-                                    <div class="cont-container m-b20">
-                                        <div class="business-list-item">
-                                           <div class="cont-row">
-                                               <div class="cont-col-4">
-
-                                                <div class="business-h text-ellipsis"><%#Eval("Name")%></div>
-
-                                               <div class="business-face"><img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=150&height=150&tt=3":"../image/myshop/touxiang_150_150.png" %>' /></div>
-
-</div>
-
-                                            <div class="cont-col-8">
+                            <div class="business-list">
+                                <asp:Repeater runat="server" ID="rptBusinessList" OnItemCommand="rptBusinessList_ItemCommand">
+                                    <ItemTemplate>
+                                        <div class="cont-container m-b20">
+                                            <div class="business-list-item">
                                                 <div class="cont-row">
-                                                    <div class="cont-col-12">
-        <p class="business-default-intro text-breakWord">
-          <%#Eval("Description")%></p>
-</div>
-</div>
+                                                    <div class="cont-col-4">
 
-                                                   <div class="cont-row">
-                                                       <div class="cont-col-6">
-                                                           <div class="business-note">
-                                                           <p><span>联系电话：</span><span>  <%#Eval("Phone")%></span></p>
-                                                           <p><span>从业时间：</span><span> <%#Eval("WorkingYears")%></span></p>
-                                                           </div>
-                                                       </div>
-                                                       <div class="cont-col-6">
-                                                           <div class="business-note">
-                                                               <p><span>店铺地址：</span><span>  <%#Eval("Address")%></span></p>
-                                                               <p><span>员工人数：</span><span>  <%#Eval("StaffAmount")%></span></p>
-                                                           </div>
+                                                        <div class="business-h text-ellipsis"><%#Eval("Name")%></div>
 
-                                                       </div>
-                                                   </div>
-                                                   <div class="cont-row">
-                                                       <div class="cont-col">
-                                                        <p class="t-r"><a class="btn btn-info m-r20" href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a><asp:Button CssClass="btn btn-delete" runat="server" OnClientClick="javascript:return confirm('确定要删除该店铺么?')" CommandArgument='<%#Eval("Id") %>' CommandName="delete" Text="删除店铺" /></p>
-                                                       </div>
+                                                        <div class="business-face"><img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=150&height=150&tt=3":"../image/myshop/touxiang_150_150.png" %>' /></div>
 
-                                           </div>
-                                           </div>
-                                           </div>
-</div>
-                                    </div>
-                              </ItemTemplate>
-                          </asp:Repeater>
+                                                    </div>
+
+                                                    <div class="cont-col-8">
+                                                        <div class="cont-row">
+                                                            <div class="cont-col-12">
+                                                                <p class="business-default-intro text-breakWord">
+                                                                    <%#Eval("Description")%></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="cont-row">
+                                                            <div class="cont-col-6">
+                                                                <div class="business-note">
+                                                                    <p><span>联系电话：</span><span>  <%#Eval("Phone")%></span></p>
+                                                                    <p><span>从业时间：</span><span> <%#Eval("WorkingYears")%></span></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="cont-col-6">
+                                                                <div class="business-note">
+                                                                    <p><span>店铺地址：</span><span>  <%#Eval("Address")%></span></p>
+                                                                    <p><span>员工人数：</span><span>  <%#Eval("StaffAmount")%></span></p>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="cont-row">
+                                                            <div class="cont-col">
+                                                                <p class="t-r"><a class="btn btn-info m-r20" href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a><asp:Button CssClass="btn btn-delete" runat="server" OnClientClick="javascript:return confirm('确定要删除该店铺么?')" CommandArgument='<%#Eval("Id") %>' CommandName="delete" Text="删除店铺" /></p>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                            </div>
                         </div>
-                    </div>
+
+                </div>
                 <div class="business-new cont-wrap dis-n">
-                    <div class="cont-container mh-in">
-                        <div class="new-box">
-                            <div class="t-c">
-                                <img src="/image/buss-new.png"/>
-                            </div>
-                            <div class="business-new-add">
-                                <a id="firstAddBusiness" class="new-add-btn">点击创建新店铺</a>
-                                <p class="firstAddMsg dis-n">感谢您的使用一点办，为了给您提供更好的服务，建议您进入<a style="font-weight:800" href="/account/security.aspx">“帐号安全”</a>绑定您的手机号码。</p>
+
+                    <div class="cont-container">
+                        <div class="mh-ctnr">
+                            <div class="new-box">
+                                <div class="t-c">
+                                    <img src="/image/buss-new.png"/>
+                                </div>
+                                <div class="business-new-add">
+                                    <a id="firstAddBusiness" class="new-add-btn">点击创建新店铺</a>
+                                    <p class="firstAddMsg dis-n">感谢您的使用一点办，为了给您提供更好的服务，建议您进入<a style="font-weight:800" href="/account/security.aspx">“帐号安全”</a>绑定您的手机号码。</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <!--true时为已填写手机-->
                 <input id="hiCreateID" type="hidden" runat="server" value="false"/>
+                <div class="footer">
+                        <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
+                    </div>
                 </div>
                 </div>
                    <div id="newBusslightBox" class="dis-n">
@@ -203,7 +214,7 @@
         if ( $(".business-list").find(".business-list-item").length == 0 ){
             $(".business-new").removeClass("dis-n");
         } else {
-            $(".business-container").removeClass("dis-n");
+            $(".business-main").removeClass("dis-n");
         }
     });
 

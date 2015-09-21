@@ -6,59 +6,60 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <div class="cont-wrap mh">
-        <div class="cont-container">
-            <div class="service-info info-top">
-                <div class="cont-row">
-                    <div class="cont-col-12"><p class="cont-h4 m-b20">基本服务信息</p></div>
-</div>
-                <div>
+    <div class="cont-wrap">
+        <div class="mh-in">
+            <div class="cont-container">
+                <div class="service-info info-top">
                     <div class="cont-row">
+                        <div class="cont-col-12"><p class="cont-h4 m-b20">基本服务信息</p></div>
+                    </div>
+                    <div>
+                        <div class="cont-row">
 
-                                        <div class="cont-col-3">
-                                            <div class="cont-row">
-                                                <div class="cont-col-4"><p >服务名称:</p></div>
-                                                <div class="cont-col-8"><p class="text-ellipsis"><%=CurrentService.Name %></p></div>
-                                            </div>
-                                        </div>
-                                        <div class="cont-col-9">
-                                            <div class="cont-row">
-                                                <div class="cont-col-2"><p >服务类型:</p></div>
-                                                <div class="cont-col-10"><%=CurrentService.ServiceType.Name %></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                    <div class="cont-row">
-                                        <div class="cont-col-3">
-                                            <div class="cont-row">
-                                                <div class="cont-col-4"><p>服务标签:</p></div>
-                                                <div class="cont-col-8"></div>
-                                            </div>
-                                        </div>
-                                        <div class="cont-col-9">
-                                            <div class="cont-row">
-                                                <div class="cont-col-2"><p>服务区域:</p></div>
-                                                <div class="cont-col-10"><span id="spServiceArea"   class="spServiceArea text-ellipsis">
+                            <div class="cont-col-3">
+                                <div class="cont-row">
+                                    <div class="cont-col-4"><p >服务名称:</p></div>
+                                    <div class="cont-col-8"><p class="text-ellipsis"><%=CurrentService.Name %></p></div>
+                                </div>
+                            </div>
+                            <div class="cont-col-9">
+                                <div class="cont-row">
+                                    <div class="cont-col-2"><p >服务类型:</p></div>
+                                    <div class="cont-col-10"><%=CurrentService.ServiceType.Name %></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cont-row">
+                            <div class="cont-col-3">
+                                <div class="cont-row">
+                                    <div class="cont-col-4"><p>服务标签:</p></div>
+                                    <div class="cont-col-8"></div>
+                                </div>
+                            </div>
+                            <div class="cont-col-9">
+                                <div class="cont-row">
+                                    <div class="cont-col-2"><p>服务区域:</p></div>
+                                    <div class="cont-col-10"><span id="spServiceArea"   class="spServiceArea text-ellipsis">
                                                 </span>    <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%=CurrentService.BusinessAreaCode %>' />
 
 
-                                                </div>
-                                             </div>
-                                        </div>
-        </div>
-                    <div class="cont-row">
-                        <div class="cont-col-1"><p>服务介绍:</p></div>
-                        <div class="cont-col-7"><p class="text-ellipsis"><%=CurrentService.Description %></p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cont-row">
+                            <div class="cont-col-1"><p>服务介绍:</p></div>
+                            <div class="cont-col-7"><p class="text-ellipsis"><%=CurrentService.Description %></p></div>
+                        </div>
                     </div>
-</div>
 
-            </div>
-            <div class="service-info info-bottom">
-                <div class="cont-row">
-                    <div class="cont-col-12"><p class="cont-h4 m-b20">详细服务信息</p></div>
                 </div>
-                <table class="custom-table">
-                    <tbody>
+                <div class="service-info info-bottom">
+                    <div class="cont-row">
+                        <div class="cont-col-12"><p class="cont-h4 m-b20">详细服务信息</p></div>
+                    </div>
+                    <table class="custom-table">
+                        <tbody>
                         <tr>
                             <td class="table-col-1">服务起步价:</td>
                             <td class="table-col-1"><%=CurrentService.MinPrice.ToString("#.#") %>元</td>
@@ -87,12 +88,13 @@
                             <td class="table-col-1">平台认证:</td>
                             <td class="table-col-1"><%=CurrentService.IsCertificated?"已认证":"未认证" %></td>
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="t-r">
+                    <a class="btn btn-default btn-info m-r10" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%=CurrentService.Id %>">修改服务信息</a><a href="/dzservice/default.aspx?businessid=<%=Request["businessid"]%>" class="btn btn-default btn-cancel">返回我的服务</a></div>
             </div>
-            <div class="t-r">
-                <a class="btn btn-default btn-info m-r10" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%=CurrentService.Id %>">修改服务信息</a><a href="/dzservice/default.aspx?businessid=<%=Request["businessid"]%>" class="btn btn-default btn-cancel">返回我的服务</a></div>
-           </div>
+        </div>
 </div>
 
 </asp:Content>

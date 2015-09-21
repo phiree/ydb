@@ -66,6 +66,10 @@
                 </asp:ContentPlaceHolder>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
+                <div class="footer">
+                        <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
+                    </div>
+                </div>
             </div>
             </div>
             </div>

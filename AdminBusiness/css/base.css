@@ -209,12 +209,19 @@ html{
     content: "";
 }
 
+/*最小高度限制,通过glbal.js里的函数设置最小高度为100%*/
 .mh {
     background: #f1f2f1;
     min-height: 100%;
 }
 
+/*wrap中的最小高度限制*/
 .mh-in {
+    min-height: 100%;
+}
+
+/*container中的最小高度限制*/
+.mh-ctnr {
     min-height: 100%;
 }
 
@@ -237,6 +244,15 @@ html{
     box-sizing: border-box;
     padding-left: 150px;
     background: #fff;
+}
+
+.footer {
+    background: #f1f2f1;
+    width: 100%;
+    padding: 10px;
+    color: #666;
+    bottom: 0;
+    text-align: center;
 }
 
 /*登录0状态样式*/
