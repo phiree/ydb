@@ -125,6 +125,11 @@ namespace Dianzhu.BLL
         {
             return DALServiceOrder.GetOne(guid);
         }
+        public void SaveOrUpdate(ServiceOrder order)
+        {
+
+            DALServiceOrder.SaveOrUpdate(order);
+        }
     }
 
 

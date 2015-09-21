@@ -14,9 +14,9 @@ namespace Dianzhu.Model
         /// <summary>
         /// 请不要直接调用此方法创建订单.
         /// </summary>
-        public ServiceOrder()
+        protected  ServiceOrder()
         {
-            OrderStatus = enum_OrderStatus.Created;
+            OrderStatus = enum_OrderStatus.Draft;
             OrderCreated = DateTime.Now;
             Staff = new List<Staff>();
             
@@ -213,15 +213,23 @@ namespace Dianzhu.Model
         /// 订单结束的时间.
         /// </summary>
         public virtual DateTime OrderFinished { get; set; }
-      /// <summary>
-      /// 订单状态.
-      /// </summary>
-        
+        /// <summary>
+        /// 订单备注.
+        /// </summary>
+        public virtual string Memo { get; set; }
+        /// <summary>
+        /// 订单状态.
+        /// </summary>
+
         public virtual enum_OrderStatus OrderStatus { get; set; }
         /// <summary>
         /// 服务的目标地址
         /// </summary>
         public virtual string TargetAddress { get; set; }
+        /// <summary>
+        /// 订单的时间要求
+        /// </summary>
+        public virtual string TargetTime { get; set; }
         /// <summary>
         /// 分配的职员
         /// </summary>

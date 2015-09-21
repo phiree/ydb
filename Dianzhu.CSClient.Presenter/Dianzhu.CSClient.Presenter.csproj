@@ -43,8 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLFactory.cs" />
-    <Compile Include="ChatLoader.cs" />
-    <Compile Include="IncomingMessageTemplate.cs" />
     <Compile Include="GlobalViables.cs" />
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="MainPresenter\IM.cs" />

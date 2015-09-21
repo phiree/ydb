@@ -18,9 +18,10 @@ namespace Dianzhu.DAL.Mapping
            References<DZService>(x => x.Service);
            HasMany<Staff>(x => x.Staff);
            Map(x => x.TargetAddress);
+            Map(x => x.TargetTime);
            Map(x => x.ServiceUnitPrice);
            Map(x => x.UnitAmount);
-
+            Map(x => x.Memo);
            Map(x => x.ServiceURL);
            Map(x => x.ServiceName);
            Map(x => x.ServiceDescription);

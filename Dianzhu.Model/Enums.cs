@@ -46,6 +46,11 @@ namespace Dianzhu.Model.Enums
 
     public enum enum_OrderStatus
     {
+        /// <summary>
+        /// 草稿,未创建.
+        /// </summary>
+        Draft,
+       
         Created,//已创建,待付款
         Payed,//已付款
         CancelledNeedReturn,//已取消待退款
@@ -112,10 +117,22 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_ServiceScopeType
     {
-        ISIM,//系统内服务,系统内用户
-        ISOM,//系统内服务,系统外用户
-        OSIM,//系统外服务,系统内用户
-        OSOM,//系统外服务,系统外用户
+        /// <summary>
+        /// 系统内服务,系统内iyonghu
+        /// </summary>
+        ISIM, 
+        /// <summary>
+        /// 系统内服务,系统外用户
+        /// </summary>
+        ISOM, 
+        /// <summary>
+        /// 系统外服务,系统内用户
+        /// </summary>
+        OSIM, 
+        /// <summary>
+        /// 系统外服务,系统外用户
+        /// </summary>
+        OSOM, 
     }
 
 

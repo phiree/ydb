@@ -200,11 +200,11 @@ namespace Dianzhu.CSClient.WinformView
             fm.ShowDialog();
         }
  
-        public void SetCustomerButtonStyle(string buttonText, em_ButtonStyle buttonStyle)
+        public void SetCustomerButtonStyle(DZMembership customer, em_ButtonStyle buttonStyle)
         {
             Action lambda=()=>{
             Button btn = (Button)pnlCustomerList.Controls.Find
-                (buttonNamePrefix + buttonText, true)[0];
+                (buttonNamePrefix + customer.UserName, true)[0];
             Color foreColor = Color.White;
             switch (buttonStyle)
             {
@@ -229,18 +229,19 @@ namespace Dianzhu.CSClient.WinformView
             }
 
         }
-        public void AddCustomerButtonWithStyle(string buttonText, em_ButtonStyle buttonStyle)
+        public void AddCustomerButtonWithStyle(DZMembership customer, em_ButtonStyle buttonStyle)
         {
             //Action lambda = () =>this.DialogResult=value? System.Windows.Forms.DialogResult.OK: System.Windows.Forms.DialogResult.Abort;
 
             Action lamda = () =>
             {
                 Button btn = new Button();
-                btn.Text = buttonText;
-                btn.Name = buttonNamePrefix + buttonText;
+                btn.Text = customer.DisplayName;
+                btn.Tag = customer;
+                btn.Name = buttonNamePrefix + customer.UserName;
                 btn.Click += new EventHandler(btnCustomer_Click);
                 pnlCustomerList.Controls.Add(btn);
-                SetCustomerButtonStyle(buttonText, buttonStyle);
+                SetCustomerButtonStyle(customer, buttonStyle);
             };
             if (InvokeRequired)
                 Invoke(lamda);
@@ -253,7 +254,7 @@ namespace Dianzhu.CSClient.WinformView
             if (ActiveCustomerHandler != null)
             {
                 BeforeCustomerChanged();
-                ActiveCustomerHandler(((Button)sender).Text);
+                ActiveCustomerHandler((DZMembership) ((Button)sender).Tag);
             }
             
         }
