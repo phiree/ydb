@@ -35,7 +35,9 @@ public class ResponseFactory
                
             case "usm001007":
                 return new ResponseUSM001007(request);
-                
+            case "usm001008":
+                return new ResponseUSM001008(request);
+
             case "svc001001":
                 return new ResponseSVC001001(request);
                 
