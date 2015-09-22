@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using agsXMPP;
+using agsXMPP.protocol.client;
+using agsXMPP.Xml.Dom;
 namespace Dianzhu.Test.DZCSClientTest
 {
     [TestFixture]
@@ -36,6 +38,10 @@ namespace Dianzhu.Test.DZCSClientTest
              * </message>
 
              */
+            Node extNode = msg.ChildNodes.Item(3);
+           
+            Console.WriteLine("ext node:"+extNode.ToString());
+            Console.WriteLine("ext namespace:" + extNode.Namespace);
         }
 
     }

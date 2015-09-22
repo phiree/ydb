@@ -24,7 +24,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
         public Model.ReceptionChat MessageToChat( Message message)
         {
-
+            
             string messageType = message.GetAttribute("MessageType");
             Model.Enums.enum_ChatType chatType;
             bool isChatType = Enum.TryParse(messageType, out  chatType);

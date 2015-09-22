@@ -27,12 +27,12 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://192.168.1.140:8035/</InstallUrl>
     <ProductName>客服工具测试版</ProductName>
-    <PublisherName>Ydban</PublisherName>
-    <SuiteName>csclient</SuiteName>
+    <PublisherName>JSYK</PublisherName>
+    <SuiteName>yidianban</SuiteName>
     <MinimumRequiredVersion>1.0.0.9</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>17</ApplicationRevision>
+    <ApplicationRevision>18</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

@@ -1,5 +1,5 @@
 ﻿var need_to_test=[
-"usm001008",
+"usm001005", "usm001007"
 //"merm001001","merm001003","merm001005",
 //"orm001004","orm001005","orm001006"
 ];
@@ -87,8 +87,8 @@ var test_data=[
                 {
                     "protocol_CODE": "USM001005",
                     "ReqData": { 
-                                "email": "13022222222", 
-                                "pWord": "123456", 
+                                "email": "5", 
+                                "pWord": "1234", 
                                 }, 
                     "stamp_TIMES": "1490192929212", 
                     "serial_NUMBER": "00147001015869149751" 
@@ -137,8 +137,8 @@ var test_data=[
                  { 
                     "protocol_CODE": "USM001007",  
                     "ReqData": { 
-                        "userID": "eb2ae597-5adb-4242-b22e-a4f901275654", 
-                        "pWord": "123456", 
+                        "userID": "1c7617e2-8278-49b2-930a-a50f01200edc",
+                        "pWord": "1234", 
                         "imgData":"iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII="
                         }, 
                     "stamp_TIMES": "1490192929212", 

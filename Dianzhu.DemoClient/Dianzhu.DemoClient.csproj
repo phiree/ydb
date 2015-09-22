@@ -27,11 +27,11 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://192.168.1.140:8036/</InstallUrl>
     <ProductName>客户模拟程序</ProductName>
-    <PublisherName>Ydban</PublisherName>
-    <SuiteName>ydban</SuiteName>
+    <PublisherName>JSYK</PublisherName>
+    <SuiteName>yidianban</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

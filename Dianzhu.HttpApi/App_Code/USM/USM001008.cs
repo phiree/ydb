@@ -57,8 +57,8 @@ public class ResponseUSM001008 : BaseResponse
                 {
                     respData.ResourceUrl = ConfigurationManager.AppSettings["media_server"] + ConfigurationManager.AppSettings["business_image_root"] + fileName;
                 }
-                member.AvatarUrl = fileName;
-                p.UpdateDZMembership(member);
+               // member.AvatarUrl = fileName;
+               // p.UpdateDZMembership(member);
                 this.RespData = respData;
                 
             }
