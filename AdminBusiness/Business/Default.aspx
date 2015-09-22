@@ -62,8 +62,9 @@
                                     <div class="biz-list">
                                         <div class="biz-list-item">
                                             <div class="biz-item-left">
-                                                <div class="biz-item-tip">
-                                                    总店
+                                                <div class="biz-tip">
+                                                    <div class="biz-tip-h">总店</div>
+                                                    <i class="biz-tip-icon icon"></i>
                                                 </div>
                                             </div>
                                             <div class="biz-item-right">
@@ -71,25 +72,93 @@
                                                     <div class="biz-item-h">XXXXXXX</div>
                                                     <div class="biz-item-m">
                                                         <div class="biz-info">
-                                                            <div>
-                                                                <h3>店铺星级</h3>
-                                                                <span></span>
+                                                            <div class="cont-row">
+                                                                <div class="cont-col-8">
+                                                                    <div class="cont-row">
+                                                                        <div class="cont-col-3"><h3 class="biz-info-h">店铺星级</h3></div>
+                                                                        <div class="cont-col-9"><p class="biz-info-d">ccc</p></div>
+                                                                    </div>
+                                                                    <div class="cont-row">
+                                                                        <div class="cont-col-3"><h3 class="biz-info-h">店铺电话</h3></div>
+                                                                        <div class="cont-col-9"><p class="biz-info-d d-p">41000000000</p></div>
+                                                                    </div>
+                                                                    <div class="cont-row">
+                                                                        <div class="cont-col-3"><h3 class="biz-info-h">详细地址</h3></div>
+                                                                        <div class="cont-col-9"><p class="biz-info-d">北京市朝阳区</p></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="cont-col-4">
+                                                                    <div class="biz-img">
+
+                                                                        <img src="../image/myshop/touxiang_125_125.png">
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div>
-                                                                <h3>店铺电话</h3>
-                                                                <span></span>
-                                                            </div>
-                                                            <div>
-                                                                <h3>详细地址</h3>
-                                                                <span></span></div>
                                                         </div>
-                                                        <div class="biz-img"></div>
                                                     </div>
-                                                    <div class="biz-item-svc"></div>
-                                                    <div class="biz-item-href">xxx</div>
+                                                    <div class="biz-item-svc">
+                                                        <div class="svc-list">
+                                                            <div class="svc-li"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="biz-item-href">
+                                                        <a href="">进入店铺</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="biz-list-item">
+                                            <div class="biz-item-left">
+                                                <div class="biz-tip">
+                                                    <div class="biz-tip-h">总店</div>
+                                                    <i class="biz-tip-icon icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="biz-item-right">
+                                                <div class="biz-item-main">
+                                                    <div class="biz-item-h">XXXXXXX</div>
+                                                    <div class="biz-item-m">
+                                                        <div class="biz-info">
+                                                            <div class="cont-row">
+                                                                <div class="cont-col-8">
+                                                                    <div class="cont-row">
+                                                                        <div class="cont-col-3"><h3 class="biz-info-h">店铺星级</h3></div>
+                                                                        <div class="cont-col-9"><p class="biz-info-d">ccc</p></div>
+                                                                    </div>
+                                                                    <div class="cont-row">
+                                                                        <div class="cont-col-3"><h3 class="biz-info-h">店铺电话</h3></div>
+                                                                        <div class="cont-col-9"><p class="biz-info-d d-p">41000000000</p></div>
+                                                                    </div>
+                                                                    <div class="cont-row">
+                                                                        <div class="cont-col-3"><h3 class="biz-info-h">详细地址</h3></div>
+                                                                        <div class="cont-col-9"><p class="biz-info-d">北京市朝阳区</p></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="cont-col-4">
+                                                                    <div class="biz-img">
+
+                                                                        <img src="../image/myshop/touxiang_125_125.png">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="biz-item-svc">
+                                                        <div class="svc-list">
+                                                            <div class="svc-li"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="biz-item-href">
+                                                        <a href="">进入店铺</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="biz-list-bg">
+                                        <div class="biz-bg-t"></div>
+                                        <div class="biz-bg-m"></div>
+                                        <div class="biz-bg-b"></div>
                                     </div>
                                 </div>
                                 <div class="business-add">
@@ -109,8 +178,8 @@
                                                             <div class="business-h text-ellipsis"><%#Eval("Name")%>
                                                             </div>
 
-                                                            <div class="business-face"><img
-                                                                    src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=150&height=150&tt=3":"../image/myshop/touxiang_150_150.png" %>'/>
+                                                            <div class="business-face">
+                                                                <img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=150&height=150&tt=3":"../image/myshop/touxiang_150_150.png" %>'/>
                                                             </div>
                                                         </div>
 

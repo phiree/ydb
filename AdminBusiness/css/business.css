@@ -20,8 +20,9 @@
 }
 
 .business-container {
-    padding: 20px 100px;
+    margin: 0 auto;
     background: #f1f2f1;
+    width: 1060px;
 }
 
 .business-add {
