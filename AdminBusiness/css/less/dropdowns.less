@@ -1,0 +1,46 @@
+
+.dropdown-menu {
+
+  position: absolute;
+  top: 80%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 100px;
+  padding: 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align:center;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  overflow: hidden;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+
+  >li {
+
+     >a {
+        display: block;
+        width: 148px;
+        padding: 3px 3px;
+        padding-left:12px;
+        color: #333;
+        background:url(../image/shop-icon-2.png) no-repeat;
+        background-position: 30px center;
+        white-space: nowrap;
+        &:hover {
+         background:url(../image/shop-icon-5.png) no-repeat;
+         background-position: 30px center;
+         color:#FFF;
+        }
+     }
+    &:hover {
+      background:#3794bf;
+    }
+  }
+}

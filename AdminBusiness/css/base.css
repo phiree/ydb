@@ -229,22 +229,29 @@ html{
     background:#DEDEDE;
     background-attachment: fixed;
 }
-.mainContainer{ margin: 0 auto; width:1200px; background: #fff; position: relative; box-shadow: 0 0 10px 0 rgba(43, 43, 43, 0.2)
-}
+
+.mainContainer{ margin: 0 auto; position: relative; }
+
 
 .mainContent{ margin: 0 auto; width:1000px; background: #3D5B77; }
+
+.main {
+    width: 1200px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
 
 .con-wrap {
     background: #cadceb;
     color: #58789a;
 }
 
-.content {
-    min-height: 196px;
-    box-sizing: border-box;
-    padding-left: 150px;
-    background: #fff;
-}
+/*.content {*/
+    /*min-height: 196px;*/
+    /*box-sizing: border-box;*/
+    /*padding-left: 150px;*/
+    /*/!*background: #fff;*!/*/
+/*}*/
 
 .footer {
     background: #f1f2f1;
@@ -264,75 +271,75 @@ html{
 }
 /*end*/
 
-.nav-btn-bg {
-    display: inline-block;
-    *display: inline-block;
-    *zoom: 1;
-    width: 79px;
-    height: 69px;
-    border-bottom: 2px solid transparent;
-    vertical-align: middle;
-    content: "";
-    position: relative;
-    text-align: center;
-}
+/*.nav-btn-bg {*/
+    /*display: inline-block;*/
+    /**display: inline-block;*/
+    /**zoom: 1;*/
+    /*width: 79px;*/
+    /*height: 69px;*/
+    /*border-bottom: 2px solid transparent;*/
+    /*vertical-align: middle;*/
+    /*content: "";*/
+    /*position: relative;*/
+    /*text-align: center;*/
+/*}*/
 
-.side-bar {
-    padding-top: 50px;
-    position: relative;
-}
+/*.side-bar {*/
+    /*padding-top: 50px;*/
+    /*position: relative;*/
+/*}*/
 
-.side-btn-br {
-    padding-bottom: 20px;
-    margin-bottom: 10px;
-    background: url("../image/master/shop-line-2.png") no-repeat bottom center;
-}
+/*.side-btn-br {*/
+    /*padding-bottom: 20px;*/
+    /*margin-bottom: 10px;*/
+    /*background: url("../image/master/shop-line-2.png") no-repeat bottom center;*/
+/*}*/
 
-.side-arrow {
-    width: 9px;
-    height: 71px;
-    background: url("../image/master/side-arrow.png") no-repeat center;
-    position: absolute;
-    right: 0;
-    display: none;
-}
+/*.side-arrow {*/
+    /*width: 9px;*/
+    /*height: 71px;*/
+    /*background: url("../image/master/side-arrow.png") no-repeat center;*/
+    /*position: absolute;*/
+    /*right: 0;*/
+    /*display: none;*/
+/*}*/
 
-.side-btn-bg {
-    display: inline-block;
-    *display: inline-block;
-    *zoom: 1;
-    width: 79px;
-    height: 71px;
-    background-position: 0 0;
-    vertical-align: middle;
-    content: "";
-    position: relative;
-    text-align: center;
-}
+/*.side-btn-bg {*/
+    /*display: inline-block;*/
+    /**display: inline-block;*/
+    /**zoom: 1;*/
+    /*width: 79px;*/
+    /*height: 71px;*/
+    /*background-position: 0 0;*/
+    /*vertical-align: middle;*/
+    /*content: "";*/
+    /*position: relative;*/
+    /*text-align: center;*/
+/*}*/
 
-.side-btn-icon {
-    background: url("../image/master/sideallbgs.png");
-    display: inline-block;
-    *display: inline-block;
-    *zoom: 1;
-    width: 30px;
-    height: 32px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -15px;
-    margin-top: -22px;
-}
+/*.side-btn-icon {*/
+    /*background: url("../image/master/sideallbgs.png");*/
+    /*display: inline-block;*/
+    /**display: inline-block;*/
+    /**zoom: 1;*/
+    /*width: 30px;*/
+    /*height: 32px;*/
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*top: 50%;*/
+    /*margin-left: -15px;*/
+    /*margin-top: -22px;*/
+/*}*/
 
-.side-btn-t {
-    color: #fff;
-    font-size: 14px;
-    position: absolute;
-    bottom: 6px;
-    width: 100%;
-    text-align: center;
-    line-height: 1.2em  ;
-}
+/*.side-btn-t {*/
+    /*color: #fff;*/
+    /*font-size: 14px;*/
+    /*position: absolute;*/
+    /*bottom: 6px;*/
+    /*width: 100%;*/
+    /*text-align: center;*/
+    /*line-height: 1.2em  ;*/
+/*}*/
 
 /*.nav-btn-coup { background:url("../image/shop_icon_6.png"); width: 79px; height: 70px; }*/
 /*.nav-btn-myshop { background-position: -632px 0px; width: 79px; height: 70px; }*/
@@ -341,8 +348,8 @@ html{
 /*.nav-btn-employee { background-position: -158px 0px; width: 79px; height: 70px; }*/
 /*.nav-btn-msg { background-position: 0px 0px; width: 79px; height: 70px; }*/
 
-.nav-icon-myshop { background-position: -256px 0; width: 32px; height: 0; padding-top: 32px;  }
-.nav-icon-service { background-position: -192px 0; width: 32px; height: 0; padding-top: 32px; }
+/*.nav-icon-myshop { background-position: -256px 0; width: 32px; height: 0; padding-top: 32px;  }*/
+/*.nav-icon-service { background-position: -192px 0; width: 32px; height: 0; padding-top: 32px; }*/
 
 
 /*.nav-btn-un-order { background: url("../image/un-icon-1.png");width: 79px; height: 70px; cursor: default;}*/
@@ -351,15 +358,15 @@ html{
 
 
 
-.nav-icon-un-order { background: url("../image/master/shop-unable-3.png"); width: 32px; height: 32px }
-.nav-icon-un-employee { background: url("../image/master/shop-unable-2.png"); width: 32px; height: 32px }
-.nav-icon-un-msg { background: url("../image/master/shop-unable-1.png"); width: 32px; height: 32px }
+/*.nav-icon-un-order { background: url("../image/master/shop-unable-3.png"); width: 32px; height: 32px }*/
+/*.nav-icon-un-employee { background: url("../image/master/shop-unable-2.png"); width: 32px; height: 32px }*/
+/*.nav-icon-un-msg { background: url("../image/master/shop-unable-1.png"); width: 32px; height: 32px }*/
 
-.side-icon-myshop { background-position: -32px 0; width: 32px; height: 0; padding-top: 32px; }
-.side-icon-secret { background-position: 0 0; width: 32px; height: 0; padding-top: 32px; }
+/*.side-icon-myshop { background-position: -32px 0; width: 32px; height: 0; padding-top: 32px; }*/
+/*.side-icon-secret { background-position: 0 0; width: 32px; height: 0; padding-top: 32px; }*/
 
-.side-icon-service { background-position: -32px 0; width: 32px; height: 0; padding-top: 32px; }
-.side-icon-serviceSet { background-position: -32px 0px; width: 32px; height: 0; padding-top: 32px; }
+/*.side-icon-service { background-position: -32px 0; width: 32px; height: 0; padding-top: 32px; }*/
+/*.side-icon-serviceSet { background-position: -32px 0px; width: 32px; height: 0; padding-top: 32px; }*/
 /*.side-btn-myshop { background-position: -948px 0px; width: 79px; height: 70px; }*/
 /*.side-btn-secret { background-position: -790px 0px; width: 79px; height: 70px; }*/
 
@@ -846,828 +853,828 @@ a.time-trigger:hover {
     border: 0;
 }
 
-.btn {
-    font: inherit;
-    display: inline-block;
-    margin-bottom: 0;
-    font-weight: 500;
-    text-align: center;
-    vertical-align: middle;
-    touch-action: manipulation;
-    cursor: pointer;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-    background-image: none;
-    border: 1px solid transparent;
-    white-space: nowrap;
-    padding: 8px 10px;
-    font-size: 14px;
-    line-height: 1.2em;
-    border-radius: 2px;
-}
-.btn:hover,
-.btn:focus,
-.btn.focus {
-    color: #45b2e6;
-    text-decoration: none;
-}
-.btn:active,
-.btn.active {
-    outline: 0;
-    background-image: none;
-}
-.btn.disabled,
-.btn[disabled],
-fieldset[disabled] .btn {
-    cursor: not-allowed;
-}
-a.btn.disabled,
-fieldset[disabled] a.btn {
-    pointer-events: none;
-}
-/* 编辑类按钮 */
-a.btn-info,
-.btn-info {
-    color: #ffffff;
-    background-color: #64c6f8;
-    border-color: transparent;
-    background: -webkit-gradient(linear, left top, left bottom, from(#64c6f8), to(#20adf5));
-    background: -moz-linear-gradient(top, #64c6f8, #20adf5);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#64c6f8, endColorstr=#64c6f8);
-}
-a.btn-info:focus,
-.btn-info:focus,
-a.btn-info.focus,
-.btn-info.focus {
-    color: #ffffff;
-    background-color: #64c6f8;
-    border-color: transparent;
-}
-a.btn-info:hover,
-.btn-info:hover {
-    color: #ffffff;
-    background-color: #7ccff9;
-    border-color: rgba(0, 0, 0, 0);
-}
-a.btn-info:active,
-.btn-info:active,
-a.btn-info.active,
-.btn-info.active,
-.open > .dropdown-togglea.btn-info,
-.open > .dropdown-toggle.btn-info {
-    color: #ffffff;
-    background-color: #64c6f8;
-    border-color: transparent;
-}
-a.btn-info:active:hover,
-.btn-info:active:hover,
-a.btn-info.active:hover,
-.btn-info.active:hover,
-.open > .dropdown-togglea.btn-info:hover,
-.open > .dropdown-toggle.btn-info:hover,
-a.btn-info:active:focus,
-.btn-info:active:focus,
-a.btn-info.active:focus,
-.btn-info.active:focus,
-.open > .dropdown-togglea.btn-info:focus,
-.open > .dropdown-toggle.btn-info:focus,
-a.btn-info:active.focus,
-.btn-info:active.focus,
-a.btn-info.active.focus,
-.btn-info.active.focus,
-.open > .dropdown-togglea.btn-info.focus,
-.open > .dropdown-toggle.btn-info.focus {
-    color: #ffffff;
-    background-color: #64c6f8;
-    border-color: transparent;
-}
-a.btn-info:active,
-.btn-info:active,
-a.btn-info.active,
-.btn-info.active,
-.open > .dropdown-togglea.btn-info,
-.open > .dropdown-toggle.btn-info {
-    background-image: none;
-}
-a.btn-info.disabled,
-.btn-info.disabled,
-a.btn-info[disabled],
-.btn-info[disabled],
-fieldset[disabled] a.btn-info,
-fieldset[disabled] .btn-info,
-a.btn-info.disabled:hover,
-.btn-info.disabled:hover,
-a.btn-info[disabled]:hover,
-.btn-info[disabled]:hover,
-fieldset[disabled] a.btn-info:hover,
-fieldset[disabled] .btn-info:hover,
-a.btn-info.disabled:focus,
-.btn-info.disabled:focus,
-a.btn-info[disabled]:focus,
-.btn-info[disabled]:focus,
-fieldset[disabled] a.btn-info:focus,
-fieldset[disabled] .btn-info:focus,
-a.btn-info.disabled.focus,
-.btn-info.disabled.focus,
-a.btn-info[disabled].focus,
-.btn-info[disabled].focus,
-fieldset[disabled] a.btn-info.focus,
-fieldset[disabled] .btn-info.focus,
-a.btn-info.disabled:active,
-.btn-info.disabled:active,
-a.btn-info[disabled]:active,
-.btn-info[disabled]:active,
-fieldset[disabled] a.btn-info:active,
-fieldset[disabled] .btn-info:active,
-a.btn-info.disabled.active,
-.btn-info.disabled.active,
-a.btn-info[disabled].active,
-.btn-info[disabled].active,
-fieldset[disabled] a.btn-info.active,
-fieldset[disabled] .btn-info.active {
-    background-color: #64c6f8;
-    border-color: transparent;
-}
-a.btn-info .badge,
-.btn-info .badge {
-    color: #64c6f8;
-    background-color: #ffffff;
-}
-/* 取消类按钮 */
-a.btn-cancel,
-.btn-cancel {
-    color: #ffffff;
-    background-color: #afafaf;
-    border-color: transparent;
-    background: -webkit-gradient(linear, left top, left bottom, from(#afafaf), to(#8b8b8b));
-    background: -moz-linear-gradient(top, #afafaf, #8b8b8b);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#afafaf, endColorstr=#afafaf);
-}
-a.btn-cancel:focus,
-.btn-cancel:focus,
-a.btn-cancel.focus,
-.btn-cancel.focus {
-    color: #ffffff;
-    background-color: #afafaf;
-    border-color: transparent;
-}
-a.btn-cancel:hover,
-.btn-cancel:hover {
-    color: #ffffff;
-    background-color: #bcbcbc;
-    border-color: rgba(0, 0, 0, 0);
-}
-a.btn-cancel:active,
-.btn-cancel:active,
-a.btn-cancel.active,
-.btn-cancel.active,
-.open > .dropdown-togglea.btn-cancel,
-.open > .dropdown-toggle.btn-cancel {
-    color: #ffffff;
-    background-color: #afafaf;
-    border-color: transparent;
-}
-a.btn-cancel:active:hover,
-.btn-cancel:active:hover,
-a.btn-cancel.active:hover,
-.btn-cancel.active:hover,
-.open > .dropdown-togglea.btn-cancel:hover,
-.open > .dropdown-toggle.btn-cancel:hover,
-a.btn-cancel:active:focus,
-.btn-cancel:active:focus,
-a.btn-cancel.active:focus,
-.btn-cancel.active:focus,
-.open > .dropdown-togglea.btn-cancel:focus,
-.open > .dropdown-toggle.btn-cancel:focus,
-a.btn-cancel:active.focus,
-.btn-cancel:active.focus,
-a.btn-cancel.active.focus,
-.btn-cancel.active.focus,
-.open > .dropdown-togglea.btn-cancel.focus,
-.open > .dropdown-toggle.btn-cancel.focus {
-    color: #ffffff;
-    background-color: #afafaf;
-    border-color: transparent;
-}
-a.btn-cancel:active,
-.btn-cancel:active,
-a.btn-cancel.active,
-.btn-cancel.active,
-.open > .dropdown-togglea.btn-cancel,
-.open > .dropdown-toggle.btn-cancel {
-    background-image: none;
-}
-a.btn-cancel.disabled,
-.btn-cancel.disabled,
-a.btn-cancel[disabled],
-.btn-cancel[disabled],
-fieldset[disabled] a.btn-cancel,
-fieldset[disabled] .btn-cancel,
-a.btn-cancel.disabled:hover,
-.btn-cancel.disabled:hover,
-a.btn-cancel[disabled]:hover,
-.btn-cancel[disabled]:hover,
-fieldset[disabled] a.btn-cancel:hover,
-fieldset[disabled] .btn-cancel:hover,
-a.btn-cancel.disabled:focus,
-.btn-cancel.disabled:focus,
-a.btn-cancel[disabled]:focus,
-.btn-cancel[disabled]:focus,
-fieldset[disabled] a.btn-cancel:focus,
-fieldset[disabled] .btn-cancel:focus,
-a.btn-cancel.disabled.focus,
-.btn-cancel.disabled.focus,
-a.btn-cancel[disabled].focus,
-.btn-cancel[disabled].focus,
-fieldset[disabled] a.btn-cancel.focus,
-fieldset[disabled] .btn-cancel.focus,
-a.btn-cancel.disabled:active,
-.btn-cancel.disabled:active,
-a.btn-cancel[disabled]:active,
-.btn-cancel[disabled]:active,
-fieldset[disabled] a.btn-cancel:active,
-fieldset[disabled] .btn-cancel:active,
-a.btn-cancel.disabled.active,
-.btn-cancel.disabled.active,
-a.btn-cancel[disabled].active,
-.btn-cancel[disabled].active,
-fieldset[disabled] a.btn-cancel.active,
-fieldset[disabled] .btn-cancel.active {
-    background-color: #afafaf;
-    border-color: transparent;
-}
-a.btn-cancel .badge,
-.btn-cancel .badge {
-    color: #afafaf;
-    background-color: #ffffff;
-}
-/* 删除类按钮 */
-a.btn-delete,
-.btn-delete {
-    color: #ffffff;
-    background-color: #fdb2b2;
-    border-color: transparent;
-    background: -webkit-gradient(linear, left top, left bottom, from(#fdb2b2), to(#fc8080));
-    background: -moz-linear-gradient(top, #fdb2b2, #fc8080);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#fdb2b2, endColorstr=#fdb2b2);
-}
-a.btn-delete:focus,
-.btn-delete:focus,
-a.btn-delete.focus,
-.btn-delete.focus {
-    color: #ffffff;
-    background-color: #fdb2b2;
-    border-color: transparent;
-}
-a.btn-delete:hover,
-.btn-delete:hover {
-    color: #ffffff;
-    background-color: #fecbcb;
-    border-color: rgba(0, 0, 0, 0);
-}
-a.btn-delete:active,
-.btn-delete:active,
-a.btn-delete.active,
-.btn-delete.active,
-.open > .dropdown-togglea.btn-delete,
-.open > .dropdown-toggle.btn-delete {
-    color: #ffffff;
-    background-color: #fdb2b2;
-    border-color: transparent;
-}
-a.btn-delete:active:hover,
-.btn-delete:active:hover,
-a.btn-delete.active:hover,
-.btn-delete.active:hover,
-.open > .dropdown-togglea.btn-delete:hover,
-.open > .dropdown-toggle.btn-delete:hover,
-a.btn-delete:active:focus,
-.btn-delete:active:focus,
-a.btn-delete.active:focus,
-.btn-delete.active:focus,
-.open > .dropdown-togglea.btn-delete:focus,
-.open > .dropdown-toggle.btn-delete:focus,
-a.btn-delete:active.focus,
-.btn-delete:active.focus,
-a.btn-delete.active.focus,
-.btn-delete.active.focus,
-.open > .dropdown-togglea.btn-delete.focus,
-.open > .dropdown-toggle.btn-delete.focus {
-    color: #ffffff;
-    background-color: #fdb2b2;
-    border-color: transparent;
-}
-a.btn-delete:active,
-.btn-delete:active,
-a.btn-delete.active,
-.btn-delete.active,
-.open > .dropdown-togglea.btn-delete,
-.open > .dropdown-toggle.btn-delete {
-    background-image: none;
-}
-a.btn-delete.disabled,
-.btn-delete.disabled,
-a.btn-delete[disabled],
-.btn-delete[disabled],
-fieldset[disabled] a.btn-delete,
-fieldset[disabled] .btn-delete,
-a.btn-delete.disabled:hover,
-.btn-delete.disabled:hover,
-a.btn-delete[disabled]:hover,
-.btn-delete[disabled]:hover,
-fieldset[disabled] a.btn-delete:hover,
-fieldset[disabled] .btn-delete:hover,
-a.btn-delete.disabled:focus,
-.btn-delete.disabled:focus,
-a.btn-delete[disabled]:focus,
-.btn-delete[disabled]:focus,
-fieldset[disabled] a.btn-delete:focus,
-fieldset[disabled] .btn-delete:focus,
-a.btn-delete.disabled.focus,
-.btn-delete.disabled.focus,
-a.btn-delete[disabled].focus,
-.btn-delete[disabled].focus,
-fieldset[disabled] a.btn-delete.focus,
-fieldset[disabled] .btn-delete.focus,
-a.btn-delete.disabled:active,
-.btn-delete.disabled:active,
-a.btn-delete[disabled]:active,
-.btn-delete[disabled]:active,
-fieldset[disabled] a.btn-delete:active,
-fieldset[disabled] .btn-delete:active,
-a.btn-delete.disabled.active,
-.btn-delete.disabled.active,
-a.btn-delete[disabled].active,
-.btn-delete[disabled].active,
-fieldset[disabled] a.btn-delete.active,
-fieldset[disabled] .btn-delete.active {
-    background-color: #fdb2b2;
-    border-color: transparent;
-}
-a.btn-delete .badge,
-.btn-delete .badge {
-    color: #fdb2b2;
-    background-color: #ffffff;
-}
-/* 可变按钮 */
-a.btn-down-info,
-.btn-down-info {
-    color: #45b2e6;
-    background-color: #ffffff;
-    border-color: transparent;
-    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#fcfcfc));
-    background: -moz-linear-gradient(top, #ffffff, #fcfcfc);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#ffffff);
-}
-a.btn-down-info:focus,
-.btn-down-info:focus,
-a.btn-down-info.focus,
-.btn-down-info.focus {
-    color: #45b2e6;
-    background-color: #ffffff;
-    border-color: transparent;
-}
-a.btn-down-info:hover,
-.btn-down-info:hover {
-    color: #45b2e6;
-    background-color: #ffffff;
-    border-color: rgba(0, 0, 0, 0);
-}
-a.btn-down-info:active,
-.btn-down-info:active,
-a.btn-down-info.active,
-.btn-down-info.active,
-.open > .dropdown-togglea.btn-down-info,
-.open > .dropdown-toggle.btn-down-info {
-    color: #45b2e6;
-    background-color: #ffffff;
-    border-color: transparent;
-}
-a.btn-down-info:active:hover,
-.btn-down-info:active:hover,
-a.btn-down-info.active:hover,
-.btn-down-info.active:hover,
-.open > .dropdown-togglea.btn-down-info:hover,
-.open > .dropdown-toggle.btn-down-info:hover,
-a.btn-down-info:active:focus,
-.btn-down-info:active:focus,
-a.btn-down-info.active:focus,
-.btn-down-info.active:focus,
-.open > .dropdown-togglea.btn-down-info:focus,
-.open > .dropdown-toggle.btn-down-info:focus,
-a.btn-down-info:active.focus,
-.btn-down-info:active.focus,
-a.btn-down-info.active.focus,
-.btn-down-info.active.focus,
-.open > .dropdown-togglea.btn-down-info.focus,
-.open > .dropdown-toggle.btn-down-info.focus {
-    color: #45b2e6;
-    background-color: #ffffff;
-    border-color: transparent;
-}
-a.btn-down-info:active,
-.btn-down-info:active,
-a.btn-down-info.active,
-.btn-down-info.active,
-.open > .dropdown-togglea.btn-down-info,
-.open > .dropdown-toggle.btn-down-info {
-    background-image: none;
-}
-a.btn-down-info.disabled,
-.btn-down-info.disabled,
-a.btn-down-info[disabled],
-.btn-down-info[disabled],
-fieldset[disabled] a.btn-down-info,
-fieldset[disabled] .btn-down-info,
-a.btn-down-info.disabled:hover,
-.btn-down-info.disabled:hover,
-a.btn-down-info[disabled]:hover,
-.btn-down-info[disabled]:hover,
-fieldset[disabled] a.btn-down-info:hover,
-fieldset[disabled] .btn-down-info:hover,
-a.btn-down-info.disabled:focus,
-.btn-down-info.disabled:focus,
-a.btn-down-info[disabled]:focus,
-.btn-down-info[disabled]:focus,
-fieldset[disabled] a.btn-down-info:focus,
-fieldset[disabled] .btn-down-info:focus,
-a.btn-down-info.disabled.focus,
-.btn-down-info.disabled.focus,
-a.btn-down-info[disabled].focus,
-.btn-down-info[disabled].focus,
-fieldset[disabled] a.btn-down-info.focus,
-fieldset[disabled] .btn-down-info.focus,
-a.btn-down-info.disabled:active,
-.btn-down-info.disabled:active,
-a.btn-down-info[disabled]:active,
-.btn-down-info[disabled]:active,
-fieldset[disabled] a.btn-down-info:active,
-fieldset[disabled] .btn-down-info:active,
-a.btn-down-info.disabled.active,
-.btn-down-info.disabled.active,
-a.btn-down-info[disabled].active,
-.btn-down-info[disabled].active,
-fieldset[disabled] a.btn-down-info.active,
-fieldset[disabled] .btn-down-info.active {
-    background-color: #ffffff;
-    border-color: transparent;
-}
-a.btn-down-info .badge,
-.btn-down-info .badge {
-    color: #ffffff;
-    background-color: #45b2e6;
-}
-/* 文本按钮 */
-/* 编辑类按钮 */
-a.btn-text,
-.btn-text-info {
-    color: #64c6f8;
-    background-color: transparent;
-    border-color: transparent;
-    text-shadow: none;
-    box-shadow: none;
-}
-a.btn-text:focus,
-.btn-text-info:focus,
-a.btn-text.focus,
-.btn-text-info.focus {
-    color: #64c6f8;
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text:hover,
-.btn-text-info:hover {
-    color: #64c6f8;
-    background-color: rgba(13, 13, 13, 0);
-    border-color: rgba(0, 0, 0, 0);
-}
-a.btn-text:active,
-.btn-text-info:active,
-a.btn-text.active,
-.btn-text-info.active,
-.open > .dropdown-togglea.btn-text,
-.open > .dropdown-toggle.btn-text-info {
-    color: #64c6f8;
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text:active:hover,
-.btn-text-info:active:hover,
-a.btn-text.active:hover,
-.btn-text-info.active:hover,
-.open > .dropdown-togglea.btn-text:hover,
-.open > .dropdown-toggle.btn-text-info:hover,
-a.btn-text:active:focus,
-.btn-text-info:active:focus,
-a.btn-text.active:focus,
-.btn-text-info.active:focus,
-.open > .dropdown-togglea.btn-text:focus,
-.open > .dropdown-toggle.btn-text-info:focus,
-a.btn-text:active.focus,
-.btn-text-info:active.focus,
-a.btn-text.active.focus,
-.btn-text-info.active.focus,
-.open > .dropdown-togglea.btn-text.focus,
-.open > .dropdown-toggle.btn-text-info.focus {
-    color: #64c6f8;
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text:active,
-.btn-text-info:active,
-a.btn-text.active,
-.btn-text-info.active,
-.open > .dropdown-togglea.btn-text,
-.open > .dropdown-toggle.btn-text-info {
-    background-image: none;
-}
-a.btn-text.disabled,
-.btn-text-info.disabled,
-a.btn-text[disabled],
-.btn-text-info[disabled],
-fieldset[disabled] a.btn-text,
-fieldset[disabled] .btn-text-info,
-a.btn-text.disabled:hover,
-.btn-text-info.disabled:hover,
-a.btn-text[disabled]:hover,
-.btn-text-info[disabled]:hover,
-fieldset[disabled] a.btn-text:hover,
-fieldset[disabled] .btn-text-info:hover,
-a.btn-text.disabled:focus,
-.btn-text-info.disabled:focus,
-a.btn-text[disabled]:focus,
-.btn-text-info[disabled]:focus,
-fieldset[disabled] a.btn-text:focus,
-fieldset[disabled] .btn-text-info:focus,
-a.btn-text.disabled.focus,
-.btn-text-info.disabled.focus,
-a.btn-text[disabled].focus,
-.btn-text-info[disabled].focus,
-fieldset[disabled] a.btn-text.focus,
-fieldset[disabled] .btn-text-info.focus,
-a.btn-text.disabled:active,
-.btn-text-info.disabled:active,
-a.btn-text[disabled]:active,
-.btn-text-info[disabled]:active,
-fieldset[disabled] a.btn-text:active,
-fieldset[disabled] .btn-text-info:active,
-a.btn-text.disabled.active,
-.btn-text-info.disabled.active,
-a.btn-text[disabled].active,
-.btn-text-info[disabled].active,
-fieldset[disabled] a.btn-text.active,
-fieldset[disabled] .btn-text-info.active {
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text .badge,
-.btn-text-info .badge {
-    color: transparent;
-    background-color: #64c6f8;
-}
-/* 取消类按钮 */
-a.btn-text-cancel,
-.btn-text-cancel {
-    color: #afafaf;
-    background-color: transparent;
-    border-color: transparent;
-    text-shadow: none;
-    box-shadow: none;
-}
-a.btn-text-cancel:focus,
-.btn-text-cancel:focus,
-a.btn-text-cancel.focus,
-.btn-text-cancel.focus {
-    color: #afafaf;
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text-cancel:hover,
-.btn-text-cancel:hover {
-    color: #afafaf;
-    background-color: rgba(13, 13, 13, 0);
-    border-color: rgba(0, 0, 0, 0);
-}
-a.btn-text-cancel:active,
-.btn-text-cancel:active,
-a.btn-text-cancel.active,
-.btn-text-cancel.active,
-.open > .dropdown-togglea.btn-text-cancel,
-.open > .dropdown-toggle.btn-text-cancel {
-    color: #afafaf;
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text-cancel:active:hover,
-.btn-text-cancel:active:hover,
-a.btn-text-cancel.active:hover,
-.btn-text-cancel.active:hover,
-.open > .dropdown-togglea.btn-text-cancel:hover,
-.open > .dropdown-toggle.btn-text-cancel:hover,
-a.btn-text-cancel:active:focus,
-.btn-text-cancel:active:focus,
-a.btn-text-cancel.active:focus,
-.btn-text-cancel.active:focus,
-.open > .dropdown-togglea.btn-text-cancel:focus,
-.open > .dropdown-toggle.btn-text-cancel:focus,
-a.btn-text-cancel:active.focus,
-.btn-text-cancel:active.focus,
-a.btn-text-cancel.active.focus,
-.btn-text-cancel.active.focus,
-.open > .dropdown-togglea.btn-text-cancel.focus,
-.open > .dropdown-toggle.btn-text-cancel.focus {
-    color: #afafaf;
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text-cancel:active,
-.btn-text-cancel:active,
-a.btn-text-cancel.active,
-.btn-text-cancel.active,
-.open > .dropdown-togglea.btn-text-cancel,
-.open > .dropdown-toggle.btn-text-cancel {
-    background-image: none;
-}
-a.btn-text-cancel.disabled,
-.btn-text-cancel.disabled,
-a.btn-text-cancel[disabled],
-.btn-text-cancel[disabled],
-fieldset[disabled] a.btn-text-cancel,
-fieldset[disabled] .btn-text-cancel,
-a.btn-text-cancel.disabled:hover,
-.btn-text-cancel.disabled:hover,
-a.btn-text-cancel[disabled]:hover,
-.btn-text-cancel[disabled]:hover,
-fieldset[disabled] a.btn-text-cancel:hover,
-fieldset[disabled] .btn-text-cancel:hover,
-a.btn-text-cancel.disabled:focus,
-.btn-text-cancel.disabled:focus,
-a.btn-text-cancel[disabled]:focus,
-.btn-text-cancel[disabled]:focus,
-fieldset[disabled] a.btn-text-cancel:focus,
-fieldset[disabled] .btn-text-cancel:focus,
-a.btn-text-cancel.disabled.focus,
-.btn-text-cancel.disabled.focus,
-a.btn-text-cancel[disabled].focus,
-.btn-text-cancel[disabled].focus,
-fieldset[disabled] a.btn-text-cancel.focus,
-fieldset[disabled] .btn-text-cancel.focus,
-a.btn-text-cancel.disabled:active,
-.btn-text-cancel.disabled:active,
-a.btn-text-cancel[disabled]:active,
-.btn-text-cancel[disabled]:active,
-fieldset[disabled] a.btn-text-cancel:active,
-fieldset[disabled] .btn-text-cancel:active,
-a.btn-text-cancel.disabled.active,
-.btn-text-cancel.disabled.active,
-a.btn-text-cancel[disabled].active,
-.btn-text-cancel[disabled].active,
-fieldset[disabled] a.btn-text-cancel.active,
-fieldset[disabled] .btn-text-cancel.active {
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text-cancel .badge,
-.btn-text-cancel .badge {
-    color: transparent;
-    background-color: #afafaf;
-}
-/* 删除类按钮 */
-a.btn-text-delete,
-.btn-text-delete {
-    color: #fdb2b2;
-    background-color: transparent;
-    border-color: transparent;
-    text-shadow: none;
-    box-shadow: none;
-}
-a.btn-text-delete:focus,
-.btn-text-delete:focus,
-a.btn-text-delete.focus,
-.btn-text-delete.focus {
-    color: #fdb2b2;
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text-delete:hover,
-.btn-text-delete:hover {
-    color: #fdb2b2;
-    background-color: rgba(13, 13, 13, 0);
-    border-color: rgba(0, 0, 0, 0);
-}
-a.btn-text-delete:active,
-.btn-text-delete:active,
-a.btn-text-delete.active,
-.btn-text-delete.active,
-.open > .dropdown-togglea.btn-text-delete,
-.open > .dropdown-toggle.btn-text-delete {
-    color: #fdb2b2;
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text-delete:active:hover,
-.btn-text-delete:active:hover,
-a.btn-text-delete.active:hover,
-.btn-text-delete.active:hover,
-.open > .dropdown-togglea.btn-text-delete:hover,
-.open > .dropdown-toggle.btn-text-delete:hover,
-a.btn-text-delete:active:focus,
-.btn-text-delete:active:focus,
-a.btn-text-delete.active:focus,
-.btn-text-delete.active:focus,
-.open > .dropdown-togglea.btn-text-delete:focus,
-.open > .dropdown-toggle.btn-text-delete:focus,
-a.btn-text-delete:active.focus,
-.btn-text-delete:active.focus,
-a.btn-text-delete.active.focus,
-.btn-text-delete.active.focus,
-.open > .dropdown-togglea.btn-text-delete.focus,
-.open > .dropdown-toggle.btn-text-delete.focus {
-    color: #fdb2b2;
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text-delete:active,
-.btn-text-delete:active,
-a.btn-text-delete.active,
-.btn-text-delete.active,
-.open > .dropdown-togglea.btn-text-delete,
-.open > .dropdown-toggle.btn-text-delete {
-    background-image: none;
-}
-a.btn-text-delete.disabled,
-.btn-text-delete.disabled,
-a.btn-text-delete[disabled],
-.btn-text-delete[disabled],
-fieldset[disabled] a.btn-text-delete,
-fieldset[disabled] .btn-text-delete,
-a.btn-text-delete.disabled:hover,
-.btn-text-delete.disabled:hover,
-a.btn-text-delete[disabled]:hover,
-.btn-text-delete[disabled]:hover,
-fieldset[disabled] a.btn-text-delete:hover,
-fieldset[disabled] .btn-text-delete:hover,
-a.btn-text-delete.disabled:focus,
-.btn-text-delete.disabled:focus,
-a.btn-text-delete[disabled]:focus,
-.btn-text-delete[disabled]:focus,
-fieldset[disabled] a.btn-text-delete:focus,
-fieldset[disabled] .btn-text-delete:focus,
-a.btn-text-delete.disabled.focus,
-.btn-text-delete.disabled.focus,
-a.btn-text-delete[disabled].focus,
-.btn-text-delete[disabled].focus,
-fieldset[disabled] a.btn-text-delete.focus,
-fieldset[disabled] .btn-text-delete.focus,
-a.btn-text-delete.disabled:active,
-.btn-text-delete.disabled:active,
-a.btn-text-delete[disabled]:active,
-.btn-text-delete[disabled]:active,
-fieldset[disabled] a.btn-text-delete:active,
-fieldset[disabled] .btn-text-delete:active,
-a.btn-text-delete.disabled.active,
-.btn-text-delete.disabled.active,
-a.btn-text-delete[disabled].active,
-.btn-text-delete[disabled].active,
-fieldset[disabled] a.btn-text-delete.active,
-fieldset[disabled] .btn-text-delete.active {
-    background-color: transparent;
-    border-color: transparent;
-}
-a.btn-text-delete .badge,
-.btn-text-delete .badge {
-    color: transparent;
-    background-color: #fdb2b2;
-}
-.btn-lg {
-    padding: 16px 30px;
-    font-size: 16px;
-    line-height: 1.2em;
-    border-radius: 2px;
-}
-.btn-sm {
-    padding: 10px 20px;
-    font-size: 14px;
-    line-height: 1.2em;
-    border-radius: 2em;
-}
-.btn-xs {
-    padding: 8px 10px;
-    font-size: 14px;
-    line-height: 1.2em;
-    border-radius: 2em;
-}
-.btn-block {
-    display: block;
-    width: 100%;
-}
-.btn-block + .btn-block {
-    margin-top: 5px;
-}
-input[type="submit"].btn-block,
-input[type="reset"].btn-block,
-input[type="button"].btn-block {
-    width: 100%;
-}
+/*.btn {*/
+    /*font: inherit;*/
+    /*display: inline-block;*/
+    /*margin-bottom: 0;*/
+    /*font-weight: 500;*/
+    /*text-align: center;*/
+    /*vertical-align: middle;*/
+    /*touch-action: manipulation;*/
+    /*cursor: pointer;*/
+    /*text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);*/
+    /*background-image: none;*/
+    /*border: 1px solid transparent;*/
+    /*white-space: nowrap;*/
+    /*padding: 8px 10px;*/
+    /*font-size: 14px;*/
+    /*line-height: 1.2em;*/
+    /*border-radius: 2px;*/
+/*}*/
+/*.btn:hover,*/
+/*.btn:focus,*/
+/*.btn.focus {*/
+    /*color: #45b2e6;*/
+    /*text-decoration: none;*/
+/*}*/
+/*.btn:active,*/
+/*.btn.active {*/
+    /*outline: 0;*/
+    /*background-image: none;*/
+/*}*/
+/*.btn.disabled,*/
+/*.btn[disabled],*/
+/*fieldset[disabled] .btn {*/
+    /*cursor: not-allowed;*/
+/*}*/
+/*a.btn.disabled,*/
+/*fieldset[disabled] a.btn {*/
+    /*pointer-events: none;*/
+/*}*/
+/*/!* 编辑类按钮 *!/*/
+/*a.btn-info,*/
+/*.btn-info {*/
+    /*color: #ffffff;*/
+    /*background-color: #64c6f8;*/
+    /*border-color: transparent;*/
+    /*background: -webkit-gradient(linear, left top, left bottom, from(#64c6f8), to(#20adf5));*/
+    /*background: -moz-linear-gradient(top, #64c6f8, #20adf5);*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#64c6f8, endColorstr=#64c6f8);*/
+/*}*/
+/*a.btn-info:focus,*/
+/*.btn-info:focus,*/
+/*a.btn-info.focus,*/
+/*.btn-info.focus {*/
+    /*color: #ffffff;*/
+    /*background-color: #64c6f8;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-info:hover,*/
+/*.btn-info:hover {*/
+    /*color: #ffffff;*/
+    /*background-color: #7ccff9;*/
+    /*border-color: rgba(0, 0, 0, 0);*/
+/*}*/
+/*a.btn-info:active,*/
+/*.btn-info:active,*/
+/*a.btn-info.active,*/
+/*.btn-info.active,*/
+/*.open > .dropdown-togglea.btn-info,*/
+/*.open > .dropdown-toggle.btn-info {*/
+    /*color: #ffffff;*/
+    /*background-color: #64c6f8;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-info:active:hover,*/
+/*.btn-info:active:hover,*/
+/*a.btn-info.active:hover,*/
+/*.btn-info.active:hover,*/
+/*.open > .dropdown-togglea.btn-info:hover,*/
+/*.open > .dropdown-toggle.btn-info:hover,*/
+/*a.btn-info:active:focus,*/
+/*.btn-info:active:focus,*/
+/*a.btn-info.active:focus,*/
+/*.btn-info.active:focus,*/
+/*.open > .dropdown-togglea.btn-info:focus,*/
+/*.open > .dropdown-toggle.btn-info:focus,*/
+/*a.btn-info:active.focus,*/
+/*.btn-info:active.focus,*/
+/*a.btn-info.active.focus,*/
+/*.btn-info.active.focus,*/
+/*.open > .dropdown-togglea.btn-info.focus,*/
+/*.open > .dropdown-toggle.btn-info.focus {*/
+    /*color: #ffffff;*/
+    /*background-color: #64c6f8;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-info:active,*/
+/*.btn-info:active,*/
+/*a.btn-info.active,*/
+/*.btn-info.active,*/
+/*.open > .dropdown-togglea.btn-info,*/
+/*.open > .dropdown-toggle.btn-info {*/
+    /*background-image: none;*/
+/*}*/
+/*a.btn-info.disabled,*/
+/*.btn-info.disabled,*/
+/*a.btn-info[disabled],*/
+/*.btn-info[disabled],*/
+/*fieldset[disabled] a.btn-info,*/
+/*fieldset[disabled] .btn-info,*/
+/*a.btn-info.disabled:hover,*/
+/*.btn-info.disabled:hover,*/
+/*a.btn-info[disabled]:hover,*/
+/*.btn-info[disabled]:hover,*/
+/*fieldset[disabled] a.btn-info:hover,*/
+/*fieldset[disabled] .btn-info:hover,*/
+/*a.btn-info.disabled:focus,*/
+/*.btn-info.disabled:focus,*/
+/*a.btn-info[disabled]:focus,*/
+/*.btn-info[disabled]:focus,*/
+/*fieldset[disabled] a.btn-info:focus,*/
+/*fieldset[disabled] .btn-info:focus,*/
+/*a.btn-info.disabled.focus,*/
+/*.btn-info.disabled.focus,*/
+/*a.btn-info[disabled].focus,*/
+/*.btn-info[disabled].focus,*/
+/*fieldset[disabled] a.btn-info.focus,*/
+/*fieldset[disabled] .btn-info.focus,*/
+/*a.btn-info.disabled:active,*/
+/*.btn-info.disabled:active,*/
+/*a.btn-info[disabled]:active,*/
+/*.btn-info[disabled]:active,*/
+/*fieldset[disabled] a.btn-info:active,*/
+/*fieldset[disabled] .btn-info:active,*/
+/*a.btn-info.disabled.active,*/
+/*.btn-info.disabled.active,*/
+/*a.btn-info[disabled].active,*/
+/*.btn-info[disabled].active,*/
+/*fieldset[disabled] a.btn-info.active,*/
+/*fieldset[disabled] .btn-info.active {*/
+    /*background-color: #64c6f8;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-info .badge,*/
+/*.btn-info .badge {*/
+    /*color: #64c6f8;*/
+    /*background-color: #ffffff;*/
+/*}*/
+/*/!* 取消类按钮 *!/*/
+/*a.btn-cancel,*/
+/*.btn-cancel {*/
+    /*color: #ffffff;*/
+    /*background-color: #afafaf;*/
+    /*border-color: transparent;*/
+    /*background: -webkit-gradient(linear, left top, left bottom, from(#afafaf), to(#8b8b8b));*/
+    /*background: -moz-linear-gradient(top, #afafaf, #8b8b8b);*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#afafaf, endColorstr=#afafaf);*/
+/*}*/
+/*a.btn-cancel:focus,*/
+/*.btn-cancel:focus,*/
+/*a.btn-cancel.focus,*/
+/*.btn-cancel.focus {*/
+    /*color: #ffffff;*/
+    /*background-color: #afafaf;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-cancel:hover,*/
+/*.btn-cancel:hover {*/
+    /*color: #ffffff;*/
+    /*background-color: #bcbcbc;*/
+    /*border-color: rgba(0, 0, 0, 0);*/
+/*}*/
+/*a.btn-cancel:active,*/
+/*.btn-cancel:active,*/
+/*a.btn-cancel.active,*/
+/*.btn-cancel.active,*/
+/*.open > .dropdown-togglea.btn-cancel,*/
+/*.open > .dropdown-toggle.btn-cancel {*/
+    /*color: #ffffff;*/
+    /*background-color: #afafaf;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-cancel:active:hover,*/
+/*.btn-cancel:active:hover,*/
+/*a.btn-cancel.active:hover,*/
+/*.btn-cancel.active:hover,*/
+/*.open > .dropdown-togglea.btn-cancel:hover,*/
+/*.open > .dropdown-toggle.btn-cancel:hover,*/
+/*a.btn-cancel:active:focus,*/
+/*.btn-cancel:active:focus,*/
+/*a.btn-cancel.active:focus,*/
+/*.btn-cancel.active:focus,*/
+/*.open > .dropdown-togglea.btn-cancel:focus,*/
+/*.open > .dropdown-toggle.btn-cancel:focus,*/
+/*a.btn-cancel:active.focus,*/
+/*.btn-cancel:active.focus,*/
+/*a.btn-cancel.active.focus,*/
+/*.btn-cancel.active.focus,*/
+/*.open > .dropdown-togglea.btn-cancel.focus,*/
+/*.open > .dropdown-toggle.btn-cancel.focus {*/
+    /*color: #ffffff;*/
+    /*background-color: #afafaf;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-cancel:active,*/
+/*.btn-cancel:active,*/
+/*a.btn-cancel.active,*/
+/*.btn-cancel.active,*/
+/*.open > .dropdown-togglea.btn-cancel,*/
+/*.open > .dropdown-toggle.btn-cancel {*/
+    /*background-image: none;*/
+/*}*/
+/*a.btn-cancel.disabled,*/
+/*.btn-cancel.disabled,*/
+/*a.btn-cancel[disabled],*/
+/*.btn-cancel[disabled],*/
+/*fieldset[disabled] a.btn-cancel,*/
+/*fieldset[disabled] .btn-cancel,*/
+/*a.btn-cancel.disabled:hover,*/
+/*.btn-cancel.disabled:hover,*/
+/*a.btn-cancel[disabled]:hover,*/
+/*.btn-cancel[disabled]:hover,*/
+/*fieldset[disabled] a.btn-cancel:hover,*/
+/*fieldset[disabled] .btn-cancel:hover,*/
+/*a.btn-cancel.disabled:focus,*/
+/*.btn-cancel.disabled:focus,*/
+/*a.btn-cancel[disabled]:focus,*/
+/*.btn-cancel[disabled]:focus,*/
+/*fieldset[disabled] a.btn-cancel:focus,*/
+/*fieldset[disabled] .btn-cancel:focus,*/
+/*a.btn-cancel.disabled.focus,*/
+/*.btn-cancel.disabled.focus,*/
+/*a.btn-cancel[disabled].focus,*/
+/*.btn-cancel[disabled].focus,*/
+/*fieldset[disabled] a.btn-cancel.focus,*/
+/*fieldset[disabled] .btn-cancel.focus,*/
+/*a.btn-cancel.disabled:active,*/
+/*.btn-cancel.disabled:active,*/
+/*a.btn-cancel[disabled]:active,*/
+/*.btn-cancel[disabled]:active,*/
+/*fieldset[disabled] a.btn-cancel:active,*/
+/*fieldset[disabled] .btn-cancel:active,*/
+/*a.btn-cancel.disabled.active,*/
+/*.btn-cancel.disabled.active,*/
+/*a.btn-cancel[disabled].active,*/
+/*.btn-cancel[disabled].active,*/
+/*fieldset[disabled] a.btn-cancel.active,*/
+/*fieldset[disabled] .btn-cancel.active {*/
+    /*background-color: #afafaf;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-cancel .badge,*/
+/*.btn-cancel .badge {*/
+    /*color: #afafaf;*/
+    /*background-color: #ffffff;*/
+/*}*/
+/*/!* 删除类按钮 *!/*/
+/*a.btn-delete,*/
+/*.btn-delete {*/
+    /*color: #ffffff;*/
+    /*background-color: #fdb2b2;*/
+    /*border-color: transparent;*/
+    /*background: -webkit-gradient(linear, left top, left bottom, from(#fdb2b2), to(#fc8080));*/
+    /*background: -moz-linear-gradient(top, #fdb2b2, #fc8080);*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#fdb2b2, endColorstr=#fdb2b2);*/
+/*}*/
+/*a.btn-delete:focus,*/
+/*.btn-delete:focus,*/
+/*a.btn-delete.focus,*/
+/*.btn-delete.focus {*/
+    /*color: #ffffff;*/
+    /*background-color: #fdb2b2;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-delete:hover,*/
+/*.btn-delete:hover {*/
+    /*color: #ffffff;*/
+    /*background-color: #fecbcb;*/
+    /*border-color: rgba(0, 0, 0, 0);*/
+/*}*/
+/*a.btn-delete:active,*/
+/*.btn-delete:active,*/
+/*a.btn-delete.active,*/
+/*.btn-delete.active,*/
+/*.open > .dropdown-togglea.btn-delete,*/
+/*.open > .dropdown-toggle.btn-delete {*/
+    /*color: #ffffff;*/
+    /*background-color: #fdb2b2;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-delete:active:hover,*/
+/*.btn-delete:active:hover,*/
+/*a.btn-delete.active:hover,*/
+/*.btn-delete.active:hover,*/
+/*.open > .dropdown-togglea.btn-delete:hover,*/
+/*.open > .dropdown-toggle.btn-delete:hover,*/
+/*a.btn-delete:active:focus,*/
+/*.btn-delete:active:focus,*/
+/*a.btn-delete.active:focus,*/
+/*.btn-delete.active:focus,*/
+/*.open > .dropdown-togglea.btn-delete:focus,*/
+/*.open > .dropdown-toggle.btn-delete:focus,*/
+/*a.btn-delete:active.focus,*/
+/*.btn-delete:active.focus,*/
+/*a.btn-delete.active.focus,*/
+/*.btn-delete.active.focus,*/
+/*.open > .dropdown-togglea.btn-delete.focus,*/
+/*.open > .dropdown-toggle.btn-delete.focus {*/
+    /*color: #ffffff;*/
+    /*background-color: #fdb2b2;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-delete:active,*/
+/*.btn-delete:active,*/
+/*a.btn-delete.active,*/
+/*.btn-delete.active,*/
+/*.open > .dropdown-togglea.btn-delete,*/
+/*.open > .dropdown-toggle.btn-delete {*/
+    /*background-image: none;*/
+/*}*/
+/*a.btn-delete.disabled,*/
+/*.btn-delete.disabled,*/
+/*a.btn-delete[disabled],*/
+/*.btn-delete[disabled],*/
+/*fieldset[disabled] a.btn-delete,*/
+/*fieldset[disabled] .btn-delete,*/
+/*a.btn-delete.disabled:hover,*/
+/*.btn-delete.disabled:hover,*/
+/*a.btn-delete[disabled]:hover,*/
+/*.btn-delete[disabled]:hover,*/
+/*fieldset[disabled] a.btn-delete:hover,*/
+/*fieldset[disabled] .btn-delete:hover,*/
+/*a.btn-delete.disabled:focus,*/
+/*.btn-delete.disabled:focus,*/
+/*a.btn-delete[disabled]:focus,*/
+/*.btn-delete[disabled]:focus,*/
+/*fieldset[disabled] a.btn-delete:focus,*/
+/*fieldset[disabled] .btn-delete:focus,*/
+/*a.btn-delete.disabled.focus,*/
+/*.btn-delete.disabled.focus,*/
+/*a.btn-delete[disabled].focus,*/
+/*.btn-delete[disabled].focus,*/
+/*fieldset[disabled] a.btn-delete.focus,*/
+/*fieldset[disabled] .btn-delete.focus,*/
+/*a.btn-delete.disabled:active,*/
+/*.btn-delete.disabled:active,*/
+/*a.btn-delete[disabled]:active,*/
+/*.btn-delete[disabled]:active,*/
+/*fieldset[disabled] a.btn-delete:active,*/
+/*fieldset[disabled] .btn-delete:active,*/
+/*a.btn-delete.disabled.active,*/
+/*.btn-delete.disabled.active,*/
+/*a.btn-delete[disabled].active,*/
+/*.btn-delete[disabled].active,*/
+/*fieldset[disabled] a.btn-delete.active,*/
+/*fieldset[disabled] .btn-delete.active {*/
+    /*background-color: #fdb2b2;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-delete .badge,*/
+/*.btn-delete .badge {*/
+    /*color: #fdb2b2;*/
+    /*background-color: #ffffff;*/
+/*}*/
+/*/!* 可变按钮 *!/*/
+/*a.btn-down-info,*/
+/*.btn-down-info {*/
+    /*color: #45b2e6;*/
+    /*background-color: #ffffff;*/
+    /*border-color: transparent;*/
+    /*background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#fcfcfc));*/
+    /*background: -moz-linear-gradient(top, #ffffff, #fcfcfc);*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#ffffff);*/
+/*}*/
+/*a.btn-down-info:focus,*/
+/*.btn-down-info:focus,*/
+/*a.btn-down-info.focus,*/
+/*.btn-down-info.focus {*/
+    /*color: #45b2e6;*/
+    /*background-color: #ffffff;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-down-info:hover,*/
+/*.btn-down-info:hover {*/
+    /*color: #45b2e6;*/
+    /*background-color: #ffffff;*/
+    /*border-color: rgba(0, 0, 0, 0);*/
+/*}*/
+/*a.btn-down-info:active,*/
+/*.btn-down-info:active,*/
+/*a.btn-down-info.active,*/
+/*.btn-down-info.active,*/
+/*.open > .dropdown-togglea.btn-down-info,*/
+/*.open > .dropdown-toggle.btn-down-info {*/
+    /*color: #45b2e6;*/
+    /*background-color: #ffffff;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-down-info:active:hover,*/
+/*.btn-down-info:active:hover,*/
+/*a.btn-down-info.active:hover,*/
+/*.btn-down-info.active:hover,*/
+/*.open > .dropdown-togglea.btn-down-info:hover,*/
+/*.open > .dropdown-toggle.btn-down-info:hover,*/
+/*a.btn-down-info:active:focus,*/
+/*.btn-down-info:active:focus,*/
+/*a.btn-down-info.active:focus,*/
+/*.btn-down-info.active:focus,*/
+/*.open > .dropdown-togglea.btn-down-info:focus,*/
+/*.open > .dropdown-toggle.btn-down-info:focus,*/
+/*a.btn-down-info:active.focus,*/
+/*.btn-down-info:active.focus,*/
+/*a.btn-down-info.active.focus,*/
+/*.btn-down-info.active.focus,*/
+/*.open > .dropdown-togglea.btn-down-info.focus,*/
+/*.open > .dropdown-toggle.btn-down-info.focus {*/
+    /*color: #45b2e6;*/
+    /*background-color: #ffffff;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-down-info:active,*/
+/*.btn-down-info:active,*/
+/*a.btn-down-info.active,*/
+/*.btn-down-info.active,*/
+/*.open > .dropdown-togglea.btn-down-info,*/
+/*.open > .dropdown-toggle.btn-down-info {*/
+    /*background-image: none;*/
+/*}*/
+/*a.btn-down-info.disabled,*/
+/*.btn-down-info.disabled,*/
+/*a.btn-down-info[disabled],*/
+/*.btn-down-info[disabled],*/
+/*fieldset[disabled] a.btn-down-info,*/
+/*fieldset[disabled] .btn-down-info,*/
+/*a.btn-down-info.disabled:hover,*/
+/*.btn-down-info.disabled:hover,*/
+/*a.btn-down-info[disabled]:hover,*/
+/*.btn-down-info[disabled]:hover,*/
+/*fieldset[disabled] a.btn-down-info:hover,*/
+/*fieldset[disabled] .btn-down-info:hover,*/
+/*a.btn-down-info.disabled:focus,*/
+/*.btn-down-info.disabled:focus,*/
+/*a.btn-down-info[disabled]:focus,*/
+/*.btn-down-info[disabled]:focus,*/
+/*fieldset[disabled] a.btn-down-info:focus,*/
+/*fieldset[disabled] .btn-down-info:focus,*/
+/*a.btn-down-info.disabled.focus,*/
+/*.btn-down-info.disabled.focus,*/
+/*a.btn-down-info[disabled].focus,*/
+/*.btn-down-info[disabled].focus,*/
+/*fieldset[disabled] a.btn-down-info.focus,*/
+/*fieldset[disabled] .btn-down-info.focus,*/
+/*a.btn-down-info.disabled:active,*/
+/*.btn-down-info.disabled:active,*/
+/*a.btn-down-info[disabled]:active,*/
+/*.btn-down-info[disabled]:active,*/
+/*fieldset[disabled] a.btn-down-info:active,*/
+/*fieldset[disabled] .btn-down-info:active,*/
+/*a.btn-down-info.disabled.active,*/
+/*.btn-down-info.disabled.active,*/
+/*a.btn-down-info[disabled].active,*/
+/*.btn-down-info[disabled].active,*/
+/*fieldset[disabled] a.btn-down-info.active,*/
+/*fieldset[disabled] .btn-down-info.active {*/
+    /*background-color: #ffffff;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-down-info .badge,*/
+/*.btn-down-info .badge {*/
+    /*color: #ffffff;*/
+    /*background-color: #45b2e6;*/
+/*}*/
+/*/!* 文本按钮 *!/*/
+/*/!* 编辑类按钮 *!/*/
+/*a.btn-text,*/
+/*.btn-text-info {*/
+    /*color: #64c6f8;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+    /*text-shadow: none;*/
+    /*box-shadow: none;*/
+/*}*/
+/*a.btn-text:focus,*/
+/*.btn-text-info:focus,*/
+/*a.btn-text.focus,*/
+/*.btn-text-info.focus {*/
+    /*color: #64c6f8;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text:hover,*/
+/*.btn-text-info:hover {*/
+    /*color: #64c6f8;*/
+    /*background-color: rgba(13, 13, 13, 0);*/
+    /*border-color: rgba(0, 0, 0, 0);*/
+/*}*/
+/*a.btn-text:active,*/
+/*.btn-text-info:active,*/
+/*a.btn-text.active,*/
+/*.btn-text-info.active,*/
+/*.open > .dropdown-togglea.btn-text,*/
+/*.open > .dropdown-toggle.btn-text-info {*/
+    /*color: #64c6f8;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text:active:hover,*/
+/*.btn-text-info:active:hover,*/
+/*a.btn-text.active:hover,*/
+/*.btn-text-info.active:hover,*/
+/*.open > .dropdown-togglea.btn-text:hover,*/
+/*.open > .dropdown-toggle.btn-text-info:hover,*/
+/*a.btn-text:active:focus,*/
+/*.btn-text-info:active:focus,*/
+/*a.btn-text.active:focus,*/
+/*.btn-text-info.active:focus,*/
+/*.open > .dropdown-togglea.btn-text:focus,*/
+/*.open > .dropdown-toggle.btn-text-info:focus,*/
+/*a.btn-text:active.focus,*/
+/*.btn-text-info:active.focus,*/
+/*a.btn-text.active.focus,*/
+/*.btn-text-info.active.focus,*/
+/*.open > .dropdown-togglea.btn-text.focus,*/
+/*.open > .dropdown-toggle.btn-text-info.focus {*/
+    /*color: #64c6f8;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text:active,*/
+/*.btn-text-info:active,*/
+/*a.btn-text.active,*/
+/*.btn-text-info.active,*/
+/*.open > .dropdown-togglea.btn-text,*/
+/*.open > .dropdown-toggle.btn-text-info {*/
+    /*background-image: none;*/
+/*}*/
+/*a.btn-text.disabled,*/
+/*.btn-text-info.disabled,*/
+/*a.btn-text[disabled],*/
+/*.btn-text-info[disabled],*/
+/*fieldset[disabled] a.btn-text,*/
+/*fieldset[disabled] .btn-text-info,*/
+/*a.btn-text.disabled:hover,*/
+/*.btn-text-info.disabled:hover,*/
+/*a.btn-text[disabled]:hover,*/
+/*.btn-text-info[disabled]:hover,*/
+/*fieldset[disabled] a.btn-text:hover,*/
+/*fieldset[disabled] .btn-text-info:hover,*/
+/*a.btn-text.disabled:focus,*/
+/*.btn-text-info.disabled:focus,*/
+/*a.btn-text[disabled]:focus,*/
+/*.btn-text-info[disabled]:focus,*/
+/*fieldset[disabled] a.btn-text:focus,*/
+/*fieldset[disabled] .btn-text-info:focus,*/
+/*a.btn-text.disabled.focus,*/
+/*.btn-text-info.disabled.focus,*/
+/*a.btn-text[disabled].focus,*/
+/*.btn-text-info[disabled].focus,*/
+/*fieldset[disabled] a.btn-text.focus,*/
+/*fieldset[disabled] .btn-text-info.focus,*/
+/*a.btn-text.disabled:active,*/
+/*.btn-text-info.disabled:active,*/
+/*a.btn-text[disabled]:active,*/
+/*.btn-text-info[disabled]:active,*/
+/*fieldset[disabled] a.btn-text:active,*/
+/*fieldset[disabled] .btn-text-info:active,*/
+/*a.btn-text.disabled.active,*/
+/*.btn-text-info.disabled.active,*/
+/*a.btn-text[disabled].active,*/
+/*.btn-text-info[disabled].active,*/
+/*fieldset[disabled] a.btn-text.active,*/
+/*fieldset[disabled] .btn-text-info.active {*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text .badge,*/
+/*.btn-text-info .badge {*/
+    /*color: transparent;*/
+    /*background-color: #64c6f8;*/
+/*}*/
+/*/!* 取消类按钮 *!/*/
+/*a.btn-text-cancel,*/
+/*.btn-text-cancel {*/
+    /*color: #afafaf;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+    /*text-shadow: none;*/
+    /*box-shadow: none;*/
+/*}*/
+/*a.btn-text-cancel:focus,*/
+/*.btn-text-cancel:focus,*/
+/*a.btn-text-cancel.focus,*/
+/*.btn-text-cancel.focus {*/
+    /*color: #afafaf;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text-cancel:hover,*/
+/*.btn-text-cancel:hover {*/
+    /*color: #afafaf;*/
+    /*background-color: rgba(13, 13, 13, 0);*/
+    /*border-color: rgba(0, 0, 0, 0);*/
+/*}*/
+/*a.btn-text-cancel:active,*/
+/*.btn-text-cancel:active,*/
+/*a.btn-text-cancel.active,*/
+/*.btn-text-cancel.active,*/
+/*.open > .dropdown-togglea.btn-text-cancel,*/
+/*.open > .dropdown-toggle.btn-text-cancel {*/
+    /*color: #afafaf;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text-cancel:active:hover,*/
+/*.btn-text-cancel:active:hover,*/
+/*a.btn-text-cancel.active:hover,*/
+/*.btn-text-cancel.active:hover,*/
+/*.open > .dropdown-togglea.btn-text-cancel:hover,*/
+/*.open > .dropdown-toggle.btn-text-cancel:hover,*/
+/*a.btn-text-cancel:active:focus,*/
+/*.btn-text-cancel:active:focus,*/
+/*a.btn-text-cancel.active:focus,*/
+/*.btn-text-cancel.active:focus,*/
+/*.open > .dropdown-togglea.btn-text-cancel:focus,*/
+/*.open > .dropdown-toggle.btn-text-cancel:focus,*/
+/*a.btn-text-cancel:active.focus,*/
+/*.btn-text-cancel:active.focus,*/
+/*a.btn-text-cancel.active.focus,*/
+/*.btn-text-cancel.active.focus,*/
+/*.open > .dropdown-togglea.btn-text-cancel.focus,*/
+/*.open > .dropdown-toggle.btn-text-cancel.focus {*/
+    /*color: #afafaf;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text-cancel:active,*/
+/*.btn-text-cancel:active,*/
+/*a.btn-text-cancel.active,*/
+/*.btn-text-cancel.active,*/
+/*.open > .dropdown-togglea.btn-text-cancel,*/
+/*.open > .dropdown-toggle.btn-text-cancel {*/
+    /*background-image: none;*/
+/*}*/
+/*a.btn-text-cancel.disabled,*/
+/*.btn-text-cancel.disabled,*/
+/*a.btn-text-cancel[disabled],*/
+/*.btn-text-cancel[disabled],*/
+/*fieldset[disabled] a.btn-text-cancel,*/
+/*fieldset[disabled] .btn-text-cancel,*/
+/*a.btn-text-cancel.disabled:hover,*/
+/*.btn-text-cancel.disabled:hover,*/
+/*a.btn-text-cancel[disabled]:hover,*/
+/*.btn-text-cancel[disabled]:hover,*/
+/*fieldset[disabled] a.btn-text-cancel:hover,*/
+/*fieldset[disabled] .btn-text-cancel:hover,*/
+/*a.btn-text-cancel.disabled:focus,*/
+/*.btn-text-cancel.disabled:focus,*/
+/*a.btn-text-cancel[disabled]:focus,*/
+/*.btn-text-cancel[disabled]:focus,*/
+/*fieldset[disabled] a.btn-text-cancel:focus,*/
+/*fieldset[disabled] .btn-text-cancel:focus,*/
+/*a.btn-text-cancel.disabled.focus,*/
+/*.btn-text-cancel.disabled.focus,*/
+/*a.btn-text-cancel[disabled].focus,*/
+/*.btn-text-cancel[disabled].focus,*/
+/*fieldset[disabled] a.btn-text-cancel.focus,*/
+/*fieldset[disabled] .btn-text-cancel.focus,*/
+/*a.btn-text-cancel.disabled:active,*/
+/*.btn-text-cancel.disabled:active,*/
+/*a.btn-text-cancel[disabled]:active,*/
+/*.btn-text-cancel[disabled]:active,*/
+/*fieldset[disabled] a.btn-text-cancel:active,*/
+/*fieldset[disabled] .btn-text-cancel:active,*/
+/*a.btn-text-cancel.disabled.active,*/
+/*.btn-text-cancel.disabled.active,*/
+/*a.btn-text-cancel[disabled].active,*/
+/*.btn-text-cancel[disabled].active,*/
+/*fieldset[disabled] a.btn-text-cancel.active,*/
+/*fieldset[disabled] .btn-text-cancel.active {*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text-cancel .badge,*/
+/*.btn-text-cancel .badge {*/
+    /*color: transparent;*/
+    /*background-color: #afafaf;*/
+/*}*/
+/*/!* 删除类按钮 *!/*/
+/*a.btn-text-delete,*/
+/*.btn-text-delete {*/
+    /*color: #fdb2b2;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+    /*text-shadow: none;*/
+    /*box-shadow: none;*/
+/*}*/
+/*a.btn-text-delete:focus,*/
+/*.btn-text-delete:focus,*/
+/*a.btn-text-delete.focus,*/
+/*.btn-text-delete.focus {*/
+    /*color: #fdb2b2;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text-delete:hover,*/
+/*.btn-text-delete:hover {*/
+    /*color: #fdb2b2;*/
+    /*background-color: rgba(13, 13, 13, 0);*/
+    /*border-color: rgba(0, 0, 0, 0);*/
+/*}*/
+/*a.btn-text-delete:active,*/
+/*.btn-text-delete:active,*/
+/*a.btn-text-delete.active,*/
+/*.btn-text-delete.active,*/
+/*.open > .dropdown-togglea.btn-text-delete,*/
+/*.open > .dropdown-toggle.btn-text-delete {*/
+    /*color: #fdb2b2;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text-delete:active:hover,*/
+/*.btn-text-delete:active:hover,*/
+/*a.btn-text-delete.active:hover,*/
+/*.btn-text-delete.active:hover,*/
+/*.open > .dropdown-togglea.btn-text-delete:hover,*/
+/*.open > .dropdown-toggle.btn-text-delete:hover,*/
+/*a.btn-text-delete:active:focus,*/
+/*.btn-text-delete:active:focus,*/
+/*a.btn-text-delete.active:focus,*/
+/*.btn-text-delete.active:focus,*/
+/*.open > .dropdown-togglea.btn-text-delete:focus,*/
+/*.open > .dropdown-toggle.btn-text-delete:focus,*/
+/*a.btn-text-delete:active.focus,*/
+/*.btn-text-delete:active.focus,*/
+/*a.btn-text-delete.active.focus,*/
+/*.btn-text-delete.active.focus,*/
+/*.open > .dropdown-togglea.btn-text-delete.focus,*/
+/*.open > .dropdown-toggle.btn-text-delete.focus {*/
+    /*color: #fdb2b2;*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text-delete:active,*/
+/*.btn-text-delete:active,*/
+/*a.btn-text-delete.active,*/
+/*.btn-text-delete.active,*/
+/*.open > .dropdown-togglea.btn-text-delete,*/
+/*.open > .dropdown-toggle.btn-text-delete {*/
+    /*background-image: none;*/
+/*}*/
+/*a.btn-text-delete.disabled,*/
+/*.btn-text-delete.disabled,*/
+/*a.btn-text-delete[disabled],*/
+/*.btn-text-delete[disabled],*/
+/*fieldset[disabled] a.btn-text-delete,*/
+/*fieldset[disabled] .btn-text-delete,*/
+/*a.btn-text-delete.disabled:hover,*/
+/*.btn-text-delete.disabled:hover,*/
+/*a.btn-text-delete[disabled]:hover,*/
+/*.btn-text-delete[disabled]:hover,*/
+/*fieldset[disabled] a.btn-text-delete:hover,*/
+/*fieldset[disabled] .btn-text-delete:hover,*/
+/*a.btn-text-delete.disabled:focus,*/
+/*.btn-text-delete.disabled:focus,*/
+/*a.btn-text-delete[disabled]:focus,*/
+/*.btn-text-delete[disabled]:focus,*/
+/*fieldset[disabled] a.btn-text-delete:focus,*/
+/*fieldset[disabled] .btn-text-delete:focus,*/
+/*a.btn-text-delete.disabled.focus,*/
+/*.btn-text-delete.disabled.focus,*/
+/*a.btn-text-delete[disabled].focus,*/
+/*.btn-text-delete[disabled].focus,*/
+/*fieldset[disabled] a.btn-text-delete.focus,*/
+/*fieldset[disabled] .btn-text-delete.focus,*/
+/*a.btn-text-delete.disabled:active,*/
+/*.btn-text-delete.disabled:active,*/
+/*a.btn-text-delete[disabled]:active,*/
+/*.btn-text-delete[disabled]:active,*/
+/*fieldset[disabled] a.btn-text-delete:active,*/
+/*fieldset[disabled] .btn-text-delete:active,*/
+/*a.btn-text-delete.disabled.active,*/
+/*.btn-text-delete.disabled.active,*/
+/*a.btn-text-delete[disabled].active,*/
+/*.btn-text-delete[disabled].active,*/
+/*fieldset[disabled] a.btn-text-delete.active,*/
+/*fieldset[disabled] .btn-text-delete.active {*/
+    /*background-color: transparent;*/
+    /*border-color: transparent;*/
+/*}*/
+/*a.btn-text-delete .badge,*/
+/*.btn-text-delete .badge {*/
+    /*color: transparent;*/
+    /*background-color: #fdb2b2;*/
+/*}*/
+/*.btn-lg {*/
+    /*padding: 16px 30px;*/
+    /*font-size: 16px;*/
+    /*line-height: 1.2em;*/
+    /*border-radius: 2px;*/
+/*}*/
+/*.btn-sm {*/
+    /*padding: 10px 20px;*/
+    /*font-size: 14px;*/
+    /*line-height: 1.2em;*/
+    /*border-radius: 2em;*/
+/*}*/
+/*.btn-xs {*/
+    /*padding: 8px 10px;*/
+    /*font-size: 14px;*/
+    /*line-height: 1.2em;*/
+    /*border-radius: 2em;*/
+/*}*/
+/*.btn-block {*/
+    /*display: block;*/
+    /*width: 100%;*/
+/*}*/
+/*.btn-block + .btn-block {*/
+    /*margin-top: 5px;*/
+/*}*/
+/*input[type="submit"].btn-block,*/
+/*input[type="reset"].btn-block,*/
+/*input[type="button"].btn-block {*/
+    /*width: 100%;*/
+/*}*/
 
 
 
