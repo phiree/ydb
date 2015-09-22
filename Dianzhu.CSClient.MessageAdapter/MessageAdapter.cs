@@ -75,7 +75,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                    , string.Empty//serviceDescription
                    , 0//serviceUnitPrice
                    , string.Empty//serviceUrl
-                   , null //member
+                   , chat.From //member
                    , string.Empty
                    , 0
                    ,0);
