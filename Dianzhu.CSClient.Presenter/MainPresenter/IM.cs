@@ -22,6 +22,7 @@ namespace Dianzhu.CSClient.Presenter
         /// <summary>
         /// 1)判断该用户是否已在聊天会话中
         /// 2)如果在 则取出该会话, 没有 则创建会话
+        /// 3)获取 该聊天记录中的 订单ID.并加载
         /// </summary>
         /// <param name="chat"></param>
         public void IMReceivedMessage(ReceptionChat chat)
@@ -29,15 +30,27 @@ namespace Dianzhu.CSClient.Presenter
 
             //判断客户列表中是否有该用户
             bool isIn = AddCustomer(chat.From.UserName);
+            if (chat is ReceptionChatOrder)
+            {
+                if (!OrderList.ContainsKey(chat.From))
+                {
+                    OrderList.Add(chat.From, ((ReceptionChatOrder)chat).ServiceOrder);
+                }
+                else
+                {
+                    OrderList[chat.From] = ((ReceptionChatOrder)chat).ServiceOrder;
+                }
+            }
             if (customer != chat.From)
             {
                 if (isIn)
                 {
-                    view.SetCustomerButtonStyle(chat.From.UserName, em_ButtonStyle.Unread);
+                    view.SetCustomerButtonStyle(chat.From, em_ButtonStyle.Unread);
+                    
                 }
                 else
                 {
-                    view.AddCustomerButtonWithStyle(chat.From.UserName, em_ButtonStyle.Unread);
+                    view.AddCustomerButtonWithStyle(chat.From, em_ButtonStyle.Unread);
                 }
             }
             SaveMessage(chat, false);
@@ -45,6 +58,7 @@ namespace Dianzhu.CSClient.Presenter
             if (customer != null && chat.From == customer)
             {
                 view.LoadOneChat(chat);
+
             }
         }
 
@@ -63,19 +77,19 @@ namespace Dianzhu.CSClient.Presenter
                     if (isInList)
                     {
                         //改变对应按钮的样式.
-                        view.SetCustomerButtonStyle(userName, em_ButtonStyle.Login);
+                        view.SetCustomerButtonStyle(userPresent, em_ButtonStyle.Login);
                     }
                     else
                     {
                         AddCustomer(userName);
-                        view.AddCustomerButtonWithStyle(userName, em_ButtonStyle.Login);
+                        view.AddCustomerButtonWithStyle(userPresent, em_ButtonStyle.Login);
                     }
 
                     break;
                 case 4:
                     if (isInList)
                     {
-                        view.SetCustomerButtonStyle(userName, em_ButtonStyle.LogOff);
+                        view.SetCustomerButtonStyle(userPresent, em_ButtonStyle.LogOff);
                         
                        DZMembership logoffCustomer= customerList.Single(x => x.UserName ==userName);
                        bllReceptionStatus.CustomerLogOut(logoffCustomer);

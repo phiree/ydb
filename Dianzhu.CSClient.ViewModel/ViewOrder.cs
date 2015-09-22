@@ -6,7 +6,7 @@ using System.Text;
 namespace Dianzhu.CSClient.ViewModel
 {
     /// <summary>
-    /// 订单
+    /// 界面输入的订单数据
     /// </summary>
     public class ViewOrder
     {
@@ -24,4 +24,5 @@ namespace Dianzhu.CSClient.ViewModel
         public string OrderAmount { get; set; }
         public string Memo { get; set; }
     }
+     
 }

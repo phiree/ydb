@@ -15,19 +15,18 @@ namespace Dianzhu.CSClient.Presenter
         /// 这个动作应该被订阅.
         /// </summary>
         /// <param name="buttonText"></param>
-        private void ActiveCustomer(string buttonText)
+        private void ActiveCustomer(DZMembership clickedCustomer )
         {
-            view.CurrentCustomerName = buttonText;
+            view.CurrentCustomerName = clickedCustomer.DisplayName;
 
             //LoadChatHistory(buttonText);
-            view.SetCustomerButtonStyle(buttonText, em_ButtonStyle.Actived);
+            view.SetCustomerButtonStyle(clickedCustomer, em_ButtonStyle.Actived);
 
-            customer = customerList.Single(x => x.UserName == buttonText);
+            customer = customerList.Single(x => x.UserName == clickedCustomer.UserName);
             //设置当前激活的用户
-            if (SearchResultForCustomer.ContainsKey(buttonText))
+            if (SearchResultForCustomer.ContainsKey(clickedCustomer.DisplayName))
             {
-                view.SearchedService = SearchResultForCustomer[buttonText];
-
+                view.SearchedService = SearchResultForCustomer[clickedCustomer.DisplayName];
             }
         }
 
@@ -64,32 +63,34 @@ namespace Dianzhu.CSClient.Presenter
         {
             SaveCurrentOrder();
         }
-        //加载当前用户的数据
-        void LoadCurrentOrder(string customerName)
+        //加载当前用户的订单
+        void LoadCurrentOrder(DZMembership customer)
         {
-            if (string.IsNullOrEmpty(customerName))
+            if (customer==null)
             {
                 return;
             }
-            ViewModel.ViewOrder viewOrder;
+            ServiceOrder order;
             if (CustomerCurrentOrder.ContainsKey(customer.UserName))
             {
-                viewOrder = CustomerCurrentOrder[customer.UserName];
+                order = CustomerCurrentOrder[customer.UserName];
             }
             else
             {
-                viewOrder = new ViewModel.ViewOrder();
-                CustomerCurrentOrder.Add(customer.UserName, viewOrder);
+               
+                  order = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
+                    string.Empty, string.Empty, string.Empty, 0, string.Empty, customer, string.Empty, 0, 0);
+                CustomerCurrentOrder.Add(customer.UserName, order);
             }
-            view.ServiceName = viewOrder.ServiceName;
-            view.ServiceBusinessName = viewOrder.ServiceBusinessName;
-            view.ServiceDescription = viewOrder.ServiceDescription;
-            view.ServiceUnitPrice = viewOrder.ServiceUnitPrice;
-            view.ServiceUrl = viewOrder.ServiceUrl;
-            view.OrderAmount = viewOrder.OrderAmount;
-            view.TargetAddress = viewOrder.ServiceTargetAddress;
-            view.Memo = viewOrder.Memo;
-            view.ServiceTime = viewOrder.ServiceTime;
+            view.ServiceName = order.ServiceName;
+            view.ServiceBusinessName = order.ServiceBusinessName;
+            view.ServiceDescription = order.ServiceDescription;
+            view.ServiceUnitPrice = order.ServiceUnitPrice.ToString();
+            view.ServiceUrl = order.ServiceURL;
+            view.OrderAmount = order.OrderAmount.ToString();
+            view.TargetAddress = order.TargetAddress;
+            view.Memo = order.Memo;
+            view.ServiceTime = order.TargetTime;
 
         }
         void SaveCurrentOrder()
@@ -98,25 +99,27 @@ namespace Dianzhu.CSClient.Presenter
             {
                 return;
             }
-            ViewModel.ViewOrder viewOrder;
+            ServiceOrder viewOrder;
             if (CustomerCurrentOrder.ContainsKey(customer.UserName))
             {
                 viewOrder = CustomerCurrentOrder[customer.UserName];
             }
             else
             {
-                viewOrder = new ViewModel.ViewOrder();
+                viewOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
+                    string.Empty, string.Empty, string.Empty, 0, string.Empty, customer, string.Empty, 0, 0);
                 CustomerCurrentOrder.Add(customer.UserName, viewOrder);
             }
             viewOrder.ServiceName = view.ServiceName;
             viewOrder.ServiceBusinessName = view.ServiceBusinessName;
             viewOrder.ServiceDescription = view.ServiceDescription;
-            viewOrder.ServiceUnitPrice = view.ServiceUnitPrice;
-            viewOrder.ServiceUrl = view.ServiceUrl;
-            viewOrder.OrderAmount = view.OrderAmount;
-            viewOrder.ServiceTargetAddress = view.TargetAddress;
+            viewOrder.ServiceUnitPrice =Convert.ToDecimal( view.ServiceUnitPrice);
+            viewOrder.ServiceURL = view.ServiceUrl;
+            viewOrder.OrderAmount =Convert.ToDecimal( view.OrderAmount);
+            viewOrder.TargetAddress = view.TargetAddress;
             viewOrder.Memo = view.Memo;
-            viewOrder.ServiceTime = view.ServiceTime;
+            viewOrder.TargetTime = view.ServiceTime;
+            bllOrder.SaveOrUpdate(viewOrder);
         }
 
         void view_PushInternalService(DZService service)

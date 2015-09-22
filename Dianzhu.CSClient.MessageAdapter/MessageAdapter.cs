@@ -70,7 +70,13 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     break;
                 case enum_ChatType.Order:
-                    Guid orderId = new Guid(message.GetAttribute("order_id"));
+                    string attOrderId = message.GetAttribute("OrderId");
+                    if (string.IsNullOrEmpty(attOrderId))
+                    {
+                        break;
+                    }
+                    Guid orderId = new Guid(message.GetAttribute("OrderId"));
+                    
                     ServiceOrder order = bllOrder.GetOne(orderId);
                     ReceptionChatOrder chatOrder = (ReceptionChatOrder)chat;
                     chatOrder.ServiceOrder = order;

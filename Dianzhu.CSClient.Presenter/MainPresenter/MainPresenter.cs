@@ -133,23 +133,23 @@ namespace Dianzhu.CSClient.Presenter
             #endregion
         }
 
-        private void LoadSearchResult(string customerName)
+        private void LoadSearchResult(DZMembership customer)
         {
-            if (SearchResultForCustomer.ContainsKey(customerName))
+            if (SearchResultForCustomer.ContainsKey(customer.UserName))
             {
-                view.SearchedService = SearchResultForCustomer[customerName];
+                view.SearchedService = SearchResultForCustomer[customer.UserName];
             }
         }
         private void LoadChatHistory()
         {
-            LoadChatHistory(customer.UserName);
+            LoadChatHistory(customer);
         }
-        private void LoadChatHistory(string customerName)
+        private void LoadChatHistory(DZMembership customer)
         {
-            bool isContain = ReceptionList.ContainsKey(customerName);
+            bool isContain = ReceptionList.ContainsKey(customer.UserName);
 
             var chatHistory = bllReception.GetHistoryReceptionChat(
-                customerList.Single(x => x.UserName == customerName),
+                customerList.Single(x => x.UserName == customer.UserName),
                 customerService, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10);
 
             view.ChatLog = chatHistory;

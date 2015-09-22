@@ -272,6 +272,8 @@ namespace Dianzhu.DemoClient
             agsc.Message message = new agsc.Message( new Jid( csName + "@" + GlobalViables.ServerName),
                 new Jid(customerId+ "@" + GlobalViables.ServerName)
                 , agsc.MessageType.chat, tbxMessage.Text);
+            message.SetAttribute("MessageType", "Order");
+            message.SetAttribute("order_id", "");
 
             GlobalViables.XMPPConnection.Send(message);
             AddLog(message);
