@@ -13,6 +13,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         DZMembershipProvider bllMember;
         BLLDZService bllDZService;
         BLLServiceOrder bllOrder;
+        string IMServer;//服务器地址
         public MessageAdapter(DZMembershipProvider bllMembership,
             BLLDZService bllService,
             BLLServiceOrder bllOrder)
@@ -21,66 +22,42 @@ namespace Dianzhu.CSClient.MessageAdapter
             this.bllDZService = bllService;
             this.bllOrder = bllOrder;
         }
-
-        public Model.ReceptionChat MessageToChat( Message message)
+        
+          public Model.ReceptionChat MessageToChat( Message message)
         {
             
-            string messageType = message.GetAttribute("MessageType");
-            Model.Enums.enum_ChatType chatType;
-            bool isChatType = Enum.TryParse(messageType, out  chatType);
-            if (!isChatType)
+            var ext_element = message.SelectSingleElement("ext", true);
+            var orderID = ext_element.SelectSingleElement("orderID").Value;
+            var extNamespace = ext_element.Namespace;
+            enum_ChatType chatType;
+            switch (extNamespace.ToLower())
             {
-                chatType = enum_ChatType.Text;
-            }
-            string attributeErr;
-            bool ensureAttributes = EnsureMessageAttribute(chatType, message, out attributeErr);
-            if (!ensureAttributes)
-            {
-                throw new ArgumentException(attributeErr);
+                case "ihelper:chat:text":
+                    chatType = enum_ChatType.Text;
+                    break;
+                case "ihelper:chat:media":
+                    chatType = enum_ChatType.Media;
+                    break;
+                default:
+                    throw new Exception("未知的命名空间");
+                     
             }
             ReceptionChat chat = ReceptionChat.Create(chatType);
-            DZMembership from = bllMember.GetUserById(new Guid( message.From.User));
-            DZMembership to = bllMember.GetUserById(new Guid( message.To.User));
-            chat.From = from;
-            chat.To = to;
+            chat.From = bllMember.GetUserById(new Guid(message.From.User));
+            chat.To = bllMember.GetUserById(new Guid(message.To.User));
+            if(!string.IsNullOrEmpty(orderID))
+            {
+                chat.ServiceOrder = bllOrder.GetOne(new Guid(orderID));
+             }
             chat.MessageBody = message.Body;
             chat.SavedTime = DateTime.Now;
-            string chatText = message.Body;
-            switch (chatType)
+            if (chatType == enum_ChatType.Media)
             {
-                case  enum_ChatType.PushedService:
-                case  enum_ChatType.ConfirmedService:
-                    ReceptionChatService chatService = (ReceptionChatService)chat;
-                    string strServiceId = string.Empty;
-                    bool hasServiceId = message.HasAttribute("ServiceId");
-                    if (hasServiceId)
-                    {
-                        strServiceId = message.GetAttribute("ServiceId");
-                        chatService.Service = bllDZService.GetOne(new Guid(strServiceId));
-                    }
-                    else {
-                        chatService.ServiceName = message.GetAttribute("ServiceName");
-                        chatService.ServiceDescription = message.GetAttribute("ServiceDescription");
-                        chatService.ServiceBusinessName = message.GetAttribute("ServiceBusinessName");
-                        chatService.UnitPrice =Convert.ToDecimal( message.GetAttribute("UnitPrice"));
-                        chatService.ServiceUrl =  message.GetAttribute("ServiceUrl");
-  
-                    }
-
-
-                    break;
-                case enum_ChatType.Order:
-                    string attOrderId = message.GetAttribute("OrderId");
-                    if (string.IsNullOrEmpty(attOrderId))
-                    {
-                        break;
-                    }
-                    Guid orderId = new Guid(message.GetAttribute("OrderId"));
-                    
-                    ServiceOrder order = bllOrder.GetOne(orderId);
-                    ReceptionChatOrder chatOrder = (ReceptionChatOrder)chat;
-                    chatOrder.ServiceOrder = order;
-                    break;
+                var mediaNode = ext_element.SelectSingleElement("MsgObj");
+                var mediaUrl = mediaNode.GetAttribute("url");
+                var mediaType = mediaNode.GetAttribute("type");
+                ((ReceptionChatMedia)chat).MedialUrl = mediaUrl;
+                ((ReceptionChatMedia)chat).MediaType = mediaType;
             }
             return chat;
         }
@@ -90,50 +67,39 @@ namespace Dianzhu.CSClient.MessageAdapter
         /// </summary>
         /// <param name="chat"></param>
         /// <returns></returns>
-        public  Message ChatToMessage(Model.ReceptionChat chat)
+        public  Message ChatToMessage(Model.ReceptionChat chat,string server)
         {
-            string server=System.Configuration.ConfigurationManager.AppSettings["server"];
+            
             Message msg = new Message();
-            msg.SetAttribute("MessageType", chat.ChatType.ToString());
+            
             msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
             msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server);
             msg.Body = chat.MessageBody;
-            if (!string.IsNullOrEmpty(chat.MessageMediaUrl))
-            {
-                
-                msg.SetAttribute("MediaUrl", chat.MessageMediaUrl);
-            }
-            if (chat is ReceptionChatService)
-            {
-               ReceptionChatService chatService = (ReceptionChatService)chat;
-               if (chatService.Service != null)
-               {
-                   msg.SetAttribute("ServiceId", chatService.Service.Id.ToString());
-                   msg.SetAttribute("ServiceName", chatService.Service.Name);
-                   msg.SetAttribute("ServiceDescription", chatService.Service.Description);
-                   msg.SetAttribute("ServiceBusinessName", chatService.Service.Business.Name);
-                   msg.SetAttribute("ServiceUnitPrice", chatService.Service.UnitPrice.ToString());
 
-               }
-               else
-               {
-                   msg.SetAttribute("ServiceName",msg.GetAttribute("ServiceName"));
-                   msg.SetAttribute("ServiceDescription", msg.GetAttribute("ServiceDescription"));
-                   msg.SetAttribute("ServiceBusinessName", msg.GetAttribute("ServiceBusinessName"));
-                   msg.SetAttribute("ServiceUnitPrice", msg.GetAttribute("ServiceUnitPrice"));
+            var nodeActive = new agsXMPP.Xml.Dom.Element("active", string.Empty, "http://jabber.org/protocol/chatstates");
+            msg.AddChild(nodeActive);
 
-               }
-               
-            }
-            if (chat is ReceptionChatOrder)
+            var extNode = new agsXMPP.Xml.Dom.Element("ext");
+            var extOrderID = new agsXMPP.Xml.Dom.Element("orderID",chat.ServiceOrder==null?string.Empty:chat.ServiceOrder.Id.ToString());
+            extNode.AddChild(extOrderID);
+            msg.AddChild(extNode); 
+
+            switch (chat.ChatType)
             {
-                ReceptionChatOrder chatOrder = (ReceptionChatOrder)chat;
-                msg.SetAttribute("OrderId", chatOrder.ServiceOrder.Id.ToString());
-            }
-            if (chat is ReceptionChatReAssign)
-            {
-                ReceptionChatReAssign chatReassign = (ReceptionChatReAssign)chat;
-                msg.SetAttribute("ReAssignCSName", PHSuit.StringHelper.EnsureOpenfireUserName( chatReassign.ReassignedCustomerService.UserName));
+                case enum_ChatType.Text:
+                    extNode.Namespace = "ihelper:chat:text";
+
+                    break;
+                case enum_ChatType.Media:
+                    extNode.Namespace = "ihelper:chat:media";
+
+                    var mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                    var mediaType = ((ReceptionChatMedia)chat).MediaType;
+                    var extMedia = new agsXMPP.Xml.Dom.Element("MsgObj");
+                    extMedia.SetAttribute("url", mediaUrl);
+                    extMedia.SetAttribute("type", mediaType);
+                    extNode.AddChild(extMedia);
+                    break;
             }
             return msg;
 

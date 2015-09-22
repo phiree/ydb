@@ -33,15 +33,23 @@ namespace Dianzhu.Test.DZCSClientTest
              * <body>body</body>
              * <subject>suject</subject>
              * <ext xmlns="ihelper:chat:text">
-             * <orderID>this_is_an_order_id</orderID>
+             *      <orderID>this_is_an_order_id</orderID>
              * </ext>
              * </message>
 
              */
             Node extNode = msg.ChildNodes.Item(3);
-           
+            var ele=  msg.SelectSingleElement("ext", true);
+            Console.WriteLine("ext:"+ele.ToString());
             Console.WriteLine("ext node:"+extNode.ToString());
             Console.WriteLine("ext namespace:" + extNode.Namespace);
+
+           var order_element= ele.SelectSingleElement("orderID");
+            var order_id = order_element.Value;
+
+            Console.WriteLine("order_element:" + order_element);
+            Console.WriteLine("order_id:" + order_id);
+
         }
 
     }

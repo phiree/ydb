@@ -7,8 +7,9 @@ namespace Dianzhu.CSClient.IMessageAdapter
 {
     public interface IAdapter
     {
+        
         Model.ReceptionChat MessageToChat(agsXMPP.protocol.client.Message message);
 
-        agsXMPP.protocol.client.Message ChatToMessage(Model.ReceptionChat chat);
+        agsXMPP.protocol.client.Message ChatToMessage(Model.ReceptionChat chat,string server);
     }
 }

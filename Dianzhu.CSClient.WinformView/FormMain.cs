@@ -29,6 +29,7 @@ namespace Dianzhu.CSClient.WinformView
         }
         #region Impletion view event
         public event SendMessageHandler SendMessageHandler;
+        public event SendImageHandler SendImageHandler;
         public event ActiveCustomerHandler ActiveCustomerHandler;
         public event PushExternalService PushExternalService;
         public event PushInternalService PushInternalService;
@@ -130,44 +131,38 @@ namespace Dianzhu.CSClient.WinformView
 
             //显示多媒体信息.
 
-            if (!string.IsNullOrEmpty(chat.MessageMediaUrl))
+            if (chat is ReceptionChatMedia)
             {
 
-                PictureBox pb = new PictureBox();
-                pb.Click += new EventHandler(pb_Click);
-                pb.Size = new System.Drawing.Size(100, 100);
-                pb.Load(mediaServerRoot + chat.MessageMediaUrl);
-                pnlOneChat.Controls.Add(pb);
+                string mediaType = ((ReceptionChatMedia)chat).MediaType;
+                string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                switch (mediaType)
+                {
+                    case "image":
+                        PictureBox pb = new PictureBox();
+                        pb.Click += new EventHandler(pb_Click);
+
+                        pb.Load(mediaUrl);
+                        
+                        pb.Size = new System.Drawing.Size(100, 100);
+                        pb.SizeMode = PictureBoxSizeMode.Zoom;
+                        pnlOneChat.Controls.Add(pb);
+                        break;
+                    case "audio":
+                        Button btnAudio = new Button();
+                        btnAudio.Text = "播放音频(待实现)";
+                        btnAudio.Tag = mediaUrl;
+                        pnlOneChat.Controls.Add(btnAudio);
+                        break;
+                    case "video":
+                        Button btnVideo = new Button();
+                        btnVideo.Text = "播放视频(待实现)";
+                        pnlOneChat.Controls.Add(btnVideo);
+                        break;
+                }
             }
             //bye bye. you are abandoned. 2015-9-2
-
-            #region 不再需要判断.
-            Type chatType=chat.GetType();
-           if(chatType==typeof(ReceptionChatService))
-           {
-
-               pnlOneChat.Controls.Add(new Label { Text = "已推送服务:" + ((ReceptionChatService)chat).Service.Name });
-
-                    ReceptionChatService chatService = (ReceptionChatService)chat;
-
-                    Button btnSendPayLink = new Button();
-                    // btnSendPayLink.Tag = chat.ServiceId;
-                    btnSendPayLink.Text = "发送支付链接";//创建订单,生成支付链接.
-                    //todo:create order for this
-                    btnSendPayLink.Tag = chatService;
-                    btnSendPayLink.Click += new EventHandler(btnSendPayLink_Click);
-                    pnlOneChat.Controls.AddRange(new Control[]
-                    { new Label{ Text="已选择服务:"+chatService.Service.Name },
-                        btnSendPayLink});
-           }
-           else if (chatType == typeof(ReceptionChatOrder))
-           { }
-           else { 
-           //only text loaded
-           }
-          
-            
-            #endregion
+  
 
             Action lambda = () =>
             {
@@ -184,22 +179,14 @@ namespace Dianzhu.CSClient.WinformView
             }
 
         }
-        
-        
-        //点击支付
-        void btnSendPayLink_Click(object sender, EventArgs e)
+
+        private void pb_Click(object sender, EventArgs e)
         {
-            ReceptionChatService chat = (ReceptionChatService)((Button)sender).Tag;
-            SendPayLink(chat);
+            new ShowFullImage(((PictureBox)sender).Image).Show();
         }
 
-        void pb_Click(object sender, EventArgs e)
-        {
-            PictureBox pb = (PictureBox)sender;
-            Form fm = new  ShowFullImage(pb.Image);
-            fm.ShowDialog();
-        }
- 
+        
+
         public void SetCustomerButtonStyle(DZMembership customer, em_ButtonStyle buttonStyle)
         {
             Action lambda=()=>{
@@ -503,6 +490,28 @@ namespace Dianzhu.CSClient.WinformView
             set
             {
                 tbxServiceTime.Text = value;
+            }
+        }
+        public System.IO.Stream SelectedImageStream
+        {
+            get
+            {
+                return dlgSelectPic.OpenFile();
+            }
+
+        }
+        public string SelectedImageName {
+            get { return dlgSelectPic.FileName; }
+        }
+
+        private void btnSendImage_Click(object sender, EventArgs e)
+        {
+            if(SendImageHandler!=null)
+            { 
+                if(dlgSelectPic.ShowDialog()== DialogResult.OK)
+                { 
+                 SendImageHandler();
+                }
             }
         }
     }

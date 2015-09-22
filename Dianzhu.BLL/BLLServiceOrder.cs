@@ -106,11 +106,7 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="confirmedService"></param>
         /// <returns></returns>
-        public ServiceOrder CreateOrder(ReceptionChatService  confirmedService)
-        {
-            DZMembership customer = confirmedService.From;
-            throw new NotImplementedException();
-        }
+        
 
         public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
         {
@@ -121,7 +117,7 @@ namespace Dianzhu.BLL
             return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
         }
 
-        public ServiceOrder GetOne(Guid guid)
+        public virtual ServiceOrder GetOne(Guid guid)
         {
             return DALServiceOrder.GetOne(guid);
         }

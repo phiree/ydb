@@ -25,6 +25,7 @@ namespace Dianzhu.CSClient
             DialogResult result;
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
                 BLLFactory.BLLMember,BLLFactory.BLLDZService,BLLFactory.BLLServiceOrder);
+             
             XMPP.XMPP xmpp = new XMPP.XMPP(messageAdapter);
             using (var loginForm = new WinformView.FormLogin())
             {

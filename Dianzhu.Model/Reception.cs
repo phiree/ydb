@@ -82,19 +82,19 @@ namespace Dianzhu.Model
         }
         public static ReceptionChat Create(Enums.enum_ChatType chatType)
         {
-
+            ReceptionChat chat;
             switch (chatType)
             {
-                case Enums.enum_ChatType.PushedService:  
-                case Enums.enum_ChatType.ConfirmedService:
-
-                    return new ReceptionChatService();
-
-
-                case Enums.enum_ChatType.Order: return new ReceptionChatOrder();
+               
+                case Enums.enum_ChatType.Media:
+                    chat = new ReceptionChatMedia();
+                    break;
                 default:
-                    return new ReceptionChat();
+                    chat= new ReceptionChat();
+                    break;
             }
+            chat.ChatType = chatType;
+            return chat;
         }
         public virtual Guid Id { get; set; }
         //保存的时间, 作为排序依据.
@@ -105,10 +105,11 @@ namespace Dianzhu.Model
         public virtual DZMembership To { get; set; }
         public virtual string MessageBody { get; set; }
         public virtual Enums.enum_ChatType ChatType { get; set; }
+        public virtual ServiceOrder ServiceOrder { get; set;}
         /// <summary>
         /// 消息中媒体文件的地址,多个媒体文件用分号风格.
         /// </summary>
-        public virtual string MessageMediaUrl { get; set; }
+        
         /// <summary>
         /// 消息中的服务信息
         /// </summary>
@@ -130,34 +131,27 @@ namespace Dianzhu.Model
 
     }
 
+
+
     /// <summary>
-    /// 客服推送的服务信息
-    /// </summary>
-    public class ReceptionChatService  : ReceptionChat
-    {
-
-        public virtual DZService Service { get; set; }
-        //如果是系统外的服务
-        public virtual string ServiceName { get; set; }
-        public virtual string ServiceDescription { get; set; }
-        public virtual string ServiceBusinessName { get; set; }
-        public virtual string ServiceUrl { get; set; }
-        public virtual decimal UnitPrice { get; set; }
-
-
-    }
-    
-    /// <summary>
-    /// 客服推送的订单,
-    /// </summary>
-    
-    public class ReceptionChatOrder : ReceptionChat
+    /// 多媒体消息,
+    ///
+    public class ReceptionChatMedia : ReceptionChat
     {
         public virtual ServiceOrder ServiceOrder { get; set; }
+        public virtual string MedialUrl { get; set; }
+        public virtual string MediaType { get; set; }
     }
+    /// <summary>
+    /// 重新分配客服的消息
+    /// </summary>
     public class ReceptionChatReAssign : ReceptionChat
     {
-        public virtual DZMembership ReassignedCustomerService { get; set; }
+        /// <summary>
+        /// 重新分配的客服
+        /// </summary>
+       public virtual DZMembership ReAssignedCustomerService { get; set; }
     }
+
 
 }

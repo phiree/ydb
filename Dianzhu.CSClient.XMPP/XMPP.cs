@@ -89,7 +89,7 @@ namespace Dianzhu.CSClient.XMPP
         public void SendMessage(Model.ReceptionChat chat)
         {
             //chat-->message
-            Message msg = messageAdapter.ChatToMessage(chat);
+            Message msg = messageAdapter.ChatToMessage(chat,Server);
             XmppClientConnection.Send(msg);
         }
         public void Close()

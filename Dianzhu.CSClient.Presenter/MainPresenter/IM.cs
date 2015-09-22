@@ -30,17 +30,16 @@ namespace Dianzhu.CSClient.Presenter
 
             //判断客户列表中是否有该用户
             bool isIn = AddCustomer(chat.From.UserName);
-            if (chat is ReceptionChatOrder)
-            {
+            
                 if (!OrderList.ContainsKey(chat.From))
                 {
-                    OrderList.Add(chat.From, ((ReceptionChatOrder)chat).ServiceOrder);
+                    OrderList.Add(chat.From, chat.ServiceOrder);
                 }
                 else
                 {
-                    OrderList[chat.From] = ((ReceptionChatOrder)chat).ServiceOrder;
+                    OrderList[chat.From] =chat.ServiceOrder;
                 }
-            }
+           
             if (customer != chat.From)
             {
                 if (isIn)

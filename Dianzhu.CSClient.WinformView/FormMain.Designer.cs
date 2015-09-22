@@ -74,6 +74,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSendImage = new System.Windows.Forms.Button();
+            this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -371,6 +373,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnSendImage);
             this.panel1.Controls.Add(this.tbxChatMsg);
             this.panel1.Controls.Add(this.btnSend);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -573,6 +576,17 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
+            // btnSendImage
+            // 
+            this.btnSendImage.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSendImage.Location = new System.Drawing.Point(142, 0);
+            this.btnSendImage.Name = "btnSendImage";
+            this.btnSendImage.Size = new System.Drawing.Size(75, 23);
+            this.btnSendImage.TabIndex = 2;
+            this.btnSendImage.Text = "图片";
+            this.btnSendImage.UseVisualStyleBackColor = true;
+            this.btnSendImage.Click += new System.EventHandler(this.btnSendImage_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -656,6 +670,7 @@
         private System.Windows.Forms.TextBox tbxServiceUnitPrice;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button btnLogout;
-
+        private System.Windows.Forms.Button btnSendImage;
+        private System.Windows.Forms.OpenFileDialog dlgSelectPic;
     }
 }

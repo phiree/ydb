@@ -24,7 +24,7 @@ public class RespDataUSM_userObj
     public RespDataUSM_userObj Adapt(DZMembership membership)
     {
         this.userID = membership.Id.ToString();
-        this.alias = membership.NickName ?? "";
+        this.alias = membership.DisplayName ?? "";
         this.email = membership.Email ?? "";
         this.phone = membership.Phone ?? "";
         this.imgUrl = membership.AvatarUrl == null 

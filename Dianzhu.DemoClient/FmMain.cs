@@ -17,17 +17,18 @@ namespace Dianzhu.DemoClient
 {
     public partial class FmMain : Form
     {
-        string csName;
+        string csId;
         string csDisplayName;
         string customerId;
+        string orderID;
         public FmMain()
         {
 
             InitializeComponent();
           
-            if (!string.IsNullOrEmpty(csName))
+            if (!string.IsNullOrEmpty(csId))
             {
-                lblAssignedCS.Text = csName;
+                lblAssignedCS.Text = csDisplayName;
             }
 
 
@@ -55,6 +56,7 @@ namespace Dianzhu.DemoClient
                 }}", tbxUserName.Text, tbxPwd.Text);
            Newtonsoft.Json.Linq.JObject result=  API.GetApiResult(postData);
            customerId = result["RespData"]["userObj"]["userID"].ToString();
+           
         }
         public void GetCustomerService()
         {
@@ -79,7 +81,7 @@ namespace Dianzhu.DemoClient
             }
             csDisplayName = result["RespData"]["cerObj"]["alias"].ToString();
 
-            csName = result["RespData"]["cerObj"]["userID"].ToString();
+            csId = result["RespData"]["cerObj"]["userID"].ToString();
         }
 
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
@@ -100,25 +102,19 @@ namespace Dianzhu.DemoClient
                 return;
             }
             string log = msg.Body;
-            foreach (var att in msg.Attributes.Keys)
+            orderID= msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
+            string msgType = msg.SelectSingleElement("ext").Namespace;
+            switch (msgType.ToLower())
             {
-                if (new string[] { "to", "from", "type" }.Contains(att))
-                {
-                    continue;
-                }
-                if (att.ToString() == "ServiceId")
-                {
-                    log += "[" + att + ":" + msg.Attributes[att] + "]";
-                }
-                if (att.ToString() == "ServiceName")
-                {
-                    log += "[" + att + ":" + msg.Attributes[att] + "]";
-                }
-                if (att.ToString() == "ReAssignCSName")
-                {
-                    csName = msg.Attributes[att].ToString();
-                    lblAssignedCS.Text = csName;
-                }
+                case "ihelper:chat:text":
+                    
+                    break;
+                case "ihelper:chat:media": break;
+                case "ihelper:cer:change":
+                    csId = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("UserID");
+                    csDisplayName = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
+                    lblAssignedCS.Text = csDisplayName;
+                    break;
             }
             AddLog(msg);
 
@@ -145,7 +141,7 @@ namespace Dianzhu.DemoClient
 
             Presence p = new Presence(ShowType.chat, "Online");
             p.Type = PresenceType.available;
-            p.To =new Jid( csName + "@" + GlobalViables.ServerName);
+            p.To =new Jid( csId + "@" + GlobalViables.ServerName);
             p.From =new Jid(customerId + "@" + GlobalViables.ServerName);
             GlobalViables.XMPPConnection.Send(p);
 
@@ -154,7 +150,7 @@ namespace Dianzhu.DemoClient
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            //为该用户分配客服
+          
             string userName = tbxUserName.Text;
             string userNameForOpenfire = userName;
             if (Regex.IsMatch(userName, @"^[^\.@]+@[^\.@]+\.[^\.@]+$"))
@@ -189,92 +185,73 @@ namespace Dianzhu.DemoClient
             pnlOneChat.Width = pnlChat.Size.Width - 16;
 
             //显示多媒体信息.
-            string mediaUrl = message.GetAttribute("media");
-
-            if (!string.IsNullOrEmpty(mediaUrl))
+        
+            string msgType = message.SelectSingleElement("ext").Namespace;
+            switch (msgType.ToLower())
             {
+                case "ihelper:chat:text":
 
-                PictureBox pb = new PictureBox();
-                pb.Size = new System.Drawing.Size(100, 100);
-                pb.Load("http://localhost:8033" + mediaUrl);
-                pnlOneChat.Controls.Add(pb);
+                    break;
+                case "ihelper:chat:media":
+                    string mediaUrl= message.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("url");
+                    string mediaType= message.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("type");
+                    switch (mediaType)
+                    {
+                        case "image":
+                            PictureBox pb = new PictureBox();
+                            pb.Load(mediaUrl);
+                            pb.SizeMode = PictureBoxSizeMode.Zoom;
+                            pb.Click += Pb_Click;
+                            pb.Size = new System.Drawing.Size(100, 100);
+                            pnlOneChat.Controls.Add(pb);
+                            break;
+                        case "audio":
+                            Button btnAudio = new Button();
+                            btnAudio.Text = "播放音频(待实现)";
+                            btnAudio.Tag = mediaUrl;
+                            pnlOneChat.Controls.Add(btnAudio);
+                            break;
+                        case "video":
+                            Button btnVideo = new Button();
+                            btnVideo.Text = "播放视频(待实现)";
+                            pnlOneChat.Controls.Add(btnVideo);
+                            break;
+                    }
+                    break;
+                case "ihelper:cer:change":
+                    csDisplayName = message.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
+                    lblMessage.Text += "客服更换为:" + csDisplayName;
+                    break;
             }
-            if (messageType == "PushedService")
-            {
-                string serviceId = message.GetAttribute("ServiceId");
-                string serviceName = message.GetAttribute("ServiceName");
-                string serviceDescription = message.GetAttribute("ServiceDescription");
-                string serviceBusinessName = message.GetAttribute("ServiceBusinessName");
-                string serviceUnitPrice = message.GetAttribute("ServiceUnitPrice");
-                string serviceUrl = message.GetAttribute("ServiceUrl");
-
-                FlowLayoutPanel pnlservice = new FlowLayoutPanel();
-                pnlservice.FlowDirection = FlowDirection.LeftToRight;
-
-                Label lblServiceName = CreateNewLabel(serviceName);
-                Label lblDescription = CreateNewLabel(serviceDescription);
-                Label lblServiceBusinessName = CreateNewLabel(serviceBusinessName);
-                Label lblServiceUnitPrice = CreateNewLabel(serviceUnitPrice);
-
-                Button btnConfirm = new Button();
-                btnConfirm.Text = "选取";
-                btnConfirm.Tag = message;
-                btnConfirm.Click += new EventHandler(btnConfirm_Click);
-
-                pnlservice.Controls.AddRange(new Control[]{lblServiceName,
-                    lblDescription,lblServiceBusinessName,lblServiceUnitPrice,
-                    btnConfirm});
-                pnlOneChat.Controls.Add(pnlservice);
-            }
-            if (messageType == "ConfirmedService")
-            {
-                FlowLayoutPanel pnlservice = new FlowLayoutPanel();
-                Label lblServiceName = CreateNewLabel("已选取服务:" + message.GetAttribute("ServiceName"));
-
-                pnlservice.Controls.AddRange(new Control[] { lblServiceName });
-                pnlOneChat.Controls.Add(pnlservice);
-            }
-
-
+            
             pnlChat.Controls.Add(pnlOneChat);
             pnlChat.ScrollControlIntoView(pnlOneChat);
 
 
         }
-        private Label CreateNewLabel(string text)
+
+        private void Pb_Click(object sender, EventArgs e)
+        {
+              
+            new ShowFullImage(((PictureBox)sender).Image).Show();
+        
+
+     }
+
+    private Label CreateNewLabel(string text)
         {
             Label lbl = new Label();
             lbl.Text = text;
             return lbl;
         }
 
-        void btnConfirm_Click(object sender, EventArgs e)
-        {
-            agsc.Message originalMessage = (agsc.Message)((Button)sender).Tag;
-            agsc.Message message = new agsc.Message(new Jid(csName + "@" + GlobalViables.ServerName),
-            new Jid(    StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName),
-                agsc.MessageType.chat, "已选择服务");
-            message.SetAttribute("MessageType", "ConfirmedService");
-            message.SetAttribute("ServiceUnitAmount", 1);
-            message.SetAttribute("ServiceId", originalMessage.GetAttribute("ServiceId"));
-            message.SetAttribute("ServiceName", originalMessage.GetAttribute("ServiceName"));
-            message.SetAttribute("ServiceBusinessName", originalMessage.GetAttribute("ServiceBusinessName"));
-            message.SetAttribute("ServiceDescription", originalMessage.GetAttribute("ServiceDescription"));
-            message.SetAttribute("ServiceUnitPrice", originalMessage.GetAttribute("ServiceUnitPrice"));
-            message.SetAttribute("ServiceUrl", originalMessage.GetAttribute("ServiceUrl"));
-            GlobalViables.XMPPConnection.Send(message);
-            AddLog(message);
-        }
+       
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-
-            agsc.Message message = new agsc.Message( new Jid( csName + "@" + GlobalViables.ServerName),
-                new Jid(customerId+ "@" + GlobalViables.ServerName)
-                , agsc.MessageType.chat, tbxMessage.Text);
-            message.SetAttribute("MessageType", "Order");
-            message.SetAttribute("order_id", "");
-
+            agsc.Message message = new MessageBuilder()
+                .Create(customerId, csId, tbxMessage.Text, orderID)
+                .BuildText();
             GlobalViables.XMPPConnection.Send(message);
             AddLog(message);
 
@@ -292,7 +269,7 @@ namespace Dianzhu.DemoClient
         {
             Presence p = new Presence(ShowType.chat, "Offline");
             p.Type = PresenceType.unavailable;
-            p.To =new Jid( csName + "@" + GlobalViables.ServerName);
+            p.To =new Jid( csId + "@" + GlobalViables.ServerName);
             p.From =new Jid( StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName);
             GlobalViables.XMPPConnection.Send(p);
         }
@@ -311,16 +288,19 @@ namespace Dianzhu.DemoClient
                 }
                 string s = Convert.ToBase64String(bytes);
 
-                string result = PHSuit.IOHelper.UploadFileHttp("http://localhost:8033/ajaxservice/FileUploadCommon.ashx",
-                      string.Empty, bytes, fileExtension);
-                agsc.Message m = new agsc.Message(new Jid(csName + "@" + GlobalViables.ServerName),
-                    new Jid( StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName),
-                    agsc.MessageType.chat, string.Empty);
-                m.SetAttribute("media", result);
-                GlobalViables.XMPPConnection.Send(m);
-                AddLog(m);
+                string result = PHSuit.IOHelper.UploadFileHttp(
+                    GlobalViables.MediaUploadUrl,
+                     string.Empty, bytes, fileExtension);
+                agsc.Message msgnew = new MessageBuilder()
+                    .Create(customerId, csId, string.Empty, orderID)
+                    .BuildMedia("image",GlobalViables.MediaRootUrl+result)
+                    ;
+
+                GlobalViables.XMPPConnection.Send(msgnew);
+                AddLog(msgnew);
             }
         }
+        
         private void _AutoSize(Control c)
         {
             c.Size = new Size(0, 0);

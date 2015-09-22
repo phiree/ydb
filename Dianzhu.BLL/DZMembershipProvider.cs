@@ -338,7 +338,7 @@ namespace Dianzhu.BLL
         {
             return DALMembership.GetMemberByName(name);
         }
-        public DZMembership GetUserById(Guid id)
+        public virtual DZMembership GetUserById(Guid id)
         {
             return DALMembership.GetOne(id);
         }

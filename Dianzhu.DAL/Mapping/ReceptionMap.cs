@@ -44,40 +44,35 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.MessageBody);
             Map(x => x.ReceiveTime);
             Map(x => x.SendTime);
-            Map(x => x.MessageMediaUrl);
             References<DZMembership>(x => x.To);
             References<DZMembership>(x => x.From);
+            References<ServiceOrder>(x => x.ServiceOrder);
             Map(x => x.ChatType).CustomType<int>();
         }
     }
-    public class ReceptionChatServiceMap : SubclassMap<ReceptionChatService>
-    {
-        public ReceptionChatServiceMap()
-        {
-            References<DZService>(x => x.Service).Nullable();
-            Map(x => x.ServiceName);
-            Map(x => x.ServiceBusinessName);
-            Map(x => x.ServiceDescription);
-            Map(x => x.ServiceUrl);
-            Map(x => x.UnitPrice);
-        }
-    }
+   
  
-    public class ReceptionChatOrderMap : SubclassMap<ReceptionChatOrder>
+   
+
+    public class ReceptionChatMediaMap : SubclassMap<ReceptionChatMedia>
     {
-        public ReceptionChatOrderMap()
+        public ReceptionChatMediaMap()
         {
-            References(x => x.ServiceOrder);
+            Map(x => x.MedialUrl);
+            Map(x => x.MediaType);
         }
     }
     public class ReceptionChatReAssignMap : SubclassMap<ReceptionChatReAssign>
     {
         public ReceptionChatReAssignMap()
         {
-            References(x => x.ReassignedCustomerService);
+            References<DZMembership>(x => x.ReAssignedCustomerService);
         }
     }
-  
-  
+
+
+
+
+
 
 }

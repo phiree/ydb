@@ -8,6 +8,7 @@ namespace Dianzhu.CSClient.IVew
 {
     public delegate void ActiveCustomerHandler(DZMembership customer);
     public delegate void SendMessageHandler();
+    public delegate void SendImageHandler();
     public delegate void PushExternalService();
     public delegate void PushInternalService(DZService service);
     public delegate void SearchService();
@@ -38,6 +39,7 @@ namespace Dianzhu.CSClient.IVew
         void AddCustomerButtonWithStyle(DZMembership customer, em_ButtonStyle buttonStyle);
         string ButtonNamePrefix { get; set; }
         event SendMessageHandler SendMessageHandler;
+        event SendImageHandler SendImageHandler;
         event ActiveCustomerHandler ActiveCustomerHandler;
         #endregion
 
@@ -57,6 +59,8 @@ namespace Dianzhu.CSClient.IVew
         string TargetAddress { get; set; }
         string OrderAmount { get; set; }
         string Memo { get; set; }
+        System.IO.Stream SelectedImageStream { get; }
+        string SelectedImageName { get; }
         event PushExternalService PushExternalService;
         event PushInternalService PushInternalService;
         event SearchService SearchService;

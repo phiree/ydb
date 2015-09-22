@@ -40,6 +40,7 @@ namespace Dianzhu.CSClient.Presenter
             this.instantMessage.IMClosed += new IMClosed(instantMessage_IMClosed);
             //iview的委托
             this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
+            this.view.SendImageHandler += new SendImageHandler(view_SendImageHandler);
 
             this.view.BeforeCustomerChanged += new BeforeCustomerChanged(view_BeforeCustomerChanged);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(ActiveCustomer);
@@ -57,6 +58,8 @@ namespace Dianzhu.CSClient.Presenter
             
         }
 
+      
+
         void instantMessage_IMClosed()
         {
            
@@ -72,7 +75,7 @@ namespace Dianzhu.CSClient.Presenter
                 {
                     From = customerService,
                     ChatType = Model.Enums.enum_ChatType.ReAssign,
-                    ReassignedCustomerService = rs.CustomerService,
+                    ReAssignedCustomerService = rs.CustomerService,
                     To = rs.Customer,
                     SendTime = DateTime.Now
                 };
@@ -94,8 +97,7 @@ namespace Dianzhu.CSClient.Presenter
             DZMembership fromCustomer = isSend ? chat.To : chat.From;
             string customerName = fromCustomer.UserName;
             string message = chat.MessageBody;
-
-            string mediaUrl = chat.MessageMediaUrl;
+ 
             bool isIn = ReceptionList.ContainsKey(customerName);
 
             ReceptionBase re;

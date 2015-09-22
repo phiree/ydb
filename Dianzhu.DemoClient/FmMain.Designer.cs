@@ -194,6 +194,7 @@
             // 
             // pnlChat
             // 
+            this.pnlChat.AutoScroll = true;
             this.pnlChat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlChat.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlChat.Location = new System.Drawing.Point(0, 49);

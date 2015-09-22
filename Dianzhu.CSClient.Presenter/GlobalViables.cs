@@ -19,6 +19,9 @@ namespace Dianzhu.CSClient.Presenter
          /// 当前登录的客服
          /// </summary>
          public static DZMembership CurrentCustomerService = null;
-       
+        public static string MediaUploadUrl = "http://192.168.1.140:8033/ajaxservice/FileUploadCommon.ashx";
+        public static string MediaRootUrl = "http://192.168.1.140:8033/";
+
+
     }
 }

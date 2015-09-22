@@ -6,6 +6,8 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.CSClient.IVew;
 using Dianzhu.CSClient.IInstantMessage;
+using System.IO;
+
 namespace Dianzhu.CSClient.Presenter
 {
     public partial class MainPresenter
@@ -202,6 +204,40 @@ namespace Dianzhu.CSClient.Presenter
 
             SendMessage(chat);
             view.MessageTextBox = string.Empty;
+        }
+        private void view_SendImageHandler()
+        {
+            if (customer == null) return;
+ 
+            System.IO.FileStream fs = view.SelectedImageStream as System.IO.FileStream;
+                string fileExtension = Path.GetExtension(view.SelectedImageName);
+                byte[] bytes;
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    fs.CopyTo(ms);
+                    bytes = ms.ToArray();
+                }
+                string s = Convert.ToBase64String(bytes);
+
+                string result = PHSuit.IOHelper.UploadFileHttp(
+                    GlobalViables.MediaUploadUrl,
+                     string.Empty, bytes, fileExtension);
+
+            ReceptionChatMedia chat = new ReceptionChatMedia
+            {
+                ChatType = Model.Enums.enum_ChatType.Media,
+                From = customerService,
+                To = customer,
+                MessageBody = view.MessageTextBox,
+                SendTime = DateTime.Now,
+                SavedTime = DateTime.Now,
+                MedialUrl =GlobalViables.MediaRootUrl+ result,
+                MediaType = "image"
+            };
+
+            SendMessage(chat);
+            view.MessageTextBox = string.Empty;
+
         }
 
 
