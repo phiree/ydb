@@ -229,7 +229,7 @@ html{
     background:#DEDEDE;
     background-attachment: fixed;
 }
-.mainContainer{ margin: 0 auto; width:1200px; background: #fff; position: relative; overflow: hidden; box-shadow: 0 0 10px 0 rgba(43, 43, 43, 0.2)
+.mainContainer{ margin: 0 auto; width:1200px; background: #fff; position: relative; box-shadow: 0 0 10px 0 rgba(43, 43, 43, 0.2)
 }
 
 .mainContent{ margin: 0 auto; width:1000px; background: #3D5B77; }
