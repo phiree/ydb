@@ -1,5 +1,5 @@
 @navbarHeight: 75px;
-@navbarColor: #fff;
+@navbarColor: #60b7ea;
 @navbarBrandColor: #444;
 @navbarBtnBg: #60b7ea;
 @default-padding: 15px;
@@ -40,21 +40,18 @@
 
   .navbar-nav {
     font-size: 16px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    margin-right: 10px;
 
     >li{
       //height: @navbarHeight;
       //display: table;
-      background: @navbarBtnBg;
-      margin-right: 10px;
-
+      color:@navbarColor;
 
       >a{
-        padding: 15px 30px;
+        padding: 15px 15px;
+        height: 75px;
+        line-height: 45px;
         font-size: 16px;
-        line-height: 16px;
         //display: table-cell;
         vertical-align: middle;
         color: @navbarColor;

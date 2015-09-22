@@ -39,9 +39,9 @@
                             </a>
                         </div>
                         <ul class="nav navbar-nav navbar-right">
-                            <li role="presentaion" ><a href="/Business/default.aspx">店铺列表</a></li>
+                            <li role="presentaion" ><a href="/Business/default.aspx"><span class="glyphicon glyphicon-th-list m-r10"></span><span>店铺列表</span></a></li>
                             <li class="dropdown nav-li-bj">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><asp:LoginName  ID="LoginName1" runat="server" /></a>
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><asp:LoginName  ID="LoginName1" runat="server" CssClass="v-m" /><span class="caret"></span></a>
                               <ul class="dropdown-menu">
                                 <li id="accountNum"><a href="/account/security.aspx">帐号安全</a></li>
                               </ul>
@@ -50,6 +50,7 @@
                             <asp:LoginStatus ID="LoginStatus1" CssClass="LoginStatus"  formnovalidate   runat="server" LogoutText="" />
                             </li>
                           </ul>
+
                     </div>
                 </div>
             <!--/top-->
@@ -91,8 +92,6 @@
                 $('.sidebar').removeClass('sidebar-fixed');
             }
             $(window).scroll(function(){
-                console.log($('body').scrollTop());
-                console.log($('.sidebar').offset().top + "side");
                 if ( $('body').scrollTop() >= sideTop ){
                     $('.sidebar').addClass('sidebar-fixed');
                 } else {
