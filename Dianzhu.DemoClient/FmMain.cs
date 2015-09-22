@@ -82,6 +82,7 @@ namespace Dianzhu.DemoClient
             csDisplayName = result["RespData"]["cerObj"]["alias"].ToString();
 
             csId = result["RespData"]["cerObj"]["userID"].ToString();
+            orderID = result["RespData"]["cerObj"]["userID"].ToString();
         }
 
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)

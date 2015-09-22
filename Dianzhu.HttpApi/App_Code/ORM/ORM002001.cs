@@ -21,30 +21,20 @@ public class ResponseORM002001 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLReceptionStatus BLLReceptionStatus = new BLLReceptionStatus();
+        BLLServiceOrder bllOrder = new BLLServiceOrder();
         string raw_id = requestData.userID;
 
         try
         {
-            Guid uid = new Guid(PHSuit.StringHelper.InsertToId(raw_id));
-            DZMembership member = p.GetUserById(uid);
-            if (member == null)
+            DZMembership member;
+            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+            if (!validated)
             {
-                this.state_CODE = Dicts.StateCode[8];
-                this.err_Msg = "用户不存在,可能是传入的uid有误";
-                return;
-            }
-            //验证用户的密码
-            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
-        {
-                this.state_CODE = Dicts.StateCode[9];
-                this.err_Msg = "用户密码错误";
                 return;
             }
             try
             {
-                
-               
-
+    
                 RespDataORM002001 respData = new RespDataORM002001();
 
                 DZMembership assignedCustomerService = BLLReceptionStatus.Assign(member,null);
@@ -54,6 +44,24 @@ public class ResponseORM002001 : BaseResponse
                     this.err_Msg = "没有在线客服";
                     return;
                 }
+
+                string reqOrderId = requestData.orderID;
+                Guid orderId;
+                if (Guid.TryParse(reqOrderId, out orderId))
+                {
+                    var reqOrder = bllOrder.GetOne(orderId);
+                    if(reqOrder!=null)
+                    {
+                        if (reqOrder.Customer.Id.ToString() == raw_id)
+                        {
+                            respData.orderID = reqOrderId;
+                        }
+                        else {
+                            
+                        }
+                    }
+                }
+
                 RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(assignedCustomerService);
                 respData.cerObj = cerObj;
                 this.RespData = respData;
@@ -81,6 +89,7 @@ public class ResponseORM002001 : BaseResponse
 
 public class ReqDataORM002001
 {
+    
     public string userID { get; set; }
     public string pWord { get; set; }
     public string orderID { get; set; }
@@ -89,6 +98,10 @@ public class ReqDataORM002001
 }
 public class RespDataORM002001
 {
+    public RespDataORM002001()
+    {
+        orderID = string.Empty;
+    }
     public string orderID { get; set; }
     public  RespDataORM002001_cerObj cerObj{ get; set; }
  

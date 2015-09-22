@@ -45,10 +45,41 @@ namespace Dianzhu.CSClient.MessageAdapter
             ReceptionChat chat = ReceptionChat.Create(chatType);
             chat.From = bllMember.GetUserById(new Guid(message.From.User));
             chat.To = bllMember.GetUserById(new Guid(message.To.User));
-            if(!string.IsNullOrEmpty(orderID))
+
+            Guid order_ID;
+            bool isValidGuid = Guid.TryParse(orderID, out order_ID);
+            bool hasOrder = false;
+            if (isValidGuid)
             {
-                chat.ServiceOrder = bllOrder.GetOne(new Guid(orderID));
-             }
+                var existedServiceOrder = bllOrder.GetOne(order_ID);
+                if (existedServiceOrder != null)
+                {
+
+                
+                    chat.ServiceOrder = existedServiceOrder;
+                    hasOrder = true;
+                }
+            }
+            
+            if (!hasOrder)
+            {
+               
+           
+                /* string serviceName,string serviceBusinessName,string serviceDescription,decimal serviceUnitPrice,string serviceUrl,
+           DZMembership member,
+           string targetAddress, int unitAmount, decimal orderAmount*/
+                ServiceOrder newOrder =ServiceOrder.Create(
+                     enum_ServiceScopeType.OSIM
+                   ,string.Empty //serviceName
+                   , string.Empty//serviceBusinessName
+                   , string.Empty//serviceDescription
+                   , 0//serviceUnitPrice
+                   , string.Empty//serviceUrl
+                   , null //member
+                   , string.Empty
+                   , 0
+                   ,0);
+            }
             chat.MessageBody = message.Body;
             chat.SavedTime = DateTime.Now;
             if (chatType == enum_ChatType.Media)

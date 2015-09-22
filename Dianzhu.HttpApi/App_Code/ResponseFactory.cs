@@ -8,14 +8,6 @@ using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-
-public class apiRequestChooser
-{
-
-}
-/// <summary>
-///apiRequest 的摘要说明
-/// </summary>
  
 
 public class ResponseFactory

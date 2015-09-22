@@ -21,23 +21,15 @@ public class ResponseORM001005 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        
+        string raw_id = requestData.userID;
 
         try
         {
-           
-            DZMembership member = p.GetUserById(new Guid(requestData.userID));
-            if (member == null)
+
+            DZMembership member;
+            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+            if (!validated)
             {
-                this.state_CODE = Dicts.StateCode[8];
-                this.err_Msg = "用户不存在,可能是传入的uid有误";
-                return;
-            }
-            //验证用户的密码
-            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
-            {
-                this.state_CODE = Dicts.StateCode[9];
-                this.err_Msg = "用户密码错误";
                 return;
             }
             try
