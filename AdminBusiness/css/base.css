@@ -235,10 +235,9 @@ html{
 
 .mainContent{ margin: 0 auto; width:1000px; background: #3D5B77; }
 
-.main {
+.layout {
     width: 1200px;
     margin: 0 auto;
-    padding-top: 50px;
 }
 
 .con-wrap {
@@ -267,7 +266,6 @@ html{
     background: url("/image/logout.png") no-repeat center;
     color:transparent;
     padding: 0 30px;
-
 }
 /*end*/
 

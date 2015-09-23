@@ -54,7 +54,7 @@
                     </div>
                 </div>
             <!--/top-->
-                <div class="main">
+                <div class="layout">
                 <!--sidenav-->
                 <asp:ContentPlaceHolder runat="server" ID="sitenav"></asp:ContentPlaceHolder>
                 <!--/sidenav-->

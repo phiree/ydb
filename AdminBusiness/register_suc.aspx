@@ -12,7 +12,7 @@
         <div class="head">
         </div>
         <div class="main">
-            <div class="layout">
+            <div class="reg-layout">
                 <div class="wrap-reg">
                     <form id="form1" runat="server">
                     <div class="conReg">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer">
+        <div class="reg-footer">
         </div>
     </div>
 </body>
