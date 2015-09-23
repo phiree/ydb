@@ -18,7 +18,7 @@ public class ResponseORM002001 : BaseResponse
     {
         ReqDataORM002001 requestData = this.request.ReqData.ToObject<ReqDataORM002001>();
 
-        //todo:用户验证的复用.
+ 
         DZMembershipProvider p = new DZMembershipProvider();
         BLLReceptionStatus BLLReceptionStatus = new BLLReceptionStatus();
         BLLServiceOrder bllOrder = new BLLServiceOrder();
@@ -46,21 +46,46 @@ public class ResponseORM002001 : BaseResponse
                 }
 
                 string reqOrderId = requestData.orderID;
-                Guid orderId;
-                if (Guid.TryParse(reqOrderId, out orderId))
+                Guid order_ID;
+                bool isValidGuid = Guid.TryParse(reqOrderId, out order_ID);
+                bool hasOrder = false;
+                ServiceOrder orderToReturn=null;
+                if (isValidGuid)
                 {
-                    var reqOrder = bllOrder.GetOne(orderId);
-                    if(reqOrder!=null)
+                    orderToReturn = bllOrder.GetOne(order_ID);
+                    if (orderToReturn != null)
                     {
-                        if (reqOrder.Customer.Id.ToString() == raw_id)
+                        if (orderToReturn.Customer.Id== member.Id)
                         {
-                            respData.orderID = reqOrderId;
+                            hasOrder = true;
                         }
                         else {
-                            
+                            this.err_Msg = "该订单不是您创建的";
                         }
                     }
                 }
+
+                if (!hasOrder)
+                {
+
+
+                    /* string serviceName,string serviceBusinessName,string serviceDescription,decimal serviceUnitPrice,string serviceUrl,
+               DZMembership member,
+               string targetAddress, int unitAmount, decimal orderAmount*/
+                      orderToReturn = ServiceOrder.Create(
+                         enum_ServiceScopeType.OSIM
+                       , string.Empty //serviceName
+                       , string.Empty//serviceBusinessName
+                       , string.Empty//serviceDescription
+                       , 0//serviceUnitPrice
+                       , string.Empty//serviceUrl
+                       , member //member
+                       , string.Empty
+                       , 0
+                       , 0);
+                    bllOrder.SaveOrUpdate(orderToReturn);
+                }
+                respData.orderID = orderToReturn.Id.ToString();
 
                 RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(assignedCustomerService);
                 respData.cerObj = cerObj;

@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Dianzhu.BLL;
+using Dianzhu.CSClient.IInstantMessage;
+using Dianzhu.CSClient.IVew;
+using Dianzhu.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Dianzhu.BLL;
-using Dianzhu.Model;
-using Dianzhu.CSClient.IVew;
-using Dianzhu.CSClient.IInstantMessage;
 namespace Dianzhu.CSClient.Presenter
 {
     public partial class MainPresenter

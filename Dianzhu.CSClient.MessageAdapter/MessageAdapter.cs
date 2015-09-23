@@ -45,7 +45,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             ReceptionChat chat = ReceptionChat.Create(chatType);
             chat.From = bllMember.GetUserById(new Guid(message.From.User));
             chat.To = bllMember.GetUserById(new Guid(message.To.User));
-
+            //这个逻辑放在orm002001接口里面处理.
             Guid order_ID;
             bool isValidGuid = Guid.TryParse(orderID, out order_ID);
             bool hasOrder = false;

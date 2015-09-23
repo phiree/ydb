@@ -44,8 +44,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbxOrderId = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -105,7 +109,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(560, 49);
+            this.panel1.Size = new System.Drawing.Size(683, 81);
             this.panel1.TabIndex = 5;
             // 
             // lblAssignedCS
@@ -138,23 +142,24 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.btnSelectImage);
             this.panel2.Controls.Add(this.tbxMessage);
+            this.panel2.Controls.Add(this.btnSelectImage);
             this.panel2.Controls.Add(this.btnSend);
             this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.panel3);
             this.panel2.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 297);
+            this.panel2.Location = new System.Drawing.Point(0, 384);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(560, 25);
+            this.panel2.Size = new System.Drawing.Size(683, 70);
             this.panel2.TabIndex = 6;
             // 
             // btnSelectImage
             // 
             this.btnSelectImage.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSelectImage.Location = new System.Drawing.Point(410, 0);
+            this.btnSelectImage.Location = new System.Drawing.Point(533, 0);
             this.btnSelectImage.Name = "btnSelectImage";
-            this.btnSelectImage.Size = new System.Drawing.Size(75, 25);
+            this.btnSelectImage.Size = new System.Drawing.Size(75, 31);
             this.btnSelectImage.TabIndex = 5;
             this.btnSelectImage.Text = "图片";
             this.btnSelectImage.UseVisualStyleBackColor = true;
@@ -165,16 +170,16 @@
             this.tbxMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbxMessage.Location = new System.Drawing.Point(0, 0);
             this.tbxMessage.Name = "tbxMessage";
-            this.tbxMessage.Size = new System.Drawing.Size(485, 21);
+            this.tbxMessage.Size = new System.Drawing.Size(533, 21);
             this.tbxMessage.TabIndex = 1;
             this.tbxMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxMessage_KeyPress);
             // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSend.Location = new System.Drawing.Point(485, 0);
+            this.btnSend.Location = new System.Drawing.Point(608, 0);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(75, 25);
+            this.btnSend.Size = new System.Drawing.Size(75, 31);
             this.btnSend.TabIndex = 4;
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -197,17 +202,44 @@
             this.pnlChat.AutoScroll = true;
             this.pnlChat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlChat.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnlChat.Location = new System.Drawing.Point(0, 49);
+            this.pnlChat.Location = new System.Drawing.Point(0, 81);
             this.pnlChat.Name = "pnlChat";
-            this.pnlChat.Size = new System.Drawing.Size(560, 248);
+            this.pnlChat.Size = new System.Drawing.Size(683, 303);
             this.pnlChat.TabIndex = 8;
             this.pnlChat.WrapContents = false;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Controls.Add(this.tbxOrderId);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 31);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(683, 39);
+            this.panel3.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 18);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "订单ID";
+            // 
+            // tbxOrderId
+            // 
+            this.tbxOrderId.Location = new System.Drawing.Point(59, 13);
+            this.tbxOrderId.Name = "tbxOrderId";
+            this.tbxOrderId.Size = new System.Drawing.Size(474, 21);
+            this.tbxOrderId.TabIndex = 11;
+            this.tbxOrderId.Text = "659edbdf-3fc2-48e4-97d7-a50b0114c800";
             // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(560, 322);
+            this.ClientSize = new System.Drawing.Size(683, 454);
             this.Controls.Add(this.pnlChat);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
@@ -218,6 +250,8 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -240,5 +274,8 @@
         private System.Windows.Forms.FlowLayoutPanel pnlChat;
         private System.Windows.Forms.Label lblAssignedCS;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbxOrderId;
     }
 }

@@ -1,0 +1,17 @@
+﻿<Window x:Class="Dianzhu.CSClient.WPFView.FormLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dianzhu.CSClient.WPFView"
+        mc:Ignorable="d"
+        Title="FormLogin" Height="572.055" Width="856.495">
+    <Grid Margin="-373,-151,211,-1">
+        <TextBox x:Name="tbxUserName" HorizontalAlignment="Left" Height="23" Margin="646,208,0,0" TextWrapping="Wrap" Text="e@e.e" VerticalAlignment="Top" Width="120"  />
+        <Label x:Name="label" Content="用户名" HorizontalAlignment="Left" Margin="542,205,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbxPassword" HorizontalAlignment="Left" Height="23" Margin="646,290,0,0" TextWrapping="Wrap" Text="123456" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="label_Copy" Content="密码" HorizontalAlignment="Left" Margin="542,287,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnLogin" Content="登录" HorizontalAlignment="Left" Margin="646,376,0,0" VerticalAlignment="Top" Width="120" Height="30"/>
+        <Label x:Name="lblResult" Content="Label" HorizontalAlignment="Left" Margin="646,348,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

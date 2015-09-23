@@ -50,7 +50,7 @@ var test_data = [
               "ReqData": {
                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", //13022222222
                   "pWord": "123456",
-                  "orderID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                  "orderID": "cadb445e-aaec-481b-9df6-a51c00c50528",
                   
               },
               "stamp_TIMES": "1490192929212",

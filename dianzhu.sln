@@ -206,6 +206,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServer", "MediaServer\
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.WPFView", "Dianzhu.CSClient.WPFView\Dianzhu.CSClient.WPFView.csproj", "{F7F37923-3D12-43B4-A604-806714048C26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -461,6 +463,18 @@ Global
 		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Release|x86.ActiveCfg = Debug|Any CPU
 		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Release|x86.Build.0 = Debug|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|x86.Build.0 = Debug|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Release|x86.ActiveCfg = Release|Any CPU
+		{F7F37923-3D12-43B4-A604-806714048C26}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -491,6 +505,7 @@ Global
 		{D7AA114D-AD19-4399-B152-969D240053C7} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{F7F37923-3D12-43B4-A604-806714048C26} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi
