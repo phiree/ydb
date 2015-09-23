@@ -11,29 +11,12 @@ namespace WeiPayWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            InterfaceTest();
+            //发起微信支付
+
+            Response.Redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=你的公众号appid&redirect_uri=http://你的网站/App/Pay/PayOrder.aspx?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=" + OrderAmount + "_" + onlineOrder.OrderID + "#wechat_redirect");
 
         }
 
-        public void InterfaceTest()
-        {
-            string token = "alalei";
-            if (string.IsNullOrEmpty(token))
-            {
-                return;
-            }
-
-            string echoString = HttpContext.Current.Request.QueryString["echoStr"];
-            string signature = HttpContext.Current.Request.QueryString["signature"];
-            string timestamp = HttpContext.Current.Request.QueryString["timestamp"];
-            string nonce = HttpContext.Current.Request.QueryString["nonce"];
-
-            if (!string.IsNullOrEmpty(echoString))
-            {
-                HttpContext.Current.Response.Write(echoString);
-                HttpContext.Current.Response.End();
-            }
-
-        }
+ 
     }
 }
