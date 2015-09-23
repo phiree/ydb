@@ -28,7 +28,7 @@ namespace WeiPay
         /// <summary>
         /// appid，应用ID， 在微信公众平台中 “开发者中心”栏目可以查看到
         /// </summary>
-        public static string AppId = "wx820385453f506a79"; 
+        public static string AppId = "wxb41bbda580f6e0c0"; 
 
         /// <summary>
         /// appsecret ，应用密钥， 在微信公众平台中 “开发者中心”栏目可以查看到
