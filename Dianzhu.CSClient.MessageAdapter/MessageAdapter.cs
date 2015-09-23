@@ -131,6 +131,14 @@ namespace Dianzhu.CSClient.MessageAdapter
                     extMedia.SetAttribute("type", mediaType);
                     extNode.AddChild(extMedia);
                     break;
+                case enum_ChatType.ReAssign:
+                    extNode.Namespace = "ihelper:cer:change";
+                    var cerObj = new agsXMPP.Xml.Dom.Element("cerObj");
+                    cerObj.SetAttribute("UserID", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.Id.ToString());
+                    cerObj.SetAttribute("alias", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.DisplayName);
+                    cerObj.SetAttribute("imgUrl", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.AvatarUrl);
+
+                    break;
             }
             return msg;
 
