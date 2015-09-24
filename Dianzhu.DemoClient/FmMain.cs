@@ -66,11 +66,11 @@ namespace Dianzhu.DemoClient
                     ""ReqData"": {{ 
                     ""userID"": ""{0}"", 
                     ""pWord"": ""{1}"", 
-                    ""orderID"": ""e71fd0e2-cb5f-4a7e-8adb-a4d400b7224a""   
+                    ""orderID"": ""{2}""   
                     }}, 
                     ""stamp_TIMES"": ""1490192929212"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
-                }}",customerId,tbxPwd.Text));
+                }}",customerId,tbxPwd.Text,tbxOrderId.Text));
             string state_Code = result["state_CODE"].ToString();
             if (state_Code != "009000")
             {
@@ -82,7 +82,8 @@ namespace Dianzhu.DemoClient
             csDisplayName = result["RespData"]["cerObj"]["alias"].ToString();
 
             csId = result["RespData"]["cerObj"]["userID"].ToString();
-            orderID = result["RespData"]["cerObj"]["userID"].ToString();
+          customerId  = result["RespData"]["cerObj"]["userID"].ToString();
+            tbxOrderId.Text = orderID = result["RespData"]["orderID"].ToString();
         }
 
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
@@ -325,5 +326,14 @@ namespace Dianzhu.DemoClient
 
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

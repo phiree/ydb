@@ -7,7 +7,7 @@ using System.Text;
 namespace Dianzhu.CSClient.IInstantMessage
 {
     public delegate void IMReceivedMessage(Model.ReceptionChat chat);
-    public delegate void IMLogined();
+    public delegate void IMLogined(string jidUser);
     public delegate void IMAuthError();
     public delegate void IMPresent(string userFrom,int presentType);
     public delegate void IMError(string error);

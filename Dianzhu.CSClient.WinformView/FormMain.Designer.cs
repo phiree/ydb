@@ -55,6 +55,7 @@
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             this.tbxChatLog = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSendImage = new System.Windows.Forms.Button();
             this.tbxChatMsg = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.pnlResultService = new System.Windows.Forms.FlowLayoutPanel();
@@ -74,7 +75,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSendImage = new System.Windows.Forms.Button();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
@@ -382,6 +382,17 @@
             this.panel1.Size = new System.Drawing.Size(292, 23);
             this.panel1.TabIndex = 1;
             // 
+            // btnSendImage
+            // 
+            this.btnSendImage.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSendImage.Location = new System.Drawing.Point(142, 0);
+            this.btnSendImage.Name = "btnSendImage";
+            this.btnSendImage.Size = new System.Drawing.Size(75, 23);
+            this.btnSendImage.TabIndex = 2;
+            this.btnSendImage.Text = "图片";
+            this.btnSendImage.UseVisualStyleBackColor = true;
+            this.btnSendImage.Click += new System.EventHandler(this.btnSendImage_Click);
+            // 
             // tbxChatMsg
             // 
             this.tbxChatMsg.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -575,17 +586,6 @@
             this.pnlExternService.Size = new System.Drawing.Size(333, 242);
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
-            // 
-            // btnSendImage
-            // 
-            this.btnSendImage.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSendImage.Location = new System.Drawing.Point(142, 0);
-            this.btnSendImage.Name = "btnSendImage";
-            this.btnSendImage.Size = new System.Drawing.Size(75, 23);
-            this.btnSendImage.TabIndex = 2;
-            this.btnSendImage.Text = "图片";
-            this.btnSendImage.UseVisualStyleBackColor = true;
-            this.btnSendImage.Click += new System.EventHandler(this.btnSendImage_Click);
             // 
             // FormMain
             // 

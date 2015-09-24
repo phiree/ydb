@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Dianzhu.CSClient.MessageAdapter;
 using log4net;
+using Dianzhu.CSClient.WPFView;
 namespace Dianzhu.CSClient
 {
     static class Program
@@ -22,18 +23,19 @@ namespace Dianzhu.CSClient
             log4net.Config.XmlConfigurator.Configure();
            
             log.Debug("Start");
-            DialogResult result;
+            bool? result;
+            
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
                 BLLFactory.BLLMember,BLLFactory.BLLDZService,BLLFactory.BLLServiceOrder);
              
             XMPP.XMPP xmpp = new XMPP.XMPP(messageAdapter);
-            using (var loginForm = new WinformView.FormLogin())
-            {
+            var loginForm = new FormLogin();
+            
                 Presenter.LoginPresenter loginPresenter = new Presenter.LoginPresenter(loginForm,xmpp,
                     BLLFactory.BLLMember);
                   result = loginForm.ShowDialog();
-            }
-            if (result == DialogResult.OK)
+            
+            if (result.Value)// == DialogResult.OK)
             {
                 var mainForm = new WinformView.FormMain();
 

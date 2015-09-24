@@ -45,6 +45,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.pb);
             this.Name = "ShowFullImage";

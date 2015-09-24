@@ -76,7 +76,7 @@ namespace Dianzhu.CSClient.XMPP
 
         void Connection_OnLogin(object sender)
         {
-            IMLogined();
+            IMLogined(XmppClientConnection.Username);
         }
 
         public void SendPresent()

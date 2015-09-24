@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.CSClient.IVew;
-using Dianzhu.CSClient.IInstantMessage;
 namespace Dianzhu.CSClient.Presenter
 {
     public partial class MainPresenter
@@ -65,6 +61,8 @@ namespace Dianzhu.CSClient.Presenter
         void IMPresent(string userFrom, int presentType)
         {
             //string userName = PHSuit.StringHelper.EnsureNormalUserName(userFrom);
+            if(userFrom==customerService.Id.ToString()) //如果是自己的状态 则忽略.
+            { return; }
             DZMembership userPresent= bllMember.GetUserById(new Guid(userFrom));
             string userName = userPresent.DisplayName;
             bool isInList = customerList.Contains(userPresent);
@@ -110,9 +108,10 @@ namespace Dianzhu.CSClient.Presenter
             view.LoadOneChat(chat);
 
         }
-
+        
         private bool AddCustomer(string customerName)
         {
+            
             string userName = PHSuit.StringHelper.EnsureNormalUserName(customerName);
             bool isInList = customerList.Any(x => x.UserName == userName);
             if (isInList)

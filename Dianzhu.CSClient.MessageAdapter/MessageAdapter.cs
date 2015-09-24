@@ -45,7 +45,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             ReceptionChat chat = ReceptionChat.Create(chatType);
             chat.From = bllMember.GetUserById(new Guid(message.From.User));
             chat.To = bllMember.GetUserById(new Guid(message.To.User));
-
+            //这个逻辑放在orm002001接口里面处理.
             Guid order_ID;
             bool isValidGuid = Guid.TryParse(orderID, out order_ID);
             bool hasOrder = false;
@@ -130,6 +130,14 @@ namespace Dianzhu.CSClient.MessageAdapter
                     extMedia.SetAttribute("url", mediaUrl);
                     extMedia.SetAttribute("type", mediaType);
                     extNode.AddChild(extMedia);
+                    break;
+                case enum_ChatType.ReAssign:
+                    extNode.Namespace = "ihelper:cer:change";
+                    var cerObj = new agsXMPP.Xml.Dom.Element("cerObj");
+                    cerObj.SetAttribute("UserID", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.Id.ToString());
+                    cerObj.SetAttribute("alias", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.DisplayName);
+                    cerObj.SetAttribute("imgUrl", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.AvatarUrl);
+
                     break;
             }
             return msg;
