@@ -16,7 +16,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     
             <div class="cont-wrap">
-                <div class="cont-container mh-in" id="service-list-container">
+                <div class="cont-container mh-in dis-n" id="service-list-container">
                     <div class="cont-row">
                         <div class="cont-col-12">
                             <div class="cont-row row-fix">
@@ -31,14 +31,14 @@
                                     <div class="panel-heading" role="tab" id="heading<%# Container.ItemIndex + 1 %>" >
                                         <table class="custom-table" role="button" data-toggle="collapse" data-parent="#accordion"
                                                href="#collapse<%# Container.ItemIndex + 1 %>" aria-expanded="true"
-                                               aria-controls="collapse<%# Container.ItemIndex + 1 %>">
+                                               aria-controls="collapse<%# Container.ItemIndex + 1 %>" >
                                             <tbody>
                                                 <tr>
                                                     <td class="table-col-1">
                                                         <img class="panel-img" width="76px" height="76px" alt="服务类型" />
                                                     </td>
-                                                    <td class="table-col-2">
-                                                        <div class="panel-info-td bord-r-d">
+                                                    <td class="table-col-2 bord-r-d">
+                                                        <div class="panel-info-td">
                                                             <p class="panel-title-imp"><%#Eval("Name") %></p>
                                                             <p><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></p>
                                                         </div>
@@ -69,8 +69,8 @@
                                                             <p><p class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></p>
                                                             <p collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p></p>
                                                             <p>
-                                                                <a href="#" class="m-r10" ><i class="icon" title="编辑" collapse-ignore="true"></i></a>
-                                                                <asp:LinkButton ID="LinkButton1" runat="server" class="" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')"><i class="icon" title="删除" collapse-ignore="true"></i></asp:LinkButton>
+                                                                <a href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" class="m-r10" ><i class="icon" title="编辑" collapse-ignore="true"></i></a>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server" class="btn-test-1" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript: return confirm('警告：\n数据一旦被删除将无法还原！')" data-target="ture" collapse-ignore="true"><i class="icon" title="删除" collapse-ignore="true"></i></asp:LinkButton>
 
                                                             </p>
                                                         </div>
@@ -113,6 +113,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </div>
@@ -155,27 +156,12 @@
 //        };
 //    }
 
-//    自定义collapse-ignore属性使collapse忽略掉其中的按钮控件
-    $(function () {
-        $('.panel-collapse').on('show.bs.collapse hide.bs.collapse', function () {
-            var e = window.event || arguments.callee.caller.arguments[0];
-            var target = e.srcElement || e.target;
-            var $target = $(target);
-
-            if($target.attr("collapse-ignore") == "true"){
-                return false
-            }else if(e.target == e.target){
-                return true
-            };
-        })
-    });
-
 
     $(function(){
         if ( $("#accordion").children(".panel").length == 0 ){
             $("#service-new").removeClass("dis-n");
         } else {
-            $(".service-list-container").removeClass("dis-n");
+            $("#service-list-container").removeClass("dis-n");
         }
 
        $(".service-table tbody tr:even").addClass("list-item-odd");

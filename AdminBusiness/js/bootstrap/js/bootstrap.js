@@ -729,9 +729,19 @@ if (typeof jQuery === 'undefined') {
   // =================
 
   $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
+
     var $this   = $(this)
 
-    if (!$this.attr('data-target')) e.preventDefault()
+    //ignore event trigger by collapse-ignore element in collapse
+    //var e = window.event || arguments.callee.caller.arguments[0];
+    var target = e.srcElement || e.target;
+    var $target = $(target);
+
+    if( $target.attr('collapse-ignore') == "true"){
+      return true
+    } else {
+      if (!$this.attr('data-target')) e.preventDefault()
+    }
 
     var $target = getTargetFromTrigger($this)
     var data    = $target.data('bs.collapse')
