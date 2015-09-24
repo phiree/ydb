@@ -16,49 +16,110 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     
             <div class="cont-wrap">
-                <div class="cont-container mh-in service-list-container dis-n">
+                <div class="cont-container mh-in" id="service-list-container">
                     <div class="cont-row">
                         <div class="cont-col-12">
                             <div class="cont-row row-fix">
-                                <div class="cont-col-12 m-b20"><a class="btn btn-default btn-info" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a> </div>
+                                <div class="cont-col-12 m-b20">
+                                    <a class="btn btn-default btn-info" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a>
+                                </div>
                             </div>
-                            <table class="custom-table service-table">
-                                <thead>
-                                    <tr>
-                                        <th>服务名称</th>
-                                        <th>服务类别</th>
-                                        <th>服务时间</th>
-                                        <th>服务范围</th>
-                                        <th>提前预约</th>
-                                        <th>服务状态</th>
-                                        <th>服务操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <asp:Repeater runat="server" ID="rptServiceList"  >
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <asp:Repeater runat="server" ID="rptServiceList"  >
                                     <ItemTemplate>
-                                    <tr onclick="listhref('/DZService/detail.aspx?businessid=<%=Request["businessid"]%>&serviceId=<%#Eval("Id") %>')">
-                                        <td class="table-col-1"><%#Eval("Name") %></td>
-                                        <td class="table-col-2"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></td>
-                                        <td class="table-col-2"><%#Eval("ServiceTimeBegin")%>~<%#Eval("ServiceTimeEnd")%></td>
-                                        <td class="table-col-3"><p class="spServiceArea l-h16 t-c"></p>
-                                                                                            <input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' /></td>
-                                        <td class="table-col-1"><%#Eval("OrderDelay")%>分钟</td>
-                                        <td class="table-col-1"><p class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></p></td>
-                                        <td class="table-col-2"><p class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable-service" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p><asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-delete m-l10" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')">删除</asp:LinkButton></td>
-                                    </tr>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="heading<%# Container.ItemIndex + 1 %>" >
+                                        <table class="custom-table" role="button" data-toggle="collapse" data-parent="#accordion"
+                                               href="#collapse<%# Container.ItemIndex + 1 %>" aria-expanded="true"
+                                               aria-controls="collapse<%# Container.ItemIndex + 1 %>">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="table-col-1">
+                                                        <img class="panel-img" width="76px" height="76px" alt="服务类型" />
+                                                    </td>
+                                                    <td class="table-col-2">
+                                                        <div class="panel-info-td bord-r-d">
+                                                            <p class="panel-title-imp"><%#Eval("Name") %></p>
+                                                            <p><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></p>
+                                                        </div>
+
+                                                    </td>
+                                                    <td class="table-col-3 bord-r-d">
+                                                        <div class="panel-info-td">
+                                                            <p><p class="spServiceArea l-h16 t-c"></p><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' /></p>
+                                                            <p class="panel-title-tips"><i class="icon"></i>服务区域</p>
+                                                        </div>
+                                                    </td>
+                                                    <td class="table-col-2 bord-r-d">
+                                                        <div class="panel-info-td">
+                                                            <a class="panel-title-link" collapse-ignore="true">详细服务时间</a>
+                                                            <p class="panel-title-tips"><i class="icon"></i>服务时间</p>
+                                                        </div>
+
+                                                    </td>
+                                                    <td class="table-col-2 bord-r-d">
+                                                        <div class="panel-info-td">
+                                                            <p><sapn class="panel-title-time"><%#Eval("OrderDelay")%></sapn>分钟</p>
+                                                            <p class="panel-title-tips"><i class="icon"></i>提前预约时间</p>
+                                                        </div>
+
+                                                    </td>
+                                                    <td class="table-col-2">
+                                                        <div class="panel-info-td">
+                                                            <p><p class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></p>
+                                                            <p collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p></p>
+                                                            <p>
+                                                                <a href="#" class="m-r10" ><i class="icon" title="编辑" collapse-ignore="true"></i></a>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server" class="" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')"><i class="icon" title="删除" collapse-ignore="true"></i></asp:LinkButton>
+
+                                                            </p>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="collapse<%# Container.ItemIndex + 1 %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%# Container.ItemIndex + 1 %>">
+                                        <div class="panel-body">
+                                            <table class="custom-table panel-detail-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="table-col-1 t-r">服务介绍：</td>
+                                                        <td colspan="3"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-col-1 t-r">起步价：</td>
+                                                        <td class="table-col-1 "><span class="panel-table-num">80</span>元</td>
+                                                        <td class="table-col-2 t-r">每日最大接单量：</td>
+                                                        <td class="table-col-2 "><span class="panel-table-num">80</span>元</td>
+                                                        <td class="table-col-1 t-r">服务对象：</td>
+                                                        <td class="table-col-1 "></td>
+                                                        <td class="table-col-1 t-r">服务方式：</td>
+                                                        <td class="table-col-1 "></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-col-1 t-r">单价：</td>
+                                                        <td class="table-col-1 t-l"><span class="panel-table-num">80</span>单</td>
+                                                        <td class="table-col-2 t-r">每日最大接单量：</td>
+                                                        <td class="table-col-2 t-l"><span class="panel-table-num">80</span>单</td>
+                                                        <td class="table-col-1 t-r">服务保障：</td>
+                                                        <td class="table-col-1 t-l"></td>
+                                                        <td class="table-col-1 t-r">上门服务：</td>
+                                                        <td class="table-col-1 t-l"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                                     </ItemTemplate>
-                                    </asp:Repeater>
-                                </tbody>
-                            </table>
-
-
-
-
+                                </asp:Repeater>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="service-new dis-n">
+                <div id="service-new" class=" dis-n">
                     <div class="cont-container mh-in">
                         <div class="new-box">
                             <div class="t-c">
@@ -80,22 +141,39 @@
     <!--<script type="text/javascript" src="/js/TabSelection.js"></script>-->
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script >
-    function listhref(url){
-        var e = window.event || arguments.callee.caller.arguments[0];
-        var target = e.srcElement || e.target;
-        var $target = $(target);
+//    function listhref(url){
+//        var e = window.event || arguments.callee.caller.arguments[0];
+//        var target = e.srcElement || e.target;
+//        var $target = $(target);
+//        console.log($target);
+//
+//        if($target.hasClass("btn")){
+//            return false
+//        }else if(e.target == e.target){
+////            window.location.href = url
+//            return true
+//        };
+//    }
 
-        if($target.hasClass("btn")){
-            return false
-        }else if(e.target == e.target){
-            window.location.href = url
-        };
-    }
+//    自定义collapse-ignore属性使collapse忽略掉其中的按钮控件
+    $(function () {
+        $('.panel-collapse').on('show.bs.collapse hide.bs.collapse', function () {
+            var e = window.event || arguments.callee.caller.arguments[0];
+            var target = e.srcElement || e.target;
+            var $target = $(target);
+
+            if($target.attr("collapse-ignore") == "true"){
+                return false
+            }else if(e.target == e.target){
+                return true
+            };
+        })
+    });
 
 
     $(function(){
-        if ( $(".service-table tbody").find("tr").length == 0 ){
-            $(".service-new").removeClass("dis-n");
+        if ( $("#accordion").children(".panel").length == 0 ){
+            $("#service-new").removeClass("dis-n");
         } else {
             $(".service-list-container").removeClass("dis-n");
         }
