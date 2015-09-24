@@ -2,6 +2,7 @@
 .biz-list-wrap {
   background: #fff;
   position: relative;
+  border: 1px solid #DEDEDE;
 }
 .biz-list-bg {
   position: absolute;
@@ -97,11 +98,18 @@
   color: #5bb6fa;
 }
 .biz-item-right .biz-item-svc {
-  width: 600px;
-  height: 75px;
-  background: #fff;
+  width: 650px;
+  height: 85px;
+  background: url("../../image/yidianban_v1.2/biz-list/biz-list_7.png ") no-repeat center bottom;
   margin: 0 auto;
-  margin-bottom: -25px;
+  margin-bottom: -20px;
+}
+.biz-item-right .svc-list li {
+  width: 90px;
+  height: 90px;
+  display: inline-block;
+  background: #fff6bf;
+  margin-top: -30px;
 }
 .biz-item-right .biz-item-href {
   width: 55px;
