@@ -31,18 +31,13 @@ namespace WeiPayWeb
         {
             if (!this.IsPostBack)
             {
-                this.txtBody.Text = "商品描述";
+                this.txtBody.Text = "北京急死游客公司";
                 this.txtOrderSN.Text = DateTime.Now.ToString("yyyyMMddHHmmss");
-                this.txtOther.Text = "test";
-                this.txtPrice.Text = "1";
+                this.txtOther.Text = "suijishengchengma";
+                this.txtPrice.Text = "";
 
                 //获取当前用户的OpenId，如果可以通过系统获取用户Openid就不用调用该函数
-                this.GetUserOpenId();
-
-                this.lblOpenId.Text = this.UserOpenId;
-                //this.lblOpenId.Text = this.GetUserOpenId();
-
-                Response.Write(Request.QueryString["code"].ToString()+"使什么");
+                this.lblOpenId.Text = this.GetUserOpenId();
             }
 
         }
@@ -62,7 +57,6 @@ namespace WeiPayWeb
             else
             {
                 LogUtil.WriteLog(" ============ 开始 获取微信用户相关信息 =====================");
-
                 #region 获取支付用户 OpenID================
                 string url = string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code", PayConfig.AppId, PayConfig.AppSecret, code);
                 string returnStr = HttpUtil.Send("", url);
@@ -104,7 +98,7 @@ namespace WeiPayWeb
             model.OrderSN = this.txtOrderSN.Text;
             model.TotalFee = int.Parse(this.txtPrice.Text);
             model.Body = this.txtBody.Text;
-            model.Attach = this.txtOther.Text; //不能有中午
+            model.Attach = this.txtOther.Text; //不能有中文
             model.OpenId = this.lblOpenId.Text;
 
             //跳转到 WeiPay.aspx 页面，请设置函数中WeiPay.aspx的页面地址
