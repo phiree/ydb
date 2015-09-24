@@ -18,7 +18,7 @@ namespace Dianzhu.CSClient.IVew
         
        bool IsLoginSuccess { set; }
        string LoginMessage { set; }
-       string ErrorMessage { get; set; }
-       void ShowError();
+       string ErrorMessage {  set; }
+        
     }
 }

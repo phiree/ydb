@@ -38,15 +38,16 @@
             this.lblLoginStatus = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnSelectImage = new System.Windows.Forms.Button();
             this.tbxMessage = new System.Windows.Forms.TextBox();
+            this.btnAudio = new System.Windows.Forms.Button();
+            this.btnSelectImage = new System.Windows.Forms.Button();
             this.btnSend = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
-            this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.tbxOrderId = new System.Windows.Forms.TextBox();
+            this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
+            this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -143,6 +144,7 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.tbxMessage);
+            this.panel2.Controls.Add(this.btnAudio);
             this.panel2.Controls.Add(this.btnSelectImage);
             this.panel2.Controls.Add(this.btnSend);
             this.panel2.Controls.Add(this.label4);
@@ -153,6 +155,26 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(683, 70);
             this.panel2.TabIndex = 6;
+            // 
+            // tbxMessage
+            // 
+            this.tbxMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxMessage.Location = new System.Drawing.Point(0, 0);
+            this.tbxMessage.Name = "tbxMessage";
+            this.tbxMessage.Size = new System.Drawing.Size(458, 21);
+            this.tbxMessage.TabIndex = 1;
+            this.tbxMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxMessage_KeyPress);
+            // 
+            // btnAudio
+            // 
+            this.btnAudio.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnAudio.Location = new System.Drawing.Point(458, 0);
+            this.btnAudio.Name = "btnAudio";
+            this.btnAudio.Size = new System.Drawing.Size(75, 31);
+            this.btnAudio.TabIndex = 6;
+            this.btnAudio.Text = "音频";
+            this.btnAudio.UseVisualStyleBackColor = true;
+            this.btnAudio.Click += new System.EventHandler(this.btnAudio_Click);
             // 
             // btnSelectImage
             // 
@@ -165,15 +187,6 @@
             this.btnSelectImage.UseVisualStyleBackColor = true;
             this.btnSelectImage.Click += new System.EventHandler(this.btnSelectImage_Click);
             // 
-            // tbxMessage
-            // 
-            this.tbxMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxMessage.Location = new System.Drawing.Point(0, 0);
-            this.tbxMessage.Name = "tbxMessage";
-            this.tbxMessage.Size = new System.Drawing.Size(533, 21);
-            this.tbxMessage.TabIndex = 1;
-            this.tbxMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxMessage_KeyPress);
-            // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
@@ -181,7 +194,7 @@
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 31);
             this.btnSend.TabIndex = 4;
-            this.btnSend.Text = "发送";
+            this.btnSend.Text = "文本";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
@@ -192,21 +205,6 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(0, 12);
             this.label4.TabIndex = 0;
-            // 
-            // dlgSelectPic
-            // 
-            this.dlgSelectPic.FileName = "openFileDialog1";
-            // 
-            // pnlChat
-            // 
-            this.pnlChat.AutoScroll = true;
-            this.pnlChat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlChat.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnlChat.Location = new System.Drawing.Point(0, 81);
-            this.pnlChat.Name = "pnlChat";
-            this.pnlChat.Size = new System.Drawing.Size(683, 303);
-            this.pnlChat.TabIndex = 8;
-            this.pnlChat.WrapContents = false;
             // 
             // panel3
             // 
@@ -231,9 +229,24 @@
             // 
             this.tbxOrderId.Location = new System.Drawing.Point(59, 13);
             this.tbxOrderId.Name = "tbxOrderId";
-            this.tbxOrderId.Size = new System.Drawing.Size(474, 21);
+            this.tbxOrderId.Size = new System.Drawing.Size(229, 21);
             this.tbxOrderId.TabIndex = 11;
             this.tbxOrderId.Text = "659edbdf-3fc2-48e4-97d7-a50b0114c800";
+            // 
+            // dlgSelectPic
+            // 
+            this.dlgSelectPic.FileName = "openFileDialog1";
+            // 
+            // pnlChat
+            // 
+            this.pnlChat.AutoScroll = true;
+            this.pnlChat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlChat.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.pnlChat.Location = new System.Drawing.Point(0, 81);
+            this.pnlChat.Name = "pnlChat";
+            this.pnlChat.Size = new System.Drawing.Size(683, 303);
+            this.pnlChat.TabIndex = 8;
+            this.pnlChat.WrapContents = false;
             // 
             // FmMain
             // 
@@ -274,6 +287,7 @@
         private System.Windows.Forms.FlowLayoutPanel pnlChat;
         private System.Windows.Forms.Label lblAssignedCS;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnAudio;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbxOrderId;

@@ -33,26 +33,12 @@ namespace Dianzhu.CSClient.WPFView
 
         public string ErrorMessage
         {
-            get
-            {
-                string errMsg = string.Empty;
-                Action lambda = () =>
-                {
-                    errMsg = lblResult.Content.ToString();
-                };
-                if (!Dispatcher.CheckAccess())
-                {
-                    errMsg = lblResult.Content.ToString();
-                }
-  
-                return errMsg;
-            }
-
+            
             set
             {
                 Action lambda = () =>
                 {
-                    lblResult.Content = value;
+                    MessageBox.Show(value);
                 };
                 if (!Dispatcher.CheckAccess())
                 {
@@ -135,7 +121,7 @@ namespace Dianzhu.CSClient.WPFView
         {
             get
             {
-                return tbxPassword.Text;
+                return tbxPassword.Password;
             }
         }
 
@@ -159,19 +145,6 @@ namespace Dianzhu.CSClient.WPFView
 
         public event ViewLogin ViewLogin;
 
-        public void ShowError()
-        {
-            string returnvalue = string.Empty;
-            Action lambda = () =>
-            {
-                MessageBox.Show(ErrorMessage);
-            };
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(lambda);
-            }
-            else { lambda(); }
-         
-        }
+        
     }
 }

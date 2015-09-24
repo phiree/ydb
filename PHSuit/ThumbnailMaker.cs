@@ -55,7 +55,7 @@ namespace PHSuit
 
         }
 
-        public static Bitmap DrawThumbnail(Image originalImage, ThumbnailType tt, int width, int height)
+        private static Bitmap DrawThumbnail(Image originalImage, ThumbnailType tt, int width, int height)
         {
 
             int towidth = width;
