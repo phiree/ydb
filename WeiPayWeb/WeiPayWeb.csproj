@@ -63,6 +63,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ceshi.aspx" />
     <Content Include="css\style.css" />
     <Content Include="DLL\Newtonsoft.Json.dll" />
     <Content Include="images\android_9.png" />
@@ -97,6 +98,13 @@
     <Content Include="WeiPay.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ceshi.aspx.cs">
+      <DependentUpon>ceshi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ceshi.aspx.designer.cs">
+      <DependentUpon>ceshi.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Notify.aspx.cs">
       <DependentUpon>Notify.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

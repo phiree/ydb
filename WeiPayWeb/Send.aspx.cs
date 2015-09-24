@@ -57,7 +57,6 @@ namespace WeiPayWeb
             else
             {
                 LogUtil.WriteLog(" ============ 开始 获取微信用户相关信息 =====================");
-
                 #region 获取支付用户 OpenID================
                 string url = string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code", PayConfig.AppId, PayConfig.AppSecret, code);
                 string returnStr = HttpUtil.Send("", url);
