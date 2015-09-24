@@ -23,7 +23,7 @@ namespace WeiPay
         /// <summary>
         /// mchid ， 微信支付商户号
         /// </summary>
-        public static string MchId = "XXXXXXXXXXXXXXXXX"; //
+        public static string MchId = "1271972801"; //
 
         /// <summary>
         /// appid，应用ID， 在微信公众平台中 “开发者中心”栏目可以查看到
@@ -33,12 +33,12 @@ namespace WeiPay
         /// <summary>
         /// appsecret ，应用密钥， 在微信公众平台中 “开发者中心”栏目可以查看到
         /// </summary>
-        public static string AppSecret = "94343961dc9b848bda3d25ca84f66907"; 
+        public static string AppSecret = "588f103bb2965b2a08c4d2a9be6606ae"; 
       
         /// <summary>
         /// paysignkey，API密钥，在微信商户平台中“账户设置”--“账户安全”--“设置API密钥”，只能修改不能查看
         /// </summary>
-        public static string AppKey = "XXXXXXXXXXXXXXXXX";
+        public static string AppKey = "588f103bb2965b2a08c4d2a9be6606qq";
 
         /// <summary>
         /// 支付起点页面地址，也就是send.aspx页面完整地址

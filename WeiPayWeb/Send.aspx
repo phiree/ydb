@@ -6,7 +6,7 @@
 
 <head runat="server">
   
-    <title>发起支付</title>
+    <title>提交订单</title>
     
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
         <meta http-equiv="Content-Type" content="text/html; charset=GBK" />
@@ -30,8 +30,7 @@
                 
                    <tr>
                      <td class="td_title">自定义参数：</td>
-                    <td class="td_input">  <asp:TextBox ID="txtOther" runat="server" CssClass="txt1" ></asp:TextBox>
-                    <BR /> 不能有中文(修复中)</td>
+                    <td class="td_input">  <asp:TextBox ID="txtOther" runat="server" CssClass="txt1" ></asp:TextBox></td>
                  </tr>
                       <tr>
                          <td class="td_title">用户OpenId：</td>
@@ -41,7 +40,7 @@
                       <tr>
                      <td class="td_title">&nbsp;</td>
                     <td class="td_input"> 
-                        <asp:Button ID="BtnSave" runat="server" Text="确认支付" onclick="BtnSave_Click" /></td>
+                        <asp:Button ID="BtnSave" runat="server" Text="提交订单" onclick="BtnSave_Click" /></td>
                  </tr>
              </table>
     </div>

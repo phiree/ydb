@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\style.css" />
-    <Content Include="default.aspx" />
     <Content Include="DLL\Newtonsoft.Json.dll" />
     <Content Include="images\android_9.png" />
     <Content Include="images\bg_1.jpg" />
@@ -98,13 +97,6 @@
     <Content Include="WeiPay.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="default.aspx.designer.cs">
-      <DependentUpon>default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Notify.aspx.cs">
       <DependentUpon>Notify.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-    <title>公众号JSAPI支付测试网页</title>
+    <title>确认支付</title>
     <meta http-equiv="Content-Type" content="text/html; charset=GBK" />
   <%--  <script language="javascript" src="http://res.mail.qq.com/mmr/static/lib/js/jquery.js" type="text/javascript"></script>
     <script language="javascript" src="http://res.mail.qq.com/mmr/static/lib/js/lazyloadv3.js" type="text/javascript"></script>--%>
