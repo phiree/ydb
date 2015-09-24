@@ -734,7 +734,7 @@ a.time-trigger:hover {
 .input-lg {
     width: 270px;
     height: 30px;
-    line-height: 30px;
+    /*line-height: 30px;*/
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
     border-radius: 0;
@@ -748,7 +748,7 @@ a.time-trigger:hover {
 .input-mid {
     width: 170px;
     height: 30px;
-    line-height: 30px;
+    /*line-height: 30px;*/
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
     border-radius: 0;
@@ -762,7 +762,7 @@ a.time-trigger:hover {
 .input-sm {
     width: 100px;
     height: 30px;
-    line-height: 30px;
+    /*line-height: 30px;*/
     padding: 5px 10px;
     border: #C0D1E3 1px solid;
     border-radius: 0;

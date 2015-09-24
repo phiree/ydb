@@ -78,6 +78,7 @@
 /* when no support transform , use high z-index to show content */
 .card-back-hover,
 .card-back-hover{
+    z-index:5;
     z-index:5\0;
     z-index:5\9;
     border: 1px solid #eee;\9;
