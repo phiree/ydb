@@ -13,6 +13,7 @@
     <link href="/js/metisMenu/metisMenu.css" rel="stylesheet" type="text/css" />
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animate.css" rel="stylesheet" type="text/css" />
     <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
     <script src="/js/html5shiv.min.js"></script>
     <script src="/js/respond.min.js"></script>
@@ -85,19 +86,24 @@
             return $("#menu").length == 0 ? null : $("#menu").metisMenu();
         });
         $(function(){
-            var sideTop = $('.sidebar').offset().top;
-            if ( $('body').scrollTop() >= sideTop ){
-                $('.sidebar').addClass('sidebar-fixed');
+            if ( $('.sidebar').length == 0 ) {
+                return
             } else {
-                $('.sidebar').removeClass('sidebar-fixed');
-            }
-            $(window).scroll(function(){
+                var sideTop = $('.sidebar').offset().top;
                 if ( $('body').scrollTop() >= sideTop ){
                     $('.sidebar').addClass('sidebar-fixed');
                 } else {
                     $('.sidebar').removeClass('sidebar-fixed');
                 }
-            })
+                $(window).scroll(function(){
+                    if ( $('body').scrollTop() >= sideTop ){
+                        $('.sidebar').addClass('sidebar-fixed');
+                    } else {
+                        $('.sidebar').removeClass('sidebar-fixed');
+                    }
+                })
+            }
+
         });
     </script>
     <%if (!Request.IsLocal){ %>

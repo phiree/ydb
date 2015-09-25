@@ -2,7 +2,7 @@
     Inherits="DZService_ServiceEdit" %>
 <%@ Register Src="~/TagControl.ascx" TagName="Tag" TagPrefix="DZ" %>
 <div class="cont-wrap theme-color-58789a">
-    <div class="cont-container">
+    <div class="cont-container animated fadeInUpSmall">
         <div class="cont-row step-row">
             <div class="cont-col-2">
                 <h3 class="step-head step-1">

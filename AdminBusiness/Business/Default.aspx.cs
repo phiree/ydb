@@ -55,7 +55,7 @@ public partial class Business_Default : BasePage
         b.Description = tbxDescription.Value;
         bllBusiness.SaveOrUpdate(b);
 
-        Response.Redirect("/business/createsuc.aspx?businessid="+b.Id);
+        Response.Redirect("/business/detail.aspx?businessid="+b.Id);
     }
     protected void rptBusinessList_ItemCommand(object sender, RepeaterCommandEventArgs e)
     {

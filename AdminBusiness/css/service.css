@@ -63,6 +63,10 @@
 .service-title span { color:#58789a; font-size:17px; font-weight:bold; vertical-align: middle; }
 
 /*店铺创建页面无内容样式*/
+.service-list {
+    overflow: hidden;
+}
+
 .service-new {
 }
 

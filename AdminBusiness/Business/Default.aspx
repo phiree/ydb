@@ -14,6 +14,7 @@
     <link href="/css/base.css" rel="stylesheet" type="text/css"/>
     <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css"/>
     <link href="/css/business.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/animate.css" rel="stylesheet" type="text/css"/>
     <link href="/css/less/biz-list.css" rel="stylesheet" type="text/css"/>
     <link href="/css/validation.css" rel="stylesheet" type="text/css"/>
     <script src="/js/html5shiv.min.js"></script>
@@ -51,110 +52,111 @@
                     </div>
                 </div>
                 <div class="mh">
-                    <div class="business-main cont-wrap">
+                    <div class="cont-wrap dis-n" id="business-main">
                         <div class="mh-in">
                             <div class="business-container">
-                                <div class="business-add">
-                                    <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-info">+&nbsp;新建店铺</a>
-                                </div>
-                                <!--店铺列表 start-->
-                                <div class="biz-list-wrap">
-                                    <div class="biz-list">
-                                        <asp:Repeater runat="server" ID="rptBusinessList"
-                                                      OnItemCommand="rptBusinessList_ItemCommand">
-                                            <ItemTemplate>
-                                        <div class="biz-list-item">
-                                            <div class="biz-item-left">
-                                                <div class="biz-tip">
-                                                    <div class="biz-tip-h">店铺</div>
-                                                    <i class="biz-tip-icon icon"></i>
-                                                </div>
-                                            </div>
-                                            <div class="biz-item-right">
-                                                <div class="biz-item-main">
-                                                    <div class="biz-item-h"><%#Eval("Name")%></div>
-                                                    <div class="biz-item-m">
-                                                        <div class="biz-info">
-                                                            <div class="cont-row">
-                                                                <div class="cont-col-8">
-                                                                    <div class="cont-row">
-                                                                        <div class="cont-col-3"><h3 class="biz-info-h">店铺星级</h3></div>
-                                                                        <div class="cont-col-9"><p class="biz-info-d"></p></div>
-                                                                    </div>
-                                                                    <div class="cont-row">
-                                                                        <div class="cont-col-3"><h3 class="biz-info-h">店铺电话</h3></div>
-                                                                        <div class="cont-col-9"><p class="biz-info-d d-p"><%#Eval("Phone")%></p></div>
-                                                                    </div>
-                                                                    <div class="cont-row">
-                                                                        <div class="cont-col-3"><h3 class="biz-info-h">详细地址</h3></div>
-                                                                        <div class="cont-col-9"><p class="biz-info-d"><%#Eval("Address")%></p></div>
+                                <div class="mh-cntr">
+                                    <div class="business-add">
+                                        <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-info">+&nbsp;新建店铺</a>
+                                    </div>
+                                    <!--店铺列表 start-->
+                                    <div class="biz-list-wrap">
+                                        <div class="biz-list" id="bizList">
+                                            <asp:Repeater runat="server" ID="rptBusinessList"
+                                                          OnItemCommand="rptBusinessList_ItemCommand">
+                                                <ItemTemplate>
+                                                    <div class="biz-list-item">
+                                                        <div class="biz-item-left">
+                                                            <div class="biz-tip">
+                                                                <div class="biz-tip-h">店铺</div>
+                                                                <i class="biz-tip-icon icon"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="biz-item-right animated fadeInUpSmall">
+                                                            <div class="biz-item-main">
+                                                                <div class="biz-item-h"><%#Eval("Name")%></div>
+                                                                <div class="biz-item-m">
+                                                                    <div class="biz-info">
+                                                                        <div class="cont-row">
+                                                                            <div class="cont-col-8">
+                                                                                <div class="cont-row">
+                                                                                    <div class="cont-col-3"><h3 class="biz-info-h">店铺星级</h3></div>
+                                                                                    <div class="cont-col-9"><p class="biz-info-d"></p></div>
+                                                                                </div>
+                                                                                <div class="cont-row">
+                                                                                    <div class="cont-col-3"><h3 class="biz-info-h">店铺电话</h3></div>
+                                                                                    <div class="cont-col-9"><p class="biz-info-d d-p"><%#Eval("Phone")%></p></div>
+                                                                                </div>
+                                                                                <div class="cont-row">
+                                                                                    <div class="cont-col-3"><h3 class="biz-info-h">详细地址</h3></div>
+                                                                                    <div class="cont-col-9"><p class="biz-info-d"><%#Eval("Address")%></p></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="cont-col-4">
+                                                                                <div class="biz-img">
+                                                                                    <img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=125&height=125&tt=3":"../image/myshop/touxiang_125_125.png" %>'/>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="cont-col-4">
-                                                                    <div class="biz-img">
-                                                                        <img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=125&height=125&tt=3":"../image/myshop/touxiang_125_125.png" %>'/>
-                                                                    </div>
+                                                                <div class="biz-item-svc">
+                                                                    <ul class="svc-list">
+                                                                        <li class="svc-li"></li>
+                                                                        <li class="svc-li"></li>
+                                                                        <li class="svc-li"></li>
+                                                                        <li class="svc-li"></li>
+                                                                        <li class="svc-li"></li>
+                                                                        <li class="svc-li"></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="biz-item-href">
+                                                                    <a href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a>
+                                                                    <asp:Button CssClass="btn btn-delete"
+                                                                                runat="server"
+                                                                                OnClientClick="javascript:return confirm('确定要删除该店铺么?')"
+                                                                                CommandArgument='<%#Eval("Id") %>'
+                                                                                CommandName="delete" Text="删除店铺"/>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="biz-item-svc">
-                                                        <ul class="svc-list">
-                                                            <li class="svc-li"></li>
-                                                            <li class="svc-li"></li>
-                                                            <li class="svc-li"></li>
-                                                            <li class="svc-li"></li>
-                                                            <li class="svc-li"></li>
-                                                            <li class="svc-li"></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="biz-item-href">
-                                                        <a href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a>
-                                                        <asp:Button CssClass="btn btn-delete" style="display:none"
-                                                                    runat="server"
-                                                                    OnClientClick="javascript:return confirm('确定要删除该店铺么?')"
-                                                                    CommandArgument='<%#Eval("Id") %>'
-                                                                    CommandName="delete" Text="删除店铺"/>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
                                         </div>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
+                                        <div class="biz-list-bg">
+                                            <div class="biz-bg-t"></div>
+                                            <div class="biz-bg-m"></div>
+                                            <div class="biz-bg-b"></div>
+                                        </div>
                                     </div>
-                                    <div class="biz-list-bg">
-                                        <div class="biz-bg-t"></div>
-                                        <div class="biz-bg-m"></div>
-                                        <div class="biz-bg-b"></div>
-                                    </div>
+                                    <!--店铺列表 end-->
                                 </div>
-                                <!--店铺列表 end-->
                             </div>
                         </div>
                     </div>
-                    <div class="business-new cont-wrap dis-n">
+                    <div class="cont-wrap dis-n" id="business-new">
+                        <div class="mh-in">
+                            <div class="cont-container">
+                                <div class="mh-ctnr">
+                                    <div class="new-box">
+                                        <div class="t-c">
+                                            <img src="/image/buss-new.png"/>
+                                        </div>
+                                        <div class="business-new-add">
+                                            <a id="firstAddBusiness" class="new-add-btn">点击创建新店铺</a>
 
-                        <div class="cont-container">
-                            <div class="mh-ctnr">
-                                <div class="new-box">
-                                    <div class="t-c">
-                                        <img src="/image/buss-new.png"/>
-                                    </div>
-                                    <div class="business-new-add">
-                                        <a id="firstAddBusiness" class="new-add-btn">点击创建新店铺</a>
-
-                                        <p class="firstAddMsg dis-n">感谢您的使用一点办，为了给您提供更好的服务，建议您进入<a
-                                                style="font-weight:800" href="/account/security.aspx">“帐号安全”</a>绑定您的手机号码。
-                                        </p>
+                                            <p class="firstAddMsg dis-n">感谢您的使用一点办，为了给您提供更好的服务，<建></建>议您从用户名处的<a
+                                                    href="/account/security.aspx">“帐号安全”</a>绑定您的手机号码。
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <!--true时为已填写手机-->
                     <input id="hiCreateID" type="hidden" runat="server" value="false"/>
-
                     <div class="footer">
                         <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
                     </div>
@@ -171,9 +173,9 @@
                         <div class="cont-col-4"><p class="cont-h5 theme-color-58789a business-lightbox-title">您的店铺名称</p>
                         </div>
                         <div class="cont-col-8">
-                            <p><input class="input-mid" runat="server" id="tbxName" type="text"/></p>
+                            <p><input class="input-mid" runat="server" id="tbxName" type="text" data-toggle="tooltip" data-placement="top" title="请填写店铺名称"/></p>
 
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺名称</p>
+                            <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺名称</p>-->
                         </div>
                     </div>
                     <div class="cont-row m-b10">
@@ -182,9 +184,9 @@
                         <div class="cont-col-8">
                             <div>
                                 <textarea class="input-textarea buss-textarea" runat="server"
-                                          id="tbxDescription"></textarea>
+                                          id="tbxDescription" data-toggle="tooltip" data-placement="top" title="请填写简单店铺介绍"></textarea>
                             </div>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写简单店铺介绍</p>
+                            <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请填写简单店铺介绍</p>-->
                         </div>
                     </div>
                     <div class="cont-row m-b10">
@@ -192,11 +194,11 @@
                         </div>
                         <div class="cont-col-8">
                             <div>
-                                <input class="input-mid" runat="server" id="tbxAddress" type="text"/>
+                                <input class="input-mid" runat="server" id="tbxAddress" type="text" data-toggle="tooltip" data-placement="top" title="请填写店铺的详细地址"/>
                                 <input type="hidden" focusID="setAddress" runat="server" clientidmode="Static"
                                        id="hiAddrId" name="addressDetailHide"/>
                             </div>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺的详细地址</p>
+                            <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺的详细地址</p>-->
                         </div>
                     </div>
                     <div class="cont-row m-b10">
@@ -204,9 +206,9 @@
                         </div>
                         <div class="cont-col-8">
                             <div>
-                                <input class="input-mid" runat="server" id="tbxContactPhone" type="text"/>
+                                <input class="input-mid" runat="server" id="tbxContactPhone" type="text" data-toggle="tooltip" data-placement="top" title="请填写店铺的联系电话"/>
                             </div>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺的联系电话</p>
+                            <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺的联系电话</p>-->
                         </div>
                     </div>
                     <div class="cont-row m-b10">
@@ -214,15 +216,15 @@
                             店铺邮箱或网址</p></div>
                         <div class="cont-col-8">
                             <div>
-                                <input class="input-mid" runat="server" id="tbxWebSite" type="text"/>
+                                <input class="input-mid" runat="server" id="tbxWebSite" type="text" data-toggle="tooltip" data-placement="top" title="请填写店铺邮箱或网址"/>
                             </div>
-                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺邮箱或网址</p>
+                            <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺邮箱或网址</p>-->
                         </div>
                     </div>
                     <div class="cont-row">
                         <div class="cont-col-12">
                             <p class="t-c"><input class="btn btn-info" type="submit" runat="server" id="btnCreate"
-                                                  onserverclick="btnCreate_Click" value="创建"/><input
+                                                  onserverclick="btnCreate_Click" value="创建" /><input
                                     class="lightClose btn btn-cancel m-l20" type="button" value="取消"/></p>
                         </div>
                     </div>
@@ -246,10 +248,10 @@
 <script type="text/javascript" src="/js/business.js"></script>
 <script>
     $(function () {
-        if ($(".biz-list").find(".biz-list-item").length == 0) {
-            $(".biz-list-item").removeClass("dis-n");
+        if ($("#bizList").find(".biz-list-item").length == 0) {
+            $("#business-new").removeClass("dis-n");
         } else {
-            $(".business-main").removeClass("dis-n");
+            $("#business-main").removeClass("dis-n");
         }
     });
 
@@ -280,6 +282,7 @@
 
     $(function () {
         $("#menu").metisMenu();
+        $('[data-toggle="tooltip"]').tooltip()
     });
 
     $(function () {

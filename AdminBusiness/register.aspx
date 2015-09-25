@@ -20,7 +20,7 @@
         <div class="head">
         </div>
         <div class="main">
-            <div class="layout">
+            <div class="reg-layout">
                 <div class="wrap-reg">
                     <form id="form1" runat="server">
                     <div class="conReg">
@@ -74,7 +74,7 @@
                                         <div>
                                             <div class="agree">
                                                 <input id="agreeLic" name="agreeLic" type="checkbox" value="yes" /><label class="v-m m-l10" for="agreeLic">我已经仔细阅读过《<a
-                                                    class="agreeLIC-a" id="agreeLicHref" target="_blank" href="/protocol.html">点助服务协议</a>》，并同意所有条款。</label>
+                                                    class="agreeLIC-a" id="agreeLicHref" target="_blank" href="/protocol.html">一点办服务协议</a>》，并同意所有条款。</label>
                                             </div>
                                             <div class="buttonBox">
                                                 <asp:Button runat="server" ID="regPsSubmit"  ClientIDMode="Static" OnClick="regPsSubmit_OnClick"
@@ -91,7 +91,7 @@
                     </div>
                     </form>
                 </div>
-                <div class="footer">
+                <div class="reg-footer">
                     <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
                 </div>
             </div>
