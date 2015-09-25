@@ -55,7 +55,7 @@ namespace Dianzhu.CSClient.Presenter
            loginView.LoginButtonEnabled = true;
            loginView.LoginButtonText = "重新登录";
            loginView.ErrorMessage = "服务器错误, 请确保通讯服务器已开启." + error;
-           loginView.ShowError();
+         
        }
 
        
@@ -65,7 +65,7 @@ namespace Dianzhu.CSClient.Presenter
            loginView.LoginButtonEnabled = true;
            loginView.LoginButtonText = "重新登录";
            loginView.ErrorMessage = "服务器错误:"+error;
-           loginView.ShowError();
+           
            
        }
 

@@ -25,7 +25,7 @@ namespace Dianzhu.DemoClient
         {
 
             InitializeComponent();
-          
+
             if (!string.IsNullOrEmpty(csId))
             {
                 lblAssignedCS.Text = csDisplayName;
@@ -54,14 +54,14 @@ namespace Dianzhu.DemoClient
                     ""stamp_TIMES"": ""1490192929212"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
                 }}", tbxUserName.Text, tbxPwd.Text);
-           Newtonsoft.Json.Linq.JObject result=  API.GetApiResult(postData);
-           customerId = result["RespData"]["userObj"]["userID"].ToString();
-           
+            Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
+            customerId = result["RespData"]["userObj"]["userID"].ToString();
+
         }
         public void GetCustomerService()
         {
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(
-                string.Format( @"{{ // 
+                string.Format(@"{{ // 
                      ""protocol_CODE"": ""ORM002001"", 
                     ""ReqData"": {{ 
                     ""userID"": ""{0}"", 
@@ -70,19 +70,19 @@ namespace Dianzhu.DemoClient
                     }}, 
                     ""stamp_TIMES"": ""1490192929212"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
-                }}",customerId,tbxPwd.Text,tbxOrderId.Text));
+                }}", customerId, tbxPwd.Text, tbxOrderId.Text));
             string state_Code = result["state_CODE"].ToString();
             if (state_Code != "009000")
             {
                 string errMsg = result["err_Msg"].ToString();
                 MessageBox.Show(errMsg);
                 lblAssignedCS.Text = "客服离线";
-                throw new Exception(state_Code+"_" +errMsg);
+                throw new Exception(state_Code + "_" + errMsg);
             }
             csDisplayName = result["RespData"]["cerObj"]["alias"].ToString();
 
             csId = result["RespData"]["cerObj"]["userID"].ToString();
-          customerId  = result["RespData"]["cerObj"]["userID"].ToString();
+            customerId = result["RespData"]["cerObj"]["userID"].ToString();
             tbxOrderId.Text = orderID = result["RespData"]["orderID"].ToString();
         }
 
@@ -104,12 +104,12 @@ namespace Dianzhu.DemoClient
                 return;
             }
             string log = msg.Body;
-            orderID= msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
+            orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
             string msgType = msg.SelectSingleElement("ext").Namespace;
             switch (msgType.ToLower())
             {
                 case "ihelper:chat:text":
-                    
+
                     break;
                 case "ihelper:chat:media": break;
                 case "ihelper:cer:change":
@@ -133,18 +133,18 @@ namespace Dianzhu.DemoClient
             //{
             //    csName = "e||e.e";
             //}
-            
+
 
             //客户自己的信息
             //GetCustomerInfo(tbxUserName.Text);
-             GetCustomerService();
-             lblAssignedCS.Text = csDisplayName;
+            GetCustomerService();
+            lblAssignedCS.Text = csDisplayName;
 
 
             Presence p = new Presence(ShowType.chat, "Online");
             p.Type = PresenceType.available;
-            p.To =new Jid( csId + "@" + GlobalViables.ServerName);
-            p.From =new Jid(customerId + "@" + GlobalViables.ServerName);
+            p.To = new Jid(csId + "@" + GlobalViables.ServerName);
+            p.From = new Jid(customerId + "@" + GlobalViables.ServerName);
             GlobalViables.XMPPConnection.Send(p);
 
             lblLoginStatus.Text = "登录成功";
@@ -152,14 +152,14 @@ namespace Dianzhu.DemoClient
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-          
+
             string userName = tbxUserName.Text;
             string userNameForOpenfire = userName;
             if (Regex.IsMatch(userName, @"^[^\.@]+@[^\.@]+\.[^\.@]+$"))
             {
                 userNameForOpenfire = userName.Replace("@", "||");
             }
-             GetCustomerInfo(userName);
+            GetCustomerInfo(userName);
             GlobalViables.XMPPConnection.Open(customerId, tbxPwd.Text);
 
         }
@@ -173,7 +173,7 @@ namespace Dianzhu.DemoClient
             Label lblFrom = new Label();
             Label lblMessage = new Label();
             FlowLayoutPanel pnlOneChat = new FlowLayoutPanel();
-            pnlOneChat.Controls.AddRange(new Control[] {lblFrom, lblMessage });
+            pnlOneChat.Controls.AddRange(new Control[] { lblFrom, lblMessage });
             pnlOneChat.FlowDirection = FlowDirection.LeftToRight;
             _AutoSize(pnlOneChat);
             pnlOneChat.Dock = DockStyle.Top;
@@ -187,7 +187,7 @@ namespace Dianzhu.DemoClient
             pnlOneChat.Width = pnlChat.Size.Width - 16;
 
             //显示多媒体信息.
-        
+
             string msgType = message.SelectSingleElement("ext").Namespace;
             switch (msgType.ToLower())
             {
@@ -195,8 +195,8 @@ namespace Dianzhu.DemoClient
 
                     break;
                 case "ihelper:chat:media":
-                    string mediaUrl= message.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("url");
-                    string mediaType= message.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("type");
+                    string mediaUrl = message.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("url");
+                    string mediaType = message.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("type");
                     switch (mediaType)
                     {
                         case "image":
@@ -225,7 +225,7 @@ namespace Dianzhu.DemoClient
                     lblMessage.Text += "客服更换为:" + csDisplayName;
                     break;
             }
-            
+
             pnlChat.Controls.Add(pnlOneChat);
             pnlChat.ScrollControlIntoView(pnlOneChat);
 
@@ -234,20 +234,20 @@ namespace Dianzhu.DemoClient
 
         private void Pb_Click(object sender, EventArgs e)
         {
-              
+
             new ShowFullImage(((PictureBox)sender).Image).Show();
-        
 
-     }
 
-    private Label CreateNewLabel(string text)
+        }
+
+        private Label CreateNewLabel(string text)
         {
             Label lbl = new Label();
             lbl.Text = text;
             return lbl;
         }
 
-       
+
 
         private void btnSend_Click(object sender, EventArgs e)
         {
@@ -271,13 +271,30 @@ namespace Dianzhu.DemoClient
         {
             Presence p = new Presence(ShowType.chat, "Offline");
             p.Type = PresenceType.unavailable;
-            p.To =new Jid( csId + "@" + GlobalViables.ServerName);
-            p.From =new Jid( StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName);
+            p.To = new Jid(csId + "@" + GlobalViables.ServerName);
+            p.From = new Jid(StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName);
             GlobalViables.XMPPConnection.Send(p);
         }
 
         private void btnSelectImage_Click(object sender, EventArgs e)
         {
+            var result
+                = SelectFile();
+            if (!string.IsNullOrEmpty(result))
+            {
+                agsc.Message msgnew = new MessageBuilder()
+                    .Create(customerId, csId, string.Empty, orderID)
+                    .BuildMedia("image",   result)
+                    ;
+
+                GlobalViables.XMPPConnection.Send(msgnew);
+                AddLog(msgnew);
+            }
+
+        }
+        private string SelectFile()
+        {
+            string result = string.Empty;
             if (dlgSelectPic.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 System.IO.FileStream fs = dlgSelectPic.OpenFile() as FileStream;
@@ -290,19 +307,16 @@ namespace Dianzhu.DemoClient
                 }
                 string s = Convert.ToBase64String(bytes);
 
-                string result = PHSuit.IOHelper.UploadFileHttp(
-                    GlobalViables.MediaUploadUrl,
-                     string.Empty, bytes, fileExtension);
-                agsc.Message msgnew = new MessageBuilder()
-                    .Create(customerId, csId, string.Empty, orderID)
-                    .BuildMedia("image",GlobalViables.MediaRootUrl+result)
-                    ;
 
-                GlobalViables.XMPPConnection.Send(msgnew);
-                AddLog(msgnew);
+                result =MediaServer.HttpUploader.Upload(
+                  GlobalViables.MediaUploadUrl, 
+                  s, dlgSelectPic.FileName, 
+                  "ChatImage", "image");
+
             }
+            return GlobalViables.MediaGetUrl+ result;
         }
-        
+
         private void _AutoSize(Control c)
         {
             c.Size = new Size(0, 0);
@@ -333,6 +347,23 @@ namespace Dianzhu.DemoClient
 
         private void label5_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnAudio_Click(object sender, EventArgs e)
+        {
+            var result
+               = SelectFile();
+            if (!string.IsNullOrEmpty(result))
+            {
+                agsc.Message msgnew = new MessageBuilder()
+                    .Create(customerId, csId, string.Empty, orderID)
+                    .BuildMedia("audio",  result)
+                    ;
+
+                GlobalViables.XMPPConnection.Send(msgnew);
+                AddLog(msgnew);
+            }
 
         }
     }

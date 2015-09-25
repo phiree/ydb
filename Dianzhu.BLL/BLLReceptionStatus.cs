@@ -151,12 +151,15 @@ namespace Dianzhu.BLL
         }
 
     }
+    /// <summary>
+    /// 客服分配接口..
+    /// </summary>
     public interface IAssignStratage
     {
         DZMembership Assign(DZMembership customer, IList<DZMembership> csList);
     }
     /// <summary>
-    /// 返回一个随机客服.
+    ///  随机客服.
     /// </summary>
     public class AssignStratageRandom : IAssignStratage
     {
