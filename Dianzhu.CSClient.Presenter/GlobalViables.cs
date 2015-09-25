@@ -21,7 +21,7 @@ namespace Dianzhu.CSClient.Presenter
          public static DZMembership CurrentCustomerService = null;
         public static string MediaUploadUrl = "http://192.168.1.140:8037/UploadFile.ashx";
         public static string MediaGetUrl = "http://192.168.1.140:8037/GetFile.ashx?fileName=";
-
+        public static readonly string LocalMediaSaveDir =Environment.CurrentDirectory+ @"\localmedia\";
 
     }
 }

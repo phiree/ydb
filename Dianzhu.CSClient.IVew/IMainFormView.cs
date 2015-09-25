@@ -9,6 +9,7 @@ namespace Dianzhu.CSClient.IVew
     public delegate void ActiveCustomerHandler(DZMembership customer);
     public delegate void SendMessageHandler();
     public delegate void SendImageHandler();
+    public delegate void PlayAudio(object audioTag);
     public delegate void PushExternalService();
     public delegate void PushInternalService(DZService service);
     public delegate void SearchService();
@@ -16,6 +17,7 @@ namespace Dianzhu.CSClient.IVew
     public delegate void CreateOrder();
     public delegate void ViewClosed();
     public delegate void BeforeCustomerChanged();
+
     public interface IMainFormView
     {
         #region Chat
@@ -40,9 +42,10 @@ namespace Dianzhu.CSClient.IVew
         string ButtonNamePrefix { get; set; }
         event SendMessageHandler SendMessageHandler;
         event SendImageHandler SendImageHandler;
+        event PlayAudio PlayAudio;
         event ActiveCustomerHandler ActiveCustomerHandler;
         #endregion
-
+        string LocalMediaSaveDir { get; set; }
         string SerachKeyword { get; set; }
         string MessageTextBox { get; set; }
         string CurrentCustomerName { get; set; }
