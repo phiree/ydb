@@ -32,7 +32,7 @@
     <MinimumRequiredVersion>1.0.0.9</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>21</ApplicationRevision>
+    <ApplicationRevision>27</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -74,6 +74,9 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
@@ -92,6 +95,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -136,6 +140,7 @@
     </Content>
     <Fakes Include="Fakes\Dianzhu.CSClient.WPFView.fakes" />
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -175,9 +180,9 @@
       <Project>{0550CABB-3957-45CC-8CC6-9FBEA653B20D}</Project>
       <Name>Dianzhu.CSClient.WinformView</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.WPFView\Dianzhu.CSClient.WPFView.csproj">
-      <Project>{f7f37923-3d12-43b4-a604-806714048c26}</Project>
-      <Name>Dianzhu.CSClient.WPFView</Name>
+    <ProjectReference Include="..\Dianzhu.CSClient.WPFView2\Dianzhu.CSClient.WPFView2.csproj">
+      <Project>{cbcc23e1-62a9-46bc-9ebd-3d0c3cb37c89}</Project>
+      <Name>Dianzhu.CSClient.WPFView2</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
       <Project>{125F0D3B-E83C-4743-9944-E82392CBA6C5}</Project>

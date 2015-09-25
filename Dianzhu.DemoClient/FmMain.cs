@@ -152,7 +152,7 @@ namespace Dianzhu.DemoClient
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-
+            GlobalViables.XMPPConnection.Close();
             string userName = tbxUserName.Text;
             string userNameForOpenfire = userName;
             if (Regex.IsMatch(userName, @"^[^\.@]+@[^\.@]+\.[^\.@]+$"))
