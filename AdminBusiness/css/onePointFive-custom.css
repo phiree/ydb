@@ -1397,65 +1397,126 @@ input[type="button"].btn-block {
 .panel-danger > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #ebccd1;
 }
-.steps-wrap .steps-show {
+.steps-3 .steps-show {
   overflow: hidden;
   background: #ddd;
 }
-.steps-wrap .steps-tips {
+.steps-3 .steps-tips {
   overflow: hidden;
   padding: 20px;
   margin: 14px;
   background: #fff;
 }
-.steps-wrap .steps-tips .steps-tip {
+.steps-3 .steps-tips .steps-tip {
   float: left;
-  width: 33.333%;
+  width: 33.33333333%;
   text-align: center;
   position: relative;
   z-index: 100;
 }
-.steps-wrap .steps-tips .steps-tip .steps-tip-icon {
+.steps-3 .steps-tips .steps-tip .steps-tip-icon {
   display: inline-block;
   width: 90px;
   height: 90px;
   background: #ddd;
 }
-.steps-wrap .steps-tips .steps-tip.cur-step .steps-tip-icon {
+.steps-3 .steps-tips .steps-tip.cur-step .steps-tip-icon {
   display: inline-block;
   width: 90px;
   height: 90px;
   background: red;
 }
-.steps-wrap .steps-tips .steps-tip.done-step .steps-tip-icon {
+.steps-3 .steps-tips .steps-tip.done-step .steps-tip-icon {
   display: inline-block;
   width: 90px;
   height: 90px;
   background: blue;
 }
-.steps-wrap .steps-lines {
-  width: 637px;
+.steps-3 .steps-lines {
+  width: 66.66666667%;
   height: 10px;
   background: #666;
   margin: 0 auto;
   margin-top: -85px;
   margin-bottom: 75px;
 }
-.steps-wrap .steps-lines .steps-line {
+.steps-3 .steps-lines .steps-line {
   float: left;
   width: 50%;
   height: 10px;
   background: #ddd;
 }
-.steps-wrap .steps-lines .steps-line.cur-step {
+.steps-3 .steps-lines .steps-line.cur-step {
   background: red;
 }
-.steps-wrap .steps-lines .steps-line.done-step {
+.steps-3 .steps-lines .steps-line.done-step {
   background: blue;
 }
-.steps-wrap .steps-list .steps-step {
+.steps-3 .steps-list .steps-step {
   display: none;
 }
-.steps-wrap .steps-list .steps-step.cur-step {
+.steps-3 .steps-list .steps-step.cur-step {
+  display: block;
+}
+.steps-2 .steps-show {
+  overflow: hidden;
+  background: #ddd;
+}
+.steps-2 .steps-tips {
+  overflow: hidden;
+  padding: 20px;
+  margin: 14px;
+  background: #fff;
+}
+.steps-2 .steps-tips .steps-tip {
+  float: left;
+  width: 50%;
+  text-align: center;
+  position: relative;
+  z-index: 100;
+}
+.steps-2 .steps-tips .steps-tip .steps-tip-icon {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  background: #ddd;
+}
+.steps-2 .steps-tips .steps-tip.cur-step .steps-tip-icon {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  background: red;
+}
+.steps-2 .steps-tips .steps-tip.done-step .steps-tip-icon {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  background: blue;
+}
+.steps-2 .steps-lines {
+  width: 50%;
+  height: 10px;
+  background: #666;
+  margin: 0 auto;
+  margin-top: -85px;
+  margin-bottom: 75px;
+}
+.steps-2 .steps-lines .steps-line {
+  float: left;
+  width: 100%;
+  height: 10px;
+  background: #ddd;
+}
+.steps-2 .steps-lines .steps-line.cur-step {
+  background: red;
+}
+.steps-2 .steps-lines .steps-line.done-step {
+  background: blue;
+}
+.steps-2 .steps-list .steps-step {
+  display: none;
+}
+.steps-2 .steps-list .steps-step.cur-step {
   display: block;
 }
 .d-inb {

@@ -5,7 +5,7 @@
     <div class="mh-in">
         <div class="cont-container animated fadeInUpSmall">
             <div class="mh-ctnr">
-                <div class="steps-wrap">
+                <div class="steps-wrap steps-3">
                     <div class="steps-show">
                         <div class="steps-tips clearfix">
                             <div class="steps-tip">

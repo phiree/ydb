@@ -1,4 +1,4 @@
-.steps-wrap {
+.steps-wrap(@stepNum) {
 
   .steps-show {
     overflow: hidden;
@@ -13,7 +13,7 @@
     background: #fff;
     .steps-tip {
       float: left;
-      width: 33.333%;
+      width: 100/@stepNum * 1%;
       text-align: center;
       position: relative;
       z-index: 100;
@@ -44,7 +44,7 @@
   }
 
   .steps-lines {
-    width: 637px;
+    width: (100 - 100/@stepNum) * 1% ;
     height: 10px;
     background: #666;
     margin: 0 auto;
@@ -52,7 +52,7 @@
     margin-bottom: 75px;
     .steps-line {
       float: left;
-      width: 50%;
+      width: 100/(@stepNum - 1) * 1%;
       height: 10px;
       background: #ddd;
       &.cur-step {
@@ -82,7 +82,10 @@
 
 }
 
+.steps-3 {
+  .steps-wrap(3);
+}
 
-
-
-
+.steps-2 {
+  .steps-wrap(2);
+}
