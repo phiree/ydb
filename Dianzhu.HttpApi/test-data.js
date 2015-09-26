@@ -1,6 +1,6 @@
 ﻿var need_to_test = [
-"orm002001", "orm001003", "orm001004", "orm001005"
-//"usm001005", "usm001007"
+//"orm002001", "orm001003", "orm001004", "orm001005"
+"usm001008","usm001007"
 //"merm001001","merm001003","merm001005",
 
 //"orm001004","orm001005","orm001006"
@@ -160,6 +160,19 @@ var test_data = [
                      "serial_NUMBER": "00147001015869149751"
                  },
                  //上传资源
+                 //图片
+                 {
+                     "protocol_CODE": "USM001008",
+                     "ReqData": {
+                         "userID": "eb2ae597-5adb-4242-b22e-a4f901275654",
+                         "pWord": "123456",
+                         "type": "image",
+                         "Resource": "iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII="
+                     },
+                     "stamp_TIMES": "1490192929212",
+                     "serial_NUMBER": "00147001015869149751"
+                 },
+                 //音频
                  {
                      "protocol_CODE": "USM001008",
                      "ReqData": {
@@ -171,6 +184,7 @@ var test_data = [
                      "stamp_TIMES": "1490192929212",
                      "serial_NUMBER": "00147001015869149751"
                  },
+                 //视频
                   {
                       "protocol_CODE": "USM001008",
                       "ReqData": {

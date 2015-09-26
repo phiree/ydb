@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using System.IO;
 using Dianzhu.Model;
 using Dianzhu.CSClient.IVew;
  
@@ -38,6 +38,8 @@ namespace Dianzhu.CSClient.WinformView
         public event CreateOrder CreateOrder;
         public event BeforeCustomerChanged BeforeCustomerChanged;
         public event ViewClosed ViewClosed;
+        public event PlayAudio PlayAudio;
+        
 
         #endregion
 
@@ -51,6 +53,7 @@ namespace Dianzhu.CSClient.WinformView
             get { return currentCustomerName; }
             set { currentCustomerName = value; }
         }
+        private string localMediaSaveDir;
         IList<ReceptionChat> chatLog;
         public IList<ReceptionChat> ChatLog
         {
@@ -141,22 +144,30 @@ namespace Dianzhu.CSClient.WinformView
                     case "image":
                         PictureBox pb = new PictureBox();
                         pb.Click += new EventHandler(pb_Click);
-
+                        string filename = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
+                        string localFile = LocalMediaSaveDir + filename;
+                        if(File.Exists(localFile))
+                        {
+                            pb.ImageLocation = localFile;
+                        }
+                        else { 
                         pb.Load(mediaUrl);
-                        
+                        }
                         pb.Size = new System.Drawing.Size(100, 100);
                         pb.SizeMode = PictureBoxSizeMode.Zoom;
                         pnlOneChat.Controls.Add(pb);
                         break;
                     case "audio":
                         Button btnAudio = new Button();
-                        btnAudio.Text = "播放音频(待实现)";
+                        btnAudio.Text = "播放音频---";
                         btnAudio.Tag = mediaUrl;
+                        btnAudio.AutoSize = true;
+                        btnAudio.Click += BtnAudio_Click;
                         pnlOneChat.Controls.Add(btnAudio);
                         break;
                     case "video":
                         Button btnVideo = new Button();
-                        btnVideo.Text = "播放视频(待实现)";
+                        btnVideo.Text = "播放视频";
                         pnlOneChat.Controls.Add(btnVideo);
                         break;
                 }
@@ -178,6 +189,11 @@ namespace Dianzhu.CSClient.WinformView
                 lambda();
             }
 
+        }
+
+        private void BtnAudio_Click(object sender, EventArgs e)
+        {
+            PlayAudio(((Button)sender).Tag);
         }
 
         private void pb_Click(object sender, EventArgs e)
@@ -502,6 +518,19 @@ namespace Dianzhu.CSClient.WinformView
         }
         public string SelectedImageName {
             get { return dlgSelectPic.FileName; }
+        }
+
+        public string LocalMediaSaveDir
+        {
+            get
+            {
+                return localMediaSaveDir;
+            }
+
+            set
+            {
+                localMediaSaveDir = value;
+            }
         }
 
         private void btnSendImage_Click(object sender, EventArgs e)

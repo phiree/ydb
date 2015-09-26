@@ -208,7 +208,7 @@ namespace Dianzhu.CSClient.Presenter
         private void view_SendImageHandler()
         {
             if (customer == null) return;
- 
+            
             System.IO.FileStream fs = view.SelectedImageStream as System.IO.FileStream;
                 string fileExtension = Path.GetExtension(view.SelectedImageName);
                 byte[] bytes;
@@ -218,10 +218,11 @@ namespace Dianzhu.CSClient.Presenter
                     bytes = ms.ToArray();
                 }
                 string s = Convert.ToBase64String(bytes);
-
-                string result = PHSuit.IOHelper.UploadFileHttp(
-                    GlobalViables.MediaUploadUrl,
-                     string.Empty, bytes, fileExtension);
+         string fileName=   MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, view.SelectedImageName,
+                "ChatImage", "image");
+                //string result = PHSuit.IOHelper.UploadFileHttp(
+                //    GlobalViables.MediaUploadUrl,
+                //     string.Empty, bytes, fileExtension);
 
             ReceptionChatMedia chat = new ReceptionChatMedia
             {
@@ -231,7 +232,7 @@ namespace Dianzhu.CSClient.Presenter
                 MessageBody = view.MessageTextBox,
                 SendTime = DateTime.Now,
                 SavedTime = DateTime.Now,
-                MedialUrl =GlobalViables.MediaRootUrl+ result,
+                MedialUrl =GlobalViables.MediaGetUrl+ fileName,
                 MediaType = "image"
             };
 

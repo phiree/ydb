@@ -17,7 +17,7 @@ public class FileUploadCommon : IHttpHandler {
         string dd = sr.ReadToEnd();
 
         Image img = Image.FromStream(s);
-        string upload_filename ="/media/chat/original/"+  Guid.NewGuid() + ".jpg";
+        string upload_filename ="/media/chat/original/"+  Guid.NewGuid() + "";
         
         img.Save(context.Server.MapPath(upload_filename));
         context.Response.Write(upload_filename);

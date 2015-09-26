@@ -62,7 +62,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.HttpApi", "Dianzhu.HttpApi\", "{0D1C0821-004D-4D6B-BB6C-F561895DCC4E}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
+		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Dianzhu.HttpApi"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.HttpApi\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Dianzhu.HttpApi\"
@@ -184,29 +184,34 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeiPayWeb", "WeiPayWeb\WeiP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeiPay", "WeiPay\WeiPay.csproj", "{8BD73D13-5EFF-45CE-9B9C-355056711FA0}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServer", "MediaServer\", "{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediaServer", "MediaServer", "{77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaServer", "MediaServer\MediaServer.csproj", "{9920DA22-589C-4193-AEAA-363D5C029DFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaServerTest", "MediaServerTest\MediaServerTest.csproj", "{8970D254-2FE4-4028-81DA-F4311DCB6682}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb(1)", "MediaServerWeb\", "{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_6853"
-		Debug.AspNetCompiler.PhysicalPath = "MediaServer\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_6853\"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_2762"
+		Debug.AspNetCompiler.PhysicalPath = "MediaServerWeb\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2762\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_6853"
-		Release.AspNetCompiler.PhysicalPath = "MediaServer\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_6853\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_2762"
+		Release.AspNetCompiler.PhysicalPath = "MediaServerWeb\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2762\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "6853"
-		SlnRelativePath = "MediaServer\"
-		DefaultWebSiteLanguage = "Visual C#"
+		VWDPort = "2762"
+		SlnRelativePath = "MediaServerWeb\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.WPFView", "Dianzhu.CSClient.WPFView\Dianzhu.CSClient.WPFView.csproj", "{F7F37923-3D12-43B4-A604-806714048C26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.WPFView2", "Dianzhu.CSClient.WPFView2\Dianzhu.CSClient.WPFView2.csproj", "{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -451,30 +456,54 @@ Global
 		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Release|x86.ActiveCfg = Release|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Debug|x86.Build.0 = Debug|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Release|x86.ActiveCfg = Debug|Any CPU
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1}.Release|x86.Build.0 = Debug|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Debug|x86.Build.0 = Debug|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Release|x86.ActiveCfg = Release|Any CPU
-		{F7F37923-3D12-43B4-A604-806714048C26}.Release|x86.Build.0 = Release|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Debug|x86.Build.0 = Debug|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Release|x86.ActiveCfg = Release|Any CPU
+		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Release|x86.Build.0 = Release|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Debug|x86.Build.0 = Debug|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Release|x86.ActiveCfg = Release|Any CPU
+		{8970D254-2FE4-4028-81DA-F4311DCB6682}.Release|x86.Build.0 = Release|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Debug|x86.Build.0 = Debug|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Release|x86.ActiveCfg = Debug|Any CPU
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}.Release|x86.Build.0 = Debug|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Debug|x86.Build.0 = Debug|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Release|x86.ActiveCfg = Release|Any CPU
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -504,8 +533,10 @@ Global
 		{A871C9E1-98A4-412F-A1B3-541189A4C4CF} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{D7AA114D-AD19-4399-B152-969D240053C7} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{70D7CB95-6CDE-4740-9F42-3619BB78EFB1} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{F7F37923-3D12-43B4-A604-806714048C26} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{9920DA22-589C-4193-AEAA-363D5C029DFC} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
+		{8970D254-2FE4-4028-81DA-F4311DCB6682} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
+		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

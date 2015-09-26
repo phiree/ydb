@@ -32,7 +32,6 @@
             this.pnlCustomerList = new System.Windows.Forms.FlowLayoutPanel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.pnlOrder = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnOrderList = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.tbxServiceName = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -144,7 +143,6 @@
             // pnlOrder
             // 
             this.pnlOrder.AutoScroll = true;
-            this.pnlOrder.Controls.Add(this.btnOrderList);
             this.pnlOrder.Controls.Add(this.label10);
             this.pnlOrder.Controls.Add(this.tbxServiceName);
             this.pnlOrder.Controls.Add(this.label11);
@@ -169,19 +167,10 @@
             this.pnlOrder.TabIndex = 2;
             this.pnlOrder.WrapContents = false;
             // 
-            // btnOrderList
-            // 
-            this.btnOrderList.Location = new System.Drawing.Point(3, 3);
-            this.btnOrderList.Name = "btnOrderList";
-            this.btnOrderList.Size = new System.Drawing.Size(100, 23);
-            this.btnOrderList.TabIndex = 8;
-            this.btnOrderList.Text = "查看订单列表";
-            this.btnOrderList.UseVisualStyleBackColor = true;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 29);
+            this.label10.Location = new System.Drawing.Point(3, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 12);
             this.label10.TabIndex = 16;
@@ -189,7 +178,7 @@
             // 
             // tbxServiceName
             // 
-            this.tbxServiceName.Location = new System.Drawing.Point(3, 44);
+            this.tbxServiceName.Location = new System.Drawing.Point(3, 15);
             this.tbxServiceName.Name = "tbxServiceName";
             this.tbxServiceName.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceName.TabIndex = 13;
@@ -197,7 +186,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 68);
+            this.label11.Location = new System.Drawing.Point(3, 39);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(53, 12);
             this.label11.TabIndex = 16;
@@ -205,7 +194,7 @@
             // 
             // tbxServiceBusinessName
             // 
-            this.tbxServiceBusinessName.Location = new System.Drawing.Point(3, 83);
+            this.tbxServiceBusinessName.Location = new System.Drawing.Point(3, 54);
             this.tbxServiceBusinessName.Name = "tbxServiceBusinessName";
             this.tbxServiceBusinessName.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceBusinessName.TabIndex = 14;
@@ -213,7 +202,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 107);
+            this.label12.Location = new System.Drawing.Point(3, 78);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(53, 12);
             this.label12.TabIndex = 16;
@@ -222,7 +211,7 @@
             // 
             // tbxServiceDescription
             // 
-            this.tbxServiceDescription.Location = new System.Drawing.Point(3, 122);
+            this.tbxServiceDescription.Location = new System.Drawing.Point(3, 93);
             this.tbxServiceDescription.Name = "tbxServiceDescription";
             this.tbxServiceDescription.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceDescription.TabIndex = 15;
@@ -230,7 +219,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(3, 146);
+            this.label13.Location = new System.Drawing.Point(3, 117);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(29, 12);
             this.label13.TabIndex = 16;
@@ -239,7 +228,7 @@
             // 
             // tbxServiceUnitPrice
             // 
-            this.tbxServiceUnitPrice.Location = new System.Drawing.Point(3, 161);
+            this.tbxServiceUnitPrice.Location = new System.Drawing.Point(3, 132);
             this.tbxServiceUnitPrice.Name = "tbxServiceUnitPrice";
             this.tbxServiceUnitPrice.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceUnitPrice.TabIndex = 15;
@@ -247,7 +236,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 185);
+            this.label6.Location = new System.Drawing.Point(3, 156);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 12);
             this.label6.TabIndex = 4;
@@ -255,7 +244,7 @@
             // 
             // tbxServiceTime
             // 
-            this.tbxServiceTime.Location = new System.Drawing.Point(3, 200);
+            this.tbxServiceTime.Location = new System.Drawing.Point(3, 171);
             this.tbxServiceTime.Name = "tbxServiceTime";
             this.tbxServiceTime.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceTime.TabIndex = 3;
@@ -263,7 +252,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 224);
+            this.label9.Location = new System.Drawing.Point(3, 195);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 12);
             this.label9.TabIndex = 12;
@@ -271,7 +260,7 @@
             // 
             // tbxTargetAddress
             // 
-            this.tbxTargetAddress.Location = new System.Drawing.Point(3, 239);
+            this.tbxTargetAddress.Location = new System.Drawing.Point(3, 210);
             this.tbxTargetAddress.Name = "tbxTargetAddress";
             this.tbxTargetAddress.Size = new System.Drawing.Size(262, 21);
             this.tbxTargetAddress.TabIndex = 11;
@@ -279,7 +268,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 263);
+            this.label7.Location = new System.Drawing.Point(3, 234);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(29, 12);
             this.label7.TabIndex = 6;
@@ -287,7 +276,7 @@
             // 
             // tbxAmount
             // 
-            this.tbxAmount.Location = new System.Drawing.Point(3, 278);
+            this.tbxAmount.Location = new System.Drawing.Point(3, 249);
             this.tbxAmount.Name = "tbxAmount";
             this.tbxAmount.Size = new System.Drawing.Size(262, 21);
             this.tbxAmount.TabIndex = 5;
@@ -295,7 +284,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 302);
+            this.label8.Location = new System.Drawing.Point(3, 273);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(29, 12);
             this.label8.TabIndex = 10;
@@ -303,7 +292,7 @@
             // 
             // tbxMemo
             // 
-            this.tbxMemo.Location = new System.Drawing.Point(3, 317);
+            this.tbxMemo.Location = new System.Drawing.Point(3, 288);
             this.tbxMemo.Multiline = true;
             this.tbxMemo.Name = "tbxMemo";
             this.tbxMemo.Size = new System.Drawing.Size(262, 59);
@@ -311,7 +300,7 @@
             // 
             // btnCreateOrder
             // 
-            this.btnCreateOrder.Location = new System.Drawing.Point(3, 382);
+            this.btnCreateOrder.Location = new System.Drawing.Point(3, 353);
             this.btnCreateOrder.Name = "btnCreateOrder";
             this.btnCreateOrder.Size = new System.Drawing.Size(155, 23);
             this.btnCreateOrder.TabIndex = 7;
@@ -347,7 +336,7 @@
             this.splitContainer3.Panel2.Controls.Add(this.pnlResultService);
             this.splitContainer3.Panel2.Controls.Add(this.panel2);
             this.splitContainer3.Size = new System.Drawing.Size(597, 521);
-            this.splitContainer3.SplitterDistance = 294;
+            this.splitContainer3.SplitterDistance = 183;
             this.splitContainer3.TabIndex = 0;
             // 
             // pnlChat
@@ -359,7 +348,7 @@
             this.pnlChat.ImeMode = System.Windows.Forms.ImeMode.On;
             this.pnlChat.Location = new System.Drawing.Point(0, 0);
             this.pnlChat.Name = "pnlChat";
-            this.pnlChat.Size = new System.Drawing.Size(292, 496);
+            this.pnlChat.Size = new System.Drawing.Size(181, 496);
             this.pnlChat.TabIndex = 3;
             this.pnlChat.WrapContents = false;
             // 
@@ -379,13 +368,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 496);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(292, 23);
+            this.panel1.Size = new System.Drawing.Size(181, 23);
             this.panel1.TabIndex = 1;
             // 
             // btnSendImage
             // 
             this.btnSendImage.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSendImage.Location = new System.Drawing.Point(142, 0);
+            this.btnSendImage.Location = new System.Drawing.Point(31, 0);
             this.btnSendImage.Name = "btnSendImage";
             this.btnSendImage.Size = new System.Drawing.Size(75, 23);
             this.btnSendImage.TabIndex = 2;
@@ -399,14 +388,14 @@
             this.tbxChatMsg.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxChatMsg.Location = new System.Drawing.Point(0, 0);
             this.tbxChatMsg.Name = "tbxChatMsg";
-            this.tbxChatMsg.Size = new System.Drawing.Size(217, 21);
+            this.tbxChatMsg.Size = new System.Drawing.Size(106, 21);
             this.tbxChatMsg.TabIndex = 0;
             this.tbxChatMsg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxChatMsg_KeyPress);
             // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSend.Location = new System.Drawing.Point(217, 0);
+            this.btnSend.Location = new System.Drawing.Point(106, 0);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 1;
@@ -417,9 +406,11 @@
             // pnlResultService
             // 
             this.pnlResultService.AutoScroll = true;
-            this.pnlResultService.Location = new System.Drawing.Point(4, 367);
+            this.pnlResultService.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlResultService.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.pnlResultService.Location = new System.Drawing.Point(0, 104);
             this.pnlResultService.Name = "pnlResultService";
-            this.pnlResultService.Size = new System.Drawing.Size(340, 150);
+            this.pnlResultService.Size = new System.Drawing.Size(408, 415);
             this.pnlResultService.TabIndex = 1;
             this.pnlResultService.WrapContents = false;
             // 
@@ -435,7 +426,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(297, 104);
+            this.panel2.Size = new System.Drawing.Size(408, 104);
             this.panel2.TabIndex = 0;
             // 
             // btnKeywords
@@ -656,7 +647,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbxAmount;
         private System.Windows.Forms.Button btnCreateOrder;
-        private System.Windows.Forms.Button btnOrderList;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbxMemo;
         private System.Windows.Forms.Label label9;
