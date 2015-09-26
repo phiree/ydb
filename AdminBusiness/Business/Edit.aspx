@@ -13,7 +13,9 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
 
     <div class="cont-wrap theme-color-58789a">
         <div class="cont-container animated fadeInUpSmall">
-
+            <div class="step-list">
+                
+            </div>
             <div class="cont-row step-row">
                 <div class="cont-col-2">
                     <h3 class="step-head step-1">
