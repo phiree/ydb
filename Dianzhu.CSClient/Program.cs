@@ -31,7 +31,8 @@ namespace Dianzhu.CSClient
             XMPP.XMPP xmpp = new XMPP.XMPP(messageAdapter);
             var loginForm = new FormLogin();
             
-                Presenter.LoginPresenter loginPresenter = new Presenter.LoginPresenter(loginForm,xmpp,
+                Presenter.LoginPresenter loginPresenter = 
+                new Presenter.LoginPresenter(loginForm,xmpp,
                     BLLFactory.BLLMember);
                   result = loginForm.ShowDialog();
             

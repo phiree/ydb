@@ -84,7 +84,7 @@ namespace PHSuit
             string result = reg.Replace(query, " count(*) ", 1);
             return result;
         }
-        #region 全角半角转换
+        
 
         /// <summary>
 
@@ -169,7 +169,7 @@ namespace PHSuit
 
         }
 
-        #endregion
+       
 
         /// <summary>
         /// 用正则判断字符串属于哪种语言.
@@ -241,6 +241,23 @@ namespace PHSuit
                 openfireName = userName.Replace("@", "||");
             }
             return openfireName;
+        }
+        public static string ParseUrlParameter(string url,string param)
+        {
+            string result = string.Empty;
+            Uri uri = new Uri(url);
+        var vv=   HttpUtility.ParseQueryString(uri.Query);
+            if (string.IsNullOrEmpty(param) )
+            {
+
+                result = vv.Get(0);
+            }
+            else
+            {
+                
+                result = vv.Get(param);
+            }
+            return result;
         }
     }
 }

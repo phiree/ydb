@@ -152,7 +152,7 @@ namespace Dianzhu.DemoClient
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-
+            GlobalViables.XMPPConnection.Close();
             string userName = tbxUserName.Text;
             string userNameForOpenfire = userName;
             if (Regex.IsMatch(userName, @"^[^\.@]+@[^\.@]+\.[^\.@]+$"))
@@ -279,7 +279,7 @@ namespace Dianzhu.DemoClient
         private void btnSelectImage_Click(object sender, EventArgs e)
         {
             var result
-                = SelectFile();
+                = SelectFile("ChatImage","image");
             if (!string.IsNullOrEmpty(result))
             {
                 agsc.Message msgnew = new MessageBuilder()
@@ -292,7 +292,7 @@ namespace Dianzhu.DemoClient
             }
 
         }
-        private string SelectFile()
+        private string SelectFile(string domainName,string fileType)
         {
             string result = string.Empty;
             if (dlgSelectPic.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -308,13 +308,13 @@ namespace Dianzhu.DemoClient
                 string s = Convert.ToBase64String(bytes);
 
 
-                result =MediaServer.HttpUploader.Upload(
+                result = GlobalViables.MediaGetUrl + MediaServer.HttpUploader.Upload(
                   GlobalViables.MediaUploadUrl, 
-                  s, dlgSelectPic.FileName, 
-                  "ChatImage", "image");
+                  s, dlgSelectPic.FileName,
+                  domainName, fileType);
 
             }
-            return GlobalViables.MediaGetUrl+ result;
+            return  result;
         }
 
         private void _AutoSize(Control c)
@@ -353,7 +353,7 @@ namespace Dianzhu.DemoClient
         private void btnAudio_Click(object sender, EventArgs e)
         {
             var result
-               = SelectFile();
+               = SelectFile("ChatAudio", "audio");
             if (!string.IsNullOrEmpty(result))
             {
                 agsc.Message msgnew = new MessageBuilder()

@@ -24,5 +24,10 @@ namespace PHSuit
             Console.WriteLine(r);
             Assert.LessOrEqual(Convert.ToInt64(r), long.MaxValue);
          }
+        [Test]
+        public void parseUrlParam()
+        {
+           Assert.AreEqual("alasdf_$_dlaer", PHSuit.StringHelper.ParseUrlParameter("http://asdfesrawer/getfile.ashx?filename=alasdf_$_dlaer","filename"));
+        }
     }
 }

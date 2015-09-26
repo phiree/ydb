@@ -5,6 +5,9 @@ using Dianzhu.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using System.Net;
+
 namespace Dianzhu.CSClient.Presenter
 {
     public partial class MainPresenter
@@ -54,10 +57,18 @@ namespace Dianzhu.CSClient.Presenter
             this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
             this.view.CreateOrder += new CreateOrder(view_CreateOrder);
             this.view.ViewClosed += new ViewClosed(view_ViewClosed);
+
+            this.view.PlayAudio += View_PlayAudio;
+            this.view.LocalMediaSaveDir = GlobalViables.LocalMediaSaveDir;
             
         }
-
       
+        private void View_PlayAudio(object audioTag)
+        {
+            
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(audioTag.ToString());
+            player.Play();
+        }
 
         void instantMessage_IMClosed()
         {
@@ -116,6 +127,8 @@ namespace Dianzhu.CSClient.Presenter
 
                 };
                 ReceptionList.Add(customerName, re);
+                //保存媒體資源
+               
             }
             DateTime now = DateTime.Now;
 
@@ -128,6 +141,19 @@ namespace Dianzhu.CSClient.Presenter
             {
                 chat.ReceiveTime = now;
 
+            }
+            if (chat is ReceptionChatMedia)
+            {
+                string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                string localFileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
+
+                
+                using (var client = new WebClient())
+                {
+                    string savedPath = GlobalViables.LocalMediaSaveDir + localFileName;
+                    PHSuit.IOHelper.EnsureFileDirectory(savedPath);
+                    client.DownloadFile(mediaUrl, savedPath);
+                }
             }
             re.ChatHistory.Add(chat);
             bllReception.Save(re);

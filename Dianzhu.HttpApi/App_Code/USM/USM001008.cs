@@ -36,29 +36,48 @@ public class ResponseUSM001008 : BaseResponse
                 //上传图片.
                 //bllDeviceBind.UpdateDeviceBindStatus(member, requestData.appToken, requestData.appName);
                 string ext = string.Empty;
+                string domainType = string.Empty;
                 switch (requestData.FileType) {
-                    case USM001008UploadedFileType.image:ext = ".png"; break;
+                    case USM001008UploadedFileType.image:ext = ".png";
+                        domainType = "ChatImage";
+                        break;
                         
-                    case USM001008UploadedFileType.video: ext = ".mp4"; break;
-                    case USM001008UploadedFileType.voice: ext = ".mp3"; break;
+                    case USM001008UploadedFileType.video: ext = ".mp4";
+                        domainType = "ChatVideo";
+                        break;
+                    case USM001008UploadedFileType.voice: ext = ".mp3";
+                        
+                        domainType = "ChatAudio";
+                        break;
                 }
-                string fileName = Guid.NewGuid() + ext;
-                string relativePath = System.Configuration.ConfigurationManager.AppSettings["business_image_root"];
-                string filePath = HttpContext.Current.Server.MapPath(relativePath);
-                PHSuit.IOHelper.SaveFileFromBase64(requestData.Resource, filePath+fileName);
-                this.state_CODE = Dicts.StateCode[0];
                 RespDataUSM001008 respData = new RespDataUSM001008();
                 respData.userID = requestData.userID;
-                if(requestData.FileType== USM001008UploadedFileType.image)
-                { 
-                respData.ResourceUrl = ConfigurationManager.AppSettings["media_server"]+"imagehandler.ashx?imagename="+fileName;
-                }
-                else
-                {
-                    respData.ResourceUrl = ConfigurationManager.AppSettings["media_server"] + ConfigurationManager.AppSettings["business_image_root"] + fileName;
-                }
-               // member.AvatarUrl = fileName;
-               // p.UpdateDZMembership(member);
+                string resourceUrl = string.Empty;
+                this.state_CODE = Dicts.StateCode[0];
+                string savedFileName= MediaServer.HttpUploader.Upload(ConfigurationManager.AppSettings["MediaUploadUrl"],
+                    requestData.Resource, string.Empty, domainType
+                    , requestData.FileType== USM001008UploadedFileType.voice?"audio":requestData.FileType.ToString());
+                resourceUrl = ConfigurationManager.AppSettings["MediaGetUrl"] + savedFileName;
+                    
+
+                //string fileName = Guid.NewGuid() + ext;
+                //string relativePath = System.Configuration.ConfigurationManager.AppSettings["business_image_root"];
+                //string filePath = HttpContext.Current.Server.MapPath(relativePath);
+                //PHSuit.IOHelper.SaveFileFromBase64(requestData.Resource, filePath+fileName);
+                
+               
+               
+                //if(requestData.FileType== USM001008UploadedFileType.image)
+                //{
+                //    resourceUrl = ConfigurationManager.AppSettings["media_server"]+"imagehandler.ashx?imagename="+fileName;
+                //}
+                //else
+                //{
+                //    resourceUrl = ConfigurationManager.AppSettings["media_server"] + ConfigurationManager.AppSettings["business_image_root"] + fileName;
+                //}
+                // member.AvatarUrl = fileName;
+                // p.UpdateDZMembership(member);
+                respData.ResourceUrl = resourceUrl;
                 this.RespData = respData;
                 
             }
