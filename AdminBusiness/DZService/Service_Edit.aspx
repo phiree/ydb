@@ -19,6 +19,7 @@
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="/js/ServiceType.js"></script>
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
+    <script type="text/javascript" src="/js/StepByStep.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script src="/js/serviceTimeSelect.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -61,6 +62,7 @@
 
             $(".time-select-wrap").timeSelect();
 
+
         });
     </script>
     <script>
@@ -102,15 +104,29 @@
 
             $($("form")[0]).validate(
                 {
+                    ignore:[],
                     errorElement: "p",
                     errorPlacement: function(error, element) {
                         error.appendTo( element.parent() );
                     },
                     rules: service_validate_rules,
                     messages: service_validate_messages,
-                    invalidHandler: invalidHandler
+//                    invalidHandler: invalidHandler,
+//                    showErrors: showErrorsHandler
                 }
             );
+
+
+
+            $(".steps-wrap").StepByStep({
+                stepNextFunc : function(){
+                    return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
+                },
+                stepLastFunc : function(){
+                    $("#btnCancel").removeClass("dis-n");
+                    $("#btnSave").removeClass("dis-n");
+                }
+            });
         });       //document.ready
     </script>
     <script>

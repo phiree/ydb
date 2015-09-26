@@ -1,0 +1,88 @@
+.steps-wrap {
+
+  .steps-show {
+    overflow: hidden;
+    background: #ddd;
+  }
+
+  .steps-tips {
+    overflow: hidden;
+    padding: 20px;
+    margin: 14px;
+
+    background: #fff;
+    .steps-tip {
+      float: left;
+      width: 33.333%;
+      text-align: center;
+      position: relative;
+      z-index: 100;
+      .steps-tip-icon {
+        display: inline-block;
+        width: 90px;
+        height: 90px;
+        background: #ddd;
+      }
+
+      &.cur-step {
+        .steps-tip-icon {
+          display: inline-block;
+          width: 90px;
+          height: 90px;
+          background: red;
+        }
+      }
+      &.done-step {
+        .steps-tip-icon {
+          display: inline-block;
+          width: 90px;
+          height: 90px;
+          background: blue;
+        }
+      }
+    }
+  }
+
+  .steps-lines {
+    width: 637px;
+    height: 10px;
+    background: #666;
+    margin: 0 auto;
+    margin-top: -85px;
+    margin-bottom: 75px;
+    .steps-line {
+      float: left;
+      width: 50%;
+      height: 10px;
+      background: #ddd;
+      &.cur-step {
+          background: red;
+      }
+      &.done-step {
+          background: blue;
+      }
+    }
+  }
+
+  .steps-list {
+    .steps-step {
+      display: none;
+      &.cur-step {
+        display: block;
+      }
+    }
+  }
+
+  .step-ctrl {
+    .step-prev {
+
+    }
+  }
+
+
+}
+
+
+
+
+

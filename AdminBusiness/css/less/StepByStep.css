@@ -1,0 +1,6 @@
+.steps-wrap .steps-list .steps-step {
+  display: none;
+}
+.steps-wrap .cur-step {
+  display: block;
+}
