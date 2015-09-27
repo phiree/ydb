@@ -105,7 +105,7 @@
                                     <div class="cont-row service-cont-row">
                                         <div class="cont-col-2">
                                             <p class="cont-sub-title">
-                                                您的服务区域</p>
+                                                服务区域</p>
                                         </div>
                                         <div class="cont-col-10">
                                             <div class="cont-row">
@@ -148,7 +148,7 @@
                                                 <input id="hiBusinessAreaCode" class="dis-n" runat="server" snsi type="text">
                                             </div>
                                             <p class="cont-input-tip">
-                                                <i class="icon icon-tip"></i>点击按钮，设置该服务的服务区域。</p>
+                                                <i class="icon icon-tip"></i>点击设置按钮，并放置该服务的服务区域。</p>
                                         </div>
                                     </div>
                                 </div>

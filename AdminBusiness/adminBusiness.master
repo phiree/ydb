@@ -18,7 +18,7 @@
                 <li >
                     <a href="/business/detail.aspx?businessId=<%=Request["businessid"] %>">
                         <i class="icon sidebar-nav-item-icon"></i>
-                        <p>商铺信息</p>
+                        <p>店铺信息</p>
                     </a>
                 </li>
                 <li>

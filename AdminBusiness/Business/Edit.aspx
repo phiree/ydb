@@ -164,7 +164,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                 </div>
                             </div>
                             <div class="cont-row myshop-cont-row">
-                                <div class="cont-col-2"><p class="cont-sub-title">店铺图片展示</p></div>
+                                <div class="cont-col-2"><p class="cont-sub-title">店铺图片</p></div>
                                 <div class="cont-col-10">
                                     <div class="cont-row">
                                         <div class="cont-col-12">

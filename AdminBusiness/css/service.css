@@ -207,7 +207,7 @@ a.new-add-btn {
     cursor: text;
     margin-left: 10px;
     color: #444;
-    width: 280px;
+    width: 230px;
     height: 30px;
     line-height: 30px;
 }
@@ -215,12 +215,13 @@ a.new-add-btn {
 .map-radius-result {
     position:absolute;
     top: 5px;
-    left: 650px;
+    right: 10px;
     background: rgba(74, 74, 74, 0.5);
     padding: 5px;
     color: #fff;
     border-radius: 2px;
     background: #666\9;
+    white-space:nowrap;
 }
 
 .map-radius-select {
@@ -238,9 +239,6 @@ a.new-add-btn {
     text-align: right;
 }
 
-#saveSP {
-    margin-right: 30px;
-}
 
 .sp-msg {
     position: absolute;
@@ -257,6 +255,10 @@ a.new-add-btn {
 
 .sp-msg span{
     /*margin: 0 5px;*/
+}
+
+#saveSP {
+    margin-right: 30px;
 }
 
 #saveAddress,#saveRadius,#saveMsg {
