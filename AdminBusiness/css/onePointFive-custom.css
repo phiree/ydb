@@ -1,8 +1,15 @@
 .content {
+  height: 100%;
   display: block;
   overflow: hidden;
   width: auto;
   margin-left: 150px;
+}
+.content-fluid {
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  width: auto;
 }
 /* navbar style */
 .navbar {

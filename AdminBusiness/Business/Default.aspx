@@ -51,114 +51,118 @@
                         </ul>
                     </div>
                 </div>
-                <div class="mh">
-                    <div class="cont-wrap dis-n" id="business-main">
-                        <div class="mh-in">
-                            <div class="business-container">
-                                <div class="mh-cntr">
-                                    <div class="business-add">
-                                        <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-info">+&nbsp;新建店铺</a>
-                                    </div>
-                                    <!--店铺列表 start-->
-                                    <div class="biz-list-wrap">
-                                        <div class="biz-list" id="bizList">
-                                            <asp:Repeater runat="server" ID="rptBusinessList"
-                                                          OnItemCommand="rptBusinessList_ItemCommand">
-                                                <ItemTemplate>
-                                                    <div class="biz-list-item">
-                                                        <div class="biz-item-left">
-                                                            <div class="biz-tip">
-                                                                <div class="biz-tip-h">店铺</div>
-                                                                <i class="biz-tip-icon icon"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="biz-item-right animated fadeInUpSmall">
-                                                            <div class="biz-item-main">
-                                                                <div class="biz-item-h"><%#Eval("Name")%></div>
-                                                                <div class="biz-item-m">
-                                                                    <div class="biz-info">
-                                                                        <div class="cont-row">
-                                                                            <div class="cont-col-8">
+                <div class="layout">
+                    <div class="content-fluid">
+                        <div class="mh">
+                            <div class="cont-wrap dis-n" id="business-main">
+                                <div class="mh-in">
+                                    <div class="business-container">
+                                        <div class="mh-cntr">
+                                            <div class="business-add">
+                                                <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-info">+&nbsp;新建店铺</a>
+                                            </div>
+                                            <!--店铺列表 start-->
+                                            <div class="biz-list-wrap">
+                                                <div class="biz-list" id="bizList">
+                                                    <asp:Repeater runat="server" ID="rptBusinessList"
+                                                                  OnItemCommand="rptBusinessList_ItemCommand">
+                                                        <ItemTemplate>
+                                                            <div class="biz-list-item">
+                                                                <div class="biz-item-left">
+                                                                    <div class="biz-tip">
+                                                                        <div class="biz-tip-h">店铺</div>
+                                                                        <i class="biz-tip-icon icon"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="biz-item-right animated fadeInUpSmall">
+                                                                    <div class="biz-item-main">
+                                                                        <div class="biz-item-h"><%#Eval("Name")%></div>
+                                                                        <div class="biz-item-m">
+                                                                            <div class="biz-info">
                                                                                 <div class="cont-row">
-                                                                                    <div class="cont-col-3"><h3 class="biz-info-h">店铺星级</h3></div>
-                                                                                    <div class="cont-col-9"><p class="biz-info-d"></p></div>
-                                                                                </div>
-                                                                                <div class="cont-row">
-                                                                                    <div class="cont-col-3"><h3 class="biz-info-h">店铺电话</h3></div>
-                                                                                    <div class="cont-col-9"><p class="biz-info-d d-p"><%#Eval("Phone")%></p></div>
-                                                                                </div>
-                                                                                <div class="cont-row">
-                                                                                    <div class="cont-col-3"><h3 class="biz-info-h">详细地址</h3></div>
-                                                                                    <div class="cont-col-9"><p class="biz-info-d"><%#Eval("Address")%></p></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="cont-col-4">
-                                                                                <div class="biz-img">
-                                                                                    <img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=125&height=125&tt=3":"../image/myshop/touxiang_125_125.png" %>'/>
+                                                                                    <div class="cont-col-8">
+                                                                                        <div class="cont-row">
+                                                                                            <div class="cont-col-3"><h3 class="biz-info-h">店铺星级</h3></div>
+                                                                                            <div class="cont-col-9"><p class="biz-info-d"></p></div>
+                                                                                        </div>
+                                                                                        <div class="cont-row">
+                                                                                            <div class="cont-col-3"><h3 class="biz-info-h">店铺电话</h3></div>
+                                                                                            <div class="cont-col-9"><p class="biz-info-d d-p"><%#Eval("Phone")%></p></div>
+                                                                                        </div>
+                                                                                        <div class="cont-row">
+                                                                                            <div class="cont-col-3"><h3 class="biz-info-h">详细地址</h3></div>
+                                                                                            <div class="cont-col-9"><p class="biz-info-d"><%#Eval("Address")%></p></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="cont-col-4">
+                                                                                        <div class="biz-img">
+                                                                                            <img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=125&height=125&tt=3":"../image/myshop/touxiang_125_125.png" %>'/>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        <div class="biz-item-svc">
+                                                                            <ul class="svc-list">
+                                                                                <li class="svc-li"></li>
+                                                                                <li class="svc-li"></li>
+                                                                                <li class="svc-li"></li>
+                                                                                <li class="svc-li"></li>
+                                                                                <li class="svc-li"></li>
+                                                                                <li class="svc-li"></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="biz-item-href">
+                                                                            <a href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a>
+                                                                            <asp:Button CssClass="btn btn-delete"
+                                                                                        runat="server"
+                                                                                        OnClientClick="javascript:return confirm('确定要删除该店铺么?')"
+                                                                                        CommandArgument='<%#Eval("Id") %>'
+                                                                                        CommandName="delete" Text="删除店铺"/>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="biz-item-svc">
-                                                                    <ul class="svc-list">
-                                                                        <li class="svc-li"></li>
-                                                                        <li class="svc-li"></li>
-                                                                        <li class="svc-li"></li>
-                                                                        <li class="svc-li"></li>
-                                                                        <li class="svc-li"></li>
-                                                                        <li class="svc-li"></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="biz-item-href">
-                                                                    <a href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a>
-                                                                    <asp:Button CssClass="btn btn-delete"
-                                                                                runat="server"
-                                                                                OnClientClick="javascript:return confirm('确定要删除该店铺么?')"
-                                                                                CommandArgument='<%#Eval("Id") %>'
-                                                                                CommandName="delete" Text="删除店铺"/>
-                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </ItemTemplate>
-                                            </asp:Repeater>
-                                        </div>
-                                        <div class="biz-list-bg">
-                                            <div class="biz-bg-t"></div>
-                                            <div class="biz-bg-m"></div>
-                                            <div class="biz-bg-b"></div>
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+                                                </div>
+                                                <div class="biz-list-bg">
+                                                    <div class="biz-bg-t"></div>
+                                                    <div class="biz-bg-m"></div>
+                                                    <div class="biz-bg-b"></div>
+                                                </div>
+                                            </div>
+                                            <!--店铺列表 end-->
                                         </div>
                                     </div>
-                                    <!--店铺列表 end-->
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="cont-wrap dis-n" id="business-new">
-                        <div class="mh-in">
-                            <div class="cont-container">
-                                <div class="mh-ctnr">
-                                    <div class="new-box">
-                                        <div class="t-c">
-                                            <img src="/image/buss-new.png"/>
-                                        </div>
-                                        <div class="business-new-add">
-                                            <a id="firstAddBusiness" class="new-add-btn">点击创建新店铺</a>
+                            <div class="cont-wrap dis-n" id="business-new">
+                                <div class="mh-in">
+                                    <div class="cont-container">
+                                        <div class="mh-ctnr">
+                                            <div class="new-box">
+                                                <div class="t-c">
+                                                    <img src="/image/buss-new.png"/>
+                                                </div>
+                                                <div class="business-new-add">
+                                                    <a id="firstAddBusiness" class="new-add-btn">点击创建新店铺</a>
 
-                                            <p class="firstAddMsg dis-n">感谢您的使用一点办，为了给您提供更好的服务，<建></建>议您从用户名处的<a
-                                                    href="/account/security.aspx">“帐号安全”</a>绑定您的手机号码。
-                                            </p>
+                                                    <p class="firstAddMsg dis-n">感谢您的使用一点办，为了给您提供更好的服务，<建></建>议您从用户名处的<a
+                                                            href="/account/security.aspx">“帐号安全”</a>绑定您的手机号码。
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--true时为已填写手机-->
+                            <input id="hiCreateID" type="hidden" runat="server" value="false"/>
+                            <div class="footer">
+                                <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
+                            </div>
                         </div>
-                    </div>
-                    <!--true时为已填写手机-->
-                    <input id="hiCreateID" type="hidden" runat="server" value="false"/>
-                    <div class="footer">
-                        <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
                     </div>
                 </div>
             </div>
@@ -233,7 +237,6 @@
 
             </div>
         </form>
-
     </div>
 </div>
 </body>

@@ -147,7 +147,7 @@ body {
 
 html{
     min-height: 100%;
-    background: #DEDEDE;
+    background: #e8e8e8;
 }
 
 
@@ -158,8 +158,6 @@ html{
 .t-r { text-align: right; }
 
 .v-m { vertical-align: middle; }
-
-
 
 .m-auto { margin:0 auto; }
 .m-l10 { margin-left: 10px; }
@@ -194,8 +192,68 @@ html{
 .white-a { color: #fff; }
 .white-a:visited { color: #fff; }
 
-.min-height700 { min-height: 700px; }
 
+html,
+body,
+.wrap,
+.mainContainer,
+.mainContainer>form,
+.wrapper {
+    min-height: 100%;
+}
+
+.layout {
+    min-height: calc(100% - 78px);
+}
+.content,
+.mh {
+    height: 100%;
+}
+.cont-wrap {
+    min-height: calc(100% - 36px);
+}
+.mh-in,
+.cont-container,
+.mh-cntr {
+    height: 100%;
+}
+
+/*最小高度限制,通过gl0bal.js里的函数设置最小高度为100%
+  html结构为.mh>.cont-wrap>.mh-in>.cont-container>.mh-cntr>内容
+*/
+.mh {
+    /*background: #f1f2f1;*/
+    /*min-height: 100%;*/
+}
+
+.mh-in {
+    /*min-height: 100%;*/
+}
+
+/*暂时取1366*768下的计算高度做最小高度，让动画流畅*/
+.mh-ctnr {
+    /*min-height: 597px;*/
+}
+
+.wrap {
+    background: #e8e8e8;
+}
+
+.layout {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.footer {
+    background: #f1f2f1;
+    width: 100%;
+    padding: 10px;
+    color: #666;
+    bottom: 0;
+    text-align: center;
+}
+
+/*图标基本样式*/
 .icon {
     display: inline-block;
     *display: inline-block;
@@ -210,55 +268,8 @@ html{
 }
 
 
-/*最小高度限制,通过gl0bal.js里的函数设置最小高度为100%
-  html结构为.mh>.cont-wrap>.mh-in>.cont-container>.mh-cntr>内容
-*/
-.mh {
-    background: #f1f2f1;
-    min-height: 100%;
-}
-
-.mh-in {
-    min-height: 100%;
-}
-
-/*暂时取1366*768下的计算高度做最小高度，让动画流畅*/
-.mh-ctnr {
-    min-height: 597px;
-}
-
-.wrap {
-    background:#DEDEDE;
-    background-attachment: fixed;
-}
-
-.mainContainer{ margin: 0 auto; position: relative; }
-
-
-.mainContent{ margin: 0 auto; width:1000px; background: #3D5B77; }
-
-.layout {
-    width: 1200px;
-    margin: 0 auto;
-}
-
-.con-wrap {
-    background: #cadceb;
-    color: #58789a;
-}
-
-
-.footer {
-    background: #f1f2f1;
-    width: 100%;
-    padding: 10px;
-    color: #666;
-    bottom: 0;
-    text-align: center;
-}
-
 /*登录0状态样式*/
-#LoginStatus1{
+.LoginStatus {
     background: url("/image/logout.png") no-repeat center;
     color:transparent;
     padding: 0 30px;
@@ -519,7 +530,7 @@ a.time-trigger:hover {
 .cont-h2 {
     font-size: 26px;
     color: #3794bf;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .cont-h3 {
@@ -538,7 +549,7 @@ a.time-trigger:hover {
 .cont-h5 {
     font-size: 16px;
     color: #3794bf;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .cont-h6 {
