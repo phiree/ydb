@@ -47,6 +47,10 @@
 
 
 /*店铺编辑步骤样式*/
+.steps-show {
+    background: #f8f8f8;
+}
+
 .step-title {
     font-size: 30px;
     padding: 40px 10px 10px 10px;
@@ -55,7 +59,7 @@
 }
 
 .step-main-wrap {
-    background: #ddd;
+    background: #f8f8f8;
     overflow: hidden;
 }
 

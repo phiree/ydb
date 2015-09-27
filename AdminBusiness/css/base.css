@@ -192,31 +192,33 @@ html{
 .white-a { color: #fff; }
 .white-a:visited { color: #fff; }
 
+/*自定义内容框架样式*/
 
-html,
-body,
-.wrap,
-.mainContainer,
-.mainContainer>form,
-.wrapper {
-    min-height: 100%;
-}
 
-.layout {
-    min-height: calc(100% - 78px);
-}
-.content,
-.mh {
-    height: 100%;
-}
-.cont-wrap {
-    min-height: calc(100% - 36px);
-}
-.mh-in,
-.cont-container,
-.mh-cntr {
-    height: 100%;
-}
+/*html,*/
+/*body,*/
+/*.wrap,*/
+/*.mainContainer,*/
+/*.mainContainer>form,*/
+/*.wrapper {*/
+    /*min-height: 100%;*/
+/*}*/
+
+/*.layout {*/
+    /*min-height: calc(100% - 78px);*/
+/*}*/
+/*.content,*/
+/*.mh {*/
+    /*height: 100%;*/
+/*}*/
+/*.cont-wrap {*/
+    /*min-height: calc(100% - 36px);*/
+/*}*/
+/*.mh-in,*/
+/*.cont-container,*/
+/*.mh-cntr {*/
+    /*height: 100%;*/
+/*}*/
 
 /*最小高度限制,通过gl0bal.js里的函数设置最小高度为100%
   html结构为.mh>.cont-wrap>.mh-in>.cont-container>.mh-cntr>内容
@@ -244,8 +246,23 @@ body,
     margin: 0 auto;
 }
 
+.cont-wrap{
+    color: #666;
+    padding: 14px;
+    /*background: #f1f2f1;*/
+    /*background: #fff;*/
+}
+
+.cont-container {
+    padding: 14px;
+    background: #fff;
+    /*margin-bottom: 14px;*/
+    box-shadow: 0 0 2px 0 rgba(93, 93, 93, 0.3);
+    border: 2px solid #DEDEDE\9;
+}
+
 .footer {
-    background: #f1f2f1;
+    /*background: #f1f2f1;*/
     width: 100%;
     padding: 10px;
     color: #666;
@@ -465,21 +482,7 @@ a.time-trigger:hover {
     vertical-align: baseline;
 }
 
-/*自定义内容框架样式*/
-.cont-wrap{
-    color: #666;
-    padding: 14px;
-    background: #f1f2f1;
-}
-
-.cont-container {
-    padding: 14px;
-    background: #fff;
-    /*margin-bottom: 14px;*/
-    box-shadow: 0 0 2px 0 rgba(93, 93, 93, 0.3);
-    border: 2px solid #DEDEDE\9;
-}
-
+/*自定义行列*/
 .cont-row:after,.cont-row:before{display:table;content:" "}
 .cont-row:after{clear:both}
 

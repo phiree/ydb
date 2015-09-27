@@ -54,10 +54,10 @@
                 <div class="layout">
                     <div class="content-fluid">
                         <div class="mh">
-                            <div class="cont-wrap dis-n" id="business-main">
+                            <div class="cont-wrap">
                                 <div class="mh-in">
-                                    <div class="business-container">
-                                        <div class="mh-cntr">
+                                    <div class="cont-container business-container dis-n" id="business-main">
+                                        <div class="mh-ctnr">
                                             <div class="business-add">
                                                 <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-info">+&nbsp;新建店铺</a>
                                             </div>
@@ -135,13 +135,9 @@
                                             <!--店铺列表 end-->
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="cont-wrap dis-n" id="business-new">
-                                <div class="mh-in">
-                                    <div class="cont-container">
+                                    <div class="cont-container animated fadeInUpSmall dis-n" id="business-new">
                                         <div class="mh-ctnr">
-                                            <div class="new-box">
+                                            <div class="new-box"  >
                                                 <div class="t-c">
                                                     <img src="/image/buss-new.png"/>
                                                 </div>
@@ -155,6 +151,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <!--true时为已填写手机-->

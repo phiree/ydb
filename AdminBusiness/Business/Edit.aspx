@@ -28,7 +28,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                     </div>
                 </div>
                 <div class="steps-list">
-                    <div class="steps-step">
+                    <div class="steps-step cur-step">
                         <div class="cont-row step-row">
                             <div class="cont-col-12"><p class="step-title">基本信息填写</p></div>
                         </div>

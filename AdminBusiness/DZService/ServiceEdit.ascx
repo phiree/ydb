@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="steps-list">
-                        <div class="steps-step" >
+                        <div class="steps-step cur-step" >
                             <div class="cont-row ">
                                 <div class="cont-col-12">
                                     <p class="step-title">
