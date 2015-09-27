@@ -16,19 +16,19 @@
         <nav class="sidebar-nav">
             <ul class="metismenu" id="menu">
                 <li >
-                    <a href="/business/detail.aspx?businessId=<%=Request["businessid"] %>">
+                    <a href="/Business/Detail.aspx?businessId=<%=Request["businessid"] %>">
                         <i class="icon sidebar-nav-item-icon"></i>
                         <p>店铺信息</p>
                     </a>
                 </li>
                 <li>
-                    <a href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">
+                    <a href="/DZService/Default.aspx?businessId=<%=Request["businessid"] %>">
                         <i class="icon sidebar-nav-item-icon"></i>
                         <p>我的服务</p>
                     </a>
                 </li>
                 <li>
-                    <a href="/Staff/default.aspx?businessId=<%=Request["businessid"] %>" >
+                    <a href="/Staff/Default.aspx?businessId=<%=Request["businessid"] %>" >
                         <i class="icon sidebar-nav-item-icon"></i>
                         <p>员工管理</p>
                     </a>

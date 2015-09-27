@@ -103,6 +103,13 @@
   color: #ccc;
   background-color: transparent;
 }
+.sidebar-nav ul li.active {
+  background: #fff;
+}
+.sidebar-nav ul li.active a .icon {
+  zoom: 1.2;
+  -moz-transform: scale(1.2);
+}
 .sidebar-nav ul li a {
   outline: none;
   display: block;
@@ -125,6 +132,7 @@
   width: 90px;
   height: 90px;
   margin-bottom: 10px;
+  background: url("../image/master/shop-LOGO-1.png") no-repeat center;
 }
 /* tooltip */
 .tooltip {
@@ -1406,7 +1414,6 @@ input[type="button"].btn-block {
 }
 .steps-3 .steps-show {
   overflow: hidden;
-  background: #ddd;
 }
 .steps-3 .steps-tips {
   overflow: hidden;
@@ -1467,7 +1474,6 @@ input[type="button"].btn-block {
 }
 .steps-2 .steps-show {
   overflow: hidden;
-  background: #ddd;
 }
 .steps-2 .steps-tips {
   overflow: hidden;
