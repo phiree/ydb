@@ -53,12 +53,12 @@ business_validate_rules["tbxContactPhone"] =
 //serviceScope
 business_validate_rules["tbxWebSite"] =
 {
-    required: true,
+    //required: true,
     web: true
 };
 
 business_validate_messages["tbxWebSite"] =
 {
-    web: "请输入正确的网址",
+    web: "请输入正确的网址或邮箱地址",
     required: "请输入正确的网址或邮箱地址"
 };

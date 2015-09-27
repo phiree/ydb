@@ -36,7 +36,7 @@ function initialize(){
                         $('#hiAddrId').attr("value",JSON.stringify(result.addressComponents));
                     })
                 });
-                confirm("请输入详细有效的地址");
+                //confirm("请输入详细有效的地址");
             }
         })
     }
