@@ -152,6 +152,8 @@
     <script type="text/javascript" src="/js/jquery.form.min.js"></script>
     <script type="text/javascript">
 
+        $('.secret-wrap').parent('.content').css({marginLeft:0});
+
         $("#lb_changePhone").click(function (e) {
             $('#lightBox_ChangePhone').lightbox_me({
                 centered: true
