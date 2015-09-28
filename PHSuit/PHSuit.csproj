@@ -64,6 +64,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IOHelper.cs" />
+    <Compile Include="MusicPlayer.cs" />
     <Compile Include="NetHelper.cs" />
     <Compile Include="PHGeography.cs" />
     <Compile Include="PHNumber.cs" />

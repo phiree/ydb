@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Net;
-
+using NAudio;
 namespace Dianzhu.CSClient.Presenter
 {
     public partial class MainPresenter
@@ -62,19 +62,27 @@ namespace Dianzhu.CSClient.Presenter
             this.view.LocalMediaSaveDir = GlobalViables.LocalMediaSaveDir;
             
         }
-      
-        private void View_PlayAudio(object audioTag)
+        PHSuit.Media media = new PHSuit.Media();
+        private void View_PlayAudio(object audioTag, IntPtr handle)
         {
             string mediaUrl = audioTag.ToString();
             string fileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(GlobalViables.LocalMediaSaveDir+ fileName);
-         //   var mediaPlayer = new MediaFoundationReader(mediaUrl);
-        //    WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
 
+            string fileLocalPath = GlobalViables.LocalMediaSaveDir + fileName;
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(GlobalViables.LocalMediaSaveDir+ fileName);
+            //player.Play();
+            //  var mediaPlayer = new MediaFoundationReader(mediaUrl);
+            WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+            // wplayer.openPlayer(fileLocalPath);
+            //wplayer.controls.play();
             //wplayer.URL = "My MP3 file.mp3";
             //wplayer.Controls.Play();
 
-            player.Play();
+            // player.Play();
+           
+            media.Play(fileLocalPath,handle);
+            //media.Play(fileLocalPath, 
+            
         }
 
         void instantMessage_IMClosed()
@@ -161,6 +169,8 @@ namespace Dianzhu.CSClient.Presenter
                     string savedPath = GlobalViables.LocalMediaSaveDir + localFileName;
                     PHSuit.IOHelper.EnsureFileDirectory(savedPath);
                     client.DownloadFile(mediaUrl, savedPath);
+
+                    
                 }
             }
             re.ChatHistory.Add(chat);

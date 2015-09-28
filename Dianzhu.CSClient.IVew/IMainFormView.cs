@@ -9,7 +9,7 @@ namespace Dianzhu.CSClient.IVew
     public delegate void ActiveCustomerHandler(DZMembership customer);
     public delegate void SendMessageHandler();
     public delegate void SendImageHandler();
-    public delegate void PlayAudio(object audioTag);
+    public delegate void PlayAudio(object audioTag,IntPtr handler);
     public delegate void PushExternalService();
     public delegate void PushInternalService(DZService service);
     public delegate void SearchService();

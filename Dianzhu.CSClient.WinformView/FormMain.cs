@@ -191,9 +191,11 @@ namespace Dianzhu.CSClient.WinformView
 
         }
 
+        
         private void BtnAudio_Click(object sender, EventArgs e)
         {
-            PlayAudio(((Button)sender).Tag);
+            ;
+            PlayAudio(((Button)sender).Tag,this.Handle);
         }
 
         private void pb_Click(object sender, EventArgs e)
