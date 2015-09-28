@@ -65,6 +65,7 @@
     <Compile Include="Reception.cs" />
     <Compile Include="ReceptionStatus.cs" />
     <Compile Include="ServiceOpenTime.cs" />
+    <Compile Include="ServiceOrderStateChange.cs" />
     <Compile Include="ServiceProperty.cs" />
     <Compile Include="ServiceOrder.cs" />
     <Compile Include="ServiceType.cs" />

@@ -65,8 +65,9 @@ namespace Dianzhu.CSClient.Presenter
       
         private void View_PlayAudio(object audioTag)
         {
-            
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(audioTag.ToString());
+            string mediaUrl = audioTag.ToString();
+            string fileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(GlobalViables.LocalMediaSaveDir+ fileName);
             player.Play();
         }
 
