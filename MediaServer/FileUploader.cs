@@ -11,6 +11,7 @@ namespace MediaServer
     {
         public static string Upload(string fileBase64, string originalName, string localSavePathRoot, string domainType, FileType fileType)
         {
+            originalName = Path.GetFileName(originalName);
             fileBase64 = fileBase64.Replace(" ", "+");
             byte[] fileData = Convert.FromBase64String(fileBase64);
             string savedPath = string.Empty;

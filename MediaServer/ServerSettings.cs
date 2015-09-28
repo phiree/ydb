@@ -61,7 +61,7 @@ namespace MediaServer
             string fileNameGuid = Guid.NewGuid().ToString();
             string fileName = string.Format("{1}{0}{2}{0}{3}{0}{4}",
                 seperator,
-                Path.GetFileNameWithoutExtension(originalName),
+                originalName.Replace(".","_"),
                 fileNameGuid,
                 domainType,
                  fileType.ToString()
@@ -93,7 +93,7 @@ namespace MediaServer
             string fileNameRelative = string.Empty;
             domainType = string.Empty;
            
-            string[] arr =Path.GetFileNameWithoutExtension( cleanedFileName).Split(new string[] {seperator },  StringSplitOptions.None);
+            string[] arr  = cleanedFileName.Split(new string[] {seperator },  StringSplitOptions.None);
              
             if(arr.Length!=4)
             { //文件名格式有误
@@ -101,6 +101,7 @@ namespace MediaServer
             }
             domainType = arr[2];
             string strFileType = arr[3];
+            strFileType = Path.GetFileNameWithoutExtension(strFileType);
             if (!Enum.TryParse(strFileType, out fileType))
             {
                 throw new FormatException("文件格式有误");

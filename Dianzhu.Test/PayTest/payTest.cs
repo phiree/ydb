@@ -15,7 +15,7 @@ namespace Dianzhu.Test.PayTest
         public void CreatePayLinkTest() {
             ServiceOrder order = Builder<ServiceOrder>
                    .CreateNew().Build();
-            string url
+           // string url
         }
     }
 }

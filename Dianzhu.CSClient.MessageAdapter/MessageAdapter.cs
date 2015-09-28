@@ -102,7 +102,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         {
             
             Message msg = new Message();
-            
+            msg.SetAttribute("type", "chat");
             msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
             msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server);
             msg.Body = chat.MessageBody;

@@ -218,7 +218,8 @@ namespace Dianzhu.CSClient.Presenter
                     bytes = ms.ToArray();
                 }
                 string s = Convert.ToBase64String(bytes);
-         string fileName=   MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, view.SelectedImageName,
+         string fileName=   MediaServer.HttpUploader.Upload(
+             GlobalViables.MediaUploadUrl, s, view.SelectedImageName,
                 "ChatImage", "image");
                 //string result = PHSuit.IOHelper.UploadFileHttp(
                 //    GlobalViables.MediaUploadUrl,

@@ -68,6 +68,12 @@ namespace Dianzhu.CSClient.Presenter
             string mediaUrl = audioTag.ToString();
             string fileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(GlobalViables.LocalMediaSaveDir+ fileName);
+         //   var mediaPlayer = new MediaFoundationReader(mediaUrl);
+        //    WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+
+            //wplayer.URL = "My MP3 file.mp3";
+            //wplayer.Controls.Play();
+
             player.Play();
         }
 
@@ -145,6 +151,7 @@ namespace Dianzhu.CSClient.Presenter
             }
             if (chat is ReceptionChatMedia)
             {
+                
                 string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
                 string localFileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
 
