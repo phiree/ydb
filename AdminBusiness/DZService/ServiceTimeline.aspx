@@ -82,9 +82,18 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bottom" Runat="Server">
-    <script src="/js/jquery.timetable.js"></script>
+     <script src="/js/jquery.timetable.js"></script>
+    <script src="/js/json2.js"></script>
     <script>
-        $('.timetable').TimeTable({
+        
+        var jsonDataStr ='<%=jsonData%>';
+        var jsonData = JSON.parse(jsonDataStr);
+        var data = {};
+        data.taskData = jsondata;
+        
+        $('.timetable').TimeTable(taskData);
+        /*
+        {
             taskData : [
                 {
                     weekday : 1,
@@ -115,7 +124,8 @@
                     msg : {}
                 }
             ]
-        })
+        }
+        */
     </script>
 </asp:Content>
 
