@@ -9,6 +9,7 @@ using Dianzhu.BLL;
 public partial class Business_Default : BasePage
 {
     BLLBusiness bllBusiness = new BLLBusiness();
+    BLLDZService bllService = new BLLDZService();
     protected void Page_Load(object sender, EventArgs e)
     {
         BrowserCheck.CheckVersion();
@@ -29,10 +30,24 @@ public partial class Business_Default : BasePage
         var businessList = bllBusiness.GetBusinessListByOwner(CurrentUser.Id).Where(x=>x.Enabled);
         
         rptBusinessList.DataSource = businessList;
-      //  rptBusinessList.ItemCommand+=new RepeaterCommandEventHandler(rptBusinessList_ItemCommand);
+        // rptBusinessList.ItemCommand+=new RepeaterCommandEventHandler(rptBusinessList_ItemCommand);
+        rptBusinessList.ItemDataBound += RptBusinessList_ItemDataBound;
         rptBusinessList.DataBind();
 
     }
+
+    private void RptBusinessList_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+      if(e.Item.ItemType== ListItemType.Item|| e.Item.ItemType== ListItemType.AlternatingItem)
+        {
+            Business b = (Business)e.Item.DataItem;
+            Repeater rpt = e.Item.FindControl("rptServiceType") as Repeater;
+          IList<ServiceType> serviceTypes=  bllService.GetServiceTypeListByBusiness(b.Id);
+            rpt.DataSource = serviceTypes;
+            rpt.DataBind();
+        }
+    }
+
     protected void btnCreate_Click(object sender, EventArgs e)
     {
         
