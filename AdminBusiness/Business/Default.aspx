@@ -120,7 +120,7 @@
                                                                                 <ul class="svc-list">
                                                                                     <asp:Repeater runat="server" ID="rptServiceType">
                                                                                         <ItemTemplate>
-                                                                                            <li class="svc-li">
+                                                                                            <li class='svc-li svcType-icon-<%#Eval("Id") %>'>
                                                                                                 <input type="hidden" value='<%#Eval("Id") %>' />
                                                                                                 <p class="svc-item-h"><%#Eval("Name") %></p>
                                                                                             </li>
