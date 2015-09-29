@@ -19,7 +19,7 @@ public partial class DZService_ServiceTimeline : System.Web.UI.Page
     {
         Guid serviceId =new Guid( Request["serviceId"]);
         DZService service = bllService.GetOne(serviceId);
-        jsonData = JsonConvert.SerializeObject(service.OpenTimes,Formatting.Indented);
+        jsonData = JsonConvert.SerializeObject(service.OpenTimes);
 
         
     }
