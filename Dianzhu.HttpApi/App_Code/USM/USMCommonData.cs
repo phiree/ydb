@@ -29,8 +29,8 @@ public class RespDataUSM_userObj
         this.phone = membership.Phone ?? "";
         this.imgUrl = membership.AvatarUrl == null 
             ? string.Empty 
-            : ConfigurationManager.AppSettings["media_server"] + "imagehandler.ashx?imagename="
-                + membership.AvatarUrl;
+            : ConfigurationManager.AppSettings["MediaGetUrl"] + 
+                membership.AvatarUrl;
         this.address =membership.Address?? "";
         return this;
 

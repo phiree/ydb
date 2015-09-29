@@ -8,7 +8,7 @@ namespace MediaServer
     public enum FileType
     {
      image,
-     audio,
+     voice,
      video,
      doc,
      pdf,

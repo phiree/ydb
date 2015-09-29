@@ -207,7 +207,7 @@ namespace Dianzhu.DemoClient
                             pb.Size = new System.Drawing.Size(100, 100);
                             pnlOneChat.Controls.Add(pb);
                             break;
-                        case "audio":
+                        case "voice":
                             Button btnAudio = new Button();
                             btnAudio.Text = "播放音频(待实现)";
                             btnAudio.Tag = mediaUrl;
@@ -353,12 +353,12 @@ namespace Dianzhu.DemoClient
         private void btnAudio_Click(object sender, EventArgs e)
         {
             var result
-               = SelectFile("ChatAudio", "audio");
+               = SelectFile("ChatAudio", "voice");
             if (!string.IsNullOrEmpty(result))
             {
                 agsc.Message msgnew = new MessageBuilder()
                     .Create(customerId, csId, string.Empty, orderID)
-                    .BuildMedia("audio",  result)
+                    .BuildMedia("voice",  result)
                     ;
 
                 GlobalViables.XMPPConnection.Send(msgnew);

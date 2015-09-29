@@ -15,7 +15,7 @@ using Dianzhu.BLL;
 namespace Dianzhu.AdminBusinessMvc.Controllers
 {
     [Authorize]
-     
+    
     public class AccountController : Controller
     {
         DZMembershipProvider dzp = new DZMembershipProvider();

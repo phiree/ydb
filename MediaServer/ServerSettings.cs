@@ -40,7 +40,7 @@ namespace MediaServer
             {
                 if (fileExtension.Count == 0)
                 {
-                    fileExtension.Add(FileType.audio, ".mp3");
+                    fileExtension.Add(FileType.voice, ".mp3");
                     fileExtension.Add(FileType.doc, ".docx");
                     fileExtension.Add(FileType.image, ".png");
                     fileExtension.Add(FileType.pdf, ".pdf");

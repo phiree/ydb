@@ -49,7 +49,7 @@ public class ResponseUSM001007 : BaseResponse
                 //PHSuit.IOHelper.SaveFileFromBase64(requestData.imgData, filePath+fileName);
                 
                 //respData.imgUrl =ConfigurationManager.AppSettings["media_server"]+"imagehandler.ashx?imagename="+fileName;
-                //member.AvatarUrl = fileName;
+                member.AvatarUrl = savedFileName;
                 p.UpdateDZMembership(member);
                 this.RespData = respData;
                 

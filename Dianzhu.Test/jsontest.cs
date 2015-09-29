@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Newtonsoft.Json;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
+
 namespace Dianzhu.Test
 {
     [TestFixture]
@@ -35,8 +39,45 @@ namespace Dianzhu.Test
             Assert.AreEqual("dep1", obj.Department.DepartmentName);
 
         }
+        [Test]
+        public void test_xmlSerialize()
+        {
+            string xml = @"<Employee>
+                        <Name>Alan</Name>
+                        <Age>18</Age>
+                        <Department>
+<DepartmentName>dep1</DepartmentName>
+</Department>
+                            </Employee>";
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+            string json = string.Empty;
+            DateTime begin1 = DateTime.Now;
+            for(int i = 0; i < 100000; i++) {
+                 json = Newtonsoft.Json.JsonConvert.SerializeXmlNode(doc);
+                Employee em = JsonConvert.DeserializeObject<Employee>(json);
+            }
+            DateTime end1 = DateTime.Now;
+            Console.WriteLine((end1-begin1).TotalMilliseconds);
+            //Assert.AreEqual("18", em.Age);
+            
+            XmlSerializer serializer = new XmlSerializer(typeof(Employee));
+            MemoryStream ms = new MemoryStream();
+            doc.Save(ms);
+            ms.Flush();
+            ms.Position = 0;
+            DateTime begin2 = DateTime.Now;
+            for (int i = 0; i < 100000; i++)
+            {
+                var em2 =  serializer.Deserialize(ms);
+                ms.Position = 0;
+            }
+            DateTime end2 = DateTime.Now;
+            Console.WriteLine((end2 - begin2).TotalMilliseconds);
+            //Assert.AreEqual("18", em2.Age);
+        }
 
-        private class Employee
+        public class Employee
         {
             public Employee()
             {
@@ -46,7 +87,7 @@ namespace Dianzhu.Test
             public string Age { get; set; }
             public Department Department { get; set; }
         }
-        private class Department
+        public class Department
         {
             public string DepartmentName { get; set; }
 

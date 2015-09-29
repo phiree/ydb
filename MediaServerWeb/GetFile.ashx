@@ -29,7 +29,7 @@ public class GetFile : IHttpHandler
                 context.Response.ContentType = "image/png";
 
                 break;
-            case MediaServer.FileType.audio:
+            case MediaServer.FileType.voice:
                 context.Response.ContentType = "audio/mpeg";
 
                 break;

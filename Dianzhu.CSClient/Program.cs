@@ -5,6 +5,9 @@ using System.Windows.Forms;
 using Dianzhu.CSClient.MessageAdapter;
 using log4net;
 using Dianzhu.CSClient.WPFView;
+using System.Deployment;
+using System.Deployment.Application;
+
 namespace Dianzhu.CSClient
 {
     static class Program
@@ -27,10 +30,10 @@ namespace Dianzhu.CSClient
             
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
                 BLLFactory.BLLMember,BLLFactory.BLLDZService,BLLFactory.BLLServiceOrder);
-             
+            string version = GetVersion();
             XMPP.XMPP xmpp = new XMPP.XMPP(messageAdapter);
             var loginForm = new FormLogin();
-            
+            loginForm.FormText += "v"+version;
                 Presenter.LoginPresenter loginPresenter = 
                 new Presenter.LoginPresenter(loginForm,xmpp,
                     BLLFactory.BLLMember);
@@ -39,7 +42,8 @@ namespace Dianzhu.CSClient
             if (result.Value)// == DialogResult.OK)
             {
                 var mainForm = new WinformView.FormMain();
-
+                
+                mainForm.Text += "v"+version;
                 Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
                     mainForm, xmpp, messageAdapter,
                     BLLFactory.BLLMember,
@@ -59,6 +63,14 @@ namespace Dianzhu.CSClient
         {
             log.Error(e.ExceptionObject.ToString());
             MessageBox.Show(e.ExceptionObject.ToString());
+        }
+        static string GetVersion()
+        {
+            Version myVersion = new Version();
+
+            if (ApplicationDeployment.IsNetworkDeployed)
+                myVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion;
+           return myVersion.ToString();
         }
     }
 }

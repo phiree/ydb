@@ -30,7 +30,11 @@ namespace Dianzhu.CSClient.WPFView
         {
             ViewLogin();
         }
-
+        public string FormText
+        {
+            get { return this.Title; }
+            set { this.Title = value; }
+        }
         public string ErrorMessage
         {
             

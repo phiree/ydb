@@ -157,7 +157,7 @@ namespace Dianzhu.CSClient.WinformView
                         pb.SizeMode = PictureBoxSizeMode.Zoom;
                         pnlOneChat.Controls.Add(pb);
                         break;
-                    case "audio":
+                    case "voice":
                         Button btnAudio = new Button();
                         btnAudio.Text = "播放音频---";
                         btnAudio.Tag = mediaUrl;
@@ -545,5 +545,6 @@ namespace Dianzhu.CSClient.WinformView
                 }
             }
         }
+
     }
 }

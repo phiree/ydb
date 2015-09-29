@@ -8,6 +8,7 @@ namespace Dianzhu.CSClient.IVew
     public  delegate void ViewLogin();
    public interface ILoginForm
     {
+        string FormText { get; set; }
        string UserName { get;   }
        string Password { get;   }
        string LoginButtonText { set; }

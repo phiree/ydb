@@ -51,7 +51,7 @@ namespace MediaServer
             {
                 result = GetImageRelativePath(relativePath);
             }
-            if (fileType == FileType.audio)
+            if (fileType == FileType.voice)
             {
                 result = GetCompiledAudio(relativePath);
             }

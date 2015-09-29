@@ -102,5 +102,18 @@ namespace Dianzhu.CSClient.WinformView
                 else lambda();
             }
         }
+
+        public string FormText
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
