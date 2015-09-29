@@ -199,7 +199,7 @@
                                         <div class="cont-col-10">
                                             <div>
 
-                                                <div class="d-inb select select-xm hour-select" data-toggle="tooltip" data-placement="top" title="请填写该服务的提前预约的时间（0为无需预约）">
+                                                <div class="select select-sm hour-select" data-toggle="tooltip" data-placement="top" title="请填写该服务的提前预约的时间（0为无需预约）">
                                                     <ul>
                                                     </ul>
                                                     <input type="text" class="dis-n" id="tbxBusinessYears" name="workYears" />

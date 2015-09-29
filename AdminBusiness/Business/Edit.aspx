@@ -129,7 +129,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                 </div>
                                 <div class="cont-col-10">
                                     <div>
-                                        <div id="yearsSelect" class="d-inb select select-sm years-select" data-toggle="tooltip"
+                                        <div id="yearsSelect" class="d-inb select select-mid years-select" data-toggle="tooltip"
                                              data-placement="top" title="选择你从事该行业的时间">
                                             <ul></ul>
                                             <input type="text" class="input-lg dis-n" runat="server" focusID="yearsSelect"
@@ -194,7 +194,6 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                             <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的店铺图片，限制数量为六张，并且图片大小为2M以下</p>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             </div>
@@ -225,7 +224,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                     </div>
                                     <div class="cont-col-10">
                                         <div>
-                                            <div class="select select-sm" data-toggle="tooltip" data-placement="top" title="请选择店铺负责人证件类型">
+                                            <div class="select select-mid" data-toggle="tooltip" data-placement="top" title="请选择店铺负责人证件类型">
                                                 <ul>
                                                     <li><a>身份证</a></li>
                                                     <li><a>其它</a></li>

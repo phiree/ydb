@@ -85,14 +85,6 @@
                                                                                         <div class="cont-col-8">
                                                                                             <div class="cont-row">
                                                                                                 <div class="cont-col-3">
-                                                                                                    <h3 class="biz-info-h">店铺星级</h3>
-                                                                                                </div>
-                                                                                                <div class="cont-col-9">
-                                                                                                    <p class="biz-info-d"></p>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="cont-row">
-                                                                                                <div class="cont-col-3">
                                                                                                     <h3 class="biz-info-h">店铺电话</h3>
                                                                                                 </div>
                                                                                                 <div class="cont-col-9">
@@ -105,6 +97,14 @@
                                                                                                 </div>
                                                                                                 <div class="cont-col-9">
                                                                                                     <p class="biz-info-d"><%#Eval("Address")%></p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="cont-row">
+                                                                                                <div class="cont-col-3">
+                                                                                                    <h3 class="biz-info-h">店铺介绍</h3>
+                                                                                                </div>
+                                                                                                <div class="cont-col-9">
+                                                                                                    <p class="biz-info-d"><%#Eval("Description")%></p>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>

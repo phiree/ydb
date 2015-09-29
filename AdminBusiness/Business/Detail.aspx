@@ -51,7 +51,7 @@
                                 <div class="cont-row">
 
                                         <div class="cont-col-2"><span class="cont-h5">网址邮箱</span></div>
-                                        <div class="cont-col-4"><%=CurrentBusiness.WebSite??"无" %></div>
+                                        <div class="cont-col-4"><%=string.IsNullOrEmpty(CurrentBusiness.WebSite)?"无" :CurrentBusiness.WebSite %></div>
 
 
                                         <div class="cont-col-2"><span class="cont-h5">联系电话</span></div>

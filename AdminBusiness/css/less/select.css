@@ -1,0 +1,49 @@
+/*select 初始化样式*/
+.select {
+  display: inline-block;
+  width: 130px;
+  height: 32px;
+  position: relative;
+  background: #F3F5F9;
+  vertical-align: middle;
+  border: 1px solid #e7ebee;
+}
+.select cite {
+  display: block;
+  width: 130px;
+  text-indent: 0.8em;
+  cursor: pointer;
+  background: url("../../image/shop_green_09.png") no-repeat right;
+}
+.select ul {
+  position: absolute;
+  width: 130px;
+  border: 1px solid #C0D1E3;
+  z-index: 10;
+  background: #fff;
+  display: none;
+  margin-left: -1px;
+}
+.select a {
+  display: block;
+  text-indent: 0.8em;
+}
+.select a:hover {
+  background: #eeeeee;
+}
+/*设置下拉选框宽高*/
+.select-sm {
+  width: 170px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #C0D1E3;
+  color: #58789a;
+}
+.select-sm cite {
+  width: 170px;
+  line-height: 28px;
+}
+.select-sm ul {
+  width: 170px;
+  line-height: 30px;
+}

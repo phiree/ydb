@@ -293,194 +293,6 @@ html{
 }
 /*end*/
 
-/*select 初始化样式*/
-.select { display:inline-block;  width: 130px; height: 32px; position: relative; background: #F3F5F9; vertical-align: middle; border: 1px solid #e7ebee;}
-.select cite { display: block; width: 130px; text-indent: 0.8em; cursor: pointer;
-    background: url("../image/shop_green_09.png") no-repeat right;}
-.select ul { position: absolute;  width: 130px; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none; margin-left: -1px;}
-.select a { display: block; text-indent: 0.8em; }
-.select a:hover { background: #eeeeee; }
-
-
-/*设置下拉选框宽高*/
-.select-sm { width: 170px; height: 30px; line-height: 30px; border: 1px solid #C0D1E3; color: #58789a; }
-.select-sm cite { width: 170px; line-height: 28px; }
-.select-sm ul { width: 170px; line-height: 30px; }
-
-.time-select-wrap {
-    position: relative;
-    display: inline-block;
-    color: #4a4a4a;
-}
-
-.time-select-m {
-    position: absolute;
-    padding: 10px;
-    background: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 0 5px 0 rgba(93, 93, 93, 0.8);
-    border: 1px solid #CCCCCC\9;
-    width: 300px;
-    top: 36px;
-    left: -122px;
-    z-index: 100;
-}
-
-.time-select-container {
-    text-align: center;
-    margin-bottom: 10px ;
-}
-
-.time-trigger {
-    display: block;
-    padding: 5px;
-    border-radius: 2px;
-    color: #ffffff;
-    background: #6ec3ec;
-    border: none;
-    cursor: pointer;
-}
-
-a.time-trigger:hover {
-    color: #ffffff;
-}
-
-.time-select-btn{
-    text-align: right;
-}
-
-.time-confirm {
-    padding: 5px;
-    border-radius: 2px;
-    color: #ffffff;
-    background: #6ec3ec;
-    border: none;
-    margin-right: 10px;
-}
-
-.time-close {
-    padding: 5px;
-    border-radius: 2px;
-    color: #4a4a4a;
-    background: #ececec;
-    border: none;
-}
-
-.hour-unit, .minu-unit {
-    padding: 0 10px;
-}
-
-.time-select { display:inline-block;  width: 80px; height: 32px; position: relative;  vertical-align: middle; border: 1px solid #e7ebee; background: #fff;}
-.time-select cite { display: block; width: 78px; line-height: 30px; text-indent: 0.8em; background: url("../image/shop_green_09.png") no-repeat right; text-align: left; cursor: pointer;}
-.time-select ul { position: absolute; height: 10em; line-height: 2em; overflow-y: scroll; width: 80px; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none; margin-left: -1px;}
-.time-select a { display: block; text-indent: 0.8em; text-align: left;}
-.time-select a:hover { background: #eeeeee; }
-
-/*timeSelect 初始化*/
-.hour-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}
-/*.minute-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}*/
-.years-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}
-
-
-
-/* 图片上传框样式 */
-.input-file-box {
-    position: relative;
-    width: 90px;
-    height: 90px;
-    overflow: hidden;
-}
-
-.input-file-box ul li a{
-    display: none;
-}
-
-.input-file-btn {
-    position: absolute;
-    z-index: 4;
-    width: 90px;
-    height: 90px;
-    opacity: 0;
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-}
-
-.input-file-bg {
-    position: absolute;
-    z-index: 1;
-    background: url("../image/myshop/shop_tx_102.png") no-repeat center;
-    width: 90px;
-    height: 90px;
-}
-
-.input-file-mark {
-    position: absolute;
-    z-index: 3;
-    width: 90px;
-    height: 90px;
-    background: url("../image/ajax-loader.gif") no-repeat center;
-    display: none;
-}
-
-.input-file-hover {
-    font-style: normal;
-    position: absolute;
-    bottom: 0;
-    z-index: 5;
-    width: 90px;
-    height: 30px;
-    line-height: 30px;
-    color: #fff;
-    background: rgba(112, 112, 112, 0.69);
-    background: #707070\9;
-    text-align: center;
-    /*display: none;*/
-}
-
-.input-file-pre {
-    position: absolute;
-    z-index: 2;
-    width: 90px;
-    height: 90px;
-    border: 0 none;
-}
-
-.download-img-pre {
-    float: left;
-    display: block;
-    width: 90px;
-    height: 90px;
-    line-height: 90px;
-    position: relative;
-    text-align: center;
-}
-
-.download-img-delete {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    right: 2px;
-    top: 2px;
-    z-index: 2;
-    border: 0;
-    background: url("../image/delete_icon_91.png") no-repeat center;
-}
-
-.download-img-show {
-    display: block;
-    /*border: 1px solid #dbe6f2 ;*/
-    background: #cccccc;
-    border-radius: 3px;
-    width: 90px;
-    height: 90px;
-    line-height: 90px;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.download-img-show img{
-    vertical-align: baseline;
-}
 
 /*自定义行列*/
 .cont-row:after,.cont-row:before{display:table;content:" "}
@@ -594,67 +406,184 @@ a.time-trigger:hover {
 .vm { display: table-cell; vertical-align: middle; }
 
 
-/*全局输入框样式*/
-.input-textarea:focus,.input-lg:focus,.input-mid:focus,.input-sm:focus {
-    background: #f3f5f9;
-    border:#0f9ecc 1px solid;
-    box-shadow: 0 0 3px 0 #0f9ecc;
+
+
+.time-select-wrap {
+    position: relative;
+    display: inline-block;
+    color: #4a4a4a;
 }
 
-.input-textarea {
-    display:block;
-    width:310px;
-    height:155px;
-    padding: 5px 10px;
-    border:#C0D1E3 1px solid;
-    background: #f3f5f9;
-    color:#58789a;
-    font-size:14px;
-    overflow-y: auto;
+.time-select-m {
+    position: absolute;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 rgba(93, 93, 93, 0.8);
+    border: 1px solid #CCCCCC\9;
+    width: 300px;
+    top: 36px;
+    left: -122px;
+    z-index: 100;
 }
 
+.time-select-container {
+    text-align: center;
+    margin-bottom: 10px ;
+}
 
-.input-lg {
-    width: 270px;
+.time-trigger {
+    display: block;
+    padding: 5px;
+    border-radius: 2px;
+    color: #ffffff;
+    background: #6ec3ec;
+    border: none;
+    cursor: pointer;
+}
+
+a.time-trigger:hover {
+    color: #ffffff;
+}
+
+.time-select-btn{
+    text-align: right;
+}
+
+.time-confirm {
+    padding: 5px;
+    border-radius: 2px;
+    color: #ffffff;
+    background: #6ec3ec;
+    border: none;
+    margin-right: 10px;
+}
+
+.time-close {
+    padding: 5px;
+    border-radius: 2px;
+    color: #4a4a4a;
+    background: #ececec;
+    border: none;
+}
+
+.hour-unit, .minu-unit {
+    padding: 0 10px;
+}
+
+/*timeSelect 初始化*/
+.time-select { display:inline-block;  width: 80px; height: 32px; position: relative;  vertical-align: middle; border: 1px solid #e7ebee; background: #fff;}
+.time-select cite { display: block; width: 78px; line-height: 30px; text-indent: 0.8em; background: url("../image/shop_green_09.png") no-repeat right; text-align: left; cursor: pointer;}
+.time-select ul { position: absolute; height: 10em; line-height: 2em; overflow-y: scroll; width: 80px; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none; margin-left: -1px;}
+.time-select a { display: block; text-indent: 0.8em; text-align: left;}
+.time-select a:hover { background: #eeeeee; }
+
+.hour-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}
+/*.minute-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}*/
+.years-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}
+
+
+
+/* 图片上传框样式 */
+.input-file-box {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+}
+
+.input-file-box ul li a{
+    display: none;
+}
+
+.input-file-btn {
+    position: absolute;
+    z-index: 4;
+    width: 90px;
+    height: 90px;
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+.input-file-bg {
+    position: absolute;
+    z-index: 1;
+    background: url("../image/myshop/shop_tx_102.png") no-repeat center;
+    width: 90px;
+    height: 90px;
+}
+
+.input-file-mark {
+    position: absolute;
+    z-index: 3;
+    width: 90px;
+    height: 90px;
+    background: url("../image/ajax-loader.gif") no-repeat center;
+    display: none;
+}
+
+.input-file-hover {
+    font-style: normal;
+    position: absolute;
+    bottom: 0;
+    z-index: 5;
+    width: 90px;
     height: 30px;
-    /*line-height: 30px;*/
-    padding: 5px 10px;
-    border: #C0D1E3 1px solid;
-    border-radius: 0;
-    background: #f3f5f9;
-    color: #58789a;
-    font-size: 14px;
-    vertical-align: middle;
-    /*box-sizing: content-box\9;*/
+    line-height: 30px;
+    color: #fff;
+    background: rgba(112, 112, 112, 0.69);
+    background: #707070\9;
+    text-align: center;
+    /*display: none;*/
 }
 
-.input-mid {
-    width: 170px;
-    height: 30px;
-    /*line-height: 30px;*/
-    padding: 5px 10px;
-    border: #C0D1E3 1px solid;
-    border-radius: 0;
-    background: #f3f5f9;
-    color: #58789a;
-    font-size: 14px;
-    vertical-align: middle;
-    /*box-sizing: content-box\9;*/
+.input-file-pre {
+    position: absolute;
+    z-index: 2;
+    width: 90px;
+    height: 90px;
+    border: 0 none;
 }
 
-.input-sm {
-    width: 100px;
-    height: 30px;
-    /*line-height: 30px;*/
-    padding: 5px 10px;
-    border: #C0D1E3 1px solid;
-    border-radius: 0;
-    background: #f3f5f9;
-    color: #58789a;
-    font-size: 14px;
-    vertical-align: middle;
-    /*box-sizing: content-box\9;*/
+.download-img-pre {
+    float: left;
+    display: block;
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    position: relative;
+    text-align: center;
 }
+
+.download-img-delete {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    right: 2px;
+    top: 2px;
+    z-index: 2;
+    border: 0;
+    background: url("../image/delete_icon_91.png") no-repeat center;
+}
+
+.download-img-show {
+    display: block;
+    /*border: 1px solid #dbe6f2 ;*/
+    background: #cccccc;
+    border-radius: 3px;
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.download-img-show img{
+    vertical-align: baseline;
+}
+
+
 
 /*全局tips文本样式*/
 .text-anno {

@@ -147,6 +147,146 @@
   display: block;
   text-decoration: none;
 }
+/* input,select */
+/*全局输入框样式*/
+.input-lg {
+  width: 270px;
+  height: 30px;
+  padding: 5px 10px;
+  border: 1px solid #e2e2e2;
+  border-radius: 0px;
+  background: #ffffff;
+  color: #444444;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.input-lg:focus {
+  background: #ffffff;
+  border: 1px solid #30cdff;
+  box-shadow: 0 0 3px 0 #0f9ecc;
+}
+.input-mid {
+  width: 170px;
+  height: 30px;
+  padding: 5px 10px;
+  border: 1px solid #e2e2e2;
+  border-radius: 0px;
+  background: #ffffff;
+  color: #444444;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.input-mid:focus {
+  background: #ffffff;
+  border: 1px solid #30cdff;
+  box-shadow: 0 0 3px 0 #0f9ecc;
+}
+.input-sm {
+  width: 100px;
+  height: 30px;
+  padding: 5px 10px;
+  border: 1px solid #e2e2e2;
+  border-radius: 0px;
+  background: #ffffff;
+  color: #444444;
+  font-size: 14px;
+  vertical-align: middle;
+}
+.input-sm:focus {
+  background: #ffffff;
+  border: 1px solid #30cdff;
+  box-shadow: 0 0 3px 0 #0f9ecc;
+}
+.input-textarea {
+  display: block;
+  width: 310px;
+  height: 155px;
+  padding: 5px 10px;
+  border: 1px solid #e2e2e2;
+  background: #ffffff;
+  color: #444444;
+  font-size: 14px;
+  overflow-y: auto;
+}
+.input-textarea:focus {
+  background: #ffffff;
+  border: 1px solid #30cdff;
+  box-shadow: 0 0 3px 0 #0f9ecc;
+}
+/*select 初始化样式*/
+.select-sm {
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  color: #444444;
+  position: relative;
+  background: #ffffff;
+  vertical-align: middle;
+  border: 1px solid #e2e2e2;
+}
+.select-sm cite {
+  display: block;
+  width: 100px;
+  line-height: 28px;
+  text-indent: 0.8em;
+  cursor: pointer;
+  background: url("../../image/shop_green_09.png") no-repeat right;
+}
+.select-sm ul {
+  line-height: 30px;
+  position: absolute;
+  width: 100px;
+  border: 1px solid #e2e2e2;
+  z-index: 10;
+  background: #ffffff;
+  display: none;
+  margin-left: -1px;
+}
+.select-sm a {
+  display: block;
+  text-indent: 0.8em;
+}
+.select-sm a:hover {
+  background: #eeeeee;
+  color: #444444;
+}
+.select-mid {
+  display: inline-block;
+  width: 170px;
+  height: 30px;
+  color: #444444;
+  position: relative;
+  background: #ffffff;
+  vertical-align: middle;
+  border: 1px solid #e2e2e2;
+}
+.select-mid cite {
+  display: block;
+  width: 170px;
+  line-height: 28px;
+  text-indent: 0.8em;
+  cursor: pointer;
+  background: url("../../image/shop_green_09.png") no-repeat right;
+}
+.select-mid ul {
+  line-height: 30px;
+  position: absolute;
+  width: 170px;
+  border: 1px solid #e2e2e2;
+  z-index: 10;
+  background: #ffffff;
+  display: none;
+  margin-left: -1px;
+}
+.select-mid a {
+  display: block;
+  text-indent: 0.8em;
+}
+.select-mid a:hover {
+  background: #eeeeee;
+  color: #444444;
+}
+/*设置下拉选框宽高*/
 /* tooltip */
 .tooltip {
   position: absolute;
