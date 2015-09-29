@@ -90,27 +90,27 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td class="table-col-1 t-r">服务介绍：</td>
-                                                                <td colspan="3"></td>
+                                                                <td colspan="3"><%#Eval("Description") %></td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="table-col-1 t-r">起步价：</td>
-                                                                <td class="table-col-1 "><span class="panel-table-num">80</span>元</td>
+                                                                <td class="table-col-1 "><span class="panel-table-num"><%# ((decimal)Eval("MinPrice")).ToString("#") %></span>元</td>
                                                                 <td class="table-col-2 t-r">每日最大接单量：</td>
-                                                                <td class="table-col-2 "><span class="panel-table-num">80</span>元</td>
+                                                                <td class="table-col-2 "><span class="panel-table-num"><%# Eval("MaxOrdersPerDay") %></span>单</td>
                                                                 <td class="table-col-1 t-r">服务对象：</td>
-                                                                <td class="table-col-1 "></td>
+                                                                <td class="table-col-1 "><%#((bool)Eval("IsForBusiness"))?"可以对公":"对私" %></td>
                                                                 <td class="table-col-1 t-r">服务方式：</td>
-                                                                <td class="table-col-1 "></td>
+                                                                <td class="table-col-1 "><%#  (Dianzhu.Model.Enums.enum_ServiceMode)Eval("ServiceMode")==Dianzhu.Model.Enums.enum_ServiceMode.NotToHouse?"不上门":"上门" %></td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="table-col-1 t-r">单价：</td>
-                                                                <td class="table-col-1 t-l"><span class="panel-table-num">80</span>单</td>
-                                                                <td class="table-col-2 t-r">每日最大接单量：</td>
-                                                                <td class="table-col-2 t-l"><span class="panel-table-num">80</span>单</td>
-                                                                <td class="table-col-1 t-r">服务保障：</td>
-                                                                <td class="table-col-1 t-l"></td>
-                                                                <td class="table-col-1 t-r">上门服务：</td>
-                                                                <td class="table-col-1 t-l"></td>
+                                                                <td class="table-col-1 t-l"><span class="panel-table-num"><%#((decimal)Eval("UnitPrice")).ToString("#") %></span>元/单</td>
+                                                                <td class="table-col-2 t-r">每时最大接单量：</td>
+                                                                <td class="table-col-2 t-l"><span class="panel-table-num"><%# Eval("MaxOrdersPerHour") %></span>单</td>
+                                                                <td class="table-col-1 t-r">服务保障：</td> 
+                                                                <td class="table-col-1 t-l"><%# ((bool)Eval("IsCompensationAdvance"))?"有":"无" %></td>
+                                                                <td class="table-col-1 t-r">平台认证：</td>
+                                                                <td class="table-col-1 t-l"><%# ((bool)Eval("IsCertificated"))?"有":"无" %></td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
