@@ -9,7 +9,13 @@
         <div class="mh-in">
             <div class="cont-container animated fadeInUpSmall">
                 <div class="mh-ctnr">
+                    <div class="time-head">
+                        <p>服务名称</p>
+                    </div>
                     <div class="timetable-container">
+                        <div class="timetable-title">
+                           <i class="icon"></i> 一周服务时间总览
+                        </div>
                         <div class="timetable">
                             <div class="tt-side">
                                 <div class="tt-side-background"></div>
@@ -17,13 +23,13 @@
                                     <div class="tt-side-head"></div>
                                     <div class="tt-side-body">
                                         <div class="tt-side-rows">
-                                            <div class="tt-side-row tt-row">星期1</div>
-                                            <div class="tt-side-row tt-row">星期1</div>
-                                            <div class="tt-side-row tt-row">星期1</div>
-                                            <div class="tt-side-row tt-row">星期1</div>
-                                            <div class="tt-side-row tt-row">星期1</div>
-                                            <div class="tt-side-row tt-row">星期1</div>
-                                            <div class="tt-side-row tt-row">星期1</div>
+                                            <div class="tt-side-row tt-row">星期一</div>
+                                            <div class="tt-side-row tt-row">星期一</div>
+                                            <div class="tt-side-row tt-row">星期一</div>
+                                            <div class="tt-side-row tt-row">星期一</div>
+                                            <div class="tt-side-row tt-row">星期一</div>
+                                            <div class="tt-side-row tt-row">星期一</div>
+                                            <div class="tt-side-row tt-row">星期一</div>
                                         </div>
                                     </div>
 
@@ -70,10 +76,8 @@
                                         <div class="tt-row tt-row-bg"></div>
                                         <div class="tt-row tt-row-bg"></div>
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -96,10 +100,11 @@
         
         var jsonDataStr = '<%=jsonData%>';
         var jsonData = JSON.parse(jsonDataStr);
-        var data = {};
-        data.taskData = jsondata;
+
         
-        $('.timetable').TimeTable(data.taskData);
+        $('.timetable').TimeTable({
+            taskData: jsonData
+        });
 
     </script>
 </asp:Content>

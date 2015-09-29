@@ -21,7 +21,7 @@
         colunm: 24,
         colHeadTemplate: "<div></div>",
         unitWidth: 90,
-        startTime: 9,
+        startTime: 8,
         taskData : {}
     };
 

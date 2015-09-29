@@ -1,14 +1,28 @@
+.time-head {
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px ;
+}
+.time-head p {
+  font-size: 30px;
+}
+.timetable-container {
+  background: #eee;
+  padding: 30px 10px;
+  border: 1px solid #ccc;
+}
 .timetable {
   position: relative;
-  background: #cccccc;
   width: 940px;
+  margin: 0 auto;
 }
 .tt-row {
   height: 70px;
   position: relative;
 }
 .tt-row-bg {
-  background: url("../../image/yidianban_v1.2/tt-bg.png") no-repeat center;
+  background: url("../../image/yidianban_v1.2/tt-bg.png") no-repeat bottom;
   background-attachment: local;
 }
 .tt-side {
@@ -25,6 +39,7 @@
 }
 .tt-head {
   position: relative;
+  border-bottom: 1px solid #ddd;
 }
 .tt-head-scrollable {
   overflow: hidden;
@@ -38,7 +53,7 @@
   display: inline-block;
   height: 100%;
   line-height: 100%;
-  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
   width: 20px;
   text-align: center;
 }
@@ -65,7 +80,7 @@
   box-sizing: border-box;
   display: inline-block;
   height: 100%;
-  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
 }
 .tt-body-columns {
   position: absolute;
@@ -75,7 +90,7 @@
   box-sizing: border-box;
   display: inline-block;
   height: 100%;
-  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
   width: 20px;
 }
 .tt-body-rows {
