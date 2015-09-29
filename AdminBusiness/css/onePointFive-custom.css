@@ -36,7 +36,7 @@
   display: table-cell;
   width: 54px;
   height: 54px;
-  background: url("../image/master/shop-LOGO-1.png") no-repeat center;
+  background: url("../../image/yidianban_v1.2/logo/icon01-up-54x54.png") no-repeat center;
 }
 .navbar .navbar-brand:hover {
   color: #444444;
@@ -93,6 +93,29 @@
 .sidebar-nav ul li {
   display: block;
 }
+.sidebar-nav ul li .item-icon {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 10px;
+}
+.sidebar-nav ul li .item-icon.sidebar-icon-biz {
+  background: url("../../image/yidianban_v1.2/side/icon01-up-72x72.png") no-repeat center;
+}
+.sidebar-nav ul li .item-icon.sidebar-icon-svc {
+  background: url("../../image/yidianban_v1.2/side/icon03-up-72x72.png") no-repeat center;
+}
+.sidebar-nav ul li .item-icon.sidebar-icon-emp {
+  background: url("../../image/yidianban_v1.2/side/icon02-up-72x72.png") no-repeat center;
+}
+.sidebar-nav ul li .item-icon.sidebar-icon-order {
+  background: url("../../image/yidianban_v1.2/side/icon04-up-72x72.png") no-repeat center;
+}
+.sidebar-nav ul li .item-icon.sidebar-icon-dash {
+  background: url("../../image/yidianban_v1.2/side/icon05-up-72x72.png") no-repeat center;
+}
+.sidebar-nav ul li .sidebar-title {
+  color: #444444;
+}
 .sidebar-nav ul li.disabled {
   cursor: not-allowed;
   color: #ccc;
@@ -102,9 +125,6 @@
   cursor: not-allowed;
   color: #ccc;
   background-color: transparent;
-}
-.sidebar-nav ul li.active {
-  background: #fff;
 }
 .sidebar-nav ul li.active a .icon {
   zoom: 1.2;
@@ -124,15 +144,6 @@
   outline: none;
   display: block;
   text-decoration: none;
-}
-.sidebar-nav-item {
-  padding-left: 5px;
-}
-.sidebar-nav-item-icon {
-  width: 90px;
-  height: 90px;
-  margin-bottom: 10px;
-  background: url("../image/master/shop-LOGO-1.png") no-repeat center;
 }
 /* tooltip */
 .tooltip {
@@ -1271,6 +1282,13 @@ input[type="button"].btn-block {
   line-height: 34px;
   text-align: center;
 }
+.panel-group .panel-heading .panel-info-td .panel-title {
+  height: 39px;
+  padding: 0 10px;
+}
+.panel-group .panel-heading .panel-info-td .panel-title-local {
+  font-size: 12px;
+}
 .panel-group .panel-heading .panel-info-td .panel-title-imp {
   color: #fd9292;
   font-size: 20px;
@@ -1412,6 +1430,7 @@ input[type="button"].btn-block {
 .panel-danger > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #ebccd1;
 }
+/* StepByStep */
 .steps-3 .steps-show {
   overflow: hidden;
 }
@@ -1419,7 +1438,12 @@ input[type="button"].btn-block {
   overflow: hidden;
   padding: 20px;
   margin: 14px;
-  background: #fff;
+}
+.steps-3 .steps-tips.steps-tips-2 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon02-down-690x72.png") no-repeat center;
+}
+.steps-3 .steps-tips.steps-tips-3 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon01-down-690x72.png") no-repeat center;
 }
 .steps-3 .steps-tips .steps-tip {
   float: left;
@@ -1430,41 +1454,63 @@ input[type="button"].btn-block {
 }
 .steps-3 .steps-tips .steps-tip .steps-tip-icon {
   display: inline-block;
-  width: 90px;
-  height: 90px;
-  background: #ddd;
+  width: 68px;
+  height: 68px;
+}
+.steps-3 .steps-tips .steps-tip .steps-tip-icon.step-icon-1 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon02-up-68x68.png") no-repeat center;
+}
+.steps-3 .steps-tips .steps-tip .steps-tip-icon.step-icon-2 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon03-up-68x68.png") no-repeat center;
+}
+.steps-3 .steps-tips .steps-tip .steps-tip-icon.step-icon-3 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon04-up-68x68.png") no-repeat center;
 }
 .steps-3 .steps-tips .steps-tip.cur-step .steps-tip-icon {
   display: inline-block;
-  width: 90px;
-  height: 90px;
-  background: red;
+  width: 68px;
+  height: 68px;
+}
+.steps-3 .steps-tips .steps-tip.cur-step .steps-tip-icon.step-icon-1 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon05-up-68x68.png") no-repeat center;
+}
+.steps-3 .steps-tips .steps-tip.cur-step .steps-tip-icon.step-icon-2 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon06-up-68x68.png") no-repeat center;
+}
+.steps-3 .steps-tips .steps-tip.cur-step .steps-tip-icon.step-icon-3 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon07-up-68x68.png") no-repeat center;
 }
 .steps-3 .steps-tips .steps-tip.done-step .steps-tip-icon {
   display: inline-block;
-  width: 90px;
-  height: 90px;
-  background: blue;
+  width: 68px;
+  height: 68px;
+}
+.steps-3 .steps-tips .steps-tip.done-step .steps-tip-icon.step-icon-1 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon08-up-68x68.png") no-repeat center;
+}
+.steps-3 .steps-tips .steps-tip.done-step .steps-tip-icon.step-icon-2 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon09-up-68x68.png") no-repeat center;
+}
+.steps-3 .steps-tips .steps-tip.done-step .steps-tip-icon.step-icon-3 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon10-up-68x68.png") no-repeat center;
 }
 .steps-3 .steps-lines {
   width: 66.66666667%;
   height: 10px;
-  background: #666;
   margin: 0 auto;
-  margin-top: -85px;
-  margin-bottom: 75px;
+  margin-top: -73px;
+  margin-bottom: 63px;
 }
 .steps-3 .steps-lines .steps-line {
   float: left;
   width: 50%;
   height: 10px;
-  background: #ddd;
 }
 .steps-3 .steps-lines .steps-line.cur-step {
-  background: red;
+  background: url("../../image/yidianban_v1.2/stepByStep/icon12-mid-1x10.png") repeat;
 }
 .steps-3 .steps-lines .steps-line.done-step {
-  background: blue;
+  background: url("../../image/yidianban_v1.2/stepByStep/icon11-mid-1x10.png") repeat;
 }
 .steps-3 .steps-list .steps-step {
   display: none;
@@ -1479,7 +1525,12 @@ input[type="button"].btn-block {
   overflow: hidden;
   padding: 20px;
   margin: 14px;
-  background: #fff;
+}
+.steps-2 .steps-tips.steps-tips-2 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon02-down-690x72.png") no-repeat center;
+}
+.steps-2 .steps-tips.steps-tips-3 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon01-down-690x72.png") no-repeat center;
 }
 .steps-2 .steps-tips .steps-tip {
   float: left;
@@ -1490,41 +1541,63 @@ input[type="button"].btn-block {
 }
 .steps-2 .steps-tips .steps-tip .steps-tip-icon {
   display: inline-block;
-  width: 90px;
-  height: 90px;
-  background: #ddd;
+  width: 68px;
+  height: 68px;
+}
+.steps-2 .steps-tips .steps-tip .steps-tip-icon.step-icon-1 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon02-up-68x68.png") no-repeat center;
+}
+.steps-2 .steps-tips .steps-tip .steps-tip-icon.step-icon-2 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon03-up-68x68.png") no-repeat center;
+}
+.steps-2 .steps-tips .steps-tip .steps-tip-icon.step-icon-3 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon04-up-68x68.png") no-repeat center;
 }
 .steps-2 .steps-tips .steps-tip.cur-step .steps-tip-icon {
   display: inline-block;
-  width: 90px;
-  height: 90px;
-  background: red;
+  width: 68px;
+  height: 68px;
+}
+.steps-2 .steps-tips .steps-tip.cur-step .steps-tip-icon.step-icon-1 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon05-up-68x68.png") no-repeat center;
+}
+.steps-2 .steps-tips .steps-tip.cur-step .steps-tip-icon.step-icon-2 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon06-up-68x68.png") no-repeat center;
+}
+.steps-2 .steps-tips .steps-tip.cur-step .steps-tip-icon.step-icon-3 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon07-up-68x68.png") no-repeat center;
 }
 .steps-2 .steps-tips .steps-tip.done-step .steps-tip-icon {
   display: inline-block;
-  width: 90px;
-  height: 90px;
-  background: blue;
+  width: 68px;
+  height: 68px;
+}
+.steps-2 .steps-tips .steps-tip.done-step .steps-tip-icon.step-icon-1 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon08-up-68x68.png") no-repeat center;
+}
+.steps-2 .steps-tips .steps-tip.done-step .steps-tip-icon.step-icon-2 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon09-up-68x68.png") no-repeat center;
+}
+.steps-2 .steps-tips .steps-tip.done-step .steps-tip-icon.step-icon-3 {
+  background: url("../../image/yidianban_v1.2/stepByStep/icon10-up-68x68.png") no-repeat center;
 }
 .steps-2 .steps-lines {
   width: 50%;
   height: 10px;
-  background: #666;
   margin: 0 auto;
-  margin-top: -85px;
-  margin-bottom: 75px;
+  margin-top: -73px;
+  margin-bottom: 63px;
 }
 .steps-2 .steps-lines .steps-line {
   float: left;
   width: 100%;
   height: 10px;
-  background: #ddd;
 }
 .steps-2 .steps-lines .steps-line.cur-step {
-  background: red;
+  background: url("../../image/yidianban_v1.2/stepByStep/icon12-mid-1x10.png") repeat;
 }
 .steps-2 .steps-lines .steps-line.done-step {
-  background: blue;
+  background: url("../../image/yidianban_v1.2/stepByStep/icon11-mid-1x10.png") repeat;
 }
 .steps-2 .steps-list .steps-step {
   display: none;

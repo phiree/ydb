@@ -104,22 +104,22 @@
                                                                         </div>
                                                                         <div class="biz-item-svc">
                                                                             <ul class="svc-list">
-                                                                                <li class="svc-li"></li>
-                                                                                <li class="svc-li"></li>
-                                                                                <li class="svc-li"></li>
-                                                                                <li class="svc-li"></li>
-                                                                                <li class="svc-li"></li>
-                                                                                <li class="svc-li"></li>
+                                                                                <li class="svc-li">
+                                                                                    <p class="svc-item-h">服务名称</p>
+                                                                                </li>
                                                                             </ul>
                                                                         </div>
                                                                         <div class="biz-item-href">
                                                                             <a href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a>
-                                                                            <asp:Button CssClass="btn btn-delete"
+
+                                                                        </div>
+                                                                        <!--<div class="">-->
+                                                                            <asp:Button CssClass="biz-item-delete"
                                                                                         runat="server"
                                                                                         OnClientClick="javascript:return confirm('确定要删除该店铺么?')"
                                                                                         CommandArgument='<%#Eval("Id") %>'
-                                                                                        CommandName="delete" Text="删除店铺"/>
-                                                                        </div>
+                                                                                        CommandName="delete" />
+                                                                        <!--</div>-->
                                                                     </div>
                                                                 </div>
                                                             </div>

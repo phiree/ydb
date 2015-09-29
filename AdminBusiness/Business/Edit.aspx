@@ -15,12 +15,12 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
         <div class="cont-container animated fadeInUpSmall">
             <div class="steps-wrap steps-2">
                 <div class="steps-show">
-                    <div class="steps-tips clearfix">
+                    <div class="steps-tips steps-tips-2 clearfix">
                         <div class="steps-tip">
-                            <div class="icon steps-tip-icon"></div>
+                            <div class="icon steps-tip-icon step-icon-1"></div>
                         </div>
                         <div class="steps-tip">
-                            <div class="icon steps-tip-icon"></div>
+                            <div class="icon steps-tip-icon step-icon-2"></div>
                         </div>
                     </div>
                     <div class="steps-lines clearfix">
@@ -46,13 +46,12 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                 <i class="input-file-bg"
                                                    style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=3)":"../image/myshop/touxiang_90_90.png" %>'></i>
                                                 <i class="input-file-mark"></i>
-                                                <i class="input-file-hover">修改头像</i>
+                                                <i class="input-file-hover dis-n">修改头像</i>
                                                 <img style="top:auto;left:auto;position:inherit;" class="input-file-pre"
                                                      src="..\image\00.png"/>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="cont-col-5">
                                     <div class="myshop-name">

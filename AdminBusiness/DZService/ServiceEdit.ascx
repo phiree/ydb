@@ -7,15 +7,15 @@
             <div class="mh-ctnr">
                 <div class="steps-wrap steps-3">
                     <div class="steps-show">
-                        <div class="steps-tips clearfix">
+                        <div class="steps-tips steps-tips-3 clearfix">
                             <div class="steps-tip">
-                                <div class="icon steps-tip-icon"></div>
+                                <div class="icon steps-tip-icon step-icon-1"></div>
                             </div>
                             <div class="steps-tip">
-                                <div class="icon steps-tip-icon"></div>
+                                <div class="icon steps-tip-icon step-icon-2"></div>
                             </div>
                             <div class="steps-tip">
-                                <div class="icon steps-tip-icon"></div>
+                                <div class="icon steps-tip-icon step-icon-3"></div>
                             </div>
                         </div>
                         <div class="steps-lines clearfix">
