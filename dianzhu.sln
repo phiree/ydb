@@ -209,6 +209,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb(1)", "MediaS
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "2762"
+		SlnRelativePath = "MediaServerWeb\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.WPFView2", "Dianzhu.CSClient.WPFView2\Dianzhu.CSClient.WPFView2.csproj", "{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}"
