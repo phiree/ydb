@@ -25,11 +25,19 @@
             });
 
             var url = window.location;
-             $('#menu li a').filter(function() {
-                return this.href == url || url.href.indexOf(this.href) == 0;
-            })
+
+            function urlFiter(url){
+                var fiter = /[a-zA-z]+:\/\/(\S+?\/){2}/i;
+                if ( fiter.exec(url) ){
+                    return (fiter.exec(url))[0].toLowerCase();
+                }
+            }
+
             var element = $('#menu li a').filter(function() {
-                return this.href == url || url.href.indexOf(this.href) == 0;
+                var thisHref = urlFiter(this.href);
+                var LocalUrl = urlFiter(url);
+
+                return thisHref == LocalUrl || LocalUrl.indexOf(thisHref) == 0;
             }).addClass('active').parent().addClass('in');
 
             if ( element.is('li') ) {
