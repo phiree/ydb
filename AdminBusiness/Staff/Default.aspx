@@ -77,9 +77,9 @@
                                                                 <i class="fa fa-reply"></i> 编辑
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="cont-col-4">
-                                                            <asp:Button runat="server" CssClass="btn btn-text-delete"  CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" Text="删除"/>
+                                                            <div class="cont-col-4">
+                                                                <asp:Button runat="server" CssClass="btn btn-text-delete"  CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" Text="删除"/>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
