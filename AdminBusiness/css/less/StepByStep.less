@@ -1,5 +1,9 @@
 .steps-wrap(@stepNum) {
 
+@icon-base-url: "../../image/yidianban_v1.2/stepByStep";
+
+
+
   .steps-show {
     overflow: hidden;
   }
@@ -9,56 +13,91 @@
     padding: 20px;
     margin: 14px;
 
-    background: #fff;
+    &.steps-tips-2 {
+      background: url("@{icon-base-url}/icon02-down-690x72.png") no-repeat center;
+    }
+    &.steps-tips-3 {
+      background: url("@{icon-base-url}/icon01-down-690x72.png") no-repeat center;
+    }
     .steps-tip {
       float: left;
       width: 100/@stepNum * 1%;
       text-align: center;
       position: relative;
       z-index: 100;
+
       .steps-tip-icon {
         display: inline-block;
-        width: 90px;
-        height: 90px;
-        background: #ddd;
+        width: 68px;
+        height: 68px;
+
+        &.step-icon-1 {
+          background: url("@{icon-base-url}/icon02-up-68x68.png") no-repeat center;
+        }
+        &.step-icon-2 {
+          background: url("@{icon-base-url}/icon03-up-68x68.png") no-repeat center;
+        }
+        &.step-icon-3 {
+          background: url("@{icon-base-url}/icon04-up-68x68.png") no-repeat center;
+        }
       }
 
       &.cur-step {
         .steps-tip-icon {
           display: inline-block;
-          width: 90px;
-          height: 90px;
-          background: red;
+          width: 68px;
+          height: 68px;
+
+          &.step-icon-1 {
+            background: url("@{icon-base-url}/icon05-up-68x68.png") no-repeat center;
+          }
+          &.step-icon-2 {
+            background: url("@{icon-base-url}/icon06-up-68x68.png") no-repeat center;
+          }
+          &.step-icon-3 {
+            background: url("@{icon-base-url}/icon07-up-68x68.png") no-repeat center;
+          }
         }
       }
       &.done-step {
         .steps-tip-icon {
           display: inline-block;
-          width: 90px;
-          height: 90px;
-          background: blue;
+          width: 68px;
+          height: 68px;
+          &.step-icon-1 {
+            background: url("@{icon-base-url}/icon08-up-68x68.png") no-repeat center;
+          }
+          &.step-icon-2 {
+            background: url("@{icon-base-url}/icon09-up-68x68.png") no-repeat center;
+          }
+          &.step-icon-3 {
+            background: url("@{icon-base-url}/icon10-up-68x68.png") no-repeat center;
+          }
+
         }
       }
     }
   }
 
+  @step-line-height:10px;
+  @step-line-margin-bottom : 63px;
   .steps-lines {
     width: (100 - 100/@stepNum) * 1% ;
-    height: 10px;
-    background: #666;
+    height: @step-line-height;
+
     margin: 0 auto;
-    margin-top: -85px;
-    margin-bottom: 75px;
+    margin-top: -(@step-line-height + @step-line-margin-bottom);
+    margin-bottom: @step-line-margin-bottom;
     .steps-line {
       float: left;
       width: 100/(@stepNum - 1) * 1%;
-      height: 10px;
-      background: #ddd;
+      height: @step-line-height;
+
       &.cur-step {
-          background: red;
+          background: url("@{icon-base-url}/icon12-mid-1x10.png") repeat;
       }
       &.done-step {
-          background: blue;
+          background: url("@{icon-base-url}/icon11-mid-1x10.png") repeat;
       }
     }
   }

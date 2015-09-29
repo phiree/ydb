@@ -2,6 +2,7 @@
 .biz-list-wrap {
   background: #fff;
   position: relative;
+  border: 1px solid #DEDEDE;
 }
 .biz-list-bg {
   position: absolute;
@@ -46,7 +47,7 @@
 .biz-item-left .biz-tip-icon {
   width: 47px;
   height: 47px;
-  background: url("../../image/yidianban_v1.2/biz-list/biz-list_3.png ") no-repeat center;
+  background: url("../../image/yidianban_v1.2/biz-list/biz-list_3.png") no-repeat center;
 }
 .biz-item-right {
   text-align: center;
@@ -65,7 +66,7 @@
   width: 682px;
   height: 77px;
   line-height: 77px;
-  background: url("../../image/yidianban_v1.2/biz-list/biz-list_1.png ") no-repeat center;
+  background: url("../../image/yidianban_v1.2/biz-list/biz-list_1.png") no-repeat center;
   margin: 0 auto;
   margin-top: -35px;
 }
@@ -99,7 +100,7 @@
 .biz-item-right .biz-item-svc {
   width: 650px;
   height: 85px;
-  background: url("../../image/yidianban_v1.2/biz-list/biz-list_7.png ") no-repeat center bottom;
+  background: url("../../image/yidianban_v1.2/biz-list/biz-list_7.png") no-repeat center bottom;
   margin: 0 auto;
   margin-bottom: -20px;
 }
@@ -112,8 +113,9 @@
 }
 .biz-item-right .biz-item-href {
   width: 55px;
-  padding: 20px 0;
-  background: url("../../image/yidianban_v1.2/biz-list/biz-list_2.png ") no-repeat center;
+  height: 150px;
+  padding: 22px 0;
+  background: url("../../image/yidianban_v1.2/biz-list/biz-list_2.png") no-repeat center;
   position: absolute;
   right: 0;
   top: 80px;
@@ -121,6 +123,25 @@
   writing-mode: horizontal-tb;
 }
 .biz-item-right .biz-item-href a {
+  color: #fff;
+  display: inline-block;
+  width: 22px;
+  font-size: 22px;
+  letter-spacing: 22px;
+  text-decoration: none;
+}
+.biz-item-right .biz-item-delete {
+  width: 55px;
+  height: 70px;
+  background: url("../../image/yidianban_v1.2/biz-list/biz-list_del.png") no-repeat center;
+  position: absolute;
+  right: 0;
+  top: 236px;
+  margin-right: -8px;
+  writing-mode: horizontal-tb;
+  border: none;
+}
+.biz-item-right .biz-item-delete a {
   color: #fff;
   display: inline-block;
   width: 22px;

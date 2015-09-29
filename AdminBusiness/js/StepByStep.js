@@ -242,6 +242,8 @@ var StepByStep = {
             $stepLines.find('.steps-line').eq(lineStep).addClass("cur-step").siblings().removeClass("cur-step");
             $stepLines.find('.steps-line').slice(0 , lineDoneStep ).addClass("done-step");
             $stepLines.find('.steps-line').slice( lineDoneStep , -1 ).removeClass("done-step");
+        } else {
+            $stepLines.find('.steps-line').removeClass("cur-step");
         }
 
 

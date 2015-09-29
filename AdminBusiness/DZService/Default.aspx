@@ -40,28 +40,32 @@
                                                             </td>
                                                             <td class="table-col-2 bord-r-d">
                                                                 <div class="panel-info-td">
-                                                                    <p class="panel-title-imp"><%#Eval("Name") %></p>
+                                                                    <p class="panel-title panel-title-imp"><%#Eval("Name") %></p>
                                                                     <p><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></p>
                                                                 </div>
 
                                                             </td>
                                                             <td class="table-col-3 bord-r-d">
                                                                 <div class="panel-info-td">
-                                                                    <p><p class="spServiceArea l-h16 t-c"></p><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' /></p>
-                                                                    <p class="panel-title-tips"><i class="icon"></i>服务区域</p>
+                                                                    <p class="panel-title">
+                                                                    <span class="spServiceArea text-ellipsis panel-title-local" ></span><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' /></p>
+                                                                    <p class="panel-title-tips"><i class="icon service-icon-local"></i>服务区域</p>
                                                                 </div>
                                                             </td>
                                                             <td class="table-col-2 bord-r-d">
                                                                 <div class="panel-info-td">
-                                                                    <a class="panel-title-link" collapse-ignore="true">详细服务时间</a>
-                                                                    <p class="panel-title-tips"><i class="icon"></i>服务时间</p>
+                                                                    <p class="panel-title">
+                                                                        <a class="panel-title-link" collapse-ignore="true">详细服务时间</a>
+                                                                    </p>
+
+                                                                    <p class="panel-title-tips"><i class="icon service-icon-time"></i>服务时间</p>
                                                                 </div>
 
                                                             </td>
                                                             <td class="table-col-2 bord-r-d">
                                                                 <div class="panel-info-td">
-                                                                    <p><sapn class="panel-title-time"><%#Eval("OrderDelay")%></sapn>分钟</p>
-                                                                    <p class="panel-title-tips"><i class="icon"></i>提前预约时间</p>
+                                                                    <p class="panel-title"><sapn class="panel-title-time"><%#Eval("OrderDelay")%></sapn>分钟</p>
+                                                                    <p class="panel-title-tips"><i class="icon service-icon-data"></i>提前预约时间</p>
                                                                 </div>
 
                                                             </td>
@@ -70,8 +74,8 @@
                                                                     <p><p class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></p>
                                                                     <p collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p></p>
                                                                     <p>
-                                                                        <a href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" class="m-r10" ><i class="icon" title="编辑" collapse-ignore="true"></i></a>
-                                                                        <asp:LinkButton ID="LinkButton1" runat="server" class="btn-test-1" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript: return confirm('警告：\n数据一旦被删除将无法还原！')" data-target="ture" collapse-ignore="true"><i class="icon" title="删除" collapse-ignore="true"></i></asp:LinkButton>
+                                                                        <a href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" class="m-r10" ><i class="icon service-icon-edit" title="编辑" collapse-ignore="true"></i></a>
+                                                                        <asp:LinkButton ID="LinkButton1" runat="server" class="btn-test-1" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript: return confirm('警告：\n数据一旦被删除将无法还原！')" data-target="ture" collapse-ignore="true"><i class="icon service-icon-delete" title="删除" collapse-ignore="true"></i></asp:LinkButton>
 
                                                                     </p>
                                                                 </div>

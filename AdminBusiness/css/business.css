@@ -21,8 +21,8 @@
 
 .business-container {
     margin: 0 auto;
-    /*background: #f1f2f1;*/
-    /*width: 1060px;*/
+    background: transparent;
+    box-shadow: none;
 }
 
 .business-add {
