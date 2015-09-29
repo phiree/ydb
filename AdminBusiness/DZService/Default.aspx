@@ -55,7 +55,7 @@
                                                             <td class="table-col-2 bord-r-d">
                                                                 <div class="panel-info-td">
                                                                     <p class="panel-title">
-                                                                        <a class="panel-title-link" collapse-ignore="true">详细服务时间</a>
+                                                                        <a class="panel-title-link" href="ServiceTimeline.aspx?businessid=<%=Request.Params["businessId"] %>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">详细服务时间</a>
                                                                     </p>
 
                                                                     <p class="panel-title-tips"><i class="icon service-icon-time"></i>服务时间</p>
