@@ -625,7 +625,7 @@ a.time-trigger:hover {
     color: #58789a;
     font-size: 14px;
     vertical-align: middle;
-    box-sizing: content-box\9;
+    /*box-sizing: content-box\9;*/
 }
 
 .input-mid {
@@ -639,7 +639,7 @@ a.time-trigger:hover {
     color: #58789a;
     font-size: 14px;
     vertical-align: middle;
-    box-sizing: content-box\9;
+    /*box-sizing: content-box\9;*/
 }
 
 .input-sm {
@@ -653,7 +653,7 @@ a.time-trigger:hover {
     color: #58789a;
     font-size: 14px;
     vertical-align: middle;
-    box-sizing: content-box\9;
+    /*box-sizing: content-box\9;*/
 }
 
 /*全局tips文本样式*/

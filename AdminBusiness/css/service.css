@@ -75,30 +75,30 @@ a.new-add-btn {
 
 /*服务列表图标*/
 .service-list .icon{
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     margin-right: 5px;
     vertical-align: middle;
 }
 
 .service-icon-local {
-    background: url("../image/yidianban_v1.2/svc-list/icon01-left-20x20.png") no-repeat center;
+    background: url("../image/yidianban_v1.2/svc-list/svc_list_1.png") no-repeat center;
 }
 
 .service-icon-time {
-    background: url("../image/yidianban_v1.2/svc-list/icon02-left-20x20.png") no-repeat center;
+    background: url("../image/yidianban_v1.2/svc-list/svc_list_2.png") no-repeat center;
 }
 
 .service-icon-data {
-    background: url("../image/yidianban_v1.2/svc-list/icon03-right-20x20.png") no-repeat center;
+    background: url("../image/yidianban_v1.2/svc-list/svc_list_3.png") no-repeat center;
 }
 
 .service-icon-edit {
-    background: url("../image/yidianban_v1.2/svc-list/button01-left-22x22.png") no-repeat center;
+    background: url("../image/yidianban_v1.2/svc-list/svc_list_4.png") no-repeat center;
 }
 
 .service-icon-delete {
-    background: url("../image/yidianban_v1.2/svc-list/button02-right-20x20.png") no-repeat center;
+    background: url("../image/yidianban_v1.2/svc-list/svc_list_5.png") no-repeat center;
 }
 
 /*服务信息查看页面样式*/

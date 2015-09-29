@@ -1,7 +1,8 @@
 .steps-wrap(@stepNum) {
 
 @icon-base-url: "../../image/yidianban_v1.2/stepByStep";
-
+@step-icon-width: 78px;
+@step-icon-height: 78px;
 
 
   .steps-show {
@@ -14,10 +15,10 @@
     margin: 14px;
 
     &.steps-tips-2 {
-      background: url("@{icon-base-url}/icon02-down-690x72.png") no-repeat center;
+      background: url("@{icon-base-url}/step_bg_2.png") no-repeat center;
     }
     &.steps-tips-3 {
-      background: url("@{icon-base-url}/icon01-down-690x72.png") no-repeat center;
+      background: url("@{icon-base-url}/step_bg_1.png") no-repeat center;
     }
     .steps-tip {
       float: left;
@@ -28,50 +29,50 @@
 
       .steps-tip-icon {
         display: inline-block;
-        width: 68px;
-        height: 68px;
+        width: @step-icon-width;
+        height: @step-icon-height;
 
         &.step-icon-1 {
-          background: url("@{icon-base-url}/icon02-up-68x68.png") no-repeat center;
+          background: url("@{icon-base-url}/step_icon_1.png") no-repeat center;
         }
         &.step-icon-2 {
-          background: url("@{icon-base-url}/icon03-up-68x68.png") no-repeat center;
+          background: url("@{icon-base-url}/step_icon_2.png") no-repeat center;
         }
         &.step-icon-3 {
-          background: url("@{icon-base-url}/icon04-up-68x68.png") no-repeat center;
+          background: url("@{icon-base-url}/step_icon_3.png") no-repeat center;
         }
       }
 
       &.cur-step {
         .steps-tip-icon {
           display: inline-block;
-          width: 68px;
-          height: 68px;
+          width: @step-icon-width;
+          height: @step-icon-height;
 
           &.step-icon-1 {
-            background: url("@{icon-base-url}/icon05-up-68x68.png") no-repeat center;
+            background: url("@{icon-base-url}/step_icon_4.png") no-repeat center;
           }
           &.step-icon-2 {
-            background: url("@{icon-base-url}/icon06-up-68x68.png") no-repeat center;
+            background: url("@{icon-base-url}/step_icon_5.png") no-repeat center;
           }
           &.step-icon-3 {
-            background: url("@{icon-base-url}/icon07-up-68x68.png") no-repeat center;
+            background: url("@{icon-base-url}/step_icon_6.png") no-repeat center;
           }
         }
       }
       &.done-step {
         .steps-tip-icon {
           display: inline-block;
-          width: 68px;
-          height: 68px;
+          width: @step-icon-width;
+          height: @step-icon-height;
           &.step-icon-1 {
-            background: url("@{icon-base-url}/icon08-up-68x68.png") no-repeat center;
+            background: url("@{icon-base-url}/step_icon_7.png") no-repeat center;
           }
           &.step-icon-2 {
-            background: url("@{icon-base-url}/icon09-up-68x68.png") no-repeat center;
+            background: url("@{icon-base-url}/step_icon_8.png") no-repeat center;
           }
           &.step-icon-3 {
-            background: url("@{icon-base-url}/icon10-up-68x68.png") no-repeat center;
+            background: url("@{icon-base-url}/step_icon_9.png") no-repeat center;
           }
 
         }
@@ -80,7 +81,7 @@
   }
 
   @step-line-height:10px;
-  @step-line-margin-bottom : 63px;
+  @step-line-margin-bottom : 68px;
   .steps-lines {
     width: (100 - 100/@stepNum) * 1% ;
     height: @step-line-height;
@@ -94,10 +95,10 @@
       height: @step-line-height;
 
       &.cur-step {
-          background: url("@{icon-base-url}/icon12-mid-1x10.png") repeat;
+          background: url("@{icon-base-url}/step_line_2.png") repeat;
       }
       &.done-step {
-          background: url("@{icon-base-url}/icon11-mid-1x10.png") repeat;
+          background: url("@{icon-base-url}/step_line_1.png") repeat;
       }
     }
   }
