@@ -87,34 +87,41 @@
         $('.timetable').TimeTable({
             taskData : [
                 {
-                    weekday : 1,
-                    openTime : [
+                    DayOfWeek:2,
+                    Enabled:false,
+                    OpenTimeForDay:[
                         {
-                            beginTime : "9:00",
-                            endTime : "12:00"
-                        },
-                        {
-                            beginTime : "13:00",
-                            endTime : "24:00"
+                            Id:"09ab0d04-5b13-4e82-a32c-a5220122b4dd",
+                            TimeStart: "08:00",
+                            TimeEnd: "12:00",
                         }
-                    ],
-                    msg : {}
+                    ]
                 },
                 {
-                    weekday : 5,
-                    openTime : [
+                    DayOfWeek:0,
+                    Enabled:false,
+                    OpenTimeForDay:[
                         {
-                            beginTime : "2:00",
-                            endTime : "10:00"
-                        },
-                        {
-                            beginTime : "11:00",
-                            endTime : "12:00"
+                            Id:"09ab0d04-5b13-4e82-a32c-a5220122b4dd",
+                            TimeStart: "08:00",
+                            TimeEnd: "12:00",
                         }
-                    ],
-                    msg : {}
+                    ]
+                },{
+
+                    DayOfWeek:6,
+                    Enabled:false,
+                    OpenTimeForDay:[
+                        {
+                            Id:"09ab0d04-5b13-4e82-a32c-a5220122b4dd",
+                            TimeStart: "08:00",
+                            TimeEnd: "12:00",
+                        }
+                    ]
+
                 }
-            ]
+        ]
+
         })
     </script>
 </asp:Content>

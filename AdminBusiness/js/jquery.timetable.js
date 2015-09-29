@@ -76,7 +76,7 @@
         var $taskRow = $this.find('.tt-body-rows').find('.tt-row').find('.tt-row-content');
 
         for( var i = 0 ; i < data.length ; i++ ){
-            var rowNum = data[i].weekday;
+            var rowNum = data[i].DayOfWeek;
 
             var arrTask = this.createTask(data[i]);
             for ( var j = 0 ; j < arrTask.length ; j++ ) {
@@ -89,7 +89,7 @@
 
     TimeTable.prototype.createTask = function(data){
 
-        var openTime = data.openTime;
+        var openTime = data.OpenTimeForDay;
         var arrTask = [];
 
         var format = function (time) {
@@ -100,8 +100,8 @@
         };
 
         for (var i = 0 ; i < openTime.length ; i++ ){
-            var beginTime = data.openTime[i].beginTime;
-            var endTime = data.openTime[i].endTime;
+            var beginTime = data.OpenTimeForDay[i].TimeStart;
+            var endTime = data.OpenTimeForDay[i].TimeEnd;
 
             var arrBeginTime = format(beginTime);
             var arrEndTime = format(endTime);
