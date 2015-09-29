@@ -36,6 +36,7 @@
                                                         <tbody>
                                                         <tr>
                                                             <td class="table-col-1">
+                                                          <input type="hidden"  value="<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"   />
                                                                 <img class="panel-img" width="76px" height="76px" alt="服务类型" />
                                                                 <p><%#Eval("Id") %></p>
                                                             </td>

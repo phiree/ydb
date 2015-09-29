@@ -31,9 +31,10 @@ namespace Dianzhu.BLL
         {
             int totalRecord;
             IList<DZService> businessServices = DALDZService.GetList(businessId, 0, 9999, out totalRecord);
-            IList<ServiceType> serviceTypeList = businessServices.Select(x => x.ServiceType).Distinct().ToList();
+            IList<ServiceType> serviceTypeList = businessServices.Select(x => x.ServiceType.TopType).Distinct().ToList();
             return serviceTypeList;
         }
+        
         public void SaveOrUpdate(DZService service,out ValidationResult validationResult)
         {
          ValidatorDZService v = new ValidatorDZService();

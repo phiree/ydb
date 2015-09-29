@@ -57,7 +57,24 @@ namespace Dianzhu.Model
         public virtual int OrderNumber { get; set; }
         public virtual IList<ServiceProperty> Properties { get; set; }
 
+        public virtual ServiceType TopType {
+            get {
+                if (this.DeepLevel == 0)
+                {
+                    return this;
+                }
+                else {
 
+                    ServiceType theParent =this.Parent;
+                    while (theParent.DeepLevel != 0)
+                    {
+                        theParent = this.Parent.Parent;
+                    }
+                    return theParent;
+
+                }
+            }
+        }
 
         //private string fullTypeName = string.Empty;
         public override string ToString()
@@ -74,6 +91,7 @@ namespace Dianzhu.Model
             return fulleTypeName;
 
         }
+        
         
 
 
