@@ -55,11 +55,11 @@
                                             <p class="cont-sub-title">
                                                 服务名称</p>
                                         </div>
-                                        <div class="cont-col-10">
+                                        <div class="cont-col-2">
                                             <div class="clearfix">
                                                 <div>
                                                     <div>
-                                                        <asp:TextBox runat="server" CssClass="input-mid" ID="tbxName" data-toggle="tooltip" data-placement="top" title="填写服务名称"></asp:TextBox>
+                                                        <asp:TextBox runat="server" CssClass="input-fluid" ID="tbxName" data-toggle="tooltip" data-placement="top" title="填写服务名称"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -104,11 +104,11 @@
                                             <p class="cont-sub-title">
                                                 服务介绍</p>
                                         </div>
-                                        <div class="cont-col-10">
+                                        <div class="cont-col-8">
                                             <div class="cont-row">
                                                 <div class="cont-col-12">
                                                     <div>
-                                                        <asp:TextBox CssClass="input-textarea" runat="server" TextMode="MultiLine" ID="tbxDescription" data-toggle="tooltip" data-placement="right" title="请填写该服务的简单介绍"></asp:TextBox>
+                                                        <asp:TextBox CssClass="input-textarea-fluid" runat="server" TextMode="MultiLine" ID="tbxDescription" data-toggle="tooltip" data-placement="right" title="请填写该服务的简单介绍"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -120,7 +120,7 @@
                                             <p class="cont-sub-title">
                                                 服务区域</p>
                                         </div>
-                                        <div class="cont-col-10">
+                                        <div class="cont-col-8">
                                             <div class="cont-row">
                                                 <div class="map-container">
                                                     <div id="allmap">
@@ -181,27 +181,30 @@
                                             <p class="cont-sub-title">
                                                 服务起步价</p>
                                         </div>
-                                        <div class="cont-col-10">
+                                        <div class="cont-col-2">
                                             <div>
-                                                <asp:TextBox CssClass="input-sm" required runat="server" snsi ID="tbxMinPrice" data-toggle="tooltip" data-placement="top" title="请填写该服务的起步价"></asp:TextBox>&nbsp;&nbsp;元
+                                                <asp:TextBox CssClass="input-fluid" required runat="server" snsi ID="tbxMinPrice" data-toggle="tooltip" data-placement="top" title="请填写该服务的起步价"></asp:TextBox>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="cont-row service-cont-row">
+                                        <div class="cont-col-1">&nbsp;&nbsp;元</div>
                                         <div class="cont-col-2">
                                             <p class="cont-sub-title">
                                                 服务单价</p>
                                         </div>
-                                        <div class="cont-col-10">
+                                        <div class="cont-col-2">
                                             <div>
-                                                <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxUnitPrice" data-toggle="tooltip" data-placement="top" title="请填写该服务的服务单价"></asp:TextBox>&nbsp;&nbsp;元&nbsp;/&nbsp;每&nbsp;&nbsp;（
-                                                <asp:RadioButtonList CssClass="serviceDataRadio d-inb" runat="server" ID="rblChargeUnit">
-                                                    <asp:ListItem Selected="True" Value="0" Text="小时"></asp:ListItem>
-                                                    <asp:ListItem Value="1" Text="天"></asp:ListItem>
-                                                    <asp:ListItem Value="2" Text="次"></asp:ListItem>
-                                                </asp:RadioButtonList>
-                                                ）
+                                                <asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxUnitPrice" data-toggle="tooltip" data-placement="top" title="请填写该服务的服务单价"></asp:TextBox>
                                             </div>
+                                        </div>
+                                        <div class="cont-col-1">&nbsp;&nbsp;元&nbsp;/&nbsp;每&nbsp;&nbsp;</div>
+                                        <div class="cont-col-2">
+                                            （
+                                            <asp:RadioButtonList CssClass="serviceDataRadio d-inb" runat="server" ID="rblChargeUnit">
+                                                <asp:ListItem Selected="True" Value="0" Text="小时"></asp:ListItem>
+                                                <asp:ListItem Value="1" Text="天"></asp:ListItem>
+                                                <asp:ListItem Value="2" Text="次"></asp:ListItem>
+                                            </asp:RadioButtonList>
+                                            ）
                                         </div>
                                     </div>
                                     <div class="cont-row service-cont-row">
@@ -209,53 +212,50 @@
                                             <p class="cont-sub-title">
                                                 提前预约时间</p>
                                         </div>
-                                        <div class="cont-col-10">
+                                        <div class="cont-col-2">
                                             <div>
 
-                                                <div class="select select-sm hour-select" data-toggle="tooltip" data-placement="top" title="请填写该服务的提前预约的时间（0为无需预约）">
+                                                <div class="select select-fluid hour-select" data-toggle="tooltip" data-placement="top" title="请填写该服务的提前预约的时间（0为无需预约）">
                                                     <ul>
                                                     </ul>
                                                     <input type="text" class="dis-n" id="tbxBusinessYears" name="workYears" />
                                                 </div>
-                                                小时
-                                                <!--<asp:TextBox runat="server" snsi CssClass="input-sm" ID="tbxOrderDelay">60</asp:TextBox>-->
+
+                                                <!--<asp:TextBox runat="server" snsi CssClass="input-fluid" ID="tbxOrderDelay">60</asp:TextBox>-->
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="cont-row service-cont-row">
-                                        <div class="cont-col-6">
-                                            <div class="cont-row">
-                                                <div class="cont-col-4">
-                                                    <p class="cont-sub-title">
-                                                        每日最大接单量</p>
-                                                </div>
-                                                <div class="cont-col-8">
-                                                    <div>
-                                                        <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxMaxOrdersPerDay" data-toggle="tooltip" data-placement="top" title="该服务的每小时最大接单量">50</asp:TextBox>&nbsp;&nbsp;单
-                                                    </div>
-                                                </div>
+                                        <div class="cont-col-1">
+                                            &nbsp;&nbsp;小时
+                                        </div>
+
+                                        <div class="cont-col-2">
+                                            <p class="cont-sub-title">
+                                                每日最大接单量</p>
+                                        </div>
+                                        <div class="cont-col-2">
+                                            <div>
+                                                <asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxMaxOrdersPerDay" data-toggle="tooltip" data-placement="top" title="该服务的每小时最大接单量">50</asp:TextBox>
                                             </div>
                                         </div>
-                                        <div class="cont-col-6">
-                                            <div class="cont-row">
-                                                <div class="cont-col-6">
-                                                    <p class="cont-sub-title">
-                                                        每小时最大接单量</p>
-                                                </div>
-                                                <div class="cont-col-6">
-                                                    <div>
-                                                        <asp:TextBox CssClass="input-sm" snsi runat="server" ID="tbxMaxOrdersPerHour" data-toggle="tooltip" data-placement="top" title="该服务的每日最大接单量">20</asp:TextBox>&nbsp;&nbsp;单
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <div class="cont-col-1">&nbsp;&nbsp;单</div>
+
                                     </div>
                                     <div class="cont-row service-cont-row">
                                         <div class="cont-col-2">
                                             <p class="cont-sub-title">
+                                                每小时最大接单量</p>
+                                        </div>
+                                        <div class="cont-col-2">
+                                            <div>
+                                                <asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxMaxOrdersPerHour" data-toggle="tooltip" data-placement="top" title="该服务的每日最大接单量">20</asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="cont-col-1">&nbsp;&nbsp;单</div>
+                                        <div class="cont-col-2">
+                                            <p class="cont-sub-title">
                                                 是否上门</p>
                                         </div>
-                                        <div class="cont-col-10">
+                                        <div class="cont-col-2">
                                             <div>
                                                 <asp:RadioButtonList CssClass="service-input-radio" runat="server" ID="rblServiceMode" data-toggle="tooltip" data-placement="top" title="选择是否提供上门服务">
                                                     <asp:ListItem Selected="True" Value="0" Text="是"></asp:ListItem>
@@ -264,15 +264,28 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="cont-row service-cont-row">
                                         <div class="cont-col-2">
                                             <p class="cont-sub-title">
                                                 服务对象</p>
                                         </div>
-                                        <div class="cont-col-10">
-                                            <div class="service-checkBox d-inb" data-toggle="tooltip" data-placement="top" title="请填写店铺负责人证件号码">
+                                        <div class="cont-col-3">
+                                            <div class="service-checkBox d-inb" data-toggle="tooltip" data-placement="top" title="是否对公司提供该服务">
                                                 <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cblIsForBusiness"
-                                                              Text="选择是否可以给公司提供该服务" />
+                                                              Text="是否对公" />
+                                            </div>
+                                        </div>
+                                        <div class="cont-col-2">
+                                            <p class="cont-sub-title">
+                                                付款方式</p>
+                                        </div>
+                                        <div class="cont-col-4">
+                                            <div class="d-inb" data-toggle="tooltip" data-placement="top" title="付款方式选择">
+                                                <asp:CheckBoxList CssClass="service-input-radio" ID="rblPayType" runat="server">
+                                                    <asp:ListItem Selected="True" Value="1" Text="线上支付"></asp:ListItem>
+                                                    <asp:ListItem Value="2" Text="当面支付"></asp:ListItem>
+                                                </asp:CheckBoxList>
                                             </div>
                                         </div>
                                     </div>
@@ -282,28 +295,15 @@
                                                 服务保障</p>
                                         </div>
                                         <div class="cont-col-10">
-                                            <div class="service-checkBox d-inb" data-toggle="tooltip" data-placement="top" title="请填写店铺负责人证件号码">
+                                            <div class="service-checkBox d-inb" data-toggle="tooltip" data-placement="top" title="选择是否加入先行赔付">
                                                 <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCompensationAdvance"
-                                                              Text="选择是否加入先行赔付" />
+                                                              Text="先行赔付" />
                                             </div>
                                         </div>
                                     </div>
                                     <!--<p class="cont-sub-title">平台认证</p>-->
                                     <!--<asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCertificated" Text="已通过" />-->
-                                    <div class="cont-row service-cont-row">
-                                        <div class="cont-col-2">
-                                            <p class="cont-sub-title">
-                                                付款方式</p>
-                                        </div>
-                                        <div class="cont-col-10">
-                                            <div class="d-inb" data-toggle="tooltip" data-placement="top" title="付款方式选择">
-                                                <asp:CheckBoxList CssClass="service-input-radio" ID="rblPayType" runat="server">
-                                                    <asp:ListItem Selected="True" Value="1" Text="线上支付"></asp:ListItem>
-                                                    <asp:ListItem Value="2" Text="当面支付"></asp:ListItem>
-                                                </asp:CheckBoxList>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="cont-row service-cont-row" runat="server" id="dvTag">
                                         <div class="cont-col-2">
                                             <p class="cont-sub-title">
@@ -331,7 +331,7 @@
                             </div>
                             <div class="step-main-wrap">
                                 <div class="step-main">
-                                    <div class="cont-row service-cont-row">
+                                    <div class="cont-row ">
                                         <div class="cont-col-2">
                                             <p class="cont-sub-title">
                                                 服务时间</p>
@@ -366,7 +366,7 @@
                                                             </asp:Repeater>
 
                                                             <td class="table-col-3">
-                                                                <input type="checkbox" runat="server" id="cbxChecked" /><label>启用</label>
+                                                                <input type="checkbox" runat="server" id="cbxChecked" checked="checked" /><label>启用</label>
                                                             </td>
                                                         </tr>
                                                     </ItemTemplate>

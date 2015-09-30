@@ -374,12 +374,17 @@ html{
 }
 
 .cont-sub-title {
+    color: #444;
+    font-size: 15px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.cont-sub-title-l {
     color: #58789a;
     font-size: 15px;
     line-height: 30px;
-    /*font-weight: 600;*/
-    text-align: right;
-    padding-right: 20px;
+    text-align: center;
 }
 
 .cont-title-tips { color: #FF8661; font-size: 12px; font-weight: 500;}

@@ -148,9 +148,10 @@ a.new-add-btn {
 
 /*服务编辑页面样式*/
 .service-cont-row {
-    border-bottom: 1px solid #eee;
+    /*border-bottom: 1px solid #eee;*/
     margin-bottom: 15px;
     padding-bottom: 15px;
+    line-height: 30px;
 }
 
 
@@ -229,7 +230,7 @@ a.new-add-btn {
 .map-result {
     position: absolute;
     top: 5px;
-    left: 200px;
+    right: 15px;
     background: rgba(74, 74, 74, 0.5);
     padding: 5px;
     color: #fff;
@@ -248,8 +249,8 @@ a.new-add-btn {
 
 .map-radius-result {
     position:absolute;
-    top: 5px;
-    right: 10px;
+    top: 55px;
+    right: 15px;
     background: rgba(74, 74, 74, 0.5);
     padding: 5px;
     color: #fff;
@@ -353,7 +354,7 @@ a.new-add-btn {
 }
 
 .business-radioCf {
-    padding: 5px;
+    padding: 0 5px;
     color: #fff;
     background: #8CC8E4;
     border-radius: 2px;
@@ -381,15 +382,15 @@ a.new-add-btn {
 }
 
 .service-checkBox {
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
 }
 
 .service-input-radio tr{
     float: left;
     margin-right: 20px;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
 }
 
 .service-input-radio input{

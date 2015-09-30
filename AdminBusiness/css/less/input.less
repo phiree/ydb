@@ -43,10 +43,15 @@
   .input(@input-sm,@input-height);
 }
 
+.input-fluid{
+  .input(100%,@input-height);
+}
 
-.input-textarea {
+
+
+.input-textarea(@w) {
   display:block;
-  width:310px;
+  width:@w;
   height:155px;
   padding: @input-padding;
   border:@input-border-color;
@@ -61,4 +66,10 @@
   }
 }
 
+.input-textarea{
+  .input-textarea(310px);
+}
 
+.input-textarea-fluid {
+  .input-textarea(100%);
+}

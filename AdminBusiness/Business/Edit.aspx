@@ -40,81 +40,113 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                 <div class="steps-list">
                     <div class="steps-step cur-step">
                         <div class="cont-row step-row">
-                            <div class="cont-col-12"><p class="step-head">基本信息填写</p></div>
+                            <div class="cont-col-12"><p class="step-head">店铺基本信息</p></div>
                         </div>
-
                         <div class="step-main-wrap">
                             <div class="step-main">
-
-                            <div class="cont-row myshop-cont-row">
-                                <div class="cont-col-2">
-                                    <div class="clearfix">
-                                        <div class="headImage fr m-r20">
-                                            <div class="input-file-box headFile">
-                                                <input type=file class="input-file-btn file-default" name="upload_file"
-                                                       businessId="<%=b.Id %>" imageType="businessavater"/>
-                                                <i class="input-file-bg"
-                                                   style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=3)":"../image/myshop/touxiang_90_90.png" %>'></i>
-                                                <i class="input-file-mark"></i>
-                                                <i class="input-file-hover dis-n">修改头像</i>
-                                                <img style="top:auto;left:auto;position:inherit;" class="input-file-pre"
-                                                     src="..\image\00.png"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cont-col-5">
-                                    <div class="myshop-name">
-                                        <p class="vm"><input runat="server" type="text" id="tbxName" name="inputShopName"
-                                                             value="请输入您的店铺名称" class="myshop-name-input input-mid" data-toggle="tooltip"
-                                                             data-placement="top" title="请填写您的店铺名称"/><span
-                                                class="text-anno-r">（必填选项）</span></p>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="cont-row myshop-cont-row">
-
-                                <div class="cont-col-2">
-                                    <p class="cont-sub-title"><span>店铺介绍</span></p>
-                                </div>
-                                <div class="cont-col-10">
-                                    <div class="cont-row">
-                                        <div class="cont-col-6">
-                        <textarea class="input-textarea" id="tbxIntroduced" runat="server" name="shopIntroduced"
-                                  data-toggle="tooltip" data-placement="top" title="请将您的店铺简介在此输入（字数限制在0~200个字符之间）">(可输入200个字符)</textarea>
-                                        </div>
-                                        <div class="cont-col-6">
-                                            <div class="text-anno myshop-intro-anno vmBox">
-                                                <div class="vm">
-                                                    <p><span class="cont-title-tips">（必填选项）</span></p>
+                                <div class="cont-row myshop-cont-row">
+                                    <div class="cont-col-2">
+                                        <div class="clearfix">
+                                            <div class="">
+                                                <div class="headImage fr m-r20">
+                                                    <div class="input-file-box headFile">
+                                                        <input type=file class="input-file-btn file-default" name="upload_file"
+                                                               businessId="<%=b.Id %>" imageType="businessavater" id="headImgBtn"/>
+                                                        <i class="input-file-bg"
+                                                           style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=90&height=90&tt=3)":"../image/myshop/touxiang_90_90.png" %>'></i>
+                                                        <i class="input-file-mark"></i>
+                                                        <i class="input-file-hover dis-n">修改头像</i>
+                                                        <img style="top:auto;left:auto;position:inherit;" class="input-file-pre"
+                                                             src="..\image\00.png"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="cont-col-3 head-row-fix">
+                                        <div class="">
+                                            <input class="btn btn-info" type="button" value="上传店铺头像" id="headImgTrigger"/>
+                                        </div>
+                                    </div>
+                                    <div class="cont-col-2 head-row-fix">
+                                        <div class="cont-sub-title">
+
+                                            店铺名称
+                                        </div>
+                                    </div>
+                                    <div class="cont-col-2 head-row-fix">
+                                        <div class="">
+                                            <p>
+                                                <input runat="server" type="text" id="tbxName" name="inputShopName"
+                                                                 value="请输入您的店铺名称" class="input-fluid" data-toggle="tooltip"
+                                                                 data-placement="top" title="请填写您的店铺名称"/>
+                                            <!--<p class="text-anno-r">（必填选项）</p>-->
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
+                            <div class="cont-row myshop-cont-row">
+                                <div class="cont-col-2">
+                                    <p class="cont-sub-title">从业时间</p>
+                                </div>
+                                <div class="cont-col-2">
+                                    <div>
+                                        <div id="yearsSelect" class="d-inb select select-fluid years-select" data-toggle="tooltip"
+                                             data-placement="top" title="选择你从事该行业的时间">
+                                            <ul></ul>
+                                            <input type="text" class="input-lg dis-n" runat="server" focusID="yearsSelect"
+                                                   id="tbxBusinessYears" name="workYears"/>
+                                        </div>
+
+                                        <!--<p class="text-anno-r">（必填选项）</p>-->
+                                    </div>
+                                </div>
+                                <div class="cont-col-1">
+                                    <span class="myshop-span">&nbsp;年</span>
+                                </div>
+
+                                <div class="cont-col-2">
+                                    <p class="cont-sub-title">员工人数</p>
+                                </div>
+                                <div class="cont-col-2">
+                                    <div>
+                                        <input type="text" class="input-fluid" runat="server" value="0" clientidmode="Static"
+                                               id="selStaffAmount" data-toggle="tooltip" data-placement="top" title="请填写店铺员工人数"/>
+                                        <!--<p class="text-anno-r">（必填选项）</p>-->
+                                    </div>
+                                </div>
+                                <div class="cont-col-1"><span class="myshop-span">&nbsp;人</span></div>
                             </div>
                             <div class="cont-row myshop-cont-row">
                                 <div class="cont-col-2">
                                     <p class="cont-sub-title"><span>联系电话</span></p>
-
                                 </div>
-                                <div class="cont-col-10">
-                                    <div><input type="text" class="input-lg" id="tbxContactPhone" runat="server" name="ContactPhone"
-                                                data-toggle="tooltip" data-placement="top" title="请填写有效的电话号码"/><span
-                                            class="text-anno-r">（必填选项）</span></div>
+                                <div class="cont-col-2">
+                                    <div><input type="text" class="input-fluid" id="tbxContactPhone" runat="server" name="ContactPhone"
+                                                data-toggle="tooltip" data-placement="top" title="请填写有效的电话号码"/>
+                                        <!--<p class="text-anno-r">（必填选项）</p>-->
+                                    </div>
+                                </div>
+                                <div class="cont-col-1"></div>
+                                <div class="cont-col-2">
+                                    <p class="cont-sub-title"><span>公司网站</span></p>
+                                </div>
+                                <div class="cont-col-2">
+                                    <div><input type="text" class="input-fluid" runat="server" id="tbxWebSite" name="website"
+                                                data-toggle="tooltip" data-placement="top" title="请填写公司网站"/></div>
                                 </div>
                             </div>
                             <div class="cont-row myshop-cont-row">
                                 <div class="cont-col-2">
                                     <p class="cont-sub-title">店铺地址</p>
                                 </div>
-                                <div class="cont-col-10">
-
+                                <div class="cont-col-7">
                                     <div>
-                                        <p><input type="text" class="input-lg" id="tbxAddress" runat="server" name="addressDetail"
-                                                  data-toggle="tooltip" data-placement="top" title="请填写您详细有效的店铺地址"/><span
-                                                class="text-anno-r">（必填选项）</span></p>
+                                        <p>
+                                            <input type="text" class="input-fluid" id="tbxAddress" runat="server" name="addressDetail"
+                                                  data-toggle="tooltip" data-placement="top" title="请填写您详细有效的店铺地址"/>
+                                            <!--<p class="text-anno-r">（必填选项）</p>-->
+                                        </p>
                                         <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请填写您详细有效的店铺地址</p>-->
                                         <!--<p class="cont-input-tip  m-b10"><i class="icon icon-tip"></i>请点击按钮放置店铺坐标</p>-->
                                         <!--<div class="cont-row">-->
@@ -130,46 +162,28 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                         <p><input type="hidden" focusID="setAddress" runat="server" clientidmode="Static" id="hiAddrId"
                                                   name="addressDetailHide"/></p>
                                     </div>
-
                                 </div>
+
                             </div>
                             <div class="cont-row myshop-cont-row">
+
                                 <div class="cont-col-2">
-                                    <p class="cont-sub-title">从业时间</p>
+                                    <p class="cont-sub-title"><span>店铺介绍</span></p>
                                 </div>
-                                <div class="cont-col-10">
-                                    <div>
-                                        <div id="yearsSelect" class="d-inb select select-mid years-select" data-toggle="tooltip"
-                                             data-placement="top" title="选择你从事该行业的时间">
-                                            <ul></ul>
-                                            <input type="text" class="input-lg dis-n" runat="server" focusID="yearsSelect"
-                                                   id="tbxBusinessYears" name="workYears"/>
+                                <div class="cont-col-7">
+
+                                        <div class="cont-col-12">
+                        <textarea class="input-textarea-fluid" id="tbxIntroduced" runat="server" name="shopIntroduced"
+                                  data-toggle="tooltip" data-placement="top" title="请将您的店铺简介在此输入（字数限制在0~200个字符之间）">(可输入200个字符)</textarea>
                                         </div>
-                                        <span class="myshop-span">年</span><span class="text-anno-r">（必填选项）</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="cont-row myshop-cont-row">
-                                <div class="cont-col-2">
-                                    <p class="cont-sub-title">员工人数</p>
-                                </div>
-                                <div class="cont-col-10">
-                                    <div>
-                                        <input type="text" class="input-mid" runat="server" value="0" clientidmode="Static"
-                                               id="selStaffAmount" data-toggle="tooltip" data-placement="top" title="请填写店铺员工人数"/>
-                                        <span class="myshop-span">人</span><span class="text-anno-r">（必填选项）</span>
-                                    </div>
-                                </div>
+                                        <div class="cont-col-12">
+                                            <div class="text-anno myshop-intro-anno">
 
-                            </div>
-                            <div class="cont-row myshop-cont-row">
-                                <div class="cont-col-2">
-                                    <p class="cont-sub-title"><span>公司网站</span></p>
-                                </div>
-                                <div class="cont-col-10">
-                                    <div><input type="text" class="input-lg" runat="server" id="tbxWebSite" name="website"
-                                                data-toggle="tooltip" data-placement="top" title="请填写公司网站"/></div>
-                                    <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>填写公司网站</p>-->
+                                                    <!--<p class="cont-title-tips">（必填选项）</p>-->
+
+                                            </div>
+                                        </div>
+
                                 </div>
                             </div>
                             <div class="cont-row myshop-cont-row">
@@ -219,22 +233,20 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                     <div class="cont-col-2">
                                         <p class="cont-sub-title">负责人姓名</p>
                                     </div>
-                                    <div class="cont-col-10">
+                                    <div class="cont-col-2">
 
                                         <div>
-                                            <input type="text" class="input-mid" runat="server" clientidmode="Static" id="tbxContact"
+                                            <input type="text" class="input-fluid" runat="server" clientidmode="Static" id="tbxContact"
                                                    data-toggle="tooltip" data-placement="top" title="请填写店铺负责人姓名"/>
                                         </div>
-                                        <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人姓名</p>-->
                                     </div>
-                                </div>
-                                <div class="cont-row myshop-cont-row">
+                                    <div class="cont-col-1"></div>
                                     <div class="cont-col-2">
                                         <p class="cont-sub-title">证件类型</p>
                                     </div>
-                                    <div class="cont-col-10">
+                                    <div class="cont-col-2">
                                         <div>
-                                            <div class="select select-mid" data-toggle="tooltip" data-placement="top" title="请选择店铺负责人证件类型">
+                                            <div class="select select-fluid" data-toggle="tooltip" data-placement="top" title="请选择店铺负责人证件类型">
                                                 <ul>
                                                     <li><a>身份证</a></li>
                                                     <li><a>其它</a></li>
@@ -242,20 +254,19 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                 <input type="hidden" id="selCardType" value="0" runat="server" clientidmode="Static"/>
                                             </div>
                                         </div>
-                                        <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人证件类型</p>-->
                                     </div>
                                 </div>
                                 <div class="cont-row myshop-cont-row">
                                     <div class="cont-col-2">
                                         <p class="cont-sub-title">证件号码</p>
                                     </div>
-                                    <div class="cont-col-10">
+                                    <div class="cont-col-2">
                                         <div>
-                                            <input type="text" class="input-mid" runat="server" id="tbxCardIdNo" name="tbxCardIdNo"
+                                            <input type="text" class="input-fluid" runat="server" id="tbxCardIdNo" name="tbxCardIdNo"
                                                    clientidmode="Static" data-toggle="tooltip" data-placement="top"
-                                                   title="请填写店铺负责人证件号码"/><span class="text-anno-r">（必填选项）</span>
+                                                   title="请填写店铺负责人证件号码"/>
+                                            <!--<p><span class="text-anno-r">（必填选项）</span></p>-->
                                         </div>
-                                        <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>店铺负责人证件号码</p>-->
                                     </div>
                                 </div>
                                 <div class="cont-row myshop-cont-row">
@@ -388,7 +399,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
     <script>
-        $(document).ready(function () {
+
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
 
@@ -401,34 +412,41 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                 $('.file-limit-6').imgUpload({
                     limitNum: 6
                 });
+
+                $('#headImgTrigger').click(function(){
+                    $('#headImgBtn').click();
+                })
             });
 
-            $($("form")[0]).validate(
-                    {
-                        errorElement: "p",
-                        errorPlacement: function (error, element) {
-                            if ($(element).attr("name") == name_prefix + "tbxBusinessYears") {
-                                error.appendTo((element.parent()).parent());
-                            } else {
-                                error.appendTo(element.parent());
-                            }
-                        },
-                        rules: service_validate_rules,
-                        messages: service_validate_messages,
-                        invalidHandler: invalidHandler
+            $(function(){
+                $($("form")[0]).validate(
+                        {
+                            errorElement: "p",
+                            errorPlacement: function (error, element) {
+                                if ($(element).attr("name") == name_prefix + "tbxBusinessYears") {
+                                    error.appendTo((element.parent()).parent());
+                                } else {
+                                    error.appendTo(element.parent());
+                                }
+                            },
+                            rules: service_validate_rules,
+                            messages: service_validate_messages,
+                            invalidHandler: invalidHandler
+                        }
+                );
+
+                $(".steps-wrap").StepByStep({
+                    stepNextFunc : function(){
+                        return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
+                    },
+                    stepLastFunc : function(){
+                        $("#btnCancel").removeClass("dis-n");
+                        $(".btnSave").removeClass("dis-n");
                     }
-            );
+                });
+            })
 
-            $(".steps-wrap").StepByStep({
-                stepNextFunc : function(){
-                    return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
-                },
-                stepLastFunc : function(){
-                    $("#btnCancel").removeClass("dis-n");
-                    $(".btnSave").removeClass("dis-n");
-                }
-            });
-        });
+
     </script>
     <script>
         function loadBaiduMapScript() {
