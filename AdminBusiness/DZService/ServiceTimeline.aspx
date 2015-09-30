@@ -10,7 +10,7 @@
             <div class="cont-container animated fadeInUpSmall">
                 <div class="mh-ctnr">
                     <div class="time-head">
-                        <p>服务名称</p>
+                        <p><asp:Label runat="server" id="lblServiceName"></asp:Label></p>
                     </div>
                     <div class="timetable-container">
                         <div class="timetable-title">
