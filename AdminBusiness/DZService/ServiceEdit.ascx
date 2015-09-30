@@ -366,7 +366,7 @@
                                                             </asp:Repeater>
 
                                                             <td class="table-col-3">
-                                                                <input type="checkbox" runat="server" id="cbxChecked" /><label>启用</label>
+                                                                <input type="checkbox" runat="server" checked="checked" id="cbxChecked" /><label>启用</label>
                                                             </td>
                                                         </tr>
                                                     </ItemTemplate>

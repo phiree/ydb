@@ -13,14 +13,10 @@ public partial class DZService_ServiceTimeline : System.Web.UI.Page
     public string jsonData = string.Empty;
     protected void Page_Load(object sender, EventArgs e)
     {
-        BuildJson();
-    }
-    private void BuildJson()
-    {
-        Guid serviceId =new Guid( Request["serviceId"]);
+        Guid serviceId = new Guid(Request["serviceId"]);
         DZService service = bllService.GetOne(serviceId);
+        lblServiceName.Text= service.Name;
         jsonData = JsonConvert.SerializeObject(service.OpenTimes);
-
-        
     }
+    
 }
