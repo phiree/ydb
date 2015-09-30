@@ -28,7 +28,7 @@
 <body>
     <div class="reg-wrap">
         <div class="main">
-            <div class="layout">
+            <div class="reg-layout">
                 <div class="wrap-reg">
                     <form runat="server">
                     <div class="conReg">
