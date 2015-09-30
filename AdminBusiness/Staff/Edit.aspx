@@ -12,7 +12,7 @@
     <div class="cont-wrap mh">
         <div class="cont-container animated fadeInUpSmall">
             <div class="cont-row emp-cont-row emp-mar-top">
-                <div class="cont-col-2"><p class="cont-sub-title">头像</p></div>
+                <div class="cont-col-2"><p class="cont-sub-title"></p></div>
                 <div class="cont-col-10">
                     <div class="clearfix">
                         <div class="headImage">

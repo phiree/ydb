@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" ClientIDMode="Static" CodeFile="ServiceEdit.ascx.cs"
     Inherits="DZService_ServiceEdit" %>
 <%@ Register Src="~/TagControl.ascx" TagName="Tag" TagPrefix="DZ" %>
-<div class="cont-wrap theme-color-58789a">
+<div class="cont-wrap">
     <div class="mh-in">
         <div class="cont-container animated fadeInUpSmall">
             <div class="mh-ctnr">

@@ -11,6 +11,9 @@
   overflow: hidden;
   width: auto;
 }
+label {
+  font-weight: normal;
+}
 /* navbar style */
 .navbar {
   min-width: 1200px;
@@ -1641,14 +1644,32 @@ input[type="button"].btn-block {
   border-bottom-color: #ebccd1;
 }
 /* StepByStep */
+.steps-3 .step-head {
+  color: #3794bf;
+  font-size: 30px;
+  padding: 40px 10px 10px 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #CCCCCC;
+}
+.steps-3 .step-main-wrap {
+  background: #f8f8f8;
+  padding: 14px;
+  /*overflow: hidden;*/
+}
+.steps-3 .step-main {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #CCCCCC;
+}
 .steps-3 .steps-show-wrap {
   background: #f8f8f8;
+  padding: 14px;
   overflow: hidden;
 }
 .steps-3 .steps-show {
   padding: 20px;
-  margin: 14px;
   background: #fff;
+  border: 1px solid #ccc;
 }
 .steps-3 .steps-title {
   overflow: hidden;
@@ -1741,14 +1762,32 @@ input[type="button"].btn-block {
 .steps-3 .steps-list .steps-step.cur-step {
   display: block;
 }
+.steps-2 .step-head {
+  color: #3794bf;
+  font-size: 30px;
+  padding: 40px 10px 10px 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #CCCCCC;
+}
+.steps-2 .step-main-wrap {
+  background: #f8f8f8;
+  padding: 14px;
+  /*overflow: hidden;*/
+}
+.steps-2 .step-main {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #CCCCCC;
+}
 .steps-2 .steps-show-wrap {
   background: #f8f8f8;
+  padding: 14px;
   overflow: hidden;
 }
 .steps-2 .steps-show {
   padding: 20px;
-  margin: 14px;
   background: #fff;
+  border: 1px solid #ccc;
 }
 .steps-2 .steps-title {
   overflow: hidden;

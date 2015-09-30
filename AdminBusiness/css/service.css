@@ -157,24 +157,7 @@ a.new-add-btn {
 
 
 /*店铺编辑步骤样式*/
-.step-head {
-    font-size: 30px;
-    padding: 40px 10px 10px 10px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #CCCCCC;
-}
 
-.step-main-wrap {
-    background: #f8f8f8;
-    /*overflow: hidden;*/
-    padding: 14px;
-}
-
-
-.step-main {
-    padding: 20px;
-    background: #fff;
-}
 
 /*.step-row {*/
 /*padding: 15px 0;*/
@@ -395,6 +378,12 @@ a.new-add-btn {
 
 .service-input-radio input{
     margin-right: 10px;
+}
+
+.service-input-radio label,
+.service-checkBox label
+{
+    color: #666;
 }
 
 .serviceIntroduced {

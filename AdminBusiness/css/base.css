@@ -363,7 +363,8 @@ html{
 
 .cont-h5 {
     font-size: 16px;
-    color: #3794bf;
+    color: #666;
+    font-weight: bold;
     /*font-weight: bold;*/
 }
 
@@ -374,7 +375,7 @@ html{
 }
 
 .cont-sub-title {
-    color: #444;
+    color: #666;
     font-size: 15px;
     line-height: 30px;
     text-align: center;

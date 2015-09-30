@@ -57,23 +57,6 @@
 
 
 /*店铺编辑步骤样式*/
-.step-head {
-    font-size: 30px;
-    padding: 40px 10px 10px 10px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #CCCCCC;
-}
-
-.step-main-wrap {
-    background: #f8f8f8;
-    overflow: hidden;
-}
-
-.step-main {
-    padding: 20px;
-    margin: 14px;
-    background: #fff;
-}
 
 /*.step-row {*/
     /*padding: 15px 0;*/

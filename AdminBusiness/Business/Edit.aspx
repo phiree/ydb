@@ -11,7 +11,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
-    <div class="cont-wrap theme-color-58789a">
+    <div class="cont-wrap">
         <div class="cont-container animated fadeInUpSmall">
             <div class="steps-wrap steps-2">
                 <div class="steps-show-wrap">
