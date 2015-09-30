@@ -56,7 +56,7 @@ public class ResponseUSM001008 : BaseResponse
                 this.state_CODE = Dicts.StateCode[0];
                 string savedFileName= MediaServer.HttpUploader.Upload(ConfigurationManager.AppSettings["MediaUploadUrl"],
                     requestData.Resource, string.Empty, domainType
-                    , requestData.FileType== USM001008UploadedFileType.voice?"audio":requestData.FileType.ToString());
+                    , requestData.FileType== USM001008UploadedFileType.voice?"voice":requestData.FileType.ToString());
                 resourceUrl = ConfigurationManager.AppSettings["MediaGetUrl"] + savedFileName;
                     
 
