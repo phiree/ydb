@@ -34,7 +34,10 @@ namespace WeiPayWeb
                 this.txtBody.Text = "北京急死游客公司";
                 this.txtOrderSN.Text = DateTime.Now.ToString("yyyyMMddHHmmss");
                 this.txtOther.Text = "suijishengchengma";
-                this.txtPrice.Text = "";
+                if (string.IsNullOrEmpty(Request.QueryString["price"]))
+                { }
+                else
+                { this.txtPrice.Text = Request.QueryString["price"].ToString(); }
 
                 //获取当前用户的OpenId，如果可以通过系统获取用户Openid就不用调用该函数
                 this.lblOpenId.Text = this.GetUserOpenId();
@@ -47,11 +50,11 @@ namespace WeiPayWeb
         /// </summary>
         private string  GetUserOpenId()
         {
-
+            string nowurl = Request.Url.ToString();        
             string code = Request.QueryString["code"];
             if (string.IsNullOrEmpty(code))
             {
-                string code_url = string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_base&state=lk#wechat_redirect", PayConfig.AppId, PayConfig.SendUrl);
+                string code_url = string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_base&state=lk#wechat_redirect", PayConfig.AppId, nowurl);
                 Response.Redirect(code_url);
             }
             else

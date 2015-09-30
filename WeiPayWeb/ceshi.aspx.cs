@@ -12,10 +12,18 @@ namespace WeiPayWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string code_url = string.Format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}", PayConfig.AppId, PayConfig.AppSecret);
+            //string code_url = string.Format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}", PayConfig.AppId, PayConfig.AppSecret);
             //Response.Redirect(code_url);
-            string returnStr = HttpUtil.Send("", code_url);
-            Response.Write(returnStr);
+           // string returnStr = HttpUtil.Send("", code_url);
+           // Response.Write(returnStr);
+            Response.Write(Request.UrlReferrer);
+            Response.Write(Request.UserHostAddress);
+
+        }
+
+        protected void BtnSave_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("send.aspx?price="+Label1.Text);
         }
     }
 }

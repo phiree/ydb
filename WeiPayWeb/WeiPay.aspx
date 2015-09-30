@@ -50,8 +50,6 @@
                      </tr>
                  </table>
         </div>
-     
- 
 <%--    <div class="WCPay">
     <h1 class="title"  id="getBrandWCPayRequest" onclick="SavePay()" >Ã·Ωª</h1>
     
