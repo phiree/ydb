@@ -38,7 +38,7 @@ namespace Dianzhu.Model
                ServiceOpenTime sto = new ServiceOpenTime
                {
                    DayOfWeek = (DayOfWeek)i,
-                   Enabled = false,
+                   
                    OpenTimeForDay = sotdlist
                };
                if (OpenTimes != null)
