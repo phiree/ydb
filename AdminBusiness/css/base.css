@@ -514,7 +514,7 @@ a.time-trigger:hover {
 .input-file-bg {
     position: absolute;
     z-index: 1;
-    background: url("../image/myshop/shop_tx_102.png") no-repeat center;
+    background: url("../image/yidianban_v1.2/input-file-bg.png") no-repeat center;
     width: 90px;
     height: 90px;
 }

@@ -102,7 +102,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                     </div>
                                 </div>
                                 <div class="cont-col-1">
-                                    <span class="myshop-span">&nbsp;年</span>
+                                    <span class="myshop-span">&nbsp;&nbsp;年</span>
                                 </div>
 
                                 <div class="cont-col-2">
@@ -115,7 +115,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                         <!--<p class="text-anno-r">（必填选项）</p>-->
                                     </div>
                                 </div>
-                                <div class="cont-col-1"><span class="myshop-span">&nbsp;人</span></div>
+                                <div class="cont-col-1"><span class="myshop-span">&nbsp;&nbsp;人</span></div>
                             </div>
                             <div class="cont-row myshop-cont-row">
                                 <div class="cont-col-2">
