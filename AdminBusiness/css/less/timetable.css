@@ -1,3 +1,11 @@
+.timetable-title {
+  margin-bottom: 20px;
+}
+.timetable-title-icon {
+  width: 36px;
+  height: 36px;
+  background: url("../../image/yidianban_v1.2/tt-head-icon.png") no-repeat bottom;
+}
 .time-head {
   height: 60px;
   line-height: 60px;
@@ -9,7 +17,7 @@
 }
 .timetable-container {
   background: #eee;
-  padding: 30px 10px;
+  padding: 15px 10px;
   border: 1px solid #ccc;
 }
 .timetable {
@@ -104,11 +112,11 @@
 .tt-body-rows .tt-row-content .tt-task {
   position: absolute;
   margin: auto;
-  top: 10px;
+  top: 0;
   left: 30px;
   min-width: .6em;
-  height: 44px;
-  background: #ffff00;
+  height: 60px;
+  background: url("../../image/yidianban_v1.2/tt-good-icon.png") no-repeat bottom;
 }
 .tt-body-rows .tt-row-content .tt-task.tt-task-split {
   margin: 0 auto;

@@ -14,7 +14,7 @@
                     </div>
                     <div class="timetable-container">
                         <div class="timetable-title">
-                           <i class="icon"></i> 一周服务时间总览
+                           <i class="icon timetable-title-icon"></i> 一周服务时间总览
                         </div>
                         <div class="timetable">
                             <div class="tt-side">
@@ -24,12 +24,12 @@
                                     <div class="tt-side-body">
                                         <div class="tt-side-rows">
                                             <div class="tt-side-row tt-row">星期一</div>
-                                            <div class="tt-side-row tt-row">星期一</div>
-                                            <div class="tt-side-row tt-row">星期一</div>
-                                            <div class="tt-side-row tt-row">星期一</div>
-                                            <div class="tt-side-row tt-row">星期一</div>
-                                            <div class="tt-side-row tt-row">星期一</div>
-                                            <div class="tt-side-row tt-row">星期一</div>
+                                            <div class="tt-side-row tt-row">星期二</div>
+                                            <div class="tt-side-row tt-row">星期三</div>
+                                            <div class="tt-side-row tt-row">星期四</div>
+                                            <div class="tt-side-row tt-row">星期五</div>
+                                            <div class="tt-side-row tt-row">星期六</div>
+                                            <div class="tt-side-row tt-row">星期日</div>
                                         </div>
                                     </div>
 

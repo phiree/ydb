@@ -16,7 +16,7 @@
     TimeTable.DEFAULTS = {
         scorllable: true,
         splitTask: true,
-        splitUnitWidth: 44,
+        splitUnitWidth: 60,
         row: 7,
         colunm: 24,
         colHeadTemplate: "<div></div>",
