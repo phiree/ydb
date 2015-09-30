@@ -5,14 +5,31 @@
 @step-icon-height: 78px;
 
 
-  .steps-show {
+  .steps-show-wrap {
+    background: #f8f8f8;
     overflow: hidden;
+  }
+
+  .steps-show {
+    padding: 20px;
+    margin: 14px;
+    background: #fff;
+  }
+
+  .steps-title {
+    overflow: hidden;
+    //margin: 0 20px;
+    .steps-title-t {
+      float: left;
+      width: 100/@stepNum * 1%;
+      text-align: center;
+      padding: 10px 0;
+    }
   }
 
   .steps-tips {
     overflow: hidden;
-    padding: 20px;
-    margin: 14px;
+    //margin: 0 20px;
 
     &.steps-tips-2 {
       background: url("@{icon-base-url}/step_bg_2.png") no-repeat center;
@@ -81,7 +98,7 @@
   }
 
   @step-line-height:10px;
-  @step-line-margin-bottom : 68px;
+  @step-line-margin-bottom : 34px;
   .steps-lines {
     width: (100 - 100/@stepNum) * 1% ;
     height: @step-line-height;

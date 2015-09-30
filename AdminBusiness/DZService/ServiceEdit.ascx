@@ -6,24 +6,37 @@
         <div class="cont-container animated fadeInUpSmall">
             <div class="mh-ctnr">
                 <div class="steps-wrap steps-3">
-                    <div class="steps-show">
-                        <div class="steps-tips steps-tips-3 clearfix">
-                            <div class="steps-tip">
-                                <div class="icon steps-tip-icon step-icon-1"></div>
+                    <div class="steps-show-wrap">
+                        <div class="steps-show">
+                            <div class="steps-title">
+                                <div class="steps-title-t">
+                                    <p>基本服务信息</p>
+                                </div>
+                                <div class="steps-title-t">
+                                    <p>服务详细信息</p>
+                                </div>
+                                <div class="steps-title-t">
+                                    <p>服务时间设置</p>
+                                </div>
                             </div>
-                            <div class="steps-tip">
-                                <div class="icon steps-tip-icon step-icon-2"></div>
+                            <div class="steps-tips steps-tips-3 clearfix">
+                                <div class="steps-tip">
+                                    <div class="icon steps-tip-icon step-icon-1"></div>
+                                </div>
+                                <div class="steps-tip">
+                                    <div class="icon steps-tip-icon step-icon-2"></div>
+                                </div>
+                                <div class="steps-tip">
+                                    <div class="icon steps-tip-icon step-icon-3"></div>
+                                </div>
                             </div>
-                            <div class="steps-tip">
-                                <div class="icon steps-tip-icon step-icon-3"></div>
-                            </div>
-                        </div>
-                        <div class="steps-lines clearfix">
-                            <div class="steps-line">
+                            <div class="steps-lines clearfix">
+                                <div class="steps-line">
 
-                            </div>
-                            <div class="steps-line">
+                                </div>
+                                <div class="steps-line">
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -31,7 +44,7 @@
                         <div class="steps-step cur-step" >
                             <div class="cont-row ">
                                 <div class="cont-col-12">
-                                    <p class="step-title">
+                                    <p class="step-head">
                                         基本服务信息</p>
                                 </div>
                             </div>
@@ -157,7 +170,7 @@
                         <div class="steps-step" >
                             <div class="cont-row">
                                 <div class="cont-col-12">
-                                    <p class="step-title">
+                                    <p class="step-head">
                                         详细服务信息</p>
                                 </div>
                             </div>
@@ -312,7 +325,7 @@
                         <div class="steps-step">
                             <div class="cont-row">
                                 <div class="cont-col-12">
-                                    <p class="step-title">
+                                    <p class="step-head">
                                         服务时间设置</p>
                                 </div>
                             </div>

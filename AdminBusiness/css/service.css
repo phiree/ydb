@@ -156,7 +156,7 @@ a.new-add-btn {
 
 
 /*店铺编辑步骤样式*/
-.step-title {
+.step-head {
     font-size: 30px;
     padding: 40px 10px 10px 10px;
     margin-bottom: 20px;
@@ -164,7 +164,7 @@ a.new-add-btn {
 }
 
 .step-main-wrap {
-    background: #ddd;
+    background: #f8f8f8;
     /*overflow: hidden;*/
     padding: 14px;
 }

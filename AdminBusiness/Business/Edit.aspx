@@ -14,23 +14,33 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <div class="cont-wrap theme-color-58789a">
         <div class="cont-container animated fadeInUpSmall">
             <div class="steps-wrap steps-2">
-                <div class="steps-show">
-                    <div class="steps-tips steps-tips-2 clearfix">
-                        <div class="steps-tip">
-                            <div class="icon steps-tip-icon step-icon-1"></div>
+                <div class="steps-show-wrap">
+                    <div class="steps-show">
+                        <div class="steps-title">
+                            <div class="steps-title-t">
+                                <p>店铺基本信息</p>
+                            </div>
+                            <div class="steps-title-t">
+                                <p>店铺营业资质</p>
+                            </div>
                         </div>
-                        <div class="steps-tip">
-                            <div class="icon steps-tip-icon step-icon-2"></div>
+                        <div class="steps-tips steps-tips-2 clearfix">
+                            <div class="steps-tip">
+                                <div class="icon steps-tip-icon step-icon-1"></div>
+                            </div>
+                            <div class="steps-tip">
+                                <div class="icon steps-tip-icon step-icon-2"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="steps-lines clearfix">
-                        <div class="steps-line"></div>
+                        <div class="steps-lines clearfix">
+                            <div class="steps-line"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="steps-list">
                     <div class="steps-step cur-step">
                         <div class="cont-row step-row">
-                            <div class="cont-col-12"><p class="step-title">基本信息填写</p></div>
+                            <div class="cont-col-12"><p class="step-head">基本信息填写</p></div>
                         </div>
 
                         <div class="step-main-wrap">
@@ -201,7 +211,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                     </div>
                     <div class="steps-step">
                         <div class="cont-row step-row">
-                            <div class="cont-col-12"><p class="step-title step-2">完善商户营业资质资料</p></div>
+                            <div class="cont-col-12"><p class="step-head">商户营业资质资料</p></div>
                         </div>
                         <div class="step-main-wrap">
                             <div class="step-main">
