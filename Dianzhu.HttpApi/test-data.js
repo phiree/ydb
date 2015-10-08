@@ -1,6 +1,6 @@
 ﻿var need_to_test = [
 //"orm002001", "orm001003", "orm001004", "orm001005"
-"chat001001"//,"usm001005",//"usm001008",
+"chat001004", "chat001006"//,"usm001005",//"usm001008",
 //"merm001005"//,"merm001003","merm001005",
 
 //"orm001004","orm001005","orm001006"
@@ -9,7 +9,7 @@ var test_data = [
 
     /**************聊天记录*****************/
     {
-        "protocol_CODE": "CHAT001001",
+        "protocol_CODE": "CHAT001004",
         "ReqData": {
             "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
             "pWord": "123456",
@@ -18,6 +18,19 @@ var test_data = [
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"
     },
+     {
+         "protocol_CODE": "CHAT001006",
+         "ReqData": {
+             "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+             "andID": "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+             "pWord": "123456",
+             "orderID": "659edbdf-3fc2-48e4-97d7-a50b0114c800",
+             "pageNum": 0,
+             "pageSize":10
+         },
+         "stamp_TIMES": "1490192929212",
+         "serial_NUMBER": "00147001015869149751"
+     },
   /***************订单*****************/
 
 

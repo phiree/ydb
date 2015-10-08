@@ -19,7 +19,7 @@ namespace Dianzhu.DAL
             
         }
         /// <summary>
-        /// 
+        /// 查询接待记录
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
@@ -27,11 +27,7 @@ namespace Dianzhu.DAL
         /// <param name="timeEnd"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public virtual IList<ReceptionBase> Search(DZMembership from,DZMembership to, DateTime timeBegin, DateTime timeEnd,int limit)
-        {
-            int rowCount;
-            return Search(from, to, Guid.Empty, timeBegin, timeEnd, 0, limit, out rowCount );
-        }
+        
         /// <summary>
         /// search reception 
         /// </summary>
@@ -44,28 +40,22 @@ namespace Dianzhu.DAL
         /// <param name="pageSize"></param>
         /// <param name="rowCount">out</param>
         /// <returns></returns>
-        public virtual IList<ReceptionBase> Search(DZMembership from, DZMembership to,Guid orderId, DateTime timeBegin, DateTime timeEnd,
+        public virtual IList<ReceptionBase> GetReceptionList(DZMembership from, DZMembership to, DateTime timeBegin, DateTime timeEnd,
             int pageIndex,int pageSize,out int rowCount
             )
         {
 
-            var result = BuildReceptionQuery(from, to, orderId, timeBegin, timeEnd);
+            var result = Session.QueryOver<ReceptionBase>().Where(x => x.TimeBegin >= timeBegin)
+                .And(x => x.TimeBegin <= timeEnd)
+                .And(x => (x.Sender == from && x.Receiver == to) || (x.Sender == to && x.Receiver == from));
+
             rowCount = result.RowCount();
             result.OrderBy(x => x.TimeBegin).Desc.Skip(pageIndex*pageSize).Take(pageSize).List();
             return result.List();
         }
+
         
-        private IQueryOver<ReceptionBase,ReceptionBase> BuildReceptionQuery(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd)
-        {
-            var result = Session.QueryOver<ReceptionBase>().Where(x => x.TimeBegin >= timeBegin)
-                .And(x => x.TimeBegin <= timeEnd)
-                .And(x => (x.Sender == from && x.Receiver == to) || (x.Sender == to && x.Receiver == from));
-            if (orderId != Guid.Empty)
-            {
-                result = result.And(x => x.ServiceOrder.Id == orderId);
-            }
-            return result;
-        }
+        
 
         /// <summary>
         /// 
@@ -79,28 +69,48 @@ namespace Dianzhu.DAL
         /// <param name="pageSize"></param>
         /// <param name="rowCount"></param>
         /// <returns></returns>
-        public virtual IList<ReceptionChat> SearchChat(DZMembership user, Guid orderId, DateTime timeBegin, DateTime timeEnd,
+        public virtual IList<ReceptionChat> GetReceptionChatList(DZMembership from,DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
             int pageIndex, int pageSize, out int rowCount
             )
         {
 
-            var result = BuildReceptionChatQuery(user, orderId, timeBegin, timeEnd);
+            var result = BuildReceptionChatQuery(from,to, orderId, timeBegin, timeEnd);
+            if(orderId!=Guid.Empty)
+            {
+                result = result.And(x => x.ServiceOrder.Id == orderId);
+            }
             rowCount = result.RowCount();
             result.OrderBy(x => x.SavedTime).Desc.Skip(pageIndex * pageSize).Take(pageSize).List();
             return result.List();
         }
 
-        private IQueryOver<ReceptionChat, ReceptionChat> BuildReceptionChatQuery(DZMembership user, Guid orderId, DateTime timeBegin, DateTime timeEnd)
+        private IQueryOver<ReceptionChat, ReceptionChat> BuildReceptionChatQuery(DZMembership from,DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd)
         {
             var result = Session.QueryOver<ReceptionChat>().Where(x => x.SavedTime >= timeBegin)
-                .And(x => x.SavedTime <= timeEnd)
-                .And(x => (x.From == user || x.To == user));
+                .And(x => x.SavedTime <= timeEnd);
+            if (to != null) {
+                result= result.And(x => (x.From == from && x.To == to) || (x.From == to && x.To == from));
+            }
+            else
+            {
+                result = result.And(x => (x.From == from || x.To ==from));
+            }
             if (orderId != Guid.Empty)
             {
                 result = result.And(x => x.ServiceOrder.Id == orderId);
             }
             return result;
         }
-
+        private IList<ReceptionChat> BuildChatList(IList<ReceptionBase> list, int limit)
+        {
+            var chatList = new List<ReceptionChat>();
+            foreach (ReceptionBase re in list)
+            {
+                if (chatList.Count > limit)
+                { break; }
+                chatList.AddRange(re.ChatHistory.OrderByDescending(x => x.SavedTime));
+            }
+            return chatList.OrderBy(x => x.SavedTime).ToList();
+        }
     }
 }

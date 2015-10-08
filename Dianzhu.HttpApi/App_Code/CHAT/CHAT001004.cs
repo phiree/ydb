@@ -7,9 +7,9 @@ using Dianzhu.Model;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
-public class ResponseCHAT001001:BaseResponse
+public class ResponseCHAT001004:BaseResponse
 {
-    public ResponseCHAT001001(BaseRequest request):base(request)
+    public ResponseCHAT001004(BaseRequest request):base(request)
     {
         //
         // TODO: Add constructor logic here
@@ -17,7 +17,7 @@ public class ResponseCHAT001001:BaseResponse
     }
     protected override void BuildRespData()
     {
-        ReqDataCHAT001001 requestData = this.request.ReqData.ToObject<ReqDataCHAT001001>();
+        ReqDataCHAT001004 requestData = this.request.ReqData.ToObject<ReqDataCHAT001004>();
         DZMembershipProvider p = new DZMembershipProvider();
         string raw_id = requestData.userID;
         DZMembership member;
@@ -38,8 +38,8 @@ public class ResponseCHAT001001:BaseResponse
         }
         try
         {
-            IList<ReceptionChat> chatList = bllReception.GetHistoryReceptionChat(member, orderId, out rowCount);
-            RespDataCHAT001001 respData = new RespDataCHAT001001 { sum = rowCount.ToString() };
+            IList<ReceptionChat> chatList = bllReception.GetReceptionChatList(member,null, orderId,DateTime.MinValue,DateTime.Now,0,10, out rowCount);
+            RespDataCHAT001004 respData = new RespDataCHAT001004 { sum = rowCount.ToString() };
             this.RespData = respData;
             this.state_CODE = Dicts.StateCode[0];
             return;
@@ -52,13 +52,13 @@ public class ResponseCHAT001001:BaseResponse
         }
     }
 }
-public class ReqDataCHAT001001
+public class ReqDataCHAT001004
 {
     public string userID { get; set; }
     public string pWord { get; set; }
     public string orderID { get; set; }
 }
-public class RespDataCHAT001001
+public class RespDataCHAT001004
 {
     public string sum { get; set; }
 }

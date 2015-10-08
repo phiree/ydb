@@ -24,7 +24,7 @@ public class RespDataCHAT_chatObj
     {
 
         this.to = chat.To.Id.ToString();
-        this.from = chat.From.ToString();
+        this.from = chat.From.Id.ToString();
         this.orderID = chat.ServiceOrder == null ? string.Empty : chat.ServiceOrder.Id.ToString();
         this.type = "chat";
         this.date = chat.SavedTime.ToString("yyyyMMddhhmm");
