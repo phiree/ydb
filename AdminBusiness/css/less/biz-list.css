@@ -2,7 +2,6 @@
 .biz-list-wrap {
   background: #fff;
   position: relative;
-  border: 1px solid #DEDEDE;
 }
 .biz-list-bg {
   position: absolute;
@@ -20,7 +19,7 @@
   background: #ccc;
 }
 .biz-list {
-  background: #eee;
+  background: #f2f2f2;
   margin-left: 140px;
   padding: 50px 0;
 }
@@ -106,8 +105,8 @@
   margin-bottom: -20px;
 }
 .biz-item-right .svc-list .svc-li {
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
   display: inline-block;
   margin-top: -30px;
   overflow: hidden;
@@ -115,7 +114,7 @@
 }
 .biz-item-right .svc-list .svc-item-h {
   position: absolute;
-  bottom: 9px;
+  bottom: 13px;
   width: 100%;
   text-align: center;
 }

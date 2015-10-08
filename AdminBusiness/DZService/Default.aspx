@@ -39,7 +39,7 @@
                                                                 <div class="icon service-icon svcType-s-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>">
 
                                                                 </div>
-                                                          <input type="hidden"  value="<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"   />
+                                                            <input type="hidden"  value="<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"   />
 
                                                             </td>
                                                             <td class="table-col-2 bord-r-d">
@@ -162,7 +162,6 @@
 //            return true
 //        };
 //    }
-
 
     $(function(){
         if ( $("#accordion").children(".panel").length == 0 ){
