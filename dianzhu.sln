@@ -232,6 +232,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "12360"
+		SlnRelativePath = "Dianzhu.Web.Pay\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject

@@ -22,6 +22,7 @@ namespace Dianzhu.DAL.Mapping
             References<DZMembership>(x => x.Sender);
             Map(x => x.TimeBegin);
             Map(x => x.TimeEnd);
+            References<ServiceOrder>(x => x.ServiceOrder);
             
         }
     }

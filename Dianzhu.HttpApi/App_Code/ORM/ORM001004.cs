@@ -19,12 +19,12 @@ public class ResponseORM001004 : BaseResponse
         ReqDataORM001004 requestData = this.request.ReqData.ToObject<ReqDataORM001004>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        string raw_id = requestData.userID;
+       
 
         try
-        {
+        { DZMembershipProvider p = new DZMembershipProvider();
+        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+        string raw_id = requestData.userID;
             DZMembership member;
             bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
             if (!validated)

@@ -58,7 +58,9 @@ public class ResponseFactory
                 return new ResponseORM001005(request);
 
             case "orm002001":
-                return new ResponseORM002001(request); 
+                return new ResponseORM002001(request);
+            case "chat001001":
+                return new ResponseCHAT001001(request);
             default: break;
         }
         throw new Exception("No Such Api");

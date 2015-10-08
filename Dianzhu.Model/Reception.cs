@@ -40,6 +40,7 @@ namespace Dianzhu.Model
         public virtual IList<ReceptionChat> ChatHistory { get; set; }
 
         public virtual bool IsComplete { get; set; }
+        public virtual ServiceOrder ServiceOrder { get; set; }
 
     }
     public class ReceptionCustomer : ReceptionBase
