@@ -79,6 +79,12 @@ a.new-add-btn {
     vertical-align: middle;
 }
 
+.service-list .panel-title-tips .icon{
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+
 .service-icon {
     width: 80px;
     height: 80px;

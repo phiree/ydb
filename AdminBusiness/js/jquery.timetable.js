@@ -76,13 +76,16 @@
         var $taskRow = $this.find('.tt-body-rows').find('.tt-row').find('.tt-row-content');
 
         for( var i = 0 ; i < data.length ; i++ ){
-            var rowNum = data[i].DayOfWeek;
+            var enable = data[i].Enabled;
 
-            var arrTask = this.createTask(data[i]);
-            for ( var j = 0 ; j < arrTask.length ; j++ ) {
-                $taskRow.eq(rowNum).append(arrTask[j]);
+            if( enable ){
+                var rowNum = data[i].DayOfWeek;
+
+                var arrTask = this.createTask(data[i]);
+                for ( var j = 0 ; j < arrTask.length ; j++ ) {
+                    $taskRow.eq(rowNum).append(arrTask[j]);
+                }
             }
-
         }
 
     };
