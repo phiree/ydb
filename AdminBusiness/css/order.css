@@ -1,39 +1,101 @@
-.order-options1-content{ background:#cadbec;overflow:hidden;}
-.order-options-content-padding{ padding:16px;}
-.order-options1-top-left{ float:left;}
-.calender-div{width:302px; height:502px; }
+/*订单列表样式*/
+.list-item-odd {
+    background-color: #f1f4f7;
+}
 
-.order-options1-top-right{ float:left;  padding-left:15px;}
-.order-options1-top-right-content{ width:569px; height:452px; background:#f0f4fb; border-radius:5px;}
-.order-options1-top-right-titleUl{ background:#2791c9; height:35px;border-radius:3px; width:264px; margin-bottom:14px;}
-.panel-class{ width:250px; background:#FFF; border-radius:3px;}
+.order-total {
+    text-align: center;
+    border-bottom: 1px solid #CCCCCC;
+    padding-bottom: 25px;
+}
 
-.order-options1-top-right-content-l{ float:left; margin-left:22px; margin-top:22px; overflow:hidden; -moz-box-shadow:0 3px 1px #dbdee4; -webkit-box-shadow:0 3px 1px #dbdee4;box-shadow: 0 3px 1px #dbdee4;}
-.panel-top{ height:60px; background:#5bbdc6; border-top-left-radius:3px; border-top-right-radius:3px; color:#FFF; padding-top:10px; padding-left:10px;}
-.panel-top-ul{}
-/*.panel-top-ul ul{ background:url(../image/s-top-inco.jpg) no-repeat; padding-left:30px; font-size:18px;}*/
-.panel-top-ul ul li{ font-size:14px; margin-top:8px;}
-.panel-top-s{ background:#21909a; height:3px;}
-.panel-content-size{margin: 0 auto;width:230px;}
-.panel-name{ position:relative; background:#f6fafe;border-radius:5px; margin-top:20px; height:40px;}
-.panel-incon{ position:absolute; top:8px; left:15px;}
-.panl-name-txt{ position:absolute; top:12px; left:50px; color:#7893b0; font-size:14px;}
+.order-head {
+    text-align: center;
+    padding: 25px 0;
+    font-weight: bold;
+}
 
-/*.panel-list-content{ background:url(../image/linebj1.jpg) repeat-y;overflow:hidden; color:#939393; font-size:13px;}*/
-.s-inco-style{padding-left:25px; margin-top:10px; margin-bottom:20px;}
-/*.s-time{ background:url(../image/s-time.jpg) no-repeat; }*/
-/*.s-addr{background:url(../image/s-addr.jpg) no-repeat;}*/
-/*.s-per{background:url(../image/s-per.jpg) no-repeat; padding-top:3px;}*/
-/*.s-order{background:url(../image/s-order.jpg) no-repeat;padding-top:3px;}*/
-/*.s-tel{ background:url(../image/s-tel.jpg) no-repeat; height:33px; padding-left:35px; padding-top:2px; color:#60b0be; font-size:18px; padding-bottom:10px;}*/
+.order-table {
+    text-align: center;
+}
 
-.panel-bottom{ border-top:#f3f2f1 solid 1px; margin-top:2px; padding-top:10px;}
-.order-options1-top-right-content-r{ float:left; margin-left:22px;margin-top:22px;overflow:hidden; -moz-box-shadow:0 3px 1px #dbdee4; -webkit-box-shadow:0 3px 1px #dbdee4;box-shadow: 0 3px 1px #dbdee4;}
-.order-options1-top-right-titleUl li{ width:132px; float:left; text-align:center;}
-.titleli-1{}
-/*.order-options1-middle{ clear:left; background:url(../image/order-middle-bj.jpg) repeat-x; height:69px; m}*/
-.account{ height:1138px; display:none;}
+.order-table thead {
+    background: #8dc2f3;
+}
+
+.order-table thead tr th{
+    padding: 20px 0;
+    text-align: center;
+    color: #fff;
+    border-left: 1px solid #9DD0FF;
+}
+
+.order-table tbody tr td {
+    text-align: center;
+    padding: 10px;
+    word-break: break-all;
+}
+
+.order-table tbody tr{
+    cursor: pointer;
+}
+
+/*.order-table tbody tr:hover{*/
+    /*background: #b0d3f5;*/
+    /*color: #fff;*/
+/*}*/
+
+.order-span-status {
+    background: #c1e2b3;
+    color: #fff;
+}
+
+.order-span-ctrl {
+    color: #60b7ea;
+    border: 1px solid #60b7ea;
+    padding: 5px;
+}
 
 
+.order-status-detail {
+    overflow: hidden;
+    margin-bottom: 15px;
+}
 
+.order-steps {
+    text-align: center;
+    overflow: hidden;
+    margin: 0 auto;
+}
 
+.order-status-step {
+    display: inline-block;
+    text-align: center;
+}
+
+.order-status-step.ml{
+    margin-left: 100px;
+}
+
+.order-status-step.mr{
+    margin-right: 100px;
+}
+
+.order-status-step.cur-step .icon{
+    background: yellow;
+}
+
+.order-status-step.done-step .icon{
+    background: green;
+}
+
+.order-lines {
+
+}
+/*订单列表图标*/
+.order-icon-status1 {
+    height: 54px;
+    width: 54px;
+    vertical-align: bottom;
+    margin-right: 10px;
+}
