@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 
 public class RespDataCHAT_chatObj
 {
+    public string id { get; set; }
     public string to { get; set; }
     public string from { get; set; }
     public string orderID { get; set; }
@@ -22,12 +23,12 @@ public class RespDataCHAT_chatObj
     public string date { get; set; }
     public RespDataCHAT_chatObj Adapt(ReceptionChat chat)
     {
-
+        this.id = chat.Id.ToString();
         this.to = chat.To.Id.ToString();
         this.from = chat.From.Id.ToString();
         this.orderID = chat.ServiceOrder == null ? string.Empty : chat.ServiceOrder.Id.ToString();
         this.type = "chat";
-        this.date = chat.SavedTime.ToString("yyyyMMddhhmm");
+        this.date = chat.SavedTime.ToString("yyyyMMddhhmmss");
         if (chat is ReceptionChatMedia)
         {
             this.body = ((ReceptionChatMedia)chat).MedialUrl;

@@ -21,11 +21,11 @@ var test_data = [
      {
          "protocol_CODE": "CHAT001006",
          "ReqData": {
-             "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+             "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
              "andID": "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
-             "pWord": "123456",
-             "orderID": "659edbdf-3fc2-48e4-97d7-a50b0114c800",
-             "pageNum": 0,
+             "pWord": "1234",
+             "orderID": "f709b5d0-412a-43b1-b12c-a52c01150260",
+             "pageNum": 1,
              "pageSize":10
          },
          "stamp_TIMES": "1490192929212",

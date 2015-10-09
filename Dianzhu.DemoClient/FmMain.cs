@@ -254,6 +254,7 @@ namespace Dianzhu.DemoClient
             agsc.Message message = new MessageBuilder()
                 .Create(customerId, csId, tbxMessage.Text, orderID)
                 .BuildText();
+            //message.Id = Guid.NewGuid().ToString();
             GlobalViables.XMPPConnection.Send(message);
             AddLog(message);
 

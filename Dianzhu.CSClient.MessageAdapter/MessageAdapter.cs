@@ -43,6 +43,11 @@ namespace Dianzhu.CSClient.MessageAdapter
                      
             }
             ReceptionChat chat = ReceptionChat.Create(chatType);
+            Guid messageId;
+            if (Guid.TryParse(message.Id, out messageId))
+            {
+                chat.Id = messageId;
+            }
             chat.From = bllMember.GetUserById(new Guid(message.From.User));
             chat.To = bllMember.GetUserById(new Guid(message.To.User));
             //这个逻辑放在orm002001接口里面处理.
@@ -104,6 +109,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             
             Message msg = new Message();
             msg.SetAttribute("type", "chat");
+            msg.Id = chat.Id.ToString();
             msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
             msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server);
             msg.Body = chat.MessageBody;
