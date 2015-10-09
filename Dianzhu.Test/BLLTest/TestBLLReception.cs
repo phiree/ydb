@@ -43,11 +43,13 @@ namespace Dianzhu.Test.BLLTest
                 rb.ChatHistory.Add(vchatList[2]);
             }
 
+
+            int rowCount;
             var dal = MockRepository.GenerateStub<DAL.DALReception>(string.Empty);
-            dal.Stub(x => x.Search(null, null, dateBegin, dateEnd, 10)).Return(receptionList);
+            dal.Stub(x => x.GetReceptionList(null, null, dateBegin, dateEnd, 0,10,out rowCount )).Return(receptionList);
             
             var bll = MockRepository.GenerateStub<BLLReception>(dal);
-           IList<ReceptionChat> chatList= bll.GetHistoryReceptionChat(null, null,dateBegin,dateEnd, 10);
+           IList<ReceptionChat> chatList= bll.GetReceptionChatList(null, null,Guid.Empty, dateBegin,dateEnd,0,10,out rowCount);
             foreach(ReceptionChat c in chatList)
             {
                 Console.WriteLine(c.SavedTime);
