@@ -75,6 +75,7 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
+            this.btnOrderChangedNotice = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -160,6 +161,7 @@
             this.pnlOrder.Controls.Add(this.label8);
             this.pnlOrder.Controls.Add(this.tbxMemo);
             this.pnlOrder.Controls.Add(this.btnCreateOrder);
+            this.pnlOrder.Controls.Add(this.btnOrderChangedNotice);
             this.pnlOrder.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlOrder.Location = new System.Drawing.Point(3, 13);
             this.pnlOrder.Name = "pnlOrder";
@@ -578,6 +580,16 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
+            // btnOrderChangedNotice
+            // 
+            this.btnOrderChangedNotice.Location = new System.Drawing.Point(3, 382);
+            this.btnOrderChangedNotice.Name = "btnOrderChangedNotice";
+            this.btnOrderChangedNotice.Size = new System.Drawing.Size(166, 23);
+            this.btnOrderChangedNotice.TabIndex = 17;
+            this.btnOrderChangedNotice.Text = "(DEMO)发送订单修改通知";
+            this.btnOrderChangedNotice.UseVisualStyleBackColor = true;
+            this.btnOrderChangedNotice.Click += new System.EventHandler(this.btnOrderChangedNotice_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -662,5 +674,6 @@
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnSendImage;
         private System.Windows.Forms.OpenFileDialog dlgSelectPic;
+        private System.Windows.Forms.Button btnOrderChangedNotice;
     }
 }

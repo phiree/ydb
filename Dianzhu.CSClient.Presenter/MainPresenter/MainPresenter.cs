@@ -57,11 +57,28 @@ namespace Dianzhu.CSClient.Presenter
             this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
             this.view.CreateOrder += new CreateOrder(view_CreateOrder);
             this.view.ViewClosed += new ViewClosed(view_ViewClosed);
+            this.view.OrderStateChanged += View_OrderStateChanged;
 
             this.view.PlayAudio += View_PlayAudio;
             this.view.LocalMediaSaveDir = GlobalViables.LocalMediaSaveDir;
             
         }
+
+        private void View_OrderStateChanged()
+        {
+            ServiceOrder currentOrder = OrderList[customer];
+            ReceptionChatNotice noticeChat = new ReceptionChatNotice {
+                From=customerService,
+                To=customer,
+                ChatType = Model.Enums.enum_ChatType.Notice };
+            noticeChat.ServiceOrder = currentOrder;
+            noticeChat.UserObj = customerService;
+           noticeChat.SendTime= noticeChat.SavedTime = DateTime.Now;
+            noticeChat.MessageBody = "订单状态已发生变化";
+           
+            instantMessage.SendMessage(noticeChat);
+        }
+
         PHSuit.Media media = new PHSuit.Media();
         private void View_PlayAudio(object audioTag, IntPtr handle)
         {
@@ -193,9 +210,10 @@ namespace Dianzhu.CSClient.Presenter
         {
             bool isContain = ReceptionList.ContainsKey(customer.UserName);
 
-            var chatHistory = bllReception.GetHistoryReceptionChat(
+            int rowCount;
+            var chatHistory = bllReception.GetReceptionChatList(
                 customerList.Single(x => x.UserName == customer.UserName),
-                customerService, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10);
+                customerService,Guid.Empty, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),0,20,out rowCount);
 
             view.ChatLog = chatHistory;
         }

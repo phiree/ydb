@@ -40,7 +40,7 @@ namespace Dianzhu.Model
         public virtual IList<ReceptionChat> ChatHistory { get; set; }
 
         public virtual bool IsComplete { get; set; }
-        public virtual ServiceOrder ServiceOrder { get; set; }
+        
 
     }
     public class ReceptionCustomer : ReceptionBase
@@ -89,6 +89,9 @@ namespace Dianzhu.Model
                
                 case Enums.enum_ChatType.Media:
                     chat = new ReceptionChatMedia();
+                    break;
+                case Enums.enum_ChatType.Notice:
+                    chat = new ReceptionChatNotice();
                     break;
                 default:
                     chat= new ReceptionChat();
@@ -139,7 +142,7 @@ namespace Dianzhu.Model
     ///
     public class ReceptionChatMedia : ReceptionChat
     {
-        public virtual ServiceOrder ServiceOrder { get; set; }
+       
         public virtual string MedialUrl { get; set; }
         public virtual string MediaType { get; set; }
     }
@@ -152,6 +155,10 @@ namespace Dianzhu.Model
         /// 重新分配的客服
         /// </summary>
        public virtual DZMembership ReAssignedCustomerService { get; set; }
+    }
+    public class ReceptionChatNotice : ReceptionChat
+    {
+        public virtual DZMembership UserObj { get; set; }
     }
 
 

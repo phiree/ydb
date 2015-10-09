@@ -107,6 +107,7 @@ namespace Dianzhu.Model.Enums
         /// </summary>
         Text,
         Media,//包含多媒体链接的消息
+        Notice,//客服通知
         PushedService,// 推送的服务
         ConfirmedService,//被确认的服务
         Order,//订单.包含支付链接

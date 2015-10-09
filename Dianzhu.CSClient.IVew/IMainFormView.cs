@@ -17,6 +17,7 @@ namespace Dianzhu.CSClient.IVew
     public delegate void CreateOrder();
     public delegate void ViewClosed();
     public delegate void BeforeCustomerChanged();
+    public delegate void OrderStateChanged();
 
     public interface IMainFormView
     {
@@ -72,5 +73,6 @@ namespace Dianzhu.CSClient.IVew
         event ViewClosed ViewClosed;
         
         event BeforeCustomerChanged BeforeCustomerChanged;
+        event OrderStateChanged OrderStateChanged;
     }
 }

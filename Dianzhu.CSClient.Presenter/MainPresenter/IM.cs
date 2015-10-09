@@ -26,7 +26,7 @@ namespace Dianzhu.CSClient.Presenter
 
             //判断客户列表中是否有该用户
             bool isIn = AddCustomer(chat.From.UserName);
-            
+            //订单列表中是否已经有该客户的订单
                 if (!OrderList.ContainsKey(chat.From))
                 {
                     OrderList.Add(chat.From, chat.ServiceOrder);

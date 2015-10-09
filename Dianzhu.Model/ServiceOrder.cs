@@ -8,6 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 订单
     /// </summary>
+    
     public class ServiceOrder
     {
          

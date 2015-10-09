@@ -79,6 +79,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                    , string.Empty
                    , 0
                    ,0);
+                chat.ServiceOrder = newOrder;
             }
             chat.MessageBody = message.Body;
             chat.SavedTime = DateTime.Now;
@@ -137,7 +138,17 @@ namespace Dianzhu.CSClient.MessageAdapter
                     cerObj.SetAttribute("UserID", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.Id.ToString());
                     cerObj.SetAttribute("alias", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.DisplayName);
                     cerObj.SetAttribute("imgUrl", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.AvatarUrl);
-
+                    extNode.AddChild(cerObj);
+                    msg.SetAttribute("type", "headline");
+                    break;
+                case enum_ChatType.Notice:
+                    extNode.Namespace = "ihelper:cer:notce";
+                    var UserObj= new agsXMPP.Xml.Dom.Element("UserObj");
+                    UserObj.SetAttribute("UserID", ((ReceptionChatNotice)chat).UserObj.Id.ToString());
+                    UserObj.SetAttribute("alias", ((ReceptionChatNotice)chat).UserObj.DisplayName);
+                    UserObj.SetAttribute("imgUrl", ((ReceptionChatNotice)chat).UserObj.AvatarUrl);
+                    msg.SetAttribute("type", "headline");
+                    extNode.AddChild(UserObj);
                     break;
             }
             return msg;

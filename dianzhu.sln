@@ -236,6 +236,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTest", "WPFTest\WPFTest.csproj", "{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -539,6 +541,18 @@ Global
 		{FBEC30ED-52CD-49B0-B767-B2EC013796A4}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{FBEC30ED-52CD-49B0-B767-B2EC013796A4}.Release|x86.ActiveCfg = Debug|Any CPU
 		{FBEC30ED-52CD-49B0-B767-B2EC013796A4}.Release|x86.Build.0 = Debug|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -573,6 +587,7 @@ Global
 		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
 		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{FBEC30ED-52CD-49B0-B767-B2EC013796A4} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

@@ -11,8 +11,7 @@ namespace Dianzhu.CSClient
     public class GlobalViables
     {
     
-        public static readonly string WebServerRoot = ConfigurationManager.AppSettings["WebServerRoot"];
-        public static readonly string ButtonNamePrefix = "btn";
+         public static readonly string ButtonNamePrefix = "btn";
       
              
  

@@ -39,6 +39,7 @@ namespace Dianzhu.CSClient.WinformView
         public event BeforeCustomerChanged BeforeCustomerChanged;
         public event ViewClosed ViewClosed;
         public event PlayAudio PlayAudio;
+        public event OrderStateChanged OrderStateChanged;
         
 
         #endregion
@@ -546,5 +547,9 @@ namespace Dianzhu.CSClient.WinformView
             }
         }
 
+        private void btnOrderChangedNotice_Click(object sender, EventArgs e)
+        {
+            OrderStateChanged();
+        }
     }
 }

@@ -22,7 +22,6 @@ namespace Dianzhu.DAL.Mapping
             References<DZMembership>(x => x.Sender);
             Map(x => x.TimeBegin);
             Map(x => x.TimeEnd);
-            References<ServiceOrder>(x => x.ServiceOrder);
             
         }
     }
@@ -68,6 +67,13 @@ namespace Dianzhu.DAL.Mapping
         public ReceptionChatReAssignMap()
         {
             References<DZMembership>(x => x.ReAssignedCustomerService);
+        }
+    }
+    public class ReceptionChatNoticeMap : SubclassMap<ReceptionChatNotice>
+    {
+        public ReceptionChatNoticeMap()
+        {
+            References<DZMembership>(x => x.UserObj);
         }
     }
 

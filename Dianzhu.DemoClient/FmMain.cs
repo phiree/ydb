@@ -79,9 +79,9 @@ namespace Dianzhu.DemoClient
                 lblAssignedCS.Text = "客服离线";
                 throw new Exception(state_Code + "_" + errMsg);
             }
-            csDisplayName = result["RespData"]["cerObj"]["alias"].ToString();
+            csDisplayName = "e@e.e";// result["RespData"]["cerObj"]["alias"].ToString();
 
-            csId = result["RespData"]["cerObj"]["userID"].ToString();
+            csId = "d53147d9-1a1e-4df8-b4d0-a4f90129ad25";// result["RespData"]["cerObj"]["userID"].ToString();
             customerId = result["RespData"]["cerObj"]["userID"].ToString();
             tbxOrderId.Text = orderID = result["RespData"]["orderID"].ToString();
         }
