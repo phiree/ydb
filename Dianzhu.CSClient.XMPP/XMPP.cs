@@ -38,9 +38,16 @@ namespace Dianzhu.CSClient.XMPP
                 XmppClientConnection.OnError += new ErrorHandler(XmppClientConnection_OnError);
                 XmppClientConnection.OnSocketError+=new ErrorHandler(XmppClientConnection_OnSocketError);
                 XmppClientConnection.OnClose+=new ObjectHandler(XmppClientConnection_OnClose);
+                XmppClientConnection.OnIq += XmppClientConnection_OnIq;
                 
             }
         }
+
+        private void XmppClientConnection_OnIq(object sender, IQ iq)
+        {
+           
+        }
+
         void XmppClientConnection_OnSocketError(object sender, Exception ex)
         {
             IMConnectionError(ex.Message);
@@ -78,6 +85,22 @@ namespace Dianzhu.CSClient.XMPP
         void Connection_OnLogin(object sender)
         {
             IMLogined(XmppClientConnection.Username);
+
+
+            System.Timers.Timer tmHeartBeat = new System.Timers.Timer();
+            tmHeartBeat.Elapsed += TmHeartBeat_Elapsed;
+            tmHeartBeat.Interval = 5*60* 1000;
+            tmHeartBeat.Start();
+        }
+
+        private void TmHeartBeat_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            IQ iqHeartBeat = new IQ(IqType.get,XmppClientConnection.MyJID,Domain);
+            var pingNode = new agsXMPP.Xml.Dom.Element("ping");
+            pingNode.Namespace = "urn:xmpp:ping";
+            iqHeartBeat.AddChild(pingNode);
+
+            XmppClientConnection.Send(iqHeartBeat);
         }
 
         public void SendPresent()
