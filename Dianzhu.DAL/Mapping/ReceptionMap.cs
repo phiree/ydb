@@ -39,7 +39,7 @@ namespace Dianzhu.DAL.Mapping
     {
         public ReceptionChatMap()
         {
-            Id(x => x.Id);
+            Id(x => x.Id).UnsavedValue(Guid.Empty);
             Map(x => x.SavedTime);
             Map(x => x.MessageBody);
             Map(x => x.ReceiveTime);
@@ -48,6 +48,8 @@ namespace Dianzhu.DAL.Mapping
             References<DZMembership>(x => x.From);
             References<ServiceOrder>(x => x.ServiceOrder);
             Map(x => x.ChatType).CustomType<int>();
+            Map(x => x.Version);
+            References<ReceptionBase>(x => x.Reception).Cascade.All().Column("ReceptionBase_id");
         }
     }
    

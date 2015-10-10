@@ -40,18 +40,20 @@ namespace Dianzhu.CSClient.MessageAdapter
                     break;
                 default:
                     throw new Exception("未知的命名空间");
-                     
+
             }
+           var chatFrom = bllMember.GetUserById(new Guid(message.From.User));
+           var  chatTo = bllMember.GetUserById(new Guid(message.To.User));
             ReceptionChat chat = ReceptionChat.Create(chatType);
             Guid messageId;
             if (Guid.TryParse(message.Id, out messageId))
             {
                 chat.Id = messageId;
             }
-            chat.From = bllMember.GetUserById(new Guid(message.From.User));
-            chat.To = bllMember.GetUserById(new Guid(message.To.User));
-            //这个逻辑放在orm002001接口里面处理.
-            Guid order_ID;
+            chat.From = chatFrom;
+            chat.To = chatTo;
+               //这个逻辑放在orm002001接口里面处理.
+               Guid order_ID;
             bool isValidGuid = Guid.TryParse(orderID, out order_ID);
             bool hasOrder = false;
             if (isValidGuid)
@@ -84,6 +86,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                    , string.Empty
                    , 0
                    ,0);
+                bllOrder.SaveOrUpdate(newOrder);
                 chat.ServiceOrder = newOrder;
             }
             chat.MessageBody = message.Body;

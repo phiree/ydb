@@ -49,6 +49,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tbxMemo = new System.Windows.Forms.TextBox();
             this.btnCreateOrder = new System.Windows.Forms.Button();
+            this.btnOrderChangedNotice = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
@@ -75,7 +76,6 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
-            this.btnOrderChangedNotice = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -309,6 +309,16 @@
             this.btnCreateOrder.Text = "创建订单,发送支付链接";
             this.btnCreateOrder.UseVisualStyleBackColor = true;
             this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
+            // 
+            // btnOrderChangedNotice
+            // 
+            this.btnOrderChangedNotice.Location = new System.Drawing.Point(3, 382);
+            this.btnOrderChangedNotice.Name = "btnOrderChangedNotice";
+            this.btnOrderChangedNotice.Size = new System.Drawing.Size(166, 23);
+            this.btnOrderChangedNotice.TabIndex = 17;
+            this.btnOrderChangedNotice.Text = "(DEMO)发送订单修改通知";
+            this.btnOrderChangedNotice.UseVisualStyleBackColor = true;
+            this.btnOrderChangedNotice.Click += new System.EventHandler(this.btnOrderChangedNotice_Click);
             // 
             // btnLogout
             // 
@@ -579,16 +589,6 @@
             this.pnlExternService.Size = new System.Drawing.Size(333, 242);
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
-            // 
-            // btnOrderChangedNotice
-            // 
-            this.btnOrderChangedNotice.Location = new System.Drawing.Point(3, 382);
-            this.btnOrderChangedNotice.Name = "btnOrderChangedNotice";
-            this.btnOrderChangedNotice.Size = new System.Drawing.Size(166, 23);
-            this.btnOrderChangedNotice.TabIndex = 17;
-            this.btnOrderChangedNotice.Text = "(DEMO)发送订单修改通知";
-            this.btnOrderChangedNotice.UseVisualStyleBackColor = true;
-            this.btnOrderChangedNotice.Click += new System.EventHandler(this.btnOrderChangedNotice_Click);
             // 
             // FormMain
             // 

@@ -19,6 +19,7 @@ namespace Dianzhu.CSClient.Presenter
         BLLReception bllReception;
         BLLServiceOrder bllOrder;
         BLLReceptionStatus bllReceptionStatus;
+        BLLReceptionChat bllReceptionChat = new BLLReceptionChat();
        
         public MainPresenter(IVew.IMainFormView view,
             InstantMessage instantMessage,
@@ -190,8 +191,11 @@ namespace Dianzhu.CSClient.Presenter
                     
                 }
             }
-            re.ChatHistory.Add(chat);
-            bllReception.Save(re);
+            chat.Reception = re;
+            bllReceptionChat.Save(chat);
+            //re.ChatHistory.Add(chat);
+            
+           // bllReception.Save(re);
             #endregion
         }
 

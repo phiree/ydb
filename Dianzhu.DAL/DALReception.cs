@@ -80,8 +80,8 @@ namespace Dianzhu.DAL
                 result = result.And(x => x.ServiceOrder.Id == orderId);
             }
             rowCount = result.RowCount();
-            result.OrderBy(x => x.SavedTime).Desc.Skip(pageIndex * pageSize).Take(pageSize).List();
-            return result.List();
+            var receptionChatList=  result.OrderBy(x => x.SavedTime).Desc.Skip(pageIndex * pageSize).Take(pageSize).List().OrderBy(x=>x.SavedTime).ToList();
+            return receptionChatList;
         }
 
         private IQueryOver<ReceptionChat, ReceptionChat> BuildReceptionChatQuery(DZMembership from,DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd)

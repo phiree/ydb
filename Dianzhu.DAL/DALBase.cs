@@ -35,6 +35,16 @@ namespace Dianzhu.DAL
             session.Flush();
             
         }
+        public virtual void Save(T o, object id)
+        {
+            using (var t = session.BeginTransaction())
+            {
+                session.Save(o,id);
+
+                t.Commit();
+            }
+            session.Flush();
+        }
         /// <summary>
         /// 保存列表
         /// </summary>
@@ -46,6 +56,7 @@ namespace Dianzhu.DAL
 
                 foreach (T t in list)
                 {
+                    
                     SaveOrUpdate(t);
                 }
                 trans.Commit();

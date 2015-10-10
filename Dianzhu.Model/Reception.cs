@@ -101,6 +101,7 @@ namespace Dianzhu.Model
             return chat;
         }
         public virtual Guid Id { get; set; }
+        public virtual ReceptionBase Reception { get; set; }
         //保存的时间, 作为排序依据.
         public virtual DateTime SavedTime { get; set; }
         public virtual DateTime SendTime { get; set; }
@@ -110,6 +111,7 @@ namespace Dianzhu.Model
         public virtual string MessageBody { get; set; }
         public virtual Enums.enum_ChatType ChatType { get; set; }
         public virtual ServiceOrder ServiceOrder { get; set;}
+        public virtual int Version { get; set; }
         /// <summary>
         /// 消息中媒体文件的地址,多个媒体文件用分号风格.
         /// </summary>

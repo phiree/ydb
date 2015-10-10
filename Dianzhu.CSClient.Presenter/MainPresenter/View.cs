@@ -188,7 +188,7 @@ namespace Dianzhu.CSClient.Presenter
 
             //
             if (customer == null) return;
-
+            ServiceOrder order = OrderList[customer];
 
             if (string.IsNullOrEmpty(view.MessageTextBox.Trim())) return;
 
@@ -199,7 +199,8 @@ namespace Dianzhu.CSClient.Presenter
                 To = customer,
                 MessageBody = view.MessageTextBox,
                 SendTime = DateTime.Now,
-                SavedTime = DateTime.Now
+                SavedTime = DateTime.Now,
+                ServiceOrder = order
             };
 
             SendMessage(chat);

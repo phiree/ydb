@@ -98,8 +98,7 @@ namespace Dianzhu.BLL
             string serviceUrl, string serviceUnitAmount, string targetAddress)
         {
 
-           // ServiceOrder order = new ServiceOrder();
-
+            
             throw new Exception("to do tomorrow");
         }
 

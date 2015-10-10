@@ -12,6 +12,7 @@ namespace Dianzhu.CSClient
 {
     static class Program
     {
+        
         static ILog log = LogManager.GetLogger("cs");
         /// <summary>
         /// 应用程序的主入口点。
@@ -19,7 +20,8 @@ namespace Dianzhu.CSClient
         [STAThread]
         static void Main()
         {
-            AppDomain cDomain = AppDomain.CurrentDomain;
+            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+               AppDomain cDomain = AppDomain.CurrentDomain;
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

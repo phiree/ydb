@@ -107,7 +107,7 @@ namespace Dianzhu.CSClient.WinformView
         /// <param name="chat"></param>
         public void LoadOneChat(ReceptionChat chat)
         {
-            FlashInTaskBar.FlashWindowEx(this);
+          
             bool isSender = chat.From.UserName == currentCustomerName;
             Label lblTime = new Label();
             _AutoSize(lblTime);
@@ -178,6 +178,7 @@ namespace Dianzhu.CSClient.WinformView
 
             Action lambda = () =>
             {
+                FlashInTaskBar.FlashWindowEx(this);
                 pnlChat.Controls.Add(pnlOneChat);
                 pnlChat.ScrollControlIntoView(pnlOneChat);
             };
