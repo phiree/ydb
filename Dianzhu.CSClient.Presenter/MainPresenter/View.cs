@@ -7,6 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.CSClient.IVew;
 using Dianzhu.CSClient.IInstantMessage;
 using System.IO;
+using System.Diagnostics;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -34,16 +35,17 @@ namespace Dianzhu.CSClient.Presenter
 
 
         /// <summary>
-        /// 创建订单 
+        /// 生成订单的支付链接
         /// </summary>
         void view_CreateOrder()
         {
             decimal unitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
             decimal orderAmount = Convert.ToDecimal(view.OrderAmount);
+            ServiceOrder order = OrderList[customer];
+            Debug.Assert(order.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
+
             
-            ServiceOrder order = bllOrder.CreateOrder(customer, view.ServiceName, 
-                view.ServiceBusinessName, view.ServiceDescription,
-             view.ServiceUnitPrice, view.ServiceUrl, view.OrderAmount, view.TargetAddress);
+            
 
         }
         /// <summary>

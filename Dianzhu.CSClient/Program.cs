@@ -4,48 +4,55 @@ using System.Linq;
 using System.Windows.Forms;
 using Dianzhu.CSClient.MessageAdapter;
 using log4net;
-using Dianzhu.CSClient.WPFView;
+using WPF=Dianzhu.CSClient.WPFView;
 using System.Deployment;
 using System.Deployment.Application;
-
+using System.Threading;
+using System.ComponentModel;
+using Dianzhu.BLL;
 namespace Dianzhu.CSClient
 {
     static class Program
     {
         
         static ILog log = LogManager.GetLogger("cs");
+       
+        static int progressPercent = 0;
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
         static void Main()
         {
-            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-               AppDomain cDomain = AppDomain.CurrentDomain;
+            
+            AppDomain cDomain = AppDomain.CurrentDomain;
+            cDomain.AssemblyLoad += CDomain_AssemblyLoad;
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             log4net.Config.XmlConfigurator.Configure();
-           
             log.Debug("Start");
+          
             bool? result;
-            
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
-                BLLFactory.BLLMember,BLLFactory.BLLDZService,BLLFactory.BLLServiceOrder);
-            string version = GetVersion();
+                BLLFactory.BLLMember, BLLFactory.BLLDZService, BLLFactory.BLLServiceOrder);
+
             XMPP.XMPP xmpp = new XMPP.XMPP(messageAdapter);
-            var loginForm = new FormLogin();
-            loginForm.FormText += "v"+version;
-                Presenter.LoginPresenter loginPresenter = 
-                new Presenter.LoginPresenter(loginForm,xmpp,
-                    BLLFactory.BLLMember);
-                  result = loginForm.ShowDialog();
-            
+
+
+            var loginForm = new WPF.FormLogin();
+            string version = GetVersion();
+            loginForm.FormText += "v" + version;
+            Presenter.LoginPresenter loginPresenter =
+            new Presenter.LoginPresenter(loginForm, xmpp,
+                BLLFactory.BLLMember);
+            result = loginForm.ShowDialog();
+
             if (result.Value)// == DialogResult.OK)
             {
                 var mainForm = new WinformView.FormMain();
-                
-                mainForm.Text += "v"+version;
+
+                mainForm.Text += "v" + version;
                 Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
                     mainForm, xmpp, messageAdapter,
                     BLLFactory.BLLMember,
@@ -56,10 +63,20 @@ namespace Dianzhu.CSClient
                     );
                 Application.Run(mainForm);
             }
+
+
             //Application.Run(new Views.Raw.ChatView());
 
-            
+
+
         }
+
+        private static void CDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
+        {
+            throw new NotImplementedException();
+        }
+
+     
 
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
@@ -72,7 +89,7 @@ namespace Dianzhu.CSClient
 
             if (ApplicationDeployment.IsNetworkDeployed)
                 myVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion;
-           return myVersion.ToString();
+            return myVersion.ToString();
         }
     }
 }
