@@ -28,9 +28,7 @@ namespace Dianzhu.CSClient.Presenter
         //搜索列表
         Dictionary<string, IList<DZService>> SearchResultForCustomer
             = new Dictionary<string, IList<DZService>>();
-        //当前正在编辑的订单
-        Dictionary<string, ServiceOrder> CustomerCurrentOrder = new Dictionary<string, ServiceOrder>();
-        //当前客户的历史订单
+         //当前客户的历史订单
        // Dictionary<string, IList<ServiceOrder>> CustomerOrderList = new Dictionary<string, IList<ServiceOrder>>();
        
        

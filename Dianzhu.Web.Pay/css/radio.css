@@ -1,0 +1,45 @@
+/* .roundedTwo */
+.roundedTwo {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  background: #fff;
+  -webkit-border-radius: 51%;
+  -moz-border-radius: 51%;
+  border-radius: 51%;
+  border: 3px solid #8bd7e4;
+}
+.roundedTwo i {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  cursor: pointer;
+  background: #fff;
+}
+.roundedTwo i:after {
+  content: '';
+  width: 10px;
+  height: 5px;
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  border: 3px solid #8bd7e4;
+  border-top: none;
+  border-right: none;
+  background: transparent;
+  opacity: 0;
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.roundedTwo input[type=radio] {
+  visibility: hidden;
+}
+.roundedTwo input[type=radio]:checked + i:after {
+  opacity: 1;
+}
+/* end .roundedTwo */

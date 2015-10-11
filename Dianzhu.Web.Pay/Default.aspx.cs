@@ -7,10 +7,16 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : System.Web.UI.Page
 {
+   public string orderId, userId, desc, amount;
     protected void Page_Load(object sender, EventArgs e)
     {
-        string paramOrderId = Request["orderId"];
-        string userId = Request["userId"];s
+        orderId = Request["orderId"];
+        userId = Request["userId"];
+        desc = Request["desc"];
+        amount = Request["amount"];
         
+    }
+    private void LoadOrder() {
+
     }
 }

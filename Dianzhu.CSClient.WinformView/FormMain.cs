@@ -171,6 +171,12 @@ namespace Dianzhu.CSClient.WinformView
                         btnVideo.Text = "播放视频";
                         pnlOneChat.Controls.Add(btnVideo);
                         break;
+                    case "url":
+                        LinkLabel ll = new LinkLabel { Text=chat.MessageBody };
+                        ll.Links.Add(0, ll.Text.Length, mediaUrl);
+                        ll.LinkClicked += Ll_LinkClicked;
+                        pnlOneChat.Controls.Add(ll);
+                        break;
                 }
             }
             //bye bye. you are abandoned. 2015-9-2
@@ -193,7 +199,12 @@ namespace Dianzhu.CSClient.WinformView
 
         }
 
-        
+        private void Ll_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+           
+            System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
+        }
+
         private void BtnAudio_Click(object sender, EventArgs e)
         {
             ;

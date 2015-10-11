@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Net;
-using NAudio;
+ 
 namespace Dianzhu.CSClient.Presenter
 {
     public partial class MainPresenter
@@ -177,7 +177,11 @@ namespace Dianzhu.CSClient.Presenter
             }
             if (chat is ReceptionChatMedia)
             {
-                
+                if (((ReceptionChatMedia)chat).MediaType != "url")
+                {
+                    
+              
+
                 string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
                 string localFileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
 
@@ -188,7 +192,8 @@ namespace Dianzhu.CSClient.Presenter
                     PHSuit.IOHelper.EnsureFileDirectory(savedPath);
                     client.DownloadFile(mediaUrl, savedPath);
 
-                    
+
+                    }
                 }
             }
             chat.Reception = re;

@@ -1,0 +1,47 @@
+.topbar {
+  text-align: center;
+  color: #fff;
+  padding: 18px;
+  background: -moz-linear-gradient(left, #207ca1 0%, #00b2cc 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #207ca1), color-stop(100%, #00b2cc));
+  background: -webkit-linear-gradient(left, #207ca1 0%, #00b2cc 100%);
+  background: -o-linear-gradient(left, #207ca1 0%, #00b2cc 100%);
+  background: -ms-linear-gradient(left, #207ca1 0%, #00b2cc 100%);
+  background: linear-gradient(to right, #207ca1 0%, #00b2cc 100%);
+  font-size: 18px;
+}
+.status-wrap {
+  color: #3fbacf;
+  background: #fff;
+}
+.pay-status {
+  padding: 4rem 0;
+}
+.pay-status-icon {
+  display: -webkit-flex;
+  display: flex;
+  -wevkit-justify-content: center;
+  justify-content: center;
+}
+.pay-h {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  padding: 20px 0;
+}
+.pay-text {
+  text-align: center;
+}
+.pay-status-back {
+  display: -webkit-flex;
+  display: flex;
+  -wevkit-justify-content: center;
+  justify-content: center;
+}
+.pay-status-button {
+  text-align: center;
+  color: #fff;
+  padding: 10px 22px;
+  background: #3fbacf;
+  border-radius: 5px;
+}

@@ -262,7 +262,12 @@ namespace Dianzhu.Model
         #endregion
 
         public virtual enum_ServiceScopeType ScopeType { get; set; }
-    
+        public virtual string BuildPayLink(string payUrl)
+        {
+            string payLink = payUrl +
+                string.Format("?orderid={0}&desc={1}&amount={2}",Id,ServiceName,OrderAmount);
+            return payLink;
+        }
 
     }
  

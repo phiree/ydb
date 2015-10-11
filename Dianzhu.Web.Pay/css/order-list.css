@@ -1,0 +1,38 @@
+.bold {
+  font-size: 14px;
+  font-weight: bold ;
+}
+.order-list {
+  padding: 0 20px;
+  border-bottom: 1px solid #eeeeee;
+  background: #ffffff;
+}
+.order-list .order-list-item {
+  padding: 20px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+.order-list .order-list-item:last-child {
+  border-bottom: none;
+}
+.order-list .order-list-pra {
+  margin-bottom: 20px;
+  -webkit-display: -webkit-box;
+  display: flex;
+}
+.order-list .order-list-pra:first-child {
+  font-size: 14px;
+  font-weight: bold ;
+}
+.order-list .order-list-pra:last-child {
+  margin-bottom: 0;
+}
+.order-list .order-list-title {
+  text-align: left;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+}
+.order-list .order-list-content {
+  text-align: right;
+  -webkit-box-flex: 2;
+  flex-grow: 2;
+}

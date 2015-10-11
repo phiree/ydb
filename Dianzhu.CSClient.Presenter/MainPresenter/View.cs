@@ -43,10 +43,21 @@ namespace Dianzhu.CSClient.Presenter
             decimal orderAmount = Convert.ToDecimal(view.OrderAmount);
             ServiceOrder order = OrderList[customer];
             Debug.Assert(order.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
+            SaveCurrentOrder();
+            order.OrderStatus = Model.Enums.enum_OrderStatus.Created;
+            string payLink = order.BuildPayLink(System.Configuration.ConfigurationManager.AppSettings["PayUrl"]);
 
-            
-            
-
+            ReceptionBase rb = ReceptionList[customer.UserName];
+            ReceptionChatMedia chatMedia = new ReceptionChatMedia {
+                ChatType = Model.Enums.enum_ChatType.Media,
+                From = customerService,
+                To = customer,
+                MediaType = "url",
+                SavedTime = DateTime.Now,
+                 Reception=rb,
+                  MessageBody="支付链接", MedialUrl=payLink, SendTime=DateTime.Now
+            };
+            SendMessage(chatMedia);
         }
         /// <summary>
         /// 加载该客户的订单列表 和 当前正在处理的订单
@@ -75,16 +86,16 @@ namespace Dianzhu.CSClient.Presenter
                 return;
             }
             ServiceOrder order;
-            if (CustomerCurrentOrder.ContainsKey(customer.UserName))
+            if (OrderList.ContainsKey(customer))
             {
-                order = CustomerCurrentOrder[customer.UserName];
+                order = OrderList[customer];
             }
             else
             {
                
                   order = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
                     string.Empty, string.Empty, string.Empty, 0, string.Empty, customer, string.Empty, 0, 0);
-                CustomerCurrentOrder.Add(customer.UserName, order);
+                OrderList.Add(customer, order);
             }
             view.ServiceName = order.ServiceName;
             view.ServiceBusinessName = order.ServiceBusinessName;
@@ -104,15 +115,15 @@ namespace Dianzhu.CSClient.Presenter
                 return;
             }
             ServiceOrder viewOrder;
-            if (CustomerCurrentOrder.ContainsKey(customer.UserName))
+            if (OrderList.ContainsKey(customer))
             {
-                viewOrder = CustomerCurrentOrder[customer.UserName];
+                viewOrder = OrderList[customer];
             }
             else
             {
                 viewOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
                     string.Empty, string.Empty, string.Empty, 0, string.Empty, customer, string.Empty, 0, 0);
-                CustomerCurrentOrder.Add(customer.UserName, viewOrder);
+                OrderList.Add(customer, viewOrder);
             }
             viewOrder.ServiceName = view.ServiceName;
             viewOrder.ServiceBusinessName = view.ServiceBusinessName;

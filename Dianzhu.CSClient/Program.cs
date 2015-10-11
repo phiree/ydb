@@ -26,7 +26,7 @@ namespace Dianzhu.CSClient
         {
             
             AppDomain cDomain = AppDomain.CurrentDomain;
-            cDomain.AssemblyLoad += CDomain_AssemblyLoad;
+          
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -71,10 +71,7 @@ namespace Dianzhu.CSClient
 
         }
 
-        private static void CDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
-        {
-            throw new NotImplementedException();
-        }
+        
 
      
 
