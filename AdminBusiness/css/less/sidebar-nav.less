@@ -24,6 +24,10 @@
   .sidebar-bg();
 }
 
+.sidebar-title {
+  color: #444444;
+}
+
 .sidebar-nav {
 
   ul{
@@ -37,26 +41,10 @@
         width: 72px;
         height: 72px;
         margin-bottom: 10px;
-        &.sidebar-icon-biz {
-          background: url("../../image/yidianban_v1.2/side/icon01-up-72x72.png") no-repeat center;
-        }
-        &.sidebar-icon-svc {
-          background: url("../../image/yidianban_v1.2/side/icon03-up-72x72.png") no-repeat center;
-        }
-        &.sidebar-icon-emp {
-          background: url("../../image/yidianban_v1.2/side/icon02-up-72x72.png") no-repeat center;
-        }
-        &.sidebar-icon-order {
-          background: url("../../image/yidianban_v1.2/side/icon04-up-72x72.png") no-repeat center;
-        }
-        &.sidebar-icon-dash {
-          background: url("../../image/yidianban_v1.2/side/icon05-up-72x72.png") no-repeat center;
-        }
+        transition: all 0.2s ease-in-out;
       }
 
-      .sidebar-title {
-        color: #444444;
-      }
+
       &.disabled {
         cursor: not-allowed;
         color: #ccc;
@@ -69,11 +57,26 @@
       }
 
       &.active {
-        //background: #fff;
         a{
           .icon{
-            zoom:1.2;
-            -moz-transform:scale(1.2);
+            -webkit-transform: scale(1.2);
+            -moz-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+            -o-transform: scale(1.2);
+            transform: scale(1.2);
+            zoom:1.2\9;
+          }
+        }
+      }
+
+      &:not(.active) {
+        .item-icon {
+          &:hover {
+            -webkit-transform: scale(1.2);
+            -moz-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+            -o-transform: scale(1.2);
+            transform: scale(1.2);
           }
         }
       }
@@ -94,6 +97,23 @@
           text-decoration: none;
         }
       }
+
     }
   }
+}
+
+.sidebar-icon-biz {
+  background: url("../../image/yidianban_v1.2/side/icon01-up-72x72.png") no-repeat center;
+}
+.sidebar-icon-svc {
+  background: url("../../image/yidianban_v1.2/side/icon03-up-72x72.png") no-repeat center;
+}
+.sidebar-icon-emp {
+  background: url("../../image/yidianban_v1.2/side/icon02-up-72x72.png") no-repeat center;
+}
+.sidebar-icon-order {
+  background: url("../../image/yidianban_v1.2/side/icon04-up-72x72.png") no-repeat center;
+}
+.sidebar-icon-dash {
+  background: url("../../image/yidianban_v1.2/side/icon05-up-72x72.png") no-repeat center;
 }
