@@ -54,6 +54,7 @@ namespace Dianzhu.CSClient.Presenter
                 To = customer,
                 MediaType = "url",
                 SavedTime = DateTime.Now,
+                ServiceOrder=order,
                  Reception=rb,
                   MessageBody="支付链接", MedialUrl=payLink, SendTime=DateTime.Now
             };
