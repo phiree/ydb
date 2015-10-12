@@ -59,22 +59,25 @@
 
 .order-status-detail {
     overflow: hidden;
-    margin-bottom: 15px;
+    position: relative;
+    width: 900px;
+    margin: 0 auto;
+    padding-bottom: 15px;
 }
 
 .order-steps {
-    text-align: center;
     overflow: hidden;
     margin: 0 auto;
+    position: relative;
+    z-index: 10;
 }
 
 .order-status-step {
-    display: inline-block;
+    /*display: inline-block;*/
+    float: left;
     text-align: center;
-}
-
-.order-status-step.ml{
-    margin-left: 100px;
+    width: 100px;
+    background: #fff;
 }
 
 .order-status-step.mr{
@@ -90,12 +93,78 @@
 }
 
 .order-lines {
-
+    width: 100%;
+    position: absolute;
+    top: 15px;
+    border-bottom: 3px solid #CCCCCC;
 }
 /*订单列表图标*/
 .order-icon-status1 {
-    height: 54px;
-    width: 54px;
+    height: 52px;
+    width: 52px;
     vertical-align: bottom;
     margin-right: 10px;
+    background: url("../image/yidianban_v1.2/order/order_wait.png") no-repeat center;
+}
+
+.order-icon-status2 {
+    height: 52px;
+    width: 52px;
+    vertical-align: bottom;
+    margin-right: 10px;
+    background: url("../image/yidianban_v1.2/order/order_dealing.png") no-repeat center;
+}
+
+.order-icon-status3 {
+    height: 52px;
+    width: 52px;
+    vertical-align: bottom;
+    margin-right: 10px;
+    background: url("../image/yidianban_v1.2/order/order_done.png") no-repeat center;
+}
+
+.order-status-step .icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 10px;
+    background: url("../image/yidianban_v1.2/order/order_wait_step.png") no-repeat center;
+}
+
+.order-status-step.cur-step .icon {
+    background: url("../image/yidianban_v1.2/order/order_cur_step.png") no-repeat center;
+}
+
+.order-status-step.done-step .icon {
+    background: url("../image/yidianban_v1.2/order/order_done_step.png") no-repeat center;
+}
+
+/*订单无内容时显示*/
+.new-box {
+    position: relative;
+}
+
+.order-new-add {
+    width: 240px;
+    height: 58px;
+    position: absolute;
+    margin: 0 auto;
+    margin-top: -24px;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+}
+
+a.new-add-btn {
+    background: #fff;
+    display: block;
+    width: 240px;
+    height: 58px;
+    line-height: 58px;
+    text-align: center;
+    border: 2px solid #3e95bf;
+    color: #3e95bf;
+    font-size: 18px;
+    border-radius: 30px;
 }

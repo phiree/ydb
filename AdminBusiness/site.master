@@ -48,7 +48,7 @@
                               </ul>
                             </li>
                             <li role="presentaion" class="nav-li-bj ">
-                            <asp:LoginStatus ID="LoginStatus1" CssClass="LoginStatus"  formnovalidate   runat="server" LogoutText="" />
+                            <asp:LoginStatus ID="LoginStatus1" CssClass="LoginStatus"  formnovalidate   runat="server" LogoutText="" LoginText=""/>
                             </li>
                           </ul>
 

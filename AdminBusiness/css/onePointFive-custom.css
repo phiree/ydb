@@ -1343,6 +1343,8 @@ input[type="button"].btn-block {
 .panel {
   margin-bottom: 20px;
   background-color: #ffffff;
+  border-left: 0;
+  border-right: 0;
 }
 .panel-body {
   padding: 15px;
@@ -1518,7 +1520,7 @@ input[type="button"].btn-block {
 }
 .panel-group .panel-body .panel-detail-table {
   border-collapse: separate;
-  border-spacing: 10px;
+  border-spacing: 15px;
 }
 .panel-group .panel-body .panel-detail-table tbody tr .panel-table-num {
   color: #9dd0ff;
