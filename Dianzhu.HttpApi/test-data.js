@@ -137,7 +137,7 @@ var test_data = [
                 {
                     "protocol_CODE": "USM001001",
                     "ReqData": {
-                        "email": "hyb@qq.com",
+                        "email": "eee@qq.com",
                         "pWord": '123',
 
                     },
