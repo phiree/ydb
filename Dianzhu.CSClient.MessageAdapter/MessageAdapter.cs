@@ -8,12 +8,14 @@ using Dianzhu.BLL;
 using agsXMPP.protocol.client;
 namespace Dianzhu.CSClient.MessageAdapter
 {
+    
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
         DZMembershipProvider bllMember;
         BLLDZService bllDZService;
         BLLServiceOrder bllOrder;
         string IMServer;//服务器地址
+        log4net.ILog ilog = log4net.LogManager.GetLogger("xmpp");
         public MessageAdapter(DZMembershipProvider bllMembership,
             BLLDZService bllService,
             BLLServiceOrder bllOrder)
@@ -25,7 +27,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         
           public Model.ReceptionChat MessageToChat( Message message)
         {
-            
+            ilog.Debug("receive___"+message.ToString());
             var ext_element = message.SelectSingleElement("ext", true);
             var orderID = ext_element.SelectSingleElement("orderID").Value;
             var extNamespace = ext_element.Namespace;
@@ -160,7 +162,10 @@ namespace Dianzhu.CSClient.MessageAdapter
                     extNode.AddChild(UserObj);
                     break;
             }
+            ilog.Debug("send___" + msg.ToString());
             return msg;
+          
+
 
         }
         /// <summary>

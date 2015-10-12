@@ -1,0 +1,44 @@
+2015-10-12 10:13:59,297 [9] DEBUG dz - Request(py3d5jopiqdqtjh3vn5e1vb4):{
+    "protocol_CODE": "ORM001004",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "target": "ALL"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 10:13:59,297 [9] DEBUG dz - Request(py3d5jopiqdqtjh3vn5e1vb4):{
+    "protocol_CODE": "ORM001004",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "target": "ALL"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 10:14:48,671 [9] DEBUG dz - Resonse(py3d5jopiqdqtjh3vn5e1vb4):{"protocol_CODE":"ORM001004","state_CODE":"009000","err_Msg":"","stamp_TIMES":"1444644888626.32","serial_NUMBER":"00147001015869149751","RespData":{"sum":"28"}}
+2015-10-12 10:14:48,671 [9] DEBUG dz - Resonse(py3d5jopiqdqtjh3vn5e1vb4):{"protocol_CODE":"ORM001004","state_CODE":"009000","err_Msg":"","stamp_TIMES":"1444644888626.32","serial_NUMBER":"00147001015869149751","RespData":{"sum":"28"}}
+2015-10-12 10:15:12,351 [7] DEBUG dz - Request(py3d5jopiqdqtjh3vn5e1vb4):{
+    "protocol_CODE": "ORM001004",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "target": "ALL"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 10:15:12,351 [7] DEBUG dz - Request(py3d5jopiqdqtjh3vn5e1vb4):{
+    "protocol_CODE": "ORM001004",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "target": "ALL"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 10:15:12,707 [7] DEBUG dz - Resonse(py3d5jopiqdqtjh3vn5e1vb4):{"protocol_CODE":"ORM001004","state_CODE":"009000","err_Msg":"","stamp_TIMES":"1444644912707.53","serial_NUMBER":"00147001015869149751","RespData":{"sum":"28"}}
+2015-10-12 10:15:12,707 [7] DEBUG dz - Resonse(py3d5jopiqdqtjh3vn5e1vb4):{"protocol_CODE":"ORM001004","state_CODE":"009000","err_Msg":"","stamp_TIMES":"1444644912707.53","serial_NUMBER":"00147001015869149751","RespData":{"sum":"28"}}
