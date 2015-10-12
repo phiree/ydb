@@ -43,7 +43,7 @@ namespace Dianzhu.CSClient.Presenter
             this.instantMessage.IMClosed += new IMClosed(instantMessage_IMClosed);
             //iview的委托
             this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
-            this.view.SendImageHandler += new SendImageHandler(view_SendImageHandler);
+            this.view.SendMediaHandler += new SendMediaHandler(view_SendMediaHandler);
 
             this.view.BeforeCustomerChanged += new BeforeCustomerChanged(view_BeforeCustomerChanged);
             this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(ActiveCustomer);

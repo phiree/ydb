@@ -220,7 +220,7 @@ namespace Dianzhu.CSClient.Presenter
             SendMessage(chat);
             view.MessageTextBox = string.Empty;
         }
-        private void view_SendImageHandler()
+        private void view_SendMediaHandler(string domainType, string mediaType)
         {
             if (customer == null) return;
             
@@ -235,7 +235,7 @@ namespace Dianzhu.CSClient.Presenter
                 string s = Convert.ToBase64String(bytes);
          string fileName=   MediaServer.HttpUploader.Upload(
              GlobalViables.MediaUploadUrl, s, view.SelectedImageName,
-                "ChatImage", "image");
+                domainType, mediaType);
                 //string result = PHSuit.IOHelper.UploadFileHttp(
                 //    GlobalViables.MediaUploadUrl,
                 //     string.Empty, bytes, fileExtension);
@@ -249,7 +249,7 @@ namespace Dianzhu.CSClient.Presenter
                 SendTime = DateTime.Now,
                 SavedTime = DateTime.Now,
                 MedialUrl =GlobalViables.MediaGetUrl+ fileName,
-                MediaType = "image"
+                MediaType = mediaType
             };
 
             SendMessage(chat);

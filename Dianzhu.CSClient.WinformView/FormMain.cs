@@ -29,7 +29,7 @@ namespace Dianzhu.CSClient.WinformView
         }
         #region Impletion view event
         public event SendMessageHandler SendMessageHandler;
-        public event SendImageHandler SendImageHandler;
+        public event SendMediaHandler SendMediaHandler;
         public event ActiveCustomerHandler ActiveCustomerHandler;
         public event PushExternalService PushExternalService;
         public event PushInternalService PushInternalService;
@@ -550,11 +550,11 @@ namespace Dianzhu.CSClient.WinformView
 
         private void btnSendImage_Click(object sender, EventArgs e)
         {
-            if(SendImageHandler!=null)
+            if(SendMediaHandler != null)
             { 
                 if(dlgSelectPic.ShowDialog()== DialogResult.OK)
-                { 
-                 SendImageHandler();
+                {
+                    SendMediaHandler("ChatImage","image");
                 }
             }
         }
@@ -562,6 +562,17 @@ namespace Dianzhu.CSClient.WinformView
         private void btnOrderChangedNotice_Click(object sender, EventArgs e)
         {
             OrderStateChanged();
+        }
+
+        private void btnSendAudio_Click(object sender, EventArgs e)
+        {
+            if (SendMediaHandler != null)
+            {
+                if (dlgSelectPic.ShowDialog() == DialogResult.OK)
+                {
+                    SendMediaHandler("ChatAudio", "voice");
+                }
+            }
         }
     }
 }

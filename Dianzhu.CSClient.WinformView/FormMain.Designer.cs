@@ -76,6 +76,7 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
+            this.btnSendAudio = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -348,7 +349,7 @@
             this.splitContainer3.Panel2.Controls.Add(this.pnlResultService);
             this.splitContainer3.Panel2.Controls.Add(this.panel2);
             this.splitContainer3.Size = new System.Drawing.Size(597, 521);
-            this.splitContainer3.SplitterDistance = 289;
+            this.splitContainer3.SplitterDistance = 268;
             this.splitContainer3.TabIndex = 0;
             // 
             // pnlChat
@@ -360,7 +361,7 @@
             this.pnlChat.ImeMode = System.Windows.Forms.ImeMode.On;
             this.pnlChat.Location = new System.Drawing.Point(0, 0);
             this.pnlChat.Name = "pnlChat";
-            this.pnlChat.Size = new System.Drawing.Size(287, 496);
+            this.pnlChat.Size = new System.Drawing.Size(266, 496);
             this.pnlChat.TabIndex = 3;
             this.pnlChat.WrapContents = false;
             // 
@@ -374,19 +375,20 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnSendAudio);
             this.panel1.Controls.Add(this.btnSendImage);
             this.panel1.Controls.Add(this.tbxChatMsg);
             this.panel1.Controls.Add(this.btnSend);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 496);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(287, 23);
+            this.panel1.Size = new System.Drawing.Size(266, 23);
             this.panel1.TabIndex = 1;
             // 
             // btnSendImage
             // 
             this.btnSendImage.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSendImage.Location = new System.Drawing.Point(137, 0);
+            this.btnSendImage.Location = new System.Drawing.Point(116, 0);
             this.btnSendImage.Name = "btnSendImage";
             this.btnSendImage.Size = new System.Drawing.Size(75, 23);
             this.btnSendImage.TabIndex = 2;
@@ -400,14 +402,14 @@
             this.tbxChatMsg.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxChatMsg.Location = new System.Drawing.Point(0, 0);
             this.tbxChatMsg.Name = "tbxChatMsg";
-            this.tbxChatMsg.Size = new System.Drawing.Size(212, 21);
+            this.tbxChatMsg.Size = new System.Drawing.Size(191, 21);
             this.tbxChatMsg.TabIndex = 0;
             this.tbxChatMsg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxChatMsg_KeyPress);
             // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSend.Location = new System.Drawing.Point(212, 0);
+            this.btnSend.Location = new System.Drawing.Point(191, 0);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 1;
@@ -422,7 +424,7 @@
             this.pnlResultService.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlResultService.Location = new System.Drawing.Point(0, 104);
             this.pnlResultService.Name = "pnlResultService";
-            this.pnlResultService.Size = new System.Drawing.Size(302, 415);
+            this.pnlResultService.Size = new System.Drawing.Size(323, 415);
             this.pnlResultService.TabIndex = 1;
             this.pnlResultService.WrapContents = false;
             // 
@@ -438,7 +440,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(302, 104);
+            this.panel2.Size = new System.Drawing.Size(323, 104);
             this.panel2.TabIndex = 0;
             // 
             // btnKeywords
@@ -590,6 +592,17 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
+            // btnSendAudio
+            // 
+            this.btnSendAudio.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSendAudio.Location = new System.Drawing.Point(41, 0);
+            this.btnSendAudio.Name = "btnSendAudio";
+            this.btnSendAudio.Size = new System.Drawing.Size(75, 23);
+            this.btnSendAudio.TabIndex = 3;
+            this.btnSendAudio.Text = "Audio";
+            this.btnSendAudio.UseVisualStyleBackColor = true;
+            this.btnSendAudio.Click += new System.EventHandler(this.btnSendAudio_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -675,5 +688,6 @@
         private System.Windows.Forms.Button btnSendImage;
         private System.Windows.Forms.OpenFileDialog dlgSelectPic;
         private System.Windows.Forms.Button btnOrderChangedNotice;
+        private System.Windows.Forms.Button btnSendAudio;
     }
 }
