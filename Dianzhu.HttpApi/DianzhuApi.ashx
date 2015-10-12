@@ -15,15 +15,14 @@ public class DianzhuApi : IHttpHandler,IRequiresSessionState
         context.Response.ContentType = "application/json";
         context.Response.ContentEncoding = Encoding.UTF8;
         string jsonStr = new StreamReader(context.Request.InputStream).ReadToEnd();
-        Guid guidStamp = Guid.NewGuid();
-        
-        ilog.Debug("Request("+context.Session.SessionID+"):"+jsonStr);
+         Guid rid = Guid.NewGuid();
+        ilog.Debug("Request("+rid+"):"+ jsonStr);
         BaseRequest request = JsonConvert.DeserializeObject<BaseRequest>(jsonStr);
-
+       
         BaseResponse response = ResponseFactory.GetApiResponse(request);
         string jsonResponse = response.BuildJsonResponse();
         context.Response.Write(jsonResponse);
-          ilog.Debug("Resonse("+context.Session.SessionID+"):"+jsonResponse);
+        ilog.Debug("Resonse("+rid+"):"+PHSuit.JsonHelper.FormatJson(jsonResponse));
     }
     public bool IsReusable
     {

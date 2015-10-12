@@ -42,3 +42,163 @@
 }
 2015-10-12 10:15:12,707 [7] DEBUG dz - Resonse(py3d5jopiqdqtjh3vn5e1vb4):{"protocol_CODE":"ORM001004","state_CODE":"009000","err_Msg":"","stamp_TIMES":"1444644912707.53","serial_NUMBER":"00147001015869149751","RespData":{"sum":"28"}}
 2015-10-12 10:15:12,707 [7] DEBUG dz - Resonse(py3d5jopiqdqtjh3vn5e1vb4):{"protocol_CODE":"ORM001004","state_CODE":"009000","err_Msg":"","stamp_TIMES":"1444644912707.53","serial_NUMBER":"00147001015869149751","RespData":{"sum":"28"}}
+2015-10-12 14:47:45,561 [7] DEBUG dz - Request(py3d5jopiqdqtjh3vn5e1vb4):{
+    
+    "protocol_CODE":  "ORM001004",
+    
+    "ReqData":  {
+        
+        "userID":  "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        
+        "pWord":  "1234",
+        
+        "target":  "ALL"
+    
+    },
+    
+    "stamp_TIMES":  "1490192929212",
+    
+    "serial_NUMBER":  "00147001015869149751"
+
+}
+2015-10-12 14:47:45,561 [7] DEBUG dz - Request(py3d5jopiqdqtjh3vn5e1vb4):{
+    
+    "protocol_CODE":  "ORM001004",
+    
+    "ReqData":  {
+        
+        "userID":  "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        
+        "pWord":  "1234",
+        
+        "target":  "ALL"
+    
+    },
+    
+    "stamp_TIMES":  "1490192929212",
+    
+    "serial_NUMBER":  "00147001015869149751"
+
+}
+2015-10-12 14:48:29,320 [7] DEBUG dz - Resonse(py3d5jopiqdqtjh3vn5e1vb4):{"protocol_CODE":"ORM001004","state_CODE":"009000","err_Msg":"","stamp_TIMES":"1444661309260.8","serial_NUMBER":"00147001015869149751","RespData":{"sum":"28"}}
+2015-10-12 14:48:29,320 [7] DEBUG dz - Resonse(py3d5jopiqdqtjh3vn5e1vb4):{"protocol_CODE":"ORM001004","state_CODE":"009000","err_Msg":"","stamp_TIMES":"1444661309260.8","serial_NUMBER":"00147001015869149751","RespData":{"sum":"28"}}
+2015-10-12 14:52:02,350 [6] DEBUG dz - Request(ae9ca26c-8cb4-4031-a44c-c599d813d5b8):{
+    "protocol_CODE": "ORM001004",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "target": "ALL"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 14:52:02,350 [6] DEBUG dz - Request(ae9ca26c-8cb4-4031-a44c-c599d813d5b8):{
+    "protocol_CODE": "ORM001004",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "target": "ALL"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 14:52:02,607 [6] DEBUG dz - Resonse(ae9ca26c-8cb4-4031-a44c-c599d813d5b8):{
+    "protocol_CODE": "ORM001004",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444661522607",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "sum": "28"
+    }
+}
+2015-10-12 14:52:02,607 [6] DEBUG dz - Resonse(ae9ca26c-8cb4-4031-a44c-c599d813d5b8):{
+    "protocol_CODE": "ORM001004",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444661522607",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "sum": "28"
+    }
+}
+2015-10-12 14:52:36,766 [19] DEBUG dz - Request(345265be-8614-4c45-a9f0-2bb65a0df76d):{
+    "protocol_CODE": "ORM001004",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "target": "ALL"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 14:52:36,766 [19] DEBUG dz - Request(345265be-8614-4c45-a9f0-2bb65a0df76d):{
+    "protocol_CODE": "ORM001004",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "target": "ALL"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 14:52:37,008 [19] DEBUG dz - Resonse(345265be-8614-4c45-a9f0-2bb65a0df76d):{
+    "protocol_CODE": "ORM001004",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444661557008.97",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "sum": "28"
+    }
+}
+2015-10-12 14:52:37,008 [19] DEBUG dz - Resonse(345265be-8614-4c45-a9f0-2bb65a0df76d):{
+    "protocol_CODE": "ORM001004",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444661557008.97",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "sum": "28"
+    }
+}
+2015-10-12 14:53:10,490 [17] DEBUG dz - Request(cc02f713-b9e3-468b-ab67-2388c87b46cb):{
+    "protocol_CODE": "ORM001004",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "target": "ALL"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 14:53:10,490 [17] DEBUG dz - Request(cc02f713-b9e3-468b-ab67-2388c87b46cb):{
+    "protocol_CODE": "ORM001004",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "target": "ALL"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 14:53:10,733 [17] DEBUG dz - Resonse(cc02f713-b9e3-468b-ab67-2388c87b46cb):{
+    "protocol_CODE": "ORM001004",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444661590733.9",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "sum": "28"
+    }
+}
+2015-10-12 14:53:10,733 [17] DEBUG dz - Resonse(cc02f713-b9e3-468b-ab67-2388c87b46cb):{
+    "protocol_CODE": "ORM001004",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444661590733.9",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "sum": "28"
+    }
+}
