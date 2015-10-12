@@ -3,6 +3,7 @@
 /AdminWeb/config/connectionStrings.config
 /config/connectionStrings.config
 /cdn
+/logs
 .idea/
 
 #licdream Define#

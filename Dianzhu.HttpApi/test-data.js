@@ -3,7 +3,7 @@
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
 //"merm001005"//,"merm001003","merm001005",
 
-"orm001004",//"orm001005","orm001006"
+"usm001001",//"orm001005","orm001006"
 ];
 var test_data = [
 
@@ -137,8 +137,8 @@ var test_data = [
                 {
                     "protocol_CODE": "USM001001",
                     "ReqData": {
-                        "email": "sdf",
-                        "pWord": 'password',
+                        "email": "hyb@qq.com",
+                        "pWord": '123',
 
                     },
                     "stamp_TIMES": "1490192929212",

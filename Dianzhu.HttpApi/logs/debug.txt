@@ -202,3 +202,93 @@
         "sum": "28"
     }
 }
+2015-10-12 14:59:11,376 [40] DEBUG dz - Request(3eb5c1d9-3f8a-45ed-a6e3-fb5736186b8e):{
+    "protocol_CODE": "USM001001",
+    "ReqData": {
+        "email": "hyb@qq.com",
+        "pWord": "123"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 14:59:11,376 [40] DEBUG dz - Request(3eb5c1d9-3f8a-45ed-a6e3-fb5736186b8e):{
+    "protocol_CODE": "USM001001",
+    "ReqData": {
+        "email": "hyb@qq.com",
+        "pWord": "123"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-12 14:59:20,843 [40] DEBUG dz - Resonse(3eb5c1d9-3f8a-45ed-a6e3-fb5736186b8e):{
+    
+  "protocol_CODE":  "USM001001",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444661960834.07",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "userObj":  {
+            
+      "userID":  "32d8d6b2-1404-4f0a-b51d-a52f00f7032d",
+            
+      "alias":  "hyb@qq.com",
+            
+      "email":  "hyb@qq.com",
+            
+      "phone":  "",
+            
+      "imgUrl":  "",
+            
+      "address":  ""
+    
+        }
+  
+    }
+
+}
+2015-10-12 14:59:20,843 [40] DEBUG dz - Resonse(3eb5c1d9-3f8a-45ed-a6e3-fb5736186b8e):{
+    
+  "protocol_CODE":  "USM001001",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444661960834.07",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "userObj":  {
+            
+      "userID":  "32d8d6b2-1404-4f0a-b51d-a52f00f7032d",
+            
+      "alias":  "hyb@qq.com",
+            
+      "email":  "hyb@qq.com",
+            
+      "phone":  "",
+            
+      "imgUrl":  "",
+            
+      "address":  ""
+    
+        }
+  
+    }
+
+}
+2015-10-12 15:03:55,410 [25] DEBUG dz - Request(032f5d9b-dda1-460f-87f4-ea4645103a05):{"protocol_CODE":"USM001001","respData":{"email":"hyb@qq.com","password":"123"},"serial_NUMBER":"00147001015869149751","stamp_TIMES":"1490192929212"}
+2015-10-12 15:03:55,410 [25] DEBUG dz - Request(032f5d9b-dda1-460f-87f4-ea4645103a05):{"protocol_CODE":"USM001001","respData":{"email":"hyb@qq.com","password":"123"},"serial_NUMBER":"00147001015869149751","stamp_TIMES":"1490192929212"}
+2015-10-12 15:05:34,097 [25] DEBUG dz - Request(019588bf-c897-42fd-bcd7-d3a2c2c38289):{"protocol_CODE":"USM001001","respData":{"email":"hyb@qq.com","password":"123"},"serial_NUMBER":"00147001015869149751","stamp_TIMES":"1490192929212"}
+2015-10-12 15:05:34,097 [25] DEBUG dz - Request(019588bf-c897-42fd-bcd7-d3a2c2c38289):{"protocol_CODE":"USM001001","respData":{"email":"hyb@qq.com","password":"123"},"serial_NUMBER":"00147001015869149751","stamp_TIMES":"1490192929212"}
+2015-10-12 15:08:02,287 [18] DEBUG dz - Request(9aead143-299b-4ef0-8685-bcdd56b86b72):{"protocol_CODE":"USM001001","respData":{"email":"hyb@qq.com","password":"123"},"serial_NUMBER":"00147001015869149751","stamp_TIMES":"1490192929212"}
+2015-10-12 15:08:02,287 [18] DEBUG dz - Request(9aead143-299b-4ef0-8685-bcdd56b86b72):{"protocol_CODE":"USM001001","respData":{"email":"hyb@qq.com","password":"123"},"serial_NUMBER":"00147001015869149751","stamp_TIMES":"1490192929212"}
