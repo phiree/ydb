@@ -32,6 +32,10 @@
             this.pnlCustomerList = new System.Windows.Forms.FlowLayoutPanel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.pnlOrder = new System.Windows.Forms.FlowLayoutPanel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lblOrderNumber = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lblOrderStatus = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tbxServiceName = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -49,6 +53,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tbxMemo = new System.Windows.Forms.TextBox();
             this.btnCreateOrder = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnCreateNewDraft = new System.Windows.Forms.Button();
             this.btnOrderChangedNotice = new System.Windows.Forms.Button();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
@@ -76,12 +82,6 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
-            this.label14 = new System.Windows.Forms.Label();
-            this.lblOrderStatus = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.lblOrderNumber = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.btnCreateNewDraft = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -91,6 +91,7 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.pnlOrder.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
@@ -98,7 +99,6 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pnlExternService.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // scmain
@@ -179,6 +179,40 @@
             this.pnlOrder.Size = new System.Drawing.Size(340, 430);
             this.pnlOrder.TabIndex = 2;
             this.pnlOrder.WrapContents = false;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(3, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(53, 12);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "订单编号";
+            // 
+            // lblOrderNumber
+            // 
+            this.lblOrderNumber.AutoSize = true;
+            this.lblOrderNumber.Location = new System.Drawing.Point(3, 12);
+            this.lblOrderNumber.Name = "lblOrderNumber";
+            this.lblOrderNumber.Size = new System.Drawing.Size(0, 12);
+            this.lblOrderNumber.TabIndex = 16;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(3, 24);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(53, 12);
+            this.label15.TabIndex = 16;
+            this.label15.Text = "订单状态";
+            // 
+            // lblOrderStatus
+            // 
+            this.lblOrderStatus.AutoSize = true;
+            this.lblOrderStatus.Location = new System.Drawing.Point(3, 36);
+            this.lblOrderStatus.Name = "lblOrderStatus";
+            this.lblOrderStatus.Size = new System.Drawing.Size(0, 12);
+            this.lblOrderStatus.TabIndex = 16;
             // 
             // label10
             // 
@@ -320,6 +354,26 @@
             this.btnCreateOrder.Text = "创建订单,发送支付链接";
             this.btnCreateOrder.UseVisualStyleBackColor = true;
             this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.btnCreateNewDraft);
+            this.panel3.Controls.Add(this.btnOrderChangedNotice);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 430);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(340, 96);
+            this.panel3.TabIndex = 3;
+            // 
+            // btnCreateNewDraft
+            // 
+            this.btnCreateNewDraft.Location = new System.Drawing.Point(5, 6);
+            this.btnCreateNewDraft.Name = "btnCreateNewDraft";
+            this.btnCreateNewDraft.Size = new System.Drawing.Size(155, 23);
+            this.btnCreateNewDraft.TabIndex = 18;
+            this.btnCreateNewDraft.Text = "创建新订单";
+            this.btnCreateNewDraft.UseVisualStyleBackColor = true;
+            this.btnCreateNewDraft.Click += new System.EventHandler(this.btnCreateNewDraft_Click);
             // 
             // btnOrderChangedNotice
             // 
@@ -603,60 +657,6 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(53, 12);
-            this.label14.TabIndex = 16;
-            this.label14.Text = "订单编号";
-            // 
-            // lblOrderStatus
-            // 
-            this.lblOrderStatus.AutoSize = true;
-            this.lblOrderStatus.Location = new System.Drawing.Point(3, 36);
-            this.lblOrderStatus.Name = "lblOrderStatus";
-            this.lblOrderStatus.Size = new System.Drawing.Size(0, 12);
-            this.lblOrderStatus.TabIndex = 16;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 24);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(53, 12);
-            this.label15.TabIndex = 16;
-            this.label15.Text = "订单状态";
-            // 
-            // lblOrderNumber
-            // 
-            this.lblOrderNumber.AutoSize = true;
-            this.lblOrderNumber.Location = new System.Drawing.Point(3, 12);
-            this.lblOrderNumber.Name = "lblOrderNumber";
-            this.lblOrderNumber.Size = new System.Drawing.Size(0, 12);
-            this.lblOrderNumber.TabIndex = 16;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.btnCreateNewDraft);
-            this.panel3.Controls.Add(this.btnOrderChangedNotice);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 430);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(340, 96);
-            this.panel3.TabIndex = 3;
-            // 
-            // btnCreateNewDraft
-            // 
-            this.btnCreateNewDraft.Location = new System.Drawing.Point(5, 6);
-            this.btnCreateNewDraft.Name = "btnCreateNewDraft";
-            this.btnCreateNewDraft.Size = new System.Drawing.Size(155, 23);
-            this.btnCreateNewDraft.TabIndex = 18;
-            this.btnCreateNewDraft.Text = "创建新订单";
-            this.btnCreateNewDraft.UseVisualStyleBackColor = true;
-            this.btnCreateNewDraft.Click += new System.EventHandler(this.btnCreateNewDraft_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -678,6 +678,7 @@
             this.splitContainer2.ResumeLayout(false);
             this.pnlOrder.ResumeLayout(false);
             this.pnlOrder.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
@@ -688,7 +689,6 @@
             this.panel2.PerformLayout();
             this.pnlExternService.ResumeLayout(false);
             this.pnlExternService.PerformLayout();
-            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
