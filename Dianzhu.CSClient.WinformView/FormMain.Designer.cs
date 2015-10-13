@@ -50,7 +50,6 @@
             this.tbxMemo = new System.Windows.Forms.TextBox();
             this.btnCreateOrder = new System.Windows.Forms.Button();
             this.btnOrderChangedNotice = new System.Windows.Forms.Button();
-            this.btnLogout = new System.Windows.Forms.Button();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             this.tbxChatLog = new System.Windows.Forms.RichTextBox();
@@ -77,6 +76,12 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lblOrderStatus = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lblOrderNumber = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnCreateNewDraft = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -93,6 +98,7 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pnlExternService.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // scmain
@@ -110,8 +116,8 @@
             // scmain.Panel2
             // 
             this.scmain.Panel2.Controls.Add(this.splitContainer2);
-            this.scmain.Size = new System.Drawing.Size(893, 639);
-            this.scmain.SplitterDistance = 114;
+            this.scmain.Size = new System.Drawing.Size(1161, 647);
+            this.scmain.SplitterDistance = 115;
             this.scmain.TabIndex = 0;
             // 
             // pnlCustomerList
@@ -120,7 +126,7 @@
             this.pnlCustomerList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCustomerList.Location = new System.Drawing.Point(0, 0);
             this.pnlCustomerList.Name = "pnlCustomerList";
-            this.pnlCustomerList.Size = new System.Drawing.Size(893, 114);
+            this.pnlCustomerList.Size = new System.Drawing.Size(1161, 115);
             this.pnlCustomerList.TabIndex = 0;
             // 
             // splitContainer2
@@ -133,18 +139,22 @@
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.Controls.Add(this.pnlOrder);
-            this.splitContainer2.Panel1.Controls.Add(this.btnLogout);
+            this.splitContainer2.Panel1.Controls.Add(this.panel3);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(893, 521);
-            this.splitContainer2.SplitterDistance = 292;
+            this.splitContainer2.Size = new System.Drawing.Size(1161, 528);
+            this.splitContainer2.SplitterDistance = 342;
             this.splitContainer2.TabIndex = 0;
             // 
             // pnlOrder
             // 
             this.pnlOrder.AutoScroll = true;
+            this.pnlOrder.Controls.Add(this.label14);
+            this.pnlOrder.Controls.Add(this.lblOrderNumber);
+            this.pnlOrder.Controls.Add(this.label15);
+            this.pnlOrder.Controls.Add(this.lblOrderStatus);
             this.pnlOrder.Controls.Add(this.label10);
             this.pnlOrder.Controls.Add(this.tbxServiceName);
             this.pnlOrder.Controls.Add(this.label11);
@@ -162,18 +172,18 @@
             this.pnlOrder.Controls.Add(this.label8);
             this.pnlOrder.Controls.Add(this.tbxMemo);
             this.pnlOrder.Controls.Add(this.btnCreateOrder);
-            this.pnlOrder.Controls.Add(this.btnOrderChangedNotice);
+            this.pnlOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlOrder.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnlOrder.Location = new System.Drawing.Point(3, 13);
+            this.pnlOrder.Location = new System.Drawing.Point(0, 0);
             this.pnlOrder.Name = "pnlOrder";
-            this.pnlOrder.Size = new System.Drawing.Size(280, 429);
+            this.pnlOrder.Size = new System.Drawing.Size(340, 430);
             this.pnlOrder.TabIndex = 2;
             this.pnlOrder.WrapContents = false;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 0);
+            this.label10.Location = new System.Drawing.Point(3, 48);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 12);
             this.label10.TabIndex = 16;
@@ -181,7 +191,7 @@
             // 
             // tbxServiceName
             // 
-            this.tbxServiceName.Location = new System.Drawing.Point(3, 15);
+            this.tbxServiceName.Location = new System.Drawing.Point(3, 63);
             this.tbxServiceName.Name = "tbxServiceName";
             this.tbxServiceName.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceName.TabIndex = 13;
@@ -189,7 +199,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 39);
+            this.label11.Location = new System.Drawing.Point(3, 87);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(53, 12);
             this.label11.TabIndex = 16;
@@ -197,7 +207,7 @@
             // 
             // tbxServiceBusinessName
             // 
-            this.tbxServiceBusinessName.Location = new System.Drawing.Point(3, 54);
+            this.tbxServiceBusinessName.Location = new System.Drawing.Point(3, 102);
             this.tbxServiceBusinessName.Name = "tbxServiceBusinessName";
             this.tbxServiceBusinessName.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceBusinessName.TabIndex = 14;
@@ -205,7 +215,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 78);
+            this.label12.Location = new System.Drawing.Point(3, 126);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(53, 12);
             this.label12.TabIndex = 16;
@@ -214,7 +224,7 @@
             // 
             // tbxServiceDescription
             // 
-            this.tbxServiceDescription.Location = new System.Drawing.Point(3, 93);
+            this.tbxServiceDescription.Location = new System.Drawing.Point(3, 141);
             this.tbxServiceDescription.Name = "tbxServiceDescription";
             this.tbxServiceDescription.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceDescription.TabIndex = 15;
@@ -222,7 +232,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(3, 117);
+            this.label13.Location = new System.Drawing.Point(3, 165);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(29, 12);
             this.label13.TabIndex = 16;
@@ -231,7 +241,7 @@
             // 
             // tbxServiceUnitPrice
             // 
-            this.tbxServiceUnitPrice.Location = new System.Drawing.Point(3, 132);
+            this.tbxServiceUnitPrice.Location = new System.Drawing.Point(3, 180);
             this.tbxServiceUnitPrice.Name = "tbxServiceUnitPrice";
             this.tbxServiceUnitPrice.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceUnitPrice.TabIndex = 15;
@@ -239,7 +249,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 156);
+            this.label6.Location = new System.Drawing.Point(3, 204);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 12);
             this.label6.TabIndex = 4;
@@ -247,7 +257,7 @@
             // 
             // tbxServiceTime
             // 
-            this.tbxServiceTime.Location = new System.Drawing.Point(3, 171);
+            this.tbxServiceTime.Location = new System.Drawing.Point(3, 219);
             this.tbxServiceTime.Name = "tbxServiceTime";
             this.tbxServiceTime.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceTime.TabIndex = 3;
@@ -255,7 +265,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 195);
+            this.label9.Location = new System.Drawing.Point(3, 243);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 12);
             this.label9.TabIndex = 12;
@@ -263,7 +273,7 @@
             // 
             // tbxTargetAddress
             // 
-            this.tbxTargetAddress.Location = new System.Drawing.Point(3, 210);
+            this.tbxTargetAddress.Location = new System.Drawing.Point(3, 258);
             this.tbxTargetAddress.Name = "tbxTargetAddress";
             this.tbxTargetAddress.Size = new System.Drawing.Size(262, 21);
             this.tbxTargetAddress.TabIndex = 11;
@@ -271,7 +281,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 234);
+            this.label7.Location = new System.Drawing.Point(3, 282);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(29, 12);
             this.label7.TabIndex = 6;
@@ -279,7 +289,7 @@
             // 
             // tbxAmount
             // 
-            this.tbxAmount.Location = new System.Drawing.Point(3, 249);
+            this.tbxAmount.Location = new System.Drawing.Point(3, 297);
             this.tbxAmount.Name = "tbxAmount";
             this.tbxAmount.Size = new System.Drawing.Size(262, 21);
             this.tbxAmount.TabIndex = 5;
@@ -287,7 +297,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 273);
+            this.label8.Location = new System.Drawing.Point(3, 321);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(29, 12);
             this.label8.TabIndex = 10;
@@ -295,7 +305,7 @@
             // 
             // tbxMemo
             // 
-            this.tbxMemo.Location = new System.Drawing.Point(3, 288);
+            this.tbxMemo.Location = new System.Drawing.Point(3, 336);
             this.tbxMemo.Multiline = true;
             this.tbxMemo.Name = "tbxMemo";
             this.tbxMemo.Size = new System.Drawing.Size(262, 59);
@@ -303,7 +313,7 @@
             // 
             // btnCreateOrder
             // 
-            this.btnCreateOrder.Location = new System.Drawing.Point(3, 353);
+            this.btnCreateOrder.Location = new System.Drawing.Point(3, 401);
             this.btnCreateOrder.Name = "btnCreateOrder";
             this.btnCreateOrder.Size = new System.Drawing.Size(155, 23);
             this.btnCreateOrder.TabIndex = 7;
@@ -313,23 +323,13 @@
             // 
             // btnOrderChangedNotice
             // 
-            this.btnOrderChangedNotice.Location = new System.Drawing.Point(3, 382);
+            this.btnOrderChangedNotice.Location = new System.Drawing.Point(166, 6);
             this.btnOrderChangedNotice.Name = "btnOrderChangedNotice";
             this.btnOrderChangedNotice.Size = new System.Drawing.Size(166, 23);
             this.btnOrderChangedNotice.TabIndex = 17;
             this.btnOrderChangedNotice.Text = "(DEMO)发送订单修改通知";
             this.btnOrderChangedNotice.UseVisualStyleBackColor = true;
             this.btnOrderChangedNotice.Click += new System.EventHandler(this.btnOrderChangedNotice_Click);
-            // 
-            // btnLogout
-            // 
-            this.btnLogout.Location = new System.Drawing.Point(-1, 494);
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(155, 23);
-            this.btnLogout.TabIndex = 17;
-            this.btnLogout.Text = "退出";
-            this.btnLogout.UseVisualStyleBackColor = true;
-            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // splitContainer3
             // 
@@ -348,8 +348,8 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.pnlResultService);
             this.splitContainer3.Panel2.Controls.Add(this.panel2);
-            this.splitContainer3.Size = new System.Drawing.Size(597, 521);
-            this.splitContainer3.SplitterDistance = 268;
+            this.splitContainer3.Size = new System.Drawing.Size(815, 528);
+            this.splitContainer3.SplitterDistance = 469;
             this.splitContainer3.TabIndex = 0;
             // 
             // pnlChat
@@ -361,7 +361,7 @@
             this.pnlChat.ImeMode = System.Windows.Forms.ImeMode.On;
             this.pnlChat.Location = new System.Drawing.Point(0, 0);
             this.pnlChat.Name = "pnlChat";
-            this.pnlChat.Size = new System.Drawing.Size(266, 496);
+            this.pnlChat.Size = new System.Drawing.Size(467, 503);
             this.pnlChat.TabIndex = 3;
             this.pnlChat.WrapContents = false;
             // 
@@ -380,15 +380,15 @@
             this.panel1.Controls.Add(this.tbxChatMsg);
             this.panel1.Controls.Add(this.btnSend);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 496);
+            this.panel1.Location = new System.Drawing.Point(0, 503);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(266, 23);
+            this.panel1.Size = new System.Drawing.Size(467, 23);
             this.panel1.TabIndex = 1;
             // 
             // btnSendAudio
             // 
             this.btnSendAudio.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSendAudio.Location = new System.Drawing.Point(41, 0);
+            this.btnSendAudio.Location = new System.Drawing.Point(242, 0);
             this.btnSendAudio.Name = "btnSendAudio";
             this.btnSendAudio.Size = new System.Drawing.Size(75, 23);
             this.btnSendAudio.TabIndex = 3;
@@ -399,7 +399,7 @@
             // btnSendImage
             // 
             this.btnSendImage.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSendImage.Location = new System.Drawing.Point(116, 0);
+            this.btnSendImage.Location = new System.Drawing.Point(317, 0);
             this.btnSendImage.Name = "btnSendImage";
             this.btnSendImage.Size = new System.Drawing.Size(75, 23);
             this.btnSendImage.TabIndex = 2;
@@ -413,14 +413,14 @@
             this.tbxChatMsg.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxChatMsg.Location = new System.Drawing.Point(0, 0);
             this.tbxChatMsg.Name = "tbxChatMsg";
-            this.tbxChatMsg.Size = new System.Drawing.Size(191, 21);
+            this.tbxChatMsg.Size = new System.Drawing.Size(392, 21);
             this.tbxChatMsg.TabIndex = 0;
             this.tbxChatMsg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxChatMsg_KeyPress);
             // 
             // btnSend
             // 
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSend.Location = new System.Drawing.Point(191, 0);
+            this.btnSend.Location = new System.Drawing.Point(392, 0);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 1;
@@ -435,7 +435,7 @@
             this.pnlResultService.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlResultService.Location = new System.Drawing.Point(0, 104);
             this.pnlResultService.Name = "pnlResultService";
-            this.pnlResultService.Size = new System.Drawing.Size(323, 415);
+            this.pnlResultService.Size = new System.Drawing.Size(340, 422);
             this.pnlResultService.TabIndex = 1;
             this.pnlResultService.WrapContents = false;
             // 
@@ -451,7 +451,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(323, 104);
+            this.panel2.Size = new System.Drawing.Size(340, 104);
             this.panel2.TabIndex = 0;
             // 
             // btnKeywords
@@ -603,11 +603,65 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(3, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(53, 12);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "订单编号";
+            // 
+            // lblOrderStatus
+            // 
+            this.lblOrderStatus.AutoSize = true;
+            this.lblOrderStatus.Location = new System.Drawing.Point(3, 36);
+            this.lblOrderStatus.Name = "lblOrderStatus";
+            this.lblOrderStatus.Size = new System.Drawing.Size(0, 12);
+            this.lblOrderStatus.TabIndex = 16;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(3, 24);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(53, 12);
+            this.label15.TabIndex = 16;
+            this.label15.Text = "订单状态";
+            // 
+            // lblOrderNumber
+            // 
+            this.lblOrderNumber.AutoSize = true;
+            this.lblOrderNumber.Location = new System.Drawing.Point(3, 12);
+            this.lblOrderNumber.Name = "lblOrderNumber";
+            this.lblOrderNumber.Size = new System.Drawing.Size(0, 12);
+            this.lblOrderNumber.TabIndex = 16;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.btnCreateNewDraft);
+            this.panel3.Controls.Add(this.btnOrderChangedNotice);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 430);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(340, 96);
+            this.panel3.TabIndex = 3;
+            // 
+            // btnCreateNewDraft
+            // 
+            this.btnCreateNewDraft.Location = new System.Drawing.Point(5, 6);
+            this.btnCreateNewDraft.Name = "btnCreateNewDraft";
+            this.btnCreateNewDraft.Size = new System.Drawing.Size(155, 23);
+            this.btnCreateNewDraft.TabIndex = 18;
+            this.btnCreateNewDraft.Text = "创建新订单";
+            this.btnCreateNewDraft.UseVisualStyleBackColor = true;
+            this.btnCreateNewDraft.Click += new System.EventHandler(this.btnCreateNewDraft_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(893, 639);
+            this.ClientSize = new System.Drawing.Size(1161, 647);
             this.Controls.Add(this.scmain);
             this.Name = "FormMain";
             this.Text = "FormMain";
@@ -634,6 +688,7 @@
             this.panel2.PerformLayout();
             this.pnlExternService.ResumeLayout(false);
             this.pnlExternService.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -684,10 +739,15 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox tbxServiceUnitPrice;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnSendImage;
         private System.Windows.Forms.OpenFileDialog dlgSelectPic;
         private System.Windows.Forms.Button btnOrderChangedNotice;
         private System.Windows.Forms.Button btnSendAudio;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblOrderStatus;
+        private System.Windows.Forms.Label lblOrderNumber;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button btnCreateNewDraft;
     }
 }

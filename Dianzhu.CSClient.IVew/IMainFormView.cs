@@ -19,6 +19,7 @@ namespace Dianzhu.CSClient.IVew
     public delegate void ViewClosed();
     public delegate void BeforeCustomerChanged();
     public delegate void OrderStateChanged();
+    public delegate void CreateNewOrder();
 
     public interface IMainFormView
     {
@@ -63,6 +64,9 @@ namespace Dianzhu.CSClient.IVew
         string ServiceTime { get; set; }
         string TargetAddress { get; set; }
         string OrderAmount { get; set; }
+        string OrderNumber { get; set; }
+        string OrderStatus { get; set; }
+        bool CanEditOrder { get; set; }
         string Memo { get; set; }
         System.IO.Stream SelectedImageStream { get; }
         string SelectedImageName { get; }
@@ -75,5 +79,6 @@ namespace Dianzhu.CSClient.IVew
         
         event BeforeCustomerChanged BeforeCustomerChanged;
         event OrderStateChanged OrderStateChanged;
+        event CreateNewOrder CreateNewOrder;
     }
 }

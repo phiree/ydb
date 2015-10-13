@@ -59,6 +59,7 @@ namespace Dianzhu.CSClient.Presenter
 
             this.view.PlayAudio += View_PlayAudio;
             this.view.LocalMediaSaveDir = GlobalViables.LocalMediaSaveDir;
+            this.view.CreateNewOrder += View_CreateNewOrder;
             
         }
 

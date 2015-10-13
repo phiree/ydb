@@ -40,6 +40,7 @@ namespace Dianzhu.CSClient.WinformView
         public event ViewClosed ViewClosed;
         public event AudioPlay PlayAudio;
         public event OrderStateChanged OrderStateChanged;
+        public event CreateNewOrder CreateNewOrder;
         
 
         #endregion
@@ -531,8 +532,28 @@ namespace Dianzhu.CSClient.WinformView
             }
 
         }
+        public string OrderStatus {
+            get {
+                return lblOrderStatus.Text;
+            }
+            set {
+                lblOrderStatus.Text = value;
+            }
+        }
+        bool canEditor = true;
+        public bool CanEditOrder {
+            get { return canEditor; }
+            set {
+                pnlOrder.Enabled = value;
+            }
+        }
         public string SelectedImageName {
             get { return dlgSelectPic.FileName; }
+        }
+        public string OrderNumber {
+
+            get { return lblOrderStatus.Text; }
+            set { lblOrderStatus.Text= value; }
         }
 
         public string LocalMediaSaveDir
@@ -572,6 +593,14 @@ namespace Dianzhu.CSClient.WinformView
                 {
                     SendMediaHandler("ChatAudio", "voice");
                 }
+            }
+        }
+
+        private void btnCreateNewDraft_Click(object sender, EventArgs e)
+        {
+            if (CreateNewOrder != null)
+            {
+                CreateNewOrder();
             }
         }
     }

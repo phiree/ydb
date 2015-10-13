@@ -8,7 +8,7 @@ using Dianzhu.CSClient.IVew;
 using Dianzhu.CSClient.IInstantMessage;
 using System.IO;
 using System.Diagnostics;
-
+using FluentValidation.Results;
 namespace Dianzhu.CSClient.Presenter
 {
     public partial class MainPresenter
@@ -23,6 +23,7 @@ namespace Dianzhu.CSClient.Presenter
 
             //view.CurrentCustomerName = order.Customer.DisplayName;
             CurrentServiceOrder = order;
+            
             //LoadChatHistory(buttonText);
             view.SetCustomerButtonStyle(order, em_ButtonStyle.Readed);
              
@@ -30,6 +31,31 @@ namespace Dianzhu.CSClient.Presenter
             
         }
 
+
+        private void View_CreateNewOrder()
+        {
+            if (CurrentServiceOrder == null)
+            { return; }
+            ServiceOrder newOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
+                string.Empty, string.Empty, string.Empty, 0, string.Empty, CurrentServiceOrder.Customer,
+                string.Empty, 0, 0);
+
+
+            
+                bllOrder.SaveOrUpdate(newOrder);
+            
+            ReceptionChat chat = new ReceptionChat
+            {
+                ChatType = Model.Enums.enum_ChatType.Text,
+                From = customerService,
+                To = CurrentServiceOrder.Customer,
+                MessageBody = "创建新订单",
+                SendTime = DateTime.Now,
+                SavedTime = DateTime.Now,
+                ServiceOrder = newOrder
+            };
+            SendMessage(chat);
+        }
 
         /// <summary>
         /// 生成订单的支付链接
@@ -55,6 +81,7 @@ namespace Dianzhu.CSClient.Presenter
                   MessageBody="支付链接", MedialUrl=payLink, SendTime=DateTime.Now
             };
             SendMessage(chatMedia);
+            LoadCurrentOrder(CurrentServiceOrder);
         }
         /// <summary>
         /// 加载该客户的订单列表 和 当前正在处理的订单
@@ -85,9 +112,6 @@ namespace Dianzhu.CSClient.Presenter
              
             if (!OrderList.Contains (order))
             {
-
-
-
                 OrderList.Add(order);
             }
             view.ServiceName = order.ServiceName;
@@ -99,6 +123,24 @@ namespace Dianzhu.CSClient.Presenter
             view.TargetAddress = order.TargetAddress;
             view.Memo = order.Memo;
             view.ServiceTime = order.TargetTime;
+            view.OrderNumber = order.Id.ToString();
+            view.OrderStatus = order.OrderStatus == Model.Enums.enum_OrderStatus.Draft ? "草稿"
+            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
+            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
+            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
+            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
+            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
+            :order.OrderStatus.ToString();
+            if (order.OrderStatus == Model.Enums.enum_OrderStatus.Draft)
+            {
+                view.CanEditOrder = true;
+            }
+            else {
+                view.CanEditOrder = false;
+            }
+
+
+
 
         }
         void SaveCurrentOrder()
