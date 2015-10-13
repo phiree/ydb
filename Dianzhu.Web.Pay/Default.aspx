@@ -9,7 +9,7 @@
     <meta name="description" content="一点办支付" />
     <meta name="keywords" content="一点办" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>商家后台主页</title>
+    <title>一点办支付</title>
     <link href="css/mobilepay.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="m pay-methods">
-                    <label for="roundedTwo" class="pay-method">
+                    <label for="roundedTwo" class="pay-method method-hr">
                         <div class="pay-method-logo">
                             <div class="alipayLogo icon"></div>
                         </div>
@@ -78,6 +78,24 @@
                             <div class="roundedTwo">
                                 <input type="radio" value="None" id="roundedTwo" name="check" />
                                 <i for="roundedTwo"></i>
+                            </div>
+                            <!--<input type="radio" name="alipay" id="alipay"/>-->
+                        </div>
+                    </label>
+                    <label for="roundedThree" class="pay-method">
+                        <div class="wechatLogo">
+                            <div class="alipayLogo icon"></div>
+                        </div>
+                        <div class="pay-method-text">
+                            <div class="text-cont">
+                                <div class="title">微支付</div>
+                                <div class="pra">推荐微信用户使用</div>
+                            </div>
+                        </div>
+                        <div class="pay-method-radio">
+                            <div class="roundedTwo">
+                                <input type="radio" value="None" id="roundedThree" name="check" />
+                                <i for="roundedThree"></i>
                             </div>
                             <!--<input type="radio" name="alipay" id="alipay"/>-->
                         </div>
