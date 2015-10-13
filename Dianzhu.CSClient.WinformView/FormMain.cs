@@ -552,8 +552,8 @@ namespace Dianzhu.CSClient.WinformView
         }
         public string OrderNumber {
 
-            get { return lblOrderStatus.Text; }
-            set { lblOrderStatus.Text= value; }
+            get { return lblOrderNumber.Text; }
+            set { lblOrderNumber.Text= value; }
         }
 
         public string LocalMediaSaveDir
