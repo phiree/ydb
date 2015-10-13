@@ -93,7 +93,10 @@ namespace Dianzhu.DAL
             }
             else
             {
+                if(from!=null)
+                {  
                 result = result.And(x => (x.From == from || x.To ==from));
+                }
             }
             if (orderId != Guid.Empty)
             {

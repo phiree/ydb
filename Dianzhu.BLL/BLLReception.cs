@@ -8,7 +8,7 @@ using Dianzhu.Model;
 using System.Web.Security;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
-using Dianzhu.Model;
+
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -33,6 +33,11 @@ namespace Dianzhu.BLL
         {
             var list = DALReception.GetReceptionChatList(from, to,orderId, begin, end,pageIndex,pageSize,out rowCount);
             return list;
+        }
+        public IList<ReceptionChat> GetChatListByOrder(Guid orderId, DateTime begin, DateTime end, int pageIndex, int pageSize, out int rowCount)
+        {
+
+            return GetReceptionChatList(null, null, orderId, begin, end, pageIndex, pageSize, out rowCount);
         }
         
     }

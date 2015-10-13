@@ -28,9 +28,9 @@ namespace Dianzhu.CSClient.WinformView
        
         }
         #region Impletion view event
-        public event SendMessageHandler SendMessageHandler;
-        public event SendMediaHandler SendMediaHandler;
-        public event ActiveCustomerHandler ActiveCustomerHandler;
+        public event MessageSent SendMessageHandler;
+        public event MediaMessageSent SendMediaHandler;
+        public event IdentityItemActived IdentityItemActived;
         public event PushExternalService PushExternalService;
         public event PushInternalService PushInternalService;
         public event SearchService SearchService;
@@ -38,7 +38,7 @@ namespace Dianzhu.CSClient.WinformView
         public event CreateOrder CreateOrder;
         public event BeforeCustomerChanged BeforeCustomerChanged;
         public event ViewClosed ViewClosed;
-        public event PlayAudio PlayAudio;
+        public event AudioPlay PlayAudio;
         public event OrderStateChanged OrderStateChanged;
         
 
@@ -218,11 +218,11 @@ namespace Dianzhu.CSClient.WinformView
 
         
 
-        public void SetCustomerButtonStyle(DZMembership customer, em_ButtonStyle buttonStyle)
+        public void SetCustomerButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
         {
             Action lambda=()=>{
             Button btn = (Button)pnlCustomerList.Controls.Find
-                (buttonNamePrefix + customer.UserName, true)[0];
+                (buttonNamePrefix + order.CustomerName+order.Id, true)[0];
             Color foreColor = Color.White;
             switch (buttonStyle)
             {
@@ -247,19 +247,19 @@ namespace Dianzhu.CSClient.WinformView
             }
 
         }
-        public void AddCustomerButtonWithStyle(DZMembership customer, em_ButtonStyle buttonStyle)
+        public void AddCustomerButtonWithStyle(ServiceOrder order   , em_ButtonStyle buttonStyle)
         {
             //Action lambda = () =>this.DialogResult=value? System.Windows.Forms.DialogResult.OK: System.Windows.Forms.DialogResult.Abort;
 
             Action lamda = () =>
             {
                 Button btn = new Button();
-                btn.Text = customer.DisplayName;
-                btn.Tag = customer;
-                btn.Name = buttonNamePrefix + customer.UserName;
+                btn.Text = order.CustomerName+order.Id;
+                btn.Tag = order;
+                btn.Name = buttonNamePrefix +order.CustomerName+ order.Id;
                 btn.Click += new EventHandler(btnCustomer_Click);
                 pnlCustomerList.Controls.Add(btn);
-                SetCustomerButtonStyle(customer, buttonStyle);
+                SetCustomerButtonStyle(order, buttonStyle);
             };
             if (InvokeRequired)
                 Invoke(lamda);
@@ -269,10 +269,10 @@ namespace Dianzhu.CSClient.WinformView
 
         void btnCustomer_Click(object sender, EventArgs e)
         {
-            if (ActiveCustomerHandler != null)
+            if (IdentityItemActived != null)
             {
                 BeforeCustomerChanged();
-                ActiveCustomerHandler((DZMembership) ((Button)sender).Tag);
+                IdentityItemActived((ServiceOrder) ((Button)sender).Tag);
             }
             
         }

@@ -17,14 +17,15 @@ namespace Dianzhu.CSClient.Presenter
         //当前k客服
         DZMembership customerService = GlobalViables.CurrentCustomerService;
         //当前激活客户
-        DZMembership customer = null; 
+       // DZMembership customer = null;
+        ServiceOrder CurrentServiceOrder;
         //当前接待的 客户列表
         List<DZMembership> customerList = new List<DZMembership>();
 
-        //当前界面内 所有客户对应的订单.(一个客户 多个订单? 不考虑)
-        Dictionary<DZMembership, ServiceOrder> OrderList = new Dictionary<DZMembership, ServiceOrder>();
-        //每个客户 当前接待记录
-        Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();
+        //当前界面内 的订单
+        IList<ServiceOrder> OrderList = new List<ServiceOrder>();
+        //每个订单 的接待记录
+       // Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();
         //搜索列表
         Dictionary<string, IList<DZService>> SearchResultForCustomer
             = new Dictionary<string, IList<DZService>>();

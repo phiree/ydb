@@ -18,19 +18,16 @@ namespace Dianzhu.CSClient.Presenter
         /// 这个动作应该被订阅.
         /// </summary>
         /// <param name="buttonText"></param>
-        private void ActiveCustomer(DZMembership clickedCustomer )
+        private void ActiveCustomer(ServiceOrder order)
         {
-            view.CurrentCustomerName = clickedCustomer.DisplayName;
 
+            //view.CurrentCustomerName = order.Customer.DisplayName;
+            CurrentServiceOrder = order;
             //LoadChatHistory(buttonText);
-            view.SetCustomerButtonStyle(clickedCustomer, em_ButtonStyle.Actived);
-
-            customer = customerList.Single(x => x.UserName == clickedCustomer.UserName);
-            //设置当前激活的用户
-            if (SearchResultForCustomer.ContainsKey(clickedCustomer.DisplayName))
-            {
-                view.SearchedService = SearchResultForCustomer[clickedCustomer.DisplayName];
-            }
+            view.SetCustomerButtonStyle(order, em_ButtonStyle.Readed);
+             
+            
+            
         }
 
 
@@ -41,21 +38,20 @@ namespace Dianzhu.CSClient.Presenter
         {
             decimal unitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
             decimal orderAmount = Convert.ToDecimal(view.OrderAmount);
-            ServiceOrder order = OrderList[customer];
-            Debug.Assert(order.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
+            
+            Debug.Assert(CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
             SaveCurrentOrder();
-            order.OrderStatus = Model.Enums.enum_OrderStatus.Created;
-            string payLink = order.BuildPayLink(System.Configuration.ConfigurationManager.AppSettings["PayUrl"]);
-
-            ReceptionBase rb = ReceptionList[customer.UserName];
-            ReceptionChatMedia chatMedia = new ReceptionChatMedia {
+            CurrentServiceOrder.OrderStatus = Model.Enums.enum_OrderStatus.Created;
+            string payLink = CurrentServiceOrder.BuildPayLink(System.Configuration.ConfigurationManager.AppSettings["PayUrl"]);
+ 
+             ReceptionChatMedia chatMedia = new ReceptionChatMedia {
                 ChatType = Model.Enums.enum_ChatType.Media,
                 From = customerService,
-                To = customer,
+                To =CurrentServiceOrder.Customer,
                 MediaType = "url",
                 SavedTime = DateTime.Now,
-                ServiceOrder=order,
-                 Reception=rb,
+                ServiceOrder= CurrentServiceOrder,
+  
                   MessageBody="支付链接", MedialUrl=payLink, SendTime=DateTime.Now
             };
             SendMessage(chatMedia);
@@ -80,23 +76,19 @@ namespace Dianzhu.CSClient.Presenter
             SaveCurrentOrder();
         }
         //加载当前用户的订单
-        void LoadCurrentOrder(DZMembership customer)
+        void LoadCurrentOrder(ServiceOrder order)
         {
-            if (customer==null)
+            if (order == null)
             {
                 return;
             }
-            ServiceOrder order;
-            if (OrderList.ContainsKey(customer))
+             
+            if (!OrderList.Contains (order))
             {
-                order = OrderList[customer];
-            }
-            else
-            {
-               
-                  order = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
-                    string.Empty, string.Empty, string.Empty, 0, string.Empty, customer, string.Empty, 0, 0);
-                OrderList.Add(customer, order);
+
+
+
+                OrderList.Add(order);
             }
             view.ServiceName = order.ServiceName;
             view.ServiceBusinessName = order.ServiceBusinessName;
@@ -111,45 +103,25 @@ namespace Dianzhu.CSClient.Presenter
         }
         void SaveCurrentOrder()
         {
-            if (customer==null)
+            
+            if (CurrentServiceOrder==null)
             {
                 return;
             }
-            ServiceOrder viewOrder;
-            if (OrderList.ContainsKey(customer))
-            {
-                viewOrder = OrderList[customer];
-            }
-            else
-            {
-                viewOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
-                    string.Empty, string.Empty, string.Empty, 0, string.Empty, customer, string.Empty, 0, 0);
-                OrderList.Add(customer, viewOrder);
-            }
-            viewOrder.ServiceName = view.ServiceName;
-            viewOrder.ServiceBusinessName = view.ServiceBusinessName;
-            viewOrder.ServiceDescription = view.ServiceDescription;
-            viewOrder.ServiceUnitPrice =Convert.ToDecimal( view.ServiceUnitPrice);
-            viewOrder.ServiceURL = view.ServiceUrl;
-            viewOrder.OrderAmount =Convert.ToDecimal( view.OrderAmount);
-            viewOrder.TargetAddress = view.TargetAddress;
-            viewOrder.Memo = view.Memo;
-            viewOrder.TargetTime = view.ServiceTime;
-            bllOrder.SaveOrUpdate(viewOrder);
+             
+            CurrentServiceOrder.ServiceName = view.ServiceName;
+            CurrentServiceOrder.ServiceBusinessName = view.ServiceBusinessName;
+            CurrentServiceOrder.ServiceDescription = view.ServiceDescription;
+            CurrentServiceOrder.ServiceUnitPrice =Convert.ToDecimal( view.ServiceUnitPrice);
+            CurrentServiceOrder.ServiceURL = view.ServiceUrl;
+            CurrentServiceOrder.OrderAmount =Convert.ToDecimal( view.OrderAmount);
+            CurrentServiceOrder.TargetAddress = view.TargetAddress;
+            CurrentServiceOrder.Memo = view.Memo;
+            CurrentServiceOrder.TargetTime = view.ServiceTime;
+            bllOrder.SaveOrUpdate(CurrentServiceOrder);
         }
 
-        void view_PushInternalService(DZService service)
-        {
-            //ReceptionChatServicePushed chat = new ReceptionChatServicePushed
-            //{
-            //    ChatType = Model.Enums.enum_ChatType.PushedService,
-            //    Service = service,
-            //    From = customerService,
-            //    To = customer,
-            //    MessageBody = "已推送服务"
-            //};
-            //SendMessage(chat);
-        }
+        
         /// <summary>
         /// 界面的搜索事件
         /// </summary>
@@ -159,7 +131,7 @@ namespace Dianzhu.CSClient.Presenter
             var serviceList = bllService.Search(view.SerachKeyword, 0, 10, out total);
             view.SearchedService = serviceList;
 
-            string pushServiceKey = customer == null ? "dianzhucs" : customer.UserName;
+            string pushServiceKey = CurrentServiceOrder == null ? "dianzhucs" : CurrentServiceOrder.Id.ToString();
             if (SearchResultForCustomer.ContainsKey(pushServiceKey))
             {
                 SearchResultForCustomer[pushServiceKey] = serviceList;
@@ -173,22 +145,7 @@ namespace Dianzhu.CSClient.Presenter
         /// <summary>
         /// 推送外部服务
         /// </summary>
-        void view_PushExternalService()
-        {
-            //ReceptionChatServicePushed chatService = new ReceptionChatServicePushed();
-            //chatService.ChatType = Model.Enums.enum_ChatType.PushedService;
-
-            //chatService.MessageBody = "已推送服务";
-
-            //chatService.ServiceBusinessName = view.ServiceBusinessName;
-            //chatService.ServiceDescription = view.ServiceDescription;
-            //chatService.ServiceName = view.ServiceName;
-            //chatService.UnitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
-            //chatService.ServiceUrl = view.ServiceUrl;
-
-            //SaveMessage(chatService, true);
-            //instantMessage.SendMessage(chatService);
-        }
+        
 
         /// <summary>
         /// 1)判断该用户是否已在聊天会话中
@@ -201,8 +158,9 @@ namespace Dianzhu.CSClient.Presenter
         {
 
             //
-            if (customer == null) return;
-            ServiceOrder order = OrderList[customer];
+
+            if (CurrentServiceOrder == null)
+            { return; }
 
             if (string.IsNullOrEmpty(view.MessageTextBox.Trim())) return;
 
@@ -210,11 +168,11 @@ namespace Dianzhu.CSClient.Presenter
             {
                 ChatType = Model.Enums.enum_ChatType.Text,
                 From = customerService,
-                To = customer,
+                To = CurrentServiceOrder.Customer,
                 MessageBody = view.MessageTextBox,
                 SendTime = DateTime.Now,
                 SavedTime = DateTime.Now,
-                ServiceOrder = order
+                ServiceOrder = CurrentServiceOrder
             };
 
             SendMessage(chat);
@@ -222,7 +180,7 @@ namespace Dianzhu.CSClient.Presenter
         }
         private void view_SendMediaHandler(string domainType, string mediaType)
         {
-            if (customer == null) return;
+            if (CurrentServiceOrder == null) return;
             
             System.IO.FileStream fs = view.SelectedImageStream as System.IO.FileStream;
                 string fileExtension = Path.GetExtension(view.SelectedImageName);
@@ -236,15 +194,16 @@ namespace Dianzhu.CSClient.Presenter
          string fileName=   MediaServer.HttpUploader.Upload(
              GlobalViables.MediaUploadUrl, s, view.SelectedImageName,
                 domainType, mediaType);
-                //string result = PHSuit.IOHelper.UploadFileHttp(
-                //    GlobalViables.MediaUploadUrl,
-                //     string.Empty, bytes, fileExtension);
+            //string result = PHSuit.IOHelper.UploadFileHttp(
+            //    GlobalViables.MediaUploadUrl,
+            //     string.Empty, bytes, fileExtension);
 
             ReceptionChatMedia chat = new ReceptionChatMedia
             {
+                ServiceOrder = CurrentServiceOrder,
                 ChatType = Model.Enums.enum_ChatType.Media,
                 From = customerService,
-                To = customer,
+                To = CurrentServiceOrder.Customer,
                 MessageBody = view.MessageTextBox,
                 SendTime = DateTime.Now,
                 SavedTime = DateTime.Now,

@@ -55,6 +55,7 @@
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             this.tbxChatLog = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSendAudio = new System.Windows.Forms.Button();
             this.btnSendImage = new System.Windows.Forms.Button();
             this.tbxChatMsg = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
@@ -76,7 +77,6 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
-            this.btnSendAudio = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -385,6 +385,17 @@
             this.panel1.Size = new System.Drawing.Size(266, 23);
             this.panel1.TabIndex = 1;
             // 
+            // btnSendAudio
+            // 
+            this.btnSendAudio.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSendAudio.Location = new System.Drawing.Point(41, 0);
+            this.btnSendAudio.Name = "btnSendAudio";
+            this.btnSendAudio.Size = new System.Drawing.Size(75, 23);
+            this.btnSendAudio.TabIndex = 3;
+            this.btnSendAudio.Text = "Audio";
+            this.btnSendAudio.UseVisualStyleBackColor = true;
+            this.btnSendAudio.Click += new System.EventHandler(this.btnSendAudio_Click);
+            // 
             // btnSendImage
             // 
             this.btnSendImage.Dock = System.Windows.Forms.DockStyle.Right;
@@ -591,17 +602,6 @@
             this.pnlExternService.Size = new System.Drawing.Size(333, 242);
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
-            // 
-            // btnSendAudio
-            // 
-            this.btnSendAudio.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSendAudio.Location = new System.Drawing.Point(41, 0);
-            this.btnSendAudio.Name = "btnSendAudio";
-            this.btnSendAudio.Size = new System.Drawing.Size(75, 23);
-            this.btnSendAudio.TabIndex = 3;
-            this.btnSendAudio.Text = "Audio";
-            this.btnSendAudio.UseVisualStyleBackColor = true;
-            this.btnSendAudio.Click += new System.EventHandler(this.btnSendAudio_Click);
             // 
             // FormMain
             // 

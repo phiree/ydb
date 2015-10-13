@@ -6,11 +6,11 @@ using System.Text;
 using Dianzhu.Model;
 namespace Dianzhu.CSClient.IVew
 {
-    public delegate void ActiveCustomerHandler(DZMembership customer);
-    public delegate void SendMessageHandler();
-    public delegate void SendMediaHandler(string domainType,string mediaType);
+    public delegate void IdentityItemActived(ServiceOrder serviceOrder);
+    public delegate void MessageSent();
+    public delegate void MediaMessageSent(string domainType,string mediaType);
     
-    public delegate void PlayAudio(object audioTag,IntPtr handler);
+    public delegate void AudioPlay(object audioTag,IntPtr handler);
     public delegate void PushExternalService();
     public delegate void PushInternalService(DZService service);
     public delegate void SearchService();
@@ -34,18 +34,18 @@ namespace Dianzhu.CSClient.IVew
         /// </summary>
         /// <param name="buttonText">按钮文本(等同于客户登录名)</param>
         /// <param name="buttonStyle">按钮样式</param>
-        void SetCustomerButtonStyle(DZMembership customer, em_ButtonStyle buttonStyle);
+        void SetCustomerButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle);
         /// <summary>
         /// 增加一个客户按钮,并设置样式
         /// </summary>
         /// <param name="buttonText"></param>
         /// <param name="buttonStyle"></param>
-        void AddCustomerButtonWithStyle(DZMembership customer, em_ButtonStyle buttonStyle);
+        void AddCustomerButtonWithStyle(ServiceOrder order, em_ButtonStyle buttonStyle);
         string ButtonNamePrefix { get; set; }
-        event SendMessageHandler SendMessageHandler;
-        event SendMediaHandler SendMediaHandler;
-        event PlayAudio PlayAudio;
-        event ActiveCustomerHandler ActiveCustomerHandler;
+        event MessageSent SendMessageHandler;
+        event MediaMessageSent SendMediaHandler;
+        event AudioPlay PlayAudio;
+        event IdentityItemActived IdentityItemActived;
         #endregion
         string LocalMediaSaveDir { get; set; }
         string SerachKeyword { get; set; }

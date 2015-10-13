@@ -42,17 +42,14 @@ namespace Dianzhu.CSClient.Presenter
             this.instantMessage.IMReceivedMessage += new IMReceivedMessage(IMReceivedMessage);
             this.instantMessage.IMClosed += new IMClosed(instantMessage_IMClosed);
             //iview的委托
-            this.view.SendMessageHandler += new SendMessageHandler(view_SendMessageHandler);
-            this.view.SendMediaHandler += new SendMediaHandler(view_SendMediaHandler);
+            this.view.SendMessageHandler += new MessageSent(view_SendMessageHandler);
+            this.view.SendMediaHandler += new MediaMessageSent(view_SendMediaHandler);
 
             this.view.BeforeCustomerChanged += new BeforeCustomerChanged(view_BeforeCustomerChanged);
-            this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(ActiveCustomer);
-            this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(LoadChatHistory);
-            this.view.ActiveCustomerHandler += new IVew.ActiveCustomerHandler(LoadSearchResult);
-            this.view.ActiveCustomerHandler += new ActiveCustomerHandler(LoadCurrentOrder);
+            this.view.IdentityItemActived += new IVew.IdentityItemActived(ActiveCustomer);
+            this.view.IdentityItemActived += new IVew.IdentityItemActived(LoadChatHistory);
+            this.view.IdentityItemActived += new IdentityItemActived(LoadCurrentOrder);
 
-            this.view.PushExternalService += new PushExternalService(view_PushExternalService);
-            this.view.PushInternalService += new PushInternalService(view_PushInternalService);
             this.view.ButtonNamePrefix = System.Configuration.ConfigurationManager.AppSettings["ButtonNamePrefix"];
             this.view.SearchService += new IVew.SearchService(view_SearchService);
             this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
@@ -67,12 +64,12 @@ namespace Dianzhu.CSClient.Presenter
 
         private void View_OrderStateChanged()
         {
-            ServiceOrder currentOrder = OrderList[customer];
+            
             ReceptionChatNotice noticeChat = new ReceptionChatNotice {
                 From=customerService,
-                To=customer,
+                To=CurrentServiceOrder.Customer,
                 ChatType = Model.Enums.enum_ChatType.Notice };
-            noticeChat.ServiceOrder = currentOrder;
+            noticeChat.ServiceOrder = CurrentServiceOrder;
             noticeChat.UserObj = customerService;
            noticeChat.SendTime= noticeChat.SavedTime = DateTime.Now;
             noticeChat.MessageBody = "订单状态已发生变化";
@@ -140,29 +137,8 @@ namespace Dianzhu.CSClient.Presenter
             DZMembership fromCustomer = isSend ? chat.To : chat.From;
             string customerName = fromCustomer.UserName;
             string message = chat.MessageBody;
- 
-            bool isIn = ReceptionList.ContainsKey(customerName);
-
-            ReceptionBase re;
-
-            if (isIn)
-            {
-                re = ReceptionList[customerName];
-            }
-            else
-            {
-
-                re = new ReceptionCustomer
-                {
-                    Sender = fromCustomer,//未点击前customer还未被赋值.为空
-                    Receiver = customerService,
-                    TimeBegin = DateTime.Now,
-
-                };
-                ReceptionList.Add(customerName, re);
-                //保存媒體資源
-               
-            }
+  
+          
             DateTime now = DateTime.Now;
 
             if (isSend)
@@ -179,24 +155,20 @@ namespace Dianzhu.CSClient.Presenter
             {
                 if (((ReceptionChatMedia)chat).MediaType != "url")
                 {
-                    
-              
-
+ 
                 string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
                 string localFileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
-
-                
+ 
                 using (var client = new WebClient())
                 {
                     string savedPath = GlobalViables.LocalMediaSaveDir + localFileName;
                     PHSuit.IOHelper.EnsureFileDirectory(savedPath);
                     client.DownloadFile(mediaUrl, savedPath);
-
-
+  
                     }
                 }
             }
-            chat.Reception = re;
+           
             bllReceptionChat.Save(chat);
             //re.ChatHistory.Add(chat);
             
@@ -213,16 +185,14 @@ namespace Dianzhu.CSClient.Presenter
         }
         private void LoadChatHistory()
         {
-            LoadChatHistory(customer);
+            LoadChatHistory(CurrentServiceOrder);
         }
-        private void LoadChatHistory(DZMembership customer)
+        private void LoadChatHistory(ServiceOrder serviceOrder)
         {
-            bool isContain = ReceptionList.ContainsKey(customer.UserName);
-
+            
             int rowCount;
-            var chatHistory = bllReception.GetReceptionChatList(
-                customerList.Single(x => x.UserName == customer.UserName),
-                customerService,Guid.Empty, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),0,20,out rowCount);
+            var chatHistory = bllReception.GetChatListByOrder(
+                serviceOrder.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),0,20,out rowCount);
 
             view.ChatLog = chatHistory;
         }
