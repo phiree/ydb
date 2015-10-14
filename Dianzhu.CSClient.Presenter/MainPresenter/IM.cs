@@ -105,7 +105,10 @@ namespace Dianzhu.CSClient.Presenter
             view.LoadOneChat(chat);
 
         }
-        
+        private void InstantMessage_IMIQ()
+        {
+            
+        }
         private bool AddCustomer(string customerName)
         {
             

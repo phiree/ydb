@@ -23,24 +23,23 @@ namespace Dianzhu.CSClient.Presenter
        
         public MainPresenter(IVew.IMainFormView view,
             InstantMessage instantMessage,
-            IMessageAdapter.IAdapter messageAdapter,
-            DZMembershipProvider bllMember, BLLReception bllReception,
-            BLLDZService bllService, BLLServiceOrder bllOrder,
-            BLLReceptionStatus bllReceptionStatus)
+            IMessageAdapter.IAdapter messageAdapter
+            )
         {
             this.view = view;
             this.instantMessage = instantMessage;
-            this.bllMember = bllMember;
-            this.bllReception = bllReception;
-            this.bllService = bllService;
-            this.bllReceptionStatus = bllReceptionStatus;
+            this.bllMember = new DZMembershipProvider();// bllMember;
+            this.bllReception = new BLLReception(); //bllReception;
+            this.bllService = new BLLDZService();// bllService;
+            this.bllReceptionStatus = new BLLReceptionStatus();// bllReceptionStatus;
 
-            this.bllOrder = bllOrder;
+            this.bllOrder = new BLLServiceOrder();// bllOrder;
 
             //  IM的委托
             this.instantMessage.IMPresent += new IMPresent(IMPresent);
             this.instantMessage.IMReceivedMessage += new IMReceivedMessage(IMReceivedMessage);
             this.instantMessage.IMClosed += new IMClosed(instantMessage_IMClosed);
+            this.instantMessage.IMIQ += InstantMessage_IMIQ;
             //iview的委托
             this.view.SendMessageHandler += new MessageSent(view_SendMessageHandler);
             this.view.SendMediaHandler += new MediaMessageSent(view_SendMediaHandler);
@@ -62,6 +61,8 @@ namespace Dianzhu.CSClient.Presenter
             this.view.CreateNewOrder += View_CreateNewOrder;
             
         }
+
+       
 
         private void View_OrderStateChanged()
         {

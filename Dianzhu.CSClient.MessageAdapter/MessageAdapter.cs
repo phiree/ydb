@@ -11,18 +11,44 @@ namespace Dianzhu.CSClient.MessageAdapter
     
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
-        DZMembershipProvider bllMember;
-        BLLDZService bllDZService;
-        BLLServiceOrder bllOrder;
+        static DZMembershipProvider bllMember;
+        DZMembershipProvider BllMember {
+            get {
+                if (bllMember == null) bllMember = new DZMembershipProvider();
+                return bllMember;
+            }
+             
+        }
+        static BLLDZService bllDZService;
+        BLLDZService BllDZService
+        {
+            get
+            {
+                if (bllDZService == null) bllDZService = new BLLDZService();
+                return bllDZService;
+            }
+
+        }
+        static BLLServiceOrder bllOrder;
+        BLLServiceOrder BLLOrder
+        {
+            get
+            {
+                if (bllOrder == null) bllOrder = new BLLServiceOrder();
+                return bllOrder;
+            }
+
+        }
+       
+        
         string IMServer;//服务器地址
         log4net.ILog ilog = log4net.LogManager.GetLogger("xmpp");
-        public MessageAdapter(DZMembershipProvider bllMembership,
-            BLLDZService bllService,
-            BLLServiceOrder bllOrder)
+        public MessageAdapter()
         {
-            this.bllMember = bllMembership;
-            this.bllDZService = bllService;
-            this.bllOrder = bllOrder;
+            //注入类的初始化需要在 调用者,影响调用者的初始化速度.这里不用注入依赖.
+            //这样处理也不行, 需要将对象初始化过程 下方到 调用之处.
+           
+            
         }
         
           public Model.ReceptionChat MessageToChat( Message message)
@@ -44,8 +70,8 @@ namespace Dianzhu.CSClient.MessageAdapter
                     throw new Exception("未知的命名空间");
 
             }
-           var chatFrom = bllMember.GetUserById(new Guid(message.From.User));
-           var  chatTo = bllMember.GetUserById(new Guid(message.To.User));
+           var chatFrom = BllMember.GetUserById(new Guid(message.From.User));
+           var  chatTo = BllMember.GetUserById(new Guid(message.To.User));
             ReceptionChat chat = ReceptionChat.Create(chatType);
             Guid messageId;
             if (Guid.TryParse(message.Id, out messageId))

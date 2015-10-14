@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblResult = new System.Windows.Forms.Label();
+            this.bgw = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // btnLogin
@@ -44,7 +45,8 @@
             this.btnLogin.TabIndex = 0;
             this.btnLogin.Text = "登录";
             this.btnLogin.UseVisualStyleBackColor = true;
-           
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
             // tbxPassword
             // 
             this.tbxPassword.Location = new System.Drawing.Point(108, 125);
@@ -89,6 +91,11 @@
             this.lblResult.Size = new System.Drawing.Size(0, 12);
             this.lblResult.TabIndex = 3;
             // 
+            // bgw
+            // 
+            this.bgw.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_DoWork);
+            this.bgw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgw_RunWorkerCompleted);
+            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -116,6 +123,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblResult;
+        private System.ComponentModel.BackgroundWorker bgw;
     }
 }
 

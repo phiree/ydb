@@ -29,8 +29,8 @@ namespace Dianzhu.CSClient.WinformView
 
         private void btnLogin_Click2(object sender, EventArgs e)
         {
-
-            ViewLogin();
+            bgw.RunWorkerAsync();
+         
         }
 
 
@@ -114,6 +114,21 @@ namespace Dianzhu.CSClient.WinformView
             {
                 throw new NotImplementedException();
             }
+        }
+
+        private void bgw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ViewLogin();
+        }
+
+        private void bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
