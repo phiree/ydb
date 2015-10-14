@@ -49,9 +49,9 @@ var test_data = [
                 {
                     "protocol_CODE": "ORM001005",
                     "ReqData": {
-                        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
-                        "pWord": "1234",
-                        "orderID": "7d06debd-ed45-4678-b86c-a500014ce48e",
+                        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                        "pWord": "123456",
+                        "orderID": "792b2024-30cd-47de-877d-a531011882ff",
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"

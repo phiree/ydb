@@ -4949,3 +4949,523 @@ System.IO.IOException: Œﬁ∑®Ω´ ˝æ›–¥»Î¥´ ‰¡¨Ω”: ‘⁄“ª∏ˆ∑«Ã◊Ω”◊÷…œ≥¢ ‘¡À“ª∏ˆ≤Ÿ◊˜°£°
     }
 
 }
+2015-10-14 16:06:38,902 [8] DEBUG dz - Request(5fb66ab1-df36-4cd8-a29f-fab88457416f):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "orderID": "7d06debd-ed45-4678-b86c-a500014ce48e"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-14 16:06:38,902 [8] DEBUG dz - Request(5fb66ab1-df36-4cd8-a29f-fab88457416f):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "orderID": "7d06debd-ed45-4678-b86c-a500014ce48e"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-14 16:07:18,095 [8] DEBUG dz - Resonse(5fb66ab1-df36-4cd8-a29f-fab88457416f):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444838838041.71",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "7d06debd-ed45-4678-b86c-a500014ce48e",
+        
+    "alias":  null,
+        
+    "merID":  "a5886a6a-d039-4211-8226-a4fb00f69eca",
+        
+    "type":  "ªı‘ÀŒÔ¡˜>ªı‘ÀŒÔ¡˜>ø’≥µ≈‰ªı°¢≤÷¥¢",
+        
+    "startTime":  "00:00",
+        
+    "endTime":  "00:00",
+        
+    "money":  "",
+        
+    "status":  "Wt",
+        
+    "address":  "",
+        
+    "exDoc":  "",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=7d06debd-ed45-4678-b86c-a500014ce48e",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  {
+            
+      "storeID":  "a5886a6a-d039-4211-8226-a4fb00f69eca",
+            
+      "alias":  "sdfsda",
+            
+      "imgUrl":  "a5886a6a-d039-4211-8226-a4fb00f69ecaBusiness_Avatar1383273640.jpg"
+    
+        }
+  
+    }
+
+}
+2015-10-14 16:07:18,095 [8] DEBUG dz - Resonse(5fb66ab1-df36-4cd8-a29f-fab88457416f):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444838838041.71",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "7d06debd-ed45-4678-b86c-a500014ce48e",
+        
+    "alias":  null,
+        
+    "merID":  "a5886a6a-d039-4211-8226-a4fb00f69eca",
+        
+    "type":  "ªı‘ÀŒÔ¡˜>ªı‘ÀŒÔ¡˜>ø’≥µ≈‰ªı°¢≤÷¥¢",
+        
+    "startTime":  "00:00",
+        
+    "endTime":  "00:00",
+        
+    "money":  "",
+        
+    "status":  "Wt",
+        
+    "address":  "",
+        
+    "exDoc":  "",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=7d06debd-ed45-4678-b86c-a500014ce48e",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  {
+            
+      "storeID":  "a5886a6a-d039-4211-8226-a4fb00f69eca",
+            
+      "alias":  "sdfsda",
+            
+      "imgUrl":  "a5886a6a-d039-4211-8226-a4fb00f69ecaBusiness_Avatar1383273640.jpg"
+    
+        }
+  
+    }
+
+}
+2015-10-14 16:07:21,146 [8] DEBUG dz - Request(c3fc02e8-de65-49bb-92e7-21ff520ab851):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "orderID": "7d06debd-ed45-4678-b86c-a500014ce48e"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-14 16:07:21,146 [8] DEBUG dz - Request(c3fc02e8-de65-49bb-92e7-21ff520ab851):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
+        "pWord": "1234",
+        "orderID": "7d06debd-ed45-4678-b86c-a500014ce48e"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-14 16:07:28,196 [8] DEBUG dz - Resonse(c3fc02e8-de65-49bb-92e7-21ff520ab851):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444838848196.29",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "7d06debd-ed45-4678-b86c-a500014ce48e",
+        
+    "alias":  null,
+        
+    "merID":  "a5886a6a-d039-4211-8226-a4fb00f69eca",
+        
+    "type":  "ªı‘ÀŒÔ¡˜>ªı‘ÀŒÔ¡˜>ø’≥µ≈‰ªı°¢≤÷¥¢",
+        
+    "startTime":  "00:00",
+        
+    "endTime":  "00:00",
+        
+    "money":  "",
+        
+    "status":  "Wt",
+        
+    "address":  "",
+        
+    "exDoc":  "",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=7d06debd-ed45-4678-b86c-a500014ce48e",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  {
+            
+      "storeID":  "a5886a6a-d039-4211-8226-a4fb00f69eca",
+            
+      "alias":  "sdfsda",
+            
+      "imgUrl":  "a5886a6a-d039-4211-8226-a4fb00f69ecaBusiness_Avatar1383273640.jpg"
+    
+        }
+  
+    }
+
+}
+2015-10-14 16:07:28,196 [8] DEBUG dz - Resonse(c3fc02e8-de65-49bb-92e7-21ff520ab851):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444838848196.29",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "7d06debd-ed45-4678-b86c-a500014ce48e",
+        
+    "alias":  null,
+        
+    "merID":  "a5886a6a-d039-4211-8226-a4fb00f69eca",
+        
+    "type":  "ªı‘ÀŒÔ¡˜>ªı‘ÀŒÔ¡˜>ø’≥µ≈‰ªı°¢≤÷¥¢",
+        
+    "startTime":  "00:00",
+        
+    "endTime":  "00:00",
+        
+    "money":  "",
+        
+    "status":  "Wt",
+        
+    "address":  "",
+        
+    "exDoc":  "",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=7d06debd-ed45-4678-b86c-a500014ce48e",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  {
+            
+      "storeID":  "a5886a6a-d039-4211-8226-a4fb00f69eca",
+            
+      "alias":  "sdfsda",
+            
+      "imgUrl":  "a5886a6a-d039-4211-8226-a4fb00f69ecaBusiness_Avatar1383273640.jpg"
+    
+        }
+  
+    }
+
+}
+2015-10-14 16:48:31,939 [8] DEBUG dz - Request(46da2c01-1eab-45e9-9a48-8510dde20d29):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+        "pWord": "1234",
+        "orderID": "63e7a61f-65e1-4403-af14-a531010a4247"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-14 16:48:31,939 [8] DEBUG dz - Request(46da2c01-1eab-45e9-9a48-8510dde20d29):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+        "pWord": "1234",
+        "orderID": "63e7a61f-65e1-4403-af14-a531010a4247"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-14 16:49:01,135 [8] DEBUG dz - Resonse(46da2c01-1eab-45e9-9a48-8510dde20d29):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444841341095.88",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "63e7a61f-65e1-4403-af14-a531010a4247",
+        
+    "alias":  "12",
+        
+    "merID":  "",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "",
+        
+    "status":  "Created",
+        
+    "address":  "11",
+        
+    "exDoc":  "12",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=63e7a61f-65e1-4403-af14-a531010a4247",
+        
+    "userObj":  {
+            
+      "userID":  "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+            
+      "alias":  "22",
+            
+      "imgUrl":  "_$_b57e23bc-e37b-422d-a145-b5ae5106e6db_$_UserAvatar_$_image"
+    
+        },
+        
+    "storeObj":  null
+  
+    }
+
+}
+2015-10-14 16:49:01,135 [8] DEBUG dz - Resonse(46da2c01-1eab-45e9-9a48-8510dde20d29):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444841341095.88",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "63e7a61f-65e1-4403-af14-a531010a4247",
+        
+    "alias":  "12",
+        
+    "merID":  "",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "",
+        
+    "status":  "Created",
+        
+    "address":  "11",
+        
+    "exDoc":  "12",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=63e7a61f-65e1-4403-af14-a531010a4247",
+        
+    "userObj":  {
+            
+      "userID":  "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+            
+      "alias":  "22",
+            
+      "imgUrl":  "_$_b57e23bc-e37b-422d-a145-b5ae5106e6db_$_UserAvatar_$_image"
+    
+        },
+        
+    "storeObj":  null
+  
+    }
+
+}
+2015-10-14 17:02:32,827 [14] DEBUG dz - Request(5e80bdfe-9014-4ca6-a77a-3ab563f66d41):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "792b2024-30cd-47de-877d-a531011882ff"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-14 17:02:32,827 [14] DEBUG dz - Request(5e80bdfe-9014-4ca6-a77a-3ab563f66d41):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "792b2024-30cd-47de-877d-a531011882ff"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-14 17:03:06,441 [14] DEBUG dz - Resonse(5e80bdfe-9014-4ca6-a77a-3ab563f66d41):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444842186397.23",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "792b2024-30cd-47de-877d-a531011882ff",
+        
+    "alias":  "11",
+        
+    "merID":  "",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "11",
+        
+    "status":  "Created",
+        
+    "address":  "11",
+        
+    "exDoc":  "11",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=792b2024-30cd-47de-877d-a531011882ff",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null
+  
+    }
+
+}
+2015-10-14 17:03:06,441 [14] DEBUG dz - Resonse(5e80bdfe-9014-4ca6-a77a-3ab563f66d41):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444842186397.23",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "792b2024-30cd-47de-877d-a531011882ff",
+        
+    "alias":  "11",
+        
+    "merID":  "",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "11",
+        
+    "status":  "Created",
+        
+    "address":  "11",
+        
+    "exDoc":  "11",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=792b2024-30cd-47de-877d-a531011882ff",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null
+  
+    }
+
+}

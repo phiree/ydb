@@ -238,6 +238,29 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTest", "WPFTest\WPFTest.csproj", "{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "alipay", "alipay\", "{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_8829"
+		Debug.AspNetCompiler.PhysicalPath = "alipay\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8829\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_8829"
+		Release.AspNetCompiler.PhysicalPath = "alipay\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8829\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "8829"
+		SlnRelativePath = "alipay\"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dioanzhu.Pay", "Dioanzhu.Pay\Dioanzhu.Pay.csproj", "{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -553,6 +576,30 @@ Global
 		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|x86.ActiveCfg = Release|Any CPU
 		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|x86.Build.0 = Release|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|x86.Build.0 = Debug|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|x86.ActiveCfg = Debug|Any CPU
+		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|x86.Build.0 = Debug|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Debug|x86.Build.0 = Debug|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Release|x86.ActiveCfg = Release|Any CPU
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -588,6 +635,7 @@ Global
 		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{FBEC30ED-52CD-49B0-B767-B2EC013796A4} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

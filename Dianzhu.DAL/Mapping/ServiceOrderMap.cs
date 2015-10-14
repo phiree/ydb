@@ -14,18 +14,24 @@ namespace Dianzhu.DAL.Mapping
            Id(x => x.Id);
            References<DZMembership>(x => x.Customer);
            Map(x => x.OrderCreated);
-           Map(x => x.OrderStatus);
-           References<DZService>(x => x.Service);
-           HasMany<Staff>(x => x.Staff);
-           Map(x => x.TargetAddress);
-            Map(x => x.TargetTime);
-           Map(x => x.ServiceUnitPrice);
-           Map(x => x.UnitAmount);
+            Map(x => x.OrderFinished);
             Map(x => x.Memo);
-           Map(x => x.ServiceURL);
-           Map(x => x.ServiceName);
-           Map(x => x.ServiceDescription);
-           Map(x => x.ServiceBusinessName);
+            Map(x => x.OrderStatus);
+            Map(x => x.TargetAddress);
+            Map(x => x.TargetTime);
+            HasMany<Staff>(x => x.Staff);
+            Map(x => x.UnitAmount);
+            Map(x => x.OrderAmount);
+           References<DZService>(x => x.Service);
+            Map(x => x.ServiceURL);
+            Map(x => x.ServiceName);
+            Map(x => x.ServiceDescription);
+            Map(x => x.ServiceBusinessName);
+
+            Map(x => x.ServiceUnitPrice);
+           
+           
+         
            Map(x => x.CustomerName);
            Map(x => x.CustomerEmail);
            Map(x => x.CustomerPhone);
