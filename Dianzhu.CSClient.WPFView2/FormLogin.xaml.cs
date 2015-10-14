@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IVew;
+using System.ComponentModel;
 namespace Dianzhu.CSClient.WPFView 
 {
     /// <summary>
@@ -20,15 +21,24 @@ namespace Dianzhu.CSClient.WPFView
     /// </summary>
     public partial class FormLogin : Window,ILoginForm
     {
+        BackgroundWorker bgw = new BackgroundWorker();
         public FormLogin()
         {
             InitializeComponent();
             btnLogin.Click += BtnLogin_Click;
+            
+            bgw.DoWork += Bgw_DoWork;
+            
+        }
+
+        private void Bgw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ViewLogin();
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            ViewLogin();
+            bgw.RunWorkerAsync();
         }
         public string FormText
         {

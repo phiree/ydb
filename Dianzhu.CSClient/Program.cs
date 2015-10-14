@@ -32,10 +32,10 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
             log4net.Config.XmlConfigurator.Configure();
             log.Debug("Start");
-          
+            BLLPool BLLPool = new BLLPool();
             bool? result;
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
-                BLLFactory.BLLMember, BLLFactory.BLLDZService, BLLFactory.BLLServiceOrder);
+                 );
 
             XMPP.XMPP xmpp = new XMPP.XMPP(messageAdapter);
 
@@ -44,8 +44,7 @@ namespace Dianzhu.CSClient
             string version = GetVersion();
             loginForm.FormText += "v" + version;
             Presenter.LoginPresenter loginPresenter =
-            new Presenter.LoginPresenter(loginForm, xmpp,
-                BLLFactory.BLLMember);
+            new Presenter.LoginPresenter(loginForm, xmpp);
             result = loginForm.ShowDialog();
 
             if (result.Value)// == DialogResult.OK)
@@ -54,12 +53,12 @@ namespace Dianzhu.CSClient
 
                 mainForm.Text += "v" + version;
                 Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
-                    mainForm, xmpp, messageAdapter,
-                    BLLFactory.BLLMember,
-                    BLLFactory.BLLReception,
-                    BLLFactory.BLLDZService,
-                    BLLFactory.BLLServiceOrder,
-                    BLLFactory.BLLRecetionStatus
+                    mainForm, xmpp, messageAdapter
+                    //BLLFactory.BLLMember,
+                    //BLLFactory.BLLReception,
+                    //BLLFactory.BLLDZService,
+                    //BLLFactory.BLLServiceOrder,
+                    //BLLFactory.BLLRecetionStatus
                     );
                 Application.Run(mainForm);
             }

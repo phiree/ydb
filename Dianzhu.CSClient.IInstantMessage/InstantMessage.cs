@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
- 
+
 
 namespace Dianzhu.CSClient.IInstantMessage
 {
     public delegate void IMReceivedMessage(Model.ReceptionChat chat);
     public delegate void IMLogined(string jidUser);
     public delegate void IMAuthError();
-    public delegate void IMPresent(string userFrom,int presentType);
+    public delegate void IMPresent(string userFrom, int presentType);
     public delegate void IMError(string error);
     public delegate void IMConnectionError(string error);
     public delegate void IMClosed();
+    public delegate void IMIQ();
 
     public interface InstantMessage
     {
@@ -31,6 +32,7 @@ namespace Dianzhu.CSClient.IInstantMessage
         void SendMessage(Model.ReceptionChat chat);
         
         event IMReceivedMessage IMReceivedMessage;
+        event IMIQ IMIQ;
       //  void SendMessage(agsXMPP.protocol.client.Message message);
     }
 }

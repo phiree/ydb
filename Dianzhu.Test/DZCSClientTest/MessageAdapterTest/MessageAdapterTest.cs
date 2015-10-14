@@ -52,7 +52,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
                 Builder<Model.ServiceOrder>.CreateNew().With(x => x.Id = orderId).Build()
                 );
 
-              adapter = new MessageAdapter(bllMember, bllService, bllOrder);
+            //  adapter = new MessageAdapter(bllMember, bllService, bllOrder);
               message = Builder<Message>.CreateNew().Build();
         }
         [Test]

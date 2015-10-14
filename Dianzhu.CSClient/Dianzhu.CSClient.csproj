@@ -109,7 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLFactory.cs" />
-    <Compile Include="GlobalViables.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -129,6 +128,18 @@
     <Content Include="config\appSettings.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="configLocal\appSettings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="configLocal\appSettings.config.source" />
+    <Content Include="configLocal\connectionStrings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="configLocal\connectionStrings.config.source" />
+    <Content Include="configLocal\log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="configLocal\log4net.config.source" />
     <None Include="config\appSettings.config.source" />
     <None Include="config\connectionStrings.config.source" />
     <None Include="config\log4net.config.source" />

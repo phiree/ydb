@@ -13,16 +13,15 @@ namespace Dianzhu.CSClient.Presenter
      
        IVew.ILoginForm loginView;
        InstantMessage instantMessage;
-       DZMembershipProvider bllMembership;
-       public LoginPresenter(IVew.ILoginForm loginView, InstantMessage instantMessage,
-
-            BLL.DZMembershipProvider bllMembership)
+     
+       public LoginPresenter(IVew.ILoginForm loginView, InstantMessage instantMessage
+)
        {
+
            this.loginView = loginView;
            this.instantMessage = instantMessage;
            loginView.ViewLogin +=new IVew.ViewLogin(loginView_ViewLogin);
-           this.bllMembership = bllMembership;
-
+           
             instantMessage.IMError += new IMError(XMPP_IMError);
             instantMessage.IMConnectionError += new IMConnectionError(instantMessage_IMConenctionError);
             instantMessage.IMLogined += new IMLogined(IMLogined);
@@ -30,14 +29,17 @@ namespace Dianzhu.CSClient.Presenter
 
         }
 
-        BLLReceptionStatus BLLReceptionStatus = new BLLReceptionStatus();
+        
 
        void loginView_ViewLogin()
        {
            loginView.LoginButtonText = "正在登录,请稍后";
            loginView.LoginButtonEnabled = false;
            loginView.LoginMessage = string.Empty;
-             DZMembership member = bllMembership.GetUserByName(loginView.UserName);
+            BLLFactory bllFactory = new BLLFactory();
+            DZMembershipProvider bllmember = bllFactory.BLLMember;
+
+           DZMembership member = bllmember.GetUserByName(loginView.UserName);
            if (member == null)
            {
                XMPP_IMAuthError();
@@ -75,15 +77,21 @@ namespace Dianzhu.CSClient.Presenter
            loginView.LoginButtonText = "重新登录";
            loginView.LoginMessage = "用户名/密码错误,请重试.";
        }
-
-       void IMLogined(string jidUser)
+        BLLReceptionStatus bllReceptionStatus;
+        BLLReceptionStatus BLLReceptionStatus { get
+            {
+                if(bllReceptionStatus==null)
+                    bllReceptionStatus = new BLLReceptionStatus();
+                return bllReceptionStatus;
+            } } 
+        void IMLogined(string jidUser)
        {
           
-           DZMembership customerService = BLLFactory.BLLMembership.GetUserById(new Guid( jidUser));
+           DZMembership customerService = new BLLFactory().BLLMember.GetUserById(new Guid( jidUser));
            GlobalViables.CurrentCustomerService = customerService;
            loginView.IsLoginSuccess = true;
-           //
-           BLLReceptionStatus.CustomerServiceLogin(customerService);
+           
+            BLLReceptionStatus.CustomerServiceLogin(customerService);
        }
 
        void loginView_Logined(object sender, EventArgs e)

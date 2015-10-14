@@ -45,16 +45,16 @@ namespace Dianzhu.Test
 
             Dianzhu.CSClient.IMessageAdapter.IAdapter adapter = MockRepository.GenerateStub<Dianzhu.CSClient.IMessageAdapter.IAdapter>();
 
-            MainPresenter formController = new MainPresenter(
-                view, 
-                xmpp,
-                adapter,
-                bllMember
-                 , bllReception, 
-                 bllDZService,
-                 Builder<BLLServiceOrder>.CreateNew().Build()
-                 ,MockRepository.GenerateMock<BLLReceptionStatus>()
-                 );
+            //MainPresenter formController = new MainPresenter(
+            //    view, 
+            //    xmpp,
+            //    adapter,
+            //    bllMember
+            //     , bllReception, 
+            //     bllDZService,
+            //     Builder<BLLServiceOrder>.CreateNew().Build()
+            //     ,MockRepository.GenerateMock<BLLReceptionStatus>()
+            //     );
            // formController.ReceiveMessage("a@a.a", "hello", "/pic.png",string.Empty);
             string result = view.ToString();
             Assert.AreEqual("hello", result);

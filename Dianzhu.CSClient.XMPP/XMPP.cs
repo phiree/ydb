@@ -22,6 +22,7 @@ namespace Dianzhu.CSClient.XMPP
         public event IMReceivedMessage IMReceivedMessage;
         public event IMError IMError;
         public event IMConnectionError IMConnectionError;
+        public event IMIQ IMIQ;
         IMessageAdapter.IAdapter messageAdapter;
         public XMPP(IMessageAdapter.IAdapter messageAdapter)
         {
@@ -40,12 +41,16 @@ namespace Dianzhu.CSClient.XMPP
                 XmppClientConnection.OnClose+=new ObjectHandler(XmppClientConnection_OnClose);
                 XmppClientConnection.OnIq += XmppClientConnection_OnIq;
                 
+                
             }
         }
 
         private void XmppClientConnection_OnIq(object sender, IQ iq)
         {
-           
+            if(IMIQ!=null)
+            { 
+            IMIQ();
+            }
         }
 
         void XmppClientConnection_OnSocketError(object sender, Exception ex)
