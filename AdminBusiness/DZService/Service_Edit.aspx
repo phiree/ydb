@@ -29,7 +29,7 @@
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
     <script>
         $(function () {
-            function readTypeData(){
+            (function (){
                 var hiTypeValue = $("#hiTypeId").attr("value");
                 if ( hiTypeValue == undefined ) {
                     return;
@@ -37,9 +37,7 @@
                     $("#lblSelectedType").removeClass("dis-n");
                     $("#lblSelectedType").addClass("d-inb");
                 }
-            };
-
-            readTypeData();
+            })();
 
             $(".service-time-table tbody tr:even").addClass("list-item-odd");
 
@@ -62,13 +60,8 @@
 
             $(".time-select-wrap").timeSelect();
 
-
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
             $(function () {
-              $('[data-toggle="tooltip"]').tooltip()
+                $('[data-toggle="tooltip"]').tooltip({delay: 0});
             });
 
             function setTime(date,timeString){
@@ -100,8 +93,6 @@
             }, "每日接单量应该大于每小时最大接单量");
 
 
-
-
             $($("form")[0]).validate(
                 {
                     ignore:[],
@@ -116,18 +107,12 @@
                 }
             );
 
-
-
             $(".steps-wrap").StepByStep({
                 stepNextFunc : function(){
                     return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
-                },
-                stepLastFunc : function(){
-                    $("#btnCancel").removeClass("dis-n");
-                    $("#btnSave").removeClass("dis-n");
                 }
             });
-        });       //document.ready
+        });
     </script>
     <script>
         function loadBaiduMapScript() {

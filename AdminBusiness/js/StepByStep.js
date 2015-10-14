@@ -179,6 +179,8 @@ var StepByStep = {
         stepNextFunc: null,
         stepPrev: "step-prev",
         stepNext: "step-next",
+        stepSave: "step-save",
+        stepCancel: "step-cancel",
         stepLastFunc: null
     },
 
@@ -224,7 +226,9 @@ var StepByStep = {
             $stepLines = $ele.find("." + this.options.stepLinesClass),
             $stepLists = $ele.find("." + this.options.stepListClass),
             $stepPrev = $ele.find("." + this.options.stepPrev),
-            $stepNext = $ele.find("." + this.options.stepNext);
+            $stepNext = $ele.find("." + this.options.stepNext),
+            $stepSave = $ele.find("." + this.options.stepSave),
+            $stepCancel = $ele.find("." + this.options.stepCancel);
 
         var doneStep = (step - 1 ) < 0 ? 0 : step;
 
@@ -254,15 +258,21 @@ var StepByStep = {
             case 0:
                 $stepNext.removeClass("dis-n");
                 $stepPrev.addClass("dis-n");
+                $stepSave.addClass("dis-n");
+                $stepCancel.addClass("dis-n");
                 break;
             case $stepLists.find('.steps-step').length - 1:
                 $stepPrev.removeClass("dis-n");
                 $stepNext.addClass("dis-n");
-                this.options.stepLastFunc();
+                $stepSave.removeClass("dis-n");
+                $stepCancel.removeClass("dis-n");
+                this.options.stepLastFunc && this.options.stepLastFunc() ;
                 break;
             default:
                 $stepPrev.removeClass("dis-n");
                 $stepNext.removeClass("dis-n");
+                $stepSave.addClass("dis-n");
+                $stepCancel.addClass("dis-n");
         }
     },
 

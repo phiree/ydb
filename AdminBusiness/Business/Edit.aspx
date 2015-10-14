@@ -356,8 +356,8 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                         <a class="step-prev btn btn-info btn-big dis-n" value="prev"  >上一步</a>
                         <a class="step-next btn btn-info btn-big dis-n" value="next"  >下一步</a>
 
-                        <input class="btn btn-info btn-big m-l10 dis-n btnSave" name="imageField" runat="server" onserverclick="btnSave_Click" type="submit" id="imageField1" value="保存"/>
-                        <a class="btn btn-cancel btn-big m-l10 dis-n" id="btnCancel" href="/business/detail.aspx?businessId=<%=Request[" businessid"]
+                        <input class="step-save btn btn-info btn-big m-l10 dis-n" name="imageField" runat="server" onserverclick="btnSave_Click" type="submit" id="imageField1" value="保存"/>
+                        <a class="step-cancel btn btn-cancel btn-big m-l10 dis-n" id="btnCancel" href="/business/detail.aspx?businessId=<%=Request[" businessid"]
                         %>">取消</a>
                     </div>
 
@@ -401,7 +401,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <script>
 
             $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
+                $('[data-toggle="tooltip"]').tooltip({delay: 300});
 
                 $('.file-default').imgUpload({
                     limitNum: 1
@@ -438,10 +438,6 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                 $(".steps-wrap").StepByStep({
                     stepNextFunc : function(){
                         return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
-                    },
-                    stepLastFunc : function(){
-                        $("#btnCancel").removeClass("dis-n");
-                        $(".btnSave").removeClass("dis-n");
                     }
                 });
             })

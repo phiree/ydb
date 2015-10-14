@@ -398,11 +398,11 @@
                     </div>
                     <div class="step-ctrl">
                         <div class="service-saveSubmit">
-                            <a class="step-prev btn btn-info btn-big dis-n" value="prev"  >上一步</a>
-                            <a class="step-next btn btn-info btn-big dis-n" value="next"  >下一步</a>
-                            <asp:Button Text="保存" CssClass="btn btn-info btn-big m-l10 dis-n" runat="server" ID="btnSave"
+                            <a class="step-prev btn btn-info dis-n" value="prev"  >上一步</a>
+                            <a class="step-next btn btn-info m-l10 dis-n" value="next"  >下一步</a>
+                            <asp:Button Text="保存" CssClass="step-save btn btn-info m-l10 dis-n " runat="server" ID="btnSave"
                                         OnClick="btnSave_Click" />
-                            <a class="btn btn-cancel btn-big m-l10 dis-n" id="btnCancel" href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">
+                            <a class="step-cancel btn btn-cancel m-l10 dis-n" id="btnCancel" href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">
                             取消</a>
                         </div>
                     </div>
