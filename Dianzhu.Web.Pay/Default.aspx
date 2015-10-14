@@ -83,8 +83,8 @@
                         </div>
                     </label>
                     <label for="roundedThree" class="pay-method">
-                        <div class="wechatLogo">
-                            <div class="alipayLogo icon"></div>
+                        <div class="pay-method-logo">
+                            <div class="wechatLogo icon"></div>
                         </div>
                         <div class="pay-method-text">
                             <div class="text-cont">
