@@ -273,7 +273,7 @@
                                         <div class="cont-col-3">
                                             <div class="service-checkBox d-inb" data-toggle="tooltip" data-placement="top" title="是否对公司提供该服务">
                                                 <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cblIsForBusiness"
-                                                              Text="是否对公" />
+                                                              Text="提供公司服务" />
                                             </div>
                                         </div>
                                         <div class="cont-col-2">
