@@ -24,6 +24,7 @@ public class RespDataORM_Order
     public string status { get; set; }
     public string address { get; set; }
     public string exDoc { get; set; }
+    public string paylink { get; set; }
     public RespDataORM_UserObj userObj { get; set; }
     public RespDataORM_storeObj storeObj { get; set; }
     public RespDataORM_Order Adap(ServiceOrder order)
@@ -43,6 +44,7 @@ public class RespDataORM_Order
         this.status = order.OrderStatus.ToString();
         this.address = order.TargetAddress ?? string.Empty;
         this.exDoc = order.ServiceDescription ?? string.Empty;
+        this.paylink = order.BuildPayLink(System.Configuration.ConfigurationManager.AppSettings["PayServer"]);
         if (order.Customer != null)
         {
             this.userObj = new RespDataORM_UserObj().Adap(order.Customer);

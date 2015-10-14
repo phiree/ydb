@@ -69,18 +69,20 @@ namespace Dianzhu.CSClient.Presenter
             SaveCurrentOrder();
             CurrentServiceOrder.OrderStatus = Model.Enums.enum_OrderStatus.Created;
             string payLink = CurrentServiceOrder.BuildPayLink(System.Configuration.ConfigurationManager.AppSettings["PayUrl"]);
- 
-             ReceptionChatMedia chatMedia = new ReceptionChatMedia {
-                ChatType = Model.Enums.enum_ChatType.Media,
+
+            ReceptionChatNotice chatNotice = new ReceptionChatNotice
+            {
+                ChatType = Model.Enums.enum_ChatType.Notice,
                 From = customerService,
-                To =CurrentServiceOrder.Customer,
-                MediaType = "url",
+                To = CurrentServiceOrder.Customer,
                 SavedTime = DateTime.Now,
-                ServiceOrder= CurrentServiceOrder,
+                ServiceOrder = CurrentServiceOrder,
+                UserObj = customerService,
   
-                  MessageBody="支付链接", MedialUrl=payLink, SendTime=DateTime.Now
+                  MessageBody="支付链接",   SendTime=DateTime.Now
             };
-            SendMessage(chatMedia);
+            
+            SendMessage(chatNotice);
             LoadCurrentOrder(CurrentServiceOrder);
         }
         /// <summary>

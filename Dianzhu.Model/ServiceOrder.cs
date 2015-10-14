@@ -265,7 +265,7 @@ namespace Dianzhu.Model
         public virtual string BuildPayLink(string payUrl)
         {
             string payLink = payUrl +
-                string.Format("?orderid={0}&desc={1}&amount={2}",Id,ServiceName,OrderAmount);
+                string.Format("?orderid={0}",Id);
             return payLink;
         }
 

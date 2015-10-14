@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2010
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{65578E32-3BC2-4470-8637-6DD1074E4603}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "needs", "needs", "{9FAC3956-8A8F-439C-A2FB-50AEA11792B3}"
@@ -49,6 +51,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminWeb", "AdminWeb\", "{1
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "54359"
 		VWDVirtualPath = "/"
+		SlnRelativePath = "AdminWeb\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -76,6 +79,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.HttpApi", "Dianzhu.
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "6228"
 		VWDVirtualPath = "/"
+		SlnRelativePath = "Dianzhu.HttpApi\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Model", "Dianzhu.Model\Dianzhu.Model.csproj", "{84187F7C-DD53-4895-A7FF-191E76756009}"
@@ -102,6 +106,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusin
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "25404"
 		VWDVirtualPath = "/"
+		SlnRelativePath = "AdminBusiness\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -125,6 +130,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.XmppClientWeb", "Di
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "14610"
+		SlnRelativePath = "Dianzhu.XmppClientWeb\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -148,6 +154,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "FrontWeb", "FrontWeb\", "{7
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "8310"
 		VWDVirtualPath = "/"
+		SlnRelativePath = "FrontWeb\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -183,7 +190,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaServer", "MediaServer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaServerTest", "MediaServerTest\MediaServerTest.csproj", "{8970D254-2FE4-4028-81DA-F4311DCB6682}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb", "MediaServerWeb\", "{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb(1)", "MediaServerWeb\", "{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
 		ProjectReferences = "{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
@@ -202,6 +209,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb", "MediaServ
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "2762"
+		SlnRelativePath = "MediaServerWeb\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.WPFView2", "Dianzhu.CSClient.WPFView2\Dianzhu.CSClient.WPFView2.csproj", "{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89}"
@@ -224,36 +232,13 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "12360"
+		SlnRelativePath = "Dianzhu.Web.Pay\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTest", "WPFTest\WPFTest.csproj", "{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "alipay", "alipay\", "{57530FC6-40E9-4E19-BC4F-46AAA8887F86}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/alipay"
-		Debug.AspNetCompiler.PhysicalPath = "alipay\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\alipay\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/alipay"
-		Release.AspNetCompiler.PhysicalPath = "alipay\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\alipay\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "1251"
-		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
-EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = TourGuideExam.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -568,16 +553,6 @@ Global
 		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|x86.ActiveCfg = Release|Any CPU
 		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|x86.Build.0 = Release|Any CPU
-		{57530FC6-40E9-4E19-BC4F-46AAA8887F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57530FC6-40E9-4E19-BC4F-46AAA8887F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57530FC6-40E9-4E19-BC4F-46AAA8887F86}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{57530FC6-40E9-4E19-BC4F-46AAA8887F86}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{57530FC6-40E9-4E19-BC4F-46AAA8887F86}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{57530FC6-40E9-4E19-BC4F-46AAA8887F86}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{57530FC6-40E9-4E19-BC4F-46AAA8887F86}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{57530FC6-40E9-4E19-BC4F-46AAA8887F86}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{57530FC6-40E9-4E19-BC4F-46AAA8887F86}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{57530FC6-40E9-4E19-BC4F-46AAA8887F86}.Release|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -585,7 +560,17 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9FAC3956-8A8F-439C-A2FB-50AEA11792B3} = {65578E32-3BC2-4470-8637-6DD1074E4603}
 		{11F98609-4A4B-48CD-9C1A-186883C2C125} = {65578E32-3BC2-4470-8637-6DD1074E4603}
+		{0D0BC4F3-F049-4BA6-A937-5BD774E767D9} = {93755A86-D5F0-4296-A8A5-8A054B24D5EB}
 		{93755A86-D5F0-4296-A8A5-8A054B24D5EB} = {65578E32-3BC2-4470-8637-6DD1074E4603}
+		{16075D17-B45F-4FDE-B48C-FA9534F6FE2D} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{2E67AA78-6780-42BD-A3AB-AD953781E511} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{0D1C0821-004D-4D6B-BB6C-F561895DCC4E} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{84187F7C-DD53-4895-A7FF-191E76756009} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{4A1A2BC3-DB56-4652-8870-FC7C15FCEC1C} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{61F5098D-3C49-4229-956C-E8BF0080A2D5} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{6A05019E-F3EA-460A-BC05-0336EB3BFCF4} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{BE4F5CD3-E748-46D9-A9D0-941EF2FA3CDB} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{755EEA8C-9D5E-406E-83DD-36B3BA4EB158} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
@@ -596,23 +581,15 @@ Global
 		{74F0963E-57CA-4D57-899C-D85FF096FE1F} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{A871C9E1-98A4-412F-A1B3-541189A4C4CF} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{D7AA114D-AD19-4399-B152-969D240053C7} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
-		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
-		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
-		{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
-		{2E67AA78-6780-42BD-A3AB-AD953781E511} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
-		{84187F7C-DD53-4895-A7FF-191E76756009} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
-		{0D0BC4F3-F049-4BA6-A937-5BD774E767D9} = {93755A86-D5F0-4296-A8A5-8A054B24D5EB}
-		{16075D17-B45F-4FDE-B48C-FA9534F6FE2D} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{0D1C0821-004D-4D6B-BB6C-F561895DCC4E} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{4A1A2BC3-DB56-4652-8870-FC7C15FCEC1C} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{61F5098D-3C49-4229-956C-E8BF0080A2D5} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{FBEC30ED-52CD-49B0-B767-B2EC013796A4} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{57530FC6-40E9-4E19-BC4F-46AAA8887F86} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{9920DA22-589C-4193-AEAA-363D5C029DFC} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
 		{8970D254-2FE4-4028-81DA-F4311DCB6682} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
 		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
+		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{FBEC30ED-52CD-49B0-B767-B2EC013796A4} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = TourGuideExam.vsmdi
 	EndGlobalSection
 EndGlobal

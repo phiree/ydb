@@ -351,7 +351,7 @@
             this.btnCreateOrder.Name = "btnCreateOrder";
             this.btnCreateOrder.Size = new System.Drawing.Size(155, 23);
             this.btnCreateOrder.TabIndex = 7;
-            this.btnCreateOrder.Text = "创建订单,发送支付链接";
+            this.btnCreateOrder.Text = "生成订单";
             this.btnCreateOrder.UseVisualStyleBackColor = true;
             this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
             // 
@@ -367,11 +367,12 @@
             // 
             // btnCreateNewDraft
             // 
+            this.btnCreateNewDraft.Enabled = false;
             this.btnCreateNewDraft.Location = new System.Drawing.Point(5, 6);
             this.btnCreateNewDraft.Name = "btnCreateNewDraft";
             this.btnCreateNewDraft.Size = new System.Drawing.Size(155, 23);
             this.btnCreateNewDraft.TabIndex = 18;
-            this.btnCreateNewDraft.Text = "创建新订单";
+            this.btnCreateNewDraft.Text = "增加子订单";
             this.btnCreateNewDraft.UseVisualStyleBackColor = true;
             this.btnCreateNewDraft.Click += new System.EventHandler(this.btnCreateNewDraft_Click);
             // 

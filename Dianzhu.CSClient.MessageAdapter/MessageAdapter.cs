@@ -86,7 +86,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             bool hasOrder = false;
             if (isValidGuid)
             {
-                var existedServiceOrder = bllOrder.GetOne(order_ID);
+                var existedServiceOrder = BLLOrder.GetOne(order_ID);
                 if (existedServiceOrder != null)
                 {
 
@@ -114,7 +114,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                    , string.Empty
                    , 0
                    ,0);
-                bllOrder.SaveOrUpdate(newOrder);
+                BLLOrder.SaveOrUpdate(newOrder);
                 chat.ServiceOrder = newOrder;
             }
             chat.MessageBody = message.Body;
@@ -181,6 +181,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                 case enum_ChatType.Notice:
                     extNode.Namespace = "ihelper:cer:notce";
                     var UserObj= new agsXMPP.Xml.Dom.Element("UserObj");
+
                     UserObj.SetAttribute("UserID", ((ReceptionChatNotice)chat).UserObj.Id.ToString());
                     UserObj.SetAttribute("alias", ((ReceptionChatNotice)chat).UserObj.DisplayName);
                     UserObj.SetAttribute("imgUrl", ((ReceptionChatNotice)chat).UserObj.AvatarUrl);
