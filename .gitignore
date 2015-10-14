@@ -220,3 +220,4 @@ AdminBusiness/media/
 connectionStrings.config
 Dianzhu.CSClient/appSettings.config
 Dianzhu.HttpApi/logs/error.txt
+Dianzhu.HttpApi/logs/debug.txt
