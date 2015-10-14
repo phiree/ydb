@@ -83,13 +83,16 @@
                         </div>
                     </label>
                     <label for="roundedThree" class="pay-method">
-                        <div class="wechatLogo">
+ 
+ 
+                        <div class="pay-method-logo">
+ 
                             <div class="wechatLogo icon"></div>
                         </div>
                         <div class="pay-method-text">
                             <div class="text-cont">
-                                <div class="title">微支付</div>
-                                <div class="pra">推荐微信用户使用</div>
+                                <div class="title">微信支付</div>
+                                <div class="pra">亿万用户的选择，更快更安全</div>
                             </div>
                         </div>
                         <div class="pay-method-radio">
