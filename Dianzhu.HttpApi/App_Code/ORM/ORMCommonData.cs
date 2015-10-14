@@ -27,6 +27,7 @@ public class RespDataORM_Order
     public string paylink { get; set; }
     public RespDataORM_UserObj userObj { get; set; }
     public RespDataORM_storeObj storeObj { get; set; }
+    public RespDataORM002001_cerObj certObj { get; set; }
     public RespDataORM_Order Adap(ServiceOrder order)
     {
         //todo: 如果是外部订单?
@@ -53,6 +54,10 @@ public class RespDataORM_Order
         if (order.Service != null)
         {
             this.storeObj = new RespDataORM_storeObj().Adap(order.Service.Business);
+        }
+        if (order.CustomerService != null)
+        {
+            this.certObj = new RespDataORM002001_cerObj().Adap(order.CustomerService);
         }
         return this;
     }

@@ -268,6 +268,7 @@ namespace Dianzhu.Model
                 string.Format("?orderid={0}",Id);
             return payLink;
         }
+        public virtual DZMembership CustomerService { get; set; }
 
     }
  

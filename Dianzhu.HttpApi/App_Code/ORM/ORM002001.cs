@@ -83,6 +83,7 @@ public class ResponseORM002001 : BaseResponse
                        , string.Empty
                        , 0
                        , 0);
+                    orderToReturn.CustomerService = assignedCustomerService;
                     bllOrder.SaveOrUpdate(orderToReturn);
                 }
                 respData.orderID = orderToReturn.Id.ToString();
