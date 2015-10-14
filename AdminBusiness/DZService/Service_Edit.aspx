@@ -61,7 +61,12 @@
             $(".time-select-wrap").timeSelect();
 
             $(function () {
-                $('[data-toggle="tooltip"]').tooltip({delay: 0});
+                $('[data-toggle="tooltip"]').tooltip(
+                    {
+                        delay: {show : 500, hide : 100},
+                        trigger: 'hover'
+                    }
+                );
             });
 
             function setTime(date,timeString){

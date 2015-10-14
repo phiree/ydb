@@ -144,7 +144,12 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(function () {
-          $('[data-toggle="tooltip"]').tooltip()
+            $('[data-toggle="tooltip"]').tooltip(
+                {
+                delay: {show : 500, hide : 100},
+                trigger: 'hover'
+                }
+            )
         });
 
         $($("form")[0]).validate(

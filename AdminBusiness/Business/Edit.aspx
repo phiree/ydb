@@ -399,7 +399,12 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <script>
 
             $(function () {
-                $('[data-toggle="tooltip"]').tooltip({delay: 300});
+                $('[data-toggle="tooltip"]').tooltip(
+                    {
+                        delay: {show : 500, hide : 100},
+                        trigger: 'hover'
+                    }
+                );
 
                 $('.file-default').imgUpload({
                     limitNum: 1

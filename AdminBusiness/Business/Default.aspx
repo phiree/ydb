@@ -239,7 +239,7 @@
                                 <!--<p class="cont-input-tip"><i class="icon icon-tip"></i>请填写店铺的联系电话</p>-->
                             </div>
                         </div>
-                        <div class="cont-row m-b10">
+                        <div class="cont-row m-b10 dis-n">
                             <div class="cont-col-4">
                                 <p class="cont-h5 theme-color-58789a business-lightbox-title">
                                     店铺邮箱或网址
@@ -314,7 +314,13 @@
 
     $(function () {
         $("#menu").metisMenu();
-        $('[data-toggle="tooltip"]').tooltip({placement: 'right',delay: 300});
+        $('[data-toggle="tooltip"]').tooltip(
+                {
+                    placement: 'right',
+                    delay: {show : 500, hide : 0},
+                    trigger: 'hover'
+                }
+        );
     });
 
     $(function () {

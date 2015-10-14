@@ -46,7 +46,7 @@
 //** Tooltip arrow width
 @tooltip-arrow-width:         5px;
 //** Tooltip arrow color
-@tooltip-arrow-color:         @tooltip-bg;
+@tooltip-arrow-color:         @tooltip-border-color;
 
 @font-size-small: 12px;
 
@@ -66,7 +66,7 @@
   // So reset our font and text properties to avoid inheriting weird values.
   .reset-text();
   font-size: @font-size-small;
-  .opacity(1);
+  .opacity(@tooltip-opacity);
 
   &.in     { .opacity(@tooltip-opacity); }
   &.top    { margin-top:  -3px; padding: @tooltip-arrow-width 0; }
