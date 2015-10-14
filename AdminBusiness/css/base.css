@@ -495,7 +495,7 @@ a.time-trigger:hover {
     position: relative;
     width: 90px;
     height: 90px;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .input-file-box ul li a{

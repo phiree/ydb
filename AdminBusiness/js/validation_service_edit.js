@@ -51,12 +51,12 @@ service_validate_messages[name_prefix+"tbxMinPrice"]=
  service_validate_rules[name_prefix + "tbxDescription"] =
 {
     required: true,
-    rangelength: [1, 1000]
+    rangelength: [1, 500]
 };
 service_validate_messages[name_prefix + "tbxDescription"] =
 {
     required: "请填写服务介绍",
-    range: "不能超过1000个字符"
+    rangelength: "不能超过500个字符"
 };
 //serviceScope
 service_validate_rules[name_prefix + "hiBusinessAreaCode"] =

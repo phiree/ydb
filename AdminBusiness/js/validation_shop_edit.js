@@ -115,7 +115,7 @@ service_validate_rules[name_prefix + "tbxCardIdNo"] =
 
     required: true,
     idcard: function(element){
-    if ($("#selCardType").val()=="0")
+    if ($("#selCardType").val() == "0")
     {
         return true;
     }
@@ -127,18 +127,14 @@ service_validate_rules[name_prefix + "tbxCardIdNo"] =
     }
     }
 
-
 };
 
 
 service_validate_messages[name_prefix + "tbxCardIdNo"] =
 {
-
     required: "请填写证件号码",
-    idcard:"请输入正确的证件号码",
+    idcard:"证件号码有误",
     maxlength:"证件号码超出50个字符,请核实修改或者联系客服"
-
-
 };
 
   service_validate_rules    [name_prefix + "selStaffAmount"] =

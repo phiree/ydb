@@ -314,36 +314,34 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                         <p class="cont-sub-title">营业执照</p>
                                     </div>
                                     <div class="cont-col-10">
-                                        <div class="cont-row">
-                                            <div class="cont-col-12">
-                                                <div class="img-list img-list-limit2 clearfix">
-                                                    <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
-                                                        <ItemTemplate>
-                                                            <div class="download-img-pre m-r10 m-b10 fl">
+                                        <div>
+                                            <div class="img-list img-list-limit2 clearfix">
+                                                <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
+                                                    <ItemTemplate>
+                                                        <div class="download-img-pre m-r10 m-b10 fl">
 
-                                                                <asp:Button ID="img" Text=" " formnovalidate
-                                                                            CssClass="cancel download-img-delete" runat="server"
-                                                                            CommandName="delete"
+                                                            <asp:Button ID="img" Text=" " formnovalidate
+                                                                        CssClass="cancel download-img-delete" runat="server"
+                                                                        CommandName="delete"
 
-                                                                            ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
-                                                                <a class="download-img-show"
-                                                                   href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=3'
-                                                                         class="imgCharge"/>
-                                                                </a>
-                                                            </div>
-                                                        </ItemTemplate>
-                                                    </asp:Repeater>
-                                                    <div class="input-file-box m-r10 m-b10 dis-n fl">
-                                                        <input type=file class="input-file-btn file-limit-2" name="input-file-btn-license"
-                                                               businessId="<%=b.Id %>" imageType="businesslicense"/>
-                                                        <i class="input-file-bg"></i>
-                                                        <i class="input-file-mark"></i>
-                                                        <img class="input-file-pre" src="..\image\00.png"/>
-                                                    </div>
+                                                                        ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
+                                                            <a class="download-img-show"
+                                                               href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
+                                                                <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=3'
+                                                                     class="imgCharge"/>
+                                                            </a>
+                                                        </div>
+                                                    </ItemTemplate>
+                                                </asp:Repeater>
+                                                <div class="input-file-box m-r10 m-b10 dis-n fl">
+                                                    <input type=file class="input-file-btn file-limit-2" name="input-file-btn-license"
+                                                           businessId="<%=b.Id %>" imageType="businesslicense"/>
+                                                    <i class="input-file-bg"></i>
+                                                    <i class="input-file-mark"></i>
+                                                    <img class="input-file-pre" src="..\image\00.png"/>
                                                 </div>
-                                                <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的营业执照图片，限制数量为两张，并且图片大小为2M以下</p>
                                             </div>
+                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>上传您的营业执照图片，限制数量为两张，并且图片大小为2M以下</p>
                                         </div>
                                     </div>
                                 </div>
