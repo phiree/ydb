@@ -100,6 +100,7 @@ public partial class _Default : System.Web.UI.Page
 
         //建立请求
         string sHtmlText = Submit.BuildRequest(sParaTemp, "get", "确认");
+        //throw new Exception(sHtmlText);
         Response.Write(sHtmlText);
         
     }

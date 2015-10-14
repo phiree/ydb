@@ -5907,3 +5907,189 @@ System.IO.IOException: ÎÞ·¨½«Êý¾ÝÐ´Èë´«ÊäÁ¬½Ó: ÔÚÒ»¸ö·ÇÌ×½Ó×ÖÉÏ³¢ÊÔÁËÒ»¸ö²Ù×÷¡£¡
     }
 
 }
+2015-10-14 17:53:29,692 [8] DEBUG dz - Request(198e8201-1878-461f-8d11-555bcf8f58b0):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "a9f1785b-5321-4b03-87b7-a531011efe74"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-14 17:53:29,692 [8] DEBUG dz - Request(198e8201-1878-461f-8d11-555bcf8f58b0):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "a9f1785b-5321-4b03-87b7-a531011efe74"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-14 17:54:31,700 [8] ERROR NHibernate.Tool.hbm2ddl.SchemaUpdate - could not get database metadata
+MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'ydban.cn' for user 'root' using method 'mysql_native_password' failed with message: Reading from the stream has failed. ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Reading from the stream has failed. ---> System.IO.EndOfStreamException: ³¢ÊÔ¶ÁÈ¡³¬³öÁ÷Ä©Î²µÄÄÚÈÝ¡£
+   ÔÚ MySql.Data.MySqlClient.MySqlStream.ReadFully(Stream stream, Byte[] buffer, Int32 offset, Int32 count)
+   ÔÚ MySql.Data.MySqlClient.MySqlStream.LoadPacket()
+   ÔÚ MySql.Data.MySqlClient.MySqlStream.LoadPacket()
+   ÔÚ MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   ÔÚ MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   ÔÚ MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   ÔÚ MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   ÔÚ MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   ÔÚ MySql.Data.MySqlClient.NativeDriver.Open()
+   ÔÚ MySql.Data.MySqlClient.Driver.Open()
+   ÔÚ MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   ÔÚ MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   ÔÚ MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   ÔÚ MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   ÔÚ MySql.Data.MySqlClient.MySqlConnection.Open()
+   ÔÚ NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   ÔÚ NHibernate.Tool.hbm2ddl.ManagedProviderConnectionHelper.Prepare()
+   ÔÚ NHibernate.Tool.hbm2ddl.SchemaUpdate.Execute(Action`1 scriptAction, Boolean doUpdate)
+2015-10-14 17:54:34,936 [8] ERROR NHibernate.Tool.hbm2ddl.SchemaUpdate - could not complete schema update
+MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'ydban.cn' for user 'root' using method 'mysql_native_password' failed with message: Reading from the stream has failed. ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Reading from the stream has failed. ---> System.IO.EndOfStreamException: ³¢ÊÔ¶ÁÈ¡³¬³öÁ÷Ä©Î²µÄÄÚÈÝ¡£
+   ÔÚ MySql.Data.MySqlClient.MySqlStream.ReadFully(Stream stream, Byte[] buffer, Int32 offset, Int32 count)
+   ÔÚ MySql.Data.MySqlClient.MySqlStream.LoadPacket()
+   ÔÚ MySql.Data.MySqlClient.MySqlStream.LoadPacket()
+   ÔÚ MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   ÔÚ MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   ÔÚ MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   ÔÚ MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   ÔÚ MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   ÔÚ MySql.Data.MySqlClient.NativeDriver.Open()
+   ÔÚ MySql.Data.MySqlClient.Driver.Open()
+   ÔÚ MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   ÔÚ MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   ÔÚ MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   ÔÚ MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   ÔÚ MySql.Data.MySqlClient.MySqlConnection.Open()
+   ÔÚ NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   ÔÚ NHibernate.Tool.hbm2ddl.ManagedProviderConnectionHelper.Prepare()
+   ÔÚ NHibernate.Tool.hbm2ddl.SchemaUpdate.Execute(Action`1 scriptAction, Boolean doUpdate)
+2015-10-14 17:54:41,146 [8] DEBUG dz - Resonse(198e8201-1878-461f-8d11-555bcf8f58b0):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444845281037.73",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "alias":  "sdf",
+        
+    "merID":  "",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "111",
+        
+    "status":  "Created",
+        
+    "address":  "sdfasdf",
+        
+    "exDoc":  "sdfdsf",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null,
+        
+    "certObj":  {
+            
+      "userID":  "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+            
+      "alias":  "e@e.e",
+            
+      "userName":  "e@e.e",
+            
+      "imgUrl":  ""
+    
+        }
+  
+    }
+
+}
+2015-10-14 17:54:41,146 [8] DEBUG dz - Resonse(198e8201-1878-461f-8d11-555bcf8f58b0):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444845281037.73",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "alias":  "sdf",
+        
+    "merID":  "",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "111",
+        
+    "status":  "Created",
+        
+    "address":  "sdfasdf",
+        
+    "exDoc":  "sdfdsf",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null,
+        
+    "certObj":  {
+            
+      "userID":  "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+            
+      "alias":  "e@e.e",
+            
+      "userName":  "e@e.e",
+            
+      "imgUrl":  ""
+    
+        }
+  
+    }
+
+}

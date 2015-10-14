@@ -216,7 +216,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.WPFView2",
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.Web.Pay\", "{FBEC30ED-52CD-49B0-B767-B2EC013796A4}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dioanzhu.Pay.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_12360"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.Pay\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_12360\"
@@ -259,7 +260,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "alipay", "alipay\", "{99FDA
 		SlnRelativePath = "alipay\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dioanzhu.Pay", "Dioanzhu.Pay\Dioanzhu.Pay.csproj", "{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Pay", "Dioanzhu.Pay\Dianzhu.Pay.csproj", "{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
