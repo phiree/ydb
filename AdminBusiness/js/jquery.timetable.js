@@ -75,11 +75,16 @@
         var $this = $(this.$element);
         var $taskRow = $this.find('.tt-body-rows').find('.tt-row').find('.tt-row-content');
 
+        function weekfix(dayOfWeek){
+            return dayOfWeek - 1 < 0 ? 6 : dayOfWeek - 1;
+        }
+
         for( var i = 0 ; i < data.length ; i++ ){
+
             var enable = data[i].Enabled;
 
             if( enable ){
-                var rowNum = data[i].DayOfWeek;
+                var rowNum = weekfix(data[i].DayOfWeek);
 
                 var arrTask = this.createTask(data[i]);
                 for ( var j = 0 ; j < arrTask.length ; j++ ) {
