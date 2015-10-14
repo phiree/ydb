@@ -28,7 +28,7 @@
                                         </div>
                                     </div>
                                     <div class="cont-col-8">
-                                        <div class="detail-img m-b20">
+                                        <div class="detail-img m-b20 t-r">
                                             <asp:Repeater runat="server" ID="rptShow">
                                                 <ItemTemplate>
                                                     <a class="" data-lightbox="lb_show"

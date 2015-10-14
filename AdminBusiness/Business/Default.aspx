@@ -166,8 +166,8 @@
                                                         <a id="firstAddBusiness" class="new-add-btn">点击创建新店铺</a>
 
                                                         <p class="firstAddMsg dis-n">
-                                                            感谢您的使用一点办，为了给您提供更好的服务，建议您从用户名处的<a
-                                                                href="/account/security.aspx">“帐号安全”</a>绑定您的手机号码。
+                                                            感谢您的使用一点办，为了给您提供更好的服务，建议您进入<a style="text-decoration:underline;"
+                                                                href="/account/security.aspx?businessId=<%=Request["businessid"] %>">帐号安全</a>绑定您的手机号码。
                                                         </p>
                                                     </div>
                                                 </div>

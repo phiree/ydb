@@ -178,7 +178,7 @@
                                 <div class="step-main">
                                     <div class="cont-row service-cont-row">
                                         <div class="cont-col-2">
-                                            <p class="cont-sub-title">
+                                            <p class="cont-sub-title-r">
                                                 服务起步价</p>
                                         </div>
                                         <div class="cont-col-2">
@@ -188,7 +188,7 @@
                                         </div>
                                         <div class="cont-col-1">&nbsp;&nbsp;元</div>
                                         <div class="cont-col-2">
-                                            <p class="cont-sub-title">
+                                            <p class="cont-sub-title-r">
                                                 服务单价</p>
                                         </div>
                                         <div class="cont-col-2">
@@ -209,7 +209,7 @@
                                     </div>
                                     <div class="cont-row service-cont-row">
                                         <div class="cont-col-2">
-                                            <p class="cont-sub-title">
+                                            <p class="cont-sub-title-r">
                                                 提前预约时间</p>
                                         </div>
                                         <div class="cont-col-2">
@@ -229,7 +229,7 @@
                                         </div>
 
                                         <div class="cont-col-2">
-                                            <p class="cont-sub-title">
+                                            <p class="cont-sub-title-r">
                                                 每日最大接单量</p>
                                         </div>
                                         <div class="cont-col-2">
@@ -242,7 +242,7 @@
                                     </div>
                                     <div class="cont-row service-cont-row">
                                         <div class="cont-col-2">
-                                            <p class="cont-sub-title">
+                                            <p class="cont-sub-title-r">
                                                 每小时最大接单量</p>
                                         </div>
                                         <div class="cont-col-2">
@@ -252,7 +252,7 @@
                                         </div>
                                         <div class="cont-col-1">&nbsp;&nbsp;单</div>
                                         <div class="cont-col-2">
-                                            <p class="cont-sub-title">
+                                            <p class="cont-sub-title-r">
                                                 是否上门</p>
                                         </div>
                                         <div class="cont-col-2">
@@ -267,7 +267,7 @@
 
                                     <div class="cont-row service-cont-row">
                                         <div class="cont-col-2">
-                                            <p class="cont-sub-title">
+                                            <p class="cont-sub-title-r">
                                                 服务对象</p>
                                         </div>
                                         <div class="cont-col-3">
@@ -277,7 +277,7 @@
                                             </div>
                                         </div>
                                         <div class="cont-col-2">
-                                            <p class="cont-sub-title">
+                                            <p class="cont-sub-title-r">
                                                 付款方式</p>
                                         </div>
                                         <div class="cont-col-4">
@@ -291,7 +291,7 @@
                                     </div>
                                     <div class="cont-row service-cont-row">
                                         <div class="cont-col-2">
-                                            <p class="cont-sub-title">
+                                            <p class="cont-sub-title-r">
                                                 服务保障</p>
                                         </div>
                                         <div class="cont-col-10">
@@ -306,7 +306,7 @@
 
                                     <div class="cont-row service-cont-row" runat="server" id="dvTag">
                                         <div class="cont-col-2">
-                                            <p class="cont-sub-title">
+                                            <p class="cont-sub-title-r">
                                                 服务标签</p>
                                         </div>
                                         <div class="cont-col-10">

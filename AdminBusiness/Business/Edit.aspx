@@ -231,7 +231,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                             <div class="step-main">
                                 <div class="cont-row myshop-cont-row">
                                     <div class="cont-col-2">
-                                        <p class="cont-sub-title">负责人姓名</p>
+                                        <p class="cont-sub-title-r">负责人姓名</p>
                                     </div>
                                     <div class="cont-col-2">
 
@@ -242,7 +242,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                     </div>
                                     <div class="cont-col-1"></div>
                                     <div class="cont-col-2">
-                                        <p class="cont-sub-title">证件类型</p>
+                                        <p class="cont-sub-title-r">证件类型</p>
                                     </div>
                                     <div class="cont-col-2">
                                         <div>
@@ -258,7 +258,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                 </div>
                                 <div class="cont-row myshop-cont-row">
                                     <div class="cont-col-2">
-                                        <p class="cont-sub-title">证件号码</p>
+                                        <p class="cont-sub-title-r">证件号码</p>
                                     </div>
                                     <div class="cont-col-2">
                                         <div>
@@ -271,7 +271,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                 </div>
                                 <div class="cont-row myshop-cont-row">
                                     <div class="cont-col-2">
-                                        <p class="cont-sub-title">负责人证件照</p>
+                                        <p class="cont-sub-title-r">负责人证件照</p>
                                     </div>
                                     <div class="cont-col-10">
                                         <div class="cont-row">
@@ -311,7 +311,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
 
                                 <div class="cont-row myshop-cont-row">
                                     <div class="cont-col-2">
-                                        <p class="cont-sub-title">营业执照</p>
+                                        <p class="cont-sub-title-r">营业执照</p>
                                     </div>
                                     <div class="cont-col-10">
                                         <div>

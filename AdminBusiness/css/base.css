@@ -381,11 +381,11 @@ html{
     text-align: center;
 }
 
-.cont-sub-title-l {
-    color: #58789a;
+.cont-sub-title-r {
+    padding-right: 15px;
     font-size: 15px;
     line-height: 30px;
-    text-align: center;
+    text-align: right;
 }
 
 .cont-title-tips { color: #FF8661; font-size: 12px; font-weight: 500;}
