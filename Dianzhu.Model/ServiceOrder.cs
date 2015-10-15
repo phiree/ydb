@@ -270,6 +270,11 @@ namespace Dianzhu.Model
         }
         public virtual DZMembership CustomerService { get; set; }
 
+        /// <summary>
+        /// 支付交易号
+        /// </summary>
+        public virtual string TradeNo { get; set; }
+
     }
  
      

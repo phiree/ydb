@@ -36,6 +36,7 @@ namespace Dianzhu.DAL.Mapping
            Map(x => x.CustomerEmail);
            Map(x => x.CustomerPhone);
             References<DZMembership>(x => x.CustomerService);
+            Map(x => x.TradeNo);
             
 
 
