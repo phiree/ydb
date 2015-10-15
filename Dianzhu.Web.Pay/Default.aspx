@@ -15,52 +15,52 @@
 <body>
 <div class="wrapper">
     <div class="container">
-        <form   runat="server">
+        <form enctype="multipart/form-data">
             <div class="main">
                 <div class="m order-list">
                     <div class="order-list-item">
                         <div class="order-list-pra">
                             <div class="order-list-title">订单号</div>
-                            <div class="order-list-content">
-                                <%=Order.Id %>
-
-                            </div>
+                            <div class="order-list-content"><%=orderId %></div>
                         </div>
                         <div class="order-list-pra bold">
                             <div class="order-list-title">下单时间</div>
-                            <div class="order-list-content"> <%=Order.OrderCreated %></div>
+                            <div class="order-list-content">2015-08-28 15：24</div>
                         </div>
                     </div>
                     <div class="order-list-item">
                         <div class="order-list-pra">
-                            <div class="order-list-title"><%=Order.CustomerName %></div>
-                            <div class="order-list-content"> <%=Order.CustomerPhone %></div>
+                            <div class="order-list-title">林小姐</div>
+                            <div class="order-list-content">13500000000</div>
                         </div>
                         <div class="order-list-pra">
                             <div class="order-list-title">服务地址</div>
-                            <div class="order-list-content"><%=Order.TargetAddress %></div>
+                            <div class="order-list-content">XXXXXXXXXX</div>
                         </div>
                         <div class="order-list-pra">
                             <div class="order-list-title">服务时间</div>
-                            <div class="order-list-content"><%=Order.TargetTime %></div>
+                            <div class="order-list-content">2015-8-31 18:00 - 20:00</div>
                         </div>
                     </div>
                     <div class="order-list-item">
                         <div class="order-list-pra">
                             <div class="order-list-title">服务描述</div>
-                            <div class="order-list-content"><%=Order.ServiceName %></div>
+                            <div class="order-list-content"><%=desc %></div>
                         </div>
                         <div class="order-list-pra">
                             <div class="order-list-title">订单备注</div>
-                            <div class="order-list-content"><%=Order.Memo %></div>
+                            <div class="order-list-content"><%=desc %></div>
                         </div>
                     </div>
                     <div class="order-list-item">
                         <div class="order-list-pra">
-                            <div class="order-list-title"><%=Order.ServiceBusinessName %></div>
-                             
+                            <div class="order-list-title">王大妈家政</div>
+                            <div class="order-list-content">15500000000</div>
                         </div>
-                         
+                        <div class="order-list-pra">
+                            <div class="order-list-title">商家地址</div>
+                            <div class="order-list-content">XXXXXXXXXXX</div>
+                        </div>
                     </div>
                 </div>
                 <div class="m pay-methods">
@@ -83,10 +83,7 @@
                         </div>
                     </label>
                     <label for="roundedThree" class="pay-method">
- 
- 
                         <div class="pay-method-logo">
- 
                             <div class="wechatLogo icon"></div>
                         </div>
                         <div class="pay-method-text">
@@ -107,11 +104,10 @@
                 <div class="pay-confirm">
                     <div class="pay-charge">
                         <div class="pay-charge-cont">
-                            <span>需支付</span><span class="price">￥<%=Order.OrderAmount.ToString("#.##") %></span>
+                            <span>需支付</span><span class="price">￥<%=amount %></span>
                         </div>
                     </div>
-                    <asp:Button runat="server" ID="btnAlipay"  Text="支付宝付款" OnClick="btnAlipay_Click"/>
-                    <a class="pay-button" href="DemoPayApi.aspx">去付款</a>
+                    <input class="pay-button" href="DemoPayApi.aspx" value="去付款" />
                 </div>
             </div>
             <div class="bottom">
