@@ -104,6 +104,7 @@
     <Compile Include="BLLTest\TestReceptionAssign.cs" />
     <Compile Include="CashTicketCreateTest.cs" />
     <Compile Include="cashticket_generator_test.cs" />
+    <Compile Include="DianzhuNotifyCenterTest\OrderNotifyTest.cs" />
     <Compile Include="dianzhu_test.cs" />
     <Compile Include="DZCSClientTest\MainPresenterTest.cs" />
     <Compile Include="DZCSClientTest\MessageAdapterTest\MessageAdapterTest.cs" />
@@ -123,7 +124,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="config\appSettings.config" />
+    <None Include="config\appSettings.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="config\mailSettings.config" />
     <None Include="packages.config" />
     <None Include="TestFiles\个人服务类最新版-表格.xls">
@@ -156,6 +160,10 @@
       <Project>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</Project>
       <Name>Dianzhu.CSClient.Presenter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
+      <Project>{125f0d3b-e83c-4743-9944-e82392cba6c5}</Project>
+      <Name>Dianzhu.CSClient.XMPP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2E67AA78-6780-42BD-A3AB-AD953781E511}</Project>
       <Name>Dianzhu.DAL</Name>
@@ -164,6 +172,10 @@
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.NotifyCenter\Dianzhu.NotifyCenter.csproj">
+      <Project>{1baad173-a641-435a-ad03-0cd0146674b9}</Project>
+      <Name>Dianzhu.NotifyCenter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>
@@ -171,6 +183,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="XMPPTest\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

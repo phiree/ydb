@@ -121,6 +121,11 @@ namespace Dianzhu.CSClient.XMPP
             //chat-->message
             Message msg = messageAdapter.ChatToMessage(chat,Server);
             XmppClientConnection.Send(msg);
+           
+        }
+        public void SendMessage(string xml)
+        {
+            XmppClientConnection.Send(xml);
         }
         public void Close()
         {

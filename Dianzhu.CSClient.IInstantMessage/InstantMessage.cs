@@ -30,6 +30,7 @@ namespace Dianzhu.CSClient.IInstantMessage
         event IMConnectionError IMConnectionError;
 
         void SendMessage(Model.ReceptionChat chat);
+        void SendMessage(string xml);
         
         event IMReceivedMessage IMReceivedMessage;
         event IMIQ IMIQ;
