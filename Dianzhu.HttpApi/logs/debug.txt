@@ -6093,3 +6093,829 @@ MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'ydba
     }
 
 }
+2015-10-15 09:37:15,495 [8] DEBUG dz - Request(e892f75a-7f14-4e4a-9a28-e877c109248f):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "a9f1785b-5321-4b03-87b7-a531011efe74"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:37:15,495 [8] DEBUG dz - Request(e892f75a-7f14-4e4a-9a28-e877c109248f):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "a9f1785b-5321-4b03-87b7-a531011efe74"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:37:45,026 [8] DEBUG dz - Resonse(e892f75a-7f14-4e4a-9a28-e877c109248f):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444901864961.43",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "alias":  "sdf",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "111",
+        
+    "status":  "Created",
+        
+    "address":  "sdfasdf",
+        
+    "exDoc":  "sdfdsf",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "km":  null,
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null,
+        
+    "cerObj":  {
+            
+      "userID":  "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+            
+      "alias":  "e@e.e",
+            
+      "userName":  "e@e.e",
+            
+      "imgUrl":  ""
+    
+        }
+  
+    }
+
+}
+2015-10-15 09:37:45,026 [8] DEBUG dz - Resonse(e892f75a-7f14-4e4a-9a28-e877c109248f):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444901864961.43",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "alias":  "sdf",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "111",
+        
+    "status":  "Created",
+        
+    "address":  "sdfasdf",
+        
+    "exDoc":  "sdfdsf",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "km":  null,
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null,
+        
+    "cerObj":  {
+            
+      "userID":  "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+            
+      "alias":  "e@e.e",
+            
+      "userName":  "e@e.e",
+            
+      "imgUrl":  ""
+    
+        }
+  
+    }
+
+}
+2015-10-15 09:38:48,708 [7] DEBUG dz - Request(22dee896-041e-4f38-ba13-3b871e705101):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "a9f1785b-5321-4b03-87b7-a531011efe74"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:38:48,708 [7] DEBUG dz - Request(22dee896-041e-4f38-ba13-3b871e705101):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "a9f1785b-5321-4b03-87b7-a531011efe74"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:39:24,312 [7] DEBUG dz - Resonse(22dee896-041e-4f38-ba13-3b871e705101):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444901964261.67",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "alias":  "sdf",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "111",
+        
+    "status":  "Created",
+        
+    "address":  "sdfasdf",
+        
+    "exDoc":  "sdfdsf",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "km":  "",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null,
+        
+    "cerObj":  {
+            
+      "userID":  "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+            
+      "alias":  "e@e.e",
+            
+      "userName":  "e@e.e",
+            
+      "imgUrl":  ""
+    
+        }
+  
+    }
+
+}
+2015-10-15 09:39:24,312 [7] DEBUG dz - Resonse(22dee896-041e-4f38-ba13-3b871e705101):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444901964261.67",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "alias":  "sdf",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "111",
+        
+    "status":  "Created",
+        
+    "address":  "sdfasdf",
+        
+    "exDoc":  "sdfdsf",
+        
+    "paylink":  "http://ydban.cn:8168/?orderid=a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "km":  "",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null,
+        
+    "cerObj":  {
+            
+      "userID":  "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+            
+      "alias":  "e@e.e",
+            
+      "userName":  "e@e.e",
+            
+      "imgUrl":  ""
+    
+        }
+  
+    }
+
+}
+2015-10-15 09:39:28,823 [8] DEBUG dz - Request(6c7cc8df-aaac-433e-b04b-c158fda04292):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "a9f1785b-5321-4b03-87b7-a531011efe74"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:39:28,823 [8] DEBUG dz - Request(6c7cc8df-aaac-433e-b04b-c158fda04292):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "a9f1785b-5321-4b03-87b7-a531011efe74"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:39:56,984 [8] DEBUG dz - Resonse(6c7cc8df-aaac-433e-b04b-c158fda04292):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444901996931.05",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "alias":  "sdf",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "111",
+        
+    "status":  "Created",
+        
+    "address":  "sdfasdf",
+        
+    "exDoc":  "sdfdsf",
+        
+    "km":  "",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null,
+        
+    "cerObj":  {
+            
+      "userID":  "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+            
+      "alias":  "e@e.e",
+            
+      "userName":  "e@e.e",
+            
+      "imgUrl":  ""
+    
+        }
+  
+    }
+
+}
+2015-10-15 09:39:56,984 [8] DEBUG dz - Resonse(6c7cc8df-aaac-433e-b04b-c158fda04292):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444901996931.05",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "alias":  "sdf",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "111",
+        
+    "status":  "Created",
+        
+    "address":  "sdfasdf",
+        
+    "exDoc":  "sdfdsf",
+        
+    "km":  "",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null,
+        
+    "cerObj":  {
+            
+      "userID":  "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+            
+      "alias":  "e@e.e",
+            
+      "userName":  "e@e.e",
+            
+      "imgUrl":  ""
+    
+        }
+  
+    }
+
+}
+2015-10-15 09:43:19,740 [8] DEBUG dz - Request(0bfea74a-1df2-4f9b-bbb2-ad92ceee8737):{
+    "protocol_CODE": "MERM001005",
+    "ReqData": {
+        "email": "phiree@gmail.com",
+        "pWord": "121212"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:43:19,740 [8] DEBUG dz - Request(0bfea74a-1df2-4f9b-bbb2-ad92ceee8737):{
+    "protocol_CODE": "MERM001005",
+    "ReqData": {
+        "email": "phiree@gmail.com",
+        "pWord": "121212"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:43:20,073 [8] DEBUG dz - Resonse(0bfea74a-1df2-4f9b-bbb2-ad92ceee8737):{
+    "protocol_CODE": "MERM001005",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444902200058.66",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "merObj": {
+            "userID": "381536b7-7d74-45ce-a097-a4fe0155e900",
+            "alias": "phiree@gmail.com",
+            "email": "phiree@gmail.com",
+            "phone": "",
+            "imgUrl": ""
+        }
+    }
+}
+2015-10-15 09:43:20,073 [8] DEBUG dz - Resonse(0bfea74a-1df2-4f9b-bbb2-ad92ceee8737):{
+    "protocol_CODE": "MERM001005",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444902200058.66",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "merObj": {
+            "userID": "381536b7-7d74-45ce-a097-a4fe0155e900",
+            "alias": "phiree@gmail.com",
+            "email": "phiree@gmail.com",
+            "phone": "",
+            "imgUrl": ""
+        }
+    }
+}
+2015-10-15 09:43:55,125 [16] DEBUG dz - Request(a9898afc-35f5-47f0-8fbf-727e1a587626):{
+    "protocol_CODE": "MERM001005",
+    "ReqData": {
+        "email": "22",
+        "pWord": "1234"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:43:55,125 [16] DEBUG dz - Request(a9898afc-35f5-47f0-8fbf-727e1a587626):{
+    "protocol_CODE": "MERM001005",
+    "ReqData": {
+        "email": "22",
+        "pWord": "1234"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:43:55,242 [16] DEBUG dz - Resonse(a9898afc-35f5-47f0-8fbf-727e1a587626):{
+    "protocol_CODE": "MERM001005",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444902235242.54",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "merObj": {
+            "userID": "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+            "alias": "22",
+            "email": "22",
+            "phone": "22",
+            "imgUrl": "localhost:8051_$_b57e23bc-e37b-422d-a145-b5ae5106e6db_$_UserAvatar_$_image"
+        }
+    }
+}
+2015-10-15 09:43:55,242 [16] DEBUG dz - Resonse(a9898afc-35f5-47f0-8fbf-727e1a587626):{
+    "protocol_CODE": "MERM001005",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444902235242.54",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "merObj": {
+            "userID": "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+            "alias": "22",
+            "email": "22",
+            "phone": "22",
+            "imgUrl": "localhost:8051_$_b57e23bc-e37b-422d-a145-b5ae5106e6db_$_UserAvatar_$_image"
+        }
+    }
+}
+2015-10-15 09:46:24,715 [24] DEBUG dz - Request(faeec71d-1c22-40fe-bb18-8bfda1a64459):{
+    "protocol_CODE": "MERM001005",
+    "ReqData": {
+        "email": "22",
+        "pWord": "1234"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:46:24,715 [24] DEBUG dz - Request(faeec71d-1c22-40fe-bb18-8bfda1a64459):{
+    "protocol_CODE": "MERM001005",
+    "ReqData": {
+        "email": "22",
+        "pWord": "1234"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:46:52,607 [24] DEBUG dz - Resonse(faeec71d-1c22-40fe-bb18-8bfda1a64459):{
+    "protocol_CODE": "MERM001005",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444902412568.17",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "merObj": {
+            "userID": "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+            "alias": "22",
+            "email": "22",
+            "phone": "22",
+            "imgUrl": "localhost:8051http://ydban.cn:8038/getfile.ashx?filename=_$_b57e23bc-e37b-422d-a145-b5ae5106e6db_$_UserAvatar_$_image"
+        }
+    }
+}
+2015-10-15 09:46:52,607 [24] DEBUG dz - Resonse(faeec71d-1c22-40fe-bb18-8bfda1a64459):{
+    "protocol_CODE": "MERM001005",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444902412568.17",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "merObj": {
+            "userID": "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+            "alias": "22",
+            "email": "22",
+            "phone": "22",
+            "imgUrl": "localhost:8051http://ydban.cn:8038/getfile.ashx?filename=_$_b57e23bc-e37b-422d-a145-b5ae5106e6db_$_UserAvatar_$_image"
+        }
+    }
+}
+2015-10-15 09:47:30,368 [8] DEBUG dz - Request(0c2a4796-4886-4cec-af8b-2c1242971c56):{
+    "protocol_CODE": "MERM001005",
+    "ReqData": {
+        "email": "22",
+        "pWord": "1234"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:47:30,368 [8] DEBUG dz - Request(0c2a4796-4886-4cec-af8b-2c1242971c56):{
+    "protocol_CODE": "MERM001005",
+    "ReqData": {
+        "email": "22",
+        "pWord": "1234"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:47:59,493 [8] DEBUG dz - Resonse(0c2a4796-4886-4cec-af8b-2c1242971c56):{
+    "protocol_CODE": "MERM001005",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444902479454.98",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "merObj": {
+            "userID": "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+            "alias": "22",
+            "email": "22",
+            "phone": "22",
+            "imgUrl": "http://ydban.cn:8038/getfile.ashx?filename=_$_b57e23bc-e37b-422d-a145-b5ae5106e6db_$_UserAvatar_$_image"
+        }
+    }
+}
+2015-10-15 09:47:59,493 [8] DEBUG dz - Resonse(0c2a4796-4886-4cec-af8b-2c1242971c56):{
+    "protocol_CODE": "MERM001005",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444902479454.98",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "merObj": {
+            "userID": "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+            "alias": "22",
+            "email": "22",
+            "phone": "22",
+            "imgUrl": "http://ydban.cn:8038/getfile.ashx?filename=_$_b57e23bc-e37b-422d-a145-b5ae5106e6db_$_UserAvatar_$_image"
+        }
+    }
+}
+2015-10-15 09:50:39,191 [24] DEBUG dz - Request(dc9cb72d-4492-497b-bae4-cf824c5df18d):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "a9f1785b-5321-4b03-87b7-a531011efe74"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:50:39,191 [24] DEBUG dz - Request(dc9cb72d-4492-497b-bae4-cf824c5df18d):{
+    "protocol_CODE": "ORM001005",
+    "ReqData": {
+        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+        "pWord": "123456",
+        "orderID": "a9f1785b-5321-4b03-87b7-a531011efe74"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:51:09,010 [24] DEBUG dz - Resonse(dc9cb72d-4492-497b-bae4-cf824c5df18d):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444902668955.12",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "alias":  "sdf",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "111",
+        
+    "status":  "Created",
+        
+    "address":  "sdfasdf",
+        
+    "exDoc":  "sdfdsf",
+        
+    "km":  "",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null,
+        
+    "cerObj":  {
+            
+      "userID":  "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+            
+      "alias":  "e@e.e",
+            
+      "userName":  "e@e.e",
+            
+      "imgUrl":  ""
+    
+        }
+  
+    }
+
+}
+2015-10-15 09:51:09,010 [24] DEBUG dz - Resonse(dc9cb72d-4492-497b-bae4-cf824c5df18d):{
+    
+  "protocol_CODE":  "ORM001005",
+    
+  "state_CODE":  "009000",
+    
+  "err_Msg":  "",
+    
+  "stamp_TIMES":  "1444902668955.12",
+    
+  "serial_NUMBER":  "00147001015869149751",
+    
+  "RespData":  {
+        
+    "orderID":  "a9f1785b-5321-4b03-87b7-a531011efe74",
+        
+    "alias":  "sdf",
+        
+    "type":  "",
+        
+    "startTime":  "",
+        
+    "endTime":  "",
+        
+    "money":  "111",
+        
+    "status":  "Created",
+        
+    "address":  "sdfasdf",
+        
+    "exDoc":  "sdfdsf",
+        
+    "km":  "",
+        
+    "userObj":  {
+            
+      "userID":  "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            
+      "alias":  "f@f.f",
+            
+      "imgUrl":  ""
+    
+        },
+        
+    "storeObj":  null,
+        
+    "cerObj":  {
+            
+      "userID":  "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+            
+      "alias":  "e@e.e",
+            
+      "userName":  "e@e.e",
+            
+      "imgUrl":  ""
+    
+        }
+  
+    }
+
+}
+2015-10-15 09:51:09,017 [22] DEBUG dz - Request(f0c8fef7-04e3-42b1-a3fe-df6ef4965c26):{
+    "protocol_CODE": "MERM001005",
+    "ReqData": {
+        "email": "22",
+        "pWord": "1234"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:51:09,017 [22] DEBUG dz - Request(f0c8fef7-04e3-42b1-a3fe-df6ef4965c26):{
+    "protocol_CODE": "MERM001005",
+    "ReqData": {
+        "email": "22",
+        "pWord": "1234"
+    },
+    "stamp_TIMES": "1490192929212",
+    "serial_NUMBER": "00147001015869149751"
+}
+2015-10-15 09:51:09,229 [22] DEBUG dz - Resonse(f0c8fef7-04e3-42b1-a3fe-df6ef4965c26):{
+    "protocol_CODE": "MERM001005",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444902669216.13",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "merObj": {
+            "userID": "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+            "alias": "22",
+            "email": "22",
+            "phone": "22",
+            "imgUrl": "http://ydban.cn:8038/getfile.ashx?filename=_$_b57e23bc-e37b-422d-a145-b5ae5106e6db_$_UserAvatar_$_image"
+        }
+    }
+}
+2015-10-15 09:51:09,229 [22] DEBUG dz - Resonse(f0c8fef7-04e3-42b1-a3fe-df6ef4965c26):{
+    "protocol_CODE": "MERM001005",
+    "state_CODE": "009000",
+    "err_Msg": "",
+    "stamp_TIMES": "1444902669216.13",
+    "serial_NUMBER": "00147001015869149751",
+    "RespData": {
+        "merObj": {
+            "userID": "52ab1f1f-a04f-4b09-a5cd-a531010a221b",
+            "alias": "22",
+            "email": "22",
+            "phone": "22",
+            "imgUrl": "http://ydban.cn:8038/getfile.ashx?filename=_$_b57e23bc-e37b-422d-a145-b5ae5106e6db_$_UserAvatar_$_image"
+        }
+    }
+}

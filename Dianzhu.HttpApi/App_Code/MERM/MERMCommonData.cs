@@ -27,9 +27,9 @@ public class RespDataMERM_merObj
         this.email = membership.Email ?? "";
         this.phone = membership.Phone ?? "";
         this.imgUrl =string.IsNullOrEmpty( membership.AvatarUrl)?string.Empty
-                :HttpContext.Current.Request.Url.Authority
-                + System.Configuration.ConfigurationManager.AppSettings["user_avatar_image_root"]
-                +membership.AvatarUrl;
+                :( 
+                  System.Configuration.ConfigurationManager.AppSettings["MediaGetUrl"]
+                +membership.AvatarUrl);
        
         return this;
 

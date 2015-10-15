@@ -3,7 +3,7 @@
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
 //"merm001005"//,"merm001003","merm001005",
 
-"orm001005",//"orm001005","orm001006"
+"merm001005","orm001005",//"orm001006"
 ];
 var test_data = [
 
@@ -114,8 +114,8 @@ var test_data = [
                   {
                       "protocol_CODE": "MERM001005",
                       "ReqData": {
-                          "email": "phiree@gmail.com",
-                          "pWord": "121212",
+                          "email": "22",
+                          "pWord": "1234",
                       },
                       "stamp_TIMES": "1490192929212",
                       "serial_NUMBER": "00147001015869149751"

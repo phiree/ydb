@@ -16,7 +16,6 @@ public class RespDataORM_Order
    
     public string orderID { get; set; }
     public string alias { get; set; }
-    public string merID { get; set; }
     public string type { get; set; }
     public string startTime { get; set; }
     public string endTime { get; set; }
@@ -24,20 +23,20 @@ public class RespDataORM_Order
     public string status { get; set; }
     public string address { get; set; }
     public string exDoc { get; set; }
-    public string paylink { get; set; }
+   // public string paylink { get; set; }
+    public string km { get; set; }
     public RespDataORM_UserObj userObj { get; set; }
     public RespDataORM_storeObj storeObj { get; set; }
-    public RespDataORM002001_cerObj certObj { get; set; }
+    public RespDataORM002001_cerObj cerObj { get; set; }
     public RespDataORM_Order Adap(ServiceOrder order)
     {
         //todo: 如果是外部订单?
-
+        this.km = string.Empty;
         this.orderID = order.Id.ToString();
     
          
         this.alias = order.ServiceName;
-        this.merID = order.Service !=null? order.Service.Business.Id.ToString():string.Empty;
-        this.type =  order.Service !=null?order.Service.ServiceType.ToString():string.Empty;
+         this.type =  order.Service !=null?order.Service.ServiceType.ToString():string.Empty;
         this.startTime = order.Service != null ? order.Service.ServiceTimeBegin : string.Empty;
         this.endTime = order.Service !=null?order.Service.ServiceTimeEnd : string.Empty;
         ///这个是服务单价
@@ -45,7 +44,7 @@ public class RespDataORM_Order
         this.status = order.OrderStatus.ToString();
         this.address = order.TargetAddress ?? string.Empty;
         this.exDoc = order.ServiceDescription ?? string.Empty;
-        this.paylink = order.BuildPayLink(System.Configuration.ConfigurationManager.AppSettings["PayServer"]);
+      //  this.paylink = order.BuildPayLink(System.Configuration.ConfigurationManager.AppSettings["PayServer"]);
         if (order.Customer != null)
         {
             this.userObj = new RespDataORM_UserObj().Adap(order.Customer);
@@ -57,7 +56,7 @@ public class RespDataORM_Order
         }
         if (order.CustomerService != null)
         {
-            this.certObj = new RespDataORM002001_cerObj().Adap(order.CustomerService);
+            this.cerObj = new RespDataORM002001_cerObj().Adap(order.CustomerService);
         }
         return this;
     }
@@ -71,7 +70,10 @@ public class RespDataORM_UserObj
     {
         this.userID = member.Id.ToString();
         this.alias = member.NickName;
-        this.imgUrl =member.AvatarUrl??string.Empty;
+        this.imgUrl = string.IsNullOrEmpty(member.AvatarUrl) ? string.Empty
+                : (
+                  System.Configuration.ConfigurationManager.AppSettings["MediaGetUrl"]
+                + member.AvatarUrl);
         return this;
     }
     
