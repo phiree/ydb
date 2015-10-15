@@ -66,6 +66,9 @@ namespace Dianzhu.CSClient.MessageAdapter
                 case "ihelper:chat:media":
                     chatType = enum_ChatType.Media;
                     break;
+                case "ihelper:cer:notce":
+                    chatType = enum_ChatType.Notice;
+                    break;
                 default:
                     throw new Exception("未知的命名空间");
 

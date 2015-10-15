@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using Com.Alipay;
 using Dianzhu.BLL;
 using Dianzhu.Model;
- 
+using Dianzhu.NotifyCenter;
 public partial class return_url : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -74,7 +74,7 @@ public partial class return_url : System.Web.UI.Page
                     order.OrderStatus= Dianzhu.Model.Enums.enum_OrderStatus.Payed;
                      
                     bllOrder.SaveOrUpdate(order);
-
+                    OrderNotify o = new OrderNotify((Dianzhu.CSClient.IInstantMessage.InstantMessage)Application["IM"]);
                     Response.Redirect("/paysuc.aspx?orderid=" + orderId);
 
                 }

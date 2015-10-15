@@ -133,6 +133,6 @@ public class ReqDataMERM001003
     public string alias { get; set; }
     public string email { get; set; }
     public string phone { get; set; }
-    public string password { get; set; } //new password
+    public string password { get; set;} //new password
  
 } 
