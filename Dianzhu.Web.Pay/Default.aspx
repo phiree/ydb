@@ -110,8 +110,8 @@
                             <span>需支付</span><span class="price">￥<%=Order.OrderAmount.ToString("#.##") %></span>
                         </div>
                     </div>
-                    <asp:Button runat="server" ID="btnAlipay"  Text="支付宝付款" OnClick="btnAlipay_Click"/>
-                    <a class="pay-button" href="DemoPayApi.aspx">去付款</a>
+                    <asp:Button class="pay-button" runat="server" ID="btnAlipay"  Text="支付宝付款" OnClick="btnAlipay_Click"/>
+
                 </div>
             </div>
             <div class="bottom">
