@@ -72,7 +72,7 @@ namespace MediaServer
             string thumbnailName = ThumbnailMaker.Make(
                 mediaRootDir + originalRelativePath,
                 mediaRootDir + originalRelativePath + "thumbnail\\",
-                cleanedFileName, imageWidth,imageHeight, 0);
+                cleanedFileName, imageWidth,imageHeight, ThumbnailType.GeometricScalingByMax);
             return thumbnailName.Replace(mediaRootDir, string.Empty);
         }
 

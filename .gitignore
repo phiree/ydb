@@ -5,6 +5,7 @@
 /cdn
 /logs
 .idea/
+*/logs
 
 #licdream Define#
 /AdminBusiness/js/ServiceType.js
