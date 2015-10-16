@@ -32,11 +32,7 @@ public class ResponseFactory
 
             case "svc001001":
                 return new ResponseSVC001001(request);
-                
-            case "svm001002":
-                return new ResponseSVM001002(request);
-                
-            
+ 
             case "vcm001001":
                 return new ResponseVCM001001(request);
             case "vcm001002":
