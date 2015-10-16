@@ -117,6 +117,8 @@ namespace Dianzhu.DemoClient
                     csDisplayName = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
                     lblAssignedCS.Text = csDisplayName;
                     break;
+                case "ihelper:cer:notce":
+                    break;
             }
             AddLog(msg);
 
@@ -223,6 +225,8 @@ namespace Dianzhu.DemoClient
                 case "ihelper:cer:change":
                     csDisplayName = message.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
                     lblMessage.Text += "客服更换为:" + csDisplayName;
+                    break;
+                case "ihelper:cer:notce":
                     break;
             }
 

@@ -142,6 +142,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         {
             
             Message msg = new Message();
+            
             msg.SetAttribute("type", "chat");
             msg.Id = chat.Id.ToString();
             msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);

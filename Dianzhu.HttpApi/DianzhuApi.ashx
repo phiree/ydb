@@ -16,7 +16,7 @@ public class DianzhuApi : IHttpHandler,IRequiresSessionState
         context.Response.ContentEncoding = Encoding.UTF8;
         string jsonStr = new StreamReader(context.Request.InputStream).ReadToEnd();
          Guid rid = Guid.NewGuid();
-        ilog.Debug("Request("+rid+"):"+ jsonStr);
+        ilog.Debug("Request("+rid+"):"+ PHSuit.JsonHelper.FormatJson( jsonStr));
         BaseRequest request = JsonConvert.DeserializeObject<BaseRequest>(jsonStr);
        
         BaseResponse response = ResponseFactory.GetApiResponse(request);

@@ -29,7 +29,7 @@ public class OrderNotify
         msg.Id = Guid.NewGuid().ToString();
         msg.From = "4f088d5c-be94-43bc-9644-a4d1008be129@ydban.cn";
         
-        msg.To = order.Customer.Id.ToString();
+        msg.To = order.Customer.Id.ToString()+"@ydban.cn";
         msg.Body = "订单状态已发生改变";
 
         var nodeActive = new agsXMPP.Xml.Dom.Element("active", string.Empty, "http://jabber.org/protocol/chatstates");

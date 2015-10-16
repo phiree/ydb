@@ -8,7 +8,7 @@ using Dianzhu.CSClient.IVew;
 using Dianzhu.CSClient.IInstantMessage;
 using System.IO;
 using System.Diagnostics;
-using FluentValidation.Results;
+ 
 namespace Dianzhu.CSClient.Presenter
 {
     public partial class MainPresenter
@@ -78,8 +78,9 @@ namespace Dianzhu.CSClient.Presenter
                 SavedTime = DateTime.Now,
                 ServiceOrder = CurrentServiceOrder,
                 UserObj = customerService,
-  
-                  MessageBody="支付链接",   SendTime=DateTime.Now
+
+                MessageBody = "支付链接" + payLink,
+                SendTime =DateTime.Now
             };
             
             SendMessage(chatNotice);

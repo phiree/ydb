@@ -19,8 +19,9 @@ public partial class return_url : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         BLLServiceOrder bllOrder = new BLLServiceOrder();
+       
 
-        ServiceOrder order=null;
+        ServiceOrder order =null;
         Guid orderId;
         bool isOrderGuid=Guid.TryParse(Request["out_trade_no"],out orderId);
         string tradeNo = Request["trade_no"];
@@ -41,6 +42,8 @@ public partial class return_url : System.Web.UI.Page
         {
             Response.Write("fail");
         }
+        OrderNotify o = new OrderNotify((Dianzhu.CSClient.IInstantMessage.InstantMessage)Application["IM"]);
+        o.SendOrderChangedNotify(order);
         SortedDictionary<string, string> sPara = GetRequestGet();
 
 
@@ -74,8 +77,7 @@ public partial class return_url : System.Web.UI.Page
                     order.OrderStatus= Dianzhu.Model.Enums.enum_OrderStatus.Payed;
                      
                     bllOrder.SaveOrUpdate(order);
-                    OrderNotify o = new OrderNotify((Dianzhu.CSClient.IInstantMessage.InstantMessage)Application["IM"]);
-                    Response.Redirect("/paysuc.aspx?orderid=" + orderId);
+                      Response.Redirect("/paysuc.aspx?orderid=" + orderId);
 
                 }
                 else

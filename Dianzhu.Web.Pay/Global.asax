@@ -8,6 +8,7 @@
         log4net.Config.XmlConfigurator.Configure();
         Dianzhu.CSClient.IMessageAdapter.IAdapter adapter = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
         Dianzhu.CSClient.IInstantMessage.InstantMessage im = new Dianzhu.CSClient.XMPP.XMPP(adapter);
+        
         im.OpenConnection("4f088d5c-be94-43bc-9644-a4d1008be129","123456");
         Application["IM"] = im;
     }
@@ -17,6 +18,7 @@
         //  Code that runs on application shutdown
 
     }
+
 
     void Application_Error(object sender, EventArgs e)
     {

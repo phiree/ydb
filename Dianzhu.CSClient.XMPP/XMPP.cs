@@ -55,15 +55,18 @@ namespace Dianzhu.CSClient.XMPP
 
         void XmppClientConnection_OnSocketError(object sender, Exception ex)
         {
+            if (IMConnectionError == null) return;
             IMConnectionError(ex.Message);
         }
         void XmppClientConnection_OnError(object sender, Exception ex)
         {
+            if (IMError == null) return;
             IMError(ex.Message);
         }
 
         void XmppClientConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
+            if (IMAuthError == null) return;
             IMAuthError();
         }
 
@@ -90,6 +93,7 @@ namespace Dianzhu.CSClient.XMPP
 
         void Connection_OnLogin(object sender)
         {
+            if (IMLogined == null) return;
             IMLogined(XmppClientConnection.Username);
 
 
@@ -144,7 +148,7 @@ namespace Dianzhu.CSClient.XMPP
 
 
         public void XmppClientConnection_OnClose(object sender)
-        {
+        {if (IMClosed == null) return;
             IMClosed();
         }
         
