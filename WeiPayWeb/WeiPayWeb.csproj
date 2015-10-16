@@ -127,6 +127,9 @@
     <Compile Include="WeiPay.aspx.designer.cs">
       <DependentUpon>WeiPay.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WeiPayApi.ashx.cs">
+      <DependentUpon>WeiPayApi.ashx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -137,6 +140,9 @@
       <Project>{8BD73D13-5EFF-45CE-9B9C-355056711FA0}</Project>
       <Name>WeiPay</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WeiPayApi.ashx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
