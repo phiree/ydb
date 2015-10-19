@@ -9,10 +9,10 @@ namespace Dianzhu.CSClient.XMPP
 {
     public class XMPP : IInstantMessage.InstantMessage
     {
-
-        public static readonly string Server = System.Configuration.ConfigurationManager.AppSettings["server"];
-        public static readonly string Domain = System.Configuration.ConfigurationManager.AppSettings["domain"];
-        static agsXMPP.XmppClientConnection XmppClientConnection;
+        log4net.ILog log = log4net.LogManager.GetLogger("xmpp_debug");
+          static readonly string Server = System.Configuration.ConfigurationManager.AppSettings["server"];
+          static readonly string Domain = System.Configuration.ConfigurationManager.AppSettings["domain"];
+         static agsXMPP.XmppClientConnection XmppClientConnection;
 
 
         public event IMClosed IMClosed;
@@ -47,9 +47,11 @@ namespace Dianzhu.CSClient.XMPP
 
         private void XmppClientConnection_OnIq(object sender, IQ iq)
         {
-            if(IMIQ!=null)
-            { 
-            IMIQ();
+            if (iq.Type == IqType.get)
+            {
+                var pong = new IQ(IqType.result);
+                pong.To = iq.From;
+                SendMessage(iq.ToString());
             }
         }
 
