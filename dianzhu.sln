@@ -129,30 +129,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.XmppClientWeb", "Di
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "FrontWeb", "FrontWeb\", "{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/FrontWeb"
-		Debug.AspNetCompiler.PhysicalPath = "FrontWeb\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\FrontWeb\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/FrontWeb"
-		Release.AspNetCompiler.PhysicalPath = "FrontWeb\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\FrontWeb\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "8310"
-		VWDVirtualPath = "/"
-		SlnRelativePath = "FrontWeb\"
-		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.AdminBusinessMvc", "Dianzhu.AdminBusinessMvc\Dianzhu.AdminBusinessMvc.csproj", "{61F5098D-3C49-4229-956C-E8BF0080A2D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient", "Dianzhu.CSClient\Dianzhu.CSClient.csproj", "{6A05019E-F3EA-460A-BC05-0336EB3BFCF4}"
@@ -174,10 +150,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.MessageAdapter", "Dianzhu.CSClient.MessageAdapter\Dianzhu.CSClient.MessageAdapter.csproj", "{A871C9E1-98A4-412F-A1B3-541189A4C4CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.ViewModel", "Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj", "{D7AA114D-AD19-4399-B152-969D240053C7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeiPayWeb", "WeiPayWeb\WeiPayWeb.csproj", "{55BC38D4-052E-44DD-AD4C-D0F71CD088E2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeiPay", "WeiPay\WeiPay.csproj", "{8BD73D13-5EFF-45CE-9B9C-355056711FA0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediaServer", "MediaServer", "{77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}"
 EndProject
@@ -233,27 +205,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTest", "WPFTest\WPFTest.csproj", "{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}"
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "alipay", "alipay\", "{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_8829"
-		Debug.AspNetCompiler.PhysicalPath = "alipay\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8829\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_8829"
-		Release.AspNetCompiler.PhysicalPath = "alipay\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8829\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "8829"
-		SlnRelativePath = "alipay\"
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Pay", "Dioanzhu.Pay\Dianzhu.Pay.csproj", "{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}"
 EndProject
@@ -359,16 +310,6 @@ Global
 		{4A1A2BC3-DB56-4652-8870-FC7C15FCEC1C}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{4A1A2BC3-DB56-4652-8870-FC7C15FCEC1C}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{4A1A2BC3-DB56-4652-8870-FC7C15FCEC1C}.Release|x86.ActiveCfg = Debug|Any CPU
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914}.Release|x86.ActiveCfg = Debug|Any CPU
 		{61F5098D-3C49-4229-956C-E8BF0080A2D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61F5098D-3C49-4229-956C-E8BF0080A2D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61F5098D-3C49-4229-956C-E8BF0080A2D5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -482,26 +423,6 @@ Global
 		{D7AA114D-AD19-4399-B152-969D240053C7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D7AA114D-AD19-4399-B152-969D240053C7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D7AA114D-AD19-4399-B152-969D240053C7}.Release|x86.ActiveCfg = Release|Any CPU
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2}.Release|x86.ActiveCfg = Release|Any CPU
-		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{8BD73D13-5EFF-45CE-9B9C-355056711FA0}.Release|x86.ActiveCfg = Release|Any CPU
 		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9920DA22-589C-4193-AEAA-363D5C029DFC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -574,18 +495,6 @@ Global
 		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|x86.ActiveCfg = Release|Any CPU
 		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6}.Release|x86.Build.0 = Release|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Debug|x86.Build.0 = Debug|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|x86.ActiveCfg = Debug|Any CPU
-		{99FDA4CE-2BC4-4C7E-B4C5-1A964BF9190D}.Release|x86.Build.0 = Debug|Any CPU
 		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -626,7 +535,6 @@ Global
 		{84187F7C-DD53-4895-A7FF-191E76756009} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{4A1A2BC3-DB56-4652-8870-FC7C15FCEC1C} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
-		{76FA996D-3932-4EE9-8BD4-49D7E3BA9914} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{61F5098D-3C49-4229-956C-E8BF0080A2D5} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{6A05019E-F3EA-460A-BC05-0336EB3BFCF4} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{BE4F5CD3-E748-46D9-A9D0-941EF2FA3CDB} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
@@ -638,7 +546,6 @@ Global
 		{74F0963E-57CA-4D57-899C-D85FF096FE1F} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{A871C9E1-98A4-412F-A1B3-541189A4C4CF} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{D7AA114D-AD19-4399-B152-969D240053C7} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
-		{55BC38D4-052E-44DD-AD4C-D0F71CD088E2} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{9920DA22-589C-4193-AEAA-363D5C029DFC} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
 		{8970D254-2FE4-4028-81DA-F4311DCB6682} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
 		{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB} = {77EDA0B0-8985-4ADB-B34C-BBB2BE6B2B44}
