@@ -142,7 +142,7 @@ a:visited {
 }
 
 body {
-    font: 14px/1.2 Arial,"Microsoft YaHei","微软雅黑","黑体","宋体",sans-serif;
+    font: 14px/1.2 "Microsoft YaHei","simhei", Arial ,sans-serif;
 }
 
 html{

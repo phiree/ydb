@@ -375,21 +375,41 @@ a.new-add-btn {
     line-height: 30px;
 }
 
-.service-input-radio tr{
+.service-checkBox,.service-input-radio {
+    display: inline-block;
+    width: 100%;
+}
+
+
+.service-input-radio input{
+    margin-right: 10px;
+}
+
+.service-input-radio,.service-checkBox label
+{
+    color: #666;
+}
+
+table.service-checkBox,.service-input-radio {
+    display: table;
+    width: 100%;
+}
+
+table.service-input-radio tr{
     float: left;
     margin-right: 20px;
     height: 30px;
     line-height: 30px;
 }
 
-.service-input-radio input{
-    margin-right: 10px;
+table.service-input-radio tr td{
+    margin-right: 20px;
+    height: 30px;
+    line-height: 30px;
 }
 
-.service-input-radio label,
-.service-checkBox label
-{
-    color: #666;
+table.service-input-radio tr td input,label{
+    display: inline;
 }
 
 .serviceIntroduced {

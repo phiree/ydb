@@ -97,7 +97,7 @@
                                                 <td class="table-col-1 t-r">下单时间：</td>
                                                 <td class="table-col-3">2015-10-10 15:30</td>
                                                 <td class="table-col-1 t-r">客户电话：</td>
-                                                <td class="table-col-4">15555555555</td>
+                                                <td class="table-col-3">15555555555</td>
                                             </tr>
                                             <tr>
                                                 <td class="table-col-1 t-r">指派员工：</td>
@@ -105,7 +105,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="table-col-1 t-r">备&nbsp;&nbsp;注：</td>
-                                                <td class="table-col-4">222222222</td>
+                                                <td class="table-col-3">222222222</td>
                                             </tr>
                                             </tbody>
                                         </table>
