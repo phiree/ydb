@@ -34,8 +34,8 @@
                     </a>
 
                 </li>
-                <li role="presentation" title="正在努力开发...">
-                    <a href="/DZOrder/Default.aspx?" >
+                <li role="presentation" class="disabled" title="正在努力开发...">
+                    <a href="javascript:void(0);" >
                     <i class="icon item-icon sidebar-icon-order"></i>
                     <p class="sidebar-title">我的订单</p>
                     </a>

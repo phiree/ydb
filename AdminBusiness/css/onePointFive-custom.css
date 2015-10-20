@@ -270,6 +270,7 @@ label {
   background: #ffffff;
   vertical-align: middle;
   border: 1px solid #e2e2e2;
+  font-size: 12px;
 }
 .select-sm cite {
   display: block;
@@ -306,6 +307,7 @@ label {
   background: #ffffff;
   vertical-align: middle;
   border: 1px solid #e2e2e2;
+  font-size: 12px;
 }
 .select-mid cite {
   display: block;
@@ -342,6 +344,7 @@ label {
   background: #ffffff;
   vertical-align: middle;
   border: 1px solid #e2e2e2;
+  font-size: 12px;
 }
 .select-fluid cite {
   display: block;

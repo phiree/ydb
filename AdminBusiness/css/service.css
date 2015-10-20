@@ -74,18 +74,18 @@ a.new-add-btn {
 }
 
 /*服务列表图标*/
-.service-list .icon{
-    margin-left: 10px;
-    vertical-align: middle;
-}
+/*.service-list .icon{*/
+    /*margin-left: 10px;*/
+    /*vertical-align: middle;*/
+/*}*/
 
 .service-list .panel-title-tips .icon{
     margin-right: 5px;
     vertical-align: middle;
 }
 
-
 .service-icon {
+    margin-left: 10px;
     width: 80px;
     height: 80px;
 }
