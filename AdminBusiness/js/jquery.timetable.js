@@ -7,8 +7,7 @@
         this.$element = $(element);
         this.options = $.extend({}, TimeTable.DEFAULTS, options);
         this.transitioning = null;
-
-        this.init();
+        //this.init();
     };
 
     TimeTable.TRANSITION_DURATION = 350;
@@ -170,8 +169,11 @@
                 $this.data('mm', (data = new TimeTable(this, options)));
             }
             if (typeof option === 'string') {
-                data[option]();
+                data[option].call($this);
+            } else {
+                data.init();
             }
+
         });
     }
 
