@@ -46,7 +46,7 @@
     <Compile Include="AliPay\AlipayNotify.cs" />
     <Compile Include="AliPay\AlipaySubmit.cs" />
     <Compile Include="AliPay\RSA.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="Paylog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

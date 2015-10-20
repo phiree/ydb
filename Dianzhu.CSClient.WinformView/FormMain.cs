@@ -130,7 +130,12 @@ namespace Dianzhu.CSClient.WinformView
             lblTime.Text = chat.SavedTime.ToShortTimeString() + " ";
  
             lblFrom.Text = chat.From.UserName;
-            lblMessage.Text = chat.MessageBody;
+
+            LoadBody(chat.MessageBody, pnlOneChat);
+
+            //lblMessage.Text = chat.MessageBody;
+
+            //如果包含了url信息
             _AutoSize(lblMessage);
             pnlOneChat.Width = pnlChat.Size.Width - 36;
 
@@ -199,6 +204,34 @@ namespace Dianzhu.CSClient.WinformView
             }
 
         }
+        private void LoadBody(string messageBody,Panel pnlContainer)
+        {
+            bool containsUrls;
+            IList<string> urls = PHSuit.StringHelper.ParseUrl(messageBody,out containsUrls);
+            if (!containsUrls)
+            {
+                Label lblPlainText = new Label();
+                lblPlainText.Text = messageBody;
+                _AutoSize(lblPlainText);
+                pnlContainer.Controls.Add(lblPlainText);
+            }
+            else
+            {
+                LinkLabel lb = new LinkLabel();
+                lb.Text = messageBody;
+                foreach (string s in urls)
+                {
+                    int startIndex = messageBody.IndexOf(s);
+                    int endIndex = startIndex + s.Length;
+                    lb.Links.Add(startIndex, s.Length, s);
+                    lb.LinkClicked += Ll_LinkClicked;
+                }
+                _AutoSize(lb);
+                pnlContainer.Controls.Add(lb);
+            }
+        }
+
+        
 
         private void Ll_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

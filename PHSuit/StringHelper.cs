@@ -259,7 +259,24 @@ namespace PHSuit
             }
             return result;
         }
+        public static IList<string> ParseUrl(string input,out bool isMatch)
+        {
+            List<string> result = new List<string>();
+            string regp = @"((http://)|(www)).+?(\s|$)?";
+            Regex r = new Regex(regp);
+            isMatch= r.IsMatch(input);
+            if (!isMatch)
+            {
+                return result;
+            }
+            MatchCollection ms = new Regex(regp).Matches(input);
+            foreach (Match m in ms)
+            {
+                result.Add(m.Value);
+            }
 
+            return result;
+        }
 
        
     }

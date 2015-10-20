@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Dioanzhu.Pay
 {
-    public class PayLog
+    public class Paylog
     {
+
     }
 }
