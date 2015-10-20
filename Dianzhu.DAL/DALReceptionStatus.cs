@@ -14,9 +14,9 @@ namespace Dianzhu.DAL
     {
          public DALReceptionStatus()
         {
-            Session = new HybridSessionBuilder().GetSession();
+            
         }
-         public DALReceptionStatus(string fortestonly)
+         public DALReceptionStatus(string fortestonly): base(fortestonly)
          { }
 
         //注入依赖,供测试使用;

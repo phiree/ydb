@@ -10,14 +10,10 @@ namespace Dianzhu.DAL
 {
     public class DALDZService : DALBase<DZService>
     {
-        public DALDZService()
+        public DALDZService() { }
+        [Obsolete("just for test ,don't use it outside testing code.")]
+        public DALDZService(string fortest):base(fortest)
         {
-           Session = new HybridSessionBuilder().GetSession();
-        }
-        [Obsolete("just for test ,don't invoke it")]
-        public DALDZService(string fortest)
-        { 
-  
         }
         public IList<DZService> GetList(Guid businessId,  int pageindex, int pagesize, out int totalRecord)
         {

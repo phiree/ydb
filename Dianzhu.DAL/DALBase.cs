@@ -9,11 +9,27 @@ using System.Data.SqlClient;
 
 namespace Dianzhu.DAL
 {
+    /// <summary>
+    ///  hibernat的 基础的CURD 实现.
+    /// ISession 注入依赖
+    ///     为何不直接实现:
+    ///    1)session依赖于 数据库
+    ///     2)该类是基类
+    ///      3)如果不注入,那么,每个被初始化的子类 都会直接依赖数据库
+    ///     4)无法单元测试.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class DALBase<T> 
     {
-         
+        public DALBase()
+        {
+            session= new HybridSessionBuilder().GetSession();
+        }
+        public DALBase(string fortestonly)
+        { }
         private ISession session = null;// new HybridSessionBuilder().GetSession();
          
+    
         public ISession Session {
             get { return session; }
             set { session = value; }

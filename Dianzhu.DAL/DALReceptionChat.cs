@@ -11,10 +11,10 @@ namespace Dianzhu.DAL
     {
          public DALReceptionChat()
         {
-            Session = new HybridSessionBuilder().GetSession();
+             
         }
         //注入依赖,供测试使用;
-         public DALReceptionChat(string fortest)
+         public DALReceptionChat(string fortest):base(fortest)
         {
             
         }

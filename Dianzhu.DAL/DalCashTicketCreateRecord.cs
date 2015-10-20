@@ -10,10 +10,10 @@ namespace Dianzhu.DAL
     {
         public DALCashTicketCreateRecord()
         {
-            Session = new HybridSessionBuilder().GetSession();
+             
         }
         //注入依赖,供测试使用;
-        public DALCashTicketCreateRecord(string fortest)
+        public DALCashTicketCreateRecord(string fortest):base(fortest)
         {
             
         }

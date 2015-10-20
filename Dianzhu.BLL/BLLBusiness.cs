@@ -81,6 +81,12 @@ namespace Dianzhu.BLL
         {
             return DALBusiness.GetBusinessListByOwner(memberId);
         }
+        //如果图片保存不是通过编辑 Business 对象来完成的(比如 通过ajax mediaserver)
+
+        public void UploadImage()
+        {
+
+        }
 
 
     }

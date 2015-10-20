@@ -9,19 +9,18 @@ namespace Dianzhu.DAL
 {
    public class DALCashTicket:DALBase<CashTicket>
     {
-     
-        
+
+
         public DALCashTicket()
-        {
-            Session = new HybridSessionBuilder().GetSession();
+        { 
         }
         //注入依赖,供测试使用;
-        public DALCashTicket(string fortest)
+        public DALCashTicket(string fortest):base(fortest)
         {
-            
+
         }
-        
-       public  bool CheckTicketCodeExists(string code)
+
+        public  bool CheckTicketCodeExists(string code)
        {
            
          var result= GetList(Session.QueryOver<CashTicket>().Where(x=>x.TicketCode==code));

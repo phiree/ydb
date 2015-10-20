@@ -11,10 +11,10 @@ namespace Dianzhu.DAL
     {
           public DALDZTag()
         {
-            Session = new HybridSessionBuilder().GetSession();
+             
         }
         //注入依赖,供测试使用;
-          public DALDZTag(string fortest)
+          public DALDZTag(string fortest):base(fortest)
         {
             
         }

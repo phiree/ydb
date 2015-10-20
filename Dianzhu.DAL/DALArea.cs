@@ -12,7 +12,7 @@ namespace Dianzhu.DAL
         
         public DALArea()
         {
-            Session = new HybridSessionBuilder().GetSession();
+           
         }
         //注入依赖,供测试使用;
         public DALArea(string fortest)

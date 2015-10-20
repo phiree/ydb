@@ -10,6 +10,9 @@ using NHibernate.Hql;
 using NHibernate.Criterion.Lambda;
 namespace Dianzhu.DAL
 {
+    /// <summary>
+    /// Nhibernate Session工厂.
+    /// </summary>
     public class HybridSessionBuilder
     {
         private static ISession _currentSession;

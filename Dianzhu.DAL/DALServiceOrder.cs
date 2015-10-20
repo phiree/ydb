@@ -12,10 +12,10 @@ namespace Dianzhu.DAL
     {
          public DALServiceOrder()
         {
-            Session = new HybridSessionBuilder().GetSession();
+            
         }
         //注入依赖,供测试使用;
-         public DALServiceOrder(string fortest)
+         public DALServiceOrder(string fortest):base(fortest)
         {
             
         }

@@ -10,10 +10,10 @@ namespace Dianzhu.DAL
     {
         public DALStaff()
         {
-            Session = new HybridSessionBuilder().GetSession();
+           
         }
         //注入依赖,供测试使用;
-        public DALStaff(string fortest)
+        public DALStaff(string fortest):base(fortest)
         {
             
         }

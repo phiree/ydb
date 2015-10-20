@@ -11,10 +11,10 @@ namespace Dianzhu.DAL
     {
          public DALDeviceBind()
         {
-            Session = new HybridSessionBuilder().GetSession();
+             
         }
         //注入依赖,供测试使用;
-         public DALDeviceBind(string fortest)
+         public DALDeviceBind(string fortest):base(fortest)
         {
             
         }

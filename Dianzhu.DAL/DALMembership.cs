@@ -11,10 +11,10 @@ namespace Dianzhu.DAL
     public class DALMembership :DALBase<Model.DZMembership>
     { public DALMembership()
         {
-            Session = new HybridSessionBuilder().GetSession();
+             
         }
         //注入依赖,供测试使用;
-    public DALMembership(string fortest)
+    public DALMembership(string fortest):base(fortest)
         {
             
         }
