@@ -91,6 +91,26 @@ var test_data = [
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"
            },
+           {
+               "protocol_CODE": "ORM002002",
+               "ReqData": {
+                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                   "pWord": "123456",
+                   "orderID": "b9f1785b-5321-4b03-87b7-a531011efe74",
+               },
+               "stamp_TIMES": "1490192929212",
+               "serial_NUMBER": "00147001015869149751"
+           },
+           {
+               "protocol_CODE": "ORM002002",
+               "ReqData": {
+                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                   "pWord": "123456",
+                   "orderID": "2cba0bc4-2133-45e6-8dc4-a53000bb6e1c",
+               },
+               "stamp_TIMES": "1490192929212",
+               "serial_NUMBER": "00147001015869149751"
+           },
 
 
         /*******************商家******************/
