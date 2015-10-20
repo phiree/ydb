@@ -55,6 +55,8 @@ public class ResponseFactory
 
             case "orm002001":
                 return new ResponseORM002001(request);
+            case "orm002002":
+                return new ResponseORM002002(request);
             case "chat001004":
                 return new ResponseCHAT001004(request);
             case "chat001006":

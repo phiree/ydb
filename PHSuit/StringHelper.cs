@@ -262,7 +262,7 @@ namespace PHSuit
         public static IList<string> ParseUrl(string input,out bool isMatch)
         {
             List<string> result = new List<string>();
-            string regp = @"((http://)|(www)).+?(\s|$)?";
+            string regp = @"((http://)|(www)).+?(\s|$)";
             Regex r = new Regex(regp);
             isMatch= r.IsMatch(input);
             if (!isMatch)
