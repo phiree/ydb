@@ -78,6 +78,7 @@
     <Compile Include="PHGeography.cs" />
     <Compile Include="PHNumber.cs" />
     <Compile Include="ReadExcelToDataTable.cs" />
+    <Compile Include="ScreenShot.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Core.cs" />

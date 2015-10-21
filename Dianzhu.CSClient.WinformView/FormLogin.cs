@@ -130,5 +130,14 @@ namespace Dianzhu.CSClient.WinformView
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Teboscreen.Form1 form1 = new Teboscreen.Form1();
+            form1.InstanceRef = this;
+            form1.Show();
+
+        }
     }
 }

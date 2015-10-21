@@ -223,19 +223,14 @@ namespace Dianzhu.CSClient.Presenter
             SendMessage(chat);
             view.MessageTextBox = string.Empty;
         }
-        private void view_SendMediaHandler(string domainType, string mediaType)
+        private void view_SendMediaHandler(byte[] fileData,string domainType, string mediaType)
         {
             if (CurrentServiceOrder == null) return;
             
-            System.IO.FileStream fs = view.SelectedImageStream as System.IO.FileStream;
-                string fileExtension = Path.GetExtension(view.SelectedImageName);
-                byte[] bytes;
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    fs.CopyTo(ms);
-                    bytes = ms.ToArray();
-                }
-                string s = Convert.ToBase64String(bytes);
+            //     string fileExtension = Path.GetExtension(view.SelectedImageName);
+            //byte[] bytes = File.ReadAllBytes(view.SelectedImageName);
+                
+                string s = Convert.ToBase64String(fileData);
          string fileName=   MediaServer.HttpUploader.Upload(
              GlobalViables.MediaUploadUrl, s, view.SelectedImageName,
                 domainType, mediaType);

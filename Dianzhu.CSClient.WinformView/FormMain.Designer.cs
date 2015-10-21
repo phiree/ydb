@@ -82,6 +82,9 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnScreenshot = new System.Windows.Forms.Button();
+            this.panel5 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -99,6 +102,8 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pnlExternService.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // scmain
@@ -416,7 +421,7 @@
             this.pnlChat.ImeMode = System.Windows.Forms.ImeMode.On;
             this.pnlChat.Location = new System.Drawing.Point(0, 0);
             this.pnlChat.Name = "pnlChat";
-            this.pnlChat.Size = new System.Drawing.Size(467, 503);
+            this.pnlChat.Size = new System.Drawing.Size(467, 461);
             this.pnlChat.TabIndex = 3;
             this.pnlChat.WrapContents = false;
             // 
@@ -430,31 +435,27 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btnSendAudio);
-            this.panel1.Controls.Add(this.btnSendImage);
-            this.panel1.Controls.Add(this.tbxChatMsg);
-            this.panel1.Controls.Add(this.btnSend);
+            this.panel1.Controls.Add(this.panel4);
+            this.panel1.Controls.Add(this.panel5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 503);
+            this.panel1.Location = new System.Drawing.Point(0, 461);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(467, 23);
+            this.panel1.Size = new System.Drawing.Size(467, 65);
             this.panel1.TabIndex = 1;
             // 
             // btnSendAudio
             // 
-            this.btnSendAudio.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSendAudio.Location = new System.Drawing.Point(242, 0);
+            this.btnSendAudio.Location = new System.Drawing.Point(99, 9);
             this.btnSendAudio.Name = "btnSendAudio";
             this.btnSendAudio.Size = new System.Drawing.Size(75, 23);
             this.btnSendAudio.TabIndex = 3;
-            this.btnSendAudio.Text = "Audio";
+            this.btnSendAudio.Text = "语音";
             this.btnSendAudio.UseVisualStyleBackColor = true;
             this.btnSendAudio.Click += new System.EventHandler(this.btnSendAudio_Click);
             // 
             // btnSendImage
             // 
-            this.btnSendImage.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSendImage.Location = new System.Drawing.Point(317, 0);
+            this.btnSendImage.Location = new System.Drawing.Point(0, 9);
             this.btnSendImage.Name = "btnSendImage";
             this.btnSendImage.Size = new System.Drawing.Size(75, 23);
             this.btnSendImage.TabIndex = 2;
@@ -477,7 +478,7 @@
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSend.Location = new System.Drawing.Point(392, 0);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(75, 23);
+            this.btnSend.Size = new System.Drawing.Size(75, 29);
             this.btnSend.TabIndex = 1;
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -658,6 +659,37 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.btnScreenshot);
+            this.panel4.Controls.Add(this.btnSendAudio);
+            this.panel4.Controls.Add(this.btnSendImage);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 29);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(467, 36);
+            this.panel4.TabIndex = 0;
+            // 
+            // btnScreenshot
+            // 
+            this.btnScreenshot.Location = new System.Drawing.Point(192, 9);
+            this.btnScreenshot.Name = "btnScreenshot";
+            this.btnScreenshot.Size = new System.Drawing.Size(75, 23);
+            this.btnScreenshot.TabIndex = 4;
+            this.btnScreenshot.Text = "截图";
+            this.btnScreenshot.UseVisualStyleBackColor = true;
+            this.btnScreenshot.Click += new System.EventHandler(this.btnScreenshot_Click);
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.tbxChatMsg);
+            this.panel5.Controls.Add(this.btnSend);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(467, 29);
+            this.panel5.TabIndex = 2;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -685,11 +717,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.pnlExternService.ResumeLayout(false);
             this.pnlExternService.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -750,5 +784,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnCreateNewDraft;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button btnScreenshot;
+        private System.Windows.Forms.Panel panel5;
     }
 }

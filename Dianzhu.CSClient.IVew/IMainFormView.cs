@@ -8,7 +8,7 @@ namespace Dianzhu.CSClient.IVew
 {
     public delegate void IdentityItemActived(ServiceOrder serviceOrder);
     public delegate void MessageSent();
-    public delegate void MediaMessageSent(string domainType,string mediaType);
+    public delegate void MediaMessageSent(byte[] fileData, string domainType,string mediaType);
     
     public delegate void AudioPlay(object audioTag,IntPtr handler);
     public delegate void PushExternalService();

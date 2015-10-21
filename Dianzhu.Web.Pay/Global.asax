@@ -4,6 +4,7 @@
 
     void Application_Start(object sender, EventArgs e)
     {
+        _SetupRefreshJob();
         // Code that runs on application startup
         log4net.Config.XmlConfigurator.Configure();
         Dianzhu.CSClient.IMessageAdapter.IAdapter adapter = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
@@ -57,15 +58,16 @@
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(60000);
+                System.Threading.Thread.Sleep(10000);
                 System.Net.WebClient refresh = new System.Net.WebClient();
                 try
                 {
-                    refresh.UploadString(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority), string.Empty);
+                    refresh.UploadString("http://localhost:8168", string.Empty);
                 }
                 catch (Exception ex)
                 {
-                    //snip...
+                    log4net.ILog log = log4net.LogManager.GetLogger("error");
+                    log.Error(ex.Message);
                 }
                 finally
                 {
@@ -73,8 +75,10 @@
                 }
             }
         };
+         log4net.ILog log2 = log4net.LogManager.GetLogger("debug");
+                    log2.Debug("Invoke.");
         work.BeginInvoke(null, null);
-
+        
         //add this job to the cache
         HttpContext.Current.Cache.Add(
             "Refresh",

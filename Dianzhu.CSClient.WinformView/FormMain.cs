@@ -608,7 +608,8 @@ namespace Dianzhu.CSClient.WinformView
             { 
                 if(dlgSelectPic.ShowDialog()== DialogResult.OK)
                 {
-                    SendMediaHandler("ChatImage","image");
+                    byte[] fileData = File.ReadAllBytes(dlgSelectPic.FileName);
+                    SendMediaHandler(fileData,"ChatImage","image");
                 }
             }
         }
@@ -624,7 +625,8 @@ namespace Dianzhu.CSClient.WinformView
             {
                 if (dlgSelectPic.ShowDialog() == DialogResult.OK)
                 {
-                    SendMediaHandler("ChatAudio", "voice");
+                    byte[] fileData = File.ReadAllBytes(dlgSelectPic.FileName);
+                    SendMediaHandler(fileData,"ChatAudio", "voice");
                 }
             }
         }
@@ -635,6 +637,15 @@ namespace Dianzhu.CSClient.WinformView
             {
                 CreateNewOrder();
             }
+        }
+
+        private void btnScreenshot_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Teboscreen.Form1 form1 = new Teboscreen.Form1();
+            form1.InstanceRef = this;
+            form1.Captured += SendMediaHandler;
+            form1.Show();
         }
     }
 }
