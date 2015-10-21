@@ -227,6 +227,7 @@ namespace Dianzhu.DemoClient
                     lblMessage.Text += "客服更换为:" + csDisplayName;
                     break;
                 case "ihelper:cer:notce":
+                    lblMessage.Text += "通知:" + message.Body;
                     break;
             }
 

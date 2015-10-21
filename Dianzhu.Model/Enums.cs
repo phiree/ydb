@@ -49,8 +49,8 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 草稿,未创建.
         /// </summary>
-        Draft,
-       
+        Draft,//草稿,未创建.
+
         Created,//已创建,待付款
         Payed,//已付款
         CancelledNeedReturn,//已取消待退款
