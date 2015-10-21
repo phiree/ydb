@@ -221,3 +221,4 @@ connectionStrings.config
 Dianzhu.CSClient/appSettings.config
 Dianzhu.HttpApi/logs/error.txt
 Dianzhu.HttpApi/logs/debug.txt
+Dianzhu.Web.Pay/logs/dzpay.txt
