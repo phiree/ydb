@@ -59,9 +59,7 @@ public class ResponseORM002001 : BaseResponse
                         {
                             hasOrder = true;
                         }
-                        else {
-                            this.err_Msg = "该订单不是您创建的";
-                        }
+                         
                     }
                 }
 

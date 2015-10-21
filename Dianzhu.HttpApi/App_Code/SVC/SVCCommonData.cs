@@ -39,8 +39,8 @@ public class RespDataSVC_svcObj
         this.type = service.ServiceType.Name;
         this.introduce = service.Description;
         this.area = service.Business.AreaBelongTo.Name;
-        this.startAt = service.MinPrice.ToString("#.#");
-        this.unitPrice = service.UnitPrice.ToString("#.#");
+        this.startAt = service.MinPrice.ToString("0.0");
+        this.unitPrice = service.UnitPrice.ToString("0.0");
         this.appointmentTime = service.OrderDelay.ToString();
         service.OpenTimes.ToList().ForEach(x => this.serviceTimes += x.Id + ",");
         this.serviceTimes=  this.serviceTimes.TrimEnd(',');

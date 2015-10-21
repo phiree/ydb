@@ -15,7 +15,7 @@ public class RespDataORM_Order
 {
    
     public string orderID { get; set; }
-    public string alias { get; set; }
+    public string title { get; set; }
     public string type { get; set; }
     public string startTime { get; set; }
     public string endTime { get; set; }
@@ -35,12 +35,12 @@ public class RespDataORM_Order
         this.orderID = order.Id.ToString();
     
          
-        this.alias = order.ServiceName;
+        this.title = order.ServiceName;
          this.type =  order.Service !=null?order.Service.ServiceType.ToString():string.Empty;
         this.startTime = order.Service != null ? order.Service.ServiceTimeBegin : string.Empty;
         this.endTime = order.Service !=null?order.Service.ServiceTimeEnd : string.Empty;
         ///这个是服务单价
-        this.money = order.OrderAmount.ToString("#.#");
+        this.money = order.OrderAmount.ToString("0.0");
         this.status = order.OrderStatus.ToString();
         this.address = order.TargetAddress ?? string.Empty;
         this.exDoc = order.ServiceDescription ?? string.Empty;

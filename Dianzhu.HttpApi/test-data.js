@@ -1,8 +1,8 @@
 ﻿var need_to_test = [
-//"orm002001", "orm001003", "orm001004", "orm001005"
+ "orm002001", "orm001003", "orm001004", "orm001005", "orm001006"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
 //"merm001005"//,"merm001003","merm001005",
- "orm002002"
+ 
 ];
 var test_data = [
 
@@ -50,7 +50,7 @@ var test_data = [
                     "ReqData": {
                         "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
                         "pWord": "123456",
-                        "orderID": "a9f1785b-5321-4b03-87b7-a531011efe74",
+                        "orderID": "01eae2a1-08c3-4eaf-9a0f-a52b010f9c1a",
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"
@@ -74,7 +74,7 @@ var test_data = [
               "ReqData": {
                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", //13022222222
                   "pWord": "123456",
-                  "orderID": "cadb445e-aaec-481b-9df6-a51c00c50528",
+                  "orderID": "01eae2a1-08c3-4eaf-9a0f-a52b010f9c1a",
                   
               },
               "stamp_TIMES": "1490192929212",

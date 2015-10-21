@@ -128,7 +128,7 @@ public class RespDataVCM001002_Cashticket
         this.vcsStartTime = cashTicket.CashTicketTemplate.ValidDate.ToString("yyyyMMddHHmm");// ServiceTimeBegin;
         this.vcsEndTime = cashTicket.CashTicketTemplate.ExpiredDate.ToString("yyyyMMddHHmm");
         ///这个是服务单价
-        this.vcsMoney = cashTicket.CashTicketTemplate.Amount.ToString("#.#");
+        this.vcsMoney = cashTicket.CashTicketTemplate.Amount.ToString("0.0");
         this.vcsStatus = string.Empty;
         this.vcsExdes = cashTicket.CashTicketTemplate.Conditions;
         return this;

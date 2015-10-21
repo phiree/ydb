@@ -33,7 +33,9 @@ public class BaseResponse
     }
     public virtual string BuildJsonResponse()
     {
-        return JsonConvert.SerializeObject(this,Formatting.Indented);
+        string result= JsonConvert.SerializeObject(this );
+
+        return result;
     }
     /// <summary>
     /// 构建返回对象
