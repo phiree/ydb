@@ -157,7 +157,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaServer", "MediaServer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaServerTest", "MediaServerTest\MediaServerTest.csproj", "{8970D254-2FE4-4028-81DA-F4311DCB6682}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb(1)", "MediaServerWeb\", "{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MediaServerWeb", "MediaServerWeb\", "{1F8122C3-D5DC-4106-95AD-E0ECD9BE91EB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
 		ProjectReferences = "{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
