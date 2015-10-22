@@ -20,7 +20,11 @@ namespace Dianzhu.CSClient.IVew
     public delegate void BeforeCustomerChanged();
     public delegate void OrderStateChanged();
     public delegate void CreateNewOrder();
-
+    public delegate void NoticeSystem();
+    public delegate void NoticeOrder();
+    public delegate void NoticePromote();
+    public delegate void NoticeCustomerService();
+    public delegate void SendRawXml();
     public interface IMainFormView
     {
         #region Chat
@@ -80,5 +84,14 @@ namespace Dianzhu.CSClient.IVew
         event BeforeCustomerChanged BeforeCustomerChanged;
         event OrderStateChanged OrderStateChanged;
         event CreateNewOrder CreateNewOrder;
+
+        //测试,通知发送
+        event NoticeCustomerService NoticeCustomerService;
+        event NoticeOrder NoticeOrder;
+        event NoticePromote NoticePromote;
+        event NoticeSystem NoticeSystem;
+        event SendRawXml SendRawXml;
+        string RawXml { get; set; }
+
     }
 }

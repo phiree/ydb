@@ -33,6 +33,7 @@ namespace Dianzhu.CSClient.Presenter
 
        void loginView_ViewLogin()
        {
+            Dianzhu.BLL.BLLArea are = new Dianzhu.BLL.BLLArea();
            loginView.LoginButtonText = "正在登录,请稍后";
            loginView.LoginButtonEnabled = false;
            loginView.LoginMessage = string.Empty;

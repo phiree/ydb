@@ -41,6 +41,12 @@ namespace Dianzhu.CSClient.WinformView
         public event AudioPlay PlayAudio;
         public event OrderStateChanged OrderStateChanged;
         public event CreateNewOrder CreateNewOrder;
+
+        public event NoticeSystem NoticeSystem;
+        public event NoticeOrder NoticeOrder;
+        public event NoticePromote NoticePromote;
+        public event NoticeCustomerService NoticeCustomerService;
+        public event SendRawXml SendRawXml;
         
 
         #endregion
@@ -646,6 +652,34 @@ namespace Dianzhu.CSClient.WinformView
             form1.InstanceRef = this;
             form1.Captured += SendMediaHandler;
             form1.Show();
+        }
+
+        private void btnNoticeSystem_Click(object sender, EventArgs e)
+        {
+            NoticeSystem();
+        }
+
+        private void btnNoticeOrder_Click(object sender, EventArgs e)
+        {
+            NoticeOrder();
+        }
+
+        private void btnNoticePromote_Click(object sender, EventArgs e)
+        {
+            NoticePromote();
+        }
+
+        private void btnNoticeCustomerService_Click(object sender, EventArgs e)
+        {
+            NoticeCustomerService();
+        }
+        public string RawXml {
+            get { return tbxRawXml.Text; }
+            set { tbxRawXml.Text = value;}
+        }
+        private void btnSendRawXml_Click(object sender, EventArgs e)
+        {
+            SendRawXml();
         }
     }
 }

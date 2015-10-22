@@ -622,5 +622,14 @@ namespace Teboscreen
                 this.InstanceRef.Show();
             }
         }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                this.Close();
+                this.InstanceRef.Show();
+            }
+        }
     }
 }

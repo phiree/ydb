@@ -104,7 +104,6 @@ namespace Dianzhu.DemoClient
                 return;
             }
             string log = msg.Body;
-            orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
             string msgType = msg.SelectSingleElement("ext").Namespace;
             switch (msgType.ToLower())
             {

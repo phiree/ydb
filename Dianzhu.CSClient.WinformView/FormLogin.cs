@@ -88,7 +88,15 @@ namespace Dianzhu.CSClient.WinformView
             if (InvokeRequired) Invoke(lambda);
             else lambda();
         }
-        public string LoginButtonText { set { btnLogin.Text = value; } }
+        public string LoginButtonText { set {
+                Action lambda = () =>
+                {
+                    btnLogin.Text = value;
+                };
+                if (InvokeRequired) Invoke(lambda);
+                else lambda();
+               }
+        }
         public bool LoginButtonEnabled
         {
             set
@@ -107,12 +115,12 @@ namespace Dianzhu.CSClient.WinformView
         {
             get
             {
-                throw new NotImplementedException();
+                return this.Text;
             }
 
             set
             {
-                throw new NotImplementedException();
+                this.Text = value;
             }
         }
 

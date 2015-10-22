@@ -59,10 +59,103 @@ namespace Dianzhu.CSClient.Presenter
             this.view.PlayAudio += View_PlayAudio;
             this.view.LocalMediaSaveDir = GlobalViables.LocalMediaSaveDir;
             this.view.CreateNewOrder += View_CreateNewOrder;
-            
+
+            this.view.NoticeCustomerService += View_NoticeCustomerService;
+            this.view.NoticeOrder += View_NoticeOrder;
+            this.view.NoticePromote += View_NoticePromote;
+            this.view.NoticeSystem += View_NoticeSystem;
+            this.view.SendRawXml += View_SendRawXml;
         }
 
-       
+        private void View_SendRawXml()
+        {
+
+            instantMessage.SendMessage(this.view.RawXml);
+        }
+
+        private void View_NoticeSystem()
+        {
+            instantMessage.SendMessage(
+
+
+              string.Format(  @"
+             <message xmlns = ""jabber:client"" type = ""headline"" 
+        id = ""{2}""
+    to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
+            <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
+            <body> system notice</body>
+            <ext xmlns = ""ihelper:notce:system"">
+            </ext>
+            </message>
+                ",CurrentServiceOrder.Customer.Id,
+                customerService.Id,
+                Guid.NewGuid())
+                );
+        }
+
+        private void View_NoticePromote()
+        {
+            instantMessage.SendMessage(
+             string.Format(@"
+             <message xmlns = ""jabber:client"" type = ""headline"" 
+        id = ""{2}""
+    to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
+            <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
+            <body>  promote</body>
+            <ext xmlns=""ihelper:notce:promote"">
+                <url>http://www.ydban.cn</url>
+            </ext>
+            </message>
+                ", CurrentServiceOrder.Customer.Id,
+               customerService.Id,Guid.NewGuid())
+               );
+        }
+
+        private void View_NoticeOrder()
+        {
+            instantMessage.SendMessage(
+              string.Format(@"
+             <message xmlns = ""jabber:client"" type = ""headline"" 
+        id = ""{2}""
+    to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
+            <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
+            <body>  订单状态变更通知</body>
+            <ext xmlns=""ihelper:notce:order"">
+                <orderID>{3}</orderID>
+                <orderObj title = ""{5}"" status = ""{4}"" type = """">
+                </orderObj>
+            </ext>
+            </message>
+                ", CurrentServiceOrder.Customer.Id,
+                customerService.Id, Guid.NewGuid(),
+                CurrentServiceOrder.Id,CurrentServiceOrder.ServiceName,CurrentServiceOrder.OrderStatus)
+                );
+        }
+
+        private void View_NoticeCustomerService()
+        {
+            instantMessage.SendMessage(
+              string.Format(@"
+             <message xmlns = ""jabber:client"" type = ""headline"" 
+        id = ""{2}""
+    to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
+            <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
+            <body>  客服通知 </body>
+             <ext xmlns=""ihelper:notce:cer:change"">
+                <orderID>{3}</orderID>
+                <cerObj UserID = ""{4}"" alias = ""{5}"" imgUrl = ""{6}"">
+                </cerObj>
+            </ext>
+            </message>
+                ", CurrentServiceOrder.Customer.Id,
+                customerService.Id,
+                Guid.NewGuid(),
+                CurrentServiceOrder.Id,
+                CurrentServiceOrder.Customer.Id,
+                CurrentServiceOrder.Customer.NickName,
+                CurrentServiceOrder.Customer.AvatarUrl)
+                );
+        }
 
         private void View_OrderStateChanged()
         {
