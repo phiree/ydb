@@ -26,7 +26,7 @@ namespace Dianzhu.CSClient.WPFView
         {
             InitializeComponent();
             btnLogin.Click += BtnLogin_Click;
-            
+           
             bgw.DoWork += Bgw_DoWork;
             
         }

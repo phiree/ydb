@@ -63,8 +63,12 @@ namespace Dianzhu.DAL
             // this NHibernate tool takes a configuration (with mapping info in)
             // and exports a database schema from it
             SchemaUpdate update = new SchemaUpdate(config);
-            update.Execute(true, true);
+           update.Execute(GetUpdateScript, true);
 
+        }
+        private static void GetUpdateScript(string ss)
+        {
+            throw new System.Exception(ss);
         }
         private ISession getExistingOrNewSession(ISessionFactory factory)
         {
