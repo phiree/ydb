@@ -123,7 +123,7 @@ namespace Dianzhu.CSClient.WinformView
             Label lblMessage = new Label();
             FlowLayoutPanel pnlOneChat = new FlowLayoutPanel();
 
-            pnlOneChat.Controls.AddRange(new Control[] {lblTime,lblMessage });
+            pnlOneChat.Controls.AddRange(new Control[] {lblFrom, lblTime,lblMessage });
             pnlOneChat.FlowDirection = FlowDirection.LeftToRight  ;
             pnlOneChat.Dock=isSender? DockStyle.Left: DockStyle.Right;
                 lblTime.BorderStyle 
@@ -274,6 +274,7 @@ namespace Dianzhu.CSClient.WinformView
                     break;
                 case em_ButtonStyle.Readed: foreColor = Color.Black; break;
                 case em_ButtonStyle.Unread: foreColor = Color.Red; break;
+                    case em_ButtonStyle.Actived:foreColor = Color.Yellow; break;
                 default: break;
             }
             btn.ForeColor = foreColor;};

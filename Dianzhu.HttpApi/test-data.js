@@ -1,7 +1,8 @@
 ﻿var need_to_test = [
- "orm002001", "orm001003", "orm001004", "orm001005", "orm001006"
+ //"orm002001", "orm001003", "orm001004", "orm001005", 
+// "orm001006"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
-//"merm001005"//,"merm001003","merm001005",
+"merm001003"//,"merm001003","merm001005",
  
 ];
 var test_data = [
@@ -39,7 +40,7 @@ var test_data = [
         "ReqData": {
             "userID": "2f3720fd-7193-484c-a3cf-a52c00a6cbf7",
             "pWord": "1234",
-            "target": "ALL",
+            "target": "Nt",
         },
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"
@@ -61,7 +62,7 @@ var test_data = [
               "ReqData": {
                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", //13022222222
                   "pWord": "123456",
-                  "target": "ALL",
+                  "target": "Nt",
                   "pageSize": "3",
                   "pageNum": "1"
               },
@@ -128,12 +129,10 @@ var test_data = [
                   {
                       "protocol_CODE": "MERM001003",
                       "ReqData": {
-                          "userID": "d9b54c42-c027-426c-81be-a51301346a9d", //phiree2@gmail.com
-                          "pWord": "121212",
-                          "alias": "1805",
-                          "email": "phirea126.com",
-                          "phone": "1999938xxxx",
-                          "password": "121212",
+                          "userID": "c0896508-e699-4bd6-8bd4-a53600f72844",
+                          "pWord": "a1124653910",
+                          "alias": "13666",
+                          
 
 
                       },

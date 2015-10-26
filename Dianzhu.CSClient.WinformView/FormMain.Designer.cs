@@ -68,6 +68,8 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.pnlResultService = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbxRawXml = new System.Windows.Forms.TextBox();
+            this.btnSendRawXml = new System.Windows.Forms.Button();
             this.btnNoticeSystem = new System.Windows.Forms.Button();
             this.btnNoticeCustomerService = new System.Windows.Forms.Button();
             this.btnNoticeOrder = new System.Windows.Forms.Button();
@@ -89,8 +91,6 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
-            this.btnSendRawXml = new System.Windows.Forms.Button();
-            this.tbxRawXml = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -539,6 +539,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "测试按钮";
             // 
+            // tbxRawXml
+            // 
+            this.tbxRawXml.Location = new System.Drawing.Point(16, 189);
+            this.tbxRawXml.Multiline = true;
+            this.tbxRawXml.Name = "tbxRawXml";
+            this.tbxRawXml.Size = new System.Drawing.Size(303, 114);
+            this.tbxRawXml.TabIndex = 20;
+            this.tbxRawXml.Visible = false;
+            // 
+            // btnSendRawXml
+            // 
+            this.btnSendRawXml.Location = new System.Drawing.Point(16, 164);
+            this.btnSendRawXml.Name = "btnSendRawXml";
+            this.btnSendRawXml.Size = new System.Drawing.Size(166, 23);
+            this.btnSendRawXml.TabIndex = 19;
+            this.btnSendRawXml.Text = "SendRawXML";
+            this.btnSendRawXml.UseVisualStyleBackColor = true;
+            this.btnSendRawXml.Visible = false;
+            this.btnSendRawXml.Click += new System.EventHandler(this.btnSendRawXml_Click);
+            // 
             // btnNoticeSystem
             // 
             this.btnNoticeSystem.Location = new System.Drawing.Point(16, 47);
@@ -742,26 +762,6 @@
             this.pnlExternService.Size = new System.Drawing.Size(333, 242);
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
-            // 
-            // btnSendRawXml
-            // 
-            this.btnSendRawXml.Location = new System.Drawing.Point(16, 164);
-            this.btnSendRawXml.Name = "btnSendRawXml";
-            this.btnSendRawXml.Size = new System.Drawing.Size(166, 23);
-            this.btnSendRawXml.TabIndex = 19;
-            this.btnSendRawXml.Text = "SendRawXML";
-            this.btnSendRawXml.UseVisualStyleBackColor = true;
-            this.btnSendRawXml.Visible = false;
-            this.btnSendRawXml.Click += new System.EventHandler(this.btnSendRawXml_Click);
-            // 
-            // tbxRawXml
-            // 
-            this.tbxRawXml.Location = new System.Drawing.Point(16, 189);
-            this.tbxRawXml.Multiline = true;
-            this.tbxRawXml.Name = "tbxRawXml";
-            this.tbxRawXml.Size = new System.Drawing.Size(303, 114);
-            this.tbxRawXml.TabIndex = 20;
-            this.tbxRawXml.Visible = false;
             // 
             // FormMain
             // 

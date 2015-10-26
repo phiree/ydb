@@ -210,7 +210,28 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Pay", "Dioanzhu.Pay
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.NotifyCenter", "Dianzhu.NotifyCenter\Dianzhu.NotifyCenter.csproj", "{1BAAD173-A641-435A-AD03-0CD0146674B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.ScreenShot", "Dianzhu.ScreenShot\Dianzhu.ScreenShot.csproj", "{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.IMServer", "Dianzhu.Web.IMServer\", "{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		ProjectReferences = "{820a465f-51fb-4f8d-8665-b80f9643281b}|Dianzhu.CSClient.IInstantMessage.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{74f0963e-57ca-4d57-899c-d85ff096fe1f}|Dianzhu.CSClient.IMessageAdapter.dll;{a871c9e1-98a4-412f-a1b3-541189a4c4cf}|Dianzhu.CSClient.MessageAdapter.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{125f0d3b-e83c-4743-9944-e82392cba6c5}|Dianzhu.CSClient.XMPP.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_58613"
+		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.IMServer\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58613\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_58613"
+		Release.AspNetCompiler.PhysicalPath = "Dianzhu.Web.IMServer\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58613\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "58613"
+		SlnRelativePath = "Dianzhu.Web.IMServer\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -521,18 +542,18 @@ Global
 		{1BAAD173-A641-435A-AD03-0CD0146674B9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1BAAD173-A641-435A-AD03-0CD0146674B9}.Release|x86.ActiveCfg = Release|Any CPU
 		{1BAAD173-A641-435A-AD03-0CD0146674B9}.Release|x86.Build.0 = Release|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Debug|x86.Build.0 = Debug|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Release|x86.ActiveCfg = Release|Any CPU
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2}.Release|x86.Build.0 = Release|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Debug|x86.Build.0 = Debug|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Release|x86.ActiveCfg = Debug|Any CPU
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -568,7 +589,7 @@ Global
 		{CD89BA9A-21E1-4BD3-A7FD-3CB8B93A91C6} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{1BAAD173-A641-435A-AD03-0CD0146674B9} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
-		{60846B1D-ED9A-44E2-A5F6-C4BAD6CE5FC2} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{4BD50AF6-114F-42E2-9A05-C14DD17E7DBE} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

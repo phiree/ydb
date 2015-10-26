@@ -32,10 +32,11 @@ namespace Dianzhu.DAL
             {
 
                 case enum_OrderSearchType.De:
-                    iqueryover = iqueryover.Where(x => x.OrderStatus == enum_OrderStatus.Ed);
+                    iqueryover = iqueryover.Where(x => x.OrderStatus == enum_OrderStatus.Finished);
                     break;
                 case enum_OrderSearchType.Nt:
-                    iqueryover = iqueryover.Where(x => x.OrderStatus != enum_OrderStatus.Ed);
+                    iqueryover = iqueryover.Where(x => x.OrderStatus != enum_OrderStatus.Finished
+                    &&x.OrderStatus!= enum_OrderStatus.Draft);
                     break;
                 default:
                 case enum_OrderSearchType.ALL:
