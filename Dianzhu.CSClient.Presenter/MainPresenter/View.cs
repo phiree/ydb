@@ -103,7 +103,7 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_BeforeCustomerChanged()
         {
-            view.SetCustomerButtonStyle(CurrentServiceOrder, em_ButtonStyle.Readed);
+           // view.SetCustomerButtonStyle(CurrentServiceOrder, em_ButtonStyle.Readed);
             SaveCurrentOrder();
         }
         //加载当前用户的订单

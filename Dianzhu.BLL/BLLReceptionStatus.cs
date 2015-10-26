@@ -88,17 +88,31 @@ namespace Dianzhu.BLL
 
         public DZMembership Assign(DZMembership customer, DZMembership excluedCS)
         {
+            
             ReceptionAssigner assigner = new ReceptionAssigner(new AssignStratageRandom()) { dalRS = dalRS, excluedCustomerService = excluedCS };
             //todo:检查数据库内是否有已经存在的分配.以防异常退出导致的残留数据
 
 
             DZMembership cs = assigner.Assign(customer);
+           
+            System.Diagnostics.Debug.Assert(cs != null, "如果没有在线客服,如何处理");
             if (cs == null)
             {
                 //没有在线客服.
+                 
             }
-            ReceptionStatus rs = new ReceptionStatus { Customer = customer, CustomerService = cs, LastUpdateTime = DateTime.Now };
-            dalRS.Save(rs);
+            ReceptionStatus exitestedAssign = dalRS.GetOneByCustomerAndCS(cs, customer);
+            if (exitestedAssign == null)
+            {
+                //将之前的分配设置为空.
+                ReceptionStatus rs = new ReceptionStatus { Customer = customer, CustomerService = cs, LastUpdateTime = DateTime.Now };
+                dalRS.Save(rs);
+            }
+            else
+            {
+                exitestedAssign.LastUpdateTime = DateTime.Now;
+                dalRS.Update(exitestedAssign);
+            }
 
             return cs;
         }
