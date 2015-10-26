@@ -131,7 +131,7 @@ namespace Dianzhu.BLL
                         allOnlineCs.Where(x => x.CustomerService.Id != excluedCustomerService.Id);
                     }
 
-                    customerServiceList = allOnlineCs.Select(x => x.CustomerService).ToArray();
+                    customerServiceList = allOnlineCs.Select(x=>x.CustomerService).Distinct().ToArray();
                 }
                 return customerServiceList;
             }
@@ -163,7 +163,7 @@ namespace Dianzhu.BLL
     /// </summary>
     public class AssignStratageRandom : IAssignStratage
     {
-
+        static Random r = new Random();
         public DZMembership Assign(DZMembership customer, IList<DZMembership> csList)
         {
             if (csList.Count == 0)
@@ -171,8 +171,9 @@ namespace Dianzhu.BLL
                 //r如果没有在线客服 怎么处理
                 throw new Exception("客服离线");
             }
-            Random r = new Random();
-            int i = r.Next(csList.Count);
+            int totalCS = csList.Count;
+           
+            int i = r.Next(totalCS);
             return csList[i];
 
         }
