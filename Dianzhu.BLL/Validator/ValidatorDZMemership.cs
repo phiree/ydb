@@ -29,6 +29,7 @@ namespace Dianzhu.BLL.Validator
         protected override bool IsValid(PropertyValidatorContext context)
         {
             object value = context.PropertyValue;
+            if (value == null) return true;
             string pattern = @"^((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})))$";
             bool isMatch = Regex.IsMatch(value.ToString(),pattern);
             return isMatch;
