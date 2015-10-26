@@ -40,7 +40,7 @@ public class RespDataORM_Order
         this.startTime = order.Service != null ? order.Service.ServiceTimeBegin : string.Empty;
         this.endTime = order.Service !=null?order.Service.ServiceTimeEnd : string.Empty;
         ///这个是服务单价
-        this.money = order.OrderAmount.ToString("0.0");
+        this.money = order.OrderAmount.ToString("0.00");
         this.status = order.OrderStatus.ToString();
         this.address = order.TargetAddress ?? string.Empty;
         this.exDoc = order.ServiceDescription ?? string.Empty;
