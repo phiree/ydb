@@ -18,12 +18,12 @@
  * $("input-file-btn").imgLocalPrev();
  */
 
-$.fn.imgLocalPrev = function(){
-
-    return this.each(function(options){
-
-        var opts = $.extend({}, $.fn.imgLocalPrev.defaults, options);
-
+$.fn.imgLocalPrev = function(options){
+    var defaults = {
+        previewImg : "input-file-pre"
+    };
+    return this.each(function(){
+        var opts = $.extend({}, defaults, options);
         var _this = this;
         var $this = $(this);
 
@@ -47,12 +47,7 @@ $.fn.imgLocalPrev = function(){
                 }
                 document.selection.empty();
             }
-        })
+        });
     });
 
-
-}
-
-$.fn.imgLocalPrev.defaults = {
-    previewImg : "input-file-pre"
 }

@@ -29,16 +29,16 @@ function initialize(){
 
                     $('#hiAddrId').attr("value",JSON.stringify(result.addressComponents));
 
-                })
+                });
             } else {
                 myCity.get(function(result){
                     geoc.getLocation(result.center,function(result){
                         $('#hiAddrId').attr("value",JSON.stringify(result.addressComponents));
-                    })
+                    });
                 });
                 //confirm("请输入详细有效的地址");
             }
-        })
+        });
     }
 
 };
