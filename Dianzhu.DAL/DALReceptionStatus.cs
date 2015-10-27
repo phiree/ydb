@@ -31,8 +31,16 @@ namespace Dianzhu.DAL
          }
         public ReceptionStatus GetOneByCustomerAndCS(DZMembership customerService, DZMembership customer)
         {
-          var result=  Session.QueryOver<ReceptionStatus>().Where(x => x.Customer == customer)
-                .And(x => x.CustomerService == customerService).SingleOrDefault();
+
+            ReceptionStatus result = null;
+            var resultList = Session.QueryOver<ReceptionStatus>().Where(x => x.Customer == customer)
+                .And(x => x.CustomerService == customerService).List();
+            if (resultList.Count >= 1)
+            {
+                result = resultList[0];
+            }
+            else
+            { result = null; }
             return result;
         }
    

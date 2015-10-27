@@ -26,6 +26,10 @@ namespace Dianzhu.CSClient.Presenter
         {
             //2 保存数据库
             SaveMessage(chat, false);
+            if (chat.ChatType == Model.Enums.enum_ChatType.Notice)
+            {
+                return;
+            }
             Debug.Assert(chat.ServiceOrder != null,"Order shouldnot be null");
             //判断订单列表是否已经存在
             bool isIn = OrderList.Contains(chat.ServiceOrder);

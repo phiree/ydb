@@ -164,6 +164,10 @@ namespace Dianzhu.DemoClient
             GlobalViables.XMPPConnection.Open(customerId, tbxPwd.Text);
 
         }
+        /// <summary>
+        /// 增加一条聊天记录
+        /// </summary>
+        /// <param name="message"></param>
         void AddLog(agsc.Message message)
         {
             string user = StringHelper.EnsureNormalUserName(message.From.User);

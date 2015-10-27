@@ -8,16 +8,18 @@ using Dianzhu.BLL;
 using agsXMPP.protocol.client;
 namespace Dianzhu.CSClient.MessageAdapter
 {
-    
+
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
         static DZMembershipProvider bllMember;
-        DZMembershipProvider BllMember {
-            get {
+        DZMembershipProvider BllMember
+        {
+            get
+            {
                 if (bllMember == null) bllMember = new DZMembershipProvider();
                 return bllMember;
             }
-             
+
         }
         static BLLDZService bllDZService;
         BLLDZService BllDZService
@@ -39,23 +41,30 @@ namespace Dianzhu.CSClient.MessageAdapter
             }
 
         }
-       
-        
-        string IMServer;//服务器地址
+
+
+
         log4net.ILog ilog = log4net.LogManager.GetLogger("xmpp");
         public MessageAdapter()
         {
             //注入类的初始化需要在 调用者,影响调用者的初始化速度.这里不用注入依赖.
-            //这样处理也不行, 需要将对象初始化过程 下方到 调用之处.
-           
-            
+            //这样处理也不行, 需要将对象初始化过程 下放到 调用之处.
+
+
         }
-        
-          public Model.ReceptionChat MessageToChat( Message message)
+        /// <summary>
+        /// 将im的 message为 系统设计的格式(chat)
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public Model.ReceptionChat MessageToChat(Message message)
         {
-            ilog.Debug("receive___"+message.ToString());
+            ilog.Debug("receive___" + message.ToString());
+            //chat or headline
+            string messageType = message.GetAttribute("type");
+            bool isNotice = messageType == "headline";
+
             var ext_element = message.SelectSingleElement("ext", true);
-            var orderID = ext_element.SelectSingleElement("orderID").Value;
             var extNamespace = ext_element.Namespace;
             enum_ChatType chatType;
             switch (extNamespace.ToLower())
@@ -66,60 +75,54 @@ namespace Dianzhu.CSClient.MessageAdapter
                 case "ihelper:chat:media":
                     chatType = enum_ChatType.Media;
                     break;
-                case "ihelper:cer:notce":
+                case "ihelper:notce:system":
+                     
+                case "ihelper:notce:order":
+                     
+                case "ihelper:notce:promote":
+                     
+                case "ihelper:notce:cer:change":
                     chatType = enum_ChatType.Notice;
                     break;
                 default:
                     throw new Exception("未知的命名空间");
 
             }
-           var chatFrom = BllMember.GetUserById(new Guid(message.From.User));
-           var  chatTo = BllMember.GetUserById(new Guid(message.To.User));
             ReceptionChat chat = ReceptionChat.Create(chatType);
+            var chatFrom = BllMember.GetUserById(new Guid(message.From.User));
+            if (!isNotice) { 
+            var chatTo = BllMember.GetUserById(new Guid(message.To.User));
+            chat.To = chatTo;
+            }
             Guid messageId;
             if (Guid.TryParse(message.Id, out messageId))
             {
                 chat.Id = messageId;
             }
             chat.From = chatFrom;
-            chat.To = chatTo;
-               //这个逻辑放在orm002001接口里面处理.
-               Guid order_ID;
-            bool isValidGuid = Guid.TryParse(orderID, out order_ID);
-            bool hasOrder = false;
-            if (isValidGuid)
-            {
-                var existedServiceOrder = BLLOrder.GetOne(order_ID);
-                if (existedServiceOrder != null)
-                {
+           
+            //这个逻辑放在orm002001接口里面处理.
 
-                
-                    chat.ServiceOrder = existedServiceOrder;
-                    hasOrder = true;
+            //如果是
+            if (!isNotice)
+            {
+                Guid order_ID;
+                var orderID = ext_element.SelectSingleElement("orderID").Value;
+
+                bool isValidGuid = Guid.TryParse(orderID, out order_ID);
+
+                if (isValidGuid)
+                {
+                    var existedServiceOrder = BLLOrder.GetOne(order_ID);
+                    if (existedServiceOrder != null)
+                    {
+                        chat.ServiceOrder = existedServiceOrder;
+
+                    }
                 }
             }
-            
-            if (!hasOrder)
-            {
-               
-           
-                /* string serviceName,string serviceBusinessName,string serviceDescription,decimal serviceUnitPrice,string serviceUrl,
-           DZMembership member,
-           string targetAddress, int unitAmount, decimal orderAmount*/
-                ServiceOrder newOrder =ServiceOrder.Create(
-                     enum_ServiceScopeType.OSIM
-                   ,string.Empty //serviceName
-                   , string.Empty//serviceBusinessName
-                   , string.Empty//serviceDescription
-                   , 0//serviceUnitPrice
-                   , string.Empty//serviceUrl
-                   , chat.From //member
-                   , string.Empty
-                   , 0
-                   ,0);
-                BLLOrder.SaveOrUpdate(newOrder);
-                chat.ServiceOrder = newOrder;
-            }
+
+
             chat.MessageBody = message.Body;
             chat.SavedTime = DateTime.Now;
             if (chatType == enum_ChatType.Media)
@@ -138,14 +141,14 @@ namespace Dianzhu.CSClient.MessageAdapter
         /// </summary>
         /// <param name="chat"></param>
         /// <returns></returns>
-        public  Message ChatToMessage(Model.ReceptionChat chat,string server)
+        public Message ChatToMessage(Model.ReceptionChat chat, string server)
         {
-            
+
             Message msg = new Message();
-            
+
             msg.SetAttribute("type", "chat");
             msg.Id = chat.Id.ToString();
-            msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
+            //     msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
             msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server);
             msg.Body = chat.MessageBody;
 
@@ -153,9 +156,9 @@ namespace Dianzhu.CSClient.MessageAdapter
             msg.AddChild(nodeActive);
 
             var extNode = new agsXMPP.Xml.Dom.Element("ext");
-            var extOrderID = new agsXMPP.Xml.Dom.Element("orderID",chat.ServiceOrder==null?string.Empty:chat.ServiceOrder.Id.ToString());
+            var extOrderID = new agsXMPP.Xml.Dom.Element("orderID", chat.ServiceOrder == null ? string.Empty : chat.ServiceOrder.Id.ToString());
             extNode.AddChild(extOrderID);
-            msg.AddChild(extNode); 
+            msg.AddChild(extNode);
 
             switch (chat.ChatType)
             {
@@ -184,7 +187,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     break;
                 case enum_ChatType.Notice:
                     extNode.Namespace = "ihelper:cer:notce";
-                    var UserObj= new agsXMPP.Xml.Dom.Element("UserObj");
+                    var UserObj = new agsXMPP.Xml.Dom.Element("UserObj");
 
                     UserObj.SetAttribute("UserID", ((ReceptionChatNotice)chat).UserObj.Id.ToString());
                     UserObj.SetAttribute("alias", ((ReceptionChatNotice)chat).UserObj.DisplayName);
@@ -195,7 +198,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             }
             ilog.Debug("send___" + msg.ToString());
             return msg;
-          
+
 
 
         }
@@ -236,7 +239,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     EnsureServiceAttribute(msg, sb);
 
                     break;
-               
+
                 default: break;
             }
 
@@ -244,9 +247,9 @@ namespace Dianzhu.CSClient.MessageAdapter
             return hasAttributes;
         }
 
-        private bool EnsureServiceAttribute(Message msg,StringBuilder sb)
+        private bool EnsureServiceAttribute(Message msg, StringBuilder sb)
         {
-            bool hasAttributes=true;
+            bool hasAttributes = true;
             if (!msg.HasAttribute("ServiceId"))
             {
                 hasAttributes = false;

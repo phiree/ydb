@@ -17,7 +17,8 @@ namespace Dianzhu.CSClient.IInstantMessage
 
     public interface InstantMessage
     {
-  
+
+        string Server { get; }
         void OpenConnection(string userName, string password);
         void SendPresent();
 

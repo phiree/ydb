@@ -24,20 +24,25 @@ namespace Dianzhu.CSClient
         [STAThread]
         static void Main()
         {
-            
+            //systemconfig
             AppDomain cDomain = AppDomain.CurrentDomain;
-          
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //log
             log4net.Config.XmlConfigurator.Configure();
             log.Debug("Start");
-            BLLPool BLLPool = new BLLPool();
-            bool? result;
+            
+            //prepare parameters for IM instance's constructor
+            //init messageadapter
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
                  );
+            //get im server config
+            string server = System.Configuration.ConfigurationManager.AppSettings["server"];
 
-            XMPP.XMPP xmpp = new XMPP.XMPP(messageAdapter);
+
+            XMPP.XMPP xmpp = new XMPP.XMPP(server,messageAdapter,"YDB_CSTool");
 
 
             var loginForm = new WPF.FormLogin();
@@ -45,12 +50,12 @@ namespace Dianzhu.CSClient
             loginForm.FormText += "v" + version;
             Presenter.LoginPresenter loginPresenter =
             new Presenter.LoginPresenter(loginForm, xmpp);
-            result = loginForm.ShowDialog();
+            bool? result = loginForm.ShowDialog();
 
             if (result.Value)// == DialogResult.OK)
             {
                 var mainForm = new WinformView.FormMain();
-
+  
                 mainForm.Text += "v" + version;
                 Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
                     mainForm, xmpp, messageAdapter

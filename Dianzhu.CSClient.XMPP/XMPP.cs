@@ -10,7 +10,7 @@ namespace Dianzhu.CSClient.XMPP
     public class XMPP : IInstantMessage.InstantMessage
     {
         log4net.ILog log = log4net.LogManager.GetLogger("xmpp");
-          static readonly string Server = System.Configuration.ConfigurationManager.AppSettings["server"];
+         // static readonly string Server = System.Configuration.ConfigurationManager.AppSettings["server"];
           static readonly string Domain = System.Configuration.ConfigurationManager.AppSettings["domain"];
          static agsXMPP.XmppClientConnection XmppClientConnection;
 
@@ -24,13 +24,21 @@ namespace Dianzhu.CSClient.XMPP
         public event IMConnectionError IMConnectionError;
         public event IMIQ IMIQ;
         IMessageAdapter.IAdapter messageAdapter;
-        public XMPP(IMessageAdapter.IAdapter messageAdapter)
+        private string server = string.Empty;
+        public string Server {
+            get { return server; }
+        }
+        public XMPP(string server, IMessageAdapter.IAdapter messageAdapter, string resourceName):this(server,messageAdapter)
         {
+            XmppClientConnection.Resource = resourceName;
+        }
+        public XMPP(string server,IMessageAdapter.IAdapter messageAdapter)
+        {
+            this.server = server;
             this.messageAdapter = messageAdapter;
             if (XmppClientConnection == null)
             {
-                XmppClientConnection = new agsXMPP.XmppClientConnection(Server);
-                
+                XmppClientConnection = new agsXMPP.XmppClientConnection(server);
                 XmppClientConnection.AutoResolveConnectServer = false;
                 XmppClientConnection.OnLogin += new agsXMPP.ObjectHandler(Connection_OnLogin);
                 XmppClientConnection.OnPresence += new PresenceHandler(Connection_OnPresence);
@@ -44,7 +52,6 @@ namespace Dianzhu.CSClient.XMPP
                 
             }
         }
-
         private void XmppClientConnection_OnIq(object sender, IQ iq)
         {
             log.Debug("receive_iq:" + iq.ToString());
@@ -56,7 +63,6 @@ namespace Dianzhu.CSClient.XMPP
                 log.Debug("send_iq:" + pong);
             }
         }
-
         void XmppClientConnection_OnSocketError(object sender, Exception ex)
         {
             if (IMConnectionError == null) return;
@@ -67,13 +73,11 @@ namespace Dianzhu.CSClient.XMPP
             if (IMError == null) return;
             IMError(ex.Message);
         }
-
         void XmppClientConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
             if (IMAuthError == null) return;
             IMAuthError();
         }
-
         void XmppClientConnection_OnMessage(object sender, Message msg)
         {
             //接受消息,由presenter构建chat
@@ -86,7 +90,6 @@ namespace Dianzhu.CSClient.XMPP
                 IMReceivedMessage(chat);
             }
         }
-
         void Connection_OnPresence(object sender, Presence pres)
         {
             if (IMPresent != null)
@@ -94,7 +97,6 @@ namespace Dianzhu.CSClient.XMPP
                 IMPresent(pres.From.User, (int)pres.Type);
             }
         }
-
         void Connection_OnLogin(object sender)
         {
             if (IMLogined == null) return;
@@ -106,28 +108,25 @@ namespace Dianzhu.CSClient.XMPP
             tmHeartBeat.Interval = 5*60* 1000;
             tmHeartBeat.Start();
         }
-
         private void TmHeartBeat_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            IQ iqHeartBeat = new IQ(IqType.get,XmppClientConnection.MyJID,Domain);
+            IQ iqHeartBeat = new IQ(IqType.get,XmppClientConnection.MyJID,server);
             var pingNode = new agsXMPP.Xml.Dom.Element("ping");
             pingNode.Namespace = "urn:xmpp:ping";
             iqHeartBeat.AddChild(pingNode);
 
             XmppClientConnection.Send(iqHeartBeat);
         }
-
         public void SendPresent()
         {
             Presence p = new Presence(ShowType.chat, "Online");
             p.Type = PresenceType.available;
             XmppClientConnection.Send(p);
         }
-
         public void SendMessage(Model.ReceptionChat chat)
         {
             //chat-->message
-            Message msg = messageAdapter.ChatToMessage(chat,Server);
+            Message msg = messageAdapter.ChatToMessage(chat,server);
             XmppClientConnection.Send(msg);
            
         }
@@ -139,22 +138,15 @@ namespace Dianzhu.CSClient.XMPP
         {
             XmppClientConnection.Close();
         }
-
-
-
         public void OpenConnection(string userName, string password)
         {
             XmppClientConnection.Open( userName , password);
         }
-
-
-
-
-
         public void XmppClientConnection_OnClose(object sender)
         {if (IMClosed == null) return;
             IMClosed();
         }
+
         
     }
 }
