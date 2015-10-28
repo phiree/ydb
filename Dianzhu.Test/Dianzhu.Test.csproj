@@ -172,9 +172,9 @@
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.NotifyCenter\Dianzhu.NotifyCenter.csproj">
+    <ProjectReference Include="..\Dianzhu.Notify\Dianzhu.Notify.csproj">
       <Project>{1baad173-a641-435a-ad03-0cd0146674b9}</Project>
-      <Name>Dianzhu.NotifyCenter</Name>
+      <Name>Dianzhu.Notify</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>

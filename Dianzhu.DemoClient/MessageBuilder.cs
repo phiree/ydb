@@ -37,5 +37,27 @@ namespace Dianzhu.DemoClient
             msg.SelectSingleElement("ext").Namespace = "ihelper:chat:media";
             return msg;
         }
+
+        public IQ BuildIq()
+        {
+            /*<iq from='bard@shakespeare.lit/globe'
+  id='get-online-users-list-1'
+  to='shakespeare.lit'
+  type='set'
+  xml:lang='en'>
+<command xmlns='http://jabber.org/protocol/commands' 
+         action='execute'
+         node='http://jabber.org/protocol/admin#get-online-users-list'/>
+</iq>*/
+
+            IQ iq = new IQ(IqType.set);
+            iq.From = GlobalViables.XMPPConnection.Username + "@" + GlobalViables.ServerName;
+            iq.To = GlobalViables.ServerName;
+            var nodeCommand = new agsXMPP.Xml.Dom.Element("command", string.Empty, "http://jabber.org/protocol/commands");
+            nodeCommand.SetAttribute("action", "execute");
+            nodeCommand.SetAttribute("node", "http://jabber.org/protocol/admin#get-online-users-list");
+            iq.AddChild(nodeCommand);
+            return iq;
+        }
     }
 }

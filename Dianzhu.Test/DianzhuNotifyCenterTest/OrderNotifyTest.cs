@@ -24,7 +24,7 @@ namespace Dianzhu.Test.DianzhuNotifyCenterTest
             {
 
                 MessageAdapter adapter = new MessageAdapter();
-                imInstance = new XMPP(adapter);
+                imInstance = new XMPP("",adapter);
                 imInstance.OpenConnection("4f088d5c-be94-43bc-9644-a4d1008be129", "123456");
                 imInstance.IMLogined += ImInstance_IMLogined;
             }
@@ -48,7 +48,7 @@ namespace Dianzhu.Test.DianzhuNotifyCenterTest
                 System.Threading.Thread.Sleep(3000);
 
             }
-            NotifyCenter.IMNotify on = new NotifyCenter.IMNotify(imInstance);
+            Dianzhu.NotifyCenter.IMNotify on = new NotifyCenter.IMNotify(imInstance);
             ServiceOrder order = Builder<ServiceOrder>.CreateNew()
                 .With(x=>x.Customer=Builder<DZMembership>.CreateNew().With(y=>y.Id=new Guid("1cd5ac25-fcc6-432d-bba0-a4f90129edcf")).Build())
                 .With(x => x.CustomerService = Builder<DZMembership>.CreateNew().With(z => z.Id = new Guid("d53147d9-1a1e-4df8-b4d0-a4f90129ad25")).Build())

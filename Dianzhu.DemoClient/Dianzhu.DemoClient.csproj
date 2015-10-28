@@ -114,6 +114,12 @@
     <Compile Include="FmMain.Designer.cs">
       <DependentUpon>FmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FmOnlineUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FmOnlineUsers.Designer.cs">
+      <DependentUpon>FmOnlineUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +140,9 @@
     <EmbeddedResource Include="FmMain.resx">
       <DependentUpon>FmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FmOnlineUsers.resx">
+      <DependentUpon>FmOnlineUsers.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -148,6 +157,9 @@
       <DependentUpon>ShowFullImage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <Content Include="appSettings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Dianzhu.DemoClient_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

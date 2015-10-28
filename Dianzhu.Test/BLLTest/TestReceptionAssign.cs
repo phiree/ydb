@@ -58,6 +58,18 @@ namespace Dianzhu.Test.BLLTest
             //客服登录.增加一条上线信息, 等待分配.
             //new BLLReceptionAssign().add(csname, null);
         }
-        
+
+        [Test]
+        public void GetOnlineSessionUserTest()
+        {
+            var stratageMock = MockRepository.GenerateStub<IAssignStratage>();
+
+            ReceptionAssigner assigner = new ReceptionAssigner(stratageMock);
+         IList<OnlineUserSession> sessions=   assigner.GetOnlineSessionUser();
+            foreach (OnlineUserSession s in sessions)
+            {
+                Console.WriteLine(s.username);
+            }
+        }
     }
 }

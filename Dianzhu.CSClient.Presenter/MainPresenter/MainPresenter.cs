@@ -32,7 +32,7 @@ namespace Dianzhu.CSClient.Presenter
             this.bllReception = new BLLReception(); //bllReception;
             this.bllService = new BLLDZService();// bllService;
             this.bllReceptionStatus = new BLLReceptionStatus();// bllReceptionStatus;
-
+           
             this.bllOrder = new BLLServiceOrder();// bllOrder;
 
             //  IM的委托
@@ -202,16 +202,17 @@ namespace Dianzhu.CSClient.Presenter
 
         void view_ViewClosed()
         {
-            IList<ReceptionStatus> reassignList = bllReceptionStatus.CustomerServiceLogout(customerService);
+            ReceptionAssigner assigner = new ReceptionAssigner(new AssignStratageRandom());
+            Dictionary<DZMembership,DZMembership> reassignList = assigner.AssignCSLogoff(customerService);
             //将新分配的客服发送给客户端.
-            foreach (ReceptionStatus rs in reassignList)
+            foreach (KeyValuePair<DZMembership,DZMembership> rs in reassignList)
             {
                 ReceptionChat rc = new ReceptionChatReAssign
                 {
                     From = customerService,
                     ChatType = Model.Enums.enum_ChatType.ReAssign,
-                    ReAssignedCustomerService = rs.CustomerService,
-                    To = rs.Customer,
+                    ReAssignedCustomerService = rs.Value,
+                    To = rs.Key,
                     SendTime = DateTime.Now
                 };
                 SendMessage(rc);

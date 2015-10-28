@@ -92,7 +92,7 @@ namespace Dianzhu.CSClient.Presenter
            GlobalViables.CurrentCustomerService = customerService;
            loginView.IsLoginSuccess = true;
            
-            BLLReceptionStatus.CustomerServiceLogin(customerService);
+           
        }
 
        void loginView_Logined(object sender, EventArgs e)

@@ -37,6 +37,12 @@ namespace Dianzhu.DemoClient
             GlobalViables.XMPPConnection.OnError += new ErrorHandler(XMPPConnection_OnError);
             GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
             GlobalViables.XMPPConnection.OnSocketError += new ErrorHandler(XMPPConnection_OnSocketError);
+            GlobalViables.XMPPConnection.OnIq += XMPPConnection_OnIq;
+        }
+
+        private void XMPPConnection_OnIq(object sender, IQ iq)
+        {
+            MessageBox.Show(iq.ToString());
         }
 
         void XMPPConnection_OnSocketError(object sender, Exception ex)
@@ -374,6 +380,12 @@ namespace Dianzhu.DemoClient
                 AddLog(msgnew);
             }
 
+        }
+
+        private void btnOnlineUsers_Click(object sender, EventArgs e)
+        {
+            IQ iq = new MessageBuilder().BuildIq();
+            GlobalViables.XMPPConnection.Send(iq);
         }
     }
 }

@@ -34,14 +34,22 @@ public class ResponseORM002001 : BaseResponse
             }
             try
             {
-    
+
                 RespDataORM002001 respData = new RespDataORM002001();
 
-                DZMembership assignedCustomerService = BLLReceptionStatus.Assign(member,null);
-                if (assignedCustomerService == null)
+                Dictionary<DZMembership, DZMembership> assignedPair =
+                    new ReceptionAssigner(new AssignStratageRandom())
+                    .AssignCustomerLogin(member);
+                if (assignedPair.Count == 0)
                 {
                     this.state_CODE = Dicts.StateCode[4];
                     this.err_Msg = "没有在线客服";
+                    return;
+                }
+                if (assignedPair.Count > 1)
+                {
+                    this.state_CODE = Dicts.StateCode[4];
+                    this.err_Msg = "返回了多个客服";
                     return;
                 }
 
@@ -49,21 +57,29 @@ public class ResponseORM002001 : BaseResponse
                 Guid order_ID;
                 bool isValidGuid = Guid.TryParse(reqOrderId, out order_ID);
                 bool hasOrder = false;
-                ServiceOrder orderToReturn=null;
+                bool needNewOrder = false;
+                ServiceOrder orderToReturn = null;
                 if (isValidGuid)
                 {
                     orderToReturn = bllOrder.GetOne(order_ID);
                     if (orderToReturn != null)
                     {
-                        if (orderToReturn.Customer.Id== member.Id)
+                        if (orderToReturn.Customer.Id == member.Id)
                         {
                             hasOrder = true;
                         }
-                         
+                        int orderTimeout = Convert.ToInt32(
+                            System.Configuration.ConfigurationManager.AppSettings.Get("OrderTimeout"));
+                        if ((DateTime.Now - orderToReturn.OrderCreated) > new TimeSpan(0, orderTimeout, 0))
+                        {
+                            needNewOrder = true;
+                            this.err_Msg = "原订单已过期,已生成新订单";
+                        }
+
                     }
                 }
 
-                if (!hasOrder)
+                if (!hasOrder||needNewOrder)
                 {
 
 
@@ -81,12 +97,12 @@ public class ResponseORM002001 : BaseResponse
                        , string.Empty
                        , 0
                        , 0);
-                    orderToReturn.CustomerService = assignedCustomerService;
+                    orderToReturn.CustomerService = assignedPair[member];
                     bllOrder.SaveOrUpdate(orderToReturn);
                 }
                 respData.orderID = orderToReturn.Id.ToString();
 
-                RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(assignedCustomerService);
+                RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(assignedPair[member]);
                 respData.cerObj = cerObj;
                 this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];

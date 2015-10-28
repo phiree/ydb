@@ -48,6 +48,7 @@
             this.tbxOrderId = new System.Windows.Forms.TextBox();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnOnlineUsers = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -99,6 +100,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnOnlineUsers);
             this.panel1.Controls.Add(this.lblAssignedCS);
             this.panel1.Controls.Add(this.lblLoginStatus);
             this.panel1.Controls.Add(this.label3);
@@ -248,6 +250,16 @@
             this.pnlChat.TabIndex = 8;
             this.pnlChat.WrapContents = false;
             // 
+            // btnOnlineUsers
+            // 
+            this.btnOnlineUsers.Location = new System.Drawing.Point(605, 9);
+            this.btnOnlineUsers.Name = "btnOnlineUsers";
+            this.btnOnlineUsers.Size = new System.Drawing.Size(75, 23);
+            this.btnOnlineUsers.TabIndex = 8;
+            this.btnOnlineUsers.Text = "在线用户";
+            this.btnOnlineUsers.UseVisualStyleBackColor = true;
+            this.btnOnlineUsers.Click += new System.EventHandler(this.btnOnlineUsers_Click);
+            // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -291,5 +303,6 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbxOrderId;
+        private System.Windows.Forms.Button btnOnlineUsers;
     }
 }
