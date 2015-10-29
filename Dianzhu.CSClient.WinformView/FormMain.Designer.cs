@@ -68,8 +68,6 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.pnlResultService = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tbxRawXml = new System.Windows.Forms.TextBox();
-            this.btnSendRawXml = new System.Windows.Forms.Button();
             this.btnNoticeSystem = new System.Windows.Forms.Button();
             this.btnNoticeCustomerService = new System.Windows.Forms.Button();
             this.btnNoticeOrder = new System.Windows.Forms.Button();
@@ -91,6 +89,8 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
+            this.label16 = new System.Windows.Forms.Label();
+            this.pnlNotice = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -516,6 +516,8 @@
             // 
             this.pnlResultService.AutoScroll = true;
             this.pnlResultService.Controls.Add(this.groupBox1);
+            this.pnlResultService.Controls.Add(this.label16);
+            this.pnlResultService.Controls.Add(this.pnlNotice);
             this.pnlResultService.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlResultService.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlResultService.Location = new System.Drawing.Point(0, 104);
@@ -526,38 +528,16 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.tbxRawXml);
-            this.groupBox1.Controls.Add(this.btnSendRawXml);
             this.groupBox1.Controls.Add(this.btnNoticeSystem);
             this.groupBox1.Controls.Add(this.btnNoticeCustomerService);
             this.groupBox1.Controls.Add(this.btnNoticeOrder);
             this.groupBox1.Controls.Add(this.btnNoticePromote);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(366, 342);
+            this.groupBox1.Size = new System.Drawing.Size(366, 172);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "测试按钮";
-            // 
-            // tbxRawXml
-            // 
-            this.tbxRawXml.Location = new System.Drawing.Point(16, 189);
-            this.tbxRawXml.Multiline = true;
-            this.tbxRawXml.Name = "tbxRawXml";
-            this.tbxRawXml.Size = new System.Drawing.Size(303, 114);
-            this.tbxRawXml.TabIndex = 20;
-            this.tbxRawXml.Visible = false;
-            // 
-            // btnSendRawXml
-            // 
-            this.btnSendRawXml.Location = new System.Drawing.Point(16, 164);
-            this.btnSendRawXml.Name = "btnSendRawXml";
-            this.btnSendRawXml.Size = new System.Drawing.Size(166, 23);
-            this.btnSendRawXml.TabIndex = 19;
-            this.btnSendRawXml.Text = "SendRawXML";
-            this.btnSendRawXml.UseVisualStyleBackColor = true;
-            this.btnSendRawXml.Visible = false;
-            this.btnSendRawXml.Click += new System.EventHandler(this.btnSendRawXml_Click);
             // 
             // btnNoticeSystem
             // 
@@ -763,6 +743,25 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(3, 178);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(53, 12);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "系统通知";
+            // 
+            // pnlNotice
+            // 
+            this.pnlNotice.AutoScroll = true;
+            this.pnlNotice.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.pnlNotice.Location = new System.Drawing.Point(3, 193);
+            this.pnlNotice.Name = "pnlNotice";
+            this.pnlNotice.Size = new System.Drawing.Size(366, 185);
+            this.pnlNotice.TabIndex = 23;
+            this.pnlNotice.WrapContents = false;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -794,8 +793,8 @@
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.pnlResultService.ResumeLayout(false);
+            this.pnlResultService.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.pnlExternService.ResumeLayout(false);
@@ -867,7 +866,7 @@
         private System.Windows.Forms.Button btnNoticeCustomerService;
         private System.Windows.Forms.Button btnNoticeOrder;
         private System.Windows.Forms.Button btnNoticePromote;
-        private System.Windows.Forms.TextBox tbxRawXml;
-        private System.Windows.Forms.Button btnSendRawXml;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.FlowLayoutPanel pnlNotice;
     }
 }

@@ -42,8 +42,15 @@ public partial class return_url : System.Web.UI.Page
         {
             Response.Write("fail");
         }
-        OrderNotify o = new OrderNotify((Dianzhu.CSClient.IInstantMessage.InstantMessage)Application["IM"]);
-        o.SendOrderChangedNotify(order);
+        // send notification by create a httprequest to dianzhu.web.notify
+        System.Net.WebClient wc = new System.Net.WebClient();
+        Uri uri = new Uri("http://localhost:8039/IMServerAPI.ashx?type=ordernotice&orderId="+order.Id);
+         
+        System.IO.Stream returnData = wc.OpenRead(uri);
+        System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
+        string result = reader.ReadToEnd();
+
+
         SortedDictionary<string, string> sPara = GetRequestGet();
 
 

@@ -46,7 +46,7 @@ namespace Dianzhu.CSClient.WinformView
         public event NoticeOrder NoticeOrder;
         public event NoticePromote NoticePromote;
         public event NoticeCustomerService NoticeCustomerService;
-        public event SendRawXml SendRawXml;
+        
         
 
         #endregion
@@ -60,6 +60,20 @@ namespace Dianzhu.CSClient.WinformView
         public string CurrentCustomerName {
             get { return currentCustomerName; }
             set { currentCustomerName = value; }
+        }
+        public void ShowNotice(string notice)
+        {
+            Action lambda = () =>
+            {
+                Label lbl = new Label { Text = DateTime.Now + "  " + notice };
+                lbl.AutoSize = true;
+                pnlNotice.Controls.Add(lbl);
+            };
+            if (InvokeRequired)
+            {
+                Invoke(lambda);
+            }
+            else { lambda(); }
         }
         private string localMediaSaveDir;
         IList<ReceptionChat> chatLog;
@@ -674,13 +688,7 @@ namespace Dianzhu.CSClient.WinformView
         {
             NoticeCustomerService();
         }
-        public string RawXml {
-            get { return tbxRawXml.Text; }
-            set { tbxRawXml.Text = value;}
-        }
-        private void btnSendRawXml_Click(object sender, EventArgs e)
-        {
-            SendRawXml();
-        }
+        
+        
     }
 }

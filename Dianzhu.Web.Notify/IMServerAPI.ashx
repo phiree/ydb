@@ -2,9 +2,11 @@
 
 using System;
 using System.Web;
-
+using Dianzhu.BLL;
+using Dianzhu.Model;
 public class IMServerAPI : IHttpHandler {
 
+    log4net.ILog log = log4net.LogManager.GetLogger("debug");
     public void ProcessRequest (HttpContext context) {
         string type = context.Request["type"];
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
@@ -15,6 +17,22 @@ public class IMServerAPI : IHttpHandler {
             case "systemnotice":
                 string sysMsg = context.Request["body"];
                 imNotify.SendSysNoitification(sysMsg);
+                break;
+            case "ordernotice":
+                string strOrderId = context.Request["orderId"];
+
+                Guid orderId;
+                bool isGuid = Guid.TryParse(strOrderId, out orderId);
+                if (isGuid)
+                {
+                    BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
+                    ServiceOrder order = bllOrder.GetOne(orderId);
+                    imNotify.SendOrderChangedNotify(order);
+                }
+                else
+                {
+                    log.Error("传入的orderid无效:'"+strOrderId+"'");
+                }
                 break;
         }
 

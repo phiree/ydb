@@ -64,14 +64,10 @@ namespace Dianzhu.CSClient.Presenter
             this.view.NoticeOrder += View_NoticeOrder;
             this.view.NoticePromote += View_NoticePromote;
             this.view.NoticeSystem += View_NoticeSystem;
-            this.view.SendRawXml += View_SendRawXml;
+            
         }
 
-        private void View_SendRawXml()
-        {
-
-            instantMessage.SendMessage(this.view.RawXml);
-        }
+        
 
         private void View_NoticeSystem()
         {

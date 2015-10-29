@@ -79,8 +79,7 @@ namespace Dianzhu.BLL
              
         }
         
-        public string OpenfireRestAPISecredkey { get; set; }
-        public string RestAPIUrl { get; set; }
+      
         protected IList<DZMembership> CustomerServiceList
         {
             get
@@ -101,11 +100,14 @@ namespace Dianzhu.BLL
                 return customerServiceList;
             }
         }
-        
-         public virtual IList<OnlineUserSession> GetOnlineSessionUser()
+        public string OpenfireRestAPISecredkey { get; set; }
+        public string RestAPIUrl { get; set; }
+        public virtual IList<OnlineUserSession> GetOnlineSessionUser()
         {
             //调用 openfire 的restapi接口,获取在线会话,即在线用户
             System.Net.WebClient wc = new System.Net.WebClient();
+            Uri uri = new Uri("http://ydban.cn:9090/plugins/restapi/v1/sessions");
+            string host = uri.Host;
             wc.Headers.Add("Authorization:an4P0ja6v3rykV4H");
             wc.Headers.Add("Host: ydban.cn:9090");
             wc.Headers.Add("Accept: application/json");

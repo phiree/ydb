@@ -26,8 +26,10 @@ namespace Dianzhu.CSClient.Presenter
         {
             //2 保存数据库
             SaveMessage(chat, false);
-            if (chat.ChatType == Model.Enums.enum_ChatType.Notice)
+            if (chat.ChatType== Model.Enums.enum_ChatType.Notice
+                &&chat.ServiceOrder == null)
             {
+                view.ShowNotice(chat.MessageBody);
                 return;
             }
             Debug.Assert(chat.ServiceOrder != null,"Order shouldnot be null");

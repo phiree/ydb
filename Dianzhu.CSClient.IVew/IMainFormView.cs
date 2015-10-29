@@ -24,7 +24,7 @@ namespace Dianzhu.CSClient.IVew
     public delegate void NoticeOrder();
     public delegate void NoticePromote();
     public delegate void NoticeCustomerService();
-    public delegate void SendRawXml();
+    
     public interface IMainFormView
     {
         #region Chat
@@ -90,8 +90,9 @@ namespace Dianzhu.CSClient.IVew
         event NoticeOrder NoticeOrder;
         event NoticePromote NoticePromote;
         event NoticeSystem NoticeSystem;
-        event SendRawXml SendRawXml;
-        string RawXml { get; set; }
+        
+        void ShowNotice(string noticeContent);
+        
 
     }
 }

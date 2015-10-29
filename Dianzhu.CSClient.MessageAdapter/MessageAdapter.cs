@@ -100,16 +100,19 @@ namespace Dianzhu.CSClient.MessageAdapter
                 chat.Id = messageId;
             }
             chat.From = chatFrom;
-           
+
             //这个逻辑放在orm002001接口里面处理.
 
             //如果是
-            if (!isNotice)
+
+            bool hasOrderId = ext_element.HasTag("orderID");
+            
+            
+            if (hasOrderId)
             {
                 Guid order_ID;
-                var orderID = ext_element.SelectSingleElement("orderID").Value;
-
-                bool isValidGuid = Guid.TryParse(orderID, out order_ID);
+                var e_orderId = ext_element.SelectSingleElement("orderID").Value;
+                bool isValidGuid = Guid.TryParse(e_orderId, out order_ID);
 
                 if (isValidGuid)
                 {
@@ -202,88 +205,6 @@ namespace Dianzhu.CSClient.MessageAdapter
 
 
         }
-        /// <summary>
-        /// 验证message是否包含需要的属性
-        /// </summary>
-        /// <param name="chatType">聊天类型</param>
-        /// <param name="msg">im message</param>
-        /// <param name="errMsg">错误消息</param>
-        /// <returns></returns>
-        private bool EnsureMessageAttribute(enum_ChatType chatType,
-            agsXMPP.protocol.client.Message msg,
-            out string errMsg)
-        {
-            bool hasAttributes = true;
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("错误, 消息缺少以下属性  ");
-            switch (chatType)
-            {
-                case enum_ChatType.BeginPay:
-
-                    if (!msg.HasAttribute("OrderId"))
-                    {
-                        sb.Append(" OrderId");
-                    }
-
-                    break;
-                case enum_ChatType.ConfirmedService:
-                    //预订的服务数量. N小时,N天?
-                    if (!msg.HasAttribute("ServiceUnitAmount"))
-                    {
-                        hasAttributes = false;
-                        sb.Append(" ServiceUnitAmount");
-                    }
-                    EnsureServiceAttribute(msg, sb);
-                    break;
-                case enum_ChatType.PushedService:
-                    EnsureServiceAttribute(msg, sb);
-
-                    break;
-
-                default: break;
-            }
-
-            errMsg = sb.ToString();
-            return hasAttributes;
-        }
-
-        private bool EnsureServiceAttribute(Message msg, StringBuilder sb)
-        {
-            bool hasAttributes = true;
-            if (!msg.HasAttribute("ServiceId"))
-            {
-                hasAttributes = false;
-                sb.Append(" ServiceId");
-            }
-
-            if (!msg.HasAttribute("ServiceName"))
-            {
-                hasAttributes = false;
-                sb.Append(" ServiceName");
-            }
-
-            if (!msg.HasAttribute("ServiceDescription"))
-            {
-                hasAttributes = false;
-                sb.Append(" ServiceDescription");
-            }
-            if (!msg.HasAttribute("ServiceBusinessName"))
-            {
-                hasAttributes = false;
-                sb.Append(" ServiceBusinessName");
-            }
-
-            if (!msg.HasAttribute("UnitPrice"))
-            {
-                hasAttributes = false;
-                sb.Append(" UnitPrice");
-            }
-            if (!msg.HasAttribute("ServiceUrl"))
-            {
-                hasAttributes = false;
-                sb.Append(" ServiceUrl");
-            }
-            return hasAttributes;
-        }
+      
     }
 }

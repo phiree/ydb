@@ -4,14 +4,14 @@
 
     void Application_Start(object sender, EventArgs e)
     {
-        _SetupRefreshJob();
-        // Code that runs on application startup
-        log4net.Config.XmlConfigurator.Configure();
-        Dianzhu.CSClient.IMessageAdapter.IAdapter adapter = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
-        Dianzhu.CSClient.IInstantMessage.InstantMessage im = new Dianzhu.CSClient.XMPP.XMPP(adapter);
+        //_SetupRefreshJob();
+        //// Code that runs on application startup
+        //log4net.Config.XmlConfigurator.Configure();
+        //Dianzhu.CSClient.IMessageAdapter.IAdapter adapter = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
+        //Dianzhu.CSClient.IInstantMessage.InstantMessage im = new Dianzhu.CSClient.XMPP.XMPP(adapter);
 
-        //im.OpenConnection("4f088d5c-be94-43bc-9644-a4d1008be129", "123456");
-        Application["IM"] = im;
+        ////im.OpenConnection("4f088d5c-be94-43bc-9644-a4d1008be129", "123456");
+        //Application["IM"] = im;
     }
 
     void Application_End(object sender, EventArgs e)
@@ -75,10 +75,10 @@
                 }
             }
         };
-         log4net.ILog log2 = log4net.LogManager.GetLogger("debug");
-                    log2.Debug("Invoke.");
+        log4net.ILog log2 = log4net.LogManager.GetLogger("debug");
+        log2.Debug("Invoke.");
         work.BeginInvoke(null, null);
-        
+
         //add this job to the cache
         HttpContext.Current.Cache.Add(
             "Refresh",
