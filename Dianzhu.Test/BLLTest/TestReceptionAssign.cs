@@ -28,6 +28,8 @@ namespace Dianzhu.Test.BLLTest
 
 
             var dalMock = MockRepository.GenerateStub<DAL.DALReceptionStatus>(string.Empty);
+            var dalMemberMock = MockRepository.GenerateStub<DAL.DALMembership>(string.Empty);
+
             BLLReceptionStatus bll = new BLLReceptionStatus(dalMock);
             IList<DZMembership> csList = Builder<DZMembership>.CreateListOfSize(2)
                 .TheFirst(1).With(x => x.UserName = "b")
@@ -39,14 +41,15 @@ namespace Dianzhu.Test.BLLTest
                 .Build());
 
             DZMembership customer = Builder<DZMembership>.CreateNew().Build();
-            ReceptionAssigner ass = new ReceptionAssigner(new AssignStratageRandom());
-            ass.dalRS = dalMock;
+            ReceptionAssigner ass = new ReceptionAssigner(new AssignStratageRandom(),
+                dalMock,dalMemberMock);
+             
             int forA = 0, forB = 0;
             for (int i = 0; i < 100; i++)
             {  
-            DZMembership customerService = bll.Assign(customer, null);
-                if (customerService.UserName == "a") forA++;
-                if (customerService.UserName == "b") forB++;
+            Dictionary<DZMembership,DZMembership> assigned = ass.AssignCustomerLogin(customer);
+                if (assigned[customer].UserName == "a") forA++;
+                if (assigned[customer].UserName == "b") forB++;
         }
             Console.Write("assign to A:" + forA + ",to B:" + forB);
             decimal result = (decimal)forA / (decimal)forB;

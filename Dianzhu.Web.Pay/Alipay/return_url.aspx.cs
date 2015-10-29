@@ -43,13 +43,7 @@ public partial class return_url : System.Web.UI.Page
             Response.Write("fail");
         }
         // send notification by create a httprequest to dianzhu.web.notify
-        System.Net.WebClient wc = new System.Net.WebClient();
-        Uri uri = new Uri("http://localhost:8039/IMServerAPI.ashx?type=ordernotice&orderId="+order.Id);
-         
-        System.IO.Stream returnData = wc.OpenRead(uri);
-        System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-        string result = reader.ReadToEnd();
-
+        
 
         SortedDictionary<string, string> sPara = GetRequestGet();
 
@@ -84,7 +78,15 @@ public partial class return_url : System.Web.UI.Page
                     order.OrderStatus= Dianzhu.Model.Enums.enum_OrderStatus.Payed;
                      
                     bllOrder.SaveOrUpdate(order);
-                      Response.Redirect("/paysuc.aspx?orderid=" + orderId);
+                    System.Net.WebClient wc = new System.Net.WebClient();
+                    string notifyServer = ConfigurationManager.AppSettings.Get("NotifyServer");
+                    Uri uri = new Uri(notifyServer + "IMServerAPI.ashx?type=ordernotice&orderId=" + order.Id);
+
+                    System.IO.Stream returnData = wc.OpenRead(uri);
+                    System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
+                    string result = reader.ReadToEnd();
+
+                    Response.Redirect("/paysuc.aspx?orderid=" + orderId);
 
                 }
                 else
