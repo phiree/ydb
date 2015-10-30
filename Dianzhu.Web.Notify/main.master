@@ -1,0 +1,17 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/site.master" AutoEventWireup="true" CodeFile="main.master.cs" Inherits="main" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <div style="float:left;width:30%">
+        <ul>
+
+            <li><a href="SendSysNotice.aspx">发送系统通知</a></li>
+             <li><a href="SendPromote.aspx">发送促销通知</a></li>
+        </ul>
+    </div>
+    <div style="float:left; width:66%">
+        <asp:ContentPlaceHolder ID="RightMain" runat="server"></asp:ContentPlaceHolder>
+    </div>
+</asp:Content>
+

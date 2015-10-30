@@ -36,9 +36,12 @@ public class ResponseORM002001 : BaseResponse
             {
 
                 RespDataORM002001 respData = new RespDataORM002001();
+                IMSessionsOpenfire imSession = new IMSessionsOpenfire(
+              System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
+              System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
 
                 Dictionary<DZMembership, DZMembership> assignedPair =
-                    new ReceptionAssigner(new AssignStratageRandom())
+                    new ReceptionAssigner(imSession)
                     .AssignCustomerLogin(member);
                 if (assignedPair.Count == 0)
                 {

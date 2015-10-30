@@ -83,7 +83,7 @@ namespace Dianzhu.DAL
             session.Update(o);
             session.Flush();
         }
-        public void SaveOrUpdate(T o)
+        public virtual void SaveOrUpdate(T o)
         {
 
             session.SaveOrUpdate(o);

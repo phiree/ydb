@@ -61,34 +61,45 @@ namespace Dianzhu.BLL
         IList<DZMembership> customerServiceList;
         //分配策略
         IAssignStratage stratage;
+        //IM会话.
+        IIMSession imSession;
         DAL.DALReceptionStatus dalRS;
         DAL.DALMembership dalMember;
-        public ReceptionAssigner(IAssignStratage stratage
+        public ReceptionAssigner(IAssignStratage stratage,IIMSession imSession
             , DALReceptionStatus dalRS
             , DALMembership dalMember) 
         {
             this.stratage = stratage;
+            this.imSession = imSession;
             this.dalRS = dalRS;
             this.dalMember = dalMember;
         }
-        public ReceptionAssigner(IAssignStratage stratage)
-            :this(stratage
-                 ,new DALReceptionStatus(),
+        public ReceptionAssigner(IIMSession imSession)
+            : this(new AssignStratageRandom(),
+                 imSession,
+                 new DALReceptionStatus(),
+                 new DALMembership())
+        {
+
+        }
+        public ReceptionAssigner(IAssignStratage stratage,IIMSession imSession)
+            :this(stratage,
+                 imSession,
+                 new DALReceptionStatus(),
                  new DALMembership())
         {
              
         }
         
       
-        protected IList<DZMembership> CustomerServiceList
+        protected IList<DZMembership> CustomerServiceList 
         {
-            get
-            {
+            get { 
                 if (customerServiceList == null)
                 {
                     customerServiceList = new List<DZMembership>();
-                     
-                    foreach (OnlineUserSession user in GetOnlineSessionUser())
+                     //convert sesionUser to dzmembership
+                    foreach (OnlineUserSession user in imSession.GetOnlineSessionUser())
                     {
                         if (user.ressource.ToLower()=="ydb_cstool")
                         { 
@@ -100,37 +111,8 @@ namespace Dianzhu.BLL
                 return customerServiceList;
             }
         }
-        public string OpenfireRestAPISecredkey { get; set; }
-        public string RestAPIUrl { get; set; }
-        public virtual IList<OnlineUserSession> GetOnlineSessionUser()
-        {
-            //调用 openfire 的restapi接口,获取在线会话,即在线用户
-            System.Net.WebClient wc = new System.Net.WebClient();
-            Uri uri = new Uri("http://ydban.cn:9090/plugins/restapi/v1/sessions");
-            string host = uri.Host;
-            wc.Headers.Add("Authorization:an4P0ja6v3rykV4H");
-            wc.Headers.Add("Host: ydban.cn:9090");
-            wc.Headers.Add("Accept: application/json");
-            System.IO.Stream returnData = wc.OpenRead("http://ydban.cn:9090/plugins/restapi/v1/sessions");
-            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-            string result = reader.ReadToEnd();
-            try
-            {
-                OnlineUserSessionResult sessionResult
-                    = Newtonsoft.Json.JsonConvert
-                    .DeserializeObject<OnlineUserSessionResult>(result);
-                return sessionResult.session;
-            }
-            catch (Exception ex)
-            {
-                OnlineUserSessionResult_OnlyOne sessionResult
-                   = Newtonsoft.Json.JsonConvert
-                   .DeserializeObject<OnlineUserSessionResult_OnlyOne>(result);
-                return new List<OnlineUserSession>(new OnlineUserSession[] { sessionResult.session });
-            }
-            
-        }
-        protected int CustomerServiceCount { get { return CustomerServiceList.Count; } }
+       
+         
 
         /// <summary>
         /// 客户登录
@@ -139,16 +121,11 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public virtual Dictionary<DZMembership,DZMembership>  AssignCustomerLogin(DZMembership customer)
         {
-            //使用策略 获取
-
+             
             Dictionary < DZMembership,DZMembership> assigned= stratage.Assign(new List<DZMembership>(new DZMembership[] { customer})
                 , CustomerServiceList);
-
-           IList<ReceptionStatus> res= dalRS.GetListByCustomer(  customer);
-            foreach (ReceptionStatus rs in res)
-            {
-                dalRS.Delete(rs);
-            }
+            //获取用户的接待记录.应该为空,但是当用户异常退出时会删除失败,保留了历史数据.
+            dalRS.DeleteAllCustomerAssign(customer);
              ReceptionStatus newRs = new ReceptionStatus
                 {
                     Customer = customer,
@@ -190,11 +167,62 @@ namespace Dianzhu.BLL
         }
 
     }
+    /// <summary>
+    /// IM 会话状态的接口
+    /// </summary>
+    public interface IIMSession
+    {
+        /// <summary>
+        /// 获取当前会话(亦在线用户)
+        /// </summary>
+        /// <returns></returns>
+        IList<OnlineUserSession> GetOnlineSessionUser();
+    }
+    /// <summary>
+    /// IM 会话状态接口之: openfire的实现
+    /// 通过openfire的restapi插件获取.
+    /// </summary>
+    public class IMSessionsOpenfire : IIMSession
+    {
+        string restApiUrl, restApiSecretKey;
+        public IMSessionsOpenfire(string restApiUrl, string restApiSecretKey)
+        {
+            this.restApiSecretKey = restApiSecretKey;
+            this.restApiUrl = restApiUrl;
+        }
+
+        public IList<OnlineUserSession> GetOnlineSessionUser()
+        {
+            System.Net.WebClient wc = new System.Net.WebClient();
+            Uri uri = new Uri(restApiUrl);
+            string host = uri.Host;
+            wc.Headers.Add("Authorization:"+restApiSecretKey);
+            wc.Headers.Add("Host: "+host);
+            wc.Headers.Add("Accept: application/json");
+            System.IO.Stream returnData = wc.OpenRead(uri);
+            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
+            string result = reader.ReadToEnd();
+            try
+            {
+                OnlineUserSessionResult sessionResult
+                    = Newtonsoft.Json.JsonConvert
+                    .DeserializeObject<OnlineUserSessionResult>(result);
+                return sessionResult.session;
+            }
+            catch (Exception ex)
+            {
+                OnlineUserSessionResult_OnlyOne sessionResult
+                   = Newtonsoft.Json.JsonConvert
+                   .DeserializeObject<OnlineUserSessionResult_OnlyOne>(result);
+                return new List<OnlineUserSession>(new OnlineUserSession[] { sessionResult.session });
+            }
+        }
+    }
+    #region ---------------openfire restapi 在线用户数据的结构---------------
     public class OnlineUserSessionResult_OnlyOne
     {
         public  OnlineUserSession  session { get; set; }
     }
-    //openfire
     public class OnlineUserSessionResult {
        public IList<OnlineUserSession> session { get; set; }
          
@@ -209,8 +237,9 @@ namespace Dianzhu.BLL
         public string username { get; set; }
         public string sessionId { get; set; }
     }
+    #endregion
+
     
-     
     /// <summary>
     /// 客服分配接口..
     /// </summary>
@@ -218,12 +247,20 @@ namespace Dianzhu.BLL
     {
         Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList);
     }
+  
+
     /// <summary>
-    ///  随机客服.
+    ///  客服分配接口实现之: 随机客服..
     /// </summary>
     public class AssignStratageRandom : IAssignStratage
     {
         static Random r = new Random();
+        /// <summary>
+        /// 为一组客户分配客服
+        /// </summary>
+        /// <param name="customerList">待分配的客户列表</param>
+        /// <param name="csList">在线的客服列表</param>
+        /// <returns>分配后的字典表,key 是客户,value 是客服</returns>
         public Dictionary<DZMembership,DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList)
         {
             Dictionary<DZMembership, DZMembership> assignList = new Dictionary<DZMembership, DZMembership>();

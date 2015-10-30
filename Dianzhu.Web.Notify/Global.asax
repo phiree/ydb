@@ -1,21 +1,25 @@
 ﻿<%@ Application Language="C#" %>
 
-<script runat="server">
+<script RunAt="server">
 
     void Application_Start(object sender, EventArgs e)
     {
         //Code that runs on application startup
         //init xmpp conenction 
-
+        //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
         _SetupRefreshJob();
+
         string server = ConfigurationManager.AppSettings.Get("server");
         Dianzhu.CSClient.IMessageAdapter.IAdapter adapter
             = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
-            = new Dianzhu.CSClient.XMPP.XMPP(server,adapter,"YDB_IMServer");
+            = new Dianzhu.CSClient.XMPP.XMPP(server, adapter, "YDB_IMServer");
         //login in
-        im.OpenConnection("381536b7-7d74-45ce-a097-a4fe0155e900", "121212");
-        
+        string noticesenderId = ConfigurationManager.AppSettings.Get("NoticeSenderId");
+        string noticesenderPwdCrypted = ConfigurationManager.AppSettings.Get("NoticeSenderPwd");
+        string noticesenderPwd = PHSuit.Security.Decrypt(noticesenderPwdCrypted, false);
+        im.OpenConnection(noticesenderId, noticesenderPwd);
+
         Application["IM"] = im;
     }
 
@@ -44,7 +48,8 @@
         // is set to InProc in the Web.config file. If session mode is set to StateServer 
         // or SQLServer, the event is not raised.
 
-    } private static void _SetupRefreshJob()
+    }
+    private static void _SetupRefreshJob()
     {
 
         //remove a previous job

@@ -29,5 +29,10 @@ namespace PHSuit
         {
            Assert.AreEqual("alasdf_$_dlaer", PHSuit.StringHelper.ParseUrlParameter("http://asdfesrawer/getfile.ashx?filename=alasdf_$_dlaer","filename"));
         }
+        [Test]
+        public void crypttest()
+        {
+          Console.WriteLine(  PHSuit.Security.Encrypt("123456", false));
+        }
     }
 }

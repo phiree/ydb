@@ -35,13 +35,30 @@ namespace Dianzhu.Test.BLLTest
                 .TheFirst(1).With(x => x.UserName = "b")
                 .TheNext(1).With(x => x.UserName = "a")
                 .Build();
-            dalMock.Stub(x => x.GetAll<ReceptionStatus>()).Return(Builder<ReceptionStatus>.CreateListOfSize(20)
-                .TheFirst(1).With(x => x.CustomerService = csList[0])
-                .TheLast(19).With(x => x.CustomerService = csList[1])
-                .Build());
+            dalMock.Expect(x=>x.DeleteAllCustomerAssign(new DZMembership()));
+
+            dalMock.Expect(x=>x.SaveOrUpdate(new ReceptionStatus()));
+            dalMock.Expect(x =>x.Delete(new ReceptionStatus()));
+            dalMock.Expect(x =>x.Save(new ReceptionStatus()));
+            dalMock.Stub(x => x.GetListByCustomerService(new DZMembership())).Return(
+                Builder<ReceptionStatus>.CreateListOfSize(1).Build()
+                );
+            IIMSession sessionMock = MockRepository.GenerateStrictMock<IIMSession>();
+            IList<OnlineUserSession> onlineUsers = Builder<OnlineUserSession>.CreateListOfSize(2)
+                .All().With(x=>x.ressource="ydb_cstool")
+                .TheFirst(1).With(x=>x.username=Guid.NewGuid().ToString())
+                .TheNext(1).With(x => x.username =Guid.NewGuid().ToString())
+                .Build();
+            dalMemberMock.Stub(x => x.GetOne(new Guid(onlineUsers[0].username))).Return(
+                Builder<DZMembership>.CreateNew().Build()
+                );
+            sessionMock.Stub(x => x.GetOnlineSessionUser()).Return(onlineUsers);
+            
 
             DZMembership customer = Builder<DZMembership>.CreateNew().Build();
-            ReceptionAssigner ass = new ReceptionAssigner(new AssignStratageRandom(),
+            ReceptionAssigner ass = new ReceptionAssigner(
+                new AssignStratageRandom(),
+                sessionMock,
                 dalMock,dalMemberMock);
              
             int forA = 0, forB = 0;
@@ -62,17 +79,6 @@ namespace Dianzhu.Test.BLLTest
             //new BLLReceptionAssign().add(csname, null);
         }
 
-        [Test]
-        public void GetOnlineSessionUserTest()
-        {
-            var stratageMock = MockRepository.GenerateStub<IAssignStratage>();
-
-            ReceptionAssigner assigner = new ReceptionAssigner(stratageMock);
-         IList<OnlineUserSession> sessions=   assigner.GetOnlineSessionUser();
-            foreach (OnlineUserSession s in sessions)
-            {
-                Console.WriteLine(s.username);
-            }
-        }
+        
     }
 }

@@ -97,7 +97,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             Guid messageId;
             if (Guid.TryParse(message.Id, out messageId))
             {
-                chat.Id = messageId;
+                //chat.Id = messageId;
             }
             chat.From = chatFrom;
 

@@ -81,6 +81,9 @@ namespace Dianzhu.NotifyCenter
 
 
             var extNode = new agsXMPP.Xml.Dom.Element("ext");
+            extNode.Namespace = "ihelper:notce:system";
+            var urlNode= new agsXMPP.Xml.Dom.Element("url");
+            urlNode.Value = promoteUrl;
             ags.Message msg = BuildNotice("all@broadcast.ydban.cn", promoteUrl, extNode);
             im.SendMessage(msg.ToString());
         }

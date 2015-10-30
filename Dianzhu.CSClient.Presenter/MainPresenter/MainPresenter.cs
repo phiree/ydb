@@ -198,7 +198,10 @@ namespace Dianzhu.CSClient.Presenter
 
         void view_ViewClosed()
         {
-            ReceptionAssigner assigner = new ReceptionAssigner(new AssignStratageRandom());
+            IMSessionsOpenfire imSession = new IMSessionsOpenfire(
+                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
+                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+            ReceptionAssigner assigner = new ReceptionAssigner(imSession);
             Dictionary<DZMembership,DZMembership> reassignList = assigner.AssignCSLogoff(customerService);
             //将新分配的客服发送给客户端.
             foreach (KeyValuePair<DZMembership,DZMembership> rs in reassignList)

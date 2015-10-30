@@ -17,19 +17,19 @@ namespace Dianzhu.DAL
 
         }
         //注入依赖,供测试使用;
-        public DALReceptionStatus(string fortestonly): base(fortestonly)
+        public  DALReceptionStatus(string fortestonly): base(fortestonly)
          { }
 
-         public IList<ReceptionStatus> GetListByCustomerService(DZMembership customerService)
+         public virtual IList<ReceptionStatus> GetListByCustomerService(DZMembership customerService)
          {
            return   Session.QueryOver<ReceptionStatus>().Where(x => x.CustomerService.Id == customerService.Id).List();
          }
-         public IList<ReceptionStatus> GetListByCustomer(DZMembership customer)
+        public virtual IList<ReceptionStatus> GetListByCustomer(DZMembership customer)
          {
              return Session.QueryOver<ReceptionStatus>().Where(x => x.Customer.Id == customer.Id).List();
       
          }
-        public ReceptionStatus GetOneByCustomerAndCS(DZMembership customerService, DZMembership customer)
+        public virtual ReceptionStatus GetOneByCustomerAndCS(DZMembership customerService, DZMembership customer)
         {
 
             ReceptionStatus result = null;
@@ -43,6 +43,22 @@ namespace Dianzhu.DAL
             { result = null; }
             return result;
         }
-   
+
+        public virtual void DeleteAllCustomerAssign(DZMembership customer)
+        {
+            IList<ReceptionStatus> rsList = GetListByCustomer(customer);
+            foreach (ReceptionStatus rs in rsList)
+            {
+                Session.Delete(rs);
+            }
+        }
+        public virtual void DeleteAllCustomerServiceAssign(DZMembership customerService)
+        {
+            IList<ReceptionStatus> rsList = GetListByCustomerService(customerService);
+            foreach (ReceptionStatus rs in rsList)
+            {
+                Session.Delete(rs);
+            }
+        }
     }
 }

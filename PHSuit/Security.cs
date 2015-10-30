@@ -9,6 +9,7 @@ namespace PHSuit
 {
     public class Security
     {
+        const string SecretKey = "1qaz2wsx3edc4rfv";
 
         public static string Encrypt(string toEncrypt, bool useHashing)
         {
@@ -19,8 +20,7 @@ namespace PHSuit
                                                 new AppSettingsReader();
             // Get the key from config file
 
-            string key = (string)settingsReader.GetValue("SecurityKey",
-                                                             typeof(String));
+            string key = SecretKey;
             //System.Windows.Forms.MessageBox.Show(key);
             //If hashing use get hashcode regards to your key
             if (useHashing)
@@ -65,8 +65,7 @@ namespace PHSuit
             System.Configuration.AppSettingsReader settingsReader =
                                                 new AppSettingsReader();
             //Get your key from config file to open the lock!
-            string key = (string)settingsReader.GetValue("SecurityKey",
-                                                         typeof(String));
+            string key = SecretKey;
 
             if (useHashing)
             {
