@@ -60,6 +60,7 @@
                                                                 <div class="panel-info-td">
                                                                     <p class="panel-title">
                                                                         <a class="panel-title-link" href="ServiceTimeline.aspx?businessid=<%=Request.Params["businessId"] %>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">详细服务时间</a>
+                                                                        <!--通过修改boostrap中的collapse模块功能，实现collapse标签中指定忽略指定target的功能-->
                                                                     </p>
 
                                                                     <p class="panel-title-tips"><i class="icon service-icon-time"></i>服务时间</p>
@@ -146,23 +147,8 @@
     <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
     <script type="text/javascript" src="/js/ServiceType.js?v=20150901"></script>
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
-    <!--<script type="text/javascript" src="/js/TabSelection.js"></script>-->
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script >
-//    function listhref(url){
-//        var e = window.event || arguments.callee.caller.arguments[0];
-//        var target = e.srcElement || e.target;
-//        var $target = $(target);
-//        console.log($target);
-//
-//        if($target.hasClass("btn")){
-//            return false
-//        }else if(e.target == e.target){
-////            window.location.href = url
-//            return true
-//        };
-//    }
-
     $(function(){
         if ( $("#accordion").children(".panel").length == 0 ){
             $("#service-new").removeClass("dis-n");
@@ -174,41 +160,32 @@
     })
     </script>
     <script type="text/javascript">
-        var name_prefix = 'ctl00$ContentPlaceHolder1$ServiceEdit1$';
        $(function () {
-           $("#serList").ServiceSelect({
-               "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
-               "choiceContainer": "serChoiceContainer",
-               "choiceOutContainer": "lblSelectedType",
-               "printInputID": "hiTypeId",
-               "choiceConfBtn": "serChoiceConf",
-               "localdata": typeList
-           });
 
            $(".enable-service").click(function () {
                var that = this;
                $.post("/ajaxservice/changeserviceInfo.ashx",
-                        {
-                            "changed_field": "enabled",
-                            "changed_value": false,
-                            "id": $(that).attr("serid")
-                        }, function (data) {
-                            var enabled = data.data;
-                            if (enabled == "True") {
-                                $(that).html("禁用");
-                                $($(that).parent().parent()).find(".service-status").html("已启用");
-                                $($(that).parent().parent()).find(".service-status").removeClass("theme-color-delete").addClass("theme-color-right");
-                                $(that).removeClass("btn-info").addClass("btn-down-info");
-                            }
-                            else {
-                                $(that).html("启用");
-                                $($(that).parent().parent()).find(".service-status").html("已禁用");
-                                $($(that).parent().parent()).find(".service-status").removeClass("theme-color-right").addClass("theme-color-delete");
-                                $(that).addClass("btn-info").removeClass("btn-down-info");
+                {
+                    "changed_field": "enabled",
+                    "changed_value": false,
+                    "id": $(that).attr("serid")
+                }, function (data) {
+                    var enabled = data.data;
+                    if (enabled == "True") {
+                        $(that).html("禁用");
+                        $($(that).parent().parent()).find(".service-status").html("已启用");
+                        $($(that).parent().parent()).find(".service-status").removeClass("theme-color-delete").addClass("theme-color-right");
+                        $(that).removeClass("btn-info").addClass("btn-down-info");
+                    }
+                    else {
+                        $(that).html("启用");
+                        $($(that).parent().parent()).find(".service-status").html("已禁用");
+                        $($(that).parent().parent()).find(".service-status").removeClass("theme-color-right").addClass("theme-color-delete");
+                        $(that).addClass("btn-info").removeClass("btn-down-info");
 
-                            }
+                    }
 
-                        });
+                });
            });
 
            $("#setSerType").click(function (e) {
@@ -251,6 +228,4 @@
             loadBaiduMapScript();
         })
     </script>
-    <!--<script type="text/javascript" src="/js/CityList.js"></script>-->
-    <!--<script type="text/javascript" src="/js/service.js"></script>-->
 </asp:Content>
