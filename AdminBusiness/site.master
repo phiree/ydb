@@ -11,8 +11,9 @@
     <title>商家后台主页</title>
     <link href="/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/js/metisMenu/metisMenu.css" rel="stylesheet" type="text/css" />
-    <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animate.css" rel="stylesheet" type="text/css" />
     <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/themes\jquery-ui-1.10.4.custom\css\custom-theme\jquery-ui-1.10.4.custom.min.css" rel="stylesheet" type="text/css" />
     <script src="/js/html5shiv.min.js"></script>
     <script src="/js/respond.min.js"></script>
@@ -31,16 +32,15 @@
                 <div class="navbar navbar-default navbar-static-top" role="navigation">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                             
-                          <a class="navbar-brand" href="/Business/default.aspx">
-                               <img alt="一点办" src="/image/master/shop-LOGO-1.png">
-                          </a>
-                          <a class="navbar-brand" >
-                            一点办商户后台管理
+                            <a class="navbar-brand brand-logo" href="/Business/default.aspx">
+                                <div id="logo"></div>
+                            </a>
+                            <a class="navbar-brand brand-h">
+                                一点办商户管理系统
                             </a>
                         </div>
                         <ul class="nav navbar-nav navbar-right">
-                            <li role="presentaion" ><a href="/Business/default.aspx"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="m-l10">店铺列表</span></a></li>
+                            <li role="presentaion" ><a href="/Business/default.aspx"><span class="glyphicon glyphicon-th-list m-r10"></span><span>店铺列表</span></a></li>
                             <li class="dropdown nav-li-bj">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><asp:LoginName  ID="LoginName1" CssClass="v-m" runat="server" /><span class="caret"></span></a>
                               <ul class="dropdown-menu">
@@ -48,13 +48,13 @@
                               </ul>
                             </li>
                             <li role="presentaion" class="nav-li-bj ">
-                            <asp:LoginStatus ID="LoginStatus1" CssClass="LoginStatus"  formnovalidate   runat="server" LogoutText="" LoginText=""/>
+                            <asp:LoginStatus ID="LoginStatus1" CssClass="LoginStatus"  formnovalidate   runat="server" LogoutText=""/>
                             </li>
                           </ul>
                     </div>
                 </div>
             <!--/top-->
-                <div class="clearfix">
+                <div class="layout">
                 <!--sidenav-->
                 <asp:ContentPlaceHolder runat="server" ID="sitenav"></asp:ContentPlaceHolder>
                         
@@ -68,10 +68,10 @@
                 </asp:ContentPlaceHolder>
                 <div class="footer">
                         <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
-                    </div>
                 </div>
+                    </div>
             </div>
-            </div>
+
             </div>
             </form>
         </div>
@@ -85,7 +85,27 @@
     <script>
         $(function () {
             return $("#menu").length == 0 ? null : $("#menu").metisMenu();
-        })
+        });
+        $(function(){
+            if ( $('.sidebar').length == 0 ) {
+                return
+            } else {
+                var sideTop = $('.sidebar').offset().top;
+                if ( $('body').scrollTop() >= sideTop ){
+                    $('.sidebar').addClass('sidebar-fixed');
+                } else {
+                    $('.sidebar').removeClass('sidebar-fixed');
+                }
+                $(window).scroll(function(){
+                    if ( $('body').scrollTop() >= sideTop ){
+                        $('.sidebar').addClass('sidebar-fixed');
+                    } else {
+                        $('.sidebar').removeClass('sidebar-fixed');
+                    }
+                })
+            }
+
+        });
     </script>
     <%if (!Request.IsLocal){ %>
     <script type="text/javascript">
