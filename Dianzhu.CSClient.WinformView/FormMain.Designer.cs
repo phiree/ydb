@@ -72,6 +72,8 @@
             this.btnNoticeCustomerService = new System.Windows.Forms.Button();
             this.btnNoticeOrder = new System.Windows.Forms.Button();
             this.btnNoticePromote = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.pnlNotice = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnKeywords = new System.Windows.Forms.Button();
             this.btnMap = new System.Windows.Forms.Button();
@@ -89,8 +91,6 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
-            this.label16 = new System.Windows.Forms.Label();
-            this.pnlNotice = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -579,6 +579,25 @@
             this.btnNoticePromote.UseVisualStyleBackColor = true;
             this.btnNoticePromote.Click += new System.EventHandler(this.btnNoticePromote_Click);
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(3, 178);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(53, 12);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "系统通知";
+            // 
+            // pnlNotice
+            // 
+            this.pnlNotice.AutoScroll = true;
+            this.pnlNotice.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.pnlNotice.Location = new System.Drawing.Point(3, 193);
+            this.pnlNotice.Name = "pnlNotice";
+            this.pnlNotice.Size = new System.Drawing.Size(366, 185);
+            this.pnlNotice.TabIndex = 23;
+            this.pnlNotice.WrapContents = false;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.btnKeywords);
@@ -742,25 +761,6 @@
             this.pnlExternService.Size = new System.Drawing.Size(333, 242);
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 178);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(53, 12);
-            this.label16.TabIndex = 22;
-            this.label16.Text = "系统通知";
-            // 
-            // pnlNotice
-            // 
-            this.pnlNotice.AutoScroll = true;
-            this.pnlNotice.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnlNotice.Location = new System.Drawing.Point(3, 193);
-            this.pnlNotice.Name = "pnlNotice";
-            this.pnlNotice.Size = new System.Drawing.Size(366, 185);
-            this.pnlNotice.TabIndex = 23;
-            this.pnlNotice.WrapContents = false;
             // 
             // FormMain
             // 
