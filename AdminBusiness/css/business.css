@@ -1,6 +1,5 @@
 
-
-/*�����б�ҳ��*/
+/*新建店铺弹窗*/
 #newBusslightBox {
     /*background: #fff;*/
     /*padding: 15px;*/
@@ -21,8 +20,10 @@
 }
 
 .business-container {
-    padding: 20px 100px;
-    background: #f1f2f1;
+    margin: 0 auto;
+    background: transparent;
+    box-shadow: none;
+    border: 0;
 }
 
 .business-add {
@@ -88,7 +89,7 @@ a.create-continue {
 }
 /*end*/
 
-/*���̴���ҳ����������ʽ*/
+/*新建店铺*/
 /*.business-new {*/
     /*padding: 20px;*/
     /*min-height: 700px;*/
@@ -135,7 +136,7 @@ a.new-add-btn {
 }
 /*end*/
 
-/*��������ҳ��*/
+/*店铺详情*/
 .business-detail-main {
     background: none;
     box-shadow: none;
@@ -175,17 +176,30 @@ a.new-add-btn {
     font-size: 16px;
 }
 
+.detail-title {
+    padding: 20px 0 ;
+    margin: 0 20px;
+}
+
 .detail-img {
-    min-height: 120px;
+    min-height: 90px;
 }
 
 .detail-img a img{
+    width: 90px;
+    height: 90px;
     border-radius: 5px;
+}
+
+.detail-pra {
+    border-top: 1px dashed #ccc;
+    padding: 20px;
+    margin: 0 20px;
 }
 
 .detail-pra .cont-row {
     font-size: 16px;
-    border-top: 1px solid #e8e8e8;
+    /*border-top: 1px solid #e8e8e8;*/
     padding: 20px;
 }
 
@@ -206,7 +220,7 @@ a.new-add-btn {
 
 
 
-.business-detail-container {
+.business-detail {
     box-shadow: 0;
 }
 /*end*/

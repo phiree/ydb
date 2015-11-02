@@ -1,0 +1,190 @@
+@head-height : 30px;
+@row-height : 70px;
+
+@time-head: 60px;
+
+@goods-height: 60px;
+
+.timetable-title {
+  margin-bottom: 20px;
+}
+
+.timetable-title-icon {
+  width: 36px;
+  height: 36px;
+  background: url("../../image/yidianban_v1.2/tt-head-icon.png") no-repeat bottom;;
+}
+
+.time-head {
+  height: @time-head;
+  line-height: @time-head;
+  border-bottom: 1px solid #ddd;
+  margin-bottom:20px ;
+  p {
+    font-size: 30px;
+  }
+}
+
+.timetable-container {
+  background: #eee;
+  padding: 15px 10px;
+  border: 1px solid #ccc;
+}
+
+.timetable {
+  position: relative;
+  width: 940px;
+  margin: 0 auto;
+}
+
+.tt-row {
+  height: @row-height;
+  position: relative;
+}
+
+.tt-row-even {
+  //background: #cccccc;
+}
+
+.tt-row-odd {
+  //background: #beddba;
+}
+
+.tt-row-bg {
+  background: url("../../image/yidianban_v1.2/tt-bg.png") no-repeat bottom;;
+  background-attachment: local;
+}
+
+.tt-side {
+  float: left;
+  position: relative;
+  width: 90px;
+  //background: #ddd;
+}
+
+.tt-side-head {
+  height: @head-height;
+
+}
+
+.tt-side-row{
+  text-align: center;
+  line-height: @row-height;
+}
+
+.tt-head {
+  position: relative;
+  border-bottom: 1px solid #ddd;
+}
+
+.tt-head-scrollable {
+  overflow: hidden;
+}
+
+
+.tt-head-columns {
+  position: relative;
+  height: @head-height;
+  .tt-head-column {
+    box-sizing: border-box;
+    display: inline-block;
+    height: 100%;
+    line-height: 100%;
+    border-left: 1px solid #ddd;
+    width: 20px;
+    text-align: center;
+  }
+}
+
+.tt-body {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.tt-body-scrollable {
+  overflow: auto;
+  position: relative;
+}
+
+.tt-body-background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+}
+
+.tt-body-foreground {
+  position: absolute;
+  height: 100%;
+  .tt-fg-column {
+    box-sizing: border-box;
+    display: inline-block;
+    height: 100%;
+    border-left: 1px solid #ddd;
+  }
+}
+
+.tt-body-columns {
+  position: absolute;
+  height: 100%;
+  .tt-fg-column {
+    box-sizing: border-box;
+    display: inline-block;
+    height: 100%;
+    border-left: 1px solid #ddd;
+    width: 20px;
+  }
+}
+
+.tt-body-rows {
+  padding-bottom: 20px;
+    .tt-row-content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      .tt-task {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 30px;
+        min-width: .6em;
+        height: @goods-height;
+        background: url("../../image/yidianban_v1.2/tt-good-icon.png") no-repeat bottom;;
+        &.tt-task-split {
+          margin: 0 auto;
+        }
+      }
+    }
+}
+
+.tt-main {
+  position: relative;
+  padding: 0 20px;
+  overflow: hidden;
+}
+
+.tt-main-bg {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  .main-bg-head {
+    height: @head-height;
+  }
+
+  .main-bg-body {
+    overflow: auto;
+    position: relative;
+  }
+}
+
+.tt-bg {
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

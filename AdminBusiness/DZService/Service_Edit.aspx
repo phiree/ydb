@@ -19,6 +19,7 @@
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="/js/ServiceType.js"></script>
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
+    <script type="text/javascript" src="/js/StepByStep.js"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>
     <script src="/js/serviceTimeSelect.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -28,7 +29,7 @@
     <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
     <script>
         $(function () {
-            function readTypeData(){
+            (function (){
                 var hiTypeValue = $("#hiTypeId").attr("value");
                 if ( hiTypeValue == undefined ) {
                     return;
@@ -36,9 +37,7 @@
                     $("#lblSelectedType").removeClass("dis-n");
                     $("#lblSelectedType").addClass("d-inb");
                 }
-            };
-
-            readTypeData();
+            })();
 
             $(".service-time-table tbody tr:even").addClass("list-item-odd");
 
@@ -61,12 +60,13 @@
 
             $(".time-select-wrap").timeSelect();
 
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
             $(function () {
-              $('[data-toggle="tooltip"]').tooltip()
+                $('[data-toggle="tooltip"]').tooltip(
+                    {
+                        delay: {show : 500, hide : 100},
+                        trigger: 'hover'
+                    }
+                );
             });
 
             function setTime(date,timeString){
@@ -98,20 +98,26 @@
             }, "每日接单量应该大于每小时最大接单量");
 
 
-
-
             $($("form")[0]).validate(
                 {
+                    ignore:[],
                     errorElement: "p",
                     errorPlacement: function(error, element) {
                         error.appendTo( element.parent() );
                     },
                     rules: service_validate_rules,
                     messages: service_validate_messages,
-                    invalidHandler: invalidHandler
+//                    invalidHandler: invalidHandler,
+//                    showErrors: showErrorsHandler
                 }
             );
-        });       //document.ready
+
+            $(".steps-wrap").StepByStep({
+                stepNextFunc : function(){
+                    return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
+                }
+            });
+        });
     </script>
     <script>
         function loadBaiduMapScript() {

@@ -13,6 +13,7 @@ namespace Dianzhu.Model
         public ServiceOpenTime()
         {
             OpenTimeForDay = new List<ServiceOpenTimeForDay>();
+            Enabled = true;
         }
         public virtual Guid Id { get; set; }
         /// <summary>

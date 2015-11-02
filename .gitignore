@@ -223,3 +223,4 @@ connectionStrings.config
 Dianzhu.CSClient/appSettings.config
 Dianzhu.HttpApi/logs/debug.txt
 Dianzhu.HttpApi/logs/
+dianzhu.sln.orig

@@ -1,63 +1,3 @@
-/*.serviceInfoArea { height:198px; padding: 0 20px; border-bottom: 20px solid #dfebf6; color: #58789a;}*/
-/*.serviceInfoTilte { height:71px; line-height:71px; color:#58789a; font-size:19px; font-weight:bold; }*/
-
-/*.headInfo {*/
-    /*width: 208px;*/
-    /*height: 108px;*/
-    /*float: left;*/
-    /*font-size: 13px;*/
-/*}*/
-
-/*.headImage {*/
-    /*width: 110px;*/
-    /*height: 110px;*/
-    /*text-align: center;*/
-    /*line-height: 110px;*/
-    /*float: left;*/
-/*}*/
-
-/*.headImage img {*/
-    /*margin: 0 auto;*/
-    /*vertical-align: middle;*/
-/*}*/
-
-/*.ServiceShops {*/
-    /*margin-top: 20px;*/
-    /*font-size: 20px;*/
-    /*display: block;*/
-/*}*/
-
-/*.InfoCompletetxt {*/
-    /*margin-top: 10px;*/
-    /*display: block;*/
-/*}*/
-
-/*.headEditImg {*/
-    /*width: 115px;*/
-    /*height: 108px;*/
-    /*line-height: 108px;*/
-    /*text-align: center;*/
-    /*float: right;*/
-    /*background: url("../image/service/shop_guanli_14.png") no-repeat;*/
-/*}*/
-
-/*.satisfaction {*/
-    /*font-size: 30px;*/
-    /*font-weight: bold;*/
-    /*color: #fff;*/
-/*}*/
-
-/*.headInfoArea {*/
-    /*width: 100%;*/
-    /*height: 108px;*/
-    /*background: #f6fafe;*/
-    /*position: relative;*/
-    /*/!*border-bottom: #dbe6f2 1px solid;*!/*/
-/*}*/
-
-/*.service-list-container {*/
-    /*min-height: 700px;*/
-/*}*/
 
 .service-title { padding: 0 20px; height:60px; background:#f6fafe; border-bottom:#dbe6f2 1px solid; line-height:60px; }
 .service-title span { color:#58789a; font-size:17px; font-weight:bold; vertical-align: middle; }
@@ -129,6 +69,45 @@ a.new-add-btn {
     color: #fff;
 }
 
+/*服务列表图标*/
+/*.service-list .icon{*/
+    /*margin-left: 10px;*/
+    /*vertical-align: middle;*/
+/*}*/
+
+.service-list .panel-title-tips .icon{
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.service-icon {
+    margin-left: 10px;
+    width: 80px;
+    height: 80px;
+}
+
+.service-icon-local {
+    background: url("../image/yidianban_v1.2/svc-list/svc_list_1.png") no-repeat center;
+}
+
+.service-icon-time {
+    background: url("../image/yidianban_v1.2/svc-list/svc_list_2.png") no-repeat center;
+}
+
+.service-icon-data {
+    background: url("../image/yidianban_v1.2/svc-list/svc_list_3.png") no-repeat center;
+}
+
+.service-icon-edit {
+    background: url("../image/yidianban_v1.2/svc-list/svc_list_4.png") no-repeat center;
+}
+
+.service-icon-delete {
+    background: url("../image/yidianban_v1.2/svc-list/svc_list_5.png") no-repeat center;
+}
+
+
+
 /*服务信息查看页面样式*/
 .service-info {
     margin: -14px -14px 0 -14px;
@@ -171,10 +150,62 @@ a.new-add-btn {
 
 /*服务编辑页面样式*/
 .service-cont-row {
-    border-bottom: 1px solid #eee;
+    /*border-bottom: 1px solid #eee;*/
     margin-bottom: 15px;
     padding-bottom: 15px;
+    line-height: 30px;
 }
+
+
+
+/*店铺编辑步骤样式*/
+
+
+/*.step-row {*/
+/*padding: 15px 0;*/
+/*margin-right: -15px;*/
+/*}*/
+
+/*.step-head {*/
+/*font-size: 28px;*/
+/*vertical-align: middle;*/
+/*font-style: italic;*/
+/*padding: 0 20px;*/
+/*text-align: center;*/
+/*}*/
+
+/*.step-head em{*/
+/*font-style: italic;*/
+/*font-family: fantasy;*/
+/*padding: 0 10px;*/
+/*}*/
+
+/*.step-head.step-1{*/
+/*color: #76b5d3;*/
+/*}*/
+
+/*.step-head.step-2{*/
+/*color: #66bc9e;*/
+/*}*/
+
+/*.step-text {*/
+/*vertical-align: middle;*/
+/*padding: 5px;*/
+/*font-size: 16px;*/
+/*font-style: italic;*/
+/*margin-top: 3px;*/
+/*margin-left: -10px;*/
+/*}*/
+
+/*.step-text.step-1{*/
+/*background: #c9edfe;*/
+/*color: #448eb3;*/
+/*}*/
+
+/*.step-text.step-2{*/
+/*background: #c3f3e2;*/
+/*color: #66bc9e;*/
+/*}*/
 
 /*服务地图编辑样式*/
 .map-container {
@@ -184,7 +215,7 @@ a.new-add-btn {
 .map-result {
     position: absolute;
     top: 5px;
-    left: 200px;
+    right: 15px;
     background: rgba(74, 74, 74, 0.5);
     padding: 5px;
     color: #fff;
@@ -196,20 +227,21 @@ a.new-add-btn {
     cursor: text;
     margin-left: 10px;
     color: #444;
-    width: 280px;
+    width: 230px;
     height: 30px;
     line-height: 30px;
 }
 
 .map-radius-result {
     position:absolute;
-    top: 5px;
-    left: 650px;
+    top: 55px;
+    right: 15px;
     background: rgba(74, 74, 74, 0.5);
     padding: 5px;
     color: #fff;
     border-radius: 2px;
     background: #666\9;
+    white-space:nowrap;
 }
 
 .map-radius-select {
@@ -227,9 +259,6 @@ a.new-add-btn {
     text-align: right;
 }
 
-#saveSP {
-    margin-right: 30px;
-}
 
 .sp-msg {
     position: absolute;
@@ -248,6 +277,10 @@ a.new-add-btn {
     /*margin: 0 5px;*/
 }
 
+#saveSP {
+    margin-right: 30px;
+}
+
 #saveAddress,#saveRadius,#saveMsg {
 
 }
@@ -263,57 +296,11 @@ a.new-add-btn {
     word-break: break-all;
 }
 
-/*店铺编辑步骤样式*/
-.step-row {
-    padding: 15px 0;
-    margin-right: -15px;
-}
-
-.step-head {
-    font-size: 28px;
-    vertical-align: middle;
-    font-style: italic;
-    padding: 0 20px;
-    text-align: center;
-}
-
-.step-head em{
-    font-style: italic;
-    font-family: fantasy;
-    padding: 0 10px;
-}
-
-.step-head.step-1{
-    color: #76b5d3;
-}
-
-.step-head.step-2{
-    color: #66bc9e;
-}
-
-.step-text {
-    vertical-align: middle;
-    padding: 5px;
-    font-size: 16px;
-    font-style: italic;
-    margin-top: 3px;
-    margin-left: -10px;
-}
-
-.step-text.step-1{
-    background: #c9edfe;
-    color: #448eb3;
-}
-
-.step-text.step-2{
-    background: #c3f3e2;
-    color: #66bc9e;
-}
 
 /*服务选择样式*/
-.serviceChoice {
+/*.serviceChoice {*/
     /*padding: 20px 0 0 20px;*/
-}
+/*}*/
 
 .serviceChoice ul li a{
     color: #fff;
@@ -336,72 +323,6 @@ a.new-add-btn {
     border-left: 1px solid #549DC8;
 }
 
-/*服务时间设置样式*/
-/*.time-select {*/
-    /*display: inline-block;*/
-    /*position: relative;*/
-/*}*/
-
-/*.time-select-box {*/
-    /*top:30px;*/
-    /*position: absolute;*/
-    /*width: 200px;*/
-/*}*/
-/*服务细节条目包围*/
-/*.serviceRightWrap {*/
-    /*width: 100%;*/
-    /*/!*border-left: 1px solid #dfe3e6;*!/*/
-    /*float: left;*/
-    /*background: #fff;*/
-/*}*/
-
-/*.serviceRight {*/
-    /*box-sizing: border-box;*/
-    /*width: 100%;*/
-    /*padding: 20px;*/
-    /*background: #fff;*/
-/*}*/
-
-/*服务选项弹窗样式*/
-
-/*.serviceTabs {*/
-    /*background: #fff;*/
-    /*/!*padding: 10px;*!/*/
-/*}*/
-
-/*.serviceTabsItem {*/
-    /*float: left;*/
-    /*font-size: 13px;*/
-    /*width: 200px;*/
-/*}*/
-
-/*.ser-chk-title {*/
-    /*padding: 10px;*/
-    /*font-size: 13px;*/
-    /*color: #58789a;*/
-/*}*/
-
-/*.ser-chk-show {*/
-    /*box-sizing: border-box;*/
-    /*padding: 10px;*/
-    /*color: #58789a;*/
-    /*border: #dbe6f2 1px solid;*/
-    /*border-radius: 3px;*/
-    /*width: 100%;*/
-    /*margin-bottom: 10px;*/
-/*}*/
-
-/*.ser-chk-show span {*/
-    /*display: inline-block;*/
-    /*margin: 5px;*/
-    /*padding: 5px;*/
-    /*border: #dbe6f2 1px solid;*/
-    /*border-radius: 3px;*/
-    /*background: #f6fafe;*/
-    /*color: #58789a;*/
-    /*font-size: 13px;*/
-/*}*/
-
 .ser-btn-SerType {
     border: 0;
     color: #fff;
@@ -409,27 +330,6 @@ a.new-add-btn {
     border-radius: 2px;
     background: #549DC8;
 }
-
-/*.serviceTabsItem .item {*/
-    /*cursor: pointer;*/
-    /*padding: 5px;*/
-    /*border-radius: 3px;*/
-/*}*/
-
-/*.serviceTabsItem .item:hover {*/
-    /*background: #31b6fb;*/
-    /*color: #fff;*/
-/*}*/
-
-/*.serviceTabsItem .radioCk {*/
-    /*background : #ffa81f;*/
-    /*color : #fff;*/
-/*}*/
-/*#setSerTypeShow {*/
-    /*overflow: hidden;*/
-/*}*/
-/*/!*end*!/*/
-
 
 .business-radioCk{
     padding: 5px;
@@ -439,16 +339,11 @@ a.new-add-btn {
 }
 
 .business-radioCf {
-    padding: 5px;
+    padding: 0 5px;
     color: #fff;
     background: #8CC8E4;
     border-radius: 2px;
 }
-
-/*.level0{display: block; padding:5px 10px; background: #f6fafe; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
-/*.level1{display: block; padding:5px 10px; background: #eff6fc; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
-/*.level2{display: inline-block; padding:5px 10px; background: #e3edf7; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
-/*.level3{display: inline-block; padding:5px 10px; background: #d6e2ee; border: 1px solid #dbe6f2;font-size: 13px; margin: 3px; border-radius: 5px;}*/
 
 /*服务页面条目标题样式*/
 .service-item-title {
@@ -472,126 +367,46 @@ a.new-add-btn {
 }
 
 .service-checkBox {
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
 }
 
-/*.service-icon-serType { background: url("../image/service/shop_guanli_06.png");  }*/
-/*.service-icon-serIntro { background: url("../image/service/shop_guanli_07.png");  }*/
-/*.service-icon-serArea { background: url("../image/service/shop_guanli_08.png");  }*/
-/*.service-icon-serLocal { background: url("../image/service/shop_guanli_05.png");  }*/
-/*.service-icon-LIC { background: url("../image/service/shop_guanli_12_1.png");  }*/
-/*.service-icon-serTimeSet { background: url("../image/service/shop_guanli_11.png");  }*/
-/*.service-icon-dateSet { background: url("../image/service/shop_guanli_09.png");  }*/
-/*.service-icon-timeSet { background: url("../image/service/shop_guanli_10.png");  }*/
-
-/*.serviceDetailsLeft {*/
-    /*float: left;*/
-    /*width: 290px;*/
-
-/*}*/
-
-/*.serviceDetailsRight {*/
-    /*float: right;*/
-    /*padding-left: 20px;*/
-/*}*/
-
-
-
-/*.service-md {*/
-    /*margin-bottom: 20px;*/
-/*}*/
-
-/*.service-md-title {*/
-    /*margin-bottom: 10px;*/
-    /*position: relative;*/
-    /*width: 287px;*/
-    /*height: 35px;*/
-    /*line-height: 35px;*/
-    /*padding-left: 10px;*/
-    /*background: #f6f9fe;*/
-    /*border-left: 5px solid #60c7ce;*/
-/*}*/
-
-/*.servie-icon-mdItem { height: 35px; width: 38px; background: url("../image/service/shop_icon_03.png") no-repeat center; position: absolute; right: 0; top: 0; }*/
-/*.servie-icon-mdRound { height: 35px; width: 38px; background: url("../image/service/shop_icon_02.png") no-repeat center; position: absolute; right: 0; top: 0; }*/
-/*.servie-icon-mdStand { height: 35px; width: 38px; background: url("../image/service/shop_icon_01.png") no-repeat center; position: absolute; right: 0; top: 0; }*/
-
-/*.service-md-main {*/
-    /*padding-left: 15px;*/
-/*}*/
-
-/*.service-md-mleft {*/
-    /*float: left;*/
-    /*width: 329px;*/
-    /*margin-right: 50px;*/
-/*}*/
-
-/*.service-md-mright {*/
-    /*float: left;*/
-
-/*}*/
-
-/*.service-md-box {*/
-    /*padding-bottom: 20px;*/
-    /*border-bottom: 1px solid #d7e3f1;*/
-    /*margin-bottom: 20px;*/
-/*}*/
-
-/*.service-m {*/
-    /*margin-bottom: 10px;*/
-/*}*/
-
-.service-input-radio tr{
-    float: left;
-    margin-right: 20px;
-    height: 40px;
-    line-height: 40px;
+.service-checkBox,.service-input-radio {
+    display: inline-block;
+    width: 100%;
 }
+
 
 .service-input-radio input{
     margin-right: 10px;
 }
 
-/*.service-input-area {*/
-    /*width: 250px;*/
-    /*height: 100px;*/
-    /*padding: 5px;*/
-    /*border: #dbe6f2 1px solid;*/
-    /*border-radius: 3px;*/
-    /*background: #f6fafe;*/
-    /*color: #58789a;*/
-    /*font-size: 13px;*/
+.service-input-radio,.service-checkBox label
+{
+    color: #666;
+}
 
-/*}*/
+table.service-checkBox,.service-input-radio {
+    display: table;
+    width: 100%;
+}
 
-/*.service-input-mid {*/
-    /*width: 122px;*/
-    /*height: 20px;*/
-    /*padding: 5px;*/
-    /*line-height: 20px;*/
-    /*border: #dbe6f2 1px solid;*/
-    /*border-radius: 3px;*/
-    /*background: #f6fafe;*/
-    /*color: #58789a;*/
-    /*font-size: 13px;*/
-    /*vertical-align: middle;*/
-    /*box-sizing: content-box\9;*/
-/*}*/
+table.service-input-radio tr{
+    float: left;
+    margin-right: 20px;
+    height: 30px;
+    line-height: 30px;
+}
 
-/*.service-input-sm {*/
-    /*width: 52px;*/
-    /*height: 20px;*/
-    /*padding: 5px;*/
-    /*line-height: 20px;*/
-    /*border: #dbe6f2 1px solid;*/
-    /*border-radius: 3px;*/
-    /*background: #f6fafe;*/
-    /*color: #58789a;*/
-    /*font-size: 13px;*/
-    /*vertical-align: middle;*/
-    /*box-sizing: content-box\9;*/
-/*}*/
+table.service-input-radio tr td{
+    margin-right: 20px;
+    height: 30px;
+    line-height: 30px;
+}
+
+table.service-input-radio tr td input,label{
+    display: inline;
+}
 
 .serviceIntroduced {
     width: 285px;
@@ -615,11 +430,6 @@ a.new-add-btn {
     padding: 5px 0;
 }
 
-/*.setLocationMap {*/
-    /*width: 200px;*/
-    /*height: 150px;*/
-    /*background: url("../image/service/img_map.png") no-repeat center;*/
-/*}*/
 
 .business-text {
     display: inline-block;
@@ -641,26 +451,6 @@ a.new-add-btn {
     width:100%;
     height:500px;
 }
-
-
-/*.sp-style {*/
-    /*cursor: pointer;*/
-    /*display: inline-block;*/
-    /*width: 50px;*/
-    /*height: 50px;*/
-    /*line-height: 50px;*/
-    /*margin: 2px;*/
-    /*text-align: center;*/
-    /*background: #ccc;*/
-/*}*/
-/*.sp-style-on {*/
-    /*background: green;*/
-/*}*/
-/*#radius-container{padding: 5px;}*/
-/*#addError,*/
-/*#delError,*/
-/*#saveError{color:red;display: none;}*/
-
 
 #businessMap {
     width: 100%;
@@ -724,13 +514,6 @@ a.new-add-btn {
     text-align: center;
 }
 
-/*.service-saveSubmit-btn {*/
-    /*border: 0;*/
-    /*width: 104px;*/
-    /*height: 42px;*/
-    /*background: url("../image/service/shop_tx_107.png") no-repeat center;*/
-/*}*/
-
 .bottomArea {
     position: relative;
     width: 100%;
@@ -754,10 +537,7 @@ a.new-add-btn {
 
 
 
-/*设置下拉选框宽高*/
-.select-xm { width: 80px; height: 30px; line-height: 30px; border: 1px solid #C0D1E3; color: #58789a; }
-.select-xm cite { width: 80px; line-height: 28px; }
-.select-xm ul { width: 80px; line-height: 30px; }
+
 
 
 .serviceDataRadio {

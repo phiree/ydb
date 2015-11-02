@@ -32,8 +32,8 @@
             var _confirm = $("<input type='button' class='" + protoThis.options.confirm + "' value='确定'/>");
             var _btnContainer = $("<div class='time-select-btn'></div>")
             var _selectContainer = $("<div class='time-select-container'></div>")
-            var _hourUnit = $("<span class='hour-unit'>小时</span>");
-            var _minuUnit = $("<span class='minu-unit'>分钟</span>");
+            var _hourUnit = $("<span class='hour-unit'>时</span>");
+            var _minuUnit = $("<span class='minu-unit'>分</span>");
 
             var _hourPrint = "00";
             var _minuPrint = "00";
@@ -55,7 +55,7 @@
                 _trigger.html(_defHour + ":" + _defMinu);
             }
 
-            protoThis.createSelect(_hourSelcet,23,null,_defHour,function(val){_hourPrint = val});
+            protoThis.createSelect(_hourSelcet,24,null,_defHour,function(val){_hourPrint = val});
             protoThis.createSelect(_minuSelcet,59,5,_defMinu,function(val){_minuPrint = val});
 
             _trigger.click(function(){
