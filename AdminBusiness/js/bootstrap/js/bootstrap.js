@@ -731,7 +731,16 @@ if (typeof jQuery === 'undefined') {
   $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
     var $this   = $(this)
 
-    if (!$this.attr('data-target')) e.preventDefault()
+    // ----------------- Source code enhance by licdream@126.com ------------------
+    // Add a property "collapse-ignore" to the target we want to ignore the collapse action in collapse container
+    var target = e.srcElement || e.target;
+    var $target = $(target);
+
+    if( $target.attr('collapse-ignore') == "true"){
+      return true
+    } else {
+      if (!$this.attr('data-target')) e.preventDefault()
+    }
 
     var $target = getTargetFromTrigger($this)
     var data    = $target.data('bs.collapse')

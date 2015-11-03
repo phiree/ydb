@@ -26,7 +26,7 @@ namespace Dianzhu.Test.BLLTest
         public void assign_customer_login()
         {
 
-
+            //单元测试太复杂 代表代码构建有问题. 需要优化.
             var dalMock = MockRepository.GenerateStub<DAL.DALReceptionStatus>(string.Empty);
             var dalMemberMock = MockRepository.GenerateStub<DAL.DALMembership>(string.Empty);
 
@@ -50,7 +50,10 @@ namespace Dianzhu.Test.BLLTest
                 .TheNext(1).With(x => x.username =Guid.NewGuid().ToString())
                 .Build();
             dalMemberMock.Stub(x => x.GetOne(new Guid(onlineUsers[0].username))).Return(
-                Builder<DZMembership>.CreateNew().Build()
+                Builder<DZMembership>.CreateNew().With(x=>x.UserName="b"). Build()
+                );
+            dalMemberMock.Stub(x => x.GetOne(new Guid(onlineUsers[1].username))).Return(
+                Builder<DZMembership>.CreateNew().With(z=>z.UserName="a"). Build()
                 );
             sessionMock.Stub(x => x.GetOnlineSessionUser()).Return(onlineUsers);
             
