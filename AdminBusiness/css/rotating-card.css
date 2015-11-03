@@ -60,7 +60,7 @@
 
 /* front pane, placed above back */
 .card-front {
-	z-index: 2;
+	z-index: 4;
     z-index:4\0;
     z-index:4\9;
     border: 1px solid #eee;\9;
