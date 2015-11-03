@@ -10,7 +10,7 @@ using Dianzhu.CSClient.ViewModel;
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
-    /// 当前界面需要维护的局部变量.
+    /// 当前界面需要维护的状态值.
     /// </summary>
     public partial class MainPresenter
     {

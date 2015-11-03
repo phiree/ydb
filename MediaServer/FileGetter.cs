@@ -10,44 +10,49 @@ using PHSuit;
 namespace MediaServer
 {
     /// <summary>
+    /// 获取文件的相对地址.
     /// God bless me, let the unittest Greens.
     /// 
     /// thank god.
     /// </summary>
     public class FileGetter
     {
-        /// <summary>
-        /// 获取服务器上的相对路径文件
-        /// </summary>
-        ///<param name="fileName">文件名称</param>
-        /// <returns></returns>
 
         private string cleanedFileName = string.Empty;
         private string originalFileName;
         string mediaRootDir;
         int imageWidth, imageHeight;
         bool isImageThumbnail;
-        public FileGetter(string originalFileName,string mediaRootDir)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="originalFileName">原始文件名称(不包括缩略图名称规则部分)</param>
+        /// <param name="mediaRootDir">存储文件的根目录(相对路径)</param>
+        public FileGetter(string originalFileName, string mediaRootDir)
         {
             this.originalFileName = originalFileName;
             this.mediaRootDir = mediaRootDir;
         }
-        
-         //获取文件的相对路径.
+
+        /// <summary>
+        /// 获取文件的相对路径.
+        /// </summary>
+        /// <param name="fileType"></param>
+        /// <returns></returns>
         public string GetRelativeFileName(out FileType fileType)
         {
             string result = string.Empty;
             string domainType;
             string extension = Path.GetExtension(originalFileName);
             KeyValuePair<FileType, string> fileExtensionPair = MediaServer.ServerSettings.FileExtension.SingleOrDefault(x => x.Value == extension);
-              fileType = fileExtensionPair.Key;
+            fileType = fileExtensionPair.Key;
             ServerSettings.FileNameParser(originalFileName, out fileType
                 , out domainType, out cleanedFileName
                 , out isImageThumbnail, out imageWidth, out imageHeight);
 
             string relativePath = ServerSettings.DomainPath[domainType];
             result = relativePath + cleanedFileName;
-            if (fileType== FileType.image&& isImageThumbnail)
+            if (fileType == FileType.image && isImageThumbnail)
             {
                 result = GetImageRelativePath(relativePath);
             }
@@ -59,20 +64,20 @@ namespace MediaServer
 
             return result;
         }
- 
+
         private string GetCompiledAudio(string relativePath)
         {
             //todo: 音频文件解码.
             return relativePath + originalFileName;
         }
-    
-        private string  GetImageRelativePath(string originalRelativePath)
+
+        private string GetImageRelativePath(string originalRelativePath)
         {
-            
+
             string thumbnailName = ThumbnailMaker.Make(
                 mediaRootDir + originalRelativePath,
                 mediaRootDir + originalRelativePath + "thumbnail\\",
-                cleanedFileName, imageWidth,imageHeight, ThumbnailType.GeometricScalingByMax);
+                cleanedFileName, imageWidth, imageHeight, ThumbnailType.GeometricScalingByMax);
             return thumbnailName.Replace(mediaRootDir, string.Empty);
         }
 
@@ -80,7 +85,7 @@ namespace MediaServer
 
     }
 
-   
+
 }
 
 

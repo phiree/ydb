@@ -8,7 +8,9 @@ using Dianzhu.CSClient.IVew;
 namespace Teboscreen
 {
 
-
+    /// <summary>
+    /// 屏幕截图
+    /// </summary>
     public partial class Form1 : Form,Dianzhu.CSClient.IVew.IScreenCaptureForm
     {
         

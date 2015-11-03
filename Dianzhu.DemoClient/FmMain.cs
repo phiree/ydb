@@ -38,6 +38,18 @@ namespace Dianzhu.DemoClient
             GlobalViables.XMPPConnection.OnAuthError += new XmppElementHandler(XMPPConnection_OnAuthError);
             GlobalViables.XMPPConnection.OnSocketError += new ErrorHandler(XMPPConnection_OnSocketError);
             GlobalViables.XMPPConnection.OnIq += XMPPConnection_OnIq;
+            GlobalViables.XMPPConnection.OnStreamError += XMPPConnection_OnStreamError;
+            GlobalViables.XMPPConnection.OnClose += XMPPConnection_OnClose;
+        }
+
+        private void XMPPConnection_OnClose(object sender)
+        {
+            MessageBox.Show("Connection has been Closed");
+        }
+
+        private void XMPPConnection_OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
+        {
+            MessageBox.Show(e.ToString());
         }
 
         private void XMPPConnection_OnIq(object sender, IQ iq)

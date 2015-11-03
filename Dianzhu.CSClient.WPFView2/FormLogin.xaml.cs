@@ -17,7 +17,7 @@ using System.ComponentModel;
 namespace Dianzhu.CSClient.WPFView 
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// IViewLogin的Wpf实现
     /// </summary>
     public partial class FormLogin : Window,ILoginForm
     {
@@ -26,7 +26,7 @@ namespace Dianzhu.CSClient.WPFView
         {
             InitializeComponent();
             btnLogin.Click += BtnLogin_Click;
-           
+            //登录时的异步处理
             bgw.DoWork += Bgw_DoWork;
             
         }
@@ -54,6 +54,7 @@ namespace Dianzhu.CSClient.WPFView
                 {
                     MessageBox.Show(value);
                 };
+                //more about  Dispacher: https://msdn.microsoft.com/en-us/library/system.windows.threading.dispatcher(v=vs.110).aspx
                 if (!Dispatcher.CheckAccess())
                 {
                     Dispatcher.Invoke(lambda);

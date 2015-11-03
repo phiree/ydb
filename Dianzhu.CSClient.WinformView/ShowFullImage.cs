@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace Dianzhu.CSClient.WinformView
 {
+    /// <summary>
+    /// 打开消息记录中的图片
+    /// </summary>
     public partial class ShowFullImage : Form
     {
         public ShowFullImage(Image image)

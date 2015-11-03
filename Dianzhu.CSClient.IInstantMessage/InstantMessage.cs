@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
+ 
 namespace Dianzhu.CSClient.IInstantMessage
 {
     public delegate void IMReceivedMessage(Model.ReceptionChat chat);
@@ -14,7 +14,9 @@ namespace Dianzhu.CSClient.IInstantMessage
     public delegate void IMConnectionError(string error);
     public delegate void IMClosed();
     public delegate void IMIQ();
-
+    /// <summary>
+    /// 通讯接口定义
+    /// </summary>
     public interface InstantMessage
     {
 

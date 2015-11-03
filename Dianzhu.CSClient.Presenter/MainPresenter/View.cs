@@ -8,30 +8,27 @@ using Dianzhu.CSClient.IVew;
 using Dianzhu.CSClient.IInstantMessage;
 using System.IO;
 using System.Diagnostics;
- 
+
 namespace Dianzhu.CSClient.Presenter
 {
+    /// <summary>
+    /// Presenter for MainForm
+    /// </summary>
     public partial class MainPresenter
     {
         /// <summary>
-        /// 激活一个用户,如果当前用户,则不需要加载 或者禁用当前用户的按钮.
-        /// 这个动作应该被订阅.
+        /// 切换订单1:改变当前订单, 改变按钮样式
         /// </summary>
-        /// <param name="buttonText"></param>
+        /// <param name="order"></param>
         private void ActiveCustomer(ServiceOrder order)
         {
-
-            //view.CurrentCustomerName = order.Customer.DisplayName;
             CurrentServiceOrder = order;
-            
-            //LoadChatHistory(buttonText);
             view.SetCustomerButtonStyle(order, em_ButtonStyle.Actived);
-             
-            
-            
         }
 
-
+        /// <summary>
+        /// ToDO: 在当前订单内,创建一个新订单,涉及到组合订单的业务逻辑.未实现.
+        /// </summary>
         private void View_CreateNewOrder()
         {
             if (CurrentServiceOrder == null)
@@ -39,11 +36,7 @@ namespace Dianzhu.CSClient.Presenter
             ServiceOrder newOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
                 string.Empty, string.Empty, string.Empty, 0, string.Empty, CurrentServiceOrder.Customer,
                 string.Empty, 0, 0);
-
-
-            
-                bllOrder.SaveOrUpdate(newOrder);
-            
+            bllOrder.SaveOrUpdate(newOrder);
             ReceptionChat chat = new ReceptionChat
             {
                 ChatType = Model.Enums.enum_ChatType.Text,
@@ -58,13 +51,13 @@ namespace Dianzhu.CSClient.Presenter
         }
 
         /// <summary>
-        /// 生成订单的支付链接
+        /// 从草稿订单创建正式订单
         /// </summary>
         void view_CreateOrder()
         {
             decimal unitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
             decimal orderAmount = Convert.ToDecimal(view.OrderAmount);
-            
+
             Debug.Assert(CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
             SaveCurrentOrder();
             CurrentServiceOrder.OrderStatus = Model.Enums.enum_OrderStatus.Created;
@@ -80,9 +73,9 @@ namespace Dianzhu.CSClient.Presenter
                 UserObj = customerService,
 
                 MessageBody = "支付链接" + payLink,
-                SendTime =DateTime.Now
+                SendTime = DateTime.Now
             };
-            
+
             SendMessage(chatNotice);
             LoadCurrentOrder(CurrentServiceOrder);
         }
@@ -99,22 +92,23 @@ namespace Dianzhu.CSClient.Presenter
             //根据接收到的服务确认消息, 创建订单. 
         }
         /// <summary>
-        /// 订单数据变化
+        /// 当前订单发生改变(点击了另外的订单按钮)
         /// </summary>
         void view_BeforeCustomerChanged()
         {
-           // view.SetCustomerButtonStyle(CurrentServiceOrder, em_ButtonStyle.Readed);
+            // view.SetCustomerButtonStyle(CurrentServiceOrder, em_ButtonStyle.Readed);
+            //保存当前界面的草稿订单先~
             SaveCurrentOrder();
         }
-        //加载当前用户的订单
+        //加载订单
         void LoadCurrentOrder(ServiceOrder order)
         {
             if (order == null)
             {
                 return;
             }
-             
-            if (!OrderList.Contains (order))
+
+            if (!OrderList.Contains(order))
             {
                 OrderList.Add(order);
             }
@@ -134,40 +128,41 @@ namespace Dianzhu.CSClient.Presenter
             : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
             : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
             : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
-            :order.OrderStatus.ToString();
+            : order.OrderStatus.ToString();
             if (order.OrderStatus == Model.Enums.enum_OrderStatus.Draft)
             {
                 view.CanEditOrder = true;
             }
-            else {
+            else
+            {
                 view.CanEditOrder = false;
             }
 
-
-
-
         }
+        /// <summary>
+        /// 保存当前界面的订单数据
+        /// </summary>
         void SaveCurrentOrder()
         {
-            
-            if (CurrentServiceOrder==null)
+
+            if (CurrentServiceOrder == null)
             {
                 return;
             }
-             
+
             CurrentServiceOrder.ServiceName = view.ServiceName;
             CurrentServiceOrder.ServiceBusinessName = view.ServiceBusinessName;
             CurrentServiceOrder.ServiceDescription = view.ServiceDescription;
-            CurrentServiceOrder.ServiceUnitPrice =Convert.ToDecimal( view.ServiceUnitPrice);
+            CurrentServiceOrder.ServiceUnitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
             CurrentServiceOrder.ServiceURL = view.ServiceUrl;
-            CurrentServiceOrder.OrderAmount =Convert.ToDecimal( view.OrderAmount);
+            CurrentServiceOrder.OrderAmount = Convert.ToDecimal(view.OrderAmount);
             CurrentServiceOrder.TargetAddress = view.TargetAddress;
             CurrentServiceOrder.Memo = view.Memo;
             CurrentServiceOrder.TargetTime = view.ServiceTime;
             bllOrder.SaveOrUpdate(CurrentServiceOrder);
         }
 
-        
+
         /// <summary>
         /// 界面的搜索事件
         /// </summary>
@@ -188,23 +183,12 @@ namespace Dianzhu.CSClient.Presenter
             }
         }
 
-        /// <summary>
-        /// 推送外部服务
-        /// </summary>
-        
 
         /// <summary>
-        /// 1)判断该用户是否已在聊天会话中
-        /// 2)如果在 则取出该会话, 没有 则创建会话
+        /// 发送消息~
         /// </summary>
-        /// <param name="chat"></param>
-
-
         void view_SendMessageHandler()
         {
-
-            //
-
             if (CurrentServiceOrder == null)
             { return; }
 
@@ -224,20 +208,21 @@ namespace Dianzhu.CSClient.Presenter
             SendMessage(chat);
             view.MessageTextBox = string.Empty;
         }
-        private void view_SendMediaHandler(byte[] fileData,string domainType, string mediaType)
+        /// <summary>
+        /// 发送多媒体消息(截图,本地图片,音频,视频)
+        /// </summary>
+        /// <param name="fileData"></param>
+        /// <param name="domainType"></param>
+        /// <param name="mediaType"></param>
+        private void view_SendMediaHandler(byte[] fileData, string domainType, string mediaType)
         {
             if (CurrentServiceOrder == null) return;
-            
-            //     string fileExtension = Path.GetExtension(view.SelectedImageName);
-            //byte[] bytes = File.ReadAllBytes(view.SelectedImageName);
-                
-                string s = Convert.ToBase64String(fileData);
-         string fileName=   MediaServer.HttpUploader.Upload(
-             GlobalViables.MediaUploadUrl, s, view.SelectedImageName,
-                domainType, mediaType);
-            //string result = PHSuit.IOHelper.UploadFileHttp(
-            //    GlobalViables.MediaUploadUrl,
-            //     string.Empty, bytes, fileExtension);
+ 
+            string s = Convert.ToBase64String(fileData);
+            string fileName = MediaServer.HttpUploader.Upload(
+                GlobalViables.MediaUploadUrl, s, view.SelectedImageName,
+                   domainType, mediaType);
+             
 
             ReceptionChatMedia chat = new ReceptionChatMedia
             {
@@ -248,7 +233,7 @@ namespace Dianzhu.CSClient.Presenter
                 MessageBody = view.MessageTextBox,
                 SendTime = DateTime.Now,
                 SavedTime = DateTime.Now,
-                MedialUrl =GlobalViables.MediaGetUrl+ fileName,
+                MedialUrl = GlobalViables.MediaGetUrl + fileName,
                 MediaType = mediaType
             };
 

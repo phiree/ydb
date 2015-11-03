@@ -8,9 +8,13 @@ using Dianzhu.BLL;
 using agsXMPP.protocol.client;
 namespace Dianzhu.CSClient.MessageAdapter
 {
-
+    /// <summary>
+    /// Convert between IM message and ReceptionChat
+    /// todo:需要区分 聊天记录, 和 系统消息.
+    /// </summary>
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
+        
         static DZMembershipProvider bllMember;
         DZMembershipProvider BllMember
         {
@@ -47,10 +51,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         log4net.ILog ilog = log4net.LogManager.GetLogger("xmpp");
         public MessageAdapter()
         {
-            //注入类的初始化需要在 调用者,影响调用者的初始化速度.这里不用注入依赖.
-            //这样处理也不行, 需要将对象初始化过程 下放到 调用之处.
-
-
+ 
         }
         /// <summary>
         /// 将im的 message为 系统设计的格式(chat)
@@ -139,8 +140,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             return chat;
         }
         /// <summary>
-        /// 客服发送消息
-        /// 
+        /// 将聊天对象转换为具体通讯协议规定的格式.
         /// </summary>
         /// <param name="chat"></param>
         /// <returns></returns>

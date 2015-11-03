@@ -7,8 +7,20 @@ using System.Net;
 using System.IO;
 namespace MediaServer
 {
+    /// <summary>
+    /// 文件上传
+    /// </summary>
     public class FileUploader
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileBase64">文件的base64编码</param>
+        /// <param name="originalName">文件原名</param>
+        /// <param name="localSavePathRoot">本地存储地址</param>
+        /// <param name="domainType">文件的域类型</param>
+        /// <param name="fileType"></param>
+        /// <returns></returns>
         public static string Upload(string fileBase64, string originalName, string localSavePathRoot, string domainType, FileType fileType)
         {
             originalName = Path.GetFileName(originalName);

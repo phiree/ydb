@@ -6,10 +6,28 @@ using System.Text;
 using Dianzhu.Model;
 namespace Dianzhu.CSClient.IVew
 {
+ 
+    /// <summary>
+    /// 当前界面的标志条目被修改(点击了另一个 订单按钮)
+    /// </summary>
+    /// <param name="serviceOrder">新激活的订单</param>
     public delegate void IdentityItemActived(ServiceOrder serviceOrder);
+    /// <summary>
+    /// 消息发送之后
+    /// </summary>
     public delegate void MessageSent();
+    /// <summary>
+    /// 发送字节数组的消息(例如,截屏图片)
+    /// </summary>
+    /// <param name="fileData"></param>
+    /// <param name="domainType"></param>
+    /// <param name="mediaType"></param>
     public delegate void MediaMessageSent(byte[] fileData, string domainType,string mediaType);
-    
+    /// <summary>
+    /// 播放音频委托
+    /// </summary>
+    /// <param name="audioTag"></param>
+    /// <param name="handler"></param>
     public delegate void AudioPlay(object audioTag,IntPtr handler);
     public delegate void PushExternalService();
     public delegate void PushInternalService(DZService service);
@@ -25,9 +43,12 @@ namespace Dianzhu.CSClient.IVew
     public delegate void NoticePromote();
     public delegate void NoticeCustomerService();
     
+    /// <summary>
+    /// 主界面接口定义
+    /// </summary>
     public interface IMainFormView
     {
-        #region Chat
+        
         IList<ReceptionChat> ChatLog { set; get; }
         void LoadOneChat( ReceptionChat chat);
        
@@ -40,18 +61,29 @@ namespace Dianzhu.CSClient.IVew
         /// <param name="buttonText">按钮文本(等同于客户登录名)</param>
         /// <param name="buttonStyle">按钮样式</param>
         void SetCustomerButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle);
-        /// <summary>
-        /// 增加一个客户按钮,并设置样式
-        /// </summary>
-        /// <param name="buttonText"></param>
-        /// <param name="buttonStyle"></param>
+       /// <summary>
+       /// 增加一个按钮,并设置其样式
+       /// </summary>
+       /// <param name="order">按钮对应的订单</param>
+       /// <param name="buttonStyle"></param>
         void AddCustomerButtonWithStyle(ServiceOrder order, em_ButtonStyle buttonStyle);
+        /// <summary>
+        /// 按钮名称的前缀.
+        /// </summary>
         string ButtonNamePrefix { get; set; }
+        /// <summary>
+        /// 发送文本消息
+        /// </summary>
         event MessageSent SendMessageHandler;
+        /// <summary>
+        /// 发送多媒体消息
+        /// </summary>
         event MediaMessageSent SendMediaHandler;
         event AudioPlay PlayAudio;
         event IdentityItemActived IdentityItemActived;
-        #endregion
+        /// <summary>
+        /// 多媒体消息本地存储路径
+        /// </summary>
         string LocalMediaSaveDir { get; set; }
         string SerachKeyword { get; set; }
         string MessageTextBox { get; set; }
@@ -80,7 +112,9 @@ namespace Dianzhu.CSClient.IVew
         event SendPayLink SendPayLink;
         event CreateOrder CreateOrder;
         event ViewClosed ViewClosed;
-        
+        /// <summary>
+        /// 更改标志(顶部按钮)之前的事件.
+        /// </summary>
         event BeforeCustomerChanged BeforeCustomerChanged;
         event OrderStateChanged OrderStateChanged;
         event CreateNewOrder CreateNewOrder;
@@ -90,7 +124,10 @@ namespace Dianzhu.CSClient.IVew
         event NoticeOrder NoticeOrder;
         event NoticePromote NoticePromote;
         event NoticeSystem NoticeSystem;
-        
+        /// <summary>
+        /// 显示系统通知.
+        /// </summary>
+        /// <param name="noticeContent"></param>
         void ShowNotice(string noticeContent);
         
 
