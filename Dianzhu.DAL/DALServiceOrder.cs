@@ -57,7 +57,7 @@ namespace Dianzhu.DAL
         public  IList<ServiceOrder> GetServiceOrderList(Guid userId, enum_OrderSearchType searchType, int pageNum, int pageSize)
         {
             var iqueryover = GetList(userId, searchType);
-            var result = iqueryover.Skip(pageNum - 1).Take(pageSize).List();
+            var result = iqueryover.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
             return result;
         }
     }

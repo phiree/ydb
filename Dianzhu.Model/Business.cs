@@ -47,7 +47,7 @@ namespace Dianzhu.Model
     }
 
     /// <summary>
-    /// 商家
+    /// 商家下的店铺
     /// </summary>
     public class Business : Business_Abs
     {
@@ -95,6 +95,9 @@ namespace Dianzhu.Model
         public virtual double Longitude { get; set; }
         public virtual double Latitude { get; set; }
 
+        /// <summary>
+        /// MapAPI返回地址信息
+        /// </summary>
         public virtual string RawAddressFromMapAPI { get; set; }
         /// <summary>
         /// 优惠推广的范围.所有的优惠券都是一样的.
@@ -117,6 +120,9 @@ namespace Dianzhu.Model
         /// 审核通过日期
         /// </summary>
         public virtual DateTime DateApproved { get; set; }
+        /// <summary>
+        /// 单张营业执照
+        /// </summary>
         public virtual BusinessImage BusinessLicence
         {
             get
@@ -137,6 +143,9 @@ namespace Dianzhu.Model
                 BusinessImages.Add(value);
             }
         }
+        /// <summary>
+        /// 店铺头像
+        /// </summary>
         public virtual BusinessImage BusinessAvatar
         {
             get
@@ -157,16 +166,25 @@ namespace Dianzhu.Model
                 BusinessImages.Add(value);
             }
         }
+        /// <summary>
+        /// 负责人证件类型
+        /// </summary>
         public virtual Enums.enum_IDCardType ChargePersonIdCardType
         {
             get;
             set;
         }
+        /// <summary>
+        /// 证件号码
+        /// </summary>
         public virtual string ChargePersonIdCardNo
         {
             get;
             set;
         }
+        /// <summary>
+        /// 证件图片
+        /// </summary>
         public virtual IList<BusinessImage> ChargePersonIdCards
         {
             get
@@ -201,7 +219,7 @@ namespace Dianzhu.Model
             }
         }
         /// <summary>
-        /// 营业执照
+        /// 多张营业执照
         /// </summary>
         public virtual IList<BusinessImage> BusinessLicenses
         {
@@ -291,12 +309,17 @@ namespace Dianzhu.Model
                 return percent;
             }
         }
+        /// <summary>
+        /// 现金券模板列表
+        /// </summary>
         public virtual IList<CashTicketTemplate> CashTicketTemplates
         {
             get;
             set;
         }
-
+        /// <summary>
+        /// 现金券
+        /// </summary>
         public virtual IList<CashTicket> CashTickets
         {
             get {

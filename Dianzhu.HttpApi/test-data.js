@@ -2,7 +2,7 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
-"orm002001"//,"merm001003","merm001005",
+"orm001006"//,"merm001003","merm001005",
  
 ];
 var test_data = [
@@ -64,7 +64,7 @@ var test_data = [
                   "pWord": "123456",
                   "target": "Nt",
                   "pageSize": "3",
-                  "pageNum": "1"
+                  "pageNum": "2"
               },
               "stamp_TIMES": "1490192929212",
               "serial_NUMBER": "00147001015869149751"
