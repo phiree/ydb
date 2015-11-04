@@ -40,6 +40,7 @@ namespace Dianzhu.CSClient.Presenter
             this.instantMessage.IMReceivedMessage += new IMReceivedMessage(IMReceivedMessage);
             this.instantMessage.IMClosed += new IMClosed(instantMessage_IMClosed);
             this.instantMessage.IMIQ += InstantMessage_IMIQ;
+            this.instantMessage.IMStreamError += InstantMessage_IMStreamError;
             //iview的委托
             this.view.SendMessageHandler += new MessageSent(view_SendMessageHandler);
             this.view.SendMediaHandler += new MediaMessageSent(view_SendMediaHandler);
@@ -67,7 +68,10 @@ namespace Dianzhu.CSClient.Presenter
             
         }
 
-        
+        private void InstantMessage_IMStreamError()
+        {
+            this.view.ShowStreamError(string.Empty);
+        }
 
         private void View_NoticeSystem()
         {

@@ -92,6 +92,8 @@ namespace Dianzhu.CSClient.IVew
         event NoticeSystem NoticeSystem;
         
         void ShowNotice(string noticeContent);
+
+        void ShowStreamError(string streamError);
         
 
     }

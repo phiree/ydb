@@ -14,6 +14,7 @@ namespace Dianzhu.CSClient.IInstantMessage
     public delegate void IMConnectionError(string error);
     public delegate void IMClosed();
     public delegate void IMIQ();
+    public delegate void IMStreamError();
 
     public interface InstantMessage
     {
@@ -35,6 +36,8 @@ namespace Dianzhu.CSClient.IInstantMessage
         
         event IMReceivedMessage IMReceivedMessage;
         event IMIQ IMIQ;
+
+        event IMStreamError IMStreamError;//登录相同账号冲突错误
       //  void SendMessage(agsXMPP.protocol.client.Message message);
     }
 }

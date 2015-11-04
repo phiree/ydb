@@ -688,6 +688,11 @@ namespace Dianzhu.CSClient.WinformView
         {
             NoticeCustomerService();
         }
+
+        public void ShowStreamError(string streamErrorMes)
+        {
+            MessageBox.Show("该账号已在其他客户端登录，您将被迫下线！");
+        }
         
         
     }

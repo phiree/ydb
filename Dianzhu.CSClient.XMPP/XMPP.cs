@@ -23,6 +23,7 @@ namespace Dianzhu.CSClient.XMPP
         public event IMError IMError;
         public event IMConnectionError IMConnectionError;
         public event IMIQ IMIQ;
+        public event IMStreamError IMStreamError;
         IMessageAdapter.IAdapter messageAdapter;
         private string server = string.Empty;
         public string Server {
@@ -48,10 +49,19 @@ namespace Dianzhu.CSClient.XMPP
                 XmppClientConnection.OnSocketError+=new ErrorHandler(XmppClientConnection_OnSocketError);
                 XmppClientConnection.OnClose+=new ObjectHandler(XmppClientConnection_OnClose);
                 XmppClientConnection.OnIq += XmppClientConnection_OnIq;
-                
+                XmppClientConnection.OnStreamError += XmppClientConnection_OnStreamError;                
                 
             }
         }
+
+        private void XmppClientConnection_OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
+        {
+            if(IMStreamError != null)
+            {
+                IMStreamError();
+            }            
+        }
+
         private void XmppClientConnection_OnIq(object sender, IQ iq)
         {
             log.Debug("receive_iq:" + iq.ToString());
