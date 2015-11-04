@@ -12,11 +12,10 @@ namespace Dianzhu.CSClient.Presenter
         /// 加载该客户的订单列表 和 当前正在处理的订单
 
 
+ 
 
         /// <summary>
-        /// 界面的搜索事件
-
-        /// <summary>
+        /// 接收消息后的处理
         /// 1)判断该用户是否已在聊天会话中
         /// 2)如果在 则取出该会话, 没有 则创建会话
         /// 3)获取 该聊天记录中的 订单ID.并加载
@@ -24,7 +23,7 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="chat"></param>
         public void IMReceivedMessage(ReceptionChat chat)
         {
-            //2 保存数据库
+           
             SaveMessage(chat, false);
             if (chat.ChatType== Model.Enums.enum_ChatType.Notice
                 &&chat.ServiceOrder == null)
@@ -54,10 +53,7 @@ namespace Dianzhu.CSClient.Presenter
                     view.SetCustomerButtonStyle(chat.ServiceOrder, em_ButtonStyle.Unread);
 
                 }
-            }
- 
-            //当前激活客户是否等于发送者.
-           
+            }      
         }
 
 

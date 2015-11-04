@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.CSClient.IVew
 {
+    /// <summary>
+    /// 截图界面的接口.
+    /// </summary>
     public interface IScreenCaptureForm
     {
+        /// <summary>
+        /// 截图完成之后
+        /// </summary>
         event MediaMessageSent Captured;
     }
 }

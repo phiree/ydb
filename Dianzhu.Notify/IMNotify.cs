@@ -9,6 +9,9 @@ using Dianzhu.CSClient.IInstantMessage;
 /// </summary>
 namespace Dianzhu.NotifyCenter
 {
+    /// <summary>
+    /// 基于即时通讯 的推送.
+    /// </summary>
     public class IMNotify
     {
         private Dianzhu.CSClient.IInstantMessage.InstantMessage im = null;
@@ -75,7 +78,10 @@ namespace Dianzhu.NotifyCenter
             //发送给客服.
             im.SendMessage(msgForCS.ToString());
         }
-
+        /// <summary>
+        /// 促销消息
+        /// </summary>
+        /// <param name="promoteUrl"></param>
         public void SendPromote(string promoteUrl)
         {
 

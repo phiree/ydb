@@ -16,12 +16,10 @@ namespace Dianzhu.CSClient.WinformView
 {
     public partial class FormMain : Form, IMainFormView
     {
-       
-        /// <summary>
-        /// todo:view 不需要知道formcontroller , 应该在该窗体初始化的时候 初始化controller
-        /// 
-        /// </summary>
         
+        /// <summary>
+        /// IViewMainForm的 windows form实现.
+        /// </summary>
         public FormMain()
         {
             InitializeComponent();
