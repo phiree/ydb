@@ -65,7 +65,25 @@ namespace Dianzhu.CSClient.Presenter
             this.view.NoticeOrder += View_NoticeOrder;
             this.view.NoticePromote += View_NoticePromote;
             this.view.NoticeSystem += View_NoticeSystem;
-            
+
+            this.view.ReAssign += View_ReAssign;
+        }
+
+        private void View_ReAssign()
+        {
+            IList<DZMembership> csList = bllReceptionStatus.GetCustomListByCSId(GlobalViables.CurrentCustomerService);
+            for(int i=0; i<csList.Count; i++)
+            {
+                this.view.RecptingCustomList += "/" + csList[i].DisplayName;
+            }
+
+            IIMSession imSession = new IMSessionsOpenfire(System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"), 
+                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+            IList<OnlineUserSession> ouSession = imSession.GetOnlineSessionUser();
+            for (int j=0; j< ouSession.Count; j++)
+            {
+                this.view.RecptingCustomServiceList += "/" + ouSession[j].username;
+            }
         }
 
         private void InstantMessage_IMStreamError()

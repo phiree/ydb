@@ -9,9 +9,9 @@ using System.Windows.Forms;
 using System.IO;
 using Dianzhu.Model;
 using Dianzhu.CSClient.IVew;
- 
+
 //using Dianzhu.CSClient.Model;
- 
+
 namespace Dianzhu.CSClient.WinformView
 {
     public partial class FormMain : Form, IMainFormView
@@ -44,8 +44,9 @@ namespace Dianzhu.CSClient.WinformView
         public event NoticeOrder NoticeOrder;
         public event NoticePromote NoticePromote;
         public event NoticeCustomerService NoticeCustomerService;
-        
-        
+
+        public event ReAssign ReAssign;
+
 
         #endregion
 
@@ -691,7 +692,21 @@ namespace Dianzhu.CSClient.WinformView
         {
             MessageBox.Show("该账号已在其他客户端登录，您将被迫下线！");
         }
-        
-        
+
+        private void btnReAssign_Click(object sender, EventArgs e)
+        {
+            ReAssign();
+        }
+
+        public string RecptingCustomList
+        {
+            get { return lblCSList.Text; }
+            set { lblCSList.Text = value; }
+        }
+        public string RecptingCustomServiceList
+        {
+            get { return lblCSServiceList.Text; }
+            set { lblCSServiceList.Text = value; }
+        }
     }
 }

@@ -42,6 +42,10 @@ namespace Dianzhu.CSClient.IVew
     public delegate void NoticeOrder();
     public delegate void NoticePromote();
     public delegate void NoticeCustomerService();
+    /// <summary>
+    /// 客服分配
+    /// </summary>
+    public delegate void ReAssign();
     
     /// <summary>
     /// 主界面接口定义
@@ -130,8 +134,15 @@ namespace Dianzhu.CSClient.IVew
         /// <param name="noticeContent"></param>
         void ShowNotice(string noticeContent);
 
+        /// <summary>
+        /// 显示登录冲突
+        /// </summary>
+        /// <param name="streamError"></param>
         void ShowStreamError(string streamError);
-        
 
+        event ReAssign ReAssign;
+
+        string RecptingCustomList { get; set; }
+        string RecptingCustomServiceList { get; set; }
     }
 }

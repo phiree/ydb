@@ -35,11 +35,16 @@ namespace Dianzhu.BLL
             }
         }
         /// <summary>
-        /// 给客户分配一个客服,默认使用随机方式.
+        /// 根据当前客服id获取接待用户列表
         /// </summary>
-        /// <param name="customerUserName"></param>
-        /// <param name="excluedCS">被排除的客服</param>
-        /// <returns></returns>
+        /// <param name=""></param>
+        /// <param name=""></param>
+        public IList<DZMembership> GetCustomListByCSId(DZMembership cs)
+        {
+            IList<ReceptionStatus> RS = dalRS.GetListByCustomerService(cs);
+            IList<DZMembership> result = RS.Select(x => x.Customer).ToList();
+            return result;
+        }
 
         
 
@@ -219,6 +224,9 @@ namespace Dianzhu.BLL
         }
     }
     #region ---------------openfire restapi 在线用户数据的结构---------------
+    /// <summary>
+    /// 当返回只有一条数据时处理方式
+    /// </summary>
     public class OnlineUserSessionResult_OnlyOne
     {
         public  OnlineUserSession  session { get; set; }

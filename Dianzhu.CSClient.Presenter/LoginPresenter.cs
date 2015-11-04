@@ -85,6 +85,10 @@ namespace Dianzhu.CSClient.Presenter
                     bllReceptionStatus = new BLLReceptionStatus();
                 return bllReceptionStatus;
             } } 
+        /// <summary>
+        /// 登录成功后触发
+        /// </summary>
+        /// <param name="jidUser"></param>
         void IMLogined(string jidUser)
        {
           

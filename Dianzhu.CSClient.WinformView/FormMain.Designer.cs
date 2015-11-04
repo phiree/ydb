@@ -91,6 +91,9 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
+            this.btnReAssign = new System.Windows.Forms.Button();
+            this.lblCSList = new System.Windows.Forms.Label();
+            this.lblCSServiceList = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -110,6 +113,7 @@
             this.panel5.SuspendLayout();
             this.pnlResultService.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.pnlNotice.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pnlExternService.SuspendLayout();
             this.SuspendLayout();
@@ -370,6 +374,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.btnReAssign);
             this.panel3.Controls.Add(this.btnCreateNewDraft);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 430);
@@ -591,6 +596,8 @@
             // pnlNotice
             // 
             this.pnlNotice.AutoScroll = true;
+            this.pnlNotice.Controls.Add(this.lblCSList);
+            this.pnlNotice.Controls.Add(this.lblCSServiceList);
             this.pnlNotice.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlNotice.Location = new System.Drawing.Point(3, 193);
             this.pnlNotice.Name = "pnlNotice";
@@ -675,7 +682,7 @@
             // 
             // tbxKeywords
             // 
-            this.tbxKeywords.Font = new System.Drawing.Font("SimSun", 20.5F);
+            this.tbxKeywords.Font = new System.Drawing.Font("宋体", 20.5F);
             this.tbxKeywords.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxKeywords.Location = new System.Drawing.Point(19, 16);
             this.tbxKeywords.Name = "tbxKeywords";
@@ -762,6 +769,32 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
+            // btnReAssign
+            // 
+            this.btnReAssign.Location = new System.Drawing.Point(7, 50);
+            this.btnReAssign.Name = "btnReAssign";
+            this.btnReAssign.Size = new System.Drawing.Size(153, 25);
+            this.btnReAssign.TabIndex = 19;
+            this.btnReAssign.Text = "客服分配";
+            this.btnReAssign.UseVisualStyleBackColor = true;
+            this.btnReAssign.Click += new System.EventHandler(this.btnReAssign_Click);
+            // 
+            // lblCSList
+            // 
+            this.lblCSList.AutoSize = true;
+            this.lblCSList.Location = new System.Drawing.Point(3, 0);
+            this.lblCSList.Name = "lblCSList";
+            this.lblCSList.Size = new System.Drawing.Size(0, 12);
+            this.lblCSList.TabIndex = 20;
+            // 
+            // lblCSServiceList
+            // 
+            this.lblCSServiceList.AutoSize = true;
+            this.lblCSServiceList.Location = new System.Drawing.Point(3, 12);
+            this.lblCSServiceList.Name = "lblCSServiceList";
+            this.lblCSServiceList.Size = new System.Drawing.Size(0, 12);
+            this.lblCSServiceList.TabIndex = 21;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -795,6 +828,8 @@
             this.pnlResultService.ResumeLayout(false);
             this.pnlResultService.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.pnlNotice.ResumeLayout(false);
+            this.pnlNotice.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.pnlExternService.ResumeLayout(false);
@@ -868,5 +903,8 @@
         private System.Windows.Forms.Button btnNoticePromote;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.FlowLayoutPanel pnlNotice;
+        private System.Windows.Forms.Button btnReAssign;
+        private System.Windows.Forms.Label lblCSList;
+        private System.Windows.Forms.Label lblCSServiceList;
     }
 }
