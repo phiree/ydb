@@ -46,6 +46,11 @@ namespace Dianzhu.CSClient.IVew
     /// 客服分配
     /// </summary>
     public delegate void ReAssign();
+
+    /// <summary>
+    /// 保存重新分配
+    /// </summary>
+    public delegate void SaveReAssign();
     
     /// <summary>
     /// 主界面接口定义
@@ -142,7 +147,21 @@ namespace Dianzhu.CSClient.IVew
 
         event ReAssign ReAssign;
 
-        string RecptingCustomList { get; set; }
-        string RecptingCustomServiceList { get; set; }
+        /// <summary>
+        /// 当前客服正在接待的客户列表
+        /// </summary>
+        IList<DZMembership> RecptingCustomList { set; }
+        /// <summary>
+        /// 客户重新分配列表
+        /// </summary>
+        IDictionary<DZMembership, string> RecptingCustomServiceList { get; set; }
+
+        event SaveReAssign SaveReAssign;
+
+        /// <summary>
+        /// 通用消息显示
+        /// </summary>
+        /// <param name="msg"></param>
+        void ShowMsg(string msg);
     }
 }

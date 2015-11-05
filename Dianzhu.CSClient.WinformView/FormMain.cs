@@ -23,7 +23,10 @@ namespace Dianzhu.CSClient.WinformView
         public FormMain()
         {
             InitializeComponent();
-       
+
+            //关闭自动加载列
+            dGVCustom.AutoGenerateColumns = false;
+            dGVCustomService.AutoGenerateColumns = false;
         }
         #region Impletion view event
         public event MessageSent SendMessageHandler;
@@ -46,7 +49,7 @@ namespace Dianzhu.CSClient.WinformView
         public event NoticeCustomerService NoticeCustomerService;
 
         public event ReAssign ReAssign;
-
+        public event SaveReAssign SaveReAssign;
 
         #endregion
 
@@ -698,15 +701,41 @@ namespace Dianzhu.CSClient.WinformView
             ReAssign();
         }
 
-        public string RecptingCustomList
+        /// <summary>
+        /// 当前客服正在接待的客户列表
+        /// </summary>
+        public IList<DZMembership> RecptingCustomList { set { dGVCustom.DataSource = value; } }
+        /// <summary>
+        /// 客户重新分配列表
+        /// </summary>
+        public IDictionary<DZMembership, string> RecptingCustomServiceList
         {
-            get { return lblCSList.Text; }
-            set { lblCSList.Text = value; }
+            get
+            {
+                IDictionary<DZMembership, string> recptingCustomServiceList = new Dictionary<DZMembership, string>();
+                for (int i =0;i< dGVCustomService.RowCount; i++)
+                {
+                    DataGridViewRow row = dGVCustomService.Rows[i];
+                    DZMembership cs = row.DataBoundItem as DZMembership;
+                    if(row.Cells[1].Value != null)
+                    {
+                        recptingCustomServiceList.Add(cs, row.Cells[1].Value.ToString());
+                    }                    
+                }
+
+                return recptingCustomServiceList;
+            }
+            set { dGVCustomService.DataSource = value.Keys.ToList(); }
         }
-        public string RecptingCustomServiceList
+
+        private void btnSaveCS_Click(object sender, EventArgs e)
         {
-            get { return lblCSServiceList.Text; }
-            set { lblCSServiceList.Text = value; }
+            SaveReAssign();
+        }
+
+        public void ShowMsg (string msg)
+        {
+            MessageBox.Show(msg);
         }
     }
 }

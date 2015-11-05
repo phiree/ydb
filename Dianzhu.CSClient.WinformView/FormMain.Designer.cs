@@ -54,6 +54,7 @@
             this.tbxMemo = new System.Windows.Forms.TextBox();
             this.btnCreateOrder = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnReAssign = new System.Windows.Forms.Button();
             this.btnCreateNewDraft = new System.Windows.Forms.Button();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
@@ -68,12 +69,19 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.pnlResultService = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnNoticeSystem = new System.Windows.Forms.Button();
-            this.btnNoticeCustomerService = new System.Windows.Forms.Button();
-            this.btnNoticeOrder = new System.Windows.Forms.Button();
-            this.btnNoticePromote = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.dGVCustomService = new System.Windows.Forms.DataGridView();
+            this.CSDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CIds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.dGVCustom = new System.Windows.Forms.DataGridView();
+            this.CDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label16 = new System.Windows.Forms.Label();
             this.pnlNotice = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblCSList = new System.Windows.Forms.Label();
+            this.btnSaveCS = new System.Windows.Forms.Button();
+            this.lblCSServiceList = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnKeywords = new System.Windows.Forms.Button();
             this.btnMap = new System.Windows.Forms.Button();
@@ -91,9 +99,6 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
-            this.btnReAssign = new System.Windows.Forms.Button();
-            this.lblCSList = new System.Windows.Forms.Label();
-            this.lblCSServiceList = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -113,6 +118,10 @@
             this.panel5.SuspendLayout();
             this.pnlResultService.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGVCustomService)).BeginInit();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGVCustom)).BeginInit();
             this.pnlNotice.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pnlExternService.SuspendLayout();
@@ -382,6 +391,16 @@
             this.panel3.Size = new System.Drawing.Size(340, 96);
             this.panel3.TabIndex = 3;
             // 
+            // btnReAssign
+            // 
+            this.btnReAssign.Location = new System.Drawing.Point(7, 50);
+            this.btnReAssign.Name = "btnReAssign";
+            this.btnReAssign.Size = new System.Drawing.Size(153, 25);
+            this.btnReAssign.TabIndex = 19;
+            this.btnReAssign.Text = "客服分配";
+            this.btnReAssign.UseVisualStyleBackColor = true;
+            this.btnReAssign.Click += new System.EventHandler(this.btnReAssign_Click);
+            // 
             // btnCreateNewDraft
             // 
             this.btnCreateNewDraft.Enabled = false;
@@ -533,61 +552,87 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnNoticeSystem);
-            this.groupBox1.Controls.Add(this.btnNoticeCustomerService);
-            this.groupBox1.Controls.Add(this.btnNoticeOrder);
-            this.groupBox1.Controls.Add(this.btnNoticePromote);
+            this.groupBox1.Controls.Add(this.panel7);
+            this.groupBox1.Controls.Add(this.panel6);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(366, 172);
+            this.groupBox1.Size = new System.Drawing.Size(388, 330);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "测试按钮";
+            this.groupBox1.Text = "客服分配";
             // 
-            // btnNoticeSystem
+            // panel7
             // 
-            this.btnNoticeSystem.Location = new System.Drawing.Point(16, 47);
-            this.btnNoticeSystem.Name = "btnNoticeSystem";
-            this.btnNoticeSystem.Size = new System.Drawing.Size(166, 23);
-            this.btnNoticeSystem.TabIndex = 18;
-            this.btnNoticeSystem.Text = "系统通知";
-            this.btnNoticeSystem.UseVisualStyleBackColor = true;
-            this.btnNoticeSystem.Click += new System.EventHandler(this.btnNoticeSystem_Click);
+            this.panel7.Controls.Add(this.dGVCustomService);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel7.Location = new System.Drawing.Point(218, 17);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(170, 310);
+            this.panel7.TabIndex = 1;
             // 
-            // btnNoticeCustomerService
+            // dGVCustomService
             // 
-            this.btnNoticeCustomerService.Location = new System.Drawing.Point(16, 134);
-            this.btnNoticeCustomerService.Name = "btnNoticeCustomerService";
-            this.btnNoticeCustomerService.Size = new System.Drawing.Size(166, 23);
-            this.btnNoticeCustomerService.TabIndex = 18;
-            this.btnNoticeCustomerService.Text = "客服通知";
-            this.btnNoticeCustomerService.UseVisualStyleBackColor = true;
-            this.btnNoticeCustomerService.Click += new System.EventHandler(this.btnNoticeCustomerService_Click);
+            this.dGVCustomService.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGVCustomService.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CSDisplayName,
+            this.CIds});
+            this.dGVCustomService.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dGVCustomService.Location = new System.Drawing.Point(0, 0);
+            this.dGVCustomService.Name = "dGVCustomService";
+            this.dGVCustomService.RowTemplate.Height = 23;
+            this.dGVCustomService.Size = new System.Drawing.Size(170, 310);
+            this.dGVCustomService.TabIndex = 0;
             // 
-            // btnNoticeOrder
+            // CSDisplayName
             // 
-            this.btnNoticeOrder.Location = new System.Drawing.Point(16, 76);
-            this.btnNoticeOrder.Name = "btnNoticeOrder";
-            this.btnNoticeOrder.Size = new System.Drawing.Size(166, 23);
-            this.btnNoticeOrder.TabIndex = 18;
-            this.btnNoticeOrder.Text = "订单通知";
-            this.btnNoticeOrder.UseVisualStyleBackColor = true;
-            this.btnNoticeOrder.Click += new System.EventHandler(this.btnNoticeOrder_Click);
+            this.CSDisplayName.DataPropertyName = "DisplayName";
+            this.CSDisplayName.HeaderText = "客服";
+            this.CSDisplayName.Name = "CSDisplayName";
             // 
-            // btnNoticePromote
+            // CIds
             // 
-            this.btnNoticePromote.Location = new System.Drawing.Point(16, 105);
-            this.btnNoticePromote.Name = "btnNoticePromote";
-            this.btnNoticePromote.Size = new System.Drawing.Size(166, 23);
-            this.btnNoticePromote.TabIndex = 18;
-            this.btnNoticePromote.Text = "推广通知";
-            this.btnNoticePromote.UseVisualStyleBackColor = true;
-            this.btnNoticePromote.Click += new System.EventHandler(this.btnNoticePromote_Click);
+            this.CIds.HeaderText = "客户列表";
+            this.CIds.Name = "CIds";
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.dGVCustom);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel6.Location = new System.Drawing.Point(3, 17);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(215, 310);
+            this.panel6.TabIndex = 0;
+            // 
+            // dGVCustom
+            // 
+            this.dGVCustom.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGVCustom.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CDisplayName,
+            this.CId});
+            this.dGVCustom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dGVCustom.Location = new System.Drawing.Point(0, 0);
+            this.dGVCustom.Name = "dGVCustom";
+            this.dGVCustom.RowTemplate.Height = 23;
+            this.dGVCustom.Size = new System.Drawing.Size(215, 310);
+            this.dGVCustom.TabIndex = 0;
+            // 
+            // CDisplayName
+            // 
+            this.CDisplayName.DataPropertyName = "DisplayName";
+            this.CDisplayName.HeaderText = "客户名称";
+            this.CDisplayName.Name = "CDisplayName";
+            // 
+            // CId
+            // 
+            this.CId.DataPropertyName = "Id";
+            this.CId.HeaderText = "客服Id";
+            this.CId.Name = "CId";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 178);
+            this.label16.Location = new System.Drawing.Point(3, 336);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(53, 12);
             this.label16.TabIndex = 22;
@@ -597,13 +642,40 @@
             // 
             this.pnlNotice.AutoScroll = true;
             this.pnlNotice.Controls.Add(this.lblCSList);
+            this.pnlNotice.Controls.Add(this.btnSaveCS);
             this.pnlNotice.Controls.Add(this.lblCSServiceList);
             this.pnlNotice.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnlNotice.Location = new System.Drawing.Point(3, 193);
+            this.pnlNotice.Location = new System.Drawing.Point(3, 351);
             this.pnlNotice.Name = "pnlNotice";
-            this.pnlNotice.Size = new System.Drawing.Size(366, 185);
+            this.pnlNotice.Size = new System.Drawing.Size(388, 62);
             this.pnlNotice.TabIndex = 23;
             this.pnlNotice.WrapContents = false;
+            // 
+            // lblCSList
+            // 
+            this.lblCSList.AutoSize = true;
+            this.lblCSList.Location = new System.Drawing.Point(3, 0);
+            this.lblCSList.Name = "lblCSList";
+            this.lblCSList.Size = new System.Drawing.Size(0, 12);
+            this.lblCSList.TabIndex = 20;
+            // 
+            // btnSaveCS
+            // 
+            this.btnSaveCS.Location = new System.Drawing.Point(3, 15);
+            this.btnSaveCS.Name = "btnSaveCS";
+            this.btnSaveCS.Size = new System.Drawing.Size(102, 38);
+            this.btnSaveCS.TabIndex = 1;
+            this.btnSaveCS.Text = "保存";
+            this.btnSaveCS.UseVisualStyleBackColor = true;
+            this.btnSaveCS.Click += new System.EventHandler(this.btnSaveCS_Click);
+            // 
+            // lblCSServiceList
+            // 
+            this.lblCSServiceList.AutoSize = true;
+            this.lblCSServiceList.Location = new System.Drawing.Point(3, 56);
+            this.lblCSServiceList.Name = "lblCSServiceList";
+            this.lblCSServiceList.Size = new System.Drawing.Size(0, 12);
+            this.lblCSServiceList.TabIndex = 21;
             // 
             // panel2
             // 
@@ -769,32 +841,6 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
-            // btnReAssign
-            // 
-            this.btnReAssign.Location = new System.Drawing.Point(7, 50);
-            this.btnReAssign.Name = "btnReAssign";
-            this.btnReAssign.Size = new System.Drawing.Size(153, 25);
-            this.btnReAssign.TabIndex = 19;
-            this.btnReAssign.Text = "客服分配";
-            this.btnReAssign.UseVisualStyleBackColor = true;
-            this.btnReAssign.Click += new System.EventHandler(this.btnReAssign_Click);
-            // 
-            // lblCSList
-            // 
-            this.lblCSList.AutoSize = true;
-            this.lblCSList.Location = new System.Drawing.Point(3, 0);
-            this.lblCSList.Name = "lblCSList";
-            this.lblCSList.Size = new System.Drawing.Size(0, 12);
-            this.lblCSList.TabIndex = 20;
-            // 
-            // lblCSServiceList
-            // 
-            this.lblCSServiceList.AutoSize = true;
-            this.lblCSServiceList.Location = new System.Drawing.Point(3, 12);
-            this.lblCSServiceList.Name = "lblCSServiceList";
-            this.lblCSServiceList.Size = new System.Drawing.Size(0, 12);
-            this.lblCSServiceList.TabIndex = 21;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -828,6 +874,10 @@
             this.pnlResultService.ResumeLayout(false);
             this.pnlResultService.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGVCustomService)).EndInit();
+            this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGVCustom)).EndInit();
             this.pnlNotice.ResumeLayout(false);
             this.pnlNotice.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -897,14 +947,19 @@
         private System.Windows.Forms.Button btnScreenshot;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnNoticeSystem;
-        private System.Windows.Forms.Button btnNoticeCustomerService;
-        private System.Windows.Forms.Button btnNoticeOrder;
-        private System.Windows.Forms.Button btnNoticePromote;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.FlowLayoutPanel pnlNotice;
         private System.Windows.Forms.Button btnReAssign;
         private System.Windows.Forms.Label lblCSList;
         private System.Windows.Forms.Label lblCSServiceList;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Button btnSaveCS;
+        private System.Windows.Forms.DataGridView dGVCustomService;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CSDisplayName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CIds;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CDisplayName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CId;
+        private System.Windows.Forms.DataGridView dGVCustom;
     }
 }

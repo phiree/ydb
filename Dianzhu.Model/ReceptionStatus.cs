@@ -10,6 +10,14 @@ namespace Dianzhu.Model
     /// </summary>
   public   class ReceptionStatus
     {
+        /// <summary>
+        /// 构造
+        /// </summary>
+        public ReceptionStatus()
+        {
+            LastUpdateTime = DateTime.Now;
+        }
+         
       public virtual Guid Id { get; set; }
         public virtual DZMembership CustomerService { get; set; }
         public virtual DZMembership Customer { get; set; }

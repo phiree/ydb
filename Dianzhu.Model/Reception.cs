@@ -101,17 +101,17 @@ namespace Dianzhu.Model
             return chat;
         }
         public virtual Guid Id { get; set; }
-        public virtual ReceptionBase Reception { get; set; }
+        public virtual ReceptionBase Reception { get; set; }//接待记录，多个聊天的集合
         //保存的时间, 作为排序依据.
         public virtual DateTime SavedTime { get; set; }
-        public virtual DateTime SendTime { get; set; }
-        public virtual DateTime ReceiveTime { get; set; }
-        public virtual DZMembership From { get; set; }
-        public virtual DZMembership To { get; set; }
-        public virtual string MessageBody { get; set; }
+        public virtual DateTime SendTime { get; set; }//发送时间
+        public virtual DateTime ReceiveTime { get; set; }//接收时间
+        public virtual DZMembership From { get; set; }//发送方
+        public virtual DZMembership To { get; set; }//接收方
+        public virtual string MessageBody { get; set; }//消息的内容
         public virtual Enums.enum_ChatType ChatType { get; set; }
         public virtual ServiceOrder ServiceOrder { get; set;}
-        public virtual int Version { get; set; }
+        public virtual int Version { get; set; }//版本号
         /// <summary>
         /// 消息中媒体文件的地址,多个媒体文件用分号风格.
         /// </summary>

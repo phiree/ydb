@@ -152,7 +152,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             msg.SetAttribute("type", "chat");
             msg.Id = chat.Id.ToString();
             //     msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
-            msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server);
+            msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server);//发送对象
             msg.Body = chat.MessageBody;
 
             var nodeActive = new agsXMPP.Xml.Dom.Element("active", string.Empty, "http://jabber.org/protocol/chatstates");

@@ -67,23 +67,55 @@ namespace Dianzhu.CSClient.Presenter
             this.view.NoticeSystem += View_NoticeSystem;
 
             this.view.ReAssign += View_ReAssign;
+            this.view.SaveReAssign += View_SaveReAssign;
+        }
+
+        private void View_SaveReAssign()
+        {
+            IDictionary<DZMembership, string> reCSL = this.view.RecptingCustomServiceList;
+            foreach(KeyValuePair<DZMembership,string> p in reCSL)
+            {
+                string[] clist = p.Value.Split(',');
+                ReceptionChatReAssign rChatReAss;
+                for (int i=0; i<clist.Length; i++)
+                {
+                    DZMembership dm = bllMember.GetUserById(new Guid(clist[i]));
+                    bllReceptionStatus.SaveReAssign(dm, p.Key);
+                    bllReceptionStatus.DeleteAssign(dm, GlobalViables.CurrentCustomerService);//删除已有分配
+
+                    rChatReAss = new ReceptionChatReAssign();
+                    rChatReAss.From = GlobalViables.CurrentCustomerService;
+                    rChatReAss.To = dm;
+                    rChatReAss.MessageBody = "您的客服已更换为" + p.Key.DisplayName;
+                    rChatReAss.ReAssignedCustomerService = p.Key;
+                    rChatReAss.SavedTime = rChatReAss.SendTime=DateTime.Now;
+                    rChatReAss.ServiceOrder = CurrentServiceOrder;
+                    rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
+                                        
+                    SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+                }
+            }
+
+            this.view.ShowMsg("保存成功");            
         }
 
         private void View_ReAssign()
         {
             IList<DZMembership> csList = bllReceptionStatus.GetCustomListByCSId(GlobalViables.CurrentCustomerService);
-            for(int i=0; i<csList.Count; i++)
-            {
-                this.view.RecptingCustomList += "/" + csList[i].DisplayName;
-            }
+            this.view.RecptingCustomList = csList;
 
             IIMSession imSession = new IMSessionsOpenfire(System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"), 
                 System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
             IList<OnlineUserSession> ouSession = imSession.GetOnlineSessionUser();
+            IDictionary<DZMembership, string> reDicCS = new Dictionary<DZMembership, string>();
             for (int j=0; j< ouSession.Count; j++)
             {
-                this.view.RecptingCustomServiceList += "/" + ouSession[j].username;
+                if(ouSession[j].ressource.ToLower() == "ydb_cstool" && ouSession[j].username != GlobalViables.CurrentCustomerService.Id.ToString())
+                {
+                    reDicCS.Add(bllMember.GetUserById(new Guid(ouSession[j].username)), string.Empty);
+                }
             }
+            this.view.RecptingCustomServiceList = reDicCS;
         }
 
         private void InstantMessage_IMStreamError()

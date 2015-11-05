@@ -46,6 +46,37 @@ namespace Dianzhu.BLL
             return result;
         }
 
+        /// <summary>
+        /// 保存重新分配
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="cs"></param>
+        public void SaveReAssign(DZMembership c,DZMembership cs)
+        {
+            ReceptionStatus r = new ReceptionStatus { Customer = c, CustomerService = cs };
+            ReceptionStatus or = dalRS.GetOneByCustomerAndCS(cs, c);
+            if (or == null)
+            {
+                dalRS.Save(r);
+            }
+            else
+            {
+                or.LastUpdateTime = DateTime.Now;
+                dalRS.Update(or);
+            }
+            
+        }
+
+        /// <summary>
+        /// 删除分配
+        /// </summary>
+        /// <param name="rs"></param>
+        public void DeleteAssign(DZMembership c, DZMembership cs)
+        {
+            ReceptionStatus r = dalRS.GetOneByCustomerAndCS(cs, c);
+            dalRS.Delete(r);
+        }
+
         
 
     }
