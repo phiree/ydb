@@ -23,8 +23,8 @@ namespace MediaServer
             {
                 if (domainPath.Count == 0)
                 {
-                    domainPath.Add("BusinessImage", "/BusinessImage/");
-                    domainPath.Add("UserAvatar", "/Avatar/");
+                    domainPath.Add("BusinessImage", "/BusinessImage/");//商家后台上传图片
+                    domainPath.Add("UserAvatar", "/Avatar/");//用户头像
                     domainPath.Add("ChatAudio", "/ChatAudio/");
                     domainPath.Add("ChatVideo", "/ChatVideo/");
                     domainPath.Add("ChatImage", "/ChatImage/");
@@ -32,7 +32,7 @@ namespace MediaServer
                 return domainPath;
             }
         }
-        private static Dictionary<FileType, string> fileExtension = new Dictionary<FileType, string>();
+        private static Dictionary<FileType, string> fileExtension = new Dictionary<FileType, string>();//文件扩展名
 
         public static Dictionary<FileType, string> FileExtension
         {
@@ -53,7 +53,13 @@ namespace MediaServer
             }
         }
 
-     
+        /// <summary>
+        /// 文件名生成（字符串），无文件类型，通过解析字符串可获取文件类型
+        /// </summary>
+        /// <param name="originalName"></param>
+        /// <param name="domainType"></param>
+        /// <param name="fileType"></param>
+        /// <returns></returns>
         public static string FileNameBuilder(string originalName, string domainType, FileType fileType)
         {
             
@@ -69,7 +75,16 @@ namespace MediaServer
             return fileName;
 
         }
-
+        /// <summary>
+        /// 解析文件名字符串，获取文件类型domainPath，如果是图片，有缩略图大小
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="fileType"></param>
+        /// <param name="domainType"></param>
+        /// <param name="cleanedFileName"></param>
+        /// <param name="isImageThumbnail"></param>
+        /// <param name="thumbnailWidth"></param>
+        /// <param name="thumbnailHeight"></param>
         public static void FileNameParser(string fileName, out FileType fileType
             , out string domainType,out string cleanedFileName
             ,  out bool isImageThumbnail
