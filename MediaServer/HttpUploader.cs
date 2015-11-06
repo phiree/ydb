@@ -14,9 +14,9 @@ namespace MediaServer
             string domainType,string fileType)
         {
             string uploadedPath = string.Empty;
-            originalName= Path.GetFileName(originalName);
-            string postString = string.Format("fileBase64={0}&originalName={1}&domainType={2}&fileType={3}"
-                , base64,originalName,domainType,fileType);
+            originalName=System.Web.HttpUtility.UrlEncode( Path.GetFileName(originalName));
+            string postString = string.Format("fileType={0}&originalName={1}&domainType={2}&fileBase64={3}"
+                , fileType, originalName,domainType, base64);
 
 
             System.Net.WebRequest request = WebRequest.Create(uploaderUrl);

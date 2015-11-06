@@ -2,7 +2,7 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
-"orm001006"//,"merm001003","merm001005",
+"usm001003"//,"merm001003","merm001005",
  
 ];
 var test_data = [
@@ -177,12 +177,12 @@ var test_data = [
                {
                    "protocol_CODE": "USM001003",
                    "ReqData": {
-                       "userID": "eb2ae597-5adb-4242-b22e-a4f901275654",
-                       "pWord": "1234526",
+                       "userID": "7dcdd185-bed6-4756-a219-a5360118aab3",
+                       "pWord": "1234",
                        "alias": "1805",
-                       "email": "1233311@126.com",
-                       "phone": "1999938xxxx",
-                       "password": "123456",
+                       "email": "55",
+                       "phone": "18889387688",
+                       "password": "1234",
                        "address": "海牙国际大厦20B"
 
                    },
