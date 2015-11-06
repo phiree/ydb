@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PaymentLog.cs" />
     <Compile Include="Area.cs" />
     <Compile Include="CashTIcketAssignDetail.cs" />
     <Compile Include="CashTicketTemplate.cs" />

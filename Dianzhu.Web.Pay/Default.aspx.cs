@@ -69,6 +69,16 @@ public partial class _Default : System.Web.UI.Page
 
         //建立请求
         string sHtmlText = Submit.BuildRequest(sParaTemp, "get", "确认");
+
+        //保存发送数据
+        BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
+        PaymentLog paymentLog = new PaymentLog();
+        paymentLog.Pames = sHtmlText;
+        paymentLog.ServiceOrder = order;
+        paymentLog.Type = "send";
+        paymentLog.LastTime = DateTime.Now;
+        bllPaymentLog.SaveOrUpdate(paymentLog);
+
        // throw new Exception(sHtmlText);
         Response.Write(sHtmlText);
     }

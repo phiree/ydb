@@ -69,6 +69,25 @@ public partial class return_url : System.Web.UI.Page
                 string buyer_email = Request.QueryString["buyer_email"];        //买家支付宝账号
                 string trade_status = Request.QueryString["trade_status"];      //交易状态
 
+                string sTradeText = "{" +
+                    "trade_no:"      + trade_no +
+                    ",order_no:"     + order_no +
+                    ",total_fee:"    + total_fee +
+                    ",subject:"      + subject +
+                    ",body:"         + body +
+                    ",buyer_email:"  + buyer_email +
+                    ",trade_status:" + trade_status +
+                    "}";
+
+                //保存发送数据
+                BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
+                PaymentLog paymentLog = new PaymentLog();
+                paymentLog.Pames = sTradeText;
+                paymentLog.ServiceOrder = order;
+                paymentLog.Type = "return";
+                paymentLog.LastTime = DateTime.Now;
+                bllPaymentLog.SaveOrUpdate(paymentLog);
+
                 if (Request.QueryString["trade_status"] == "TRADE_FINISHED" || Request.QueryString["trade_status"] == "TRADE_SUCCESS")
                 {
                     //判断该笔订单是否在商户网站中已经做过处理

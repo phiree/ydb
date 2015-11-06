@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALPaymentLog.cs" />
     <Compile Include="DALArea.cs" />
     <Compile Include="DALDZTag.cs" />
     <Compile Include="DALMembership.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="DALPaylog.cs" />
     <Compile Include="DALReceptionChat.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
+    <Compile Include="Mapping\PaymentLogMap.cs" />
     <Compile Include="Mapping\AreaMap.cs" />
     <Compile Include="Mapping\CashTicketTemplateMap.cs" />
     <Compile Include="Mapping\CashTicketMap.cs" />
