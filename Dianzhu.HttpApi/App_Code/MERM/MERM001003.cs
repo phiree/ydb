@@ -97,9 +97,20 @@ public class ResponseMERM001003 : BaseResponse
 
             }
 
-           
+            if (requestData.email != null && p.GetUserByEmail(requestData.email) != null)
+            {
+                memberUpdateResult.email = "N";
+                member.Email = memberOriginal.Email;
+
+            }
+            if (requestData.phone != null && p.GetUserByPhone(requestData.phone) != null)
+            {
+                memberUpdateResult.phone = "N";
+                member.Phone = memberOriginal.Phone;
+            }
 
             p.UpdateDZMembership(member);
+
             this.state_CODE = Dicts.StateCode[0];
             this.RespData = memberUpdateResult;
         }
