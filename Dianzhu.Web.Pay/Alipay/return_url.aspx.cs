@@ -18,6 +18,14 @@ public partial class return_url : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //保存接收数据
+        BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
+        PaymentLog paymentLog = new PaymentLog();
+        paymentLog.Pames = Request.Url.AbsoluteUri;        
+        paymentLog.Type = "return";
+        paymentLog.LastTime = DateTime.Now;
+        bllPaymentLog.SaveOrUpdate(paymentLog);
+
         BLLServiceOrder bllOrder = new BLLServiceOrder();
        
 
@@ -29,6 +37,11 @@ public partial class return_url : System.Web.UI.Page
         {
 
             order = bllOrder.GetOne(orderId);
+
+            //更新order
+            paymentLog.ServiceOrder = order;
+            bllPaymentLog.SaveOrUpdate(paymentLog);
+
             if (order == null)
             {
                 Response.Write("fail");
@@ -67,26 +80,7 @@ public partial class return_url : System.Web.UI.Page
                 string subject = Request.QueryString["subject"];                //商品名称、订单名称
                 string body = Request.QueryString["body"];                      //商品描述、订单备注、描述
                 string buyer_email = Request.QueryString["buyer_email"];        //买家支付宝账号
-                string trade_status = Request.QueryString["trade_status"];      //交易状态
-
-                string sTradeText = "{" +
-                    "trade_no:"      + trade_no +
-                    ",order_no:"     + order_no +
-                    ",total_fee:"    + total_fee +
-                    ",subject:"      + subject +
-                    ",body:"         + body +
-                    ",buyer_email:"  + buyer_email +
-                    ",trade_status:" + trade_status +
-                    "}";
-
-                //保存发送数据
-                BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
-                PaymentLog paymentLog = new PaymentLog();
-                paymentLog.Pames = sTradeText;
-                paymentLog.ServiceOrder = order;
-                paymentLog.Type = "return";
-                paymentLog.LastTime = DateTime.Now;
-                bllPaymentLog.SaveOrUpdate(paymentLog);
+                string trade_status = Request.QueryString["trade_status"];      //交易状态             
 
                 if (Request.QueryString["trade_status"] == "TRADE_FINISHED" || Request.QueryString["trade_status"] == "TRADE_SUCCESS")
                 {
@@ -105,8 +99,8 @@ public partial class return_url : System.Web.UI.Page
                     System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
                     string result = reader.ReadToEnd();
 
+                    Response.Write("success");
                     Response.Redirect("/paysuc.aspx?orderid=" + orderId);
-
                 }
                 else
                 {
