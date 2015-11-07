@@ -69,9 +69,9 @@ namespace Dianzhu.DemoClient
                                 ""email"": ""{0}"", 
                                 ""pWord"": ""{1}"", 
                                 }}, 
-                    ""stamp_TIMES"": ""1490192929212"", 
+                    ""stamp_TIMES"": ""{2}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
-                }}", tbxUserName.Text, tbxPwd.Text);
+                }}", tbxUserName.Text, tbxPwd.Text, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
             customerId = result["RespData"]["userObj"]["userID"].ToString();
 
@@ -86,9 +86,9 @@ namespace Dianzhu.DemoClient
                     ""pWord"": ""{1}"", 
                     ""orderID"": ""{2}""   
                     }}, 
-                    ""stamp_TIMES"": ""1490192929212"", 
+                    ""stamp_TIMES"": ""{3}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
-                }}", customerId, tbxPwd.Text, tbxOrderId.Text));
+                }}", customerId, tbxPwd.Text, tbxOrderId.Text, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString()));
             string state_Code = result["state_CODE"].ToString();
             if (state_Code != "009000")
             {
@@ -171,7 +171,7 @@ namespace Dianzhu.DemoClient
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            GlobalViables.XMPPConnection.Close();
+            GlobalViables.XMPPConnection.Close();//关闭当前登录
             string userName = tbxUserName.Text;
             string userNameForOpenfire = userName;
             if (Regex.IsMatch(userName, @"^[^\.@]+@[^\.@]+\.[^\.@]+$"))

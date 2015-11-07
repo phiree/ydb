@@ -59,5 +59,13 @@ namespace Dianzhu.Test.BLLTest
             }
             
         }
+
+        [Test]
+        public void AssignByCSId()
+        {
+            var dal = new DALReceptionStatus();
+            dal.GetCSMinCount();
+            Console.WriteLine(dal.GetCSMinCount().Id);
+        }
     }
 }
