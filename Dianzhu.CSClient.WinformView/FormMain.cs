@@ -58,10 +58,9 @@ namespace Dianzhu.CSClient.WinformView
         /// <summary>
         /// 界面当前绑定的客户名称,用于判断聊天记录的呈现方式
         /// </summary>
-        private string currentCustomerName;
-        public string CurrentCustomerName {
-            get { return currentCustomerName; }
-            set { currentCustomerName = value; }
+        private string currentCustomerService;
+        public string CurrentCustomerService {
+            set { currentCustomerService = value; }
         }
         public void ShowNotice(string notice)
         {
@@ -131,7 +130,7 @@ namespace Dianzhu.CSClient.WinformView
         public void LoadOneChat(ReceptionChat chat)
         {
           
-            bool isSender = chat.From.UserName == currentCustomerName;
+            bool isSender = chat.From.UserName == currentCustomerService;
             Label lblTime = new Label();
             _AutoSize(lblTime);
             lblTime.ForeColor = Color.FromArgb(200);
@@ -140,7 +139,8 @@ namespace Dianzhu.CSClient.WinformView
             FlowLayoutPanel pnlOneChat = new FlowLayoutPanel();
 
             pnlOneChat.Controls.AddRange(new Control[] {lblFrom, lblTime,lblMessage });
-            pnlOneChat.FlowDirection = FlowDirection.LeftToRight  ;
+            if (isSender) { pnlOneChat.FlowDirection = FlowDirection.RightToLeft; }
+            else { pnlOneChat.FlowDirection = FlowDirection.LeftToRight; }
             pnlOneChat.Dock=isSender? DockStyle.Left: DockStyle.Right;
                 lblTime.BorderStyle 
                 = lblMessage.BorderStyle 

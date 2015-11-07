@@ -21,7 +21,7 @@ public partial class notify_url : System.Web.UI.Page
         //保存接收数据
         BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
         PaymentLog paymentLog = new PaymentLog();
-        paymentLog.Pames = Request.Url.AbsoluteUri;
+        paymentLog.Pames = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
         paymentLog.Type = "notify";
         paymentLog.LastTime = DateTime.Now;
         bllPaymentLog.SaveOrUpdate(paymentLog);

@@ -96,7 +96,7 @@ namespace Dianzhu.CSClient.IVew
         string LocalMediaSaveDir { get; set; }
         string SerachKeyword { get; set; }
         string MessageTextBox { get; set; }
-        string CurrentCustomerName { get; set; }
+        string CurrentCustomerService { set; }
 
 
         IList<DZService> SearchedService { get; set; }

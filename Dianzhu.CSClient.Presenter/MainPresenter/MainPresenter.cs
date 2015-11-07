@@ -68,6 +68,7 @@ namespace Dianzhu.CSClient.Presenter
 
             this.view.ReAssign += View_ReAssign;
             this.view.SaveReAssign += View_SaveReAssign;
+            this.view.CurrentCustomerService = GlobalViables.CurrentCustomerService.UserName;
         }
 
         private void View_SaveReAssign()
