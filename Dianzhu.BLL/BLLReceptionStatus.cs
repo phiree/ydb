@@ -111,7 +111,7 @@ namespace Dianzhu.BLL
             this.dalMember = dalMember;
         }
         public ReceptionAssigner(IIMSession imSession)
-            : this(new AssignStratageRandom(),
+            : this(new AssignSrratageByAssNum(new DALReceptionStatus()),
                  imSession,
                  new DALReceptionStatus(),
                  new DALMembership())
@@ -318,6 +318,33 @@ namespace Dianzhu.BLL
             return assignList;
             
 
+        }
+    }
+
+    public class AssignSrratageByAssNum : IAssignStratage
+    {
+        DALReceptionStatus dalRS;
+        public AssignSrratageByAssNum(DALReceptionStatus dal)
+        {
+            dalRS = dal;
+        }
+
+        public Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList)
+        {
+            Dictionary<DZMembership, DZMembership> assignList = new Dictionary<DZMembership, DZMembership>();
+            if (csList.Count == 0)
+            {
+                //r如果没有在线客服 怎么处理
+                throw new Exception("客服离线");
+            }
+            
+            //todo:后面可继续优化，当前是取客服接待人数最少的分配
+            foreach (DZMembership customer in customerList)
+            {
+                assignList.Add(customer, dalRS.GetCSMinCount());
+            }
+
+            return assignList;
         }
     }
 }

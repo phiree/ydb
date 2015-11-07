@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using NHibernate;
+using NHibernate.Criterion;
 
 namespace Dianzhu.DAL
 {
@@ -59,6 +60,16 @@ namespace Dianzhu.DAL
             {
                 Session.Delete(rs);
             }
+        }
+
+        public virtual DZMembership GetCSMinCount()
+        {
+            var result = Session.QueryOver<ReceptionStatus>().Select(
+                Projections.Group<ReceptionStatus>(e => e.CustomerService),
+                Projections.Count<ReceptionStatus>(e => e.CustomerService)).
+                OrderBy(Projections.Count<ReceptionStatus>(e => e.CustomerService)).Asc.Take(1).List<object[]>();
+          
+            return (DZMembership)result[0][0];
         }
     }
 }
