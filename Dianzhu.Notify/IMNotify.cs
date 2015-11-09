@@ -36,7 +36,7 @@ namespace Dianzhu.NotifyCenter
         {
            
             var extNode = new agsXMPP.Xml.Dom.Element("ext");
-            extNode.Namespace = "ihelper:notce:system";
+            extNode.Namespace = "ihelper:notice:system";
 
             ags.Message msg = BuildNotice(scope + "@broadcast." + im.Server, message, extNode);
             im.SendMessage(msg.ToString());
@@ -52,7 +52,7 @@ namespace Dianzhu.NotifyCenter
         public void SendOrderChangedNotify(Dianzhu.Model.ServiceOrder order)
         {
             var extNode = new agsXMPP.Xml.Dom.Element("ext");
-            extNode.Namespace = "ihelper:notce:order";
+            extNode.Namespace = "ihelper:notice:order";
             var extOrderID = new agsXMPP.Xml.Dom.Element("orderID", order.Id.ToString());
             extNode.AddChild(extOrderID);
             var orderObj = new agsXMPP.Xml.Dom.Element("orderObj");
@@ -87,7 +87,7 @@ namespace Dianzhu.NotifyCenter
 
 
             var extNode = new agsXMPP.Xml.Dom.Element("ext");
-            extNode.Namespace = "ihelper:notce:system";
+            extNode.Namespace = "ihelper:notice:system";
             var urlNode= new agsXMPP.Xml.Dom.Element("url");
             urlNode.Value = promoteUrl;
             ags.Message msg = BuildNotice("all@broadcast.ydban.cn", promoteUrl, extNode);

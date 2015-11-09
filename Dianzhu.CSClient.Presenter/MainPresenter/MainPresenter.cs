@@ -135,7 +135,7 @@ namespace Dianzhu.CSClient.Presenter
     to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body> system notice</body>
-            <ext xmlns = ""ihelper:notce:system"">
+            <ext xmlns = ""ihelper:notice:system"">
             </ext>
             </message>
                 ",CurrentServiceOrder.Customer.Id,
@@ -153,7 +153,7 @@ namespace Dianzhu.CSClient.Presenter
     to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body>  promote</body>
-            <ext xmlns=""ihelper:notce:promote"">
+            <ext xmlns=""ihelper:notice:promote"">
                 <url>http://www.ydban.cn</url>
             </ext>
             </message>
@@ -171,7 +171,7 @@ namespace Dianzhu.CSClient.Presenter
     to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body>  订单状态变更通知</body>
-            <ext xmlns=""ihelper:notce:order"">
+            <ext xmlns=""ihelper:notice:order"">
                 <orderID>{3}</orderID>
                 <orderObj title = ""{5}"" status = ""{4}"" type = """">
                 </orderObj>
@@ -192,7 +192,7 @@ namespace Dianzhu.CSClient.Presenter
     to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body>  客服通知 </body>
-             <ext xmlns=""ihelper:notce:cer:change"">
+             <ext xmlns=""ihelper:notice:cer:change"">
                 <orderID>{3}</orderID>
                 <cerObj UserID = ""{4}"" alias = ""{5}"" imgUrl = ""{6}"">
                 </cerObj>
