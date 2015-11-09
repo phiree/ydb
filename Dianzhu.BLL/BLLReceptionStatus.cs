@@ -182,22 +182,24 @@ namespace Dianzhu.BLL
             //remove cs from list
             CustomerServiceList.Remove(customerservice);
             //get customers recepted by the cs , from database
-            IList<ReceptionStatus> customerWithCS = dalRS.GetListByCustomerService(customerservice); 
+            IList<ReceptionStatus> customerWithCS = dalRS.GetListByCustomerService(customerservice);
+            // delete old assign to database
+            foreach (ReceptionStatus oldrs in customerWithCS)
+            {
+                dalRS.Delete(oldrs);
+            }
+
             //re assign
             Dictionary<DZMembership, DZMembership> newAssign
                 = stratage.Assign(customerWithCS.Select(x=>x.Customer).ToList(), CustomerServiceList);
+            
             // save assign to database 
             foreach (KeyValuePair<DZMembership, DZMembership> pair in newAssign)
             {
                 ReceptionStatus rs = new ReceptionStatus { Customer=pair.Key, CustomerService= pair.Value,
                  LastUpdateTime=DateTime.Now};
                 dalRS.Save(rs);
-            }
-            // delete old assign to database
-            foreach (ReceptionStatus oldrs in customerWithCS)
-            {
-                dalRS.Delete(oldrs);
-            }
+            }            
             //return new assign
             return newAssign;
         }
@@ -337,11 +339,27 @@ namespace Dianzhu.BLL
                 //r如果没有在线客服 怎么处理
                 throw new Exception("客服离线");
             }
-            
+
             //todo:后面可继续优化，当前是取客服接待人数最少的分配
+            var csDBList = dalRS.GetCSMinCount();
             foreach (DZMembership customer in customerList)
             {
-                assignList.Add(customer, dalRS.GetCSMinCount());
+                //assignList.Add(customer, dalRS.GetCSMinCount());
+                if (csList.Count > csDBList.Count)
+                {
+                    foreach(DZMembership cs in csList)
+                    {
+                        if (!csDBList.Contains(cs))
+                        {
+                            assignList.Add(customer, cs);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    assignList.Add(customer, csDBList[0]);
+                }
             }
 
             return assignList;
