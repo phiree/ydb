@@ -62,14 +62,20 @@ namespace Dianzhu.DAL
             }
         }
 
-        public virtual DZMembership GetCSMinCount()
+        public virtual List<DZMembership> GetCSMinCount()
         {
             var result = Session.QueryOver<ReceptionStatus>().Select(
                 Projections.Group<ReceptionStatus>(e => e.CustomerService),
                 Projections.Count<ReceptionStatus>(e => e.CustomerService)).
-                OrderBy(Projections.Count<ReceptionStatus>(e => e.CustomerService)).Asc.Take(1).List<object[]>();
+                OrderBy(Projections.Count<ReceptionStatus>(e => e.CustomerService)).Asc.List<object[]>();
+
+            List<DZMembership> dzList = new List<DZMembership>();
+            for(int i = 0; i < result.Count; i++)
+            {
+                dzList.Add((DZMembership)result[i][0]);
+            }
           
-            return (DZMembership)result[0][0];
+            return dzList;
         }
     }
 }
