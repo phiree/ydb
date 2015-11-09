@@ -209,7 +209,7 @@ namespace Dianzhu.CSClient.WinformView
             }
             //bye bye. you are abandoned. 2015-9-2
   
-
+            //对当前窗体已存在控件的操作
             Action lambda = () =>
             {
                 FlashInTaskBar.FlashWindowEx(this);

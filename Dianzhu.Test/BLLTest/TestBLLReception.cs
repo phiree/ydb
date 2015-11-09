@@ -50,10 +50,14 @@ namespace Dianzhu.Test.BLLTest
             
             var bll = MockRepository.GenerateStub<BLLReception>(dal);
            IList<ReceptionChat> chatList= bll.GetReceptionChatList(null, null,Guid.Empty, dateBegin,dateEnd,0,10,out rowCount);
-            foreach(ReceptionChat c in chatList)
+            if(chatList != null)
             {
-                Console.WriteLine(c.SavedTime);
+                foreach (ReceptionChat c in chatList)
+                {
+                    Console.WriteLine(c.SavedTime);
+                }
             }
+            
         }
     }
 }

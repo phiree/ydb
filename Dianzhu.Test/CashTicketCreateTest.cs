@@ -12,7 +12,7 @@ using FluentNHibernate.Testing;
 using NHibernate;
 namespace Dianzhu.Test
 {
-    [TestFixture]
+    [TestFixture, Ignore]
     public class CashTicketCreateTest
     {
         ISession session = null;

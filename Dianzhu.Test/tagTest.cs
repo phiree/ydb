@@ -16,7 +16,7 @@ namespace Dianzhu.Test
         [Test]
         public void test_create()
         {
-            var dal = MockRepository.GenerateStub<DAL.DALDZTag>();
+            var dal = MockRepository.GenerateStub<DAL.DALDZTag>(string.Empty);
 
             var cc = Builder<BLLDZTag>.CreateNew().WithConstructor(() => new BLLDZTag());
 

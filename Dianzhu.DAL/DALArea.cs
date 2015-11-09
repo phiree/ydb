@@ -15,7 +15,7 @@ namespace Dianzhu.DAL
            
         }
         //注入依赖,供测试使用;
-        public DALArea(string fortest)
+        public DALArea(string fortest) : base(fortest)
         {
             
         }
