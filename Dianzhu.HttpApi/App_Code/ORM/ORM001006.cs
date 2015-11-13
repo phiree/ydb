@@ -46,8 +46,7 @@ public class ResponseORM001006 : BaseResponse
                 string strPageSize = requestData.pageSize;
                 string strPageNum = requestData.pageNum;//base on 1
                 int pageSize, pageNum;
-                if (!int.TryParse(strPageSize, out pageSize) ||
-                 !int.TryParse(strPageNum, out pageNum))
+                if (!int.TryParse(strPageSize, out pageSize) || !int.TryParse(strPageNum, out pageNum))
                 {
                     this.state_CODE = Dicts.StateCode[1];
                     this.err_Msg = "分页大小或者分页索引不是数值格式";
