@@ -40,7 +40,7 @@ namespace Dianzhu.DAL
                     break;
                 default:
                 case enum_OrderSearchType.ALL:
-
+                    iqueryover = iqueryover.Where(x => x.OrderStatus != enum_OrderStatus.Draft);
                     break;
 
             }
