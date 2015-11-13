@@ -61,6 +61,12 @@ public class ResponseFactory
                 return new ResponseCHAT001004(request);
             case "chat001006":
                 return new ResponseCHAT001006(request);
+
+            case "lct001007":
+                return new ResponseLCT001007(request);
+            case "lct001008":
+                return new ResponseLCT001008(request);
+
             default: break;
         }
         throw new Exception("No Such Api");

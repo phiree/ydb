@@ -1,8 +1,8 @@
 ﻿var need_to_test = [
  //"orm002001", "orm001003", "orm001004", "orm001005", 
-// "orm001006"
+// "orm001006","lct001007"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
-"usm001003"//,"merm001003","merm001005",
+"orm001006"//,"merm001003","merm001005",
  
 ];
 var test_data = [
@@ -282,6 +282,28 @@ var test_data = [
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"
-                }
+                },
+                 /**************定位管理*****************/
+                {
+                    "protocol_CODE": "LCT001007",
+                    "ReqData": {
+                        "userID": "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+                        "pWord": "123456",
+                        "orderID": "ce006bf4-83db-457f-bb69-a54000a31602",
+                    },
+                    "stamp_TIMES": "1490192929212",
+                    "serial_NUMBER": "00147001015869149751"
+                },
+                 {
+                     "protocol_CODE": "LCT001008",
+                     "ReqData": {
+                         "userID": "d53147d9-1a1e-4df8-b4d0-a4f90129ad25",
+                         "pWord": "123456",
+                         "longitude": "3.02597",
+                         "latitude": "5.29742"
+                     },
+                     "stamp_TIMES": "1490192929212",
+                     "serial_NUMBER": "00147001015869149751"
+                 },
 
 ];
