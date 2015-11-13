@@ -31,6 +31,9 @@ public class RespDataORM_orderObj
     public string startTime { get; set; }
     public string endTime { get; set; }
     public string exDoc { get; set; }
+    public string money { get; set; }
+    public string address { get; set; }
+    public string km { get; set; }
     // public string paylink { get; set; }
     public RespDataORM_svcObj svcObj { get; set; }
     public RespDataORM_UserObj userObj { get; set; }
@@ -44,6 +47,9 @@ public class RespDataORM_orderObj
         this.startTime = order.Service != null ? order.Service.ServiceTimeBegin : string.Empty;
         this.endTime = order.Service != null ? order.Service.ServiceTimeEnd : string.Empty;
         this.exDoc = order.ServiceDescription ?? string.Empty;
+        this.money = order.OrderAmount.ToString("0.00");
+        this.address = order.TargetAddress ?? string.Empty;
+        this.km = string.Empty;
 
         if (order != null)
         {
@@ -102,9 +108,7 @@ public class RespDataORM_svcObj
     public string type { get; set; }
     public string startTime { get; set; }
     public string endTime { get; set; }
-    public string money { get; set; }
-    public string address { get; set; }
-    public string km { get; set; }
+    
 
     public RespDataORM_svcObj Adap(ServiceOrder order)
     {
@@ -112,10 +116,7 @@ public class RespDataORM_svcObj
         this.name = order.Service != null ? order.Service.Name : order.ServiceName;
         this.type = order.Service != null ? order.Service.ServiceType.ToString() : string.Empty;
         this.startTime = order.Service != null ? order.Service.ServiceTimeBegin : string.Empty;
-        this.endTime = order.Service != null ? order.Service.ServiceTimeEnd : string.Empty;
-        this.money = order.OrderAmount.ToString("0.00");
-        this.address = order.TargetAddress ?? string.Empty;
-        this.km = string.Empty;
+        this.endTime = order.Service != null ? order.Service.ServiceTimeEnd : string.Empty;        
 
         return this;
     }
