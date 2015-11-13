@@ -5,6 +5,7 @@ using System.Text;
  
 namespace Dianzhu.Model
 {
+    
     /// <summary>
     /// 商户基类.泛指可以提供服务的单位,可以是公司 也可以是个人
     /// </summary>
