@@ -8,6 +8,11 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net;
+using System.IO;
+using System.Text;
+using System.Web.Script.Serialization;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// 上传经纬度
@@ -33,15 +38,29 @@ public class ResponseLCT001008 : BaseResponse
 
             try
             {
-                RespDataLCT001008 respData = new RespDataLCT001008();
-                Area area = new Area();
-                area.Name = "海口";
-                area.Code = "460100";
+                string lng = requestData.longitude;//经度
+                string lat = requestData.latitude;//维度
+                string tran_url = System.Configuration.ConfigurationManager.AppSettings.Get("BaiduTranAPI") +
+                    System.Configuration.ConfigurationManager.AppSettings.Get("BaiduTranAK") +
+                    "&coords=" + lng + "," + lat + "&from=3&to=5";
+                string tran_return = Get_Http(tran_url,1000000);
+                RespTran obj = Deserialize<RespTran>(tran_return);
 
-                RespDataLCT001008_locationObj locationObj = new RespDataLCT001008_locationObj().Adap(area);
+                double tran_lng = obj.result[0].x;//转换后经度
+                double tran_lat = obj.result[0].y;//转换后维度
+                string geo_url = System.Configuration.ConfigurationManager.AppSettings.Get("BaiduGeocodingAPI") +
+                    System.Configuration.ConfigurationManager.AppSettings.Get("BaiduGeocodingAK") +
+                    "&output=json&pois=0&location=" + tran_lng + "," + tran_lat;
+                string geo_return = Regex.Unescape(Get_Http(geo_url, 1000000));
+                RespGeo geoObj= Deserialize<RespGeo>(geo_return);
+
+                RespDataLCT001008_locationObj locationObj = new RespDataLCT001008_locationObj();
+                locationObj.name = geoObj.result.addressComponent.city;                
                 string spell = GetChineseSpell(locationObj.name);
                 locationObj.key = spell.Substring(0,1);
+                locationObj.code = geoObj.result.cityCode;
 
+                RespDataLCT001008 respData = new RespDataLCT001008();
                 respData.locationObj = locationObj;
 
                 this.RespData = respData;
@@ -82,14 +101,6 @@ public class ResponseLCT001008 : BaseResponse
         public string name { get; set; }
         public string key { get; set; }
         public string code { get; set; }
-        public RespDataLCT001008_locationObj Adap(Area area)
-        {
-            this.name = area.Name;
-            this.key=string.Empty;
-            this.code = area.Code;
-
-            return this;
-        }
     }
 
     /// <summary>
@@ -136,4 +147,96 @@ public class ResponseLCT001008 : BaseResponse
         else return cnChar;
     }
 
+    /// <summary>
+    /// 获取访问http结果
+    /// </summary>
+    /// <param name="strUrl">指定URL路径地址</param>
+    /// <param name="timeout">超时时间设置</param>
+    private string Get_Http(string strUrl, int timeout)
+    {
+        string strResult;
+        try
+        {
+            HttpWebRequest myReq = (HttpWebRequest)HttpWebRequest.Create(strUrl);
+            myReq.Timeout = timeout;
+            HttpWebResponse HttpWResp = (HttpWebResponse)myReq.GetResponse();
+            Stream myStream = HttpWResp.GetResponseStream();
+            StreamReader sr = new StreamReader(myStream, Encoding.UTF8);
+            StringBuilder strBuilder = new StringBuilder();
+            while (-1 != sr.Peek())
+            {
+                strBuilder.Append(sr.ReadLine());
+            }
+
+            strResult = strBuilder.ToString();
+        }
+        catch (Exception exp)
+        {
+            strResult = "错误：" + exp.Message;
+        }
+
+        return strResult;
+    }
+
+    /// <summary>
+    /// json 转为 对象或list
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public static T Deserialize<T>(string data)
+    {
+        JavaScriptSerializer json = new JavaScriptSerializer();
+        return json.Deserialize<T>(data);
+    }
+
+    /// <summary>
+    /// 坐标转换后的josn数据转为对象
+    /// </summary>
+    public class RespTran
+    {
+        public int status { get; set; }
+        public IList<RespXY> result { get; set; }
+    }
+    public class RespXY
+    {
+        public double x { get; set; }
+        public double y { get; set; }
+    }
+
+    /// <summary>
+    /// 经纬度上传百度地图API返回数据对象
+    /// </summary>
+    public class RespGeo
+    {
+        public int status { get; set; }
+        public GeoResult result { get; set; }
+    }
+    public class GeoResult
+    {
+        public GeoLocation location { get; set; }
+        public string formatted_address { get; set; }
+        public string business { get; set; }
+        public GeoAddressComponent addressComponent { get; set; }
+        public string cityCode { get; set; }
+        public IList<Object> poiRegions { get; set; }
+        public string semtic_description { get; set; }
+    }
+    public class GeoLocation
+    {
+        public double lng { get; set; }
+        public double lat { get; set; }
+    }
+    public class GeoAddressComponent
+    {
+        public string streetNumber { get; set; }
+        public string street { get; set; }
+        public string district { get; set; }
+        public string city { get; set; }
+        public string province { get; set; }
+        public string country { get; set; }
+        public string counntryCode { get; set; }
+        public string direction { get; set; }
+        public string distance { get; set; }
+    }
 }
