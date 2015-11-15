@@ -283,7 +283,7 @@ namespace Dianzhu.BLL
             //mail.Body = "this is my test email body";
             //client.Send(mail);
         }
-        public DZMembership CreateUser(string userName, string userPhone, string userEmail, string password, out MembershipCreateStatus createStatus)
+        public DZMembership CreateUser(string userName, string userPhone, string userEmail, string password, out MembershipCreateStatus createStatus,string userType)
         {
             createStatus = MembershipCreateStatus.ProviderError;
             var savedUserName = !string.IsNullOrEmpty(userName) ? userName : string.IsNullOrEmpty(userPhone) ? userEmail : userPhone;
@@ -329,6 +329,7 @@ namespace Dianzhu.BLL
                 {
                     newMember.RegisterValidateCode = validateCode.ToString();
                 }
+                newMember.UserType = userType;
                 DALMembership.Save(newMember);
                 createStatus = MembershipCreateStatus.Success;
                 return newMember;

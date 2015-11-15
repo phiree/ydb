@@ -63,6 +63,11 @@ namespace Dianzhu.Model
             get { return string.IsNullOrEmpty(NickName) ? UserName : NickName; }
         }
 
+        /// <summary>
+        /// 用户类型
+        /// </summary>
+        public virtual string UserType { get; set; }
+
         
     }
     /// <summary>
