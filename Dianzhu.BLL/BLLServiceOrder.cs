@@ -127,6 +127,10 @@ namespace Dianzhu.BLL
 
             DALServiceOrder.SaveOrUpdate(order);
         }
+        public IList<ServiceOrder> GetAll() //获取全部订单
+        {
+            return DALServiceOrder.GetAll<ServiceOrder>();
+        }
     }
 
 
