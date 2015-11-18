@@ -12,8 +12,8 @@ namespace Dianzhu.DAL.Mapping
        public ServiceOrderMap()
        {
            Id(x => x.Id);
-           References<DZMembership>(x => x.Customer);
-           Map(x => x.OrderCreated);
+           References<DZMembership>(x => x.Customer);            
+            Map(x => x.OrderCreated);
             Map(x => x.OrderFinished);
             Map(x => x.Memo);
             Map(x => x.OrderStatus);
