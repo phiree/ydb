@@ -26,6 +26,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.UserNameForOpenFire);
             Map(x => x.RecoveryCode);
             Map(x => x.AvatarUrl);
+            Map(x => x.UserType);
             
         }
                

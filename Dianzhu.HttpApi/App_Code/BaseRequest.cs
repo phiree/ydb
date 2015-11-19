@@ -20,3 +20,10 @@ public class BaseRequest
     public string Ver { get; set; }
     public JObject ReqData { get; set; }//JObject：json对象
 }
+
+public enum UserType
+{
+    customer,
+    business,
+    customerservice
+}

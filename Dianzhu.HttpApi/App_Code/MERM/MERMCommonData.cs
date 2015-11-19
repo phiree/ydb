@@ -19,6 +19,7 @@ public class RespDataMERM_merObj
     public string email { get; set; }
     public string phone { get; set; }
     public string imgUrl { get; set; }
+    public string userType { get; set; }
  
     public RespDataMERM_merObj Adapt(DZMembership membership)
     {
