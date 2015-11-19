@@ -21,7 +21,7 @@ public class ResponseMERM001001 : BaseResponse
              requestData.email,
              requestData.pWord,
              out createStatus,
-             UserType.business.ToString());
+             CHATTarget.store.ToString());
         if (createStatus == MembershipCreateStatus.DuplicateUserName)
         {
             this.state_CODE = Dicts.StateCode[3];

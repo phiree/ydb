@@ -21,9 +21,9 @@ public class BaseRequest
     public JObject ReqData { get; set; }//JObject：json对象
 }
 
-public enum UserType
+public enum CHATTarget
 {
-    customer,
-    business,
-    customerservice
+    cer,        //客服，0
+    store,      //店铺，1
+    user,       //用户，2
 }

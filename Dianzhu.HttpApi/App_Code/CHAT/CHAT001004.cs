@@ -38,8 +38,11 @@ public class ResponseCHAT001004:BaseResponse
         }
         try
         {
-            IList<ReceptionChat> chatList = bllReception.GetReceptionChatList(member,null, orderId,DateTime.MinValue,DateTime.Now,0,10, out rowCount);
-            RespDataCHAT001004 respData = new RespDataCHAT001004 { sum = rowCount.ToString() };
+            IList<ReceptionChat> chatList = bllReception.GetReceptionChatList(member,null, orderId,DateTime.MinValue,DateTime.Now,-1,-1, out rowCount);
+
+            var chatListNew = bllReception.GetReceptionChatListByTarget(chatList, requestData.target);
+
+            RespDataCHAT001004 respData = new RespDataCHAT001004 { sum = chatListNew.Count.ToString() };
             this.RespData = respData;
             this.state_CODE = Dicts.StateCode[0];
             return;
@@ -57,6 +60,17 @@ public class ReqDataCHAT001004
     public string userID { get; set; }
     public string pWord { get; set; }
     public string orderID { get; set; }
+    public string target{ get; set; }
+    public CHATTarget Target
+    {
+        get
+        {
+            CHATTarget tar;
+            bool isType = Enum.TryParse<CHATTarget>(target, out tar);
+            if (!isType) { throw new Exception("不可识别的用户类型"); }
+            return tar;
+        }
+    }
 }
 public class RespDataCHAT001004
 {
