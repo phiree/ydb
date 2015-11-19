@@ -329,7 +329,18 @@ namespace Dianzhu.BLL
                 {
                     newMember.RegisterValidateCode = validateCode.ToString();
                 }
-                newMember.UserType = userType;
+                switch (userType)
+                {
+                    case "cer":
+                        newMember.UserType = Model.Enums.enum_UserType.customerservice.ToString();
+                        break;
+                    case "store":
+                        newMember.UserType = Model.Enums.enum_UserType.business.ToString();
+                        break;
+                    case "user":
+                        newMember.UserType = Model.Enums.enum_UserType.customer.ToString();
+                        break;
+                }
                 DALMembership.Save(newMember);
                 createStatus = MembershipCreateStatus.Success;
                 return newMember;

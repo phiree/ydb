@@ -137,6 +137,25 @@ namespace Dianzhu.Model.Enums
         OSOM, 
     }
 
+    /// <summary>
+    /// 用户类型
+    /// </summary>
+    public enum enum_UserType
+    {
+        /// <summary>
+        /// 普通用户
+        /// </summary>
+        customer,
+        /// <summary>
+        /// 商户
+        /// </summary>
+        business,
+        /// <summary>
+        /// 客服
+        /// </summary>
+        customerservice
+    }
+
 
 
 }

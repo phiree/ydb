@@ -39,7 +39,12 @@ namespace Dianzhu.BLL
 
             return GetReceptionChatList(null, null, orderId, begin, end, pageIndex, pageSize, out rowCount);
         }
-        
+        public IList <ReceptionChat > GetReceptionChatListByTarget(IList<ReceptionChat > chatList,string target)
+        {
+            var list = DALReception.GetReceptionChatListByTarget(chatList,target);
+            return list;
+        }
+
     }
 
 }
