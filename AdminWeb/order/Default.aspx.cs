@@ -22,10 +22,19 @@ public partial class order_Default : System.Web.UI.Page
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
         IList<ServiceOrder> allServiceOrder = bllServiceOrder.GetAll( );
         gv.DataSource = allServiceOrder;
+        gv.AutoGenerateColumns = false;
         gv.DataBind();
+        
+
         //BLLBusiness bllBusiness = new BLLBusiness();
         //IList<Business> allBusiness = bllBusiness.GetAll();
         //gvBusiness.DataSource = allBusiness;
         //gvBusiness.DataBind();
+    }
+
+    protected void pagechanging(object sender, GridViewPageEventArgs e)
+    {
+        gv.PageIndex = e.NewPageIndex;
+        BindOrder(); //重新绑定GridView数据的函数
     }
 }

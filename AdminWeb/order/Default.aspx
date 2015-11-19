@@ -11,11 +11,12 @@
 订单列表
 -->
 
-<asp:GridView  CssClass="table"   runat="server" ID="gv">
+<asp:GridView  CssClass="table"   runat="server" ID="gv"  AllowPaging="true" PageSize="15"  OnPageIndexChanging="pagechanging">
 <Columns>
-<asp:BoundField  HeaderText="商户名称" DataField="Id" />
-<asp:HyperLinkField  Text="详情" DataNavigateUrlFields="id" DataNavigateUrlFormatString="detail.aspx?id={0}"/>
-
+<asp:BoundField  HeaderText="订单id" DataField="Id" />
+<asp:BoundField  HeaderText="订单状态" DataField="OrderStatus" />
+    <asp:BoundField  HeaderText="创建时间" DataField="OrderCreated" />
+<asp:HyperLinkField  Text="详情" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="detail.aspx?id={0}"/>
 </Columns>
 </asp:GridView>
 </asp:Content>
