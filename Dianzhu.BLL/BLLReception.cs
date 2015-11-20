@@ -44,7 +44,11 @@ namespace Dianzhu.BLL
             var list = DALReception.GetReceptionChatListByTarget(chatList,target);
             return list;
         }
-
+        public IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime begin, DateTime end,
+             int pageSize, Guid targetId, string low)
+        {
+            return DALReception.GetReceptionChatListByTargetIdAndSize(from, to, orderId, begin, end, pageSize, targetId, low);
+        }
     }
 
 }
