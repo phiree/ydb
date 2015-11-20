@@ -19,8 +19,10 @@ public partial class order_Default : System.Web.UI.Page
 
     private void BindOrder()
     {
+        
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
         IList<ServiceOrder> allServiceOrder = bllServiceOrder.GetAll( );
+        allServiceOrder.OrderByDescending(x=>x.OrderCreated);
         gv.DataSource = allServiceOrder;
         gv.AutoGenerateColumns = false;
         gv.DataBind();

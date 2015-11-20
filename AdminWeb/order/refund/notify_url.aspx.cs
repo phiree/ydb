@@ -10,6 +10,8 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Collections.Specialized;
 using System.Collections.Generic;
+using Dianzhu.BLL;
+using Dianzhu.Model;
 using Com.Alipay;
 
 /// <summary>
@@ -41,15 +43,17 @@ public partial class notify_url : System.Web.UI.Page
             {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //请在这里加上商户的业务逻辑程序代码
-
+                BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
 
                 //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
                 //获取支付宝的通知返回参数，可参考技术文档中服务器异步通知参数列表
 
-                //批次号
+                //批次号
+
                 string batch_no = Request.Form["batch_no"];
 
-                //批量退款数据中转账成功的笔数
+                //批量退款数据中转账成功的笔数
+
                 string success_num = Request.Form["success_num"];
 
                 //批量退款数据中的详细信息
