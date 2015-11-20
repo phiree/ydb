@@ -217,12 +217,12 @@ namespace Dianzhu.Model
         /// <summary>
         /// 订单服务开始时间
         /// </summary>
-        public virtual string OrderServerStartTime { get; set; }
+        public virtual DateTime OrderServerStartTime { get; set; }
 
         /// <summary>
         /// 订单服务结束的时间.
         /// </summary>
-        public virtual string OrderServerFinishedTime { get; set; }
+        public virtual DateTime OrderServerFinishedTime { get; set; }
         /// <summary>
         /// 订单备注.
         /// </summary>

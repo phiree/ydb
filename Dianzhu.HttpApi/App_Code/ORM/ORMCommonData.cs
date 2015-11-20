@@ -129,8 +129,22 @@ public class RespDataORM_svcObj
         this.svcID = order.Service != null ? order.Service.Id.ToString() : order.Id.ToString();
         this.name = order.Service != null ? order.Service.Name : order.ServiceName;
         this.type = order.Service != null ? order.Service.ServiceType.ToString() : string.Empty;
-        this.startTime = order != null ? order.OrderServerStartTime : string.Empty;
-        this.endTime = order != null ? order.OrderServerFinishedTime : string.Empty;
+        if (order.OrderServerStartTime > DateTime.MinValue)
+        {
+            this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderServerStartTime);
+        }
+        else
+        {
+            this.startTime = string.Empty;
+        }
+        if (order.OrderServerFinishedTime > DateTime.MinValue)
+        {
+            this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderServerFinishedTime);
+        }
+        else
+        {
+            this.endTime = string.Empty;
+        }
 
         return this;
     }
