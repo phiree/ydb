@@ -15,8 +15,11 @@
 <Columns>
 <asp:BoundField  HeaderText="订单id" DataField="Id" />
 <asp:BoundField  HeaderText="订单状态" DataField="OrderStatus" />
+<asp:BoundField  HeaderText="交易号" DataField="TradeNo" />
+    <asp:BoundField  HeaderText="用户名" DataField="CustomerName" />
+    <asp:BoundField  HeaderText="订单金额" DataField="OrderAmount" />
     <asp:BoundField  HeaderText="创建时间" DataField="OrderCreated" />
-<asp:HyperLinkField  Text="详情" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="detail.aspx?id={0}"/>
+<asp:HyperLinkField  Text="退款" DataNavigateUrlFields="TradeNo,OrderAmount" DataNavigateUrlFormatString="refund/default.aspx?tradeno={0}&orderamount={1}"/>
 </Columns>
 </asp:GridView>
 </asp:Content>

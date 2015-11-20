@@ -33,6 +33,30 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            WIDseller_email.Text = "jsyk_company@126.com";
+
+            string month = DateTime.Now.Month.ToString();
+            month = (month.Length == 2) ? month : "0" + month;
+            string day = DateTime.Now.Day.ToString();
+            day = (day.Length == 2) ? day : "0" + day;
+            string hour = DateTime.Now.Hour.ToString();
+            hour = (hour.Length == 2) ? hour : "0" + hour;
+            string minute = DateTime.Now.Minute.ToString();
+            minute = (minute.Length == 2) ? minute : "0" + minute;
+            string second = DateTime.Now.Second.ToString();
+            second = (second.Length == 2) ? second : "0" + second;
+            
+            WIDrefund_date.Text= DateTime.Now.Year+"-"+DateTime.Now.Month+"-"+ day + " "+
+                hour + ":"+ minute + ":"+ second;
+
+
+            WIDbatch_no.Text = DateTime.Now.ToString("yyyyMMdd")+"00"+ DateTime.Now.ToString("yyyyMMddHHmmss");
+            WIDbatch_num.Text = "1";
+            decimal d = Math.Round(decimal.Parse(Request["orderamount"].ToString()), 2);
+            WIDdetail_data.Text = Request.QueryString["tradeno"] + "^" + d.ToString() + "^" + "退款";
+        }
     }
 
     protected void BtnAlipay_Click(object sender, EventArgs e)
@@ -44,23 +68,24 @@ public partial class _Default : System.Web.UI.Page
         //需http://格式的完整路径，不允许加?id=123这类自定义参数
 
         //卖家支付宝帐户
-        string seller_email = WIDseller_email.Text.Trim();
+        string seller_email = WIDseller_email.Text;
         //必填
 
         //退款当天日期
-        string refund_date = WIDrefund_date.Text.Trim();
+        string refund_date = WIDrefund_date.Text;
         //必填，格式：年[4位]-月[2位]-日[2位] 小时[2位 24小时制]:分[2位]:秒[2位]，如：2007-10-01 13:13:13
 
         //批次号
-        string batch_no = WIDbatch_no.Text.Trim();
+        string batch_no = WIDbatch_no.Text;
         //必填，格式：当天日期[8位]+序列号[3至24位]，如：201008010000001
 
         //退款笔数
-        string batch_num = WIDbatch_num.Text.Trim();
+        string batch_num = WIDbatch_num.Text;
         //必填，参数detail_data的值中，“#”字符出现的数量加1，最大支持1000笔（即“#”字符出现的数量999个）
 
         //退款详细数据
-        string detail_data = WIDdetail_data.Text.Trim();
+        
+        string detail_data = WIDdetail_data.Text;
         //必填，具体格式请参见接口技术文档
 
 
