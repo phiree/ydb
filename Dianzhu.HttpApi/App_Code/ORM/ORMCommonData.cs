@@ -44,8 +44,22 @@ public class RespDataORM_orderObj
         this.orderID = order.Id.ToString();
         this.title = order.ServiceName;
         this.status = order.OrderStatus.ToString();
-        this.startTime = order.Service != null ? order.Service.ServiceTimeBegin : string.Empty;
-        this.endTime = order.Service != null ? order.Service.ServiceTimeEnd : string.Empty;
+        if (order.OrderCreated > DateTime.MinValue)
+        {
+            this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+        }
+        else
+        {
+            this.startTime = string.Empty;
+        }
+        if (order.OrderFinished > DateTime.MinValue)
+        {
+            this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+        }
+        else
+        {
+            this.endTime = string.Empty;
+        }
         this.exDoc = order.ServiceDescription ?? string.Empty;
         this.money = order.OrderAmount.ToString("0.00");
         this.address = order.TargetAddress ?? string.Empty;
