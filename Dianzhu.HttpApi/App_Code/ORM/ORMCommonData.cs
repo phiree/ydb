@@ -129,8 +129,8 @@ public class RespDataORM_svcObj
         this.svcID = order.Service != null ? order.Service.Id.ToString() : order.Id.ToString();
         this.name = order.Service != null ? order.Service.Name : order.ServiceName;
         this.type = order.Service != null ? order.Service.ServiceType.ToString() : string.Empty;
-        this.startTime = order.Service != null ? order.Service.ServiceTimeBegin : string.Empty;
-        this.endTime = order.Service != null ? order.Service.ServiceTimeEnd : string.Empty;        
+        this.startTime = order != null ? order.OrderServerStartTime : string.Empty;
+        this.endTime = order != null ? order.OrderServerFinishedTime : string.Empty;
 
         return this;
     }

@@ -15,6 +15,8 @@ namespace Dianzhu.DAL.Mapping
            References<DZMembership>(x => x.Customer);            
             Map(x => x.OrderCreated);
             Map(x => x.OrderFinished);
+            Map(x => x.OrderServerStartTime);
+            Map(x => x.OrderServerFinishedTime);
             Map(x => x.Memo);
             Map(x => x.OrderStatus);
             Map(x => x.TargetAddress);

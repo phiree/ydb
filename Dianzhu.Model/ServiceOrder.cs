@@ -215,6 +215,15 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual DateTime OrderFinished { get; set; }
         /// <summary>
+        /// 订单服务开始时间
+        /// </summary>
+        public virtual string OrderServerStartTime { get; set; }
+
+        /// <summary>
+        /// 订单服务结束的时间.
+        /// </summary>
+        public virtual string OrderServerFinishedTime { get; set; }
+        /// <summary>
         /// 订单备注.
         /// </summary>
         public virtual string Memo { get; set; }
