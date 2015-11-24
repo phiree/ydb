@@ -12,6 +12,8 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using Com.Alipay;
+using Dianzhu.BLL;
+using Dianzhu.Model;
 
 /// <summary>
 /// 功能：即时到账批量退款有密接口接入页
@@ -33,10 +35,44 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        
         if (!IsPostBack)
         {
-            WIDseller_email.Text = "jsyk_company@126.com";
+            Session["reurl"] = Request.UrlReferrer.ToString();
+            if (Request.QueryString["tradeno"] == "" || Request.QueryString["tradeno"] == null)
+            {
+                
+                Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('此订单还未付款，无法退款！');window.opener=null;window.open('','_self');window.close();</script>");
+                
+            }
 
+            BLLServiceOrder bllOrder = new BLLServiceOrder();
+            ServiceOrder order = null;
+            Guid orderId;
+            bool isOrderGuid = Guid.TryParse(Request["id"], out orderId);
+            
+            if (isOrderGuid)
+            {
+
+                order = bllOrder.GetOne(orderId);
+
+                if (order == null)
+                {
+                    Response.Write("fail");
+                }
+                order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.RefundReady;
+                
+                bllOrder.SaveOrUpdate(order);
+
+            }
+            else
+            {
+                Response.Write("fail");
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            WIDseller_email.Text = "jsyk_company@126.com";
+            
             string month = DateTime.Now.Month.ToString();
             month = (month.Length == 2) ? month : "0" + month;
             string day = DateTime.Now.Day.ToString();
@@ -50,12 +86,12 @@ public partial class _Default : System.Web.UI.Page
             
             WIDrefund_date.Text= DateTime.Now.Year+"-"+DateTime.Now.Month+"-"+ day + " "+
                 hour + ":"+ minute + ":"+ second;
-
+            
 
             WIDbatch_no.Text = DateTime.Now.ToString("yyyyMMdd")+"00"+ DateTime.Now.ToString("yyyyMMddHHmmss");
             WIDbatch_num.Text = "1";
             decimal d = Math.Round(decimal.Parse(Request["orderamount"].ToString()), 2);
-            WIDdetail_data.Text = Request.QueryString["tradeno"] + "^" + d.ToString() + "^" + "退款";
+            WIDdetail_data.Text = Request.QueryString["tradeno"] + "^" + d.ToString() + "^" + Request.QueryString["id"] + ",退款";
         }
     }
 

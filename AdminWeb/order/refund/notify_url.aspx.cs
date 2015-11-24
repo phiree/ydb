@@ -32,6 +32,43 @@ public partial class notify_url : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        BLLServiceOrder bllOrder = new BLLServiceOrder();
+        ServiceOrder order = null;
+        Guid orderId;
+        //批次号
+
+        string batch_no = Request.Form["batch_no"];
+
+        //批量退款数据中转账成功的笔数
+
+        string success_num = Request.Form["success_num"];
+
+        //批量退款数据中的详细信息
+        string result_details = Request.Form["result_details"];
+        string[] arrayresult_details = result_details.Split('^');
+        string trade_no = arrayresult_details[0];
+        string out_trade_no = arrayresult_details[2].Split(',')[0];
+        bool isOrderGuid = Guid.TryParse(out_trade_no, out orderId);
+
+        if (isOrderGuid)
+        {
+
+            order = bllOrder.GetOne(orderId);
+
+            if (order == null)
+            {
+                Response.Write("fail");
+            }
+            order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.RefundFinished;
+            bllOrder.SaveOrUpdate(order);
+
+        }
+        else
+        {
+            Response.Write("fail");
+        }
+
+
         SortedDictionary<string, string> sPara = GetRequestPost();
 
         if (sPara.Count > 0)//判断是否有带返回参数
@@ -43,21 +80,10 @@ public partial class notify_url : System.Web.UI.Page
             {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //请在这里加上商户的业务逻辑程序代码
-                BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+
 
                 //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
                 //获取支付宝的通知返回参数，可参考技术文档中服务器异步通知参数列表
-
-                //批次号
-
-                string batch_no = Request.Form["batch_no"];
-
-                //批量退款数据中转账成功的笔数
-
-                string success_num = Request.Form["success_num"];
-
-                //批量退款数据中的详细信息
-                string result_details = Request.Form["result_details"];
 
 
                 //判断是否在商户网站中已经做过了这次通知返回的处理

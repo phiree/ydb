@@ -131,6 +131,19 @@ namespace Dianzhu.BLL
         {
             return DALServiceOrder.GetAll<ServiceOrder>();
         }
+
+        public IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status)
+        {
+            return DALServiceOrder
+               .GetAll<ServiceOrder>()
+               .Where(x => x.OrderStatus == status)
+               .ToList();
+        }
+
+        public void Delete(ServiceOrder order)
+        {
+            DALServiceOrder.Delete(order);
+        }
     }
 
 

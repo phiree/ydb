@@ -21,10 +21,11 @@ public partial class order_Default : System.Web.UI.Page
     {
         
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        IList<ServiceOrder> allServiceOrder = bllServiceOrder.GetAll( );
-        allServiceOrder.OrderByDescending(x=>x.OrderCreated);
+        IList<ServiceOrder> allServiceOrder = bllServiceOrder.GetAll( ).OrderByDescending(x=>x.OrderCreated).ToList();
+        //allServiceOrder.OrderByDescending(x=>x.OrderCreated);
         gv.DataSource = allServiceOrder;
         gv.AutoGenerateColumns = false;
+        this.gv.DataKeyNames = new string[] { "Id" };
         gv.DataBind();
         
 
@@ -38,5 +39,16 @@ public partial class order_Default : System.Web.UI.Page
     {
         gv.PageIndex = e.NewPageIndex;
         BindOrder(); //重新绑定GridView数据的函数
+    }
+    protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        
+        ServiceOrder order = null;
+        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+        string id = gv.DataKeys[e.RowIndex].Value.ToString();
+        order = bllServiceOrder.GetOne(new Guid(id));
+        bllServiceOrder.Delete(order);
+        BindOrder();
+
     }
 }

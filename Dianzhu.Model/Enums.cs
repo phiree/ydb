@@ -53,9 +53,12 @@ namespace Dianzhu.Model.Enums
 
         Created,//已创建,待付款
         Payed,//已付款
+        ApplyRefund,//申请退款
         CancelledNeedReturn,//已取消待退款
         Assigned,//已安排工作人员
         CancelledNeedReAssign,//客户已取消 等待撤销工作人员分配.
+        RefundReady,//退款准备中
+        RefundFinished,//退款完成
         Finished,//已完成
         Aborded,//已中止
 
