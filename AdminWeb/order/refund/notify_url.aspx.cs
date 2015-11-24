@@ -59,7 +59,7 @@ public partial class notify_url : System.Web.UI.Page
             {
                 Response.Write("fail");
             }
-            order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.RefundFinished;
+            order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Aborded;
             bllOrder.SaveOrUpdate(order);
 
         }

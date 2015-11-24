@@ -60,7 +60,7 @@ public partial class _Default : System.Web.UI.Page
                 {
                     Response.Write("fail");
                 }
-                order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.RefundReady;
+                order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Canceled;
                 
                 bllOrder.SaveOrUpdate(order);
 

@@ -16,11 +16,12 @@
        <option value="default.aspx?status=Draft">创建中</option>
         <option value="default.aspx?status=Created">已创建</option>
         <option value="default.aspx?status=Payed">已付款</option>
-        <option value="default.aspx?status=ApplyRefund">申请退款</option>
-        <option value="default.aspx?status=RefundReady">退款准备</option>
-        <option value="default.aspx?status=RefundFinished">退款完成</option>
-        <option value="default.aspx?status=Finished">已完成</option>
-       <option value="default.aspx?status=Aborded">已中止</option>
+        <option value="default.aspx?status=Canceled">申请退款</option>
+        <option value="default.aspx?status=Assigned">Assigned</option>
+        <option value="default.aspx?status=IsCanceled">IsCanceled</option>
+       <option value="default.aspx?status=Finished">Finished</option>
+       <option value="default.aspx?status=Aborded">Aborded</option>
+       <option value="default.aspx?status=Appraise">Appraise</option>
     </select>
     
 
