@@ -21,11 +21,19 @@ public partial class order_Default : System.Web.UI.Page
     {
         
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        IList<ServiceOrder> allServiceOrder = bllServiceOrder.GetAll( ).OrderByDescending(x=>x.OrderCreated).ToList();
-        //allServiceOrder.OrderByDescending(x=>x.OrderCreated);
+        IList<ServiceOrder> allServiceOrder;
+        if(Request.QueryString["status"]==""|| Request.QueryString["status"] == null)
+        { allServiceOrder = bllServiceOrder.GetAll().OrderByDescending(x => x.OrderCreated).ToList(); }
+        else
+        {
+            StatusSelect.Value = "default.aspx?status="+Request.QueryString["status"].ToString();
+            Dianzhu.Model.Enums.enum_OrderStatus status =(Dianzhu.Model.Enums.enum_OrderStatus)Enum.Parse(typeof(Dianzhu.Model.Enums.enum_OrderStatus), Request.QueryString["status"].ToString());
+            allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status).OrderByDescending(x => x.OrderCreated).ToList();
+        }
+       
         gv.DataSource = allServiceOrder;
         gv.AutoGenerateColumns = false;
-        this.gv.DataKeyNames = new string[] { "Id" };
+        //this.gv.DataKeyNames = new string[] { "Id" };
         gv.DataBind();
         
 
@@ -45,7 +53,7 @@ public partial class order_Default : System.Web.UI.Page
         
         ServiceOrder order = null;
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        string id = gv.DataKeys[e.RowIndex].Value.ToString();
+        string id = gv.DataKeys[e.RowIndex].Values[0].ToString();
         order = bllServiceOrder.GetOne(new Guid(id));
         bllServiceOrder.Delete(order);
         BindOrder();

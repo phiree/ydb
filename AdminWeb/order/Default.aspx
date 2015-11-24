@@ -11,20 +11,21 @@
 订单列表
 -->
 <div>
-   订单状态： <select id="StatusSelect" onChange="var jmpURL=this.options[this.selectedIndex].value; if(jmpURL!='') {window.open(jmpURL);} else {this.selectedIndex=0;}">
-        <option selected>全部</option>
+   订单状态： <select runat="server" id="StatusSelect" onChange="var jmpURL=this.options[this.selectedIndex].value; if(jmpURL!='') {window.open(jmpURL);} else {this.selectedIndex=0;}">
+        <option  value="default.aspx">全部</option>
        <option value="default.aspx?status=Draft">创建中</option>
-        <option value="Created">已创建</option>
-        <option value="Payed">已付款</option>
-        <option value="ApplyRefund">申请退款</option>
-        <option value="RefundReady">退款准备</option>
-        <option value="RefundFinished">退款完成</option>
-        <option value="Finished">已完成</option>
-       <option value="Aborded">已中止</option>
+        <option value="default.aspx?status=Created">已创建</option>
+        <option value="default.aspx?status=Payed">已付款</option>
+        <option value="default.aspx?status=ApplyRefund">申请退款</option>
+        <option value="default.aspx?status=RefundReady">退款准备</option>
+        <option value="default.aspx?status=RefundFinished">退款完成</option>
+        <option value="default.aspx?status=Finished">已完成</option>
+       <option value="default.aspx?status=Aborded">已中止</option>
     </select>
-    
+    
+
 </div>
-<asp:GridView  CssClass="table"       
+<asp:GridView  CssClass="table"  DataKeyNames="Id"
      OnRowDeleting="GridView1_RowDeleting" 
     runat="server" ID="gv"  AllowPaging="true" PageSize="15"  OnPageIndexChanging="pagechanging">
 <Columns>
