@@ -11,7 +11,7 @@
 订单列表
 -->
 <div>
-   订单状态： <select runat="server" id="StatusSelect" onChange="var jmpURL=this.options[this.selectedIndex].value; if(jmpURL!='') {window.open(jmpURL);} else {this.selectedIndex=0;}">
+   订单状态： <select runat="server" id="StatusSelect" OnChange="var jmpURL=this.options[this.selectedIndex].value; if(jmpURL!='') {window.open(jmpURL);} else {this.selectedIndex=0;}">
         <option  value="default.aspx">全部</option>
        <option value="default.aspx?status=Draft">创建中</option>
         <option value="default.aspx?status=Created">已创建</option>
