@@ -139,6 +139,10 @@ namespace Dianzhu.BLL
                .Where(x => x.OrderStatus == status)
                .ToList();
         }
+        public IList<ServiceOrder> GetListForBusiness(Guid businessId)
+        {
+            return DALServiceOrder.GetListForBusiness(businessId);
+        }
 
         public void Delete(ServiceOrder order)
         {

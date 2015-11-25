@@ -60,5 +60,15 @@ namespace Dianzhu.DAL
             var result = iqueryover.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
             return result;
         }
+
+        public IList<ServiceOrder> GetListForBusiness(Guid businessId)
+        {
+            string hql = string.Format(@"select so from ServiceOrder so 
+                join so.Service s
+                 join s.Business b
+                where b.Id={0}
+                ", businessId);
+            return base.GetList(hql);
+        }
     }
 }
