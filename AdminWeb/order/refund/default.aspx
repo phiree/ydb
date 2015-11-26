@@ -158,25 +158,29 @@ ul,ol{
                     <dd>
                         <span class="null-star">*</span>
                         <asp:TextBox ID="WIDseller_email" name="WIDseller_email" runat="server"></asp:TextBox>
-                        <span>必填</span>
+                        <span>必填
+</span>
                     </dd>
                     <dt>退款当天日期：</dt>
                     <dd>
                         <span class="null-star">*</span>
                         <asp:TextBox ID="WIDrefund_date" name="WIDrefund_date" runat="server"></asp:TextBox>
-                        <span>必填，格式：年[4位]-月[2位]-日[2位] 小时[2位 24小时制]:分[2位]:秒[2位]，如：2007-10-01 13:13:13</span>
+                        <span>必填，格式：年[4位]-月[2位]-日[2位] 小时[2位 24小时制]:分[2位]:秒[2位]，如：2007-10-01 13:13:13
+</span>
                     </dd>
                     <dt>批次号：</dt>
                     <dd>
                         <span class="null-star">*</span>
                         <asp:TextBox ID="WIDbatch_no" name="WIDbatch_no" runat="server"></asp:TextBox>
-                        <span>必填，格式：当天日期[8位]+序列号[3至24位]，如：201008010000001</span>
+                        <span>必填，格式：当天日期[8位]+序列号[3至24位]，如：201008010000001
+</span>
                     </dd>
                     <dt>退款笔数：</dt>
                     <dd>
                         <span class="null-star">*</span>
                         <asp:TextBox ID="WIDbatch_num" name="WIDbatch_num" runat="server"></asp:TextBox>
-                        <span>必填，参数detail_data的值中，“#”字符出现的数量加1，最大支持1000笔（即“#”字符出现的数量999个）</span>
+                        <span>必填，参数detail_data的值中，“#”字符出现的数量加1，最大支持1000笔（即“#”字符出现的数量999个）
+</span>
                     </dd>
                     <dt>退款详细数据：</dt>
                     <dd>

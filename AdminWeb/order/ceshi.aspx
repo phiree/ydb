@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="order_Default" %>
+﻿<%@ Page  Language="C#" MasterPageFile="~/admin.master" AutoEventWireup="true" CodeFile="ceshi.aspx.cs" Inherits="order_ceshi" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -11,7 +11,7 @@
 订单列表
 -->
 <div>
-   订单状态： <select runat="server" id="StatusSelect" OnChange="var jmpURL=this.options[this.selectedIndex].value; if(jmpURL!='') {window.open(jmpURL);} else {this.selectedIndex=0;}">
+   订单状态： <select runat="server" id="StatusSelect" OnChange="var jmpURL=this.options[this.selectedIndex].value; if(jmpURL!='') {window.location.href='(jmpURL)';} else {this.selectedIndex=0;}">
         <option  value="default.aspx">全部</option>
        <option value="default.aspx?status=Draft">创建中</option>
         <option value="default.aspx?status=Created">已创建</option>
@@ -26,9 +26,7 @@
     
 
 </div>
-<asp:GridView  CssClass="table"  DataKeyNames="Id"
-     OnRowDeleting="GridView1_RowDeleting" 
-    runat="server" ID="gv"  AllowPaging="true" PageSize="15"  OnPageIndexChanging="pagechanging">
+<asp:GridView  CssClass="table"  runat="server" ID="gv"   >
 <Columns>
 <asp:BoundField  HeaderText="订单id" DataField="Id" />
 <asp:BoundField  HeaderText="订单状态" DataField="OrderStatus" />

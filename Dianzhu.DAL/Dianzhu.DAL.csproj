@@ -67,6 +67,7 @@
     <Compile Include="DALPaylog.cs" />
     <Compile Include="DALReceptionChat.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
+    <Compile Include="Mapping\CityMap.cs" />
     <Compile Include="Mapping\PaymentLogMap.cs" />
     <Compile Include="Mapping\AreaMap.cs" />
     <Compile Include="Mapping\CashTicketTemplateMap.cs" />

@@ -134,6 +134,7 @@ namespace Dianzhu.Model
             }
 
             ServiceOrder order = new ServiceOrder();
+            
             order.ScopeType = scopeType;
             AppendMemberInfo(order, customerName, customerPhone, customerEmail);
             AppendServiceInfo(order, serviceName, serviceBusinessName, serviceDescription, serviceUnitPrice, serviceUrl);

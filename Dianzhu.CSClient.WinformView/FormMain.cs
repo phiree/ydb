@@ -263,7 +263,6 @@ namespace Dianzhu.CSClient.WinformView
 
         private void BtnAudio_Click(object sender, EventArgs e)
         {
-            ;
             PlayAudio(((Button)sender).Tag,this.Handle);
         }
 
@@ -400,7 +399,17 @@ namespace Dianzhu.CSClient.WinformView
             btnPushService.Tag = service;
             btnPushService.Click += new EventHandler(btnPushService_Click);
             pnl.Controls.Add(btnPushService);
+            Button btnSelectService = new Button();
+            btnSelectService.Text = "选择";
+            btnSelectService.Tag = service;
+            btnSelectService.Click += new EventHandler(btnSelectService_Click);
+            pnl.Controls.Add(btnSelectService);
             pnlResultService.Controls.Add(pnl);
+
+        }
+
+        void btnSelectService_Click(object sender, EventArgs e)
+        {
 
         }
 
@@ -408,18 +417,18 @@ namespace Dianzhu.CSClient.WinformView
         {
             PushInternalService((DZService)((Button)sender).Tag);
             //xmpp发送消息 由xmpp实现,在csclient
-            //agsXMPP.protocol.client.Message m = new agsXMPP.protocol.client.Message();
-            //m.Type = MessageType.chat;
-            //DZService service = (DZService)((Button)sender).Tag;
-            //string serviceId = service.Id.ToString();
-            //string serviceName = service.Name;
-            //m.SetAttribute("service_name", service.Name);
-            //m.SetAttribute("service_id", serviceId);
-            //m.SetAttribute("t", "push");
-            // m.SetAttribute("service_name",
-           // m.To = StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain;
-            // GlobalViables.XMPPConnection.Send(m);
-            //业务逻辑
+           // agsXMPP.protocol.client.Message m = new agsXMPP.protocol.client.Message();
+           // m.Type = MessageType.chat;
+           // DZService service = (DZService)((Button)sender).Tag;
+           // string serviceId = service.Id.ToString();
+           // string serviceName = service.Name;
+           // m.SetAttribute("service_name", service.Name);
+           // m.SetAttribute("service_id", serviceId);
+           // m.SetAttribute("t", "push");
+           // m.SetAttribute("service_name");
+           //m.To = StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain;
+           // GlobalViables.XMPPConnection.Send(m);
+           // //业务逻辑
            // FormController.PushService(new Guid(serviceId));
         }
 
