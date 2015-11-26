@@ -14,6 +14,7 @@ namespace Dianzhu.DAL.Mapping
             References<DZMembership>(x => x.CustomerService);
             References<DZMembership>(x => x.Customer);
             Map(x => x.LastUpdateTime);
+            References<ServiceOrder>(x => x.Order);
         }
     }
 }
