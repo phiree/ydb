@@ -100,7 +100,7 @@ namespace Dianzhu.CSClient.Presenter
         }
 
 
-        private void SendMessage(ReceptionChat chat)
+        public void SendMessage(ReceptionChat chat)
         {
             SaveMessage(chat, true);
             instantMessage.SendMessage(chat);

@@ -62,20 +62,36 @@ namespace Dianzhu.DAL
             }
         }
 
-        public virtual List<DZMembership> GetCSMinCount()
+        public virtual IList<DZMembership> GetCSMinCount(DZMembership diandian)
         {
             var result = Session.QueryOver<ReceptionStatus>().Select(
                 Projections.Group<ReceptionStatus>(e => e.CustomerService),
                 Projections.Count<ReceptionStatus>(e => e.CustomerService)).
+                Where(e => e.CustomerService != diandian).
                 OrderBy(Projections.Count<ReceptionStatus>(e => e.CustomerService)).Asc.List<object[]>();
 
-            List<DZMembership> dzList = new List<DZMembership>();
-            for(int i = 0; i < result.Count; i++)
+            IList<DZMembership> dzList = new List<DZMembership>();
+            if (result.Count > 0)
             {
-                dzList.Add((DZMembership)result[i][0]);
-            }
+                for (int i = 0; i < result.Count; i++)
+                {
+                    dzList.Add((DZMembership)result[i][0]);
+                }
+            }            
           
             return dzList;
+        }
+
+        public virtual ReceptionStatus GetReceptionStatusByDiandian(DZMembership diandian)
+        {
+            ReceptionStatus re = null;
+            var result = Session.QueryOver<ReceptionStatus>().Where(x => x.CustomerService == diandian).OrderBy(x => x.LastUpdateTime).Asc.List();
+            if (result.Count > 0)
+            {
+                re = result[0];
+            }
+
+            return re;
         }
     }
 }
