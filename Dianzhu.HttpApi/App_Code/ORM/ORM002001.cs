@@ -20,7 +20,7 @@ public class ResponseORM002001 : BaseResponse
 
  
         DZMembershipProvider p = new DZMembershipProvider();
-        BLLReceptionStatus BLLReceptionStatus = new BLLReceptionStatus();
+        BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
         BLLServiceOrder bllOrder = new BLLServiceOrder();
         string raw_id = requestData.userID;
 
@@ -40,9 +40,7 @@ public class ResponseORM002001 : BaseResponse
               System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
               System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
 
-                Dictionary<DZMembership, DZMembership> assignedPair =
-                    new ReceptionAssigner(imSession)
-                    .AssignCustomerLogin(member);
+                Dictionary<DZMembership, DZMembership> assignedPair = new ReceptionAssigner(imSession).AssignCustomerLogin(member);
                 if (assignedPair.Count == 0)
                 {
                     this.state_CODE = Dicts.StateCode[4];
@@ -104,6 +102,9 @@ public class ResponseORM002001 : BaseResponse
                     bllOrder.SaveOrUpdate(orderToReturn);
                 }
                 respData.orderID = orderToReturn.Id.ToString();
+
+                //更新 ReceptionStatus 中订单
+                bllReceptionStatus.UpdateOrder(member, assignedPair[member], orderToReturn);
 
                 RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(assignedPair[member]);
                 respData.cerObj = cerObj;
