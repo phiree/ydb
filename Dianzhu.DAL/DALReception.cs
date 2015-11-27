@@ -92,6 +92,42 @@ namespace Dianzhu.DAL
             return receptionChatList;
         }
 
+        public virtual IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
+             int pageSize, Guid targetId, string low)
+        {
+            ReceptionChat reChat = Session.QueryOver<ReceptionChat>().Where(x => x.Id == targetId).SingleOrDefault();
+
+            var result = Session.QueryOver<ReceptionChat>();
+            if (low == "Y")
+            {
+                result = result.Where(x => x.SavedTime < reChat.SavedTime).OrderBy(x => x.SavedTime).Desc;
+            }
+            else
+            {
+                result = result.Where(x => x.SavedTime > reChat.SavedTime).OrderBy(x => x.SavedTime).Asc;
+            }
+            if (to != null)
+            {
+                result = result.And(x => (x.From == from && x.To == to) || (x.From == to && x.To == from));
+            }
+            else
+            {
+                if (from != null)
+                {
+                    result = result.And(x => (x.From == from || x.To == from));
+                }
+            }
+            if (orderId != Guid.Empty)
+            {
+                result = result.And(x => x.ServiceOrder.Id == orderId);
+            }
+            
+            IList<ReceptionChat> receptionChatList = new List<ReceptionChat>();
+            receptionChatList = result.Take(pageSize).List().OrderBy(x => x.SavedTime).ToList();
+
+            return receptionChatList;
+        }
+
         public virtual IList <ReceptionChat > GetReceptionChatListByTarget(IList <ReceptionChat > chatList,string target)
         {
             IList<ReceptionChat> list = new List<ReceptionChat>();

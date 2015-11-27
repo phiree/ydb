@@ -89,6 +89,7 @@ namespace Dianzhu.DemoClient
                     ""stamp_TIMES"": ""{3}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
                 }}", customerId, tbxPwd.Text, tbxOrderId.Text, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString()));
+
             string state_Code = result["state_CODE"].ToString();
             if (state_Code != "009000")
             {
@@ -134,7 +135,7 @@ namespace Dianzhu.DemoClient
                     csDisplayName = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
                     lblAssignedCS.Text = csDisplayName;
                     break;
-                case "ihelper:cer:notce":
+                case "ihelper:cer:notice":
                     break;
             }
             AddLog(msg);
@@ -158,6 +159,7 @@ namespace Dianzhu.DemoClient
             //GetCustomerInfo(tbxUserName.Text);
             GetCustomerService();
             lblAssignedCS.Text = csDisplayName;
+            //lblAssignedCS.Text = "暂未分配客服";
 
 
             Presence p = new Presence(ShowType.chat, "Online");
@@ -188,6 +190,17 @@ namespace Dianzhu.DemoClient
         /// <param name="message"></param>
         void AddLog(agsc.Message message)
         {
+            //if (csDisplayName == null)
+            //{
+            //    GetCustomerService();
+            //    lblAssignedCS.Text = csDisplayName;
+
+            //    Presence p = new Presence(ShowType.chat, "Online");
+            //    p.Type = PresenceType.available;
+            //    p.To = new Jid(csId + "@" + GlobalViables.ServerName);
+            //    p.From = new Jid(customerId + "@" + GlobalViables.ServerName);
+            //    GlobalViables.XMPPConnection.Send(p);
+            //}
             string user = StringHelper.EnsureNormalUserName(message.From.User);
             string body = message.Body;
             string messageType = message.GetAttribute("MessageType");
@@ -247,7 +260,7 @@ namespace Dianzhu.DemoClient
                     csDisplayName = message.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
                     lblMessage.Text += "客服更换为:" + csDisplayName;
                     break;
-                case "ihelper:cer:notce":
+                case "ihelper:cer:notice":
                     lblMessage.Text += "通知:" + message.Body;
                     break;
             }

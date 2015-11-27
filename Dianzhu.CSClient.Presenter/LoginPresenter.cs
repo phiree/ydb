@@ -92,12 +92,21 @@ namespace Dianzhu.CSClient.Presenter
         void IMLogined(string jidUser)
        {
           
-           DZMembership customerService = new BLLFactory().BLLMember.GetUserById(new Guid( jidUser));
-           GlobalViables.CurrentCustomerService = customerService;
-           loginView.IsLoginSuccess = true;
-           
-           
-       }
+            DZMembership customerService = new BLLFactory().BLLMember.GetUserById(new Guid( jidUser));
+            GlobalViables.CurrentCustomerService = customerService;
+
+            string id = "eb2ae597-5adb-4242-b22e-a4f901275654";
+            DZMembership diandian = new BLLFactory().BLLMember.GetUserById(new Guid(id));
+            GlobalViables.Diandian = diandian;
+
+            loginView.IsLoginSuccess = true;
+
+            //IMSessionsOpenfire imSession = new IMSessionsOpenfire(
+            //    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
+            //    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+            //ReceptionAssigner assigner = new ReceptionAssigner(imSession);
+            //GlobalViables.Diandian = assigner.Diandian;
+        }
 
        void loginView_Logined(object sender, EventArgs e)
        {

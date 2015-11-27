@@ -19,7 +19,7 @@ namespace Dianzhu.CSClient.Presenter
         BLLReception bllReception;
         BLLServiceOrder bllOrder;
         BLLReceptionStatus bllReceptionStatus;
-        BLLReceptionChat bllReceptionChat = new BLLReceptionChat();
+        BLLReceptionChat bllReceptionChat;
        
         public MainPresenter(IVew.IMainFormView view,
             InstantMessage instantMessage,
@@ -32,7 +32,8 @@ namespace Dianzhu.CSClient.Presenter
             this.bllReception = new BLLReception(); //bllReception;
             this.bllService = new BLLDZService();// bllService;
             this.bllReceptionStatus = new BLLReceptionStatus();// bllReceptionStatus;
-           
+            this.bllReceptionChat = new BLLReceptionChat();// bllReceptionStatus;
+
             this.bllOrder = new BLLServiceOrder();// bllOrder;
 
             //  IM的委托
@@ -69,6 +70,32 @@ namespace Dianzhu.CSClient.Presenter
             this.view.ReAssign += View_ReAssign;
             this.view.SaveReAssign += View_SaveReAssign;
             this.view.CurrentCustomerService = GlobalViables.CurrentCustomerService.UserName;
+
+            this.SysAssign();
+        }
+
+        /// <summary>
+        /// 系统分配用户给在线客服
+        /// </summary>
+        private void SysAssign()
+        {
+            ReceptionStatus rs = bllReceptionStatus.GetRSByDiandian(GlobalViables.Diandian);
+            if (rs != null)
+            {
+                rs.CustomerService = GlobalViables.CurrentCustomerService;
+                bllReceptionStatus.SaveByRS(rs);
+
+                ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
+                rChatReAss.From = GlobalViables.Diandian;
+                rChatReAss.To = rs.Customer;
+                rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
+                rChatReAss.ReAssignedCustomerService = rs.CustomerService;
+                rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
+                rChatReAss.ServiceOrder = rs.Order;
+                rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
+
+                SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+            }
         }
 
         private void View_SaveReAssign()
@@ -105,9 +132,7 @@ namespace Dianzhu.CSClient.Presenter
             IList<DZMembership> csList = bllReceptionStatus.GetCustomListByCSId(GlobalViables.CurrentCustomerService);
             this.view.RecptingCustomList = csList;
 
-            IIMSession imSession = new IMSessionsOpenfire(System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"), 
-                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
-            IList<OnlineUserSession> ouSession = imSession.GetOnlineSessionUser();
+            var ouSession = getOnlineSessionUser();
             IDictionary<DZMembership, string> reDicCS = new Dictionary<DZMembership, string>();
             for (int j=0; j< ouSession.Count; j++)
             {
@@ -117,6 +142,15 @@ namespace Dianzhu.CSClient.Presenter
                 }
             }
             this.view.RecptingCustomServiceList = reDicCS;
+        }
+
+        private IList<OnlineUserSession> getOnlineSessionUser()
+        {
+            IIMSession imSession = new IMSessionsOpenfire(System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
+                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+            IList<OnlineUserSession> ouSession = imSession.GetOnlineSessionUser();
+
+            return ouSession;
         }
 
         private void InstantMessage_IMStreamError()

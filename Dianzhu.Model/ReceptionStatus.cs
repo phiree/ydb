@@ -22,6 +22,7 @@ namespace Dianzhu.Model
         public virtual DZMembership CustomerService { get; set; }
         public virtual DZMembership Customer { get; set; }
         public virtual DateTime LastUpdateTime { get; set; }
+        public virtual ServiceOrder Order { get; set; }
         
     }
 }
