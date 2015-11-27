@@ -60,9 +60,9 @@ public partial class _Default : System.Web.UI.Page
                 {
                     Response.Write("fail");
                 }
-                order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Canceled;
+                //order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Canceled;
                 
-                bllOrder.SaveOrUpdate(order);
+                //bllOrder.SaveOrUpdate(order);
 
             }
             else
@@ -100,7 +100,7 @@ public partial class _Default : System.Web.UI.Page
         ////////////////////////////////////////////请求参数////////////////////////////////////////////
 
         //服务器异步通知页面路径
-        string notify_url = "http://127.0.0.1/order/refund/notify_url.aspx";
+        string notify_url = "http://115.159.27.137/order/refund/notify_url.aspx";
         //需http://格式的完整路径，不允许加?id=123这类自定义参数
 
         //卖家支付宝帐户

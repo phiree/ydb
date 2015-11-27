@@ -139,10 +139,21 @@ namespace Dianzhu.BLL
                .Where(x => x.OrderStatus == status)
                .ToList();
         }
-        public IList<ServiceOrder> GetListForBusiness(Guid businessId)
+
+        public IList<ServiceOrder> GetAllByTradeNo(string tradeno)  //根据交易号，查询订单对象
         {
-            return DALServiceOrder.GetListForBusiness(businessId);
+            return DALServiceOrder
+               .GetAll<ServiceOrder>()
+               .Where(x => x.TradeNo == tradeno)
+               .ToList();
         }
+
+
+
+        //public IList<ServiceOrder> GetListForBusiness(Guid businessId)
+        //{
+        //    return DALServiceOrder.GetListForBusiness(businessId);
+        //}
 
         public void Delete(ServiceOrder order)
         {
