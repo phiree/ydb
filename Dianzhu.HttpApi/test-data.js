@@ -2,7 +2,7 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
-"orm002001"//,"merm001003","merm001005",
+"orm001005"//,"merm001003","merm001005",
  
 ];
 var test_data = [
@@ -66,7 +66,7 @@ var test_data = [
                     "ReqData": {
                         "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
                         "pWord": "123456",
-                        "orderID": "0fdb864e-1789-497d-8822-a53800bcc4b4",
+                        "orderID": "684d1098-98af-460a-af36-a55d00f06275",
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"

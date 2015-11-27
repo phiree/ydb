@@ -53,7 +53,15 @@ namespace Dianzhu.CSClient.WinformView
 
         #endregion
 
-
+        /// <summary>
+        /// 当前选择的服务
+        /// </summary>
+        private DZService service;
+        public DZService Service
+        {
+            get { return service; }
+            set { service = value; }
+        }
 
         /// <summary>
         /// 界面当前绑定的客户名称,用于判断聊天记录的呈现方式
@@ -383,6 +391,7 @@ namespace Dianzhu.CSClient.WinformView
         private void LoadServiceToPanel(DZService service)
         {
             FlowLayoutPanel pnl = new FlowLayoutPanel();
+            pnl.Name = "servicePnl"+service.Id;
             pnl.BorderStyle = BorderStyle.FixedSingle;
             pnl.FlowDirection = FlowDirection.LeftToRight;
             Label lblBusinessName = new Label();
@@ -410,7 +419,22 @@ namespace Dianzhu.CSClient.WinformView
 
         void btnSelectService_Click(object sender, EventArgs e)
         {
+            //将已经选择的 panel 背景颜色还原
+            foreach(Control con in pnlResultService.Controls)
+            {
+                if(con.BackColor == Color.Green)
+                {
+                    con.BackColor = DefaultBackColor;
+                    break;
+                }
+            }
 
+            //选择新的服务，并设置背景颜色
+            DZService selectservice = (DZService)((Button)sender).Tag;
+            Panel pnl = (Panel)pnlResultService.Controls.Find("servicePnl" + selectservice.Id, true)[0];
+            pnl.BackColor = Color.Green;
+
+            service = selectservice;
         }
 
         void btnPushService_Click(object sender, EventArgs e)

@@ -112,6 +112,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 OrderList.Add(order);
             }
+            view.Service = order.Service;
             view.ServiceName = order.ServiceName;
             view.ServiceBusinessName = order.ServiceBusinessName;
             view.ServiceDescription = order.ServiceDescription;
@@ -150,6 +151,7 @@ namespace Dianzhu.CSClient.Presenter
                 return;
             }
 
+            CurrentServiceOrder.Service = view.Service;
             CurrentServiceOrder.ServiceName = view.ServiceName;
             CurrentServiceOrder.ServiceBusinessName = view.ServiceBusinessName;
             CurrentServiceOrder.ServiceDescription = view.ServiceDescription;
