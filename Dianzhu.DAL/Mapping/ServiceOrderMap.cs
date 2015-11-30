@@ -39,7 +39,7 @@ namespace Dianzhu.DAL.Mapping
            Map(x => x.CustomerPhone);
             References<DZMembership>(x => x.CustomerService);
             Map(x => x.TradeNo);
-            
+            Map(x => x.RefundMemo);
 
 
            

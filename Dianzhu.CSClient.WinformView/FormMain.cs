@@ -16,7 +16,7 @@ namespace Dianzhu.CSClient.WinformView
 {
     public partial class FormMain : Form, IMainFormView
     {
-        
+
         /// <summary>
         /// IViewMainForm的 windows form实现.
         /// </summary>
@@ -133,32 +133,32 @@ namespace Dianzhu.CSClient.WinformView
         /// <summary>
         /// 加载一条聊天记录,
         /// </summary>
-        
+
         /// <param name="chat"></param>
         public void LoadOneChat(ReceptionChat chat)
         {
-          
+
             bool isSender = chat.From.UserName == currentCustomerService;
             Label lblTime = new Label();
             _AutoSize(lblTime);
             lblTime.ForeColor = Color.FromArgb(200);
-            Label lblFrom = new Label ();
+            Label lblFrom = new Label();
             Label lblMessage = new Label();
             FlowLayoutPanel pnlOneChat = new FlowLayoutPanel();
 
-            pnlOneChat.Controls.AddRange(new Control[] {lblFrom, lblTime,lblMessage });
+            pnlOneChat.Controls.AddRange(new Control[] { lblFrom, lblTime, lblMessage });
             if (isSender) { pnlOneChat.FlowDirection = FlowDirection.RightToLeft; }
             else { pnlOneChat.FlowDirection = FlowDirection.LeftToRight; }
-            pnlOneChat.Dock=isSender? DockStyle.Left: DockStyle.Right;
-                lblTime.BorderStyle 
-                = lblMessage.BorderStyle 
-                = lblFrom.BorderStyle
-                =pnlOneChat.BorderStyle = BorderStyle.FixedSingle;
-            
+            pnlOneChat.Dock = isSender ? DockStyle.Left : DockStyle.Right;
+            lblTime.BorderStyle
+            = lblMessage.BorderStyle
+            = lblFrom.BorderStyle
+            = pnlOneChat.BorderStyle = BorderStyle.FixedSingle;
+
             _AutoSize(pnlOneChat);
-            
+
             lblTime.Text = chat.SavedTime.ToShortTimeString() + " ";
- 
+
             lblFrom.Text = chat.From.UserName;
 
             LoadBody(chat.MessageBody, pnlOneChat);
@@ -183,12 +183,12 @@ namespace Dianzhu.CSClient.WinformView
                         pb.Click += new EventHandler(pb_Click);
                         string filename = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
                         string localFile = LocalMediaSaveDir + filename;
-                        if(File.Exists(localFile))
+                        if (File.Exists(localFile))
                         {
                             pb.ImageLocation = localFile;
                         }
-                        else { 
-                        pb.Load(mediaUrl);
+                        else {
+                            pb.Load(mediaUrl);
                         }
                         pb.Size = new System.Drawing.Size(100, 100);
                         pb.SizeMode = PictureBoxSizeMode.Zoom;
@@ -208,7 +208,7 @@ namespace Dianzhu.CSClient.WinformView
                         pnlOneChat.Controls.Add(btnVideo);
                         break;
                     case "url":
-                        LinkLabel ll = new LinkLabel { Text=chat.MessageBody };
+                        LinkLabel ll = new LinkLabel { Text = chat.MessageBody };
                         ll.Links.Add(0, ll.Text.Length, mediaUrl);
                         ll.LinkClicked += Ll_LinkClicked;
                         pnlOneChat.Controls.Add(ll);
@@ -216,7 +216,7 @@ namespace Dianzhu.CSClient.WinformView
                 }
             }
             //bye bye. you are abandoned. 2015-9-2
-  
+
             //对当前窗体已存在控件的操作
             Action lambda = () =>
             {
@@ -234,10 +234,10 @@ namespace Dianzhu.CSClient.WinformView
             }
 
         }
-        private void LoadBody(string messageBody,Panel pnlContainer)
+        private void LoadBody(string messageBody, Panel pnlContainer)
         {
             bool containsUrls;
-            IList<string> urls = PHSuit.StringHelper.ParseUrl(messageBody,out containsUrls);
+            IList<string> urls = PHSuit.StringHelper.ParseUrl(messageBody, out containsUrls);
             if (!containsUrls)
             {
                 Label lblPlainText = new Label();
@@ -261,17 +261,17 @@ namespace Dianzhu.CSClient.WinformView
             }
         }
 
-        
+
 
         private void Ll_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-           
+
             System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
         }
 
         private void BtnAudio_Click(object sender, EventArgs e)
         {
-            PlayAudio(((Button)sender).Tag,this.Handle);
+            PlayAudio(((Button)sender).Tag, this.Handle);
         }
 
         private void pb_Click(object sender, EventArgs e)
@@ -279,28 +279,27 @@ namespace Dianzhu.CSClient.WinformView
             new ShowFullImage(((PictureBox)sender).Image).Show();
         }
 
-        
+
 
         public void SetCustomerButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
         {
-            Action lambda=()=>{
-            Button btn = (Button)pnlCustomerList.Controls.Find
-                (buttonNamePrefix + order.CustomerName+order.Id, true)[0];
-            Color foreColor = Color.White;
-            switch (buttonStyle)
-            {
-                case em_ButtonStyle.Login:
-                    foreColor = Color.Green;
-                    break;
-                case em_ButtonStyle.LogOff:
-                    foreColor = Color.Gray;
-                    break;
-                case em_ButtonStyle.Readed: foreColor = Color.Black; break;
-                case em_ButtonStyle.Unread: foreColor = Color.Red; break;
-                    case em_ButtonStyle.Actived:foreColor = Color.Yellow; break;
-                default: break;
-            }
-            btn.ForeColor = foreColor;};
+            Action lambda = () => {
+                Button btn = (Button)pnlCustomerList.Controls.Find(buttonNamePrefix + order.Id, true)[0];
+                Color foreColor = Color.White;
+                switch (buttonStyle)
+                {
+                    case em_ButtonStyle.Login:
+                        foreColor = Color.Green;
+                        break;
+                    case em_ButtonStyle.LogOff:
+                        foreColor = Color.Gray;
+                        break;
+                    case em_ButtonStyle.Readed: foreColor = Color.Black; break;
+                    case em_ButtonStyle.Unread: foreColor = Color.Red; break;
+                    case em_ButtonStyle.Actived: foreColor = Color.Yellow; break;
+                    default: break;
+                }
+                btn.ForeColor = foreColor; };
             if (InvokeRequired)
             {
                 Invoke(lambda);
@@ -311,16 +310,16 @@ namespace Dianzhu.CSClient.WinformView
             }
 
         }
-        public void AddCustomerButtonWithStyle(ServiceOrder order   , em_ButtonStyle buttonStyle)
+        public void AddCustomerButtonWithStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
         {
             //Action lambda = () =>this.DialogResult=value? System.Windows.Forms.DialogResult.OK: System.Windows.Forms.DialogResult.Abort;
 
             Action lamda = () =>
             {
                 Button btn = new Button();
-                btn.Text = order.CustomerName+order.Id;
+                btn.Text = order.CustomerName + order.Id;
                 btn.Tag = order;
-                btn.Name = buttonNamePrefix +order.CustomerName+ order.Id;
+                btn.Name = buttonNamePrefix + order.Id;
                 btn.Click += new EventHandler(btnCustomer_Click);
                 pnlCustomerList.Controls.Add(btn);
                 SetCustomerButtonStyle(order, buttonStyle);
@@ -336,11 +335,11 @@ namespace Dianzhu.CSClient.WinformView
             if (IdentityItemActived != null)
             {
                 BeforeCustomerChanged();
-                IdentityItemActived((ServiceOrder) ((Button)sender).Tag);
+                IdentityItemActived((ServiceOrder)((Button)sender).Tag);
             }
-            
+
         }
- 
+
 
         private void tbxChatMsg_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -349,13 +348,13 @@ namespace Dianzhu.CSClient.WinformView
                 btnSend.PerformClick();
             }
         }
-        
+
 
         #region searchService
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            SearchService();    
+            SearchService();
         }
 
 
@@ -391,7 +390,7 @@ namespace Dianzhu.CSClient.WinformView
         private void LoadServiceToPanel(DZService service)
         {
             FlowLayoutPanel pnl = new FlowLayoutPanel();
-            pnl.Name = "servicePnl"+service.Id;
+            pnl.Name = "servicePnl" + service.Id;
             pnl.BorderStyle = BorderStyle.FixedSingle;
             pnl.FlowDirection = FlowDirection.LeftToRight;
             Label lblBusinessName = new Label();
@@ -420,9 +419,9 @@ namespace Dianzhu.CSClient.WinformView
         void btnSelectService_Click(object sender, EventArgs e)
         {
             //将已经选择的 panel 背景颜色还原
-            foreach(Control con in pnlResultService.Controls)
+            foreach (Control con in pnlResultService.Controls)
             {
-                if(con.BackColor == Color.Green)
+                if (con.BackColor == Color.Green)
                 {
                     con.BackColor = DefaultBackColor;
                     break;
@@ -441,19 +440,19 @@ namespace Dianzhu.CSClient.WinformView
         {
             PushInternalService((DZService)((Button)sender).Tag);
             //xmpp发送消息 由xmpp实现,在csclient
-           // agsXMPP.protocol.client.Message m = new agsXMPP.protocol.client.Message();
-           // m.Type = MessageType.chat;
-           // DZService service = (DZService)((Button)sender).Tag;
-           // string serviceId = service.Id.ToString();
-           // string serviceName = service.Name;
-           // m.SetAttribute("service_name", service.Name);
-           // m.SetAttribute("service_id", serviceId);
-           // m.SetAttribute("t", "push");
-           // m.SetAttribute("service_name");
-           //m.To = StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain;
-           // GlobalViables.XMPPConnection.Send(m);
-           // //业务逻辑
-           // FormController.PushService(new Guid(serviceId));
+            // agsXMPP.protocol.client.Message m = new agsXMPP.protocol.client.Message();
+            // m.Type = MessageType.chat;
+            // DZService service = (DZService)((Button)sender).Tag;
+            // string serviceId = service.Id.ToString();
+            // string serviceName = service.Name;
+            // m.SetAttribute("service_name", service.Name);
+            // m.SetAttribute("service_id", serviceId);
+            // m.SetAttribute("t", "push");
+            // m.SetAttribute("service_name");
+            //m.To = StringHelper.EnsureOpenfireUserName(CurrentCustomerName) + "@" + GlobalViables.Domain;
+            // GlobalViables.XMPPConnection.Send(m);
+            // //业务逻辑
+            // FormController.PushService(new Guid(serviceId));
         }
 
         #endregion
@@ -531,11 +530,11 @@ namespace Dianzhu.CSClient.WinformView
         {
             get
             {
-                return tbxServiceUnitPrice.Text ;
+                return tbxServiceUnitPrice.Text;
             }
             set
             {
-                tbxServiceUnitPrice.Text = value ;
+                tbxServiceUnitPrice.Text = value;
             }
         }
 
@@ -552,7 +551,7 @@ namespace Dianzhu.CSClient.WinformView
         }
         public string OrderAmount
         {
-            get { return tbxAmount.Text ; }
+            get { return tbxAmount.Text; }
             set { tbxAmount.Text = value; }
         }
         public string TargetAddress
@@ -564,7 +563,7 @@ namespace Dianzhu.CSClient.WinformView
             get { return tbxMemo.Text; }
             set { tbxMemo.Text = value; }
         }
-        
+
         private void btnCreateOrder_Click(object sender, EventArgs e)
         {
             CreateOrder();
@@ -583,15 +582,15 @@ namespace Dianzhu.CSClient.WinformView
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
 
-           // ViewClosed();
+            // ViewClosed();
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
 
             ViewClosed();
-             
-            
+
+
         }
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -642,7 +641,7 @@ namespace Dianzhu.CSClient.WinformView
         public string OrderNumber {
 
             get { return lblOrderNumber.Text; }
-            set { lblOrderNumber.Text= value; }
+            set { lblOrderNumber.Text = value; }
         }
 
         public string LocalMediaSaveDir
@@ -660,12 +659,12 @@ namespace Dianzhu.CSClient.WinformView
 
         private void btnSendImage_Click(object sender, EventArgs e)
         {
-            if(SendMediaHandler != null)
-            { 
-                if(dlgSelectPic.ShowDialog()== DialogResult.OK)
+            if (SendMediaHandler != null)
+            {
+                if (dlgSelectPic.ShowDialog() == DialogResult.OK)
                 {
                     byte[] fileData = File.ReadAllBytes(dlgSelectPic.FileName);
-                    SendMediaHandler(fileData,"ChatImage","image");
+                    SendMediaHandler(fileData, "ChatImage", "image");
                 }
             }
         }
@@ -682,7 +681,7 @@ namespace Dianzhu.CSClient.WinformView
                 if (dlgSelectPic.ShowDialog() == DialogResult.OK)
                 {
                     byte[] fileData = File.ReadAllBytes(dlgSelectPic.FileName);
-                    SendMediaHandler(fileData,"ChatAudio", "voice");
+                    SendMediaHandler(fileData, "ChatAudio", "voice");
                 }
             }
         }
@@ -746,14 +745,14 @@ namespace Dianzhu.CSClient.WinformView
             get
             {
                 IDictionary<DZMembership, string> recptingCustomServiceList = new Dictionary<DZMembership, string>();
-                for (int i =0;i< dGVCustomService.RowCount; i++)
+                for (int i = 0; i < dGVCustomService.RowCount; i++)
                 {
                     DataGridViewRow row = dGVCustomService.Rows[i];
                     DZMembership cs = row.DataBoundItem as DZMembership;
-                    if(row.Cells[1].Value != null)
+                    if (row.Cells[1].Value != null)
                     {
                         recptingCustomServiceList.Add(cs, row.Cells[1].Value.ToString());
-                    }                    
+                    }
                 }
 
                 return recptingCustomServiceList;
@@ -761,9 +760,26 @@ namespace Dianzhu.CSClient.WinformView
             set { dGVCustomService.DataSource = value.Keys.ToList(); }
         }
 
+        /// <summary>
+        /// 客服最终分配用户列表
+        /// </summary>
+        private IList<ServiceOrder> recptingOrderFinaList;
+        public IList<ServiceOrder> RecptingOrderFinaList
+        {
+            get { return recptingOrderFinaList; }
+            set { recptingOrderFinaList = value; }
+        }
+
         private void btnSaveCS_Click(object sender, EventArgs e)
         {
             SaveReAssign();
+        }
+
+        public void RemoveOrderBtn(string btnName)
+        {
+            Button btn = (Button)pnlCustomerList.Controls.Find(buttonNamePrefix + btnName, true)[0];
+            pnlCustomerList.Controls.Remove(btn);
+            pnlChat.Controls.Clear();
         }
 
         public void ShowMsg (string msg)

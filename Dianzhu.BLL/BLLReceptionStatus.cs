@@ -51,9 +51,9 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="c"></param>
         /// <param name="cs"></param>
-        public void SaveReAssign(DZMembership c,DZMembership cs)
+        public void SaveReAssign(DZMembership c,DZMembership cs,ServiceOrder order)
         {
-            ReceptionStatus r = new ReceptionStatus { Customer = c, CustomerService = cs };
+            ReceptionStatus r = new ReceptionStatus { Customer = c, CustomerService = cs ,Order = order};
             ReceptionStatus or = dalRS.GetOneByCustomerAndCS(cs, c);
             if (or == null)
             {
@@ -94,6 +94,11 @@ namespace Dianzhu.BLL
         public ReceptionStatus GetRSByDiandian(DZMembership dd)
         {
             return dalRS.GetReceptionStatusByDiandian(dd);
+        }
+
+        public ReceptionStatus GetOrder(DZMembership c,DZMembership cs)
+        {
+            return dalRS.GetOrder(c, cs);
         }
 
     }
@@ -225,11 +230,6 @@ namespace Dianzhu.BLL
             CustomerServiceList.Remove(customerservice);
             //get customers recepted by the cs , from database
             IList<ReceptionStatus> customerWithCS = dalRS.GetListByCustomerService(customerservice);
-            // delete old assign to database
-            foreach (ReceptionStatus oldrs in customerWithCS)
-            {
-                dalRS.Delete(oldrs);
-            }
 
             //re assign
             Dictionary<DZMembership, DZMembership> newAssign
@@ -238,10 +238,22 @@ namespace Dianzhu.BLL
             // save assign to database 
             foreach (KeyValuePair<DZMembership, DZMembership> pair in newAssign)
             {
-                ReceptionStatus rs = new ReceptionStatus { Customer=pair.Key, CustomerService= pair.Value,
-                 LastUpdateTime=DateTime.Now};
+                ReceptionStatus rs = new ReceptionStatus
+                {
+                    Customer = pair.Key,
+                    CustomerService = pair.Value,
+                    Order = new BLLReceptionStatus().GetOrder(pair.Key, customerservice).Order,
+                    LastUpdateTime = DateTime.Now
+                };
                 dalRS.Save(rs);
-            }            
+            }
+
+            // delete old assign to database
+            foreach (ReceptionStatus oldrs in customerWithCS)
+            {
+                dalRS.Delete(oldrs);
+            }
+
             //return new assign
             return newAssign;
         }

@@ -72,6 +72,7 @@ namespace Dianzhu.CSClient.Presenter
             this.view.CurrentCustomerService = GlobalViables.CurrentCustomerService.UserName;
 
             this.SysAssign();
+            
         }
 
         /// <summary>
@@ -95,6 +96,9 @@ namespace Dianzhu.CSClient.Presenter
                 rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
 
                 SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+
+                //OrderList.Add(rs.Order);
+                //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
             }
         }
 
@@ -108,7 +112,8 @@ namespace Dianzhu.CSClient.Presenter
                 for (int i=0; i<clist.Length; i++)
                 {
                     DZMembership dm = bllMember.GetUserById(new Guid(clist[i]));
-                    bllReceptionStatus.SaveReAssign(dm, p.Key);
+                    ReceptionStatus o = bllReceptionStatus.GetOrder(dm, GlobalViables.CurrentCustomerService);
+                    bllReceptionStatus.SaveReAssign(dm, p.Key, o.Order);
                     bllReceptionStatus.DeleteAssign(dm, GlobalViables.CurrentCustomerService);//删除已有分配
 
                     rChatReAss = new ReceptionChatReAssign();
@@ -121,10 +126,22 @@ namespace Dianzhu.CSClient.Presenter
                     rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
                                         
                     SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+
+                    //删除现在OrderList中的客户
+                    for (int j=0;j< OrderList.Count; j++)
+                    {
+                        if(dm== OrderList[j].Customer)
+                        {
+                            view.RemoveOrderBtn(OrderList[j].Id.ToString());
+                            OrderList.RemoveAt(j);
+                            j--;
+                        }
+                    }
                 }
             }
 
-            this.view.ShowMsg("保存成功");            
+            this.view.ShowMsg("保存成功");
+
         }
 
         private void View_ReAssign()
@@ -295,12 +312,14 @@ namespace Dianzhu.CSClient.Presenter
             //将新分配的客服发送给客户端.
             foreach (KeyValuePair<DZMembership,DZMembership> rs in reassignList)
             {
+                ServiceOrder order = bllReceptionStatus.GetOrder(rs.Key, rs.Value).Order;
                 ReceptionChat rc = new ReceptionChatReAssign
                 {
                     From = customerService,
                     ChatType = Model.Enums.enum_ChatType.ReAssign,
                     ReAssignedCustomerService = rs.Value,
                     To = rs.Key,
+                    ServiceOrder= order,
                     SendTime = DateTime.Now
                 };
                 SendMessage(rc);

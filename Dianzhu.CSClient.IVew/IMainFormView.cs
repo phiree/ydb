@@ -168,5 +168,11 @@ namespace Dianzhu.CSClient.IVew
         /// 当前选择的服务
         /// </summary>
         DZService Service { get; set; }
+
+        /// <summary>
+        /// 删除按钮方法
+        /// </summary>
+        /// <param name="btnName"></param>
+        void RemoveOrderBtn(string btnName);
     }
 }

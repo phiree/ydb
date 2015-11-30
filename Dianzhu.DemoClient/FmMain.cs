@@ -130,12 +130,10 @@ namespace Dianzhu.DemoClient
 
                     break;
                 case "ihelper:chat:media": break;
-                case "ihelper:cer:change":
+                case "ihelper:notice:cer:change":
                     csId = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("UserID");
                     csDisplayName = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
                     lblAssignedCS.Text = csDisplayName;
-                    break;
-                case "ihelper:cer:notice":
                     break;
             }
             AddLog(msg);
@@ -256,11 +254,11 @@ namespace Dianzhu.DemoClient
                             break;
                     }
                     break;
-                case "ihelper:cer:change":
+                case "ihelper:notice:cer:change":
                     csDisplayName = message.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
                     lblMessage.Text += "客服更换为:" + csDisplayName;
                     break;
-                case "ihelper:cer:notice":
+                case "ihelper:notice:system":
                     lblMessage.Text += "通知:" + message.Body;
                     break;
             }

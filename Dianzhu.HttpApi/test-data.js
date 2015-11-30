@@ -66,7 +66,7 @@ var test_data = [
                     "ReqData": {
                         "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
                         "pWord": "123456",
-                        "orderID": "684d1098-98af-460a-af36-a55d00f06275",
+                        "orderID": "93405a96-426e-4523-bacd-a55d00f965eb",
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"
