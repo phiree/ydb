@@ -52,6 +52,7 @@ namespace Dianzhu.DAL
                     break;
 
             }
+            iqueryover = iqueryover.OrderBy(x => x.OrderCreated).Desc;
             return iqueryover;
         }
         public int GetServiceOrderCount(Guid userId, enum_OrderSearchType searchType)

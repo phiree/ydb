@@ -2,7 +2,7 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
-"orm001006"//,"merm001003","merm001005",
+"chat001006"//,"merm001003","merm001005",
  
 ];
 var test_data = [
@@ -24,7 +24,7 @@ var test_data = [
          "ReqData": {
              "userID": "d67637ac-8f24-48af-b5c3-a536010f0562",
              "pWord": "hs5260",
-             "orderID": "6da19b67-5883-424b-8d38-a56000b4c9a2",
+             "orderID": "b61031cc-996e-4444-81bd-a561009728f5",
              "target": "cer",
              "pageNum": 0,
              "pageSize":30
@@ -90,7 +90,7 @@ var test_data = [
               "ReqData": {
                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", //13022222222
                   "pWord": "123456",
-                  "orderID": "d7fa033c-3c03-49d0-ba8d-a53f0124ce4d",
+                  "orderID": "",
                   
               },
               "stamp_TIMES": "1490192929212",

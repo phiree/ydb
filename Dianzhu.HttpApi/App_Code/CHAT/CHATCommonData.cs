@@ -31,6 +31,7 @@ public class RespDataCHAT_chatObj
         this.date = chat.SavedTime.ToString("yyyyMMddHHmmss");
         if (chat is ReceptionChatMedia)
         {
+            this.type = ((ReceptionChatMedia)chat).MediaType;
             this.body = ((ReceptionChatMedia)chat).MedialUrl;
         }
         else if (chat is ReceptionChatReAssign)

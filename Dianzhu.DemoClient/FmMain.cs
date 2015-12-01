@@ -345,11 +345,7 @@ namespace Dianzhu.DemoClient
                 }
                 string s = Convert.ToBase64String(bytes);
 
-
-                result = GlobalViables.MediaGetUrl + MediaServer.HttpUploader.Upload(
-                  GlobalViables.MediaUploadUrl, 
-                  s, dlgSelectPic.FileName,
-                  domainName, fileType);
+                result = GlobalViables.MediaGetUrl + MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainName, fileType);
 
             }
             return  result;

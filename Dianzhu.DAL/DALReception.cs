@@ -104,7 +104,7 @@ namespace Dianzhu.DAL
             }
             else
             {
-                result = result.Where(x => x.SavedTime > reChat.SavedTime).OrderBy(x => x.SavedTime).Asc;
+                result = result.Where(x => x.SavedTime > reChat.SavedTime).OrderBy(x => x.SavedTime).Desc;
             }
             if (to != null)
             {

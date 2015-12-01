@@ -437,12 +437,11 @@
             // 
             this.pnlChat.AutoScroll = true;
             this.pnlChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlChat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlChat.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlChat.ImeMode = System.Windows.Forms.ImeMode.On;
             this.pnlChat.Location = new System.Drawing.Point(0, 0);
             this.pnlChat.Name = "pnlChat";
-            this.pnlChat.Size = new System.Drawing.Size(405, 461);
+            this.pnlChat.Size = new System.Drawing.Size(405, 395);
             this.pnlChat.TabIndex = 3;
             this.pnlChat.WrapContents = false;
             // 
@@ -459,9 +458,9 @@
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 461);
+            this.panel1.Location = new System.Drawing.Point(0, 401);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(405, 65);
+            this.panel1.Size = new System.Drawing.Size(405, 125);
             this.panel1.TabIndex = 1;
             // 
             // panel4
@@ -470,9 +469,9 @@
             this.panel4.Controls.Add(this.btnSendAudio);
             this.panel4.Controls.Add(this.btnSendImage);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(0, 29);
+            this.panel4.Location = new System.Drawing.Point(0, 81);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(405, 36);
+            this.panel4.Size = new System.Drawing.Size(405, 44);
             this.panel4.TabIndex = 0;
             // 
             // btnScreenshot
@@ -512,7 +511,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(405, 29);
+            this.panel5.Size = new System.Drawing.Size(405, 81);
             this.panel5.TabIndex = 2;
             // 
             // tbxChatMsg
@@ -520,8 +519,9 @@
             this.tbxChatMsg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbxChatMsg.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxChatMsg.Location = new System.Drawing.Point(0, 0);
+            this.tbxChatMsg.Multiline = true;
             this.tbxChatMsg.Name = "tbxChatMsg";
-            this.tbxChatMsg.Size = new System.Drawing.Size(330, 21);
+            this.tbxChatMsg.Size = new System.Drawing.Size(330, 81);
             this.tbxChatMsg.TabIndex = 0;
             this.tbxChatMsg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxChatMsg_KeyPress);
             // 
@@ -530,7 +530,7 @@
             this.btnSend.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSend.Location = new System.Drawing.Point(330, 0);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(75, 29);
+            this.btnSend.Size = new System.Drawing.Size(75, 81);
             this.btnSend.TabIndex = 1;
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
