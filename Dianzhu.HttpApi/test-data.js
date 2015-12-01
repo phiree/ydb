@@ -2,7 +2,7 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
-"orm001005"//,"merm001003","merm001005",
+"orm001006"//,"merm001003","merm001005",
  
 ];
 var test_data = [
@@ -22,12 +22,12 @@ var test_data = [
      {
          "protocol_CODE": "CHAT001006",
          "ReqData": {
-             "userID": "7dcdd185-bed6-4756-a219-a5360118aab3",
-             "pWord": "1234",
-             "orderID": "f99db315-53e7-47d3-b99c-a55500ac1fb5",
+             "userID": "d67637ac-8f24-48af-b5c3-a536010f0562",
+             "pWord": "hs5260",
+             "orderID": "6da19b67-5883-424b-8d38-a56000b4c9a2",
              "target": "cer",
-             "pageNum": -1,
-             "pageSize":-1
+             "pageNum": 0,
+             "pageSize":30
          },
          "stamp_TIMES": "1490192929212",
          "serial_NUMBER": "00147001015869149751"
@@ -75,10 +75,10 @@ var test_data = [
           {
               "protocol_CODE": "ORM001006",
               "ReqData": {
-                  "userID": "7dcdd185-bed6-4756-a219-a5360118aab3", //13022222222
-                  "pWord": "1234",
-                  "target": "ALL",
-                  "pageSize": "999",
+                  "userID": "d67637ac-8f24-48af-b5c3-a536010f0562", //13022222222
+                  "pWord": "hs5260",
+                  "target": "Nt",
+                  "pageSize": "10",
                   "pageNum": "1"
               },
               "stamp_TIMES": "1490192929212",

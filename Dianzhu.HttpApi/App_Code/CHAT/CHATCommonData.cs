@@ -28,7 +28,7 @@ public class RespDataCHAT_chatObj
         this.from = chat.From.Id.ToString();
         this.orderID = chat.ServiceOrder == null ? string.Empty : chat.ServiceOrder.Id.ToString();
         this.type = "chat";
-        this.date = chat.SavedTime.ToString("yyyyMMddhhmmss");
+        this.date = chat.SavedTime.ToString("yyyyMMddHHmmss");
         if (chat is ReceptionChatMedia)
         {
             this.body = ((ReceptionChatMedia)chat).MedialUrl;
