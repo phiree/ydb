@@ -33,16 +33,9 @@ public partial class notify_url : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        //保存接收数据
-        BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
-        PaymentLog paymentLog = new PaymentLog();
-        paymentLog.Pames = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
-        paymentLog.Type = "refund_alipay|notify";
-        paymentLog.LastTime = DateTime.Now;
-        bllPaymentLog.SaveOrUpdate(paymentLog);
 
 
-       
+
 
 
         SortedDictionary<string, string> sPara = GetRequestPost();
@@ -83,7 +76,15 @@ public partial class notify_url : System.Web.UI.Page
                 order.OrderFinished = DateTime.Now;
                 bllOrder.SaveOrUpdate(order);
 
-
+                //保存接收数据
+                BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
+                PaymentLog paymentLog = new PaymentLog();
+                paymentLog.Pames = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
+                paymentLog.Type = "refund_alipay|notify";
+                paymentLog.LastTime = DateTime.Now;
+                paymentLog.ServiceOrder = order;
+                bllPaymentLog.SaveOrUpdate(paymentLog);
+                //保存接收数据
 
                 //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
                 //获取支付宝的通知返回参数，可参考技术文档中服务器异步通知参数列表

@@ -8,10 +8,10 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Data;
 
-public partial class order_Default : System.Web.UI.Page
+public partial class order_index : System.Web.UI.Page
 {
     BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-    ServiceOrder serviceorder;    
+    ServiceOrder serviceorder;
     public int page;
     string linkStr;//链接字符串
     PagedDataSource pds;
@@ -19,11 +19,11 @@ public partial class order_Default : System.Web.UI.Page
     {
         if (Request.QueryString["status"] == "" || Request.QueryString["status"] == null)
         {
-            linkStr = "default.aspx?";
+            linkStr = "index.aspx?";
         }
         else
         {
-            linkStr = "default.aspx?status=" + Request.QueryString["status"].ToString() + "&";
+            linkStr = "index.aspx?status=" + Request.QueryString["status"].ToString() + "&";
         }
         if (!IsPostBack)
         {
@@ -38,18 +38,21 @@ public partial class order_Default : System.Web.UI.Page
         if (Request.QueryString["status"] == "" || Request.QueryString["status"] == null)
         {
             allServiceOrder = bllServiceOrder.GetAll().OrderByDescending(x => x.OrderFinished).ToList();
-            linkStr = "default.aspx?";
+            
         }
         else
         {
+
             StatusSelect.Value = "default.aspx?status=" + Request.QueryString["status"].ToString();
             Dianzhu.Model.Enums.enum_OrderStatus status = (Dianzhu.Model.Enums.enum_OrderStatus)Enum.Parse(typeof(Dianzhu.Model.Enums.enum_OrderStatus), Request.QueryString["status"].ToString());
             allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status).OrderByDescending(x => x.OrderFinished).ToList();
-            linkStr = "default.aspx?status=" + Request.QueryString["status"].ToString()+"&";
+            
         }
         pds = config.pds(allServiceOrder, page, 10);
         Repeater1.DataSource = pds;
+
         Repeater1.DataBind();
+
     }
     protected void data_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
@@ -90,7 +93,7 @@ public partial class order_Default : System.Web.UI.Page
             }
             else
             {
-                lpprev.NavigateUrl =linkStr+ "page=" + (i - 1);
+                lpprev.NavigateUrl = linkStr + "page=" + (i - 1);
             }
             if (i >= n - 1)
             {
@@ -114,7 +117,7 @@ public partial class order_Default : System.Web.UI.Page
     protected void delbt_Command(object sender, CommandEventArgs e)
     {
         Guid id = Guid.Parse(e.CommandArgument.ToString());
-        serviceorder= bllServiceOrder.GetOne(id);
+        serviceorder = bllServiceOrder.GetOne(id);
         bllServiceOrder.Delete(serviceorder);
         Response.Redirect(Request.UrlReferrer.ToString());
     }
@@ -139,6 +142,4 @@ public partial class order_Default : System.Web.UI.Page
         Response.Redirect(Request.UrlReferrer.ToString());
 
     }
- 
-
 }

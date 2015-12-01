@@ -24,7 +24,8 @@ public partial class return_url : System.Web.UI.Page
         paymentLog.Pames = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();//get时取得的参数列表为QueryString，post时取得的参数列表Form
         paymentLog.Type = "alipay|return";
         paymentLog.LastTime = DateTime.Now;
-        bllPaymentLog.SaveOrUpdate(paymentLog);
+        
+
 
         BLLServiceOrder bllOrder = new BLLServiceOrder();
        
