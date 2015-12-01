@@ -33,16 +33,9 @@ public partial class notify_url : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        //保存接收数据
-        BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
-        PaymentLog paymentLog = new PaymentLog();
-        paymentLog.Pames = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
-        paymentLog.Type = "refund_alipay|notify";
-        paymentLog.LastTime = DateTime.Now;
-        bllPaymentLog.SaveOrUpdate(paymentLog);
 
 
-       
+
 
 
         SortedDictionary<string, string> sPara = GetRequestPost();
@@ -57,8 +50,10 @@ public partial class notify_url : System.Web.UI.Page
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //请在这里加上商户的业务逻辑程序代码
                 BLLServiceOrder bllOrder = new BLLServiceOrder();
-                ServiceOrder order = null;
-                Guid orderId;
+                
+                IList<ServiceOrder> allServiceOrder;
+                
+                ServiceOrder order = null;               
                 //批次号
 
                 string batch_no = Request.Form["batch_no"];
@@ -71,26 +66,25 @@ public partial class notify_url : System.Web.UI.Page
                 string result_details = Request.Form["result_details"];
                 string[] arrayresult_details = result_details.Split('^');
                 string trade_no = arrayresult_details[0];
-                string out_trade_no = arrayresult_details[2].Split(',')[0];
-                bool isOrderGuid = Guid.TryParse(out_trade_no, out orderId);
-
-                if (isOrderGuid)
-                {
-
-                    order = bllOrder.GetOne(orderId);
-
-                    if (order == null)
-                    {
-                        Response.Write("fail");
-                    }
-                    order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Aborded;
-                    bllOrder.SaveOrUpdate(order);
-
-                }
-                else
+                allServiceOrder = bllOrder.GetAllByTradeNo(trade_no);
+                order = bllOrder.GetOne(allServiceOrder[0].Id);
+                if (order == null)
                 {
                     Response.Write("fail");
                 }
+                order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Aborded;
+                order.OrderFinished = DateTime.Now;
+                bllOrder.SaveOrUpdate(order);
+
+                //保存接收数据
+                BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
+                PaymentLog paymentLog = new PaymentLog();
+                paymentLog.Pames = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
+                paymentLog.Type = "refund_alipay|notify";
+                paymentLog.LastTime = DateTime.Now;
+                paymentLog.ServiceOrder = order;
+                bllPaymentLog.SaveOrUpdate(paymentLog);
+                //保存接收数据
 
                 //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
                 //获取支付宝的通知返回参数，可参考技术文档中服务器异步通知参数列表

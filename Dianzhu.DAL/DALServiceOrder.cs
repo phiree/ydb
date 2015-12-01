@@ -70,14 +70,12 @@ namespace Dianzhu.DAL
             return result;
         }
 
-        public IList<ServiceOrder> GetListForBusiness(Guid businessId)
-        {
-            string hql = string.Format(@"select so from ServiceOrder so 
-                join so.Service s
-                 join s.Business b
-                where b.Id={0}
-                ", businessId);
-            return base.GetList(hql);
-        }
+        //public IList<ServiceOrder> GetListForBusiness(Business business)
+        //{
+        //    string sql = "select b from  business b" +
+        //             "left join  dzservice d ";
+
+        //    return base.GetList(sql);
+        //}
     }
 }
