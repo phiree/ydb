@@ -221,10 +221,7 @@ namespace Dianzhu.CSClient.Presenter
             if (CurrentServiceOrder == null) return;
  
             string s = Convert.ToBase64String(fileData);
-            string fileName = MediaServer.HttpUploader.Upload(
-                GlobalViables.MediaUploadUrl, s, view.SelectedImageName,
-                   domainType, mediaType);
-             
+            string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
 
             ReceptionChatMedia chat = new ReceptionChatMedia
             {

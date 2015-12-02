@@ -10,13 +10,11 @@ namespace MediaServer
     public class HttpUploader
     {
         
-        public  static  string Upload(string uploaderUrl, string base64,string originalName,
-            string domainType,string fileType)
+        public  static  string Upload(string uploaderUrl, string base64,string domainType,string fileType)
         {
             string uploadedPath = string.Empty;
-            originalName=System.Web.HttpUtility.UrlEncode( Path.GetFileName(originalName));
-            string postString = string.Format("fileType={0}&originalName={1}&domainType={2}&fileBase64={3}"
-                , fileType, originalName,domainType, base64);
+            //originalName=System.Web.HttpUtility.UrlEncode( Path.GetFileName(originalName));
+            string postString = string.Format("fileType={0}&domainType={1}&fileBase64={2}", fileType, domainType, base64);
 
 
             System.Net.WebRequest request = WebRequest.Create(uploaderUrl);

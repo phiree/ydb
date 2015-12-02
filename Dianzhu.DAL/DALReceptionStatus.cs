@@ -93,5 +93,10 @@ namespace Dianzhu.DAL
 
             return re;
         }
+
+        public virtual ReceptionStatus GetOrder(DZMembership c,DZMembership cs)
+        {
+            return Session.QueryOver<ReceptionStatus>().Where(x => x.Customer == c).And(x => x.CustomerService == cs).List()[0];
+        }
     }
 }

@@ -100,12 +100,6 @@ namespace Dianzhu.CSClient.Presenter
             GlobalViables.Diandian = diandian;
 
             loginView.IsLoginSuccess = true;
-
-            //IMSessionsOpenfire imSession = new IMSessionsOpenfire(
-            //    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
-            //    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
-            //ReceptionAssigner assigner = new ReceptionAssigner(imSession);
-            //GlobalViables.Diandian = assigner.Diandian;
         }
 
        void loginView_Logined(object sender, EventArgs e)

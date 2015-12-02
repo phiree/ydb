@@ -38,8 +38,7 @@ public class ResponseUSM001007 : BaseResponse
                 respData.userID = requestData.userID;
                
                 string savedFileName = MediaServer.HttpUploader.Upload(ConfigurationManager.AppSettings["MediaUploadUrl"],
-                   requestData.imgData, string.Empty, "UserAvatar"
-                   ,"image");
+                   requestData.imgData, "UserAvatar", "image");
                 respData.imgUrl = ConfigurationManager.AppSettings["MediaGetUrl"] + savedFileName;
                 ////上传图片.
                 ////bllDeviceBind.UpdateDeviceBindStatus(member, requestData.appToken, requestData.appName);

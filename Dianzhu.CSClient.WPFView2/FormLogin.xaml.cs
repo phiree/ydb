@@ -160,6 +160,14 @@ namespace Dianzhu.CSClient.WPFView
 
         public event ViewLogin ViewLogin;
 
-        
+        private void tbxPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                //登录时的异步处理
+                ViewLogin();
+                e.Handled=true;
+            }
+        }
     }
 }

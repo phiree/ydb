@@ -245,19 +245,25 @@ namespace PHSuit
         public static string ParseUrlParameter(string url,string param)
         {
             string result = string.Empty;
-            Uri uri = new Uri(url);
-        var vv=   HttpUtility.ParseQueryString(uri.Query);
-            if (string.IsNullOrEmpty(param) )
+            try
             {
+                Uri uri = new Uri(url);
+                var vv = HttpUtility.ParseQueryString(uri.Query);
+                if (string.IsNullOrEmpty(param))
+                {
+                    result = vv.Get(0);
+                }
+                else
+                {
 
-                result = vv.Get(0);
+                    result = vv.Get(param);
+                }
+                return result;
             }
-            else
+            catch (Exception e)
             {
-                
-                result = vv.Get(param);
+                throw new Exception(e.Message);
             }
-            return result;
         }
         public static IList<string> ParseUrl(string input,out bool isMatch)
         {

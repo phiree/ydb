@@ -254,6 +254,10 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual decimal OrderAmount { get; set; }
         /// <summary>
+        /// 退款原因
+        /// </summary>
+        public virtual string RefundMemo { get; set; }
+        /// <summary>
         /// 外部服务的链接
         /// </summary>
         public virtual string ServiceURL { get; set; }
