@@ -74,16 +74,16 @@ function delInfo()
 </script>
 <div>
    订单状态： <select runat="server" id="StatusSelect" OnChange="var jmpURL=this.options[this.selectedIndex].value; if(jmpURL!='') {window.location.href=(jmpURL);} else {this.selectedIndex=0;}">
-        <option  value="default.aspx">全部</option>
-       <option value="default.aspx?status=Draft">创建中</option>
-       <option value="default.aspx?status=Created">已创建</option>
-               <option value="default.aspx?status=Payed">已付款</option>
-               <option value="default.aspx?status=Canceled">申请退款</option>
-        <option value="default.aspx?status=Assigned">Assigned</option>
-        <option value="default.aspx?status=IsCanceled">IsCanceled</option>
-       <option value="default.aspx?status=Finished">Finished</option>
-       <option value="default.aspx?status=Aborded">Aborded</option>
-       <option value="default.aspx?status=Appraise">Appraise</option>
+        <option  value="index.aspx">全部</option>
+       <option value="index.aspx?status=Draft">创建中</option>
+       <option value="index.aspx?status=Created">已创建</option>
+               <option value="index.aspx?status=Payed">已付款</option>
+               <option value="index.aspx?status=Canceled">申请退款</option>
+        <option value="index.aspx?status=Assigned">Assigned</option>
+        <option value="index.aspx?status=IsCanceled">IsCanceled</option>
+       <option value="index.aspx?status=Finished">Finished</option>
+       <option value="index.aspx?status=Aborded">Aborded</option>
+       <option value="index.aspx?status=Appraise">Appraise</option>
     </select>
 </div>
  <asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="data_ItemDataBound">
@@ -96,6 +96,7 @@ function delInfo()
                  <td>订单状态</td>
                  <td>更新时间</td>
                  <td>金额</td>
+                 <td>商家名称</td>
                  <td>操作</td>
              </tr>
      </HeaderTemplate>
@@ -107,8 +108,11 @@ function delInfo()
 <td><%# Eval("Id")%></td>
 <td><%# Eval("TradeNo")%></td>
 <td><%# Eval("OrderStatus")%></td>
-<td><%# Eval("OrderFinished")%></td>
-    <td><%# Eval("OrderAmount")%></td>
+<td><%# Eval("OrderCreated")%></td>
+ <td><%# Eval("OrderAmount")%></td>
+<td><%#DataBinder.Eval(Container.DataItem, "CustomerService.Id")%>
+    <asp:Label ID="bb" runat="server" Text="Label"></asp:Label>
+</td>
 <td> <asp:Button ID="delbt" runat="server" Text="删除" CommandName="delete" CommandArgument='<%# Eval("id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')" />
     <a target="_blank" href="refund/default.aspx?id=<%# Eval("Id")%>&tradeno=<%# Eval("TradeNo")%>&orderamount=<%# Eval("OrderAmount")%>">退款</a>
 </td>
