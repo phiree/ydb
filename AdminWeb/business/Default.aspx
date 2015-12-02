@@ -7,16 +7,23 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-<!--
-商户列表
--->
 
-<asp:GridView  CssClass="table"   runat="server" ID="gvBusiness">
-<Columns>
-<asp:BoundField  HeaderText="商户名称" DataField="Name" />
-<asp:HyperLinkField  Text="详情" DataNavigateUrlFields="id" DataNavigateUrlFormatString="detail.aspx?id={0}"/>
+    <!--商户列表-->
+    <asp:GridView AutoGenerateColumns="false" runat="server" ID="gvBusiness">
+        <Columns>
+            <asp:HyperLinkField Text="详情" DataNavigateUrlFields="id" DataNavigateUrlFormatString="detail.aspx?id={0}" />
+            <asp:BoundField HeaderText="商家名称" DataField="Name" />
+            <asp:BoundField HeaderText="商家地址" DataField="Address" />
+            <asp:BoundField HeaderText="联系人" DataField="Contact" />
+            <asp:BoundField HeaderText="联系电话" DataField="Phone" />
+            <asp:BoundField HeaderText="创建时间" DataField="CreatedTime" />
+        </Columns>
+    </asp:GridView>
 
-</Columns>
-</asp:GridView>
+    <UC:AspNetPager runat="server" UrlPaging="true" ID="pager" CssClass="anpager"
+        CurrentPageButtonClass="cpb" PageSize="10"
+        CustomInfoHTML="第 %CurrentPageIndex% / %PageCount%页 共%RecordCount%条"
+        ShowCustomInfoSection="Right">
+    </UC:AspNetPager>
 </asp:Content>
 

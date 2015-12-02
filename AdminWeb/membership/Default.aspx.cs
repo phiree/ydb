@@ -38,16 +38,30 @@ public partial class membership_Default : System.Web.UI.Page
             
             Literal litType = e.Row.FindControl("litType") as Literal;
             DZMembership member = e.Row.DataItem as DZMembership;
-            if (member is BusinessUser)
+
+            if(member.UserType == Dianzhu.Model.Enums.enum_UserType.business.ToString())
             {
-                BusinessUser memberBusiness = (BusinessUser)member;
-                HyperLink hy = e.Row.FindControl("hlRelative") as HyperLink;
-                litType.Text = "商家用户";
-                hy.Text = memberBusiness.BelongTo.Name;
-                hy.NavigateUrl = "/business/detail.aspx?id=" + memberBusiness.BelongTo.Id;
+                litType.Text = "商家";
+            }
+            else if(member.UserType == Dianzhu.Model.Enums.enum_UserType.customerservice.ToString())
+            {
+                litType.Text = "客服";
+            }
+            else
+            {
+                litType.Text = "普通用户";
+            }
+
+            //if (member is BusinessUser)
+            //{
+            //    BusinessUser memberBusiness = (BusinessUser)member;
+            //    HyperLink hy = e.Row.FindControl("hlRelative") as HyperLink;
+            //    litType.Text = "商家用户";
+            //    hy.Text = memberBusiness.BelongTo.Name;
+            //    hy.NavigateUrl = "/business/detail.aspx?id=" + memberBusiness.BelongTo.Id;
                  
                 
-            }
+            //}
         }
     }
     

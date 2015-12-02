@@ -45,6 +45,10 @@ namespace Dianzhu.Model
         public virtual DZMembership Owner { get; set; }
         public virtual bool Enabled { get; set; }
 
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public virtual DateTime CreatedTime { get; set; }
     }
 
     /// <summary>
