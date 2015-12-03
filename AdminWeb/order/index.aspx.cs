@@ -37,20 +37,18 @@ public partial class order_index : System.Web.UI.Page
         IList<ServiceOrder> allServiceOrder;
         if (Request.QueryString["status"] == "" || Request.QueryString["status"] == null)
         {
-            allServiceOrder = bllServiceOrder.GetAll().OrderByDescending(x => x.OrderFinished).ToList();
-            
+             allServiceOrder = bllServiceOrder.GetAll().OrderByDescending(x => x.OrderCreated).ToList();
         }
         else
         {
 
             StatusSelect.Value = "default.aspx?status=" + Request.QueryString["status"].ToString();
             Dianzhu.Model.Enums.enum_OrderStatus status = (Dianzhu.Model.Enums.enum_OrderStatus)Enum.Parse(typeof(Dianzhu.Model.Enums.enum_OrderStatus), Request.QueryString["status"].ToString());
-            allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status).OrderByDescending(x => x.OrderFinished).ToList();
+            allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status).OrderByDescending(x => x.OrderCreated).ToList();
             
         }
         pds = config.pds(allServiceOrder, page, 10);
         Repeater1.DataSource = pds;
-
         Repeater1.DataBind();
 
     }
@@ -58,6 +56,11 @@ public partial class order_index : System.Web.UI.Page
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
+            ServiceOrder so = (ServiceOrder)e.Item.DataItem;
+            DZMembership dz = so.CustomerService;
+            if(dz!=null)
+            { string name = dz.UserName;}            
+
         }
 
         if (e.Item.ItemType == ListItemType.Footer)

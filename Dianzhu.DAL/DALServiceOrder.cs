@@ -70,12 +70,16 @@ namespace Dianzhu.DAL
             return result;
         }
 
-        //public IList<ServiceOrder> GetListForBusiness(Business business)
-        //{
-        //    string sql = "select b from  business b" +
-        //             "left join  dzservice d ";
+        public IList<ServiceOrder> GetListForBusiness(Business business)
+        {
+            string sql = " select so  from  ServiceOrder so  " +
+                " left join so.Service s  "+
+                " left join s.Business b ";
 
-        //    return base.GetList(sql);
-        //}
+            IQuery query = Session.CreateQuery(sql);
+            var result = query.List<ServiceOrder>();
+
+            return result;
+        }
     }
 }

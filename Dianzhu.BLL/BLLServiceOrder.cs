@@ -150,10 +150,10 @@ namespace Dianzhu.BLL
 
 
 
-        //public IList<ServiceOrder> GetListForBusiness(Guid businessId)
-        //{
-        //    return DALServiceOrder.GetListForBusiness(businessId);
-        //}
+        public IList<ServiceOrder> GetListForBusiness(Business business)
+        {
+             return DALServiceOrder.GetListForBusiness(business);
+        }
 
         public void Delete(ServiceOrder order)
         {
