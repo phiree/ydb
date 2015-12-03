@@ -25,13 +25,9 @@ public partial class business_detail : System.Web.UI.Page
     }
     private void BindData()
     {
-      
-            DetailsView1.DataSource = new List<Business> { b };
-            DetailsView1.DataBind();
-            BindUI(b);
-        
-         
-
+        DetailsView1.DataSource = new List<Business> { b };
+        DetailsView1.DataBind();
+        BindUI(b);
     }
     private void BindUI(Business b)
     {
