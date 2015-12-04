@@ -403,12 +403,11 @@
             // 
             // btnCreateNewDraft
             // 
-            this.btnCreateNewDraft.Enabled = false;
             this.btnCreateNewDraft.Location = new System.Drawing.Point(5, 6);
             this.btnCreateNewDraft.Name = "btnCreateNewDraft";
             this.btnCreateNewDraft.Size = new System.Drawing.Size(155, 23);
             this.btnCreateNewDraft.TabIndex = 18;
-            this.btnCreateNewDraft.Text = "增加子订单";
+            this.btnCreateNewDraft.Text = "新建订单";
             this.btnCreateNewDraft.UseVisualStyleBackColor = true;
             this.btnCreateNewDraft.Click += new System.EventHandler(this.btnCreateNewDraft_Click);
             // 

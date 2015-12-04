@@ -43,6 +43,10 @@ namespace Dianzhu.Model
         /// 商户所有者.
         /// </summary>
         public virtual DZMembership Owner { get; set; }
+
+        /// <summary>
+        /// 店铺是否可用
+        /// </summary>
         public virtual bool Enabled { get; set; }
 
         /// <summary>

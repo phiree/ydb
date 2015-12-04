@@ -161,6 +161,10 @@ namespace Dianzhu.CSClient.WinformView
 
             lblFrom.Text = chat.From.UserName;
 
+            if (chat.MessageBody == null)
+            {
+                return;
+            }
             LoadBody(chat.MessageBody, pnlOneChat);
 
             //lblMessage.Text = chat.MessageBody;

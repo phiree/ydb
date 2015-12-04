@@ -72,9 +72,10 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
         {
-            IQuery qry = Session.CreateQuery("select b from Business b order by b.CreatedTime desc");
+            //IQuery qry = Session.CreateQuery("select b from Business b order by b.CreatedTime desc");
             IQuery qryTotal = Session.CreateQuery("select count(*) from Business b ");
-            IList<Business> busList = qry.Future<Business>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            //IList<Business> busList = qry.Future<Business>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            IList<Business> busList = Session.QueryOver<Business>().Where(x => x.Enabled == true).OrderBy(x => x.CreatedTime).Desc.List();
             totalRecord = qryTotal.FutureValue<long>().Value;
             return busList;
         }

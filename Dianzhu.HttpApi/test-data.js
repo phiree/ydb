@@ -2,7 +2,7 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
-"chat001006"//,"merm001003","merm001005",
+"orm002001"//,"merm001003","merm001005",
  
 ];
 var test_data = [
@@ -22,9 +22,9 @@ var test_data = [
      {
          "protocol_CODE": "CHAT001006",
          "ReqData": {
-             "userID": "d67637ac-8f24-48af-b5c3-a536010f0562",
-             "pWord": "hs5260",
-             "orderID": "b61031cc-996e-4444-81bd-a561009728f5",
+             "userID": "7dcdd185-bed6-4756-a219-a5360118aab3",
+             "pWord": "1234",
+             "orderID": "f99db315-53e7-47d3-b99c-a55500ac1fb5",
              "target": "cer",
              "pageNum": 0,
              "pageSize":30
@@ -88,9 +88,9 @@ var test_data = [
           {
               "protocol_CODE": "ORM002001",
               "ReqData": {
-                  "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", //13022222222
-                  "pWord": "123456",
-                  "orderID": "",
+                  "userID": "7dcdd185-bed6-4756-a219-a5360118aab3", //13022222222
+                  "pWord": "1234",
+                  "orderID": "7dcdd185-bed6-4756-a219-a5360118aab3",
                   
               },
               "stamp_TIMES": "1490192929212",
