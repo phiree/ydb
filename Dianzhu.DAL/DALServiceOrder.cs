@@ -94,7 +94,7 @@ namespace Dianzhu.DAL
                 And(x => x.CustomerService == cs).
                 And(x => x.OrderStatus == enum_OrderStatus.Draft).List();
 
-            if (order != null)
+            if (order.Count > 0)
             {
                 return (ServiceOrder)order[0];
             }

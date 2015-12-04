@@ -65,7 +65,7 @@
             this.btnSendAudio = new System.Windows.Forms.Button();
             this.btnSendImage = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.tbxChatMsg = new System.Windows.Forms.TextBox();
+            this.tbxChatMsg = new System.Windows.Forms.RichTextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.pnlResultService = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -99,6 +99,7 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
+            this.lblCountText = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -251,6 +252,7 @@
             // 
             // tbxServiceName
             // 
+            this.tbxServiceName.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxServiceName.Location = new System.Drawing.Point(3, 63);
             this.tbxServiceName.Name = "tbxServiceName";
             this.tbxServiceName.Size = new System.Drawing.Size(262, 21);
@@ -267,6 +269,7 @@
             // 
             // tbxServiceBusinessName
             // 
+            this.tbxServiceBusinessName.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxServiceBusinessName.Location = new System.Drawing.Point(3, 102);
             this.tbxServiceBusinessName.Name = "tbxServiceBusinessName";
             this.tbxServiceBusinessName.Size = new System.Drawing.Size(262, 21);
@@ -284,6 +287,7 @@
             // 
             // tbxServiceDescription
             // 
+            this.tbxServiceDescription.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxServiceDescription.Location = new System.Drawing.Point(3, 141);
             this.tbxServiceDescription.Name = "tbxServiceDescription";
             this.tbxServiceDescription.Size = new System.Drawing.Size(262, 21);
@@ -301,6 +305,7 @@
             // 
             // tbxServiceUnitPrice
             // 
+            this.tbxServiceUnitPrice.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxServiceUnitPrice.Location = new System.Drawing.Point(3, 180);
             this.tbxServiceUnitPrice.Name = "tbxServiceUnitPrice";
             this.tbxServiceUnitPrice.Size = new System.Drawing.Size(262, 21);
@@ -317,6 +322,7 @@
             // 
             // tbxServiceTime
             // 
+            this.tbxServiceTime.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxServiceTime.Location = new System.Drawing.Point(3, 219);
             this.tbxServiceTime.Name = "tbxServiceTime";
             this.tbxServiceTime.Size = new System.Drawing.Size(262, 21);
@@ -333,6 +339,7 @@
             // 
             // tbxTargetAddress
             // 
+            this.tbxTargetAddress.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxTargetAddress.Location = new System.Drawing.Point(3, 258);
             this.tbxTargetAddress.Name = "tbxTargetAddress";
             this.tbxTargetAddress.Size = new System.Drawing.Size(262, 21);
@@ -349,6 +356,7 @@
             // 
             // tbxAmount
             // 
+            this.tbxAmount.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxAmount.Location = new System.Drawing.Point(3, 297);
             this.tbxAmount.Name = "tbxAmount";
             this.tbxAmount.Size = new System.Drawing.Size(262, 21);
@@ -365,6 +373,7 @@
             // 
             // tbxMemo
             // 
+            this.tbxMemo.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxMemo.Location = new System.Drawing.Point(3, 336);
             this.tbxMemo.Multiline = true;
             this.tbxMemo.Name = "tbxMemo";
@@ -464,6 +473,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.lblCountText);
             this.panel4.Controls.Add(this.btnScreenshot);
             this.panel4.Controls.Add(this.btnSendAudio);
             this.panel4.Controls.Add(this.btnSendImage);
@@ -518,11 +528,13 @@
             this.tbxChatMsg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbxChatMsg.ImeMode = System.Windows.Forms.ImeMode.On;
             this.tbxChatMsg.Location = new System.Drawing.Point(0, 0);
-            this.tbxChatMsg.Multiline = true;
+            this.tbxChatMsg.MaxLength = 255;
             this.tbxChatMsg.Name = "tbxChatMsg";
             this.tbxChatMsg.Size = new System.Drawing.Size(330, 81);
             this.tbxChatMsg.TabIndex = 0;
-            this.tbxChatMsg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxChatMsg_KeyPress);
+            this.tbxChatMsg.Text = "";
+            this.tbxChatMsg.TextChanged += new System.EventHandler(this.tbxChatMsg_TextChanged);
+            this.tbxChatMsg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox1_KeyPress);
             // 
             // btnSend
             // 
@@ -840,6 +852,14 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
+            // lblCountText
+            // 
+            this.lblCountText.AutoSize = true;
+            this.lblCountText.Location = new System.Drawing.Point(298, 14);
+            this.lblCountText.Name = "lblCountText";
+            this.lblCountText.Size = new System.Drawing.Size(0, 12);
+            this.lblCountText.TabIndex = 5;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -868,8 +888,8 @@
             this.splitContainer3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.pnlResultService.ResumeLayout(false);
             this.pnlResultService.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -893,7 +913,6 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox tbxChatMsg;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.FlowLayoutPanel pnlCustomerList;
         private System.Windows.Forms.RichTextBox tbxChatLog;
@@ -960,5 +979,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CDisplayName;
         private System.Windows.Forms.DataGridViewTextBoxColumn CId;
         private System.Windows.Forms.DataGridView dGVCustom;
+        private System.Windows.Forms.RichTextBox tbxChatMsg;
+        private System.Windows.Forms.Label lblCountText;
     }
 }
