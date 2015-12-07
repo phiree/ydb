@@ -13,6 +13,7 @@ public class ResponseUSM001001 : BaseResponse
     public ResponseUSM001001(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
+        
         ReqDataUSM requestData = request.ReqData.ToObject<ReqDataUSM>();
         DZMembershipProvider p = new DZMembershipProvider();
         MembershipCreateStatus createStatus;
@@ -20,7 +21,8 @@ public class ResponseUSM001001 : BaseResponse
              requestData.phone,
              requestData.email,
              requestData.pWord,
-             out createStatus);
+             out createStatus,
+             CHATTarget.user.ToString());
         if (createStatus == MembershipCreateStatus.DuplicateUserName)
         {
             this.state_CODE = Dicts.StateCode[3];
@@ -32,7 +34,7 @@ public class ResponseUSM001001 : BaseResponse
         RespDataUSM resp = new RespDataUSM();
         resp.userObj = userObj;
         this.RespData = resp;
-
+        
 
     }
 }

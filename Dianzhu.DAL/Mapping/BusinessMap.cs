@@ -20,7 +20,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.WebSite);
             References<DZMembership>(x => x.Owner);
             Map(x => x.Enabled);
-            
+            Map(x => x.CreatedTime);
         }
     }
     public class BusinessMap : SubclassMap<Business>

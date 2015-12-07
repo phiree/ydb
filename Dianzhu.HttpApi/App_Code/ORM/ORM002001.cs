@@ -20,7 +20,7 @@ public class ResponseORM002001 : BaseResponse
 
  
         DZMembershipProvider p = new DZMembershipProvider();
-        BLLReceptionStatus BLLReceptionStatus = new BLLReceptionStatus();
+        BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
         BLLServiceOrder bllOrder = new BLLServiceOrder();
         string raw_id = requestData.userID;
 
@@ -40,9 +40,7 @@ public class ResponseORM002001 : BaseResponse
               System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
               System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
 
-                Dictionary<DZMembership, DZMembership> assignedPair =
-                    new ReceptionAssigner(imSession)
-                    .AssignCustomerLogin(member);
+                Dictionary<DZMembership, DZMembership> assignedPair = new ReceptionAssigner(imSession).AssignCustomerLogin(member);
                 if (assignedPair.Count == 0)
                 {
                     this.state_CODE = Dicts.StateCode[4];
@@ -59,37 +57,15 @@ public class ResponseORM002001 : BaseResponse
                 string reqOrderId = requestData.orderID;
                 Guid order_ID;
                 bool isValidGuid = Guid.TryParse(reqOrderId, out order_ID);
-                bool hasOrder = false;
-                bool needNewOrder = false;
+                //bool hasOrder = false;
+                //bool needNewOrder = false;
                 ServiceOrder orderToReturn = null;
-                if (isValidGuid)
-                {
-                    orderToReturn = bllOrder.GetOne(order_ID);
-                    if (orderToReturn != null)
+                //if (isValidGuid)
+                //{
+                    orderToReturn = bllOrder.GetDraftOrder(member, assignedPair[member]);
+                    if (orderToReturn == null)
                     {
-                        if (orderToReturn.Customer.Id == member.Id)
-                        {
-                            hasOrder = true;
-                        }
-                        int orderTimeout = Convert.ToInt32(
-                            System.Configuration.ConfigurationManager.AppSettings.Get("OrderTimeout"));
-                        if ((DateTime.Now - orderToReturn.OrderCreated) > new TimeSpan(0, orderTimeout, 0))
-                        {
-                            needNewOrder = true;
-                            this.err_Msg = "原订单已过期,已生成新订单";
-                        }
-
-                    }
-                }
-
-                if (!hasOrder||needNewOrder)
-                {
-
-
-                    /* string serviceName,string serviceBusinessName,string serviceDescription,decimal serviceUnitPrice,string serviceUrl,
-               DZMembership member,
-               string targetAddress, int unitAmount, decimal orderAmount*/
-                      orderToReturn = ServiceOrder.Create(
+                        orderToReturn = ServiceOrder.Create(
                          enum_ServiceScopeType.OSIM
                        , string.Empty //serviceName
                        , string.Empty//serviceBusinessName
@@ -100,10 +76,34 @@ public class ResponseORM002001 : BaseResponse
                        , string.Empty
                        , 0
                        , 0);
-                    orderToReturn.CustomerService = assignedPair[member];
-                    bllOrder.SaveOrUpdate(orderToReturn);
-                }
+                        orderToReturn.CustomerService = assignedPair[member];
+                        bllOrder.SaveOrUpdate(orderToReturn);
+                    }
+                //}
+
+               // if (!hasOrder||needNewOrder)
+               // {
+               //     /* string serviceName,string serviceBusinessName,string serviceDescription,decimal serviceUnitPrice,string serviceUrl,
+               //DZMembership member,
+               //string targetAddress, int unitAmount, decimal orderAmount*/
+               //       orderToReturn = ServiceOrder.Create(
+               //          enum_ServiceScopeType.OSIM
+               //        , string.Empty //serviceName
+               //        , string.Empty//serviceBusinessName
+               //        , string.Empty//serviceDescription
+               //        , 0//serviceUnitPrice
+               //        , string.Empty//serviceUrl
+               //        , member //member
+               //        , string.Empty
+               //        , 0
+               //        , 0);
+               //     orderToReturn.CustomerService = assignedPair[member];
+               //     bllOrder.SaveOrUpdate(orderToReturn);
+               // }
                 respData.orderID = orderToReturn.Id.ToString();
+
+                //更新 ReceptionStatus 中订单
+                bllReceptionStatus.UpdateOrder(member, assignedPair[member], orderToReturn);
 
                 RespDataORM002001_cerObj cerObj = new RespDataORM002001_cerObj().Adap(assignedPair[member]);
                 respData.cerObj = cerObj;

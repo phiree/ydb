@@ -9,11 +9,17 @@
         Title="一点办111" Height="341" Width="385"  >
 
     <Grid >
-
-        <TextBox x:Name="tbxUserName" HorizontalAlignment="Left" Height="23" Margin="145,118,0,0" TextWrapping="Wrap" Text="e@e.e" VerticalAlignment="Top" Width="120"  />
+        
+        <Label x:Name="label1" Content="一点办客服工具" Foreground="#666" HorizontalAlignment="Left" Margin="70,10,0,0" FontSize="30" VerticalAlignment="Top"/>
+        <Path Data="M60,68 L290,68"  Fill="Aqua" Height="1" Margin="20,68,20,0" Stretch="Fill" Stroke="#888" VerticalAlignment="Top" Style="{DynamicResource PathStyle1}"/>
+        
         <Label x:Name="label" Content="客服账号" HorizontalAlignment="Left" Margin="66,115,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbxUserName" HorizontalAlignment="Left" Height="23" Margin="145,118,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"  />
+        
         <Label x:Name="label_Copy" Content="密码"    HorizontalAlignment="Left" Margin="66,169,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnLogin" Content="登录" Margin="145,230,112,0" VerticalAlignment="Top" Height="30">
+        <PasswordBox x:Name="tbxPassword" Password="" HorizontalAlignment="Left" Margin="145,175,0,0" VerticalAlignment="Top" Width="120" PreviewKeyDown="tbxPassword_KeyDown"/>
+        
+        <Button x:Name="btnLogin" Content="登录" Margin="145,230,112,0" VerticalAlignment="Top" Height="30">            
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.837,1.157" StartPoint="0.158,-0.064">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -24,10 +30,5 @@
             </Button.Background>
         </Button>
         <Label x:Name="lblResult" Content="" HorizontalAlignment="Left" Margin="121,275,0,0" VerticalAlignment="Top" Width="230"/>
-        <PasswordBox x:Name="tbxPassword" Password="123456" HorizontalAlignment="Left" Margin="145,175,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label1" Content="一点办客服工具" Foreground="#666" HorizontalAlignment="Left" Margin="70,10,0,0" FontSize="30" VerticalAlignment="Top"
-               />
-
-        <Path Data="M60,68 L290,68"  Fill="Aqua" Height="1" Margin="20,68,20,0" Stretch="Fill" Stroke="#888" VerticalAlignment="Top" Style="{DynamicResource PathStyle1}"/>
     </Grid>
 </Window>

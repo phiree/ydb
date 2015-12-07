@@ -83,7 +83,7 @@ namespace Dianzhu.DAL
 
         public IList<Model.DZMembership> GetAllUsers(int pageIndex, int pageSize, out long totalRecord)
         {
-            IQuery qry = Session.CreateQuery("select u from DZMembership u ");
+            IQuery qry = Session.CreateQuery("select u from DZMembership u order by u.TimeCreated desc");
             IQuery qryTotal = Session.CreateQuery("select count(*) from DZMembership u ");
             List<Model.DZMembership> memList = qry.Future<Model.DZMembership>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
             totalRecord = qryTotal.FutureValue<long>().Value;

@@ -134,6 +134,7 @@ namespace Dianzhu.Model
             }
 
             ServiceOrder order = new ServiceOrder();
+            
             order.ScopeType = scopeType;
             AppendMemberInfo(order, customerName, customerPhone, customerEmail);
             AppendServiceInfo(order, serviceName, serviceBusinessName, serviceDescription, serviceUnitPrice, serviceUrl);
@@ -215,6 +216,15 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual DateTime OrderFinished { get; set; }
         /// <summary>
+        /// 订单服务开始时间
+        /// </summary>
+        public virtual DateTime OrderServerStartTime { get; set; }
+
+        /// <summary>
+        /// 订单服务结束的时间.
+        /// </summary>
+        public virtual DateTime OrderServerFinishedTime { get; set; }
+        /// <summary>
         /// 订单备注.
         /// </summary>
         public virtual string Memo { get; set; }
@@ -243,6 +253,10 @@ namespace Dianzhu.Model
         ///订单总价
         /// </summary>
         public virtual decimal OrderAmount { get; set; }
+        /// <summary>
+        /// 退款原因
+        /// </summary>
+        public virtual string RefundMemo { get; set; }
         /// <summary>
         /// 外部服务的链接
         /// </summary>

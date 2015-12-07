@@ -34,16 +34,15 @@ public class ResponseORM001005 : BaseResponse
             }
             try
             {
-              
-                 ServiceOrder order = bllServiceOrder.GetOne(new Guid(requestData.orderID));
+                ServiceOrder order = bllServiceOrder.GetOne(new Guid(requestData.orderID));
 
-                 if (order == null)
-                 {
-                     this.state_CODE = Dicts.StateCode[4];
-                     this.err_Msg ="没有对应的服务,请检查传入的orderID";
-                     return;
-                 }
-                 RespDataORM_Order respData = new RespDataORM_Order().Adap(order);
+                if (order == null)
+                {
+                    this.state_CODE = Dicts.StateCode[4];
+                    this.err_Msg = "没有对应的服务,请检查传入的orderID";
+                    return;
+                }
+                RespDataORM_Order respData = new RespDataORM_Order().Adap(order);
                 this.RespData =  respData ;
                 this.state_CODE = Dicts.StateCode[0];
 

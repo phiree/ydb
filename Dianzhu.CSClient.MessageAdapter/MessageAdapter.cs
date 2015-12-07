@@ -76,13 +76,13 @@ namespace Dianzhu.CSClient.MessageAdapter
                 case "ihelper:chat:media":
                     chatType = enum_ChatType.Media;
                     break;
-                case "ihelper:notce:system":
+                case "ihelper:notice:system":
                      
-                case "ihelper:notce:order":
+                case "ihelper:notice:order":
                      
-                case "ihelper:notce:promote":
+                case "ihelper:notice:promote":
                      
-                case "ihelper:notce:cer:change":
+                case "ihelper:notice:cer:change":
                     chatType = enum_ChatType.Notice;
                     break;
                 default:
@@ -180,7 +180,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     extNode.AddChild(extMedia);
                     break;
                 case enum_ChatType.ReAssign:
-                    extNode.Namespace = "ihelper:cer:change";
+                    extNode.Namespace = "ihelper:notice:cer:change";
                     var cerObj = new agsXMPP.Xml.Dom.Element("cerObj");
                     cerObj.SetAttribute("UserID", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.Id.ToString());
                     cerObj.SetAttribute("alias", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.DisplayName);
@@ -189,7 +189,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     msg.SetAttribute("type", "headline");
                     break;
                 case enum_ChatType.Notice:
-                    extNode.Namespace = "ihelper:cer:notce";
+                    extNode.Namespace = "ihelper:cer:notice";
                     var UserObj = new agsXMPP.Xml.Dom.Element("UserObj");
 
                     UserObj.SetAttribute("UserID", ((ReceptionChatNotice)chat).UserObj.Id.ToString());

@@ -20,3 +20,10 @@ public class BaseRequest
     public string Ver { get; set; }
     public JObject ReqData { get; set; }//JObject：json对象
 }
+
+public enum CHATTarget
+{
+    cer,        //客服，0
+    store,      //店铺，1
+    user,       //用户，2
+}

@@ -19,7 +19,7 @@ namespace Dianzhu.CSClient.Presenter
         BLLReception bllReception;
         BLLServiceOrder bllOrder;
         BLLReceptionStatus bllReceptionStatus;
-        BLLReceptionChat bllReceptionChat = new BLLReceptionChat();
+        BLLReceptionChat bllReceptionChat;
        
         public MainPresenter(IVew.IMainFormView view,
             InstantMessage instantMessage,
@@ -32,7 +32,8 @@ namespace Dianzhu.CSClient.Presenter
             this.bllReception = new BLLReception(); //bllReception;
             this.bllService = new BLLDZService();// bllService;
             this.bllReceptionStatus = new BLLReceptionStatus();// bllReceptionStatus;
-           
+            this.bllReceptionChat = new BLLReceptionChat();// bllReceptionStatus;
+
             this.bllOrder = new BLLServiceOrder();// bllOrder;
 
             //  IM的委托
@@ -69,6 +70,38 @@ namespace Dianzhu.CSClient.Presenter
             this.view.ReAssign += View_ReAssign;
             this.view.SaveReAssign += View_SaveReAssign;
             this.view.CurrentCustomerService = GlobalViables.CurrentCustomerService.UserName;
+
+            this.SysAssign();
+            
+        }
+
+        /// <summary>
+        /// 系统分配用户给在线客服
+        /// </summary>
+        private void SysAssign()
+        {
+            ReceptionStatus rs = bllReceptionStatus.GetRSByDiandian(GlobalViables.Diandian);
+            if (rs != null)
+            {
+                rs.CustomerService = GlobalViables.CurrentCustomerService;
+                bllReceptionStatus.SaveByRS(rs);
+
+                ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
+                rChatReAss.From = GlobalViables.Diandian;
+                rChatReAss.To = rs.Customer;
+                rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
+                rChatReAss.ReAssignedCustomerService = rs.CustomerService;
+                rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
+                rChatReAss.ServiceOrder = rs.Order;
+                rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
+
+                //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+                SaveMessage(rChatReAss, true);
+                instantMessage.SendMessage(rChatReAss);
+
+                OrderList.Add(rs.Order);
+                view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+            }
         }
 
         private void View_SaveReAssign()
@@ -81,7 +114,8 @@ namespace Dianzhu.CSClient.Presenter
                 for (int i=0; i<clist.Length; i++)
                 {
                     DZMembership dm = bllMember.GetUserById(new Guid(clist[i]));
-                    bllReceptionStatus.SaveReAssign(dm, p.Key);
+                    ReceptionStatus o = bllReceptionStatus.GetOrder(dm, GlobalViables.CurrentCustomerService);
+                    bllReceptionStatus.SaveReAssign(dm, p.Key, o.Order);
                     bllReceptionStatus.DeleteAssign(dm, GlobalViables.CurrentCustomerService);//删除已有分配
 
                     rChatReAss = new ReceptionChatReAssign();
@@ -94,10 +128,22 @@ namespace Dianzhu.CSClient.Presenter
                     rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
                                         
                     SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+
+                    //删除现在OrderList中的客户
+                    for (int j=0;j< OrderList.Count; j++)
+                    {
+                        if(dm== OrderList[j].Customer)
+                        {
+                            view.RemoveOrderBtn(OrderList[j].Id.ToString());
+                            OrderList.RemoveAt(j);
+                            j--;
+                        }
+                    }
                 }
             }
 
-            this.view.ShowMsg("保存成功");            
+            this.view.ShowMsg("保存成功");
+
         }
 
         private void View_ReAssign()
@@ -105,9 +151,7 @@ namespace Dianzhu.CSClient.Presenter
             IList<DZMembership> csList = bllReceptionStatus.GetCustomListByCSId(GlobalViables.CurrentCustomerService);
             this.view.RecptingCustomList = csList;
 
-            IIMSession imSession = new IMSessionsOpenfire(System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"), 
-                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
-            IList<OnlineUserSession> ouSession = imSession.GetOnlineSessionUser();
+            var ouSession = getOnlineSessionUser();
             IDictionary<DZMembership, string> reDicCS = new Dictionary<DZMembership, string>();
             for (int j=0; j< ouSession.Count; j++)
             {
@@ -117,6 +161,15 @@ namespace Dianzhu.CSClient.Presenter
                 }
             }
             this.view.RecptingCustomServiceList = reDicCS;
+        }
+
+        private IList<OnlineUserSession> getOnlineSessionUser()
+        {
+            IIMSession imSession = new IMSessionsOpenfire(System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
+                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+            IList<OnlineUserSession> ouSession = imSession.GetOnlineSessionUser();
+
+            return ouSession;
         }
 
         private void InstantMessage_IMStreamError()
@@ -135,7 +188,7 @@ namespace Dianzhu.CSClient.Presenter
     to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body> system notice</body>
-            <ext xmlns = ""ihelper:notce:system"">
+            <ext xmlns = ""ihelper:notice:system"">
             </ext>
             </message>
                 ",CurrentServiceOrder.Customer.Id,
@@ -153,7 +206,7 @@ namespace Dianzhu.CSClient.Presenter
     to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body>  promote</body>
-            <ext xmlns=""ihelper:notce:promote"">
+            <ext xmlns=""ihelper:notice:promote"">
                 <url>http://www.ydban.cn</url>
             </ext>
             </message>
@@ -171,7 +224,7 @@ namespace Dianzhu.CSClient.Presenter
     to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body>  订单状态变更通知</body>
-            <ext xmlns=""ihelper:notce:order"">
+            <ext xmlns=""ihelper:notice:order"">
                 <orderID>{3}</orderID>
                 <orderObj title = ""{5}"" status = ""{4}"" type = """">
                 </orderObj>
@@ -192,7 +245,7 @@ namespace Dianzhu.CSClient.Presenter
     to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body>  客服通知 </body>
-             <ext xmlns=""ihelper:notce:cer:change"">
+             <ext xmlns=""ihelper:notice:cer:change"">
                 <orderID>{3}</orderID>
                 <cerObj UserID = ""{4}"" alias = ""{5}"" imgUrl = ""{6}"">
                 </cerObj>
@@ -261,12 +314,14 @@ namespace Dianzhu.CSClient.Presenter
             //将新分配的客服发送给客户端.
             foreach (KeyValuePair<DZMembership,DZMembership> rs in reassignList)
             {
+                ServiceOrder order = bllReceptionStatus.GetOrder(rs.Key, rs.Value).Order;
                 ReceptionChat rc = new ReceptionChatReAssign
                 {
                     From = customerService,
                     ChatType = Model.Enums.enum_ChatType.ReAssign,
                     ReAssignedCustomerService = rs.Value,
                     To = rs.Key,
+                    ServiceOrder= order,
                     SendTime = DateTime.Now
                 };
                 SendMessage(rc);

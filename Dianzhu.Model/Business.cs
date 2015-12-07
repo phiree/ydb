@@ -5,8 +5,9 @@ using System.Text;
  
 namespace Dianzhu.Model
 {
+    
     /// <summary>
-    /// 商户基类.泛指可以提供服务的单位,可以是公司 也可以是个人
+    /// 店铺基类.泛指可以提供服务的单位,可以是公司 也可以是个人
     /// </summary>
     public class Business_Abs
     {
@@ -42,8 +43,16 @@ namespace Dianzhu.Model
         /// 商户所有者.
         /// </summary>
         public virtual DZMembership Owner { get; set; }
+
+        /// <summary>
+        /// 店铺是否可用
+        /// </summary>
         public virtual bool Enabled { get; set; }
 
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public virtual DateTime CreatedTime { get; set; }
     }
 
     /// <summary>
@@ -382,7 +391,7 @@ namespace Dianzhu.Model
     }
 
     /// <summary>
-    /// 商家的一些图片
+    /// 店铺的一些图片
     /// </summary>
     public class BusinessImage
     {
@@ -421,4 +430,11 @@ namespace Dianzhu.Model
         public virtual bool IsCurrent { get; set; }
     }
 
+    /// <summary>
+    /// 个人店铺
+    /// </summary>
+    public class BusinessIndividual : Business_Abs
+    {
+
+    }
 }

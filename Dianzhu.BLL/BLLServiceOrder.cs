@@ -127,6 +127,43 @@ namespace Dianzhu.BLL
 
             DALServiceOrder.SaveOrUpdate(order);
         }
+        public IList<ServiceOrder> GetAll() //获取全部订单
+        {
+            return DALServiceOrder.GetAll<ServiceOrder>();
+        }
+
+        public IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status)
+        {
+            return DALServiceOrder
+               .GetAll<ServiceOrder>()
+               .Where(x => x.OrderStatus == status)
+               .ToList();
+        }
+
+        public IList<ServiceOrder> GetAllByTradeNo(string tradeno)  //根据交易号，查询订单对象
+        {
+            return DALServiceOrder
+               .GetAll<ServiceOrder>()
+               .Where(x => x.TradeNo == tradeno)
+               .ToList();
+        }
+
+
+
+        public IList<ServiceOrder> GetListForBusiness(Business business)
+        {
+             return DALServiceOrder.GetListForBusiness(business);
+        }
+
+        public void Delete(ServiceOrder order)
+        {
+            DALServiceOrder.Delete(order);
+        }
+
+        public virtual ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
+        {
+            return DALServiceOrder.GetDraftOrder(c, cs);
+        }
     }
 
 

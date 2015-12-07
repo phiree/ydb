@@ -51,13 +51,17 @@ namespace Dianzhu.Model.Enums
         /// </summary>
         Draft,//草稿,未创建.
 
+        //未完成订单状态
         Created,//已创建,待付款
         Payed,//已付款
-        CancelledNeedReturn,//已取消待退款
+        Canceled,//已取消待退款
         Assigned,//已安排工作人员
-        CancelledNeedReAssign,//客户已取消 等待撤销工作人员分配.
+        isCancel,//客户已取消 等待撤销工作人员分配.
+
+        //已完成订单状态5
         Finished,//已完成
         Aborded,//已中止
+        Appraise,//评价
 
         Wt,//Wait 
         Ry,//Ready 
@@ -135,6 +139,25 @@ namespace Dianzhu.Model.Enums
         /// 系统外服务,系统外用户
         /// </summary>
         OSOM, 
+    }
+
+    /// <summary>
+    /// 用户类型
+    /// </summary>
+    public enum enum_UserType
+    {
+        /// <summary>
+        /// 普通用户
+        /// </summary>
+        customer,
+        /// <summary>
+        /// 商户
+        /// </summary>
+        business,
+        /// <summary>
+        /// 客服
+        /// </summary>
+        customerservice
     }
 
 

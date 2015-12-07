@@ -12,9 +12,11 @@ namespace Dianzhu.DAL.Mapping
        public ServiceOrderMap()
        {
            Id(x => x.Id);
-           References<DZMembership>(x => x.Customer);
-           Map(x => x.OrderCreated);
+           References<DZMembership>(x => x.Customer);            
+            Map(x => x.OrderCreated);
             Map(x => x.OrderFinished);
+            Map(x => x.OrderServerStartTime);
+            Map(x => x.OrderServerFinishedTime);
             Map(x => x.Memo);
             Map(x => x.OrderStatus);
             Map(x => x.TargetAddress);
@@ -37,7 +39,7 @@ namespace Dianzhu.DAL.Mapping
            Map(x => x.CustomerPhone);
             References<DZMembership>(x => x.CustomerService);
             Map(x => x.TradeNo);
-            
+            Map(x => x.RefundMemo);
 
 
            

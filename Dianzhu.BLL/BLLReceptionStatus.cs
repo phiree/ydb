@@ -51,9 +51,9 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="c"></param>
         /// <param name="cs"></param>
-        public void SaveReAssign(DZMembership c,DZMembership cs)
+        public void SaveReAssign(DZMembership c,DZMembership cs,ServiceOrder order)
         {
-            ReceptionStatus r = new ReceptionStatus { Customer = c, CustomerService = cs };
+            ReceptionStatus r = new ReceptionStatus { Customer = c, CustomerService = cs ,Order = order};
             ReceptionStatus or = dalRS.GetOneByCustomerAndCS(cs, c);
             if (or == null)
             {
@@ -67,6 +67,11 @@ namespace Dianzhu.BLL
             
         }
 
+        public void SaveByRS(ReceptionStatus o)
+        {
+            dalRS.Update(o);
+        }
+
         /// <summary>
         /// 删除分配
         /// </summary>
@@ -77,7 +82,24 @@ namespace Dianzhu.BLL
             dalRS.Delete(r);
         }
 
-        
+        public void UpdateOrder(DZMembership c,DZMembership cs,ServiceOrder order)
+        {
+            ReceptionStatus re = dalRS.GetOneByCustomerAndCS(cs, c);
+            re.Order = order;
+            re.LastUpdateTime = DateTime.Now;
+
+            dalRS.Update(re);
+        }
+
+        public ReceptionStatus GetRSByDiandian(DZMembership dd)
+        {
+            return dalRS.GetReceptionStatusByDiandian(dd);
+        }
+
+        public ReceptionStatus GetOrder(DZMembership c,DZMembership cs)
+        {
+            return dalRS.GetOrder(c, cs);
+        }
 
     }
     /// <summary>
@@ -95,6 +117,8 @@ namespace Dianzhu.BLL
 
         //在线客服列表
         IList<DZMembership> customerServiceList;
+        //点点
+        public DZMembership diandian;
         //分配策略
         IAssignStratage stratage;
         //IM会话.
@@ -147,8 +171,30 @@ namespace Dianzhu.BLL
                 return customerServiceList;
             }
         }
-       
-         
+
+        public virtual DZMembership Diandian
+        {
+            get
+            {
+                if (diandian == null)
+                {
+                    diandian = new DZMembership();
+                    //convert sesionUser to dzmembership
+                    foreach (OnlineUserSession user in imSession.GetOnlineSessionUser())
+                    {
+                        if (user.ressource.ToLower() == "ydb_imserver")
+                        {
+                            diandian = dalMember.GetOne(new Guid(user.username));
+                            break;
+                        }
+                    }
+                }
+                return diandian;
+            }
+        }
+
+
+
 
         /// <summary>
         /// 客户登录
@@ -159,7 +205,7 @@ namespace Dianzhu.BLL
         {
              
             Dictionary < DZMembership,DZMembership> assigned= stratage.Assign(new List<DZMembership>(new DZMembership[] { customer})
-                , CustomerServiceList);
+                , CustomerServiceList,Diandian);
             //获取用户的接待记录.应该为空,但是当用户异常退出时会删除失败,保留了历史数据.
             dalRS.DeleteAllCustomerAssign(customer);
              ReceptionStatus newRs = new ReceptionStatus
@@ -170,6 +216,7 @@ namespace Dianzhu.BLL
                 };
             
             dalRS.SaveOrUpdate(newRs);
+
             return assigned;
         }
         /// <summary>
@@ -182,22 +229,31 @@ namespace Dianzhu.BLL
             //remove cs from list
             CustomerServiceList.Remove(customerservice);
             //get customers recepted by the cs , from database
-            IList<ReceptionStatus> customerWithCS = dalRS.GetListByCustomerService(customerservice); 
+            IList<ReceptionStatus> customerWithCS = dalRS.GetListByCustomerService(customerservice);
+
             //re assign
             Dictionary<DZMembership, DZMembership> newAssign
-                = stratage.Assign(customerWithCS.Select(x=>x.Customer).ToList(), CustomerServiceList);
+                = stratage.Assign(customerWithCS.Select(x=>x.Customer).ToList(), CustomerServiceList,Diandian);
+            
             // save assign to database 
             foreach (KeyValuePair<DZMembership, DZMembership> pair in newAssign)
             {
-                ReceptionStatus rs = new ReceptionStatus { Customer=pair.Key, CustomerService= pair.Value,
-                 LastUpdateTime=DateTime.Now};
+                ReceptionStatus rs = new ReceptionStatus
+                {
+                    Customer = pair.Key,
+                    CustomerService = pair.Value,
+                    Order = new BLLReceptionStatus().GetOrder(pair.Key, customerservice).Order,
+                    LastUpdateTime = DateTime.Now
+                };
                 dalRS.Save(rs);
             }
+
             // delete old assign to database
             foreach (ReceptionStatus oldrs in customerWithCS)
             {
                 dalRS.Delete(oldrs);
             }
+
             //return new assign
             return newAssign;
         }
@@ -284,7 +340,7 @@ namespace Dianzhu.BLL
     /// </summary>
     public interface IAssignStratage
     {
-        Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList);
+        Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList,DZMembership diandian);
     }
   
 
@@ -300,21 +356,30 @@ namespace Dianzhu.BLL
         /// <param name="customerList">待分配的客户列表</param>
         /// <param name="csList">在线的客服列表</param>
         /// <returns>分配后的字典表,key 是客户,value 是客服</returns>
-        public Dictionary<DZMembership,DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList)
+        public Dictionary<DZMembership,DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian)
         {
             Dictionary<DZMembership, DZMembership> assignList = new Dictionary<DZMembership, DZMembership>();
             if (csList.Count == 0)
             {
                 //r如果没有在线客服 怎么处理
                 throw new Exception("客服离线");
+
+                //foreach (DZMembership customer in customerList)
+                //{
+                //    assignList.Add(customer, diandian);
+                //}
             }
-            int totalCS = csList.Count;
-            foreach (DZMembership customer in customerList)
+            else
             {
-                int i = r.Next(totalCS);
-                var assignedCs= csList[i];
-                assignList.Add(customer, assignedCs);
+                int totalCS = csList.Count;
+                foreach (DZMembership customer in customerList)
+                {
+                    int i = r.Next(totalCS);
+                    var assignedCs= csList[i];
+                    assignList.Add(customer, assignedCs);
+                }
             }
+            
             return assignList;
             
 
@@ -329,19 +394,42 @@ namespace Dianzhu.BLL
             dalRS = dal;
         }
 
-        public Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList)
+        public Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian)
         {
             Dictionary<DZMembership, DZMembership> assignList = new Dictionary<DZMembership, DZMembership>();
             if (csList.Count == 0)
             {
                 //r如果没有在线客服 怎么处理
-                throw new Exception("客服离线");
+                //throw new Exception("客服离线");
+
+                foreach (DZMembership customer in customerList)
+                {
+                    assignList.Add(customer, diandian);
+                }
             }
-            
-            //todo:后面可继续优化，当前是取客服接待人数最少的分配
-            foreach (DZMembership customer in customerList)
+            else
             {
-                assignList.Add(customer, dalRS.GetCSMinCount());
+                //todo:后面可继续优化，当前是取客服接待人数最少的分配
+                var csDBList = dalRS.GetCSMinCount(diandian);
+                foreach (DZMembership customer in customerList)
+                {
+                    //assignList.Add(customer, dalRS.GetCSMinCount());
+                    if (csList.Count > csDBList.Count)
+                    {
+                        foreach(DZMembership cs in csList)
+                        {
+                            if (!csDBList.Contains(cs))
+                            {
+                                assignList.Add(customer, cs);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        assignList.Add(customer, csDBList[0]);
+                    }
+                }
             }
 
             return assignList;

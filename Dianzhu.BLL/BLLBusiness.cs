@@ -88,6 +88,10 @@ namespace Dianzhu.BLL
 
         }
 
+        public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
+        {
+            return DALBusiness.GetListByPage(pageIndex, pageSize, out totalRecord);
+        }
 
     }
 

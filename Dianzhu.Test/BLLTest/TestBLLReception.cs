@@ -64,8 +64,15 @@ namespace Dianzhu.Test.BLLTest
         public void AssignByCSId()
         {
             var dal = new DALReceptionStatus();
-            dal.GetCSMinCount();
-            Console.WriteLine(dal.GetCSMinCount().Id);
+            //Guid guid = new Guid("eb2ae597-5adb-4242-b22e-a4f901275654");
+            //var dzList = dal.GetCSMinCount(guid);
+            //DZMembership d;
+            //for(int i=0;i<dzList.Count;i++)
+            //{
+            //    d = new DZMembership();
+            //    d = dzList[i];
+            //    Console.WriteLine(d.DisplayName);
+            //}
         }
     }
 }

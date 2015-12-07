@@ -9,42 +9,66 @@ using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 /// <summary>
- ///orm接口 公用的类
+///orm接口 公用的类
 /// </summary>
 public class RespDataORM_Order
 {
-   
-    public string orderID { get; set; }
-    public string title { get; set; }
-    public string type { get; set; }
-    public string startTime { get; set; }
-    public string endTime { get; set; }
-    public string money { get; set; }
-    public string status { get; set; }
-    public string address { get; set; }
-    public string exDoc { get; set; }
-   // public string paylink { get; set; }
-    public string km { get; set; }
-    public RespDataORM_UserObj userObj { get; set; }
-    public RespDataORM_storeObj storeObj { get; set; }
-    public RespDataORM002001_cerObj cerObj { get; set; }
+    public RespDataORM_orderObj orderObj { get; set; }
     public RespDataORM_Order Adap(ServiceOrder order)
     {
-        //todo: 如果是外部订单?
-        this.km = string.Empty;
+        if (order != null)
+        {
+            this.orderObj = new RespDataORM_orderObj().Adap(order);
+        }
+        return this;
+    }
+}
+public class RespDataORM_orderObj
+{
+    public string orderID { get; set; }
+    public string title { get; set; }
+    public string status { get; set; }
+    public string startTime { get; set; }
+    public string endTime { get; set; }
+    public string exDoc { get; set; }
+    public string money { get; set; }
+    public string address { get; set; }
+    public string km { get; set; }
+    // public string paylink { get; set; }
+    public RespDataORM_svcObj svcObj { get; set; }
+    public RespDataORM_UserObj userObj { get; set; }
+    public RespDataORM_storeObj storeObj { get; set; }    
+
+    public RespDataORM_orderObj Adap(ServiceOrder order)
+    {
         this.orderID = order.Id.ToString();
-    
-         
         this.title = order.ServiceName;
-         this.type =  order.Service !=null?order.Service.ServiceType.ToString():string.Empty;
-        this.startTime = order.Service != null ? order.Service.ServiceTimeBegin : string.Empty;
-        this.endTime = order.Service !=null?order.Service.ServiceTimeEnd : string.Empty;
-        ///这个是服务单价
-        this.money = order.OrderAmount.ToString("0.00");
         this.status = order.OrderStatus.ToString();
-        this.address = order.TargetAddress ?? string.Empty;
+        if (order.OrderCreated > DateTime.MinValue)
+        {
+            this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+        }
+        else
+        {
+            this.startTime = string.Empty;
+        }
+        if (order.OrderFinished > DateTime.MinValue)
+        {
+            this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+        }
+        else
+        {
+            this.endTime = string.Empty;
+        }
         this.exDoc = order.ServiceDescription ?? string.Empty;
-      //  this.paylink = order.BuildPayLink(System.Configuration.ConfigurationManager.AppSettings["PayServer"]);
+        this.money = order.OrderAmount.ToString("0.00");
+        this.address = order.TargetAddress ?? string.Empty;
+        this.km = string.Empty;
+
+        if (order != null)
+        {
+            this.svcObj = new RespDataORM_svcObj().Adap(order);
+        }
         if (order.Customer != null)
         {
             this.userObj = new RespDataORM_UserObj().Adap(order.Customer);
@@ -54,13 +78,11 @@ public class RespDataORM_Order
         {
             this.storeObj = new RespDataORM_storeObj().Adap(order.Service.Business);
         }
-        if (order.CustomerService != null)
-        {
-            this.cerObj = new RespDataORM002001_cerObj().Adap(order.CustomerService);
-        }
+        
         return this;
     }
 }
+
 public class RespDataORM_UserObj
 {
     public string userID { get; set; }
@@ -78,6 +100,7 @@ public class RespDataORM_UserObj
     }
     
 }
+
 public class RespDataORM_storeObj
 {
     public string storeID { get; set; }
@@ -90,6 +113,42 @@ public class RespDataORM_storeObj
         this.imgUrl = business.BusinessAvatar.ImageName;
         return this;
     }
+}
+
+public class RespDataORM_svcObj
+{
+    public string svcID { get; set; }
+    public string name { get; set; }
+    public string type { get; set; }
+    public string startTime { get; set; }
+    public string endTime { get; set; }
+    
+
+    public RespDataORM_svcObj Adap(ServiceOrder order)
+    {
+        this.svcID = order.Service != null ? order.Service.Id.ToString() : order.Id.ToString();
+        this.name = order.Service != null ? order.Service.Name : order.ServiceName;
+        this.type = order.Service != null ? order.Service.ServiceType.ToString() : string.Empty;
+        if (order.OrderServerStartTime > DateTime.MinValue)
+        {
+            this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderServerStartTime);
+        }
+        else
+        {
+            this.startTime = string.Empty;
+        }
+        if (order.OrderServerFinishedTime > DateTime.MinValue)
+        {
+            this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderServerFinishedTime);
+        }
+        else
+        {
+            this.endTime = string.Empty;
+        }
+
+        return this;
+    }
+    
 }
 
 

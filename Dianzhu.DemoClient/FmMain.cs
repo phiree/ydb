@@ -89,6 +89,7 @@ namespace Dianzhu.DemoClient
                     ""stamp_TIMES"": ""{3}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
                 }}", customerId, tbxPwd.Text, tbxOrderId.Text, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString()));
+
             string state_Code = result["state_CODE"].ToString();
             if (state_Code != "009000")
             {
@@ -129,12 +130,10 @@ namespace Dianzhu.DemoClient
 
                     break;
                 case "ihelper:chat:media": break;
-                case "ihelper:cer:change":
+                case "ihelper:notice:cer:change":
                     csId = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("UserID");
                     csDisplayName = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
                     lblAssignedCS.Text = csDisplayName;
-                    break;
-                case "ihelper:cer:notce":
                     break;
             }
             AddLog(msg);
@@ -158,6 +157,7 @@ namespace Dianzhu.DemoClient
             //GetCustomerInfo(tbxUserName.Text);
             GetCustomerService();
             lblAssignedCS.Text = csDisplayName;
+            //lblAssignedCS.Text = "暂未分配客服";
 
 
             Presence p = new Presence(ShowType.chat, "Online");
@@ -188,6 +188,17 @@ namespace Dianzhu.DemoClient
         /// <param name="message"></param>
         void AddLog(agsc.Message message)
         {
+            //if (csDisplayName == null)
+            //{
+            //    GetCustomerService();
+            //    lblAssignedCS.Text = csDisplayName;
+
+            //    Presence p = new Presence(ShowType.chat, "Online");
+            //    p.Type = PresenceType.available;
+            //    p.To = new Jid(csId + "@" + GlobalViables.ServerName);
+            //    p.From = new Jid(customerId + "@" + GlobalViables.ServerName);
+            //    GlobalViables.XMPPConnection.Send(p);
+            //}
             string user = StringHelper.EnsureNormalUserName(message.From.User);
             string body = message.Body;
             string messageType = message.GetAttribute("MessageType");
@@ -243,11 +254,11 @@ namespace Dianzhu.DemoClient
                             break;
                     }
                     break;
-                case "ihelper:cer:change":
+                case "ihelper:notice:cer:change":
                     csDisplayName = message.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
                     lblMessage.Text += "客服更换为:" + csDisplayName;
                     break;
-                case "ihelper:cer:notce":
+                case "ihelper:notice:system":
                     lblMessage.Text += "通知:" + message.Body;
                     break;
             }
@@ -334,11 +345,7 @@ namespace Dianzhu.DemoClient
                 }
                 string s = Convert.ToBase64String(bytes);
 
-
-                result = GlobalViables.MediaGetUrl + MediaServer.HttpUploader.Upload(
-                  GlobalViables.MediaUploadUrl, 
-                  s, dlgSelectPic.FileName,
-                  domainName, fileType);
+                result = GlobalViables.MediaGetUrl + MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainName, fileType);
 
             }
             return  result;

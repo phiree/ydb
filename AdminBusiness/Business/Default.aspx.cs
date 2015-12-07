@@ -68,6 +68,7 @@ public partial class Business_Default : BasePage
         b.Address = tbxAddress.Value;
         
         b.Description = tbxDescription.Value;
+        b.CreatedTime = DateTime.Now;
         bllBusiness.SaveOrUpdate(b);
 
         Response.Redirect("/business/detail.aspx?businessid="+b.Id);

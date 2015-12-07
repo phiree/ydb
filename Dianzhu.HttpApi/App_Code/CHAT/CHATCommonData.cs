@@ -28,9 +28,10 @@ public class RespDataCHAT_chatObj
         this.from = chat.From.Id.ToString();
         this.orderID = chat.ServiceOrder == null ? string.Empty : chat.ServiceOrder.Id.ToString();
         this.type = "chat";
-        this.date = chat.SavedTime.ToString("yyyyMMddhhmmss");
+        this.date = chat.SavedTime.ToString("yyyyMMddHHmmss");
         if (chat is ReceptionChatMedia)
         {
+            this.type = ((ReceptionChatMedia)chat).MediaType;
             this.body = ((ReceptionChatMedia)chat).MedialUrl;
         }
         else if (chat is ReceptionChatReAssign)
@@ -44,5 +45,5 @@ public class RespDataCHAT_chatObj
 
     }
 }
- 
+
 

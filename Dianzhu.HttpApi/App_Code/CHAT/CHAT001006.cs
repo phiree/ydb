@@ -37,21 +37,6 @@ public class ResponseCHAT001006:BaseResponse
             return;
         }
         
-        Guid andMemberId;
-        bool isGuidMember=Guid.TryParse( requestData.andID,out andMemberId);
-        if (!isGuidMember)
-        {
-            this.state_CODE = Dicts.StateCode[1];
-            this.err_Msg = "AndId格式有误";
-            return;
-        }
-        DZMembership andMember = p.GetUserById(andMemberId);
-        if(andMember==null)
-        {
-            this.state_CODE = Dicts.StateCode[1];
-            this.err_Msg = "没有找到该用户"+andMemberId;
-            return;
-        }
         int pageIndex = 0, pageSize = 10;
         try {
             pageIndex = Convert.ToInt32(requestData.pageNum);
@@ -64,11 +49,13 @@ public class ResponseCHAT001006:BaseResponse
         }
         try
         {
-            IList<ReceptionChat> chatList = bllReception.GetReceptionChatList(member,andMember, orderId, DateTime.MinValue
+            IList<ReceptionChat> chatList = bllReception.GetReceptionChatList(member,null, orderId, DateTime.MinValue
                 ,DateTime.MaxValue,pageIndex,pageSize, out rowCount);
 
+            var chatListNew = bllReception.GetReceptionChatListByTarget(chatList, requestData.target);
+
             RespDataCHAT001006 respData = new RespDataCHAT001006();
-              respData.AdapList(chatList);
+              respData.AdapList(chatListNew);
             this.RespData = respData;
             this.state_CODE = Dicts.StateCode[0];
             return;
@@ -86,7 +73,17 @@ public class ReqDataCHAT001006
     public string userID { get; set; }
     public string pWord { get; set; }
     public string orderID { get; set; }
-    public string andID { get; set; }
+    public string target { get; set; }
+    public CHATTarget Target
+    {
+        get
+        {
+            CHATTarget tar;
+            bool isType = Enum.TryParse<CHATTarget>(target, out tar);
+            if (!isType) { throw new Exception("不可识别的用户类型"); }
+            return tar;
+        }
+    }
     public string pageSize { get; set; }
     public string pageNum { get; set; }
 }

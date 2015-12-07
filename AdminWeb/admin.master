@@ -36,6 +36,7 @@
                 <ul>
                     <li><a href="/business">商家列表</a></li>
                     <li><a href="/membership">用户管理</a></li>
+                    <li><a href="/order/index.aspx">订单管理</a></li>
                     <li><a href="/area/">行政区域管理</a></li>
                     <li><a href="/servicetype/">服务类别管理</a></li>
                     <li><a href="/cashticket/assigner/">手动分配</a></li>
