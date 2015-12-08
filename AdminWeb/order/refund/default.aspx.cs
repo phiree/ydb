@@ -42,7 +42,7 @@ public partial class _Default : System.Web.UI.Page
             if (Request.QueryString["tradeno"] == "" || Request.QueryString["tradeno"] == null)
             {
                 
-                Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('此订单还未付款，无法退款！');window.opener=null;window.open('','_self');window.close();</script>");
+                Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('此订单状态无法进行退款！');window.opener=null;window.open('','_self');window.close();</script>");
                 
             }
 

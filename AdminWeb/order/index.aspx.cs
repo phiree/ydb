@@ -42,7 +42,7 @@ public partial class order_index : System.Web.UI.Page
         else
         {
 
-            StatusSelect.Value = "default.aspx?status=" + Request.QueryString["status"].ToString();
+            StatusSelect.Value = "index.aspx?status=" + Request.QueryString["status"].ToString();
             Dianzhu.Model.Enums.enum_OrderStatus status = (Dianzhu.Model.Enums.enum_OrderStatus)Enum.Parse(typeof(Dianzhu.Model.Enums.enum_OrderStatus), Request.QueryString["status"].ToString());
             allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status).OrderByDescending(x => x.OrderCreated).ToList();
             
@@ -56,17 +56,16 @@ public partial class order_index : System.Web.UI.Page
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-            ServiceOrder so = (ServiceOrder)e.Item.DataItem;
-            DZMembership dz = so.CustomerService;
-            if(dz!=null)
-            { string name = dz.UserName;}            
+            //ServiceOrder so = (ServiceOrder)e.Item.DataItem;
+            //Business bs = so.Service.Business;
+            //if(bs != null)
+            //{ string name = bs.Name;}            
 
         }
 
         if (e.Item.ItemType == ListItemType.Footer)
         {
             DropDownList ddlp = (DropDownList)e.Item.FindControl("ddlp");
-
             HyperLink lpfirst = (HyperLink)e.Item.FindControl("hlfir");
             HyperLink lpprev = (HyperLink)e.Item.FindControl("hlp");
             HyperLink lpnext = (HyperLink)e.Item.FindControl("hln");
