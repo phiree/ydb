@@ -42,12 +42,33 @@ namespace Dianzhu.CSClient.Presenter
                 ChatType = Model.Enums.enum_ChatType.Text,
                 From = customerService,
                 To = CurrentServiceOrder.Customer,
-                MessageBody = "创建新订单",
+                MessageBody = "创建新订单，订单Id："+newOrder.Id,
                 SendTime = DateTime.Now,
                 SavedTime = DateTime.Now,
                 ServiceOrder = newOrder
             };
             SendMessage(chat);
+
+            view.OrderNumber = newOrder.Id.ToString();
+            view.OrderStatus = Model.Enums.enum_OrderStatus.Draft.ToString();
+            CleanOrderData();
+        }
+
+        /// <summary>
+        /// 初始化值
+        /// </summary>
+        private void CleanOrderData()
+        {
+            view.Service = null;
+            view.ServiceName = string.Empty;
+            view.ServiceBusinessName = string.Empty;
+            view.ServiceDescription = string.Empty;
+            view.ServiceUnitPrice = "0.0000";
+            view.ServiceUrl = string.Empty;
+            view.OrderAmount = "0.0000";
+            view.TargetAddress = string.Empty;
+            view.Memo = string.Empty;
+            view.ServiceTime = string.Empty;            
         }
 
         /// <summary>

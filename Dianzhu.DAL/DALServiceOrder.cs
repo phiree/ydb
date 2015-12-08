@@ -81,5 +81,27 @@ namespace Dianzhu.DAL
 
             return result;
         }
+
+        /// <summary>
+        /// 获得草稿订单
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public ServiceOrder GetDraftOrder(DZMembership c,DZMembership cs)
+        {
+            var order = Session.QueryOver<ServiceOrder>().
+                Where(x => x.Customer == c).
+                And(x => x.CustomerService == cs).
+                And(x => x.OrderStatus == enum_OrderStatus.Draft).List();
+
+            if (order.Count > 0)
+            {
+                return (ServiceOrder)order[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

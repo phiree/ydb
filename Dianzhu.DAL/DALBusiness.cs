@@ -62,6 +62,22 @@ namespace Dianzhu.DAL
         {
             return Session.QueryOver<Business>().Where(x => x.Owner.Id == ownerId).And(x => x.Enabled == true).List();
         }
-        
+
+        /// <summary>
+        /// 根据页码和页数查询商家列表
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalRecord"></param>
+        /// <returns></returns>
+        public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
+        {
+            //IQuery qry = Session.CreateQuery("select b from Business b order by b.CreatedTime desc");
+            IQuery qryTotal = Session.CreateQuery("select count(*) from Business b ");
+            //IList<Business> busList = qry.Future<Business>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            IList<Business> busList = Session.QueryOver<Business>().Where(x => x.Enabled == true).OrderBy(x => x.CreatedTime).Desc.List();
+            totalRecord = qryTotal.FutureValue<long>().Value;
+            return busList;
+        }
     }
 }

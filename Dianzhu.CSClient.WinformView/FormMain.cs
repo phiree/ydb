@@ -114,7 +114,7 @@ namespace Dianzhu.CSClient.WinformView
         }
         public string MessageTextBox
         {
-            get { return tbxChatMsg.Text; }
+            get{ return tbxChatMsg.Text; }
             set { tbxChatMsg.Text = value; }
         }
         string mediaServerRoot;
@@ -161,6 +161,10 @@ namespace Dianzhu.CSClient.WinformView
 
             lblFrom.Text = chat.From.UserName;
 
+            if (chat.MessageBody == null)
+            {
+                return;
+            }
             LoadBody(chat.MessageBody, pnlOneChat);
 
             //lblMessage.Text = chat.MessageBody;
@@ -785,6 +789,20 @@ namespace Dianzhu.CSClient.WinformView
         public void ShowMsg (string msg)
         {
             MessageBox.Show(msg);
+        }
+
+        private void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13 && MessageTextBox.Trim() != string.Empty)
+            {
+                MessageTextBox = MessageTextBox.Substring(0, MessageTextBox.Length - 2);
+                btnSend.PerformClick();
+            }
+        }
+
+        private void tbxChatMsg_TextChanged(object sender, EventArgs e)
+        {
+            lblCountText.Text = MessageTextBox.Length + "/255";
         }
     }
 }

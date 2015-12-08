@@ -159,6 +159,11 @@ namespace Dianzhu.BLL
         {
             DALServiceOrder.Delete(order);
         }
+
+        public virtual ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
+        {
+            return DALServiceOrder.GetDraftOrder(c, cs);
+        }
     }
 
 

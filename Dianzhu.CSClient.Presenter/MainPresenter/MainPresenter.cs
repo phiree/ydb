@@ -95,10 +95,12 @@ namespace Dianzhu.CSClient.Presenter
                 rChatReAss.ServiceOrder = rs.Order;
                 rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
 
-                SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+                //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+                SaveMessage(rChatReAss, true);
+                instantMessage.SendMessage(rChatReAss);
 
-                //OrderList.Add(rs.Order);
-                //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                OrderList.Add(rs.Order);
+                view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
             }
         }
 
