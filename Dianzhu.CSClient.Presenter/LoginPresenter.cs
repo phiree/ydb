@@ -95,7 +95,7 @@ namespace Dianzhu.CSClient.Presenter
             DZMembership customerService = new BLLFactory().BLLMember.GetUserById(new Guid( jidUser));
             GlobalViables.CurrentCustomerService = customerService;
 
-            string id = "eb2ae597-5adb-4242-b22e-a4f901275654";
+            string id = "dc73ba0f-91a4-4e14-b17a-a567009dfd6a";
             DZMembership diandian = new BLLFactory().BLLMember.GetUserById(new Guid(id));
             GlobalViables.Diandian = diandian;
 

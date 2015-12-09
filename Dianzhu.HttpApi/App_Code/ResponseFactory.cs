@@ -69,6 +69,9 @@ public class ResponseFactory
             case "lct001008":
                 return new ResponseLCT001008(request);
 
+            case "sys001001":
+                return new ResponseSYS001001(request);
+
             default: break;
         }
         throw new Exception("No Such Api");

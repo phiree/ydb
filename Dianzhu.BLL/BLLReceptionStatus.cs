@@ -182,7 +182,7 @@ namespace Dianzhu.BLL
                     //convert sesionUser to dzmembership
                     foreach (OnlineUserSession user in imSession.GetOnlineSessionUser())
                     {
-                        if (user.ressource.ToLower() == "ydb_imserver")
+                        if (user.ressource.ToLower() == "ydb_diandian")
                         {
                             diandian = dalMember.GetOne(new Guid(user.username));
                             break;

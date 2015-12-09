@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using agsXMPP;
 using agsXMPP.protocol.client;
-namespace Dianzhu.Diandian
+namespace WindowsService.Diandian
 {
    public  class MessageBuilder
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Dianzhu.Diandian.Properties {
+namespace DianzhuService.Diandian.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -5,7 +5,7 @@ using System.Text;
 using Newtonsoft.Json.Converters;
 using System.Net;
 using System.IO;
-namespace Dianzhu.Diandian
+namespace WindowsService.Diandian
 {
    public  class API
     {

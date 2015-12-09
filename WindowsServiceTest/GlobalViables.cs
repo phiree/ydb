@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using agsXMPP;
-namespace Dianzhu.Diandian
+﻿using agsXMPP;
+
+namespace WindowsService.Diandian
 {
-    
+
     public class GlobalViables
     {
         public static readonly string ServerName = "ydban.cn";  //home'pc: "20141220-pc";
