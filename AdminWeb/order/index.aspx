@@ -15,10 +15,7 @@ function delInfo()
 	var list = document.getElementsByName("chbItem");
 	//alert(list.length);
 	 if ((list.length+"")=="undefined")
-	{
-		
-		
-		
+	{	
 		if (list.checked)
 		{
 		flag=false;
@@ -110,8 +107,7 @@ function delInfo()
 <td><%# Eval("OrderStatus")%></td>
 <td><%# Eval("OrderCreated")%></td>
  <td><%# Eval("OrderAmount")%></td>
-<td><%#DataBinder.Eval(Container.DataItem, "CustomerService.Id")%>
-    <asp:Label ID="bb" runat="server" Text="Label"></asp:Label>
+<td><%#DataBinder.Eval(Container.DataItem, "Service.Business.Name")%>
 </td>
 <td> <asp:Button ID="delbt" runat="server" Text="删除" CommandName="delete" CommandArgument='<%# Eval("id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')" />
     <a target="_blank" href="refund/default.aspx?id=<%# Eval("Id")%>&tradeno=<%# Eval("TradeNo")%>&orderamount=<%# Eval("OrderAmount")%>">退款</a>
