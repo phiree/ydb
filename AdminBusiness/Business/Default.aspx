@@ -10,14 +10,15 @@
     <meta name="keywords" content="一点办" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
-    <link href="/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="/js/metisMenu/metisMenu.css" rel="stylesheet" type="text/css" />
-    <link href="/css/base.css" rel="stylesheet" type="text/css" />
-    <link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />
-    <link href="/css/business.css" rel="stylesheet" type="text/css" />
-    <link href="/css/animate.css" rel="stylesheet" type="text/css" />
-    <link href="/css/less/biz-list.css" rel="stylesheet" type="text/css" />
-    <link href="/css/validation.css" rel="stylesheet" type="text/css" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <!--<link href="/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />-->
+    <!--<link href="/js/metisMenu/metisMenu.css" rel="stylesheet" type="text/css" />-->
+    <!--<link href="/css/base.css" rel="stylesheet" type="text/css" />-->
+    <!--<link href="/css/onePointFive-custom.css" rel="stylesheet" type="text/css" />-->
+    <!--<link href="/css/business.css" rel="stylesheet" type="text/css" />-->
+    <!--<link href="/css/animate.css" rel="stylesheet" type="text/css" />-->
+    <!--<link href="/css/less/biz-list.css" rel="stylesheet" type="text/css" />-->
+    <!--<link href="/css/validation.css" rel="stylesheet" type="text/css" />-->
     <script src="/js/html5shiv.min.js"></script>
     <script src="/js/respond.min.js"></script>
 </head>
