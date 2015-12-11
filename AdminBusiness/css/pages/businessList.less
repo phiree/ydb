@@ -1,179 +1,179 @@
-/* 店铺展示列表 */
-.biz-list-wrap {
-  background: #fff;
-  position: relative;
-  //border: 1px solid #DEDEDE;
-}
-
-.biz-list-bg {
-  position: absolute;
-  top: 0;
-  left: 140px;
-  width: 4px;
-  height: 100%;
-  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(170, 170, 170, 1) 16%, rgba(170, 170, 170, 1) 79%, rgba(0, 0, 0, 0) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(16%, rgba(170, 170, 170, 1)), color-stop(79%, rgba(170, 170, 170, 1)), color-stop(100%, rgba(0, 0, 0, 0)));
-  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(170, 170, 170, 1) 16%, rgba(170, 170, 170, 1) 79%, rgba(0, 0, 0, 0) 100%);
-  background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(170, 170, 170, 1) 16%, rgba(170, 170, 170, 1) 79%, rgba(0, 0, 0, 0) 100%);
-  background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(170, 170, 170, 1) 16%, rgba(170, 170, 170, 1) 79%, rgba(0, 0, 0, 0) 100%);
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(170, 170, 170, 1) 16%, rgba(170, 170, 170, 1) 79%, rgba(0, 0, 0, 0) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#00000000', GradientType=0);
-  background: #ccc;
-}
-
-.biz-list {
-  background: #f2f2f2;
-  margin-left: 140px;
-  padding: 50px 0;
-}
-
-.biz-list-item {
-  margin-bottom: 100px;
-  position: relative;
-  z-index: 10;
-}
-
-.biz-item-left {
-  margin-left: -140px;
-  width: 140px;
-  float: left;
-  .biz-tip {
-    float: right;
-    margin-right: -25px;
-    margin-top: 70px;
-  }
-  .biz-tip-h {
-    display: inline-block;
-    font-size: 20px;
-    vertical-align: middle;
-    margin-right: 20px;
-  }
-  .biz-tip-icon {
-    width: 47px;
-    height: 47px;
-    background: url("../../image/yidianban_v1.2/biz-list/biz-list_3.png") no-repeat center;
-  }
-}
-
-.biz-item-right {
-  text-align: center;
-
-  .biz-item-main {
-    margin: 0 auto;
-    width: 730px;
-    background: #fff;
-    position: relative;
-    display: inline-block;
-    border-radius: 5px;
-
-  }
-  .biz-item-h {
-    color: #fff;
-    font-size: 28px;
-    width: 682px;
-    height: 77px;
-    line-height: 77px;
-    background: url("../../image/yidianban_v1.2/biz-list/biz-list_1.png") no-repeat center;
-    margin: 0 auto;
-    margin-top: -35px;
-  }
-  .biz-item-m {
-    width: 730px;
-    height: 220px;
-    background: #fff;
-    .biz-info {
-      padding: 20px 40px;
-    }
-    .biz-info-h {
-      text-align: left;
-      font-size: 18px;
-      line-height: 50px;
-    }
-    .biz-info-d {
-      line-height: 50px;
-      text-align: left;
-      color: #aaa;
-    }
-    .biz-img {
-      img {
-        border-radius: 50%;
-        border: 10px solid #fff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      }
-    }
-    //信息字体样式
-    .d-p {
-      font-size: 24px;
-      color: #5bb6fa;
-    }
-  }
-  .biz-item-svc {
-    width: 650px;
-    height: 85px;
-    background: url("../../image/yidianban_v1.2/biz-list/biz-list_7.png") no-repeat center bottom;
-    margin: 0 auto;
-    margin-bottom: -20px;
-  }
-
-  .svc-list {
-
-    .svc-li {
-      width: 100px;
-      height: 100px;
-      display: inline-block;
-      margin-top: -30px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .svc-item-h {
-      position: absolute;
-      bottom: 13px;
-      width: 100%;
-      text-align: center;
-    }
-  }
-
-  .biz-item-href {
-    width: 56px;
-    height: 150px;
-    padding: 22px 0;
-    background: url("../../image/yidianban_v1.2/biz-list/biz-list_2.png") no-repeat center;
-    position: absolute;
-    right: 0;
-    top: 80px;
-    margin-right: -8px;
-    writing-mode: horizontal-tb;
-
-    a {
-      color: #fff;
-      display: inline-block;
-      width: 22px;
-      font-size: 22px;
-      letter-spacing: 22px;
-      text-decoration: none;
-    }
-  }
-
-  .biz-item-delete {
-    width: 56px;
-    height: 70px;
-
-    background: url("../../image/yidianban_v1.2/biz-list/biz-list_del.png") no-repeat center;
-    position: absolute;
-    right: 0;
-    top: 236px;
-    margin-right: -8px;
-    writing-mode: horizontal-tb;
-    border: none;
-    a {
-      color: #fff;
-      display: inline-block;
-      width: 22px;
-      font-size: 22px;
-      letter-spacing: 22px;
-    }
-  }
-
-}
-
+///* 店铺展示列表 */
+//.biz-list-wrap {
+//  background: #fff;
+//  position: relative;
+//  //border: 1px solid #DEDEDE;
+//}
+//
+//.biz-list-bg {
+//  position: absolute;
+//  top: 0;
+//  left: 140px;
+//  width: 4px;
+//  height: 100%;
+//  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(170, 170, 170, 1) 16%, rgba(170, 170, 170, 1) 79%, rgba(0, 0, 0, 0) 100%);
+//  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(16%, rgba(170, 170, 170, 1)), color-stop(79%, rgba(170, 170, 170, 1)), color-stop(100%, rgba(0, 0, 0, 0)));
+//  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(170, 170, 170, 1) 16%, rgba(170, 170, 170, 1) 79%, rgba(0, 0, 0, 0) 100%);
+//  background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(170, 170, 170, 1) 16%, rgba(170, 170, 170, 1) 79%, rgba(0, 0, 0, 0) 100%);
+//  background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(170, 170, 170, 1) 16%, rgba(170, 170, 170, 1) 79%, rgba(0, 0, 0, 0) 100%);
+//  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(170, 170, 170, 1) 16%, rgba(170, 170, 170, 1) 79%, rgba(0, 0, 0, 0) 100%);
+//  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#00000000', GradientType=0);
+//  background: #ccc;
+//}
+//
+//.biz-list {
+//  background: #f2f2f2;
+//  margin-left: 140px;
+//  padding: 50px 0;
+//}
+//
+//.biz-list-item {
+//  margin-bottom: 100px;
+//  position: relative;
+//  z-index: 10;
+//}
+//
+//.biz-item-left {
+//  margin-left: -140px;
+//  width: 140px;
+//  float: left;
+//  .biz-tip {
+//    float: right;
+//    margin-right: -25px;
+//    margin-top: 70px;
+//  }
+//  .biz-tip-h {
+//    display: inline-block;
+//    font-size: 20px;
+//    vertical-align: middle;
+//    margin-right: 20px;
+//  }
+//  .biz-tip-icon {
+//    width: 47px;
+//    height: 47px;
+//    background: url("../../image/yidianban_v1.2/biz-list/biz-list_3.png") no-repeat center;
+//  }
+//}
+//
+//.biz-item-right {
+//  text-align: center;
+//
+//  .biz-item-main {
+//    margin: 0 auto;
+//    width: 730px;
+//    background: #fff;
+//    position: relative;
+//    display: inline-block;
+//    border-radius: 5px;
+//
+//  }
+//  .biz-item-h {
+//    color: #fff;
+//    font-size: 28px;
+//    width: 682px;
+//    height: 77px;
+//    line-height: 77px;
+//    background: url("../../image/yidianban_v1.2/biz-list/biz-list_1.png") no-repeat center;
+//    margin: 0 auto;
+//    margin-top: -35px;
+//  }
+//  .biz-item-m {
+//    width: 730px;
+//    height: 220px;
+//    background: #fff;
+//    .biz-info {
+//      padding: 20px 40px;
+//    }
+//    .biz-info-h {
+//      text-align: left;
+//      font-size: 18px;
+//      line-height: 50px;
+//    }
+//    .biz-info-d {
+//      line-height: 50px;
+//      text-align: left;
+//      color: #aaa;
+//    }
+//    .biz-img {
+//      img {
+//        border-radius: 50%;
+//        border: 10px solid #fff;
+//        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+//      }
+//    }
+//    //信息字体样式
+//    .d-p {
+//      font-size: 24px;
+//      color: #5bb6fa;
+//    }
+//  }
+//  .biz-item-svc {
+//    width: 650px;
+//    height: 85px;
+//    background: url("../../image/yidianban_v1.2/biz-list/biz-list_7.png") no-repeat center bottom;
+//    margin: 0 auto;
+//    margin-bottom: -20px;
+//  }
+//
+//  .svc-list {
+//
+//    .svc-li {
+//      width: 100px;
+//      height: 100px;
+//      display: inline-block;
+//      margin-top: -30px;
+//      overflow: hidden;
+//      position: relative;
+//    }
+//
+//    .svc-item-h {
+//      position: absolute;
+//      bottom: 13px;
+//      width: 100%;
+//      text-align: center;
+//    }
+//  }
+//
+//  .biz-item-href {
+//    width: 56px;
+//    height: 150px;
+//    padding: 22px 0;
+//    background: url("../../image/yidianban_v1.2/biz-list/biz-list_2.png") no-repeat center;
+//    position: absolute;
+//    right: 0;
+//    top: 80px;
+//    margin-right: -8px;
+//    writing-mode: horizontal-tb;
+//
+//    a {
+//      color: #fff;
+//      display: inline-block;
+//      width: 22px;
+//      font-size: 22px;
+//      letter-spacing: 22px;
+//      text-decoration: none;
+//    }
+//  }
+//
+//  .biz-item-delete {
+//    width: 56px;
+//    height: 70px;
+//
+//    background: url("../../image/yidianban_v1.2/biz-list/biz-list_del.png") no-repeat center;
+//    position: absolute;
+//    right: 0;
+//    top: 236px;
+//    margin-right: -8px;
+//    writing-mode: horizontal-tb;
+//    border: none;
+//    a {
+//      color: #fff;
+//      display: inline-block;
+//      width: 22px;
+//      font-size: 22px;
+//      letter-spacing: 22px;
+//    }
+//  }
+//
+//}
+//

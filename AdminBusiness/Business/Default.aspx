@@ -25,7 +25,6 @@
 <body>
     <div class="wrap">
         <div class="mainContainer">
-
             <form id="form1" runat="server">
                 <div class="wrapper">
                     <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -56,11 +55,10 @@
                     </div>
                     <div class="layout">
                         <div class="content-fluid">
-                            <div class="mh">
-                                <div class="cont-wrap">
-                                    <div class="mh-in">
-                                        <div class="cont-container business-container dis-n" id="business-main">
-                                            <div class="mh-ctnr">
+                                <div>
+
+                                        <div class="business-container dis-n" id="business-main">
+
                                                 <div class="business-add">
                                                     <a id="addNewBusiness" href="/Business/edit.aspx" class="btn btn-info">+&nbsp;新建店铺</a>
                                                 </div>
@@ -155,10 +153,10 @@
                                                     </div>
                                                 </div>
                                                 <!--店铺列表 end-->
-                                            </div>
+
                                         </div>
                                         <div class="cont-container animated fadeInUpSmall dis-n" id="business-new">
-                                            <div class="mh-ctnr">
+
                                                 <div class="new-box">
                                                     <div class="t-c">
                                                         <img src="/image/buss-new.png" />
@@ -172,17 +170,17 @@
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </div>
+
                                         </div>
 
-                                    </div>
+
                                 </div>
                                 <!--true时为已填写手机-->
                                 <input id="hiCreateID" type="hidden" runat="server" value="false" />
                                 <div class="footer">
                                     <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
                                 </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>

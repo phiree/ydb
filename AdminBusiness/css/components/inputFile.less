@@ -1,0 +1,98 @@
+/* 图片上传框样式 */
+.input-file-box {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  /*overflow: hidden;*/
+}
+
+.input-file-box ul li a {
+  display: none;
+}
+
+.input-file-btn {
+  position: absolute;
+  z-index: 4;
+  width: 90px;
+  height: 90px;
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+.input-file-bg {
+  position: absolute;
+  z-index: 1;
+  background: url("../image/yidianban_v1.2/input-file-bg.png") no-repeat center;
+  width: 90px;
+  height: 90px;
+}
+
+.input-file-mark {
+  position: absolute;
+  z-index: 3;
+  width: 90px;
+  height: 90px;
+  background: url("../image/ajax-loader.gif") no-repeat center;
+  display: none;
+}
+
+.input-file-hover {
+  font-style: normal;
+  position: absolute;
+  bottom: 0;
+  z-index: 5;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  background: rgba(112, 112, 112, 0.69);
+  background: #707070 \9;
+  text-align: center;
+  /*display: none;*/
+}
+
+.input-file-pre {
+  position: absolute;
+  z-index: 2;
+  width: 90px;
+  height: 90px;
+  border: 0 none;
+}
+
+.download-img-pre {
+  float: left;
+  display: block;
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  position: relative;
+  text-align: center;
+}
+
+.download-img-delete {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  right: 2px;
+  top: 2px;
+  z-index: 2;
+  border: 0;
+  background: url("../image/delete_icon_91.png") no-repeat center;
+}
+
+.download-img-show {
+  display: block;
+  /*border: 1px solid #dbe6f2 ;*/
+  background: #cccccc;
+  border-radius: 3px;
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.download-img-show img {
+  vertical-align: baseline;
+}
