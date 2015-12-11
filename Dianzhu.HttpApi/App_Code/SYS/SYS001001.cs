@@ -84,8 +84,8 @@ public class ResponseSYS001001:BaseResponse
         chat.SavedTime = DateTime.Now;
         if (chatType == enum_ChatType.Media)
         {
-            var mediaUrl = reqData.msgObj.url;
-            var mediaType = reqData.msgObj.type;
+            var mediaUrl = reqData.msgObj_url;
+            var mediaType = reqData.msgObj_type;
             ((ReceptionChatMedia)chat).MedialUrl = mediaUrl;
             ((ReceptionChatMedia)chat).MediaType = mediaType;
         }
@@ -122,13 +122,12 @@ public class ResponseSYS001001:BaseResponse
         {
             if (((ReceptionChatMedia)chat).MediaType != "url")
             {
-
                 string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
                 string localFileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
 
                 using (var client = new WebClient())
                 {
-                    string savedPath = Environment.CurrentDirectory + System.Configuration.ConfigurationManager.AppSettings.Get("BaiduGeocodingAPI") + localFileName;
+                    string savedPath = Environment.CurrentDirectory + System.Configuration.ConfigurationManager.AppSettings.Get("LocalMediaSaveDir") + localFileName;
                     PHSuit.IOHelper.EnsureFileDirectory(savedPath);
                     client.DownloadFile(mediaUrl, savedPath);
                 }
@@ -149,7 +148,9 @@ public class ReqDataSYS001001
     public string body { get; set; }
     public string ext { get; set; }
     public string orderId { get; set; }
-    public MsgObj msgObj { get; set; }
+    public string msgObj_url { get; set; }
+    public string msgObj_type { get; set; }
+    //public MsgObj msgObj { get; set; }
 }
 public class MsgObj
 {

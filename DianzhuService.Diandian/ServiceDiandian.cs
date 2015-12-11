@@ -68,13 +68,18 @@ namespace DianzhuService.Diandian
             orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
             customerId = msg.From.User;
             string log = msg.Body;
+            string msgObj_url = String.Empty;
+            string msgObj_type = String.Empty;
             string msgType = msg.SelectSingleElement("ext").Namespace;
             switch (msgType.ToLower())
             {
                 case "ihelper:chat:text":
 
                     break;
-                case "ihelper:chat:media": break;
+                case "ihelper:chat:media":
+                    msgObj_url = msg.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("url");
+                    msgObj_type = msg.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("type");
+                    break;
                 case "ihelper:notice:cer:change":
                     customerId = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("UserID");
                     csDisplayName = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
@@ -100,10 +105,12 @@ namespace DianzhuService.Diandian
                                 ""body"": ""{3}"", 
                                 ""ext"": ""{4}"", 
                                 ""orderID"": ""{5}"", 
-                                }}, 
-                    ""stamp_TIMES"": ""{6}"", 
+                                ""msgObj_url"": ""{6}"", 
+                                ""msgObj_type"": ""{7}"",
+                           }}, 
+                    ""stamp_TIMES"": ""{8}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
-                }}", msg.Id, msg.To.User, msg.From.User, msg.Body, msgType, orderID, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
+                }}", msg.Id, msg.To.User, msg.From.User, msg.Body, msgType, orderID, msgObj_url, msgObj_type, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
             string code = result["state_CODE"].ToString();
             if (code != "009000")

@@ -64,7 +64,7 @@ namespace Dianzhu.Test.BLLTest
         public void AssignByCSId()
         {
             var dal = new DALReceptionStatus();
-            //Guid guid = new Guid("eb2ae597-5adb-4242-b22e-a4f901275654");
+            //Guid guid = new Guid("dc73ba0f-91a4-4e14-b17a-a567009dfd6a");
             //var dzList = dal.GetCSMinCount(guid);
             //DZMembership d;
             //for(int i=0;i<dzList.Count;i++)
