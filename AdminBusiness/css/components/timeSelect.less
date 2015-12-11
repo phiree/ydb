@@ -1,0 +1,127 @@
+.time-select-wrap {
+  position: relative;
+  display: inline-block;
+  color: #4a4a4a;
+}
+
+.time-select-m {
+  position: absolute;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(93, 93, 93, 0.8);
+  border: 1px solid #CCCCCC \9;
+  width: 300px;
+  top: 36px;
+  left: -122px;
+  z-index: 100;
+}
+
+.time-select-container {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.time-trigger {
+  display: block;
+  padding: 5px;
+  border-radius: 2px;
+  color: #ffffff;
+  background: #6ec3ec;
+  border: none;
+  cursor: pointer;
+}
+
+a.time-trigger:hover {
+  color: #ffffff;
+}
+
+.time-select-btn {
+  text-align: right;
+}
+
+.time-confirm {
+  padding: 5px;
+  border-radius: 2px;
+  color: #ffffff;
+  background: #6ec3ec;
+  border: none;
+  margin-right: 10px;
+}
+
+.time-close {
+  padding: 5px;
+  border-radius: 2px;
+  color: #4a4a4a;
+  background: #ececec;
+  border: none;
+}
+
+.hour-unit, .minu-unit {
+  padding: 0 10px;
+}
+
+/*timeSelect 初始化*/
+.time-select {
+  display: inline-block;
+  width: 80px;
+  height: 32px;
+  position: relative;
+  vertical-align: middle;
+  border: 1px solid #e7ebee;
+  background: #fff;
+}
+
+.time-select cite {
+  display: block;
+  width: 78px;
+  line-height: 30px;
+  text-indent: 0.8em;
+  background: url("../image/shop_green_09.png") no-repeat right;
+  text-align: left;
+  cursor: pointer;
+}
+
+.time-select ul {
+  position: absolute;
+  height: 10em;
+  line-height: 2em;
+  overflow-y: scroll;
+  width: 80px;
+  border: 1px solid #C0D1E3;
+  z-index: 10;
+  background: #fff;
+  display: none;
+  margin-left: -1px;
+}
+
+.time-select a {
+  display: block;
+  text-indent: 0.8em;
+  text-align: left;
+}
+
+.time-select a:hover {
+  background: #eeeeee;
+}
+
+.hour-select ul {
+  position: absolute;
+  height: 10em;
+  overflow-y: scroll;
+  border: 1px solid #C0D1E3;
+  z-index: 10;
+  background: #fff;
+  display: none;
+}
+
+/*.minute-select ul { position: absolute; height: 10em; overflow-y: scroll; border: 1px solid #C0D1E3; z-index:10; background: #fff; display: none;}*/
+.years-select ul {
+  position: absolute;
+  height: 10em;
+  overflow-y: scroll;
+  border: 1px solid #C0D1E3;
+  z-index: 10;
+  background: #fff;
+  display: none;
+}

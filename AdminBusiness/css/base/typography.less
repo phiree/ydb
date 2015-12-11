@@ -1,0 +1,320 @@
+// 全局效果样式
+
+// 背景颜色
+.wrap {
+  background: #e8e8e8;
+}
+
+// 主内容样式
+.content {
+  position: relative;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  width: auto;
+  margin-left: 150px;
+}
+
+.content-fluid {
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  width: auto;
+}
+
+.cont-wrap {
+  color: #666;
+  padding: 14px;
+  background: #fff;
+}
+
+.cont-container {
+  padding: 14px;
+  background: #fff;
+}
+
+.cont-h1 {
+  font-size: 30px;
+  color: #66B5ED;
+  line-height: 2em;
+}
+
+.cont-h2 {
+  font-size: 26px;
+  color: #3794bf;
+  /*font-weight: bold;*/
+}
+
+.cont-h3 {
+  font-size: 27px;
+  color: #3794bf;
+  font-weight: bold;
+}
+
+.cont-h4 {
+  font-size: 20px;
+  color: #58789a;
+  font-weight: bold;
+  line-height: 2em;
+}
+
+.cont-h5 {
+  font-size: 16px;
+  color: #666;
+  font-weight: bold;
+  /*font-weight: bold;*/
+}
+
+.cont-h6 {
+  font-size: 16px;
+  color: #666;
+
+}
+
+.cont-sub-title {
+  color: #666;
+  font-size: 15px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.cont-sub-title-r {
+  padding-right: 15px;
+  font-size: 15px;
+  line-height: 30px;
+  text-align: right;
+}
+
+.cont-title-tips {
+  color: #FF8661;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.cont-input-tip {
+  display: inline-block;
+  background: #f9faed;
+  border: 1px solid #fdeb96;
+  padding: 3px 10px 3px 10px;
+  margin-top: 10px;
+  color: #666;
+}
+
+.cont-input-tip .icon-tip {
+  margin-right: 10px;
+  background: url("../image/tip-icon.png") no-repeat center;
+  width: 16px;
+  height: 16px;
+}
+
+/*图标基本样式*/
+.icon {
+  display: inline-block;
+  *display: inline-block;
+  *zoom: 1;
+  width: 26px;
+  height: 26px;
+  background: #73e2ff;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  content: "";
+}
+
+/*登录0状态样式*/
+.LoginStatus {
+  background: url("/image/logout.png") no-repeat center;
+  color: transparent;
+  padding: 0 30px;
+}
+
+/*end*/
+
+.footer {
+  background: #fff;
+  width: 100%;
+  padding: 10px;
+  color: #666;
+  bottom: 0;
+  text-align: center;
+}
+
+
+
+/* 图片上传框样式 */
+.input-file-box {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  /*overflow: hidden;*/
+}
+
+.input-file-box ul li a {
+  display: none;
+}
+
+.input-file-btn {
+  position: absolute;
+  z-index: 4;
+  width: 90px;
+  height: 90px;
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+.input-file-bg {
+  position: absolute;
+  z-index: 1;
+  background: url("../image/yidianban_v1.2/input-file-bg.png") no-repeat center;
+  width: 90px;
+  height: 90px;
+}
+
+.input-file-mark {
+  position: absolute;
+  z-index: 3;
+  width: 90px;
+  height: 90px;
+  background: url("../image/ajax-loader.gif") no-repeat center;
+  display: none;
+}
+
+.input-file-hover {
+  font-style: normal;
+  position: absolute;
+  bottom: 0;
+  z-index: 5;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  background: rgba(112, 112, 112, 0.69);
+  background: #707070 \9;
+  text-align: center;
+  /*display: none;*/
+}
+
+.input-file-pre {
+  position: absolute;
+  z-index: 2;
+  width: 90px;
+  height: 90px;
+  border: 0 none;
+}
+
+.download-img-pre {
+  float: left;
+  display: block;
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  position: relative;
+  text-align: center;
+}
+
+.download-img-delete {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  right: 2px;
+  top: 2px;
+  z-index: 2;
+  border: 0;
+  background: url("../image/delete_icon_91.png") no-repeat center;
+}
+
+.download-img-show {
+  display: block;
+  /*border: 1px solid #dbe6f2 ;*/
+  background: #cccccc;
+  border-radius: 3px;
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.download-img-show img {
+  vertical-align: baseline;
+}
+
+/*全局tips文本样式*/
+.text-anno {
+  color: #58789a;
+  font-size: 12px;
+  line-height: 1.5em;
+  font-weight: 500;
+}
+
+.text-anno-r {
+  color: #FF8661;
+  font-size: 12px;
+  line-height: 1.5em;
+  font-weight: 500;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.text-breakWord {
+  line-height: 1.5em;
+  word-wrap: break-word;
+}
+
+/*自定义主题颜色样式*/
+.theme-color-r {
+  color: #FF8661;
+}
+
+.theme-color-delete {
+  color: #FD9292;
+}
+
+.theme-color-right {
+  color: #16D237;
+}
+
+.theme-color-info {
+
+}
+
+.theme-color-58789a {
+  color: #58789a;
+}
+
+.theme-color-666666 {
+  color: #666666;
+}
+
+/*标签样式*/
+.pTagContainer {
+
+}
+
+.spTag {
+  background: #ececec;
+  color: #424242;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.spTagText {
+
+}
+
+.spTagDel {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  background: url("../image/shop-icon-13.png") no-repeat center;
+  color: transparent;
+  border: 0;
+}

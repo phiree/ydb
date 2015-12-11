@@ -1,15 +1,20 @@
 @navbarHeight: 75px;
 @navbarColor: #60b7ea;
+@navbarHoverColor: #60b7ea;
 @navbarBrandColor: #444;
 @navbarBtnBg: #60b7ea;
 @default-padding: 15px;
+@navbarTextShadow: 0 1px 0 #fff;
 
 .navbar {
-  min-width: 1200px;
   margin-bottom: 0;
   box-shadow: 2px 0 4px 0 #96a0aa;
-  background: #fff;
-  border-bottom: 3px solid @navbarBtnBg;
+  border: none;
+  background: #eaeaea; /* Old browsers */
+  background: -moz-linear-gradient(top,  #eaeaea 0%, #aaaaaa 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #eaeaea 0%,#aaaaaa 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #eaeaea 0%,#aaaaaa 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#aaaaaa',GradientType=0 ); /* IE6-9 */
 
   .navbar-brand {
     height: @navbarHeight;
@@ -30,8 +35,10 @@
           height: 54px;
           background: url("../../image/yidianban_v1.2/logo/icon01-up-54x54.png") no-repeat center;
       }
-      //width: 54px + @default-padding;
-      //width: 54px + @default-padding ;
+    }
+
+    &.brand-h {
+      text-shadow: @navbarTextShadow;
     }
 
     &:hover {
@@ -42,23 +49,18 @@
   .navbar-nav {
     font-size: 16px;
     margin-right: 10px;
-
+    color: @navbarBrandColor;
+    text-shadow: @navbarTextShadow;
     >li{
-      //height: @navbarHeight;
-      //display: table;
-      color:@navbarColor;
-
       >a{
+        color: @navbarBrandColor;
         padding: 15px 15px;
         height: 75px;
         line-height: 45px;
         font-size: 16px;
-        //display: table-cell;
         vertical-align: middle;
-        color: @navbarColor;
-
         &:hover {
-          color: @navbarColor;
+
         }
       }
     }

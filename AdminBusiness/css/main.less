@@ -4,7 +4,10 @@
 @import "frame/bootstrap-3.3.5-dist/css/bootstrap.css";
 
 /* base */
-@import "base/base";
+@import "base/normallize";
+@import "base/typography";
+@import "base/layout";
+@import "base/scaffolding";
 
 /* extend */
 @import "extend/animate";
@@ -13,17 +16,21 @@
 @import "extend/validation";
 
 /* components */
-@import "components/rotating-card";
+@import "components/rotateCard";
 @import "components/ServiceSelect";
+@import "components/timeSelect";
+@import "components/svcIcon";
+@import "components/stepByStep";
+@import "components/sidebarNav";
 
 /* pages */
 @import "pages/business";
-@import "pages/business_list";
+@import "pages/businessList";
 @import "pages/employee";
-@import "pages/login_reg";
+@import "pages/login";
 @import "pages/myshop";
 @import "pages/order";
 @import "pages/service";
 
 /* theme */
-@import "onePointFive-custom";
+@import "themes/custom-theme";
