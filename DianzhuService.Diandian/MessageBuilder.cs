@@ -13,6 +13,7 @@ namespace DianzhuService.Diandian
         {
               msg = new Message(new Jid(to+"@"+GlobalViables.ServerName)
                 ,new Jid(from+"@" +GlobalViables.ServerName), body);
+            msg.SetAttribute("type", "chat");
             var nodeExt = new agsXMPP.Xml.Dom.Element("ext");
             var nodeOrder = new agsXMPP.Xml.Dom.Element("orderID",orderId);
             nodeExt.AddChild(nodeOrder);

@@ -86,6 +86,32 @@ namespace Dianzhu.CSClient.Presenter
                 rs.CustomerService = GlobalViables.CurrentCustomerService;
                 bllReceptionStatus.SaveByRS(rs);
 
+                //复制用户与点点的聊天记录
+                IList<ReceptionChat> chatList = bllReceptionChat.GetChatByOrder(rs.Order);
+                if (chatList.Count > 0)
+                {
+                    ReceptionChat copychat;
+                    foreach(ReceptionChat chat in chatList)
+                    {
+                        if(chat.To != rs.Customer)
+                        {
+                            copychat = new ReceptionChat();
+                            copychat.MessageBody = chat.MessageBody;
+                            copychat.ReceiveTime = chat.ReceiveTime;
+                            copychat.SendTime = chat.SendTime;
+                            copychat.To = rs.Customer;
+                            copychat.From = chat.From;
+                            copychat.Reception = chat.Reception;
+                            copychat.SavedTime = chat.SavedTime;
+                            copychat.ChatType = chat.ChatType;
+                            copychat.ServiceOrder = chat.ServiceOrder;
+                            copychat.Version = chat.Version;
+
+                            bllReceptionChat.Save(copychat);
+                        }
+                    }
+                }
+
                 ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
                 rChatReAss.From = GlobalViables.Diandian;
                 rChatReAss.To = rs.Customer;

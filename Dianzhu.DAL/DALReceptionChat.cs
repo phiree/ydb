@@ -35,9 +35,19 @@ namespace Dianzhu.DAL
             //}
             //return chat;
         }
-        
-        
 
-        
+        /// <summary>
+        /// 根据订单获取聊天记录
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public IList<ReceptionChat> GetChatByOrder(ServiceOrder order)
+        {
+            var list = Session.QueryOver<ReceptionChat>().Where(x => x.ServiceOrder == order).OrderBy(x=>x.SavedTime).Desc.List();
+
+            return list;
+        }
+
+
     }
 }
