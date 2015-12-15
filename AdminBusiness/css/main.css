@@ -2102,21 +2102,13 @@ body {
 }
 /* 自定义容器 */
 .grid-container {
-  margin-right: auto;
-  margin-left: auto;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 /* 自定义行列 */
-.grid-row-full {
-  margin-right: 32px;
-  margin-left: 32px;
-}
-.grid-row-full:after,
-.grid-row-full:before {
-  display: table;
-  content: " ";
-}
-.grid-row-full:after {
-  clear: both;
+.grid-row {
+  margin-right: -15px;
+  margin-left: -15px;
 }
 .grid-row:after,
 .grid-row:before {
@@ -2125,10 +2117,6 @@ body {
 }
 .grid-row:after {
   clear: both;
-}
-.grid-row-fix {
-  margin: 0 -14px;
-  padding: 0 14px;
 }
 /* 自定义列 */
 .grid-col-1,
@@ -6433,7 +6421,6 @@ a4526dfc-92d3-44b2-9179-b9081055e7d9 教育培训 16
   border: 1px solid #aaa;
 }
 #business-main {
-  width: 1140px;
   margin: 0 auto;
 }
 /* 店铺列表 */
@@ -6477,6 +6464,7 @@ a4526dfc-92d3-44b2-9179-b9081055e7d9 教育培训 16
   padding: 24px 22px;
   background: #fff;
   clear: both;
+  overflow: hidden;
 }
 .biz-img {
   float: left;
