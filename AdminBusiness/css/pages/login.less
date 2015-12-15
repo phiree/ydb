@@ -1,14 +1,5 @@
 
-/*输入框动画效果*/
-input[type="text"]:focus, input[type="password"]:focus {
-  box-shadow: 0 0 3px 0 rgba(85, 171, 220, 0.5);
-  -webkit-animation-name: breath;
-  -webkit-animation-duration: 2s;
-  -webkit-animation-timing-function: ease-in-out;
-  -webkit-animation-delay: 0s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-direction: alternate;
-}
+
 
 @-webkit-keyframes breath {
   0% {
@@ -22,10 +13,21 @@ input[type="text"]:focus, input[type="password"]:focus {
   }
 }
 
+/* 登录注册页 */
 .reg-wrap {
   height: 100%;
   background: url("../image/login_reg/bg_1.jpg") no-repeat center;
   overflow: hidden;
+  /*输入框动画效果*/
+  input[type="text"]:focus, input[type="password"]:focus {
+    box-shadow: 0 0 3px 0 rgba(85, 171, 220, 0.5);
+    -webkit-animation-name: breath;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+  }
 }
 
 .main {

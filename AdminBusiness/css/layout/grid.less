@@ -1,72 +1,100 @@
+/* 自定义容器 */
+.grid-container {
+  //padding-right: 15px;
+  //padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
 
-/*自定义行列*/
-.cont-row:after, .cont-row:before {
+/* 自定义行列 */
+.grid-row-full　{
+  margin-right: 32px;
+  margin-left: 32px;
+}
+
+.grid-row-full:after, .grid-row-full:before {
   display: table;
   content: " "
 }
 
-.cont-row:after {
+.grid-row-full:after {
   clear: both
 }
 
-.row-fix {
+.grid-row {
+  //margin-right: 32px;
+  //margin-left: 32px;
+}
+
+.grid-row:after, .grid-row:before {
+  display: table;
+  content: " "
+}
+
+.grid-row:after {
+  clear: both
+}
+
+.grid-row-fix {
   margin: 0 -14px;
   padding: 0 14px;
 }
 
-.cont-col-1, .cont-col-2, .cont-col-3, .cont-col-4, .cont-col-5, .cont-col-6, .cont-col-7, .cont-col-8, .cont-col-9, .cont-col-10, .cont-col-11, .cont-col-12 {
+/* 自定义列 */
+.grid-col-1, .grid-col-2, .grid-col-3, .grid-col-4, .grid-col-5, .grid-col-6, .grid-col-7, .grid-col-8, .grid-col-9, .grid-col-10, .grid-col-11, .grid-col-12 {
   float: left;
   min-height: 1px;
 }
 
-.cont-col-1 {
+.grid-col-1 {
   width: 8.33333333%;
 }
 
-.cont-col-2 {
+.grid-col-2 {
   width: 16.66666667%;
 }
 
-.cont-col-3 {
+.grid-col-3 {
   width: 25%;
 }
 
-.cont-col-4 {
+.grid-col-4 {
   width: 33.33333333%;
 }
 
-.cont-col-5 {
+.grid-col-5 {
   width: 41.66666667%;
 }
 
-.cont-col-6 {
+.grid-col-6 {
   width: 50%;
 }
 
-.cont-col-7 {
+.grid-col-7 {
   width: 58.33333333%;
 }
 
-.cont-col-8 {
+.grid-col-8 {
   width: 66.66666667%;
 }
 
-.cont-col-9 {
+.grid-col-9 {
   width: 75%;
 }
 
-.cont-col-10 {
+.grid-col-10 {
   width: 83.33333333%;
 }
 
-.cont-col-11 {
+.grid-col-11 {
   width: 91.66666667%;
 }
 
-.cont-col-12 {
+.grid-col-12 {
   width: 100%;
 }
 
+/* 自定义表格 */
 .custom-table {
   width: 100%;
 }
