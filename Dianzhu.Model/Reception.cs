@@ -137,7 +137,13 @@ namespace Dianzhu.Model
 
     }
 
-
+    /// <summary>
+    /// 记录点点的接待记录
+    /// </summary>
+    public class ReceptionChatDD : ReceptionChat
+    {
+        public virtual ReceptionChat CopyFrom { get; set; }
+    }
 
     /// <summary>
     /// 多媒体消息,

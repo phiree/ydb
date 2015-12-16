@@ -52,9 +52,14 @@ namespace Dianzhu.DAL.Mapping
             References<ReceptionBase>(x => x.Reception).Cascade.All().Column("ReceptionBase_id");
         }
     }
-   
- 
-   
+
+    public class ReceptionChatDDMap : SubclassMap<ReceptionChatDD>
+    {
+        public ReceptionChatDDMap()
+        {
+            References<ReceptionChat>(x => x.CopyFrom);
+        }
+    }
 
     public class ReceptionChatMediaMap : SubclassMap<ReceptionChatMedia>
     {

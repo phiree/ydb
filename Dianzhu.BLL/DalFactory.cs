@@ -33,6 +33,12 @@ namespace Dianzhu.BLL
         static DALReceptionStatus dalReceptionStatus;
         static DALReceptionChat dalReceptionChat;
         static DALPaymentLog dalPaymentLog;
+        static DALReceptionChatDD dalReceptionChatDD;
+        public static DALReceptionChatDD DALReceptionChatDD
+        {
+            get { return dalReceptionChatDD ?? new DALReceptionChatDD(); }
+            set { dalReceptionChatDD = value; }
+        }
         public static DALPaymentLog DALPaymentLog
         {
             get { return dalPaymentLog ?? new DALPaymentLog(); }

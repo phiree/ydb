@@ -795,7 +795,7 @@ namespace Dianzhu.CSClient.WinformView
         {
             if (e.KeyChar == 13 && MessageTextBox.Trim() != string.Empty)
             {
-                MessageTextBox = MessageTextBox.Substring(0, MessageTextBox.Length - 2);
+                MessageTextBox = MessageTextBox.Substring(0, MessageTextBox.Length - 1);
                 btnSend.PerformClick();
             }
         }

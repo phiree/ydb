@@ -86,31 +86,38 @@ namespace Dianzhu.CSClient.Presenter
                 rs.CustomerService = GlobalViables.CurrentCustomerService;
                 bllReceptionStatus.SaveByRS(rs);
 
-                //复制用户与点点的聊天记录
-                IList<ReceptionChat> chatList = bllReceptionChat.GetChatByOrder(rs.Order);
-                if (chatList.Count > 0)
+                //查询聊天记录表中是否有该订单的聊天，如果没有，从点点记录的聊天记录表中复制一份
+                BLLReceptionChatDD bll = new BLLReceptionChatDD();
+                bool chat = bll.FindChatByOrder(rs.Order);
+                if (!chat)
                 {
-                    ReceptionChat copychat;
-                    foreach(ReceptionChat chat in chatList)
-                    {
-                        if(chat.To != rs.Customer)
-                        {
-                            copychat = new ReceptionChat();
-                            copychat.MessageBody = chat.MessageBody;
-                            copychat.ReceiveTime = chat.ReceiveTime;
-                            copychat.SendTime = chat.SendTime;
-                            copychat.To = rs.Customer;
-                            copychat.From = chat.From;
-                            copychat.Reception = chat.Reception;
-                            copychat.SavedTime = chat.SavedTime;
-                            copychat.ChatType = chat.ChatType;
-                            copychat.ServiceOrder = chat.ServiceOrder;
-                            copychat.Version = chat.Version;
+                    //BLLReceptionChatDD bllReceptionChatDD = new BLLReceptionChatDD();
+                    ////复制用户与点点的聊天记录
+                    //IList<ReceptionChatDD> chatList = bllReceptionChatDD.GetChatListByOrder(rs.Order);
+                    //if (chatList.Count > 0)
+                    //{
+                    //    ReceptionChat copychat;
+                    //    foreach (ReceptionChatDD chatDD in chatList)
+                    //    {
+                    //        if (chatDD.To != rs.Customer)
+                    //        {
+                    //            copychat = new ReceptionChat();
+                    //            copychat.MessageBody = chatDD.MessageBody;
+                    //            copychat.ReceiveTime = chatDD.ReceiveTime;
+                    //            copychat.SendTime = chatDD.SendTime;
+                    //            copychat.To = rs.Customer;
+                    //            copychat.From = chatDD.From;
+                    //            copychat.Reception = chatDD.Reception;
+                    //            copychat.SavedTime = chatDD.SavedTime;
+                    //            copychat.ChatType = chatDD.ChatType;
+                    //            copychat.ServiceOrder = chatDD.ServiceOrder;
+                    //            copychat.Version = chatDD.Version;
 
-                            bllReceptionChat.Save(copychat);
-                        }
-                    }
-                }
+                    //            bllReceptionChat.Save(copychat);
+                    //        }
+                    //    }
+                    //}
+                }                
 
                 ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
                 rChatReAss.From = GlobalViables.Diandian;

@@ -50,7 +50,7 @@ public class ResponseCHAT001006:BaseResponse
         try
         {
             IList<ReceptionChat> chatList = bllReception.GetReceptionChatList(member,null, orderId, DateTime.MinValue
-                ,DateTime.MaxValue,pageIndex,pageSize, out rowCount);
+                ,DateTime.MaxValue,pageIndex,pageSize,out rowCount);
 
             var chatListNew = bllReception.GetReceptionChatListByTarget(chatList, requestData.target);
 
