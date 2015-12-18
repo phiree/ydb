@@ -1,8 +1,11 @@
+@input-file-width: 140px;
+@input-file-height: 140px;
+
 /* 图片上传框样式 */
 .input-file-box {
   position: relative;
-  width: 90px;
-  height: 90px;
+  width: @input-file-width;
+  height: @input-file-height;
   /*overflow: hidden;*/
 }
 
@@ -13,8 +16,8 @@
 .input-file-btn {
   position: absolute;
   z-index: 4;
-  width: 90px;
-  height: 90px;
+  width: @input-file-width;
+  height: @input-file-height;
   opacity: 0;
   filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
 }
@@ -22,17 +25,17 @@
 .input-file-bg {
   position: absolute;
   z-index: 1;
-  background: url("../image/yidianban_v1.2/input-file-bg.png") no-repeat center;
-  width: 90px;
-  height: 90px;
+  background: url("@{base-images-url}components/inputFile/input_bg_140_140.png") no-repeat center;
+  width: @input-file-width;
+  height: @input-file-height;
 }
 
 .input-file-mark {
   position: absolute;
   z-index: 3;
-  width: 90px;
-  height: 90px;
-  background: url("../image/ajax-loader.gif") no-repeat center;
+  width: @input-file-width;
+  height: @input-file-height;
+  background: url("@{base-images-url}components/inputFile/ajax-loader.gif") no-repeat center;
   display: none;
 }
 
@@ -41,7 +44,7 @@
   position: absolute;
   bottom: 0;
   z-index: 5;
-  width: 90px;
+  width: @input-file-width;
   height: 30px;
   line-height: 30px;
   color: #fff;
@@ -54,9 +57,18 @@
 .input-file-pre {
   position: absolute;
   z-index: 2;
-  width: 90px;
-  height: 90px;
+  width: @input-file-width;
+  height: @input-file-height;
   border: 0 none;
+}
+
+@headImage-width: 140px;
+@headImage-height: 140px;
+/* 头像 */
+.headImage {
+  width: @headImage-width;
+  height: @headImage-width;
+  overflow: hidden;
 }
 
 .download-img-pre {
@@ -77,7 +89,7 @@
   top: 2px;
   z-index: 2;
   border: 0;
-  background: url("../image/delete_icon_91.png") no-repeat center;
+  background: url("@{base-images-url}components/inputFile/delete_icon_91.png") no-repeat center;
 }
 
 .download-img-show {

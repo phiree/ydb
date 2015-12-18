@@ -4,26 +4,29 @@
 .content-fluid {
   position: relative;
   box-sizing: border-box;
-  //height: 100%;
+  min-height: 900px;
   display: block;
   overflow: hidden;
   width: 100%;
+  background: #ebebeb;
 }
 
 .content {
+  z-index: 10;
   position: relative;
-  height: 100%;
+  min-height: 900px;
   display: block;
   overflow: hidden;
   width: auto;
-  margin-left: 150px;
+  margin-left: 230px;
+  color: #666;
+  box-shadow: 0 0 10px 0 #333;
+  background: #ebebeb;
 }
 
-//.cont-wrap {
-//  color: #666;
-//  padding: 14px;
-//  background: #fff;
-//}
+.content-main {
+  padding: 20px 17px;
+}
 
 .content-head {
   padding: 16px 0;
@@ -61,6 +64,7 @@
   font-size: @cont-h2-size;
   color: @cont-h-color;
   font-weight: bold;
+  padding: 18px 0;
 }
 
 .cont-h3 {
@@ -142,7 +146,7 @@
 
 /*登录0状态样式*/
 .LoginStatus {
-  background: url("/image/logout.png") no-repeat center;
+  background: url("@{base-images-url}common/navbar/logout.png") no-repeat center;
   color: transparent;
   padding: 0 30px;
 }
@@ -181,6 +185,9 @@
 .d-hr {
   border-top: 1px solid #DADADA;
   border-bottom: 1px solid #FBFBFB;
+  margin-top: 30px;
+  margin-bottom: 30px;
   margin-right: -100%;
   margin-left: -100%;
 }
+

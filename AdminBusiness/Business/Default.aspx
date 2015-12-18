@@ -84,7 +84,7 @@
                                                             <div class="biz-item-m">
 
                                                                     <div class="biz-img">
-                                                                        <img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=70&height=70&tt=3":"../image/myshop/touxiang_70_70.png" %>'/>
+                                                                        <img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=70&height=70&tt=3":"../images/common/touxiang/touxiang_70_70.png" %>'/>
                                                                     </div>
                                                                     <div class="biz-info m-b10">
                                                                         <div class="m-b10">
@@ -114,7 +114,7 @@
 
                                                             </div>
                                                             <div class="biz-item-svc">
-                                                                <ul class="svc-list">
+                                                                <ul class="svc-list clearfix">
                                                                     <asp:Repeater runat="server"
                                                                                   ID="rptServiceType">
                                                                         <ItemTemplate>

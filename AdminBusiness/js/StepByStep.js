@@ -197,7 +197,7 @@ var StepByStep = {
             $stepLists = $ele.find("." + this.options.stepListClass),
             $stepPrev = $ele.find("." + this.options.stepPrev),
             $stepNext = $ele.find("." + this.options.stepNext),
-            defaultStap = this.options.defaultStep,
+            defaultStep = this.options.defaultStep,
             totalStep = this.options.totalStep,
             stepNextFunc = this.options.stepNextFunc;
 
@@ -232,26 +232,24 @@ var StepByStep = {
 
         var doneStep = (step - 1 ) < 0 ? 0 : step;
 
-
-        $stepTips.find('.steps-tip').eq(step).addClass("cur-step").siblings().removeClass("cur-step");
         $stepLists.find('.steps-step').eq(step).addClass("cur-step").siblings().removeClass("cur-step");
 
-
+        $stepTips.find('.steps-tip').eq(step).addClass("cur-step").siblings().removeClass("cur-step");
         $stepTips.find('.steps-tip').slice(0 , doneStep ).addClass("done-step");
         $stepTips.find('.steps-tip').slice( doneStep , -1 ).removeClass("done-step");
 
-        if ( step > 0 ){
-            var lineStep = ( step - 1 ) < 0 ? 0 : step - 1 ;
-            var lineDoneStep = (lineStep - 1 ) < 0 ? 0 : lineStep;
-            $stepLines.find('.steps-line').eq(lineStep).addClass("cur-step").siblings().removeClass("cur-step");
-            $stepLines.find('.steps-line').slice(0 , lineDoneStep ).addClass("done-step");
-            $stepLines.find('.steps-line').slice( lineDoneStep , -1 ).removeClass("done-step");
-        } else {
-            $stepLines.find('.steps-line').removeClass("cur-step");
+        /* 步骤线设置 */
+        if ( !$stepLines.length ) {
+            if ( step > 0 ){
+                var lineStep = ( step - 1 ) < 0 ? 0 : step - 1 ;
+                var lineDoneStep = (lineStep - 1 ) < 0 ? 0 : lineStep;
+                $stepLines.find('.steps-line').eq(lineStep).addClass("cur-step").siblings().removeClass("cur-step");
+                $stepLines.find('.steps-line').slice(0 , lineDoneStep ).addClass("done-step");
+                $stepLines.find('.steps-line').slice( lineDoneStep , -1 ).removeClass("done-step");
+            } else {
+                $stepLines.find('.steps-line').removeClass("cur-step");
+            }
         }
-
-
-
 
         switch(step)
         {
@@ -275,7 +273,6 @@ var StepByStep = {
                 $stepCancel.addClass("dis-n");
         }
     },
-
     DoneStep: function(){
 
     },
