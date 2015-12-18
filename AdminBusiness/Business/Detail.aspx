@@ -28,8 +28,8 @@
                         </div>
                         <div class="model-m">
                             <div class="row m-b20">
-                                <div class="col-md-1">
-                                    <div class="t-c">
+                                <div class="col-md-1 model-img">
+                                    <div class="t-c m-b20">
                                         <img class="business-detail-face"
                                              src='<%=CurrentBusiness.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(CurrentBusiness.BusinessAvatar.ImageName)+"&width=70&height=70&tt=3":"../images/common/touxiang/touxiang_70_70.png"%>'/>
                                         <!--<p class="t-c business-detail-name"><%=CurrentBusiness.Name %></p>-->
@@ -50,9 +50,9 @@
                             </div>
                             <div class="d-hr"></div>
                             <div class="row model-row">
-                                <div class="col-md-1"></div>
+                                <div class="col-md-1 model-img"></div>
                                 <div class="col-md-4">
-                                    <p class="model-pra"><span class="cont-h5">店主姓名</span>
+                                    <p class="model-pra"><span class="cont-h5 m-r20">店主姓名</span>
                                         <%=CurrentBusiness.Contact %></p>
                                     <p class="model-pra"><span class="cont-h5 m-r20">证件类型</span>
                                         <%=CurrentBusiness.ChargePersonIdCardType.ToString() %></p>

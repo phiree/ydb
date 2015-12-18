@@ -31,26 +31,36 @@
                         <a class="navbar-brand brand-logo" href="/Business/default.aspx">
                             <div id="logo"></div>
                         </a>
-                        <a class="navbar-brand brand-h">一点办商户管理系统
+                        <a class="navbar-brand brand-h">
+                            一点办商户管理系统
                         </a>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#ydb-navbar-collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                     </div>
-                    <ul class="nav navbar-nav navbar-right">
-
-                        <li class="dropdown nav-li-bj">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                               aria-expanded="false">
-                                <asp:LoginName ID="LoginName1" CssClass="v-m" runat="server"/>
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li id="accountNum"><a href="/account/security.aspx?businessId=<%=Request[" businessid"]
-                                    %>">帐号安全</a></li>
-                            </ul>
-                        </li>
-                        <li role="presentaion" class="nav-li-bj ">
-                            <asp:LoginStatus ID="LoginStatus1" CssClass="LoginStatus" formnovalidate LogoutText=""
-                                             runat="server"/>
-                        </li>
-                    </ul>
+                    <div class="collapse navbar-collapse" id="ydb-navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right  ">
+                            <li role="presentation">
+                                <p class="loginName">
+                                    <span class="icon navbar-icon-acc"></span>
+                                    <asp:LoginName  ID="LoginName1" CssClass="v-m" runat="server" />
+                                </p>
+                            </li>
+                            <li role="presentation">
+                                <div class="navbar-a-wrap">
+                                    <a href="/account/security.aspx" class="icon navbar-icon navbar-icon-set"></a>
+                                </div>
+                            </li>
+                            <li role="presentation">
+                                <div class="navbar-a-wrap">
+                                    <asp:LoginStatus ID="LoginStatus1" CssClass="icon navbar-icon navbar-icon-logout"  formnovalidate   runat="server" LogoutText=""/>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -72,17 +82,10 @@
                                                       OnItemCommand="rptBusinessList_ItemCommand">
                                             <ItemTemplate>
                                                 <li class="biz-list-item">
-                                                    <!--<div class="biz-item-left">-->
-                                                        <!--<div class="biz-tip">-->
-                                                            <div class="biz-head">店铺</div>
-                                                            <!--<i class="biz-tip-icon icon"></i>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="biz-item-right animated fadeInUpSmall">-->
+                                                    <div class="biz-head">店铺</div>
                                                         <div class="biz-item-main">
                                                             <div class="biz-item-h"><%#Eval("Name")%></div>
                                                             <div class="biz-item-m">
-
                                                                     <div class="biz-img">
                                                                         <img src='<%# ((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("BusinessAvatar")).ImageName)+"&width=70&height=70&tt=3":"../images/common/touxiang/touxiang_70_70.png" %>'/>
                                                                     </div>

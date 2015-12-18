@@ -37,19 +37,38 @@
                         <a class="navbar-brand brand-h">
                             一点办商户管理系统
                         </a>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#ydb-navbar-collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                     </div>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li role="presentaion" ><a href="/Business/default.aspx"><span class="glyphicon glyphicon-th-list m-r10"></span><span>店铺列表</span></a></li>
-                        <li class="dropdown nav-li-bj">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><asp:LoginName  ID="LoginName1" CssClass="v-m" runat="server" /><span class="caret"></span></a>
-                          <ul class="dropdown-menu">
-                            <li id="accountNum"><a href="/account/security.aspx">帐号安全</a></li>
-                          </ul>
-                        </li>
-                        <li role="presentaion" class="nav-li-bj ">
-                        <asp:LoginStatus ID="LoginStatus1" CssClass="LoginStatus"  formnovalidate   runat="server" LogoutText=""/>
-                        </li>
-                      </ul>
+                    <div class="collapse navbar-collapse" id="ydb-navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right  ">
+                            <li role="presentation">
+                                <p class="loginName">
+                                    <span class="icon navbar-icon-acc"></span>
+                                    <asp:LoginName  ID="LoginName1" CssClass="v-m" runat="server" />
+                                </p>
+                            </li>
+                            <li role="presentation" >
+                                <div class="navbar-a-wrap">
+                                    <a href="/Business/default.aspx" class="icon navbar-icon navbar-icon-shop"></a>
+                                </div>
+                            </li>
+                            <li role="presentation">
+                                <div class="navbar-a-wrap">
+                                    <a href="/account/security.aspx" class="icon navbar-icon navbar-icon-set"></a>
+                                </div>
+                            </li>
+                            <li role="presentation">
+                                <div class="navbar-a-wrap">
+                                    <asp:LoginStatus ID="LoginStatus1" CssClass="icon navbar-icon navbar-icon-logout"  formnovalidate   runat="server" LogoutText=""/>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <!--/top-->
