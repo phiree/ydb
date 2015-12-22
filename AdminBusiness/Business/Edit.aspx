@@ -75,7 +75,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                             <input type="text" class="input-fluid dis-n" runat="server" focusID="yearsSelect"
                                                                    id="tbxBusinessYears" name="workYears"/>
                                                         </div>
-                                                        <em>年</em>
+                                                        <em class="unit">年</em>
                                                     </div>
                                                 </div>
                                             </div>
@@ -103,7 +103,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                     <div class="col-md-8 model-input col-md-8 model-input-unit">
                                                         <input type="text" class="input-fluid" runat="server" value="0" clientidmode="Static"
                                                                id="selStaffAmount" data-toggle="tooltip" data-placement="top" title="请填写店铺员工人数"/>
-                                                        <em>人</em>
+                                                        <em class="unit">人</em>
                                                     </div>
                                                 </div>
                                             </div>
