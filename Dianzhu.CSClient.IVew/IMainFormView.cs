@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
- 
+
 using Dianzhu.Model;
+using System.Collections;
+
 namespace Dianzhu.CSClient.IVew
 {
  
@@ -32,6 +34,7 @@ namespace Dianzhu.CSClient.IVew
     public delegate void PushExternalService();
     public delegate void PushInternalService(DZService service);
     public delegate void SearchService();
+    public delegate void SelectService();
     public delegate void SendPayLink(ReceptionChat chat);
     public delegate void CreateOrder();
     public delegate void ViewClosed();
@@ -99,7 +102,7 @@ namespace Dianzhu.CSClient.IVew
         string CurrentCustomerService { set; }
 
 
-        IList<DZService> SearchedService { get; set; }
+        IList SearchedService { get; set; }
         //外部服务
         string ServiceName { get; set; }
         string ServiceBusinessName { get; set; }
@@ -118,9 +121,11 @@ namespace Dianzhu.CSClient.IVew
         event PushExternalService PushExternalService;
         event PushInternalService PushInternalService;
         event SearchService SearchService;
+        event SelectService SelectService;
         event SendPayLink SendPayLink;
         event CreateOrder CreateOrder;
         event ViewClosed ViewClosed;
+        string CurrentServiceId { get; set; }
         /// <summary>
         /// 更改标志(顶部按钮)之前的事件.
         /// </summary>
@@ -167,7 +172,7 @@ namespace Dianzhu.CSClient.IVew
         /// <summary>
         /// 当前选择的服务
         /// </summary>
-        DZService Service { get; set; }
+        DZService CurrentService { get; set; }
 
         /// <summary>
         /// 删除按钮方法

@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Net;
- 
+using System.Collections;
+
 namespace Dianzhu.CSClient.Presenter
 {
     public partial class MainPresenter
@@ -53,6 +54,7 @@ namespace Dianzhu.CSClient.Presenter
 
             this.view.ButtonNamePrefix = System.Configuration.ConfigurationManager.AppSettings["ButtonNamePrefix"];
             this.view.SearchService += new IVew.SearchService(view_SearchService);
+            this.view.SelectService += View_SelectService;
             this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
             this.view.CreateOrder += new CreateOrder(view_CreateOrder);
             this.view.ViewClosed += new ViewClosed(view_ViewClosed);
@@ -71,8 +73,17 @@ namespace Dianzhu.CSClient.Presenter
             this.view.SaveReAssign += View_SaveReAssign;
             this.view.CurrentCustomerService = GlobalViables.CurrentCustomerService.UserName;
 
-            this.SysAssign();
+            //this.SysAssign();
             
+        }
+
+        /// <summary>
+        /// 当前选择的服务
+        /// </summary>
+        private void View_SelectService()
+        {
+            Guid id = new Guid(view.CurrentServiceId);
+            view.CurrentService = bllService.GetOne(id);
         }
 
         /// <summary>
@@ -87,11 +98,29 @@ namespace Dianzhu.CSClient.Presenter
                 bllReceptionStatus.SaveByRS(rs);
 
                 //查询聊天记录表中是否有该订单的聊天，如果没有，从点点记录的聊天记录表中复制一份
-                BLLReceptionChatDD bll = new BLLReceptionChatDD();
-                bool chat = bll.FindChatByOrder(rs.Order);
-                if (!chat)
+                IList<ReceptionChat> chatList = bllReceptionChat.FindChatByOrder(rs.Order);
+                if (chatList != null)
                 {
-                    //BLLReceptionChatDD bllReceptionChatDD = new BLLReceptionChatDD();
+                    BLLReceptionChatDD bllReceptionChatDD = new BLLReceptionChatDD();
+
+                    ReceptionChat copychat;
+                    for (int i = 0; i < chatList.Count; i++)
+                    {
+                        //copychat = new ReceptionChat();
+                        //copychat.MessageBody = chatList[i].MessageBody;
+                        //copychat.ReceiveTime = chatList[i].ReceiveTime;
+                        //copychat.SendTime = chatList[i].SendTime;
+                        //copychat.To = rs.Customer;
+                        //copychat.From = chatList[i].From;
+                        //copychat.Reception = chatList[i].Reception;
+                        //copychat.SavedTime = chatList[i].SavedTime;
+                        //copychat.ChatType = chatList[i].ChatType;
+                        //copychat.ServiceOrder = chatList[i].ServiceOrder;
+                        //copychat.Version = chatList[i].Version;
+
+                        //bllReceptionChat.Save(copychat);
+                    }
+
                     ////复制用户与点点的聊天记录
                     //IList<ReceptionChatDD> chatList = bllReceptionChatDD.GetChatListByOrder(rs.Order);
                     //if (chatList.Count > 0)

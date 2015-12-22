@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using Dianzhu.Model;
 using Dianzhu.CSClient.IVew;
+using System.Collections;
 
 //using Dianzhu.CSClient.Model;
 
@@ -35,6 +36,7 @@ namespace Dianzhu.CSClient.WinformView
         public event PushExternalService PushExternalService;
         public event PushInternalService PushInternalService;
         public event SearchService SearchService;
+        public event SelectService SelectService;
         public event SendPayLink SendPayLink;
         public event CreateOrder CreateOrder;
         public event BeforeCustomerChanged BeforeCustomerChanged;
@@ -56,11 +58,11 @@ namespace Dianzhu.CSClient.WinformView
         /// <summary>
         /// 当前选择的服务
         /// </summary>
-        private DZService service;
-        public DZService Service
+        private DZService currentService;
+        public DZService CurrentService
         {
-            get { return service; }
-            set { service = value; }
+            get { return currentService; }
+            set { currentService = value; }
         }
 
         /// <summary>
@@ -361,6 +363,13 @@ namespace Dianzhu.CSClient.WinformView
             SearchService();
         }
 
+        public string currentServiceId;
+        public string CurrentServiceId
+        {
+            get { return currentServiceId; }
+            set { currentServiceId = value; }
+        }
+
 
         public string SerachKeyword
         {
@@ -373,8 +382,8 @@ namespace Dianzhu.CSClient.WinformView
                 throw new NotImplementedException();
             }
         }
-        IList<DZService> searchedService;
-        public IList<DZService> SearchedService
+        IList searchedService;
+        public IList SearchedService
         {
             get
             {
@@ -384,36 +393,40 @@ namespace Dianzhu.CSClient.WinformView
             {
                 searchedService = value;
                 pnlResultService.Controls.Clear();
-                foreach (DZService service in searchedService)
+                //foreach (DZService service in searchedService)
+                //{
+                //    LoadServiceToPanel(service);
+                //}Hashtable ht = (Hashtable)list[i];
+                foreach(Hashtable ht in searchedService)
                 {
-                    LoadServiceToPanel(service);
+                    LoadServiceToPanel(ht);
                 }
             }
         }
 
-        private void LoadServiceToPanel(DZService service)
+        private void LoadServiceToPanel(Hashtable service)
         {
             FlowLayoutPanel pnl = new FlowLayoutPanel();
-            pnl.Name = "servicePnl" + service.Id;
+            pnl.Name = "servicePnl" + service["Id"].ToString();
             pnl.BorderStyle = BorderStyle.FixedSingle;
             pnl.FlowDirection = FlowDirection.LeftToRight;
             Label lblBusinessName = new Label();
             lblBusinessName.BorderStyle = BorderStyle.FixedSingle;
-            lblBusinessName.Text = service.Business.Name;
+            lblBusinessName.Text = service["shopname"].ToString();
             lblBusinessName.Font = new System.Drawing.Font(this.Font, FontStyle.Bold);
             pnl.Controls.Add(lblBusinessName);
             Label lblServiceName = new Label();
             lblServiceName.BorderStyle = BorderStyle.FixedSingle;
-            lblServiceName.Text = service.Name;
+            lblServiceName.Text = service["Description"].ToString();
             pnl.Controls.Add(lblServiceName);
             Button btnPushService = new Button();
             btnPushService.Text = "推送";
-            btnPushService.Tag = service;
+            btnPushService.Tag = service["Id"].ToString();
             btnPushService.Click += new EventHandler(btnPushService_Click);
             pnl.Controls.Add(btnPushService);
             Button btnSelectService = new Button();
             btnSelectService.Text = "选择";
-            btnSelectService.Tag = service;
+            btnSelectService.Tag = service["Id"].ToString();
             btnSelectService.Click += new EventHandler(btnSelectService_Click);
             pnl.Controls.Add(btnSelectService);
             pnlResultService.Controls.Add(pnl);
@@ -432,12 +445,15 @@ namespace Dianzhu.CSClient.WinformView
                 }
             }
 
+            currentServiceId = ((Button)sender).Tag.ToString();
+            SelectService();
+
             //选择新的服务，并设置背景颜色
-            DZService selectservice = (DZService)((Button)sender).Tag;
-            Panel pnl = (Panel)pnlResultService.Controls.Find("servicePnl" + selectservice.Id, true)[0];
+            //DZService selectservice = (DZService)((Button)sender).Tag;
+            Panel pnl = (Panel)pnlResultService.Controls.Find("servicePnl" + currentService.Id, true)[0];
             pnl.BackColor = Color.Green;
 
-            service = selectservice;
+            //currentService = selectservice;
         }
 
         void btnPushService_Click(object sender, EventArgs e)

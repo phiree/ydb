@@ -7,6 +7,8 @@ using Dianzhu.Model;
 using Dianzhu.CSClient.IVew;
 using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.CSClient.ViewModel;
+using System.Collections;
+
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -27,8 +29,7 @@ namespace Dianzhu.CSClient.Presenter
         //每个订单 的接待记录
        // Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();
         //搜索列表
-        Dictionary<string, IList<DZService>> SearchResultForCustomer
-            = new Dictionary<string, IList<DZService>>();
+        Dictionary<string, IList> SearchResultForCustomer = new Dictionary<string, IList>();
          //当前客户的历史订单
        // Dictionary<string, IList<ServiceOrder>> CustomerOrderList = new Dictionary<string, IList<ServiceOrder>>();
        

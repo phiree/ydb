@@ -5,6 +5,8 @@ using System.Text;
 using Dianzhu.Model;
 using NHibernate;
 using NHibernate.Criterion;
+using System.Collections;
+using NHibernate.Transform;
 
 namespace Dianzhu.DAL
 {
@@ -22,7 +24,7 @@ namespace Dianzhu.DAL
                 +where +" order by s.LastModifiedTime desc",
                 pageindex, pagesize, out totalRecord);
         }
-        public IList<DZService> SearchService(string keywords, int pageindex, int pagesize, out int totalRecord)
+        public IList SearchService(string keywords, int pageindex, int pagesize, out int totalRecord)
         {
             //var totalquery = Session.QueryOver<DZService>()
             //   // .Where(x => x.Name.Contains(keywords) || x.Description.Contains(keywords));
@@ -41,16 +43,33 @@ namespace Dianzhu.DAL
             //             "   inner join b.AreaBelongTo  a  "
             //             + "left join fetch b.CashTicketTemplates ct "
             //              + "   where a.Code like '%" + keywords + "%'";
-            string sql = "select s from DZService s " +
-                         //"  left join fetch s.Business b " +
-                         //" inner join b.business_abs " +
-                         //" inner join s.servicetype " +
-                         " where s.Name like '%" + keywords + "%' ";
+            //string sql = "select s from DZService s " +
+            //             //"  left join fetch s.Business b " +
+            //             //" inner join b.business_abs " +
+            //             //" inner join s.servicetype " +
+            //             " where s.Name like '%" + keywords + "%' ";
 
-            IQuery query = Session.CreateQuery(sql);
-            var result = query.List<DZService>();
-            totalRecord = result.Count();
-            return result;
+            //IQuery query = Session.CreateQuery(sql);
+            //var result = query.List<DZService>();
+
+            string sql = @"SELECT s.Id,s.Name,s.Description,a.Id,a.Name as shopname FROM DZService s 
+                      inner join business b on s.Business_id = b.Business_Abs_id 
+                      inner join business_abs a on b.Business_Abs_id = a.Id 
+                      where s.Name like '%" + keywords + @"%' 
+                      or s.Description like '%" + keywords + "%'";
+
+            IList list = Session.CreateSQLQuery(sql).SetResultTransformer(Transformers.AliasToEntityMap).List();
+            totalRecord = list.Count;
+
+            if (totalRecord > 0)
+            {
+                return list;
+            }
+            else
+            {
+                return null;
+            }
+            
             //string selectstr = "select * from DZService "+
             //    " left join business on dzservice.Business_id = business.Business_Abs_id and dzservice.Business_id = business.Business_Abs_id "+
             //    " inner join business_abs on business.Business_Abs_id = business_abs.Id and business.Business_Abs_id = business_abs.Id "+

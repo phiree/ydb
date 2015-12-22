@@ -11,7 +11,7 @@ using Dianzhu.Model.Enums;
 /// </summary>
 public class ResponseSYS001001:BaseResponse
 {
-    BLLReceptionChat bllReceptionChat;
+    BLLReceptionChatDD bllReceptionChatDD;
     DZMembershipProvider bllMember;
     BLLServiceOrder bllOrder;
 
@@ -25,7 +25,7 @@ public class ResponseSYS001001:BaseResponse
     {
         ReqDataSYS001001 requestData = this.request.ReqData.ToObject<ReqDataSYS001001>();
 
-        bllReceptionChat = new BLLReceptionChat();
+        bllReceptionChatDD = new BLLReceptionChatDD();
         bllMember = new DZMembershipProvider();
         bllOrder = new BLLServiceOrder();
 
@@ -134,18 +134,19 @@ public class ResponseSYS001001:BaseResponse
             }
         }
 
-        //ReceptionChatDD chatDD = new ReceptionChatDD();
-        //chatDD.MessageBody = chat.MessageBody;
-        //chatDD.ReceiveTime = chat.ReceiveTime;
-        //chatDD.SendTime = chat.SendTime;
-        //chatDD.To = chat.To;
-        //chatDD.From = chat.From;
-        //chatDD.Reception = chat.Reception;
-        //chatDD.SavedTime = chat.SavedTime;
-        //chatDD.ChatType = chat.ChatType;
-        //chatDD.ServiceOrder = chat.ServiceOrder;
-        //chatDD.Version = chat.Version;
-        bllReceptionChat.Save(chat);
+        ReceptionChatDD chatDD = new ReceptionChatDD();
+        chatDD.MessageBody = chat.MessageBody;
+        chatDD.ReceiveTime = chat.ReceiveTime;
+        chatDD.SendTime = chat.SendTime;
+        chatDD.To = chat.To;
+        chatDD.From = chat.From;
+        chatDD.Reception = chat.Reception;
+        chatDD.SavedTime = chat.SavedTime;
+        chatDD.ChatType = chat.ChatType;
+        chatDD.ServiceOrder = chat.ServiceOrder;
+        chatDD.Version = chat.Version;
+        chatDD.IsCopy = false;
+        bllReceptionChatDD.Save(chatDD);
 
         #endregion
     }

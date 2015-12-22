@@ -47,40 +47,5 @@ namespace Dianzhu.DAL
 
             return list;
         }
-
-        public bool FindChatByOrder(ServiceOrder order)
-        {
-            ReceptionChat chat = null;
-
-            //var list = Session.QueryOver<ReceptionChatDD>()
-            //    .Right.JoinAlias(x => x.Reception, () => chat)
-            //    .Where(x => x.ServiceOrder == order)
-            //    .And(x => x.CopyFrom == null)
-            //    .List();
-
-            string sql = "SELECT rdd FROM ReceptionChatDD rdd" +
-                " RIGHT OUTER JOIN rdd.ReceptionChat r " +
-                " WHERE r.ServiceOrder_id = '" + order.Id + "'"+
-                " AND rdd.CopyFrom_id IS NULL";
-
-            //string sql = "select s from DZService s " +
-            //             //"  left join fetch s.Business b " +
-            //             //" inner join b.business_abs " +
-            //             //" inner join s.servicetype " +
-            //             " where s.Name like '%" + keywords + "%' ";
-
-            IQuery query = Session.CreateQuery(sql);
-            var list = query.List<ReceptionChatDD>();
-            if (list.Count > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
     }
 }

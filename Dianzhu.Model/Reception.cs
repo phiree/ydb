@@ -140,9 +140,20 @@ namespace Dianzhu.Model
     /// <summary>
     /// 记录点点的接待记录
     /// </summary>
-    public class ReceptionChatDD : ReceptionChat
+    public class ReceptionChatDD
     {
-        public virtual ReceptionChat CopyFrom { get; set; }
+        public virtual Guid Id { get; set; }
+        public virtual ReceptionBase Reception { get; set; }//接待记录，多个聊天的集合
+        public virtual DateTime SavedTime { get; set; }//保存的时间, 作为排序依据.
+        public virtual DateTime SendTime { get; set; }//发送时间
+        public virtual DateTime ReceiveTime { get; set; }//接收时间
+        public virtual DZMembership From { get; set; }//发送方
+        public virtual DZMembership To { get; set; }//接收方
+        public virtual string MessageBody { get; set; }//消息的内容
+        public virtual Enums.enum_ChatType ChatType { get; set; }
+        public virtual ServiceOrder ServiceOrder { get; set; }
+        public virtual int Version { get; set; }//版本号
+        public virtual bool IsCopy { get; set; }//复制的聊天记录
     }
 
     /// <summary>

@@ -8,6 +8,8 @@ using Dianzhu.DAL;
 using Dianzhu.BLL.Validator;
 using FluentValidation;
 using FluentValidation.Results;
+using System.Collections;
+
 namespace Dianzhu.BLL
 {
     public class BLLDZService
@@ -60,7 +62,7 @@ namespace Dianzhu.BLL
         {
             DALDZService.Delete(dz);
         }
-        public IList<DZService> Search(string keywords, int pageIndex, int pagesize, out int total)
+        public IList Search(string keywords, int pageIndex, int pagesize, out int total)
         {
           return  DALDZService.SearchService(keywords, pageIndex, pagesize, out total);
         }

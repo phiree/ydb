@@ -59,7 +59,7 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         private void CleanOrderData()
         {
-            view.Service = null;
+            view.CurrentService = null;
             view.ServiceName = string.Empty;
             view.ServiceBusinessName = string.Empty;
             view.ServiceDescription = string.Empty;
@@ -133,7 +133,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 OrderList.Add(order);
             }
-            view.Service = order.Service;
+            view.CurrentService = order.Service;
             view.ServiceName = order.ServiceName;
             view.ServiceBusinessName = order.ServiceBusinessName;
             view.ServiceDescription = order.ServiceDescription;
@@ -172,7 +172,7 @@ namespace Dianzhu.CSClient.Presenter
                 return;
             }
 
-            CurrentServiceOrder.Service = view.Service;
+            CurrentServiceOrder.Service = view.CurrentService;
             CurrentServiceOrder.ServiceName = view.ServiceName;
             CurrentServiceOrder.ServiceBusinessName = view.ServiceBusinessName;
             CurrentServiceOrder.ServiceDescription = view.ServiceDescription;
