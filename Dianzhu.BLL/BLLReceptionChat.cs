@@ -9,6 +9,7 @@ using System.Web.Security;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using Dianzhu.Model;
+
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -32,7 +33,7 @@ namespace Dianzhu.BLL
             return DALReceptionChat.GetChatByOrder(order);
         }
 
-        public bool FindChatByOrder(ServiceOrder order)
+        public IList<ReceptionChat> FindChatByOrder(ServiceOrder order)
         {
             return DALReceptionChat.FindChatByOrder(order);
         }
