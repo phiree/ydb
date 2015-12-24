@@ -160,6 +160,21 @@ namespace Dianzhu.Model.Enums
         customerservice
     }
 
+    /// <summary>
+    /// 聊天记录类型，接待方是平台客服还是商家客服
+    /// </summary>
+    public enum enum_ChatTarget
+    {
+        /// <summary>
+        /// 与平台客服聊天类型
+        /// </summary>
+        cer,
+        /// <summary>
+        /// 与商家客服聊天类型
+        /// </summary>
+        store
+    }
+
 
 
 }

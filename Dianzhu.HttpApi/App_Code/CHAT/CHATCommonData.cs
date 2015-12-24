@@ -36,6 +36,7 @@ public class RespDataCHAT_chatObj
         }
         else if (chat is ReceptionChatReAssign)
         {
+            this.type = enum_ChatType.ReAssign.ToString();
             this.body = "(Reassign to)" + ((ReceptionChatReAssign)chat).ReAssignedCustomerService.DisplayName;
         }
         else {

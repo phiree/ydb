@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using NHibernate;
+using Dianzhu.Model.Enums;
 
 namespace Dianzhu.DAL
 {
@@ -70,7 +71,7 @@ namespace Dianzhu.DAL
         /// <param name="rowCount"></param>
         /// <returns></returns>
         public virtual IList<ReceptionChat> GetReceptionChatList(DZMembership from,DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
-            int pageIndex, int pageSize, out int rowCount
+            int pageIndex, int pageSize,string target, out int rowCount
             )
         {
 
@@ -78,6 +79,18 @@ namespace Dianzhu.DAL
             if(orderId!=Guid.Empty)
             {
                 result = result.And(x => x.ServiceOrder.Id == orderId);
+            }
+            if (target != "")
+            {
+                switch (target)
+                {
+                    case "cer":
+                        result = result.And(x => (int)x.ChatTarget == (int)enum_ChatTarget.cer);
+                        break;
+                    case "store":
+                        result = result.And(x => (int)x.ChatTarget == (int)enum_ChatTarget.store);
+                        break;
+                }
             }
             rowCount = result.RowCount();
             IList<ReceptionChat> receptionChatList = new List<ReceptionChat>();
@@ -126,34 +139,6 @@ namespace Dianzhu.DAL
             receptionChatList = result.Take(pageSize).List().OrderBy(x => x.SavedTime).ToList();
 
             return receptionChatList;
-        }
-
-        public virtual IList <ReceptionChat > GetReceptionChatListByTarget(IList <ReceptionChat > chatList,string target)
-        {
-            IList<ReceptionChat> list = new List<ReceptionChat>();
-            switch (target)
-            {
-                case "cer":
-                    foreach (ReceptionChat re in chatList)
-                    {
-                        if (re.From.UserType == Model.Enums.enum_UserType.customerservice.ToString() || re.To.UserType == Model.Enums.enum_UserType.customerservice.ToString())
-                        {
-                            list.Add(re);
-                        }
-                    }
-                    break;
-                case "store":
-                    foreach (ReceptionChat re in chatList)
-                    {
-                        if (re.From.UserType == Model.Enums.enum_UserType.business.ToString() || re.To.UserType == Model.Enums.enum_UserType.business.ToString())
-                        {
-                            list.Add(re);
-                        }
-                    }
-                    break;
-            }
-
-            return list;
         }
 
         private IQueryOver<ReceptionChat, ReceptionChat> BuildReceptionChatQuery(DZMembership from,DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd)

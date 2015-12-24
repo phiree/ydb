@@ -37,13 +37,13 @@ namespace Dianzhu.DAL
         }
 
         /// <summary>
-        /// 根据订单获取聊天记录
+        /// 根据订单获取点点聊天表中未复制过的聊天记录
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public IList<ReceptionChatDD> GetChatListByOrder(ServiceOrder order)
+        public IList<ReceptionChatDD> GetChatDDListByOrder(ServiceOrder order)
         {
-            var list = Session.QueryOver<ReceptionChatDD>().Where(x => x.ServiceOrder == order).OrderBy(x=>x.SavedTime).Desc.List();
+            var list = Session.QueryOver<ReceptionChatDD>().Where(x => x.ServiceOrder == order).And(x=>x.IsCopy==false).OrderBy(x=>x.SavedTime).Asc.List();
 
             return list;
         }

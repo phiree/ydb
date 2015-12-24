@@ -135,17 +135,27 @@ public class ResponseSYS001001:BaseResponse
         }
 
         ReceptionChatDD chatDD = new ReceptionChatDD();
-        chatDD.MessageBody = chat.MessageBody;
+        chatDD.Id = chat.Id;
+        if (chat.MessageBody != "")
+        {
+            chatDD.MessageBody = chat.MessageBody;
+        }
         chatDD.ReceiveTime = chat.ReceiveTime;
         chatDD.SendTime = chat.SendTime;
         chatDD.To = chat.To;
         chatDD.From = chat.From;
         chatDD.Reception = chat.Reception;
-        chatDD.SavedTime = chat.SavedTime;
+        chatDD.SavedTime = DateTime.Now;
         chatDD.ChatType = chat.ChatType;
         chatDD.ServiceOrder = chat.ServiceOrder;
         chatDD.Version = chat.Version;
         chatDD.IsCopy = false;
+        if (chat is ReceptionChatMedia)
+        {
+            chatDD.MedialUrl = ((ReceptionChatMedia)chat).MedialUrl;
+            chatDD.MediaType = ((ReceptionChatMedia)chat).MediaType;
+        }
+        
         bllReceptionChatDD.Save(chatDD);
 
         #endregion

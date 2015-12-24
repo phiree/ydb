@@ -29,16 +29,11 @@ public class ResponseCHAT001006:BaseResponse
         BLLReception bllReception = new BLLReception();
         int rowCount;
         Guid orderId;
-        bool isGuid = Guid.TryParse(requestData.orderID, out orderId);
-        if (!isGuid)
-        {
-            this.state_CODE = Dicts.StateCode[1];
-            this.err_Msg = "OrderId格式有误";
-            return;
-        }
-        
+        IList<ReceptionChat> chatList;
+
         int pageIndex = 0, pageSize = 10;
-        try {
+        try
+        {
             pageIndex = Convert.ToInt32(requestData.pageNum);
             pageSize = Convert.ToInt32(requestData.pageSize);
         }
@@ -47,15 +42,28 @@ public class ResponseCHAT001006:BaseResponse
             pageIndex = 0;
             pageSize = 10;
         }
+
+        if (requestData.orderID == "")
+        {
+            chatList = bllReception.GetReceptionChatList(member, null, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, requestData.target, out rowCount);
+        }
+        else
+        {
+            bool isGuid = Guid.TryParse(requestData.orderID, out orderId);
+            if (!isGuid)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "OrderId格式有误";
+                return;
+            }
+
+            chatList = bllReception.GetReceptionChatList(member, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, requestData.target, out rowCount);
+        }
+        
         try
         {
-            IList<ReceptionChat> chatList = bllReception.GetReceptionChatList(member,null, orderId, DateTime.MinValue
-                ,DateTime.MaxValue,pageIndex,pageSize,out rowCount);
-
-            var chatListNew = bllReception.GetReceptionChatListByTarget(chatList, requestData.target);
-
             RespDataCHAT001006 respData = new RespDataCHAT001006();
-              respData.AdapList(chatListNew);
+              respData.AdapList(chatList);
             this.RespData = respData;
             this.state_CODE = Dicts.StateCode[0];
             return;
@@ -74,12 +82,12 @@ public class ReqDataCHAT001006
     public string pWord { get; set; }
     public string orderID { get; set; }
     public string target { get; set; }
-    public CHATTarget Target
+    public Dianzhu.Model.Enums.enum_ChatTarget Target
     {
         get
         {
-            CHATTarget tar;
-            bool isType = Enum.TryParse<CHATTarget>(target, out tar);
+            Dianzhu.Model.Enums.enum_ChatTarget tar;
+            bool isType = Enum.TryParse<Dianzhu.Model.Enums.enum_ChatTarget>(target, out tar);
             if (!isType) { throw new Exception("不可识别的用户类型"); }
             return tar;
         }

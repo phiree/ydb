@@ -8,6 +8,7 @@ using System.Linq;
 using System.IO;
 using System.Net;
 using System.Collections;
+using Dianzhu.Model.Enums;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -97,28 +98,37 @@ namespace Dianzhu.CSClient.Presenter
                 rs.CustomerService = GlobalViables.CurrentCustomerService;
                 bllReceptionStatus.SaveByRS(rs);
 
+                BLLReceptionChatDD bllReceptionChatDD = new BLLReceptionChatDD();
                 //查询聊天记录表中是否有该订单的聊天，如果没有，从点点记录的聊天记录表中复制一份
-                IList<ReceptionChat> chatList = bllReceptionChat.FindChatByOrder(rs.Order);
-                if (chatList != null)
+                IList<ReceptionChatDD> chatDDList = bllReceptionChatDD.GetChatDDListByOrder(rs.Order);
+                if (chatDDList.Count > 0)
                 {
-                    BLLReceptionChatDD bllReceptionChatDD = new BLLReceptionChatDD();
-
                     ReceptionChat copychat;
-                    for (int i = 0; i < chatList.Count; i++)
+                    for (int i = 0; i < chatDDList.Count; i++)
                     {
-                        //copychat = new ReceptionChat();
-                        //copychat.MessageBody = chatList[i].MessageBody;
-                        //copychat.ReceiveTime = chatList[i].ReceiveTime;
-                        //copychat.SendTime = chatList[i].SendTime;
-                        //copychat.To = rs.Customer;
-                        //copychat.From = chatList[i].From;
-                        //copychat.Reception = chatList[i].Reception;
-                        //copychat.SavedTime = chatList[i].SavedTime;
-                        //copychat.ChatType = chatList[i].ChatType;
-                        //copychat.ServiceOrder = chatList[i].ServiceOrder;
-                        //copychat.Version = chatList[i].Version;
+                        //ReceptionChat chat = ReceptionChat.Create(chatType);
+                        copychat = ReceptionChat.Create(chatDDList[i].ChatType);
+                        copychat.Id = chatDDList[i].Id;
+                        copychat.MessageBody = chatDDList[i].MessageBody;
+                        copychat.ReceiveTime = chatDDList[i].ReceiveTime;
+                        copychat.SendTime = chatDDList[i].SendTime;
+                        copychat.To = rs.Customer;
+                        copychat.From = chatDDList[i].From;
+                        copychat.Reception = chatDDList[i].Reception;
+                        copychat.SavedTime = chatDDList[i].SavedTime;
+                        copychat.ChatType = chatDDList[i].ChatType;
+                        copychat.ServiceOrder = chatDDList[i].ServiceOrder;
+                        copychat.Version = chatDDList[i].Version;
+                        if(chatDDList[i].ChatType== enum_ChatType.Media)
+                        {
+                            ((ReceptionChatMedia)copychat).MedialUrl = chatDDList[i].MedialUrl;
+                            ((ReceptionChatMedia)copychat).MediaType = chatDDList[i].MediaType;
+                        }
 
-                        //bllReceptionChat.Save(copychat);
+                        bllReceptionChat.Save(copychat);
+
+                        chatDDList[i].IsCopy = true;
+                        bllReceptionChatDD.Save(chatDDList[i]);
                     }
 
                     ////复制用户与点点的聊天记录
@@ -435,6 +445,10 @@ namespace Dianzhu.CSClient.Presenter
                     }
                 }
             }
+            if (chat.To.UserType == enum_UserType.customerservice.ToString() || chat.From.UserType == enum_UserType.customerservice.ToString())
+            {
+                chat.ChatTarget = enum_ChatTarget.cer;
+            }
            
             bllReceptionChat.Save(chat);
             //re.ChatHistory.Add(chat);
@@ -459,7 +473,7 @@ namespace Dianzhu.CSClient.Presenter
             
             int rowCount;
             var chatHistory = bllReception.GetChatListByOrder(
-                serviceOrder.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),0,20,out rowCount);
+                serviceOrder.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),0,20,string.Empty, out rowCount);
 
             view.ChatLog = chatHistory;
         }

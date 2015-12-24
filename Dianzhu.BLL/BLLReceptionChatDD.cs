@@ -26,6 +26,11 @@ namespace Dianzhu.BLL
         {
             DALReceptionChatDD.Save(chatDD);
         }
+
+        public IList<ReceptionChatDD> GetChatDDListByOrder(ServiceOrder order)
+        {
+            return DALReceptionChatDD.GetChatDDListByOrder(order);
+        }
     }
 
 }

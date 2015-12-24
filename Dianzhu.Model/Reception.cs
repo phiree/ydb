@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dianzhu.Model.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -112,6 +113,7 @@ namespace Dianzhu.Model
         public virtual Enums.enum_ChatType ChatType { get; set; }
         public virtual ServiceOrder ServiceOrder { get; set;}
         public virtual int Version { get; set; }//版本号
+        public virtual enum_ChatTarget ChatTarget { get; set; } //聊天状态，接待方是平台客服还是商家客服
         /// <summary>
         /// 消息中媒体文件的地址,多个媒体文件用分号风格.
         /// </summary>
@@ -153,7 +155,10 @@ namespace Dianzhu.Model
         public virtual Enums.enum_ChatType ChatType { get; set; }
         public virtual ServiceOrder ServiceOrder { get; set; }
         public virtual int Version { get; set; }//版本号
-        public virtual bool IsCopy { get; set; }//复制的聊天记录
+        public virtual bool IsCopy { get; set; }//是否复制过该聊天记录
+        public virtual string MedialUrl { get; set; }
+        public virtual string MediaType { get; set; }
+        public virtual enum_ChatTarget ChatTarget { get; set; }//聊天状态，接待方是平台客服还是商家客服
     }
 
     /// <summary>

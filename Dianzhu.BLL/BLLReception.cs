@@ -28,21 +28,15 @@ namespace Dianzhu.BLL
         }
         
         public IList<ReceptionChat> GetReceptionChatList(DZMembership from, DZMembership to
-          ,Guid orderId, DateTime begin, DateTime end,
-           int pageIndex,int pageSize,out int rowCount)
+          ,Guid orderId, DateTime begin, DateTime end,int pageIndex,int pageSize,string target, out int rowCount)
         {
-            var list = DALReception.GetReceptionChatList(from, to,orderId, begin, end,pageIndex,pageSize,out rowCount);
+            var list = DALReception.GetReceptionChatList(from, to,orderId, begin, end,pageIndex,pageSize, target,out rowCount);
             return list;
         }
-        public IList<ReceptionChat> GetChatListByOrder(Guid orderId, DateTime begin, DateTime end, int pageIndex, int pageSize, out int rowCount)
+        public IList<ReceptionChat> GetChatListByOrder(Guid orderId, DateTime begin, DateTime end, int pageIndex, int pageSize,string target, out int rowCount)
         {
 
-            return GetReceptionChatList(null, null, orderId, begin, end, pageIndex, pageSize, out rowCount);
-        }
-        public IList <ReceptionChat > GetReceptionChatListByTarget(IList<ReceptionChat > chatList,string target)
-        {
-            var list = DALReception.GetReceptionChatListByTarget(chatList,target);
-            return list;
+            return GetReceptionChatList(null, null, orderId, begin, end, pageIndex, pageSize, target, out rowCount);
         }
         public IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime begin, DateTime end,
              int pageSize, Guid targetId, string low)

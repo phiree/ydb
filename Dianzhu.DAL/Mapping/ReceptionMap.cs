@@ -50,6 +50,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.ChatType).CustomType<int>();
             Map(x => x.Version);
             References<ReceptionBase>(x => x.Reception).Cascade.All().Column("ReceptionBase_id");
+            Map(x => x.ChatTarget).CustomType<int>();
         }
     }
 
@@ -69,6 +70,9 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Version);
             References<ReceptionBase>(x => x.Reception).Cascade.All().Column("ReceptionBase_id");
             Map(x => x.IsCopy);
+            Map(x => x.MedialUrl);
+            Map(x => x.MediaType);
+            Map(x => x.ChatTarget).CustomType<int>();
         }
     }
 

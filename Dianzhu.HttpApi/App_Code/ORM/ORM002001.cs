@@ -56,13 +56,23 @@ public class ResponseORM002001 : BaseResponse
 
                 string reqOrderId = requestData.orderID;
                 Guid order_ID;
-                bool isValidGuid = Guid.TryParse(reqOrderId, out order_ID);
+                if (reqOrderId != "")
+                {
+                    bool isValidGuid = Guid.TryParse(reqOrderId, out order_ID);
+                    if (!isValidGuid)
+                    {
+                        this.state_CODE = Dicts.StateCode[1];
+                        this.err_Msg = "OrderId格式有误";
+                        return;
+                    }
+                }
+
                 //bool hasOrder = false;
                 //bool needNewOrder = false;
                 ServiceOrder orderToReturn = null;
                 //if (isValidGuid)
                 //{
-                    orderToReturn = bllOrder.GetDraftOrder(member, assignedPair[member]);
+                orderToReturn = bllOrder.GetDraftOrder(member, assignedPair[member]);
                     if (orderToReturn == null)
                     {
                         orderToReturn = ServiceOrder.Create(
