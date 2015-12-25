@@ -11,8 +11,8 @@ namespace Dianzhu.DAL.Mapping
     {
        public ServiceOrderMap()
        {
-           Id(x => x.Id);
-           References<DZMembership>(x => x.Customer);            
+            Id(x => x.Id);
+            References<DZMembership>(x => x.Customer);
             Map(x => x.OrderCreated);
             Map(x => x.OrderFinished);
             Map(x => x.OrderServerStartTime);
@@ -24,25 +24,23 @@ namespace Dianzhu.DAL.Mapping
             HasMany<Staff>(x => x.Staff);
             Map(x => x.UnitAmount);
             Map(x => x.OrderAmount);
-           References<DZService>(x => x.Service);
+            References<DZService>(x => x.Service);
             Map(x => x.ServiceURL);
             Map(x => x.ServiceName);
             Map(x => x.ServiceDescription);
             Map(x => x.ServiceBusinessName);
 
             Map(x => x.ServiceUnitPrice);
-           
-           
-         
-           Map(x => x.CustomerName);
-           Map(x => x.CustomerEmail);
-           Map(x => x.CustomerPhone);
+
+            Map(x => x.CustomerName);
+            Map(x => x.CustomerEmail);
+            Map(x => x.CustomerPhone);
             References<DZMembership>(x => x.CustomerService);
             Map(x => x.TradeNo);
             Map(x => x.RefundMemo);
 
+            Map(x => x.ChatPayType).CustomType<int>();
 
-           
-       }
+        }
     }
 }

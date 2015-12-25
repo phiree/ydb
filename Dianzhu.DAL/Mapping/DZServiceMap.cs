@@ -37,7 +37,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.CreatedTime);
             Map(x => x.LastModifiedTime);
             HasMany<ServiceOpenTime>(x => x.OpenTimes).Cascade.AllDeleteOrphan();
-            
+            Map(x => x.PayFirst);
 
         }
     }

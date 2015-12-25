@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Dianzhu.Model;
 using NHibernate;
 using Dianzhu.Model.Enums;
@@ -71,7 +70,7 @@ namespace Dianzhu.DAL
         /// <param name="rowCount"></param>
         /// <returns></returns>
         public virtual IList<ReceptionChat> GetReceptionChatList(DZMembership from,DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
-            int pageIndex, int pageSize,string target, out int rowCount
+            int pageIndex, int pageSize, enum_ChatTarget target, out int rowCount
             )
         {
 
@@ -80,17 +79,15 @@ namespace Dianzhu.DAL
             {
                 result = result.And(x => x.ServiceOrder.Id == orderId);
             }
-            if (target != "")
+
+            switch (target)
             {
-                switch (target)
-                {
-                    case "cer":
-                        result = result.And(x => (int)x.ChatTarget == (int)enum_ChatTarget.cer);
-                        break;
-                    case "store":
-                        result = result.And(x => (int)x.ChatTarget == (int)enum_ChatTarget.store);
-                        break;
-                }
+                case enum_ChatTarget.cer:
+                    result = result.And(x => x.ChatTarget == enum_ChatTarget.cer);
+                    break;
+                case enum_ChatTarget.store:
+                    result = result.And(x => x.ChatTarget == enum_ChatTarget.store);
+                    break;
             }
             rowCount = result.RowCount();
             IList<ReceptionChat> receptionChatList = new List<ReceptionChat>();
@@ -106,11 +103,20 @@ namespace Dianzhu.DAL
         }
 
         public virtual IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
-             int pageSize, Guid targetId, string low)
+             int pageSize, Guid targetId, string low, enum_ChatTarget target)
         {
             ReceptionChat reChat = Session.QueryOver<ReceptionChat>().Where(x => x.Id == targetId).SingleOrDefault();
 
             var result = Session.QueryOver<ReceptionChat>();
+            switch (target)
+            {
+                case enum_ChatTarget.cer:
+                    result = result.And(x => x.ChatTarget == enum_ChatTarget.cer);
+                    break;
+                case enum_ChatTarget.store:
+                    result = result.And(x => x.ChatTarget == enum_ChatTarget.store);
+                    break;
+            }
             if (low == "Y")
             {
                 result = result.Where(x => x.SavedTime < reChat.SavedTime).OrderBy(x => x.SavedTime).Desc;

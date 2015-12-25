@@ -8,6 +8,7 @@ using Dianzhu.Model;
 using System.Web.Security;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using Dianzhu.Model.Enums;
 
 namespace Dianzhu.BLL
 {
@@ -28,20 +29,20 @@ namespace Dianzhu.BLL
         }
         
         public IList<ReceptionChat> GetReceptionChatList(DZMembership from, DZMembership to
-          ,Guid orderId, DateTime begin, DateTime end,int pageIndex,int pageSize,string target, out int rowCount)
+          ,Guid orderId, DateTime begin, DateTime end,int pageIndex,int pageSize, enum_ChatTarget target, out int rowCount)
         {
             var list = DALReception.GetReceptionChatList(from, to,orderId, begin, end,pageIndex,pageSize, target,out rowCount);
             return list;
         }
-        public IList<ReceptionChat> GetChatListByOrder(Guid orderId, DateTime begin, DateTime end, int pageIndex, int pageSize,string target, out int rowCount)
+        public IList<ReceptionChat> GetChatListByOrder(Guid orderId, DateTime begin, DateTime end, int pageIndex, int pageSize, enum_ChatTarget target, out int rowCount)
         {
 
             return GetReceptionChatList(null, null, orderId, begin, end, pageIndex, pageSize, target, out rowCount);
         }
         public IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime begin, DateTime end,
-             int pageSize, Guid targetId, string low)
+             int pageSize, Guid targetId, string low, enum_ChatTarget target)
         {
-            return DALReception.GetReceptionChatListByTargetIdAndSize(from, to, orderId, begin, end, pageSize, targetId, low);
+            return DALReception.GetReceptionChatListByTargetIdAndSize(from, to, orderId, begin, end, pageSize, targetId, low, target);
         }
     }
 

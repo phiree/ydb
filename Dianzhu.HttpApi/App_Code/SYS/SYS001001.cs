@@ -89,6 +89,14 @@ public class ResponseSYS001001:BaseResponse
             ((ReceptionChatMedia)chat).MedialUrl = mediaUrl;
             ((ReceptionChatMedia)chat).MediaType = mediaType;
         }
+        if (chat.To.UserType == enum_UserType.customerservice.ToString() || chat.From.UserType == enum_UserType.customerservice.ToString())
+        {
+            chat.ChatTarget = enum_ChatTarget.cer;
+        }
+        else if (chat.To.UserType == enum_UserType.business.ToString() || chat.From.UserType == enum_UserType.business.ToString())
+        {
+            chat.ChatTarget = enum_ChatTarget.store;
+        }
 
         return chat;
     }
@@ -155,6 +163,7 @@ public class ResponseSYS001001:BaseResponse
             chatDD.MedialUrl = ((ReceptionChatMedia)chat).MedialUrl;
             chatDD.MediaType = ((ReceptionChatMedia)chat).MediaType;
         }
+        chatDD.ChatTarget = chat.ChatTarget;
         
         bllReceptionChatDD.Save(chatDD);
 

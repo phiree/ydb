@@ -155,5 +155,9 @@ namespace Dianzhu.Model
            }
            return true;
        }
+        /// <summary>
+        /// 是否为先付
+        /// </summary>
+        public virtual bool PayFirst { get; set; }
     }
 }

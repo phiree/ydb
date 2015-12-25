@@ -124,7 +124,7 @@ namespace Dianzhu.Model.Enums
     public enum enum_ServiceScopeType
     {
         /// <summary>
-        /// 系统内服务,系统内iyonghu
+        /// 系统内服务,系统内用户
         /// </summary>
         ISIM, 
         /// <summary>
@@ -172,9 +172,30 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 与商家客服聊天类型
         /// </summary>
-        store
+        store,
+        /// <summary>
+        /// 查询所有的类型
+        /// </summary>
+        all
     }
 
-
+    /// <summary>
+    /// 订单种类：搜索、先付、后付
+    /// </summary>
+    public enum enum_ChatPayType
+    {
+        /// <summary>
+        /// 搜索
+        /// </summary>
+        search,
+        /// <summary>
+        /// 先付
+        /// </summary>
+        payfirst,
+        /// <summary>
+        /// 后付
+        /// </summary>
+        paylater
+    }
 
 }

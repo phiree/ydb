@@ -45,7 +45,7 @@ namespace Dianzhu.Model
             return order;
         }
         /// <summary>
-        /// 系统内服务,系统外客户
+        /// 系统内服务,系统外用户
         /// </summary>
         /// <param name="scopeType"></param>
         /// <param name="service"></param>
@@ -288,6 +288,11 @@ namespace Dianzhu.Model
         /// 支付交易号
         /// </summary>
         public virtual string TradeNo { get; set; }
+
+        /// <summary>
+        /// 订单种类：搜索、先付、后付
+        /// </summary>
+        public virtual enum_ChatPayType ChatPayType { get; set; }
 
     }
  

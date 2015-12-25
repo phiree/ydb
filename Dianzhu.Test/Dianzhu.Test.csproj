@@ -100,7 +100,7 @@
   <ItemGroup>
     <Compile Include="BLLTest\TestBLLArea.cs" />
     <Compile Include="BLLTest\TestBLLReception.cs" />
-    <Compile Include="BLLTest\TestBLLReceptionChatDD.cs" />
+    <Compile Include="BLLTest\TestBLLReceptionChat.cs" />
     <Compile Include="BLLTest\TestDZService.cs" />
     <Compile Include="BLLTest\TestReceptionAssign.cs" />
     <Compile Include="CashTicketCreateTest.cs" />

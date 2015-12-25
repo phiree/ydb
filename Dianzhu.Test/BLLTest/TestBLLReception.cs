@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Dianzhu.BLL;
 using Dianzhu.DAL;
 using Dianzhu.Model;
+using Dianzhu.Model.Enums;
 using Rhino.Mocks;
 using FizzWare.NBuilder;
 namespace Dianzhu.Test.BLLTest
@@ -49,7 +50,7 @@ namespace Dianzhu.Test.BLLTest
             dal.Stub(x => x.GetReceptionList(null, null, dateBegin, dateEnd, 0,10,out rowCount )).Return(receptionList);
             
             var bll = MockRepository.GenerateStub<BLLReception>(dal);
-           IList<ReceptionChat> chatList= bll.GetReceptionChatList(null, null,Guid.Empty, dateBegin,dateEnd,0,10,out rowCount);
+           IList<ReceptionChat> chatList= bll.GetReceptionChatList(null, null,Guid.Empty, dateBegin,dateEnd,0,10,enum_ChatTarget.all, out rowCount);
             if(chatList != null)
             {
                 foreach (ReceptionChat c in chatList)

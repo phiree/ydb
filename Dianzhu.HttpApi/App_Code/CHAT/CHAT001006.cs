@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+using Dianzhu.Model.Enums;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
@@ -29,6 +30,7 @@ public class ResponseCHAT001006:BaseResponse
         BLLReception bllReception = new BLLReception();
         int rowCount;
         Guid orderId;
+        string target = requestData.target; 
         IList<ReceptionChat> chatList;
 
         int pageIndex = 0, pageSize = 10;
@@ -42,10 +44,18 @@ public class ResponseCHAT001006:BaseResponse
             pageIndex = 0;
             pageSize = 10;
         }
+        enum_ChatTarget chatTarget;
+        bool is_EnumTarget= Enum.TryParse<enum_ChatTarget>(target, out chatTarget);
+        if (!is_EnumTarget)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "传入的聊天类型有误！";
+            return;
+        }
 
         if (requestData.orderID == "")
         {
-            chatList = bllReception.GetReceptionChatList(member, null, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, requestData.target, out rowCount);
+            chatList = bllReception.GetReceptionChatList(member, null, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
         }
         else
         {
@@ -57,7 +67,7 @@ public class ResponseCHAT001006:BaseResponse
                 return;
             }
 
-            chatList = bllReception.GetReceptionChatList(member, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, requestData.target, out rowCount);
+            chatList = bllReception.GetReceptionChatList(member, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
         }
         
         try
