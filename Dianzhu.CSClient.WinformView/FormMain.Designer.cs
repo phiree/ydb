@@ -61,6 +61,7 @@
             this.tbxChatLog = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.lblCountText = new System.Windows.Forms.Label();
             this.btnScreenshot = new System.Windows.Forms.Button();
             this.btnSendAudio = new System.Windows.Forms.Button();
             this.btnSendImage = new System.Windows.Forms.Button();
@@ -82,6 +83,10 @@
             this.lblCSList = new System.Windows.Forms.Label();
             this.btnSaveCS = new System.Windows.Forms.Button();
             this.lblCSServiceList = new System.Windows.Forms.Label();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.btnCopyAndNew = new System.Windows.Forms.Button();
+            this.panel9 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnKeywords = new System.Windows.Forms.Button();
             this.btnMap = new System.Windows.Forms.Button();
@@ -99,7 +104,9 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
-            this.lblCountText = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.rtxtCopyResult = new System.Windows.Forms.RichTextBox();
+            this.lblCopyResult = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -124,6 +131,9 @@
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGVCustom)).BeginInit();
             this.pnlNotice.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pnlExternService.SuspendLayout();
             this.SuspendLayout();
@@ -473,7 +483,6 @@
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.lblCountText);
             this.panel4.Controls.Add(this.btnScreenshot);
             this.panel4.Controls.Add(this.btnSendAudio);
             this.panel4.Controls.Add(this.btnSendImage);
@@ -482,6 +491,17 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(405, 44);
             this.panel4.TabIndex = 0;
+            // 
+            // lblCountText
+            // 
+            this.lblCountText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCountText.AutoSize = true;
+            this.lblCountText.BackColor = System.Drawing.Color.White;
+            this.lblCountText.Location = new System.Drawing.Point(271, 66);
+            this.lblCountText.Name = "lblCountText";
+            this.lblCountText.Size = new System.Drawing.Size(35, 12);
+            this.lblCountText.TabIndex = 5;
+            this.lblCountText.Text = "0/255";
             // 
             // btnScreenshot
             // 
@@ -515,6 +535,7 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.lblCountText);
             this.panel5.Controls.Add(this.tbxChatMsg);
             this.panel5.Controls.Add(this.btnSend);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
@@ -553,6 +574,7 @@
             this.pnlResultService.Controls.Add(this.groupBox1);
             this.pnlResultService.Controls.Add(this.label16);
             this.pnlResultService.Controls.Add(this.pnlNotice);
+            this.pnlResultService.Controls.Add(this.panel8);
             this.pnlResultService.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlResultService.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlResultService.Location = new System.Drawing.Point(0, 104);
@@ -565,10 +587,9 @@
             // 
             this.groupBox1.Controls.Add(this.panel7);
             this.groupBox1.Controls.Add(this.panel6);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(388, 330);
+            this.groupBox1.Size = new System.Drawing.Size(388, 211);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "客服分配";
@@ -579,7 +600,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel7.Location = new System.Drawing.Point(218, 17);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(170, 310);
+            this.panel7.Size = new System.Drawing.Size(170, 191);
             this.panel7.TabIndex = 1;
             // 
             // dGVCustomService
@@ -592,7 +613,7 @@
             this.dGVCustomService.Location = new System.Drawing.Point(0, 0);
             this.dGVCustomService.Name = "dGVCustomService";
             this.dGVCustomService.RowTemplate.Height = 23;
-            this.dGVCustomService.Size = new System.Drawing.Size(170, 310);
+            this.dGVCustomService.Size = new System.Drawing.Size(170, 191);
             this.dGVCustomService.TabIndex = 0;
             // 
             // CSDisplayName
@@ -612,7 +633,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel6.Location = new System.Drawing.Point(3, 17);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(215, 310);
+            this.panel6.Size = new System.Drawing.Size(215, 191);
             this.panel6.TabIndex = 0;
             // 
             // dGVCustom
@@ -625,7 +646,7 @@
             this.dGVCustom.Location = new System.Drawing.Point(0, 0);
             this.dGVCustom.Name = "dGVCustom";
             this.dGVCustom.RowTemplate.Height = 23;
-            this.dGVCustom.Size = new System.Drawing.Size(215, 310);
+            this.dGVCustom.Size = new System.Drawing.Size(215, 191);
             this.dGVCustom.TabIndex = 0;
             // 
             // CDisplayName
@@ -643,7 +664,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(3, 336);
+            this.label16.Location = new System.Drawing.Point(3, 217);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(53, 12);
             this.label16.TabIndex = 22;
@@ -656,7 +677,7 @@
             this.pnlNotice.Controls.Add(this.btnSaveCS);
             this.pnlNotice.Controls.Add(this.lblCSServiceList);
             this.pnlNotice.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnlNotice.Location = new System.Drawing.Point(3, 351);
+            this.pnlNotice.Location = new System.Drawing.Point(3, 232);
             this.pnlNotice.Name = "pnlNotice";
             this.pnlNotice.Size = new System.Drawing.Size(388, 62);
             this.pnlNotice.TabIndex = 23;
@@ -687,6 +708,47 @@
             this.lblCSServiceList.Name = "lblCSServiceList";
             this.lblCSServiceList.Size = new System.Drawing.Size(0, 12);
             this.lblCSServiceList.TabIndex = 21;
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.panel10);
+            this.panel8.Controls.Add(this.panel9);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel8.Location = new System.Drawing.Point(3, 300);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(388, 119);
+            this.panel8.TabIndex = 24;
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.lblCopyResult);
+            this.panel10.Controls.Add(this.rtxtCopyResult);
+            this.panel10.Controls.Add(this.btnCopyAndNew);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel10.Location = new System.Drawing.Point(0, 0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(388, 78);
+            this.panel10.TabIndex = 1;
+            // 
+            // btnCopyAndNew
+            // 
+            this.btnCopyAndNew.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnCopyAndNew.Location = new System.Drawing.Point(313, 0);
+            this.btnCopyAndNew.Name = "btnCopyAndNew";
+            this.btnCopyAndNew.Size = new System.Drawing.Size(75, 78);
+            this.btnCopyAndNew.TabIndex = 2;
+            this.btnCopyAndNew.Text = "发送";
+            this.btnCopyAndNew.UseVisualStyleBackColor = true;
+            this.btnCopyAndNew.Click += new System.EventHandler(this.btnCopyAndNew_Click);
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.label17);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel9.Location = new System.Drawing.Point(0, 78);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(388, 41);
+            this.panel9.TabIndex = 0;
             // 
             // panel2
             // 
@@ -852,13 +914,39 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
-            // lblCountText
+            // label17
             // 
-            this.lblCountText.AutoSize = true;
-            this.lblCountText.Location = new System.Drawing.Point(298, 14);
-            this.lblCountText.Name = "lblCountText";
-            this.lblCountText.Size = new System.Drawing.Size(0, 12);
-            this.lblCountText.TabIndex = 5;
+            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label17.ForeColor = System.Drawing.Color.Blue;
+            this.label17.Location = new System.Drawing.Point(0, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(388, 41);
+            this.label17.TabIndex = 17;
+            this.label17.Text = "注：将搜索到的信息复制到上方的文本框中，点击发送按钮即可完成搜索订单并生成新的订单。";
+            // 
+            // rtxtCopyResult
+            // 
+            this.rtxtCopyResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtxtCopyResult.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.rtxtCopyResult.Location = new System.Drawing.Point(0, 0);
+            this.rtxtCopyResult.MaxLength = 255;
+            this.rtxtCopyResult.Name = "rtxtCopyResult";
+            this.rtxtCopyResult.ShowSelectionMargin = true;
+            this.rtxtCopyResult.Size = new System.Drawing.Size(313, 78);
+            this.rtxtCopyResult.TabIndex = 3;
+            this.rtxtCopyResult.Text = "";
+            this.rtxtCopyResult.TextChanged += new System.EventHandler(this.rtxtCopyResult_TextChanged);
+            // 
+            // lblCopyResult
+            // 
+            this.lblCopyResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCopyResult.AutoSize = true;
+            this.lblCopyResult.BackColor = System.Drawing.Color.White;
+            this.lblCopyResult.Location = new System.Drawing.Point(254, 63);
+            this.lblCopyResult.Name = "lblCopyResult";
+            this.lblCopyResult.Size = new System.Drawing.Size(35, 12);
+            this.lblCopyResult.TabIndex = 18;
+            this.lblCopyResult.Text = "0/255";
             // 
             // FormMain
             // 
@@ -888,8 +976,8 @@
             this.splitContainer3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.pnlResultService.ResumeLayout(false);
             this.pnlResultService.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -899,6 +987,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dGVCustom)).EndInit();
             this.pnlNotice.ResumeLayout(false);
             this.pnlNotice.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            this.panel9.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.pnlExternService.ResumeLayout(false);
@@ -981,5 +1073,12 @@
         private System.Windows.Forms.DataGridView dGVCustom;
         private System.Windows.Forms.RichTextBox tbxChatMsg;
         private System.Windows.Forms.Label lblCountText;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Button btnCopyAndNew;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.RichTextBox rtxtCopyResult;
+        private System.Windows.Forms.Label lblCopyResult;
     }
 }

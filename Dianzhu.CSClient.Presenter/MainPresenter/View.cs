@@ -55,7 +55,7 @@ namespace Dianzhu.CSClient.Presenter
         }
 
         /// <summary>
-        /// 初始化值
+        /// 初始化值订单界面的值
         /// </summary>
         private void CleanOrderData()
         {

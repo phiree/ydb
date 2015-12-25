@@ -53,6 +53,8 @@ namespace Dianzhu.CSClient.WinformView
         public event ReAssign ReAssign;
         public event SaveReAssign SaveReAssign;
 
+        public event MessageSentAndNew MessageSentAndNew;
+
         #endregion
 
         /// <summary>
@@ -819,6 +821,22 @@ namespace Dianzhu.CSClient.WinformView
         private void tbxChatMsg_TextChanged(object sender, EventArgs e)
         {
             lblCountText.Text = MessageTextBox.Length + "/255";
+        }
+
+        public string CopyResult
+        {
+            get { return rtxtCopyResult.Text; }
+            set { rtxtCopyResult.Text = value; }
+        }
+
+        private void btnCopyAndNew_Click(object sender, EventArgs e)
+        {
+            MessageSentAndNew();
+        }
+
+        private void rtxtCopyResult_TextChanged(object sender, EventArgs e)
+        {
+            lblCopyResult.Text = CopyResult.Length + "/255";
         }
     }
 }

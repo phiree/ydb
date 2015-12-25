@@ -74,8 +74,61 @@ namespace Dianzhu.CSClient.Presenter
             this.view.SaveReAssign += View_SaveReAssign;
             this.view.CurrentCustomerService = GlobalViables.CurrentCustomerService.UserName;
 
+            this.view.MessageSentAndNew += View_MessageSentAndNew;
+
             //this.SysAssign();
             
+        }
+
+        /// <summary>
+        /// 发送消息后，生成新订单
+        /// </summary>
+        private void View_MessageSentAndNew()
+        {
+            if (CurrentServiceOrder == null)
+            { return; }
+
+            if (string.IsNullOrEmpty(view.CopyResult.Trim())) return;
+
+            ReceptionChat chat = new ReceptionChat
+            {
+                ChatType = Model.Enums.enum_ChatType.Text,
+                From = customerService,
+                To = CurrentServiceOrder.Customer,
+                MessageBody = view.CopyResult,
+                SendTime = DateTime.Now,
+                SavedTime = DateTime.Now,
+                ServiceOrder = CurrentServiceOrder,
+
+            };
+
+            SendMessage(chat);
+            view.CopyResult = string.Empty;
+
+            //更新搜索订单状态：改为已完成
+            CurrentServiceOrder.OrderStatus = enum_OrderStatus.Finished;
+            bllOrder.SaveOrUpdate(CurrentServiceOrder);
+
+            //新建订单
+            ServiceOrder orderNew = ServiceOrder.Create(
+                         enum_ServiceScopeType.OSIM
+                       , string.Empty //serviceName
+                       , string.Empty//serviceBusinessName
+                       , string.Empty//serviceDescription
+                       , 0//serviceUnitPrice
+                       , string.Empty//serviceUrl
+                       , CurrentServiceOrder.Customer //member
+                       , string.Empty
+                       , 0
+                       , 0);
+            orderNew.CustomerService = customerService;
+            bllOrder.SaveOrUpdate(orderNew);
+
+            //通知前端订单已更改
+            CurrentServiceOrder = orderNew;
+            NoticeDraftNew();
+
+            CleanOrderData();
         }
 
         /// <summary>
@@ -333,6 +386,21 @@ namespace Dianzhu.CSClient.Presenter
                 );
         }
 
+        private void NoticeDraftNew()
+        {
+            instantMessage.SendMessage(
+              string.Format(@"
+             <message xmlns = ""jabber:client"" type = ""headline"" 
+        id = ""{2}""
+    to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
+            <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
+            <ext xmlns=""ihelper:notice:draft:new"">
+                <orderID>{3}</orderID>
+            </ext>
+            </message>
+                ", CurrentServiceOrder.Customer.Id,customerService.Id, Guid.NewGuid(), CurrentServiceOrder.Id));
+        }
+
         private void View_OrderStateChanged()
         {
             
@@ -473,7 +541,7 @@ namespace Dianzhu.CSClient.Presenter
             
             int rowCount;
             var chatHistory = bllReception.GetChatListByOrder(
-                serviceOrder.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),0,20,string.Empty, out rowCount);
+                serviceOrder.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),0,20,enum_ChatTarget.all, out rowCount);
 
             view.ChatLog = chatHistory;
         }

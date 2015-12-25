@@ -54,7 +54,12 @@ namespace Dianzhu.CSClient.IVew
     /// 保存重新分配
     /// </summary>
     public delegate void SaveReAssign();
-    
+
+    /// <summary>
+    /// 消息发送之后
+    /// </summary>
+    public delegate void MessageSentAndNew();
+
     /// <summary>
     /// 主界面接口定义
     /// </summary>
@@ -179,5 +184,12 @@ namespace Dianzhu.CSClient.IVew
         /// </summary>
         /// <param name="btnName"></param>
         void RemoveOrderBtn(string btnName);
+        
+        /// <summary>
+        /// 发送消息并生成新订单
+        /// </summary>
+        event MessageSentAndNew MessageSentAndNew;
+
+        string CopyResult { get; set; }
     }
 }
