@@ -181,9 +181,15 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     private void UpdateAfterSaved()
     {
         if(IsNew)
-        { 
-        bllTag.AddTag(tbxTag.Text, CurrentService.Id.ToString(), CurrentService.Business.Id.ToString(),
+        {
+            string[] tags = tbxTag.Text.Split(' ');
+            foreach(string tag in tags)
+            {
+                if (string.IsNullOrEmpty(tag) || string.IsNullOrWhiteSpace(tag))
+                { continue; }
+        bllTag.AddTag(tag, CurrentService.Id.ToString(), CurrentService.Business.Id.ToString(),
             CurrentService.ServiceType.Id.ToString());
+            }
         }
     }
     private void UpdatePayType()
