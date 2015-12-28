@@ -319,7 +319,7 @@
                                                 </div>
                                             </div>
 
-                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签</p>
+                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签，用空格键隔开添加多个标签。</p>
                                         </div>
                                     </div>
                                 </div>
