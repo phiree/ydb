@@ -284,6 +284,11 @@ html{
     content: "";
 }
 
+.icon-query {
+    width: 16px;
+    height: 16px;
+    background: url("../image/yidianban_v1.2/wenhao2.png") no-repeat center;
+}
 
 /*登录0状态样式*/
 .LoginStatus {
