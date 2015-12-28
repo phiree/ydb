@@ -44,11 +44,15 @@ namespace Dianzhu.DAL
                         && x.OrderStatus!= enum_OrderStatus.Finished
                         && x.OrderStatus!= enum_OrderStatus.Aborded
                         && x.OrderStatus!= enum_OrderStatus.Appraise
+                        && x.OrderStatus!=enum_OrderStatus.Search
                     );
                     break;
                 default:
                 case enum_OrderSearchType.ALL:
-                    iqueryover = iqueryover.Where(x => x.OrderStatus != enum_OrderStatus.Draft);
+                    iqueryover = iqueryover.Where(
+                        x => x.OrderStatus != enum_OrderStatus.Draft
+                        && x.OrderStatus != enum_OrderStatus.Search
+                        );
                     break;
 
             }

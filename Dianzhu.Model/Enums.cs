@@ -49,28 +49,30 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 草稿,未创建.
         /// </summary>
-        Draft,//草稿,未创建.
+        Draft=0,//草稿,未创建.
+
+        Search=17,//搜索单
 
         //未完成订单状态
-        Created,//已创建,待付款
-        Payed,//已付款
-        Canceled,//已取消待退款
-        Assigned,//已安排工作人员
-        isCancel,//客户已取消 等待撤销工作人员分配.
+        Created=1,//已创建,待付款
+        Payed=2,//已付款
+        Canceled=3,//已取消待退款
+        Assigned=4,//已安排工作人员
+        isCancel=5,//客户已取消 等待撤销工作人员分配.
 
         //已完成订单状态5
-        Finished,//已完成
-        Aborded,//已中止
-        Appraise,//评价
+        Finished=6,//已完成
+        Aborded=7,//已中止
+        Appraise=8,//评价
 
-        Wt,//Wait 
-        Ry,//Ready 
-        An,//Actionţ 
-        Py,//Pay 
-        Ee,//Evaluate 
-        Nu,//Can
-        Dy,//Delay 
-        Ed,//End
+        Wt=9,//Wait 
+        Ry=10,//Ready 
+        An=11,//Actionţ 
+        Py=12,//Pay 
+        Ee=13,//Evaluate 
+        Nu=14,//Can
+        Dy=15,//Delay 
+        Ed=16,//End
     }
     public enum enum_OrderSearchType
     {

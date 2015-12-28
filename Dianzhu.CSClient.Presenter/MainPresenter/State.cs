@@ -22,7 +22,7 @@ namespace Dianzhu.CSClient.Presenter
        // DZMembership customer = null;
         ServiceOrder CurrentServiceOrder;
         //当前接待的 客户列表
-        List<DZMembership> customerList = new List<DZMembership>();
+        IList<DZMembership> customerList = new List<DZMembership>();
 
         //当前界面内 的订单
         IList<ServiceOrder> OrderList = new List<ServiceOrder>();
