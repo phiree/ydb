@@ -14,10 +14,10 @@
         <Path Data="M60,68 L290,68"  Fill="Aqua" Height="1" Margin="20,68,20,0" Stretch="Fill" Stroke="#888" VerticalAlignment="Top" Style="{DynamicResource PathStyle1}"/>
         
         <Label x:Name="label" Content="客服账号" HorizontalAlignment="Left" Margin="66,115,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbxUserName" HorizontalAlignment="Left" Height="23" Margin="145,118,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"  />
+        <TextBox x:Name="tbxUserName" HorizontalAlignment="Left" Height="23" Margin="145,118,0,0" TextWrapping="Wrap" Text="aa@aa.aa" VerticalAlignment="Top" Width="120"  />
         
         <Label x:Name="label_Copy" Content="密码"    HorizontalAlignment="Left" Margin="66,169,0,0" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="tbxPassword" Password="" HorizontalAlignment="Left" Margin="145,175,0,0" VerticalAlignment="Top" Width="120" PreviewKeyDown="tbxPassword_KeyDown"/>
+        <PasswordBox x:Name="tbxPassword" Password="123456" HorizontalAlignment="Left" Margin="145,175,0,0" VerticalAlignment="Top" Width="120" PreviewKeyDown="tbxPassword_KeyDown"/>
         
         <Button x:Name="btnLogin" Content="登录" Margin="145,230,112,0" VerticalAlignment="Top" Height="30">            
             <Button.Background>
