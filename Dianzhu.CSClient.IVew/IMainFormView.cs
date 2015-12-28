@@ -189,7 +189,5 @@ namespace Dianzhu.CSClient.IVew
         /// 发送消息并生成新订单
         /// </summary>
         event MessageSentAndNew MessageSentAndNew;
-
-        string CopyResult { get; set; }
     }
 }

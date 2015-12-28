@@ -196,15 +196,16 @@
                                                 <asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxUnitPrice" data-toggle="tooltip" data-placement="top" title="请填写该服务的服务单价"></asp:TextBox>
                                             </div>
                                         </div>
-                                        <div class="cont-col-1">&nbsp;&nbsp;元&nbsp;/&nbsp;每&nbsp;&nbsp;</div>
+                                        <div class="cont-col-1">&nbsp;元&nbsp;/&nbsp;每&nbsp;</div>
                                         <div class="cont-col-2">
-                                            （
-                                            <asp:RadioButtonList CssClass="serviceDataRadio d-inb" runat="server" ID="rblChargeUnit">
+                                            (
+                                            <asp:DropDownList CssClass="serviceDataRadio d-inb" runat="server" ID="rblChargeUnit">
                                                 <asp:ListItem Selected="True" Value="0" Text="小时"></asp:ListItem>
                                                 <asp:ListItem Value="1" Text="天"></asp:ListItem>
                                                 <asp:ListItem Value="2" Text="次"></asp:ListItem>
-                                            </asp:RadioButtonList>
-                                            ）
+                                                <asp:ListItem Value="3" Text="月"></asp:ListItem>
+                                            </asp:DropDownList>
+                                            )
                                         </div>
                                     </div>
                                     <div class="cont-row service-cont-row">
@@ -317,7 +318,7 @@
                                                 </div>
                                             </div>
 
-                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签</p>
+                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签，多个标签用空格分开</p>
                                         </div>
                                     </div>
                                 </div>

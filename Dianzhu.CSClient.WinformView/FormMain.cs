@@ -823,20 +823,9 @@ namespace Dianzhu.CSClient.WinformView
             lblCountText.Text = MessageTextBox.Length + "/255";
         }
 
-        public string CopyResult
-        {
-            get { return rtxtCopyResult.Text; }
-            set { rtxtCopyResult.Text = value; }
-        }
-
-        private void btnCopyAndNew_Click(object sender, EventArgs e)
+        private void btnSendAndNew_Click(object sender, EventArgs e)
         {
             MessageSentAndNew();
-        }
-
-        private void rtxtCopyResult_TextChanged(object sender, EventArgs e)
-        {
-            lblCopyResult.Text = CopyResult.Length + "/255";
         }
     }
 }

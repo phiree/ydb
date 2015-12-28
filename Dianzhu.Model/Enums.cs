@@ -26,9 +26,10 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_ChargeUnit
     {
-        Hour,//每小时
-        Day, //每天
-        Times //每次
+        Hour,   //每小时
+        Day,    //每天
+        Times,  //每次
+        Month   //每月
     }
 
     public enum enum_ServiceMode
