@@ -14,22 +14,24 @@ namespace Dianzhu.CSClient.Presenter
     /// <summary>
     /// 当前界面需要维护的状态值.
     /// </summary>
-    public partial class MainPresenter
+    public partial class ClientState
     {
         //当前k客服
-        DZMembership customerService = GlobalViables.CurrentCustomerService;
+      public static  DZMembership customerService = GlobalViables.CurrentCustomerService;
         //当前激活客户
-       // DZMembership customer = null;
-        ServiceOrder CurrentServiceOrder;
+        // DZMembership customer = null;
+        public static ServiceOrder CurrentServiceOrder;
         //当前接待的 客户列表
-        IList<DZMembership> customerList = new List<DZMembership>();
+        public static IList<DZMembership> customerList = new List<DZMembership>();
+        //在线的客户列表
+        public static IList<DZMembership> customerOnlineList = new List<DZMembership>();
 
         //当前界面内 的订单
-        IList<ServiceOrder> OrderList = new List<ServiceOrder>();
+        public static IList<ServiceOrder> OrderList = new List<ServiceOrder>();
         //每个订单 的接待记录
-       // Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();
+        // Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();
         //搜索列表
-        Dictionary<string, IList> SearchResultForCustomer = new Dictionary<string, IList>();
+        public static Dictionary<string, IList> SearchResultForCustomer = new Dictionary<string, IList>();
          //当前客户的历史订单
        // Dictionary<string, IList<ServiceOrder>> CustomerOrderList = new Dictionary<string, IList<ServiceOrder>>();
        
