@@ -9,6 +9,15 @@ namespace Dianzhu.CSClient.IInstantMessage
     public delegate void IMReceivedMessage(Model.ReceptionChat chat);
     public delegate void IMLogined(string jidUser);
     public delegate void IMAuthError();
+    /// <summary>
+    /// 状态监视事件
+    /// </summary>
+    /// <param name="userFrom"></param>
+    /// <param name="presentType"> 
+    /// available = -1,	 
+   ///  subscribe, subscribed, unsubscribe, unsubscribed,
+    /// 	 unavailable, invisible, error, probe
+    /// </param>
     public delegate void IMPresent(string userFrom, int presentType);
     public delegate void IMError(string error);
     public delegate void IMConnectionError(string error);

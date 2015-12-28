@@ -33,17 +33,17 @@ namespace Dianzhu.CSClient.Presenter
             }
             Debug.Assert(chat.ServiceOrder != null,"Order shouldnot be null");
             //判断订单列表是否已经存在
-            bool isIn = OrderList.Contains(chat.ServiceOrder);
+            bool isIn = ClientState.OrderList.Contains(chat.ServiceOrder);
             //订单列表中是否已经有该 订单
            
             if (!isIn)
             {
-                OrderList.Add(chat.ServiceOrder);
+                ClientState.OrderList.Add(chat.ServiceOrder);
                 view.AddCustomerButtonWithStyle(chat.ServiceOrder, em_ButtonStyle.Unread);
             }
             else
             {
-                bool isCurrent =CurrentServiceOrder!=null &&( CurrentServiceOrder.Id == chat.ServiceOrder.Id);
+                bool isCurrent = ClientState.CurrentServiceOrder !=null &&(ClientState.CurrentServiceOrder.Id == chat.ServiceOrder.Id);
                 if (isCurrent)
                 {
                     view.LoadOneChat(chat);
@@ -60,39 +60,36 @@ namespace Dianzhu.CSClient.Presenter
         void IMPresent(string userFrom, int presentType)
         {
             //string userName = PHSuit.StringHelper.EnsureNormalUserName(userFrom);
-            if(userFrom==customerService.Id.ToString()) //如果是自己的状态 则忽略.
+            if(userFrom== ClientState.customerService.Id.ToString()) //如果是自己的状态 则忽略.
             { return; }
             DZMembership userPresent= bllMember.GetUserById(new Guid(userFrom));
             string userName = userPresent.DisplayName;
-            bool isInList = customerList.Contains(userPresent);
+            bool isInList = ClientState.customerList.Contains(userPresent);
+            bool isInOnlineList=!(null== ClientState.customerOnlineList.SingleOrDefault(x => x.Id.ToString() == userFrom));
             switch (presentType)
             {
-                case -1:
-                    //登录,判断当前用户是否已经在列表中
-
-                    if (isInList)
+                case -1://available
+                        //用户上线. 更新在线列表
+                    if (!isInOnlineList)
                     {
-                        //改变对应按钮的样式.
-                        //view.SetCustomerButtonStyle(userPresent, em_ButtonStyle.Login);
+                        ClientState.customerOnlineList.Add(userPresent);
                     }
-                    else
-                    {
-                       // AddCustomer(userName);
-                        //view.AddCustomerButtonWithStyle(userPresent, em_ButtonStyle.Login);
-                    }
+                     
 
                     break;
-                case 4:
+                case 4://unavailable
+                    if (isInOnlineList)
+                    {
+                        ClientState.customerOnlineList.Remove(userPresent);
+                    }
                     if (isInList)
                     {
                        // view.SetCustomerButtonStyle(userPresent, em_ButtonStyle.LogOff);
                         
-                       DZMembership logoffCustomer= customerList.Single(x => x.UserName ==userName);
+                       DZMembership logoffCustomer= ClientState.customerList.Single(x => x.UserName ==userName);
                        bllReceptionStatus.CustomerLogOut(logoffCustomer);
                     }
-                    else
-                    {
-                    }
+                    
 
                     break;
                 default: break;
@@ -102,8 +99,10 @@ namespace Dianzhu.CSClient.Presenter
 
         public void SendMessage(ReceptionChat chat)
         {
+            
             SaveMessage(chat, true);
-            instantMessage.SendMessage(chat);
+            SendMessageWithPush(instantMessage, chat);
+            //instantMessage.SendMessage(chat);
             view.LoadOneChat(chat);
 
         }
@@ -115,13 +114,13 @@ namespace Dianzhu.CSClient.Presenter
         {
             
             string userName = PHSuit.StringHelper.EnsureNormalUserName(customerName);
-            bool isInList = customerList.Any(x => x.UserName == userName);
+            bool isInList = ClientState.customerList.Any(x => x.UserName == userName);
             if (isInList)
             {
                 return true;
             }
             DZMembership newCustomer = bllMember.GetUserByName(customerName);
-            customerList.Add(newCustomer);
+            ClientState.customerList.Add(newCustomer);
             return false;
         }
 

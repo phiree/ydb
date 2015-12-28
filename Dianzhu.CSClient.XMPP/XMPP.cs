@@ -138,11 +138,14 @@ namespace Dianzhu.CSClient.XMPP
         }
         public void SendMessage(Model.ReceptionChat chat)
         {
+            //判断用户对应的tokoen
             //chat-->message
             Message msg = messageAdapter.ChatToMessage(chat, server);
             XmppClientConnection.Send(msg);
 
         }
+        //todo:发送消息 应该分离出来, 用来处理 xmpp发送和 push.
+        
         public void SendMessage(string xml)
         {
             XmppClientConnection.Send(xml);

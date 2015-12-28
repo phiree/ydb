@@ -77,7 +77,9 @@ namespace Dianzhu.CSClient.Presenter
             this.view.MessageSentAndNew += View_MessageSentAndNew;
 
             //this.SysAssign();
+            ////初始化在线客户列表
             
+
         }
 
         /// <summary>
@@ -85,7 +87,7 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         private void View_MessageSentAndNew()
         {
-            if (CurrentServiceOrder == null)
+            if (ClientState.CurrentServiceOrder == null)
             { return; }
 
             if (string.IsNullOrEmpty(view.CopyResult.Trim())) return;
@@ -93,12 +95,12 @@ namespace Dianzhu.CSClient.Presenter
             ReceptionChat chat = new ReceptionChat
             {
                 ChatType = Model.Enums.enum_ChatType.Text,
-                From = customerService,
-                To = CurrentServiceOrder.Customer,
+                From = ClientState.customerService,
+                To = ClientState.CurrentServiceOrder.Customer,
                 MessageBody = view.CopyResult,
                 SendTime = DateTime.Now,
                 SavedTime = DateTime.Now,
-                ServiceOrder = CurrentServiceOrder,
+                ServiceOrder = ClientState.CurrentServiceOrder,
 
             };
 
@@ -106,8 +108,8 @@ namespace Dianzhu.CSClient.Presenter
             view.CopyResult = string.Empty;
 
             //更新搜索订单状态：改为已完成
-            CurrentServiceOrder.OrderStatus = enum_OrderStatus.Finished;
-            bllOrder.SaveOrUpdate(CurrentServiceOrder);
+            ClientState.CurrentServiceOrder.OrderStatus = enum_OrderStatus.Finished;
+            bllOrder.SaveOrUpdate(ClientState.CurrentServiceOrder);
 
             //新建订单
             ServiceOrder orderNew = ServiceOrder.Create(
@@ -117,15 +119,15 @@ namespace Dianzhu.CSClient.Presenter
                        , string.Empty//serviceDescription
                        , 0//serviceUnitPrice
                        , string.Empty//serviceUrl
-                       , CurrentServiceOrder.Customer //member
+                       , ClientState.CurrentServiceOrder.Customer //member
                        , string.Empty
                        , 0
                        , 0);
-            orderNew.CustomerService = customerService;
+            orderNew.CustomerService = ClientState.customerService;
             bllOrder.SaveOrUpdate(orderNew);
 
             //通知前端订单已更改
-            CurrentServiceOrder = orderNew;
+            ClientState.CurrentServiceOrder = orderNew;
             NoticeDraftNew();
 
             CleanOrderData();
@@ -224,7 +226,7 @@ namespace Dianzhu.CSClient.Presenter
                 SaveMessage(rChatReAss, true);
                 instantMessage.SendMessage(rChatReAss);
 
-                OrderList.Add(rs.Order);
+                ClientState.OrderList.Add(rs.Order);
                 view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
             }
         }
@@ -249,18 +251,18 @@ namespace Dianzhu.CSClient.Presenter
                     rChatReAss.MessageBody = "您的客服已更换为" + p.Key.DisplayName;
                     rChatReAss.ReAssignedCustomerService = p.Key;
                     rChatReAss.SavedTime = rChatReAss.SendTime=DateTime.Now;
-                    rChatReAss.ServiceOrder = CurrentServiceOrder;
+                    rChatReAss.ServiceOrder = ClientState.CurrentServiceOrder;
                     rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
                                         
                     SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
 
                     //删除现在OrderList中的客户
-                    for (int j=0;j< OrderList.Count; j++)
+                    for (int j=0;j< ClientState.OrderList.Count; j++)
                     {
-                        if(dm== OrderList[j].Customer)
+                        if(dm== ClientState.OrderList[j].Customer)
                         {
-                            view.RemoveOrderBtn(OrderList[j].Id.ToString());
-                            OrderList.RemoveAt(j);
+                            view.RemoveOrderBtn(ClientState.OrderList[j].Id.ToString());
+                            ClientState.OrderList.RemoveAt(j);
                             j--;
                         }
                     }
@@ -316,8 +318,8 @@ namespace Dianzhu.CSClient.Presenter
             <ext xmlns = ""ihelper:notice:system"">
             </ext>
             </message>
-                ",CurrentServiceOrder.Customer.Id,
-                customerService.Id,
+                ", ClientState.CurrentServiceOrder.Customer.Id,
+                ClientState.customerService.Id,
                 Guid.NewGuid())
                 );
         }
@@ -335,8 +337,8 @@ namespace Dianzhu.CSClient.Presenter
                 <url>http://www.ydban.cn</url>
             </ext>
             </message>
-                ", CurrentServiceOrder.Customer.Id,
-               customerService.Id,Guid.NewGuid())
+                ", ClientState.CurrentServiceOrder.Customer.Id,
+               ClientState.customerService.Id,Guid.NewGuid())
                );
         }
 
@@ -355,9 +357,11 @@ namespace Dianzhu.CSClient.Presenter
                 </orderObj>
             </ext>
             </message>
-                ", CurrentServiceOrder.Customer.Id,
-                customerService.Id, Guid.NewGuid(),
-                CurrentServiceOrder.Id,CurrentServiceOrder.ServiceName,CurrentServiceOrder.OrderStatus)
+                ", ClientState.CurrentServiceOrder.Customer.Id,
+                ClientState.customerService.Id, Guid.NewGuid(),
+               ClientState.CurrentServiceOrder.Id, 
+               ClientState.CurrentServiceOrder.ServiceName,
+               ClientState.CurrentServiceOrder.OrderStatus)
                 );
         }
 
@@ -376,13 +380,13 @@ namespace Dianzhu.CSClient.Presenter
                 </cerObj>
             </ext>
             </message>
-                ", CurrentServiceOrder.Customer.Id,
-                customerService.Id,
+                ", ClientState.CurrentServiceOrder.Customer.Id,
+               ClientState.customerService.Id,
                 Guid.NewGuid(),
-                CurrentServiceOrder.Id,
-                CurrentServiceOrder.Customer.Id,
-                CurrentServiceOrder.Customer.NickName,
-                CurrentServiceOrder.Customer.AvatarUrl)
+                ClientState.CurrentServiceOrder.Id,
+               ClientState.CurrentServiceOrder.Customer.Id,
+               ClientState.CurrentServiceOrder.Customer.NickName,
+                ClientState.CurrentServiceOrder.Customer.AvatarUrl)
                 );
         }
 
@@ -398,18 +402,19 @@ namespace Dianzhu.CSClient.Presenter
                 <orderID>{3}</orderID>
             </ext>
             </message>
-                ", CurrentServiceOrder.Customer.Id,customerService.Id, Guid.NewGuid(), CurrentServiceOrder.Id));
+                ", ClientState.CurrentServiceOrder.Customer.Id, ClientState.customerService.Id,
+                Guid.NewGuid(), ClientState.CurrentServiceOrder.Id));
         }
 
         private void View_OrderStateChanged()
         {
             
             ReceptionChatNotice noticeChat = new ReceptionChatNotice {
-                From=customerService,
-                To=CurrentServiceOrder.Customer,
+                From= ClientState.customerService,
+                To= ClientState.CurrentServiceOrder.Customer,
                 ChatType = Model.Enums.enum_ChatType.Notice };
-            noticeChat.ServiceOrder = CurrentServiceOrder;
-            noticeChat.UserObj = customerService;
+            noticeChat.ServiceOrder = ClientState.CurrentServiceOrder;
+            noticeChat.UserObj = ClientState.customerService;
            noticeChat.SendTime= noticeChat.SavedTime = DateTime.Now;
             noticeChat.MessageBody = "订单状态已发生变化";
            
@@ -450,14 +455,14 @@ namespace Dianzhu.CSClient.Presenter
                 System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
                 System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
             ReceptionAssigner assigner = new ReceptionAssigner(imSession);
-            Dictionary<DZMembership,DZMembership> reassignList = assigner.AssignCSLogoff(customerService);
+            Dictionary<DZMembership,DZMembership> reassignList = assigner.AssignCSLogoff(ClientState.customerService);
             //将新分配的客服发送给客户端.
             foreach (KeyValuePair<DZMembership,DZMembership> rs in reassignList)
             {
                 ServiceOrder order = bllReceptionStatus.GetOrder(rs.Key, rs.Value).Order;
                 ReceptionChat rc = new ReceptionChatReAssign
                 {
-                    From = customerService,
+                    From = ClientState.customerService,
                     ChatType = Model.Enums.enum_ChatType.ReAssign,
                     ReAssignedCustomerService = rs.Value,
                     To = rs.Key,
@@ -527,14 +532,14 @@ namespace Dianzhu.CSClient.Presenter
 
         private void LoadSearchResult(DZMembership customer)
         {
-            if (SearchResultForCustomer.ContainsKey(customer.UserName))
+            if (ClientState.SearchResultForCustomer.ContainsKey(customer.UserName))
             {
-                view.SearchedService = SearchResultForCustomer[customer.UserName];
+                view.SearchedService = ClientState.SearchResultForCustomer[customer.UserName];
             }
         }
         private void LoadChatHistory()
         {
-            LoadChatHistory(CurrentServiceOrder);
+            LoadChatHistory(ClientState.CurrentServiceOrder);
         }
         private void LoadChatHistory(ServiceOrder serviceOrder)
         {
