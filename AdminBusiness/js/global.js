@@ -57,7 +57,7 @@
     });
 
     $(function(){
-        return $('.minute-select').each(function () {
+        return $('.min-select').each(function () {
                 var selectList = $(this).find("ul");
                 for ( var i = 0 ; i < 60 ; i++ ) {
                     selectList.append("<li><a>"+ i  +"</a></li>");

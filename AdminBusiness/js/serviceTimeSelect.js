@@ -11,7 +11,7 @@
             "close" : "time-close",
             "square" : ":",
             "hour" : "00",
-            "minu" : "00"
+            "min" : "00"
         }
         this.options = $.extend({},this.defaults,opt);
     }
@@ -27,16 +27,16 @@
             var _printValue = _this.find("." + protoThis.options.valueInput);
             var _selectBox = $("<div class='" + protoThis.options.timeSelectM +"'></div>")
             var _hourSelcet = $("<div class='d-inb " + protoThis.options.timeSelect + "'></div>");
-            var _minuSelcet = $("<div class='d-inb " + protoThis.options.timeSelect + "'></div>");
+            var _minSelcet = $("<div class='d-inb " + protoThis.options.timeSelect + "'></div>");
             var _close = $("<input type='button' class='" + protoThis.options.close + "' value='取消'/>");
             var _confirm = $("<input type='button' class='" + protoThis.options.confirm + "' value='确定'/>");
             var _btnContainer = $("<div class='time-select-btn'></div>")
             var _selectContainer = $("<div class='time-select-container'></div>")
             var _hourUnit = $("<span class='hour-unit'>时</span>");
-            var _minuUnit = $("<span class='minu-unit'>分</span>");
+            var _minUnit = $("<span class='min-unit'>分</span>");
 
             var _hourPrint = "00";
-            var _minuPrint = "00";
+            var _minPrint = "00";
             var _defHour = "00";
             var _defMinu = "00";
 
@@ -47,23 +47,23 @@
                 _defMinu = arr[1];
                 _trigger.html(_defHour + ":" + _defMinu);
                 _hourPrint = _defHour;
-                _minuPrint = _defMinu;
+                _minPrint = _defMinu;
             } else {
                 protoThis.options.hour != "00" ? _defHour = protoThis.options.hour : _defHour = "00";
-                protoThis.options.minu != "00" ? _defMinu = protoThis.options.minu : _defMinu = "00";
-                _printValue.attr("value",_hourPrint + ":" + _minuPrint);
+                protoThis.options.min != "00" ? _defMinu = protoThis.options.min : _defMinu = "00";
+                _printValue.attr("value",_hourPrint + ":" + _minPrint);
                 _trigger.html(_defHour + ":" + _defMinu);
             }
 
             protoThis.createSelect(_hourSelcet,24,null,_defHour,function(val){_hourPrint = val});
-            protoThis.createSelect(_minuSelcet,59,5,_defMinu,function(val){_minuPrint = val});
+            protoThis.createSelect(_minSelcet,59,5,_defMinu,function(val){_minPrint = val});
 
             _trigger.click(function(){
 
                 _selectContainer.append(_hourSelcet);
                 _selectContainer.append(_hourUnit);
-                _selectContainer.append(_minuSelcet);
-                _selectContainer.append(_minuUnit);
+                _selectContainer.append(_minSelcet);
+                _selectContainer.append(_minUnit);
                 _btnContainer.append(_confirm);
                 _btnContainer.append(_close);
                 _selectBox.append(_selectContainer);
@@ -101,8 +101,8 @@
             });
 
             _confirm.click(function(){
-                _printValue.attr("value",_hourPrint + ":" + _minuPrint).focus().blur();
-                _trigger.html(_hourPrint + ":" + _minuPrint);
+                _printValue.attr("value",_hourPrint + ":" + _minPrint).focus().blur();
+                _trigger.html(_hourPrint + ":" + _minPrint);
                 _selectBox.detach();
             });
         },
