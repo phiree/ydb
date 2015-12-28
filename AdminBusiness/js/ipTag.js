@@ -17,13 +17,21 @@ $(function () {
                     "serviceId": serviceId
                 },
                 function (result) {
-                    var newTag = $("<span class='spTag d-inb' tagid='" + result + "' ></span>");
-                    var newTagText = $("<span class='spTagText' tagid='" + result + "'>" + ipTag + "</span>");
-                    var tagDel = $("<input class='spTagDel' type='button' tagid='" + result + "' value='删除'/>");
                     $("#ipTag").val("");
+                    result = JSON.parse(result);
+                    for (var i in result)
+                    {
+                        var tagId = result[i].tagId;
+                        var tagText = result[i].tagText;
+                   
+                        var newTag = $("<span class='spTag d-inb' tagid='" + tagId + "' ></span>");
+                        var newTagText = $("<span class='spTagText' tagid='" + tagId + "'>" + tagText + "</span>");
+                        var tagDel = $("<input class='spTagDel' type='button' tagid='" + tagId + "' value='删除'/>");
+                  
                     newTagText.appendTo(newTag);
                     tagDel.appendTo(newTag);
                     newTag.appendTo(container);
+                    }
                 }
             );
         } //
