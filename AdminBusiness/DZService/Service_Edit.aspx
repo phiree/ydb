@@ -1,11 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true" CodeFile="Service_Edit.aspx.cs" Inherits="DZService_Service_Edit" %>
 <%@ Register  Src="~/DZService/ServiceEdit.ascx" TagName="ServiceEdit" TagPrefix="UC" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <link href="/css/service.css" rel="stylesheet" type="text/css" />
-    <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
-        rel="stylesheet" type="text/css" />
-    <link href="/css/validation.css" rel="stylesheet" type="text/css">
-    <link href="/css/ServiceSelect.css" rel="stylesheet" type="text/css">
+    <!--<link href="/css/service.css" rel="stylesheet" type="text/css" />-->
+    <!--<link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'-->
+        <!--rel="stylesheet" type="text/css" />-->
+    <!--<link href="/css/validation.css" rel="stylesheet" type="text/css">-->
+    <!--<link href="/css/ServiceSelect.css" rel="stylesheet" type="text/css">-->
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
