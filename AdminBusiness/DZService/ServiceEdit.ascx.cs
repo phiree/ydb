@@ -48,7 +48,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             }
             else
             {
-                dvTag.Visible = false;
+                dzTag.Visible = false;
                 
             }
         }
