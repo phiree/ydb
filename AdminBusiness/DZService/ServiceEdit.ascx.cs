@@ -18,6 +18,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     BLLServiceType bllServiceType = new BLLServiceType();
     BLLServiceProperty bllServiceProperty = new BLLServiceProperty();
     BLLServicePropertyValue bllServicePropertyValue = new BLLServicePropertyValue();
+    BLLDZTag bllTag = new BLLDZTag();
     public IList<ServiceProperty> TypeProperties = new List<ServiceProperty>();
     private bool IsNew { get { return ServiceId == Guid.Empty; } }
 
@@ -34,6 +35,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             CurrentService = bllService.GetOne(ServiceId);
             ServiceType = CurrentService.ServiceType;
             dzTag.ServiceId = paramId;
+            
         }
         
         if (!IsPostBack)
@@ -42,10 +44,12 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             if (!IsNew)
             {
                 LoadForm();
+                tbxTag.Visible = false;
             }
             else
             {
                 dvTag.Visible = false;
+                
             }
         }
     }
@@ -171,7 +175,16 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.UnitPrice =int.Parse(tbxUnitPrice.Text, System.Globalization.NumberStyles.AllowDecimalPoint);
         UpdatePayType();
         UpdateServiceTime();
+        
      //   CurrentService.PayType=(PayType)(Convert.ToInt32(rblPayType.SelectedValue));
+    }
+    private void UpdateAfterSaved()
+    {
+        if(IsNew)
+        { 
+        bllTag.AddTag(tbxTag.Text, CurrentService.Id.ToString(), CurrentService.Business.Id.ToString(),
+            CurrentService.ServiceType.Id.ToString());
+        }
     }
     private void UpdatePayType()
     {
@@ -218,10 +231,11 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         UpdateForm();
         ValidationResult result;
         bllService.SaveOrUpdate(CurrentService, out result);
+        
         if (result.IsValid)
         {
-           
-             string redirectUrl=PHSuit.StringHelper.BuildUrlWithParameters(Request,"serviceid",CurrentService.Id.ToString());
+            UpdateAfterSaved();
+            string redirectUrl=PHSuit.StringHelper.BuildUrlWithParameters(Request,"serviceid",CurrentService.Id.ToString());
              Response.Redirect("/dzservice/default.aspx?&businessid="+Request["businessid"]);
 //             PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
           //   Response.Redirect(redirectUrl);//PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);

@@ -312,6 +312,7 @@
                                         <div class="cont-col-10">
                                             <div>
                                                 <div class="d-inb">
+                                                    <asp:TextBox runat="server" ID="tbxTag"></asp:TextBox>
                                                     <DZ:Tag runat="server" ID="dzTag" />
                                                 </div>
                                             </div>
