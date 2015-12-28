@@ -34,5 +34,13 @@ namespace PHSuit
         {
           Console.WriteLine(  PHSuit.Security.Encrypt("123456", false));
         }
+        [Test]
+        public void TestIOSPush()
+        {
+            /*毛哥的 
+            8b123c1b50b85f67cb2bec37ae2b8c98fda48c8e43e4ce54a4c9291f17cb109a
+            */
+            Push.pushNotifications("8de76c196a605120db39ab58373edf159c1301b43659bd129fcf72b696e2a26c", "test_push", @"files\aps_development_Mark.p12", 1);
+        }
     }
 }
