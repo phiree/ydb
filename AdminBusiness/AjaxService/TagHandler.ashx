@@ -21,15 +21,24 @@ public class TagHandler : IHttpHandler
                 string serviceId = context.Request["serviceId"];
                 string serviceTypeId = context.Request["serviceId"];
                 string businessId = context.Request["serviceId"];
-                DZTag newTag = bllTag.AddTag(tagText, serviceId, businessId, serviceTypeId);
-                context.Response.Write(newTag.Id);
+                string[] tags = tagText.Split(' ');
+                string resultJson = "[";
+                foreach(string tag in tags)
+                { if (string.IsNullOrEmpty(tag) || string.IsNullOrWhiteSpace(tag)) { continue; }
+                    DZTag newTag = bllTag.AddTag(tag, serviceId, businessId, serviceTypeId);
+                    resultJson += "{\"tagId\":\""+newTag.Id+"\",\"tagText\":\""+newTag.Text+"\"},";
+                }
+                resultJson=resultJson.TrimEnd(',');
+                resultJson += "]";
+              //  context.Response.ContentType = "application/json";
+                context.Response.Write(resultJson);
                 break;
-            case "delete": 
-                  
+            case "delete":
+
                 string tagId = context.Request["tagId"];
 
-                 bllTag.DeleteTag(new Guid(tagId));
-                
+                bllTag.DeleteTag(new Guid(tagId));
+
                 break;
         }
 

@@ -284,6 +284,11 @@ html{
     content: "";
 }
 
+.icon-query {
+    width: 16px;
+    height: 16px;
+    background: url("../image/yidianban_v1.2/wenhao2.png") no-repeat center;
+}
 
 /*登录0状态样式*/
 .LoginStatus {
@@ -656,6 +661,7 @@ a.time-trigger:hover {
     color: #424242;
     padding: 5px;
     margin-right: 10px;
+    margin-bottom: 5px;
 }
 .spTagText {
 

@@ -272,9 +272,10 @@
                                                 服务对象</p>
                                         </div>
                                         <div class="cont-col-3">
-                                            <div class="service-checkBox d-inb" data-toggle="tooltip" data-placement="top" title="是否对公司提供该服务">
+                                            <div class="service-checkBox d-inb" >
                                                 <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cblIsForBusiness"
                                                               Text="提供公司服务" />
+                                                <i class="icon icon-query" data-toggle="tooltip" data-placement="top" title="是否对公司提供该服务"></i>
                                             </div>
                                         </div>
                                         <div class="cont-col-2">
@@ -295,10 +296,11 @@
                                             <p class="cont-sub-title-r">
                                                 服务保障</p>
                                         </div>
-                                        <div class="cont-col-10">
-                                            <div class="service-checkBox d-inb" data-toggle="tooltip" data-placement="top" title="选择是否加入先行赔付">
+                                        <div class="cont-col-4">
+                                            <div class="service-checkBox d-inb">
                                                 <asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCompensationAdvance"
                                                               Text="先行赔付" />
+                                                <i class="icon icon-query" data-toggle="tooltip" data-placement="top" title="选择是否加入先行赔付"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -313,12 +315,16 @@
                                         <div class="cont-col-10">
                                             <div>
                                                 <div class="d-inb">
-                                                    <asp:TextBox runat="server" ID="tbxTag"></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="tbxTag" cssclass="iptag"></asp:TextBox>
                                                     <DZ:Tag runat="server" ID="dzTag" />
                                                 </div>
                                             </div>
 
+<<<<<<< HEAD
                                             <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签，多个标签用空格分开</p>
+=======
+                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签，用空格键隔开添加多个标签。</p>
+>>>>>>> 5f2ed8e7883225140e56ea0599af967c4a3427c9
                                         </div>
                                     </div>
                                 </div>

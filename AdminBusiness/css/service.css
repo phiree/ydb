@@ -369,13 +369,13 @@ a.new-add-btn {
 .service-checkBox {
     height: 30px;
     line-height: 30px;
-}
-
-.service-checkBox,.service-input-radio {
-    display: inline-block;
     width: 100%;
 }
 
+/*.service-input-radio {*/
+    /*display: inline-block;*/
+    /*width: 100%;*/
+/*}*/
 
 .service-input-radio input{
     margin-right: 10px;
@@ -386,10 +386,10 @@ a.new-add-btn {
     color: #666;
 }
 
-table.service-checkBox,.service-input-radio {
-    display: table;
-    width: 100%;
-}
+/*table.service-checkBox,.service-input-radio {*/
+    /*display: table;*/
+    /*width: 100%;*/
+/*}*/
 
 table.service-input-radio tr{
     float: left;
