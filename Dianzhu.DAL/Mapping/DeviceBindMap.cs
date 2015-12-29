@@ -17,6 +17,9 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.BindChangedTime);
             References<DZMembership>(x => x.DZMembership);
             Map(x =>x.IsBinding);
+            Map(x => x.AppUUID);
+            Map(x => x.SaveTime);
+            Map(x => x.AppUserStatus).CustomType<Model.Enums.enum_AppUserStatus>();
         }
     }
      

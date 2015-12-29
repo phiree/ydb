@@ -16,5 +16,26 @@ namespace Dianzhu.BLL
      
          DALDeviceBind.UpdateBindStatus(member, appToken, appName);
         }
+
+        public void SaveOrUpdate(DeviceBind db)
+        {
+            DALDeviceBind.SaveOrUpdate(db);
+        }
+
+        public void Delete(DeviceBind db)
+        {
+            DALDeviceBind.Delete(db);
+        }
+
+        public DeviceBind getDevBindByUUID(Guid uuid)
+        {
+            return DALDeviceBind.getDevBindByUUID(uuid);
+        }
+
+        public DeviceBind getDevBindByUserID(DZMembership user)
+        {
+            return DALDeviceBind.getDevBindByUserID(user);
+        }
+
     }
 }

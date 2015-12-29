@@ -90,14 +90,14 @@ namespace Dianzhu.CSClient.Presenter
             if (ClientState.CurrentServiceOrder == null)
             { return; }
 
-            if (string.IsNullOrEmpty(view.CopyResult.Trim())) return;
+            if (string.IsNullOrEmpty(view.MessageTextBox.Trim())) return;
 
             ReceptionChat chat = new ReceptionChat
             {
                 ChatType = Model.Enums.enum_ChatType.Text,
                 From = ClientState.customerService,
                 To = ClientState.CurrentServiceOrder.Customer,
-                MessageBody = view.CopyResult,
+                MessageBody = view.MessageTextBox,
                 SendTime = DateTime.Now,
                 SavedTime = DateTime.Now,
                 ServiceOrder = ClientState.CurrentServiceOrder,
@@ -105,7 +105,7 @@ namespace Dianzhu.CSClient.Presenter
             };
 
             SendMessage(chat);
-            view.CopyResult = string.Empty;
+            view.MessageTextBox = string.Empty;
 
             //更新搜索订单状态：改为已完成
             ClientState.CurrentServiceOrder.OrderStatus = enum_OrderStatus.Finished;

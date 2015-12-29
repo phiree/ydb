@@ -72,6 +72,9 @@ public class ResponseFactory
             case "sys001001":
                 return new ResponseSYS001001(request);
 
+            case "app001001":
+                return new ResponseAPP001001(request);
+
             default: break;
         }
         throw new Exception("No Such Api");

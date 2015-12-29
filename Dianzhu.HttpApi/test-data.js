@@ -2,10 +2,27 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
-"orm001006"//,"merm001003","merm001005",//"sys001001"
+"app001001"//,"merm001003","merm001005",//"sys001001","APP001001"
  
 ];
 var test_data = [
+
+    /************** APP 设备认证 *****************/
+
+    {
+        "protocol_CODE" : "App001001",
+        "ReqData": {
+            "AppObj": {
+                "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                "appUUID" : "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                "appName" : "IOS_User",
+                "appToken": "326a866223956ceb2705d8b88758dc77e6420c3ff7ee3cab2388352a461c7b47"
+            },
+            "mark":"N",
+        },
+        "stamp_TIMES" : "1490192929212",
+        "serial_NUMBER" : "00147001015869149751"
+    },
 
     /**************聊天记录存储*****************/
 

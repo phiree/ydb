@@ -72,7 +72,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.IsCopy);
             Map(x => x.MedialUrl);
             Map(x => x.MediaType);
-            Map(x => x.ChatTarget).CustomType<Model.Enums.enum_ChatTarget>(); ;
+            Map(x => x.ChatTarget).CustomType<Model.Enums.enum_ChatTarget>();
         }
     }
 
