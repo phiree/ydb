@@ -80,41 +80,26 @@ public class ResponseAPP001001:BaseResponse
                 DeviceBind uuid = bllDeviceBind.getDevBindByUUID(devB.AppUUID);
                 if (uuid != null)
                 {
-                    DeviceBind user = bllDeviceBind.getDevBindByUserID(devB.DZMembership);
-                    if (user != null)
-                    {
-                        user.DZMembership = devB.DZMembership;
-                        user.AppName = devB.AppName;
-                        user.AppToken = devB.AppToken;
-                        user.BindChangedTime = DateTime.Now;
-                        bllDeviceBind.SaveOrUpdate(user);
-                    }
-                    else
-                    {
-                        uuid.DZMembership = devB.DZMembership;
-                        uuid.AppName = devB.AppName;
-                        uuid.AppToken = devB.AppToken;
-                        uuid.BindChangedTime = DateTime.Now;
-                        bllDeviceBind.SaveOrUpdate(uuid);
-                    }
+                    uuid.DZMembership = devB.DZMembership;
+                    uuid.AppName = devB.AppName;
+                    uuid.AppToken = devB.AppToken;
+                    uuid.BindChangedTime = DateTime.Now;
+                    bllDeviceBind.SaveOrUpdate(uuid);
                 }
                 else
                 {
                     devB.IsBinding = true;
                     devB.BindChangedTime = DateTime.Now;
                     devB.SaveTime = DateTime.Now;
-                    devB.AppUserStatus = enum_AppUserStatus.isusing;
                     bllDeviceBind.SaveOrUpdate(devB);
                 }
             }
-            else
+            else if (requestData.mark == "N")
             {
                 DeviceBind uuid = bllDeviceBind.getDevBindByUUID(devB.AppUUID);
                 if (uuid != null)
                 {
                     uuid.IsBinding = false;
-                    uuid.DZMembership = null;
-                    uuid.AppUserStatus = enum_AppUserStatus.logout;
                     uuid.BindChangedTime = DateTime.Now;
                     bllDeviceBind.SaveOrUpdate(uuid);
                 }

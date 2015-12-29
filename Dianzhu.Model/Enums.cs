@@ -201,24 +201,4 @@ namespace Dianzhu.Model.Enums
         paylater
     }
 
-    /// <summary>
-    /// 设备与用户的状态
-    /// </summary>
-    public enum enum_AppUserStatus
-    {
-        /// <summary>
-        /// 使用中
-        /// </summary>
-        isusing,
-        /// <summary>
-        /// 注销
-        /// </summary>
-        logout,
-        /// <summary>
-        /// 所有
-        /// </summary>
-        all,
-
-    }
-
 }

@@ -16,6 +16,6 @@ namespace Dianzhu.Model
         public virtual DateTime BindChangedTime { get; set; }
         public virtual Guid AppUUID { get; set; }
         public virtual DateTime SaveTime { get; set; }//保存时间
-        public virtual enum_AppUserStatus AppUserStatus { get; set; }//设备与用户的状态
+        public virtual int PushAmount { get; set; }//推送条数
     }
 }
