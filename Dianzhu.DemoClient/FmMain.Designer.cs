@@ -34,8 +34,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbxOrderId = new System.Windows.Forms.TextBox();
             this.btnOnlineUsers = new System.Windows.Forms.Button();
             this.lblAssignedCS = new System.Windows.Forms.Label();
+            this.tbxManualAssignedCS = new System.Windows.Forms.TextBox();
             this.lblLoginStatus = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -45,10 +49,6 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbxManualAssignedCS = new System.Windows.Forms.TextBox();
-            this.tbxOrderId = new System.Windows.Forms.TextBox();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
@@ -120,6 +120,32 @@
             this.panel1.Size = new System.Drawing.Size(683, 81);
             this.panel1.TabIndex = 5;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(350, 52);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "订单ID";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 50);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 12);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "手动指定客服:";
+            // 
+            // tbxOrderId
+            // 
+            this.tbxOrderId.Location = new System.Drawing.Point(397, 47);
+            this.tbxOrderId.Name = "tbxOrderId";
+            this.tbxOrderId.Size = new System.Drawing.Size(229, 21);
+            this.tbxOrderId.TabIndex = 11;
+            this.tbxOrderId.Text = "659edbdf-3fc2-48e4-97d7-a50b0114c800";
+            // 
             // btnOnlineUsers
             // 
             this.btnOnlineUsers.Location = new System.Drawing.Point(605, 9);
@@ -138,6 +164,14 @@
             this.lblAssignedCS.Size = new System.Drawing.Size(17, 12);
             this.lblAssignedCS.TabIndex = 7;
             this.lblAssignedCS.Text = "--";
+            // 
+            // tbxManualAssignedCS
+            // 
+            this.tbxManualAssignedCS.Location = new System.Drawing.Point(101, 47);
+            this.tbxManualAssignedCS.Name = "tbxManualAssignedCS";
+            this.tbxManualAssignedCS.Size = new System.Drawing.Size(232, 21);
+            this.tbxManualAssignedCS.TabIndex = 11;
+            this.tbxManualAssignedCS.Text = "b4e8afd1-f64c-4a61-b837-a4f9013ed662";
             // 
             // lblLoginStatus
             // 
@@ -230,40 +264,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(683, 39);
             this.panel3.TabIndex = 0;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 50);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(83, 12);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "手动指定客服:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(350, 52);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 12);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "订单ID";
-            // 
-            // tbxManualAssignedCS
-            // 
-            this.tbxManualAssignedCS.Location = new System.Drawing.Point(101, 47);
-            this.tbxManualAssignedCS.Name = "tbxManualAssignedCS";
-            this.tbxManualAssignedCS.Size = new System.Drawing.Size(232, 21);
-            this.tbxManualAssignedCS.TabIndex = 11;
-            this.tbxManualAssignedCS.Text = "b4e8afd1-f64c-4a61-b837-a4f9013ed662";
-            // 
-            // tbxOrderId
-            // 
-            this.tbxOrderId.Location = new System.Drawing.Point(397, 47);
-            this.tbxOrderId.Name = "tbxOrderId";
-            this.tbxOrderId.Size = new System.Drawing.Size(229, 21);
-            this.tbxOrderId.TabIndex = 11;
-            this.tbxOrderId.Text = "659edbdf-3fc2-48e4-97d7-a50b0114c800";
             // 
             // dlgSelectPic
             // 
