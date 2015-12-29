@@ -22,6 +22,7 @@ namespace Dianzhu.CSClient.Presenter
         BLLServiceOrder bllOrder;
         BLLReceptionStatus bllReceptionStatus;
         BLLReceptionChat bllReceptionChat;
+        BLLDeviceBind bllDeviceBind;
        
         public MainPresenter(IVew.IMainFormView view,
             InstantMessage instantMessage,
@@ -35,6 +36,7 @@ namespace Dianzhu.CSClient.Presenter
             this.bllService = new BLLDZService();// bllService;
             this.bllReceptionStatus = new BLLReceptionStatus();// bllReceptionStatus;
             this.bllReceptionChat = new BLLReceptionChat();// bllReceptionStatus;
+            this.bllDeviceBind = new BLLDeviceBind();//bllDeviceBind
 
             this.bllOrder = new BLLServiceOrder();// bllOrder;
 
