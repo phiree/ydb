@@ -16,22 +16,9 @@
         timer_ticket_assigner.Interval = 1000*60*60;
         timer_ticket_assigner.Elapsed += new System.Timers.ElapsedEventHandler(timer_ticket_assigner_Elapsed);
         timer_ticket_assigner.Start();
-
-         RouteConfig.RegisterRoutes(RouteTable.Routes);
-         
-          // Add Routes.
-          RegisterCustomRoutes(RouteTable.Routes);
+ 
     }
-     void RegisterCustomRoutes(RouteCollection routes)
-        {
-          routes.MapPageRoute( 
-              "ProductsByCategoryRoute",
-              "Category/{categoryName}",
-              "~/send_suc.aspx?id=categoryName"
-          );
-          
-        }
-
+ 
     void timer_ticket_assigner_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
         var cc = new Dianzhu.BLL.CashTicketAssigner_Task();

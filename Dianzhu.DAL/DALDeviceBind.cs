@@ -35,12 +35,11 @@ namespace Dianzhu.DAL
 
         public DeviceBind getDevBindByUUID(Guid uuid)
         {
-            return Session.QueryOver<DeviceBind>().Where(x => x.AppUUID == uuid).SingleOrDefault();
+            return Session.QueryOver<DeviceBind>().Where(x => x.AppUUID == uuid).And(x=>x.IsBinding==true).SingleOrDefault();
         }
-
         public DeviceBind getDevBindByUserID(DZMembership user)
         {
-            return Session.QueryOver<DeviceBind>().Where(x => x.DZMembership == user).SingleOrDefault();
+            return Session.QueryOver<DeviceBind>().Where(x => x.DZMembership == user).And(x => x.IsBinding == true).SingleOrDefault();
         }
     }
 }

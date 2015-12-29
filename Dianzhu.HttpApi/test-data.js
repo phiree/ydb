@@ -18,10 +18,19 @@ var test_data = [
                 "appName" : "IOS_User",
                 "appToken": "326a866223956ceb2705d8b88758dc77e6420c3ff7ee3cab2388352a461c7b47"
             },
-            "mark":"N",
+            "mark":"Y",
         },
         "stamp_TIMES" : "1490192929212",
         "serial_NUMBER" : "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "App001002",
+        "ReqData": {
+            "appUUID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+        },
+        "stamp_TIMES": "1490192929212",
+        "serial_NUMBER": "00147001015869149751"
     },
 
     /**************聊天记录存储*****************/

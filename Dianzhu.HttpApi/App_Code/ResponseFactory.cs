@@ -74,6 +74,8 @@ public class ResponseFactory
 
             case "app001001":
                 return new ResponseAPP001001(request);
+            case "app001002":
+                return new ResponseAPP001002(request);
 
             default: break;
         }

@@ -16,10 +16,12 @@ namespace Dianzhu.CSClient.Presenter
         
         public void SendMessageWithPush(IInstantMessage.InstantMessage im,ReceptionChat chat)
         {
-            string deviceToken = "8de76c196a605120db39ab58373edf159c1301b43659bd129fcf72b696e2a26c";
+            //string deviceToken = "8de76c196a605120db39ab58373edf159c1301b43659bd129fcf72b696e2a26c";
             im.SendMessage(chat);
             bool isOnline = ClientState.customerOnlineList.Contains(chat.To);
-  
+
+            string deviceToken = bllDeviceBind.getDevBindByUserID(chat.To).AppToken;
+
             if (!isOnline)
             {
                 Push.pushNotifications(deviceToken, chat.MessageBody, @"files\aps_development_Mark.p12", 1);
