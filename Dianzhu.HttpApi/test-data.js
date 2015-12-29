@@ -2,7 +2,7 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
-"orm001006"//,"merm001003","merm001005",//"sys001001"
+"orm002001"//,"merm001003","merm001005",//"sys001001"
  
 ];
 var test_data = [
@@ -79,7 +79,7 @@ var test_data = [
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"
     },
-        //订单详情
+    //订单详情
                 {
                     "protocol_CODE": "ORM001005",
                     "ReqData": {
@@ -90,7 +90,7 @@ var test_data = [
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"
                 },
-          //订单列表    
+    //订单列表    
           {
               "protocol_CODE": "ORM001006",
               "ReqData": {
@@ -103,7 +103,7 @@ var test_data = [
               "stamp_TIMES": "1490192929212",
               "serial_NUMBER": "00147001015869149751"
           },
-          //请求客服处理    
+    //请求客服处理   
           {
               "protocol_CODE": "ORM002001",
               "ReqData": {
@@ -115,7 +115,20 @@ var test_data = [
               "stamp_TIMES": "1490192929212",
               "serial_NUMBER": "00147001015869149751"
           },
-          //订单支付链接
+    ////请求客服处理--请求指定客服
+    {
+        "protocol_CODE": "ORM002001",
+        "ReqData": {
+            "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", //13022222222
+            "pWord": "123456",
+            "orderID": "08696178-31f5-4168-a57a-a56000b47217",
+            "manualAssignedCsId": "b4e8afd1-f64c-4a61-b837-a4f9013ed662"
+
+        },
+        "stamp_TIMES": "1490192929212",
+        "serial_NUMBER": "00147001015869149751"
+    },
+    //订单支付链接
            {
                "protocol_CODE": "ORM002002",
                "ReqData": {

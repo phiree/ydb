@@ -1,18 +1,36 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import Namespace="log4net" %>
+<%@ Import Namespace="System.Web.Routing" %>
 <script runat="server">
 
     void Application_Start(object sender, EventArgs e) 
     {
+       
+        
         //在应用程序启动时运行的代码
         //log4net.Config.XmlConfigurator.Configure();
         log4net.Config.XmlConfigurator.Configure();
+         
 
         System.Timers.Timer timer_ticket_assigner = new System.Timers.Timer();
         timer_ticket_assigner.Interval = 1000*60*60;
         timer_ticket_assigner.Elapsed += new System.Timers.ElapsedEventHandler(timer_ticket_assigner_Elapsed);
         timer_ticket_assigner.Start();
+
+         RouteConfig.RegisterRoutes(RouteTable.Routes);
+         
+          // Add Routes.
+          RegisterCustomRoutes(RouteTable.Routes);
     }
+     void RegisterCustomRoutes(RouteCollection routes)
+        {
+          routes.MapPageRoute( 
+              "ProductsByCategoryRoute",
+              "Category/{categoryName}",
+              "~/send_suc.aspx?id=categoryName"
+          );
+          
+        }
 
     void timer_ticket_assigner_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
