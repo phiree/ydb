@@ -336,10 +336,17 @@ namespace Dianzhu.BLL
 
     
     /// <summary>
-    /// 客服分配接口..
+    /// 客服分配策略
     /// </summary>
     public interface IAssignStratage
     {
+        /// <summary>
+        /// 将一组用户分配给一组客服
+        /// </summary>
+        /// <param name="customerList">待分配客户</param>
+        /// <param name="csList">客服</param>
+        /// <param name="diandian">如果所有客服都不在线,则分配给该用户.</param>
+        /// <returns></returns>
         Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList,DZMembership diandian);
     }
   
@@ -431,6 +438,31 @@ namespace Dianzhu.BLL
                     }
                 }
             }
+
+            return assignList;
+        }
+    }
+    /// <summary>
+    /// 手动指定客服.
+    /// </summary>
+    public class AssignStratageManually : IAssignStratage
+    {
+        Guid manuallyCsId =Guid.Empty;
+        public AssignStratageManually(Guid csId)
+        {
+            manuallyCsId = csId;
+        }
+        public Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian)
+        {
+            Dictionary<DZMembership, DZMembership> assignList = new Dictionary<DZMembership, DZMembership>();
+             
+                var assign = csList.Single(x => x.Id == manuallyCsId);
+                if (assign == null) { throw new NullReferenceException("该客服未登录."); }
+                foreach (DZMembership customer in customerList)
+                {
+                    assignList.Add(customer, assign);
+                }
+            
 
             return assignList;
         }

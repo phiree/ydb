@@ -76,7 +76,7 @@ namespace Dianzhu.DemoClient
             customerId = result["RespData"]["userObj"]["userID"].ToString();
 
         }
-        public void GetCustomerService()
+        public void GetCustomerService(string manualAssignedCS)
         {
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(
                 string.Format(@"{{ // 
@@ -84,11 +84,17 @@ namespace Dianzhu.DemoClient
                     ""ReqData"": {{ 
                     ""userID"": ""{0}"", 
                     ""pWord"": ""{1}"", 
-                    ""orderID"": ""{2}""   
+                    ""orderID"": ""{2}"",
+""manualAssignedCsId"":""{4}""   
                     }}, 
                     ""stamp_TIMES"": ""{3}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
-                }}", customerId, tbxPwd.Text, tbxOrderId.Text, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString()));
+                }}", customerId,
+                tbxPwd.Text, 
+                tbxOrderId.Text, 
+                (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(),
+                tbxManualAssignedCS.Text
+                ));
 
             string state_Code = result["state_CODE"].ToString();
             if (state_Code != "009000")
@@ -104,7 +110,10 @@ namespace Dianzhu.DemoClient
             //customerId = result["RespData"]["cerObj"]["userID"].ToString();
             tbxOrderId.Text = orderID = result["RespData"]["orderID"].ToString();
         }
-
+        public void GetCustomerService()
+        {
+            GetCustomerService(string.Empty);
+        }
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
             MessageBox.Show("用户名/密码有误");
@@ -147,17 +156,10 @@ namespace Dianzhu.DemoClient
                 BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
                 return;
             }
-            //if (string.IsNullOrEmpty(csName))
-            //{
-            //    csName = "e||e.e";
-            //}
-
-
-            //客户自己的信息
-            //GetCustomerInfo(tbxUserName.Text);
+           
             GetCustomerService();
-            lblAssignedCS.Text = csDisplayName;
-            //lblAssignedCS.Text = "暂未分配客服";
+             lblAssignedCS.Text = csDisplayName;
+            
 
 
             Presence p = new Presence(ShowType.chat, "Online");

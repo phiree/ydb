@@ -45,13 +45,14 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.tbxManualAssignedCS = new System.Windows.Forms.TextBox();
             this.tbxOrderId = new System.Windows.Forms.TextBox();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -100,8 +101,12 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.tbxOrderId);
             this.panel1.Controls.Add(this.btnOnlineUsers);
             this.panel1.Controls.Add(this.lblAssignedCS);
+            this.panel1.Controls.Add(this.tbxManualAssignedCS);
             this.panel1.Controls.Add(this.lblLoginStatus);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -220,26 +225,41 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.label5);
-            this.panel3.Controls.Add(this.tbxOrderId);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 31);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(683, 39);
             this.panel3.TabIndex = 0;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 50);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 12);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "手动指定客服:";
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 18);
+            this.label5.Location = new System.Drawing.Point(350, 52);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 12);
             this.label5.TabIndex = 10;
             this.label5.Text = "订单ID";
             // 
+            // tbxManualAssignedCS
+            // 
+            this.tbxManualAssignedCS.Location = new System.Drawing.Point(101, 47);
+            this.tbxManualAssignedCS.Name = "tbxManualAssignedCS";
+            this.tbxManualAssignedCS.Size = new System.Drawing.Size(232, 21);
+            this.tbxManualAssignedCS.TabIndex = 11;
+            this.tbxManualAssignedCS.Text = "b4e8afd1-f64c-4a61-b837-a4f9013ed662";
+            // 
             // tbxOrderId
             // 
-            this.tbxOrderId.Location = new System.Drawing.Point(59, 13);
+            this.tbxOrderId.Location = new System.Drawing.Point(397, 47);
             this.tbxOrderId.Name = "tbxOrderId";
             this.tbxOrderId.Size = new System.Drawing.Size(229, 21);
             this.tbxOrderId.TabIndex = 11;
@@ -275,8 +295,6 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -304,5 +322,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbxOrderId;
         private System.Windows.Forms.Button btnOnlineUsers;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbxManualAssignedCS;
     }
 }
