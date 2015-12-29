@@ -39,8 +39,19 @@ public class ResponseORM002001 : BaseResponse
                 IMSessionsOpenfire imSession = new IMSessionsOpenfire(
               System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
               System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
-
-                Dictionary<DZMembership, DZMembership> assignedPair = new ReceptionAssigner(imSession).AssignCustomerLogin(member);
+                ReceptionAssigner ra = new ReceptionAssigner(imSession);
+                if (!string.IsNullOrEmpty(requestData.manualAssignedCsId))
+                {
+                    Guid mcsid = Guid.Empty;
+                    bool isGuid = Guid.TryParse(requestData.manualAssignedCsId, out mcsid);
+                    if (isGuid)
+                    {
+                        IAssignStratage ias = new AssignStratageManually(mcsid);
+                        ra = new ReceptionAssigner(ias, imSession);
+                    }
+                }
+                
+                Dictionary<DZMembership, DZMembership> assignedPair = ra.AssignCustomerLogin(member);
                 if (assignedPair.Count == 0)
                 {
                     this.state_CODE = Dicts.StateCode[4];
@@ -146,6 +157,7 @@ public class ReqDataORM002001
     public string userID { get; set; }
     public string pWord { get; set; }
     public string orderID { get; set; }
+    public string manualAssignedCsId { get; set; }
     
 
 }
