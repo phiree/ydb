@@ -31,5 +31,9 @@ namespace Dianzhu.BLL
         {
             return DALDeviceBind.getDevBindByUUID(uuid);
         }
+        public DeviceBind getDevBindByUserID(DZMembership user)
+        {
+            return DALDeviceBind.getDevBindByUserID(user);
+        }
     }
 }
