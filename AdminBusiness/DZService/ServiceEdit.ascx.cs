@@ -55,7 +55,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         }
 
         int total;
-        //获取该店铺其他服务位置
+        //获取该店铺其他服务
         otherServiceList = bllService.GetOtherServiceByBusiness(CurrentService.Business.Id,CurrentService.Id, 0, 9999,out total);
     }
     public void LoadInit()
