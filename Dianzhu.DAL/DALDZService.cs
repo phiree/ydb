@@ -24,6 +24,13 @@ namespace Dianzhu.DAL
                 +where +" order by s.LastModifiedTime desc",
                 pageindex, pagesize, out totalRecord);
         }
+        public IList<DZService> GetOtherList(Guid businessId,Guid serviceId, int pageindex, int pagesize, out int totalRecord)
+        {
+            string where = "s.Business.Id='" + businessId + "' and s.Id!='"+serviceId+"'";
+            return GetList("select s from DZService s where "
+                + where + " order by s.LastModifiedTime desc",
+                pageindex, pagesize, out totalRecord);
+        }
         public IList SearchService(string keywords, int pageindex, int pagesize, out int totalRecord)
         {
             //var totalquery = Session.QueryOver<DZService>()

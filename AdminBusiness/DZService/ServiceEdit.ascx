@@ -319,12 +319,7 @@
                                                     <DZ:Tag runat="server" ID="dzTag" />
                                                 </div>
                                             </div>
-
-<<<<<<< HEAD
                                             <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签，多个标签用空格分开</p>
-=======
-                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签，用空格键隔开添加多个标签。</p>
->>>>>>> 5f2ed8e7883225140e56ea0599af967c4a3427c9
                                         </div>
                                     </div>
                                 </div>

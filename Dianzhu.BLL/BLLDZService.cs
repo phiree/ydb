@@ -24,6 +24,10 @@ namespace Dianzhu.BLL
         {
             return DALDZService.GetList(businessId , pageindex, pagesize, out totalRecords);
         }
+        public IList<DZService> GetOtherServiceByBusiness(Guid businessId, Guid serviceId, int pageindex, int pagesize, out int totalRecords)
+        {
+            return DALDZService.GetOtherList(businessId, serviceId, pageindex, pagesize, out totalRecords);
+        }
 
         public virtual   DZService GetOne(Guid serviceId)
         {
