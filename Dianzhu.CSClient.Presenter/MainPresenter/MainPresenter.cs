@@ -109,10 +109,6 @@ namespace Dianzhu.CSClient.Presenter
             SendMessage(chat);
             view.MessageTextBox = string.Empty;
 
-            //更新搜索订单状态：改为已完成
-            ClientState.CurrentServiceOrder.OrderStatus = enum_OrderStatus.Finished;
-            bllOrder.SaveOrUpdate(ClientState.CurrentServiceOrder);
-
             //新建订单
             ServiceOrder orderNew = ServiceOrder.Create(
                          enum_ServiceScopeType.OSIM

@@ -24,6 +24,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
 
     public DZService CurrentService = new DZService();//当前的服务 对象.
     ServiceType ServiceType;
+    IList<DZService> otherServiceList;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -52,6 +53,10 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
                 
             }
         }
+
+        int total;
+        //获取该店铺其他服务
+        otherServiceList = bllService.GetOtherServiceByBusiness(CurrentService.Business.Id,CurrentService.Id, 0, 9999,out total);
     }
     public void LoadInit()
     {

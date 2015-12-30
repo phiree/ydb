@@ -2,7 +2,7 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006"//,"usm001005",//"usm001008",
-"app001001"//,"merm001003","merm001005",//"sys001001","APP001001"
+"orm001006"//,"merm001003","merm001005",//"sys001001","APP001001"
  
 ];
 var test_data = [
@@ -122,8 +122,8 @@ var test_data = [
               "ReqData": {
                   "userID": "7dcdd185-bed6-4756-a219-a5360118aab3", //13022222222
                   "pWord": "1234",
-                  "target": "Nt",
-                  "pageSize": "20",
+                  "target": "ALL",
+                  "pageSize": "50",
                   "pageNum": "0"
               },
               "stamp_TIMES": "1490192929212",
