@@ -1,7 +1,6 @@
-#Phiree Define#
-/AdminBusiness/config/appSettings.config
-/AdminWeb/config/connectionStrings.config
-/config/connectionStrings.config
+#ignore config files#
+config/
+/config
 /cdn
 /logs
 .idea/
@@ -227,3 +226,4 @@ dianzhu.sln.orig
 PHSuit/files/aps_development_Mark.p12
 Dianzhu.CSClient/files/aps_development_Mark.p12
 *Configs/*
+*/config/*
