@@ -28,7 +28,19 @@ namespace Dianzhu.CSClient.WPFView
             btnLogin.Click += BtnLogin_Click;
             //登录时的异步处理
             bgw.DoWork += Bgw_DoWork;
+            bgw.RunWorkerCompleted += Bgw_RunWorkerCompleted;
             
+        }
+
+        private void Bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+              MessageBoxResult r=  MessageBox.Show(e.Error.Message);
+                
+                    this.Close();
+                 
+            }
         }
 
         private void Bgw_DoWork(object sender, DoWorkEventArgs e)
