@@ -59,12 +59,13 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         {
             int total;
             otherServiceLocation = "[";
+            /*
             IList<DZService> areaCodes = bllService.GetOtherServiceByBusiness(CurrentService.Business.Id, CurrentService.Id, 0, 9999, out total);
             foreach (DZService a in areaCodes)
             {
                 otherServiceLocation += a.BusinessAreaCode + ",";
             }
-            otherServiceLocation = otherServiceLocation.TrimEnd(',');
+            otherServiceLocation = otherServiceLocation.TrimEnd(',');*/
             otherServiceLocation += "]";
         }
     }
