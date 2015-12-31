@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<connectionStrings>
-  <add name="DianzhuConnectionString"
-       connectionString="data source=localhost;uid=root;pwd=root;database=dianzhu_dev"
-       providerName="MySql.Data.MySqlClient" />
-</connectionStrings>
