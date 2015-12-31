@@ -48,7 +48,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
 
 
-        log4net.ILog ilog = log4net.LogManager.GetLogger("xmpp");
+        log4net.ILog ilog = log4net.LogManager.GetLogger(typeof(MessageAdapter));
         public MessageAdapter()
         {
  

@@ -15,7 +15,7 @@ namespace Dianzhu.CSClient
     static class Program
     {
         
-        static ILog log = LogManager.GetLogger("cs");
+        static ILog log = LogManager.GetLogger(typeof(Program));
        
         static int progressPercent = 0;
         /// <summary>
@@ -74,10 +74,6 @@ namespace Dianzhu.CSClient
 
 
         }
-
-        
-
-     
 
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
