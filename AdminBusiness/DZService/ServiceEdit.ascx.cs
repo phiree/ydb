@@ -24,7 +24,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
 
     public DZService CurrentService = new DZService();//当前的服务 对象.
     ServiceType ServiceType;
-    IList<DZService> otherServiceList;
+    public string otherServiceLocation;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -54,9 +54,16 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             }
         }
 
-        int total;
         //获取该店铺其他服务
-        otherServiceList = bllService.GetOtherServiceByBusiness(CurrentService.Business.Id,CurrentService.Id, 0, 9999,out total);
+        int total;
+        otherServiceLocation = "[";
+        IList<string> areaCodes = bllService.GetOtherServiceByBusiness(CurrentService.Business.Id, CurrentService.Id, 0, 9999, out total).Select(x => x.BusinessAreaCode).ToList();
+        foreach(string a in areaCodes)
+        {
+            otherServiceLocation += a + ",";
+        }
+        otherServiceLocation = otherServiceLocation.TrimEnd(',');
+        otherServiceLocation += "]";
     }
     public void LoadInit()
     {

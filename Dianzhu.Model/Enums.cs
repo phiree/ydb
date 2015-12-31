@@ -200,5 +200,18 @@ namespace Dianzhu.Model.Enums
         /// </summary>
         paylater
     }
-
+    /// <summary>
+    /// 用户的在线状态
+    /// </summary>
+    public enum enum_UserStatus
+    {
+        /// <summary>
+        /// 上线
+        /// </summary>
+        available,
+        /// <summary>
+        /// 离线
+        /// </summary>
+        unavailable
+    }
 }

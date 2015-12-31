@@ -68,7 +68,9 @@ namespace Dianzhu.CSClient.Presenter
             view.OrderAmount = "0.0000";
             view.TargetAddress = string.Empty;
             view.Memo = string.Empty;
-            view.ServiceTime = string.Empty;            
+            view.ServiceTime = string.Empty;
+
+            view.CanEditOrder = true;
         }
 
         /// <summary>

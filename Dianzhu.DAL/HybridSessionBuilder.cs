@@ -50,7 +50,7 @@ namespace Dianzhu.DAL
                             .FromConnectionStringWithKey("DianzhuConnectionString"))
                       )
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
-                   //.ExposeConfiguration(BuildSchema)
+                   .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
                 }
             }
