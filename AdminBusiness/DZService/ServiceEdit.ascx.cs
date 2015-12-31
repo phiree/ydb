@@ -55,15 +55,18 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         }
 
         //获取该店铺其他服务
-        int total;
-        otherServiceLocation = "[";
-        IList<string> areaCodes = bllService.GetOtherServiceByBusiness(CurrentService.Business.Id, CurrentService.Id, 0, 9999, out total).Select(x => x.BusinessAreaCode).ToList();
-        foreach(string a in areaCodes)
+        if (CurrentService.Id != new Guid())
         {
-            otherServiceLocation += a + ",";
+            int total;
+            otherServiceLocation = "[";
+            IList<DZService> areaCodes = bllService.GetOtherServiceByBusiness(CurrentService.Business.Id, CurrentService.Id, 0, 9999, out total);
+            foreach (DZService a in areaCodes)
+            {
+                otherServiceLocation += a.BusinessAreaCode + ",";
+            }
+            otherServiceLocation = otherServiceLocation.TrimEnd(',');
+            otherServiceLocation += "]";
         }
-        otherServiceLocation = otherServiceLocation.TrimEnd(',');
-        otherServiceLocation += "]";
     }
     public void LoadInit()
     {

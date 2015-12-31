@@ -125,11 +125,6 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="config\appSettings.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="config\mailSettings.config" />
     <None Include="packages.config" />
     <None Include="TestFiles\个人服务类最新版-表格.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

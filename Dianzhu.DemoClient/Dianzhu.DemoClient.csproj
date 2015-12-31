@@ -153,9 +153,9 @@
       <DependentUpon>ShowFullImage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <Content Include="appSettings.config">
+    <None Include="config\appSettings.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
