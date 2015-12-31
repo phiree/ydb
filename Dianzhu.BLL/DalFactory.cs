@@ -13,9 +13,7 @@ namespace Dianzhu.BLL
         static DALCashTicketTemplate dalCashTicketTemplate = null;
         static DALCashTicket dalCashTicket = null;
         static DALMembership dalMembership = null;
-       
-        static DALBusiness iDALCashTicket = null;
-        static DALBusinessImage iDalMembership = null;
+  
          
         static DALArea dalArea;
         static DALBusiness dalBusiness;
