@@ -141,6 +141,7 @@ namespace Dianzhu.CSClient.XMPP
             //判断用户对应的tokoen
             //chat-->message
             Message msg = messageAdapter.ChatToMessage(chat, server);
+            log.Debug("receive___" + msg.ToString());
             XmppClientConnection.Send(msg);
 
         }
