@@ -19,5 +19,10 @@ namespace Dianzhu.DAL
             
         }
 
+        public IMUserStatus GetIMUSByUserId(Guid userId)
+        {
+            return Session.QueryOver<IMUserStatus>().Where(x => x.UserID == userId).SingleOrDefault();
+        }
+
     }
 }
