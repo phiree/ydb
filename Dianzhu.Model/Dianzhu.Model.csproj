@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMUserStatusArchieve.cs" />
+    <Compile Include="IMUserStatus.cs" />
     <Compile Include="City.cs" />
     <Compile Include="PaymentLog.cs" />
     <Compile Include="Area.cs" />

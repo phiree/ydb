@@ -34,6 +34,18 @@ namespace Dianzhu.BLL
         static DALReceptionChat dalReceptionChat;
         static DALPaymentLog dalPaymentLog;
         static DALReceptionChatDD dalReceptionChatDD;
+        static DALIMUserStatus dalIMUserStatus;
+        static DALIMUserStatusArchieve dalIMUserStatusArchieve;
+        public static DALIMUserStatusArchieve DALIMUserStatusArchieve
+        {
+            get { return dalIMUserStatusArchieve ?? new DALIMUserStatusArchieve(); }
+            set { dalIMUserStatusArchieve = value; }
+        }
+        public static DALIMUserStatus DALIMUserStatus
+        {
+            get { return dalIMUserStatus ?? new DALIMUserStatus(); }
+            set { dalIMUserStatus = value; }
+        }
         public static DALReceptionChatDD DALReceptionChatDD
         {
             get { return dalReceptionChatDD ?? new DALReceptionChatDD(); }
@@ -58,8 +70,7 @@ namespace Dianzhu.BLL
         {
             get
             {
-                return
-                    dalReception == null ? forTest ? new DALReception("") : new DALReception() : dalReception;
+                return dalReception == null ? forTest ? new DALReception("") : new DALReception() : dalReception;
             }
             set { dalReception = value; }
         }
@@ -102,12 +113,7 @@ namespace Dianzhu.BLL
         {
             get
             {
-                
-                
-              return  dalDZService == null ? 
-                                            forTest ? new DALDZService("") 
-                                            : new DALDZService() 
-                                        : dalDZService;
+                return dalDZService == null ? forTest ? new DALDZService(""): new DALDZService(): dalDZService;
             }
             set { dalDZService = value; }
         }

@@ -65,8 +65,11 @@
             this.btnSendAudio = new System.Windows.Forms.Button();
             this.btnSendImage = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
             this.lblCountText = new System.Windows.Forms.Label();
             this.tbxChatMsg = new System.Windows.Forms.RichTextBox();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.btnSendAndNew = new System.Windows.Forms.Button();
             this.btnSend = new System.Windows.Forms.Button();
             this.pnlResultService = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -100,9 +103,6 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.panel12 = new System.Windows.Forms.Panel();
-            this.btnSendAndNew = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -120,6 +120,8 @@
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.panel12.SuspendLayout();
+            this.panel11.SuspendLayout();
             this.pnlResultService.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -129,8 +131,6 @@
             this.pnlNotice.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pnlExternService.SuspendLayout();
-            this.panel11.SuspendLayout();
-            this.panel12.SuspendLayout();
             this.SuspendLayout();
             // 
             // scmain
@@ -450,11 +450,12 @@
             // 
             this.pnlChat.AutoScroll = true;
             this.pnlChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlChat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlChat.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlChat.ImeMode = System.Windows.Forms.ImeMode.On;
             this.pnlChat.Location = new System.Drawing.Point(0, 0);
             this.pnlChat.Name = "pnlChat";
-            this.pnlChat.Size = new System.Drawing.Size(405, 395);
+            this.pnlChat.Size = new System.Drawing.Size(405, 401);
             this.pnlChat.TabIndex = 3;
             this.pnlChat.WrapContents = false;
             // 
@@ -527,6 +528,16 @@
             this.panel5.Size = new System.Drawing.Size(405, 81);
             this.panel5.TabIndex = 2;
             // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.lblCountText);
+            this.panel12.Controls.Add(this.tbxChatMsg);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel12.Location = new System.Drawing.Point(0, 0);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(338, 81);
+            this.panel12.TabIndex = 7;
+            // 
             // lblCountText
             // 
             this.lblCountText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -550,6 +561,27 @@
             this.tbxChatMsg.Text = "";
             this.tbxChatMsg.TextChanged += new System.EventHandler(this.tbxChatMsg_TextChanged);
             this.tbxChatMsg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox1_KeyPress);
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.btnSendAndNew);
+            this.panel11.Controls.Add(this.btnSend);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel11.Location = new System.Drawing.Point(338, 0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(67, 81);
+            this.panel11.TabIndex = 6;
+            // 
+            // btnSendAndNew
+            // 
+            this.btnSendAndNew.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSendAndNew.Location = new System.Drawing.Point(0, 43);
+            this.btnSendAndNew.Name = "btnSendAndNew";
+            this.btnSendAndNew.Size = new System.Drawing.Size(67, 38);
+            this.btnSendAndNew.TabIndex = 2;
+            this.btnSendAndNew.Text = "发送并生成新订单";
+            this.btnSendAndNew.UseVisualStyleBackColor = true;
+            this.btnSendAndNew.Click += new System.EventHandler(this.btnSendAndNew_Click);
             // 
             // btnSend
             // 
@@ -867,37 +899,6 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
-            // panel11
-            // 
-            this.panel11.Controls.Add(this.btnSendAndNew);
-            this.panel11.Controls.Add(this.btnSend);
-            this.panel11.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel11.Location = new System.Drawing.Point(338, 0);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(67, 81);
-            this.panel11.TabIndex = 6;
-            // 
-            // panel12
-            // 
-            this.panel12.Controls.Add(this.lblCountText);
-            this.panel12.Controls.Add(this.tbxChatMsg);
-            this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel12.Location = new System.Drawing.Point(0, 0);
-            this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(338, 81);
-            this.panel12.TabIndex = 7;
-            // 
-            // btnSendAndNew
-            // 
-            this.btnSendAndNew.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnSendAndNew.Location = new System.Drawing.Point(0, 43);
-            this.btnSendAndNew.Name = "btnSendAndNew";
-            this.btnSendAndNew.Size = new System.Drawing.Size(67, 38);
-            this.btnSendAndNew.TabIndex = 2;
-            this.btnSendAndNew.Text = "发送并生成新订单";
-            this.btnSendAndNew.UseVisualStyleBackColor = true;
-            this.btnSendAndNew.Click += new System.EventHandler(this.btnSendAndNew_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -927,6 +928,9 @@
             this.panel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
+            this.panel11.ResumeLayout(false);
             this.pnlResultService.ResumeLayout(false);
             this.pnlResultService.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -940,9 +944,6 @@
             this.panel2.PerformLayout();
             this.pnlExternService.ResumeLayout(false);
             this.pnlExternService.PerformLayout();
-            this.panel11.ResumeLayout(false);
-            this.panel12.ResumeLayout(false);
-            this.panel12.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -160,7 +160,7 @@ namespace DianzhuService.Diandian
         protected override void OnStart(string[] args)
         {
             GlobalViables.XMPPConnection.Close();//关闭当前登录
-            string userName = "diandian@ydban.cn";
+            string userName = "diandian@business.ydban.cn";
             string password = "diandian";
             //string userName = "aa@aa.aa";
             //string password = "123456";
