@@ -97,10 +97,8 @@ namespace Dianzhu.DAL
         public virtual T GetOne(object id)
         {
             T r= session.Get<T>(id);
-            if (!session.Transaction.IsActive)
-            {
-                session.Flush();
-            }
+            
+
             return r;
         }
         public T GetOneByQuery(IQueryOver<T> queryOver)
