@@ -80,7 +80,11 @@ public class ResponseFactory
             case "ofp001001":
                 return new ResponseOFP001001(request);
 
-            default: break;
+            default:
+                BaseResponse baeResponse = new BaseResponse(request);
+                baeResponse.state_CODE = Dicts.StateCode[1];
+                baeResponse.err_Msg = "接口不存在！";
+                return baeResponse;
         }
         throw new Exception("No Such Api");
     }

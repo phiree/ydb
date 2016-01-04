@@ -17,7 +17,7 @@ public class ResponseOFP001001 : BaseResponse
 
         try
         {
-            if (requestData.jid != "")
+            if (requestData.jid != null)
             {
                 string uid = requestData.jid.Split('@')[0];
 
