@@ -384,8 +384,8 @@ namespace Dianzhu.CSClient.WinformView
                 throw new NotImplementedException();
             }
         }
-        IList searchedService;
-        public IList SearchedService
+        IList<DZService> searchedService;
+        public IList<DZService> SearchedService
         {
             get
             {
@@ -399,36 +399,36 @@ namespace Dianzhu.CSClient.WinformView
                 //{
                 //    LoadServiceToPanel(service);
                 //}Hashtable ht = (Hashtable)list[i];
-                foreach(Hashtable ht in searchedService)
+                foreach(DZService service in searchedService)
                 {
-                    LoadServiceToPanel(ht);
+                    LoadServiceToPanel(service);
                 }
             }
         }
 
-        private void LoadServiceToPanel(Hashtable service)
+        private void LoadServiceToPanel(DZService service)
         {
             FlowLayoutPanel pnl = new FlowLayoutPanel();
-            pnl.Name = "servicePnl" + service["Id"].ToString();
+            pnl.Name = "servicePnl" + service.Id.ToString();
             pnl.BorderStyle = BorderStyle.FixedSingle;
             pnl.FlowDirection = FlowDirection.LeftToRight;
             Label lblBusinessName = new Label();
             lblBusinessName.BorderStyle = BorderStyle.FixedSingle;
-            lblBusinessName.Text = service["shopname"].ToString();
+            lblBusinessName.Text = service.Business.Name;
             lblBusinessName.Font = new System.Drawing.Font(this.Font, FontStyle.Bold);
             pnl.Controls.Add(lblBusinessName);
             Label lblServiceName = new Label();
             lblServiceName.BorderStyle = BorderStyle.FixedSingle;
-            lblServiceName.Text = service["Description"].ToString();
+            lblServiceName.Text = service.Description.ToString();
             pnl.Controls.Add(lblServiceName);
             Button btnPushService = new Button();
             btnPushService.Text = "推送";
-            btnPushService.Tag = service["Id"].ToString();
+            btnPushService.Tag = service.Id.ToString();
             btnPushService.Click += new EventHandler(btnPushService_Click);
             pnl.Controls.Add(btnPushService);
             Button btnSelectService = new Button();
             btnSelectService.Text = "选择";
-            btnSelectService.Tag = service["Id"].ToString();
+            btnSelectService.Tag = service.Id.ToString();
             btnSelectService.Click += new EventHandler(btnSelectService_Click);
             pnl.Controls.Add(btnSelectService);
             pnlResultService.Controls.Add(pnl);

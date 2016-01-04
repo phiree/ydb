@@ -30,26 +30,36 @@ namespace Dianzhu.DAL
             SaveOrUpdate(member);
              
         }
+        
 
         public bool ValidateUser(string username, string password)
         {
             //  User user = session.QueryOver<User>(x=>x.User);
+            
             bool result = false;
             IQuery query = Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
-            int matchLength = query.Future<Model.DZMembership>().ToArray().Length;
 
-            if (matchLength == 1) { result = true;
+            IQueryOver<Model.DZMembership,Model.DZMembership> iq = Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password);
+            Model.DZMembership member = GetOneByQuery(iq);
 
-            IQuery queryUpdate = Session.CreateQuery("update DZMembership u  set u.LastLoginTime='" + DateTime.Now.ToString() + "'   where u.UserName='" + username + "' and u.Password='" + password + "'");
-           // queryUpdate.ExecuteUpdate();
-            }
-            if (matchLength > 1)
+
+            if (member != null)
             {
-                throw new Exception("账户重名,拒绝登录");
+                result = true;
+
+                member.LastLoginTime = DateTime.Now;
+                Update(member);
+
             }
+            else
+            {
+                
+            }
+             
 
             return result;
         }
+        
 
         public Model.DZMembership GetMemberByName(string username)
         {

@@ -14,6 +14,7 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             Map(x => x.Name);
             References<Business>(x => x.Business);
+               
             Map(x => x.Description);
             References<ServiceType>(x => x.ServiceType).Not.LazyLoad();
             //References<ServiceType>(x => x.ServiceType);
@@ -36,7 +37,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Enabled).Default("True");
             Map(x => x.CreatedTime);
             Map(x => x.LastModifiedTime);
-            HasMany<ServiceOpenTime>(x => x.OpenTimes).Cascade.AllDeleteOrphan();
+            HasMany<ServiceOpenTime>(x => x.OpenTimes).Cascade.SaveUpdate();
             Map(x => x.PayFirst);
 
         }

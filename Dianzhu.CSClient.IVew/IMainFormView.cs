@@ -107,7 +107,7 @@ namespace Dianzhu.CSClient.IVew
         string CurrentCustomerService { set; }
 
 
-        IList SearchedService { get; set; }
+        IList<DZService> SearchedService { get; set; }
         //外部服务
         string ServiceName { get; set; }
         string ServiceBusinessName { get; set; }
