@@ -66,7 +66,7 @@ namespace Dianzhu.BLL
         {
             DALDZService.Delete(dz);
         }
-        public IList Search(string keywords, int pageIndex, int pagesize, out int total)
+        public IList<DZService> Search(string keywords, int pageIndex, int pagesize, out int total)
         {
           return  DALDZService.SearchService(keywords, pageIndex, pagesize, out total);
         }

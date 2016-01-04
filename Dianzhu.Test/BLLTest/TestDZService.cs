@@ -28,5 +28,16 @@ namespace Dianzhu.Test.BLLTest
            Assert.AreEqual("service1", result.Name);
 
        }
+        [Test]
+        public void GetAll()
+        {
+            DALDZService dal = new DALDZService();
+            int totalRecord;
+           IList<DZService> serviceList= dal.SearchService(string.Empty, 1, 10, out totalRecord);
+            foreach (DZService service in serviceList)
+            {
+                Console.WriteLine(service.Business.Name);
+            }
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace Dianzhu.CSClient.Presenter
         //每个订单 的接待记录
         // Dictionary<string, ReceptionBase> ReceptionList = new Dictionary<string, ReceptionBase>();
         //搜索列表
-        public static Dictionary<string, IList> SearchResultForCustomer = new Dictionary<string, IList>();
+        public static Dictionary<string, IList<DZService>> SearchResultForCustomer = new Dictionary<string, IList<DZService>>();
          //当前客户的历史订单
        // Dictionary<string, IList<ServiceOrder>> CustomerOrderList = new Dictionary<string, IList<ServiceOrder>>();
        
