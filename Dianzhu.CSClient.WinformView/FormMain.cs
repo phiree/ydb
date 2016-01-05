@@ -455,7 +455,24 @@ namespace Dianzhu.CSClient.WinformView
             Panel pnl = (Panel)pnlResultService.Controls.Find("servicePnl" + currentService.Id, true)[0];
             pnl.BackColor = Color.Green;
 
-            //currentService = selectservice;
+            //currentService
+            SetOrderByService(currentService);
+        }
+
+        /// <summary>
+        /// 将服务的数据写入订单中
+        /// </summary>
+        private void SetOrderByService(DZService Service)
+        {
+            ServiceName = Service.Name;
+            ServiceBusinessName = Service.Business.Name;
+            ServiceDescription = Service.Description;
+            ServiceUnitPrice = Service.UnitPrice.ToString();
+            ServiceUrl = string.Empty;//这个不知道是什么
+            OrderAmount = ServiceUnitPrice;
+            ServiceTime = DateTime.Now.ToString();
+
+            CanEditOrder = true;
         }
 
         void btnPushService_Click(object sender, EventArgs e)

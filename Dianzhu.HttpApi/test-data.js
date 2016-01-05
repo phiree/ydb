@@ -2,7 +2,7 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
-"orm002001"//,"merm001003","merm001005",//"sys001001","app001001","ofp001001"
+"orm001006"//,"merm001003","merm001005",//"sys001001","app001001","ofp001001"
  
 ];
 var test_data = [
@@ -13,7 +13,7 @@ var test_data = [
         "protocol_CODE": "OFP001001",
         "ReqData": {
             "JID": "6F9619FF-8B86-D011-B42D-00C04FC964FF@ydban.cn",
-            "status": "unavailable",
+            "status": "available",
             "ipaddress": "192.134.12.44",
         },
         "stamp_TIMES": "1490192929212",
