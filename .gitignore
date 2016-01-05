@@ -1,5 +1,5 @@
 #ignore config files#
- 
+ *config/*
 /cdn
 /logs
 .idea/
