@@ -1,6 +1,5 @@
 #ignore config files#
-config/
-/config
+ 
 /cdn
 /logs
 .idea/
@@ -225,5 +224,4 @@ Dianzhu.HttpApi/logs/
 dianzhu.sln.orig
 PHSuit/files/aps_development_Mark.p12
 Dianzhu.CSClient/files/aps_development_Mark.p12
-*Configs/*
-*/config/*
+ 
