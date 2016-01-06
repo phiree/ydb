@@ -13,7 +13,7 @@ namespace Dianzhu.CSClient.XMPP
     public class XMPP : IInstantMessage.InstantMessage
     {
         log4net.ILog log = log4net.LogManager.GetLogger("xmpp");
-        static readonly string Domain = Dianzhu.Config.Config.GetAppSetting("domain");
+        static readonly string Domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
         static agsXMPP.XmppClientConnection XmppClientConnection;
 
 
