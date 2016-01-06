@@ -11,7 +11,7 @@ namespace Dianzhu.BLL
         {
             get
             {
-                return ConfigurationManager.AppSettings["business_image_root"];
+                return Dianzhu.Config.Config.GetAppSetting("business_image_root");
             }
         }
     }

@@ -29,7 +29,7 @@ public class RespDataUSM_userObj
         this.phone = membership.Phone ?? "";
         this.imgUrl = membership.AvatarUrl == null 
             ? string.Empty 
-            : ConfigurationManager.AppSettings["MediaGetUrl"] + 
+            : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + 
                 membership.AvatarUrl;
         this.address =membership.Address?? "";
         return this;

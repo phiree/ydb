@@ -37,18 +37,12 @@ public class ResponseUSM001007 : BaseResponse
                 RespDataUSM001007 respData = new RespDataUSM001007();
                 respData.userID = requestData.userID;
                
-                string savedFileName = MediaServer.HttpUploader.Upload(ConfigurationManager.AppSettings["MediaUploadUrl"],
+                string savedFileName = MediaServer.HttpUploader.Upload(Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl"),
                    requestData.imgData, "UserAvatar", "image");
-                respData.imgUrl = ConfigurationManager.AppSettings["MediaGetUrl"] + savedFileName;
-                ////上传图片.
-                ////bllDeviceBind.UpdateDeviceBindStatus(member, requestData.appToken, requestData.appName);
-                //string fileName = Guid.NewGuid() + ".png";
-                //string relativePath = System.Configuration.ConfigurationManager.AppSettings["business_image_root"];
-                //string filePath = HttpContext.Current.Server.MapPath(relativePath);
-                //PHSuit.IOHelper.SaveFileFromBase64(requestData.imgData, filePath+fileName);
+                respData.imgUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + savedFileName;
+                 
                 
-                //respData.imgUrl =ConfigurationManager.AppSettings["media_server"]+"imagehandler.ashx?imagename="+fileName;
-                member.AvatarUrl = savedFileName;
+                  member.AvatarUrl = savedFileName;
                 p.UpdateDZMembership(member);
                 this.RespData = respData;
                 

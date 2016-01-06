@@ -84,7 +84,7 @@ namespace Dianzhu.CSClient.Presenter
             Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
             SaveCurrentOrder();
             ClientState.CurrentServiceOrder.OrderStatus = Model.Enums.enum_OrderStatus.Created;
-            string payLink = ClientState.CurrentServiceOrder.BuildPayLink(System.Configuration.ConfigurationManager.AppSettings["PayUrl"]);
+            string payLink = ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"));
 
             ReceptionChatNotice chatNotice = new ReceptionChatNotice
             {
