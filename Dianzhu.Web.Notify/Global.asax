@@ -1,30 +1,71 @@
 ﻿<%@ Application Language="C#" %>
 
 <script RunAt="server">
-
+    
+    Dianzhu.CSClient.IMessageAdapter.IAdapter adapter
+            = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
+   static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
     void Application_Start(object sender, EventArgs e)
     {
         //Code that runs on application startup
         //init xmpp conenction 
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
-        _SetupRefreshJob();
-
+        //  _SetupRefreshJob();
+        log4net.Config.XmlConfigurator.Configure();
         string server = ConfigurationManager.AppSettings.Get("server");
-        Dianzhu.CSClient.IMessageAdapter.IAdapter adapter
-            = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
+
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
             = new Dianzhu.CSClient.XMPP.XMPP(server, adapter, "YDB_IMServer");
         //login in
         string noticesenderId = ConfigurationManager.AppSettings.Get("NoticeSenderId");
         string noticesenderPwdCrypted = ConfigurationManager.AppSettings.Get("NoticeSenderPwd");
         string noticesenderPwd = PHSuit.Security.Decrypt(noticesenderPwdCrypted, false);
-        im.OpenConnection(noticesenderId, noticesenderPwd);
 
+        im.IMClosed += IMClosed;
+        im.IMLogined += IMLogined;
+        im.IMError += IMError;
+        im.IMAuthError += IMAuthError;
+        im.IMConnectionError += IMConnectionError;
+        im.IMReceivedMessage += IMReceivedMessage;
+        im.IMIQ += IMIQ;
+        im.IMStreamError += IMStreamError;
+        im.OpenConnection(noticesenderId, noticesenderPwd);
         Application["IM"] = im;
     }
+    void IMClosed()
+    {
+        log.Warn("Closed");
+    }
+    void IMLogined(string jidUser)
+    { 
+        log.Info("Logined:" + jidUser);
+    }
+    void IMError(string error)
+    { 
+        log.Error("IMError:"+error);
+    }
+    void IMAuthError()
+    { log.Error("IMAuthError"); }
+    void IMConnectionError(string error)
+    { 
+        log.Error("ConnectionError:" + error);
+    }
+    void IMReceivedMessage(Dianzhu.Model.ReceptionChat chat)
+    { 
+        log.Debug("ReceiveMsg:"+adapter.ChatToMessage(chat,ConfigurationManager.AppSettings.Get("server")).InnerXml);
+    }
+    void IMIQ()
+    { 
+        log.Debug("Received IQ");
+    }
+    void IMStreamError()
+    {
+       
+        log.Error("StreamError"); }
 
     void Application_End(object sender, EventArgs e)
     {
+        log.Error("ApplicationEnd"); 
         //  Code that runs on application shutdown
 
     }
@@ -32,7 +73,8 @@
     void Application_Error(object sender, EventArgs e)
     {
         // Code that runs when an unhandled error occurs
-
+         
+        log.Error("ApplicationError:"+Server.GetLastError().Message);
     }
 
     void Session_Start(object sender, EventArgs e)
@@ -53,6 +95,7 @@
     {
 
         //remove a previous job
+
         Action remove = HttpContext.Current.Cache["Refresh"] as Action;
         if (remove is Action)
         {
@@ -73,7 +116,7 @@
                 }
                 catch (Exception ex)
                 {
-                    log4net.ILog log = log4net.LogManager.GetLogger("error");
+                    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
                     log.Error(ex.Message);
                 }
                 finally
