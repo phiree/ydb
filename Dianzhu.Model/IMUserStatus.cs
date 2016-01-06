@@ -35,5 +35,13 @@ namespace Dianzhu.Model
         /// 客户端IP地址
         /// </summary>
         public virtual string IpAddress { get; set; }
+        /// <summary>
+        /// 登录openfire的地址
+        /// </summary>
+        public virtual string OFIpAddress { get; set; }
+        /// <summary>
+        /// 登录客户端名称
+        /// </summary>
+        public virtual string ClientName { get; set; }
     }
 }

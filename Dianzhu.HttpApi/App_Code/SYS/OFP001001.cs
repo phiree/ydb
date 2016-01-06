@@ -14,12 +14,15 @@ public class ResponseOFP001001 : BaseResponse
         ReqDataOFP001001 requestData = this.request.ReqData.ToObject<ReqDataOFP001001>();
 
         Guid userId;
+        string ofIp;
+        string clientName;
 
         try
         {
             if (requestData.jid != null)
             {
                 string uid = requestData.jid.Split('@')[0];
+                string rest = requestData.jid.Split('@')[1];
 
                 bool uidisGuid = Guid.TryParse(uid, out userId);
                 if (!uidisGuid)
@@ -28,6 +31,9 @@ public class ResponseOFP001001 : BaseResponse
                     this.err_Msg = "用户Id格式有误";
                     return;
                 }
+
+                ofIp = rest.Split('/')[0];
+                clientName = rest.Split('/')[1];
             }
             else
             {
@@ -50,10 +56,15 @@ public class ResponseOFP001001 : BaseResponse
                 imUSA.Status = imOld.Status;
                 imUSA.ArchieveTime = DateTime.Now;
                 imUSA.IpAddress = imOld.IpAddress;
+                imUSA.OFIpAddress = imOld.OFIpAddress;
+                imUSA.ClientName = imOld.ClientName;
                 bllIMUserStatusArchieve.SaveOrUpdate(imUSA);
 
                 //更新用户状态
                 imOld.Status = currentIM.Status;
+                imOld.IpAddress = currentIM.IpAddress;
+                imOld.OFIpAddress = ofIp;
+                imOld.ClientName = clientName;
                 imOld.LastModifyTime = DateTime.Now;
                 bllIMUserStatus.SaveOrUpdate(imOld);
             }
@@ -61,6 +72,8 @@ public class ResponseOFP001001 : BaseResponse
             {
                 //直接存储用户状态
                 currentIM.UserID = userId;
+                currentIM.OFIpAddress = ofIp;
+                currentIM.ClientName = clientName;
                 currentIM.LastModifyTime = DateTime.Now;
                 bllIMUserStatus.SaveOrUpdate(currentIM);
             }

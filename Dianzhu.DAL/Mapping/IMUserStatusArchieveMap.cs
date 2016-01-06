@@ -15,6 +15,8 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Status).CustomType<Model.Enums.enum_UserStatus>();
             Map(x => x.ArchieveTime);
             Map(x => x.IpAddress);
+            Map(x => x.OFIpAddress);
+            Map(x => x.ClientName);
         }
     }
 }
