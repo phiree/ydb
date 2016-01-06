@@ -54,13 +54,13 @@ public class ResponseUSM001008 : BaseResponse
                 respData.userID = requestData.userID;
                 string resourceUrl = string.Empty;
                 this.state_CODE = Dicts.StateCode[0];
-                string savedFileName = MediaServer.HttpUploader.Upload(ConfigurationManager.AppSettings["MediaUploadUrl"],
+                string savedFileName = MediaServer.HttpUploader.Upload(Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl"),
                     requestData.Resource, domainType, requestData.FileType == USM001008UploadedFileType.voice ? "voice" : requestData.FileType.ToString());
-                resourceUrl = ConfigurationManager.AppSettings["MediaGetUrl"] + savedFileName;
+                resourceUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + savedFileName;
                     
 
                 //string fileName = Guid.NewGuid() + ext;
-                //string relativePath = System.Configuration.ConfigurationManager.AppSettings["business_image_root"];
+                //string relativePath = Dianzhu.Config.Config.GetAppSetting("business_image_root");
                 //string filePath = HttpContext.Current.Server.MapPath(relativePath);
                 //PHSuit.IOHelper.SaveFileFromBase64(requestData.Resource, filePath+fileName);
                 
@@ -68,11 +68,11 @@ public class ResponseUSM001008 : BaseResponse
                
                 //if(requestData.FileType== USM001008UploadedFileType.image)
                 //{
-                //    resourceUrl = ConfigurationManager.AppSettings["media_server"]+"imagehandler.ashx?imagename="+fileName;
+                //    resourceUrl = Dianzhu.Config.Config.GetAppSetting("media_server")+"imagehandler.ashx?imagename="+fileName;
                 //}
                 //else
                 //{
-                //    resourceUrl = ConfigurationManager.AppSettings["media_server"] + ConfigurationManager.AppSettings["business_image_root"] + fileName;
+                //    resourceUrl = Dianzhu.Config.Config.GetAppSetting("media_server") + Dianzhu.Config.Config.GetAppSetting("business_image_root") + fileName;
                 //}
                 // member.AvatarUrl = fileName;
                 // p.UpdateDZMembership(member);

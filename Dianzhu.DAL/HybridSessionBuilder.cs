@@ -46,8 +46,9 @@ namespace Dianzhu.DAL
                         .Database(
                              MySQLConfiguration
                             .Standard
-                            .ConnectionString(c => c
-                            .FromConnectionStringWithKey("DianzhuConnectionString"))
+                            .ConnectionString(
+                                Dianzhu.Config.Config.ConnectionString
+                                 )
                       )
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
                    .ExposeConfiguration(BuildSchema)

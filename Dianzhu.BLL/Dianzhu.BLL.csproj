@@ -37,8 +37,8 @@
       <HintPath>..\packages\FluentValidation.5.6.2.0\lib\portable-net40+sl50+wp80+win8+wpa81\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -96,6 +96,10 @@
     <Compile Include="ReceptionAssigner.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
+      <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
+      <Name>Dianzhu.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2E67AA78-6780-42BD-A3AB-AD953781E511}</Project>
       <Name>Dianzhu.DAL</Name>

@@ -40,16 +40,16 @@ public class ResponseLCT001008 : BaseResponse
             {
                 string lng = requestData.longitude;//经度
                 string lat = requestData.latitude;//纬度
-                string tran_url = System.Configuration.ConfigurationManager.AppSettings.Get("BaiduTranAPI") +
-                    System.Configuration.ConfigurationManager.AppSettings.Get("BaiduTranAK") +
+                string tran_url = Dianzhu.Config.Config.GetAppSetting("BaiduTranAPI") +
+                    Dianzhu.Config.Config.GetAppSetting("BaiduTranAK") +
                     "&coords=" + lat + "," + lng + "&from=3&to=5";
                 string tran_return = Get_Http(tran_url,1000000);
                 RespTran obj = Deserialize<RespTran>(tran_return);
 
                 double tran_lng = obj.result[0].x;//转换后经度
                 double tran_lat = obj.result[0].y;//转换后纬度
-                string geo_url = System.Configuration.ConfigurationManager.AppSettings.Get("BaiduGeocodingAPI") +
-                    System.Configuration.ConfigurationManager.AppSettings.Get("BaiduGeocodingAK") +
+                string geo_url = Dianzhu.Config.Config.GetAppSetting("BaiduGeocodingAPI") +
+                    Dianzhu.Config.Config.GetAppSetting("BaiduGeocodingAK") +
                     "&output=json&pois=0&location=" + tran_lng + "," + tran_lat;
                 string geo_return = Regex.Unescape(Get_Http(geo_url, 1000000));
                 RespGeo geoObj= Deserialize<RespGeo>(geo_return);

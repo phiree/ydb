@@ -93,7 +93,7 @@ public partial class return_url : System.Web.UI.Page
                      
                     bllOrder.SaveOrUpdate(order);
                     System.Net.WebClient wc = new System.Net.WebClient();
-                    string notifyServer = ConfigurationManager.AppSettings.Get("NotifyServer");
+                    string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
                     Uri uri = new Uri(notifyServer + "IMServerAPI.ashx?type=ordernotice&orderId=" + order.Id);
 
                     System.IO.Stream returnData = wc.OpenRead(uri);

@@ -39,7 +39,7 @@ namespace Dianzhu.CSClient
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
                  );
             //get im server config
-            string server = System.Configuration.ConfigurationManager.AppSettings["server"];
+            string server = Config.Config.GetAppSetting("ImServer");
 
 
             IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,messageAdapter,"YDB_CSTool");

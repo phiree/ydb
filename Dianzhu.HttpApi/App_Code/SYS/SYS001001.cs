@@ -135,7 +135,7 @@ public class ResponseSYS001001:BaseResponse
 
                 using (var client = new WebClient())
                 {
-                    string savedPath = Environment.CurrentDirectory + System.Configuration.ConfigurationManager.AppSettings.Get("LocalMediaSaveDir") + localFileName;
+                    string savedPath = Environment.CurrentDirectory + Dianzhu.Config.Config.GetAppSetting("LocalMediaSaveDir") + localFileName;
                     PHSuit.IOHelper.EnsureFileDirectory(savedPath);
                     client.DownloadFile(mediaUrl, savedPath);
                 }

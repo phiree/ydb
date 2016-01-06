@@ -105,7 +105,7 @@ public class RespDataORM002002_payObj
     {
         this.type = "alipay";
         this.url = order.BuildPayLink(
-            System.Configuration.ConfigurationManager.AppSettings["PayServer"]
+            Dianzhu.Config.Config.GetAppSetting("PayServer")
             );
          
         return this;

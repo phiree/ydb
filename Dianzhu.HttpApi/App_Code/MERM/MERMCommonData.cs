@@ -28,8 +28,8 @@ public class RespDataMERM_merObj
         this.email = membership.Email ?? "";
         this.phone = membership.Phone ?? "";
         this.imgUrl =string.IsNullOrEmpty( membership.AvatarUrl)?string.Empty
-                :( 
-                  System.Configuration.ConfigurationManager.AppSettings["MediaGetUrl"]
+                :(
+                  Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")
                 +membership.AvatarUrl);
        
         return this;

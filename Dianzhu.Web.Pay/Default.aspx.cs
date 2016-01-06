@@ -57,8 +57,8 @@ public partial class _Default : System.Web.UI.Page
         sParaTemp.Add("_input_charset", Config.input_charset.ToLower());
         sParaTemp.Add("service", "alipay.wap.create.direct.pay.by.user");
         sParaTemp.Add("payment_type", Config.paytype);
-        sParaTemp.Add("notify_url", System.Configuration.ConfigurationManager.AppSettings["PaySite"]+ "alipay/notify_url.aspx");
-        sParaTemp.Add("return_url", System.Configuration.ConfigurationManager.AppSettings["PaySite"] + "alipay/return_url.aspx");
+        sParaTemp.Add("notify_url", Dianzhu.Config.Config.GetAppSetting("PaySite")+ "alipay/notify_url.aspx");
+        sParaTemp.Add("return_url", Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx");
         sParaTemp.Add("out_trade_no", out_trade_no);
         sParaTemp.Add("subject", subject);
         sParaTemp.Add("total_fee", total_fee);

@@ -94,7 +94,7 @@ public class RespDataORM_UserObj
         this.alias = member.NickName;
         this.imgUrl = string.IsNullOrEmpty(member.AvatarUrl) ? string.Empty
                 : (
-                  System.Configuration.ConfigurationManager.AppSettings["MediaGetUrl"]
+                 Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")
                 + member.AvatarUrl);
         return this;
     }

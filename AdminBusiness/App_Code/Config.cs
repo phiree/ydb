@@ -12,7 +12,7 @@ public static class Config
     {
         get
         {
-            return ConfigurationManager.AppSettings["business_image_root"];
+            return Dianzhu.Config.Config.GetAppSetting("business_image_root");
         }
     }
     public static readonly string  pwssword_recovery_spliter = "1z0m-2mkirowxi2-wrk2";

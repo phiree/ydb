@@ -55,7 +55,7 @@ namespace Dianzhu.CSClient.Presenter
             this.view.IdentityItemActived += new IVew.IdentityItemActived(LoadChatHistory);
             this.view.IdentityItemActived += new IdentityItemActived(LoadCurrentOrder);
 
-            this.view.ButtonNamePrefix = System.Configuration.ConfigurationManager.AppSettings["ButtonNamePrefix"];
+            this.view.ButtonNamePrefix = Dianzhu.Config.Config.GetAppSetting("ButtonNamePrefix");
             this.view.SearchService += new IVew.SearchService(view_SearchService);
             this.view.SelectService += View_SelectService;
             this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
@@ -290,8 +290,8 @@ namespace Dianzhu.CSClient.Presenter
 
         private IList<OnlineUserSession> getOnlineSessionUser()
         {
-            IIMSession imSession = new IMSessionsOpenfire(System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
-                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+            IIMSession imSession = new IMSessionsOpenfire(Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl"),
+                Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey"));
             IList<OnlineUserSession> ouSession = imSession.GetOnlineSessionUser();
 
             return ouSession;
@@ -450,8 +450,8 @@ namespace Dianzhu.CSClient.Presenter
         void view_ViewClosed()
         {
             IMSessionsOpenfire imSession = new IMSessionsOpenfire(
-                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
-                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+                Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl"),
+                Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey"));
             ReceptionAssigner assigner = new ReceptionAssigner(imSession);
             Dictionary<DZMembership,DZMembership> reassignList = assigner.AssignCSLogoff(ClientState.customerService);
             //将新分配的客服发送给客户端.
