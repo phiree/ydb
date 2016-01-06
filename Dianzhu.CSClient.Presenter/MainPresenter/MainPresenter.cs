@@ -273,7 +273,7 @@ namespace Dianzhu.CSClient.Presenter
 
         private void View_ReAssign()
         {
-            IList<DZMembership> csList = bllReceptionStatus.GetCustomListByCSId(GlobalViables.CurrentCustomerService);
+            IList<DZMembership> csList = bllReceptionStatus.GetCustomListByCS(GlobalViables.CurrentCustomerService);
             this.view.RecptingCustomList = csList;
 
             var ouSession = getOnlineSessionUser();
@@ -449,27 +449,27 @@ namespace Dianzhu.CSClient.Presenter
 
         void view_ViewClosed()
         {
-            IMSessionsOpenfire imSession = new IMSessionsOpenfire(
-                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
-                System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
-            ReceptionAssigner assigner = new ReceptionAssigner(imSession);
-            Dictionary<DZMembership,DZMembership> reassignList = assigner.AssignCSLogoff(ClientState.customerService);
-            //将新分配的客服发送给客户端.
-            foreach (KeyValuePair<DZMembership,DZMembership> rs in reassignList)
-            {
-                ServiceOrder order = bllReceptionStatus.GetOrder(rs.Key, rs.Value).Order;
-                ReceptionChat rc = new ReceptionChatReAssign
-                {
-                    From = ClientState.customerService,
-                    ChatType = Model.Enums.enum_ChatType.ReAssign,
-                    ReAssignedCustomerService = rs.Value,
-                    To = rs.Key,
-                    ServiceOrder= order,
-                    SendTime = DateTime.Now
-                };
-                SendMessage(rc);
-            }
-            this.instantMessage.Close();    
+            //IMSessionsOpenfire imSession = new IMSessionsOpenfire(
+            //    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
+            //    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+            //ReceptionAssigner assigner = new ReceptionAssigner(imSession);
+            //Dictionary<DZMembership,DZMembership> reassignList = assigner.AssignCSLogoff(ClientState.customerService);
+            ////将新分配的客服发送给客户端.
+            //foreach (KeyValuePair<DZMembership,DZMembership> rs in reassignList)
+            //{
+            //    ServiceOrder order = bllReceptionStatus.GetOrder(rs.Key, rs.Value).Order;
+            //    ReceptionChat rc = new ReceptionChatReAssign
+            //    {
+            //        From = ClientState.customerService,
+            //        ChatType = Model.Enums.enum_ChatType.ReAssign,
+            //        ReAssignedCustomerService = rs.Value,
+            //        To = rs.Key,
+            //        ServiceOrder= order,
+            //        SendTime = DateTime.Now
+            //    };
+            //    SendMessage(rc);
+            //}
+            //this.instantMessage.Close();    
         }
       
         /// <summary>

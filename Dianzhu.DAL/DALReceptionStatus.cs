@@ -23,8 +23,20 @@ namespace Dianzhu.DAL
 
          public virtual IList<ReceptionStatus> GetListByCustomerService(DZMembership customerService)
          {
-           return   Session.QueryOver<ReceptionStatus>().Where(x => x.CustomerService.Id == customerService.Id).List();
+           return   Session.QueryOver<ReceptionStatus>().Where(x => x.CustomerService == customerService).List();
          }
+        public virtual DZMembership GetListByCustomerServiceId(Guid csid)
+        {
+            IList<ReceptionStatus> rsList = Session.QueryOver<ReceptionStatus>().Where(x => x.CustomerService.Id == csid).Take(1).List();
+            if (rsList.Count > 0)
+            {
+                return rsList.Select(x => x.CustomerService).First();
+            }
+            else
+            {
+                return null;
+            }            
+        }
         public virtual IList<ReceptionStatus> GetListByCustomer(DZMembership customer)
          {
              return Session.QueryOver<ReceptionStatus>().Where(x => x.Customer.Id == customer.Id).List();
@@ -97,6 +109,11 @@ namespace Dianzhu.DAL
         public virtual ReceptionStatus GetOrder(DZMembership c,DZMembership cs)
         {
             return Session.QueryOver<ReceptionStatus>().Where(x => x.Customer == c).And(x => x.CustomerService == cs).List()[0];
+        }
+
+        public virtual ReceptionStatus GetOneByCustomer(Guid customerId)
+        {
+            return Session.QueryOver<ReceptionStatus>().Where(x => x.Customer.Id == customerId).SingleOrDefault();
         }
     }
 }

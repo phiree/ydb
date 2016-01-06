@@ -35,14 +35,24 @@ namespace Dianzhu.BLL
             }
         }
         /// <summary>
-        /// 根据当前客服id获取接待用户列表
+        /// 根据当前客服获取接待用户列表
         /// </summary>
         /// <param name=""></param>
         /// <param name=""></param>
-        public IList<DZMembership> GetCustomListByCSId(DZMembership cs)
+        public IList<DZMembership> GetCustomListByCS(DZMembership cs)
         {
             IList<ReceptionStatus> RS = dalRS.GetListByCustomerService(cs);
             IList<DZMembership> result = RS.Select(x => x.Customer).ToList();
+            return result;
+        }
+        /// <summary>
+        /// 根据当前客服id获取接待用户与客服关联列表
+        /// </summary>
+        /// <param name=""></param>
+        /// <param name=""></param>
+        public DZMembership GetCustomListByCSId(Guid csId)
+        {
+            DZMembership result = dalRS.GetListByCustomerServiceId(csId);
             return result;
         }
 
@@ -82,6 +92,15 @@ namespace Dianzhu.BLL
             dalRS.Delete(r);
         }
 
+        /// <summary>
+        /// 根据Id删除分配
+        /// </summary>
+        /// <param name="rs"></param>
+        public void Delete(ReceptionStatus rs)
+        {
+            dalRS.Delete(rs);
+        }
+
         public void UpdateOrder(DZMembership c,DZMembership cs,ServiceOrder order)
         {
             ReceptionStatus re = dalRS.GetOneByCustomerAndCS(cs, c);
@@ -99,6 +118,16 @@ namespace Dianzhu.BLL
         public ReceptionStatus GetOrder(DZMembership c,DZMembership cs)
         {
             return dalRS.GetOrder(c, cs);
+        }
+
+        /// <summary>
+        /// 根据id获取用户对应的ReceptionStatus
+        /// </summary>
+        /// <param name="cu"></param>
+        /// <returns></returns>
+        public ReceptionStatus GetOneByCustomer(Guid cu)
+        {
+            return dalRS.GetOneByCustomer(cu);
         }
 
     }
@@ -434,7 +463,7 @@ namespace Dianzhu.BLL
                     }
                     else
                     {
-                        assignList.Add(customer, csDBList[0]);
+                        assignList.Add(customer, csList[0]);
                     }
                 }
             }

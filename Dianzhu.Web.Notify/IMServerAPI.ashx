@@ -7,10 +7,11 @@ using Dianzhu.Model;
 public class IMServerAPI : IHttpHandler {
 
     log4net.ILog log = log4net.LogManager.GetLogger("debug");
-    public void ProcessRequest (HttpContext context) {
+    public void ProcessRequest(HttpContext context)
+    {
         string type = context.Request["type"];
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
-        =( Dianzhu.CSClient.IInstantMessage.InstantMessage) context.Application["im"];
+        = (Dianzhu.CSClient.IInstantMessage.InstantMessage)context.Application["im"];
         Dianzhu.NotifyCenter.IMNotify imNotify = new Dianzhu.NotifyCenter.IMNotify(im);
         switch (type.ToLower())
         {
@@ -31,7 +32,33 @@ public class IMServerAPI : IHttpHandler {
                 }
                 else
                 {
-                    log.Error("传入的orderid无效:'"+strOrderId+"'");
+                    log.Error("传入的orderid无效:'" + strOrderId + "'");
+                }
+                break;
+            case "cslogoff":
+                string struserId = context.Request["userId"];
+                Guid userId;
+                bool isGid = Guid.TryParse(struserId, out userId);
+                if (isGid)
+                {
+                    imNotify.SendRessaginMessage(userId);
+                }
+                else
+                {
+                    log.Error("传入的orderid无效:'" + struserId + "'");
+                }
+                break;
+            case "customlogoff":
+                string strcustomId = context.Request["userId"];
+                Guid customId;
+                bool isGidcustom = Guid.TryParse(strcustomId, out customId);
+                if (isGidcustom)
+                {
+                    imNotify.SendCustomLogoffMessage(customId);
+                }
+                else
+                {
+                    log.Error("传入的orderid无效:'" + strcustomId + "'");
                 }
                 break;
         }
@@ -43,8 +70,10 @@ public class IMServerAPI : IHttpHandler {
 
     }
 
-    public bool IsReusable {
-        get {
+    public bool IsReusable
+    {
+        get
+        {
             return false;
         }
     }

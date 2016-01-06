@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using ags = agsXMPP.protocol.client;
 using Dianzhu.CSClient.IInstantMessage;
+using Dianzhu.BLL;
+using Dianzhu.Model;
+using Dianzhu.Model.Enums;
 /// <summary>
 /// 推送模块
 /// </summary>
@@ -108,6 +111,59 @@ namespace Dianzhu.NotifyCenter
             msg.AddChild(extNode);
             return msg;
 
+        }
+
+        public void SendRessaginMessage(Guid csId)
+        {
+            DZMembershipProvider bllDZMembership = new DZMembershipProvider();
+            BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
+            DZMembership cs = bllDZMembership.GetUserById(csId);
+            DZMembership imMember = bllDZMembership.GetUserById(new Guid( System.Configuration.ConfigurationManager.AppSettings.Get("NoticeSenderId")));
+            //通过 IMServer 给客服发送消息
+            IMSessionsOpenfire imSession = new IMSessionsOpenfire(
+    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
+    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+            ReceptionAssigner assigner = new ReceptionAssigner(imSession);
+            Dictionary<DZMembership, DZMembership> reassignList = assigner.AssignCSLogoff(cs);
+            //将新分配的客服发送给客户端.
+            foreach (KeyValuePair<DZMembership, DZMembership> r in reassignList)
+            {
+                ServiceOrder order = bllReceptionStatus.GetOrder(r.Key, r.Value).Order;
+                ReceptionChat rc = new ReceptionChatReAssign
+                {
+                    From = imMember,
+                    ChatType = enum_ChatType.ReAssign,
+                    ReAssignedCustomerService = r.Value,
+                    To = r.Key,
+                    ServiceOrder = order,
+                    SendTime = DateTime.Now
+                };
+                im.SendMessage(rc);
+            }
+        }
+
+        public void SendCustomLogoffMessage(Guid csId)
+        {
+            DZMembershipProvider bllDZMembership = new DZMembershipProvider();
+            BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
+            ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
+            DZMembership imMember = bllDZMembership.GetUserById(new Guid(System.Configuration.ConfigurationManager.AppSettings.Get("NoticeSenderId")));
+            //通过 IMServer 给客服发送消息
+            IMSessionsOpenfire imSession = new IMSessionsOpenfire(
+    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
+    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+
+            ReceptionChat rc = new ReceptionChatUserStatus
+            {
+                From = imMember,
+                ChatType = enum_ChatType.Notice,
+                To = rs.CustomerService,
+                ServiceOrder = rs.Order,
+                SendTime = DateTime.Now,
+                User=rs.Customer,
+                Status = enum_UserStatus.unavailable
+            };
+            im.SendMessage(rc);
         }
     }
 }

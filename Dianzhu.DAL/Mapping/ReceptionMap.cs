@@ -98,6 +98,14 @@ namespace Dianzhu.DAL.Mapping
             References<DZMembership>(x => x.UserObj);
         }
     }
+    public class ReceptionChatUserStatusMap : SubclassMap<ReceptionChatUserStatus>
+    {
+        public ReceptionChatUserStatusMap()
+        {
+            References<DZMembership>(x => x.User);
+            Map(x => x.Status).CustomType<Model.Enums.enum_ChatTarget>();
+        }
+    }
 
 
 

@@ -36,7 +36,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +51,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
+      <Project>{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}</Project>
+      <Name>Dianzhu.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj">
       <Project>{820a465f-51fb-4f8d-8665-b80f9643281b}</Project>
       <Name>Dianzhu.CSClient.IInstantMessage</Name>
