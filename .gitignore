@@ -204,20 +204,19 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 cdn.zip
-AdminBusiness/config/connectionStrings.config
+ 
 cdn.rar
 AdminBusiness/AdminBusiness.rar
 AdminWeb/AdminWeb.rar
 AdminBusiness/logs/
-FrontWeb/config/connectionStrings.config
+ 
 Dianzhu.XmppClientWeb/media/
-AdminBusiness/config/appSettings.config
+ 
 Dianzhu.AdminBusinessMvc/media/
 Dianzhu.AdminBusinessMvc/image/pic_old/
 AdminBusiness/media/generic_files/7dc6f37c-eae2-47a1-a381-53b43caffcff11.mp3
 AdminBusiness/media/
-
-Dianzhu.CSClient/appSettings.config
+ 
 Dianzhu.HttpApi/logs/debug.txt
 Dianzhu.HttpApi/logs/
 dianzhu.sln.orig
