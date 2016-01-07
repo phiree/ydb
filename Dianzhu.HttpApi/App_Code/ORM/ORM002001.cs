@@ -36,7 +36,7 @@ public class ResponseORM002001 : BaseResponse
             {
 
                 RespDataORM002001 respData = new RespDataORM002001();
-                IIMSession imSession = new IMSessionsDB(enum_XmppResource.YDBan_Win_CustomerService.ToString());
+                IIMSession imSession = new IMSessionsDB();
                 ReceptionAssigner ra = new ReceptionAssigner(imSession);
                 if (!string.IsNullOrEmpty(requestData.manualAssignedCsId))
                 {

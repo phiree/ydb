@@ -20,9 +20,9 @@ namespace Dianzhu.BLL
             return DALIMUserStatus.GetIMUSByUserId(userId);
         }
 
-        public IList<IMUserStatus> GetListByClientName(string name)
+        public IList<IMUserStatus> GetOnlineListByClientName(string name)
         {
-            return DALIMUserStatus.GetListByClientName(name);
+            return DALIMUserStatus.GetOnlineListByClientName(name);
         }
     }
 }

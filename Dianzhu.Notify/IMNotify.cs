@@ -120,7 +120,7 @@ namespace Dianzhu.NotifyCenter
             DZMembership cs = bllDZMembership.GetUserById(csId);
             DZMembership imMember = bllDZMembership.GetUserById(new Guid( Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-            IIMSession imSession = new IMSessionsDB(enum_XmppResource.YDBan_Win_CustomerService.ToString());
+            IIMSession imSession = new IMSessionsDB();
             ReceptionAssigner assigner = new ReceptionAssigner(imSession);
             Dictionary<DZMembership, DZMembership> reassignList = assigner.AssignCSLogoff(cs);
             //将新分配的客服发送给客户端.
@@ -147,7 +147,7 @@ namespace Dianzhu.NotifyCenter
             ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
             DZMembership imMember = bllDZMembership.GetUserById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-            IIMSession imSession = new IMSessionsDB(enum_XmppResource.YDBan_Win_CustomerService.ToString());
+            IIMSession imSession = new IMSessionsDB();
 
             ReceptionChat rc = new ReceptionChatUserStatus
             {

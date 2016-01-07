@@ -188,13 +188,10 @@ namespace Dianzhu.BLL
                 {
                     customerServiceList = new List<DZMembership>();
                      //convert sesionUser to dzmembership
-                    foreach (OnlineUserSession user in imSession.GetOnlineSessionUser())
+                    foreach (OnlineUserSession user in imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString()))
                     {
-                        if (user.ressource.ToLower()=="ydb_cstool")
-                        { 
                         DZMembership cs = dalMember.GetOne(new Guid( user.username));
                         customerServiceList.Add(cs);
-                        }
                     }
                 }
                 return customerServiceList;
@@ -209,13 +206,9 @@ namespace Dianzhu.BLL
                 {
                     diandian = new DZMembership();
                     //convert sesionUser to dzmembership
-                    foreach (OnlineUserSession user in imSession.GetOnlineSessionUser())
+                    foreach (OnlineUserSession user in imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_Win_DianDian.ToString()))
                     {
-                        if (user.ressource.ToLower() == "ydb_diandian")
-                        {
-                            diandian = dalMember.GetOne(new Guid(user.username));
-                            break;
-                        }
+                        diandian = dalMember.GetOne(new Guid(user.username));
                     }
                 }
                 return diandian;
@@ -297,47 +290,7 @@ namespace Dianzhu.BLL
         /// 获取当前会话(亦在线用户)
         /// </summary>
         /// <returns></returns>
-        IList<OnlineUserSession> GetOnlineSessionUser();
-    }
-    /// <summary>
-    /// IM 会话状态接口之: openfire的实现
-    /// 通过openfire的restapi插件获取.
-    /// </summary>
-    public class IMSessionsOpenfire : IIMSession
-    {
-        string restApiUrl, restApiSecretKey;
-        public IMSessionsOpenfire(string restApiUrl, string restApiSecretKey)
-        {
-            this.restApiSecretKey = restApiSecretKey;
-            this.restApiUrl = restApiUrl;
-        }
-
-        public IList<OnlineUserSession> GetOnlineSessionUser()
-        {
-            System.Net.WebClient wc = new System.Net.WebClient();
-            Uri uri = new Uri(restApiUrl);
-            string host = uri.Host;
-            wc.Headers.Add("Authorization:"+restApiSecretKey);
-            wc.Headers.Add("Host: "+host);
-            wc.Headers.Add("Accept: application/json");
-            System.IO.Stream returnData = wc.OpenRead(uri);
-            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-            string result = reader.ReadToEnd();
-            try
-            {
-                OnlineUserSessionResult sessionResult
-                    = Newtonsoft.Json.JsonConvert
-                    .DeserializeObject<OnlineUserSessionResult>(result);
-                return sessionResult.session;
-            }
-            catch (Exception ex)
-            {
-                OnlineUserSessionResult_OnlyOne sessionResult
-                   = Newtonsoft.Json.JsonConvert
-                   .DeserializeObject<OnlineUserSessionResult_OnlyOne>(result);
-                return new List<OnlineUserSession>(new OnlineUserSession[] { sessionResult.session });
-            }
-        }
+        IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource);
     }
 
     /// <summary>
@@ -345,18 +298,12 @@ namespace Dianzhu.BLL
     /// </summary>
     public class IMSessionsDB : IIMSession
     {
-        string xmppResource;
-        public IMSessionsDB(string xmppResource)
-        {
-            this.xmppResource = xmppResource;
-        }
-
-        public IList<OnlineUserSession> GetOnlineSessionUser()
+        public IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource)
         {
             IList<OnlineUserSession> resultList=new List<OnlineUserSession>();
             BLLIMUserStatus bllIMUserStatus = new BLLIMUserStatus();
 
-            IList<IMUserStatus> imList =  bllIMUserStatus.GetListByClientName(xmppResource);
+            IList<IMUserStatus> imList =  bllIMUserStatus.GetOnlineListByClientName(xmppResource);
             if (imList.Count > 0)
             {
                 OnlineUserSession onlineUserSession;

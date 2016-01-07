@@ -24,9 +24,9 @@ namespace Dianzhu.DAL
             return Session.QueryOver<IMUserStatus>().Where(x => x.UserID == userId).SingleOrDefault();
         }
 
-        public IList<IMUserStatus> GetListByClientName(string name)
+        public IList<IMUserStatus> GetOnlineListByClientName(string name)
         {
-            return Session.QueryOver<IMUserStatus>().Where(x => x.ClientName == name).List();
+            return Session.QueryOver<IMUserStatus>().Where(x => x.ClientName == name).And(x => x.Status == Model.Enums.enum_UserStatus.available).List();
         }
 
     }
