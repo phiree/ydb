@@ -21,7 +21,7 @@ namespace Dianzhu.Config
         static Config()
         {
             
-          IPAddress[] iplist=  Dns.GetHostAddresses(Dns.GetHostName());
+            IPAddress[] iplist=  Dns.GetHostAddresses(Dns.GetHostName());
             IPAddress ipV4 = null;
             foreach (IPAddress ip in iplist)
             {
@@ -44,7 +44,10 @@ namespace Dianzhu.Config
                 currentEnv = envList[1];
             }
             else {
+
                 currentEnv = envList[0];
+               
+
             }
             //判断当前的环境
              
@@ -61,9 +64,12 @@ namespace Dianzhu.Config
             //所有环境下使用同一个值的key, 以 "all."开头
             
             string all = "all." + key;
-            string specific = currentEnv + "." + key;
+            string hostName = Dns.GetHostName().ToLower();
+            string specific =currentEnv + "." + key;
+            string specific_hostName=hostName+"."+ currentEnv + "." + key;
             bool is_all = false;
             bool is_specific = false;
+            bool is_specific_hostname = false;
             string value = string.Empty;
             if (ConfigurationManager.AppSettings.AllKeys.Contains(all))
             {
@@ -73,12 +79,29 @@ namespace Dianzhu.Config
             {
                 is_specific = true;
             }
-            if (is_specific)
+            if (ConfigurationManager.AppSettings.AllKeys.Contains(specific_hostName))
+            {
+                is_specific_hostname = true;
+            }
+            if (is_specific_hostname)
+            {
+                value = ConfigurationManager.AppSettings.Get(specific_hostName);
+
+                if (is_specific)
+                {
+                    log.Warn(string.Format("AppSetting [{0}] has both specific and specifichostname values,please check", key));
+                }
+                if (is_all)
+                {
+                    log.Warn(string.Format("AppSetting [{0}] has both all and specifichostname values,please check", key));
+                }
+            }
+            else if(is_specific)
             {
                 value = ConfigurationManager.AppSettings.Get(specific);
                 if (is_all)
                 {
-                    log.Warn(string.Format("AppSetting [{0}] has both all and specific values,please check",key));
+                    log.Warn(string.Format("AppSetting [{0}] has both all and specific values,please check", key));
                 }
             }
             else
