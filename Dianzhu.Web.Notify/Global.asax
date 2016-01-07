@@ -1,18 +1,19 @@
 ﻿<%@ Application Language="C#" %>
 
 <script RunAt="server">
-    
+
     Dianzhu.CSClient.IMessageAdapter.IAdapter adapter
             = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
-   static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
+    static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
     void Application_Start(object sender, EventArgs e)
     {
         //Code that runs on application startup
         //init xmpp conenction 
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
-        //  _SetupRefreshJob();
+        _SetupRefreshJob();
         log4net.Config.XmlConfigurator.Configure();
-        string server = Dianzhu.Config.Config.GetAppSetting("server");
+
+        string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
 
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
             = new Dianzhu.CSClient.XMPP.XMPP(server, adapter, "YDB_IMServer");
@@ -37,35 +38,35 @@
         log.Warn("Closed");
     }
     void IMLogined(string jidUser)
-    { 
+    {
         log.Info("Logined:" + jidUser);
     }
     void IMError(string error)
-    { 
+    {
         log.Error("IMError:"+error);
     }
     void IMAuthError()
     { log.Error("IMAuthError"); }
     void IMConnectionError(string error)
-    { 
+    {
         log.Error("ConnectionError:" + error);
     }
     void IMReceivedMessage(Dianzhu.Model.ReceptionChat chat)
-    { 
+    {
         log.Debug("ReceiveMsg:"+adapter.ChatToMessage(chat,Dianzhu.Config.Config.GetAppSetting("server")).InnerXml);
     }
     void IMIQ()
-    { 
+    {
         log.Debug("Received IQ");
     }
     void IMStreamError()
     {
-       
+
         log.Error("StreamError"); }
 
     void Application_End(object sender, EventArgs e)
     {
-        log.Error("ApplicationEnd"); 
+        log.Error("ApplicationEnd");
         //  Code that runs on application shutdown
 
     }
@@ -73,7 +74,7 @@
     void Application_Error(object sender, EventArgs e)
     {
         // Code that runs when an unhandled error occurs
-         
+
         log.Error("ApplicationError:"+Server.GetLastError().Message);
     }
 
@@ -95,8 +96,12 @@
     {
 
         //remove a previous job
-
-        Action remove = HttpContext.Current.Cache["Refresh"] as Action;
+        log.Debug("Begin Refres");
+        Action remove = null;
+        if (HttpContext.Current != null)
+        {
+            remove= HttpContext.Current.Cache["Refresh"] as Action;
+        }
         if (remove is Action)
         {
             HttpContext.Current.Cache.Remove("Refresh");
@@ -112,11 +117,12 @@
                 System.Net.WebClient refresh = new System.Net.WebClient();
                 try
                 {
-                    refresh.UploadString("http://localhost:8039", string.Empty);
+                    log.Debug("    Begin request");
+                    refresh.UploadString("http://localhost:8039?refresh=1", string.Empty);
                 }
                 catch (Exception ex)
                 {
-                    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
+
                     log.Error(ex.Message);
                 }
                 finally
@@ -125,11 +131,13 @@
                 }
             }
         };
-        log4net.ILog log2 = log4net.LogManager.GetLogger("debug");
-        log2.Debug("Invoke.");
+
+        log.Debug("Invoke.");
         work.BeginInvoke(null, null);
 
         //add this job to the cache
+        if(HttpContext.Current!=null)
+        { 
         HttpContext.Current.Cache.Add(
             "Refresh",
             work,
@@ -139,6 +147,7 @@
             CacheItemPriority.Normal,
             (s, o, r) => { _SetupRefreshJob(); }
             );
+            }
     }
 
 </script>
