@@ -12,8 +12,7 @@
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
         _SetupRefreshJob();
         log4net.Config.XmlConfigurator.Configure();
-        string server = Dianzhu.Config.Config.GetAppSetting("server");
-
+       
         string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
 
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
