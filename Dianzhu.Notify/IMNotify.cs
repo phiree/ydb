@@ -156,7 +156,7 @@ namespace Dianzhu.NotifyCenter
             ReceptionChat rc = new ReceptionChatUserStatus
             {
                 From = imMember,
-                ChatType = enum_ChatType.Notice,
+                ChatType = enum_ChatType.UserStatus,
                 To = rs.CustomerService,
                 ServiceOrder = rs.Order,
                 SendTime = DateTime.Now,
