@@ -1,10 +1,10 @@
 ﻿<%@ Application Language="C#" %>
 
 <script RunAt="server">
-
+    
     Dianzhu.CSClient.IMessageAdapter.IAdapter adapter
             = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
-    static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
+   static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
     void Application_Start(object sender, EventArgs e)
     {
         //Code that runs on application startup
@@ -12,6 +12,7 @@
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
         _SetupRefreshJob();
         log4net.Config.XmlConfigurator.Configure();
+        string server = Dianzhu.Config.Config.GetAppSetting("server");
 
         string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
 
@@ -38,35 +39,35 @@
         log.Warn("Closed");
     }
     void IMLogined(string jidUser)
-    {
+    { 
         log.Info("Logined:" + jidUser);
     }
     void IMError(string error)
-    {
+    { 
         log.Error("IMError:"+error);
     }
     void IMAuthError()
     { log.Error("IMAuthError"); }
     void IMConnectionError(string error)
-    {
+    { 
         log.Error("ConnectionError:" + error);
     }
     void IMReceivedMessage(Dianzhu.Model.ReceptionChat chat)
-    {
+    { 
         log.Debug("ReceiveMsg:"+adapter.ChatToMessage(chat,Dianzhu.Config.Config.GetAppSetting("server")).InnerXml);
     }
     void IMIQ()
-    {
+    { 
         log.Debug("Received IQ");
     }
     void IMStreamError()
     {
-
+       
         log.Error("StreamError"); }
 
     void Application_End(object sender, EventArgs e)
     {
-        log.Error("ApplicationEnd");
+        log.Error("ApplicationEnd"); 
         //  Code that runs on application shutdown
 
     }
@@ -74,7 +75,7 @@
     void Application_Error(object sender, EventArgs e)
     {
         // Code that runs when an unhandled error occurs
-
+         
         log.Error("ApplicationError:"+Server.GetLastError().Message);
     }
 
@@ -147,7 +148,7 @@
             CacheItemPriority.Normal,
             (s, o, r) => { _SetupRefreshJob(); }
             );
-            }
+    }
     }
 
 </script>

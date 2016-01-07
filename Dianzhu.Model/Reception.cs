@@ -94,6 +94,9 @@ namespace Dianzhu.Model
                 case Enums.enum_ChatType.Notice:
                     chat = new ReceptionChatNotice();
                     break;
+                case Enums.enum_ChatType.UserStatus:
+                    chat = new ReceptionChatUserStatus();
+                    break;
                 default:
                     chat= new ReceptionChat();
                     break;
