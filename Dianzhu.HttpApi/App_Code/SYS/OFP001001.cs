@@ -118,32 +118,27 @@ public class ResponseOFP001001 : BaseResponse
                     
                     break;
                 case enum_UserStatus.unavailable:
+                    string imServerAPIInvokeUrl = string.Empty;
                     if (isCustom)
                     {
                         //删掉接待关系
                         bllReceptionStatus.Delete(rs);
-
                         //用户下线后，通知客服工具
-                        System.Net.WebClient wc = new System.Net.WebClient();
-                        string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
-                        Uri uri = new Uri(notifyServer + "IMServerAPI.ashx?type=customlogoff&userId=" + userId);
-
-                        System.IO.Stream returnData = wc.OpenRead(uri);
-                        System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-                        string result = reader.ReadToEnd();
+                        imServerAPIInvokeUrl= "IMServerAPI.ashx?type=customlogoff&userId=" + userId;
+ 
                     }
                     else
                     {
                         //客服下线后，将正在接待的用户转到其他客服或者点点
-                        System.Net.WebClient wc = new System.Net.WebClient();
-                        string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
-                        Uri uri = new Uri(notifyServer + "IMServerAPI.ashx?type=cslogoff&userId=" + userId);
-
-                        System.IO.Stream returnData = wc.OpenRead(uri);
-                        System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-                        string result = reader.ReadToEnd();
+                        imServerAPIInvokeUrl = "IMServerAPI.ashx?type=cslogoff&userId=" + userId;
                     }
+                    System.Net.WebClient wc = new System.Net.WebClient();
+                    string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
+                    Uri uri = new Uri(notifyServer + imServerAPIInvokeUrl);
 
+                    System.IO.Stream returnData = wc.OpenRead(uri);
+                    System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
+                    string result = reader.ReadToEnd();
                     break;
                 default:
                     break;
