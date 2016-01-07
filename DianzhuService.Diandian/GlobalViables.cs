@@ -13,7 +13,7 @@ namespace DianzhuService.Diandian
         static GlobalViables()
         {
             XMPPConnection = new XmppClientConnection(ServerName);
-            XMPPConnection.Resource = "YDB_Diandian";
+            XMPPConnection.Resource = Dianzhu.Model.Enums.enum_XmppResource.YDBan_Win_DianDian.ToString();
             XMPPConnection.AutoResolveConnectServer = false;
         }
        

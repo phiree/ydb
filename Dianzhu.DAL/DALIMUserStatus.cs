@@ -24,5 +24,10 @@ namespace Dianzhu.DAL
             return Session.QueryOver<IMUserStatus>().Where(x => x.UserID == userId).SingleOrDefault();
         }
 
+        public IList<IMUserStatus> GetListByClientName(string name)
+        {
+            return Session.QueryOver<IMUserStatus>().Where(x => x.ClientName == name).List();
+        }
+
     }
 }

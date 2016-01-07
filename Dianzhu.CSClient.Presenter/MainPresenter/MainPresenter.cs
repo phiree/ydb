@@ -290,8 +290,7 @@ namespace Dianzhu.CSClient.Presenter
 
         private IList<OnlineUserSession> getOnlineSessionUser()
         {
-            IIMSession imSession = new IMSessionsOpenfire(Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl"),
-                Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey"));
+            IIMSession imSession = new IMSessionsDB(enum_XmppResource.YDBan_Win_CustomerService.ToString());
             IList<OnlineUserSession> ouSession = imSession.GetOnlineSessionUser();
 
             return ouSession;

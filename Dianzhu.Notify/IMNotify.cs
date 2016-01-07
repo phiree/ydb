@@ -120,9 +120,7 @@ namespace Dianzhu.NotifyCenter
             DZMembership cs = bllDZMembership.GetUserById(csId);
             DZMembership imMember = bllDZMembership.GetUserById(new Guid( Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-            IMSessionsOpenfire imSession = new IMSessionsOpenfire(
-    Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl"),
-    Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey"));
+            IIMSession imSession = new IMSessionsDB(enum_XmppResource.YDBan_Win_CustomerService.ToString());
             ReceptionAssigner assigner = new ReceptionAssigner(imSession);
             Dictionary<DZMembership, DZMembership> reassignList = assigner.AssignCSLogoff(cs);
             //将新分配的客服发送给客户端.
@@ -149,9 +147,7 @@ namespace Dianzhu.NotifyCenter
             ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
             DZMembership imMember = bllDZMembership.GetUserById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-            IMSessionsOpenfire imSession = new IMSessionsOpenfire(
-    Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl"),
-    Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey"));
+            IIMSession imSession = new IMSessionsDB(enum_XmppResource.YDBan_Win_CustomerService.ToString());
 
             ReceptionChat rc = new ReceptionChatUserStatus
             {

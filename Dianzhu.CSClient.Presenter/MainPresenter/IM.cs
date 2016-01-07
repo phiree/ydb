@@ -46,7 +46,7 @@ namespace Dianzhu.CSClient.Presenter
                 bool isCurrent = ClientState.CurrentServiceOrder !=null &&(ClientState.CurrentServiceOrder.Id == chat.ServiceOrder.Id);
                 if (isCurrent)
                 {
-                    if (chat.ChatType == Model.Enums.enum_ChatType.UserStatus)
+                    if (chat.ChatType == Model.Enums.enum_ChatType.UserStatus && ((ReceptionChatUserStatus)chat).Status==Model.Enums.enum_UserStatus.unavailable)
                     {
                         ClientState.OrderList.Remove(chat.ServiceOrder);
                         view.ShowMsg("用户" + ((ReceptionChatUserStatus)chat).User.DisplayName + "已下线！");
@@ -56,7 +56,7 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 else
                 {
-                    if (chat.ChatType == Model.Enums.enum_ChatType.UserStatus)
+                    if (chat.ChatType == Model.Enums.enum_ChatType.UserStatus && ((ReceptionChatUserStatus)chat).Status == Model.Enums.enum_UserStatus.unavailable)
                     {
                         ClientState.OrderList.Remove(chat.ServiceOrder);
                         view.SetCustomerButtonStyle(chat.ServiceOrder, em_ButtonStyle.LogOff);

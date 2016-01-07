@@ -36,9 +36,7 @@ public class ResponseORM002001 : BaseResponse
             {
 
                 RespDataORM002001 respData = new RespDataORM002001();
-                IMSessionsOpenfire imSession = new IMSessionsOpenfire(
-              Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl"),
-              Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey"));
+                IIMSession imSession = new IMSessionsDB(enum_XmppResource.YDBan_Win_CustomerService.ToString());
                 ReceptionAssigner ra = new ReceptionAssigner(imSession);
                 if (!string.IsNullOrEmpty(requestData.manualAssignedCsId))
                 {

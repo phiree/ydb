@@ -339,6 +339,46 @@ namespace Dianzhu.BLL
             }
         }
     }
+
+    /// <summary>
+    /// 直接查询数据库中用户状态表获取
+    /// </summary>
+    public class IMSessionsDB : IIMSession
+    {
+        string xmppResource;
+        public IMSessionsDB(string xmppResource)
+        {
+            this.xmppResource = xmppResource;
+        }
+
+        public IList<OnlineUserSession> GetOnlineSessionUser()
+        {
+            IList<OnlineUserSession> resultList=new List<OnlineUserSession>();
+            BLLIMUserStatus bllIMUserStatus = new BLLIMUserStatus();
+
+            IList<IMUserStatus> imList =  bllIMUserStatus.GetListByClientName(xmppResource);
+            if (imList.Count > 0)
+            {
+                OnlineUserSession onlineUserSession;
+                foreach (IMUserStatus im in imList)
+                {
+                    onlineUserSession = new OnlineUserSession();
+                    //onlineUserSession.creationDate=
+                    onlineUserSession.hostAddress = im.OFIpAddress;
+                    //onlineUserSession.hostName =
+                    onlineUserSession.lastActionDate = im.LastModifyTime.ToString();
+                    onlineUserSession.presenceStatus = im.Status.ToString();
+                    onlineUserSession.ressource = im.ClientName;
+                    onlineUserSession.username = im.UserID.ToString();
+                    //onlineUserSession.sessionId
+
+                    resultList.Add(onlineUserSession);
+                }
+            }            
+
+            return resultList;
+        }
+    }
     #region ---------------openfire restapi 在线用户数据的结构---------------
     /// <summary>
     /// 当返回只有一条数据时处理方式

@@ -42,7 +42,7 @@ namespace Dianzhu.CSClient
             string server = Config.Config.GetAppSetting("ImServer");
 
 
-            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,messageAdapter,"YDB_CSTool");
+            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,messageAdapter, Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString());
 
 
             var loginForm = new WPF.FormLogin();

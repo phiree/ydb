@@ -16,7 +16,7 @@
         string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
 
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
-            = new Dianzhu.CSClient.XMPP.XMPP(server, adapter, "YDB_IMServer");
+            = new Dianzhu.CSClient.XMPP.XMPP(server, adapter, Dianzhu.Model.Enums.enum_XmppResource.YDBan_Win_IMServer.ToString());
         //login in
         string noticesenderId = Dianzhu.Config.Config.GetAppSetting("NoticeSenderId");
         string noticesenderPwdCrypted = Dianzhu.Config.Config.GetAppSetting("NoticeSenderPwd");
