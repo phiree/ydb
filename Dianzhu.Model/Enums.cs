@@ -120,6 +120,7 @@ namespace Dianzhu.Model.Enums
         Order,//订单.包含支付链接
         BeginPay,//开始支付消息.
         ReAssign,//重新分配客服
+        UserStatus,//用户状态
     }
     /// <summary>
     /// 订单范围类型..这个名字好拗口.
