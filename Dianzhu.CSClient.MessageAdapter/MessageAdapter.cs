@@ -85,6 +85,9 @@ namespace Dianzhu.CSClient.MessageAdapter
                 case "ihelper:notice:cer:change":
                     chatType = enum_ChatType.Notice;
                     break;
+                case "ihelper:chat:userstatus":
+                    chatType = enum_ChatType.UserStatus;
+                    break;
                 default:
                     throw new Exception("未知的命名空间");
 
@@ -137,6 +140,14 @@ namespace Dianzhu.CSClient.MessageAdapter
                 ((ReceptionChatMedia)chat).MedialUrl = mediaUrl;
                 ((ReceptionChatMedia)chat).MediaType = mediaType;
             }
+            else if (chatType == enum_ChatType.UserStatus)
+            {
+                var userStatusNode = ext_element.SelectSingleElement("MsgObj");
+                var userId = userStatusNode.GetAttribute("userId");
+                var status = userStatusNode.GetAttribute("status");
+                ((ReceptionChatUserStatus)chat).User = BllMember.GetUserById(new Guid(userId));
+                ((ReceptionChatUserStatus)chat).Status = (enum_UserStatus)Enum.Parse(typeof(enum_UserStatus),status, true); ;
+            }
             return chat;
         }
         /// <summary>
@@ -178,6 +189,16 @@ namespace Dianzhu.CSClient.MessageAdapter
                     extMedia.SetAttribute("url", mediaUrl);
                     extMedia.SetAttribute("type", mediaType);
                     extNode.AddChild(extMedia);
+                    break;
+                case enum_ChatType.UserStatus:
+                    extNode.Namespace = "ihelper:chat:userstatus";
+
+                    var user = ((ReceptionChatUserStatus)chat).User;
+                    var status = ((ReceptionChatUserStatus)chat).Status;
+                    var extStatus = new agsXMPP.Xml.Dom.Element("MsgObj");
+                    extStatus.SetAttribute("userId", user.Id.ToString());
+                    extStatus.SetAttribute("status", status.ToString());
+                    extNode.AddChild(extStatus);
                     break;
                 case enum_ChatType.ReAssign:
                     extNode.Namespace = "ihelper:notice:cer:change";

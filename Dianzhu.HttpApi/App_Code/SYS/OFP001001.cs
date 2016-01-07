@@ -120,25 +120,20 @@ public class ResponseOFP001001 : BaseResponse
                 case enum_UserStatus.unavailable:
                     string imServerAPIInvokeUrl = string.Empty;
                     if (isCustom)
-                    {
-                        //删掉接待关系
-                        bllReceptionStatus.Delete(rs);
+                    {                        
                         //用户下线后，通知客服工具
                         imServerAPIInvokeUrl= "IMServerAPI.ashx?type=customlogoff&userId=" + userId;
- 
+                        VisitIMServerApi(imServerAPIInvokeUrl);
+
+                        //删掉接待关系
+                        bllReceptionStatus.Delete(rs);
                     }
                     else
                     {
                         //客服下线后，将正在接待的用户转到其他客服或者点点
                         imServerAPIInvokeUrl = "IMServerAPI.ashx?type=cslogoff&userId=" + userId;
-                    }
-                    System.Net.WebClient wc = new System.Net.WebClient();
-                    string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
-                    Uri uri = new Uri(notifyServer + imServerAPIInvokeUrl);
-
-                    System.IO.Stream returnData = wc.OpenRead(uri);
-                    System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-                    string result = reader.ReadToEnd();
+                        VisitIMServerApi(imServerAPIInvokeUrl);
+                    }                    
                     break;
                 default:
                     break;
@@ -161,6 +156,17 @@ public class ResponseOFP001001 : BaseResponse
             this.err_Msg = e.Message;
             return;
         }
+    }
+
+    public void VisitIMServerApi(string url)
+    {
+        System.Net.WebClient wc = new System.Net.WebClient();
+        string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
+        Uri uri = new Uri(notifyServer + url);
+
+        System.IO.Stream returnData = wc.OpenRead(uri);
+        System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
+        string result = reader.ReadToEnd();
     }
 
     public IMUserStatus reqDataToImData(ReqDataOFP001001 reqData)
