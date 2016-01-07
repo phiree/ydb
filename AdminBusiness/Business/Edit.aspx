@@ -3,7 +3,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="/css/myshop.css" rel="stylesheet" type="text/css"/>
-    <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
+    <link href='<% = Dianzhu.Config.Config.GetAppSetting("cdnroot") %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
           rel="stylesheet" type="text/css"/>
     <link href="/css/validation.css" rel="stylesheet" type="text/css"/>
 </asp:Content>
@@ -383,8 +383,8 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <!--</div>-->
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
-    <script src = "<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/additional-methods.js" type = "text/javascript" ></script>
+    <script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
+    <script src = "<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" type = "text/javascript" ></script>
     <script src="/js/jquery.form.min.js" type="text/javascript"></script>
     <script src="/js/navigator.sayswho.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/TabSelection.js"></script>

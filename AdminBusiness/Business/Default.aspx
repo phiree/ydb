@@ -269,12 +269,12 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
 <script src="/js/bootstrap/js/bootstrap.js"></script>
 <script src="/js/metisMenu/metisMenu.js"></script>
 <script src="/js/global.js"></script>
-<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
-<script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
+<script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
+<script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
 <script src="/js/validation_business_add.js" type="text/javascript"></script>
 <script type="text/javascript" src="/js/business.js"></script>

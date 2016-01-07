@@ -118,11 +118,11 @@ namespace Dianzhu.NotifyCenter
             DZMembershipProvider bllDZMembership = new DZMembershipProvider();
             BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
             DZMembership cs = bllDZMembership.GetUserById(csId);
-            DZMembership imMember = bllDZMembership.GetUserById(new Guid( System.Configuration.ConfigurationManager.AppSettings.Get("NoticeSenderId")));
+            DZMembership imMember = bllDZMembership.GetUserById(new Guid( Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
             IMSessionsOpenfire imSession = new IMSessionsOpenfire(
-    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
-    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+    Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl"),
+    Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey"));
             ReceptionAssigner assigner = new ReceptionAssigner(imSession);
             Dictionary<DZMembership, DZMembership> reassignList = assigner.AssignCSLogoff(cs);
             //将新分配的客服发送给客户端.
@@ -147,11 +147,11 @@ namespace Dianzhu.NotifyCenter
             DZMembershipProvider bllDZMembership = new DZMembershipProvider();
             BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
             ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
-            DZMembership imMember = bllDZMembership.GetUserById(new Guid(System.Configuration.ConfigurationManager.AppSettings.Get("NoticeSenderId")));
+            DZMembership imMember = bllDZMembership.GetUserById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
             IMSessionsOpenfire imSession = new IMSessionsOpenfire(
-    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiSessionListUrl"),
-    System.Configuration.ConfigurationManager.AppSettings.Get("OpenfireRestApiAuthKey"));
+    Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl"),
+    Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey"));
 
             ReceptionChat rc = new ReceptionChatUserStatus
             {

@@ -55,6 +55,6 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
 <!--<script src="js/login_reg.js" type="text/javascript"></script>-->
 </html>

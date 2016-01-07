@@ -10,8 +10,8 @@
     <meta name="keywords" content="一点办" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>一点办重置密码</title>
-    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
-    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
+    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
     <!--<link href="/css/validation.css" rel="stylesheet" type="text/css">-->
     <link rel="Stylesheet" href="/css/base.css" type="text/css" />
     <link rel="Stylesheet" href="/css/login_reg.css" type="text/css" />
@@ -90,7 +90,7 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>static/Scripts/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
 <script src="/js/jquery.lightbox_me.js" type="text/javascript"></script>
 <script src="/js/jquery.validate.js" type="text/javascript"></script>
 <script>

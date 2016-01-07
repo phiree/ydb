@@ -12,13 +12,13 @@
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
         //  _SetupRefreshJob();
         log4net.Config.XmlConfigurator.Configure();
-        string server = ConfigurationManager.AppSettings.Get("server");
+        string server = Dianzhu.Config.Config.GetAppSetting("server");
 
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
             = new Dianzhu.CSClient.XMPP.XMPP(server, adapter, "YDB_IMServer");
         //login in
-        string noticesenderId = ConfigurationManager.AppSettings.Get("NoticeSenderId");
-        string noticesenderPwdCrypted = ConfigurationManager.AppSettings.Get("NoticeSenderPwd");
+        string noticesenderId = Dianzhu.Config.Config.GetAppSetting("NoticeSenderId");
+        string noticesenderPwdCrypted = Dianzhu.Config.Config.GetAppSetting("NoticeSenderPwd");
         string noticesenderPwd = PHSuit.Security.Decrypt(noticesenderPwdCrypted, false);
 
         im.IMClosed += IMClosed;
@@ -52,7 +52,7 @@
     }
     void IMReceivedMessage(Dianzhu.Model.ReceptionChat chat)
     { 
-        log.Debug("ReceiveMsg:"+adapter.ChatToMessage(chat,ConfigurationManager.AppSettings.Get("server")).InnerXml);
+        log.Debug("ReceiveMsg:"+adapter.ChatToMessage(chat,Dianzhu.Config.Config.GetAppSetting("server")).InnerXml);
     }
     void IMIQ()
     { 

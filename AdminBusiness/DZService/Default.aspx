@@ -6,7 +6,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <!--服务列表-->
     <link href="/css/service.css" rel="stylesheet" type="text/css" />
-    <link href='<% = ConfigurationManager.AppSettings["cdnroot"] %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
+    <link href='<% = Dianzhu.Config.Config.GetAppSetting("cdnroot") %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'
         rel="stylesheet" type="text/css" />
     <link href="/css/validation.css" rel="stylesheet" type="text/css">
     <link href="/css/ServiceSelect.css" rel="stylesheet" type="text/css">
@@ -144,7 +144,7 @@
 
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
-    <script type="text/javascript" src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
     <script type="text/javascript" src="/js/ServiceType.js?v=20150901"></script>
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>

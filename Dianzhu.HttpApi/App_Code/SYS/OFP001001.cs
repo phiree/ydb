@@ -125,7 +125,7 @@ public class ResponseOFP001001 : BaseResponse
 
                         //用户下线后，通知客服工具
                         System.Net.WebClient wc = new System.Net.WebClient();
-                        string notifyServer = ConfigurationManager.AppSettings.Get("NotifyServer");
+                        string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
                         Uri uri = new Uri(notifyServer + "IMServerAPI.ashx?type=customlogoff&userId=" + userId);
 
                         System.IO.Stream returnData = wc.OpenRead(uri);
@@ -136,7 +136,7 @@ public class ResponseOFP001001 : BaseResponse
                     {
                         //客服下线后，将正在接待的用户转到其他客服或者点点
                         System.Net.WebClient wc = new System.Net.WebClient();
-                        string notifyServer = ConfigurationManager.AppSettings.Get("NotifyServer");
+                        string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
                         Uri uri = new Uri(notifyServer + "IMServerAPI.ashx?type=cslogoff&userId=" + userId);
 
                         System.IO.Stream returnData = wc.OpenRead(uri);

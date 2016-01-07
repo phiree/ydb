@@ -59,6 +59,10 @@
       <Project>{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}</Project>
       <Name>Dianzhu.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
+      <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
+      <Name>Dianzhu.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj">
       <Project>{820a465f-51fb-4f8d-8665-b80f9643281b}</Project>
       <Name>Dianzhu.CSClient.IInstantMessage</Name>

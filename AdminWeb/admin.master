@@ -5,15 +5,15 @@
 <head id="Head1" runat="server">
     <title></title>
     <!-- Framework CSS -->
-    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jquery-1.9.1.min.js"
+    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery-1.9.1.min.js"
         type="text/javascript"></script>
-    <script src="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"
+    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"
         type="text/javascript"></script>
-    <link href="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Content/css/admin.css"
+    <link href="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Content/css/admin.css"
         rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Content/blueprint/screen.css"
+    <link rel="stylesheet" href="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Content/blueprint/screen.css"
         type="text/css" media="screen, projection" />
-    <link rel="stylesheet" href="<% =ConfigurationManager.AppSettings["cdnroot"]%>/static/Content/blueprint/print.css"
+    <link rel="stylesheet" href="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Content/blueprint/print.css"
         type="text/css" media="print" />
     <link href="/css/pager.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 8]><link rel="stylesheet" href="/Content/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
