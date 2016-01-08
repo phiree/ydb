@@ -17,8 +17,8 @@ public partial class login : System.Web.UI.Page
         bool isValid = Membership.ValidateUser(tbxUserName.Text, tbxPassword.Text);
         if (isValid)
         {
-            bool remeberMe = savePass.Checked;
-            FormsAuthentication.SetAuthCookie(tbxUserName.Text, remeberMe);
+            bool rememberMe = savePass.Checked;
+            FormsAuthentication.SetAuthCookie(tbxUserName.Text, rememberMe);
             if (Request.RawUrl.Contains("/m/"))
             {
                 Response.Redirect("~/m/account/",true);
@@ -28,7 +28,8 @@ public partial class login : System.Web.UI.Page
             }
         }
         else {
-            lblMsg.Text = "登录失败,用户名/密码有误,请重试.";
+            lblMsg.Text = "用户名或密码有误";
+            lblMsg.CssClass = "show";
            // PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);
         }
     }

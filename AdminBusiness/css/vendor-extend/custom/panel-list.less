@@ -1,0 +1,41 @@
+// 自定义的panel-list样式
+// Collapsable-lis panels (aka, accordion)
+//
+// Wrap a series of panels in `.panel-list` to turn them into an accordion with
+// the help of our collapse JavaScript plugin.
+
+.panel-list {
+  margin-bottom: 20px;
+
+  // Tighten up margin so it's only between panels
+  .panel {
+    margin-bottom: 0;
+    border-radius: 0;
+
+    + .panel {
+      //margin-top: 5px;
+    }
+  }
+
+  .panel-heading {
+    border-bottom: 0;
+    height: 85px;
+    line-height: 85px;
+    padding: 0;
+    text-align: center;
+
+    + .panel-collapse > .panel-body,
+    + .panel-collapse > .list-group {
+      border-top: 1px solid #ccc;
+    }
+  }
+
+  .panel-footer {
+    border-top: 0;
+    + .panel-collapse .panel-body {
+      border-bottom: 1px solid #ccc;
+    }
+  }
+}
+
+

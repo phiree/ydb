@@ -1,0 +1,192 @@
+// 全局效果样式
+
+// 主内容样式
+.content-fluid {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 900px;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  background: #ebebeb;
+}
+
+.content {
+  z-index: 10;
+  position: relative;
+  min-height: 900px;
+  display: block;
+  overflow: hidden;
+  width: auto;
+  margin-left: 240px;
+  color: #666;
+  box-shadow: 0 0 10px 0 #333;
+  background: #ebebeb;
+}
+
+.content-main {
+  padding: 20px 17px;
+}
+
+.content-head {
+  padding: 16px 0;
+  position: relative;
+  text-align: center;
+  border-bottom: 1px solid #858585;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+}
+
+
+/* 全局标题样式 */
+@cont-h1-size: 22px;
+@cont-h2-size: 26px;
+@cont-h3-size: 24px;
+@cont-h4-size: 20px;
+@cont-h5-size: 16px;
+@cont-h6-size: 14px;
+@cont-h-color: #444;
+
+
+.cont-h1 {
+  font-size: @cont-h1-size;
+  color: @cont-h-color;
+  //line-height: 2em;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.cont-h2 {
+  font-size: @cont-h2-size;
+  color: @cont-h-color;
+  font-weight: bold;
+  padding: 18px 0;
+}
+
+.cont-h3 {
+  font-size: @cont-h3-size;
+  color: @cont-h-color;
+  font-weight: bold;
+}
+
+.cont-h4 {
+  font-size: @cont-h4-size;
+  color: @cont-h-color;
+  line-height: 2em;
+  font-weight: bold;
+}
+
+.cont-h5 {
+  font-size: @cont-h5-size;
+  color: @cont-h-color;
+  font-weight: bold;
+}
+
+.cont-h6 {
+  font-size: @cont-h6-size;
+  color: @cont-h-color;
+}
+
+
+.cont-sub-title {
+  color: #666;
+  font-size: 15px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.cont-sub-title-r {
+  padding-right: 15px;
+  font-size: 15px;
+  line-height: 30px;
+  text-align: right;
+}
+
+.cont-title-tips {
+  color: #FF8661;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+.cont-input-tip {
+  display: inline-block;
+  background: #f9faed;
+  border: 1px solid #fdeb96;
+  padding: 3px 10px 3px 10px;
+  margin-top: 10px;
+  color: #666;
+  .icon-tip {
+    margin-right: 10px;
+    background: url("@{base-images-url}common/icon-tip.png") no-repeat center;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+
+/*图标基本样式*/
+.icon {
+  display: inline-block;
+  *display: inline-block;
+  *zoom: 1;
+  width: 26px;
+  height: 26px;
+  background: #73e2ff;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  content: "";
+}
+
+/*登录0状态样式*/
+.LoginStatus {
+  background: url("@{base-images-url}common/navbar/logout.png") no-repeat center;
+  color: transparent;
+  padding: 0 30px;
+}
+
+
+/*全局tips文本样式*/
+.text-anno {
+  color: #58789a;
+  font-size: 12px;
+  line-height: 1.5em;
+  font-weight: 500;
+}
+
+.text-anno-r {
+  color: #FF8661;
+  font-size: 12px;
+  line-height: 1.5em;
+  font-weight: 500;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.text-breakWord {
+  line-height: 1.5em;
+  word-wrap: break-word;
+}
+
+/* 全局分隔符 */
+.d-hr {
+  border-top: 1px solid #DADADA;
+  border-bottom: 1px solid #FBFBFB;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-right: -100%;
+  margin-left: -100%;
+}
+

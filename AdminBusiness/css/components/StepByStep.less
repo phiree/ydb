@@ -1,0 +1,253 @@
+.step-first(){
+  width: 180px;
+  height: 71px;
+  background: url("@{base-images-url}components/stepByStep/step1.png");
+}
+
+.step-first-cur(){
+  width: 180px;
+  height: 71px;
+  background: url("@{base-images-url}components/stepByStep/step1_cur.png");
+}
+
+.normal-step-style(){
+  background: url("@{base-images-url}components/stepByStep/step.png");
+  h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 12px;
+    text-shadow: 0 1px 1px #fff;
+  }
+
+  p {
+    margin-top: 5px;
+    text-shadow: 0 1px 1px #fff;
+  }
+}
+
+.cur-step-style(){
+  color : #fff;
+  background: url("@{base-images-url}components/stepByStep/step_cur.png");
+
+  h3 {
+    text-shadow: 0 1px 1px #333;
+  }
+
+  p {
+    text-shadow: 0 1px 1px #333;
+  }
+}
+
+.steps-tip {
+  float: left;
+  .steps-tip-bg {
+    overflow: hidden;
+    text-align: center;
+
+    width: 200px;
+    height: 71px;
+
+    .normal-step-style();
+    &.step-tip-1 {
+      .step-first();
+    }
+  }
+
+  &.cur-step{
+    .steps-tip-bg {
+      .cur-step-style();
+      &.step-tip-1 {
+        .step-first-cur()
+      }
+    }
+  }
+
+  &.done-step{
+    .steps-tip-bg {
+      .cur-step-style();
+      &.step-tip-1 {
+        .step-first-cur()
+      }
+    }
+  }
+}
+
+.steps-list {
+  .steps-step {
+    display: none;
+    &.cur-step {
+      display: block;
+    }
+  }
+}
+
+//.steps-wrap(@stepNum) {
+//
+//@icon-base-url: "../../image/yidianban_v1.2/stepByStep";
+//@step-icon-width: 78px;
+//@step-icon-height: 78px;
+//
+//
+//  .step-head {
+//    color: #3794bf;
+//    font-size: 30px;
+//    padding: 40px 10px 10px 10px;
+//    margin-bottom: 20px;
+//    border-bottom: 1px solid #CCCCCC;
+//  }
+//
+//  .step-main-wrap {
+//    background: #f8f8f8;
+//    padding: 14px;
+//    /*overflow: hidden;*/
+//  }
+//
+//  .step-main {
+//    padding: 20px;
+//    background: #fff;
+//    border: 1px solid #CCCCCC;
+//  }
+//
+//
+//  .steps-show-wrap {
+//    background: #f8f8f8;
+//    padding: 14px;
+//    overflow: hidden;
+//  }
+//
+//  .steps-show {
+//    padding: 20px;
+//
+//    background: #fff;
+//    border: 1px solid #ccc;
+//  }
+//
+//  .steps-title {
+//    overflow: hidden;
+//    //margin: 0 20px;
+//    .steps-title-t {
+//      float: left;
+//      width: 100/@stepNum * 1%;
+//      text-align: center;
+//      padding: 10px 0;
+//    }
+//  }
+//
+//  .steps-tips {
+//    overflow: hidden;
+//    //margin: 0 20px;
+//
+//    &.steps-tips-2 {
+//      background: url("@{icon-base-url}/step_bg_2.png") no-repeat center;
+//    }
+//    &.steps-tips-3 {
+//      background: url("@{icon-base-url}/step_bg_1.png") no-repeat center;
+//    }
+//    .steps-tip {
+//      float: left;
+//      width: 100/@stepNum * 1%;
+//      text-align: center;
+//      position: relative;
+//      z-index: 100;
+//
+//      .steps-tip-icon {
+//        display: inline-block;
+//        width: @step-icon-width;
+//        height: @step-icon-height;
+//
+//        &.step-icon-1 {
+//          background: url("@{icon-base-url}/step_icon_1.png") no-repeat center;
+//        }
+//        &.step-icon-2 {
+//          background: url("@{icon-base-url}/step_icon_2.png") no-repeat center;
+//        }
+//        &.step-icon-3 {
+//          background: url("@{icon-base-url}/step_icon_3.png") no-repeat center;
+//        }
+//      }
+//
+//      &.cur-step {
+//        .steps-tip-icon {
+//          display: inline-block;
+//          width: @step-icon-width;
+//          height: @step-icon-height;
+//
+//          &.step-icon-1 {
+//            background: url("@{icon-base-url}/step_icon_4.png") no-repeat center;
+//          }
+//          &.step-icon-2 {
+//            background: url("@{icon-base-url}/step_icon_5.png") no-repeat center;
+//          }
+//          &.step-icon-3 {
+//            background: url("@{icon-base-url}/step_icon_6.png") no-repeat center;
+//          }
+//        }
+//      }
+//      &.done-step {
+//        .steps-tip-icon {
+//          display: inline-block;
+//          width: @step-icon-width;
+//          height: @step-icon-height;
+//          &.step-icon-1 {
+//            background: url("@{icon-base-url}/step_icon_7.png") no-repeat center;
+//          }
+//          &.step-icon-2 {
+//            background: url("@{icon-base-url}/step_icon_8.png") no-repeat center;
+//          }
+//          &.step-icon-3 {
+//            background: url("@{icon-base-url}/step_icon_9.png") no-repeat center;
+//          }
+//
+//        }
+//      }
+//    }
+//  }
+//
+//  @step-line-height:10px;
+//  @step-line-margin-bottom : 34px;
+//  .steps-lines {
+//    width: (100 - 100/@stepNum) * 1% ;
+//    height: @step-line-height;
+//
+//    margin: 0 auto;
+//    margin-top: -(@step-line-height + @step-line-margin-bottom);
+//    margin-bottom: @step-line-margin-bottom;
+//    .steps-line {
+//      float: left;
+//      width: 100/(@stepNum - 1) * 1%;
+//      height: @step-line-height;
+//
+//      &.cur-step {
+//          background: url("@{icon-base-url}/step_line_2.png") repeat;
+//      }
+//      &.done-step {
+//          background: url("@{icon-base-url}/step_line_1.png") repeat;
+//      }
+//    }
+//  }
+//
+//  .steps-list {
+//    .steps-step {
+//      display: none;
+//      &.cur-step {
+//        display: block;
+//      }
+//    }
+//  }
+//
+//  .step-ctrl {
+//    .step-prev {
+//
+//    }
+//  }
+//
+//
+//}
+//
+//.steps-3 {
+//  .steps-wrap(3);
+//}
+//
+//.steps-2 {
+//  .steps-wrap(2);
+//}

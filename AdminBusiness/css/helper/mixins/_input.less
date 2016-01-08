@@ -1,0 +1,59 @@
+/*全局输入框样式*/
+@input-large: 440px;
+@input-mid: 170px;
+@input-sm: 100px;
+
+@input-default-width: 30px;
+@input-default-height: 30px;
+
+@input-padding: 5px 10px;
+@input-border-color: 1px solid #E2E2E2;
+@input-bg: #fff;
+@input-color: #444;
+@input-font-size: 14px;
+@input-border-radius: 5px;
+@input-shadow: inset 0 1px 1px #898989;
+
+@input-f-bg: #fff;
+@input-f-border-bg: 1px solid #30CDFF;
+@input-f-shadow: 0 0 3px 0 #0f9ecc;
+
+.input(@w,@h){
+  &[type="text"]{
+    width: @w;
+    height: @h;
+    padding: @input-padding;
+    border:  @input-border-color;
+    border-radius: @input-border-radius;
+    background: @input-bg;
+    color: @input-color;
+    font-size: @input-font-size;
+    vertical-align: middle;
+    box-shadow: @input-shadow;
+    &:focus {
+      background: @input-f-bg;
+      border:@input-f-border-bg;
+      box-shadow: @input-f-shadow;
+    }
+  }
+}
+
+
+.input-textarea(@w,@h) {
+  display:block;
+  width:@w;
+  height:@h;
+  padding: @input-padding;
+  border:@input-border-color;
+  border-radius: @input-border-radius;
+  background: @input-bg;
+  color: @input-color;;
+  font-size:@input-font-size;
+  box-shadow: @input-shadow;
+  overflow-y: auto;
+  &:focus {
+    background: @input-f-bg;
+    border:@input-f-border-bg;
+    box-shadow: @input-f-shadow;
+  }
+}

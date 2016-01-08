@@ -43,7 +43,7 @@
                 </li>
                 <li role="presentation" class="disabled" title="正在努力开发...">
                     <a href="javascript:void(0);" >
-                    <i class="icon item-icon sidebar-icon-dash"></i>
+                    <i class="icon item-icon sidebar-icon-msg"></i>
                     <p class="sidebar-title">消息管理</p>
                     </a>
 

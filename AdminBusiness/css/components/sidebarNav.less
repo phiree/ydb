@@ -1,0 +1,114 @@
+@sidebarColor : #fff;
+
+.sidebar {
+  display: block;
+  position: absolute;
+  width: 240px;
+}
+
+.sidebar-fixed {
+  display: block;
+  position: fixed;
+  top: 0;
+  width: 240px;
+}
+
+.sidebar-title {
+  display: inline-block;
+  color: @sidebarColor;
+  font-weight: 700;
+  text-shadow: 0 -1px 0 #000;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.sidebar-nav {
+  ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li{
+      display: block;
+      border-bottom: 1px solid #808080;
+      box-shadow: inset 0 -2px 0px -1px #333;
+      background: url("@{base-images-url}common/sidebar/sidebar_li_bg.png") repeat-x;
+
+      .item-icon {
+        width: 22px;
+        height: 20px;
+      }
+
+
+      &.disabled {
+        cursor: not-allowed;
+        color: #ccc;
+        background-color: transparent;
+        a{
+          cursor: not-allowed;
+          color: #ccc;
+          background-color: transparent;
+        }
+      }
+
+      //&.active {
+      //  a{
+      //    .icon{
+      //      -webkit-transform: scale(1.2);
+      //      -moz-transform: scale(1.2);
+      //      -ms-transform: scale(1.2);
+      //      -o-transform: scale(1.2);
+      //      transform: scale(1.2);
+      //      zoom:1.2\9;
+      //    }
+      //  }
+      //}
+      //
+      //&:not(.active) {
+      //  .item-icon {
+      //    &:hover {
+      //      -webkit-transform: scale(1.2);
+      //      -moz-transform: scale(1.2);
+      //      -ms-transform: scale(1.2);
+      //      -o-transform: scale(1.2);
+      //      transform: scale(1.2);
+      //    }
+      //  }
+      //}
+
+      a {
+        outline: none;
+        display: block;
+        font-size: 16px;
+        padding: 20px 20px;
+        color: @sidebarColor ;
+        text-align: center;
+
+        &:hover,
+        &:focus,
+        &:active {
+          outline: none;
+          display: block;
+          text-decoration: none;
+        }
+      }
+
+    }
+  }
+}
+
+.sidebar-icon-biz {
+  background: url("@{base-images-url}common/sidebar/shop_left_20x22.png") no-repeat center;
+}
+.sidebar-icon-svc {
+  background: url("@{base-images-url}common/sidebar/sev_left_20x22.png") no-repeat center;
+}
+.sidebar-icon-emp {
+  background: url("@{base-images-url}common/sidebar/staff_left_20x22.png") no-repeat center;
+}
+.sidebar-icon-order {
+  background: url("@{base-images-url}common/sidebar/order_left_20x22.png") no-repeat center;
+}
+.sidebar-icon-msg {
+  background: url("@{base-images-url}common/sidebar/mess_left_20x22.png") no-repeat center;
+}

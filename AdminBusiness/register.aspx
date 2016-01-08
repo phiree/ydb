@@ -11,9 +11,10 @@
     <title>一点办注册</title>
     <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
     <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
+    <link rel="Stylesheet" href="/css/main.css" type="text/css" />
 
-    <link rel="Stylesheet" href="/css/base.css" type="text/css" />
-    <link rel="Stylesheet" href="/css/login_reg.css" type="text/css" />
+    <!--<link rel="Stylesheet" href="/css/base.css" type="text/css" />-->
+    <!--<link rel="Stylesheet" href="/css/login_reg.css" type="text/css" />-->
 </head>
 <body>
     <div class="reg-wrap">

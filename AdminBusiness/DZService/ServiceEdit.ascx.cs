@@ -104,8 +104,10 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         hiBusinessAreaCode.Value = CurrentService.BusinessAreaCode;
         tbxMinPrice.Text = CurrentService.MinPrice.ToString("#.#");
         tbxUnitPrice.Text = CurrentService.UnitPrice.ToString("#");
-        rblChargeUnit.SelectedValue =((int) CurrentService.ChargeUnit).ToString();
+//        rblChargeUnit.SelectedValue =((int) CurrentService.ChargeUnit).ToString();
+        rblChargeUnit.Value =((int) CurrentService.ChargeUnit).ToString();
         tbxOrderDelay.Text = CurrentService.OrderDelay.ToString();
+//        tbxOrderDelay.Value = CurrentService.OrderDelay.ToString();
         tbxServiceTimeBegin.Text = CurrentService.ServiceTimeBegin.ToString();
         tbxServiceTimeEnd.Text = CurrentService.ServiceTimeEnd.ToString();
         tbxMaxOrdersPerDay.Text = CurrentService.MaxOrdersPerDay.ToString();
@@ -177,7 +179,8 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
        
         CurrentService.PropertyValues = values;
         CurrentService.BusinessAreaCode = hiBusinessAreaCode.Value;
-        CurrentService.ChargeUnit = (enum_ChargeUnit)(Convert.ToInt32(rblChargeUnit.SelectedValue));
+        CurrentService.ChargeUnit = (enum_ChargeUnit)(Convert.ToInt32(rblChargeUnit.Value));
+//        CurrentService.ChargeUnit = (enum_ChargeUnit)(Convert.ToInt32(rblChargeUnit.SelectedValue));
         CurrentService.IsCertificated = cbxIsCertificated.Checked;
         CurrentService.IsCompensationAdvance = cbxIsCompensationAdvance.Checked;
         CurrentService.IsForBusiness = cblIsForBusiness.Checked;
@@ -185,6 +188,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.MaxOrdersPerHour = Convert.ToInt32(tbxMaxOrdersPerHour.Text);
         CurrentService.MinPrice = Convert.ToDecimal(tbxMinPrice.Text);
         CurrentService.OrderDelay = Convert.ToInt32(tbxOrderDelay.Text);
+//        CurrentService.OrderDelay = int.Parse(tbxOrderDelay.Value);
         CurrentService.ServiceMode =(enum_ServiceMode)(Convert.ToInt32( rblServiceMode.SelectedValue));
         CurrentService.ServiceTimeBegin = tbxServiceTimeBegin.Text;
         CurrentService.ServiceTimeEnd = tbxServiceTimeEnd.Text;
