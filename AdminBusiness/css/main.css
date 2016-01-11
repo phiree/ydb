@@ -1457,6 +1457,34 @@ body {
 .block {
   display: block !important;
 }
+/*
+  全局页面结构 @2016/01/11 by licdream@126.com
+  无侧边栏页面：
+  body
+    └wrap
+      ├navbar 顶栏
+      ├content-layout-fluid *必须块，无侧边栏页面的自适应宽度的内容layout
+        └content 内容块,可以多个。
+          ├content-head 内容标题
+          └content-main 主内容
+            └container/container-fluid 设置boostrap的网格系统框
+              └... 具体内容
+      └lightBox 弹窗
+        无侧边栏页面：
+  有侧边栏页面：
+  body
+    └wrap
+      ├navbar 顶栏栏
+      ├layout *必须，约束layout
+        ├sidebar 侧边栏
+        ├content-layout *必须块，有侧边栏页面的内容layout
+          └content 内容块,可以多个。
+            ├content-head 内容标题
+            └content-main 主内容
+              └container/container-fluid 设置boostrap的网格系统框
+                └... 具体内容
+      └lightBox 弹窗
+*/
 .content-layout-fluid {
   position: relative;
   box-sizing: border-box;
@@ -1503,7 +1531,38 @@ body {
   /* IE6-9 */
 }
 .content-head.normal-head {
-  padding: 16px 0;
+  padding: 30px 0 15px;
+  margin: 0 15px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+.content-head.normal-head > h3 {
+  display: inline-block;
+  font-size: 22px;
+  color: #444;
+}
+.content-head.normal-head > .btn {
+  color: #666;
+  font-size: 16px;
+  float: right;
+  margin-top: -4px;
+  text-shadow: 0 1px 0 #fff;
+  background: #ffffff;
+  background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+  padding: 5px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 1px solid #DADADA;
+}
+.content-head.normal-head::before {
+  position: absolute;
+  bottom: -2px;
+  content: '';
+  width: 100%;
+  border-bottom: 1px solid #FBFBFB;
 }
 /* 全局标题样式 */
 .cont-h1 {
