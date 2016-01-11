@@ -2,110 +2,93 @@
     CodeFile="Default.aspx.cs" Inherits="Staff_Default" %>
    <%@ Register Namespace="Wuqi.Webdiyer" Assembly="AspNetPager" TagPrefix="UC" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <link href="/css/rotating-card.css" rel="stylesheet" type="text/css" />
-    <link href="/css/employee.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-
-    <div class="cont-wrap">
-        <div class="mh-in">
-            <div class="cont-container animated fadeInUpSmall">
-                <div class="mh-ctnr">
-                    <div class="dis-n" id="emp-list">
-                        <div class="cont-row">
-                            <div class="cont-col-12 m-b20">
-                                <a class="btn btn-info" href="Edit.aspx?businessid=<%=Request["businessid"] %>"><span class="add-inco">+</span>添加新员工</a>
-                            </div>
-                        </div>
-                        <div class="cont-row">
-                            <asp:Repeater runat="server" ID="rptStaff" OnItemCommand="rptStaff_ItemCommand">
-                                <ItemTemplate>
-                                    <div class="cont-col-3">
-                                        <div class="card-container manual-flip">
-                                            <div class="card">
-                                                <div class="card-front">
-                                                    <div class="card-cover">
-                                                        <img src="/image/employee/rotating_card_thumb.png"/>
+    <div class="content">
+        <div class="content-head">
+            <a class="btn btn-info" href="Edit.aspx?businessid=<%=Request["businessid"] %>"><span class="add-inco">+</span>添加新员工</a>
+        </div>
+        <div class="content-main">
+            <div id="employee-list" class="animated fadeInUpSmall">
+                <div class="container-fluid">
+                    <div class="row">
+                        <asp:Repeater runat="server" ID="rptStaff" OnItemCommand="rptStaff_ItemCommand">
+                            <ItemTemplate>
+                                <div class="col-md-3">
+                                    <div class="card-container manual-flip">
+                                        <div class="card">
+                                            <div class="card-front">
+                                                <div class="card-cover">
+                                                    <img src="/image/employee/rotating_card_thumb.png"/>
+                                                </div>
+                                                <div class="card-user" >
+                                                    <img class="img-circle" src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/image/emp-headinco.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=120&height=120&tt=3)"%>  '/>
+                                                </div>
+                                                <div class="card-content">
+                                                    <div class="card-main">
+                                                        <h3 class="card-name"><%#Eval("Name") %></h3>
+                                                        <p class="card-profession"><%#Eval("Code") %></p>
+                                                        <h5>姓名：<%#Eval("NickName") %></h5>
+                                                        <h5>性别：<%#Eval("Gender")%></h5>
+                                                        <h5>电话：<%#Eval("Phone")%></h5>
+                                                        <div class='png-assign <%# (bool)Eval("IsAssigned")?"assigned":"noassign" %>'></div>
                                                     </div>
-                                                    <div class="card-user" >
-                                                        <img class="img-circle" src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/image/emp-headinco.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=120&height=120&tt=3)"%>  '/>
-                                                    </div>
-                                                    <div class="card-content">
-                                                        <div class="card-main">
-                                                            <h3 class="card-name"><%#Eval("Name") %></h3>
-                                                            <p class="card-profession"><%#Eval("Code") %></p>
-                                                            <h5>姓名：<%#Eval("NickName") %></h5>
-                                                            <h5>性别：<%#Eval("Gender")%></h5>
-                                                            <h5>电话：<%#Eval("Phone")%></h5>
-                                                            <div class='png-assign <%# (bool)Eval("IsAssigned")?"assigned":"noassign" %>'></div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <input type="button" staffid='<%#Eval("id") %>' class='btnAssign btn <%# (bool)Eval("IsAssigned")?" btn-text-cancel":" btn-text-info" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/>
                                                         </div>
-                                                    </div>
-                                                    <div class="card-footer">
-                                                        <div class="cont-row">
-                                                            <div class="cont-col-6">
-                                                                <input type="button" staffid='<%#Eval("id") %>' class='btnAssign btn <%# (bool)Eval("IsAssigned")?" btn-text-cancel":" btn-text-info" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/>
-                                                            </div>
-                                                            <div class="cont-col-6">
-                                                                <a class="btn btn-text-info btn-flip">
-                                                                    详情 <i class="glyphicon glyphicon-share-alt"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> <!-- end front panel -->
-                                                <div class="card-back">
-                                                    <div class="card-header">
-                                                        <h5 class="card-motto">员工详情</h5>
-                                                    </div>
-                                                    <div class="card-content">
-                                                        <div class="card-main">
-                                                            <h4 class="text-center text-remark">备注</h4>
-                                                            <p></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-footer">
-                                                        <div class="cont-row">
-                                                            <div class="cont-col-4">
-                                                                <div class="btn btn-text-cancel btn-flip">
-                                                                    <i class="glyphicon glyphicon-arrow-left"></i> 返回
-                                                                </div>
-                                                            </div>
-                                                            <div class="cont-col-4" >
-                                                                <div class="btn btn-text-info" onclick='listHref("edit.aspx?id=<%#Eval("id") %>&businessid=<%=Request["businessid"] %>")'>
-                                                                <i class="fa fa-reply"></i> 编辑
-                                                                </div>
-                                                            </div>
-                                                            <div class="cont-col-4">
-                                                                <asp:Button runat="server" CssClass="btn btn-text-delete"  CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" Text="删除"/>
-                                                            </div>
+                                                        <div class="col-md-6">
+                                                            <a class="btn btn-text-info btn-flip">
+                                                                详情 <i class="glyphicon glyphicon-share-alt"></i>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> <!-- end back panel -->
-                                        </div> <!-- end card -->
-                                    </div> <!-- end card-container -->
-                        </ItemTemplate>
+                                            </div> <!-- end front panel -->
+                                            <div class="card-back">
+                                                <div class="card-header">
+                                                    <h5 class="card-motto">员工详情</h5>
+                                                </div>
+                                                <div class="card-content">
+                                                    <div class="card-main">
+                                                        <h4 class="text-center text-remark">备注</h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="btn btn-text-cancel btn-flip">
+                                                                <i class="glyphicon glyphicon-arrow-left"></i> 返回
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4" >
+                                                            <div class="btn btn-text-info" onclick='listHref("edit.aspx?id=<%#Eval("id") %>&businessid=<%=Request["businessid"] %>")'>
+                                                                <i class="fa fa-reply"></i> 编辑
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <asp:Button runat="server" CssClass="btn btn-text-delete"  CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" Text="删除"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end back panel -->
+                                    </div> <!-- end card -->
+                                </div> <!-- end card-container -->
+                            </ItemTemplate>
                         </asp:Repeater>
                         <div class="pageNum">
                             <UC:AspNetPager runat="server" FirstPageText="首页" NextPageText="下一页" PrevPageText="上一页" id="pager" PageSize="10" UrlPaging="true" LastPageText="尾页"></UC:AspNetPager>
                         </div>
                     </div>
                 </div>
-                <div class="dis-n" id="add-view-emp">
-                    <div class="new-box">
-                        <div class="t-c">
-                            <img src="/image/service-new.png"/>
-                        </div>
-                        <div class="service-new-add">
-                            <a class="new-add-btn" href="Edit.aspx?businessid=<%=Request["businessid"] %>">添加新员工</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
     </div>
     <asp:GridView runat="server" ID="gvStaff">
         <Columns>
@@ -148,11 +131,11 @@
 
             $(function () {
 
-                if ($("#emp-list").find(".card").length == 0) {
-                    $("#add-view-emp").removeClass("dis-n");
-                } else {
-                    $("#emp-list").removeClass("dis-n");
-                }
+//                if ($("#emp-list").find(".card").length == 0) {
+//                    $("#add-view-emp").removeClass("dis-n");
+//                } else {
+//                    $("#emp-list").removeClass("dis-n");
+//                }
 
 
                 /* 当鼠标移到表格上是，当前一行背景变色 */

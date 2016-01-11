@@ -1,16 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true" CodeFile="Service_Edit.aspx.cs" Inherits="DZService_Service_Edit" %>
 <%@ Register  Src="~/DZService/ServiceEdit.ascx" TagName="ServiceEdit" TagPrefix="UC" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <!--<link href="/css/service.css" rel="stylesheet" type="text/css" />-->
-    <!--<link href='<% = Dianzhu.Config.Config.GetAppSetting("cdnroot") %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'-->
-        <!--rel="stylesheet" type="text/css" />-->
-    <!--<link href="/css/validation.css" rel="stylesheet" type="text/css">-->
-    <!--<link href="/css/ServiceSelect.css" rel="stylesheet" type="text/css">-->
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-                             <UC:ServiceEdit runat="server" />
+     <UC:ServiceEdit runat="server" />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
     <script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>

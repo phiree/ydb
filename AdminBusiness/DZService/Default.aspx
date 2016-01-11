@@ -4,107 +4,103 @@
     <%@ Register  Src="~/DZService/ServiceEdit.ascx" TagName="ServiceEdit" TagPrefix="UC" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <!--服务列表-->
-    <!--<link href="/css/service.css" rel="stylesheet" type="text/css" />-->
-    <!--<link href='<% = Dianzhu.Config.Config.GetAppSetting("cdnroot") %>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/css/custom-theme/jquery-ui-1.10.4.custom.css'-->
-        <!--rel="stylesheet" type="text/css" />-->
-    <!--<link href="/css/validation.css" rel="stylesheet" type="text/css">-->
-    <!--<link href="/css/ServiceSelect.css" rel="stylesheet" type="text/css">-->
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="content-main">
-        <div id="service-list" class="animated fadeInUpSmall">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12 m-b20">
-                        <a class="btn btn-default btn-info" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a>
-                    </div>
-                </div>
-                <div class="panel-list" id="accordion" role="tablist" aria-multiselectable="true">
-                    <asp:Repeater runat="server" ID="rptServiceList"  >
-                        <ItemTemplate>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="heading<%# Container.ItemIndex + 1 %>" >
-                                    <div class="row" role="button" data-toggle="collapse" data-parent="#accordion"
-                                         href="#collapse<%# Container.ItemIndex + 1 %>" aria-expanded="true"
-                                         aria-controls="collapse<%# Container.ItemIndex + 1 %>">
-                                        <div class="col-md-1">
-                                            <i class="icon service-icon svcType-s-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"></i>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <%#Eval("Name") %>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <span class="spServiceArea text-ellipsis" ></span><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a  href="ServiceTimeline.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">详细服务时间</a>
-                                            <!--通过修改boostrap中的collapse模块功能，实现collapse标签中指定忽略指定target的功能-->
-                                        </div>
-                                        <div class="col-md-2">
+    <div class="content hide" id="service-list">
+        <div class="content-head normal-head">
+            <a class="btn btn-default btn-info" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a>
+        </div>
+        <div class="content-main">
+            <div class="animated fadeInUpSmall">
+                <div class="container-fluid">
+                    <div class="panel-list" id="accordion" role="tablist" aria-multiselectable="true">
+                        <asp:Repeater runat="server" ID="rptServiceList"  >
+                            <ItemTemplate>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="heading<%# Container.ItemIndex + 1 %>" >
+                                        <div class="row" role="button" data-toggle="collapse" data-parent="#accordion"
+                                             href="#collapse<%# Container.ItemIndex + 1 %>" aria-expanded="true"
+                                             aria-controls="collapse<%# Container.ItemIndex + 1 %>">
+                                            <div class="col-md-1">
+                                                <i class="icon service-icon svcType-s-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"></i>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <%#Eval("Name") %>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span class="spServiceArea text-ellipsis" ></span><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a  href="ServiceTimeline.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">详细服务时间</a>
+                                                <!--通过修改boostrap中的collapse模块功能，实现collapse标签中指定忽略指定target的功能-->
+                                            </div>
+                                            <div class="col-md-2">
 
-                                            <span class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></span>
-                                            <p collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p>
+                                                <span class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></span>
+                                                <p collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p>
 
                                                 <a href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%#Eval("Id") %>" class="m-r10" ><i class="icon service-icon-edit" title="编辑" collapse-ignore="true"></i></a>
                                                 <asp:LinkButton ID="LinkButton1" runat="server" class="btn-test-1" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript: return confirm('警告：\n数据一旦被删除将无法还原！')" data-target="ture" collapse-ignore="true"><i class="icon service-icon-delete" title="删除" collapse-ignore="true"></i></asp:LinkButton>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="collapse<%# Container.ItemIndex + 1 %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%# Container.ItemIndex + 1 %>">
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                服务介绍：<%#Eval("Description") %>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                起步价：<span ><%# ((decimal)Eval("MinPrice")).ToString("#") %></span>&nbsp;元
-                                            </div>
-                                            <div class="col-md-3">
-                                                服务对象：<%#((bool)Eval("IsForBusiness"))?"可以对公":"对私" %>
-                                            </div>
-                                            <div class="col-md-3">
-                                                服务保障：<%# ((bool)Eval("IsCompensationAdvance"))?"有":"无" %>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                单价：<span><%#((decimal)Eval("UnitPrice")).ToString("#") %></span>&nbsp;元/
-                                                <%# ((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Hour"?"小时":(((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Day"?"天":"次") %>
-                                            </div>
-                                            <div class="col-md-3">
-                                                平台认证：<%# ((bool)Eval("IsCertificated"))?"有":"无" %>
-                                            </div>
-                                            <div class="col-md-3"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                服务方式：<%#  (Dianzhu.Model.Enums.enum_ServiceMode)Eval("ServiceMode")==Dianzhu.Model.Enums.enum_ServiceMode.NotToHouse?"不上门":"上门" %>
-                                            </div>
-                                            <div class="col-md-3">
-                                                每日最大接单量：<span><%# Eval("MaxOrdersPerDay") %></span>&nbsp;单
-                                            </div>
-                                            <div class="col-md-3">
-                                                每时最大接单量：<span><%# Eval("MaxOrdersPerHour") %></span>&nbsp;单
                                             </div>
                                         </div>
                                     </div>
+                                    <div id="collapse<%# Container.ItemIndex + 1 %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%# Container.ItemIndex + 1 %>">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    服务介绍：<%#Eval("Description") %>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    起步价：<span ><%# ((decimal)Eval("MinPrice")).ToString("#") %></span>&nbsp;元
+                                                </div>
+                                                <div class="col-md-3">
+                                                    服务对象：<%#((bool)Eval("IsForBusiness"))?"可以对公":"对私" %>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    服务保障：<%# ((bool)Eval("IsCompensationAdvance"))?"有":"无" %>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    单价：<span><%#((decimal)Eval("UnitPrice")).ToString("#") %></span>&nbsp;元/
+                                                    <%# ((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Hour"?"小时":(((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Day"?"天":"次") %>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    平台认证：<%# ((bool)Eval("IsCertificated"))?"有":"无" %>
+                                                </div>
+                                                <div class="col-md-3"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    服务方式：<%#  (Dianzhu.Model.Enums.enum_ServiceMode)Eval("ServiceMode")==Dianzhu.Model.Enums.enum_ServiceMode.NotToHouse?"不上门":"上门" %>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    每日最大接单量：<span><%# Eval("MaxOrdersPerDay") %></span>&nbsp;单
+                                                </div>
+                                                <div class="col-md-3">
+                                                    每时最大接单量：<span><%# Eval("MaxOrdersPerHour") %></span>&nbsp;单
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                        </ItemTemplate>
-                    </asp:Repeater>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
                 </div>
             </div>
         </div>
-        <div id="service-new" class="animated fadeInUpSmall hide">
+    </div>
+    <div class="content hide" id="service-new">
+        <div class="animated fadeInUpSmall">
             <div class="container-fluid">
                 <div class="empty-svc">
                     <a id="firstAddBusiness" class="empty-svc-add" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>">点击创建新服务</a>
