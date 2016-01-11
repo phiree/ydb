@@ -98,11 +98,11 @@
         ignore: []
     });
 
-    $.validator.addMethod("pass", function (value, element) {
+    $.validator.addMethod("pwd", function (value, element) {
         return value == "" ? true : /^[A-Za-z0-9_-]+$/.test(value);
-    }, "请输入有效的密码");
+    }, "密码格式错误");
 
-    $.validator.addMethod("passConfirm", function (value, element) {
+    $.validator.addMethod("pwdConfirm", function (value, element) {
         return $("#tbxPasswordConfirm").val() == $("#tbxPassword").val() ? true : false
     }, "两次输入的密码不一致");
 
@@ -115,14 +115,15 @@
     {
         required: true,
         minlength: 6,
-        pass: true
+        maxlength: 20,
+        pwd: true
 
     };
     pass_validate_messages["tbxPassword"]=
     {
         required: "请填写密码",
-        pass: "请填写有效的密码",
-        minlength: "密码长度不小于6"
+        minlength: "不能少于6个字符",
+        maxlength: "不能超过20个字符"
     };
 
     //tbxPasswordConfirm
@@ -130,13 +131,13 @@
     {
         required: true,
         minlength: 6,
+        maxlength: 20,
         pass:true,
         passConfirm: true
     };
     pass_validate_messages["tbxPasswordConfirm"]=
     {
-        required: "请确认密码",
-        minlength: "密码长度不小于6"
+        required: "请再次输入密码",
     };
 
     $($("form")[0]).validate(

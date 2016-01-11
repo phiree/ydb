@@ -84,18 +84,13 @@
         {
             ignore:[],
             errorElement: "span",
-//            errorContainer: ".login_err_msg",
             errorLabelContainer: ".login_err_msg ul",
             wrapper: "li",
-//            errorPlacement: function(error, element) {
-//                error.appendTo( $('.err_msg') );
-//            },
             rules: reg_validate_rules,
             messages: reg_validate_messages
         }
     );
 </script>
-<!--<script src="/js/login_reg.js" type="text/javascript"></script>-->
 <%if (!Request.IsLocal){ %>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
