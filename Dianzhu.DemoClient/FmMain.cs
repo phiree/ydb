@@ -146,6 +146,7 @@ namespace Dianzhu.DemoClient
                     break;
             }
             AddLog(msg);
+            GlobalViables.log.Debug("Message Received:" + msg.InnerXml);
 
         }
 
@@ -267,7 +268,7 @@ namespace Dianzhu.DemoClient
 
             pnlChat.Controls.Add(pnlOneChat);
             pnlChat.ScrollControlIntoView(pnlOneChat);
-
+            GlobalViables.log.Debug("message send:" + message.InnerXml);
 
         }
 

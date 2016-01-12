@@ -16,6 +16,7 @@ namespace Dianzhu.DemoClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //获取分配的客服.
+            log4net.Config.XmlConfigurator.Configure();
             Application.Run(new FmMain());
         }
     }

@@ -43,8 +43,7 @@ namespace Dianzhu.Test
                         .Database(
                              MySQLConfiguration
                             .Standard
-                            .ConnectionString(c => c
-                            .FromConnectionStringWithKey("DianzhuConnectionString_Test"))
+                            .ConnectionString(Dianzhu.Config.Config.ConnectionString)
                       )
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
                     .ExposeConfiguration(BuildSchema)
