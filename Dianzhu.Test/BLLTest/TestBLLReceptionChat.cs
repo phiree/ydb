@@ -12,21 +12,28 @@ using FizzWare.NBuilder;
 namespace Dianzhu.Test.BLLTest
 {
     [TestFixture]
-   public  class BLLReceptionChatTest
+    public class BLLReceptionChatTest
     {
-       [Test]
+        [Test]
         public void FindChatByOrder()
         {
 
             var dal = new DALReceptionChatDD();
 
             ServiceOrder order = Builder<ServiceOrder>.CreateNew().Build();
+
             order.Id = new Guid("81d6c8d5-0562-4075-96a9-a56700a86aaf");
             //IList<ReceptionChatDD> chat = dal.GetChatDDListByOrder(order);
             IList<ReceptionChatDD> chat = null;
 
             Assert.AreNotEqual(chat.Count, 0);
 
+        }
+        [Test]
+        public void GetListTest()
+        {
+            DAL.DALReceptionChatDD dal = new DALReceptionChatDD();
+            dal.GetListByFrom(null);
         }
     }
 }

@@ -31,7 +31,7 @@
     <MinimumRequiredVersion>1.0.0.9</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>79</ApplicationRevision>
+    <ApplicationRevision>81</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -140,10 +140,10 @@
       <TransformOnBuild>true</TransformOnBuild>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="config\connectionStrings.config">
+    <Content Include="config\connectionStrings.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TransformOnBuild>true</TransformOnBuild>
-    </None>
+    </Content>
     <Content Include="config\log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <TransformOnBuild>true</TransformOnBuild>

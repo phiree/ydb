@@ -136,6 +136,7 @@
     <Content Include="config\mailSettings.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="config\connectionStrings.config" />
     <None Include="packages.config" />
     <None Include="TestFiles\个人服务类最新版-表格.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
