@@ -110,9 +110,14 @@ namespace Dianzhu.BLL
             dalRS.Update(re);
         }
 
-        public ReceptionStatus GetRSByDiandian(DZMembership dd)
+        /// <summary>
+        /// 根据点点获取当前在线用户
+        /// </summary>
+        /// <param name="dd"></param>
+        /// <returns></returns>
+        public IList<ReceptionStatus> GetRSListByDiandian(DZMembership dd,int num)
         {
-            return dalRS.GetReceptionStatusByDiandian(dd);
+            return dalRS.GetRSListByDiandian(dd,num);
         }
 
         public ReceptionStatus GetOrder(DZMembership c,DZMembership cs)

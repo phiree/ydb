@@ -6,6 +6,9 @@ using NHibernate;
 using NHibernate.Hql;
 using System.Web.Security;
 using System.Data.SqlClient;
+using System.Data.Common;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace Dianzhu.DAL
 {
@@ -191,13 +194,23 @@ namespace Dianzhu.DAL
             //  ISQLQuery sqlQuery= session.CreateSQLQuery(pureSqlStatement);
             // System.Collections.IList result = sqlQuery.List();
             System.Data.DataSet ds = new System.Data.DataSet();
-            using (SqlConnection conn = session.Connection as SqlConnection)
+            IDbConnection conn = session.Connection as DbConnection;
+            
+            if (conn.GetType() == typeof(SqlConnection))
             {
-                //conn.Open();
-
-                var sqlDataAdapter = new SqlDataAdapter(pureSqlStatement, conn);
+                var sqlDataAdapter = new SqlDataAdapter(pureSqlStatement,(SqlConnection) conn);
 
                 sqlDataAdapter.Fill(ds);
+            }
+            else if (conn.GetType() == typeof(MySqlConnection))
+            {
+                var sqlDataAdapter = new MySqlDataAdapter(pureSqlStatement, (MySqlConnection)conn);
+
+                sqlDataAdapter.Fill(ds);
+            }
+            else
+            {
+                throw new Exception("Unknow database type");
             }
             return ds;
         }

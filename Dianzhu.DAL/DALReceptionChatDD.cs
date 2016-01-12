@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-using NHibernate;
+using NHibernate.Criterion;
 
 namespace Dianzhu.DAL
 {
@@ -37,15 +37,36 @@ namespace Dianzhu.DAL
         }
 
         /// <summary>
-        /// 根据订单获取点点聊天表中未复制过的聊天记录
+        /// 根据用户获取点点聊天表中未复制过的聊天记录
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public IList<ReceptionChatDD> GetChatDDListByOrder(ServiceOrder order)
+        public IList<ReceptionChatDD> GetChatDDListByOrder(IList< DZMembership> fromList)
         {
-            var list = Session.QueryOver<ReceptionChatDD>().Where(x => x.ServiceOrder == order).And(x=>x.IsCopy==false).OrderBy(x=>x.SavedTime).Asc.List();
+            List<ReceptionChatDD> result = new List<ReceptionChatDD>();
+            
+            foreach (DZMembership from in fromList)
+            {
+                var list = Session.QueryOver<ReceptionChatDD>().Where(x => x.From == from).And(x => x.IsCopy == false).List();
 
-            return list;
+                result.AddRange(list);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 根据数量获取用户列表
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public IList<ServiceOrder> GetCustomListDistinctFrom(int num)
+        {
+            var cList = Session.QueryOver<ReceptionChatDD>().SelectList(
+                list => list
+                .Select(Projections.Distinct(Projections.Property<ReceptionChatDD>(x => x.ServiceOrder)))).Where(x => x.IsCopy == false).Take(num).List<ServiceOrder>();
+
+            return cList;
         }
     }
 }
