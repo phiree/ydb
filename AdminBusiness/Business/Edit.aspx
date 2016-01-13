@@ -8,9 +8,9 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="content">
         <div class="content-head full-head">
-            <h1 class="cont-h1">
+            <h3 class="cont-h2">
                 店铺资料填写
-            </h1>
+            </h3>
         </div>
         <div class="content-main">
             <div class="container-fluid animated fadeInUpSmall">
@@ -21,13 +21,13 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                 <div class="steps-tips steps-tips-2 clearfix">
                                     <div class="steps-tip">
                                         <div class="steps-tip-bg step-tip-1">
-                                            <h3>第一步</h3>
+                                            <div class="step-tip-h">第一步</div>
                                             <p>填写基本信息</p>
                                         </div>
                                     </div>
                                     <div class="steps-tip">
                                         <div class="steps-tip-bg">
-                                            <h3>第二步</h3>
+                                            <div class="step-tip-h">第二步</div>
                                             <p>填写营业信息</p>
                                         </div>
                                     </div>
@@ -42,7 +42,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                 <div class="steps-step cur-step animated fadeInUpSmall">
                                     <div class="model">
                                         <div class="model-h">
-                                            <h3>店铺基本信息</h3>
+                                            <h4>店铺基本信息</h4>
                                         </div>
                                         <div class="model-m">
                                             <div class="model-form">
@@ -172,7 +172,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                 <div class="steps-step animated fadeInUpSmall">
                                     <div class="model">
                                         <div class="model-h">
-                                            <h3>商户营业资质资料</h3>
+                                            <h4>商户营业资质资料</h4>
                                         </div>
                                         <div class="model-m">
                                             <div class="model-form">

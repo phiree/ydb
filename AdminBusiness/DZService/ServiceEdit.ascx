@@ -3,9 +3,9 @@
 <%@ Register Src="~/TagControl.ascx" TagName="Tag" TagPrefix="DZ" %>
 <div class="content">
     <div class="content-head full-head">
-        <div class="cont-h1">
+        <h3 class="cont-h2">
             服务资料填写
-        </div>
+        </h3>
     </div>
     <div class="content-main">
         <div class="container-fluid animated fadeInUpSmall">
@@ -16,19 +16,19 @@
                             <div class="steps-tips steps-tips-2 clearfix">
                                 <div class="steps-tip">
                                     <div class="steps-tip-bg step-tip-1">
-                                        <h3>第一步</h3>
+                                        <div class="step-tip-h">第一步</div>
                                         <p>基本服务信息</p>
                                     </div>
                                 </div>
                                 <div class="steps-tip">
                                     <div class="steps-tip-bg">
-                                        <h3>第二步</h3>
+                                        <div class="step-tip-h">第二步</div>
                                         <p>服务价格信息</p>
                                     </div>
                                 </div>
                                 <div class="steps-tip">
                                     <div class="steps-tip-bg">
-                                        <h3>第三步</h3>
+                                        <div class="step-tip-h">第三步</div>
                                         <p>服务时间设置</p>
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@
                             <div class="steps-step cur-step" >
                                 <div class="model">
                                     <div class="model-h">
-                                        <h3>基本服务信息</h3>
+                                        <h4>基本服务信息</h4>
                                     </div>
                                     <div class="model-m">
                                         <div class="model-form">
@@ -144,7 +144,7 @@
                             <div class="steps-step" >
                                 <div class="model">
                                     <div class="model-h">
-                                        <h3>详细服务信息</h3>
+                                        <h4>详细服务信息</h4>
                                     </div>
                                     <div class="model-m">
                                         <div class="model-form">
@@ -263,7 +263,7 @@
                             <div class="steps-step">
                                 <div class="model">
                                     <div class="model-h">
-                                        <h3>服务时间设置</h3>
+                                        <h4>服务时间设置</h4>
                                     </div>
                                     <div class="model-m">
                                         <div class="model-form">
@@ -271,7 +271,7 @@
                                                 <div class="col-md-12">
                                                     <div class="row model-form-group">
                                                         <div class="col-md-4 model-label">
-                                                            <h3>服务时间</h3>
+                                                            <h4>服务时间</h4>
                                                         </div>
                                                         <div class="col-md-8 model-input">
                                                             <table class="table table-striped table-hover">

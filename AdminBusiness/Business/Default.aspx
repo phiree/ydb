@@ -20,12 +20,12 @@
             <div class="navbar navbar-default navbar-static-top" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand brand-logo" href="/Business/default.aspx">
-                            <div id="logo"></div>
-                        </a>
-                        <a class="navbar-brand brand-h">
+                        <div class="navbar-brand brand-logo">
+                            <a id="logo" href="/Business/default.aspx"></a>
+                        </div>
+                        <h1 class="navbar-brand brand-h">
                             一点办商户管理系统
-                        </a>
+                        </h1>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#ydb-navbar-collapse" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
@@ -36,10 +36,10 @@
                     <div class="collapse navbar-collapse" id="ydb-navbar-collapse">
                         <ul class="nav navbar-nav navbar-right  ">
                             <li role="presentation">
-                                <p class="loginName">
+                                <div class="loginName">
                                     <span class="icon navbar-icon-acc"></span>
                                     <asp:LoginName  ID="LoginName1" CssClass="v-m" runat="server" />
-                                </p>
+                                </div>
                             </li>
                             <li role="presentation">
                                 <div class="navbar-a-wrap">
@@ -59,9 +59,9 @@
             <div class="content-layout-fluid">
                 <div class="content hide" id="business-list">
                     <div class="content-head full-head">
-                        <h1 class="cont-h1">
+                        <h3 class="cont-h2">
                             店铺列表
-                        </h1>
+                        </h3>
                         <a id="addNewBusiness" href="/Business/edit.aspx"><strong>+</strong>&nbsp;新建店铺</a>
                     </div>
                     <div class="content-main">
@@ -85,19 +85,19 @@
                                                                     </div>
                                                                     <div class="biz-info m-b10">
                                                                         <div class="m-b10">
-                                                                            <h3 class="biz-info-h">店铺电话</h3>
-                                                                            <p class="biz-info-d d-p">
-                                                                                <%#Eval("Phone")%></p>
+                                                                            <div class="biz-info-h">店铺电话</div>
+                                                                            <div class="biz-info-d d-p">
+                                                                                <%#Eval("Phone")%></div>
                                                                         </div>
                                                                         <div class="m-b10">
-                                                                            <h3 class="biz-info-h">详细地址</h3>
-                                                                            <p class="biz-info-d">
-                                                                                <%#Eval("Address")%></p>
+                                                                            <div class="biz-info-h">详细地址</div>
+                                                                            <div class="biz-info-d">
+                                                                                <%#Eval("Address")%></div>
                                                                         </div>
                                                                         <div>
-                                                                            <h3 class="biz-info-h">店铺介绍</h3>
-                                                                            <p class="biz-info-d l-h18 biz-intro-fixed">
-                                                                                <%#Eval("Description")%></p>
+                                                                            <div class="biz-info-h">店铺介绍</div>
+                                                                            <div class="biz-info-d l-h18 biz-intro-fixed">
+                                                                                <%#Eval("Description")%></div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="biz-href">
@@ -119,8 +119,8 @@
                                                                                     <input type="hidden"
                                                                                            value='<%#Eval("Id") %>'/>
 
-                                                                                    <p class="svc-item-h">
-                                                                                        <%#Eval("Name") %></p>
+                                                                                    <div class="svc-item-h">
+                                                                                        <%#Eval("Name") %></div>
                                                                                 </li>
                                                                             </ItemTemplate>
                                                                         </asp:Repeater>
@@ -143,9 +143,9 @@
                 </div>
                 <div class="content hide" id="business-new">
                     <div class="content-head full-head">
-                        <h1 class="cont-h1">
+                        <h3 class="cont-h2">
                             店铺列表
-                        </h1>
+                        </h3>
                     </div>
                     <div class="content-main">
                         <div class="animated fadeInUpSmall" >
@@ -169,7 +169,7 @@
                 </div>
                 <div class="newBiz-m">
                     <div class="newBiz-row">
-                        <p class="newBiz-h5">店铺名称</p>
+                        <div class="newBiz-h5">店铺名称</div>
                         <div class="newBiz-input">
                             <input class="input-mid" runat="server" id="tbxName" type="text" data-toggle="tooltip"
                                    data-placement="top" title="请填写店铺名称"/>
@@ -178,7 +178,7 @@
 
 
                     <div class="newBiz-row">
-                        <p class="newBiz-h5">店铺地址</p>
+                        <div class="newBiz-h5">店铺地址</div>
                         <div class="newBiz-input">
                             <input class="input-mid" runat="server" id="tbxAddress" type="text" data-toggle="tooltip"
                                    data-placement="top" title="请填写店铺的详细地址"/>
@@ -187,7 +187,7 @@
                         </div>
                     </div>
                     <div class="newBiz-row">
-                        <p class="newBiz-h5">店铺电话</p>
+                        <div class="newBiz-h5">店铺电话</div>
                         <div class="newBiz-input">
                             <input class="input-mid" runat="server" id="tbxContactPhone" type="text"
                                    data-toggle="tooltip" data-placement="top" title="请填写店铺的联系电话"/>
@@ -196,16 +196,16 @@
                         </div>
                     </div>
                     <div class="newBiz-row dis-n">
-                        <p class="cont-h5">
+                        <div class="cont-h5">
                             店铺邮箱或网址
-                        </p>
+                        </div>
                         <div class="newBiz-input">
                             <input class="input-mid" runat="server" id="tbxWebSite" type="text" data-toggle="tooltip"
                                    data-placement="top" title="请填写店铺邮箱或网址"/>
                         </div>
                     </div>
                     <div class="newBiz-row">
-                        <p class="newBiz-h5">店铺介绍</p>
+                        <div class="newBiz-h5">店铺介绍</div>
                         <div class="newBiz-input v-t">
                     <textarea class="input-textarea buss-textarea" runat="server"
                               id="tbxDescription" data-toggle="tooltip" data-placement="top"
@@ -214,11 +214,11 @@
                     </div>
 
                     <div class="newBiz-row">
-                        <p class="t-c">
+                        <div class="t-c">
                             <input class="btn btn-info" type="submit" runat="server" id="btnCreate"
                                    onserverclick="btnCreate_Click" value="创建"/><input
                                 class="lightClose btn btn-cancel m-l20" type="button" value="取消"/>
-                        </p>
+                        </div>
                     </div>
                 </div>
 

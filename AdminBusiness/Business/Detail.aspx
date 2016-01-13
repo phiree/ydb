@@ -18,14 +18,14 @@
                 <div class="d-hr"></div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2 class="cont-h2">店铺基本信息</h2>
+                        <h3 class="cont-h3">店铺基本信息</h3>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-9">
                         <div class="model">
                             <div class="model-h">
-                                <h3>基本信息</h3>
+                                <h4>基本信息</h4>
                             </div>
                             <div class="model-m">
                                 <div class="row m-b20">
@@ -91,7 +91,7 @@
                     <div class="col-md-3">
                         <div class="model">
                             <div class="model-h">
-                                <h3>统计图表</h3>
+                                <h4>统计图表</h4>
                             </div>
                             <div class="model-m"></div>
                         </div>
@@ -100,8 +100,8 @@
                 <div class="row dis-n">
                     <div class="col-md-5">
                         <div class="business-detail-iden">
-                            <p class="cont-h4">负责人信息</p>
-                            <p class="cont-h4">营业执照</p>
+                            <p class="cont-h5">负责人信息</p>
+                            <p class="cont-h5">营业执照</p>
 
                             <div class="p-20 detail-img">
                                 <asp:Repeater runat="server" ID="rptImageLicense">
@@ -113,7 +113,7 @@
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </div>
-                            <p class="cont-h4">负责人证件照</p>
+                            <p class="cont-h5">负责人证件照</p>
 
                             <div class="p-20 detail-img">
                                 <asp:Repeater runat="server" ID="rptCharge">

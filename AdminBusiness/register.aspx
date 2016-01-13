@@ -49,7 +49,7 @@
                             <input id="agreeLic" name="agreeLic" type="checkbox" value="yes" /><label class="v-m m-l10" for="agreeLic">我已阅读过《<a
                                 class="agreeLIC-a" id="agreeLicHref" target="_blank" href="/protocol.html">点助服务协议</a>》</label>
                         </div>
-                            <a class="logReg-href fr m-r10" href="login.aspx">登录</a>
+                            <a class="logReg-href fr m-r10" href="login.aspx">返回登录</a>
                         </p>
                     </div>
                 </div>
@@ -60,8 +60,8 @@
             <div class="register-brand">
                 <img id="register-logo" src="images/pages/register/logo_100x100.png" alt="logo" />
                 <div class="brand-head">
-                    <h3 class="cssc0a9477146a8">一点办商户管理系统</h3>
-                    <h4 class="cssc0a50b3d46a8">静心观天下·才能发现世界的精彩</h4>
+                    <h1 class="cssc0a9477146a8">一点办商户管理系统</h1>
+                    <p class="cssc0a50b3d46a8">静心观天下·才能发现世界的精彩</p>
                 </div>
             </div>
         </div>

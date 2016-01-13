@@ -18,35 +18,34 @@
                 <li >
                     <a href="/Business/Detail.aspx?businessId=<%=Request["businessid"] %>">
                         <i class="icon item-icon sidebar-icon-biz"></i>
-                        <p class="sidebar-title">店铺信息</p>
+                        <h2 class="sidebar-title">店铺信息</h2>
                     </a>
                 </li>
                 <li>
                     <a href="/DZService/Default.aspx?businessId=<%=Request["businessid"] %>">
                         <i class="icon item-icon sidebar-icon-svc"></i>
-                        <p class="sidebar-title">我的服务</p>
+                        <h2 class="sidebar-title">我的服务</h2>
                     </a>
                 </li>
                 <li>
                     <a href="/Staff/Default.aspx?businessId=<%=Request["businessid"] %>" >
                         <i class="icon item-icon sidebar-icon-emp"></i>
-                        <p class="sidebar-title">员工管理</p>
+                        <h2 class="sidebar-title">员工管理</h2>
                     </a>
 
                 </li>
                 <li role="presentation" class="disabled" title="正在努力开发...">
                     <a href="javascript:void(0);" >
-                    <i class="icon item-icon sidebar-icon-order"></i>
-                    <p class="sidebar-title">我的订单</p>
+                        <i class="icon item-icon sidebar-icon-order"></i>
+                        <h2 class="sidebar-title">我的订单</h2>
                     </a>
 
                 </li>
                 <li role="presentation" class="disabled" title="正在努力开发...">
                     <a href="javascript:void(0);" >
-                    <i class="icon item-icon sidebar-icon-msg"></i>
-                    <p class="sidebar-title">消息管理</p>
+                        <i class="icon item-icon sidebar-icon-msg"></i>
+                        <h2 class="sidebar-title">消息管理</h2>
                     </a>
-
                 </li>
             </ul>
         </nav>

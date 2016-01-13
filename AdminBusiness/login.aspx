@@ -54,8 +54,8 @@
                 <div class="register-brand">
                     <img id="register-logo" src="images/pages/register/logo_100x100.png" alt="logo" />
                     <div class="brand-head">
-                        <h3 class="cssc0a9477146a8">一点办商户管理系统</h3>
-                        <h4 class="cssc0a50b3d46a8">静心观天下·才能发现世界的精彩</h4>
+                        <h1 class="cssc0a9477146a8">一点办商户管理系统</h1>
+                        <p class="cssc0a50b3d46a8">静心观天下·才能发现世界的精彩</p>
                     </div>
                 </div>
             </div>

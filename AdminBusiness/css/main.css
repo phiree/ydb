@@ -1566,30 +1566,29 @@ body {
 }
 /* 全局标题样式 */
 .cont-h1 {
-  font-size: 22px;
+  font-size: 28px;
   color: #444;
   font-weight: bold;
   text-shadow: 0 1px 0 #fff;
 }
 .cont-h2 {
-  font-size: 26px;
+  font-size: 22px;
   color: #444;
   font-weight: bold;
-  padding: 18px 0;
+  text-shadow: 0 1px 0 #fff;
 }
 .cont-h3 {
-  font-size: 24px;
+  font-size: 26px;
   color: #444;
-  font-weight: bold;
+  padding: 15px 0;
 }
 .cont-h4 {
   font-size: 20px;
   color: #444;
   line-height: 2em;
-  font-weight: bold;
 }
 .cont-h5 {
-  font-size: 16px;
+  font-size: 15px;
   color: #444;
   font-weight: bold;
 }
@@ -1641,7 +1640,7 @@ body {
   vertical-align: middle;
   content: "";
 }
-/*登录0状态样式*/
+/*登录状态样式*/
 .LoginStatus {
   background: url("../images/common/navbar/logout.png") no-repeat center;
   color: transparent;
@@ -1705,7 +1704,7 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
   /* IE6-9 */
 }
-.model-h h3 {
+.model-h h4 {
   display: inline-block;
   font-size: 14px;
   font-weight: bold;
@@ -5494,7 +5493,7 @@ a.time-trigger:hover {
   height: 71px;
   background: url("../images/components/stepByStep/step.png");
 }
-.steps-tip .steps-tip-bg h3 {
+.steps-tip .steps-tip-bg .step-tip-h {
   font-size: 22px;
   font-weight: bold;
   margin-top: 12px;
@@ -6355,14 +6354,14 @@ a.time-trigger:hover {
   line-height: 30px;
   margin-left: 22px;
 }
-.emp-model-h .emp-assign-flag {
+.emp-assign-flag {
   display: inline-block;
   width: 14px;
   height: 14px;
   vertical-align: middle;
   background: #0000FF;
 }
-.emp-model-h .emp-ctrl {
+.emp-ctrl {
   float: right;
   display: block;
   width: 20px;
@@ -6370,13 +6369,13 @@ a.time-trigger:hover {
   border: 0;
   margin-top: 5px;
 }
-.emp-model-h .emp-ctrl + .emp-ctrl {
+.emp-ctrl + .emp-ctrl {
   margin-right: 5px;
 }
-.emp-model-h .emp-delete {
+.emp-delete {
   background: #ffff00;
 }
-.emp-model-h .emp-edit {
+.emp-edit {
   background: #ffff00;
 }
 .emp-model-m {
@@ -6384,11 +6383,11 @@ a.time-trigger:hover {
   height: 184px;
   overflow: hidden;
 }
-.emp-model-m .emp-headImg {
+.emp-headImg {
   float: left;
   margin: 0 15px 0 0;
 }
-.emp-model-m .emp-info {
+.emp-info {
   float: left;
   line-height: 1.6em;
 }
@@ -6480,6 +6479,10 @@ a.time-trigger:hover {
 .emp-no-model-b {
   height: 49px;
 }
+.emp-head-upload h3 {
+  font-size: 16px;
+  font-weight: bold;
+}
 .register-wrap {
   height: 100%;
   position: relative;
@@ -6530,12 +6533,12 @@ a.time-trigger:hover {
   vertical-align: middle;
   text-align: center;
 }
-.brand-head h3 {
+.brand-head h1 {
   font-size: 50px;
   margin: 0;
   margin-bottom: 16px;
 }
-.brand-head h4 {
+.brand-head p {
   font-size: 30px;
   margin: 0;
 }
