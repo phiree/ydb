@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HttpHelper.cs" />
     <Compile Include="IOHelper.cs" />
     <Compile Include="MusicPlayer.cs" />
     <Compile Include="NetHelper.cs" />
