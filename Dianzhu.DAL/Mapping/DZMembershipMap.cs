@@ -45,4 +45,23 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.CSId);
          }
     }
+
+    public class DZMembershipWeChatMap : SubclassMap<DZMembershipWeChat>
+    {
+        public DZMembershipWeChatMap()
+        {
+            Map(x => x.AccessToken);
+            Map(x => x.ExpiresIn);
+            Map(x => x.RefreshToken);
+            Map(x => x.OpenId);
+            Map(x => x.Scope);
+            Map(x => x.Unionid);
+            Map(x => x.NickName);
+            Map(x => x.Sex);
+            Map(x => x.Province);
+            Map(x => x.City);
+            Map(x => x.Country);
+            Map(x => x.Headimgurl);
+        }
+    }
 }

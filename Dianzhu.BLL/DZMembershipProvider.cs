@@ -288,7 +288,7 @@ namespace Dianzhu.BLL
             createStatus = MembershipCreateStatus.ProviderError;
             var savedUserName = !string.IsNullOrEmpty(userName) ? userName : string.IsNullOrEmpty(userPhone) ? userEmail : userPhone;
             string userNameForOpenfire = savedUserName;
-            //验证url
+           
             Guid validateCode = Guid.Empty;
             if (System.Text.RegularExpressions.Regex.IsMatch(savedUserName, @".+@.+\..+"))
             {
@@ -346,6 +346,14 @@ namespace Dianzhu.BLL
                 return newMember;
             }
         }
+        public void CreateUserForU3rd(DZMembership member)
+        {
+            DALMembership.SaveOrUpdate(member);
+        }
+        public DZMembership GetUserByWechatOpenId(string openid)
+        {
+            return DALMembership.GetMemberByWechatOpenId(openid);
+        }
         public virtual DZMembership GetUserByName(string name)
         {
             return DALMembership.GetMemberByName(name);
@@ -375,6 +383,8 @@ namespace Dianzhu.BLL
             return DALMembership.GetMemberByPhone(phone);
         }
         #endregion
+
+
     }
 
     

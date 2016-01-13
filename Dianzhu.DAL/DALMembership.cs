@@ -82,6 +82,10 @@ namespace Dianzhu.DAL
         {
           return  Session.QueryOver<Model.DZMembership>().Where(x => x.Email == email).SingleOrDefault();
         }
+        public Model.DZMembership GetMemberByWechatOpenId(string openid)
+        {
+            return Session.QueryOver<Model.DZMembershipWeChat>().Where(x => x.OpenId == openid).SingleOrDefault();
+        }
         public Model.DZMembership GetMemberByPhone(string phone)
         { return Session.QueryOver<Model.DZMembership>().Where(x => x.Phone == phone).SingleOrDefault(); }
 

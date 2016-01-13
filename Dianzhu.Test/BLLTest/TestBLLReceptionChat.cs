@@ -29,11 +29,5 @@ namespace Dianzhu.Test.BLLTest
             Assert.AreNotEqual(chat.Count, 0);
 
         }
-        [Test]
-        public void GetListTest()
-        {
-            DAL.DALReceptionChatDD dal = new DALReceptionChatDD();
-            dal.GetListByFrom(null);
-        }
     }
 }
