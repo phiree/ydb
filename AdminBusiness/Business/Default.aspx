@@ -11,8 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
-    <script src="/js/html5shiv.min.js"></script>
-    <script src="/js/respond.min.js"></script>
+    <!--<script src="/js/html5shiv.min.js"></script>-->
+    <!--<script src="/js/respond.min.js"></script>-->
 </head>
 <body>
     <div class="wrap">

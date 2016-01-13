@@ -25,7 +25,7 @@
   font-family: "Microsoft YaHei", "微软雅黑", "黑体", "宋体", sans-serif;
   font-size: 27px;
   font-weight: 700;
-  color: #444444;
+  color: #444;
 }
 .navbar .navbar-brand.brand-logo {
   display: table;
@@ -39,23 +39,23 @@
   background: url("../images/common/logo/logo_top_32x32.png") no-repeat center;
 }
 .navbar .navbar-brand.brand-h {
-  text-shadow: 0 1px 0 #e2e2e2;
+  text-shadow: 0 1px 0 #E2E2E2;
 }
 .navbar .navbar-brand:hover {
-  color: #444444;
+  color: #444;
 }
 .navbar .navbar-nav {
   font-size: 16px;
   margin-right: 0;
-  color: #444444;
-  text-shadow: 0 1px 0 #e2e2e2;
+  color: #444;
+  text-shadow: 0 1px 0 #E2E2E2;
 }
 .navbar .navbar-nav > li {
   padding: 20px 10px 0 10px;
 }
 .navbar .navbar-nav > li a {
   display: block;
-  color: #444444;
+  color: #444;
   padding: 0;
   font-size: 16px;
   text-align: center;
@@ -160,7 +160,7 @@
 .tooltip-inner {
   max-width: 400px;
   padding: 13px 18px;
-  color: #666666;
+  color: #666;
   text-align: center;
   background-color: #f9faed;
   border: 1px solid #fdeb96;
@@ -281,7 +281,7 @@ fieldset[disabled] a.btn {
 /* 编辑类按钮 */
 a.btn-info,
 .btn-info {
-  color: #ffffff;
+  color: #fff;
   background-color: #64c6f8;
   border-color: transparent;
   background: #64c6f8;
@@ -299,13 +299,13 @@ a.btn-info:focus,
 .btn-info:focus,
 a.btn-info.focus,
 .btn-info.focus {
-  color: #ffffff;
+  color: #fff;
   background-color: #64c6f8;
   border-color: transparent;
 }
 a.btn-info:hover,
 .btn-info:hover {
-  color: #ffffff;
+  color: #fff;
   background-color: #7ccff9;
   border-color: rgba(0, 0, 0, 0);
 }
@@ -315,7 +315,7 @@ a.btn-info.active,
 .btn-info.active,
 .open > .dropdown-togglea.btn-info,
 .open > .dropdown-toggle.btn-info {
-  color: #ffffff;
+  color: #fff;
   background-color: #64c6f8;
   border-color: transparent;
 }
@@ -337,7 +337,7 @@ a.btn-info.active.focus,
 .btn-info.active.focus,
 .open > .dropdown-togglea.btn-info.focus,
 .open > .dropdown-toggle.btn-info.focus {
-  color: #ffffff;
+  color: #fff;
   background-color: #64c6f8;
   border-color: transparent;
 }
@@ -391,12 +391,12 @@ fieldset[disabled] .btn-info.active {
 a.btn-info .badge,
 .btn-info .badge {
   color: #64c6f8;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 /* 取消类按钮 */
 a.btn-cancel,
 .btn-cancel {
-  color: #ffffff;
+  color: #fff;
   background-color: #afafaf;
   border-color: transparent;
   background: #afafaf;
@@ -414,13 +414,13 @@ a.btn-cancel:focus,
 .btn-cancel:focus,
 a.btn-cancel.focus,
 .btn-cancel.focus {
-  color: #ffffff;
+  color: #fff;
   background-color: #afafaf;
   border-color: transparent;
 }
 a.btn-cancel:hover,
 .btn-cancel:hover {
-  color: #ffffff;
+  color: #fff;
   background-color: #bcbcbc;
   border-color: rgba(0, 0, 0, 0);
 }
@@ -430,7 +430,7 @@ a.btn-cancel.active,
 .btn-cancel.active,
 .open > .dropdown-togglea.btn-cancel,
 .open > .dropdown-toggle.btn-cancel {
-  color: #ffffff;
+  color: #fff;
   background-color: #afafaf;
   border-color: transparent;
 }
@@ -452,7 +452,7 @@ a.btn-cancel.active.focus,
 .btn-cancel.active.focus,
 .open > .dropdown-togglea.btn-cancel.focus,
 .open > .dropdown-toggle.btn-cancel.focus {
-  color: #ffffff;
+  color: #fff;
   background-color: #afafaf;
   border-color: transparent;
 }
@@ -506,36 +506,36 @@ fieldset[disabled] .btn-cancel.active {
 a.btn-cancel .badge,
 .btn-cancel .badge {
   color: #afafaf;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 /* 删除类按钮 */
 a.btn-delete,
 .btn-delete {
-  color: #ffffff;
-  background-color: #fdb2b2;
+  color: #fff;
+  background-color: #FDB2B2;
   border-color: transparent;
-  background: #fdb2b2;
+  background: #FDB2B2;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #fdb2b2 0%, #fc8080 100%);
+  background: -moz-linear-gradient(top, #FDB2B2 0%, #fc8080 100%);
   /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #fdb2b2 0%, #fc8080 100%);
+  background: -webkit-linear-gradient(top, #FDB2B2 0%, #fc8080 100%);
   /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #fdb2b2 0%, #fc8080 100%);
+  background: linear-gradient(to bottom, #FDB2B2 0%, #fc8080 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#fdb2b2, endColorstr=#fc8080, GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FDB2B2, endColorstr=#fc8080, GradientType=0);
   /* IE6-9 */
 }
 a.btn-delete:focus,
 .btn-delete:focus,
 a.btn-delete.focus,
 .btn-delete.focus {
-  color: #ffffff;
-  background-color: #fdb2b2;
+  color: #fff;
+  background-color: #FDB2B2;
   border-color: transparent;
 }
 a.btn-delete:hover,
 .btn-delete:hover {
-  color: #ffffff;
+  color: #fff;
   background-color: #fecbcb;
   border-color: rgba(0, 0, 0, 0);
 }
@@ -545,8 +545,8 @@ a.btn-delete.active,
 .btn-delete.active,
 .open > .dropdown-togglea.btn-delete,
 .open > .dropdown-toggle.btn-delete {
-  color: #ffffff;
-  background-color: #fdb2b2;
+  color: #fff;
+  background-color: #FDB2B2;
   border-color: transparent;
 }
 a.btn-delete:active:hover,
@@ -567,8 +567,8 @@ a.btn-delete.active.focus,
 .btn-delete.active.focus,
 .open > .dropdown-togglea.btn-delete.focus,
 .open > .dropdown-toggle.btn-delete.focus {
-  color: #ffffff;
-  background-color: #fdb2b2;
+  color: #fff;
+  background-color: #FDB2B2;
   border-color: transparent;
 }
 a.btn-delete:active,
@@ -615,29 +615,29 @@ a.btn-delete[disabled].active,
 .btn-delete[disabled].active,
 fieldset[disabled] a.btn-delete.active,
 fieldset[disabled] .btn-delete.active {
-  background-color: #fdb2b2;
+  background-color: #FDB2B2;
   border-color: transparent;
 }
 a.btn-delete .badge,
 .btn-delete .badge {
-  color: #fdb2b2;
-  background-color: #ffffff;
+  color: #FDB2B2;
+  background-color: #fff;
 }
 /* 可变按钮 */
 a.btn-down-info,
 .btn-down-info {
   color: #45b2e6;
-  background-color: #ffffff;
+  background-color: #fff;
   border-color: transparent;
-  background: #ffffff;
+  background: #fff;
   /* Old browsers */
-  background: -moz-linear-gradient(top, #ffffff 0%, #fcfcfc 100%);
+  background: -moz-linear-gradient(top, #fff 0%, #fcfcfc 100%);
   /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #ffffff 0%, #fcfcfc 100%);
+  background: -webkit-linear-gradient(top, #fff 0%, #fcfcfc 100%);
   /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #ffffff 0%, #fcfcfc 100%);
+  background: linear-gradient(to bottom, #fff 0%, #fcfcfc 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#fcfcfc, GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#fff, endColorstr=#fcfcfc, GradientType=0);
   /* IE6-9 */
 }
 a.btn-down-info:focus,
@@ -645,7 +645,7 @@ a.btn-down-info:focus,
 a.btn-down-info.focus,
 .btn-down-info.focus {
   color: #45b2e6;
-  background-color: #ffffff;
+  background-color: #fff;
   border-color: transparent;
 }
 a.btn-down-info:hover,
@@ -661,7 +661,7 @@ a.btn-down-info.active,
 .open > .dropdown-togglea.btn-down-info,
 .open > .dropdown-toggle.btn-down-info {
   color: #45b2e6;
-  background-color: #ffffff;
+  background-color: #fff;
   border-color: transparent;
 }
 a.btn-down-info:active:hover,
@@ -683,7 +683,7 @@ a.btn-down-info.active.focus,
 .open > .dropdown-togglea.btn-down-info.focus,
 .open > .dropdown-toggle.btn-down-info.focus {
   color: #45b2e6;
-  background-color: #ffffff;
+  background-color: #fff;
   border-color: transparent;
 }
 a.btn-down-info:active,
@@ -730,12 +730,12 @@ a.btn-down-info[disabled].active,
 .btn-down-info[disabled].active,
 fieldset[disabled] a.btn-down-info.active,
 fieldset[disabled] .btn-down-info.active {
-  background-color: #ffffff;
+  background-color: #fff;
   border-color: transparent;
 }
 a.btn-down-info .badge,
 .btn-down-info .badge {
-  color: #ffffff;
+  color: #fff;
   background-color: #45b2e6;
 }
 /* 文本按钮 */
@@ -956,7 +956,7 @@ a.btn-text-cancel .badge,
 /* 删除类按钮 */
 a.btn-text-delete,
 .btn-text-delete {
-  color: #fdb2b2;
+  color: #FDB2B2;
   background-color: transparent;
   border-color: transparent;
   text-shadow: none;
@@ -966,13 +966,13 @@ a.btn-text-delete:focus,
 .btn-text-delete:focus,
 a.btn-text-delete.focus,
 .btn-text-delete.focus {
-  color: #fdb2b2;
+  color: #FDB2B2;
   background-color: transparent;
   border-color: transparent;
 }
 a.btn-text-delete:hover,
 .btn-text-delete:hover {
-  color: #fdb2b2;
+  color: #FDB2B2;
   background-color: rgba(13, 13, 13, 0);
   border-color: rgba(0, 0, 0, 0);
 }
@@ -982,7 +982,7 @@ a.btn-text-delete.active,
 .btn-text-delete.active,
 .open > .dropdown-togglea.btn-text-delete,
 .open > .dropdown-toggle.btn-text-delete {
-  color: #fdb2b2;
+  color: #FDB2B2;
   background-color: transparent;
   border-color: transparent;
 }
@@ -1004,7 +1004,7 @@ a.btn-text-delete.active.focus,
 .btn-text-delete.active.focus,
 .open > .dropdown-togglea.btn-text-delete.focus,
 .open > .dropdown-toggle.btn-text-delete.focus {
-  color: #fdb2b2;
+  color: #FDB2B2;
   background-color: transparent;
   border-color: transparent;
 }
@@ -1058,7 +1058,7 @@ fieldset[disabled] .btn-text-delete.active {
 a.btn-text-delete .badge,
 .btn-text-delete .badge {
   color: transparent;
-  background-color: #fdb2b2;
+  background-color: #FDB2B2;
 }
 .btn-lg {
   padding: 16px 30px;
@@ -1567,35 +1567,35 @@ body {
 /* 全局标题样式 */
 .cont-h1 {
   font-size: 22px;
-  color: #444444;
+  color: #444;
   font-weight: bold;
   text-shadow: 0 1px 0 #fff;
 }
 .cont-h2 {
   font-size: 26px;
-  color: #444444;
+  color: #444;
   font-weight: bold;
   padding: 18px 0;
 }
 .cont-h3 {
   font-size: 24px;
-  color: #444444;
+  color: #444;
   font-weight: bold;
 }
 .cont-h4 {
   font-size: 20px;
-  color: #444444;
+  color: #444;
   line-height: 2em;
   font-weight: bold;
 }
 .cont-h5 {
   font-size: 16px;
-  color: #444444;
+  color: #444;
   font-weight: bold;
 }
 .cont-h6 {
   font-size: 14px;
-  color: #444444;
+  color: #444;
 }
 .cont-sub-title {
   color: #666;
@@ -5558,9 +5558,9 @@ a.time-trigger:hover {
 }
 .sidebar-title {
   display: inline-block;
-  color: #ffffff;
+  color: #fff;
   font-weight: 700;
-  text-shadow: 0 -1px 0 #000000;
+  text-shadow: 0 -1px 0 #000;
   vertical-align: middle;
   margin-left: 8px;
 }
@@ -5572,7 +5572,7 @@ a.time-trigger:hover {
 .sidebar-nav ul li {
   display: block;
   border-bottom: 1px solid #808080;
-  box-shadow: inset 0 -2px 0px -1px #333333;
+  box-shadow: inset 0 -2px 0px -1px #333;
   background: url("../images/common/sidebar/sidebar_li_bg.png") repeat-x;
 }
 .sidebar-nav ul li .item-icon {
@@ -5594,7 +5594,7 @@ a.time-trigger:hover {
   display: block;
   font-size: 16px;
   padding: 20px 20px;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
 }
 .sidebar-nav ul li a:hover,
@@ -5641,68 +5641,68 @@ a.time-trigger:hover {
   width: 440px;
   height: 30px;
   padding: 5px 10px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
-  background: #ffffff;
-  color: #444444;
+  background: #fff;
+  color: #444;
   font-size: 14px;
   vertical-align: middle;
   box-shadow: inset 0 1px 1px #898989;
 }
 .input-lg[type="text"]:focus {
-  background: #ffffff;
-  border: 1px solid #30cdff;
+  background: #fff;
+  border: 1px solid #30CDFF;
   box-shadow: 0 0 3px 0 #0f9ecc;
 }
 .input-mid[type="text"] {
   width: 170px;
   height: 30px;
   padding: 5px 10px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
-  background: #ffffff;
-  color: #444444;
+  background: #fff;
+  color: #444;
   font-size: 14px;
   vertical-align: middle;
   box-shadow: inset 0 1px 1px #898989;
 }
 .input-mid[type="text"]:focus {
-  background: #ffffff;
-  border: 1px solid #30cdff;
+  background: #fff;
+  border: 1px solid #30CDFF;
   box-shadow: 0 0 3px 0 #0f9ecc;
 }
 .input-sm[type="text"] {
   width: 100px;
   height: 30px;
   padding: 5px 10px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
-  background: #ffffff;
-  color: #444444;
+  background: #fff;
+  color: #444;
   font-size: 14px;
   vertical-align: middle;
   box-shadow: inset 0 1px 1px #898989;
 }
 .input-sm[type="text"]:focus {
-  background: #ffffff;
-  border: 1px solid #30cdff;
+  background: #fff;
+  border: 1px solid #30CDFF;
   box-shadow: 0 0 3px 0 #0f9ecc;
 }
 .input-fluid[type="text"] {
   width: 100%;
   height: 30px;
   padding: 5px 10px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
-  background: #ffffff;
-  color: #444444;
+  background: #fff;
+  color: #444;
   font-size: 14px;
   vertical-align: middle;
   box-shadow: inset 0 1px 1px #898989;
 }
 .input-fluid[type="text"]:focus {
-  background: #ffffff;
-  border: 1px solid #30cdff;
+  background: #fff;
+  border: 1px solid #30CDFF;
   box-shadow: 0 0 3px 0 #0f9ecc;
 }
 .input-textarea {
@@ -5710,17 +5710,17 @@ a.time-trigger:hover {
   width: 310px;
   height: 120px;
   padding: 5px 10px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
-  background: #ffffff;
-  color: #444444;
+  background: #fff;
+  color: #444;
   font-size: 14px;
   box-shadow: inset 0 1px 1px #898989;
   overflow-y: auto;
 }
 .input-textarea:focus {
-  background: #ffffff;
-  border: 1px solid #30cdff;
+  background: #fff;
+  border: 1px solid #30CDFF;
   box-shadow: 0 0 3px 0 #0f9ecc;
 }
 .input-textarea-lg {
@@ -5728,17 +5728,17 @@ a.time-trigger:hover {
   width: 440px;
   height: 120px;
   padding: 5px 10px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
-  background: #ffffff;
-  color: #444444;
+  background: #fff;
+  color: #444;
   font-size: 14px;
   box-shadow: inset 0 1px 1px #898989;
   overflow-y: auto;
 }
 .input-textarea-lg:focus {
-  background: #ffffff;
-  border: 1px solid #30cdff;
+  background: #fff;
+  border: 1px solid #30CDFF;
   box-shadow: 0 0 3px 0 #0f9ecc;
 }
 .input-textarea-fluid {
@@ -5746,17 +5746,17 @@ a.time-trigger:hover {
   width: 100%;
   height: 120px;
   padding: 5px 10px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
-  background: #ffffff;
-  color: #444444;
+  background: #fff;
+  color: #444;
   font-size: 14px;
   box-shadow: inset 0 1px 1px #898989;
   overflow-y: auto;
 }
 .input-textarea-fluid:focus {
-  background: #ffffff;
-  border: 1px solid #30cdff;
+  background: #fff;
+  border: 1px solid #30CDFF;
   box-shadow: 0 0 3px 0 #0f9ecc;
 }
 /*select 初始化样式*/
@@ -5764,11 +5764,11 @@ a.time-trigger:hover {
   display: inline-block;
   width: 100px;
   height: 30px;
-  color: #444444;
+  color: #444;
   position: relative;
-  background: #ffffff;
+  background: #fff;
   vertical-align: middle;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
   font-size: 14px;
   box-shadow: inset 0 1px 1px #898989;
@@ -5785,9 +5785,9 @@ a.time-trigger:hover {
   line-height: 30px;
   position: absolute;
   width: 100px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   z-index: 10;
-  background: #ffffff;
+  background: #fff;
   display: none;
   margin-left: -1px;
 }
@@ -5796,18 +5796,18 @@ a.time-trigger:hover {
   text-indent: 0.8em;
 }
 .select-sm a:hover {
-  background: #eeeeee;
-  color: #444444;
+  background: #eee;
+  color: #444;
 }
 .select-mid {
   display: inline-block;
   width: 170px;
   height: 30px;
-  color: #444444;
+  color: #444;
   position: relative;
-  background: #ffffff;
+  background: #fff;
   vertical-align: middle;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
   font-size: 14px;
   box-shadow: inset 0 1px 1px #898989;
@@ -5824,9 +5824,9 @@ a.time-trigger:hover {
   line-height: 30px;
   position: absolute;
   width: 170px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   z-index: 10;
-  background: #ffffff;
+  background: #fff;
   display: none;
   margin-left: -1px;
 }
@@ -5835,18 +5835,18 @@ a.time-trigger:hover {
   text-indent: 0.8em;
 }
 .select-mid a:hover {
-  background: #eeeeee;
-  color: #444444;
+  background: #eee;
+  color: #444;
 }
 .select-lg {
   display: inline-block;
   width: 440px;
   height: 30px;
-  color: #444444;
+  color: #444;
   position: relative;
-  background: #ffffff;
+  background: #fff;
   vertical-align: middle;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
   font-size: 14px;
   box-shadow: inset 0 1px 1px #898989;
@@ -5863,9 +5863,9 @@ a.time-trigger:hover {
   line-height: 30px;
   position: absolute;
   width: 440px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   z-index: 10;
-  background: #ffffff;
+  background: #fff;
   display: none;
   margin-left: -1px;
 }
@@ -5874,18 +5874,18 @@ a.time-trigger:hover {
   text-indent: 0.8em;
 }
 .select-lg a:hover {
-  background: #eeeeee;
-  color: #444444;
+  background: #eee;
+  color: #444;
 }
 .select-fluid {
   display: inline-block;
   width: 100%;
   height: 30px;
-  color: #444444;
+  color: #444;
   position: relative;
-  background: #ffffff;
+  background: #fff;
   vertical-align: middle;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
   font-size: 14px;
   box-shadow: inset 0 1px 1px #898989;
@@ -5902,9 +5902,9 @@ a.time-trigger:hover {
   line-height: 30px;
   position: absolute;
   width: 100%;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   z-index: 10;
-  background: #ffffff;
+  background: #fff;
   display: none;
   margin-left: -1px;
 }
@@ -5913,8 +5913,8 @@ a.time-trigger:hover {
   text-indent: 0.8em;
 }
 .select-fluid a:hover {
-  background: #eeeeee;
-  color: #444444;
+  background: #eee;
+  color: #444;
 }
 /*设置下拉选框宽高*/
 .years-select ul {
@@ -6256,17 +6256,17 @@ a.time-trigger:hover {
   width: 370px;
   height: 30px;
   padding: 5px 10px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
-  background: #ffffff;
-  color: #444444;
+  background: #fff;
+  color: #444;
   font-size: 14px;
   vertical-align: middle;
   box-shadow: inset 0 1px 1px #898989;
 }
 .newBiz-m input[type="text"]:focus {
-  background: #ffffff;
-  border: 1px solid #30cdff;
+  background: #fff;
+  border: 1px solid #30CDFF;
   box-shadow: 0 0 3px 0 #0f9ecc;
 }
 .newBiz-m textarea {
@@ -6274,17 +6274,17 @@ a.time-trigger:hover {
   width: 370px;
   height: 120px;
   padding: 5px 10px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #E2E2E2;
   border-radius: 5px;
-  background: #ffffff;
-  color: #444444;
+  background: #fff;
+  color: #444;
   font-size: 14px;
   box-shadow: inset 0 1px 1px #898989;
   overflow-y: auto;
 }
 .newBiz-m textarea:focus {
-  background: #ffffff;
-  border: 1px solid #30cdff;
+  background: #fff;
+  border: 1px solid #30CDFF;
   box-shadow: 0 0 3px 0 #0f9ecc;
 }
 /* 空店铺时添加样式 */
@@ -6323,6 +6323,162 @@ a.time-trigger:hover {
   width: 250px;
   line-height: 1.4em;
   word-break: break-all;
+}
+.emp-model {
+  border-radius: 5px;
+  overflow: hidden;
+  background: #f6f6f6;
+  border: 1px solid #C7C7C7;
+}
+.emp-model-h {
+  height: 30px;
+  padding: 0 15px;
+  line-height: 30px;
+  box-shadow: 0 3px 3px #e7e7e7;
+  border-bottom: 1px solid #C7C7C7;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
+  background: #f7f7f7;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+  /* IE6-9 */
+}
+.emp-model-h h3 {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 30px;
+  margin-left: 22px;
+}
+.emp-model-h .emp-assign-flag {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  background: #0000FF;
+}
+.emp-model-h .emp-ctrl {
+  float: right;
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  margin-top: 5px;
+}
+.emp-model-h .emp-ctrl + .emp-ctrl {
+  margin-right: 5px;
+}
+.emp-model-h .emp-delete {
+  background: #ffff00;
+}
+.emp-model-h .emp-edit {
+  background: #ffff00;
+}
+.emp-model-m {
+  padding: 22px 28px;
+  height: 184px;
+  overflow: hidden;
+}
+.emp-model-m .emp-headImg {
+  float: left;
+  margin: 0 15px 0 0;
+}
+.emp-model-m .emp-info {
+  float: left;
+  line-height: 1.6em;
+}
+.emp-model-b {
+  height: 49px;
+  line-height: 49px;
+  text-align: center;
+  box-shadow: 0 3px 3px #e7e7e7;
+  border-top: 1px solid #C7C7C7;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
+  background: #f7f7f7;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+  /* IE6-9 */
+}
+.emp-assign {
+  width: 110px;
+  height: 28px;
+  border: 1px solid #C7C7C7;
+  border-radius: 14px;
+  font-weight: bold;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
+  background: #ffffff;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+  /* IE6-9 */
+}
+.emp-assign.assigned {
+  color: #ff524f;
+}
+.emp-assign.noAssign {
+  color: #55a8b5;
+}
+.emp-assign:hover,
+.emp-assign:focus {
+  border: 1px solid #C7C7C7;
+}
+.emp-no-model {
+  border-radius: 5px;
+  overflow: hidden;
+  background: transparent;
+  border: 1px dashed #C7C7C7;
+}
+.emp-no-model-h {
+  height: 30px;
+  line-height: 30px;
+  border-bottom: 1px dashed #C7C7C7;
+  background: transparent;
+}
+.emp-no-model-h h3 {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 30px;
+  margin-left: 22px;
+}
+.emp-no-model-m {
+  padding: 22px 28px;
+  height: 184px;
+  text-align: center;
+}
+.emp-no-model-m .btn {
+  padding: 5px 25px;
+  color: #666;
+  font-size: 16px;
+  text-shadow: 0 1px 0 #fff;
+  background: #ffffff;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 1px solid #DADADA;
+  background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+  margin-top: 64px;
+}
+.emp-no-model-b {
+  height: 49px;
 }
 .register-wrap {
   height: 100%;
@@ -7074,3 +7230,4 @@ a.doReg-forget {
   height: 320px;
 }
 /*服务页面地图样式*/
+/*# sourceMappingURL=../../../../../../Program Files (x86)/nodejs/main.map */

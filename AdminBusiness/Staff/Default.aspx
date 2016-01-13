@@ -7,81 +7,52 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="content">
-        <div class="content-head">
-            <a class="btn btn-info" href="Edit.aspx?businessid=<%=Request["businessid"] %>"><span class="add-inco">+</span>添加新员工</a>
+        <div class="content-head normal-head">
+            <h3>员工管理</h3>
         </div>
         <div class="content-main">
             <div id="employee-list" class="animated fadeInUpSmall">
                 <div class="container-fluid">
                     <div class="row">
-                        <asp:Repeater runat="server" ID="rptStaff" OnItemCommand="rptStaff_ItemCommand">
-                            <ItemTemplate>
-                                <div class="col-md-3">
-                                    <div class="card-container manual-flip">
-                                        <div class="card">
-                                            <div class="card-front">
-                                                <div class="card-cover">
-                                                    <img src="/image/employee/rotating_card_thumb.png"/>
-                                                </div>
-                                                <div class="card-user" >
-                                                    <img class="img-circle" src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/image/emp-headinco.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=120&height=120&tt=3)"%>  '/>
-                                                </div>
-                                                <div class="card-content">
-                                                    <div class="card-main">
-                                                        <h3 class="card-name"><%#Eval("Name") %></h3>
-                                                        <p class="card-profession"><%#Eval("Code") %></p>
-                                                        <h5>姓名：<%#Eval("NickName") %></h5>
-                                                        <h5>性别：<%#Eval("Gender")%></h5>
-                                                        <h5>电话：<%#Eval("Phone")%></h5>
-                                                        <div class='png-assign <%# (bool)Eval("IsAssigned")?"assigned":"noassign" %>'></div>
-                                                    </div>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <input type="button" staffid='<%#Eval("id") %>' class='btnAssign btn <%# (bool)Eval("IsAssigned")?" btn-text-cancel":" btn-text-info" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <a class="btn btn-text-info btn-flip">
-                                                                详情 <i class="glyphicon glyphicon-share-alt"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> <!-- end front panel -->
-                                            <div class="card-back">
-                                                <div class="card-header">
-                                                    <h5 class="card-motto">员工详情</h5>
-                                                </div>
-                                                <div class="card-content">
-                                                    <div class="card-main">
-                                                        <h4 class="text-center text-remark">备注</h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="btn btn-text-cancel btn-flip">
-                                                                <i class="glyphicon glyphicon-arrow-left"></i> 返回
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4" >
-                                                            <div class="btn btn-text-info" onclick='listHref("edit.aspx?id=<%#Eval("id") %>&businessid=<%=Request["businessid"] %>")'>
-                                                                <i class="fa fa-reply"></i> 编辑
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <asp:Button runat="server" CssClass="btn btn-text-delete"  CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" Text="删除"/>
-                                                        </div>
-                                                    </div>
+                        <div class="col-md-12">
+                            <asp:Repeater runat="server" ID="rptStaff" OnItemCommand="rptStaff_ItemCommand">
+                                <ItemTemplate>
+                                    <div class="col-md-3">
+                                        <div class="emp-model">
+                                            <div class="emp-model-h">
+                                                <span>员工编号:&nbsp;</span><span class="emp-code"><%#Eval("Code") %></span>
+                                                <div class='emp-assign-flag <%# (bool)Eval("IsAssigned")?"assigned":"noAssign" %>'></div>
+                                                <asp:Button runat="server" CssClass="emp-ctrl emp-delete"  CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" title="删除"/>
+                                                <a class="emp-ctrl emp-edit" href='edit.aspx?id=<%# Eval("id") %>&businessid=<%=Request["businessid"] %>' title="编辑" ></a>
+                                            </div>
+                                            <div class="emp-model-m">
+                                                <img class="emp-headImg" src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/images/common/emp-headicon.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=120&height=120&tt=3)"%>  '/>
+                                                <div class="emp-info">
+                                                    <p>姓名：<%#Eval("Name") %></p>
+                                                    <p>工龄：</p>
+                                                    <p>性别：<%#Eval("Gender")%></p>
+                                                    <p>电话：<%#Eval("Phone")%></p>
+                                                    <p>特长技能：</p>
                                                 </div>
                                             </div>
-                                        </div> <!-- end back panel -->
-                                    </div> <!-- end card -->
-                                </div> <!-- end card-container -->
-                            </ItemTemplate>
-                        </asp:Repeater>
+                                            <div class="emp-model-b">
+                                                <input type="button" staffId='<%#Eval("id") %>' class='btnAssign emp-assign <%# (bool)Eval("IsAssigned")?"assigned":"noAssign" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/>
+                                            </div>
+                                        </div>
+                                        <!--end emp-model-->
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                            <div class="col-md-3">
+                                <div class="emp-no-model">
+                                    <div class="emp-no-model-h"></div>
+                                    <div class="emp-no-model-m">
+                                        <a class="btn" href="Edit.aspx?businessid=<%=Request["businessid"] %>"><span class="add-inco">+</span>添加新员工</a>
+                                    </div>
+                                    <div class="emp-no-model-b"></div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="pageNum">
                             <UC:AspNetPager runat="server" FirstPageText="首页" NextPageText="下一页" PrevPageText="上一页" id="pager" PageSize="10" UrlPaging="true" LastPageText="尾页"></UC:AspNetPager>
                         </div>
@@ -96,62 +67,19 @@
         </Columns>
     </asp:GridView>
         <script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
-        <script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jqueryui/themes/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
-        <script type="text/javascript" src="/js/TabSelection.js" ></script>
-        <script type="text/javascript" src="/js/jquery.lightbox_me.js" ></script>
         <script type="text/javascript">
-            function listHref(url) {
+//            function listHref(url) {
 //                var eve = window.event || arguments.callee.caller.arguments[0];
 //                var $target = $(eve.target);
 //                if ($target.hasClass("btn")) {
 //                    return false
 //                } else if (eve.target == eve.target) {
-                    window.location.href = url;
+//                    window.location.href = url;
 //                };
-            }
+//            }
 
             $().ready(function(){
                 $('[rel="tooltip"]').tooltip();
-
-            });
-
-            $(".btn-flip").bind("click",function(){
-                var $this = $(this);
-                var $card = $this.parents(".card-container");
-                var $cardBack = $card.find(".card-back");
-                if ($card.hasClass('hover')) {
-                    $cardBack.removeClass('card-back-hover');
-                    $card.removeClass('hover')
-                } else {
-                    $cardBack.addClass('card-back-hover');
-                    $card.addClass('hover')
-                }
-                return false;
-            });
-
-            $(function () {
-
-//                if ($("#emp-list").find(".card").length == 0) {
-//                    $("#add-view-emp").removeClass("dis-n");
-//                } else {
-//                    $("#emp-list").removeClass("dis-n");
-//                }
-
-
-                /* 当鼠标移到表格上是，当前一行背景变色 */
-                $(".emp-table tr td").mouseover(function () {
-                    $(this).parent().find("td").css("background-color", "#b0d3f5");
-                });
-                /* 当鼠标在表格上移动时，离开的那一行背景恢复 */
-                $(".emp-table tr td").mouseout(function () {
-                    var bgc = $(this).parent().attr("bg");
-                    $(this).parent().find("td").css("background-color", bgc);
-                });
-                var color = "#f1f4f7"
-                $(".emp-table tr:odd td").css("background-color", color);  //改变奇数行背景色
-                /* 把背景色保存到属性中 */
-                $(".emp-table tr:odd").attr("bg", color);
-                $(".emp-table tr:even").attr("bg", "#fff");
 
             });
 
@@ -161,28 +89,23 @@
                     {
                         "changed_field": "assign",
                         "changed_value": false,
-                        "id": $this.attr("staffid")
+                        "id": $this.attr("staffId")
                     }, function (data) {
                         var enabled = data.data;
-                        var $card = $this.parents(".card-container");
-                        var $assign = $card.find(".png-assign");
-                        if (enabled == "True") {
-                            $this.siblings("span").html("已指派");
+                        var $card = $this.parents(".emp-model");
+                        var $assignFlag = $card.find(".emp-assign-flag");
+                        if ( enabled == "True" ) {
                             $this.val("取消指派");
-                            $this.addClass("btn-text-cancel").removeClass("btn-text-info");
-                            $assign.addClass("assigned").removeClass("noassign");
+                            $this.addClass("assigned").removeClass("noAssign");
+                            $assignFlag.addClass("assigned").removeClass("noAssign");
                         }
                         else {
-                            $this.siblings("span").html("未指派");
                             $this.val("指派");
-                            $this.addClass("btn-text-info").removeClass("btn-text-cancel");
-                            $assign.removeClass("assigned").addClass("noassign");
+                            $this.removeClass("assigned").addClass("noAssign");
+                            $assignFlag.removeClass("assigned").addClass("noAssign");
                         }
-
                     });
             });
-
-
         </script>
 
 </asp:Content>
