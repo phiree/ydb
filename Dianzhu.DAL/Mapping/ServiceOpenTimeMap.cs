@@ -14,7 +14,7 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             Map(x => x.Enabled);
             Map(x => x.DayOfWeek).CustomType<int>();
-
+            Map(x => x.MaxOrderForDay);
             HasMany<ServiceOpenTimeForDay>(x => x.OpenTimeForDay).Cascade.All().Not.LazyLoad();
             
 
@@ -30,6 +30,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.PeriodEnd);
             Map(x => x.TimeEnd);
             Map(x => x.TimeStart);
+            Map(x => x.MaxOrderForOpenTime);
              
 
         }

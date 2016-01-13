@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
+ 
 using System.Text;
 
 namespace PHSuit
@@ -15,6 +15,7 @@ namespace PHSuit
             var responseString = string.Empty;
             using (var wb = new WebClient())
             {
+                wb.Encoding = Encoding.UTF8;
                 switch (type.ToLower())
                 {
                     case "get":

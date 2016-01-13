@@ -233,6 +233,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "dianzhu_adminbusiness_mvc",
 		SlnRelativePath = "..\publish\dianzhu_adminbusiness_mvc\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.RestAPI", "Dianzhu.RestAPI\Dianzhu.RestAPI.csproj", "{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -575,6 +577,18 @@ Global
 		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|x86.ActiveCfg = Debug|Any CPU
 		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|x86.Build.0 = Debug|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Debug|x86.Build.0 = Debug|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Release|x86.ActiveCfg = Release|Any CPU
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -613,6 +627,7 @@ Global
 		{D3820846-BAD7-49E9-8BCF-D5EF26579350} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{489E4EB5-E576-4AB0-9B45-FB015A8C84F5} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{8F7D2A86-E244-4D57-9BC7-87981FECE50B} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{53A2C543-D792-4D2C-A0AA-AE426B61B8E6} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

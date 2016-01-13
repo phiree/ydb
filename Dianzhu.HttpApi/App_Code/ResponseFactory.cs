@@ -79,6 +79,8 @@ public class ResponseFactory
 
             case "ofp001001":
                 return new ResponseOFP001001(request);
+            case "slf001007":
+                return new ResponseSLF001007(request);
 
             default:
                 BaseResponse baeResponse = new BaseResponse(request);
