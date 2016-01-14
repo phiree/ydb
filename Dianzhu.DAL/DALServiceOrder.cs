@@ -112,7 +112,7 @@ namespace Dianzhu.DAL
         {
             var orderList = Session.QueryOver<ServiceOrder>()
                  .Where(x => x.Service == service)
-                 //.And(x => x.OrderCreated.Date == dateTime.Date)
+                 .And(x => x.OrderCreated.Date == dateTime.Date)
                  .List();
             return orderList;
         }
