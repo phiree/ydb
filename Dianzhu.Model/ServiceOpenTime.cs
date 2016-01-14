@@ -61,6 +61,7 @@ namespace Dianzhu.Model
         /// 该事件段内的最大接单数量
         /// </summary>
         public virtual int MaxOrderForOpenTime { get; set; }
+        public virtual bool Enabled { get; set; }
         string timeStart;
         string timeEnd;
         int periodStart, periodEnd;

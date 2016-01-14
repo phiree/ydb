@@ -10,14 +10,14 @@ namespace Dianzhu.DAL
 {
     public class DALServiceOrder : DALBase<ServiceOrder>
     {
-         public DALServiceOrder()
+        public DALServiceOrder()
         {
-            
+
         }
         //注入依赖,供测试使用;
-         public DALServiceOrder(string fortest):base(fortest)
+        public DALServiceOrder(string fortest) : base(fortest)
         {
-            
+
         }
         public IList<ServiceOrder> GetListByUser(Guid userId)
         {
@@ -41,10 +41,10 @@ namespace Dianzhu.DAL
                 case enum_OrderSearchType.Nt:
                     iqueryover = iqueryover.Where(
                         x => x.OrderStatus != enum_OrderStatus.Draft
-                        && x.OrderStatus!= enum_OrderStatus.Finished
-                        && x.OrderStatus!= enum_OrderStatus.Aborded
-                        && x.OrderStatus!= enum_OrderStatus.Appraise
-                        && x.OrderStatus!=enum_OrderStatus.Search
+                        && x.OrderStatus != enum_OrderStatus.Finished
+                        && x.OrderStatus != enum_OrderStatus.Aborded
+                        && x.OrderStatus != enum_OrderStatus.Appraise
+                        && x.OrderStatus != enum_OrderStatus.Search
                     );
                     break;
                 default:
@@ -61,13 +61,13 @@ namespace Dianzhu.DAL
         }
         public int GetServiceOrderCount(Guid userId, enum_OrderSearchType searchType)
         {
-          var  iqueryover = GetList(userId, searchType);
+            var iqueryover = GetList(userId, searchType);
             int rowCount = iqueryover.RowCount();
             return rowCount;
         }
 
 
-        public  IList<ServiceOrder> GetServiceOrderList(Guid userId, enum_OrderSearchType searchType, int pageNum, int pageSize)
+        public IList<ServiceOrder> GetServiceOrderList(Guid userId, enum_OrderSearchType searchType, int pageNum, int pageSize)
         {
             var iqueryover = GetList(userId, searchType);
             var result = iqueryover.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
@@ -77,7 +77,7 @@ namespace Dianzhu.DAL
         public IList<ServiceOrder> GetListForBusiness(Business business)
         {
             string sql = " select so  from  ServiceOrder so  " +
-                " left join so.Service s  "+
+                " left join so.Service s  " +
                 " left join s.Business b ";
 
             IQuery query = Session.CreateQuery(sql);
@@ -91,7 +91,7 @@ namespace Dianzhu.DAL
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public ServiceOrder GetDraftOrder(DZMembership c,DZMembership cs)
+        public ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
         {
             var order = Session.QueryOver<ServiceOrder>().
                 Where(x => x.Customer == c).
@@ -106,6 +106,15 @@ namespace Dianzhu.DAL
             {
                 return null;
             }
+        }
+
+        public IList<ServiceOrder> GetOrderListByDate(DZService service, DateTime dateTime)
+        {
+            var orderList = Session.QueryOver<ServiceOrder>()
+                 .Where(x => x.Service == service)
+                 //.And(x => x.OrderCreated.Date == dateTime.Date)
+                 .List();
+            return orderList;
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.TimeEnd);
             Map(x => x.TimeStart);
             Map(x => x.MaxOrderForOpenTime);
+            Map(x => x.Enabled);
              
 
         }
