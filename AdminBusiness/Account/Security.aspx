@@ -7,74 +7,51 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-     
-    <div class="cont-wrap secret-wrap">
-        <div class="mh-in">
-            <div class="cont-title">
-                <h1 class="cont-h1 fu-cont-h1">账号安全</h1>
+    <div class="secret-layout-fixed">
+        <div class="content">
+            <div class="content-head normal-head">
+                <h3>账号安全</h3>
             </div>
-            <div class="cont-container">
-                <div class="cont-row secret-row">
-                    <div class="cont-col-12 standard-cont">
-                        <p class="fu-cont-sub-title fu-top-height">您的基础信息</p>
-                        <div class="cont-row">
-                            <div class="cont-col-2">
-                                <p class="secret-d-t">登录账号:</p>
-                            </div>
-                            <div class="cont-col-3">
-                                <span><%=CurrentUser.UserName%></span>
-                            </div>
-                        </div>
-                        <div class="cont-row">
-                            <div class="cont-col-2">
-                                <p class="secret-d-t">手机号码:</p>
-                            </div>
-                            <div class="cont-col-2"><span><%=CurrentUser.Phone%></span></div>
-                            <div class="cont-col-2"><a id="lb_changePhone" class="m-l20 blue-a" href="javascript:void(0);">修改</a></div>
-                        </div>
-                        <div class="cont-row">
-                            <div class="cont-col-2">
-                                <p class="secret-d-t">绑定邮箱:</p>
-                            </div>
-                            <div class="cont-col-2">
-                                <span id="currentUserEmail"><%=CurrentUser.Email%></span>
-                            </div>
-                            <div class="cont-col-2">
-                                <a id="lb_changeEmail" class="m-l20 blue-a" href="javascript:void(0);">修改</a>
-
-                            </div>
-                            <div class="cont-col-6">
-                            <p id="currentUserEmailVali" class="secret-d-a d-inb dis-n"><% if (CurrentUser.IsRegisterValidated)
-                               {%>已验证<%}
-                               else
-                               {%>
-                               <span>未验证</span><asp:Button runat="server" CssClass="reVali"  Text='重新发送验证链接'  ID='btnResendEmailVerify' OnClick="btnResendEmailVerify_Click"/>
-                              <%}%></p>
+            <div class="content-main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="model">
+                                <div class="model-h">
+                                    <h4>您的基础信息</h4>
+                                </div>
+                                <div class="model-m">
+                                    <div class="secret-pra">
+                                        <div><span class="secret-t">登录账号:</span><span class="secret-m"><%=CurrentUser.UserName%></span></div>
+                                    </div>
+                                    <div class="secret-pra">
+                                        <div><span class="secret-t">手机号码:</span><span class="secret-m"><%=CurrentUser.Phone%></span><a id="lb_changePhone" class="m-l20 secret-btn" href="javascript:void(0);">修改</a></div>
+                                        <div class="secret-tip"><span>（点击“修改”按钮可对手机号进行修改）</span></div>
+                                    </div>
+                                    <div class="secret-pra">
+                                        <div><span class="secret-t">绑定邮箱:</span><span class="secret-m" id="currentUserEmail"><span class="m-r20"><%=CurrentUser.Email%></span><span id="currentUserEmailVali" class="secret-d-a d-inb dis-n"><% if (CurrentUser.IsRegisterValidated){%>已验证<%}else{%><span class="text-r m-r10">未验证</span><asp:Button runat="server" CssClass="reVali  secret-btn"  Text='发送验证链接'  ID='btnResendEmailVerify' OnClick="btnResendEmailVerify_Click"/><%}%></span></span><a id="lb_changeEmail" class="m-l20 secret-btn" href="javascript:void(0);">修改</a></div>
+                                        <div class="secret-tip"><span>（点击“修改”按钮对邮箱进行修改，点击“重新发送连接”按钮重新发送连接）</span></div>
+                                    </div>
+                                    <div class="secret-pra">
+                                        <div><span class="secret-t">上次登陆:</span><span class="secret-m text-blue"><%=CurrentUser.LastLoginTime.ToString("yyyy年MM月dd日 HH:mm:ss")%></span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="cont-row">
-                            <div class="cont-col-2">
-                                <p class="secret-d-t">上次登陆:</p>
-                            </div>
-                            <div class="cont-col-10"><span><%=CurrentUser.LastLoginTime.ToString("yyyy年MM月dd日 HH:mm:ss")%></span></div>
-                        </div>
-
                     </div>
-                </div>
-                <div class="cont-row secret-row fu-secret-row">
-                    <div class="cont-col-12">
-                        <p class="fu-cont-sub-title">您的账安全信息</p>
-                        <div class="pass-row m-b20">
-                            <div class="cont-row">
-                                <div class="cont-col-2 fu-cont-div-right"><span class="secret-d-t">登陆密码&nbsp;:</span></div>
-                                <div class="cont-col-7"><p class="secret-d-p d-inb">设置安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</p></div>
-                                <div class="cont-col-3 t-c fu-cont-linehight"><a id="passChange" class="blue-a" href="javascript:void(0);">修改密码</a></div>
-                                <!--<div class="cont-col-2 fu-cont-div-center">-->
-                                    <!--<div class="secret-d-tip">-->
-                                        <!--<i class="icon secret-icon-1"></i>-->
-                                        <!--<span>强</span>-->
-                                    <!--</div>-->
-                                <!--</div>-->
+                    <div class="row model-row">
+                        <div class="col-md-9">
+                            <div class="model">
+                                <div class="model-h">
+                                    <h4>您的账安全信息</h4>
+                                </div>
+                                <div class="model-m">
+                                    <div>
+                                        <div><span class="secret-t">登陆密码&nbsp;: </span><span class="secret-m">****</span><a id="passChange" class="m-l20 secret-btn" href="javascript:void(0);">修改</a></div>
+                                        <div class="secret-tip"><span>（点击“修改”按钮可对手机号进行修改）</span></div>
+                                    </div>
+                                    <!--<p class="secret-d-p d-inb">设置安全性高的密码可以使账号更安全，建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位数的密码</p>-->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -143,16 +120,14 @@
                 </div>
             </div>
         </div>
-    <!--</div>-->
+
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" runat="Server">
-
-
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script type="text/javascript" src="/js/jquery.form.min.js"></script>
     <script type="text/javascript">
 
-        $('.secret-wrap').parent('.content').css({marginLeft:0});
+        $('.secret-layout-fixed').parent('.content-layout').css({marginLeft:0});
 
         $("#lb_changePhone").click(function (e) {
             $('#lightBox_ChangePhone').lightbox_me({

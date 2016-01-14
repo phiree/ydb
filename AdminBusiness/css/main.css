@@ -1678,6 +1678,12 @@ body {
   line-height: 1.5em;
   word-wrap: break-word;
 }
+.text-r {
+  color: #FF8661;
+}
+.text-blue {
+  color: #00BCD4;
+}
 /* 全局分隔符 */
 .d-hr {
   border-top: 1px solid #DADADA;
@@ -1695,8 +1701,6 @@ body {
   border: 1px solid #C7C7C7;
 }
 .model-h {
-  height: 30px;
-  line-height: 30px;
   box-shadow: 0 3px 3px #e7e7e7;
   border-bottom: 1px solid #C7C7C7;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
@@ -1712,8 +1716,9 @@ body {
   /* IE6-9 */
 }
 .model-h h4 {
+  color: #444;
   display: inline-block;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   line-height: 30px;
   margin-left: 22px;
@@ -1727,12 +1732,24 @@ body {
 .model-pra {
   margin-bottom: 34px;
 }
+.model-pra .model-pra-t {
+  font-size: 15px;
+  color: #444;
+  font-weight: bold;
+  margin-right: 20px;
+}
 .model-row {
   margin-top: 32px;
   margin-bottom: 32px;
 }
+.model-form {
+  padding-top: 34px;
+}
+.model-form.model-form-noTop {
+  padding-top: 0;
+}
 .model-form .model-form-group {
-  margin-bottom: 34px;
+  margin-bottom: 30px;
 }
 .model-form .model-label {
   font-size: 16px;
@@ -6787,5 +6804,35 @@ a.doReg-forget {
   width: 100%;
   height: 320px;
 }
-/*服务页面地图样式*/
+.secret-pra {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.secret-t {
+  display: inline-block;
+  width: 100px;
+}
+.secret-tip {
+  margin-left: 100px;
+  padding: 15px 0;
+}
+.secret-m {
+  display: inline-block;
+  width: 350px;
+}
+.secret-btn {
+  padding: 5px 25px;
+  color: #666;
+  font-size: 14px;
+  text-shadow: 0 1px 0 #fff;
+  background: #ffffff;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 1px solid #DADADA;
+  background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+}
 /*# sourceMappingURL=../../../../../../Program Files (x86)/nodejs/main.map */

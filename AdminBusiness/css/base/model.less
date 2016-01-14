@@ -7,8 +7,6 @@
 }
 
 .model-h {
-  height: 30px;
-  line-height: 30px;
   box-shadow: 0 3px 3px #e7e7e7;
   border-bottom: 1px solid #C7C7C7;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
@@ -18,8 +16,9 @@
   background: linear-gradient(to bottom,  #f7f7f7 0%,#eaeaea 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
   h4{
+    color: #444;
     display: inline-block;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     line-height: 30px;
     margin-left: 22px;
@@ -35,6 +34,12 @@
 
 .model-pra {
   margin-bottom: 34px;
+  .model-pra-t {
+    font-size: 15px;
+    color: #444;
+    font-weight: bold;
+    margin-right: 20px;
+  }
 }
 
 .model-row {
@@ -43,8 +48,12 @@
 }
 
 .model-form {
+  padding-top: 34px;
+  &.model-form-noTop {
+    padding-top: 0;
+  }
   .model-form-group {
-    margin-bottom: 34px;
+    margin-bottom: 30px;
   }
 
   .model-label {

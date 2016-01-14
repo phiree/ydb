@@ -37,14 +37,14 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <p class="model-pra"><span class="cont-h5 m-r20">网址邮箱</span><%=string.IsNullOrEmpty(CurrentBusiness.WebSite)?"无" :CurrentBusiness.WebSite %></p>
-                                        <p class="model-pra"><span class="cont-h5 m-r20">联系电话</span><%=CurrentBusiness.Phone %></p>
-                                        <p class="model-pra"><span class="cont-h5 m-r20">店铺介绍</span><span class="text-breakWord"><%=CurrentBusiness.Description %></span></p>
+                                        <p class="model-pra"><span class="model-pra-t">网址邮箱</span><%=string.IsNullOrEmpty(CurrentBusiness.WebSite)?"无" :CurrentBusiness.WebSite %></p>
+                                        <p class="model-pra"><span class="model-pra-t">联系电话</span><%=CurrentBusiness.Phone %></p>
+                                        <p class="model-pra"><span class="model-pra-t">店铺介绍</span><span class="text-breakWord"><%=CurrentBusiness.Description %></span></p>
                                     </div>
                                     <div class="col-md-4">
-                                        <p class="model-pra"><span class="cont-h5 m-r20">从业时间</span><%=CurrentBusiness.WorkingYears %>&nbsp;年</p>
-                                        <p class="model-pra"><span class="cont-h5 m-r20">员工人数</span><%=CurrentBusiness.StaffAmount %>&nbsp;人</p>
-                                        <p class="model-pra"><span class="cont-h5 m-r20">店铺地址</span><%=string.IsNullOrEmpty( CurrentBusiness.Address )? "无" :
+                                        <p class="model-pra"><span class="model-pra-t">从业时间</span><%=CurrentBusiness.WorkingYears %>&nbsp;年</p>
+                                        <p class="model-pra"><span class="model-pra-t">员工人数</span><%=CurrentBusiness.StaffAmount %>&nbsp;人</p>
+                                        <p class="model-pra"><span class="model-pra-t">店铺地址</span><%=string.IsNullOrEmpty( CurrentBusiness.Address )? "无" :
                                             CurrentBusiness.Address %></p>
                                     </div>
 
@@ -53,13 +53,13 @@
                                 <div class="row model-row">
                                     <div class="col-md-1 model-img"></div>
                                     <div class="col-md-4">
-                                        <p class="model-pra"><span class="cont-h5 m-r20">店主姓名</span>
+                                        <p class="model-pra"><span class="model-pra-t">店主姓名</span>
                                             <%=CurrentBusiness.Contact %></p>
-                                        <p class="model-pra"><span class="cont-h5 m-r20">证件类型</span>
+                                        <p class="model-pra"><span class="model-pra-t">证件类型</span>
                                             <%=CurrentBusiness.ChargePersonIdCardType.ToString() %></p>
                                     </div>
                                     <div class="col-md-4">
-                                        <p class="model-pra"><span class="cont-h5 m-r20">证件号码</span><%=CurrentBusiness.ChargePersonIdCardNo %></p>
+                                        <p class="model-pra"><span class="model-pra-t">证件号码</span><%=CurrentBusiness.ChargePersonIdCardNo %></p>
                                     </div>
                                     <div class="col-md-3">
                                         <a class="btn btn-info" href="/Business/edit.aspx?businessId=<%=CurrentBusiness.Id %>">修改店铺信息</a>
