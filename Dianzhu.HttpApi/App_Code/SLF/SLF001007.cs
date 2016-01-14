@@ -23,7 +23,7 @@ public class ResponseSLF001007:BaseResponse
          
         //todo: 使用 ninject,注入依赖.
         BLLDZService bllService = new BLLDZService();
-        
+        BLLServiceOrder bllOrder = new BLLServiceOrder();
         DZService service = bllService.GetOne(new Guid(requestData.serviceId));
         //计算传入Date所在的周,以及该周内其余日期.
         List<DateTime> datesOfdate = new List<DateTime>();
@@ -43,6 +43,7 @@ public class ResponseSLF001007:BaseResponse
             ServiceOpenTime op = service.OpenTimes.Single(x => x.DayOfWeek == dt.DayOfWeek);
 
             RespDataSLF00107_Obj obj = new RespDataSLF00107_Obj().Adapt(dt, op);
+            obj.dayDoneOrder=   bllOrder.GetOrderListByDate(service, dt).Count;
             openTimes.Add(obj);
         }
 
