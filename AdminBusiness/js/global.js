@@ -3,48 +3,37 @@
  */
     //页面最小高度设为100%的方法
     $(function(){
-        var navbarH = $(".navbar").outerHeight();
-        var footerH = $(".footer").outerHeight();
+        $(window).bind("load resize", function() {
+            var narHeight = 75;
+            var windowHeight = $(window).height();
 
-            $(window).bind("load resize", function() {
-                var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
-                //cont-container的padding上下值
-                var parentPadding = 28;
-                var heightOut = height - navbarH;
-                var heightIn = height - navbarH - footerH - parentPadding;
-                var heightCtnr = height - navbarH - footerH - parentPadding*2;
+            var height = windowHeight - narHeight;
+            $(".content-layout").css("min-height", (height) + "px");
 
-                if (height < 1) {
-                    height = 1;
-                }
-                if (height > navbarH) {
-                    $(".mh").css("min-height", (heightOut) + "px");
-                    $(".mh-in").css("min-height", (heightIn) + "px");
-                    $(".mh-ctnr").css("min-height", (heightCtnr) + "px");
-                }
-            });
-
-            var url = window.location;
-
-            function urlFiter(url){
-                var fiter = /[a-zA-z]+:\/\/(\S+?\/){2}/i;
-                if ( fiter.exec(url) ){
-                    return (fiter.exec(url))[0].toLowerCase();
-                }
-            }
-
-            var element = $('#menu li a').filter(function() {
-                var thisHref = urlFiter(this.href);
-                var LocalUrl = urlFiter(url);
-
-                return thisHref == LocalUrl || LocalUrl.indexOf(thisHref) == 0;
-            }).addClass('active').parent().addClass('in');
-
-            if ( element.is('li') ) {
-                element.addClass('active');
-            }
-
+        });
     });
+
+    $(function(){
+        var url = window.location;
+
+        function urlFiter(url){
+            var fiter = /[a-zA-z]+:\/\/(\S+?\/){2}/i;
+            if ( fiter.exec(url) ){
+                return (fiter.exec(url))[0].toLowerCase();
+            }
+        }
+
+        var element = $('#menu li a').filter(function() {
+            var thisHref = urlFiter(this.href);
+            var LocalUrl = urlFiter(url);
+
+            return thisHref == LocalUrl || LocalUrl.indexOf(thisHref) == 0;
+        }).addClass('active').parent().addClass('in');
+
+        if ( element.is('li') ) {
+            element.addClass('active');
+        }
+    })
 
     $(function(){
         return $('.hour-select').each(function () {

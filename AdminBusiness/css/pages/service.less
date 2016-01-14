@@ -42,6 +42,84 @@
   word-break: break-all;
 }
 
+/* 服务列表页 */
+.service-model-wrap {
+  overflow: auto;
+  .model {
+    min-width: 1200px;
+  }
+}
+.service-panel-head {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 30px;
+  text-align: center;
+  background: #f7f7f7;
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+}
+
+.service-p-h-t {
+  border-left: 1px solid #ccc;
+}
+
+.service-panel-list {
+  height: 600px;
+  overflow-x: auto;
+  margin-bottom: -20px;
+  &::-webkit-scrollbar {
+    width: 5px;
+    background : transparent;
+    border : 0;
+  }
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+  &::-webkit-scrollbar-track {
+    display:none
+  }
+  &::-webkit-scrollbar-track-piece {
+    background: #CCCCCC;
+  }
+  &::-webkit-scrollbar-thumb {
+
+    border-radius: 10px;
+    background: #999;
+  }
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
+  &::-webkit-resizer {
+
+  }
+}
+
+.service-panel-grid {
+  overflow: hidden;
+  .service-panel-col {
+    position: relative;
+    min-height: 1px;
+    float: left;
+  }
+}
+
+.col-n1 {
+  width: 3%;
+}
+.col-n2 {
+  width: 5%;
+}
+.col-n3 {
+  width: 10%;
+}
+.col-n4 {
+  width: 20%;
+}
+
+
+
 /* 服务编辑地图样式 */
 #allmap {
   width: 100%;
