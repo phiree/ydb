@@ -64,4 +64,31 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Headimgurl);
         }
     }
+
+    public class DZMembershipQQMap : SubclassMap<DZMembershipQQ>
+    {
+        public DZMembershipQQMap()
+        {
+            Map(x => x.ClientId);
+            Map(x => x.OpenId);
+            Map(x => x.Ret);
+            Map(x => x.Msg);
+            Map(x => x.IsLost);
+            Map(x => x.NickName);
+            Map(x => x.Gender);
+            Map(x => x.Province);
+            Map(x => x.City);
+            Map(x => x.Year);
+            Map(x => x.Figureurl);
+            Map(x => x.Figureurl1);
+            Map(x => x.Figureurl2);
+            Map(x => x.FigureurlQq1);
+            Map(x => x.FigureurlQq2);
+            Map(x => x.IsYellowVip);
+            Map(x => x.Vip);
+            Map(x => x.YellowVipLevel);
+            Map(x => x.Level);
+            Map(x => x.IsYellowYearVip);
+        }
+    }
 }

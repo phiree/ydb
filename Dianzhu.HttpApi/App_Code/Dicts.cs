@@ -43,6 +43,9 @@ public static class Dicts
     public readonly static string AppIDWeChat = "wxd928d1f351b77449";
     public readonly static string AppSecretWeChat = "d4624c36b6795d1d99dcf0547af5443d";
 
-    public readonly static string AppIDWeibo = "wxd928d1f351b77449";
-    public readonly static string AppSecretWeibo = "d4624c36b6795d1d99dcf0547af5443d";
+    public readonly static string AppIDWeibo = "1213986121";
+    public readonly static string AppSecretWeibo = "d624e12a4fbbd23ab234d5c7ae7fbd0f";
+
+    public readonly static string AppIDQQ = "1105009517";
+    public readonly static string AppSecretQQ = "5THVAcWOU43Th2Vy";
 }

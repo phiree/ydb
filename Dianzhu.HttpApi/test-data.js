@@ -12,8 +12,8 @@ var test_data = [
     {
         "protocol_CODE": "U3RD014008",
         "ReqData": {
-            "target": "WeChat",
-            "code": "041ce5e895bdbe2f992a94f0661a8e7L",
+            "target": "SinaWeiBo",//WeChat,TencentQQ
+            "code": "2.00Z3eLND_PlJ1Bbb2f92817bWIozsB",//041ce5e895bdbe2f992a94f0661a8e7L,A4940389B88665B374852A6DB1CEB2CB
         },
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"

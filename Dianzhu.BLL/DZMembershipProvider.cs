@@ -354,6 +354,10 @@ namespace Dianzhu.BLL
         {
             return DALMembership.GetMemberByWechatOpenId(openid);
         }
+        public DZMembership GetUserByQQOpenId(string openid)
+        {
+            return DALMembership.GetMemberByWechatOpenId(openid);
+        }
         public virtual DZMembership GetUserByName(string name)
         {
             return DALMembership.GetMemberByName(name);

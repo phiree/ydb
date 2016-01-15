@@ -36,20 +36,20 @@ public class ResponseU3RD014008:BaseResponse
                 case "WeChat":
                     string AppIDWeChat = Dicts.AppIDWeChat;
                     string AppSecretWeChat = Dicts.AppSecretWeChat;
-                    string urlWechat = Dianzhu.Config.Config.GetAppSetting("WeChat_AccessToken_Url");
+                    string urlWechat = Dianzhu.Config.Config.GetAppSetting("WeChatAccessTokenUrl");
                     Uri uriWechat = new Uri(urlWechat + "appid=" + AppIDWeChat + "&secret=" + AppSecretWeChat + "&code=" + code+ "&grant_type=authorization_code");
                     
                     //string result = HttpHelper.CreateHttpRequest(uriWechat.ToString(), "get", null);
                     string result = "{\"access_token\":\"OezXcEiiBSKSxW0eoylIeNg8viCgEshRQb_2LQaXG7SDEtM3VwuCOs5Wk24ne5F7kI2Cd7SJC0T_OelFMa3t_jPMt9OHavJzMj1Ud_JgfnOHx3b6RqpcP5VLkFK4k1yEPOHFGc7rFVS6FNuPAWoX1g\",\"expires_in\":7200,\"refresh_token\":\"OezXcEiiBSKSxW0eoylIeNg8viCgEshRQb_2LQaXG7SDEtM3VwuCOs5Wk24ne5F7aUteJDNwrhQLqqpTsxoOUZe-4QDQH3j6ouc1sOhLa9HaPATGaRVlfjuP8HeEoSJT9gP9fkLCrAOhStlqkGoOkw\",\"openid\":\"of-miv5zbNsvYJzYOD9K5KSVBpds\",\"scope\":\"snsapi_userinfo\",\"unionid\":\"oCXLmwRu-1igJ9c2O4x9mF4NDelc\"}";
                     WechatRespTokenObj tokenObj = JsonConvert.DeserializeObject<WechatRespTokenObj>(result);
 
-                    string urlRefresh = Dianzhu.Config.Config.GetAppSetting("WeChat_RefreshToken_Url");
+                    string urlRefresh = Dianzhu.Config.Config.GetAppSetting("WeChatRefreshTokenUrl");
                     Uri uriRefresh = new Uri(urlRefresh + "appid=" + AppIDWeChat + "&grant_type=refresh_token&refresh_token=" + tokenObj.refresh_token);
                     string resultRefresh = HttpHelper.CreateHttpRequest(uriRefresh.ToString(), "get", null);
                     WechatRespTokenObj refreshTokenObj = JsonConvert.DeserializeObject<WechatRespTokenObj>(resultRefresh);
 
 
-                    string urlUser = Dianzhu.Config.Config.GetAppSetting("WeChat_UserInfo_Url");
+                    string urlUser = Dianzhu.Config.Config.GetAppSetting("WeChatUserInfoUrl");
                     Uri uriUser = new Uri(urlUser + "access_token=" + refreshTokenObj.access_token + "&openid=" + refreshTokenObj.openid);
                     string resultuser = HttpHelper.CreateHttpRequest(uriUser.ToString(), "get", null);
                     WechatRespUserinfo userObj = JsonConvert.DeserializeObject<WechatRespUserinfo>(resultuser);
@@ -61,20 +61,50 @@ public class ResponseU3RD014008:BaseResponse
                 case "SinaWeiBo":
                     string AppIDWeibo = Dicts.AppIDWeibo;
                     string AppSecretWeibo = Dicts.AppSecretWeibo;
-                    string urlWeibo = Dianzhu.Config.Config.GetAppSetting("Weibo_AccessToken_Url");
-                    string urlWeiboBack = Dianzhu.Config.Config.GetAppSetting("Weibo_BackUrl");
+                    string urlWeibo = Dianzhu.Config.Config.GetAppSetting("WeiboAccessTokenUrl");
+                    string urlWeiboBack = Dianzhu.Config.Config.GetAppSetting("WeiboBackUrl");
+
+                    string urlWeoboToken = Dianzhu.Config.Config.GetAppSetting("WeiboTokenUrl");
 
                     var respDataWeibo = new NameValueCollection();
-                    respDataWeibo.Add("client_id", AppIDWeibo);
-                    respDataWeibo.Add("client_secret", AppSecretWeibo);
-                    respDataWeibo.Add("grant_type", "authorization_code");
-                    respDataWeibo.Add("code", code);
-                    respDataWeibo.Add("redirect_uri", AppIDWeibo);
+                    //respDataWeibo.Add("client_id", AppIDWeibo);
+                    //respDataWeibo.Add("client_secret", AppSecretWeibo);
+                    //respDataWeibo.Add("grant_type", "authorization_code");
+                    //respDataWeibo.Add("code", code);
+                    //respDataWeibo.Add("redirect_uri", urlWeiboBack);
+                    respDataWeibo.Add("access_token", code);
 
-                    string resultuserweibo = HttpHelper.CreateHttpRequest(urlWeibo.ToString(), "post", null);
+                    string resultTokenWeibo = HttpHelper.CreateHttpRequest(urlWeoboToken.ToString(), "post", respDataWeibo);
+                    WeiboRequestTokenInfo tokeninfoWeibo = JsonConvert.DeserializeObject<WeiboRequestTokenInfo>(resultTokenWeibo);
+
+                    string uidWeibo = tokeninfoWeibo.uid;
+                    //string screenName = //用户昵称,  参数uid与screen_name二者必选其一，且只能选其一
+                    string urlWeiboUserinfo = Dianzhu.Config.Config.GetAppSetting("WeiboUserUrl");
+                    Uri uriWeiboUserinfo = new Uri(urlWeiboUserinfo + "access_token=" + code + "&uid=" + uidWeibo);
+                    string resultUserinfoWeibo= HttpHelper.CreateHttpRequest(uriWeiboUserinfo.ToString(), "get", null);
+                    WeiboRespUserinfo userinfoWeibo = JsonConvert.DeserializeObject<WeiboRespUserinfo>(resultUserinfoWeibo);
 
                     break;
                 case "TencentQQ":
+                    string urlQQOpenid = Dianzhu.Config.Config.GetAppSetting("QQOpenidUrl");
+                    Uri uriQQOpenid = new Uri(urlQQOpenid + "access_token=" + code);
+                    string resultOpenidQQCallback = HttpHelper.CreateHttpRequest(uriQQOpenid.ToString(), "get", null);
+                    string resultOpenidQQ = resultOpenidQQCallback.Substring(9, resultOpenidQQCallback.LastIndexOf(")") - 9);
+                    QQRespOpenid refreshOpenidObj = JsonConvert.DeserializeObject<QQRespOpenid>(resultOpenidQQ);
+
+                    string urlQQUsrinfo = Dianzhu.Config.Config.GetAppSetting("QQUserInfoUrl");
+                    Uri uriQQUserinfo = new Uri(urlQQUsrinfo + "access_token=" + code + "&oauth_consumer_key=" + Dicts.AppIDQQ + "&openid=" + refreshOpenidObj.openid + "&format=json");
+                    string resultUserinfoQQ = HttpHelper.CreateHttpRequest(uriQQUserinfo.ToString(), "get", null);
+                    QQRespUserinfo UserinfoObjQQ= JsonConvert.DeserializeObject<QQRespUserinfo>(resultUserinfoQQ);
+
+                    DZMembershipQQ qqMember = ConvertToQQMember(refreshOpenidObj, UserinfoObjQQ);
+                    if (UserinfoObjQQ.ret < 0)
+                    {
+                        this.state_CODE = Dicts.StateCode[0];
+                        this.err_Msg = "ret:" + UserinfoObjQQ.ret + ";msg:" + UserinfoObjQQ.msg;
+                        return;
+                    }
+                    bllMember.CreateUserForU3rd(qqMember);
 
                     break;
                 default:
@@ -112,7 +142,40 @@ public class ResponseU3RD014008:BaseResponse
         member.Province = userObj.province;
         member.City = userObj.city;
         member.Country = userObj.country;
+
         member.Headimgurl = userObj.headimgurl;
+
+        return member;
+    }
+
+    private DZMembershipQQ ConvertToQQMember(QQRespOpenid openidObj, QQRespUserinfo userObj)
+    {
+        DZMembershipQQ member = (DZMembershipQQ)bllMember.GetUserByQQOpenId(openidObj.openid);
+        if (member == null)
+        {
+            member = (DZMembershipQQ)DZMembership.Create(enum_LoginType.TencentQQ);
+        }
+        //DZMembershipWeChat member =(DZMembershipWeChat)DZMembership.Create(enum_LoginType.WeChat);
+
+        member.ClientId = openidObj.client_id;
+        member.OpenId = openidObj.openid;
+        member.Ret = userObj.ret;
+        member.Msg = userObj.msg;
+        member.NickName = userObj.nickname;
+        member.Gender = userObj.gender;
+        member.Province = userObj.province;
+        member.City = userObj.city;
+        member.Year = userObj.year;
+        member.Figureurl = userObj.figureurl;
+        member.Figureurl1 = userObj.figureurl_1;
+        member.Figureurl2 = userObj.figureurl_2;
+        member.FigureurlQq1 = userObj.figureurl_qq_1;
+        member.FigureurlQq2 = userObj.figureurl_qq_2;
+        member.IsYellowVip = userObj.is_yellow_vip;
+        member.Vip = userObj.vip;
+        member.YellowVipLevel = userObj.yellow_vip_level;
+        member.Level = userObj.level;
+        member.IsYellowYearVip = userObj.yellow_vip_level;
 
         return member;
     }
@@ -177,6 +240,19 @@ public class WeiboRequestTokenObj
     public string code { get; set; }//调用authorize获得的code值。
     public string redirect_uri { get; set; }//回调地址，需需与注册应用里的回调地址一致。
 }
+#endregion
+
+#region 微博查询token信息
+
+public class WeiboRequestTokenInfo
+{
+    public string uid { get; set; }//授权用户的uid。
+    public string appkey { get; set; }//access_token所属的应用appkey。
+    public string scope { get; set; }//用户授权的scope权限。
+    public string create_at { get; set; }//access_token的创建时间，从1970年到创建时间的秒数。
+    public string expire_in { get; set; }//access_token的剩余时间，单位是秒数。
+}
+
 #endregion
 
 #region 微博用户（user）
@@ -261,6 +337,42 @@ public class WeiboGeo
     public string address { get; set; }//所在的实际地址，可以为空
     public string pinyin { get; set; }//地址的汉语拼音，不是所有情况都会返回该字段
     public string more { get; set; }//更多信息，不是所有情况都会返回该字段
+}
+#endregion
+
+#endregion
+
+#region QQ常见返回对象数据结构
+
+#region QQ请求opid
+public class QQRespOpenid
+{
+    public string client_id { get; set; } //appid
+    public string openid { get; set; }//openid是此网站上唯一对应用户身份的标识
+}
+#endregion
+
+#region QQ获取用户信息
+public class QQRespUserinfo
+{
+    public int ret { get; set; }//返回码
+    public string msg { get; set; }//如果ret<0，会有相应的错误信息提示，返回数据全部用UTF-8编码。
+    public int is_lost { get; set; }//判断是否有数据丢失。如果应用不使用cache，不需要关心此参数。0或者不返回：没有数据丢失，可以缓存。1：有部分数据丢失或错误，不要缓存。
+    public string nickname { get; set; } //用户在QQ空间的昵称。
+    public string gender { get; set; } //性别。 如果获取不到则默认返回"男"
+    public string province { get; set; } //省（当pf=qzone、pengyou或qplus时返回）。
+    public string city { get; set; } //性市（当pf=qzone、pengyou或qplus时返回）。
+    public string year { get; set; } //出生年份
+    public string figureurl { get; set; } //大小为30×30像素的QQ空间头像URL。
+    public string figureurl_1 { get; set; } //大小为50×50像素的QQ空间头像URL。
+    public string figureurl_2 { get; set; } //大小为100×100像素的QQ空间头像URL。
+    public string figureurl_qq_1 { get; set; } //大小为40×40像素的QQ头像URL。。
+    public string figureurl_qq_2 { get; set; } //大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100x100的头像，但40x40像素则是一定会有。    
+    public string is_yellow_vip { get; set; } //标识用户是否为黄钻用户（0：不是；1：是）。
+    public string vip { get; set; } //标识用户是否为黄钻用户（0：不是；1：是）
+    public string yellow_vip_level { get; set; } //黄钻等级
+    public string level { get; set; } //黄钻等级。
+    public string is_yellow_year_vip { get; set; } //标识是否为年费黄钻用户（0：不是； 1：是）
 }
 #endregion
 
