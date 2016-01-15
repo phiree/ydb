@@ -2,36 +2,32 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
-"slf002006", "slf001007",
+<<<<<<< HEAD
+"slf001007"//,"merm001003","merm001005",//"sys001001","app001001","ofp001001"
+=======
+"u3rd014008"//,"merm001003","merm001005",//"sys001001","app001001","ofp001001","u3rd014008"
+>>>>>>> b3703002e9bf2deb894bc6cd3a64e3a7821de0c5
+ 
 ];
 var test_data = [
     /*********************货架化************************/
      {
          "protocol_CODE": "slf001007",
          "ReqData": {
-             "date":"2016-1-14",
-             "serviceId": "8e431b59-cc9e-4a98-a1a6-a5830110e478",
+             "date":"2016-1-13",
+             "serviceId": "f611682f-729a-4129-81cb-a58a0108a336",
          },
          "stamp_TIMES": "1490192929212",
          "serial_NUMBER": "00147001015869149751"
      },
-          {
-              "protocol_CODE": "slf002006",
-              "ReqData": {
-                  "date": "2016-1-14",
-                  "serviceId": "8e431b59-cc9e-4a98-a1a6-a5830110e478",
-              },
-              "stamp_TIMES": "1490192929212",
-              "serial_NUMBER": "00147001015869149751"
-          },
 
     /************** 微信第三方接口oauth2.0管理 *****************/
 
     {
         "protocol_CODE": "U3RD014008",
         "ReqData": {
-            "target": "SinaWeiBo",//WeChat,TencentQQ
-            "code": "2.00Z3eLND_PlJ1Bbb2f92817bWIozsB",//041ce5e895bdbe2f992a94f0661a8e7L,A4940389B88665B374852A6DB1CEB2CB
+            "target": "WeChat",
+            "code": "041ce5e895bdbe2f992a94f0661a8e7L",
         },
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"

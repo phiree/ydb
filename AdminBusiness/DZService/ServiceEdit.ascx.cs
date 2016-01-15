@@ -145,6 +145,9 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         if (e.Item.ItemType == ListItemType.Item|| e.Item.ItemType== ListItemType.AlternatingItem)
         {
             ServiceOpenTime sot = e.Item.DataItem as ServiceOpenTime;
+            if (sot == null) {
+                Config.log.Error("错误:OpenTime为空. 原因:旧版本遗留数据.新版程序会在创建服务时自动初始化OpenTime");
+                return; }
             HtmlInputCheckBox cbx = e.Item.FindControl("cbxChecked") as HtmlInputCheckBox;
             cbx.Checked = sot.Enabled;
             Repeater rpt = e.Item.FindControl("rptTimesOneDay") as Repeater;

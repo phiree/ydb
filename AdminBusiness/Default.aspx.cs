@@ -9,6 +9,7 @@ public partial class _Default : BasePage
 {
     protected override void OnInit(EventArgs e)
     {
+      
         Response.Redirect("/Business/", true);
         base.OnInit(e);
     }

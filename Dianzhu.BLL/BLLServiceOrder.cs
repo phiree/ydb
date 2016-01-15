@@ -164,6 +164,10 @@ namespace Dianzhu.BLL
         {
             return DALServiceOrder.GetDraftOrder(c, cs);
         }
+        public IList<ServiceOrder> GetOrderListByDate(DZService service, DateTime date)
+        {
+            return DALServiceOrder.GetOrderListByDate(service, date);
+        }
     }
 
 
