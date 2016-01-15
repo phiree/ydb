@@ -1122,19 +1122,7 @@ input[type="button"].btn-block {
 /* base-images-url */
 /* base-images-url */
 /*全局输入框样式*/
-/*图标基本样式*/
-.icon {
-  display: inline-block;
-  *display: inline-block;
-  *zoom: 1;
-  width: 26px;
-  height: 26px;
-  background: #73e2ff;
-  background-repeat: no-repeat;
-  background-position: center;
-  vertical-align: middle;
-  content: "";
-}
+/* 图标基本样式mixin */
 /* base */
 /*!
  * @名称：base.css
@@ -5793,6 +5781,44 @@ a.time-trigger:hover {
   border: 1px solid #30CDFF;
   box-shadow: 0 0 3px 0 #0f9ecc;
 }
+.icon {
+  display: inline-block;
+  *display: inline-block;
+  *zoom: 1;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  vertical-align: middle;
+  content: "";
+}
+.delete-icon {
+  display: inline-block;
+  *display: inline-block;
+  *zoom: 1;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  vertical-align: middle;
+  content: "";
+  background-image: url("../images/common/icon/icon_delete_x.png");
+}
+.edit-icon {
+  display: inline-block;
+  *display: inline-block;
+  *zoom: 1;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  vertical-align: middle;
+  content: "";
+  background-image: url("../images/common/icon/icon_edit.png");
+}
 /*select 初始化样式*/
 .select-sm {
   display: inline-block;
@@ -6411,27 +6437,29 @@ a.time-trigger:hover {
 }
 .emp-assign-flag {
   display: inline-block;
+  *display: inline-block;
+  *zoom: 1;
   width: 14px;
   height: 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
   vertical-align: middle;
-  background: #0000FF;
+  content: "";
+}
+.emp-assign-flag.assigned {
+  background-image: url("../images/pages/employee/flag_on.png");
+}
+.emp-assign-flag.noAssign {
+  background-image: url("../images/pages/employee/flag_off.png");
 }
 .emp-ctrl {
   float: right;
-  display: block;
-  width: 20px;
-  height: 20px;
   border: 0;
   margin-top: 5px;
 }
 .emp-ctrl + .emp-ctrl {
   margin-right: 5px;
-}
-.emp-delete {
-  background: #ffff00;
-}
-.emp-edit {
-  background: #ffff00;
 }
 .emp-model-m {
   padding: 22px 28px;
@@ -6941,4 +6969,3 @@ a.doReg-forget {
   background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
 }
-/*# sourceMappingURL=../../../../../../Program Files (x86)/nodejs/main.map */

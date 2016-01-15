@@ -22,8 +22,8 @@
                                             <div class="emp-model-h">
                                                 <span>员工编号:&nbsp;</span><span class="emp-code"><%#Eval("Code") %></span>
                                                 <div class='emp-assign-flag <%# (bool)Eval("IsAssigned")?"assigned":"noAssign" %>'></div>
-                                                <asp:Button runat="server" CssClass="emp-ctrl emp-delete"  CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" title="删除"/>
-                                                <a class="emp-ctrl emp-edit" href='edit.aspx?id=<%# Eval("id") %>&businessid=<%=Request["businessid"] %>' title="编辑" ></a>
+                                                <asp:Button runat="server" CssClass="emp-ctrl delete-icon"  CommandArgument='<%#Eval("Id") %>' OnClientClick="javascript:return confirm('确认删除该员工?');" CommandName="delete" title="删除"/>
+                                                <a class="emp-ctrl edit-icon" href='edit.aspx?id=<%# Eval("id") %>&businessid=<%=Request["businessid"] %>' title="编辑" ></a>
                                             </div>
                                             <div class="emp-model-m">
                                                 <img class="emp-headImg" src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/images/common/emp-headicon.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=120&height=120&tt=3)"%>  '/>

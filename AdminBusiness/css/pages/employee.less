@@ -33,28 +33,23 @@
 }
 
 .emp-assign-flag {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  vertical-align: middle;
-  background: #0000FF;
+  .icon(14px, 14px);
+  &.assigned {
+    background-image: url("@{base-images-url}pages/employee/flag_on.png");
+  }
+  &.noAssign {
+    background-image: url("@{base-images-url}pages/employee/flag_off.png");
+  }
+
 }
+
 .emp-ctrl {
   float: right;
-  display: block;
-  width: 20px;
-  height: 20px;
   border: 0;
   margin-top: 5px;
   + .emp-ctrl{
     margin-right: 5px;
   }
-}
-.emp-delete {
-  background: #ffff00;
-}
-.emp-edit {
-  background: #ffff00;
 }
 
 // employee main content
