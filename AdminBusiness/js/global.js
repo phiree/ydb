@@ -9,6 +9,7 @@
 
             var height = windowHeight - narHeight;
             $(".content-layout").css("min-height", (height) + "px");
+            $(".content-layout-fluid").css("min-height", (height) + "px");
 
         });
     });
