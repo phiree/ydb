@@ -31,7 +31,7 @@ public class ResponseSLF001007:BaseResponse
         DayOfWeek dw = currentDate.DayOfWeek;
         //周一的日期
         for (int i = 1-(int)dw; i <= 7-(int)dw; i++)
-        {
+        { 
             DateTime dateOfWeek = currentDate.AddDays(i);
             datesOfdate.Add(dateOfWeek);
         }

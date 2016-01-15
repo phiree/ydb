@@ -21,7 +21,7 @@ public class ResponseSLF002006:BaseResponse
     {
         try
         {
-            ReqDataSLF002006 requestData = this.request.ReqData.ToObject<ReqDataSLF002006>();
+             ReqDataSLF002006 requestData = this.request.ReqData.ToObject<ReqDataSLF002006>();
          
         //todo: 使用 ninject,注入依赖.
         BLLDZService bllService = new BLLDZService();
