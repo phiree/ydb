@@ -126,7 +126,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                         <i class="input-file-mark"></i>
                                                                         <i class="input-file-hover dis-n">修改头像</i>
                                                                         <img style="top:auto;left:auto;position:inherit;" class="input-file-pre"
-                                                                             src="..\images\components\inputFile\00.png"/>
+                                                                             src="../images/components/inputFile/00.png"/>
                                                                     </div>
                                                                 </div>
                                                                 <!--<input class="btn btn-info" type="button" value="上传店铺头像" id="headImgTrigger"/>-->
@@ -158,7 +158,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                businessId="<%=b.Id %>" imageType="businessshow"/>
                                                                         <i class="input-file-bg"></i>
                                                                         <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="..\images\components\inputFile\00.png"/>
+                                                                        <img class="input-file-pre" src="../images/components/inputFile/00.png"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -238,7 +238,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                imageType="businesschargeperson"/>
                                                                         <i class="input-file-bg"></i>
                                                                         <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="..\images\components\inputFile\00.png"/>
+                                                                        <img class="input-file-pre" src="../images/components/inputFile/00.png"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -271,7 +271,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                businessId="<%=b.Id %>" imageType="businesslicense"/>
                                                                         <i class="input-file-bg"></i>
                                                                         <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="..\images\components\inputFile\00.png"/>
+                                                                        <img class="input-file-pre" src="../images/components/inputFile/00.png"/>
                                                                     </div>
                                                                 </div>
                                                             </div>

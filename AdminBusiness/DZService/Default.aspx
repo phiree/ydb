@@ -114,7 +114,7 @@
                                                                         <div class="service-p-d">
                                                                             <div>起步价：<span ><%# ((decimal)Eval("MinPrice")).ToString("#") %></span>&nbsp;元</div>
                                                                             <div>单价：<span><%#((decimal)Eval("UnitPrice")).ToString("#") %></span>&nbsp;元/
-                                                                                <%# ((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Hour"?"小时":(((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Day"?"天":"次") %></div>
+                                                                                <%# ((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Hour"?"小时":(((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Day"? "天":"次") %></div>
                                                                         </div>
                                                                         <div class="service-p-d">
                                                                             <div>服务对象：<%#((bool)Eval("IsForBusiness"))?"可以对公":"对私" %></div>

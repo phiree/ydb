@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true"
     CodeFile="Edit.aspx.cs" Inherits="Staff_Edit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <link href="/css/main.css" rel="stylesheet" type="text/css"/>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
@@ -19,9 +18,9 @@
                                 <h4>员工资料修改</h4>
                             </div>
                             <div class="model-m">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="emp-head-upload">
-                                        <div class="">上传新头像</div>
+                                        <div class="emp-head-text">上传新头像</div>
                                         <div class="headImage">
                                             <div class="input-file-box headFile">
                                                 <input type=file class="input-file-btn file-default headFileBtn" runat="server"
@@ -29,7 +28,7 @@
                                                 <i class="input-file-bg" style='background-image:url(<%=StaffAvatarUrl%>)'></i>
                                                 <i class="input-file-mark"></i>
                                                 <i class="input-file-hover">修改头像</i>
-                                                <img class="input-file-pre" src="..\image\00.png"/>
+                                                <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
                                             </div>
                                         </div>
                                         <p class="img-tips">图片格式为PNG/JPG大小限制为2M一下</p>

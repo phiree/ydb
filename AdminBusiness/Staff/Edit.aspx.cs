@@ -14,7 +14,7 @@ public partial class Staff_Edit : BasePage
  
     private bool IsNew { get { return StaffId == Guid.Empty; } }//新增. 或者 编辑
     Staff s = new Staff();
-    public string StaffAvatarUrl = "/image/myshop/touxiang_90_90.png";
+    public string StaffAvatarUrl = "/images/components/inputFile/input_head_default_128_128.png";
     BLLStaff bllStaff = new BLLStaff();
     ServiceType ServiceType = new ServiceType();
     BLLServiceType bllServiceType = new BLLServiceType();
