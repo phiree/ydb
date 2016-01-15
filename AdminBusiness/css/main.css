@@ -18,6 +18,7 @@
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaeaea', endColorstr='#aaaaaa', GradientType=0);
   /* IE6-9 */
+  /*登录状态样式*/
 }
 .navbar .navbar-brand {
   height: 75px;
@@ -96,6 +97,11 @@
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eae9e9', endColorstr='#b7b4b5', GradientType=0);
   /* IE6-9 */
+}
+.navbar .LoginStatus {
+  background: url("../images/common/navbar/logout.png") no-repeat center;
+  color: transparent;
+  padding: 0 30px;
 }
 .navbar .loginName {
   padding-top: 7px;
@@ -1116,6 +1122,19 @@ input[type="button"].btn-block {
 /* base-images-url */
 /* base-images-url */
 /*全局输入框样式*/
+/*图标基本样式*/
+.icon {
+  display: inline-block;
+  *display: inline-block;
+  *zoom: 1;
+  width: 26px;
+  height: 26px;
+  background: #73e2ff;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  content: "";
+}
 /* base */
 /*!
  * @名称：base.css
@@ -1454,6 +1473,120 @@ body {
 .block {
   display: block !important;
 }
+/* 全局标题样式 */
+.cont-h1 {
+  font-size: 28px;
+  color: #444;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #fff;
+}
+.cont-h2 {
+  font-size: 22px;
+  color: #444;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #fff;
+}
+.cont-h3 {
+  font-size: 26px;
+  color: #444;
+  padding: 15px 0;
+}
+.cont-h4 {
+  font-size: 20px;
+  color: #444;
+  line-height: 2em;
+}
+.cont-h5 {
+  font-size: 15px;
+  color: #444;
+  font-weight: bold;
+}
+.cont-h6 {
+  font-size: 14px;
+  color: #444;
+}
+.cont-sub-title {
+  color: #666;
+  font-size: 15px;
+  line-height: 30px;
+  text-align: center;
+}
+.cont-sub-title-r {
+  padding-right: 15px;
+  font-size: 15px;
+  line-height: 30px;
+  text-align: right;
+}
+.cont-title-tips {
+  color: #FF8661;
+  font-size: 12px;
+  font-weight: 500;
+}
+.cont-input-tip {
+  display: inline-block;
+  background: #f9faed;
+  border: 1px solid #fdeb96;
+  padding: 3px 10px 3px 10px;
+  margin-top: 10px;
+  color: #666;
+}
+.cont-input-tip .icon-tip {
+  margin-right: 10px;
+  background: url("../images/common/icon-tip.png") no-repeat center;
+  width: 16px;
+  height: 16px;
+}
+/*全局tips文本样式*/
+.text-anno {
+  color: #58789a;
+  font-size: 12px;
+  line-height: 1.5em;
+  font-weight: 500;
+}
+.text-anno-r {
+  color: #FF8661;
+  font-size: 12px;
+  line-height: 1.5em;
+  font-weight: 500;
+}
+/* img tips 文本样式 */
+.img-tips {
+  width: 150px;
+  line-height: 1.4em;
+  color: #999;
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+}
+/* 文本格式样式 */
+.text-ellipsis {
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.text-breakWord {
+  line-height: 1.5em;
+  word-wrap: break-word;
+}
+.text-r {
+  color: #FF8661;
+}
+.text-blue {
+  color: #00BCD4;
+}
+/* 全局分隔符 */
+.d-hr {
+  border-top: 1px solid #DADADA;
+  border-bottom: 1px solid #FBFBFB;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-right: -100%;
+  margin-left: -100%;
+}
+/* layout */
 /*
   全局页面结构 @2016/01/11 by licdream@126.com
   无侧边栏页面：
@@ -1482,6 +1615,12 @@ body {
                 └... 具体内容
       └lightBox 弹窗
 */
+.wrap {
+  background: #666;
+}
+.layout {
+  background: url("../images/common/sidebar/sidebar_bg.png") repeat;
+}
 .content-layout-fluid {
   position: relative;
   box-sizing: border-box;
@@ -1561,235 +1700,6 @@ body {
   content: '';
   width: 100%;
   border-bottom: 1px solid #FBFBFB;
-}
-/* 全局标题样式 */
-.cont-h1 {
-  font-size: 28px;
-  color: #444;
-  font-weight: bold;
-  text-shadow: 0 1px 0 #fff;
-}
-.cont-h2 {
-  font-size: 22px;
-  color: #444;
-  font-weight: bold;
-  text-shadow: 0 1px 0 #fff;
-}
-.cont-h3 {
-  font-size: 26px;
-  color: #444;
-  padding: 15px 0;
-}
-.cont-h4 {
-  font-size: 20px;
-  color: #444;
-  line-height: 2em;
-}
-.cont-h5 {
-  font-size: 15px;
-  color: #444;
-  font-weight: bold;
-}
-.cont-h6 {
-  font-size: 14px;
-  color: #444;
-}
-.cont-sub-title {
-  color: #666;
-  font-size: 15px;
-  line-height: 30px;
-  text-align: center;
-}
-.cont-sub-title-r {
-  padding-right: 15px;
-  font-size: 15px;
-  line-height: 30px;
-  text-align: right;
-}
-.cont-title-tips {
-  color: #FF8661;
-  font-size: 12px;
-  font-weight: 500;
-}
-.cont-input-tip {
-  display: inline-block;
-  background: #f9faed;
-  border: 1px solid #fdeb96;
-  padding: 3px 10px 3px 10px;
-  margin-top: 10px;
-  color: #666;
-}
-.cont-input-tip .icon-tip {
-  margin-right: 10px;
-  background: url("../images/common/icon-tip.png") no-repeat center;
-  width: 16px;
-  height: 16px;
-}
-/*图标基本样式*/
-.icon {
-  display: inline-block;
-  *display: inline-block;
-  *zoom: 1;
-  width: 26px;
-  height: 26px;
-  background: #73e2ff;
-  background-repeat: no-repeat;
-  background-position: center;
-  vertical-align: middle;
-  content: "";
-}
-/*登录状态样式*/
-.LoginStatus {
-  background: url("../images/common/navbar/logout.png") no-repeat center;
-  color: transparent;
-  padding: 0 30px;
-}
-.bottomArea {
-  width: 100%;
-  height: 98px;
-  display: block;
-  line-height: 98px;
-  text-align: center;
-}
-/*全局tips文本样式*/
-.text-anno {
-  color: #58789a;
-  font-size: 12px;
-  line-height: 1.5em;
-  font-weight: 500;
-}
-.text-anno-r {
-  color: #FF8661;
-  font-size: 12px;
-  line-height: 1.5em;
-  font-weight: 500;
-}
-.text-ellipsis {
-  overflow: hidden;
-  display: block;
-  width: 100%;
-  word-break: break-all;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.text-breakWord {
-  line-height: 1.5em;
-  word-wrap: break-word;
-}
-.text-r {
-  color: #FF8661;
-}
-.text-blue {
-  color: #00BCD4;
-}
-/* 全局分隔符 */
-.d-hr {
-  border-top: 1px solid #DADADA;
-  border-bottom: 1px solid #FBFBFB;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  margin-right: -100%;
-  margin-left: -100%;
-}
-/* global model */
-.model {
-  border-radius: 5px;
-  overflow: hidden;
-  background: #f6f6f6;
-  border: 1px solid #C7C7C7;
-}
-.model-h {
-  box-shadow: 0 3px 3px #e7e7e7;
-  border-bottom: 1px solid #C7C7C7;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
-  background: #f7f7f7;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
-  /* IE6-9 */
-}
-.model-h h4 {
-  color: #444;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 30px;
-  margin-left: 22px;
-}
-.model-m {
-  padding: 22px 28px;
-}
-.model-m.no-padding {
-  padding: 0;
-}
-.model-img {
-  width: 120px;
-}
-.model-pra {
-  margin-bottom: 34px;
-}
-.model-pra-t {
-  font-size: 15px;
-  color: #444;
-  font-weight: bold;
-  margin-right: 20px;
-}
-.model-row {
-  margin-top: 32px;
-  margin-bottom: 32px;
-}
-.model-form {
-  padding-top: 34px;
-}
-.model-form.model-form-noTop {
-  padding-top: 0;
-}
-.model-form .model-form-group {
-  margin-bottom: 30px;
-}
-.model-form .model-label {
-  font-size: 16px;
-  font-weight: bold;
-  width: 120px;
-}
-.model-form .model-label-lg {
-  font-size: 16px;
-  font-weight: bold;
-  width: 160px;
-}
-.model-form .model-input-unit {
-  padding-right: 45px;
-  position: relative;
-}
-.model-form .model-input-unit em.unit {
-  position: absolute;
-  top: 6px;
-  right: 15px;
-}
-.model-form .model-input-unit-sm {
-  padding-right: 115px;
-  position: relative;
-}
-.model-form .model-select-unit {
-  width: 95px;
-  position: absolute;
-  top: 0;
-  right: 15px;
-}
-.model-form .model-radio-item input {
-  margin-right: 5px;
-}
-/* layout */
-.wrap {
-  background: #666;
-}
-.layout {
-  background: url("../images/common/sidebar/sidebar_bg.png") repeat;
 }
 /* footer */
 .footer {
@@ -5643,6 +5553,106 @@ a.time-trigger:hover {
 .sidebar-icon-msg {
   background: url("../images/common/sidebar/mess_left_20x22.png") no-repeat center;
 }
+/* global model */
+.model {
+  border-radius: 5px;
+  overflow: hidden;
+  background: #f6f6f6;
+  border: 1px solid #C7C7C7;
+}
+.model-h {
+  box-shadow: 0 3px 3px #e7e7e7;
+  border-bottom: 1px solid #C7C7C7;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
+  background: #f7f7f7;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+  /* IE6-9 */
+}
+.model-h h4 {
+  color: #444;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 30px;
+  margin-left: 22px;
+}
+.model-m {
+  padding: 22px 28px;
+}
+.model-m.no-padding {
+  padding: 0;
+}
+.model-img {
+  width: 120px;
+}
+.model-pra {
+  margin-bottom: 34px;
+}
+.model-pra-t {
+  font-size: 15px;
+  color: #444;
+  font-weight: bold;
+  margin-right: 20px;
+}
+.model-row {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+.model-form {
+  padding-top: 34px;
+}
+.model-form.model-form-noTop {
+  padding-top: 0;
+}
+.model-form .model-form-group {
+  margin-bottom: 30px;
+}
+.model-form .model-label {
+  font-size: 16px;
+  font-weight: bold;
+  width: 120px;
+}
+.model-form .model-label-lg {
+  font-size: 16px;
+  font-weight: bold;
+  width: 160px;
+}
+.model-form .model-input-unit {
+  padding-right: 45px;
+  position: relative;
+}
+.model-form .model-input-unit em.unit {
+  position: absolute;
+  top: 6px;
+  right: 15px;
+}
+.model-form .model-input-unit-sm {
+  padding-right: 115px;
+  position: relative;
+}
+.model-form .model-select-unit {
+  width: 95px;
+  position: absolute;
+  top: 0;
+  right: 15px;
+}
+.model-form .model-radio-item input {
+  margin-right: 5px;
+}
+.bottomArea {
+  width: 100%;
+  height: 98px;
+  display: block;
+  line-height: 98px;
+  text-align: center;
+}
 /*标签样式*/
 .spTagInput {
   width: 150px;
@@ -6024,9 +6034,29 @@ a.time-trigger:hover {
 }
 /* 头像 */
 .headImage {
-  width: 140px;
-  height: 140px;
+  width: 128px;
+  height: 128px;
   overflow: hidden;
+  display: inline-block;
+}
+.headImage .input-file-btn {
+  width: 128px;
+  height: 128px;
+}
+.headImage .input-file-bg {
+  width: 128px;
+  height: 128px;
+}
+.headImage .input-file-mark {
+  width: 128px;
+  height: 128px;
+}
+.headImage .input-file-box {
+  width: 128px;
+  height: 128px;
+}
+.headImage .input-file-hover {
+  width: 128px;
 }
 .download-img-pre {
   float: left;
@@ -6453,7 +6483,7 @@ a.time-trigger:hover {
   /* IE6-9 */
 }
 .emp-assign.assigned {
-  color: #ff524f;
+  color: #c93232;
 }
 .emp-assign.noAssign {
   color: #55a8b5;
@@ -6507,6 +6537,13 @@ a.time-trigger:hover {
 .emp-head-upload h3 {
   font-size: 16px;
   font-weight: bold;
+}
+.emp-head-text {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  width: 120px;
+  vertical-align: top;
 }
 .register-wrap {
   height: 100%;
@@ -6812,6 +6849,7 @@ a.doReg-forget {
   font-weight: bold;
   line-height: 30px;
   text-align: center;
+  border-bottom: 1px solid #ccc;
   background: #f7f7f7;
   background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
   background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);

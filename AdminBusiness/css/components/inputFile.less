@@ -62,13 +62,34 @@
   border: 0 none;
 }
 
-@headImage-width: 140px;
-@headImage-height: 140px;
+@headImage-width: 128px;
+@headImage-height: 128px;
+
 /* 头像 */
 .headImage {
   width: @headImage-width;
   height: @headImage-width;
   overflow: hidden;
+  display: inline-block;
+  .input-file-btn {
+    width: @headImage-width;
+    height: @headImage-width;
+  }
+  .input-file-bg {
+    width: @headImage-width;
+    height: @headImage-width;
+  }
+  .input-file-mark {
+    width: @headImage-width;
+    height: @headImage-width;
+  }
+  .input-file-box {
+    width: @headImage-width;
+    height: @headImage-width;
+  }
+  .input-file-hover {
+    width: @headImage-width;
+  }
 }
 
 .download-img-pre {

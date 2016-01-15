@@ -1,116 +1,3 @@
-/*
-  全局页面结构 @2016/01/11 by licdream@126.com
-  无侧边栏页面：
-  body
-    └wrap
-      ├navbar 顶栏
-      ├content-layout-fluid *必须块，无侧边栏页面的自适应宽度的内容layout
-        └content 内容块,可以多个。
-          ├content-head 内容标题
-          └content-main 主内容
-            └container/container-fluid 设置boostrap的网格系统框
-              └... 具体内容
-      └lightBox 弹窗
-        无侧边栏页面：
-  有侧边栏页面：
-  body
-    └wrap
-      ├navbar 顶栏栏
-      ├layout *必须，约束layout
-        ├sidebar 侧边栏
-        ├content-layout *必须块，有侧边栏页面的内容layout
-          └content 内容块,可以多个。
-            ├content-head 内容标题
-            └content-main 主内容
-              └container/container-fluid 设置boostrap的网格系统框
-                └... 具体内容
-      └lightBox 弹窗
-*/
-
-// 全局框架设置
-.content-layout-fluid {
-  position: relative;
-  box-sizing: border-box;
-  min-height: 910px;
-  display: block;
-  overflow: hidden;
-  width: 100%;
-  background: #ebebeb;
-}
-
-.content-layout {
-  z-index: 10;
-  position: relative;
-  min-height: 910px;
-  display: block;
-  overflow: hidden;
-  width: auto;
-  margin-left: 240px;
-  color: #666;
-  box-shadow: 0 0 10px 0 #333;
-  background: #ebebeb;
-}
-
-.content {
-  padding: 0 18px;
-  overflow: hidden;
-}
-
-.content-main {
-  padding: 20px 0;
-}
-
-.content-head {
-  &.full-head {
-    padding: 16px 0;
-    margin: 0 -17px;
-    position: relative;
-    text-align: center;
-    border-bottom: 1px solid #858585;
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
-    background: #ffffff; /* Old browsers */
-    background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-  }
-  &.normal-head {
-    padding: 30px 0 15px;
-    margin: 0 15px;
-    border-bottom: 1px solid #ccc;
-    position: relative;
-    > h3 {
-      display: inline-block;
-      font-size: 22px;
-      color: #444;
-    }
-    >.btn {
-      color: #666;
-      font-size: 16px;
-      float: right;
-      margin-top: -4px;
-      text-shadow: 0 1px 0 #fff;
-      background: #ffffff;
-      background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-      background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-      background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
-      padding: 5px 25px;
-      border-radius: 8px;
-      font-weight: 600;
-      border: 1px solid #DADADA;
-    }
-    &::before {
-      position: absolute;
-      bottom: -2px;
-      content: '';
-      width: 100%;
-      border-bottom: 1px solid #FBFBFB;
-    }
-  }
-}
-
-
 /* 全局标题样式 */
 @cont-h1-size: 28px;
 @cont-h2-size: 22px;
@@ -158,7 +45,6 @@
   color: @cont-h-color;
 }
 
-
 .cont-sub-title {
   color: #666;
   font-size: 15px;
@@ -195,36 +81,6 @@
   }
 }
 
-
-/*图标基本样式*/
-.icon {
-  display: inline-block;
-  *display: inline-block;
-  *zoom: 1;
-  width: 26px;
-  height: 26px;
-  background: #73e2ff;
-  background-repeat: no-repeat;
-  background-position: center;
-  vertical-align: middle;
-  content: "";
-}
-
-/*登录状态样式*/
-.LoginStatus {
-  background: url("@{base-images-url}common/navbar/logout.png") no-repeat center;
-  color: transparent;
-  padding: 0 30px;
-}
-
-.bottomArea {
-  width: 100%;
-  height: 98px;
-  display: block;
-  line-height: 98px;
-  text-align: center;
-}
-
 /*全局tips文本样式*/
 .text-anno {
   color: #58789a;
@@ -240,6 +96,17 @@
   font-weight: 500;
 }
 
+/* img tips 文本样式 */
+.img-tips {
+  width: 150px;
+  line-height: 1.4em;
+  color: #999;
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+}
+
+/* 文本格式样式 */
 .text-ellipsis {
   overflow: hidden;
   display: block;
