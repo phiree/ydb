@@ -11,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <!--有字库连接-->
+    <link href='http://api.youziku.com/webfont/CSS/568e353ff629d80f4cd910a7' rel='stylesheet' type='text/css' />
     <!--<script src="/js/html5shiv.min.js"></script>-->
     <!--<script src="/js/respond.min.js"></script>-->
 </head>
@@ -23,7 +25,7 @@
                         <div class="navbar-brand brand-logo">
                             <a id="logo" href="/Business/default.aspx"></a>
                         </div>
-                        <h1 class="navbar-brand brand-h">
+                        <h1 class="navbar-brand brand-h cssc0a9477146a8">
                             一点办商户管理系统
                         </h1>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#ydb-navbar-collapse" aria-expanded="false">
@@ -150,7 +152,8 @@
                     <div class="content-main">
                         <div class="animated fadeInUpSmall" >
                             <div class="empty-biz">
-                                <a id="firstAddBusiness" class="empty-biz-add m-b20">点击创建新店铺</a>
+                                <a id="firstAddBusiness" class="empty-biz-add">点击创建新店铺</a>
+                                <div class="empty-biz-icon"></div>
                                 <p id="firstAddMsg" class="empty-biz-msg hide">
                                     感谢您的使用一点办，为了给您提供更好的服务，建议您进入<a style="text-decoration:underline;" href="/account/security.aspx?businessId=<%=Request["businessid"] %>">帐号安全</a>绑定您的手机号码。
                                 </p>

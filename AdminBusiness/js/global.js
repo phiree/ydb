@@ -4,7 +4,7 @@
     //页面最小高度设为100%的方法
     $(function(){
         $(window).bind("load resize", function() {
-            var narHeight = 75;
+            var narHeight = 79;
             var windowHeight = $(window).height();
 
             var height = windowHeight - narHeight;

@@ -34,12 +34,13 @@
 
 .biz-item-h {
   position: relative;
+  text-align: center;
   z-index: 10;
-  color: #333;
-  font-size: 16px;
+  color: #444;
+  font-size: 24px;
   font-weight: bold;
   text-shadow: 0 1px 0 #fff;
-  padding: 5px 8px;
+  padding: 15px 18px;
   border-bottom: 1px solid #898989;
   box-shadow: 0 4px 4px #DEDEDE;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffd65e+0,febf04+100;Yellow+3D+%232 */
@@ -205,34 +206,29 @@
 /* 空店铺时添加样式 */
 .empty-biz {
   text-align: center;
-  padding-top: 170px;
+  padding-top: 80px;
 }
 
 .empty-biz-add {
-  display: inline-block;
-  overflow: hidden;
-  padding: 30px 66px;
-  color: #fff;
-  font-size: 22px;
-  font-weight: bold;
-  text-shadow: 0 1px 1px #aaa;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f8ffe8+0,e3f5ab+33,b7df2d+100;Green+3D+%234 */
-  background: #f8ffe8; /* Old browsers */
-  background: -moz-linear-gradient(top,  #f8ffe8 0%, #e3f5ab 33%, #b7df2d 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  #f8ffe8 0%,#e3f5ab 33%,#b7df2d 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  #f8ffe8 0%,#e3f5ab 33%,#b7df2d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8ffe8', endColorstr='#b7df2d',GradientType=0 ); /* IE6-9 */
-  &:focus,
-  &:active,
-  &:hover {
-    color : #fff;
-  }
+ .btn_new();
+}
+
+.empty-biz-icon {
+  display: block;
+  margin: 20px auto;
+  width: 62px;
+  height: 70px;
+  background: url("@{base-images-url}common/empty_box.png");
 }
 
 .empty-biz-msg {
   display: block;
   margin: 0 auto;
-  width: 250px;
+  width: 400px;
+  font-size: 16px;
   line-height: 1.4em;
   word-break: break-all;
+  a {
+    font-weight: bold;
+  }
 }
