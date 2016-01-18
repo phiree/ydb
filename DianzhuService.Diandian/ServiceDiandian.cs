@@ -142,35 +142,13 @@ namespace DianzhuService.Diandian
             //lblLoginStatus.Text = "登录成功";
         }
 
-        private void GetCustomerInfo(string userName, string pwd)
-        {
-            string postData = string.Format(@"{{ 
-                    ""protocol_CODE"": ""USM001005"", //用户信息获取
-                    ""ReqData"": {{ 
-                                ""email"": ""{0}"", 
-                                ""pWord"": ""{1}"", 
-                                }}, 
-                    ""stamp_TIMES"": ""{2}"", 
-                    ""serial_NUMBER"": ""00147001015869149751"" 
-                }}", userName, pwd, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
-            Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
-            csId = result["RespData"]["userObj"]["userID"].ToString();
-        }
+       
 
         protected override void OnStart(string[] args)
         {
             GlobalViables.XMPPConnection.Close();//关闭当前登录
-            string userName = "diandian@business.ydban.cn";
-            string password = "diandian";
-            //string userName = "aa@aa.aa";
-            //string password = "123456";
-            string userNameForOpenfire = userName;
-            if (Regex.IsMatch(userName, @"^[^\.@]+@[^\.@]+\.[^\.@]+$"))
-            {
-                userNameForOpenfire = userName.Replace("@", "||");
-            }
-            GetCustomerInfo(userName, password);
-            GlobalViables.XMPPConnection.Open(csId, password);
+          
+            GlobalViables.XMPPConnection.Open(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"), Dianzhu.Config.Config.GetAppSetting("DiandianLoginPwd"));
             //lblLoginStatus.Text = "正在登录，请稍候...";
 
             ////每隔一段时间给服务发送一个ping,防止连接超时.
