@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALAdvertisement.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
     <Compile Include="DALPaymentLog.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="DALReceptionChatDD.cs" />
     <Compile Include="DALReceptionChat.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
+    <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\IMUserStatusArchieveMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Mapping\CashTicketCreateRecord.cs" />
     <Compile Include="Mapping\BusinessMap.cs" />
     <Compile Include="Mapping\DZMembershipMap.cs" />
+    <Compile Include="Mapping\ServiceOrderStateChangeHisMap.cs" />
     <Compile Include="Mapping\ServiceOrderMap.cs" />
     <Compile Include="Mapping\ServiceTypeMap.cs" />
     <Compile Include="Mapping\DZServiceMap.cs" />

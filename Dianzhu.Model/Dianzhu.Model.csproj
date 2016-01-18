@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Advertisement.cs" />
     <Compile Include="IMUserStatusArchieve.cs" />
     <Compile Include="IMUserStatus.cs" />
     <Compile Include="City.cs" />
@@ -74,7 +75,7 @@
     <Compile Include="Reception.cs" />
     <Compile Include="ReceptionStatus.cs" />
     <Compile Include="ServiceOpenTime.cs" />
-    <Compile Include="ServiceOrderStateChange.cs" />
+    <Compile Include="ServiceOrderStateChangeHis.cs" />
     <Compile Include="ServiceProperty.cs" />
     <Compile Include="ServiceOrder.cs" />
     <Compile Include="ServiceType.cs" />
