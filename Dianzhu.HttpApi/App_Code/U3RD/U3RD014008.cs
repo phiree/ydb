@@ -64,25 +64,32 @@ public class ResponseU3RD014008:BaseResponse
                     string urlWeibo = Dianzhu.Config.Config.GetAppSetting("WeiboAccessTokenUrl");
                     string urlWeiboBack = Dianzhu.Config.Config.GetAppSetting("WeiboBackUrl");
 
-                    string urlWeoboToken = Dianzhu.Config.Config.GetAppSetting("WeiboTokenUrl");
-
                     var respDataWeibo = new NameValueCollection();
-                    //respDataWeibo.Add("client_id", AppIDWeibo);
-                    //respDataWeibo.Add("client_secret", AppSecretWeibo);
-                    //respDataWeibo.Add("grant_type", "authorization_code");
-                    //respDataWeibo.Add("code", code);
-                    //respDataWeibo.Add("redirect_uri", urlWeiboBack);
-                    respDataWeibo.Add("access_token", code);
+                    respDataWeibo.Add("client_id", AppIDWeibo);
+                    respDataWeibo.Add("client_secret", AppSecretWeibo);
+                    respDataWeibo.Add("grant_type", "refresh_token");
+                    respDataWeibo.Add("code", code);
+                    respDataWeibo.Add("redirect_uri", urlWeiboBack);
+                    //respDataWeibo.Add("access_token", code);
+                    respDataWeibo.Add("refresh_token", code);
+                    string resultReTokenWeibo = HttpHelper.CreateHttpRequest(urlWeibo.ToString(), "post", respDataWeibo);
+                    WeiboRespTokenObj respTokenObjWeibo = JsonConvert.DeserializeObject<WeiboRespTokenObj>(resultReTokenWeibo);
 
-                    string resultTokenWeibo = HttpHelper.CreateHttpRequest(urlWeoboToken.ToString(), "post", respDataWeibo);
+                    string urlWeoboToken = Dianzhu.Config.Config.GetAppSetting("WeiboTokenUrl");
+                    var respDataTokenWeibo = new NameValueCollection();
+                    respDataTokenWeibo.Add("access_token", respTokenObjWeibo.access_token);
+                    string resultTokenWeibo = HttpHelper.CreateHttpRequest(urlWeoboToken.ToString(), "post", respDataTokenWeibo);
                     WeiboRequestTokenInfo tokeninfoWeibo = JsonConvert.DeserializeObject<WeiboRequestTokenInfo>(resultTokenWeibo);
 
                     string uidWeibo = tokeninfoWeibo.uid;
                     //string screenName = //用户昵称,  参数uid与screen_name二者必选其一，且只能选其一
                     string urlWeiboUserinfo = Dianzhu.Config.Config.GetAppSetting("WeiboUserUrl");
-                    Uri uriWeiboUserinfo = new Uri(urlWeiboUserinfo + "access_token=" + code + "&uid=" + uidWeibo);
+                    Uri uriWeiboUserinfo = new Uri(urlWeiboUserinfo + "access_token=" + respTokenObjWeibo.access_token + "&uid=" + uidWeibo);
                     string resultUserinfoWeibo= HttpHelper.CreateHttpRequest(uriWeiboUserinfo.ToString(), "get", null);
                     WeiboRespUserinfo userinfoWeibo = JsonConvert.DeserializeObject<WeiboRespUserinfo>(resultUserinfoWeibo);
+
+                    DZMembershipSinaWeibo sinaWeiboMember = ConvertToSinaWeiboMember(respTokenObjWeibo, tokeninfoWeibo, userinfoWeibo);
+                    bllMember.CreateUserForU3rd(sinaWeiboMember);
 
                     break;
                 case "TencentQQ":
@@ -179,6 +186,56 @@ public class ResponseU3RD014008:BaseResponse
 
         return member;
     }
+
+    private DZMembershipSinaWeibo ConvertToSinaWeiboMember(WeiboRespTokenObj tokenObj, WeiboRequestTokenInfo tokenInfo, WeiboRespUserinfo userObj)
+    {
+        DZMembershipSinaWeibo member = (DZMembershipSinaWeibo)bllMember.GetUserBySinaWeiboUId(long.Parse(tokenInfo.uid));
+        if (member == null)
+        {
+            member = (DZMembershipSinaWeibo)DZMembership.Create(enum_LoginType.SinaWeiBo);
+        }
+
+        member.AccessToken = tokenObj.access_token;
+        member.ExpiresId = tokenInfo.expire_in;
+        member.RefreshToken = tokenObj.refresh_token;
+        member.Scope = tokenInfo.scope;
+        member.CreateAt = tokenInfo.create_at;
+        member.UId = userObj.id;
+        member.UIdstr = userObj.idstr;
+        member.ScreenName = userObj.screen_name;
+        member.Name = userObj.name;
+        member.Province = userObj.province;
+        member.City = userObj.city;
+        member.Location = userObj.location;
+        member.Description = userObj.description;
+        member.Url = userObj.url;
+        member.ProfileImageUrl = userObj.profile_image_url;
+        member.ProfileUrl = userObj.profile_url;
+        member.Domain = userObj.domain;
+        member.WeiHao = userObj.weihao;
+        member.Gender = userObj.gender;
+        member.FollowersCount = userObj.followers_count;
+        member.FriendsCount = userObj.friends_count;
+        member.StatusesCount = userObj.statuses_count;
+        member.FavouritesCount = userObj.favourites_count;
+        member.CreatedAt = userObj.created_at;
+        member.Following = userObj.following;
+        member.AllowAllActMsg = userObj.allow_all_act_msg;
+        member.GeoEnabled = userObj.geo_enabled;
+        member.Verified = userObj.verified;
+        member.VerifiedType = userObj.verified_type;
+        member.Remark = userObj.remark;
+        member.AllowAllComment = userObj.allow_all_comment;
+        member.AvatarLarge = userObj.avatar_large;
+        member.AvatarHd = userObj.avatar_hd;
+        member.VerifiedReason = userObj.verified_reason;
+        member.FollowMe = userObj.follow_me;
+        member.OnlineStatus = userObj.online_status;
+        member.BiFollowersCount = userObj.bi_followers_count;
+        member.Lang = userObj.lang;
+
+        return member;
+    }
 }
 
 public class ReqDataU3RD014008
@@ -232,13 +289,13 @@ public class WechatRespUserinfo
 #region 微博常见返回对象数据结构
 
 #region 微博请求token
-public class WeiboRequestTokenObj
+public class WeiboRespTokenObj
 {
-    public string client_id { get; set; }//申请应用时分配的AppKey。
-    public string client_secret { get; set; }//申请应用时分配的AppSecret。
-    public string grant_type { get; set; }//请求的类型，填写authorization_code
-    public string code { get; set; }//调用authorize获得的code值。
-    public string redirect_uri { get; set; }//回调地址，需需与注册应用里的回调地址一致。
+    public string access_token { get; set; }//用于调用access_token，接口获取授权后的access token。
+    public string remind_in { get; set; }//access_token的生命周期（该参数即将废弃，开发者请使用expires_in）。
+    public string expires_id { get; set; }//access_token的生命周期，单位是秒数。
+    public string refresh_token { get; set; }//刷新access_token
+    public string uid { get; set; }//当前授权用户的UID。
 }
 #endregion
 
@@ -283,7 +340,6 @@ public class WeiboRespUserinfo
     public bool verified { get; set; }//是否是微博认证用户，即加V用户，true：是，false：否
     public int verified_type { get; set; }//暂未支持
     public string remark { get; set; }//用户备注信息，只有在查询用户关系时才返回此字段
-    public WeiboStatus status { get; set; }//用户的最近一条微博信息字段
     public bool allow_all_comment { get; set; }//是否允许所有人对我的微博进行评论，true：是，false：否
     public string avatar_large { get; set; }//用户头像地址（大图），180×180像素
     public string avatar_hd { get; set; }//用户头像地址（高清），高清头像原图
@@ -292,51 +348,6 @@ public class WeiboRespUserinfo
     public int online_status { get; set; }//用户的在线状态，0：不在线、1：在线
     public int bi_followers_count { get; set; }//用户的互粉数
     public string lang { get; set; }//用户当前的语言版本，zh-cn：简体中文，zh-tw：繁体中文，en：英语
-}
-#endregion
-
-#region 微博（status）
-public class WeiboStatus
-{
-    public long id { get; set; }//微博ID
-    public long mid { get; set; }//微博MID
-    public string created_at { get; set; }//微博创建时间
-    public string idstr { get; set; }//字符串型的微博ID
-    public string text { get; set; }//微博信息内容
-    public string source { get; set; }//微博来源
-    public bool favorited { get; set; }//是否已收藏，true：是，false：否
-    public bool truncated { get; set; }//是否被截断，true：是，false：否
-    public string in_reply_to_status_id { get; set; }//（暂未支持）回复ID
-    public string in_reply_to_user_id { get; set; }//（暂未支持）回复人UID
-    public string in_reply_to_screen_name { get; set; }//（暂未支持）回复昵称
-    public string thumbnail_pic { get; set; }//缩略图片地址，没有时不返回此字段
-    public string bmiddle_pic { get; set; }//中等尺寸图片地址，没有时不返回此字段
-    public string original_pic { get; set; }//原始图片地址，没有时不返回此字段
-    public WeiboGeo geo { get; set; }//地理信息字段
-    public WeiboRespUserinfo user { get; set; }//微博作者的用户信息字段
-    public WeiboStatus retweeted_status { get; set; }//被转发的原微博信息字段，当该微博为转发微博时返回
-    public int reposts_count { get; set; }//转发数
-    public int comments_count { get; set; }//评论数
-    public int attitudes_count { get; set; }//表态数
-    public int mlevel { get; set; }//暂未支持
-    public object visible { get; set; }//微博的可见性及指定可见分组信息。该object中type取值，0：普通微博，1：私密微博，3：指定分组微博，4：密友微博；list_id为分组的组号
-    public object pic_ids { get; set; }//微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
-    public object ad { get; set; }//微博流内的推广微博ID
-}
-#endregion
-
-#region 微博地理信息（geo）
-public class WeiboGeo
-{
-    public string longitude { get; set; }//经度坐标
-    public string latitude { get; set; }//维度坐标
-    public string city { get; set; }//所在城市的城市代码
-    public string province { get; set; }//所在省份的省份代码
-    public string city_name { get; set; }//所在城市的城市名称
-    public string province_name { get; set; }//所在省份的省份名称
-    public string address { get; set; }//所在的实际地址，可以为空
-    public string pinyin { get; set; }//地址的汉语拼音，不是所有情况都会返回该字段
-    public string more { get; set; }//更多信息，不是所有情况都会返回该字段
 }
 #endregion
 
