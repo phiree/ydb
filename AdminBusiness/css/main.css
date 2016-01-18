@@ -6390,6 +6390,7 @@ a.time-trigger:hover {
 }
 .empty-biz-add:focus,
 .empty-biz-add:active,
+.empty-biz-add:visited,
 .empty-biz-add:hover {
   color: #fff;
 }
@@ -6852,6 +6853,7 @@ a.doReg-forget {
 }
 .empty-svc-add:focus,
 .empty-svc-add:active,
+.empty-svc-add:visited,
 .empty-svc-add:hover {
   color: #fff;
 }
