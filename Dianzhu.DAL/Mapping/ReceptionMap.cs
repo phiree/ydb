@@ -47,7 +47,7 @@ namespace Dianzhu.DAL.Mapping
             References<DZMembership>(x => x.To);
             References<DZMembership>(x => x.From);
             References<ServiceOrder>(x => x.ServiceOrder);
-            Map(x => x.ChatType).CustomType<int>();
+            Map(x => x.ChatType).CustomType<Model.Enums.enum_ChatType>();
             Map(x => x.Version);
             References<ReceptionBase>(x => x.Reception).Cascade.All().Column("ReceptionBase_id");
             Map(x => x.ChatTarget).CustomType<Model.Enums.enum_ChatTarget>();

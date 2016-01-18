@@ -90,6 +90,10 @@ namespace Dianzhu.DAL
         {
             return Session.QueryOver<Model.DZMembershipQQ>().Where(x => x.OpenId == openid).SingleOrDefault();
         }
+        public Model.DZMembership GetMemberBySinaWeiboUid(long uid)
+        {
+            return Session.QueryOver<Model.DZMembershipSinaWeibo>().Where(x => x.UId == uid).SingleOrDefault();
+        }
         public Model.DZMembership GetMemberByPhone(string phone)
         { return Session.QueryOver<Model.DZMembership>().Where(x => x.Phone == phone).SingleOrDefault(); }
 
