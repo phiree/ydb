@@ -35,6 +35,7 @@
                         data: data_str,
                         async: false,
                         success: function (result) {
+                            
                             apiTest.writelog("请求:<br/><pre>" + data_str + "</pre><br/>返回值:<br/><pre>" + JSON.stringify(result, null, 4) + "</pre><hr/>");
                         }, //success
                         error: function (errmsg) {
