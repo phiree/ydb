@@ -57,7 +57,7 @@ namespace Dianzhu.CSClient.Presenter
             this.view.IdentityItemActived += new IVew.IdentityItemActived(LoadChatHistory);
             this.view.IdentityItemActived += new IdentityItemActived(LoadCurrentOrder);
 
-            this.view.ButtonNamePrefix = Dianzhu.Config.Config.GetAppSetting("ButtonNamePrefix");
+            this.view.ButtonNamePrefix =GlobalViables.ButtonNamePrefix;
             this.view.SearchService += new IVew.SearchService(view_SearchService);
             this.view.SelectService += View_SelectService;
             this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
