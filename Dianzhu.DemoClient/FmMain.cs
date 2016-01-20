@@ -44,22 +44,22 @@ namespace Dianzhu.DemoClient
 
         private void XMPPConnection_OnClose(object sender)
         {
-            MessageBox.Show("Connection has been Closed");
+           // MessageBox.Show("Connection has been Closed");
         }
 
         private void XMPPConnection_OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
         {
-            MessageBox.Show(e.ToString());
+           // MessageBox.Show(e.ToString());
         }
 
         private void XMPPConnection_OnIq(object sender, IQ iq)
         {
-            MessageBox.Show(iq.ToString());
+           // MessageBox.Show(iq.ToString());
         }
 
         void XMPPConnection_OnSocketError(object sender, Exception ex)
         {
-            MessageBox.Show("socket error");
+            //MessageBox.Show("socket error");
         }
         private void GetCustomerInfo(string userName)
         {
@@ -76,7 +76,7 @@ namespace Dianzhu.DemoClient
             customerId = result["RespData"]["userObj"]["userID"].ToString();
 
         }
-        public void GetCustomerService(string manualAssignedCS)
+        public void GetCustomerService(string username,string password ,string manualAssignedCS)
         {
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(
                 string.Format(@"{{ // 
@@ -90,7 +90,7 @@ namespace Dianzhu.DemoClient
                     ""stamp_TIMES"": ""{3}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
                 }}", customerId,
-                tbxPwd.Text, 
+                password, 
                 tbxOrderId.Text, 
                 (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(),
                 tbxManualAssignedCS.Text
@@ -110,9 +110,9 @@ namespace Dianzhu.DemoClient
             //customerId = result["RespData"]["cerObj"]["userID"].ToString();
             tbxOrderId.Text = orderID = result["RespData"]["orderID"].ToString();
         }
-        public void GetCustomerService()
+        public void GetCustomerService(string username, string password)
         {
-            GetCustomerService(string.Empty);
+            GetCustomerService( username, password,string.Empty);
         }
         void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
@@ -158,8 +158,11 @@ namespace Dianzhu.DemoClient
                 return;
             }
            
-            GetCustomerService();
-             lblAssignedCS.Text = csDisplayName;
+        
+            XmppClientConnection conn = (XmppClientConnection)sender;
+            GetCustomerService(conn.Username,conn.Password);
+
+            lblAssignedCS.Text = csDisplayName;
             
 
 
