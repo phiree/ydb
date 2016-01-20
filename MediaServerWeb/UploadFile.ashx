@@ -20,7 +20,7 @@ public class UploadFile : IHttpHandler
             string localSavePathRoot = context.Server.MapPath("/media/");
 
             string savedFilename = "";
-            if (fileUrl == "")
+            if (string.IsNullOrEmpty (fileUrl))
             {
                 savedFilename = FileUploader.Upload(fileBase64, originalFileName ?? string.Empty, localSavePathRoot, domainType, (FileType)Enum.Parse(typeof(FileType), fileType));
             }
