@@ -13,11 +13,11 @@ namespace DianzhuService.Diandian
         string csDisplayName;
         string customerId;
         string orderID;
-
+      static   log4net.ILog log = GlobalViables.log;
         public ServiceDiandian()
         {
             InitializeComponent();
-
+            log.Debug("StartService");
             GlobalViables.XMPPConnection.OnLogin += XMPPConnection_OnLogin;
             GlobalViables.XMPPConnection.OnMessage += XMPPConnection_OnMessage;
             GlobalViables.XMPPConnection.OnError += XMPPConnection_OnError;
@@ -27,39 +27,51 @@ namespace DianzhuService.Diandian
             GlobalViables.XMPPConnection.OnStreamError += XMPPConnection_OnStreamError;
             GlobalViables.XMPPConnection.OnClose += XMPPConnection_OnClose;
         }
-
+        internal void TestStartupAndStop(string[] args)
+        {
+            this.OnStart(args);
+            Console.ReadLine();
+            this.OnStop();
+        }
         private void XMPPConnection_OnClose(object sender)
         {
+            log.Debug("XMPPConnection_OnClose");
             //MessageBox.Show("Connection has been Closed");
         }
 
         private void XMPPConnection_OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
         {
+            log.Debug("XMPPConnection_OnStreamError"+e.ToString());
             //MessageBox.Show(e.ToString());
         }
 
         private void XMPPConnection_OnIq(object sender, IQ iq)
         {
+            log.Debug("XMPPConnection_OnIq:"+iq.ToString());
             //MessageBox.Show(iq.ToString());
         }
 
         private void XMPPConnection_OnSocketError(object sender, Exception ex)
         {
+            log.Debug("XMPPConnection_OnSocketError"+ex.Source+Environment.NewLine+"CallStack"+ex.StackTrace);
             //MessageBox.Show("socket error");
         }
 
         private void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
+            log.Debug("用户名/密码有误");
             //MessageBox.Show("用户名/密码有误");
         }
 
         private void XMPPConnection_OnError(object sender, Exception ex)
         {
+            log.Debug("XMPPConnection_OnError"+ex.Message);
             //MessageBox.Show("OnError");
         }
 
         private void XMPPConnection_OnMessage(object sender, agsc.Message msg)
         {
+            log.Debug("XMPPConnection_OnMessage:"+msg.ToString());
             //if (InvokeRequired)
             //{
             //    BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender, msg });
@@ -67,7 +79,7 @@ namespace DianzhuService.Diandian
             //}
             orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
             customerId = msg.From.User;
-            string log = msg.Body;
+            string body = msg.Body;
             string msgObj_url = String.Empty;
             string msgObj_type = String.Empty;
             string msgType = msg.SelectSingleElement("ext").Namespace;
@@ -133,6 +145,7 @@ namespace DianzhuService.Diandian
 
         private void XMPPConnection_OnLogin(object sender)
         {
+            log.Debug("登录完成");
             //if (InvokeRequired)
             //{
             //    BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
@@ -147,8 +160,11 @@ namespace DianzhuService.Diandian
         protected override void OnStart(string[] args)
         {
             GlobalViables.XMPPConnection.Close();//关闭当前登录
+            log.Debug("打开服务器连接..");
+            string loginId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
+            string pwd = Dianzhu.Config.Config.GetAppSetting("DiandianLoginPwd");
+            GlobalViables.XMPPConnection.Open(loginId, pwd);
           
-            GlobalViables.XMPPConnection.Open(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"), Dianzhu.Config.Config.GetAppSetting("DiandianLoginPwd"));
             //lblLoginStatus.Text = "正在登录，请稍候...";
 
             ////每隔一段时间给服务发送一个ping,防止连接超时.
@@ -172,4 +188,5 @@ namespace DianzhuService.Diandian
         {
         }
     }
+
 }

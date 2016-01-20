@@ -12,14 +12,27 @@ namespace DianzhuService.Diandian
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
-        static void Main()
+        static void Main(string[] args)
         {
+            log4net.Config.XmlConfigurator.Configure();
+            ServiceDiandian sdd = new ServiceDiandian();
+            if (Environment.UserInteractive)
+            {
+
+                sdd.TestStartupAndStop(args);
+            }
+            else
+            { 
+               
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new ServiceDiandian()
+               sdd
             };
             ServiceBase.Run(ServicesToRun);
+            }
         }
+
+       
     }
 }
