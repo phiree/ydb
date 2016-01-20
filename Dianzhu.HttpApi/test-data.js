@@ -2,7 +2,7 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
-"chat001006",//"u3rd014008"
+"u3rd014008",//"u3rd014008"
 ];
 var test_data = [
     /*********************货架化************************/
@@ -32,8 +32,8 @@ var test_data = [
     {
         "protocol_CODE": "U3RD014008",
         "ReqData": {
-            "target": "SinaWeiBo",//WeChat,TencentQQ
-            "code": "2.00Z3eLND_PlJ1Bbb2f92817bWIozsB",//041ce5e895bdbe2f992a94f0661a8e7L,A4940389B88665B374852A6DB1CEB2CB
+            "target": "TencentQQ",//"WeChat","SinaWeiBo","TencentQQ"
+            "code": "A4940389B88665B374852A6DB1CEB2CB",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"
         },
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"
