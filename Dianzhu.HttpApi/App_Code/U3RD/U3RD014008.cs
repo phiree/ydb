@@ -9,6 +9,7 @@ using Dianzhu.Model.Enums;
 using Newtonsoft.Json;
 using PHSuit;
 using System.Collections.Specialized;
+using System.Web.Security;
 /// <summary>
 /// Summary description for U3RD014008
 /// </summary>
@@ -62,7 +63,7 @@ public class ResponseU3RD014008:BaseResponse
                         bllMember.CreateUserForU3rd(wechatMember);
 
                         userObj.Adapt(wechatMember);
-                        pwd = wechatMember.Password;
+                        pwd = wechatMember.PlainPassword;
                     }
                     else
                     {
@@ -108,7 +109,7 @@ public class ResponseU3RD014008:BaseResponse
                         bllMember.CreateUserForU3rd(sinaWeiboMember);
 
                         userObj.Adapt(sinaWeiboMember);
-                        pwd = sinaWeiboMember.Password;
+                        pwd = sinaWeiboMember.PlainPassword;
                     }
                     else
                     {
@@ -142,7 +143,7 @@ public class ResponseU3RD014008:BaseResponse
                         bllMember.CreateUserForU3rd(qqMember);
 
                         userObj.Adapt(qqMember);
-                        pwd = qqMember.Password;
+                        pwd = qqMember.PlainPassword;
                     }
                     else
                     {
@@ -187,7 +188,7 @@ public class ResponseU3RD014008:BaseResponse
         member.RefreshToken = tokenObj.refresh_token;
         member.OpenId = tokenObj.openid;
         member.Scope = tokenObj.scope;
-        member.Unionid = userObj.unionid;        
+        member.Unionid = userObj.unionid;
         member.Nickname = userObj.nickname;
         member.Sex = userObj.sex;
         member.Province = userObj.province;
@@ -196,9 +197,12 @@ public class ResponseU3RD014008:BaseResponse
         member.Headimgurl = userObj.headimgurl;
 
         member.NickName = userObj.nickname;
+        member.UserName = userObj.nickname;
         member.AvatarUrl = DownloadToMediaserver(userObj.headimgurl);
         member.Address = userObj.province + " " + userObj.city;
-        member.Password = userObj.openid;
+        member.PlainPassword = userObj.openid;
+        member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(userObj.openid, "MD5");
+        member.UserType = enum_UserType.customer.ToString();
 
         return member;
     }    
@@ -251,9 +255,12 @@ public class ResponseU3RD014008:BaseResponse
         member.Lang = userObj.lang;
 
         member.NickName = userObj.screen_name;
+        member.UserName = userObj.screen_name;
         member.AvatarUrl = DownloadToMediaserver(userObj.avatar_hd);
         member.Address = userObj.location;
-        member.Password = tokenInfo.uid;
+        member.PlainPassword = tokenInfo.uid;
+        member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(tokenInfo.uid, "MD5");
+        member.UserType = enum_UserType.customer.ToString();
 
         return member;
     }
@@ -288,9 +295,19 @@ public class ResponseU3RD014008:BaseResponse
         member.IsYellowYearVip = userObj.yellow_vip_level;
 
         member.NickName = userObj.nickname;
-        member.AvatarUrl = DownloadToMediaserver(userObj.figureurl_qq_1);
+        member.UserName = userObj.nickname;
+        if (userObj.figureurl_qq_2 != "")
+        {
+            member.AvatarUrl = DownloadToMediaserver(userObj.figureurl_qq_2);
+        }
+        else
+        {
+            member.AvatarUrl = DownloadToMediaserver(userObj.figureurl_qq_1);
+        }        
         member.Address = userObj.province + " " + userObj.city;
-        member.Password = openidObj.openid;
+        member.PlainPassword = openidObj.openid;
+        member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(openidObj.openid, "MD5");
+        member.UserType = enum_UserType.customer.ToString();
 
         return member;
     }

@@ -356,7 +356,7 @@ namespace Dianzhu.BLL
         }
         public DZMembership GetUserByQQOpenId(string openid)
         {
-            return DALMembership.GetMemberByWechatOpenId(openid);
+            return DALMembership.GetMemberByQQOpenId(openid);
         }
         public DZMembership GetUserBySinaWeiboUId(long uid)
         {
