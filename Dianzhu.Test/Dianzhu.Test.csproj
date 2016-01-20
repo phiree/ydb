@@ -107,6 +107,7 @@
     <Compile Include="cashticket_generator_test.cs" />
     <Compile Include="DALTest\TestDALReceptionChatDD.cs" />
     <Compile Include="DianzhuNotifyCenterTest\OrderNotifyTest.cs" />
+    <Compile Include="DianzhuPushTest\TestPush.cs" />
     <Compile Include="dianzhu_test.cs" />
     <Compile Include="DZCSClientTest\MainPresenterTest.cs" />
     <Compile Include="DZCSClientTest\MessageAdapterTest\MessageAdapterTest.cs" />
@@ -187,6 +188,10 @@
     <ProjectReference Include="..\Dianzhu.Notify\Dianzhu.Notify.csproj">
       <Project>{1baad173-a641-435a-ad03-0cd0146674b9}</Project>
       <Name>Dianzhu.Notify</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
+      <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
+      <Name>Dianzhu.Push</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
