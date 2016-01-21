@@ -33,7 +33,7 @@ namespace PHSuit
             appenderNH.RollingStyle = RollingFileAppender.RollingMode.Size;
             appenderNH.StaticLogFileName = true;
             appenderNH.LockingModel = new FileAppender.MinimalLock();
-            appenderNH.File ="log/"+ System.Environment.MachineName +"_nhibernate.log";
+            appenderNH.File = @"C:\\DianzhuLogs\\" + AppDomain.CurrentDomain.FriendlyName + "\\" + System.Environment.MachineName +"_nhibernate.log";
             appenderNH.Layout = new PatternLayout("%date [%thread] %-5level %logger - %message%newline");
             // this activates the FileAppender (without it, nothing would be written)
             appenderNH.ActivateOptions();
@@ -41,7 +41,7 @@ namespace PHSuit
             // This is required, so that we can access the Logger by using 
             // LogManager.GetLogger("NHibernate.SQL") and it can used by NHibernate
             Logger loggerNH = hierarchy.GetLogger("NHibernate") as Logger;
-            loggerNH.Level = Level.Info;
+            loggerNH.Level = Level.Warn;
             loggerNH.AddAppender(appenderNH);
 
             // declare RollingFileAppender with 5MB per file and max. 10 files
@@ -53,7 +53,7 @@ namespace PHSuit
             appenderMain.RollingStyle = RollingFileAppender.RollingMode.Size;
             appenderMain.StaticLogFileName = true;
             appenderMain.LockingModel = new FileAppender.MinimalLock();
-            appenderMain.File = "log/" + System.Environment.MachineName + ".log";
+            appenderMain.File = @"C:\\DianzhuLogs\\"+ AppDomain.CurrentDomain.FriendlyName+ "\\" + System.Environment.MachineName + ".log";
             appenderMain.Layout = new PatternLayout(
                 "%date [%thread] %-5level %logger- %message%newline");
             // this activates the FileAppender (without it, nothing would be written)

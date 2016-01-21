@@ -9,7 +9,7 @@ using Dianzhu.Model;
 using Com.Alipay;
 public partial class _Default : System.Web.UI.Page
 {
-    log4net.ILog log = log4net.LogManager.GetLogger("dzpay");
+    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     BLLServiceOrder bllOrder = new BLLServiceOrder();
     ServiceOrder order = null;
     public ServiceOrder Order {

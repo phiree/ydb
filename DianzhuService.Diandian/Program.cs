@@ -14,7 +14,7 @@ namespace DianzhuService.Diandian
         /// </summary>
         static void Main(string[] args)
         {
-            log4net.Config.XmlConfigurator.Configure();
+             PHSuit.Logging.Config();
             ServiceDiandian sdd = new ServiceDiandian();
             if (Environment.UserInteractive)
             {

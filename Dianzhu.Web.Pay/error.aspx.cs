@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 public partial class error : System.Web.UI.Page
 {
     Dictionary<string, string> ErrMsg = new Dictionary<string, string>();
-    log4net.ILog log = log4net.LogManager.GetLogger("dzpay");
+    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     protected override void OnInit(EventArgs e)
     {
         ErrMsg.Add("1", "订单编号有误");

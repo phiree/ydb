@@ -6,7 +6,7 @@
     {
         //_SetupRefreshJob();
         //// Code that runs on application startup
-        //log4net.Config.XmlConfigurator.Configure();
+        // PHSuit.Logging.Config();
         //Dianzhu.CSClient.IMessageAdapter.IAdapter adapter = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
         //Dianzhu.CSClient.IInstantMessage.InstantMessage im = new Dianzhu.CSClient.XMPP.XMPP(adapter);
 

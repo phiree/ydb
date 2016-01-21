@@ -12,7 +12,7 @@ namespace Dianzhu.CSClient.XMPP
     /// </summary>
     public class XMPP : IInstantMessage.InstantMessage
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("xmpp");
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.XMPP");
  
         static agsXMPP.XmppClientConnection XmppClientConnection;
 

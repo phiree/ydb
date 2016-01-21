@@ -15,7 +15,7 @@ namespace Dianzhu.CSClient
     static class Program
     {
         
-        static ILog log = LogManager.GetLogger(typeof(Program));
+        static ILog log = LogManager.GetLogger("Dianzhu.CSClient");
        
         static int progressPercent = 0;
         /// <summary>
@@ -31,7 +31,7 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
 
             //log
-            log4net.Config.XmlConfigurator.Configure();
+             PHSuit.Logging.Config();
             log.Debug("Start");
             
             //prepare parameters for IM instance's constructor
