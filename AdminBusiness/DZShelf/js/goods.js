@@ -1,5 +1,12 @@
-
-$(function(){
+(function(factory){
+    if ( typeof define === "function" && define.amd ){
+        define(["backbone"], function(backbone){
+            return factory(backbone);
+        });
+    } else  {
+        factory ();
+    }
+}(function(backbone){
     // 时间段Model
     var TimeBucket = Backbone.Model.extend({
         defaults : {
@@ -25,7 +32,7 @@ $(function(){
             }
         },
         addOrderNum : function(Num){
-                this.save({maxNum : this.get('maxNum') + Num});
+            this.save({maxNum : this.get('maxNum') + Num});
         },
         setMaxNum : function(maxNum){
             if ( !!maxNum && ( maxNum > this.get('doneNum')) ){
@@ -64,7 +71,7 @@ $(function(){
             //当未预约订单数大于减数时,才可以进行订单删除操作
 
             var orders = _.countBy(this.get('arrayOrders') , function(order){
-                return !(order.ordered == false) ? 'ordered' : 'notOrdered'
+                return !(order.ordered == false) ? 'ordered' : 'notOrdered';
             });
             if ( !orders.notOrdered || (orders.notOrdered < num) ) return;
             var currentOrders = this.get('arrayOrders').slice();
@@ -75,7 +82,6 @@ $(function(){
         }
     });
 
-
     var TimeBuckets = Backbone.Collection.extend({
         model : TimeBucket,
         initialize : function(){
@@ -83,11 +89,10 @@ $(function(){
         }
     });
 
-
     // 时间段View
     var TimeBucketView = Backbone.View.extend({
         tagName : 'div',
-        className : 'timeBucket',
+        className : 'time-bucket',
         template : _.template($("#timeBucket_template").html()),
         ordersTemplate : _.template($("#orders_template").html()),
         events :　{
@@ -105,7 +110,9 @@ $(function(){
         },
         //仅刷新order部分视图。
         refreshOrdersView : function(){
-            this.$el.find('.order_list').html($(this.ordersTemplate(this.model.toJSON())))
+            //console.log();
+            //this.$el.find('.order-list').width(this.model.toJSON().arrayOrders.length * 80) ;
+            this.$el.find('.order-list').html($(this.ordersTemplate(this.model.toJSON())));
         },
         addOrders : function () {
             var num = this.$('.multiNum').val();
@@ -119,8 +126,6 @@ $(function(){
             this.model.deleteOrders(num);
         }
     });
-
-
 
     var Day = Backbone.Model.extend({
         defaults : {
@@ -147,7 +152,7 @@ $(function(){
 
     var DayView = Backbone.View.extend({
         tagName : 'div',
-        className : 'day_view',
+        className : 'day-view',
         template : _.template($('#day_template').html()),
         events :　{
             'click .addTimeBucket' : 'addTimeBucket'
@@ -181,7 +186,7 @@ $(function(){
         addTimeBucketView : function(timeBucketModel){
             var timeBucketView = new TimeBucketView({model : timeBucketModel});
             timeBucketView.render();
-            this.$('.time_list').append(timeBucketView.render().el);
+            this.$('.time-buckets').append(timeBucketView.render().el);
         },
         addTimeBucket : function(){
             this.model.addTimeBucket();
@@ -228,22 +233,22 @@ $(function(){
         },
         render : function(){
             this.$el.html(this.template());
-            $('#goodsBox').append($(this.el));
+            $('#goodShelf').append($(this.el));
             return this;
         },
         addDayView: function(dayModel){
             debugger;
             var dayView = new DayView({model : dayModel});
-            this.$('.day_container').html(dayView.render().el);
+            this.$('.day-container').html(dayView.render().el);
         },
         initDayTab: function(){
             var _this = this;
-            var tab = this.$('.day_tabs');
+            var tab = this.$('.day-tabs');
             _.each(days.models, function(day){
-                tab.append($('<input type="button" class="day_tab">').val(day.get('date')));
+                tab.append($('<input type="button" class="day-tab">').val(day.get('date')));
             });
 
-            tab.find('.day_tab').on('click' , function(){
+            tab.find('.day-tab').on('click' , function(){
                 var date = $(this).val();
                 _this.showDayView(date)
             })
@@ -257,4 +262,6 @@ $(function(){
     });
 
     var newApp = new appView;
-});
+})
+);
+

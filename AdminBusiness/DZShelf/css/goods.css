@@ -29,11 +29,11 @@
 
 .order_list .order {
     display: inline-block;
-    margin-left: 10px;
     background: #dcdcdc;
     position: relative;
     width: 50px;
     text-align: center;
+
 }
 
 .order_list input.deleteOrder {
