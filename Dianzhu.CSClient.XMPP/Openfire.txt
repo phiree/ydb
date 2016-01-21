@@ -1,0 +1,46 @@
+﻿/*安装：
+设置管理员账号时，可以跳过。
+
+插件列表,及用途:
+  1) REST API        通过http协议获取在线用户,进而获取在线客服列表
+  2) Broadcast       系统通知,促销通知.
+*/
+/*
+ 配置修改:
+ 
+  1) 用户验证数据库改为系统业务数据库
+    只需要修改openfire数据库的ofproperty表即可,不需要修改任何配置文件.
+    执行修改的t-sql语句:
+    */
+    
+##################################开始修改######################################     
+## 添加jdbc驱动
+INSERT INTO `ofproperty` VALUES ('jdbcProvider.driver', 'com.mysql.jdbc.Driver');
+## 指定用户数据库连接
+INSERT INTO `ofproperty` VALUES ('jdbcProvider.connectionString', 'jdbc:mysql://119.29.39.211:3306/dianzhu_publish_test?user=root&password=root');
+## 用户登陆认证类
+UPDATE `ofproperty` SET  propValue='org.jivesoftware.openfire.auth.JDBCAuthProvider'  WHERE NAME='provider.auth.className';
+## 通过用户名查询密码的sql password 是用户表中的密码字段
+INSERT INTO `ofproperty` VALUES ('jdbcAuthProvider.passwordSQL', 'SELECT plainPassword FROM dzmembership WHERE id= ?');
+## 密码加密方式 可选：plain（不加密），md5，sha1，sha256，sha512
+INSERT INTO `ofproperty` VALUES ('jdbcAuthProvider.passwordType', 'plain');
+## 查看用户的类，控制台查看用户/组
+UPDATE  `ofproperty` SET propValue='org.jivesoftware.openfire.user.JDBCUserProvider' WHERE NAME='provider.user.className';
+## 查询用户信息
+INSERT INTO `ofproperty` VALUES ('jdbcUserProvider.loadUserSQL', 'SELECT username AS NAME,concat(username,''_'',nickname) FROM dzmembership WHERE id=?');
+## 查询用户数量
+INSERT INTO `ofproperty` VALUES ('jdbcUserProvider.userCountSQL', 'SELECT COUNT(*) FROM dzmembership');
+## 查询所有用户
+INSERT INTO `ofproperty` VALUES ('jdbcUserProvider.allUsersSQL', 'SELECT id FROM dzmembership');
+## 搜索用户
+INSERT INTO `ofproperty` VALUES ('jdbcUserProvider.searchSQL', 'SELECT id FROM dzmembership WHERE');
+## 指定控制台用户名对应的字段
+INSERT INTO `ofproperty` VALUES ('jdbcUserProvider.usernameField', 'username');
+## 控制台名称对应的字段
+INSERT INTO `ofproperty` VALUES ('jdbcUserProvider.nameField', 'id');
+## 电子邮件对应的字段
+INSERT INTO `ofproperty` VALUES ('jdbcUserProvider.emailField', 'email');
+##修改后台管理员username不能包含"@"字符
+INSERT INTO `ofproperty` VALUES ('admin.authorizedJIDs', '13cb2932-e855-4c3e-8e54-a58e0135802d@119.29.39.211');
+UPDATE ofproperty SET propValue='119.29.39.211' WHERE NAME='xmpp.domain'
+#############################结束修改######################################## 
