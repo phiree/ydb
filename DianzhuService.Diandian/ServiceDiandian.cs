@@ -132,8 +132,10 @@ namespace DianzhuService.Diandian
 
             //自动回复消息
             string reply = "当前没有客服在线，请留言..";
+            csId = msg.To.User;
             agsc.Message message = new MessageBuilder().Create(csId, customerId, reply, orderID).BuildText();
             message.Id = Guid.NewGuid().ToString();
+            log.Debug("Sending message:" + message.ToString());
             GlobalViables.XMPPConnection.Send(message);
             //AddLog(message);
         }
