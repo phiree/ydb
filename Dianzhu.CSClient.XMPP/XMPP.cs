@@ -67,6 +67,7 @@ namespace Dianzhu.CSClient.XMPP
 
         private void XmppClientConnection_OnIq(object sender, IQ iq)
         {
+           
             log.Debug("receive_iq:" + iq.ToString());
             if (iq.Type == IqType.get)
             {

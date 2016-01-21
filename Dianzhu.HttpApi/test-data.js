@@ -2,7 +2,8 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
-"chat001006",//"u3rd014008"
+//"u3rd014008", 
+"orm002001"
 ];
 var test_data = [
     /*********************货架化************************/
@@ -32,8 +33,8 @@ var test_data = [
     {
         "protocol_CODE": "U3RD014008",
         "ReqData": {
-            "target": "SinaWeiBo",//WeChat,TencentQQ
-            "code": "2.00Z3eLND_PlJ1Bbb2f92817bWIozsB",//041ce5e895bdbe2f992a94f0661a8e7L,A4940389B88665B374852A6DB1CEB2CB
+            "target": "TencentQQ",//"WeChat","SinaWeiBo","TencentQQ"
+            "code": "A4940389B88665B374852A6DB1CEB2CB",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"
         },
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"
@@ -261,8 +262,8 @@ var test_data = [
                 {
                     "protocol_CODE": "USM001005",
                     "ReqData": {
-                        "email": "aa@aa.aa",
-                        "pWord": "123456",
+                        "email": "cc8bc026-9470-4f6a-8b59-a59200a95470",
+                        "pWord": "of-miv5zbNsvYJzYOD9K5KSVBpds",
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"
@@ -333,7 +334,7 @@ var test_data = [
                  },
                  //音频
                  {
-                     "protocol_CODE": "USM001008",
+                     "protocol_CODE": "USM0010082",
                      "ReqData": {
                          "userID": "eb2ae597-5adb-4242-b22e-a4f901275654",
                          "pWord": "123456",
@@ -345,7 +346,7 @@ var test_data = [
                  },
                  //视频
                   {
-                      "protocol_CODE": "USM001008",
+                      "protocol_CODE": "USM0010082",
                       "ReqData": {
                           "userID": "eb2ae597-5adb-4242-b22e-a4f901275654",
                           "pWord": "123456",

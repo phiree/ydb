@@ -160,7 +160,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Pay", "Dianzhu.Web.Pay\", "{FBEC30ED-52CD-49B0-B767-B2EC013796A4}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dioanzhu.Pay.dll;{74f0963e-57ca-4d57-899c-d85ff096fe1f}|Dianzhu.CSClient.IMessageAdapter.dll;{125f0d3b-e83c-4743-9944-e82392cba6c5}|Dianzhu.CSClient.XMPP.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{a871c9e1-98a4-412f-a1b3-541189a4c4cf}|Dianzhu.CSClient.MessageAdapter.dll;{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;"
+		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}|Dioanzhu.Pay.dll;{74f0963e-57ca-4d57-899c-d85ff096fe1f}|Dianzhu.CSClient.IMessageAdapter.dll;{125f0d3b-e83c-4743-9944-e82392cba6c5}|Dianzhu.CSClient.XMPP.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{a871c9e1-98a4-412f-a1b3-541189a4c4cf}|Dianzhu.CSClient.MessageAdapter.dll;{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}|agsXMPP.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_12360"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.Pay\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_12360\"
@@ -187,7 +187,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.Notify", "Dianzhu.Web.Notify\", "{0B7AB42A-DED4-41A7-8A94-265686227268}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		ProjectReferences = "{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;"
+		ProjectReferences = "{1baad173-a641-435a-ad03-0cd0146674b9}|Dianzhu.Notify.dll;{820A465F-51FB-4F8D-8665-B80F9643281B}|Dianzhu.CSClient.IInstantMessage.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{74F0963E-57CA-4D57-899C-D85FF096FE1F}|Dianzhu.CSClient.IMessageAdapter.dll;{A871C9E1-98A4-412F-A1B3-541189A4C4CF}|Dianzhu.CSClient.MessageAdapter.dll;{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{125F0D3B-E83C-4743-9944-E82392CBA6C5}|Dianzhu.CSClient.XMPP.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{91ea0d0b-d3ba-497f-afeb-2cad59deba0e}|agsXMPP.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_50182"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.Notify\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50182\"
@@ -231,6 +231,35 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "dianzhu_adminbusiness_mvc",
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "53672"
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dlls", "dlls", "{FF82FDAB-C9E3-4C42-ABE8-BB47F4946CAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "agsXMPP2013", "agsxmpp\agsXMPP2013.csproj", "{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.PushServer", "Dianzhu.Web.PushServer\", "{CBE79023-31C6-455F-A6F0-3BFF280F66E8}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_29864"
+		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.PushServer\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_29864\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_29864"
+		Release.AspNetCompiler.PhysicalPath = "Dianzhu.Web.PushServer\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_29864\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "29864"
+		SlnRelativePath = "Dianzhu.Web.PushServer\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Push", "Dianzhu.Push\Dianzhu.Push.csproj", "{BE142427-1CE4-40F8-AC58-D0509BA05D21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -574,6 +603,42 @@ Global
 		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|x86.ActiveCfg = Debug|Any CPU
 		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|x86.Build.0 = Debug|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Debug|x86.Build.0 = Debug|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Release|x86.ActiveCfg = Release|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Release|x86.Build.0 = Release|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|x86.Build.0 = Debug|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Release|x86.ActiveCfg = Debug|Any CPU
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Release|x86.Build.0 = Debug|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Debug|x86.Build.0 = Debug|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Release|x86.ActiveCfg = Release|Any CPU
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -612,6 +677,8 @@ Global
 		{D3820846-BAD7-49E9-8BCF-D5EF26579350} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{489E4EB5-E576-4AB0-9B45-FB015A8C84F5} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{8F7D2A86-E244-4D57-9BC7-87981FECE50B} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{CBE79023-31C6-455F-A6F0-3BFF280F66E8} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{BE142427-1CE4-40F8-AC58-D0509BA05D21} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi
