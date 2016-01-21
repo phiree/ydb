@@ -17,6 +17,7 @@ namespace PHSuit
         /// </summary>
         public static void Config()
         {
+            System.Web.Hosting.HostingEnvironment.ApplicationHost.GetSiteName();
             Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
             // Remove any other appenders
             hierarchy.Root.RemoveAllAppenders();
@@ -33,7 +34,7 @@ namespace PHSuit
             appenderNH.RollingStyle = RollingFileAppender.RollingMode.Size;
             appenderNH.StaticLogFileName = true;
             appenderNH.LockingModel = new FileAppender.MinimalLock();
-            appenderNH.File = @"C:\\DianzhuLogs\\" + AppDomain.CurrentDomain.FriendlyName + "\\" + System.Environment.MachineName +"_nhibernate.log";
+            appenderNH.File = "logs/"+ System.Environment.MachineName +"_nhibernate.log";
             appenderNH.Layout = new PatternLayout("%date [%thread] %-5level %logger - %message%newline");
             // this activates the FileAppender (without it, nothing would be written)
             appenderNH.ActivateOptions();
@@ -53,7 +54,7 @@ namespace PHSuit
             appenderMain.RollingStyle = RollingFileAppender.RollingMode.Size;
             appenderMain.StaticLogFileName = true;
             appenderMain.LockingModel = new FileAppender.MinimalLock();
-            appenderMain.File = @"C:\\DianzhuLogs\\"+ AppDomain.CurrentDomain.FriendlyName+ "\\" + System.Environment.MachineName + ".log";
+            appenderMain.File = "logs/" + System.Environment.MachineName + ".log";
             appenderMain.Layout = new PatternLayout(
                 "%date [%thread] %-5level %logger- %message%newline");
             // this activates the FileAppender (without it, nothing would be written)

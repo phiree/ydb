@@ -4,14 +4,9 @@
 
     void Application_Start(object sender, EventArgs e)
     {
-        //_SetupRefreshJob();
-        //// Code that runs on application startup
-        // PHSuit.Logging.Config();
-        //Dianzhu.CSClient.IMessageAdapter.IAdapter adapter = new Dianzhu.CSClient.MessageAdapter.MessageAdapter();
-        //Dianzhu.CSClient.IInstantMessage.InstantMessage im = new Dianzhu.CSClient.XMPP.XMPP(adapter);
-
-        ////im.OpenConnection("4f088d5c-be94-43bc-9644-a4d1008be129", "123456");
-        //Application["IM"] = im;
+       
+        PHSuit.Logging.Config();
+        
     }
 
     void Application_End(object sender, EventArgs e)
@@ -66,7 +61,7 @@
                 }
                 catch (Exception ex)
                 {
-                    log4net.ILog log = log4net.LogManager.GetLogger("error");
+                    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
                     log.Error(ex.Message);
                 }
                 finally
