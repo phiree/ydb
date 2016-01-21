@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using PHSuit;
 using Dianzhu.CSClient.IInstantMessage;
+using System.Collections.Specialized;
+
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -18,14 +20,41 @@ namespace Dianzhu.CSClient.Presenter
         {
             //string deviceToken = "8de76c196a605120db39ab58373edf159c1301b43659bd129fcf72b696e2a26c";
             im.SendMessage(chat);
-            bool isOnline = ClientState.customerOnlineList.Contains(chat.To);
-
-            string deviceToken = bllDeviceBind.getDevBindByUserID(chat.To).AppToken;
-
+            // get resource of customer
+            // if iso
+            // get parameters
+            // IPush pushIos=new PushIOS( para1,para,2pama4);
+            //pushIos.push(message);
+            IMUserStatus user = bllIMUserStatus.GetIMUSByUserId(chat.To.Id);
+            bool isOnline = user.Status == Model.Enums.enum_UserStatus.available;
             if (!isOnline)
             {
-                Push.pushNotifications(deviceToken, chat.MessageBody, @"files\aps_development_Mark.p12", 1);
-            }
+                string target = user.ClientName.Split('_')[1];
+                switch (target.ToLower())
+                {
+                    case "ios":
+                        string url = Dianzhu.Config.Config.GetAppSetting("PushServerUrl");
+                        string deviceToken = bllDeviceBind.getDevBindByUserID(chat.To).AppToken;
+
+                        var respData = new NameValueCollection();
+                        respData.Add("deviceToken", deviceToken);
+                        respData.Add("pushNum", "1");
+                        respData.Add("notificaitonSound", "default");
+                        respData.Add("message", chat.MessageBody);
+
+                        HttpHelper.CreateHttpRequest(url.ToString(), "post", respData);
+                        break;
+                    case "android":
+
+                        return;
+
+                    case "democlient":
+
+                        return;
+                    default:
+                        return;
+                }
+            }            
         }
          
     }

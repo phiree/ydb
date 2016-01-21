@@ -207,7 +207,7 @@ namespace Dianzhu.BLL
         {
             get
             {
-                if (diandian == null)
+                if (diandian == null || diandian.Id == new Guid())
                 {
                     diandian = new DZMembership();
                     //convert sesionUser to dzmembership

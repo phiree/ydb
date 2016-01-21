@@ -24,6 +24,7 @@ namespace Dianzhu.CSClient.Presenter
         BLLReceptionChat bllReceptionChat;
         BLLDeviceBind bllDeviceBind;
         BLLReceptionChatDD bllReceptionChatDD;
+        BLLIMUserStatus bllIMUserStatus;
 
         public MainPresenter(IVew.IMainFormView view,
             InstantMessage instantMessage,
@@ -41,6 +42,7 @@ namespace Dianzhu.CSClient.Presenter
 
             this.bllOrder = new BLLServiceOrder();// bllOrder;
             this.bllReceptionChatDD = new BLLReceptionChatDD();
+            this.bllIMUserStatus = new BLLIMUserStatus();
 
             //  IM的委托
             this.instantMessage.IMPresent += new IMPresent(IMPresent);
