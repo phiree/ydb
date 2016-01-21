@@ -8,6 +8,7 @@ namespace Dianzhu.DemoClient
     
     public class GlobalViables
     {
+        public static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.DemoClient");
         public static readonly string ServerName =Dianzhu.Config.Config.GetAppSetting("ImServer");  //home'pc: "20141220-pc";
         public static XmppClientConnection XMPPConnection = null;
         public static string APIBaseURL = Dianzhu.Config.Config.GetAppSetting("APIBaseURL");
@@ -18,6 +19,8 @@ namespace Dianzhu.DemoClient
             XMPPConnection = new XmppClientConnection(ServerName);
             XMPPConnection.Resource = Model.Enums.enum_XmppResource.YDBan_Win_DemoClient.ToString();
             XMPPConnection.AutoResolveConnectServer = false;
+
+            
         }
        
     }

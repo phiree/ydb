@@ -2,10 +2,43 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
-"orm002001"//,"merm001003","merm001005",//"sys001001","app001001","ofp001001"
- 
+//"u3rd014008", 
+"orm002001"
 ];
 var test_data = [
+    /*********************货架化************************/
+     {
+         "protocol_CODE": "slf001007",
+         "ReqData": {
+             "date":"2016-1-14",
+             "serviceId": "8e431b59-cc9e-4a98-a1a6-a5830110e478",
+         },
+         "stamp_TIMES": "1490192929212",
+         "serial_NUMBER": "00147001015869149751"
+     },
+          {
+              "protocol_CODE": "slf002006",
+              "ReqData": {
+                  "date": "2016-1-14",
+                  "serviceId": "8e431b59-cc9e-4a98-a1a6-a5830110e478",
+              },
+              "stamp_TIMES": "1490192929212",
+              "serial_NUMBER": "00147001015869149751"
+          },
+          /*
+          http://tools.ietf.org/html/rfc6749
+          */
+    /************** 微信第三方接口oauth2.0管理 *****************/
+    
+    {
+        "protocol_CODE": "U3RD014008",
+        "ReqData": {
+            "target": "TencentQQ",//"WeChat","SinaWeiBo","TencentQQ"
+            "code": "A4940389B88665B374852A6DB1CEB2CB",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"
+        },
+        "stamp_TIMES": "1490192929212",
+        "serial_NUMBER": "00147001015869149751"
+    },
 
     /************** 实时汇报用户的状态 *****************/
 
@@ -146,13 +179,13 @@ var test_data = [
           {
               "protocol_CODE": "ORM002001",
               "ReqData": {
-                  "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", //13022222222
-                  "pWord": "123456",
-                  "orderID": "08696178-31f5-4168-a57a-a56000b47217",
+                  "userID": "2c843b9f-ed19-40c2-99b4-a54500f97205", //13022222222
+                  "pWord": "123",
+                  "orderID": "",
                   
               },
               "stamp_TIMES": "1490192929212",
-              "serial_NUMBER": "00147001015869149751"
+              "serial_NUMBER": "70100de2-b5ed-405a-93f6-d11b21c44cc2"
           },
           //订单支付链接
            {
@@ -229,8 +262,8 @@ var test_data = [
                 {
                     "protocol_CODE": "USM001005",
                     "ReqData": {
-                        "email": "aa@aa.aa",
-                        "pWord": "123456",
+                        "email": "cc8bc026-9470-4f6a-8b59-a59200a95470",
+                        "pWord": "of-miv5zbNsvYJzYOD9K5KSVBpds",
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"
@@ -301,7 +334,7 @@ var test_data = [
                  },
                  //音频
                  {
-                     "protocol_CODE": "USM001008",
+                     "protocol_CODE": "USM0010082",
                      "ReqData": {
                          "userID": "eb2ae597-5adb-4242-b22e-a4f901275654",
                          "pWord": "123456",
@@ -313,7 +346,7 @@ var test_data = [
                  },
                  //视频
                   {
-                      "protocol_CODE": "USM001008",
+                      "protocol_CODE": "USM0010082",
                       "ReqData": {
                           "userID": "eb2ae597-5adb-4242-b22e-a4f901275654",
                           "pWord": "123456",

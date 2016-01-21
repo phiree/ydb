@@ -5,6 +5,7 @@ namespace DianzhuService.Diandian
 
     public class GlobalViables
     {
+        public static readonly log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Diandian");
         public static readonly string ServerName =Dianzhu.Config.Config.GetAppSetting("ImServer");  //home'pc: "20141220-pc";
         public static XmppClientConnection XMPPConnection = null;
         public static string APIBaseURL = Dianzhu.Config.Config.GetAppSetting("APIBaseURL");
@@ -12,9 +13,12 @@ namespace DianzhuService.Diandian
         public static string MediaGetUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl");
         static GlobalViables()
         {
+            log.Debug("xmpp服务初始化");
+           
             XMPPConnection = new XmppClientConnection(ServerName);
-            XMPPConnection.Resource = Dianzhu.Model.Enums.enum_XmppResource.YDBan_Win_DianDian.ToString();
             XMPPConnection.AutoResolveConnectServer = false;
+            XMPPConnection.Resource = Dianzhu.Model.Enums.enum_XmppResource.YDBan_Win_DianDian.ToString();
+           
         }
        
     }

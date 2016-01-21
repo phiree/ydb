@@ -23,7 +23,8 @@ namespace Dianzhu.CSClient.Presenter
         BLLReceptionStatus bllReceptionStatus;
         BLLReceptionChat bllReceptionChat;
         BLLDeviceBind bllDeviceBind;
-       
+        BLLReceptionChatDD bllReceptionChatDD;
+
         public MainPresenter(IVew.IMainFormView view,
             InstantMessage instantMessage,
             IMessageAdapter.IAdapter messageAdapter
@@ -39,6 +40,7 @@ namespace Dianzhu.CSClient.Presenter
             this.bllDeviceBind = new BLLDeviceBind();//bllDeviceBind
 
             this.bllOrder = new BLLServiceOrder();// bllOrder;
+            this.bllReceptionChatDD = new BLLReceptionChatDD();
 
             //  IM的委托
             this.instantMessage.IMPresent += new IMPresent(IMPresent);
@@ -55,7 +57,7 @@ namespace Dianzhu.CSClient.Presenter
             this.view.IdentityItemActived += new IVew.IdentityItemActived(LoadChatHistory);
             this.view.IdentityItemActived += new IdentityItemActived(LoadCurrentOrder);
 
-            this.view.ButtonNamePrefix = Dianzhu.Config.Config.GetAppSetting("ButtonNamePrefix");
+            this.view.ButtonNamePrefix =GlobalViables.ButtonNamePrefix;
             this.view.SearchService += new IVew.SearchService(view_SearchService);
             this.view.SelectService += View_SelectService;
             this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
@@ -78,7 +80,7 @@ namespace Dianzhu.CSClient.Presenter
 
             this.view.MessageSentAndNew += View_MessageSentAndNew;
 
-            this.SysAssign();
+            this.SysAssign(2);
         }
 
         /// <summary>
@@ -138,91 +140,94 @@ namespace Dianzhu.CSClient.Presenter
         }
 
         /// <summary>
-        /// 系统分配用户给在线客服
+        /// 系统按数量分配用户给在线客服
         /// </summary>
-        private void SysAssign()
+        /// <param name="num"></param>
+        private void SysAssign(int num)
         {
-            ReceptionStatus rs = bllReceptionStatus.GetRSByDiandian(GlobalViables.Diandian);
-            if (rs != null)
+            IList<ReceptionStatus> rsList = bllReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian,num);
+            if (rsList.Count > 0)
             {
-                rs.CustomerService = GlobalViables.CurrentCustomerService;
-                bllReceptionStatus.SaveByRS(rs);
-
-                BLLReceptionChatDD bllReceptionChatDD = new BLLReceptionChatDD();
-                //查询聊天记录表中是否有该订单的聊天，如果没有，从点点记录的聊天记录表中复制一份
-                IList<ReceptionChatDD> chatDDList = bllReceptionChatDD.GetChatDDListByOrder(rs.Order);
-                if (chatDDList.Count > 0)
+                foreach (ReceptionStatus rs in rsList)
                 {
-                    ReceptionChat copychat;
-                    for (int i = 0; i < chatDDList.Count; i++)
+                    rs.CustomerService = GlobalViables.CurrentCustomerService;
+                    bllReceptionStatus.SaveByRS(rs);
+
+                    CopyDDToChat(rsList.Select(x => x.Customer).ToList());
+
+                    ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
+                    rChatReAss.From = GlobalViables.Diandian;
+                    rChatReAss.To = rs.Customer;
+                    rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
+                    rChatReAss.ReAssignedCustomerService = rs.CustomerService;
+                    rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
+                    rChatReAss.ServiceOrder = rs.Order;
+                    rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
+
+                    //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+                    SaveMessage(rChatReAss, true);
+                    instantMessage.SendMessage(rChatReAss);
+
+                    ClientState.OrderList.Add(rs.Order);
+                    view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                }
+            }
+            else
+            {
+                IList<ServiceOrder> orderCList = bllReceptionChatDD.GetCustomListDistinctFrom(num);
+                if (orderCList.Count > 0)
+                {
+                    IList<DZMembership> logoffCList = new List<DZMembership>();
+                    foreach (ServiceOrder order in orderCList)
                     {
-                        //ReceptionChat chat = ReceptionChat.Create(chatType);
-                        copychat = ReceptionChat.Create(chatDDList[i].ChatType);
-                        copychat.Id = chatDDList[i].Id;
-                        copychat.MessageBody = chatDDList[i].MessageBody;
-                        copychat.ReceiveTime = chatDDList[i].ReceiveTime;
-                        copychat.SendTime = chatDDList[i].SendTime;
-                        copychat.To = rs.Customer;
-                        copychat.From = chatDDList[i].From;
-                        copychat.Reception = chatDDList[i].Reception;
-                        copychat.SavedTime = chatDDList[i].SavedTime;
-                        copychat.ChatType = chatDDList[i].ChatType;
-                        copychat.ServiceOrder = chatDDList[i].ServiceOrder;
-                        copychat.Version = chatDDList[i].Version;
-                        if(chatDDList[i].ChatType== enum_ChatType.Media)
+                        if (!logoffCList.Contains(order.Customer))
                         {
-                            ((ReceptionChatMedia)copychat).MedialUrl = chatDDList[i].MedialUrl;
-                            ((ReceptionChatMedia)copychat).MediaType = chatDDList[i].MediaType;
+                            logoffCList.Add(order.Customer);
                         }
 
-                        bllReceptionChat.Save(copychat);
-
-                        chatDDList[i].IsCopy = true;
-                        bllReceptionChatDD.Save(chatDDList[i]);
+                        //按订单显示按钮
+                        ClientState.OrderList.Add(order);
+                        view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
                     }
+                    CopyDDToChat(logoffCList);
+                }
+            }
+        }
 
-                    ////复制用户与点点的聊天记录
-                    //IList<ReceptionChatDD> chatList = bllReceptionChatDD.GetChatListByOrder(rs.Order);
-                    //if (chatList.Count > 0)
-                    //{
-                    //    ReceptionChat copychat;
-                    //    foreach (ReceptionChatDD chatDD in chatList)
-                    //    {
-                    //        if (chatDD.To != rs.Customer)
-                    //        {
-                    //            copychat = new ReceptionChat();
-                    //            copychat.MessageBody = chatDD.MessageBody;
-                    //            copychat.ReceiveTime = chatDD.ReceiveTime;
-                    //            copychat.SendTime = chatDD.SendTime;
-                    //            copychat.To = rs.Customer;
-                    //            copychat.From = chatDD.From;
-                    //            copychat.Reception = chatDD.Reception;
-                    //            copychat.SavedTime = chatDD.SavedTime;
-                    //            copychat.ChatType = chatDD.ChatType;
-                    //            copychat.ServiceOrder = chatDD.ServiceOrder;
-                    //            copychat.Version = chatDD.Version;
+        /// <summary>
+        /// 把点点的记录复制到聊天记录
+        /// </summary>
+        /// <param name="cList"></param>
+        private void CopyDDToChat(IList<DZMembership> cList)
+        {
+            //查询点点聊天记录表中该用户的聊天记录
+            IList<ReceptionChatDD> chatDDList = bllReceptionChatDD.GetChatDDListByOrder(cList);
 
-                    //            bllReceptionChat.Save(copychat);
-                    //        }
-                    //    }
-                    //}
-                }                
+            ReceptionChat copychat;
+            foreach (ReceptionChatDD chatDD in chatDDList)
+            {
+                copychat = ReceptionChat.Create(chatDD.ChatType);
+                copychat.Id = chatDD.Id;
+                copychat.MessageBody = chatDD.MessageBody;
+                copychat.ReceiveTime = chatDD.ReceiveTime;
+                copychat.SendTime = chatDD.SendTime;
+                copychat.To = GlobalViables.CurrentCustomerService;
+                copychat.From = chatDD.From;
+                copychat.Reception = chatDD.Reception;
+                copychat.SavedTime = chatDD.SavedTime;
+                copychat.ChatType = chatDD.ChatType;
+                copychat.ServiceOrder = chatDD.ServiceOrder;
+                copychat.Version = chatDD.Version;
+                if (chatDD.ChatType == enum_ChatType.Media)
+                {
+                    ((ReceptionChatMedia)copychat).MedialUrl = chatDD.MedialUrl;
+                    ((ReceptionChatMedia)copychat).MediaType = chatDD.MediaType;
+                }
 
-                ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
-                rChatReAss.From = GlobalViables.Diandian;
-                rChatReAss.To = rs.Customer;
-                rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
-                rChatReAss.ReAssignedCustomerService = rs.CustomerService;
-                rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
-                rChatReAss.ServiceOrder = rs.Order;
-                rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
+                bllReceptionChat.Save(copychat);
 
-                //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
-                SaveMessage(rChatReAss, true);
-                instantMessage.SendMessage(rChatReAss);
-
-                ClientState.OrderList.Add(rs.Order);
-                view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                chatDD.IsCopy = true;
+                bllReceptionChatDD.Save(chatDD);
             }
         }
 

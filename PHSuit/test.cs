@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using System.Collections.Specialized;
 
 namespace PHSuit
 {
@@ -41,6 +42,33 @@ namespace PHSuit
             8b123c1b50b85f67cb2bec37ae2b8c98fda48c8e43e4ce54a4c9291f17cb109a
             */
             Push.pushNotifications("8de76c196a605120db39ab58373edf159c1301b43659bd129fcf72b696e2a26c", "test_push", @"files\aps_development_Mark.p12", 1);
+        }
+        [Test]
+        public void TestCreateHttp()
+        {
+          string response=  HttpHelper.CreateHttpRequest("http://localhost/","get",null);
+            Assert.IsTrue(response.Length > 0);
+            Console.WriteLine(response);
+            var postData = new NameValueCollection();
+            postData.Add("name","aa");
+            postData.Add("pWord", "pword");
+
+            response = HttpHelper.CreateHttpRequest("http://localhost",
+                "Post",
+              postData);
+
+            Console.WriteLine(response);
+
+
+
+
+        }
+        [Test]
+        public void TestLogger()
+        {
+            
+     Logging.GetLog("Dianzhu.Test"). Debug("log test");
+            
         }
     }
 }

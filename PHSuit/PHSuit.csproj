@@ -84,7 +84,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HttpHelper.cs" />
     <Compile Include="IOHelper.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="MusicPlayer.cs" />
     <Compile Include="NetHelper.cs" />
     <Compile Include="PHGeography.cs" />
@@ -105,9 +107,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Configs.rar" />
-    <None Include="files\aps_development_Mark.p12">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="files\aps_development_Mark.p12">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

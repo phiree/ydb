@@ -89,6 +89,7 @@ namespace Dianzhu.DAL
                     result = result.And(x => x.ChatTarget == enum_ChatTarget.store);
                     break;
             }
+            result = result.And(x => x.ChatType != enum_ChatType.ReAssign).And(x => x.ChatType != enum_ChatType.Notice);
             rowCount = result.RowCount();
             IList<ReceptionChat> receptionChatList = new List<ReceptionChat>();
             if (pageIndex < 0 && pageSize < 0)

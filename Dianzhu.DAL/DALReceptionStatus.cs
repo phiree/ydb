@@ -94,16 +94,9 @@ namespace Dianzhu.DAL
             return dzList;
         }
 
-        public virtual ReceptionStatus GetReceptionStatusByDiandian(DZMembership diandian)
+        public virtual IList<ReceptionStatus> GetRSListByDiandian(DZMembership diandian,int num)
         {
-            ReceptionStatus re = null;
-            var result = Session.QueryOver<ReceptionStatus>().Where(x => x.CustomerService == diandian).OrderBy(x => x.LastUpdateTime).Asc.List();
-            if (result.Count > 0)
-            {
-                re = result[0];
-            }
-
-            return re;
+            return Session.QueryOver<ReceptionStatus>().Where(x => x.CustomerService == diandian).OrderBy(x => x.LastUpdateTime).Asc.Take(num).List();
         }
 
         public virtual ReceptionStatus GetOrder(DZMembership c,DZMembership cs)

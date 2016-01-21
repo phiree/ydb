@@ -34,10 +34,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="agsXMPP, Version=1.1.1.0, Culture=neutral, PublicKeyToken=ff839b81f1debe86, processorArchitecture=MSIL">
-      <HintPath>..\packages\agsXMPP.1.1.1.0\lib\agsXMPP.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.3.3.1\lib\net40-client\Castle.Core.dll</HintPath>
       <Private>True</Private>
@@ -46,8 +42,8 @@
       <HintPath>..\packages\NBuilder.3.0.1.1\lib\FizzWare.NBuilder.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FluentNHibernate, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentNHibernate.2.0.1.0\lib\net40\FluentNHibernate.dll</HintPath>
+    <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -109,7 +105,9 @@
     <Compile Include="BLLTest\TestReceptionAssign.cs" />
     <Compile Include="CashTicketCreateTest.cs" />
     <Compile Include="cashticket_generator_test.cs" />
+    <Compile Include="DALTest\TestDALReceptionChatDD.cs" />
     <Compile Include="DianzhuNotifyCenterTest\OrderNotifyTest.cs" />
+    <Compile Include="DianzhuPushTest\TestPush.cs" />
     <Compile Include="dianzhu_test.cs" />
     <Compile Include="DZCSClientTest\MainPresenterTest.cs" />
     <Compile Include="DZCSClientTest\MessageAdapterTest\MessageAdapterTest.cs" />
@@ -135,6 +133,7 @@
     <Content Include="config\mailSettings.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="config\log4net.config" />
     <None Include="packages.config" />
     <None Include="TestFiles\个人服务类最新版-表格.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -142,9 +141,17 @@
     <None Include="TestFiles\商务服务类最新版-表格.xls" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\agsxmpp\agsXMPP2013.csproj">
+      <Project>{91ea0d0b-d3ba-497f-afeb-2cad59deba0e}</Project>
+      <Name>agsXMPP2013</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
       <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
       <Name>Dianzhu.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
+      <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
+      <Name>Dianzhu.Config</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj">
       <Project>{820A465F-51FB-4F8D-8665-B80F9643281B}</Project>
@@ -181,6 +188,10 @@
     <ProjectReference Include="..\Dianzhu.Notify\Dianzhu.Notify.csproj">
       <Project>{1baad173-a641-435a-ad03-0cd0146674b9}</Project>
       <Name>Dianzhu.Notify</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
+      <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
+      <Name>Dianzhu.Push</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>

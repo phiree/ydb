@@ -16,14 +16,30 @@ public class ResponseUSM001005 : BaseResponse
     {
         ReqDataUSM requestData = request.ReqData.ToObject<ReqDataUSM>();
         DZMembershipProvider p = new DZMembershipProvider();
-        string userName = requestData.phone ?? requestData.email;
-         
         DZMembership member;
-        bool validated = new Account(p).ValidateUser(userName, requestData.pWord, this, out member);
-        if (!validated)
+        bool validated;
+
+        Guid userId;
+        bool isGuid = Guid.TryParse(requestData.email, out userId);
+        if (isGuid)
         {
-            return;
+            validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
+            if (!validated)
+            {
+                return;
+            }
         }
+        else
+        {
+            string userName = requestData.phone ?? requestData.email;
+
+            validated = new Account(p).ValidateUser(userName, requestData.pWord, this, out member);
+            if (!validated)
+            {
+                return;
+            }
+        }
+        
         this.state_CODE = Dicts.StateCode[0];
         
         RespDataUSM_userObj userObj = new RespDataUSM_userObj().Adapt(member);

@@ -37,6 +37,23 @@ namespace MediaServer
             fs.Close();
             return  fileName;
         }
+
+        public static string UploadFromUrl(string url, string originalName, string localSavePathRoot, string domainType, FileType fileType)
+        {
+            originalName = Path.GetFileName(originalName);
+            var client = new WebClient();
+            byte[] fileData = client.DownloadData(url); ; 
+            string savedPath = string.Empty;
+            string relativePath = ServerSettings.DomainPath[domainType];
+            string fileName = ServerSettings.FileNameBuilder(originalName, domainType, fileType);
+            string fullLocalPath = localSavePathRoot + relativePath + fileName;
+            PHSuit.IOHelper.EnsureFileDirectory(fullLocalPath);
+            FileStream fs = new FileStream(fullLocalPath, FileMode.Create, FileAccess.Write);
+            fs.Write(fileData, 0, fileData.Length);
+            fs.Flush();
+            fs.Close();
+            return fileName;
+        }
     }
 }
 
