@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="css/goods.css"/>
+    <link rel="stylesheet" href="css/goods.css"/>
+</head>
+<body>
+<div id="goodsBox"></div>
+<div id="testData"></div>
+
+<!-- shelf app template 货架化app模版 -->
+<script type="text/template" id="app_template">
+    <div class="app_view">
+        <div class="model">
+            <div class="model-h"></div>
+            <div class="model-m">
+                <div class="day_tabs"></div>
+                <div class="day_container">
+                    <!-- 注入服务单日模版 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- one day template 单日模版 -->
+<script type="text/template" id="day_template">
+    <div class="shelf-title">
+        <div><span><%= date %></span><p><%= dayDoneOrder %>/<%= dayMaxOrder %></p></div>
+        <div class="shelf-day-control"><input type="checkbox" value="dayEnable" <% if ( dayEnable ){ %> checked <% } %>/></div>
+    </div>
+    <div class="time-bucket">
+        <!--注入时间段模版-->
+    </div>
+</script>
+
+<!-- timeBucket template 时间段模版 -->
+<script type="text/template" id="timeBucket_template">
+    <div class="time-bucket-tip"><span><%= timeStart %></span>-<span><%= timeEnd %></span></div>
+    <div class="order-list">
+        <% _.each(arrayOrders,function(order){ %>
+        <div class="order">
+            <p><%= order.ordered %></p>
+            <% if( !order.ordered ) { %> <input class="deleteOrder" type="button" value="x" /> <% }%>
+        </div>
+        <% }) %>
+    </div>
+    <span><%= maxNum %>/<%= doneNum %></span>
+    <input type="checkbox" <% if ( timeEnable ){ %> checked <% } %>/>
+    <input class="multiDelete" type="button" value="-"/>
+    <input class="multiNum" type="number" value="1" title="填写修改量"/>
+    <input class="multiAdd" type="button" value="+"/>
+</script>
+
+<!-- 服务单个商品模版 -->
+<script type="text/template" id="orders_template">
+    <% _.each(arrayOrders,function(order){ %>
+    <div class="order">
+        <p><%= order.ordered %></p>
+        <% if( !order.ordered ) { %> <input class="deleteOrder" type="button" value="x" /> <% }%>
+    </div>
+    <% }) %>
+</script>
+
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/json2.js"></script>
+<script src="js/mock.js"></script>
+<script src="js/MockData.js"></script>
+<script src="js/underscore.js"></script>
+<script src="js/backbone.js"></script>
+<script src="js/backbone.customAPI.js"></script>
+<!--<script src="js/backbone.localStorage.js"></script>-->
+<script src="js/goods.js"></script>
+</body>
+</html>
