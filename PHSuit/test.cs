@@ -67,7 +67,7 @@ namespace PHSuit
         public void TestLogger()
         {
             
-     Logging.GetLog("Dianzhu.Test"). Debug("log test");
+     
             
         }
     }
