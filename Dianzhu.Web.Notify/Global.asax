@@ -10,7 +10,7 @@
         //Code that runs on application startup
         //init xmpp conenction 
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
-        log4net.Config.XmlConfigurator.Configure();
+         PHSuit.Logging.Config();
         _SetupRefreshJob();
         string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
           

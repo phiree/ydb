@@ -14,6 +14,12 @@ namespace Dianzhu.Test.DALTest
     [TestFixture]
    public  class DALReceptionChatDDTest
     {
+        [TestFixtureSetUp]
+        public void setup(){
+            PHSuit.Logging.Config();
+           log4net.LogManager.GetLogger("Dianzhu.Test").Debug("test--");
+            log4net.LogManager.GetLogger("NoLog").Debug("test--");
+        }
        [Test]
         public void GetChatDDListByOrder()
         {

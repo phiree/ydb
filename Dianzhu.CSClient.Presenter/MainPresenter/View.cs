@@ -37,17 +37,19 @@ namespace Dianzhu.CSClient.Presenter
                 string.Empty, string.Empty, string.Empty, 0, string.Empty, ClientState.CurrentServiceOrder.Customer,
                 string.Empty, 0, 0);
             bllOrder.SaveOrUpdate(newOrder);
-            ReceptionChat chat = new ReceptionChat
-            {
-                ChatType = Model.Enums.enum_ChatType.Text,
-                From = ClientState.customerService,
-                To = ClientState.CurrentServiceOrder.Customer,
-                MessageBody = "创建新订单，订单Id："+newOrder.Id,
-                SendTime = DateTime.Now,
-                SavedTime = DateTime.Now,
-                ServiceOrder = newOrder
-            };
-            SendMessage(chat);
+            ClientState.CurrentServiceOrder = newOrder;
+            //ReceptionChat chat = new ReceptionChat
+            //{
+            //    ChatType = Model.Enums.enum_ChatType.Text,
+            //    From = ClientState.customerService,
+            //    To = ClientState.CurrentServiceOrder.Customer,
+            //    MessageBody = "创建新订单，订单Id："+newOrder.Id,
+            //    SendTime = DateTime.Now,
+            //    SavedTime = DateTime.Now,
+            //    ServiceOrder = newOrder
+            //};
+            //SendMessage(chat);
+            View_NoticeOrder();
 
             view.OrderNumber = newOrder.Id.ToString();
             view.OrderStatus = Model.Enums.enum_OrderStatus.Draft.ToString();

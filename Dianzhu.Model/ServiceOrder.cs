@@ -290,11 +290,6 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string TradeNo { get; set; }
 
-        /// <summary>
-        /// 订单种类：搜索、先付、后付
-        /// </summary>
-        public virtual enum_ChatPayType ChatPayType { get; set; }
-
     }
  
      

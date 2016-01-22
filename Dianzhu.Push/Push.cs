@@ -145,4 +145,12 @@ namespace Dianzhu.Push
             Console.WriteLine(string.Format("Error: {0}", ex.Message));
         }
     }
+
+    public class PushDemoClient : IPush
+    {
+        public string Push(string message)
+        {
+            return string.Empty;
+        }
+    }
 }

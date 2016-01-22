@@ -81,30 +81,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Model", "Dianzhu.Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Test", "Dianzhu.Test\Dianzhu.Test.csproj", "{F8D0123D-2E12-4FC6-8A84-EECC0447F8CC}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusiness\", "{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/AdminBusiness"
-		Debug.AspNetCompiler.PhysicalPath = "AdminBusiness\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminBusiness\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/AdminBusiness"
-		Release.AspNetCompiler.PhysicalPath = "AdminBusiness\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminBusiness\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "25404"
-		VWDVirtualPath = "/"
-		SlnRelativePath = "AdminBusiness\"
-		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHSuit", "PHSuit\PHSuit.csproj", "{0122C6D5-6348-4B65-88B7-3C43A6E642F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient", "Dianzhu.CSClient\Dianzhu.CSClient.csproj", "{6A05019E-F3EA-460A-BC05-0336EB3BFCF4}"
@@ -261,6 +237,30 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.PushServer", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Push", "Dianzhu.Push\Dianzhu.Push.csproj", "{BE142427-1CE4-40F8-AC58-D0509BA05D21}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AdminBusiness", "AdminBusiness\", "{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/AdminBusiness"
+		Debug.AspNetCompiler.PhysicalPath = "AdminBusiness\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminBusiness\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/AdminBusiness"
+		Release.AspNetCompiler.PhysicalPath = "AdminBusiness\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\AdminBusiness\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "25404"
+		VWDVirtualPath = "/"
+		SlnRelativePath = "AdminBusiness\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -331,18 +331,6 @@ Global
 		{F8D0123D-2E12-4FC6-8A84-EECC0447F8CC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F8D0123D-2E12-4FC6-8A84-EECC0447F8CC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F8D0123D-2E12-4FC6-8A84-EECC0447F8CC}.Release|x86.ActiveCfg = Release|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|Any CPU.Deploy.0 = Debug|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|x86.ActiveCfg = Debug|Any CPU
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|x86.Deploy.0 = Debug|Any CPU
 		{0122C6D5-6348-4B65-88B7-3C43A6E642F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0122C6D5-6348-4B65-88B7-3C43A6E642F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0122C6D5-6348-4B65-88B7-3C43A6E642F3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -639,6 +627,18 @@ Global
 		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Release|x86.ActiveCfg = Release|Any CPU
 		{BE142427-1CE4-40F8-AC58-D0509BA05D21}.Release|x86.Build.0 = Release|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Debug|x86.Build.0 = Debug|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|x86.ActiveCfg = Debug|Any CPU
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -654,7 +654,6 @@ Global
 		{2E67AA78-6780-42BD-A3AB-AD953781E511} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{0D1C0821-004D-4D6B-BB6C-F561895DCC4E} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{84187F7C-DD53-4895-A7FF-191E76756009} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
-		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{6A05019E-F3EA-460A-BC05-0336EB3BFCF4} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{BE4F5CD3-E748-46D9-A9D0-941EF2FA3CDB} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{755EEA8C-9D5E-406E-83DD-36B3BA4EB158} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
@@ -679,6 +678,7 @@ Global
 		{8F7D2A86-E244-4D57-9BC7-87981FECE50B} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{CBE79023-31C6-455F-A6F0-3BFF280F66E8} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{BE142427-1CE4-40F8-AC58-D0509BA05D21} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

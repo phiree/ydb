@@ -182,25 +182,6 @@ namespace Dianzhu.Model.Enums
         /// </summary>
         all
     }
-
-    /// <summary>
-    /// 订单种类：搜索、先付、后付
-    /// </summary>
-    public enum enum_ChatPayType
-    {
-        /// <summary>
-        /// 搜索
-        /// </summary>
-        search,
-        /// <summary>
-        /// 先付
-        /// </summary>
-        payfirst,
-        /// <summary>
-        /// 后付
-        /// </summary>
-        paylater
-    }
     /// <summary>
     /// 用户的在线状态
     /// </summary>

@@ -16,5 +16,5 @@ public static class Config
         }
     }
     public static readonly string  pwssword_recovery_spliter = "1z0m-2mkirowxi2-wrk2";
-    public static log4net.ILog log = log4net.LogManager.GetLogger(Dianzhu.Config.Config.GetAppSetting("LoggerName"));
+    public static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminBusiness");
 }

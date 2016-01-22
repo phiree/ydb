@@ -38,9 +38,6 @@ namespace Dianzhu.DAL.Mapping
             References<DZMembership>(x => x.CustomerService);
             Map(x => x.TradeNo);
             Map(x => x.RefundMemo);
-
-            Map(x => x.ChatPayType).CustomType<int>();
-
         }
     }
 }
