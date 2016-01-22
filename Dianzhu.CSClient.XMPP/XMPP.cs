@@ -43,7 +43,7 @@ namespace Dianzhu.CSClient.XMPP
             if (XmppClientConnection == null)
             {
                 XmppClientConnection = new agsXMPP.XmppClientConnection(server);
-                XmppClientConnection.AutoResolveConnectServer = false;
+                XmppClientConnection.AutoResolveConnectServer = true;
                 XmppClientConnection.OnLogin += new agsXMPP.ObjectHandler(Connection_OnLogin);
                 XmppClientConnection.OnPresence += new PresenceHandler(Connection_OnPresence);
                 XmppClientConnection.OnMessage += new MessageHandler(XmppClientConnection_OnMessage);
