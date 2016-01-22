@@ -127,6 +127,12 @@ namespace Dianzhu.NotifyCenter
             foreach (KeyValuePair<DZMembership, DZMembership> r in reassignList)
             {
                 ServiceOrder order = bllReceptionStatus.GetOrder(r.Key, r.Value).Order;
+                if (order.OrderStatus != enum_OrderStatus.Draft)
+                {
+                    ServiceOrder newOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
+                string.Empty, string.Empty, string.Empty, 0, string.Empty, r.Key, string.Empty, 0, 0);
+                    order = newOrder;
+                }
                 ReceptionChat rc = new ReceptionChatReAssign
                 {
                     From = imMember,

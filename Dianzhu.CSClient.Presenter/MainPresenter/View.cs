@@ -49,7 +49,7 @@ namespace Dianzhu.CSClient.Presenter
             //    ServiceOrder = newOrder
             //};
             //SendMessage(chat);
-            View_NoticeOrder();
+            NoticeDraftNew();
 
             view.OrderNumber = newOrder.Id.ToString();
             view.OrderStatus = Model.Enums.enum_OrderStatus.Draft.ToString();
@@ -86,6 +86,7 @@ namespace Dianzhu.CSClient.Presenter
             Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
             SaveCurrentOrder();
             ClientState.CurrentServiceOrder.OrderStatus = Model.Enums.enum_OrderStatus.Created;
+            View_NoticeOrder();
             string payLink = ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"));
 
             ReceptionChatNotice chatNotice = new ReceptionChatNotice

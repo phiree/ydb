@@ -367,7 +367,7 @@ namespace Dianzhu.CSClient.Presenter
             <body>  订单状态变更通知</body>
             <ext xmlns=""ihelper:notice:order"">
                 <orderID>{3}</orderID>
-                <orderObj title = ""{5}"" status = ""{4}"" type = """">
+                <orderObj title = ""{4}"" status = ""{5}"" type = """">
                 </orderObj>
             </ext>
             </message>
