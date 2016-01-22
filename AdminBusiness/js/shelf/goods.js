@@ -7,6 +7,11 @@
         factory ();
     }
 }(function(backbone){
+    var templateSetting = {
+        interpolate: /\{%=(.+?)%\}/g,
+        escape:      /\{%-(.+?)%\}/g,
+        evaluate:    /\{%(.+?)%\}/g
+    };
     // 时间段Model
     var TimeBucket = Backbone.Model.extend({
         defaults : {
@@ -93,8 +98,8 @@
     var TimeBucketView = Backbone.View.extend({
         tagName : 'div',
         className : 'time-bucket',
-        template : _.template($("#timeBucket_template").html()),
-        ordersTemplate : _.template($("#orders_template").html()),
+        template : _.template($("#timeBucket_template").html(),templateSetting),
+        ordersTemplate : _.template($("#orders_template").html(),templateSetting),
         events :　{
             'click .multiAdd' : 'addOrders',
             'click .multiDelete' : 'deleteOrders',
@@ -153,7 +158,7 @@
     var DayView = Backbone.View.extend({
         tagName : 'div',
         className : 'day-view',
-        template : _.template($('#day_template').html()),
+        template : _.template($('#day_template').html(),templateSetting),
         events :　{
             'click .addTimeBucket' : 'addTimeBucket'
         },
@@ -165,7 +170,7 @@
             return this;
         },
         initDayView : function(){
-            debugger;
+            //debugger;
             //不通过set方法，而是通过this属性直接设置timeBuckets属性为一个指向新的Collection的指针,这样是为了view中的listen可以正确的监听Collection对象。
             this.model.timeBuckets = new TimeBuckets();
             this.model.timeBuckets.url = '/timeBuckets.json';
@@ -197,20 +202,20 @@
 
     var appView = Backbone.View.extend({
         tagName : 'div',
-        template : _.template($('#app_template').html()),
+        template : _.template($('#app_template').html(),templateSetting),
         events : {
 
         },
         initialize : function(){
+            debugger;
             days.url = '/days.json';
             //days.url = 'http://localhost:806/dianzhuapi.ashx';
             var today = new Date();
             var requestDate = today.getFullYear() + "-" + (today.getMonth() + 1) + '-' + today.getDate();
             var requestDateF = today.getFullYear() + "/" + (today.getMonth() + 1) + '/' + today.getDate();
-
-            this.render();
             var _this = this;
 
+            this.render();
             days.fetch({
                 customAPI : true,
                 protocolCode : 'slf001007',
@@ -226,7 +231,7 @@
                 _this.initDayTab();
                 var today = _.find(collection.models, function(model){
                     debugger;
-                    return model.get('date') == requestDate
+                    return model.get('date') === requestDate;
                 });
                 _this.addDayView(today);
             }
@@ -236,32 +241,36 @@
             $('#goodShelf').append($(this.el));
             return this;
         },
+        initDayTab: function(){
+            var _this = this;
+            var today = new Date();
+            var requestDate = today.getFullYear() + "-" + (today.getMonth() + 1) + '-' + today.getDate();
+
+            var tab = this.$('.day-tabs');
+            _.each(days.models, function(day){
+                tab.append($('<input type="button" class="day-tab">').val(day.get('date')));
+                tab.find(".day-tab[value=" + requestDate + "]").addClass('active');
+            });
+            tab.find('.day-tab').on('click' , function(){
+                var date = $(this).val();
+                _this.showDayView(date);
+                $(this).addClass('active').siblings().removeClass('active');
+            });
+        },
+        showDayView: function(date){
+            var goToDay = _.find(days.models, function(model){
+                return model.get('date') === date;
+            });
+            this.addDayView(goToDay);
+        },
         addDayView: function(dayModel){
             debugger;
             var dayView = new DayView({model : dayModel});
             this.$('.day-container').html(dayView.render().el);
-        },
-        initDayTab: function(){
-            var _this = this;
-            var tab = this.$('.day-tabs');
-            _.each(days.models, function(day){
-                tab.append($('<input type="button" class="day-tab">').val(day.get('date')));
-            });
-
-            tab.find('.day-tab').on('click' , function(){
-                var date = $(this).val();
-                _this.showDayView(date)
-            })
-        },
-        showDayView: function(date){
-            var gotoday = _.find(days.models, function(model){
-                return model.get('date') == date
-            });
-            this.addDayView(gotoday);
         }
     });
 
-    var newApp = new appView;
+    var newApp = new appView();
 })
 );
 

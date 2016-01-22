@@ -32,7 +32,7 @@
             stamp_TIMES :  "1490192929222",
             serial_NUMBER :  "00147001015869149756",
         };
-        debugger;
+        //debugger;
         return JSON.stringify(formattedData);
     }
 
@@ -89,7 +89,7 @@
 
         var error = options.error;
         options.error = function(xhr, textStatus, errorThrown) {
-            debugger;
+            //debugger;
             console.log(xhr);
             console.log(textStatus);
             console.log(errorThrown);
@@ -101,7 +101,7 @@
 
         //make request
         var xhr = options.xhr = Backbone.ajax(_.extend(params, options));
-        debugger;
+        //debugger;
         console.log(xhr);
         model.trigger('request', model, xhr, options);
         return xhr;
