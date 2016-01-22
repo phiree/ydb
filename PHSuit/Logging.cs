@@ -17,7 +17,7 @@ namespace PHSuit
         /// </summary>
         public static void Config()
         {
-            System.Web.Hosting.HostingEnvironment.ApplicationHost.GetSiteName();
+     
             Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
             // Remove any other appenders
             hierarchy.Root.RemoveAllAppenders();
