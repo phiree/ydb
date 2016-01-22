@@ -25,6 +25,7 @@ namespace Dianzhu.CSClient.Presenter
         BLLDeviceBind bllDeviceBind;
         BLLReceptionChatDD bllReceptionChatDD;
         BLLIMUserStatus bllIMUserStatus;
+        string server;
 
         public MainPresenter(IVew.IMainFormView view,
             InstantMessage instantMessage,
@@ -83,6 +84,7 @@ namespace Dianzhu.CSClient.Presenter
             this.view.MessageSentAndNew += View_MessageSentAndNew;
 
             this.SysAssign(2);
+            server = Dianzhu.Config.Config.GetAppSetting("ImServer");
         }
 
         /// <summary>
@@ -90,46 +92,57 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         private void View_MessageSentAndNew()
         {
-            if (ClientState.CurrentServiceOrder == null)
-            { return; }
-
-            if (string.IsNullOrEmpty(view.MessageTextBox.Trim())) return;
-
-            ReceptionChat chat = new ReceptionChat
+            try
             {
-                ChatType = Model.Enums.enum_ChatType.Text,
-                From = ClientState.customerService,
-                To = ClientState.CurrentServiceOrder.Customer,
-                MessageBody = view.MessageTextBox,
-                SendTime = DateTime.Now,
-                SavedTime = DateTime.Now,
-                ServiceOrder = ClientState.CurrentServiceOrder,
+                if (ClientState.CurrentServiceOrder == null)
+                { return; }
 
-            };
+                if (string.IsNullOrEmpty(view.MessageTextBox.Trim())) return;
 
-            SendMessage(chat);
-            view.MessageTextBox = string.Empty;
+                ReceptionChat chat = new ReceptionChat
+                {
+                    ChatType = Model.Enums.enum_ChatType.Text,
+                    From = ClientState.customerService,
+                    To = ClientState.CurrentServiceOrder.Customer,
+                    MessageBody = view.MessageTextBox,
+                    SendTime = DateTime.Now,
+                    SavedTime = DateTime.Now,
+                    ServiceOrder = ClientState.CurrentServiceOrder,
 
-            //新建订单
-            ServiceOrder orderNew = ServiceOrder.Create(
-                         enum_ServiceScopeType.OSIM
-                       , string.Empty //serviceName
-                       , string.Empty//serviceBusinessName
-                       , string.Empty//serviceDescription
-                       , 0//serviceUnitPrice
-                       , string.Empty//serviceUrl
-                       , ClientState.CurrentServiceOrder.Customer //member
-                       , string.Empty
-                       , 0
-                       , 0);
-            orderNew.CustomerService = ClientState.customerService;
-            bllOrder.SaveOrUpdate(orderNew);
+                };
 
-            //通知前端订单已更改
-            ClientState.CurrentServiceOrder = orderNew;
-            NoticeDraftNew();
+                SendMessage(chat);
+                view.MessageTextBox = string.Empty;
 
-            CleanOrderData();
+                ClientState.CurrentServiceOrder.OrderStatus = enum_OrderStatus.Search;
+                ClientState.CurrentServiceOrder.OrderFinished = DateTime.Now;
+                bllOrder.SaveOrUpdate(ClientState.CurrentServiceOrder);
+
+                //新建订单
+                ServiceOrder orderNew = ServiceOrder.Create(
+                             enum_ServiceScopeType.OSIM
+                           , string.Empty //serviceName
+                           , string.Empty//serviceBusinessName
+                           , string.Empty//serviceDescription
+                           , 0//serviceUnitPrice
+                           , string.Empty//serviceUrl
+                           , ClientState.CurrentServiceOrder.Customer //member
+                           , string.Empty
+                           , 0
+                           , 0);
+                orderNew.CustomerService = ClientState.customerService;
+                bllOrder.SaveOrUpdate(orderNew);
+
+                //通知前端订单已更改
+                ClientState.CurrentServiceOrder = orderNew;
+                NoticeDraftNew();
+
+                CleanOrderData();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         /// <summary>
@@ -313,14 +326,14 @@ namespace Dianzhu.CSClient.Presenter
               string.Format(  @"
              <message xmlns = ""jabber:client"" type = ""headline"" 
         id = ""{2}""
-    to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
+    to = ""{0}"" from = ""{1}"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body> system notice</body>
             <ext xmlns = ""ihelper:notice:system"">
             </ext>
             </message>
-                ", ClientState.CurrentServiceOrder.Customer.Id,
-                ClientState.customerService.Id,
+                ", ClientState.CurrentServiceOrder.Customer.Id+"@"+ server,
+                ClientState.customerService.Id + "@" + server,
                 Guid.NewGuid())
                 );
         }
@@ -331,15 +344,15 @@ namespace Dianzhu.CSClient.Presenter
              string.Format(@"
              <message xmlns = ""jabber:client"" type = ""headline"" 
         id = ""{2}""
-    to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
+    to = ""{0}"" from = ""{1}"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body>  promote</body>
             <ext xmlns=""ihelper:notice:promote"">
                 <url>http://www.ydban.cn</url>
             </ext>
             </message>
-                ", ClientState.CurrentServiceOrder.Customer.Id,
-               ClientState.customerService.Id,Guid.NewGuid())
+                ", ClientState.CurrentServiceOrder.Customer.Id + "@" + server,
+               ClientState.customerService.Id + "@" + server, Guid.NewGuid())
                );
         }
 
@@ -349,7 +362,7 @@ namespace Dianzhu.CSClient.Presenter
               string.Format(@"
              <message xmlns = ""jabber:client"" type = ""headline"" 
         id = ""{2}""
-    to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
+    to = ""{0}"" from = ""{1}"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body>  订单状态变更通知</body>
             <ext xmlns=""ihelper:notice:order"">
@@ -358,8 +371,8 @@ namespace Dianzhu.CSClient.Presenter
                 </orderObj>
             </ext>
             </message>
-                ", ClientState.CurrentServiceOrder.Customer.Id,
-                ClientState.customerService.Id, Guid.NewGuid(),
+                ", ClientState.CurrentServiceOrder.Customer.Id + "@" + server,
+                ClientState.customerService.Id + "@" + server, Guid.NewGuid(),
                ClientState.CurrentServiceOrder.Id, 
                ClientState.CurrentServiceOrder.ServiceName,
                ClientState.CurrentServiceOrder.OrderStatus)
@@ -372,7 +385,7 @@ namespace Dianzhu.CSClient.Presenter
               string.Format(@"
              <message xmlns = ""jabber:client"" type = ""headline"" 
         id = ""{2}""
-    to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
+    to = ""{0}"" from = ""{1}"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <body>  客服通知 </body>
              <ext xmlns=""ihelper:notice:cer:change"">
@@ -381,8 +394,8 @@ namespace Dianzhu.CSClient.Presenter
                 </cerObj>
             </ext>
             </message>
-                ", ClientState.CurrentServiceOrder.Customer.Id,
-               ClientState.customerService.Id,
+                ", ClientState.CurrentServiceOrder.Customer.Id + "@" + server,
+               ClientState.customerService.Id + "@" + server,
                 Guid.NewGuid(),
                 ClientState.CurrentServiceOrder.Id,
                ClientState.CurrentServiceOrder.Customer.Id,
@@ -397,14 +410,13 @@ namespace Dianzhu.CSClient.Presenter
               string.Format(@"
              <message xmlns = ""jabber:client"" type = ""headline"" 
         id = ""{2}""
-    to = ""{0}@ydban.cn"" from = ""{1}@ydban.cn"">
+    to = ""{0}"" from = ""{1}"">
             <active xmlns = ""http://jabber.org/protocol/chatstates""></active>
             <ext xmlns=""ihelper:notice:draft:new"">
                 <orderID>{3}</orderID>
             </ext>
             </message>
-                ", ClientState.CurrentServiceOrder.Customer.Id, ClientState.customerService.Id,
-                Guid.NewGuid(), ClientState.CurrentServiceOrder.Id));
+                ", ClientState.CurrentServiceOrder.Customer.Id+"@"+ server, ClientState.customerService.Id,Guid.NewGuid()+"@"+ server, ClientState.CurrentServiceOrder.Id));
         }
 
         private void View_OrderStateChanged()
