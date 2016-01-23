@@ -44,6 +44,7 @@ public class ResponseORM002001 : BaseResponse
                 ReceptionAssigner ra = new ReceptionAssigner(imSession);
                 if (!string.IsNullOrEmpty(requestData.manualAssignedCsId))
                 {
+                    ilog.Debug("客户端手动指定客服" + requestData.manualAssignedCsId);
                     Guid mcsid = Guid.Empty;
                     bool isGuid = Guid.TryParse(requestData.manualAssignedCsId, out mcsid);
                     if (isGuid)
@@ -52,7 +53,7 @@ public class ResponseORM002001 : BaseResponse
                         ra = new ReceptionAssigner(ias, imSession);
                     }
                 }
-                ilog.Debug("3");
+                ilog.Debug("开始分配客服");
                 Dictionary<DZMembership, DZMembership> assignedPair = ra.AssignCustomerLogin(member);
                 if (assignedPair.Count == 0)
                 {

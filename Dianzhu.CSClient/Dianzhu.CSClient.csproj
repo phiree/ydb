@@ -15,8 +15,8 @@
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>ftp://119.29.39.211:2111/latest/publish/csclient/</PublishUrl>
-    <Install>true</Install>
+    <PublishUrl>ftp://business.ydban.cn/dianzhu_web_deploy/latest/publish/csclient/</PublishUrl>
+    <Install>false</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
@@ -25,15 +25,14 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://119.29.39.211:8035/</InstallUrl>
+    <InstallUrl>http://business.ydban.cn:8035/</InstallUrl>
     <ProductName>客服工具测试版</ProductName>
     <PublisherName>JSYK</PublisherName>
     <SuiteName>yidianban</SuiteName>
     <MinimumRequiredVersion>1.0.0.9</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

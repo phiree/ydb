@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using Dianzhu.DAL;
 using Dianzhu.Model;
+using System.Diagnostics;
 namespace Dianzhu.BLL
 {
     public class BLLReceptionStatus
     {
+        
         DAL.DALReceptionStatus dalRS;
         public BLLReceptionStatus(DALReceptionStatus dalRs)
         {
@@ -207,16 +209,32 @@ namespace Dianzhu.BLL
         {
             get
             {
-                if (diandian == null || diandian.Id == new Guid())
+                if (diandian == null )
                 {
-                    diandian = new DZMembership();
-                    //convert sesionUser to dzmembership
-                    foreach (OnlineUserSession user in imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_Win_DianDian.ToString()))
+                    IList<OnlineUserSession> onlineUsers = imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_Win_DianDian.ToString());
+                    Debug.Assert(onlineUsers.Count != 1, "点点没有登录，或者有多个点点账户登录");
+                    string errMsg = string.Empty;
+                    if (onlineUsers.Count == 1)
                     {
-                        diandian = dalMember.GetOne(new Guid(user.username));
+                        diandian = dalMember.GetOne(new Guid(onlineUsers[0].username));
                     }
+                    else if (onlineUsers.Count == 0)
+                    {
+                        errMsg = "点点没有登录成功";
+                        Logging.Log.Error(errMsg);
+                        throw new Exception(errMsg);
+                    }
+                    else
+                    {
+                        errMsg = "多个点点账号登录";
+                        Logging.Log.Error(errMsg);
+                        throw new Exception(errMsg);
+                    }
+                    //convert sesionUser to dzmembership
+                    
                 }
-                return diandian;
+                 
+                    return diandian;
             }
         }
 
@@ -437,6 +455,7 @@ namespace Dianzhu.BLL
             }
             else
             {
+                //emergency:点点账户是否登录 影响到 客服是否分配， 需要改善。 
                 //todo:后面可继续优化，当前是取客服接待人数最少的分配
                 var csDBList = dalRS.GetCSMinCount(diandian);
                 foreach (DZMembership customer in customerList)

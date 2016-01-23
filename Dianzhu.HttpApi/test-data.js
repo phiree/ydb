@@ -3,9 +3,21 @@
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", 
-"usm001005"
+"ofp001001"
 ];
 var test_data = [
+
+    /****************************************************/
+    {
+        "protocol_CODE": "OFP001001",
+        "ReqData": {
+            "Jid": "b4e8afd1-f64c-4a61-b837-a4f9013ed662@business.ydban.cn/spark",
+            "status": "unavailable",
+            "ipaddress": ""
+        },
+        "stamp_TIMES": 1453520313281
+    },
+ 
     /*********************货架化************************/
      {
          "protocol_CODE": "slf001007",

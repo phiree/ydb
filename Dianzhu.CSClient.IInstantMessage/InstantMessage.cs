@@ -31,6 +31,7 @@ namespace Dianzhu.CSClient.IInstantMessage
     {
 
         string Server { get; }
+        string Domain { get; }
         void OpenConnection(string userName, string password);
         void SendPresent();
 

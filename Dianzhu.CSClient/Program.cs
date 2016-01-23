@@ -40,9 +40,9 @@ namespace Dianzhu.CSClient
                  );
             //get im server config
             string server = Config.Config.GetAppSetting("ImServer");
+            string domain= Config.Config.GetAppSetting("ImDomain");
 
-
-            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,messageAdapter, Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString());
+            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,domain, messageAdapter, Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString());
 
 
             var loginForm = new WPF.FormLogin();

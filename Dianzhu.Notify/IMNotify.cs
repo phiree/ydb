@@ -41,7 +41,7 @@ namespace Dianzhu.NotifyCenter
             var extNode = new agsXMPP.Xml.Dom.Element("ext");
             extNode.Namespace = "ihelper:notice:system";
 
-            ags.Message msg = BuildNotice(scope + "@broadcast." + im.Server, message, extNode);
+            ags.Message msg = BuildNotice(scope + "@broadcast." + im.Domain, message, extNode);
             im.SendMessage(msg.ToString());
         }
         public void SendSysNoitification(string message)
@@ -66,7 +66,7 @@ namespace Dianzhu.NotifyCenter
             extNode.AddChild(orderObj);
 
             ags.Message msg= BuildNotice(
-                 order.Customer.Id.ToString() + "@" + im.Server,
+                 order.Customer.Id + "@" + im.Domain,
                  "订单状态已变为:" + order.OrderStatus,
                  extNode
                  );
@@ -74,7 +74,7 @@ namespace Dianzhu.NotifyCenter
             im.SendMessage(msg.ToString());
 
             ags.Message msgForCS = BuildNotice(
-                  order.CustomerService.Id.ToString() + "@" + im.Server,
+                  order.CustomerService.Id + "@" + im.Domain,
                   "订单状态已变为:" + order.OrderStatus,
                   extNode
                   );
