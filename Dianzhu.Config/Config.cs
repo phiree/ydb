@@ -10,20 +10,21 @@ namespace Dianzhu.Config
     /// </summary>
     public static class Config
     {
+        #region 服务器定义
         static string[] DatabaseServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236" };
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236" };
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn" };
         static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236" };
+        #endregion
+
+        #region   部署前，只需要手动修改此处 /
+        static string DatabaseServer = DatabaseServers[0];//数据库地址
+        static string IMServer = DatabaseServers[0];//即时通讯服务器地址
+        static string IMDomain = IMDomains[0];//即时通讯服务器地址
+        static string ApplicationServer = DatabaseServers[0];//应用服务器地址
+        #endregion                                              
 
 
-        /************** 部署前，只需要手动修改此处**********************************/
-        static string DatabaseServer = DatabaseServers[2];//数据库地址
-        static string IMServer = DatabaseServers[2];//即时通讯服务器地址
-        static string IMDomain = IMDomains[2];//即时通讯服务器地址
-        static string ApplicationServer = DatabaseServers[2];//应用服务器地址
-                                                           /***************** END*******************************************************/
-
-       
 
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
         public static string ConnectionString
