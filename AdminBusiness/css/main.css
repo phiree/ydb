@@ -5702,7 +5702,13 @@ a.time-trigger:hover {
 .day-title .day-control {
   float: right;
 }
-.day-title .day-control .round-checkbox {
+.day-title .day-control-item {
+  display: inline-block;
+}
+.day-title .day-control-item + .day-control-item {
+  margin-left: 10px;
+}
+.day-title .round-checkbox {
   float: right;
   margin-top: 3px;
   margin-left: 10px;
@@ -5765,11 +5771,18 @@ a.time-trigger:hover {
   text-align: center;
 }
 .t-b-edit {
-  padding: 30px 0;
+  overflow: hidden;
   display: block;
-  height: 100px;
+  height: 0;
   float: right;
   text-align: center;
+  transition: all 0.3s;
+}
+.t-b-edit.show {
+  height: 100px;
+}
+.t-b-edit .edit-t {
+  margin-top: 30px;
 }
 .t-b-edit input[type=button] {
   color: #fff;
@@ -5828,9 +5841,9 @@ a.time-trigger:hover {
 .order-next,
 .order-prev {
   float: left;
+  width: 20px;
   height: 100px;
   line-height: 100px;
-  background: #1cc7ff;
 }
 .order-list {
   height: 100px;

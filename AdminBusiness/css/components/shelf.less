@@ -112,11 +112,17 @@
   }
   .day-control {
     float: right;
-    .round-checkbox {
-      float: right;
-      margin-top: 3px;
+  }
+  .day-control-item {
+    & + .day-control-item {
       margin-left: 10px;
     }
+    display: inline-block;
+  }
+  .round-checkbox {
+    float: right;
+    margin-top: 3px;
+    margin-left: 10px;
   }
 }
 
@@ -193,12 +199,20 @@
   text-align: center;
 }
 
+// 时间段编辑框开关控制样式
 .t-b-edit {
-  padding: 30px 0;
+  overflow: hidden;
   display: block;
-  height: @time-view-height;
+  height: 0;
   float: right;
   text-align: center;
+  transition: all 0.3s;
+  &.show {
+    height: @time-view-height;
+  }
+  .edit-t {
+    margin-top: 30px;
+  }
   input[type=button] {
     color: #fff;
     font-size: 34px;
@@ -265,9 +279,9 @@
 .order-next,
 .order-prev {
   float: left;
+  width: 20px;
   height: @order-list-height;
   line-height: @order-list-height;
-  background: #1cc7ff;
 }
 .order-list {
   height: @order-list-height;

@@ -188,7 +188,8 @@
         className : 'day-view',
         template : _.template($('#day_template').html(),templateSetting),
         events :　{
-            'click .addTimeBucket' : 'addTimeBucket'
+            'click .addTimeBucket' : 'addTimeBucket',
+            'click .day_edit' : 'dayEditControl'
         },
         initialize : function () {
             this.initDayView();
@@ -213,7 +214,7 @@
                 data : {
                     date : requsetDate,
                     serviceId: "8e431b59-cc9e-4a98-a1a6-a5830110e478"
-                },
+                }
             });
         },
         addTimeBucketView : function(timeBucketModel){
@@ -222,6 +223,16 @@
         },
         addTimeBucket : function(){
             this.model.addTimeBucket();
+        },
+        /*
+        * 日期编辑开关控制
+        * */
+        dayEditControl : function(event){
+            if ( event.target && event.target.checked )  {
+                this.$('.t-b-edit').addClass('show');
+            } else {
+                this.$('.t-b-edit').removeClass('show');
+            }
         }
     });
 
@@ -243,6 +254,7 @@
             var _this = this;
 
             this.render();
+
             days.fetch({
                 customAPI : true,
                 protocolCode : 'slf001007',
@@ -290,7 +302,6 @@
             this.addDayView(goToDay);
         },
         addDayView: function(dayModel){
-            //debugger;
             var dayView = new DayView({model : dayModel});
             this.$('.day-container').html(dayView.render().el);
         }

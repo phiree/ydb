@@ -30,11 +30,21 @@
     <div class="day-title">
         <div class="day-info"><span>{%= date %}</span><span class="m-l10">今日剩余&nbsp;{%= dayDoneOrder %}/{%= dayMaxOrder %}</span></div>
         <div class="day-control">
-            <span>当日服务开关:</span>
-            <div class="round-checkbox">
-                <input type="checkbox" value="dayEnable" {% if ( dayEnable ){ %} checked {% } %} id="{%= this.cid %}"/>
-                <label {%= "for=" + this.cid %} ></label>
-                <em></em>
+            <div class="day-control-item">
+                <span>服务编辑开关:</span>
+                <div class="round-checkbox">
+                    <input type="checkbox" class="day_edit" {%= "id=" + this.cid + "_dayEnable" %} />
+                    <label class="day_edit_label" {%= "for=" + this.cid + "_dayEnable" %} ></label>
+                    <em></em>
+                </div>
+            </div>
+            <div class="day-control-item">
+                <span >当日服务开关:</span>
+                <div class="round-checkbox">
+                    <input type="checkbox" value="dayEdit" {%= "id=" + this.cid + "_dayEdit" %} />
+                    <label {%= "for=" + this.cid + "_dayEdit" %} ></label>
+                    <em></em>
+                </div>
             </div>
         </div>
     </div>
@@ -61,7 +71,7 @@
             <span class="t-b-num-n">{%= maxNum %}/{%= doneNum %}</span><span>剩余</span>
         </div>
         <div class="t-b-window">
-            <div class="order-prev">-</div>
+            <div class="order-prev"><<</div>
             <div class="order-list-wrap">
                 <ul class="order-list">
                     {% _.each(arrayOrders,function(order){ %}
@@ -77,7 +87,7 @@
                     {% }); %}
                 </ul>
             </div>
-            <div class="order-next">+</div>
+            <div class="order-next"> >> </div>
         </div>
     </div>
     <div class="t-b-edit">
