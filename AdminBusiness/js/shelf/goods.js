@@ -189,8 +189,8 @@
         template : _.template($('#day_template').html(),templateSetting),
         events :　{
             'click .addTimeBucket' : 'addTimeBucket',
-            'change .day_edit' : 'dayEditControl',
-            'change .day_enable' : 'dayEnableView'
+            'click .day_edit' : 'dayEditView',
+            'click .day_enable' : 'dayEnableView'
         },
         initialize : function () {
             this.initDayView();
@@ -225,26 +225,60 @@
             this.model.addTimeBucket();
         },
         /*
-        * 日期编辑开关View控制
+        * 编辑状态View控制
         * */
-        dayEditControl : function(event){
+        dayEditView : function(event){
+
+            var dayEnable = this.$(".day_enable");
+
+            if ( !dayEnable.get(0).checked ) {
+                return false;
+            } else {
+                if ( event.target && event.target.checked )  {
+                    return this._editViewControl('open');
+                } else {
+                    return this._editViewControl('close');
+                }
+            }
+        },
+        /*
+        * 日开关View控制
+        * */
+        dayEnableView : function(event){
+            var timeBuckets = this.$('.time-buckets');
+            var dayEdit = this.$('.day_edit');
+            // checked的改变和事件触发的顺序好像比较诡异，是checked的属性先改变然后在到触发事件，可以研究一下。
+            debugger;
+            if ( event.target && event.target.checked ) {
+                timeBuckets.removeClass('t-b-close');
+            } else {
+                // 如果编辑视图开启,关闭编辑视图.
+                if ( dayEdit.get(0).checked ) {
+                    dayEdit.prop('checked', false);
+                    this._editViewControl('close');
+                }
+                timeBuckets.addClass('t-b-close');
+            }
+        },
+        /*
+        * 编辑视图动作
+        *
+        * @Params : string,动作的名称.
+        * */
+        _editViewControl : function(toggle){
+
             var edit = this.$('.t-b-edit');
             var orderList = this.$(".order-list");
-            if ( event.target && event.target.checked )  {
+
+            if ( !toggle ) { return false; }
+            if ( toggle === 'open') {
                 edit.addClass('show');
                 orderList.addClass('edit');
             } else {
                 edit.removeClass('show');
                 orderList.removeClass('edit');
             }
-        },
-        dayEnableView : function(event){
-            var timeBuckets = this.$('.time-buckets');
-            if ( event.target && event.target.checked ) {
-                timeBuckets.removeClass('t-b-close');
-            } else {
-                timeBuckets.addClass('t-b-close');
-            }
+
         }
     });
 

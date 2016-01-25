@@ -5692,8 +5692,8 @@ a.time-trigger:hover {
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
   /* IE6-9 */
-  height: 34px;
-  line-height: 34px;
+  height: 40px;
+  line-height: 40px;
   padding: 0 20px;
 }
 .day-title .day-info {
@@ -5710,7 +5710,7 @@ a.time-trigger:hover {
 }
 .day-title .round-checkbox {
   float: right;
-  margin-top: 3px;
+  margin-top: 6px;
   margin-left: 10px;
 }
 /* 时间段样式 */
@@ -5877,6 +5877,20 @@ a.time-trigger:hover {
   width: 1000%;
   overflow: hidden;
 }
+.order-list.edit .deleteOrder {
+  display: block;
+  position: absolute;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  top: -10px;
+  right: -10px;
+  border: 0;
+  background: #ff4444;
+  /* Old browsers */
+}
 .order-list .order {
   display: block;
   float: left;
@@ -5915,17 +5929,7 @@ a.time-trigger:hover {
   background: #3399cc;
 }
 .order-list .deleteOrder {
-  position: absolute;
-  color: #fff;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  border-radius: 50%;
-  top: -10px;
-  right: -10px;
-  border: 0;
-  background: #ff4444;
-  /* Old browsers */
+  display: none;
 }
 /*可滑动开关样式*/
 .round-checkbox {

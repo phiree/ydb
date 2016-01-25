@@ -104,8 +104,8 @@
 
 .day-title {
   .model-h-base-style();
-  height: 34px;
-  line-height: 34px;
+  height: 40px;
+  line-height: 40px;
   padding: 0 20px;
   .day-info {
     display: inline-block;
@@ -121,7 +121,7 @@
   }
   .round-checkbox {
     float: right;
-    margin-top: 3px;
+    margin-top: 6px;
     margin-left: 10px;
   }
 }
@@ -311,6 +311,21 @@
   height: @order-list-height;
   width: 1000%;
   overflow: hidden;
+  &.edit {
+    .deleteOrder {
+      display: block;
+      position: absolute;
+      color: #fff;
+      width: @order-delete-size;
+      height: @order-delete-size;
+      line-height: 20px;
+      border-radius: 50%;
+      top: -(@order-delete-size/2);
+      right: -(@order-delete-size/2);
+      border: 0;
+      background: #ff4444; /* Old browsers */
+    }
+  }
   .order {
     display: block;
     float: left;
@@ -349,16 +364,7 @@
     }
   }
   .deleteOrder {
-    position: absolute;
-    color: #fff;
-    width: @order-delete-size;
-    height: @order-delete-size;
-    line-height: 20px;
-    border-radius: 50%;
-    top: -(@order-delete-size/2);
-    right: -(@order-delete-size/2);
-    border: 0;
-    background: #ff4444; /* Old browsers */
+    display: none;
   }
 }
 
