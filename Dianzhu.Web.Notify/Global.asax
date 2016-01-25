@@ -18,8 +18,8 @@
             = new Dianzhu.CSClient.XMPP.XMPP(server, adapter, Dianzhu.Model.Enums.enum_XmppResource.YDBan_Win_IMServer.ToString());
         //login in
         string noticesenderId = Dianzhu.Config.Config.GetAppSetting("NoticeSenderId");
-        string noticesenderPwdCrypted = Dianzhu.Config.Config.GetAppSetting("NoticeSenderPwd");
-        string noticesenderPwd = PHSuit.Security.Decrypt(noticesenderPwdCrypted, false);
+       // string noticesenderPwdCrypted = Dianzhu.Config.Config.GetAppSetting("NoticeSenderPwd");
+        string noticesenderPwd =  Dianzhu.Config.Config.GetAppSetting("NoticeSenderPwd");
 
         im.IMClosed += IMClosed;
         im.IMLogined += IMLogined;

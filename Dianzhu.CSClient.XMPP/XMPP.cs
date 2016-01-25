@@ -150,6 +150,7 @@ namespace Dianzhu.CSClient.XMPP
         
         public void SendMessage(string xml)
         {
+            log.Debug("send___" + xml);
             XmppClientConnection.Send(xml);
         }
         public void Close()

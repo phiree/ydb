@@ -36,6 +36,7 @@ namespace Dianzhu.CSClient.Presenter
             ServiceOrder newOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
                 string.Empty, string.Empty, string.Empty, 0, string.Empty, ClientState.CurrentServiceOrder.Customer,
                 string.Empty, 0, 0);
+            
             bllOrder.SaveOrUpdate(newOrder);
             ClientState.CurrentServiceOrder = newOrder;
             //ReceptionChat chat = new ReceptionChat

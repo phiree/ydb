@@ -17,6 +17,7 @@ namespace Dianzhu.NotifyCenter
     /// </summary>
     public class IMNotify
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
         private Dianzhu.CSClient.IInstantMessage.InstantMessage im = null;
 
         /// <summary>
@@ -71,6 +72,7 @@ namespace Dianzhu.NotifyCenter
                  extNode
                  );
             //发送给客户
+            
             im.SendMessage(msg.ToString());
 
             ags.Message msgForCS = BuildNotice(
