@@ -18,15 +18,21 @@ public class ResponseOFP001001 : BaseResponse
         ReqDataOFP001001 requestData = this.request.ReqData.ToObject<ReqDataOFP001001>();
 
         Guid userId;
-        string ofIp;
-        string clientName;
+        string ofIp = "";
+        string clientName = "";
 
         try
         {
             if (requestData.jid != null)
             {
-                string uid = requestData.jid.Split('@')[0];
-                string rest = requestData.jid.Split('@')[1];
+                string uid = "";
+                string rest = "";
+                var jidList = requestData.jid.Split('@');
+                if (jidList.Length > 0)
+                {
+                    uid = jidList[0];
+                    rest = jidList[1];
+                }                
 
                 bool uidisGuid = Guid.TryParse(uid, out userId);
                 if (!uidisGuid)
@@ -36,8 +42,17 @@ public class ResponseOFP001001 : BaseResponse
                     return;
                 }
 
-                ofIp = rest.Split('/')[0];
-                clientName = rest.Split('/')[1];
+                var restList = rest.Split('/');
+                if (restList.Length > 1)
+                {
+                    ofIp = restList[0];
+                    clientName = restList[1];
+                }
+                else if (restList.Length > 0)
+                {
+                    ofIp = restList[0];
+                }
+
             }
             else
             {
