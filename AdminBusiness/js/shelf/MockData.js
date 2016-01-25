@@ -6,7 +6,7 @@
     var todayDate = today.getDate() - 7;
 
     function resqDay(){
-        debugger;
+        //debugger;
         var Date = today.getFullYear() + "-" + (today.getMonth() + 1) + '-' + (todayDate++);
         return Date;
     }
@@ -48,7 +48,7 @@
                             'maxNum|1-5' : 5,
                             'doneNum|1-10' : 2,
                             'timeEnable|1' : true,
-                            'arrayOrders|1-10' : [
+                            'arrayOrders|10-20' : [
                                 {
                                     'ordered|1' : true,
                                     'orderId' : '#'

@@ -3,8 +3,7 @@
   width: 100%;
   overflow-y: hidden;
   position: relative;
-  z-index: 100;
-  margin-bottom: -1px;
+  margin-bottom: -2px;
   padding:0 15px;
   .day-tab {
     padding: 5px 10px;
@@ -82,11 +81,13 @@
       background: -webkit-linear-gradient(top,  #e570e7 0%,#c85ec7 47%,#a849a3 100%); /* Chrome10-25,Safari5.1-6 */
       background: linear-gradient(to bottom,  #e570e7 0%,#c85ec7 47%,#a849a3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e570e7', endColorstr='#a849a3',GradientType=0 ); /* IE6-9 */
-
     }
     &.active {
+      position: relative;
+      z-index: 1000;
       color: #8c8c8c;
       border: 1px solid #C7C7C7;
+      border-bottom: 0;
       /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
       background: #f7f7f7; /* Old browsers */
       background: -moz-linear-gradient(top,  #eaeaea 0%, #f7f7f7 100%); /* FF3.6-15 */
@@ -228,7 +229,7 @@
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e78586', endColorstr='#db635c',GradientType=0 );
     }
   }
-  input[type=number] {
+  input {
     &.multiNum {
       border-radius: 3px;
       border: 1px solid #CCCCCC;
@@ -242,6 +243,8 @@
 
 .t-b-window {
   overflow: hidden;
+  display: inline-block;
+  position: relative;
 }
 
 @order-height: 80px;
@@ -249,6 +252,23 @@
 @order-list-height: 100px;
 @order-delete-size: 20px;
 /* 订单列表样式 */
+.order-list-wrap {
+  width: 910px;
+  height: @order-list-height + 20px;
+  margin-bottom: -20px;
+  float: left;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  position: relative;
+  transition: all 0.3s;
+}
+.order-next,
+.order-prev {
+  float: left;
+  height: @order-list-height;
+  line-height: @order-list-height;
+  background: #1cc7ff;
+}
 .order-list {
   height: @order-list-height;
   width: 1000%;
@@ -256,7 +276,8 @@
   .order {
     display: block;
     float: left;
-    background: #dcdcdc;
+    margin-left: 10px;
+    background: #EEEEEE;
     position: relative;
     width: @order-height;
     height: @order-width;
@@ -266,12 +287,27 @@
       margin-left: 10px;
     }
     &.order-on {
-      border: 1px solid #48ee83;
-      color: #48ee83;
+      border: 1px solid #92d7c5;
+      color: #92d7c5;
     }
     &.order-off {
-      border: 1px solid #ef878a;
-      color: #ef878a;
+      border: 1px solid #ed928f;
+      color: #ed928f;
+    }
+  }
+  .order-icon-w {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    overflow: hidden;
+    .icon {
+      width: 40px;
+      height: 40px;
+      background: #3399cc;
     }
   }
   .deleteOrder {
@@ -285,7 +321,6 @@
     right: -(@order-delete-size/2);
     border: 0;
     background: #ff4444; /* Old browsers */
-
   }
 }
 
@@ -299,10 +334,12 @@
   overflow: hidden;
   input[type=checkbox] {
     visibility: hidden ;
+    //&[checked="checked"] + label,
     &:checked + label{
       left: 45px;
       box-shadow: 0 1px 1px 1px #5191CB;
     }
+    //&[checked="checked"] + label + em,
     &:checked + label + em {
       content: "开启";
       background: #6cabe8;

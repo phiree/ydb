@@ -61,14 +61,23 @@
             <span class="t-b-num-n">{%= maxNum %}/{%= doneNum %}</span><span>剩余</span>
         </div>
         <div class="t-b-window">
-            <ul class="order-list">
-                {% _.each(arrayOrders,function(order){ %}
-            {% if( order.ordered ) { %} <li class="order order-off"> {% } else { %} <li class="order order-on"> {% } %}
-                <p>{% if(order.ordered) { %}已预约{% } else { %}可预约{% } %}</p>
-                {% if( !order.ordered ) { %} <input class="deleteOrder" type="button" value="x" /> {% } %}
-                </li>
-                {% }); %}
-            </ul>
+            <div class="order-prev">-</div>
+            <div class="order-list-wrap">
+                <ul class="order-list">
+                    {% _.each(arrayOrders,function(order){ %}
+                    {% if( order.ordered ) { %} <li class="order order-off"> {% } else { %} <li class="order order-on"> {% } %}
+                        <div class="order-icon-w">
+                            <i class="icon"></i>
+                        </div>
+                        <p>{% if(order.ordered) { %}已预约{% } else { %}可预约{% } %}</p>
+
+                        {% if( !order.ordered ) { %} <input class="deleteOrder" type="button" value="x" /> {% } %}
+
+                    </li>
+                    {% }); %}
+                </ul>
+            </div>
+            <div class="order-next">+</div>
         </div>
     </div>
     <div class="t-b-edit">
@@ -87,20 +96,25 @@
 <script type="text/template" id="orders_template">
     {% _.each(arrayOrders,function(order){ %}
     {% if( order.ordered ) { %} <li class="order order-off"> {% } else { %} <li class="order order-on"> {% } %}
+        <div class="order-icon-w">
+            <i class="icon"></i>
+        </div>
         <p>{% if(order.ordered) { %}已预约{% } else { %}可预约{% } %}</p>
+
         {% if( !order.ordered ) { %} <input class="deleteOrder" type="button" value="x" /> {% } %}
+
     </li>
-    {% }) %}
+    {% }); %}
 </script>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server" >
-<!--<script src="js/jquery-1.11.3.js"></script>-->
-<script src="/js/shelf/json2.js"></script>
-<script src="/js/shelf/mock.js"></script>
-<script src="/js/shelf/MockData.js"></script>
-<script src="/js/shelf/underscore.js"></script>
-<script src="/js/shelf/backbone.js"></script>
-<script src="/js/shelf/backbone.customAPI.js"></script>
-<!--<script src="js/backbone.localStorage.js"></script>-->
-<script src="/js/shelf/goods.js"></script>
+    <!--<script src="js/jquery-1.11.3.js"></script>-->
+    <script src="/js/shelf/json2.js"></script>
+    <script src="/js/shelf/mock.js"></script>
+    <script src="/js/shelf/MockData.js"></script>
+    <script src="/js/shelf/underscore.js"></script>
+    <script src="/js/shelf/backbone.js"></script>
+    <script src="/js/shelf/backbone.customAPI.js"></script>
+    <!--<script src="js/backbone.localStorage.js"></script>-->
+    <script src="/js/shelf/goods.js"></script>
 </asp:Content>

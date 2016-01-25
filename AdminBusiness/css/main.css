@@ -5544,8 +5544,7 @@ a.time-trigger:hover {
   width: 100%;
   overflow-y: hidden;
   position: relative;
-  z-index: 100;
-  margin-bottom: -1px;
+  margin-bottom: -2px;
   padding: 0 15px;
 }
 .day-tabs .day-tab {
@@ -5656,8 +5655,11 @@ a.time-trigger:hover {
   /* IE6-9 */
 }
 .day-tabs .day-tab.active {
+  position: relative;
+  z-index: 1000;
   color: #8c8c8c;
   border: 1px solid #C7C7C7;
+  border-bottom: 0;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
   background: #f7f7f7;
   /* Old browsers */
@@ -5799,7 +5801,7 @@ a.time-trigger:hover {
   background: linear-gradient(to bottom, #F57576 0%, #E87175 44%, #E0534B 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e78586', endColorstr='#db635c', GradientType=0);
 }
-.t-b-edit input[type=number].multiNum {
+.t-b-edit input.multiNum {
   border-radius: 3px;
   border: 1px solid #CCCCCC;
   width: 120px;
@@ -5809,8 +5811,27 @@ a.time-trigger:hover {
 }
 .t-b-window {
   overflow: hidden;
+  display: inline-block;
+  position: relative;
 }
 /* 订单列表样式 */
+.order-list-wrap {
+  width: 910px;
+  height: 120px;
+  margin-bottom: -20px;
+  float: left;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  position: relative;
+  transition: all 0.3s;
+}
+.order-next,
+.order-prev {
+  float: left;
+  height: 100px;
+  line-height: 100px;
+  background: #1cc7ff;
+}
 .order-list {
   height: 100px;
   width: 1000%;
@@ -5819,7 +5840,8 @@ a.time-trigger:hover {
 .order-list .order {
   display: block;
   float: left;
-  background: #dcdcdc;
+  margin-left: 10px;
+  background: #EEEEEE;
   position: relative;
   width: 80px;
   height: 80px;
@@ -5830,12 +5852,27 @@ a.time-trigger:hover {
   margin-left: 10px;
 }
 .order-list .order.order-on {
-  border: 1px solid #48ee83;
-  color: #48ee83;
+  border: 1px solid #92d7c5;
+  color: #92d7c5;
 }
 .order-list .order.order-off {
-  border: 1px solid #ef878a;
-  color: #ef878a;
+  border: 1px solid #ed928f;
+  color: #ed928f;
+}
+.order-list .order-icon-w {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  overflow: hidden;
+}
+.order-list .order-icon-w .icon {
+  width: 40px;
+  height: 40px;
+  background: #3399cc;
 }
 .order-list .deleteOrder {
   position: absolute;

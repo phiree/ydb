@@ -74,7 +74,6 @@
         },
         deleteOrders : function(num){
             //当未预约订单数大于减数时,才可以进行订单删除操作
-
             var orders = _.countBy(this.get('arrayOrders') , function(order){
                 return !(order.ordered == false) ? 'ordered' : 'notOrdered';
             });
@@ -108,15 +107,42 @@
         initialize : function(){
             //this.listenTo(this.model, "change" , this.render);
             this.listenTo(this.model, "change:arrayOrders" , this. refreshOrdersView);
+            this.initOrderlist();
         },
         render : function(){
             this.$el.html(this.template(this.model.toJSON()));
+
+            this.$el.find('.t-b-window').each(function(){
+                var $this = $(this);
+                var orderPrev = $this.find('.order-prev');
+                var orderNext = $this.find('.order-next');
+                var orderWrap = $this.find('.order-list-wrap');
+
+                orderPrev.bind( 'click', {action : 'prev'} , orderAct);
+                orderNext.bind( 'click', {action : 'next'} , orderAct);
+
+                /*
+                * 服务货架order-list控制函数
+                * */
+                function orderAct(eve){
+                    debugger;
+                    var moveWidth = 90;
+                    var curLeft = $this.find('.order-list-wrap').scrollLeft();
+
+                    if ( eve.data && eve.data.action === 'prev') {
+                        orderWrap.scrollLeft( curLeft + moveWidth );
+                    } else if ( eve.data.action === 'next' ){
+                        orderWrap.scrollLeft( curLeft - moveWidth );
+                    } else {
+                        return false;
+                    }
+                }
+            });
+
             return this;
         },
         //仅刷新order部分视图。
         refreshOrdersView : function(){
-            //console.log();
-            //this.$el.find('.order-list').width(this.model.toJSON().arrayOrders.length * 80) ;
             this.$el.find('.order-list').html($(this.ordersTemplate(this.model.toJSON())));
         },
         addOrders : function () {
@@ -129,6 +155,9 @@
         deleteOrders : function () {
             var num = this.$('.multiNum').val();
             this.model.deleteOrders(num);
+        },
+        initOrderlist : function(){
+            this.render();
         }
     });
 
@@ -137,14 +166,13 @@
             date : null,
             dayMaxOrder : 10,
             dayDoneOrder : 2,
-            dayEnable : true,
-            //timeBuckets : null
+            dayEnable : true
         },
         initialize : function(){
 
         },
         addTimeBucket : function(){
-            this.timeBuckets.add(new TimeBucket({empty : true}));
+            this.timeBuckets.add(new TimeBucket());
         }
     });
 
@@ -190,7 +218,6 @@
         },
         addTimeBucketView : function(timeBucketModel){
             var timeBucketView = new TimeBucketView({model : timeBucketModel});
-            timeBucketView.render();
             this.$('.time-buckets').append(timeBucketView.render().el);
         },
         addTimeBucket : function(){
@@ -207,7 +234,7 @@
 
         },
         initialize : function(){
-            debugger;
+            //debugger;
             days.url = '/days.json';
             //days.url = 'http://localhost:806/dianzhuapi.ashx';
             var today = new Date();
@@ -225,12 +252,11 @@
                 },
                 success : start
             });
-
             function start(collection, resp, options){
-                debugger;
+                //debugger;
                 _this.initDayTab();
                 var today = _.find(collection.models, function(model){
-                    debugger;
+                    //debugger;
                     return model.get('date') === requestDate;
                 });
                 _this.addDayView(today);
@@ -264,7 +290,7 @@
             this.addDayView(goToDay);
         },
         addDayView: function(dayModel){
-            debugger;
+            //debugger;
             var dayView = new DayView({model : dayModel});
             this.$('.day-container').html(dayView.render().el);
         }
