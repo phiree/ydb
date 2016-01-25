@@ -63,12 +63,16 @@ namespace Dianzhu.DAL
 
         public Model.DZMembership GetMemberByName(string username)
         {
-            if (string.IsNullOrEmpty(username)) return null;
-            username = username.Replace("||", "@");
-            IQuery query =Session.CreateQuery("select m from  DZMembership as m where UserName='" + username + "'");
-            var temp = query.FutureValue<Model.DZMembership>();
-            var user = temp.Value;
-            return user;
+            using (var t = Session.BeginTransaction())
+            {
+                if (string.IsNullOrEmpty(username)) return null;
+                username = username.Replace("||", "@");
+                IQuery query = Session.CreateQuery("select m from  DZMembership as m where UserName='" + username + "'");
+                var temp = query.FutureValue<Model.DZMembership>();
+                var user = temp.Value;
+                t.Commit();
+                return user;
+            }
         }
 
          

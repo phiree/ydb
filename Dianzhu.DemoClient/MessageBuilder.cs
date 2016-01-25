@@ -11,8 +11,8 @@ namespace Dianzhu.DemoClient
         Message msg;
         public MessageBuilder Create(string from,string to,string body,string orderId)
         {
-              msg = new Message(new Jid(to+"@"+GlobalViables.ServerName)
-                ,new Jid(from+"@" +GlobalViables.ServerName), body);
+              msg = new Message(new Jid(to+"@"+GlobalViables.DomainName)
+                ,new Jid(from+"@" +GlobalViables.DomainName), body);
             var nodeExt = new agsXMPP.Xml.Dom.Element("ext");
             var nodeOrder = new agsXMPP.Xml.Dom.Element("orderID",orderId);
             nodeExt.AddChild(nodeOrder);
@@ -51,8 +51,8 @@ namespace Dianzhu.DemoClient
 </iq>*/
 
             IQ iq = new IQ(IqType.set);
-            iq.From = GlobalViables.XMPPConnection.Username + "@" + GlobalViables.ServerName;
-            iq.To = GlobalViables.ServerName;
+            iq.From = GlobalViables.XMPPConnection.Username + "@" + GlobalViables.DomainName;
+            iq.To = GlobalViables.DomainName;
             var nodeCommand = new agsXMPP.Xml.Dom.Element("command", string.Empty, "http://jabber.org/protocol/commands");
             nodeCommand.SetAttribute("action", "execute");
             nodeCommand.SetAttribute("node", "http://jabber.org/protocol/admin#get-online-users-list");

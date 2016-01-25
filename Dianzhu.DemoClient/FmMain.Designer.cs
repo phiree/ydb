@@ -144,7 +144,6 @@
             this.tbxOrderId.Name = "tbxOrderId";
             this.tbxOrderId.Size = new System.Drawing.Size(229, 21);
             this.tbxOrderId.TabIndex = 11;
-            this.tbxOrderId.Text = "659edbdf-3fc2-48e4-97d7-a50b0114c800";
             // 
             // btnOnlineUsers
             // 
@@ -171,7 +170,6 @@
             this.tbxManualAssignedCS.Name = "tbxManualAssignedCS";
             this.tbxManualAssignedCS.Size = new System.Drawing.Size(232, 21);
             this.tbxManualAssignedCS.TabIndex = 11;
-            this.tbxManualAssignedCS.Text = "b4e8afd1-f64c-4a61-b837-a4f9013ed662";
             // 
             // lblLoginStatus
             // 

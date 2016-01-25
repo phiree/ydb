@@ -41,7 +41,8 @@ namespace DianzhuService.Diandian
 
         private void XMPPConnection_OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
         {
-            log.Debug("XMPPConnection_OnStreamError"+e.ToString());
+            ErrorAndStop("XMPPConnection_OnStreamError"+e.ToString());
+            
             //MessageBox.Show(e.ToString());
         }
 
@@ -50,23 +51,29 @@ namespace DianzhuService.Diandian
             log.Debug("XMPPConnection_OnIq:"+iq.ToString());
             //MessageBox.Show(iq.ToString());
         }
-
+        string errMsg = string.Empty;
         private void XMPPConnection_OnSocketError(object sender, Exception ex)
         {
-            log.Debug("XMPPConnection_OnSocketError"+ex.Source+Environment.NewLine+"CallStack"+ex.StackTrace);
-            //MessageBox.Show("socket error");
+            ErrorAndStop("XMPPConnection_OnSocketError" + ex.Source + Environment.NewLine + "CallStack" + ex.StackTrace);
+          
         }
 
         private void XMPPConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
-            log.Debug("用户名/密码有误");
-            //MessageBox.Show("用户名/密码有误");
+            ErrorAndStop("用户名/密码有误");
+            
         }
 
         private void XMPPConnection_OnError(object sender, Exception ex)
         {
-            log.Debug("XMPPConnection_OnError"+ex.Message);
-            //MessageBox.Show("OnError");
+            ErrorAndStop("XMPPConnection_OnError" +ex.Message);
+            
+        }
+        private void ErrorAndStop(string message)
+        {
+            log.Error(message);
+            this.Stop();
+            throw new Exception(message);
         }
 
         private void XMPPConnection_OnMessage(object sender, agsc.Message msg)
@@ -123,7 +130,13 @@ namespace DianzhuService.Diandian
                     ""stamp_TIMES"": ""{8}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
                 }}", msg.Id, msg.To.User, msg.From.User, msg.Body, msgType, orderID, msgObj_url, msgObj_type, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
+            log.Debug("开始获取用户信息");
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
+            
+            if (result == null)
+            {
+                log.Error("获取失败，返回值为空");
+            }
             string code = result["state_CODE"].ToString();
             if (code != "009000")
             {
@@ -161,7 +174,7 @@ namespace DianzhuService.Diandian
 
         protected override void OnStart(string[] args)
         {
-            GlobalViables.XMPPConnection.Close();//关闭当前登录
+           // GlobalViables.XMPPConnection.Close();//关闭当前登录
             log.Debug("打开服务器连接..");
             string loginId = Dianzhu.Config.Config.GetAppSetting("DiandianLoginId");
             string pwd = Dianzhu.Config.Config.GetAppSetting("DiandianLoginPwd");

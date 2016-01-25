@@ -8,7 +8,7 @@ using System.IO;
 using System.Web.SessionState;
 public class DianzhuApi : IHttpHandler,IRequiresSessionState
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("dz");
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
     public void ProcessRequest(HttpContext context)
     {

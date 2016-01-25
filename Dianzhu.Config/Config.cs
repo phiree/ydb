@@ -10,15 +10,20 @@ namespace Dianzhu.Config
     /// </summary>
     public static class Config
     {
-        /************** 部署前，只需要手动修改此处**********************************/
-        static string DatabaseServer = "business.ydban.cn";//数据库地址
-        static string IMServer = "business.ydban.cn";//即时通讯服务器地址
-        static string ApplicationServer = "business.ydban.cn";//应用服务器地址
-       /***************** END*******************************************************/
 
-    
-        
-       
+        #region 服务器定义
+        static string[] DatabaseServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236" };
+        static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236" };
+        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn" };
+        static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236" };
+        #endregion
+
+        #region   部署前，只需要手动修改此处 /
+        static string DatabaseServer = DatabaseServers[0];//数据库地址
+        static string IMServer = DatabaseServers[0];//即时通讯服务器地址
+        static string IMDomain = IMDomains[0];//即时通讯服务器地址
+        static string ApplicationServer = DatabaseServers[0];//应用服务器地址
+
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
         public static string ConnectionString
         {
@@ -66,7 +71,11 @@ namespace Dianzhu.Config
 
         static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
               { "119.29.39.211",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
+<<<<<<< HEAD
              ,{ "business.ydban.cn",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
+=======
+             ,{ "115.159.72.236",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
+>>>>>>> 46f4405324890f39b078c6ae140ea6004915d3b3
              ,{ "192.168.3.172",new KeyValuePair<string,string>("9bbc9b77-f94e-4400-aaf5-a5590113df57","123456") }
             ,{ "localhost",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
         };
@@ -74,14 +83,22 @@ namespace Dianzhu.Config
         //todo: 需要使用 username登陆 而不是id
         static Dictionary<string, KeyValuePair<string, string>> DictsNotifySenderLogins = new Dictionary<string, KeyValuePair<string, string>>() {
               { "119.29.39.211",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
+<<<<<<< HEAD
              ,{ "business.ydban.cn",new KeyValuePair<string,string>("c6b13498-2259-4ff3-a75e-a4f90123683c","123456") }
+=======
+             ,{ "115.159.72.236",new KeyValuePair<string,string>("c6b13498-2259-4ff3-a75e-a4f90123683c","123456") }
+>>>>>>> 46f4405324890f39b078c6ae140ea6004915d3b3
              ,{ "192.168.3.172",new KeyValuePair<string,string>("1792e7f6-850e-4efc-8b53-a541009b8a65","123456") }
               ,{ "localhost",new KeyValuePair<string,string>("1792e7f6-850e-4efc-8b53-a541009b8a65","123456") }
         };
         //数据库连接字符串
         static Dictionary<string, string> DictsConnectionStrings = new Dictionary<string, string>() {
             { "119.29.39.211","data source=119.29.39.211;uid=root;pwd=root;database=dianzhu_publish_test"}
+<<<<<<< HEAD
             , { "business.ydban.cn","data source=business.ydban.cn;uid=root;pwd=root;database=dianzhu_publish_test" }
+=======
+            , { "115.159.72.236","data source=115.159.72.236;uid=root;pwd=root;database=dianzhu_publish_test" }
+>>>>>>> 46f4405324890f39b078c6ae140ea6004915d3b3
             ,{ "192.168.3.172","data source=192.168.3.172;uid=root;pwd=root;database=dianzhu_publish_test" }
              ,{ "localhost","data source=localhost;uid=root;pwd=root;database=dianzhu_dev_yuanfei" }
         };
@@ -89,6 +106,7 @@ namespace Dianzhu.Config
         static Dictionary<string, string> DictsAppSettings = new Dictionary<string, string>() {
              {"cdnroot", BuildHttpUrlString(ApplicationServer, 886)}
             , {"ImServer",IMServer  }
+            , {"ImDomain",IMDomain  }
 
             , {"MediaUploadUrl",BuildHttpUrlString(ApplicationServer, 8038,"UploadFile.ashx") }
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, 8038,"GetFile.ashx?fileName=")   }
