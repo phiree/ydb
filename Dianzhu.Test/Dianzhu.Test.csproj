@@ -131,6 +131,12 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="files\aps_development_Mark.p12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="files\aps_production_Mark.p12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="TestFiles\个人服务类最新版-表格.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
