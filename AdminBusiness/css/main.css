@@ -5709,8 +5709,7 @@ a.time-trigger:hover {
   margin-left: 10px;
 }
 .day-title .round-checkbox {
-  float: right;
-  margin-top: 6px;
+  margin-top: -2px;
   margin-left: 10px;
 }
 /* 时间段样式 */
@@ -5755,6 +5754,7 @@ a.time-trigger:hover {
   opacity: 0;
 }
 .time-buckets.t-b-close {
+  filter: grayscale(1);
   -webkit-filter: grayscale(1);
 }
 .time-buckets.t-b-close::after {
@@ -5765,7 +5765,8 @@ a.time-trigger:hover {
   left: 0;
   top: 0;
   z-index: 999;
-  opacity: 0.8;
+  opacity: 0.2;
+  background: #eee;
 }
 .time-bucket {
   padding: 10px;
@@ -5934,6 +5935,7 @@ a.time-trigger:hover {
 /*可滑动开关样式*/
 .round-checkbox {
   display: inline-block;
+  vertical-align: middle;
   position: relative;
   width: 70px;
   height: 28px;

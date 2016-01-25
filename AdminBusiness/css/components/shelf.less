@@ -120,8 +120,7 @@
     display: inline-block;
   }
   .round-checkbox {
-    float: right;
-    margin-top: 6px;
+    margin-top: -2px;
     margin-left: 10px;
   }
 }
@@ -182,8 +181,10 @@
       left: 0;
       top: 0;
       z-index: 999;
-      opacity: 0.8;
+      opacity: 0.2;
+      background: #eee;
     }
+    filter:grayscale(1);
     -webkit-filter:grayscale(1);
   }
 }
@@ -371,6 +372,7 @@
 /*可滑动开关样式*/
 .round-checkbox {
   display: inline-block;
+  vertical-align: middle;
   position: relative;
   width: 70px;
   height: 28px;
