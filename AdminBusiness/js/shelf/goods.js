@@ -107,7 +107,7 @@
         initialize : function(){
             //this.listenTo(this.model, "change" , this.render);
             this.listenTo(this.model, "change:arrayOrders" , this. refreshOrdersView);
-            this.initOrderlist();
+            this.initOrderList();
         },
         render : function(){
             this.$el.html(this.template(this.model.toJSON()));
@@ -156,7 +156,7 @@
             var num = this.$('.multiNum').val();
             this.model.deleteOrders(num);
         },
-        initOrderlist : function(){
+        initOrderList : function(){
             this.render();
         }
     });
@@ -189,7 +189,8 @@
         template : _.template($('#day_template').html(),templateSetting),
         events :　{
             'click .addTimeBucket' : 'addTimeBucket',
-            'click .day_edit' : 'dayEditControl'
+            'change .day_edit' : 'dayEditControl',
+            'change .day_enable' : 'dayEnableView'
         },
         initialize : function () {
             this.initDayView();
@@ -199,7 +200,6 @@
             return this;
         },
         initDayView : function(){
-            //debugger;
             //不通过set方法，而是通过this属性直接设置timeBuckets属性为一个指向新的Collection的指针,这样是为了view中的listen可以正确的监听Collection对象。
             this.model.timeBuckets = new TimeBuckets();
             this.model.timeBuckets.url = '/timeBuckets.json';
@@ -225,13 +225,25 @@
             this.model.addTimeBucket();
         },
         /*
-        * 日期编辑开关控制
+        * 日期编辑开关View控制
         * */
         dayEditControl : function(event){
+            var edit = this.$('.t-b-edit');
+            var orderList = this.$(".order-list");
             if ( event.target && event.target.checked )  {
-                this.$('.t-b-edit').addClass('show');
+                edit.addClass('show');
+                orderList.addClass('edit');
             } else {
-                this.$('.t-b-edit').removeClass('show');
+                edit.removeClass('show');
+                orderList.removeClass('edit');
+            }
+        },
+        dayEnableView : function(event){
+            var timeBuckets = this.$('.time-buckets');
+            if ( event.target && event.target.checked ) {
+                timeBuckets.removeClass('t-b-close');
+            } else {
+                timeBuckets.addClass('t-b-close');
             }
         }
     });

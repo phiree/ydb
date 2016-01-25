@@ -33,23 +33,23 @@
             <div class="day-control-item">
                 <span>服务编辑开关:</span>
                 <div class="round-checkbox">
-                    <input type="checkbox" class="day_edit" {%= "id=" + this.cid + "_dayEnable" %} />
-                    <label class="day_edit_label" {%= "for=" + this.cid + "_dayEnable" %} ></label>
+                    <input type="checkbox" class="day_edit" {%= "id=" + this.cid + "_dayEdit" %} />
+                    <label {%= "for=" + this.cid + "_dayEdit" %} ></label>
                     <em></em>
                 </div>
             </div>
             <div class="day-control-item">
                 <span >当日服务开关:</span>
                 <div class="round-checkbox">
-                    <input type="checkbox" value="dayEdit" {%= "id=" + this.cid + "_dayEdit" %} />
-                    <label {%= "for=" + this.cid + "_dayEdit" %} ></label>
+                    <input type="checkbox" class="day_enable" value="dayEdit" {% if ( dayEnable ){ %} checked {% } %} {%= "id=" + this.cid + "_dayEnable" %} />
+                    <label {%= "for=" + this.cid + "_dayEnable" %} ></label>
                     <em></em>
                 </div>
             </div>
         </div>
     </div>
     <div class="time-buckets-wrap">
-        <div class="time-buckets">
+        <div class='time-buckets {% if ( !dayEnable ){ %}t-b-close{% } %}'>
             <!--注入时间段模版-->
         </div>
     </div>
