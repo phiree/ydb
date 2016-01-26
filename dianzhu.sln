@@ -213,7 +213,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.PushServer", "Dianzhu.Web.PushServer\", "{CBE79023-31C6-455F-A6F0-3BFF280F66E8}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;"
+		ProjectReferences = "{be142427-1ce4-40f8-ac58-d0509ba05d21}|Dianzhu.Push.dll;{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}|Dianzhu.Config.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_29864"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.Web.PushServer\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_29864\"
