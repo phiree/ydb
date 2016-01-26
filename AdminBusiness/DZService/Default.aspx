@@ -25,43 +25,43 @@
                                     </div>
                                     <div class="model-m no-padding">
                                         <div class="service-panel-head">
-                                            <div class="service-panel-grid">
-                                                <div class="service-panel-col col-n1">
+                                            <div class="custom-grid">
+                                                <div class="custom-col col-static-3">
                                                     <div class="service-p-h-t">
                                                         <input type="checkbox" />
                                                     </div>
                                                 </div>
-                                                <div class="service-panel-col col-n2">
+                                                <div class="custom-col col-static-5">
                                                     <div class="service-p-h-t">
                                                         编号
                                                     </div>
                                                 </div>
-                                                <div class="service-panel-col col-n3">
+                                                <div class="custom-col col-static-10">
                                                     <div class="service-p-h-t">
                                                         服务图标
                                                     </div>
                                                 </div>
-                                                <div class="service-panel-col col-n3">
+                                                <div class="custom-col col-static-10">
                                                     <div class="service-p-h-t">
                                                         服务名称
                                                     </div>
                                                 </div>
-                                                <div class="service-panel-col col-n3">
+                                                <div class="custom-col col-static-10">
                                                     <div class="service-p-h-t">
                                                         服务类型
                                                     </div>
                                                 </div>
-                                                <div class="service-panel-col col-n4">
+                                                <div class="custom-col col-static-20">
                                                     <div class="service-p-h-t">
                                                         服务区域
                                                     </div>
                                                 </div>
-                                                <div class="service-panel-col col-n4">
+                                                <div class="custom-col col-static-20">
                                                     <div class="service-p-h-t">
                                                         服务货架图
                                                     </div>
                                                 </div>
-                                                <div class="service-panel-col col-n4">
+                                                <div class="custom-col col-static-20">
                                                     <div class="service-p-h-t">
                                                         服务操作
                                                     </div>
@@ -73,30 +73,30 @@
                                                 <ItemTemplate>
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading" role="tab" id="heading<%# Container.ItemIndex + 1 %>" >
-                                                            <div class="service-panel-grid" role="button" data-toggle="collapse" data-parent="#accordion"
+                                                            <div class="custom-grid" role="button" data-toggle="collapse" data-parent="#accordion"
                                                                  href="#collapse<%# Container.ItemIndex + 1 %>" aria-expanded="true"
                                                                  aria-controls="collapse<%# Container.ItemIndex + 1 %>">
-                                                                <div class="service-panel-col col-n1">
+                                                                <div class="custom-col col-static-3">
                                                                     <input type="checkbox" collapse-ignore="true" />
                                                                 </div>
-                                                                <div class="service-panel-col col-n2"></div>
-                                                                <div class="service-panel-col col-n3    ">
+                                                                <div class="custom-col col-static-5"></div>
+                                                                <div class="custom-col col-static-10">
                                                                     <i class="icon service-icon svcType-s-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"></i>
                                                                 </div>
-                                                                <div class="service-panel-col col-n3">
+                                                                <div class="custom-col col-static-10">
                                                                     <%#Eval("Name") %>
                                                                 </div>
-                                                                <div class="service-panel-col col-n3">
+                                                                <div class="custom-col col-static-10">
                                                                     <%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %>
                                                                 </div>
-                                                                <div class="service-panel-col col-n4">
+                                                                <div class="custom-col col-static-20">
                                                                     <span class="spServiceArea text-ellipsis" ></span><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
                                                                 </div>
-                                                                <div class="service-panel-col col-n4">
+                                                                <div class="custom-col col-static-20">
                                                                     <a  href="ServiceTimeline.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">详细服务时间</a>
                                                                     <!--通过修改boostrap中的collapse模块功能，实现collapse标签中指定忽略指定target的功能-->
                                                                 </div>
-                                                                <div class="service-panel-col col-n4">
+                                                                <div class="custom-col col-static-20">
 
                                                                     <!--<span class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></span>-->
                                                                     <p collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p>
