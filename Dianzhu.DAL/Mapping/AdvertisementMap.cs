@@ -14,6 +14,10 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Url);
             Map(x => x.Num).CustomType<int>();
             Map(x => x.SaveTime);
+            Map(x => x.PushTarget);
+            Map(x => x.StartTime);
+            Map(x => x.EndTime);
+            Map(x => x.IsUseful);
             References<DZMembership>(x => x.SaveController);
             Map(x => x.LastUpdateTime);
             References<DZMembership>(x => x.UpdateController);

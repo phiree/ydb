@@ -12,10 +12,10 @@ namespace Dianzhu.Config
     {
 
         #region 服务器定义
-        static string[] DatabaseServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.3.172" };
-        static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.3.172" };
-        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.3.172" };
-        static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.3.172" };
+        static string[] DatabaseServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
+        static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172" };
+        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
+        static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         #endregion
 
         #region   部署前，只需要手动修改此处 /
@@ -73,7 +73,7 @@ namespace Dianzhu.Config
         static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
               { "119.29.39.211",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
              ,{ "business.ydban.cn",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
-             ,{ "192.168.3.172",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
+             ,{ "192.168.1.172",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
             ,{ "localhost",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
         };
         //通知中心登陆用户账号，不同数据库服务器有不同的值
@@ -81,14 +81,14 @@ namespace Dianzhu.Config
         static Dictionary<string, KeyValuePair<string, string>> DictsNotifySenderLogins = new Dictionary<string, KeyValuePair<string, string>>() {
               { "119.29.39.211",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
              ,{ "business.ydban.cn",new KeyValuePair<string,string>("c6b13498-2259-4ff3-a75e-a4f90123683c","123456") }
-             ,{ "192.168.3.172",new KeyValuePair<string,string>("1792e7f6-850e-4efc-8b53-a541009b8a65","123456") }
+             ,{ "192.168.1.172",new KeyValuePair<string,string>("1792e7f6-850e-4efc-8b53-a541009b8a65","123456") }
               ,{ "localhost",new KeyValuePair<string,string>("1792e7f6-850e-4efc-8b53-a541009b8a65","123456") }
         };
         //数据库连接字符串
         static Dictionary<string, string> DictsConnectionStrings = new Dictionary<string, string>() {
             { "119.29.39.211","data source=119.29.39.211;uid=root;pwd=root;database=dianzhu_publish_test"}
             , { "business.ydban.cn","data source=business.ydban.cn;uid=root;pwd=root;database=dianzhu_publish_test" }
-            ,{ "192.168.3.172","data source=192.168.3.172;uid=root;pwd=root;database=dianzhu_publish_test" }
+            ,{ "192.168.1.172","data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test" }
              ,{ "localhost","data source=localhost;uid=root;pwd=root;database=dianzhu_dev_yuanfei" }
         };
 
