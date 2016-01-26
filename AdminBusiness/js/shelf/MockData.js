@@ -48,7 +48,7 @@
                             'maxNum|1-5' : 5,
                             'doneNum|1-10' : 2,
                             'timeEnable|1' : true,
-                            'arrayOrders|10-20' : [
+                            'arrayGoods|10-20' : [
                                 {
                                     'ordered|1' : true,
                                     'orderId' : '#'

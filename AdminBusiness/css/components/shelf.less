@@ -286,14 +286,14 @@
   position: relative;
 }
 
-@order-height: 80px;
-@order-width: 80px;
-@order-list-height: 100px;
-@order-delete-size: 20px;
+@good-height: 80px;
+@good-width: 80px;
+@good-list-height: 100px;
+@good-delete-size: 20px;
 /* 订单列表样式 */
-.order-list-wrap {
+.good-list-wrap {
   width: 910px;
-  height: @order-list-height + 20px;
+  height: @good-list-height + 20px;
   margin-bottom: -20px;
   float: left;
   overflow-x: scroll;
@@ -301,55 +301,55 @@
   position: relative;
   transition: all 0.3s;
 }
-.order-next,
-.order-prev {
+.good-next,
+.good-prev {
   float: left;
   width: 20px;
-  height: @order-list-height;
-  line-height: @order-list-height;
+  height: @good-list-height;
+  line-height: @good-list-height;
 }
-.order-list {
-  height: @order-list-height;
+.good-list {
+  height: @good-list-height;
   width: 1000%;
   overflow: hidden;
   &.edit {
-    .deleteOrder {
+    .deleteGood {
       display: block;
       position: absolute;
       color: #fff;
-      width: @order-delete-size;
-      height: @order-delete-size;
+      width: @good-delete-size;
+      height: @good-delete-size;
       line-height: 20px;
       border-radius: 50%;
-      top: -(@order-delete-size/2);
-      right: -(@order-delete-size/2);
+      top: -(@good-delete-size/2);
+      right: -(@good-delete-size/2);
       border: 0;
       background: #ff4444; /* Old browsers */
     }
   }
-  .order {
+  .good {
     display: block;
     float: left;
     margin-left: 10px;
     background: #EEEEEE;
     position: relative;
-    width: @order-height;
-    height: @order-width;
-    margin-top: @order-delete-size/2;
+    width: @good-height;
+    height: @good-width;
+    margin-top: @good-delete-size/2;
     text-align: center;
-    & + .order {
+    & + .good {
       margin-left: 10px;
     }
-    &.order-on {
+    &.good-on {
       border: 1px solid #92d7c5;
       color: #92d7c5;
     }
-    &.order-off {
+    &.good-off {
       border: 1px solid #ed928f;
       color: #ed928f;
     }
   }
-  .order-icon-w {
+  .good-icon-w {
     width: 40px;
     height: 40px;
     margin: 0 auto;
@@ -364,7 +364,7 @@
       background: #3399cc;
     }
   }
-  .deleteOrder {
+  .deleteGood {
     display: none;
   }
 }

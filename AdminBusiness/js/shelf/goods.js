@@ -21,10 +21,10 @@
             maxNum : 5,
             doneNum : 2,
             timeEnable : true,
-            arrayOrders : []
+            arrayGoods : []
         },
         initialize : function(options){
-            this.sortOrders();
+            this.sortGoods();
         },
         enableTime : function(){
             if ( !this.get('timeEnable') ) {
@@ -36,7 +36,7 @@
                 this.save({timeEnable : !this.get('timeEnable')});
             }
         },
-        addOrderNum : function(Num){
+        addGoodNum : function(Num){
             this.save({maxNum : this.get('maxNum') + Num});
         },
         setMaxNum : function(maxNum){
@@ -44,27 +44,27 @@
                 this.save({maxNum : maxNum});
             }
         },
-        //orders按是否可以预定进行排序，已预订(ordered = true)放在前面;
-        sortOrders : function(){
-            var sortOrders = _.sortBy(this.get('arrayOrders') , function(order){
-                return !order.ordered;
+        //goods按是否可以预定进行排序，已预订(ordered = true)放在前面;
+        sortGoods : function(){
+            var sortGoods = _.sortBy(this.get('arrayGoods') , function(good){
+                return !good.ordered;
             });
-            this.set('arrayOrders', sortOrders);
+            this.set('arrayGoods', sortGoods);
         },
-        addOrders : function(num){
-            var newOrder = {
+        addGoods : function(num){
+            var newGood = {
                 ordered : false,
                 orderId : '#'
             };
 
             //复制数组为新数组，否则无法触发change事件
-            var currentOrders = this.get('arrayOrders').slice();
+            var currentGoods = this.get('arrayGoods').slice();
             for ( var i = 0 ; i < num ; i++ ){
-                currentOrders.push(newOrder);
+                currentGoods.push(newGood);
             }
 
             var parentDate = this.get('parentDate');
-            this.save('arrayOrders', currentOrders , {
+            this.save('arrayGoods', currentGoods , {
                 customAPI : true,
                 protocolCode : 'GOOD001006',
                 data : {
@@ -72,17 +72,17 @@
                 }
             });
         },
-        deleteOrders : function(num){
+        deleteGoods : function(num){
             //当未预约订单数大于减数时,才可以进行订单删除操作
-            var orders = _.countBy(this.get('arrayOrders') , function(order){
-                return !(order.ordered == false) ? 'ordered' : 'notOrdered';
+            var goods = _.countBy(this.get('arrayGoods') , function(good){
+                return !(good.ordered == false) ? 'ordered' : 'notOrdered';
             });
-            if ( !orders.notOrdered || (orders.notOrdered < num) ) return;
-            var currentOrders = this.get('arrayOrders').slice();
+            if ( !goods.notOrdered || (goods.notOrdered < num) ) return;
+            var currentGoods = this.get('arrayGoods').slice();
             for ( var i = 0 ; i < num ; i++ ){
-                currentOrders.pop();
+                currentGoods.pop();
             }
-            this.save('arrayOrders' , currentOrders);
+            this.save('arrayGoods' , currentGoods);
         }
     });
 
@@ -98,41 +98,41 @@
         tagName : 'div',
         className : 'time-bucket',
         template : _.template($("#timeBucket_template").html(),templateSetting),
-        ordersTemplate : _.template($("#orders_template").html(),templateSetting),
+        goodsTemplate : _.template($("#goods_template").html(),templateSetting),
         events :　{
-            'click .multiAdd' : 'addOrders',
-            'click .multiDelete' : 'deleteOrders',
-            'click .deleteOrder' : 'deleteOneOrder'
+            'click .multiAdd' : 'addGoods',
+            'click .multiDelete' : 'deleteGoods',
+            'click .deleteGood' : 'deleteOneGood'
         },
         initialize : function(){
             //this.listenTo(this.model, "change" , this.render);
-            this.listenTo(this.model, "change:arrayOrders" , this. refreshOrdersView);
-            this.initOrderList();
+            this.listenTo(this.model, "change:arrayGoods" , this. refreshGoodsView);
+            this.initGoodList();
         },
         render : function(){
             this.$el.html(this.template(this.model.toJSON()));
 
             this.$el.find('.t-b-window').each(function(){
                 var $this = $(this);
-                var orderPrev = $this.find('.order-prev');
-                var orderNext = $this.find('.order-next');
-                var orderWrap = $this.find('.order-list-wrap');
+                var goodPrev = $this.find('.good-prev');
+                var goodNext = $this.find('.good-next');
+                var goodWrap = $this.find('.good-list-wrap');
 
-                orderPrev.bind( 'click', {action : 'prev'} , orderAct);
-                orderNext.bind( 'click', {action : 'next'} , orderAct);
+                goodPrev.bind( 'click', {action : 'prev'} , goodAct);
+                goodNext.bind( 'click', {action : 'next'} , goodAct);
 
                 /*
-                * 服务货架order-list控制函数
+                * 服务货架good-list控制函数
                 * */
-                function orderAct(eve){
+                function goodAct(eve){
                     debugger;
                     var moveWidth = 90;
-                    var curLeft = $this.find('.order-list-wrap').scrollLeft();
+                    var curLeft = $this.find('.good-list-wrap').scrollLeft();
 
                     if ( eve.data && eve.data.action === 'prev') {
-                        orderWrap.scrollLeft( curLeft + moveWidth );
+                        goodWrap.scrollLeft( curLeft + moveWidth );
                     } else if ( eve.data.action === 'next' ){
-                        orderWrap.scrollLeft( curLeft - moveWidth );
+                        goodWrap.scrollLeft( curLeft - moveWidth );
                     } else {
                         return false;
                     }
@@ -141,22 +141,22 @@
 
             return this;
         },
-        //仅刷新order部分视图。
-        refreshOrdersView : function(){
-            this.$el.find('.order-list').html($(this.ordersTemplate(this.model.toJSON())));
+        //仅刷新good部分视图。
+        refreshGoodsView : function(){
+            this.$el.find('.good-list').html($(this.goodsTemplate(this.model.toJSON())));
         },
-        addOrders : function () {
+        addGoods : function () {
             var num = this.$('.multiNum').val();
-            this.model.addOrders(num);
+            this.model.addGoods(num);
         },
-        deleteOneOrder : function(){
-            this.model.deleteOrders(1);
+        deleteOneGood : function(){
+            this.model.deleteGoods(1);
         },
-        deleteOrders : function () {
+        deleteGoods : function () {
             var num = this.$('.multiNum').val();
-            this.model.deleteOrders(num);
+            this.model.deleteGoods(num);
         },
-        initOrderList : function(){
+        initGoodList : function(){
             this.render();
         }
     });
@@ -268,15 +268,15 @@
         _editViewControl : function(toggle){
 
             var edit = this.$('.t-b-edit');
-            var orderList = this.$(".order-list");
+            var goodList = this.$(".good-list");
 
             if ( !toggle ) { return false; }
             if ( toggle === 'open') {
                 edit.addClass('show');
-                orderList.addClass('edit');
+                goodList.addClass('edit');
             } else {
                 edit.removeClass('show');
-                orderList.removeClass('edit');
+                goodList.removeClass('edit');
             }
 
         }

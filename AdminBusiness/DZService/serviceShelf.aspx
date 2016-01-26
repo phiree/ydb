@@ -71,23 +71,23 @@
             <span class="t-b-num-n">{%= maxNum %}/{%= doneNum %}</span><span>剩余</span>
         </div>
         <div class="t-b-window">
-            <div class="order-prev"><<</div>
-            <div class="order-list-wrap">
-                <ul class="order-list">
-                    {% _.each(arrayOrders,function(order){ %}
-                    {% if( order.ordered ) { %} <li class="order order-off"> {% } else { %} <li class="order order-on"> {% } %}
-                        <div class="order-icon-w">
+            <div class="good-prev"><<</div>
+            <div class="good-list-wrap">
+                <ul class="good-list">
+                    {% _.each(arrayGoods,function(good){ %}
+                    {% if( good.ordered ) { %} <li class="good good-off"> {% } else { %} <li class="good good-on"> {% } %}
+                        <div class="good-icon-w">
                             <i class="icon"></i>
                         </div>
-                        <p>{% if(order.ordered) { %}已预约{% } else { %}可预约{% } %}</p>
+                        <p>{% if(good.ordered) { %}已预约{% } else { %}可预约{% } %}</p>
 
-                        {% if( !order.ordered ) { %} <input class="deleteOrder" type="button" value="x" /> {% } %}
+                        {% if( !good.ordered ) { %} <input class="deleteGood" type="button" value="x" /> {% } %}
 
                     </li>
                     {% }); %}
                 </ul>
             </div>
-            <div class="order-next"> >> </div>
+            <div class="good-next"> >> </div>
         </div>
     </div>
     <div class="t-b-edit">
@@ -103,15 +103,15 @@
 </script>
 
 <!-- 服务单个商品模版 -->
-<script type="text/template" id="orders_template">
-    {% _.each(arrayOrders,function(order){ %}
-    {% if( order.ordered ) { %} <li class="order order-off"> {% } else { %} <li class="order order-on"> {% } %}
-        <div class="order-icon-w">
+<script type="text/template" id="goods_template">
+    {% _.each(arrayGoods,function(good){ %}
+    {% if( good.ordered ) { %} <li class="good good-off"> {% } else { %} <li class="good good-on"> {% } %}
+        <div class="good-icon-w">
             <i class="icon"></i>
         </div>
-        <p>{% if(order.ordered) { %}已预约{% } else { %}可预约{% } %}</p>
+        <p>{% if(good.ordered) { %}已预约{% } else { %}可预约{% } %}</p>
 
-        {% if( !order.ordered ) { %} <input class="deleteOrder" type="button" value="x" /> {% } %}
+        {% if( !good.ordered ) { %} <input class="deleteGood" type="button" value="x" /> {% } %}
 
     </li>
     {% }); %}

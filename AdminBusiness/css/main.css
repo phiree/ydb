@@ -5914,7 +5914,7 @@ a.time-trigger:hover {
   position: relative;
 }
 /* 订单列表样式 */
-.order-list-wrap {
+.good-list-wrap {
   width: 910px;
   height: 120px;
   margin-bottom: -20px;
@@ -5924,19 +5924,19 @@ a.time-trigger:hover {
   position: relative;
   transition: all 0.3s;
 }
-.order-next,
-.order-prev {
+.good-next,
+.good-prev {
   float: left;
   width: 20px;
   height: 100px;
   line-height: 100px;
 }
-.order-list {
+.good-list {
   height: 100px;
   width: 1000%;
   overflow: hidden;
 }
-.order-list.edit .deleteOrder {
+.good-list.edit .deleteGood {
   display: block;
   position: absolute;
   color: #fff;
@@ -5950,7 +5950,7 @@ a.time-trigger:hover {
   background: #ff4444;
   /* Old browsers */
 }
-.order-list .order {
+.good-list .good {
   display: block;
   float: left;
   margin-left: 10px;
@@ -5961,18 +5961,18 @@ a.time-trigger:hover {
   margin-top: 10px;
   text-align: center;
 }
-.order-list .order + .order {
+.good-list .good + .good {
   margin-left: 10px;
 }
-.order-list .order.order-on {
+.good-list .good.good-on {
   border: 1px solid #92d7c5;
   color: #92d7c5;
 }
-.order-list .order.order-off {
+.good-list .good.good-off {
   border: 1px solid #ed928f;
   color: #ed928f;
 }
-.order-list .order-icon-w {
+.good-list .good-icon-w {
   width: 40px;
   height: 40px;
   margin: 0 auto;
@@ -5982,12 +5982,12 @@ a.time-trigger:hover {
   border: 1px solid transparent;
   overflow: hidden;
 }
-.order-list .order-icon-w .icon {
+.good-list .good-icon-w .icon {
   width: 40px;
   height: 40px;
   background: #3399cc;
 }
-.order-list .deleteOrder {
+.good-list .deleteGood {
   display: none;
 }
 /*可滑动开关样式*/
