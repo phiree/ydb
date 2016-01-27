@@ -2,10 +2,19 @@
  //"orm002001", "orm001003", "orm001004", "orm001005", 
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
-//"u3rd014008", 
-"orm002001"
+//"u3rd014008", "ad001006"
+"orm001006"
 ];
 var test_data = [
+
+    /****************************************************/
+    {
+        "protocol_CODE": "AD001006",
+        "ReqData": null,
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+ 
     /*********************货架化************************/
      {
          "protocol_CODE": "slf001007",
@@ -262,8 +271,8 @@ var test_data = [
                 {
                     "protocol_CODE": "USM001005",
                     "ReqData": {
-                        "email": "cc8bc026-9470-4f6a-8b59-a59200a95470",
-                        "pWord": "of-miv5zbNsvYJzYOD9K5KSVBpds",
+                        "email": "15208922225",
+                        "pWord": "123",
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"

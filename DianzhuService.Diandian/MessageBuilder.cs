@@ -11,8 +11,8 @@ namespace DianzhuService.Diandian
         Message msg;
         public MessageBuilder Create(string from,string to,string body,string orderId)
         {
-              msg = new Message(new Jid(to+"@"+GlobalViables.ServerName)
-                ,new Jid(from+"@" +GlobalViables.ServerName), body);
+              msg = new Message(new Jid(to+"@"+GlobalViables.DomainName)
+                ,new Jid(from+"@" +GlobalViables.DomainName), body);
             msg.SetAttribute("type", "chat");
             var nodeExt = new agsXMPP.Xml.Dom.Element("ext");
             var nodeOrder = new agsXMPP.Xml.Dom.Element("orderID",orderId);
@@ -52,7 +52,7 @@ namespace DianzhuService.Diandian
 </iq>*/
 
             IQ iq = new IQ(IqType.set);
-            iq.From = GlobalViables.XMPPConnection.Username + "@" + GlobalViables.ServerName;
+            iq.From = GlobalViables.XMPPConnection.Username + "@" + GlobalViables.DomainName;
             iq.To = GlobalViables.ServerName;
             var nodeCommand = new agsXMPP.Xml.Dom.Element("command", string.Empty, "http://jabber.org/protocol/commands");
             nodeCommand.SetAttribute("action", "execute");

@@ -17,7 +17,7 @@ namespace Dianzhu.CSClient.WinformView
 {
     public partial class FormMain : Form, IMainFormView
     {
-
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.WinformView");
         /// <summary>
         /// IViewMainForm的 windows form实现.
         /// </summary>
@@ -26,6 +26,7 @@ namespace Dianzhu.CSClient.WinformView
             InitializeComponent();
 
             //关闭自动加载列
+            dgvOrders.AutoGenerateColumns = false;
             dGVCustom.AutoGenerateColumns = false;
             dGVCustomService.AutoGenerateColumns = false;
         }
@@ -289,25 +290,78 @@ namespace Dianzhu.CSClient.WinformView
 
 
 
-        public void SetCustomerButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
+        //public void SetCustomerButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
+        //{
+        //    Action lambda = () => {
+        //        Button btn = (Button)pnlCustomerList.Controls.Find(buttonNamePrefix + order.Id, true)[0];
+        //        Color foreColor = Color.White;
+        //        switch (buttonStyle)
+        //        {
+        //            case em_ButtonStyle.Login:
+        //                foreColor = Color.Green;
+        //                break;
+        //            case em_ButtonStyle.LogOff:
+        //                foreColor = Color.Gray;
+        //                break;
+        //            case em_ButtonStyle.Readed: foreColor = Color.Black; break;
+        //            case em_ButtonStyle.Unread: foreColor = Color.Red; break;
+        //            case em_ButtonStyle.Actived: foreColor = Color.Yellow; break;
+        //            default: break;
+        //        }
+        //        btn.ForeColor = foreColor; };
+        //    if (InvokeRequired)
+        //    {
+        //        Invoke(lambda);
+        //    }
+        //    else
+        //    {
+        //        lambda();
+        //    }
+
+        //}
+        //public void AddCustomerButtonWithStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
+        //{
+        //    //Action lambda = () =>this.DialogResult=value? System.Windows.Forms.DialogResult.OK: System.Windows.Forms.DialogResult.Abort;
+
+        //    Action lamda = () =>
+        //    {
+        //        Button btn = new Button();
+        //        btn.Text = order.CustomerName + order.Id;
+        //        btn.Tag = order;
+        //        btn.Name = buttonNamePrefix + order.Id;
+        //        btn.Click += new EventHandler(btnCustomer_Click);
+        //        pnlCustomerList.Controls.Add(btn);
+        //        SetCustomerButtonStyle(order, buttonStyle);
+        //    };
+        //    if (InvokeRequired)
+        //        Invoke(lamda);
+        //    else
+        //        lamda();
+        //}
+
+        public void SetCustomerButtonStyle(DZMembership dm, em_ButtonStyle buttonStyle)
         {
             Action lambda = () => {
-                Button btn = (Button)pnlCustomerList.Controls.Find(buttonNamePrefix + order.Id, true)[0];
-                Color foreColor = Color.White;
-                switch (buttonStyle)
+                if (pnlCustomerList.Controls.Find(buttonNamePrefix + dm.Id, true).Count() > 0)
                 {
-                    case em_ButtonStyle.Login:
-                        foreColor = Color.Green;
-                        break;
-                    case em_ButtonStyle.LogOff:
-                        foreColor = Color.Gray;
-                        break;
-                    case em_ButtonStyle.Readed: foreColor = Color.Black; break;
-                    case em_ButtonStyle.Unread: foreColor = Color.Red; break;
-                    case em_ButtonStyle.Actived: foreColor = Color.Yellow; break;
-                    default: break;
-                }
-                btn.ForeColor = foreColor; };
+                    Button btn = (Button)pnlCustomerList.Controls.Find(buttonNamePrefix + dm.Id, true)[0];
+                    Color foreColor = Color.White;
+                    switch (buttonStyle)
+                    {
+                        case em_ButtonStyle.Login:
+                            foreColor = Color.Green;
+                            break;
+                        case em_ButtonStyle.LogOff:
+                            foreColor = Color.Gray;
+                            break;
+                        case em_ButtonStyle.Readed: foreColor = Color.Black; break;
+                        case em_ButtonStyle.Unread: foreColor = Color.Red; break;
+                        case em_ButtonStyle.Actived: foreColor = Color.Yellow; break;
+                        default: break;
+                    }
+                    btn.ForeColor = foreColor;
+                }                    
+            };
             if (InvokeRequired)
             {
                 Invoke(lambda);
@@ -318,19 +372,24 @@ namespace Dianzhu.CSClient.WinformView
             }
 
         }
-        public void AddCustomerButtonWithStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
+
+        public void AddCustomerButtonWithStyle(DZMembership dm, em_ButtonStyle buttonStyle)
         {
             //Action lambda = () =>this.DialogResult=value? System.Windows.Forms.DialogResult.OK: System.Windows.Forms.DialogResult.Abort;
 
             Action lamda = () =>
             {
-                Button btn = new Button();
-                btn.Text = order.CustomerName + order.Id;
-                btn.Tag = order;
-                btn.Name = buttonNamePrefix + order.Id;
-                btn.Click += new EventHandler(btnCustomer_Click);
-                pnlCustomerList.Controls.Add(btn);
-                SetCustomerButtonStyle(order, buttonStyle);
+                if (!pnlCustomerList.Controls.ContainsKey(buttonNamePrefix + dm.Id))
+                {
+                    Button btn = new Button();
+                    btn.Text = dm.DisplayName + dm.Id;
+                    btn.Tag = dm;
+                    btn.Name = buttonNamePrefix + dm.Id;
+                    btn.Click += new EventHandler(btnCustomer_Click);
+
+                    pnlCustomerList.Controls.Add(btn);
+                    SetCustomerButtonStyle(dm, buttonStyle);
+                }
             };
             if (InvokeRequired)
                 Invoke(lamda);
@@ -342,8 +401,17 @@ namespace Dianzhu.CSClient.WinformView
         {
             if (IdentityItemActived != null)
             {
+                DZMembership custom = (DZMembership)((Button)sender).Tag;
+                Button btn = (Button)pnlCustomerList.Controls.Find(buttonNamePrefix + custom.Id, true)[0];
+                if(btn.ForeColor== Color.Gray)
+                {
+                    MessageBox.Show("该用户已下线！");
+                    RemoveCustomBtn(custom.Id.ToString());
+                    return;
+                }
                 BeforeCustomerChanged();
-                IdentityItemActived((ServiceOrder)((Button)sender).Tag);
+                //IdentityItemActived((ServiceOrder)((Button)sender).Tag);
+                IdentityItemActived((DZMembership)((Button)sender).Tag);
             }
 
         }
@@ -814,11 +882,47 @@ namespace Dianzhu.CSClient.WinformView
             SaveReAssign();
         }
 
-        public void RemoveOrderBtn(string btnName)
+        public void RemoveCustomBtn(string cid)
         {
-            Button btn = (Button)pnlCustomerList.Controls.Find(buttonNamePrefix + btnName, true)[0];
-            pnlCustomerList.Controls.Remove(btn);
-            pnlChat.Controls.Clear();
+            Action lamda = () =>
+            {
+                if (pnlCustomerList.Controls.ContainsKey(buttonNamePrefix + cid))
+                {
+                    Button btn = (Button)pnlCustomerList.Controls.Find(buttonNamePrefix + cid, true)[0];
+                    pnlCustomerList.Controls.Remove(btn);
+                }
+                else
+                {
+                    ilog.Error("传入的名称无效！");
+                    throw new NotImplementedException("传入的名称无效！");
+                }
+            };
+            if (InvokeRequired)
+                Invoke(lamda);
+            else
+                lamda();            
+        }
+
+        public void RemoveCustomBtnAndClear(string cid)
+        {
+            Action lamda = () =>
+            {
+                if (pnlCustomerList.Controls.ContainsKey(buttonNamePrefix + cid))
+                {
+                    Button btn = (Button)pnlCustomerList.Controls.Find(buttonNamePrefix + cid, true)[0];
+                    pnlCustomerList.Controls.Remove(btn);
+                    pnlChat.Controls.Clear();
+                }
+                else
+                {
+                    ilog.Error("传入的名称无效！");
+                    throw new NotImplementedException("传入的名称无效！");
+                }
+            };
+            if (InvokeRequired)
+                Invoke(lamda);
+            else
+                lamda();
         }
 
         public void ShowMsg (string msg)
@@ -844,5 +948,10 @@ namespace Dianzhu.CSClient.WinformView
         {
             MessageSentAndNew();
         }
+
+        /// <summary>
+        /// 当前客服正在接待的客户的订单列表
+        /// </summary>
+        public IList<ServiceOrder> OrdersList { set { dgvOrders.DataSource = value; } }
     }
 }

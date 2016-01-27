@@ -20,10 +20,13 @@ namespace Dianzhu.CSClient.Presenter
         /// 切换订单1:改变当前订单, 改变按钮样式
         /// </summary>
         /// <param name="order"></param>
-        private void ActiveCustomer(ServiceOrder order)
+        //private void ActiveCustomer(ServiceOrder order)
+        private void ActiveCustomer(DZMembership dm)
         {
-            ClientState.CurrentServiceOrder = order;
-            view.SetCustomerButtonStyle(order, em_ButtonStyle.Actived);
+            //ClientState.CurrentServiceOrder = order;
+            ClientState.CurrentCustomer = dm;
+            //view.SetCustomerButtonStyle(order, em_ButtonStyle.Actived);
+            view.SetCustomerButtonStyle(dm, em_ButtonStyle.Actived);
         }
 
         /// <summary>
@@ -36,6 +39,7 @@ namespace Dianzhu.CSClient.Presenter
             ServiceOrder newOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
                 string.Empty, string.Empty, string.Empty, 0, string.Empty, ClientState.CurrentServiceOrder.Customer,
                 string.Empty, 0, 0);
+            
             bllOrder.SaveOrUpdate(newOrder);
             ClientState.CurrentServiceOrder = newOrder;
             //ReceptionChat chat = new ReceptionChat
@@ -49,7 +53,7 @@ namespace Dianzhu.CSClient.Presenter
             //    ServiceOrder = newOrder
             //};
             //SendMessage(chat);
-            View_NoticeOrder();
+            NoticeDraftNew();
 
             view.OrderNumber = newOrder.Id.ToString();
             view.OrderStatus = Model.Enums.enum_OrderStatus.Draft.ToString();
@@ -86,6 +90,7 @@ namespace Dianzhu.CSClient.Presenter
             Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
             SaveCurrentOrder();
             ClientState.CurrentServiceOrder.OrderStatus = Model.Enums.enum_OrderStatus.Created;
+            View_NoticeOrder();
             string payLink = ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"));
 
             ReceptionChatNotice chatNotice = new ReceptionChatNotice
@@ -121,7 +126,8 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_BeforeCustomerChanged()
         {
-            // view.SetCustomerButtonStyle(CurrentServiceOrder, em_ButtonStyle.Readed);
+            //view.SetCustomerButtonStyle(CurrentServiceOrder, em_ButtonStyle.Readed);
+            //view.SetCustomerButtonStyle(ClientState.CurrentCustomer, em_ButtonStyle.Readed);
             //保存当前界面的草稿订单先~
             SaveCurrentOrder();
         }

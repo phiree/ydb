@@ -58,7 +58,7 @@ namespace Dianzhu.CSClient.Presenter
             this.view.BeforeCustomerChanged += new BeforeCustomerChanged(view_BeforeCustomerChanged);
             this.view.IdentityItemActived += new IVew.IdentityItemActived(ActiveCustomer);
             this.view.IdentityItemActived += new IVew.IdentityItemActived(LoadChatHistory);
-            this.view.IdentityItemActived += new IdentityItemActived(LoadCurrentOrder);
+            //this.view.IdentityItemActived += new IdentityItemActived(LoadCurrentOrder);
 
             this.view.ButtonNamePrefix =GlobalViables.ButtonNamePrefix;
             this.view.SearchService += new IVew.SearchService(view_SearchService);
@@ -183,8 +183,10 @@ namespace Dianzhu.CSClient.Presenter
                     SaveMessage(rChatReAss, true);
                     instantMessage.SendMessage(rChatReAss);
 
-                    ClientState.OrderList.Add(rs.Order);
-                    view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                    //ClientState.OrderList.Add(rs.Order);
+                    ClientState.customerList.Add(rs.Customer);
+                    //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                    view.AddCustomerButtonWithStyle(rs.Customer, em_ButtonStyle.Unread);
                 }
             }
             else
@@ -201,8 +203,10 @@ namespace Dianzhu.CSClient.Presenter
                         }
 
                         //按订单显示按钮
-                        ClientState.OrderList.Add(order);
-                        view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
+                        //ClientState.OrderList.Add(order);
+                        ClientState.customerList.Add(order.Customer);
+                        //view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
+                        view.AddCustomerButtonWithStyle(order.Customer, em_ButtonStyle.Unread);
                     }
                     CopyDDToChat(logoffCList);
                 }
@@ -272,14 +276,19 @@ namespace Dianzhu.CSClient.Presenter
                     SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
 
                     //删除现在OrderList中的客户
-                    for (int j=0;j< ClientState.OrderList.Count; j++)
+                    //for (int j=0;j< ClientState.OrderList.Count; j++)
+                    //{
+                    //    if(dm== ClientState.OrderList[j].Customer)
+                    //    {
+                    //        view.RemoveOrderBtn(ClientState.OrderList[j].Id.ToString());
+                    //        ClientState.OrderList.RemoveAt(j);
+                    //        j--;
+                    //    }
+                    //}
+                    if (ClientState.customerList.Contains(dm))
                     {
-                        if(dm== ClientState.OrderList[j].Customer)
-                        {
-                            view.RemoveOrderBtn(ClientState.OrderList[j].Id.ToString());
-                            ClientState.OrderList.RemoveAt(j);
-                            j--;
-                        }
+                        view.RemoveCustomBtnAndClear(dm.Id.ToString());
+                        ClientState.customerList.Remove(dm);
                     }
                 }
             }
@@ -367,7 +376,7 @@ namespace Dianzhu.CSClient.Presenter
             <body>  订单状态变更通知</body>
             <ext xmlns=""ihelper:notice:order"">
                 <orderID>{3}</orderID>
-                <orderObj title = ""{5}"" status = ""{4}"" type = """">
+                <orderObj title = ""{4}"" status = ""{5}"" type = """">
                 </orderObj>
             </ext>
             </message>
@@ -530,22 +539,31 @@ namespace Dianzhu.CSClient.Presenter
                 view.SearchedService = ClientState.SearchResultForCustomer[customer.UserName];
             }
         }
-        private void LoadChatHistory()
-        {
-            LoadChatHistory(ClientState.CurrentServiceOrder);
-        }
-        private void LoadChatHistory(ServiceOrder serviceOrder)
-        {
+        //private void LoadChatHistory()
+        //{
+        //    LoadChatHistory(ClientState.CurrentServiceOrder);
+        //}
+        //private void LoadChatHistory(ServiceOrder serviceOrder)
+        //{
             
+        //    int rowCount;
+        //    var chatHistory = bllReception.GetChatListByOrder(
+        //        serviceOrder.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),0,20,enum_ChatTarget.all, out rowCount);
+
+        //    view.ChatLog = chatHistory;
+        //}
+
+        private void LoadChatHistory(DZMembership dm)
+        {
             int rowCount;
-            var chatHistory = bllReception.GetChatListByOrder(
-                serviceOrder.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),0,20,enum_ChatTarget.all, out rowCount);
+            var chatHistory = bllReception.GetReceptionChatList(
+                null,null,new Guid(), DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
 
             view.ChatLog = chatHistory;
         }
 
 
- 
+
     }
 
     

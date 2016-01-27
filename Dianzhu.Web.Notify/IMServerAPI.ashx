@@ -61,6 +61,19 @@ public class IMServerAPI : IHttpHandler {
                     log.Error("传入的orderid无效:'" + strcustomId + "'");
                 }
                 break;
+            case "customlogin":
+                string strlogincustomId = context.Request["userId"];
+                Guid logincustomId;
+                bool isGidlogincustom = Guid.TryParse(strlogincustomId, out logincustomId);
+                if (isGidlogincustom)
+                {
+                    imNotify.SendCustomLoginMessage(logincustomId);
+                }
+                else
+                {
+                    log.Error("传入的orderid无效:'" + strlogincustomId + "'");
+                }
+                break;
         }
 
         //get cslist, using xmpp

@@ -13,7 +13,8 @@ namespace Dianzhu.CSClient.IVew
     /// 当前界面的标志条目被修改(点击了另一个 订单按钮)
     /// </summary>
     /// <param name="serviceOrder">新激活的订单</param>
-    public delegate void IdentityItemActived(ServiceOrder serviceOrder);
+    //public delegate void IdentityItemActived(ServiceOrder serviceOrder);
+    public delegate void IdentityItemActived(DZMembership dm);
     /// <summary>
     /// 消息发送之后
     /// </summary>
@@ -77,13 +78,15 @@ namespace Dianzhu.CSClient.IVew
         /// </summary>
         /// <param name="buttonText">按钮文本(等同于客户登录名)</param>
         /// <param name="buttonStyle">按钮样式</param>
-        void SetCustomerButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle);
-       /// <summary>
-       /// 增加一个按钮,并设置其样式
-       /// </summary>
-       /// <param name="order">按钮对应的订单</param>
-       /// <param name="buttonStyle"></param>
-        void AddCustomerButtonWithStyle(ServiceOrder order, em_ButtonStyle buttonStyle);
+        //void SetCustomerButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle);
+        void SetCustomerButtonStyle(DZMembership dm, em_ButtonStyle buttonStyle);
+        /// <summary>
+        /// 增加一个按钮,并设置其样式
+        /// </summary>
+        /// <param name="order">按钮对应的订单</param>
+        /// <param name="buttonStyle"></param>
+        //void AddCustomerButtonWithStyle(ServiceOrder order, em_ButtonStyle buttonStyle);
+        void AddCustomerButtonWithStyle(DZMembership dm, em_ButtonStyle buttonStyle);
         /// <summary>
         /// 按钮名称的前缀.
         /// </summary>
@@ -180,11 +183,17 @@ namespace Dianzhu.CSClient.IVew
         DZService CurrentService { get; set; }
 
         /// <summary>
-        /// 删除按钮方法
+        /// 删除用户按钮
         /// </summary>
         /// <param name="btnName"></param>
-        void RemoveOrderBtn(string btnName);
-        
+        void RemoveCustomBtn(string cid);
+
+        /// <summary>
+        /// 删除用户按钮并清空聊天区域
+        /// </summary>
+        /// <param name="cid"></param>
+        void RemoveCustomBtnAndClear(string cid);
+
         /// <summary>
         /// 发送消息并生成新订单
         /// </summary>

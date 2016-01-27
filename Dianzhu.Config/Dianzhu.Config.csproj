@@ -48,36 +48,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Configs\ConfigForServerLocal172\AdminBusiness\web.config" />
-    <None Include="Configs\ConfigForServerLocal172\AdminWeb\web.config" />
-    <None Include="Configs\ConfigForServerLocal172\Dianzhu.CSClient\App.config" />
-    <None Include="Configs\ConfigForServerLocal172\Dianzhu.DemoClient\app.config" />
-    <None Include="Configs\ConfigForServerLocal172\Dianzhu.HttpApi\web.config" />
-    <None Include="Configs\ConfigForServerLocal172\Dianzhu.Test\App.config" />
-    <None Include="Configs\ConfigForServerLocal172\Dianzhu.Web.Notify\Web.config" />
-    <None Include="Configs\ConfigForServerLocal172\Dianzhu.Web.Pay\Web.config" />
-    <None Include="Configs\ConfigForServerLocal172\Dianzhu.Web.PushServer\Web.config" />
-    <None Include="Configs\ConfigForServerLocal172\DianzhuService.Diandian\App.config" />
-    <None Include="Configs\ConfigForServerServer115\AdminBusiness\web.config" />
-    <None Include="Configs\ConfigForServerServer115\AdminWeb\web.config" />
-    <None Include="Configs\ConfigForServerServer115\Dianzhu.CSClient\App.config" />
-    <None Include="Configs\ConfigForServerServer115\Dianzhu.DemoClient\app.config" />
-    <None Include="Configs\ConfigForServerServer115\Dianzhu.HttpApi\web.config" />
-    <None Include="Configs\ConfigForServerServer115\Dianzhu.Test\App.config" />
-    <None Include="Configs\ConfigForServerServer115\Dianzhu.Web.Notify\Web.config" />
-    <None Include="Configs\ConfigForServerServer115\Dianzhu.Web.Pay\Web.config" />
-    <None Include="Configs\ConfigForServerServer115\Dianzhu.Web.PushServer\Web.config" />
-    <None Include="Configs\ConfigForServerServer115\DianzhuService.Diandian\App.config" />
-    <None Include="Configs\ConfigForServerServer119\AdminBusiness\web.config" />
-    <None Include="Configs\ConfigForServerServer119\AdminWeb\web.config" />
-    <None Include="Configs\ConfigForServerServer119\Dianzhu.CSClient\App.config" />
-    <None Include="Configs\ConfigForServerServer119\Dianzhu.DemoClient\app.config" />
-    <None Include="Configs\ConfigForServerServer119\Dianzhu.HttpApi\web.config" />
-    <None Include="Configs\ConfigForServerServer119\Dianzhu.Test\App.config" />
-    <None Include="Configs\ConfigForServerServer119\Dianzhu.Web.Notify\Web.config" />
-    <None Include="Configs\ConfigForServerServer119\Dianzhu.Web.Pay\Web.config" />
-    <None Include="Configs\ConfigForServerServer119\Dianzhu.Web.PushServer\Web.config" />
-    <None Include="Configs\ConfigForServerServer119\DianzhuService.Diandian\App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

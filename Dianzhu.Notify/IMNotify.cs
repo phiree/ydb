@@ -17,6 +17,7 @@ namespace Dianzhu.NotifyCenter
     /// </summary>
     public class IMNotify
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
         private Dianzhu.CSClient.IInstantMessage.InstantMessage im = null;
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Dianzhu.NotifyCenter
             var extNode = new agsXMPP.Xml.Dom.Element("ext");
             extNode.Namespace = "ihelper:notice:system";
 
-            ags.Message msg = BuildNotice(scope + "@broadcast." + im.Server, message, extNode);
+            ags.Message msg = BuildNotice(scope + "@broadcast." + im.Domain, message, extNode);
             im.SendMessage(msg.ToString());
         }
         public void SendSysNoitification(string message)
@@ -66,15 +67,16 @@ namespace Dianzhu.NotifyCenter
             extNode.AddChild(orderObj);
 
             ags.Message msg= BuildNotice(
-                 order.Customer.Id.ToString() + "@" + im.Server,
+                 order.Customer.Id + "@" + im.Domain,
                  "订单状态已变为:" + order.OrderStatus,
                  extNode
                  );
             //发送给客户
+            
             im.SendMessage(msg.ToString());
 
             ags.Message msgForCS = BuildNotice(
-                  order.CustomerService.Id.ToString() + "@" + im.Server,
+                  order.CustomerService.Id + "@" + im.Domain,
                   "订单状态已变为:" + order.OrderStatus,
                   extNode
                   );
@@ -127,6 +129,12 @@ namespace Dianzhu.NotifyCenter
             foreach (KeyValuePair<DZMembership, DZMembership> r in reassignList)
             {
                 ServiceOrder order = bllReceptionStatus.GetOrder(r.Key, r.Value).Order;
+                if (order.OrderStatus != enum_OrderStatus.Draft)
+                {
+                    ServiceOrder newOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
+                string.Empty, string.Empty, string.Empty, 0, string.Empty, r.Key, string.Empty, 0, 0);
+                    order = newOrder;
+                }
                 ReceptionChat rc = new ReceptionChatReAssign
                 {
                     From = imMember,
@@ -158,6 +166,28 @@ namespace Dianzhu.NotifyCenter
                 SendTime = DateTime.Now,
                 User=rs.Customer,
                 Status = enum_UserStatus.unavailable
+            };
+            im.SendMessage(rc);
+        }
+
+        public void SendCustomLoginMessage(Guid csId)
+        {
+            DZMembershipProvider bllDZMembership = new DZMembershipProvider();
+            BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
+            ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
+            DZMembership imMember = bllDZMembership.GetUserById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
+            //通过 IMServer 给客服发送消息
+            IIMSession imSession = new IMSessionsDB();
+
+            ReceptionChat rc = new ReceptionChatUserStatus
+            {
+                From = imMember,
+                ChatType = enum_ChatType.UserStatus,
+                To = rs.CustomerService,
+                ServiceOrder = rs.Order,
+                SendTime = DateTime.Now,
+                User = rs.Customer,
+                Status = enum_UserStatus.available
             };
             im.SendMessage(rc);
         }

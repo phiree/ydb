@@ -39,8 +39,10 @@ namespace Dianzhu.DAL
         }
         public virtual void Delete(T o)
         {
-            session.Delete(o);
-            session.Flush();
+            using (var t = session.BeginTransaction())
+            {
+                session.Delete(o); t.Commit();
+            }
         }
         public virtual void Save(T o)
         {
@@ -51,7 +53,7 @@ namespace Dianzhu.DAL
 
                 t.Commit();
             }
-            session.Flush();
+           
             
         }
         public virtual void Save(T o, object id)
@@ -62,7 +64,7 @@ namespace Dianzhu.DAL
 
                 t.Commit();
             }
-            session.Flush();
+         
         }
         /// <summary>
         /// 保存列表
@@ -83,26 +85,33 @@ namespace Dianzhu.DAL
         }
         public virtual void Update(T o)
         {
-            session.Update(o);
-            session.Flush();
+            using (var t = session.BeginTransaction())
+            {
+                session.Update(o); t.Commit();
+            }
         }
         public virtual void SaveOrUpdate(T o)
         {
-
-            session.SaveOrUpdate(o);
-            if (!session.Transaction.IsActive)
+            using (var t = session.BeginTransaction())
             {
-                session.Flush();
+                session.SaveOrUpdate(o); t.Commit();
+
             }
 
 
         }
         public virtual T GetOne(object id)
         {
-            T r= session.Get<T>(id);
-            
+            using (var t = session.BeginTransaction())
+            {
+                T r = session.Get<T>(id);
 
-            return r;
+                if(t!=null)
+                { 
+                t.Commit();
+                }
+                return r;
+            }
         }
         public T GetOneByQuery(IQueryOver<T> queryOver)
         {
@@ -114,29 +123,37 @@ namespace Dianzhu.DAL
         }
         public T GetOneByQuery(IList<T> listT)
         {
+            using (var t = session.BeginTransaction())
+            {
+                T o;
+                if (listT.Count == 1)
+                {
+                    o= listT[0];
+                }
+                else if (listT.Count == 0)
+                {
+                   o= default(T);
+                }
+                else
+                {
+                    string errmsg = "错误:GetOnByQuery应该只能返回一个值.现在有" + listT.Count + "个值返回.";
 
-            if (listT.Count == 1)
-            {
-                return listT[0];
-            }
-            else if (listT.Count == 0)
-            {
-                return default(T);
-            }
-            else
-            {
-                string errmsg = "错误:GetOnByQuery应该只能返回一个值.现在有" + listT.Count + "个值返回.";
-
-                //NLibrary.NLogger.Logger.Error(errmsg);
-                return listT[0];
-                // throw new Exception(errmsg);
+                    //NLibrary.NLogger.Logger.Error(errmsg);
+                    o= listT[0];
+                    // throw new Exception(errmsg);
+                }
+                t.Commit();
+                return o;
             }
         }
 
         public virtual IList<T> GetAll<T>() where T : class
         {
-            session.Clear();
-            return session.QueryOver<T>().List();
+            using (var t = session.BeginTransaction())
+            {
+                t.Commit();
+                return session.QueryOver<T>().List();
+            }
         }
 
         public IList<T> GetList(string query)
@@ -146,7 +163,11 @@ namespace Dianzhu.DAL
         }
         public IList<T> GetList(IQueryOver<T, T> queryOver)
         {
-            return queryOver.List();
+            using (var t = session.BeginTransaction())
+            {
+                t.Commit();
+                return queryOver.List();
+            }
         }
 
         public IList<T> GetList(string query, int pageIndex, int pageSize, out int totalRecords)
@@ -165,28 +186,33 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<T> GetList(string query, string orderColumns, bool orderDesc, int pageIndex, int pageSize, out int totalRecords, string query_count)
         {
-            totalRecords = 0;
-            string strOrder = string.Empty;
-            if (!string.IsNullOrEmpty(orderColumns))
+            using (var t = session.BeginTransaction())
             {
-                strOrder = " order by " + orderColumns;
-                if (orderDesc)
-                    strOrder += " desc ";
+                totalRecords = 0;
+                string strOrder = string.Empty;
+                if (!string.IsNullOrEmpty(orderColumns))
+                {
+                    strOrder = " order by " + orderColumns;
+                    if (orderDesc)
+                        strOrder += " desc ";
+                }
+                IQuery qry = session.CreateQuery(query + strOrder);
+
+
+                string queryCount = query_count;
+                //todo 
+                if (!string.IsNullOrEmpty(queryCount))
+                {
+                    //queryCount =phsu.StringHelper.BuildCountQuery(query);
+
+                    IQuery qryCount = session.CreateQuery(queryCount);
+                    totalRecords = (int)qryCount.UniqueResult<long>();
+                }
+                var returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
+
+                t.Commit();
+                return returnList;
             }
-            IQuery qry = session.CreateQuery(query + strOrder);
-
-
-            string queryCount = query_count;
-            //todo 
-            if (!string.IsNullOrEmpty(queryCount))
-            { 
-            //queryCount =phsu.StringHelper.BuildCountQuery(query);
-
-            IQuery qryCount = session.CreateQuery(queryCount);
-            totalRecords = (int)qryCount.UniqueResult<long>();
-            }
-            var returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
-            return returnList;
         }
 
         public System.Data.DataSet ExecuteSql(string pureSqlStatement)

@@ -32,8 +32,7 @@
     <MinimumRequiredVersion>1.0.0.9</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -143,10 +142,6 @@
       <TransformOnBuild>true</TransformOnBuild>
     </None>
     <Content Include="favicon.ico" />
-    <Fakes Include="Fakes\Dianzhu.CSClient.WPFView.fakes" />
-    <Content Include="Fakes\files\aps_development_Mark.p12">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="App.Debug.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -202,9 +197,9 @@
       <Project>{0550CABB-3957-45CC-8CC6-9FBEA653B20D}</Project>
       <Name>Dianzhu.CSClient.WinformView</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.WPFView2\Dianzhu.CSClient.WPFView2.csproj">
+    <ProjectReference Include="..\Dianzhu.CSClient.WPFView\Dianzhu.CSClient.WPFView.csproj">
       <Project>{cbcc23e1-62a9-46bc-9ebd-3d0c3cb37c89}</Project>
-      <Name>Dianzhu.CSClient.WPFView2</Name>
+      <Name>Dianzhu.CSClient.WPFView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
       <Project>{125F0D3B-E83C-4743-9944-E82392CBA6C5}</Project>

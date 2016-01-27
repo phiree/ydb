@@ -24,7 +24,7 @@ namespace Dianzhu.Test.DianzhuNotifyCenterTest
             {
 
                 MessageAdapter adapter = new MessageAdapter();
-                imInstance = new XMPP("",adapter);
+                imInstance = new XMPP("","",adapter);
                 imInstance.OpenConnection("4f088d5c-be94-43bc-9644-a4d1008be129", "123456");
                 imInstance.IMLogined += ImInstance_IMLogined;
             }
