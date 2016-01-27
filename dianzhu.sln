@@ -204,6 +204,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "dianzhu_adminbusiness_mvc",
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "53672"
+		SlnRelativePath = "..\publish\dianzhu_adminbusiness_mvc\"
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dlls", "dlls", "{FF82FDAB-C9E3-4C42-ABE8-BB47F4946CAC}"
