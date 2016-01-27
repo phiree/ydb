@@ -27,42 +27,42 @@
                                         <div class="service-panel-head">
                                             <div class="custom-grid">
                                                 <div class="custom-col col-static-3">
-                                                    <div class="service-p-h-t">
+                                                    <div class="l-b">
                                                         <input type="checkbox" />
                                                     </div>
                                                 </div>
                                                 <div class="custom-col col-static-5">
-                                                    <div class="service-p-h-t">
+                                                    <div class="l-b">
                                                         编号
                                                     </div>
                                                 </div>
                                                 <div class="custom-col col-static-10">
-                                                    <div class="service-p-h-t">
+                                                    <div class="l-b">
                                                         服务图标
                                                     </div>
                                                 </div>
                                                 <div class="custom-col col-static-10">
-                                                    <div class="service-p-h-t">
+                                                    <div class="l-b">
                                                         服务名称
                                                     </div>
                                                 </div>
                                                 <div class="custom-col col-static-10">
-                                                    <div class="service-p-h-t">
+                                                    <div class="l-b">
                                                         服务类型
                                                     </div>
                                                 </div>
                                                 <div class="custom-col col-static-20">
-                                                    <div class="service-p-h-t">
+                                                    <div class="l-b">
                                                         服务区域
                                                     </div>
                                                 </div>
                                                 <div class="custom-col col-static-20">
-                                                    <div class="service-p-h-t">
+                                                    <div class="l-b">
                                                         服务货架图
                                                     </div>
                                                 </div>
                                                 <div class="custom-col col-static-20">
-                                                    <div class="service-p-h-t">
+                                                    <div class="l-b">
                                                         服务操作
                                                     </div>
                                                 </div>

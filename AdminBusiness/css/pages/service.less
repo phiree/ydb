@@ -32,53 +32,13 @@
   }
 }
 .service-panel-head {
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 30px;
-  text-align: center;
-  border-bottom: 1px solid #ccc;
-  background: #f7f7f7;
-  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
-  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
-  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
-}
-
-.service-p-h-t {
-  border-left: 1px solid #ccc;
+  .list-head();
 }
 
 .service-panel-list {
-  height: 600px;
-  overflow-x: auto;
-  margin-bottom: -20px;
-  &::-webkit-scrollbar {
-    width: 5px;
-    background : transparent;
-    border : 0;
-  }
-  &::-webkit-scrollbar-button {
-    display: none;
-  }
-  &::-webkit-scrollbar-track {
-    display:none
-  }
-  &::-webkit-scrollbar-track-piece {
-    background: #CCCCCC;
-  }
-  &::-webkit-scrollbar-thumb {
 
-    border-radius: 10px;
-    background: #999;
-  }
-  &::-webkit-scrollbar-corner {
-    display: none;
-  }
-  &::-webkit-resizer {
-
-  }
+  .list(600px);
 }
-
 
 /* 服务编辑地图样式 */
 #allmap {

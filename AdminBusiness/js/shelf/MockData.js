@@ -2,7 +2,7 @@
     Mock.mockjax(jQuery);
 
     var today = new Date();
-    // 模拟递增日期，初始化减7，因为Mock.js和CustomAPI的dataFilter冲突会导致函数在执行一次
+    // 模拟递增日期，初始化减7，因为Mock.js和CustomAPI的dataFilter冲突会导致函数多执行一次
     var todayDate = today.getDate() - 7;
 
     function resqDay(){
