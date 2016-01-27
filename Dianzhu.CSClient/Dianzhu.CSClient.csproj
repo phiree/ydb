@@ -197,9 +197,9 @@
       <Project>{0550CABB-3957-45CC-8CC6-9FBEA653B20D}</Project>
       <Name>Dianzhu.CSClient.WinformView</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.WPFView2\Dianzhu.CSClient.WPFView2.csproj">
+    <ProjectReference Include="..\Dianzhu.CSClient.WPFView\Dianzhu.CSClient.WPFView.csproj">
       <Project>{cbcc23e1-62a9-46bc-9ebd-3d0c3cb37c89}</Project>
-      <Name>Dianzhu.CSClient.WPFView2</Name>
+      <Name>Dianzhu.CSClient.WPFView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
       <Project>{125F0D3B-E83C-4743-9944-E82392CBA6C5}</Project>
