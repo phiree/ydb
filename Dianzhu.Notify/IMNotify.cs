@@ -169,5 +169,27 @@ namespace Dianzhu.NotifyCenter
             };
             im.SendMessage(rc);
         }
+
+        public void SendCustomLoginMessage(Guid csId)
+        {
+            DZMembershipProvider bllDZMembership = new DZMembershipProvider();
+            BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
+            ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
+            DZMembership imMember = bllDZMembership.GetUserById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
+            //通过 IMServer 给客服发送消息
+            IIMSession imSession = new IMSessionsDB();
+
+            ReceptionChat rc = new ReceptionChatUserStatus
+            {
+                From = imMember,
+                ChatType = enum_ChatType.UserStatus,
+                To = rs.CustomerService,
+                ServiceOrder = rs.Order,
+                SendTime = DateTime.Now,
+                User = rs.Customer,
+                Status = enum_UserStatus.available
+            };
+            im.SendMessage(rc);
+        }
     }
 }

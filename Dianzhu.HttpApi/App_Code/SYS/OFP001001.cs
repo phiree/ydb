@@ -130,15 +130,20 @@ public class ResponseOFP001001 : BaseResponse
             switch (currentIM.Status)
             {
                 case enum_UserStatus.available:
-                    
+                    if (isCustom)
+                    {
+                        //用户上线后，通知客服工具
+                        string imServerAPIInvokeUrl = "IMServerAPI.ashx?type=customlogin&userId=" + userId;
+                        VisitIMServerApi(imServerAPIInvokeUrl);
+                    }                    
                     break;
                 case enum_UserStatus.unavailable:
-                    string imServerAPIInvokeUrl = string.Empty;
+                    string imServerAPIInvokeUrlUn = string.Empty;
                     if (isCustom)
-                    {                        
+                    {
                         //用户下线后，通知客服工具
-                        imServerAPIInvokeUrl= "IMServerAPI.ashx?type=customlogoff&userId=" + userId;
-                        VisitIMServerApi(imServerAPIInvokeUrl);
+                        imServerAPIInvokeUrlUn = "IMServerAPI.ashx?type=customlogoff&userId=" + userId;
+                        VisitIMServerApi(imServerAPIInvokeUrlUn);
 
                         //删掉接待关系
                         bllReceptionStatus.Delete(rs);
@@ -146,8 +151,8 @@ public class ResponseOFP001001 : BaseResponse
                     else
                     {
                         //客服下线后，将正在接待的用户转到其他客服或者点点
-                        imServerAPIInvokeUrl = "IMServerAPI.ashx?type=cslogoff&userId=" + userId;
-                        VisitIMServerApi(imServerAPIInvokeUrl);
+                        imServerAPIInvokeUrlUn = "IMServerAPI.ashx?type=cslogoff&userId=" + userId;
+                        VisitIMServerApi(imServerAPIInvokeUrlUn);
                     }                    
                     break;
                 default:
