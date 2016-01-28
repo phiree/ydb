@@ -25,7 +25,9 @@ namespace Dianzhu.CSClient.Presenter
         BLLDeviceBind bllDeviceBind;
         BLLReceptionChatDD bllReceptionChatDD;
         BLLIMUserStatus bllIMUserStatus;
+        BLLReceptionStatusArchieve bllReceptionStatusArchieve;
         string server;
+        int rsaCustomerAmount;
 
         public MainPresenter(IVew.IMainFormView view,
             InstantMessage instantMessage,
@@ -38,12 +40,13 @@ namespace Dianzhu.CSClient.Presenter
             this.bllReception = new BLLReception(); //bllReception;
             this.bllService = new BLLDZService();// bllService;
             this.bllReceptionStatus = new BLLReceptionStatus();// bllReceptionStatus;
-            this.bllReceptionChat = new BLLReceptionChat();// bllReceptionStatus;
+            this.bllReceptionChat = new BLLReceptionChat();// bllReceptionChat;
             this.bllDeviceBind = new BLLDeviceBind();//bllDeviceBind
 
             this.bllOrder = new BLLServiceOrder();// bllOrder;
             this.bllReceptionChatDD = new BLLReceptionChatDD();
             this.bllIMUserStatus = new BLLIMUserStatus();
+            this.bllReceptionStatusArchieve = new BLLReceptionStatusArchieve();
 
             //  IM的委托
             this.instantMessage.IMPresent += new IMPresent(IMPresent);
@@ -58,7 +61,7 @@ namespace Dianzhu.CSClient.Presenter
             this.view.BeforeCustomerChanged += new BeforeCustomerChanged(view_BeforeCustomerChanged);
             this.view.IdentityItemActived += new IVew.IdentityItemActived(ActiveCustomer);
             this.view.IdentityItemActived += new IVew.IdentityItemActived(LoadChatHistory);
-            this.view.IdentityItemActived += new IdentityItemActived(LoadCurrentOrder);
+            //this.view.IdentityItemActived += new IdentityItemActived(LoadCurrentOrder);
 
             this.view.ButtonNamePrefix =GlobalViables.ButtonNamePrefix;
             this.view.SearchService += new IVew.SearchService(view_SearchService);
@@ -85,6 +88,7 @@ namespace Dianzhu.CSClient.Presenter
 
             this.SysAssign(2);
             server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+            this.view.ReceptionCustomerList = bllReceptionStatusArchieve.GetCustomerListByCS(ClientState.customerService, 1, 10, out rsaCustomerAmount);
         }
 
         /// <summary>
@@ -146,6 +150,23 @@ namespace Dianzhu.CSClient.Presenter
         }
 
         /// <summary>
+        /// 接待记录存档
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <param name="cs"></param>
+        /// <param name="order"></param>
+        private void SaveRSA(DZMembership customer,DZMembership cs,ServiceOrder order)
+        {
+            ReceptionStatusArchieve rsa = new ReceptionStatusArchieve
+            {
+                Customer = customer,
+                CustomerService = cs,
+                Order = order,
+            };
+            bllReceptionStatusArchieve.SaveOrUpdate(rsa);
+        }
+
+        /// <summary>
         /// 系统按数量分配用户给在线客服
         /// </summary>
         /// <param name="num"></param>
@@ -156,7 +177,10 @@ namespace Dianzhu.CSClient.Presenter
             {
                 foreach (ReceptionStatus rs in rsList)
                 {
-                    rs.CustomerService = GlobalViables.CurrentCustomerService;
+                    #region 接待记录存档
+                    SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
+                    #endregion
+                    rs.CustomerService = GlobalViables.CurrentCustomerService;                    
                     bllReceptionStatus.SaveByRS(rs);
 
                     CopyDDToChat(rsList.Select(x => x.Customer).ToList());
@@ -174,8 +198,10 @@ namespace Dianzhu.CSClient.Presenter
                     SaveMessage(rChatReAss, true);
                     instantMessage.SendMessage(rChatReAss);
 
-                    ClientState.OrderList.Add(rs.Order);
-                    view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                    //ClientState.OrderList.Add(rs.Order);
+                    ClientState.customerList.Add(rs.Customer);
+                    //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                    view.AddCustomerButtonWithStyle(rs.Customer, em_ButtonStyle.Unread);
                 }
             }
             else
@@ -192,8 +218,10 @@ namespace Dianzhu.CSClient.Presenter
                         }
 
                         //按订单显示按钮
-                        ClientState.OrderList.Add(order);
-                        view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
+                        //ClientState.OrderList.Add(order);
+                        ClientState.customerList.Add(order.Customer);
+                        //view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
+                        view.AddCustomerButtonWithStyle(order.Customer, em_ButtonStyle.Unread);
                     }
                     CopyDDToChat(logoffCList);
                 }
@@ -244,11 +272,14 @@ namespace Dianzhu.CSClient.Presenter
             {
                 string[] clist = p.Value.Split(',');
                 ReceptionChatReAssign rChatReAss;
-                for (int i=0; i<clist.Length; i++)
+                for (int i = 0; i < clist.Length; i++)
                 {
                     DZMembership dm = bllMember.GetUserById(new Guid(clist[i]));
                     ReceptionStatus o = bllReceptionStatus.GetOrder(dm, GlobalViables.CurrentCustomerService);
                     bllReceptionStatus.SaveReAssign(dm, p.Key, o.Order);
+                    #region 接待记录存档
+                    SaveRSA(dm, GlobalViables.CurrentCustomerService, o.Order);
+                    #endregion
                     bllReceptionStatus.DeleteAssign(dm, GlobalViables.CurrentCustomerService);//删除已有分配
 
                     rChatReAss = new ReceptionChatReAssign();
@@ -263,14 +294,19 @@ namespace Dianzhu.CSClient.Presenter
                     SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
 
                     //删除现在OrderList中的客户
-                    for (int j=0;j< ClientState.OrderList.Count; j++)
+                    //for (int j=0;j< ClientState.OrderList.Count; j++)
+                    //{
+                    //    if(dm== ClientState.OrderList[j].Customer)
+                    //    {
+                    //        view.RemoveOrderBtn(ClientState.OrderList[j].Id.ToString());
+                    //        ClientState.OrderList.RemoveAt(j);
+                    //        j--;
+                    //    }
+                    //}
+                    if (ClientState.customerList.Contains(dm))
                     {
-                        if(dm== ClientState.OrderList[j].Customer)
-                        {
-                            view.RemoveOrderBtn(ClientState.OrderList[j].Id.ToString());
-                            ClientState.OrderList.RemoveAt(j);
-                            j--;
-                        }
+                        view.RemoveCustomBtnAndClear(dm.Id.ToString());
+                        ClientState.customerList.Remove(dm);
                     }
                 }
             }
@@ -455,9 +491,15 @@ namespace Dianzhu.CSClient.Presenter
 
         void view_ViewClosed()
         {
- 
+            #region 当前接待记录存档 
+            IList<ReceptionStatus> rsList = bllReceptionStatus.GetRsListByCS(ClientState.customerService);
+            foreach(ReceptionStatus rs in rsList)
+            {
+                SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
+            }
+            #endregion
         }
-      
+
         /// <summary>
         /// 保存消息.
         /// 此方法不知道消息方向.
@@ -521,22 +563,31 @@ namespace Dianzhu.CSClient.Presenter
                 view.SearchedService = ClientState.SearchResultForCustomer[customer.UserName];
             }
         }
-        private void LoadChatHistory()
-        {
-            LoadChatHistory(ClientState.CurrentServiceOrder);
-        }
-        private void LoadChatHistory(ServiceOrder serviceOrder)
-        {
+        //private void LoadChatHistory()
+        //{
+        //    LoadChatHistory(ClientState.CurrentServiceOrder);
+        //}
+        //private void LoadChatHistory(ServiceOrder serviceOrder)
+        //{
             
+        //    int rowCount;
+        //    var chatHistory = bllReception.GetChatListByOrder(
+        //        serviceOrder.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),0,20,enum_ChatTarget.all, out rowCount);
+
+        //    view.ChatLog = chatHistory;
+        //}
+
+        private void LoadChatHistory(DZMembership dm)
+        {
             int rowCount;
-            var chatHistory = bllReception.GetChatListByOrder(
-                serviceOrder.Id, DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1),0,20,enum_ChatTarget.all, out rowCount);
+            var chatHistory = bllReception.GetReceptionChatList(
+                null,null,new Guid(), DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
 
             view.ChatLog = chatHistory;
         }
 
 
- 
+
     }
 
     

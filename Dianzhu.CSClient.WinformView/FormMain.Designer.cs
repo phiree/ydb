@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             this.scmain = new System.Windows.Forms.SplitContainer();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.dgvRpCustomer = new System.Windows.Forms.DataGridView();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.dgvOrders = new System.Windows.Forms.DataGridView();
+            this.OrderId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrderServiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrderAmountPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrderMemo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlCustomerList = new System.Windows.Forms.FlowLayoutPanel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.pnlOrder = new System.Windows.Forms.FlowLayoutPanel();
@@ -103,10 +111,15 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
+            this.CustomerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
             this.scmain.SuspendLayout();
+            this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRpCustomer)).BeginInit();
+            this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -143,6 +156,8 @@
             // scmain.Panel1
             // 
             this.scmain.Panel1.AutoScroll = true;
+            this.scmain.Panel1.Controls.Add(this.panel9);
+            this.scmain.Panel1.Controls.Add(this.panel8);
             this.scmain.Panel1.Controls.Add(this.pnlCustomerList);
             // 
             // scmain.Panel2
@@ -152,13 +167,86 @@
             this.scmain.SplitterDistance = 115;
             this.scmain.TabIndex = 0;
             // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.dgvRpCustomer);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Location = new System.Drawing.Point(521, 0);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(237, 115);
+            this.panel9.TabIndex = 2;
+            // 
+            // dgvRpCustomer
+            // 
+            this.dgvRpCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRpCustomer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CustomerName});
+            this.dgvRpCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRpCustomer.Location = new System.Drawing.Point(0, 0);
+            this.dgvRpCustomer.Name = "dgvRpCustomer";
+            this.dgvRpCustomer.RowTemplate.Height = 23;
+            this.dgvRpCustomer.Size = new System.Drawing.Size(237, 115);
+            this.dgvRpCustomer.TabIndex = 2;
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.dgvOrders);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel8.Location = new System.Drawing.Point(758, 0);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(403, 115);
+            this.panel8.TabIndex = 1;
+            // 
+            // dgvOrders
+            // 
+            this.dgvOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.OrderId,
+            this.OrderServiceName,
+            this.OrderAmountPrice,
+            this.OrderMemo});
+            this.dgvOrders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvOrders.Location = new System.Drawing.Point(0, 0);
+            this.dgvOrders.Name = "dgvOrders";
+            this.dgvOrders.RowTemplate.Height = 23;
+            this.dgvOrders.Size = new System.Drawing.Size(403, 115);
+            this.dgvOrders.TabIndex = 1;
+            // 
+            // OrderId
+            // 
+            this.OrderId.DataPropertyName = "Id";
+            this.OrderId.HeaderText = "订单id";
+            this.OrderId.Name = "OrderId";
+            // 
+            // OrderServiceName
+            // 
+            this.OrderServiceName.DataPropertyName = "ServiceName";
+            this.OrderServiceName.FillWeight = 80F;
+            this.OrderServiceName.HeaderText = "服务名称";
+            this.OrderServiceName.Name = "OrderServiceName";
+            this.OrderServiceName.Width = 80;
+            // 
+            // OrderAmountPrice
+            // 
+            this.OrderAmountPrice.DataPropertyName = "OrderAmount";
+            this.OrderAmountPrice.HeaderText = "金额";
+            this.OrderAmountPrice.Name = "OrderAmountPrice";
+            this.OrderAmountPrice.Width = 60;
+            // 
+            // OrderMemo
+            // 
+            this.OrderMemo.DataPropertyName = "Memo";
+            this.OrderMemo.HeaderText = "备注";
+            this.OrderMemo.Name = "OrderMemo";
+            this.OrderMemo.Width = 120;
+            // 
             // pnlCustomerList
             // 
             this.pnlCustomerList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlCustomerList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCustomerList.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlCustomerList.Location = new System.Drawing.Point(0, 0);
             this.pnlCustomerList.Name = "pnlCustomerList";
-            this.pnlCustomerList.Size = new System.Drawing.Size(1161, 115);
+            this.pnlCustomerList.Size = new System.Drawing.Size(521, 115);
             this.pnlCustomerList.TabIndex = 0;
             // 
             // splitContainer2
@@ -899,6 +987,13 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
+            // CustomerName
+            // 
+            this.CustomerName.DataPropertyName = "UserName";
+            this.CustomerName.FillWeight = 80F;
+            this.CustomerName.HeaderText = "用户名";
+            this.CustomerName.Name = "CustomerName";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -914,6 +1009,10 @@
             this.scmain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).EndInit();
             this.scmain.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRpCustomer)).EndInit();
+            this.panel8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
@@ -1025,5 +1124,14 @@
         private System.Windows.Forms.Button btnSendAndNew;
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.DataGridView dgvOrders;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderAmountPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderMemo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderServiceName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderId;
+        private System.Windows.Forms.DataGridView dgvRpCustomer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CustomerName;
     }
 }

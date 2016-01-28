@@ -72,6 +72,7 @@
     <Compile Include="BLLPaylog.cs" />
     <Compile Include="BLLReceptionChatDD.cs" />
     <Compile Include="BLLReceptionChat.cs" />
+    <Compile Include="BLLReceptionStatusArchieve.cs" />
     <Compile Include="BLLReceptionStatus.cs" />
     <Compile Include="BLLServiceOrder.cs" />
     <Compile Include="BLLServiceType.cs" />

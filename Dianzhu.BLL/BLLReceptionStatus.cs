@@ -47,6 +47,10 @@ namespace Dianzhu.BLL
             IList<DZMembership> result = RS.Select(x => x.Customer).ToList();
             return result;
         }
+        public IList<ReceptionStatus> GetRsListByCS(DZMembership cs)
+        {
+            return dalRS.GetListByCustomerService(cs);
+        }
         /// <summary>
         /// 根据当前客服id获取接待用户与客服关联列表
         /// </summary>

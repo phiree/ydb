@@ -35,6 +35,12 @@ namespace Dianzhu.BLL
         static DALIMUserStatus dalIMUserStatus;
         static DALIMUserStatusArchieve dalIMUserStatusArchieve;
         static DALAdvertisement dalAdvertisement;
+        static DALReceptionStatusArchieve dalReceptionStatusArchieve;
+        public static DALReceptionStatusArchieve DALReceptionStatusArchieve
+        {
+            get { return dalReceptionStatusArchieve ?? new DALReceptionStatusArchieve(); }
+            set { dalReceptionStatusArchieve = value; }
+        }
         public static DALAdvertisement DALAdvertisement
         {
             get { return dalAdvertisement ?? new DALAdvertisement(); }
