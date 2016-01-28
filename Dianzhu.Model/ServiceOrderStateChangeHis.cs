@@ -7,7 +7,12 @@ namespace Dianzhu.Model
     /// 订单状态变化记录
     /// </summary>
     public class ServiceOrderStateChangeHis
+
     {
+        public ServiceOrderStateChangeHis()
+        {
+            LastUpdateTime = DateTime.Now;
+        }
         /// <summary>
         /// 主键
         /// </summary>

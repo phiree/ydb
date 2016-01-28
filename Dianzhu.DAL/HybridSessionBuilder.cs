@@ -42,18 +42,21 @@ namespace Dianzhu.DAL
                 if (_sessionFactory == null)
                 {
 
-                    _sessionFactory = Fluently.Configure()
-                        .Database(
-                             MySQLConfiguration
-                            .Standard
-                            .ConnectionString(
-                                Dianzhu.Config.Config.ConnectionString
-                                 )
-                      )
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
-                   .ExposeConfiguration(BuildSchema)
-                    .BuildSessionFactory();
-                    HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+                     
+                        _sessionFactory = Fluently.Configure()
+                            .Database(
+                                 MySQLConfiguration
+                                .Standard
+                                .ConnectionString(
+                                    Dianzhu.Config.Config.ConnectionString
+                                     )
+                          )
+                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
+                       .ExposeConfiguration(BuildSchema)
+                        .BuildSessionFactory();
+                        HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+                     
+                    
                 }
 
             }
@@ -66,7 +69,7 @@ namespace Dianzhu.DAL
             // this NHibernate tool takes a configuration (with mapping info in)
             // and exports a database schema from it
             SchemaUpdate update = new SchemaUpdate(config);
-       //    update.Execute(true, true);
+          update.Execute(true, true);
 
         }
         private static void GetUpdateScript(string ss)

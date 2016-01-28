@@ -15,11 +15,43 @@ namespace Dianzhu.Model.Enums
         Business_Avatar,//店铺头像
         Staff_Avatar,//职员头像
     }
-    public enum PayType
+    /// <summary>
+    /// 支付目标
+    /// </summary>
+    public enum enum_PayTarget
+    {
+        Deposit=1,//订金
+        FinalPayment=2,//尾款
+        Compensation=3,//赔偿金
+
+    }
+    /// <summary>
+    /// 支付方式
+    /// </summary>
+    public enum enum_PayType
     {
         Offline = 1,
         Online = 2,
         None = 4,
+    }
+    /// <summary>
+    /// 支付记录类型
+    /// </summary>
+    public enum enum_PaylogType
+    {
+        None=0,
+        ApplyFromUser=1,//用户发起支付请求
+        ResultReturnFromAli=2,//支付宝 return回调
+        ResultNotifyFromAli=3,//支付宝 notify回调
+    }
+    /// <summary>
+    /// 支付接口
+    /// </summary>
+    public enum enum_PayAPI
+    {
+        None=0,
+        Alipay =1,
+        Wechat=2
     }
     /// <summary>
     /// 计费单位
@@ -62,18 +94,17 @@ namespace Dianzhu.Model.Enums
         isCancel=5,//客户已取消 等待撤销工作人员分配.
 
         //已完成订单状态5
-        Finished=6,//已完成
+        
         Aborded=7,//已中止
         Appraise=8,//评价
-
-        Wt=9,//Wait 
-        Ry=10,//Ready 
-        An=11,//Actionţ 
-        Py=12,//Pay 
-        Ee=13,//Evaluate 
-        Nu=14,//Can
-        Dy=15,//Delay 
-        Ed=16,//End
+ 
+        
+        Negotiate=18,
+        Begin=19,
+        IsEnd=20,
+        Ended=21,
+        Finished=22,
+        Appraised=23
     }
     public enum enum_OrderSearchType
     {
@@ -128,7 +159,7 @@ namespace Dianzhu.Model.Enums
     public enum enum_ServiceScopeType
     {
         /// <summary>
-        /// 系统内服务,系统内用户
+        /// 系统内服务,系统内用户,默认值.
         /// </summary>
         ISIM, 
         /// <summary>

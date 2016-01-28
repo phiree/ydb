@@ -131,8 +131,9 @@ namespace Dianzhu.NotifyCenter
                 ServiceOrder order = bllReceptionStatus.GetOrder(r.Key, r.Value).Order;
                 if (order.OrderStatus != enum_OrderStatus.Draft)
                 {
-                    ServiceOrder newOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
-                string.Empty, string.Empty, string.Empty, 0, string.Empty, r.Key, string.Empty, 0, 0);
+                    ServiceOrder newOrder = new ServiceOrder {
+                        Customer=r.Key,CustomerService=r.Value
+                    };  
                     order = newOrder;
                 }
                 ReceptionChat rc = new ReceptionChatReAssign

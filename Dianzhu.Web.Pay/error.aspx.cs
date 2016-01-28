@@ -14,6 +14,7 @@ public partial class error : System.Web.UI.Page
         ErrMsg.Add("1", "订单编号有误");
         ErrMsg.Add("2", "没有这个订单");
         ErrMsg.Add("3", "订单状态有误.");
+        ErrMsg.Add("4", "支付目标有误.");
         base.OnInit(e);
     }
     protected void Page_Load(object sender, EventArgs e)

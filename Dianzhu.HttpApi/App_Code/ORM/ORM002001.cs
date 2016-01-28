@@ -90,18 +90,11 @@ public class ResponseORM002001 : BaseResponse
                 orderToReturn = bllOrder.GetDraftOrder(member, assignedPair[member]);
                     if (orderToReturn == null)
                     {
-                        orderToReturn = ServiceOrder.Create(
-                         enum_ServiceScopeType.OSIM
-                       , string.Empty //serviceName
-                       , string.Empty//serviceBusinessName
-                       , string.Empty//serviceDescription
-                       , 0//serviceUnitPrice
-                       , string.Empty//serviceUrl
-                       , member //member
-                       , string.Empty
-                       , 0
-                       , 0);
-                        orderToReturn.CustomerService = assignedPair[member];
+                    orderToReturn = new ServiceOrder {
+                        Customer=member,
+                        CustomerService= assignedPair[member]
+                    }; 
+                       
                         bllOrder.SaveOrUpdate(orderToReturn);
                     }
                 //}

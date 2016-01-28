@@ -76,7 +76,7 @@
                         </div>
                         <div class="pay-method-radio">
                             <div class="roundedTwo">
-                                <input type="radio" value="None" id="roundedTwo" name="check" />
+                                <input type="radio" checked="true" runat="server"  id="radioAlipay"    name="radio_payapi" />
                                 <i for="roundedTwo"></i>
                             </div>
                             <!--<input type="radio" name="alipay" id="alipay"/>-->
@@ -97,7 +97,7 @@
                         </div>
                         <div class="pay-method-radio">
                             <div class="roundedTwo">
-                                <input type="radio" value="None" id="roundedThree" name="check" />
+                                <input type="radio"   runat="server"  id="radioWechat"   name="radio_payapi" />
                                 <i for="roundedThree"></i>
                             </div>
                             <!--<input type="radio" name="alipay" id="alipay"/>-->
@@ -110,7 +110,7 @@
                             <span>需支付</span><span class="price">￥<%=Order.OrderAmount.ToString("#.##") %></span>
                         </div>
                     </div>
-                    <asp:Button class="pay-button" runat="server" ID="btnAlipay"  Text="支付宝付款" OnClick="btnAlipay_Click"/>
+                    <asp:Button class="pay-button" runat="server" ID="btnPay"  Text="去付款" OnClick="btnPay_Click"/>
 
                 </div>
             </div>

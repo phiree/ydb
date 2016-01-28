@@ -84,7 +84,7 @@
                             <td class="table-col-1">服务保障:</td>
                             <td class="table-col-1"><%=CurrentService.IsCompensationAdvance?"有":"无" %></td>
                             <td class="table-col-1">付款方式:</td>
-                            <td class="table-col-1"><%=(CurrentService.PayType & Dianzhu.Model.Enums.PayType.Offline) == Dianzhu.Model.Enums.PayType.Offline?"线下":string.Empty%><%=(CurrentService.PayType & Dianzhu.Model.Enums.PayType.Online) == Dianzhu.Model.Enums.PayType.Online ? "线上" : string.Empty%></td>
+                            <td class="table-col-1"><%=(CurrentService.PayType & Dianzhu.Model.Enums.enum_PayType.Offline) == Dianzhu.Model.Enums.enum_PayType.Offline?"线下":string.Empty%><%=(CurrentService.PayType & Dianzhu.Model.Enums.enum_PayType.Online) == Dianzhu.Model.Enums.enum_PayType.Online ? "线上" : string.Empty%></td>
                             <td class="table-col-1">平台认证:</td>
                             <td class="table-col-1"><%=CurrentService.IsCertificated?"已认证":"未认证" %></td>
                         </tr>
