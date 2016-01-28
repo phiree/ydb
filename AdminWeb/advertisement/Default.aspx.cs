@@ -38,6 +38,14 @@ public partial class advertisement_Default : System.Web.UI.Page
             
             Literal litType = e.Row.FindControl("litType") as Literal;
             Advertisement adv = e.Row.DataItem as Advertisement;
+            if (adv.IsUseful)
+            {
+                litType.Text = "是";
+            }
+            else
+            {
+                litType.Text = "否";
+            }
 
             var img = e.Row.FindControl("imgAdv") as System.Web.UI.HtmlControls.HtmlImage;
             img.Src = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")  +adv.ImgUrl;

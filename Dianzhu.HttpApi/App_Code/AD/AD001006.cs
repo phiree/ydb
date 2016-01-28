@@ -6,6 +6,8 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Net;
 using Dianzhu.Model.Enums;
+using System.Security.Cryptography;
+using System.Text;
 /// <summary>
 /// Summary description for AD001006
 /// </summary>
@@ -23,14 +25,37 @@ public class ResponseAD001006:BaseResponse
     {
         try
         {
+            RequestDataAD001006 requestData = this.request.ReqData.ToObject<RequestDataAD001006>();
+
             BLLAdvertisement bllAD = new BLLAdvertisement();
-            int total;
-            IList<Advertisement> adList = bllAD.GetADList(1, 10,out total);
-            RespDataAD001006 respData = new RespDataAD001006();
-            respData.AdapList(adList);
+            IList<Advertisement> adList = bllAD.GetADListForUseful();            
             if (adList.Count > 0)
             {
+                string datetimeStr = "";
+                foreach(Advertisement ad in adList)
+                {
+                    datetimeStr += ad.LastUpdateTime.ToString("yyyyMMddHHmmss") + " ";
+                }
+                datetimeStr = datetimeStr.TrimEnd(' ');
+                
+                //转为MD5
+                string datetimeMd5 = "";
+                MD5 md5Obj = MD5.Create();
+                byte[] d = md5Obj.ComputeHash(Encoding.GetEncoding("Utf-8").GetBytes(datetimeStr));
+                for(int i = 0; i < d.Length; i++)
+                {
+                    datetimeMd5 += d[i].ToString("x").ToLower();
+                }
+
+                if (datetimeMd5 == requestData.md5.ToLower())
+                {
+                    this.state_CODE = Dicts.StateCode[0];
+                    return;
+                }
+
                 this.state_CODE = Dicts.StateCode[0];
+                RespDataAD001006 respData = new RespDataAD001006();
+                respData.AdapList(adList);
                 this.RespData = respData;
                 return;
             }
@@ -45,6 +70,11 @@ public class ResponseAD001006:BaseResponse
             return;
         }
     }
+}
+
+public class RequestDataAD001006
+{
+    public string md5 { get; set; }
 }
 
 public class RespDataADObj

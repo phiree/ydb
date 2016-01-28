@@ -26,6 +26,11 @@ namespace Dianzhu.DAL
             return iquery.OrderBy(x => x.Num).Asc.Skip((pageIndex-1) * pageSize).Take(pageSize).List();
         }
 
+        public IList<Advertisement> GetADListForUseful()
+        {
+            return Session.QueryOver<Advertisement>().Where(x => x.IsUseful == true).OrderBy(x => x.Num).Asc.List();
+        }
+
         public Advertisement GetByUid(Guid uid)
         {
             return Session.QueryOver<Advertisement>().Where(x => x.Id == uid).SingleOrDefault();
