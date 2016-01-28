@@ -155,6 +155,11 @@ namespace Dianzhu.BLL
              return DALServiceOrder.GetListForBusiness(business);
         }
 
+        public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)
+        {
+            return DALServiceOrder.GetListForCustomer(customer, pageNum, pageSize,out totalAmount);
+        }
+
         public void Delete(ServiceOrder order)
         {
             DALServiceOrder.Delete(order);

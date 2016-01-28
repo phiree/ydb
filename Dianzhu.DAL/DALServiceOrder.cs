@@ -86,6 +86,16 @@ namespace Dianzhu.DAL
             return result;
         }
 
+        public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)
+        {
+            var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.Customer == customer);
+            totalAmount = iquery.RowCount();
+
+            IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
+
+            return list;
+        }
+
         /// <summary>
         /// 获得草稿订单
         /// </summary>

@@ -198,5 +198,15 @@ namespace Dianzhu.CSClient.IVew
         /// 发送消息并生成新订单
         /// </summary>
         event MessageSentAndNew MessageSentAndNew;
+
+        /// <summary>
+        /// 当前用户订单列表
+        /// </summary>
+        IList<ServiceOrder> OrdersList { set; }
+
+        /// <summary>
+        /// 当前客服接待用户的历史记录
+        /// </summary>
+        IList<DZMembership> ReceptionCustomerList { set; }
     }
 }

@@ -64,15 +64,16 @@ namespace Dianzhu.CSClient.Presenter
                 }
             }
             Debug.Assert(chat.ServiceOrder != null,"Order shouldnot be null");
-            //判断订单列表是否已经存在
+            //判断用户列表是否已经存在
             //bool isIn = ClientState.OrderList.Contains(chat.ServiceOrder);
             bool isIn = ClientState.customerList.Contains(chat.From);
-            //订单列表中是否已经有该 订单
 
+            //订单列表中是否已经有该 订单
             if (!isIn)
             {
                 //ClientState.OrderList.Add(chat.ServiceOrder);
                 ClientState.customerList.Add(chat.From);
+                ClientState.CurrentServiceOrder = chat.ServiceOrder;
                 //view.AddCustomerButtonWithStyle(chat.ServiceOrder, em_ButtonStyle.Unread);
                 view.AddCustomerButtonWithStyle(chat.From, em_ButtonStyle.Unread);
             }
@@ -82,6 +83,7 @@ namespace Dianzhu.CSClient.Presenter
                 bool isCurrent = ClientState.CurrentCustomer != null &&(ClientState.CurrentCustomer.Id ==chat.From.Id);
                 if (isCurrent)
                 {
+                    ClientState.CurrentServiceOrder = chat.ServiceOrder;
                     view.LoadOneChat(chat);
                 }
                 else

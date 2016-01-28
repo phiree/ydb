@@ -17,9 +17,10 @@ namespace Dianzhu.CSClient.Presenter
     public partial class MainPresenter
     {
         /// <summary>
-        /// 切换订单1:改变当前订单, 改变按钮样式
+        /// 切换订单1:改变当前用户, 改变按钮样式
+        /// 加载该用户的订单列表
         /// </summary>
-        /// <param name="order"></param>
+        /// <param name="dm"></param>
         //private void ActiveCustomer(ServiceOrder order)
         private void ActiveCustomer(DZMembership dm)
         {
@@ -27,6 +28,9 @@ namespace Dianzhu.CSClient.Presenter
             ClientState.CurrentCustomer = dm;
             //view.SetCustomerButtonStyle(order, em_ButtonStyle.Actived);
             view.SetCustomerButtonStyle(dm, em_ButtonStyle.Actived);
+            int currentOrderAmount;
+            ClientState.OrderList = bllOrder.GetListForCustomer(dm,1,10,out currentOrderAmount);
+            this.view.OrdersList = ClientState.OrderList;
         }
 
         /// <summary>
@@ -186,9 +190,9 @@ namespace Dianzhu.CSClient.Presenter
             ClientState.CurrentServiceOrder.ServiceName = view.ServiceName;
             ClientState.CurrentServiceOrder.ServiceBusinessName = view.ServiceBusinessName;
             ClientState.CurrentServiceOrder.ServiceDescription = view.ServiceDescription;
-            ClientState.CurrentServiceOrder.ServiceUnitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
+            ClientState.CurrentServiceOrder.ServiceUnitPrice = view.ServiceUnitPrice == "" ? 0 : Convert.ToDecimal(view.ServiceUnitPrice);
             ClientState.CurrentServiceOrder.ServiceURL = view.ServiceUrl;
-            ClientState.CurrentServiceOrder.OrderAmount = Convert.ToDecimal(view.OrderAmount);
+            ClientState.CurrentServiceOrder.OrderAmount = view.OrderAmount == "" ? 0 : Convert.ToDecimal(view.OrderAmount);
             ClientState.CurrentServiceOrder.TargetAddress = view.TargetAddress;
             ClientState.CurrentServiceOrder.Memo = view.Memo;
             ClientState.CurrentServiceOrder.TargetTime = view.ServiceTime;

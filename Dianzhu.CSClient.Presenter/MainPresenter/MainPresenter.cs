@@ -25,7 +25,9 @@ namespace Dianzhu.CSClient.Presenter
         BLLDeviceBind bllDeviceBind;
         BLLReceptionChatDD bllReceptionChatDD;
         BLLIMUserStatus bllIMUserStatus;
+        BLLReceptionStatusArchieve bllReceptionStatusArchieve;
         string server;
+        int rsaCustomerAmount;
 
         public MainPresenter(IVew.IMainFormView view,
             InstantMessage instantMessage,
@@ -38,12 +40,13 @@ namespace Dianzhu.CSClient.Presenter
             this.bllReception = new BLLReception(); //bllReception;
             this.bllService = new BLLDZService();// bllService;
             this.bllReceptionStatus = new BLLReceptionStatus();// bllReceptionStatus;
-            this.bllReceptionChat = new BLLReceptionChat();// bllReceptionStatus;
+            this.bllReceptionChat = new BLLReceptionChat();// bllReceptionChat;
             this.bllDeviceBind = new BLLDeviceBind();//bllDeviceBind
 
             this.bllOrder = new BLLServiceOrder();// bllOrder;
             this.bllReceptionChatDD = new BLLReceptionChatDD();
             this.bllIMUserStatus = new BLLIMUserStatus();
+            this.bllReceptionStatusArchieve = new BLLReceptionStatusArchieve();
 
             //  IM的委托
             this.instantMessage.IMPresent += new IMPresent(IMPresent);
@@ -85,6 +88,7 @@ namespace Dianzhu.CSClient.Presenter
 
             this.SysAssign(2);
             server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+            this.view.ReceptionCustomerList = bllReceptionStatusArchieve.GetCustomerListByCS(ClientState.customerService, 1, 10, out rsaCustomerAmount);
         }
 
         /// <summary>
@@ -155,6 +159,23 @@ namespace Dianzhu.CSClient.Presenter
         }
 
         /// <summary>
+        /// 接待记录存档
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <param name="cs"></param>
+        /// <param name="order"></param>
+        private void SaveRSA(DZMembership customer,DZMembership cs,ServiceOrder order)
+        {
+            ReceptionStatusArchieve rsa = new ReceptionStatusArchieve
+            {
+                Customer = customer,
+                CustomerService = cs,
+                Order = order,
+            };
+            bllReceptionStatusArchieve.SaveOrUpdate(rsa);
+        }
+
+        /// <summary>
         /// 系统按数量分配用户给在线客服
         /// </summary>
         /// <param name="num"></param>
@@ -165,7 +186,10 @@ namespace Dianzhu.CSClient.Presenter
             {
                 foreach (ReceptionStatus rs in rsList)
                 {
-                    rs.CustomerService = GlobalViables.CurrentCustomerService;
+                    #region 接待记录存档
+                    SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
+                    #endregion
+                    rs.CustomerService = GlobalViables.CurrentCustomerService;                    
                     bllReceptionStatus.SaveByRS(rs);
 
                     CopyDDToChat(rsList.Select(x => x.Customer).ToList());
@@ -257,11 +281,14 @@ namespace Dianzhu.CSClient.Presenter
             {
                 string[] clist = p.Value.Split(',');
                 ReceptionChatReAssign rChatReAss;
-                for (int i=0; i<clist.Length; i++)
+                for (int i = 0; i < clist.Length; i++)
                 {
                     DZMembership dm = bllMember.GetUserById(new Guid(clist[i]));
                     ReceptionStatus o = bllReceptionStatus.GetOrder(dm, GlobalViables.CurrentCustomerService);
                     bllReceptionStatus.SaveReAssign(dm, p.Key, o.Order);
+                    #region 接待记录存档
+                    SaveRSA(dm, GlobalViables.CurrentCustomerService, o.Order);
+                    #endregion
                     bllReceptionStatus.DeleteAssign(dm, GlobalViables.CurrentCustomerService);//删除已有分配
 
                     rChatReAss = new ReceptionChatReAssign();
@@ -473,9 +500,15 @@ namespace Dianzhu.CSClient.Presenter
 
         void view_ViewClosed()
         {
- 
+            #region 当前接待记录存档 
+            IList<ReceptionStatus> rsList = bllReceptionStatus.GetRsListByCS(ClientState.customerService);
+            foreach(ReceptionStatus rs in rsList)
+            {
+                SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
+            }
+            #endregion
         }
-      
+
         /// <summary>
         /// 保存消息.
         /// 此方法不知道消息方向.

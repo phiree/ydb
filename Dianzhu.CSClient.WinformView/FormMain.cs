@@ -26,6 +26,7 @@ namespace Dianzhu.CSClient.WinformView
             InitializeComponent();
 
             //关闭自动加载列
+            dgvRpCustomer.AutoGenerateColumns = false;
             dgvOrders.AutoGenerateColumns = false;
             dGVCustom.AutoGenerateColumns = false;
             dGVCustomService.AutoGenerateColumns = false;
@@ -912,6 +913,7 @@ namespace Dianzhu.CSClient.WinformView
                     Button btn = (Button)pnlCustomerList.Controls.Find(buttonNamePrefix + cid, true)[0];
                     pnlCustomerList.Controls.Remove(btn);
                     pnlChat.Controls.Clear();
+                    dgvOrders.DataSource = null;
                 }
                 else
                 {
@@ -950,8 +952,13 @@ namespace Dianzhu.CSClient.WinformView
         }
 
         /// <summary>
-        /// 当前客服正在接待的客户的订单列表
+        /// 当前客服正在接待的用户的订单列表
         /// </summary>
         public IList<ServiceOrder> OrdersList { set { dgvOrders.DataSource = value; } }
+
+        /// <summary>
+        /// 当前客服接待用户的历史记录
+        /// </summary>
+        public IList<DZMembership> ReceptionCustomerList { set { dgvRpCustomer.DataSource = value; } }
     }
 }

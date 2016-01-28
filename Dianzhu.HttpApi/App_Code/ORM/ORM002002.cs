@@ -20,7 +20,6 @@ public class ResponseORM002002 : BaseResponse
 
  
         DZMembershipProvider p = new DZMembershipProvider();
-        BLLReceptionStatus BLLReceptionStatus = new BLLReceptionStatus();
         BLLServiceOrder bllOrder = new BLLServiceOrder();
         string raw_id = requestData.userID;
 

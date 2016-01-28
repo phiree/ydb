@@ -65,6 +65,7 @@ public class ResponseOFP001001 : BaseResponse
             BLLIMUserStatusArchieve bllIMUserStatusArchieve = new BLLIMUserStatusArchieve();
             IMUserStatus currentIM = reqDataToImData(requestData);
             BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
+            BLLReceptionStatusArchieve bllReceptionStatusArchieve = new BLLReceptionStatusArchieve();
 
             IMUserStatus imOld = bllIMUserStatus.GetIMUSByUserId(userId);
             if (imOld != null)//有数据执行更新操作
@@ -74,7 +75,6 @@ public class ResponseOFP001001 : BaseResponse
                 imUSA.UserIdRaw = imOld.UserIdRaw;
                 imUSA.UserID = imOld.UserID;
                 imUSA.Status = imOld.Status;
-                imUSA.ArchieveTime = DateTime.Now;
                 imUSA.IpAddress = imOld.IpAddress;
                 imUSA.OFIpAddress = imOld.OFIpAddress;
                 imUSA.ClientName = imOld.ClientName;
@@ -145,6 +145,9 @@ public class ResponseOFP001001 : BaseResponse
                         imServerAPIInvokeUrlUn = "IMServerAPI.ashx?type=customlogoff&userId=" + userId;
                         VisitIMServerApi(imServerAPIInvokeUrlUn);
 
+                        //接待关系存档
+                        bllReceptionStatusArchieve.SaveOrUpdate(RSToRsa(rs));
+
                         //删掉接待关系
                         bllReceptionStatus.Delete(rs);
                     }
@@ -176,6 +179,16 @@ public class ResponseOFP001001 : BaseResponse
             this.err_Msg = e.Message;
             return;
         }
+    }
+
+    public ReceptionStatusArchieve RSToRsa(ReceptionStatus rs)
+    {
+        ReceptionStatusArchieve rsa = new ReceptionStatusArchieve();
+        rsa.Customer = rs.Customer;
+        rsa.CustomerService = rs.CustomerService;
+        rsa.Order = rs.Order;
+
+        return rsa;
     }
 
     public void VisitIMServerApi(string url)
