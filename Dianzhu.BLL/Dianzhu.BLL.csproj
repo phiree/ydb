@@ -64,12 +64,11 @@
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
     <Compile Include="BLLIMUserStatus.cs" />
-    <Compile Include="BLLPaymentLog.cs" />
+    <Compile Include="BLLPay.cs" />
     <Compile Include="BLLBusinessImage.cs" />
     <Compile Include="BLLCashTicket.cs" />
     <Compile Include="BLLCashticketCreateRecord.cs" />
     <Compile Include="BLLCashTicketTemplate.cs" />
-    <Compile Include="BLLPaylog.cs" />
     <Compile Include="BLLReceptionChatDD.cs" />
     <Compile Include="BLLReceptionChat.cs" />
     <Compile Include="BLLReceptionStatusArchieve.cs" />

@@ -76,7 +76,7 @@ namespace Dianzhu.Pay
                 subject_pre = string.Empty;
             }
             sParaTemp.Add("subject",subject_pre+ Order.ServiceName);
-            sParaTemp.Add("total_fee", total_fee.ToString("#.##"));
+            sParaTemp.Add("total_fee", string.Format("{0:N2}", total_fee));
             sParaTemp.Add("show_url",  show_url);
             sParaTemp.Add("body", Order.Memo);
             sParaTemp.Add("it_b_pay", string.Empty);

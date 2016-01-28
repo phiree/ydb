@@ -20,6 +20,7 @@ namespace Dianzhu.Model
             OrderStatus = enum_OrderStatus.Draft;
             OrderCreated = DateTime.Now;
             Staff = new List<Staff>();
+           
 
         }
         public virtual Guid Id { get; set; }
@@ -114,10 +115,15 @@ namespace Dianzhu.Model
         #endregion
 
         public virtual enum_ServiceScopeType ScopeType { get; set; }
-        public virtual string BuildPayLink(string payUrl)
+        /// <summary>
+        /// 创建支付链接
+        /// </summary>
+        /// <param name="payUrl"></param>
+        /// <param name="ptarget"></param>
+        /// <returns></returns>
+        public virtual string BuildPayLink(string payUrl,enum_PayTarget ptarget)
         {
-            string payLink = payUrl +
-                string.Format("?orderid={0}", Id);
+            string payLink = payUrl + string.Format("?orderid={0}&ptarget={1}", Id, ptarget.ToString());
             return payLink;
         }
         //创建此订单的客服.
@@ -175,13 +181,14 @@ namespace Dianzhu.Model
                 throw new Exception(errMsg);
             }
             this.OrderStatus = enum_OrderStatus.Created;
-
+            this.NegotiateAmount = OrderAmount;
            
 
         }
 
         public virtual decimal GetAmount(enum_PayTarget payTarget)
         {
+            
             if (payTarget == enum_PayTarget.Deposit)
             {
                 return this.DepositAmount;

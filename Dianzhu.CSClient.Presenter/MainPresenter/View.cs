@@ -88,8 +88,8 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_CreateOrder()
         {
-            decimal unitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
-            decimal orderAmount = Convert.ToDecimal(view.OrderAmount);
+            decimal unitPrice = view.ServiceUnitPrice == string.Empty ? 0 : Convert.ToDecimal(view.ServiceUnitPrice);
+            decimal orderAmount = view.OrderAmount == string.Empty ? 0 : Convert.ToDecimal(view.OrderAmount);
 
             Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
             SaveCurrentOrder();
@@ -98,7 +98,7 @@ namespace Dianzhu.CSClient.Presenter
             ClientState.CurrentServiceOrder.CreateFromDraft();
   
             View_NoticeOrder();
-            string payLink = ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"));
+            string payLink = ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"),Model.Enums.enum_PayTarget.Deposit);
 
             ReceptionChatNotice chatNotice = new ReceptionChatNotice
             {
