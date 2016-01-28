@@ -111,6 +111,10 @@
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
+      <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
+      <Name>Dianzhu.Pay</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>

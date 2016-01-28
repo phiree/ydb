@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using Com.Alipay;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-using Dianzhu.NotifyCenter;
+using Dianzhu.Pay;
 public partial class return_url : System.Web.UI.Page
 {
   
@@ -25,15 +25,13 @@ public partial class return_url : System.Web.UI.Page
         //保存接收数据
         BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
         PaymentLog paymentLog = new PaymentLog();
-        paymentLog.Pames = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
-        paymentLog.Type = "alipay|notify";
-        paymentLog.LastTime = DateTime.Now;
+        paymentLog.ApiString = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
+        paymentLog.PaylogType = Dianzhu.Model.Enums.enum_PaylogType.ResultReturnFromAli;
+        paymentLog.LogTime = DateTime.Now;
         log.Debug("保存支付记录");
         bllPaymentLog.SaveOrUpdate(paymentLog);
 
         BLLServiceOrder bllOrder = new BLLServiceOrder();
-
-
         ServiceOrder order = null;
         Guid orderId;
         bool isOrderGuid = Guid.TryParse(Request["out_trade_no"], out orderId);
@@ -94,17 +92,13 @@ public partial class return_url : System.Web.UI.Page
                     //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                     //如果有做过处理，不执行商户的业务程序
 
-                    order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Payed;
+               
 
-                    bllOrder.SaveOrUpdate(order);
-                    System.Net.WebClient wc = new System.Net.WebClient();
-                    string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
-                    Uri uri = new Uri(notifyServer + "IMServerAPI.ashx?type=ordernotice&orderId=" + order.Id);
-
-                    System.IO.Stream returnData = wc.OpenRead(uri);
-                    System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-                    string result = reader.ReadToEnd();
-
+                   // bllOrder.ChangeStatus(order, Dianzhu.Model.Enums.enum_OrderStatus.Payed);
+                    //支付定金
+                    bllOrder.OrderFlow_PayDeposit(order);
+                    //调用IMServer,发送订单状态变更通知.
+                   
                     Response.Write("success");
 
                 }
@@ -130,6 +124,11 @@ public partial class return_url : System.Web.UI.Page
         {
             Response.Write("无返回参数");
         }
+    }
+
+    private void BllOrder_OrderPayed(ServiceOrder order)
+    {
+       
     }
 
     /// <summary>

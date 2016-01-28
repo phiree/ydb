@@ -40,10 +40,10 @@ namespace Dianzhu.CSClient.Presenter
         {
             if (ClientState.CurrentServiceOrder == null)
             { return; }
-            ServiceOrder newOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
-                string.Empty, string.Empty, string.Empty, 0, string.Empty, ClientState.CurrentServiceOrder.Customer,
-                string.Empty, 0, 0);
-            
+            ServiceOrder newOrder =
+                new ServiceOrder { Customer= ClientState.CurrentServiceOrder.Customer
+                , CustomerService=ClientState.customerService };
+                 
             bllOrder.SaveOrUpdate(newOrder);
             ClientState.CurrentServiceOrder = newOrder;
             //ReceptionChat chat = new ReceptionChat
@@ -93,7 +93,10 @@ namespace Dianzhu.CSClient.Presenter
 
             Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
             SaveCurrentOrder();
-            ClientState.CurrentServiceOrder.OrderStatus = Model.Enums.enum_OrderStatus.Created;
+            //从草稿单创建正式订单
+           
+            ClientState.CurrentServiceOrder.CreateFromDraft();
+  
             View_NoticeOrder();
             string payLink = ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"));
 
@@ -185,6 +188,11 @@ namespace Dianzhu.CSClient.Presenter
             {
                 return;
             }
+
+            //new ServiceOrderBuilder(ClientState.CurrentServiceOrder).SetService(view.CurrentService)
+            //    .SetServiceInfo(view.ServiceName, view.ServiceBusinessName, view.ServiceDescription, Convert.ToDecimal(view.ServiceUnitPrice))
+            //    .SetServiceUrl(view.ServiceUrl)
+            //    .SetOrderInfo(Convert.ToDecimal(view.OrderAmount), 1, view.TargetAddress, view.ServiceTime, view.Memo);
 
             ClientState.CurrentServiceOrder.Service = view.CurrentService;
             ClientState.CurrentServiceOrder.ServiceName = view.ServiceName;

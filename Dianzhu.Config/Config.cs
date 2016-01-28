@@ -2,29 +2,27 @@
 using System.Collections.Generic;
 
 using System.Configuration;
-
+using System.Diagnostics;
 namespace Dianzhu.Config
 {
     /// <summary>
     ///  服务器环境配置。
     /// </summary>
-    public static class Config
-    {
-
+    public static partial class Config
+    {        
         #region 服务器定义
         static string[] DatabaseServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172" };
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         #endregion
-
         #region   部署前，只需要手动修改此处 /
         static string DatabaseServer = DatabaseServers[3];//数据库地址
         static string IMServer = DatabaseServers[3];//即时通讯服务器地址
         static string IMDomain = IMDomains[3];//即时通讯服务器地址
         static string ApplicationServer = DatabaseServers[3];//应用服务器地址
-        #endregion
 
+        #endregion
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
         public static string ConnectionString
         {
@@ -148,8 +146,5 @@ namespace Dianzhu.Config
         }
 
     }
-
-
-    //数据库，openfire，代码
 
 }

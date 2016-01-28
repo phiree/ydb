@@ -47,7 +47,7 @@ public class RespDataSVC_svcObj
         this.maxOrder = service.MaxOrdersPerDay.ToString();
         this.doorService = service.ServiceMode == enum_ServiceMode.ToHouse ? "Y" : "N";
         this.serviceObject = service.IsForBusiness ? "company" : "all";
-        this.payWay=service.PayType== PayType.Online?"alipay":"none";
+        this.payWay=service.PayType== enum_PayType.Online?"alipay":"none";
         tags.ToList().ForEach(x => this.tag += x.Text);
         this.tag = this.tag.TrimEnd(',');
         this.open = service.Enabled ? "Y" : "N";

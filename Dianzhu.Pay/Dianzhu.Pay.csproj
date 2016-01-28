@@ -7,8 +7,8 @@
     <ProjectGuid>{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dioanzhu.Pay</RootNamespace>
-    <AssemblyName>Dioanzhu.Pay</AssemblyName>
+    <RootNamespace>Dianzhu.Pay</RootNamespace>
+    <AssemblyName>Dianzhu.Pay</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -51,11 +51,18 @@
     <Compile Include="AliPay\AlipayNotify.cs" />
     <Compile Include="AliPay\AlipaySubmit.cs" />
     <Compile Include="AliPay\RSA.cs" />
+    <Compile Include="IPay.cs" />
     <Compile Include="Paylog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
+      <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
+      <Name>Dianzhu.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

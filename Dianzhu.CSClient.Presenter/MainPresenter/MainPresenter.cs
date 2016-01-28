@@ -123,17 +123,8 @@ namespace Dianzhu.CSClient.Presenter
                 bllOrder.SaveOrUpdate(ClientState.CurrentServiceOrder);
 
                 //新建订单
-                ServiceOrder orderNew = ServiceOrder.Create(
-                             enum_ServiceScopeType.OSIM
-                           , string.Empty //serviceName
-                           , string.Empty//serviceBusinessName
-                           , string.Empty//serviceDescription
-                           , 0//serviceUnitPrice
-                           , string.Empty//serviceUrl
-                           , ClientState.CurrentServiceOrder.Customer //member
-                           , string.Empty
-                           , 0
-                           , 0);
+                ServiceOrder orderNew = new ServiceOrder(); 
+                orderNew.Customer = ClientState.CurrentServiceOrder.Customer;
                 orderNew.CustomerService = ClientState.customerService;
                 bllOrder.SaveOrUpdate(orderNew);
 

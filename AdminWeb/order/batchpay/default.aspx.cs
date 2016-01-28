@@ -76,8 +76,8 @@ public partial class _Default : System.Web.UI.Page
 
         //把请求参数打包成数组
         SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
-        sParaTemp.Add("partner", Config.Partner);
-        sParaTemp.Add("_input_charset", Config.Input_charset.ToLower());
+        sParaTemp.Add("partner", Config.partner);
+        sParaTemp.Add("_input_charset", Config.input_charset.ToLower());
         sParaTemp.Add("service", "batch_trans_notify");
         sParaTemp.Add("notify_url", notify_url);
         sParaTemp.Add("email", email);
