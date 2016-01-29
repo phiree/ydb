@@ -41,6 +41,11 @@ namespace Dianzhu.Model
         public virtual DateTime OrderCreated { get; set; }
 
         /// <summary>
+        /// 最近的更新时间
+        /// </summary>
+        public virtual DateTime LatestOrderUpdated { get; set; }
+
+        /// <summary>
         /// 订单结束的时间.
         /// </summary>
         public virtual DateTime OrderFinished { get; set; }
@@ -67,7 +72,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string TargetAddress { get; set; }
         /// <summary>
-        /// 订单的时间要求
+        /// 用户预定的服务时间
         /// </summary>
         public virtual string TargetTime { get; set; }
         /// <summary>
