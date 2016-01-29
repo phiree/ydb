@@ -90,9 +90,9 @@ namespace Dianzhu.BLL
             return DALServiceOrder.GetListForBusiness(business, pageNum, pageSize, out totalAmount);
         }
 
-        public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)
+        public IList<ServiceOrder> GetListForCustomer(DZMembership customer, int pageNum, int pageSize, out int totalAmount)
         {
-            return DALServiceOrder.GetListForCustomer(customer, pageNum, pageSize,out totalAmount);
+            return DALServiceOrder.GetListForCustomer(customer, pageNum, pageSize, out totalAmount);
         }
 
         public void Delete(ServiceOrder order)
@@ -110,26 +110,15 @@ namespace Dianzhu.BLL
         }
 
 
-        //修改订单状态
-        private void ChangeStatus(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
-        {
-            OrderServiceFlow flow = new OrderServiceFlow(order, targetStatus);
-            flow.ChangeStatus();
-
-            ServiceOrderStateChangeHis orderHist = new ServiceOrderStateChangeHis {
-                NewAmount = order.OrderAmount,
-                Order = order,
-                Remark = string.Empty,
-                 Status=targetStatus,
-            }; 
-
-            SaveOrUpdate(order);
-        }
-        //用户支付订金
+       
+        //用户定金支付完成
         public void OrderFlow_PayDeposit(ServiceOrder order)
         {
-            
 
+            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Payed);
+            flow.ChangeStatus();
+
+            //订单支付成功
             log.Debug("调用IMServer,发送订单状态变更通知");
             System.Net.WebClient wc = new System.Net.WebClient();
             string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
@@ -138,6 +127,79 @@ namespace Dianzhu.BLL
             System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
             string result = reader.ReadToEnd();
             log.Debug("发送结果:" + result);
+        }
+        /// <summary>
+        /// 商家确认订单,准备执行.
+        /// </summary>
+        public void OrderFlow_BusinessConfirm(ServiceOrder order)
+        {
+            
+            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Negotiate);
+            flow.ChangeStatus();
+        }
+        /// <summary>
+        /// 商家输入协议
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="negotiateAmount"></param>
+        public void OrderFlow_BusinessNegotiate(ServiceOrder order, decimal negotiateAmount)
+        {
+            order.NegotiateAmount = negotiateAmount;
+            if (negotiateAmount < order.DepositAmount)
+            {
+                log.Warn("协商价格小于订金");
+            }
+            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Assigned);
+            flow.ChangeStatus();
+        }
+        /// <summary>
+        /// 用户确认协商价格,并确定开始服务
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_CustomerConfirmNegotiate(ServiceOrder order)
+        {
+            order.OrderServerStartTime = DateTime.Now;
+            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Begin);
+            flow.ChangeStatus();
+        }
+        /// <summary>
+        /// 商家确定服务完成
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_BusinessFinish(ServiceOrder order)
+        {
+            order.OrderServerFinishedTime = DateTime.Now;
+
+            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Negotiate);
+            flow.ChangeStatus();
+        }
+        /// <summary>
+        /// 用户支付尾款
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_CustomerFinish(ServiceOrder order)
+        {
+            order.OrderServerFinishedTime = DateTime.Now;
+
+            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Negotiate);
+            flow.ChangeStatus();
+        }
+
+        //订单状态改变通用方法
+        private void ChangeStatus(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
+        {
+            OrderServiceFlow flow = new OrderServiceFlow(order, targetStatus);
+            flow.ChangeStatus();
+
+            ServiceOrderStateChangeHis orderHist = new ServiceOrderStateChangeHis
+            {
+                NewAmount = order.OrderAmount,
+                Order = order,
+                Remark = string.Empty,
+                Status = targetStatus,
+            };
+
+            SaveOrUpdate(order);
         }
 
     }
@@ -148,7 +210,7 @@ namespace Dianzhu.BLL
     {
         ServiceOrder order;
         Model.Enums.enum_OrderStatus targetStatus;
-      
+
         public OrderServiceFlow(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
         {
             this.order = order;

@@ -90,7 +90,7 @@ namespace Dianzhu.Model.Enums
         Created=1,//已创建,待付款
         Payed=2,//已付款
         Canceled=3,//已取消待退款
-        Assigned=4,//已安排工作人员
+       
         isCancel=5,//客户已取消 等待撤销工作人员分配.
 
         //已完成订单状态5
@@ -100,11 +100,16 @@ namespace Dianzhu.Model.Enums
  
         
         Negotiate=18,
-        Begin=19,
-        IsEnd=20,
-        Ended=21,
-        Finished=22,
-        Appraised=23
+        /// <summary>
+        /// 等待服务开始
+        /// </summary>
+        Assigned = 20,
+        Begin =22,
+        IsEnd=24,
+        Ended=26,
+        Finished=28,
+        Appraised=30,
+       
     }
     public enum enum_OrderSearchType
     {

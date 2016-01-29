@@ -11,7 +11,7 @@ using System.IO;
 using Dianzhu.Pay;
 namespace Dianzhu.BLL
 {
-    //支付
+    //支付接口实现支付.
     public class BLLPay
     {
         public IPay CreatePayAPI(enum_PayAPI payApi, ServiceOrder order)
@@ -19,7 +19,7 @@ namespace Dianzhu.BLL
             switch (payApi)
             {
                 case enum_PayAPI.Alipay:
-                    return new PayAli(order, 
+                    return new PayAli(order,
                             "1",
                             Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx",
                             Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx",
@@ -37,21 +37,22 @@ namespace Dianzhu.BLL
         {
 
         }
-        public void SavePaymentLog(ServiceOrder order,enum_PayType payType, enum_PaylogType paylogType,enum_PayTarget payTarget,enum_PayAPI payApi, string apiString)
+        public void SavePaymentLog(ServiceOrder order, enum_PayType payType, enum_PaylogType paylogType, enum_PayTarget payTarget, enum_PayAPI payApi, string apiString)
         {
             BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
-            
-            PaymentLog paymentLog = new PaymentLog {
+
+            PaymentLog paymentLog = new PaymentLog
+            {
                 LogTime = DateTime.Now,
-                 ApiString= apiString,
-                  PayAmount=order.GetAmount(payTarget),
-                   PayApi=payApi,
-                    PaylogType=paylogType,
-                    PayTarget= payTarget,
-                     PayType=payType,
-                      ServiceOrder=order
+                ApiString = apiString,
+                PayAmount = order.GetAmount(payTarget),
+                PayApi = payApi,
+                PaylogType = paylogType,
+                PayTarget = payTarget,
+                PayType = payType,
+                ServiceOrder = order
             };
-          
+
             bllPaymentLog.SaveOrUpdate(paymentLog);
         }
     }
