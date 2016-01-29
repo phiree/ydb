@@ -114,9 +114,7 @@ namespace Dianzhu.BLL
         //用户定金支付完成
         public void OrderFlow_PayDeposit(ServiceOrder order)
         {
-
-            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Payed);
-            flow.ChangeStatus();
+    ChangeStatus(order, enum_OrderStatus.Payed);
 
             //订单支付成功
             log.Debug("调用IMServer,发送订单状态变更通知");
@@ -134,8 +132,8 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessConfirm(ServiceOrder order)
         {
             
-            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Negotiate);
-            flow.ChangeStatus();
+           
+            ChangeStatus(order, enum_OrderStatus.Negotiate);
         }
         /// <summary>
         /// 商家输入协议
@@ -149,8 +147,8 @@ namespace Dianzhu.BLL
             {
                 log.Warn("协商价格小于订金");
             }
-            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Assigned);
-            flow.ChangeStatus();
+            ChangeStatus(order, enum_OrderStatus.Assigned);
+
         }
         /// <summary>
         /// 用户确认协商价格,并确定开始服务
@@ -170,19 +168,27 @@ namespace Dianzhu.BLL
         {
             order.OrderServerFinishedTime = DateTime.Now;
 
-            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Negotiate);
-            flow.ChangeStatus();
+            ChangeStatus(order, enum_OrderStatus.IsEnd);
+        }
+        /// <summary>
+        /// 用户确认服务完成。
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_CustomerFinish(ServiceOrder order)
+        {
+           // order.OrderServerFinishedTime = DateTime.Now;
+
+            ChangeStatus(order, enum_OrderStatus.Ended);
         }
         /// <summary>
         /// 用户支付尾款
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_CustomerFinish(ServiceOrder order)
+        public void OrderFlow_CustomerPayFinalPayment(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
 
-            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Negotiate);
-            flow.ChangeStatus();
+            ChangeStatus(order, enum_OrderStatus.Finished);
         }
 
         //订单状态改变通用方法
@@ -219,11 +225,12 @@ namespace Dianzhu.BLL
         public void ChangeStatus()
         {
 
-            bool validated = dictAvailabelStatus[order.OrderStatus].Contains(targetStatus);
+            bool validated = dictAvailabelStatus[targetStatus].Contains(order.OrderStatus);
             if (validated)
             {
                 order.OrderStatus = targetStatus;
             }
+           
 
 
         }

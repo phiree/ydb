@@ -41,7 +41,7 @@ public partial class DZOrder_Default : BasePage
         switch (e.CommandName.ToLower())
         {
             case "confirmorder":
-                order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Negotiate;
+                bllServeiceOrder.OrderFlow_BusinessConfirm(order);
                 break;
         }
         BindData();

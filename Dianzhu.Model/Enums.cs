@@ -98,16 +98,33 @@ namespace Dianzhu.Model.Enums
         Aborded=7,//已中止
         Appraise=8,//评价
  
-        
+        /// <summary>
+        /// 商家已确认订单
+        /// </summary>
         Negotiate=18,
         /// <summary>
         /// 等待服务开始
         /// </summary>
         Assigned = 20,
+        /// <summary>
+        /// 服务已经开始
+        /// </summary>
         Begin =22,
+        /// <summary>
+        /// 商家确定服务完成（如果用户已经确认完成， 该状态跳过）
+        /// </summary>
         IsEnd=24,
+        /// <summary>
+        /// 用户确定服务完成
+        /// </summary>
         Ended=26,
+        /// <summary>
+        /// 用户支付尾款，订单完成
+        /// </summary>
         Finished=28,
+        /// <summary>
+        /// 用户已经评价
+        /// </summary>
         Appraised=30,
        
     }
