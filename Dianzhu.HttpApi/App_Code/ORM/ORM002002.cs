@@ -103,10 +103,8 @@ public class RespDataORM002002_payObj
     public RespDataORM002002_payObj Adap(ServiceOrder order)
     {
         this.type = "alipay";
-        this.url = order.BuildPayLink(
-            Dianzhu.Config.Config.GetAppSetting("PayServer")
-            );
-         
+        this.url = order.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayServer"), enum_PayTarget.Deposit);
+
         return this;
     }
 }

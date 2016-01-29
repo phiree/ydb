@@ -20,6 +20,11 @@ namespace Dianzhu.BLL
             return DALAdvertisement.GetADList(pageIndex, pageSize,out totalRecords);
         }
 
+        public IList<Advertisement> GetADListForUseful()
+        {
+            return DALAdvertisement.GetADListForUseful();
+        }
+
         public Advertisement GetByUid(Guid uid)
         {
             return DALAdvertisement.GetByUid(uid);
