@@ -74,16 +74,18 @@ namespace Dianzhu.DAL
             return result;
         }
 
-        public IList<ServiceOrder> GetListForBusiness(Business business)
+        public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {
-            string sql = " select so  from  ServiceOrder so  " +
-                " left join so.Service s  " +
-                " left join s.Business b ";
+            var iquery = Session.QueryOver<ServiceOrder>()
+              
+                .JoinQueryOver(x => x.Service)
+                .JoinQueryOver(y => y.Business)
+                .Where(z => z.Id == business.Id);
+            totalAmount = iquery.RowCount();
 
-            IQuery query = Session.CreateQuery(sql);
-            var result = query.List<ServiceOrder>();
+            IList<ServiceOrder> list = iquery.List(). OrderByDescending(x=>x.LatestOrderUpdated).Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
 
-            return result;
+            return list;
         }
 
         public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)

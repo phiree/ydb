@@ -20,6 +20,11 @@ namespace Dianzhu.BLL
         DZMembershipProvider membershipProvider = null;
         BLLDZService bllDzService = null;
 
+        public IList<ServiceOrder> GetListForBusiness(object b)
+        {
+            throw new NotImplementedException();
+        }
+
         public BLLServiceOrder()
         {
             DALServiceOrder = DALFactory.DALServiceOrder;
@@ -80,9 +85,9 @@ namespace Dianzhu.BLL
 
 
 
-        public IList<ServiceOrder> GetListForBusiness(Business business)
+        public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {
-            return DALServiceOrder.GetListForBusiness(business);
+            return DALServiceOrder.GetListForBusiness(business, pageNum, pageSize, out totalAmount);
         }
 
         public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)

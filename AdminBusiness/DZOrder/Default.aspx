@@ -11,7 +11,7 @@
                 <div class="mh-ctnr">
 
                     <div id="order-list" class="order-list dis-n">
-                        <div  class="order-total">
+                        <div class="order-total">
                             <div class="cont-row">
                                 <div class="cont-col-4"><i class="icon order-icon-status1"></i>未处理订单</div>
                                 <div class="cont-col-4"><i class="icon order-icon-status2"></i>正在进行订单</div>
@@ -28,180 +28,98 @@
                                 <div class="cont-col-1">订单状态</div>
                                 <div class="cont-col-1">操作</div>
                             </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="" >
-                                    <table class="custom-table order-table" role="button" data-toggle="collapse" data-parent="#accordion"
-                                           href="#collapse1" aria-expanded="true"
-                                           aria-controls="collapse1" >
-                                        <tbody>
-                                        <tr>
-                                            <td class="table-col-2">
-                                                123132
-                                            </td>
-                                            <td class="table-col-2">
+                            <asp:Repeater runat="server" ID="rpOrderList" OnItemCommand="rptOrderList_Command">
+                                <ItemTemplate>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="">
+                                            <table class="custom-table order-table" role="button" data-toggle="collapse" data-parent="#accordion"
+                                                href="#collapse<%# Container.ItemIndex + 1 %>" aria-expanded="true"
+                                                aria-controls="collapse<%# Container.ItemIndex + 1 %>">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="table-col-2"><%#Eval("Id") %>
+                                                        </td>
+                                                        <td class="table-col-2"><%#Eval("ServiceName") %>
+                                                        </td>
+                                                        <td class="table-col-2"><%#Eval("TargetTime") %>
+                                                        </td>
+                                                        <td class="table-col-1"><%#Eval("CustomerName") %>
+                                                        </td>
+                                                        <td class="table-col-3"><%#Eval("TargetAddress") %>
+                                                        </td>
+                                                        <td class="table-col-1 order-span-status">
 
-                                                修车
-                                            </td>
-                                            <td class="table-col-2">
-                                                2015-09-10 18：00
-                                            </td>
-                                            <td class="table-col-1">
-                                                王先生
-                                            </td>
-                                            <td class="table-col-3">
-                                                海南省海口市国贸路28号
-                                            </td>
-                                            <td class="table-col-1 order-span-status">
-                                                已完成
-                                            </td>
-                                            <td class="table-col-1">
-                                                <span class="order-span-ctrl">详情</span>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
-                                    <div class="panel-body">
-                                        <div class="order-status-detail">
-                                            <div class="order-steps">
-                                                <div class="order-status-step mr">
-                                                    <i class="icon"></i>
-                                                    <p class="order-status-text"></p>
+                                                            <%#Eval("OrderStatus") %>
+                                                        </td>
+                                                        <td class="table-col-1">
+                                                            <span class="order-span-ctrl">详情</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="collapse<%# Container.ItemIndex + 1 %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%# Container.ItemIndex + 1 %>">
+                                            <div class="panel-body">
+                                                <div class="order-status-detail">
+                                                    <div class="order-steps">
+                                                        <div class="order-status-step mr">
+                                                            <i class="icon"></i>
+                                                            <p class="order-status-text"></p>
+                                                        </div>
+                                                        <div class="order-status-step mr">
+                                                            <i class="icon"></i>
+                                                            <p class="order-status-text"></p>
+                                                        </div>
+                                                        <div class="order-status-step mr">
+                                                            <i class="icon"></i>
+                                                            <p class="order-status-text"></p>
+                                                        </div>
+                                                        <div class="order-status-step mr">
+                                                            <i class="icon"></i>
+                                                            <p class="order-status-text mr"></p>
+                                                        </div>
+                                                        <div class="order-status-step">
+                                                            <i class="icon"></i>
+                                                            <p class="order-status-text"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="order-lines"></div>
+                                                    <input type="hidden" value="3">
                                                 </div>
-                                                <div class="order-status-step mr">
-                                                    <i class="icon"></i>
-                                                    <p class="order-status-text"></p>
-                                                </div>
-                                                <div class="order-status-step mr">
-                                                    <i class="icon"></i>
-                                                    <p class="order-status-text"></p>
-                                                </div>
-                                                <div class="order-status-step mr">
-                                                    <i class="icon"></i>
-                                                    <p class="order-status-text mr"></p>
-                                                </div>
-                                                <div class="order-status-step">
-                                                    <i class="icon"></i>
-                                                    <p class="order-status-text"></p>
+                                                <table class="custom-table panel-detail-table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="table-col-1 t-r">服务订金：</td>
+                                                            <td class="table-col-3"><%#Eval("DepositAmount")%></td>
+                                                            <td class="table-col-1 t-r">服务总价：</td>
+                                                            <td class="table-col-3"><%#Eval("NegotiateAmount")%></td>
+                                                            <td class="table-col-1 t-r">下单时间：</td>
+                                                            <td class="table-col-3"><%#Eval("OrderCreated")%></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="table-col-1 t-r">指派员工：</td>
+                                                            <td class="table-col-3">XXX</td>
+                                                            <td class="table-col-1 t-r">客户电话：</td>
+                                                            <td class="table-col-3"><%#Eval("CustomerPhone")%></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="table-col-1 t-r">备&nbsp;&nbsp;注：</td>
+                                                            <td class="table-col-3"><%#Eval("Memo")%></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="order-ctrl t-r">
+                                                    <asp:Button runat="server" CommandName="ConfirmOrder" CommandArgument='<%#Eval("Id") %>' ID="btnConfimOrder" CssClass="btn btn-info" Text="确认订单"/>
+                                                    <asp:TextBox runat="server" ID="btnPrice"></asp:TextBox>
+                                                    <asp:Button runat="server" ID="Button1" CssClass="btn btn-info" Text="确认价格"/>
+                                                    <asp:Button runat="server" ID="Button2" CssClass="btn btn-info" Text="订单完成"/>
+                                                    <asp:Button runat="server" ID="Button3" CssClass="btn btn-info" Text="指派"/>
                                                 </div>
                                             </div>
-                                            <div class="order-lines"></div>
-                                            <input type="hidden" value="3">
-                                        </div>
-                                        <table class="custom-table panel-detail-table">
-                                            <tbody>
-                                            <tr>
-                                                <td class="table-col-1 t-r">服务价钱：</td>
-                                                <td class="table-col-3">10</td>
-                                                <td class="table-col-1 t-r">下单时间：</td>
-                                                <td class="table-col-3">2015-10-10 15:30</td>
-                                                <td class="table-col-1 t-r">客户电话：</td>
-                                                <td class="table-col-3">15555555555</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-col-1 t-r">指派员工：</td>
-                                                <td class="table-col-3">某某某 某某某</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-col-1 t-r">备&nbsp;&nbsp;注：</td>
-                                                <td class="table-col-3">222222222</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="order-ctrl t-r">
-                                            <input type="button" class="btn btn-info" value="指派"/>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="2" >
-                            <table class="custom-table order-table" role="button" data-toggle="collapse" data-parent="#accordion"
-                                   href="#collapse2" aria-expanded="true"
-                                   aria-controls="collapse2" >
-                                <tbody>
-                                <tr>
-                                    <td class="table-col-2">
-                                        123132
-                                    </td>
-                                    <td class="table-col-2">
-
-                                        修车
-                                    </td>
-                                    <td class="table-col-2">
-                                        2015-09-10 18：00
-                                    </td>
-                                    <td class="table-col-1">
-                                        王先生
-                                    </td>
-                                    <td class="table-col-3">
-                                        海南省海口市国贸路28号
-                                    </td>
-                                    <td class="table-col-1 order-span-status">
-                                        已完成
-                                    </td>
-                                    <td class="table-col-1">
-                                        <span class="order-span-ctrl">详情</span>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
-                            <div class="panel-body">
-                                <div class="order-status-detail">
-                                    <div class="order-steps">
-                                        <div class="order-status-step mr">
-                                            <i class="icon"></i>
-                                            <p class="order-status-text"></p>
-                                        </div>
-                                        <div class="order-status-step mr">
-                                            <i class="icon"></i>
-                                            <p class="order-status-text"></p>
-                                        </div>
-                                        <div class="order-status-step mr">
-                                            <i class="icon"></i>
-                                            <p class="order-status-text"></p>
-                                        </div>
-                                        <div class="order-status-step mr">
-                                            <i class="icon"></i>
-                                            <p class="order-status-text mr"></p>
-                                        </div>
-                                        <div class="order-status-step">
-                                            <i class="icon"></i>
-                                            <p class="order-status-text"></p>
-                                        </div>
-                                    </div>
-                                    <div class="order-lines"></div>
-                                    <input type="hidden" value="0   ">
-                                </div>
-                                <table class="custom-table panel-detail-table">
-                                    <tbody>
-                                    <tr>
-                                        <td class="table-col-1 t-r">服务价钱：</td>
-                                        <td class="table-col-3">10</td>
-                                        <td class="table-col-1 t-r">下单时间：</td>
-                                        <td class="table-col-3">2015-10-10 15:30</td>
-                                        <td class="table-col-1 t-r">客户电话：</td>
-                                        <td class="table-col-4">15555555555</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-col-1 t-r">指派员工：</td>
-                                        <td class="table-col-3">某某某 某某某</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-col-1 t-r">备&nbsp;&nbsp;注：</td>
-                                        <td class="table-col-4">222222222</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div class="order-ctrl t-r">
-                                    <input type="button" class="btn btn-info" value="重新指派"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
                         </div>
                     </div>
                     <div id="order-new" class="dis-n">
@@ -214,6 +132,12 @@
                             </div>
                         </div>
                     </div>
+
+                    <UC:AspNetPager runat="server" UrlPaging="true" ID="pager" CssClass="anpager"
+                        CurrentPageButtonClass="cpb" PageSize="5"
+                        CustomInfoHTML="第 %CurrentPageIndex% / %PageCount%页 共%RecordCount%条"
+                        ShowCustomInfoSection="Right">
+                    </UC:AspNetPager>
                 </div>
             </div>
         </div>
