@@ -646,6 +646,12 @@ namespace Dianzhu.CSClient.WinformView
             }
         }
 
+        public string ServiceDepositAmount
+        {
+            get { return tbxDepositAmount.Text; }
+            set { tbxDepositAmount.Text = value; }
+        }
+
         public string ServiceUrl
         {
             get

@@ -131,7 +131,7 @@ namespace Dianzhu.BLL
         /// </summary>
         public void OrderFlow_BusinessConfirm(ServiceOrder order)
         {
-            
+            order.LatestOrderUpdated = DateTime.Now;
            
             ChangeStatus(order, enum_OrderStatus.Negotiate);
         }
@@ -147,6 +147,7 @@ namespace Dianzhu.BLL
             {
                 log.Warn("协商价格小于订金");
             }
+            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Assigned);
 
         }
@@ -157,8 +158,8 @@ namespace Dianzhu.BLL
         public void OrderFlow_CustomerConfirmNegotiate(ServiceOrder order)
         {
             order.OrderServerStartTime = DateTime.Now;
-            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Begin);
-            flow.ChangeStatus();
+            order.LatestOrderUpdated = DateTime.Now;
+            ChangeStatus(order, enum_OrderStatus.Begin);
         }
         /// <summary>
         /// 商家确定服务完成
@@ -167,7 +168,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessFinish(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
-
+            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.IsEnd);
         }
         /// <summary>
@@ -176,8 +177,8 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_CustomerFinish(ServiceOrder order)
         {
-           // order.OrderServerFinishedTime = DateTime.Now;
-
+            order.OrderServerFinishedTime = DateTime.Now;
+            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Ended);
         }
         /// <summary>
@@ -187,7 +188,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_CustomerPayFinalPayment(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
-
+            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Finished);
         }
 
@@ -245,7 +246,8 @@ namespace Dianzhu.BLL
               { enum_OrderStatus.Assigned,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
               { enum_OrderStatus.Begin,new List<enum_OrderStatus>() {enum_OrderStatus.Assigned }},
                { enum_OrderStatus.IsEnd,new List<enum_OrderStatus>() {enum_OrderStatus.Begin }},
-                { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd }},
+                { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd , enum_OrderStatus.Begin}},
+                { enum_OrderStatus.Finished,new List<enum_OrderStatus>() {enum_OrderStatus.Ended }},
 
         };
     }
