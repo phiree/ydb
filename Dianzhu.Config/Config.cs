@@ -108,7 +108,7 @@ namespace Dianzhu.Config
             , {"DiandianLoginId",DictsDianDianLogins[DatabaseServer].Key}
             , {"DiandianLoginPwd",DictsDianDianLogins[DatabaseServer].Value  }
             , {"APIBaseURL",BuildHttpUrlString(ApplicationServer, 8037,"DianzhuApi.ashx")  }
-            , {"PayServer",BuildHttpUrlString(ApplicationServer, 8168)   }
+            , {"PayServerUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
             , {"NotifyServer",BuildHttpUrlString(ApplicationServer, 8039)   }
             , {"BaiduGeocodingAPI","http://api.map.baidu.com/geocoder/v2/?ak="  }
             , {"BaiduTranAPI","http://api.map.baidu.com/geoconv/v1/?ak="  }
