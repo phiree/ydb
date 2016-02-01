@@ -33,13 +33,22 @@ namespace Dianzhu.Model
        /// 昵称
        /// </summary>
        public virtual string NickName { get; set; }
+        /// <summary>
+        /// 性别
+        /// </summary>
        public virtual string Gender { get; set; }
+        /// <summary>
+        /// 电话号码
+        /// </summary>
        public virtual string Phone { get; set; }
        /// <summary>
        /// 职员照片
        /// </summary>
        public virtual string Photo { get; set; }
 
+        /// <summary>
+        /// 是否已经被分配.
+        /// </summary>
        public virtual bool IsAssigned { get; set; }
    
        /// <summary>
@@ -47,7 +56,7 @@ namespace Dianzhu.Model
        /// </summary>
        public virtual IList<ServiceType> ServiceTypes { get; set; }
        /// <summary>
-       /// 职员的头像.
+       /// 职员的头像. 可能会有多个,但是只有一个是
        /// </summary>
        public virtual IList<BusinessImage> StaffAvatar { get; set; }
        public virtual BusinessImage AvatarCurrent {

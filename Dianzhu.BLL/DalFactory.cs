@@ -42,6 +42,12 @@ namespace Dianzhu.BLL
             get { return dalServiceOpenTime ?? new DALServiceOpenTime(); }
             set { dalServiceOpenTime = value; }
         }
+        static DALOrderAssignment dalOrderAssignment;
+        public static DALOrderAssignment DALOrderAssignment
+        {
+            get { return dalOrderAssignment ?? new DALOrderAssignment(); }
+            set { dalOrderAssignment = value; }
+        }
         static DALServiceOpenTimeForDay dalServiceOpenTimeForDay;
         public static DALServiceOpenTimeForDay DALServiceOpenTimeForDay
         {

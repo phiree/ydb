@@ -8,29 +8,24 @@ using Dianzhu.DAL;
 using Dianzhu.Model.Enums;
 namespace Dianzhu.BLL
 {
-    public delegate void OrderPayed(ServiceOrder order);
+    
     /// <summary>
-    /// 用户创建订单
+    /// 订单业务逻辑
     /// </summary>
     public class BLLServiceOrder
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
-        public event OrderPayed OrderPayed;
+        
         DALServiceOrder DALServiceOrder = null;
         DZMembershipProvider membershipProvider = null;
         BLLDZService bllDzService = null;
 
-        public IList<ServiceOrder> GetListForBusiness(object b)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public BLLServiceOrder()
         {
             DALServiceOrder = DALFactory.DALServiceOrder;
             membershipProvider = new DZMembershipProvider();
             bllDzService = new BLLDZService();
-
 
         }
 
@@ -42,7 +37,12 @@ namespace Dianzhu.BLL
         }
 
 
+        #region 基本操作
 
+        public IList<ServiceOrder> GetListForBusiness(object b)
+        {
+            throw new NotImplementedException();
+        }
 
         public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
         {
@@ -108,9 +108,10 @@ namespace Dianzhu.BLL
         {
             return DALServiceOrder.GetOrderListByDate(service, date);
         }
+        #endregion
 
+        #region 订单流程变化
 
-       
         //用户定金支付完成
         public void OrderFlow_PayDeposit(ServiceOrder order)
         {
@@ -208,6 +209,18 @@ namespace Dianzhu.BLL
 
             SaveOrUpdate(order);
         }
+        #endregion
+
+        #region 分配工作人员
+        public void AssignStaff(ServiceOrder order, Staff staff)
+        {
+
+        }
+        public void DeassignStaff(ServiceOrder order, Staff staff)
+        {
+
+        }
+        #endregion
 
     }
     /// <summary>
