@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALAdvertisement.cs" />
+    <Compile Include="DALPayment.cs" />
     <Compile Include="DALServiceOpenTime.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="DALReceptionChatDD.cs" />
     <Compile Include="DALReceptionChat.cs" />
     <Compile Include="DALReceptionStatusArchieve.cs" />
+    <Compile Include="DALOrderAssignment.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Mapping\ServiceOrderMap.cs" />
     <Compile Include="Mapping\ServiceTypeMap.cs" />
     <Compile Include="Mapping\DZServiceMap.cs" />
+    <Compile Include="Mapping\OrderAssignment.cs" />
     <Compile Include="Mapping\StaffMap.cs" />
     <Compile Include="Mapping\ServicePropertyMap.cs" />
     <Compile Include="Mapping\ServicePropertyValueMap.cs" />
