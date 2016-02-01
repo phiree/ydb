@@ -29,6 +29,9 @@ public partial class notify_url : System.Web.UI.Page
         log.Debug("保存支付记录");
         bllPaymentLog.SaveOrUpdate(paymentLog);
 
+        //BLLPayment bllPayment = new BLLPayment();
+
+        //Payment payment=bllPayment.GetOne()
         BLLServiceOrder bllOrder = new BLLServiceOrder();
 
 

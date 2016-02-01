@@ -54,7 +54,7 @@ public partial class _Default : System.Web.UI.Page
         {
          
             IPay pay = bllPay.CreatePayAPI(payAPI, order);
-            requestString = pay.CreatePayRequest(payTarget);
+          // todo:修改支付接口  requestString = pay.CreatePayRequest(payTarget);
             Response.Write(requestString);
             
         }

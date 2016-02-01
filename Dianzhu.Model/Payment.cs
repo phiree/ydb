@@ -17,7 +17,8 @@ namespace Dianzhu.Model
         
         public Payment()
         {
-
+            CreatedTime =LastUpdateTime=  DateTime.Now;
+            //Amount = Order.GetAmount(PayTarget);
         }
         public virtual Guid Id { get; set; }
 
@@ -48,6 +49,12 @@ namespace Dianzhu.Model
         /// <summary>
         ///  
         /// </summary>
+        public virtual DateTime LastUpdateTime { get; set; }
+
+        /// <summary>
+        /// 支付状态
+        /// </summary>
+        public virtual enum_PaymentStatus Status { get; set; }
        
      
     }

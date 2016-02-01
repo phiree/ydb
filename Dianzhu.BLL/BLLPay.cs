@@ -19,14 +19,15 @@ namespace Dianzhu.BLL
             switch (payApi)
             {
                 case enum_PayAPI.Alipay:
-                    return new PayAli(order,
-                            "1",
-                            Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx",
-                            Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx",
-                            "http://www.ydban.cn"
-             //payment_type,  notify_url,  return_url, show_url
-             );
-
+                    return null;
+                    //todo:修改支付接口
+             //       return new PayAli(order.GetAmount
+             //               "1",
+             //               Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx",
+             //               Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx",
+             //               "http://www.ydban.cn"
+             ////payment_type,  notify_url,  return_url, show_url
+             
                 case enum_PayAPI.Wechat:
                 default:
                     throw new NotImplementedException("尚未实现该接口");

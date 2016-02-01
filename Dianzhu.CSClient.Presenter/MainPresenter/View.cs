@@ -98,7 +98,11 @@ namespace Dianzhu.CSClient.Presenter
             ClientState.CurrentServiceOrder.CreateFromDraft();
   
             View_NoticeOrder();
-            string payLink = ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"),Model.Enums.enum_PayTarget.Deposit);
+            BLLPayment bllPayment = new BLLPayment();
+
+            string payLink = bllPayment.ApplyPay(ClientState.CurrentServiceOrder, Model.Enums.enum_PayTarget.Deposit);
+                
+              //  ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"),Model.Enums.enum_PayTarget.Deposit);
 
             ReceptionChatNotice chatNotice = new ReceptionChatNotice
             {
