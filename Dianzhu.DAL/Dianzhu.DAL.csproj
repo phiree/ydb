@@ -98,6 +98,7 @@
     <Compile Include="Mapping\ServiceTypeMap.cs" />
     <Compile Include="Mapping\DZServiceMap.cs" />
     <Compile Include="Mapping\OrderAssignment.cs" />
+    <Compile Include="Mapping\PaymentMap.cs" />
     <Compile Include="Mapping\StaffMap.cs" />
     <Compile Include="Mapping\ServicePropertyMap.cs" />
     <Compile Include="Mapping\ServicePropertyValueMap.cs" />

@@ -14,7 +14,9 @@ public partial class _Default : System.Web.UI.Page
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     BLLServiceOrder bllOrder = new BLLServiceOrder();
+    BLLPayment bllPayment = new BLLPayment();
     ServiceOrder order = null;
+    Payment payment = null;
     public ServiceOrder Order {
         get { return order; }
         
@@ -53,8 +55,8 @@ public partial class _Default : System.Web.UI.Page
         if (payType == enum_PayType.Online)
         {
          
-            IPay pay = bllPay.CreatePayAPI(payAPI, order);
-          // todo:修改支付接口  requestString = pay.CreatePayRequest(payTarget);
+            IPay pay = bllPay.CreatePayAPI(payAPI, order,payTarget);
+            requestString = pay.CreatePayRequest();
             Response.Write(requestString);
             
         }
@@ -70,24 +72,22 @@ public partial class _Default : System.Web.UI.Page
        
     }
     private void LoadOrder() {
-       string paramOrderId = Request["orderId"];
-        Guid orderId;
-        bool isValidId = Guid.TryParse(paramOrderId, out orderId);
+       string paramPaymentId = Request["paymentid"];
+        Guid paymentId;
+        bool isValidId = Guid.TryParse(paramPaymentId, out paymentId);
         if (!isValidId)
         {
           
             Response.Redirect("error.aspx?err=1",true);
         }
-        order=  bllOrder.GetOne(orderId);
+        payment = bllPayment.GetOne(paymentId);
+       // order=  bllOrder.GetOne(orderId);
         if (order == null)
         {
             
             Response.Redirect("error.aspx?err=2",true);
         }
-        if (order.OrderStatus != Dianzhu.Model.Enums.enum_OrderStatus.Created)
-        { 
-            Response.Redirect("error.aspx?err=3", true);
-        }
+         
         
        
     }

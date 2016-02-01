@@ -14,20 +14,28 @@ namespace Dianzhu.BLL
     //支付接口实现支付.
     public class BLLPay
     {
-        public IPay CreatePayAPI(enum_PayAPI payApi, ServiceOrder order)
+        public IPay CreatePayAPI(enum_PayAPI payApi, ServiceOrder order, enum_PayTarget payTarget)
         {
+
+
+            decimal payAmount = order.GetAmount(payTarget);
+            string paySubject = order.ServiceName;
+            string paySubjectPre = GetPreSubject(payTarget, order);
+
+            BLLPayment bllPayment = new BLLPayment();
+            Payment payment = bllPayment.ApplyPay(order, payTarget);
+            string orderId = payment.Id.ToString();
+
             switch (payApi)
             {
                 case enum_PayAPI.Alipay:
-                    return null;
-                    //todo:修改支付接口
-             //       return new PayAli(order.GetAmount
-             //               "1",
-             //               Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx",
-             //               Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx",
-             //               "http://www.ydban.cn"
-             ////payment_type,  notify_url,  return_url, show_url
-             
+                    return new PayAli(payAmount, orderId, paySubject,
+                            "1",
+                            Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx",
+                            Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx",
+                            "http://www.ydban.cn");
+                //payment_type,  notify_url,  return_url, show_url
+
                 case enum_PayAPI.Wechat:
                 default:
                     throw new NotImplementedException("尚未实现该接口");
@@ -38,7 +46,7 @@ namespace Dianzhu.BLL
         {
 
         }
-        public void SavePaymentLog(ServiceOrder order, enum_PayType payType, enum_PaylogType paylogType, enum_PayTarget payTarget, enum_PayAPI payApi, string apiString)
+        public void SavePaymentLog(Payment payment, enum_PayType payType, enum_PaylogType paylogType, enum_PayTarget payTarget, enum_PayAPI payApi, string apiString)
         {
             BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
 
@@ -46,16 +54,38 @@ namespace Dianzhu.BLL
             {
                 LogTime = DateTime.Now,
                 ApiString = apiString,
-                PayAmount = order.GetAmount(payTarget),
+                PayAmount = payment.Amount,
                 PayApi = payApi,
                 PaylogType = paylogType,
                 PayTarget = payTarget,
                 PayType = payType,
-                ServiceOrder = order
+                PaymentId = payment.Id
             };
 
             bllPaymentLog.SaveOrUpdate(paymentLog);
         }
+
+        #region helper
+        /// <summary>
+        /// 获取订单描述的前缀
+        /// </summary>
+        /// <param name="payTarget"></param>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        private string GetPreSubject(enum_PayTarget payTarget, ServiceOrder order)
+        {
+            string preSubject = string.Empty;
+            switch (payTarget)
+            {
+                case enum_PayTarget.Deposit:
+
+                    break;
+                case enum_PayTarget.FinalPayment: break;
+                case enum_PayTarget.Compensation: break;
+            }
+            return preSubject;
+        }
+        #endregion
     }
     public class BLLPaymentLog
     {

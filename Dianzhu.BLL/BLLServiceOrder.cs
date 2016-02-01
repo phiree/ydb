@@ -115,7 +115,7 @@ namespace Dianzhu.BLL
         //用户定金支付完成
         public void OrderFlow_PayDeposit(ServiceOrder order)
         {
-    ChangeStatus(order, enum_OrderStatus.Payed);
+             ChangeStatus(order, enum_OrderStatus.Payed);
 
             //订单支付成功
             log.Debug("调用IMServer,发送订单状态变更通知");

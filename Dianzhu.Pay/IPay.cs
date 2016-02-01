@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Com.Alipay;
-using Dianzhu.Model;
-using Dianzhu.Model.Enums;
+ 
 namespace Dianzhu.Pay
 {
     /// <summary>
@@ -82,8 +81,7 @@ namespace Dianzhu.Pay
             sParaTemp.Add("payment_type", Config.paytype);
             sParaTemp.Add("notify_url", notify_url);// Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx");
             sParaTemp.Add("return_url", return_url);// Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx");
-
-
+ 
             sParaTemp.Add("out_trade_no",OrderId);
            
             sParaTemp.Add("subject",PaySubjectPre+ PaySubject);

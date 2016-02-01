@@ -102,7 +102,7 @@ namespace Dianzhu.CSClient.Presenter
             View_NoticeOrder();
             BLLPayment bllPayment = new BLLPayment();
 
-            string payLink = bllPayment.ApplyPay(ClientState.CurrentServiceOrder, Model.Enums.enum_PayTarget.Deposit);
+            Payment payment = bllPayment.ApplyPay(ClientState.CurrentServiceOrder, Model.Enums.enum_PayTarget.Deposit);
                 
               //  ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"),Model.Enums.enum_PayTarget.Deposit);
 
@@ -114,8 +114,7 @@ namespace Dianzhu.CSClient.Presenter
                 SavedTime = DateTime.Now,
                 ServiceOrder = ClientState.CurrentServiceOrder,
                 UserObj = ClientState.customerService,
-
-                MessageBody = "支付链接" + payLink,
+                MessageBody = "支付链接" + bllPayment.BuildPayLink(payment.Id),
                 SendTime = DateTime.Now
             };
 

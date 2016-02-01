@@ -26,7 +26,7 @@ namespace Dianzhu.BLL
         ///<returns>支付链接</returns>
         /// <param name="order">申请支付的订单</param>
         /// <param name="payTarget">支付目标</param>
-        public string ApplyPay(ServiceOrder order, enum_PayTarget payTarget)
+        public Payment ApplyPay(ServiceOrder order, enum_PayTarget payTarget)
         {
             //验证请求类型是否有效
             bool applyIsValid = false;
@@ -97,11 +97,24 @@ namespace Dianzhu.BLL
                 log.Fatal(errMsg);
                 throw new Exception(errMsg);
             }
-            return Dianzhu.Config.Config.GetAppSetting("PayServerUrl") + "?payid=" + payment.Id;
+            return payment;
+        }
+
+        public string BuildPayLink(Guid  paymentId)
+        {
+            return Config.Config.GetAppSetting("PayServerUrl") + "?paymentid=" + paymentId;
         }
         public Payment GetOne(Guid id)
         {
             return dal.GetOne(id);
+        }
+        public void SaveOrUpdate(Payment payment)
+        {
+            dal.SaveOrUpdate(payment);
+        }
+        public void Update(Payment payment)
+        {
+            dal.Update(payment);
         }
     }
 }

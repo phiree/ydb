@@ -14,6 +14,9 @@ namespace Dianzhu.Test.BLLTest
     [TestFixture]
     public  class TestPayment
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [Test]
         public void ApplyPay()
         {
@@ -25,14 +28,10 @@ namespace Dianzhu.Test.BLLTest
                 .With(x => x.OrderStatus = Model.Enums.enum_OrderStatus.Created)
                 .Build();
             Guid payId = Guid.NewGuid();
-            
             dal.Stub(x => x.GetPaymentsForOrder(order)).Return(new List<Payment>());
-           
-            
             BLLPayment bll = new BLLPayment(dal);
-             
-          string payLink= bll.ApplyPay(order, Model.Enums.enum_PayTarget.Deposit);
-
+             Payment payment= bll.ApplyPay(order, Model.Enums.enum_PayTarget.FinalPayment);
+            string payLink = bll.BuildPayLink(payment.Id);
             Console.WriteLine(payLink);
           Assert.True(payLink.StartsWith( Config.Config.GetAppSetting("PayServerUrl")));
             
