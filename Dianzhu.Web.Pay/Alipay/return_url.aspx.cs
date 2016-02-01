@@ -95,8 +95,19 @@ public partial class return_url : System.Web.UI.Page
                
 
                    // bllOrder.ChangeStatus(order, Dianzhu.Model.Enums.enum_OrderStatus.Payed);
-                    //支付定金
-                    bllOrder.OrderFlow_PayDeposit(order);
+                   switch (order.OrderStatus)
+                    {
+                        case Dianzhu.Model.Enums.enum_OrderStatus.Created:
+                            //支付定金
+                            bllOrder.OrderFlow_PayDeposit(order);
+                            break;
+                        case Dianzhu.Model.Enums.enum_OrderStatus.Ended:
+                            bllOrder.OrderFlow_CustomerPayFinalPayment(order);
+                            break;
+                        default:
+                            break;
+                    }
+                    
                     //调用IMServer,发送订单状态变更通知.
                    
                     Response.Write("success");

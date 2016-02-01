@@ -8,29 +8,24 @@ using Dianzhu.DAL;
 using Dianzhu.Model.Enums;
 namespace Dianzhu.BLL
 {
-    public delegate void OrderPayed(ServiceOrder order);
+    
     /// <summary>
-    /// 用户创建订单
+    /// 订单业务逻辑
     /// </summary>
     public class BLLServiceOrder
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
-        public event OrderPayed OrderPayed;
+        
         DALServiceOrder DALServiceOrder = null;
         DZMembershipProvider membershipProvider = null;
         BLLDZService bllDzService = null;
 
-        public IList<ServiceOrder> GetListForBusiness(object b)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public BLLServiceOrder()
         {
             DALServiceOrder = DALFactory.DALServiceOrder;
             membershipProvider = new DZMembershipProvider();
             bllDzService = new BLLDZService();
-
 
         }
 
@@ -42,7 +37,12 @@ namespace Dianzhu.BLL
         }
 
 
+        #region 基本操作
 
+        public IList<ServiceOrder> GetListForBusiness(object b)
+        {
+            throw new NotImplementedException();
+        }
 
         public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
         {
@@ -108,9 +108,10 @@ namespace Dianzhu.BLL
         {
             return DALServiceOrder.GetOrderListByDate(service, date);
         }
+        #endregion
 
+        #region 订单流程变化
 
-       
         //用户定金支付完成
         public void OrderFlow_PayDeposit(ServiceOrder order)
         {
@@ -131,7 +132,7 @@ namespace Dianzhu.BLL
         /// </summary>
         public void OrderFlow_BusinessConfirm(ServiceOrder order)
         {
-            
+            order.LatestOrderUpdated = DateTime.Now;
            
             ChangeStatus(order, enum_OrderStatus.Negotiate);
         }
@@ -147,6 +148,7 @@ namespace Dianzhu.BLL
             {
                 log.Warn("协商价格小于订金");
             }
+            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Assigned);
 
         }
@@ -157,8 +159,8 @@ namespace Dianzhu.BLL
         public void OrderFlow_CustomerConfirmNegotiate(ServiceOrder order)
         {
             order.OrderServerStartTime = DateTime.Now;
-            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Begin);
-            flow.ChangeStatus();
+            order.LatestOrderUpdated = DateTime.Now;
+            ChangeStatus(order, enum_OrderStatus.Begin);
         }
         /// <summary>
         /// 商家确定服务完成
@@ -167,7 +169,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessFinish(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
-
+            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.IsEnd);
         }
         /// <summary>
@@ -176,8 +178,8 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_CustomerFinish(ServiceOrder order)
         {
-           // order.OrderServerFinishedTime = DateTime.Now;
-
+            order.OrderServerFinishedTime = DateTime.Now;
+            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Ended);
         }
         /// <summary>
@@ -187,7 +189,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_CustomerPayFinalPayment(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
-
+            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Finished);
         }
 
@@ -207,6 +209,18 @@ namespace Dianzhu.BLL
 
             SaveOrUpdate(order);
         }
+        #endregion
+
+        #region 分配工作人员
+        public void AssignStaff(ServiceOrder order, Staff staff)
+        {
+
+        }
+        public void DeassignStaff(ServiceOrder order, Staff staff)
+        {
+
+        }
+        #endregion
 
     }
     /// <summary>
@@ -245,7 +259,8 @@ namespace Dianzhu.BLL
               { enum_OrderStatus.Assigned,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
               { enum_OrderStatus.Begin,new List<enum_OrderStatus>() {enum_OrderStatus.Assigned }},
                { enum_OrderStatus.IsEnd,new List<enum_OrderStatus>() {enum_OrderStatus.Begin }},
-                { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd }},
+                { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd , enum_OrderStatus.Begin}},
+                { enum_OrderStatus.Finished,new List<enum_OrderStatus>() {enum_OrderStatus.Ended }},
 
         };
     }

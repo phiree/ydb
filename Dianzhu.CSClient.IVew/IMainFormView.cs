@@ -116,6 +116,7 @@ namespace Dianzhu.CSClient.IVew
         string ServiceBusinessName { get; set; }
         string ServiceDescription { get; set; }
         string ServiceUnitPrice { get; set; }
+        string ServiceDepositAmount { get; set; }
         string ServiceUrl { get; set; }
         string ServiceTime { get; set; }
         string TargetAddress { get; set; }
