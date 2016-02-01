@@ -93,7 +93,7 @@ namespace Dianzhu.Model
 
        
 
-       public virtual PayType PayType { get; set; }
+       public virtual enum_PayType PayType { get; set; }
 
        /// <summary>
        /// 服务保障:是否先行赔付

@@ -84,8 +84,13 @@ public class ResponseFactory
                 return new ResponseU3RD014008(request);
             case "slf001007":
                 return new ResponseSLF001007(request);
+            case "slf002003":
+                return new ResponseSLF002003(request);
             case "slf002006":
                 return new ResponseSLF002006(request);
+
+            case "ad001006":
+                return new ResponseAD001006(request);
             default:
                 BaseResponse baeResponse = new BaseResponse(request);
                 baeResponse.state_CODE = Dicts.StateCode[1];

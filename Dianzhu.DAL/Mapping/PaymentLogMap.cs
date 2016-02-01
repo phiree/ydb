@@ -10,10 +10,14 @@ namespace Dianzhu.DAL.Mapping
     {
         public PaymentLogMap() { 
             Id(x=>x.Id);
-            Map(x=>x.Pames).Length(1000);
+            Map(x=>x.ApiString).Length(1000);
             References<ServiceOrder>(x => x.ServiceOrder);
-            Map(x => x.Type).Length(20);
-            Map(x => x.LastTime);
+            Map(x => x.PaylogType);
+            Map(x => x.LogTime);
+            Map(x => x.PayAmount);
+            Map(x => x.PayType);
+            Map(x => x.PayTarget);
+            Map(x => x.PayApi);
         }
     }
 }

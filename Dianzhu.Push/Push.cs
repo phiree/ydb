@@ -13,8 +13,10 @@ namespace Dianzhu.Push
     {
         string Push(string message);
     }
+    
     public class PushIOS:IPush
     {
+        
         string strDeviceToken;
         
         string notificationSound = string.Empty;
@@ -22,9 +24,10 @@ namespace Dianzhu.Push
         string strCertificateFilePath {
             get {
 #if DEBUG
-
+                log.Debug("使用测试版证书");
                 // return   AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark.p12";
 #endif
+                log.Debug("使用正式版证书");
                 return  AppDomain.CurrentDomain.BaseDirectory+ @"files\aps_production_Mark.p12";
             }
         }
@@ -37,14 +40,15 @@ namespace Dianzhu.Push
         /// <param name="notificationSound"></param>
         public PushIOS(string strDeviceToken , int pushSum, string notificationSound)
         {
-
+            PHSuit.Logging.Config();
             this.strDeviceToken = strDeviceToken;
             this.pushSum = pushSum;
             this.notificationSound = notificationSound;
         }
-
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Push");
         public string Push(string strContent)
         {
+            log.Debug("开始推送消息:"+strContent);
             bool sandbox = false;
 
 #if DEBUG
@@ -93,56 +97,66 @@ namespace Dianzhu.Push
 
             //Queue the notification to be sent
             if (service.QueueNotification(alertNotification))
-                Console.WriteLine("Notification Queued!");
+               log.Debug("Notification Queued!");
             else
-                Console.WriteLine("Notification Failed to be Queued!");
+                log.Debug("Notification Failed to be Queued!");
             service.Close();
             service.Dispose();
             return "OK";
         }
         private   void Service_NotificationFailed(object sender, jd.Notification failed)
         {
-            throw new NotImplementedException();
+            log.Error("推送失败.DeviceToken:" + failed.DeviceToken+";tag"+ failed.Tag.ToString());
+             
         }
 
           void service_BadDeviceToken(object sender, jd.BadDeviceTokenException ex)
         {
-            Console.WriteLine("Bad Device Token: {0}", ex.Message);
+            log.Error(string.Format("Bad Device Token: {0}", ex.Message));
         }
 
           void service_Disconnected(object sender)
         {
-            Console.WriteLine("Disconnected...");
+           log.Debug("Disconnected...");
         }
 
           void service_Connected(object sender)
         {
-            Console.WriteLine("Connected...");
+            log.Debug("Connected...");
         }
 
           void service_Connecting(object sender)
         {
-            Console.WriteLine("Connecting...");
+            log.Debug("Connecting...");
         }
 
           void service_NotificationTooLong(object sender, jd.NotificationLengthException ex)
         {
-            Console.WriteLine(string.Format("Notification Too Long: {0}", ex.Notification.ToString()));
+
+            log.Error(string.Format( "Notification Too Long: {0}", ex.Notification.ToString()));
         }
 
           void service_NotificationSuccess(object sender, jd.Notification notification)
         {
-            Console.WriteLine(string.Format("Notification Success: {0}", notification.ToString()));
+            log.Debug(string.Format("Notification Success: {0}", notification.ToString()));
         }
 
           void service_NotificationFailed(object sender, jd.Notification notification)
         {
-            Console.WriteLine(string.Format("Notification Failed: {0}", notification.ToString()));
+          log.Error(string.Format("Notification Failed: {0}", notification.ToString()));
         }
  
           void service_Error(object sender, Exception ex)
         {
-            Console.WriteLine(string.Format("Error: {0}", ex.Message));
+          log.Error(string.Format("Error: {0}", ex.Message));
+        }
+    }
+
+    public class PushDemoClient : IPush
+    {
+        public string Push(string message)
+        {
+            return string.Empty;
         }
     }
 }

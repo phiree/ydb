@@ -15,7 +15,7 @@ namespace Dianzhu.CSClient
     static class Program
     {
         
-        static ILog log = LogManager.GetLogger(typeof(Program));
+        static ILog log = LogManager.GetLogger("Dianzhu.CSClient");
        
         static int progressPercent = 0;
         /// <summary>
@@ -31,7 +31,7 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
 
             //log
-            log4net.Config.XmlConfigurator.Configure();
+             PHSuit.Logging.Config();
             log.Debug("Start");
             
             //prepare parameters for IM instance's constructor
@@ -40,9 +40,9 @@ namespace Dianzhu.CSClient
                  );
             //get im server config
             string server = Config.Config.GetAppSetting("ImServer");
+            string domain= Config.Config.GetAppSetting("ImDomain");
 
-
-            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,messageAdapter, Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString());
+            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,domain, messageAdapter, Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString());
 
 
             var loginForm = new WPF.FormLogin();

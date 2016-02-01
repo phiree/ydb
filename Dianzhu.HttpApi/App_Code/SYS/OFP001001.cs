@@ -10,7 +10,7 @@ using System.Configuration;
 /// </summary>
 public class ResponseOFP001001 : BaseResponse
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("dz");
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
     public ResponseOFP001001(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
@@ -18,15 +18,21 @@ public class ResponseOFP001001 : BaseResponse
         ReqDataOFP001001 requestData = this.request.ReqData.ToObject<ReqDataOFP001001>();
 
         Guid userId;
-        string ofIp;
-        string clientName;
+        string ofIp = "";
+        string clientName = "";
 
         try
         {
             if (requestData.jid != null)
             {
-                string uid = requestData.jid.Split('@')[0];
-                string rest = requestData.jid.Split('@')[1];
+                string uid = "";
+                string rest = "";
+                var jidList = requestData.jid.Split('@');
+                if (jidList.Length > 0)
+                {
+                    uid = jidList[0];
+                    rest = jidList[1];
+                }                
 
                 bool uidisGuid = Guid.TryParse(uid, out userId);
                 if (!uidisGuid)
@@ -36,8 +42,17 @@ public class ResponseOFP001001 : BaseResponse
                     return;
                 }
 
-                ofIp = rest.Split('/')[0];
-                clientName = rest.Split('/')[1];
+                var restList = rest.Split('/');
+                if (restList.Length > 1)
+                {
+                    ofIp = restList[0];
+                    clientName = restList[1];
+                }
+                else if (restList.Length > 0)
+                {
+                    ofIp = restList[0];
+                }
+
             }
             else
             {
@@ -50,6 +65,7 @@ public class ResponseOFP001001 : BaseResponse
             BLLIMUserStatusArchieve bllIMUserStatusArchieve = new BLLIMUserStatusArchieve();
             IMUserStatus currentIM = reqDataToImData(requestData);
             BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
+            BLLReceptionStatusArchieve bllReceptionStatusArchieve = new BLLReceptionStatusArchieve();
 
             IMUserStatus imOld = bllIMUserStatus.GetIMUSByUserId(userId);
             if (imOld != null)//有数据执行更新操作
@@ -59,7 +75,6 @@ public class ResponseOFP001001 : BaseResponse
                 imUSA.UserIdRaw = imOld.UserIdRaw;
                 imUSA.UserID = imOld.UserID;
                 imUSA.Status = imOld.Status;
-                imUSA.ArchieveTime = DateTime.Now;
                 imUSA.IpAddress = imOld.IpAddress;
                 imUSA.OFIpAddress = imOld.OFIpAddress;
                 imUSA.ClientName = imOld.ClientName;
@@ -115,15 +130,23 @@ public class ResponseOFP001001 : BaseResponse
             switch (currentIM.Status)
             {
                 case enum_UserStatus.available:
-                    
+                    if (isCustom)
+                    {
+                        //用户上线后，通知客服工具
+                        string imServerAPIInvokeUrl = "IMServerAPI.ashx?type=customlogin&userId=" + userId;
+                        VisitIMServerApi(imServerAPIInvokeUrl);
+                    }                    
                     break;
                 case enum_UserStatus.unavailable:
-                    string imServerAPIInvokeUrl = string.Empty;
+                    string imServerAPIInvokeUrlUn = string.Empty;
                     if (isCustom)
-                    {                        
+                    {
                         //用户下线后，通知客服工具
-                        imServerAPIInvokeUrl= "IMServerAPI.ashx?type=customlogoff&userId=" + userId;
-                        VisitIMServerApi(imServerAPIInvokeUrl);
+                        imServerAPIInvokeUrlUn = "IMServerAPI.ashx?type=customlogoff&userId=" + userId;
+                        VisitIMServerApi(imServerAPIInvokeUrlUn);
+
+                        //接待关系存档
+                        bllReceptionStatusArchieve.SaveOrUpdate(RSToRsa(rs));
 
                         //删掉接待关系
                         bllReceptionStatus.Delete(rs);
@@ -131,8 +154,8 @@ public class ResponseOFP001001 : BaseResponse
                     else
                     {
                         //客服下线后，将正在接待的用户转到其他客服或者点点
-                        imServerAPIInvokeUrl = "IMServerAPI.ashx?type=cslogoff&userId=" + userId;
-                        VisitIMServerApi(imServerAPIInvokeUrl);
+                        imServerAPIInvokeUrlUn = "IMServerAPI.ashx?type=cslogoff&userId=" + userId;
+                        VisitIMServerApi(imServerAPIInvokeUrlUn);
                     }                    
                     break;
                 default:
@@ -156,6 +179,16 @@ public class ResponseOFP001001 : BaseResponse
             this.err_Msg = e.Message;
             return;
         }
+    }
+
+    public ReceptionStatusArchieve RSToRsa(ReceptionStatus rs)
+    {
+        ReceptionStatusArchieve rsa = new ReceptionStatusArchieve();
+        rsa.Customer = rs.Customer;
+        rsa.CustomerService = rs.CustomerService;
+        rsa.Order = rs.Order;
+
+        return rsa;
     }
 
     public void VisitIMServerApi(string url)

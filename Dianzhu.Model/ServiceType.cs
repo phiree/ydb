@@ -83,7 +83,7 @@ namespace Dianzhu.Model
             ServiceType parent = this.Parent;
             while(parent!=null)
             {
-                fulleTypeName = Parent.Name + ">" + fulleTypeName;
+                fulleTypeName = parent.Name + ">" + fulleTypeName;
 
                 parent = parent.Parent;
             }

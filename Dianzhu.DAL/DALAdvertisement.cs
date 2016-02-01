@@ -19,9 +19,21 @@ namespace Dianzhu.DAL
             
         }
         
-        public IList <Advertisement> GetADList()
+        public IList <Advertisement> GetADList(int pageIndex, int pageSize, out int totalRecord)
         {
-            return Session.QueryOver<Advertisement>().OrderBy(x => x.Num).Asc.List();
+            IQueryOver<Advertisement, Advertisement> iquery = Session.QueryOver<Advertisement>();
+            totalRecord = iquery.ToRowCountQuery().FutureValue<int>().Value;
+            return iquery.OrderBy(x => x.Num).Asc.Skip((pageIndex-1) * pageSize).Take(pageSize).List();
+        }
+
+        public IList<Advertisement> GetADListForUseful()
+        {
+            return Session.QueryOver<Advertisement>().Where(x => x.IsUseful == true).OrderBy(x => x.Num).Asc.List();
+        }
+
+        public Advertisement GetByUid(Guid uid)
+        {
+            return Session.QueryOver<Advertisement>().Where(x => x.Id == uid).SingleOrDefault();
         }
     }
 }

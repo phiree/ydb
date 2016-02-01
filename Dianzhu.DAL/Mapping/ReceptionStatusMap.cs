@@ -17,4 +17,16 @@ namespace Dianzhu.DAL.Mapping
             References<ServiceOrder>(x => x.Order);
         }
     }
+
+    public class ReceptionStatusArchieveMap : ClassMap<ReceptionStatusArchieve>
+    {
+        public ReceptionStatusArchieveMap()
+        {
+            Id(x => x.Id);
+            References<DZMembership>(x => x.CustomerService);
+            References<DZMembership>(x => x.Customer);
+            Map(x => x.ArchieveTime);
+            References<ServiceOrder>(x => x.Order);
+        }
+    }
 }

@@ -27,6 +27,22 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual int Num { get; set; }
         /// <summary>
+        /// 推送目标的标签
+        /// </summary>
+        public virtual string PushTarget { get; set; }
+        /// <summary>
+        /// 广告开始时间
+        /// </summary>
+        public virtual DateTime StartTime { get; set; }
+        /// <summary>
+        /// 广告结束时间
+        /// </summary>
+        public virtual DateTime EndTime { get; set; }
+        /// <summary>
+        /// 是否可用
+        /// </summary>
+        public virtual bool IsUseful { get; set; }
+        /// <summary>
         /// 保存时间
         /// </summary>
         public virtual DateTime SaveTime { get; set; }

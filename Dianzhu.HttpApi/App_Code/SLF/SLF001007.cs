@@ -72,12 +72,14 @@ public class ReqDataSLF001007
 
 public class RespDataSLF00107_Obj
 {
+    public Guid openTimeId { get; set; }
     public string date { get; set; }
     public int dayMaxOrder { get; set; }
     public int dayDoneOrder { get; set; }
     public bool dayEnable { get; set; }
     public RespDataSLF00107_Obj Adapt(DateTime date, ServiceOpenTime opentime)
     {
+        this.openTimeId = opentime.Id;
         this.date = date.ToShortDateString();
         this.dayMaxOrder = opentime.MaxOrderForDay;
         this.dayEnable = opentime.Enabled;

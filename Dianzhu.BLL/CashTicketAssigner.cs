@@ -15,7 +15,7 @@ namespace Dianzhu.BLL
     public class CashTicketAssigner_Task
     {
         BLLBusiness bllBusiness = new BLLBusiness();
-        private static readonly ILog log = LogManager.GetLogger("dz");
+        private static readonly ILog log = LogManager.GetLogger("Dianzhu.BLL");
         public CashTicketAssigner_Task()
         {
             IList<Area> areas = bllBusiness.GetAreasOfBusiness();

@@ -17,13 +17,20 @@ namespace Dianzhu.CSClient.Presenter
     public partial class MainPresenter
     {
         /// <summary>
-        /// 切换订单1:改变当前订单, 改变按钮样式
+        /// 切换订单1:改变当前用户, 改变按钮样式
+        /// 加载该用户的订单列表
         /// </summary>
-        /// <param name="order"></param>
-        private void ActiveCustomer(ServiceOrder order)
+        /// <param name="dm"></param>
+        //private void ActiveCustomer(ServiceOrder order)
+        private void ActiveCustomer(DZMembership dm)
         {
-            ClientState.CurrentServiceOrder = order;
-            view.SetCustomerButtonStyle(order, em_ButtonStyle.Actived);
+            //ClientState.CurrentServiceOrder = order;
+            ClientState.CurrentCustomer = dm;
+            //view.SetCustomerButtonStyle(order, em_ButtonStyle.Actived);
+            view.SetCustomerButtonStyle(dm, em_ButtonStyle.Actived);
+            int currentOrderAmount;
+            ClientState.OrderList = bllOrder.GetListForCustomer(dm,1,10,out currentOrderAmount);
+            this.view.OrdersList = ClientState.OrderList;
         }
 
         /// <summary>
@@ -33,21 +40,24 @@ namespace Dianzhu.CSClient.Presenter
         {
             if (ClientState.CurrentServiceOrder == null)
             { return; }
-            ServiceOrder newOrder = ServiceOrder.Create(Model.Enums.enum_ServiceScopeType.OSIM,
-                string.Empty, string.Empty, string.Empty, 0, string.Empty, ClientState.CurrentServiceOrder.Customer,
-                string.Empty, 0, 0);
+            ServiceOrder newOrder =
+                new ServiceOrder { Customer= ClientState.CurrentServiceOrder.Customer
+                , CustomerService=ClientState.customerService };
+                 
             bllOrder.SaveOrUpdate(newOrder);
-            ReceptionChat chat = new ReceptionChat
-            {
-                ChatType = Model.Enums.enum_ChatType.Text,
-                From = ClientState.customerService,
-                To = ClientState.CurrentServiceOrder.Customer,
-                MessageBody = "创建新订单，订单Id："+newOrder.Id,
-                SendTime = DateTime.Now,
-                SavedTime = DateTime.Now,
-                ServiceOrder = newOrder
-            };
-            SendMessage(chat);
+            ClientState.CurrentServiceOrder = newOrder;
+            //ReceptionChat chat = new ReceptionChat
+            //{
+            //    ChatType = Model.Enums.enum_ChatType.Text,
+            //    From = ClientState.customerService,
+            //    To = ClientState.CurrentServiceOrder.Customer,
+            //    MessageBody = "创建新订单，订单Id："+newOrder.Id,
+            //    SendTime = DateTime.Now,
+            //    SavedTime = DateTime.Now,
+            //    ServiceOrder = newOrder
+            //};
+            //SendMessage(chat);
+            NoticeDraftNew();
 
             view.OrderNumber = newOrder.Id.ToString();
             view.OrderStatus = Model.Enums.enum_OrderStatus.Draft.ToString();
@@ -78,13 +88,17 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_CreateOrder()
         {
-            decimal unitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
-            decimal orderAmount = Convert.ToDecimal(view.OrderAmount);
+            decimal unitPrice = view.ServiceUnitPrice == string.Empty ? 0 : Convert.ToDecimal(view.ServiceUnitPrice);
+            decimal orderAmount = view.OrderAmount == string.Empty ? 0 : Convert.ToDecimal(view.OrderAmount);
 
             Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
             SaveCurrentOrder();
-            ClientState.CurrentServiceOrder.OrderStatus = Model.Enums.enum_OrderStatus.Created;
-            string payLink = ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"));
+            //从草稿单创建正式订单
+           
+            ClientState.CurrentServiceOrder.CreateFromDraft();
+  
+            View_NoticeOrder();
+            string payLink = ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"),Model.Enums.enum_PayTarget.Deposit);
 
             ReceptionChatNotice chatNotice = new ReceptionChatNotice
             {
@@ -119,7 +133,8 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_BeforeCustomerChanged()
         {
-            // view.SetCustomerButtonStyle(CurrentServiceOrder, em_ButtonStyle.Readed);
+            //view.SetCustomerButtonStyle(CurrentServiceOrder, em_ButtonStyle.Readed);
+            //view.SetCustomerButtonStyle(ClientState.CurrentCustomer, em_ButtonStyle.Readed);
             //保存当前界面的草稿订单先~
             SaveCurrentOrder();
         }
@@ -174,13 +189,18 @@ namespace Dianzhu.CSClient.Presenter
                 return;
             }
 
+            //new ServiceOrderBuilder(ClientState.CurrentServiceOrder).SetService(view.CurrentService)
+            //    .SetServiceInfo(view.ServiceName, view.ServiceBusinessName, view.ServiceDescription, Convert.ToDecimal(view.ServiceUnitPrice))
+            //    .SetServiceUrl(view.ServiceUrl)
+            //    .SetOrderInfo(Convert.ToDecimal(view.OrderAmount), 1, view.TargetAddress, view.ServiceTime, view.Memo);
+
             ClientState.CurrentServiceOrder.Service = view.CurrentService;
             ClientState.CurrentServiceOrder.ServiceName = view.ServiceName;
             ClientState.CurrentServiceOrder.ServiceBusinessName = view.ServiceBusinessName;
             ClientState.CurrentServiceOrder.ServiceDescription = view.ServiceDescription;
-            ClientState.CurrentServiceOrder.ServiceUnitPrice = Convert.ToDecimal(view.ServiceUnitPrice);
+            ClientState.CurrentServiceOrder.ServiceUnitPrice = view.ServiceUnitPrice == "" ? 0 : Convert.ToDecimal(view.ServiceUnitPrice);
             ClientState.CurrentServiceOrder.ServiceURL = view.ServiceUrl;
-            ClientState.CurrentServiceOrder.OrderAmount = Convert.ToDecimal(view.OrderAmount);
+            ClientState.CurrentServiceOrder.OrderAmount = view.OrderAmount == "" ? 0 : Convert.ToDecimal(view.OrderAmount);
             ClientState.CurrentServiceOrder.TargetAddress = view.TargetAddress;
             ClientState.CurrentServiceOrder.Memo = view.Memo;
             ClientState.CurrentServiceOrder.TargetTime = view.ServiceTime;

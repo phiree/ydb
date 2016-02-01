@@ -14,6 +14,7 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             References<DZMembership>(x => x.Customer);
             Map(x => x.OrderCreated);
+            Map(x => x.LatestOrderUpdated);
             Map(x => x.OrderFinished);
             Map(x => x.OrderServerStartTime);
             Map(x => x.OrderServerFinishedTime);
@@ -39,7 +40,11 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.TradeNo);
             Map(x => x.RefundMemo);
 
-            Map(x => x.ChatPayType).CustomType<int>();
+            Map(x => x.NegotiateAmount);
+
+            Map(x => x.DepositAmount);
+
+         
 
         }
     }

@@ -12,7 +12,7 @@ namespace Dianzhu.CSClient.XMPP
     /// </summary>
     public class XMPP : IInstantMessage.InstantMessage
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("xmpp");
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.XMPP");
  
         static agsXMPP.XmppClientConnection XmppClientConnection;
 
@@ -28,21 +28,29 @@ namespace Dianzhu.CSClient.XMPP
         public event IMStreamError IMStreamError;
         IMessageAdapter.IAdapter messageAdapter;
         private string server = string.Empty;
+        private string domain = string.Empty;
         public string Server
         {
             get { return server; }
         }
-        public XMPP(string server, IMessageAdapter.IAdapter messageAdapter, string resourceName) : this(server, messageAdapter)
+        public string Domain
+        {
+            get { return domain; }
+        }
+        public XMPP(string server,string domain, IMessageAdapter.IAdapter messageAdapter, string resourceName) : this(server,domain, messageAdapter)
         {
             XmppClientConnection.Resource = resourceName;
         }
-        public XMPP(string server, IMessageAdapter.IAdapter messageAdapter)
+        public XMPP(string server,string domain, IMessageAdapter.IAdapter messageAdapter)
         {
             this.server = server;
+            this.domain = domain;
             this.messageAdapter = messageAdapter;
             if (XmppClientConnection == null)
             {
-                XmppClientConnection = new agsXMPP.XmppClientConnection(server);
+                XmppClientConnection = new agsXMPP.XmppClientConnection();
+                XmppClientConnection.Server =domain;
+                XmppClientConnection.ConnectServer = server;
                 XmppClientConnection.AutoResolveConnectServer = false;
                 XmppClientConnection.OnLogin += new agsXMPP.ObjectHandler(Connection_OnLogin);
                 XmppClientConnection.OnPresence += new PresenceHandler(Connection_OnPresence);
@@ -141,7 +149,7 @@ namespace Dianzhu.CSClient.XMPP
         {
             //判断用户对应的tokoen
             //chat-->message
-            Message msg = messageAdapter.ChatToMessage(chat, server);
+            Message msg = messageAdapter.ChatToMessage(chat, domain);
             log.Debug("receive___" + msg.ToString());
             XmppClientConnection.Send(msg);
 
@@ -150,6 +158,7 @@ namespace Dianzhu.CSClient.XMPP
         
         public void SendMessage(string xml)
         {
+            log.Debug("send___" + xml);
             XmppClientConnection.Send(xml);
         }
         public void Close()

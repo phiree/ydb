@@ -13,24 +13,50 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IVew;
+using System.ComponentModel;
 namespace Dianzhu.CSClient.WPFView 
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// IViewLogin的Wpf实现
     /// </summary>
     public partial class FormLogin : Window,ILoginForm
     {
+        BackgroundWorker bgw = new BackgroundWorker();
         public FormLogin()
         {
             InitializeComponent();
             btnLogin.Click += BtnLogin_Click;
+            //登录时的异步处理
+            bgw.DoWork += Bgw_DoWork;
+            bgw.RunWorkerCompleted += Bgw_RunWorkerCompleted;
+            
         }
 
-        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        private void Bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+              MessageBoxResult r=  MessageBox.Show(e.Error.Message);
+                
+                    this.Close();
+                 
+            }
+        }
+
+        private void Bgw_DoWork(object sender, DoWorkEventArgs e)
         {
             ViewLogin();
         }
 
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            bgw.RunWorkerAsync();
+        }
+        public string FormText
+        {
+            get { return this.Title; }
+            set { this.Title = value; }
+        }
         public string ErrorMessage
         {
             
@@ -40,6 +66,7 @@ namespace Dianzhu.CSClient.WPFView
                 {
                     MessageBox.Show(value);
                 };
+                //more about  Dispacher: https://msdn.microsoft.com/en-us/library/system.windows.threading.dispatcher(v=vs.110).aspx
                 if (!Dispatcher.CheckAccess())
                 {
                     Dispatcher.Invoke(lambda);
@@ -145,6 +172,14 @@ namespace Dianzhu.CSClient.WPFView
 
         public event ViewLogin ViewLogin;
 
-        
+        private void tbxPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                //登录时的异步处理
+                ViewLogin();
+                e.Handled=true;
+            }
+        }
     }
 }

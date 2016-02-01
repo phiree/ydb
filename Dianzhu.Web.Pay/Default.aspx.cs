@@ -6,81 +6,68 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+using Dianzhu.Model.Enums;
 using Com.Alipay;
+using Dianzhu.Pay;
+
 public partial class _Default : System.Web.UI.Page
 {
-    log4net.ILog log = log4net.LogManager.GetLogger("dzpay");
+    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     BLLServiceOrder bllOrder = new BLLServiceOrder();
     ServiceOrder order = null;
     public ServiceOrder Order {
         get { return order; }
         
     }
+  
     protected void Page_Load(object sender, EventArgs e)
     {
-         
-            LoadOrder();
+     
+        LoadOrder();
        
 
     }
-    protected void btnAlipay_Click(object sender, EventArgs e)
+    protected void btnPay_Click(object sender, EventArgs e)
     {
+
+
+        //支付类型: 支付定金/支付尾款/支付赔偿
+        enum_PayTarget payTarget = (enum_PayTarget)Enum.Parse(typeof(enum_PayTarget), Request["ptarget"]);
+        //支付方式:线上,线下.
+        enum_PayType payType = enum_PayType.Online;
         
-        //商户订单号
-        string out_trade_no =order.Id.ToString();
-        //商户网站订单系统中唯一订单号，必填
-
-        //订单名称
-        string subject = order.ServiceName ;
-        //必填
-
-        //付款金额
-        string total_fee = order.OrderAmount.ToString("#0.00");
-        //必填
-
-        //商品展示地址
-        string show_url = "http://www.ydban.cn/";
-        //必填，需以http://开头的完整路径，例如：http://www.商户网址.com/myorder.html
-
-        //订单描述
-        string body = order.Memo;
+        //在线支付接口
+        enum_PayAPI payAPI = enum_PayAPI.None;
+        if (radioAlipay.Checked)
+        {
+            payAPI = enum_PayAPI.Alipay;
+        }
+        else if (radioWechat.Checked)
+        {
+            payAPI = enum_PayAPI.Wechat;
+        }
         
- 
+        BLLPay bllPay = new BLLPay();
+        string requestString=string.Empty;
+        //在线支付
+        if (payType == enum_PayType.Online)
+        {
+         
+            IPay pay = bllPay.CreatePayAPI(payAPI, order);
+            requestString = pay.CreatePayRequest(payTarget);
+            Response.Write(requestString);
+            
+        }
+        //保存支付记录
+        bllPay.SavePaymentLog(order, payType, enum_PaylogType.ApplyFromUser, payTarget, payAPI, requestString);
+        //离线支付.
+        if (payType== enum_PayType.Offline)
+        {
+           
+            Response.Redirect("payoffline.html",true);
+        }
 
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //把请求参数打包成数组
-        SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
-        sParaTemp.Add("partner", Config.partner);
-        sParaTemp.Add("seller_id", Config.seller_id);
-        sParaTemp.Add("_input_charset", Config.input_charset.ToLower());
-        sParaTemp.Add("service", "alipay.wap.create.direct.pay.by.user");
-        sParaTemp.Add("payment_type", Config.paytype);
-        sParaTemp.Add("notify_url", Dianzhu.Config.Config.GetAppSetting("PaySite")+ "alipay/notify_url.aspx");
-        sParaTemp.Add("return_url", Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx");
-        sParaTemp.Add("out_trade_no", out_trade_no);
-        sParaTemp.Add("subject", subject);
-        sParaTemp.Add("total_fee", total_fee);
-        sParaTemp.Add("show_url", show_url);
-        sParaTemp.Add("body", body);
-        sParaTemp.Add("it_b_pay", string.Empty);
-        sParaTemp.Add("extern_token", string.Empty);
-
-        //建立请求
-        string sHtmlText = Submit.BuildRequest(sParaTemp, "get", "确认");
-
-        //保存发送数据
-        BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
-        PaymentLog paymentLog = new PaymentLog();
-        paymentLog.Pames = sHtmlText;
-        paymentLog.ServiceOrder = order;
-        paymentLog.Type = "send";
-        paymentLog.LastTime = DateTime.Now;
-        bllPaymentLog.SaveOrUpdate(paymentLog);
-
-       // throw new Exception(sHtmlText);
-        Response.Write(sHtmlText);
+       
     }
     private void LoadOrder() {
        string paramOrderId = Request["orderId"];
@@ -104,4 +91,5 @@ public partial class _Default : System.Web.UI.Page
         
        
     }
+    
 }

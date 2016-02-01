@@ -13,6 +13,7 @@ using agsXMPP.protocol.client;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json.Converters;
+using System.Diagnostics;
 namespace Dianzhu.DemoClient
 {
     public partial class FmMain : Form
@@ -78,8 +79,7 @@ namespace Dianzhu.DemoClient
         }
         public void GetCustomerService(string username,string password ,string manualAssignedCS)
         {
-            Newtonsoft.Json.Linq.JObject result = API.GetApiResult(
-                string.Format(@"{{ // 
+            string apiRequest = string.Format(@"{{ // 
                      ""protocol_CODE"": ""ORM002001"", 
                     ""ReqData"": {{ 
                     ""userID"": ""{0}"", 
@@ -90,12 +90,14 @@ namespace Dianzhu.DemoClient
                     ""stamp_TIMES"": ""{3}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
                 }}", customerId,
-                password, 
-                tbxOrderId.Text, 
+                password,
+                tbxOrderId.Text,
                 (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(),
                 tbxManualAssignedCS.Text
-                ));
-
+                );
+            GlobalViables.log.Debug("请求参数：" + apiRequest);
+            Newtonsoft.Json.Linq.JObject result = API.GetApiResult(apiRequest);
+            GlobalViables.log.Debug("请求结果：" + result.ToString());
             string state_Code = result["state_CODE"].ToString();
             if (state_Code != "009000")
             {
@@ -132,6 +134,10 @@ namespace Dianzhu.DemoClient
                 return;
             }
             string log = msg.Body;
+            var ext = msg.SelectSingleElement("ext");
+            Debug.Assert(ext != null, "xmpp标准协议的消息，没有ext节点" + msg);
+            if (ext == null)
+            { return; }
             string msgType = msg.SelectSingleElement("ext").Namespace;
             switch (msgType.ToLower())
             {
@@ -152,6 +158,7 @@ namespace Dianzhu.DemoClient
 
         void XMPPConnection_OnLogin(object sender)
         {
+            GlobalViables.log.Debug("登录openfire成功");
             if (InvokeRequired)
             {
                 BeginInvoke(new ObjectHandler(XMPPConnection_OnLogin), new object[] { sender });
@@ -160,6 +167,7 @@ namespace Dianzhu.DemoClient
            
         
             XmppClientConnection conn = (XmppClientConnection)sender;
+            GlobalViables.log.Debug("开始请求客服");
             GetCustomerService(conn.Username,conn.Password);
 
             lblAssignedCS.Text = csDisplayName;
@@ -177,14 +185,20 @@ namespace Dianzhu.DemoClient
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            GlobalViables.XMPPConnection.Close();//关闭当前登录
+            GlobalViables.log.Debug("登录开始");
+            GlobalViables.log.Debug("Close connection");
+            //bug:关闭当前登录后，不能再监听原来的事件。
+            //GlobalViables.XMPPConnection.Close();//关闭当前登录
+            
             string userName = tbxUserName.Text;
             string userNameForOpenfire = userName;
             if (Regex.IsMatch(userName, @"^[^\.@]+@[^\.@]+\.[^\.@]+$"))
             {
                 userNameForOpenfire = userName.Replace("@", "||");
             }
+            GlobalViables.log.Debug("获取用户信息开始");
             GetCustomerInfo(userName);
+            GlobalViables.log.Debug("连接openfire服务器");
             GlobalViables.XMPPConnection.Open(customerId, tbxPwd.Text);
 
         }
@@ -205,6 +219,7 @@ namespace Dianzhu.DemoClient
             //    p.From = new Jid(customerId + "@" + GlobalViables.ServerName);
             //    GlobalViables.XMPPConnection.Send(p);
             //}
+           
             string user = StringHelper.EnsureNormalUserName(message.From.User);
             string body = message.Body;
             string messageType = message.GetAttribute("MessageType");

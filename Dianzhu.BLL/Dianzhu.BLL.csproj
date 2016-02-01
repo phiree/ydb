@@ -62,16 +62,17 @@
     <Compile Include="BLLBase.cs" />
     <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLAdvertisement.cs" />
+    <Compile Include="BLLServiceOpenTime.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
     <Compile Include="BLLIMUserStatus.cs" />
-    <Compile Include="BLLPaymentLog.cs" />
+    <Compile Include="BLLPay.cs" />
     <Compile Include="BLLBusinessImage.cs" />
     <Compile Include="BLLCashTicket.cs" />
     <Compile Include="BLLCashticketCreateRecord.cs" />
     <Compile Include="BLLCashTicketTemplate.cs" />
-    <Compile Include="BLLPaylog.cs" />
     <Compile Include="BLLReceptionChatDD.cs" />
     <Compile Include="BLLReceptionChat.cs" />
+    <Compile Include="BLLReceptionStatusArchieve.cs" />
     <Compile Include="BLLReceptionStatus.cs" />
     <Compile Include="BLLServiceOrder.cs" />
     <Compile Include="BLLServiceType.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="DZMembershipProvider.cs" />
     <Compile Include="DZRoleProvidercs.cs" />
     <Compile Include="FormModel\FormBusiness.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BLLDZService.cs" />
     <Compile Include="BLLStaff.cs" />
@@ -108,6 +110,10 @@
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
+      <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
+      <Name>Dianzhu.Pay</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>

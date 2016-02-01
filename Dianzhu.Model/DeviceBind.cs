@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Dianzhu.Model
 {
+    /// <summary>
+    /// 设备绑定
+    /// </summary>
    public  class DeviceBind
     {
         public virtual Guid Id { get; set; }

@@ -162,7 +162,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
 
         foreach(ListItem item in rblPayType.Items)
         {
-            PayType v =(PayType) Convert.ToInt32( item.Value);
+            enum_PayType v =(enum_PayType) Convert.ToInt32( item.Value);
             if ((v | CurrentService.PayType) == CurrentService.PayType)
             {
                 item.Selected = true;
@@ -217,12 +217,12 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     }
     private void UpdatePayType()
     {
-        PayType pt = PayType.None;
+        enum_PayType pt = enum_PayType.None;
         foreach (ListItem item in rblPayType.Items)
         {
             if (item.Selected)
             {
-                pt |= (PayType)(Convert.ToInt32(item.Value));
+                pt |= (enum_PayType)(Convert.ToInt32(item.Value));
             }
         }
         CurrentService.PayType = pt;

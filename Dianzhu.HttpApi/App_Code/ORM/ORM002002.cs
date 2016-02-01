@@ -20,7 +20,6 @@ public class ResponseORM002002 : BaseResponse
 
  
         DZMembershipProvider p = new DZMembershipProvider();
-        BLLReceptionStatus BLLReceptionStatus = new BLLReceptionStatus();
         BLLServiceOrder bllOrder = new BLLServiceOrder();
         string raw_id = requestData.userID;
 
@@ -104,10 +103,8 @@ public class RespDataORM002002_payObj
     public RespDataORM002002_payObj Adap(ServiceOrder order)
     {
         this.type = "alipay";
-        this.url = order.BuildPayLink(
-            Dianzhu.Config.Config.GetAppSetting("PayServer")
-            );
-         
+        this.url = order.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayServer"), enum_PayTarget.Deposit);
+
         return this;
     }
 }

@@ -48,7 +48,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
 
 
-        log4net.ILog ilog = log4net.LogManager.GetLogger(typeof(MessageAdapter));
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.MessageAdapter");
         public MessageAdapter()
         {
  
@@ -60,14 +60,23 @@ namespace Dianzhu.CSClient.MessageAdapter
         /// <returns></returns>
         public Model.ReceptionChat MessageToChat(Message message)
         {
+            //收到的消息可能是 openfire服务器 标准的协议，
             ilog.Debug("receive___" + message.ToString());
             //chat or headline
             string messageType = message.GetAttribute("type");
             bool isNotice = messageType == "headline";
+            enum_ChatType chatType = enum_ChatType.Text;
+            //收到的消息可能是 openfire服务器 标准的协议，不存在ext节点。
 
             var ext_element = message.SelectSingleElement("ext", true);
+            bool has_ext = ext_element != null;
+            if (!has_ext)
+            {
+                Logging.Log.Warn("收到标准协议的消息，不存在ext节点");
+            }
+            else { 
             var extNamespace = ext_element.Namespace;
-            enum_ChatType chatType;
+            
             switch (extNamespace.ToLower())
             {
                 case "ihelper:chat:text":
@@ -92,6 +101,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     throw new Exception("未知的命名空间");
 
             }
+            }
             ReceptionChat chat = ReceptionChat.Create(chatType);
             var chatFrom = BllMember.GetUserById(new Guid(message.From.User));
             if (!isNotice) { 
@@ -108,7 +118,8 @@ namespace Dianzhu.CSClient.MessageAdapter
             //这个逻辑放在orm002001接口里面处理.
 
             //如果是
-
+            if(has_ext)
+            { 
             bool hasOrderId = ext_element.HasTag("orderID");
             
             
@@ -127,6 +138,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     }
                 }
+            }
             }
 
 
@@ -163,7 +175,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             msg.SetAttribute("type", "chat");
             msg.Id = chat.Id.ToString();
             //     msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
-            msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server);//发送对象
+            msg.To = new agsXMPP.Jid(chat.To.Id+"@"+server);//发送对象
             msg.Body = chat.MessageBody;
 
             var nodeActive = new agsXMPP.Xml.Dom.Element("active", string.Empty, "http://jabber.org/protocol/chatstates");

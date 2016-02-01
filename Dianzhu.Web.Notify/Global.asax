@@ -10,16 +10,17 @@
         //Code that runs on application startup
         //init xmpp conenction 
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
-        log4net.Config.XmlConfigurator.Configure();
+        PHSuit.Logging.Config();
         _SetupRefreshJob();
         string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
-          
+        string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
+
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
-            = new Dianzhu.CSClient.XMPP.XMPP(server, adapter, Dianzhu.Model.Enums.enum_XmppResource.YDBan_Win_IMServer.ToString());
+            = new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.Model.Enums.enum_XmppResource.YDBan_Win_IMServer.ToString());
         //login in
         string noticesenderId = Dianzhu.Config.Config.GetAppSetting("NoticeSenderId");
-        string noticesenderPwdCrypted = Dianzhu.Config.Config.GetAppSetting("NoticeSenderPwd");
-        string noticesenderPwd = PHSuit.Security.Decrypt(noticesenderPwdCrypted, false);
+
+        string noticesenderPwd = Dianzhu.Config.Config.GetAppSetting("NoticeSenderPwd");
 
         im.IMClosed += IMClosed;
         im.IMLogined += IMLogined;
@@ -34,7 +35,7 @@
     }
     void IMClosed()
     {
-        log.Warn("Closed"); 
+        log.Warn("Closed");
     }
     void IMLogined(string jidUser)
     {

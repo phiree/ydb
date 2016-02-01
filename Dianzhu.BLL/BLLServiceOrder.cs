@@ -5,109 +5,44 @@ using System.Text;
 using Dianzhu.Model;
 
 using Dianzhu.DAL;
+using Dianzhu.Model.Enums;
 namespace Dianzhu.BLL
 {
-
+    public delegate void OrderPayed(ServiceOrder order);
     /// <summary>
     /// 用户创建订单
     /// </summary>
     public class BLLServiceOrder
     {
-
-
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
+        public event OrderPayed OrderPayed;
         DALServiceOrder DALServiceOrder = null;
         DZMembershipProvider membershipProvider = null;
         BLLDZService bllDzService = null;
 
+        public IList<ServiceOrder> GetListForBusiness(object b)
+        {
+            throw new NotImplementedException();
+        }
+
         public BLLServiceOrder()
         {
             DALServiceOrder = DALFactory.DALServiceOrder;
-           membershipProvider= new DZMembershipProvider();
-           bllDzService = new BLLDZService();
+            membershipProvider = new DZMembershipProvider();
+            bllDzService = new BLLDZService();
+
+
         }
+
+
+
         public BLLServiceOrder(DALServiceOrder dal)
         {
             DALServiceOrder = dal;
         }
 
-        
-        /// <summary>
-        /// 创建服务,系统外的服务,未注册用户
-        /// </summary>
-       
-        /// <param name="serviceName"></param>
-        /// <param name="totalPrice"></param>
-        /// <param name="serviceDescription"></param>
-        /// <param name="businessName"></param>
-        /// <param name="externalUrl"></param>
-        /// <param name="targetAddress"></param>
-        /// <returns></returns>
-        public ServiceOrder CreateOrder(
-            string serviceName, decimal unitPrice, int unitAmount, string serviceDescription, string businessName,
-            string customerName, string customerPhone, string customerEmail,
-            string externalUrl, string targetAddress, decimal adjustPrice)
-        {
-            throw new Exception("to do tomorrow");
-            //ServiceOrder order =  ServiceOrder.
-            //{
-            //    CustomerEmail = customerEmail,
-            //    CustomerPhone = customerPhone,
-            //    CustomerName = customerName,
 
-            //    ServiceBusinessName = businessName,
-            //    ServiceDescription = serviceDescription,
-            //    ServiceName = serviceName,
-            //    ServiceURL = externalUrl,
-            //    TargetAddress = targetAddress,
-            //    ServiceUnitPrice = unitPrice * unitAmount
 
-            //};
-            //if (adjustPrice > 0)
-            //{
-            //    order.ServiceUnitPrice = adjustPrice;
-            //}
-            //DALServiceOrder.Save(order);
-            //return order;
-        }
-        /// <summary>
-        /// 未注册用户 系统外服务.
-        /// </summary>
-        /// <param name="membershipId"></param>
-        /// <param name="serviceId"></param>
-        /// <param name="targetAddress"></param>
-        /// <param name="unitAmount"></param>
-        /// <returns></returns>
-        public ServiceOrder CreateOrder(DZMembership customer, Guid serviceId, string targetAddress, int unitAmount)
-        {
-            throw new Exception("to do tomorrow");
-        }
-        /// <summary>
-        /// 注册用户 系统外服务
-        /// </summary>
-        /// <param name="customer"></param>
-        /// <param name="serviceName"></param>
-        /// <param name="serviceBusinessName"></param>
-        /// <param name="serviceDescription"></param>
-        /// <param name="serviceUnitPrice"></param>
-        /// <param name="serviceUrl"></param>
-        /// <param name="serviceUnitAmount"></param>
-        /// <param name="targetAddress"></param>
-        /// <returns></returns>
-        public ServiceOrder CreateOrder(DZMembership customer, string serviceName,
-            string serviceBusinessName, string serviceDescription, string serviceUnitPrice,
-            string serviceUrl, string serviceUnitAmount, string targetAddress)
-        {
-
-            
-            throw new Exception("to do tomorrow");
-        }
-
-        /// <summary>
-        /// 根据用户确认的服务 创建订单.
-        /// </summary>
-        /// <param name="confirmedService"></param>
-        /// <returns></returns>
-        
 
         public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
         {
@@ -150,9 +85,14 @@ namespace Dianzhu.BLL
 
 
 
-        public IList<ServiceOrder> GetListForBusiness(Business business)
+        public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {
-             return DALServiceOrder.GetListForBusiness(business);
+            return DALServiceOrder.GetListForBusiness(business, pageNum, pageSize, out totalAmount);
+        }
+
+        public IList<ServiceOrder> GetListForCustomer(DZMembership customer, int pageNum, int pageSize, out int totalAmount)
+        {
+            return DALServiceOrder.GetListForCustomer(customer, pageNum, pageSize, out totalAmount);
         }
 
         public void Delete(ServiceOrder order)
@@ -168,6 +108,146 @@ namespace Dianzhu.BLL
         {
             return DALServiceOrder.GetOrderListByDate(service, date);
         }
+
+
+       
+        //用户定金支付完成
+        public void OrderFlow_PayDeposit(ServiceOrder order)
+        {
+    ChangeStatus(order, enum_OrderStatus.Payed);
+
+            //订单支付成功
+            log.Debug("调用IMServer,发送订单状态变更通知");
+            System.Net.WebClient wc = new System.Net.WebClient();
+            string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
+            Uri uri = new Uri(notifyServer + "IMServerAPI.ashx?type=ordernotice&orderId=" + order.Id);
+            System.IO.Stream returnData = wc.OpenRead(uri);
+            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
+            string result = reader.ReadToEnd();
+            log.Debug("发送结果:" + result);
+        }
+        /// <summary>
+        /// 商家确认订单,准备执行.
+        /// </summary>
+        public void OrderFlow_BusinessConfirm(ServiceOrder order)
+        {
+            
+           
+            ChangeStatus(order, enum_OrderStatus.Negotiate);
+        }
+        /// <summary>
+        /// 商家输入协议
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="negotiateAmount"></param>
+        public void OrderFlow_BusinessNegotiate(ServiceOrder order, decimal negotiateAmount)
+        {
+            order.NegotiateAmount = negotiateAmount;
+            if (negotiateAmount < order.DepositAmount)
+            {
+                log.Warn("协商价格小于订金");
+            }
+            ChangeStatus(order, enum_OrderStatus.Assigned);
+
+        }
+        /// <summary>
+        /// 用户确认协商价格,并确定开始服务
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_CustomerConfirmNegotiate(ServiceOrder order)
+        {
+            order.OrderServerStartTime = DateTime.Now;
+            OrderServiceFlow flow = new OrderServiceFlow(order, enum_OrderStatus.Begin);
+            flow.ChangeStatus();
+        }
+        /// <summary>
+        /// 商家确定服务完成
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_BusinessFinish(ServiceOrder order)
+        {
+            order.OrderServerFinishedTime = DateTime.Now;
+
+            ChangeStatus(order, enum_OrderStatus.IsEnd);
+        }
+        /// <summary>
+        /// 用户确认服务完成。
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_CustomerFinish(ServiceOrder order)
+        {
+           // order.OrderServerFinishedTime = DateTime.Now;
+
+            ChangeStatus(order, enum_OrderStatus.Ended);
+        }
+        /// <summary>
+        /// 用户支付尾款
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_CustomerPayFinalPayment(ServiceOrder order)
+        {
+            order.OrderServerFinishedTime = DateTime.Now;
+
+            ChangeStatus(order, enum_OrderStatus.Finished);
+        }
+
+        //订单状态改变通用方法
+        private void ChangeStatus(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
+        {
+            OrderServiceFlow flow = new OrderServiceFlow(order, targetStatus);
+            flow.ChangeStatus();
+
+            ServiceOrderStateChangeHis orderHist = new ServiceOrderStateChangeHis
+            {
+                NewAmount = order.OrderAmount,
+                Order = order,
+                Remark = string.Empty,
+                Status = targetStatus,
+            };
+
+            SaveOrUpdate(order);
+        }
+
+    }
+    /// <summary>
+    /// 订单状态变更控制.
+    /// </summary>
+    public class OrderServiceFlow
+    {
+        ServiceOrder order;
+        Model.Enums.enum_OrderStatus targetStatus;
+
+        public OrderServiceFlow(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
+        {
+            this.order = order;
+            this.targetStatus = targetStatus;
+        }
+        public void ChangeStatus()
+        {
+
+            bool validated = dictAvailabelStatus[targetStatus].Contains(order.OrderStatus);
+            if (validated)
+            {
+                order.OrderStatus = targetStatus;
+            }
+           
+
+
+        }
+        /// <summary>
+        /// 确保目标状态是可以执行的.
+        /// </summary>
+
+        //状态对应表. key:状态, value:该状态可以从哪些状态转变而来.
+        static Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> dictAvailabelStatus = new Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> {
+            { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.Created }},
+             { enum_OrderStatus.Negotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Payed }},
+              { enum_OrderStatus.Assigned,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
+              { enum_OrderStatus.Begin,new List<enum_OrderStatus>() {enum_OrderStatus.Assigned }},
+               { enum_OrderStatus.IsEnd,new List<enum_OrderStatus>() {enum_OrderStatus.Begin }},
+                { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd }},
+
+        };
     }
 
 

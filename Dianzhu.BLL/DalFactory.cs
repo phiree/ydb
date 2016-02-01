@@ -35,6 +35,24 @@ namespace Dianzhu.BLL
         static DALIMUserStatus dalIMUserStatus;
         static DALIMUserStatusArchieve dalIMUserStatusArchieve;
         static DALAdvertisement dalAdvertisement;
+        static DALReceptionStatusArchieve dalReceptionStatusArchieve;
+        static DALServiceOpenTime dalServiceOpenTime;
+        public static DALServiceOpenTime DALServiceOpenTime
+        {
+            get { return dalServiceOpenTime ?? new DALServiceOpenTime(); }
+            set { dalServiceOpenTime = value; }
+        }
+        static DALServiceOpenTimeForDay dalServiceOpenTimeForDay;
+        public static DALServiceOpenTimeForDay DALServiceOpenTimeForDay
+        {
+            get { return dalServiceOpenTimeForDay ?? new DALServiceOpenTimeForDay(); }
+            set { dalServiceOpenTimeForDay = value; }
+        }
+        public static DALReceptionStatusArchieve DALReceptionStatusArchieve
+        {
+            get { return dalReceptionStatusArchieve ?? new DALReceptionStatusArchieve(); }
+            set { dalReceptionStatusArchieve = value; }
+        }
         public static DALAdvertisement DALAdvertisement
         {
             get { return dalAdvertisement ?? new DALAdvertisement(); }

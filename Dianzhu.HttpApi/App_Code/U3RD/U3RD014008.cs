@@ -181,6 +181,10 @@ public class ResponseU3RD014008:BaseResponse
         {
             member = (DZMembershipWeChat)DZMembership.Create(enum_LoginType.WeChat);
         }
+        else
+        {
+            return member;
+        }
         //DZMembershipWeChat member =(DZMembershipWeChat)DZMembership.Create(enum_LoginType.WeChat);
 
         member.AccessToken = tokenObj.access_token;
@@ -213,6 +217,10 @@ public class ResponseU3RD014008:BaseResponse
         if (member == null)
         {
             member = (DZMembershipSinaWeibo)DZMembership.Create(enum_LoginType.SinaWeiBo);
+        }
+        else
+        {
+            return member;
         }
 
         member.AccessToken = tokenObj.access_token;
@@ -271,6 +279,10 @@ public class ResponseU3RD014008:BaseResponse
         if (member == null)
         {
             member = (DZMembershipQQ)DZMembership.Create(enum_LoginType.TencentQQ);
+        }
+        else
+        {
+            return member;
         }
         //DZMembershipWeChat member =(DZMembershipWeChat)DZMembership.Create(enum_LoginType.WeChat);
 

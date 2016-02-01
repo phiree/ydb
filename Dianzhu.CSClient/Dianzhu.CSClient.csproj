@@ -14,25 +14,26 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>E:\Projects\publish\csclient\</PublishUrl>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>ftp://119.29.39.211:2111/latest/publish/csclient/</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://119.29.39.211:8035/</InstallUrl>
     <ProductName>客服工具测试版</ProductName>
     <PublisherName>JSYK</PublisherName>
     <SuiteName>yidianban</SuiteName>
     <MinimumRequiredVersion>1.0.0.9</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>85</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -141,24 +142,6 @@
       <TransformOnBuild>true</TransformOnBuild>
     </None>
     <Content Include="favicon.ico" />
-    <Fakes Include="Fakes\Dianzhu.CSClient.WPFView.fakes" />
-    <Content Include="Fakes\files\aps_development_Mark.p12">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="config\appSettings.config">
-      <SubType>Designer</SubType>
-      <TransformOnBuild>true</TransformOnBuild>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="config\connectionStrings.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TransformOnBuild>true</TransformOnBuild>
-    </Content>
-    <Content Include="config\log4net.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <TransformOnBuild>true</TransformOnBuild>
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="App.Debug.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -214,9 +197,9 @@
       <Project>{0550CABB-3957-45CC-8CC6-9FBEA653B20D}</Project>
       <Name>Dianzhu.CSClient.WinformView</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.WPFView2\Dianzhu.CSClient.WPFView2.csproj">
+    <ProjectReference Include="..\Dianzhu.CSClient.WPFView\Dianzhu.CSClient.WPFView.csproj">
       <Project>{cbcc23e1-62a9-46bc-9ebd-3d0c3cb37c89}</Project>
-      <Name>Dianzhu.CSClient.WPFView2</Name>
+      <Name>Dianzhu.CSClient.WPFView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
       <Project>{125F0D3B-E83C-4743-9944-E82392CBA6C5}</Project>
