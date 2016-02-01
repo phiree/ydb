@@ -110,9 +110,9 @@
                                                 </table>
                                                 <div class="order-ctrl t-r">
                                                     <asp:Button runat="server" CommandName="ConfirmOrder" CommandArgument='<%#Eval("Id") %>' ID="btnConfimOrder" CssClass="btn btn-info" Text="确认订单"/>
-                                                    <asp:TextBox runat="server" ID="btnPrice"></asp:TextBox>
-                                                    <asp:Button runat="server" ID="Button1" CssClass="btn btn-info" Text="确认价格"/>
-                                                    <asp:Button runat="server" ID="Button2" CssClass="btn btn-info" Text="订单完成"/>
+                                                    <asp:TextBox runat="server" CommandName="txtConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="txtConfirmPrice"></asp:TextBox>
+                                                    <asp:Button runat="server" CommandName="ConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPrice" CssClass="btn btn-info" Text="确认价格"/>
+                                                    <asp:Button runat="server" CommandName="IsEndOrder" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrder" CssClass="btn btn-info" Text="订单完成"/>
                                                     <asp:Button runat="server" ID="Button3" CssClass="btn btn-info" Text="指派"/>
                                                 </div>
                                             </div>

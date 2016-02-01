@@ -43,6 +43,16 @@ public partial class DZOrder_Default : BasePage
             case "confirmorder":
                 bllServeiceOrder.OrderFlow_BusinessConfirm(order);
                 break;
+            case "confirmprice":
+                TextBox t = e.Item.FindControl("txtConfirmPrice") as TextBox;
+                decimal price = t.Text == string.Empty ? 0 : Convert.ToDecimal(t.Text);
+                bllServeiceOrder.OrderFlow_BusinessNegotiate(order, price);
+                break;
+            case "IsEndOrder":
+                bllServeiceOrder.OrderFlow_BusinessFinish(order);
+                break;
+            default:
+                return;
         }
         BindData();
     }
