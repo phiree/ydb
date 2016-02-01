@@ -73,9 +73,10 @@ namespace Dianzhu.CSClient.Presenter
             view.ServiceName = string.Empty;
             view.ServiceBusinessName = string.Empty;
             view.ServiceDescription = string.Empty;
-            view.ServiceUnitPrice = "0.0000";
+            view.ServiceUnitPrice = "0.00";
+            view.ServiceDepositAmount = "0.00";
             view.ServiceUrl = string.Empty;
-            view.OrderAmount = "0.0000";
+            view.OrderAmount = "0.00";
             view.TargetAddress = string.Empty;
             view.Memo = string.Empty;
             view.ServiceTime = string.Empty;
@@ -89,6 +90,7 @@ namespace Dianzhu.CSClient.Presenter
         void view_CreateOrder()
         {
             decimal unitPrice = view.ServiceUnitPrice == string.Empty ? 0 : Convert.ToDecimal(view.ServiceUnitPrice);
+            decimal depositAmount = view.ServiceDepositAmount == string.Empty ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
             decimal orderAmount = view.OrderAmount == string.Empty ? 0 : Convert.ToDecimal(view.OrderAmount);
 
             Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
@@ -203,6 +205,7 @@ namespace Dianzhu.CSClient.Presenter
             ClientState.CurrentServiceOrder.ServiceBusinessName = view.ServiceBusinessName;
             ClientState.CurrentServiceOrder.ServiceDescription = view.ServiceDescription;
             ClientState.CurrentServiceOrder.ServiceUnitPrice = view.ServiceUnitPrice == "" ? 0 : Convert.ToDecimal(view.ServiceUnitPrice);
+            ClientState.CurrentServiceOrder.DepositAmount = view.ServiceDepositAmount == "" ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
             ClientState.CurrentServiceOrder.ServiceURL = view.ServiceUrl;
             ClientState.CurrentServiceOrder.OrderAmount = view.OrderAmount == "" ? 0 : Convert.ToDecimal(view.OrderAmount);
             ClientState.CurrentServiceOrder.TargetAddress = view.TargetAddress;

@@ -1,5 +1,6 @@
 ﻿using Dianzhu.BLL;
 using Dianzhu.Model;
+using PHSuit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,19 @@ public partial class DZOrder_Default : BasePage
         pager.RecordCount = Convert.ToInt32(totalRecord);
         rpOrderList.DataBind();
     }
+    protected void rptOrderList_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        ServiceOrder order = (ServiceOrder)e.Item.DataItem;
+        string payLinkDepositAmount = order.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"), Dianzhu.Model.Enums.enum_PayTarget.Deposit);
+        HyperLink hlDepositAmount = e.Item.FindControl("PayDepositAmount") as HyperLink;
+        hlDepositAmount.Text = "订金付款链接：";
+        hlDepositAmount.NavigateUrl = payLinkDepositAmount;
+
+        string payLinkFinalPayment = order.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"), Dianzhu.Model.Enums.enum_PayTarget.FinalPayment);
+        HyperLink hlFinalPayment = e.Item.FindControl("PayFinalPayment") as HyperLink;
+        hlFinalPayment.Text = "尾款付款链接：";
+        hlFinalPayment.NavigateUrl = payLinkFinalPayment;
+    }
     protected void rptOrderList_Command(object sender, RepeaterCommandEventArgs e)
     {
         Guid orderId = new Guid(e.CommandArgument.ToString());
@@ -48,8 +62,14 @@ public partial class DZOrder_Default : BasePage
                 decimal price = t.Text == string.Empty ? 0 : Convert.ToDecimal(t.Text);
                 bllServeiceOrder.OrderFlow_BusinessNegotiate(order, price);
                 break;
-            case "IsEndOrder":
+            case "confirmpricecustomer":
+                bllServeiceOrder.OrderFlow_CustomerConfirmNegotiate(order);
+                break;
+            case "isendorder":
                 bllServeiceOrder.OrderFlow_BusinessFinish(order);
+                break;
+            case "isendordercustomer":
+                bllServeiceOrder.OrderFlow_CustomerFinish(order);
                 break;
             default:
                 return;
