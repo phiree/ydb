@@ -30,7 +30,7 @@ namespace Dianzhu.Test.BLLTest
             Guid payId = Guid.NewGuid();
             dal.Stub(x => x.GetPaymentsForOrder(order)).Return(new List<Payment>());
             BLLPayment bll = new BLLPayment(dal);
-             Payment payment= bll.ApplyPay(order, Model.Enums.enum_PayTarget.FinalPayment);
+             Payment payment= bll.ApplyPay(order, Model.Enums.enum_PayTarget.Deposit);
             string payLink = bll.BuildPayLink(payment.Id);
             Console.WriteLine(payLink);
           Assert.True(payLink.StartsWith( Config.Config.GetAppSetting("PayServerUrl")));
