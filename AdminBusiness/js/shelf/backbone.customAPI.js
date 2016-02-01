@@ -21,8 +21,8 @@
     }
 }(this, function(Backbone) {
     function urlError(){
-        throw new Error('A "url" property or function must be specified')
-    };
+        throw new Error('A "url" property or function must be specified');
+    }
 
     function requestAdapter(protocolCode, data){
         var formattedData;
@@ -33,7 +33,7 @@
             serial_NUMBER :  "00147001015869149756",
         };
         //debugger;
-        return JSON.stringify(formattedData);
+        return formattedData;
     }
 
     Backbone.customAdapter = function(method, model, options){
@@ -65,7 +65,7 @@
 
         var data = _.extend(params.data, options.data);
         if ( method === 'create' || method === 'update' || method === 'patch' || method === 'delete' ) {
-            data.postData = JSON.stringify(model.toJSON(options));
+            data.postData = model.toJSON();
         }
 
         options.data = requestAdapter(options.protocolCode , data);
@@ -83,13 +83,11 @@
                 } else {
                     return Resp.arrayData;
                 }
-
-            }
+            };
         }
 
         var error = options.error;
         options.error = function(xhr, textStatus, errorThrown) {
-            //debugger;
             console.log(xhr);
             console.log(textStatus);
             console.log(errorThrown);
@@ -101,7 +99,7 @@
 
         //make request
         var xhr = options.xhr = Backbone.ajax(_.extend(params, options));
-        //debugger;
+        debugger;
         console.log(xhr);
         model.trigger('request', model, xhr, options);
         return xhr;
