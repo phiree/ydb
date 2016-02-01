@@ -3,7 +3,7 @@
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", "ad001006"
-"ad001006"
+"slf002006", "slf002003"
 ];
 var test_data = [
 
@@ -23,6 +23,15 @@ var test_data = [
          "ReqData": {
              "date":"2016-1-14",
              "serviceId": "8e431b59-cc9e-4a98-a1a6-a5830110e478",
+         },
+         "stamp_TIMES": "1490192929212",
+         "serial_NUMBER": "00147001015869149751"
+     },
+     {
+         "protocol_CODE": "slf002003",
+         "ReqData": {
+             "openTimeForDayId": "518a23e8-c50a-4c8e-84fa-a595010a7b5b",
+             "postData": { "maxNum": "5", "timeEnable":"true" },
          },
          "stamp_TIMES": "1490192929212",
          "serial_NUMBER": "00147001015869149751"

@@ -75,32 +75,34 @@ public class RespDataSLF00206_arrayData
 {
     public RespDataSLF00206_arrayData()
     {
-        arrayOrders = new List<RespDataSLF00206_arrayOrder>();
+        arrayGoods = new List<RespDataSLF00206_arrayOrder>();
     }
+    public Guid Id { get; set; }
     public string date { get; set; }
     public string timeStart { get; set; }
     public string timeEnd { get; set; }
     public int maxNum { get; set; }
     public int doneNum { get; set; }
-    public bool enable { get; set; }
+    public bool timeEnable { get; set; }
     public RespDataSLF00206_arrayData Adap(DateTime date, ServiceOpenTimeForDay openTime,IList<ServiceOrder> orders)
     {
+        this.Id = openTime.Id;
         this.date = date.ToShortDateString();
         this.timeEnd =date.AddMinutes( openTime.PeriodEnd).ToString("yyyy-MM-dd hh:mm:ss");
         this.timeStart=date.AddMinutes(openTime.PeriodStart).ToString("yyyy-MM-dd hh:mm:ss");
         this.maxNum = openTime.MaxOrderForOpenTime;
-        this.enable = openTime.Enabled;
+        this.timeEnable = openTime.Enabled;
        
         foreach (ServiceOrder order in orders)
         {
-            arrayOrders.Add(new RespDataSLF00206_arrayOrder().Adap(order));
+            arrayGoods.Add(new RespDataSLF00206_arrayOrder().Adap(order));
         }
         
-        this.doneNum = arrayOrders.Count;
+        this.doneNum = arrayGoods.Count;
         return this;
 
     }
-    public IList<RespDataSLF00206_arrayOrder> arrayOrders { get; set; }
+    public IList<RespDataSLF00206_arrayOrder> arrayGoods { get; set; }
     
 }
 public class RespDataSLF00206_arrayOrder

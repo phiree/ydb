@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALAdvertisement.cs" />
+    <Compile Include="DALServiceOpenTime.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
     <Compile Include="DALPaymentLog.cs" />

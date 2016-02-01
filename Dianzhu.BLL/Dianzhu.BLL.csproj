@@ -62,6 +62,7 @@
     <Compile Include="BLLBase.cs" />
     <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLAdvertisement.cs" />
+    <Compile Include="BLLServiceOpenTime.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
     <Compile Include="BLLIMUserStatus.cs" />
     <Compile Include="BLLPay.cs" />
