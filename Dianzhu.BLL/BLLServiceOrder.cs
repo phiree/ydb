@@ -242,7 +242,8 @@ namespace Dianzhu.BLL
         static Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> dictAvailabelStatus = new Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> {
             { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.Created }},
              { enum_OrderStatus.Negotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Payed }},
-              { enum_OrderStatus.Begin,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
+              { enum_OrderStatus.Assigned,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
+              { enum_OrderStatus.Begin,new List<enum_OrderStatus>() {enum_OrderStatus.Assigned }},
                { enum_OrderStatus.IsEnd,new List<enum_OrderStatus>() {enum_OrderStatus.Begin }},
                 { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd }},
 
