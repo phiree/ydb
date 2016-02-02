@@ -214,11 +214,21 @@ namespace Dianzhu.BLL
         #region 分配工作人员
         public void AssignStaff(ServiceOrder order, Staff staff)
         {
+            BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+            OrderAssignment oa = new OrderAssignment();
+            oa.Order = order;
+            oa.AssignedStaff = staff;
 
+            bllOrderAssignment.SaveOrUpdate(oa);
         }
         public void DeassignStaff(ServiceOrder order, Staff staff)
         {
+            BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+            OrderAssignment oa = bllOrderAssignment.FindByOrderAndStaff(order, staff);
+            oa.DeAssignedTime = DateTime.Now;
+            oa.Enabled = false;
 
+            bllOrderAssignment.SaveOrUpdate(oa);
         }
         #endregion
 

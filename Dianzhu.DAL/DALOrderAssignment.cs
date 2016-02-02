@@ -19,6 +19,11 @@ namespace Dianzhu.DAL
         {
 
         }
-        
+
+        public OrderAssignment FindByOrderAndStaff(ServiceOrder order, Staff staff)
+        {
+            return Session.QueryOver<OrderAssignment>().Where(x => x.Order == order).And(x => x.AssignedStaff == staff).SingleOrDefault();
+        }
+
     }
 }
