@@ -100,7 +100,11 @@ namespace Dianzhu.CSClient.Presenter
             ClientState.CurrentServiceOrder.CreateFromDraft();
   
             View_NoticeOrder();
-            string payLink = ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"),Model.Enums.enum_PayTarget.Deposit);
+            BLLPayment bllPayment = new BLLPayment();
+
+            Payment payment = bllPayment.ApplyPay(ClientState.CurrentServiceOrder, Model.Enums.enum_PayTarget.Deposit);
+                
+              //  ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"),Model.Enums.enum_PayTarget.Deposit);
 
             ReceptionChatNotice chatNotice = new ReceptionChatNotice
             {
@@ -110,8 +114,7 @@ namespace Dianzhu.CSClient.Presenter
                 SavedTime = DateTime.Now,
                 ServiceOrder = ClientState.CurrentServiceOrder,
                 UserObj = ClientState.customerService,
-
-                MessageBody = "支付链接" + payLink,
+                MessageBody = "支付链接" + bllPayment.BuildPayLink(payment.Id),
                 SendTime = DateTime.Now
             };
 

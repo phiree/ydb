@@ -23,7 +23,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 订单Id
         /// </summary>
-        public virtual ServiceOrder ServiceOrder { get; set; }
+        public virtual Guid PaymentId{ get; set; }
 
         /// <summary>
         /// 金额

@@ -11,7 +11,7 @@ namespace Dianzhu.DAL.Mapping
         public PaymentLogMap() { 
             Id(x=>x.Id);
             Map(x=>x.ApiString).Length(1000);
-            References<ServiceOrder>(x => x.ServiceOrder);
+           Map(x => x.PaymentId);
             Map(x => x.PaylogType);
             Map(x => x.LogTime);
             Map(x => x.PayAmount);

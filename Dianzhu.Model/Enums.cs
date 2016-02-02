@@ -344,4 +344,14 @@ namespace Dianzhu.Model.Enums
         SinaWeiBo=2,
         TencentQQ=3,
     }
+
+    /// <summary>
+    /// 支付状态
+    /// </summary>
+    public enum enum_PaymentStatus
+    {
+        WaitForPay=0,//等待支付
+        Success=1,//支付成功
+        Failed=2,//支付失败
+    }
 }

@@ -58,12 +58,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
-      <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
-      <Name>Dianzhu.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
