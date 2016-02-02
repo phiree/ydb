@@ -41,7 +41,7 @@
                     </a>
                 </li>
                 <li role="presentation" title="服务货架">
-                    <a href="/DZService/ServiceShelf.aspx" >
+                    <a href="/DZService/ServiceOverview.aspx?businessId=<%=Request["businessid"] %>" >
                         <i class="icon item-icon sidebar-icon-order"></i>
                         <h2 class="sidebar-title">服务货架</h2>
                     </a>
