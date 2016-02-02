@@ -22,7 +22,7 @@ public partial class return_url : System.Web.UI.Page
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     protected void Page_Load(object sender, EventArgs e)
     {
-        log.Debug("支付完成，调用notifyurl");
+        log.Debug("支付完成，调用return_url");
         //保存支付接口返回的原始数据
         BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
         BLLServiceOrder bllOrder = new BLLServiceOrder();

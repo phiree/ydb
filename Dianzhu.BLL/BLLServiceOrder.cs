@@ -117,15 +117,7 @@ namespace Dianzhu.BLL
         {
              ChangeStatus(order, enum_OrderStatus.Payed);
 
-            //订单支付成功
-            log.Debug("调用IMServer,发送订单状态变更通知");
-            System.Net.WebClient wc = new System.Net.WebClient();
-            string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
-            Uri uri = new Uri(notifyServer + "IMServerAPI.ashx?type=ordernotice&orderId=" + order.Id);
-            System.IO.Stream returnData = wc.OpenRead(uri);
-            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-            string result = reader.ReadToEnd();
-            log.Debug("发送结果:" + result);
+           
         }
         /// <summary>
         /// 商家确认订单,准备执行.
@@ -208,6 +200,15 @@ namespace Dianzhu.BLL
             };
 
             SaveOrUpdate(order);
+
+            log.Debug("调用IMServer,发送订单状态变更通知");
+            System.Net.WebClient wc = new System.Net.WebClient();
+            string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
+            Uri uri = new Uri(notifyServer + "IMServerAPI.ashx?type=ordernotice&orderId=" + order.Id);
+            System.IO.Stream returnData = wc.OpenRead(uri);
+            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
+            string result = reader.ReadToEnd();
+            log.Debug("发送结果:" + result);
         }
         #endregion
 

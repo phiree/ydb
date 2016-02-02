@@ -41,7 +41,7 @@ namespace PHSuit
             // This is required, so that we can access the Logger by using 
             // LogManager.GetLogger("NHibernate.SQL") and it can used by NHibernate
             Logger loggerNH = hierarchy.GetLogger("NHibernate") as Logger;
-            loggerNH.Level = Level.Warn;
+            loggerNH.Level = Level.Debug;
             loggerNH.AddAppender(appenderNH);
 
             // declare RollingFileAppender with 5MB per file and max. 10 files

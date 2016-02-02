@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Com.Alipay;
- 
+using System.Collections.Specialized;
+
 namespace Dianzhu.Pay
 {
     /// <summary>
@@ -18,7 +19,8 @@ namespace Dianzhu.Pay
         string OrderId { get; set; }
         //创建支付请求
         string CreatePayRequest();
-        //保存支付记录
+        //支付平台回调
+        string PayCallBack();
 
       
     }
@@ -95,6 +97,25 @@ namespace Dianzhu.Pay
             return sHtmlText;
         }
 
-       
+        public string PayCallBack()
+        {
+            throw new NotImplementedException();
+        }
+
+        private SortedDictionary<string, string> GetRequestGet(NameValueCollection coll)
+        {
+            int i = 0;
+            SortedDictionary<string, string> sArray = new SortedDictionary<string, string>();
+            //Load Form variables into NameValueCollection variable.
+            // Get names of all forms into a string array.
+            String[] requestItem = coll.AllKeys;
+
+            for (i = 0; i < requestItem.Length; i++)
+            {
+                sArray.Add(requestItem[i], coll[requestItem[i]]);
+            }
+
+            return sArray;
+        }
     }
 }
