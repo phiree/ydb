@@ -83,7 +83,7 @@ public partial class notify_url : System.Web.UI.Page
                 paymentLog.ApiString = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
                 paymentLog.PaylogType = Dianzhu.Model.Enums.enum_PaylogType.ResultNotifyFromAli;
                 paymentLog.LogTime = DateTime.Now;
-                paymentLog.ServiceOrder = order;
+                //paymentLog.ServiceOrder = order;
                 bllPaymentLog.SaveOrUpdate(paymentLog);
                 //保存接收数据
 

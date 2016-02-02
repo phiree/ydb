@@ -186,6 +186,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<T> GetList(string query, string orderColumns, bool orderDesc, int pageIndex, int pageSize, out int totalRecords, string query_count)
         {
+            IList<T> returnList = null;
             using (var t = session.BeginTransaction())
             {
                 totalRecords = 0;
@@ -197,8 +198,6 @@ namespace Dianzhu.DAL
                         strOrder += " desc ";
                 }
                 IQuery qry = session.CreateQuery(query + strOrder);
-
-
                 string queryCount = query_count;
                 //todo 
                 if (!string.IsNullOrEmpty(queryCount))
@@ -208,11 +207,12 @@ namespace Dianzhu.DAL
                     IQuery qryCount = session.CreateQuery(queryCount);
                     totalRecords = (int)qryCount.UniqueResult<long>();
                 }
-                var returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
+                returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
 
                 t.Commit();
-                return returnList;
+               
             }
+            return returnList;
         }
 
         public System.Data.DataSet ExecuteSql(string pureSqlStatement)
@@ -239,6 +239,14 @@ namespace Dianzhu.DAL
                 throw new Exception("Unknow database type");
             }
             return ds;
+        }
+        protected void TransactionCommit(Action dbaction)
+        {
+            using (var t = Session.BeginTransaction())
+            {
+                dbaction();
+                t.Commit();
+            }
         }
     }
 }
