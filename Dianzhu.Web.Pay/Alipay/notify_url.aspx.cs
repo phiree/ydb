@@ -46,7 +46,7 @@ public partial class notify_url : System.Web.UI.Page
             order = bllOrder.GetOne(orderId);
 
             //更新order
-            paymentLog.ServiceOrder = order;
+            paymentLog.PaymentId = order.Id;
             bllPaymentLog.SaveOrUpdate(paymentLog);
             log.Debug("3");
             if (order == null)
