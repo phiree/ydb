@@ -62,7 +62,7 @@
     <Compile Include="BLLBase.cs" />
     <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLAdvertisement.cs" />
-    <Compile Include="BLLOrderAssignment.cs" />
+    <Compile Include="BLLDeviceBind.cs" />
     <Compile Include="BLLPayment.cs" />
     <Compile Include="BLLServiceOpenTime.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
@@ -94,7 +94,7 @@
     <Compile Include="SiteConfig.cs" />
     <Compile Include="Validator\ValidatorDZService.cs" />
     <Compile Include="AddressParser.cs" />
-    <Compile Include="BLLDeviceBind.cs" />
+    <Compile Include="BLLOrderAssignment.cs" />
     <Compile Include="BLLDZTag.cs" />
     <Compile Include="Validator\ValidatorDZMemership.cs" />
     <Compile Include="BLLReception.cs" />
