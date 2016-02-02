@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 public partial class DZOrder_Default : BasePage
 {
     BLLServiceOrder bllServeiceOrder = new BLLServiceOrder();
+    BLLPayment bllPayment = new BLLPayment();
 
     protected void Page_Load(object sender, EventArgs e)
     {
