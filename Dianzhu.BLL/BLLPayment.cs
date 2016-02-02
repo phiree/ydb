@@ -51,6 +51,7 @@ namespace Dianzhu.BLL
             }
             if (!applyIsValid)
             {
+
                 throw new Exception(errMsg);
             }
             //获取该订单已经申请过的项目.
