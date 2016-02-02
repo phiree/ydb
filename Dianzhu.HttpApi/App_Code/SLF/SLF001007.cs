@@ -80,7 +80,7 @@ public class RespDataSLF00107_Obj
     public RespDataSLF00107_Obj Adapt(DateTime date, ServiceOpenTime opentime)
     {
         this.openTimeId = opentime.Id;
-        this.date = date.ToShortDateString();
+        this.date = date.ToString("YYYY-MM-DD");
         this.dayMaxOrder = opentime.MaxOrderForDay;
         this.dayEnable = opentime.Enabled;
             return this;
