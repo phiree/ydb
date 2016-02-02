@@ -4,7 +4,7 @@
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", "ad001006"
 //"slf002006", "slf002003", "slf001007",
-"usm001005"
+"slf001007"
 ];
 var test_data = [
 
@@ -23,7 +23,7 @@ var test_data = [
          "protocol_CODE": "slf001007",
          "ReqData": {
              "date":"2016-1-14",
-             "serviceId": "8e431b59-cc9e-4a98-a1a6-a5830110e478",
+             "serviceId": "afb9f649-e6ec-4515-bedf-a59301519c55",
          },
          "stamp_TIMES": "1490192929212",
          "serial_NUMBER": "00147001015869149751"

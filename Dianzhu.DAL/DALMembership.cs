@@ -35,15 +35,15 @@ namespace Dianzhu.DAL
         public bool ValidateUser(string username, string password)
         {
             //  User user = session.QueryOver<User>(x=>x.User);
-            Model.DZMembership member = null;
+            //Model.DZMembership member = null;
             bool result = false;
             IQuery query = Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
 
-            IQueryOver<Model.DZMembership,Model.DZMembership> iq = Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password);
+            //  var iq = Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password);
+            Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
+            //Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password).SingleOrDefault();
+            //Model.DZMembership member = null;
 
- 
-             member = GetOneByQuery(iq);
- 
             if (member != null)
             {
                 result = true;
@@ -54,7 +54,7 @@ namespace Dianzhu.DAL
             }
             return result;
         }
-        
+
 
         public Model.DZMembership GetMemberByName(string username)
         {
