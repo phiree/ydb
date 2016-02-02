@@ -13,15 +13,19 @@ using System.Collections.Generic;
 using Com.Alipay;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-using Dianzhu.NotifyCenter;
+using Dianzhu.Pay;
+
 public partial class notify_url : System.Web.UI.Page
 {
+
+
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     protected void Page_Load(object sender, EventArgs e)
     {
         log.Debug("支付完成，调用notifyurl");
-        //保存接收数据
+        //保存支付接口返回的原始数据
         BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
+        BLLServiceOrder bllOrder = new BLLServiceOrder();
         PaymentLog paymentLog = new PaymentLog();
         paymentLog.ApiString = Request.Url + "|" + Request.QueryString.ToString() + "|" + Request.Form.ToString();
         paymentLog.PaylogType = Dianzhu.Model.Enums.enum_PaylogType.ResultNotifyFromAli;
@@ -29,46 +33,37 @@ public partial class notify_url : System.Web.UI.Page
         log.Debug("保存支付记录");
         bllPaymentLog.SaveOrUpdate(paymentLog);
 
-        //BLLPayment bllPayment = new BLLPayment();
-
-        //Payment payment=bllPayment.GetOne()
-        BLLServiceOrder bllOrder = new BLLServiceOrder();
-
-
+        BLLPayment bllPayment = new BLLPayment();
+        Payment payment = null;
         ServiceOrder order = null;
-        Guid orderId;
-        bool isOrderGuid = Guid.TryParse(Request["out_trade_no"], out orderId);
+        Guid paymentId;
+        bool isPaymentGuid = Guid.TryParse(Request["out_trade_no"], out paymentId);
         string tradeNo = Request["trade_no"];
         log.Debug("2");
-        if (isOrderGuid)
+        if (isPaymentGuid)
         {
 
-            order = bllOrder.GetOne(orderId);
+            payment = bllPayment.GetOne(paymentId);
 
             //更新order
-            paymentLog.ServiceOrder = order;
+            paymentLog.PaymentId = paymentId;
             bllPaymentLog.SaveOrUpdate(paymentLog);
             log.Debug("3");
-            if (order == null)
+            if (payment == null)
             {
                 Response.Write("fail");
             }
-            order.TradeNo = tradeNo;
+            payment.TradeNo = tradeNo;
             log.Debug("4");
-            bllOrder.SaveOrUpdate(order);
+            bllPayment.Update(payment);
 
         }
         else
         {
+            log.Error("支付项Id不是guid格式");
             Response.Write("fail");
         }
-        // send notification by create a httprequest to dianzhu.web.notify
-
-
         SortedDictionary<string, string> sPara = GetRequestGet();
-
-
-
         if (sPara.Count > 0)//判断是否有带返回参数
         {
             Notify aliNotify = new Notify();
@@ -95,19 +90,26 @@ public partial class notify_url : System.Web.UI.Page
                     //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                     //如果有做过处理，不执行商户的业务程序
 
-                    order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Payed;
+                    order = payment.Order;
 
-                    bllOrder.SaveOrUpdate(order);
-                    System.Net.WebClient wc = new System.Net.WebClient();
-                    string notifyServer = Dianzhu.Config.Config.GetAppSetting("NotifyServer");
-                    Uri uri = new Uri(notifyServer + "IMServerAPI.ashx?type=ordernotice&orderId=" + order.Id);
+                    // bllOrder.ChangeStatus(order, Dianzhu.Model.Enums.enum_OrderStatus.Payed);
+                    switch (order.OrderStatus)
+                    {
+                        case Dianzhu.Model.Enums.enum_OrderStatus.Created:
+                            //支付定金
+                            bllOrder.OrderFlow_PayDeposit(order);
+                            break;
+                        case Dianzhu.Model.Enums.enum_OrderStatus.Ended:
+                            bllOrder.OrderFlow_CustomerPayFinalPayment(order);
+                            break;
+                        default:
+                            break;
+                    }
 
-                    System.IO.Stream returnData = wc.OpenRead(uri);
-                    System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
-                    string result = reader.ReadToEnd();
+                    //调用IMServer,发送订单状态变更通知.
 
                     Response.Write("success");
-                              
+
                 }
                 else
                 {
@@ -131,6 +133,11 @@ public partial class notify_url : System.Web.UI.Page
         {
             Response.Write("无返回参数");
         }
+    }
+
+    private void BllOrder_OrderPayed(ServiceOrder order)
+    {
+
     }
 
     /// <summary>

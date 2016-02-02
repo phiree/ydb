@@ -57,11 +57,12 @@ public partial class _Default : System.Web.UI.Page
          
             IPay pay = bllPay.CreatePayAPI(payAPI, order,payTarget);
             requestString = pay.CreatePayRequest();
+            
             Response.Write(requestString);
             
         }
         //保存支付记录
-        bllPay.SavePaymentLog(order, payType, enum_PaylogType.ApplyFromUser, payTarget, payAPI, requestString);
+        bllPay.SavePaymentLog(payment, payType, enum_PaylogType.ApplyFromUser, payTarget, payAPI, requestString);
         //离线支付.
         if (payType== enum_PayType.Offline)
         {
