@@ -24,16 +24,17 @@
         throw new Error('A "url" property or function must be specified');
     }
 
+    /* 接口格式封装 */
     function requestAdapter(protocolCode, data){
         var formattedData;
         formattedData = {
             protocol_CODE : protocolCode,
             ReqData : data,
             stamp_TIMES :  "1490192929222",
-            serial_NUMBER :  "00147001015869149756",
+            serial_NUMBER :  "00147001015869149756"
         };
-        //debugger;
-        return formattedData;
+        //return formattedData;
+        return JSON.stringify(formattedData);
     }
 
     Backbone.customAdapter = function(method, model, options){
@@ -41,8 +42,13 @@
         var params = {
             type : 'POST',
             jsonp: false,
-            //dataType: 'text',
-            dataType: 'json',
+
+            /* dataType设置为text, 避免返回的数据进行二次转换导致格式变为字符串的parser error的错误*/
+            dataType: 'text',
+
+            /* mock.js 本地测试代码 */
+            /* dataType: 'json', */
+
             data : {},
             contentType: "application/x-www-form-urlencoded",
         };
@@ -55,17 +61,26 @@
             params.url = _.result(model, 'url') || urlError();
         }
 
-        if ( options.data == null && model ) {
+        if ( options.data === null && model ) {
             params.data = JSON.stringify(options.attrs || model.toJSON(options));
         }
 
         if ( options.protocolCode == null ) {
-            throw new Error('customeAPI protocolCode is empty');
+            throw new Error('customAPI protocolCode is empty');
         }
 
         var data = _.extend(params.data, options.data);
+
+        /* 使用自定义方法替代原有的RESTFul查询发方法  */
         if ( method === 'create' || method === 'update' || method === 'patch' || method === 'delete' ) {
-            data.postData = model.toJSON();
+
+            if ( options.postDataSelect !== null ) {
+
+                /* 通过设置postDataSelect里的属性为true来决定post其model中的对应属性 */
+                data.postData = _.pick(model.toJSON(options), function(value, key, object){
+                    return options.postDataSelect && options.postDataSelect[key];
+                });
+            }
         }
 
         options.data = requestAdapter(options.protocolCode , data);
@@ -74,12 +89,20 @@
             options.dataFilter = function(rawData, type){
                 console.log(type);
                 console.log(rawData);
-                var result = rawData;
-                //var jsonResp = JSON.parse(rawData);
-                //var Resp = jsonResp.RespData;
-                var Resp = result.RespData;
-                if (Resp == null) {
-                    throw "Resp is empty";
+                var jsonResp = JSON.parse(rawData);
+                var Resp = jsonResp.RespData;
+
+                /* mock.js本地测试代码 */
+                //var Resp = rawData.RespData;
+
+
+                if ( Resp === null ) {
+                    if ( options.methodPost ){
+                        return;
+                    } else {
+                        throw "Resp is empty";
+                    }
+
                 } else {
                     return Resp.arrayData;
                 }
@@ -93,7 +116,7 @@
             console.log(errorThrown);
             options.textStatus = textStatus;
             options.errorThrown = errorThrown;
-            if ( error ) error.apply(this, arguments);
+            if ( error ) { error.apply(this, arguments); }
         };
 
 

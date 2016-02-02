@@ -18,7 +18,8 @@
     // 时间段Model
     var TimeBucket = Backbone.Model.extend({
         defaults : {
-            timeBucketId : null,
+            Id : null,
+            data : null,
             timeStart : null,
             timeEnd : null,
             maxNum : null,
@@ -43,10 +44,15 @@
             var _this = this;
             var apiOptions = {
                 customAPI : true,
+                methodPost : true,
                 protocolCode : 'slf002003',
                 data : {
-                    preDay : '0000',
-                    serviceId: "8e431b59-cc9e-4a98-a1a6-a5830110e478",
+                    openTimeForDayId: "518a23e8-c50a-4c8e-84fa-a595010a7b5b"
+                },
+                /* 选择select为true的model属性post */
+                postDataSelect : {
+                    maxNum : true,
+                    timeEnable : true
                 }
             };
             this.addGoods(num);
@@ -55,10 +61,15 @@
         deleteGoodsNum : function(num){
             var apiOptions = {
                 customAPI : true,
+                methodPost : true,
                 protocolCode : 'slf002003',
                 data : {
-                    preDay : '0000',
-                    serviceId: "8e431b59-cc9e-4a98-a1a6-a5830110e478"
+                    openTimeForDayId: "518a23e8-c50a-4c8e-84fa-a595010a7b5b"
+                },
+                /* 选择select为true的model属性post */
+                postDataSelect : {
+                    maxNum : true,
+                    timeEnable : true
                 }
             };
             /* 当未预约订单数大于减数时,才可以进行订单删除操作 */
@@ -187,6 +198,7 @@
 
     var Day = Backbone.Model.extend({
         defaults : {
+            openTimeID : null,
             date : null,
             dayMaxOrder : null,
             dayDoneOrder : null,
@@ -226,8 +238,8 @@
         initDayView : function(){
             //不通过set方法，而是通过this属性直接设置timeBuckets属性为一个指向新的Collection的指针,这样是为了view中的listen可以正确的监听Collection对象。
             this.model.timeBuckets = new TimeBuckets();
-            this.model.timeBuckets.url = '/timeBuckets.json';
-            //this.model.timeBuckets.url = 'http://localhost:806/dianzhuapi.ashx';
+            //this.model.timeBuckets.url = '/timeBuckets.json';
+            this.model.timeBuckets.url = 'http://localhost:806/dianzhuapi.ashx';
             var requestDate = this.model.get('date');
 
             this.listenTo(this.model.timeBuckets, 'add' , this.addTimeBucketView);
@@ -308,6 +320,7 @@
 
     var days = new Days();
 
+    /* 全局app view */
     var appView = Backbone.View.extend({
         tagName : 'div',
         template : _.template($('#app_template').html(),templateSetting),
@@ -315,16 +328,16 @@
 
         },
         initialize : function(){
-            //debugger;
-            days.url = '/days.json';
-            //days.url = 'http://localhost:806/dianzhuapi.ashx';
+            var _this = this;
             var today = new Date();
             var requestDate = today.getFullYear() + "-" + (today.getMonth() + 1) + '-' + today.getDate();
             var requestDateF = today.getFullYear() + "/" + (today.getMonth() + 1) + '/' + today.getDate();
-            var _this = this;
 
             this.render();
 
+            //debugger;
+            //days.url = '/days.json';
+            days.url = 'http://localhost:806/dianzhuapi.ashx';
             days.fetch({
                 customAPI : true,
                 protocolCode : 'slf001007',
@@ -336,13 +349,22 @@
             });
 
             function start(collection, resp, options){
-                //debugger;
+                debugger;
+                console.log(collection);
+                console.log(resp);
+                console.log(options);
                 _this.initDayTab();
                 var today = _.find(collection.models, function(model){
                     //debugger;
-                    return model.get('date') === requestDate;
+
+                    return model.get('date') === requestDateF;
+
+                    /* mock.js本地测试代码 */
+                    //return model.get('date') === requestDate;
                 });
-                _this.addDayView(today);
+                /* 初始化day view */
+
+                _this.addDayView( typeof today !== 'undefined' && today );
             }
         },
         render : function(){
@@ -356,6 +378,7 @@
             var requestDate = today.getFullYear() + "-" + (today.getMonth() + 1) + '-' + today.getDate();
 
             var tab = this.$('.day-tabs');
+            /* 构造tab */
             _.each(days.models, function(day){
                 tab.append($('<input type="button" class="day-tab">').val(day.get('date')));
                 tab.find(".day-tab[value=" + requestDate + "]").addClass('active');
