@@ -512,21 +512,24 @@ namespace Dianzhu.CSClient.Presenter
 
             DZMembership fromCustomer = isSend ? chat.To : chat.From;
             string customerName = fromCustomer.UserName;
-            string message = chat.MessageBody;
-  
+            string message = chat.MessageBody;  
           
             DateTime now = DateTime.Now;
 
             if (isSend)
             {
                 chat.SendTime = now;
-
             }
             else
             {
                 chat.ReceiveTime = now;
-
             }
+
+            if(chat.ChatType== enum_ChatType.Notice)
+            {
+                return;
+            }
+
             if (chat is ReceptionChatMedia)
             {
                 if (((ReceptionChatMedia)chat).MediaType != "url")

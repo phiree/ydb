@@ -107,7 +107,7 @@
                 <div class="pay-confirm">
                     <div class="pay-charge">
                         <div class="pay-charge-cont">
-                            <span>需支付</span><span class="price">￥<%=Order.OrderAmount.ToString("#.##") %></span>
+                            <span>需支付</span><span class="price"><%=string .Format("{0:C2}",Payment.Amount) %></span>
                         </div>
                     </div>
                     <asp:Button class="pay-button" runat="server" ID="btnPay"  Text="去付款" OnClick="btnPay_Click"/>

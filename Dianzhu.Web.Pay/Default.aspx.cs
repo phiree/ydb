@@ -17,6 +17,10 @@ public partial class _Default : System.Web.UI.Page
     BLLPayment bllPayment = new BLLPayment();
     ServiceOrder order = null;
     Payment payment = null;
+    public Payment Payment
+    {
+        get { return payment; }
+    }
     public ServiceOrder Order {
         get { return order; }
         
@@ -34,7 +38,7 @@ public partial class _Default : System.Web.UI.Page
 
 
         //支付类型: 支付定金/支付尾款/支付赔偿
-        enum_PayTarget payTarget = (enum_PayTarget)Enum.Parse(typeof(enum_PayTarget), Request["ptarget"]);
+        enum_PayTarget payTarget = payment.PayTarget;
         //支付方式:线上,线下.
         enum_PayType payType = enum_PayType.Online;
         
@@ -82,10 +86,9 @@ public partial class _Default : System.Web.UI.Page
             Response.Redirect("error.aspx?err=1",true);
         }
         payment = bllPayment.GetOne(paymentId);
-       // order=  bllOrder.GetOne(orderId);
+        order = payment.Order;
         if (order == null)
-        {
-            
+        {            
             Response.Redirect("error.aspx?err=2",true);
         }
          
