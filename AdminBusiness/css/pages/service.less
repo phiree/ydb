@@ -45,3 +45,75 @@
   width: 100%;
   height: 320px;
 }
+
+/* 服务总览页 */
+.shelf-overview-wrap {
+  //padding: 20px;
+  overflow-y: scroll;
+  height: 680px;
+  margin: 10px 20px 30px;
+}
+
+.shelf-overview {
+  overflow: hidden;
+}
+
+.shelf-box {
+  float: left;
+  width: 16.6%;
+  height: 310px;
+  position: relative;
+  margin-bottom: 35px;
+  &::after {
+    content: '';
+    width: 260px;
+    margin: 0 -10px;
+    position: absolute;
+    border-bottom: 20px solid #8c8c8c;
+    bottom: -20px;
+  }
+}
+
+.shelf-box-bg {
+  position: absolute;
+  .box-bg-t {
+    width: 240px;
+    height: 234px;
+    background: #eeeeee;
+    border: 1px solid #d1d1d1;
+  }
+  .box-bg-b {
+    width: 240px;
+    height: 50px;
+    background: #eeeeee;
+  }
+}
+
+.shelf-box-m {
+  width: 240px;
+  height: 100%;
+  position: relative;
+  .box-m-bg {
+    width: 168px;
+    height: 168px;
+    background: #f0ad4e;
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+  }
+  .box-m-t {
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 230px;
+  }
+  .box-m-icon {
+    width: 90px;
+    height: 90px;
+    background: cadetblue;
+    position: absolute;
+    bottom: 45px;
+    left: 60px;
+  }
+}
