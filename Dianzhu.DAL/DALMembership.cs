@@ -39,13 +39,11 @@ namespace Dianzhu.DAL
             bool result = false;
             IQuery query = Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
 
-            IQueryOver<Model.DZMembership,Model.DZMembership> iq = Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password);
-
-
-            Action a = () => { 
-            Model.DZMembership member = GetOneByQuery(iq);
-
-
+            //  var iq = Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password);
+            Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
+                //Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password).SingleOrDefault();
+            //Model.DZMembership member = null;
+        
             if (member != null)
             {
                 result = true;
@@ -54,9 +52,6 @@ namespace Dianzhu.DAL
                 Update(member);
 
             }
-            };
-            TransactionCommit(a);
-
             return result;
         }
         
