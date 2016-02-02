@@ -24,12 +24,12 @@ namespace Dianzhu.BLL
 
             BLLPayment bllPayment = new BLLPayment();
             Payment payment = bllPayment.ApplyPay(order, payTarget);
-            string orderId = payment.Id.ToString();
+            string paymentId = payment.Id.ToString();
 
             switch (payApi)
             {
                 case enum_PayAPI.Alipay:
-                    return new PayAli(payAmount, orderId, paySubject,
+                    return new PayAli(payAmount, paymentId, paySubject,
                             "1",
                             Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx",
                             Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx",

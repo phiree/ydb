@@ -93,7 +93,7 @@ namespace Dianzhu.CSClient.Presenter
             decimal depositAmount = view.ServiceDepositAmount == string.Empty ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
             decimal orderAmount = view.OrderAmount == string.Empty ? 0 : Convert.ToDecimal(view.OrderAmount);
 
-            Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
+            Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid,orderStatus="+ ClientState.CurrentServiceOrder.OrderStatus);
             SaveCurrentOrder();
             //从草稿单创建正式订单
            
@@ -210,6 +210,7 @@ namespace Dianzhu.CSClient.Presenter
             ClientState.CurrentServiceOrder.TargetAddress = view.TargetAddress;
             ClientState.CurrentServiceOrder.Memo = view.Memo;
             ClientState.CurrentServiceOrder.TargetTime = view.ServiceTime;
+            ClientState.CurrentServiceOrder.LatestOrderUpdated = DateTime.Now;
             bllOrder.SaveOrUpdate(ClientState.CurrentServiceOrder);
         }
 

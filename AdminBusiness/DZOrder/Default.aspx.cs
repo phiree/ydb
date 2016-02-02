@@ -68,6 +68,10 @@ public partial class DZOrder_Default : BasePage
                 Button btnIsEndOrderCustomer = e.Item.FindControl("btnIsEndOrderCustomer") as Button;
                 btnIsEndOrderCustomer.Visible = true;
                 break;
+            case Dianzhu.Model.Enums.enum_OrderStatus.IsEnd:
+                Button btnIsEndOrderCustomerIs = e.Item.FindControl("btnIsEndOrderCustomer") as Button;
+                btnIsEndOrderCustomerIs.Visible = true;
+                break;
             case Dianzhu.Model.Enums.enum_OrderStatus.Ended:
                 Payment paymentFinal = bllPayment.ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.FinalPayment);
                 string payLinkFinalPayment = bllPayment.BuildPayLink(paymentFinal.Id);

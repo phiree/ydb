@@ -16,7 +16,7 @@ namespace Dianzhu.Pay
         string PaySubject { get; set;}
         string PaySubjectPre{ get; set;}
         string PayMemo { get; set; }
-        string OrderId { get; set; }
+        string PaymentId { get; set; }
         //创建支付请求
         string CreatePayRequest();
         //支付平台回调
@@ -44,7 +44,7 @@ namespace Dianzhu.Pay
             get; set;
         }
 
-        public string OrderId
+        public string PaymentId
         {
             get; set;
         }
@@ -57,7 +57,7 @@ namespace Dianzhu.Pay
         string payment_type, notify_url, return_url,
               show_url
            ;
-        public PayAli( decimal payAmount,string orderId,string paySubject,
+        public PayAli( decimal payAmount,string paymentId, string paySubject,
             string payment_type,string notify_url,string return_url,
             string show_url
             )
@@ -68,7 +68,7 @@ namespace Dianzhu.Pay
             this.notify_url = notify_url;
             this.return_url = return_url;
             this.show_url = show_url;
-           
+            this.PaymentId = paymentId;
 
         }
         
@@ -84,7 +84,7 @@ namespace Dianzhu.Pay
             sParaTemp.Add("notify_url", notify_url);// Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx");
             sParaTemp.Add("return_url", return_url);// Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx");
  
-            sParaTemp.Add("out_trade_no",OrderId);
+            sParaTemp.Add("out_trade_no", PaymentId);
            
             sParaTemp.Add("subject",PaySubjectPre+ PaySubject);
             sParaTemp.Add("total_fee", string.Format("{0:N2}", PayAmount));
