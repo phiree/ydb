@@ -47,7 +47,7 @@
                                 <div class="emp-no-model">
                                     <div class="emp-no-model-h"></div>
                                     <div class="emp-no-model-m">
-                                        <a class="btn" href="Edit.aspx?businessid=<%=Request["businessid"] %>"><span class="add-inco">+</span>添加新员工</a>
+                                        <a class="btn btn-gray-light" href="Edit.aspx?businessid=<%=Request["businessid"] %>"><span class="add-inco">+</span>添加新员工</a>
                                     </div>
                                     <div class="emp-no-model-b"></div>
                                 </div>

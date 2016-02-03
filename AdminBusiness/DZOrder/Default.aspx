@@ -223,7 +223,7 @@
             </div>
             <div class="model-b">
                 <input id="appointSubmit" class="btn btn-info" type="button" value="确定指派" data-role="appointSubmit" >
-                <input class="btn btn-info lightClose" type="button" value="取消" >
+                <input class="btn btn-cancel-light lightClose" type="button" value="取消" >
             </div>
         </div>
 

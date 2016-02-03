@@ -11,7 +11,7 @@
     <div class="content hide" id="service-list">
         <div class="content-head normal-head">
             <h3>我的服务</h3>
-            <a class="btn btn-default btn-info" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a>
+            <a class="btn btn-gray-light fr" role="button" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>" >+&nbsp;添加新服务</a>
         </div>
         <div class="content-main">
             <div class="animated fadeInUpSmall">
@@ -99,10 +99,10 @@
                                                                 <div class="custom-col col-static-20">
 
                                                                     <!--<span class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></span>-->
-                                                                    <p collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-down-info":"btn btn-info" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></p>
+                                                                    <a collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-cancel-light":"btn btn-info" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></a>
 
-                                                                    <a href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%#Eval("Id") %>" class="m-r10" ><i class="icon service-icon-edit" title="编辑" collapse-ignore="true"></i></a>
-                                                                    <asp:LinkButton ID="LinkButton1" runat="server" class="btn-test-1" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript: return confirm('警告：\n数据一旦被删除将无法还原！')" data-target="ture" collapse-ignore="true"><i class="icon service-icon-delete" title="删除" collapse-ignore="true"></i></asp:LinkButton>
+                                                                    <a class="btn btn-cancel-light" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%#Eval("Id") %>" ><i class="icon service-icon-edit" title="编辑" collapse-ignore="true"></i></a>
+                                                                    <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-cancel-light" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript: return confirm('警告：\n数据一旦被删除将无法还原！')" data-target="ture" collapse-ignore="true"><i class="icon service-icon-delete" title="删除" collapse-ignore="true"></i></asp:LinkButton>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -221,13 +221,13 @@
                         $(that).html("禁用");
                         $($(that).parent().parent()).find(".service-status").html("已启用");
                         $($(that).parent().parent()).find(".service-status").removeClass("theme-color-delete").addClass("theme-color-right");
-                        $(that).removeClass("btn-info").addClass("btn-down-info");
+                        $(that).removeClass("btn-info").addClass("btn-cancel-light");
                     }
                     else {
                         $(that).html("启用");
                         $($(that).parent().parent()).find(".service-status").html("已禁用");
                         $($(that).parent().parent()).find(".service-status").removeClass("theme-color-right").addClass("theme-color-delete");
-                        $(that).addClass("btn-info").removeClass("btn-down-info");
+                        $(that).addClass("btn-info").removeClass("btn-cancel-light");
 
                     }
 

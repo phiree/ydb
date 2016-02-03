@@ -122,7 +122,7 @@
                                                                 <!--<div id="del-sp">删除服务点<input type="button" id="delSP" value="删除" /><span id="delError">请至少设置一个服务点</span></div>-->
                                                                 <div class="map-btn">
                                                                     <input type="button" class="dis-n btn btn-info" id="saveSP" value="确定" />
-                                                                    <input type="button" class="btn btn-delete" id="editSP" value="设置服务区域" />
+                                                                    <input type="button" class="btn btn-info" id="editSP" value="设置服务区域" />
                                                                 </div>
                                                                 <div class="map-msg">
                                                                     <span id="saveMsg" class="dis-n">请设置服务区域</span>

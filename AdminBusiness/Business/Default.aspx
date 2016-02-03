@@ -64,7 +64,7 @@
                         <h3 class="cont-h2">
                             店铺列表
                         </h3>
-                        <a id="addNewBusiness" href="/Business/edit.aspx"><strong>+</strong>&nbsp;新建店铺</a>
+                        <a id="addNewBusiness" class="btn btn-gray-light" href="/Business/edit.aspx"><strong>+</strong>&nbsp;新建店铺</a>
                     </div>
                     <div class="content-main">
                         <div class="animated fadeInUpSmall">
