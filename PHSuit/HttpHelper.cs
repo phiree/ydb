@@ -23,12 +23,26 @@ namespace PHSuit
                     case "post":
                         byte[] response = wb.UploadValues(url, "POST", paras);
                         responseString = Encoding.UTF8.GetString(response);
-                        break;
+                        break;                    
                     default:
                         throw new Exception("Unsupported method");
 
                 }
 
+            }
+
+            return responseString;
+
+        }
+
+        public static string CreateHttpRequestPostXml(string url, string parasXml)
+        {
+            var responseString = string.Empty;
+            using (var wb = new WebClient())
+            {
+                wb.Encoding = Encoding.UTF8;
+
+                responseString = wb.UploadString(url, "POST", parasXml);
             }
 
             return responseString;

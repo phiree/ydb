@@ -91,6 +91,8 @@ public class ResponseFactory
 
             case "ad001006":
                 return new ResponseAD001006(request);
+            case "py001007":
+                return new ResponsePY001007(request);
             default:
                 BaseResponse baeResponse = new BaseResponse(request);
                 baeResponse.state_CODE = Dicts.StateCode[1];
