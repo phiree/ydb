@@ -30,46 +30,17 @@
 
     $.extend(StaffAppoint.prototype, {
         toggle: function () {
-            var lightBox = this.options.lightBox;
+            var beforePullFunc = this.options.beforePullFunc;
+
             this.$appointSubmit.attr('data-appointOrderId', this.appointId);
 
-            /* 弹出弹窗 */
-            if (lightBox && typeof lightBox === 'function') {
-                lightBox();
-                this.pull();
-            } else {
-                return;
+            /* 预处理函数 */
+            if ( typeof beforePullFunc === 'function' && beforePullFunc ) {
+                beforePullFunc();
             }
-        },
-        appoint: function () {
-            var checkStaffs = this.$staffContainer.find('[data-role="staff"]:checked');
-            var arrCheckId = [];
-            var appointJSON = {};
 
-            if ( !checkStaffs.length ) { return false; }
-            if ( this.options.single && checkStaffs.length > 1 ) { return false; }
-            if (!this.options.single) {
-                for (var i = 0; i < checkStaffs.length; i++) {
-                    arrCheckId.push(this.attr('data-staffId'));
-                }
-            } else {
-                arrCheckId.push(checkStaffs.eq(0).attr('data-staffId'));
-            }
-            $.extend(appointJSON, {
-                arrCheckStaff: arrCheckId,
-                appointOrderId: this.appointId
-            });
-            this.upload(appointJSON);
-        },
-        upload: function (jsonData) {
-            $.ajax({
-                url : '/staff.json',
-                dataType : 'json',
-                data : jsonData,
-                success : function(msg){
-                    alert('appoint success');
-                }
-            });
+            this.pull();
+
         },
         pull : function (jsonData){
             var _this = this;
@@ -80,6 +51,7 @@
                 data : pullData,
                 success : function(data, textStatus, xhr){
                     _this.refreshStaff(data);
+                    _this.staffBuild();
                 }
             });
         },
@@ -93,6 +65,51 @@
                 evaluate:    /\{%(.+?)%\}/g
             });
             this.$staffContainer.html(staffTemplate(jsonData));
+        },
+        staffBuild : function(){
+            if ( !this.options.single ) {
+                return;
+            }
+            /* 单选时对checkBox进行操作 */
+            var staffs = this.$staffContainer.find('[data-role="staff"]');
+
+            staffs.bind('click.StaffApt', function(e){
+                var target = e.target;
+                staffs.not(target).removeAttr("checked");
+            });
+        },
+        appoint: function () {
+            var checkStaffs = this.$staffContainer.find('[data-role="staff"]:checked');
+            var arrCheckId = [];
+            var appointJSON = {};
+
+            if ( !checkStaffs.length ) { return false; }
+
+            /* 如果设置为单选时，检测check的长度 */
+            if ( this.options.single && checkStaffs.length > 1 ) { return false; }
+            if ( !this.options.single ) {
+                for (var i = 0; i < checkStaffs.length; i++) {
+                    arrCheckId.push(this.attr('data-staffId'));
+                }
+            } else {
+                arrCheckId.push(checkStaffs.eq(0).attr('data-staffId'));
+            }
+            $.extend(appointJSON, {
+                arrCheckStaff: arrCheckId,
+                appointOrderId: this.appointId
+            });
+            debugger;
+            this._upload(appointJSON);
+        },
+        _upload: function (jsonData) {
+            $.ajax({
+                url : '/staff.json',
+                dataType : 'json',
+                data : jsonData,
+                success : function(data, textStatus, xhr){
+                    alert('appoint success');
+                }
+            });
         }
     });
 
@@ -109,7 +126,7 @@
         });
     };
 
-    /* 绑定submit到触发开关，使其能在一个元素上保存data数据 */
+    /* 绑定submit到触发开关，使其能在唯一一个元素上保存data数据 */
     function getToggleFromSubmit($submit) {
         return $('[data-role="staffAptToggle"][data-appointOrderId="' + $submit.attr('data-appointOrderId') + '"]');
     }
@@ -119,6 +136,7 @@
         var $this = $(this);
         $.fn[pluginName].call($this, 'toggle');
     });
+
     $(document).on('click.StaffApt', '[data-role="appointSubmit"]', function (e) {
         e.preventDefault();
         var $this = $(this);

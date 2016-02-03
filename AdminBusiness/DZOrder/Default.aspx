@@ -59,7 +59,45 @@
                                             </div>
                                         </div>
                                         <div class="order-list" id="accordion" role="tablist" aria-multiselectable="true">
-
+                                            <div class="order-row">
+                                                <div class="custom-grid">
+                                                    <div class="custom-col col-10-1">
+                                                        <div class="order-li">
+                                                            2015-9-12
+                                                        </div>
+                                                    </div>
+                                                    <div class="custom-col col-10-1">
+                                                        <div class="order-li">
+                                                            洗车
+                                                        </div>
+                                                    </div>
+                                                    <div class="custom-col col-10-1">
+                                                        <div class="order-li">
+                                                            xxxxxx
+                                                        </div>
+                                                    </div>
+                                                    <div class="custom-col col-10-1">
+                                                        <div class="order-li">
+                                                            林先生
+                                                        </div>
+                                                    </div>
+                                                    <div class="custom-col col-10-3">
+                                                        <div class="order-li">
+                                                            北京市XXXXXXXXXX
+                                                        </div>
+                                                    </div>
+                                                    <div class="custom-col col-10-1">
+                                                        <div class="order-li">
+                                                            <input class="btn btn-info" type="button" value="指派员工" data-role="staffAptToggle" data-appointOrderId="8787984984613481846">
+                                                        </div>
+                                                    </div>
+                                                    <div class="custom-col col-10-2">
+                                                        <div class="order-li">
+                                                            <span>处理中</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <asp:Repeater runat="server" ID="rpOrderList" OnItemDataBound="rptOrderList_ItemDataBound"  OnItemCommand="rptOrderList_Command">
                                                 <ItemTemplate>
 
@@ -173,7 +211,7 @@
                     CustomInfoHTML="第 %CurrentPageIndex% / %PageCount%页 共%RecordCount%条"
                     ShowCustomInfoSection="Right">
     </UC:AspNetPager>
-    <div id="staffAppointLight" class="appointWindow">
+    <div id="staffAppointLight" class="appointWindow dis-n">
         <div class="model">
             <div class="model-h">
                 <h4>员工指派</h4>
@@ -183,10 +221,12 @@
                     <!-- 注入#staffs_temlate模版内容 -->
                 </div>
             </div>
+            <div class="model-b">
+                <input id="appointSubmit" class="btn btn-info" type="button" value="确定指派" data-role="appointSubmit" >
+                <input class="btn btn-info lightClose" type="button" value="取消" >
+            </div>
         </div>
-        <div>
-            <input id="appointSubmit" type="button" value="确定" data-role="appointSubmit" >
-        </div>
+
     </div>
     <script type="text/template" id="staffs_template">
         <div class="container-fluid">
@@ -209,7 +249,8 @@
                             </div>
                         </div>
                         <div class="emp-model-b">
-                            <input type="checkbox" value="指派" data-role="staff" data-staffId="{% staff %}" >
+                            <input class="staffCheckbox" type="checkbox" value="指派" data-role="staff" data-staffId="{%= staff %}" id="{%= staff %}" >
+                            <label for="{%= staff %}"></label>
                         </div>
                     </div>
                 </div>
@@ -240,7 +281,7 @@
     </script>
     <script>
         $('[data-role="staffAptToggle"]').staffAppoint({
-            lightBox : function (){
+            beforePullFunc : function (){
                 return $("#staffAppointLight").lightbox_me({
                     centered : true
                 });
