@@ -25,9 +25,11 @@
                                                 <div class="box-bg-b"></div>
                                             </div>
                                             <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
                                                 <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
+                                                <div class="box-m-b">
+                                                    <div class="box-m-bg"></div>
+                                                    <div class="box-m-icon"></div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="shelf-box">
@@ -36,9 +38,11 @@
                                                 <div class="box-bg-b"></div>
                                             </div>
                                             <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
                                                 <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
+                                                <div class="box-m-b">
+                                                    <div class="box-m-bg"></div>
+                                                    <div class="box-m-icon"></div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="shelf-box">
@@ -47,9 +51,11 @@
                                                 <div class="box-bg-b"></div>
                                             </div>
                                             <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
                                                 <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
+                                                <div class="box-m-b">
+                                                    <div class="box-m-bg"></div>
+                                                    <div class="box-m-icon"></div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="shelf-box">
@@ -58,141 +64,11 @@
                                                 <div class="box-bg-b"></div>
                                             </div>
                                             <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
                                                 <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-icon"></div>
+                                                <div class="box-m-b">
+                                                    <div class="box-m-bg"></div>
+                                                    <div class="box-m-icon"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

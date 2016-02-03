@@ -7535,53 +7535,84 @@ a.doReg-forget {
 }
 .shelf-box::after {
   content: '';
-  width: 260px;
+  width: 100%;
   margin: 0 -10px;
   position: absolute;
   border-bottom: 20px solid #8c8c8c;
   bottom: -20px;
 }
 .shelf-box-bg {
+  width: 100%;
   position: absolute;
 }
 .shelf-box-bg .box-bg-t {
-  width: 240px;
+  width: 95%;
   height: 234px;
-  background: #eeeeee;
+  background: #EAEAEA;
   border: 1px solid #d1d1d1;
 }
 .shelf-box-bg .box-bg-b {
-  width: 240px;
+  position: absolute;
+  left: 7px;
+  top: 235px;
+  width: 194px;
   height: 50px;
-  background: #eeeeee;
+  background: url("../images/components/shelf/shelf_bg_2.png") no-repeat center;
 }
 .shelf-box-m {
-  width: 240px;
+  width: 100%;
   height: 100%;
-  position: relative;
-}
-.shelf-box-m .box-m-bg {
-  width: 168px;
-  height: 168px;
-  background: #f0ad4e;
   position: absolute;
-  bottom: 10px;
-  left: 20px;
 }
 .shelf-box-m .box-m-t {
   font-size: 20px;
+  font-weight: 700;
   width: 100%;
   text-align: center;
   position: absolute;
   bottom: 230px;
 }
+.shelf-box-m .box-m-b {
+  width: 168px;
+  height: 168px;
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  z-index: 100;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.shelf-box-m .box-m-b:hover {
+  bottom: 50px;
+}
+.shelf-box-m .box-m-bg {
+  width: 168px;
+  height: 168px;
+  background: url("../images/components/shelf/shelf_bg_1.png") no-repeat center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
 .shelf-box-m .box-m-icon {
   width: 90px;
   height: 90px;
-  background: cadetblue;
+  background: url("../images/components/shelf/shelf_bg_3.png") no-repeat center;
   position: absolute;
-  bottom: 45px;
-  left: 60px;
+  bottom: 20px;
+  left: 30px;
+  z-index: 101;
+}
+@media screen and (max-width: 1500px) {
+  .shelf-box {
+    width: 20%;
+  }
+  .shelf-box-bg .box-bg-b {
+    left: 0;
+  }
+  .shelf-box-m .box-m-b {
+    left: 0;
+  }
 }
 .secret-pra {
   padding-bottom: 15px;
