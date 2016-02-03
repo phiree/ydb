@@ -4,14 +4,17 @@
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="description" content="一点办注册" />
     <meta name="keywords" content="一点办" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />-->
     <title>一点办注册</title>
     <link href='http://api.youziku.com/webfont/CSS/568e3429f629d80f4cd910a4' rel='stylesheet' type='text/css' />
     <link href='http://api.youziku.com/webfont/CSS/568e353ff629d80f4cd910a7' rel='stylesheet' type='text/css' />
     <link rel="Stylesheet" href="/css/main.css" type="text/css" />
-    <script src="./js/respond.min.js"></script>
+    <!--[if lte IE 9]>
+        <script src="./js/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body class="register-body">
 <div class="register-wrap">
