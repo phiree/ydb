@@ -12,8 +12,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-10">
-                            <div class="">
-                                <div class="model">
+                            <div class="model">
                                     <div class="model-h">
                                         <h4>订单列表</h4>
                                     </div>
@@ -88,7 +87,7 @@
                                                     </div>
                                                     <div class="custom-col col-10-1">
                                                         <div class="order-li">
-                                                            <input class="btn btn-info" type="button" value="指派员工" data-role="staffAptToggle" data-appointOrderId="8787984984613481846">
+                                                            <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="staffAptToggle" data-appointOrderId="8787984984613481846">
                                                         </div>
                                                     </div>
                                                     <div class="custom-col col-10-2">
@@ -198,7 +197,14 @@
                                             </asp:Repeater>
                                         </div>
                                     </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="model">
+                                <div class="model-h">
+                                    <h4>订单列表</h4>
                                 </div>
+                                <div class="model-m"></div>
                             </div>
                         </div>
                     </div>

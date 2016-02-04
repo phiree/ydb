@@ -181,6 +181,8 @@ function initializeService(){
         this.sRadius = sRadius;
         this.marker = new BMap.Marker(sPoint);
         this.circle = new BMap.Circle(sPoint, sRadius);
+        this.circle.setStrokeColor('#299EC3');
+        this.circle.setStrokeWeight(2);
     }
 
     ServerPoint.prototype = {
@@ -426,7 +428,7 @@ function initializeService(){
         /* 拖拽服务点函数半径 */
         function startDragCircle(e){ //开始拖拽
             map.disableDragging();
-            currentSP.circle.setStrokeColor('red');
+            currentSP.circle.setStrokeColor('#DD3A3A');
             map.addEventListener("mousemove",dragCircle);
             baidu.on(document, 'mouseup', endDragCircle);
         }
@@ -442,10 +444,10 @@ function initializeService(){
             baidu.preventDefault(e);
             baidu.stopBubble(e);
             map.enableDragging();
-            currentSP.circle.setStrokeColor('green');
+            currentSP.circle.setStrokeColor('#3AA6DD');
             map.removeEventListener("mousemove",dragCircle);
             baidu.un(document, 'mouseup', endDragCircle);
-            autoSaveSerPoint()
+            autoSaveSerPoint();
         }
 
 

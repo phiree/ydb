@@ -1,35 +1,42 @@
+// 数据验证弹出样式
 input[type="text"].error {
-  border: 1px solid red;
-  background: #FFCCCB;
+  //border: 1px solid red;
+  //background: #FFCCCB;
 }
 
 textarea.error {
-  border: 1px solid red;
-  background: #FFCCCB;
+  //border: 1px solid red;
+  //background: #FFCCCB;
 }
 
-label.error {
-  background: url("@{base-images-url}/common/validate/error.png") no-repeat 0px 0px;
-  padding: 4px 10px 4px 30px;
-  font-size: 12px;
-  line-height: 2em;
-  /*font-weight: bold;*/
-  color: #FF8661;
-  margin-left: 20px;
+label {
+  &.error {
+    background: url("@{base-images-url}/common/validate/error.png") no-repeat 0 0;
+    padding: 4px 10px 4px 30px;
+    font-size: 12px;
+    line-height: 2em;
+    /*font-weight: bold;*/
+    color: #FF8661;
+    margin-left: 20px;
+  }
+  &.checked {
+    background: url("@{base-images-url}/common/validate/right.png") no-repeat 0 0;
+  }
 }
 
-label.checked {
-  background: url("@{base-images-url}/common/validate/right.png") no-repeat 0px 0px;
-}
-
-p.error {
-  background: url("@{base-images-url}/common/validate/error.png") no-repeat 0px 50%;
-  padding: 4px 10px 4px 30px;
-  font-size: 12px;
-  line-height: 2em;
-  color: #FF8661;
-}
-
-p.checked {
-  background: url("@{base-images-url}/common/validate/right.png") no-repeat 0px 50%;
+p {
+  &.error {
+    margin-top: 5px;
+    background: url("@{base-images-url}/common/validate/error.png") no-repeat 5px 50%;
+    padding: 5px 15px;
+    font-size: 14px;
+    line-height: 2em;
+    color: #FF5353;
+    border-radius: 5px;
+    background: #FFEAEA;
+    border: 1px solid #FF5353;
+  }
+  &.checked {
+    background: url("@{base-images-url}/common/validate/right.png") no-repeat 0 50%;
+  }
 }

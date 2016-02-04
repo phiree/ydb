@@ -28,8 +28,7 @@
 .cur-step-style(){
   color : #fff;
   background: url("@{base-images-url}components/stepByStep/step_cur.png");
-
-  h3 {
+  .step-tip-h {
     text-shadow: 0 1px 1px #333;
   }
 
@@ -51,6 +50,7 @@
     }
   }
 
+  // 当前步骤样式
   &.cur-step{
     .steps-tip-bg {
       .cur-step-style();
@@ -60,6 +60,7 @@
     }
   }
 
+  // 已完成步骤样式
   &.done-step{
     .steps-tip-bg {
       .cur-step-style();

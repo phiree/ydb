@@ -61,7 +61,7 @@
                                                             <div>
                                                                 <input id="setSerType" class="btn btn-info" type="button" value="请选择服务信息" />
                                                                 <input class="dis-n" type="text" runat="server" focusid="setSerType" id="hiTypeId" />
-                                                                <asp:Label CssClass="business-radioCf dis-n m-l10" runat="server" ID="lblSelectedType"></asp:Label>
+                                                                <asp:Label CssClass="business-radioCf text-ellipsis" runat="server" ID="lblSelectedType"></asp:Label>
                                                                 <div id="serLightContainer" class="serviceTabs dis-n">
                                                                     <div class="serChoiceTitle">
                                                                         选择服务信息
@@ -132,7 +132,7 @@
                                                                 </div>
                                                             </div>
                                                             <input id="hiBusinessAreaCode" class="dis-n" runat="server" snsi type="text">
-                                                            <p class="cont-input-tip"><i class="icon icon-tip m-r10"></i>点击设置按钮，并放置该服务的服务区域。</p>
+                                                            <p class="cont-input-tip input-tip-fluid"><i class="icon icon-tip m-r10"></i>点击设置按钮，并放置该服务的服务区域。</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -193,13 +193,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <div class="row model-form-group">
-                                                        <div class="col-md-4 model-label-lg">每小时最大接单量</div>
-                                                        <div class="col-md-8 model-input-unit">
-                                                            <asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxMaxOrdersPerHour" data-toggle="tooltip" data-placement="top" title="该服务的每小时最大接单量">50</asp:TextBox>
-                                                            <em class="unit">单</em>
-                                                        </div>
-                                                    </div>
+                                                    <!--<div class="row model-form-group">-->
+                                                        <!--<div class="col-md-4 model-label-lg">每小时最大接单量</div>-->
+                                                        <!--<div class="col-md-8 model-input-unit">-->
+                                                            <!--<asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxMaxOrdersPerHour" data-toggle="tooltip" data-placement="top" title="该服务的每小时最大接单量">50</asp:TextBox>-->
+                                                            <!--<em class="unit">单</em>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
                                                     <div class="row model-form-group">
                                                         <div class="col-md-4 model-label-lg">是否上门</div>
                                                         <div class="col-md-8 model-input">
@@ -244,12 +244,12 @@
                                                         <div class="col-md-4 model-label-lg">服务标签</div>
                                                         <div class="col-md-8 model-input">
                                                             <div>
-                                                                <asp:TextBox runat="server" ID="tbxTag"></asp:TextBox>
+                                                                <asp:TextBox CssClass="input-fluid" runat="server" ID="tbxTag"></asp:TextBox>
                                                             </div>
                                                             <div runat="server" id="dvTag">
                                                                 <DZ:Tag runat="server" ID="dzTag" />
                                                             </div>
-                                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>添加该服务的特色标签</p>
+                                                            <p class="cont-input-tip input-tip-fluid"><i class="icon icon-tip"></i>添加该服务的特色标签</p>
                                                         </div>
                                                     </div>
                                                     <!--<p class="cont-sub-title">平台认证</p>-->

@@ -117,7 +117,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺头像</div>
                                                             <div class="col-md-10 model-input">
-                                                                <div class="headImage">
+                                                                <div >
                                                                     <div class="input-file-box headFile">
                                                                         <input type=file class="input-file-btn file-default" name="upload_file"
                                                                                businessId="<%=b.Id %>" imageType="businessavater" id="headImgBtn"/>
@@ -126,7 +126,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                         <i class="input-file-mark"></i>
                                                                         <i class="input-file-hover dis-n">修改头像</i>
                                                                         <img style="top:auto;left:auto;position:inherit;" class="input-file-pre"
-                                                                             src="../images/components/inputFile/00.png"/>
+                                                                             src="../images/components/inputFile/input_transparent.png"/>
                                                                     </div>
                                                                 </div>
                                                                 <!--<input class="btn btn-info" type="button" value="上传店铺头像" id="headImgTrigger"/>-->
@@ -158,7 +158,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                businessId="<%=b.Id %>" imageType="businessshow"/>
                                                                         <i class="input-file-bg"></i>
                                                                         <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="../images/components/inputFile/00.png"/>
+                                                                        <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -238,7 +238,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                imageType="businesschargeperson"/>
                                                                         <i class="input-file-bg"></i>
                                                                         <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="../images/components/inputFile/00.png"/>
+                                                                        <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -271,7 +271,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                businessId="<%=b.Id %>" imageType="businesslicense"/>
                                                                         <i class="input-file-bg"></i>
                                                                         <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="../images/components/inputFile/00.png"/>
+                                                                        <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
                                                                     </div>
                                                                 </div>
                                                             </div>

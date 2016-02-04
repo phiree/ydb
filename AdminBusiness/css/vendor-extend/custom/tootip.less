@@ -36,11 +36,12 @@
 //** Tooltip max width
 @tooltip-max-width:           400px;
 //** Tooltip text color
-@tooltip-color:               #666;
+@tooltip-color:               #fff;
 //** Tooltip border color
-@tooltip-border-color:        #fdeb96;
+@tooltip-border-color:        #3999F3;
 //** Tooltip background color
-@tooltip-bg:                  #f9faed;
+@tooltip-bg:                  #3999F3;
+//** Tooltip opacity
 @tooltip-opacity:             1;
 
 //** Tooltip arrow width
@@ -69,7 +70,7 @@
   .opacity(@tooltip-opacity);
 
   &.in     { .opacity(@tooltip-opacity); }
-  &.top    { margin-top:  -3px; padding: @tooltip-arrow-width 0; }
+  &.top    { margin-top:  0px; padding: @tooltip-arrow-width 0; }
   &.right  { margin-left:  3px; padding: 0 @tooltip-arrow-width; }
   &.bottom { margin-top:   3px; padding: @tooltip-arrow-width 0; }
   &.left   { margin-left: -3px; padding: 0 @tooltip-arrow-width; }
@@ -77,8 +78,9 @@
 
 // Wrapper for the tooltip content
 .tooltip-inner {
+  font-size: 12px;
   max-width: @tooltip-max-width;
-  padding: 13px 18px;
+  padding: 5px 10px;
   color: @tooltip-color;
   text-align: center;
   background-color: @tooltip-bg;

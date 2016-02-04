@@ -87,13 +87,13 @@
                                                                     <%#Eval("Name") %>
                                                                 </div>
                                                                 <div class="custom-col col-static-10">
-                                                                    <%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %>
+                                                                    <span class="text-ellipsis"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></span>
                                                                 </div>
                                                                 <div class="custom-col col-static-20">
                                                                     <span class="spServiceArea text-ellipsis" ></span><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
                                                                 </div>
                                                                 <div class="custom-col col-static-20">
-                                                                    <a  href="ServiceTimeline.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">详细服务时间</a>
+                                                                    <a class="btn btn-cancel-light" href="ServiceShelf.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">查看货架</a>
                                                                     <!--通过修改boostrap中的collapse模块功能，实现collapse标签中指定忽略指定target的功能-->
                                                                 </div>
                                                                 <div class="custom-col col-static-20">
@@ -183,7 +183,7 @@
         <div class="animated fadeInUpSmall">
             <div class="container-fluid">
                 <div class="empty-svc">
-                    <a id="firstAddBusiness" class="empty-svc-add" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>">点击创建新服务</a>
+                    <a id="firstAddBusiness" class="empty-svc-add" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>">点击创建新服务 <strong>+</strong></a>
                     <i class="empty-svc-icon"></i>
                     <p class="empty-svc-msg">点击创建新服务，让您服务专业化！</p>
                 </div>

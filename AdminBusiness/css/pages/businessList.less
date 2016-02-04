@@ -126,11 +126,23 @@
 }
 
 .svc-li {
-  width: 70px;
-  height: 70px;
   float: left;
+  + .svc-li {
+    margin-left: 30px;
+  }
 }
 
+.svc-item-h {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.svc-icon {
+  width: 70px;
+  height: 70px;
+  display: block;
+  background-position: center;
+}
 
 /* 新建店铺弹窗 */
 .newBiz {
@@ -203,17 +215,17 @@
 .empty-biz-icon {
   display: block;
   margin: 20px auto;
-  width: 62px;
-  height: 70px;
-  background: url("@{base-images-url}common/empty_box.png");
+  width: 89px;
+  height: 60px;
+  background: url("@{base-images-url}common/biz_add_new.png");
 }
 
 .empty-biz-msg {
   display: block;
   margin: 0 auto;
-  width: 400px;
+  width: 21em;
   font-size: 16px;
-  line-height: 1.4em;
+  line-height: 1.6em;
   word-break: break-all;
   a {
     font-weight: bold;
