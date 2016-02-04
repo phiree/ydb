@@ -137,7 +137,7 @@
   word-wrap: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 14px;
+  font-size: 16px;
   opacity: 1;
   filter: alpha(opacity=100);
 }
@@ -251,7 +251,7 @@
   padding: 10px 40px;
   font-size: 16px;
   line-height: 1.2em;
-  border-radius: 7px;
+  border-radius: 5px;
 }
 .btn:focus,
 .btn:active:focus,
@@ -536,7 +536,7 @@ fieldset[disabled] .btn-cancel-light.active {
   font-size: 16px;
   text-shadow: 0 1px 0 #fff;
   background: #ffffff;
-  border-radius: 8px;
+  border-radius: 5px;
   font-weight: 600;
   border: 1px solid #C7C7C7;
   background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
@@ -556,15 +556,15 @@ fieldset[disabled] .btn-cancel-light.active {
 }
 .btn-sm {
   padding: 10px 20px;
-  font-size: 14px;
-  line-height: 1.2em;
-  border-radius: 2em;
+  font-size: 16px;
+  line-height: 20px;
+  border-radius: 5px;
 }
 .btn-xs {
-  padding: 8px 10px;
-  font-size: 14px;
-  line-height: 1.2em;
-  border-radius: 2em;
+  padding: 10px 10px;
+  font-size: 16px;
+  line-height: 20px;
+  border-radius: 5px;
 }
 .btn-block {
   display: block;
@@ -6300,7 +6300,7 @@ a.time-trigger:hover {
   box-shadow: 0 4px 4px #DEDEDE;
   font-size: 22px;
   font-weight: bold;
-  text-shadow: 0 1px 4px #ccc;
+  text-shadow: 0 1px 4px #007694;
   text-align: center;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00b7ea+0,009ec3+100;Blue+3D+%2315 */
   background: #00b7ea;

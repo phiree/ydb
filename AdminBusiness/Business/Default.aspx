@@ -220,7 +220,7 @@
                         <div class="t-c">
                             <input class="btn btn-info" type="submit" runat="server" id="btnCreate"
                                    onserverclick="btnCreate_Click" value="创建"/><input
-                                class="lightClose btn btn-cancel m-l20" type="button" value="取消"/>
+                                class="lightClose btn btn-cancel-light m-l20" type="button" value="取消"/>
                         </div>
                     </div>
                 </div>
