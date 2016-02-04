@@ -58,7 +58,10 @@
 <!-- timeBucket template 时间段模版 -->
 <script type="text/template" id="timeBucket_template">
     <div class="t-b-top">
-        <div class="t-b-tip"><span>{%= timeStart %}</span>-<span>{%= timeEnd %}</span></div>
+        <div class="t-b-time">
+            <p class="t-b-timeStart">{% print( /\d+\:\d+/.exec(timeStart)); %}</p>
+            <p class="t-b-timeEnd">{% print( /\d+\:\d+/.exec(timeEnd)); %}</p>
+        </div>
         <div class="t-b-switch">
             <div class="round-checkbox v-m">
                 <input type="checkbox" {% if ( timeEnable ){ %} checked {% } %} id="{%= this.cid %}" />

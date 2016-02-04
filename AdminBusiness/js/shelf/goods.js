@@ -349,11 +349,11 @@
             });
 
             function start(collection, resp, options){
-                debugger;
+                //debugger;
                 console.log(collection);
                 console.log(resp);
                 console.log(options);
-                _this.initDayTab();
+
                 var today = _.find(collection.models, function(model){
                     //debugger;
 
@@ -365,6 +365,7 @@
                 /* 初始化day view */
 
                 _this.addDayView( typeof today !== 'undefined' && today );
+                _this.initDayTab();
             }
         },
         render : function(){
@@ -376,13 +377,14 @@
             var _this = this;
             var today = new Date();
             var requestDate = today.getFullYear() + "-" + (today.getMonth() + 1) + '-' + today.getDate();
+            var requestDateF = today.getFullYear() + "/" + (today.getMonth() + 1) + '/' + today.getDate();
 
             var tab = this.$('.day-tabs');
             /* 构造tab */
             _.each(days.models, function(day){
                 tab.append($('<input type="button" class="day-tab">').val(day.get('date')));
-                tab.find(".day-tab[value=" + requestDate + "]").addClass('active');
             });
+            tab.find('.day-tab[value="' + requestDateF + '"]').addClass('active');
             tab.find('.day-tab').on('click' , function(){
                 var date = $(this).val();
                 _this.showDayView(date);

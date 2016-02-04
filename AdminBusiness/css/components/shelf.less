@@ -197,13 +197,15 @@
 
 .t-b-top {
   overflow: hidden;
+  position: relative;
 }
 
-.t-b-tip {
+.t-b-time {
   width: 150px;
-  float: left;
-  height: @time-view-height;
-  line-height: @time-view-height;
+  position: absolute;
+  top: 25px;
+  text-align: center;
+  line-height: 1.8em;
 }
 
 .t-b-num {
@@ -284,6 +286,7 @@
   overflow: hidden;
   display: inline-block;
   position: relative;
+  margin-left: 150px;
 }
 
 @good-height: 80px;
@@ -301,6 +304,13 @@
   position: relative;
   transition: all 0.3s;
 }
+
+@media screen and ( max-width: 1500px ) {
+  .good-list-wrap {
+    width: 410px;
+  }
+}
+
 .good-next,
 .good-prev {
   float: left;
