@@ -354,7 +354,7 @@
                 console.log(resp);
                 console.log(options);
 
-                var today = _.find(collection.models, function(model){
+                var todayModel = _.find(collection.models, function(model){
                     //debugger;
 
                     return model.get('date') === requestDateF;
@@ -363,8 +363,9 @@
                     //return model.get('date') === requestDate;
                 });
                 /* 初始化day view */
-
-                _this.addDayView( typeof today !== 'undefined' && today );
+                if ( typeof todayModel !== 'undefined'){
+                    _this.addDayView();
+                }
                 _this.initDayTab();
             }
         },
