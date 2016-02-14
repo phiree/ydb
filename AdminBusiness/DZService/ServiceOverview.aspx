@@ -20,73 +20,22 @@
                                 <div class="shelf-overview-wrap">
                                     <div class="shelf-overview" id="shelfOverview">
                                         <asp:Repeater runat="server" ID="rptServiceList">
-
                                             <ItemTemplate>
-                                                  <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"><input class="serviceid" type="hidden" value='<%#Eval("Id") %>' /></div>
-                                                <div class="box-bg-b"></div>
+                                            <div class="shelf-box">
+                                                <div class="shelf-box-bg">
+                                                    <div class="box-bg-t"></div>
+                                                    <div class="box-bg-b"></div>
+                                                </div>
+                                                <div class="shelf-box-m">
+                                                    <div class="box-m-t"><%# Eval("Name") %></div>
+                                                    <a href='/DZService/ServiceShelf.aspx?serviceid=<%# Eval("Id") %>' class="box-m-b">
+                                                        <div class="box-m-bg"></div>
+                                                        <div class="box-m-icon"></div>
+                                                    </a>
+                                                </div>
                                             </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-bg"></div>
-                                                <div class="box-m-t">服务名称<%# Eval("Name") %> </div>
-                                                <div class="box-m-icon"></div>
-                                            </div>
-                                        </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-t">服务名称</div>
-                                                <a href="/DZService/ServiceShelf.aspx" class="box-m-b">
-                                                    <div class="box-m-bg"></div>
-                                                    <div class="box-m-icon"></div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-b">
-                                                    <div class="box-m-bg"></div>
-                                                    <div class="box-m-icon"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-b">
-                                                    <div class="box-m-bg"></div>
-                                                    <div class="box-m-icon"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="shelf-box">
-                                            <div class="shelf-box-bg">
-                                                <div class="box-bg-t"></div>
-                                                <div class="box-bg-b"></div>
-                                            </div>
-                                            <div class="shelf-box-m">
-                                                <div class="box-m-t">服务名称</div>
-                                                <div class="box-m-b">
-                                                    <div class="box-m-bg"></div>
-                                                    <div class="box-m-icon"></div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
