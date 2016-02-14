@@ -23,9 +23,15 @@
 
     /* defaults */
     StaffAppoint.DEFAULTS = {
-        lightBox: null,
         staffContainer: null,
-        appointSubmit: null
+
+        single: true,
+
+        beforePullFunc: null,
+        pullReqData: {},
+
+        appointSubmit: null,
+        appointSucFunc: null
     };
 
     $.extend(StaffAppoint.prototype, {
@@ -102,12 +108,15 @@
             this._upload(appointJSON);
         },
         _upload: function (jsonData) {
+            var _this = this;
             $.ajax({
                 url : '/staff.json',
                 dataType : 'json',
                 data : jsonData,
                 success : function(data, textStatus, xhr){
-                    alert('appoint success');
+                    if ( typeof _this.options.appointSucFunc === 'function' ){
+                        _this.options.appointSucFunc();
+                    }
                 }
             });
         }

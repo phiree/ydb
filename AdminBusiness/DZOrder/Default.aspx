@@ -39,7 +39,7 @@
                                                         客户名称
                                                     </div>
                                                 </div>
-                                                <div class="custom-col col-10-3">
+                                                <div class="custom-col col-10-2">
                                                     <div class="l-b">
                                                         服务地址
                                                     </div>
@@ -54,7 +54,11 @@
                                                         订单状态
                                                     </div>
                                                 </div>
-
+                                                <div class="custom-col col-10-1">
+                                                    <div class="l-b">
+                                                        订单详情
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="order-list" id="accordion" role="tablist" aria-multiselectable="true">
@@ -80,7 +84,7 @@
                                                             林先生
                                                         </div>
                                                     </div>
-                                                    <div class="custom-col col-10-3">
+                                                    <div class="custom-col col-10-2">
                                                         <div class="order-li">
                                                             北京市XXXXXXXXXX
                                                         </div>
@@ -93,6 +97,11 @@
                                                     <div class="custom-col col-10-2">
                                                         <div class="order-li">
                                                             <span>处理中</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="custom-col col-10-1">
+                                                        <div class="order-li">
+                                                            <a href="" class="btn btn-cancel-light btn-xs">订单详情</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -295,6 +304,10 @@
             staffContainer : '#staffsContainer',
             appointSubmit : '#appointSubmit',
             single : true,
+            appointSucFunc: function(){
+                alert('指派成功');
+                $('.lightClose').click();
+            },
             pullReqData : { businessId : '132131321331' }
         })
     </script>
