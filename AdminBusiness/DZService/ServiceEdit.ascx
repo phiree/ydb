@@ -170,18 +170,20 @@
                                                                         <li><a>元&nbsp;/&nbsp;次</a></li>
                                                                     </ul>
                                                                     <input type="hidden" id="rblChargeUnit" value="0" runat="server" snsi />
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row model-form-group">
                                                         <div class="col-md-4 model-label-lg">提前预约时间</div>
-                                                        <div class="col-md-8 model-input">
+                                                        <div class="col-md-8 model-input-unit">
                                                             <div class="select select-fluid min-select" data-toggle="tooltip" data-placement="top" title="请填写该服务的提前预约的时间（0为无需预约）">
                                                                 <ul>
                                                                 </ul>
                                                                 <asp:TextBox runat="server" snsi CssClass="input-fluid dis-n" ID="tbxOrderDelay">60</asp:TextBox>
                                                             </div>
+                                                            <em class="unit">分钟</em>
                                                         </div>
                                                     </div>
                                                     <div class="row model-form-group">
@@ -249,7 +251,7 @@
                                                             <div runat="server" id="dvTag">
                                                                 <DZ:Tag runat="server" ID="dzTag" />
                                                             </div>
-                                                            <p class="cont-input-tip input-tip-fluid"><i class="icon icon-tip"></i>添加该服务的特色标签</p>
+                                                            <p class="cont-input-tip input-tip-fluid"><i class="icon icon-tip"></i>添加该服务的特色标签，多个标签用空格隔开</p>
                                                         </div>
                                                     </div>
                                                     <!--<p class="cont-sub-title">平台认证</p>-->

@@ -4759,7 +4759,7 @@ a.time-trigger:hover {
   width: 78px;
   line-height: 30px;
   text-indent: 0.8em;
-  background: url("../image/shop_green_09.png") no-repeat right;
+  background: url("../images/common/select_arrow.png") no-repeat right;
   text-align: left;
   cursor: pointer;
 }
@@ -5645,7 +5645,7 @@ a.time-trigger:hover {
   width: 160px;
 }
 .model-form .model-input-unit {
-  padding-right: 45px;
+  padding-right: 50px;
   position: relative;
 }
 .model-form .model-input-unit em.unit {
@@ -5657,7 +5657,12 @@ a.time-trigger:hover {
   padding-right: 115px;
   position: relative;
 }
-.model-form .model-select-unit {
+.model-form .model-input-unit-sm em.unit {
+  position: absolute;
+  top: 6px;
+  right: 15px;
+}
+.model-form .model-input-unit-sm .model-select-unit {
   width: 95px;
   position: absolute;
   top: 0;
@@ -5678,7 +5683,10 @@ a.time-trigger:hover {
   width: 150px;
 }
 .spTag {
-  background: #ececec;
+  border: 1px solid #afafaf;
+  border-radius: 5px;
+  margin-top: 10px;
+  background: #FFF4DB;
   color: #424242;
   padding: 5px;
   margin-right: 10px;
@@ -5687,7 +5695,7 @@ a.time-trigger:hover {
   width: 20px;
   height: 20px;
   margin-left: 5px;
-  background: url("../images/common/delete.png") no-repeat center;
+  background: url("../images/common/icon/delete.png") no-repeat center;
   color: transparent;
   border: 0;
 }
@@ -7025,6 +7033,16 @@ a.doReg-forget {
 .service-panel-list::-webkit-scrollbar-corner {
   display: none;
 }
+/* 服务列表详情 */
+.service-detail-row {
+  line-height: 1.4em;
+  padding: 6px 0;
+  overflow: hidden;
+}
+.service-detail-intro {
+  float: left;
+  width: 80%;
+}
 /* 服务编辑地图样式 */
 #allmap {
   width: 100%;
@@ -7034,7 +7052,7 @@ a.doReg-forget {
   display: inline-block;
   vertical-align: middle;
   width: 50%;
-  margin-left: 10px;
+  margin: 5px 10px;
   background: #E1F5FF;
   border: 1px solid #AFC2C7;
   border-radius: 5px;

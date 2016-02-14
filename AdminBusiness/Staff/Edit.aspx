@@ -27,7 +27,7 @@
                                                        id="empheadimg" name="empheadimg"/>
                                                 <i class="input-file-bg" style='background-image:url(<%=StaffAvatarUrl%>)'></i>
                                                 <i class="input-file-mark"></i>
-                                                <i class="input-file-hover">修改头像</i>
+                                                <!--<i class="input-file-hover">修改头像</i>-->
                                                 <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
                                             </div>
                                         </div>

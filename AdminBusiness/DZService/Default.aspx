@@ -108,65 +108,49 @@
                                                         </div>
                                                         <div id="collapse<%# Container.ItemIndex + 1 %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%# Container.ItemIndex + 1 %>">
                                                             <div class="panel-body">
-                                                                <div class="service-panel-detail">
-                                                                    <div class="">服务介绍：<%#Eval("Description") %></div>
-                                                                    <div class="">
-                                                                        <div class="service-p-d">
-                                                                            <div>起步价：<span ><%# ((decimal)Eval("MinPrice")).ToString("#") %></span>&nbsp;元</div>
-                                                                            <div>单价：<span><%#((decimal)Eval("UnitPrice")).ToString("#") %></span>&nbsp;元/
-                                                                                <%# ((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Hour"?"小时":(((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Day"? "天":"次") %></div>
+                                                                <div class="service-detail-row">
+                                                                    <span class="fl">服务介绍：</span><div class="service-detail-intro"><%#Eval("Description") %></div>
+                                                                </div>
+                                                                <div class="service-detail-row">
+                                                                    <div class="custom-grid">
+                                                                        <div class="custom-col col-static-20">起步价：<%# ((decimal)Eval("MinPrice")).ToString("#") %>&nbsp;元</div>
+                                                                        <div class="custom-col col-static-20">单价：<%#((decimal)Eval("UnitPrice")).ToString("#") %>&nbsp;元/
+                                                                            <%# ((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Hour"?"小时":(((Dianzhu.Model.Enums.enum_ChargeUnit)Eval("ChargeUnit")).ToString()=="Day"? "天":"次") %></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="service-detail-row">
+                                                                    <div class="custom-grid">
+                                                                        <div class="custom-col col-static-20">
+                                                                            服务对象：<%#((bool)Eval("IsForBusiness"))?"可以对公":"对私" %>
                                                                         </div>
-                                                                        <div class="service-p-d">
-                                                                            <div>服务对象：<%#((bool)Eval("IsForBusiness"))?"可以对公":"对私" %></div>
-                                                                            <div>服务保障：<%# ((bool)Eval("IsCompensationAdvance"))?"有":"无" %></div>
-                                                                        </div>
-                                                                        <div class="service-p-d">
-                                                                            <div> 平台认证：<%# ((bool)Eval("IsCertificated"))?"有":"无" %></div>
-                                                                            <div></div>
+                                                                        <div class="custom-col col-static-20">
+                                                                            服务保障：<%# ((bool)Eval("IsCompensationAdvance"))?"有":"无" %>
                                                                         </div>
                                                                     </div>
-                                                                    <div class=""></div>
                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-3">
-
-                                                                    </div>
-                                                                    <div class="col-md-3">
-
-                                                                    </div>
-                                                                    <div class="col-md-3">
-
+                                                                <div class="service-detail-row">
+                                                                    <div class="custom-grid">
+                                                                        <div class="custom-col col-static-20">
+                                                                            平台认证：<%# ((bool)Eval("IsCertificated"))?"有":"无" %>
+                                                                        </div>
+                                                                        <div class="custom-col col-static-20">
+                                                                            服务方式：<%#  (Dianzhu.Model.Enums.enum_ServiceMode)Eval("ServiceMode")==Dianzhu.Model.Enums.enum_ServiceMode.NotToHouse?"不上门":"上门" %>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-3">
-
-                                                                    </div>
-                                                                    <div class="col-md-3">
-
-                                                                    </div>
-                                                                    <div class="col-md-3"></div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-3">
-                                                                        服务方式：<%#  (Dianzhu.Model.Enums.enum_ServiceMode)Eval("ServiceMode")==Dianzhu.Model.Enums.enum_ServiceMode.NotToHouse?"不上门":"上门" %>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        每日最大接单量：<span><%# Eval("MaxOrdersPerDay") %></span>&nbsp;单
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        每时最大接单量：<span><%# Eval("MaxOrdersPerHour") %></span>&nbsp;单
+                                                                <div class="service-detail-row">
+                                                                    <div class="custom-grid">
+                                                                        <div class="custom-col col-static-20">
+                                                                            每日最大接单量：<%# Eval("MaxOrdersPerDay") %>&nbsp;单
+                                                                        </div>
+                                                                        <div class="custom-col col-static-20">
+                                                                            每时最大接单量：<%# Eval("MaxOrdersPerHour") %>&nbsp;单
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </ItemTemplate>
                                             </asp:Repeater>
                                         </div>
@@ -221,13 +205,13 @@
                         $(that).html("禁用");
                         $($(that).parent().parent()).find(".service-status").html("已启用");
                         $($(that).parent().parent()).find(".service-status").removeClass("theme-color-delete").addClass("theme-color-right");
-                        $(that).removeClass("btn-info").addClass("btn-cancel-light");
+//                        $(that).removeClass("btn-info").addClass("btn-cancel-light");
                     }
                     else {
                         $(that).html("启用");
                         $($(that).parent().parent()).find(".service-status").html("已禁用");
                         $($(that).parent().parent()).find(".service-status").removeClass("theme-color-right").addClass("theme-color-delete");
-                        $(that).addClass("btn-info").removeClass("btn-cancel-light");
+//                        $(that).addClass("btn-info").removeClass("btn-cancel-light");
 
                     }
 
@@ -257,21 +241,23 @@
                var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());
            $(this).html(jsonServiceArea.serPointAddress);
            });
-                            
 
        });
     </script>
-    <script src="/js/validation_service_edit.js" type="text/javascript"></script>
-    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
-    <script>
-        function loadBaiduMapScript() {
-          var script = document.createElement("script");
-          script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initializeService";
-          document.body.appendChild(script);
-        }
+    <!--<script type="text/javascript">-->
+        <!--var name_prefix = 'ctl00$ctl00$ContentPlace Holder1$ContentPlaceHolder1$ctl00$';-->
+    <!--</script>-->
+    <!--<script src="/js/validation_service_edit.js" type="text/javascript"></script>-->
+    <!--<script src="/js/validation_invalidHandler.js" type="text/javascript"></script>-->
+    <!--<script>-->
+        <!--function loadBaiduMapScript() {-->
+          <!--var script = document.createElement("script");-->
+          <!--script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initializeService";-->
+          <!--document.body.appendChild(script);-->
+        <!--}-->
 
-        $(document).ready(function(){
-            loadBaiduMapScript();
-        })
-    </script>
+        <!--$(document).ready(function(){-->
+            <!--loadBaiduMapScript();-->
+        <!--})-->
+    <!--</script>-->
 </asp:Content>

@@ -26,7 +26,7 @@
                                             </div>
                                             <div class="shelf-box-m">
                                                 <div class="box-m-t">服务名称</div>
-                                                <a href="/DZService//ServiceShelf.aspx" class="box-m-b">
+                                                <a href="/DZService/ServiceShelf.aspx" class="box-m-b">
                                                     <div class="box-m-bg"></div>
                                                     <div class="box-m-icon"></div>
                                                 </a>
