@@ -95,12 +95,12 @@
     </div>
     <div class="t-b-edit">
         <div class="edit-t">
-            <input class="multiDelete" type="button" value="-"/>
+            <input class="multiDelete" type="button" value="下架货品"/>
             <input class="multiNum" type="number" value="1" title="填写修改量"/>
-            <input class="multiAdd" type="button" value="+"/>
+            <input class="multiAdd" type="button" value="上架货品"/>
         </div>
         <div class="edit-b">
-            <span class="l-h20">添加或删除服务数量</span>
+            <span class="l-h20">（填写要添加/删除的服务货品数量）</span>
         </div>
     </div>
 </script>

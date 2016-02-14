@@ -12,13 +12,22 @@
             <div class="container-fluid animated fadeInUpSmall">
                 <div class="row">
                     <div class="col-md-12">
-                        <div></div>
+                        <div class="biz-total-card">
+                            <div class="biz-card-t">
+                                <strong class="biz-card-tl">6.5</strong>
+                                <div class="biz-card-tr">
+                                    <p>%</p>
+                                    <p>增长率</p>
+                                </div>
+                            </div>
+                            <div class="biz-card-b"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="d-hr"></div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="cont-h3">店铺基本信息</h3>
+                        <h3 class="biz-detail-head">店铺基本信息</h3>
                     </div>
                 </div>
                 <div class="row">
@@ -49,7 +58,7 @@
                                     </div>
 
                                 </div>
-                                <div class="d-hr"></div>
+                                <div class="d-hr in"></div>
                                 <div class="row model-row">
                                     <div class="col-md-1 model-img"></div>
                                     <div class="col-md-4">
