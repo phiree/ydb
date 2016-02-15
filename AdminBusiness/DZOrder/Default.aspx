@@ -91,7 +91,7 @@
                                                     </div>
                                                     <div class="custom-col col-10-1">
                                                         <div class="order-li">
-                                                            <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="appointToggle" data-appointTargetId="8787984984613481846">
+                                                            <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="appointToggle" data-appointTargetId="8787984984613481846" >
                                                         </div>
                                                     </div>
                                                     <div class="custom-col col-10-2">
@@ -295,22 +295,33 @@
     </script>
     <script>
         $('[data-role="appointToggle"]').appoint({
+            container : '#staffsContainer',
+            template : '#staffs_template',
+
+            single : true,
+
+            appointSubmit : '#appointSubmit',
+            appointSucFunc: function(){
+                alert('指派成功');
+                $('.lightClose').click();
+            },
+
             beforePullFunc : function (){
                 return $("#staffAppointLight").lightbox_me({
                     centered : true
                 });
             },
-            container : '#staffsContainer',
-            template : '#staffs_template',
-            appointSubmit : '#appointSubmit',
-            single : true,
-            appointSucFunc: function(){
-                alert('指派成功');
-                $('.lightClose').click();
-            },
-            pullReqData : { businessId : '132131321331' },
+
             pullUrl : '/staff.json',
-            uploadUrl : '/staff.json'
+            pullReqData : { businessId : '132131321331' },
+
+
+            uploadUrl : '/staff.json',
+            uploadPreFixData : { businessId : '132131321331' },
+
+            /* 订单页指派，item为员工，target为订单 */
+            checkItemName : 'staffId',
+            appointTargetName : 'orderId'
         })
     </script>
 </asp:Content>

@@ -187,45 +187,54 @@
         $(".btnAssign").click(function () {
             var $this = $(this);
             $.post("/ajaxservice/changestaffInfo.ashx",
-                    {
-                        "changed_field": "assign",
-                        "changed_value": false,
-                        "id": $this.attr("staffId")
-                    }, function (data) {
-                        var enabled = data.data;
-                        var $card = $this.parents(".emp-model");
-                        var $assignFlag = $card.find(".emp-assign-flag");
-                        if ( enabled == "True" ) {
-                            $this.val("取消指派");
-                            $this.addClass("assigned").removeClass("noAssign");
-                            $assignFlag.addClass("assigned").removeClass("noAssign");
-                        }
-                        else {
-                            $this.val("指派");
-                            $this.removeClass("assigned").addClass("noAssign");
-                            $assignFlag.removeClass("assigned").addClass("noAssign");
-                        }
-                    });
+                {
+                    "changed_field": "assign",
+                    "changed_value": false,
+                    "id": $this.attr("staffId")
+                }, function (data) {
+                    var enabled = data.data;
+                    var $card = $this.parents(".emp-model");
+                    var $assignFlag = $card.find(".emp-assign-flag");
+                    if ( enabled == "True" ) {
+                        $this.val("取消指派");
+                        $this.addClass("assigned").removeClass("noAssign");
+                        $assignFlag.addClass("assigned").removeClass("noAssign");
+                    }
+                    else {
+                        $this.val("指派");
+                        $this.removeClass("assigned").addClass("noAssign");
+                        $assignFlag.removeClass("assigned").addClass("noAssign");
+                    }
+                });
         });
     </script>
     <script>
         $('[data-role="appointToggle"]').appoint({
+            container : '#ordersContainer',
+            template : '#orders_template',
+
+            single : true,
+
+            appointSubmit : '#appointSubmit',
+            appointSucFunc: function(){
+                alert('指派成功');
+                $('.lightClose').click();
+            },
+
             beforePullFunc : function (){
                 return $("#orderAppointLight").lightbox_me({
                     centered : true
                 });
             },
-            container : '#ordersContainer',
-            template : '#orders_template',
-            appointSubmit : '#appointSubmit',
-            single : true,
-            appointSucFunc: function(){
-                alert('指派成功');
-                $('.lightClose').click();
-            },
-            pullReqData : { businessId : '132131321331' },
             pullUrl : '/staff.json',
-            uploadUrl : '/staff.json'
+            pullReqData : { businessId : '132131321331' },
+
+            uploadUrl : '/staff.json',
+            uploadPreFixData : { businessId : '132131321331' },
+
+            /* 订单页指派，item为订单，target为员工 */
+            checkItemName : 'orderId',
+            appointTargetName : 'staffId'
         })
     </script>
 </asp:Content>

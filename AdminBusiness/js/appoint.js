@@ -23,20 +23,39 @@
 
     /* defaults */
     Appoint.DEFAULTS = {
+        /* 包含item的容器 */
         container: null,
+
+        /* item使用的模版引擎，目前仅限制为underscore的模版 */
         template: null,
 
+        /* 单个指派设置 */
         single: true,
 
+        /* 再刷新item前的前置函数 */
         beforePullFunc: null,
+
+        /* 刷新item时请求的ajax data */
         pullReqData: {},
 
+        /* 刷新item时请求的的url */
         pullUrl : null,
+
+        /* 上次数据的url */
         uploadUrl : null,
 
-        appointSubmit: null,
-        appointSucFunc: null
+        /* 可是设置json对要upload数据进行预处理 */
+        uploadPreFixData : {},
 
+        /* 指派提交按钮 */
+        appointSubmit: null,
+
+        /* 指派成功成功后的回调函数 */
+        appointSucFunc: null,
+
+        /* 可指定的提交json数据属性名，checkItemName为选择元素id的属性名，appointTargetName为目标id的属性名 */
+        checkItemName : 'item',
+        appointTargetName : 'target'
     };
 
     $.extend(Appoint.prototype, {
@@ -76,8 +95,10 @@
                 escape:      /\{%-(.+?)%\}/g,
                 evaluate:    /\{%(.+?)%\}/g
             });
+
             this.$container.html(template(jsonData));
         },
+        /* items构造 */
         itemsBuild : function(){
             if ( !this.options.single ) {
                 return;
@@ -92,7 +113,7 @@
         },
         appoint: function () {
             var checkItems = this.$container.find('[data-role="item"]:checked');
-            var arrCheckId = [];
+            var checkId;
             var appointJSON = {};
 
             if ( !checkItems.length ) { return false; }
@@ -100,17 +121,31 @@
             /* 如果设置为单选时，检测check的长度 */
             if ( this.options.single && checkItems.length > 1 ) { return false; }
             if ( !this.options.single ) {
+                checkId = [];
                 for (var i = 0; i < checkItems.length; i++) {
-                    arrCheckId.push(this.attr('data-itemId'));
+                    checkId.push(this.attr('data-itemId'));
                 }
             } else {
-                arrCheckId.push(checkItems.eq(0).attr('data-itemId'));
+                checkId = checkItems.eq(0).attr('data-itemId');
             }
-            $.extend(appointJSON, {
-                arrCheckItem: arrCheckId,
-                appointTargetId: this.appointTargetId
-            });
+
+            appointJSON = this._appointJSONBuild(checkId);
             this._upload(appointJSON);
+        },
+        _appointJSONBuild : function(checkId){
+            var _this = this;
+            var appointJSON = {} ;
+
+            appointJSON.single = _this.options.single;
+
+            /* 通过自定义的变量名指定appointJSON数据 */
+            appointJSON[_this.options.checkItemName] = checkId;
+            appointJSON[_this.options.appointTargetName] = _this.appointTargetId;
+
+            /* 合并预处理json数据 */
+            appointJSON = $.extend( _this.options.uploadPreFixData, appointJSON);
+
+            return appointJSON;
         },
         _upload: function (jsonData) {
             var _this = this;
