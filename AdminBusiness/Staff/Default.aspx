@@ -36,8 +36,8 @@
                                                 </div>
                                             </div>
                                             <div class="emp-model-b">
-                                                <input type="button" staffId='<%#Eval("id") %>' class='btnAssign emp-assign <%# (bool)Eval("IsAssigned")?"assigned":"noAssign" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/>
-                                                <input type="button" value="指派" data-role="appointToggle" data-appointTargetId="4654684186464868" >
+                                                <!--<input type="button" staffId='<%#Eval("id") %>' class='btnAssign emp-assign <%# (bool)Eval("IsAssigned")?"assigned":"noAssign" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/>-->
+                                                <input type="button" class="emp-assign" value="指派" data-role="appointToggle" data-appointTargetId='<%#Eval("id") %>' >
                                             </div>
                                         </div>
                                         <!--end emp-model-->
@@ -169,16 +169,6 @@
         })
     </script>
     <script type="text/javascript">
-        //            function listHref(url) {
-        //                var eve = window.event || arguments.callee.caller.arguments[0];
-        //                var $target = $(eve.target);
-        //                if ($target.hasClass("btn")) {
-        //                    return false
-        //                } else if (eve.target == eve.target) {
-        //                    window.location.href = url;
-        //                };
-        //            }
-
         $().ready(function(){
             $('[rel="tooltip"]').tooltip();
 
