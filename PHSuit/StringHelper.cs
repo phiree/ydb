@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Xml;
+
 namespace PHSuit
 {
     public class StringHelper
     {
+       
         //
         public static string InsertToId(string guidWithNo)
         {
@@ -289,6 +292,8 @@ namespace PHSuit
 
    public class JsonHelper
     {
+        static log4net.ILog log = log4net.LogManager.GetLogger("PHSuit.JsonHelper");
+        
         private const string INDENT_STRING = "    ";
         public static string FormatJson(string str)
         {
@@ -346,6 +351,47 @@ namespace PHSuit
                 }
             }
             return sb.ToString();
+        }
+        /// <summary>
+        /// xml格式字符串转换为json格式.  cdata的内容直接取出.
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <param name="removeRoot"></param>
+        /// <returns></returns>
+        public static string Xml2Json(string xml,bool removeRoot)
+        {
+            Regex r1 = new Regex(@"<!\[cdata\[.*?\]\]\>", RegexOptions.IgnoreCase);
+            Regex r2 = new Regex(@"(?<=<!\[cdata\[).*?(?=\]\])", RegexOptions.IgnoreCase);
+            MatchCollection m1 = r1.Matches(xml);
+            MatchCollection m2 = r2.Matches(xml);
+            
+            for (int i = 0; i < m1.Count; i++)
+            {
+                xml = xml.Replace(m1[i].Value, m2[i].Value);
+            }
+            if (m1.Count != m2.Count)
+            {
+                log.Error("xml解析有误: Cdata解析有误.");
+                throw new Exception("xml解析有误:Cdata解析有误.");
+            }
+            
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xml);
+            if (m1.Count > 0)
+            {
+                XmlNode n = xmlDoc.CreateElement("HasCDATA");
+                n.InnerText = "True";
+                xmlDoc.DocumentElement. AppendChild(n);
+            }
+
+            //if (removeRoot)
+            //{
+            //    xml = xmlDoc.InnerXml.Replace("<xml>", string.Empty)
+            //        .Replace("</xml>", string.Empty);
+
+            //}
+            string json = Newtonsoft.Json.JsonConvert.SerializeXmlNode(xmlDoc, Newtonsoft.Json.Formatting.Indented, true);
+            return json;
         }
     }
 

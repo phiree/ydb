@@ -76,13 +76,18 @@ public class ResponsePY001007:BaseResponse
 
                     string requestUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder?";
                     string resultTokenWechat = HttpHelper.CreateHttpRequestPostXml(requestUrl, respDataWechat);
+                    resultTokenWechat = resultTokenWechat.Replace("\\n", string.Empty);
+                   string json= JsonHelper.Xml2Json(resultTokenWechat,true);
 
                     //todo:下面这段数据就是返回的字符串，不知道怎么解析
                     //resultTokenWechat="<xml>< return_code >< ![CDATA[SUCCESS]] ></ return_code >\n      < return_msg >< ![CDATA[OK]] ></ return_msg >\n            < appid >< ![CDATA[wxd928d1f351b77449]] ></ appid >\n                  < mch_id >< ![CDATA[1304996701]] ></ mch_id >\n                        < nonce_str >< ![CDATA[RnTyNTtoDpMC335q]] ></ nonce_str >\n                              < sign >< ![CDATA[8440115DC99103B7B242042239395967]] ></ sign >\n                                    < result_code >< ![CDATA[SUCCESS]] ></ result_code >\n                                          < prepay_id >< ![CDATA[wx201602031137215b5350a5300317902456]] ></ prepay_id >\n                                                < trade_type >< ![CDATA[APP]] ></ trade_type >\n                                                      </ xml > ";
 
-                    //RespDataPY001007 respData= JsonConvert.DeserializeObject<RespDataPY001007>(resultTokenWechat);
-                    //RespDataPY001007 respData = XmlUtil.Deserialize(typeof(RespDataPY001007), resultTokenWechat) as RespDataPY001007;
-
+                    RespDataPY001007 respData =   JsonConvert.DeserializeObject<RespDataPY001007>(json);
+                    this.RespData = respData;
+                    if (respData.return_code != "SUCCESS")
+                    {
+                        this.state_CODE = Dicts.StateCode[1];
+                    }
                     break;
                 default:
                     break;
@@ -102,6 +107,7 @@ public class ResponsePY001007:BaseResponse
             return;
         }
     }
+    
 
     private string DownloadToMediaserver(string fileUrl)
     {
@@ -140,5 +146,6 @@ public class RespDataPY001007
 
     public string trade_type { get; set; }//交易类型
     public string prepay_id { get; set; }//预支付交易会话标识
-    public string code_url { get; set; }//二维码链接    
+    public string code_url { get; set; }//二维码链接 
+
 }
