@@ -945,6 +945,9 @@ body {
 .block {
   display: block !important;
 }
+.o-a {
+  overflow: auto;
+}
 /* 全局标题样式 */
 .cont-h1 {
   font-size: 28px;
@@ -6675,6 +6678,54 @@ a.time-trigger:hover {
   background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
   background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+}
+/* 指派弹出样式 */
+.light-list-head {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 30px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+.light-list-head .custom-col + .custom-col .l-b {
+  border-left: 1px solid #ccc;
+}
+.light-list {
+  height: 500px;
+  overflow-x: auto;
+}
+.light-list::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+  border: 0;
+}
+.light-list::-webkit-scrollbar-button {
+  display: none;
+}
+.light-list::-webkit-scrollbar-track {
+  display: none;
+}
+.light-list::-webkit-scrollbar-track-piece {
+  background: #CCCCCC;
+}
+.light-list::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #999;
+}
+.light-list::-webkit-scrollbar-corner {
+  display: none;
+}
+.light-row {
+  height: 85px;
+  line-height: 85px;
+  padding: 0;
+  text-align: center;
+  color: #333;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+.orders-container {
+  overflow-y: hidden;
 }
 .register-wrap {
   height: 100%;

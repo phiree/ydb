@@ -11,10 +11,10 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
 };
 
-.list(@h){
-  height: 600px;
+.list(@h,@mb){
+  height: @h;
   overflow-x: auto;
-  margin-bottom: -20px;
+  margin-bottom: @mb;
   &::-webkit-scrollbar {
     width: 5px;
     background : transparent;

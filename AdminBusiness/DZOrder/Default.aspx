@@ -91,7 +91,7 @@
                                                     </div>
                                                     <div class="custom-col col-10-1">
                                                         <div class="order-li">
-                                                            <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="staffAptToggle" data-appointOrderId="8787984984613481846">
+                                                            <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="appointToggle" data-appointTargetId="8787984984613481846">
                                                         </div>
                                                     </div>
                                                     <div class="custom-col col-10-2">
@@ -206,7 +206,7 @@
                                             </asp:Repeater>
                                         </div>
                                     </div>
-                            </div>
+                                </div>
                         </div>
                         <div class="col-md-2">
                             <div class="model">
@@ -264,7 +264,7 @@
                             </div>
                         </div>
                         <div class="emp-model-b">
-                            <input class="staffCheckbox" type="checkbox" value="指派" data-role="staff" data-staffId="{%= staff %}" id="{%= staff %}" >
+                            <input class="staffCheckbox" type="checkbox" value="指派" data-role="item" data-itemId="{%= staff %}" id="{%= staff %}" >
                             <label for="{%= staff %}"></label>
                         </div>
                     </div>
@@ -282,8 +282,7 @@
     <script src="/js/shelf/underscore.js"></script>
     <script src="/js/shelf/mock.js"></script>
     <script src="/js/jquery.lightBox_me.js"></script>
-    <script src="/js/jquery.lightBox_me.js"></script>
-    <script src="/js/staffAppoint.js"></script>
+    <script src="/js/appoint.js"></script>
     <script>
         Mock.mockjax(jQuery);
         Mock.mock(/staff.json/, function(){
@@ -295,20 +294,23 @@
         })
     </script>
     <script>
-        $('[data-role="staffAptToggle"]').staffAppoint({
+        $('[data-role="appointToggle"]').appoint({
             beforePullFunc : function (){
                 return $("#staffAppointLight").lightbox_me({
                     centered : true
                 });
             },
-            staffContainer : '#staffsContainer',
+            container : '#staffsContainer',
+            template : '#staffs_template',
             appointSubmit : '#appointSubmit',
             single : true,
             appointSucFunc: function(){
                 alert('指派成功');
                 $('.lightClose').click();
             },
-            pullReqData : { businessId : '132131321331' }
+            pullReqData : { businessId : '132131321331' },
+            pullUrl : '/staff.json',
+            uploadUrl : '/staff.json'
         })
     </script>
 </asp:Content>

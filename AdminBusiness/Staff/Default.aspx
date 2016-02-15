@@ -3,7 +3,7 @@
    <%@ Register Namespace="Wuqi.Webdiyer" Assembly="AspNetPager" TagPrefix="UC" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
+<asp:Content ID="Content4" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="content">
@@ -37,6 +37,7 @@
                                             </div>
                                             <div class="emp-model-b">
                                                 <input type="button" staffId='<%#Eval("id") %>' class='btnAssign emp-assign <%# (bool)Eval("IsAssigned")?"assigned":"noAssign" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/>
+                                                <input type="button" value="指派" data-role="appointToggle" data-appointTargetId="4654684186464868" >
                                             </div>
                                         </div>
                                         <!--end emp-model-->
@@ -61,31 +62,131 @@
             </div>
         </div>
     </div>
+    <div id="orderAppointLight" class="appointWindow dis-n">
+        <div class="model">
+            <div class="model-h">
+                <h4>订单指派</h4>
+            </div>
+            <div class="model-m no-padding">
+                <div id="ordersContainer" class="orders-container">
+                    <!-- 注入#orders_temlate模版内容 -->
+                </div>
+            </div>
+            <div class="model-b">
+                <input id="appointSubmit" class="btn btn-info" type="button" value="确定指派" data-role="appointSubmit" >
+                <input class="btn btn-cancel-light lightClose" type="button" value="取消" >
+            </div>
+        </div>
+
+    </div>
+    <script type="text/template" id="orders_template">
+        <div class="light-list-head">
+            <div class="custom-grid">
+                <div class="custom-col col-10-1">
+                    <div class="l-b">
+                        服务时间
+                    </div>
+                </div>
+                <div class="custom-col col-10-2">
+                    <div class="l-b">
+                        服务项目
+                    </div>
+                </div>
+                <div class="custom-col col-10-1">
+                    <div class="l-b">
+                        客户名称
+                    </div>
+                </div>
+                <div class="custom-col col-10-4">
+                    <div class="l-b">
+                        服务地址
+                    </div>
+                </div>
+                <div class="custom-col col-10-2">
+                    <div class="l-b">
+                        指派
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="light-list">
+            {% _.each(orderId, function(order){ %}
+            <div class="light-row">
+                <div class="custom-grid">
+                    <div class="custom-col col-10-1">
+                        <div class="order-li">
+                            2015-9-12
+                        </div>
+                    </div>
+                    <div class="custom-col col-10-2">
+                        <div class="order-li">
+                            洗车
+                        </div>
+                    </div>
+                    <div class="custom-col col-10-1">
+                        <div class="order-li">
+                            林先生
+                        </div>
+                    </div>
+                    <div class="custom-col col-10-4">
+                        <div class="order-li">
+                            北京市XXXXXXXXXX
+                        </div>
+                    </div>
+                    <div class="custom-col col-10-2">
+                        <div class="order-li">
+                            <div class="">
+                                <input class="orderCheckbox" type="checkbox" value="指派" data-role="item" data-itemId="{%= order %}" id="{%= order %}" >
+                                <label for="{%= order %}"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% }) %}
+        </div>
+
+    </script>
     <asp:GridView runat="server" ID="gvStaff">
         <Columns>
             <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="edit.aspx?id={0}" />
         </Columns>
     </asp:GridView>
-        <script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
-        <script type="text/javascript">
-//            function listHref(url) {
-//                var eve = window.event || arguments.callee.caller.arguments[0];
-//                var $target = $(eve.target);
-//                if ($target.hasClass("btn")) {
-//                    return false
-//                } else if (eve.target == eve.target) {
-//                    window.location.href = url;
-//                };
-//            }
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="bottom" runat="Server">
+    <script src="/js/shelf/underscore.js"></script>
+    <script src="/js/shelf/mock.js"></script>
+    <script src="/js/jquery.lightBox_me.js"></script>
+    <script src="/js/appoint.js"></script>
+    <script>
+        Mock.mockjax(jQuery);
+        Mock.mock(/staff.json/, function(){
+            return Mock.mock({
+                'orderId|10-20' : [
+                    '@guid'
+                ]
+            })
+        })
+    </script>
+    <script type="text/javascript">
+        //            function listHref(url) {
+        //                var eve = window.event || arguments.callee.caller.arguments[0];
+        //                var $target = $(eve.target);
+        //                if ($target.hasClass("btn")) {
+        //                    return false
+        //                } else if (eve.target == eve.target) {
+        //                    window.location.href = url;
+        //                };
+        //            }
 
-            $().ready(function(){
-                $('[rel="tooltip"]').tooltip();
+        $().ready(function(){
+            $('[rel="tooltip"]').tooltip();
 
-            });
+        });
 
-            $(".btnAssign").click(function () {
-                var $this = $(this);
-                $.post("/ajaxservice/changestaffInfo.ashx",
+        $(".btnAssign").click(function () {
+            var $this = $(this);
+            $.post("/ajaxservice/changestaffInfo.ashx",
                     {
                         "changed_field": "assign",
                         "changed_value": false,
@@ -105,7 +206,26 @@
                             $assignFlag.removeClass("assigned").addClass("noAssign");
                         }
                     });
-            });
-        </script>
-
+        });
+    </script>
+    <script>
+        $('[data-role="appointToggle"]').appoint({
+            beforePullFunc : function (){
+                return $("#orderAppointLight").lightbox_me({
+                    centered : true
+                });
+            },
+            container : '#ordersContainer',
+            template : '#orders_template',
+            appointSubmit : '#appointSubmit',
+            single : true,
+            appointSucFunc: function(){
+                alert('指派成功');
+                $('.lightClose').click();
+            },
+            pullReqData : { businessId : '132131321331' },
+            pullUrl : '/staff.json',
+            uploadUrl : '/staff.json'
+        })
+    </script>
 </asp:Content>

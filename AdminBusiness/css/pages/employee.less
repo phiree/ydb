@@ -201,3 +201,27 @@
   }
 
 }
+
+/* 指派弹出样式 */
+.light-list-head {
+  .list-head();
+  .custom-col {
+    & + .custom-col {
+      .l-b {
+        border-left: 1px solid #ccc;
+      }
+    }
+  }
+}
+
+.light-list {
+  .list(500px, 0);
+}
+
+.light-row {
+  .list-li(85px);
+}
+
+.orders-container {
+  overflow-y: hidden;
+}
