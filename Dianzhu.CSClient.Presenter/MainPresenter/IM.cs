@@ -16,7 +16,7 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="chat"></param>
         public void IMReceivedMessage(ReceptionChat chat)
         {
-           
+            view.WindowNotification();
             SaveMessage(chat, false);
             if (chat.ChatType== Model.Enums.enum_ChatType.Notice
                 &&chat.ServiceOrder == null)

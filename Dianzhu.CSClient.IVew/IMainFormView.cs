@@ -46,6 +46,8 @@ namespace Dianzhu.CSClient.IVew
     public delegate void NoticeOrder();
     public delegate void NoticePromote();
     public delegate void NoticeCustomerService();
+
+   
     /// <summary>
     /// 客服分配
     /// </summary>
@@ -69,7 +71,10 @@ namespace Dianzhu.CSClient.IVew
         
         IList<ReceptionChat> ChatLog { set; get; }
         void LoadOneChat( ReceptionChat chat);
-       
+        /// <summary>
+        /// 窗体通知
+        /// </summary>
+         void WindowNotification();
         /// <summary>
         /// 搜索关键字.
         /// </summary>
