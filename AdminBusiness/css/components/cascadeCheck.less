@@ -1,0 +1,82 @@
+/* 服务选择样式 */
+.serLightContainer {
+  background: #fff;
+}
+
+.serListContainer {
+  padding: 20px;
+}
+
+.serChoiceMain {
+  padding: 20px;
+}
+
+.serChoiceSearch{
+
+}
+
+.serChoiceContainer {
+  border: 1px solid #ccc;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.serChoiceTitle {
+  padding: 10px 20px 10px 20px;
+  color: #fff;
+  background: #539cc6;
+}
+
+.serChoiceResult {
+  padding: 0 20px;
+  background: #fff;
+  span {
+    display: block;
+    padding: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #539cc6;
+    border-radius: 5px;
+    background: #9DDFFF;
+  }
+}
+
+.serChoiceBtn {
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+/* 多级列表样式 */
+.checkLists {
+  overflow: hidden;
+}
+
+.checkListWrap {
+  float: left;
+  width: 200px;
+  height: 350px;
+  overflow-y: scroll;
+  & + .checkListWrap {
+    //padding-left: 20px;
+  }
+}
+
+.checkListItem {
+  line-height: 1.8em;
+  padding: 0 10px;
+  &:nth-of-type(2n){
+    background: #CCCCCC;
+    &.searchMark {
+      background: #88E0AE;
+    }
+  }
+  &:hover {
+    background: #9DDFFF;
+  }
+  &.selected {
+    background: #539cc6 !important;
+    color: #fff;
+  }
+  &.searchMark {
+    background: #A3FFCA;
+  }
+}

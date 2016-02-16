@@ -15,8 +15,9 @@
     <script type="text/javascript" src="/js/ServiceType.js"></script>
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
     <script type="text/javascript" src="/js/StepByStep.js"></script>
-    <script type="text/javascript" src="/js/TabSelection.js"></script>
-    <script src="/js/serviceTimeSelect.js" type="text/javascript"></script>
+    <!--<script type="text/javascript" src="/js/TabSelection.js"></script>-->
+    <script type="text/javascript" src="/js/CascadeCheck.js"></script>
+    <script type="text/javascript" src="/js/serviceTimeSelect.js"></script>
     <script type="text/javascript">
         var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$ctl00$';
     </script>
@@ -36,16 +37,63 @@
 
             $(".service-time-table tbody tr:even").addClass("list-item-odd");
 
-            $("#serList").ServiceSelect({
-                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
-                "choiceContainer": "serChoiceContainer",
-                "choiceOutContainer": "lblSelectedType",
-                "printInputID": "hiTypeId",
-                "choiceConfBtn" : "serChoiceConf",
-                "localdata": typeList
+//            $("#serList").ServiceSelect({
+//                "datasource": "/ajaxservice/tabselection.ashx?type=servicetype",
+//                "choiceContainer": "serChoiceContainer",
+//                "choiceOutContainer": "lblSelectedType",
+//                "printInputID": "hiTypeId",
+//                "choiceConfBtn" : "serChoiceConf",
+//                "localdata": typeList
+//            });
+
+            $('#serChoiceContainer').cascadeCheck({
+                localData : true,
+                data : typeList,
+
+                outputTarget : null,
+                confirmTrigger : '#serChoiceConf',
+
+                checkedCallBack : showCheck,
+
+                submitTarget : '#hiTypeId',
+                submitCallback : showSubmit,
+
+                /* 取lightBox_me.js里面的位置重置函数，使每次新建列表时重置位置 */
+                printListCk : setSelfPosition
+
             });
 
+            function setSelfPosition() {
+                var $self = $('#serLightContainer');
+                var s = $self[0].style;
+                $self.css({left: '50%', marginLeft: ($self.outerWidth() / 2) * -1, zIndex: (999 + 3)});
+                if (($self.height() + 80 >= $(window).height()) && ($self.css('position') != 'absolute')) {
+                    var topOffset = $(document).scrollTop() + 40;
+                    $self.css({position: 'absolute', top: topOffset + 'px', marginTop: 0})
+                } else if ($self.height() + 80 < $(window).height()) {
+                    $self.css({position: 'fixed', top: '50%', marginTop: ($self.outerHeight() / 2) * -1})
+                }
+            }
+
+            function showCheck(checkId, checkText){
+                var checkTextEle = document.createElement('span');
+                checkTextEle.innerText = checkText;
+                $('#serChoiceResult').removeClass('dis-n').html(checkTextEle);
+            }
+
+            function removeCheck(){
+                $('#serChoiceResult').addClass('dis-n').html();
+            }
+
+            function showSubmit (checked, checkId, checkText){
+                $('#lblSelectedType').html(checkText)
+            }
+
+
             $("#setSerType").click(function (e) {
+                removeCheck();
+                $('#serChoiceContainer').cascadeCheck('build');
+
                 $('#serLightContainer').lightbox_me({
                     centered: true,
                     preventScroll: true

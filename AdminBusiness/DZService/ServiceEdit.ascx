@@ -62,24 +62,25 @@
                                                                 <input id="setSerType" class="btn btn-info" type="button" value="请选择服务信息" />
                                                                 <input class="dis-n" type="text" runat="server" focusid="setSerType" id="hiTypeId" />
                                                                 <asp:Label CssClass="business-radioCf text-ellipsis" runat="server" ID="lblSelectedType"></asp:Label>
-                                                                <div id="serLightContainer" class="serviceTabs dis-n">
+                                                                <div id="serLightContainer" class="serLightContainer dis-n">
                                                                     <div class="serChoiceTitle">
                                                                         选择服务信息
                                                                     </div>
-                                                                    <div class="serChoiceInfo clearfix">
-                                                                        <div id="serChoiceContainer" class="serChoiceContainer fl">
-                                                                            <em>已选择</em>
+                                                                    <div class="serChoiceMain">
+                                                                        <div class="serChoiceSearch">
+                                                                            <input id="checkSearch" type="text" data-role="checkSearchInput" />
+                                                                            <input type="button" value="search" data-trigger="checkSearch" data-input="#checkSearch" data-target="#serChoiceContainer"/>
+                                                                            <input type="button" data-trigger="checkSearchClose" data-input="#checkSearch" data-target="#serChoiceContainer" value="取消"/>
+
                                                                         </div>
-                                                                        <div class="serChoiceBtnContainer fr">
-                                                                            <div class="d-inb">
-                                                                                <div id="serChoiceConf" class="serChoiceBtn btn-confirm lightClose dis-n">
-                                                                                    确认</div>
-                                                                            </div>
-                                                                            <div id="serChoiceCancel" class="serChoiceBtn btn-cancel lightClose d-inb">
-                                                                                取消</div>
-                                                                        </div>
+                                                                        <div id="serChoiceContainer" class="serChoiceContainer checklists"></div>
                                                                     </div>
-                                                                    <div id="serList" class="serListContainer lightFluid clearfix">
+                                                                    <div id="serChoiceResult" class="serChoiceResult dis-n">
+
+                                                                    </div>
+                                                                    <div class="serChoiceBtn">
+                                                                        <input type="button" id="serChoiceConf" class="btn btn-info btn-xs lightClose" value="确认"/>
+                                                                        <input type="button" id="serChoiceCancel" class="btn btn-info btn-xs lightClose " value="取消" />
                                                                     </div>
                                                                 </div>
                                                             </div>

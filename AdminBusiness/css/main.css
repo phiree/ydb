@@ -945,9 +945,6 @@ body {
 .block {
   display: block !important;
 }
-.o-a {
-  overflow: auto;
-}
 /* 全局标题样式 */
 .cont-h1 {
   font-size: 28px;
@@ -4442,81 +4439,6 @@ p.checked {
   background: url("../images//common/validate/right.png") no-repeat 0 50%;
 }
 /* components */
-.serListContainer {
-  padding: 20px;
-  background: #fff;
-}
-.serChoiceTitle {
-  padding: 10px 20px 10px 20px;
-  color: #fff;
-  background: #539cc6;
-}
-.serChoiceInfo {
-  padding: 20px 20px 0 20px;
-  background: #fff;
-}
-.serListUlContainer {
-  float: left;
-  /*padding: 20px 0 20px 0;*/
-  background: #fff;
-  border: 1px solid #5ca1c9;
-}
-.serListUlContainer ul {
-  width: 200px;
-  height: 24em;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background: #fff;
-}
-.serListUlContainer ul li {
-  line-height: 1.5em;
-  color: #57789B;
-  padding-left: 20px;
-  cursor: pointer;
-}
-.serListUlContainer ul li.even {
-  background: #e3f1f8;
-}
-.serListUlContainer ul li.active {
-  color: #fff;
-  background: #8CC8E4;
-}
-.serListUlContainer ul li:hover {
-  color: #fff;
-  background: #8CC8E4;
-}
-.serChoiceContainer span {
-  display: inline-block;
-  padding: 3px;
-  background: #f3f4f9;
-  color: #57789B;
-  border: 1px solid #539cc6;
-  /*border-radius: 3px;*/
-  /*box-shadow: 0 1px 2px 1px #666;*/
-}
-.serChoiceContainer em {
-  display: inline-block;
-  padding: 4px;
-  color: #57789B;
-}
-.serListUl .choiceSer {
-  color: #fff;
-  background: #8CC8E4;
-}
-.serChoiceBtn.btn-confirm {
-  padding: 5px;
-  color: #fff;
-  background: #8ad6fe;
-  border-radius: 2px;
-  cursor: pointer;
-}
-.serChoiceBtn.btn-cancel {
-  padding: 5px;
-  color: #fff;
-  background: #c8c8c8;
-  border-radius: 2px;
-  cursor: pointer;
-}
 .svcType-icon-0b5b0a87-0a41-4412-9889-8abe8aa477f6 {
   background: url("../images/components/svcIcon/01.png");
 }
@@ -5559,6 +5481,72 @@ a.time-trigger:hover {
   color: #fff;
   text-align: left;
   text-shadow: 0 1px 1px #848484;
+}
+/* 服务选择样式 */
+.serLightContainer {
+  background: #fff;
+}
+.serListContainer {
+  padding: 20px;
+}
+.serChoiceMain {
+  padding: 20px;
+}
+.serChoiceContainer {
+  border: 1px solid #ccc;
+  margin-top: 15px;
+  overflow: hidden;
+}
+.serChoiceTitle {
+  padding: 10px 20px 10px 20px;
+  color: #fff;
+  background: #539cc6;
+}
+.serChoiceResult {
+  padding: 0 20px;
+  background: #fff;
+}
+.serChoiceResult span {
+  display: block;
+  padding: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #539cc6;
+  border-radius: 5px;
+  background: #9DDFFF;
+}
+.serChoiceBtn {
+  padding-bottom: 15px;
+  text-align: center;
+}
+/* 多级列表样式 */
+.checkLists {
+  overflow: hidden;
+}
+.checkListWrap {
+  float: left;
+  width: 200px;
+  height: 350px;
+  overflow-y: scroll;
+}
+.checkListItem {
+  line-height: 1.8em;
+  padding: 0 10px;
+}
+.checkListItem:nth-of-type(2n) {
+  background: #CCCCCC;
+}
+.checkListItem:nth-of-type(2n).searchMark {
+  background: #88E0AE;
+}
+.checkListItem:hover {
+  background: #9DDFFF;
+}
+.checkListItem.selected {
+  background: #539cc6 !important;
+  color: #fff;
+}
+.checkListItem.searchMark {
+  background: #A3FFCA;
 }
 /* global model */
 .model {
@@ -6686,6 +6674,11 @@ a.time-trigger:hover {
   line-height: 30px;
   text-align: center;
   border-bottom: 1px solid #ccc;
+  background: #f7f7f7;
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
 }
 .light-list-head .custom-col + .custom-col .l-b {
   border-left: 1px solid #ccc;
@@ -6693,6 +6686,7 @@ a.time-trigger:hover {
 .light-list {
   height: 500px;
   overflow-x: auto;
+  margin-bottom: 0;
 }
 .light-list::-webkit-scrollbar {
   width: 5px;
@@ -6721,7 +6715,7 @@ a.time-trigger:hover {
   padding: 0;
   text-align: center;
   color: #333;
-  background-color: #fff;
+  background-color: #f5f5f5;
   border-bottom: 1px solid #ddd;
 }
 .orders-container {
@@ -6993,7 +6987,7 @@ a.doReg-forget {
 .order-list {
   height: 600px;
   overflow-x: auto;
-  margin-bottom: -20px;
+  margin-bottom: 0;
 }
 .order-list::-webkit-scrollbar {
   width: 5px;
@@ -7096,7 +7090,7 @@ a.doReg-forget {
 .service-panel-list {
   height: 600px;
   overflow-x: auto;
-  margin-bottom: -20px;
+  margin-bottom: 0;
 }
 .service-panel-list::-webkit-scrollbar {
   width: 5px;
