@@ -3,7 +3,7 @@
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", "ad001006"
-//"slf002006", "slf002003", "slf001007",
+//"slf002006", "slf002003", "slf001007","py001007"
 "orm002001",
 
 ];
@@ -26,7 +26,7 @@ var test_data = [
     {
         "protocol_CODE": "AD001006",
         "ReqData": {
-            "md5": "88f04e2d6fe5a1697179f5ac5ecb216"
+            "md5": "cefb0abccc8b8d5b86fe33b17fa38078"
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"

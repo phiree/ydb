@@ -37,14 +37,14 @@ public class ResponseAD001006:BaseResponse
                     datetimeStr += ad.LastUpdateTime.ToString("yyyyMMddHHmmss") + " ";
                 }
                 datetimeStr = datetimeStr.TrimEnd(' ');
-                
+
                 //转为MD5
                 string datetimeMd5 = "";
                 MD5 md5Obj = MD5.Create();
                 byte[] d = md5Obj.ComputeHash(Encoding.GetEncoding("Utf-8").GetBytes(datetimeStr));
                 for(int i = 0; i < d.Length; i++)
                 {
-                    datetimeMd5 += d[i].ToString("x").ToLower();
+                    datetimeMd5 += d[i].ToString("x2");// 2 表示保留2为数字
                 }
 
                 if (datetimeMd5 == requestData.md5.ToLower())
@@ -88,7 +88,7 @@ public class RespDataADObj
         this.imgUrl = ad.ImgUrl != null ? Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + ad.ImgUrl : "";
         this.url = ad.Url;
         this.num = ad.Num.ToString();
-        this.time = ad.LastUpdateTime.ToString();
+        this.time = string.Format("{0:yyyyMMddHHmmss}", ad.LastUpdateTime);
 
         return this;
     }

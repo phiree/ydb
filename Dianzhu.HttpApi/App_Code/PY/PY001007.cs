@@ -82,23 +82,23 @@ public class ResponsePY001007:BaseResponse
                     //todo:下面这段数据就是返回的字符串，不知道怎么解析
                     //resultTokenWechat="<xml>< return_code >< ![CDATA[SUCCESS]] ></ return_code >\n      < return_msg >< ![CDATA[OK]] ></ return_msg >\n            < appid >< ![CDATA[wxd928d1f351b77449]] ></ appid >\n                  < mch_id >< ![CDATA[1304996701]] ></ mch_id >\n                        < nonce_str >< ![CDATA[RnTyNTtoDpMC335q]] ></ nonce_str >\n                              < sign >< ![CDATA[8440115DC99103B7B242042239395967]] ></ sign >\n                                    < result_code >< ![CDATA[SUCCESS]] ></ result_code >\n                                          < prepay_id >< ![CDATA[wx201602031137215b5350a5300317902456]] ></ prepay_id >\n                                                < trade_type >< ![CDATA[APP]] ></ trade_type >\n                                                      </ xml > ";
 
-                    RespDataPY001007 respData =   JsonConvert.DeserializeObject<RespDataPY001007>(json);
-                    this.RespData = respData;
+                    RespData_WeChatUserObj respData =   JsonConvert.DeserializeObject<RespData_WeChatUserObj>(json);
                     if (respData.return_code != "SUCCESS")
                     {
                         this.state_CODE = Dicts.StateCode[1];
+                        this.err_Msg = "支付请求错误！";
+                        return;
                     }
-                    break;
+                    RespDataPY001007 respObj = new RespDataPY001007();
+                    respObj.appid = respData.appid;
+                    respObj.partnerid = respData.mch_id;
+                    respObj.prepayid = respData.prepay_id;
+                    this.state_CODE = Dicts.StateCode[0];
+                    this.RespData = respObj;
+                    return;
                 default:
                     break;
             }
-
-            //RespData_userObj respObj = new RespData_userObj();
-            //respObj.userObj = userObj;
-            //respObj.pWord = pwd;
-            this.state_CODE = Dicts.StateCode[0];
-            //this.RespData = respObj;
-            return;
         }
         catch (Exception ex)
         {
@@ -130,7 +130,7 @@ public class ReqDataPY001007
     public string type { get; set; }
 }
 
-public class RespDataPY001007
+public class RespData_WeChatUserObj
 {
     public string return_code { get; set; }//返回状态码
     public string return_msg { get; set; }//返回信息
@@ -148,4 +148,11 @@ public class RespDataPY001007
     public string prepay_id { get; set; }//预支付交易会话标识
     public string code_url { get; set; }//二维码链接 
 
+}
+
+public class RespDataPY001007
+{
+    public string appid { get; set; }
+    public string partnerid { get; set; }
+    public string prepayid { get; set; }
 }
