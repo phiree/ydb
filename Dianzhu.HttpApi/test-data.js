@@ -1,10 +1,11 @@
 ﻿var need_to_test = [
- //"orm002001", "orm001003", "orm001004", "orm001005", 
+ //"orm002001", "orm001003", "orm001004", "orm001005", "orm003005", "orm003006", "orm003007"
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", "ad001006"
 //"slf002006", "slf002003", "slf001007",
-"py001007"
+"orm002001",
+
 ];
 var test_data = [
 
@@ -248,6 +249,40 @@ var test_data = [
                    "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
                    "pWord": "123456",
                    "orderID": "2cba0bc4-2133-45e6-8dc4-a53000bb6e1c",
+               },
+               "stamp_TIMES": "1490192929212",
+               "serial_NUMBER": "00147001015869149751"
+           },
+
+           {
+               "protocol_CODE": "ORM003005",
+               "ReqData": {
+                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                   "pWord": "123456",
+                   "orderID": "a756ede1-f90d-45af-8fec-a55c00fcb115",
+               },
+               "stamp_TIMES": "1490192929212",
+               "serial_NUMBER": "00147001015869149751"
+           },
+
+           {
+               "protocol_CODE": "ORM003006",
+               "ReqData": {
+                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                   "pWord": "123456",
+                   "orderID": "a756ede1-f90d-45af-8fec-a55c00fcb115",
+               },
+               "stamp_TIMES": "1490192929212",
+               "serial_NUMBER": "00147001015869149751"
+           },
+
+           {
+               "protocol_CODE": "ORM003007",
+               "ReqData": {
+                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                   "pWord": "123456",
+                   "orderID": "c7e1c471-16e1-46aa-8e65-a56000fe27fd",
+                   "status": "Assigned",
                },
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"

@@ -82,6 +82,7 @@
     <Compile Include="DALReceptionChat.cs" />
     <Compile Include="DALReceptionStatusArchieve.cs" />
     <Compile Include="DALOrderAssignment.cs" />
+    <Compile Include="DALServiceOrderStateChangeHis.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
