@@ -46,16 +46,16 @@ namespace Dianzhu.CSClient.WinformView
         public event AudioPlay PlayAudio;
         public event OrderStateChanged OrderStateChanged;
         public event CreateNewOrder CreateNewOrder;
-
+        public event NoticeCustomerService NoticeCustomerService;
         public event NoticeSystem NoticeSystem;
         public event NoticeOrder NoticeOrder;
         public event NoticePromote NoticePromote;
-        public event NoticeCustomerService NoticeCustomerService;
-
+      
         public event ReAssign ReAssign;
         public event SaveReAssign SaveReAssign;
 
         public event MessageSentAndNew MessageSentAndNew;
+        
 
         #endregion
 
@@ -230,7 +230,7 @@ namespace Dianzhu.CSClient.WinformView
             //对当前窗体已存在控件的操作
             Action lambda = () =>
             {
-                FlashInTaskBar.FlashWindowEx(this);
+               // WindowNotification();
                 pnlChat.Controls.Add(pnlOneChat);
                 pnlChat.ScrollControlIntoView(pnlOneChat);
             };
@@ -955,6 +955,11 @@ namespace Dianzhu.CSClient.WinformView
         private void btnSendAndNew_Click(object sender, EventArgs e)
         {
             MessageSentAndNew();
+        }
+
+        public void WindowNotification()
+        {
+           FlashInTaskBar.FlashWindowEx(this);
         }
 
         /// <summary>
