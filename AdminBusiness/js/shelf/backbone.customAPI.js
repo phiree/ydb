@@ -87,15 +87,13 @@
 
         if ( !options.dataFilter ) {
             options.dataFilter = function(rawData, type){
-                console.log(type);
-                console.log(rawData);
+                //console.log(type);
+                //console.log(rawData);
                 var jsonResp = JSON.parse(rawData);
                 var Resp = jsonResp.RespData;
 
                 /* mock.js本地测试代码 */
                 //var Resp = rawData.RespData;
-
-
                 if ( Resp === null ) {
                     if ( options.methodPost ){
                         return;
@@ -111,9 +109,9 @@
 
         var error = options.error;
         options.error = function(xhr, textStatus, errorThrown) {
-            console.log(xhr);
-            console.log(textStatus);
-            console.log(errorThrown);
+            //console.log(xhr);
+            //console.log(textStatus);
+            //console.log(errorThrown);
             options.textStatus = textStatus;
             options.errorThrown = errorThrown;
             if ( error ) { error.apply(this, arguments); }
@@ -122,8 +120,6 @@
 
         //make request
         var xhr = options.xhr = Backbone.ajax(_.extend(params, options));
-        debugger;
-        console.log(xhr);
         model.trigger('request', model, xhr, options);
         return xhr;
     };

@@ -151,7 +151,6 @@
 
                 /* 服务货架good-list控制函数 */
                 function goodAct(eve){
-                    debugger;
                     var moveWidth = 90;
                     var curLeft = $this.find('.good-list-wrap').scrollLeft();
 
@@ -284,7 +283,6 @@
             var timeBuckets = this.$('.time-buckets');
             var dayEdit = this.$('.day_edit');
             // checked的改变和事件触发的顺序好像比较诡异，是checked的属性先改变然后再到触发事件，可以研究一下。
-            debugger;
             if ( event.target && event.target.checked ) {
                 timeBuckets.removeClass('t-b-close');
             } else {
@@ -335,7 +333,6 @@
 
             this.render();
 
-            //debugger;
             //days.url = '/days.json';
             days.url = 'http://localhost:806/dianzhuapi.ashx';
             days.fetch({
@@ -349,13 +346,11 @@
             });
 
             function start(collection, resp, options){
-                //debugger;
                 console.log(collection);
                 console.log(resp);
                 console.log(options);
 
                 var todayModel = _.find(collection.models, function(model){
-                    //debugger;
 
                     return model.get('date') === requestDateF;
 
@@ -364,7 +359,7 @@
                 });
                 /* 初始化day view */
                 if ( typeof todayModel !== 'undefined'){
-                    _this.addDayView();
+                    _this.addDayView(todayModel);
                 }
                 _this.initDayTab();
             }

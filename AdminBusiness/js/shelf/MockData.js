@@ -6,14 +6,12 @@
     var todayDate = today.getDate() - 7;
 
     function resqDay(){
-        //debugger;
         var Date = today.getFullYear() + "-" + (today.getMonth() + 1) + '-' + (todayDate++);
         return Date;
     }
 
     Mock.mock(/days.json/,function(options){
         var respDate = Random.now('yyyy-M-d');
-        debugger;
         //console.log(options);
         var day = Mock.mock({
             'protocol_CODE' : 'slf001007',
