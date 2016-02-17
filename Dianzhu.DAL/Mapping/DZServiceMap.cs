@@ -34,7 +34,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.ServiceTimeBegin);
             Map(x => x.ServiceTimeEnd);
             Map(x => x.UnitPrice);
-            Map(x => x.Enabled).Default("True");
+            Map(x => x.Enabled);
             Map(x => x.CreatedTime);
             Map(x => x.LastModifiedTime);
             HasMany<ServiceOpenTime>(x => x.OpenTimes).Cascade.SaveUpdate();
