@@ -14,6 +14,7 @@ namespace Dianzhu.Model
         public Business_Abs()
         {
             Enabled = true;
+            CreatedTime = DateTime.Now;
         }
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
@@ -66,6 +67,7 @@ namespace Dianzhu.Model
             BusinessImages = new List<BusinessImage>();
             ServiceType = new List<ServiceType>();
             CashTicketTemplates = new List<CashTicketTemplate>();
+            
             
         }
         /// <summary>
@@ -123,12 +125,12 @@ namespace Dianzhu.Model
         /// <summary>
         /// 申请日期
         /// </summary>
-        public virtual DateTime DateApply { get; set; }
+        public virtual DateTime? DateApply { get; set; }
        
         /// <summary>
         /// 审核通过日期
         /// </summary>
-        public virtual DateTime DateApproved { get; set; }
+        public virtual DateTime? DateApproved { get; set; }
         /// <summary>
         /// 单张营业执照
         /// </summary>
