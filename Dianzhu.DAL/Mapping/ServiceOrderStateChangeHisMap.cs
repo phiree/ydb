@@ -14,11 +14,13 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             References<ServiceOrder>(x => x.Order);
             Map(x => x.Status).CustomType<Model.Enums.enum_OrderStatus>();
-            Map(x => x.NewAmount);
-            Map(x => x.OldAmount);
+            Map(x => x.OrderAmount);
+            Map(x => x.DepositAmount);
+            Map(x => x.NegotiateAmount);
             Map(x => x.Remark);
-            Map(x => x.LastUpdateTime);
-            References<DZMembership>(x => x.UpdateController);
+            Map(x => x.CreatTime);
+            References<DZMembership>(x => x.Controller);
+            Map(x => x.Number);
         }
     }
 }

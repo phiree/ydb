@@ -26,6 +26,7 @@ namespace Dianzhu.CSClient.Presenter
         BLLReceptionChatDD bllReceptionChatDD;
         BLLIMUserStatus bllIMUserStatus;
         BLLReceptionStatusArchieve bllReceptionStatusArchieve;
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis;
         string server;
         int rsaCustomerAmount;
 
@@ -47,6 +48,7 @@ namespace Dianzhu.CSClient.Presenter
             this.bllReceptionChatDD = new BLLReceptionChatDD();
             this.bllIMUserStatus = new BLLIMUserStatus();
             this.bllReceptionStatusArchieve = new BLLReceptionStatusArchieve();
+            this.bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
 
             //  IM的委托
             this.instantMessage.IMPresent += new IMPresent(IMPresent);

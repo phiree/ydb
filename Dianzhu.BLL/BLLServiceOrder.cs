@@ -19,14 +19,14 @@ namespace Dianzhu.BLL
         DALServiceOrder DALServiceOrder = null;
         DZMembershipProvider membershipProvider = null;
         BLLDZService bllDzService = null;
-
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
        
         public BLLServiceOrder()
         {
             DALServiceOrder = DALFactory.DALServiceOrder;
             membershipProvider = new DZMembershipProvider();
             bllDzService = new BLLDZService();
-
+            bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
         }
 
 
@@ -191,14 +191,23 @@ namespace Dianzhu.BLL
             OrderServiceFlow flow = new OrderServiceFlow(order, targetStatus);
             flow.ChangeStatus();
 
+            int num = 1;
+            ServiceOrderStateChangeHis oldOrderHis = bllServiceOrderStateChangeHis.GetMaxNumberOrderHis(order);
+            if (oldOrderHis != null)
+            {
+                num = oldOrderHis.Number + 1;
+            }
             ServiceOrderStateChangeHis orderHist = new ServiceOrderStateChangeHis
             {
-                NewAmount = order.OrderAmount,
+                OrderAmount = order.OrderAmount,
+                DepositAmount = order.DepositAmount,
+                NegotiateAmount = order.NegotiateAmount,
                 Order = order,
                 Remark = string.Empty,
                 Status = targetStatus,
+                Number = num,
             };
-
+            bllServiceOrderStateChangeHis.SaveOrUpdate(orderHist);
             SaveOrUpdate(order);
 
             log.Debug("调用IMServer,发送订单状态变更通知");
@@ -276,5 +285,34 @@ namespace Dianzhu.BLL
         };
     }
 
+    public class BLLServiceOrderStateChangeHis
+    {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
 
+        DALServiceOrderStateChangeHis dalServiceOrderStateChangeHis = null;
+        public BLLServiceOrderStateChangeHis()
+        {
+            dalServiceOrderStateChangeHis = DALFactory.DALServiceOrderStateChangeHis;
+        }
+
+        public void SaveOrUpdate(ServiceOrderStateChangeHis orderHis)
+        {
+            dalServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
+        }
+
+        public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
+        {
+            return dalServiceOrderStateChangeHis.GetMaxNumberOrderHis(order);
+        }
+
+        public IList<ServiceOrderStateChangeHis> GerFirstTwoOrderHisListByOrder(ServiceOrder order)
+        {
+            return dalServiceOrderStateChangeHis.GetFirstTwoOrderHisListByOrder(order);
+        }
+
+        public IList<ServiceOrderStateChangeHis> GetOrderHisList(ServiceOrder order)
+        {
+            return dalServiceOrderStateChangeHis.GetOrderHisList(order);
+        }
+    }
 }
