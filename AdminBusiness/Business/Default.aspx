@@ -104,7 +104,9 @@
                                                                     </div>
                                                                     <div class="biz-href">
                                                                         <a class="biz-into" href='Detail.aspx?businessId=<%#Eval("Id") %>'>进入店铺</a>
-                                                                        <asp:Button CssClass="biz-delete" title="删除店铺"
+                                                                        <asp:Button CssClass="biz-delete"
+                                                                                    text="删除店铺"
+                                                                                    title="删除店铺"
                                                                                     runat="server"
                                                                                     OnClientClick="javascript:return confirm('确定要删除该店铺么?')"
                                                                                     CommandArgument='<%#Eval("Id") %>'
@@ -118,10 +120,10 @@
                                                                                       ID="rptServiceType">
                                                                             <ItemTemplate>
                                                                                 <li class='svc-li'>
-                                                                                    <a class='svc-icon svcType-icon-<%#Eval("Id") %>'></a>
-
+                                                                                    <a class='svc-icon svcType-b-icon-<%#Eval("Id") %>'></a>
                                                                                     <div class="svc-item-h">
-                                                                                        <%#Eval("Name") %></div>
+                                                                                        <%#Eval("Name") %>
+                                                                                    </div>
                                                                                 </li>
                                                                             </ItemTemplate>
                                                                         </asp:Repeater>

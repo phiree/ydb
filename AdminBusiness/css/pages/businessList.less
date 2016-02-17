@@ -15,7 +15,7 @@
 
 .biz-item-main {
   border-radius: 5px;
-  border: 1px solid #898989;
+  border: 1px solid #B3B3B3;
   overflow: hidden;
 }
 
@@ -28,8 +28,8 @@
   font-weight: bold;
   text-shadow: 0 1px 0 #fff;
   padding: 15px 18px;
-  border-bottom: 1px solid #898989;
-  box-shadow: 0 4px 4px #DEDEDE;
+  border-bottom: 1px solid #B3B3B3;
+  box-shadow: 0 4px 4px #eaeaea;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffd65e+0,febf04+100;Yellow+3D+%232 */
   background: #ffd65e; /* Old browsers */
   background: -moz-linear-gradient(top,  #ffd65e 0%, #febf04 100%); /* FF3.6-15 */
@@ -78,6 +78,7 @@
 }
 
 .biz-btn(@color){
+  font-family: inherit;
   font-size: 16px;
   font-weight: bold;
   color: @color;
@@ -111,14 +112,20 @@
 }
 
 .biz-delete {
-  .biz-btn(#3399cc);
+  .biz-btn(#aaa);
 }
 
 /* 店铺服务 */
 .biz-item-svc {
-  padding: 20px 32px;
-  background: #fff;
-  border-top: 1px solid #7e7e7e;
+  padding: 16px 32px;
+  border-top: 1px solid #B3B3B3;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,efefef+100 */
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ffffff 0%, #efefef 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #ffffff 0%,#efefef 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #ffffff 0%,#efefef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#efefef',GradientType=0 ); /* IE6-9 */
+
 }
 
 .svc-list {
@@ -134,7 +141,6 @@
 
 .svc-item-h {
   text-align: center;
-  margin-top: 10px;
 }
 
 .svc-icon {
@@ -149,9 +155,9 @@
   width: 700px;
   min-height: 450px;
   background: #ffffff;
-  border: 1px solid #898989;
+  border: 1px solid #B3B3B3;
   border-radius: 8px;
-  box-shadow: 0 0 18px 5px #898989;
+  box-shadow: 0 0 18px 5px #B3B3B3;
   overflow: hidden;
 }
 
@@ -159,7 +165,7 @@
   height: 70px;
   line-height: 70px;
   color: #fff;
-  box-shadow: 0 4px 4px #DEDEDE;
+  box-shadow: 0 4px 4px #eaeaea;
   font-size: 22px;
   font-weight: bold;
   text-shadow: 0 1px 4px #007694;
