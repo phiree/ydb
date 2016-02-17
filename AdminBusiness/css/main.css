@@ -443,8 +443,8 @@ fieldset[disabled] .btn-cancel.active {
   color: #afafaf;
   background-color: #fff;
 }
-/* 轻取消类按钮 */
-.btn-cancel-light {
+/* 轻量化类按钮 */
+.btn-info-light {
   color: #fff;
   background-color: #afafaf;
   border-color: transparent;
@@ -460,6 +460,94 @@ fieldset[disabled] .btn-cancel.active {
   /* IE6-9 */
   color: #3AA6DD;
   border: 1px solid #3AA6DD;
+  text-shadow: none;
+}
+.btn-info-light:focus,
+.btn-info-light.focus {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-info-light:hover {
+  color: #fff;
+  background-color: #bcbcbc;
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-info-light:visited {
+  color: #fff;
+}
+.btn-info-light:active,
+.btn-info-light.active,
+.open > .dropdown-toggle.btn-info-light {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-info-light:active:hover,
+.btn-info-light.active:hover,
+.open > .dropdown-toggle.btn-info-light:hover,
+.btn-info-light:active:focus,
+.btn-info-light.active:focus,
+.open > .dropdown-toggle.btn-info-light:focus,
+.btn-info-light:active.focus,
+.btn-info-light.active.focus,
+.open > .dropdown-toggle.btn-info-light.focus {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-info-light:active,
+.btn-info-light.active,
+.open > .dropdown-toggle.btn-info-light {
+  background-image: none;
+}
+.btn-info-light.disabled,
+.btn-info-light[disabled],
+fieldset[disabled] .btn-info-light,
+.btn-info-light.disabled:hover,
+.btn-info-light[disabled]:hover,
+fieldset[disabled] .btn-info-light:hover,
+.btn-info-light.disabled:focus,
+.btn-info-light[disabled]:focus,
+fieldset[disabled] .btn-info-light:focus,
+.btn-info-light.disabled.focus,
+.btn-info-light[disabled].focus,
+fieldset[disabled] .btn-info-light.focus,
+.btn-info-light.disabled:active,
+.btn-info-light[disabled]:active,
+fieldset[disabled] .btn-info-light:active,
+.btn-info-light.disabled.active,
+.btn-info-light[disabled].active,
+fieldset[disabled] .btn-info-light.active {
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-info-light .badge {
+  color: #afafaf;
+  background-color: #fff;
+}
+.btn-info-light:hover,
+.btn-info-light:focus,
+.btn-info-light:visited {
+  color: #3AA6DD;
+  border-color: #3AA6DD;
+}
+.btn-cancel-light {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+  background: #f7f7f7;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f7f7f7, endColorstr=#eaeaea, GradientType=0);
+  /* IE6-9 */
+  color: #afafaf;
+  border: 1px solid #afafaf;
   text-shadow: none;
 }
 .btn-cancel-light:focus,
@@ -529,8 +617,96 @@ fieldset[disabled] .btn-cancel-light.active {
 .btn-cancel-light:hover,
 .btn-cancel-light:focus,
 .btn-cancel-light:visited {
-  color: #3AA6DD;
-  border-color: #3AA6DD;
+  color: #afafaf;
+  border-color: #afafaf;
+}
+.btn-delete-light {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+  background: #f7f7f7;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f7f7f7, endColorstr=#eaeaea, GradientType=0);
+  /* IE6-9 */
+  color: #ed928f;
+  border: 1px solid #ed928f;
+  text-shadow: none;
+}
+.btn-delete-light:focus,
+.btn-delete-light.focus {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-delete-light:hover {
+  color: #fff;
+  background-color: #bcbcbc;
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-delete-light:visited {
+  color: #fff;
+}
+.btn-delete-light:active,
+.btn-delete-light.active,
+.open > .dropdown-toggle.btn-delete-light {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-delete-light:active:hover,
+.btn-delete-light.active:hover,
+.open > .dropdown-toggle.btn-delete-light:hover,
+.btn-delete-light:active:focus,
+.btn-delete-light.active:focus,
+.open > .dropdown-toggle.btn-delete-light:focus,
+.btn-delete-light:active.focus,
+.btn-delete-light.active.focus,
+.open > .dropdown-toggle.btn-delete-light.focus {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-delete-light:active,
+.btn-delete-light.active,
+.open > .dropdown-toggle.btn-delete-light {
+  background-image: none;
+}
+.btn-delete-light.disabled,
+.btn-delete-light[disabled],
+fieldset[disabled] .btn-delete-light,
+.btn-delete-light.disabled:hover,
+.btn-delete-light[disabled]:hover,
+fieldset[disabled] .btn-delete-light:hover,
+.btn-delete-light.disabled:focus,
+.btn-delete-light[disabled]:focus,
+fieldset[disabled] .btn-delete-light:focus,
+.btn-delete-light.disabled.focus,
+.btn-delete-light[disabled].focus,
+fieldset[disabled] .btn-delete-light.focus,
+.btn-delete-light.disabled:active,
+.btn-delete-light[disabled]:active,
+fieldset[disabled] .btn-delete-light:active,
+.btn-delete-light.disabled.active,
+.btn-delete-light[disabled].active,
+fieldset[disabled] .btn-delete-light.active {
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-delete-light .badge {
+  color: #afafaf;
+  background-color: #fff;
+}
+.btn-delete-light:hover,
+.btn-delete-light:focus,
+.btn-delete-light:visited {
+  color: #ed928f;
+  border-color: #ed928f;
 }
 .btn-gray-light {
   padding: 5px 25px;
@@ -4541,6 +4717,57 @@ p.checked {
 .svcType-s-icon-8231a5bf-dbd0-4125-ac67-8ca0e1f051bc {
   background: url("../images/components/svcIcon/s_16.png");
 }
+.svcType-l-icon-0b5b0a87-0a41-4412-9889-8abe8aa477f6 {
+  background: url("../images/components/svcIcon/svc_l_01.png");
+}
+.svcType-l-icon-3ba2c7d6-4187-4e0b-95c4-7363344a7014 {
+  background: url("../images/components/svcIcon/svc_l_02.png");
+}
+.svcType-l-icon-91cb99c0-91a3-40dd-b552-ae6a21a1b84c {
+  background: url("../images/components/svcIcon/svc_l_03.png");
+}
+.svcType-l-icon-af1ed948-a186-4a90-a565-b6b90ea343ac {
+  background: url("../images/components/svcIcon/svc_l_04.png");
+}
+.svcType-l-icon-83dcb35c-544a-4eb3-b389-0ece8883a47c {
+  background: url("../images/components/svcIcon/svc_l_05.png");
+}
+.svcType-l-icon-5db125be-d580-474d-b744-4ae8500f1180 {
+  background: url("../images/components/svcIcon/svc_l_06.png");
+}
+.svcType-l-icon-5a60ef01-84a3-47ae-86b1-47412b956014 {
+  background: url("../images/components/svcIcon/svc_l_07.png");
+}
+.svcType-l-icon-fc62dbf8-2517-421e-b692-73970280c2f9 {
+  background: url("../images/components/svcIcon/svc_l_08.png");
+}
+.svcType-l-icon-3904f58e-781a-46a8-95c4-ca0e2ff3cc50 {
+  background: url("../images/components/svcIcon/svc_l_09.png");
+}
+.svcType-l-icon-e76f62ef-f065-481c-b91c-17123cdc4cfd {
+  background: url("../images/components/svcIcon/svc_l_10.png");
+}
+.svcType-l-icon-805ff396-b5ce-4ef9-9598-5e81b5d4d2ed {
+  background: url("../images/components/svcIcon/svc_l_11.png");
+}
+.svcType-l-icon-13702f40-41d1-4786-9b37-5c7b317504f4 {
+  background: url("../images/components/svcIcon/svc_l_12.png");
+}
+.svcType-l-icon-514aaf5c-d63e-4e40-917c-e2af6cb88368 {
+  background: url("../images/components/svcIcon/svc_l_13.png");
+}
+.svcType-l-icon-9d441974-84e8-4b38-8b0f-e95b231143da {
+  background: url("../images/components/svcIcon/svc_l_14.png");
+}
+.svcType-l-icon-f561e827-d3a1-4887-b10f-c928c0256f6b {
+  background: url("../images/components/svcIcon/svc_l_15.png");
+}
+.svcType-l-icon-a4526dfc-92d3-44b2-9179-b9081055e7d9 {
+  background: url("../images/components/svcIcon/svc_l_16.png");
+}
+.svcType-l-icon-8231a5bf-dbd0-4125-ac67-8ca0e1f051bc {
+  background: url("../images/components/svcIcon/svc_l_16.png");
+}
 /*
 0b5b0a87-0a41-4412-9889-8abe8aa477f6 缴费充值 1
 3ba2c7d6-4187-4e0b-95c4-7363344a7014 照顾 2
@@ -4989,6 +5216,9 @@ a.time-trigger:hover {
 }
 .sidebar-icon-emp {
   background: url("../images/common/sidebar/staff_left_20x22.png") no-repeat center;
+}
+.sidebar-icon-shelf {
+  background: url("../images/common/sidebar/shelf_left_20x22.png") no-repeat center;
 }
 .sidebar-icon-order {
   background: url("../images/common/sidebar/order_left_20x22.png") no-repeat center;
@@ -7113,6 +7343,14 @@ a.doReg-forget {
 .service-panel-list::-webkit-scrollbar-corner {
   display: none;
 }
+.icon-service-edit {
+  display: block;
+  background: url("../images/common/icon/icon_service_edit.png");
+}
+.icon-service-delete {
+  display: block;
+  background: url("../images/common/icon/icon_service_delete.png");
+}
 /* 服务列表详情 */
 .service-detail-row {
   line-height: 1.4em;
@@ -7217,14 +7455,14 @@ a.doReg-forget {
   z-index: 100;
 }
 .shelf-box-m .box-m-icon {
-  width: 90px;
-  height: 90px;
-  background: url("../images/components/shelf/shelf_bg_3.png") no-repeat center;
+  width: 92px;
+  height: 92px;
   position: absolute;
   bottom: 20px;
   left: 30px;
   z-index: 101;
 }
+/* TODO: 松散的多媒体查询 */
 @media screen and (max-width: 1500px) {
   .shelf-box {
     width: 20%;

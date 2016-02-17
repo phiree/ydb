@@ -39,6 +39,16 @@
   .list(600px, 0);
 }
 
+.icon-service-edit {
+  display: block;
+  background: url("@{base-images-url}common/icon/icon_service_edit.png");
+}
+
+.icon-service-delete {
+  display: block;
+  background: url("@{base-images-url}common/icon/icon_service_delete.png");
+}
+
 /* 服务列表详情 */
 .service-detail-row {
   line-height: 1.4em;
@@ -150,9 +160,8 @@
     z-index: 100;
   }
   .box-m-icon {
-    width: 90px;
-    height: 90px;
-    background: url("@{base-images-url}components/shelf/shelf_bg_3.png") no-repeat center;
+    width: 92px;
+    height: 92px;
     position: absolute;
     bottom: 20px;
     left: 30px;
@@ -160,6 +169,7 @@
   }
 }
 
+/* TODO: 松散的多媒体查询 */
 @media screen and (max-width: 1500px){
   .shelf-box {
     width: 20%;

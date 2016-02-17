@@ -93,16 +93,20 @@
                                                                     <span class="spServiceArea text-ellipsis" ></span><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
                                                                 </div>
                                                                 <div class="custom-col col-static-20">
-                                                                    <a class="btn btn-cancel-light" href="ServiceShelf.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">查看货架</a>
+                                                                    <a class="btn btn-info-light" href="ServiceShelf.aspx?businessid=<%=Request.Params["businessId"]%>&serviceId=<%#Eval("Id") %>" collapse-ignore="true">查看货架</a>
                                                                     <!--通过修改boostrap中的collapse模块功能，实现collapse标签中指定忽略指定target的功能-->
                                                                 </div>
                                                                 <div class="custom-col col-static-20">
 
                                                                     <!--<span class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></span>-->
-                                                                    <a collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-cancel-light btn-xs":"btn btn-cancel-light btn-xs" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></a>
+                                                                    <a collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-delete-light btn-xs":"btn btn-info-light btn-xs" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></a>
 
-                                                                    <a class="btn btn-cancel-light btn-xs" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%#Eval("Id") %>" ><i class="icon service-icon-edit" title="编辑" collapse-ignore="true"></i></a>
-                                                                    <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-cancel-light btn-xs" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript: return confirm('警告：\n数据一旦被删除将无法还原！')" data-target="ture" collapse-ignore="true"><i class="icon service-icon-delete" title="删除" collapse-ignore="true"></i></asp:LinkButton>
+                                                                    <a class="btn btn-cancel-light btn-xs" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%#Eval("Id") %>" >
+                                                                        <i class="icon icon-service-edit" title="编辑" collapse-ignore="true"></i>
+                                                                    </a>
+                                                                    <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-cancel-light btn-xs" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript: return confirm('警告：\n数据一旦被删除将无法还原！')" data-target="ture" collapse-ignore="true">
+                                                                        <i class="icon icon-service-delete" title="删除" collapse-ignore="true"></i>
+                                                                    </asp:LinkButton>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -203,16 +207,15 @@
                     var enabled = data.data;
                     if (enabled == "True") {
                         $(that).html("禁用");
-                        $($(that).parent().parent()).find(".service-status").html("已启用");
-                        $($(that).parent().parent()).find(".service-status").removeClass("theme-color-delete").addClass("theme-color-right");
-//                        $(that).removeClass("btn-info").addClass("btn-cancel-light");
+//                        $($(that).parent().parent()).find(".service-status").html("已启用");
+//                        $($(that).parent().parent()).find(".service-status").removeClass("theme-color-delete").addClass("theme-color-right");
+                        $(that).removeClass("btn-info-light").addClass("btn-delete-light");
                     }
                     else {
                         $(that).html("启用");
-                        $($(that).parent().parent()).find(".service-status").html("已禁用");
-                        $($(that).parent().parent()).find(".service-status").removeClass("theme-color-right").addClass("theme-color-delete");
-//                        $(that).addClass("btn-info").removeClass("btn-cancel-light");
-
+//                        $($(that).parent().parent()).find(".service-status").html("已禁用");
+//                        $($(that).parent().parent()).find(".service-status").removeClass("theme-color-right").addClass("theme-color-delete");
+                        $(that).addClass("btn-info-light").removeClass("btn-delete-light");
                     }
 
                 });

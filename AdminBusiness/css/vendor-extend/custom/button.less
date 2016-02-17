@@ -265,8 +265,8 @@
   .h-gradient(#afafaf; darken(#afafaf, 14%));
 }
 
-/* 轻取消类按钮 */
-.btn-cancel-light {
+/* 轻量化类按钮 */
+.btn-info-light {
   .button-variant(#fff, #afafaf, transparent);
   .h-gradient(#f7f7f7; #eaeaea );
   &:hover,
@@ -277,6 +277,34 @@
   }
   color: #3AA6DD;
   border: 1px solid #3AA6DD;
+  text-shadow: none;
+}
+
+.btn-cancel-light {
+  .button-variant(#fff, #afafaf, transparent);
+  .h-gradient(#f7f7f7; #eaeaea );
+  &:hover,
+  &:focus,
+  &:visited {
+    color: #afafaf;
+    border-color: #afafaf;
+  }
+  color: #afafaf;
+  border: 1px solid #afafaf;
+  text-shadow: none;
+}
+
+.btn-delete-light {
+  .button-variant(#fff, #afafaf, transparent);
+  .h-gradient(#f7f7f7; #eaeaea );
+  &:hover,
+  &:focus,
+  &:visited {
+    color: #ed928f;
+    border-color: #ed928f;
+  }
+  color: #ed928f;
+  border: 1px solid #ed928f;
   text-shadow: none;
 }
 

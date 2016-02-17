@@ -101,7 +101,7 @@
                                                     </div>
                                                     <div class="custom-col col-10-1">
                                                         <div class="order-li">
-                                                            <a href="" class="btn btn-cancel-light btn-xs">订单详情</a>
+                                                            <a href="" class="btn btn-info-light btn-xs">订单详情</a>
                                                         </div>
                                                     </div>
                                                 </div>

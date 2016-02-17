@@ -30,7 +30,7 @@
                                                     <div class="box-m-t"><%# Eval("Name") %></div>
                                                     <a href='/DZService/ServiceShelf.aspx?serviceid=<%# Eval("Id") %>' class="box-m-b">
                                                         <div class="box-m-bg"></div>
-                                                        <div class="box-m-icon"></div>
+                                                        <div class='box-m-icon svcType-l-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>'></div>
                                                     </a>
                                                 </div>
                                             </div>
