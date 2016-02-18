@@ -58,5 +58,21 @@ namespace Dianzhu.DAL
             }
             return null;
         }
+
+        public DateTime GetChangeTime(ServiceOrder order, enum_OrderStatus status)
+        {
+            var query = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).And(x => x.NewStatus == status);
+           var item= GetOneByQuery(query);
+            return item.CreatTime;
+        }
+
+        /// <summary>
+        /// 更新为该状态时的时间
+        /// </summary>
+        /// <returns></returns>
+        //public DateTime GetOrderStatusTime(ServiceOrder order, enum_OrderStatus status)
+        //{
+        //    return null;
+        //}
     }
 }

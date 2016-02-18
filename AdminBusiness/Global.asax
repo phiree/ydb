@@ -8,7 +8,7 @@
 
 
         //在应用程序启动时运行的代码
-        PHSuit.Logging.Config();
+        PHSuit.Logging.Config("Dianzhu.AdminBusiness");
 
         System.Timers.Timer timer_ticket_assigner = new System.Timers.Timer();
         timer_ticket_assigner.Interval = 1000*60*60;

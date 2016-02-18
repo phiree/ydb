@@ -110,6 +110,16 @@ namespace Dianzhu.Model
         public virtual string ServiceDescription { get; set; }
         public virtual string ServiceBusinessName { get; set; }
         public virtual decimal ServiceUnitPrice { get; set; }
+         
+        /// <summary>
+        /// 取消超时时间:分钟
+        /// </summary>
+        public virtual int ServiceOvertimeForCancel { get; set; }
+        /// <summary>
+        /// 超时取消需要支付的赔偿金
+        /// </summary>
+        public virtual decimal ServiceCancelCompensation
+        { get; set; }
 
 
         #endregion

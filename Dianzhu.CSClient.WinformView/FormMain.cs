@@ -540,7 +540,9 @@ namespace Dianzhu.CSClient.WinformView
             ServiceUrl = string.Empty;//这个不知道是什么
             OrderAmount = ServiceUnitPrice;
             ServiceTime = DateTime.Now.ToString();
-
+            DepositAmount = Service.DepositAmount;
+            OverTimeForCancel = Service.OverTimeForCancel;
+            CancelCompensation = Service.CancelCompensation;
             CanEditOrder = true;
         }
 
@@ -971,5 +973,44 @@ namespace Dianzhu.CSClient.WinformView
         /// 当前客服接待用户的历史记录
         /// </summary>
         public IList<DZMembership> ReceptionCustomerList { set { dgvRpCustomer.DataSource = value; } }
+
+        public int OverTimeForCancel
+        {
+            get
+            {
+                return Convert.ToInt32(tbxOvertimeForCancel.Text);
+            }
+
+            set
+            {
+                tbxOvertimeForCancel.Text = value.ToString();
+            }
+        }
+
+        public decimal DepositAmount
+        {
+            get
+            {
+                return Convert.ToDecimal(tbxDepositAmount.Text);
+            }
+
+            set
+            {
+                tbxDepositAmount.Text = value.ToString();
+            }
+        }
+
+        public decimal CancelCompensation
+        {
+            get
+            {
+                return Convert.ToDecimal(tbxCancelCompensation.Text);
+            }
+
+            set
+            {
+                tbxCancelCompensation.Text = value.ToString();
+            }
+        }
     }
 }

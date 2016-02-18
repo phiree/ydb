@@ -43,6 +43,9 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.NegotiateAmount);
 
             Map(x => x.DepositAmount);
+            Map(x => x.ServiceOvertimeForCancel);
+            Map(x => x.ServiceCancelCompensation);
+            
 
          
 

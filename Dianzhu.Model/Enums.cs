@@ -89,7 +89,8 @@ namespace Dianzhu.Model.Enums
         //未完成订单状态
         Created=1,//已创建,待付款
         Payed=2,//已付款
-        Canceled=3,//已取消待退款
+        Canceled=3,//用户已发起取消请求
+        CanceledDirectly,//订单已直接取消
        
         isCancel=5,//客户已取消 等待撤销工作人员分配.
 
@@ -126,7 +127,12 @@ namespace Dianzhu.Model.Enums
         /// 用户已经评价
         /// </summary>
         Appraised=30,
-       
+
+        WaitingDepositWithCanceled=31,//等待退还定金
+        WaitingCancel=32,//用户申请取消订单, 超过时长,等待商家审核  .
+
+
+
     }
     public enum enum_OrderSearchType
     {

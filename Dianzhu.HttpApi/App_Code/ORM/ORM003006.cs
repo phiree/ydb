@@ -73,13 +73,13 @@ public class ResponseORM003006 : BaseResponse
                     
                     for (int i = 0; i < OrderStateHisList.Count; i++)
                     {
-                        if (OrderStateHisList[i].Status == enum_OrderStatus.Created)
+                        if (OrderStateHisList[i].OldStatus == enum_OrderStatus.Created)
                         {
-                            orderStatusObj = new RespDataORM_orderStatusObj().Adap(OrderStateHisList[i], null);
+                            orderStatusObj = new RespDataORM_orderStatusObj().Adap(OrderStateHisList[i]);
                         }
                         else
                         {
-                            orderStatusObj = new RespDataORM_orderStatusObj().Adap(OrderStateHisList[i], OrderStateHisList[i - 1]);
+                            orderStatusObj = new RespDataORM_orderStatusObj().Adap(OrderStateHisList[i]);
                         }
                         RespOrderStatusList.Add(orderStatusObj);
                     }

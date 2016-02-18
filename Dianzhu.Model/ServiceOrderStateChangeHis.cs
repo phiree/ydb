@@ -24,7 +24,8 @@ namespace Dianzhu.Model
         /// <summary>
         /// 订单状态
         /// </summary>
-        public virtual enum_OrderStatus Status { get; set; }
+        public virtual enum_OrderStatus OldStatus { get; set; }
+        public virtual enum_OrderStatus NewStatus { get; set; }
         /// <summary>
         ///订单预期
         /// </summary>

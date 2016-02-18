@@ -159,5 +159,19 @@ namespace Dianzhu.Model
         /// 是否为先付
         /// </summary>
         public virtual bool PayFirst { get; set; }
+
+        /// <summary>
+        /// 取消超时:用户申请取消订单时,如果超过该时间则需要支付赔偿金
+        /// 单位:分钟
+        /// </summary>
+        public virtual int OverTimeForCancel { get; set; }
+        /// <summary>
+        /// 超时取消需要支付的赔偿金
+        /// </summary>
+        public virtual decimal CancelCompensation { get; set; }
+        /// <summary>
+        /// 定金
+        /// </summary>
+        public virtual decimal DepositAmount { get; set; }
     }
 }
