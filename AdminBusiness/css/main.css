@@ -7338,7 +7338,7 @@ a.doReg-forget {
 .service-model-wrap .model {
   min-width: 1200px;
 }
-.service-panel-head {
+.service-list-head {
   font-size: 16px;
   font-weight: bold;
   line-height: 30px;
@@ -7350,31 +7350,40 @@ a.doReg-forget {
   background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
 }
-.service-panel-list {
+.service-list {
   height: 600px;
   overflow-x: auto;
   margin-bottom: 0;
 }
-.service-panel-list::-webkit-scrollbar {
+.service-list::-webkit-scrollbar {
   width: 5px;
   background: transparent;
   border: 0;
 }
-.service-panel-list::-webkit-scrollbar-button {
+.service-list::-webkit-scrollbar-button {
   display: none;
 }
-.service-panel-list::-webkit-scrollbar-track {
+.service-list::-webkit-scrollbar-track {
   display: none;
 }
-.service-panel-list::-webkit-scrollbar-track-piece {
+.service-list::-webkit-scrollbar-track-piece {
   background: #CCCCCC;
 }
-.service-panel-list::-webkit-scrollbar-thumb {
+.service-list::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: #999;
 }
-.service-panel-list::-webkit-scrollbar-corner {
+.service-list::-webkit-scrollbar-corner {
   display: none;
+}
+.service-row {
+  height: 85px;
+  line-height: 85px;
+  padding: 0;
+  text-align: center;
+  color: #333;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
 }
 .service-icon {
   width: 36px;
