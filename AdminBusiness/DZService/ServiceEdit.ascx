@@ -68,12 +68,13 @@
                                                                     </div>
                                                                     <div class="serChoiceMain">
                                                                         <div class="serChoiceSearch">
-                                                                            <input id="checkSearch" type="text" data-role="checkSearchInput" />
-                                                                            <input type="button" value="search" data-trigger="checkSearch" data-input="#checkSearch" data-target="#serChoiceContainer"/>
-                                                                            <input type="button" data-trigger="checkSearchClose" data-input="#checkSearch" data-target="#serChoiceContainer" value="取消"/>
-
+                                                                            <div class="checkSearchContainer">
+                                                                                <input id="checkSearch" class="checkSearch" type="text"/>
+                                                                                <input id="checkSearchClose" type="button" class="checkSearchClose" />
+                                                                            </div>
+                                                                            <input id="checkSearchConf" type="button" class="btn btn-cancel-light btn-xs checkSearchConf " value="搜索" />
                                                                         </div>
-                                                                        <div id="serChoiceContainer" class="serChoiceContainer checklists"></div>
+                                                                        <div id="serChoiceContainer" class="serChoiceContainer checklists" data-searchInput="#checkSearch" data-searchConf="#checkSearchConf" data-searchClose="#checkSearchClose"></div>
                                                                     </div>
                                                                     <div id="serChoiceResult" class="serChoiceResult dis-n">
 

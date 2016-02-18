@@ -5762,43 +5762,103 @@ a.time-trigger:hover {
 }
 .checkListWrap {
   float: left;
-  width: 200px;
+  width: 250px;
   height: 350px;
   overflow-y: scroll;
-  margin-right: -20px;
   background: #fff;
-  border-left: 1px solid #ececec;
+}
+.checkListWrap::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+  border: 0;
+}
+.checkListWrap::-webkit-scrollbar-button {
+  display: none;
+}
+.checkListWrap::-webkit-scrollbar-track {
+  display: none;
+}
+.checkListWrap::-webkit-scrollbar-track-piece {
+  background: #CCCCCC;
+}
+.checkListWrap::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #999;
+}
+.checkListWrap::-webkit-scrollbar-corner {
+  display: none;
+}
+.checkSearchContainer {
+  display: inline-block;
+  position: relative;
+}
+.checkSearch {
+  border-radius: 2px;
+  padding: 5px;
+  border: 1px solid #C7C7C7;
+}
+.checkSearchConf {
+  font-size: 14px;
+  line-height: 1.2em;
+  color: #666;
+}
+.checkSearchConf:hover,
+.checkSearchConf:focus {
+  color: #666;
+}
+.checkSearchClose {
+  display: none;
+  position: absolute;
+  border: 0;
+  right: 4px;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin-top: -9px;
+  background: url("../images/common/icon/icon_delete_x.png");
 }
 .checkListItem {
   line-height: 1.8em;
   padding: 0 15px;
   transition: all 0.3s;
   cursor: pointer;
+  border: 1px solid transparent;
 }
 .checkListItem:nth-of-type(2n) {
   background: #f6f6f6;
 }
 .checkListItem:nth-of-type(2n).searchMark {
-  background: #88E0AE;
+  color: #333;
+  background: #DAEAEA;
 }
 .checkListItem:hover {
-  background: #d5ecff;
+  background: #d5ecff !important;
+  border: 1px solid #1F91CC;
 }
 .checkListItem.selected {
   background: #1F91CC !important;
   line-height: 3em;
-  color: #fff;
+  color: #fff !important;
 }
 .checkListItem.searchMark {
-  background: #A3FFCA;
+  color: #333;
+  background: #DAEAEA;
 }
 .checkListItem.par {
   position: relative;
 }
 .checkListItem.par:after {
-  content: '》';
+  content: '';
   position: absolute;
-  right: 2px;
+  width: 4px;
+  height: 8px;
+  background: url("../images/common/icon/arrow.png");
+  right: 6px;
+  top: 50%;
+  margin-top: -4px;
+}
+.checkListItem.par.selected:after {
+  background: url("../images/common/icon/arrow_white.png");
 }
 /* global model */
 .model {

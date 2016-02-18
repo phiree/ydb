@@ -65,7 +65,6 @@
 
             function setSelfPosition() {
                 var $self = $('#serLightContainer');
-                var s = $self[0].style;
                 $self.css({left: '50%', marginLeft: ($self.outerWidth() / 2) * -1, zIndex: (999 + 3)});
                 if (($self.height() + 80 >= $(window).height()) && ($self.css('position') != 'absolute')) {
                     var topOffset = $(document).scrollTop() + 40;

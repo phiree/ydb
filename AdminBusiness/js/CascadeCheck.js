@@ -11,8 +11,11 @@
 
     function CascadeCheck(element, options){
         this.$element = $(element);
+        this.$searchInput = $(this.$element.attr("data-searchInput"));
+        this.$searchConf = $(this.$element.attr("data-searchConf"));
+        this.$searchClose = $(this.$element.attr("data-searchClose"));
+
         this.options = options;
-        this.$checklists = [];
         this.jsonData = {};
         this.searchReasult = {};
         this.checked = false;
@@ -61,6 +64,7 @@
         init : function(){
             this._getData();
 
+            this.initSearch();
             /* 提交前如果需要手动确认绑定 */
             if ( this.options.manualConfirm ) {
                 this._bindConfirm();
@@ -76,6 +80,36 @@
         },
         /* 搜索 */
         /* TODO：搜索开关待完善 */
+        initSearch : function(){
+            /* search事件绑定 */
+            var _this = this;
+
+            _this.$searchConf.on('click.cascadeCheck', function(){
+                var str = _this.$searchInput.val();
+
+                if ( str === "" ) { return; }
+
+                str = trim(str);
+                _this.search(str);
+            });
+
+            _this.$searchClose.on('click.cascadeCheck', function(){
+                _this.$searchInput.val('');
+                _this.$searchClose.removeClass('show');
+                _this.closeSearch();
+            });
+
+            _this.$searchInput.on('keyup.cascadeCheck', function(e){
+                if (e.keyCode === 13 ){
+                    _this.$searchConf.click();
+                }
+                _this.$searchClose.addClass("show");
+            });
+
+            function trim (string){
+                return string.replace(/(^\s*)|(\s*$)/g, '');
+            }
+        },
         search : function(searchStr){
             if ( !searchStr.length ) { return; }
             this.searchReasult = this._getJsonDataByStr(this.jsonData, searchStr);
@@ -316,35 +350,4 @@
         }
     };
 
-    function trim (string){
-        return string.replace(/(^\s*)|(\s*$)/g, '');
-    }
-
-    /* api */
-    $(document).on('click.cascadeCheck', '[data-trigger="checkSearch"]', function(){
-        var $this = $(this);
-        var $target = $($this.attr('data-target'));
-        var $source = $($this.attr('data-input'));
-        var str = $source.val();
-
-        if (str === "" ) { return; }
-
-        str = trim(str);
-        $target.data('cascadeCheck').search(str);
-    });
-
-    $(document).on('click.cascadeCheck', '[data-trigger="checkSearchClose"]', function(){
-        var $this = $(this);
-        var $target = $($this.attr('data-target'));
-        var $source = $($this.attr('data-input'));
-
-        $source.val('');
-        $target.data('cascadeCheck').closeSearch();
-    });
-
-    $(document).on('keyup.cascadeCheck', '[data-role="checkSearchInput"]', function(e){
-        if (e.keyCode === 13 ){
-            $('[data-trigger="checkSearch"]').click();
-        }
-    });
 }));
