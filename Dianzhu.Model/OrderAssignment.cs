@@ -44,6 +44,6 @@ namespace Dianzhu.Model
         /// <summary>
         /// 保存时间
         /// </summary>
-        public virtual DateTime CreatTime { get; ; set; }
+        public virtual DateTime CreatTime { get; set; }
     }
 }
