@@ -151,6 +151,11 @@
                     .attr("data-cid", buildData[i].id)
                     .attr("data-role", "checkItem")
                     .bind("click.checkList", clickHandler);
+
+                if ( this._getDataByParentId(this.jsonData, buildData[i].id).length !== 0){
+                    $checklistItem.addClass('par');
+                }
+
                 $checklist.append($checklistItem);
             }
 

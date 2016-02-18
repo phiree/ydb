@@ -1,6 +1,8 @@
 /* 服务选择样式 */
 .serLightContainer {
   background: #fff;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .serListContainer {
@@ -24,7 +26,13 @@
 .serChoiceTitle {
   padding: 10px 20px 10px 20px;
   color: #fff;
-  background: #539cc6;
+  background-color: #64c6f8;
+  border-color: transparent;
+  background: #64c6f8;
+  background: -moz-linear-gradient(top, #64c6f8 0%, #1F91CC 100%);
+  background: -webkit-linear-gradient(top, #64c6f8 0%, #1F91CC 100%);
+  background: linear-gradient(to bottom, #64c6f8 0%, #1F91CC 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#64c6f8, endColorstr=#1F91CC, GradientType=0);
 }
 
 .serChoiceResult {
@@ -55,28 +63,43 @@
   width: 200px;
   height: 350px;
   overflow-y: scroll;
+  margin-right: -20px;
+  background: #fff;
+  border-left: 1px solid #ececec;
   & + .checkListWrap {
     //padding-left: 20px;
+
   }
 }
 
 .checkListItem {
   line-height: 1.8em;
-  padding: 0 10px;
+  padding: 0 15px;
+  transition: all 0.3s;
+  cursor: pointer;
   &:nth-of-type(2n){
-    background: #CCCCCC;
+    background: #f6f6f6;
     &.searchMark {
       background: #88E0AE;
     }
   }
   &:hover {
-    background: #9DDFFF;
+    background: #d5ecff;
   }
   &.selected {
-    background: #539cc6 !important;
+    background: #1F91CC !important;
+    line-height: 3em;
     color: #fff;
   }
   &.searchMark {
     background: #A3FFCA;
+  }
+  &.par {
+    position: relative;
+    &:after{
+      content: '》';
+      position: absolute;
+      right: 2px;
+    }
   }
 }
