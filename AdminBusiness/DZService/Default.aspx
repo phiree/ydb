@@ -148,7 +148,7 @@
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
     <script >
     $(function(){
-        if ( $("#accordion").children(".service-row").length == 0 ){
+        if ( $(".service-list").children(".service-row").length == 0 ){
             $("#service-new").removeClass("hide");
         } else {
             $("#service-list").removeClass("hide");
