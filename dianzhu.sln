@@ -57,7 +57,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.HttpApi", "Dianzhu.HttpApi\", "{0D1C0821-004D-4D6B-BB6C-F561895DCC4E}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;"
+		ProjectReferences = "{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}|Dianzhu.BLL.dll;{2E67AA78-6780-42BD-A3AB-AD953781E511}|Dianzhu.DAL.dll;{84187F7C-DD53-4895-A7FF-191E76756009}|Dianzhu.Model.dll;{0122C6D5-6348-4B65-88B7-3C43A6E642F3}|PHSuit.dll;{9920da22-589c-4193-aeaa-363d5c029dfc}|MediaServer.dll;{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}|Dianzhu.Config.dll;{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}|Dianzhu.Pay.dll;{e9ac682e-e6d1-4eef-bacf-fb86d20f8766}|Dianzhu.Api.Model.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Dianzhu.HttpApi"
 		Debug.AspNetCompiler.PhysicalPath = "Dianzhu.HttpApi\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Dianzhu.HttpApi\"
@@ -267,6 +267,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{E4338C9B-90F1-4640-A650-F903E722C878}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.XTest", "Dianzhu.XTest\Dianzhu.XTest.csproj", "{E1A60292-E867-4E83-B623-49CB6530FDCE}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dianzhu.Rest", "Dianzhu.Rest\Dianzhu.Rest.xproj", "{E4C33BD6-F88F-46C6-89EA-157264ADE367}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Api.Model", "Dianzhu.Api.Model\Dianzhu.Api.Model.csproj", "{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -634,6 +640,42 @@ Global
 		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Release|x86.ActiveCfg = Release|Any CPU
 		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74}.Release|x86.Build.0 = Release|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Debug|x86.Build.0 = Debug|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Release|x86.ActiveCfg = Release|Any CPU
+		{E1A60292-E867-4E83-B623-49CB6530FDCE}.Release|x86.Build.0 = Release|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Debug|x86.Build.0 = Debug|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Release|x86.ActiveCfg = Release|Any CPU
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367}.Release|x86.Build.0 = Release|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Debug|x86.Build.0 = Debug|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Release|x86.ActiveCfg = Release|Any CPU
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -675,6 +717,9 @@ Global
 		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{CBCC23E1-62A9-46BC-9EBD-3D0C3CB37C89} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{E1A60292-E867-4E83-B623-49CB6530FDCE} = {E4338C9B-90F1-4640-A650-F903E722C878}
+		{E4C33BD6-F88F-46C6-89EA-157264ADE367} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
+		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi
