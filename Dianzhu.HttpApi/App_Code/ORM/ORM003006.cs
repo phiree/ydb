@@ -68,7 +68,7 @@ public class ResponseORM003006 : BaseResponse
                 RespOrderStatusList.Add(orderStatusObj);
 
                 IList< ServiceOrderStateChangeHis> OrderStateHisList = bllServiceOrderHis.GetOrderHisList(order);
-                if (OrderStateHisList.Count > 0)
+                if (OrderStateHisList != null)
                 {
                     
                     for (int i = 0; i < OrderStateHisList.Count; i++)

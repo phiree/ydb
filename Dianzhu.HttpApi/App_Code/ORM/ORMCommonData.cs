@@ -92,10 +92,7 @@ public class RespDataORM_UserObj
     {
         this.userID = member.Id.ToString();
         this.alias = member.NickName;
-        this.imgUrl = string.IsNullOrEmpty(member.AvatarUrl) ? string.Empty
-                : (
-                 Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")
-                + member.AvatarUrl);
+        this.imgUrl = string.IsNullOrEmpty(member.AvatarUrl) ? string.Empty : (Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + member.AvatarUrl);
         return this;
     }
     
@@ -110,7 +107,8 @@ public class RespDataORM_storeObj
     {
         this.storeID = business.Id.ToString();
         this.alias = business.Name;
-        this.imgUrl = business.BusinessAvatar.ImageName;
+        //this.imgUrl = business.BusinessAvatar.ImageName;
+        this.imgUrl = string.IsNullOrEmpty(business.BusinessAvatar.ImageName) ? string.Empty : (Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + business.BusinessAvatar.ImageName);
         return this;
     }
 }

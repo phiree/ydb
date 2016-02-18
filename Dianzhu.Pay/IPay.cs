@@ -216,4 +216,75 @@ namespace Dianzhu.Pay
             return sArray;
         }
     }
+
+    public class PayAlipayApp : IPay
+    {
+        public decimal PayAmount { get; set; }
+        public string PaySubjectPre { get; set; }
+        public string PayMemo { get; set; }
+        public string PaymentId { get; set; }
+        public string PaySubject { get; set; }
+
+        string notify_url;
+
+        public PayAlipayApp(decimal payAmount, string paymentId, string paySubject, string notify_url, string memo)
+        {
+            this.PaySubject = paySubject;
+            this.PayAmount = payAmount;
+            this.PayMemo = memo;
+            this.notify_url = notify_url;
+            this.PaymentId = paymentId;
+        }
+
+
+        public string CreatePayRequest()
+        {
+            SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
+            sParaTemp.Add("service", "mobile.securitypay.pay");
+            sParaTemp.Add("partner", "2088021632422534");
+            sParaTemp.Add("_input_charset", "utf-8");
+            sParaTemp.Add("sign_type", "RSA");
+            sParaTemp.Add("sign", @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDdyOxmayNrwOr821IwUIkLxw2BVVTDDqRD/PRNCnJx/UCCYIVRL7rxXdKMZrSu24m96JNjIYbiUmwEslYnbLMWY3oZr3CGttjiGq10Y2S/tz8FBAvY59ZlxNRF+CMpbii34hHFKkikdC+ave0TN0oqJl3jNYiNN4xA7wqF1bTT4QIDAQAB");
+
+            sParaTemp.Add("app_id", "2016012201112719");
+            sParaTemp.Add("seller_id", "jsyk_company@126.com");
+            sParaTemp.Add("subject", PaySubjectPre + PaySubject);
+            sParaTemp.Add("body", PayMemo);
+            sParaTemp.Add("out_trade_no", PaymentId.Replace("-", ""));
+            sParaTemp.Add("total_fee", string.Format("{0:N2}", PayAmount));
+            sParaTemp.Add("notify_url", notify_url);            
+
+            string sParaStr = string.Empty;
+            string sParStrkey = string.Empty;
+            foreach (KeyValuePair<string, string> item in sParaTemp)
+            {
+                sParaStr += item.Key + "=" + item.Value + "&";
+            }
+
+            sParaStr = sParaStr.TrimEnd('&');
+
+            return sParaStr;
+        }
+
+        public string PayCallBack()
+        {
+            throw new NotImplementedException();
+        }
+
+        private SortedDictionary<string, string> GetRequestGet(NameValueCollection coll)
+        {
+            int i = 0;
+            SortedDictionary<string, string> sArray = new SortedDictionary<string, string>();
+            //Load Form variables into NameValueCollection variable.
+            // Get names of all forms into a string array.
+            String[] requestItem = coll.AllKeys;
+
+            for (i = 0; i < requestItem.Length; i++)
+            {
+                sArray.Add(requestItem[i], coll[requestItem[i]]);
+            }
+
+            return sArray;
+        }
+    }
 }
