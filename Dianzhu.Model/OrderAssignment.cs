@@ -15,7 +15,7 @@ namespace Dianzhu.Model
         /// </summary>
         public OrderAssignment()
         {
-            AssignedTime = DateTime.Now;
+            CreatTime = DateTime.Now;
             Enabled = true;
         }
 
@@ -41,5 +41,9 @@ namespace Dianzhu.Model
         /// 是否有效. 否:已经取消了该分配
         /// </summary>
         public virtual bool Enabled { get; set; }
+        /// <summary>
+        /// 保存时间
+        /// </summary>
+        public virtual DateTime CreatTime { get; set; }
     }
 }

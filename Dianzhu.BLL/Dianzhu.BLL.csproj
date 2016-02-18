@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLArea.cs" />
     <Compile Include="BLLBase.cs" />
     <Compile Include="BLLBusiness.cs" />

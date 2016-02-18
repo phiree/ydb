@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Complaint.cs" />
     <Compile Include="Advertisement.cs" />
     <Compile Include="IMUserStatus.cs" />
     <Compile Include="City.cs" />
