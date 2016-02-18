@@ -89,4 +89,16 @@ namespace PHSuit
             Console.Write(json);
         }
     }
+
+    [TestFixture]
+    public class TestLogging
+    {
+        [Test]
+        public void Config()
+        {
+            Logging.Config("Dianzhu.PHSuit");
+            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.PHSuit");
+            log.Debug("test");
+        }
+    }
 }

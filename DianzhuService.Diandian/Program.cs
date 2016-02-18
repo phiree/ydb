@@ -14,7 +14,7 @@ namespace DianzhuService.Diandian
         /// </summary>
         static void Main(string[] args)
         {
-             PHSuit.Logging.Config();
+             PHSuit.Logging.Config("Dianzhu.DianDian");
             ServiceDiandian sdd = new ServiceDiandian();
             if (Environment.UserInteractive)
             {

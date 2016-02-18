@@ -31,7 +31,7 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
 
             //log
-             PHSuit.Logging.Config();
+             PHSuit.Logging.Config("Dianzhu.CSClient");
             log.Debug("Start");
             
             //prepare parameters for IM instance's constructor
