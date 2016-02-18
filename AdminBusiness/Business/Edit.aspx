@@ -287,7 +287,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                 </div>
                             </div>
                             <div class="step-ctrl">
-                                <div class="bottomArea">
+                                <div class="model-global-bottom">
                                     <a class="step-prev btn btn-info btn-big dis-n" value="prev"  >上一步</a>
                                     <a class="step-next btn btn-info btn-big dis-n" value="next"  >下一步</a>
                                     <input class="step-save btn btn-info btn-big m-l10 dis-n" name="imageField" runat="server" onserverclick="btnSave_Click" type="submit" id="imageField1" value="保存"/>

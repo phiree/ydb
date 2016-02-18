@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="bottomArea">
+                        <div class="model-global-bottom">
                             <asp:Button ID="Button1" runat="server" Text="保存" CssClass="btn btn-info btn-big" OnClick="btnOK_Click"/>
                             <a class="btn btn-cancel btn-big m-l10" href="default.aspx?businessid=<%=Request["businessid"] %>">取消</a>
                         </div>

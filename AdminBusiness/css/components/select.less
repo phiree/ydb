@@ -66,6 +66,19 @@
   }
 }
 
+
+.select-flow(@h) {
+  ul {
+    position: absolute;
+    height: @h;
+    overflow-y: scroll;
+    border: 1px solid #C7C7C7;
+    z-index: 10;
+    background: #fff;
+    display: none;
+  }
+}
+
 .select-sm{
   .select(@select-sm,@select-height,@select-lingHeight)
 }
@@ -79,35 +92,20 @@
 .select-fluid {
   .select(100%,@select-height,@select-lingHeight)
 }
+
+.select-flow {
+  .select-flow( @select-lingHeight * 3 );
+}
+
 /*设置下拉选框宽高*/
-
-.years-select ul {
-  position: absolute;
-  height: 10em;
-  overflow-y: scroll;
-  border: 1px solid #C0D1E3;
-  z-index: 10;
-  background: #fff;
-  display: none;
+.years-select {
+  .select-flow(10em);
 }
 
-.hour-select ul {
-  position: absolute;
-  height: 10em;
-  overflow-y: scroll;
-  border: 1px solid #C0D1E3;
-  z-index: 10;
-  background: #fff;
-  display: none;
+.hour-select {
+  .select-flow(10em);
 }
 
-
-.min-select ul {
-  position: absolute;
-  height: 10em;
-  overflow-y: scroll;
-  border: 1px solid #C0D1E3;
-  z-index: 10;
-  background: #fff;
-  display: none;
+.min-select {
+  .select-flow(10em);
 }

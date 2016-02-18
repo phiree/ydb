@@ -50,60 +50,75 @@
   &.model-form-noTop {
     padding-top: 0;
   }
+
   .model-form-group {
     margin-bottom: 30px;
   }
+}
 
-  .model-label {
-    font-size: 16px;
-    font-weight: bold;
-    width: 120px;
-  }
 
-  .model-label-lg {
-    font-size: 16px;
-    font-weight: bold;
-    width: 160px;
-  }
+.model-label {
+  font-size: 16px;
+  font-weight: bold;
+  width: 120px;
+}
 
-  .model-input {
+.model-label-lg {
+  font-size: 16px;
+  font-weight: bold;
+  width: 160px;
+}
 
-  }
+.model-input {
 
-  .model-input-unit {
-    padding-right: 50px;
-    position: relative;
-    em.unit {
-      position: absolute;
-      top: 6px;
-      right: 15px;
-    }
-  }
+}
 
-  .model-input-unit-sm {
-    padding-right: 115px;
-    position: relative;
-    em.unit {
-      position: absolute;
-      top: 6px;
-      right: 15px;
-    }
-    .model-select-unit {
-      width: 95px;
-      position: absolute;
-      top: 0;
-      right: 15px;
-    }
-  }
-
-  .model-radio-item {
-    input {
-      margin-right: 5px;
-    }
+.model-input-unit {
+  padding-right: 50px;
+  position: relative;
+  em.unit {
+    position: absolute;
+    top: 6px;
+    right: 15px;
   }
 }
 
-.bottomArea {
+.model-input-unit-sm {
+  padding-right: 115px;
+  position: relative;
+  em.unit {
+    position: absolute;
+    top: 6px;
+    right: 15px;
+  }
+}
+
+.model-radio-item {
+  input {
+    margin-right: 5px;
+  }
+}
+
+.model-select-sm {
+  display: inline-block;
+  width: 100px;
+  position: relative;
+  ul {
+    position: absolute;
+    height: 3em;
+    overflow-y: scroll;
+    z-index: 10;
+  }
+}
+
+.model-select-unit {
+  width: 95px;
+  position: absolute;
+  top: 0;
+  right: 15px;
+}
+
+.model-global-bottom {
   width: 100%;
   height: 98px;
   display: block;
