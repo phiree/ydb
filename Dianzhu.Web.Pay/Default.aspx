@@ -115,7 +115,7 @@
                 </div>
             </div>
             <div class="bottom">
-                <a href="#" class="pay-back"/>
+                <a href="#" class="pay-back">
                     取&nbsp;消
                 </a>
             </div>
