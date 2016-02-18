@@ -17,14 +17,11 @@ public class ResponseFactory
         switch (request.protocol_CODE.ToLower())
         {
             case "usm001001":
-                return new ResponseUSM001001(request);
-               
+                return new ResponseUSM001001(request);               
             case "usm001005":
-                return new ResponseUSM001005(request);
-                
+                return new ResponseUSM001005(request);                
             case "usm001003":
-                return new ResponseUSM001003(request);
-               
+                return new ResponseUSM001003(request);               
             case "usm001007":
                 return new ResponseUSM001007(request);
             case "usm001008":
@@ -39,6 +36,7 @@ public class ResponseFactory
                 return new ResponseVCM001002(request);
             case "vcm001003":
                 return new ResponseVCM001003(request);
+
             case "merm001001":
                 return new ResponseMERM001001(request);
             case "merm001003":
@@ -52,12 +50,10 @@ public class ResponseFactory
                 return new ResponseORM001006(request);
             case "orm001005":
                 return new ResponseORM001005(request);
-
             case "orm002001":
                 return new ResponseORM002001(request);
             case "orm002002":
                 return new ResponseORM002002(request);
-
             case "orm003005":
                 return new ResponseORM003005(request);
             case "orm003006":
@@ -101,6 +97,13 @@ public class ResponseFactory
                 return new ResponseAD001006(request);
             case "py001007":
                 return new ResponsePY001007(request);
+            case "clm001001":
+                return new ResponseCLM001001(request);
+
+            case "asn001007":
+                return new ResponseASN001007(request);
+            case "asn002007":
+                return new ResponseASN002007(request);
             default:
                 BaseResponse baeResponse = new BaseResponse(request);
                 baeResponse.state_CODE = Dicts.StateCode[1];

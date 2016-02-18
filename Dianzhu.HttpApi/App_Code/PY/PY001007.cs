@@ -16,7 +16,7 @@ using System.Web.Security;
 /// </summary>
 public class ResponsePY001007:BaseResponse
 {
-    DZMembershipProvider bllMember;
+    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
     public ResponsePY001007(BaseRequest request):base(request)
     {
@@ -28,7 +28,7 @@ public class ResponsePY001007:BaseResponse
     {
         ReqDataPY001007 requestData = this.request.ReqData.ToObject<ReqDataPY001007>();
 
-        bllMember = new DZMembershipProvider();
+        DZMembershipProvider bllMember = new DZMembershipProvider();
 
         try
         {
@@ -57,45 +57,59 @@ public class ResponsePY001007:BaseResponse
                 case "alipay":
                     break;
                 case "wepay":
-                    IPay ipay = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.ServiceName, Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.ServiceDescription);
-                    //var respDataWeibo = new NameValueCollection();
-                    string respDataWechat = "<xml>";
-
-                    string[] arrPropertyValues = ipay.CreatePayRequest().Split('&');
-                    foreach(string value in arrPropertyValues)
+                    bool sucdess = false;
+                    while (!sucdess)
                     {
-                        string[] arrValue = value.Split('=');
-                        //respDataWeibo.Add(arrValue[0], arrValue[1]);
-                        if (arrValue[0] != "key")
+                        IPay ipay = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.ServiceName, Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.ServiceDescription);
+                        //var respDataWeibo = new NameValueCollection();
+                        string respDataWechat = "<xml>";
+
+                        string[] arrPropertyValues = ipay.CreatePayRequest().Split('&');
+                        foreach (string value in arrPropertyValues)
                         {
-                            respDataWechat += "<" + arrValue[0] + ">" + arrValue[1] + "</" + arrValue[0] + ">";
-                        }                        
+                            string[] arrValue = value.Split('=');
+                            //respDataWeibo.Add(arrValue[0], arrValue[1]);
+                            if (arrValue[0] != "key")
+                            {
+                                respDataWechat += "<" + arrValue[0] + ">" + arrValue[1] + "</" + arrValue[0] + ">";
+                            }
+                        }
+                        respDataWechat = respDataWechat + "</xml>";
+                        ilog.Debug(respDataWechat);
+                        //XmlDocument respDataWechatXml = JsonConvert.DeserializeXmlNode(respDataWechat);
+
+                        string requestUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder?";
+                        string resultTokenWechat = HttpHelper.CreateHttpRequestPostXml(requestUrl, respDataWechat);
+                        ilog.Debug(resultTokenWechat);
+                        resultTokenWechat = resultTokenWechat.Replace("\\n", string.Empty);
+                        ilog.Debug(resultTokenWechat);
+                        string json = JsonHelper.Xml2Json(resultTokenWechat, true);
+                        ilog.Debug(json);
+
+                        //todo:下面这段数据就是返回的字符串，不知道怎么解析
+                        //resultTokenWechat="<xml>< return_code >< ![CDATA[SUCCESS]] ></ return_code >\n      < return_msg >< ![CDATA[OK]] ></ return_msg >\n            < appid >< ![CDATA[wxd928d1f351b77449]] ></ appid >\n                  < mch_id >< ![CDATA[1304996701]] ></ mch_id >\n                        < nonce_str >< ![CDATA[RnTyNTtoDpMC335q]] ></ nonce_str >\n                              < sign >< ![CDATA[8440115DC99103B7B242042239395967]] ></ sign >\n                                    < result_code >< ![CDATA[SUCCESS]] ></ result_code >\n                                          < prepay_id >< ![CDATA[wx201602031137215b5350a5300317902456]] ></ prepay_id >\n                                                < trade_type >< ![CDATA[APP]] ></ trade_type >\n                                                      </ xml > ";
+
+                        RespData_WeChatUserObj respData = JsonConvert.DeserializeObject<RespData_WeChatUserObj>(json);
+                        ilog.Debug(respData.return_code);
+                        if(respData.return_code != "SUCCESS")
+                        {
+                            continue;
+                        }
+                        if (respData.result_code != "SUCCESS")
+                        {
+                            ilog.Error("错误代码：" + respData.err_code + "  错误代码描述：" + respData.err_code_des);
+                            continue;
+                        }
+                        sucdess = true;
+                        RespDataPY001007 respObj = new RespDataPY001007();
+                        respObj.appid = respData.appid;
+                        respObj.partnerid = respData.mch_id;
+                        respObj.prepayid = respData.prepay_id;
+                        this.state_CODE = Dicts.StateCode[0];
+                        this.RespData = respObj;
+                        return; 
                     }
-                    respDataWechat = respDataWechat + "</xml>";
-                    //XmlDocument respDataWechatXml = JsonConvert.DeserializeXmlNode(respDataWechat);
-
-                    string requestUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder?";
-                    string resultTokenWechat = HttpHelper.CreateHttpRequestPostXml(requestUrl, respDataWechat);
-                    resultTokenWechat = resultTokenWechat.Replace("\\n", string.Empty);
-                   string json= JsonHelper.Xml2Json(resultTokenWechat,true);
-
-                    //todo:下面这段数据就是返回的字符串，不知道怎么解析
-                    //resultTokenWechat="<xml>< return_code >< ![CDATA[SUCCESS]] ></ return_code >\n      < return_msg >< ![CDATA[OK]] ></ return_msg >\n            < appid >< ![CDATA[wxd928d1f351b77449]] ></ appid >\n                  < mch_id >< ![CDATA[1304996701]] ></ mch_id >\n                        < nonce_str >< ![CDATA[RnTyNTtoDpMC335q]] ></ nonce_str >\n                              < sign >< ![CDATA[8440115DC99103B7B242042239395967]] ></ sign >\n                                    < result_code >< ![CDATA[SUCCESS]] ></ result_code >\n                                          < prepay_id >< ![CDATA[wx201602031137215b5350a5300317902456]] ></ prepay_id >\n                                                < trade_type >< ![CDATA[APP]] ></ trade_type >\n                                                      </ xml > ";
-
-                    RespData_WeChatUserObj respData =   JsonConvert.DeserializeObject<RespData_WeChatUserObj>(json);
-                    if (respData.return_code != "SUCCESS")
-                    {
-                        this.state_CODE = Dicts.StateCode[1];
-                        this.err_Msg = "支付请求错误！";
-                        return;
-                    }
-                    RespDataPY001007 respObj = new RespDataPY001007();
-                    respObj.appid = respData.appid;
-                    respObj.partnerid = respData.mch_id;
-                    respObj.prepayid = respData.prepay_id;
-                    this.state_CODE = Dicts.StateCode[0];
-                    this.RespData = respObj;
-                    return;
+                    break;
                 default:
                     break;
             }

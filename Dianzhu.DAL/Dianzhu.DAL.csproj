@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALComplaint.cs" />
     <Compile Include="DALAdvertisement.cs" />
     <Compile Include="DALPayment.cs" />
     <Compile Include="DALServiceOpenTime.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="DALOrderAssignment.cs" />
     <Compile Include="DALServiceOrderStateChangeHis.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
+    <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
