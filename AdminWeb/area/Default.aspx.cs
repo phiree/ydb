@@ -15,12 +15,21 @@ public partial class area_Default : System.Web.UI.Page
     BLLArea bllArea = new BLLArea();
     protected void Page_Load(object sender, EventArgs e)
     {
-        BindList();
+        string code = Request["code"];
+        if (string.IsNullOrEmpty(code))
+        {
+
+            BindList(bllArea.GetAreaProvince());
+        }
+        else
+        {
+            BindList(bllArea.GetSubArea(code));
+        }
     }
-    private void BindList()
+    private void BindList(IList<Area> dataList)
     {
-        rp_province.DataSource = bllArea.GetAreaProvince();
-        rp_province.ItemDataBound += new RepeaterItemEventHandler(rp_province_ItemDataBound);
+        rp_province.DataSource = dataList;
+       // rp_province.ItemDataBound += new RepeaterItemEventHandler(rp_province_ItemDataBound);
         rp_province.DataBind();
     }
 

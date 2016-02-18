@@ -13,7 +13,7 @@ namespace Dianzhu.Model
        public DZService()
        {
            PropertyValues = new List<ServicePropertyValue>();
-           
+            Enabled = true;
            InitOpenTimes();
            
        }

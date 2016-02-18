@@ -19,8 +19,8 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.LastLoginTime);
             Map(x=>x.NickName);
             Map(x => x.Address);
-            Map(x => x.Email).Unique();
-            Map(x => x.Phone).Unique();
+            Map(x => x.Email);//.Unique();
+            Map(x => x.Phone);//.Unique();
             Map(x => x.IsRegisterValidated);
             Map(x => x.RegisterValidateCode);
             Map(x => x.UserNameForOpenFire);
