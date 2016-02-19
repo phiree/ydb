@@ -271,7 +271,18 @@ namespace Dianzhu.BLL
             }
         }
 
+        /// <summary>
+        /// 商家审核通过,等待用户支付违约金
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_IsCanceled(ServiceOrder order)
+        {
 
+            order.LatestOrderUpdated = DateTime.Now;
+            //支付违约金
+
+            ChangeStatus(order, enum_OrderStatus.isCancel);
+        }
         #endregion
 
         #region 分配工作人员
@@ -342,6 +353,10 @@ namespace Dianzhu.BLL
                                                                             enum_OrderStatus.Assigned,
                                                                              enum_OrderStatus.Begin
                 } },
+               { enum_OrderStatus.WaitingCancel,new List<enum_OrderStatus>() {enum_OrderStatus.Canceled }},
+               { enum_OrderStatus.isCancel,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingCancel }},
+               { enum_OrderStatus.WaitingDepositWithCanceled,new List<enum_OrderStatus>() {enum_OrderStatus.Canceled }},
+
 
         };
     }
