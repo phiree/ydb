@@ -24,22 +24,7 @@ namespace Dianzhu.Config
 
         #endregion
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
-        public static string ConnectionString
-        {
-            get
-            {
-                if (DictsConnectionStrings.ContainsKey(DatabaseServer))
-                {
-                    return DictsConnectionStrings[DatabaseServer];
-                }
-                else {
-                    string errMsg = "数据库连接字符串误";
-                    ilog.Fatal(errMsg);
-                    throw new System.Exception(errMsg);
-                }
-
-            }
-        }
+        
 
         public static string GetAppSetting(string key)
         {
@@ -82,13 +67,7 @@ namespace Dianzhu.Config
              ,{ "192.168.1.172",new KeyValuePair<string,string>("1792e7f6-850e-4efc-8b53-a541009b8a65","123456") }
               ,{ "localhost",new KeyValuePair<string,string>("1792e7f6-850e-4efc-8b53-a541009b8a65","123456") }
         };
-        //数据库连接字符串
-        static Dictionary<string, string> DictsConnectionStrings = new Dictionary<string, string>() {
-            { "119.29.39.211","data source=119.29.39.211;uid=root;pwd=root;database=dianzhu_publish_test"}
-            , { "business.ydban.cn","data source=business.ydban.cn;uid=root;pwd=root;database=dianzhu_publish_test" }
-            ,{ "192.168.1.172","data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test" }
-             ,{ "localhost","data source=localhost;uid=root;pwd=root;database=dianzhu_dev_yuanfei" }
-        };
+         
 
         static Dictionary<string, string> DictsAppSettings = new Dictionary<string, string>() {
              {"cdnroot", BuildHttpUrlString(ApplicationServer, 886)}
