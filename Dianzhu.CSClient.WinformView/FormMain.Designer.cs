@@ -53,6 +53,8 @@
             this.tbxServiceDescription = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tbxServiceUnitPrice = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.tbxDepositAmount = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tbxServiceTime = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -112,8 +114,10 @@
             this.btnPushExternalService = new System.Windows.Forms.Button();
             this.pnlExternService = new System.Windows.Forms.FlowLayoutPanel();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
-            this.tbxDepositAmount = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.tbxOvertimeForCancel = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tbxCancelCompensation = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.scmain)).BeginInit();
             this.scmain.Panel1.SuspendLayout();
             this.scmain.Panel2.SuspendLayout();
@@ -165,8 +169,8 @@
             // scmain.Panel2
             // 
             this.scmain.Panel2.Controls.Add(this.splitContainer2);
-            this.scmain.Size = new System.Drawing.Size(1161, 647);
-            this.scmain.SplitterDistance = 115;
+            this.scmain.Size = new System.Drawing.Size(1161, 817);
+            this.scmain.SplitterDistance = 145;
             this.scmain.TabIndex = 0;
             // 
             // panel9
@@ -175,7 +179,7 @@
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel9.Location = new System.Drawing.Point(521, 0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(237, 115);
+            this.panel9.Size = new System.Drawing.Size(237, 145);
             this.panel9.TabIndex = 2;
             // 
             // dgvRpCustomer
@@ -187,7 +191,7 @@
             this.dgvRpCustomer.Location = new System.Drawing.Point(0, 0);
             this.dgvRpCustomer.Name = "dgvRpCustomer";
             this.dgvRpCustomer.RowTemplate.Height = 23;
-            this.dgvRpCustomer.Size = new System.Drawing.Size(237, 115);
+            this.dgvRpCustomer.Size = new System.Drawing.Size(237, 145);
             this.dgvRpCustomer.TabIndex = 2;
             // 
             // CustomerName
@@ -203,7 +207,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel8.Location = new System.Drawing.Point(758, 0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(403, 115);
+            this.panel8.Size = new System.Drawing.Size(403, 145);
             this.panel8.TabIndex = 1;
             // 
             // dgvOrders
@@ -218,7 +222,7 @@
             this.dgvOrders.Location = new System.Drawing.Point(0, 0);
             this.dgvOrders.Name = "dgvOrders";
             this.dgvOrders.RowTemplate.Height = 23;
-            this.dgvOrders.Size = new System.Drawing.Size(403, 115);
+            this.dgvOrders.Size = new System.Drawing.Size(403, 145);
             this.dgvOrders.TabIndex = 1;
             // 
             // OrderId
@@ -255,7 +259,7 @@
             this.pnlCustomerList.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlCustomerList.Location = new System.Drawing.Point(0, 0);
             this.pnlCustomerList.Name = "pnlCustomerList";
-            this.pnlCustomerList.Size = new System.Drawing.Size(521, 115);
+            this.pnlCustomerList.Size = new System.Drawing.Size(521, 145);
             this.pnlCustomerList.TabIndex = 0;
             // 
             // splitContainer2
@@ -273,7 +277,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1161, 528);
+            this.splitContainer2.Size = new System.Drawing.Size(1161, 668);
             this.splitContainer2.SplitterDistance = 342;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -302,12 +306,16 @@
             this.pnlOrder.Controls.Add(this.tbxAmount);
             this.pnlOrder.Controls.Add(this.label8);
             this.pnlOrder.Controls.Add(this.tbxMemo);
+            this.pnlOrder.Controls.Add(this.label18);
+            this.pnlOrder.Controls.Add(this.tbxOvertimeForCancel);
+            this.pnlOrder.Controls.Add(this.label19);
+            this.pnlOrder.Controls.Add(this.tbxCancelCompensation);
             this.pnlOrder.Controls.Add(this.btnCreateOrder);
             this.pnlOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlOrder.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlOrder.Location = new System.Drawing.Point(0, 0);
             this.pnlOrder.Name = "pnlOrder";
-            this.pnlOrder.Size = new System.Drawing.Size(340, 430);
+            this.pnlOrder.Size = new System.Drawing.Size(340, 570);
             this.pnlOrder.TabIndex = 2;
             this.pnlOrder.WrapContents = false;
             // 
@@ -415,6 +423,23 @@
             this.tbxServiceUnitPrice.Size = new System.Drawing.Size(262, 21);
             this.tbxServiceUnitPrice.TabIndex = 15;
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(3, 204);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(29, 12);
+            this.label17.TabIndex = 18;
+            this.label17.Text = "订金";
+            // 
+            // tbxDepositAmount
+            // 
+            this.tbxDepositAmount.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.tbxDepositAmount.Location = new System.Drawing.Point(3, 219);
+            this.tbxDepositAmount.Name = "tbxDepositAmount";
+            this.tbxDepositAmount.Size = new System.Drawing.Size(262, 21);
+            this.tbxDepositAmount.TabIndex = 17;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -486,7 +511,7 @@
             // 
             // btnCreateOrder
             // 
-            this.btnCreateOrder.Location = new System.Drawing.Point(3, 402);
+            this.btnCreateOrder.Location = new System.Drawing.Point(3, 480);
             this.btnCreateOrder.Name = "btnCreateOrder";
             this.btnCreateOrder.Size = new System.Drawing.Size(155, 23);
             this.btnCreateOrder.TabIndex = 7;
@@ -499,7 +524,7 @@
             this.panel3.Controls.Add(this.btnReAssign);
             this.panel3.Controls.Add(this.btnCreateNewDraft);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 430);
+            this.panel3.Location = new System.Drawing.Point(0, 570);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(340, 96);
             this.panel3.TabIndex = 3;
@@ -541,7 +566,7 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.pnlResultService);
             this.splitContainer3.Panel2.Controls.Add(this.panel2);
-            this.splitContainer3.Size = new System.Drawing.Size(815, 528);
+            this.splitContainer3.Size = new System.Drawing.Size(815, 668);
             this.splitContainer3.SplitterDistance = 407;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -554,7 +579,7 @@
             this.pnlChat.ImeMode = System.Windows.Forms.ImeMode.On;
             this.pnlChat.Location = new System.Drawing.Point(0, 0);
             this.pnlChat.Name = "pnlChat";
-            this.pnlChat.Size = new System.Drawing.Size(405, 401);
+            this.pnlChat.Size = new System.Drawing.Size(405, 541);
             this.pnlChat.TabIndex = 3;
             this.pnlChat.WrapContents = false;
             // 
@@ -571,7 +596,7 @@
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 401);
+            this.panel1.Location = new System.Drawing.Point(0, 541);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(405, 125);
             this.panel1.TabIndex = 1;
@@ -703,7 +728,7 @@
             this.pnlResultService.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlResultService.Location = new System.Drawing.Point(0, 104);
             this.pnlResultService.Name = "pnlResultService";
-            this.pnlResultService.Size = new System.Drawing.Size(402, 422);
+            this.pnlResultService.Size = new System.Drawing.Size(402, 562);
             this.pnlResultService.TabIndex = 1;
             this.pnlResultService.WrapContents = false;
             // 
@@ -998,28 +1023,48 @@
             this.pnlExternService.TabIndex = 2;
             this.pnlExternService.WrapContents = false;
             // 
-            // tbxDepositAmount
+            // label18
             // 
-            this.tbxDepositAmount.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.tbxDepositAmount.Location = new System.Drawing.Point(3, 219);
-            this.tbxDepositAmount.Name = "tbxDepositAmount";
-            this.tbxDepositAmount.Size = new System.Drawing.Size(262, 21);
-            this.tbxDepositAmount.TabIndex = 17;
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(3, 399);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(113, 12);
+            this.label18.TabIndex = 20;
+            this.label18.Text = "取消超时时间(分钟)";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label17
+            // tbxOvertimeForCancel
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(3, 204);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(29, 12);
-            this.label17.TabIndex = 18;
-            this.label17.Text = "订金";
+            this.tbxOvertimeForCancel.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.tbxOvertimeForCancel.Location = new System.Drawing.Point(3, 414);
+            this.tbxOvertimeForCancel.Multiline = true;
+            this.tbxOvertimeForCancel.Name = "tbxOvertimeForCancel";
+            this.tbxOvertimeForCancel.Size = new System.Drawing.Size(262, 21);
+            this.tbxOvertimeForCancel.TabIndex = 19;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(3, 438);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(77, 12);
+            this.label19.TabIndex = 22;
+            this.label19.Text = "取消超时赔偿";
+            // 
+            // tbxCancelCompensation
+            // 
+            this.tbxCancelCompensation.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.tbxCancelCompensation.Location = new System.Drawing.Point(3, 453);
+            this.tbxCancelCompensation.Multiline = true;
+            this.tbxCancelCompensation.Name = "tbxCancelCompensation";
+            this.tbxCancelCompensation.Size = new System.Drawing.Size(262, 21);
+            this.tbxCancelCompensation.TabIndex = 21;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1161, 647);
+            this.ClientSize = new System.Drawing.Size(1161, 817);
             this.Controls.Add(this.scmain);
             this.Name = "FormMain";
             this.Text = "FormMain";
@@ -1156,5 +1201,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CustomerName;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox tbxDepositAmount;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox tbxOvertimeForCancel;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox tbxCancelCompensation;
     }
 }

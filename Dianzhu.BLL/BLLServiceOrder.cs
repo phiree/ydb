@@ -8,25 +8,28 @@ using Dianzhu.DAL;
 using Dianzhu.Model.Enums;
 namespace Dianzhu.BLL
 {
-    
+
     /// <summary>
     /// 订单业务逻辑
     /// </summary>
     public class BLLServiceOrder
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
-        
+
         DALServiceOrder DALServiceOrder = null;
         DZMembershipProvider membershipProvider = null;
-        BLLDZService bllDzService = null;
+
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
-       
-        public BLLServiceOrder()
+
+        public BLLServiceOrder(DALServiceOrder dalServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, DZMembershipProvider membershipProvider)
         {
-            DALServiceOrder = DALFactory.DALServiceOrder;
-            membershipProvider = new DZMembershipProvider();
-            bllDzService = new BLLDZService();
-            bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
+            this.DALServiceOrder = dalServiceOrder;
+            this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
+            this.membershipProvider = membershipProvider;
+        }
+
+        public BLLServiceOrder() : this(new DALServiceOrder(), new BLLServiceOrderStateChangeHis(), new DZMembershipProvider())
+        {
         }
 
 
@@ -115,9 +118,9 @@ namespace Dianzhu.BLL
         //用户定金支付完成
         public void OrderFlow_PayDeposit(ServiceOrder order)
         {
-             ChangeStatus(order, enum_OrderStatus.Payed);
+            ChangeStatus(order, enum_OrderStatus.Payed);
 
-           
+
         }
         /// <summary>
         /// 商家确认订单,准备执行.
@@ -125,7 +128,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessConfirm(ServiceOrder order)
         {
             order.LatestOrderUpdated = DateTime.Now;
-           
+
             ChangeStatus(order, enum_OrderStatus.Negotiate);
         }
         /// <summary>
@@ -188,8 +191,9 @@ namespace Dianzhu.BLL
         //订单状态改变通用方法
         private void ChangeStatus(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
         {
-            OrderServiceFlow flow = new OrderServiceFlow(order, targetStatus);
-            flow.ChangeStatus();
+            var oldStatus = order.OrderStatus;
+            OrderServiceFlow flow = new OrderServiceFlow();
+            flow.ChangeStatus(order, targetStatus);
 
             int num = 1;
             ServiceOrderStateChangeHis oldOrderHis = bllServiceOrderStateChangeHis.GetMaxNumberOrderHis(order);
@@ -204,7 +208,8 @@ namespace Dianzhu.BLL
                 NegotiateAmount = order.NegotiateAmount,
                 Order = order,
                 Remark = string.Empty,
-                Status = targetStatus,
+                OldStatus = oldStatus,
+                NewStatus = targetStatus,
                 Number = num,
             };
             bllServiceOrderStateChangeHis.SaveOrUpdate(orderHist);
@@ -219,6 +224,54 @@ namespace Dianzhu.BLL
             string result = reader.ReadToEnd();
             log.Debug("发送结果:" + result);
         }
+        #endregion
+
+        #region 订单取消
+        /// <summary>
+        /// 申请取消
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_Canceled(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.Canceled);
+
+            switch (order.OrderStatus)
+            {
+                case enum_OrderStatus.Created:
+                    ChangeStatus(order, enum_OrderStatus.CanceledDirectly); break;
+                case enum_OrderStatus.Payed:
+                    ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
+                    //todo:退还定金
+                    break;
+
+                case enum_OrderStatus.Negotiate:
+                case enum_OrderStatus.Assigned:
+                case enum_OrderStatus.Begin:
+                case enum_OrderStatus.IsEnd:
+
+                    //获取确认时间
+                    var negotiateTime = bllServiceOrderStateChangeHis.GetChangeTime(order, enum_OrderStatus.Negotiate);
+                    double timeSpan = (DateTime.Now - negotiateTime).TotalMinutes;
+                    if (order.ServiceOvertimeForCancel <= timeSpan)
+                    {
+                        //todo:支付赔偿
+                        ChangeStatus(order, enum_OrderStatus.WaitingCancel);
+
+                    }
+                    else {
+                        //todo:退还定金
+                        ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
+                    }
+                    //  int timeSpan= order.Service.OverTimeForCancel
+
+                    break;
+
+
+                default: break;
+            }
+        }
+
+
         #endregion
 
         #region 分配工作人员
@@ -248,15 +301,13 @@ namespace Dianzhu.BLL
     /// </summary>
     public class OrderServiceFlow
     {
-        ServiceOrder order;
-        Model.Enums.enum_OrderStatus targetStatus;
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL");
 
-        public OrderServiceFlow(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
-        {
-            this.order = order;
-            this.targetStatus = targetStatus;
-        }
-        public void ChangeStatus()
+        /// <summary>
+        /// 确保目标状态是可以执行的.
+        /// </summary>
+
+        public void ChangeStatus(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
         {
 
             bool validated = dictAvailabelStatus[targetStatus].Contains(order.OrderStatus);
@@ -264,16 +315,18 @@ namespace Dianzhu.BLL
             {
                 order.OrderStatus = targetStatus;
             }
-           
-
+            else
+            {
+                string errMsg = string.Format("不合法的状态变更{0}->{1}", order.OrderStatus, targetStatus);
+                log.Error(errMsg);
+                throw new Exception(errMsg);
+            }
 
         }
-        /// <summary>
-        /// 确保目标状态是可以执行的.
-        /// </summary>
 
         //状态对应表. key:状态, value:该状态可以从哪些状态转变而来.
-        static Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> dictAvailabelStatus = new Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> {
+        static Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> dictAvailabelStatus =
+            new Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> {
             { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.Created }},
              { enum_OrderStatus.Negotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Payed }},
               { enum_OrderStatus.Assigned,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
@@ -281,6 +334,14 @@ namespace Dianzhu.BLL
                { enum_OrderStatus.IsEnd,new List<enum_OrderStatus>() {enum_OrderStatus.Begin }},
                 { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd , enum_OrderStatus.Begin}},
                 { enum_OrderStatus.Finished,new List<enum_OrderStatus>() {enum_OrderStatus.Ended }},
+
+                { enum_OrderStatus.Appraise,new List<enum_OrderStatus>() {enum_OrderStatus.Finished }},
+                { enum_OrderStatus.Canceled,new List<enum_OrderStatus>() {enum_OrderStatus.Created,
+                                                                          enum_OrderStatus.Payed,
+                                                                           enum_OrderStatus.Negotiate,
+                                                                            enum_OrderStatus.Assigned,
+                                                                             enum_OrderStatus.Begin
+                } },
 
         };
     }
@@ -313,6 +374,10 @@ namespace Dianzhu.BLL
         public IList<ServiceOrderStateChangeHis> GetOrderHisList(ServiceOrder order)
         {
             return dalServiceOrderStateChangeHis.GetOrderHisList(order);
+        }
+        public DateTime GetChangeTime(ServiceOrder order, enum_OrderStatus status)
+        {
+            return dalServiceOrderStateChangeHis.GetChangeTime(order, status);
         }
     }
 }

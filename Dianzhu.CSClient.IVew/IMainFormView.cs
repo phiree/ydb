@@ -116,7 +116,7 @@ namespace Dianzhu.CSClient.IVew
 
 
         IList<DZService> SearchedService { get; set; }
-        //外部服务
+        //服务信息
         string ServiceName { get; set; }
         string ServiceBusinessName { get; set; }
         string ServiceDescription { get; set; }
@@ -125,6 +125,13 @@ namespace Dianzhu.CSClient.IVew
         string ServiceUrl { get; set; }
         string ServiceTime { get; set; }
         string TargetAddress { get; set; }
+        //取消超时长度
+        int OverTimeForCancel { get; set; }
+        //定金
+        decimal DepositAmount { get; set; }
+        //取消超时 赔偿金
+        decimal CancelCompensation { get; set; }
+
         string OrderAmount { get; set; }
         string OrderNumber { get; set; }
         string OrderStatus { get; set; }

@@ -59,8 +59,8 @@ public class ResponseORM003007 : BaseResponse
                 }
 
                 enum_OrderStatus status = (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), requestData.status);
-                orderServiceFlow = new OrderServiceFlow(order, status);
-                orderServiceFlow.ChangeStatus();
+               new OrderServiceFlow().ChangeStatus(order, status);
+              
                 if (order.OrderStatus != status)
                 {
                     this.state_CODE = Dicts.StateCode[1];

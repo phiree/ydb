@@ -154,21 +154,13 @@ public class RespDataORM_orderStatusObj
     public string status { get; set; }
     public string time { get; set; }
     public string lastStatus { get; set; }
-    public RespDataORM_orderStatusObj Adap(ServiceOrderStateChangeHis orderHis,ServiceOrderStateChangeHis oldOrderHis)
+    public RespDataORM_orderStatusObj Adap(ServiceOrderStateChangeHis orderHis)
     {
-        if (oldOrderHis != null)
-        {
-            this.status = orderHis.Status.ToString();
+        
+            this.status = orderHis.NewStatus.ToString();
             this.time = string.Format("{0:yyyyMMddHHmmss}", orderHis.CreatTime);
-            this.lastStatus = oldOrderHis.Status.ToString();
-        }
-        else
-        {
-            this.status = orderHis.Status.ToString();
-            this.time = string.Format("{0:yyyyMMddHHmmss}", orderHis.CreatTime);
-            this.lastStatus = enum_OrderStatus.Draft.ToString();
-        }
-
+            this.lastStatus = orderHis.OldStatus.ToString();
+       
         return this;
     }
 }

@@ -5,7 +5,7 @@
     void Application_Start(object sender, EventArgs e)
     {
        
-        PHSuit.Logging.Config();
+        PHSuit.Logging.Config("Dianzhu.Web.Pay");
         
     }
 

@@ -105,7 +105,8 @@ namespace Dianzhu.CSClient.Presenter
                 NegotiateAmount = ClientState.CurrentServiceOrder.NegotiateAmount,
                 Order = ClientState.CurrentServiceOrder,
                 Remark = ClientState.CurrentServiceOrder.Memo,
-                Status = ClientState.CurrentServiceOrder.OrderStatus,
+                OldStatus =  Model.Enums.enum_OrderStatus.Draft,
+                NewStatus = ClientState.CurrentServiceOrder.OrderStatus,
                 Number = 1,
             };
             bllServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
@@ -222,6 +223,10 @@ namespace Dianzhu.CSClient.Presenter
             ClientState.CurrentServiceOrder.Memo = view.Memo;
             ClientState.CurrentServiceOrder.TargetTime = view.ServiceTime;
             ClientState.CurrentServiceOrder.LatestOrderUpdated = DateTime.Now;
+            //todo:超时取消赔偿金,超时时间,定金金额
+            ClientState.CurrentServiceOrder.ServiceCancelCompensation = view.CancelCompensation;
+            ClientState.CurrentServiceOrder.ServiceOvertimeForCancel = view.OverTimeForCancel;
+           
             bllOrder.SaveOrUpdate(ClientState.CurrentServiceOrder);
         }
 

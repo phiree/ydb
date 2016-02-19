@@ -40,7 +40,7 @@ namespace Dianzhu.Push
         /// <param name="notificationSound"></param>
         public PushIOS(string strDeviceToken , int pushSum, string notificationSound)
         {
-            PHSuit.Logging.Config();
+           
             this.strDeviceToken = strDeviceToken;
             this.pushSum = pushSum;
             this.notificationSound = notificationSound;

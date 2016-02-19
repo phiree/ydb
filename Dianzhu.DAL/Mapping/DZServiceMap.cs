@@ -39,6 +39,9 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.LastModifiedTime);
             HasMany<ServiceOpenTime>(x => x.OpenTimes).Cascade.SaveUpdate();
             Map(x => x.PayFirst);
+            Map(x => x.OverTimeForCancel);
+            Map(x => x.DepositAmount);
+            Map(x => x.CancelCompensation);
 
         }
     }

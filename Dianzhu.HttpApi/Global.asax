@@ -5,7 +5,7 @@
     void Application_Start(object sender, EventArgs e)
     {
         // Code that runs on application startup
-         PHSuit.Logging.Config();
+         PHSuit.Logging.Config("Dianzhu.HttpAPI");
     }
 
     void Application_End(object sender, EventArgs e)
