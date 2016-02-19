@@ -11,16 +11,14 @@ namespace Dianzhu.Config
     public static partial class Config
     {        
         #region 服务器定义
-        static string[] DatabaseServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172" };
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         #endregion
-        #region   部署前，只需要手动修改此处 /
-        static string DatabaseServer = DatabaseServers[3];//数据库地址
-        static string IMServer = DatabaseServers[3];//即时通讯服务器地址
-        static string IMDomain = IMDomains[3];//即时通讯服务器地址
-        static string ApplicationServer = DatabaseServers[3];//应用服务器地址
+        #region   部署前，只需要手动修改此处
+        static string IMServer = IMServers[0];//即时通讯服务器地址
+        static string IMDomain = IMDomains[0];//即时通讯服务器地址
+        static string ApplicationServer = ApplicationServers[0];//应用服务器地址
 
         #endregion
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
@@ -78,14 +76,14 @@ namespace Dianzhu.Config
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, 8038,"GetFile.ashx?fileName=")   }
 
 
-            , {"NoticeSenderId",DictsNotifySenderLogins[DatabaseServer].Key  }
-            , {"NoticeSenderPwd",DictsNotifySenderLogins[DatabaseServer].Value  }
+            , {"NoticeSenderId",DictsNotifySenderLogins[IMServer].Key  }
+            , {"NoticeSenderPwd",DictsNotifySenderLogins[IMServer].Value  }
             , {"PaySite",BuildHttpUrlString(ApplicationServer, 8168)   }
             , {"PayUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
             , {"OpenfireRestApiSessionListUrl",BuildHttpUrlString(IMServer, 9090,"plugins/restapi/v1/sessions/")  }
 
-            , {"DiandianLoginId",DictsDianDianLogins[DatabaseServer].Key}
-            , {"DiandianLoginPwd",DictsDianDianLogins[DatabaseServer].Value  }
+            , {"DiandianLoginId",DictsDianDianLogins[IMServer].Key}
+            , {"DiandianLoginPwd",DictsDianDianLogins[IMServer].Value  }
             , {"APIBaseURL",BuildHttpUrlString(ApplicationServer, 8037,"DianzhuApi.ashx")  }
             , {"PayServerUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
             , {"NotifyServer",BuildHttpUrlString(ApplicationServer, 8039)   }

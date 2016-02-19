@@ -23,7 +23,6 @@ public class ResponseASN001007 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        BLLComplaint bllComplaint = new BLLComplaint();
         BLLStaff bllStaff = new BLLStaff();
         BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
 
@@ -39,7 +38,7 @@ public class ResponseASN001007 : BaseResponse
             if (!isUserId)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "用户Id格式有误";
+                this.err_Msg = "userId格式有误";
                 return;
             }
 
@@ -47,7 +46,7 @@ public class ResponseASN001007 : BaseResponse
             if (!isStaffId)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "员工Id格式有误";
+                this.err_Msg = "staffId格式有误";
                 return;
             }
 
@@ -84,7 +83,7 @@ public class ResponseASN001007 : BaseResponse
                     if (!isOrderId)
                     {
                         this.state_CODE = Dicts.StateCode[1];
-                        this.err_Msg = "orderId格式有误";
+                        this.err_Msg = order_ids[i]+"格式有误";
                         return;
                     }
 

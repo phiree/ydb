@@ -9,6 +9,9 @@ namespace Dianzhu.Model
     public class ServiceOrderStateChangeHis
 
     {
+        /// <summary>
+        /// 构造
+        /// </summary>
         public ServiceOrderStateChangeHis()
         {
             CreatTime = DateTime.Now;
@@ -22,9 +25,12 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual ServiceOrder Order { get; set; }
         /// <summary>
-        /// 订单状态
+        /// 订单上一次状态
         /// </summary>
         public virtual enum_OrderStatus OldStatus { get; set; }
+        /// <summary>
+        /// 订单现在的状态
+        /// </summary>
         public virtual enum_OrderStatus NewStatus { get; set; }
         /// <summary>
         ///订单预期

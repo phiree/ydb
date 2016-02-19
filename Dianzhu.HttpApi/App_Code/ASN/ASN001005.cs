@@ -11,14 +11,14 @@ using Dianzhu.Api.Model;
 /// <summary>
 /// 获取一条服务信息的详情
 /// </summary>
-public class ResponseASN002007 : BaseResponse
+public class ResponseASN001005 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
-    public ResponseASN002007(BaseRequest request) : base(request) { }
+    public ResponseASN001005(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataASN002007 requestData = this.request.ReqData.ToObject<ReqDataASN002007>();
+        ReqDataASN001005 requestData = this.request.ReqData.ToObject<ReqDataASN001005>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
@@ -28,12 +28,11 @@ public class ResponseASN002007 : BaseResponse
 
         string raw_id = requestData.userID;
         string order_id = requestData.orderId;
-        IList<string> staff_ids = requestData.arrayStaffId;
-        bool assign = requestData.assign;
+        string staff_id = requestData.staffId;
 
         try
         {
-            Guid userId,orderId;
+            Guid userId,orderId,staffId;
             bool isUserId = Guid.TryParse(raw_id, out userId);
             if (!isUserId)
             {
@@ -42,20 +41,21 @@ public class ResponseASN002007 : BaseResponse
                 return;
             }
 
-            bool isOrderId = Guid.TryParse(order_id, out orderId);
-            if (!isOrderId)
+            bool isOrdrId = Guid.TryParse(order_id, out orderId);
+            if (!isOrdrId)
             {
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "orderId格式有误";
                 return;
             }
 
-            if (staff_ids.Count==0)
+            bool isStaffId = Guid.TryParse(staff_id, out staffId);
+            if (!isStaffId)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "arrayOrderId不能为空！";
+                this.err_Msg = "staffId格式有误";
                 return;
-            }
+            }            
 
             DZMembership member;
             bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
@@ -65,7 +65,7 @@ public class ResponseASN002007 : BaseResponse
             }
             try
             {
-                ServiceOrder order= bllServiceOrder.GetOne(orderId);
+                ServiceOrder order = bllServiceOrder.GetOne(orderId);
                 if (order == null)
                 {
                     this.state_CODE = Dicts.StateCode[4];
@@ -73,45 +73,26 @@ public class ResponseASN002007 : BaseResponse
                     return;
                 }
 
-                Staff staff;
-                Guid staffId;
-                bool isStaffId;
-                IList<Staff> orderList = new List<Staff>();
-                for (int i = 0; i < staff_ids.Count; i++)
+                Staff staff = bllStaff.GetOne(staffId);
+                if (staff == null)
                 {
-                    isStaffId = Guid.TryParse(staff_ids[i], out staffId);
-                    if (!isStaffId)
-                    {
-                        this.state_CODE = Dicts.StateCode[1];
-                        this.err_Msg = staff_ids[i]+"格式有误";
-                        return;
-                    }
+                    this.state_CODE = Dicts.StateCode[4];
+                    this.err_Msg = "没有对应的员工,请检查传入的staffID";
+                    return;
+                }
 
-                    staff = bllStaff.GetOne(staffId);
-                    if (staff == null)
-                    {
-                        this.state_CODE = Dicts.StateCode[4];
-                        this.err_Msg = "没有对应的员工,请检查传入的staffID";
-                        return;
-                    }
-                    orderList.Add(staff);
-                }
-                
-                OrderAssignment orderAssignment;
-                foreach(Staff st in orderList)
-                {
-                    orderAssignment = bllOrderAssignment.FindByOrderAndStaff(order, st);
-                    if (orderAssignment == null)
-                    {
-                        orderAssignment = new OrderAssignment();
-                    }
-                    orderAssignment.Order = order;
-                    orderAssignment.AssignedStaff = st;
-                    orderAssignment.Enabled = assign;
-                    bllOrderAssignment.SaveOrUpdate(orderAssignment);
-                }
+                IList<OrderAssignment> oaList = bllOrderAssignment.GetOAListByOrder(order);
+                IList<string> staffList = new List<string>();
+
+                RespDataASN_orderObj orderObj = new RespDataASN_orderObj().Adapt(order, oaList);
+                RespDataASN_assignObj assignObj = new RespDataASN_assignObj().Adapt(staff,oaList);
+                assignObj.orderObj = orderObj;
+
+                RespDataASN001005 respData = new RespDataASN001005();
+                respData.assignObj = assignObj;
 
                 this.state_CODE = Dicts.StateCode[0];
+                this.RespData = respData;
             }
             catch (Exception ex)
             {

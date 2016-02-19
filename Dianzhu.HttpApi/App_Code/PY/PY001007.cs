@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using PHSuit;
 using System.Collections.Specialized;
 using System.Web.Security;
+using Dianzhu.Api.Model;
 /// <summary>
 /// Summary description for PY001007
 /// </summary>
@@ -51,6 +52,14 @@ public class ResponsePY001007:BaseResponse
 
             BLLPayment bllPayment = new BLLPayment();
             Payment payment = bllPayment.GetOne(orderId);
+
+            if (payment == null)
+            {
+                ilog.Error("该单号" + orderId + "不存在！");
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "该单号不存在！";
+                return;
+            }
 
             switch (requestData.type.ToLower())
             {
@@ -134,39 +143,4 @@ public class ResponsePY001007:BaseResponse
 
         return HttpHelper.CreateHttpRequest(url.ToString(), "post", respData);
     }
-}
-
-public class ReqDataPY001007
-{
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string orderID { get; set; }
-    public string type { get; set; }
-}
-
-public class RespData_WeChatUserObj
-{
-    public string return_code { get; set; }//返回状态码
-    public string return_msg { get; set; }//返回信息
-
-    public string appid { get; set; }//公众账号ID,企业号corpid即为此appId
-    public string mch_id { get; set; }//商户号
-    public string device_info { get; set; }//设备号    
-    public string nonce_str { get; set; }//随机字符串
-    public string sign { get; set; }//签名    
-    public string result_code { get; set; }//业务结果
-    public string err_code { get; set; }//错误代码
-    public string err_code_des { get; set; }//错误代码描述
-
-    public string trade_type { get; set; }//交易类型
-    public string prepay_id { get; set; }//预支付交易会话标识
-    public string code_url { get; set; }//二维码链接 
-
-}
-
-public class RespDataPY001007
-{
-    public string appid { get; set; }
-    public string partnerid { get; set; }
-    public string prepayid { get; set; }
 }

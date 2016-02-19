@@ -59,14 +59,10 @@ public class ResponseORM003005 : BaseResponse
                 }
 
                 RespDataORM_orderStatusObj orderStatusObj;
-                IList< ServiceOrderStateChangeHis> OrderStateHisList = bllServiceOrderHis.GerFirstTwoOrderHisListByOrder(order);
-                if (OrderStateHisList.Count > 1)
+                ServiceOrderStateChangeHis OrderStateHis = bllServiceOrderHis.GetMaxNumberOrderHis(order);
+                if (OrderStateHis!=null)
                 {
-                    orderStatusObj = new RespDataORM_orderStatusObj().Adap(OrderStateHisList[0]);
-                }
-                else if (OrderStateHisList.Count == 1)
-                {
-                    orderStatusObj = new RespDataORM_orderStatusObj().Adap(OrderStateHisList[0]);
+                    orderStatusObj = new RespDataORM_orderStatusObj().Adap(OrderStateHis);
                 }
                 else
                 {

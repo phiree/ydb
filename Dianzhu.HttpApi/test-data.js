@@ -3,24 +3,35 @@
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", "ad001006","clm001001"
-//"slf002006", "slf002003", "slf001007","py001007"
+//"slf002006", "slf002003", "slf001007","py001007","py001008"
 //"asn001005","asn001006","asn001007","asn002007"
-"orm002001",
+"orm001006", "orm001005"
 
 ];
 var test_data = [
 
     /**********************指派*****************************/
     {
+        "protocol_CODE": "ASN001005",
+        "ReqData": {
+            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+            "pWord": "1234",
+            "orderId": "e27ad23c-c818-4fe0-bc70-a5b001263cce",
+            "staffId": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
         "protocol_CODE": "ASN001007",
         "ReqData": {
-            "userID": "2c843b9f-ed19-40c2-99b4-a54500f97205",
-            "pWord": "123",
+            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+            "pWord": "1234",
             "arrayOrderId": [
-                "05c43210-7787-40df-8b93-a57901063d4d",
-                "09791ae4-7e5d-4d0f-9483-a56200a31e6e",
+                "e27ad23c-c818-4fe0-bc70-a5b001263cce",
             ],
-            "staffId": "a2be96e7-d651-47b1-8729-a5ae00f19d32",
+            "staffId": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
             "assign": true
         },
         "stamp_TIMES": 1453520313281,
@@ -64,8 +75,19 @@ var test_data = [
         "ReqData": {
             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
             "pWord": "1234",
-            "orderID": "fdf73a7f-77dc-4323-8660-a5af00bb78e8",
+            "orderID": "e27ad23c-c818-4fe0-bc70-a5b001263cce",
             "type":"wepay",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "PY001008",
+        "ReqData": {
+            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+            "pWord": "1234",
+            "orderID": "06ee70b3-500d-42da-8b1f-a595009d97da",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -197,7 +219,7 @@ var test_data = [
      {
          "protocol_CODE": "CHAT001006",
          "ReqData": {
-             "userID": "7dcdd185-bed6-4756-a219-a5360118aab3",
+             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
              "pWord": "1234",
              "orderID": "",
              "target": "cer",
@@ -239,9 +261,9 @@ var test_data = [
                 {
                     "protocol_CODE": "ORM001005",
                     "ReqData": {
-                        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
-                        "pWord": "123456",
-                        "orderID": "93405a96-426e-4523-bacd-a55d00f965eb",
+                        "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+                        "pWord": "1234",
+                        "orderID": "e27ad23c-c818-4fe0-bc70-a5b001263cce",
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"
@@ -250,7 +272,7 @@ var test_data = [
           {
               "protocol_CODE": "ORM001006",
               "ReqData": {
-                  "userID": "7dcdd185-bed6-4756-a219-a5360118aab3", //13022222222
+                  "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb", //13022222222
                   "pWord": "1234",
                   "target": "ALL",
                   "pageSize": "50",

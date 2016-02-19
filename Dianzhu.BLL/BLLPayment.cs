@@ -117,5 +117,10 @@ namespace Dianzhu.BLL
         {
             dal.Update(payment);
         }
+
+        public Payment GetPaymentForWaitPay(ServiceOrder order)
+        {
+            return dal.GetPaymentForWaitPay(order);
+        }
     }
 }

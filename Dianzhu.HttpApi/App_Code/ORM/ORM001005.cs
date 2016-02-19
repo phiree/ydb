@@ -25,7 +25,6 @@ public class ResponseORM001005 : BaseResponse
 
         try
         {
-
             DZMembership member;
             bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
             if (!validated)

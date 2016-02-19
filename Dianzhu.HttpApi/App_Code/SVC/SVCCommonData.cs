@@ -11,11 +11,9 @@ using Newtonsoft.Json.Linq;
 /// <summary>
  ///orm接口 公用的类
 /// </summary>
-using Dianzhu.BLL;
-using Dianzhu.Model;
 public class RespDataSVC_svcObj
 {
-    public string StoreID { get; set; }
+    public string storeID { get; set; }
     public string svcID { get; set; }
     public string name { get; set; }
     public string type { get; set; }
@@ -33,7 +31,7 @@ public class RespDataSVC_svcObj
     public string open { get; set; }
     public RespDataSVC_svcObj Adapt(DZService service,IList<DZTag> tags)
     {
-        this.StoreID = service.Business.Id.ToString();
+        this.storeID = service.Business.Id.ToString();
         this.svcID = service.Id.ToString();
         this.name = service.Name;
         this.type = service.ServiceType.Name;

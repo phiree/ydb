@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ASN.cs" />
+    <Compile Include="PY.cs" />
     <Compile Include="CLM.cs" />
     <Compile Include="AD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

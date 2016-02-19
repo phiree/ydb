@@ -30,5 +30,10 @@ namespace Dianzhu.DAL
 
             return list;
         }
+
+        public virtual Payment GetPaymentForWaitPay(ServiceOrder order)
+        {
+            return Session.QueryOver<Payment>().Where(x => x.Order == order).And(x => x.Status == Model.Enums.enum_PaymentStatus.WaitForPay).SingleOrDefault();
+        }
     }
 }

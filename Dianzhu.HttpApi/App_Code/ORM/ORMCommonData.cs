@@ -100,12 +100,12 @@ public class RespDataORM_UserObj
 
 public class RespDataORM_storeObj
 {
-    public string storeID { get; set; }
+    public string userID { get; set; }
     public string alias { get; set; }
     public string imgUrl { get; set; }
     public RespDataORM_storeObj Adap(Business business)
     {
-        this.storeID = business.Id.ToString();
+        this.userID = business.Id.ToString();
         this.alias = business.Name;
         //this.imgUrl = business.BusinessAvatar.ImageName;
         this.imgUrl = string.IsNullOrEmpty(business.BusinessAvatar.ImageName) ? string.Empty : (Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + business.BusinessAvatar.ImageName);
@@ -156,11 +156,10 @@ public class RespDataORM_orderStatusObj
     public string lastStatus { get; set; }
     public RespDataORM_orderStatusObj Adap(ServiceOrderStateChangeHis orderHis)
     {
-        
-            this.status = orderHis.NewStatus.ToString();
-            this.time = string.Format("{0:yyyyMMddHHmmss}", orderHis.CreatTime);
-            this.lastStatus = orderHis.OldStatus.ToString();
-       
+        this.status = orderHis.NewStatus.ToString();
+        this.time = string.Format("{0:yyyyMMddHHmmss}", orderHis.CreatTime);
+        this.lastStatus = orderHis.OldStatus.ToString();
+
         return this;
     }
 }

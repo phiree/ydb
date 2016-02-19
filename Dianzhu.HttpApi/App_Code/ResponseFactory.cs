@@ -95,11 +95,17 @@ public class ResponseFactory
 
             case "ad001006":
                 return new ResponseAD001006(request);
+
             case "py001007":
                 return new ResponsePY001007(request);
+            case "py001008":
+                return new ResponsePY001008(request);
+
             case "clm001001":
                 return new ResponseCLM001001(request);
 
+            case "asn001005":
+                return new ResponseASN001005(request);
             case "asn001007":
                 return new ResponseASN001007(request);
             case "asn002007":

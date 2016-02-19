@@ -94,20 +94,18 @@ public class ReqDataORM001006
 }
 public class RespDataORM001006
 {
-    public IList<RespDataORM_Order> arrayData { get; set; }
+    public IList<RespDataORM_orderObj> arrayData { get; set; }
  
     public RespDataORM001006()
     {
-
-        arrayData = new List<RespDataORM_Order>();
-        
+        arrayData = new List<RespDataORM_orderObj>();        
     }
 
     public void AdapList(IList<ServiceOrder> serviceOrderList)
     {
         foreach (ServiceOrder order in serviceOrderList)
         {
-            RespDataORM_Order adapted_order = new RespDataORM_Order().Adap(order);
+            RespDataORM_orderObj adapted_order = new RespDataORM_orderObj().Adap(order);
             arrayData.Add(adapted_order);
         }
 
