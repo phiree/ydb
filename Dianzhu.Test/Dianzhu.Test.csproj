@@ -134,6 +134,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="config\connectionstrings.config" />
     <None Include="files\aps_development_Mark.p12">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
