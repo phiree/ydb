@@ -11,17 +11,18 @@ using Dianzhu.Api.Model;
 /// <summary>
 /// 获取一条服务信息的详情
 /// </summary>
-public class ResponseASN001007 : BaseResponse
+public class ResponseASN001006 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
-    public ResponseASN001007(BaseRequest request) : base(request) { }
+    public ResponseASN001006(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataASN001007 requestData = this.request.ReqData.ToObject<ReqDataASN001007>();
+        ReqDataASN001006 requestData = this.request.ReqData.ToObject<ReqDataASN001006>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
+        BLLBusiness bllBusiness = new BLLBusiness();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
         BLLStaff bllStaff = new BLLStaff();
         BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
@@ -29,16 +30,25 @@ public class ResponseASN001007 : BaseResponse
         try
         {
             string raw_id = requestData.userID;
+            string business_id = requestData.businessId;
             string staff_id = requestData.staffId;
-            IList<string> order_ids = requestData.arrayOrderId;
-            bool assign = requestData.assign;
+            int pageSize = Int32.Parse(requestData.pageSize);
+            int pageNum = Int32.Parse(requestData.pageNum);
 
-            Guid userId,staffId;
+            Guid userId,businessId,staffId;
             bool isUserId = Guid.TryParse(raw_id, out userId);
             if (!isUserId)
             {
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "userId格式有误";
+                return;
+            }
+
+            bool isOrdrId = Guid.TryParse(business_id, out businessId);
+            if (!isOrdrId)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "businessId格式有误";
                 return;
             }
 
@@ -48,14 +58,7 @@ public class ResponseASN001007 : BaseResponse
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "staffId格式有误";
                 return;
-            }
-
-            if (order_ids.Count==0)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "arrayOrderId不能为空！";
-                return;
-            }
+            }            
 
             DZMembership member;
             bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
@@ -65,6 +68,14 @@ public class ResponseASN001007 : BaseResponse
             }
             try
             {
+                Business business = bllBusiness.GetOne(businessId);
+                if (business == null)
+                {
+                    this.state_CODE = Dicts.StateCode[4];
+                    this.err_Msg = "没有对应的订单,请检查传入的businessID";
+                    return;
+                }
+
                 Staff staff = bllStaff.GetOne(staffId);
                 if (staff == null)
                 {
@@ -73,53 +84,34 @@ public class ResponseASN001007 : BaseResponse
                     return;
                 }
 
-                ServiceOrder order;
-                Guid orderId;
-                bool isOrderId;
-                IList<ServiceOrder> orderList = new List<ServiceOrder>();
-                for (int i = 0; i < order_ids.Count; i++)
+                int totalAmount;
+                IList<ServiceOrder> orderList = bllServiceOrder.GetListForBusiness(business, pageNum, pageSize, out totalAmount);
+                OrderAssignment oa;
+                RespDataASN_arrayData arrObj;
+                IList<RespDataASN_arrayData> arrList = new List<RespDataASN_arrayData>();
+                foreach (ServiceOrder order in orderList)
                 {
-                    isOrderId = Guid.TryParse(order_ids[i], out orderId);
-                    if (!isOrderId)
-                    {
-                        this.state_CODE = Dicts.StateCode[1];
-                        this.err_Msg = order_ids[i]+"格式有误";
-                        return;
-                    }
+                    arrObj = new RespDataASN_arrayData();
+                    arrObj.orderId = order.Id.ToString();
 
-                    order = bllServiceOrder.GetOne(orderId);
-                    if (order == null)
+                    oa = bllOrderAssignment.FindByOrderAndStaff(order, staff);
+                    if (oa != null)
                     {
-                        this.state_CODE = Dicts.StateCode[4];
-                        this.err_Msg = "没有对应的订单,请检查传入的orderID";
-                        return;
-                    }
-                    orderList.Add(order);
-                }
-                
-                OrderAssignment orderAssignment;
-                foreach(ServiceOrder sorder in orderList)
-                {
-                    orderAssignment = bllOrderAssignment.FindByOrderAndStaff(sorder,staff);
-                    if (orderAssignment == null)
-                    {
-                        orderAssignment = new OrderAssignment();
-                    }
-                    orderAssignment.Order = sorder;
-                    orderAssignment.AssignedStaff = staff;
-                    if (assign)
-                    {
-                        orderAssignment.AssignedTime = DateTime.Now;
+                        arrObj.assigned = oa.Enabled == true ? "1" : "0";
                     }
                     else
                     {
-                        orderAssignment.DeAssignedTime = DateTime.Now;
+                        arrObj.assigned = "0";
                     }
-                    orderAssignment.Enabled = assign;
-                    bllOrderAssignment.SaveOrUpdate(orderAssignment);
+
+                    arrList.Add(arrObj);
                 }
 
+                RespDataASN001006 respData = new RespDataASN001006();
+                respData.arrayData = arrList;
+
                 this.state_CODE = Dicts.StateCode[0];
+                this.RespData = respData;
             }
             catch (Exception ex)
             {

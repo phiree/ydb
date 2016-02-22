@@ -26,12 +26,12 @@ public class ResponseASN001005 : BaseResponse
         BLLStaff bllStaff = new BLLStaff();
         BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
 
-        string raw_id = requestData.userID;
-        string order_id = requestData.orderId;
-        string staff_id = requestData.staffId;
-
         try
         {
+            string raw_id = requestData.userID;
+            string order_id = requestData.orderId;
+            string staff_id = requestData.staffId;
+
             Guid userId,orderId,staffId;
             bool isUserId = Guid.TryParse(raw_id, out userId);
             if (!isUserId)
@@ -81,15 +81,17 @@ public class ResponseASN001005 : BaseResponse
                     return;
                 }
 
-                IList<OrderAssignment> oaList = bllOrderAssignment.GetOAListByOrder(order);
-                IList<string> staffList = new List<string>();
-
-                RespDataASN_orderObj orderObj = new RespDataASN_orderObj().Adapt(order, oaList);
-                RespDataASN_assignObj assignObj = new RespDataASN_assignObj().Adapt(staff,oaList);
-                assignObj.orderObj = orderObj;
+                OrderAssignment oa = bllOrderAssignment.FindByOrderAndStaff(order, staff);
 
                 RespDataASN001005 respData = new RespDataASN001005();
-                respData.assignObj = assignObj;
+                if (oa != null)
+                {
+                    respData.assigned = oa.Enabled == true ? "1" : "0";
+                }
+                else
+                {
+                    respData.assigned = "0";
+                }
 
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;

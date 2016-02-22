@@ -4,8 +4,8 @@
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", "ad001006","clm001001"
 //"slf002006", "slf002003", "slf001007","py001007","py001008"
-//"asn001005","asn001006","asn001007","asn002007"
-"orm001006", "orm001005"
+//"asn001005","asn001006","asn001007","asn001008",
+"orm002001",
 
 ];
 var test_data = [
@@ -17,7 +17,21 @@ var test_data = [
             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
             "pWord": "1234",
             "orderId": "e27ad23c-c818-4fe0-bc70-a5b001263cce",
+            "staffId": "e42c74c9-1e08-4982-9e30-a5b1010ba129",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001006",
+        "ReqData": {
+            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+            "pWord": "1234",
+            "businessId": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
             "staffId": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
+            "pageSize": "10",
+            "pageNum": "1",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -29,7 +43,8 @@ var test_data = [
             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
             "pWord": "1234",
             "arrayOrderId": [
-                "e27ad23c-c818-4fe0-bc70-a5b001263cce",
+                "4a17f564-3f3b-4d6b-98b9-a5b2014d82ee",
+                "b4381dd5-7f77-474c-9ae8-a5b2013636fc",
             ],
             "staffId": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
             "assign": true
@@ -39,7 +54,7 @@ var test_data = [
     },
 
     {
-        "protocol_CODE": "ASN002007",
+        "protocol_CODE": "ASN001008",
         "ReqData": {
             "userID": "2c843b9f-ed19-40c2-99b4-a54500f97205",
             "pWord": "123",

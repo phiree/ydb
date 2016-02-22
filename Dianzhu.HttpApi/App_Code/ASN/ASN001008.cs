@@ -11,14 +11,14 @@ using Dianzhu.Api.Model;
 /// <summary>
 /// 获取一条服务信息的详情
 /// </summary>
-public class ResponseASN002007 : BaseResponse
+public class ResponseASN001008 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
-    public ResponseASN002007(BaseRequest request) : base(request) { }
+    public ResponseASN001008(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataASN002007 requestData = this.request.ReqData.ToObject<ReqDataASN002007>();
+        ReqDataASN001008 requestData = this.request.ReqData.ToObject<ReqDataASN001008>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
@@ -26,13 +26,13 @@ public class ResponseASN002007 : BaseResponse
         BLLStaff bllStaff = new BLLStaff();
         BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
 
-        string raw_id = requestData.userID;
-        string order_id = requestData.orderId;
-        IList<string> staff_ids = requestData.arrayStaffId;
-        bool assign = requestData.assign;
-
         try
         {
+            string raw_id = requestData.userID;
+            string order_id = requestData.orderId;
+            IList<string> staff_ids = requestData.arrayStaffId;
+            bool assign = requestData.assign;
+
             Guid userId,orderId;
             bool isUserId = Guid.TryParse(raw_id, out userId);
             if (!isUserId)
