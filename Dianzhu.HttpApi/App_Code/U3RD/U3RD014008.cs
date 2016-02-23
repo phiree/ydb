@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using PHSuit;
 using System.Collections.Specialized;
 using System.Web.Security;
+using Dianzhu.Api.Model;
 /// <summary>
 /// Summary description for U3RD014008
 /// </summary>

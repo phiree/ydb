@@ -104,6 +104,14 @@ public class ResponseFactory
             case "clm001001":
                 return new ResponseCLM001001(request);
 
+            case "asn001001":
+                return new ResponseASN001001(request);
+            case "asn001002":
+                return new ResponseASN001002(request);
+            case "asn001003":
+                return new ResponseASN001003(request);
+            case "asn001004":
+                return new ResponseASN001004(request);
             case "asn001005":
                 return new ResponseASN001005(request);
             case "asn001006":

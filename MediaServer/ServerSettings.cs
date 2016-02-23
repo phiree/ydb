@@ -29,6 +29,7 @@ namespace MediaServer
                     domainPath.Add("ChatVideo", "/ChatVideo/");
                     domainPath.Add("ChatImage", "/ChatImage/");
                     domainPath.Add("Advertisement", "/Advertisement/");
+                    domainPath.Add("StaffAvatar", "/StaffAvatar/");//职工头像
                 }
                 return domainPath;
             }

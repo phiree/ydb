@@ -7,6 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
 
 public class ResponseUSM001001 : BaseResponse
 {

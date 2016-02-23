@@ -13,19 +13,19 @@ namespace Dianzhu.DAL.Mapping
         {
             Id(x => x.Id);
             Map(x => x.Name);
-             
+            Map(x => x.Age);
+            Map(x => x.WorkingYears);
             References<Business>(x => x.Belongto);
             Map(x => x.Code);
             Map(x => x.Gender);
             Map(x => x.NickName);
             Map(x => x.Phone);
-           
+            Map(x => x.Email);
+            Map(x => x.Address);
+            Map(x => x.Photo);
+            Map(x => x.Enable);           
             Map(x => x.IsAssigned);
-            HasMany<ServiceType>(x => x.ServiceTypes).Not.LazyLoad();
-            HasMany<BusinessImage>(x => x.StaffAvatar).Cascade.AllDeleteOrphan();
-            
+            HasMany<BusinessImage>(x => x.StaffAvatar).Cascade.AllDeleteOrphan(); 
         }
     }
-  
-
 }

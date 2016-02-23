@@ -56,6 +56,7 @@
     <Compile Include="Advertisement.cs" />
     <Compile Include="IMUserStatus.cs" />
     <Compile Include="City.cs" />
+    <Compile Include="StaffServiceType.cs" />
     <Compile Include="OrderAssignment.cs" />
     <Compile Include="PaymentLog.cs" />
     <Compile Include="Area.cs" />

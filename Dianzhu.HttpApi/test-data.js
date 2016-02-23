@@ -4,13 +4,67 @@
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", "ad001006","clm001001"
 //"slf002006", "slf002003", "slf001007","py001007","py001008"
-//"asn001005","asn001006","asn001007","asn001008",
-"orm002001",
+//"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn001007","asn001008",
+ "orm003006",
 
 ];
 var test_data = [
 
     /**********************指派*****************************/
+    {
+        "protocol_CODE": "ASN001001",
+        "ReqData": {
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userObj": {
+                "alias": "棒棒娃",
+                "email": "issumao@126.com",
+                "phone": "1888938xxxx",
+                "imgUrl": "http://tu.webps.cn/tb/img/4/T16uXnFsJaXXXXXXXX_%21%210-item_pic.jpg",
+                "address": "海南省海口市"
+            }
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001002",
+        "ReqData": {
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userID": "948f542b-3123-42f3-bc5d-a5b500be12aa",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001003",
+        "ReqData": {
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userID": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
+            //"alias": "呵呵哒",
+            //"email": "321654@126.com",
+            "phone": "18865471542",
+            //"imgUrl": "http://img1.imgtn.bdimg.com/it/u=2226833288,3588551739&fm=206&gp=0.jpg",
+            //"address": "海南省三亚市",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001004",
+        "ReqData": {
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
     {
         "protocol_CODE": "ASN001005",
         "ReqData": {
@@ -354,9 +408,9 @@ var test_data = [
            {
                "protocol_CODE": "ORM003006",
                "ReqData": {
-                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
-                   "pWord": "123456",
-                   "orderID": "a756ede1-f90d-45af-8fec-a55c00fcb115",
+                   "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+                   "pWord": "1234",
+                   "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
                },
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"
@@ -436,7 +490,7 @@ var test_data = [
                 },
                 //信息修改
                {
-                   "protocol_CODE": "USM001003",
+                   "protocol_CODE": "USM0010030",
                    "ReqData": {
                        "userID": "7dcdd185-bed6-4756-a219-a5360118aab3",
                        "pWord": "1234",
@@ -454,9 +508,9 @@ var test_data = [
                 {
                     "protocol_CODE": "USM001003",
                     "ReqData": {
-                        "userID": "eb2ae597-5adb-4242-b22e-a4f901275654",
-                        "pWord": "123456",
-                        "address": "海牙国际大厦20A",
+                        "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+                        "pWord": "1234",
+                        "address": "海牙国际大厦20A0000",
                         "phone": "13023123412"
 
                     },

@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="USM.cs" />
     <Compile Include="ASN.cs" />
     <Compile Include="PY.cs" />
     <Compile Include="CLM.cs" />
