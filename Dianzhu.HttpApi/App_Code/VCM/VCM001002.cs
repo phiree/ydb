@@ -8,6 +8,8 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
+
 public class ResponseVCM001002 : BaseResponse
 {
     public ResponseVCM001002(BaseRequest request) : base(request) { }
@@ -76,62 +78,6 @@ public class ResponseVCM001002 : BaseResponse
             this.err_Msg = e.Message;
             return;
         }
-
-    }
-
-}
-
-public class ReqDataVCM001002
-{
-    public string uid { get; set; }
-    public string userPWord { get; set; }
-    public string vcsTarget { get; set; }
-    public string pageSize { get; set; }
-    public string pageNum { get; set; }
-
-}
-public class RespDataVCM001002
-{
-    public IList<RespDataVCM001002_Cashticket> arrayData { get; set; }
-    public RespDataVCM001002()
-    {
-
-        arrayData = new List<RespDataVCM001002_Cashticket>();
-    }
-
-    public void AdapList(IList<CashTicket> serviceOrderList)
-    {
-        foreach (CashTicket order in serviceOrderList)
-        {
-            RespDataVCM001002_Cashticket adapted_order = new RespDataVCM001002_Cashticket().Adap(order);
-            arrayData.Add(adapted_order);
-        }
-
-    }
-}
-public class RespDataVCM001002_Cashticket
-{
-    public string vcsID { get; set; }
-    public string srvBiz { get; set; }
-    public string srvBizID { get; set; }
-    public string vcsStartTime { get; set; }
-    public string vcsEndTime { get; set; }
-    public string vcsMoney { get; set; }
-    public string vcsStatus { get; set; }
-    public string vcsExdes { get; set; }
-
-    public RespDataVCM001002_Cashticket Adap(CashTicket cashTicket)
-    {
-        this.vcsID = cashTicket.TicketCode;
-        this.srvBiz = cashTicket.CashTicketTemplate.Business.Name;
-        this.srvBizID = cashTicket.CashTicketTemplate.Business.Id.ToString();
-        this.vcsStartTime = cashTicket.CashTicketTemplate.ValidDate.ToString("yyyyMMddHHmm");// ServiceTimeBegin;
-        this.vcsEndTime = cashTicket.CashTicketTemplate.ExpiredDate.ToString("yyyyMMddHHmm");
-        ///这个是服务单价
-        this.vcsMoney = cashTicket.CashTicketTemplate.Amount.ToString("0.0");
-        this.vcsStatus = string.Empty;
-        this.vcsExdes = cashTicket.CashTicketTemplate.Conditions;
-        return this;
     }
 }
 

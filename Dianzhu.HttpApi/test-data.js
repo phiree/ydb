@@ -125,6 +125,7 @@ var test_data = [
 
     {
         "protocol_CODE": "ASN002004",
+        //"appName": "adminbusiness",
         "ReqData": {
             "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
             "pWord": "123456",

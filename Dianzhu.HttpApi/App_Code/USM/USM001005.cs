@@ -46,8 +46,6 @@ public class ResponseUSM001005 : BaseResponse
         RespDataUSM resp = new RespDataUSM();
         resp.userObj = userObj;
         this.RespData =resp ;
-
-
     }
 }
 

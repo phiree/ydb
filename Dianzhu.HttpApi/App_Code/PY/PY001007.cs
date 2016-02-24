@@ -34,12 +34,15 @@ public class ResponsePY001007:BaseResponse
         try
         {
             Guid orderId;
-
-            DZMembership member;
-            bool validated = new Account(bllMember).ValidateUser(new Guid(requestData.userID), requestData.pWord, this, out member);
-            if (!validated)
+            
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(bllMember).ValidateUser(new Guid(requestData.userID), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                } 
             }
 
             bool isOrderId = Guid.TryParse(requestData.orderID, out orderId);

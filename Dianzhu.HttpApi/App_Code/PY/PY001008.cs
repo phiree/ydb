@@ -30,7 +30,7 @@ public class ResponsePY001008 : BaseResponse
 
         try
         {
-            Guid userId,orderId;
+            Guid userId, orderId;
             bool isUserId = Guid.TryParse(requestData.userID, out userId);
             if (!isUserId)
             {
@@ -46,12 +46,15 @@ public class ResponsePY001008 : BaseResponse
                 this.err_Msg = "用户orderId格式有误";
                 return;
             }
-
-            DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                }
             }
 
             ServiceOrder order = bllServiceOrder.GetOne(new Guid(order_id));
@@ -85,7 +88,7 @@ public class ResponsePY001008 : BaseResponse
             this.err_Msg = e.Message;
             return;
         }
-    }    
+    }
 }
 
 

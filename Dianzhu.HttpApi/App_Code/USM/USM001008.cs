@@ -8,6 +8,7 @@ using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
+using Dianzhu.Api.Model;
 /// <summary>
 /// 用户设备认证
 /// </summary>
@@ -23,13 +24,14 @@ public class ResponseUSM001008 : BaseResponse
 
         try
         {
-           
-            
-             DZMembership member;
-             bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                }
             }
             try
             {
@@ -37,16 +39,20 @@ public class ResponseUSM001008 : BaseResponse
                 //bllDeviceBind.UpdateDeviceBindStatus(member, requestData.appToken, requestData.appName);
                 string ext = string.Empty;
                 string domainType = string.Empty;
-                switch (requestData.FileType) {
-                    case USM001008UploadedFileType.image:ext = ".png";
+                switch (requestData.FileType)
+                {
+                    case USM001008UploadedFileType.image:
+                        ext = ".png";
                         domainType = "ChatImage";
                         break;
-                        
-                    case USM001008UploadedFileType.video: ext = ".mp4";
+
+                    case USM001008UploadedFileType.video:
+                        ext = ".mp4";
                         domainType = "ChatVideo";
                         break;
-                    case USM001008UploadedFileType.voice: ext = ".mp3";
-                        
+                    case USM001008UploadedFileType.voice:
+                        ext = ".mp3";
+
                         domainType = "ChatAudio";
                         break;
                 }
@@ -57,15 +63,15 @@ public class ResponseUSM001008 : BaseResponse
                 string savedFileName = MediaServer.HttpUploader.Upload(Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl"),
                     requestData.Resource, domainType, requestData.FileType == USM001008UploadedFileType.voice ? "voice" : requestData.FileType.ToString());
                 resourceUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + savedFileName;
-                    
+
 
                 //string fileName = Guid.NewGuid() + ext;
                 //string relativePath = Dianzhu.Config.Config.GetAppSetting("business_image_root");
                 //string filePath = HttpContext.Current.Server.MapPath(relativePath);
                 //PHSuit.IOHelper.SaveFileFromBase64(requestData.Resource, filePath+fileName);
-                
-               
-               
+
+
+
                 //if(requestData.FileType== USM001008UploadedFileType.image)
                 //{
                 //    resourceUrl = Dianzhu.Config.Config.GetAppSetting("media_server")+"imagehandler.ashx?imagename="+fileName;
@@ -78,13 +84,13 @@ public class ResponseUSM001008 : BaseResponse
                 // p.UpdateDZMembership(member);
                 respData.ResourceUrl = resourceUrl;
                 this.RespData = respData;
-                
+
             }
             catch (Exception ex)
-            { 
-                this.state_CODE=ex.Message;   
+            {
+                this.state_CODE = ex.Message;
             }
-           
+
         }
         catch (Exception e)
         {
@@ -97,37 +103,7 @@ public class ResponseUSM001008 : BaseResponse
     public override string BuildJsonResponse()
     {
 
-        return JsonConvert.SerializeObject(this,   new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+        return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
     }
 }
 
-public class ReqDataUSM001008
-{
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string orderID { get; set; }
-    public string Resource { get; set; }
-    public string type { get; set; }
-    public USM001008UploadedFileType FileType {
-        get { 
-                USM001008UploadedFileType fileType;
-          bool isType=  Enum.TryParse<USM001008UploadedFileType>(type, out fileType);
-            if (!isType) { throw new Exception("不可识别的文件类型"); }
-            return fileType;
-        }
-    }
-
-
-}
-public enum USM001008UploadedFileType {
-    voice,
-    image,
-    video
-}
-public class RespDataUSM001008
-{
-    public string userID { get; set; }
-    public string ResourceUrl { get; set; }
-}
-
- 

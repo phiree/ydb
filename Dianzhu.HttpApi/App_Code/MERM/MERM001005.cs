@@ -8,6 +8,8 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
+
 public class ResponseMERM001005 : BaseResponse
 {
     public ResponseMERM001005(BaseRequest request) : base(request) { }
@@ -23,11 +25,14 @@ public class ResponseMERM001005 : BaseResponse
         {
 
             DZMembership member = p.GetUserByEmail(requestData.email);
-            if (member == null)
+            if (request.NeedAuthenticate)
             {
-                this.state_CODE = Dicts.StateCode[8];
-                this.err_Msg = "用户不存在,可能是传入的Email有误";
-                return;
+                if (member == null)
+                {
+                    this.state_CODE = Dicts.StateCode[8];
+                    this.err_Msg = "用户不存在,可能是传入的Email有误";
+                    return;
+                } 
             }
             //验证用户的密码
             if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
@@ -69,49 +74,3 @@ public class ResponseMERM001005 : BaseResponse
         return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
     }
 }
-
-public class ReqDataMERM001005
-{
-    public string email { get; set; }
-    public string phone { get; set; }
-    public string pWord { get; set; }
-
-}
-/*
-public class RespDataMERM001005
-{
-    public RespDataMERM001005_merObj merObj { get; set; }
-}
-public class RespDataMERM001005_merObj
-{
-    public string merID { get; set; }
-    public string alias { get; set; }
-    public string area { get; set; }
-    public string doc { get; set; }
-    public string imgUrl { get; set; }
-    public string linkMan { get; set; }
-    public string address { get; set; }
-    public string phone { get; set; }
-    public string showImgUrls { get; set; }
-    public RespDataMERM001005_merObj Adapt(Dianzhu.Model.Business business)
-    {
-        this.alias = business.Name;
-        this.merID = business.Id.ToString();
-        this.area = business.AreaBelongTo==null?string.Empty:business.AreaBelongTo.Name;
-        this.doc = business.Description;
-        this.imgUrl = business.BusinessAvatar.ImageName;
-        this.linkMan = business.Contact;
-        this.address = business.Address;
-        this.phone = business.Phone;
-
-        this.showImgUrls = string.Empty;
-        foreach (BusinessImage img in business.BusinessShows)
-        {
-            showImgUrls += img.ImageName + ",";
-        }
-        this.showImgUrls.TrimEnd(',');
-
-        return this;
-    }
-}
-*/

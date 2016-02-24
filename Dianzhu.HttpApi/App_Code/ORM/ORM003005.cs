@@ -6,6 +6,7 @@ using System.Web.Security;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
+using Dianzhu.Api.Model;
 
 /// <summary>
 /// 获取一条服务信息的详情
@@ -41,12 +42,15 @@ public class ResponseORM003005 : BaseResponse
                 this.err_Msg = "用户orderId格式有误";
                 return;
             }
-
-            DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                } 
             }
             try
             {
@@ -98,18 +102,3 @@ public class ResponseORM003005 : BaseResponse
     }
     
 }
-
-public class ReqDataORM003005
-{
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string orderID { get; set; }
-}
-
-public class RespDataORM003005
-{
-    public string orderID { get; set; }
-    public RespDataORM_orderStatusObj orderStatusObj { get; set; }
-}
-
-

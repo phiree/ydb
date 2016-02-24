@@ -7,6 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.Config;
 namespace Dianzhu.Api.Model
 {
+    #region USM接口公用类
     public class RespDataUSM_userObj
     {
         public string userID { get; set; }
@@ -40,4 +41,95 @@ namespace Dianzhu.Api.Model
     {
         public RespDataUSM_userObj userObj { get; set; }
     }
+    #endregion
+
+    #region USM001003
+    public class ReqDataUSM001003
+    {
+        //todo:初始化为不可能传递进来值,序列化之后对比,用以判断是否传递了该值.
+        public ReqDataUSM001003()
+        {
+            //alias = "nosuchalias#$#";
+            //email = "a@nosuch.email";
+            //phone = "nosuchphone#$#";
+            //password = "nosuchpassword#$#";
+            //address = "nosuchaddress#$#";
+        }
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string alias { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+        public string password { get; set; } //new password
+        public string address { get; set; }
+    }
+    public class RespDataUSM001003
+    {
+        public string userID { get; set; }
+        public string alias { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+        public string password { get; set; } //new password
+        public string address { get; set; }
+        public RespDataUSM001003(string uid)
+        {
+            //todo: 如果修改成功,则为"Y" 否则为"N"
+            this.userID = uid;
+            this.alias = null;
+            this.email = null;
+            this.phone = null;
+            this.password = null;
+            this.address = null;
+        }
+    }
+    #endregion
+
+    #region USM001007
+    public class ReqDataUSM001007
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string imgData { get; set; }
+
+    }
+    public class RespDataUSM001007
+    {
+        public string userID { get; set; }
+        public string imgUrl { get; set; }
+    }
+    #endregion
+
+    #region USM001008
+    public class ReqDataUSM001008
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+        public string Resource { get; set; }
+        public string type { get; set; }
+        public USM001008UploadedFileType FileType
+        {
+            get
+            {
+                USM001008UploadedFileType fileType;
+                bool isType = Enum.TryParse<USM001008UploadedFileType>(type, out fileType);
+                if (!isType) { throw new Exception("不可识别的文件类型"); }
+                return fileType;
+            }
+        }
+
+
+    }
+    public enum USM001008UploadedFileType
+    {
+        voice,
+        image,
+        video
+    }
+    public class RespDataUSM001008
+    {
+        public string userID { get; set; }
+        public string ResourceUrl { get; set; }
+    }
+    #endregion
 }

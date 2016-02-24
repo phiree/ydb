@@ -6,6 +6,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Net;
 using Dianzhu.Model.Enums;
+using Dianzhu.Api.Model;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
@@ -51,9 +52,4 @@ public class ResponseAPP001002:BaseResponse
             return;
         }
     }
-}
-
-public class ReqDataAPP001002
-{
-    public string appUUID { get; set; }
 }

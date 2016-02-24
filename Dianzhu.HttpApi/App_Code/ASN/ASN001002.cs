@@ -54,11 +54,14 @@ public class ResponseASN001002 : BaseResponse
                 return;
             }
 
-            DZMembership member;
-            bool validated = new Account(p).ValidateUser(store.Owner.Id, requestData.pWord, this, out member);
-            if (!validated)
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(p).ValidateUser(store.Owner.Id, requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                } 
             }
             try
             {

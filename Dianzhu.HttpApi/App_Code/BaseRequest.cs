@@ -23,7 +23,14 @@ public class BaseRequest
     {
         get
         {
-            return appName.ToLower() == "adminbusiness";
+            if (string.IsNullOrEmpty(appName))
+            {
+                return true;
+            }
+            else
+            {
+                return appName.ToLower() != "adminbusiness";
+            }
         }
     }
 }

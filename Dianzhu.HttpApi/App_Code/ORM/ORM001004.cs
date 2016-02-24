@@ -8,6 +8,7 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
 /// <summary>
 /// 订单信息总数获取.
 /// </summary>
@@ -19,35 +20,39 @@ public class ResponseORM001004 : BaseResponse
         ReqDataORM001004 requestData = this.request.ReqData.ToObject<ReqDataORM001004>();
 
         //todo:用户验证的复用.
-       
+
 
         try
-        { DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        string raw_id = requestData.userID;
-            DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+        {
+            DZMembershipProvider p = new DZMembershipProvider();
+            BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+            string raw_id = requestData.userID;
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                }
             }
             try
             {
                 string srvTarget = requestData.target;
                 enum_OrderSearchType searchType = (enum_OrderSearchType)Enum.Parse(typeof(enum_OrderSearchType), srvTarget);
-               
-                int rowCount = bllServiceOrder.GetServiceOrderCount(new Guid(raw_id) ,searchType);
-                RespDataORM001004 respData=new RespDataORM001004{ sum=rowCount.ToString()};
-                this.RespData =  respData ;
+
+                int rowCount = bllServiceOrder.GetServiceOrderCount(new Guid(raw_id), searchType);
+                RespDataORM001004 respData = new RespDataORM001004 { sum = rowCount.ToString() };
+                this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];
-                
+
             }
             catch (Exception ex)
-            { 
-                this.state_CODE=Dicts.StateCode[2];
+            {
+                this.state_CODE = Dicts.StateCode[2];
                 this.err_Msg = ex.Message;
             }
-           
+
         }
         catch (Exception e)
         {
@@ -63,16 +68,3 @@ public class ResponseORM001004 : BaseResponse
         return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
     }
 }
-
-public class ReqDataORM001004
-{
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string target { get; set; }
- 
-}
-public class RespDataORM001004
-{
-    public string sum { get; set; }
-}
- 

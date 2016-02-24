@@ -6,6 +6,7 @@ using System.Web.Security;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
+using Dianzhu.Api.Model;
 
 /// <summary>
 /// 获取一条服务信息的详情
@@ -20,12 +21,11 @@ public class ResponseORM003007 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        OrderServiceFlow orderServiceFlow;
         string raw_id = requestData.userID;
 
         try
         {
-            Guid userId,orderId;
+            Guid userId, orderId;
             bool isUserId = Guid.TryParse(requestData.userID, out userId);
             if (!isUserId)
             {
@@ -42,11 +42,14 @@ public class ResponseORM003007 : BaseResponse
                 return;
             }
 
-            DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                }
             }
             try
             {
@@ -59,8 +62,8 @@ public class ResponseORM003007 : BaseResponse
                 }
 
                 enum_OrderStatus status = (enum_OrderStatus)Enum.Parse(typeof(enum_OrderStatus), requestData.status);
-               new OrderServiceFlow().ChangeStatus(order, status);
-              
+                new OrderServiceFlow().ChangeStatus(order, status);
+
                 if (order.OrderStatus != status)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -84,17 +87,7 @@ public class ResponseORM003007 : BaseResponse
             this.err_Msg = e.Message;
             return;
         }
-
     }
-    
-}
-
-public class ReqDataORM003007
-{
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string orderID { get; set; }
-    public string status { get; set; }
 }
 
 
