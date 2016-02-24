@@ -11,7 +11,6 @@ namespace Dianzhu.Config
     public static partial class Config
     {        
         #region 服务器定义
-        static string[] DatabaseServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172" };
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
@@ -78,14 +77,14 @@ namespace Dianzhu.Config
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, 8038,"GetFile.ashx?fileName=")   }
 
 
-            , {"NoticeSenderId",DictsNotifySenderLogins[DatabaseServer].Key  }
-            , {"NoticeSenderPwd",DictsNotifySenderLogins[DatabaseServer].Value  }
+            , {"NoticeSenderId",DictsNotifySenderLogins[IMServer].Key  }
+            , {"NoticeSenderPwd",DictsNotifySenderLogins[IMServer].Value  }
             , {"PaySite",BuildHttpUrlString(ApplicationServer, 8168)   }
             , {"PayUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
             , {"OpenfireRestApiSessionListUrl",BuildHttpUrlString(IMServer, 9090,"plugins/restapi/v1/sessions/")  }
 
-            , {"DiandianLoginId",DictsDianDianLogins[DatabaseServer].Key}
-            , {"DiandianLoginPwd",DictsDianDianLogins[DatabaseServer].Value  }
+            , {"DiandianLoginId",DictsDianDianLogins[IMServer].Key}
+            , {"DiandianLoginPwd",DictsDianDianLogins[IMServer].Value  }
             , {"APIBaseURL",BuildHttpUrlString(ApplicationServer, 8037,"DianzhuApi.ashx")  }
             , {"PayServerUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
             , {"NotifyServer",BuildHttpUrlString(ApplicationServer, 8039)   }

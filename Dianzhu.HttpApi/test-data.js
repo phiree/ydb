@@ -3,41 +3,134 @@
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", "ad001006","clm001001"
-//"slf002006", "slf002003", "slf001007","py001007"
-//"asn001005","asn001006","asn001007","asn002007"
-"orm002001",
+//"slf002006", "slf002003", "slf001007","py001007","py001008"
+//"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
+ "asn002004",
 
 ];
 var test_data = [
 
     /**********************指派*****************************/
     {
-        "protocol_CODE": "ASN001007",
+        "protocol_CODE": "ASN001001",
         "ReqData": {
-            "userID": "2c843b9f-ed19-40c2-99b4-a54500f97205",
-            "pWord": "123",
-            "arrayOrderId": [
-                "05c43210-7787-40df-8b93-a57901063d4d",
-                "09791ae4-7e5d-4d0f-9483-a56200a31e6e",
-            ],
-            "staffId": "a2be96e7-d651-47b1-8729-a5ae00f19d32",
-            "assign": true
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userObj": {
+                "alias": "棒棒娃",
+                "email": "issumao@126.com",
+                "phone": "1888938xxxx",
+                "imgUrl": "http://tu.webps.cn/tb/img/4/T16uXnFsJaXXXXXXXX_%21%210-item_pic.jpg",
+                "address": "海南省海口市"
+            }
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
     },
 
     {
-        "protocol_CODE": "ASN002007",
+        "protocol_CODE": "ASN001002",
         "ReqData": {
-            "userID": "2c843b9f-ed19-40c2-99b4-a54500f97205",
-            "pWord": "123",
-            "arrayStaffId": [
-                "a2be96e7-d651-47b1-8729-a5ae00f19d32",
-                "bdf45343-bafd-4c40-8be9-a58a012ae6a5",
-            ],
-            "orderId": "0fdb864e-1789-497d-8822-a53800bcc4b4",
-            "assign": false
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userID": "948f542b-3123-42f3-bc5d-a5b500be12aa",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001003",
+        "ReqData": {
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userID": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
+            //"alias": "呵呵哒",
+            //"email": "321654@126.com",
+            "phone": "1886547xx42",
+            //"imgUrl": "http://img1.imgtn.bdimg.com/it/u=2226833288,3588551739&fm=206&gp=0.jpg",
+            //"address": "海南省三亚市",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001004",
+        "ReqData": {
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001005",
+        "ReqData": {
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userId": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001006",
+        "ReqData": {
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN002001",
+        "ReqData": {
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "arrayData": [
+            {
+                "userID": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
+                "mark": "Y"
+            },
+            {
+                "userID": "948f542b-3123-42f3-bc5d-a5b500be12aa",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
+                "mark": "N"
+            },
+            {//员工id不存在
+                "userID": "948f542b-3123-42f3-bc5d-a5b500b212aa",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
+                "mark": "Y"
+            },
+            {//订单不存在
+                "userID": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940114db2d",
+                "mark": "Y"
+            },
+            {//mark不对
+                "userID": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940114db2d",
+                "mark": "Ys"
+            }
+            ]
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN002004",
+        //"appName": "adminbusiness",
+        "ReqData": {
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userID": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
+            "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -64,8 +157,19 @@ var test_data = [
         "ReqData": {
             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
             "pWord": "1234",
-            "orderID": "fdf73a7f-77dc-4323-8660-a5af00bb78e8",
+            "orderID": "e27ad23c-c818-4fe0-bc70-a5b001263cce",
             "type":"wepay",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "PY001008",
+        "ReqData": {
+            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+            "pWord": "1234",
+            "orderID": "06ee70b3-500d-42da-8b1f-a595009d97da",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -197,7 +301,7 @@ var test_data = [
      {
          "protocol_CODE": "CHAT001006",
          "ReqData": {
-             "userID": "7dcdd185-bed6-4756-a219-a5360118aab3",
+             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
              "pWord": "1234",
              "orderID": "",
              "target": "cer",
@@ -239,9 +343,9 @@ var test_data = [
                 {
                     "protocol_CODE": "ORM001005",
                     "ReqData": {
-                        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
-                        "pWord": "123456",
-                        "orderID": "93405a96-426e-4523-bacd-a55d00f965eb",
+                        "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+                        "pWord": "1234",
+                        "orderID": "e27ad23c-c818-4fe0-bc70-a5b001263cce",
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"
@@ -250,7 +354,7 @@ var test_data = [
           {
               "protocol_CODE": "ORM001006",
               "ReqData": {
-                  "userID": "7dcdd185-bed6-4756-a219-a5360118aab3", //13022222222
+                  "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb", //13022222222
                   "pWord": "1234",
                   "target": "ALL",
                   "pageSize": "50",
@@ -317,9 +421,9 @@ var test_data = [
            {
                "protocol_CODE": "ORM003006",
                "ReqData": {
-                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
-                   "pWord": "123456",
-                   "orderID": "a756ede1-f90d-45af-8fec-a55c00fcb115",
+                   "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+                   "pWord": "1234",
+                   "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
                },
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"
@@ -399,7 +503,7 @@ var test_data = [
                 },
                 //信息修改
                {
-                   "protocol_CODE": "USM001003",
+                   "protocol_CODE": "USM0010030",
                    "ReqData": {
                        "userID": "7dcdd185-bed6-4756-a219-a5360118aab3",
                        "pWord": "1234",
@@ -417,9 +521,9 @@ var test_data = [
                 {
                     "protocol_CODE": "USM001003",
                     "ReqData": {
-                        "userID": "eb2ae597-5adb-4242-b22e-a4f901275654",
-                        "pWord": "123456",
-                        "address": "海牙国际大厦20A",
+                        "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+                        "pWord": "1234",
+                        "address": "海牙国际大厦20A0000",
                         "phone": "13023123412"
 
                     },

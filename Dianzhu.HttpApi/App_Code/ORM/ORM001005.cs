@@ -8,6 +8,7 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
 /// <summary>
 /// 获取一条服务信息的详情
 /// </summary>
@@ -25,12 +26,14 @@ public class ResponseORM001005 : BaseResponse
 
         try
         {
-
-            DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                }
             }
             try
             {
@@ -43,7 +46,7 @@ public class ResponseORM001005 : BaseResponse
                     return;
                 }
                 RespDataORM_Order respData = new RespDataORM_Order().Adap(order);
-                this.RespData =  respData ;
+                this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];
 
             }
@@ -63,14 +66,6 @@ public class ResponseORM001005 : BaseResponse
         }
 
     }
-    
-}
 
-public class ReqDataORM001005
-{
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string orderID { get; set; }
 }
-
 

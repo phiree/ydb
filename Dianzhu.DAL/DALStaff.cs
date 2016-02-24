@@ -27,6 +27,16 @@ namespace Dianzhu.DAL
             string total_query = "select count(*) from Staff s where " + where;
             return GetList("select s from Staff s where " + where,"s.Code",true, pageindex, pagesize, out totalRecord,total_query);
         }
+
+        public int GetEnableSum(Business business)
+        {
+            return Session.QueryOver<Staff>().Where(x => x.Belongto == business).And(x => x.Enable == true).RowCount();
+        }
+
+        public IList<Staff> GetAllListByBusiness(Business business)
+        {
+            return Session.QueryOver<Staff>().Where(x => x.Belongto == business).List();
+        }
         
     }
 }

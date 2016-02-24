@@ -7,7 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
+using Dianzhu.Api.Model;
 
 public class ResponseUSM001005 : BaseResponse
 {
@@ -46,8 +46,6 @@ public class ResponseUSM001005 : BaseResponse
         RespDataUSM resp = new RespDataUSM();
         resp.userObj = userObj;
         this.RespData =resp ;
-
-
     }
 }
 

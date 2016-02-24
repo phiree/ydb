@@ -7,13 +7,13 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
 
 public class ResponseUSM001001 : BaseResponse
 {
     public ResponseUSM001001(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
-    {
-        
+    {        
         ReqDataUSM requestData = request.ReqData.ToObject<ReqDataUSM>();
         DZMembershipProvider p = new DZMembershipProvider();
         MembershipCreateStatus createStatus;
@@ -34,7 +34,5 @@ public class ResponseUSM001001 : BaseResponse
         RespDataUSM resp = new RespDataUSM();
         resp.userObj = userObj;
         this.RespData = resp;
-        
-
     }
 }

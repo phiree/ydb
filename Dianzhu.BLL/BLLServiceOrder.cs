@@ -381,11 +381,6 @@ namespace Dianzhu.BLL
             return dalServiceOrderStateChangeHis.GetMaxNumberOrderHis(order);
         }
 
-        public IList<ServiceOrderStateChangeHis> GerFirstTwoOrderHisListByOrder(ServiceOrder order)
-        {
-            return dalServiceOrderStateChangeHis.GetFirstTwoOrderHisListByOrder(order);
-        }
-
         public IList<ServiceOrderStateChangeHis> GetOrderHisList(ServiceOrder order)
         {
             return dalServiceOrderStateChangeHis.GetOrderHisList(order);

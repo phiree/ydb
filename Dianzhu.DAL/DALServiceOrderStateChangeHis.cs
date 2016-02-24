@@ -25,7 +25,7 @@ namespace Dianzhu.DAL
             IQueryOver<ServiceOrderStateChangeHis, ServiceOrderStateChangeHis> iqueryover = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).OrderBy(x => x.Number).Desc;
             return iqueryover;
         }
-        
+
         public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
         {
             var query = Query(order);
@@ -33,17 +33,6 @@ namespace Dianzhu.DAL
             if (orderList.Count > 0)
             {
                 return orderList[0];
-            }
-            return null;
-        }
-
-        public IList<ServiceOrderStateChangeHis> GetFirstTwoOrderHisListByOrder(ServiceOrder order)
-        {
-            var query = Query(order);
-            IList<ServiceOrderStateChangeHis> orderList = query.Take(2).List();
-            if (orderList.Count > 0)
-            {
-                return orderList;
             }
             return null;
         }
@@ -62,7 +51,7 @@ namespace Dianzhu.DAL
         public DateTime GetChangeTime(ServiceOrder order, enum_OrderStatus status)
         {
             var query = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).And(x => x.NewStatus == status);
-           var item= GetOneByQuery(query);
+            var item = GetOneByQuery(query);
             return item.CreatTime;
         }
 

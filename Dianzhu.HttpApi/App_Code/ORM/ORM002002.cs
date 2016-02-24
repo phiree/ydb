@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
- 
+
 using System.Web;
 using System.Web.Security;
 using Dianzhu.Model;
@@ -8,6 +8,7 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -26,10 +27,17 @@ public class ResponseORM002002 : BaseResponse
         try
         {
             DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            if (request.NeedAuthenticate)
             {
-                return;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                member = p.GetUserById(new Guid(raw_id));
             }
             try
             {
@@ -74,39 +82,6 @@ public class ResponseORM002002 : BaseResponse
 
     }
 
-}
-
-public class ReqDataORM002002
-{
-    
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string orderID { get; set; }
-    
-
-}
-public class RespDataORM002002
-{
-    public RespDataORM002002()
-    {
-        orderID = string.Empty;
-    }
-    public string orderID { get; set; }
-    public RespDataORM002002_payObj payObj { get; set; }
- 
-}
-public class RespDataORM002002_payObj
-{
-    public string type { get; set; }
- 
-    public string url { get; set; }
-    public RespDataORM002002_payObj Adap(ServiceOrder order)
-    {
-        this.type = "alipay";
-        this.url = order.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayServer"), enum_PayTarget.Deposit);
-
-        return this;
-    }
 }
 
  

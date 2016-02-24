@@ -4,6 +4,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model.Enums;
 using System.Collections.Generic;
 using System.Configuration;
+using Dianzhu.Api.Model;
 
 /// <summary>
 /// 实时汇报用户的状态
@@ -220,11 +221,4 @@ public class ResponseOFP001001 : BaseResponse
 
         return im;
     }
-}
-
-public class ReqDataOFP001001
-{
-    public string jid { get; set; }
-    public string status { get; set; }
-    public string ipaddress { get; set; }
 }

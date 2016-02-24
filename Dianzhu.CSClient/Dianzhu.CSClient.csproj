@@ -121,7 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLFactory.cs" />
-    <None Include="config\connectionstrings.config" />
+    <None Include="config\connectionstrings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

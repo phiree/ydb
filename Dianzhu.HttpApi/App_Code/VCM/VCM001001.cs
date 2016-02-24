@@ -8,6 +8,8 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
+
 public class ResponseVCM001001 : BaseResponse
 {
     public ResponseVCM001001(BaseRequest request) : base(request) { }
@@ -65,19 +67,6 @@ public class ResponseVCM001001 : BaseResponse
     }
     public override string BuildJsonResponse()
     {
-
         return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
     }
-}
-
-public class ReqDataVCM001001
-{
-    public string uid { get; set; }
-    public string userPWord { get; set; }
-    public string vcsTarget { get; set; }
-
-}
-public class RespDataVCM001001
-{
-    public string sum { get; set; }
 }

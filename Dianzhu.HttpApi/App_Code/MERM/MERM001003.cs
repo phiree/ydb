@@ -8,6 +8,8 @@ using Dianzhu.BLL.Validator;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
+
 public class ResponseMERM001003 : BaseResponse
 {
     public ResponseMERM001003(BaseRequest request) : base(request) { }
@@ -21,10 +23,17 @@ public class ResponseMERM001003 : BaseResponse
         try
         {
             DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            if (request.NeedAuthenticate)
             {
-                return;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                } 
+            }
+            else
+            {
+                member = p.GetUserById(new Guid(raw_id));
             }
             DZMembership memberOriginal = new DZMembership();
             member.CopyTo(memberOriginal);
@@ -127,23 +136,3 @@ public class ResponseMERM001003 : BaseResponse
         return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
     }
 }
-
-public class ReqDataMERM001003
-{
-    //todo:初始化为不可能传递进来值,序列化之后对比,用以判断是否传递了该值.
-    public ReqDataMERM001003()
-    {
-        //alias = "nosuchalias#$#";
-        //email = "a@nosuch.email";
-        //phone = "nosuchphone#$#";
-        //password = "nosuchpassword#$#";
-        //address = "nosuchaddress#$#";
-    }
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string alias { get; set; }
-    public string email { get; set; }
-    public string phone { get; set; }
-    public string password { get; set;} //new password
- 
-} 

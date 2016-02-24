@@ -95,15 +95,31 @@ public class ResponseFactory
 
             case "ad001006":
                 return new ResponseAD001006(request);
+
             case "py001007":
                 return new ResponsePY001007(request);
+            case "py001008":
+                return new ResponsePY001008(request);
+
             case "clm001001":
                 return new ResponseCLM001001(request);
 
-            case "asn001007":
-                return new ResponseASN001007(request);
-            case "asn002007":
-                return new ResponseASN002007(request);
+            case "asn001001":
+                return new ResponseASN001001(request);
+            case "asn001002":
+                return new ResponseASN001002(request);
+            case "asn001003":
+                return new ResponseASN001003(request);
+            case "asn001004":
+                return new ResponseASN001004(request);
+            case "asn001005":
+                return new ResponseASN001005(request);
+            case "asn001006":
+                return new ResponseASN001006(request);
+            case "asn002001":
+                return new ResponseASN002001(request);
+            case "asn002004":
+                return new ResponseASN002004(request);
             default:
                 BaseResponse baeResponse = new BaseResponse(request);
                 baeResponse.state_CODE = Dicts.StateCode[1];

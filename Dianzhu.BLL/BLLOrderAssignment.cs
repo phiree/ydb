@@ -19,5 +19,20 @@ namespace Dianzhu.BLL
         {
             return DALOrderAssignment.FindByOrderAndStaff(order, staff);
         }
+
+        public IList<OrderAssignment> GetOAListByOrder(ServiceOrder order)
+        {
+            return DALOrderAssignment.GetOAListByOrder(order);
+        }
+
+        public IList<OrderAssignment> GetOAListByStaff(Staff staff)
+        {
+            return DALOrderAssignment.GetOAListByStaff(staff);
+        }
+
+        public IList<OrderAssignment> GetAllListForAssign(Guid bid)
+        {
+            return DALOrderAssignment.GetAllListForAssign(bid);
+        }
     }
 }

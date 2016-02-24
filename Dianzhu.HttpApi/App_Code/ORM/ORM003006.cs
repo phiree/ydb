@@ -6,6 +6,7 @@ using System.Web.Security;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
+using Dianzhu.Api.Model;
 
 /// <summary>
 /// 获取一条服务信息的详情
@@ -41,12 +42,15 @@ public class ResponseORM003006 : BaseResponse
                 this.err_Msg = "用户orderId格式有误";
                 return;
             }
-
-            DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                } 
             }
             try
             {
@@ -86,7 +90,7 @@ public class ResponseORM003006 : BaseResponse
                 }
 
                 RespDataORM003006 respData = new RespDataORM003006();
-
+                respData.orderID = order.Id.ToString();
                 respData.AdapList(RespOrderStatusList);
 
                 this.state_CODE = Dicts.StateCode[0];
@@ -110,31 +114,4 @@ public class ResponseORM003006 : BaseResponse
     }
     
 }
-
-public class ReqDataORM003006
-{
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string orderID { get; set; }
-}
-
-public class RespDataORM003006
-{
-    public string orderID { get; set; }
-    public IList<RespDataORM_orderStatusObj> arrayData { get; set; }
- 
-    public RespDataORM003006()
-    {
-        arrayData = new List<RespDataORM_orderStatusObj>();
-    }
-
-    public void AdapList(IList<RespDataORM_orderStatusObj> serviceOrderList)
-    {
-        foreach (RespDataORM_orderStatusObj order in serviceOrderList)
-        {
-            arrayData.Add(order);
-        }
-    }
-}
-
 

@@ -8,6 +8,7 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
 /// <summary>
 /// 服务信息总数获取.
 /// </summary>
@@ -25,11 +26,14 @@ public class ResponseSVC001001 : BaseResponse
 
         try
         {
-            DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                } 
             }
             try
             {   //old svc001001
@@ -54,7 +58,7 @@ public class ResponseSVC001001 : BaseResponse
         {
             this.state_CODE = Dicts.StateCode[1];
             this.err_Msg = e.Message;
-
+            return;
         }
 
     }
@@ -63,14 +67,6 @@ public class ResponseSVC001001 : BaseResponse
 
         return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
     }
-}
-
-public class ReqDataSVC001001
-{
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public RespDataSVC_svcObj svcObj { get; set; }
- 
 }
  
  

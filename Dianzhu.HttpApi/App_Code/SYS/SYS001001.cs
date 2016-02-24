@@ -6,6 +6,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Net;
 using Dianzhu.Model.Enums;
+using Dianzhu.Api.Model;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
@@ -169,22 +170,4 @@ public class ResponseSYS001001:BaseResponse
 
         #endregion
     }
-}
-
-public class ReqDataSYS001001
-{
-    public string id { get; set; }
-    public string to { get; set; }
-    public string from { get; set; }
-    public string body { get; set; }
-    public string ext { get; set; }
-    public string orderId { get; set; }
-    public string msgObj_url { get; set; }
-    public string msgObj_type { get; set; }
-    //public MsgObj msgObj { get; set; }
-}
-public class MsgObj
-{
-    public string url { get; set; }
-    public string type { get; set; }
 }

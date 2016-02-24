@@ -8,6 +8,7 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -27,11 +28,14 @@ public class ResponseORM001006 : BaseResponse
         {
             Guid uid = new Guid(PHSuit.StringHelper.InsertToId(raw_id));
             DZMembership member = p.GetUserById(uid);
-            if (member == null)
+            if (request.NeedAuthenticate)
             {
-                this.state_CODE = Dicts.StateCode[8];
-                this.err_Msg = "用户不存在,可能是传入的uid有误";
-                return;
+                if (member == null)
+                {
+                    this.state_CODE = Dicts.StateCode[8];
+                    this.err_Msg = "用户不存在,可能是传入的uid有误";
+                    return;
+                } 
             }
             //验证用户的密码
             if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
@@ -82,38 +86,6 @@ public class ResponseORM001006 : BaseResponse
     }
 
 }
-
-public class ReqDataORM001006
-{
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string target { get; set; }
-    public string pageSize { get; set; }
-    public string pageNum { get; set; }
-
-}
-public class RespDataORM001006
-{
-    public IList<RespDataORM_Order> arrayData { get; set; }
- 
-    public RespDataORM001006()
-    {
-
-        arrayData = new List<RespDataORM_Order>();
-        
-    }
-
-    public void AdapList(IList<ServiceOrder> serviceOrderList)
-    {
-        foreach (ServiceOrder order in serviceOrderList)
-        {
-            RespDataORM_Order adapted_order = new RespDataORM_Order().Adap(order);
-            arrayData.Add(adapted_order);
-        }
-
-    }
-}
-
  
 
 

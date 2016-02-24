@@ -8,6 +8,8 @@ using Dianzhu.BLL.Validator;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
+
 public class ResponseUSM001003 : BaseResponse
 {
     public ResponseUSM001003(BaseRequest request) : base(request) { }
@@ -20,10 +22,17 @@ public class ResponseUSM001003 : BaseResponse
         try
         {
             DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            if (request.NeedAuthenticate)
             {
-                return;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                } 
+            }
+            else
+            {
+                member = p.GetUserById(new Guid(raw_id));
             }
             DZMembership memberOriginal = new DZMembership();
             member.CopyTo(memberOriginal);
@@ -132,44 +141,5 @@ public class ResponseUSM001003 : BaseResponse
     public override string BuildJsonResponse()
     {
         return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-    }
-}
-
-public class ReqDataUSM001003
-{
-    //todo:初始化为不可能传递进来值,序列化之后对比,用以判断是否传递了该值.
-    public ReqDataUSM001003()
-    {
-        //alias = "nosuchalias#$#";
-        //email = "a@nosuch.email";
-        //phone = "nosuchphone#$#";
-        //password = "nosuchpassword#$#";
-        //address = "nosuchaddress#$#";
-    }
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string alias { get; set; }
-    public string email { get; set; }
-    public string phone { get; set; }
-    public string password { get; set; } //new password
-    public string address { get; set; }
-}
-public class RespDataUSM001003
-{
-    public string userID { get; set; }
-    public string alias { get; set; }
-    public string email { get; set; }
-    public string phone { get; set; }
-    public string password { get; set; } //new password
-    public string address { get; set; }
-    public RespDataUSM001003(string uid)
-    {
-        //todo: 如果修改成功,则为"Y" 否则为"N"
-        this.userID = uid;
-        this.alias = null;
-        this.email =null;
-        this.phone = null;
-        this.password = null;
-        this.address = null;
     }
 }

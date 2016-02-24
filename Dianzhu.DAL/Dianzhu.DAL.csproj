@@ -90,6 +90,7 @@
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
+    <Compile Include="Mapping\StaffServiceTypeMap.cs" />
     <Compile Include="Mapping\PaymentLogMap.cs" />
     <Compile Include="Mapping\AreaMap.cs" />
     <Compile Include="Mapping\CashTicketTemplateMap.cs" />

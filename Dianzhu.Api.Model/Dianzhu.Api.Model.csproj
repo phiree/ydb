@@ -40,7 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VCM.cs" />
+    <Compile Include="U3RD.cs" />
+    <Compile Include="SYS.cs" />
+    <Compile Include="SVC.cs" />
+    <Compile Include="SLF.cs" />
+    <Compile Include="ORM.cs" />
+    <Compile Include="MERM.cs" />
+    <Compile Include="LCT.cs" />
+    <Compile Include="CHAT.cs" />
+    <Compile Include="APP.cs" />
+    <Compile Include="USM.cs" />
     <Compile Include="ASN.cs" />
+    <Compile Include="PY.cs" />
     <Compile Include="CLM.cs" />
     <Compile Include="AD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

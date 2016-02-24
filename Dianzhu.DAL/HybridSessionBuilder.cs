@@ -65,13 +65,10 @@ namespace Dianzhu.DAL
         }
         private static void BuildSchema(Configuration config)
         {
-             
-
             // this NHibernate tool takes a configuration (with mapping info in)
             // and exports a database schema from it
             SchemaUpdate update = new SchemaUpdate(config);
-          update.Execute(true, true);
-
+            //update.Execute(true, true);
         }
         private static void GetUpdateScript(string ss)
         {
