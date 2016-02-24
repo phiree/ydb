@@ -246,7 +246,7 @@
     <script type="text/template" id="staffs_template">
         <div class="container-fluid">
             <div class="row">
-                {% _.each(staffId, function(staff){ %}
+                {% _.each(arrayData, function(staff){ %}
                 <div class="col-md-4">
                     <div class="emp-model">
                         <div class="emp-model-h">
@@ -256,16 +256,15 @@
                         <div class="emp-model-m">
                             <img class="emp-headImg" src=''/>
                             <div class="emp-info">
-                                <p>姓名：</p>
-                                <p>工龄：</p>
-                                <p>性别：</p>
-                                <p>电话：</p>
-                                <p>特长技能：</p>
+                                <p>昵称：{%= staff.alias %}</p>
+                                <p>姓名：{%= staff.alias %}</p>
+                                <p>性别：{%= staff.alias %}</p>
+                                <p>电话：{%= staff.phone %}</p>
                             </div>
                         </div>
                         <div class="emp-model-b">
-                            <input class="staffCheckbox" type="checkbox" value="指派" data-role="item" data-itemId="{%= staff %}" id="{%= staff %}" >
-                            <label for="{%= staff %}"></label>
+                            <input class="staffCheckbox" type="checkbox" value="指派" data-role="item" data-itemId="{%= staff.userID %}" id="{%= staff.userID %}" >
+                            <label for="{%= staff.userID %}"></label>
                         </div>
                     </div>
                 </div>
@@ -282,46 +281,93 @@
     <script src="/js/shelf/underscore.js"></script>
     <script src="/js/shelf/mock.js"></script>
     <script src="/js/jquery.lightBox_me.js"></script>
+    <script src="/js/interfaceAdapter.js"></script>
     <script src="/js/appoint.js"></script>
     <script>
         Mock.mockjax(jQuery);
         Mock.mock(/staff.json/, function(){
-            return Mock.mock({
-                'staffId|10-20' : [
-                    '@guid'
-                ]
-            })
+//            return Mock.mock({
+//                'staffId|10-20' : [
+//                    '@guid'
+//                ]
+//            })
+
+            /* 本地测试数据 */
+            return Mock.mock(
+                    {
+                        "protocol_CODE": "ASN001006",
+                        "state_CODE": "009000",
+                        "RespData": {
+                            "arrayData": [
+                                {
+                                    "userID": "@guid",
+                                    "alias": "棒棒娃",
+                                    "email": "issumao@126.com",
+                                    "phone": "1888938xxxx",
+                                    "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao.png",
+                                    "address": "海南省海口市"
+                                },
+                                {
+                                    "userID": "@guid",
+                                    "alias": "棒棒娃",
+                                    "email": "issumao@126.com",
+                                    "phone": "1888938xxxx",
+                                    "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao.png",
+                                    "address": "海南省海口市"
+                                },
+                                {
+                                    "userID": "@guid",
+                                    "alias": "棒棒娃",
+                                    "email": "issumao@126.com",
+                                    "phone": "1888938xxxx",
+                                    "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao.png",
+                                    "address": "海南省海口市"
+                                }
+                            ]
+                        },
+                        "stamp_TIMES": "1490192929215",
+                        "serial_NUMBER": "00147001015869149751"
+                    }
+            )
         })
     </script>
     <script>
-        $('[data-role="appointToggle"]').appoint({
-            container : '#staffsContainer',
-            template : '#staffs_template',
+        (function(){
+            var staffReqData = {
+                "storeID": Adapter.getParameterByName("businessId")
+            };
 
-            single : true,
+            $('[data-role="appointToggle"]').appoint({
+                container : '#staffsContainer',
+                template : '#staffs_template',
 
-            appointSubmit : '#appointSubmit',
-            appointSucFunc: function(){
-                alert('指派成功');
-                $('.lightClose').click();
-            },
+                single : true,
 
-            beforePullFunc : function (){
-                return $("#staffAppointLight").lightbox_me({
-                    centered : true
-                });
-            },
+                appointSubmit : '#appointSubmit',
+                appointSucFunc: function(){
+                    alert('指派成功');
+                    $('.lightClose').click();
+                },
 
-            pullUrl : '/staff.json',
-            pullReqData : { businessId : '132131321331' },
+                beforePullFunc : function (){
+                    return $("#staffAppointLight").lightbox_me({
+                        centered : true
+                    });
+                },
+
+                pullUrl : '/staff.json',
+                pullReqData : Adapter.reqPackage("ASN001006", staffReqData),
 
 
-            uploadUrl : '/staff.json',
-            uploadPreFixData : { businessId : '132131321331' },
+                uploadUrl : '/staff.json',
+                uploadPreFixData : function(data){
+                    return Adapter.reqPackage("ASN002001", data);
+                },
 
-            /* 订单页指派，item为员工，target为订单 */
-            checkItemName : 'staffId',
-            appointTargetName : 'orderId'
-        })
+                /* 订单页指派，item为员工，target为订单 */
+                checkItemName : 'userID',
+                appointTargetName : 'orderID'
+            })
+        }());
     </script>
 </asp:Content>

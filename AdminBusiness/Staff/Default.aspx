@@ -110,34 +110,34 @@
             </div>
         </div>
         <div class="light-list">
-            {% _.each(orderId, function(order){ %}
+            {% _.each(arrayData, function(order){ %}
             <div class="light-row">
                 <div class="custom-grid">
                     <div class="custom-col col-10-1">
                         <div class="order-li">
-                            2015-9-12
+                            {%= order.startTime %}
                         </div>
                     </div>
                     <div class="custom-col col-10-2">
                         <div class="order-li">
-                            洗车
+                            {%= order.svcObj.type %}
                         </div>
                     </div>
                     <div class="custom-col col-10-1">
                         <div class="order-li">
-                            林先生
+                            {%= order.svcObj.name %}
                         </div>
                     </div>
                     <div class="custom-col col-10-4">
                         <div class="order-li">
-                            北京市XXXXXXXXXX
+                            {%= order.address %}
                         </div>
                     </div>
                     <div class="custom-col col-10-2">
                         <div class="order-li">
                             <div class="">
-                                <input class="orderCheckbox" type="checkbox" value="指派" data-role="item" data-itemId="{%= order %}" id="{%= order %}" >
-                                <label for="{%= order %}"></label>
+                                <input class="orderCheckbox" type="checkbox" value="指派" data-role="item" data-itemId="{%= order.orderID %}" id="{%= order.orderID %}" >
+                                <label for="{%= order.orderID %}"></label>
                             </div>
                         </div>
                     </div>
@@ -157,21 +157,120 @@
     <script src="/js/shelf/underscore.js"></script>
     <script src="/js/shelf/mock.js"></script>
     <script src="/js/jquery.lightBox_me.js"></script>
+    <script src="/js/interfaceAdapter.js"></script>
     <script src="/js/appoint.js"></script>
     <script>
         Mock.mockjax(jQuery);
-        Mock.mock(/staff.json/, function(){
+        Mock.mock(/order.json/, function(){
+//            return Mock.mock({
+//                'orderId|10-20' : [
+//                    '@guid'
+//                ]
+//        })
+
+            /* 本地测试数据 */
             return Mock.mock({
-                'orderId|10-20' : [
-                    '@guid'
-                ]
+                "protocol_CODE": "ORM001006",
+                "state_CODE": "009000",
+                "RespData": {
+                    "arrayData": [
+                        {
+                            "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                            "title": "ABC",
+                            "status": "Payed",
+                            "startTime": "201511161200",
+                            "endTime": "201511171200",
+                            "exDoc": "自带工具，线下结算",
+                            "money": "1",
+                            "address": "北京故宫",
+                            "km": "600",
+                            "svcObj": {
+                                "svcID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                                "name": "棒棒娃",
+                                "type": "设计>平面设计",
+                                "startTime": "201511161200",
+                                "endTime": "201511171200"
+                            },
+                            "userObj": {
+                                "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                                "alias": "棒棒娃",
+                                "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao.png"
+                            },
+                            "storeObj": {
+                                "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                                "alias": "望海国际",
+                                "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao_MD.png"
+                            }
+                        },
+                        {
+                            "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                            "title": "ABC",
+                            "status": "Payed",
+                            "startTime": "201511161200",
+                            "endTime": "201511171200",
+                            "exDoc": "自带工具，线下结算",
+                            "money": "1",
+                            "address": "北京故宫",
+                            "km": "600",
+                            "svcObj": {
+                                "svcID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                                "name": "棒棒娃",
+                                "type": "设计>平面设计",
+                                "startTime": "201511161200",
+                                "endTime": "201511171200"
+                            },
+                            "userObj": {
+                                "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                                "alias": "棒棒娃",
+                                "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao.png"
+                            },
+                            "storeObj": {
+                                "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                                "alias": "望海国际",
+                                "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao_MD.png"
+                            }
+                        },
+                        {
+                            "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                            "title": "ABC",
+                            "status": "Payed",
+                            "startTime": "201511161200",
+                            "endTime": "201511171200",
+                            "exDoc": "自带工具，线下结算",
+                            "money": "1",
+                            "address": "北京故宫",
+                            "km": "600",
+                            "svcObj": {
+                                "svcID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                                "name": "棒棒娃",
+                                "type": "设计>平面设计",
+                                "startTime": "201511161200",
+                                "endTime": "201511171200"
+                            },
+                            "userObj": {
+                                "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                                "alias": "棒棒娃",
+                                "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao.png"
+                            },
+                            "storeObj": {
+                                "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                                "alias": "望海国际",
+                                "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao_MD.png"
+                            }
+                        }
+                    ]
+                },
+                "stamp_TIMES": "1490192929335",
+                "serial_NUMBER": "00147001015869149751"
             })
         })
+
+
+
     </script>
     <script type="text/javascript">
         $().ready(function(){
             $('[rel="tooltip"]').tooltip();
-
         });
 
         $(".btnAssign").click(function () {
@@ -199,32 +298,46 @@
         });
     </script>
     <script>
-        $('[data-role="appointToggle"]').appoint({
-            container : '#ordersContainer',
-            template : '#orders_template',
 
-            single : true,
+        (function (){
+            var orderReqData = {
+                "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                "pWord": "20141107",
+                "target": "Nt",
+                "pageSize": "10",
+                "pageNum": "1"
+            };
 
-            appointSubmit : '#appointSubmit',
-            appointSucFunc: function(){
-                alert('指派成功');
-                $('.lightClose').click();
-            },
+            $('[data-role="appointToggle"]').appoint({
+                container : '#ordersContainer',
+                template : '#orders_template',
 
-            beforePullFunc : function (){
-                return $("#orderAppointLight").lightbox_me({
-                    centered : true
-                });
-            },
-            pullUrl : '/staff.json',
-            pullReqData : { businessId : '132131321331' },
+                single : true,
 
-            uploadUrl : '/staff.json',
-            uploadPreFixData : { businessId : '132131321331' },
+                appointSubmit : '#appointSubmit',
+                appointSucFunc: function(){
+                    alert('指派成功');
+                    $('.lightClose').click();
+                },
 
-            /* 订单页指派，item为订单，target为员工 */
-            checkItemName : 'orderId',
-            appointTargetName : 'staffId'
-        })
+                beforePullFunc : function (){
+                    return $("#orderAppointLight").lightbox_me({
+                        centered : true
+                    });
+                },
+                pullUrl : '/order.json',
+                pullReqData : Adapter.reqPackage("ORM001006", orderReqData),
+
+                uploadUrl : '/order.json',
+                uploadPreFixData : function(data){
+                    return Adapter.reqPackage("ASN002001", data);
+                },
+
+                /* 订单页指派，item为订单，target为员工 */
+                checkItemName : 'orderID',
+                appointTargetName : 'userID'
+            })
+        }());
+
     </script>
 </asp:Content>

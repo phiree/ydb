@@ -83,7 +83,7 @@
      * @param protocolCode protocol code
      * @param data source data
      */
-    Adapter.reqPackage = function( protocolCode,data ){
+    Adapter.reqPackage = function( protocolCode, data ){
         var result = {};
 
         //接口号
@@ -97,6 +97,9 @@
 
         //序列号
         result.serial_NUMBER = "";
+
+        //客户端名称
+        result.appName = "adminBusiness";
 
         if ( data !== undefined ){
             result.ReqData = tools.extend({}, data );
@@ -147,6 +150,22 @@
         output.stateCode = rowData.state_CODE;
 
         return output;
+    };
+
+    /**
+     * tool to get parameter by name form url
+     * @param name parameter name
+     * @param url url location
+     * @returns {*}
+     */
+    Adapter.getParameterByName = function(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     };
 
     /**

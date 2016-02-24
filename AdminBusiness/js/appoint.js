@@ -1,18 +1,25 @@
-/*
- * a tool to appoint by ajax.
- * */
+/*!
+ a tool to appoint by ajax.
+ */
+
+
 
 /* standard by AMD , for the future */
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
-        defined(['jquery'], factory);
+        defined(['jquery', 'Adapter'], factory);
     } else {
         factory($);
     }
 }(function ($) {
     var pluginName = 'appoint';
 
-    /* constructor */
+    /**
+     * @description Appoint constructor
+     * @param element
+     * @param options
+     * @constructor
+     */
     function Appoint(element, options) {
         this.$element = $(element);
         this.options = $.extend({}, Appoint.DEFAULTS, options);
@@ -59,6 +66,9 @@
     };
 
     $.extend(Appoint.prototype, {
+        /**
+         *
+         */
         toggle: function () {
             var beforePullFunc = this.options.beforePullFunc;
 
@@ -72,23 +82,35 @@
             this.pull();
 
         },
+
+        /**
+         *
+         * @param jsonData
+         */
         pull : function (jsonData){
             var _this = this;
-            var pullData = $.extend( jsonData, typeof this.options.pullReqData === 'object' && this.options.pullReqData );
+            var pullData = jsonData ? jsonData : typeof this.options.pullReqData === 'object' && this.options.pullReqData;
+
             $.ajax({
                 url : _this.options.pullUrl,
                 dataType : 'json',
                 data : pullData,
-                success : function(data, textStatus, xhr){
-                    _this.refresh(data);
+                success : function(row, textStatus, xhr){
+                    var data = Adapter.respUnpack(row);
+
+                    _this.refresh(data.respData);
                     _this.itemsBuild();
                 }
             });
         },
-        /* 在每次指派item前，通过ajax获取新的item状态
-         * 通过underscore.js模版引擎来刷新页面视图,自定义引用符号为"{% code %}",以免与asp.net的引用符号冲突
-         * */
+
+        /**
+         *
+         * @param jsonData
+         */
         refresh : function(jsonData){
+            /* 在每次指派item前，通过ajax获取新的item状态. */
+            /* 通过underscore.js模版引擎来刷新页面视图,自定义引用符号为"{% code %}",以免与asp.net的引用符号冲突 */
             var $template = $(this.options.template);
             var template = _.template($template.html() ,{
                 interpolate: /\{%=(.+?)%\}/g,
@@ -98,7 +120,9 @@
 
             this.$container.html(template(jsonData));
         },
-        /* items构造 */
+        /**
+         * items构造
+         */
         itemsBuild : function(){
             if ( !this.options.single ) {
                 return;
@@ -113,46 +137,66 @@
         },
         appoint: function () {
             var checkItems = this.$container.find('[data-role="item"]:checked');
-            var checkId;
+            var checkId = [];
             var appointJSON = {};
 
             if ( !checkItems.length ) { return false; }
 
             /* 如果设置为单选时，检测check的长度 */
             if ( this.options.single && checkItems.length > 1 ) { return false; }
-            if ( !this.options.single ) {
-                checkId = [];
-                for (var i = 0; i < checkItems.length; i++) {
-                    checkId.push(this.attr('data-itemId'));
-                }
-            } else {
-                checkId = checkItems.eq(0).attr('data-itemId');
-            }
+
+            checkItems.each(function(){
+                checkId.push($(this).attr('data-itemId'));
+            });
+
 
             appointJSON = this._appointJSONBuild(checkId);
+
             this._upload(appointJSON);
         },
+        /**
+         * 构造指派json
+         * @param checkId
+         * @returns {{}}
+         * @private
+         */
         _appointJSONBuild : function(checkId){
-            var _this = this;
-            var appointJSON = {} ;
+            var _this = this, appointJSON = {} ;
+            var arrayData = [];
 
-            appointJSON.single = _this.options.single;
+            if ( !!Adapter.getParameterByName("businessId") ){
+                appointJSON.storeID = Adapter.getParameterByName("businessId");
+            }
 
-            /* 通过自定义的变量名指定appointJSON数据 */
-            appointJSON[_this.options.checkItemName] = checkId;
-            appointJSON[_this.options.appointTargetName] = _this.appointTargetId;
+            for ( var i = 0; i < checkId.length; i++ ){
+                var obj = {};
+                /* 通过自定义checkName和targetName定义被指派的目标，实现双向指派 */
+                obj[_this.options.checkItemName] = checkId[i];
+                obj[_this.options.appointTargetName] = _this.appointTargetId;
+                obj.mark = "Y";
+                arrayData.push(obj);
+            }
 
-            /* 合并预处理json数据 */
-            appointJSON = $.extend( _this.options.uploadPreFixData, appointJSON);
+            appointJSON.arrayData = arrayData;
 
             return appointJSON;
         },
+        /**
+         * 封装指派信息并提交
+         * @param jsonData
+         * @private
+         */
         _upload: function (jsonData) {
-            var _this = this;
+            var _this = this, reqJSON, preFix = _this.options.uploadPreFixData;
+
+            if ( typeof preFix === "function" ){
+                reqJSON = preFix(jsonData);
+            }
+
             $.ajax({
                 url : _this.options.uploadUrl,
                 dataType : 'json',
-                data : jsonData,
+                data : reqJSON,
                 success : function(data, textStatus, xhr){
                     if ( typeof _this.options.appointSucFunc === 'function' ){
                         _this.options.appointSucFunc();
