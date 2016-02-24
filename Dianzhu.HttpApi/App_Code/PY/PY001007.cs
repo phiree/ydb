@@ -60,7 +60,7 @@ public class ResponsePY001007:BaseResponse
                     bool sucdess = false;
                     while (!sucdess)
                     {
-                        IPay ipay = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.ServiceName, Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.ServiceDescription);
+                        IPayRequest ipay = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.ServiceName, Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.ServiceDescription);
                         //var respDataWeibo = new NameValueCollection();
                         string respDataWechat = "<xml>";
 
