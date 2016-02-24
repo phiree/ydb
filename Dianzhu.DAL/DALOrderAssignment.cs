@@ -27,7 +27,23 @@ namespace Dianzhu.DAL
 
         public IList<OrderAssignment> GetOAListByOrder(ServiceOrder order)
         {
-            return Session.QueryOver<OrderAssignment>().Where(x => x.Order == order).List();
+            return Session.QueryOver<OrderAssignment>().Where(x => x.Order == order).And(x=>x.Enabled==true).List();
+        }
+
+        public IList<OrderAssignment> GetOAListByStaff(Staff staff)
+        {
+            return Session.QueryOver<OrderAssignment>().Where(x => x.AssignedStaff == staff).And(x => x.Enabled == true).List();
+        }
+
+        public IList<OrderAssignment> GetAllListForAssign(Guid businessId)
+        {
+            string sql = "select oa from OrderAssignment oa " +
+                " inner join oa.AssignedStaff s " +
+                " where oa.Enabled=true And s.Belongto = '" + businessId + "'";
+
+            IQuery iquery = Session.CreateQuery(sql);
+
+            return iquery.List<OrderAssignment>();
         }
     }
 }

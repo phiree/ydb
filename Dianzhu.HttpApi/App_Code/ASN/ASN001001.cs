@@ -30,7 +30,7 @@ public class ResponseASN001001 : BaseResponse
         try
         {
             string raw_id = requestData.storeID;
-            RespDataUSM_userObj userObj = requestData.userObj;
+            RespDataASN_staffObj userObj = requestData.userObj;
 
             Guid storeID;
             bool isStoreId = Guid.TryParse(raw_id, out storeID);
@@ -66,11 +66,12 @@ public class ResponseASN001001 : BaseResponse
                 staff.Photo = DownloadToMediaserver(userObj.imgUrl);
 
                 bllStaff.Save(staff);
+                RespDataASN_staffObj staffObj = new RespDataASN_staffObj().Adapt(staff);
 
-                RespDataASN001001 respData = new RespDataASN001001().Adapt(staff);
-
+                RespDataASN001001 respData = new RespDataASN001001();
+                respData.userObj = staffObj;
                 this.state_CODE = Dicts.StateCode[0];
-                this.RespData = respData;
+                this.RespData = respData.userObj;
             }
             catch (Exception ex)
             {

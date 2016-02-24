@@ -4,8 +4,8 @@
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", "ad001006","clm001001"
 //"slf002006", "slf002003", "slf001007","py001007","py001008"
-//"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn001007","asn001008",
- "orm003006",
+//"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
+ "asn002004",
 
 ];
 var test_data = [
@@ -47,7 +47,7 @@ var test_data = [
             "userID": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
             //"alias": "呵呵哒",
             //"email": "321654@126.com",
-            "phone": "18865471542",
+            "phone": "1886547xx42",
             //"imgUrl": "http://img1.imgtn.bdimg.com/it/u=2226833288,3588551739&fm=206&gp=0.jpg",
             //"address": "海南省三亚市",
         },
@@ -68,10 +68,9 @@ var test_data = [
     {
         "protocol_CODE": "ASN001005",
         "ReqData": {
-            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
-            "pWord": "1234",
-            "orderId": "e27ad23c-c818-4fe0-bc70-a5b001263cce",
-            "staffId": "e42c74c9-1e08-4982-9e30-a5b1010ba129",
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userId": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -80,44 +79,57 @@ var test_data = [
     {
         "protocol_CODE": "ASN001006",
         "ReqData": {
-            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
-            "pWord": "1234",
-            "businessId": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
-            "staffId": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
-            "pageSize": "10",
-            "pageNum": "1",
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
     },
 
     {
-        "protocol_CODE": "ASN001007",
+        "protocol_CODE": "ASN002001",
         "ReqData": {
-            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
-            "pWord": "1234",
-            "arrayOrderId": [
-                "4a17f564-3f3b-4d6b-98b9-a5b2014d82ee",
-                "b4381dd5-7f77-474c-9ae8-a5b2013636fc",
-            ],
-            "staffId": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
-            "assign": true
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "arrayData": [
+            {
+                "userID": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
+                "mark": "Y"
+            },
+            {
+                "userID": "948f542b-3123-42f3-bc5d-a5b500be12aa",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
+                "mark": "N"
+            },
+            {//员工id不存在
+                "userID": "948f542b-3123-42f3-bc5d-a5b500b212aa",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
+                "mark": "Y"
+            },
+            {//订单不存在
+                "userID": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940114db2d",
+                "mark": "Y"
+            },
+            {//mark不对
+                "userID": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940114db2d",
+                "mark": "Ys"
+            }
+            ]
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
     },
 
     {
-        "protocol_CODE": "ASN001008",
+        "protocol_CODE": "ASN002004",
         "ReqData": {
-            "userID": "2c843b9f-ed19-40c2-99b4-a54500f97205",
-            "pWord": "123",
-            "arrayStaffId": [
-                "a2be96e7-d651-47b1-8729-a5ae00f19d32",
-                "bdf45343-bafd-4c40-8be9-a58a012ae6a5",
-            ],
-            "orderId": "0fdb864e-1789-497d-8822-a53800bcc4b4",
-            "assign": false
+            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userID": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
+            "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"

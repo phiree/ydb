@@ -76,5 +76,10 @@ namespace Dianzhu.BLL
             return DALStaff.GetEnableSum(business);
         }
 
+        public IList<Staff> GetAllListByBusiness(Business business)
+        {
+            return DALStaff.GetAllListByBusiness(business);
+        }
+
     }
 }

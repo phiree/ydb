@@ -84,13 +84,13 @@ public class ResponseASN001003 : BaseResponse
                 Staff staffOriginal = new Staff();
                 staff.CopyTo(staffOriginal);
 
-                RespDataASN001003 respData = new RespDataASN001003(userID.ToString());
+                RespDataASN_staffObj staffObj = new RespDataASN_staffObj();
 
-                if (alias != null) { staff.NickName = alias; respData.alias = "Y"; }
-                if (email != null) { staff.Email = email; respData.email = "Y"; }
-                if (phone != null) { staff.Phone = phone; respData.phone = "Y"; }
-                if (address != null) { staff.Address = address; respData.address = "Y"; }
-                if (imgUrl != null) { staff.Photo = DownloadToMediaserver(imgUrl); respData.imgUrl = "Y"; }
+                if (alias != null) { staff.NickName = alias; staffObj.alias = "Y"; }
+                if (email != null) { staff.Email = email; staffObj.email = "Y"; }
+                if (phone != null) { staff.Phone = phone; staffObj.phone = "Y"; }
+                if (address != null) { staff.Address = address; staffObj.address = "Y"; }
+                if (imgUrl != null) { staff.Photo = DownloadToMediaserver(imgUrl); staffObj.imgUrl = "Y"; }
 
                 ValidatorStaff vd_staff = new ValidatorStaff();
                 FluentValidation.Results.ValidationResult result = vd_staff.Validate(staff);
@@ -100,16 +100,16 @@ public class ResponseASN001003 : BaseResponse
                     {
                         //只有不为null的菜需要
                         case "alias":
-                            if (respData.alias != null) { respData.alias = "N"; staff.NickName = staffOriginal.NickName; }
+                            if (staffObj.alias != null) { staffObj.alias = "N"; staff.NickName = staffOriginal.NickName; }
                             break;
                         case "email":
-                            if (respData.email != null) { respData.email = "N"; staff.Email = staffOriginal.Email; }
+                            if (staffObj.email != null) { staffObj.email = "N"; staff.Email = staffOriginal.Email; }
                             break;
                         case "phone":
-                            if (respData.phone != null) { respData.phone = "N"; staff.Phone = staffOriginal.Phone; }
+                            if (staffObj.phone != null) { staffObj.phone = "N"; staff.Phone = staffOriginal.Phone; }
                             break;
                         case "address":
-                            if (respData.address != null) { respData.address = "N"; staff.Address = staffOriginal.Address; }
+                            if (staffObj.address != null) { staffObj.address = "N"; staff.Address = staffOriginal.Address; }
                             break;
                         default: break;
                     }
@@ -117,8 +117,10 @@ public class ResponseASN001003 : BaseResponse
 
                 bllStaff.Update(staff);
 
+                RespDataASN001003 respData = new RespDataASN001003(userID.ToString());
                 this.state_CODE = Dicts.StateCode[0];
-                this.RespData = respData;
+                respData.staffObj = staffObj;
+                this.RespData = respData.staffObj;
             }
             catch (Exception ex)
             {

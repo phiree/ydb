@@ -116,10 +116,10 @@ public class ResponseFactory
                 return new ResponseASN001005(request);
             case "asn001006":
                 return new ResponseASN001006(request);
-            case "asn001007":
-                return new ResponseASN001007(request);
-            case "asn001008":
-                return new ResponseASN001008(request);
+            case "asn002001":
+                return new ResponseASN002001(request);
+            case "asn002004":
+                return new ResponseASN002004(request);
             default:
                 BaseResponse baeResponse = new BaseResponse(request);
                 baeResponse.state_CODE = Dicts.StateCode[1];

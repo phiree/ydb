@@ -7,29 +7,45 @@ using Dianzhu.Model;
 using Dianzhu.Config;
 namespace Dianzhu.Api.Model
 {
+    public class RespDataASN_staffObj
+    {
+        public string userID { get; set; }
+        public string alias { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+        public string address { get; set; }
+        public string imgUrl { get; set; }
+        public RespDataASN_staffObj Adapt(Staff staff)
+        {
+            this.userID = staff.Id.ToString();
+            this.alias = staff.NickName;
+            this.email = staff.Email;
+            this.phone = staff.Phone;
+            this.address = staff.Address;
+            if (staff.Photo == null || staff.Photo == "")
+            {
+                this.imgUrl = "";
+            }
+            else
+            {
+                this.imgUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + staff.Photo;
+            }
+
+            return this;
+        }
+    }
+
     #region ASN001001
     public class ReqDataASN001001
     {
         public string storeID { get; set; }
         public string pWord { get; set; }
-        public RespDataUSM_userObj userObj { get; set; }
+        public RespDataASN_staffObj userObj { get; set; }
     }
 
     public class RespDataASN001001
     {
-        public RespDataUSM_userObj userObj { get; set; }
-        public RespDataASN001001 Adapt(Staff staff)
-        {
-            this.userObj = new RespDataUSM_userObj();
-            this.userObj.userID = staff.Id.ToString();
-            this.userObj.alias = staff.Name;
-            this.userObj.email = staff.Email;
-            this.userObj.phone = staff.Phone;
-            this.userObj.imgUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + staff.Photo;
-            this.userObj.address = staff.Address;
-
-            return this;
-        }
+        public RespDataASN_staffObj userObj { get; set; }
     }
     #endregion
 
@@ -62,21 +78,17 @@ namespace Dianzhu.Api.Model
 
     public class RespDataASN001003
     {
-        public string userID { get; set; }
-        public string alias { get; set; }
-        public string email { get; set; }
-        public string phone { get; set; }
-        public string address { get; set; }
-        public string imgUrl { get; set; }
+        public RespDataASN_staffObj staffObj { get; set; }
         public RespDataASN001003(string userID)
         {
             //todo: 如果修改成功,则为"Y" 否则为"N"
-            this.userID = userID;
-            this.alias = null;
-            this.email = null;
-            this.phone = null;
-            this.address = null;
-            this.imgUrl = null;
+            this.staffObj = new RespDataASN_staffObj();
+            this.staffObj.userID = userID;
+            this.staffObj.alias = null;
+            this.staffObj.email = null;
+            this.staffObj.phone = null;
+            this.staffObj.address = null;
+            this.staffObj.imgUrl = null;
         }
     }
     #endregion
@@ -97,56 +109,91 @@ namespace Dianzhu.Api.Model
     #region ASN001005
     public class ReqDataASN001005
     {
-        public string userID { get; set; }
+        public string storeID { get; set; }
         public string pWord { get; set; }
-        public string orderId { get; set; }
-        public string staffId { get; set; }
+        public string userID { get; set; }
     }
 
     public class RespDataASN001005
     {
-        public string assigned { get; set; }
+        public RespDataASN_staffObj userObj { get; set; }
     }
     #endregion
 
     #region ASN001006
     public class ReqDataASN001006
     {
-        public string userID { get; set; }
+        public string storeID { get; set; }
         public string pWord { get; set; }
-        public string businessId { get; set; }
-        public string staffId { get; set; }
-        public string pageNum { get; set; }
-        public string pageSize { get; set; }
     }
 
     public class RespDataASN001006
     {
-        public IList<RespDataASN_arrayData> arrayData { get; set; }
-    }
+        public IList<RespDataASN_staffObj> arrayData { get; set; }
+        public RespDataASN001006 AdaptList(IList<Staff> staffList)
+        {
+            this.arrayData = new List<RespDataASN_staffObj>();
+            foreach (Staff staff in staffList)
+            {
+                RespDataASN_staffObj staffObj = new RespDataASN_staffObj().Adapt(staff);
+                this.arrayData.Add(staffObj);
+            }
 
-    public class RespDataASN_arrayData
-    {
-        public string orderId { get; set; }
-        public string assigned { get; set; }
+            return this;
+        }
     }
     #endregion
 
-    public class ReqDataASN001007
+    ///////////////////////////////////////////////    ASN002    ////////////////////////////////////////////////////////////
+
+    public class RespDataASN_assignObj
     {
         public string userID { get; set; }
-        public string pWord { get; set; }
-        public bool assign { get; set; }
-        public string staffId { get; set; }
-        public IList<string> arrayOrderId { get; set; }
+        public string orderID { get; set; }
+        public string mark { get; set; }
+        public RespDataASN_assignObj Adapt(OrderAssignment oa)
+        {
+            this.userID = oa.AssignedStaff.Id.ToString();
+            this.orderID = oa.Order.Id.ToString();
+            if (oa.Enabled)
+            {
+                this.mark = "Y";
+            }
+            else
+            {
+                this.mark = "N";
+            }
+
+            return this;
+        }
     }
 
-    public class ReqDataASN001008
+    #region ASN002001
+    public class ReqDataASN002001
     {
-        public string userID { get; set; }
+        public string storeID { get; set; }
         public string pWord { get; set; }
-        public bool assign { get; set; }
-        public string orderId { get; set; }
-        public IList<string> arrayStaffId { get; set; }
+        public IList<RespDataASN_assignObj> arrayData { get; set; }
     }
+
+    public class RespDataASN002001
+    {
+        public IList<RespDataASN_assignObj> arrayError { get; set; }
+    }
+    #endregion
+
+    #region ASN002004
+    public class ReqDataASN002004
+    {
+        public string storeID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+        public string userID { get; set; }
+    }
+
+    public class RespDataASN002004
+    {
+        public IList<RespDataASN_assignObj> arrayData { get; set; }
+    }
+    #endregion
 }

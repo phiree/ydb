@@ -32,6 +32,11 @@ namespace Dianzhu.DAL
         {
             return Session.QueryOver<Staff>().Where(x => x.Belongto == business).And(x => x.Enable == true).RowCount();
         }
+
+        public IList<Staff> GetAllListByBusiness(Business business)
+        {
+            return Session.QueryOver<Staff>().Where(x => x.Belongto == business).List();
+        }
         
     }
 }
