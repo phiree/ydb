@@ -59,7 +59,7 @@ public partial class _Default : System.Web.UI.Page
         if (payType == enum_PayType.Online)
         {
          
-            IPay pay = bllPay.CreatePayAPI(payAPI, order,payTarget);
+            IPayRequest pay = bllPay.CreatePayAPI(payAPI, order,payTarget);
             requestString = pay.CreatePayRequest();
             
             Response.Write(requestString);

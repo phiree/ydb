@@ -6,12 +6,15 @@ using Com.Alipay;
 using System.Collections.Specialized;
 using System.Security.Cryptography;
 
+/// <summary>
+/// 第三方支付接口
+/// </summary>
 namespace Dianzhu.Pay
 {
     /// <summary>
-    /// 支付接口
+    /// 创建支付链接
     /// </summary>
-    public interface IPay
+    public interface IPayRequest
     {
         /// <summary>
         /// 支付金额
@@ -35,11 +38,20 @@ namespace Dianzhu.Pay
         string PaymentId { get; set; }
         //创建支付请求
         string CreatePayRequest();
-        //支付平台回调
-        string PayCallBack();      
+        //支付平台回调 参数验证
+             
     }
-
-    public class PayAli : IPay
+    /// <summary>
+    /// 接收支付平台回调
+    /// </summary>
+    public interface IPayCallBack
+    {
+        bool PayCallBack(NameValueCollection nvc, out string businessOrderId, out string platformOrderId, out decimal total_amoun, out string errMsg);
+    }
+    /// <summary>
+    /// 支付宝实现
+    /// </summary>
+    public class PayAli : IPayRequest
 
     {  
         public decimal PayAmount{
@@ -85,8 +97,8 @@ namespace Dianzhu.Pay
             this.PaymentId = paymentId;
 
         }
-        
 
+        log4net.ILog log = log4net.LogManager.GetLogger("Diuanzhu.Pay.PayAli");
         public string CreatePayRequest( )
         {
             SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
@@ -111,9 +123,60 @@ namespace Dianzhu.Pay
             return sHtmlText;
         }
 
-        public string PayCallBack()
+      
+    }
+    public class PayCallBackAli : IPayCallBack
+    {
+
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Pay.PayCallBackAli");
+        public bool PayCallBack(NameValueCollection coll,
+            out string businessOrderId,out string platformOrderId,out decimal total_amount
+            , out string errMsg)
         {
-            throw new NotImplementedException();
+               //获取订单号
+            string total_fee = coll["total_fee"];            //获取总金额
+            string subject = coll["subject"];                //商品名称、订单名称
+            string body = coll["body"];                      //商品描述、订单备注、描述
+            string buyer_email = coll["buyer_email"];        //买家支付宝账号
+                //交易状态   
+
+            string notify_id = coll["notify_id"];
+            string sign = coll["sign"];
+
+            SortedDictionary<string, string> sPara = GetRequestGet(coll);
+
+            bool isVerified = new Notify().Verify(sPara, notify_id, sign);
+            platformOrderId = businessOrderId =errMsg=  string.Empty;
+            
+            total_amount = 0m;
+              
+            if (isVerified)
+            {
+                platformOrderId = coll["trade_no"];              //支付宝交易号
+                businessOrderId = coll["out_trade_no"];
+
+                total_amount = Convert.ToDecimal(coll["total_fee"]);
+                string trade_status = coll["trade_status"];
+                if (trade_status.ToUpper() == "TRADE_FINISHED" || trade_status.ToUpper() == "TRADE_SUCCESS")
+                {
+                    return true;
+                }
+                 
+                else
+                {
+                    errMsg = "支付不成功.支付结果为:" + trade_status;
+                    log.Error(errMsg);
+
+                    return false;
+                }
+            }
+            else
+            {
+                errMsg = "支付结果有误.参数验证失败";
+                log.Error(errMsg);
+                return false;
+            }
+            
         }
 
         private SortedDictionary<string, string> GetRequestGet(NameValueCollection coll)
@@ -133,7 +196,7 @@ namespace Dianzhu.Pay
         }
     }
 
-    public class PayWeChat : IPay
+    public class PayWeChat : IPayRequest
     {
         public decimal PayAmount { get; set; }
 
@@ -195,29 +258,15 @@ namespace Dianzhu.Pay
             return sHtmlText;
         }
 
-        public string PayCallBack()
+        public bool PayCallBack(NameValueCollection nvc)
         {
             throw new NotImplementedException();
         }
 
-        private SortedDictionary<string, string> GetRequestGet(NameValueCollection coll)
-        {
-            int i = 0;
-            SortedDictionary<string, string> sArray = new SortedDictionary<string, string>();
-            //Load Form variables into NameValueCollection variable.
-            // Get names of all forms into a string array.
-            String[] requestItem = coll.AllKeys;
-
-            for (i = 0; i < requestItem.Length; i++)
-            {
-                sArray.Add(requestItem[i], coll[requestItem[i]]);
-            }
-
-            return sArray;
-        }
+    
     }
 
-    public class PayAlipayApp : IPay
+    public class PayAlipayApp : IPayRequest
     {
         public decimal PayAmount { get; set; }
         public string PaySubjectPre { get; set; }
@@ -266,25 +315,11 @@ namespace Dianzhu.Pay
             return sParaStr;
         }
 
-        public string PayCallBack()
+        public bool PayCallBack(NameValueCollection nvc)
         {
             throw new NotImplementedException();
         }
 
-        private SortedDictionary<string, string> GetRequestGet(NameValueCollection coll)
-        {
-            int i = 0;
-            SortedDictionary<string, string> sArray = new SortedDictionary<string, string>();
-            //Load Form variables into NameValueCollection variable.
-            // Get names of all forms into a string array.
-            String[] requestItem = coll.AllKeys;
-
-            for (i = 0; i < requestItem.Length; i++)
-            {
-                sArray.Add(requestItem[i], coll[requestItem[i]]);
-            }
-
-            return sArray;
-        }
+       
     }
 }

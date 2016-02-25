@@ -15,10 +15,11 @@ namespace Dianzhu.Config
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         #endregion
-        #region   部署前，只需要手动修改此处
-        static string IMServer = IMServers[1];//即时通讯服务器地址
+        #region   部署前，只需要手动修改此处 /
+        static string DatabaseServer = DatabaseServers[1];//数据库地址
+        static string IMServer = DatabaseServers[1];//即时通讯服务器地址
         static string IMDomain = IMDomains[1];//即时通讯服务器地址
-        static string ApplicationServer = ApplicationServers[3];//应用服务器地址
+        static string ApplicationServer = DatabaseServers[1];//应用服务器地址
 
         #endregion
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
