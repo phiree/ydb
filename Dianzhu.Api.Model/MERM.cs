@@ -72,3 +72,33 @@ namespace Dianzhu.Api.Model
     }
     */
 }
+
+public class RespDataMERM_merObj
+{
+    public string userID { get; set; }
+    public string alias { get; set; }
+    public string email { get; set; }
+    public string phone { get; set; }
+    public string imgUrl { get; set; }
+    public string userType { get; set; }
+
+    public RespDataMERM_merObj Adapt(DZMembership membership)
+    {
+        this.userID = membership.Id.ToString();
+        this.alias = membership.NickName ?? "";
+        this.email = membership.Email ?? "";
+        this.phone = membership.Phone ?? "";
+        this.imgUrl = string.IsNullOrEmpty(membership.AvatarUrl) ? string.Empty
+                : (
+                  Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")
+                + membership.AvatarUrl);
+
+        return this;
+
+    }
+}
+
+public class RespDataMERM// 
+{
+    public RespDataMERM_merObj merObj { get; set; }
+}
