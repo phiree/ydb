@@ -14,12 +14,17 @@ namespace Dianzhu.Config
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172" };
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
+        static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
+        static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         #endregion
         #region   部署前，只需要手动修改此处 /
-        static string DatabaseServer = DatabaseServers[1];//数据库地址
-        static string IMServer = DatabaseServers[1];//即时通讯服务器地址
-        static string IMDomain = IMDomains[1];//即时通讯服务器地址
-        static string ApplicationServer = DatabaseServers[1];//应用服务器地址
+
+        static string IMServer = IMServers[3];//即时通讯服务器地址
+        static string IMDomain = IMDomains[3];//即时通讯服务器地址
+        static string HttpApiServer = HttpApiServers[3];//即时通讯服务器地址
+        static string ApplicationServer = ApplicationServers[0];//应用服务器地址
+        static string IMNotifyServer = IMNotifyServers[3];//应用服务器地址
+
 
         #endregion
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
@@ -77,17 +82,17 @@ namespace Dianzhu.Config
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, 8038,"GetFile.ashx?fileName=")   }
 
 
-            , {"NoticeSenderId",DictsNotifySenderLogins[IMServer].Key  }
-            , {"NoticeSenderPwd",DictsNotifySenderLogins[IMServer].Value  }
+            , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
+            , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
             , {"PaySite",BuildHttpUrlString(ApplicationServer, 8168)   }
             , {"PayUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
             , {"OpenfireRestApiSessionListUrl",BuildHttpUrlString(IMServer, 9090,"plugins/restapi/v1/sessions/")  }
 
-            , {"DiandianLoginId",DictsDianDianLogins[IMServer].Key}
-            , {"DiandianLoginPwd",DictsDianDianLogins[IMServer].Value  }
-            , {"APIBaseURL",BuildHttpUrlString(ApplicationServer, 8037,"DianzhuApi.ashx")  }
+            , {"DiandianLoginId",DictsDianDianLogins[IMNotifyServer].Key}
+            , {"DiandianLoginPwd",DictsDianDianLogins[IMNotifyServer].Value  }
+            , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, 8037,"DianzhuApi.ashx")  }
             , {"PayServerUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
-            , {"NotifyServer",BuildHttpUrlString(ApplicationServer, 8039)   }
+            , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, 8039)   }
             , {"BaiduGeocodingAPI","http://api.map.baidu.com/geocoder/v2/?ak="  }
             , {"BaiduTranAPI","http://api.map.baidu.com/geoconv/v1/?ak="  }
             , {"BaiduGeocodingAK","SDHO8UtRNvOl4Cc29KA74UxF"  }

@@ -14,7 +14,7 @@ using System.Xml;
 using Com.Alipay;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-
+using Dianzhu.Pay;
 /// <summary>
 /// 功能：即时到账批量退款有密接口接入页
 /// 版本：3.3
@@ -35,6 +35,9 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        BLLPay bllPay = new BLLPay();
+        
         
         if (!IsPostBack)
         {

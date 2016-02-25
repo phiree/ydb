@@ -29,7 +29,7 @@ public partial class return_url : System.Web.UI.Page
         try
         {
             bllPay.ReceiveAPICallBack(Dianzhu.Model.Enums.enum_PaylogType.ResultReturnFromAli, new PayCallBackAli(), Request.RawUrl, Request.QueryString);
-            Response.Write("success");
+            Response.Redirect("paysuc.aspx");
         }
         catch
         {
