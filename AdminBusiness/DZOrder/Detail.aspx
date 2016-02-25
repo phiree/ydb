@@ -7,6 +7,7 @@
     <div class="content">
         <div class="content-head normal-head">
             <h3>订单详情</h3>
+            <a class="btn btn-gray-light fr" role="button" href="/dzorder/default.aspx?">返回</a>
         </div>
         <div class="content-main">
             <div class="animated fadeInUpSmall">
@@ -124,7 +125,7 @@
                                     <div class="d-hr"></div>
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <div class="model-pra">
+                                            <div class="model-pra no-wrap">
                                                 <span class="model-pra-t">投诉处理</span>
                                                 <div class="model-select-sm">
                                                     <div class="select select-fluid select-flow">
@@ -139,7 +140,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="model-pra">
+                                            <div class="model-pra no-wrap">
                                                 <span class="model-pra-t">退款比例</span>
                                                 <div class="model-select-sm">
                                                     <div class="select select-fluid select-flow">
@@ -176,7 +177,47 @@
                                     <h4>订单状态</h4>
                                 </div>
                                 <div class="model-m">
+                                    <div class="order-status-list">
+                                        <div class="status-list-item">
+                                            <div class="status-tip">
+                                                <div class="status-icon">
 
+                                                </div>
+                                                <div class="status-time">
+                                                    12月8日 11：25
+                                                </div>
+                                            </div>
+                                            <div class="status-h">订单已提交</div>
+                                            <div class="status-p">用户已经提交订单，等待商户接单。</div>
+
+                                        </div>
+                                        <div class="status-list-item">
+                                            <div class="status-tip">
+                                                <div class="status-icon">
+
+                                                </div>
+                                                <div class="status-time">
+                                                    12月8日 11：25
+                                                </div>
+                                            </div>
+                                            <div class="status-h">订单已提交</div>
+                                            <div class="status-p">用户已经提交订单，等待商户接单。</div>
+
+                                        </div>
+                                        <div class="status-list-item">
+                                            <div class="status-tip">
+                                                <div class="status-icon">
+
+                                                </div>
+                                                <div class="status-time">
+                                                    12月8日 11：25
+                                                </div>
+                                            </div>
+                                            <div class="status-h">订单已提交</div>
+                                            <div class="status-p">用户已经提交订单，等待商户接单。</div>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -31,6 +31,12 @@
 
 .model-pra {
   margin-bottom: 34px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  &.no-wrap {
+    overflow: visible;
+  }
 }
 
 .model-pra-t {
@@ -101,7 +107,7 @@
 
 .model-select-sm {
   display: inline-block;
-  width: 100px;
+  width: 70px;
   position: relative;
   ul {
     position: absolute;
