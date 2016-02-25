@@ -2,100 +2,81 @@
  AutoEventWireup="true" CodeFile="recovery.aspx.cs" Inherits="ForgetPassword" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" class="register-html">
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content="一点办重置密码" />
     <meta name="keywords" content="一点办" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />-->
     <title>一点办重置密码</title>
-    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
-    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jqueryui/jquery-ui.min-1.10.4.js"></script>
-    <!--<link href="/css/validation.css" rel="stylesheet" type="text/css">-->
-    <link rel="Stylesheet" href="/css/base.css" type="text/css" />
-    <link rel="Stylesheet" href="/css/login_reg.css" type="text/css" />
-    <Style>
-        p.error {
-               background:url("../image/shop-icon-13.png") no-repeat 0px 50%;
-               padding: 4px 10px 4px 30px;
-               font-size: 12px;
-               line-height: 2em;
-               color: #ff8b8b;
-           }
-    </Style>
+    <link href='http://api.youziku.com/webfont/CSS/568e3429f629d80f4cd910a4' rel='stylesheet' type='text/css' />
+    <link href='http://api.youziku.com/webfont/CSS/568e353ff629d80f4cd910a7' rel='stylesheet' type='text/css' />
+    <link rel="Stylesheet" href="/css/main.css" type="text/css" />
 </head>
-<body>
-    <div class="reg-wrap">
-        <div class="main">
-            <div class="reg-layout">
-                <div class="wrap-reg">
-                    <form runat="server">
-                    <div class="conReg">
-                        <div class="conLogo">
-                            <div class="logo">
-                                <div class="logo-title-l"></div>
-                                <div class="logo-title-r">
-                                    <img src="/image/login_reg/icon_1.png" alt="logo" />
+<body class="register-body">
+    <div class="register-wrap">
+        <form runat="server">
+            <div class="register-section">
+                <div class="register-brand-c">
+                    <img id="register-logo" src="../images/pages/register/logo_100x100.png" alt="logo" />
+                    <div class="brand-head">
+                        <h1 class="cssc0a9477146a8">一点办商户管理系统</h1>
+                        <p class="cssc0a50b3d46a8">静心观天下·才能发现世界的精彩</p>
+                    </div>
+                </div>
+            </div>
+            <div class="register-section">
+                <div class="register-panel-c">
+                    <div class="reg-model">
+                        <div class="reg-model-h">
+                            <h3>重置密码</h3>
+                        </div>
+                        <div class="reg-model-m">
+                            <div>
+                                <div class="register-input-w short thin-b">
+                                    <span class="register-input-title">新密码</span>
+                                    <label class="register-input-icon" for="tbxPassword">
+                                        <i class="usernameIcon"></i>
+                                    </label>
+                                    <asp:TextBox CssClass="register-input" runat="server" TextMode="Password" id="tbxPassword"></asp:TextBox>
                                 </div>
-
-
                             </div>
                             <div>
-                                <div class="logo-title-l">
-                                    <p>重新设置密码</p>
-                                </div>
-                                <div class="logo-title-r">
-                                    <i class="icon logoTitle"></i>
+                                <div class="register-input-w short thin-b">
+                                    <span class="register-input-title">确认密码</span>
+                                    <label class="register-input-icon" for="tbxPasswordConfirm">
+                                        <i class="passwordIcon"></i>
+                                    </label>
+                                    <asp:TextBox CssClass="register-input" runat="server" TextMode="Password" id="tbxPasswordConfirm"></asp:TextBox>
                                 </div>
                             </div>
+                            <div class="login_err_msg md m-b10" >
+                                <ul></ul>
+                            </div>
+                            <div>
+                                <div class="m-b10">
+                                    <asp:Label runat="server" CssClass="f-s14" ID="lblMsg"></asp:Label>
+                                    <asp:HyperLink runat="server" NavigateUrl="/login.aspx" Visible=false ID="hlLogin">修改成功,请登录</asp:HyperLink>
+                                </div>
+                                <asp:Button runat="server" CssClass="register-green-btn" ID="btnReset" Text="确认" OnClick="btnReset_Click" />
 
-                        </div>
-                        <div class="conMain main-reg clearfix">
-                            <div class="reg-box">
-                                <div class="reg-box-userName">
-                                    <div class="reg-box-l"><p>新密码</p></div>
-                                    <div class="reg-box-r">
-                                        <div class="reg-input">
-                                            <asp:TextBox runat="server" TextMode="Password" id="tbxPassword"></asp:TextBox>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="reg-box">
-                                <div class="reg-box-userName">
-                                    <div class="reg-box-l"><p>确认密码</p></div>
-                                    <div class="reg-box-r">
-                                        <div class="reg-input">
-                                            <asp:TextBox runat="server" TextMode="Password" id="tbxPasswordConfirm"></asp:TextBox>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="reg-box">
-                                <div class="reg-box-userName">
-                                    <div class="reg-box-l"></div>
-                                    <div class="reg-box-r">
-                                        <div class="m-b10"><asp:Label runat="server" CssClass="f-s14" ID="lblMsg"></asp:Label><asp:HyperLink runat="server" NavigateUrl="/login.aspx" Visible=false ID="hlLogin">修改成功,请登录</asp:HyperLink></div>
-                                        <asp:Button runat="server" CssClass="reset-Pass-btn" ID="btnReset" Text="确认" OnClick="btnReset_Click" />
-
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    </form>
                 </div>
             </div>
+        </form>
+        <div class="footer">
+            <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
         </div>
     </div>
 </body>
-<script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
-<script src="/js/jquery.lightbox_me.js" type="text/javascript"></script>
+<script type="text/javascript" src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js'></script>
 <script src="/js/jquery.validate.js" type="text/javascript"></script>
 <script>
     $.validator.setDefaults({
-        ignore: []
+        ignore: [],
     });
 
     $.validator.addMethod("pwd", function (value, element) {
@@ -142,10 +123,9 @@
 
     $($("form")[0]).validate(
             {
-                errorElement: "p",
-                errorPlacement: function(error, element) {
-                    error.appendTo( element.parent() );
-                },
+                errorElement: "div",
+                errorLabelContainer: ".login_err_msg ul",
+                wrapper: "li",
                 rules: pass_validate_rules,
                 messages: pass_validate_messages
             }
@@ -156,6 +136,4 @@
 <script src="/js/jquery.placeholder.min.js" type="text/javascript"></script>
 <script>$('input, textarea').placeholder();</script>
 <![endif]-->
-<script src="/js/login_reg.js" type="text/javascript"></script>
-
 </html>

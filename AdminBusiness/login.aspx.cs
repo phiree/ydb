@@ -32,7 +32,7 @@ public partial class login : System.Web.UI.Page
         }
         else {
             lblMsg.Text = "用户名或密码有误";
-            lblMsg.CssClass = "show";
+            lblMsg.CssClass = "lblMsg lblMsgShow";
            // PHSuit.Notification.Show(Page,"","登录失败",Request.RawUrl);
         }
     }

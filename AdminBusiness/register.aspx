@@ -7,64 +7,66 @@
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="description" content="一点办注册" />
     <meta name="keywords" content="一点办" />
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />-->
     <title>一点办注册</title>
     <link href='http://api.youziku.com/webfont/CSS/568e3429f629d80f4cd910a4' rel='stylesheet' type='text/css' />
     <link href='http://api.youziku.com/webfont/CSS/568e353ff629d80f4cd910a7' rel='stylesheet' type='text/css' />
     <link rel="Stylesheet" href="/css/main.css" type="text/css" />
     <!--[if lte IE 9]>
-        <script src="./js/respond.min.js"></script>
+    <script src="./js/respond.min.js"></script>
     <![endif]-->
 </head>
 <body class="register-body">
 <div class="register-wrap">
     <form id="form1" runat="server">
         <div class="register-section">
-            <div class="register-panel">
-                <div class="register-detial reg">
-                    <div class="login_err_msg" >
-                        <ul></ul>
-                    </div>
-                    <div class="username">
-                        <span class="register-input-title">用户名</span>
-                        <label class="usernameIcon" for="tbxUserName">
-                            <i class="icon"></i>
-                        </label>
-                        <asp:TextBox runat="server" CssClass="regUserName" ID="tbxUserName" placeholder="请输入电子邮箱注册" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
-                    </div>
-                    <div class="password reg">
-                        <span class="register-input-title">密码</span>
-                        <label class="passwordIcon" for="tbxPassword">
-                            <i class="icon"></i>
-                        </label>
-                        <asp:TextBox runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password"></asp:TextBox>
-                    </div>
-                    <div class="password">
-                        <span class="register-input-title">确认密码</span>
-                        <label class="passwordIcon" for="regPsConf">
-                            <i class="icon"></i>
-                        </label>
-                        <asp:TextBox runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"></asp:TextBox>
-                    </div>
-                    <div class="loginBox">
-                        <p class="savePass">
-                        <div class="register-agree">
-                            <input id="agreeLic" name="agreeLic" type="checkbox" value="yes" /><label class="v-m m-l10" for="agreeLic">我已阅读过《<a
-                                class="agreeLIC-a" id="agreeLicHref" target="_blank" href="/protocol.html">点助服务协议</a>》</label>
-                        </div>
-                            <a class="logReg-href fr m-r10" href="login.aspx">返回登录</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="register-go">
-                    <asp:Button runat="server" ID="regPsSubmit"  ClientIDMode="Static" OnClick="regPsSubmit_OnClick" CssClass="register-btn"  Text="注册"/>
-                </div>
-            </div>
             <div class="register-brand">
                 <img id="register-logo" src="images/pages/register/logo_100x100.png" alt="logo" />
                 <div class="brand-head">
                     <h1 class="cssc0a9477146a8">一点办商户管理系统</h1>
                     <p class="cssc0a50b3d46a8">静心观天下·才能发现世界的精彩</p>
+                </div>
+            </div>
+        </div>
+        <div class="register-section">
+            <div class="register-panel">
+                <div class="register-detail reg">
+                    <div class="login_err_msg m-b10" >
+                        <ul></ul>
+                    </div>
+                    <div class="register-input-w fluid">
+                        <span class="register-input-title">用户名</span>
+                        <label class="register-input-icon" for="tbxUserName">
+                            <i class="usernameIcon"></i>
+                        </label>
+                        <asp:TextBox runat="server" CssClass="register-input regUserName" ID="tbxUserName" placeholder="请输入电子邮箱注册" ValidationGroup="vg_UserName" ClientIDMode="Static"></asp:TextBox>
+                    </div>
+                    <div class="register-input-w fluid">
+                        <span class="register-input-title">密码</span>
+                        <label class="register-input-icon" for="tbxPassword">
+                            <i class="passwordIcon"></i>
+                        </label>
+                        <asp:TextBox CssClass="register-input" runat="server" ClientIDMode="Static" ID="regPs" TextMode="Password"></asp:TextBox>
+                    </div>
+                    <div class="register-input-w fluid thin-b">
+                        <span class="register-input-title">确认密码</span>
+                        <label class="register-input-icon" for="regPsConf">
+                            <i class="passwordIcon"></i>
+                        </label>
+                        <asp:TextBox CssClass="register-input" runat="server" ClientIDMode="Static" ID="regPsConf" TextMode="Password"></asp:TextBox>
+                    </div>
+                    <div class="loginBox">
+                        <div class="savePass">
+                        <div class="register-agree">
+                            <input id="agreeLic" class="v-m" name="agreeLic" type="checkbox" value="yes" />
+                            <label class="v-m" for="agreeLic">我已阅读过《<a
+                                class="doReg" id="agreeLicHref" target="_blank" href="/protocol.html">点助服务协议</a>》</label>
+                        </div>
+                            <a class="doReg fr m-r10" href="login.aspx">返回登录</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="register-go">
+                    <asp:Button runat="server" ID="regPsSubmit"  ClientIDMode="Static" OnClick="regPsSubmit_OnClick" CssClass="register-btn"  Text="注册"/>
                 </div>
             </div>
         </div>
@@ -86,7 +88,7 @@
     $($("form")[0]).validate(
         {
             ignore:[],
-            errorElement: "span",
+            errorElement: "div",
             errorLabelContainer: ".login_err_msg ul",
             wrapper: "li",
             rules: reg_validate_rules,

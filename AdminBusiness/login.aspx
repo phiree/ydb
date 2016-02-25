@@ -6,56 +6,60 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content="一点办登录" />
     <meta name="keywords" content="一点办" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />-->
     <title>一点办登录</title>
     <link href='http://api.youziku.com/webfont/CSS/568e3429f629d80f4cd910a4' rel='stylesheet' type='text/css' />
     <link href='http://api.youziku.com/webfont/CSS/568e353ff629d80f4cd910a7' rel='stylesheet' type='text/css' />
     <link rel="Stylesheet" href="css/main.css" type="text/css" />
+    <!--[if lte IE 9]>
     <script src="./js/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body class="register-body">
     <div class="register-wrap">
         <form id="form1" runat="server">
             <div class="register-section">
-                <div class="register-panel">
-                    <div class="register-detial">
-                        <div class="login_err_msg" >
-                            <asp:Label runat="server" ID="lblMsg"></asp:Label>
-                        </div>
-
-                        <div class="username">
-                            <span class="register-input-title">用户名</span>
-                            <label class="usernameIcon" for="tbxUserName">
-                                <i class="icon"></i>
-                            </label>
-                            <asp:TextBox runat="server"  placeholder="电子邮箱" ID="tbxUserName"></asp:TextBox>
-                        </div>
-
-                        <div class="password">
-                            <span class="register-input-title">密码</span>
-                            <label class="passwordIcon" for="tbxPassword">
-                                <i class="icon"></i>
-                            </label>
-                            <asp:TextBox runat="server" ID="tbxPassword" placeholder="密码" TextMode="Password"></asp:TextBox>
-                        </div>
-
-                        <div class="loginBox">
-                            <p class="savePass">
-                                <input runat="server" id="savePass" type="checkbox" /><label for="savePass">记住我</label>
-                                <a class="doReg-forget fr" href="/account/forget.aspx">忘记密码？</a>
-                                <a class="logReg-href fr m-r10" href="register.aspx">注册会员</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="register-go">
-                        <asp:Button runat="server" ID="btnLogin" CssClass="register-btn" OnClick="btnLogin_Click" Text="登录"/>
-                    </div>
-                </div>
                 <div class="register-brand">
                     <img id="register-logo" src="images/pages/register/logo_100x100.png" alt="logo" />
                     <div class="brand-head">
                         <h1 class="cssc0a9477146a8">一点办商户管理系统</h1>
                         <p class="cssc0a50b3d46a8">静心观天下·才能发现世界的精彩</p>
+                    </div>
+                </div>
+            </div>
+            <div class="register-section">
+                <div class="register-panel">
+                    <div class="register-detail">
+                        <div class="login_err_msg m-b10" >
+                            <asp:Label runat="server" ID="lblMsg" CssClass="lblMsg"></asp:Label>
+                        </div>
+
+                        <div class="register-input-w fluid">
+                            <span class="register-input-title">用户名</span>
+                            <label class="register-input-icon" for="tbxUserName">
+                                <i class="usernameIcon"></i>
+                            </label>
+                            <asp:TextBox class="register-input" runat="server"  placeholder="电子邮箱" ID="tbxUserName"></asp:TextBox>
+                        </div>
+
+                        <div class="register-input-w fluid">
+                            <span class="register-input-title">密码</span>
+                            <label class="register-input-icon" for="tbxPassword">
+                                <i class="passwordIcon"></i>
+                            </label>
+                            <asp:TextBox class="register-input" runat="server" ID="tbxPassword" placeholder="密码" TextMode="Password"></asp:TextBox>
+                        </div>
+
+                        <div class="loginBox">
+                            <p class="savePass">
+                                <input runat="server" id="savePass" type="checkbox" /><label for="savePass">记住我</label>
+                                <a class="fr" href="/account/forget.aspx">忘记密码？</a>
+                                <a class="doReg fr m-r10" href="register.aspx">注册会员</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="register-go">
+                        <asp:Button runat="server" ID="btnLogin" CssClass="register-btn" OnClick="btnLogin_Click" Text="登录"/>
                     </div>
                 </div>
             </div>
@@ -69,7 +73,6 @@
     <script src="/js/jquery.placeholder.min.js" type="text/javascript"></script>
     <script type="text/javascript">$('input, textarea').placeholder();</script>
     <![endif]-->
-    <script src="/js/login_reg.js" type="text/javascript"></script>
     <%if (!Request.IsLocal){ %>
     <script type="text/javascript">
         var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");

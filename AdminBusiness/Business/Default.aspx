@@ -8,13 +8,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content="一点办后台管理系统" />
     <meta name="keywords" content="一点办" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>商家后台主页</title>
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
     <!--有字库连接-->
     <link href='http://api.youziku.com/webfont/CSS/568e353ff629d80f4cd910a7' rel='stylesheet' type='text/css' />
-    <!--<script src="/js/html5shiv.min.js"></script>-->
-    <!--<script src="/js/respond.min.js"></script>-->
+    <!--[if lte IE 9]>
+        <script src="/js/html5shiv.min.js"></script>
+        <script src="/js/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
     <div class="wrap">
