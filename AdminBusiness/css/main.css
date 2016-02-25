@@ -6774,6 +6774,7 @@ a.time-trigger:hover {
 .empty-biz {
   text-align: center;
   padding-top: 80px;
+  min-height: 600px;
 }
 .empty-biz-add {
   display: inline-block;
@@ -7493,6 +7494,7 @@ a.doReg:hover {
 .empty-svc {
   text-align: center;
   padding-top: 170px;
+  min-height: 600px;
 }
 .empty-svc-add {
   display: inline-block;

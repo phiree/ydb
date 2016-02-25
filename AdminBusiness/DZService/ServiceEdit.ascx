@@ -61,7 +61,7 @@
                                                             <div>
                                                                 <input id="setSerType" class="btn btn-info" type="button" value="请选择服务信息" />
                                                                 <input class="dis-n" type="text" runat="server" focusid="setSerType" id="hiTypeId" />
-                                                                <asp:Label CssClass="business-radioCf text-ellipsis" runat="server" ID="lblSelectedType"></asp:Label>
+                                                                <asp:Label CssClass="business-radioCf text-ellipsis hide" runat="server" ID="lblSelectedType"></asp:Label>
                                                                 <div id="serLightContainer" class="serLightContainer dis-n">
                                                                     <div class="serChoiceTitle">
                                                                         选择服务信息

@@ -27,11 +27,10 @@
         $(function () {
             (function (){
                 var hiTypeValue = $("#hiTypeId").attr("value");
-                if ( hiTypeValue == undefined ) {
+                if ( typeof hiTypeValue === "undefined" ) {
                     return;
                 } else {
-                    $("#lblSelectedType").removeClass("dis-n");
-                    $("#lblSelectedType").addClass("d-inb");
+                    $("#lblSelectedType").removeClass("hide");
                 }
             })();
 
@@ -85,9 +84,10 @@
             }
 
             function showSubmit (checked, checkId, checkText){
-                $('#lblSelectedType').html(checkText)
+                var $selected = $('#lblSelectedType');
+                if ( $selected.hasClass("hide") ) $selected.removeClass("hide");
+                $selected.html(checkText)
             }
-
 
             $("#setSerType").click(function (e) {
                 removeCheck();
