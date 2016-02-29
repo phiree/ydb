@@ -181,5 +181,10 @@ namespace Dianzhu.CSClient.WPFView
                 e.Handled=true;
             }
         }
+
+        private void btnLogin_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

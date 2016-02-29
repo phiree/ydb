@@ -10,7 +10,7 @@ using Dianzhu.Model.Enums;
 using Com.Alipay;
 using Dianzhu.Pay;
 
-public partial class _Default : System.Web.UI.Page
+public partial class Pay_Default : System.Web.UI.Page
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     BLLServiceOrder bllOrder = new BLLServiceOrder();
@@ -83,6 +83,7 @@ public partial class _Default : System.Web.UI.Page
         if (!isValidId)
         {
           
+
             Response.Redirect("error.aspx?err=1",true);
         }
         payment = bllPayment.GetOne(paymentId);

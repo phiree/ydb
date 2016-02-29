@@ -124,6 +124,27 @@ namespace Dianzhu.BLL
             bllPaymentLog.SaveOrUpdate(paymentLog);
         }
 
+        /// <summary>
+        /// 退款链接 
+        /// </summary>
+        /// <param name="payApi"></param>
+        /// <returns></returns>
+        public string CreateRefundRequest(enum_PayAPI payApi,IList<RefundDetail> details)
+        {
+            switch (payApi)
+            {
+                case enum_PayAPI.Alipay:
+                    IRefund refund= new RefundAli(Dianzhu.Config.Config.GetAppSetting("PaySite")
+                        + "Refund/", details
+                        );
+                    return refund.CreateRefundRequest();
+
+                case enum_PayAPI.Wechat:
+                default:
+                    throw new NotImplementedException();
+            }
+            
+        }
         #region helper
         /// <summary>
         /// 获取订单描述的前缀

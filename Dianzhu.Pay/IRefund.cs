@@ -11,8 +11,9 @@ namespace Dianzhu.Pay
     /// </summary>
     public interface IRefund
     {
-        string TradeNo { get; set; }//之前支付的交易号
+       
         string CreateRefundRequest();
+        
     }
     /// <summary>
     /// 支付宝批量有密退款接口
@@ -36,21 +37,6 @@ namespace Dianzhu.Pay
             this.notify_url = notify_url;
             
         }
-        string tradeNo;
-        public string TradeNo
-        {
-            get
-            {
-                return tradeNo;
-            }
-
-            set
-            {
-                tradeNo = value;
-            }
-        }
-
-
         public string CreateRefundRequest()
         {
             SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
