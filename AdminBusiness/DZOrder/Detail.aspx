@@ -181,7 +181,7 @@
                                         <div class="status-list-item">
                                             <div class="status-tip">
                                                 <div class="status-icon">
-
+                                                    <i class="icon"></i>
                                                 </div>
                                                 <div class="status-time">
                                                     12月8日 11：25

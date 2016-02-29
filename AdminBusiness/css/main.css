@@ -7535,15 +7535,21 @@ a.doReg:hover {
   width: 50px;
   height: 50px;
   border: 5px solid #f6f6f6;
-  background: #ccc;
+  background: #67bdf6;
   vertical-align: middle;
   position: relative;
   z-index: 10;
 }
+.status-icon .icon {
+  width: 40px;
+  height: 40px;
+  background: url("../images/common/icon/store.png") no-repeat center;
+}
 .status-time {
+  color: #fff;
   display: inline-block;
   padding: 10px 15px 10px 25px;
-  background: #ccc;
+  background: #67bdf6;
   border-radius: 10px;
   margin-left: -20px;
 }
