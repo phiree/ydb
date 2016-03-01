@@ -961,7 +961,14 @@ namespace Dianzhu.CSClient.WinformView
 
         public void WindowNotification()
         {
-           FlashInTaskBar.FlashWindowEx(this);
+            Action lamda = () =>
+            {
+                FlashInTaskBar.FlashWindowEx(this);
+            };
+            if (InvokeRequired)
+                Invoke(lamda);
+            else
+                lamda();
         }
 
         /// <summary>
@@ -978,7 +985,7 @@ namespace Dianzhu.CSClient.WinformView
         {
             get
             {
-                return Convert.ToInt32(tbxOvertimeForCancel.Text);
+                return string.IsNullOrEmpty(tbxOvertimeForCancel.Text) ? 0 : Convert.ToInt32(tbxOvertimeForCancel.Text);
             }
 
             set
@@ -991,7 +998,7 @@ namespace Dianzhu.CSClient.WinformView
         {
             get
             {
-                return Convert.ToDecimal(tbxDepositAmount.Text);
+                return string.IsNullOrEmpty(tbxDepositAmount.Text) ? 0 : Convert.ToDecimal(tbxDepositAmount.Text);
             }
 
             set
@@ -1004,7 +1011,7 @@ namespace Dianzhu.CSClient.WinformView
         {
             get
             {
-                return Convert.ToDecimal(tbxCancelCompensation.Text);
+                return string.IsNullOrEmpty(tbxCancelCompensation.Text) ? 0 : Convert.ToDecimal(tbxCancelCompensation.Text);
             }
 
             set

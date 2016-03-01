@@ -88,7 +88,7 @@ namespace Dianzhu.CSClient.Presenter
 
             this.view.MessageSentAndNew += View_MessageSentAndNew;
 
-            this.SysAssign(2);
+            this.SysAssign(3);
             server = Dianzhu.Config.Config.GetAppSetting("ImServer");
             this.view.ReceptionCustomerList = bllReceptionStatusArchieve.GetCustomerListByCS(ClientState.customerService, 1, 10, out rsaCustomerAmount);
         }
@@ -586,7 +586,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             int rowCount;
             var chatHistory = bllReception.GetReceptionChatList(
-                null,null,new Guid(), DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+                dm,null,new Guid(), DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
 
             view.ChatLog = chatHistory;
         }
