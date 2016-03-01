@@ -23,7 +23,7 @@ namespace Dianzhu.Config
         static string IMDomain = IMDomains[3];//即时通讯服务器地址
         static string HttpApiServer = HttpApiServers[3];//即时通讯服务器地址
         static string ApplicationServer = ApplicationServers[0];//应用服务器地址
-        static string IMNotifyServer = IMNotifyServers[3];//应用服务器地址
+        static string IMNotifyServer = IMNotifyServers[3];//通知服务服务地址
 
 
         #endregion
@@ -91,7 +91,7 @@ namespace Dianzhu.Config
             , {"DiandianLoginId",DictsDianDianLogins[IMNotifyServer].Key}
             , {"DiandianLoginPwd",DictsDianDianLogins[IMNotifyServer].Value  }
             , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, 8037,"DianzhuApi.ashx")  }
-            , {"PayServerUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
+            , {"PayServerUrl",BuildHttpUrlString(ApplicationServer, 8168,"Pay/")   }
             , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, 8039)   }
             , {"BaiduGeocodingAPI","http://api.map.baidu.com/geocoder/v2/?ak="  }
             , {"BaiduTranAPI","http://api.map.baidu.com/geoconv/v1/?ak="  }

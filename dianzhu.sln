@@ -276,6 +276,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{418A63
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payment", "Payment\Payment.csproj", "{44BA1A78-5C3A-4648-B757-D5E2FDF36A0B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{962A5C8E-F4E3-4F47-BBCF-6E0397BC1FF3}"
+	ProjectSection(SolutionItems) = preProject
+		AdminWeb\config\connectionstrings.config = AdminWeb\config\connectionstrings.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -709,6 +714,7 @@ Global
 		{6819D627-FE58-4E8E-AC89-E0EB01FCFE74} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{44BA1A78-5C3A-4648-B757-D5E2FDF36A0B} = {418A634F-34EF-4EC2-9125-534D3BC1E344}
+		{962A5C8E-F4E3-4F47-BBCF-6E0397BC1FF3} = {CB5C2FEB-3BA1-4318-91C6-59976963FD88}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

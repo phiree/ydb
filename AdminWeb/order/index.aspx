@@ -113,6 +113,11 @@ function delInfo()
     <a target="_blank" href="refund/default.aspx?id=<%# Eval("Id")%>&tradeno=<%# Eval("TradeNo")%>&orderamount=<%# Eval("OrderAmount")%>">退款</a>
 </td>
 </tr>
+   <asp:Repeater runat="server" ID="rptPayment">
+       <ItemTemplate>
+
+       </ItemTemplate>
+   </asp:Repeater>
 
 </ItemTemplate>
      <FooterTemplate><%--这是脚模板--%>
