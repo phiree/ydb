@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using Dianzhu.Model;
-using Dianzhu.CSClient.IVew;
+using Dianzhu.CSClient.IView;
 using System.Collections;
 
 //using Dianzhu.CSClient.Model;

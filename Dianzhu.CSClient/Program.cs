@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Dianzhu.CSClient.MessageAdapter;
 using log4net;
-using WPF=Dianzhu.CSClient.WPFView;
+using WPF=Dianzhu.CSClient.ViewWPF;
 using System.Deployment;
 using System.Deployment.Application;
 using System.Threading;

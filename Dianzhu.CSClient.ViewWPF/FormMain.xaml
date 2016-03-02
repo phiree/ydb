@@ -1,0 +1,36 @@
+﻿<Window x:Class="Dianzhu.CSClient.ViewWPF.FormMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
+        mc:Ignorable="d"
+        Title="FormMain" Height="300" Width="300" WindowStartupLocation="CenterScreen" Background="White" ResizeMode="CanMinimize">
+    <Grid ShowGridLines="True" UseLayoutRounding="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Margin="3" Grid.Row="0">Top left</Button>
+            <Button Margin="3" Grid.Row="1">Bottom left</Button>
+        </Grid>
+        <GridSplitter x:Name="gridSplitter" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="9" ShowsPreview="False"/>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Margin="3" Grid.Row="0">Top right</Button>
+            <Button Margin="3" Grid.Row="2">Bottom right</Button>
+            <GridSplitter x:Name="gridSplitter1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="9" ShowsPreview="False"/>
+        </Grid> 
+
+    </Grid>
+</Window>

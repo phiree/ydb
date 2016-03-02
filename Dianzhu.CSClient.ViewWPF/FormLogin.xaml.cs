@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Dianzhu.CSClient.IVew;
+using Dianzhu.CSClient.IView;
 using System.ComponentModel;
-namespace Dianzhu.CSClient.WPFView 
+namespace Dianzhu.CSClient.ViewWPF 
 {
     /// <summary>
     /// IViewLogin的Wpf实现

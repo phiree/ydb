@@ -6,7 +6,7 @@ using System.Text;
 using Dianzhu.Model;
 using System.Collections;
 
-namespace Dianzhu.CSClient.IVew
+namespace Dianzhu.CSClient.IView
 {
  
     /// <summary>

@@ -80,9 +80,9 @@
       <Project>{74F0963E-57CA-4D57-899C-D85FF096FE1F}</Project>
       <Name>Dianzhu.CSClient.IMessageAdapter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IVew.csproj">
+    <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
       <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
-      <Name>Dianzhu.CSClient.IVew</Name>
+      <Name>Dianzhu.CSClient.IView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
       <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>

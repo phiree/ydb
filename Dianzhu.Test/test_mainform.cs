@@ -8,7 +8,7 @@ using Dianzhu.Model;
 using NUnit.Framework;
 using Rhino.Mocks;
 using FizzWare.NBuilder;
-using Dianzhu.CSClient.IVew;
+using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.Presenter;
 using Dianzhu.CSClient.IInstantMessage;
 namespace Dianzhu.Test

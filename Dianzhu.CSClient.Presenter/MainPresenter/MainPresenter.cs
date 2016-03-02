@@ -1,6 +1,6 @@
 ﻿using Dianzhu.BLL;
 using Dianzhu.CSClient.IInstantMessage;
-using Dianzhu.CSClient.IVew;
+using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Dianzhu.CSClient.Presenter
 {
     public partial class MainPresenter
     {
-        IVew.IMainFormView view;
+        IView.IMainFormView view;
         InstantMessage instantMessage;
         DZMembershipProvider bllMember;
         BLLDZService bllService;
@@ -30,7 +30,7 @@ namespace Dianzhu.CSClient.Presenter
         string server;
         int rsaCustomerAmount;
 
-        public MainPresenter(IVew.IMainFormView view,
+        public MainPresenter(IView.IMainFormView view,
             InstantMessage instantMessage,
             IMessageAdapter.IAdapter messageAdapter
             )
@@ -61,14 +61,14 @@ namespace Dianzhu.CSClient.Presenter
             this.view.SendMediaHandler += new MediaMessageSent(view_SendMediaHandler);
 
             this.view.BeforeCustomerChanged += new BeforeCustomerChanged(view_BeforeCustomerChanged);
-            this.view.IdentityItemActived += new IVew.IdentityItemActived(ActiveCustomer);
-            this.view.IdentityItemActived += new IVew.IdentityItemActived(LoadChatHistory);
+            this.view.IdentityItemActived += new IView.IdentityItemActived(ActiveCustomer);
+            this.view.IdentityItemActived += new IView.IdentityItemActived(LoadChatHistory);
             //this.view.IdentityItemActived += new IdentityItemActived(LoadCurrentOrder);
 
             this.view.ButtonNamePrefix =GlobalViables.ButtonNamePrefix;
-            this.view.SearchService += new IVew.SearchService(view_SearchService);
+            this.view.SearchService += new IView.SearchService(view_SearchService);
             this.view.SelectService += View_SelectService;
-            this.view.SendPayLink += new IVew.SendPayLink(view_SendPayLink);
+            this.view.SendPayLink += new IView.SendPayLink(view_SendPayLink);
             this.view.CreateOrder += new CreateOrder(view_CreateOrder);
             this.view.ViewClosed += new ViewClosed(view_ViewClosed);
             this.view.OrderStateChanged += View_OrderStateChanged;
