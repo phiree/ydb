@@ -1,12 +1,12 @@
-﻿<Window x:Class="Dianzhu.CSClient.WPFView.FormLogin"
+﻿<Window x:Class="Dianzhu.CSClient.ViewWPF.FormLogin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Dianzhu.CSClient.WPFView"
+        xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
-        Title="一点办111" Height="341" Width="385"  >
+        Title="一点办111" Height="341" Width="385">
 
     <Grid >
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Dianzhu.Model;
-using Dianzhu.CSClient.IVew;
+using Dianzhu.CSClient.IView;
 using System.Diagnostics;
 namespace Dianzhu.CSClient.Presenter
 {

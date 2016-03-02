@@ -135,6 +135,7 @@
     </Compile>
     <None Include="..\AdminBusiness\config\connectionstrings.config">
       <Link>config\connectionstrings.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
@@ -180,9 +181,9 @@
       <Project>{74F0963E-57CA-4D57-899C-D85FF096FE1F}</Project>
       <Name>Dianzhu.CSClient.IMessageAdapter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IVew.csproj">
+    <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
       <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
-      <Name>Dianzhu.CSClient.IVew</Name>
+      <Name>Dianzhu.CSClient.IView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.MessageAdapter\Dianzhu.CSClient.MessageAdapter.csproj">
       <Project>{A871C9E1-98A4-412F-A1B3-541189A4C4CF}</Project>
@@ -192,13 +193,13 @@
       <Project>{5AC8D7DE-A53D-4698-8957-C78D9243A793}</Project>
       <Name>Dianzhu.CSClient.Presenter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.ViewWPF\Dianzhu.CSClient.ViewWPF.csproj">
+      <Project>{97792986-3421-464a-8711-0fc6eaba9bcb}</Project>
+      <Name>Dianzhu.CSClient.ViewWPF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.WinformView\Dianzhu.CSClient.WinformView.csproj">
       <Project>{0550CABB-3957-45CC-8CC6-9FBEA653B20D}</Project>
       <Name>Dianzhu.CSClient.WinformView</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.WPFView\Dianzhu.CSClient.WPFView.csproj">
-      <Project>{cbcc23e1-62a9-46bc-9ebd-3d0c3cb37c89}</Project>
-      <Name>Dianzhu.CSClient.WPFView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
       <Project>{125F0D3B-E83C-4743-9944-E82392CBA6C5}</Project>

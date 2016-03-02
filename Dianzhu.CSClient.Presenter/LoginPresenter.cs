@@ -11,16 +11,16 @@ namespace Dianzhu.CSClient.Presenter
    public class LoginPresenter
     {
      
-       IVew.ILoginForm loginView;
+       IView.ILoginForm loginView;
        InstantMessage instantMessage;
      
-       public LoginPresenter(IVew.ILoginForm loginView, InstantMessage instantMessage
+       public LoginPresenter(IView.ILoginForm loginView, InstantMessage instantMessage
 )
        {
 
            this.loginView = loginView;
            this.instantMessage = instantMessage;
-           loginView.ViewLogin +=new IVew.ViewLogin(loginView_ViewLogin);
+           loginView.ViewLogin +=new IView.ViewLogin(loginView_ViewLogin);
            
             instantMessage.IMError += new IMError(XMPP_IMError);
             instantMessage.IMConnectionError += new IMConnectionError(instantMessage_IMConenctionError);

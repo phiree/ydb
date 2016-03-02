@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dianzhu.CSClient.IVew
+namespace Dianzhu.CSClient.IView
 {
     /// <summary>
     /// 截图界面的接口.
