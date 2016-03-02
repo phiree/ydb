@@ -4,26 +4,73 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model.Enums;
 using System.Diagnostics;
+ 
 namespace Dianzhu.Model
 {
     /// <summary>
     /// 订单
     /// </summary>
-    
+
     public class ServiceOrder
     {
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model");
         
-        public ServiceOrder()
+        internal ServiceOrder()
         {
             OrderStatus = enum_OrderStatus.Draft;
             OrderCreated = DateTime.Now;
             Staff = new List<Staff>();
-           
+            
+            Details = new List<ServiceOrderDetail>();
 
         }
-        public virtual Guid Id { get; set; }
+        #region 管理明细
+        /// <summary>
+        /// 增加一条订单明细
+        /// </summary>
+        /// <param name="detail"></param>
+        public void AddDetailFromIntelService(DZService service)
+        {
+            ServiceOrderDetail detail = new ServiceOrderDetail(service);
+            Details.Add(detail);
+        }
+        public void AddDetailFromExternalService(
+       string ServiceName,
+         string Description,
+          bool IsCompensationAdvance,
+
+          decimal MinPrice,
+          decimal UnitPrice,
+          enum_ChargeUnit ChargeUnit,
+
+          decimal DepositAmount,
+          decimal CancelCompensation,
+          int OverTimeForCancel,
+          enum_ServiceMode ServiceMode)
+        {
+            ServiceOrderDetail detail = new ServiceOrderDetail(ServiceName,
+           Description,
+            IsCompensationAdvance,
+
+            MinPrice,
+            UnitPrice,
+            ChargeUnit,
+
+            DepositAmount,
+            CancelCompensation,
+            OverTimeForCancel,
+            ServiceMode);
+            Details.Add(detail);
+        }
+        #endregion
+
+        #region properties
+        public IList<ServiceOrderDetail> Details
+        {
+            get; protected set;
+        }
+        public virtual Guid Id { get;  protected  set; }
 
         /// <summary>
         /// 订单关联的服务,可以为空.
@@ -91,7 +138,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 订金
         /// </summary>
-        public virtual decimal DepositAmount { get; set; }
+        public virtual decimal DepositAmount {get; set; }
         /// <summary>
         /// 协商总价
         /// </summary>
@@ -110,7 +157,7 @@ namespace Dianzhu.Model
         public virtual string ServiceDescription { get; set; }
         public virtual string ServiceBusinessName { get; set; }
         public virtual decimal ServiceUnitPrice { get; set; }
-         
+
         /// <summary>
         /// 取消超时时间:分钟
         /// </summary>
@@ -128,19 +175,7 @@ namespace Dianzhu.Model
         public virtual string CustomerPhone { get; set; }
         public virtual string CustomerEmail { get; set; }
         #endregion
-
-        public virtual enum_ServiceScopeType ScopeType { get; set; }
-        /// <summary>
-        /// 创建支付链接
-        /// </summary>
-        /// <param name="payUrl"></param>
-        /// <param name="ptarget"></param>
-        /// <returns></returns>
-        public virtual string BuildPayLink(string payUrl,enum_PayTarget ptarget)
-        {
-            string payLink = payUrl + string.Format("?orderid={0}&ptarget={1}", Id, ptarget.ToString());
-            return payLink;
-        }
+  
         //创建此订单的客服.
         public virtual DZMembership CustomerService { get; set; }
 
@@ -152,58 +187,43 @@ namespace Dianzhu.Model
         /// 从草稿单创建正式订单.
         /// </summary>
         /// <param name="serviceOrder"></param>
-        public virtual void CreateFromDraft( )
+        #endregion
+
+        #region 流程及操作
+        
+        //草稿单转为正式单之后
+        public virtual void CreatedFromDraft()
         {
-            string errMsg = string.Empty;
 
             //判断信息完整性,确定订单的Scope类型.
-            bool hasMember = this.Customer != null;
-            bool hasService = this.Service != null;
-            if (hasMember && hasService)
+             //没有任何服务项.
+            if (Details.Count==0)
             {
-                this.ScopeType = enum_ServiceScopeType.ISIM;
-            }
-            else if (!hasMember && hasService)
-            {
-                this.ScopeType = enum_ServiceScopeType.ISOM;
-            }
-            else if (hasMember && !hasService)
-            {
-                this.ScopeType = enum_ServiceScopeType.OSIM;
-            }
-            else
-            {
-                this.ScopeType = enum_ServiceScopeType.OSOM;
-            }
-            bool checkEssentionalInfo = true;
-            if (!hasService && string.IsNullOrEmpty(this.ServiceName))
-            {
-                checkEssentionalInfo = false;
-                errMsg = "订单创建失败,缺少服务信息";
-
-                //
-            }
-            if (!hasMember && string.IsNullOrEmpty(this.CustomerName))
-            {
-                checkEssentionalInfo = false;
-                errMsg = "订单创建失败,缺少用户信息";
-                //
-            }
-            if (!checkEssentionalInfo)
-            {
+                string errMsg = "订单内没有服务项";
                 Debug.Assert(false, errMsg);
                 log.Error(errMsg);
                 throw new Exception(errMsg);
             }
-            this.OrderStatus = enum_OrderStatus.Created;
-            this.NegotiateAmount = OrderAmount;
+            //订单金额默认为 订单明细总额之和
+            foreach (ServiceOrderDetail detail in Details)
+            {
+                this.NegotiateAmount += detail.ServiceAmount;
+                this.DepositAmount += detail.DepositAmount;
+            }
            
-
         }
+        /// <summary>
+        /// 用户支付定金之后
+        /// </summary>
+       
 
-        public virtual decimal GetAmount(enum_PayTarget payTarget)
+        /// <summary>
+        /// 获取需要支付的金额
+        /// </summary>
+        /// <param name="payTarget">支付目标: 定金 或者 尾款 或者../.</param>
+        /// <returns></returns>
+        public virtual decimal GetPayAmount(enum_PayTarget payTarget)
         {
-            
             if (payTarget == enum_PayTarget.Deposit)
             {
                 return this.DepositAmount;
@@ -217,9 +237,15 @@ namespace Dianzhu.Model
                 throw new Exception("没有计算公式");
             }
         }
-     
+
+        #endregion  
+ 
+
+
+
+
     }
 
 
-    
+
 }

@@ -98,10 +98,7 @@ public class ResponseORM002001 : BaseResponse
                 orderToReturn = bllOrder.GetDraftOrder(member, assignedPair[member]);
                     if (orderToReturn == null)
                     {
-                    orderToReturn = new ServiceOrder {
-                        Customer=member,
-                        CustomerService= assignedPair[member]
-                    }; 
+                    orderToReturn = ServiceOrderFactory.CreateDraft( assignedPair[member], member);
                        
                         bllOrder.SaveOrUpdate(orderToReturn);
                     }

@@ -49,7 +49,9 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
 
               bllOrder = MockRepository.GenerateStub<BLLServiceOrder>(dalOrder);
               bllOrder.Stub(x => x.GetOne(orderId)).Return(
-                Builder<Model.ServiceOrder>.CreateNew().With(x => x.Id = orderId).Build()
+                Builder<Model.ServiceOrder>.CreateNew()
+               // .With(x => x.Id = orderId)
+                .Build()
                 );
 
             //  adapter = new MessageAdapter(bllMember, bllService, bllOrder);

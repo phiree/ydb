@@ -40,9 +40,9 @@ namespace Dianzhu.CSClient.Presenter
         {
             if (ClientState.CurrentServiceOrder == null)
             { return; }
-            ServiceOrder newOrder =
-                new ServiceOrder { Customer= ClientState.CurrentServiceOrder.Customer
-                , CustomerService=ClientState.customerService };
+            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(ClientState.CurrentServiceOrder.Customer
+                , ClientState.customerService);
+               
                  
             bllOrder.SaveOrUpdate(newOrder);
             ClientState.CurrentServiceOrder = newOrder;
@@ -96,7 +96,7 @@ namespace Dianzhu.CSClient.Presenter
             Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid,orderStatus="+ ClientState.CurrentServiceOrder.OrderStatus);
             SaveCurrentOrder(); //从草稿单创建正式订单
            
-            ClientState.CurrentServiceOrder.CreateFromDraft();
+            ClientState.CurrentServiceOrder.CreatedFromDraft();
 
             ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis
             {

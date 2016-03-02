@@ -16,7 +16,7 @@ namespace Dianzhu.Test.BLLTest
         [ExpectedException(typeof(Exception))]
         public void CreateOrderFromDraftWithoutEssentialInfo()
         {
-            var order = new ServiceOrder();
+            //var order = new ServiceOrder();
              
         }
         [Test]

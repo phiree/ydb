@@ -74,7 +74,7 @@ namespace Dianzhu.BLL
                 }
 
                 //该支付项已经创建,验证其金额是否有变化
-                var payAmount = order.GetAmount(payTarget);
+                var payAmount = order.GetPayAmount(payTarget);
                 if (payAmount != payment.Amount)
                 {
                     errMsg =string.Format( "本次申请金额和上次不一样. 本次:{0},上次:{1}",payment.Amount,payAmount);
@@ -89,7 +89,7 @@ namespace Dianzhu.BLL
             }
             else if (paymentCount == 0)
             {
-                payment = new Payment { Amount=order.GetAmount(payTarget), Order=order, PayTarget= payTarget};
+                payment = new Payment { Amount=order.GetPayAmount(payTarget), Order=order, PayTarget= payTarget};
                 dal.Save(payment);
             }
             else //已经存在多项

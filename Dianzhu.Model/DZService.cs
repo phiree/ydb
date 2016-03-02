@@ -85,15 +85,19 @@ namespace Dianzhu.Model
        /// <summary>
        /// 每日接单总量
        /// </summary>
-       public virtual int MaxOrdersPerDay { get; set; }
-       /// <summary>
-       /// 单位时间内(小时)最大接单量
-       /// </summary>
-       public virtual int MaxOrdersPerHour { get; set; }
-
        
+       public virtual int MaxOrdersPerDay { get; set; }
+        /// <summary>
+        /// 单位时间内(小时)最大接单量
+        /// </summary>
+        [Obsolete("该值已下放至服务项的服务时间")]
+        public virtual int MaxOrdersPerHour { get; set; }
 
-       public virtual enum_PayType PayType { get; set; }
+
+         /// <summary>
+         /// 允许的支付方式
+         /// </summary>
+        public virtual enum_PayType AllowedPayType { get; set; }
 
        /// <summary>
        /// 服务保障:是否先行赔付
@@ -158,6 +162,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 是否为先付
         /// </summary>
+        [Obsolete]
         public virtual bool PayFirst { get; set; }
 
         /// <summary>
@@ -173,5 +178,7 @@ namespace Dianzhu.Model
         /// 定金
         /// </summary>
         public virtual decimal DepositAmount { get; set; }
+
+         
     }
 }

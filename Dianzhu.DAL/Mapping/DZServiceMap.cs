@@ -29,7 +29,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.MaxOrdersPerHour);
             Map(x => x.MinPrice);
             Map(x => x.OrderDelay);
-            Map(x => x.PayType).CustomType<int>();
+            Map(x => x.AllowedPayType).CustomType<int>();
             Map(x => x.ServiceMode).CustomType<int>();
             Map(x => x.ServiceTimeBegin);
             Map(x => x.ServiceTimeEnd);

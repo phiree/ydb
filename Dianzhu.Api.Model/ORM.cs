@@ -283,7 +283,8 @@ namespace Dianzhu.Api.Model
         public RespDataORM002002_payObj Adap(ServiceOrder order)
         {
             this.type = "alipay";
-            this.url = order.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayServer"), enum_PayTarget.Deposit);
+           //todo: use payment.buildpaylink instead;
+           // this.url = order.p BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayServer"), enum_PayTarget.Deposit);
 
             return this;
         }

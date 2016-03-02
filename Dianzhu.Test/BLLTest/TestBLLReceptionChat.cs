@@ -22,7 +22,7 @@ namespace Dianzhu.Test.BLLTest
 
             ServiceOrder order = Builder<ServiceOrder>.CreateNew().Build();
 
-            order.Id = new Guid("81d6c8d5-0562-4075-96a9-a56700a86aaf");
+            //order.Id = new Guid("81d6c8d5-0562-4075-96a9-a56700a86aaf");
             //IList<ReceptionChatDD> chat = dal.GetChatDDListByOrder(order);
             IList<ReceptionChatDD> chat = null;
 

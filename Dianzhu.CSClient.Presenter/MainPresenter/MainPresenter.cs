@@ -125,7 +125,8 @@ namespace Dianzhu.CSClient.Presenter
                 bllOrder.SaveOrUpdate(ClientState.CurrentServiceOrder);
 
                 //新建订单
-                ServiceOrder orderNew = new ServiceOrder(); 
+                ServiceOrder orderNew = ServiceOrderFactory.CreateDraft(ClientState.customerService, ClientState.CurrentCustomer);
+
                 orderNew.Customer = ClientState.CurrentServiceOrder.Customer;
                 orderNew.CustomerService = ClientState.customerService;
                 bllOrder.SaveOrUpdate(orderNew);

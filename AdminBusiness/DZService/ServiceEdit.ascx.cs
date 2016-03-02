@@ -161,7 +161,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         foreach(ListItem item in rblPayType.Items)
         {
             enum_PayType v =(enum_PayType) Convert.ToInt32( item.Value);
-            if ((v | CurrentService.PayType) == CurrentService.PayType)
+            if ((v | CurrentService.AllowedPayType) == CurrentService.AllowedPayType)
             {
                 item.Selected = true;
             }
@@ -221,7 +221,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
                 pt |= (enum_PayType)(Convert.ToInt32(item.Value));
             }
         }
-        CurrentService.PayType = pt;
+        CurrentService.AllowedPayType = pt;
     }
 
     private void UpdateServiceTime()
