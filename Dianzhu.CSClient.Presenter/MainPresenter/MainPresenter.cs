@@ -404,7 +404,7 @@ namespace Dianzhu.CSClient.Presenter
                 ", ClientState.CurrentServiceOrder.Customer.Id + "@" + server,
                 ClientState.customerService.Id + "@" + server, Guid.NewGuid(),
                ClientState.CurrentServiceOrder.Id, 
-               ClientState.CurrentServiceOrder.ServiceName,
+               ClientState.CurrentServiceOrder.Title,
                ClientState.CurrentServiceOrder.OrderStatus)
                 );
         }

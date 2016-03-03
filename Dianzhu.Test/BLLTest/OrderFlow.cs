@@ -77,7 +77,7 @@ namespace Dianzhu.Test.BLLTest
         [Test]
         public void ChangeStatus_CancelFromPayed_OverTime()
         {
-            order.ServiceOvertimeForCancel = 1;
+            //order.ServiceOvertimeForCancel = 1;
             
             new OrderServiceFlow().ChangeStatus(order, enum_OrderStatus.Canceled);
 

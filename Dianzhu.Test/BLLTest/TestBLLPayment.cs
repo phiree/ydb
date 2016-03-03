@@ -21,12 +21,20 @@ namespace Dianzhu.Test.BLLTest
         public void ApplyPay()
         {
             var dal = MockRepository.GenerateStub<DALPayment>(string.Empty);
-            ServiceOrder order = Builder<ServiceOrder>.CreateNew()
+            DZService service = Builder<DZService>.CreateNew()
                 .With(x => x.DepositAmount = 1)
-                .With(x => x.OrderAmount = 10)
+                
+                .Build();
+            ServiceOrderDetail detail = Builder<ServiceOrderDetail>.CreateNew()
+                .With(x => x.UnitAmount = 12)
+                .Build();
+             
+            ServiceOrder order =  Builder<ServiceOrder>.CreateNew()
+                
                 .With(x => x.NegotiateAmount = 12)
                 .With(x => x.OrderStatus = Model.Enums.enum_OrderStatus.Created)
                 .Build();
+            order.AddDetailFromIntelService(service, 12, "targetAddress", "targetTime");
             Guid payId = Guid.NewGuid();
             dal.Stub(x => x.GetPaymentsForOrder(order)).Return(new List<Payment>());
             BLLPayment bll = new BLLPayment(dal);

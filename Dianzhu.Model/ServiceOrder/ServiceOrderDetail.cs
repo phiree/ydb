@@ -15,7 +15,11 @@ namespace Dianzhu.Model
     {
 
         #region constructor
-        public ServiceOrderDetail(DZService service)
+        protected ServiceOrderDetail()
+        {
+            
+        }
+        public ServiceOrderDetail(DZService service,int unitAmount,string targetAddress,string targetTime)
         {
             OriginalService = service;
             ServiceName = service.Name;
@@ -28,47 +32,23 @@ namespace Dianzhu.Model
             CancelCompensation = service.CancelCompensation;
             OverTimeForCancel = service.OverTimeForCancel;
             ServiceMode = service.ServiceMode;
+
+            this.UnitAmount = unitAmount ;
+            this.TargetAddress = targetAddress;
+            this.TargetTime = targetTime;
         }
-        /// <summary>
-        /// 系统外服务项
-        /// </summary>
-        /// <param name="ServiceName"></param>
-        /// <param name="Description"></param>
-        /// <param name="IsCompensationAdvance"></param>
-        /// <param name="MinPrice"></param>
-        /// <param name="UnitPrice"></param>
-        /// <param name="ChargeUnit"></param>
-        /// <param name="DepositAmount"></param>
-        /// <param name="CancelCompensation"></param>
-        /// <param name="OverTimeForCancel"></param>
-        /// <param name="ServiceMode"></param>
-        public ServiceOrderDetail(string ServiceName, string Description, bool IsCompensationAdvance,
-          decimal MinPrice, decimal UnitPrice, enum_ChargeUnit ChargeUnit,decimal DepositAmount,
-          decimal CancelCompensation,int OverTimeForCancel, enum_ServiceMode ServiceMode)
-        {
-          
-            this.ServiceName = ServiceName;
-            this.Description = Description;
-            this.IsCompensationAdvance = IsCompensationAdvance;
-            this.MinPrice = MinPrice;
-            this.UnitPrice = UnitPrice;
-            this.ChargeUnit = ChargeUnit;
-            this.DepositAmount = DepositAmount;
-            this.CancelCompensation = CancelCompensation;
-            this.OverTimeForCancel = OverTimeForCancel;
-            this.ServiceMode = ServiceMode;
-        }
+
         #endregion
 
-        #region properties
-        public Guid Id { get; set; }
+        #region 服务项
+        public virtual Guid Id { get; set; }
         /// <summary>
         /// 服务项
         /// </summary>
-        public DZService OriginalService { get; set; }
+        public virtual DZService OriginalService { get; set; }
         //screenshot of the service
-        public string ServiceName { get; set; }
-        public string Description { get; set; }
+        public virtual string ServiceName { get; set; }
+        public virtual string Description { get; set; }
         public virtual bool IsCompensationAdvance { get; set; }
         public virtual decimal MinPrice { get; set; }
         public virtual decimal UnitPrice { get; set; }
@@ -78,19 +58,34 @@ namespace Dianzhu.Model
         public virtual decimal CancelCompensation { get; set; }
         public virtual int OverTimeForCancel { get; set; }
         public virtual enum_ServiceMode ServiceMode { get; set; }
+        #endregion
 
+        #region 服务项需求
+      
         /// <summary>
         /// 购买数量
         /// </summary>
-        public virtual decimal UnitAmount { get; set; }
+        public virtual int UnitAmount { get; set; }
+        /// <summary>
+        /// 客户要求的服务地址
+        /// </summary>
+        public virtual string TargetAddress { get; set; }
+        public virtual string TargetTime { get; set; }
         #endregion
+        /// <summary>
+        /// 该服务分配的员工.
+        /// </summary>
+        public virtual IList<Staff> Staff { get; set; }
+     
 
-        public decimal ServiceAmount
+        public virtual decimal ServiceAmount
         {
             get {
                 return UnitPrice * UnitAmount;
             }
         }
+        //分配的职员
+      
     }
 
 

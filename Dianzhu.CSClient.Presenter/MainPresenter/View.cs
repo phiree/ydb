@@ -168,11 +168,12 @@ namespace Dianzhu.CSClient.Presenter
                 ClientState.OrderList.Add(order);
             }
             view.CurrentService = order.Service;
-            view.ServiceName = order.ServiceName;
-            view.ServiceBusinessName = order.ServiceBusinessName;
-            view.ServiceDescription = order.ServiceDescription;
-            view.ServiceUnitPrice = order.ServiceUnitPrice.ToString();
-            view.ServiceUrl = order.ServiceURL;
+            //todo:订单包含多个服务项,需要修改界面
+            view.ServiceName = order.Details[0].ServiceName;
+            view.ServiceBusinessName = order.Details[0].OriginalService.Business.Name;
+            view.ServiceDescription = order.Details[0].Description;
+            view.ServiceUnitPrice = order.Details[0].UnitPrice.ToString();
+            
             view.OrderAmount = order.OrderAmount.ToString();
             view.TargetAddress = order.TargetAddress;
             view.Memo = order.Memo;
@@ -210,23 +211,13 @@ namespace Dianzhu.CSClient.Presenter
             //    .SetServiceInfo(view.ServiceName, view.ServiceBusinessName, view.ServiceDescription, Convert.ToDecimal(view.ServiceUnitPrice))
             //    .SetServiceUrl(view.ServiceUrl)
             //    .SetOrderInfo(Convert.ToDecimal(view.OrderAmount), 1, view.TargetAddress, view.ServiceTime, view.Memo);
-
-            ClientState.CurrentServiceOrder.Service = view.CurrentService;
-            ClientState.CurrentServiceOrder.ServiceName = view.ServiceName;
-            ClientState.CurrentServiceOrder.ServiceBusinessName = view.ServiceBusinessName;
-            ClientState.CurrentServiceOrder.ServiceDescription = view.ServiceDescription;
-            ClientState.CurrentServiceOrder.ServiceUnitPrice = view.ServiceUnitPrice == "" ? 0 : Convert.ToDecimal(view.ServiceUnitPrice);
+            //todo: 服务项数量 需要在选择服务时指定.现在指定为1
+            ClientState.CurrentServiceOrder.AddDetailFromIntelService(view.CurrentService,1, view.TargetAddress,view.ServiceTime);
+            
             ClientState.CurrentServiceOrder.DepositAmount = view.ServiceDepositAmount == "" ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
-            ClientState.CurrentServiceOrder.ServiceURL = view.ServiceUrl;
-            ClientState.CurrentServiceOrder.OrderAmount = view.OrderAmount == "" ? 0 : Convert.ToDecimal(view.OrderAmount);
-            ClientState.CurrentServiceOrder.TargetAddress = view.TargetAddress;
+
             ClientState.CurrentServiceOrder.Memo = view.Memo;
-            ClientState.CurrentServiceOrder.TargetTime = view.ServiceTime;
             ClientState.CurrentServiceOrder.LatestOrderUpdated = DateTime.Now;
-            //todo:超时取消赔偿金,超时时间,定金金额
-            ClientState.CurrentServiceOrder.ServiceCancelCompensation = view.CancelCompensation;
-            ClientState.CurrentServiceOrder.ServiceOvertimeForCancel = view.OverTimeForCancel;
-           
             bllOrder.SaveOrUpdate(ClientState.CurrentServiceOrder);
         }
 

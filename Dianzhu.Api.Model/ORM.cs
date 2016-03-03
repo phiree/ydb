@@ -41,7 +41,8 @@ namespace Dianzhu.Api.Model
         public RespDataORM_orderObj Adap(ServiceOrder order)
         {
             this.orderID = order.Id.ToString();
-            this.title = order.ServiceName;
+            //todo: serviceorder change
+            this.title = order.Title;
             this.status = order.OrderStatus.ToString();
             if (order.OrderCreated > DateTime.MinValue)
             {
@@ -59,7 +60,7 @@ namespace Dianzhu.Api.Model
             {
                 this.endTime = string.Empty;
             }
-            this.exDoc = order.ServiceDescription ?? string.Empty;
+            this.exDoc = order.Details[0].Description ?? string.Empty;
             this.money = order.OrderAmount.ToString("0.00");
             this.address = order.TargetAddress ?? string.Empty;
             this.km = string.Empty;
@@ -124,7 +125,7 @@ namespace Dianzhu.Api.Model
         public RespDataORM_svcObj Adap(ServiceOrder order)
         {
             this.svcID = order.Service != null ? order.Service.Id.ToString() : order.Id.ToString();
-            this.name = order.Service != null ? order.Service.Name : order.ServiceName;
+            this.name = order.Service != null ? order.Service.Name : order.Title;
             this.type = order.Service != null ? order.Service.ServiceType.ToString() : string.Empty;
             if (order.OrderServerStartTime > DateTime.MinValue)
             {

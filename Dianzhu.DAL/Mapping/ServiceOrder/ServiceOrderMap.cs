@@ -20,31 +20,16 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.OrderServerFinishedTime);
             Map(x => x.Memo);
             Map(x => x.OrderStatus);
-            Map(x => x.TargetAddress);
-            Map(x => x.TargetTime);
-            HasMany<Staff>(x => x.Staff);
-            Map(x => x.UnitAmount);
-            Map(x => x.OrderAmount);
-            References<DZService>(x => x.Service);
-            Map(x => x.ServiceURL);
-            Map(x => x.ServiceName);
-            Map(x => x.ServiceDescription);
-            Map(x => x.ServiceBusinessName);
-
-            Map(x => x.ServiceUnitPrice);
-
-            Map(x => x.CustomerName);
-            Map(x => x.CustomerEmail);
-            Map(x => x.CustomerPhone);
+            
+         
+            
             References<DZMembership>(x => x.CustomerService);
-            Map(x => x.TradeNo);
-            Map(x => x.RefundMemo);
-
+            References<ServiceOrderDetail>(x => x.Details);
+            
             Map(x => x.NegotiateAmount);
 
             Map(x => x.DepositAmount);
-            Map(x => x.ServiceOvertimeForCancel);
-            Map(x => x.ServiceCancelCompensation);
+           
             
 
          
