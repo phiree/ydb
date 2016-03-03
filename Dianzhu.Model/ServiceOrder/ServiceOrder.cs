@@ -20,7 +20,6 @@ namespace Dianzhu.Model
         {
             OrderStatus = enum_OrderStatus.Draft;
             OrderCreated = DateTime.Now;
-            Staff = new List<Staff>();
             
             Details = new List<ServiceOrderDetail>();
 
@@ -30,55 +29,73 @@ namespace Dianzhu.Model
         /// 增加一条订单明细
         /// </summary>
         /// <param name="detail"></param>
-        public void AddDetailFromIntelService(DZService service)
+        public virtual void AddDetailFromIntelService(DZService service,int unitAmount,string targetAddress,string targetTime)
         {
-            ServiceOrderDetail detail = new ServiceOrderDetail(service);
+            ServiceOrderDetail detail = new ServiceOrderDetail(service,unitAmount,targetAddress,targetTime);
             Details.Add(detail);
         }
-        public void AddDetailFromExternalService(
-       string ServiceName,
-         string Description,
-          bool IsCompensationAdvance,
-
-          decimal MinPrice,
-          decimal UnitPrice,
-          enum_ChargeUnit ChargeUnit,
-
-          decimal DepositAmount,
-          decimal CancelCompensation,
-          int OverTimeForCancel,
-          enum_ServiceMode ServiceMode)
-        {
-            ServiceOrderDetail detail = new ServiceOrderDetail(ServiceName,
-           Description,
-            IsCompensationAdvance,
-
-            MinPrice,
-            UnitPrice,
-            ChargeUnit,
-
-            DepositAmount,
-            CancelCompensation,
-            OverTimeForCancel,
-            ServiceMode);
-            Details.Add(detail);
-        }
+        
         #endregion
 
         #region properties
-        public IList<ServiceOrderDetail> Details
+        public virtual IList<ServiceOrderDetail> Details
         {
             get; protected set;
         }
         public virtual Guid Id { get;  protected  set; }
+        /// <summary>
+        /// 订单的标题
+        /// </summary>
+        public virtual string Title { get {
+                string name = string.Empty;
+                foreach (ServiceOrderDetail detail in Details)
+                {
+                    name += detail.ServiceName + ";";
+                }
+                return name;
+            } }
 
+        public virtual string ServiceBusinessName {
+            get {
+                string name = string.Empty;
+                foreach (ServiceOrderDetail detail in Details)
+                {
+                    name += detail.OriginalService.Business.Name + ";";
+                }
+                return name;
+            }
+        }
+        public virtual string Description {
+            get {
+                string description = string.Empty;
+                foreach (ServiceOrderDetail detain in Details)
+                {
+                    description += detain.Description + ";";
+                }
+                return description;
+            }
+        }
         /// <summary>
         /// 订单关联的服务,可以为空.
         /// </summary>
-        public virtual DZService Service { get; set; }
+        public virtual DZService Service { get {
+                int i = Details.Count;
+                if (i == 1)
+                {
+                    return Details[0].OriginalService;
+                }
+                else if (i > 1)
+                {
+                    log.Warn("该订单包含多个服务.返回第一个");
+                    return Details[0].OriginalService;
+                }
+                else {
+                    throw new Exception("该订单内没有服务项");
+                }
+            } }
 
         /// <summary>
-        /// 客户,可以为空
+        /// 客户 
         /// </summary>
         public virtual DZMembership Customer { get; set; }
 
@@ -117,79 +134,71 @@ namespace Dianzhu.Model
         /// <summary>
         /// 服务的目标地址
         /// </summary>
-        public virtual string TargetAddress { get; set; }
+        public virtual string TargetAddress { get {
+                return string.Join(Environment.NewLine, Details.Select(o => o.TargetAddress));
+            } }
         /// <summary>
         /// 用户预定的服务时间
         /// </summary>
-        public virtual string TargetTime { get; set; }
+        public virtual string TargetTime
+        {
+            get
+            {
+                return string.Join(Environment.NewLine, Details.Select(o => o.TargetTime));
+            }
+        }
         /// <summary>
         /// 分配的职员
         /// </summary>
-        public virtual IList<Staff> Staff { get; set; }
+        public virtual IList<Staff> Staff { get{
+
+                var l = from detail in Details
+                        select detail into ds
+                        from child in ds.Staff
+                        select child;
+                return l.ToList();
+            } }
         /// <summary>
         /// 服务总数, 用来计算总价 service.unitprice*unitamount
         /// </summary>
-        public virtual int UnitAmount { get; set; }
+        public virtual int UnitAmount { get {
+                int unitAmount = 0;
+                foreach (ServiceOrderDetail detail in Details)
+                {
+                    unitAmount += detail.UnitAmount;
+                }
+                return unitAmount;
+            } }
         /// <summary>
-        ///订单预期
+        ///根据订单价格和订购数量计算的预期总价. 可能会被修改
         /// </summary>
-        public virtual decimal OrderAmount { get; set; }
+        public virtual decimal OrderAmount { get {
+                decimal amount = 0;
+                foreach (ServiceOrderDetail detail in Details)
+                {
+                    amount += detail.ServiceAmount;
+                }
+                return amount;
+            } }
 
         /// <summary>
         /// 订金
         /// </summary>
-        public virtual decimal DepositAmount {get; set; }
+        public virtual decimal DepositAmount {
+            get;
+             
+            set;
+        }
         /// <summary>
         /// 协商总价
         /// </summary>
         public virtual decimal NegotiateAmount { get; set; }
 
-        /// <summary>
-        /// 退款原因
-        /// </summary>
-        public virtual string RefundMemo { get; set; }
-        /// <summary>
-        /// 外部服务的链接
-        /// </summary>
-        public virtual string ServiceURL { get; set; }
-        #region 服务冗余信息,
-        public virtual string ServiceName { get; set; }
-        public virtual string ServiceDescription { get; set; }
-        public virtual string ServiceBusinessName { get; set; }
-        public virtual decimal ServiceUnitPrice { get; set; }
-
-        /// <summary>
-        /// 取消超时时间:分钟
-        /// </summary>
-        public virtual int ServiceOvertimeForCancel { get; set; }
-        /// <summary>
-        /// 超时取消需要支付的赔偿金
-        /// </summary>
-        public virtual decimal ServiceCancelCompensation
-        { get; set; }
-
-
-        #endregion
-        #region 客户冗余信息,一定是注册用户
-        public virtual string CustomerName { get; set; }
-        public virtual string CustomerPhone { get; set; }
-        public virtual string CustomerEmail { get; set; }
-        #endregion
-  
+        
         //创建此订单的客服.
         public virtual DZMembership CustomerService { get; set; }
 
-        /// <summary>
-        /// 支付交易号
-        /// </summary>
-        public virtual string TradeNo { get; set; }
-        /// <summary>
-        /// 从草稿单创建正式订单.
-        /// </summary>
-        /// <param name="serviceOrder"></param>
-        #endregion
-
-        #region 流程及操作
+         
         
         //草稿单转为正式单之后
         public virtual void CreatedFromDraft()
@@ -212,10 +221,14 @@ namespace Dianzhu.Model
             }
            
         }
+
         /// <summary>
-        /// 用户支付定金之后
+        /// 订单自动取消的超时时间.  取订单项中超时时间的最小值.
         /// </summary>
-       
+        public virtual int ServiceOvertimeForCancel
+        { get {
+                return Details.Min(x => x.OverTimeForCancel);
+            } }
 
         /// <summary>
         /// 获取需要支付的金额

@@ -125,6 +125,7 @@ namespace Dianzhu.CSClient.IView
         string ServiceUrl { get; set; }
         string ServiceTime { get; set; }
         string TargetAddress { get; set; }
+        
         //取消超时长度
         int OverTimeForCancel { get; set; }
         //取消超时 赔偿金

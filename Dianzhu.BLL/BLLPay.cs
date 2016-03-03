@@ -25,7 +25,7 @@ namespace Dianzhu.BLL
 
 
             decimal payAmount = order.GetPayAmount(payTarget);
-            string paySubject = order.ServiceName;
+            string paySubject = order.Title;
             string paySubjectPre = GetPreSubject(payTarget, order);
 
            

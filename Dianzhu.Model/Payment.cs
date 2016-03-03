@@ -57,10 +57,14 @@ namespace Dianzhu.Model
         /// 交易号。 如果是在线支付，则由支付平台返回
         /// </summary>
         public virtual string TradeNo { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public virtual string Memo { get; set; }
 
-       
-       
-     
+
+
+
     }
 
 

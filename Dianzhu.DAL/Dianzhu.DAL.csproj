@@ -90,6 +90,7 @@
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
+    <Compile Include="Mapping\ServiceOrder\ServiceOrderDetailMap.cs" />
     <Compile Include="Mapping\StaffServiceTypeMap.cs" />
     <Compile Include="Mapping\PaymentLogMap.cs" />
     <Compile Include="Mapping\AreaMap.cs" />
@@ -99,7 +100,7 @@
     <Compile Include="Mapping\BusinessMap.cs" />
     <Compile Include="Mapping\DZMembershipMap.cs" />
     <Compile Include="Mapping\ServiceOrderStateChangeHisMap.cs" />
-    <Compile Include="Mapping\ServiceOrderMap.cs" />
+    <Compile Include="Mapping\ServiceOrder\ServiceOrderMap.cs" />
     <Compile Include="Mapping\ServiceTypeMap.cs" />
     <Compile Include="Mapping\DZServiceMap.cs" />
     <Compile Include="Mapping\OrderAssignment.cs" />

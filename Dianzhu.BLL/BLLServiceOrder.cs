@@ -78,13 +78,7 @@ namespace Dianzhu.BLL
                .ToList();
         }
 
-        public IList<ServiceOrder> GetAllByTradeNo(string tradeno)  //根据交易号，查询订单对象
-        {
-            return DALServiceOrder
-               .GetAll<ServiceOrder>()
-               .Where(x => x.TradeNo == tradeno)
-               .ToList();
-        }
+        
 
 
 
@@ -252,6 +246,7 @@ namespace Dianzhu.BLL
                     //获取确认时间
                     var negotiateTime = bllServiceOrderStateChangeHis.GetChangeTime(order, enum_OrderStatus.Negotiate);
                     double timeSpan = (DateTime.Now - negotiateTime).TotalMinutes;
+                    //整个取消
                     if (order.ServiceOvertimeForCancel <= timeSpan)
                     {
                         //todo:支付赔偿

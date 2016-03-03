@@ -33,8 +33,8 @@
                     </div>
                     <div class="order-list-item">
                         <div class="order-list-pra">
-                            <div class="order-list-title"><%=Order.CustomerName %></div>
-                            <div class="order-list-content"> <%=Order.CustomerPhone %></div>
+                            <div class="order-list-title"><%=Order.Customer.DisplayName %></div>
+                            <div class="order-list-content"> <%=Order.Customer.Phone %></div>
                         </div>
                         <div class="order-list-pra">
                             <div class="order-list-title">服务地址</div>
@@ -48,7 +48,7 @@
                     <div class="order-list-item">
                         <div class="order-list-pra">
                             <div class="order-list-title">服务描述</div>
-                            <div class="order-list-content"><%=Order.ServiceName %></div>
+                            <div class="order-list-content"><%=Order.Title %></div>
                         </div>
                         <div class="order-list-pra">
                             <div class="order-list-title">订单备注</div>

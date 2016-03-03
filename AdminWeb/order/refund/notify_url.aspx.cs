@@ -66,7 +66,7 @@ public partial class notify_url : System.Web.UI.Page
                 string result_details = Request.Form["result_details"];
                 string[] arrayresult_details = result_details.Split('^');
                 string trade_no = arrayresult_details[0];
-                allServiceOrder = bllOrder.GetAllByTradeNo(trade_no);
+                allServiceOrder = null;//todo: bllOrder.GetAllByTradeNo(trade_no);
                 order = bllOrder.GetOne(allServiceOrder[0].Id);
                 if (order == null)
                 {
