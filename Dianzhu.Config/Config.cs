@@ -18,13 +18,12 @@ namespace Dianzhu.Config
         static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         #endregion
         #region   部署前，只需要手动修改此处 /
-
+        
         static string IMServer = IMServers[0];//即时通讯服务器地址
         static string IMDomain = IMDomains[0];//即时通讯服务器地址
         static string HttpApiServer = HttpApiServers[0];//即时通讯服务器地址
         static string ApplicationServer = ApplicationServers[0];//应用服务器地址
         static string IMNotifyServer = IMNotifyServers[0];//通知服务服务地址
-
 
         #endregion
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");

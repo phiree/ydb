@@ -128,8 +128,6 @@ namespace Dianzhu.CSClient.IView
         
         //取消超时长度
         int OverTimeForCancel { get; set; }
-        //定金
-        decimal DepositAmount { get; set; }
         //取消超时 赔偿金
         decimal CancelCompensation { get; set; }
 
