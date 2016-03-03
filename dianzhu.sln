@@ -278,6 +278,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payment", "Payment\Payment.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.ViewWPF", "Dianzhu.CSClient.ViewWPF\Dianzhu.CSClient.ViewWPF.csproj", "{97792986-3421-464A-8711-0FC6EABA9BCB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "updatescripts", "updatescripts", "{88588187-ABFC-409D-B934-1164B09CCBE2}"
+	ProjectSection(SolutionItems) = preProject
+		updatescripts\dbupdatescript_2019-3-3.sql = updatescripts\dbupdatescript_2019-3-3.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -711,6 +716,7 @@ Global
 		{E9AC682E-E6D1-4EEF-BACF-FB86D20F8766} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{44BA1A78-5C3A-4648-B757-D5E2FDF36A0B} = {418A634F-34EF-4EC2-9125-534D3BC1E344}
 		{97792986-3421-464A-8711-0FC6EABA9BCB} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{88588187-ABFC-409D-B934-1164B09CCBE2} = {CB5C2FEB-3BA1-4318-91C6-59976963FD88}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

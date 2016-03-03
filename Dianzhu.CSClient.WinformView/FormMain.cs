@@ -50,6 +50,7 @@ namespace Dianzhu.CSClient.WinformView
         public event NoticeSystem NoticeSystem;
         public event NoticeOrder NoticeOrder;
         public event NoticePromote NoticePromote;
+        
       
         public event ReAssign ReAssign;
         public event SaveReAssign SaveReAssign;

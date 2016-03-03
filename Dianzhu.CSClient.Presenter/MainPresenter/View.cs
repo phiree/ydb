@@ -212,7 +212,7 @@ namespace Dianzhu.CSClient.Presenter
             //    .SetServiceUrl(view.ServiceUrl)
             //    .SetOrderInfo(Convert.ToDecimal(view.OrderAmount), 1, view.TargetAddress, view.ServiceTime, view.Memo);
             //todo: 服务项数量 需要在选择服务时指定.现在指定为1
-            ClientState.CurrentServiceOrder.AddDetailFromIntelService(view.CurrentService,1, view.TargetAddress,view.ServiceTime);
+           // ClientState.CurrentServiceOrder.AddDetailFromIntelService(view.CurrentService,1, view.TargetAddress,view.ServiceTime);
             
             ClientState.CurrentServiceOrder.DepositAmount = view.ServiceDepositAmount == "" ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
 
