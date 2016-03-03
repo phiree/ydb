@@ -19,11 +19,11 @@ namespace Dianzhu.Config
         #endregion
         #region   部署前，只需要手动修改此处 /
 
-        static string IMServer = IMServers[1];//即时通讯服务器地址
-        static string IMDomain = IMDomains[1];//即时通讯服务器地址
-        static string HttpApiServer = HttpApiServers[1];//即时通讯服务器地址
+        static string IMServer = IMServers[3];//即时通讯服务器地址
+        static string IMDomain = IMDomains[3];//即时通讯服务器地址
+        static string HttpApiServer = HttpApiServers[3];//即时通讯服务器地址
         static string ApplicationServer = ApplicationServers[3];//应用服务器地址
-        static string IMNotifyServer = IMNotifyServers[1];//通知服务服务地址
+        static string IMNotifyServer = IMNotifyServers[3];//通知服务服务地址
 
 
         #endregion

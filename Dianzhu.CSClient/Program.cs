@@ -55,7 +55,7 @@ namespace Dianzhu.CSClient
             if (result.Value)// == DialogResult.OK)
             {
                 var mainForm = new WinformView.FormMain();
-  
+
                 mainForm.Text += "v" + version;
                 Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
                     mainForm, xmpp, messageAdapter
@@ -71,7 +71,8 @@ namespace Dianzhu.CSClient
 
             //Application.Run(new Views.Raw.ChatView());
 
-
+            //var mainForm = new WPF.FormMain();
+            //mainForm.ShowDialog();
 
         }
 
