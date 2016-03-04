@@ -5,7 +5,7 @@
 //"u3rd014008", "ad001006","clm001001"
 //"slf002006", "slf002003", "slf001007","py001007","py001008"
 //"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
- "asn001006",
+ "ad001006"
 
 ];
 var test_data = [
@@ -223,6 +223,18 @@ var test_data = [
         "ReqData": {
             "target": "TencentQQ",//"WeChat","SinaWeiBo","TencentQQ"
             "code": "A4940389B88665B374852A6DB1CEB2CB",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"
+            "appName":"Ios"
+        },
+        "stamp_TIMES": "1490192929212",
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "U3RD014008",
+        "ReqData": {
+            "target": "TencentQQ",//"WeChat","SinaWeiBo","TencentQQ"
+            "code": "7A21B6A1AF871BE97880E359C07005E7",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"
+            "appName": "Android"
         },
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"

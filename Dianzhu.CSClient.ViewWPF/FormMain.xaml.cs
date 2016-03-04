@@ -22,6 +22,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class FormMain : Window, IMainFormView
     {
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF");
         public FormMain()
         {
             InitializeComponent();
@@ -192,6 +193,12 @@ namespace Dianzhu.CSClient.ViewWPF
             set { tbxKeywords.Text = value; }
         }
 
+        public string MessageTextBox
+        {
+            get { return tbxChatMsg.Text; }
+            set { tbxChatMsg.Text = value; }
+        }
+
         bool canEditor = true;
         public bool CanEditOrder
         {
@@ -226,27 +233,13 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 return chatLog;
             }
-        }
-        
-        
-        public string MessageTextBox
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        }        
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-                
         public IList<ServiceOrder> OrdersList
         {
             set
             {
-                throw new NotImplementedException();
+                dgvOrders.ItemsSource = value;
             }
         }
         
@@ -254,7 +247,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             set
             {
-                throw new NotImplementedException();
+                dgvRpCustomer.ItemsSource = value;
             }
         }
 
@@ -385,9 +378,9 @@ namespace Dianzhu.CSClient.ViewWPF
         public void SetCustomerButtonStyle(DZMembership dm, em_ButtonStyle buttonStyle)
         {
             Action lambda = () => {
-                if ((bool)pnlCustomerList.FindName(buttonNamePrefix + dm.Id))
+                if (pnlCustomerList.FindName((buttonNamePrefix + dm.Id).Replace("-",""))!=null)
                 {
-                    Button btn = (Button)pnlCustomerList.FindName(buttonNamePrefix + dm.Id);
+                    Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + dm.Id).Replace("-",""));
                     Color foreColor = Colors.White;
                     switch (buttonStyle)
                     {
@@ -419,15 +412,16 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lamda = () =>
             {
-                if (!(bool)pnlCustomerList.FindName(buttonNamePrefix + dm.Id))
+                if (pnlCustomerList.FindName((buttonNamePrefix + dm.Id).Replace("-",""))==null)
                 {
                     Button btn = new Button();
                     btn.Content = dm.DisplayName + dm.Id;
                     btn.Tag = dm;
-                    btn.Name = buttonNamePrefix + dm.Id;
+                    btn.Name = (buttonNamePrefix + dm.Id).Replace("-","");
                     btn.Click += btnCustomer_Click;
 
                     pnlCustomerList.Children.Add(btn);
+                    pnlCustomerList.RegisterName(btn.Name,btn);
                     SetCustomerButtonStyle(dm, buttonStyle);
                 }
             };
@@ -446,7 +440,7 @@ namespace Dianzhu.CSClient.ViewWPF
             if (IdentityItemActived != null)
             {
                 DZMembership custom = (DZMembership)((Button)sender).Tag;
-                Button btn = (Button)pnlCustomerList.FindName(buttonNamePrefix + custom.Id);
+                Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + custom.Id).Replace("-", ""));
                 if (btn.Foreground == new  SolidColorBrush(Colors.Gray))
                 {
                     MessageBox.Show("该用户已下线！");
@@ -469,7 +463,9 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public void LoadOneChat(ReceptionChat chat)
         {
-            bool isSender = chat.From.UserName == currentCustomerService;
+            Action lamda = () =>
+            {
+                bool isSender = chat.From.UserName == currentCustomerService;
             Label lblTime = new Label();
             //_AutoSize(lblTime);
             lblTime.Foreground =new SolidColorBrush( Colors.Black);
@@ -552,8 +548,7 @@ namespace Dianzhu.CSClient.ViewWPF
             //bye bye. you are abandoned. 2015-9-2
 
             //对当前窗体已存在控件的操作
-            Action lamda = () =>
-            {
+            
                 // WindowNotification();
                 pnlChat.Children.Add(pnlOneChat);
                 //pnlChat.ScrollControlIntoView(pnlOneChat);
@@ -611,32 +606,84 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public void RemoveCustomBtn(string cid)
         {
-            throw new NotImplementedException();
+            Action lamda = () =>
+            {
+                if (pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-",""))!=null)
+                {
+                    Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-", ""));
+                    pnlCustomerList.Children.Remove(btn);
+                }
+                else
+                {
+                    ilog.Error("传入的名称无效！");
+                    throw new NotImplementedException("传入的名称无效！");
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
         }
 
         public void RemoveCustomBtnAndClear(string cid)
         {
-            throw new NotImplementedException();
+            Action lamda = () =>
+            {
+                if (pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-", "")) != null)
+                {
+                    Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-", ""));
+                    pnlCustomerList.Children.Remove(btn);
+                    pnlChat.Children.Clear();
+                    dgvOrders.ItemsSource = null;
+                }
+                else
+                {
+                    ilog.Error("传入的名称无效！");
+                    throw new NotImplementedException("传入的名称无效！");
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
         }
-
-        
 
         public void ShowMsg(string msg)
         {
-            throw new NotImplementedException();
-        }
-
-        public void ShowNotice(string noticeContent)
-        {
-            throw new NotImplementedException();
+            MessageBox.Show(msg);
         }
 
         public void ShowStreamError(string streamError)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("该账号已在其他客户端登录，您将被迫下线！");
         }
 
         public void WindowNotification()
+        {
+            Action lamda = () =>
+            {
+                FlashInTaskBar.FlashWindowEx(this);
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lamda);
+            }
+            else
+            {
+                lamda();
+            }
+        }
+
+
+        public void ShowNotice(string noticeContent)
         {
             throw new NotImplementedException();
         }
@@ -644,6 +691,6 @@ namespace Dianzhu.CSClient.ViewWPF
 
         #endregion
 
-        
+
     }
 }

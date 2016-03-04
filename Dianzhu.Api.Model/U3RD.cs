@@ -11,6 +11,7 @@ namespace Dianzhu.Api.Model
     {
         public string target { get; set; }
         public string code { get; set; }
+        public string appName { get; set; }
     }
 
     public class RespData_userObj

@@ -54,9 +54,9 @@ namespace Dianzhu.CSClient
 
             if (result.Value)// == DialogResult.OK)
             {
-                var mainForm = new WinformView.FormMain();
+                var mainForm = new WPF.FormMain();
 
-                mainForm.Text += "v" + version;
+                mainForm.Title += "v" + version;
                 Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
                     mainForm, xmpp, messageAdapter
                     //BLLFactory.BLLMember,
@@ -65,7 +65,8 @@ namespace Dianzhu.CSClient
                     //BLLFactory.BLLServiceOrder,
                     //BLLFactory.BLLRecetionStatus
                     );
-                Application.Run(mainForm);
+                //Application.Run(mainForm);
+                mainForm.ShowDialog();
             }
 
 
