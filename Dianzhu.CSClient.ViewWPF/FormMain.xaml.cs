@@ -321,6 +321,40 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        decimal IMainFormView.OrderAmount
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public decimal OrderDepositAmount
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public ServiceOrder CurrentOrder
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         #endregion
 
         #region 事件

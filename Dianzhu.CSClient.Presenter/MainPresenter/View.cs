@@ -69,17 +69,7 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         private void CleanOrderData()
         {
-            view.CurrentService = null;
-            view.ServiceName = string.Empty;
-            view.ServiceBusinessName = string.Empty;
-            view.ServiceDescription = string.Empty;
-            view.ServiceUnitPrice = "0.00";
-            view.ServiceDepositAmount = "0.00";
-            view.ServiceUrl = string.Empty;
-            view.OrderAmount = "0.00";
-            view.TargetAddress = string.Empty;
-            view.Memo = string.Empty;
-            view.ServiceTime = string.Empty;
+             
 
             view.CanEditOrder = true;
         }
@@ -89,10 +79,7 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_CreateOrder()
         {
-            decimal unitPrice = view.ServiceUnitPrice == string.Empty ? 0 : Convert.ToDecimal(view.ServiceUnitPrice);
-            decimal depositAmount = view.ServiceDepositAmount == string.Empty ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
-            decimal orderAmount = view.OrderAmount == string.Empty ? 0 : Convert.ToDecimal(view.OrderAmount);
-
+            
             Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid,orderStatus="+ ClientState.CurrentServiceOrder.OrderStatus);
             SaveCurrentOrder(); //从草稿单创建正式订单
            
@@ -167,25 +154,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 ClientState.OrderList.Add(order);
             }
-            view.CurrentService = order.Service;
-            //todo:订单包含多个服务项,需要修改界面
-            view.ServiceName = order.Details[0].ServiceName;
-            view.ServiceBusinessName = order.Details[0].OriginalService.Business.Name;
-            view.ServiceDescription = order.Details[0].Description;
-            view.ServiceUnitPrice = order.Details[0].UnitPrice.ToString();
             
-            view.OrderAmount = order.OrderAmount.ToString();
-            view.TargetAddress = order.TargetAddress;
-            view.Memo = order.Memo;
-            view.ServiceTime = order.TargetTime;
-            view.OrderNumber = order.Id.ToString();
-            view.OrderStatus = order.OrderStatus == Model.Enums.enum_OrderStatus.Draft ? "草稿"
-            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
-            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
-            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
-            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
-            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
-            : order.OrderStatus.ToString();
             if (order.OrderStatus == Model.Enums.enum_OrderStatus.Draft)
             {
                 view.CanEditOrder = true;
@@ -207,14 +176,8 @@ namespace Dianzhu.CSClient.Presenter
                 return;
             }
 
-            //new ServiceOrderBuilder(ClientState.CurrentServiceOrder).SetService(view.CurrentService)
-            //    .SetServiceInfo(view.ServiceName, view.ServiceBusinessName, view.ServiceDescription, Convert.ToDecimal(view.ServiceUnitPrice))
-            //    .SetServiceUrl(view.ServiceUrl)
-            //    .SetOrderInfo(Convert.ToDecimal(view.OrderAmount), 1, view.TargetAddress, view.ServiceTime, view.Memo);
-            //todo: 服务项数量 需要在选择服务时指定.现在指定为1
-           // ClientState.CurrentServiceOrder.AddDetailFromIntelService(view.CurrentService,1, view.TargetAddress,view.ServiceTime);
-            
-            ClientState.CurrentServiceOrder.DepositAmount = view.ServiceDepositAmount == "" ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
+             
+            ClientState.CurrentServiceOrder.DepositAmount = view.OrderDepositAmount;// == "" ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
 
             ClientState.CurrentServiceOrder.Memo = view.Memo;
             ClientState.CurrentServiceOrder.LatestOrderUpdated = DateTime.Now;

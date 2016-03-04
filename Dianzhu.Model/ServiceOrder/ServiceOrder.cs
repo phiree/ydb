@@ -32,7 +32,12 @@ namespace Dianzhu.Model
         public virtual void AddDetailFromIntelService(DZService service,int unitAmount,string targetAddress,string targetTime)
         {
             ServiceOrderDetail detail = new ServiceOrderDetail(service,unitAmount,targetAddress,targetTime);
+            
             Details.Add(detail);
+        }
+        public virtual void RemoveDetail(DZService service)
+        {
+
         }
         
         #endregion

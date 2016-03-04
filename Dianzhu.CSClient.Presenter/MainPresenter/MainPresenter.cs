@@ -29,12 +29,14 @@ namespace Dianzhu.CSClient.Presenter
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis;
         string server;
         int rsaCustomerAmount;
+        IView.IViewCustomerList ViewCustomerList { get; set; }
 
         public MainPresenter(IView.IMainFormView view,
             InstantMessage instantMessage,
             IMessageAdapter.IAdapter messageAdapter
             )
         {
+            
             this.view = view;
             this.instantMessage = instantMessage;
             this.bllMember = new DZMembershipProvider();// bllMember;
@@ -91,6 +93,15 @@ namespace Dianzhu.CSClient.Presenter
             this.SysAssign(3);
             server = Dianzhu.Config.Config.GetAppSetting("ImServer");
             this.view.ReceptionCustomerList = bllReceptionStatusArchieve.GetCustomerListByCS(ClientState.customerService, 1, 10, out rsaCustomerAmount);
+
+            #region 组件化
+            this.ViewCustomerList.CustomerClick += ViewCustomerList_CustomerClick;
+            #endregion
+        }
+
+        private void ViewCustomerList_CustomerClick(DZMembership customer)
+        {
+            System.Diagnostics.Debug.Assert(false, "点击");
         }
 
         /// <summary>
@@ -146,10 +157,13 @@ namespace Dianzhu.CSClient.Presenter
         /// <summary>
         /// 当前选择的服务
         /// </summary>
-        private void View_SelectService()
+        private void View_SelectService(DZService selectedService)
         {
-            Guid id = new Guid(view.CurrentServiceId);
-            view.CurrentService = bllService.GetOne(id);
+            
+            
+            //将服务添加到当前订单中.
+            ClientState.CurrentServiceOrder.AddDetailFromIntelService(selectedService, 1, string.Empty, string.Empty);
+            view.CurrentOrder = ClientState.CurrentServiceOrder;
         }
 
         /// <summary>

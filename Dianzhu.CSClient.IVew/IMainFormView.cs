@@ -35,7 +35,7 @@ namespace Dianzhu.CSClient.IView
     public delegate void PushExternalService();
     public delegate void PushInternalService(DZService service);
     public delegate void SearchService();
-    public delegate void SelectService();
+    public delegate void SelectService(DZService selectedService);
     public delegate void SendPayLink(ReceptionChat chat);
     public delegate void CreateOrder();
     public delegate void ViewClosed();
@@ -46,6 +46,7 @@ namespace Dianzhu.CSClient.IView
     public delegate void NoticeOrder();
     public delegate void NoticePromote();
     public delegate void NoticeCustomerService();
+ 
 
    
     /// <summary>
@@ -117,21 +118,11 @@ namespace Dianzhu.CSClient.IView
 
         IList<DZService> SearchedService { get; set; }
         //服务信息
-        string ServiceName { get; set; }
-        string ServiceBusinessName { get; set; }
-        string ServiceDescription { get; set; }
-        string ServiceUnitPrice { get; set; }
-        string ServiceDepositAmount { get; set; }
-        string ServiceUrl { get; set; }
-        string ServiceTime { get; set; }
-        string TargetAddress { get; set; }
         
-        //取消超时长度
-        int OverTimeForCancel { get; set; }
-        //取消超时 赔偿金
-        decimal CancelCompensation { get; set; }
-
-        string OrderAmount { get; set; }
+        
+        
+        decimal  OrderAmount { get; }
+        decimal OrderDepositAmount { get; set; }
         string OrderNumber { get; set; }
         string OrderStatus { get; set; }
         bool CanEditOrder { get; set; }
@@ -171,7 +162,7 @@ namespace Dianzhu.CSClient.IView
         void ShowStreamError(string streamError);
 
         event ReAssign ReAssign;
-
+        
         /// <summary>
         /// 当前客服正在接待的客户列表
         /// </summary>
@@ -189,10 +180,11 @@ namespace Dianzhu.CSClient.IView
         /// <param name="msg"></param>
         void ShowMsg(string msg);
 
+       
         /// <summary>
-        /// 当前选择的服务
+        /// 当前的订单
         /// </summary>
-        DZService CurrentService { get; set; }
+        ServiceOrder CurrentOrder { get; set; }
 
         /// <summary>
         /// 删除用户按钮

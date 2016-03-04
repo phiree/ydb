@@ -59,6 +59,7 @@
     <Compile Include="MainPresenter\IM.cs" />
     <Compile Include="MainPresenter\MainPresenter.cs" />
     <Compile Include="MainPresenter\MessageSender.cs" />
+    <Compile Include="MainPresenter\PCustomerList.cs" />
     <Compile Include="MainPresenter\State.cs" />
     <Compile Include="MainPresenter\View.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,8 +8,8 @@
     <ProjectGuid>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dianzhu.CSClient.IVew</RootNamespace>
-    <AssemblyName>Dianzhu.CSClient.IVew</AssemblyName>
+    <RootNamespace>Dianzhu.CSClient.IView</RootNamespace>
+    <AssemblyName>Dianzhu.CSClient.IView</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumButtonType.cs" />
+    <Compile Include="ICustomerListView.cs" />
     <Compile Include="ILoginForm.cs" />
     <Compile Include="IMainFormView.cs" />
     <Compile Include="IScreenCaptureForm.cs" />
