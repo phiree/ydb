@@ -830,16 +830,6 @@ namespace Dianzhu.CSClient.WinformView
             NoticeOrder();
         }
 
-        private void btnNoticePromote_Click(object sender, EventArgs e)
-        {
-            NoticePromote();
-        }
-
-        private void btnNoticeCustomerService_Click(object sender, EventArgs e)
-        {
-            NoticeCustomerService();
-        }
-
         public void ShowStreamError(string streamErrorMes)
         {
             MessageBox.Show("该账号已在其他客户端登录，您将被迫下线！");

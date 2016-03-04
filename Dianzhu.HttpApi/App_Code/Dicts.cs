@@ -46,8 +46,11 @@ public static class Dicts
     public readonly static string AppIDWeibo = "1213986121";
     public readonly static string AppSecretWeibo = "d624e12a4fbbd23ab234d5c7ae7fbd0f";
 
-    public readonly static string AppIDQQ = "1105009517";
-    public readonly static string AppSecretQQ = "5THVAcWOU43Th2Vy";
+    public readonly static string AppIDQQIos = "1105009517";
+    public readonly static string AppSecretQQIos = "5THVAcWOU43Th2Vy";
+
+    public readonly static string AppIDQQAndroid = "1105109568";
+    public readonly static string AppSecretQQAndroid = "LhUndFD35p7wIPw1";
 
     //alipay支付宝相应参数，加*的表示不可为空的
     public readonly static string service = "mobile.securitypay.pay";   // * 接口名称

@@ -33,7 +33,25 @@ public class ResponseU3RD014008:BaseResponse
         try
         {
             string code = requestData.code;
-            string pwd = "";
+            string appName = requestData.appName;
+            string pwd = string.Empty;
+            string AppIDQQ = string.Empty;
+
+            switch (appName.ToLower())
+            {
+                case "ios":
+                    AppIDQQ = Dicts.AppIDQQIos;
+                    break;
+                case "android":
+                    AppIDQQ = Dicts.AppIDQQAndroid;
+                    break;
+                default:
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "传入appName有误，请重新上传！";
+                    return;
+            }
+
+
             RespDataUSM_userObj userObj = new RespDataUSM_userObj();
             switch (requestData.target)
             {
@@ -130,7 +148,7 @@ public class ResponseU3RD014008:BaseResponse
                     if (refreshOpenidObj.openid != null)
                     {
                         string urlQQUsrinfo = Dianzhu.Config.Config.GetAppSetting("QQUserInfoUrl");
-                        Uri uriQQUserinfo = new Uri(urlQQUsrinfo + "access_token=" + code + "&oauth_consumer_key=" + Dicts.AppIDQQ + "&openid=" + refreshOpenidObj.openid + "&format=json");
+                        Uri uriQQUserinfo = new Uri(urlQQUsrinfo + "access_token=" + code + "&oauth_consumer_key=" + AppIDQQ + "&openid=" + refreshOpenidObj.openid + "&format=json");
                         string resultUserinfoQQ = HttpHelper.CreateHttpRequest(uriQQUserinfo.ToString(), "get", null);
                         QQRespUserinfo UserinfoObjQQ = JsonConvert.DeserializeObject<QQRespUserinfo>(resultUserinfoQQ);
 

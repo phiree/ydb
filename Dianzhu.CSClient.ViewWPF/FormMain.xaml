@@ -158,8 +158,13 @@
             <GridSplitter x:Name="gridSplitter5" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5"/>
 
             <Grid ShowGridLines="True" Grid.Row="0">
-                <StackPanel x:Name="pnlChat"/>
+                
 
+                <ScrollViewer x:Name="scrolls" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer.Content>
+                        <StackPanel x:Name="pnlChat" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    </ScrollViewer.Content>
+                </ScrollViewer>
             </Grid>
 
             <Grid ShowGridLines="True" Grid.Row="2">
@@ -192,10 +197,23 @@
             <GridSplitter x:Name="gridSplitter6" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5"/>
 
             <Grid ShowGridLines="True" Grid.Row="0">
-
+                <DataGrid x:Name="dgvOrders" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" VerticalScrollBarVisibility="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="订单Id" Binding="{Binding Path=Id}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="服务名称" Binding="{Binding Path=ServiceName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="金额" Binding="{Binding Path=OrderAmount}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="备注" Binding="{Binding Path=Memo}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
 
             <Grid ShowGridLines="True" Grid.Row="2">
+                <DataGrid x:Name="dgvRpCustomer" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" VerticalScrollBarVisibility="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="用户名" Width="80" Binding="{Binding Path=UserName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="日期" Width="150" Binding="{Binding Path=LastLoginTime, StringFormat='yyyyMMddHHmmss'}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
 
             </Grid>
 
