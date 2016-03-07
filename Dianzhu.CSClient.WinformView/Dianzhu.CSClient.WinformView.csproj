@@ -44,6 +44,9 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -89,6 +92,12 @@
     <Compile Include="ShowFullImage.Designer.cs">
       <DependentUpon>ShowFullImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="UC_ChatList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_ChatList.Designer.cs">
+      <DependentUpon>UC_ChatList.cs</DependentUpon>
+    </Compile>
     <Compile Include="UC_CustomerList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -125,6 +134,12 @@
     </Compile>
     <EmbeddedResource Include="ShowFullImage.resx">
       <DependentUpon>ShowFullImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_ChatList.resx">
+      <DependentUpon>UC_ChatList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_CustomerList.resx">
+      <DependentUpon>UC_CustomerList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UC_OrderDetail.resx">
       <DependentUpon>UC_OrderDetail.cs</DependentUpon>

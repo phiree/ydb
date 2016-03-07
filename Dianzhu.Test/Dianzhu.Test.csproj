@@ -120,6 +120,7 @@
     <Compile Include="DZCSClientTest\MainPresenterTest.cs" />
     <Compile Include="DZCSClientTest\MessageAdapterTest\MessageAdapterTest.cs" />
     <Compile Include="DZCSClientTest\MessageBuildTest.cs" />
+    <Compile Include="DZCSClientTest\PCustomerListTest.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />

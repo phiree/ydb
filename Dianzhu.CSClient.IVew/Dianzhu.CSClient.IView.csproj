@@ -48,7 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumButtonType.cs" />
-    <Compile Include="ICustomerListView.cs" />
+    <Compile Include="IViewChatList.cs" />
+    <Compile Include="IViewCustomerList.cs" />
     <Compile Include="ILoginForm.cs" />
     <Compile Include="IMainFormView.cs" />
     <Compile Include="IScreenCaptureForm.cs" />

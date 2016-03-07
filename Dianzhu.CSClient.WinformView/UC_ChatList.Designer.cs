@@ -1,10 +1,7 @@
-﻿using Dianzhu.CSClient.IView;
-using System.Windows.Forms;
-
-namespace Dianzhu.CSClient.WinformView
+﻿namespace Dianzhu.CSClient.WinformView
 {
-    public partial class UC_CustomerList
-    { 
+    public partial class UC_ChatList:System.Windows.Forms.UserControl,Dianzhu.CSClient.IView.IViewChatList
+    {
         /// <summary> 
         /// 必需的设计器变量。
         /// </summary>
@@ -31,29 +28,34 @@ namespace Dianzhu.CSClient.WinformView
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlCustomerList = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlChatList = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
-            // pnlCustomerList
+            // pnlChatList
             // 
-            this.pnlCustomerList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlCustomerList.Location = new System.Drawing.Point(0, 0);
-            this.pnlCustomerList.Name = "pnlCustomerList";
-            this.pnlCustomerList.Size = new System.Drawing.Size(150, 150);
-            this.pnlCustomerList.TabIndex = 0;
+            this.pnlChatList.AutoScroll = true;
+            this.pnlChatList.AutoSize = true;
+            this.pnlChatList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlChatList.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.pnlChatList.Location = new System.Drawing.Point(0, 0);
+            this.pnlChatList.Name = "pnlChatList";
+            this.pnlChatList.Size = new System.Drawing.Size(259, 225);
+            this.pnlChatList.TabIndex = 0;
             // 
-            // UC_CustomerList
+            // UC_ChatList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pnlCustomerList);
-            this.Name = "UC_CustomerList";
+            this.Controls.Add(this.pnlChatList);
+            this.Name = "UC_ChatList";
+            this.Size = new System.Drawing.Size(259, 225);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel pnlCustomerList;
+        private System.Windows.Forms.FlowLayoutPanel pnlChatList;
     }
 }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
+using Dianzhu.CSClient.IInstantMessage;
+using Dianzhu.BLL;
+using Dianzhu.Model.Enums;
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -16,24 +19,81 @@ namespace Dianzhu.CSClient.Presenter
     /// </summary>
     public class PCustomerList
     {
-        IViewCustomerList iview;
-        
-        public PCustomerList(IViewCustomerList iview)
+        IViewCustomerList iView;
+        IViewChatList iViewChatList;
+        InstantMessage iIm;
+        BLLReception bllReception;
+        public PCustomerList(IViewCustomerList iView, InstantMessage iIm, IViewChatList iViewChatList)
         {
-            iview = this.iview;
+            this.iView = iView;
+            this.iIm = iIm;
+            this.iViewChatList = iViewChatList;
+            iIm.IMReceivedMessage += IIm_IMReceivedMessage;
+            iView.CustomerClick += IView_CustomerClick;
+            customerList = new List<DZMembership>();
+
+            bllReception = new BLLReception();
+
         }
-        DZMembership customer;
+
+        private void IView_CustomerClick(DZMembership customer)
+        {
+            currentCustomer = customer;
+            int rowCount;
+            var chatHistory = bllReception.GetReceptionChatList(
+                customer, null, new Guid(), DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+
+            iViewChatList.ChatList = chatHistory;
+            //iViewChatList.ChatList;
+        }
+
+        //负责接收消息
+        public  void IIm_IMReceivedMessage(ReceptionChat chat)
+        {
+            //当前用户为空
+            if (currentCustomer == null)
+            {
+                currentCustomer = chat.From;
+                customerList.Add(chat.From);
+            }
+            //消息来自 当前客户 
+            if (currentCustomer == chat.From)
+            {
+                iViewChatList.AddOneChat(chat);
+                return;
+            }
+            //消息来自 非当前用户
+            //在当前用户列表中,则设置该用户为 未读.
+            if (customerList.Contains(chat.From))
+            {
+                iView.SetCustomerUnread(chat.From, 1);
+            }
+            else
+            {
+                AddCustomer(chat.From);
+            }
+
+        }
+
+        DZMembership currentCustomer;
         public DZMembership CurrentCustomer
         {
-            get { return customer; }
+            get { return currentCustomer; }
         }
+        //当前接待的用户列表 
         IList<DZMembership> customerList;
         public IList<DZMembership> CustomerList
         {
             get { return customerList; }
         }
-        
+
+        public void AddCustomer(DZMembership customer)
+        {
+            customerList.Add(customer);
+            iView.AddCustomer(customer);
+        }
+
 
     }
-    
+
 }

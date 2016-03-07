@@ -54,19 +54,30 @@ namespace Dianzhu.CSClient
 
             if (result.Value)// == DialogResult.OK)
             {
-                var mainForm = new WPF.FormMain();
+                if (false)
+                {
+                    var mainForm = new WPF.FormMain();
 
-                mainForm.Title += "v" + version;
-                Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
-                    mainForm, xmpp, messageAdapter
-                    //BLLFactory.BLLMember,
-                    //BLLFactory.BLLReception,
-                    //BLLFactory.BLLDZService,
-                    //BLLFactory.BLLServiceOrder,
-                    //BLLFactory.BLLRecetionStatus
-                    );
-                //Application.Run(mainForm);
-                mainForm.ShowDialog();
+                    mainForm.Title += "v" + version;
+                    Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
+                        mainForm, xmpp, messageAdapter
+                        //BLLFactory.BLLMember,
+                        //BLLFactory.BLLReception,
+                        //BLLFactory.BLLDZService,
+                        //BLLFactory.BLLServiceOrder,
+                        //BLLFactory.BLLRecetionStatus
+                        );
+                    //Application.Run(mainForm);
+                    mainForm.ShowDialog();
+                }
+                else {
+                    var chatList = new WinformView.UC_ChatList();
+                    var customerList = new WinformView.UC_CustomerList();
+                    Presenter.PCustomerList pCustomerList = new Presenter.PCustomerList(customerList,
+                        xmpp, chatList);
+                    var mainForm2 = new WinformView.FormMain2(chatList, customerList);
+                    mainForm2.ShowDialog();
+                }
             }
 
 
