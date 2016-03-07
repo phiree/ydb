@@ -338,6 +338,64 @@
 
                                                         </div>
                                                     </div>
+                                                    <div class="row model-form-group">
+                                                        <div class="col-md-6">
+                                                            <div class="shelf-set-container" data-setContainer="#setContainer1" data-setTrigger="#setTrigger1" data-setCreateCfm="#setCreateCfm1" data-setCreate="#setCreate1" data-week="1">
+                                                                <div class="shelf-set-h">
+                                                                    <div>星期一</div>
+                                                                    <input type="number" value="0">
+                                                                </div>
+                                                                <div id="setContainer1" class="shelf-set-m">
+
+                                                                </div>
+                                                                <div id="setCreate1" class="shelf-set-create">
+                                                                    <div class="shelf-bar">
+                                                                        <div class="time-select-wrap">
+                                                                            <a class="time-trigger" /></a>
+                                                                            <input  class="dis-n time-value" type="text" data-role="startTime" />
+                                                                        </div>-
+                                                                        <div class="time-select-wrap">
+                                                                            <a class="time-trigger" /></a>
+                                                                            <input class="dis-n time-value" type="text" data-role="endTime" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <input type="number" value="0" data-role="maxNum">
+                                                                    <input id="setCreateCfm1" type="button" value="确认">
+                                                                </div>
+                                                                <div class="shelf-set-b">
+                                                                    <input id="setTrigger1" type="button" value="+">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="shelf-set-container" data-setContainer="#setContainer2" data-setTrigger="#setTrigger2" data-setCreateCfm="#setCreateCfm2" data-setCreate="#setCreate2" data-week="2">
+                                                                <div class="shelf-set-h">
+                                                                    <div>星期二</div>
+                                                                    <input type="number" value="0">
+                                                                </div>
+                                                                <div id="setContainer2" class="shelf-set-m">
+
+                                                                </div>
+                                                                <div id="setCreate2" class="shelf-set-create">
+                                                                    <div class="shelf-bar">
+                                                                        <div class="time-select-wrap">
+                                                                            <a class="time-trigger" /></a>
+                                                                            <input  class="dis-n time-value" type="text" data-role="startTime" />
+                                                                        </div>-
+                                                                        <div class="time-select-wrap">
+                                                                            <a class="time-trigger" /></a>
+                                                                            <input class="dis-n time-value" type="text" data-role="endTime" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <input type="number" value="0" data-role="maxNum">
+                                                                    <input id="setCreateCfm2" type="button" value="确认">
+                                                                </div>
+                                                                <div class="shelf-set-b">
+                                                                    <input id="setTrigger2" type="button" value="+">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

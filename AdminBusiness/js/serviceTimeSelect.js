@@ -101,7 +101,7 @@
             });
 
             _confirm.click(function(){
-                _printValue.attr("value",_hourPrint + ":" + _minPrint).focus().blur();
+                _printValue.attr("value",_hourPrint + ":" + _minPrint).focus().blur().trigger('change');
                 _trigger.html(_hourPrint + ":" + _minPrint);
                 _selectBox.detach();
             });

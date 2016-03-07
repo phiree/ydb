@@ -8,21 +8,78 @@
      <UC:ServiceEdit runat="server" />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
-    <script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
-    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
-    <script src="/js/jquery.form.min.js" type="text/javascript"></script>
+    <script id="shelfSetItem" type="text/template">
+        <div class="shelf-set-item" data-role="shelfItem" data-wid="${ workTimeID }" >
+            <div class="shelf-bar">
+                <div class="time-select-wrap">
+                    <a class="time-trigger" >${ startTime }</a>
+                    <input class="dis-n time-value" type="text" data-role="startTime" value="${ startTime }" data-target="${ workTimeID }" />
+                </div>-
+                <div class="time-select-wrap">
+                    <a class="time-trigger" >${ endTime }</a>
+                    <input class="dis-n time-value" type="text" data-role="endTime" data-target="${ workTimeID }" value="${ endTime }" />
+                </div>
+            </div>
+            <input type="number" data-role="maxNum" data-target="${ workTimeID }" value="${ maxNum }"/>
+            <input type="checkbox" data-role="enable" data-target="${ workTimeID }" {@if enable==="Y"}checked{@/if} />
+            <input type="button" data-role="delete" data-target="${ workTimeID }" value="X"/>
+        </div>
+</script>
+    <script type="text/javascript" src="/js/juicer-min.js"></script>
+    <script type="text/javascript" src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
+    <script type="text/javascript" src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js' ></script>
+    <script type="text/javascript" src="/js/jquery.form.min.js"></script>
     <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
+    <script type="text/javascript" src="/js/interfaceAdapter.js"></script>
+    <script type="text/javascript" src="/js/shelf/mock.js"></script>
     <script type="text/javascript" src="/js/ServiceType.js"></script>
     <script type="text/javascript" src="/js/ServiceSelect.js"></script>
     <script type="text/javascript" src="/js/StepByStep.js"></script>
-    <!--<script type="text/javascript" src="/js/TabSelection.js"></script>-->
     <script type="text/javascript" src="/js/CascadeCheck.js"></script>
     <script type="text/javascript" src="/js/serviceTimeSelect.js"></script>
     <script type="text/javascript">
         var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$ctl00$';
     </script>
-    <script src="/js/validation_service_edit.js" type="text/javascript"></script>
-    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/validation_service_edit.js"></script>
+    <script type="text/javascript" src="/js/validation_invalidHandler.js"></script>
+    <script type="text/javascript" src="/js/shelfSet.js"></script>
+    <script>
+
+        Mock.mockjax(jQuery);
+        Mock.mock(/shelf.json/, function(){
+            /* 本地测试数据 */
+            return Mock.mock(
+                    {
+                        "protocol_CODE": "WRT001006",
+                        "state_CODE": "009000",
+                        "RespData": {
+                            "arrayData": [
+                                {
+                                    "workTimeID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                                    "tag": "默认工作时间",
+                                    "startTime": "07:00",
+                                    "endTime": "19:00",
+                                    "week": "1",
+                                    "enable": "Y",
+                                    "svcID": "6F9619FF-8B86-D011-B42D-00C04FC964FF"
+                                },
+                                {
+                                    "workTimeID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                                    "tag": "默认工作时间",
+                                    "startTime": "07:00",
+                                    "endTime": "19:00",
+                                    "week": "2",
+                                    "enable": "N",
+                                    "svcID": "6F9619FF-8B86-D011-B42D-00C04FC964FF"
+                                }
+                            ]
+                        },
+                        "stamp_TIMES": "1490192929215",
+                        "serial_NUMBER": "00147001015869149751"
+                    }
+            )
+        })
+    </script>
     <script>
         $(function () {
             (function (){
@@ -33,6 +90,16 @@
                     $("#lblSelectedType").removeClass("hide");
                 }
             })();
+
+
+            $(".shelf-set-container").shelfSet({
+                itemTemplate : document.getElementById('shelfSetItem').innerHTML,
+                reqUrl : "shelf.json",
+                svcID : Adapter.getParameterByName('serviceid'),
+                buildCallback : function ($itemHTML) {
+                    $itemHTML.find(".time-select-wrap").timeSelect();
+                }
+            });
 
             $(".service-time-table tbody tr:even").addClass("list-item-odd");
 
@@ -111,7 +178,7 @@
                 );
             });
 
-            function setTime(date,timeString){
+                function setTime(date,timeString){
                 var arr=timeString.split(":");
                 var hour=parseInt(arr[0]);
                 var minites = arr[1]?parseInt(arr[1]):0;
