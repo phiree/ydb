@@ -15,13 +15,14 @@
         this.$searchConf = $(this.$element.attr("data-searchConf"));
         this.$searchClose = $(this.$element.attr("data-searchClose"));
 
-        this.options = options;
+        /* 参考bootstrap中的形式，第二次扩展options。感觉没必要，可能是为了类的options初始化和插件options的初始化单独分离 */
+        this.options = $.extend({}, CascadeCheck.DEFAULTS, options);
         this.jsonData = {};
         this.searchReasult = {};
         this.checked = false;
 
-        if ( typeof options.container === 'string' && options.container.length ){
-            this.$container = $(options.container);
+        if ( typeof this.options.container === 'string' && this.options.container.length ){
+            this.$container = $(this.options.container);
         } else {
             this.$container = this.$element;
         }
@@ -335,19 +336,24 @@
     });
 
     $.fn[pluginName] = function(option){
-        var $this = $(this);
-        var data = $this.data('cascadeCheck');
-        var options = $.extend({}, CascadeCheck.DEFAULTS, option);
+        return this.each(function(){
+            var $this = $(this);
+            var data = $this.data('cascadeCheck');
+            /* 避免option不为object时，参数错误，第一次初始化option。 */
+            var options = $.extend({}, CascadeCheck.DEFAULTS, typeof option === 'object' && option );
 
-        if ( !data ) {
-            $this.data('cascadeCheck', ( data = new CascadeCheck(this, options)));
+            if ( !data ) {
+                $this.data('cascadeCheck', ( data = new CascadeCheck( this, options)));
+            }
+
             if ( typeof option === 'object' ){
                 data.init();
             }
-        }
-        if ( typeof option === 'string' ) {
-            data[option]();
-        }
+
+            if ( typeof option === 'string' ) {
+                data[option]();
+            }
+        });
     };
 
 }));

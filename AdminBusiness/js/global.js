@@ -3,15 +3,15 @@
  */
     //页面最小高度设为100%的方法
     $(function(){
-        $(window).bind("load resize", function() {
-            var narHeight = 79;
-            var windowHeight = $(window).height();
-
-            var height = windowHeight - narHeight;
+        $(window).bind("resize", setFluid);
+        $(document).ready(setFluid);
+        function setFluid(){
+            var narHeight = 79,
+                windowHeight = $(window).height(),
+                height = windowHeight - narHeight;
             $(".content-layout").css("min-height", (height) + "px");
             $(".content-layout-fluid").css("min-height", (height) + "px");
-
-        });
+        }
     });
 
     $(function(){
@@ -34,7 +34,7 @@
         if ( element.is('li') ) {
             element.addClass('active');
         }
-    })
+    });
 
     $(function(){
         return $('.hour-select').each(function () {
@@ -69,7 +69,7 @@
 
 
     $(function () {
-    
+
         return $('.select').each(function () {
             $(this).prepend("<cite></cite>");
 
@@ -125,42 +125,6 @@
         }
         );
     });
-
-    //(function () {
-    //
-    //    $('.input-file-btn').change(function () {
-    //        var imgObjPreview = $(this).siblings(".input-file-pre").get(0);
-    //
-    //        if (this.files && this.files[0]) {
-    //            imgObjPreview.src = window.URL.createObjectURL(this.files[0]);
-    //        }
-    //        else {
-    //            this.select();
-    //            this.blur();
-    //            var imgSrc = document.selection.createRange().text;
-    //
-    //            try {
-    //                imgObjPreview.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
-    //                imgObjPreview.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
-    //            }
-    //            catch (e) {
-    //                return false;
-    //            }
-    //            document.selection.empty();
-    //
-    //            return
-    //        }
-    //        return true;
-    //    })
-    //
-    //})();
-    //(function(){
-    //    $(".btn-cancel").each(function(){
-    //        $(this).click(function(){
-    //            return confirm("是否取消？");
-    //        })
-    //    })
-    //})();
 
 
     $(function (){

@@ -346,9 +346,9 @@
             });
 
             function start(collection, resp, options){
-                console.log(collection);
-                console.log(resp);
-                console.log(options);
+                //console.log(collection);
+                //console.log(resp);
+                //console.log(options);
 
                 var todayModel = _.find(collection.models, function(model){
 
