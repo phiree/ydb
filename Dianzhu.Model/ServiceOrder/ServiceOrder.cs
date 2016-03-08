@@ -95,6 +95,7 @@ namespace Dianzhu.Model
                     return Details[0].OriginalService;
                 }
                 else {
+                    return null;
                     throw new Exception("该订单内没有服务项");
                 }
             } }

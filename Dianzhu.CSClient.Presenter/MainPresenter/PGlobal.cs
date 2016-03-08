@@ -11,7 +11,7 @@ namespace Dianzhu.CSClient.Presenter
     /// 处理全局变量 和 事件
     /// 接收im消息后,设置当前订单
     /// </summary>
-   public   class PGlobal
+    public class PGlobal
     {
         /// <summary>
         /// 当前激活的客户 和 订单
@@ -22,22 +22,49 @@ namespace Dianzhu.CSClient.Presenter
             get { return currentIdentity; }
             set { currentIdentity = value; }
         }
-   
-        PIdentityList pCustomerList;
+        static IList<ServiceOrder> currentIdentityList = new List<ServiceOrder>();
+        public static IList<ServiceOrder> CurrentIdentityList
+        {
+            get
+            {
+                return currentIdentityList;
+            }
+
+        }
+        PIdentityList pIdentityList;
         PChatList pChatList;
-        public PGlobal(InstantMessage iIM,PIdentityList pCustomerList,PChatList pChatList)
+        public PGlobal(InstantMessage iIM, PIdentityList pIdentityList, PChatList pChatList)
         {
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
-            this.pCustomerList = pCustomerList;
+            this.pIdentityList = pIdentityList;
             this.pChatList = pChatList;
-             
+            //todo: 可以从历史记录
+            InitLoadIdentityList();
+
+        }
+        /// <summary>
+        ///todo： 加载保存过的历史列表
+        /// </summary>
+        private void InitLoadIdentityList()
+        {
+            currentIdentityList = new List<ServiceOrder>();
         }
         private void IIM_IMReceivedMessage(Model.ReceptionChat chat)
         {
-            if (currentIdentity.Customer == chat.From)
-            { }
+            //判断信息类型
+            if (chat.ChatType == Model.Enums.enum_ChatType.Notice
+                || chat.ChatType == Model.Enums.enum_ChatType.ReAssign)
+            {
 
-            pCustomerList.ReceivedMessage(chat);
+
+            }
+            else
+            {
+
+                pIdentityList.ReceivedMessage(chat);
+            }
+
+
 
         }
     }

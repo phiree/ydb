@@ -21,15 +21,59 @@ namespace Dianzhu.Test.DZCSClientTest
         [SetUp]
         public void setup()
         {
-              viewCustomerList = MockRepository.GenerateStub<IViewIdentityList>();
-              iIM = MockRepository.GenerateStub<InstantMessage>();
-              viewChatList = MockRepository.GenerateStub<IViewChatList>();
-            
+            viewCustomerList = MockRepository.GenerateStub<IViewIdentityList>();
+            iIM = MockRepository.GenerateStub<InstantMessage>();
+            viewChatList = MockRepository.GenerateStub<IViewChatList>();
+
         }
         [Test]
-        public void IIm_IMReceivedMessageTest()
+        public void ReceiveMessageTest()
         {
-            //PIdentityList pCustomerList = new PIdentityList(viewCustomerList, iIM, viewChatList);
+            IList<DZMembership> customers = Builder<DZMembership>.CreateListOfSize(10).Build();
+
+            //同一个用户的两个订单
+            ServiceOrder order11 = ServiceOrderFactory.CreateDraft(customers[0], customers[1]);
+            ServiceOrder order12 = ServiceOrderFactory.CreateDraft(customers[0], customers[1]);
+
+            //另一个用户的一个订单
+            ServiceOrder order21 = ServiceOrderFactory.CreateDraft(customers[0], customers[2]);
+           
+            IList<ReceptionChat> chats = Builder<ReceptionChat>.CreateListOfSize(5)
+                .TheFirst(1).With(x=>x.From=order11.Customer). And(x=>x.ServiceOrder= order11)//新用户订单
+                .TheNext(1).With(x => x.From = order11.Customer).And(x => x.ServiceOrder = order11)//同一订单
+                .TheNext(1).With(x => x.From = order12.Customer).And(x => x.ServiceOrder = order12)//同一用户，新订单
+                .TheNext(1).With(x => x.From = order21.Customer).And(x => x.ServiceOrder =order21)//不同用户，新订单
+                .TheNext(1).With(x => x.From = order11.Customer).And(x => x.ServiceOrder = order11)//已有用户的订单        
+                .Build();
+            PIdentityList pCustomerList = new PIdentityList(viewCustomerList, viewChatList);
+            //发送第一条消息
+            pCustomerList.ReceivedMessage(chats[0]);
+            Assert.AreEqual(order11, PGlobal.CurrentIdentity);
+            Assert.AreEqual(1,PGlobal.CurrentIdentityList.Count);
+            Assert.AreEqual(order11, PGlobal.CurrentIdentityList[0]);
+
+            pCustomerList.ReceivedMessage(chats[1]);
+            Assert.AreEqual(order11, PGlobal.CurrentIdentity,null);
+            Assert.AreEqual(1, PGlobal.CurrentIdentityList.Count);
+            Assert.AreEqual(order11, PGlobal.CurrentIdentityList[0]);
+
+            pCustomerList.ReceivedMessage(chats[2]);
+            Assert.AreEqual(order12,PGlobal.CurrentIdentity);
+            Assert.AreEqual(1, PGlobal.CurrentIdentityList.Count);
+            Assert.AreEqual(order12, PGlobal.CurrentIdentityList[0]);
+
+            pCustomerList.ReceivedMessage(chats[3]);
+            Assert.AreEqual(order12, PGlobal.CurrentIdentity);
+            Assert.AreEqual(2, PGlobal.CurrentIdentityList.Count);
+            Assert.AreEqual(order12, PGlobal.CurrentIdentityList[0]);
+            Assert.AreEqual(order21, PGlobal.CurrentIdentityList[1]);
+
+            pCustomerList.ReceivedMessage(chats[4]);
+            Assert.AreEqual(order11, PGlobal.CurrentIdentity);
+            Assert.AreEqual(2, PGlobal.CurrentIdentityList.Count);
+            Assert.AreEqual(order21, PGlobal.CurrentIdentityList[0]);
+            Assert.AreEqual(order11, PGlobal.CurrentIdentityList[1]);
+
             //Assert.AreEqual(null, pCustomerList.CurrentCustomer);
             //var members = Builder<DZMembership>.CreateListOfSize(5).Build();
             //ReceptionChat chat = Builder<ReceptionChat>
@@ -42,7 +86,7 @@ namespace Dianzhu.Test.DZCSClientTest
 
             //Assert.AreEqual(members[1], pCustomerList.CurrentCustomer);
 
-           
+
             //ReceptionChat chat2 = Builder<ReceptionChat>
             //    .CreateNew()
             //    .With(x => x.From = members[2])
@@ -82,6 +126,6 @@ namespace Dianzhu.Test.DZCSClientTest
             //Assert.AreEqual(m, pCustomerList.CurrentCustomer);
             //Assert.AreEqual(10, viewChatList.ChatList.Count);
         }
-         
+
     }
 }
