@@ -36,7 +36,7 @@
             this.pnlChatList.AutoScroll = true;
             this.pnlChatList.AutoSize = true;
             this.pnlChatList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlChatList.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.pnlChatList.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
             this.pnlChatList.Location = new System.Drawing.Point(0, 0);
             this.pnlChatList.Name = "pnlChatList";
             this.pnlChatList.Size = new System.Drawing.Size(259, 225);

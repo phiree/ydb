@@ -54,8 +54,11 @@ namespace Dianzhu.DAL
             return result.List();
         }
 
-        
-        
+
+        public virtual IList<ReceptionChat> GetListTest()
+        {
+            return null;
+        }
 
         /// <summary>
         /// 

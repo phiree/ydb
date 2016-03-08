@@ -31,6 +31,21 @@ namespace Dianzhu.CSClient.WinformView
                     AddOneChat(chat);
                 }
             }
+            get {
+                IList<ReceptionChat> chatList = new List<ReceptionChat>();
+                foreach (Label lbl in this.pnlChatList.Controls)
+                {
+                    if (lbl.Tag != null)
+                    {
+                        if(lbl.Tag.GetType()==typeof(ReceptionChat))
+                        { 
+                        chatList.Add((ReceptionChat)lbl.Tag);
+                        }
+                    }
+                    
+                }
+                return chatList;
+            }
         }
         public void AddOneChat(ReceptionChat chat)
         {
@@ -38,6 +53,7 @@ namespace Dianzhu.CSClient.WinformView
             Action lambda = () =>
             {
                 Label lblChat = new Label { Text = "chat:" + chat.MessageBody, AutoSize = true, Name = Guid.NewGuid().ToString() };
+                lblChat.Tag = chat;
               this.pnlChatList.Controls.Add(lblChat);
 
 

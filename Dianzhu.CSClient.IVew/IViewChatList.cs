@@ -12,7 +12,7 @@ namespace Dianzhu.CSClient.IView
     public interface IViewChatList
     {
         
-        IList<ReceptionChat> ChatList { set; }
+        IList<ReceptionChat> ChatList { set;  get; }
         void AddOneChat(ReceptionChat chat);
     }
     

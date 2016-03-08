@@ -15,27 +15,27 @@ namespace Dianzhu.CSClient.WinformView
     /// <summary>
     /// 主界面:用户列表
     /// </summary>
-    public partial class UC_CustomerList : UserControl, IViewCustomerList
+    public partial class UC_IdentityList : UserControl, IViewIdentityList
     {
         
-        public UC_CustomerList()
+        public UC_IdentityList()
         {
             InitializeComponent();
         }
 
-        public event CustomerClick CustomerClick;
+        public event IdentityClick IdentityClick;
 
-        public void AddCustomer(DZMembership customer)
+        public void AddIdentity(ServiceOrder order)
         {
 
             Action lambda = () =>
             {
-                Button btnCustomer = new Button { Text = customer.DisplayName };
-                btnCustomer.Tag = customer;
-                btnCustomer.AutoSize = true;
-                btnCustomer.Name = "btn" + customer.Id;
-                btnCustomer.Click += BtnCustomer_Click;
-                pnlCustomerList.Controls.Add(btnCustomer);
+                Button btnIdentity = new Button { Text =order.Customer.DisplayName };
+                btnIdentity.Tag = order;
+                btnIdentity.AutoSize = true;
+                btnIdentity.Name = "btn" + order.Id;
+                btnIdentity.Click += BtnIdentity_Click;
+                pnlIdentityList.Controls.Add(btnIdentity);
             };
             if (InvokeRequired)
             {
@@ -45,17 +45,17 @@ namespace Dianzhu.CSClient.WinformView
 
         }
 
-        private void BtnCustomer_Click(object sender, EventArgs e)
+        private void BtnIdentity_Click(object sender, EventArgs e)
         {
-            if (CustomerClick != null)
+            if (IdentityClick != null)
             {
-                DZMembership customer = (DZMembership)((Button)sender).Tag;
-                CustomerClick(customer);
-                SetCustomerReaded(customer);
+                ServiceOrder  order = (ServiceOrder)((Button)sender).Tag;
+                IdentityClick(order);
+                SetIdentityReaded(order);
             }
         }
 
-        public void RemoveCustomer(DZMembership customer)
+        public void RemoveIdentity(ServiceOrder order)
         {
             throw new NotImplementedException();
         }
@@ -65,12 +65,12 @@ namespace Dianzhu.CSClient.WinformView
         /// </summary>
         /// <param name="dm"></param>
         /// <param name="buttonStyle"></param>
-        private void SetCustomerButtonStyle(DZMembership dm, em_ButtonStyle buttonStyle)
+        private void SetIdentityButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
         {
             Action lambda = () => {
-                if (pnlCustomerList.Controls.Find(   dm.Id.ToString(), true).Count() > 0)
+                if (pnlIdentityList.Controls.Find(   order.Id.ToString(), true).Count() > 0)
                 {
-                    Button btn = (Button)pnlCustomerList.Controls.Find(dm.Id.ToString(), true)[0];
+                    Button btn = (Button)pnlIdentityList.Controls.Find(order.Id.ToString(), true)[0];
                     Color foreColor = Color.White;
                     switch (buttonStyle)
                     {
@@ -100,14 +100,14 @@ namespace Dianzhu.CSClient.WinformView
         }
 
       
-        public void SetCustomerUnread(DZMembership customer, int messageAmount)
+        public void SetIdentityUnread(ServiceOrder order, int messageAmount)
         {
-            SetCustomerButtonStyle(customer, em_ButtonStyle.Unread);
+            SetIdentityButtonStyle(order, em_ButtonStyle.Unread);
         }
 
-        public void SetCustomerReaded(DZMembership customer)
+        public void SetIdentityReaded(ServiceOrder order)
         {
-            SetCustomerButtonStyle(customer, em_ButtonStyle.Readed);
+            SetIdentityButtonStyle(order, em_ButtonStyle.Readed);
         }
     }
 }

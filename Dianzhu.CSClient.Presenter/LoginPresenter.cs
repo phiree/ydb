@@ -93,7 +93,8 @@ namespace Dianzhu.CSClient.Presenter
        {
           
             DZMembership customerService = new BLLFactory().BLLMember.GetUserById(new Guid( jidUser));
-            GlobalViables.CurrentCustomerService = customerService;
+            //GlobalViables.CurrentCustomerService = customerService;
+         //   PGlobal.CurrentCustomerService = customerService;
 
             Guid id =new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
             DZMembership diandian = new BLLFactory().BLLMember.GetUserById(id);

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Dianzhu.CSClient.WinformView
 {
-    public partial class UC_CustomerList
+    public partial class UC_IdentityList
     { 
         /// <summary> 
         /// 必需的设计器变量。
@@ -31,22 +31,22 @@ namespace Dianzhu.CSClient.WinformView
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlCustomerList = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlIdentityList = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // pnlCustomerList
             // 
-            this.pnlCustomerList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlCustomerList.Location = new System.Drawing.Point(0, 0);
-            this.pnlCustomerList.Name = "pnlCustomerList";
-            this.pnlCustomerList.Size = new System.Drawing.Size(150, 150);
-            this.pnlCustomerList.TabIndex = 0;
+            this.pnlIdentityList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlIdentityList.Location = new System.Drawing.Point(0, 0);
+            this.pnlIdentityList.Name = "pnlCustomerList";
+            this.pnlIdentityList.Size = new System.Drawing.Size(150, 150);
+            this.pnlIdentityList.TabIndex = 0;
             // 
             // UC_CustomerList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pnlCustomerList);
+            this.Controls.Add(this.pnlIdentityList);
             this.Name = "UC_CustomerList";
             this.ResumeLayout(false);
 
@@ -54,6 +54,6 @@ namespace Dianzhu.CSClient.WinformView
 
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel pnlCustomerList;
+        private System.Windows.Forms.FlowLayoutPanel pnlIdentityList;
     }
 }

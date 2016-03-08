@@ -13,8 +13,8 @@ namespace Dianzhu.CSClient.WinformView
     public partial class FormMain2 : Form
     {
         private UC_ChatList uc_ChatList;
-        private UC_CustomerList uc_CustomerList;
-        public FormMain2(UC_ChatList uc_ChatList,UC_CustomerList uc_CustomerList)
+        private UC_IdentityList uc_CustomerList;
+        public FormMain2(UC_ChatList uc_ChatList,UC_IdentityList uc_CustomerList)
         {
             InitializeComponent();
             this.uc_ChatList = uc_ChatList;

@@ -98,11 +98,11 @@
     <Compile Include="UC_ChatList.Designer.cs">
       <DependentUpon>UC_ChatList.cs</DependentUpon>
     </Compile>
-    <Compile Include="UC_CustomerList.cs">
+    <Compile Include="UC_IdentityList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UC_CustomerList.Designer.cs">
-      <DependentUpon>UC_CustomerList.cs</DependentUpon>
+    <Compile Include="UC_IdentityList.Designer.cs">
+      <DependentUpon>UC_IdentityList.cs</DependentUpon>
     </Compile>
     <Compile Include="UC_OrderDetail.cs">
       <SubType>UserControl</SubType>
@@ -138,8 +138,8 @@
     <EmbeddedResource Include="UC_ChatList.resx">
       <DependentUpon>UC_ChatList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UC_CustomerList.resx">
-      <DependentUpon>UC_CustomerList.cs</DependentUpon>
+    <EmbeddedResource Include="UC_IdentityList.resx">
+      <DependentUpon>UC_IdentityList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UC_OrderDetail.resx">
       <DependentUpon>UC_OrderDetail.cs</DependentUpon>

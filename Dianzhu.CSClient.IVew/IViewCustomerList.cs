@@ -7,24 +7,24 @@ using Dianzhu.Model;
 namespace Dianzhu.CSClient.IView
 {
     /// <summary>
-    /// 客户列表的界面接口
+    /// 接待列表
     /// </summary>
-    public interface IViewCustomerList
+    public interface IViewIdentityList
     {
-        event CustomerClick CustomerClick;
-        //增加一个用户
-        void AddCustomer(DZMembership customer);
+        event IdentityClick IdentityClick;
+        //增加一个标志
+        void AddIdentity(ServiceOrder  serviceOrder);
         //删除一个用户
-        void RemoveCustomer(DZMembership customer);
+        void RemoveIdentity(ServiceOrder serviceOrder);
         //设置为未读
-        void SetCustomerUnread(DZMembership customer,int messageAmount);
+        void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount);
         //设置为已读
-        void SetCustomerReaded(DZMembership customer);
+        void SetIdentityReaded(ServiceOrder serviceOrder);
         
     }
     /// <summary>
     /// 点击用户按钮的委托.
     /// </summary>
     /// <param name="customer"></param>
-    public delegate void CustomerClick(DZMembership customer);
+    public delegate void IdentityClick(ServiceOrder serviceOrder);
 }

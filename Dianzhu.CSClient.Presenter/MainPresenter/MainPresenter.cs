@@ -29,7 +29,7 @@ namespace Dianzhu.CSClient.Presenter
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis;
         string server;
         int rsaCustomerAmount;
-        IView.IViewCustomerList ViewCustomerList { get; set; }
+        IView.IViewIdentityList ViewCustomerList { get; set; }
 
         public MainPresenter(IView.IMainFormView view,
             InstantMessage instantMessage,
@@ -95,7 +95,7 @@ namespace Dianzhu.CSClient.Presenter
             this.view.ReceptionCustomerList = bllReceptionStatusArchieve.GetCustomerListByCS(ClientState.customerService, 1, 10, out rsaCustomerAmount);
 
             #region 组件化
-            this.ViewCustomerList.CustomerClick += ViewCustomerList_CustomerClick;
+          //  this.ViewCustomerList.IdentityClick += ViewCustomerList_CustomerClick;
             #endregion
         }
 
