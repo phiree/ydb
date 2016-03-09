@@ -12,6 +12,7 @@ using FizzWare.NBuilder;
 using Dianzhu.Model;
 namespace Dianzhu.Test.DZCSClientTest
 {
+    /*
     [TestFixture]
     public class PCustomerListTest
     {
@@ -127,5 +128,5 @@ namespace Dianzhu.Test.DZCSClientTest
             //Assert.AreEqual(10, viewChatList.ChatList.Count);
         }
 
-    }
+    }*/
 }

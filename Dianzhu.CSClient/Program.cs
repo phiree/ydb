@@ -71,14 +71,16 @@ namespace Dianzhu.CSClient
                     mainForm.ShowDialog();
                 }
                 else {
-                    //var chatList = new WinformView.UC_ChatList();
-                    //var customerList = new WinformView.UC_IdentityList();
-                    //Presenter.PGlobal pGlobal = new Presenter.PGlobal(xmpp);
-                    //Presenter.PIdentityList pCustomerList = new Presenter.PIdentityList(customerList,xmpp, chatList);
-                    //Presenter.PChatList pChatList = new Presenter.PChatList(chatList, customerList,xmpp);
+                    var viewChatList = new WinformView.UC_ChatList();
+                    var viewIdentityList = new WinformView.UC_IdentityList();
+                    
+                   
+                    Presenter.PIdentityList pIdentityList = new Presenter.PIdentityList(viewIdentityList, viewChatList);
+                    Presenter.PChatList pChatList = new Presenter.PChatList(viewChatList, viewIdentityList, xmpp);
+                    Presenter.PGlobal pGlobal = new Presenter.PGlobal(xmpp, pIdentityList, pChatList);
 
-                    //var mainForm2 = new WinformView.FormMain2(chatList, customerList);
-                    //mainForm2.ShowDialog();
+                    var mainForm2 = new WinformView.FormMain2(viewChatList, viewIdentityList);
+                    mainForm2.ShowDialog();
                 }
             }
 

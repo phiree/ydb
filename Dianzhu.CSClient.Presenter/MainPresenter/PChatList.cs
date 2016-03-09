@@ -18,19 +18,32 @@ namespace Dianzhu.CSClient.Presenter
      /// 2)消息展示
      /// 3)监听 icustomer的点击事件.
      /// </summary>
-    public class PChatList
+    public  class PChatList
     {
         DALReception dalReception;
         IView.IViewChatList viewChatList;
-        IView.IViewIdentityList viewCustomerList;
-        public PChatList(IView.IViewChatList viewChatList,IView.IViewIdentityList viewCustomerList,DALReception dalReception,InstantMessage iIM)
+        IView.IViewIdentityList viewIdentityList;
+        public PChatList() { }
+        public  PChatList(IView.IViewChatList viewChatList,IView.IViewIdentityList viewCustomerList,DALReception dalReception,InstantMessage iIM)
         {
             this.viewChatList = viewChatList;
             this.dalReception = dalReception;
        //     viewCustomerList.IdentityClick += ViewCustomerList_CustomerClick;
             
-            this.viewCustomerList = viewCustomerList;
+            this.viewIdentityList = viewCustomerList;
+            viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
+        }
 
+        private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
+        {
+            int rowCount;
+            var chatHistory = dalReception
+            //.GetListTest();
+            .GetReceptionChatList(serviceOrder.Customer, PGlobal.CurrentCustomerService,
+           PGlobal.CurrentIdentity.Id
+            , DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+
+            viewChatList.ChatList = chatHistory;
         }
 
         private void IIM_IMReceivedMessage(ReceptionChat chat)
@@ -45,15 +58,15 @@ namespace Dianzhu.CSClient.Presenter
         }
         private void ViewCustomerList_CustomerClick(DZMembership customer)
         {
-            //
-           // int rowCount;
-           // var chatHistory = dalReception
-           // //.GetListTest();
-           // .GetReceptionChatList(customer, PGlobal.CurrentCustomerService,
-           //PGlobal.CurrentOrder.Id
-           // , DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
 
-           // viewChatList.ChatList = chatHistory;
+            int rowCount;
+            var chatHistory = dalReception
+            //.GetListTest();
+            .GetReceptionChatList(customer, PGlobal.CurrentCustomerService,
+           PGlobal.CurrentIdentity.Id
+            , DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+
+            viewChatList.ChatList = chatHistory;
         }
     }
 
