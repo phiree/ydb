@@ -14,9 +14,14 @@ namespace Dianzhu.CSClient.WinformView
     {
         private UC_ChatList uc_ChatList;
         private UC_IdentityList uc_CustomerList;
-        public FormMain2(UC_ChatList uc_ChatList,UC_IdentityList uc_CustomerList)
+        public FormMain2(UC_ChatList uc_ChatList,UC_IdentityList uc_CustomerList,UC_Order uc_Order,UC_Search uc_Search,UC_SearchResult uc_SearchResult)
         {
             InitializeComponent();
+
+
+
+
+
             this.uc_ChatList = uc_ChatList;
             this.uc_CustomerList = uc_CustomerList;
 
@@ -28,12 +33,17 @@ namespace Dianzhu.CSClient.WinformView
             this.uc_ChatList.Dock = DockStyle.Fill;
             this.splitContainer3.Panel1.Controls.Add(uc_ChatList);
 
+            uc_Order.Dock = DockStyle.Fill;
+            this.splitContainer2.Panel1.Controls.Add(uc_Order);
+
+            uc_Search.Dock = DockStyle.Top;
+            this.splitContainer3.Panel2.Controls.Add(uc_Search);
+
+            uc_SearchResult.Dock = DockStyle.Top;
+            this.splitContainer3.Panel2.Controls.Add(uc_SearchResult);
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            uc_ChatList.AddOneChat(DateTime.Now.ToString());
-        }
+        
     }
 }

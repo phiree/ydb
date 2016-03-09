@@ -114,6 +114,7 @@
     <Compile Include="cashticket_generator_test.cs" />
     <Compile Include="DALTest\MapTest.cs" />
     <Compile Include="DALTest\TestDALReceptionChatDD.cs" />
+    <Compile Include="DianzhuModelTest\ServiceOrderTest.cs" />
     <Compile Include="DianzhuNotifyCenterTest\OrderNotifyTest.cs" />
     <Compile Include="DianzhuPushTest\TestPush.cs" />
     <Compile Include="dianzhu_test.cs" />

@@ -52,27 +52,27 @@ namespace Dianzhu.Test.DZCSClientTest
                 .Build();
 
             //发送第一条消息
-            PGlobal pg = new PGlobal(iIM, pi, pc);
+            IdentityManager pg = new IdentityManager( pi, pc);
             IdentityTypeOfOrder type;
             pg.UpdateIdentityList(order11,out type);
             Assert.AreEqual(IdentityTypeOfOrder.NewIdentity, type);
-            Assert.AreEqual(null, PGlobal.CurrentIdentity);
-            Assert.AreEqual(1, PGlobal.CurrentIdentityList.Count);
-            Assert.AreEqual(false, PGlobal.CurrentIdentityList[order11]);
+            Assert.AreEqual(null, IdentityManager.CurrentIdentity);
+            Assert.AreEqual(1, IdentityManager.CurrentIdentityList.Count);
+            Assert.AreEqual(false, IdentityManager.CurrentIdentityList[order11]);
 
 
             pg.UpdateIdentityList(order12, out type);
             Assert.AreEqual(IdentityTypeOfOrder.InList, type);
-            Assert.AreEqual(null, PGlobal.CurrentIdentity);
-            Assert.AreEqual(1, PGlobal.CurrentIdentityList.Count);
-            Assert.AreEqual(false, PGlobal.CurrentIdentityList[order12]);
+            Assert.AreEqual(null, IdentityManager.CurrentIdentity);
+            Assert.AreEqual(1, IdentityManager.CurrentIdentityList.Count);
+            Assert.AreEqual(false, IdentityManager.CurrentIdentityList[order12]);
 
             pg.UpdateIdentityList(order21, out type);
             Assert.AreEqual(IdentityTypeOfOrder.NewIdentity, type);
-            Assert.AreEqual(null, PGlobal.CurrentIdentity);
-            Assert.AreEqual(2, PGlobal.CurrentIdentityList.Count);
-            Assert.AreEqual(false, PGlobal.CurrentIdentityList[order21]);
-            Assert.AreEqual(false, PGlobal.CurrentIdentityList[order12]);
+            Assert.AreEqual(null, IdentityManager.CurrentIdentity);
+            Assert.AreEqual(2, IdentityManager.CurrentIdentityList.Count);
+            Assert.AreEqual(false, IdentityManager.CurrentIdentityList[order21]);
+            Assert.AreEqual(false, IdentityManager.CurrentIdentityList[order12]);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Dianzhu.CSClient.WinformView
                 Button btnIdentity = new Button { Text =order.Customer.DisplayName };
                 btnIdentity.Tag = order;
                 btnIdentity.AutoSize = true;
-                btnIdentity.Name = "btn" + order.Id;
+                btnIdentity.Name =  order.Id.ToString();
                 btnIdentity.Click += BtnIdentity_Click;
                 pnlIdentityList.Controls.Add(btnIdentity);
             };
@@ -68,7 +68,7 @@ namespace Dianzhu.CSClient.WinformView
         private void SetIdentityButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
         {
             Action lambda = () => {
-                if (pnlIdentityList.Controls.Find(   order.Id.ToString(), true).Count() > 0)
+                if (pnlIdentityList.Controls.Find(order.Id.ToString(), true).Count() > 0)
                 {
                     Button btn = (Button)pnlIdentityList.Controls.Find(order.Id.ToString(), true)[0];
                     Color foreColor = Color.White;

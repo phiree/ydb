@@ -8,19 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dianzhu.Model;
-
+using Dianzhu.CSClient.IView;
+using log4net;
 namespace Dianzhu.CSClient.WinformView
 {
     public partial class UC_ChatList:UserControl,IView.IViewChatList
     {
+        ILog log = log4net.LogManager.GetLogger("Dianzhu.UC_ChatList");
         public UC_ChatList()
         {
             InitializeComponent();
-            // pnlChatList.Controls.Add(new Label { Text = "sdfasdfsadfdsf" });
-         //   Label lblChat = new Label { Text ="ccccccccccc" };
-         //   pnlChatList.Controls.Add(lblChat);
         }
-
+        public event SendTextClick SendTextClick;
+        public string MessageText {
+            get { return tbxMessage.Text; }
+            set { tbxMessage.Text = value; }
+        }
         public IList<ReceptionChat> ChatList
         {
             set
@@ -64,24 +67,9 @@ namespace Dianzhu.CSClient.WinformView
             }
             else { lambda(); }
         }
-        public void AddOneChat(string message)
+        private void btnSendText_Click(object sender, EventArgs e)
         {
-            Action lambda = () =>
-            {
-                Label lblChat = new Label { Text = "chat:" + message, AutoSize = true };
-                this.pnlChatList.Controls.Add(lblChat);
-                
-            };
-            if (InvokeRequired)
-            {
-                Invoke(lambda);
-            }
-            else { lambda(); }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            AddOneChat("dsfasdfdsafdsf");
+            SendTextClick();
         }
     }
 }

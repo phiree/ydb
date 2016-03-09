@@ -34,8 +34,8 @@ namespace Dianzhu.CSClient.IView
     public delegate void AudioPlay(object audioTag,IntPtr handler);
     public delegate void PushExternalService();
     public delegate void PushInternalService(DZService service);
-    public delegate void SearchService();
-    public delegate void SelectService(DZService selectedService);
+    
+    
     public delegate void SendPayLink(ReceptionChat chat);
     public delegate void CreateOrder();
     public delegate void ViewClosed();

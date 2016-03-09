@@ -23,12 +23,12 @@ namespace Dianzhu.CSClient.Presenter
         IViewIdentityList iView;
         IViewChatList iViewChatList;
 
-
+        IViewOrder iViewOrder;
         public PIdentityList() { }
-        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList)
+        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder)
         {
             this.iView = iView;
-
+            this.iViewOrder = iViewOrder;
             this.iViewChatList = iViewChatList;
 
             iView.IdentityClick += IView_IdentityClick;
@@ -37,8 +37,9 @@ namespace Dianzhu.CSClient.Presenter
 
         private void IView_IdentityClick(ServiceOrder serviceOrder)
         {
-            PGlobal.CurrentIdentity = serviceOrder;
+            IdentityManager.CurrentIdentity = serviceOrder;
             iView.SetIdentityReaded(serviceOrder);
+            iViewOrder.Order = serviceOrder;
             
 
         }
@@ -72,54 +73,7 @@ namespace Dianzhu.CSClient.Presenter
                     throw new Exception("无法判断消息属性");
 
             }
-            ////
-            //if (PGlobal.CurrentIdentity == null)
-            //{
-            //    PGlobal.CurrentIdentity = chat.ServiceOrder;
-            //    PGlobal.CurrentIdentityList.Add(chat.ServiceOrder);
-            //}
-            ////和当前订单对比
-            //else if (PGlobal.CurrentIdentity == chat.ServiceOrder)
-            //{
-            //    iViewChatList.AddOneChat(chat);
-
-            //}
-            ////当前订单的用户等于来源订单
-
-
-            //else if (PGlobal.CurrentIdentity.Customer == chat.From)
-            //{
-            //    PGlobal.CurrentIdentityList.Remove(PGlobal.CurrentIdentity);
-            //    PGlobal.CurrentIdentity = chat.ServiceOrder;
-            //    PGlobal.CurrentIdentityList.Add(chat.ServiceOrder);
-            //    iViewChatList.AddOneChat(chat);
-
-            //}
-            //else {
-            //bool hasIdentity = PGlobal.CurrentIdentityList.Contains(chat.ServiceOrder);
-            //    if (hasIdentity)
-            //    {
-            //        iView.SetIdentityUnread(chat.ServiceOrder, 1);
-
-            //    }
-            //    else { 
-            ////和列表里的用户相比
-            //bool hasCustomer = PGlobal.CurrentIdentityList.Select(x => x.Customer).Contains(chat.From);
-            //        if (hasCustomer)
-            //        {
-            //            ServiceOrder oldIdentity = PGlobal.CurrentIdentityList.Single(x => x.Customer == chat.From);
-            //            PGlobal.CurrentIdentityList.Remove(oldIdentity);
-            //            PGlobal.CurrentIdentityList.Add(chat.ServiceOrder);
-            //            iView.SetIdentityUnread(chat.ServiceOrder, 1);
-
-            //        }
-            //        else
-            //        {
-            //            PGlobal.CurrentIdentityList.Add(chat.ServiceOrder);
-            //            AddIdentity(chat.ServiceOrder);
-            //        }
-            //    }
-            //    //新订单，新用户
+         
 
 
         }

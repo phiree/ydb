@@ -14,6 +14,10 @@ namespace Dianzhu.CSClient.IView
         
         IList<ReceptionChat> ChatList { set;  get; }
         void AddOneChat(ReceptionChat chat);
+        event SendTextClick SendTextClick;
+        string MessageText { get; set; }
+        
     }
+    public delegate void SendTextClick();
     
 }

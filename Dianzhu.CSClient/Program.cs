@@ -73,13 +73,19 @@ namespace Dianzhu.CSClient
                 else {
                     var viewChatList = new WinformView.UC_ChatList();
                     var viewIdentityList = new WinformView.UC_IdentityList();
+                    var viewOrder = new WinformView.UC_Order();
+                    var viewSearch = new WinformView.UC_Search();
+                    var viewSearchResult = new WinformView.UC_SearchResult();
                     
                    
-                    Presenter.PIdentityList pIdentityList = new Presenter.PIdentityList(viewIdentityList, viewChatList);
+                    Presenter.PIdentityList pIdentityList = new Presenter.PIdentityList(viewIdentityList, viewChatList,viewOrder);
                     Presenter.PChatList pChatList = new Presenter.PChatList(viewChatList, viewIdentityList, xmpp);
-                    Presenter.PGlobal pGlobal = new Presenter.PGlobal(xmpp, pIdentityList, pChatList);
+                    Presenter.IdentityManager pIdentityManager = new Presenter.IdentityManager( pIdentityList, pChatList);
+                    Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList);
+                    Presenter.PSearch pSearch = new Presenter.PSearch(viewSearch, viewSearchResult,viewOrder);
+                    Presenter.POrder pOrder = new Presenter.POrder(viewOrder);
 
-                    var mainForm2 = new WinformView.FormMain2(viewChatList, viewIdentityList);
+                    var mainForm2 = new WinformView.FormMain2(viewChatList, viewIdentityList,viewOrder,viewSearch,viewSearchResult);
                     mainForm2.ShowDialog();
                 }
             }

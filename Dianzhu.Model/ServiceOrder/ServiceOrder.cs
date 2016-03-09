@@ -31,9 +31,19 @@ namespace Dianzhu.Model
         /// <param name="detail"></param>
         public virtual void AddDetailFromIntelService(DZService service,int unitAmount,string targetAddress,string targetTime)
         {
-            ServiceOrderDetail detail = new ServiceOrderDetail(service,unitAmount,targetAddress,targetTime);
-            
-            Details.Add(detail);
+            var existedService = Details.Where(x => x.OriginalService == service);
+            if (existedService.Count() == 0)
+            {
+                ServiceOrderDetail detail = new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
+                Details.Add(detail);
+            }
+            else if (existedService.Count() == 1)
+            {
+                ServiceOrderDetail detail = Details[0];
+                detail.UnitAmount+=unitAmount;// new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
+                
+            }
+           
         }
         public virtual void RemoveDetail(DZService service)
         {
