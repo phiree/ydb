@@ -33,6 +33,7 @@ namespace Dianzhu.Api.Model
         public string money { get; set; }
         public string address { get; set; }
         public string km { get; set; }
+        public string deliverySum { get; set; }
         // public string paylink { get; set; }
         public RespDataORM_svcObj svcObj { get; set; }
         public RespDataORM_UserObj userObj { get; set; }
@@ -42,8 +43,8 @@ namespace Dianzhu.Api.Model
         {
             this.orderID = order.Id.ToString();
             //todo: serviceorder change
-            this.title = order.Title;
-            this.status = order.OrderStatus.ToString();
+            this.title = order.Title ?? string.Empty;
+            this.status = order.OrderStatus.ToString() ?? string.Empty;
             if (order.OrderCreated > DateTime.MinValue)
             {
                 this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
@@ -79,6 +80,9 @@ namespace Dianzhu.Api.Model
                 this.storeObj = new RespDataORM_storeObj().Adap(order.Service.Business);
             }
 
+            //todo:出货记录还没有加
+            //this.deliverySum
+
             return this;
         }
     }
@@ -91,7 +95,7 @@ namespace Dianzhu.Api.Model
         public RespDataORM_UserObj Adap(DZMembership member)
         {
             this.userID = member.Id.ToString();
-            this.alias = member.NickName;
+            this.alias = member.NickName ?? string.Empty;
             this.imgUrl = string.IsNullOrEmpty(member.AvatarUrl) ? string.Empty : (Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + member.AvatarUrl);
             return this;
         }
@@ -106,7 +110,7 @@ namespace Dianzhu.Api.Model
         public RespDataORM_storeObj Adap(Business business)
         {
             this.userID = business.Id.ToString();
-            this.alias = business.Name;
+            this.alias = business.Name ?? string.Empty;
             //this.imgUrl = business.BusinessAvatar.ImageName;
             this.imgUrl = string.IsNullOrEmpty(business.BusinessAvatar.ImageName) ? string.Empty : (Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + business.BusinessAvatar.ImageName);
             return this;
@@ -120,8 +124,7 @@ namespace Dianzhu.Api.Model
         public string type { get; set; }
         public string startTime { get; set; }
         public string endTime { get; set; }
-
-
+        public string deposit { get; set; }
         public RespDataORM_svcObj Adap(ServiceOrder order)
         {
             this.svcID = order.Service != null ? order.Service.Id.ToString() : order.Id.ToString();
@@ -143,6 +146,7 @@ namespace Dianzhu.Api.Model
             {
                 this.endTime = string.Empty;
             }
+            this.deposit = order.Service != null ? order.Service.DepositAmount.ToString() : string.Empty;
 
             return this;
         }
@@ -158,7 +162,7 @@ namespace Dianzhu.Api.Model
         {
             this.status = orderHis.NewStatus.ToString();
             this.time = string.Format("{0:yyyyMMddHHmmss}", orderHis.CreatTime);
-            this.lastStatus = orderHis.OldStatus.ToString();
+            this.lastStatus = orderHis.OldStatus.ToString() ?? string.Empty;
 
             return this;
         }
@@ -248,9 +252,9 @@ namespace Dianzhu.Api.Model
         public RespDataORM002001_cerObj Adap(DZMembership customerService)
         {
             this.userID = customerService.Id.ToString();
-            this.imgUrl = string.Empty;
-            this.alias = customerService.DisplayName;
-            this.userName = customerService.UserName;
+            this.imgUrl = customerService.AvatarUrl ?? string.Empty;
+            this.alias = customerService.DisplayName ?? string.Empty;
+            this.userName = customerService.UserName ?? string.Empty;
             return this;
         }
     }

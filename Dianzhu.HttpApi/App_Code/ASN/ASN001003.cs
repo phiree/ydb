@@ -31,7 +31,7 @@ public class ResponseASN001003 : BaseResponse
 
         try
         {
-            string raw_id = requestData.storeID;
+            string raw_id = requestData.merchantID;
             string user_id = requestData.userID;
 
             string alias = requestData.alias;
@@ -40,12 +40,12 @@ public class ResponseASN001003 : BaseResponse
             string address = requestData.address;
             string imgUrl = requestData.imgUrl;
 
-            Guid storeID,userID;
-            bool isStoreId = Guid.TryParse(raw_id, out storeID);
+            Guid merchantID,userID;
+            bool isStoreId = Guid.TryParse(raw_id, out merchantID);
             if (!isStoreId)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "storeId格式有误";
+                this.err_Msg = "merchantID格式有误";
                 return;
             }
 
@@ -57,18 +57,10 @@ public class ResponseASN001003 : BaseResponse
                 return;
             }
 
-            Business store = bllBusiness.GetOne(storeID);
-            if (store == null)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "该店铺不存在！";
-                return;
-            }
-
             if (request.NeedAuthenticate)
             {
                 DZMembership member;
-                bool validated = new Account(p).ValidateUser(store.Owner.Id, requestData.pWord, this, out member);
+                bool validated = new Account(p).ValidateUser(merchantID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -81,6 +73,13 @@ public class ResponseASN001003 : BaseResponse
                 {
                     this.state_CODE = Dicts.StateCode[1];
                     this.err_Msg = "该员工不存在！";
+                    return;
+                }
+
+                if (staff.Belongto.Owner.Id != merchantID)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "该商户没有该员工！";
                     return;
                 }
 
@@ -122,6 +121,7 @@ public class ResponseASN001003 : BaseResponse
 
                 RespDataASN001003 respData = new RespDataASN001003(userID.ToString());
                 this.state_CODE = Dicts.StateCode[0];
+                staffObj.userID = respData.staffObj.userID;
                 respData.staffObj = staffObj;
                 this.RespData = respData.staffObj;
             }

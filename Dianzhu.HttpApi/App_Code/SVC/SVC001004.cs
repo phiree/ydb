@@ -4,41 +4,37 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using Dianzhu.Model;
+using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
+using System.Collections.Specialized;
+using PHSuit;
+using FluentValidation.Results;
 
 /// <summary>
-/// 删除员工
+/// 新增店铺
 /// </summary>
-public class ResponseASN001002 : BaseResponse
+public class ResponseSVC001004 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
-    public ResponseASN001002(BaseRequest request) : base(request) { }
+    public ResponseSVC001004(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataASN001002 requestData = this.request.ReqData.ToObject<ReqDataASN001002>();
+        ReqDataSVC001004 requestData = this.request.ReqData.ToObject<ReqDataSVC001004>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLBusiness bllBusiness = new BLLBusiness();
-        BLLStaff bllStaff = new BLLStaff();
+        BLLDZService bllDZService = new BLLDZService();
 
         try
         {
             string raw_id = requestData.merchantID;
-            string user_id = requestData.userID;
+            string store_id = requestData.storeID;
 
-            Guid merchantID,userID;
-            bool isStoreId = Guid.TryParse(raw_id, out merchantID);
-            if (!isStoreId)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "merchantID格式有误";
-                return;
-            }
-
-            bool isUserId = Guid.TryParse(user_id, out userID);
+            Guid userID,storeID;
+            bool isUserId = Guid.TryParse(raw_id, out userID);
             if (!isUserId)
             {
                 this.state_CODE = Dicts.StateCode[1];
@@ -46,44 +42,47 @@ public class ResponseASN001002 : BaseResponse
                 return;
             }
 
+            DZMembership member = null;
             if (request.NeedAuthenticate)
-            {
-                DZMembership member;
-                bool validated = new Account(p).ValidateUser(merchantID, requestData.pWord, this, out member);
+            {                
+                bool validated = new Account(p).ValidateUser(userID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
                 } 
             }
+            else
+            {
+                member = p.GetUserById(userID);
+                if (member == null)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "不存在该商户！";
+                    return;
+                }
+            }
             try
             {
-                Staff staff = bllStaff.GetOne(userID);
-                if (staff == null)
+                bool isStoreId = Guid.TryParse(store_id, out storeID);
+                if (!isStoreId)
                 {
                     this.state_CODE = Dicts.StateCode[1];
-                    this.err_Msg = "该员工不存在！";
+                    this.err_Msg = "storeId格式有误";
                     return;
                 }
 
-                if (staff.Belongto.Owner.Id != merchantID)
+                Business business = bllBusiness.GetBusinessByIdAndOwner(storeID, userID);
+                if (business == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
-                    this.err_Msg = "该商户没有该员工！";
+                    this.err_Msg = "该店铺不存在！";
                     return;
                 }
 
-                staff.Enable = false;
-                bllStaff.SaveOrUpdate(staff);
+                int sum = bllDZService.GetSumByBusiness(business);
 
-                string result = "N";
-                if (!staff.Enable)
-                {
-                    result = "Y";
-                }
-
-                RespDataASN001002 respData = new RespDataASN001002();
-                respData.result = result;
-
+                RespDataSVC001004 respData = new RespDataSVC001004();
+                respData.sum = sum.ToString();
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;
             }

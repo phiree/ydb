@@ -12,8 +12,15 @@ namespace Dianzhu.Model.Enums
         Business_License_B,//营业执照
         Business_Show,//商家展示图片
         Business_ChargePersonIdCard,//负责人证件照片
+        Business_ChargePersonIdCard_B,//负责人证件照片
+        Business_Image,//商家后台上传图片
         Business_Avatar,//店铺头像
         Staff_Avatar,//职员头像
+        User_Avatar,//用户头像
+        Chat_Audio,
+        Chat_Video,
+        Chat_Image,
+        Advertisement
     }
     /// <summary>
     /// 支付目标
@@ -32,6 +39,8 @@ namespace Dianzhu.Model.Enums
     {
         Offline = 1,
         Online = 2,
+        AliPay = 2,
+        WePay = 3,
         None = 4,
     }
     /// <summary>

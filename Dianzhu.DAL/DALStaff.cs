@@ -37,6 +37,5 @@ namespace Dianzhu.DAL
         {
             return Session.QueryOver<Staff>().Where(x => x.Belongto == business).List();
         }
-        
     }
 }

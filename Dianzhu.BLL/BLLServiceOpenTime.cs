@@ -27,6 +27,10 @@ namespace Dianzhu.BLL
         {
             return DALServiceOpenTime.GetOne(id);
         }
+        public void SaveOrUpdate(ServiceOpenTime sot)
+        {
+            DALServiceOpenTime.SaveOrUpdate(sot);
+        }
         
     }
     /// <summary>

@@ -14,27 +14,25 @@ using FluentValidation.Results;
 /// <summary>
 /// 新增店铺
 /// </summary>
-public class ResponseSVC001001 : BaseResponse
+public class ResponseSVC001006 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
-    public ResponseSVC001001(BaseRequest request) : base(request) { }
+    public ResponseSVC001006(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataSVC001001 requestData = this.request.ReqData.ToObject<ReqDataSVC001001>();
+        ReqDataSVC001006 requestData = this.request.ReqData.ToObject<ReqDataSVC001006>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLBusiness bllBusiness = new BLLBusiness();
         BLLDZService bllDZService = new BLLDZService();
-        BLLServiceType bllServiceType = new BLLServiceType();
         BLLDZTag bllDZTag = new BLLDZTag();
 
         try
         {
             string raw_id = requestData.merchantID;
             string store_id = requestData.storeID;
-            RespDataSVC_svcObj service_Req = requestData.svcObj;
 
             Guid userID,storeID;
             bool isUserId = Guid.TryParse(raw_id, out userID);
@@ -82,43 +80,21 @@ public class ResponseSVC001001 : BaseResponse
                     return;
                 }
 
-                string[] typeList = service_Req.type.Split('>');
-                int typeLevel = typeList.Count() > 0 ? typeList.Count() - 1 : 0;
-                ServiceType sType = bllServiceType.GetOneByName(typeList[typeLevel], typeLevel);
-                if (sType == null)
-                {
-                    this.state_CODE = Dicts.StateCode[1];
-                    this.err_Msg = "服务类型有误";
-                    return;
-                }
-                
-                DZService service = new DZService
-                {
-                    Business = bllBusiness.GetBusinessByIdAndOwner(storeID, userID),
-                    Name = service_Req.name,
-                    ServiceType = sType,
-                    Description = service_Req.introduce,
-                    BusinessAreaCode = service_Req.area,
-                    MinPrice = decimal.Parse(service_Req.startAt),
-                    UnitPrice = decimal.Parse(service_Req.unitPrice),
-                    OrderDelay = Int32.Parse(service_Req.appointmentTime),
-                    ServiceMode = service_Req.doorService == "Y" ? enum_ServiceMode.ToHouse : enum_ServiceMode.NotToHouse,
-                    IsForBusiness = service_Req.serviceObject == "all" ? false : true,
-                    AllowedPayType = (enum_PayType)Enum.Parse(typeof(enum_PayType), service_Req.payWay),
-                    Enabled = service_Req.open == "Y" ? true : false,
-                };
+                int total;
+                IList<DZService> svcList = bllDZService.GetServiceByBusiness(business.Id, 0, 9999, out total);
 
-                ValidationResult validationResult = new ValidationResult();
-                bllDZService.SaveOrUpdate(service, out validationResult);
-
-                string[] tagList = service_Req.tag.Split(',');
-                for (int i = 0; i < tagList.Count(); i++)
+                IList<RespDataSVC_svcObj> svcObjList = new List<RespDataSVC_svcObj>();
+                IList< DZTag> tagList = new List< DZTag>();
+                RespDataSVC_svcObj svcObj = new RespDataSVC_svcObj();
+                foreach (DZService service in svcList)
                 {
-                    bllDZTag.AddTag(tagList[i], service.Id.ToString(), service.Business.Id.ToString(), service.ServiceType.Id.ToString());
+                    tagList = bllDZTag.GetTagForService(service.Id);
+                    svcObj = new RespDataSVC_svcObj().Adapt(service,tagList);
+                    svcObjList.Add(svcObj);
                 }
 
-                RespDataSVC001001 respData = new RespDataSVC001001();
-                respData.svcID = service.Id.ToString();
+                RespDataSVC001006 respData = new RespDataSVC001006();
+                respData.arrayData = svcObjList;
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;
             }

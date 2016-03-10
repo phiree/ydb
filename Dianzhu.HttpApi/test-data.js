@@ -5,16 +5,233 @@
 //"u3rd014008", "ad001006","clm001001"
 //"slf002006", "slf002003", "slf001007","py001007","py001008"
 //"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
- "ad001006"
+//"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
+"ad001006"
 
 ];
 var test_data = [
+
+    /**********************店铺服务项管理*****************************/
+    {
+        "protocol_CODE": "svc001001",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+            "svcObj": {
+                "name": "特色洗衣",
+                "type": "清洗/保养>厨卫清洗>油烟机清洗",
+                "introduce": "超越常规洗衣，突破极限2",
+                "area": "北京市西城区西单北大街2号",
+                "startAt": "60",
+                "unitPrice": "70",
+                "appointmentTime": "60",
+                "doorService": "Y",
+                "serviceObject": "all",
+                "payWay": "AliPay",
+                "tag": "洗衣,干洗",
+                "open": "Y"
+            }
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "svc001002",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "svcID": "58f4c59e-c241-40b8-b0f4-a5c401153a39"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "svc001003",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "svcObj": {
+                "svcID": "58f4c59e-c241-40b8-b0f4-a5c401153a39",
+                //"name": "特色洗衣",
+                "type": "清洗/保养>厨卫清洗>灶具清洗",
+                //"introduce": "洗超人衣服",
+                "area": "海南海口",
+                "startAt": "50",
+                "unitPrice": "55",
+                "deposit":"10",
+                "appointmentTime": "60",
+                "doorService": "Y",
+                //"serviceObject": "all",
+                //"payWay": "WePay",
+                //"tag": "快,干洗，干净",
+                //"open": "Y",
+                //"maxOrderString":"10,10,15,10,5,10,20"
+            }
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "svc001004",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "svc001005",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "svcID": "58f4c59e-c241-40b8-b0f4-a5c401153a39"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "svc001006",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    /**********************店铺管理*****************************/
+    {
+        "protocol_CODE": "store001001",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store001002",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "0441a663-c74a-47c9-963f-a5c300c8ab66"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store001003",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "StoreObj": {
+                "userID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+                "alias": "钢铁侠",
+                "doc": "只是说明而已",
+                "phone": "1999938xxxx",
+                "area": "北京市崇文区"
+            }
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store001004",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store001005",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store001006",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store002001",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+            "imgData": "iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII="
+        },
+        "stamp_TIMES": "1490192929212",
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store002002",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+            "imgData": "iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII="
+        },
+        "stamp_TIMES": "1490192929212",
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store002003",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+            "imgUrl": "http://192.168.1.172:8038/GetFile.ashx?fileName=_$_b4fd96ec-d196-4266-8669-27489db9b13d_$_BusinessAvatar_$_image"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store002004",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+            "imgData": "iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII=",
+            "target":"identificationB"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
 
     /**********************指派*****************************/
     {
         "protocol_CODE": "ASN001001",
         "ReqData": {
-            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
             "pWord": "123456",
             "userObj": {
                 "alias": "棒棒娃",
@@ -31,7 +248,7 @@ var test_data = [
     {
         "protocol_CODE": "ASN001002",
         "ReqData": {
-            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
             "pWord": "123456",
             "userID": "948f542b-3123-42f3-bc5d-a5b500be12aa",
         },
@@ -42,7 +259,7 @@ var test_data = [
     {
         "protocol_CODE": "ASN001003",
         "ReqData": {
-            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
             "pWord": "123456",
             "userID": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
             //"alias": "呵呵哒",
@@ -58,7 +275,7 @@ var test_data = [
     {
         "protocol_CODE": "ASN001004",
         "ReqData": {
-            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
             "pWord": "123456",
         },
         "stamp_TIMES": 1453520313281,
@@ -68,7 +285,7 @@ var test_data = [
     {
         "protocol_CODE": "ASN001005",
         "ReqData": {
-            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
             "pWord": "123456",
             "userId": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
         },
@@ -79,7 +296,7 @@ var test_data = [
     {
         "protocol_CODE": "ASN001006",
         "ReqData": {
-            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
             "pWord": "123456",
         },
         "stamp_TIMES": 1453520313281,
@@ -89,7 +306,7 @@ var test_data = [
     {
         "protocol_CODE": "ASN002001",
         "ReqData": {
-            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
             "pWord": "123456",
             "arrayData": [
             {
@@ -127,7 +344,7 @@ var test_data = [
         "protocol_CODE": "ASN002004",
         //"appName": "adminbusiness",
         "ReqData": {
-            "storeID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
             "pWord": "123456",
             "userID": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
             "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
@@ -155,10 +372,10 @@ var test_data = [
     {
         "protocol_CODE": "PY001007",
         "ReqData": {
-            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",//2aed4349-f4e8-4dcb-88a4-a59301132feb
             "pWord": "1234",
-            "orderID": "e27ad23c-c818-4fe0-bc70-a5b001263cce",
-            "type":"wepay",
+            "payID": "b95951f5-09b3-4ddf-920a-a5b001265462",
+            "target":"wepay",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -379,8 +596,8 @@ var test_data = [
           {
               "protocol_CODE": "ORM002001",
               "ReqData": {
-                  "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb", //13022222222
-                  "pWord": "1234",
+                  "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", //13022222222
+                  "pWord": "123456",
                   "orderID": "",
                   
               },

@@ -33,7 +33,7 @@ public class ResponsePY001007:BaseResponse
 
         try
         {
-            Guid orderId;
+            Guid payId;
             
             if (request.NeedAuthenticate)
             {
@@ -45,26 +45,26 @@ public class ResponsePY001007:BaseResponse
                 } 
             }
 
-            bool isOrderId = Guid.TryParse(requestData.orderID, out orderId);
+            bool isOrderId = Guid.TryParse(requestData.payID, out payId);
             if (!isOrderId)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "OrderId格式有误";
+                this.err_Msg = "payId格式有误";
                 return;
             }
 
             BLLPayment bllPayment = new BLLPayment();
-            Payment payment = bllPayment.GetOne(orderId);
+            Payment payment = bllPayment.GetOne(payId);
 
             if (payment == null)
             {
-                ilog.Error("该单号" + orderId + "不存在！");
+                ilog.Error("该单号" + payId + "不存在！");
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "该单号不存在！";
                 return;
             }
 
-            switch (requestData.type.ToLower())
+            switch (requestData.target.ToLower())
             {
                 case "alipay":
                     break;
@@ -72,7 +72,7 @@ public class ResponsePY001007:BaseResponse
                     bool sucdess = false;
                     while (!sucdess)
                     {
-                        IPayRequest ipay = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.Title, Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.Description);
+                        IPayRequest ipay = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.Title.Substring(0,127), Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.Description);
                         //var respDataWeibo = new NameValueCollection();
                         string respDataWechat = "<xml>";
 

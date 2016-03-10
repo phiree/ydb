@@ -6,7 +6,7 @@ using System.Text;
 namespace Dianzhu.Model
 {
     /// <summary>
-    /// 服务时段
+    /// 服务每天参数设定
     /// </summary>
     public class ServiceOpenTime
     {
@@ -54,6 +54,9 @@ namespace Dianzhu.Model
         }
         
     }
+    /// <summary>
+    /// 每天的时间段
+    /// </summary>
     public class ServiceOpenTimeForDay
     {
         public virtual Guid Id { get; set; }

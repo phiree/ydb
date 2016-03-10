@@ -303,6 +303,16 @@
                                                 <i class="icon icon-query" data-toggle="tooltip" data-placement="top" title="选择是否加入先行赔付"></i>
                                             </div>
                                         </div>
+                                        <div class="cont-col-2">
+                                            <p class="cont-sub-title-r">
+                                                订金</p>
+                                        </div>
+                                        <div class="cont-col-2">
+                                            <div>
+                                                <asp:TextBox CssClass="input-fluid" required runat="server" snsi ID="tbxDespoist" data-toggle="tooltip" data-placement="top" title="请填写该服务的订金"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="cont-col-1">&nbsp;&nbsp;元</div>
                                     </div>
                                     <!--<p class="cont-sub-title">平台认证</p>-->
                                     <!--<asp:CheckBox CssClass="service-input-radio" runat="server" ID="cbxIsCertificated" Text="已通过" />-->

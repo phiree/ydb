@@ -6,16 +6,16 @@ using Dianzhu.Model;
 using NHibernate;
 namespace Dianzhu.DAL
 {
-    public class DALServiceType :DALBase<ServiceType>
+    public class DALServiceType : DALBase<ServiceType>
     {
-         public DALServiceType()
+        public DALServiceType()
         {
-            
+
         }
         //注入依赖,供测试使用;
-         public DALServiceType(string fortest):base(fortest)
+        public DALServiceType(string fortest) : base(fortest)
         {
-            
+
         }
 
         public IList<ServiceType> GetTopList()
@@ -28,10 +28,11 @@ namespace Dianzhu.DAL
             ServiceType s = Session.QueryOver<ServiceType>().Where(x => x.Code == code).SingleOrDefault();
             return s;
         }
-        
-         
-        
 
-         
+        public ServiceType GetOneByName(string name, int level)
+        {
+            return Session.QueryOver<ServiceType>().Where(x => x.DeepLevel == level).And(x => x.Name == name).SingleOrDefault();
+        }
+
     }
 }

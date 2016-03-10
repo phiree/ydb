@@ -26,15 +26,15 @@ public class ResponseASN001005 : BaseResponse
 
         try
         {
-            string store_id = requestData.storeID;
+            string merchant_id = requestData.merchantID;
             string user_id = requestData.userID;
 
-            Guid storeID,userID;
-            bool isStoreId = Guid.TryParse(store_id, out storeID);
+            Guid merchantID,userID;
+            bool isStoreId = Guid.TryParse(merchant_id, out merchantID);
             if (!isStoreId)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "storeId格式有误";
+                this.err_Msg = "merchantID格式有误";
                 return;
             }
 
@@ -46,18 +46,10 @@ public class ResponseASN001005 : BaseResponse
                 return;
             }
 
-            Business store = bllBusiness.GetOne(storeID);
-            if (store == null)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "该店铺不存在！";
-                return;
-            }
-
             if (request.NeedAuthenticate)
             {
                 DZMembership member;
-                bool validated = new Account(p).ValidateUser(store.Owner.Id, requestData.pWord, this, out member);
+                bool validated = new Account(p).ValidateUser(merchantID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -70,6 +62,13 @@ public class ResponseASN001005 : BaseResponse
                 {
                     this.state_CODE = Dicts.StateCode[1];
                     this.err_Msg = "该员工不存在！";
+                    return;
+                }
+
+                if (staff.Belongto.Owner.Id != merchantID)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "该商户没有该员工！";
                     return;
                 }
 

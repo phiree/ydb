@@ -4,62 +4,65 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using Dianzhu.Model;
+using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
+using System.Collections.Specialized;
+using PHSuit;
 
 /// <summary>
-/// 删除员工
+/// 新增店铺
 /// </summary>
-public class ResponseASN001004 : BaseResponse
+public class ResponseSTORE001006 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
-    public ResponseASN001004(BaseRequest request) : base(request) { }
+    public ResponseSTORE001006(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataASN001004 requestData = this.request.ReqData.ToObject<ReqDataASN001004>();
+        ReqDataSTORE001006 requestData = this.request.ReqData.ToObject<ReqDataSTORE001006>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLBusiness bllBusiness = new BLLBusiness();
-        BLLStaff bllStaff = new BLLStaff();
 
         try
         {
             string raw_id = requestData.merchantID;
 
-            Guid merchantID;
-            bool isStoreId = Guid.TryParse(raw_id, out merchantID);
-            if (!isStoreId)
+            Guid userID;
+            bool isUserId = Guid.TryParse(raw_id, out userID);
+            if (!isUserId)
             {
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "merchantID格式有误";
                 return;
             }
 
-            Business store = bllBusiness.GetOne(merchantID);
-            if (store == null)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "该店铺不存在！";
-                return;
-            }
-
+            DZMembership member = null;
             if (request.NeedAuthenticate)
-            {
-                DZMembership member;
-                bool validated = new Account(p).ValidateUser(store.Owner.Id, requestData.pWord, this, out member);
+            {                
+                bool validated = new Account(p).ValidateUser(userID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
                 } 
             }
+            else
+            {
+                member = p.GetUserById(userID);
+                if (member == null)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "不存在该商户！";
+                    return;
+                }
+            }
             try
             {
-                string sum = bllStaff.GetEnableSum(store).ToString();
-
-                RespDataASN001004 respData = new RespDataASN001004();
-                respData.sum = sum;
+                IList<Business> storeList = bllBusiness.GetBusinessListByOwner(userID);
+                
+                RespDataSTORE001006 respData = new RespDataSTORE001006().AdaptList(storeList);
 
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;

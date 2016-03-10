@@ -21,6 +21,11 @@ namespace Dianzhu.BLL
             return DALServiceType.GetOne(id);
         }
 
+        public ServiceType GetOneByName(string name, int level)
+        {
+            return DALServiceType.GetOneByName(name, level);
+        }
+
         public IList<ServiceType> GetAll()
         {
             return DALServiceType.GetAll<ServiceType>();
