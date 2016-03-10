@@ -75,7 +75,7 @@ public partial class DZOrder_Default : BasePage
                 btnIsEndOrderCustomerIs.Visible = true;
                 break;
             case Dianzhu.Model.Enums.enum_OrderStatus.Ended:
-                Payment paymentFinal = bllPayment.ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.FinalPayment);
+                Payment paymentFinal = bllPayment.GetPaymentForWaitPay(order); //bllPayment.ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.FinalPayment);
                 string payLinkFinalPayment = bllPayment.BuildPayLink(paymentFinal.Id);
                 HyperLink hlFinalPayment = e.Item.FindControl("PayFinalPayment") as HyperLink;
                 hlFinalPayment.Text = "用户尾款付款链接：";
