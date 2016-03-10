@@ -83,7 +83,7 @@ namespace Dianzhu.CSClient
                     Presenter.IdentityManager pIdentityManager = new Presenter.IdentityManager( pIdentityList, pChatList);
                     Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList);
                     Presenter.PSearch pSearch = new Presenter.PSearch(viewSearch, viewSearchResult,viewOrder);
-                    Presenter.POrder pOrder = new Presenter.POrder(viewOrder);
+                    Presenter.POrder pOrder = new Presenter.POrder(xmpp, viewOrder);
 
                     var mainForm2 = new WinformView.FormMain2(viewChatList, viewIdentityList,viewOrder,viewSearch,viewSearchResult);
                     mainForm2.ShowDialog();

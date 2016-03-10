@@ -30,7 +30,7 @@ public partial class DZOrder_Default : BasePage
         {
             currentPageIndex = int.Parse(paramPage);
         }
-        rpOrderList.DataSource = bllServeiceOrder.GetListForBusiness(CurrentBusiness, currentPageIndex,pager.PageSize,out totalRecord);
+        rpOrderList.DataSource = bllServeiceOrder.GetListForBusiness(CurrentBusiness, currentPageIndex,pager.PageSize,out totalRecord).OrderByDescending(x=>x.LatestOrderUpdated);
      
         pager.RecordCount = Convert.ToInt32(totalRecord);
         rpOrderList.DataBind();
@@ -41,7 +41,9 @@ public partial class DZOrder_Default : BasePage
         switch (order.OrderStatus)
         {
             case Dianzhu.Model.Enums.enum_OrderStatus.Created:
-                Payment payMent = bllPayment.ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.Deposit);
+                //获取支付项
+
+                Payment payMent = bllPayment.GetPaymentForWaitPay(order);// .ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.Deposit);
                 string payLinkDepositAmount = bllPayment.BuildPayLink(payMent.Id);
                 HyperLink hlDepositAmount = e.Item.FindControl("PayDepositAmount") as HyperLink;
                 hlDepositAmount.Text = "用户订金付款链接：";

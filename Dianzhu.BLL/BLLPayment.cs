@@ -66,6 +66,7 @@ namespace Dianzhu.BLL
                   payment = paymentList[0];
 
                 //验证该支付项的状态
+                //todo:如果 支付成功 
                 if (payment.Status == enum_PaymentStatus.Success)
                 {
                     errMsg = "该项已经支付完成";

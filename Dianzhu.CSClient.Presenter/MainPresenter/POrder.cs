@@ -13,23 +13,37 @@ namespace Dianzhu.CSClient.Presenter
     /// </summary>
   public  class POrder
     {
+          
         IViewOrder iViewOrder;
         DAL.DALServiceOrderStateChangeHis dalHistory;
+        DAL.DALServiceOrder dalOrder;
         BLL.BLLPayment bllPayment;
-        public POrder(IViewOrder iViewOrder, DAL.DALServiceOrderStateChangeHis dalHistory,BLL.BLLPayment bllPayment)
+        IInstantMessage.InstantMessage iIM;
+        public POrder(IInstantMessage.InstantMessage iIM, IViewOrder iViewOrder, DAL.DALServiceOrderStateChangeHis dalHistory, DAL.DALServiceOrder dalOrder, BLL.BLLPayment bllPayment)
         {
             this.iViewOrder = iViewOrder;
             iViewOrder.CreateOrderClick += IViewOrder_CreateOrderClick;
             this.dalHistory = dalHistory;
             this.bllPayment = bllPayment;
+            this.dalOrder = dalOrder;
+            this.iIM = iIM;
         }
-        public POrder(IViewOrder iViewOrder):this(iViewOrder,new DAL.DALServiceOrderStateChangeHis(),new BLL.BLLPayment()){}
+        public POrder(IInstantMessage.InstantMessage iIM, IViewOrder iViewOrder):this(iIM, iViewOrder,new DAL.DALServiceOrderStateChangeHis(),new DAL.DALServiceOrder(), new BLL.BLLPayment()){}
 
+        /// <summary>
+        /// 创建订单.
+        /// </summary>
         private void IViewOrder_CreateOrderClick()
         {
             ServiceOrder currentOrder = IdentityManager.CurrentIdentity;
+          
+
             Debug.Assert(currentOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid,orderStatus=" + currentOrder.OrderStatus);
             currentOrder.CreatedFromDraft();
+            currentOrder.DepositAmount = iViewOrder.DepositAmount;
+            currentOrder.Memo = iViewOrder.Memo;
+            currentOrder.LatestOrderUpdated = DateTime.Now;
+            dalOrder.Update(currentOrder);
 
             ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis
             {
@@ -43,7 +57,7 @@ namespace Dianzhu.CSClient.Presenter
                 Number = 1,
             };
             dalHistory.SaveOrUpdate(orderHis);
-
+            
            // View_NoticeOrder();
            
 
@@ -62,7 +76,7 @@ namespace Dianzhu.CSClient.Presenter
                 MessageBody = "支付链接" + bllPayment.BuildPayLink(payment.Id),
                 SendTime = DateTime.Now
             };
-
+            iIM.SendMessage(chatNotice);
            // SendMessage(chatNotice);
             //LoadCurrentOrder(ClientState.CurrentServiceOrder);
             iViewOrder.Order = IdentityManager.CurrentIdentity;

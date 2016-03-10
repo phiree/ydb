@@ -35,6 +35,7 @@ namespace Dianzhu.CSClient.Presenter
                   || chat.ChatType == Model.Enums.enum_ChatType.UserStatus)
             {
                 //todo ,显示非聊天消息
+                
             }
             else
             {
@@ -45,6 +46,10 @@ namespace Dianzhu.CSClient.Presenter
                 identityManager.UpdateIdentityList(chat.ServiceOrder, out type);
                 pIdentityList.ReceivedMessage(chat, type);
             }
+        }
+        public void SendMessage(Dianzhu.Model.ReceptionChat chat)
+        {
+            iIM.SendMessage(chat);
         }
        
     }

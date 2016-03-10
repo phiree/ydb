@@ -27,14 +27,19 @@ namespace Dianzhu.Model
         #region 管理明细
         /// <summary>
         /// 增加一条订单明细
+        /// limit: 目前限制 一个订单只有一个服务.
+        /// todo: 增加 购物车概念, 通过购物车为不同商家生成不同订单.
         /// </summary>
         /// <param name="detail"></param>
         public virtual void AddDetailFromIntelService(DZService service,int unitAmount,string targetAddress,string targetTime)
         {
+            
+
             var existedService = Details.Where(x => x.OriginalService == service);
             if (existedService.Count() == 0)
             {
                 ServiceOrderDetail detail = new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
+                Details.Clear();
                 Details.Add(detail);
             }
             else if (existedService.Count() == 1)
@@ -221,11 +226,12 @@ namespace Dianzhu.Model
         {
 
             //判断信息完整性,确定订单的Scope类型.
-             //没有任何服务项.
+            //没有任何服务项.
+
+            Debug.Assert(Details.Count > 0, "错误:订单明细为空");
             if (Details.Count==0)
             {
                 string errMsg = "订单内没有服务项";
-                Debug.Assert(false, errMsg);
                 log.Error(errMsg);
                 throw new Exception(errMsg);
             }
@@ -235,6 +241,7 @@ namespace Dianzhu.Model
                 this.NegotiateAmount += detail.ServiceAmount;
                 this.DepositAmount += detail.DepositAmount;
             }
+            this.OrderStatus = enum_OrderStatus.Created;
            
         }
 

@@ -14,6 +14,8 @@ namespace Dianzhu.CSClient.IView
 
 
         ServiceOrder Order {set; }
+        decimal DepositAmount { get; set; }
+        string Memo { get; set; }
         event CreateOrderClick CreateOrderClick;
         
         

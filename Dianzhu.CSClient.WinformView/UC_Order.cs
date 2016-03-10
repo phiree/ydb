@@ -18,7 +18,20 @@ namespace Dianzhu.CSClient.WinformView
         {
             InitializeComponent();
         }
-
+        public decimal DepositAmount {
+            get { return Convert.ToDecimal(tbxDeposit.Text); }
+            set {
+                tbxDeposit.Text = value.ToString("0.0");
+            }
+        }
+        public string  Memo
+        {
+            get { return tbxMemo.Text; }
+            set
+            {
+                tbxMemo.Text = value ;
+            }
+        }
         public ServiceOrder Order
         {
              
