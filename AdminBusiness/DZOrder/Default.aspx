@@ -39,11 +39,11 @@
                                                     <tr>
                                                         <td class="table-col-2"><%#Eval("Id") %>
                                                         </td>
-                                                        <td class="table-col-2"><%#Eval("ServiceName") %>
+                                                        <td class="table-col-2"><%#Eval("Title") %>
                                                         </td>
                                                         <td class="table-col-2"><%#Eval("TargetTime") %>
                                                         </td>
-                                                        <td class="table-col-1"><%#Eval("CustomerName") %>
+                                                        <td class="table-col-1"><%#Eval("Customer.DisplayName") %>
                                                         </td>
                                                         <td class="table-col-3"><%#Eval("TargetAddress") %>
                                                         </td>
@@ -100,7 +100,7 @@
                                                             <td class="table-col-1 t-r">指派员工：</td>
                                                             <td class="table-col-3">XXX</td>
                                                             <td class="table-col-1 t-r">客户电话：</td>
-                                                            <td class="table-col-3"><%#Eval("CustomerPhone")%></td>
+                                                            <td class="table-col-3"><%#Eval("Customer.Phone")%></td>
                                                         </tr>
                                                         <tr>
                                                             <td class="table-col-1 t-r">备&nbsp;&nbsp;注：</td>

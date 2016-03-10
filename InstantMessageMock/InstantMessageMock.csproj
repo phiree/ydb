@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</ProjectGuid>
+    <ProjectGuid>{F399FE2F-05A1-41B6-AB63-C879A1701DC4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dianzhu.CSClient.IView</RootNamespace>
-    <AssemblyName>Dianzhu.CSClient.IView</AssemblyName>
+    <RootNamespace>InstantMessageMock</RootNamespace>
+    <AssemblyName>InstantMessageMock</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -22,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,7 +29,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -44,22 +41,20 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnumButtonType.cs" />
-    <Compile Include="IViewSearch.cs" />
-    <Compile Include="IViewOrder.cs" />
-    <Compile Include="IViewChatList.cs" />
-    <Compile Include="IViewIdentityList.cs" />
-    <Compile Include="ILoginForm.cs" />
-    <Compile Include="IMainFormView.cs" />
-    <Compile Include="IScreenCaptureForm.cs" />
+    <Compile Include="IMMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj">
+      <Project>{820a465f-51fb-4f8d-8665-b80f9643281b}</Project>
+      <Name>Dianzhu.CSClient.IInstantMessage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
-      <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
+      <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
   </ItemGroup>

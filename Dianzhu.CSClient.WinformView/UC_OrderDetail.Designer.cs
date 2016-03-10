@@ -46,14 +46,14 @@
             this.lblDepositAmount = new System.Windows.Forms.Label();
             this.flowLayoutPanel7 = new System.Windows.Forms.FlowLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
+            this.tbxTargetTime = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel8 = new System.Windows.Forms.FlowLayoutPanel();
             this.label13 = new System.Windows.Forms.Label();
+            this.tbxTargetAddress = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel9 = new System.Windows.Forms.FlowLayoutPanel();
             this.label15 = new System.Windows.Forms.Label();
             this.tbxUnitAmount = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel10 = new System.Windows.Forms.FlowLayoutPanel();
-            this.tbxTargetAddress = new System.Windows.Forms.TextBox();
-            this.tbxTargetTime = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -80,7 +80,7 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(466, 419);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(339, 419);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel2
@@ -90,7 +90,7 @@
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(372, 40);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(331, 40);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -120,7 +120,7 @@
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 49);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(372, 40);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(331, 40);
             this.flowLayoutPanel3.TabIndex = 1;
             // 
             // label3
@@ -150,7 +150,7 @@
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 95);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(450, 40);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(331, 40);
             this.flowLayoutPanel4.TabIndex = 2;
             // 
             // label5
@@ -180,7 +180,7 @@
             this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 141);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(450, 40);
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(331, 40);
             this.flowLayoutPanel5.TabIndex = 3;
             // 
             // label7
@@ -210,7 +210,7 @@
             this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel6.Location = new System.Drawing.Point(3, 187);
             this.flowLayoutPanel6.Name = "flowLayoutPanel6";
-            this.flowLayoutPanel6.Size = new System.Drawing.Size(450, 40);
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(331, 40);
             this.flowLayoutPanel6.TabIndex = 4;
             // 
             // label9
@@ -240,7 +240,7 @@
             this.flowLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel7.Location = new System.Drawing.Point(3, 233);
             this.flowLayoutPanel7.Name = "flowLayoutPanel7";
-            this.flowLayoutPanel7.Size = new System.Drawing.Size(450, 40);
+            this.flowLayoutPanel7.Size = new System.Drawing.Size(331, 40);
             this.flowLayoutPanel7.TabIndex = 5;
             // 
             // label11
@@ -253,6 +253,15 @@
             this.label11.Text = "服务时间";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tbxTargetTime
+            // 
+            this.tbxTargetTime.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.tbxTargetTime.Location = new System.Drawing.Point(62, 3);
+            this.tbxTargetTime.Multiline = true;
+            this.tbxTargetTime.Name = "tbxTargetTime";
+            this.tbxTargetTime.Size = new System.Drawing.Size(262, 21);
+            this.tbxTargetTime.TabIndex = 24;
+            // 
             // flowLayoutPanel8
             // 
             this.flowLayoutPanel8.Controls.Add(this.label13);
@@ -260,7 +269,7 @@
             this.flowLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel8.Location = new System.Drawing.Point(3, 279);
             this.flowLayoutPanel8.Name = "flowLayoutPanel8";
-            this.flowLayoutPanel8.Size = new System.Drawing.Size(450, 40);
+            this.flowLayoutPanel8.Size = new System.Drawing.Size(331, 40);
             this.flowLayoutPanel8.TabIndex = 6;
             // 
             // label13
@@ -273,6 +282,15 @@
             this.label13.Text = "服务地点";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tbxTargetAddress
+            // 
+            this.tbxTargetAddress.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.tbxTargetAddress.Location = new System.Drawing.Point(62, 3);
+            this.tbxTargetAddress.Multiline = true;
+            this.tbxTargetAddress.Name = "tbxTargetAddress";
+            this.tbxTargetAddress.Size = new System.Drawing.Size(262, 21);
+            this.tbxTargetAddress.TabIndex = 23;
+            // 
             // flowLayoutPanel9
             // 
             this.flowLayoutPanel9.Controls.Add(this.label15);
@@ -280,7 +298,7 @@
             this.flowLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel9.Location = new System.Drawing.Point(3, 325);
             this.flowLayoutPanel9.Name = "flowLayoutPanel9";
-            this.flowLayoutPanel9.Size = new System.Drawing.Size(450, 40);
+            this.flowLayoutPanel9.Size = new System.Drawing.Size(331, 40);
             this.flowLayoutPanel9.TabIndex = 7;
             // 
             // label15
@@ -308,26 +326,8 @@
             this.flowLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel10.Location = new System.Drawing.Point(3, 371);
             this.flowLayoutPanel10.Name = "flowLayoutPanel10";
-            this.flowLayoutPanel10.Size = new System.Drawing.Size(450, 40);
+            this.flowLayoutPanel10.Size = new System.Drawing.Size(331, 40);
             this.flowLayoutPanel10.TabIndex = 8;
-            // 
-            // tbxTargetAddress
-            // 
-            this.tbxTargetAddress.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.tbxTargetAddress.Location = new System.Drawing.Point(62, 3);
-            this.tbxTargetAddress.Multiline = true;
-            this.tbxTargetAddress.Name = "tbxTargetAddress";
-            this.tbxTargetAddress.Size = new System.Drawing.Size(262, 21);
-            this.tbxTargetAddress.TabIndex = 23;
-            // 
-            // tbxTargetTime
-            // 
-            this.tbxTargetTime.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.tbxTargetTime.Location = new System.Drawing.Point(62, 3);
-            this.tbxTargetTime.Multiline = true;
-            this.tbxTargetTime.Name = "tbxTargetTime";
-            this.tbxTargetTime.Size = new System.Drawing.Size(262, 21);
-            this.tbxTargetTime.TabIndex = 24;
             // 
             // UC_OrderDetail
             // 
@@ -335,7 +335,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "UC_OrderDetail";
-            this.Size = new System.Drawing.Size(466, 419);
+            this.Size = new System.Drawing.Size(339, 419);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();

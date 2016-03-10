@@ -77,10 +77,11 @@ namespace Dianzhu.DAL
         public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {
             var iquery = Session.QueryOver<ServiceOrder>()
-              
-                .JoinQueryOver(x => x.Service)
-                .JoinQueryOver(y => y.Business)
-                .Where(z => z.Id == business.Id);
+             //   .Where(a => a.Details.Select(x => x.OriginalService).Select(y => y.Business).Contains(business));
+            ;
+                //.JoinQueryOver(x => x.Service)
+                //.JoinQueryOver(y => y.Business)
+               
             totalAmount = iquery.RowCount();
 
             IList<ServiceOrder> list = iquery.List(). OrderByDescending(x=>x.LatestOrderUpdated).Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();

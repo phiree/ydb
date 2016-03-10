@@ -1,6 +1,6 @@
 ﻿namespace Dianzhu.CSClient.WinformView
 {
-    partial class UC_CustomerList
+    partial class SearchResult
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -28,8 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // SearchResult
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "SearchResult";
+            this.Size = new System.Drawing.Size(408, 253);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

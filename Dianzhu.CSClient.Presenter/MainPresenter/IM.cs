@@ -17,8 +17,8 @@ namespace Dianzhu.CSClient.Presenter
         public void IMReceivedMessage(ReceptionChat chat)
         {
 
-            //ViewCustomerList.AddCustomer(chat.From);
-            //return;
+           // ViewCustomerList.AddIdentity(chat.From);
+            return;
 
             view.WindowNotification();
             SaveMessage(chat, false);

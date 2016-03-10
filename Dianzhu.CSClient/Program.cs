@@ -54,21 +54,40 @@ namespace Dianzhu.CSClient
 
             if (result.Value)// == DialogResult.OK)
             {
-                //var mainForm = new WinformView.FormMain();
-                var mainForm = new WPF.FormMain();
+                if (false)
+                {
+                    var mainForm = new WPF.FormMain();
 
-                mainForm.Title += "v" + version;
-                //mainForm.Text += "v" + version;
-                Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
-                    mainForm, xmpp, messageAdapter
-                    //BLLFactory.BLLMember,
-                    //BLLFactory.BLLReception,
-                    //BLLFactory.BLLDZService,
-                    //BLLFactory.BLLServiceOrder,
-                    //BLLFactory.BLLRecetionStatus
-                    );
-                //Application.Run(mainForm);
-                mainForm.ShowDialog();
+                    mainForm.Title += "v" + version;
+                    Presenter.MainPresenter MainPresenter = new Presenter.MainPresenter(
+                        mainForm, xmpp, messageAdapter
+                        //BLLFactory.BLLMember,
+                        //BLLFactory.BLLReception,
+                        //BLLFactory.BLLDZService,
+                        //BLLFactory.BLLServiceOrder,
+                        //BLLFactory.BLLRecetionStatus
+                        );
+                    //Application.Run(mainForm);
+                    mainForm.ShowDialog();
+                }
+                else {
+                    var viewChatList = new WinformView.UC_ChatList();
+                    var viewIdentityList = new WinformView.UC_IdentityList();
+                    var viewOrder = new WinformView.UC_Order();
+                    var viewSearch = new WinformView.UC_Search();
+                    var viewSearchResult = new WinformView.UC_SearchResult();
+                    
+                   
+                    Presenter.PIdentityList pIdentityList = new Presenter.PIdentityList(viewIdentityList, viewChatList,viewOrder);
+                    Presenter.PChatList pChatList = new Presenter.PChatList(viewChatList, viewIdentityList, xmpp);
+                    Presenter.IdentityManager pIdentityManager = new Presenter.IdentityManager( pIdentityList, pChatList);
+                    Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList);
+                    Presenter.PSearch pSearch = new Presenter.PSearch(viewSearch, viewSearchResult,viewOrder);
+                    Presenter.POrder pOrder = new Presenter.POrder(xmpp, viewOrder);
+
+                    var mainForm2 = new WinformView.FormMain2(viewChatList, viewIdentityList,viewOrder,viewSearch,viewSearchResult);
+                    mainForm2.ShowDialog();
+                }
             }
 
 

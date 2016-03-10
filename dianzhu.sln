@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{65578E32-3BC2-4470-8637-6DD1074E4603}"
 EndProject
@@ -281,6 +281,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "updatescripts", "updatescri
 	ProjectSection(SolutionItems) = preProject
 		updatescripts\dbupdatescript_2019-3-3.sql = updatescripts\dbupdatescript_2019-3-3.sql
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstantMessageMock", "InstantMessageMock\InstantMessageMock.csproj", "{F399FE2F-05A1-41B6-AB63-C879A1701DC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -672,6 +674,18 @@ Global
 		{97792986-3421-464A-8711-0FC6EABA9BCB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{97792986-3421-464A-8711-0FC6EABA9BCB}.Release|x86.ActiveCfg = Release|Any CPU
 		{97792986-3421-464A-8711-0FC6EABA9BCB}.Release|x86.Build.0 = Release|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Debug|x86.Build.0 = Debug|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|x86.ActiveCfg = Release|Any CPU
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -716,6 +730,7 @@ Global
 		{44BA1A78-5C3A-4648-B757-D5E2FDF36A0B} = {418A634F-34EF-4EC2-9125-534D3BC1E344}
 		{97792986-3421-464A-8711-0FC6EABA9BCB} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{88588187-ABFC-409D-B934-1164B09CCBE2} = {CB5C2FEB-3BA1-4318-91C6-59976963FD88}
+		{F399FE2F-05A1-41B6-AB63-C879A1701DC4} = {E4338C9B-90F1-4640-A650-F903E722C878}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

@@ -55,13 +55,20 @@
   <ItemGroup>
     <Compile Include="BLLFactory.cs" />
     <Compile Include="GlobalViables.cs" />
+    <Compile Include="InstantMessageHandler.cs" />
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="MainPresenter\IM.cs" />
     <Compile Include="MainPresenter\MainPresenter.cs" />
     <Compile Include="MainPresenter\MessageSender.cs" />
-    <Compile Include="MainPresenter\PCustomerList.cs" />
+    <Compile Include="MainPresenter\PChatList.cs" />
+    <Compile Include="MainPresenter\PIdentyList.cs" />
+    <Compile Include="IdentityManager.cs" />
+    <Compile Include="MainPresenter\POrder.cs" />
+    <Compile Include="MainPresenter\PSearch.cs" />
     <Compile Include="MainPresenter\State.cs" />
     <Compile Include="MainPresenter\View.cs" />
+    <Compile Include="MessageReceiver.cs" />
+    <Compile Include="PMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +95,10 @@
     <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
       <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
       <Name>Dianzhu.CSClient.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
+      <Project>{2e67aa78-6780-42bd-a3ab-ad953781e511}</Project>
+      <Name>Dianzhu.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>

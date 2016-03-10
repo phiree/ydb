@@ -44,6 +44,9 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -83,23 +86,53 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScreenShot.cs" />
+    <Compile Include="SearchResult.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SearchResult.Designer.cs">
+      <DependentUpon>SearchResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="ShowFullImage.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ShowFullImage.Designer.cs">
       <DependentUpon>ShowFullImage.cs</DependentUpon>
     </Compile>
-    <Compile Include="UC_CustomerList.cs">
+    <Compile Include="UC_ChatList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UC_CustomerList.Designer.cs">
-      <DependentUpon>UC_CustomerList.cs</DependentUpon>
+    <Compile Include="UC_ChatList.Designer.cs">
+      <DependentUpon>UC_ChatList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_IdentityList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_IdentityList.Designer.cs">
+      <DependentUpon>UC_IdentityList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_Order.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_Order.Designer.cs">
+      <DependentUpon>UC_Order.cs</DependentUpon>
     </Compile>
     <Compile Include="UC_OrderDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UC_OrderDetail.Designer.cs">
       <DependentUpon>UC_OrderDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_Search.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_Search.Designer.cs">
+      <DependentUpon>UC_Search.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UC_SearchResult.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_SearchResult.Designer.cs">
+      <DependentUpon>UC_SearchResult.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
@@ -123,11 +156,29 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SearchResult.resx">
+      <DependentUpon>SearchResult.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ShowFullImage.resx">
       <DependentUpon>ShowFullImage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UC_ChatList.resx">
+      <DependentUpon>UC_ChatList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_IdentityList.resx">
+      <DependentUpon>UC_IdentityList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_Order.resx">
+      <DependentUpon>UC_Order.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UC_OrderDetail.resx">
       <DependentUpon>UC_OrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_Search.resx">
+      <DependentUpon>UC_Search.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_SearchResult.resx">
+      <DependentUpon>UC_SearchResult.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Dianzhu.CSClient.WinformView.psproj" />
