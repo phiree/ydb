@@ -301,8 +301,6 @@
 
         (function (){
             var orderReqData = {
-                "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
-                "pWord": "20141107",
                 "target": "Nt",
                 "pageSize": "10",
                 "pageNum": "1"
@@ -325,6 +323,7 @@
                         centered : true
                     });
                 },
+
                 pullUrl : '/order.json',
                 pullReqData : Adapter.reqPackage("ORM001006", orderReqData),
 
@@ -334,8 +333,8 @@
                 },
 
                 /* 订单页指派，item为订单，target为员工 */
-                checkItemName : 'orderID',
-                appointTargetName : 'userID'
+                itemName : 'orderID',
+                targetName : 'userID'
             })
         }());
 

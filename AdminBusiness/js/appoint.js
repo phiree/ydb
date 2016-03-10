@@ -2,8 +2,6 @@
  a tool to appoint by ajax.
  */
 
-
-
 /* standard by AMD , for the future */
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
@@ -42,17 +40,15 @@
         /* 再刷新item前的前置函数 */
         beforePullFunc: null,
 
-        /* 刷新item时请求的ajax data */
+        /* 刷新item时请求的的url和data */
+        pullUrl : null,
         pullReqData: {},
 
-        /* 刷新item时请求的的url */
-        pullUrl : null,
-
-        /* 上次数据的url */
+        /* 上传数据的url */
         uploadUrl : null,
 
-        /* 可是设置json对要upload数据进行预处理 */
-        uploadPreFixData : {},
+        /* 对要上传的数据进行扩展 */
+        uploadPreFixData : null,
 
         /* 指派提交按钮 */
         appointSubmit: null,
@@ -60,13 +56,14 @@
         /* 指派成功成功后的回调函数 */
         appointSucFunc: null,
 
-        /* 可指定的提交json数据属性名，checkItemName为选择元素id的属性名，appointTargetName为目标id的属性名 */
-        checkItemName : 'item',
-        appointTargetName : 'target'
+        /* 可指定的提交json数据属性名，itemName为选择元素id的属性名，targetName为目标id的属性名 */
+        itemName : 'item',
+        targetName : 'target'
     };
 
     $.extend(Appoint.prototype, {
         /**
+         *
          *
          */
         toggle: function () {
@@ -83,23 +80,23 @@
 
         },
 
-        /**
-         *
-         * @param jsonData
-         */
-        pull : function (jsonData){
+        pull : function (){
             var _this = this;
-            var pullData = jsonData ? jsonData : typeof this.options.pullReqData === 'object' && this.options.pullReqData;
+            var pullData = this.options.pullReqData ? this.options.pullReqData : "";
 
             $.ajax({
+                type : "post",
                 url : _this.options.pullUrl,
-                dataType : 'json',
                 data : pullData,
                 success : function(row, textStatus, xhr){
                     var data = Adapter.respUnpack(row);
-
                     _this.refresh(data.respData);
                     _this.itemsBuild();
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown){
+                    console.log(XMLHttpRequest);
+                    console.log(textStatus);
+                    console.log(errorThrown);
                 }
             });
         },
@@ -149,7 +146,6 @@
                 checkId.push($(this).attr('data-itemId'));
             });
 
-
             appointJSON = this._appointJSONBuild(checkId);
 
             this._upload(appointJSON);
@@ -164,15 +160,17 @@
             var _this = this, appointJSON = {} ;
             var arrayData = [];
 
+            // TODO： 脱离不稳定的businessId获取到option内
             if ( !!Adapter.getParameterByName("businessId") ){
-                appointJSON.storeID = Adapter.getParameterByName("businessId");
+                //appointJSON.storeID = Adapter.getParameterByName("businessId");
+                appointJSON.storeID = "e2f4fb71-04fc-43d7-a255-a5af00ae5705";
             }
 
             for ( var i = 0; i < checkId.length; i++ ){
                 var obj = {};
                 /* 通过自定义checkName和targetName定义被指派的目标，实现双向指派 */
-                obj[_this.options.checkItemName] = checkId[i];
-                obj[_this.options.appointTargetName] = _this.appointTargetId;
+                obj[_this.options.itemName] = checkId[i];
+                obj[_this.options.targetName] = _this.appointTargetId;
                 obj.mark = "Y";
                 arrayData.push(obj);
             }
@@ -187,22 +185,28 @@
          * @private
          */
         _upload: function (jsonData) {
-            var _this = this, reqJSON, preFix = _this.options.uploadPreFixData;
+            var _this = this,
+                reqString,
+                preFix = _this.options.uploadPreFixData,
+                success = _this.options.appointSucFunc;
 
             if ( typeof preFix === "function" ){
-                reqJSON = preFix(jsonData);
+                reqString = preFix(jsonData);
             }
 
             $.ajax({
+                type : "post",
                 url : _this.options.uploadUrl,
-                dataType : 'json',
-                data : reqJSON,
+                data : reqString,
                 success : function(data, textStatus, xhr){
-                    if ( typeof _this.options.appointSucFunc === 'function' ){
-                        _this.options.appointSucFunc();
+                    console.log(data);
+                    var respObj = Adapter.respUnpack(data);
+                    if ( respObj.respCorrect && typeof success === 'function' ){
+                        success();
                     }
                 },
                 error : function(XMLHttpRequest, textStatus, errorThrown){
+
                 }
             });
         }

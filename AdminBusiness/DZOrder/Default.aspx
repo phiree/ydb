@@ -91,7 +91,7 @@
                                                     </div>
                                                     <div class="custom-col col-10-1">
                                                         <div class="order-li">
-                                                            <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="appointToggle" data-appointTargetId="8787984984613481846" >
+                                                            <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="appointToggle" data-appointTargetId="be1deb4d-b568-4292-9ef4-a5b2014ed8ec" >
                                                         </div>
                                                     </div>
                                                     <div class="custom-col col-10-2">
@@ -232,8 +232,12 @@
                 <h4>员工指派</h4>
             </div>
             <div class="model-m">
-                <div id="staffsContainer" class="staffs-container">
-                    <!-- 注入#staffs_temlate模版内容 -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="staffsContainer" class="staffs-container">
+                            <!-- 注入#staffs_temlate模版内容 -->
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="model-b">
@@ -244,9 +248,7 @@
 
     </div>
     <script type="text/template" id="staffs_template">
-        <div class="container-fluid">
-            <div class="row">
-                {% _.each(arrayData, function(staff){ %}
+
                 <div class="col-md-4">
                     <div class="emp-model">
                         <div class="emp-model-h">
@@ -254,24 +256,20 @@
                             <div class='emp-assign-flag'></div>
                         </div>
                         <div class="emp-model-m">
-                            <img class="emp-headImg" src=''/>
+                            <img class="emp-headImg" src='{%= imgUrl %}'/>
                             <div class="emp-info">
-                                <p>昵称：{%= staff.alias %}</p>
-                                <p>姓名：{%= staff.alias %}</p>
-                                <p>性别：{%= staff.alias %}</p>
-                                <p>电话：{%= staff.phone %}</p>
+                                <p>昵称：{%= alias %}</p>
+                                <p>姓名：{%= alias %}</p>
+                                <p>性别：{%= alias %}</p>
+                                <p>电话：{%= phone %}</p>
                             </div>
                         </div>
-                        <div class="emp-model-b">
-                            <input class="staffCheckbox" type="checkbox" value="指派" data-role="item" data-itemId="{%= staff.userID %}" id="{%= staff.userID %}" >
-                            <label for="{%= staff.userID %}"></label>
+                        <div class="emp-model-b" data-mark="{%= mark %}">
+                            <input class="staffCheckbox" type="checkbox" {% if (mark==="Y") { %} checked {% } %} value="指派" data-role="item" data-itemId="{%= userID %}" id="{%= userID %}" >
+                            <label for="{%= userID %}"></label>
                         </div>
                     </div>
                 </div>
-
-                {% }) %}
-            </div>
-        </div>
     </script>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="pageDesc" Runat="Server">
@@ -282,92 +280,5 @@
     <script src="/js/shelf/mock.js"></script>
     <script src="/js/jquery.lightBox_me.js"></script>
     <script src="/js/interfaceAdapter.js"></script>
-    <script src="/js/appoint.js"></script>
-    <script>
-        Mock.mockjax(jQuery);
-        Mock.mock(/staff.json/, function(){
-//            return Mock.mock({
-//                'staffId|10-20' : [
-//                    '@guid'
-//                ]
-//            })
-
-            /* 本地测试数据 */
-            return Mock.mock(
-                    {
-                        "protocol_CODE": "ASN001006",
-                        "state_CODE": "009000",
-                        "RespData": {
-                            "arrayData": [
-                                {
-                                    "userID": "@guid",
-                                    "alias": "棒棒娃",
-                                    "email": "issumao@126.com",
-                                    "phone": "1888938xxxx",
-                                    "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao.png",
-                                    "address": "海南省海口市"
-                                },
-                                {
-                                    "userID": "@guid",
-                                    "alias": "棒棒娃",
-                                    "email": "issumao@126.com",
-                                    "phone": "1888938xxxx",
-                                    "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao.png",
-                                    "address": "海南省海口市"
-                                },
-                                {
-                                    "userID": "@guid",
-                                    "alias": "棒棒娃",
-                                    "email": "issumao@126.com",
-                                    "phone": "1888938xxxx",
-                                    "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao.png",
-                                    "address": "海南省海口市"
-                                }
-                            ]
-                        },
-                        "stamp_TIMES": "1490192929215",
-                        "serial_NUMBER": "00147001015869149751"
-                    }
-            )
-        })
-    </script>
-    <script>
-        (function(){
-            var staffReqData = {
-                "storeID": Adapter.getParameterByName("businessId")
-            };
-
-            $('[data-role="appointToggle"]').appoint({
-                container : '#staffsContainer',
-                template : '#staffs_template',
-
-                single : true,
-
-                appointSubmit : '#appointSubmit',
-                appointSucFunc: function(){
-                    alert('指派成功');
-                    $('.lightClose').click();
-                },
-
-                beforePullFunc : function (){
-                    return $("#staffAppointLight").lightbox_me({
-                        centered : true
-                    });
-                },
-
-                pullUrl : '/staff.json',
-                pullReqData : Adapter.reqPackage("ASN001006", staffReqData),
-
-
-                uploadUrl : '/staff.json',
-                uploadPreFixData : function(data){
-                    return Adapter.reqPackage("ASN002001", data);
-                },
-
-                /* 订单页指派，item为员工，target为订单 */
-                checkItemName : 'userID',
-                appointTargetName : 'orderID'
-            })
-        }());
-    </script>
+    <script src="/js/appointToOrder.js"></script>
 </asp:Content>
