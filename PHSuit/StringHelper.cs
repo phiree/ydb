@@ -287,7 +287,10 @@ namespace PHSuit
             return result;
         }
 
-       
+        public static string SafeNameForWpfControl(string raw)
+        {
+            return raw.Replace("-", "");
+        }
     }
 
    public class JsonHelper

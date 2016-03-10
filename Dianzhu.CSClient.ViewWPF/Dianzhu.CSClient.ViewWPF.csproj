@@ -57,6 +57,15 @@
     <Compile Include="FormMain.xaml.cs">
       <DependentUpon>FormMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_Order.xaml.cs">
+      <DependentUpon>UC_Order.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_Search.xaml.cs">
+      <DependentUpon>UC_Search.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_SearchResult.xaml.cs">
+      <DependentUpon>UC_SearchResult.xaml</DependentUpon>
+    </Compile>
     <Page Include="FormLogin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,8 +77,34 @@
     <Compile Include="FormLogin.xaml.cs">
       <DependentUpon>FormLogin.xaml</DependentUpon>
     </Compile>
+    <Page Include="UC\UC_ChatList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_IdentityList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_Order.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_Search.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_SearchResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UC\UC_ChatList.xaml.cs">
+      <DependentUpon>UC_ChatList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_IdentityList.xaml.cs">
+      <DependentUpon>UC_IdentityList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -107,6 +142,7 @@
       <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -12,7 +12,7 @@ public partial class test_Default : System.Web.UI.Page
     {
 
     }
-    protected void btnCreateOrder_Click(object sender, EventArgs e)
+    protected void btnCreateOrder_Click(object sender,EventArgs e)
     {
         DZMembershipProvider bllMembership = new DZMembershipProvider();
         BLLServiceOrder bllOrder = new BLLServiceOrder();
@@ -26,9 +26,9 @@ public partial class test_Default : System.Web.UI.Page
             return;
         }
         DZMembership customerService = bllMembership.GetUserByName("aa@aa.aa");
-        ServiceOrder order = ServiceOrderFactory.CreateDraft(customerService, customer);
+        ServiceOrder order= ServiceOrderFactory.CreateDraft(customerService, customer);
         DZService service = bllService.GetAll()[0];
-        order.AddDetailFromIntelService(service, 1, "test_服务地址", "test_2016-1-1");
+         order.AddDetailFromIntelService(service, 1, "test_服务地址", "test_2016-1-1");
 
         order.CreatedFromDraft();
         order.LatestOrderUpdated = DateTime.Now;

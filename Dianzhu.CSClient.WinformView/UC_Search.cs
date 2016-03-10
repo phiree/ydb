@@ -18,7 +18,7 @@ namespace Dianzhu.CSClient.WinformView
             InitializeComponent();
         }
 
-        public string SerachKeyword
+        public string SearchKeyword
         {
             get
             {
