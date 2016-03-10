@@ -1,17 +1,402 @@
 ﻿var need_to_test = [
- //"orm002001", "orm001003", "orm001004", "orm001005", 
+ //"orm002001", "orm001003", "orm001004", "orm001005", "orm003005", "orm003006", "orm003007"
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
-//"u3rd014008", "ad001006"
-"slf002006", "slf002003", "slf001007"
+//"u3rd014008", "ad001006","clm001001"
+//"slf002006", "slf002003", "slf001007","py001007","py001008"
+//"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
+//"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
+"ad001006"
+
 ];
 var test_data = [
 
-    /****************************************************/
+    /**********************店铺服务项管理*****************************/
+    {
+        "protocol_CODE": "svc001001",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+            "svcObj": {
+                "name": "特色洗衣",
+                "type": "清洗/保养>厨卫清洗>油烟机清洗",
+                "introduce": "超越常规洗衣，突破极限2",
+                "area": "北京市西城区西单北大街2号",
+                "startAt": "60",
+                "unitPrice": "70",
+                "appointmentTime": "60",
+                "doorService": "Y",
+                "serviceObject": "all",
+                "payWay": "AliPay",
+                "tag": "洗衣,干洗",
+                "open": "Y"
+            }
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "svc001002",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "svcID": "58f4c59e-c241-40b8-b0f4-a5c401153a39"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "svc001003",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "svcObj": {
+                "svcID": "58f4c59e-c241-40b8-b0f4-a5c401153a39",
+                //"name": "特色洗衣",
+                "type": "清洗/保养>厨卫清洗>灶具清洗",
+                //"introduce": "洗超人衣服",
+                "area": "海南海口",
+                "startAt": "50",
+                "unitPrice": "55",
+                "deposit":"10",
+                "appointmentTime": "60",
+                "doorService": "Y",
+                //"serviceObject": "all",
+                //"payWay": "WePay",
+                //"tag": "快,干洗，干净",
+                //"open": "Y",
+                //"maxOrderString":"10,10,15,10,5,10,20"
+            }
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "svc001004",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "svc001005",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "svcID": "58f4c59e-c241-40b8-b0f4-a5c401153a39"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "svc001006",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    /**********************店铺管理*****************************/
+    {
+        "protocol_CODE": "store001001",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store001002",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "0441a663-c74a-47c9-963f-a5c300c8ab66"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store001003",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "StoreObj": {
+                "userID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+                "alias": "钢铁侠",
+                "doc": "只是说明而已",
+                "phone": "1999938xxxx",
+                "area": "北京市崇文区"
+            }
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store001004",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store001005",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store001006",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store002001",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+            "imgData": "iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII="
+        },
+        "stamp_TIMES": "1490192929212",
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store002002",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+            "imgData": "iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII="
+        },
+        "stamp_TIMES": "1490192929212",
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store002003",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+            "imgUrl": "http://192.168.1.172:8038/GetFile.ashx?fileName=_$_b4fd96ec-d196-4266-8669-27489db9b13d_$_BusinessAvatar_$_image"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "store002004",
+        "ReqData": {
+            "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+            "pWord": "123456",
+            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f",
+            "imgData": "iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII=",
+            "target":"identificationB"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    /**********************指派*****************************/
+    {
+        "protocol_CODE": "ASN001001",
+        "ReqData": {
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userObj": {
+                "alias": "棒棒娃",
+                "email": "issumao@126.com",
+                "phone": "1888938xxxx",
+                "imgUrl": "http://tu.webps.cn/tb/img/4/T16uXnFsJaXXXXXXXX_%21%210-item_pic.jpg",
+                "address": "海南省海口市"
+            }
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001002",
+        "ReqData": {
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userID": "948f542b-3123-42f3-bc5d-a5b500be12aa",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001003",
+        "ReqData": {
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userID": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
+            //"alias": "呵呵哒",
+            //"email": "321654@126.com",
+            "phone": "1886547xx42",
+            //"imgUrl": "http://img1.imgtn.bdimg.com/it/u=2226833288,3588551739&fm=206&gp=0.jpg",
+            //"address": "海南省三亚市",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001004",
+        "ReqData": {
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001005",
+        "ReqData": {
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userId": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN001006",
+        "ReqData": {
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN002001",
+        "ReqData": {
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "arrayData": [
+            {
+                "userID": "20e2a4bb-8402-4f8a-ae01-a5b500c0a11d",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
+                "mark": "Y"
+            },
+            {
+                "userID": "948f542b-3123-42f3-bc5d-a5b500be12aa",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
+                "mark": "N"
+            },
+            {//员工id不存在
+                "userID": "948f542b-3123-42f3-bc5d-a5b500b212aa",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
+                "mark": "Y"
+            },
+            {//订单不存在
+                "userID": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940114db2d",
+                "mark": "Y"
+            },
+            {//mark不对
+                "userID": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
+                "orderID": "0064be8b-b094-44bc-88c8-a5940114db2d",
+                "mark": "Ys"
+            }
+            ]
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "ASN002004",
+        //"appName": "adminbusiness",
+        "ReqData": {
+            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "pWord": "123456",
+            "userID": "dcb215d6-ab33-49db-aa4e-a5b1010aca12",
+            "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    /**********************接口*****************************/
+    {
+        "protocol_CODE": "CLM001001",
+        "ReqData": {
+            "userID": "2c843b9f-ed19-40c2-99b4-a54500f97205",
+            "pWord": "123",
+            "orderID": "05c43210-7787-40df-8b93-a57901063d4d",
+            "target": "cer",
+            "context": "AABBCCDDSSXXFFGG",
+            "resourcesUrl": "http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    /**********************支付******************************/
+    {
+        "protocol_CODE": "PY001007",
+        "ReqData": {
+            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",//2aed4349-f4e8-4dcb-88a4-a59301132feb
+            "pWord": "1234",
+            "payID": "b95951f5-09b3-4ddf-920a-a5b001265462",
+            "target":"wepay",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "PY001008",
+        "ReqData": {
+            "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+            "pWord": "1234",
+            "orderID": "06ee70b3-500d-42da-8b1f-a595009d97da",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    /*********************广告*******************************/
     {
         "protocol_CODE": "AD001006",
         "ReqData": {
-            "md5": "88f04e2d6fe5a1697179f5ac5ecb216"
+            "md5": "cefb0abccc8b8d5b86fe33b17fa38078"
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -22,7 +407,7 @@ var test_data = [
          "protocol_CODE": "slf001007",
          "ReqData": {
              "date":"2016-1-14",
-             "serviceId": "8e431b59-cc9e-4a98-a1a6-a5830110e478",
+             "serviceId": "afb9f649-e6ec-4515-bedf-a59301519c55",
          },
          "stamp_TIMES": "1490192929212",
          "serial_NUMBER": "00147001015869149751"
@@ -55,6 +440,18 @@ var test_data = [
         "ReqData": {
             "target": "TencentQQ",//"WeChat","SinaWeiBo","TencentQQ"
             "code": "A4940389B88665B374852A6DB1CEB2CB",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"
+            "appName":"Ios"
+        },
+        "stamp_TIMES": "1490192929212",
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "U3RD014008",
+        "ReqData": {
+            "target": "TencentQQ",//"WeChat","SinaWeiBo","TencentQQ"
+            "code": "7A21B6A1AF871BE97880E359C07005E7",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"
+            "appName": "Android"
         },
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"
@@ -133,7 +530,7 @@ var test_data = [
      {
          "protocol_CODE": "CHAT001006",
          "ReqData": {
-             "userID": "7dcdd185-bed6-4756-a219-a5360118aab3",
+             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
              "pWord": "1234",
              "orderID": "",
              "target": "cer",
@@ -175,9 +572,9 @@ var test_data = [
                 {
                     "protocol_CODE": "ORM001005",
                     "ReqData": {
-                        "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
-                        "pWord": "123456",
-                        "orderID": "93405a96-426e-4523-bacd-a55d00f965eb",
+                        "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+                        "pWord": "1234",
+                        "orderID": "e27ad23c-c818-4fe0-bc70-a5b001263cce",
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"
@@ -186,7 +583,7 @@ var test_data = [
           {
               "protocol_CODE": "ORM001006",
               "ReqData": {
-                  "userID": "7dcdd185-bed6-4756-a219-a5360118aab3", //13022222222
+                  "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb", //13022222222
                   "pWord": "1234",
                   "target": "ALL",
                   "pageSize": "50",
@@ -199,8 +596,8 @@ var test_data = [
           {
               "protocol_CODE": "ORM002001",
               "ReqData": {
-                  "userID": "2c843b9f-ed19-40c2-99b4-a54500f97205", //13022222222
-                  "pWord": "123",
+                  "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf", //13022222222
+                  "pWord": "123456",
                   "orderID": "",
                   
               },
@@ -234,6 +631,40 @@ var test_data = [
                    "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
                    "pWord": "123456",
                    "orderID": "2cba0bc4-2133-45e6-8dc4-a53000bb6e1c",
+               },
+               "stamp_TIMES": "1490192929212",
+               "serial_NUMBER": "00147001015869149751"
+           },
+
+           {
+               "protocol_CODE": "ORM003005",
+               "ReqData": {
+                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                   "pWord": "123456",
+                   "orderID": "a756ede1-f90d-45af-8fec-a55c00fcb115",
+               },
+               "stamp_TIMES": "1490192929212",
+               "serial_NUMBER": "00147001015869149751"
+           },
+
+           {
+               "protocol_CODE": "ORM003006",
+               "ReqData": {
+                   "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+                   "pWord": "1234",
+                   "orderID": "0064be8b-b094-44bc-88c8-a5940110db2d",
+               },
+               "stamp_TIMES": "1490192929212",
+               "serial_NUMBER": "00147001015869149751"
+           },
+
+           {
+               "protocol_CODE": "ORM003007",
+               "ReqData": {
+                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                   "pWord": "123456",
+                   "orderID": "c7e1c471-16e1-46aa-8e65-a56000fe27fd",
+                   "status": "Assigned",
                },
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"
@@ -301,7 +732,7 @@ var test_data = [
                 },
                 //信息修改
                {
-                   "protocol_CODE": "USM001003",
+                   "protocol_CODE": "USM0010030",
                    "ReqData": {
                        "userID": "7dcdd185-bed6-4756-a219-a5360118aab3",
                        "pWord": "1234",
@@ -319,9 +750,9 @@ var test_data = [
                 {
                     "protocol_CODE": "USM001003",
                     "ReqData": {
-                        "userID": "eb2ae597-5adb-4242-b22e-a4f901275654",
-                        "pWord": "123456",
-                        "address": "海牙国际大厦20A",
+                        "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
+                        "pWord": "1234",
+                        "address": "海牙国际大厦20A0000",
                         "phone": "13023123412"
 
                     },

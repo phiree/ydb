@@ -22,18 +22,19 @@ namespace Dianzhu.DAL
     ///     4)无法单元测试.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class DALBase<T> 
+    public class DALBase<T>
     {
         public DALBase()
         {
-            session= new HybridSessionBuilder().GetSession();
+            session = new HybridSessionBuilder().GetSession();
         }
         public DALBase(string fortestonly)
         { }
         private ISession session = null;// new HybridSessionBuilder().GetSession();
-         
-    
-        public ISession Session {
+
+
+        public ISession Session
+        {
             get { return session; }
             set { session = value; }
         }
@@ -46,25 +47,25 @@ namespace Dianzhu.DAL
         }
         public virtual void Save(T o)
         {
-            
+
             using (var t = session.BeginTransaction())
             {
                 session.Save(o);
 
                 t.Commit();
             }
-           
-            
+
+
         }
         public virtual void Save(T o, object id)
         {
             using (var t = session.BeginTransaction())
             {
-                session.Save(o,id);
+                session.Save(o, id);
 
                 t.Commit();
             }
-         
+
         }
         /// <summary>
         /// 保存列表
@@ -77,7 +78,7 @@ namespace Dianzhu.DAL
 
                 foreach (T t in list)
                 {
-                    
+
                     SaveOrUpdate(t);
                 }
                 trans.Commit();
@@ -92,12 +93,15 @@ namespace Dianzhu.DAL
         }
         public virtual void SaveOrUpdate(T o)
         {
-            using (var t = session.BeginTransaction())
-            {
-                session.SaveOrUpdate(o); t.Commit();
+            if (session.Transaction.IsActive)
+            { session.SaveOrUpdate(o); }
+            else {
+                using (var t = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(o); t.Commit();
 
+                }
             }
-
 
         }
         public virtual T GetOne(object id)
@@ -106,9 +110,9 @@ namespace Dianzhu.DAL
             {
                 T r = session.Get<T>(id);
 
-                if(t!=null)
-                { 
-                t.Commit();
+                if (t != null)
+                {
+                    t.Commit();
                 }
                 return r;
             }
@@ -128,18 +132,18 @@ namespace Dianzhu.DAL
                 T o;
                 if (listT.Count == 1)
                 {
-                    o= listT[0];
+                    o = listT[0];
                 }
                 else if (listT.Count == 0)
                 {
-                   o= default(T);
+                    o = default(T);
                 }
                 else
                 {
                     string errmsg = "错误:GetOnByQuery应该只能返回一个值.现在有" + listT.Count + "个值返回.";
 
                     //NLibrary.NLogger.Logger.Error(errmsg);
-                    o= listT[0];
+                    o = listT[0];
                     // throw new Exception(errmsg);
                 }
                 t.Commit();
@@ -186,6 +190,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<T> GetList(string query, string orderColumns, bool orderDesc, int pageIndex, int pageSize, out int totalRecords, string query_count)
         {
+            IList<T> returnList = null;
             using (var t = session.BeginTransaction())
             {
                 totalRecords = 0;
@@ -197,8 +202,6 @@ namespace Dianzhu.DAL
                         strOrder += " desc ";
                 }
                 IQuery qry = session.CreateQuery(query + strOrder);
-
-
                 string queryCount = query_count;
                 //todo 
                 if (!string.IsNullOrEmpty(queryCount))
@@ -208,11 +211,12 @@ namespace Dianzhu.DAL
                     IQuery qryCount = session.CreateQuery(queryCount);
                     totalRecords = (int)qryCount.UniqueResult<long>();
                 }
-                var returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
+                returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
 
                 t.Commit();
-                return returnList;
+
             }
+            return returnList;
         }
 
         public System.Data.DataSet ExecuteSql(string pureSqlStatement)
@@ -221,10 +225,10 @@ namespace Dianzhu.DAL
             // System.Collections.IList result = sqlQuery.List();
             System.Data.DataSet ds = new System.Data.DataSet();
             IDbConnection conn = session.Connection as DbConnection;
-            
+
             if (conn.GetType() == typeof(SqlConnection))
             {
-                var sqlDataAdapter = new SqlDataAdapter(pureSqlStatement,(SqlConnection) conn);
+                var sqlDataAdapter = new SqlDataAdapter(pureSqlStatement, (SqlConnection)conn);
 
                 sqlDataAdapter.Fill(ds);
             }
@@ -239,6 +243,14 @@ namespace Dianzhu.DAL
                 throw new Exception("Unknow database type");
             }
             return ds;
+        }
+        protected void TransactionCommit(Action dbaction)
+        {
+            using (var t = Session.BeginTransaction())
+            {
+                dbaction();
+                t.Commit();
+            }
         }
     }
 }

@@ -29,16 +29,21 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.MaxOrdersPerHour);
             Map(x => x.MinPrice);
             Map(x => x.OrderDelay);
-            Map(x => x.PayType).CustomType<int>();
+            Map(x => x.AllowedPayType).CustomType<int>();
             Map(x => x.ServiceMode).CustomType<int>();
             Map(x => x.ServiceTimeBegin);
             Map(x => x.ServiceTimeEnd);
             Map(x => x.UnitPrice);
-            Map(x => x.Enabled).Default("True");
+            Map(x => x.Enabled);
+            Map(x => x.IsDeleted);
             Map(x => x.CreatedTime);
             Map(x => x.LastModifiedTime);
             HasMany<ServiceOpenTime>(x => x.OpenTimes).Cascade.SaveUpdate();
             Map(x => x.PayFirst);
+             
+            Map(x => x.OverTimeForCancel);
+            Map(x => x.DepositAmount);
+            Map(x => x.CancelCompensation);
 
         }
     }

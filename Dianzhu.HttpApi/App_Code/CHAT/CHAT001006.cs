@@ -5,6 +5,7 @@ using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
+using Dianzhu.Api.Model;
 /// <summary>
 /// Summary description for CHAT001001
 /// </summary>
@@ -22,10 +23,17 @@ public class ResponseCHAT001006:BaseResponse
         DZMembershipProvider p = new DZMembershipProvider();
         string raw_id = requestData.userID;
         DZMembership member;
-        bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-        if (!validated)
+        if (request.NeedAuthenticate)
         {
-            return;
+            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+            if (!validated)
+            {
+                return;
+            } 
+        }
+        else
+        {
+            member = p.GetUserById(new Guid(raw_id));
         }
         BLLReception bllReception = new BLLReception();
         int rowCount;
@@ -83,41 +91,6 @@ public class ResponseCHAT001006:BaseResponse
             this.state_CODE = Dicts.StateCode[1];
             this.err_Msg = ex.Message;
             return;
-        }
-    }
-}
-public class ReqDataCHAT001006
-{
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string orderID { get; set; }
-    public string target { get; set; }
-    public Dianzhu.Model.Enums.enum_ChatTarget Target
-    {
-        get
-        {
-            Dianzhu.Model.Enums.enum_ChatTarget tar;
-            bool isType = Enum.TryParse<Dianzhu.Model.Enums.enum_ChatTarget>(target, out tar);
-            if (!isType) { throw new Exception("不可识别的用户类型"); }
-            return tar;
-        }
-    }
-    public string pageSize { get; set; }
-    public string pageNum { get; set; }
-}
-public class RespDataCHAT001006
-{
-    public IList<RespDataCHAT_chatObj> arrayData { get; set; }
-    public RespDataCHAT001006()
-    {
-        arrayData = new List<RespDataCHAT_chatObj>();
-    }
-    public void AdapList(IList<ReceptionChat> chatList)
-    {
-        foreach (ReceptionChat chat in chatList)
-        {
-            RespDataCHAT_chatObj chatObj = new RespDataCHAT_chatObj().Adapt(chat);
-            arrayData.Add(chatObj);
         }
     }
 }

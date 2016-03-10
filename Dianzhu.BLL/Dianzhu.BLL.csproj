@@ -58,10 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLArea.cs" />
     <Compile Include="BLLBase.cs" />
     <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLAdvertisement.cs" />
+    <Compile Include="BLLDeviceBind.cs" />
     <Compile Include="BLLPayment.cs" />
     <Compile Include="BLLServiceOpenTime.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
@@ -91,9 +93,11 @@
     <Compile Include="BLLServicePropertyValue.cs" />
     <Compile Include="BLLCashTIcketAssignDetail.cs" />
     <Compile Include="SiteConfig.cs" />
+    <Compile Include="Validator\ValidatorBusiness.cs" />
+    <Compile Include="Validator\ValidatorStaff.cs" />
     <Compile Include="Validator\ValidatorDZService.cs" />
     <Compile Include="AddressParser.cs" />
-    <Compile Include="BLLDeviceBind.cs" />
+    <Compile Include="BLLOrderAssignment.cs" />
     <Compile Include="BLLDZTag.cs" />
     <Compile Include="Validator\ValidatorDZMemership.cs" />
     <Compile Include="BLLReception.cs" />
@@ -116,6 +120,10 @@
       <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
       <Name>Dianzhu.Pay</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MediaServer\MediaServer.csproj">
+      <Project>{9920da22-589c-4193-aeaa-363d5c029dfc}</Project>
+      <Name>MediaServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
       <Name>PHSuit</Name>
@@ -125,7 +133,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ServiceOrder\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

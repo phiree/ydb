@@ -12,8 +12,15 @@ namespace Dianzhu.Model.Enums
         Business_License_B,//营业执照
         Business_Show,//商家展示图片
         Business_ChargePersonIdCard,//负责人证件照片
+        Business_ChargePersonIdCard_B,//负责人证件照片
+        Business_Image,//商家后台上传图片
         Business_Avatar,//店铺头像
         Staff_Avatar,//职员头像
+        User_Avatar,//用户头像
+        Chat_Audio,
+        Chat_Video,
+        Chat_Image,
+        Advertisement
     }
     /// <summary>
     /// 支付目标
@@ -32,6 +39,8 @@ namespace Dianzhu.Model.Enums
     {
         Offline = 1,
         Online = 2,
+        AliPay = 2,
+        WePay = 3,
         None = 4,
     }
     /// <summary>
@@ -89,7 +98,8 @@ namespace Dianzhu.Model.Enums
         //未完成订单状态
         Created=1,//已创建,待付款
         Payed=2,//已付款
-        Canceled=3,//已取消待退款
+        Canceled=3,//用户已发起取消请求
+        CanceledDirectly,//订单已直接取消
        
         isCancel=5,//客户已取消 等待撤销工作人员分配.
 
@@ -126,7 +136,12 @@ namespace Dianzhu.Model.Enums
         /// 用户已经评价
         /// </summary>
         Appraised=30,
-       
+
+        WaitingDepositWithCanceled=31,//等待退还定金
+        WaitingCancel=32,//用户申请取消订单, 超过时长,等待商家审核  .
+
+
+
     }
     public enum enum_OrderSearchType
     {
@@ -343,5 +358,15 @@ namespace Dianzhu.Model.Enums
         WeChat=1,
         SinaWeiBo=2,
         TencentQQ=3,
+    }
+
+    /// <summary>
+    /// 支付状态
+    /// </summary>
+    public enum enum_PaymentStatus
+    {
+        WaitForPay=0,//等待支付
+        Success=1,//支付成功
+        Failed=2,//支付失败
     }
 }

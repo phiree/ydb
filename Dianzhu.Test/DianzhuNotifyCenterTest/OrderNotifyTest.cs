@@ -52,7 +52,7 @@ namespace Dianzhu.Test.DianzhuNotifyCenterTest
             ServiceOrder order = Builder<ServiceOrder>.CreateNew()
                 .With(x=>x.Customer=Builder<DZMembership>.CreateNew().With(y=>y.Id=new Guid("1cd5ac25-fcc6-432d-bba0-a4f90129edcf")).Build())
                 .With(x => x.CustomerService = Builder<DZMembership>.CreateNew().With(z => z.Id = new Guid("d53147d9-1a1e-4df8-b4d0-a4f90129ad25")).Build())
-               .With(x=>x.Id=new Guid("a5edb351-ae48-4f76-8b0c-a53200c1a7d7"))
+             //  .With(x=>x.Id=new Guid("a5edb351-ae48-4f76-8b0c-a53200c1a7d7"))
                 .Build();
           
             on.SendOrderChangedNotify(order);

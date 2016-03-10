@@ -35,13 +35,14 @@ namespace Dianzhu.DAL
         public bool ValidateUser(string username, string password)
         {
             //  User user = session.QueryOver<User>(x=>x.User);
-            
+            //Model.DZMembership member = null;
             bool result = false;
             IQuery query = Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
 
-            IQueryOver<Model.DZMembership,Model.DZMembership> iq = Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password);
-            Model.DZMembership member = GetOneByQuery(iq);
-
+            //  var iq = Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password);
+            Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
+            //Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password).SingleOrDefault();
+            //Model.DZMembership member = null;
 
             if (member != null)
             {
@@ -51,34 +52,34 @@ namespace Dianzhu.DAL
                 Update(member);
 
             }
-            else
-            {
-                
-            }
-             
-
             return result;
         }
-        
+
 
         public Model.DZMembership GetMemberByName(string username)
         {
-            
-                if (string.IsNullOrEmpty(username)) return null;
-                username = username.Replace("||", "@");
-                IQuery query = Session.CreateQuery("select m from  DZMembership as m where UserName='" + username + "'");
-                var temp = query.FutureValue<Model.DZMembership>();
-                var user = temp.Value;
-              
-                return user;
+            if (string.IsNullOrEmpty(username)) return null;
+            username = username.Replace("||", "@");
+            Model.DZMembership user = null;
+            Action a = () => {
+                user = Session.QueryOver<Model.DZMembership>().Where(x=>x.UserName== username).FutureValue().Value;
+               // user = query.UniqueResult<Model.DZMembership>();
+            };
+            TransactionCommit(a);
+            return user;
            
         }
+
+       
 
          
         public Model.DZMembership GetMemberById(Guid memberId)
         {
+            Model.DZMembership member=null;
             IQuery query = Session.CreateQuery("select m from  DZMembership as m where Id='" + memberId + "'");
-            Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
+
+            Action a = () => { member = query.UniqueResult<Model.DZMembership>(); };
+            TransactionCommit(a);
             return member;
         }
         public Model.DZMembership GetMemberByEmail(string email)
@@ -103,15 +104,15 @@ namespace Dianzhu.DAL
         public IList<Model.DZMembership> GetAllUsers()
         {
             IQuery query = Session.CreateQuery("select u from DZMembership u ");
-            return query.Future<Model.DZMembership>().ToList();
+            return query.List<Model.DZMembership>();
         }
 
         public IList<Model.DZMembership> GetAllUsers(int pageIndex, int pageSize, out long totalRecord)
         {
             IQuery qry = Session.CreateQuery("select u from DZMembership u order by u.TimeCreated desc");
             IQuery qryTotal = Session.CreateQuery("select count(*) from DZMembership u ");
-            List<Model.DZMembership> memList = qry.Future<Model.DZMembership>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
-            totalRecord = qryTotal.FutureValue<long>().Value;
+            List<Model.DZMembership> memList = qry.List<Model.DZMembership>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            totalRecord = qryTotal.UniqueResult<long>();
             return memList;
         }
 
@@ -143,7 +144,7 @@ namespace Dianzhu.DAL
         public Model.BusinessUser GetBusinessUser(Guid id)
         {
             IQuery query = Session.CreateQuery("select m from  BusinessUser as m where Id='" + id + "'");
-            Model.BusinessUser member = query.FutureValue<Model.BusinessUser>().Value;
+            Model.BusinessUser member = query.UniqueResult<Model.BusinessUser>();
             return member;
         }
         public IList<Model.DZMembership> GetAll()

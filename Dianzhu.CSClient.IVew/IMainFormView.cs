@@ -6,7 +6,7 @@ using System.Text;
 using Dianzhu.Model;
 using System.Collections;
 
-namespace Dianzhu.CSClient.IVew
+namespace Dianzhu.CSClient.IView
 {
  
     /// <summary>
@@ -34,8 +34,8 @@ namespace Dianzhu.CSClient.IVew
     public delegate void AudioPlay(object audioTag,IntPtr handler);
     public delegate void PushExternalService();
     public delegate void PushInternalService(DZService service);
-    public delegate void SearchService();
-    public delegate void SelectService();
+    
+    
     public delegate void SendPayLink(ReceptionChat chat);
     public delegate void CreateOrder();
     public delegate void ViewClosed();
@@ -46,6 +46,9 @@ namespace Dianzhu.CSClient.IVew
     public delegate void NoticeOrder();
     public delegate void NoticePromote();
     public delegate void NoticeCustomerService();
+ 
+
+   
     /// <summary>
     /// 客服分配
     /// </summary>
@@ -69,7 +72,10 @@ namespace Dianzhu.CSClient.IVew
         
         IList<ReceptionChat> ChatLog { set; get; }
         void LoadOneChat( ReceptionChat chat);
-       
+        /// <summary>
+        /// 窗体通知
+        /// </summary>
+         void WindowNotification();
         /// <summary>
         /// 搜索关键字.
         /// </summary>
@@ -111,16 +117,12 @@ namespace Dianzhu.CSClient.IVew
 
 
         IList<DZService> SearchedService { get; set; }
-        //外部服务
-        string ServiceName { get; set; }
-        string ServiceBusinessName { get; set; }
-        string ServiceDescription { get; set; }
-        string ServiceUnitPrice { get; set; }
-        string ServiceDepositAmount { get; set; }
-        string ServiceUrl { get; set; }
-        string ServiceTime { get; set; }
-        string TargetAddress { get; set; }
-        string OrderAmount { get; set; }
+        //服务信息
+        
+        
+        
+        decimal  OrderAmount { get; }
+        decimal OrderDepositAmount { get; set; }
         string OrderNumber { get; set; }
         string OrderStatus { get; set; }
         bool CanEditOrder { get; set; }
@@ -160,7 +162,7 @@ namespace Dianzhu.CSClient.IVew
         void ShowStreamError(string streamError);
 
         event ReAssign ReAssign;
-
+        
         /// <summary>
         /// 当前客服正在接待的客户列表
         /// </summary>
@@ -178,10 +180,11 @@ namespace Dianzhu.CSClient.IVew
         /// <param name="msg"></param>
         void ShowMsg(string msg);
 
+       
         /// <summary>
-        /// 当前选择的服务
+        /// 当前的订单
         /// </summary>
-        DZService CurrentService { get; set; }
+        ServiceOrder CurrentOrder { get; set; }
 
         /// <summary>
         /// 删除用户按钮

@@ -10,6 +10,15 @@ namespace Dianzhu.Model
     /// </summary>
     public   class OrderAssignment
     {
+        /// <summary>
+        /// 构造，初始化分配时间和是否有效
+        /// </summary>
+        public OrderAssignment()
+        {
+            CreatTime = DateTime.Now;
+            Enabled = true;
+        }
+
         public virtual Guid Id { get; set; }
         /// <summary>
         /// 被分配的订单
@@ -32,5 +41,9 @@ namespace Dianzhu.Model
         /// 是否有效. 否:已经取消了该分配
         /// </summary>
         public virtual bool Enabled { get; set; }
+        /// <summary>
+        /// 保存时间
+        /// </summary>
+        public virtual DateTime CreatTime { get; set; }
     }
 }

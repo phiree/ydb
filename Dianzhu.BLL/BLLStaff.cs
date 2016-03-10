@@ -10,56 +10,75 @@ using System.Web;
 using System.IO;
 namespace Dianzhu.BLL
 {
-  public  class BLLStaff
+    public class BLLStaff
     {
-      public DALStaff DALStaff=DALFactory.DALStaff;
+        public DALStaff DALStaff = DALFactory.DALStaff;
 
-      
-      public IList<Staff> GetList(Guid businessId, Guid serviceTypeId, int pageindex, int pagesize, out int totalRecords)
-      {
 
-          return DALStaff.GetList(businessId, serviceTypeId, pageindex, pagesize, out totalRecords);
-      }
-      
-      public void SaveOrUpdate(Staff staff)
-      {
-          DALStaff.SaveOrUpdate(staff);
-      }
-      public void Delete(Staff staff)
-      {
-          DALStaff.Delete(staff);
-      }
-      public Staff GetOne(Guid id)
-      {
-          return DALStaff.GetOne(id);
-      }
+        public IList<Staff> GetList(Guid businessId, Guid serviceTypeId, int pageindex, int pagesize, out int totalRecords)
+        {
 
-      public string Save(Guid StaffId, System.Web.HttpPostedFile imageFile, Dianzhu.Model.Enums.enum_ImageType imageType)
-      {
-          Staff s = GetOne(StaffId);
-          string savedPath = string.Empty;
-          string imageName = string.Empty;
-          if (imageFile != null && imageFile.ContentLength != 0)
-          {
-              imageName = StaffId + imageType.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(imageFile.FileName);
-              savedPath = HttpContext.Current.Server.MapPath(SiteConfig.BusinessImagePath + "/original/") + imageName;
-              imageFile.SaveAs(savedPath);
-              var avatarList = s.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
-              avatarList.ForEach(x => x.IsCurrent = false);
-              BusinessImage biImage = new BusinessImage
-              {
-                  ImageType = imageType,
-                  UploadTime = DateTime.Now,
-                  ImageName = imageName,
-                  Size = imageFile.ContentLength,
-                  IsCurrent=true
-              };
-              s.StaffAvatar.Add(biImage);
-              //s.BusinessImages.Add(biImage);
-          }
-          SaveOrUpdate(s);
-          return "/media/business/original/" + imageName;
-      }
-       
+            return DALStaff.GetList(businessId, serviceTypeId, pageindex, pagesize, out totalRecords);
+        }
+
+        public void SaveOrUpdate(Staff staff)
+        {
+            DALStaff.SaveOrUpdate(staff);
+        }
+        public void Delete(Staff staff)
+        {
+            DALStaff.Delete(staff);
+        }
+        public Staff GetOne(Guid id)
+        {
+            return DALStaff.GetOne(id);
+        }
+
+        public void Save(Staff staff)
+        {
+            DALStaff.Save(staff);
+        }
+
+        public void Update(Staff staff)
+        {
+            DALStaff.Update(staff);
+        }
+
+        public string Save(Guid StaffId, System.Web.HttpPostedFile imageFile, Dianzhu.Model.Enums.enum_ImageType imageType)
+        {
+            Staff s = GetOne(StaffId);
+            string savedPath = string.Empty;
+            string imageName = string.Empty;
+            if (imageFile != null && imageFile.ContentLength != 0)
+            {
+                imageName = StaffId + imageType.ToString() + Guid.NewGuid().GetHashCode() + Path.GetExtension(imageFile.FileName);
+                savedPath = HttpContext.Current.Server.MapPath(SiteConfig.BusinessImagePath + "/original/") + imageName;
+                imageFile.SaveAs(savedPath);
+                var avatarList = s.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
+                avatarList.ForEach(x => x.IsCurrent = false);
+                BusinessImage biImage = new BusinessImage
+                {
+                    ImageType = imageType,
+                    UploadTime = DateTime.Now,
+                    ImageName = imageName,
+                    Size = imageFile.ContentLength,
+                    IsCurrent = true
+                };
+                s.StaffAvatar.Add(biImage);
+                //s.BusinessImages.Add(biImage);
+            }
+            SaveOrUpdate(s);
+            return "/media/business/original/" + imageName;
+        }
+
+        public int GetEnableSum(Business business)
+        {
+            return DALStaff.GetEnableSum(business);
+        }
+
+        public IList<Staff> GetAllListByBusiness(Business business)
+        {
+            return DALStaff.GetAllListByBusiness(business);
+        }
     }
 }

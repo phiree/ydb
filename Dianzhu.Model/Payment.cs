@@ -17,7 +17,8 @@ namespace Dianzhu.Model
         
         public Payment()
         {
-
+            CreatedTime =LastUpdateTime=  DateTime.Now;
+            //Amount = Order.GetAmount(PayTarget);
         }
         public virtual Guid Id { get; set; }
 
@@ -41,15 +42,29 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual DateTime CreatedTime { get; set; }
 
-        /// <summary>
-        /// 是否支付成功
-        /// </summary>
-        public virtual bool  IsSuccess { get; set; }
+      
         /// <summary>
         ///  
         /// </summary>
-       
-     
+        public virtual DateTime LastUpdateTime { get; set; }
+
+        /// <summary>
+        /// 支付状态
+        /// </summary>
+        public virtual enum_PaymentStatus Status { get; set; }
+
+        /// <summary>
+        /// 交易号。 如果是在线支付，则由支付平台返回
+        /// </summary>
+        public virtual string TradeNo { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public virtual string Memo { get; set; }
+
+
+
+
     }
 
 

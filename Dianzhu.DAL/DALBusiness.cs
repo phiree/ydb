@@ -54,6 +54,11 @@ namespace Dianzhu.DAL
 
             return b;
         }
+
+        public Business GetBusinessByIdAndOwner(Guid Id, Guid ownerId)
+        {
+            return Session.QueryOver<Business>().Where(x => x.Id == Id).And(x => x.Owner.Id == ownerId).SingleOrDefault();
+        }
         /// <summary>
         /// 全部已经启用的商铺
         /// </summary>
@@ -78,6 +83,11 @@ namespace Dianzhu.DAL
             IList<Business> busList = Session.QueryOver<Business>().Where(x => x.Enabled == true).OrderBy(x => x.CreatedTime).Desc.List();
             totalRecord = qryTotal.FutureValue<long>().Value;
             return busList;
+        }
+
+         public int GetEnableSum(DZMembership member)
+        {
+            return Session.QueryOver<Business>().Where(x => x.Owner == member).And(x => x.Enabled == true).RowCount();
         }
     }
 }

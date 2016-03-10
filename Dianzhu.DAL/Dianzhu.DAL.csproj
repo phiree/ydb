@@ -49,8 +49,8 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.6.9.7\lib\net40\MySql.Data.dll</HintPath>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net40\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
@@ -58,6 +58,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -67,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALComplaint.cs" />
     <Compile Include="DALAdvertisement.cs" />
     <Compile Include="DALPayment.cs" />
     <Compile Include="DALServiceOpenTime.cs" />
@@ -82,10 +84,14 @@
     <Compile Include="DALReceptionChat.cs" />
     <Compile Include="DALReceptionStatusArchieve.cs" />
     <Compile Include="DALOrderAssignment.cs" />
+    <Compile Include="DALServiceOrderStateChangeHis.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
+    <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
+    <Compile Include="Mapping\ServiceOrder\ServiceOrderDetailMap.cs" />
+    <Compile Include="Mapping\StaffServiceTypeMap.cs" />
     <Compile Include="Mapping\PaymentLogMap.cs" />
     <Compile Include="Mapping\AreaMap.cs" />
     <Compile Include="Mapping\CashTicketTemplateMap.cs" />
@@ -94,10 +100,11 @@
     <Compile Include="Mapping\BusinessMap.cs" />
     <Compile Include="Mapping\DZMembershipMap.cs" />
     <Compile Include="Mapping\ServiceOrderStateChangeHisMap.cs" />
-    <Compile Include="Mapping\ServiceOrderMap.cs" />
+    <Compile Include="Mapping\ServiceOrder\ServiceOrderMap.cs" />
     <Compile Include="Mapping\ServiceTypeMap.cs" />
     <Compile Include="Mapping\DZServiceMap.cs" />
     <Compile Include="Mapping\OrderAssignment.cs" />
+    <Compile Include="Mapping\PaymentMap.cs" />
     <Compile Include="Mapping\StaffMap.cs" />
     <Compile Include="Mapping\ServicePropertyMap.cs" />
     <Compile Include="Mapping\ServicePropertyValueMap.cs" />

@@ -11,35 +11,23 @@ namespace Dianzhu.Config
     public static partial class Config
     {        
         #region 服务器定义
-        static string[] DatabaseServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172" };
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
+        static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
+        static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
         #endregion
         #region   部署前，只需要手动修改此处 /
-        static string DatabaseServer = DatabaseServers[3];//数据库地址
-        static string IMServer = DatabaseServers[3];//即时通讯服务器地址
-        static string IMDomain = IMDomains[3];//即时通讯服务器地址
-        static string ApplicationServer = DatabaseServers[3];//应用服务器地址
+        
+        static string IMServer = IMServers[0];//即时通讯服务器地址
+        static string IMDomain = IMDomains[0];//即时通讯服务器地址
+        static string HttpApiServer = HttpApiServers[0];//即时通讯服务器地址
+        static string ApplicationServer = ApplicationServers[0];//应用服务器地址
+        static string IMNotifyServer = IMNotifyServers[0];//通知服务服务地址
 
         #endregion
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
-        public static string ConnectionString
-        {
-            get
-            {
-                if (DictsConnectionStrings.ContainsKey(DatabaseServer))
-                {
-                    return DictsConnectionStrings[DatabaseServer];
-                }
-                else {
-                    string errMsg = "数据库连接字符串误";
-                    ilog.Fatal(errMsg);
-                    throw new System.Exception(errMsg);
-                }
-
-            }
-        }
+        
 
         public static string GetAppSetting(string key)
         {
@@ -72,7 +60,7 @@ namespace Dianzhu.Config
               { "119.29.39.211",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
              ,{ "business.ydban.cn",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
              ,{ "192.168.1.172",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
-            ,{ "localhost",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
+            ,{ "localhost",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
         };
         //通知中心登陆用户账号，不同数据库服务器有不同的值
         //todo: 需要使用 username登陆 而不是id
@@ -80,15 +68,9 @@ namespace Dianzhu.Config
               { "119.29.39.211",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
              ,{ "business.ydban.cn",new KeyValuePair<string,string>("c6b13498-2259-4ff3-a75e-a4f90123683c","123456") }
              ,{ "192.168.1.172",new KeyValuePair<string,string>("1792e7f6-850e-4efc-8b53-a541009b8a65","123456") }
-              ,{ "localhost",new KeyValuePair<string,string>("1792e7f6-850e-4efc-8b53-a541009b8a65","123456") }
+              ,{ "localhost",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
         };
-        //数据库连接字符串
-        static Dictionary<string, string> DictsConnectionStrings = new Dictionary<string, string>() {
-            { "119.29.39.211","data source=119.29.39.211;uid=root;pwd=root;database=dianzhu_publish_test"}
-            , { "business.ydban.cn","data source=business.ydban.cn;uid=root;pwd=root;database=dianzhu_publish_test" }
-            ,{ "192.168.1.172","data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test" }
-             ,{ "localhost","data source=localhost;uid=root;pwd=root;database=dianzhu_dev_yuanfei" }
-        };
+         
 
         static Dictionary<string, string> DictsAppSettings = new Dictionary<string, string>() {
              {"cdnroot", BuildHttpUrlString(ApplicationServer, 886)}
@@ -99,17 +81,17 @@ namespace Dianzhu.Config
             , {"MediaGetUrl",BuildHttpUrlString(ApplicationServer, 8038,"GetFile.ashx?fileName=")   }
 
 
-            , {"NoticeSenderId",DictsNotifySenderLogins[DatabaseServer].Key  }
-            , {"NoticeSenderPwd",DictsNotifySenderLogins[DatabaseServer].Value  }
+            , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
+            , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
             , {"PaySite",BuildHttpUrlString(ApplicationServer, 8168)   }
             , {"PayUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
             , {"OpenfireRestApiSessionListUrl",BuildHttpUrlString(IMServer, 9090,"plugins/restapi/v1/sessions/")  }
 
-            , {"DiandianLoginId",DictsDianDianLogins[DatabaseServer].Key}
-            , {"DiandianLoginPwd",DictsDianDianLogins[DatabaseServer].Value  }
-            , {"APIBaseURL",BuildHttpUrlString(ApplicationServer, 8037,"DianzhuApi.ashx")  }
-            , {"PayServerUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
-            , {"NotifyServer",BuildHttpUrlString(ApplicationServer, 8039)   }
+            , {"DiandianLoginId",DictsDianDianLogins[IMNotifyServer].Key}
+            , {"DiandianLoginPwd",DictsDianDianLogins[IMNotifyServer].Value  }
+            , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, 8037,"DianzhuApi.ashx")  }
+            , {"PayServerUrl",BuildHttpUrlString(ApplicationServer, 8168,"Pay/")   }
+            , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, 8039)   }
             , {"BaiduGeocodingAPI","http://api.map.baidu.com/geocoder/v2/?ak="  }
             , {"BaiduTranAPI","http://api.map.baidu.com/geoconv/v1/?ak="  }
             , {"BaiduGeocodingAK","SDHO8UtRNvOl4Cc29KA74UxF"  }

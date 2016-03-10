@@ -14,8 +14,12 @@ namespace Dianzhu.Model
         public Business_Abs()
         {
             Enabled = true;
+            CreatedTime = DateTime.Now;
         }
         public virtual Guid Id { get; set; }
+        /// <summary>
+        /// 店铺名称
+        /// </summary>
         public virtual string Name { get; set; }
         /// <summary>
         /// 联系人姓名
@@ -66,6 +70,7 @@ namespace Dianzhu.Model
             BusinessImages = new List<BusinessImage>();
             ServiceType = new List<ServiceType>();
             CashTicketTemplates = new List<CashTicketTemplate>();
+            
             
         }
         /// <summary>
@@ -123,12 +128,12 @@ namespace Dianzhu.Model
         /// <summary>
         /// 申请日期
         /// </summary>
-        public virtual DateTime DateApply { get; set; }
+        public virtual DateTime? DateApply { get; set; }
        
         /// <summary>
         /// 审核通过日期
         /// </summary>
-        public virtual DateTime DateApproved { get; set; }
+        public virtual DateTime? DateApproved { get; set; }
         /// <summary>
         /// 单张营业执照
         /// </summary>
@@ -386,7 +391,23 @@ namespace Dianzhu.Model
             }
         }
 
-       
+        /// <summary>
+        /// 拷贝
+        /// </summary>
+        /// <param name="newBusiness"></param>
+        public virtual void CopyTo(Business newBusiness)
+        {
+            newBusiness.Id = Id;
+            newBusiness.Owner = Owner;
+            newBusiness.Name = Name;
+            newBusiness.AreaBelongTo = AreaBelongTo;
+            newBusiness.Description = Description;
+            newBusiness.BusinessAvatar = BusinessAvatar;
+            newBusiness.Contact = Contact;
+            newBusiness.Phone = Phone;
+            newBusiness.Address = Address;
+            newBusiness.BusinessImages = BusinessImages;
+        }
 
     }
 
@@ -428,6 +449,57 @@ namespace Dianzhu.Model
         /// 是否是当前使用的图片
         /// </summary>
         public virtual bool IsCurrent { get; set; }
+
+        /// <summary>
+        /// 获取文件路径
+        /// </summary>
+        /// <returns></returns>
+        public virtual string GetRelativePathByType()
+        {
+            string type = string.Empty;
+            switch (ImageType)
+            {
+                case Enums.enum_ImageType.Advertisement:
+                    type = "/Advertisement/";
+                    break;
+                case Enums.enum_ImageType.Business_Avatar:
+                    type = "/BusinessAvatar/";
+                    break;
+                case Enums.enum_ImageType.Business_ChargePersonIdCard:
+                    type = "/BusinessChargePersonIdCard/";
+                    break;
+                case Enums.enum_ImageType.Business_Image:
+                    type = "/BusinessImage/";
+                    break;
+                case Enums.enum_ImageType.Business_License:
+                    type = "/BusinessLicense/";
+                    break;
+                case Enums.enum_ImageType.Business_License_B:
+                    type = "/BusinessLicenseB/";
+                    break;
+                case Enums.enum_ImageType.Business_Show:
+                    type = "/BusinessShow/";
+                    break;
+                case Enums.enum_ImageType.Chat_Audio:
+                    type = "/ChatAudio/";
+                    break;
+                case Enums.enum_ImageType.Chat_Image:
+                    type = "/ChatImage/";
+                    break;
+                case Enums.enum_ImageType.Chat_Video:
+                    type = "/ChatVideo/";
+                    break;
+                case Enums.enum_ImageType.Staff_Avatar:
+                    type = "/StaffAvatar/";
+                    break;
+                case Enums.enum_ImageType.User_Avatar:
+                    type = "/UserAvatar/";
+                    break;
+                default:
+                    break;
+            }
+            return type;
+        }
     }
 
     /// <summary>

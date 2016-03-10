@@ -13,6 +13,7 @@ using System.IO;
 using System.Text;
 using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
+using Dianzhu.Api.Model;
 
 /// <summary>
 /// 上传经纬度
@@ -29,11 +30,14 @@ public class ResponseLCT001008 : BaseResponse
 
         try
         {
-            DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                } 
             }
 
             try
@@ -81,26 +85,6 @@ public class ResponseLCT001008 : BaseResponse
         }
 
 
-    }
-
-    public class ReqDataLCT001008
-    {
-        public string userID { get; set; }
-        public string pWord { get; set; }
-        public string longitude { get; set; }
-        public string latitude { get; set; }
-    }
-
-    public class RespDataLCT001008
-    {
-        public RespDataLCT001008_locationObj locationObj { get; set; }
-
-    }
-    public class RespDataLCT001008_locationObj
-    {
-        public string name { get; set; }
-        public string key { get; set; }
-        public string code { get; set; }
     }
 
     /// <summary>
@@ -188,55 +172,5 @@ public class ResponseLCT001008 : BaseResponse
     {
         JavaScriptSerializer json = new JavaScriptSerializer();
         return json.Deserialize<T>(data);
-    }
-
-    /// <summary>
-    /// 坐标转换后的josn数据转为对象
-    /// </summary>
-    public class RespTran
-    {
-        public int status { get; set; }
-        public IList<RespXY> result { get; set; }
-    }
-    public class RespXY
-    {
-        public double x { get; set; }
-        public double y { get; set; }
-    }
-
-    /// <summary>
-    /// 经纬度上传百度地图API返回数据对象
-    /// </summary>
-    public class RespGeo
-    {
-        public int status { get; set; }
-        public GeoResult result { get; set; }
-    }
-    public class GeoResult
-    {
-        public GeoLocation location { get; set; }
-        public string formatted_address { get; set; }
-        public string business { get; set; }
-        public GeoAddressComponent addressComponent { get; set; }
-        public string cityCode { get; set; }
-        public IList<Object> poiRegions { get; set; }
-        public string semtic_description { get; set; }
-    }
-    public class GeoLocation
-    {
-        public double lng { get; set; }
-        public double lat { get; set; }
-    }
-    public class GeoAddressComponent
-    {
-        public string streetNumber { get; set; }
-        public string street { get; set; }
-        public string district { get; set; }
-        public string city { get; set; }
-        public string province { get; set; }
-        public string country { get; set; }
-        public string counntryCode { get; set; }
-        public string direction { get; set; }
-        public string distance { get; set; }
     }
 }

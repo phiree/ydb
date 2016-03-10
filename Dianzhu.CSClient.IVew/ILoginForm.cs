@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Dianzhu.CSClient.IVew
+namespace Dianzhu.CSClient.IView
 {
     /// <summary>
     /// 登录界面接口定义

@@ -9,19 +9,19 @@
     <asp:Repeater runat="server" ID="rp_province">
         <ItemTemplate>
             <h2>
-                <%# DataBinder.Eval(Container.DataItem, "Name") %></h2>
+             <a href="Default.aspx?code=<%#Eval("code") %>">   <%# DataBinder.Eval(Container.DataItem, "Name") %></a></h2>
             <div>
                 <asp:Repeater runat="server" ID="rp_City">
                     <ItemTemplate>
                         <span style="font-weight:900;">
-                            <%# DataBinder.Eval(Container.DataItem, "Name") %></span>
+                            <%# DataBinder.Eval(Container.DataItem, "Name") %> </span>
                         <div>
-                            <asp:Repeater runat="server" ID="rpt_County">
+                            <%--<asp:Repeater runat="server" ID="rpt_County">
                                 <ItemTemplate>
                                     <span>
                                         <%# DataBinder.Eval(Container.DataItem, "Name") %></span>
                                 </ItemTemplate>
-                            </asp:Repeater>
+                            </asp:Repeater>--%>
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>

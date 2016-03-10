@@ -20,13 +20,20 @@ namespace Dianzhu.DAL
         }
 
         /// <summary>
-        /// 获取一个订单已经
+        /// 获取一个订单已经创建的支付项.
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        public IList<Payment> GetPaymentsForOrder(ServiceOrder order)
+        public virtual IList<Payment> GetPaymentsForOrder(ServiceOrder order)
         {
-            throw new NotImplementedException();
+            var list = Session.QueryOver<Payment>().Where(x => x.Order == order).List();
+
+            return list;
+        }
+
+        public virtual Payment GetPaymentForWaitPay(ServiceOrder order)
+        {
+            return Session.QueryOver<Payment>().Where(x => x.Order == order).And(x => x.Status == Model.Enums.enum_PaymentStatus.WaitForPay).SingleOrDefault();
         }
     }
 }

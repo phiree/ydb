@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using Dianzhu.Model;
-using Dianzhu.CSClient.IVew;
+using Dianzhu.CSClient.IView;
 using System.Collections;
 
 //using Dianzhu.CSClient.Model;
@@ -39,6 +39,7 @@ namespace Dianzhu.CSClient.WinformView
         public event PushInternalService PushInternalService;
         public event SearchService SearchService;
         public event SelectService SelectService;
+       
         public event SendPayLink SendPayLink;
         public event CreateOrder CreateOrder;
         public event BeforeCustomerChanged BeforeCustomerChanged;
@@ -46,27 +47,36 @@ namespace Dianzhu.CSClient.WinformView
         public event AudioPlay PlayAudio;
         public event OrderStateChanged OrderStateChanged;
         public event CreateNewOrder CreateNewOrder;
-
+        public event NoticeCustomerService NoticeCustomerService;
         public event NoticeSystem NoticeSystem;
         public event NoticeOrder NoticeOrder;
         public event NoticePromote NoticePromote;
-        public event NoticeCustomerService NoticeCustomerService;
-
+        
+      
         public event ReAssign ReAssign;
         public event SaveReAssign SaveReAssign;
 
         public event MessageSentAndNew MessageSentAndNew;
+        
 
         #endregion
 
         /// <summary>
         /// 当前选择的服务
         /// </summary>
-        private DZService currentService;
-        public DZService CurrentService
+        
+        private ServiceOrder currentOrder;
+        public ServiceOrder CurrentOrder
         {
-            get { return currentService; }
-            set { currentService = value; }
+            get
+            {
+                return currentOrder;
+            }
+
+            set
+            {
+                currentOrder = value;
+            }
         }
 
         /// <summary>
@@ -230,7 +240,7 @@ namespace Dianzhu.CSClient.WinformView
             //对当前窗体已存在控件的操作
             Action lambda = () =>
             {
-                FlashInTaskBar.FlashWindowEx(this);
+               // WindowNotification();
                 pnlChat.Controls.Add(pnlOneChat);
                 pnlChat.ScrollControlIntoView(pnlOneChat);
             };
@@ -497,7 +507,7 @@ namespace Dianzhu.CSClient.WinformView
             pnl.Controls.Add(btnPushService);
             Button btnSelectService = new Button();
             btnSelectService.Text = "选择";
-            btnSelectService.Tag = service.Id.ToString();
+            btnSelectService.Tag = service;// service.Id.ToString();
             btnSelectService.Click += new EventHandler(btnSelectService_Click);
             pnl.Controls.Add(btnSelectService);
             pnlResultService.Controls.Add(pnl);
@@ -515,33 +525,50 @@ namespace Dianzhu.CSClient.WinformView
                     break;
                 }
             }
+            DZService selectedService = (DZService)((Button)sender).Tag;
 
-            currentServiceId = ((Button)sender).Tag.ToString();
-            SelectService();
+            //P 将所选择服务加入订单详情
+            SelectService(selectedService);
 
-            //选择新的服务，并设置背景颜色
-            //DZService selectservice = (DZService)((Button)sender).Tag;
-            Panel pnl = (Panel)pnlResultService.Controls.Find("servicePnl" + currentService.Id, true)[0];
+            
+            Panel pnl = (Panel)pnlResultService.Controls.Find("servicePnl" + selectedService.Id, true)[0];
             pnl.BackColor = Color.Green;
 
+            LoadOrderDetail(CurrentOrder);
+            
+
             //currentService
-            SetOrderByService(currentService);
+           // SetOrderByService(currentService);
         }
 
         /// <summary>
-        /// 将服务的数据写入订单中
+        /// 加载订单详情
         /// </summary>
-        private void SetOrderByService(DZService Service)
+        public void LoadOrderDetail(ServiceOrder order)
         {
-            ServiceName = Service.Name;
-            ServiceBusinessName = Service.Business.Name;
-            ServiceDescription = Service.Description;
-            ServiceUnitPrice = Service.UnitPrice.ToString();
-            ServiceUrl = string.Empty;//这个不知道是什么
-            OrderAmount = ServiceUnitPrice;
-            ServiceTime = DateTime.Now.ToString();
+            OrderNumber = order.Id.ToString();
+            OrderStatus = order.OrderStatus.ToString();
+            //判断是否已经加载
 
+            foreach (ServiceOrderDetail detail in order.Details)
+            {
+                string pnlOrderDetailKey = "pnlOrderDetail" + detail.Id;
+                bool hasDetailAdded = pnlOrder.Controls.ContainsKey(pnlOrderDetailKey);
+                if (hasDetailAdded)
+                {
+                    pnlOrder.Controls.RemoveByKey(pnlOrderDetailKey);
+                }
+                UC_OrderDetail pnlDetail = new UC_OrderDetail();
+                pnlDetail.Name = pnlOrderDetailKey;
+                pnlDetail.LoadData(detail);
+                pnlOrder.Controls.Add(pnlDetail);
+
+            }
             CanEditOrder = true;
+        }
+        private void LoadOneDetail(ServiceOrderDetail detail,Panel pnlOrderDetail)
+        {
+            
         }
 
         void btnPushService_Click(object sender, EventArgs e)
@@ -597,82 +624,16 @@ namespace Dianzhu.CSClient.WinformView
         }
 
 
+ 
+ 
 
-        public string ServiceName
-        {
-            get
-            {
-                return tbxServiceName.Text;
-            }
-            set
-            {
-                tbxServiceName.Text = value;
-            }
-        }
+  
 
-        public string ServiceBusinessName
-        {
-            get
-            {
-                return tbxServiceBusinessName.Text;
-            }
-            set
-            {
-                tbxServiceBusinessName.Text = value;
-            }
-        }
+   
 
-        public string ServiceDescription
-        {
-            get
-            {
-                return tbxServiceDescription.Text;
-            }
-            set
-            {
-                tbxServiceDescription.Text = value;
-            }
-        }
-
-        public string ServiceUnitPrice
-        {
-            get
-            {
-                return tbxServiceUnitPrice.Text;
-            }
-            set
-            {
-                tbxServiceUnitPrice.Text = value;
-            }
-        }
-
-        public string ServiceDepositAmount
-        {
-            get { return tbxDepositAmount.Text; }
-            set { tbxDepositAmount.Text = value; }
-        }
-
-        public string ServiceUrl
-        {
-            get
-            {
-                return tbxServiceUrl.Text;
-            }
-            set
-            {
-                tbxServiceUrl.Text = value;
-            }
-        }
-        public string OrderAmount
-        {
-            get { return tbxAmount.Text; }
-            set { tbxAmount.Text = value; }
-        }
-        public string TargetAddress
-        {
-            get { return tbxTargetAddress.Text; }
-            set { tbxTargetAddress.Text = value; }
-        }
+        
+ 
+       
         public string Memo {
             get { return tbxMemo.Text; }
             set { tbxMemo.Text = value; }
@@ -715,17 +676,7 @@ namespace Dianzhu.CSClient.WinformView
 
 
 
-        public string ServiceTime
-        {
-            get
-            {
-                return tbxServiceTime.Text;
-            }
-            set
-            {
-                tbxServiceTime.Text = value;
-            }
-        }
+        
         public System.IO.Stream SelectedImageStream
         {
             get
@@ -825,16 +776,6 @@ namespace Dianzhu.CSClient.WinformView
         private void btnNoticeOrder_Click(object sender, EventArgs e)
         {
             NoticeOrder();
-        }
-
-        private void btnNoticePromote_Click(object sender, EventArgs e)
-        {
-            NoticePromote();
-        }
-
-        private void btnNoticeCustomerService_Click(object sender, EventArgs e)
-        {
-            NoticeCustomerService();
         }
 
         public void ShowStreamError(string streamErrorMes)
@@ -957,6 +898,18 @@ namespace Dianzhu.CSClient.WinformView
             MessageSentAndNew();
         }
 
+        public void WindowNotification()
+        {
+            Action lamda = () =>
+            {
+                FlashInTaskBar.FlashWindowEx(this);
+            };
+            if (InvokeRequired)
+                Invoke(lamda);
+            else
+                lamda();
+        }
+
         /// <summary>
         /// 当前客服正在接待的用户的订单列表
         /// </summary>
@@ -966,5 +919,29 @@ namespace Dianzhu.CSClient.WinformView
         /// 当前客服接待用户的历史记录
         /// </summary>
         public IList<DZMembership> ReceptionCustomerList { set { dgvRpCustomer.DataSource = value; } }
+
+        
+        public decimal OrderDepositAmount
+        {
+            get
+            {
+                return string.IsNullOrEmpty(tbxOrderDepositAmount.Text) ? 0 : Convert.ToDecimal(tbxOrderDepositAmount.Text);
+            }
+
+            set
+            {
+                tbxOrderDepositAmount.Text = value.ToString();
+            }
+        }
+
+        public decimal OrderAmount
+        {
+            get
+            {
+             return Convert.ToDecimal(   tbxOrderAmount.Text);
+            }
+
+            
+        }
     }
 }

@@ -9,9 +9,12 @@ namespace Dianzhu.Model
     public class ServiceOrderStateChangeHis
 
     {
+        /// <summary>
+        /// 构造
+        /// </summary>
         public ServiceOrderStateChangeHis()
         {
-            LastUpdateTime = DateTime.Now;
+            CreatTime = DateTime.Now;
         }
         /// <summary>
         /// 主键
@@ -22,29 +25,41 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual ServiceOrder Order { get; set; }
         /// <summary>
-        /// 订单状态
+        /// 订单上一次状态
         /// </summary>
-        public virtual enum_OrderStatus Status { get; set; }
+        public virtual enum_OrderStatus OldStatus { get; set; }
         /// <summary>
-        /// 订单当前价格
+        /// 订单现在的状态
         /// </summary>
-        public virtual decimal NewAmount { get; set; }        
+        public virtual enum_OrderStatus NewStatus { get; set; }
         /// <summary>
-        /// 订单未更改前价格
+        ///订单预期
         /// </summary>
-        public virtual decimal OldAmount { get; set; }
+        public virtual decimal OrderAmount { get; set; }
+        /// <summary>
+        /// 订金
+        /// </summary>
+        public virtual decimal DepositAmount { get; set; }
+        /// <summary>
+        /// 协商总价
+        /// </summary>
+        public virtual decimal NegotiateAmount { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
         public virtual string Remark { get; set; }
         /// <summary>
-        /// 最后更新时间
+        /// 保存时间
         /// </summary>
-        public virtual DateTime LastUpdateTime { get; set; }
+        public virtual DateTime CreatTime { get; set; }
         /// <summary>
-        /// 更新订单操作人员
+        /// 订单操作人员
         /// </summary>
-        public virtual DZMembership UpdateController { get; set; }
+        public virtual DZMembership Controller { get; set; }
+        /// <summary>
+        /// 序号
+        /// </summary>
+        public virtual int Number { get; set; }
     }  
  
      

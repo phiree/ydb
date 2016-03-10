@@ -91,7 +91,6 @@
     <Compile Include="NetHelper.cs" />
     <Compile Include="PHGeography.cs" />
     <Compile Include="PHNumber.cs" />
-    <Compile Include="Push.cs" />
     <Compile Include="ReadExcelToDataTable.cs" />
     <Compile Include="ScreenShot.cs" />
     <Compile Include="StringHelper.cs" />
@@ -107,13 +106,19 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Configs.rar" />
-    <Content Include="files\aps_development_Mark.p12">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\JdSoft.Apns.Notifications.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="files\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InstantMessageMock\InstantMessageMock.csproj">
+      <Project>{f399fe2f-05a1-41b6-ab63-c879a1701dc4}</Project>
+      <Name>InstantMessageMock</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

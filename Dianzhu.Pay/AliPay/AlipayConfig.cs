@@ -27,6 +27,7 @@ namespace Com.Alipay
         #region 字段
         public readonly static string paytype = "1";
         public readonly static string partner = "2088021632422534";
+        public readonly static string seller_email = "jsyk_company@126.com";
         public readonly static string seller_id = "2088021632422534";
         public readonly static string private_key = @"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAONJrdtyvQKdP4fw
 LSjk8AbrN/IoJxIQU0h2QlInheeAcssN4rtSIWa1pZzzUksie+uMWZ9Xe11EBF76

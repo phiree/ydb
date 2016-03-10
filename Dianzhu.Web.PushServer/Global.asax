@@ -4,7 +4,7 @@
 
     void Application_Start(object sender, EventArgs e) 
     {
-        PHSuit.Logging.Config();
+        PHSuit.Logging.Config("Dianzhu.PushServer");
         // 在应用程序启动时运行的代码
         
     }

@@ -29,6 +29,13 @@ namespace MediaServer
                     domainPath.Add("ChatVideo", "/ChatVideo/");
                     domainPath.Add("ChatImage", "/ChatImage/");
                     domainPath.Add("Advertisement", "/Advertisement/");
+                    domainPath.Add("StaffAvatar", "/StaffAvatar/");//职工头像
+                    domainPath.Add("BusinessAvatar", "/BusinessAvatar/");//店铺logo
+                    domainPath.Add("BusinessShow", "/BusinessShow/");//店铺展示图片
+                    domainPath.Add("BusinessLicense", "/BusinessLicense/");//商家营业执照
+                    domainPath.Add("BusinessLicenseB", "/BusinessLicenseB/");//商家营业执照
+                    domainPath.Add("BusinessChargePersonIdCard", "/BusinessChargePersonIdCard/");//负责人证件照片
+                    domainPath.Add("BusinessChargePersonIdCardB", "/BusinessChargePersonIdCardB/");//负责人证件照片
                 }
                 return domainPath;
             }

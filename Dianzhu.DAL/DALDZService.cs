@@ -19,14 +19,14 @@ namespace Dianzhu.DAL
         }
         public IList<DZService> GetList(Guid businessId,  int pageindex, int pagesize, out int totalRecord)
         {
-            string where = "s.Business.Id='" + businessId + "'";
+            string where = "s.Business.Id='" + businessId + "' and s.IsDeleted=false";
             return  GetList("select s from DZService s where "
                 +where +" order by s.LastModifiedTime desc",
                 pageindex, pagesize, out totalRecord);
         }
         public IList<DZService> GetOtherList(Guid businessId,Guid serviceId, int pageindex, int pagesize, out int totalRecord)
         {
-            string where = "s.Business.Id='" + businessId + "' and s.Id!='"+serviceId+"'";
+            string where = "s.Business.Id='" + businessId + "' and s.Id!='"+serviceId+"' and s.IsDeleted=false";
             return GetList("select s from DZService s where "
                 + where + " order by s.LastModifiedTime desc",
                 pageindex, pagesize, out totalRecord);
@@ -46,6 +46,15 @@ namespace Dianzhu.DAL
 
             return result.List();
         }
-        
+
+        public DZService GetOneByBusAndId(Business business, Guid svcId)
+        {
+            return Session.QueryOver<DZService>().Where(x => x.Id == svcId).And(x => x.Business == business).And(x=>x.IsDeleted==false).SingleOrDefault();
+        }
+
+        public int GetSumByBusiness(Business business)
+        {
+            return Session.QueryOver<DZService>().Where(x => x.Business == business).And(x => x.IsDeleted == false).RowCount();
+        }
     }
 }

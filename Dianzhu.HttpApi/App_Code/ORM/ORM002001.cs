@@ -8,6 +8,7 @@ using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Dianzhu.Api.Model;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
@@ -29,10 +30,17 @@ public class ResponseORM002001 : BaseResponse
         try
         {
             DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            if (request.NeedAuthenticate)
             {
-                return;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                } 
+            }
+            else
+            {
+                member = p.GetUserById(new Guid(raw_id));
             }
             try
             {
@@ -90,10 +98,7 @@ public class ResponseORM002001 : BaseResponse
                 orderToReturn = bllOrder.GetDraftOrder(member, assignedPair[member]);
                     if (orderToReturn == null)
                     {
-                    orderToReturn = new ServiceOrder {
-                        Customer=member,
-                        CustomerService= assignedPair[member]
-                    }; 
+                    orderToReturn = ServiceOrderFactory.CreateDraft( assignedPair[member], member);
                        
                         bllOrder.SaveOrUpdate(orderToReturn);
                     }
@@ -147,48 +152,6 @@ public class ResponseORM002001 : BaseResponse
 
     }
 
-}
-
-public class ReqDataORM002001
-{
-    
-    public string userID { get; set; }
-    public string pWord { get; set; }
-    public string orderID { get; set; }
-    public string manualAssignedCsId { get; set; }
-    
-
-}
-public class RespDataORM002001
-{
-    public RespDataORM002001()
-    {
-        orderID = string.Empty;
-    }
-    public string orderID { get; set; }
-    public  RespDataORM002001_cerObj cerObj{ get; set; }
- 
-}
-public class RespDataORM002001_cerObj
-{
-    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
-    public string userID { get; set; }
-    public string alias { get; set; }
-    public string userName { get; set; }
-    public string imgUrl { get; set; }
-    public RespDataORM002001_cerObj Adap(DZMembership customerService)
-    {
-        ilog.Debug("11");
-        this.userID = customerService.Id.ToString();
-        ilog.Debug("12");
-        this.imgUrl = string.Empty;
-        ilog.Debug("13");
-        this.alias = customerService.DisplayName;
-        ilog.Debug("14");
-        this.userName = customerService.UserName;
-        ilog.Debug("15");
-        return this;
-    }
 }
 
  

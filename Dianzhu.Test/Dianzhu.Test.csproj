@@ -102,6 +102,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLTest\OrderFlow.cs" />
+    <Compile Include="BLLTest\TestBLLPayment.cs" />
     <Compile Include="BLLTest\TestBLLArea.cs" />
     <Compile Include="BLLTest\TestBLLReception.cs" />
     <Compile Include="BLLTest\TestBLLReceptionChat.cs" />
@@ -110,13 +112,17 @@
     <Compile Include="BLLTest\TestReceptionAssign.cs" />
     <Compile Include="CashTicketCreateTest.cs" />
     <Compile Include="cashticket_generator_test.cs" />
+    <Compile Include="DALTest\MapTest.cs" />
     <Compile Include="DALTest\TestDALReceptionChatDD.cs" />
+    <Compile Include="DianzhuModelTest\ServiceOrderTest.cs" />
     <Compile Include="DianzhuNotifyCenterTest\OrderNotifyTest.cs" />
     <Compile Include="DianzhuPushTest\TestPush.cs" />
     <Compile Include="dianzhu_test.cs" />
     <Compile Include="DZCSClientTest\MainPresenterTest.cs" />
     <Compile Include="DZCSClientTest\MessageAdapterTest\MessageAdapterTest.cs" />
     <Compile Include="DZCSClientTest\MessageBuildTest.cs" />
+    <Compile Include="DZCSClientTest\PGlobalTest.cs" />
+    <Compile Include="DZCSClientTest\PCustomerListTest.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />
@@ -132,6 +138,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="..\AdminBusiness\config\connectionStrings.config">
+      <Link>config\connectionStrings.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="files\aps_development_Mark.p12">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -161,9 +171,9 @@
       <Project>{74F0963E-57CA-4D57-899C-D85FF096FE1F}</Project>
       <Name>Dianzhu.CSClient.IMessageAdapter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IVew.csproj">
-      <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
-      <Name>Dianzhu.CSClient.IVew</Name>
+    <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
+      <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
+      <Name>Dianzhu.CSClient.IView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.MessageAdapter\Dianzhu.CSClient.MessageAdapter.csproj">
       <Project>{A871C9E1-98A4-412F-A1B3-541189A4C4CF}</Project>
@@ -188,6 +198,10 @@
     <ProjectReference Include="..\Dianzhu.Notify\Dianzhu.Notify.csproj">
       <Project>{1baad173-a641-435a-ad03-0cd0146674b9}</Project>
       <Name>Dianzhu.Notify</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
+      <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
+      <Name>Dianzhu.Pay</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
       <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>

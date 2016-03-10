@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using System.Collections.Specialized;
+using System.Text.RegularExpressions;
 
 namespace PHSuit
 {
@@ -41,7 +42,7 @@ namespace PHSuit
             /*毛哥的 
             8b123c1b50b85f67cb2bec37ae2b8c98fda48c8e43e4ce54a4c9291f17cb109a
             */
-            Push.pushNotifications("8de76c196a605120db39ab58373edf159c1301b43659bd129fcf72b696e2a26c", "test_push", @"files\aps_development_Mark.p12", 1);
+            //Push.pushNotifications("8de76c196a605120db39ab58373edf159c1301b43659bd129fcf72b696e2a26c", "test_push", @"files\aps_development_Mark.p12", 1);
         }
         [Test]
         public void TestCreateHttp()
@@ -69,6 +70,35 @@ namespace PHSuit
             
      
             
+        }
+        [Test]
+        public void TestXml2Json()
+        {
+            string xml =@"<xml><return_code><![CDATA[SUCCESS]]></return_code>
+                    <return_msg><![CDATA[OK]]></return_msg>
+            <appid><![CDATA[wxd928d1f351b77449]]></appid> 
+   <mch_id><![CDATA[1304996701]]></mch_id>
+<nonce_str><![CDATA[RnTyNTtoDpMC335q]]></nonce_str>
+<sign><![CDATA[8440115DC99103B7B242042239395967]]></sign>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<prepay_id><![CDATA[wx201602031137215b5350a5300317902456]]></prepay_id>
+<trade_type><![CDATA[APP]]></trade_type>
+</xml> ";
+           
+            string json = JsonHelper.Xml2Json(xml,true);
+            Console.Write(json);
+        }
+    }
+
+    [TestFixture]
+    public class TestLogging
+    {
+        [Test]
+        public void Config()
+        {
+            Logging.Config("Dianzhu.PHSuit");
+            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.PHSuit");
+            log.Debug("test");
         }
     }
 }

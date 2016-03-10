@@ -11,16 +11,16 @@ namespace Dianzhu.CSClient.Presenter
    public class LoginPresenter
     {
      
-       IVew.ILoginForm loginView;
+       IView.ILoginForm loginView;
        InstantMessage instantMessage;
      
-       public LoginPresenter(IVew.ILoginForm loginView, InstantMessage instantMessage
+       public LoginPresenter(IView.ILoginForm loginView, InstantMessage instantMessage
 )
        {
 
            this.loginView = loginView;
            this.instantMessage = instantMessage;
-           loginView.ViewLogin +=new IVew.ViewLogin(loginView_ViewLogin);
+           loginView.ViewLogin +=new IView.ViewLogin(loginView_ViewLogin);
            
             instantMessage.IMError += new IMError(XMPP_IMError);
             instantMessage.IMConnectionError += new IMConnectionError(instantMessage_IMConenctionError);
@@ -93,7 +93,8 @@ namespace Dianzhu.CSClient.Presenter
        {
           
             DZMembership customerService = new BLLFactory().BLLMember.GetUserById(new Guid( jidUser));
-            GlobalViables.CurrentCustomerService = customerService;
+            //GlobalViables.CurrentCustomerService = customerService;
+             GlobalViables.CurrentCustomerService = customerService;
 
             Guid id =new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
             DZMembership diandian = new BLLFactory().BLLMember.GetUserById(id);

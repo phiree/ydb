@@ -19,4 +19,18 @@ public class BaseRequest
     public string appName { get; set; }
     public string Ver { get; set; }
     public JObject ReqData { get; set; }//JObject：json对象
+    public bool NeedAuthenticate
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(appName))
+            {
+                return true;
+            }
+            else
+            {
+                return appName.ToLower() != "adminbusiness";
+            }
+        }
+    }
 }

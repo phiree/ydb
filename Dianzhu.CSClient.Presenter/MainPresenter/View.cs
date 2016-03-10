@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-using Dianzhu.CSClient.IVew;
+using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.IInstantMessage;
 using System.IO;
 using System.Diagnostics;
@@ -40,9 +40,9 @@ namespace Dianzhu.CSClient.Presenter
         {
             if (ClientState.CurrentServiceOrder == null)
             { return; }
-            ServiceOrder newOrder =
-                new ServiceOrder { Customer= ClientState.CurrentServiceOrder.Customer
-                , CustomerService=ClientState.customerService };
+            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(ClientState.CurrentServiceOrder.Customer
+                , ClientState.customerService);
+               
                  
             bllOrder.SaveOrUpdate(newOrder);
             ClientState.CurrentServiceOrder = newOrder;
@@ -69,17 +69,7 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         private void CleanOrderData()
         {
-            view.CurrentService = null;
-            view.ServiceName = string.Empty;
-            view.ServiceBusinessName = string.Empty;
-            view.ServiceDescription = string.Empty;
-            view.ServiceUnitPrice = "0.00";
-            view.ServiceDepositAmount = "0.00";
-            view.ServiceUrl = string.Empty;
-            view.OrderAmount = "0.00";
-            view.TargetAddress = string.Empty;
-            view.Memo = string.Empty;
-            view.ServiceTime = string.Empty;
+             
 
             view.CanEditOrder = true;
         }
@@ -89,18 +79,31 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_CreateOrder()
         {
-            decimal unitPrice = view.ServiceUnitPrice == string.Empty ? 0 : Convert.ToDecimal(view.ServiceUnitPrice);
-            decimal depositAmount = view.ServiceDepositAmount == string.Empty ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
-            decimal orderAmount = view.OrderAmount == string.Empty ? 0 : Convert.ToDecimal(view.OrderAmount);
-
-            Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid");
-            SaveCurrentOrder();
-            //从草稿单创建正式订单
+            
+            Debug.Assert(ClientState.CurrentServiceOrder.OrderStatus == Model.Enums.enum_OrderStatus.Draft, "orderStatus is not valid,orderStatus="+ ClientState.CurrentServiceOrder.OrderStatus);
+            SaveCurrentOrder(); //从草稿单创建正式订单
            
-            ClientState.CurrentServiceOrder.CreateFromDraft();
-  
+            ClientState.CurrentServiceOrder.CreatedFromDraft();
+
+            ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis
+            {
+                OrderAmount = ClientState.CurrentServiceOrder.OrderAmount,
+                DepositAmount = ClientState.CurrentServiceOrder.DepositAmount,
+                NegotiateAmount = ClientState.CurrentServiceOrder.NegotiateAmount,
+                Order = ClientState.CurrentServiceOrder,
+                Remark = ClientState.CurrentServiceOrder.Memo,
+                OldStatus =  Model.Enums.enum_OrderStatus.Draft,
+                NewStatus = ClientState.CurrentServiceOrder.OrderStatus,
+                Number = 1,
+            };
+            bllServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
+
             View_NoticeOrder();
-            string payLink = ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"),Model.Enums.enum_PayTarget.Deposit);
+            BLLPayment bllPayment = new BLLPayment();
+
+            Payment payment = bllPayment.ApplyPay(ClientState.CurrentServiceOrder, Model.Enums.enum_PayTarget.Deposit);
+                
+              //  ClientState.CurrentServiceOrder.BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayUrl"),Model.Enums.enum_PayTarget.Deposit);
 
             ReceptionChatNotice chatNotice = new ReceptionChatNotice
             {
@@ -110,8 +113,7 @@ namespace Dianzhu.CSClient.Presenter
                 SavedTime = DateTime.Now,
                 ServiceOrder = ClientState.CurrentServiceOrder,
                 UserObj = ClientState.customerService,
-
-                MessageBody = "支付链接" + payLink,
+                MessageBody = "支付链接" + bllPayment.BuildPayLink(payment.Id),
                 SendTime = DateTime.Now
             };
 
@@ -152,24 +154,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 ClientState.OrderList.Add(order);
             }
-            view.CurrentService = order.Service;
-            view.ServiceName = order.ServiceName;
-            view.ServiceBusinessName = order.ServiceBusinessName;
-            view.ServiceDescription = order.ServiceDescription;
-            view.ServiceUnitPrice = order.ServiceUnitPrice.ToString();
-            view.ServiceUrl = order.ServiceURL;
-            view.OrderAmount = order.OrderAmount.ToString();
-            view.TargetAddress = order.TargetAddress;
-            view.Memo = order.Memo;
-            view.ServiceTime = order.TargetTime;
-            view.OrderNumber = order.Id.ToString();
-            view.OrderStatus = order.OrderStatus == Model.Enums.enum_OrderStatus.Draft ? "草稿"
-            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
-            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
-            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
-            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
-            : order.OrderStatus == Model.Enums.enum_OrderStatus.Created ? "已创建,等待支付"
-            : order.OrderStatus.ToString();
+            
             if (order.OrderStatus == Model.Enums.enum_OrderStatus.Draft)
             {
                 view.CanEditOrder = true;
@@ -191,22 +176,11 @@ namespace Dianzhu.CSClient.Presenter
                 return;
             }
 
-            //new ServiceOrderBuilder(ClientState.CurrentServiceOrder).SetService(view.CurrentService)
-            //    .SetServiceInfo(view.ServiceName, view.ServiceBusinessName, view.ServiceDescription, Convert.ToDecimal(view.ServiceUnitPrice))
-            //    .SetServiceUrl(view.ServiceUrl)
-            //    .SetOrderInfo(Convert.ToDecimal(view.OrderAmount), 1, view.TargetAddress, view.ServiceTime, view.Memo);
+             
+            ClientState.CurrentServiceOrder.DepositAmount = view.OrderDepositAmount;// == "" ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
 
-            ClientState.CurrentServiceOrder.Service = view.CurrentService;
-            ClientState.CurrentServiceOrder.ServiceName = view.ServiceName;
-            ClientState.CurrentServiceOrder.ServiceBusinessName = view.ServiceBusinessName;
-            ClientState.CurrentServiceOrder.ServiceDescription = view.ServiceDescription;
-            ClientState.CurrentServiceOrder.ServiceUnitPrice = view.ServiceUnitPrice == "" ? 0 : Convert.ToDecimal(view.ServiceUnitPrice);
-            ClientState.CurrentServiceOrder.DepositAmount = view.ServiceDepositAmount == "" ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
-            ClientState.CurrentServiceOrder.ServiceURL = view.ServiceUrl;
-            ClientState.CurrentServiceOrder.OrderAmount = view.OrderAmount == "" ? 0 : Convert.ToDecimal(view.OrderAmount);
-            ClientState.CurrentServiceOrder.TargetAddress = view.TargetAddress;
             ClientState.CurrentServiceOrder.Memo = view.Memo;
-            ClientState.CurrentServiceOrder.TargetTime = view.ServiceTime;
+            ClientState.CurrentServiceOrder.LatestOrderUpdated = DateTime.Now;
             bllOrder.SaveOrUpdate(ClientState.CurrentServiceOrder);
         }
 

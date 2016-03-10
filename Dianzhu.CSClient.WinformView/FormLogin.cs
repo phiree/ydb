@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Dianzhu.CSClient.WinformView
 {
-    public partial class FormLogin : Form, IVew.ILoginForm
+    public partial class FormLogin : Form, IView.ILoginForm
     {
 
 
@@ -55,7 +55,7 @@ namespace Dianzhu.CSClient.WinformView
 
 
 
-        public event IVew.ViewLogin ViewLogin;
+        public event IView.ViewLogin ViewLogin;
         public string UserName
         {
             get { return tbxUserName.Text; }

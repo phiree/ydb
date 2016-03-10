@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Dianzhu.Model;
-using Dianzhu.CSClient.IVew;
+using Dianzhu.CSClient.IView;
 using System.Diagnostics;
 namespace Dianzhu.CSClient.Presenter
 {
@@ -16,7 +16,11 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="chat"></param>
         public void IMReceivedMessage(ReceptionChat chat)
         {
-           
+
+           // ViewCustomerList.AddIdentity(chat.From);
+            return;
+
+            view.WindowNotification();
             SaveMessage(chat, false);
             if (chat.ChatType== Model.Enums.enum_ChatType.Notice
                 &&chat.ServiceOrder == null)

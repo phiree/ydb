@@ -5,6 +5,7 @@ using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
+using Dianzhu.Api.Model;
 /// <summary>
 /// 获取某一个服务  一周7天的 简要信息
 /// </summary>
@@ -63,33 +64,4 @@ public class ResponseSLF001007:BaseResponse
             return;
         }
     }
-}
-public class ReqDataSLF001007
-{
-    public string serviceId { get; set; }
-    public string date { get; set; }
-}
-
-public class RespDataSLF00107_Obj
-{
-    public Guid openTimeId { get; set; }
-    public string date { get; set; }
-    public int dayMaxOrder { get; set; }
-    public int dayDoneOrder { get; set; }
-    public bool dayEnable { get; set; }
-    public RespDataSLF00107_Obj Adapt(DateTime date, ServiceOpenTime opentime)
-    {
-        this.openTimeId = opentime.Id;
-        this.date = date.ToShortDateString();
-        this.dayMaxOrder = opentime.MaxOrderForDay;
-        this.dayEnable = opentime.Enabled;
-            return this;
-    }
-}
-
-public class RespDataSLF001007
-{
-    public IList<RespDataSLF00107_Obj> arrayData { get; set; }
-     
-
 }

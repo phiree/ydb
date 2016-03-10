@@ -15,15 +15,17 @@ namespace PHSuit
           /// <summary>
         /// Configures log4net
         /// </summary>
-        public static void Config()
+        public static void Config(string logFilePath)
         {
+            
+            string logFileNameRoot = "../logs/" + logFilePath + "/" + System.Environment.MachineName;
             Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
             // Remove any other appenders
             hierarchy.Root.RemoveAllAppenders();
             // define some basic settings for the root
             Logger rootLogger = hierarchy.Root;
             rootLogger.Level = Level.Debug;
-
+       
             // declare a RollingFileAppender with 5MB per file and max. 10 files
             RollingFileAppender appenderNH = new RollingFileAppender();
             appenderNH.Name = "RollingLogFileAppenderNHibernate";
@@ -33,7 +35,7 @@ namespace PHSuit
             appenderNH.RollingStyle = RollingFileAppender.RollingMode.Size;
             appenderNH.StaticLogFileName = true;
             appenderNH.LockingModel = new FileAppender.MinimalLock();
-            appenderNH.File = "logs/"+ System.Environment.MachineName +"_nhibernate.log";
+            appenderNH.File = logFileNameRoot + "_nhibernate.log";
             appenderNH.Layout = new PatternLayout("%date [%thread] %-5level %logger - %message%newline");
             // this activates the FileAppender (without it, nothing would be written)
             appenderNH.ActivateOptions();
@@ -41,10 +43,12 @@ namespace PHSuit
             // This is required, so that we can access the Logger by using 
             // LogManager.GetLogger("NHibernate.SQL") and it can used by NHibernate
             Logger loggerNH = hierarchy.GetLogger("NHibernate") as Logger;
-            loggerNH.Level = Level.Warn;
+            loggerNH.Level = Level.Debug;
             loggerNH.AddAppender(appenderNH);
 
             // declare RollingFileAppender with 5MB per file and max. 10 files
+            Logger logger = hierarchy.GetLogger("Dianzhu") as Logger;
+
             RollingFileAppender appenderMain = new RollingFileAppender();
             appenderMain.Name = "RollingLogFileAppenderMyProgram";
             appenderMain.AppendToFile = true;
@@ -53,7 +57,7 @@ namespace PHSuit
             appenderMain.RollingStyle = RollingFileAppender.RollingMode.Size;
             appenderMain.StaticLogFileName = true;
             appenderMain.LockingModel = new FileAppender.MinimalLock();
-            appenderMain.File = "logs/" + System.Environment.MachineName + ".log";
+            appenderMain.File = logFileNameRoot + ".log";
             appenderMain.Layout = new PatternLayout(
                 "%date [%thread] %-5level %logger- %message%newline");
             // this activates the FileAppender (without it, nothing would be written)
@@ -61,7 +65,8 @@ namespace PHSuit
 
             // This is required, so that we can access the Logger by using 
             // LogManager.GetLogger("MyProgram") 
-            Logger logger = hierarchy.GetLogger("Dianzhu") as Logger;
+            
+            
             logger.Level = Level.Debug;
             logger.AddAppender(appenderMain);
 

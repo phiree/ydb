@@ -17,21 +17,15 @@ public class ResponseFactory
         switch (request.protocol_CODE.ToLower())
         {
             case "usm001001":
-                return new ResponseUSM001001(request);
-               
+                return new ResponseUSM001001(request);               
             case "usm001005":
-                return new ResponseUSM001005(request);
-                
+                return new ResponseUSM001005(request);                
             case "usm001003":
-                return new ResponseUSM001003(request);
-               
+                return new ResponseUSM001003(request);               
             case "usm001007":
                 return new ResponseUSM001007(request);
             case "usm001008":
                 return new ResponseUSM001008(request);
-
-            case "svc001001":
-                return new ResponseSVC001001(request);
  
             case "vcm001001":
                 return new ResponseVCM001001(request);
@@ -39,6 +33,7 @@ public class ResponseFactory
                 return new ResponseVCM001002(request);
             case "vcm001003":
                 return new ResponseVCM001003(request);
+
             case "merm001001":
                 return new ResponseMERM001001(request);
             case "merm001003":
@@ -52,11 +47,17 @@ public class ResponseFactory
                 return new ResponseORM001006(request);
             case "orm001005":
                 return new ResponseORM001005(request);
-
             case "orm002001":
                 return new ResponseORM002001(request);
             case "orm002002":
                 return new ResponseORM002002(request);
+            case "orm003005":
+                return new ResponseORM003005(request);
+            case "orm003006":
+                return new ResponseORM003006(request);
+            case "orm003007":
+                return new ResponseORM003007(request);
+
             case "chat001004":
                 return new ResponseCHAT001004(request);
             case "chat001006":
@@ -91,6 +92,65 @@ public class ResponseFactory
 
             case "ad001006":
                 return new ResponseAD001006(request);
+
+            case "py001007":
+                return new ResponsePY001007(request);
+            case "py001008":
+                return new ResponsePY001008(request);
+
+            case "clm001001":
+                return new ResponseCLM001001(request);
+
+            case "asn001001":
+                return new ResponseASN001001(request);
+            case "asn001002":
+                return new ResponseASN001002(request);
+            case "asn001003":
+                return new ResponseASN001003(request);
+            case "asn001004":
+                return new ResponseASN001004(request);
+            case "asn001005":
+                return new ResponseASN001005(request);
+            case "asn001006":
+                return new ResponseASN001006(request);
+            case "asn002001":
+                return new ResponseASN002001(request);
+            case "asn002004":
+                return new ResponseASN002004(request);
+
+            case "store001001":
+                return new ResponseSTORE001001(request);
+            case "store001002":
+                return new ResponseSTORE001002(request);
+            case "store001003":
+                return new ResponseSTORE001003(request);
+            case "store001004":
+                return new ResponseSTORE001004(request);
+            case "store001005":
+                return new ResponseSTORE001005(request);
+            case "store001006":
+                return new ResponseSTORE001006(request);
+            case "store002001":
+                return new ResponseSTORE002001(request);
+            case "store002002":
+                return new ResponseSTORE002002(request);
+            case "store002003":
+                return new ResponseSTORE002003(request);
+            case "store002004":
+                return new ResponseSTORE002004(request);
+
+            case "svc001001":
+                return new ResponseSVC001001(request);
+            case "svc001002":
+                return new ResponseSVC001002(request);
+            case "svc001003":
+                return new ResponseSVC001003(request);
+            case "svc001004":
+                return new ResponseSVC001004(request);
+            case "svc001005":
+                return new ResponseSVC001005(request);
+            case "svc001006":
+                return new ResponseSVC001006(request);
             default:
                 BaseResponse baeResponse = new BaseResponse(request);
                 baeResponse.state_CODE = Dicts.StateCode[1];

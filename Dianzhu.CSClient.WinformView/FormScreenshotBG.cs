@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections.Generic;
-using Dianzhu.CSClient.IVew;
+using Dianzhu.CSClient.IView;
 
 namespace Teboscreen
 {
@@ -11,7 +11,7 @@ namespace Teboscreen
     /// <summary>
     /// 屏幕截图
     /// </summary>
-    public partial class Form1 : Form,Dianzhu.CSClient.IVew.IScreenCaptureForm
+    public partial class Form1 : Form,Dianzhu.CSClient.IView.IScreenCaptureForm
     {
         
         #region:::::::::::::::::::::::::::::::::::::::::::Form level declarations:::::::::::::::::::::::::::::::::::::::::::

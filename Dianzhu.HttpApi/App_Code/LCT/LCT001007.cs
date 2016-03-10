@@ -1,6 +1,7 @@
 ﻿using System;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Dianzhu.Api.Model;
 
 /// <summary>
 /// 上传选择城市
@@ -17,17 +18,18 @@ public class ResponseLCT001007 : BaseResponse
 
         try
         {
-            DZMembership member;
-            bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
-            if (!validated)
+            if (request.NeedAuthenticate)
             {
-                return;
+                DZMembership member;
+                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                } 
             }
 
             try
             {
-
-
                 this.state_CODE = Dicts.StateCode[0];
             }
             catch (Exception ex)
@@ -43,15 +45,5 @@ public class ResponseLCT001007 : BaseResponse
             this.err_Msg = e.Message;
             return;
         }
-
-
     }
-
-    public class ReqDataLCT001007
-    {
-        public string userID { get; set; }
-        public string pWord { get; set; }
-        public string code { get; set; }
-    }
-
 }

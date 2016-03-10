@@ -16,7 +16,7 @@ namespace Dianzhu.Test.DALTest
     {
         [TestFixtureSetUp]
         public void setup(){
-            PHSuit.Logging.Config();
+            PHSuit.Logging.Config("Dianzhu.Test");
            log4net.LogManager.GetLogger("Dianzhu.Test").Debug("test--");
             log4net.LogManager.GetLogger("NoLog").Debug("test--");
         }
