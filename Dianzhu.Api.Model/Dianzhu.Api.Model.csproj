@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="STORE.cs" />
     <Compile Include="VCM.cs" />
     <Compile Include="U3RD.cs" />
     <Compile Include="SYS.cs" />

@@ -95,7 +95,7 @@ namespace Dianzhu.CSClient.Presenter
             this.view.ReceptionCustomerList = bllReceptionStatusArchieve.GetCustomerListByCS(ClientState.customerService, 1, 10, out rsaCustomerAmount);
 
             #region 组件化
-            this.ViewCustomerList.CustomerClick += ViewCustomerList_CustomerClick;
+            //this.ViewCustomerList.CustomerClick += ViewCustomerList_CustomerClick;
             #endregion
         }
 

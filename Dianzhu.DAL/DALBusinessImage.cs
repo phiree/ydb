@@ -18,6 +18,11 @@ namespace Dianzhu.DAL
         {
             
         }
+
+        public BusinessImage FindBusImageByName(string imgName)
+        {
+            return Session.QueryOver<BusinessImage>().Where(x => x.ImageName == imgName).SingleOrDefault();
+        }
       
     }
 }

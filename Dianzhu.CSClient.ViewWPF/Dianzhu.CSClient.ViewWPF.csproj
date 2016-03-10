@@ -57,6 +57,9 @@
     <Compile Include="FormMain.xaml.cs">
       <DependentUpon>FormMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UCCustomBtn.xaml.cs">
+      <DependentUpon>UCCustomBtn.xaml</DependentUpon>
+    </Compile>
     <Page Include="FormLogin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,6 +71,10 @@
     <Compile Include="FormLogin.xaml.cs">
       <DependentUpon>FormLogin.xaml</DependentUpon>
     </Compile>
+    <Page Include="UCCustomBtn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

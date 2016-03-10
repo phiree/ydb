@@ -32,6 +32,7 @@ namespace Dianzhu.BLL
             dzTag.ForPK3 = businessId;
             dzTag.Text = text;
             dzTag.OriginalText = text;
+            dzTag.CreateDate = DateTime.Now;
             dalTag.Save(dzTag);
             return dzTag;
         }
@@ -51,5 +52,13 @@ namespace Dianzhu.BLL
           return  dalTag.GetTagsForService(serviceId);
         }
 
+        public void DeleteByServiceId(Guid serviceId)
+        {
+            IList<DZTag> tagList = dalTag.GetTagsForService(serviceId);
+            foreach (DZTag tag in tagList)
+            {
+                dalTag.Delete(tag);
+            }
+        }
     }
 }

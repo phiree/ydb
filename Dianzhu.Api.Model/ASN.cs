@@ -18,11 +18,11 @@ namespace Dianzhu.Api.Model
         public RespDataASN_staffObj Adapt(Staff staff)
         {
             this.userID = staff.Id.ToString();
-            this.alias = staff.NickName;
-            this.email = staff.Email;
-            this.phone = staff.Phone;
-            this.address = staff.Address;
-            if (staff.Photo == null || staff.Photo == "")
+            this.alias = staff.NickName ?? "";
+            this.email = staff.Email ?? "";
+            this.phone = staff.Phone ?? "";
+            this.address = staff.Address ?? "";
+            if (string.IsNullOrEmpty(staff.Photo))
             {
                 this.imgUrl = "";
             }
@@ -38,7 +38,7 @@ namespace Dianzhu.Api.Model
     #region ASN001001
     public class ReqDataASN001001
     {
-        public string storeID { get; set; }
+        public string merchantID { get; set; }
         public string pWord { get; set; }
         public RespDataASN_staffObj userObj { get; set; }
     }
@@ -52,7 +52,7 @@ namespace Dianzhu.Api.Model
     #region ASN001002
     public class ReqDataASN001002
     {
-        public string storeID { get; set; }
+        public string merchantID { get; set; }
         public string pWord { get; set; }
         public string userID { get; set; }
     }
@@ -66,7 +66,7 @@ namespace Dianzhu.Api.Model
     #region ASN001003
     public class ReqDataASN001003
     {
-        public string storeID { get; set; }
+        public string merchantID { get; set; }
         public string pWord { get; set; }
         public string userID { get; set; }
         public string alias { get; set; }
@@ -96,7 +96,7 @@ namespace Dianzhu.Api.Model
     #region ASN001004
     public class ReqDataASN001004
     {
-        public string storeID { get; set; }
+        public string merchantID { get; set; }
         public string pWord { get; set; }
     }
 
@@ -109,7 +109,7 @@ namespace Dianzhu.Api.Model
     #region ASN001005
     public class ReqDataASN001005
     {
-        public string storeID { get; set; }
+        public string merchantID { get; set; }
         public string pWord { get; set; }
         public string userID { get; set; }
     }
@@ -123,7 +123,7 @@ namespace Dianzhu.Api.Model
     #region ASN001006
     public class ReqDataASN001006
     {
-        public string storeID { get; set; }
+        public string merchantID { get; set; }
         public string pWord { get; set; }
     }
 
@@ -171,7 +171,7 @@ namespace Dianzhu.Api.Model
     #region ASN002001
     public class ReqDataASN002001
     {
-        public string storeID { get; set; }
+        public string merchantID { get; set; }
         public string pWord { get; set; }
         public IList<RespDataASN_assignObj> arrayData { get; set; }
     }
@@ -185,7 +185,7 @@ namespace Dianzhu.Api.Model
     #region ASN002004
     public class ReqDataASN002004
     {
-        public string storeID { get; set; }
+        public string merchantID { get; set; }
         public string pWord { get; set; }
         public string orderID { get; set; }
         public string userID { get; set; }

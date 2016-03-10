@@ -74,6 +74,11 @@ namespace Dianzhu.BLL
             return DALBusiness.GetBusinessByEmail(email);
         }
 
+        public int GetEnableSum(DZMembership member)
+        {
+            return DALBusiness.GetEnableSum(member);
+        }
+
         /// <summary>
         /// 解析传递过来的 string, 
         /// </summary>
@@ -93,6 +98,10 @@ namespace Dianzhu.BLL
             return DALBusiness.GetListByPage(pageIndex, pageSize, out totalRecord);
         }
 
+        public Business GetBusinessByIdAndOwner(Guid id, Guid ownerId)
+        {
+            return DALBusiness.GetBusinessByIdAndOwner(id, ownerId);
+        }
     }
 
 }

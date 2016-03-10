@@ -16,6 +16,7 @@ namespace Dianzhu.Api.Model
         public string phone { get; set; }
         public string imgUrl { get; set; }
         public string address { get; set; }
+        public string name { get; set; }
         public RespDataUSM_userObj Adapt(DZMembership membership)
         {
             this.userID = membership.Id.ToString();
@@ -26,6 +27,7 @@ namespace Dianzhu.Api.Model
                 ? string.Empty
                 : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + membership.AvatarUrl;
             this.address = membership.Address ?? "";
+            this.name = membership.NickName ?? "";
             return this;
         }
     }

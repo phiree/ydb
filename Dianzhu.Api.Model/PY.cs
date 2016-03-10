@@ -11,8 +11,8 @@ namespace Dianzhu.Api.Model
     {
         public string userID { get; set; }
         public string pWord { get; set; }
-        public string orderID { get; set; }
-        public string type { get; set; }
+        public string payID { get; set; }
+        public string target { get; set; }
     }
 
     public class RespData_WeChatUserObj

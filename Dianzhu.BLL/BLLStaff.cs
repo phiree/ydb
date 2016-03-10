@@ -80,6 +80,5 @@ namespace Dianzhu.BLL
         {
             return DALStaff.GetAllListByBusiness(business);
         }
-
     }
 }

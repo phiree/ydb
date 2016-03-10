@@ -29,19 +29,19 @@ public class ResponseASN001001 : BaseResponse
 
         try
         {
-            string raw_id = requestData.storeID;
+            string raw_id = requestData.merchantID;
             RespDataASN_staffObj userObj = requestData.userObj;
 
-            Guid storeID;
-            bool isStoreId = Guid.TryParse(raw_id, out storeID);
+            Guid merchantID;
+            bool isStoreId = Guid.TryParse(raw_id, out merchantID);
             if (!isStoreId)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "storeId格式有误";
+                this.err_Msg = "merchantID格式有误";
                 return;
             }
 
-            Business store = bllBusiness.GetOne(storeID);
+            Business store = bllBusiness.GetOne(merchantID);
             if (store == null)
             {
                 this.state_CODE = Dicts.StateCode[1];

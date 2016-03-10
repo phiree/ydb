@@ -33,6 +33,14 @@ namespace Dianzhu.BLL
         {
             return DALDZService.GetOne(serviceId);
         }
+        public DZService GetOneByBusAndId(Business business, Guid svcId)
+        {
+            return DALDZService.GetOneByBusAndId(business, svcId);
+        }
+        public int GetSumByBusiness(Business business)
+        {
+            return DALDZService.GetSumByBusiness(business);
+        }
         public virtual IList<ServiceType> GetServiceTypeListByBusiness(Guid businessId)
         {
             int totalRecord;
@@ -40,7 +48,10 @@ namespace Dianzhu.BLL
             IList<ServiceType> serviceTypeList = businessServices.Select(x => x.ServiceType.TopType).Distinct().ToList();
             return serviceTypeList;
         }
-        
+        public void Update(DZService service)
+        {
+            DALDZService.Update(service);
+        }
         public void SaveOrUpdate(DZService service,out ValidationResult validationResult)
         {
          ValidatorDZService v = new ValidatorDZService();

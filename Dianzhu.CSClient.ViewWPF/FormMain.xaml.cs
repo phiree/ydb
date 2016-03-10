@@ -380,7 +380,8 @@ namespace Dianzhu.CSClient.ViewWPF
             Action lambda = () => {
                 if (pnlCustomerList.FindName((buttonNamePrefix + dm.Id).Replace("-",""))!=null)
                 {
-                    Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + dm.Id).Replace("-",""));
+                    //Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + dm.Id).Replace("-",""));
+                    UCCustomBtn btn = (UCCustomBtn)pnlCustomerList.FindName((buttonNamePrefix + dm.Id).Replace("-",""));
                     Color foreColor = Colors.White;
                     switch (buttonStyle)
                     {
@@ -414,11 +415,13 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 if (pnlCustomerList.FindName((buttonNamePrefix + dm.Id).Replace("-",""))==null)
                 {
-                    Button btn = new Button();
-                    btn.Content = dm.DisplayName + dm.Id;
+                    UCCustomBtn btn = new UCCustomBtn();
+                    //Button btn = new Button();
+                    //btn.Content = dm.DisplayName + dm.Id;
+                    btn.Width = btn.Height = 60;
                     btn.Tag = dm;
                     btn.Name = (buttonNamePrefix + dm.Id).Replace("-","");
-                    btn.Click += btnCustomer_Click;
+                    //btn.Click += btnCustomer_Click;
 
                     pnlCustomerList.Children.Add(btn);
                     pnlCustomerList.RegisterName(btn.Name,btn);
@@ -439,8 +442,10 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (IdentityItemActived != null)
             {
-                DZMembership custom = (DZMembership)((Button)sender).Tag;
-                Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + custom.Id).Replace("-", ""));
+                //DZMembership custom = (DZMembership)((Button)sender).Tag;
+                DZMembership custom = (DZMembership)((UCCustomBtn)sender).Tag;
+                //Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + custom.Id).Replace("-", ""));
+                UCCustomBtn btn = (UCCustomBtn)pnlCustomerList.FindName((buttonNamePrefix + custom.Id).Replace("-", ""));
                 if (btn.Foreground == new  SolidColorBrush(Colors.Gray))
                 {
                     MessageBox.Show("该用户已下线！");
@@ -449,7 +454,8 @@ namespace Dianzhu.CSClient.ViewWPF
                 }
                 BeforeCustomerChanged();
                 //IdentityItemActived((ServiceOrder)((Button)sender).Tag);
-                IdentityItemActived((DZMembership)((Button)sender).Tag);
+                //IdentityItemActived((DZMembership)((Button)sender).Tag);
+                IdentityItemActived((DZMembership)((UCCustomBtn)sender).Tag);
             }
         }
 
@@ -586,6 +592,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 lblPlainText.Content = messageBody;
                 //_AutoSize(lblPlainText);
                 pnlContainer.Children.Add(lblPlainText);
+                scrollChat.ScrollToBottom();
             }
             else
             {
@@ -610,7 +617,8 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 if (pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-",""))!=null)
                 {
-                    Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-", ""));
+                    //Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-", ""));
+                    UCCustomBtn btn = (UCCustomBtn)pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-", ""));
                     pnlCustomerList.Children.Remove(btn);
                 }
                 else
@@ -635,7 +643,8 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 if (pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-", "")) != null)
                 {
-                    Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-", ""));
+                    //Button btn = (Button)pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-", ""));
+                    UCCustomBtn btn = (UCCustomBtn)pnlCustomerList.FindName((buttonNamePrefix + cid).Replace("-", ""));
                     pnlCustomerList.Children.Remove(btn);
                     pnlChat.Children.Clear();
                     dgvOrders.ItemsSource = null;

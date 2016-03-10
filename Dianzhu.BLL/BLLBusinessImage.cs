@@ -50,5 +50,30 @@ namespace Dianzhu.BLL
            BLLBusiness.Updte(b);
            return "/media/business/original/" + imageName;
        }
+
+        public BusinessImage FindBusImageByName(string imgName)
+        {
+            return DALBusinessImage.FindBusImageByName(imgName);
+        }
+
+        public bool DeleteBusImageByName(string imgName)
+        {
+            BusinessImage bi = DALBusinessImage.FindBusImageByName(imgName);
+            if (bi != null)
+            {
+                string filePath = HttpContext.Current.Server.MapPath(bi.GetRelativePathByType()) + bi.ImageName;
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+                DALBusinessImage.Delete(bi);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

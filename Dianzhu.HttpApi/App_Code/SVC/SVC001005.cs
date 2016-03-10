@@ -4,86 +4,95 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using Dianzhu.Model;
+using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
+using System.Collections.Specialized;
+using PHSuit;
 
 /// <summary>
-/// 删除员工
+/// 新增店铺
 /// </summary>
-public class ResponseASN001002 : BaseResponse
+public class ResponseSVC001005 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
-    public ResponseASN001002(BaseRequest request) : base(request) { }
+    public ResponseSVC001005(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataASN001002 requestData = this.request.ReqData.ToObject<ReqDataASN001002>();
+        ReqDataSVC001005 requestData = this.request.ReqData.ToObject<ReqDataSVC001005>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLBusiness bllBusiness = new BLLBusiness();
-        BLLStaff bllStaff = new BLLStaff();
+        BLLDZService bllDZService = new BLLDZService();
+        BLLDZTag bllDZTag = new BLLDZTag();
 
         try
         {
             string raw_id = requestData.merchantID;
-            string user_id = requestData.userID;
+            string svd_id = requestData.svcID;
 
-            Guid merchantID,userID;
-            bool isStoreId = Guid.TryParse(raw_id, out merchantID);
-            if (!isStoreId)
+            Guid userID,svcID;
+            bool isUserId = Guid.TryParse(raw_id, out userID);
+            if (!isUserId)
             {
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "merchantID格式有误";
                 return;
             }
 
-            bool isUserId = Guid.TryParse(user_id, out userID);
-            if (!isUserId)
+            bool isStoreId = Guid.TryParse(svd_id, out svcID);
+            if (!isStoreId)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "userId格式有误";
+                this.err_Msg = "svcId格式有误";
                 return;
             }
 
+            DZMembership member = null;
             if (request.NeedAuthenticate)
-            {
-                DZMembership member;
-                bool validated = new Account(p).ValidateUser(merchantID, requestData.pWord, this, out member);
+            {                
+                bool validated = new Account(p).ValidateUser(userID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
                 } 
             }
+            else
+            {
+                member = p.GetUserById(userID);
+                if (member == null)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "不存在该商户！";
+                    return;
+                }
+            }
             try
             {
-                Staff staff = bllStaff.GetOne(userID);
-                if (staff == null)
+                DZService service = bllDZService.GetOne(svcID);
+
+                if (service == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
-                    this.err_Msg = "该员工不存在！";
+                    this.err_Msg = "该服务不存在！";
                     return;
                 }
 
-                if (staff.Belongto.Owner.Id != merchantID)
+                if (service.IsDeleted)
                 {
                     this.state_CODE = Dicts.StateCode[1];
-                    this.err_Msg = "该商户没有该员工！";
+                    this.err_Msg = "该服务已删除！";
                     return;
                 }
 
-                staff.Enable = false;
-                bllStaff.SaveOrUpdate(staff);
+                IList<DZTag> tagsList = bllDZTag.GetTagForService(svcID);
 
-                string result = "N";
-                if (!staff.Enable)
-                {
-                    result = "Y";
-                }
+                RespDataSVC_svcObj SvcObj = new RespDataSVC_svcObj().Adapt(service, tagsList);
 
-                RespDataASN001002 respData = new RespDataASN001002();
-                respData.result = result;
-
+                RespDataSVC001005 respData = new RespDataSVC001005();
+                respData.svcObj = SvcObj;
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;
             }

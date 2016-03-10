@@ -40,6 +40,10 @@
                     <Button x:Name="btnSearch" Content="搜索" Width="75" Click="btnSearch_Click"/>
                 </WrapPanel>
 
+                <StackPanel Grid.Row="1">
+                    
+                </StackPanel>
+
             </Grid>
 
             <Grid ShowGridLines="True" Grid.Row="2">
@@ -146,6 +150,7 @@
         <Grid ShowGridLines="True" Grid.Column="2">
             <WrapPanel x:Name="pnlCustomerList">
 
+                
             </WrapPanel>
         </Grid>
 
@@ -160,7 +165,7 @@
             <Grid ShowGridLines="True" Grid.Row="0">
                 
 
-                <ScrollViewer x:Name="scrolls" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer x:Name="scrollChat" VerticalScrollBarVisibility="Auto">
                     <ScrollViewer.Content>
                         <StackPanel x:Name="pnlChat" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
                     </ScrollViewer.Content>

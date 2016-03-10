@@ -93,6 +93,7 @@
     <Compile Include="BLLServicePropertyValue.cs" />
     <Compile Include="BLLCashTIcketAssignDetail.cs" />
     <Compile Include="SiteConfig.cs" />
+    <Compile Include="Validator\ValidatorBusiness.cs" />
     <Compile Include="Validator\ValidatorStaff.cs" />
     <Compile Include="Validator\ValidatorDZService.cs" />
     <Compile Include="AddressParser.cs" />
@@ -118,6 +119,10 @@
     <ProjectReference Include="..\Dianzhu.Pay\Dianzhu.Pay.csproj">
       <Project>{6819d627-fe58-4e8e-ac89-e0eb01fcfe74}</Project>
       <Name>Dianzhu.Pay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MediaServer\MediaServer.csproj">
+      <Project>{9920da22-589c-4193-aeaa-363d5c029dfc}</Project>
+      <Name>MediaServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>
