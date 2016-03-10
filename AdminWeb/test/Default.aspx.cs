@@ -27,7 +27,7 @@ public partial class test_Default : System.Web.UI.Page
         }
         DZMembership customerService = bllMembership.GetUserByName("aa@aa.aa");
         ServiceOrder order= ServiceOrderFactory.CreateDraft(customerService, customer);
-        DZService service = bllService.GetAll()[0];
+        DZService service = bllService.GetOne(new Guid("0f4bdace-dad0-43aa-8cce-a5c501180535"));
          order.AddDetailFromIntelService(service, 1, "test_服务地址", "test_2016-1-1");
 
         order.CreatedFromDraft();
