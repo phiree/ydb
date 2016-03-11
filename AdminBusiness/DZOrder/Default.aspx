@@ -4,8 +4,10 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div class="content" id="service-list">
+        <input type="hidden" value="<%=merchantID%>" id="merchantID"/>
         <div class="content-head normal-head">
             <h3>订单列表</h3>
+
         </div>
         <div class="content-main">
             <div class="animated fadeInUpSmall">
@@ -62,144 +64,61 @@
                                             </div>
                                         </div>
                                         <div class="order-list" id="accordion" role="tablist" aria-multiselectable="true">
-                                            <div class="order-row">
-                                                <div class="custom-grid">
-                                                    <div class="custom-col col-10-1">
-                                                        <div class="order-li">
-                                                            2015-9-12
-                                                        </div>
-                                                    </div>
-                                                    <div class="custom-col col-10-1">
-                                                        <div class="order-li">
-                                                            洗车
-                                                        </div>
-                                                    </div>
-                                                    <div class="custom-col col-10-1">
-                                                        <div class="order-li">
-                                                            xxxxxx
-                                                        </div>
-                                                    </div>
-                                                    <div class="custom-col col-10-1">
-                                                        <div class="order-li">
-                                                            林先生
-                                                        </div>
-                                                    </div>
-                                                    <div class="custom-col col-10-2">
-                                                        <div class="order-li">
-                                                            北京市XXXXXXXXXX
-                                                        </div>
-                                                    </div>
-                                                    <div class="custom-col col-10-1">
-                                                        <div class="order-li">
-                                                            <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="appointToggle" data-appointTargetId="be1deb4d-b568-4292-9ef4-a5b2014ed8ec" >
-                                                        </div>
-                                                    </div>
-                                                    <div class="custom-col col-10-2">
-                                                        <div class="order-li">
-                                                            <span>处理中</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="custom-col col-10-1">
-                                                        <div class="order-li">
-                                                            <a href="Detail.aspx" class="btn btn-info-light btn-xs">订单详情</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <asp:Repeater runat="server" ID="rpOrderList" OnItemDataBound="rptOrderList_ItemDataBound"  OnItemCommand="rptOrderList_Command">
                                                 <ItemTemplate>
-
-
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading" role="tab" id="">
-                                                            <table class="custom-table order-table" role="button" data-toggle="collapse" data-parent="#accordion"
-                                                                   href="#collapse<%# Container.ItemIndex + 1 %>" aria-expanded="true"
-                                                                   aria-controls="collapse<%# Container.ItemIndex + 1 %>">
-                                                                <tbody>
-                                                                <tr>
-                                                                    <td class="table-col-2"><%#Eval("Id") %>
-                                                                    </td>
-                                                                    <td class="table-col-2"><%#Eval("ServiceName") %>
-                                                                    </td>
-                                                                    <td class="table-col-2"><%#Eval("TargetTime") %>
-                                                                    </td>
-                                                                    <td class="table-col-1"><%#Eval("CustomerName") %>
-                                                                    </td>
-                                                                    <td class="table-col-3"><%#Eval("TargetAddress") %>
-                                                                    </td>
-                                                                    <td class="table-col-1 order-span-status">
-
-                                                                        <%#Eval("OrderStatus") %>
-                                                                    </td>
-                                                                    <td class="table-col-1">
-                                                                        <span class="order-span-ctrl">详情</span>
-                                                                    </td>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                        <div id="collapse<%# Container.ItemIndex + 1 %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<%# Container.ItemIndex + 1 %>">
-                                                            <div class="panel-body">
-                                                                <div class="order-status-detail">
-                                                                    <div class="order-steps">
-                                                                        <div class="order-status-step mr">
-                                                                            <i class="icon"></i>
-                                                                            <p class="order-status-text"></p>
-                                                                        </div>
-                                                                        <div class="order-status-step mr">
-                                                                            <i class="icon"></i>
-                                                                            <p class="order-status-text"></p>
-                                                                        </div>
-                                                                        <div class="order-status-step mr">
-                                                                            <i class="icon"></i>
-                                                                            <p class="order-status-text"></p>
-                                                                        </div>
-                                                                        <div class="order-status-step mr">
-                                                                            <i class="icon"></i>
-                                                                            <p class="order-status-text mr"></p>
-                                                                        </div>
-                                                                        <div class="order-status-step">
-                                                                            <i class="icon"></i>
-                                                                            <p class="order-status-text"></p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="order-lines"></div>
-                                                                    <input type="hidden" value="3">
-                                                                </div>
-                                                                <table class="custom-table panel-detail-table">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td class="table-col-1 t-r">服务订金：</td>
-                                                                        <td class="table-col-3"><%#Eval("DepositAmount")%></td>
-                                                                        <td class="table-col-1 t-r">服务总价：</td>
-                                                                        <td class="table-col-3"><%#Eval("OrderAmount")%></td>
-                                                                        <td class="table-col-1 t-r">下单时间：</td>
-                                                                        <td class="table-col-3"><%#Eval("OrderCreated")%></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="table-col-1 t-r">指派员工：</td>
-                                                                        <td class="table-col-3">XXX</td>
-                                                                        <td class="table-col-1 t-r">客户电话：</td>
-                                                                        <td class="table-col-3"><%#Eval("CustomerPhone")%></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="table-col-1 t-r">备&nbsp;&nbsp;注：</td>
-                                                                        <td class="table-col-3"><%#Eval("Memo")%></td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <div class="order-ctrl t-r">
-                                                                    <asp:HyperLink runat="server" ID="PayDepositAmount"></asp:HyperLink>
-                                                                    <asp:Button runat="server" CommandName="ConfirmOrder" CommandArgument='<%#Eval("Id") %>' ID="btnConfimOrder" CssClass="btn btn-info" Text="确认订单"/>
-                                                                    <asp:TextBox runat="server" CommandName="txtConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="txtConfirmPrice" Width="100"></asp:TextBox>
-                                                                    <asp:Button runat="server" CommandName="ConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPrice" CssClass="btn btn-info" Text="确认价格"/>-
-                                                                    <asp:Button runat="server" CommandName="ConfirmPriceCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPriceCustomer" CssClass="btn btn-info" Text="用户确认价格并开始服务"/>
-                                                                    <asp:Button runat="server" CommandName="IsEndOrder" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrder" CssClass="btn btn-info" Text="订单完成"/>
-                                                                    <asp:Button runat="server" CommandName="IsEndOrderCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrderCustomer" CssClass="btn btn-info" Text="用户确认订单完成"/>
-                                                                    <asp:HyperLink runat="server" ID="PayFinalPayment"></asp:HyperLink>
-                                                                    <asp:Button runat="server" ID="Button3" CssClass="btn btn-info" Text="指派"/>
+                                                    <div class="order-row">
+                                                        <div class="custom-grid">
+                                                            <div class="custom-col col-10-1">
+                                                                <div class="order-li">
+                                                                    2015-9-12
                                                                 </div>
                                                             </div>
+                                                            <div class="custom-col col-10-1">
+                                                                <div class="order-li">
+                                                                    <%#Eval("Title") %>
+                                                                </div>
+                                                            </div>
+                                                            <div class="custom-col col-10-1">
+                                                                <div class="order-li">
+                                                                    xxxxxx
+                                                                </div>
+                                                            </div>
+                                                            <div class="custom-col col-10-1">
+                                                                <div class="order-li">
+                                                                    <%#Eval("Customer.DisplayName") %>
+                                                                </div>
+                                                            </div>
+                                                            <div class="custom-col col-10-2">
+                                                                <div class="order-li">
+                                                                    <%#Eval("TargetAddress") %>
+                                                                </div>
+                                                            </div>
+                                                            <div class="custom-col col-10-1">
+                                                                <div class="order-li">
+                                                                    <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="appointToggle" data-appointTargetId='<%#Eval("Id") %>' >
+                                                                </div>
+                                                            </div>
+                                                            <div class="custom-col col-10-2">
+                                                                <div class="order-li">
+                                                                    <%#Eval("OrderStatus") %>
+                                                                </div>
+                                                            </div>
+                                                            <div class="custom-col col-10-1">
+                                                                <div class="order-li">
+                                                                    <a href="Detail.aspx?businessId=<%=Request["businessid"] %>" class="btn btn-info-light btn-xs">订单详情</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hide">
+                                                            <asp:HyperLink runat="server" ID="PayDepositAmount"></asp:HyperLink>
+                                                            <asp:Button runat="server" CommandName="ConfirmOrder" CommandArgument='<%#Eval("Id") %>' ID="btnConfimOrder" CssClass="btn btn-info" Text="确认订单"/>
+                                                            <asp:TextBox runat="server" CommandName="txtConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="txtConfirmPrice" Width="100"></asp:TextBox>
+                                                            <asp:Button runat="server" CommandName="ConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPrice" CssClass="btn btn-info" Text="确认价格"/>-
+                                                            <asp:Button runat="server" CommandName="ConfirmPriceCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPriceCustomer" CssClass="btn btn-info" Text="用户确认价格并开始服务"/>
+                                                            <asp:Button runat="server" CommandName="IsEndOrder" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrder" CssClass="btn btn-info" Text="订单完成"/>
+                                                            <asp:Button runat="server" CommandName="IsEndOrderCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrderCustomer" CssClass="btn btn-info" Text="用户确认订单完成"/>
+                                                            <asp:HyperLink runat="server" ID="PayFinalPayment"></asp:HyperLink>
+                                                            <asp:Button runat="server" ID="Button3" CssClass="btn btn-info" Text="指派"/>
                                                         </div>
                                                     </div>
                                                 </ItemTemplate>
@@ -213,7 +132,9 @@
                                 <div class="model-h">
                                     <h4>订单列表</h4>
                                 </div>
-                                <div class="model-m"></div>
+                                <div class="model-m">
+
+                                </div>
                             </div>
                         </div>
                     </div>

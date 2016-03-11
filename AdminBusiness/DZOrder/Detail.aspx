@@ -20,6 +20,41 @@
                                 </div>
                                 <div class="model-m">
                                     <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="custom-table panel-detail-table">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="table-col-1 t-r">服务订金：</td>
+                                                    <td class="table-col-3"><%#Eval("DepositAmount")%></td>
+                                                    <td class="table-col-1 t-r">服务总价：</td>
+                                                    <td class="table-col-3"><%#Eval("OrderAmount")%></td>
+                                                    <td class="table-col-1 t-r">下单时间：</td>
+                                                    <td class="table-col-3"><%#Eval("OrderCreated")%></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="table-col-1 t-r">指派员工：</td>
+                                                    <td class="table-col-3">XXX</td>
+                                                    <td class="table-col-1 t-r">客户电话：</td>
+                                                    <td class="table-col-3"><%#Eval("Customer.Phone")%></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="table-col-1 t-r">备&nbsp;&nbsp;注：</td>
+                                                    <td class="table-col-3"><%#Eval("Memo")%></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="order-ctrl t-r">
+                                                <asp:HyperLink runat="server" ID="PayDepositAmount"></asp:HyperLink>
+                                                <asp:Button runat="server" CommandName="ConfirmOrder" CommandArgument='<%#Eval("Id") %>' ID="btnConfimOrder" CssClass="btn btn-info" Text="确认订单"/>
+                                                <asp:TextBox runat="server" CommandName="txtConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="txtConfirmPrice" Width="100"></asp:TextBox>
+                                                <asp:Button runat="server" CommandName="ConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPrice" CssClass="btn btn-info" Text="确认价格"/>-
+                                                <asp:Button runat="server" CommandName="ConfirmPriceCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPriceCustomer" CssClass="btn btn-info" Text="用户确认价格并开始服务"/>
+                                                <asp:Button runat="server" CommandName="IsEndOrder" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrder" CssClass="btn btn-info" Text="订单完成"/>
+                                                <asp:Button runat="server" CommandName="IsEndOrderCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrderCustomer" CssClass="btn btn-info" Text="用户确认订单完成"/>
+                                                <asp:HyperLink runat="server" ID="PayFinalPayment"></asp:HyperLink>
+                                                <asp:Button runat="server" ID="Button3" CssClass="btn btn-info" Text="指派"/>
+                                            </div>
+                                        </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
                                                 <span class="model-pra-t">服务项目</span>90

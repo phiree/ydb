@@ -12,7 +12,11 @@ public partial class DZOrder_Default : BasePage
 {
     BLLServiceOrder bllServeiceOrder = new BLLServiceOrder();
     BLLPayment bllPayment = new BLLPayment();
-
+    public string merchantID {
+        get {
+            return System.Web.Security.Membership.GetUser().ProviderUserKey.ToString();
+        }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
