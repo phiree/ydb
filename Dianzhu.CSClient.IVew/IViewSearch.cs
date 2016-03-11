@@ -11,7 +11,7 @@ namespace Dianzhu.CSClient.IView
     /// </summary>
     public interface IViewSearch
     {
-        string SerachKeyword { get; set; }
+        string SearchKeyword { get; set; }
         event SearchService Search;
     }
     public interface IViewSearchResult

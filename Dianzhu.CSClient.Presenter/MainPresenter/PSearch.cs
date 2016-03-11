@@ -36,7 +36,7 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewSearch_Search()
         {
             int total;
-          IList<Model.DZService> services=  dalService.SearchService(viewSearch.SerachKeyword, 0, 10, out total);
+          IList<Model.DZService> services=  dalService.SearchService(viewSearch.SearchKeyword, 0, 10, out total);
             viewSearchResult.SearchedService = services;
         }
     }

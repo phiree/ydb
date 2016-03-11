@@ -1,16 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="test_Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="test_Default" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    <fieldset>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+     <fieldset>
         <legend>创建订单</legend>
         <div>
             客户名称:<asp:TextBox runat="server" ID="tbxCustomerName"></asp:TextBox>
@@ -18,7 +13,5 @@
             <asp:Label runat="server" ID="lblCreateOrderResult"></asp:Label>
         </div>
     </fieldset>
-    </div>
-    </form>
-</body>
-</html>
+</asp:Content>
+
