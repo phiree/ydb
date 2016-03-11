@@ -6,82 +6,90 @@ using System.Web.Security;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using Dianzhu.BLL;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Dianzhu.Api.Model;
-
 /// <summary>
-/// 获取一条服务信息的详情
+/// 获取用户的服务订单列表
 /// </summary>
-public class ResponsePY001008 : BaseResponse
+public class ResponseORM001007 : BaseResponse
 {
-    log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
-
-    public ResponsePY001008(BaseRequest request) : base(request) { }
+    public ResponseORM001007(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataPY001008 requestData = this.request.ReqData.ToObject<ReqDataPY001008>();
+        ReqDataORM001007 requestData = this.request.ReqData.ToObject<ReqDataORM001007>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        BLLPayment bllPayment = new BLLPayment();
-
         string raw_id = requestData.userID;
         string order_id = requestData.orderID;
 
         try
         {
-            Guid userId, orderId;
-            bool isUserId = Guid.TryParse(requestData.userID, out userId);
+            Guid uid, orderID;
+            bool isUserId = Guid.TryParse(raw_id, out uid);
             if (!isUserId)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "用户Id格式有误";
+                this.err_Msg = "userId格式有误";
                 return;
             }
 
-            bool isOrderId = Guid.TryParse(order_id, out orderId);
+            bool isOrderId = Guid.TryParse(order_id, out orderID);
             if (!isOrderId)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "用户orderId格式有误";
+                this.err_Msg = "userId格式有误";
                 return;
             }
-            
+
+            DZMembership member = null;
             if (request.NeedAuthenticate)
             {
-                DZMembership member;
-                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                bool validated = new Account(p).ValidateUser(uid, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
                 }
             }
-
-            ServiceOrder order = bllServiceOrder.GetOne(new Guid(order_id));
-            if (order == null)
+            else
             {
-                this.state_CODE = Dicts.StateCode[4];
-                this.err_Msg = "没有对应的订单,请检查传入的orderID";
-                return;
-            }
-
-            try
-            {
-                Payment payment = bllPayment.GetPaymentForWaitPay(order);
-                if (payment == null)
+                member = p.GetUserById(uid);
+                if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
-                    this.err_Msg = "该订单目前没有支付项！";
+                    this.err_Msg = "不存在该用户！";
                     return;
                 }
-                RespDataPY001008 respData = new RespDataPY001008().Adapt(payment);
+            }
+            try
+            {
+                string strPageSize = requestData.pageSize;
+                string strPageNum = requestData.pageNum;//base on 1
 
+                int pageSize, pageNum;
+                if (!int.TryParse(strPageSize, out pageSize) || !int.TryParse(strPageNum, out pageNum))
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "分页大小或者分页索引不是数值格式";
+                    return;
+                }
+
+                ServiceOrder order = bllServiceOrder.GetOne(orderID);
+
+
+
+                //RespDataORM001007 respData = new RespDataORM001007();
+
+                //respData.AdapList(orderList);
+
+                //this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];
-                this.RespData = respData;
+
             }
             catch (Exception ex)
             {
-                ilog.Error(ex.Message);
                 this.state_CODE = Dicts.StateCode[2];
                 this.err_Msg = ex.Message;
                 return;
@@ -94,7 +102,10 @@ public class ResponsePY001008 : BaseResponse
             this.err_Msg = e.Message;
             return;
         }
+
     }
+
 }
+
 
 

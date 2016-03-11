@@ -68,7 +68,7 @@ namespace Dianzhu.Api.Model
 
             if (order != null)
             {
-                this.svcObj = new RespDataORM_svcObj().Adap(order);
+                //this.svcObj = new RespDataORM_svcObj().Adap(order);
             }
             if (order.Customer != null)
             {
@@ -125,28 +125,28 @@ namespace Dianzhu.Api.Model
         public string startTime { get; set; }
         public string endTime { get; set; }
         public string deposit { get; set; }
-        public RespDataORM_svcObj Adap(ServiceOrder order)
+        public RespDataORM_svcObj Adap(ServiceOrderDetail detail)
         {
-            this.svcID = order.Service != null ? order.Service.Id.ToString() : order.Id.ToString();
-            this.name = order.Service != null ? order.Service.Name : order.Title;
-            this.type = order.Service != null ? order.Service.ServiceType.ToString() : string.Empty;
-            if (order.OrderServerStartTime > DateTime.MinValue)
-            {
-                this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderServerStartTime);
-            }
-            else
-            {
-                this.startTime = string.Empty;
-            }
-            if (order.OrderServerFinishedTime > DateTime.MinValue)
-            {
-                this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderServerFinishedTime);
-            }
-            else
-            {
-                this.endTime = string.Empty;
-            }
-            this.deposit = order.Service != null ? order.Service.DepositAmount.ToString() : string.Empty;
+            this.svcID = detail.OriginalService != null ? detail.OriginalService.Id.ToString() : "";
+            this.name = detail.ServiceName ?? string.Empty;
+            //this.type = detail.Service ?? string.Empty;
+            //if (order.OrderServerStartTime > DateTime.MinValue)
+            //{
+            //    this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderServerStartTime);
+            //}
+            //else
+            //{
+            //    this.startTime = string.Empty;
+            //}
+            //if (order.OrderServerFinishedTime > DateTime.MinValue)
+            //{
+            //    this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderServerFinishedTime);
+            //}
+            //else
+            //{
+            //    this.endTime = string.Empty;
+            //}
+            this.deposit = detail.DepositAmount.ToString("0.00");
 
             return this;
         }
@@ -220,6 +220,35 @@ namespace Dianzhu.Api.Model
             }
         }
     }
+    #endregion
+
+    #region ORM001007
+
+    public class ReqDataORM001007
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+        public string pageSize { get; set; }
+        public string pageNum { get; set; }
+    }
+
+    public class RespDataORM001007
+    {
+        public IList<RespDataORM_svcObj> arrayData { get; set; }
+        public RespDataORM001007 AdaptList(IList<ServiceOrderDetail> detailList)
+        {
+            this.arrayData = new List<RespDataORM_svcObj>();
+            RespDataORM_svcObj svcObj = new RespDataORM_svcObj();
+            foreach (ServiceOrderDetail detail in detailList)
+            {
+                //svcObj = new RespDataORM_svcObj().Adap(order);
+                this.arrayData.Add(svcObj);
+            }
+            return this;
+        }
+    }
+
     #endregion
 
     #region ORM002001

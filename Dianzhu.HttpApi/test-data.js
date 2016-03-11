@@ -374,7 +374,7 @@ var test_data = [
         "ReqData": {
             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",//2aed4349-f4e8-4dcb-88a4-a59301132feb
             "pWord": "1234",
-            "payID": "b95951f5-09b3-4ddf-920a-a5b001265462",
+            "payID": "9c569f30-49c1-45e9-9c4a-a5c600b1750e",
             "target":"wepay",
         },
         "stamp_TIMES": 1453520313281,
@@ -386,7 +386,7 @@ var test_data = [
         "ReqData": {
             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
             "pWord": "1234",
-            "orderID": "06ee70b3-500d-42da-8b1f-a595009d97da",
+            "orderID": "cfe31a94-83a3-45fc-a468-a595009e0e4a",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"

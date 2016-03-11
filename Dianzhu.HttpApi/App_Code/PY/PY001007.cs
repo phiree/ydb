@@ -69,10 +69,9 @@ public class ResponsePY001007:BaseResponse
                 case "alipay":
                     break;
                 case "wepay":
-                    bool sucdess = false;
-                    while (!sucdess)
+                    for (int i = 0; i < 10; i++)
                     {
-                        IPayRequest ipay = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.Title.Substring(0,127), Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.Description);
+                        IPayRequest ipay = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.Title, Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.Description);
                         //var respDataWeibo = new NameValueCollection();
                         string respDataWechat = "<xml>";
 
@@ -112,7 +111,6 @@ public class ResponsePY001007:BaseResponse
                             ilog.Error("错误代码：" + respData.err_code + "  错误代码描述：" + respData.err_code_des);
                             continue;
                         }
-                        sucdess = true;
                         RespDataPY001007 respObj = new RespDataPY001007();
                         respObj.appid = respData.appid;
                         respObj.partnerid = respData.mch_id;
