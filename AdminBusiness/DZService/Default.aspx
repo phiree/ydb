@@ -142,10 +142,10 @@
     </div>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
-    <script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
-    <script type="text/javascript" src="/js/ServiceType.js?v=20150901"></script>
-    <script type="text/javascript" src="/js/ServiceSelect.js"></script>
-    <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
+    <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
+    <script src="/js/ServiceType.js?v=20150901"></script>
+    <!--<script src="/js/ServiceSelect.js"></script>-->
+    <script src="/js/jquery.lightbox_me.js"></script>
     <script >
     $(function(){
         if ( $(".service-list").children(".service-row").length == 0 ){
@@ -155,7 +155,7 @@
         }
     })
     </script>
-    <script type="text/javascript">
+    <script>
        $(function () {
 
            $(".enable-service").click(function () {
@@ -209,11 +209,11 @@
 
        });
     </script>
-    <!--<script type="text/javascript">-->
+    <!--<script>-->
         <!--var name_prefix = 'ctl00$ctl00$ContentPlace Holder1$ContentPlaceHolder1$ctl00$';-->
     <!--</script>-->
-    <!--<script src="/js/validation_service_edit.js" type="text/javascript"></script>-->
-    <!--<script src="/js/validation_invalidHandler.js" type="text/javascript"></script>-->
+    <!--<script src="/js/validation_service_edit.js"></script>-->
+    <!--<script src="/js/validation_invalidHandler.js"></script>-->
     <!--<script>-->
         <!--function loadBaiduMapScript() {-->
           <!--var script = document.createElement("script");-->

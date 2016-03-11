@@ -25,24 +25,24 @@
             <input type="button" data-role="delete" data-target="${ workTimeID }" value="X"/>
         </div>
 </script>
-    <script type="text/javascript" src="/js/juicer-min.js"></script>
-    <script type="text/javascript" src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
-    <script type="text/javascript" src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js' ></script>
-    <script type="text/javascript" src="/js/jquery.form.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
-    <script type="text/javascript" src="/js/interfaceAdapter.js"></script>
-    <script type="text/javascript" src="/js/shelf/mock.js"></script>
-    <script type="text/javascript" src="/js/ServiceType.js"></script>
-    <script type="text/javascript" src="/js/ServiceSelect.js"></script>
-    <script type="text/javascript" src="/js/StepByStep.js"></script>
-    <script type="text/javascript" src="/js/CascadeCheck.js"></script>
-    <script type="text/javascript" src="/js/serviceTimeSelect.js"></script>
-    <script type="text/javascript">
+    <script src="/js/juicer-min.js"></script>
+    <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
+    <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js' ></script>
+    <script src="/js/jquery.form.min.js"></script>
+    <script src="/js/jquery.lightbox_me.js"></script>
+    <script src="/js/interfaceAdapter.js"></script>
+    <script src="/js/shelf/mock.js"></script>
+    <script src="/js/ServiceType.js"></script>
+    <script src="/js/ServiceSelect.js"></script>
+    <script src="/js/StepByStep.js"></script>
+    <script src="/js/CascadeCheck.js"></script>
+    <script src="/js/serviceTimeSelect.js"></script>
+    <script>
         var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$ctl00$';
     </script>
-    <script type="text/javascript" src="/js/validation_service_edit.js"></script>
-    <script type="text/javascript" src="/js/validation_invalidHandler.js"></script>
-    <script type="text/javascript" src="/js/shelfSet.js"></script>
+    <script src="/js/validation_service_edit.js"></script>
+    <script src="/js/validation_invalidHandler.js"></script>
+    <script src="/js/shelfSet.js"></script>
     <script>
 
         Mock.mockjax(jQuery);
@@ -239,9 +239,9 @@
             loadBaiduMapScript();
         })
     </script>
-    <script type="text/javascript" src="/js/CityList.js"></script>
-    <script type="text/javascript" src="/js/baiduMapLib.js"></script>
-    <script type="text/javascript" src="/js/service.js"></script>
-    <script type="text/javascript" src="/js/iptag.js"></script>
+    <script src="/js/CityList.js"></script>
+    <script src="/js/baiduMapLib.js"></script>
+    <script src="/js/service.js"></script>
+    <script src="/js/iptag.js"></script>
 </asp:Content>
 

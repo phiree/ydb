@@ -72,8 +72,8 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js'></script>
-<script src="/js/jquery.validate.js" type="text/javascript"></script>
+<script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js'></script>
+<script src="/js/jquery.validate.js"></script>
 <script>
     $.validator.setDefaults({
         ignore: [],
@@ -133,7 +133,7 @@
     );
 </script>
 <!--[if lte IE 9]>
-<script src="/js/jquery.placeholder.min.js" type="text/javascript"></script>
+<script src="/js/jquery.placeholder.min.js"></script>
 <script>$('input, textarea').placeholder();</script>
 <![endif]-->
 </html>

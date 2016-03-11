@@ -268,7 +268,7 @@
 
 
     </script>
-    <script type="text/javascript">
+    <script>
         $().ready(function(){
             $('[rel="tooltip"]').tooltip();
         });

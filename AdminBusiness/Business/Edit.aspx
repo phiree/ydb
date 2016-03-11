@@ -317,83 +317,78 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     </div>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
-    <script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
-    <script src = "<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" type = "text/javascript" ></script>
-    <script src="/js/jquery.form.min.js" type="text/javascript"></script>
-    <script src="/js/navigator.sayswho.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/js/TabSelection.js"></script>
-    <script type="text/javascript" src="/js/StepByStep.js"></script>
-    <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
-    <script src="/js/imgUpload.js" type="text/javascript"></script>
-    <script type="text/javascript">
+    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
+    <script src = "<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" ></script>
+    <script src="/js/jquery.form.min.js"></script>
+    <script src="/js/navigator.sayswho.js"></script>
+    <script src="/js/StepByStep.js"></script>
+    <script src="/js/jquery.lightbox_me.js"></script>
+    <script src="/js/imgUpload.js"></script>
+    <script>
         var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
     </script>
-    <script src="/js/validation_shop_edit.js" type="text/javascript"></script>
-    <script src="/js/validation_invalidHandler.js" type="text/javascript"></script>
+    <script src="/js/validation_shop_edit.js"></script>
+    <script src="/js/validation_invalidHandler.js"></script>
     <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip(
+                {
+                    delay: {show : 500, hide : 100},
+                    trigger: 'hover'
+                }
+            );
 
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip(
-                    {
-                        delay: {show : 500, hide : 100},
-                        trigger: 'hover'
-                    }
-                );
-
-                $('.file-default').imgUpload({
-                    limitNum: 1
-                });
-                $('.file-limit-2').imgUpload({
-                    limitNum: 2
-                });
-                $('.file-limit-6').imgUpload({
-                    limitNum: 6
-                });
-
-                $('#headImgTrigger').click(function(){
-                    $('#headImgBtn').click();
-                })
+            $('.file-default').imgUpload({
+                limitNum: 1
+            });
+            $('.file-limit-2').imgUpload({
+                limitNum: 2
+            });
+            $('.file-limit-6').imgUpload({
+                limitNum: 6
             });
 
-            $(function(){
-                $($("form")[0]).validate(
-                        {
-                            errorElement: "p",
-                            errorPlacement: function (error, element) {
-                                if ($(element).attr("name") == name_prefix + "tbxBusinessYears") {
-                                    error.appendTo((element.parent()).parent());
-                                } else {
-                                    error.appendTo(element.parent());
-                                }
-                            },
-                            rules: service_validate_rules,
-                            messages: service_validate_messages,
-                            invalidHandler: invalidHandler
-                        }
-                );
-
-                $(".steps-wrap").StepByStep({
-                    stepNextFunc : function(){
-                        return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
-                    }
-                });
+            $('#headImgTrigger').click(function(){
+                $('#headImgBtn').click();
             })
+        });
 
+        $(function(){
+            $($("form")[0]).validate(
+                    {
+                        errorElement: "p",
+                        errorPlacement: function (error, element) {
+                            if ($(element).attr("name") == name_prefix + "tbxBusinessYears") {
+                                error.appendTo((element.parent()).parent());
+                            } else {
+                                error.appendTo(element.parent());
+                            }
+                        },
+                        rules: service_validate_rules,
+                        messages: service_validate_messages,
+                        invalidHandler: invalidHandler
+                    }
+            );
 
-    </script>
-    <script>
-        function loadBaiduMapScript() {
-            var script = document.createElement("script");
-            script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initialize";
-            document.body.appendChild(script);
-        }
-
-        $(document).ready(function () {
-            loadBaiduMapScript();
+            $(".steps-wrap").StepByStep({
+                stepNextFunc : function(){
+                    return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
+                }
+            });
         })
     </script>
-    <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>-->
-    <script type="text/javascript" src="/js/CityList.js"></script>
-    <script type="text/javascript" src="/js/account.js"></script>
+    <!--<script>-->
+        <!--function loadBaiduMapScript() {-->
+            <!--var script = document.createElement("script");-->
+            <!--script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initialize";-->
+            <!--document.body.appendChild(script);-->
+        <!--}-->
 
+        <!--$(document).ready(function () {-->
+            <!--loadBaiduMapScript();-->
+        <!--})-->
+    <!--</script>-->
+    <!--<script src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>-->
+    <!--<script src="/js/CityList.js"></script>-->
+    <!--<script src="/js/account.js"></script>-->
 </asp:Content>

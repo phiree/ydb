@@ -77,11 +77,11 @@
 </div>
 <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
 <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
-<script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" type="text/javascript"></script>
+<script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js"></script>
 <script src="/js/jquery.form.min.js"></script>
 <script src="/js/validation_reg.js"></script>
 <!--[if lte IE 9]>
-<script src="/js/jquery.placeholder.min.js" type="text/javascript"></script>
+<script src="/js/jquery.placeholder.min.js"></script>
 <script>$('input, textarea').placeholder();</script>
 <![endif]-->
 <script>
@@ -97,7 +97,7 @@
     );
 </script>
 <%if (!Request.IsLocal){ %>
-<script type="text/javascript">
+<script>
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
     document.write(unescape("%3Cspan id='cnzz_stat_icon_1256240621' style='display:none'%3E%3C/span%3E%3Cscript src='"
             + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256240621%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));

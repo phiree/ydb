@@ -82,37 +82,12 @@
         </form>
     </div>
 </body>
-    <script type="text/javascript" src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
     <script src="/js/bootstrap/js/bootstrap.js"></script>
-    <script src="/js/global.js"></script>
     <script src="/js/metisMenu/metisMenu.js"></script>
-    <script>
-        $(function () {
-            return $("#menu").length == 0 ? null : $("#menu").metisMenu();
-        });
-        $(function(){
-            if ( $('.sidebar').length == 0 ) {
-                return
-            } else {
-                var sideTop = $('.sidebar').offset().top;
-                if ( $('body').scrollTop() >= sideTop ){
-                    $('.sidebar').addClass('sidebar-fixed');
-                } else {
-                    $('.sidebar').removeClass('sidebar-fixed');
-                }
-                $(window).scroll(function(){
-                    if ( $('body').scrollTop() >= sideTop ){
-                        $('.sidebar').addClass('sidebar-fixed');
-                    } else {
-                        $('.sidebar').removeClass('sidebar-fixed');
-                    }
-                })
-            }
-
-        });
-    </script>
+    <script src="/js/global.js"></script>
     <%if (!Request.IsLocal){ %>
-    <script type="text/javascript">
+    <script>
       var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
       document.write(unescape("%3Cspan id='cnzz_stat_icon_1256240621' style='display:none'%3E%3C/span%3E%3Cscript src='"
           + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256240621%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));

@@ -16,6 +16,15 @@
         evaluate:    /\{%(.+?)%\}/g
     };
 
+    // 全局获取用户ID;
+    var merchantID = document.getElementById("merchantID").value;
+
+    /**
+     * 全局API url设置
+     * @type {string}
+     */
+    var urlConfig = "http://localhost:806/dianzhuapi.ashx";
+
     /**
      * 员工model
      * @param attribute
@@ -24,7 +33,7 @@
      */
     var StaffModel = function(attribute, options){
         options || (options = {});
-        this.url = options.url || "http://119.29.39.211:8037/dianzhuapi.ashx";
+        this.url = options.url || urlConfig;
         this.attribute = attribute || {}
     };
 
@@ -44,9 +53,11 @@
         options || (options = {});
         this.model = options.model || StaffModel;
         this.url = options.url ;
-        //this.storeObj = { storeId : Adapter.getParameterByName("businessId")};
-        this.storeObj = { storeID : options.storeID ? options.storeID : "e2f4fb71-04fc-43d7-a255-a5af00ae5705"};
-        this.reqData = Adapter.reqPackage("ASN001006", this.storeObj);
+        this.reqObj = {
+            storeID : options.storeID ? options.storeID : Adapter.getParameterByName("businessId"),
+            merchantID : options.merchantID || merchantID
+        };
+        this.reqData = Adapter.reqPackage("ASN001006", this.reqObj);
         this.models = models || [];
 
         this.initialize();
@@ -97,7 +108,7 @@
     });
 
     var staffCollection = new StaffCollection([], {
-        url : 'http://119.29.39.211:8037/dianzhuapi.ashx',
+        url : urlConfig,
         model : StaffModel
     });
 
@@ -109,7 +120,7 @@
      */
     var AssignModel = function(attribute, options){
         options || (options = {});
-        this.url = options.url || "http://119.29.39.211:8037/dianzhuapi.ashx";
+        this.url = options.url || urlConfig;
         this.attribute = attribute || {}
     };
 
@@ -172,7 +183,7 @@
     });
 
     var assignCollection = new AssignCollection([], {
-        url : 'http://119.29.39.211:8037/dianzhuapi.ashx',
+        url : urlConfig,
         model : AssignModel
     });
 
@@ -364,6 +375,7 @@
             var _this = this;
             var assReqData = {
                 storeID : this.model.attribute.storeID,
+                merchantID : this.model.attribute.merchantID,
                 orderID : this.model.attribute.orderID
             };
 
@@ -396,12 +408,13 @@
     });
 
     $(document).on('click.appoint', '[data-role="appointToggle"]', function (e) {
-        var storeID = "e2f4fb71-04fc-43d7-a255-a5af00ae5705";
-        var orderID = $(this).attr("data-appointTargetId") || "be1deb4d-b568-4292-9ef4-a5b2014ed8ec";
+        var storeID = Adapter.getParameterByName("businessId");
+        var orderID = $(this).attr("data-appointTargetId");
         var appModel = new AppModel({
             storeID : storeID,
             orderID : orderID,
-            url : 'http://119.29.39.211:8037/dianzhuapi.ashx'
+            merchantID : merchantID,
+            url : urlConfig
         });
 
         e.preventDefault();

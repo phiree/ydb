@@ -2,7 +2,6 @@
     CodeFile="Security.aspx.cs" Inherits="Account_Security" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <link href="../css/myshop.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" runat="Server">
 </asp:Content>
@@ -123,9 +122,9 @@
 
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" runat="Server">
-    <script type="text/javascript" src="/js/jquery.lightbox_me.js"></script>
-    <script type="text/javascript" src="/js/jquery.form.min.js"></script>
-    <script type="text/javascript">
+    <script src="/js/jquery.lightbox_me.js"></script>
+    <script src="/js/jquery.form.min.js"></script>
+    <script>
 
         $('.secret-layout-fixed').parent('.content-layout').css({marginLeft:0});
 
@@ -154,6 +153,6 @@
         changed_data["id"] = "<%=CurrentUser.Id %>";
 
     </script>
-    <script type="text/javascript" src="/js/security.js"></script>
+    <script src="/js/security.js"></script>
 
 </asp:Content>
