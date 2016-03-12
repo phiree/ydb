@@ -45,7 +45,7 @@ namespace Dianzhu.Model
             }
             if (isConflict)
             {
-                throw new Exception("服务时间段不能重合.ID:" + this.Id);
+                throw new Exception("服务时间段不能重合.ID:" + this.Id + ";重合时间：" + period.TimeStart + "-" + period.TimeEnd);
             }
             else
             {

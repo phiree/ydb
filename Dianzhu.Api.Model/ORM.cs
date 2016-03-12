@@ -61,7 +61,7 @@ namespace Dianzhu.Api.Model
             {
                 this.endTime = string.Empty;
             }
-            this.exDoc = order.Details[0].Description ?? string.Empty;
+            this.exDoc = order.Description ?? string.Empty;
             this.money = order.OrderAmount.ToString("0.00");
             this.address = order.TargetAddress ?? string.Empty;
             this.km = string.Empty;
@@ -129,23 +129,16 @@ namespace Dianzhu.Api.Model
         {
             this.svcID = detail.OriginalService != null ? detail.OriginalService.Id.ToString() : "";
             this.name = detail.ServiceName ?? string.Empty;
-            //this.type = detail.Service ?? string.Empty;
-            //if (order.OrderServerStartTime > DateTime.MinValue)
-            //{
-            //    this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderServerStartTime);
-            //}
-            //else
-            //{
-            //    this.startTime = string.Empty;
-            //}
-            //if (order.OrderServerFinishedTime > DateTime.MinValue)
-            //{
-            //    this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderServerFinishedTime);
-            //}
-            //else
-            //{
-            //    this.endTime = string.Empty;
-            //}
+            this.type = detail.OriginalService != null ? detail.OriginalService.ServiceType.ToString() : "";
+            if (detail.TargetTime > DateTime.MinValue)
+            {
+                this.startTime = string.Format("{0:yyyyMMddHHmmss}", detail.TargetTime);
+            }
+            else
+            {
+                this.startTime = string.Empty;
+            }
+            this.endTime = string.Empty;
             this.deposit = detail.DepositAmount.ToString("0.00");
 
             return this;
@@ -242,11 +235,28 @@ namespace Dianzhu.Api.Model
             RespDataORM_svcObj svcObj = new RespDataORM_svcObj();
             foreach (ServiceOrderDetail detail in detailList)
             {
-                //svcObj = new RespDataORM_svcObj().Adap(order);
+                svcObj = new RespDataORM_svcObj().Adap(detail);
                 this.arrayData.Add(svcObj);
             }
             return this;
         }
+    }
+
+    #endregion
+
+    #region ORM001008
+
+    public class ReqDataORM001008
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+        public string svcID { get; set; }
+    }
+
+    public class RespDataORM001008
+    {
+        public RespDataORM_orderObj orderObj { get; set; }
     }
 
     #endregion

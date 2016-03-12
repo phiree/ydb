@@ -28,7 +28,7 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewSearchResult_SelectService(Model.DZService selectedService)
         {
-            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, 1, "实施服务的地点", "预约时间");
+            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, 1, "实施服务的地点", DateTime.Now);
             viewOrder.Order = IdentityManager.CurrentIdentity;
 
         }
