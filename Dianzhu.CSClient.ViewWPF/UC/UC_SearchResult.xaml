@@ -7,6 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <ScrollViewer VerticalScrollBarVisibility="Auto"  CanContentScroll="True" >
+            <StackPanel  x:Name="pnlSearchResult" VerticalAlignment="Bottom" />
+
+        </ScrollViewer>
+       
     </Grid>
 </UserControl>

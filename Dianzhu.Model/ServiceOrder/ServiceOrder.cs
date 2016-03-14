@@ -38,6 +38,7 @@ namespace Dianzhu.Model
             var existedService = Details.Where(x => x.OriginalService == service);
             if (existedService.Count() == 0)
             {
+                
                 ServiceOrderDetail detail = new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
                 
                 Details.Add(detail);

@@ -121,7 +121,10 @@ namespace Dianzhu.CSClient.ViewWPF
 
                 // WindowNotification();
                 pnlChatList.Children.Add(pnlOneChat);
-                svChatList.ScrollToBottom();
+                
+                //svChatList.ScrollToBottom();
+                //svChatList.UpdateLayout();
+                //svChatList.ScrollToVerticalOffset(svChatList.ScrollableHeight);
                 //pnlChat.ScrollControlIntoView(pnlOneChat);
             };
             if (!Dispatcher.CheckAccess())

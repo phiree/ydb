@@ -289,9 +289,7 @@ namespace PHSuit
 
         public static string SafeNameForWpfControl(string raw)
         {
-            return "btn"+raw.Replace("-", "");
-
-
+            return "ctl"+raw.Replace("-", "");
         }
     }
 
