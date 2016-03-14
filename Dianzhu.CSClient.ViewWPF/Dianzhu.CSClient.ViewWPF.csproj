@@ -57,6 +57,10 @@
     <Compile Include="FormMain.xaml.cs">
       <DependentUpon>FormMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GlobalVariable.cs" />
+    <Compile Include="UC\UC_ChatSend.xaml.cs">
+      <DependentUpon>UC_ChatSend.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_Order.xaml.cs">
       <DependentUpon>UC_Order.xaml</DependentUpon>
     </Compile>
@@ -65,6 +69,9 @@
     </Compile>
     <Compile Include="UC\UC_SearchResult.xaml.cs">
       <DependentUpon>UC_SearchResult.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_OrderDetail.xaml.cs">
+      <DependentUpon>UC_OrderDetail.xaml</DependentUpon>
     </Compile>
     <Page Include="FormLogin.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -81,6 +88,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\UC_ChatSend.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UC\UC_IdentityList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -94,6 +105,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_SearchResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_OrderDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

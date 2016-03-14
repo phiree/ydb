@@ -24,7 +24,7 @@ namespace Dianzhu.DAL.Mapping
          
             
             References<DZMembership>(x => x.CustomerService);
-            HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
+            HasMany<ServiceOrderDetail>(x => x.Details);
             
             Map(x => x.NegotiateAmount);
 

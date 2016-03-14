@@ -162,7 +162,7 @@ namespace Dianzhu.CSClient.Presenter
             
             
             //将服务添加到当前订单中.
-            ClientState.CurrentServiceOrder.AddDetailFromIntelService(selectedService, 1, string.Empty, string.Empty);
+            ClientState.CurrentServiceOrder.AddDetailFromIntelService(  selectedService, 1, string.Empty, string.Empty);
             view.CurrentOrder = ClientState.CurrentServiceOrder;
         }
 

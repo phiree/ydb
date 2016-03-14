@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Dianzhu.Model.Advertisement" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAABQAAAAAABIAAAAIAAIAggAAAACABAAAAAAAA=</HashCode>
+      <FileName>Advertisement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.Area" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAQAAAAAAgAAQAAAAAAAABAAAAQABAAAA=</HashCode>
+      <FileName>Area.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.Business_Abs" Collapsed="true">
+    <Position X="6.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAACAgAIAACIAAAAQAAAAAAAAAAAAAIAAAAAE=</HashCode>
+      <FileName>Business.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.Business" Collapsed="true">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAIIEIgAFAAAAAAAAAJBgABAAEAAACKAYIAFAJAIAI=</HashCode>
+      <FileName>Business.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.BusinessImage" Collapsed="true">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAIAAAAgwAAAAAAAAAAAQAAABACAAAAAIAAAAAA=</HashCode>
+      <FileName>Business.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.BusinessIndividual" Collapsed="true">
+    <Position X="7.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Business.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.CashTicket" Collapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIAEAAAAAAAAAABAABAAAAAEAAAAAQAAEAAAAAAE=</HashCode>
+      <FileName>CashTicket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.CashTIcketAssignDetail" Collapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAEAAAAAAAAAAAAHAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CashTIcketAssignDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.CashTicketAssignRecord" Collapsed="true">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACJAAAAAAAAAAAAABAAAAAAACAAAAIAIAAAQAAAAA=</HashCode>
+      <FileName>CashTicketAssignRecord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.CashTicketCreateRecord" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAEAAAAAAQBAAAACAAAAAAACAAAAAAAAAIAA=</HashCode>
+      <FileName>CashTicketCreateRecord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.CashTicketTemplate" Collapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAEAACIAAIBAAAAaAAAAAAACAAgAAAAAAAAA=</HashCode>
+      <FileName>CashTicketTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.City" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAIAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAE=</HashCode>
+      <FileName>City.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.Complaint" Collapsed="true">
+    <Position X="20" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAgAAAAAAABAAACQBAAAAAAAAAABAAAAAIAA=</HashCode>
+      <FileName>Complaint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.DeviceBind" Collapsed="true">
+    <Position X="21.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAIAAAAAADAAAAAAAAIAAAAQAAAAAAAAAAAAAQAQ=</HashCode>
+      <FileName>DeviceBind.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.DZMembership" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAAADIAAAgIQAAgAACAAAAACEECAQAAIAQAIAA=</HashCode>
+      <FileName>DZMembership.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.BusinessUser" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DZMembership.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.Customer" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DZMembership.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.CustomerService" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>DZMembership.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.DZMembershipWeChat" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAQAAABDAIAAAAAAAAFAIAAQAAAAAAAgAAAQA=</HashCode>
+      <FileName>DZMembership.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.DZMembershipSinaWeibo" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KgIAQAQAQAIggCCYCCoAAAQAMgQAAQAATQQAQwACERA=</HashCode>
+      <FileName>DZMembership.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.DZMembershipQQ" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGABAAAABAACAgCIgcAAAAAAAAAQBAABAAAAAkAAASA=</HashCode>
+      <FileName>DZMembership.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.DZRole" Collapsed="true">
+    <Position X="23.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DZRole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.DZService" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JEBaIABAAEAgAcBAIAQAABcCAASIAAAAKAAAIQAAoBE=</HashCode>
+      <FileName>DZService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.DZTag" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAQAAAAAAAAAAAAgAAAAAAAABCAAAAAA=</HashCode>
+      <FileName>DZTag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.IMUserStatus" Collapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAEAAAAAAAAAACAAAgAAAAEAAAAUAAAAAAAAAA=</HashCode>
+      <FileName>IMUserStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.IMUserStatusArchieve" Collapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAEAAAAAAAAAACAAAgAAAACAAAAUAAAAAAAAAA=</HashCode>
+      <FileName>IMUserStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.OrderAssignment" Collapsed="true">
+    <Position X="21.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAECAQAAAAAAAIAAABAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>OrderAssignment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.Paylog" Collapsed="true">
+    <Position X="23.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Paylog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.Payment" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAEAAAAAAAEAAAACACAAAAAEAACAABAAAAAAAE=</HashCode>
+      <FileName>Payment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.PaymentLog" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAAAAAAAAAHAAgAEAAAAAAAAhAAAAAAAAAAAAA=</HashCode>
+      <FileName>PaymentLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ReceptionBase" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQACIAAAAAAAAAAAAABAAAAAAAAEAAAAIAAAAAAIAAA=</HashCode>
+      <FileName>Reception.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ReceptionCustomer" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAIAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reception.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ReceptionBusiness" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reception.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ReceptionChat" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MgASEABAAAAAAAAAAABAAAAAQAAIAEAIAAAAAAAABQA=</HashCode>
+      <FileName>Reception.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ReceptionChatDD" Collapsed="true">
+    <Position X="18.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MgASAABAAAAAAAgAACBAAAAAQAAIAAAIAgAAAAAABQA=</HashCode>
+      <FileName>Reception.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ReceptionChatMedia" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reception.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ReceptionChatReAssign" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Reception.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ReceptionChatNotice" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reception.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ReceptionChatUserStatus" Collapsed="true">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reception.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ReceptionStatus" Collapsed="true">
+    <Position X="20" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAACAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>ReceptionStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ReceptionStatusArchieve" Collapsed="true">
+    <Position X="21.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAACAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ReceptionStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ServiceOpenTime" Collapsed="true">
+    <Position X="23.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAAAAAAAAAoAAAAAAAAAAAAAAQAAAAAAEAAAAAAA=</HashCode>
+      <FileName>ServiceOpenTime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ServiceOpenTimeForDay" Collapsed="true">
+    <Position X="14.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEGIAAAAAAAAIAAAAEAAAAAAEABAAAAAAQAAAAEAGA=</HashCode>
+      <FileName>ServiceOpenTime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ServiceOrder" Collapsed="true">
+    <Position X="16.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAEAAACjAMABhAAACACAgSADQAAGAAhBAAAAABA=</HashCode>
+      <FileName>ServiceOrder\ServiceOrder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ServiceOrderDetail" Collapsed="true">
+    <Position X="18.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAACAAAAAAAgAAAAAAAAABCCACQAgAAEIABAAACABBE=</HashCode>
+      <FileName>ServiceOrder\ServiceOrderDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ServiceOrderFactory" Collapsed="true">
+    <Position X="20" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ServiceOrder\ServiceOrderFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ServiceOrderStateChangeHis" Collapsed="true">
+    <Position X="21.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAEAAQAAAAAABFAAAAAAAAAACAAAAAAAAAAAARA=</HashCode>
+      <FileName>ServiceOrderStateChangeHis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ServiceProperty" Collapsed="true">
+    <Position X="23.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAKAAAAAAAAAAAAAAAAAAQAAAAAAAAgAAAgAAAAAAA=</HashCode>
+      <FileName>ServiceProperty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ServiceType" Collapsed="true">
+    <Position X="16.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAIAAAAAAAAEAAAkQAQAAAAAEAAAAgAAAAACAAA=</HashCode>
+      <FileName>ServiceType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.ServicePropertyValue" Collapsed="true">
+    <Position X="14.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ServiceTypePropertyValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.Staff" Collapsed="true">
+    <Position X="18.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAiICCAAEAgCAYAAAAAAAECAAAAIAAAIAI=</HashCode>
+      <FileName>Staff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dianzhu.Model.StaffServiceType" Collapsed="true">
+    <Position X="20" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StaffServiceType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Dianzhu.Model.AreaLevel" Collapsed="true">
+    <Position X="14.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACABAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Area.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_ImageType" Collapsed="true">
+    <Position X="14.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAgUAACAAAAAAEAABAAEAEAIAAAAEAAAAAAAwAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_PayTarget" Collapsed="true">
+    <Position X="16.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_PayType" Collapsed="true">
+    <Position X="18.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAEAAAAAAAAAEAAAAAEAEAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_PaylogType" Collapsed="true">
+    <Position X="23.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAgAAAAAAAAAAAAAAAAAAIAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_PayAPI" Collapsed="true">
+    <Position X="21.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAEAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_ChargeUnit" Collapsed="true">
+    <Position X="18.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAIEAAAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_ServiceMode" Collapsed="true">
+    <Position X="20" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_IDCardType" Collapsed="true">
+    <Position X="23.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_OrderStatus" Collapsed="true">
+    <Position X="20" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAEGAgAQAEAAAARAAEAQEAAAAAAQgBgg=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_OrderSearchType" Collapsed="true">
+    <Position X="18.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAACAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_CashTicketSearchType" Collapsed="true">
+    <Position X="16.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAFAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_ChatType" Collapsed="true">
+    <Position X="21.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAQAAABAAAAAABAAAACAAAAAAACAAAAACAAAAAQ=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_ServiceScopeType" Collapsed="true">
+    <Position X="21.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_UserType" Collapsed="true">
+    <Position X="14.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQIABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_ChatTarget" Collapsed="true">
+    <Position X="20" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAABAAAAAACAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_UserStatus" Collapsed="true">
+    <Position X="23.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_XmppResource" Collapsed="true">
+    <Position X="16.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAACAACAAALAUAQBCAAAAACAAAAIAAIAAAAgA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_LoginType" Collapsed="true">
+    <Position X="16.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAIAAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Dianzhu.Model.Enums.enum_PaymentStatus" Collapsed="true">
+    <Position X="14.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAgAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>

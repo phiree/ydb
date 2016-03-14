@@ -31,14 +31,14 @@ namespace Dianzhu.Model
         /// todo: 增加 购物车概念, 通过购物车为不同商家生成不同订单.
         /// </summary>
         /// <param name="detail"></param>
-        public virtual void AddDetailFromIntelService(DZService service,int unitAmount,string targetAddress,string targetTime)
+        public virtual void AddDetailFromIntelService(  DZService service,int unitAmount,string targetAddress,string targetTime)
         {
             
 
             var existedService = Details.Where(x => x.OriginalService == service);
             if (existedService.Count() == 0)
             {
-                ServiceOrderDetail detail = new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
+                ServiceOrderDetail detail = new ServiceOrderDetail( service, unitAmount, targetAddress, targetTime);
                 Details.Clear();
                 Details.Add(detail);
             }

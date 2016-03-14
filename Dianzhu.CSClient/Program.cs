@@ -65,11 +65,13 @@ namespace Dianzhu.CSClient
                 IViewOrder viewOrder = null;
                 IViewSearch viewSearch = null;
                 IViewSearchResult viewSearchResult = null;
+                IViewChatSend viewChatSend = null;
 
                 if (useWpf)
                 {
                     viewIdentityList = new ViewWPF.UC_IdentityList();
                     viewChatList = new ViewWPF.UC_ChatList();
+                    viewChatSend = new ViewWPF.UC_ChatSend();
                     viewOrder = new ViewWPF.UC_Order();
                     viewSearch = new ViewWPF.UC_Search();
                     viewSearchResult = new ViewWPF.UC_SearchResult();
@@ -81,6 +83,7 @@ namespace Dianzhu.CSClient
                      viewOrder = new WinformView.UC_Order();
                      viewSearch = new WinformView.UC_Search();
                      viewSearchResult = new WinformView.UC_SearchResult();
+                    
 
                 }
                 //初始化Presenter
@@ -90,6 +93,7 @@ namespace Dianzhu.CSClient
                 Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList);
                 Presenter.PSearch pSearch = new Presenter.PSearch(viewSearch, viewSearchResult, viewOrder);
                 Presenter.POrder pOrder = new Presenter.POrder(xmpp, viewOrder);
+                Presenter.PChatSend pChatSend = new Presenter.PChatSend(viewChatSend, viewChatList, xmpp);
 
                 if (useWpf)
                 {
@@ -97,6 +101,7 @@ namespace Dianzhu.CSClient
                     
                     var mainForm = new ViewWPF.FormMain((ViewWPF.UC_IdentityList)viewIdentityList,
                         (ViewWPF.UC_ChatList)viewChatList,
+                        (ViewWPF.UC_ChatSend)viewChatSend,
                         (ViewWPF.UC_Order)viewOrder,
                         (ViewWPF.UC_Search)viewSearch,
                         (ViewWPF.UC_SearchResult)viewSearchResult);

@@ -60,6 +60,7 @@
     <Compile Include="MainPresenter\IM.cs" />
     <Compile Include="MainPresenter\MainPresenter.cs" />
     <Compile Include="MainPresenter\MessageSender.cs" />
+    <Compile Include="MainPresenter\PChatSend.cs" />
     <Compile Include="MainPresenter\PChatList.cs" />
     <Compile Include="MainPresenter\PIdentyList.cs" />
     <Compile Include="IdentityManager.cs" />

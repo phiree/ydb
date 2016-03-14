@@ -67,6 +67,7 @@ namespace Dianzhu.CSClient.IView
     /// <summary>
     /// 主界面接口定义
     /// </summary>
+    [Obsolete("已过时, 使用组件化方式替换.")]
     public interface IMainFormView
     {
         

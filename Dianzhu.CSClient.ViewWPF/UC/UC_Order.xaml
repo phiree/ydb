@@ -7,6 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <StackPanel x:Name="pnlOrder">
+            <WrapPanel>
+                <Label  Content="订单状态"/>
+                <Label x:Name="lblOrderStatus" />
+            </WrapPanel>
+            <ScrollViewer>
+            <StackPanel  x:Name="pnlOrderDetails" >
+                
+            </StackPanel>
+             
+            </ScrollViewer>
+        </StackPanel>
+
     </Grid>
 </UserControl>

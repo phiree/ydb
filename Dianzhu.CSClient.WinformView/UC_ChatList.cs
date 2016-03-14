@@ -71,5 +71,10 @@ namespace Dianzhu.CSClient.WinformView
         {
             SendTextClick();
         }
+        DZMembership currentCustomerService;
+        public DZMembership CurrentCustomerService {
+            get { return currentCustomerService; }
+            set { currentCustomerService = value; }
+        }
     }
 }

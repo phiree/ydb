@@ -57,7 +57,15 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             set
             {
-                throw new NotImplementedException();
+                 lblOrderStatus.Content = value.OrderStatus.ToString();
+                pnlOrderDetails.Children.Clear();
+                foreach (ServiceOrderDetail detail in value.Details)
+                {
+                    UC_OrderDetail ucDetail = new UC_OrderDetail();
+                    ucDetail.LoadData(detail);
+                    pnlOrderDetails.Children.Add(ucDetail);
+
+                }
             }
         }
 

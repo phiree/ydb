@@ -23,7 +23,7 @@ namespace Dianzhu.CSClient.ViewWPF
     public partial class FormMain : Window
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF");
-        public FormMain(UC_IdentityList ucIdentityList,UC_ChatList ucChatList,
+        public FormMain(UC_IdentityList ucIdentityList,UC_ChatList ucChatList,UC_ChatSend ucChatSend,
             UC_Order ucOrder, UC_Search ucSearch,UC_SearchResult ucSearchResult)
         {
             InitializeComponent();
@@ -32,6 +32,7 @@ namespace Dianzhu.CSClient.ViewWPF
             pnlChatList.Children.Add(ucChatList);
             pnlSearchResult.Children.Add(ucSearchResult);
             pnlOrder.Children.Add(ucOrder);
+            pnlChatSend.Children.Add(ucChatSend);
         }
 
          

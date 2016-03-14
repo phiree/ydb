@@ -26,30 +26,32 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             InitializeComponent();
         }
-
+        IList<ReceptionChat> chatList=new List<ReceptionChat>();
         public IList<ReceptionChat> ChatList
         {
             get
             {
-                throw new NotImplementedException();
+                return chatList;
             }
 
             set
             {
+                pnlChatList.Children.Clear();
                 foreach (ReceptionChat chat in value)
                 {
-                    Label lbl = new Label { Content=chat.MessageBody };
+                    AddOneChat(chat);
 
                 }
             }
         }
+        
         public void AddOneChat(ReceptionChat chat)
         {
             Action lamda = () =>
             {
-                bool isSender = false;// chat.From.UserName == currentCustomerService;
+               bool isSender = chat.From.UserName ==currentCustomerService.UserName;
                 Label lblTime = new Label();
-                //_AutoSize(lblTime);
+               
                 lblTime.Foreground = new SolidColorBrush(Colors.Black);
                 Label lblFrom = new Label();
                 Label lblMessage = new Label();
@@ -60,12 +62,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 pnlOneChat.Children.Add(lblMessage);
                 if (isSender) { pnlOneChat.FlowDirection = FlowDirection.RightToLeft; }
                 else { pnlOneChat.FlowDirection = FlowDirection.LeftToRight; }
-                //pnlOneChat.Dock = isSender ? DockStyle.Left : DockStyle.Right;
-                //lblTime.BorderStyle            = lblMessage.BorderStyle            = lblFrom.BorderStyle            = pnlOneChat.BorderStyle = BorderStyle.FixedSingle;
-
-                //_AutoSize(pnlOneChat);
-
-                lblTime.Content = chat.SavedTime.ToShortTimeString() + " ";
+                      lblTime.Content = chat.SavedTime.ToShortTimeString() + " ";
 
                 lblFrom.Content = chat.From.UserName;
 
@@ -74,12 +71,7 @@ namespace Dianzhu.CSClient.ViewWPF
                     return;
                 }
                 LoadBody(chat.MessageBody, pnlOneChat);
-
-                //lblMessage.Text = chat.MessageBody;
-
-                //如果包含了url信息
-                //_AutoSize(lblMessage);
-                //pnlOneChat.Width = pnlChat.Size.Width - 36;
+ 
 
                 //显示多媒体信息.
 
@@ -91,20 +83,16 @@ namespace Dianzhu.CSClient.ViewWPF
                     switch (mediaType)
                     {
                         case "image":
-                            //PictureBox pb = new PictureBox();
-                            //pb.Click += new EventHandler(pb_Click);
-                            //string filename = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
-                            //string localFile = LocalMediaSaveDir + filename;
-                            //if (File.Exists(localFile))
-                            //{
-                            //    pb.ImageLocation = localFile;
-                            //}
-                            //else {
-                            //    pb.Load(mediaUrl);
-                            //}
-                            //pb.Size = new System.Drawing.Size(100, 100);
-                            //pb.SizeMode = PictureBoxSizeMode.Zoom;
-                            //pnlOneChat.Controls.Add(pb);
+
+                            Image chatImage = new Image();
+                            BitmapImage chatImageBitmap = new BitmapImage();
+                            chatImageBitmap.BeginInit();
+                           // string filename = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
+                           // string localFile = LocalMediaSaveDir + filename;
+                            chatImageBitmap.UriSource = new Uri(mediaUrl);
+                            chatImageBitmap.EndInit();
+                            chatImage.Source = chatImageBitmap;
+                            pnlOneChat.Children.Add(chatImage);
                             break;
                         case "voice":
                             //Button btnAudio = new Button();
@@ -133,6 +121,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
                 // WindowNotification();
                 pnlChatList.Children.Add(pnlOneChat);
+                svChatList.ScrollToBottom();
                 //pnlChat.ScrollControlIntoView(pnlOneChat);
             };
             if (!Dispatcher.CheckAccess())
@@ -185,7 +174,22 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public event SendTextClick SendTextClick;
+        DZMembership currentCustomerService;
+
+        public DZMembership CurrentCustomerService
+        {
+            get
+            {
+                return currentCustomerService;
+            }
+
+            set
+            {
+                currentCustomerService = value;
+            }
+        }
+
+       
 
         
     }

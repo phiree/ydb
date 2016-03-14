@@ -47,7 +47,7 @@
 
                 </WrapPanel>
             </Grid>
-           
+
         </Grid>
 
         <Grid ShowGridLines="True" Grid.Column="2">
@@ -57,12 +57,16 @@
         </Grid>
 
         <Grid ShowGridLines="True" Grid.Column="4">
-            
-            <ScrollViewer x:Name="scrViewChatList" VerticalScrollBarVisibility="Auto">
-                <ScrollViewer.Content>
-                    <StackPanel x:Name="pnlChatList" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-                </ScrollViewer.Content>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+
+            <ScrollViewer x:Name="scrViewChatList" VerticalScrollBarVisibility="Auto" Grid.Row="0">
+                <StackPanel  x:Name="pnlChatList"/>
             </ScrollViewer>
+            <WrapPanel x:Name="pnlChatSend" Grid.Row="1">
+            </WrapPanel>
         </Grid>
 
         <Grid ShowGridLines="True" Grid.Column="6">
@@ -74,11 +78,11 @@
             <GridSplitter x:Name="gridSplitter6" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5"/>
 
             <Grid ShowGridLines="True" Grid.Row="0">
-                
+
             </Grid>
 
             <Grid ShowGridLines="True" Grid.Row="2">
-                 
+
 
             </Grid>
 

@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agent\Agent.cs" />
     <Compile Include="Complaint.cs" />
     <Compile Include="Advertisement.cs" />
     <Compile Include="IMUserStatus.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Staff.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
