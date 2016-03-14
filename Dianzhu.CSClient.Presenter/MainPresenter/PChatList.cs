@@ -35,10 +35,25 @@ namespace Dianzhu.CSClient.Presenter
             this.viewIdentityList = viewCustomerList;
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
+            viewChatList.AudioPlay += ViewChatList_AudioPlay;
            
         }
 
+         
+
+        PHSuit.Media media = new PHSuit.Media();
+        private void ViewChatList_AudioPlay(object audioTag, IntPtr handle)
+        {
+            string mediaUrl = audioTag.ToString();
+            string fileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
+
+            string fileLocalPath = GlobalViables.LocalMediaSaveDir + fileName;
        
+
+            media.Play(mediaUrl, handle);
+            
+
+        }
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {

@@ -94,6 +94,8 @@ namespace Dianzhu.CSClient
                 Presenter.PSearch pSearch = new Presenter.PSearch(viewSearch, viewSearchResult, viewOrder);
                 Presenter.POrder pOrder = new Presenter.POrder(xmpp, viewOrder);
                 Presenter.PChatSend pChatSend = new Presenter.PChatSend(viewChatSend, viewChatList, xmpp);
+                Presenter.PMain pMain = new Presenter.PMain(new BLLReceptionStatus(),
+                    new BLLReceptionStatusArchieve(), new BLLReceptionChatDD(), new BLLReceptionChat(), xmpp, viewIdentityList);
 
                 if (useWpf)
                 {

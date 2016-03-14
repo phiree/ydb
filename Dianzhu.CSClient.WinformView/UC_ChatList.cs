@@ -18,8 +18,20 @@ namespace Dianzhu.CSClient.WinformView
         public UC_ChatList()
         {
             InitializeComponent();
+            this.AudioPlay += UC_ChatList_AudioPlay;
         }
+
+        private void UC_ChatList_AudioPlay(object audioTag, IntPtr handler)
+        {
+            if (AudioPlay != null)
+            {
+                
+            }
+        }
+
         public event SendTextClick SendTextClick;
+        public event AudioPlay AudioPlay;
+
         public string MessageText {
             get { return tbxMessage.Text; }
             set { tbxMessage.Text = value; }

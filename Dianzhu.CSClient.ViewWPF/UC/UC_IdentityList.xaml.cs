@@ -33,13 +33,18 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
-                Button btnIdentity = new Button { Content = serviceOrder.Customer.DisplayName };
-                btnIdentity.Tag = serviceOrder;
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
+                Button btnIdentity =(Button) pnlIdentityList.FindName(ctrlName);
+                if (btnIdentity == null)
+                {
+                    btnIdentity = new Button { Content = serviceOrder.Customer.DisplayName };
+                    btnIdentity.Tag = serviceOrder;
 
-                btnIdentity.Name =PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-                btnIdentity.Click += BtnIdentity_Click;
-                pnlIdentityList.Children.Add(btnIdentity);
-                pnlIdentityList.RegisterName(btnIdentity.Name, btnIdentity);
+                    btnIdentity.Name = ctrlName;
+                    btnIdentity.Click += BtnIdentity_Click;
+                    pnlIdentityList.Children.Add(btnIdentity);
+                    pnlIdentityList.RegisterName(btnIdentity.Name, btnIdentity);
+                }
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -74,7 +79,8 @@ namespace Dianzhu.CSClient.ViewWPF
         }
         private void SetIdentityButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
         {
-            Action lambda = () => {
+            Action lambda = () =>
+            {
                 var objBtn = pnlIdentityList.FindName(PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString()));
                 if (objBtn != null)
                 {

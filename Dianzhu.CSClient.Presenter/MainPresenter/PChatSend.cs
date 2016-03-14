@@ -34,11 +34,11 @@ namespace Dianzhu.CSClient.Presenter
             //     viewCustomerList.IdentityClick += ViewCustomerList_CustomerClick;
             this.iIM = iIM;
             this.viewChatSend.SendTextClick += ViewChatSend_SendTextClick;
-            this.viewChatSend.SendImageClick += ViewChatSend_SendImageClick;
+            this.viewChatSend.SendMediaClick += ViewChatSend_SendMediaClick;
                
         }
 
-        private void ViewChatSend_SendImageClick(byte[] fileData, string domainType, string mediaType)
+        private void ViewChatSend_SendMediaClick(byte[] fileData, string domainType, string mediaType)
         {
             if (IdentityManager.CurrentIdentity == null) return;
 

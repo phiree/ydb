@@ -53,9 +53,11 @@ namespace Dianzhu.CSClient.Presenter
                 IdentityTypeOfOrder type;
                 identityManager.UpdateIdentityList(chat.ServiceOrder, out type);
                 pIdentityList.ReceivedMessage(chat, type);
+                //消息本地化.
                 dalReceptionChat.Save(chat);
             }
         }
+      
         public void SendMessage(Dianzhu.Model.ReceptionChat chat)
         {
             iIM.SendMessage(chat);

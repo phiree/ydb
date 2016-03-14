@@ -14,12 +14,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
+using System.Windows.Interop;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
     /// <summary>
     /// ChatList.xaml 的交互逻辑
     /// </summary>
+
     public partial class UC_ChatList : UserControl,IView.IViewChatList
     {
         public UC_ChatList()
@@ -95,12 +97,12 @@ namespace Dianzhu.CSClient.ViewWPF
                             pnlOneChat.Children.Add(chatImage);
                             break;
                         case "voice":
-                            //Button btnAudio = new Button();
-                            //btnAudio.Text = "播放音频---";
-                            //btnAudio.Tag = mediaUrl;
-                            //btnAudio.AutoSize = true;
-                            //btnAudio.Click += BtnAudio_Click;
-                            //pnlOneChat.Controls.Add(btnAudio);
+                             Button btnAudio = new Button();
+                            btnAudio.Content = "播放音频---";
+                            btnAudio.Tag = mediaUrl;
+                            
+                            btnAudio.Click += BtnAudio_Click;
+                            pnlOneChat.Children.Add(btnAudio);
                             break;
                         case "video":
                             //Button btnVideo = new Button();
@@ -122,7 +124,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 // WindowNotification();
                 pnlChatList.Children.Add(pnlOneChat);
                 
-                //svChatList.ScrollToBottom();
+               // svChatList.ScrollToBottom();
                 //svChatList.UpdateLayout();
                 //svChatList.ScrollToVerticalOffset(svChatList.ScrollableHeight);
                 //pnlChat.ScrollControlIntoView(pnlOneChat);
@@ -134,6 +136,15 @@ namespace Dianzhu.CSClient.ViewWPF
             else
             {
                 lamda();
+            }
+        }
+        private void BtnAudio_Click(object sender, EventArgs e)
+        {
+            if(AudioPlay!=null)
+            {
+                Window w = Window.GetWindow(this);
+                IntPtr windowHandle = new WindowInteropHelper(w).Handle;
+                AudioPlay(((Button)sender).Tag, windowHandle);
             }
         }
         private void LoadBody(string messageBody, Panel pnlContainer)
@@ -179,6 +190,8 @@ namespace Dianzhu.CSClient.ViewWPF
 
         DZMembership currentCustomerService;
 
+        public event AudioPlay AudioPlay;
+
         public DZMembership CurrentCustomerService
         {
             get
@@ -192,8 +205,83 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-       
+        private void svChatList_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
 
-        
+        private void Grid_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            Grid  g = (Grid)sender;
+            ScrollViewer scv =(ScrollViewer) g.FindName("svChatList");
+            svChatList_MouseWheel(scv, e);
+        }
+
+        private void pnlChatList_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            StackPanel g = (StackPanel)sender;
+            ScrollViewer scv = (ScrollViewer)g.FindName("svChatList");
+            svChatList_MouseWheel(scv, e);
+        }
+
+        private void svChatList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
+
+        private void svChatList_MouseWheel_1(object sender, MouseWheelEventArgs e)
+        {
+
+        }
+    }
+
+    public class ScrollViewerExtensions
+    {
+        public static readonly DependencyProperty AlwaysScrollToEndProperty = DependencyProperty.RegisterAttached("AlwaysScrollToEnd", typeof(bool), typeof(ScrollViewerExtensions), new PropertyMetadata(false, AlwaysScrollToEndChanged));
+        private static bool _autoScroll;
+
+        private static void AlwaysScrollToEndChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            ScrollViewer scroll = sender as ScrollViewer;
+            if (scroll != null)
+            {
+                bool alwaysScrollToEnd = (e.NewValue != null) && (bool)e.NewValue;
+                if (alwaysScrollToEnd)
+                {
+                    scroll.ScrollToEnd();
+                    scroll.ScrollChanged += ScrollChanged;
+                }
+                else { scroll.ScrollChanged -= ScrollChanged; }
+            }
+            else { throw new InvalidOperationException("The attached AlwaysScrollToEnd property can only be applied to ScrollViewer instances."); }
+        }
+
+        public static bool GetAlwaysScrollToEnd(ScrollViewer scroll)
+        {
+            if (scroll == null) { throw new ArgumentNullException("scroll"); }
+            return (bool)scroll.GetValue(AlwaysScrollToEndProperty);
+        }
+
+        public static void SetAlwaysScrollToEnd(ScrollViewer scroll, bool alwaysScrollToEnd)
+        {
+            if (scroll == null) { throw new ArgumentNullException("scroll"); }
+            scroll.SetValue(AlwaysScrollToEndProperty, alwaysScrollToEnd);
+        }
+
+        private static void ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            ScrollViewer scroll = sender as ScrollViewer;
+            if (scroll == null) { throw new InvalidOperationException("The attached AlwaysScrollToEnd property can only be applied to ScrollViewer instances."); }
+
+            // User scroll event : set or unset autoscroll mode
+            if (e.ExtentHeightChange == 0) { _autoScroll = scroll.VerticalOffset == scroll.ScrollableHeight; }
+
+            // Content scroll event : autoscroll eventually
+            if (_autoScroll && e.ExtentHeightChange != 0) { scroll.ScrollToVerticalOffset(scroll.ExtentHeight); }
+        }
     }
 }

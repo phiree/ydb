@@ -40,7 +40,7 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         public event SendTextClick SendTextClick;
-        public event SendImageClick SendImageClick;
+        public event SendMediaClick SendMediaClick;
 
         private void btnSendTextMessage_Click(object sender, RoutedEventArgs e)
         {
@@ -50,17 +50,35 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        private void btnSendImage_Click(object sender, RoutedEventArgs e)
+        private void btnSendMedia_Click(object sender, RoutedEventArgs e)
         {
-            if (SendImageClick != null)
+            if (SendMediaClick != null)
             {
 
                 // Create OpenFileDialog
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-                // Set filter for file extension and default file extension
-                dlg.DefaultExt = ".png;.jpg";
-                dlg.Filter = "Images |*.jpg";
+               
+
+                Button btn = (Button)sender;
+                string domain = string.Empty;
+                string mediaType = string.Empty;
+              
+                if (btn.Name == "btnSendImage")
+                {
+                    // Set filter for file extension and default file extension
+                    dlg.DefaultExt = ".png;.jpg";
+                    dlg.Filter = "Images |*.jpg";
+                    domain = "ChatImage";
+                    mediaType = "image";
+                }
+                else if (btn.Name == "btnSendAudio")
+                {
+                    dlg.DefaultExt = ".wma;.mp3";
+                    dlg.Filter = "Audios |*.mp3";
+                    domain = "ChatAudio";
+                    mediaType = "voice";
+                }
 
                 // Display OpenFileDialog by calling ShowDialog method
                 Nullable<bool> result = dlg.ShowDialog();
@@ -70,10 +88,11 @@ namespace Dianzhu.CSClient.ViewWPF
                 {
                     
                     byte[] fileData = File.ReadAllBytes(dlg.FileName);
-                    SendImageClick(fileData, "ChatImage", "image");
+                    SendMediaClick(fileData,domain,mediaType);
                     
                 }
             }
         }
+ 
     }
 }

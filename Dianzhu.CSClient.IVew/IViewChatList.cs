@@ -19,9 +19,11 @@ namespace Dianzhu.CSClient.IView
         /// 用来确定消息的显示格式.
         /// </summary>
         DZMembership CurrentCustomerService { get; set; }
+       event AudioPlay AudioPlay;
 
     }
-    
-     
-    
+    public delegate void AudioPlay(object audioTag, IntPtr handler);
+
+
+
 }

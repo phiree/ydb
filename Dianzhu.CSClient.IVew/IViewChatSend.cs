@@ -15,12 +15,14 @@ namespace Dianzhu.CSClient.IView
     
       
         event SendTextClick SendTextClick;
-        event SendImageClick SendImageClick;
+        event SendMediaClick SendMediaClick;
+         
         string MessageText { get; set; }
         
     }
     public delegate void SendTextClick();
-    public delegate void SendImageClick(byte[] fileData, string domainType, string mediaType);
+    public delegate void SendMediaClick(byte[] fileData, string domainType, string mediaType);
+   // public delegate void SendImageClick(byte[] fileData, string domainType, string mediaType);
 
 
 

@@ -31,7 +31,7 @@ namespace Dianzhu.CSClient.IView
     /// </summary>
     /// <param name="audioTag"></param>
     /// <param name="handler"></param>
-    public delegate void AudioPlay(object audioTag,IntPtr handler);
+   
     public delegate void PushExternalService();
     public delegate void PushInternalService(DZService service);
     
