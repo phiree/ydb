@@ -15,6 +15,8 @@
         evaluate:    /\{%(.+?)%\}/g
     };
 
+    var reqUrl = "http://localhost:806/dianzhuapi.ashx";
+
     // 时间段Model
     var TimeBucket = Backbone.Model.extend({
         defaults : {
@@ -238,7 +240,7 @@
             //不通过set方法，而是通过this属性直接设置timeBuckets属性为一个指向新的Collection的指针,这样是为了view中的listen可以正确的监听Collection对象。
             this.model.timeBuckets = new TimeBuckets();
             //this.model.timeBuckets.url = '/timeBuckets.json';
-            this.model.timeBuckets.url = 'http://localhost:806/dianzhuapi.ashx';
+            this.model.timeBuckets.url = reqUrl;
             var requestDate = this.model.get('date');
 
             this.listenTo(this.model.timeBuckets, 'add' , this.addTimeBucketView);
@@ -248,7 +250,8 @@
                 protocolCode : 'slf002006',
                 data : {
                     date : requestDate,
-                    serviceId: "8e431b59-cc9e-4a98-a1a6-a5830110e478"
+                    //serviceId: "8e431b59-cc9e-4a98-a1a6-a5830110e478"
+                    serviceId: Adapter.getParameterByName("serviceid")
                 }
             });
         },
@@ -334,13 +337,14 @@
             this.render();
 
             //days.url = '/days.json';
-            days.url = 'http://localhost:806/dianzhuapi.ashx';
+            days.url = reqUrl;
             days.fetch({
                 customAPI : true,
                 protocolCode : 'slf001007',
                 data : {
                     date : requestDate,
-                    serviceId : "8e431b59-cc9e-4a98-a1a6-a5830110e478"
+                    serviceId: Adapter.getParameterByName("serviceid")
+                    //serviceId : "8e431b59-cc9e-4a98-a1a6-a5830110e478"
                 },
                 success : start
             });

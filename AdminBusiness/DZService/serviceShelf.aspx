@@ -122,6 +122,7 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server" >
     <!--<script src="js/jquery-1.11.3.js"></script>-->
+    <script src="/js/interfaceAdapter.js"></script>
     <script src="/js/shelf/json2.js"></script>
     <script src="/js/shelf/mock.js"></script>
     <script src="/js/shelf/MockData.js"></script>

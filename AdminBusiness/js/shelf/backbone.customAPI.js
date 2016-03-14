@@ -24,18 +24,6 @@
         throw new Error('A "url" property or function must be specified');
     }
 
-    /* 接口格式封装 */
-    function requestAdapter(protocolCode, data){
-        var formattedData;
-        formattedData = {
-            protocol_CODE : protocolCode,
-            ReqData : data,
-            stamp_TIMES :  "1490192929222",
-            serial_NUMBER :  "00147001015869149756"
-        };
-        //return formattedData;
-        return JSON.stringify(formattedData);
-    }
 
     Backbone.customAdapter = function(method, model, options){
 
@@ -83,7 +71,7 @@
             }
         }
 
-        options.data = requestAdapter(options.protocolCode , data);
+        options.data = Adapter.reqPackage(options.protocolCode , data);
 
         if ( !options.dataFilter ) {
             options.dataFilter = function(rawData, type){
