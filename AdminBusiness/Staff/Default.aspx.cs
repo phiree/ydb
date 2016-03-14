@@ -10,6 +10,12 @@ public partial class Staff_Default : BasePage
 {
     BLLStaff bllStaff = new BLLStaff();
 
+    public string merchantID {
+        get {
+            return System.Web.Security.Membership.GetUser().ProviderUserKey.ToString();
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

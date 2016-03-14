@@ -125,6 +125,13 @@
                                             </asp:Repeater>
                                         </div>
                                     </div>
+                                    <div class="model-b">
+                                        <UC:AspNetPager runat="server" UrlPaging="true" ID="pager" CssClass="anpager"
+                                                        CurrentPageButtonClass="cpb" PageSize="5"
+                                                        CustomInfoHTML="第 %CurrentPageIndex% / %PageCount%页 共%RecordCount%条"
+                                                        ShowCustomInfoSection="Right">
+                                        </UC:AspNetPager>
+                                    </div>
                                 </div>
                         </div>
                         <div class="col-md-2">
@@ -142,11 +149,6 @@
             </div>
         </div>
     </div>
-    <UC:AspNetPager runat="server" UrlPaging="true" ID="pager" CssClass="anpager"
-                    CurrentPageButtonClass="cpb" PageSize="5"
-                    CustomInfoHTML="第 %CurrentPageIndex% / %PageCount%页 共%RecordCount%条"
-                    ShowCustomInfoSection="Right">
-    </UC:AspNetPager>
     <div id="staffAppointLight" class="appointWindow dis-n">
         <div class="model">
             <div class="model-h">
@@ -166,10 +168,8 @@
                 <input class="btn btn-cancel-light lightClose" type="button" value="取消" >
             </div>
         </div>
-
     </div>
     <script type="text/template" id="staffs_template">
-
                 <div class="col-md-4">
                     <div class="emp-model">
                         <div class="emp-model-h">

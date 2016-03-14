@@ -1,6 +1,6 @@
 /**
- * 订单指派员工插件，模拟backbone的MVC方式实现。
- * @template AdminBusiness\DZOrder\Default.aspx#staffs_template
+ * 订单指派订单插件，模拟backbone的MVC方式实现。
+ * @template AdminBusiness\DZOrder\Default.aspx#orders_template
  * @depends interfaceAdapter.js
  */
 
@@ -26,45 +26,47 @@
     var urlConfig = "http://localhost:806/dianzhuapi.ashx";
 
     /**
-     * 员工model
+     * 订单model
      * @param attribute
      * @param options
      * @constructor
      */
-    var StaffModel = function(attribute, options){
+    var OrderModel = function(attribute, options){
         options || (options = {});
         this.url = options.url || urlConfig;
         this.attribute = attribute || {}
     };
 
-    $.extend(StaffModel.prototype,{
+    $.extend(OrderModel.prototype,{
         initialize : function(){
 
         }
     });
 
     /**
-     * 员工model Collection
+     * 订单model Collection
      * @param models
      * @param options
      * @constructor
      */
-    var StaffCollection = function(models, options){
+    var OrderCollection = function(models, options){
         options || (options = {});
-        this.model = options.model || StaffModel;
+        this.model = options.model || OrderModel;
         this.url = options.url ;
         this.reqObj = {
-            storeID : options.storeID ? options.storeID : Adapter.getParameterByName("businessId"),
-            merchantID : options.merchantID || merchantID
+            userID : options.storeID ? options.storeID : Adapter.getParameterByName("businessId"),
+            target : "Nt",
+            pageSize : "999",
+            pageNum : "1"
         };
-        this.reqData = Adapter.reqPackage("ASN001006", this.reqObj);
+        this.reqData = Adapter.reqPackage("ORM001006", this.reqObj);
         this.models = models || [];
 
         this.initialize();
     };
 
 
-    $.extend(StaffCollection.prototype, {
+    $.extend(OrderCollection.prototype, {
         initialize : function(){
 
         },
@@ -78,6 +80,7 @@
 
             return $.ajax({
                 type : "post",
+                dataType : "json",
                 url : _this.url,
                 data : _this.reqData,
                 success : function(row, textStatus, xhr){
@@ -107,9 +110,9 @@
         }
     });
 
-    var staffCollection = new StaffCollection([], {
-        url : urlConfig,
-        model : StaffModel
+    var orderCollection = new OrderCollection([], {
+        url : "/order.json",
+        model : OrderModel
     });
 
     /**
@@ -132,7 +135,7 @@
 
     var AssignCollection = function(models, options){
         options || (options = {});
-        this.model = options.model || StaffModel;
+        this.model = options.model || OrderModel;
         this.url = options.url ;
         this.models = models || [];
         this.apiCode = {
@@ -153,6 +156,7 @@
 
             return $.ajax({
                 type : "post",
+                dataType : "json",
                 url : _this.url,
                 data : reqData,
                 success : function(row, textStatus, xhr){
@@ -183,7 +187,8 @@
     });
 
     var assignCollection = new AssignCollection([], {
-        url : urlConfig,
+        //url : urlConfig,
+        url : "/assign.json",
         model : AssignModel
     });
 
@@ -198,23 +203,23 @@
     };
 
     $.extend(ItemModel.prototype, {
-       changeMark : function(){
-           switch ( this.attribute.mark ) {
-               case "Y" :
-                   this.attribute.mark = "N";
-                   break;
-               case "N" :
-                   this.attribute.mark = "Y";
-                   break;
-           }
-       }
+        changeMark : function(){
+            switch ( this.attribute.mark ) {
+                case "Y" :
+                    this.attribute.mark = "N";
+                    break;
+                case "N" :
+                    this.attribute.mark = "Y";
+                    break;
+            }
+        }
     });
 
     var ItemCollection = function(models, options){
         options || (options = {});
         this.model = options.model || ItemModel;
         this.models = [];
-        this.staffs = [];
+        this.orders = [];
         this.assign = [];
     };
 
@@ -225,20 +230,20 @@
 
         sync : function(options, callback){
             var _this = this;
-            var staffSync;
+            var orderSync;
             var assignSync;
             var options = options || {};
 
-            staffSync = staffCollection.sync();
+            orderSync = orderCollection.sync();
 
             assignSync = assignCollection.sync({
                 reqData : options.reqData
             }, "select");
 
             // 用when方法来延迟执行
-            $.when(staffSync, assignSync).done(function(argStaff, argAssign){
-                if (argStaff[1] === "success" && argAssign[1] === "success" ){
-                    _this.staffs = staffCollection.models;
+            $.when(orderSync, assignSync).done(function(argOrder, argAssign){
+                if (argOrder[1] === "success" && argAssign[1] === "success" ){
+                    _this.orders = orderCollection.models;
                     _this.assign = assignCollection.models;
                     _this.reset();
                 } else {
@@ -250,19 +255,19 @@
         reset : function(){
             var _this = this;
             var attr = [];
-            var staffs = this.staffs;
+            var orders = this.orders;
             var assign = this.assign;
-            // 标志员工model指派状态
+            // 标志订单model指派状态
             _this.models = [];
-            //遍历员工，通过员工Id查询指派状态
-            $.each(staffs, function(index, model){
-                var _staffModel = model;
-                var curAttr = attr[index] = _staffModel.attribute;
+            //遍历订单，通过订单Id查询指派状态
+            $.each(orders, function(index, model){
+                var _orderModel = model;
+                var curAttr = attr[index] = _orderModel.attribute;
                 var marked = false;
 
-                // 遍历指派状态，绑定员工状态
+                // 遍历指派状态，绑定订单状态
                 $.each(assign, function(index, model){
-                    if (model.attribute.userID === _staffModel.attribute.userID){
+                    if (model.attribute.orderID === _orderModel.attribute.orderID){
                         marked = true;
                         curAttr.mark = model.attribute.mark;
                     }
@@ -326,9 +331,9 @@
             var _this = this;
             $.each(itemCollection.models, function(index, model){
                 var assignObj = {};
-                assignObj.userID = model.attribute.userID;
+                assignObj.userID = _this.attribute.reqData.userID;
                 assignObj.mark = model.attribute.mark;
-                assignObj.orderID = _this.attribute.reqData.orderID;
+                assignObj.orderID = model.attribute.orderID;
                 _this.assignAarray[index] = assignObj;
             })
         },
@@ -336,6 +341,7 @@
             var _this = this;
             var reqData = {};
 
+            // 指派查询请求数据构建
             reqData.merchantID = this.reqData.merchantID;
             reqData.storeID = this.reqData.storeID;
             reqData.arrayData = this.assignAarray;
@@ -366,7 +372,7 @@
     });
 
     var AppView = function(options){
-        this.model = options.model;
+        this.model = options.model,
         this.$container =  $(options.container || "body");
         this.$trigger = $(options.trigger || '[data-role="appointSubmit"]');
         this.url = options.url ;
@@ -388,7 +394,7 @@
                 $.each(models, function(index, model){
                     var $itemView = new ItemView({
                         model : model,
-                        template : "#staffs_template"
+                        template : "#orders_template"
                     }).render().$el;
 
                     _this.$container.append($itemView);
@@ -407,24 +413,26 @@
     });
 
     var appView = new AppView({
-        container : "#staffsContainer",
+        container : "#ordersContainer",
         trigger : '[data-role="appointSubmit"]'
     });
 
     $(document).on('click.appoint', '[data-role="appointToggle"]', function (e) {
         var storeID = Adapter.getParameterByName("businessId");
-        var orderID = $(this).attr("data-appointTargetId");
+        //var orderID = $(this).attr("data-appointTargetId");
+        //var userID = $(this).attr("data-appointTargetId");
+        var userID = "6F9619FF-8B86-D011-B42D-00C04FC964FF";
         var appModel = new AppModel({
             url : urlConfig,
             reqData : {
                 storeID : storeID,
-                orderID : orderID,
+                userID : userID,
                 merchantID : merchantID
             }
         });
 
         e.preventDefault();
-        $("#staffAppointLight").lightbox_me({
+        $("#orderAppointLight").lightbox_me({
             centered : true
         });
 

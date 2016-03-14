@@ -7,6 +7,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="content">
+        <input type="hidden" value="<%=merchantID%>" id="merchantID"/>
         <div class="content-head normal-head">
             <h3>员工管理</h3>
         </div>
@@ -68,8 +69,39 @@
                 <h4>订单指派</h4>
             </div>
             <div class="model-m no-padding">
-                <div id="ordersContainer" class="orders-container">
-                    <!-- 注入#orders_temlate模版内容 -->
+                <div class="light-list-head">
+                    <div class="custom-grid">
+                        <div class="custom-col col-10-1">
+                            <div class="l-b">
+                                服务时间
+                            </div>
+                        </div>
+                        <div class="custom-col col-10-2">
+                            <div class="l-b">
+                                服务项目
+                            </div>
+                        </div>
+                        <div class="custom-col col-10-1">
+                            <div class="l-b">
+                                客户名称
+                            </div>
+                        </div>
+                        <div class="custom-col col-10-4">
+                            <div class="l-b">
+                                服务地址
+                            </div>
+                        </div>
+                        <div class="custom-col col-10-2">
+                            <div class="l-b">
+                                指派
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="light-list">
+                    <div id="ordersContainer" class="orders-container">
+                        <!-- 注入#orders_temlate模版内容 -->
+                    </div>
                 </div>
             </div>
             <div class="model-b">
@@ -80,72 +112,39 @@
 
     </div>
     <script type="text/template" id="orders_template">
-        <div class="light-list-head">
+
+        <div class="light-row">
             <div class="custom-grid">
                 <div class="custom-col col-10-1">
-                    <div class="l-b">
-                        服务时间
+                    <div class="order-li">
+                        {%= startTime %}
                     </div>
                 </div>
                 <div class="custom-col col-10-2">
-                    <div class="l-b">
-                        服务项目
+                    <div class="order-li">
+                        {%= svcObj.type %}
                     </div>
                 </div>
                 <div class="custom-col col-10-1">
-                    <div class="l-b">
-                        客户名称
+                    <div class="order-li">
+                        {%= svcObj.name %}
                     </div>
                 </div>
                 <div class="custom-col col-10-4">
-                    <div class="l-b">
-                        服务地址
+                    <div class="order-li">
+                        {%= address %}
                     </div>
                 </div>
                 <div class="custom-col col-10-2">
-                    <div class="l-b">
-                        指派
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="light-list">
-            {% _.each(arrayData, function(order){ %}
-            <div class="light-row">
-                <div class="custom-grid">
-                    <div class="custom-col col-10-1">
-                        <div class="order-li">
-                            {%= order.startTime %}
-                        </div>
-                    </div>
-                    <div class="custom-col col-10-2">
-                        <div class="order-li">
-                            {%= order.svcObj.type %}
-                        </div>
-                    </div>
-                    <div class="custom-col col-10-1">
-                        <div class="order-li">
-                            {%= order.svcObj.name %}
-                        </div>
-                    </div>
-                    <div class="custom-col col-10-4">
-                        <div class="order-li">
-                            {%= order.address %}
-                        </div>
-                    </div>
-                    <div class="custom-col col-10-2">
-                        <div class="order-li">
-                            <div class="">
-                                <input class="orderCheckbox" type="checkbox" value="指派" data-role="item" data-itemId="{%= order.orderID %}" id="{%= order.orderID %}" >
-                                <label for="{%= order.orderID %}"></label>
-                            </div>
+                    <div class="order-li">
+                        <div class="">
+                            <input {% if (mark==="Y") { %} checked {% } %} class="orderCheckbox" type="checkbox" value="指派" data-role="item" data-itemId="{%= orderID %}" id="{%= orderID %}" >
+                            <label for="{%= orderID %}"></label>
                         </div>
                     </div>
                 </div>
             </div>
-            {% }) %}
         </div>
-
     </script>
     <asp:GridView runat="server" ID="gvStaff">
         <Columns>
@@ -158,7 +157,8 @@
     <script src="/js/shelf/mock.js"></script>
     <script src="/js/jquery.lightBox_me.js"></script>
     <script src="/js/interfaceAdapter.js"></script>
-    <script src="/js/appoint.js"></script>
+    <!--<script src="/js/appoint.js"></script>-->
+    <script src="/js/appointToStaff.js"></script>
     <script>
         Mock.mockjax(jQuery);
         Mock.mock(/order.json/, function(){
@@ -203,7 +203,7 @@
                             }
                         },
                         {
-                            "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                            "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FE",
                             "title": "ABC",
                             "status": "Payed",
                             "startTime": "201511161200",
@@ -231,7 +231,7 @@
                             }
                         },
                         {
-                            "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                            "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FD",
                             "title": "ABC",
                             "status": "Payed",
                             "startTime": "201511161200",
@@ -263,10 +263,34 @@
                 "stamp_TIMES": "1490192929335",
                 "serial_NUMBER": "00147001015869149751"
             })
+        });
+        Mock.mock(/assign.json/, function(){
+            return Mock.mock({
+                "protocol_CODE": "ASN002004",
+                "state_CODE": "009000",
+                "RespData": {
+                    "arrayData": [
+                        {
+                            "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                            "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FE",
+                            "mark": "Y"
+                        },
+                        {
+                            "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                            "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FD",
+                            "mark": "Y"
+                        },
+                        {
+                            "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                            "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FC",
+                            "mark": "N"
+                        }
+                    ]
+                },
+                "stamp_TIMES": "1490192929335",
+                "serial_NUMBER": "00147001015869149751"
+            })
         })
-
-
-
     </script>
     <script>
         $().ready(function(){
@@ -306,36 +330,36 @@
                 "pageNum": "1"
             };
 
-            $('[data-role="appointToggle"]').appoint({
-                container : '#ordersContainer',
-                template : '#orders_template',
-
-                single : true,
-
-                appointSubmit : '#appointSubmit',
-                appointSucFunc: function(){
-                    alert('指派成功');
-                    $('.lightClose').click();
-                },
-
-                beforePullFunc : function (){
-                    return $("#orderAppointLight").lightbox_me({
-                        centered : true
-                    });
-                },
-
-                pullUrl : '/order.json',
-                pullReqData : Adapter.reqPackage("ORM001006", orderReqData),
-
-                uploadUrl : '/order.json',
-                uploadPreFixData : function(data){
-                    return Adapter.reqPackage("ASN002001", data);
-                },
-
-                /* 订单页指派，item为订单，target为员工 */
-                itemName : 'orderID',
-                targetName : 'userID'
-            })
+//            $('[data-role="appointToggle"]').appoint({
+//                container : '#ordersContainer',
+//                template : '#orders_template',
+//
+//                single : true,
+//
+//                appointSubmit : '#appointSubmit',
+//                appointSucFunc: function(){
+//                    alert('指派成功');
+//                    $('.lightClose').click();
+//                },
+//
+//                beforePullFunc : function (){
+//                    return $("#orderAppointLight").lightbox_me({
+//                        centered : true
+//                    });
+//                },
+//
+//                pullUrl : '/order.json',
+//                pullReqData : Adapter.reqPackage("ORM001006", orderReqData),
+//
+//                uploadUrl : '/order.json',
+//                uploadPreFixData : function(data){
+//                    return Adapter.reqPackage("ASN002001", data);
+//                },
+//
+//                /* 订单页指派，item为订单，target为员工 */
+//                itemName : 'orderID',
+//                targetName : 'userID'
+//            })
         }());
 
     </script>
