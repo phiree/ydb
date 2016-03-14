@@ -56,7 +56,7 @@ namespace Dianzhu.CSClient
             bool? result = loginForm.ShowDialog();
 
 
-            bool useWpf = true;
+            bool useWpf = false;
             //登录成功
             if (result.Value)// == DialogResult.OK)
             {

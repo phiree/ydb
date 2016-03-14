@@ -48,6 +48,10 @@ namespace Dianzhu.BLL
         {
             return DALServiceOpenTimeForDay.GetOne(id);
         }
+        public void Delete(ServiceOpenTimeForDay sotForDay)
+        {
+            DALServiceOpenTimeForDay.Delete(sotForDay);
+        }
         
         public void Update(Guid id, int maxNum, bool isEnabled)
         {

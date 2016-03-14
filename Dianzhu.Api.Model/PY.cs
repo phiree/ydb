@@ -39,6 +39,7 @@ namespace Dianzhu.Api.Model
         public string appid { get; set; }
         public string partnerid { get; set; }
         public string prepayid { get; set; }
+        public string noncestr { get; set; }
     }
 
     public class RespDataPY_payObj

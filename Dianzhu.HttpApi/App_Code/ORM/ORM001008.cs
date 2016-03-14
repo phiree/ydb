@@ -12,22 +12,26 @@ using Dianzhu.Api.Model;
 /// <summary>
 /// 获取用户的服务订单列表
 /// </summary>
-public class ResponseORM001007 : BaseResponse
+public class ResponseORM001008 : BaseResponse
 {
-    public ResponseORM001007(BaseRequest request) : base(request) { }
+    public ResponseORM001008(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
     {
-        ReqDataORM001007 requestData = this.request.ReqData.ToObject<ReqDataORM001007>();
+        ReqDataORM001008 requestData = this.request.ReqData.ToObject<ReqDataORM001008>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        string raw_id = requestData.userID;
-        string order_id = requestData.orderID;
+        BLLDZService bllDZService = new BLLDZService();
+
 
         try
         {
-            Guid uid, orderID;
+            string raw_id = requestData.userID;
+            string order_id = requestData.orderID;
+            string svc_id = requestData.svcID;
+
+            Guid uid, orderID,svcID;
             bool isUserId = Guid.TryParse(raw_id, out uid);
             if (!isUserId)
             {
@@ -41,6 +45,14 @@ public class ResponseORM001007 : BaseResponse
             {
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "userId格式有误";
+                return;
+            }
+
+            bool isSvcId = Guid.TryParse(svc_id, out svcID);
+            if (!isSvcId)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "svcId格式有误";
                 return;
             }
 
@@ -65,17 +77,6 @@ public class ResponseORM001007 : BaseResponse
             }
             try
             {
-                string strPageSize = requestData.pageSize;
-                string strPageNum = requestData.pageNum;//base on 1
-
-                int pageSize, pageNum;
-                if (!int.TryParse(strPageSize, out pageSize) || !int.TryParse(strPageNum, out pageNum))
-                {
-                    this.state_CODE = Dicts.StateCode[1];
-                    this.err_Msg = "分页大小或者分页索引不是数值格式";
-                    return;
-                }
-
                 ServiceOrder order = bllServiceOrder.GetOne(orderID);
 
                 if (order == null)
@@ -85,10 +86,26 @@ public class ResponseORM001007 : BaseResponse
                     return;
                 }
 
-                RespDataORM001007 respData = new RespDataORM001007().AdaptList(order.Details);
+                DZService service = bllDZService.GetOne(svcID);
+                if (service == null)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "该服务不存在！";
+                    return;
+                }
 
-                this.RespData = respData;
+                foreach (ServiceOrderDetail detail in order.Details)
+                {
+                    detail.Selected = detail.OriginalService == service;
+                }
+                bllServiceOrder.SaveOrUpdate(order);
+                RespDataORM_orderObj orderObj = new RespDataORM_orderObj().Adap(order);
+
+                RespDataORM001008 respData = new RespDataORM001008();
+                respData.orderObj = orderObj;
+
                 this.state_CODE = Dicts.StateCode[0];
+                this.RespData = respData;                
             }
             catch (Exception ex)
             {

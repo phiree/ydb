@@ -19,7 +19,7 @@ namespace Dianzhu.Model
         {
             
         }
-        public ServiceOrderDetail(DZService service,int unitAmount,string targetAddress,string targetTime)
+        public ServiceOrderDetail(DZService service,int unitAmount,string targetAddress,DateTime targetTime)
         {
             OriginalService = service;
             ServiceName = service.Name;
@@ -36,6 +36,7 @@ namespace Dianzhu.Model
             this.UnitAmount = unitAmount ;
             this.TargetAddress = targetAddress;
             this.TargetTime = targetTime;
+            this.Selected = true;
         }
 
         #endregion
@@ -70,13 +71,19 @@ namespace Dianzhu.Model
         /// 客户要求的服务地址
         /// </summary>
         public virtual string TargetAddress { get; set; }
-        public virtual string TargetTime { get; set; }
+        /// <summary>
+        /// 服务预约时间
+        /// </summary>
+        public virtual DateTime TargetTime { get; set; }
         #endregion
         /// <summary>
         /// 该服务分配的员工.
         /// </summary>
         public virtual IList<Staff> Staff { get; set; }
-     
+        /// <summary>
+        /// 是否选择
+        /// </summary>
+        public virtual bool Selected { get; set; }
 
         public virtual decimal ServiceAmount
         {

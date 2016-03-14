@@ -115,6 +115,7 @@ public class ResponsePY001007:BaseResponse
                         respObj.appid = respData.appid;
                         respObj.partnerid = respData.mch_id;
                         respObj.prepayid = respData.prepay_id;
+                        respObj.noncestr = Guid.NewGuid().ToString().Replace("-", "");
                         this.state_CODE = Dicts.StateCode[0];
                         this.RespData = respObj;
                         return; 
