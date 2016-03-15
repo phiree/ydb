@@ -91,7 +91,7 @@ public class ResponseWTM001006 : BaseResponse
                         {
                             foreach (ServiceOpenTimeForDay sotForDay in sot.OpenTimeForDay)
                             {
-                                workObj = new RespDataWTM_workTimeObj().Adapt(sot, sotForDay);
+                                workObj = new RespDataWTM_workTimeObj().Adapt(sotForDay);
                                 arrayList.Add(workObj);
                             }
                         }
@@ -110,7 +110,7 @@ public class ResponseWTM001006 : BaseResponse
                             {
                                 foreach (ServiceOpenTimeForDay sotForDay in sot.OpenTimeForDay)
                                 {
-                                    workObj = new RespDataWTM_workTimeObj().Adapt(sot, sotForDay);
+                                    workObj = new RespDataWTM_workTimeObj().Adapt(sotForDay);
                                     arrayList.Add(workObj);
                                 }
                                 break;

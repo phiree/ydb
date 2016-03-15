@@ -93,6 +93,7 @@
     <Compile Include="BLLServicePropertyValue.cs" />
     <Compile Include="BLLCashTIcketAssignDetail.cs" />
     <Compile Include="SiteConfig.cs" />
+    <Compile Include="Validator\ValidatorServiceOpenTimeForDay.cs" />
     <Compile Include="Validator\ValidatorBusiness.cs" />
     <Compile Include="Validator\ValidatorStaff.cs" />
     <Compile Include="Validator\ValidatorDZService.cs" />

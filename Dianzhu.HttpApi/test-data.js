@@ -6,7 +6,7 @@
 //"slf002006", "slf002003", "slf001007","py001007","py001008"
 //"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
-//"wtm001001",,"wtm001002","wtm001004"
+//"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
 "ad001006",
 
 ];
@@ -44,12 +44,40 @@ var test_data = [
     },
 
     {
+        "protocol_CODE": "wtm001003",
+        "ReqData": {
+            "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
+            "pWord": "123456",
+            "workTimeObj": {
+                "workTimeID": "0cc0b358-03c8-4d4a-93e4-a5c7012b9e41",
+                "tag": "默认工作时间",
+                "startTime": "07:00",
+                //"endTime": "15:00",
+                //"open": "N",
+                "maxOrder": "10"
+            }
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+
+    {
         "protocol_CODE": "wtm001004",
         "ReqData": {
             "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
             "pWord": "123456",
             "svcID": "0f4bdace-dad0-43aa-8cce-a5c501180535",
             //"week":"1,2,3"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "wtm001005",
+        "ReqData": {
+            "workTimeID": "0cc0b358-03c8-4d4a-93e4-a5c7012b9e41",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -431,7 +459,7 @@ var test_data = [
             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",//2aed4349-f4e8-4dcb-88a4-a59301132feb
             "pWord": "1234",
             "payID": "0738ae22-efd5-4969-9424-a5c5010e63b0",
-            "target":"wepay",
+            "target":"alipay",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"

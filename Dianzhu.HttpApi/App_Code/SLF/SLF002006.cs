@@ -22,33 +22,49 @@ public class ResponseSLF002006:BaseResponse
     {
         try
         {
-             ReqDataSLF002006 requestData = this.request.ReqData.ToObject<ReqDataSLF002006>();
-         
-        //todo: 使用 ninject,注入依赖.
-        BLLDZService bllService = new BLLDZService();
-        DZService service = bllService.GetOne(new Guid(requestData.serviceId));
-        DateTime paramDate =DateTime.Parse( requestData.date);
-        //获取当天的时间段
-        ServiceOpenTime openDay = service.OpenTimes.Single(x => x.DayOfWeek == paramDate.DayOfWeek);
-        IList<ServiceOpenTimeForDay> openTimes = openDay.OpenTimeForDay;
-        //获取当前时间段的订单数量
-        BLLServiceOrder bllOrder = new BLLServiceOrder();
-        IList<ServiceOrder> orderList= bllOrder.GetOrderListByDate(service, paramDate);
-            IList<RespDataSLF00206_arrayData> result = new List<RespDataSLF00206_arrayData>();
-        foreach (ServiceOpenTimeForDay openTime in openTimes)
-        {
-            IList<ServiceOrder> orderListForOpenTime = orderList.Where(x => x.OrderCreated >= paramDate.AddMinutes(openTime.PeriodStart)
-              && x.OrderCreated <= paramDate.AddMinutes(openTime.PeriodEnd)).ToList();
-                RespDataSLF00206_arrayData arrData = new RespDataSLF00206_arrayData();
-                arrData =arrData.Adap(paramDate, openTime,orderListForOpenTime);
-                result.Add(arrData);
-        }
-        
+            ReqDataSLF002006 requestData = this.request.ReqData.ToObject<ReqDataSLF002006>();
 
-        
-        
-      
-            RespDataSLF002006 respData = new RespDataSLF002006 { arrayData= result };
+            string service_Id = requestData.serviceId;
+
+            Guid serviceId;
+
+            bool isServiceId = Guid.TryParse(service_Id, out serviceId);
+            if (!isServiceId)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "serviceId格式有误";
+                return;
+            }
+
+            //todo: 使用 ninject,注入依赖.
+            BLLDZService bllService = new BLLDZService();
+            DZService service = bllService.GetOne(serviceId);
+
+            if (service == null)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "服务不存在！";
+                return;
+            }
+
+            DateTime paramDate = DateTime.Parse(requestData.date);
+            //获取当天的时间段
+            ServiceOpenTime openDay = service.OpenTimes.Single(x => x.DayOfWeek == paramDate.DayOfWeek);
+            IList<ServiceOpenTimeForDay> openTimes = openDay.OpenTimeForDay;
+            //获取当前时间段的订单数量
+            BLLServiceOrder bllOrder = new BLLServiceOrder();
+            IList<ServiceOrder> orderList = bllOrder.GetOrderListByDate(service, paramDate);
+            IList<RespDataSLF00206_arrayData> result = new List<RespDataSLF00206_arrayData>();
+            foreach (ServiceOpenTimeForDay openTime in openTimes)
+            {
+                IList<ServiceOrder> orderListForOpenTime = orderList.Where(x => x.OrderCreated >= paramDate.AddMinutes(openTime.PeriodStart)
+                  && x.OrderCreated <= paramDate.AddMinutes(openTime.PeriodEnd)).ToList();
+                RespDataSLF00206_arrayData arrData = new RespDataSLF00206_arrayData();
+                arrData = arrData.Adap(paramDate, openTime, orderListForOpenTime);
+                result.Add(arrData);
+            }
+
+            RespDataSLF002006 respData = new RespDataSLF002006 { arrayData = result };
             this.RespData = respData;
             this.state_CODE = Dicts.StateCode[0];
             return;

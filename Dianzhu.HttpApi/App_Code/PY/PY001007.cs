@@ -67,15 +67,21 @@ public class ResponsePY001007:BaseResponse
             switch (requestData.target.ToLower())
             {
                 case "alipay":
+                    IPayRequest ipayAli = new PayAlipayApp(payment.Amount, payment.Id.ToString(), payment.Order.Title, Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.Description);
+                    string respDataAli = ipayAli.CreatePayRequest();
+                    //string[] respDataAliList = respDataAli.Split('&');
+                    this.state_CODE = Dicts.StateCode[0];
+                    this.RespData = respDataAli;
+                    return;
                     break;
                 case "wepay":
                     for (int i = 0; i < 10; i++)
                     {
-                        IPayRequest ipay = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.Title, Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.Description);
+                        IPayRequest ipayWe = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.Title, Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.Description);
                         //var respDataWeibo = new NameValueCollection();
                         string respDataWechat = "<xml>";
 
-                        string[] arrPropertyValues = ipay.CreatePayRequest().Split('&');
+                        string[] arrPropertyValues = ipayWe.CreatePayRequest().Split('&');
                         foreach (string value in arrPropertyValues)
                         {
                             string[] arrValue = value.Split('=');

@@ -53,13 +53,10 @@ namespace Dianzhu.BLL
             DALServiceOpenTimeForDay.Delete(sotForDay);
         }
         
-        public void Update(Guid id, int maxNum, bool isEnabled)
+        public void Update(ServiceOpenTimeForDay sotForDay)
         {
-            ServiceOpenTimeForDay item = GetOne(id);
-            item.Enabled = isEnabled;
-            item.MaxOrderForOpenTime = maxNum;
             //todo: 这里需要判断 该时间段内是否已经有了订单, 如果有了 则不能删除.
-            DALServiceOpenTimeForDay.Update(item);
+            DALServiceOpenTimeForDay.Update(sotForDay);
         }
 
     }

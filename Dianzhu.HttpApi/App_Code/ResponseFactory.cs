@@ -160,8 +160,12 @@ public class ResponseFactory
                 return new ResponseWTM001001(request);
             case "wtm001002":
                 return new ResponseWTM001002(request);
+            case "wtm001003":
+                return new ResponseWTM001003(request);
             case "wtm001004":
                 return new ResponseWTM001004(request);
+            case "wtm001005":
+                return new ResponseWTM001005(request);
             case "wtm001006":
                 return new ResponseWTM001006(request);
             default:

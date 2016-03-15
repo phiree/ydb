@@ -21,11 +21,31 @@ public class ResponseSLF001007:BaseResponse
     protected override void BuildRespData()
     {
         ReqDataSLF001007 requestData = this.request.ReqData.ToObject<ReqDataSLF001007>();
-         
+
+        string service_Id = requestData.serviceId;
+
+        Guid serviceId;
+
+        bool isServiceId = Guid.TryParse(service_Id, out serviceId);
+        if (!isServiceId)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "serviceId格式有误";
+            return;
+        }
+
         //todo: 使用 ninject,注入依赖.
         BLLDZService bllService = new BLLDZService();
         BLLServiceOrder bllOrder = new BLLServiceOrder();
-        DZService service = bllService.GetOne(new Guid(requestData.serviceId));
+        DZService service = bllService.GetOne(serviceId);
+
+        if (service == null)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "服务不存在！";
+            return;
+        }
+
         //计算传入Date所在的周,以及该周内其余日期.
         List<DateTime> datesOfdate = new List<DateTime>();
         DateTime currentDate =DateTime.Parse(requestData.date);

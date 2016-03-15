@@ -136,6 +136,13 @@ namespace Com.Alipay
             return sbHtml.ToString();
         }
 
+        public static Dictionary<string, string> BuildRequestApp(SortedDictionary<string, string> sParaTemp)
+        {
+            //待请求参数数组
+            Dictionary<string, string> dicPara = new Dictionary<string, string>();
+            return BuildRequestPara(sParaTemp);
+        }
+
 
         /// <summary>
         /// 建立请求，以模拟远程HTTP的POST请求方式构造并获取支付宝的处理结果
