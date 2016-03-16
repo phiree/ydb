@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumButtonType.cs" />
+    <Compile Include="IViewChatSend.cs" />
     <Compile Include="IViewSearch.cs" />
     <Compile Include="IViewOrder.cs" />
     <Compile Include="IViewChatList.cs" />

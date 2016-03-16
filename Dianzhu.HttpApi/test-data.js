@@ -1,15 +1,99 @@
 ﻿var need_to_test = [
- //"orm002001", "orm001003", "orm001004", "orm001005", "orm003005", "orm003006", "orm003007"
+ //"orm002001", "orm001003", "orm001004", "orm001005","orm001007", "orm003005", "orm003006", "orm003007"
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", "ad001006","clm001001"
 //"slf002006", "slf002003", "slf001007","py001007","py001008"
 //"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
-"ad001006"
+//"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
+"ad001006",
 
 ];
 var test_data = [
+
+    /**********************店铺服务项管理*****************************/
+    {
+        "protocol_CODE": "wtm001001",
+        "ReqData": {
+            "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
+            "pWord": "123456",
+            "svcID": "0f4bdace-dad0-43aa-8cce-a5c501180535",
+            "repeat": "1,2,3",
+            "workTimeObj": {
+                "tag": "默认工作时间",
+                "startTime": "07:00",
+                "endTime": "18:00",
+                "open": "Y",
+                "maxOrder":"10"
+            }
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "wtm001002",
+        "ReqData": {
+            "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
+            "pWord": "123456",
+            "workTimeID": "2306b193-00d8-4f11-8ac2-a5c7012a3a29"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "wtm001003",
+        "ReqData": {
+            "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
+            "pWord": "123456",
+            "workTimeObj": {
+                "workTimeID": "0cc0b358-03c8-4d4a-93e4-a5c7012b9e41",
+                "tag": "默认工作时间",
+                "startTime": "07:00",
+                //"endTime": "15:00",
+                //"open": "N",
+                "maxOrder": "10"
+            }
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+
+    {
+        "protocol_CODE": "wtm001004",
+        "ReqData": {
+            "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
+            "pWord": "123456",
+            "svcID": "0f4bdace-dad0-43aa-8cce-a5c501180535",
+            //"week":"1,2,3"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "wtm001005",
+        "ReqData": {
+            "workTimeID": "0cc0b358-03c8-4d4a-93e4-a5c7012b9e41",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "wtm001006",
+        "ReqData": {
+            "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
+            "pWord": "123456",
+            "svcID": "0f4bdace-dad0-43aa-8cce-a5c501180535",
+            //"week": "1,2,3"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
 
     /**********************店铺服务项管理*****************************/
     {
@@ -374,8 +458,8 @@ var test_data = [
         "ReqData": {
             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",//2aed4349-f4e8-4dcb-88a4-a59301132feb
             "pWord": "1234",
-            "payID": "b95951f5-09b3-4ddf-920a-a5b001265462",
-            "target":"wepay",
+            "payID": "0738ae22-efd5-4969-9424-a5c5010e63b0",
+            "target":"alipay",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -386,7 +470,7 @@ var test_data = [
         "ReqData": {
             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
             "pWord": "1234",
-            "orderID": "06ee70b3-500d-42da-8b1f-a595009d97da",
+            "orderID": "cfe31a94-83a3-45fc-a468-a595009e0e4a",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -588,6 +672,29 @@ var test_data = [
                   "target": "ALL",
                   "pageSize": "50",
                   "pageNum": "0"
+              },
+              "stamp_TIMES": "1490192929212",
+              "serial_NUMBER": "00147001015869149751"
+          },
+          {
+              "protocol_CODE": "ORM001007",
+              "ReqData": {
+                  "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb", //13022222222
+                  "pWord": "1234",
+                  "orderID":"cfe31a94-83a3-45fc-a468-a595009e0e4a",
+                  "pageSize": "50",
+                  "pageNum": "0"
+              },
+              "stamp_TIMES": "1490192929212",
+              "serial_NUMBER": "00147001015869149751"
+          },
+          {
+              "protocol_CODE": "ORM001008",
+              "ReqData": {
+                  "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb", //13022222222
+                  "pWord": "1234",
+                  "orderID": "cfe31a94-83a3-45fc-a468-a595009e0e4a",
+                  "svcID": "0f4bdace-dad0-43aa-8cce-a5c501180535"
               },
               "stamp_TIMES": "1490192929212",
               "serial_NUMBER": "00147001015869149751"

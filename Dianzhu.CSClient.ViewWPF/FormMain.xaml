@@ -35,162 +35,38 @@
                     <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
 
-                <WrapPanel Grid.Row="0" VerticalAlignment="Center">
-                    <TextBox x:Name="tbxKeywords" TextWrapping="Wrap" Text="" Width="150" Margin="5,0,0,0"/>
-                    <Button x:Name="btnSearch" Content="搜索" Width="75" Click="btnSearch_Click"/>
-                </WrapPanel>
+                <WrapPanel x:Name="pnlSearch" Grid.Row="0" VerticalAlignment="Center">
 
-                <StackPanel Grid.Row="1">
-                    
-                </StackPanel>
+                </WrapPanel>
+                <WrapPanel  x:Name="pnlSearchResult" Grid.Row="1"/>
 
             </Grid>
+            <Grid ShowGridLines="True" Grid.Row="1">
 
-            <Grid ShowGridLines="True" Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
+                <WrapPanel x:Name="pnlOrder" VerticalAlignment="Center">
 
-                <StackPanel Grid.Row="0" Margin="5" x:Name="pnlOrder">
-                    <WrapPanel Height="30" Margin="5,5,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label" Content="订单编号" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <Label x:Name="lblOrderNumber" Content="" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Blue"/>
-                    </WrapPanel>
-                    <WrapPanel Height="30" Margin="5,5,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label2" Content="订单状态" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <Label x:Name="lblOrderStatus" Content="" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="Blue"/>
-                    </WrapPanel>
-                    <WrapPanel Height="30" Margin="5,5,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label3" Content="服务名称" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <TextBox x:Name="tbxServiceName" Height="24" TextWrapping="Wrap" Text="" Width="150" Margin="5,5,5,0"/>
-                    </WrapPanel>
-                    <WrapPanel Height="30" Margin="5,5,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label4" Content="商家名称" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <TextBox x:Name="tbxServiceBusinessName" Height="24" TextWrapping="Wrap" Text="" Width="150" Margin="5,5,5,0"/>
-                    </WrapPanel>
-                    <WrapPanel Height="30" Margin="5,5,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label5" Content="服务介绍" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <TextBox x:Name="tbxServiceDescription" Height="24" TextWrapping="Wrap" Text="" Width="150" Margin="5,5,5,0"/>
-                    </WrapPanel>
-                    <WrapPanel Height="30" Margin="5,5,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label6" Content="单价" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <TextBox x:Name="tbxServiceUnitPrice" Height="24" TextWrapping="Wrap" Text="" Width="150" Margin="5,5,5,0"/>
-                    </WrapPanel>
-                    <WrapPanel Height="30" Margin="5,5,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label7" Content="订金" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <TextBox x:Name="tbxDepositAmount" Height="24" TextWrapping="Wrap" Text="" Width="150" Margin="5,5,5,0"/>
-                    </WrapPanel>
-                    <WrapPanel Height="30" Margin="5,5,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label8" Content="服务时间" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <TextBox x:Name="tbxServiceTime" Height="24" TextWrapping="Wrap" Text="" Width="150" Margin="5,5,5,0"/>
-                    </WrapPanel>
-                    <WrapPanel Height="30" Margin="5,5,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label9" Content="服务地点" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <TextBox x:Name="tbxTargetAddress" Height="24" TextWrapping="Wrap" Text="" Width="150" Margin="5,5,5,0"/>
-                    </WrapPanel>
-                    <WrapPanel Height="30" Margin="5,5,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label10" Content="总价" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <TextBox x:Name="tbxAmount" Height="24" TextWrapping="Wrap" Text="" Width="150" Margin="5,5,5,0"/>
-                    </WrapPanel>
-                    <WrapPanel Height="30" Margin="5,5,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="labe11" Content="备注" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <TextBox x:Name="tbxMemo" Height="24" TextWrapping="Wrap" Text="" Width="150" Margin="5,5,5,0"/>
-                    </WrapPanel>
-                    <WrapPanel Height="42" Margin="5,0,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label12" HorizontalAlignment="Right" MaxWidth="70">
-                                <TextBlock TextWrapping="Wrap" Text="取消超时时间(分钟)"></TextBlock>
-                            </Label>
-                        </Grid>
-                        <TextBox x:Name="tbxOvertimeForCancel" Height="24" TextWrapping="Wrap" Text="" Width="150" Margin="5,0,5,0"/>
-                    </WrapPanel>
-                    <WrapPanel Height="42" Margin="5,0,5,0">
-                        <Grid Width="70">
-                            <Label x:Name="label13" HorizontalAlignment="Right" MaxWidth="70">
-                                <TextBlock TextWrapping="Wrap" Text="取消超时时间(分钟)"></TextBlock>
-                            </Label>
-                        </Grid>
-                        <TextBox x:Name="tbxCancelCompensation" Height="24" TextWrapping="Wrap" Text="" Width="150" Margin="5,5,5,0"/>
-                    </WrapPanel>
-                </StackPanel>
-
-                <WrapPanel Grid.Row="1">
-                    <Button x:Name="btnCreateOrder" Content="生成订单" Width="75" Margin="10,10,10,0" Click="btnCreateOrder_Click"/>
-                    <Button x:Name="btnCreateNewDraft" Content="新建订单" Width="75" Margin="10,10,10,0" Click="btnCreateNewDraft_Click"/>
-                    <Button x:Name="btnReAssign" Content="客服分配" Width="75" Margin="10,10,10,0" Click="btnReAssign_Click"/>
                 </WrapPanel>
-
             </Grid>
 
         </Grid>
 
         <Grid ShowGridLines="True" Grid.Column="2">
-            <WrapPanel x:Name="pnlCustomerList">
+            <StackPanel x:Name="pnlCustomerList">
 
-                
-            </WrapPanel>
+            </StackPanel>
         </Grid>
 
         <Grid ShowGridLines="True" Grid.Column="4">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*" MinHeight="190" MaxHeight="380"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
-            <GridSplitter x:Name="gridSplitter5" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5"/>
 
-            <Grid ShowGridLines="True" Grid.Row="0">
-                
-
-                <ScrollViewer x:Name="scrollChat" VerticalScrollBarVisibility="Auto">
-                    <ScrollViewer.Content>
-                        <StackPanel x:Name="pnlChat" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-                    </ScrollViewer.Content>
-                </ScrollViewer>
-            </Grid>
-
-            <Grid ShowGridLines="True" Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <DockPanel Grid.Row="0" LastChildFill="True">
-                    <Button DockPanel.Dock="Right" x:Name="btnSend" Content="发送" Width="100" Click="btnSend_Click"></Button>
-                    <TextBox DockPanel.Dock="Left" x:Name="tbxChatMsg" VerticalScrollBarVisibility="Auto"/>
-                </DockPanel>
-
-                <WrapPanel Grid.Row="1">
-                    <Button x:Name="btnSendImage" Content="图片" Width="75" Margin="10,10,10,0" Click="btnCreateOrder_Click"/>
-                    <Button x:Name="btnSendAudio" Content="语音" Width="75" Margin="10,10,10,0" Click="btnCreateNewDraft_Click"/>
-                    <Button x:Name="btnScreenshot" Content="截图" Width="75" Margin="10,10,10,0" Click="btnReAssign_Click"/>
-                </WrapPanel>
-
-            </Grid>
-
+            <ScrollViewer x:Name="scrViewChatList" VerticalScrollBarVisibility="Auto" Grid.Row="0">
+                <StackPanel  x:Name="pnlChatList"/>
+            </ScrollViewer>
+            <WrapPanel x:Name="pnlChatSend" Grid.Row="1">
+            </WrapPanel>
         </Grid>
 
         <Grid ShowGridLines="True" Grid.Column="6">
@@ -202,23 +78,11 @@
             <GridSplitter x:Name="gridSplitter6" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5"/>
 
             <Grid ShowGridLines="True" Grid.Row="0">
-                <DataGrid x:Name="dgvOrders" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" VerticalScrollBarVisibility="Auto">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="订单Id" Binding="{Binding Path=Id}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="服务名称" Binding="{Binding Path=ServiceName}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="金额" Binding="{Binding Path=OrderAmount}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="备注" Binding="{Binding Path=Memo}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+
             </Grid>
 
             <Grid ShowGridLines="True" Grid.Row="2">
-                <DataGrid x:Name="dgvRpCustomer" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" VerticalScrollBarVisibility="Auto">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="用户名" Width="80" Binding="{Binding Path=UserName}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="日期" Width="150" Binding="{Binding Path=LastLoginTime, StringFormat='yyyyMMddHHmmss'}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+
 
             </Grid>
 

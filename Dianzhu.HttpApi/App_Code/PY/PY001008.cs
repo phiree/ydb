@@ -68,6 +68,12 @@ public class ResponsePY001008 : BaseResponse
             try
             {
                 Payment payment = bllPayment.GetPaymentForWaitPay(order);
+                if (payment == null)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "该订单目前没有支付项！";
+                    return;
+                }
                 RespDataPY001008 respData = new RespDataPY001008().Adapt(payment);
 
                 this.state_CODE = Dicts.StateCode[0];

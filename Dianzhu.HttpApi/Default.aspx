@@ -11,6 +11,7 @@
 
     <form id="form1" runat="server">
     <input type="button" value="全部接口" onclick="textall()" />
+        <input type="text" id="tbxProcole" /><button value="测试" onclick="btnTestSpecificProtocal"></button>
     <div> 
         <div id="dvResults">
         </div>
@@ -54,6 +55,10 @@
         function textall() {
             apiTest.test_all = true;
             apiTest.begin();
+        }
+        function btnTestSpecificProtocal()
+        {
+
         }
     </script>
 </body>

@@ -14,12 +14,20 @@ namespace Dianzhu.CSClient.Presenter
         InstantMessage iIM;
         IdentityManager identityManager;
         PIdentityList pIdentityList;
-        public InstantMessageHandler(InstantMessage iIM,IdentityManager identityManager,PIdentityList pIdentityList)
+        DAL.DALReceptionChat dalReceptionChat;
+        public InstantMessageHandler(InstantMessage iIM, IdentityManager identityManager, PIdentityList pIdentityList,DAL.DALReceptionChat dalReceptionChat)
         {
             this.iIM = iIM;
             this.iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             this.identityManager = identityManager;
             this.pIdentityList = pIdentityList;
+            this.dalReceptionChat = dalReceptionChat;
+
+        }
+        public InstantMessageHandler(InstantMessage iIM,IdentityManager identityManager,PIdentityList pIdentityList)
+            :this(iIM,identityManager,pIdentityList,new DAL.DALReceptionChat())
+        {
+             
 
         }
 
@@ -45,8 +53,11 @@ namespace Dianzhu.CSClient.Presenter
                 IdentityTypeOfOrder type;
                 identityManager.UpdateIdentityList(chat.ServiceOrder, out type);
                 pIdentityList.ReceivedMessage(chat, type);
+                //消息本地化.
+                dalReceptionChat.Save(chat);
             }
         }
+      
         public void SendMessage(Dianzhu.Model.ReceptionChat chat)
         {
             iIM.SendMessage(chat);

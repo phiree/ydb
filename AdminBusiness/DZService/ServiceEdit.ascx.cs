@@ -109,6 +109,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         cbxEnable.Checked = CurrentService.Enabled;
         hiBusinessAreaCode.Value = CurrentService.BusinessAreaCode;
         tbxMinPrice.Text = CurrentService.MinPrice.ToString("#.#");
+        tbxDespoist.Text = CurrentService.DepositAmount.ToString("0.00");
         tbxUnitPrice.Text = CurrentService.UnitPrice.ToString("#");
 //        rblChargeUnit.SelectedValue =((int) CurrentService.ChargeUnit).ToString();
         rblChargeUnit.Value =((int) CurrentService.ChargeUnit).ToString();
@@ -196,6 +197,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.MaxOrdersPerDay = Convert.ToInt32(tbxMaxOrdersPerDay.Text);
         CurrentService.MaxOrdersPerHour = Convert.ToInt32(tbxMaxOrdersPerHour.Text);
         CurrentService.MinPrice = Convert.ToDecimal(tbxMinPrice.Text);
+        CurrentService.DepositAmount = Convert.ToDecimal(tbxDespoist.Text);
         CurrentService.OrderDelay = Convert.ToInt32(tbxOrderDelay.Text);
 //        CurrentService.OrderDelay = int.Parse(tbxOrderDelay.Value);
         CurrentService.ServiceMode =(enum_ServiceMode)(Convert.ToInt32( rblServiceMode.SelectedValue));

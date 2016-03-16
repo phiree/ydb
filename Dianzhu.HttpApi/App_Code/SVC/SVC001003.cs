@@ -234,7 +234,7 @@ public class ResponseSVC001003 : BaseResponse
 
                 RespDataSVC001003 respData = new RespDataSVC001003(svcID.ToString());
                 this.state_CODE = Dicts.StateCode[0];
-                svcObj.svcID = respData.svcObj.svcID;
+                svcObj.svcID = svc_id;
                 respData.svcObj = svcObj;
                 this.RespData = respData.svcObj;
             }

@@ -39,6 +39,7 @@ namespace Dianzhu.Api.Model
         public string appid { get; set; }
         public string partnerid { get; set; }
         public string prepayid { get; set; }
+        public string noncestr { get; set; }
     }
 
     public class RespDataPY_payObj
@@ -74,14 +75,7 @@ namespace Dianzhu.Api.Model
         public RespDataPY_payObj payObj { get; set; }
         public RespDataPY001008 Adapt(Payment pay)
         {
-            if (pay != null)
-            {
-                this.payObj = new RespDataPY_payObj().Adapt(pay);
-            }
-            else
-            {
-                return null;
-            }
+            this.payObj = new RespDataPY_payObj().Adapt(pay);
             return this;
         }
     }

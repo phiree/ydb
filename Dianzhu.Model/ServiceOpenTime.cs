@@ -45,7 +45,7 @@ namespace Dianzhu.Model
             }
             if (isConflict)
             {
-                throw new Exception("服务时间段不能重合.ID:" + this.Id);
+                throw new Exception("服务时间段不能重合.ID:" + this.Id + ";重合时间：" + period.TimeStart + "-" + period.TimeEnd);
             }
             else
             {
@@ -65,6 +65,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual int MaxOrderForOpenTime { get; set; }
         public virtual bool Enabled { get; set; }
+        public virtual ServiceOpenTime ServiceOpenTime { get; set; }
         string timeStart;
         string timeEnd;
         int periodStart, periodEnd;
@@ -121,6 +122,20 @@ namespace Dianzhu.Model
             int hourPart = int.Parse(arr[0]);
             int minitePart = int.Parse(arr[1]);
             return hourPart * 60 + minitePart;
+        }
+
+        /// <summary>
+        /// 拷贝
+        /// </summary>
+        /// <param name="newSotForDay"></param>
+        public virtual void CopyTo(ServiceOpenTimeForDay newSotForDay)
+        {
+            newSotForDay.Id = Id;
+            newSotForDay.MaxOrderForOpenTime = MaxOrderForOpenTime;
+            newSotForDay.Enabled = Enabled;
+            newSotForDay.ServiceOpenTime = ServiceOpenTime;
+            newSotForDay.TimeStart = TimeStart;
+            newSotForDay.TimeEnd = TimeEnd;
         }
     }
 

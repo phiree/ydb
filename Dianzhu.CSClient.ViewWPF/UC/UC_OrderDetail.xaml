@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC_OrderDetail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <StackPanel x:Name="pnlDetail">
+            <WrapPanel Height="30">
+                <Label x:Name="label" Content="服务名称"/>
+                <Label x:Name="lblServiceName" Content=""/>
+            </WrapPanel>
+            <WrapPanel Height="30">
+                <Label x:Name="label1" Content="商家名称"/>
+                <Label x:Name="lblBusinessName" Content=""/>
+            </WrapPanel>
+            <WrapPanel Height="30">
+                <Label x:Name="label2" Content="服务介绍"/>
+                <Label x:Name="lblServiceDescription" Content=""/>
+            </WrapPanel>
+            <WrapPanel Height="30">
+                <Label x:Name="label3" Content="价格"/>
+                <Label x:Name="lblPrice" Content=""/>
+               
+            </WrapPanel>
+            <WrapPanel Height="30" Width="300">
+                <Label x:Name="label4" Content="定金"/>
+                <Label x:Name="lblDeposit" Content=""/>
+            </WrapPanel>
+           
+            <WrapPanel Height="30">
+                <Label x:Name="label6" Content="服务时间"/>
+                <TextBox x:Name="tbxTargetTime" Height="23" TextWrapping="Wrap" Text="" Width="120"/>
+            </WrapPanel>
+            <WrapPanel Height="30">
+                <Label x:Name="label7" Content="服务地点"/>
+                <TextBox x:Name="tbxTargetAddress" Height="23" TextWrapping="Wrap" Text="" Width="120"/>
+            </WrapPanel>
+            <WrapPanel Height="30">
+                <Label x:Name="label8" Content="数量"/>
+                <TextBox x:Name="tbxUnitAmount" Height="23" TextWrapping="Wrap" Text="" Width="120"/>
+            </WrapPanel>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

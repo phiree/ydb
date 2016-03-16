@@ -101,9 +101,11 @@ namespace Dianzhu.CSClient.Presenter
             GlobalViables.Diandian = diandian;
 
             loginView.IsLoginSuccess = true;
-            
+
             //
-            
+
+           
+
 
         }
 

@@ -32,7 +32,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.TimeStart);
             Map(x => x.MaxOrderForOpenTime);
             Map(x => x.Enabled);
-             
+            References<ServiceOpenTime>(x => x.ServiceOpenTime).Column("ServiceOpenTime_id");
 
         }
 

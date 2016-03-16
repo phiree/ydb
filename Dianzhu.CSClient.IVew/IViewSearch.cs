@@ -7,19 +7,23 @@ using Dianzhu.Model;
 namespace Dianzhu.CSClient.IView
 {
     /// <summary>
-    /// 聊天信息列表
+    /// 搜索界面
     /// </summary>
     public interface IViewSearch
     {
-        string SerachKeyword { get; set; }
+        string SearchKeyword { get; set; }
         event SearchService Search;
     }
+    public delegate void SearchService();
+    /// <summary>
+    /// 搜索结果
+    /// </summary>
     public interface IViewSearchResult
     {
         IList<DZService> SearchedService { get; set; }
         event SelectService SelectService;
     }
-    public delegate void SearchService();
+   
     public delegate void SelectService(DZService selectedService);
 
 }

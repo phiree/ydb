@@ -40,6 +40,7 @@ namespace Dianzhu.CSClient.Presenter
             IdentityManager.CurrentIdentity = serviceOrder;
             iView.SetIdentityReaded(serviceOrder);
             iViewOrder.Order = serviceOrder;
+             
             
 
         }
@@ -81,6 +82,7 @@ namespace Dianzhu.CSClient.Presenter
 
         public void AddIdentity(ServiceOrder order)
         {
+            
 
             iView.AddIdentity(order);
             iView.SetIdentityUnread(order, 1);

@@ -222,7 +222,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     msg.SetAttribute("type", "headline");
                     break;
                 case enum_ChatType.Notice:
-                    extNode.Namespace = "ihelper:cer:notice";
+                    extNode.Namespace = "ihelper:notice:order";
                     var UserObj = new agsXMPP.Xml.Dom.Element("UserObj");
 
                     UserObj.SetAttribute("UserID", ((ReceptionChatNotice)chat).UserObj.Id.ToString());

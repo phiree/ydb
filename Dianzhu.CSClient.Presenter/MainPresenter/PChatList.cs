@@ -31,31 +31,28 @@ namespace Dianzhu.CSClient.Presenter
             this.dalReception = dalReception;
             //     viewCustomerList.IdentityClick += ViewCustomerList_CustomerClick;
             this.iIM = iIM;
+         //   this.iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             this.viewIdentityList = viewCustomerList;
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
-            viewChatList.SendTextClick += ViewChatList_SendTextClick;
+            viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
+            viewChatList.AudioPlay += ViewChatList_AudioPlay;
+           
         }
 
-        private void ViewChatList_SendTextClick()
-        {
-            if (IdentityManager.CurrentIdentity==null)
-            { return; }
-            string messageText = viewChatList.MessageText;
-            if (string.IsNullOrEmpty(messageText) ) return;
+         
 
-            ReceptionChat chat = new ReceptionChat
-            {
-                ChatType = Model.Enums.enum_ChatType.Text,
-                From = GlobalViables.CurrentCustomerService,
-                To = IdentityManager.CurrentIdentity.Customer,
-                MessageBody = messageText,
-                SendTime = DateTime.Now,
-                SavedTime = DateTime.Now,
-                ServiceOrder = IdentityManager.CurrentIdentity
-            };
-            viewChatList.MessageText = string.Empty;
-            iIM.SendMessage(chat);
-            viewChatList.AddOneChat(chat);
+        PHSuit.Media media = new PHSuit.Media();
+        private void ViewChatList_AudioPlay(object audioTag, IntPtr handle)
+        {
+            string mediaUrl = audioTag.ToString();
+            string fileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
+
+            string fileLocalPath = GlobalViables.LocalMediaSaveDir + fileName;
+       
+
+            media.Play(mediaUrl, handle);
+            
+
         }
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
@@ -66,7 +63,7 @@ namespace Dianzhu.CSClient.Presenter
             .GetReceptionChatList(serviceOrder.Customer, GlobalViables.CurrentCustomerService,
            IdentityManager.CurrentIdentity.Id
             , DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
-
+            viewChatList.ChatList.Clear();
             viewChatList.ChatList = chatHistory;
         }
 
