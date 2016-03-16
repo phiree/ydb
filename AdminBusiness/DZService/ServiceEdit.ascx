@@ -3,6 +3,7 @@
 <%@ Register Src="~/TagControl.ascx" TagName="Tag" TagPrefix="DZ" %>
 <div class="content">
     <div class="content-head full-head">
+        <input type="hidden" value="<%=merchantID%>" id="merchantID"/>
         <h3 class="cont-h2">
             服务资料填写
         </h3>
@@ -359,7 +360,8 @@
                                                                             <input class="dis-n time-value" type="text" data-role="endTime" />
                                                                         </div>
                                                                     </div>
-                                                                    <input type="number" value="0" data-role="maxNum">
+                                                                    <input type="number" value="0" data-role="maxOrder">
+                                                                    <input type="hidden" value="1" data-role="week">
                                                                     <input id="setCreateCfm1" type="button" value="确认">
                                                                 </div>
                                                                 <div class="shelf-set-b">
@@ -387,7 +389,8 @@
                                                                             <input class="dis-n time-value" type="text" data-role="endTime" />
                                                                         </div>
                                                                     </div>
-                                                                    <input type="number" value="0" data-role="maxNum">
+                                                                    <input type="number" value="0" data-role="maxOrder">
+                                                                    <input type="hidden" value="2" data-role="week">
                                                                     <input id="setCreateCfm2" type="button" value="确认">
                                                                 </div>
                                                                 <div class="shelf-set-b">

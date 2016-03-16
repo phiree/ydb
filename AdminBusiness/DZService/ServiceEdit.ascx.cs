@@ -13,6 +13,12 @@ using System.Web.UI.HtmlControls;
 public partial class DZService_ServiceEdit : System.Web.UI.UserControl
 {
 
+    public string merchantID {
+        get {
+            return System.Web.Security.Membership.GetUser().ProviderUserKey.ToString();
+        }
+    }
+
     private Guid ServiceId = Guid.Empty;
     BLLDZService bllService = new BLLDZService();
     BLLServiceType bllServiceType = new BLLServiceType();

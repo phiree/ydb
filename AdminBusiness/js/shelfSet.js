@@ -1,6 +1,8 @@
 (function (){
     var plugName = "shelfSet";
 
+    var merChantID = document.getElementById("merchantID").value;
+
     var ShelfSet = function(ele, options){
         this.$element = $(ele);
         this.$itemsContainer = $(this.$element.attr('data-setContainer'));
@@ -41,10 +43,10 @@
         },
         createConfirm : function(){
             var createData = this._getSetData(this.$createBox);
-            createData.sid = Math.ceil((Math.random() * Math.pow(10,16)));
+
 
             if ( this.creating ){
-                this.buildItem(createData);
+                //this.buildItem(createData);
                 this._createItemData(createData);
             }
         },
@@ -87,7 +89,7 @@
                 });
                 $itemH.find('[data-role="startTime"]').bind('change.shelfSet', refresh);
                 $itemH.find('[data-role="endTime"]').bind('change.shelfSet', refresh);
-                $itemH.find('[data-role="maxNum"]').bind('change propertychange', refresh);
+                $itemH.find('[data-role="maxOrder"]').bind('change propertychange', refresh);
                 $itemH.find('[data-role="enable"]').bind('change propertychange', refresh);
 
                 function refresh(){
@@ -141,16 +143,28 @@
          * @private
          */
         _createItemData : function(data){
-            var reqData,reqOptions;
+            var reqData,reqOptions,reqRow,wtObj;
+
+            wtObj = $.extend(data, {
+                open : "Y",
+                tag : "默认工作时间"
+            });
+
+            reqRow = {
+                merchantID : merChantID,
+                svcID : Adapter.getParameterByName("serviceid"),
+                workTimeObj : wtObj
+            };
+
             if( typeof data === 'object' && data ){
-                reqData = Adapter.reqPackage("WRT001001", data )
+                reqData = Adapter.reqPackage("WTM001001", reqRow )
             }
 
             reqOptions = {
-                data : Adapter.reqPackage("WRT001003", data),
+                data : reqData,
                 url : this.options.reqUrl,
                 success : function(data, textStatus, jqXHR){
-
+                    var repData = Adapter.respUnpack(data);
                 }
             };
             this._sync(reqOptions);
@@ -165,7 +179,7 @@
 
             reqData.wid = wid;
 
-            reqData = Adapter.reqPackage("WRT001002", reqData);
+            reqData = Adapter.reqPackage("WTM001002", reqData);
 
             reqOptions = {
                 data : reqData,
@@ -185,7 +199,7 @@
         _updateItemData : function(data){
             var reqOptions;
             reqOptions = {
-                data : Adapter.reqPackage("WRT001003", data),
+                data : Adapter.reqPackage("WTM001003", data),
                 url : this.options.reqUrl,
                 success : function(data, textStatus, jqXHR){
 
@@ -210,7 +224,7 @@
                 reqData.svcID = this.options.svcID
             }
 
-            reqData = Adapter.reqPackage("WRT001006", reqData);
+            reqData = Adapter.reqPackage("WTM001006", reqData);
 
             reqOptions = {
                 data : reqData,
@@ -234,14 +248,18 @@
                 data = {},
                 $StartTime = $ele.find('[data-role="startTime"]'),
                 $EndTime = $ele.find('[data-role="endTime"]'),
-                $MaxNum = $ele.find('[data-role="maxNum"]');
+                $MaxNum = $ele.find('[data-role="maxOrder"]'),
+                $week = $ele.find('[data-role="week"]');
 
-            data.startTime = $StartTime.val();
-            data.endTime = $EndTime.val();
-            data.maxNum = $MaxNum.val();
+            data = $.extend(data, {
+                startTime : $StartTime.val(),
+                endTime : $EndTime.val(),
+                maxOrder : $MaxNum.val(),
+                week : $week.val()
+            });
 
-            if ( data.maxNum < 0 || !data.maxNum ) {
-                data.maxNum = '0' ;
+            if ( data.maxOrder < 0 || !data.maxOrder ) {
+                data.maxOrder = '0' ;
             }
 
             return data;

@@ -86,10 +86,16 @@ namespace Dianzhu.DAL
         }
         public virtual void Update(T o)
         {
-            using (var t = session.BeginTransaction())
-            {
-                session.Update(o); t.Commit();
+            if (session.Transaction.IsActive)
+            { session.Update(o); }
+            else {
+                using (var t = session.BeginTransaction())
+                {
+                    session.Update(o); t.Commit();
+
+                }
             }
+
         }
         public virtual void SaveOrUpdate(T o)
         {

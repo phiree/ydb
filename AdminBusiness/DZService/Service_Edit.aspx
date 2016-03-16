@@ -20,7 +20,7 @@
                     <input class="dis-n time-value" type="text" data-role="endTime" data-target="${ workTimeID }" value="${ endTime }" />
                 </div>
             </div>
-            <input type="number" data-role="maxNum" data-target="${ workTimeID }" value="${ maxNum }"/>
+            <input type="number" data-role="maxOrder" data-target="${ workTimeID }" value="${ maxOrder }"/>
             <input type="checkbox" data-role="enable" data-target="${ workTimeID }" {@if enable==="Y"}checked{@/if} />
             <input type="button" data-role="delete" data-target="${ workTimeID }" value="X"/>
         </div>
@@ -33,7 +33,6 @@
     <script src="/js/interfaceAdapter.js"></script>
     <script src="/js/shelf/mock.js"></script>
     <script src="/js/ServiceType.js"></script>
-    <script src="/js/ServiceSelect.js"></script>
     <script src="/js/StepByStep.js"></script>
     <script src="/js/CascadeCheck.js"></script>
     <script src="/js/serviceTimeSelect.js"></script>
@@ -45,38 +44,49 @@
     <script src="/js/shelfSet.js"></script>
     <script>
 
-        Mock.mockjax(jQuery);
+//        Mock.mockjax(jQuery);
         Mock.mock(/shelf.json/, function(){
             /* 本地测试数据 */
             return Mock.mock(
-                    {
-                        "protocol_CODE": "WRT001006",
-                        "state_CODE": "009000",
-                        "RespData": {
-                            "arrayData": [
-                                {
-                                    "workTimeID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
-                                    "tag": "默认工作时间",
-                                    "startTime": "07:00",
-                                    "endTime": "19:00",
-                                    "week": "1",
-                                    "enable": "Y",
-                                    "svcID": "6F9619FF-8B86-D011-B42D-00C04FC964FF"
-                                },
-                                {
-                                    "workTimeID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
-                                    "tag": "默认工作时间",
-                                    "startTime": "07:00",
-                                    "endTime": "19:00",
-                                    "week": "2",
-                                    "enable": "N",
-                                    "svcID": "6F9619FF-8B86-D011-B42D-00C04FC964FF"
-                                }
-                            ]
-                        },
-                        "stamp_TIMES": "1490192929215",
-                        "serial_NUMBER": "00147001015869149751"
-                    }
+                {
+                    "protocol_CODE": "WTM001001",
+                    "state_CODE": "009000",
+                    "RespData": {
+                        "arrayData": [
+                            "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                        ]
+                    },
+                    "stamp_TIMES": "1490192929335",
+                    "serial_NUMBER": "00147001015869149751"
+                }
+//                {
+//                    "protocol_CODE": "WRT001006",
+//                        "state_CODE": "009000",
+//                        "RespData": {
+//                    "arrayData": [
+//                        {
+//                            "workTimeID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+//                            "tag": "默认工作时间",
+//                            "startTime": "07:00",
+//                            "endTime": "19:00",
+//                            "week": "1",
+//                            "enable": "Y",
+//                            "svcID": "6F9619FF-8B86-D011-B42D-00C04FC964FF"
+//                        },
+//                        {
+//                            "workTimeID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+//                            "tag": "默认工作时间",
+//                            "startTime": "07:00",
+//                            "endTime": "19:00",
+//                            "week": "2",
+//                            "enable": "N",
+//                            "svcID": "6F9619FF-8B86-D011-B42D-00C04FC964FF"
+//                        }
+//                    ]
+//                },
+//                    "stamp_TIMES": "1490192929215",
+//                        "serial_NUMBER": "00147001015869149751"
+//                }
             )
         })
     </script>
@@ -94,7 +104,7 @@
 
             $(".shelf-set-container").shelfSet({
                 itemTemplate : document.getElementById('shelfSetItem').innerHTML,
-                reqUrl : "shelf.json",
+                reqUrl : "http://localhost:806/dianzhuapi.ashx",
                 svcID : Adapter.getParameterByName('serviceid'),
                 buildCallback : function ($itemHTML) {
                     $itemHTML.find(".time-select-wrap").timeSelect();
