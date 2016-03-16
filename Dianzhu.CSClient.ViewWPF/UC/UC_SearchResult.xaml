@@ -7,10 +7,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto"  CanContentScroll="True" >
+        <StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" >
             <StackPanel  x:Name="pnlSearchResult" VerticalAlignment="Bottom" />
-
         </ScrollViewer>
-       
+        <WrapPanel>
+                <Label>目标地址:</Label> <TextBox x:Name="tbxTargetAddress" Width="225"></TextBox>
+                <Label>预约时间</Label><TextBox x:Name="tbxTargetTime" Width="230">2016-1-1</TextBox>
+                <Button x:Name="btnPush" Click="btnPush_Click">推送</Button>
+        </WrapPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

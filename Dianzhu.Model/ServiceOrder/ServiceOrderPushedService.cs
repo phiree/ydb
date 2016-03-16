@@ -4,23 +4,24 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model.Enums;
 using System.Diagnostics;
- 
+
 namespace Dianzhu.Model
 {
     /// <summary>
     /// 订单明细. 包含服务项快照
     /// </summary>
-    
-    public class ServiceOrderDetail
+
+    public class ServiceOrderPushedService
     {
 
         #region constructor
-        protected ServiceOrderDetail()
+        protected ServiceOrderPushedService()
         {
-            
+
         }
-        public ServiceOrderDetail(DZService service,int unitAmount,string targetAddress,DateTime targetTime)
+        public ServiceOrderPushedService(ServiceOrder order, DZService service, int unitAmount, string targetAddress, DateTime targetTime)
         {
+            ServiceOrder = order;
             OriginalService = service;
             ServiceName = service.Name;
             Description = service.Description;
@@ -33,14 +34,17 @@ namespace Dianzhu.Model
             OverTimeForCancel = service.OverTimeForCancel;
             ServiceMode = service.ServiceMode;
 
-            this.UnitAmount = unitAmount ;
+            this.UnitAmount = unitAmount;
             this.TargetAddress = targetAddress;
             this.TargetTime = targetTime;
-             
+            this.Selected = false;
         }
 
         #endregion
-
+        /// <summary>
+        /// 对应的订单
+        /// </summary>
+        public virtual ServiceOrder ServiceOrder { get; set; }
         #region 服务项
         public virtual Guid Id { get; set; }
         /// <summary>
@@ -61,8 +65,8 @@ namespace Dianzhu.Model
         public virtual enum_ServiceMode ServiceMode { get; set; }
         #endregion
 
-        #region 服务项需求
-      
+       
+
         /// <summary>
         /// 购买数量
         /// </summary>
@@ -75,11 +79,7 @@ namespace Dianzhu.Model
         /// 服务预约时间
         /// </summary>
         public virtual DateTime TargetTime { get; set; }
-        #endregion
-        /// <summary>
-        /// 该服务分配的员工.
-        /// </summary>
-        public virtual IList<Staff> Staff { get; set; }
+ 
         /// <summary>
         /// 是否选择
         /// </summary>
@@ -87,14 +87,15 @@ namespace Dianzhu.Model
 
         public virtual decimal ServiceAmount
         {
-            get {
+            get
+            {
                 return UnitPrice * UnitAmount;
             }
         }
         //分配的职员
-      
+
     }
 
 
-    
+
 }

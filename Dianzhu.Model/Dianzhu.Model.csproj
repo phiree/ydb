@@ -59,6 +59,7 @@
     <Compile Include="City.cs" />
     <Compile Include="ServiceOrder\ServiceOrderDetail.cs" />
     <Compile Include="ServiceOrder\ServiceOrderFactory.cs" />
+    <Compile Include="ServiceOrder\ServiceOrderPushedService.cs" />
     <Compile Include="StaffServiceType.cs" />
     <Compile Include="OrderAssignment.cs" />
     <Compile Include="PaymentLog.cs" />

@@ -23,6 +23,7 @@ public class ResponseORM001008 : BaseResponse
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
         BLLDZService bllDZService = new BLLDZService();
+        PushService bllPushService = new PushService();
 
 
         try
@@ -93,11 +94,11 @@ public class ResponseORM001008 : BaseResponse
                     this.err_Msg = "该服务不存在！";
                     return;
                 }
-
-                foreach (ServiceOrderDetail detail in order.Details)
-                {
-                    detail.Selected = detail.OriginalService == service;
-                }
+                bllPushService.SelectServiceAndCreate(order, service);
+                //foreach (ServiceOrderDetail detail in order.Details)
+                //{
+                //    detail.Selected = detail.OriginalService == service;
+                //}
                 bllServiceOrder.SaveOrUpdate(order);
                 RespDataORM_orderObj orderObj = new RespDataORM_orderObj().Adap(order);
 

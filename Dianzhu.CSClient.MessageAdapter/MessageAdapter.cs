@@ -231,6 +231,29 @@ namespace Dianzhu.CSClient.MessageAdapter
                     msg.SetAttribute("type", "headline");
                     extNode.AddChild(UserObj);
                     break;
+                case enum_ChatType.PushedService:
+                    extNode.Namespace = "ihelper:chat:orderobj";
+                    var svcObj = new agsXMPP.Xml.Dom.Element("svcObj");
+                    ReceptionChatPushService chatPushService = (ReceptionChatPushService)chat;
+                    ServiceOrderPushedService service = chatPushService.PushedServices[0];
+                    svcObj.SetAttribute("svcID", service.OriginalService.Id.ToString());
+                    svcObj.SetAttribute("name", service.OriginalService.Name);
+                    svcObj.SetAttribute("type", service.OriginalService.ServiceType.ToString());
+                    svcObj.SetAttribute("startTime", service.TargetTime.ToString("yyyyMMDDHHmmss"));
+                    extNode.AddChild(svcObj);
+
+                    /* "storeObj": {
+                     "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                     "alias": "望海国际",
+                     "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao_MD.png"
+                 }*/
+                    var storeObj = new agsXMPP.Xml.Dom.Element("storeObj");
+
+                    storeObj.SetAttribute("userID", service.OriginalService.Business.Owner.Id.ToString());
+                    storeObj.SetAttribute("alias", service.OriginalService.Business.Name);
+                    storeObj.SetAttribute("imgUrl", service.OriginalService.Business.BusinessAvatar.ImageName);
+                    extNode.AddChild(storeObj);
+                    break;
             }
             ilog.Debug("send___" + msg.ToString());
             return msg;

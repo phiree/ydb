@@ -16,7 +16,7 @@ namespace Dianzhu.Model
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model");
         
-        internal ServiceOrder()
+       internal ServiceOrder()
         {
             OrderStatus = enum_OrderStatus.Draft;
             OrderCreated = DateTime.Now;
@@ -34,19 +34,18 @@ namespace Dianzhu.Model
         public virtual void AddDetailFromIntelService(DZService service,int unitAmount,string targetAddress,DateTime targetTime)
         {
             
-
             var existedService = Details.Where(x => x.OriginalService == service);
             if (existedService.Count() == 0)
             {
-                
                 ServiceOrderDetail detail = new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
-                
                 Details.Add(detail);
             }
             else if (existedService.Count() == 1)
             {
                 ServiceOrderDetail detail = Details[0];
                 detail.UnitAmount+=unitAmount;// new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
+                detail.TargetAddress = targetAddress;
+                detail.TargetTime = targetTime;
                 
             }
            
@@ -55,9 +54,10 @@ namespace Dianzhu.Model
         {
 
         }
-        
+
         #endregion
 
+        
         #region properties
         public virtual IList<ServiceOrderDetail> Details
         {

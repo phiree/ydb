@@ -22,6 +22,7 @@ namespace Dianzhu.CSClient.WinformView
         IList<DZService> searchedService;
 
         public event SelectService SelectService;
+        public event PushServices PushServices;
 
         public IList<DZService> SearchedService
         {
@@ -43,6 +44,33 @@ namespace Dianzhu.CSClient.WinformView
                 }
             }
         }
+
+        public string TargetAddress
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public DateTime TargetTime
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         private void LoadServiceToPanel(DZService service)
         {
             FlowLayoutPanel pnl = new FlowLayoutPanel();

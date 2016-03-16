@@ -28,9 +28,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             get
             {
-                int amount;
-                bool isInt = int.TryParse(tbxUnitAmount.Text, out amount);
-                return isInt ? Convert.ToInt32(tbxUnitAmount.Text) : 1;
+                return 1;
             }
         }
         public string TargetTime

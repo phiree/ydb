@@ -12,12 +12,12 @@
                 <Label  Content="订单状态"/>
                 <Label x:Name="lblOrderStatus" />
             </WrapPanel>
-            <ScrollViewer>
-            <StackPanel  x:Name="pnlOrderDetails" >
-                
-            </StackPanel>
-             
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel  x:Name="pnlOrderDetails"/>
             </ScrollViewer>
+            <WrapPanel x:Name="pnlOrderOperation">
+                <Button x:Name="btnPush">推送</Button>
+            </WrapPanel>
         </StackPanel>
 
     </Grid>
