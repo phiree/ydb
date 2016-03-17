@@ -158,8 +158,6 @@ namespace Dianzhu.Api.Model
 
     public class ReqDataSTORE001005
     {
-        public string merchantID { get; set; }
-        public string pWord { get; set; }
         public string storeID { get; set; }
     }
 

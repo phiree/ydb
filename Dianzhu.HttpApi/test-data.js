@@ -458,7 +458,7 @@ var test_data = [
         "ReqData": {
             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",//2aed4349-f4e8-4dcb-88a4-a59301132feb
             "pWord": "1234",
-            "payID": "0738ae22-efd5-4969-9424-a5c5010e63b0",
+            "payID": "50762f6c-d970-40de-8f93-a5c900e80552",
             "target":"alipay",
         },
         "stamp_TIMES": 1453520313281,
@@ -625,10 +625,10 @@ var test_data = [
          "serial_NUMBER": "00147001015869149751"
      },
      {
-         "protocol_CODE": "CHAT001007",
+         "protocol_CODE": "chat001007",
          "ReqData": {
-             "userID": "7dcdd185-bed6-4756-a219-a5360118aab3",
-             "pWord": "1234",
+             "userID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
+             "pWord": "123456",
              "orderID": "f99db315-53e7-47d3-b99c-a55500ac1fb5",
              "target": "cer",
              "pageSize": 30,

@@ -40,7 +40,9 @@ namespace Dianzhu.Pay
         //创建支付请求
         string CreatePayRequest();
         //支付平台回调 参数验证
-             
+
+        //创建支付请求字符串
+        string CreatePayStr(string str);
     }
     /// <summary>
     /// 接收支付平台回调
@@ -124,7 +126,10 @@ namespace Dianzhu.Pay
             return sHtmlText;
         }
 
-      
+        public string CreatePayStr(string str)
+        {
+            return string.Empty;
+        }
     }
     public class PayCallBackAli : IPayCallBack
     {
@@ -211,6 +216,8 @@ namespace Dianzhu.Pay
 
         string  notify_url;
 
+        string nonce_str = Guid.NewGuid().ToString().Replace("-", "");
+
         public PayWeChat(decimal payAmount, string paymentId, string paySubject,
             string notify_url,string memo)
         {
@@ -227,7 +234,7 @@ namespace Dianzhu.Pay
             SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
             sParaTemp.Add("appid", "wxd928d1f351b77449");
             sParaTemp.Add("mch_id", "1304996701");
-            sParaTemp.Add("nonce_str",Guid.NewGuid().ToString().Replace("-",""));
+            sParaTemp.Add("nonce_str", nonce_str);
             sParaTemp.Add("body", PaySubjectPre + PaySubject);
             sParaTemp.Add("out_trade_no", PaymentId.Replace("-",""));
             sParaTemp.Add("total_fee", string.Format("{0:0}", PayAmount * 100));
@@ -249,7 +256,14 @@ namespace Dianzhu.Pay
             byte[] d = md5Obj.ComputeHash(Encoding.GetEncoding("Utf-8").GetBytes(sParStrkey));
             for (int i = 0; i < d.Length; i++)
             {
-                sParaMd5 += d[i].ToString("X").ToUpper();
+                if (d[i] > 16)
+                {
+                    sParaMd5 += d[i].ToString("X").ToUpper();
+                }
+                else
+                {
+                    sParaMd5 += "0" + d[i].ToString("X").ToUpper();
+                }
             }
 
             //sParaTemp.Add("sign", sParaMd5);
@@ -264,7 +278,43 @@ namespace Dianzhu.Pay
             throw new NotImplementedException();
         }
 
-    
+        public string CreatePayStr(string prepayid)
+        {
+            int times = (int)(DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1))).TotalSeconds;
+            SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
+            sParaTemp.Add("appid", Config.appid_WePay);
+            sParaTemp.Add("partnerid", Config.partnerid_WePay);
+            sParaTemp.Add("prepayid", prepayid);
+            sParaTemp.Add("package", @"Sign=WXPay");
+            sParaTemp.Add("noncestr", nonce_str);
+            sParaTemp.Add("timestamp", times.ToString());
+
+            string sParaStr = string.Empty;
+            string sParStrkey = string.Empty;
+            foreach (KeyValuePair<string, string> item in sParaTemp)
+            {
+                sParaStr += item.Key + "=" + item.Value + "&";
+            }
+            sParStrkey = sParaStr + "key=9bc3147c13780388c2a58500966ed564";
+            MD5 md5Obj = MD5.Create();
+            string sParaMd5 = string.Empty;
+            byte[] d = md5Obj.ComputeHash(Encoding.GetEncoding("Utf-8").GetBytes(sParStrkey));
+            for (int i = 0; i < d.Length; i++)
+            {
+                if (d[i] > 16)
+                {
+                    sParaMd5 += d[i].ToString("X").ToUpper();
+                }
+                else
+                {
+                    sParaMd5 += "0" + d[i].ToString("X").ToUpper();
+                }
+            }
+
+            string sHtmlText = sParStrkey + "&sign=" + sParaMd5;
+            return sHtmlText;
+        }
+
     }
 
     public class PayAlipayApp : IPayRequest
@@ -311,7 +361,7 @@ namespace Dianzhu.Pay
             dicPara = Submit.BuildRequestApp(sParaTemp);
             foreach (KeyValuePair<string, string> temp in dicPara)
             {
-                sParaStr += temp.Key + "=" + temp.Value + "&";
+                sParaStr += temp.Key + "=\"" + temp.Value + "\"&";
             }
             sParaStr = sParaStr.TrimEnd('&');
 
@@ -338,6 +388,11 @@ namespace Dianzhu.Pay
         public bool PayCallBack(NameValueCollection nvc)
         {
             throw new NotImplementedException();
+        }
+
+        public string CreatePayStr(string str)
+        {
+            return string.Empty;
         }
 
         /// <summary>
