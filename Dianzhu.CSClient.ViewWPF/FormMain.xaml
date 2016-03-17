@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
         mc:Ignorable="d"
-        Title="一点办客服工具" Height="768" Width="1024" WindowStartupLocation="CenterScreen" Background="White" ResizeMode="CanMinimize">
+        Title="一点办客服工具" WindowStartupLocation="CenterScreen" Background="White">
     <Grid ShowGridLines="True" UseLayoutRounding="True" Grid.IsSharedSizeScope="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" MinWidth="280" MaxWidth="400"/>

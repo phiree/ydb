@@ -208,6 +208,7 @@ namespace Dianzhu.DemoClient
         /// <param name="message"></param>
         void AddLog(agsc.Message message)
         {
+            tbxLog.AppendText(DateTime.Now.ToString()+":"+message.ToString() + Environment.NewLine);
             //if (csDisplayName == null)
             //{
             //    GetCustomerService();
@@ -281,6 +282,13 @@ namespace Dianzhu.DemoClient
                     break;
                 case "ihelper:notice:system":
                     lblMessage.Text += "通知:" + message.Body;
+                    break;
+                case "ihelper:chat:orderobj":
+
+                    break;
+
+                default:
+                    MessageBox.Show("未知的聊天类型");
                     break;
             }
 

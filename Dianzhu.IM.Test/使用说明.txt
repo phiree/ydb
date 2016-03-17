@@ -1,0 +1,5 @@
+﻿1)account.txt
+xmpp服务器,登录凭证
+格式: 服务器|用户名|密码
+2)messages 文件夹
+测试使用的xmpp消息

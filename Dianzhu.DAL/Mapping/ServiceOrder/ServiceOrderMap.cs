@@ -20,9 +20,6 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.OrderServerFinishedTime);
             Map(x => x.Memo);
             Map(x => x.OrderStatus);
-            
-         
-            
             References<DZMembership>(x => x.CustomerService);
             HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
             

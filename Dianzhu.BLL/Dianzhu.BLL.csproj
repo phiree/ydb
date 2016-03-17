@@ -77,7 +77,7 @@
     <Compile Include="BLLReceptionChat.cs" />
     <Compile Include="BLLReceptionStatusArchieve.cs" />
     <Compile Include="BLLReceptionStatus.cs" />
-    <Compile Include="BLLServiceOrder.cs" />
+    <Compile Include="ServiceOrder\BLLServiceOrder.cs" />
     <Compile Include="BLLServiceType.cs" />
     <Compile Include="CashTicketAssigner.cs" />
     <Compile Include="CashTicketGenerator.cs" />
@@ -92,6 +92,7 @@
     <Compile Include="BLLServiceProperty.cs" />
     <Compile Include="BLLServicePropertyValue.cs" />
     <Compile Include="BLLCashTIcketAssignDetail.cs" />
+    <Compile Include="ServiceOrder\PushService.cs" />
     <Compile Include="SiteConfig.cs" />
     <Compile Include="Validator\ValidatorServiceOpenTimeForDay.cs" />
     <Compile Include="Validator\ValidatorBusiness.cs" />
@@ -134,9 +135,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ServiceOrder\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,8 @@
+﻿<message xmlns="jabber:client" type="chat"  id="4e1bcbdb-b941-4f55-a75b-a5cb0091a5c2" to="{0}@{1}">
+  <body />
+  <active xmlns="http://jabber.org/protocol/chatstates" />
+  <ext xmlns="ihelper:chat:media">
+    <orderID>cfe31a94-83a3-45fc-a468-a595009e0e4a</orderID>
+    <MsgObj url="http://{1}:8038/GetFile.ashx?fileName=_$_55a68ccc-6c7e-42a9-972a-ea8ebf569337_$_ChatImage_$_image" type="image" />
+  </ext>
+</message>

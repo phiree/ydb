@@ -1,0 +1,10 @@
+﻿<message xmlns="jabber:client" to="{0}@{1}" type="chat"  id="4e1bcbdb-b941-4f55-a75b-a5cb0091a5c2" 
+          from="c2df70bf-7d50-47d9-a3ab-a59101322c03@localhost/YDBan_Win_CustomerService">
+  <body>推送的服务</body>
+  <active xmlns="http://jabber.org/protocol/chatstates" />
+  <ext xmlns="ihelper:chat:orderobj">
+    <orderID>fe46ec58-8459-4d4a-b85c-a59400a5bda0</orderID>
+    <svcObj startTime="201601DD000000" type="维修&gt;家电维修&gt;空调维修" svcID="afb9f649-e6ec-4515-bedf-a59301519c55" name="sadf" />
+    <storeObj imgUrl="" alias="dsa" userID="c0ca5173-5831-4c64-859a-a59301416a26" />
+  </ext>
+</message>
