@@ -55,9 +55,41 @@ namespace Dianzhu.Model
 
         }
 
+        /// <summary>
+        /// 将英文状态转换为中文
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public virtual string GetFriendlyStatus(enum_OrderStatus status)
+        {
+            string str = String.Empty;
+            switch (status)
+            {
+                case enum_OrderStatus.Search: str = "搜索单"; break;
+                case enum_OrderStatus.Draft: str = "草稿单"; break;
+                case enum_OrderStatus.Created: str = "待付款"; break;
+                case enum_OrderStatus.Payed: str = "已付款"; break;
+                case enum_OrderStatus.Canceled: str = "客户申请取消订单"; break;
+                case enum_OrderStatus.CanceledDirectly: str = "订单已取消"; break;
+                case enum_OrderStatus.isCancel: str = "客户已取消"; break;
+                case enum_OrderStatus.Aborded: str = "订单已中止"; break;
+                case enum_OrderStatus.Negotiate: str = "商家已确认订单"; break;
+                case enum_OrderStatus.Assigned: str = "等待服务开始"; break;
+                case enum_OrderStatus.Begin: str = "服务已开始"; break;
+                case enum_OrderStatus.IsEnd: str = "商家确定服务完成"; break;
+                case enum_OrderStatus.Ended: str = "用户确定服务完成"; break;
+                case enum_OrderStatus.Finished: str = "订单完成"; break;
+                case enum_OrderStatus.Appraised: str = "用户已评价"; break;
+                case enum_OrderStatus.WaitingDepositWithCanceled: str = "等待退还定金"; break;
+                case enum_OrderStatus.WaitingCancel: str = "用户申请取消订单"; break;
+                default:str = "未知订单类型"; break;
+            }
+            return str;
+        }
+
         #endregion
 
-        
+
         #region properties
         public virtual IList<ServiceOrderDetail> Details
         {

@@ -106,7 +106,6 @@ namespace Dianzhu.Model.Enums
         //已完成订单状态5
         
         Aborded=7,//已中止
-        Appraise=8,//评价
  
         /// <summary>
         /// 商家已确认订单

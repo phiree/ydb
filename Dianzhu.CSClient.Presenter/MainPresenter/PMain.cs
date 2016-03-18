@@ -130,7 +130,7 @@ namespace Dianzhu.CSClient.Presenter
             foreach (ReceptionChatDD chatDD in chatDDList)
             {
                 copychat = ReceptionChat.Create(chatDD.ChatType);
-                copychat.Id = chatDD.Id;
+              //  copychat.Id = chatDD.Id;
                 copychat.MessageBody = chatDD.MessageBody;
                 copychat.ReceiveTime = chatDD.ReceiveTime;
                 copychat.SendTime = chatDD.SendTime;
@@ -146,10 +146,10 @@ namespace Dianzhu.CSClient.Presenter
                     ((ReceptionChatMedia)copychat).MedialUrl = chatDD.MedialUrl;
                     ((ReceptionChatMedia)copychat).MediaType = chatDD.MediaType;
                 }
-
+                chatDD.IsCopy = true;
                 bllReceptionChat.Save(copychat);
 
-                chatDD.IsCopy = true;
+               
                 bllReceptionChatDD.Save(chatDD);
             }
         }

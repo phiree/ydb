@@ -43,6 +43,10 @@ namespace Dianzhu.CSClient.Presenter
             {
                 return;
             }
+            if (IdentityManager.CurrentIdentity == null)
+            {
+                return;
+            }
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {

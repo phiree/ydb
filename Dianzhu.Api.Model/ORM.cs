@@ -125,7 +125,7 @@ namespace Dianzhu.Api.Model
         public string startTime { get; set; }
         public string endTime { get; set; }
         public string deposit { get; set; }
-        public RespDataORM_svcObj Adap(ServiceOrderDetail detail)
+        public RespDataORM_svcObj Adap(ServiceOrderPushedService detail)
         {
             this.svcID = detail.OriginalService != null ? detail.OriginalService.Id.ToString() : "";
             this.name = detail.ServiceName ?? string.Empty;
@@ -229,11 +229,11 @@ namespace Dianzhu.Api.Model
     public class RespDataORM001007
     {
         public IList<RespDataORM_svcObj> arrayData { get; set; }
-        public RespDataORM001007 AdaptList(IList<ServiceOrderDetail> detailList)
+        public RespDataORM001007 AdaptList(IList<ServiceOrderPushedService> detailList)
         {
             this.arrayData = new List<RespDataORM_svcObj>();
             RespDataORM_svcObj svcObj = new RespDataORM_svcObj();
-            foreach (ServiceOrderDetail detail in detailList)
+            foreach (ServiceOrderPushedService detail in detailList)
             {
                 svcObj = new RespDataORM_svcObj().Adap(detail);
                 this.arrayData.Add(svcObj);

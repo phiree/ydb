@@ -22,6 +22,7 @@ public class ResponseORM001007 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+        PushService pushService = new PushService();
         string raw_id = requestData.userID;
         string order_id = requestData.orderID;
 
@@ -85,7 +86,7 @@ public class ResponseORM001007 : BaseResponse
                     return;
                 }
 
-                RespDataORM001007 respData = new RespDataORM001007().AdaptList(order.Details);
+                RespDataORM001007 respData = new RespDataORM001007().AdaptList(pushService.GetPushedServicesForOrder(order));
 
                 this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];
