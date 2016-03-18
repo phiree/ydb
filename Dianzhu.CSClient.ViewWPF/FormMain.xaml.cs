@@ -24,7 +24,7 @@ namespace Dianzhu.CSClient.ViewWPF
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF");
         public FormMain(UC_IdentityList ucIdentityList,UC_ChatList ucChatList,UC_ChatSend ucChatSend,
-            UC_Order ucOrder, UC_Search ucSearch,UC_SearchResult ucSearchResult)
+            UC_Order ucOrder, UC_Search ucSearch,UC_SearchResult ucSearchResult,UC_OrderHistory ucOrderHistory)
         {
             InitializeComponent();
             pnlCustomerList.Children.Add(ucIdentityList);
@@ -33,6 +33,7 @@ namespace Dianzhu.CSClient.ViewWPF
             pnlSearchResult.Children.Add(ucSearchResult);
             pnlOrder.Children.Add(ucOrder);
             pnlChatSend.Children.Add(ucChatSend);
+            pblOrderHistory.Children.Add(ucOrderHistory);
         }
 
          

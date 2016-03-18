@@ -30,17 +30,9 @@ public class ResponseSVC001005 : BaseResponse
 
         try
         {
-            string raw_id = requestData.merchantID;
             string svd_id = requestData.svcID;
 
-            Guid userID,svcID;
-            bool isUserId = Guid.TryParse(raw_id, out userID);
-            if (!isUserId)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "merchantID格式有误";
-                return;
-            }
+            Guid svcID;
 
             bool isStoreId = Guid.TryParse(svd_id, out svcID);
             if (!isStoreId)
@@ -48,26 +40,6 @@ public class ResponseSVC001005 : BaseResponse
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "svcId格式有误";
                 return;
-            }
-
-            DZMembership member = null;
-            if (request.NeedAuthenticate)
-            {                
-                bool validated = new Account(p).ValidateUser(userID, requestData.pWord, this, out member);
-                if (!validated)
-                {
-                    return;
-                } 
-            }
-            else
-            {
-                member = p.GetUserById(userID);
-                if (member == null)
-                {
-                    this.state_CODE = Dicts.StateCode[1];
-                    this.err_Msg = "不存在该商户！";
-                    return;
-                }
             }
             try
             {

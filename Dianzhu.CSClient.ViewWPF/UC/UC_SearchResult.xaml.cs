@@ -44,6 +44,10 @@ namespace Dianzhu.CSClient.ViewWPF
                 //}Hashtable ht = (Hashtable)list[i];
                 foreach (DZService service in searchedService)
                 {
+                    if (pnlSearchResult.FindName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()))!=null)
+                    {
+                        pnlSearchResult.UnregisterName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()));
+                    }                    
                     LoadServiceToPanel(service);
                 }
             }

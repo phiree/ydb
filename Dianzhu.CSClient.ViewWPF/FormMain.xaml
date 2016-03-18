@@ -14,7 +14,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="3*" MinWidth="100" MaxWidth="300"/>
+            <ColumnDefinition Width="4*" MinWidth="100" MaxWidth="520"/>
         </Grid.ColumnDefinitions>
 
         <GridSplitter x:Name="gridSplitter1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5"/>
@@ -81,7 +81,7 @@
 
             </Grid>
 
-            <Grid ShowGridLines="True" Grid.Row="2">
+            <Grid ShowGridLines="True" Grid.Row="2" x:Name="pblOrderHistory">
 
 
             </Grid>

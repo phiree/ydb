@@ -17,8 +17,8 @@ namespace Dianzhu.CSClient.Presenter
          /// </summary>
          public static DZMembership CurrentCustomerService = null;
         public static DZMembership Diandian = null;
-        public static string MediaUploadUrl = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");// "http://192.168.1.140:8037/UploadFile.ashx";
-        public static string MediaGetUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl");//"http://192.168.1.140:8037/GetFile.ashx?fileName=";
+        public static string MediaUploadUrl = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");
+        public static string MediaGetUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl");
         public static readonly string LocalMediaSaveDir =Environment.CurrentDirectory+ @"\localmedia\";
 
     }

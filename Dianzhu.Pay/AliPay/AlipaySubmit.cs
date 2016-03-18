@@ -54,6 +54,7 @@ namespace Com.Alipay
             {
                 case "RSA":
                     mysign = RSAFromPkcs8.sign(prestr, _private_key, _input_charset);
+                    bool verify = RSAFromPkcs8.verify(prestr, mysign, Config.publickey, _input_charset);
                     break;
                 default:
                     mysign = "";
@@ -82,6 +83,8 @@ namespace Com.Alipay
             mysign = BuildRequestMysign(sPara);
 
             //签名结果与签名方式加入请求提交参数组中
+            //mysign = @"mFj8VE7FjaGJWAKEchLWwfN3SySDUPTmTIWaniyi6sO72oejWFU3eWWPbk53%2FiZlVf1yZsNNSkXjF2XIOfdwjpyYIbStG2dnGxnTaBiqJ0zjAm1eUBFX66sm9D701%2F%2Flg42dVSyBuV%2B1svva8TYjqHKeJ7ArGihCIT2crVxOK60%3D";
+            //mysign = @"LfKu3jNCPpb63LRFlcHfGgYkLv0X+WIZdM3nZvHpQdBWOxzAHr3mw0D3Fsns3Ln1dveXDon5KoQtFlBZdrLiTtCxeXzQIWYXbpmxaum8aXjXZemunYLwwUO5njEcXeBgJgMb0ljSEhM6JB2nqfONoy7xEmrfIL478CQOedPUz8g=";
             sPara.Add("sign", mysign);
             sPara.Add("sign_type", _sign_type);
 

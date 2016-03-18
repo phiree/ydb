@@ -29,23 +29,16 @@ namespace Com.Alipay
         public readonly static string partner = "2088021632422534";
         public readonly static string seller_email = "jsyk_company@126.com";
         public readonly static string seller_id = "2088021632422534";
-        public readonly static string private_key = @"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAONJrdtyvQKdP4fw
-LSjk8AbrN/IoJxIQU0h2QlInheeAcssN4rtSIWa1pZzzUksie+uMWZ9Xe11EBF76
-TAoVtw0teP2GM/UTenOOKbRy6sNGp5k3vcHfZX52biRmta6Cje+yb/8l+CohexNe
-HjDWzx2e32RyGrvvAwmHnmKS6q+FAgMBAAECgYBJDwPtiEItNvKW9aLuhDiLYMyI
-8FMuwUSkBC9pTP8D3QwJLRt2bv4Bj93+R1Bqilke6+xbBbnHzvdAuF/81eISpPu6
-IHm0Fl84HDeNgXsNhW/NzehSL3DghB24g10t2SsLDGPq5oyLGfGGM8HVyOrw3wLZ
-OLnBSnOWL6vnDNRrgQJBAP8icR74qw/RVfvxkw1KnRg2wQwsiRz3OwQohVeLmR2T
-uJw5txaEBjrFTZ4nzNOSfV6NHXJcajMlIYRdbhjxFNUCQQDkDw4jePee827aPN+L
-GLAH7R91gA/CtZ9IAOFfixe5NMlbyMYS6WPEh7zjLehqLqENy60CrCOmXvSvNRwh
-80fxAkEAzPI41n1AxKsPHBy5WLL4MKxDNOlNl0QOV0/JlUKhU74HTQ+bwG17p5g4
-unQUOFxzcxF+dxA/iygnnXGD8GswpQJAZpJu5X1uwcrzPKzMTh9YbPg1gf+LFyPg
-892RgAtrLB2VwvZWQANAoA/84KCxO7ClNzM4KU+K6TUkD/lvIcXtwQJBAPYC681h
-y5kSmqyuxIFGXVscVYVPeMxwY4vlLSMxI7AB/+tYBuGx5I+mY1mFNSaxyM8+EeMG
-792KEe3WUb2d0zk=";
+        public readonly static string private_key = @"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAK4+63BQXGjyOdvSyYKHbL/aA71DVV9GYq3ZUqMKiuZRwrCoNjw1OO3OKawIcRXXT6+ks4f5Cmrjiv3cr6uuEfu4AGAT0msS0XUtZFQbKwtuUQTARiO/EwjG4QBiWl5yyjgeaQcBS50XEBIJtG9gc6fKS3lrlgo7339T2AlFIa3NAgMBAAECgYBguZTAeBuUNkJgAJbT2pFHvqIswd/2T4AfuW/iCcwpJmHI5teUfIbpm3QOh3EfCrK1cdwnMtvRkhZp7cOmra5U/qUEPGyM+EyatWUXh1l5CYPLrNK5hWU42KPnPTh1siaSYZAS/gkeOOmnBnWRjk+fycB/o1e3f29JiNynnpiKgQJBANp3xWidBB1xRSHn1ndNlVJb8xbcNeUJWA6Np8lWDhV5XJdWQZ9JQIwSnsOOWhkaSPhKWbC9pE+c1sCfZJH/CPkCQQDMLkJVEn1bmIR5CYCe4D7HVy6mMCd/IXy4Aruj6XgP4XJXEJmK6BHwLjrk5UJ78rr+P/7McSI8Cdmw7e/bwDR1AkEAliheahIKAwaYor5LvYJ40LvccGj5Lixm9tHMcmkQkxfwWSBzSD07/UrLDtRn/vr/DpFj5kPijMnbHVgw8twdWQJBAJ4xWQNAiA9nY3vDePufEgSv71yjAnblIxQOSgL86CCls0jxe4S7uOo1ZzvgxFnz/hzuyCLtpHCP0THbp3LCv+ECQBnbhcKtNiJt9AhpqShJLYBy66GFonI+DoPkt94PgA5DgtzvpyuULcisAroZysjhAjRjlJA2tT7IJ6Vtzt+DhQU=";
+        //public readonly static string private_key = @"MIICXQIBAAKBgQCuPutwUFxo8jnb0smCh2y/2gO9Q1VfRmKt2VKjCormUcKwqDY8NTjtzimsCHEV10+vpLOH+Qpq44r93K+rrhH7uABgE9JrEtF1LWRUGysLblEEwEYjvxMIxuEAYlpecso4HmkHAUudFxASCbRvYHOnykt5a5YKO99/U9gJRSGtzQIDAQABAoGAYLmUwHgblDZCYACW09qRR76iLMHf9k+AH7lv4gnMKSZhyObXlHyG6Zt0DodxHwqytXHcJzLb0ZIWae3Dpq2uVP6lBDxsjPhMmrVlF4dZeQmDy6zSuYVlONij5z04dbImkmGQEv4JHjjppwZ1kY5Pn8nAf6NXt39vSYjcp56YioECQQDad8VonQQdcUUh59Z3TZVSW/MW3DXlCVgOjafJVg4VeVyXVkGfSUCMEp7DjloZGkj4SlmwvaRPnNbAn2SR/wj5AkEAzC5CVRJ9W5iEeQmAnuA+x1cupjAnfyF8uAK7o+l4D+FyVxCZiugR8C465OVCe/K6/j/+zHEiPAnZsO3v28A0dQJBAJYoXmoSCgMGmKK+S72CeNC73HBo+S4sZvbRzHJpEJMX8Fkgc0g9O/1Kyw7UZ/76/w6RY+ZD4ozJ2x1YMPLcHVkCQQCeMVkDQIgPZ2N7w3j7nxIEr+9cowJ25SMUDkoC/OggpbNI8XuEu7jqNWc74MRZ8/4c7sgi7aRwj9Ex26dywr/hAkAZ24XCrTYibfQIaakoSS2AcuuhhaJyPg6D5LfeD4AOQ4Lc76crlC3IrAK6GcrI4QI0Y5SQNrU+yCelbc7fg4UF";
         public readonly static string public_key = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
         public readonly static string input_charset = "utf-8";
         public readonly static string sign_type = "RSA";
+        public readonly static string publickey = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCuPutwUFxo8jnb0smCh2y/2gO9Q1VfRmKt2VKjCormUcKwqDY8NTjtzimsCHEV10+vpLOH+Qpq44r93K+rrhH7uABg
+E9JrEtF1LWRUGysLblEEwEYjvxMIxuEAYlpecso4HmkHAUudFxASCbRvYHOnykt5a5YKO99/U9gJRSGtzQIDAQAB";
+
+        public readonly static string appid_WePay = "wxd928d1f351b77449";
+        public readonly static string partnerid_WePay = "1304996701";
         #endregion
 
     }

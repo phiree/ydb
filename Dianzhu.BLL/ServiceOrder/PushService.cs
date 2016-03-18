@@ -44,10 +44,13 @@ namespace Dianzhu.BLL
         public void SelectServiceAndCreate(ServiceOrder order, DZService selectedService)
         {
             IList<ServiceOrderPushedService> l = GetPushedServicesForOrder(order);
-            ServiceOrderPushedService s = l.Single(x => x.OriginalService == selectedService);
-            order.AddDetailFromIntelService(s.OriginalService, 1, s.TargetAddress, s.TargetTime);
+            if (l.Count > 0)
+            {
+                ServiceOrderPushedService s = l.Single(x => x.OriginalService == selectedService);
+                order.AddDetailFromIntelService(s.OriginalService, 1, s.TargetAddress, s.TargetTime);
 
-            order.CreatedFromDraft();
+                order.CreatedFromDraft();
+            }            
         }
     }
 }
