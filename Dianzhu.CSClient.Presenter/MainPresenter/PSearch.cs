@@ -71,7 +71,7 @@ namespace Dianzhu.CSClient.Presenter
             iIM.SendMessage(chat);
 
             //生成新的草稿单并发送给客户端
-            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(IdentityManager.CurrentIdentity.Customer, IdentityManager.CurrentIdentity.CustomerService);
+            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer);
             dalOrder.SaveOrUpdate(newOrder);
             string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
             string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
