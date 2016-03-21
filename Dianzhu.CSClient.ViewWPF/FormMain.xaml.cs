@@ -33,13 +33,7 @@ namespace Dianzhu.CSClient.ViewWPF
             pnlSearchResult.Children.Add(ucSearchResult);
             pnlOrder.Children.Add(ucOrder);
             pnlChatSend.Children.Add(ucChatSend);
-            pblOrderHistory.Children.Add(ucOrderHistory);
+            pnlOrderHistory.Children.Add(ucOrderHistory);
         }
-
-         
-
-       
-
-
     }
 }

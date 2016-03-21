@@ -8,9 +8,11 @@ namespace Dianzhu.BLL
    public  class PushService
     {
         DAL.DALServiceOrderPushedService dalSOP;
+        BLLServiceOrder bllServiceOrder;
         public PushService(DAL.DALServiceOrderPushedService dalSOP)
         {
             this.dalSOP = dalSOP;
+            this.bllServiceOrder = new BLLServiceOrder();
         }
         public PushService():this(new DAL.DALServiceOrderPushedService())
         {
@@ -25,9 +27,11 @@ namespace Dianzhu.BLL
         /// <param name="targetTime"></param>
         public void Push(ServiceOrder order, IList<ServiceOrderPushedService> services, string targetAddress, DateTime targetTime)
         {
+            order.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
+            bllServiceOrder.SaveOrUpdate(order);
+
             foreach (ServiceOrderPushedService service in services)
             {
-                 
                 dalSOP.Save(service);
             }
             

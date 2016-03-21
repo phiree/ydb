@@ -20,6 +20,7 @@ namespace Dianzhu.Model
         {
             OrderStatus = enum_OrderStatus.Draft;
             OrderCreated = DateTime.Now;
+            LatestOrderUpdated = DateTime.Now;
             
             Details = new List<ServiceOrderDetail>();
 

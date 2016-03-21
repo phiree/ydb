@@ -69,8 +69,15 @@ namespace Dianzhu.CSClient.Presenter
             };
             bllReceptionChat.Save(chat);
             iIM.SendMessage(chat);
-            
-            
+
+            //生成新的草稿单并发送给客户端
+            ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(IdentityManager.CurrentIdentity.Customer, IdentityManager.CurrentIdentity.CustomerService);
+            dalOrder.SaveOrUpdate(newOrder);
+            string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
+            string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
+                                                    <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>", 
+                                                    IdentityManager.CurrentIdentity.Customer.Id + "@" + server, IdentityManager.CurrentIdentity.CustomerService.Id, Guid.NewGuid() + "@" + server, newOrder.Id);
+            iIM.SendMessage(noticeDraftNew);
         }
 
         private void ViewSearchResult_SelectService(Model.DZService selectedService)

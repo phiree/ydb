@@ -113,7 +113,7 @@ namespace Dianzhu.CSClient.Presenter
                 SavedTime = DateTime.Now,
                 ServiceOrder = ClientState.CurrentServiceOrder,
                 UserObj = ClientState.customerService,
-                MessageBody = "支付链接" + bllPayment.BuildPayLink(payment.Id),
+                MessageBody = "paymentId=" + payment.Id,
                 SendTime = DateTime.Now
             };
 
