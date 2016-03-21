@@ -72,7 +72,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             bool has_ext = ext_element != null;
             if (!has_ext)
             {
-                Logging.Log.Warn("收到标准协议的消息，不存在ext节点");
+                ilog.Warn("收到标准协议的消息，不存在ext节点");
             }
             else { 
             var extNamespace = ext_element.Namespace;
@@ -197,7 +197,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     var mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
                     var mediaType = ((ReceptionChatMedia)chat).MediaType;
-                    var extMedia = new agsXMPP.Xml.Dom.Element("MsgObj");
+                    var extMedia = new agsXMPP.Xml.Dom.Element("msgObj");
                     extMedia.SetAttribute("url", mediaUrl);
                     extMedia.SetAttribute("type", mediaType);
                     extNode.AddChild(extMedia);
@@ -207,7 +207,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     var user = ((ReceptionChatUserStatus)chat).User;
                     var status = ((ReceptionChatUserStatus)chat).Status;
-                    var extStatus = new agsXMPP.Xml.Dom.Element("MsgObj");
+                    var extStatus = new agsXMPP.Xml.Dom.Element("msgObj");
                     extStatus.SetAttribute("userId", user.Id.ToString());
                     extStatus.SetAttribute("status", status.ToString());
                     extNode.AddChild(extStatus);
@@ -215,21 +215,14 @@ namespace Dianzhu.CSClient.MessageAdapter
                 case enum_ChatType.ReAssign:
                     extNode.Namespace = "ihelper:notice:cer:change";
                     var cerObj = new agsXMPP.Xml.Dom.Element("cerObj");
-                    cerObj.SetAttribute("UserID", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.Id.ToString());
+                    cerObj.SetAttribute("userID", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.Id.ToString());
                     cerObj.SetAttribute("alias", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.DisplayName);
                     cerObj.SetAttribute("imgUrl", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.AvatarUrl);
                     extNode.AddChild(cerObj);
                     msg.SetAttribute("type", "headline");
                     break;
                 case enum_ChatType.Notice:
-                    extNode.Namespace = "ihelper:notice:order";
-                    var UserObj = new agsXMPP.Xml.Dom.Element("UserObj");
-
-                    UserObj.SetAttribute("UserID", ((ReceptionChatNotice)chat).UserObj.Id.ToString());
-                    UserObj.SetAttribute("alias", ((ReceptionChatNotice)chat).UserObj.DisplayName);
-                    UserObj.SetAttribute("imgUrl", ((ReceptionChatNotice)chat).UserObj.AvatarUrl);
-                    msg.SetAttribute("type", "headline");
-                    extNode.AddChild(UserObj);
+                    ilog.Error("没有处理该消息." + msg.ToString());
                     break;
                 case enum_ChatType.PushedService:
                     extNode.Namespace = "ihelper:chat:orderobj";
