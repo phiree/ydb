@@ -99,8 +99,8 @@ namespace DianzhuService.Diandian
 
                     break;
                 case "ihelper:chat:media":
-                    msgObj_url = msg.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("url");
-                    msgObj_type = msg.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("type");
+                    msgObj_url = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("url");
+                    msgObj_type = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("type");
                     break;
                 case "ihelper:notice:cer:change":
                     customerId = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("UserID");

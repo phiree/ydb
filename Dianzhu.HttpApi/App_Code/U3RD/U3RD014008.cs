@@ -33,7 +33,7 @@ public class ResponseU3RD014008:BaseResponse
         try
         {
             string code = requestData.code;
-            string appName = requestData.appName;
+            string appName = this.request.appName;
             string pwd = string.Empty;
             string AppIDQQ = string.Empty;
 

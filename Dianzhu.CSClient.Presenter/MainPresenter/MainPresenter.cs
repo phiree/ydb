@@ -213,7 +213,9 @@ namespace Dianzhu.CSClient.Presenter
 
                     //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
                     SaveMessage(rChatReAss, true);
-                    instantMessage.SendMessage(rChatReAss);
+                    ClientState.CurrentServiceOrder = rs.Order;
+                    View_NoticeCustomerService();
+                    //instantMessage.SendMessage(rChatReAss);
 
                     //ClientState.OrderList.Add(rs.Order);
                     ClientState.customerList.Add(rs.Customer);

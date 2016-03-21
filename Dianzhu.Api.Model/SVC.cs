@@ -56,8 +56,9 @@ namespace Dianzhu.Api.Model
                 openTimesList.RemoveAt(0);
                 foreach (ServiceOpenTime sot in openTimesList)
                 {
-                    this.maxOrderString += sot.MaxOrderForDay.ToString();
+                    this.maxOrderString += sot.MaxOrderForDay.ToString()+",";
                 }
+                this.maxOrderString = this.maxOrderString.TrimEnd(',');
             }
             else
             {

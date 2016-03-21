@@ -41,17 +41,19 @@ namespace Dianzhu.DAL
                 case enum_OrderSearchType.Nt:
                     iqueryover = iqueryover.Where(
                         x => x.OrderStatus != enum_OrderStatus.Draft
-                        && x.OrderStatus != enum_OrderStatus.Finished
-                        && x.OrderStatus != enum_OrderStatus.Aborded
-                        && x.OrderStatus != enum_OrderStatus.Appraised
-                        && x.OrderStatus != enum_OrderStatus.Search
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Finished
+                         && x.OrderStatus != enum_OrderStatus.Aborded
+                         && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.Search
                     );
                     break;
                 default:
                 case enum_OrderSearchType.ALL:
                     iqueryover = iqueryover.Where(
                         x => x.OrderStatus != enum_OrderStatus.Draft
-                        && x.OrderStatus != enum_OrderStatus.Search
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Search
                         );
                     break;
 

@@ -149,7 +149,7 @@ namespace Dianzhu.DemoClient
                     break;
                 case "ihelper:chat:media": break;
                 case "ihelper:notice:cer:change":
-                    csId = msgType.SelectSingleElement("cerObj").GetAttribute("UserID");
+                    csId = msgType.SelectSingleElement("cerObj").GetAttribute("userID");
                     csDisplayName = msgType.SelectSingleElement("cerObj").GetAttribute("alias");
                     lblAssignedCS.Text = csDisplayName;
                     break;
@@ -257,8 +257,8 @@ namespace Dianzhu.DemoClient
 
                     break;
                 case "ihelper:chat:media":
-                    string mediaUrl = message.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("url");
-                    string mediaType = message.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("type");
+                    string mediaUrl = message.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("url");
+                    string mediaType = message.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("type");
                     switch (mediaType)
                     {
                         case "image":

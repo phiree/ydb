@@ -22,6 +22,7 @@ public class ResponseORM001005 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+        PushService bllPushService = new PushService();
         string raw_id = requestData.userID;
 
         try
@@ -45,7 +46,17 @@ public class ResponseORM001005 : BaseResponse
                     this.err_Msg = "没有对应的服务,请检查传入的orderID";
                     return;
                 }
-                RespDataORM_Order respData = new RespDataORM_Order().Adap(order);
+                IList<ServiceOrderPushedService> pushServiceList = bllPushService.GetPushedServicesForOrder(order);
+                RespDataORM_Order respData = new RespDataORM_Order();
+                if (pushServiceList.Count > 0)
+                {
+                    respData.Adap(order, pushServiceList[0]);
+                }
+                else
+                {
+                    respData.Adap(order, null);
+                }
+                
                 this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];
 

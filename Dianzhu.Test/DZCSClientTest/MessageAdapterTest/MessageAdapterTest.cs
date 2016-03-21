@@ -99,7 +99,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
             var orderNode = new agsXMPP.Xml.Dom.Element("orderID", orderId.ToString());
             extnode.AddChild(orderNode);
 
-            var mediaNode = new agsXMPP.Xml.Dom.Element("MsgObj");
+            var mediaNode = new agsXMPP.Xml.Dom.Element("msgObj");
             string mediaurl = "www.google.com/logo.png";
             mediaNode.SetAttribute("url", mediaurl);
             mediaNode.SetAttribute("type", "image");
@@ -116,7 +116,7 @@ namespace Dianzhu.Test.DZCSClientTest.MessageAdapterTest
                 Message msg2 = adapter.ChatToMessage(chat, server);
                 Assert.AreEqual(userid.ToString(), msg2.From.User);
                 Assert.AreEqual(csid.ToString(), msg2.To.User);
-                Assert.AreEqual(mediaurl, msg2.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("url"));
+                Assert.AreEqual(mediaurl, msg2.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("url"));
             }
         }
     }
