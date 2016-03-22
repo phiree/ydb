@@ -68,13 +68,13 @@
                             <td class="table-col-1">提前预约:</td>
                             <td class="table-col-1"><%=CurrentService.OrderDelay %>分钟</td>
                             <td class="table-col-1">服务时间:</td>
-                            <td class="table-col-1"><%=CurrentService.ServiceTimeBegin %>-<%=CurrentService.ServiceTimeEnd %></td>
+                            <td class="table-col-1">[已删除]</td>
                         </tr>
                         <tr>
                             <td class="table-col-1">每日最大接单量:</td>
                             <td class="table-col-1"><%=CurrentService.MaxOrdersPerDay %>单</td>
                             <td class="table-col-1">每小时最大接单量:</td>
-                            <td class="table-col-1"><%=CurrentService.MaxOrdersPerHour%>单</td>
+                            <td class="table-col-1">[已删除]</td>
                             <td class="table-col-1">是否上门服务:</td>
                             <td class="table-col-1"><%=CurrentService.ServiceMode==Dianzhu.Model.Enums.enum_ServiceMode.NotToHouse?"不上门":"上门" %></td>
                             <td class="table-col-1">服务对象:</td>

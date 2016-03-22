@@ -68,7 +68,7 @@
     <Compile Include="CashTicketTemplate.cs" />
     <Compile Include="DeviceBind.cs" />
     <Compile Include="DZRole.cs" />
-    <Compile Include="DZService.cs" />
+    <Compile Include="Resource\DZService.cs" />
     <Compile Include="DZTag.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Business.cs" />
@@ -95,6 +95,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ServiceOrder\UL.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resource\Agent\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
