@@ -34,7 +34,11 @@ namespace PHSuit
         [Test]
         public void crypttest()
         {
-          Console.WriteLine(  PHSuit.Security.Encrypt("123456", false));
+            string c1 = "data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test";
+          Console.WriteLine("172:"+PHSuit.Security.Encrypt(c1, false));
+            string c2 = "data source=119.29.39.211;uid=ydb;pwd=jsyk2016;database=dianzhu";
+            Console.WriteLine("119:"+PHSuit.Security.Encrypt(c2, false));
+            
         }
         [Test]
         public void TestIOSPush()
