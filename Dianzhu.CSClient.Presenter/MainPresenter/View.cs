@@ -180,7 +180,6 @@ namespace Dianzhu.CSClient.Presenter
             ClientState.CurrentServiceOrder.DepositAmount = view.OrderDepositAmount;// == "" ? 0 : Convert.ToDecimal(view.ServiceDepositAmount);
 
             ClientState.CurrentServiceOrder.Memo = view.Memo;
-            ClientState.CurrentServiceOrder.LatestOrderUpdated = DateTime.Now;
             bllOrder.SaveOrUpdate(ClientState.CurrentServiceOrder);
         }
 

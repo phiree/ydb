@@ -9,7 +9,8 @@ namespace Dianzhu.Config
     ///  服务器环境配置。
     /// </summary>
     public static partial class Config
-    {        
+    {
+        static int num = 3;
         #region 服务器定义
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172" };
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
@@ -19,11 +20,11 @@ namespace Dianzhu.Config
         #endregion
         #region   部署前，只需要手动修改此处 /
         
-        static string IMServer = IMServers[3];//即时通讯服务器地址
-        static string IMDomain = IMDomains[3];//即时通讯服务器地址
-        static string HttpApiServer = HttpApiServers[3];//即时通讯服务器地址
-        static string ApplicationServer = ApplicationServers[3];//应用服务器地址
-        static string IMNotifyServer = IMNotifyServers[3];//通知服务服务地址
+        static string IMServer = IMServers.GetValue(num).ToString();//即时通讯服务器地址
+        static string IMDomain = IMDomains.GetValue(num).ToString();//即时通讯服务器地址
+        static string HttpApiServer = HttpApiServers.GetValue(num).ToString();//即时通讯服务器地址
+        static string ApplicationServer = ApplicationServers.GetValue(num).ToString();//应用服务器地址
+        static string IMNotifyServer = IMNotifyServers.GetValue(num).ToString();//通知服务服务地址
 
         #endregion
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");

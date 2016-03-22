@@ -54,6 +54,7 @@ namespace Dianzhu.CSClient.Presenter
                 identityManager.UpdateIdentityList(chat.ServiceOrder, out type);
                 pIdentityList.ReceivedMessage(chat, type);
                 //消息本地化.
+                chat.ReceiveTime = DateTime.Now;
                 dalReceptionChat.Save(chat);
             }
         }
