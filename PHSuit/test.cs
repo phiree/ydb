@@ -69,9 +69,9 @@ namespace PHSuit
 
         }
         [Test]
-        public void TestLogger()
+        public void TestLoggerWithNewline()
         {
-            
+          
      
             
         }
@@ -103,6 +103,13 @@ namespace PHSuit
             Logging.Config("Dianzhu.PHSuit");
             log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.PHSuit");
             log.Debug("test");
+        }
+        [Test]
+        public void logwithnewline()
+        {
+            Logging.Config("testing");
+            log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.testing");
+            log.Debug("test line1"+Environment.NewLine+"test line2");
         }
     }
 }

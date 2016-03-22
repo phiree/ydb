@@ -105,6 +105,7 @@ namespace Dianzhu.CSClient.XMPP
             //接受消息,由presenter构建chat
             //message-->chat
             //1 转换为chat对象
+            log.Debug("receive_msg:"+msg.ToString());
             Model.ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
 
             if (IMReceivedMessage != null)

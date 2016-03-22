@@ -8,6 +8,8 @@ using System.Xml;
 using System.IO;
 using System.Text;
 using System;
+using System.Linq;
+
 namespace PHSuit
 {
     public static class Logging
@@ -27,10 +29,10 @@ namespace PHSuit
             rootLogger.Level = Level.Debug;
        
             // declare a RollingFileAppender with 5MB per file and max. 10 files
-            RollingFileAppender appenderNH = new RollingFileAppender();
+            RollingFileAppender appenderNH = new RollingFileAppenderRemoveNewLine();
             appenderNH.Name = "RollingLogFileAppenderNHibernate";
             appenderNH.AppendToFile = true;
-            appenderNH.MaximumFileSize = "5MB";
+            appenderNH.MaximumFileSize = "1MB";
             appenderNH.MaxSizeRollBackups = 10;
             appenderNH.RollingStyle = RollingFileAppender.RollingMode.Size;
             appenderNH.StaticLogFileName = true;
@@ -49,10 +51,10 @@ namespace PHSuit
             // declare RollingFileAppender with 5MB per file and max. 10 files
             Logger logger = hierarchy.GetLogger("Dianzhu") as Logger;
 
-            RollingFileAppender appenderMain = new RollingFileAppender();
+            RollingFileAppender appenderMain = new RollingFileAppenderRemoveNewLine();
             appenderMain.Name = "RollingLogFileAppenderMyProgram";
             appenderMain.AppendToFile = true;
-            appenderMain.MaximumFileSize = "5MB";
+            appenderMain.MaximumFileSize = "2MB";
             appenderMain.MaxSizeRollBackups = 10;
             appenderMain.RollingStyle = RollingFileAppender.RollingMode.Size;
             appenderMain.StaticLogFileName = true;
@@ -76,6 +78,34 @@ namespace PHSuit
            // log4net.Config.BasicConfigurator.Configure();
         }
     }
+    public class RollingFileAppenderRemoveNewLine : RollingFileAppender
+    {
+        protected override void Append(LoggingEvent loggingEvent)
+        {
+            var val = Convert(loggingEvent);
+            base.Append(val);
+        }
 
+        protected override void Append(LoggingEvent[] loggingEvents)
+        {
+            var vals = loggingEvents.Select(Convert).ToArray();
+            base.Append(vals);
+        }
+
+        private static LoggingEvent Convert(LoggingEvent loggingEvent)
+        {
+            var eventData = loggingEvent.GetLoggingEventData();
+            eventData.ExceptionString = Convert(eventData.ExceptionString);
+            eventData.Message = Convert(eventData.Message);
+            var val = new LoggingEvent(eventData);
+            return val;
+        }
+
+        static string Convert(object val)
+        {
+            var res = val.ToString().Replace("\r", "\\r").Replace("\n", "\\n");
+            return res;
+        }
+    }
 
 }
