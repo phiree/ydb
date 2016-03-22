@@ -146,7 +146,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             chat.SavedTime = DateTime.Now;
             if (chatType == enum_ChatType.Media)
             {
-                var mediaNode = ext_element.SelectSingleElement("MsgObj");
+                var mediaNode = ext_element.SelectSingleElement("msgObj");
                 var mediaUrl = mediaNode.GetAttribute("url");
                 var mediaType = mediaNode.GetAttribute("type");
                 ((ReceptionChatMedia)chat).MedialUrl = mediaUrl;
@@ -154,7 +154,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             }
             else if (chatType == enum_ChatType.UserStatus)
             {
-                var userStatusNode = ext_element.SelectSingleElement("MsgObj");
+                var userStatusNode = ext_element.SelectSingleElement("msgObj");
                 var userId = userStatusNode.GetAttribute("userId");
                 var status = userStatusNode.GetAttribute("status");
                 ((ReceptionChatUserStatus)chat).User = BllMember.GetUserById(new Guid(userId));
@@ -173,7 +173,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             Message msg = new Message();
 
             msg.SetAttribute("type", "chat");
-            msg.Id = chat.Id.ToString();
+            msg.Id = chat.Id != Guid.Empty ? chat.Id.ToString() : Guid.NewGuid().ToString();
             //     msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
             msg.To = new agsXMPP.Jid(chat.To.Id+"@"+server);//发送对象
             msg.Body = chat.MessageBody;

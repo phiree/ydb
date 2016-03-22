@@ -1,5 +1,5 @@
 ﻿var need_to_test = [
- //"orm002001", "orm001003", "orm001004", "orm001005","orm001007", "orm003005", "orm003006", "orm003007"
+ //"orm002001", "orm001003", "orm001004", "orm001005","orm00100","orm001007", "orm003005", "orm003006", "orm003007"
 // "orm001006","lct001007"
 //"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
 //"u3rd014008", "ad001006","clm001001"
@@ -523,9 +523,9 @@ var test_data = [
         "protocol_CODE": "U3RD014008",
         "ReqData": {
             "target": "TencentQQ",//"WeChat","SinaWeiBo","TencentQQ"
-            "code": "A4940389B88665B374852A6DB1CEB2CB",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"
-            "appName":"Ios"
+            "code": "A4940389B88665B374852A6DB1CEB2CB",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"            
         },
+        "appName":"Ios",
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"
     },
@@ -534,9 +534,9 @@ var test_data = [
         "protocol_CODE": "U3RD014008",
         "ReqData": {
             "target": "TencentQQ",//"WeChat","SinaWeiBo","TencentQQ"
-            "code": "7A21B6A1AF871BE97880E359C07005E7",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"
-            "appName": "Android"
+            "code": "7A21B6A1AF871BE97880E359C07005E7",//"001966da73410caa529196f85a8e098X","2.00Z3eLND_PlJ1Bbb2f92817bWIozsB","A4940389B88665B374852A6DB1CEB2CB"            
         },
+        "appName": "Android",
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"
     },
@@ -629,10 +629,10 @@ var test_data = [
          "ReqData": {
              "userID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
              "pWord": "123456",
-             "orderID": "f99db315-53e7-47d3-b99c-a55500ac1fb5",
+             "orderID": "fe46ec58-8459-4d4a-b85c-a59400a5bda0",
              "target": "cer",
              "pageSize": 30,
-             "targetID": "98589928-08fd-4a64-b52a-a55500ad0b45",
+             "targetID": "5a4b3510-5dab-470c-927b-4da76c63db66",
              "low": "N",
          },
          "stamp_TIMES": "1490192929212",
@@ -658,7 +658,7 @@ var test_data = [
                     "ReqData": {
                         "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
                         "pWord": "1234",
-                        "orderID": "e27ad23c-c818-4fe0-bc70-a5b001263cce",
+                        "orderID": "14b4fc8f-1f73-4771-bef8-a5a100a54beb",
                     },
                     "stamp_TIMES": "1490192929212",
                     "serial_NUMBER": "00147001015869149751"
@@ -681,7 +681,7 @@ var test_data = [
               "ReqData": {
                   "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb", //13022222222
                   "pWord": "1234",
-                  "orderID": "cfe31a94-83a3-45fc-a468-a595009e0e4a",
+                  "orderID": "05a6de65-ade2-4458-a272-a5cd00f6ac86",
                   "pageSize": "50",
                   "pageNum": "0"
               },

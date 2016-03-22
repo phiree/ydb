@@ -62,7 +62,7 @@ namespace Dianzhu.BLL
         }
         public void SaveOrUpdate(ServiceOrder order)
         {
-
+            order.LatestOrderUpdated = DateTime.Now;
             DALServiceOrder.SaveOrUpdate(order);
         }
         public IList<ServiceOrder> GetAll() //获取全部订单

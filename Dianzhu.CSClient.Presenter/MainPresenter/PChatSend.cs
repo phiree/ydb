@@ -83,10 +83,10 @@ namespace Dianzhu.CSClient.Presenter
                 SavedTime = DateTime.Now,
                 ServiceOrder = IdentityManager.CurrentIdentity
             };
-            viewChatSend.MessageText = string.Empty;
-            iIM.SendMessage(chat);
+            viewChatSend.MessageText = string.Empty;            
             viewChatList.AddOneChat(chat);
             dalReceptionChat.Save(chat);
+            iIM.SendMessage(chat);
         }
 
  

@@ -71,7 +71,6 @@
     <Compile Include="MainPresenter\State.cs" />
     <Compile Include="MainPresenter\View.cs" />
     <Compile Include="MessageLocalStorage.cs" />
-    <Compile Include="MessageReceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

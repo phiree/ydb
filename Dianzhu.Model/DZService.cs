@@ -76,22 +76,9 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual IList<ServicePropertyValue> PropertyValues { get; set; }
         /// <summary>
-        /// 服务开始时间?如果是多段
-        /// </summary>
-        public virtual string ServiceTimeBegin { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual string ServiceTimeEnd { get; set; }
-        /// <summary>
         /// 每日接单总量
         /// </summary>       
         public virtual int MaxOrdersPerDay { get; set; }
-        /// <summary>
-        /// 单位时间内(小时)最大接单量
-        /// </summary>
-        [Obsolete("该值已下放至服务项的服务时间")]
-        public virtual int MaxOrdersPerHour { get; set; }
 
 
         /// <summary>
@@ -210,8 +197,6 @@ namespace Dianzhu.Model
             newService.Description = Description;
             newService.PropertyValues = PropertyValues;
             newService.BusinessAreaCode = BusinessAreaCode;
-            newService.ServiceTimeBegin = ServiceTimeBegin;
-            newService.ServiceTimeEnd = ServiceTimeEnd;
             newService.MinPrice = MinPrice;
             newService.UnitPrice = UnitPrice;
             newService.DepositAmount = DepositAmount;

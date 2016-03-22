@@ -100,7 +100,16 @@ public class ResponseORM001008 : BaseResponse
                 //    detail.Selected = detail.OriginalService == service;
                 //}
                 bllServiceOrder.SaveOrUpdate(order);
-                RespDataORM_orderObj orderObj = new RespDataORM_orderObj().Adap(order);
+                IList<ServiceOrderPushedService> pushServiceList = bllPushService.GetPushedServicesForOrder(order);
+                RespDataORM_orderObj orderObj = new RespDataORM_orderObj();
+                if (pushServiceList.Count > 0)
+                {
+                    orderObj.Adap(order, pushServiceList[0]);
+                }
+                else
+                {
+                    orderObj.Adap(order, null);
+                }                
 
                 RespDataORM001008 respData = new RespDataORM001008();
                 respData.orderObj = orderObj;

@@ -107,10 +107,8 @@ namespace Dianzhu.DAL
         }
 
         public virtual IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
-             int pageSize, Guid targetId, string low, enum_ChatTarget target)
+             int pageSize, ReceptionChat targetChat, string low, enum_ChatTarget target)
         {
-            ReceptionChat reChat = Session.QueryOver<ReceptionChat>().Where(x => x.Id == targetId).SingleOrDefault();
-
             var result = Session.QueryOver<ReceptionChat>();
             switch (target)
             {
@@ -123,11 +121,11 @@ namespace Dianzhu.DAL
             }
             if (low == "Y")
             {
-                result = result.Where(x => x.SavedTime < reChat.SavedTime).OrderBy(x => x.SavedTime).Desc;
+                result = result.Where(x => x.SavedTime < targetChat.SavedTime).OrderBy(x => x.SavedTime).Desc;
             }
             else
             {
-                result = result.Where(x => x.SavedTime > reChat.SavedTime).OrderBy(x => x.SavedTime).Desc;
+                result = result.Where(x => x.SavedTime > targetChat.SavedTime).OrderBy(x => x.SavedTime).Desc;
             }
             if (to != null)
             {

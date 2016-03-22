@@ -52,7 +52,7 @@ public class ResponseSTORE001005 : BaseResponse
                 RespDataSTORE_storeObj storeObj = new RespDataSTORE_storeObj().Adapt(b);
 
                 RespDataSTORE001005 respData = new RespDataSTORE001005();
-                respData.StoreObj = storeObj;
+                respData.storeObj = storeObj;
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;
             }

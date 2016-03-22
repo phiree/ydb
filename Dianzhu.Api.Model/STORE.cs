@@ -21,7 +21,7 @@ namespace Dianzhu.Api.Model
         public string showImgUrls { get; set; }
         //todo:下面四个属性没有
         public string identity { get; set; }
-        public string URL { get; set; }
+        public string url { get; set; }
         public string vintage { get; set; }
         public string headCount { get; set; }
         public RespDataSTORE_storeObj Adapt(Business business)
@@ -93,7 +93,7 @@ namespace Dianzhu.Api.Model
 
     public class RespDataSTORE001001
     {
-        public RespDataSTORE_storeObj StoreObj { get; set; }
+        public RespDataSTORE_storeObj storeObj { get; set; }
     }
 
     #endregion
@@ -115,7 +115,7 @@ namespace Dianzhu.Api.Model
     {
         public string merchantID { get; set; }
         public string pWord { get; set; }
-        public RespDataSTORE_storeObj StoreObj { get; set; }
+        public RespDataSTORE_storeObj storeObj { get; set; }
     }
 
     public class RespDataSTORE001003
@@ -163,7 +163,7 @@ namespace Dianzhu.Api.Model
 
     public class RespDataSTORE001005
     {
-        public RespDataSTORE_storeObj StoreObj { get; set; }
+        public RespDataSTORE_storeObj storeObj { get; set; }
     }
 
     #endregion
