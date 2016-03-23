@@ -57,9 +57,12 @@
     <Compile Include="Advertisement.cs" />
     <Compile Include="IMUserStatus.cs" />
     <Compile Include="City.cs" />
+    <Compile Include="Resource\ServiceOpenTimeForDay.cs" />
+    <Compile Include="ServiceOrder\ServiceOpenTimeForDaySnapShotForOrder.cs" />
     <Compile Include="ServiceOrder\ServiceOrderDetail.cs" />
     <Compile Include="ServiceOrder\ServiceOrderFactory.cs" />
     <Compile Include="ServiceOrder\ServiceOrderPushedService.cs" />
+    <Compile Include="ServiceOrder\ServiceSnapShotForOrder.cs" />
     <Compile Include="StaffServiceType.cs" />
     <Compile Include="OrderAssignment.cs" />
     <Compile Include="PaymentLog.cs" />
@@ -68,7 +71,7 @@
     <Compile Include="CashTicketTemplate.cs" />
     <Compile Include="DeviceBind.cs" />
     <Compile Include="DZRole.cs" />
-    <Compile Include="DZService.cs" />
+    <Compile Include="Resource\DZService.cs" />
     <Compile Include="DZTag.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Business.cs" />
@@ -80,7 +83,7 @@
     <Compile Include="CashTicketAssignRecord.cs" />
     <Compile Include="Reception.cs" />
     <Compile Include="ReceptionStatus.cs" />
-    <Compile Include="ServiceOpenTime.cs" />
+    <Compile Include="Resource\ServiceOpenTime.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="ServiceOrderStateChangeHis.cs" />
     <Compile Include="ServiceProperty.cs" />
@@ -95,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ServiceOrder\UL.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resource\Agent\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -67,7 +67,8 @@ namespace Dianzhu.CSClient.XMPP
 
         private void XmppClientConnection_OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
         {
-            if(IMStreamError != null)
+            log.Debug("Receive  StreamError:" + e.ToString());
+            if (IMStreamError != null)
             {
                 IMStreamError();
             }            
@@ -87,16 +88,19 @@ namespace Dianzhu.CSClient.XMPP
         }
         void XmppClientConnection_OnSocketError(object sender, Exception ex)
         {
+            log.Debug("Receive  SocketError:" + ex.Message);
             if (IMConnectionError == null) return;
             IMConnectionError(ex.Message);
         }
         void XmppClientConnection_OnError(object sender, Exception ex)
         {
+            log.Debug("Receive  Error:" + ex.Message);
             if (IMError == null) return;
             IMError(ex.Message);
         }
         void XmppClientConnection_OnAuthError(object sender, agsXMPP.Xml.Dom.Element e)
         {
+            log.Debug("Receive AuthError:" + e.ToString());
             if (IMAuthError == null) return;
             IMAuthError();
         }
@@ -105,6 +109,7 @@ namespace Dianzhu.CSClient.XMPP
             //接受消息,由presenter构建chat
             //message-->chat
             //1 转换为chat对象
+            log.Debug("receive_msg:"+msg.ToString());
             Model.ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
 
             if (IMReceivedMessage != null)
@@ -114,8 +119,11 @@ namespace Dianzhu.CSClient.XMPP
         }
         void Connection_OnPresence(object sender, Presence pres)
         {
+            log.Debug("Receive Presence:" + pres);
+            
             if (IMPresent != null)
             {
+                
                 IMPresent(pres.From.User, (int)pres.Type);
             }
         }
@@ -150,7 +158,7 @@ namespace Dianzhu.CSClient.XMPP
             //判断用户对应的tokoen
             //chat-->message
             Message msg = messageAdapter.ChatToMessage(chat, domain);
-            log.Debug("receive___" + msg.ToString());
+            log.Debug("send chat message" + msg.ToString());
             XmppClientConnection.Send(msg);
 
         }
@@ -158,7 +166,7 @@ namespace Dianzhu.CSClient.XMPP
         
         public void SendMessage(string xml)
         {
-            log.Debug("send___" + xml);
+            log.Debug("send xml message" + xml);
             XmppClientConnection.Send(xml);
         }
         public void Close()
@@ -171,6 +179,7 @@ namespace Dianzhu.CSClient.XMPP
         }
         public void XmppClientConnection_OnClose(object sender)
         {
+            log.Debug("Connection closed");
             if (IMClosed == null) return;
             IMClosed();
         }

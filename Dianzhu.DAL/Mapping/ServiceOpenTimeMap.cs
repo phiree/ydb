@@ -26,8 +26,8 @@ namespace Dianzhu.DAL.Mapping
         public ServiceOpenTimeForDayMap()
         {
             Id(x => x.Id);
-            Map(x => x.PeriodStart);
-            Map(x => x.PeriodEnd);
+            
+           
             Map(x => x.TimeEnd);
             Map(x => x.TimeStart);
             Map(x => x.MaxOrderForOpenTime);

@@ -141,7 +141,7 @@ namespace Dianzhu.Api.Model
             if (orderDetail != null)
             {
                 this.svcID = orderDetail.OriginalService != null ? orderDetail.OriginalService.Id.ToString() : "";
-                this.name = orderDetail.ServiceName ?? string.Empty;
+                this.name = orderDetail.ServieSnapShot.ServiceName ?? string.Empty;
                 this.type = orderDetail.OriginalService != null ? orderDetail.OriginalService.ServiceType.ToString() : "";
                 if (orderDetail.TargetTime > DateTime.MinValue)
                 {
@@ -152,7 +152,7 @@ namespace Dianzhu.Api.Model
                     this.startTime = string.Empty;
                 }
                 this.endTime = string.Empty;
-                this.deposit = orderDetail.DepositAmount.ToString("0.00");
+                this.deposit = orderDetail.ServieSnapShot.DepositAmount.ToString("0.00");
             }
             else if(orderDetail == null && pushService != null)
             {

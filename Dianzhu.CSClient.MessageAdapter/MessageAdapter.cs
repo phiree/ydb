@@ -248,7 +248,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     extNode.AddChild(storeObj);
                     break;
             }
-            ilog.Debug("send___" + msg.ToString());
+           
             return msg;
 
 
