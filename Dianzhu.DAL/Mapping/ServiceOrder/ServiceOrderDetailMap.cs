@@ -13,18 +13,27 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             References<DZService>(x => x.OriginalService);
             //screenshot of the service
-            Map(x => x.ServiceName);
-            Map(x => x.Description);
-            Map(x => x.IsCompensationAdvance);
-            Map(x => x.MinPrice);
-            Map(x => x.UnitPrice);
-            Map(x => x.ChargeUnit);
-
-            Map(x => x.DepositAmount);
-            Map(x => x.CancelCompensation);
-            Map(x => x.OverTimeForCancel);
-            Map(x => x.ServiceMode);
-
+            Component<ServiceSnapShotForOrder>(x => x.ServieSnapShot,m=> {
+               m. Map(x => x.ChargeUnit);
+                m.Map(x => x.DepositAmount);
+                m.Map(x => x.CancelCompensation);
+                m.Map(x => x.Description);
+                m.Map(x => x.IsCompensationAdvance);
+                m.Map(x => x.MinPrice);
+                m.Map(x => x.OverTimeForCancel);
+                m.Map(x => x.ServiceMode);
+                m.Map(x => x.ServiceName);
+                m.Map(x => x.UnitPrice);
+            });
+            Component<ServiceOpenTimeForDaySnapShotForOrder>(x => x.OpenTimeSnapShot
+            ,m=>
+            {
+               m. Map(x => x.Date);
+                m.Map(x => x.MaxOrder);
+                m.Map(x => x.PeriodBegin);
+                m.Map(x => x.PeriodEnd);
+            }
+            );
 
             #region 服务项需求
 
