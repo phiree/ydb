@@ -21,7 +21,10 @@ namespace Dianzhu.DemoClient
         string csId;
         string csDisplayName;
         string customerId;
-        string orderID;
+        string orderID {
+            get { return tbxOrderId.Text; }
+            set { tbxOrderId.Text = value; }
+        }
         public FmMain()
         {
 
@@ -91,7 +94,7 @@ namespace Dianzhu.DemoClient
                     ""serial_NUMBER"": ""00147001015869149751"" 
                 }}", customerId,
                 password,
-                tbxOrderId.Text,
+                orderID,
                 (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(),
                 tbxManualAssignedCS.Text
                 );
@@ -110,7 +113,7 @@ namespace Dianzhu.DemoClient
 
             csId = result["RespData"]["cerObj"]["userID"].ToString();// result["RespData"]["cerObj"]["userID"].ToString();
             //customerId = result["RespData"]["cerObj"]["userID"].ToString();
-            tbxOrderId.Text = orderID = result["RespData"]["orderID"].ToString();
+           orderID = result["RespData"]["orderID"].ToString();
         }
         public void GetCustomerService(string username, string password)
         {
@@ -138,17 +141,20 @@ namespace Dianzhu.DemoClient
             Debug.Assert(ext != null, "xmpp标准协议的消息，没有ext节点" + msg);
             if (ext == null)
             { return; }
-            string msgType = msg.SelectSingleElement("ext").Namespace;
-            switch (msgType.ToLower())
+            agsXMPP.Xml.Dom.Element msgType = msg.SelectSingleElement("ext");
+            switch (msgType.Namespace.ToLower())
             {
                 case "ihelper:chat:text":
 
                     break;
                 case "ihelper:chat:media": break;
                 case "ihelper:notice:cer:change":
-                    csId = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("UserID");
-                    csDisplayName = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
+                    csId = msgType.SelectSingleElement("cerObj").GetAttribute("userID");
+                    csDisplayName = msgType.SelectSingleElement("cerObj").GetAttribute("alias");
                     lblAssignedCS.Text = csDisplayName;
+                    break;
+                case "ihelper:notice:draft:new":
+                    orderID = msgType.SelectSingleElement("orderID").Value;
                     break;
             }
             AddLog(msg);
@@ -208,6 +214,7 @@ namespace Dianzhu.DemoClient
         /// <param name="message"></param>
         void AddLog(agsc.Message message)
         {
+            tbxLog.AppendText(DateTime.Now.ToString()+":"+message.ToString() + Environment.NewLine);
             //if (csDisplayName == null)
             //{
             //    GetCustomerService();
@@ -250,8 +257,8 @@ namespace Dianzhu.DemoClient
 
                     break;
                 case "ihelper:chat:media":
-                    string mediaUrl = message.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("url");
-                    string mediaType = message.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("type");
+                    string mediaUrl = message.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("url");
+                    string mediaType = message.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("type");
                     switch (mediaType)
                     {
                         case "image":
@@ -281,6 +288,16 @@ namespace Dianzhu.DemoClient
                     break;
                 case "ihelper:notice:system":
                     lblMessage.Text += "通知:" + message.Body;
+                    break;
+                case "ihelper:chat:orderobj":
+
+                    break;
+                case "ihelper:notice:draft:new":
+                    lblMessage.Text += "通知:新的草稿单" +orderID;
+                    break;
+
+                default:
+                    MessageBox.Show("未知的聊天类型");
                     break;
             }
 

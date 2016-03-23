@@ -5,58 +5,6 @@ using System.Text;
 
 namespace Dianzhu.Model
 {
-    /// <summary>
-    /// 服务每天参数设定
-    /// </summary>
-    public class ServiceOpenTime
-    {
-        public ServiceOpenTime()
-        {
-            OpenTimeForDay = new List<ServiceOpenTimeForDay>();
-            Enabled = true;
-        }
-        public virtual Guid Id { get; set; }
-        /// <summary>
-        /// 该日最大接大量
-        /// </summary>
-        public virtual int MaxOrderForDay { get; set; }
-        /// <summary>
-        /// 1:星期一,2:星期二.........
-        /// </summary>
-        public virtual DayOfWeek DayOfWeek { get; set; }
-        /// <summary>
-        /// 是否启用
-        /// </summary>
-        public virtual bool Enabled { get; set; }
-        public virtual IList<ServiceOpenTimeForDay> OpenTimeForDay { get; set; }
-        /// <summary>
-        /// 增加服务时间段. 判断增加的时间段是否重合.
-        /// </summary>
-        /// <param name="period"></param>
-        public virtual void AddServicePeriod(ServiceOpenTimeForDay period)
-        {
-            bool isConflict = false;
-            foreach (ServiceOpenTimeForDay d in this.OpenTimeForDay)
-            {
-                if (!( period.PeriodStart > d.PeriodEnd || period.PeriodEnd < d.PeriodStart))
-                {
-                    isConflict = true;
-                }
-            }
-            if (isConflict)
-            {
-                throw new Exception("服务时间段不能重合.ID:" + this.Id + ";重合时间：" + period.TimeStart + "-" + period.TimeEnd);
-            }
-            else
-            {
-                this.OpenTimeForDay.Add(period);
-            }
-        }
-        
-    }
-    /// <summary>
-    /// 每天的时间段
-    /// </summary>
     public class ServiceOpenTimeForDay
     {
         public virtual Guid Id { get; set; }
@@ -71,9 +19,11 @@ namespace Dianzhu.Model
         int periodStart, periodEnd;
         public virtual string TimeStart
         {
-            get {
-              //  periodStart = TimeStringToPeriod(timeStart); 
-                return timeStart; }
+            get
+            {
+                //  periodStart = TimeStringToPeriod(timeStart); 
+                return timeStart;
+            }
             set
             {
                 timeStart = value;
@@ -87,9 +37,11 @@ namespace Dianzhu.Model
         }
         public virtual string TimeEnd
         {
-            get { 
-               // periodEnd = TimeStringToPeriod(timeEnd); 
-                return timeEnd; }
+            get
+            {
+                // periodEnd = TimeStringToPeriod(timeEnd); 
+                return timeEnd;
+            }
             set
             {
                 timeEnd = value;
@@ -104,7 +56,7 @@ namespace Dianzhu.Model
         /// 
         /// </summary>
         public virtual int PeriodStart { get { return periodStart; } set { periodStart = value; } }
-        public virtual int PeriodEnd { get { return periodEnd; } set { periodEnd=value;} }
+        public virtual int PeriodEnd { get { return periodEnd; } set { periodEnd = value; } }
 
         /// <summary>
         /// 文本格式的时间,转换成分钟,用于计算两个时间之间的间隔分数.
@@ -138,5 +90,4 @@ namespace Dianzhu.Model
             newSotForDay.TimeEnd = TimeEnd;
         }
     }
-
 }

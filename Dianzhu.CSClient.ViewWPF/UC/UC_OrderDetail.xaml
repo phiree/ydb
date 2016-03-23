@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d" d:DesignWidth="300" Height="222.552">
     <Grid>
         <StackPanel x:Name="pnlDetail">
             <WrapPanel Height="30">
@@ -23,25 +22,22 @@
             <WrapPanel Height="30">
                 <Label x:Name="label3" Content="价格"/>
                 <Label x:Name="lblPrice" Content=""/>
-               
+
             </WrapPanel>
             <WrapPanel Height="30" Width="300">
                 <Label x:Name="label4" Content="定金"/>
                 <Label x:Name="lblDeposit" Content=""/>
             </WrapPanel>
-           
+
             <WrapPanel Height="30">
                 <Label x:Name="label6" Content="服务时间"/>
-                <TextBox x:Name="tbxTargetTime" Height="23" TextWrapping="Wrap" Text="" Width="120"/>
+                <TextBox x:Name="tbxTargetTime" Height="22" TextWrapping="Wrap" Text="" Width="226"/>
             </WrapPanel>
             <WrapPanel Height="30">
                 <Label x:Name="label7" Content="服务地点"/>
-                <TextBox x:Name="tbxTargetAddress" Height="23" TextWrapping="Wrap" Text="" Width="120"/>
+                <TextBox x:Name="tbxTargetAddress" Height="22" TextWrapping="Wrap" Text="" Width="229"/>
             </WrapPanel>
-            <WrapPanel Height="30">
-                <Label x:Name="label8" Content="数量"/>
-                <TextBox x:Name="tbxUnitAmount" Height="23" TextWrapping="Wrap" Text="" Width="120"/>
-            </WrapPanel>
+
 
         </StackPanel>
 

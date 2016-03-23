@@ -13,11 +13,11 @@ namespace Dianzhu.Api.Model
     public class RespDataORM_Order
     {
         public RespDataORM_orderObj orderObj { get; set; }
-        public RespDataORM_Order Adap(ServiceOrder order)
+        public RespDataORM_Order Adap(ServiceOrder order, ServiceOrderPushedService pushService)
         {
             if (order != null)
             {
-                this.orderObj = new RespDataORM_orderObj().Adap(order);
+                this.orderObj = new RespDataORM_orderObj().Adap(order, pushService);
             }
             return this;
         }
@@ -39,7 +39,7 @@ namespace Dianzhu.Api.Model
         public RespDataORM_UserObj userObj { get; set; }
         public RespDataORM_storeObj storeObj { get; set; }
 
-        public RespDataORM_orderObj Adap(ServiceOrder order)
+        public RespDataORM_orderObj Adap(ServiceOrder order, ServiceOrderPushedService pushSevice)
         {
             this.orderID = order.Id.ToString();
             //todo: serviceorder change
@@ -66,19 +66,30 @@ namespace Dianzhu.Api.Model
             this.address = order.TargetAddress ?? string.Empty;
             this.km = string.Empty;
 
-            if (order != null)
+            if (order.Details.Count > 0)
             {
-                //this.svcObj = new RespDataORM_svcObj().Adap(order);
+                this.svcObj = new RespDataORM_svcObj().Adap(order.Details[0], null);
+                this.storeObj = new RespDataORM_storeObj().Adap(order.Details[0].OriginalService.Business);
+            }
+            else if (order.Details.Count == 0 && pushSevice != null)
+            {
+                this.svcObj = new RespDataORM_svcObj().Adap(null, pushSevice);
+                this.storeObj = new RespDataORM_storeObj().Adap(pushSevice.OriginalService.Business);
+            }
+            else
+            {
+                this.svcObj = null;
+                this.storeObj = null;
             }
             if (order.Customer != null)
             {
                 this.userObj = new RespDataORM_UserObj().Adap(order.Customer);
             }
             //todo,这里只能获取系统内订单
-            if (order.Service != null)
-            {
-                this.storeObj = new RespDataORM_storeObj().Adap(order.Service.Business);
-            }
+            //if (order.Service != null)
+            //{
+            //    this.storeObj = new RespDataORM_storeObj().Adap(order.Service.Business);
+            //}
 
             //todo:出货记录还没有加
             //this.deliverySum
@@ -125,21 +136,44 @@ namespace Dianzhu.Api.Model
         public string startTime { get; set; }
         public string endTime { get; set; }
         public string deposit { get; set; }
-        public RespDataORM_svcObj Adap(ServiceOrderDetail detail)
+        public RespDataORM_svcObj Adap(ServiceOrderDetail orderDetail,ServiceOrderPushedService pushService)
         {
-            this.svcID = detail.OriginalService != null ? detail.OriginalService.Id.ToString() : "";
-            this.name = detail.ServiceName ?? string.Empty;
-            this.type = detail.OriginalService != null ? detail.OriginalService.ServiceType.ToString() : "";
-            if (detail.TargetTime > DateTime.MinValue)
+            if (orderDetail != null)
             {
-                this.startTime = string.Format("{0:yyyyMMddHHmmss}", detail.TargetTime);
+                this.svcID = orderDetail.OriginalService != null ? orderDetail.OriginalService.Id.ToString() : "";
+                this.name = orderDetail.ServiceName ?? string.Empty;
+                this.type = orderDetail.OriginalService != null ? orderDetail.OriginalService.ServiceType.ToString() : "";
+                if (orderDetail.TargetTime > DateTime.MinValue)
+                {
+                    this.startTime = string.Format("{0:yyyyMMddHHmmss}", orderDetail.TargetTime);
+                }
+                else
+                {
+                    this.startTime = string.Empty;
+                }
+                this.endTime = string.Empty;
+                this.deposit = orderDetail.DepositAmount.ToString("0.00");
+            }
+            else if(orderDetail == null && pushService != null)
+            {
+                this.svcID = pushService.OriginalService != null ? pushService.OriginalService.Id.ToString() : "";
+                this.name = pushService.ServiceName ?? string.Empty;
+                this.type = pushService.OriginalService != null ? pushService.OriginalService.ServiceType.ToString() : "";
+                if (pushService.TargetTime > DateTime.MinValue)
+                {
+                    this.startTime = string.Format("{0:yyyyMMddHHmmss}", pushService.TargetTime);
+                }
+                else
+                {
+                    this.startTime = string.Empty;
+                }
+                this.endTime = string.Empty;
+                this.deposit = pushService.DepositAmount.ToString("0.00");
             }
             else
             {
-                this.startTime = string.Empty;
+                return null;
             }
-            this.endTime = string.Empty;
-            this.deposit = detail.DepositAmount.ToString("0.00");
 
             return this;
         }
@@ -204,11 +238,11 @@ namespace Dianzhu.Api.Model
             arrayData = new List<RespDataORM_orderObj>();
         }
 
-        public void AdapList(IList<ServiceOrder> serviceOrderList)
+        public void AdapList(Dictionary<ServiceOrder,ServiceOrderPushedService> serviceOrderList)
         {
-            foreach (ServiceOrder order in serviceOrderList)
+            foreach (KeyValuePair<ServiceOrder,ServiceOrderPushedService> item in serviceOrderList)
             {
-                RespDataORM_orderObj adapted_order = new RespDataORM_orderObj().Adap(order);
+                RespDataORM_orderObj adapted_order = new RespDataORM_orderObj().Adap(item.Key,item.Value);
                 arrayData.Add(adapted_order);
             }
         }
@@ -228,14 +262,14 @@ namespace Dianzhu.Api.Model
 
     public class RespDataORM001007
     {
-        public IList<RespDataORM_svcObj> arrayData { get; set; }
-        public RespDataORM001007 AdaptList(IList<ServiceOrderDetail> detailList)
+        public IList<RespDataSVC_svcObj> arrayData { get; set; }
+        public RespDataORM001007 AdaptList(Dictionary<DZService,IList<DZTag>> dic)
         {
-            this.arrayData = new List<RespDataORM_svcObj>();
-            RespDataORM_svcObj svcObj = new RespDataORM_svcObj();
-            foreach (ServiceOrderDetail detail in detailList)
+            this.arrayData = new List<RespDataSVC_svcObj>();
+            RespDataSVC_svcObj svcObj = new RespDataSVC_svcObj();
+            foreach (KeyValuePair<DZService,IList<DZTag>> item in dic)
             {
-                svcObj = new RespDataORM_svcObj().Adap(detail);
+                svcObj = new RespDataSVC_svcObj().Adapt(item.Key, item.Value);
                 this.arrayData.Add(svcObj);
             }
             return this;

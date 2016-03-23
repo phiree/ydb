@@ -56,8 +56,9 @@ namespace Dianzhu.Api.Model
                 openTimesList.RemoveAt(0);
                 foreach (ServiceOpenTime sot in openTimesList)
                 {
-                    this.maxOrderString += sot.MaxOrderForDay.ToString();
+                    this.maxOrderString += sot.MaxOrderForDay.ToString()+",";
                 }
+                this.maxOrderString = this.maxOrderString.TrimEnd(',');
             }
             else
             {
@@ -151,8 +152,6 @@ namespace Dianzhu.Api.Model
 
     public class ReqDataSVC001005
     {
-        public string merchantID { get; set; }
-        public string pWord { get; set; }
         public string svcID { get; set; }
     }
 

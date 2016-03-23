@@ -12,34 +12,37 @@ using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
 namespace Dianzhu.CSClient.Presenter
 {
-     /// <summary>
-     /// 聊天列表控制
-     /// 1)监听im消息
-     /// 2)消息展示
-     /// 3)监听 icustomer的点击事件.
-     /// </summary>
-    public  class PChatList
+    /// <summary>
+    /// 聊天列表控制
+    /// 1)监听im消息
+    /// 2)消息展示
+    /// 3)监听 icustomer的点击事件.
+    /// </summary>
+    public class PChatList
     {
         DALReception dalReception;
-        IView.IViewChatList viewChatList;
-        IView.IViewIdentityList viewIdentityList;
+        IViewChatList viewChatList;
+        IViewIdentityList viewIdentityList;
         InstantMessage iIM;
         public PChatList() { }
-        public  PChatList(IView.IViewChatList viewChatList,IView.IViewIdentityList viewCustomerList,DALReception dalReception,InstantMessage iIM)
+        public PChatList(IView.IViewChatList viewChatList, IViewIdentityList viewCustomerList, InstantMessage iIM)
+            : this(viewChatList, viewCustomerList, new DALReception(), iIM)
+        {
+
+        }
+        public PChatList(IViewChatList viewChatList, IViewIdentityList viewCustomerList, DALReception dalReception, InstantMessage iIM)
         {
             this.viewChatList = viewChatList;
             this.dalReception = dalReception;
             //     viewCustomerList.IdentityClick += ViewCustomerList_CustomerClick;
             this.iIM = iIM;
-         //   this.iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+            //   this.iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             this.viewIdentityList = viewCustomerList;
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
             viewChatList.AudioPlay += ViewChatList_AudioPlay;
-           
-        }
 
-         
+        }
 
         PHSuit.Media media = new PHSuit.Media();
         private void ViewChatList_AudioPlay(object audioTag, IntPtr handle)
@@ -48,11 +51,8 @@ namespace Dianzhu.CSClient.Presenter
             string fileName = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
 
             string fileLocalPath = GlobalViables.LocalMediaSaveDir + fileName;
-       
 
             media.Play(mediaUrl, handle);
-            
-
         }
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
@@ -67,13 +67,6 @@ namespace Dianzhu.CSClient.Presenter
             viewChatList.ChatList = chatHistory;
         }
 
-         
- 
-        public PChatList(IView.IViewChatList viewChatList, IView.IViewIdentityList viewCustomerList,InstantMessage iIM)
-            :this(viewChatList,viewCustomerList,new DALReception(),iIM)
-        {
-           
-        }
         private void ViewCustomerList_CustomerClick(DZMembership customer)
         {
 
@@ -89,7 +82,7 @@ namespace Dianzhu.CSClient.Presenter
         public void SendMessage(ReceptionChat chat)
         {
 
-            
+
 
         }
     }

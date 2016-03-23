@@ -72,7 +72,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             bool has_ext = ext_element != null;
             if (!has_ext)
             {
-                Logging.Log.Warn("收到标准协议的消息，不存在ext节点");
+                ilog.Warn("收到标准协议的消息，不存在ext节点");
             }
             else { 
             var extNamespace = ext_element.Namespace;
@@ -146,7 +146,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             chat.SavedTime = DateTime.Now;
             if (chatType == enum_ChatType.Media)
             {
-                var mediaNode = ext_element.SelectSingleElement("MsgObj");
+                var mediaNode = ext_element.SelectSingleElement("msgObj");
                 var mediaUrl = mediaNode.GetAttribute("url");
                 var mediaType = mediaNode.GetAttribute("type");
                 ((ReceptionChatMedia)chat).MedialUrl = mediaUrl;
@@ -154,7 +154,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             }
             else if (chatType == enum_ChatType.UserStatus)
             {
-                var userStatusNode = ext_element.SelectSingleElement("MsgObj");
+                var userStatusNode = ext_element.SelectSingleElement("msgObj");
                 var userId = userStatusNode.GetAttribute("userId");
                 var status = userStatusNode.GetAttribute("status");
                 ((ReceptionChatUserStatus)chat).User = BllMember.GetUserById(new Guid(userId));
@@ -173,7 +173,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             Message msg = new Message();
 
             msg.SetAttribute("type", "chat");
-            msg.Id = chat.Id.ToString();
+            msg.Id = chat.Id != Guid.Empty ? chat.Id.ToString() : Guid.NewGuid().ToString();
             //     msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
             msg.To = new agsXMPP.Jid(chat.To.Id+"@"+server);//发送对象
             msg.Body = chat.MessageBody;
@@ -197,7 +197,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     var mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
                     var mediaType = ((ReceptionChatMedia)chat).MediaType;
-                    var extMedia = new agsXMPP.Xml.Dom.Element("MsgObj");
+                    var extMedia = new agsXMPP.Xml.Dom.Element("msgObj");
                     extMedia.SetAttribute("url", mediaUrl);
                     extMedia.SetAttribute("type", mediaType);
                     extNode.AddChild(extMedia);
@@ -207,7 +207,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     var user = ((ReceptionChatUserStatus)chat).User;
                     var status = ((ReceptionChatUserStatus)chat).Status;
-                    var extStatus = new agsXMPP.Xml.Dom.Element("MsgObj");
+                    var extStatus = new agsXMPP.Xml.Dom.Element("msgObj");
                     extStatus.SetAttribute("userId", user.Id.ToString());
                     extStatus.SetAttribute("status", status.ToString());
                     extNode.AddChild(extStatus);
@@ -215,24 +215,40 @@ namespace Dianzhu.CSClient.MessageAdapter
                 case enum_ChatType.ReAssign:
                     extNode.Namespace = "ihelper:notice:cer:change";
                     var cerObj = new agsXMPP.Xml.Dom.Element("cerObj");
-                    cerObj.SetAttribute("UserID", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.Id.ToString());
+                    cerObj.SetAttribute("userID", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.Id.ToString());
                     cerObj.SetAttribute("alias", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.DisplayName);
                     cerObj.SetAttribute("imgUrl", ((ReceptionChatReAssign)chat).ReAssignedCustomerService.AvatarUrl);
                     extNode.AddChild(cerObj);
                     msg.SetAttribute("type", "headline");
                     break;
                 case enum_ChatType.Notice:
-                    extNode.Namespace = "ihelper:notice:order";
-                    var UserObj = new agsXMPP.Xml.Dom.Element("UserObj");
+                    ilog.Error("没有处理该消息." + msg.ToString());
+                    break;
+                case enum_ChatType.PushedService:
+                    extNode.Namespace = "ihelper:chat:orderobj";
+                    var svcObj = new agsXMPP.Xml.Dom.Element("svcObj");
+                    ReceptionChatPushService chatPushService = (ReceptionChatPushService)chat;
+                    ServiceOrderPushedService service = chatPushService.PushedServices[0];
+                    svcObj.SetAttribute("svcID", service.OriginalService.Id.ToString());
+                    svcObj.SetAttribute("name", service.OriginalService.Name);
+                    svcObj.SetAttribute("type", service.OriginalService.ServiceType.ToString());
+                    svcObj.SetAttribute("startTime", service.TargetTime.ToString("yyyyMMDDHHmmss"));
+                    extNode.AddChild(svcObj);
 
-                    UserObj.SetAttribute("UserID", ((ReceptionChatNotice)chat).UserObj.Id.ToString());
-                    UserObj.SetAttribute("alias", ((ReceptionChatNotice)chat).UserObj.DisplayName);
-                    UserObj.SetAttribute("imgUrl", ((ReceptionChatNotice)chat).UserObj.AvatarUrl);
-                    msg.SetAttribute("type", "headline");
-                    extNode.AddChild(UserObj);
+                    /* "storeObj": {
+                     "userID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                     "alias": "望海国际",
+                     "imgUrl": "http://i-guess.cn/ihelp/userimg/issumao_MD.png"
+                 }*/
+                    var storeObj = new agsXMPP.Xml.Dom.Element("storeObj");
+
+                    storeObj.SetAttribute("userID", service.OriginalService.Business.Owner.Id.ToString());
+                    storeObj.SetAttribute("alias", service.OriginalService.Business.Name);
+                    storeObj.SetAttribute("imgUrl", service.OriginalService.Business.BusinessAvatar.ImageName);
+                    extNode.AddChild(storeObj);
                     break;
             }
-            ilog.Debug("send___" + msg.ToString());
+           
             return msg;
 
 

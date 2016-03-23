@@ -44,30 +44,62 @@ namespace Dianzhu.CSClient.ViewWPF
                 //}Hashtable ht = (Hashtable)list[i];
                 foreach (DZService service in searchedService)
                 {
+                    if (pnlSearchResult.FindName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()))!=null)
+                    {
+                        pnlSearchResult.UnregisterName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()));
+                    }                    
                     LoadServiceToPanel(service);
                 }
             }
         }
+
+        public string TargetAddress
+        {
+            get
+            {
+                return tbxTargetAddress.Text;
+            }
+
+            set
+            {
+                tbxTargetAddress.Text = value;
+            }
+        }
+
+        public DateTime TargetTime
+        {
+            get
+            {
+                return Convert.ToDateTime(tbxTargetTime.Text);
+            }
+
+            set
+            {
+                tbxTargetTime.Text = value.ToString();
+            }
+        }
+
         private void LoadServiceToPanel(DZService service)
         {
             WrapPanel pnl = new WrapPanel();
+            
             pnl.Name =  PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString());
             
             pnl.FlowDirection = FlowDirection.LeftToRight;
+
+            CheckBox cbx = new CheckBox();
+            cbx.Tag = service;
+            pnl.Children.Add(cbx);
+
             Label lblBusinessName = new Label();
-            
+           
             lblBusinessName.Content = service.Business.Name;
              pnl.Children.Add(lblBusinessName);
             Label lblServiceName = new Label();
             
             lblServiceName.Content = service.Description.ToString();
             pnl.Children.Add(lblServiceName);
-
-            Button btnSelectService = new Button();
-            btnSelectService.Content = "选择";
-            btnSelectService.Tag = service;// service.Id.ToString();
-            btnSelectService.Click += BtnSelectService_Click;
-            pnl.Children.Add(btnSelectService);
+           
             pnlSearchResult.Children.Add(pnl);
             pnlSearchResult.RegisterName(pnl.Name, pnl);
 
@@ -94,5 +126,27 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         public event SelectService SelectService;
+        public event PushServices PushServices;
+
+        private void btnPush_Click(object sender, RoutedEventArgs e)
+        {
+            IList<DZService> services = new List<DZService>();
+            foreach (Panel p in pnlSearchResult.Children)
+            {
+                foreach (Control ctl in p.Children)
+                {
+                    if (ctl is CheckBox)
+                    {
+                        CheckBox cbx = (CheckBox)ctl;
+                    if (cbx.IsChecked.Value==true)
+                    {
+                        services.Add((DZService)cbx.Tag);
+                    }
+                    }
+                }
+            }
+            PushServices(services);
+            
+        }
     }
 }

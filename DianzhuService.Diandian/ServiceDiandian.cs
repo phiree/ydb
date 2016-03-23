@@ -84,7 +84,7 @@ namespace DianzhuService.Diandian
             //    BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender, msg });
             //    return;
             //}
-            orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
+            
             customerId = msg.From.User;
             string body = msg.Body;
             string msgObj_url = String.Empty;
@@ -92,12 +92,15 @@ namespace DianzhuService.Diandian
             string msgType = msg.SelectSingleElement("ext").Namespace;
             switch (msgType.ToLower())
             {
+                case "ihelper:notice:system":
+
+                    return;
                 case "ihelper:chat:text":
 
                     break;
                 case "ihelper:chat:media":
-                    msgObj_url = msg.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("url");
-                    msgObj_type = msg.SelectSingleElement("ext").SelectSingleElement("MsgObj").GetAttribute("type");
+                    msgObj_url = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("url");
+                    msgObj_type = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("type");
                     break;
                 case "ihelper:notice:cer:change":
                     customerId = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("UserID");
@@ -105,6 +108,7 @@ namespace DianzhuService.Diandian
                     //lblAssignedCS.Text = csDisplayName;
                     break;
             }
+            orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
             //AddLog(msg);
 
             //ReceptionChat chat = new ReceptionChat();

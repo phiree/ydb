@@ -36,7 +36,7 @@ namespace Dianzhu.Model
             this.UnitAmount = unitAmount ;
             this.TargetAddress = targetAddress;
             this.TargetTime = targetTime;
-            this.Selected = true;
+             
         }
 
         #endregion

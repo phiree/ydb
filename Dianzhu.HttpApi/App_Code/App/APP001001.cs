@@ -35,7 +35,7 @@ public class ResponseAPP001001:BaseResponse
 
         try
         {
-            bool uuidisGuid = Guid.TryParse(requestData.AppObj.appUUID, out uuId);
+            bool uuidisGuid = Guid.TryParse(requestData.appObj.appUUID, out uuId);
             if (!uuidisGuid)
             {
                 this.state_CODE = Dicts.StateCode[1];
@@ -43,22 +43,22 @@ public class ResponseAPP001001:BaseResponse
                 return;
             }
 
-            if (requestData.AppObj.appToken.Length > 64)
+            if (requestData.appObj.appToken.Length > 64)
             {
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "Token长度超过64";
                 return;
             }
-            else if (requestData.AppObj.appToken.Length < 64)
+            else if (requestData.appObj.appToken.Length < 64)
             {
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "Token长度不够64";
                 return;
             }
 
-            if (requestData.AppObj.userId != "")
+            if (requestData.appObj.userId != "")
             {
-                bool isGuid = Guid.TryParse(requestData.AppObj.userId, out userId);
+                bool isGuid = Guid.TryParse(requestData.appObj.userId, out userId);
                 if (!isGuid)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -66,7 +66,7 @@ public class ResponseAPP001001:BaseResponse
                     return;
                 }
 
-                member = bllMembership.GetUserById(new Guid(requestData.AppObj.userId));
+                member = bllMembership.GetUserById(new Guid(requestData.appObj.userId));
                 if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[8];
@@ -127,9 +127,9 @@ public class ResponseAPP001001:BaseResponse
     {
         DeviceBind result = new DeviceBind();
         result.DZMembership = member;        
-        result.AppName = app.AppObj.appName;
-        result.AppUUID = new Guid(app.AppObj.appUUID);
-        result.AppToken = app.AppObj.appToken;
+        result.AppName = app.appObj.appName;
+        result.AppUUID = new Guid(app.appObj.appUUID);
+        result.AppToken = app.appObj.appToken;
 
         return result;
     }

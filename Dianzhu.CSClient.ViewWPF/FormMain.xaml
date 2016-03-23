@@ -1,11 +1,12 @@
-﻿<Window x:Class="Dianzhu.CSClient.ViewWPF.FormMain"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
+        xmlns:UC="clr-namespace:Dianzhu.CSClient.ViewWPF.UC" x:Class="Dianzhu.CSClient.ViewWPF.FormMain"
         mc:Ignorable="d"
-        Title="一点办客服工具" Height="768" Width="1024" WindowStartupLocation="CenterScreen" Background="White" ResizeMode="CanMinimize">
+        Title="一点办客服工具" WindowStartupLocation="CenterScreen" Background="White">
     <Grid ShowGridLines="True" UseLayoutRounding="True" Grid.IsSharedSizeScope="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" MinWidth="280" MaxWidth="400"/>
@@ -14,7 +15,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="3*" MinWidth="100" MaxWidth="300"/>
+            <ColumnDefinition Width="4*" MinWidth="100" MaxWidth="520"/>
         </Grid.ColumnDefinitions>
 
         <GridSplitter x:Name="gridSplitter1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5"/>
@@ -35,25 +36,19 @@
                     <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
 
-                <WrapPanel x:Name="pnlSearch" Grid.Row="0" VerticalAlignment="Center">
-
-                </WrapPanel>
+                <WrapPanel x:Name="pnlSearch" Grid.Row="0" VerticalAlignment="Center"/>
                 <WrapPanel  x:Name="pnlSearchResult" Grid.Row="1"/>
 
             </Grid>
             <Grid ShowGridLines="True" Grid.Row="1">
 
-                <WrapPanel x:Name="pnlOrder" VerticalAlignment="Center">
-
-                </WrapPanel>
+                <WrapPanel x:Name="pnlOrder" VerticalAlignment="Center"/>
             </Grid>
 
         </Grid>
 
         <Grid ShowGridLines="True" Grid.Column="2">
-            <StackPanel x:Name="pnlCustomerList">
-
-            </StackPanel>
+            <StackPanel x:Name="pnlCustomerList"/>
         </Grid>
 
         <Grid ShowGridLines="True" Grid.Column="4">
@@ -65,8 +60,7 @@
             <ScrollViewer x:Name="scrViewChatList" VerticalScrollBarVisibility="Auto" Grid.Row="0">
                 <StackPanel  x:Name="pnlChatList"/>
             </ScrollViewer>
-            <WrapPanel x:Name="pnlChatSend" Grid.Row="1">
-            </WrapPanel>
+            <WrapPanel x:Name="pnlChatSend" Grid.Row="1"/>
         </Grid>
 
         <Grid ShowGridLines="True" Grid.Column="6">
@@ -77,14 +71,11 @@
             </Grid.RowDefinitions>
             <GridSplitter x:Name="gridSplitter6" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5"/>
 
-            <Grid ShowGridLines="True" Grid.Row="0">
-
+            <Grid ShowGridLines="True" Grid.Row="0" x:Name="pnlTest">
+                
             </Grid>
 
-            <Grid ShowGridLines="True" Grid.Row="2">
-
-
-            </Grid>
+            <Grid ShowGridLines="True" Grid.Row="2" x:Name="pnlOrderHistory"/>
 
         </Grid>
 

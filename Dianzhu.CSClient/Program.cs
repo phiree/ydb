@@ -66,6 +66,7 @@ namespace Dianzhu.CSClient
                 IViewSearch viewSearch = null;
                 IViewSearchResult viewSearchResult = null;
                 IViewChatSend viewChatSend = null;
+                IViewOrderHistory viewOrderHistory = null;
 
                 if (useWpf)
                 {
@@ -73,6 +74,7 @@ namespace Dianzhu.CSClient
                     viewChatList = new ViewWPF.UC_ChatList();
                     viewChatSend = new ViewWPF.UC_ChatSend();
                     viewOrder = new ViewWPF.UC_Order();
+                    viewOrderHistory = new ViewWPF.UC_OrderHistory();
                     viewSearch = new ViewWPF.UC_Search();
                     viewSearchResult = new ViewWPF.UC_SearchResult();
                 }
@@ -91,8 +93,9 @@ namespace Dianzhu.CSClient
                 Presenter.PChatList pChatList = new Presenter.PChatList(viewChatList, viewIdentityList, xmpp);
                 Presenter.IdentityManager pIdentityManager = new Presenter.IdentityManager(pIdentityList, pChatList);
                 Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList);
-                Presenter.PSearch pSearch = new Presenter.PSearch(viewSearch, viewSearchResult, viewOrder);
+                Presenter.PSearch pSearch = new Presenter.PSearch(xmpp,viewSearch, viewSearchResult, viewOrder);
                 Presenter.POrder pOrder = new Presenter.POrder(xmpp, viewOrder);
+                Presenter.POrderHistory pOrderHistory = new Presenter.POrderHistory(viewOrderHistory,viewIdentityList);
                 Presenter.PChatSend pChatSend = new Presenter.PChatSend(viewChatSend, viewChatList, xmpp);
                 Presenter.PMain pMain = new Presenter.PMain(new BLLReceptionStatus(),
                     new BLLReceptionStatusArchieve(), new BLLReceptionChatDD(), new BLLReceptionChat(), xmpp, viewIdentityList);
@@ -106,7 +109,8 @@ namespace Dianzhu.CSClient
                         (ViewWPF.UC_ChatSend)viewChatSend,
                         (ViewWPF.UC_Order)viewOrder,
                         (ViewWPF.UC_Search)viewSearch,
-                        (ViewWPF.UC_SearchResult)viewSearchResult);
+                        (ViewWPF.UC_SearchResult)viewSearchResult,
+                        (ViewWPF.UC_OrderHistory)viewOrderHistory);
                     mainForm.Title += "v" + version;
                      
                     mainForm.ShowDialog();

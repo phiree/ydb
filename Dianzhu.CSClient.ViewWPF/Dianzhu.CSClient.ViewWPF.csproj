@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,12 +58,33 @@
     <Compile Include="FormMain.xaml.cs">
       <DependentUpon>FormMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FormMainNew.xaml.cs">
+      <DependentUpon>FormMainNew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GlobalVariable.cs" />
+    <Compile Include="UC\UC_Business.xaml.cs">
+      <DependentUpon>UC_Business.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_ChatSend.xaml.cs">
       <DependentUpon>UC_ChatSend.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_Customer.xaml.cs">
+      <DependentUpon>UC_Customer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_MessageVoice.xaml.cs">
+      <DependentUpon>UC_MessageVoice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_Order.xaml.cs">
       <DependentUpon>UC_Order.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_OrderHistory.xaml.cs">
+      <DependentUpon>UC_OrderHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_OrderHistory_Order.xaml.cs">
+      <DependentUpon>UC_OrderHistory_Order.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_PushService.xaml.cs">
+      <DependentUpon>UC_PushService.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_Search.xaml.cs">
       <DependentUpon>UC_Search.xaml</DependentUpon>
@@ -72,6 +94,9 @@
     </Compile>
     <Compile Include="UC\UC_OrderDetail.xaml.cs">
       <DependentUpon>UC_OrderDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_ShelfService.xaml.cs">
+      <DependentUpon>UC_ShelfService.xaml</DependentUpon>
     </Compile>
     <Page Include="FormLogin.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -84,6 +109,14 @@
     <Compile Include="FormLogin.xaml.cs">
       <DependentUpon>FormLogin.xaml</DependentUpon>
     </Compile>
+    <Page Include="FormMainNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_Business.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UC\UC_ChatList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -92,11 +125,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\UC_Customer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UC\UC_IdentityList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\UC_MessageVoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UC\UC_Order.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_OrderHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_OrderHistory_Order.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_PushService.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -109,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_OrderDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_ShelfService.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,6 +193,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -157,7 +215,20 @@
       <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Themes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logourl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\voice.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

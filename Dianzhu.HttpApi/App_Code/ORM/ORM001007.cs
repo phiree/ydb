@@ -22,6 +22,8 @@ public class ResponseORM001007 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+        PushService pushService = new PushService();
+        BLLDZTag bllDZTag = new BLLDZTag();
         string raw_id = requestData.userID;
         string order_id = requestData.orderID;
 
@@ -85,7 +87,16 @@ public class ResponseORM001007 : BaseResponse
                     return;
                 }
 
-                RespDataORM001007 respData = new RespDataORM001007().AdaptList(order.Details);
+                Dictionary<DZService, IList<DZTag>> dic = new Dictionary<DZService, IList<DZTag>>();
+
+                IList<ServiceOrderPushedService> pushOrderList = pushService.GetPushedServicesForOrder(order);
+                IList<DZTag> tagList = new List<DZTag>();
+                foreach(ServiceOrderPushedService push in pushOrderList)
+                {
+                    tagList = bllDZTag.GetTagForService(push.OriginalService.Id);
+                    dic.Add(push.OriginalService, tagList);
+                }
+                RespDataORM001007 respData = new RespDataORM001007().AdaptList(dic);
 
                 this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];

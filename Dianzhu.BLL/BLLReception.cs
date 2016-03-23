@@ -40,9 +40,9 @@ namespace Dianzhu.BLL
             return GetReceptionChatList(null, null, orderId, begin, end, pageIndex, pageSize, target, out rowCount);
         }
         public IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime begin, DateTime end,
-             int pageSize, Guid targetId, string low, enum_ChatTarget target)
+             int pageSize, ReceptionChat targetChat, string low, enum_ChatTarget target)
         {
-            return DALReception.GetReceptionChatListByTargetIdAndSize(from, to, orderId, begin, end, pageSize, targetId, low, target);
+            return DALReception.GetReceptionChatListByTargetIdAndSize(from, to, orderId, begin, end, pageSize, targetChat, low, target);
         }
     }
 

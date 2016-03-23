@@ -22,6 +22,7 @@ public class ResponseORM001006 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+        PushService bllPushService = new PushService();
         string raw_id = requestData.userID;
 
         try
@@ -59,10 +60,24 @@ public class ResponseORM001006 : BaseResponse
                 enum_OrderSearchType searchType = (enum_OrderSearchType)Enum.Parse(typeof(enum_OrderSearchType), srvTarget);
 
                 IList<ServiceOrder> orderList = bllServiceOrder.GetServiceOrderList(uid, searchType, pageNum, pageSize);
+                Dictionary<ServiceOrder, ServiceOrderPushedService> dicList = new Dictionary<ServiceOrder, ServiceOrderPushedService>();
+                IList<ServiceOrderPushedService> pushServiceList = new List<ServiceOrderPushedService>();
+                foreach(ServiceOrder order in orderList)
+                {
+                    pushServiceList = bllPushService.GetPushedServicesForOrder(order);
+                    if (pushServiceList.Count > 0)
+                    {
+                        dicList.Add(order, pushServiceList[0]);
+                    }
+                    else
+                    {
+                        dicList.Add(order, null);
+                    }
+                }
 
                 RespDataORM001006 respData = new RespDataORM001006();
 
-                respData.AdapList(orderList);
+                respData.AdapList(dicList);
 
                 this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];

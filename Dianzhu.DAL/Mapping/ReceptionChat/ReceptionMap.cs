@@ -107,7 +107,13 @@ namespace Dianzhu.DAL.Mapping
         }
     }
 
-
+    public class ReceptionChatPushServiceMap : SubclassMap<ReceptionChatPushService>
+    {
+        public ReceptionChatPushServiceMap()
+        {
+            HasMany(x => x.PushedServices);
+        }
+    }
 
 
 

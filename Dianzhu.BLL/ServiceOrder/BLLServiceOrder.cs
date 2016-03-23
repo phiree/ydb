@@ -62,7 +62,7 @@ namespace Dianzhu.BLL
         }
         public void SaveOrUpdate(ServiceOrder order)
         {
-
+            order.LatestOrderUpdated = DateTime.Now;
             DALServiceOrder.SaveOrUpdate(order);
         }
         public IList<ServiceOrder> GetAll() //获取全部订单
@@ -341,7 +341,7 @@ namespace Dianzhu.BLL
                 { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd , enum_OrderStatus.Begin}},
                 { enum_OrderStatus.Finished,new List<enum_OrderStatus>() {enum_OrderStatus.Ended }},
 
-                { enum_OrderStatus.Appraise,new List<enum_OrderStatus>() {enum_OrderStatus.Finished }},
+                { enum_OrderStatus.Appraised,new List<enum_OrderStatus>() {enum_OrderStatus.Finished }},
                 { enum_OrderStatus.Canceled,new List<enum_OrderStatus>() {enum_OrderStatus.Created,
                                                                           enum_OrderStatus.Payed,
                                                                            enum_OrderStatus.Negotiate,

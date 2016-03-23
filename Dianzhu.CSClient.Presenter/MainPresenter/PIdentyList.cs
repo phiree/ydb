@@ -82,8 +82,6 @@ namespace Dianzhu.CSClient.Presenter
 
         public void AddIdentity(ServiceOrder order)
         {
-            
-
             iView.AddIdentity(order);
             iView.SetIdentityUnread(order, 1);
         }

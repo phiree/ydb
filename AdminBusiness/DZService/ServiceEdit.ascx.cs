@@ -115,10 +115,9 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         rblChargeUnit.Value =((int) CurrentService.ChargeUnit).ToString();
         tbxOrderDelay.Text = CurrentService.OrderDelay.ToString();
 //        tbxOrderDelay.Value = CurrentService.OrderDelay.ToString();
-        tbxServiceTimeBegin.Text = CurrentService.ServiceTimeBegin.ToString();
-        tbxServiceTimeEnd.Text = CurrentService.ServiceTimeEnd.ToString();
+        
         tbxMaxOrdersPerDay.Text = CurrentService.MaxOrdersPerDay.ToString();
-        tbxMaxOrdersPerHour.Text = CurrentService.MaxOrdersPerHour.ToString();
+      
         rblServiceMode.SelectedValue=((int)CurrentService.ServiceMode).ToString();
         cblIsForBusiness.Checked = CurrentService.IsForBusiness;
         cbxIsCompensationAdvance.Checked = CurrentService.IsCompensationAdvance;
@@ -195,14 +194,13 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.IsCompensationAdvance = cbxIsCompensationAdvance.Checked;
         CurrentService.IsForBusiness = cblIsForBusiness.Checked;
         CurrentService.MaxOrdersPerDay = Convert.ToInt32(tbxMaxOrdersPerDay.Text);
-        CurrentService.MaxOrdersPerHour = Convert.ToInt32(tbxMaxOrdersPerHour.Text);
+       
         CurrentService.MinPrice = Convert.ToDecimal(tbxMinPrice.Text);
         CurrentService.DepositAmount = Convert.ToDecimal(tbxDespoist.Text);
         CurrentService.OrderDelay = Convert.ToInt32(tbxOrderDelay.Text);
 //        CurrentService.OrderDelay = int.Parse(tbxOrderDelay.Value);
         CurrentService.ServiceMode =(enum_ServiceMode)(Convert.ToInt32( rblServiceMode.SelectedValue));
-        CurrentService.ServiceTimeBegin = tbxServiceTimeBegin.Text;
-        CurrentService.ServiceTimeEnd = tbxServiceTimeEnd.Text;
+       
         CurrentService.UnitPrice =int.Parse(tbxUnitPrice.Text, System.Globalization.NumberStyles.AllowDecimalPoint);
         UpdatePayType();
 //        UpdateServiceTime();

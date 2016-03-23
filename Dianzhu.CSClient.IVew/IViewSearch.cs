@@ -22,8 +22,12 @@ namespace Dianzhu.CSClient.IView
     {
         IList<DZService> SearchedService { get; set; }
         event SelectService SelectService;
+        event PushServices PushServices;
+        string TargetAddress { get; set;}
+        DateTime TargetTime { get; set; }
     }
    
     public delegate void SelectService(DZService selectedService);
+    public delegate void PushServices(IList<DZService> pushedServices);
 
 }

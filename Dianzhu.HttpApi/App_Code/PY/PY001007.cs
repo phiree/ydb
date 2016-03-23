@@ -67,13 +67,12 @@ public class ResponsePY001007:BaseResponse
             switch (requestData.target.ToLower())
             {
                 case "alipay":
-                    IPayRequest ipayAli = new PayAlipayApp(payment.Amount, payment.Id.ToString(), payment.Order.Title, Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.Description);
+                    IPayRequest ipayAli = new PayAlipayApp(payment.Amount, payment.Id.ToString(), payment.Order.Title, "http://119.29.39.211:8039/", payment.Order.Description);
                     string respDataAli = ipayAli.CreatePayRequest();
                     //string[] respDataAliList = respDataAli.Split('&');
                     this.state_CODE = Dicts.StateCode[0];
                     this.RespData = respDataAli;
                     return;
-                    break;
                 case "wepay":
                     for (int i = 0; i < 10; i++)
                     {
@@ -117,11 +116,11 @@ public class ResponsePY001007:BaseResponse
                             ilog.Error("错误代码：" + respData.err_code + "  错误代码描述：" + respData.err_code_des);
                             continue;
                         }
+
+                        string orderString = ipayWe.CreatePayStr(respData.prepay_id);
+
                         RespDataPY001007 respObj = new RespDataPY001007();
-                        respObj.appid = respData.appid;
-                        respObj.partnerid = respData.mch_id;
-                        respObj.prepayid = respData.prepay_id;
-                        respObj.noncestr = Guid.NewGuid().ToString().Replace("-", "");
+                        respObj.orderString = orderString;
                         this.state_CODE = Dicts.StateCode[0];
                         this.RespData = respObj;
                         return; 

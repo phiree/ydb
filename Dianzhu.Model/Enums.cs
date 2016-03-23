@@ -95,6 +95,8 @@ namespace Dianzhu.Model.Enums
 
         Search=17,//搜索单
 
+        DraftPushed=33,//已推送的草稿单
+
         //未完成订单状态
         Created=1,//已创建,待付款
         Payed=2,//已付款
@@ -106,7 +108,6 @@ namespace Dianzhu.Model.Enums
         //已完成订单状态5
         
         Aborded=7,//已中止
-        Appraise=8,//评价
  
         /// <summary>
         /// 商家已确认订单

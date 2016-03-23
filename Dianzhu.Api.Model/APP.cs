@@ -17,7 +17,7 @@ namespace Dianzhu.Api.Model
 
     public class ReqDataAPP001001
     {
-        public AppObj AppObj { get; set; }
+        public AppObj appObj { get; set; }
         public string mark { get; set; }
     }
 

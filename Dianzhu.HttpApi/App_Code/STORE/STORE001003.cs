@@ -33,7 +33,7 @@ public class ResponseSTORE001003 : BaseResponse
         try
         {
             string raw_id = requestData.merchantID;
-            RespDataSTORE_storeObj storeObj_ReqData = requestData.StoreObj;
+            RespDataSTORE_storeObj storeObj_ReqData = requestData.storeObj;
             
 
             Guid storeID,userID;

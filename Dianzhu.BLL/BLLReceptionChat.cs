@@ -23,6 +23,10 @@ namespace Dianzhu.BLL
         {
             DALReceptionChat = dal;
         }
+        public ReceptionChat GetOne(Guid id)
+        {
+            return DALReceptionChat.GetOne(id);
+        }
         public void Save(ReceptionChat chat)
         {
             DALReceptionChat.Save(chat);

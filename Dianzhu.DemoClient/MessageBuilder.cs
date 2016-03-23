@@ -29,7 +29,7 @@ namespace Dianzhu.DemoClient
         
         public Message BuildMedia(string mediaType,string mediaUrl)
         {
-            var nodeMedia= new agsXMPP.Xml.Dom.Element("MsgObj");
+            var nodeMedia= new agsXMPP.Xml.Dom.Element("msgObj");
             nodeMedia.SetAttribute("url", mediaUrl);
 
             nodeMedia.SetAttribute("type", mediaType);

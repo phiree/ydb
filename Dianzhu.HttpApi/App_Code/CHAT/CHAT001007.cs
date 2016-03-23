@@ -36,9 +36,10 @@ public class ResponseCHAT001007:BaseResponse
             member = p.GetUserById(new Guid(raw_id));
         }
         BLLReception bllReception = new BLLReception();
+        BLLReceptionChat bllReceptionChat = new BLLReceptionChat();
+        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
         int rowCount;
         Guid orderId;
-        IList<ReceptionChat> chatList;
 
         int pageSize = 10;
         try
@@ -68,23 +69,33 @@ public class ResponseCHAT001007:BaseResponse
             return;
         }
 
-        if (requestData.orderID == "")
+        ReceptionChat targetChat = bllReceptionChat.GetOne(targetId);
+        if (targetChat == null)
         {
-            chatList = bllReception.GetReceptionChatListByTargetIdAndSize(member, null, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageSize, targetId, requestData.low, chatTarget);
-        }
-        else
-        {
-            bool isGuid = Guid.TryParse(requestData.orderID, out orderId);
-            if (!isGuid)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "OrderId格式有误";
-                return;
-            }
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "TargetId不存在";
+            return;
 
-            chatList = bllReception.GetReceptionChatListByTargetIdAndSize(member, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetId, requestData.low, chatTarget);
         }
-        
+
+        bool isGuid = Guid.TryParse(requestData.orderID, out orderId);
+        if (!isGuid)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "OrderId格式有误";
+            return;
+        }
+
+        ServiceOrder order = bllServiceOrder.GetOne(orderId);
+        if (order == null)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "OrderId不存在";
+            return;
+        }
+
+        IList<ReceptionChat> chatList = bllReception.GetReceptionChatListByTargetIdAndSize(order.Customer, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetChat, requestData.low, chatTarget);
+
         try
         {
             RespDataCHAT001007 respData = new RespDataCHAT001007();

@@ -90,6 +90,7 @@
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
+    <Compile Include="Mapping\ServiceOrder\ServiceOrderPushedServiceMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderDetailMap.cs" />
     <Compile Include="Mapping\StaffServiceTypeMap.cs" />
     <Compile Include="Mapping\PaymentLogMap.cs" />
@@ -111,7 +112,7 @@
     <Compile Include="Mapping\CashTicketAssignRecord.cs" />
     <Compile Include="Mapping\DeviceBindMap.cs" />
     <Compile Include="Mapping\DZTagMap.cs" />
-    <Compile Include="Mapping\ReceptionMap.cs" />
+    <Compile Include="Mapping\ReceptionChat\ReceptionMap.cs" />
     <Compile Include="Mapping\ServiceOpenTimeMap.cs" />
     <Compile Include="Mapping\ReceptionStatusMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="DALServiceOrder.cs" />
     <Compile Include="DALReception.cs" />
     <Compile Include="DALReceptionStatus.cs" />
+    <Compile Include="ServiceOrder\DALServiceOrderPushedService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALCashTicket.cs" />

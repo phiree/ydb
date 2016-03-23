@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿﻿using System.Web;
 
 using NHibernate;
 using NHibernate.Cfg;
@@ -8,6 +8,10 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
 using NHibernate.Hql;
 using NHibernate.Criterion.Lambda;
+using System;
+using System.Security.Cryptography;
+using System.Text;
+
 namespace Dianzhu.DAL
 {
     /// <summary>
@@ -42,18 +46,23 @@ namespace Dianzhu.DAL
                 if (_sessionFactory == null)
                 {
 
-                    _sessionFactory = Fluently.Configure()
+
+                      _sessionFactory = Fluently.Configure()
                         .Database(
                              MySQLConfiguration
                             .Standard
                             .ConnectionString(
-                                System.Configuration.ConfigurationManager.ConnectionStrings["DianzhuConnectionString"].ConnectionString
-                                 )
-                      )
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
-                   .ExposeConfiguration(BuildSchema)
-                    .BuildSessionFactory();
-                   // HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+                                 Decrypt(
+                               System.Configuration.ConfigurationManager
+                               .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false)
+                                     )
+                          )
+                        .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
+                       .ExposeConfiguration(BuildSchema)
+                        .BuildSessionFactory();
+                        HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+                     
+                    
                 }
 
             }
@@ -64,7 +73,7 @@ namespace Dianzhu.DAL
             // this NHibernate tool takes a configuration (with mapping info in)
             // and exports a database schema from it
             SchemaUpdate update = new SchemaUpdate(config);
-            update.Execute(true, true);
+            //update.Execute(true, true);
         }
         private static void GetUpdateScript(string ss)
         {
@@ -116,6 +125,49 @@ namespace Dianzhu.DAL
         {
             var builder = new HybridSessionBuilder();
             builder.GetSession().Dispose();
+        }
+        public static string Decrypt(string cipherString, bool useHashing)
+        {
+            byte[] keyArray;
+            //get the byte code of the string
+
+            byte[] toEncryptArray = Convert.FromBase64String(cipherString);
+ 
+            //Get your key from config file to open the lock!
+            string key = "1qaz2wsx3edc4rfv";
+
+            if (useHashing)
+            {
+                //if hashing was used get the hash code with regards to your key
+                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                //release any resource held by the MD5CryptoServiceProvider
+
+                hashmd5.Clear();
+            }
+            else
+            {
+                //if hashing was not implemented get the byte code of the key
+                keyArray = UTF8Encoding.UTF8.GetBytes(key);
+            }
+
+            TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
+            //set the secret key for the tripleDES algorithm
+            tdes.Key = keyArray;
+            //mode of operation. there are other 4 modes. 
+            //We choose ECB(Electronic code Book)
+
+            tdes.Mode = CipherMode.ECB;
+            //padding mode(if any extra byte added)
+            tdes.Padding = PaddingMode.PKCS7;
+
+            ICryptoTransform cTransform = tdes.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(
+                                 toEncryptArray, 0, toEncryptArray.Length);
+            //Release resources held by TripleDes Encryptor                
+            tdes.Clear();
+            //return the Clear decrypted TEXT
+            return UTF8Encoding.UTF8.GetString(resultArray);
         }
     }
 }

@@ -60,6 +60,7 @@
     <Compile Include="MainPresenter\IM.cs" />
     <Compile Include="MainPresenter\MainPresenter.cs" />
     <Compile Include="MainPresenter\MessageSender.cs" />
+    <Compile Include="MainPresenter\POrderHistory.cs" />
     <Compile Include="MainPresenter\PMain.cs" />
     <Compile Include="MainPresenter\PChatSend.cs" />
     <Compile Include="MainPresenter\PChatList.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="MainPresenter\State.cs" />
     <Compile Include="MainPresenter\View.cs" />
     <Compile Include="MessageLocalStorage.cs" />
-    <Compile Include="MessageReceiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -55,14 +55,14 @@ namespace Com.Alipay
             StringBuilder prestr = new StringBuilder();
             foreach (KeyValuePair<string, string> temp in dicArray)
             {
-                prestr.Append(temp.Key + "=" + temp.Value + "&");
+                prestr.Append(temp.Key + "=\"" + temp.Value + "\"&");
             }
 
-            //去掉最後一個&字符
-            int nLen = prestr.Length;
-            prestr.Remove(nLen-1,1);
+            ////去掉最後一個&字符
+            //int nLen = prestr.Length;
+            //prestr.Remove(nLen-1,1);
 
-            return prestr.ToString();
+            return prestr.ToString().TrimEnd('&');
         }
 
         /// <summary>
