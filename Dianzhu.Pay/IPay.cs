@@ -39,8 +39,7 @@ namespace Dianzhu.Pay
         string PaymentId { get; set; }
         //创建支付请求
         string CreatePayRequest();
-        //支付平台回调 参数验证
-
+     
         //创建支付请求字符串
         string CreatePayStr(string str);
     }
@@ -49,8 +48,18 @@ namespace Dianzhu.Pay
     /// </summary>
     public interface IPayCallBack
     {
-        bool PayCallBack(NameValueCollection nvc, out string businessOrderId, out string platformOrderId, out decimal total_amoun, out string errMsg);
+        /// <summary>
+        /// 支付接口回调接口
+        /// </summary>
+        /// <param name="nvc">回调时的请求参数</param>
+        /// <param name="businessOrderId">当初请求的订单ID(支付项ID)</param>
+        /// <param name="platformOrderId">平台的订单号</param>
+        /// <param name="total_amoun">支付总额</param>
+        /// <param name="errMsg">错误消息</param>
+        /// <returns>支付是否成功</returns>
+        bool PayCallBack(  NameValueCollection nvc, out string businessOrderId, out string platformOrderId, out decimal total_amoun, out string errMsg);
     }
+    #region 支付宝网页
     /// <summary>
     /// 支付宝实现
     /// </summary>
@@ -201,7 +210,9 @@ namespace Dianzhu.Pay
             return sArray;
         }
     }
+    #endregion
 
+    #region WePay
     public class PayWeChat : IPayRequest
     {
         public decimal PayAmount { get; set; }
@@ -228,7 +239,10 @@ namespace Dianzhu.Pay
             this.PaymentId = paymentId;
         }
 
-
+        /// <summary>
+        /// 获取prepayID
+        /// </summary>
+        /// <returns></returns>
         public string CreatePayRequest()
         {
             SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
@@ -273,11 +287,11 @@ namespace Dianzhu.Pay
             return sHtmlText;
         }
 
-        public bool PayCallBack(NameValueCollection nvc)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// 根据prepayId 构造支付连接,供前端app调用
+        /// </summary>
+        /// <param name="prepayid"></param>
+        /// <returns></returns>
         public string CreatePayStr(string prepayid)
         {
             int times = (int)(DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1))).TotalSeconds;
@@ -316,7 +330,59 @@ namespace Dianzhu.Pay
         }
 
     }
+    public class PayCallBackWePay : IPayCallBack
+    {
+        /// <summary>
+        /// 微信支付回调
+        /// </summary>
+        /// <param name="nvc"></param>
+        /// <param name="businessOrderId"></param>
+        /// <param name="platformOrderId"></param>
+        /// <param name="total_amoun"></param>
+        /// <param name="errMsg"></param>
+        /// <returns></returns>
+        public bool PayCallBack(NameValueCollection nvc, out string businessOrderId, out string platformOrderId, out decimal total_amount, out string errMsg)
+        {
+            bool result = false;
+            CallBack callbackParameter = new CallBack();
+            businessOrderId = callbackParameter.out_trade_no;
+            platformOrderId = callbackParameter.transaction_id;
+            total_amount = Convert.ToDecimal(callbackParameter.total_fee)/100;
+            errMsg =callbackParameter.err_code+":"+callbackParameter.err_code_des;
 
+            return result;
+
+        }
+        public class CallBack
+        {
+ 
+          public string appid { get; set; }
+            public string mch_id { get; set; }
+            public string device_info { get; set; }
+            public string nonce_str { get; set; }
+            public string sign { get; set; }
+            public string result_code { get; set; }
+            public string err_code { get; set; }
+            public string err_code_des { get; set; }
+            public string openid { get; set; }
+            public string is_subscribe { get; set; }
+            public string trade_type { get; set; }
+            public string bank_type { get; set; }
+            public string total_fee { get; set; }
+            public string fee_type { get; set; }
+            public string cash_fee{ get; set; }
+            public string cash_fee_type { get; set; }
+            public string coupon_fee { get; set; }
+            public string transaction_id { get; set; }
+            public string out_trade_no { get; set; }
+            public string attach { get; set; }
+            public string time_end { get; set; }
+ 
+        }
+    }
+    #endregion
+
+    #region 支付宝APP
     public class PayAlipayApp : IPayRequest
     {
         public decimal PayAmount { get; set; }
@@ -722,4 +788,5 @@ namespace Dianzhu.Pay
 
 
     }
+    #endregion  
 }

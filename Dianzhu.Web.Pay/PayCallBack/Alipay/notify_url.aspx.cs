@@ -26,7 +26,7 @@ public partial class notify_url : System.Web.UI.Page
         //保存支付接口返回的原始数据
         BLLPay bllPay = new BLLPay();
         try {
-            bllPay.ReceiveAPICallBack(Dianzhu.Model.Enums.enum_PaylogType.ResultNotifyFromAli, new PayCallBackAli(), Request.RawUrl, Request.QueryString);
+            bllPay.ReceiveAPICallBack(Dianzhu.Model.Enums.enum_PaylogType.ResultNotifyFromAli, new PayCallBackAli(), Request.RawUrl,  Request.QueryString);
             Response.Write("success");
         }
         catch {

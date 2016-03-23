@@ -7,56 +7,22 @@ namespace Dianzhu.Model
 {
     public class ServiceOpenTimeForDay
     {
+         
         public virtual Guid Id { get; set; }
         /// <summary>
         /// 该事件段内的最大接单数量
         /// </summary>
-        public virtual int MaxOrderForOpenTime { get; set; }
+        public virtual int MaxOrderForOpenTime { get;   set; }
         public virtual bool Enabled { get; set; }
-        public virtual ServiceOpenTime ServiceOpenTime { get; set; }
-        string timeStart;
-        string timeEnd;
-        int periodStart, periodEnd;
-        public virtual string TimeStart
-        {
-            get
-            {
-                //  periodStart = TimeStringToPeriod(timeStart); 
-                return timeStart;
-            }
-            set
-            {
-                timeStart = value;
-                periodStart = TimeStringToPeriod(timeStart);
-                //if (periodEnd>0&& periodStart >=periodEnd)
-                //{
-                //    throw new Exception("开始时间不能大于等于结束时间.ID:"+this.Id);
-                //}
-
-            }
-        }
-        public virtual string TimeEnd
-        {
-            get
-            {
-                // periodEnd = TimeStringToPeriod(timeEnd); 
-                return timeEnd;
-            }
-            set
-            {
-                timeEnd = value;
-                periodEnd = TimeStringToPeriod(timeEnd);
-                //if (periodStart!=null&& periodEnd<=periodStart)
-                //{
-                //    throw new Exception("结束时间不能小于等于开始时间.ID:" + this.Id);
-                //}
-            }
-        }
+        public virtual ServiceOpenTime ServiceOpenTime { get;   set; }
+      
+        public virtual string TimeStart { get; set; }
+        public virtual string TimeEnd { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public virtual int PeriodStart { get { return periodStart; } set { periodStart = value; } }
-        public virtual int PeriodEnd { get { return periodEnd; } set { periodEnd = value; } }
+        public virtual int PeriodStart { get {return TimeStringToPeriod(TimeStart);  } }
+        public virtual int PeriodEnd { get { return TimeStringToPeriod(TimeEnd); } }
 
         /// <summary>
         /// 文本格式的时间,转换成分钟,用于计算两个时间之间的间隔分数.
@@ -88,6 +54,29 @@ namespace Dianzhu.Model
             newSotForDay.ServiceOpenTime = ServiceOpenTime;
             newSotForDay.TimeStart = TimeStart;
             newSotForDay.TimeEnd = TimeEnd;
+        }
+
+        //给定时间在该范围内?
+        public virtual bool IsIn(DateTime datetime)
+        {
+            string strTime = datetime.ToString("HH:MM");
+            int timePeriod = TimeStringToPeriod(strTime);
+            return timePeriod >= PeriodStart && timePeriod <= PeriodEnd;
+
+        }
+        /// <summary>
+        /// 快照~咔~~嚓!
+        /// </summary>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        public virtual ServiceOpenTimeForDaySnapShotForOrder GetSnapShop(DateTime datetime)
+        {
+            return new ServiceOpenTimeForDaySnapShotForOrder(
+                this.MaxOrderForOpenTime,
+                datetime.Date,
+                PeriodStart,
+                PeriodEnd
+                );
         }
     }
 }

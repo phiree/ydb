@@ -10,6 +10,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class DZService
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model.DZService");
         public DZService()
         {
             PropertyValues = new List<ServicePropertyValue>();
@@ -51,6 +52,8 @@ namespace Dianzhu.Model
         }
 
         public virtual Guid Id { get; set; }
+
+        #region  属性
         /// <summary>
         /// 服务项目所属类别
         /// </summary>
@@ -172,6 +175,7 @@ namespace Dianzhu.Model
         /// 定金
         /// </summary>
         public virtual decimal DepositAmount { get; set; }
+        #endregion
 
         /// <summary>
         /// 解析服务区域字符串
@@ -213,5 +217,48 @@ namespace Dianzhu.Model
             newService.OverTimeForCancel = OverTimeForCancel;
             newService.CancelCompensation = CancelCompensation;
         }
+
+        public virtual ServiceSnapShotForOrder GetServiceSnapShot()
+        {
+            ServiceSnapShotForOrder snap = new ServiceSnapShotForOrder
+            {
+                UnitPrice = this.UnitPrice,
+                CancelCompensation = this.CancelCompensation,
+                ChargeUnit = this.ChargeUnit,
+                DepositAmount = this.DepositAmount,
+                Description = this.Description,
+                IsCompensationAdvance = this.IsCompensationAdvance,
+                MinPrice = this.MinPrice,
+                OverTimeForCancel = this.OverTimeForCancel,
+                ServiceMode = this.ServiceMode,
+                ServiceName = this.Name
+            };
+            return snap;
+        }
+        string errMsg;
+        /// <summary>
+        /// 获取给定时间(预约时间)的时间项快照
+        /// </summary>
+        /// <param name="targetTime"></param>
+        /// <returns></returns>
+        public virtual ServiceOpenTimeForDaySnapShotForOrder GetOpenTimeSnapShot(DateTime targetTime)
+        {
+            var targetOpenTime = OpenTimes.Where(x => x.DayOfWeek == targetTime.DayOfWeek);
+            int count = targetOpenTime.Count();
+            errMsg = "时间项应该有且只有一项";
+            System.Diagnostics.Debug.Assert(count == 1, errMsg);
+            if (count != 1)
+            {
+                log.Error(errMsg);
+                throw new Exception(errMsg);
+            }
+
+            return targetOpenTime.ToList()[0]
+                .GetItem(targetTime).GetSnapShop(targetTime);
+              
+            
+            
+        }
+        
     }
 }

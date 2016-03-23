@@ -60,7 +60,7 @@ namespace Dianzhu.CSClient.Presenter
                 {
                     if (order.Details.Count > 0)
                     {
-                        if (order.Details[0].ServiceName.Contains(viewOrderHistory.SearchStr))
+                        if (order.Details[0].ServieSnapShot.ServiceName.Contains(viewOrderHistory.SearchStr))
                         {
                             searchList.Add(order);
                         }

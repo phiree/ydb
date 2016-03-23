@@ -48,9 +48,9 @@ namespace Dianzhu.CSClient.ViewWPF
         public void LoadData(Dianzhu.Model.ServiceOrderDetail detail)
         {
             lblBusinessName.Content = detail.OriginalService.Business.Name;
-            lblServiceDescription.Content = detail.Description;
-            lblPrice.Content = detail.UnitPrice + "/" + detail.ChargeUnit;
-            lblServiceName.Content = detail.ServiceName;
+            lblServiceDescription.Content = detail.ServieSnapShot.Description;
+            lblPrice.Content = detail.ServieSnapShot.UnitPrice + "/" + detail.ServieSnapShot.ChargeUnit;
+            lblServiceName.Content = detail.ServieSnapShot.ServiceName;
 
         }
 
