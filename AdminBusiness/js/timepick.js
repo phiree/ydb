@@ -86,6 +86,7 @@
             $select_wrap.insertAfter(this.$ele);
 
             // 避免重复绑定事件
+            $(document).trigger("click.timePick.doc");
             $(document).off("click.timePick.doc").on("click.timePick.doc", function(e){
                 if ( _this.showing && !$(e.target).is(_this.$ele) &&  !isChildOrSelf($(e.target), _this.$select) ){
                     _this.closePanel();

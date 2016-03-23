@@ -31,11 +31,11 @@
             params = {
             type : 'POST',
             /* dataType设置为text, 避免返回的数据进行二次转换导致格式变为字符串的parser error的错误*/
-            //dataType: 'text',
+            dataType: 'text',
 
             /* mock.js 本地测试代码 */
-            dataType: 'json',
-            contentType: "application/x-www-form-urlencoded"
+            //dataType: 'json',
+            //contentType: "application/x-www-form-urlencoded"
         };
 
         if ( !method ) {
@@ -72,11 +72,11 @@
             options.dataFilter = function(rawData, type){
 
                 /* 服务器链接代码 */
-                //var jsonResp = JSON.parse(rawData);
-                //var Resp = jsonResp.RespData;
+                var jsonResp = JSON.parse(rawData);
+                var respObj = Adapter.respUnpack(jsonResp);
 
                 /* mock.js本地测试代码 */
-                var respObj = Adapter.respUnpack(rawData);
+                //var respObj = Adapter.respUnpack(rawData);
 
                 if ( respObj.respCorrect ){
                     if ( respObj.hasArrayData ){

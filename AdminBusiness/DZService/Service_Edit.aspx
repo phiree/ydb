@@ -48,7 +48,7 @@
             </div>
             <div class="wd-b">
                 <div class="wd-add animated fadeInUpSmall">
-                    <input type="hidden" value="1" data-role="cWeek">
+                    <input type="hidden" value="{%= week %}" data-role="cWeek">
                     <div class="wd-bar">
                         <span>接单时间段：</span>
                         <div>

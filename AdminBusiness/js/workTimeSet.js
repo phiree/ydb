@@ -12,8 +12,20 @@
      * 全局API url设置
      * @type {string}
      */
-    //var reqUrl = "http://localhost:806/dianzhuapi.ashx";
-    var reqUrl = "test.json";
+    var reqUrl = "http://localhost:806/dianzhuapi.ashx";
+    //var reqUrl = "test.json";
+
+
+    var testUrl = {
+        WTM001001 : "test.001001.json",
+        WTM001002 : "test.001002.json",
+        WTM001003 : "test.001003.json",
+        WTM001004 : "test.001004.json",
+        WTM001005 : "test.001005.json",
+        WTM001006 : "test.001006.json",
+        SVC001003 : "test.s001003.json",
+        SVC001005 : "test.s001005.json"
+    };
 
     /**
      * 工作时间Model
@@ -94,7 +106,7 @@
          */
         deleteWorkTime : function(){
             this.model.destroy({
-                url : "test.001002.json",
+                url : reqUrl,
                 customApi : true,
                 protocolCode : "WTM001002",
                 data : {
@@ -132,12 +144,12 @@
 
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
-                url : "test.001003.json",
+                url : reqUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
                 data : {
                     "merchantID": merchantID,
-                    "svcObj" : _.pick(this.model.attributes, function(value, key, object){
+                    "workTimeObj" : _.pick(this.model.attributes, function(value, key, object){
                         return modelFix[key];
                     })
                 }
@@ -148,18 +160,19 @@
         setOpen : function(){
             var cur = this.model.get("open") === "Y" ? "N" : "Y";
             var modelFix = {
+                workTimeID : true,
                 open : true
             };
             this.model.set({ open : cur });
 
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
-                url : "test.001003.json",
+                url : reqUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
                 data : {
                     "merchantID": merchantID,
-                    "svcObj" : _.pick(this.model.attributes, function(value, key, object){
+                    "workTimeObj" : _.pick(this.model.attributes, function(value, key, object){
                         return modelFix[key];
                     })
                 }
@@ -173,7 +186,8 @@
      */
     var WorkDayModel = Backbone.Model.extend({
         defaults : {
-            maxOrder : null
+            maxOrder : null,
+            week : null
         },
         initialize : function(){
             this.workTimes = new WorkTimeCollection();
@@ -254,9 +268,9 @@
             maxOrderString = maxOrderArr.join();
 
             this._save({
-                url : "test.s001005.json",
+                url : reqUrl,
                 customApi : true,
-                protocolCode : "SVC001005",
+                protocolCode : "SVC001003",
                 data : {
                     "merchantID": merchantID,
                     "svcObj": {
@@ -280,7 +294,7 @@
             'click [data-role="changeMaxConf"]' : "changeMaxConf",
             'click [data-role="cTrigger"]' : "preCreate",
             'click [data-role="cCancel"]' : "cancelCreate",
-            'click [data-role="cConfirm"]' : "addWorkTime",
+            'click [data-role="cConfirm"]' : "addWorkTime"
         },
         initialize : function(){
             var _this = this;
@@ -296,18 +310,18 @@
             /* 初始化单日内的所有时间段 */
             this.model.workTimes._fetch({
                 reset : true,
-                url : "test.001006.json",
+                url : reqUrl,
                 customApi : true,
                 protocolCode : "WTM001006",
                 data : {
-                    "merchantID": merchantID,
-                    "svcID": Adapter.getParameterByName("serviceid")
+                    "merchantID" : merchantID,
+                    "svcID" : Adapter.getParameterByName("serviceid"),
+                    "week" : _this.model.get("week")
                 }
             });
         },
         render : function(){
             this.$el.html(this.template(this.model.toJSON()));
-            //this.$(".time-select-wrap").timeSelect();
             this.$(".time-pick").timePick();
             return this;
         },
@@ -330,7 +344,7 @@
                 startTime : _this.$el.find('[data-role="cStartTime"]').val(),
                 endTime : _this.$el.find('[data-role="cEndTime"]').val(),
                 maxOrder : _this.$el.find('[data-role="cMaxOrder"]').val(),
-                week : _this.$el.find('[data-role="cWeek"]').val()
+                week : _this.model.get("week")
             };
 
             this.model.addWorkTime(workTimeAttr);
@@ -341,13 +355,13 @@
             // 固化增加的时间段
 
             workTimeModel.save(null, {
-                url : "test.001001.json",
+                url : reqUrl,
                 customApi : true,
                 protocolCode : "WTM001001",
                 data : {
                     "merchantID": merchantID,
                     "svcID": Adapter.getParameterByName("serviceid"),
-                    "workTimeObj" : workTimeModel.attributes
+                    "workTimeObj" : workTimeModel.attributes,
                 },
                 success : addWorkTimeView
             });
@@ -381,13 +395,13 @@
         initialize : function (){
             var _this = this;
             this.render();
-            this.listenTo(workDays, 'sync', function(collection, resp, options){
+            this.listenTo(workDays, 'sync', function(collection, resp, options){;
                 _.each(collection.models, function(dayModel){
                     _this.addDayView(dayModel);
                 })
             });
             workDays._fetch({
-                url : "test.s001005.json",
+                url : reqUrl,
                 customApi : true,
                 protocolCode : "SVC001005",
                 data : {

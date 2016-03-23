@@ -145,9 +145,9 @@
         initialize : function(){
 
         },
-        sync : function(options, method, callback){
+        sync : function(option, method, callback){
             var _this = this;
-            var options = options || {};
+            var options = option || {};
             var setApiCode = this.apiCode[method];
             var reqData = Adapter.reqPackage(setApiCode, options.reqData );
 

@@ -168,7 +168,7 @@
 
         if ( rawData.state_CODE !== "009000" ){
             respObj.respCorrect = false;
-            throw new Error('ERROR_CODE: ' + rawData.state_CODE + '-' + errorMap[rawData.state_CODE] + ': ' + rawData.err_Msg );
+            throw new Error('ERROR_MSG: ' + rawData.protocol_CODE + '-' + rawData.state_CODE + '-' + errorMap[rawData.state_CODE] + ': ' + rawData.err_Msg );
         } else {
             respObj.respCorrect = true;
             if ( typeof rawData.RespData === "object" && rawData.RespData ){
