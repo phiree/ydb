@@ -150,7 +150,7 @@
             respObj.protocolCode = rawData.protocol_CODE;
         }
 
-        if ( rawData == null ) {    
+        if ( rawData == null ) {
             throw new Error("raw data is null");
         }
 
