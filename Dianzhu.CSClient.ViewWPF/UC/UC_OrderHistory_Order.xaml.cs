@@ -36,7 +36,7 @@ namespace Dianzhu.CSClient.ViewWPF
             lbOrderStatus.Content = order.GetFriendlyStatus(order.OrderStatus);
             if(order.OrderStatus != enum_OrderStatus.Search)
             {
-                lbOrdeSvcName.Content = order.Details.Count > 0 ? order.Details[0].ServiceName : string.Empty;
+                lbOrdeSvcName.Content = order.Details.Count > 0 ? order.Details[0].ServieSnapShot.ServiceName : string.Empty;
                 lbOrdrDepositAmount.Content = order.DepositAmount.ToString("0:00");
                 lbOrderTotalAmount.Content = order.OrderAmount.ToString("0:00");
                 lbOrderAddress.Content = order.TargetAddress;

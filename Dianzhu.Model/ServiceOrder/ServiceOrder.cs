@@ -105,7 +105,7 @@ namespace Dianzhu.Model
                 string name = string.Empty;
                 foreach (ServiceOrderDetail detail in Details)
                 {
-                    name += detail.ServiceName + ";";
+                    name += detail.ServieSnapShot. ServiceName + ";";
                 }
                 return name;
             } }
@@ -125,7 +125,7 @@ namespace Dianzhu.Model
                 string description = string.Empty;
                 foreach (ServiceOrderDetail detain in Details)
                 {
-                    description += detain.Description + ";";
+                    description += detain.ServieSnapShot. Description + ";";
                 }
                 return description;
             }
@@ -264,7 +264,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual int ServiceOvertimeForCancel
         { get {
-                return Details.Min(x => x.OverTimeForCancel);
+                return Details.Min(x => x.ServieSnapShot.OverTimeForCancel);
             } }
 
         /// <summary>
@@ -292,7 +292,7 @@ namespace Dianzhu.Model
             foreach (ServiceOrderDetail detail in Details)
             {
                 this.NegotiateAmount += detail.ServiceAmount;
-                this.DepositAmount += detail.DepositAmount;
+                this.DepositAmount += detail.ServieSnapShot.DepositAmount;
             }
             this.OrderStatus = enum_OrderStatus.Created;
 

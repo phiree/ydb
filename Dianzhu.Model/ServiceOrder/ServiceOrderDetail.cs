@@ -22,17 +22,9 @@ namespace Dianzhu.Model
         public ServiceOrderDetail(DZService service,int unitAmount,string targetAddress,DateTime targetTime)
         {
             OriginalService = service;
-            ServiceName = service.Name;
-            Description = service.Description;
-            IsCompensationAdvance = service.IsCompensationAdvance;
-            MinPrice = service.MinPrice;
-            UnitPrice = service.UnitPrice;
-            ChargeUnit = service.ChargeUnit;
-            DepositAmount = service.DepositAmount;
-            CancelCompensation = service.CancelCompensation;
-            OverTimeForCancel = service.OverTimeForCancel;
-            ServiceMode = service.ServiceMode;
+            this.ServieSnapShot = service.GetServiceSnapShot();
 
+            this.OpenTimeSnapShot = service.GetOpenTimeSnapShot(targetTime);
             this.UnitAmount = unitAmount ;
             this.TargetAddress = targetAddress;
             this.TargetTime = targetTime;
@@ -48,17 +40,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual DZService OriginalService { get; set; }
         //screenshot of the service
-        public virtual string ServiceName { get; set; }
-        public virtual string Description { get; set; }
-        public virtual bool IsCompensationAdvance { get; set; }
-        public virtual decimal MinPrice { get; set; }
-        public virtual decimal UnitPrice { get; set; }
-        public virtual enum_ChargeUnit ChargeUnit { get; set; }
-
-        public virtual decimal DepositAmount { get; set; }
-        public virtual decimal CancelCompensation { get; set; }
-        public virtual int OverTimeForCancel { get; set; }
-        public virtual enum_ServiceMode ServiceMode { get; set; }
+        public virtual ServiceSnapShotForOrder ServieSnapShot { get; protected set; }
         #endregion
 
         #region 服务项需求
@@ -75,6 +57,10 @@ namespace Dianzhu.Model
         /// 服务预约时间
         /// </summary>
         public virtual DateTime TargetTime { get; set; }
+
+        //服务项时间设定的快照
+        public virtual ServiceOpenTimeForDaySnapShotForOrder OpenTimeSnapShot { get; protected set; }
+
         #endregion
         /// <summary>
         /// 该服务分配的员工.
@@ -88,7 +74,7 @@ namespace Dianzhu.Model
         public virtual decimal ServiceAmount
         {
             get {
-                return UnitPrice * UnitAmount;
+                return ServieSnapShot.UnitPrice * UnitAmount;
             }
         }
         //分配的职员

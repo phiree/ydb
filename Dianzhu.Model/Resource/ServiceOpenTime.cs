@@ -10,6 +10,7 @@ namespace Dianzhu.Model
     /// </summary>
     public class ServiceOpenTime
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model.ServiceOpenTime");
         public ServiceOpenTime()
         {
             OpenTimeForDay = new List<ServiceOpenTimeForDay>();
@@ -51,6 +52,21 @@ namespace Dianzhu.Model
             {
                 this.OpenTimeForDay.Add(period);
             }
+        }
+
+        public virtual ServiceOpenTimeForDay GetItem(DateTime datetime)
+        {
+            var timeItems = OpenTimeForDay.Where(x => x.IsIn(datetime));
+            int c = timeItems.Count();
+            string errMsg = "给定时间没有对应的时间项";
+            System.Diagnostics.Debug.Assert(c == 1, errMsg);
+            if (c !=1)
+            {
+                log.Error(errMsg);
+                throw new Exception(errMsg);
+            }
+            return timeItems.ToList()[0];
+
         }
         
     }

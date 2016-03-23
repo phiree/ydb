@@ -39,9 +39,9 @@ namespace Dianzhu.CSClient.WinformView
         public void LoadData(ServiceOrderDetail detail)
         {
             lblBusinessName.Text = detail.OriginalService.Business.Name;
-            lblDescription.Text = detail.Description;
-            lblPrice.Text = detail.UnitPrice + "/" + detail.ChargeUnit;
-            lblServiceName.Text = detail.ServiceName;
+            lblDescription.Text = detail.ServieSnapShot.Description;
+            lblPrice.Text = detail.ServieSnapShot.UnitPrice + "/" + detail.ServieSnapShot.ChargeUnit;
+            lblServiceName.Text = detail.ServieSnapShot.ServiceName;
             
         }
     }
