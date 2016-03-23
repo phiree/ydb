@@ -257,28 +257,7 @@ namespace Dianzhu.Model
          
         
         //草稿单转为正式单之后
-        public virtual void CreatedFromDraft()
-        {
-
-            //判断信息完整性,确定订单的Scope类型.
-            //没有任何服务项.
-
-            Debug.Assert(Details.Count > 0, "错误:订单明细为空");
-            if (Details.Count==0)
-            {
-                string errMsg = "订单内没有服务项";
-                log.Error(errMsg);
-                throw new Exception(errMsg);
-            }
-            //订单金额默认为 订单明细总额之和
-            foreach (ServiceOrderDetail detail in Details)
-            {
-                this.NegotiateAmount += detail.ServiceAmount;
-                this.DepositAmount += detail.DepositAmount;
-            }
-            this.OrderStatus = enum_OrderStatus.Created;
-           
-        }
+      
 
         /// <summary>
         /// 订单自动取消的超时时间.  取订单项中超时时间的最小值.
@@ -292,6 +271,36 @@ namespace Dianzhu.Model
         /// 获取需要支付的金额
         /// </summary>
         /// <param name="payTarget">支付目标: 定金 或者 尾款 或者../.</param>
+        /// <returns></returns>
+        #endregion
+
+        //订单转为正式.
+        public virtual void CreatedFromDraft()
+        {
+
+            //判断信息完整性,确定订单的Scope类型.
+            //没有任何服务项.
+             
+            Debug.Assert(Details.Count > 0, "错误:订单明细为空");
+            if (Details.Count == 0)
+            {
+                string errMsg = "订单内没有服务项";
+                log.Error(errMsg);
+                throw new Exception(errMsg);
+            }
+            //订单金额默认为 订单明细总额之和
+            foreach (ServiceOrderDetail detail in Details)
+            {
+                this.NegotiateAmount += detail.ServiceAmount;
+                this.DepositAmount += detail.DepositAmount;
+            }
+            this.OrderStatus = enum_OrderStatus.Created;
+
+        }
+        /// <summary>
+        /// 获取支付总额
+        /// </summary>
+        /// <param name="payTarget">支付类型</param>
         /// <returns></returns>
         public virtual decimal GetPayAmount(enum_PayTarget payTarget)
         {
@@ -308,10 +317,6 @@ namespace Dianzhu.Model
                 throw new Exception("没有计算公式");
             }
         }
-
-        #endregion  
- 
-
 
 
 
