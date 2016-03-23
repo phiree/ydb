@@ -119,12 +119,12 @@
 
     /**
      *
-     * @param row response row data
+     * @param raw response raw data
      * @returns {*}
      */
-    Adapter.respUnpack = function(row){
-        var rowData, respObj;
-        rowData = row;
+    Adapter.respUnpack = function(raw){
+        var rawData, respObj;
+        rawData = raw;
         respObj = {};
 
         var errorMap = {
@@ -144,35 +144,35 @@
             "001006" : "第三方登陆即将失效"
         }
 
-        if ( !rowData.protocol_CODE ){
+        if ( !rawData.protocol_CODE ){
             throw new Error("error protocol code");
         } else {
-            respObj.protocolCode = rowData.protocol_CODE;
+            respObj.protocolCode = rawData.protocol_CODE;
         }
 
-        if ( rowData == null ) {
-            throw new Error("row data is null");
+        if ( rawData == null ) {    
+            throw new Error("raw data is null");
         }
 
-        if ( typeof rowData === "string" ){
+        if ( typeof rawData === "string" ){
             try {
-                rowData = JSON.parse(rowData);
+                rawData = JSON.parse(rawData);
             } catch(error) {
                 throw new Error ( "parse error" + error );
             }
         }
 
-        if ( typeof rowData !== "object" ){
-            throw new Error("type error: data is typeof" + typeof rowData + ",it should be type of json");
+        if ( typeof rawData !== "object" ){
+            throw new Error("type error: data is typeof" + typeof rawData + ",it should be type of json");
         }
 
-        if ( rowData.state_CODE !== "009000" ){
+        if ( rawData.state_CODE !== "009000" ){
             respObj.respCorrect = false;
-            throw new Error('ERROR_CODE: ' + rowData.state_CODE + '-' + errorMap[rowData.state_CODE] + ': ' + rowData.err_Msg );
+            throw new Error('ERROR_CODE: ' + rawData.state_CODE + '-' + errorMap[rawData.state_CODE] + ': ' + rawData.err_Msg );
         } else {
             respObj.respCorrect = true;
-            if ( typeof rowData.RespData === "object" && rowData.RespData ){
-                respObj.respData = rowData.RespData;
+            if ( typeof rawData.RespData === "object" && rawData.RespData ){
+                respObj.respData = rawData.RespData;
 
                 if ( respObj.respData.arrayData && tools.isArray(respObj.respData.arrayData) ) {
                     respObj.hasArrayData = true;
@@ -180,7 +180,7 @@
             }
         }
 
-        respObj.stateCode = rowData.state_CODE;
+        respObj.stateCode = rawData.state_CODE;
 
         return respObj;
     };
