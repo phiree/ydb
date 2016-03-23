@@ -4845,6 +4845,37 @@ a4526dfc-92d3-44b2-9179-b9081055e7d9 教育培训 16
   background: #666 \9;
   letter-spacing: 0.1em;
 }
+.time-pick-w {
+  position: relative;
+  display: inline-block;
+}
+.time-pick {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  line-height: 1.4em;
+}
+.tp-wrap {
+  width: 100px;
+  position: absolute;
+  z-index: 999;
+  padding: 5px;
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid #c7c7c7;
+}
+.tp-h-select {
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid #c7c7c7;
+}
+.tp-m-select {
+  margin-left: 9px;
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid #c7c7c7;
+}
 .time-select-wrap {
   position: relative;
   display: inline-block;
@@ -4938,155 +4969,6 @@ a.time-trigger:hover {
 }
 .time-select a:hover {
   background: #eeeeee;
-}
-.timetable-title {
-  margin-bottom: 20px;
-}
-.timetable-title-icon {
-  width: 36px;
-  height: 36px;
-  background: url("../../image/yidianban_v1.2/tt-head-icon.png") no-repeat bottom;
-}
-.time-head {
-  height: 60px;
-  line-height: 60px;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 20px ;
-}
-.time-head p {
-  font-size: 30px;
-}
-.timetable-container {
-  background: #eee;
-  padding: 15px 10px;
-  border: 1px solid #ccc;
-}
-.timetable {
-  position: relative;
-  width: 940px;
-  margin: 0 auto;
-}
-.tt-row {
-  height: 70px;
-  position: relative;
-}
-.tt-row-bg {
-  background: url("../../image/yidianban_v1.2/tt-bg.png") no-repeat bottom;
-  background-attachment: local;
-}
-.tt-side {
-  float: left;
-  position: relative;
-  width: 90px;
-}
-.tt-side-head {
-  height: 30px;
-}
-.tt-side-row {
-  text-align: center;
-  line-height: 70px;
-}
-.tt-head {
-  position: relative;
-  border-bottom: 1px solid #ddd;
-}
-.tt-head-scrollable {
-  overflow: hidden;
-}
-.tt-head-columns {
-  position: relative;
-  height: 30px;
-}
-.tt-head-columns .tt-head-column {
-  box-sizing: border-box;
-  display: inline-block;
-  height: 100%;
-  line-height: 100%;
-  border-left: 1px solid #ddd;
-  width: 20px;
-  text-align: center;
-}
-.tt-body {
-  position: relative;
-  height: 100%;
-  overflow: hidden;
-  z-index: 100;
-}
-.tt-body-scrollable {
-  overflow: auto;
-  position: relative;
-}
-.tt-body-background {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-.tt-body-foreground {
-  position: absolute;
-  height: 100%;
-}
-.tt-body-foreground .tt-fg-column {
-  box-sizing: border-box;
-  display: inline-block;
-  height: 100%;
-  border-left: 1px solid #ddd;
-}
-.tt-body-columns {
-  position: absolute;
-  height: 100%;
-}
-.tt-body-columns .tt-fg-column {
-  box-sizing: border-box;
-  display: inline-block;
-  height: 100%;
-  border-left: 1px solid #ddd;
-  width: 20px;
-}
-.tt-body-rows {
-  padding-bottom: 20px;
-}
-.tt-body-rows .tt-row-content {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-.tt-body-rows .tt-row-content .tt-task {
-  position: absolute;
-  margin: auto;
-  top: 0;
-  left: 30px;
-  min-width: .6em;
-  height: 60px;
-  background: url("../../image/yidianban_v1.2/tt-good-icon.png") no-repeat bottom;
-}
-.tt-body-rows .tt-row-content .tt-task.tt-task-split {
-  margin: 0 auto;
-}
-.tt-main {
-  position: relative;
-  padding: 0 20px;
-  overflow: hidden;
-}
-.tt-main-bg {
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-.tt-main-bg .main-bg-head {
-  height: 30px;
-}
-.tt-main-bg .main-bg-body {
-  overflow: auto;
-  position: relative;
-}
-.tt-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
 .steps-tip {
   float: left;
@@ -5627,90 +5509,251 @@ a.time-trigger:hover {
 .good-list .deleteGood {
   display: none;
 }
-/*可滑动开关样式*/
-.round-checkbox {
-  display: inline-block;
-  vertical-align: middle;
-  position: relative;
-  width: 70px;
-  height: 28px;
-  border-radius: 14px;
+.wt-set-wrap {
+  overflow-x: scroll;
+}
+.wt-set {
   overflow: hidden;
+  width: 2200px;
 }
-.round-checkbox input[type=checkbox] {
-  visibility: hidden ;
+.wd-item-wrap {
+  width: 310px;
+  float: left;
 }
-.round-checkbox input[type=checkbox]:checked + label {
-  left: 45px;
-  box-shadow: 0 1px 1px 1px #5191CB;
+.wd-item-wrap + .wd-item-wrap {
+  margin-left: 5px;
 }
-.round-checkbox input[type=checkbox]:checked + label + em {
-  content: "开启";
-  background: #6cabe8;
-  box-shadow: inset 0 2px 2px 2px #5191cb;
+.wd-item {
+  position: relative;
+  border-radius: 5px;
+  background: #f6f6f6;
+  border: 1px solid #C7C7C7;
+  margin-top: 30px;
 }
-.round-checkbox label {
-  display: block;
-  width: 22px;
-  height: 22px;
-  margin-top: -11px;
-  border-radius: 50%;
-  transition: all 0.3s ease-out;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
-  background: #ffffff;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0);
-  /* IE6-9 */
-  box-shadow: 0 1px 1px 1px #848484;
-  cursor: pointer;
+.wd-week {
+  text-align: center;
+  padding-top: 5px;
   position: absolute;
-  top: 50%;
-  left: 3px;
-  z-index: 100;
+  top: -26px;
+  left: 15px;
+  width: 121px;
+  height: 26px;
+  background: url("../images/components/wt_tab_bg.png") no-repeat center;
 }
-.round-checkbox label + em {
+.wd-order-edit {
+  text-align: right;
+  box-shadow: 0 3px 3px #e7e7e7;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid #C7C7C7;
+  padding: 10px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
+  background: #F4F4F4 ;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #F4F4F4 0%, #eaeaea 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #F4F4F4 0%, #eaeaea 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #F4F4F4 0%, #eaeaea 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F4F4F4 ', endColorstr='#eaeaea', GradientType=0);
+  /* IE6-9 */
+}
+.wd-order-edit.editing .wd-maxOrder {
+  display: none;
+}
+.wd-order-edit.editing .wd-maxOrder-edit {
+  display: inline-block;
+  width: 3em;
+}
+.wd-order-edit.editing .wd-maxOrder-conf-btn {
+  display: inline-block;
+}
+.wd-order-edit.editing .wd-maxOrder-edit-btn {
+  display: none;
+}
+.wd-maxOrder-edit-btn,
+.wd-maxOrder-conf-btn {
+  display: inline-block;
+  border-radius: 3px;
+  border: 1px solid #C7C7C7;
+  width: 40px;
+  height: 25px;
+  text-align: center;
+  box-shadow: 0 1px 0 0 #ffffff;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
+  background: #f7f7f7;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+  /* IE6-9 */
+}
+.wd-maxOrder {
+  display: inline-block;
+  width: 3em;
+  margin-right: 4px;
+}
+.wd-maxOrder-edit {
+  display: none;
+}
+.wd-maxOrder-conf-btn {
+  display: none;
+}
+.wd-b {
+  position: relative;
+  text-align: center;
+  padding: 10px;
+}
+.wd-b.creating .wd-add {
+  padding-top: 20px;
+  text-align: left;
+  display: block;
+  position: absolute;
+  z-index: 10;
+  top: -190px;
+  left: 40px;
+  width: 230px;
+  height: 190px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #c7c7c7;
+  border-radius: 5px;
+  box-shadow: 2px 2px 8px 0 #ccc;
+}
+.wd-add {
+  display: none;
+}
+.wd-bar {
+  padding: 0 25px;
+  margin-bottom: 15px;
+}
+.wd-bar span {
+  line-height: 1.6em;
+}
+.wd-trigger {
+  display: inline-block;
+  border-radius: 3px;
+  border: 1px solid #C7C7C7;
+  padding: 5px 10px;
+  text-align: center;
+  box-shadow: 0 1px 0 0 #ffffff;
+  background: #f7f7f7;
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+}
+.wd-add-btn {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 0 0 3px 3px;
+}
+.wd-add-btn input {
+  background: #f7f7f7;
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+}
+.wd-num {
+  border-radius: 5px;
+  border: 1px solid #c7c7c7;
+  padding: 5px;
+}
+.wd-confirm {
+  display: block;
   position: absolute;
   left: 0;
-  top: 0;
-  content: "开启";
-  width: 70px;
-  height: 28px;
-  border-radius: 14px;
-  background: #939393;
-  box-shadow: inset 0 2px 2px 2px #848484;
-  transition: all 0.8s ease;
+  width: 50%;
+  height: 100%;
+  border: 0;
+  border-top: 1px solid #c7c7c7 ;
+  border-right: 1px solid #c7c7c7 ;
 }
-.round-checkbox label::before {
-  content: "开启";
+.wd-cancel {
   display: block;
-  width: 70px;
-  height: 22px;
-  line-height: 22px;
   position: absolute;
-  top: 0;
-  left: -76px;
-  color: #fff;
-  text-align: right;
-  text-shadow: 0 1px 1px #5191CB;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  border: 0;
+  border-top: 1px solid #c7c7c7;
+  border-left: 1px solid #fff;
 }
-.round-checkbox label::after {
-  content: "关闭";
+.wt-container {
+  height: 400px;
+}
+.wt.editing .wt-show {
+  display: none;
+}
+.wt.editing .wt-editing {
   display: block;
-  width: 70px;
-  height: 22px;
-  line-height: 22px;
+}
+.wt.editing .wt-confirm {
+  display: inline-block;
+}
+.wt.editing .wt-edit {
+  display: none;
+}
+.wt-item {
+  margin: 0 15px;
+  position: relative;
+  height: 60px;
+  border-bottom: 1px solid #ccc;
+}
+.wt-bar {
   position: absolute;
-  top: 0;
-  right: -76px;
-  color: #fff;
-  text-align: left;
-  text-shadow: 0 1px 1px #848484;
+  left: 0;
+  top: 10px;
+}
+.wt-show {
+  display: block;
+  line-height: 1.6em;
+}
+.wt-editing {
+  display: none;
+  line-height: 1.6em;
+}
+.wt-ctrl {
+  position: absolute;
+  right: 0;
+  top: 17px;
+}
+.wt-ctrl input {
+  vertical-align: middle;
+}
+.wt-delete {
+  border: 0;
+  width: 26px;
+  height: 22px;
+  background: url("../images/components/wt-delete.png") no-repeat center;
+}
+.wt-edit {
+  border: 0;
+  width: 26px;
+  height: 22px;
+  background: url("../images/components/wt-edit.png") no-repeat center;
+}
+.wt-confirm {
+  display: none;
+  border: 0;
+  width: 26px;
+  height: 22px;
+  background: url("../images/components/wt-conf.png") no-repeat center;
+}
+.wt-number {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  line-height: 1.4em;
 }
 /* 服务选择样式 */
 .serLightContainer {
@@ -5955,7 +5998,11 @@ a.time-trigger:hover {
   font-weight: bold;
   width: 160px;
 }
+.model-input {
+  min-height: 30px;
+}
 .model-input-unit {
+  min-height: 30px;
   padding-right: 50px;
   position: relative;
 }
@@ -5965,6 +6012,7 @@ a.time-trigger:hover {
   right: 15px;
 }
 .model-input-unit-sm {
+  min-height: 30px;
   padding-right: 115px;
   position: relative;
 }
@@ -6488,6 +6536,91 @@ a.time-trigger:hover {
 }
 .download-img-show img {
   vertical-align: baseline;
+}
+/*可滑动开关样式*/
+.round-checkbox {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  width: 70px;
+  height: 28px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.round-checkbox input[type=checkbox] {
+  visibility: hidden ;
+}
+.round-checkbox input[type=checkbox]:checked + label {
+  left: 45px;
+  box-shadow: 0 1px 1px 1px #5191CB;
+}
+.round-checkbox input[type=checkbox]:checked + label + em {
+  content: "开启";
+  background: #6cabe8;
+  box-shadow: inset 0 2px 2px 2px #5191cb;
+}
+.round-checkbox label {
+  display: block;
+  width: 22px;
+  height: 22px;
+  margin-top: -11px;
+  border-radius: 50%;
+  transition: all 0.3s ease-out;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
+  background: #ffffff;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0);
+  /* IE6-9 */
+  box-shadow: 0 1px 1px 1px #848484;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  z-index: 100;
+}
+.round-checkbox label + em {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "开启";
+  width: 70px;
+  height: 28px;
+  border-radius: 14px;
+  background: #939393;
+  box-shadow: inset 0 2px 2px 2px #848484;
+  transition: all 0.8s ease;
+}
+.round-checkbox label::before {
+  content: "开启";
+  display: block;
+  width: 70px;
+  height: 22px;
+  line-height: 22px;
+  position: absolute;
+  top: 0;
+  left: -76px;
+  color: #fff;
+  text-align: right;
+  text-shadow: 0 1px 1px #5191CB;
+}
+.round-checkbox label::after {
+  content: "关闭";
+  display: block;
+  width: 70px;
+  height: 22px;
+  line-height: 22px;
+  position: absolute;
+  top: 0;
+  right: -76px;
+  color: #fff;
+  text-align: left;
+  text-shadow: 0 1px 1px #848484;
 }
 /* pages */
 .biz-total-cards {
