@@ -38,14 +38,14 @@ namespace Dianzhu.Model
             bool isConflict = false;
             foreach (ServiceOpenTimeForDay d in this.OpenTimeForDay)
             {
-                if (!( period.PeriodStart > d.PeriodEnd || period.PeriodEnd < d.PeriodStart))
+                if (!( period.PeriodStart >= d.PeriodEnd || period.PeriodEnd < d.PeriodStart))
                 {
                     isConflict = true;
                 }
             }
             if (isConflict)
             {
-                throw new Exception("服务时间段不能重合.ID:" + this.Id + ";重合时间：" + period.TimeStart + "-" + period.TimeEnd);
+                throw new Exception("timeRepeat:服务时间段不能重合.ID=" + this.Id + ";重合时间：" + period.TimeStart + "-" + period.TimeEnd);
             }
             else
             {

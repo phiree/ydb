@@ -232,7 +232,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     svcObj.SetAttribute("svcID", service.OriginalService.Id.ToString());
                     svcObj.SetAttribute("name", service.OriginalService.Name);
                     svcObj.SetAttribute("type", service.OriginalService.ServiceType.ToString());
-                    svcObj.SetAttribute("startTime", service.TargetTime.ToString("yyyyMMDDHHmmss"));
+                    svcObj.SetAttribute("startTime", service.TargetTime.ToString("yyyyMMddHHmmss"));
                     extNode.AddChild(svcObj);
 
                     /* "storeObj": {
