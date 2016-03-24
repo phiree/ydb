@@ -88,25 +88,22 @@ public class ResponseWTM001001 : BaseResponse
                     return;
                 }
                 
-                ServiceOpenTimeForDay sotDay = new ServiceOpenTimeForDay();
-                sotDay.MaxOrderForOpenTime = Int32.Parse(workTimeObj.maxOrder);
-                sotDay.TimeStart = workTimeObj.startTime;
-                sotDay.TimeEnd = workTimeObj.endTime;
-                sotDay.Enabled = workTimeObj.open == "Y" ? true : false;
-
-                ServiceOpenTime openTime = new ServiceOpenTime();
                 if (repeat != null)
-                {                    
+                {
                     string[] repeatList = repeat.Split(',');
                     for(int i = 0; i < repeatList.Count(); i++)
                     {
-                        openTime.DayOfWeek = StringToWeek(repeatList[i]);
-                        openTime.AddServicePeriod(sotDay);
                         foreach(ServiceOpenTime sotObj in service.OpenTimes)
                         {
-                            if (sotObj.DayOfWeek == openTime.DayOfWeek)
+                            if (sotObj.DayOfWeek == StringToWeek(repeatList[i]))
                             {
-                                sotObj.OpenTimeForDay = openTime.OpenTimeForDay;
+                                ServiceOpenTimeForDay sotDay = new ServiceOpenTimeForDay();
+                                sotDay.MaxOrderForOpenTime = Int32.Parse(workTimeObj.maxOrder);
+                                sotDay.TimeStart = workTimeObj.startTime;
+                                sotDay.TimeEnd = workTimeObj.endTime;
+                                sotDay.Enabled = workTimeObj.open == "Y" ? true : false;
+                                sotDay.ServiceOpenTime = sotObj;
+                                sotObj.AddServicePeriod(sotDay);
                                 break;
                             }
                         }
@@ -132,14 +129,18 @@ public class ResponseWTM001001 : BaseResponse
                         this.err_Msg = "week有误！";
                         return;
                     }
-
-                    openTime.DayOfWeek = StringToWeek(week.ToString());
-                    openTime.AddServicePeriod(sotDay);
+                    
                     foreach (ServiceOpenTime sotObj in service.OpenTimes)
                     {
-                        if (sotObj.DayOfWeek == openTime.DayOfWeek)
+                        if (sotObj.DayOfWeek == StringToWeek(week.ToString()))
                         {
-                            sotObj.OpenTimeForDay = openTime.OpenTimeForDay;
+                            ServiceOpenTimeForDay sotDay = new ServiceOpenTimeForDay();
+                            sotDay.MaxOrderForOpenTime = Int32.Parse(workTimeObj.maxOrder);
+                            sotDay.TimeStart = workTimeObj.startTime;
+                            sotDay.TimeEnd = workTimeObj.endTime;
+                            sotDay.Enabled = workTimeObj.open == "Y" ? true : false;
+                            sotDay.ServiceOpenTime = sotObj;
+                            sotObj.AddServicePeriod(sotDay);
                             break;
                         }
                     }
@@ -163,7 +164,11 @@ public class ResponseWTM001001 : BaseResponse
                 {
                     foreach(ServiceOpenTimeForDay sotDayObj in sotObj.OpenTimeForDay)
                     {
-                        respData.arrayData.Add(sotDayObj.Id.ToString());
+                        if(sotDayObj.TimeStart== workTimeObj.startTime&&sotDayObj.TimeEnd== workTimeObj.endTime)
+                        {
+                            respData.arrayData.Add(sotDayObj.Id.ToString());
+                            break;
+                        }                        
                     }
                 }
                 this.state_CODE = Dicts.StateCode[0];

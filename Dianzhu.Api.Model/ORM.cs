@@ -325,7 +325,8 @@ namespace Dianzhu.Api.Model
         public RespDataORM002001_cerObj Adap(DZMembership customerService)
         {
             this.userID = customerService.Id.ToString();
-            this.imgUrl = customerService.AvatarUrl ?? string.Empty;
+            this.imgUrl = string.Empty;
+             
             this.alias = customerService.DisplayName ?? string.Empty;
             this.userName = customerService.UserName ?? string.Empty;
             return this;

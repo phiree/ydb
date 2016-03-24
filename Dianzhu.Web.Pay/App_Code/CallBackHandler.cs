@@ -14,7 +14,8 @@ using Com.Alipay;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.Pay;
-
+using Dianzhu.Model.Enums;
+using System.Web.Script.Serialization;
 public partial class CallBackHandler : System.Web.UI.Page
 {
 
@@ -25,28 +26,49 @@ public partial class CallBackHandler : System.Web.UI.Page
     {
 
         log.Debug("支付完成，调用notifyurl");
-        Response.Write(Request.RawUrl);
+      
         string rawUrl = Request.RawUrl;
-        IPayCallBack payCallBack;
+        IPayCallBack payCallBack=null;
+        enum_PaylogType payLogType= enum_PaylogType.None;
         if (rawUrl.ToLower().StartsWith("/paycallback/wepay"))
         {
             payCallBack = new PayCallBackWePay();
+            payLogType = enum_PaylogType.ReturnNotifyFromWePay;
         }
         else if (rawUrl.ToLower().StartsWith("/paycallback/alipay"))
         {
             //保存支付接口返回的原始数据
+            if (rawUrl.ToLower().Contains("return_url"))
+            { payLogType = enum_PaylogType.ResultReturnFromAli; }
+            else
+            {
+                payLogType = enum_PaylogType.ResultNotifyFromAli;
+            }
             payCallBack = new PayCallBackAli();
+            
         }
         else
         {
             errMsg = "错误的回调页面: " + rawUrl;
             log.Error(errMsg);
             Response.Write(errMsg);
+            Response.End();
         }
         try
         {
             BLLPay bllPay = new BLLPay();
-            bllPay.ReceiveAPICallBack(Dianzhu.Model.Enums.enum_PaylogType.ResultNotifyFromAli, new PayCallBackAli(), Request.RawUrl, Request.QueryString);
+
+            object parameters = null;
+            if (Request.HttpMethod.ToLower() == "get")
+            {
+                parameters = Request.QueryString;
+            }
+            using (System.IO.StreamReader sr = new System.IO.StreamReader(Request.InputStream))
+            {
+                parameters = sr.ReadToEnd();
+            }
+
+            bllPay.ReceiveAPICallBack(payLogType, payCallBack, Request.RawUrl, parameters);
             if (rawUrl.Contains("return_url"))
             {
                 Response.Redirect("~/paysuc.html");

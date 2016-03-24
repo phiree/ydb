@@ -6,6 +6,15 @@
         xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
         mc:Ignorable="d"
         Title="一点办客服工具" WindowStartupLocation="CenterScreen" WindowStyle="None">
+
+    <Window.Resources>
+        <ControlTemplate  x:Key="CornerButton" TargetType="{x:Type Button}">
+            <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10">
+                <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
@@ -14,23 +23,29 @@
 
         <!--侧边栏-->
         <Grid Grid.Column="0">
-            <DockPanel LastChildFill="False">
+            <DockPanel LastChildFill="False" Background="Gray">
                 <StackPanel DockPanel.Dock="Top">
                     <Image x:Name="imgDZLogo" Height="80" Width="80"/>
-                    <Button x:Name="btnWorkDesktop" Content="工作台"/>
-                    <Button x:Name="btnCSInfo" Content="客服信息"/>
+                    <Button x:Name="btnWorkDesktop" Background="Gray" Height="50">
+                        <TextBlock Foreground="White" Text="工作台"></TextBlock>
+                    </Button>
+                    <Button x:Name="btnCSInfo" Background="Gray" Height="60">
+                        <TextBlock Foreground="White" Text="客服信息"></TextBlock>
+                    </Button>
                 </StackPanel>
 
                 <StackPanel DockPanel.Dock="Bottom">
                     <Image x:Name="imgCSPic" Height="80" Width="80" VerticalAlignment="Top"/>
-                    <Label x:Name="lblCSNum" Content="工号 321554"></Label>
+                    <Label x:Name="lblCSNum">
+                        <TextBlock Foreground="White" Text="工号 321554"></TextBlock>
+                    </Label>
                 </StackPanel>
             </DockPanel>
         </Grid>
         <!--**********************************************************************************-->
 
         <!--主要操作区域-->
-        <Grid Grid.Column="1" Grid.ColumnSpan="2">
+        <Grid Grid.Column="1" Grid.ColumnSpan="2" Background="#FFE7ECEC">
             <Grid.RowDefinitions>
                 <RowDefinition Height="29"/>
                 <RowDefinition Height="51"/>
@@ -39,13 +54,19 @@
             </Grid.RowDefinitions>
 
             <!--窗体控制按钮-->
-            <DockPanel Grid.Row="0" LastChildFill="False">
-                <WrapPanel DockPanel.Dock="Right" Width="105">
-                    <Button x:Name="btnWindowsMin" Width="25" Margin="5">-</Button>
-                    <Button x:Name="btnWindowsMax" Width="25" Margin="5">+</Button>
-                    <Button x:Name="btnWindowsClosed" Width="25" Margin="5">X</Button>
+            <Grid Grid.Row="0" Background="LightGray">
+                <WrapPanel Width="105" HorizontalAlignment="Right">
+                    <Button x:Name="btnWindowsMin" Width="25" Margin="5" Template="{StaticResource CornerButton}">
+                        <TextBlock Text="—"></TextBlock>
+                    </Button>
+                    <Button x:Name="btnWindowsMax" Width="25" Margin="5" Template="{StaticResource CornerButton}">
+                        <TextBlock Text="＋"></TextBlock>
+                    </Button>
+                    <Button x:Name="btnWindowsClosed" Width="25" Margin="5" Template="{StaticResource CornerButton}">
+                        <TextBlock Text="X"></TextBlock>
+                    </Button>
                 </WrapPanel>
-            </DockPanel>
+            </Grid>
 
             <!--用户接待列表-->
             <WrapPanel Grid.Row="1">

@@ -27,8 +27,6 @@ namespace Dianzhu.BLL
             decimal payAmount = order.GetPayAmount(payTarget);
             string paySubject = order.Title;
             string paySubjectPre = GetPreSubject(payTarget, order);
-
-           
             Payment payment = bllPayment.ApplyPay(order, payTarget);
             string paymentId = payment.Id.ToString();
 
@@ -40,6 +38,7 @@ namespace Dianzhu.BLL
                             Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/notify_url.aspx",
                             Dianzhu.Config.Config.GetAppSetting("PaySite") + "alipay/return_url.aspx",
                             "http://www.ydban.cn");
+                    ;
                 //payment_type,  notify_url,  return_url, show_url
 
                 case enum_PayAPI.Wechat:
@@ -55,8 +54,10 @@ namespace Dianzhu.BLL
         /// <param name="ipayCallback">支付平台回调方法</param>
         /// <param name="querystring">支付平台的完整请求</param>
         /// <param name="callBackQuery">请求参数列表</param>
-        public void ReceiveAPICallBack(enum_PaylogType payLogType, IPayCallBack ipayCallback, string rawRequestString, NameValueCollection callBackQuery)
+        public void ReceiveAPICallBack(enum_PaylogType payLogType, IPayCallBack ipayCallback, string rawRequestString, object callbackParameters)
         {
+            //获取回调参数 如果是get , 如果是post?
+           
             //保存记录
             PaymentLog paymentLog = new PaymentLog();
             paymentLog.ApiString = rawRequestString;
@@ -68,7 +69,7 @@ namespace Dianzhu.BLL
             //处理订单流程
             string platformOrderId, businessOrderId, errMsg;
             decimal amount;
-            bool is_success= ipayCallback.PayCallBack(callBackQuery,out businessOrderId,out platformOrderId,out amount,out errMsg);
+            bool is_success= ipayCallback.PayCallBack(callbackParameters, out businessOrderId,out platformOrderId,out amount,out errMsg);
 
             if (is_success == false)
             {

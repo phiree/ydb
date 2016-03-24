@@ -85,14 +85,14 @@ namespace Dianzhu.Config
             , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
             , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
             , {"PaySite",BuildHttpUrlString(ApplicationServer, 8168)   }
-            , {"PayUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
+           
             , {"OpenfireRestApiSessionListUrl",BuildHttpUrlString(IMServer, 9090,"plugins/restapi/v1/sessions/")  }
 
             , {"DiandianLoginId",DictsDianDianLogins[IMNotifyServer].Key}
             , {"DiandianLoginPwd",DictsDianDianLogins[IMNotifyServer].Value  }
             , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, 8037,"DianzhuApi.ashx")  }
             , {"PayServerUrl",BuildHttpUrlString(ApplicationServer, 8168,"Pay/")   }
-            , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, 8039)   }
+            , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, 8039, "IMServerAPI.ashx?")   }
             , {"BaiduGeocodingAPI","http://api.map.baidu.com/geocoder/v2/?ak="  }
             , {"BaiduTranAPI","http://api.map.baidu.com/geoconv/v1/?ak="  }
             , {"BaiduGeocodingAK","SDHO8UtRNvOl4Cc29KA74UxF"  }

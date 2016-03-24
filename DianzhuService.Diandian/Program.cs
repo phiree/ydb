@@ -9,12 +9,14 @@ namespace DianzhuService.Diandian
 {
     static class Program
     {
+        static log4net.ILog  log = log4net.LogManager.GetLogger("Dianzhu.Diandian");
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
         static void Main(string[] args)
         {
              PHSuit.Logging.Config("Dianzhu.DianDian");
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             ServiceDiandian sdd = new ServiceDiandian();
             if (Environment.UserInteractive)
             {
@@ -33,6 +35,9 @@ namespace DianzhuService.Diandian
             }
         }
 
-       
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            log.Error("发生异常" + ((Exception)e.ExceptionObject).Message);
+        }
     }
 }

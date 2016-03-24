@@ -40,6 +40,7 @@ namespace Dianzhu.Api.Model
     {
         public string merchantID { get; set; }
         public string pWord { get; set; }
+        public string storeID { get; set; }
         public RespDataASN_staffObj userObj { get; set; }
     }
 
@@ -98,6 +99,7 @@ namespace Dianzhu.Api.Model
     {
         public string merchantID { get; set; }
         public string pWord { get; set; }
+        public string storeID { get; set; }
     }
 
     public class RespDataASN001004
@@ -125,6 +127,7 @@ namespace Dianzhu.Api.Model
     {
         public string merchantID { get; set; }
         public string pWord { get; set; }
+        public string storeID { get; set; }
     }
 
     public class RespDataASN001006
@@ -173,6 +176,7 @@ namespace Dianzhu.Api.Model
     {
         public string merchantID { get; set; }
         public string pWord { get; set; }
+        public string storeID { get; set; }
         public IList<RespDataASN_assignObj> arrayData { get; set; }
     }
 
@@ -187,6 +191,7 @@ namespace Dianzhu.Api.Model
     {
         public string merchantID { get; set; }
         public string pWord { get; set; }
+        public string storeID { get; set; }
         public string orderID { get; set; }
         public string userID { get; set; }
     }

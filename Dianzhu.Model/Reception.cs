@@ -183,6 +183,9 @@ namespace Dianzhu.Model
         /// </summary>
        public virtual DZMembership ReAssignedCustomerService { get; set; }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public class ReceptionChatNotice : ReceptionChat
     {
         public virtual DZMembership UserObj { get; set; }
