@@ -19,13 +19,14 @@ var test_data = [
             "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
             "pWord": "123456",
             "svcID": "0f4bdace-dad0-43aa-8cce-a5c501180535",
-            "repeat": "1,2,3",
+            //"repeat": "1,2,3",
             "workTimeObj": {
                 "tag": "默认工作时间",
-                "startTime": "07:00",
-                "endTime": "18:00",
+                "startTime": "00:00",
+                "endTime": "01:00",
                 "open": "Y",
-                "maxOrder":"10"
+                "week":"2",
+                "maxOrder":"1003"
             }
         },
         "stamp_TIMES": 1453520313281,
@@ -89,7 +90,7 @@ var test_data = [
             "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
             "pWord": "123456",
             "svcID": "0f4bdace-dad0-43aa-8cce-a5c501180535",
-            //"week": "1,2,3"
+            "week": "2"
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -246,7 +247,7 @@ var test_data = [
         "ReqData": {
             "merchantID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
             "pWord": "123456",
-            "storeID": "e3c51562-bd5f-43ce-894c-a5c20112674f"
+            "storeID": "8fd76124-b16f-460d-be5f-a5c501173582"
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -315,8 +316,9 @@ var test_data = [
     {
         "protocol_CODE": "ASN001001",
         "ReqData": {
-            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
             "pWord": "123456",
+            "storeID": "8fd76124-b16f-460d-be5f-a5c501173582",
             "userObj": {
                 "alias": "棒棒娃",
                 "email": "issumao@126.com",
@@ -359,8 +361,9 @@ var test_data = [
     {
         "protocol_CODE": "ASN001004",
         "ReqData": {
-            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
             "pWord": "123456",
+            "storeID": "8fd76124-b16f-460d-be5f-a5c501173582"
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -380,8 +383,9 @@ var test_data = [
     {
         "protocol_CODE": "ASN001006",
         "ReqData": {
-            "merchantID": "e2f4fb71-04fc-43d7-a255-a5af00ae5705",
+            "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
             "pWord": "123456",
+            "storeID": "8fd76124-b16f-460d-be5f-a5c501173582"
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"

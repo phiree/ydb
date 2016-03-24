@@ -100,13 +100,13 @@ public class ResponseWTM001001 : BaseResponse
                     string[] repeatList = repeat.Split(',');
                     for(int i = 0; i < repeatList.Count(); i++)
                     {
-                        openTime.DayOfWeek = StringToWeek(repeatList[i]);
-                        openTime.AddServicePeriod(sotDay);
+                        openTime = new ServiceOpenTime();
+                        openTime.DayOfWeek = StringToWeek(repeatList[i]);                        
                         foreach(ServiceOpenTime sotObj in service.OpenTimes)
                         {
                             if (sotObj.DayOfWeek == openTime.DayOfWeek)
                             {
-                                sotObj.OpenTimeForDay = openTime.OpenTimeForDay;
+                                sotObj.AddServicePeriod(sotDay);
                                 break;
                             }
                         }
@@ -133,13 +133,12 @@ public class ResponseWTM001001 : BaseResponse
                         return;
                     }
 
-                    openTime.DayOfWeek = StringToWeek(week.ToString());
-                    openTime.AddServicePeriod(sotDay);
+                    openTime.DayOfWeek = StringToWeek(week.ToString());                    
                     foreach (ServiceOpenTime sotObj in service.OpenTimes)
                     {
                         if (sotObj.DayOfWeek == openTime.DayOfWeek)
                         {
-                            sotObj.OpenTimeForDay = openTime.OpenTimeForDay;
+                            sotObj.AddServicePeriod(sotDay);
                             break;
                         }
                     }

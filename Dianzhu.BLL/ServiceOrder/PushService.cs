@@ -9,10 +9,12 @@ namespace Dianzhu.BLL
     {
         DAL.DALServiceOrderPushedService dalSOP;
         BLLServiceOrder bllServiceOrder;
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis;
         public PushService(DAL.DALServiceOrderPushedService dalSOP)
         {
             this.dalSOP = dalSOP;
             this.bllServiceOrder = new BLLServiceOrder();
+            this.bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
         }
         public PushService():this(new DAL.DALServiceOrderPushedService())
         {
@@ -54,6 +56,24 @@ namespace Dianzhu.BLL
                 order.AddDetailFromIntelService(s.OriginalService, 1, s.TargetAddress, s.TargetTime);
 
                 order.CreatedFromDraft();
+
+                ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis
+                {
+                    OrderAmount = order.OrderAmount,
+                    DepositAmount = order.DepositAmount,
+                    NegotiateAmount = order.NegotiateAmount,
+                    Order = order,
+                    Remark = order.Memo,
+                    OldStatus = Model.Enums.enum_OrderStatus.Draft,
+                    NewStatus = order.OrderStatus,
+                    Number = 1,
+                };
+                bllServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
+
+                PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);
+
+                BLLPayment bllPayment = new BLLPayment();
+                Payment payment = bllPayment.ApplyPay(order, Model.Enums.enum_PayTarget.Deposit);
             }            
         }
     }

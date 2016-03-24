@@ -69,7 +69,7 @@ namespace Dianzhu.Model
                 case enum_OrderStatus.Search: str = "搜索单"; break;
                 case enum_OrderStatus.Draft: str = "草稿单"; break;
                 case enum_OrderStatus.DraftPushed: str = "推送服务的草稿单"; break;
-                case enum_OrderStatus.Created: str = "待付款"; break;
+                case enum_OrderStatus.Created: str = "等待付款"; break;
                 case enum_OrderStatus.Payed: str = "已付款"; break;
                 case enum_OrderStatus.Canceled: str = "客户申请取消订单"; break;
                 case enum_OrderStatus.CanceledDirectly: str = "订单已取消"; break;

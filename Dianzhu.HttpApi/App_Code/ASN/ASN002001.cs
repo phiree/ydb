@@ -29,30 +29,31 @@ public class ResponseASN002001 : BaseResponse
 
         try
         {
-            string store_id = requestData.merchantID;
+            string merchant_id = requestData.merchantID;
+            string store_id = requestData.storeID;
             IList<RespDataASN_assignObj> arrayData = requestData.arrayData;
 
-            Guid merchantID;
-            bool isStoreId = Guid.TryParse(store_id, out merchantID);
-            if (!isStoreId)
+            Guid merchantID, storeID;
+            bool isMerchantId = Guid.TryParse(merchant_id, out merchantID);
+            if (!isMerchantId)
             {
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "merchantID格式有误";
                 return;
             }
 
-            Business store = bllBusiness.GetOne(merchantID);
-            if (store == null)
+            bool isStoreId = Guid.TryParse(store_id, out storeID);
+            if (!isStoreId)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "该店铺不存在！";
+                this.err_Msg = "storeID格式有误";
                 return;
             }
 
             if (request.NeedAuthenticate)
             {
                 DZMembership member;
-                bool validated = new Account(p).ValidateUser(store.Owner.Id, requestData.pWord, this, out member);
+                bool validated = new Account(p).ValidateUser(merchantID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -60,6 +61,21 @@ public class ResponseASN002001 : BaseResponse
             }
             try
             {
+                Business store = bllBusiness.GetOne(storeID);
+                if (store == null)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "该店铺不存在！";
+                    return;
+                }
+
+                if (store.Owner.Id != merchantID)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "您没有该店铺！";
+                    return;
+                }
+
                 Staff staff;
                 ServiceOrder order;
                 OrderAssignment oa;

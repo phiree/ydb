@@ -68,7 +68,7 @@ namespace Dianzhu.NotifyCenter
 
             ags.Message msg= BuildNotice(
                  order.Customer.Id + "@" + im.Domain,
-                 "订单状态已变为:" + order.OrderStatus,
+                 "订单状态已变为:" + order.GetFriendlyStatus(order.OrderStatus),
                  extNode
                  );
             //发送给客户

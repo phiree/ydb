@@ -134,7 +134,7 @@ public class ResponseOFP001001 : BaseResponse
                     if (isCustom)
                     {
                         //用户上线后，通知客服工具
-                        string imServerAPIInvokeUrl = "IMServerAPI.ashx?type=customlogin&userId=" + userId;
+                        string imServerAPIInvokeUrl = "type=customlogin&userId=" + userId;
                         VisitIMServerApi(imServerAPIInvokeUrl);
                     }                    
                     break;
@@ -143,7 +143,7 @@ public class ResponseOFP001001 : BaseResponse
                     if (isCustom)
                     {
                         //用户下线后，通知客服工具
-                        imServerAPIInvokeUrlUn = "IMServerAPI.ashx?type=customlogoff&userId=" + userId;
+                        imServerAPIInvokeUrlUn = "type=customlogoff&userId=" + userId;
                         VisitIMServerApi(imServerAPIInvokeUrlUn);
 
                         //接待关系存档
@@ -155,7 +155,7 @@ public class ResponseOFP001001 : BaseResponse
                     else
                     {
                         //客服下线后，将正在接待的用户转到其他客服或者点点
-                        imServerAPIInvokeUrlUn = "IMServerAPI.ashx?type=cslogoff&userId=" + userId;
+                        imServerAPIInvokeUrlUn = "type=cslogoff&userId=" + userId;
                         VisitIMServerApi(imServerAPIInvokeUrlUn);
                     }                    
                     break;
