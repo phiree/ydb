@@ -59,21 +59,101 @@
         </div>
     </div>
         <div id="lightBox" class="dis-n">
-            <div class="secret-change">
-                <div class="secret-change-title">
-                    <span>修改密码</span> <i class="icon  lightClose icon-close"></i>
+            <div class="model">
+                <div class="model-h">
+                    <span>修改密码</span> <i class="icon lightClose icon-close"></i>
                 </div>
-                <div class="secret-change-m">
+                <div class="model-m">
                     <div class="m-auto" ng-hide="!CPassSuccess">
-                        <asp:ChangePassword ID="ChangePassword1" runat="server" ChangePasswordTitleText="修改密码"
-                            CssClass="CPBox" PasswordLabelText="旧密码" ConfirmNewPasswordLabelText="确认新密码"
-                            NewPasswordLabelText="新密码" ChangePasswordButtonText="确认" ChangePasswordButtonType="Image"
-                            ChangePasswordButtonImageUrl="../image/myshop/shop_tx_107.png" ChangePasswordButtonStyle-CssClass="p-20"
-                            CancelButtonText="取消" CancelButtonType="Image" CancelButtonImageUrl="../image/myshop/shop_tx_108.png"
-                            CancelButtonStyle-CssClass="p-20" TitleTextStyle-CssClass="CPTitle" LabelStyle-CssClass="CPLabel"
-                            TextBoxStyle-CssClass="CPTextBox" ChangePasswordFailureText="" SuccessText="密码修改成功"
-                            SuccessPageUrl="./ChangePassword_suc.aspx" OnChangePasswordError="change_error"
-                            NewPasswordRegularExpression=".{6,}" NewPasswordRegularExpressionErrorMessage="密码至少6位数">
+                        <asp:ChangePassword ID="ChangePassword1" runat="server"
+                                            ChangePasswordTitleText="修改密码"
+                                            CssClass="CPBox" PasswordLabelText="旧密码"
+                                            ConfirmNewPasswordLabelText="确认新密码"
+                                            NewPasswordLabelText="新密码"
+
+                                            ChangePasswordButtonText="确认"
+                                            ChangePasswordButtonType="button"
+                                            ChangePasswordButtonImageUrl="../image/myshop/shop_tx_107.png"
+                                            ChangePasswordButtonStyle-CssClass="secret-btn"
+
+                                            CancelButtonText="取消"
+                                            CancelButtonType="button"
+                                            CancelButtonImageUrl="../image/myshop/shop_tx_108.png"
+                                            CancelButtonStyle-CssClass="m-l20 secret-btn"
+
+                                            TitleTextStyle-CssClass="CPTitle"
+                                            LabelStyle-CssClass="CPLabel"
+                                            TextBoxStyle-CssClass="CPTextBox"
+                                            ChangePasswordFailureText=""
+                                            SuccessText="密码修改成功"
+                                            SuccessPageUrl="./ChangePassword_suc.aspx"
+                                            OnChangePasswordError="change_error"
+                                            NewPasswordRegularExpression=".{6,}"
+                                            NewPasswordRegularExpressionErrorMessage="密码至少6位数">
+<CancelButtonStyle CssClass="m-l20 secret-btn"></CancelButtonStyle>
+
+<ChangePasswordButtonStyle CssClass="secret-btn"></ChangePasswordButtonStyle>
+
+                            <ChangePasswordTemplate>
+                                <table cellpadding="1" cellspacing="0" style="border-collapse:collapse;">
+                                    <tr>
+                                        <td>
+                                            <table cellpadding="0" style="line-height:1.6em">
+                                                <tr>
+                                                    <td align="right" class="CPLabel">
+                                                        <asp:Label ID="CurrentPasswordLabel" runat="server" AssociatedControlID="CurrentPassword">旧密码</asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="CurrentPassword" runat="server" CssClass="CPTextBox" TextMode="Password" style="margin-left: 5px;"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator ID="CurrentPasswordRequired" runat="server" ControlToValidate="CurrentPassword" ErrorMessage="必须填写“密码”。" ToolTip="必须填写“密码”。" ValidationGroup="ChangePassword1">*</asp:RequiredFieldValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right" class="CPLabel">
+                                                        <asp:Label ID="NewPasswordLabel" runat="server" AssociatedControlID="NewPassword">新密码</asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="NewPassword" runat="server" CssClass="CPTextBox" TextMode="Password" style="margin-left: 5px;"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator ID="NewPasswordRequired" runat="server" ControlToValidate="NewPassword" ErrorMessage="必须填写“新密码”。" ToolTip="必须填写“新密码”。" ValidationGroup="ChangePassword1">*</asp:RequiredFieldValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right" class="CPLabel">
+                                                        <asp:Label ID="ConfirmNewPasswordLabel" runat="server" AssociatedControlID="ConfirmNewPassword">确认新密码</asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="ConfirmNewPassword" runat="server" CssClass="CPTextBox" TextMode="Password" style="margin-left: 5px;"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator ID="ConfirmNewPasswordRequired" runat="server" ControlToValidate="ConfirmNewPassword" ErrorMessage="必须填写“确认新密码”。" ToolTip="必须填写“确认新密码”。" ValidationGroup="ChangePassword1">*</asp:RequiredFieldValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" colspan="2">
+                                                        <asp:CompareValidator ID="NewPasswordCompare" runat="server" ControlToCompare="NewPassword" ControlToValidate="ConfirmNewPassword" Display="Dynamic" ErrorMessage="“确认新密码”与“新密码”项必须匹配。" ValidationGroup="ChangePassword1"></asp:CompareValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" colspan="2">
+                                                        <asp:RegularExpressionValidator ID="NewPasswordRegExp" runat="server" ControlToValidate="NewPassword" Display="Dynamic" ErrorMessage="密码至少6位数" ValidationExpression=".{6,}" ValidationGroup="ChangePassword1"></asp:RegularExpressionValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" colspan="2" style="color:Red;">
+                                                        <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" colspan="2" >
+                                                        <asp:Button ID="ChangePasswordPushButton" runat="server" CommandName="ChangePassword" CssClass="secret-btn" Text="确认" ValidationGroup="ChangePassword1" />
+                                                        <asp:Button ID="CancelPushButton" runat="server" CausesValidation="False" CommandName="Cancel" CssClass="m-l20 secret-btn" Text="取消" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </ChangePasswordTemplate>
+
+<LabelStyle CssClass="CPLabel"></LabelStyle>
                             <SuccessTemplate>
                                 <div id="CPResult" class="m-auto" ng-hide="CPassSuccess">
                                     <div class="t-c">
@@ -86,36 +166,38 @@
                                         </div>
                                     </div>
                                     <div class="secret-change-sub">
-                                        <input class=" lightClose secret-btn-done" ng-click="CPassReset()" type="button" value="确认" /></div>
+                                    <input class="lightClose secret-btn-done" ng-click="CPassReset()" type="button" value="确认" /></div>
                                 </div>
                             </SuccessTemplate>
+
+<TextBoxStyle CssClass="CPTextBox"></TextBoxStyle>
+
+<TitleTextStyle CssClass="CPTitle"></TitleTextStyle>
                         </asp:ChangePassword>
                     </div>
                 </div>
             </div>
         </div>
         <div id="lightBox_ChangeEmail" class="dis-n">
-            <div class="secret-change">
-                <div class="secret-change-title">
-                    <span>修改邮箱</span> <i class="icon  lightClose icon-close"></i>
+            <div class="model">
+                <div class="model-h">
+                    <span>修改邮箱</span> <i class="lightClose icon delete-icon secret-cancel-icon"></i>
                 </div>
-                <div class="secret-change-m">
-
+                <div class="model-m">
                     新邮箱:
                     <input type="text" id="tbxNewEmail" />
-                    <input type="button" class="btnChange" id="btnChangeEmail" change_field="email" value="保存" />
+                    <input type="button" class="btnChange secret-btn" id="btnChangeEmail" change_field="email" value="保存" />
                 </div>
             </div>
         </div>
         <div id="lightBox_ChangePhone" class="dis-n">
-            <div class="secret-change">
-                <div class="secret-change-title">
-                    <span>修改电话</span> <i class="icon  lightClose icon-close"></i>
+            <div class="model">
+                <div class="model-h">
+                    <span>修改电话</span> <i class="lightClose icon delete-icon secret-cancel-icon"></i>
                 </div>
-                <div class="secret-change-m">
-
+                <div class="model-m">
                     新电话:<input type="text" id="tbxNewPhone" />
-                    <input type="button" class="btnChange" id="btnChangePhone" change_field="phone" value="保存"  />
+                    <input type="button" class="btnChange secret-btn" id="btnChangePhone" change_field="phone" value="保存"  />
                 </div>
             </div>
         </div>

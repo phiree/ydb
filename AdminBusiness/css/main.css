@@ -7965,3 +7965,7 @@ a.doReg:hover {
   background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
 }
+.secret-cancel-icon {
+  float: right;
+  margin-top: 5px;
+}
