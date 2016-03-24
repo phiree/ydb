@@ -77,8 +77,9 @@ public class ResponsePY001007:BaseResponse
                 case "wepay":
                     for (int i = 0; i < 10; i++)
                     {
+                        
                         IPayRequest ipayWe = new PayWeChat(payment.Amount, payment.Id.ToString(), payment.Order.Title
-                            , Dianzhu.Config.Config.GetAppSetting("NotifyServer"), payment.Order.Description);
+                            , Dianzhu.Config.Config.GetAppSetting("PaySite")+ "PayCallBack/Wepay/notify_url.aspx", payment.Order.Description);
                         //var respDataWeibo = new NameValueCollection();
                         string respDataWechat = "<xml>";
 

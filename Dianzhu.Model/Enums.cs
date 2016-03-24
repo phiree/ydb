@@ -52,6 +52,8 @@ namespace Dianzhu.Model.Enums
         ApplyFromUser=1,//用户发起支付请求
         ResultReturnFromAli=2,//支付宝 return回调
         ResultNotifyFromAli=3,//支付宝 notify回调
+        ReturnNotifyFromWePay=4,//微支付notify回调
+        
     }
     /// <summary>
     /// 支付接口

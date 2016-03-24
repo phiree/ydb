@@ -85,7 +85,7 @@ namespace Dianzhu.Config
             , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
             , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
             , {"PaySite",BuildHttpUrlString(ApplicationServer, 8168)   }
-            , {"PayUrl",BuildHttpUrlString(ApplicationServer, 8168)   }
+           
             , {"OpenfireRestApiSessionListUrl",BuildHttpUrlString(IMServer, 9090,"plugins/restapi/v1/sessions/")  }
 
             , {"DiandianLoginId",DictsDianDianLogins[IMNotifyServer].Key}
