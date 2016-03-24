@@ -7,7 +7,7 @@
 //"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
-"ad001006",
+"ad001006"
 
 ];
 var test_data = [
@@ -19,14 +19,14 @@ var test_data = [
             "merchantID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
             "pWord": "123456",
             "svcID": "0f4bdace-dad0-43aa-8cce-a5c501180535",
-            //"repeat": "1,2,3",
+            "repeat": "1,2,3",
             "workTimeObj": {
                 "tag": "默认工作时间",
-                "startTime": "00:00",
-                "endTime": "01:00",
+                "startTime": "08:04",
+                "endTime": "08:05",
                 "open": "Y",
                 "week":"2",
-                "maxOrder":"1003"
+                "maxOrder":"1084"
             }
         },
         "stamp_TIMES": 1453520313281,

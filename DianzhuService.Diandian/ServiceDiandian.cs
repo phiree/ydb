@@ -92,9 +92,6 @@ namespace DianzhuService.Diandian
             string msgType = msg.SelectSingleElement("ext").Namespace;
             switch (msgType.ToLower())
             {
-                case "ihelper:notice:system":
-
-                    return;
                 case "ihelper:chat:text":
 
                     break;
@@ -102,11 +99,9 @@ namespace DianzhuService.Diandian
                     msgObj_url = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("url");
                     msgObj_type = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("type");
                     break;
-                case "ihelper:notice:cer:change":
-                    customerId = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("UserID");
-                    csDisplayName = msg.SelectSingleElement("ext").SelectSingleElement("cerObj").GetAttribute("alias");
-                    //lblAssignedCS.Text = csDisplayName;
-                    break;
+                default:
+                    log.Warn("请求的类型无法处理，直接返回");
+                    return;
             }
             orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
             //AddLog(msg);

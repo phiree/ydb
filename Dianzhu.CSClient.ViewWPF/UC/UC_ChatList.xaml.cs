@@ -86,15 +86,20 @@ namespace Dianzhu.CSClient.ViewWPF
                     {
                         case "image":
 
-                            Image chatImage = new Image();
-                            BitmapImage chatImageBitmap = new BitmapImage();
-                            chatImageBitmap.BeginInit();
+                            //Image chatImage = new Image();
+                            //BitmapImage chatImageBitmap = new BitmapImage();
+                            //chatImageBitmap.BeginInit();
                            // string filename = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
                            // string localFile = LocalMediaSaveDir + filename;
-                            chatImageBitmap.UriSource = new Uri(mediaUrl);
-                            chatImageBitmap.EndInit();
-                            chatImage.Source = chatImageBitmap;
-                            pnlOneChat.Children.Add(chatImage);
+                            //chatImageBitmap.UriSource = new Uri(mediaUrl);
+                            //chatImageBitmap.EndInit();
+                            //chatImage.Source = chatImageBitmap;
+                            MediaElement chatImageGif = new MediaElement();
+                            chatImageGif.Name = chat.MessageBody;
+                            chatImageGif.LoadedBehavior = MediaState.Play;
+                            chatImageGif.Source = new Uri(mediaUrl);
+                            chatImageGif.MediaEnded += ChatImageGif_MediaEnded;
+                            pnlOneChat.Children.Add(chatImageGif);
                             break;
                         case "voice":
                              Button btnAudio = new Button();
@@ -138,6 +143,12 @@ namespace Dianzhu.CSClient.ViewWPF
                 lamda();
             }
         }
+
+        private void ChatImageGif_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            ((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
+        }
+
         private void BtnAudio_Click(object sender, EventArgs e)
         {
             if(AudioPlay!=null)
