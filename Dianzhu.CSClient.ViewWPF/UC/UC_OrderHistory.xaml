@@ -14,7 +14,7 @@
 
         <WrapPanel Grid.Row="0" VerticalAlignment="Center" Margin="15">
             <TextBox x:Name="txtSearchStr" TextWrapping="Wrap" Height="30" Width="300" Background="LightGray" FontSize="15">
-                aaaa
+                
             </TextBox>
             <Button x:Name="btnSearchByOrderId" Content="" Width="30" Background="#FF99EADF" Click="btnSearchByOrderId_Click">
                 
