@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true" CodeFile="CreateSuc.aspx.cs" Inherits="Business_CreateSuc" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-<link rel="Stylesheet" href="/css/business.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
@@ -29,6 +28,34 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="register-wrap">
+        <form runat="server">
+            <div class="register-section">
+                <div class="register-brand-c">
+                    <img id="register-logo" src="../images/pages/register/logo_100x100.png" alt="logo" />
+                    <div class="brand-head">
+                        <h1 class="cssc0a9477146a8">一点办商户管理系统</h1>
+                        <p class="cssc0a50b3d46a8">静心观天下·才能发现世界的精彩</p>
+                    </div>
+                </div>
+            </div>
+            <div class="register-section">
+                <div class="register-panel-c">
+                    <div class="reg-model">
+                        <div class="reg-model-h">
+
+                        </div>
+                        <div class="reg-model-m">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="footer">
+            <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
         </div>
     </div>
 </asp:Content>
