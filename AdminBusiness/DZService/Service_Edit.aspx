@@ -45,19 +45,23 @@
             </div>
             <div class="wt-container">
                 <!--注入工作时间-->
+                <div class="wt-load"></div>
             </div>
             <div class="wd-b">
                 <div class="wd-add animated fadeInUpSmall">
                     <input type="hidden" value="{%= week %}" data-role="cWeek">
                     <div class="wd-bar">
                         <span>接单时间段：</span>
-                        <div>
+                        <div class="m-b10">
                             <input  class="time-pick" type="text" data-role="cStartTime" />-<input class="time-pick" type="text" data-role="cEndTime" />
                         </div>
                     </div>
                     <div class="wd-bar">
                         <span>最大接单量：</span>
                         <input class="wd-num" type="number" value="0" data-role="cMaxOrder">
+                    </div>
+                    <div class="wd-errMsg">
+                        时间段设置错误或重复
                     </div>
                     <div class="wd-add-btn">
                         <input class="wd-confirm" type="button" value="确认" data-role="cConfirm">

@@ -284,6 +284,10 @@
 
     var workDays = new WorkDayCollection();
 
+    function intTime(time){
+         return parseInt((time).replace(/\:/, ""), 10)
+    }
+
     var WorkDayView = Backbone.View.extend({
         tagName : "div",
         className : "wd-item-wrap",
@@ -298,9 +302,11 @@
         },
         initialize : function(){
             var _this = this;
+            this.$el.addClass("loading");
             //this.model.workTimes = new WorkTimeCollection();
             this.listenTo(this.model.workTimes, 'add', this.saveWorkTime);
             this.listenTo(this.model.workTimes, 'reset', function(collection, options){
+                this.$el.removeClass("loading");
                 _.each(collection.models, function(workTimeModel){
                     /* 初始化id */
                     workTimeModel.set("id" , workTimeModel.get("workTimeID"), {silent: true});
@@ -345,6 +351,27 @@
                 endTime : _this.$el.find('[data-role="cEndTime"]').val(),
                 maxOrder : _this.$el.find('[data-role="cMaxOrder"]').val(),
                 week : _this.model.get("week")
+            };
+
+            function timeValid(startTime, endTime){
+                var valid = true;
+                if ( intTime(startTime) === intTime(endTime) || intTime( startTime) > intTime(endTime) ){
+                    valid = false
+                } else {
+                    _.each(_this.model.workTimes.models, function(model){
+                        if ( !(intTime(startTime) > intTime(model.get("endTime")) || intTime(endTime) < intTime(model.get("startTime"))) ){
+                            valid = false
+                        }
+                    });
+                }
+                return valid
+            }
+
+            if ( !timeValid(workTimeAttr.startTime, workTimeAttr.endTime) ) {
+                this.$el.find(".wd-add").addClass("err");
+                return
+            } else {
+                this.$el.find(".wd-add").removeClass("err");
             };
 
             this.model.addWorkTime(workTimeAttr);
@@ -395,11 +422,14 @@
         initialize : function (){
             var _this = this;
             this.render();
+            this.$el.addClass("loading");
             this.listenTo(workDays, 'sync', function(collection, resp, options){;
+                _this.$el.removeClass("loading");
                 _.each(collection.models, function(dayModel){
                     _this.addDayView(dayModel);
                 })
             });
+
             workDays._fetch({
                 url : reqUrl,
                 customApi : true,
@@ -407,7 +437,7 @@
                 data : {
                     "merchantID": merchantID,
                     "svcID": Adapter.getParameterByName("serviceid")
-                }
+                },
             });
         },
         render : function(){
