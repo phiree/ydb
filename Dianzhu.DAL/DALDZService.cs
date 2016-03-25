@@ -33,14 +33,15 @@ namespace Dianzhu.DAL
         }
         public IList<DZService> SearchService(decimal priceMin,decimal priceMax,Guid serviceTypeId,DateTime preOrderTime, string keywords, int pageindex, int pagesize, out int totalRecord)
         {
-            string queryStr = @"select service
-                                from DZService as service 
-                                inner join service.OpenTimes as opentime  with opentime.DayOfWeek="  + (int)preOrderTime.DayOfWeek+
-                               @" inner join opentime.OpenTimeForDay as opentimeday
-                                    with opentimeday.PeriodStart<="
-                                + (preOrderTime.Hour * 60 + preOrderTime.Minute) +
-                               @" and opentimeday.PeriodEnd>" +(preOrderTime.Hour * 60 + preOrderTime.Minute)+
-                               @" where service.ServiceType.Id='" + serviceTypeId+"'";
+            string queryStr = "select service "
+                               +" from DZService as service "
+                               +" inner join service.OpenTimes as opentime"+
+                                    " with opentime.DayOfWeek="  + (int)preOrderTime.DayOfWeek
+                              +" inner join opentime.OpenTimeForDay as opentimeday"
+                                    +" with  " +(preOrderTime.Hour * 60 + preOrderTime.Minute) + " between opentimeday.PeriodStart and opentimeday.PeriodEnd"
+                               + " where service.ServiceType.Id='" + serviceTypeId+"'"
+                               +" and service.UnitPrice between "+priceMin+" and  "+priceMax
+                               ;
 
             //var totalquery = Session.QueryOver<DZService>()
             //.

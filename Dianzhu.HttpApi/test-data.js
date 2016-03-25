@@ -7,7 +7,7 @@
 //"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
-"ad001006"
+"orm001007"
 
 ];
 var test_data = [
@@ -680,18 +680,28 @@ var test_data = [
               "stamp_TIMES": "1490192929212",
               "serial_NUMBER": "00147001015869149751"
           },
-          {
-              "protocol_CODE": "ORM001007",
-              "ReqData": {
-                  "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb", //13022222222
-                  "pWord": "1234",
-                  "orderID": "05a6de65-ade2-4458-a272-a5cd00f6ac86",
-                  "pageSize": "50",
-                  "pageNum": "0"
-              },
-              "stamp_TIMES": "1490192929212",
-              "serial_NUMBER": "00147001015869149751"
-          },
+         {
+             "ReqData": {
+
+
+                 "pageNum": "1",
+                 "userID": "b172b145-1461-4e98-a66b-a5ca00f7bdfa",
+                 "orderID": "b1c08b9f-576b-4b23-b713-a5d301012635",
+                 "pageSize": "5",
+                 "pWord": "1234"
+             },
+
+             "serial_NUMBER":
+           "00904309",
+
+
+             "stamp_TIMES": "1458918391808",
+
+             "appName": "Ios",
+             "protocol_CODE": "ORM001007"
+
+
+         },
           {
               "protocol_CODE": "ORM001008",
               "ReqData": {
