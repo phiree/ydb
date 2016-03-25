@@ -26,10 +26,10 @@ namespace Dianzhu.CSClient.ViewWPF
             InitializeComponent();
         }
 
-        public string SearchKeywordTime
+        public DateTime SearchKeywordTime
         {
-            get { return tbxKeywordTime.Text; }
-            set { tbxKeywordTime.Text = value; }
+            get { return DateTime.Parse(tbxKeywordTime.Text); }
+            set { tbxKeywordTime.Text = value.ToString(); }
         }
 
         public string SearchKeywordPriceMin

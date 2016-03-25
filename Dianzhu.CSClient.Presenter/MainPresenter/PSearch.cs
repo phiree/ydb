@@ -112,9 +112,9 @@ namespace Dianzhu.CSClient.Presenter
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,1,viewSearchResult.TargetAddress,viewSearchResult.TargetTime ));
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,1,viewSearchResult.TargetAddress,viewSearch.SearchKeywordTime ));
             }
-            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearchResult.TargetAddress, viewSearchResult.TargetTime);
+            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearchResult.TargetAddress, viewSearch.SearchKeywordTime);
 
             //iim发送消息
             ReceptionChat chat = new ReceptionChatPushService
@@ -160,8 +160,20 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewSearch_Search()
         {
             int total;
-
-            IList<Model.DZService> services = dalService.SearchService(decimal.Parse(viewSearch.SearchKeywordPriceMin),decimal.Parse(viewSearch.SearchKeywordPriceMax),string.Empty,DateTime.Parse(viewSearch.SearchKeywordTime), 0, 10, out total);
+            Guid typeId;
+            if (ServiceTypeThird != null)
+            {
+                typeId = ServiceTypeThird.Id;
+            }
+            else if (ServiceTypeSecond != null)
+            {
+                typeId = ServiceTypeSecond.Id;
+            }
+            else
+            {
+                typeId = ServiceTypeFirst.Id;
+            }
+            IList<Model.DZService> services = dalService.SearchService(decimal.Parse(viewSearch.SearchKeywordPriceMin),decimal.Parse(viewSearch.SearchKeywordPriceMax),typeId,viewSearch.SearchKeywordTime, 0, 10, out total);
             viewSearchResult.SearchedService = services;
         }
     }

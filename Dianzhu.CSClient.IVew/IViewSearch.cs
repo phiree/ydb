@@ -11,7 +11,7 @@ namespace Dianzhu.CSClient.IView
     /// </summary>
     public interface IViewSearch
     {
-        string SearchKeywordTime { get; set; }
+        DateTime SearchKeywordTime { get; set; }
         string SearchKeywordPriceMin { get; set; }
         string SearchKeywordPriceMax { get; set; }
         
@@ -38,7 +38,6 @@ namespace Dianzhu.CSClient.IView
         event SelectService SelectService;
         event PushServices PushServices;
         string TargetAddress { get; set;}
-        DateTime TargetTime { get; set; }
     }
    
     public delegate void SelectService(DZService selectedService);

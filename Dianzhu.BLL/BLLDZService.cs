@@ -77,14 +77,9 @@ namespace Dianzhu.BLL
         {
             DALDZService.Delete(dz);
         }
-        public IList<DZService> Search(decimal priceMin, decimal priceMax, string typeId, DateTime datetime, int pageIndex, int pagesize, out int total)
+        public IList<DZService> Search(decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime, int pageIndex, int pagesize, out int total)
         {
-<<<<<<< HEAD
-          return  DALDZService.SearchService(priceMin, priceMax, typeId, datetime, pageIndex, pagesize, out total);
-=======
-            throw new NotImplementedException();
-            //return   DALDZService.SearchService(keywords, pageIndex, pagesize, out total);
->>>>>>> ef043346b883208f820506272d841a7785a87adb
+            return DALDZService.SearchService(priceMin, priceMax, typeId, datetime, pageIndex, pagesize, out total);
         }
     }
 }

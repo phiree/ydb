@@ -108,6 +108,19 @@ namespace Dianzhu.CSClient.WinformView
             }
         }
 
+        DateTime IViewSearch.SearchKeywordTime
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public event SearchService Search;
         public event ServiceTypeFirst_Select ServiceTypeFirst_Select;
         public event ServiceTypeSecond_Select ServiceTypeSecond_Select;

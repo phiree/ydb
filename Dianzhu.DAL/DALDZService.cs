@@ -31,7 +31,7 @@ namespace Dianzhu.DAL
                 + where + " order by s.LastModifiedTime desc",
                 pageindex, pagesize, out totalRecord);
         }
-        public IList<DZService> SearchService(decimal priceMin,decimal priceMax,Guid serviceTypeId,DateTime preOrderTime, string keywords, int pageindex, int pagesize, out int totalRecord)
+        public IList<DZService> SearchService(decimal priceMin,decimal priceMax,Guid serviceTypeId,DateTime preOrderTime, int pageindex, int pagesize, out int totalRecord)
         {
             string queryStr = "select service "
                                +" from DZService as service "
