@@ -106,6 +106,15 @@ namespace Dianzhu.DAL
         }
         public virtual T GetOne(object id)
         {
+            if (session.Transaction.IsActive)
+            {
+                T r = session.Get<T>(id);
+
+                
+                return r;
+            }
+            else
+            { 
             using (var t = session.BeginTransaction())
             {
                 T r = session.Get<T>(id);
@@ -115,6 +124,7 @@ namespace Dianzhu.DAL
                     t.Commit();
                 }
                 return r;
+                }
             }
         }
         public T GetOneByQuery(IQueryOver<T> queryOver)

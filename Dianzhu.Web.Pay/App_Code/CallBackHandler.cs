@@ -32,11 +32,13 @@ public partial class CallBackHandler : System.Web.UI.Page
         enum_PaylogType payLogType= enum_PaylogType.None;
         if (rawUrl.ToLower().StartsWith("/paycallback/wepay"))
         {
+            log.Debug("微支付回调开始");
             payCallBack = new PayCallBackWePay();
             payLogType = enum_PaylogType.ReturnNotifyFromWePay;
         }
         else if (rawUrl.ToLower().StartsWith("/paycallback/alipay"))
         {
+            log.Debug("支付宝回调开始");
             //保存支付接口返回的原始数据
             if (rawUrl.ToLower().Contains("return_url"))
             { payLogType = enum_PaylogType.ResultReturnFromAli; }
@@ -59,22 +61,28 @@ public partial class CallBackHandler : System.Web.UI.Page
             BLLPay bllPay = new BLLPay();
 
             object parameters = null;
+            log.Debug("回调参数:");
             if (Request.HttpMethod.ToLower() == "get")
             {
+                log.Debug("Get参数:"+Request.RawUrl);
                 parameters = Request.QueryString;
+               
             }
             using (System.IO.StreamReader sr = new System.IO.StreamReader(Request.InputStream))
             {
                 parameters = sr.ReadToEnd();
+                log.Debug("Post参数:"+parameters);
             }
 
             bllPay.ReceiveAPICallBack(payLogType, payCallBack, Request.RawUrl, parameters);
             if (rawUrl.Contains("return_url"))
             {
+                log.Debug("同步调用成功,跳转至成功页面");
                 Response.Redirect("~/paysuc.html");
             }
             else
             {
+                log.Debug("异步调用成功");
                 Response.Write("success");
             }
         }
