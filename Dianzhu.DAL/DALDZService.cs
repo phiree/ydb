@@ -31,27 +31,32 @@ namespace Dianzhu.DAL
                 + where + " order by s.LastModifiedTime desc",
                 pageindex, pagesize, out totalRecord);
         }
-        public IList<DZService> SearchService(decimal priceMin,decimal priceMax,string typeId, DateTime datetime, int pageindex, int pagesize, out int totalRecord)
+        public IList<DZService> SearchService(decimal priceMin,decimal priceMax,Guid serviceTypeId,DateTime preOrderTime, string keywords, int pageindex, int pagesize, out int totalRecord)
         {
+            string queryStr = "select service "
+                               +" from DZService as service "
+                               +" inner join service.OpenTimes as opentime"+
+                                    " with opentime.DayOfWeek="  + (int)preOrderTime.DayOfWeek
+                              +" inner join opentime.OpenTimeForDay as opentimeday"
+                                    +" with  " +(preOrderTime.Hour * 60 + preOrderTime.Minute) + " between opentimeday.PeriodStart and opentimeday.PeriodEnd"
+                               + " where service.ServiceType.Id='" + serviceTypeId+"'"
+                               +" and service.UnitPrice between "+priceMin+" and  "+priceMax
+                               ;
+
             //var totalquery = Session.QueryOver<DZService>()
-            // // .Where(x => x.Name.Contains(keywords) || x.Description.Contains(keywords));
+            //.
+            Console.WriteLine(queryStr);
             // .Where(Restrictions.On<DZService>(x => x.Name).IsLike(string.Format("%{0}%", keywords))
             // || Restrictions.On<DZService>(x => x.Description).IsLike(string.Format("%{0}%", keywords))
-            // );
+            // ); 
+            IQuery query= Session.CreateQuery(queryStr);
+            totalRecord = query.List().Count;
 
-            //totalRecord = totalquery.RowCount();
+            var result = query.List<DZService>()
+                .Skip(pageindex * pagesize).Take(pagesize);
 
-            //var result = totalquery
-            //    .Skip(pageindex * pagesize).Take(pagesize);
-
-            //return result.List();
-
-            int times = datetime.Hour * 60 + datetime.Minute;
-            string select = @"SELECT d FROM dzservice d 
-                                LEFT JOIN serviceopentime st ON st.DZService_id = d.Id 
-                                LEFT JOIN serviceopentimeforday std ON std.ServiceOpenTime_id = st.Id ";
-            string where = @" d.UnitPrice >= " + priceMin + " AND d.UnitPrice <= " + priceMax + " AND d.ServiceType_id = '" + typeId + "' AND st.DayOfWeek = " + datetime.DayOfWeek + " AND std.PeriodStart <= " + times + " AND std.PeriodEnd >= " + times;
-            return GetList(select + where + " order by s.LastModifiedTime desc", pageindex, pagesize,out totalRecord);
+            //query.wrap
+            return result.ToList();
         }
 
         public DZService GetOneByBusAndId(Business business, Guid svcId)
@@ -63,5 +68,6 @@ namespace Dianzhu.DAL
         {
             return Session.QueryOver<DZService>().Where(x => x.Business == business).And(x => x.IsDeleted == false).RowCount();
         }
+
     }
 }

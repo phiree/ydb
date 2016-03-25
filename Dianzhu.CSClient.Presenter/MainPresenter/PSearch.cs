@@ -160,6 +160,7 @@ namespace Dianzhu.CSClient.Presenter
         private void ViewSearch_Search()
         {
             int total;
+
             IList<Model.DZService> services = dalService.SearchService(decimal.Parse(viewSearch.SearchKeywordPriceMin),decimal.Parse(viewSearch.SearchKeywordPriceMax),string.Empty,DateTime.Parse(viewSearch.SearchKeywordTime), 0, 10, out total);
             viewSearchResult.SearchedService = services;
         }

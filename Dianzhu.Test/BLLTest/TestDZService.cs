@@ -33,11 +33,11 @@ namespace Dianzhu.Test.BLLTest
         {
             DALDZService dal = new DALDZService();
             int totalRecord;
-           IList<DZService> serviceList= dal.SearchService(string.Empty, 1, 10, out totalRecord);
-            foreach (DZService service in serviceList)
-            {
-                Console.WriteLine(service.Business.Name);
-            }
+           //IList<DZService> serviceList= dal.SearchService(string.Empty, 1, 10, out totalRecord);
+           // foreach (DZService service in serviceList)
+           // {
+           //     Console.WriteLine(service.Business.Name);
+           // }
         }
     }
 }
