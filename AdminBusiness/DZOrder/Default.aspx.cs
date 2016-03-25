@@ -44,6 +44,10 @@ public partial class DZOrder_Default : BasePage
                 //获取支付项
 
                 Payment payMent = bllPayment.GetPaymentForWaitPay(order);// .ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.Deposit);
+                if (payMent == null)
+                {
+                    return;
+                }
                 string payLinkDepositAmount = bllPayment.BuildPayLink(payMent.Id);
                 HyperLink hlDepositAmount = e.Item.FindControl("PayDepositAmount") as HyperLink;
                 hlDepositAmount.Text = "用户订金付款链接：";

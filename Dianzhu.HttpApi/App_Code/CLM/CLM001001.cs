@@ -69,13 +69,14 @@ public class ResponseCLM001001 : BaseResponse
                 complaint.Target = (enum_ChatTarget)Enum.Parse(typeof(enum_ChatTarget), requestData.target);
                 complaint.Context = requestData.context;
                 complaint.ResourcesUrl = requestData.resourcesUrl;
+                complaint.Operator = order.Customer;
                 bllComplaint.SaveOrUpdate(complaint);
 
                 this.state_CODE = Dicts.StateCode[0];
             }
             catch (Exception ex)
             {
-                ilog.Error(ex.Message);
+                ExceptionLoger.ExceptionLog(ilog,ex);
                 this.state_CODE = Dicts.StateCode[2];
                 this.err_Msg = ex.Message;
                 return;

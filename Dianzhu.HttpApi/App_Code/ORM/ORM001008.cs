@@ -94,6 +94,14 @@ public class ResponseORM001008 : BaseResponse
                     this.err_Msg = "该服务不存在！";
                     return;
                 }
+
+                if (order.OrderStatus != enum_OrderStatus.DraftPushed)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "该订单不是已推送的服务单！";
+                    return;
+                }
+
                 bllPushService.SelectServiceAndCreate(order, service);
                 //foreach (ServiceOrderDetail detail in order.Details)
                 //{

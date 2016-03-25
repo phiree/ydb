@@ -445,12 +445,12 @@ var test_data = [
     {
         "protocol_CODE": "CLM001001",
         "ReqData": {
-            "userID": "2c843b9f-ed19-40c2-99b4-a54500f97205",
-            "pWord": "123",
-            "orderID": "05c43210-7787-40df-8b93-a57901063d4d",
-            "target": "cer",
-            "context": "AABBCCDDSSXXFFGG",
-            "resourcesUrl": "http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png",
+            "userID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
+            "pWord": "123456",
+            "orderID": "043303c7-ff37-489c-9745-a59600fe683d",
+            "target": "store",
+            "context": "明敏",
+            "resourcesUrl": "http://119.29.39.211:8038/GetFile.ashx?fileName\u003d_$_f73f5c8a-70c7-4355-aaa3-aafac3d014f2_$_UserAvatar_$_image",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"

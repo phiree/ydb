@@ -10,7 +10,7 @@ namespace Dianzhu.DAL.Mapping
     {
         public ComplaintMap() {
             Id(x => x.Id);
-            References<DZMembership>(x => x.Order);
+            References<ServiceOrder>(x => x.Order);
             Map(x => x.Target).CustomType<Model.Enums.enum_ChatTarget>();
             Map(x => x.Context);
             Map(x => x.ResourcesUrl);

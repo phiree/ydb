@@ -36,6 +36,10 @@ namespace Dianzhu.Model
         /// <param name="period"></param>
         public virtual void AddServicePeriod(ServiceOpenTimeForDay period)
         {
+            if (period.PeriodStart > period.PeriodEnd)
+            {
+                throw new Exception("timeError:服务开始时间不能大于结束时间.时间：" + period.TimeStart + "-" + period.TimeEnd);
+            }
             bool isConflict = false;
             foreach (ServiceOpenTimeForDay d in this.OpenTimeForDay)
             {

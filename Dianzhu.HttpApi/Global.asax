@@ -2,10 +2,12 @@
 
 <script runat="server">
 
+    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+
     void Application_Start(object sender, EventArgs e)
     {
         // Code that runs on application startup
-         PHSuit.Logging.Config("Dianzhu.HttpAPI");
+        PHSuit.Logging.Config("Dianzhu.HttpAPI");
     }
 
     void Application_End(object sender, EventArgs e)
@@ -17,11 +19,17 @@
     void Application_Error(object sender, EventArgs e)
     {
         // Code that runs when an unhandled error occurs
-        log4net.ILog log = log4net.LogManager.GetLogger("error");
+        
 
         Exception ex = Server.GetLastError();
+        if (ex.InnerException != null)
+        {
+            log.Error("InnerException:" + ex.InnerException.Message);
+        }
         log.Error(ex.Message);
     }
+
+   
 
     void Session_Start(object sender, EventArgs e)
     {
