@@ -31,20 +31,31 @@ namespace Dianzhu.DAL
                 + where + " order by s.LastModifiedTime desc",
                 pageindex, pagesize, out totalRecord);
         }
-        public IList<DZService> SearchService(string keywords, int pageindex, int pagesize, out int totalRecord)
+        public IList<DZService> SearchService(decimal priceMin,decimal priceMax,Guid serviceTypeId,DateTime preOrderTime, string keywords, int pageindex, int pagesize, out int totalRecord)
         {
-            var totalquery = Session.QueryOver<DZService>()
-             // .Where(x => x.Name.Contains(keywords) || x.Description.Contains(keywords));
-             .Where(Restrictions.On<DZService>(x => x.Name).IsLike(string.Format("%{0}%", keywords))
-             || Restrictions.On<DZService>(x => x.Description).IsLike(string.Format("%{0}%", keywords))
-             ); 
-      
-            totalRecord = totalquery.RowCount();
+            string queryStr = @"select service
+                                from DZService as service 
+                                inner join service.OpenTimes as opentime  with opentime.DayOfWeek="  + (int)preOrderTime.DayOfWeek+
+                               @" inner join opentime.OpenTimeForDay as opentimeday
+                                    with opentimeday.PeriodStart<="
+                                + (preOrderTime.Hour * 60 + preOrderTime.Minute) +
+                               @" and opentimeday.PeriodEnd>" +(preOrderTime.Hour * 60 + preOrderTime.Minute)+
+                               @" where service.ServiceType.Id='" + serviceTypeId+"'";
 
-            var result = totalquery
+            //var totalquery = Session.QueryOver<DZService>()
+            //.
+            Console.WriteLine(queryStr);
+            // .Where(Restrictions.On<DZService>(x => x.Name).IsLike(string.Format("%{0}%", keywords))
+            // || Restrictions.On<DZService>(x => x.Description).IsLike(string.Format("%{0}%", keywords))
+            // ); 
+            IQuery query= Session.CreateQuery(queryStr);
+            totalRecord = query.List().Count;
+
+            var result = query.List<DZService>()
                 .Skip(pageindex * pagesize).Take(pagesize);
 
-            return result.List();
+            //query.wrap
+            return result.ToList();
         }
 
         public DZService GetOneByBusAndId(Business business, Guid svcId)
@@ -56,5 +67,6 @@ namespace Dianzhu.DAL
         {
             return Session.QueryOver<DZService>().Where(x => x.Business == business).And(x => x.IsDeleted == false).RowCount();
         }
+
     }
 }

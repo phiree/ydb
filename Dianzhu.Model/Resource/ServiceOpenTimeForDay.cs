@@ -21,8 +21,8 @@ namespace Dianzhu.Model
         /// <summary>
         /// 
         /// </summary>
-        public virtual int PeriodStart { get {return TimeStringToPeriod(TimeStart);  } }
-        public virtual int PeriodEnd { get { return TimeStringToPeriod(TimeEnd); } }
+        public virtual int PeriodStart { get { return TimeStringToPeriod(TimeStart); } protected set { } }
+        public virtual int PeriodEnd { get { return TimeStringToPeriod(TimeEnd); } protected set { } }
 
         /// <summary>
         /// 文本格式的时间,转换成分钟,用于计算两个时间之间的间隔分数.
