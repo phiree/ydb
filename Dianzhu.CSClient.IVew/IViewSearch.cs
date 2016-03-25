@@ -11,10 +11,24 @@ namespace Dianzhu.CSClient.IView
     /// </summary>
     public interface IViewSearch
     {
-        string SearchKeyword { get; set; }
+        string SearchKeywordTime { get; set; }
+        string SearchKeywordPriceMin { get; set; }
+        string SearchKeywordPriceMax { get; set; }
+        
         event SearchService Search;
+        #region 服务类型相关属性及委托
+        IList<ServiceType> ServiceTypeFirst { set; }
+        IList<ServiceType> ServiceTypeSecond { set; }
+        IList<ServiceType> ServiceTypeThird { set; }
+        event ServiceTypeFirst_Select ServiceTypeFirst_Select;
+        event ServiceTypeSecond_Select ServiceTypeSecond_Select;
+        event ServiceTypeThird_Select ServiceTypeThird_Select;
+        #endregion
     }
     public delegate void SearchService();
+    public delegate void ServiceTypeFirst_Select(ServiceType type);
+    public delegate void ServiceTypeSecond_Select(ServiceType type);
+    public delegate void ServiceTypeThird_Select(ServiceType type);
     /// <summary>
     /// 搜索结果
     /// </summary>

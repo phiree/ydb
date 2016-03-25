@@ -189,20 +189,20 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_SearchService()
         {
-            int total;
-            var serviceList = bllService.Search(view.SerachKeyword, 0, 10, out total);
-            view.SearchedService = serviceList;
+            //int total;
+            //var serviceList = bllService.Search(view.SerachKeyword, 0, 10, out total);
+            //view.SearchedService = serviceList;
 
-            string pushServiceKey = ClientState.CurrentServiceOrder == null ? "dianzhucs" :
-                ClientState.CurrentServiceOrder.Id.ToString();
-            if (ClientState.SearchResultForCustomer.ContainsKey(pushServiceKey))
-            {
-                ClientState.SearchResultForCustomer[pushServiceKey] = serviceList;
-            }
-            else
-            {
-                ClientState.SearchResultForCustomer.Add(pushServiceKey, serviceList);
-            }
+            //string pushServiceKey = ClientState.CurrentServiceOrder == null ? "dianzhucs" :
+            //    ClientState.CurrentServiceOrder.Id.ToString();
+            //if (ClientState.SearchResultForCustomer.ContainsKey(pushServiceKey))
+            //{
+            //    ClientState.SearchResultForCustomer[pushServiceKey] = serviceList;
+            //}
+            //else
+            //{
+            //    ClientState.SearchResultForCustomer.Add(pushServiceKey, serviceList);
+            //}
         }
 
 

@@ -10,19 +10,21 @@
         <StackPanel>
             <WrapPanel>
                 <Label Content="时间"></Label>
-                <TextBox x:Name="tbxKeyword" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="200"/>
+                <TextBox x:Name="tbxKeywordTime" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="200"/>
             </WrapPanel>
 
             <WrapPanel>
                 <Label Content="价格"></Label>
-                <TextBox x:Name="tbxKeywordPrice" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="200"/>
+                <TextBox x:Name="tbxKeywordPriceMin" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="100"/>
+                <Label Content="-"></Label>
+                <TextBox x:Name="tbxKeywordPriceMax" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="100"/>
             </WrapPanel>
 
             <WrapPanel>
                 <Label Content="类型"></Label>
-                <ComboBox x:Name="cbxSearchTypeF" Width="80"/>
-                <ComboBox x:Name="cbxSearchTypeS" Width="80"/>
-                <ComboBox x:Name="cbxSearchTypeT" Width="80"/>
+                <ComboBox x:Name="cbxSearchTypeF" Width="80" SelectionChanged="cbxSearchTypeF_SelectionChanged"/>
+                <ComboBox x:Name="cbxSearchTypeS" Width="80" SelectionChanged="cbxSearchTypeS_SelectionChanged" Visibility="Hidden"/>
+                <ComboBox x:Name="cbxSearchTypeT" Width="80" SelectionChanged="cbxSearchTypeT_SelectionChanged" Visibility="Hidden"/>
             </WrapPanel>
 
             <DockPanel>

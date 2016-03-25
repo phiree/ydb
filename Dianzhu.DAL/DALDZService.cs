@@ -31,20 +31,27 @@ namespace Dianzhu.DAL
                 + where + " order by s.LastModifiedTime desc",
                 pageindex, pagesize, out totalRecord);
         }
-        public IList<DZService> SearchService(string keywords, int pageindex, int pagesize, out int totalRecord)
+        public IList<DZService> SearchService(decimal priceMin,decimal priceMax,string typeId, DateTime datetime, int pageindex, int pagesize, out int totalRecord)
         {
-            var totalquery = Session.QueryOver<DZService>()
-             // .Where(x => x.Name.Contains(keywords) || x.Description.Contains(keywords));
-             .Where(Restrictions.On<DZService>(x => x.Name).IsLike(string.Format("%{0}%", keywords))
-             || Restrictions.On<DZService>(x => x.Description).IsLike(string.Format("%{0}%", keywords))
-             ); 
-      
-            totalRecord = totalquery.RowCount();
+            //var totalquery = Session.QueryOver<DZService>()
+            // // .Where(x => x.Name.Contains(keywords) || x.Description.Contains(keywords));
+            // .Where(Restrictions.On<DZService>(x => x.Name).IsLike(string.Format("%{0}%", keywords))
+            // || Restrictions.On<DZService>(x => x.Description).IsLike(string.Format("%{0}%", keywords))
+            // );
 
-            var result = totalquery
-                .Skip(pageindex * pagesize).Take(pagesize);
+            //totalRecord = totalquery.RowCount();
 
-            return result.List();
+            //var result = totalquery
+            //    .Skip(pageindex * pagesize).Take(pagesize);
+
+            //return result.List();
+
+            int times = datetime.Hour * 60 + datetime.Minute;
+            string select = @"SELECT d FROM dzservice d 
+                                LEFT JOIN serviceopentime st ON st.DZService_id = d.Id 
+                                LEFT JOIN serviceopentimeforday std ON std.ServiceOpenTime_id = st.Id ";
+            string where = @" d.UnitPrice >= " + priceMin + " AND d.UnitPrice <= " + priceMax + " AND d.ServiceType_id = '" + typeId + "' AND st.DayOfWeek = " + datetime.DayOfWeek + " AND std.PeriodStart <= " + times + " AND std.PeriodEnd >= " + times;
+            return GetList(select + where + " order by s.LastModifiedTime desc", pageindex, pagesize,out totalRecord);
         }
 
         public DZService GetOneByBusAndId(Business business, Guid svcId)
