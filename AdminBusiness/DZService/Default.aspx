@@ -111,7 +111,7 @@
                                                                 <td class="table-col-1 t-r">单价：</td>
                                                                 <td class="table-col-1 t-l"><span class="panel-table-num"><%#((decimal)Eval("UnitPrice")).ToString("#") %></span>&nbsp;元/单</td>
                                                                 <td class="table-col-2 t-r">每时最大接单量：</td>
-                                                                <td class="table-col-2 t-l"><span class="panel-table-num"><%# Eval("MaxOrdersPerHour") %></span>&nbsp;单</td>
+                                                                <td class="table-col-2 t-l"><span class="panel-table-num"> [已删除]单</td>
                                                                 <td class="table-col-1 t-r">服务保障：</td> 
                                                                 <td class="table-col-1 t-l"><%# ((bool)Eval("IsCompensationAdvance"))?"有":"无" %></td>
                                                                 <td class="table-col-1 t-r">平台认证：</td>

@@ -60,9 +60,10 @@ namespace Dianzhu.BLL
            
             //保存记录
             PaymentLog paymentLog = new PaymentLog();
-            paymentLog.ApiString = rawRequestString;
+            paymentLog.ApiString = rawRequestString+"------"+callbackParameters;
             paymentLog.PaylogType = payLogType;
             paymentLog.LogTime = DateTime.Now;
+            
             log.Debug("保存支付记录");
             bllPaymentLog.SaveOrUpdate(paymentLog);
 
