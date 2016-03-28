@@ -197,8 +197,8 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="bottom" Runat="Server">
-    <script src="/js/shelf/underscore.js"></script>
-    <script src="/js/shelf/mock.js"></script>
+    <script src="/js/libs/underscore.js"></script>
+    <script src="/js/test/mock.js"></script>
     <script src="/js/jquery.lightBox_me.js"></script>
     <script src="/js/interfaceAdapter.js"></script>
     <script src="/js/appointToOrder.js"></script>
