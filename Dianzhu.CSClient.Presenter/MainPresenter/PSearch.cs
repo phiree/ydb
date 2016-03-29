@@ -173,7 +173,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 typeId = ServiceTypeFirst.Id;
             }
-            IList<Model.DZService> services = dalService.SearchService(decimal.Parse(viewSearch.SearchKeywordPriceMin),decimal.Parse(viewSearch.SearchKeywordPriceMax),typeId,viewSearch.SearchKeywordTime, 0, 10, out total);
+            IList<Model.DZService> services = dalService.SearchService(viewSearch.SearchKeywordPriceMin,viewSearch.SearchKeywordPriceMax,typeId,viewSearch.SearchKeywordTime, 0, 10, out total);
             viewSearchResult.SearchedService = services;
         }
     }

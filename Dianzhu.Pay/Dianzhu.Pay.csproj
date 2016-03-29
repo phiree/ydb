@@ -53,8 +53,11 @@
     <Compile Include="AliPay\AlipayConfig.cs" />
     <Compile Include="AliPay\AlipayCore.cs" />
     <Compile Include="AliPay\AlipayNotify.cs" />
+    <Compile Include="AliPay\AlipaySignature.cs" />
     <Compile Include="AliPay\AlipaySubmit.cs" />
+    <Compile Include="AliPay\AopException.cs" />
     <Compile Include="AliPay\RSA.cs" />
+    <Compile Include="AliPay\RSACryptoServiceProviderExtension.cs" />
     <Compile Include="PayCallBack\IPayCallBack.cs" />
     <Compile Include="PayCallBack\PayCallBackAli.cs" />
     <Compile Include="PayCallBack\PayCallBackWePay.cs" />
@@ -67,6 +70,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AliPay\rsa_private_key.pem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>

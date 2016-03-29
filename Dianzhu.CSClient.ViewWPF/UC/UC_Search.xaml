@@ -15,9 +15,9 @@
 
             <WrapPanel>
                 <Label Content="价格"></Label>
-                <TextBox x:Name="tbxKeywordPriceMin" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="100"/>
+                <TextBox x:Name="tbxKeywordPriceMin" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="100" PreviewTextInput="tbxKeywordPriceMin_PreviewTextInput" TextChanged="tbxKeywordPriceMin_TextChanged"/>
                 <Label Content="-"></Label>
-                <TextBox x:Name="tbxKeywordPriceMax" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="100"/>
+                <TextBox x:Name="tbxKeywordPriceMax" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="100" PreviewTextInput="tbxKeywordPriceMin_PreviewTextInput" TextChanged="tbxKeywordPriceMin_TextChanged"/>
             </WrapPanel>
 
             <WrapPanel>

@@ -46,14 +46,17 @@ namespace Com.Alipay
         private static string BuildRequestMysign(Dictionary<string, string> sPara)
         {
             //把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
-            string prestr = Core.CreateLinkString(sPara);
+            //string prestr = Core.CreateLinkString(sPara);
+            string prestr = AlipaySignature.GetSignContent(sPara);
 
             //把最终的字符串签名，获得签名结果
             string mysign = "";
             switch (_sign_type)
             {
                 case "RSA":
-                    mysign = RSAFromPkcs8.sign(prestr, _private_key, _input_charset);
+                    //mysign = RSAFromPkcs8.sign(prestr, _private_key, _input_charset);
+                    mysign = AlipaySignature.RSASign(prestr, HttpRuntime.AppDomainAppPath+ "/files/rsa_private_key.pem", _input_charset);
+                    bool checkSign = AlipaySignature.RSACheckV2(sPara, HttpRuntime.AppDomainAppPath + "/files/rsa_public_key.pem");
                     bool verify = RSAFromPkcs8.verify(prestr, mysign, Config.publickey, _input_charset);
                     break;
                 default:

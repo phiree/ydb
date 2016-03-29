@@ -34,22 +34,24 @@ namespace Dianzhu.DAL
         public IList<DZService> SearchService(decimal priceMin,decimal priceMax,Guid serviceTypeId,DateTime preOrderTime, int pageindex, int pagesize, out int totalRecord)
         {
             string queryStr = "select service "
-                               +" from DZService as service "
-                               +" inner join service.OpenTimes as opentime"+
-                                    " with opentime.DayOfWeek="  + (int)preOrderTime.DayOfWeek
-                              +" inner join opentime.OpenTimeForDay as opentimeday"
-                                    +" with  " +(preOrderTime.Hour * 60 + preOrderTime.Minute) + " between opentimeday.PeriodStart and opentimeday.PeriodEnd"
-                               + " where service.ServiceType.Id='" + serviceTypeId+"'"
-                               +" and service.UnitPrice between "+priceMin+" and  "+priceMax
-                               ;
+                               + " from DZService as service "
+                               + " inner join service.OpenTimes as opentime" +
+                                    " with opentime.DayOfWeek=" + (int)preOrderTime.DayOfWeek
+                              + " inner join opentime.OpenTimeForDay as opentimeday"
+                                    + " with  " + (preOrderTime.Hour * 60 + preOrderTime.Minute) + " between opentimeday.PeriodStart and opentimeday.PeriodEnd";
+            string where = " where service.UnitPrice between " + priceMin + " and  " + priceMax;
+            if (serviceTypeId != Guid.Empty)
+            {
+                where+= " and service.ServiceType.Id='" + serviceTypeId + "'";
+            }
 
             //var totalquery = Session.QueryOver<DZService>()
             //.
-            Console.WriteLine(queryStr);
+            Console.WriteLine(queryStr + where);
             // .Where(Restrictions.On<DZService>(x => x.Name).IsLike(string.Format("%{0}%", keywords))
             // || Restrictions.On<DZService>(x => x.Description).IsLike(string.Format("%{0}%", keywords))
             // ); 
-            IQuery query= Session.CreateQuery(queryStr);
+            IQuery query = Session.CreateQuery(queryStr + where);
             totalRecord = query.List().Count;
 
             var result = query.List<DZService>()

@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.Security.Cryptography;
 using System.IO;
 using Newtonsoft.Json;
+using System.Web;
 
 namespace Dianzhu.Pay
 {
@@ -33,7 +34,7 @@ namespace Dianzhu.Pay
 
         public string CreatePayRequest()
         {
-            SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
+            Dictionary<string, string> sParaTemp = new Dictionary<string, string>();
             sParaTemp.Add("service", "mobile.securitypay.pay");
             sParaTemp.Add("partner", Config.partner);
             sParaTemp.Add("_input_charset", Config.input_charset.ToLower());
@@ -44,37 +45,13 @@ namespace Dianzhu.Pay
             sParaTemp.Add("seller_id", Config.seller_id);
             sParaTemp.Add("body", PayMemo);
             sParaTemp.Add("total_fee", string.Format("{0:F2}", PayAmount));
-
-            //sParaTemp.Add("sign_type", "RSA");
-            //sParaTemp.Add("sign", @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDdyOxmayNrwOr821IwUIkLxw2BVVTDDqRD/PRNCnJx/UCCYIVRL7rxXdKMZrSu24m96JNjIYbiUmwEslYnbLMWY3oZr3CGttjiGq10Y2S/tz8FBAvY59ZlxNRF+CMpbii34hHFKkikdC+ave0TN0oqJl3jNYiNN4xA7wqF1bTT4QIDAQAB");
-
             sParaTemp.Add("app_id", "2016012201112719");
+            
+            string mysign = AlipaySignature.RSASign(sParaTemp, HttpRuntime.AppDomainAppPath + "/files/rsa_private_key.pem", Config.input_charset);
+            sParaTemp.Add("sign",System.Web.HttpUtility.UrlEncode(mysign));
+            sParaTemp.Add("sign_type", "RSA");
 
-            string sParaStr = "";
-            Dictionary<string, string> dicPara = new Dictionary<string, string>();
-            dicPara = Submit.BuildRequestApp(sParaTemp);
-            foreach (KeyValuePair<string, string> temp in dicPara)
-            {
-                sParaStr += temp.Key + "=\"" + temp.Value + "\"&";
-            }
-            sParaStr = sParaStr.TrimEnd('&');
-
-            //string sParaStr = string.Empty;
-            //string sParStrkey = string.Empty;
-            //foreach (KeyValuePair<string, string> item in sParaTemp)
-            //{
-            //    sParaStr += item.Key + "=" + item.Value + "&";
-            //}
-            //sParaStr = sParaStr.TrimEnd('&');
-
-            //string privateKey = @"MIICXQIBAAKBgQC1to8WnfXSCnxfCP4irQK0+QCETsBcuGwcrCudhqjOWucbTwr7ik8cV4+iMH8InCdO4o9hDPmxXUWys7qDu6P1gx0/k1w+vqvyDpPEBzr8U1u8svfMQT5UvektQMR6vleMoueQ6uaEKM7cFN5wjoKZ4OkaNaQ0i05/4yjeMo+1oQIDAQABAoGACE6UNAB8oGGCVgXfOE6YdRV9BI9lE9gKeTUVuVnSlbxqHEF8ywsDmtQV6OA2rnoVAfIxg8pID+enrAezWxpU4GyVyJizFpCuPMlFXI8+eQcsMbXVWGtJyIZ2q6l+jtEYw8zUYZsxUocABW/Np9JIhwILGPt+EMX8VORwx2PVa8ECQQDruQcPHjgCIRBhOWkir1cd+L6R08n3CLL+P1Z1h/8mj/eWGtx7KowZUDCJjP9V8V0Ij4w27ZRGlZDd79/+rN1NAkEAxVgoPYTW5+GSFRLDxS7/TN2emNj29Op0RQemPum+RXG3bzgpBd8GutrqcslxOeeZl5Jf+VN8CNCc7NAUBlvfpQJBAJmw2ANpZocs26sobX4p6JkoF8io1+PzjhDrZwnWk+umrnz2Io9DnHjcqejlP43fgxMT1Q3zNVwYJI4v2lIIj3kCQDWoCZDofHIhv9Fg/7+uTpX8r/GJFGR1FtXqBYaXkTdaevCPiX/iKvdFLHe3U8TVtsoib1vgGhpfdjthPACanE0CQQCpX4I/rKYxhylrZopsZuj6VWfqT066b5B/wwn5FgEaU3xrT9wbk0c2uXYq4q5QkVar546ddBeBx/AuNmUFVl+r";
-            //string sign = GetSign(sParaStr, privateKey, "UTF-8");
-
-            //string publicKey = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC1to8WnfXSCnxfCP4irQK0+QCETsBcuGwcrCudhqjOWucbTwr7ik8cV4+iMH8InCdO4o9hDPmxXUWys7qDu6P1gx0/k1w+vqvyDpPEBzr8U1u8svfMQT5UvektQMR6vleMoueQ6uaEKM7cFN5wjoKZ4OkaNaQ0i05/4yjeMo+1oQIDAQAB";
-            //if(Verify(sParaStr,sign, publicKey, "UTF-8"))
-            //{
-            //    sParStrkey = sParaStr + "&sign_type=RSA&sign=" + sign;
-            //}
+            string sParaStr = AlipaySignature.GetSignContent(sParaTemp);
 
             return sParaStr;
         }

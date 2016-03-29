@@ -12,8 +12,8 @@ namespace Dianzhu.CSClient.IView
     public interface IViewSearch
     {
         DateTime SearchKeywordTime { get; set; }
-        string SearchKeywordPriceMin { get; set; }
-        string SearchKeywordPriceMax { get; set; }
+        decimal SearchKeywordPriceMin { get; set; }
+        decimal SearchKeywordPriceMax { get; set; }
         
         event SearchService Search;
         #region 服务类型相关属性及委托
