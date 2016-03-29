@@ -173,6 +173,9 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         {
             CurrentService = new DZService();
         }
+        CurrentService.Name = tbxName.Text;
+        CurrentService.Description = tbxDescription.Text;
+        CurrentService.Enabled = cbxEnable.Checked;
         CurrentService.Business = (((BasePage)this.Page).CurrentBusiness);
         Guid gid = new Guid(hiTypeId.Value);
         ServiceType = bllServiceType.GetOne(gid);

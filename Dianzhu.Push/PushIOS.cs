@@ -9,10 +9,7 @@ namespace Dianzhu.Push
     /// <summary>
     /// 客户端推送消息
     /// </summary>
-    public interface IPush
-    {
-        string Push(string message);
-    }
+   
     
     public class PushIOS:IPush
     {
@@ -152,11 +149,5 @@ namespace Dianzhu.Push
         }
     }
 
-    public class PushDemoClient : IPush
-    {
-        public string Push(string message)
-        {
-            return string.Empty;
-        }
-    }
+   
 }

@@ -50,7 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Push.cs" />
+    <Compile Include="Android\Config.cs" />
+    <Compile Include="Android\JPushRequest.cs" />
+    <Compile Include="Android\PushAndroid.cs" />
+    <Compile Include="PushIOS.cs" />
+    <Compile Include="IPush.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

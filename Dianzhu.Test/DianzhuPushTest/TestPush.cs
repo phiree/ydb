@@ -23,9 +23,65 @@ namespace Dianzhu.Test.DianzhuPushTest
         {
             PHSuit.HttpHelper.CreateHttpRequest(
                 string.Format("http://localhost:8040/push.ashx?client={0}&pushNum={1}&notificaitonSound={2}&message={3}&deviceToken={4}",
-                "ios",1,string.Empty,"i am pusing from web api, "+DateTime.Now.ToString(), "9192b3cc5112899606a2dbc5968ad948213d76ee73bf6ab3b3fa7c13ce0a58dd")
-                ,"get",null);
-                
+                "ios", 1, string.Empty, "i am pusing from web api, " + DateTime.Now.ToString(), "9192b3cc5112899606a2dbc5968ad948213d76ee73bf6ab3b3fa7c13ce0a58dd")
+                , "get", null);
+
+        }
+        [Test]
+        public void TestPushJsonConvertForJPush()
+        {
+            string request = @"
+  {
+    ""platform"": ""all"",
+    ""audience"": {
+                ""tag"": [
+                    ""深圳"",
+                    ""北京""
+        ]
+    },
+    ""notification"": {
+        ""android"": {
+            ""alert"": ""Hi, JPush!"",
+            ""title"": ""Send to Android"",
+            ""builder_id"": 1,
+            ""extras"": {
+                ""newsid"": 321
+            }
+        },
+        ""ios"": {
+            ""alert"": ""Hi, JPush!"",
+            ""sound"": ""default"",
+            ""badge"": ""+1"",
+            ""extras"": {
+                ""newsid"": 123
+            }
+        }
+    },
+    ""message"": {
+        ""msg_content"": ""Hi,JPush"",
+        ""content_type"": ""text"",
+        ""title"": ""msg"",
+        ""extras"": {
+            ""key"": ""value""
+        }
+    },
+    ""sms_message"":{
+        ""content"":""sms msg content"",
+        ""delay_time"":3600
+    },
+    ""options"": {
+        ""time_to_live"": 60,
+        ""apns_production"": false
+    }
+}
+                ";
+
+            Push.Android.JPushRequest jpushreq = 
+                Newtonsoft.Json.JsonConvert
+                .DeserializeObject<Push.Android.JPushRequest>(request);
+
+            Assert.AreEqual(60, jpushreq.options.time_to_live);
+            Assert.AreEqual(123, jpushreq.notification.ios.extras.newsid);
         }
     }
 }
