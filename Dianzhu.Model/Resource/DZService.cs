@@ -31,8 +31,8 @@ namespace Dianzhu.Model
                 };
                 ServiceOpenTimeForDay sotd2 = new ServiceOpenTimeForDay
                 {
-                    TimeStart = "13:00",
-                    TimeEnd = "24:00"
+                    TimeStart = "14:00",
+                    TimeEnd = "18:00"
                 };
                 var sotdlist = new List<ServiceOpenTimeForDay>();
                 sotdlist.Add(sotd);

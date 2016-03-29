@@ -28,20 +28,50 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public DateTime SearchKeywordTime
         {
-            get { return DateTime.Parse(tbxKeywordTime.Text); }
+            get
+            {
+                try
+                {
+                    return DateTime.Parse(tbxKeywordTime.Text);
+                }
+                catch (Exception)
+                {
+                    return DateTime.Parse("1970-01-01 00:00:00");
+                }
+            }
             set { tbxKeywordTime.Text = value.ToString(); }
         }
 
-        public string SearchKeywordPriceMin
+        public decimal SearchKeywordPriceMin
         {
-            get { return tbxKeywordPriceMin.Text; }
-            set { tbxKeywordPriceMin.Text = value; }
+            get
+            {
+                try
+                {
+                    return decimal.Parse(tbxKeywordPriceMin.Text.Trim());
+                }
+                catch(Exception)
+                {
+                    return 0;
+                }
+            }
+            set { tbxKeywordPriceMin.Text = value.ToString(); }
         }
 
-        public string SearchKeywordPriceMax
+        public decimal SearchKeywordPriceMax
         {
-            get { return tbxKeywordPriceMax.Text; }
-            set { tbxKeywordPriceMax.Text = value; }
+            get
+            {
+                try
+                {
+                    return decimal.Parse(tbxKeywordPriceMax.Text.Trim());
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+            }
+            set { tbxKeywordPriceMax.Text = value.ToString(); }
         }
 
         public IList<Model.ServiceType> ServiceTypeFirst
@@ -129,6 +159,37 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 ServiceTypeThird_Select((Model.ServiceType)cbxSearchTypeT.SelectedItem);
             }            
+        }
+
+        private void tbxKeywordPriceMin_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text.All(t => char.IsDigit(t)))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbxKeywordPriceMin_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //屏蔽中文输入和非法字符粘贴输入
+            TextBox textBox = sender as TextBox;
+            TextChange[] change = new TextChange[e.Changes.Count];
+            e.Changes.CopyTo(change, 0);
+
+            int offset = change[0].Offset;
+            if (change[0].AddedLength > 0)
+            {
+                double num = 0;
+                if (!Double.TryParse(textBox.Text, out num))
+                {
+                    textBox.Text = textBox.Text.Remove(offset, change[0].AddedLength);
+                    textBox.Select(offset, 0);
+                }
+            }
         }
     }
 }

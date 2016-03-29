@@ -32,7 +32,7 @@ namespace Dianzhu.CSClient.WinformView
             }
         }
 
-        public string SearchKeywordPriceMax
+        public decimal SearchKeywordPriceMax
         {
             get
             {
@@ -45,7 +45,7 @@ namespace Dianzhu.CSClient.WinformView
             }
         }
 
-        public string SearchKeywordPriceMin
+        public decimal SearchKeywordPriceMin
         {
             get
             {
