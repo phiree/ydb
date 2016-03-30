@@ -70,8 +70,9 @@ namespace Dianzhu.BLL
             //处理订单流程
             string platformOrderId, businessOrderId, errMsg;
             decimal amount;
+            log.Debug("开始API回调");
             bool is_success= ipayCallback.PayCallBack(callbackParameters, out businessOrderId,out platformOrderId,out amount,out errMsg);
-
+            log.Debug("回调结果:" + is_success);
             if (is_success == false)
             {
                 log.Error(errMsg);
@@ -81,14 +82,16 @@ namespace Dianzhu.BLL
             {
                 //todo: they are must be in a single transaction
                 //更新支付记录
+                log.Debug("更新支付记录");
                 paymentLog.PayAmount = amount;
                 paymentLog.PaymentId = new Guid(businessOrderId);
                 bllPaymentLog.SaveOrUpdate(paymentLog);
-                //更新支付项
+                log.Debug("更新支付项");
                 Payment payment= bllPayment.GetOne(new Guid(businessOrderId));
                 payment.Status = enum_PaymentStatus.Success;
                 bllPayment.SaveOrUpdate(payment);
                 //更新订单状态.
+                log.Debug("更新订单状态");
                 ServiceOrder order = payment.Order;
                 switch (order.OrderStatus)
                 {
