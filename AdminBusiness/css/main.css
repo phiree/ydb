@@ -137,7 +137,7 @@
   word-wrap: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 16px;
+  font-size: 14px;
   opacity: 1;
   filter: alpha(opacity=100);
 }
@@ -734,13 +734,13 @@ fieldset[disabled] .btn-delete-light.active {
 }
 .btn-sm {
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   border-radius: 5px;
 }
 .btn-xs {
-  padding: 5px 5px;
-  font-size: 16px;
+  padding: 5px 10px;
+  font-size: 14px;
   line-height: 20px;
   border-radius: 5px;
 }
@@ -7206,8 +7206,9 @@ a.time-trigger:hover {
 }
 /* 指派弹出样式 */
 .light-list-head {
-  font-size: 16px;
-  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+  font-weight: normal;
   line-height: 30px;
   text-align: center;
   border-bottom: 1px solid #ccc;
@@ -7626,8 +7627,9 @@ a.doReg:hover {
   }
 }
 .order-list-head {
-  font-size: 16px;
-  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+  font-weight: normal;
   line-height: 30px;
   text-align: center;
   border-bottom: 1px solid #ccc;
@@ -7800,8 +7802,9 @@ a.doReg:hover {
   min-width: 1200px;
 }
 .service-list-head {
-  font-size: 16px;
-  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+  font-weight: normal;
   line-height: 30px;
   text-align: center;
   border-bottom: 1px solid #ccc;
@@ -7810,6 +7813,9 @@ a.doReg:hover {
   background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
   background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+}
+.service-list-head .custom-col + .custom-col .l-b {
+  border-left: 1px solid #ccc;
 }
 .service-list {
   height: 600px;

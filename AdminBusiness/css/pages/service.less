@@ -34,6 +34,13 @@
 }
 .service-list-head {
   .list-head();
+  .custom-col {
+    & + .custom-col {
+      .l-b {
+        border-left: 1px solid #ccc;
+      }
+    }
+  }
 }
 
 .service-list {
