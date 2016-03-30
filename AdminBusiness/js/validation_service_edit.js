@@ -80,7 +80,18 @@ service_validate_messages[name_prefix + "tbxUnitPrice"] =
 {
     integer: "请填写整数价格",
     required: "请填写单价",
-    range: "请输入1-20000之间的数字"
+    range: "请输入1-20000之间的价格"
+};
+
+service_validate_rules[name_prefix + "tbxDespoist"] = {
+    required: true,
+    range: [0, 20000]
+};
+
+service_validate_messages[name_prefix + "tbxDespoist"] =
+{
+    required: "请填写定金",
+    range: "请输入1-20000之间的价格"
 };
 
 //预约时间
@@ -114,7 +125,7 @@ service_validate_messages[name_prefix + "tbxServiceTimeBegin"] =
 
     };
 
-    service_validate_rules[name_prefix + "tbxServiceTimeEnd"] =
+service_validate_rules[name_prefix + "tbxServiceTimeEnd"] =
 {
 
     required: true,

@@ -430,6 +430,8 @@
                 })
             });
 
+            if (!Adapter.getParameterByName("serviceid")) return;
+
             workDays._fetch({
                 url : reqUrl,
                 customApi : true,
