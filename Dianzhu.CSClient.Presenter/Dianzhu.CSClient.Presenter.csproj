@@ -106,6 +106,10 @@
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
+      <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
+      <Name>Dianzhu.Push</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MediaServer\MediaServer.csproj">
       <Project>{9920da22-589c-4193-aeaa-363d5c029dfc}</Project>
       <Name>MediaServer</Name>
