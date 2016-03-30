@@ -14,7 +14,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
         </div>
         <div class="content-main">
             <div class="container-fluid animated fadeInUpSmall">
-                <div class="steps-wrap steps-2">
+                <div class="steps-wrap steps-2 business-steps">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="steps-show">
@@ -288,10 +288,10 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                             </div>
                             <div class="step-ctrl">
                                 <div class="model-global-bottom">
-                                    <a class="step-prev btn btn-info btn-big dis-n" value="prev"  >上一步</a>
-                                    <a class="step-next btn btn-info btn-big dis-n" value="next"  >下一步</a>
-                                    <input class="step-save btn btn-info btn-big m-l10 dis-n" name="imageField" runat="server" onserverclick="btnSave_Click" type="submit" id="imageField1" value="保存"/>
-                                    <a class="step-cancel btn btn-cancel btn-big m-l10 dis-n" id="btnCancel" href="/business/detail.aspx?businessId=<%=Request["businessid"]%>">取消</a>
+                                    <a class="step-prev btn btn-info btn-big m-r10" value="prev"  >上一步</a>
+                                    <a class="step-next btn btn-info btn-big m-r10" value="next"  >下一步</a>
+                                    <input class="step-save btn btn-info btn-big m-r10" name="imageField" runat="server" onserverclick="btnSave_Click" type="submit" id="imageField1" value="保存"/>
+                                    <a class="step-cancel btn btn-cancel btn-big" id="btnCancel" href="/business/detail.aspx?businessId=<%=Request["businessid"]%>">取消</a>
                                 </div>
                             </div>
                         </div>
@@ -321,7 +321,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <script src = "<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" ></script>
     <script src="/js/jquery.form.min.js"></script>
     <script src="/js/navigator.sayswho.js"></script>
-    <script src="/js/StepByStep.js"></script>
+    <script src="/js/stepByStep.js"></script>
     <script src="/js/jquery.lightbox_me.js"></script>
     <script src="/js/imgUpload.js"></script>
     <script>
@@ -370,7 +370,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                     }
             );
 
-            $(".steps-wrap").StepByStep({
+            $(".steps-wrap").stepByStep({
                 stepNextFunc : function(){
                     return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
                 }

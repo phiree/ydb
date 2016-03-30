@@ -6683,6 +6683,31 @@ a.time-trigger:hover {
   color: #444;
   padding-bottom: 15px;
 }
+/* 店铺编辑，stepByStep的步骤控制样式 */
+.service-steps .step-ctrl.step-1 .step-prev {
+  display: none;
+}
+.service-steps .step-ctrl.step-1 .step-next-save {
+  display: none;
+}
+.service-steps .step-ctrl.step-1 .step-complete {
+  display: none;
+}
+.service-steps .step-ctrl.step-2 .step-next {
+  display: none;
+}
+.service-steps .step-ctrl.step-2 .step-complete {
+  display: none;
+}
+.service-steps .step-ctrl.step-3 .step-next {
+  display: none;
+}
+.service-steps .step-ctrl.step-3 .step-next-save {
+  display: none;
+}
+.service-steps .step-ctrl.step-3 .step-cancel {
+  display: none;
+}
 #addNewBusiness {
   position: absolute;
   right: 10px;
@@ -7858,6 +7883,16 @@ a.doReg:hover {
   border-radius: 5px;
   padding: 3px;
   color: #3AA6DD;
+}
+/* 新建服务时，stepByStep的步骤控制样式 */
+.business-steps .step-ctrl.step-1 .step-prev {
+  display: none;
+}
+.business-steps .step-ctrl.step-1 .step-save {
+  display: none;
+}
+.business-steps .step-ctrl.step-2 .step-next {
+  display: none;
 }
 /* 服务总览页 */
 .shelf-overview-wrap {

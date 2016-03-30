@@ -116,7 +116,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         tbxOrderDelay.Text = CurrentService.OrderDelay.ToString();
 //        tbxOrderDelay.Value = CurrentService.OrderDelay.ToString();
         
-        tbxMaxOrdersPerDay.Text = CurrentService.MaxOrdersPerDay.ToString();
+//        tbxMaxOrdersPerDay.Text = CurrentService.MaxOrdersPerDay.ToString();
       
         rblServiceMode.SelectedValue=((int)CurrentService.ServiceMode).ToString();
         cblIsForBusiness.Checked = CurrentService.IsForBusiness;
@@ -193,7 +193,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.IsCertificated = cbxIsCertificated.Checked;
         CurrentService.IsCompensationAdvance = cbxIsCompensationAdvance.Checked;
         CurrentService.IsForBusiness = cblIsForBusiness.Checked;
-        CurrentService.MaxOrdersPerDay = Convert.ToInt32(tbxMaxOrdersPerDay.Text);
+//        CurrentService.MaxOrdersPerDay = Convert.ToInt32(tbxMaxOrdersPerDay.Text);
        
         CurrentService.MinPrice = Convert.ToDecimal(tbxMinPrice.Text);
         CurrentService.DepositAmount = Convert.ToDecimal(tbxDespoist.Text);
@@ -271,10 +271,11 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         {
             UpdateAfterSaved();
             string redirectUrl=PHSuit.StringHelper.BuildUrlWithParameters(Request,"serviceid",CurrentService.Id.ToString());
-             Response.Redirect("/dzservice/default.aspx?&businessid="+Request["businessid"]);
-//             PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
-          //   Response.Redirect(redirectUrl);//PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
-        }
+            //  Response.Redirect("/dzservice/default.aspx?&businessid="+Request["businessid"]);
+            //             PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
+            //   Response.Redirect(redirectUrl);//PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
+            Response.Redirect("/dzservice/Service_Edit.aspx?&businessid=" + Request["businessid"] + "&serviceid=" + CurrentService.Id + "&step=3" );
+        }   
         else
         {
             string err = string.Empty;

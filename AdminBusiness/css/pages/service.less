@@ -89,6 +89,24 @@
   color: #3AA6DD;
 }
 
+/* 新建服务时，stepByStep的步骤控制样式 */
+.business-steps {
+  .step-ctrl {
+    &.step-1 {
+      .step-prev {display: none;}
+      .step-next {}
+      .step-save {display: none}
+      .step-cancel {}
+    }
+    &.step-2 {
+      .step-prev {}
+      .step-next {display: none}
+      .step-save {}
+      .step-cancel {}
+    }
+  }
+}
+
 /* 服务总览页 */
 .shelf-overview-wrap {
   overflow-y: scroll;

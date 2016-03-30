@@ -10,7 +10,7 @@
     </div>
     <div class="content-main">
         <div class="container-fluid animated fadeInUpSmall">
-            <div class="steps-wrap steps-3">
+            <div class="steps-wrap steps-3 service-steps">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="steps-show">
@@ -164,7 +164,7 @@
                                                     <div class="row model-form-group">
                                                         <div class="col-md-4 model-label-lg">服务单价</div>
                                                         <div class="col-md-8 model-input-unit-sm">
-                                                            <asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxUnitPrice" data-toggle="tooltip" data-placement="top" title="请填写该服务的服务单价"></asp:TextBox>
+                                                            <asp:TextBox CssClass="input-fluid" sn  si runat="server" ID="tbxUnitPrice" data-toggle="tooltip" data-placement="top" title="请填写该服务的服务单价"></asp:TextBox>
 
                                                             <!--&nbsp;&nbsp;元&nbsp;/&nbsp;每&nbsp;&nbsp;-->
                                                             <div class="model-select-unit">
@@ -196,13 +196,6 @@
                                                                 <asp:TextBox runat="server" snsi CssClass="input-fluid dis-n" ID="tbxOrderDelay">60</asp:TextBox>
                                                             </div>
                                                             <em class="unit">分钟</em>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row model-form-group">
-                                                        <div class="col-md-4 model-label-lg">每日最大接单量</div>
-                                                        <div class="col-md-8 model-input-unit">
-                                                            <asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxMaxOrdersPerDay" data-toggle="tooltip" data-placement="top" title="该服务的每日最大接单量">50</asp:TextBox>
-                                                            <em class="unit">单</em>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -284,69 +277,7 @@
                                         <div class="model-form">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <div class="row model-form-group hide">
-                                                        <div class="col-md-4 model-label">
-                                                            <h4>服务时间</h4>
-                                                        </div>
-                                                        <div class="col-md-8 model-input">
-                                                            <table class="table table-striped table-hover hide">
-                                                                <thead>
-                                                                <tr>
-                                                                    <th>日期</th>
-                                                                    <th>时间段一</th>
-                                                                    <th>时间段二</th>
-                                                                    <th>启用</th>
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                <asp:Repeater runat="server" ID="rptOpenTimes">
-                                                                    <ItemTemplate>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <span runat="server" id="spDayOfWeek"><%# System.Globalization.DateTimeFormatInfo.CurrentInfo.GetDayName((DayOfWeek)Convert.ToInt32( Eval("DayOfWeek")))%></span>
-                                                                                <input type="hidden" id="hiDayOfWeek" runat="server" value='<%#Eval("DayOfWeek") %>'/></td>
-                                                                            <asp:Repeater runat="server" ID="rptTimesOneDay">
-                                                                                <ItemTemplate>
-                                                                                    <td>
-                                                                                        <div>
-                                                                                            <div class="time-select-wrap">
-                                                                                                <a class="time-trigger" /></a>
-                                                                                                <input class="dis-n time-value" runat="server" id="tbxTimeBegin" value='<%#Eval("TimeStart") %>'
-                                                                                                       type="text" />
-                                                                                            </div>
-                                                                                            &nbsp;&nbsp;至&nbsp;&nbsp;
-                                                                                            <div class="time-select-wrap">
-                                                                                                <a class="time-trigger" ><%#Eval("TimeEnd") %></a>
-                                                                                                <input class="dis-n time-value" runat="server" id="tbxTimeEnd" value='<%#Eval("TimeEnd") %>' type="text" />
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </ItemTemplate>
-                                                                            </asp:Repeater>
-                                                                            <td>
-                                                                                <input type="checkbox" runat="server"  checked="checked" id="cbxChecked" /><label>启用</label>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </ItemTemplate>
-                                                                </asp:Repeater>
-                                                                </tbody>
-                                                            </table>
 
-                                                            <!---------------------------------------------服务时间原值----------------------------------->
-                                                            <div class="hidden">
-                                                                <div class="time-select-wrap">
-                                                                    <a class="time-trigger" /></a>
-                                                                    <asp:TextBox CssClass="dis-n time-value" time-role="value" snsi runat="server" ID="tbxServiceTimeBegin"></asp:TextBox>
-                                                                </div>
-                                                                &nbsp;&nbsp;至&nbsp;&nbsp;
-                                                                <div class="time-select-wrap">
-                                                                    <a class="time-trigger" /></a>
-                                                                    <asp:TextBox CssClass="dis-n time-value" snsi runat="server" ID="tbxServiceTimeEnd"></asp:TextBox>
-                                                                </div>
-                                                            </div>
-                                                            <p class="cont-input-tip"><i class="icon icon-tip"></i>请选择该服务的服务时段</p>
-                                                        </div>
-                                                    </div>
                                                     <div class="row model-form-group">
                                                         <div class="col-md-12">
                                                             <div id="workTimeSet">
@@ -367,12 +298,11 @@
                 </div>
                 <div class="step-ctrl">
                     <div class="model-global-bottom">
-                        <a class="step-prev btn btn-info dis-n" value="prev"  >上一步</a>
-                        <a class="step-next btn btn-info m-l10 dis-n" value="next"  >下一步</a>
-                        <asp:Button Text="保存" CssClass="step-save btn btn-info m-l10 dis-n " runat="server" ID="btnSave"
-                                    OnClick="btnSave_Click" />
-                        <a class="step-cancel btn btn-cancel m-l10 dis-n" id="btnCancel" href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">
-                        取消</a>
+                        <a class="step-prev btn btn-info" value="prev"  >上一步</a>
+                        <a class="step-next btn btn-info m-l10" value="next"  >下一步</a>
+                        <asp:Button Text="下一步" CssClass="step-next-save btn btn-info m-l10 " runat="server" ID="btnSave" OnClick="btnSave_Click" />
+                        <a class="step-complete btn btn-info m-l10 " href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">完成</a>
+                        <a class="step-cancel btn btn-cancel m-l10" id="btnCancel" href="/DZService/default.aspx?businessId=<%=Request["businessid"] %>">取消</a>
                     </div>
                 </div>
             </div>

@@ -36,3 +36,30 @@
   color: #444;
   padding-bottom: 15px;
 }
+
+/* 店铺编辑，stepByStep的步骤控制样式 */
+.service-steps {
+  .step-ctrl {
+    &.step-1 {
+      .step-prev {display: none;}
+      .step-next {}
+      .step-next-save {display: none}
+      .step-complete {display: none}
+      .step-cancel {}
+    }
+    &.step-2 {
+      .step-prev {}
+      .step-next {display: none}
+      .step-next-save {}
+      .step-complete {display: none}
+      .step-cancel {}
+    }
+    &.step-3 {
+      .step-prev {}
+      .step-next {display: none}
+      .step-next-save {display: none}
+      .step-complete {}
+      .step-cancel {display: none}
+    }
+  }
+}

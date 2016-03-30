@@ -87,7 +87,7 @@
     <script src="/js/jquery.form.min.js"></script>
     <script src="/js/jquery.lightbox_me.js"></script>
     <script src="/js/ServiceType.js"></script>
-    <script src="/js/StepByStep.js"></script>
+    <script src="/js/stepByStep.js"></script>
     <script src="/js/CascadeCheck.js"></script>
     <script src="/js/timePick.js"></script>
     <script>
@@ -109,100 +109,67 @@
                 }
             })();
 
-            $(".service-time-table tbody tr:even").addClass("list-item-odd");
+            (function (){
+                $('#serChoiceContainer').cascadeCheck({
+                    localData : true,
+                    data : typeList,
+                    outputTarget : null,
 
-            $('#serChoiceContainer').cascadeCheck({
-                localData : true,
-                data : typeList,
+                    confirmTrigger : '#serChoiceConf',
+                    checkedCallBack : showCheck,
 
-                outputTarget : null,
-                confirmTrigger : '#serChoiceConf',
-
-                checkedCallBack : showCheck,
-
-                submitTarget : '#hiTypeId',
-                submitCallback : showSubmit,
-
-                /* 取lightBox_me.js里面的位置重置函数，使每次新建列表时重置位置 */
-                printListCk : setSelfPosition
-
-            });
-
-            function setSelfPosition() {
-                var $self = $('#serLightContainer');
-                $self.css({left: '50%', marginLeft: ($self.outerWidth() / 2) * -1, zIndex: (999 + 3)});
-                if (($self.height() + 80 >= $(window).height()) && ($self.css('position') != 'absolute')) {
-                    var topOffset = $(document).scrollTop() + 40;
-                    $self.css({position: 'absolute', top: topOffset + 'px', marginTop: 0})
-                } else if ($self.height() + 80 < $(window).height()) {
-                    $self.css({position: 'fixed', top: '50%', marginTop: ($self.outerHeight() / 2) * -1})
-                }
-            }
-
-            function showCheck(checkId, checkText){
-                var checkTextEle = document.createElement('span');
-                checkTextEle.innerText = checkText;
-                $('#serChoiceResult').removeClass('dis-n').html(checkTextEle);
-            }
-
-            function removeCheck(){
-                $('#serChoiceResult').addClass('dis-n').html();
-            }
-
-            function showSubmit (checked, checkId, checkText){
-                var $selected = $('#lblSelectedType');
-                if ( $selected.hasClass("hide") ) $selected.removeClass("hide");
-                $selected.html(checkText)
-            }
-
-            $("#setSerType").click(function (e) {
-                removeCheck();
-                $('#serChoiceContainer').cascadeCheck('build');
-
-                $('#serLightContainer').lightbox_me({
-                    centered: true,
-                    preventScroll: true
+                    submitTarget : '#hiTypeId',
+                    submitCallback : showSubmit,
+                    /* 取lightBox_me.js里面的位置重置函数，使每次新建列表时重置位置 */
+                    printListCk : setSelfPosition
                 });
-                e.preventDefault();
-            });
 
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip(
-                    {
-                        delay: {show : 500, hide : 100},
-                        trigger: 'hover'
+                function setSelfPosition() {
+                    var $self = $('#serLightContainer');
+                    $self.css({left: '50%', marginLeft: ($self.outerWidth() / 2) * -1, zIndex: (999 + 3)});
+                    if (($self.height() + 80 >= $(window).height()) && ($self.css('position') != 'absolute')) {
+                        var topOffset = $(document).scrollTop() + 40;
+                        $self.css({position: 'absolute', top: topOffset + 'px', marginTop: 0})
+                    } else if ($self.height() + 80 < $(window).height()) {
+                        $self.css({position: 'fixed', top: '50%', marginTop: ($self.outerHeight() / 2) * -1})
                     }
-                );
-            });
+                }
 
-            function setTime(date,timeString){
-                var arr=timeString.split(":");
-                var hour=parseInt(arr[0]);
-                var minites = arr[1]?parseInt(arr[1]):0;
-                var seconds=arr[2]?parseInt(arr[2]):0;
-                return date.setHours(hour,minites,seconds);
-            }
+                function showCheck(checkId, checkText){
+                    var checkTextEle = document.createElement('span');
+                    checkTextEle.innerText = checkText;
+                    $('#serChoiceResult').removeClass('dis-n').html(checkTextEle);
+                }
 
-            $.validator.addMethod("endtime_should_greater_starttime", function (value, element) {
-                var x_date = new Date();
-                var start = $("#tbxServiceTimeBegin").val();
-                var end = $("#tbxServiceTimeEnd").val();
+                function removeCheck(){
+                    $('#serChoiceResult').addClass('dis-n').html();
+                }
 
-                var date_start = setTime(x_date,start);
-                var date_end = setTime(x_date,end);
-                return date_end > date_start;
+                function showSubmit (checked, checkId, checkText){
+                    var $selected = $('#lblSelectedType');
+                    if ( $selected.hasClass("hide") ) $selected.removeClass("hide");
+                    $selected.html(checkText)
+                }
 
-            }, "结束时间应该大于开始时间");
+                $("#setSerType").click(function (e) {
+                    removeCheck();
+                    $('#serChoiceContainer').cascadeCheck('build');
 
-            $.validator.addMethod("totalday_should_greater_totalhour", function (value, element) {
+                    $('#serLightContainer').lightbox_me({
+                        centered: true,
+                        preventScroll: true
+                    });
+                    e.preventDefault();
+                });
+            })();
 
-                var day = parseInt( $("#tbxMaxOrdersPerDay").val());
-                var hour = parseInt( $("#tbxMaxOrdersPerHour").val());
 
-                return day >= hour;
-
-            }, "每日接单量应该大于每小时最大接单量");
-
+            $('[data-toggle="tooltip"]').tooltip(
+                {
+                    delay: {show : 500, hide : 100},
+                    trigger: 'hover'
+                }
+            );
 
             $($("form")[0]).validate(
                 {
@@ -218,13 +185,21 @@
                 }
             );
 
-            $(".steps-wrap").StepByStep({
-                stepNextFunc : function(){
-                    return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
-                }
-            });
+            (function (){
+                $(".steps-wrap").stepByStep({
+                    defaultStep : function(){
+                        if ( Adapter.getParameterByName("step")){
+                            return parseInt(Adapter.getParameterByName("step")) - 1
+                        } else {
+                            return 0;
+                        }
+                    },
+                    stepValid : function(){
+                        return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
+                    }
+                });
+            })();
         });
-
         function loadBaiduMapScript() {
             var script = document.createElement("script");
             script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initializeService";
