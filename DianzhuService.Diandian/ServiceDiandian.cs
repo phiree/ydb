@@ -86,7 +86,7 @@ namespace DianzhuService.Diandian
             //}
             
             customerId = msg.From.User;
-            string body = msg.Body;
+            string body = msg.Body ?? string.Empty;
             string msgObj_url = String.Empty;
             string msgObj_type = String.Empty;
             string msgType = msg.SelectSingleElement("ext").Namespace;

@@ -136,7 +136,7 @@ public class ResponseSYS001001:BaseResponse
 
                 using (var client = new WebClient())
                 {
-                    string savedPath = Environment.CurrentDirectory + Dianzhu.Config.Config.GetAppSetting("LocalMediaSaveDir") + localFileName;
+                    string savedPath = HttpRuntime.AppDomainAppPath + Dianzhu.Config.Config.GetAppSetting("LocalMediaSaveDir") + localFileName;
                     PHSuit.IOHelper.EnsureFileDirectory(savedPath);
                     client.DownloadFile(mediaUrl, savedPath);
                 }
@@ -145,10 +145,7 @@ public class ResponseSYS001001:BaseResponse
 
         ReceptionChatDD chatDD = new ReceptionChatDD();
         chatDD.Id = chat.Id;
-        if (chat.MessageBody != "")
-        {
-            chatDD.MessageBody = chat.MessageBody;
-        }
+        chatDD.MessageBody = chat.MessageBody;
         chatDD.ReceiveTime = chat.ReceiveTime;
         chatDD.SendTime = chat.SendTime;
         chatDD.To = chat.To;
@@ -161,7 +158,7 @@ public class ResponseSYS001001:BaseResponse
         chatDD.IsCopy = false;
         if (chat is ReceptionChatMedia)
         {
-            chatDD.MedialUrl = ((ReceptionChatMedia)chat).MedialUrl;
+            chatDD.MedialUrl = ((ReceptionChatMedia)chat).MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
             chatDD.MediaType = ((ReceptionChatMedia)chat).MediaType;
         }
         chatDD.ChatTarget = chat.ChatTarget;

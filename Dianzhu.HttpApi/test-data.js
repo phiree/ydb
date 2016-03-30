@@ -7,7 +7,7 @@
 //"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
-"orm001007"
+"orm003007"
 
 ];
 var test_data = [
@@ -782,10 +782,10 @@ var test_data = [
            {
                "protocol_CODE": "ORM003007",
                "ReqData": {
-                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                   "userID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
                    "pWord": "123456",
-                   "orderID": "c7e1c471-16e1-46aa-8e65-a56000fe27fd",
-                   "status": "Assigned",
+                   "orderID": "a602e14a-4ffc-4f07-b0cb-a5d300bfedfb",
+                   "status": "payed",
                },
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"

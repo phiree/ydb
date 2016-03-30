@@ -62,6 +62,7 @@ namespace Dianzhu.CSClient.Presenter
             viewChatSend.MessageText = string.Empty;
             viewChatList.AddOneChat(chat);
 
+            chat.MedialUrl = chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
             dalReceptionChat.Save(chat);
         }
 

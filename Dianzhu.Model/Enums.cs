@@ -91,30 +91,35 @@ namespace Dianzhu.Model.Enums
     public enum enum_OrderStatus
     {
         /// <summary>
+        /// 搜索单
+        /// </summary>
+        Search = 17,
+
+        #region 正常流程订单状态
+        /// <summary>
         /// 草稿,未创建.
         /// </summary>
-        Draft=0,//草稿,未创建.
-
-        Search=17,//搜索单
-
-        DraftPushed=33,//已推送的草稿单
-
-        //未完成订单状态
-        Created=1,//已创建,待付款
-        Payed=2,//已付款
-        Canceled=3,//用户已发起取消请求
-        CanceledDirectly,//订单已直接取消
-       
-        isCancel=5,//客户已取消 等待撤销工作人员分配.
-
-        //已完成订单状态5
-        
-        Aborded=7,//已中止
- 
+        Draft = 0,//草稿,未创建.
         /// <summary>
-        /// 商家已确认订单
+        /// 客服推出的待用户选择的订单
         /// </summary>
-        Negotiate=18,
+        DraftPushed = 33,
+        /// <summary>
+        /// 新订单，等待支付定金
+        /// </summary>
+        Created = 1,//已创建,待付款
+        /// <summary>
+        /// 已付款,等待上门服务
+        /// </summary>
+        Payed = 2,
+        /// <summary>
+        /// 商家已确认订单,协商金额
+        /// </summary>
+        Negotiate = 18,
+        /// <summary>
+        /// 商户已经提交新价格，等待用户确认
+        /// </summary>
+        isNegotiate = 34,
         /// <summary>
         /// 等待服务开始
         /// </summary>
@@ -122,29 +127,129 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 服务已经开始
         /// </summary>
-        Begin =22,
+        Begin = 22,
         /// <summary>
         /// 商家确定服务完成（如果用户已经确认完成， 该状态跳过）
         /// </summary>
-        IsEnd=24,
+        IsEnd = 24,
         /// <summary>
         /// 用户确定服务完成
         /// </summary>
-        Ended=26,
+        Ended = 26,
         /// <summary>
         /// 用户支付尾款，订单完成
         /// </summary>
-        Finished=28,
+        Finished = 28,
         /// <summary>
         /// 用户已经评价
         /// </summary>
-        Appraised=30,
+        Appraised = 30,
+        /// <summary>
+        /// 已过质保期
+        /// </summary>
+        EndWarranty = 36,
+        #endregion
 
-        WaitingDepositWithCanceled=31,//等待退还定金
-        WaitingCancel=32,//用户申请取消订单, 超过时长,等待商家审核  .
+        #region 取消流程订单状态
+        /// <summary>
+        /// 已提交取消订单请求
+        /// </summary>
+        Canceled = 3,
+        /// <summary>
+        /// 服务提前时间未到，等待退还定金
+        /// </summary>
+        WaitingDepositWithCanceled = 31,
+        /// <summary>
+        /// 等待商户审核取消订单请求
+        /// </summary>
+        WaitingCancel = 32,
+        /// <summary>
+        /// 商户审核后，确认可取消，等待支付违约金
+        /// </summary>
+        isCancel = 5,
+        /// <summary>
+        /// 取消成功, 退款成功
+        /// </summary>
+        EndCancel = 38,
+        #endregion
+
+        #region 理赔流程订单状态
+        /// <summary>
+        /// 已提交退款请求
+        /// </summary>
+        Refund = 40,
+        /// <summary>
+        /// 等待商户审核退款请求
+        /// </summary>
+        WaitingRefund = 42,
+        /// <summary>
+        /// 商户审核后，确认退款，等待退还金额
+        /// </summary>
+        isRefund = 44,
+        /// <summary>
+        /// 商户审核后，商户驳回退款请求
+        /// </summary>
+        RejectRefund = 46,
+        /// <summary>
+        /// 商户审核后，要求支付赔偿金
+        /// </summary>
+        AskPayWithRefund = 48,
+        /// <summary>
+        /// 等待用户支付赔偿金
+        /// </summary>
+        WaitingPayWithRefund = 50,
+        /// <summary>
+        /// 理赔完成
+        /// </summary>
+        EndRefund = 52,
+        #endregion
+
+        #region 介入流程订单状态
+        /// <summary>
+        /// 官方介入并等待提交凭证
+        /// </summary>
+        InsertIntervention = 54,
+        /// <summary>
+        /// 等待官方处理
+        /// </summary>
+        HandleWithIntervention = 56,
+        /// <summary>
+        /// 已确认退款，等待退还金额
+        /// </summary>
+        NeedRefundWithIntervention = 58,
+        /// <summary>
+        /// 要求支付赔偿金
+        /// </summary>
+        NeedPayWithIntervention = 60,
+        /// <summary>
+        /// 官方介入完成
+        /// </summary>
+        EndIntervention = 62,
+        #endregion
+
+        #region 投诉流程
+        /// <summary>
+        /// 已提交投诉申请
+        /// </summary>
+        Complaints = 64,
+        /// <summary>
+        /// 等待官方审核投诉
+        /// </summary>
+        WaitingComplaints = 66,
+        /// <summary>
+        /// 投诉完成
+        /// </summary>
+        EndComplaints = 68,
+        #endregion
+
+        /// <summary>
+        /// 固定时间内未支付赔偿金，强制终止
+        /// </summary>
+        ForceStop = 70,
 
 
-
+        CanceledDirectly,//订单已直接取消        
+        Aborded=7,//已中止
     }
     public enum enum_OrderSearchType
     {

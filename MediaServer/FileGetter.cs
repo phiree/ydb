@@ -44,8 +44,7 @@ namespace MediaServer
             string result = string.Empty;
             string domainType;
             string extension = Path.GetExtension(originalFileName);
-            KeyValuePair<FileType, string> fileExtensionPair = MediaServer.ServerSettings.FileExtension.SingleOrDefault(x => x.Value == extension);
-            fileType = fileExtensionPair.Key;
+            fileType = FileType.other;
             ServerSettings.FileNameParser(originalFileName, out fileType
                 , out domainType, out cleanedFileName
                 , out isImageThumbnail, out imageWidth, out imageHeight);

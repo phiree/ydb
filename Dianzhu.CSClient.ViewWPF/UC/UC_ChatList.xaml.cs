@@ -81,7 +81,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 {
 
                     string mediaType = ((ReceptionChatMedia)chat).MediaType;
-                    string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                    string mediaUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + ((ReceptionChatMedia)chat).MedialUrl;
                     switch (mediaType)
                     {
                         case "image":
@@ -96,6 +96,7 @@ namespace Dianzhu.CSClient.ViewWPF
                             //chatImage.Source = chatImageBitmap;
                             MediaElement chatImageGif = new MediaElement();
                             chatImageGif.Name = chat.MessageBody;
+                            chatImageGif.Width = 300;
                             chatImageGif.LoadedBehavior = MediaState.Play;
                             chatImageGif.Source = new Uri(mediaUrl);
                             chatImageGif.MediaEnded += ChatImageGif_MediaEnded;
