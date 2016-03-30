@@ -35,8 +35,9 @@ namespace Dianzhu.Pay
             string sign = coll["sign"];
 
             SortedDictionary<string, string> sPara = GetRequestGet(coll);
-
+           
             bool isVerified = new Notify().Verify(sPara, notify_id, sign);
+            log.Debug("参数验证结果:"+isVerified);
             platformOrderId = businessOrderId = errMsg = string.Empty;
 
             total_amount = 0m;
@@ -48,8 +49,10 @@ namespace Dianzhu.Pay
 
                 total_amount = Convert.ToDecimal(coll["total_fee"]);
                 string trade_status = coll["trade_status"];
+                log.Debug("交易结果:" + trade_status);
                 if (trade_status.ToUpper() == "TRADE_FINISHED" || trade_status.ToUpper() == "TRADE_SUCCESS")
                 {
+                   
                     return true;
                 }
 

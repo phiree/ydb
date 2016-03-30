@@ -25,7 +25,7 @@ public partial class CallBackHandler : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        log.Debug("支付完成，调用notifyurl");
+        log.Debug("-------------------支付完成,回调开始------------------");
       
         string rawUrl = Request.RawUrl;
         IPayCallBack payCallBack=null;
@@ -92,6 +92,8 @@ public partial class CallBackHandler : System.Web.UI.Page
             log.Error(errMsg);
             Response.Write("fail");
         }
+        log.Debug("-------------------回调结束------------------");
+        
 
     }
 

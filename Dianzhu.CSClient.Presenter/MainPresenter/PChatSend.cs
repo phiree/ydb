@@ -59,6 +59,7 @@ namespace Dianzhu.CSClient.Presenter
             };
 
             iIM.SendMessage(chat);
+
             viewChatSend.MessageText = string.Empty;
             viewChatList.AddOneChat(chat);
 
