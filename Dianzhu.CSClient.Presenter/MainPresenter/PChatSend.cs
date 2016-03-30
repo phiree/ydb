@@ -61,6 +61,7 @@ namespace Dianzhu.CSClient.Presenter
             iIM.SendMessage(chat);
 
             viewChatSend.MessageText = string.Empty;
+            chat.MedialUrl = fileName;
             viewChatList.AddOneChat(chat);
 
             chat.MedialUrl = chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, "");

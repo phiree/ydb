@@ -68,10 +68,18 @@ public partial class CallBackHandler : System.Web.UI.Page
                 parameters = Request.QueryString;
                
             }
-            using (System.IO.StreamReader sr = new System.IO.StreamReader(Request.InputStream))
+            else if(Request.HttpMethod.ToLower()=="post")
             {
-                parameters = sr.ReadToEnd();
-                log.Debug("Post参数:"+parameters);
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(Request.InputStream))
+                {
+                    parameters = sr.ReadToEnd();
+                    log.Debug("Post参数:" + parameters);
+                }
+            }
+            else
+            {
+                log.Error("请求参数有误：" + Request.HttpMethod);
+                throw new Exception("请求参数有误：" + Request.HttpMethod);
             }
 
             bllPay.ReceiveAPICallBack(payLogType, payCallBack, Request.RawUrl, parameters);

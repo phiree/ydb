@@ -71,6 +71,8 @@ public class ResponseORM003007 : BaseResponse
                     return;
                 }
 
+                bllServiceOrder.SaveOrUpdate(order);
+
                 this.state_CODE = Dicts.StateCode[0];
             }
             catch (Exception ex)

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
+using Dianzhu.Model.Enums;
+
 namespace Dianzhu.BLL
 {
    public  class PushService
@@ -57,23 +59,17 @@ namespace Dianzhu.BLL
 
                 order.CreatedFromDraft();
 
-                ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis
-                {
-                    OrderAmount = order.OrderAmount,
-                    DepositAmount = order.DepositAmount,
-                    NegotiateAmount = order.NegotiateAmount,
-                    Order = order,
-                    Remark = order.Memo,
-                    OldStatus = Model.Enums.enum_OrderStatus.Draft,
-                    NewStatus = order.OrderStatus,
-                    Number = 1,
-                };
-                bllServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
-
                 PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);
 
-                BLLPayment bllPayment = new BLLPayment();
-                Payment payment = bllPayment.ApplyPay(order, Model.Enums.enum_PayTarget.Deposit);
+                if (order.DepositAmount>0)
+                {
+                    BLLPayment bllPayment = new BLLPayment();
+                    Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
+                }
+                else
+                {
+                    bllServiceOrder.OrderFlow_PayDeposit(order);
+                }
             }            
         }
     }
