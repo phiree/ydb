@@ -15,8 +15,8 @@ namespace Dianzhu.Test.DianzhuPushTest
         {
             //         Push.pushNotifications("8de76c196a605120db39ab58373edf159c1301b43659bd129fcf72b696e2a26c", "test_push", @"files\aps_development_Mark.p12", 1);
 
-            IPush ipush = new PushIOS("ed26e81b669fd4a1755421255d3c4771d26f7f7e5994e8cf7728f35a0dc7a531", 1, string.Empty);
-            ipush.Push("test_push" + DateTime.Now.ToString());
+            IPush ipush = new PushIOS(1,"default" );
+            ipush.Push("test_push" + DateTime.Now.ToString(), "ed26e81b669fd4a1755421255d3c4771d26f7f7e5994e8cf7728f35a0dc7a531");
         }
         [Test]
         public void TestPushIOSFromWeb()
@@ -32,9 +32,9 @@ namespace Dianzhu.Test.DianzhuPushTest
         {
             string request = @"
   {
-    ""platform"": ""all"",
+    ""platform"": [""android"",""ios""],
     ""audience"": {
-                ""tag"": [
+                ""alias"": [
                     ""深圳"",
                     ""北京""
         ]
@@ -45,43 +45,34 @@ namespace Dianzhu.Test.DianzhuPushTest
             ""title"": ""Send to Android"",
             ""builder_id"": 1,
             ""extras"": {
-                ""newsid"": 321
+                ""newsid"": ""321""
             }
         },
-        ""ios"": {
-            ""alert"": ""Hi, JPush!"",
-            ""sound"": ""default"",
-            ""badge"": ""+1"",
-            ""extras"": {
-                ""newsid"": 123
-            }
-        }
-    },
-    ""message"": {
-        ""msg_content"": ""Hi,JPush"",
-        ""content_type"": ""text"",
-        ""title"": ""msg"",
-        ""extras"": {
-            ""key"": ""value""
-        }
-    },
-    ""sms_message"":{
-        ""content"":""sms msg content"",
-        ""delay_time"":3600
-    },
-    ""options"": {
-        ""time_to_live"": 60,
-        ""apns_production"": false
-    }
+        
+    } 
 }
                 ";
 
-            Push.Android.JPushRequest jpushreq = 
+            Push.JPush.JPushRequest jpushreq = 
                 Newtonsoft.Json.JsonConvert
-                .DeserializeObject<Push.Android.JPushRequest>(request);
+                .DeserializeObject<Push.JPush.JPushRequest>(request);
 
-            Assert.AreEqual(60, jpushreq.options.time_to_live);
-            Assert.AreEqual(123, jpushreq.notification.ios.extras.newsid);
+            Assert.AreEqual("深圳", jpushreq.audience.alias[0]);
+            Assert.AreEqual("321", jpushreq .notification.android.extras.newsid);
+
+        }
+        [Test]
+        public void TestJPushDeserial()
+        {
+
+            Push.JPush.JPushRequest req = Push.JPush.JPushRequest.Create
+                (new string[] { "android" },new string[] { "aaa" },"alert","title","newsid"
+
+                );
+
+            Console.WriteLine(req.ToJson());
         }
     }
+
+
 }

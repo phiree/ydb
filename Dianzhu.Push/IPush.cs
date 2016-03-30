@@ -11,7 +11,41 @@ namespace Dianzhu.Push
     /// </summary>
     public interface IPush
     {
-        string Push(string message);
+        /// <summary>
+        /// 推送接口
+        /// </summary>
+        /// <param name="message">消息内容</param>
+        /// <param name="target">目标地址.</param>
+        /// <returns>推送结果 </returns>
+        string Push(string message,string target);
+    }
+    public class PushFactory
+    {
+        static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Push.PushFactory");
+        public static IPush Create(string type,string orderid)
+        {
+            string errMsg;
+            switch (type.ToLower())
+            {
+                case "android":
+                    if (string.IsNullOrEmpty(orderid))
+                    {
+                        errMsg = "安卓推送,请传入orderid";
+                        log.Error(errMsg);
+                        throw new Exception(errMsg);
+                    }
+                    return new JPush.JPush(orderid);
+
+                case "ios":
+                    return new PushIOS();
+               
+                default:
+                      errMsg = "未知的推送类型";  
+                    log.Error(errMsg);
+                    throw new Exception(errMsg);
+            }
+            
+        }
     }
     
     
