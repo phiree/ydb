@@ -55,6 +55,10 @@ namespace Dianzhu.CSClient.Presenter
                 pIdentityList.ReceivedMessage(chat, type);
                 //消息本地化.
                 chat.ReceiveTime = DateTime.Now;
+                if(chat is Model.ReceptionChatMedia)
+                {
+                    ((Model.ReceptionChatMedia)chat).MedialUrl = ((Model.ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+                }
                 dalReceptionChat.Save(chat);
             }
         }

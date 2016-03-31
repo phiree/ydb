@@ -99,6 +99,7 @@ namespace Com.Alipay
             string sign = parameters["sign"];
 
             parameters.Remove("sign");
+            parameters.Remove("sign_type");
             string signContent = GetSignContent(parameters);
 
             return RSACheckContent(signContent, sign, publicKeyPem, charset);

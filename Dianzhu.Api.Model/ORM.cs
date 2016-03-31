@@ -30,7 +30,8 @@ namespace Dianzhu.Api.Model
         public string startTime { get; set; }
         public string endTime { get; set; }
         public string exDoc { get; set; }
-        public string money { get; set; }
+        public string orderAmount { get; set; }
+        public string negotiateAmount { get; set; }
         public string address { get; set; }
         public string km { get; set; }
         public string deliverySum { get; set; }
@@ -62,7 +63,8 @@ namespace Dianzhu.Api.Model
                 this.endTime = string.Empty;
             }
             this.exDoc = order.Description ?? string.Empty;
-            this.money = order.OrderAmount.ToString("0.00");
+            this.orderAmount = order.OrderAmount.ToString("0.00");
+            this.negotiateAmount = order.NegotiateAmount.ToString("0.00");
             this.address = order.TargetAddress ?? string.Empty;
             this.km = string.Empty;
 

@@ -56,6 +56,7 @@ namespace Dianzhu.BLL
             string encryptedNewPsw = FormsAuthentication.HashPasswordForStoringInConfigFile(newPassword, "MD5");
             if (member.Password != encryptedOldPsw) return false;
             member.Password = encryptedNewPsw;
+            member.PlainPassword = newPassword;
             DALMembership.ChangePassword(member);
             return true;
         }

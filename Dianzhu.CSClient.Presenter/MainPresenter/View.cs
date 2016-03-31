@@ -85,19 +85,6 @@ namespace Dianzhu.CSClient.Presenter
            
             ClientState.CurrentServiceOrder.CreatedFromDraft();
 
-            ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis
-            {
-                OrderAmount = ClientState.CurrentServiceOrder.OrderAmount,
-                DepositAmount = ClientState.CurrentServiceOrder.DepositAmount,
-                NegotiateAmount = ClientState.CurrentServiceOrder.NegotiateAmount,
-                Order = ClientState.CurrentServiceOrder,
-                Remark = ClientState.CurrentServiceOrder.Memo,
-                OldStatus =  Model.Enums.enum_OrderStatus.Draft,
-                NewStatus = ClientState.CurrentServiceOrder.OrderStatus,
-                Number = 1,
-            };
-            bllServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
-
             View_NoticeOrder();
             BLLPayment bllPayment = new BLLPayment();
 

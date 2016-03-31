@@ -109,20 +109,19 @@ namespace Dianzhu.BLL
 
         #region 订单流程变化
 
-        //用户定金支付完成
+        /// <summary>
+        /// 用户定金支付完成
+        /// </summary>
+        /// <param name="order"></param>
         public void OrderFlow_PayDeposit(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.Payed);
-
-
         }
         /// <summary>
         /// 商家确认订单,准备执行.
         /// </summary>
         public void OrderFlow_BusinessConfirm(ServiceOrder order)
         {
-            order.LatestOrderUpdated = DateTime.Now;
-
             ChangeStatus(order, enum_OrderStatus.Negotiate);
         }
         /// <summary>
@@ -137,9 +136,16 @@ namespace Dianzhu.BLL
             {
                 log.Warn("协商价格小于订金");
             }
-            order.LatestOrderUpdated = DateTime.Now;
-            ChangeStatus(order, enum_OrderStatus.Assigned);
 
+            ChangeStatus(order, enum_OrderStatus.isNegotiate);
+        }
+        /// <summary>
+        /// 商户已经提交新价格，等待用户确认
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_CustomIsNegotiate(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.Assigned);
         }
         /// <summary>
         /// 用户确认协商价格,并确定开始服务
@@ -148,7 +154,6 @@ namespace Dianzhu.BLL
         public void OrderFlow_CustomerConfirmNegotiate(ServiceOrder order)
         {
             order.OrderServerStartTime = DateTime.Now;
-            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Begin);
         }
         /// <summary>
@@ -158,7 +163,6 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessFinish(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
-            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.IsEnd);
         }
         /// <summary>
@@ -168,7 +172,6 @@ namespace Dianzhu.BLL
         public void OrderFlow_CustomerFinish(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
-            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Ended);
         }
         /// <summary>
@@ -178,35 +181,17 @@ namespace Dianzhu.BLL
         public void OrderFlow_CustomerPayFinalPayment(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
-            order.LatestOrderUpdated = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Finished);
         }
 
         //订单状态改变通用方法
         private void ChangeStatus(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
         {
-            var oldStatus = order.OrderStatus;
+            bllServiceOrderStateChangeHis.SaveOrUpdate(order, targetStatus);
+
             OrderServiceFlow flow = new OrderServiceFlow();
             flow.ChangeStatus(order, targetStatus);
-
-            int num = 1;
-            ServiceOrderStateChangeHis oldOrderHis = bllServiceOrderStateChangeHis.GetMaxNumberOrderHis(order);
-            if (oldOrderHis != null)
-            {
-                num = oldOrderHis.Number + 1;
-            }
-            ServiceOrderStateChangeHis orderHist = new ServiceOrderStateChangeHis
-            {
-                OrderAmount = order.OrderAmount,
-                DepositAmount = order.DepositAmount,
-                NegotiateAmount = order.NegotiateAmount,
-                Order = order,
-                Remark = string.Empty,
-                OldStatus = oldStatus,
-                NewStatus = targetStatus,
-                Number = num,
-            };
-            bllServiceOrderStateChangeHis.SaveOrUpdate(orderHist);
+            
             SaveOrUpdate(order);
 
             log.Debug("调用IMServer,发送订单状态变更通知");
@@ -272,8 +257,6 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_IsCanceled(ServiceOrder order)
         {
-
-            order.LatestOrderUpdated = DateTime.Now;
             //支付违约金
 
             ChangeStatus(order, enum_OrderStatus.isCancel);
@@ -333,26 +316,65 @@ namespace Dianzhu.BLL
         //状态对应表. key:状态, value:该状态可以从哪些状态转变而来.
         static Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> dictAvailabelStatus =
             new Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> {
-            { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.Created }},
-             { enum_OrderStatus.Negotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Payed }},
-              { enum_OrderStatus.Assigned,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
-              { enum_OrderStatus.Begin,new List<enum_OrderStatus>() {enum_OrderStatus.Assigned }},
-               { enum_OrderStatus.IsEnd,new List<enum_OrderStatus>() {enum_OrderStatus.Begin }},
-                { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd , enum_OrderStatus.Begin}},
+                //正常支付流程订单状态变更
+                { enum_OrderStatus.Created,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed }},
+                { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed }},
+                { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.Created }},
+                { enum_OrderStatus.Negotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Payed,
+                                                                            enum_OrderStatus.IsEnd }},
+                { enum_OrderStatus.isNegotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
+                { enum_OrderStatus.Assigned,new List<enum_OrderStatus>() {enum_OrderStatus.isNegotiate }},
+                { enum_OrderStatus.Begin,new List<enum_OrderStatus>() {enum_OrderStatus.Assigned }},
+                { enum_OrderStatus.IsEnd,new List<enum_OrderStatus>() {enum_OrderStatus.Begin }},
+                { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd ,
+                                                                        enum_OrderStatus.Begin}},
                 { enum_OrderStatus.Finished,new List<enum_OrderStatus>() {enum_OrderStatus.Ended }},
-
+                { enum_OrderStatus.ForceStop,new List<enum_OrderStatus>() {enum_OrderStatus.Ended }},
                 { enum_OrderStatus.Appraised,new List<enum_OrderStatus>() {enum_OrderStatus.Finished }},
+                { enum_OrderStatus.EndWarranty,new List<enum_OrderStatus>() {enum_OrderStatus.Appraised }},
+
+                //订单取消状态可从哪些状态变更而来
                 { enum_OrderStatus.Canceled,new List<enum_OrderStatus>() {enum_OrderStatus.Created,
                                                                           enum_OrderStatus.Payed,
                                                                            enum_OrderStatus.Negotiate,
-                                                                            enum_OrderStatus.Assigned,
-                                                                             enum_OrderStatus.Begin
-                } },
+                                                                           enum_OrderStatus.isNegotiate,
+                                                                            enum_OrderStatus.Assigned}},
+                //取消流程订单状态变更
+               { enum_OrderStatus.WaitingDepositWithCanceled,new List<enum_OrderStatus>() {enum_OrderStatus.Canceled }},
                { enum_OrderStatus.WaitingCancel,new List<enum_OrderStatus>() {enum_OrderStatus.Canceled }},
                { enum_OrderStatus.isCancel,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingCancel }},
-               { enum_OrderStatus.WaitingDepositWithCanceled,new List<enum_OrderStatus>() {enum_OrderStatus.Canceled }},
+               { enum_OrderStatus.EndCancel,new List<enum_OrderStatus>() { enum_OrderStatus.WaitingDepositWithCanceled,
+                                                                            enum_OrderStatus.isCancel}},
 
+               //订单理赔状态可从哪些状态变更而来
+               { enum_OrderStatus.Refund,new List<enum_OrderStatus>() {enum_OrderStatus.Begin,
+                                                                          enum_OrderStatus.Ended,
+                                                                          enum_OrderStatus.ForceStop,
+                                                                           enum_OrderStatus.Finished,
+                                                                            enum_OrderStatus.Assigned,
+                                                                             enum_OrderStatus.EndWarranty}},
 
+               //理赔流程订单状态变更
+               { enum_OrderStatus.WaitingRefund,new List<enum_OrderStatus>() {enum_OrderStatus.Refund }},
+               { enum_OrderStatus.isRefund,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingRefund }},
+               { enum_OrderStatus.RejectRefund,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingRefund }},
+               { enum_OrderStatus.AskPayWithRefund,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingRefund }},
+               { enum_OrderStatus.WaitingPayWithRefund,new List<enum_OrderStatus>() {enum_OrderStatus.AskPayWithRefund }},
+               { enum_OrderStatus.EndRefund,new List<enum_OrderStatus>() {enum_OrderStatus.isRefund,
+                                                                            enum_OrderStatus.RejectRefund,
+                                                                                enum_OrderStatus.WaitingPayWithRefund }},
+               //订单一点办介入状态从哪个状态变更而来
+               { enum_OrderStatus.InsertIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.RejectRefund }},
+
+               //介入流程订单状态变更
+               { enum_OrderStatus.HandleWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.InsertIntervention }},
+               { enum_OrderStatus.NeedRefundWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.HandleWithIntervention }},
+               { enum_OrderStatus.NeedPayWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.HandleWithIntervention }},
+               { enum_OrderStatus.EndIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.NeedRefundWithIntervention,
+                                                                                    enum_OrderStatus.NeedPayWithIntervention}},
+               //投诉流程订单状态变更
+               { enum_OrderStatus.WaitingComplaints,new List<enum_OrderStatus>() {enum_OrderStatus.Complaints }},
+               { enum_OrderStatus.EndComplaints,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingComplaints }},
         };
     }
 
@@ -366,8 +388,15 @@ namespace Dianzhu.BLL
             dalServiceOrderStateChangeHis = DALFactory.DALServiceOrderStateChangeHis;
         }
 
-        public void SaveOrUpdate(ServiceOrderStateChangeHis orderHis)
+        public void SaveOrUpdate(ServiceOrder oldOrder,enum_OrderStatus newStatus)
         {
+            int num = 1;
+            ServiceOrderStateChangeHis oldOrderHis = GetMaxNumberOrderHis(oldOrder);
+            if (oldOrderHis != null)
+            {
+                num = oldOrderHis.Number + 1;
+            }
+            ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis(oldOrder, newStatus, num);
             dalServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
         }
 

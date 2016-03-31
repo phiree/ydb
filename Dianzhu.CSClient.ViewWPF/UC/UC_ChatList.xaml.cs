@@ -82,6 +82,10 @@ namespace Dianzhu.CSClient.ViewWPF
 
                     string mediaType = ((ReceptionChatMedia)chat).MediaType;
                     string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                    if (mediaUrl.IndexOf(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")) < 0)
+                    {
+                        mediaUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + mediaUrl;
+                    }
                     switch (mediaType)
                     {
                         case "image":
@@ -89,17 +93,21 @@ namespace Dianzhu.CSClient.ViewWPF
                             //Image chatImage = new Image();
                             //BitmapImage chatImageBitmap = new BitmapImage();
                             //chatImageBitmap.BeginInit();
-                           // string filename = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
-                           // string localFile = LocalMediaSaveDir + filename;
+                            ////string filename = PHSuit.StringHelper.ParseUrlParameter(mediaUrl, string.Empty);
+                            ////string localFile = LocalMediaSaveDir + filename;
                             //chatImageBitmap.UriSource = new Uri(mediaUrl);
                             //chatImageBitmap.EndInit();
                             //chatImage.Source = chatImageBitmap;
+                            //pnlOneChat.Children.Add(chatImage);
+
                             MediaElement chatImageGif = new MediaElement();
                             chatImageGif.Name = chat.MessageBody;
+                            chatImageGif.Width = 300;
                             chatImageGif.LoadedBehavior = MediaState.Play;
                             chatImageGif.Source = new Uri(mediaUrl);
                             chatImageGif.MediaEnded += ChatImageGif_MediaEnded;
                             pnlOneChat.Children.Add(chatImageGif);
+
                             break;
                         case "voice":
                              Button btnAudio = new Button();

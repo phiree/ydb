@@ -68,7 +68,7 @@ public class ResponsePY001007:BaseResponse
             {
                 case "alipay":
                     // http://119.29.39.211:8168
-                    IPayRequest ipayAli = new PayAlipayApp(payment.Amount, payment.Id.ToString(), payment.Order.Title,Dianzhu.Config.Config.GetAppSetting("PaySite") + "/PayCallBack/Alipay/return_url.aspx", payment.Order.Description);
+                    IPayRequest ipayAli = new PayAlipayApp(payment.Amount, payment.Id.ToString(), payment.Order.Title,Dianzhu.Config.Config.GetAppSetting("PaySite") + "/PayCallBack/Alipay/notify_url.aspx", payment.Order.Description);
                     string respDataAli = ipayAli.CreatePayRequest();
                     RespDataPY001007 respAliObj = new RespDataPY001007();
                     respAliObj.orderString = respDataAli;

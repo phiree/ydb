@@ -7,14 +7,32 @@ namespace Dianzhu.Model
     /// 订单状态变化记录
     /// </summary>
     public class ServiceOrderStateChangeHis
-
     {
         /// <summary>
         /// 构造
         /// </summary>
-        public ServiceOrderStateChangeHis()
+        protected ServiceOrderStateChangeHis()
         {
-            CreatTime = DateTime.Now;
+
+        }
+        /// <summary>
+        /// 构造
+        /// </summary>
+        /// <param name="oldOrder"></param>
+        /// <param name="newStatus"></param>
+        /// <param name="num"></param>
+        public ServiceOrderStateChangeHis(ServiceOrder oldOrder, enum_OrderStatus newStatus,int num)
+        {
+            this.Order = oldOrder;
+            this.OldStatus = oldOrder.OrderStatus;
+            this.NewStatus = newStatus;
+            this.OrderAmount = oldOrder.OrderAmount;
+            this.DepositAmount = oldOrder.DepositAmount;
+            this.NegotiateAmount = oldOrder.NegotiateAmount;
+            this.Remark = oldOrder.Memo;
+            this.CreatTime = DateTime.Now;
+            //this.Controller=
+            this.Number = num;
         }
         /// <summary>
         /// 主键
