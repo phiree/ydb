@@ -58,7 +58,7 @@
     <Compile Include="JPush\JPushResponse.cs" />
     <Compile Include="JPush\JPushRequest.cs" />
     <Compile Include="JPush\JPush.cs" />
-    <Compile Include="PushIOS.cs" />
+    <Compile Include="IOS\PushIOS.cs" />
     <Compile Include="IPush.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
