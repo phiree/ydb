@@ -2,7 +2,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1" runat="server">   
+<head id="Head1" runat="server">
     <title></title>
     <!-- Framework CSS -->
     <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery-1.9.1.min.js"
@@ -22,41 +22,46 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div class="container showgrid">
-        <div class="span-24 last" id="adminHead">
-            <h1>
-                点助系统管理平台</h1>
-            <h3>
-                <a href="/"></a>
-            </h3>
-            <hr />
-        </div>
-        <div class="clear span-24 " id="adminBody">
-            <div class="span-4 last" id="leftMenu">
-                <ul>
-                    <li><a href="/business">商家列表</a></li>
-                    <li><a href="/membership">用户管理</a></li>
-                    <li><a href="/order/index.aspx">订单管理</a></li>
-                    <li><a href="/area/">行政区域管理</a></li>
-                    <li><a href="/servicetype/">服务类别管理</a></li>
-                    <li><a href="/cashticket/assigner/">手动分配</a></li>
-                    <li><a href="/advertisement">广告管理</a></li>
-                     <li><a href="/test">测试</a></li>
-                </ul>
+        <div class="container showgrid">
+            <div class="span-24 last" id="adminHead">
+                <h1>点助系统管理平台</h1>
+                <h3>
+                    <a href="/"></a>
+                </h3>
+                <hr />
             </div>
-            <div class="span-19 last" id="mainContent">
-                <div class="info">
-                    <asp:ContentPlaceHolder ID="pageDesc" runat="server">
+            <div class="clear span-24 " id="adminBody">
+                <div class="span-4 last" id="leftMenu">
+                    <ul>
+                        <li><a href="/business">商家列表</a></li>
+
+                        <li>
+                            <ul>
+                                <li><a href="/membership">用户管理</a></li>
+                                <li><a href="/membership/roles">角色管理</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/order/index.aspx">订单管理</a></li>
+                        <li><a href="/area/">行政区域管理</a></li>
+                        <li><a href="/servicetype/">服务类别管理</a></li>
+                        <li><a href="/cashticket/assigner/">手动分配</a></li>
+                        <li><a href="/advertisement">广告管理</a></li>
+                        <li><a href="/test">测试</a></li>
+                    </ul>
+                </div>
+                <div class="span-19 last" id="mainContent">
+                    <div class="info">
+                        <asp:ContentPlaceHolder ID="pageDesc" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>
-                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                </asp:ContentPlaceHolder>
+            </div>
+            <div class="clear span-24 last" id="adminFoot">
+                -----------奥山网络-----------
             </div>
         </div>
-        <div class="clear span-24 last" id="adminFoot">
-            -----------奥山网络-----------
-        </div>
-    </div>
     </form>
 </body>
 </html>

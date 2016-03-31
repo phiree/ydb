@@ -69,6 +69,7 @@
     <Compile Include="BLLIMUserStatus.cs" />
     <Compile Include="BLLPay.cs" />
     <Compile Include="BLLBusinessImage.cs" />
+    <Compile Include="IdentityAccess\RoleService.cs" />
     <Compile Include="Promote\BLLCashTicket.cs" />
     <Compile Include="Promote\BLLCashticketCreateRecord.cs" />
     <Compile Include="Promote\BLLCashTicketTemplate.cs" />

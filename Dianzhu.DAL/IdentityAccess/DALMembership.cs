@@ -9,7 +9,8 @@ using System.Net.Mail;
 namespace Dianzhu.DAL
 {
     public class DALMembership :DALBase<Model.DZMembership>
-    { public DALMembership()
+    {
+        public DALMembership()
         {
              
         }
@@ -30,8 +31,25 @@ namespace Dianzhu.DAL
             SaveOrUpdate(member);
              
         }
-        
-
+        /// <summary>
+        ///ddd:domainservice
+        ///通过名字获取列表 属于 领域服务.
+        /// </summary>
+        /// <param name="userNames"></param>
+        /// <returns></returns>
+        public IList<Model.DZMembership> GetList(string[] userNames)
+        {
+            List<Model.DZMembership> members = new List<Model.DZMembership>();
+            foreach (string username in userNames)
+            {
+                Model.DZMembership member = GetMemberByName(username);
+                if (member != null)
+                {
+                    members.Add(member);
+                }
+            }
+            return members;
+        }
         public bool ValidateUser(string username, string password)
         {
             //  User user = session.QueryOver<User>(x=>x.User);

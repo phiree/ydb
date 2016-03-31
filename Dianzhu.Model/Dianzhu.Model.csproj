@@ -55,6 +55,7 @@
     <Compile Include="Agent\Agent.cs" />
     <Compile Include="Complaint.cs" />
     <Compile Include="Advertisement.cs" />
+    <Compile Include="IdentityAccess\RoleMember.cs" />
     <Compile Include="IMUserStatus.cs" />
     <Compile Include="City.cs" />
     <Compile Include="Resource\ServiceOpenTimeForDay.cs" />
@@ -70,14 +71,14 @@
     <Compile Include="CashTIcketAssignDetail.cs" />
     <Compile Include="CashTicketTemplate.cs" />
     <Compile Include="DeviceBind.cs" />
-    <Compile Include="DZRole.cs" />
+    <Compile Include="IdentityAccess\DZRole.cs" />
     <Compile Include="Resource\DZService.cs" />
     <Compile Include="DZTag.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Business.cs" />
     <Compile Include="CashTicketCreateRecord.cs" />
     <Compile Include="CashTicket.cs" />
-    <Compile Include="DZMembership.cs" />
+    <Compile Include="IdentityAccess\DZMembership.cs" />
     <Compile Include="Paylog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CashTicketAssignRecord.cs" />

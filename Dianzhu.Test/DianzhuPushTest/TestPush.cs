@@ -67,7 +67,6 @@ namespace Dianzhu.Test.DianzhuPushTest
 
             Push.JPush.JPushRequest req = Push.JPush.JPushRequest.Create
                 (new string[] { "android" },new string[] { "aaa" },"alert","title","newsid"
-
                 );
 
             Console.WriteLine(req.ToJson());
