@@ -10,9 +10,10 @@ namespace Dianzhu.Model
     /// </summary>
    public  class RoleMember
     {
-        public Guid Id { get; set; }
-        public DZMembership Member { get; set; }
-        public DZRole Role { get; set; }
+        public virtual Guid Id { get; set; }
+        public virtual DZMembership Member { get; set; }
+        public virtual DZRole Role { get; set; }
 
+        
     }
 }

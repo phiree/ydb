@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
+using AutoMapper.Mappers;
+using AutoMapper;
 
 namespace Dianzhu.BLL.IdentityAccess
 {
@@ -15,6 +17,7 @@ namespace Dianzhu.BLL.IdentityAccess
         DAL.IdentityAccess.DALRole dalRole;
         DAL.DALMembership dalMembership;
         DAL.IdentityAccess.DALRoleMember dalRoleMember;
+
         public RoleService(DAL.IdentityAccess.DALRole dalRole,DAL.DALMembership dalMembership)
         {
             this.dalRole = dalRole;
@@ -23,6 +26,41 @@ namespace Dianzhu.BLL.IdentityAccess
         public RoleService() : this(new DAL.IdentityAccess.DALRole(),new DAL.DALMembership())
         { }
 
+        public string GetRoleName(string id)
+        {
+            Guid guidId = new Guid(id);
+            DZRole role = dalRole.GetOne(guidId);
+            return role.Name;
+        }
+        public IList<RoleDto> GetAllRolesDto()
+        {
+            IList<DZRole> all = dalRole.GetAll<DZRole>();
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<DZRole, RoleDto>());
+            var mapper = config.CreateMapper();
+            IList<RoleDto> dtos = new List<RoleDto>();
+            foreach( DZRole r in all)
+            { 
+            RoleDto dto = mapper.Map<DZRole, RoleDto>(r);
+                dtos.Add(dto);
+            }
+            return dtos;
+
+        }
+        public void SaveOrUpdate(string id,string rolename)
+        {
+            Model.DZRole role;
+            if (string.IsNullOrEmpty(id))
+            {
+                role = new DZRole { Name = rolename };
+            }
+            else
+            {
+                role = dalRole.GetOne(new Guid( id));
+                role.Name = rolename;
+            }
+            dalRole.SaveOrUpdate(role);
+        }
+         
         public override string ApplicationName
         {
             get

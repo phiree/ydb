@@ -5,19 +5,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1">
+    <asp:GridView ID="gvRoleList" runat="server">
         <Columns>
-            <asp:BoundField DataField="Length" HeaderText="Length" ReadOnly="True" SortExpression="Length" />
+            <asp:HyperLinkField DataNavigateUrlFields="Id" DataNavigateUrlFormatString="edit.aspx?id={0}" DataTextField="Name" />
+            <asp:BoundField />
         </Columns>
+       
     </asp:GridView>
-    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DeleteMethod="DeleteRole" InsertMethod="CreateRole" OnSelecting="ObjectDataSource1_Selecting" SelectMethod="GetAllRoles" TypeName="Dianzhu.BLL.IdentityAccess.RoleService">
-        <DeleteParameters>
-            <asp:Parameter Name="roleName" Type="String" />
-            <asp:Parameter Name="throwOnPopulatedRole" Type="Boolean" />
-        </DeleteParameters>
-        <InsertParameters>
-            <asp:Parameter Name="roleName" Type="String" />
-        </InsertParameters>
-    </asp:ObjectDataSource>
+    <a href="Edit.aspx">增加角色</a>
 </asp:Content>
 

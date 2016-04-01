@@ -14,6 +14,9 @@ using Dianzhu.BLL.Validator;
 using FluentValidation;
 namespace Dianzhu.BLL
 {
+    /// <summary>
+    /// ddd:domainservice
+    /// </summary>
     public class DZMembershipProvider : MembershipProvider
     {
         DALMembership DALMembership = null;

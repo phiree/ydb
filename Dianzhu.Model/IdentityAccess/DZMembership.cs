@@ -37,6 +37,7 @@ namespace Dianzhu.Model
             }
             return null;
         }
+        public int LoginTimes { get; protected set; }
         public virtual Guid Id { get; set; }
         public virtual string UserName { get; set; }
         //用||(双竖线)替换邮箱用户中的@符号
@@ -88,6 +89,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string UserType { get; set; }
 
+         
         
     }
     /// <summary>

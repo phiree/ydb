@@ -67,6 +67,7 @@ namespace Dianzhu.DAL
                 result = true;
 
                 member.LastLoginTime = DateTime.Now;
+                
                 Update(member);
 
             }

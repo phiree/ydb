@@ -55,6 +55,7 @@
     <Compile Include="Agent\Agent.cs" />
     <Compile Include="Complaint.cs" />
     <Compile Include="Advertisement.cs" />
+    <Compile Include="IdentityAccess\DomainServiceMembership.cs" />
     <Compile Include="IdentityAccess\RoleMember.cs" />
     <Compile Include="IMUserStatus.cs" />
     <Compile Include="City.cs" />
