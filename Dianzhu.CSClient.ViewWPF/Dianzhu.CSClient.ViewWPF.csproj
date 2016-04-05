@@ -36,9 +36,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="RisCaptureLib">
-      <HintPath>..\RisCaptureLib\bin\Debug\RisCaptureLib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -234,6 +231,10 @@
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
       <Name>PHSuit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RisCaptureLib\RisCaptureLib.csproj">
+      <Project>{de79c6ab-b5a9-4baf-80fa-22835452785f}</Project>
+      <Name>RisCaptureLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
