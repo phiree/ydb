@@ -54,7 +54,7 @@
                                             </p>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="order-ctrl t-r">    
+                                            <div class="order-ctrl t-r">
                                                 <asp:HyperLink runat="server" ID="PayDepositAmount"></asp:HyperLink>
                                                 <asp:Button runat="server" CommandName="ConfirmOrder" CommandArgument='<%#Eval("Id") %>' ID="btnConfimOrder" CssClass="btn btn-info btn-xs" Text="确认订单"/>
                                                 <asp:TextBox runat="server" CommandName="txtConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="txtConfirmPrice" Width="100"></asp:TextBox>

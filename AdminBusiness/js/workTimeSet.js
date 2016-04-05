@@ -451,7 +451,6 @@
             var workDayView = new WorkDayView({model : dayModel});
             this.$(".wt-set").append(workDayView.render().$el);
         }
-
     });
 
     var app = new AppView();

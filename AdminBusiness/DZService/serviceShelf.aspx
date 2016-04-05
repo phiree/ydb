@@ -121,14 +121,14 @@
 </script>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server" >
-    <!--<script src="js/jquery-1.11.3.js"></script>-->
     <script src="/js/interfaceAdapter.js"></script>
-    <script src="/js/shelf/json2.js"></script>
-    <script src="/js/shelf/mock.js"></script>
-    <script src="/js/shelf/MockData.js"></script>
-    <script src="/js/shelf/underscore.js"></script>
-    <script src="/js/shelf/backbone.js"></script>
-    <script src="/js/shelf/backbone.customAPI.js"></script>
-    <!--<script src="js/backbone.localStorage.js"></script>-->
-    <script src="/js/shelf/goods.js"></script>
+    <script src="/js/libs/json2.js"></script>
+    <script src="/js/libs/underscore.js"></script>
+    <script src="/js/libs/backbone.js"></script>
+    <script src="/js/libs/backbone.customAPI.js"></script>
+    <script src="/js/test/mock.js"></script>
+    <script src="/js/test/mock.shelf.js"></script>
+    <script src="/js/shelf.js"></script>
+    <!--<script src="/js/shelf/MockData.js"></script>-->
+    <!--<script src="/js/shelf/goods.js"></script>-->
 </asp:Content>
