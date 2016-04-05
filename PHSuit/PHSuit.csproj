@@ -105,6 +105,10 @@
     <Compile Include="ObjectCopier.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\AdminBusiness\config\connectionStrings.config">
+      <Link>config\connectionStrings.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="app.config" />
     <None Include="Configs.rar" />
     <None Include="packages.config" />
