@@ -94,8 +94,7 @@ service_validate_rules[name_prefix + "tbxBusinessYears"] =
 };
 service_validate_messages[name_prefix + "tbxBusinessYears"] =
 {
-   
-    range: "请选择"
+    range: "请选择从业时间"
 };
 //预约时间
 service_validate_rules[name_prefix + "tbxContact"] =
@@ -147,7 +146,7 @@ service_validate_messages[name_prefix + "tbxCardIdNo"] =
 
 service_validate_messages[name_prefix + "selStaffAmount"] =
 {
-    integer: "请填写整数",
+    integer: "请填写正确的员工人数",
     required: "请填写员工人数",
     range:"请输入1-1000之间的数值"
 

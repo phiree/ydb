@@ -11,12 +11,12 @@ public class is_username_duplicate : IHttpHandler {
     
     public void ProcessRequest (HttpContext context) {
         context.Response.ContentType = "text/plain";
-        string result = "Y";
-        string username = context.Request["username"];
+        string result = "false";
+        string username = context.Request["tbxUserName"];
       MembershipUser mu=  Membership.GetUser(username);
       if (mu == null)
       {
-          result = "N";
+          result = "true";
       }
       context.Response.Write(result);
       

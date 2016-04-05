@@ -92,12 +92,20 @@
       <Name>Dianzhu.CSClient.IMessageAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
-      <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
+      <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
       <Name>Dianzhu.CSClient.IView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
       <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
       <Name>Dianzhu.CSClient.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.ViewWPF\Dianzhu.CSClient.ViewWPF.csproj">
+      <Project>{97792986-3421-464a-8711-0fc6eaba9bcb}</Project>
+      <Name>Dianzhu.CSClient.ViewWPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.WinformView\Dianzhu.CSClient.WinformView.csproj">
+      <Project>{0550cabb-3957-45cc-8cc6-9fbea653b20d}</Project>
+      <Name>Dianzhu.CSClient.WinformView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2e67aa78-6780-42bd-a3ab-ad953781e511}</Project>

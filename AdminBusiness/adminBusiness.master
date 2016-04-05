@@ -16,37 +16,41 @@
         <nav class="sidebar-nav">
             <ul class="metismenu" id="menu">
                 <li >
-                    <a href="/Business/Detail.aspx?businessId=<%=Request["businessid"] %>">
+                    <a href="/Business/Detail.aspx?businessId=<%=Request["businessid"] %>" title="店铺信息">
                         <i class="icon item-icon sidebar-icon-biz"></i>
-                        <p class="sidebar-title">店铺信息</p>
+                        <h2 class="sidebar-title">店铺信息</h2>
                     </a>
                 </li>
                 <li>
-                    <a href="/DZService/Default.aspx?businessId=<%=Request["businessid"] %>">
+                    <a href="/DZService/Default.aspx?businessId=<%=Request["businessid"] %>" title="我的服务">
                         <i class="icon item-icon sidebar-icon-svc"></i>
-                        <p class="sidebar-title">我的服务</p>
+                        <h2 class="sidebar-title">我的服务</h2>
                     </a>
                 </li>
-                <li>
-                    <a href="/Staff/Default.aspx?businessId=<%=Request["businessid"] %>" >
-                        <i class="icon item-icon sidebar-icon-emp"></i>
-                        <p class="sidebar-title">员工管理</p>
-                    </a>
-
-                </li>
-                <li>
+                <li role="presentation" title="订单管理">
                     <a href="/DZOrder/Default.aspx?businessId=<%=Request["businessid"] %>" >
                     <i class="icon item-icon sidebar-icon-order"></i>
-                    <p class="sidebar-title">我的订单</p>
+                    <h2 class="sidebar-title">订单管理</h2>
+                    </a>
+                </li>
+                <li role="presentation" title="服务货架">
+                    <a href="/DZService/ServiceOverview.aspx?businessId=<%=Request["businessid"] %>" >
+                    <i class="icon item-icon sidebar-icon-shelf"></i>
+                    <h2 class="sidebar-title">服务货架</h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Staff/Default.aspx?businessId=<%=Request["businessid"] %>"  title="员工管理">
+                        <i class="icon item-icon sidebar-icon-emp"></i>
+                        <h2 class="sidebar-title">员工管理</h2>
                     </a>
 
                 </li>
-                <li role="presentation" class="disabled" title="正在努力开发...">
+                <li role="presentation" title="正在努力开发...">
                     <a href="javascript:void(0);" >
-                    <i class="icon item-icon sidebar-icon-dash"></i>
-                    <p class="sidebar-title">消息管理</p>
+                        <i class="icon item-icon sidebar-icon-msg"></i>
+                        <h2 class="sidebar-title">系统公告</h2>
                     </a>
-
                 </li>
             </ul>
         </nav>

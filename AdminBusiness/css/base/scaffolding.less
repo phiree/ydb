@@ -1,0 +1,221 @@
+/* 清除浮动 */
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+  overflow: hidden;
+}
+
+.clearfix {
+  zoom: 1; /* for ie6 & ie7 */
+}
+
+.clear {
+  clear: both;
+  display: block;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+  overflow: hidden;
+}
+
+// 常用定位
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.t-c {
+  text-align: center;
+}
+
+.t-r {
+  text-align: right;
+}
+
+.v-m {
+  vertical-align: middle;
+}
+
+.v-t {
+  vertical-align: top;
+}
+
+.m-auto {
+  margin: 0 auto;
+}
+
+/* 常用margin */
+// margin10
+@margin10 : 10px;
+.m-t10 {
+  margin-top: @margin10;
+}
+
+.m-b10 {
+  margin-bottom: @margin10;
+}
+
+.m-l10 {
+  margin-left: @margin10;
+}
+.m-r10 {
+  margin-right: @margin10;
+}
+
+// margin20
+@margin20 : 20px;
+.m-t20 {
+  margin-top: @margin20;
+}
+
+.m-b20 {
+  margin-bottom: @margin20;
+}
+
+.m-l20 {
+  margin-left: @margin20;
+}
+
+.m-r20 {
+  margin-right: @margin20;
+}
+
+// margin50
+@margin50 : 50px;
+.m-t50 {
+  margin-top: @margin50;
+}
+
+.m-b50 {
+  margin-bottom: @margin50;
+}
+
+.m-l50 {
+  margin-left: @margin50;
+}
+
+.m-r50 {
+  margin-right: @margin50;
+}
+
+/* 常用padding */
+// padding10
+@padding10 : 10px;
+.p-t10 {
+  padding-top: @padding10;
+}
+
+.p-b10 {
+  padding-bottom: @padding10;
+}
+
+.p-l10 {
+  padding-left: @padding10;
+}
+
+.p-r10 {
+  padding-right: @padding10;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+// padding20
+@padding20 : 20px;
+.p-20 {
+  padding: @padding20;
+}
+
+.p-t20 {
+  padding-top: @padding20;
+}
+
+.p-b20 {
+  padding-bottom: @padding20;
+}
+
+.p-l20 {
+  padding-left: @padding20;
+}
+
+.p-r20 {
+  padding-right: @padding20;
+}
+
+
+
+/* 常用字体样式 */
+.f-s14 {
+  font-size: 14px;
+}
+
+.f-s16 {
+  font-size: 16px;
+}
+
+.f-s18 {
+  font-size: 18px;
+}
+
+.f-s20 {
+  font-size: 20px;
+}
+
+/* 常用行高样式 */
+.l-h12 {
+  line-height: 1.2em;
+}
+
+.l-h14 {
+  line-height: 1.4em;
+}
+
+.l-h16 {
+  line-height: 1.6em;
+}
+
+.l-h18 {
+  line-height: 1.8em;
+}
+
+.l-h20 {
+  line-height: 2em;
+}
+
+/*table垂直居中样式*/
+.vmBox {
+  display: table;
+}
+
+.vm {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+/* display样式 */
+.d-inb {
+  display: inline-block;
+  *display: inline-block;
+  *zoom: 1;
+}
+
+.dis-n {
+  display: none;
+}
+
+/* 设置显示和隐藏，通常用来与 js 配合 */
+.hide {
+  display: none !important;
+}
+
+.block {
+  display: block !important;
+}

@@ -13,6 +13,12 @@ using System.Web.UI.HtmlControls;
 public partial class DZService_ServiceEdit : System.Web.UI.UserControl
 {
 
+    public string merchantID {
+        get {
+            return System.Web.Security.Membership.GetUser().ProviderUserKey.ToString();
+        }
+    }
+
     private Guid ServiceId = Guid.Empty;
     BLLDZService bllService = new BLLDZService();
     BLLServiceType bllServiceType = new BLLServiceType();
@@ -41,7 +47,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         
         if (!IsPostBack)
         {
-            LoadInit();
+//            LoadInit();
             if (!IsNew)
             {
                 LoadForm();
@@ -69,10 +75,10 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             otherServiceLocation += "]";
         }
     }
-    public void LoadInit()
-    {
-        LoadServicePeriod();
-    }
+//    public void LoadInit()
+//    {
+//        LoadServicePeriod();
+//    }
 
     void rptProperties_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
@@ -105,11 +111,13 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         tbxMinPrice.Text = CurrentService.MinPrice.ToString("#.#");
         tbxDespoist.Text = CurrentService.DepositAmount.ToString("0.00");
         tbxUnitPrice.Text = CurrentService.UnitPrice.ToString("#");
-        rblChargeUnit.SelectedValue =((int) CurrentService.ChargeUnit).ToString();
+//        rblChargeUnit.SelectedValue =((int) CurrentService.ChargeUnit).ToString();
+        rblChargeUnit.Value =((int) CurrentService.ChargeUnit).ToString();
         tbxOrderDelay.Text = CurrentService.OrderDelay.ToString();
+//        tbxOrderDelay.Value = CurrentService.OrderDelay.ToString();
         
-        tbxMaxOrdersPerDay.Text = CurrentService.MaxOrdersPerDay.ToString();
-         
+//        tbxMaxOrdersPerDay.Text = CurrentService.MaxOrdersPerDay.ToString();
+      
         rblServiceMode.SelectedValue=((int)CurrentService.ServiceMode).ToString();
         cblIsForBusiness.Checked = CurrentService.IsForBusiness;
         cbxIsCompensationAdvance.Checked = CurrentService.IsCompensationAdvance;
@@ -119,42 +127,42 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         hiTypeId.Value = CurrentService.ServiceType.Id.ToString();
         
     }
-    private void LoadServicePeriod()
-    {
-        IList<ServiceOpenTime> opentimes = CurrentService.OpenTimes.OrderBy(x=>x.DayOfWeek).ToList();
-        List<ServiceOpenTime> cc = new List<ServiceOpenTime>();
-        ServiceOpenTime lastsot=null;
-        foreach (ServiceOpenTime sot in opentimes)
-        {
-            if (sot.DayOfWeek == DayOfWeek.Sunday)
-            {
-                lastsot = sot;
-                continue;
-             }
-            cc.Add(sot);
-        }
-        cc.Add(lastsot);
-        rptOpenTimes.DataSource = cc;
-        rptOpenTimes.ItemDataBound += new RepeaterItemEventHandler(rptOpenTimes_ItemDataBound);
-        rptOpenTimes.DataBind();
+//    private void LoadServicePeriod()
+//    {
+//        IList<ServiceOpenTime> opentimes = CurrentService.OpenTimes.OrderBy(x=>x.DayOfWeek).ToList();
+//        List<ServiceOpenTime> cc = new List<ServiceOpenTime>();
+//        ServiceOpenTime lastsot=null;
+//        foreach (ServiceOpenTime sot in opentimes)
+//        {
+//            if (sot.DayOfWeek == DayOfWeek.Sunday)
+//            {
+//                lastsot = sot;
+//                continue;
+//             }
+//            cc.Add(sot);
+//        }
+//        cc.Add(lastsot);
+//        rptOpenTimes.DataSource = cc;
+//        rptOpenTimes.ItemDataBound += new RepeaterItemEventHandler(rptOpenTimes_ItemDataBound);
+//        rptOpenTimes.DataBind();
+//
+//    }
 
-    }
-
-    void rptOpenTimes_ItemDataBound(object sender, RepeaterItemEventArgs e)
-    {
-        if (e.Item.ItemType == ListItemType.Item|| e.Item.ItemType== ListItemType.AlternatingItem)
-        {
-            ServiceOpenTime sot = e.Item.DataItem as ServiceOpenTime;
-            if (sot == null) {
-                Config.log.Error("错误:OpenTime为空. 原因:旧版本遗留数据.新版程序会在创建服务时自动初始化OpenTime");
-                return; }
-            HtmlInputCheckBox cbx = e.Item.FindControl("cbxChecked") as HtmlInputCheckBox;
-            cbx.Checked = sot.Enabled;
-            Repeater rpt = e.Item.FindControl("rptTimesOneDay") as Repeater;
-            rpt.DataSource = sot.OpenTimeForDay.OrderBy(x=>x.PeriodStart).ToList();
-            rpt.DataBind();
-        }
-    }
+//    void rptOpenTimes_ItemDataBound(object sender, RepeaterItemEventArgs e)
+//    {
+//        if (e.Item.ItemType == ListItemType.Item|| e.Item.ItemType== ListItemType.AlternatingItem)
+//        {
+//            ServiceOpenTime sot = e.Item.DataItem as ServiceOpenTime;
+//            if (sot == null) {
+//                Config.log.Error("错误:OpenTime为空. 原因:旧版本遗留数据.新版程序会在创建服务时自动初始化OpenTime");
+//                return; }
+//            HtmlInputCheckBox cbx = e.Item.FindControl("cbxChecked") as HtmlInputCheckBox;
+//            cbx.Checked = sot.Enabled;
+//            Repeater rpt = e.Item.FindControl("rptTimesOneDay") as Repeater;
+//            rpt.DataSource = sot.OpenTimeForDay.OrderBy(x=>x.PeriodStart).ToList();
+//            rpt.DataBind();
+//        }
+//    }
     private void LoadPayType()
     { 
 
@@ -169,10 +177,6 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     }
     public void UpdateForm()
     {
-        if (IsNew)
-        {
-            CurrentService = new DZService();
-        }
         CurrentService.Name = tbxName.Text;
         CurrentService.Description = tbxDescription.Text;
         CurrentService.Enabled = cbxEnable.Checked;
@@ -184,20 +188,22 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
        
         CurrentService.PropertyValues = values;
         CurrentService.BusinessAreaCode = hiBusinessAreaCode.Value;
-        CurrentService.ChargeUnit = (enum_ChargeUnit)(Convert.ToInt32(rblChargeUnit.SelectedValue));
+        CurrentService.ChargeUnit = (enum_ChargeUnit)(Convert.ToInt32(rblChargeUnit.Value));
+//        CurrentService.ChargeUnit = (enum_ChargeUnit)(Convert.ToInt32(rblChargeUnit.SelectedValue));
         CurrentService.IsCertificated = cbxIsCertificated.Checked;
         CurrentService.IsCompensationAdvance = cbxIsCompensationAdvance.Checked;
         CurrentService.IsForBusiness = cblIsForBusiness.Checked;
-        CurrentService.MaxOrdersPerDay = Convert.ToInt32(tbxMaxOrdersPerDay.Text);
-      
+//        CurrentService.MaxOrdersPerDay = Convert.ToInt32(tbxMaxOrdersPerDay.Text);
+       
         CurrentService.MinPrice = Convert.ToDecimal(tbxMinPrice.Text);
         CurrentService.DepositAmount = Convert.ToDecimal(tbxDespoist.Text);
         CurrentService.OrderDelay = Convert.ToInt32(tbxOrderDelay.Text);
+//        CurrentService.OrderDelay = int.Parse(tbxOrderDelay.Value);
         CurrentService.ServiceMode =(enum_ServiceMode)(Convert.ToInt32( rblServiceMode.SelectedValue));
-        
+       
         CurrentService.UnitPrice =int.Parse(tbxUnitPrice.Text, System.Globalization.NumberStyles.AllowDecimalPoint);
         UpdatePayType();
-        UpdateServiceTime();
+//        UpdateServiceTime();
         
      //   CurrentService.PayType=(PayType)(Convert.ToInt32(rblPayType.SelectedValue));
     }
@@ -228,32 +234,32 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         CurrentService.AllowedPayType = pt;
     }
 
-    private void UpdateServiceTime()
-    {
-        CurrentService.OpenTimes.Clear();
-        foreach (RepeaterItem li in rptOpenTimes.Items)
-        {
-            HtmlInputHidden spDayOfWeek = li.FindControl("hiDayOfWeek") as HtmlInputHidden;
-            DayOfWeek dow = (DayOfWeek)(Enum.Parse(typeof(DayOfWeek),spDayOfWeek.Value) );
-             
-            bool enabled = ((HtmlInputCheckBox)li.FindControl("cbxChecked")).Checked;
-            ServiceOpenTime sot = new ServiceOpenTime();
-            sot.DayOfWeek = dow;
-            sot.Enabled = enabled;
-            sot.OpenTimeForDay.Clear();
-            Repeater rptTimesOneDay = li.FindControl("rptTimesOneDay") as Repeater;
-            foreach (RepeaterItem rpi in rptTimesOneDay.Items)
-            {
-                HtmlInputControl tbxTimeBegin = rpi.FindControl("tbxTimeBegin") as HtmlInputControl;
-                HtmlInputControl tbxTimeEnd = rpi.FindControl("tbxTimeEnd") as HtmlInputControl;
-                ServiceOpenTimeForDay sotd = new ServiceOpenTimeForDay();
-                sotd.TimeStart = tbxTimeBegin.Value;
-                sotd.TimeEnd = tbxTimeEnd.Value;
-                sot.OpenTimeForDay.Add(sotd);
-            }
-            CurrentService.OpenTimes.Add(sot);
-        }
-    }
+//    private void UpdateServiceTime()
+//    {
+//        CurrentService.OpenTimes.Clear();
+//        foreach (RepeaterItem li in rptOpenTimes.Items)
+//        {
+//            HtmlInputHidden spDayOfWeek = li.FindControl("hiDayOfWeek") as HtmlInputHidden;
+//            DayOfWeek dow = (DayOfWeek)(Enum.Parse(typeof(DayOfWeek),spDayOfWeek.Value) );
+//
+//            bool enabled = ((HtmlInputCheckBox)li.FindControl("cbxChecked")).Checked;
+//            ServiceOpenTime sot = new ServiceOpenTime();
+//            sot.DayOfWeek = dow;
+//            sot.Enabled = enabled;
+//            sot.OpenTimeForDay.Clear();
+//            Repeater rptTimesOneDay = li.FindControl("rptTimesOneDay") as Repeater;
+//            foreach (RepeaterItem rpi in rptTimesOneDay.Items)
+//            {
+//                HtmlInputControl tbxTimeBegin = rpi.FindControl("tbxTimeBegin") as HtmlInputControl;
+//                HtmlInputControl tbxTimeEnd = rpi.FindControl("tbxTimeEnd") as HtmlInputControl;
+//                ServiceOpenTimeForDay sotd = new ServiceOpenTimeForDay();
+//                sotd.TimeStart = tbxTimeBegin.Value;
+//                sotd.TimeEnd = tbxTimeEnd.Value;
+//                sot.OpenTimeForDay.Add(sotd);
+//            }
+//            CurrentService.OpenTimes.Add(sot);
+//        }
+//    }
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
@@ -265,10 +271,11 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         {
             UpdateAfterSaved();
             string redirectUrl=PHSuit.StringHelper.BuildUrlWithParameters(Request,"serviceid",CurrentService.Id.ToString());
-             Response.Redirect("/dzservice/default.aspx?&businessid="+Request["businessid"]);
-//             PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
-          //   Response.Redirect(redirectUrl);//PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
-        }
+            //  Response.Redirect("/dzservice/default.aspx?&businessid="+Request["businessid"]);
+            //             PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
+            //   Response.Redirect(redirectUrl);//PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
+            Response.Redirect("/dzservice/Service_Edit.aspx?&businessid=" + Request["businessid"] + "&serviceid=" + CurrentService.Id + "&step=3" );
+        }   
         else
         {
             string err = string.Empty;

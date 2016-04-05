@@ -1,0 +1,81 @@
+.step-first(){
+  width: 180px;
+  height: 71px;
+  background: url("@{base-images-url}components/stepByStep/step1.png");
+}
+
+.step-first-cur(){
+  width: 180px;
+  height: 71px;
+  background: url("@{base-images-url}components/stepByStep/step1_cur.png");
+}
+
+.normal-step-style(){
+  background: url("@{base-images-url}components/stepByStep/step.png");
+  .step-tip-h {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 12px;
+    text-shadow: 0 1px 1px #fff;
+  }
+
+  p {
+    margin-top: 5px;
+    text-shadow: 0 1px 1px #fff;
+  }
+}
+
+.cur-step-style(){
+  color : #fff;
+  background: url("@{base-images-url}components/stepByStep/step_cur.png");
+  .step-tip-h {
+    text-shadow: 0 1px 1px #333;
+  }
+
+  p {
+    text-shadow: 0 1px 1px #333;
+  }
+}
+
+.steps-tip {
+  float: left;
+  .steps-tip-bg {
+    overflow: hidden;
+    text-align: center;
+    width: 200px;
+    height: 71px;
+    .normal-step-style();
+    &.step-tip-1 {
+      .step-first();
+    }
+  }
+
+  // 当前步骤样式
+  &.cur-step{
+    .steps-tip-bg {
+      .cur-step-style();
+      &.step-tip-1 {
+        .step-first-cur()
+      }
+    }
+  }
+
+  // 已完成步骤样式
+  &.done-step{
+    .steps-tip-bg {
+      .cur-step-style();
+      &.step-tip-1 {
+        .step-first-cur()
+      }
+    }
+  }
+}
+
+.steps-list {
+  .steps-step {
+    display: none;
+    &.cur-step {
+      display: block;
+    }
+  }
+}

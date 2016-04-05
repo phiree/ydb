@@ -140,7 +140,8 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="config\connectionstrings.config">
+    <None Include="..\AdminBusiness\config\connectionStrings.config">
+      <Link>config\connectionStrings.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="files\aps_development_Mark.p12">
@@ -173,7 +174,7 @@
       <Name>Dianzhu.CSClient.IMessageAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
-      <Project>{755EEA8C-9D5E-406E-83DD-36B3BA4EB158}</Project>
+      <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
       <Name>Dianzhu.CSClient.IView</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.MessageAdapter\Dianzhu.CSClient.MessageAdapter.csproj">

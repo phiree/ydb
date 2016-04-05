@@ -39,13 +39,13 @@ service_validate_rules[name_prefix+"tbxMinPrice"]=
 {
     integer: true,
     required: true,
-    range: [1, 2000]
+    range: [1, 20000]
 };
 service_validate_messages[name_prefix+"tbxMinPrice"]=
 {
-    integer: "请填写整数价格",
+    integer: "价格应为整数",
      required:"请填写最低服务价格",
-     range: "请输入1-2000之间的数字"
+     range: "价格限制为1-20000元"
  };
  //description
  service_validate_rules[name_prefix + "tbxDescription"] =
@@ -73,15 +73,27 @@ service_validate_rules[name_prefix + "tbxUnitPrice"] =
 {
     integer: true,
     required: true,
-    range: [1, 1000]
+    range: [1, 20000]
 
 };
 service_validate_messages[name_prefix + "tbxUnitPrice"] =
 {
     integer: "请填写整数价格",
     required: "请填写单价",
-    range: "请输入1-1000之间的数字"
+    range: "请输入1-20000之间的价格"
 };
+
+service_validate_rules[name_prefix + "tbxDespoist"] = {
+    required: true,
+    range: [0, 20000]
+};
+
+service_validate_messages[name_prefix + "tbxDespoist"] =
+{
+    required: "请填写定金",
+    range: "请输入1-20000之间的价格"
+};
+
 //预约时间
 service_validate_rules[name_prefix + "tbxOrderDelay"] =
 {
@@ -113,7 +125,7 @@ service_validate_messages[name_prefix + "tbxServiceTimeBegin"] =
 
     };
 
-    service_validate_rules[name_prefix + "tbxServiceTimeEnd"] =
+service_validate_rules[name_prefix + "tbxServiceTimeEnd"] =
 {
 
     required: true,
@@ -136,7 +148,7 @@ service_validate_rules[name_prefix + "tbxMaxOrdersPerDay"] =
     integer: true,
     required: true,
     range:[1,2000],
-    totalday_should_greater_totalhour: true
+    //totalday_should_greater_totalhour: true
 };
 service_validate_messages[name_prefix + "tbxMaxOrdersPerDay"] =
 {
@@ -149,15 +161,13 @@ service_validate_rules[name_prefix + "tbxMaxOrdersPerHour"] =
     integer: true,
     required: true,
     range: [1, 1000],
-    totalday_should_greater_totalhour: true
+    //totalday_should_greater_totalhour: true
 
 };
 service_validate_messages[name_prefix + "tbxMaxOrdersPerHour"] =
 {
-
     required: "请填写小时最大接单量",
     range: "请输入1-1000之间的数值"
-
 };
 
 
