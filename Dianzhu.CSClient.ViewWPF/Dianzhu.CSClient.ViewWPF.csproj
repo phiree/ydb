@@ -74,6 +74,9 @@
     <Compile Include="UC\UC_MessageVoice.xaml.cs">
       <DependentUpon>UC_MessageVoice.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_Notice.xaml.cs">
+      <DependentUpon>UC_Notice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_Order.xaml.cs">
       <DependentUpon>UC_Order.xaml</DependentUpon>
     </Compile>
@@ -137,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_MessageVoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_Notice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
