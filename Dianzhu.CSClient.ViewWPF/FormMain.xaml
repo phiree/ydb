@@ -7,7 +7,12 @@
         xmlns:UC="clr-namespace:Dianzhu.CSClient.ViewWPF.UC" x:Class="Dianzhu.CSClient.ViewWPF.FormMain"
         mc:Ignorable="d"
         Title="一点办客服工具" WindowStartupLocation="CenterScreen" Background="White">
-    <Grid ShowGridLines="True" UseLayoutRounding="True" Grid.IsSharedSizeScope="True">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+         <Grid Grid.Row="0" ShowGridLines="True" UseLayoutRounding="True" Grid.IsSharedSizeScope="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" MinWidth="280" MaxWidth="400"/>
             <ColumnDefinition Width="Auto"/>
@@ -82,4 +87,11 @@
 
 
     </Grid>
+        <Grid Grid.Row="1">
+            <ScrollViewer x:Name="scrNotice" VerticalScrollBarVisibility="Auto" Grid.Row="0">
+                <StackPanel  x:Name="pnlNotice"/>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+   
 </Window>

@@ -68,6 +68,7 @@ namespace Dianzhu.CSClient
                 IViewSearchResult viewSearchResult = null;
                 IViewChatSend viewChatSend = null;
                 IViewOrderHistory viewOrderHistory = null;
+                IViewNotice viewNotice = null;
 
                 if (useWpf)
                 {
@@ -78,6 +79,7 @@ namespace Dianzhu.CSClient
                     viewOrderHistory = new ViewWPF.UC_OrderHistory();
                     viewSearch = new ViewWPF.UC_Search();
                     viewSearchResult = new ViewWPF.UC_SearchResult();
+                    viewNotice = new ViewWPF.UC_Notice();
                 }
                 else
                 {
@@ -93,7 +95,8 @@ namespace Dianzhu.CSClient
                 Presenter.PIdentityList pIdentityList = new Presenter.PIdentityList(viewIdentityList, viewChatList, viewOrder);
                 Presenter.PChatList pChatList = new Presenter.PChatList(viewChatList, viewIdentityList, xmpp);
                 Presenter.IdentityManager pIdentityManager = new Presenter.IdentityManager(pIdentityList, pChatList);
-                Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList);
+                Presenter.PNotice pNotice = new Presenter.PNotice(viewNotice);
+                Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList,pNotice);
                 Presenter.PSearch pSearch = new Presenter.PSearch(xmpp,viewSearch, viewSearchResult, viewOrder,viewChatList);
                 Presenter.POrder pOrder = new Presenter.POrder(xmpp, viewOrder);
                 Presenter.POrderHistory pOrderHistory = new Presenter.POrderHistory(viewOrderHistory,viewIdentityList);
@@ -111,7 +114,9 @@ namespace Dianzhu.CSClient
                         (ViewWPF.UC_Order)viewOrder,
                         (ViewWPF.UC_Search)viewSearch,
                         (ViewWPF.UC_SearchResult)viewSearchResult,
-                        (ViewWPF.UC_OrderHistory)viewOrderHistory);
+                        (ViewWPF.UC_OrderHistory)viewOrderHistory,
+                        (ViewWPF.UC_Notice)viewNotice
+                        );
                     mainForm.Title += "v" + version;
                      
                     mainForm.ShowDialog();
