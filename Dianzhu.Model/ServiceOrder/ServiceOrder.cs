@@ -61,10 +61,11 @@ namespace Dianzhu.Model
         /// </summary>
         /// <param name="status"></param>
         /// <returns></returns>
-        public virtual string GetFriendlyStatus(enum_OrderStatus status)
+        public virtual string GetFriendlyStatus()
         {
             string str = String.Empty;
-            switch (status)
+          
+            switch (this.OrderStatus)
             {
                 case enum_OrderStatus.Search: str = "搜索单"; break;
                 case enum_OrderStatus.Draft: str = "草稿单"; break;
@@ -89,6 +90,15 @@ namespace Dianzhu.Model
             return str;
         }
 
+        /// <summary>
+        /// 订单概要文本
+        /// </summary>
+        public virtual string GetSummaryString()
+        {
+            return string.Format("订单状态:{5} 用户:{0},定金金额:{1},服务项:{2},商家:{3}, 服务时间:{4}",
+                Customer.DisplayName,DepositAmount, Title,ServiceBusinessName,TargetTime,GetFriendlyStatus()
+                );
+        }
         #endregion
 
 

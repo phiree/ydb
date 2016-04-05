@@ -84,6 +84,7 @@
     <Compile Include="BLLReceptionChat.cs" />
     <Compile Include="BLLReceptionStatusArchieve.cs" />
     <Compile Include="BLLReceptionStatus.cs" />
+    <Compile Include="Reception\ReceiveMessage.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrder.cs" />
     <Compile Include="BLLServiceType.cs" />
     <Compile Include="CashTicketAssigner.cs" />

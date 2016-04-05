@@ -35,7 +35,7 @@ namespace Dianzhu.CSClient
 
             //log
              PHSuit.Logging.Config("Dianzhu.CSClient");
-            log.Debug("Start");
+            log.Debug( "开始启动助理工具");
             
             //prepare parameters for IM instance's constructor
             //init messageadapter
@@ -60,6 +60,7 @@ namespace Dianzhu.CSClient
             //登录成功
             if (result.Value)// == DialogResult.OK)
             {
+                log.Debug("登录成功");
                 IViewChatList viewChatList=null;
                 IViewIdentityList viewIdentityList = null;
                 IViewOrder viewOrder = null;
@@ -137,7 +138,8 @@ namespace Dianzhu.CSClient
 
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            log.Error(e.ExceptionObject.ToString());
+            
+            log.Error("异常崩溃:"+ e.ExceptionObject.ToString());
             MessageBox.Show(e.ExceptionObject.ToString());
         }
         static string GetVersion()
