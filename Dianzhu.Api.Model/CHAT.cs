@@ -29,7 +29,7 @@ namespace Dianzhu.Api.Model
             if (chat is ReceptionChatMedia)
             {
                 this.type = ((ReceptionChatMedia)chat).MediaType;
-                this.body = ((ReceptionChatMedia)chat).MedialUrl;
+                this.body = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + ((ReceptionChatMedia)chat).MedialUrl;
             }
             else if (chat is ReceptionChatReAssign)
             {

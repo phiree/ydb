@@ -106,7 +106,7 @@ public class ResponseOFP001001 : BaseResponse
             if (rs != null && cs != null)
             {
                 //log
-                ilog.Error("访问参数UserId为：" + userId + "，作为用户对应的ReceptionStatusId为：" + rs.Id + "，作为客服对应的其中一条ReceptionStatusId为：" + cs.Id);
+                ilog.Error("同时存在客服和用户数据！访问参数UserId为：" + userId + "，作为用户对应的ReceptionStatusId为：" + rs.Id + "，作为客服对应的其中一条ReceptionStatusId为：" + cs.Id);
                 this.state_CODE = Dicts.StateCode[4];
                 this.err_Msg = "同时存在客服和用户数据！";
                 return;
@@ -114,7 +114,7 @@ public class ResponseOFP001001 : BaseResponse
             else if (rs == null && cs ==null)
             {
                 //log
-                ilog.Error("访问参数UserId为：" + userId);
+                ilog.Error("没有客服或用户数据！访问参数UserId为：" + userId);
                 this.state_CODE = Dicts.StateCode[4];
                 this.err_Msg = "没有客服或用户数据！";
                 return;

@@ -125,10 +125,11 @@ namespace DianzhuService.Diandian
                                 ""orderID"": ""{5}"", 
                                 ""msgObj_url"": ""{6}"", 
                                 ""msgObj_type"": ""{7}"",
+                                ""from_resource"": ""{9}"",
                            }}, 
                     ""stamp_TIMES"": ""{8}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
-                }}", msg.Id, msg.To.User, msg.From.User, msg.Body, msgType, orderID, msgObj_url, msgObj_type, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
+                }}", msg.Id, msg.To.User, msg.From.User, msg.Body, msgType, orderID, msgObj_url, msgObj_type, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(),msg.From.Resource);
             log.Debug("开始获取用户信息");
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
             
@@ -147,6 +148,7 @@ namespace DianzhuService.Diandian
             csId = msg.To.User;
             agsc.Message message = new MessageBuilder().Create(csId, customerId, reply, orderID).BuildText();
             message.Id = Guid.NewGuid().ToString();
+            message.To = msg.From;
             log.Debug("Sending message:" + message.ToString());
             GlobalViables.XMPPConnection.Send(message);
             //AddLog(message);

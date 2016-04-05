@@ -45,7 +45,7 @@ namespace Dianzhu.Test.BLLTest
                 );
             IIMSession sessionMock = MockRepository.GenerateStrictMock<IIMSession>();
             IList<OnlineUserSession> onlineUsers = Builder<OnlineUserSession>.CreateListOfSize(2)
-                .All().With(x=>x.ressource= Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString())
+                .All().With(x=>x.ressource= Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())
                 .TheFirst(1).With(x=>x.username=Guid.NewGuid().ToString())
                 .TheNext(1).With(x => x.username =Guid.NewGuid().ToString())
                 .Build();
@@ -55,7 +55,7 @@ namespace Dianzhu.Test.BLLTest
             dalMemberMock.Stub(x => x.GetOne(new Guid(onlineUsers[1].username))).Return(
                 Builder<DZMembership>.CreateNew().With(z=>z.UserName="a"). Build()
                 );
-            sessionMock.Stub(x => x.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString())).Return(onlineUsers);
+            sessionMock.Stub(x => x.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())).Return(onlineUsers);
             
 
             DZMembership customer = Builder<DZMembership>.CreateNew().Build();

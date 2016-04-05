@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC.UC_PushService"
+﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC_PushService"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF.UC"
+             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
              mc:Ignorable="d" 
              d:DesignHeight="180" d:DesignWidth="280">
 
@@ -49,13 +49,13 @@
 
                                 <WrapPanel>
                                     <Label>参考价格</Label>
-                                    <Label Foreground="Blue" Padding="5,5,0,5">288.00</Label>
+                                    <Label x:Name="lblUnitPrice" Foreground="Blue" Padding="5,5,0,5">288.00</Label>
                                     <Label Padding="0,5,5,5">元/次</Label>
                                 </WrapPanel>
 
                                 <WrapPanel>
                                     <Label>预付金额</Label>
-                                    <Label Foreground="Blue" Padding="5,5,0,5">100.00</Label>
+                                    <Label x:Name="lblDepostiAmount" Foreground="Blue" Padding="5,5,0,5">100.00</Label>
                                     <Label Padding="0,5,5,5">元</Label>
                                 </WrapPanel>
                             </StackPanel>
@@ -65,7 +65,7 @@
                     <Grid Grid.Row="1">
                         <WrapPanel>
                             <Label Height="60" Foreground="Gray">
-                                <TextBlock Height="50" TextWrapping="Wrap" Padding="5">
+                                <TextBlock x:Name="tbxMemo" Height="50" TextWrapping="Wrap" Padding="5">
                                     汽车清洗、打蜡、抛光、喷漆、维修、换机油、换轮胎等
                                 </TextBlock>
                             </Label>
