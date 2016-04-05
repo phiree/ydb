@@ -170,6 +170,9 @@ public class ResponseFactory
                 return new ResponseWTM001005(request);
             case "wtm001006":
                 return new ResponseWTM001006(request);
+
+            case "drm001006":
+                return new ResponseDRM001006(request);
             default:
                 BaseResponse baeResponse = new BaseResponse(request);
                 baeResponse.state_CODE = Dicts.StateCode[1];
