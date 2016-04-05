@@ -452,7 +452,7 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 模拟用户客户端
         /// </summary>
-        YDBan_Win_DemoClient = 40,
+        YDBan_DemoClient = 40,
 
         /// <summary>
         /// 用户版

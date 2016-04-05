@@ -11,8 +11,8 @@ namespace Dianzhu.DemoClient
         Message msg;
         public MessageBuilder Create(string from,string to,string body,string orderId)
         {
-              msg = new Message(new Jid(to+"@"+GlobalViables.DomainName)
-                ,new Jid(from+"@" +GlobalViables.DomainName), body);
+            msg = new Message(new Jid(to + "@" + GlobalViables.DomainName + "/" + Model.Enums.enum_XmppResource.YDBan_CustomerService)
+              , new Jid(from + "@" + GlobalViables.DomainName + "/" + Model.Enums.enum_XmppResource.YDBan_DemoClient), body);
             var nodeExt = new agsXMPP.Xml.Dom.Element("ext");
             var nodeOrder = new agsXMPP.Xml.Dom.Element("orderID",orderId);
             nodeExt.AddChild(nodeOrder);
