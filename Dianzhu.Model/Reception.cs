@@ -117,10 +117,12 @@ namespace Dianzhu.Model
         public virtual ServiceOrder ServiceOrder { get; set;}
         public virtual int Version { get; set; }//版本号
         public virtual Enums.enum_ChatTarget ChatTarget { get; set; } //聊天状态，接待方是平台客服还是商家客服
+        public virtual enum_XmppResource FromResource { get; set; }//from 的资源名
+        public virtual enum_XmppResource ToResource { get; set; }//to 的资源名
         /// <summary>
         /// 消息中媒体文件的地址,多个媒体文件用分号风格.
         /// </summary>
-        
+
         /// <summary>
         /// 消息中的服务信息
         /// </summary>
@@ -162,6 +164,7 @@ namespace Dianzhu.Model
         public virtual string MedialUrl { get; set; }
         public virtual string MediaType { get; set; }
         public virtual Enums.enum_ChatTarget ChatTarget { get; set; }//聊天状态，接待方是平台客服还是商家客服
+        public virtual enum_XmppResource FromResource { get; set; }//from 的资源名,to 都是发给点点的，忽略不存
     }
 
     /// <summary>

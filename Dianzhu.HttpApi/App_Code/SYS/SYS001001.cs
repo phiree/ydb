@@ -81,6 +81,7 @@ public class ResponseSYS001001:BaseResponse
         chat.From = bllMember.GetUserById(new Guid(reqData.from));
         chat.ServiceOrder = bllOrder.GetOne(new Guid(reqData.orderId));
         chat.MessageBody = reqData.body;
+        chat.FromResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), reqData.from_resource);
         chat.ReceiveTime = DateTime.Now;
         chat.SavedTime = DateTime.Now;
         if (chatType == enum_ChatType.Media)
@@ -153,6 +154,7 @@ public class ResponseSYS001001:BaseResponse
         chatDD.Reception = chat.Reception;
         chatDD.SavedTime = DateTime.Now;
         chatDD.ChatType = chat.ChatType;
+        chatDD.FromResource = chat.FromResource;
         chatDD.ServiceOrder = chat.ServiceOrder;
         chatDD.Version = chat.Version;
         chatDD.IsCopy = false;

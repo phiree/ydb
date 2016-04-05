@@ -45,7 +45,7 @@ namespace Dianzhu.CSClient
             string server = Config.Config.GetAppSetting("ImServer");
             string domain= Config.Config.GetAppSetting("ImDomain");
 
-            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,domain, messageAdapter, Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString());
+            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,domain, messageAdapter, Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString());
 
 
             var loginForm = new ViewWPF.FormLogin();
@@ -93,12 +93,12 @@ namespace Dianzhu.CSClient
                 Presenter.PChatList pChatList = new Presenter.PChatList(viewChatList, viewIdentityList, xmpp);
                 Presenter.IdentityManager pIdentityManager = new Presenter.IdentityManager(pIdentityList, pChatList);
                 Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList);
-                Presenter.PSearch pSearch = new Presenter.PSearch(xmpp,viewSearch, viewSearchResult, viewOrder);
+                Presenter.PSearch pSearch = new Presenter.PSearch(xmpp,viewSearch, viewSearchResult, viewOrder,viewChatList);
                 Presenter.POrder pOrder = new Presenter.POrder(xmpp, viewOrder);
                 Presenter.POrderHistory pOrderHistory = new Presenter.POrderHistory(viewOrderHistory,viewIdentityList);
                 Presenter.PChatSend pChatSend = new Presenter.PChatSend(viewChatSend, viewChatList, xmpp);
-                Presenter.PMain pMain = new Presenter.PMain(new BLLReceptionStatus(),
-                    new BLLReceptionStatusArchieve(), new BLLReceptionChatDD(), new BLLReceptionChat(), xmpp, viewIdentityList);
+                Presenter.PMain pMain = new Presenter.PMain(new BLLReceptionStatus(), new BLLReceptionStatusArchieve(),
+                    new BLLReceptionChatDD(), new BLLReceptionChat(), new BLLIMUserStatus(), xmpp, viewIdentityList);
 
                 if (useWpf)
                 {

@@ -39,7 +39,7 @@ public class ResponseCHAT001007:BaseResponse
         BLLReceptionChat bllReceptionChat = new BLLReceptionChat();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
         int rowCount;
-        Guid orderId;
+        Guid orderId = Guid.Empty;
 
         int pageSize = 10;
         try
@@ -78,23 +78,26 @@ public class ResponseCHAT001007:BaseResponse
 
         }
 
-        bool isGuid = Guid.TryParse(requestData.orderID, out orderId);
-        if (!isGuid)
+        if (!string.IsNullOrEmpty(requestData.orderID))
         {
-            this.state_CODE = Dicts.StateCode[1];
-            this.err_Msg = "OrderId格式有误";
-            return;
+            bool isGuid = Guid.TryParse(requestData.orderID, out orderId);
+            if (!isGuid)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "OrderId格式有误";
+                return;
+            }
+
+            ServiceOrder order = bllServiceOrder.GetOne(orderId);
+            if (order == null)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "Order不存在";
+                return;
+            }
         }
 
-        ServiceOrder order = bllServiceOrder.GetOne(orderId);
-        if (order == null)
-        {
-            this.state_CODE = Dicts.StateCode[1];
-            this.err_Msg = "OrderId不存在";
-            return;
-        }
-
-        IList<ReceptionChat> chatList = bllReception.GetReceptionChatListByTargetIdAndSize(order.Customer, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetChat, requestData.low, chatTarget);
+        IList<ReceptionChat> chatList = bllReception.GetReceptionChatListByTargetIdAndSize(member, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetChat, requestData.low, chatTarget);
 
         try
         {

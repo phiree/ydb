@@ -37,7 +37,7 @@ namespace Dianzhu.Model
             }
             return null;
         }
-        public int LoginTimes { get; protected set; }
+        public virtual int LoginTimes { get; protected set; }
         public virtual Guid Id { get; set; }
         public virtual string UserName { get; set; }
         //用||(双竖线)替换邮箱用户中的@符号
@@ -96,7 +96,7 @@ namespace Dianzhu.Model
     /// 商家相关用户.
     /// 
     /// </summary>
-    [Obsolete]
+    
     public class BusinessUser : DZMembership
     {
         /// <summary>

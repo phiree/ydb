@@ -45,6 +45,16 @@ namespace Dianzhu.CSClient.MessageAdapter
             }
 
         }
+        static BLLIMUserStatus bllIMUserStatus;
+        BLLIMUserStatus BLLIMUserStatus
+        {
+            get
+            {
+                if (bllIMUserStatus == null) bllIMUserStatus = new BLLIMUserStatus();
+                return bllIMUserStatus;
+            }
+
+        }
 
 
 
@@ -104,21 +114,25 @@ namespace Dianzhu.CSClient.MessageAdapter
             }
             ReceptionChat chat = ReceptionChat.Create(chatType);
             var chatFrom = BllMember.GetUserById(new Guid(message.From.User));
-            if (!isNotice) { 
-            var chatTo = BllMember.GetUserById(new Guid(message.To.User));
-            chat.To = chatTo;
+            chat.From = chatFrom;
+            chat.FromResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), message.From.Resource);
+            if (!isNotice)
+            {
+                var chatTo = BllMember.GetUserById(new Guid(message.To.User));
+                chat.To = chatTo;
+                chat.ToResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), message.To.Resource);
             }
             Guid messageId;
             if (Guid.TryParse(message.Id, out messageId))
             {
                 chat.Id = messageId;
             }
-            chat.From = chatFrom;
+
 
             //这个逻辑放在orm002001接口里面处理.
 
             //如果是
-            if(has_ext)
+            if (has_ext)
             { 
             bool hasOrderId = ext_element.HasTag("orderID");
             
@@ -182,7 +196,8 @@ namespace Dianzhu.CSClient.MessageAdapter
             msg.SetAttribute("type", "chat");
             msg.Id = chat.Id != Guid.Empty ? chat.Id.ToString() : Guid.NewGuid().ToString();
             //     msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
-            msg.To = new agsXMPP.Jid(chat.To.Id+"@"+server);//发送对象
+            IMUserStatus toUserStatus = BLLIMUserStatus.GetIMUSByUserId(chat.To.Id);
+            msg.To = new agsXMPP.Jid(chat.To.Id+"@"+server+"/"+ toUserStatus.ClientName);//发送对象
             msg.Body = chat.MessageBody;
 
             var nodeActive = new agsXMPP.Xml.Dom.Element("active", string.Empty, "http://jabber.org/protocol/chatstates");

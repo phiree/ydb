@@ -67,16 +67,9 @@ namespace Dianzhu.CSClient.ViewWPF
                       lblTime.Content = chat.SavedTime.ToShortTimeString() + " ";
 
                 lblFrom.Content = chat.From.UserName;
-
-                if (chat.MessageBody == null)
-                {
-                    return;
-                }
-                LoadBody(chat.MessageBody, pnlOneChat);
  
 
                 //显示多媒体信息.
-
                 if (chat is ReceptionChatMedia)
                 {
 
@@ -130,6 +123,23 @@ namespace Dianzhu.CSClient.ViewWPF
                             break;
                     }
                 }
+                else if(chat is ReceptionChatPushService)
+                {
+                    UC_PushService pushService = new UC_PushService();
+                    pushService.LoadData(((ReceptionChatPushService)chat).PushedServices[0]);
+                    pushService.FlowDirection = FlowDirection.LeftToRight;
+                    chat.MessageBody = string.Empty;
+                    pnlOneChat.Children.Add(pushService);
+                }
+
+
+                if (chat.MessageBody == null)
+                {
+                    return;
+                }
+                LoadBody(chat.MessageBody, pnlOneChat);
+
+
                 //bye bye. you are abandoned. 2015-9-2
 
                 //对当前窗体已存在控件的操作

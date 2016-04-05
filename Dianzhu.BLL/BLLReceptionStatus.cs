@@ -199,7 +199,7 @@ namespace Dianzhu.BLL
                 {
                     customerServiceList = new List<DZMembership>();
                      //convert sesionUser to dzmembership
-                    foreach (OnlineUserSession user in imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString()))
+                    foreach (OnlineUserSession user in imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString()))
                     {
                         DZMembership cs = dalMember.GetOne(new Guid( user.username));
                         customerServiceList.Add(cs);
@@ -215,7 +215,7 @@ namespace Dianzhu.BLL
             {
                 if (diandian == null )
                 {
-                    IList<OnlineUserSession> onlineUsers = imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_Win_DianDian.ToString());
+                    IList<OnlineUserSession> onlineUsers = imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_DianDian.ToString());
                     Debug.Assert(onlineUsers.Count != 1, "点点没有登录，或者有多个点点账户登录");
                     string errMsg = string.Empty;
                     if (onlineUsers.Count == 1)

@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using System.IO;
+using RisCaptureLib;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -23,7 +24,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_ChatSend : UserControl,IView.IViewChatSend
     {
-        private readonly RisCaptureLib.ScreenCaputre screenCaputre = new RisCaptureLib.ScreenCaputre();
+        private readonly ScreenCaputre screenCaputre = new ScreenCaputre();
         private Size? lastSize;
 
         public UC_ChatSend()

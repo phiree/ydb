@@ -22,21 +22,24 @@ namespace Dianzhu.CSClient.Presenter
         BLLReceptionChat bllReceptionChat;
         BLLReceptionChatDD bllReceptionChatDD;
         BLLReceptionStatusArchieve bllReceptionStatusArchieve;
+        BLLIMUserStatus bllIMUserStatus;
         InstantMessage iIM;
         IViewIdentityList iViewIdentityList;
         public PMain(BLLReceptionStatus bllReceptionStatus,
             BLLReceptionStatusArchieve bllReceptionStatusArchieve,
              BLLReceptionChatDD bllReceptionChatDD,
              BLLReceptionChat bllReceptionChat,
-        InstantMessage iIM,
+             BLLIMUserStatus bllIMUserStatus,
+            InstantMessage iIM,
             IViewIdentityList iViewIdentityList)
         {
             this.bllReceptionStatus = bllReceptionStatus;
             this.bllReceptionStatusArchieve = bllReceptionStatusArchieve;
             this.iIM = iIM;
             this.iViewIdentityList = iViewIdentityList;
-          this.bllReceptionChatDD = bllReceptionChatDD;
+            this.bllReceptionChatDD = bllReceptionChatDD;
             this.bllReceptionChat = bllReceptionChat;
+            this.bllIMUserStatus = bllIMUserStatus;
             SysAssign(3);
         }
         /// <summary>
@@ -79,24 +82,31 @@ namespace Dianzhu.CSClient.Presenter
             }
             else
             {
-                IList<ServiceOrder> orderCList = bllReceptionChatDD.GetCustomListDistinctFrom(num);
-                if (orderCList.Count > 0)
+                try
                 {
-                    IList<DZMembership> logoffCList = new List<DZMembership>();
-                    foreach (ServiceOrder order in orderCList)
+                    IList<ServiceOrder> orderCList = bllReceptionChatDD.GetCustomListDistinctFrom(num);
+                    if (orderCList.Count > 0)
                     {
-                        if (!logoffCList.Contains(order.Customer))
+                        IList<DZMembership> logoffCList = new List<DZMembership>();
+                        foreach (ServiceOrder order in orderCList)
                         {
-                            logoffCList.Add(order.Customer);
-                        }
+                            if (!logoffCList.Contains(order.Customer))
+                            {
+                                logoffCList.Add(order.Customer);
+                            }
 
-                        //按订单显示按钮
-                        //ClientState.OrderList.Add(order);
-                        ClientState.customerList.Add(order.Customer);
-                        //view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
-                        iViewIdentityList.AddIdentity(order);
+                            //按订单显示按钮
+                            //ClientState.OrderList.Add(order);
+                            ClientState.customerList.Add(order.Customer);
+                            //view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
+                            iViewIdentityList.AddIdentity(order);
+                        }
+                        CopyDDToChat(logoffCList);
                     }
-                    CopyDDToChat(logoffCList);
+                }
+                catch (Exception)
+                {
+                    
                 }
             }
         }
@@ -127,6 +137,8 @@ namespace Dianzhu.CSClient.Presenter
             IList<ReceptionChatDD> chatDDList = bllReceptionChatDD.GetChatDDListByOrder(cList);
 
             ReceptionChat copychat;
+            DZMembership cs = GlobalViables.CurrentCustomerService;
+            IMUserStatus userStatus = bllIMUserStatus.GetIMUSByUserId(GlobalViables.CurrentCustomerService.Id);
             foreach (ReceptionChatDD chatDD in chatDDList)
             {
                 copychat = ReceptionChat.Create(chatDD.ChatType);
@@ -134,11 +146,13 @@ namespace Dianzhu.CSClient.Presenter
                 copychat.MessageBody = chatDD.MessageBody;
                 copychat.ReceiveTime = chatDD.ReceiveTime;
                 copychat.SendTime = chatDD.SendTime;
-                copychat.To = GlobalViables.CurrentCustomerService;
+                copychat.To = cs;
                 copychat.From = chatDD.From;
                 copychat.Reception = chatDD.Reception;
                 copychat.SavedTime = chatDD.SavedTime;
                 copychat.ChatType = chatDD.ChatType;
+                copychat.FromResource = chatDD.FromResource;
+                copychat.ToResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), userStatus.ClientName);
                 copychat.ServiceOrder = chatDD.ServiceOrder;
                 copychat.Version = chatDD.Version;
                 if (chatDD.ChatType == enum_ChatType.Media)

@@ -378,6 +378,8 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_XmppResource
     {
+        //todo:发布全新版本时需删除
+        #region 待删除
         #region 服务
         /// <summary>
         /// im消息通知
@@ -445,11 +447,33 @@ namespace Dianzhu.Model.Enums
         /// </summary>
         YDBan_Win_Merchant = 34,
         #endregion
+        #endregion
 
         /// <summary>
         /// 模拟用户客户端
         /// </summary>
-        YDBan_Win_DemoClient=40,
+        YDBan_Win_DemoClient = 40,
+
+        /// <summary>
+        /// 用户版
+        /// </summary>
+        YDBan_User=50,
+        /// <summary>
+        /// 商户版
+        /// </summary>
+        YDBan_Store=52,
+        /// <summary>
+        /// 客服工具
+        /// </summary>
+        YDBan_CustomerService=54,
+        /// <summary>
+        /// IM服务
+        /// </summary>
+        YDBan_IMServer=56,
+        /// <summary>
+        /// 点点
+        /// </summary>
+        YDBan_DianDian=58,
     }
 
     /// <summary>
