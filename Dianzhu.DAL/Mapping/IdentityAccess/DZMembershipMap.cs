@@ -28,8 +28,6 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.RecoveryCode);
             Map(x => x.AvatarUrl);
             Map(x => x.UserType);
-            Map(x => x.LoginTimes);
-            
         }
                
     }
