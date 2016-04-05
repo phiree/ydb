@@ -50,28 +50,11 @@ namespace Dianzhu.DAL
             }
             return members;
         }
-        public bool ValidateUser(string username, string password)
+        public Model.DZMembership ValidateUser(string username, string password)
         {
-            //  User user = session.QueryOver<User>(x=>x.User);
-            //Model.DZMembership member = null;
-            bool result = false;
-            IQuery query = Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
-
-            //  var iq = Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password);
-            Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
-            //Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password).SingleOrDefault();
-            //Model.DZMembership member = null;
-
-            if (member != null)
-            {
-                result = true;
-
-                member.LastLoginTime = DateTime.Now;
-                
-                Update(member);
-
-            }
-            return result;
+               IQuery query = Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
+                Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
+              return member;
         }
 
 
@@ -173,7 +156,7 @@ namespace Dianzhu.DAL
         public Model.BusinessUser CreateBusinessUser(string username, string password, Model.Business business)
         {
             
-            Model.BusinessUser member = new Model.BusinessUser
+            Model.BusinessUser member =  new Model.BusinessUser
             { UserName = username, Password = password, TimeCreated = DateTime.Now, BelongTo = business,
              LastLoginTime=DateTime.Now,
             RegisterValidateCode=Guid.NewGuid().ToString(),IsRegisterValidated=false};
