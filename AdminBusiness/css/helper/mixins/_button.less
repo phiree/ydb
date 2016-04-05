@@ -1,0 +1,27 @@
+
+@btn-new-ph : 30px;
+@btn-new-pv : 66px;
+
+.btn_new (){
+  display: inline-block;
+  overflow: hidden;
+  padding: @btn-new-ph @btn-new-pv;
+  color: #fff;
+  font-size: 26px;
+  font-weight: bold;
+  text-shadow: 0 1px 1px #aaa;
+  border-radius: 3px;
+  border: 1px solid #5B9C5C;
+  box-shadow: 0 3px 3px 2px #ddd;
+  background: #7bd07e;
+  background: -moz-linear-gradient(top, #7bd07e 0%, #74c876 33%, #5eb260 100%);
+  background: -webkit-linear-gradient(top, #7bd07e 0%, #74c876 33%, #5eb260 100%);
+  background: linear-gradient(to bottom, #7bd07e 0%, #74c876 33%, #5eb260 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7bd07e', endColorstr='#5eb260', GradientType=0);
+  &:focus,
+  &:active,
+  &:visited,
+  &:hover {
+    color : #fff;
+  }
+}

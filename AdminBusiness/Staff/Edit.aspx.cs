@@ -14,7 +14,7 @@ public partial class Staff_Edit : BasePage
  
     private bool IsNew { get { return StaffId == Guid.Empty; } }//新增. 或者 编辑
     Staff s = new Staff();
-    public string StaffAvatarUrl = "/image/myshop/touxiang_90_90.png";
+    public string StaffAvatarUrl = "/images/components/inputFile/input_head_default_128_128.png";
     BLLStaff bllStaff = new BLLStaff();
     ServiceType ServiceType = new ServiceType();
     BLLServiceType bllServiceType = new BLLServiceType();
@@ -52,7 +52,7 @@ public partial class Staff_Edit : BasePage
     {
         Code.Text = s.Code;
         Name.Text = s.Name;
-        NickName.Text = s.NickName;
+//        NickName.Text = s.NickName;
         Phone.Text = s.Phone;
         var avatarList = s.StaffAvatar.Where(x => x.IsCurrent == true).ToList();
         if(avatarList.Count>0)
@@ -69,7 +69,7 @@ public partial class Staff_Edit : BasePage
         s.Belongto = b;
         s.Code = Code.Text;
         s.Name = Name.Text;
-        s.NickName = NickName.Text;
+//        s.NickName = NickName.Text;
         s.Gender = hiGender.Value == "0" ? "男" : "女";
         s.Phone = Phone.Text;            
          

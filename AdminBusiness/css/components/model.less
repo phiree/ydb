@@ -1,0 +1,135 @@
+
+/* global model */
+.model {
+  .model-base-style();
+}
+
+.model-h {
+  .model-h-base-style();
+  h4{
+    color: #444;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+.model-m {
+  padding: 22px 28px;
+  &.no-padding {
+    padding: 0;
+  }
+}
+
+.model-b {
+  .model-b-base-style();
+}
+
+.model-img {
+  width: 120px;
+}
+
+.model-pra {
+  margin-bottom: 34px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  &.no-wrap {
+    overflow: visible;
+  }
+}
+
+.model-pra-t {
+  font-size: 15px;
+  color: #444;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.model-row {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.model-form {
+  padding-top: 34px;
+  &.model-form-noTop {
+    padding-top: 0;
+  }
+
+  .model-form-group {
+    margin-bottom: 30px;
+  }
+}
+
+
+.model-label {
+  font-size: 16px;
+  font-weight: bold;
+  width: 120px;
+}
+
+.model-label-lg {
+  font-size: 16px;
+  font-weight: bold;
+  width: 160px;
+}
+
+.model-input {
+  min-height: 30px;
+}
+
+.model-input-unit {
+  min-height: 30px;
+  padding-right: 50px;
+  position: relative;
+  em.unit {
+    position: absolute;
+    top: 6px;
+    right: 15px;
+  }
+}
+
+.model-input-unit-sm {
+  min-height: 30px;
+  padding-right: 115px;
+  position: relative;
+  em.unit {
+    position: absolute;
+    top: 6px;
+    right: 15px;
+  }
+}
+
+.model-radio-item {
+  input {
+    margin-right: 5px;
+  }
+}
+
+.model-select-sm {
+  display: inline-block;
+  width: 70px;
+  position: relative;
+  ul {
+    position: absolute;
+    height: 3em;
+    overflow-y: scroll;
+    z-index: 10;
+  }
+}
+
+.model-select-unit {
+  width: 95px;
+  position: absolute;
+  top: 0;
+  right: 15px;
+}
+
+.model-global-bottom {
+  width: 100%;
+  height: 98px;
+  display: block;
+  line-height: 98px;
+  text-align: center;
+}

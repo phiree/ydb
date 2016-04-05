@@ -11,7 +11,7 @@ html{ background:#263650;}
 margin:0 auto; 
 width:786px; 
 height:790px;
-background:url(image/Browserbj.jpg) no-repeat;
+background:url(images/Browserbj.jpg) no-repeat;
 position:absolute;  
 left:50%;  
 top:50%;

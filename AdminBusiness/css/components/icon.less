@@ -1,0 +1,16 @@
+@default-icon-w : 20px;
+@default-icon-h : 20px;
+
+.icon {
+  .icon(@default-icon-w, @default-icon-h);
+}
+
+.delete-icon {
+  .icon(@default-icon-w, @default-icon-h);
+  background-image: url("@{base-images-url}common/icon/icon_delete_x.png");
+}
+
+.edit-icon {
+  .icon(@default-icon-w, @default-icon-h);
+  background-image: url("@{base-images-url}common/icon/icon_edit.png");
+}

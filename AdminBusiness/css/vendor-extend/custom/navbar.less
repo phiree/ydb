@@ -1,0 +1,122 @@
+@navbarHeight: 79px;
+@navbarColor: #60b7ea;
+@navbarHoverColor: #60b7ea;
+@navbarBrandColor: #444;
+@navbarBtnBg: #60b7ea;
+@default-padding: 15px;
+@navbarTextShadow: 0 1px 0 #E2E2E2;
+
+.navbar {
+  margin-bottom: 0;
+  box-shadow: 0 2px 1px #8c8c8c;
+  border: none;
+  background: #E0E0E0; /* Old browsers */
+  background: -moz-linear-gradient(top,  #E0E0E0 0%, #B3B3B3 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #E0E0E0 0%,#B3B3B3 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #E0E0E0 0%,#B3B3B3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E0E0E0', endColorstr='#B3B3B3',GradientType=0 ); /* IE6-9 */
+
+  .navbar-brand {
+    height: @navbarHeight;
+    line-height: @navbarHeight - @default-padding * 2;
+    font-size: 24px;
+    color: @navbarBrandColor;
+
+    &.brand-logo {
+      display: table;
+      padding: 0;
+      margin: 0 15px;
+
+      #logo {
+          display: table-cell;
+          width: 54px;
+          height: 54px;
+          background: url("@{base-images-url}common/logo/logo_top_32x32.png") no-repeat center;
+      }
+    }
+
+    &.brand-h {
+      text-shadow: @navbarTextShadow;
+    }
+
+    &:hover {
+      color: @navbarBrandColor;
+    }
+  }
+
+  .navbar-nav {
+    font-size: 16px;
+    margin-right: 0;
+    color: @navbarBrandColor;
+    text-shadow: @navbarTextShadow;
+    >li{
+      padding: 20px 10px 0 10px;
+      a{
+        display: block;
+        color: @navbarBrandColor;
+        padding: 0;
+        font-size: 16px;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .navbar-toggle {
+    margin-top: 22px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eae9e9+0,b7b4b5+100 */
+    background: #eae9e9; /* Old browsers */
+    background: -moz-linear-gradient(top,  #eae9e9 0%, #b7b4b5 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #eae9e9 0%,#b7b4b5 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #eae9e9 0%,#b7b4b5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eae9e9', endColorstr='#b7b4b5',GradientType=0 ); /* IE6-9 */
+  }
+
+  .navbar-a-wrap {
+    display: block;
+    border-radius: 5px;
+    border: 1px solid #7d7d7d;
+    width: 50px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    box-shadow: 0 1px 0 0 #e2e2e2 ;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eae9e9+0,b7b4b5+100 */
+    background: #eae9e9; /* Old browsers */
+    background: -moz-linear-gradient(top,  #eae9e9 0%, #b7b4b5 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #eae9e9 0%,#b7b4b5 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #eae9e9 0%,#b7b4b5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eae9e9', endColorstr='#b7b4b5',GradientType=0 ); /* IE6-9 */
+
+
+  }
+
+  /*登录状态样式*/
+  .LoginStatus {
+    background: url("@{base-images-url}common/navbar/logout.png") no-repeat center;
+    color: transparent;
+    padding: 0 30px;
+  }
+
+  .loginName {
+    padding-top: 7px;
+  }
+
+  .navbar-icon-acc {
+    background: url("@{base-images-url}common/navbar/acc_top_26x24.png") no-repeat center;
+  }
+
+  .navbar-icon-shop {
+    background: url("@{base-images-url}common/navbar/shop_top_26x24.png") no-repeat center;
+  }
+
+  .navbar-icon-set {
+    background: url("@{base-images-url}common/navbar/set_top_26x24.png") no-repeat center;
+  }
+
+  .navbar-icon-logout {
+    background: url("@{base-images-url}common/navbar/logout_top_26x24.png") no-repeat center;
+  }
+}
+

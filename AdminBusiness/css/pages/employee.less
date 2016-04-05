@@ -1,0 +1,229 @@
+@emp-model-m-height: 184px;
+@emp-model-b-height: 49px;
+
+
+// normal employee model style
+.emp-model{
+  border-radius: 5px;
+  overflow: hidden;
+  background: #f6f6f6;
+  border: 1px solid #C7C7C7;
+  margin-bottom: 20px;
+}
+
+// employee head content
+.emp-model-h{
+  height: 30px;
+  padding: 0 15px;
+  line-height: 30px;
+  box-shadow: 0 3px 3px #e7e7e7;
+  border-bottom: 1px solid #C7C7C7;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
+  background: #f7f7f7; /* Old browsers */
+  background: -moz-linear-gradient(top,  #f7f7f7 0%, #eaeaea 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #f7f7f7 0%,#eaeaea 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #f7f7f7 0%,#eaeaea 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
+  h3{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 30px;
+    margin-left: 22px;
+  }
+}
+
+.emp-assign-flag {
+  .icon(14px, 14px);
+  &.assigned {
+    background-image: url("@{base-images-url}pages/employee/flag_on.png");
+  }
+  &.noAssign {
+    background-image: url("@{base-images-url}pages/employee/flag_off.png");
+  }
+
+}
+
+.emp-ctrl {
+  float: right;
+  border: 0;
+  margin-top: 5px;
+  + .emp-ctrl{
+    margin-right: 5px;
+  }
+}
+
+// employee main content
+.emp-model-m{
+  padding: 22px 28px;
+  height: @emp-model-m-height;
+  overflow: hidden;
+}
+
+.emp-headImg {
+  float: left;
+  margin: 0 15px 0 0;
+  width: 80px;
+  height: 80px;
+}
+.emp-info {
+  float: left;
+  line-height: 1.6em;
+}
+
+.emp-model-b{
+  height: @emp-model-b-height;
+  line-height: @emp-model-b-height;
+  text-align: center;
+  box-shadow: 0 3px 3px #e7e7e7;
+  border-top: 1px solid #C7C7C7;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
+  background: #f7f7f7; /* Old browsers */
+  background: -moz-linear-gradient(top,  #f7f7f7 0%, #eaeaea 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #f7f7f7 0%,#eaeaea 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #f7f7f7 0%,#eaeaea 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
+}
+
+// 员工指派按钮
+.emp-assign {
+  width: 110px;
+  height: 28px;
+  border: 1px solid #C7C7C7;
+  border-radius: 14px;
+  font-weight: bold;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+  &.assigned {
+    color : #c93232;
+  }
+  &.noAssign {
+    color : #55a8b5;
+  }
+  &:hover,
+  &:focus {
+    border: 1px solid #C7C7C7;
+  }
+}
+
+
+// empty employee model style
+.emp-no-model{
+  border-radius: 5px;
+  overflow: hidden;
+  background: transparent;
+  border: 1px dashed #C7C7C7;
+}
+.emp-no-model-h{
+  height: 30px;
+  line-height: 30px;
+  border-bottom: 1px dashed #C7C7C7;
+  background: transparent;
+
+  h3{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 30px;
+    margin-left: 22px;
+  }
+}
+.emp-no-model-m{
+  padding: 22px 28px;
+  height: @emp-model-m-height;
+  text-align: center;
+  .btn {
+    margin-top: @emp-model-m-height - 120px;
+  }
+}
+
+.emp-no-model-b{
+  height: @emp-model-b-height;
+}
+
+// employee edit page styles
+.emp-head-upload {
+  h3 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+// 员工编辑样式
+.emp-head-text {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  width: 120px;
+  vertical-align: top;
+}
+
+.staffCheckbox {
+  display: none;
+  &:checked{
+    + label {
+      &::after {
+        content: "取消选择";
+        color: #cc6560;
+        background: #E2E2E2;
+        background: -moz-linear-gradient(top, #E2E2E2 0%, #f7f7f7 100%);
+        background: -webkit-linear-gradient(top, #E2E2E2 0%, #f7f7f7 100%);
+        background: linear-gradient(to bottom, #E2E2E2 0%, #f7f7f7 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E2E2E2', endColorstr='#f7f7f7', GradientType=0);
+      }
+    }
+  }
+  + label {
+    display: inline-block;
+    width: 112px;
+    height: 32px;
+    line-height: 32px;
+    margin: 0;
+    cursor: pointer;
+    &::after{
+      content: "选择";
+      font-weight: 700;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 16px;
+      width: 112px;
+      height: 32px;
+      line-height: 32px;
+      color: #0a9acc;
+      background: #f7f7f7;
+      background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+      background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+      background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+    }
+  }
+
+}
+
+/* 指派弹出样式 */
+.light-list-head {
+  .list-head();
+  .custom-col {
+    & + .custom-col {
+      .l-b {
+        border-left: 1px solid #ccc;
+      }
+    }
+  }
+}
+
+.light-list {
+  .list(500px, 0);
+}
+
+.light-row {
+  .list-li(85px);
+}
+
+.orders-container {
+  overflow-y: hidden;
+}

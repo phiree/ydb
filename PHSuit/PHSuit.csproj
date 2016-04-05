@@ -105,6 +105,10 @@
     <Compile Include="ObjectCopier.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\AdminBusiness\config\connectionStrings.config">
+      <Link>config\connectionStrings.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="app.config" />
     <None Include="Configs.rar" />
     <None Include="packages.config" />
@@ -114,6 +118,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="files\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InstantMessageMock\InstantMessageMock.csproj">
+      <Project>{f399fe2f-05a1-41b6-ab63-c879a1701dc4}</Project>
+      <Name>InstantMessageMock</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

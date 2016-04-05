@@ -1,0 +1,240 @@
+///* 店铺展示列表 */
+#addNewBusiness {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
+
+/* 店铺列表 */
+
+.biz-head{
+  font-size: 20px;
+  line-height: 2em;
+  padding: 0 10px;
+}
+
+.biz-item-main {
+  border-radius: 5px;
+  border: 1px solid #B3B3B3;
+  overflow: hidden;
+}
+
+.biz-item-h {
+  position: relative;
+  text-align: center;
+  z-index: 10;
+  color: #444;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #fff;
+  padding: 15px 18px;
+  border-bottom: 1px solid #B3B3B3;
+  box-shadow: 0 4px 4px #eaeaea;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffd65e+0,febf04+100;Yellow+3D+%232 */
+  background: #ffd65e; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ffd65e 0%, #febf04 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #ffd65e 0%,#febf04 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #ffd65e 0%,#febf04 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffd65e', endColorstr='#febf04',GradientType=0 ); /* IE6-9 */
+}
+
+.biz-item-m {
+  padding: 24px 22px;
+  background: #fff;
+  clear: both;
+  overflow: hidden;
+}
+
+.biz-img {
+  float: left;
+  border: 1px solid #7d7d7d;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.44);
+}
+
+.biz-info {
+  float: left;
+  margin-left: 32px;
+  color: #333;
+  font-size: 16px;
+  max-width: 700px;
+  overflow: hidden;
+}
+
+.biz-info-h {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.biz-info-d {
+  display: inline-block;
+  margin-left: 15px;
+  word-break: break-all;
+  max-width: 600px;
+  vertical-align: top;
+}
+
+.biz-intro-fixed {
+  margin-top: -0.2em;
+}
+
+.biz-btn(@color){
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  color: @color;
+  text-shadow: 0 1px 0 #fff ;
+  display: block;
+  width: 168px;
+  height: 48px;
+  border: 1px solid #aaa;
+  border-radius: 25px;
+  text-align: center;
+  line-height: 48px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+  &:visited {
+    color: @color;
+  }
+}
+
+.biz-href {
+  float: right;
+  margin-right: 1em;
+}
+
+.biz-into {
+  .biz-btn(#3399cc);
+  margin-bottom: 10px;
+}
+
+.biz-delete {
+  .biz-btn(#aaa);
+}
+
+/* 店铺服务 */
+.biz-item-svc {
+  padding: 16px 32px;
+  border-top: 1px solid #B3B3B3;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,efefef+100 */
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ffffff 0%, #efefef 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #ffffff 0%,#efefef 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #ffffff 0%,#efefef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#efefef',GradientType=0 ); /* IE6-9 */
+
+}
+
+.svc-list {
+
+}
+
+.svc-li {
+  float: left;
+  + .svc-li {
+    margin-left: 30px;
+  }
+}
+
+.svc-item-h {
+  text-align: center;
+}
+
+.svc-icon {
+  width: 70px;
+  height: 70px;
+  display: block;
+  background-position: center;
+}
+
+/* 新建店铺弹窗 */
+.newBiz {
+  width: 700px;
+  min-height: 450px;
+  background: #ffffff;
+  border: 1px solid #B3B3B3;
+  border-radius: 8px;
+  box-shadow: 0 0 18px 5px #B3B3B3;
+  overflow: hidden;
+}
+
+.newBiz-h {
+  height: 70px;
+  line-height: 70px;
+  color: #fff;
+  box-shadow: 0 4px 4px #eaeaea;
+  font-size: 22px;
+  font-weight: bold;
+  text-shadow: 0 1px 4px #007694;
+  text-align: center;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00b7ea+0,009ec3+100;Blue+3D+%2315 */
+  background: #00b7ea; /* Old browsers */
+  background: -moz-linear-gradient(top,  #00b7ea 0%, #009ec3 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #00b7ea 0%,#009ec3 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #00b7ea 0%,#009ec3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#009ec3',GradientType=0 ); /* IE6-9 */
+}
+
+.newBiz-m {
+  padding: 36px 36px 0 36px;
+  overflow: hidden;
+  background: #ebebeb;
+  .newBiz-row {
+    margin-bottom: 20px;
+  }
+  .newBiz-h5 {
+    display: inline-block;
+    margin-right:36px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+    text-align: right;
+    height: 30px;
+    line-height: 30px;
+  }
+  .newBiz-input {
+    display: inline-block;
+    width: 370px;
+    vertical-align: top;
+  }
+  input {
+    .input(370px,@input-default-height);
+  }
+  textarea {
+    .input-textarea(370px,120px);
+  }
+}
+
+/* 空店铺时添加样式 */
+.empty-biz {
+  text-align: center;
+  padding-top: 80px;
+  min-height: 600px;
+}
+
+.empty-biz-add {
+ .btn_new();
+}
+
+.empty-biz-icon {
+  display: block;
+  margin: 20px auto;
+  width: 89px;
+  height: 60px;
+  background: url("@{base-images-url}common/biz_add_new.png");
+}
+
+.empty-biz-msg {
+  display: block;
+  margin: 0 auto;
+  width: 21em;
+  font-size: 16px;
+  line-height: 1.6em;
+  word-break: break-all;
+  a {
+    font-weight: bold;
+  }
+}

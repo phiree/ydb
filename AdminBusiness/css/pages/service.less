@@ -1,0 +1,222 @@
+
+/* 空服务时的添加 */
+.empty-svc {
+  text-align: center;
+  padding-top: 170px;
+  min-height: 600px;
+}
+
+.empty-svc-add {
+  .btn_new();
+}
+
+.empty-svc-icon {
+  display: block;
+  margin: 20px auto;
+  width: 62px;
+  height: 70px;
+  background: url("@{base-images-url}common/empty_box.png");
+}
+
+.empty-svc-msg {
+  font-size: 16px;
+  display: block;
+  margin: 0 auto;
+  width: 300px;
+}
+
+/* 服务列表页 */
+.service-model-wrap {
+  overflow: auto;
+  .model {
+    min-width: 1200px;
+  }
+}
+.service-list-head {
+  .list-head();
+  .custom-col {
+    & + .custom-col {
+      .l-b {
+        border-left: 1px solid #ccc;
+      }
+    }
+  }
+}
+
+.service-list {
+  .list(600px, 0);
+}
+
+.service-row{
+  .list-li(85px);
+}
+
+.service-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.icon-service-edit {
+  display: block;
+  background: url("@{base-images-url}common/icon/icon_service_edit.png");
+}
+
+.icon-service-delete {
+  display: block;
+  background: url("@{base-images-url}common/icon/icon_service_delete.png");
+}
+
+/* 服务列表详情 */
+.service-detail-row {
+  line-height: 1.4em;
+  padding: 6px 0;
+  overflow: hidden;
+}
+
+.service-detail-intro {
+  float: left;
+  width: 80%;
+}
+
+/* 服务编辑地图样式 */
+#allmap {
+  width: 100%;
+  height: 320px;
+}
+
+.business-radioCf {
+  display: inline-block;
+  vertical-align: middle;
+  width: 50%;
+  margin: 5px 10px;
+  background: #E1F5FF;
+  border: 1px solid #AFC2C7;
+  border-radius: 5px;
+  padding: 3px;
+  color: #3AA6DD;
+}
+
+/* 新建服务时，stepByStep的步骤控制样式 */
+.business-steps {
+  .step-ctrl {
+    &.step-1 {
+      .step-prev {display: none;}
+      .step-next {}
+      .step-save {display: none}
+      .step-cancel {}
+    }
+    &.step-2 {
+      .step-prev {}
+      .step-next {display: none}
+      .step-save {}
+      .step-cancel {}
+    }
+  }
+}
+
+/* 服务总览页 */
+.shelf-overview-wrap {
+  overflow-y: scroll;
+  height: 680px;
+  margin: 10px 20px 30px;
+}
+
+.shelf-overview {
+  overflow: hidden;
+}
+
+.shelf-box {
+  float: left;
+  width: 16.6%;
+  height: 310px;
+  position: relative;
+  margin-bottom: 35px;
+  &::after {
+    content: '';
+    width: 100%;
+    margin: 0 -10px;
+    position: absolute;
+    border-bottom: 20px solid #8c8c8c;
+    bottom: -20px;
+  }
+}
+
+.shelf-box-bg {
+  width: 100%;
+  position: absolute;
+  .box-bg-t {
+    width: 95%;
+    height: 234px;
+    background: #EAEAEA;
+    border: 1px solid #d1d1d1;
+  }
+  .box-bg-b {
+    position: absolute;
+    left: 7px;
+    top: 235px;
+    width: 194px;
+    height: 50px;
+    background: url("@{base-images-url}components/shelf/shelf_bg_2.png") no-repeat center;
+  }
+}
+
+.shelf-box-m {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  .box-m-t {
+    font-size: 20px;
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 230px;
+  }
+  .box-m-b {
+    width: 168px;
+    height: 168px;
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    z-index: 100;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    &:hover {
+      bottom: 50px;
+    }
+  }
+  .box-m-bg {
+    width: 168px;
+    height: 168px;
+    background: url("@{base-images-url}components/shelf/shelf_bg_1.png") no-repeat center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+  }
+  .box-m-icon {
+    width: 92px;
+    height: 92px;
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    z-index: 101;
+  }
+}
+
+/* TODO: 松散的多媒体查询 */
+@media screen and (max-width: 1500px){
+  .shelf-box {
+    width: 20%;
+  }
+  .shelf-box-bg {
+    .box-bg-b {
+      left: 0;
+    }
+  }
+  .shelf-box-m {
+    .box-m-b {
+      left: 0;
+    }
+  }
+}
