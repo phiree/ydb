@@ -9,7 +9,8 @@ using System.Net.Mail;
 namespace Dianzhu.DAL
 {
     public class DALMembership :DALBase<Model.DZMembership>
-    { public DALMembership()
+    {
+        public DALMembership()
         {
              
         }
@@ -30,29 +31,30 @@ namespace Dianzhu.DAL
             SaveOrUpdate(member);
              
         }
-        
-
-        public bool ValidateUser(string username, string password)
+        /// <summary>
+        ///ddd:domainservice
+        ///通过名字获取列表 属于 领域服务.
+        /// </summary>
+        /// <param name="userNames"></param>
+        /// <returns></returns>
+        public IList<Model.DZMembership> GetList(string[] userNames)
         {
-            //  User user = session.QueryOver<User>(x=>x.User);
-            //Model.DZMembership member = null;
-            bool result = false;
-            IQuery query = Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
-
-            //  var iq = Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password);
-            Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
-            //Session.QueryOver<Model.DZMembership>().Where(x => x.UserName == username && x.Password == password).SingleOrDefault();
-            //Model.DZMembership member = null;
-
-            if (member != null)
+            List<Model.DZMembership> members = new List<Model.DZMembership>();
+            foreach (string username in userNames)
             {
-                result = true;
-
-                member.LastLoginTime = DateTime.Now;
-                Update(member);
-
+                Model.DZMembership member = GetMemberByName(username);
+                if (member != null)
+                {
+                    members.Add(member);
+                }
             }
-            return result;
+            return members;
+        }
+        public Model.DZMembership ValidateUser(string username, string password)
+        {
+               IQuery query = Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
+                Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
+              return member;
         }
 
 
@@ -154,7 +156,7 @@ namespace Dianzhu.DAL
         public Model.BusinessUser CreateBusinessUser(string username, string password, Model.Business business)
         {
             
-            Model.BusinessUser member = new Model.BusinessUser
+            Model.BusinessUser member =  new Model.BusinessUser
             { UserName = username, Password = password, TimeCreated = DateTime.Now, BelongTo = business,
              LastLoginTime=DateTime.Now,
             RegisterValidateCode=Guid.NewGuid().ToString(),IsRegisterValidated=false};

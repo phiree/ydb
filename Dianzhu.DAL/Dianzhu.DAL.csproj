@@ -77,7 +77,7 @@
     <Compile Include="DALPaymentLog.cs" />
     <Compile Include="DALArea.cs" />
     <Compile Include="DALDZTag.cs" />
-    <Compile Include="DALMembership.cs" />
+    <Compile Include="IdentityAccess\DALMembership.cs" />
     <Compile Include="DALBase.cs" />
     <Compile Include="DALPaylog.cs" />
     <Compile Include="DALReceptionChatDD.cs" />
@@ -86,8 +86,12 @@
     <Compile Include="DALOrderAssignment.cs" />
     <Compile Include="DALServiceOrderStateChangeHis.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
+    <Compile Include="IdentityAccess\DALRoleMember.cs" />
+    <Compile Include="IdentityAccess\DALRole.cs" />
     <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />
+    <Compile Include="Mapping\IdentityAccess\DZRoleMap.cs" />
+    <Compile Include="Mapping\IdentityAccess\DZRoleMemberMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderPushedServiceMap.cs" />
@@ -99,7 +103,7 @@
     <Compile Include="Mapping\CashTicketMap.cs" />
     <Compile Include="Mapping\CashTicketCreateRecord.cs" />
     <Compile Include="Mapping\BusinessMap.cs" />
-    <Compile Include="Mapping\DZMembershipMap.cs" />
+    <Compile Include="Mapping\IdentityAccess\DZMembershipMap.cs" />
     <Compile Include="Mapping\ServiceOrderStateChangeHisMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderMap.cs" />
     <Compile Include="Mapping\ServiceTypeMap.cs" />

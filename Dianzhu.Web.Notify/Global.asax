@@ -16,7 +16,7 @@
         string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
 
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
-            = new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.Model.Enums.enum_XmppResource.YDBan_Win_IMServer.ToString());
+            = new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.Model.Enums.enum_XmppResource.YDBan_IMServer.ToString());
         //login in
         string noticesenderId = Dianzhu.Config.Config.GetAppSetting("NoticeSenderId");
 

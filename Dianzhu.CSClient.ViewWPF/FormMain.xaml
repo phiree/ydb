@@ -33,7 +33,7 @@
             <Grid ShowGridLines="True" Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <WrapPanel x:Name="pnlSearch" Grid.Row="0" VerticalAlignment="Center"/>

@@ -206,6 +206,7 @@
                var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());
            $(this).html(jsonServiceArea.serPointAddress);
            });
+                            
 
        });
     </script>

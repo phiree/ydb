@@ -38,7 +38,9 @@ namespace PHSuit
           Console.WriteLine("172:"+PHSuit.Security.Encrypt(c1, false));
             string c2 = "data source=119.29.39.211;uid=ydb;pwd=jsyk2016;database=dianzhu";
             Console.WriteLine("119:"+PHSuit.Security.Encrypt(c2, false));
-            
+            string c3 = "data source=localhost;uid=root;pwd=root;database=new";
+            Console.WriteLine("c3"+Environment.NewLine+":" + PHSuit.Security.Encrypt(c3, false));
+
         }
         [Test]
         public void TestIOSPush()

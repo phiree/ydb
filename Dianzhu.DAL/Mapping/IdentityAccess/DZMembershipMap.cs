@@ -17,6 +17,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.PlainPassword);
             Map(x => x.TimeCreated);
             Map(x => x.LastLoginTime);
+            Map(x => x.LoginTimes);
             Map(x=>x.NickName);
             Map(x => x.Address);
             Map(x => x.Email);//.Unique();
@@ -27,6 +28,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.RecoveryCode);
             Map(x => x.AvatarUrl);
             Map(x => x.UserType);
+        
             
         }
                

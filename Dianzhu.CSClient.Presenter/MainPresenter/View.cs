@@ -85,19 +85,6 @@ namespace Dianzhu.CSClient.Presenter
            
             ClientState.CurrentServiceOrder.CreatedFromDraft();
 
-            ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis
-            {
-                OrderAmount = ClientState.CurrentServiceOrder.OrderAmount,
-                DepositAmount = ClientState.CurrentServiceOrder.DepositAmount,
-                NegotiateAmount = ClientState.CurrentServiceOrder.NegotiateAmount,
-                Order = ClientState.CurrentServiceOrder,
-                Remark = ClientState.CurrentServiceOrder.Memo,
-                OldStatus =  Model.Enums.enum_OrderStatus.Draft,
-                NewStatus = ClientState.CurrentServiceOrder.OrderStatus,
-                Number = 1,
-            };
-            bllServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
-
             View_NoticeOrder();
             BLLPayment bllPayment = new BLLPayment();
 
@@ -189,20 +176,20 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         void view_SearchService()
         {
-            int total;
-            var serviceList = bllService.Search(view.SerachKeyword, 0, 10, out total);
-            view.SearchedService = serviceList;
+            //int total;
+            //var serviceList = bllService.Search(view.SerachKeyword, 0, 10, out total);
+            //view.SearchedService = serviceList;
 
-            string pushServiceKey = ClientState.CurrentServiceOrder == null ? "dianzhucs" :
-                ClientState.CurrentServiceOrder.Id.ToString();
-            if (ClientState.SearchResultForCustomer.ContainsKey(pushServiceKey))
-            {
-                ClientState.SearchResultForCustomer[pushServiceKey] = serviceList;
-            }
-            else
-            {
-                ClientState.SearchResultForCustomer.Add(pushServiceKey, serviceList);
-            }
+            //string pushServiceKey = ClientState.CurrentServiceOrder == null ? "dianzhucs" :
+            //    ClientState.CurrentServiceOrder.Id.ToString();
+            //if (ClientState.SearchResultForCustomer.ContainsKey(pushServiceKey))
+            //{
+            //    ClientState.SearchResultForCustomer[pushServiceKey] = serviceList;
+            //}
+            //else
+            //{
+            //    ClientState.SearchResultForCustomer.Add(pushServiceKey, serviceList);
+            //}
         }
 
 

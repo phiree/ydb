@@ -9,18 +9,15 @@ namespace Dianzhu.Push
     /// <summary>
     /// 客户端推送消息
     /// </summary>
-    public interface IPush
-    {
-        string Push(string message);
-    }
+   
     
     public class PushIOS:IPush
     {
         
         string strDeviceToken;
         
-        string notificationSound = string.Empty;
-        int pushSum;
+        
+        
         string strCertificateFilePath {
             get {
 #if DEBUG
@@ -38,15 +35,14 @@ namespace Dianzhu.Push
         /// <param name="isTestCertificate">是测试证书，否则为正式证书</param>
         /// <param name="pushSum"></param>
         /// <param name="notificationSound"></param>
-        public PushIOS(string strDeviceToken , int pushSum, string notificationSound)
+        public PushIOS( )
         {
            
-            this.strDeviceToken = strDeviceToken;
-            this.pushSum = pushSum;
-            this.notificationSound = notificationSound;
+            
+            
         }
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Push");
-        public string Push(string strContent)
+        public string Push(string strContent,string strDeviceToken)
         {
             log.Debug("开始推送消息:"+strContent);
             bool sandbox = false;
@@ -92,8 +88,8 @@ namespace Dianzhu.Push
             //通知内容
             alertNotification.Payload.Alert.Body = strContent;
 
-            alertNotification.Payload.Sound = "";//为空时就是静音
-            alertNotification.Payload.Badge = pushSum;
+            alertNotification.Payload.Sound = "default";//为空时就是静音
+            alertNotification.Payload.Badge = 1;
 
             //Queue the notification to be sent
             if (service.QueueNotification(alertNotification))
@@ -152,11 +148,5 @@ namespace Dianzhu.Push
         }
     }
 
-    public class PushDemoClient : IPush
-    {
-        public string Push(string message)
-        {
-            return string.Empty;
-        }
-    }
+   
 }

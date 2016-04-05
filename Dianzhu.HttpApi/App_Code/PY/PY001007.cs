@@ -67,12 +67,13 @@ public class ResponsePY001007:BaseResponse
             switch (requestData.target.ToLower())
             {
                 case "alipay":
-                    
-                    IPayRequest ipayAli = new PayAlipayApp(payment.Amount, payment.Id.ToString(), payment.Order.Title, "http://119.29.39.211:8039/", payment.Order.Description);
+                    // http://119.29.39.211:8168
+                    IPayRequest ipayAli = new PayAlipayApp(payment.Amount, payment.Id.ToString(), payment.Order.Title,Dianzhu.Config.Config.GetAppSetting("PaySite") + "/PayCallBack/Alipay/notify_url.aspx", payment.Order.Description);
                     string respDataAli = ipayAli.CreatePayRequest();
-                    //string[] respDataAliList = respDataAli.Split('&');
+                    RespDataPY001007 respAliObj = new RespDataPY001007();
+                    respAliObj.orderString = respDataAli;
                     this.state_CODE = Dicts.StateCode[0];
-                    this.RespData = respDataAli;
+                    this.RespData = respAliObj;
                     return;
                 case "wepay":
                     for (int i = 0; i < 10; i++)

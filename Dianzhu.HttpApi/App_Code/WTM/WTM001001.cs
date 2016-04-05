@@ -35,6 +35,13 @@ public class ResponseWTM001001 : BaseResponse
             string repeat = requestData.repeat;
             RespDataWTM_workTimeObj workTimeObj = requestData.workTimeObj;
 
+            if (workTimeObj.startTime == workTimeObj.endTime)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "服务开始时间不能等于结束时间！";
+                return;
+            }
+
             Guid userID,svcID;
             bool isUserId = Guid.TryParse(raw_id, out userID);
             if (!isUserId)

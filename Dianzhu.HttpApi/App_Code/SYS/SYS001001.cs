@@ -81,6 +81,7 @@ public class ResponseSYS001001:BaseResponse
         chat.From = bllMember.GetUserById(new Guid(reqData.from));
         chat.ServiceOrder = bllOrder.GetOne(new Guid(reqData.orderId));
         chat.MessageBody = reqData.body;
+        chat.FromResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), reqData.from_resource);
         chat.ReceiveTime = DateTime.Now;
         chat.SavedTime = DateTime.Now;
         if (chatType == enum_ChatType.Media)
@@ -136,7 +137,7 @@ public class ResponseSYS001001:BaseResponse
 
                 using (var client = new WebClient())
                 {
-                    string savedPath = Environment.CurrentDirectory + Dianzhu.Config.Config.GetAppSetting("LocalMediaSaveDir") + localFileName;
+                    string savedPath = HttpRuntime.AppDomainAppPath + Dianzhu.Config.Config.GetAppSetting("LocalMediaSaveDir") + localFileName;
                     PHSuit.IOHelper.EnsureFileDirectory(savedPath);
                     client.DownloadFile(mediaUrl, savedPath);
                 }
@@ -145,10 +146,7 @@ public class ResponseSYS001001:BaseResponse
 
         ReceptionChatDD chatDD = new ReceptionChatDD();
         chatDD.Id = chat.Id;
-        if (chat.MessageBody != "")
-        {
-            chatDD.MessageBody = chat.MessageBody;
-        }
+        chatDD.MessageBody = chat.MessageBody;
         chatDD.ReceiveTime = chat.ReceiveTime;
         chatDD.SendTime = chat.SendTime;
         chatDD.To = chat.To;
@@ -156,12 +154,13 @@ public class ResponseSYS001001:BaseResponse
         chatDD.Reception = chat.Reception;
         chatDD.SavedTime = DateTime.Now;
         chatDD.ChatType = chat.ChatType;
+        chatDD.FromResource = chat.FromResource;
         chatDD.ServiceOrder = chat.ServiceOrder;
         chatDD.Version = chat.Version;
         chatDD.IsCopy = false;
         if (chat is ReceptionChatMedia)
         {
-            chatDD.MedialUrl = ((ReceptionChatMedia)chat).MedialUrl;
+            chatDD.MedialUrl = ((ReceptionChatMedia)chat).MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
             chatDD.MediaType = ((ReceptionChatMedia)chat).MediaType;
         }
         chatDD.ChatTarget = chat.ChatTarget;

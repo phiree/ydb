@@ -39,7 +39,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             //加载历史订单
             int totalAmount;
-            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer, 1, 999, out totalAmount);
+            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer, 1, 5, out totalAmount);
             if (!allList.ContainsKey(serviceOrder.Customer))
             {
                 allList.Add(serviceOrder.Customer, orderList);

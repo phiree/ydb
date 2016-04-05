@@ -66,19 +66,6 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public DateTime TargetTime
-        {
-            get
-            {
-                return Convert.ToDateTime(tbxTargetTime.Text);
-            }
-
-            set
-            {
-                tbxTargetTime.Text = value.ToString();
-            }
-        }
-
         private void LoadServiceToPanel(DZService service)
         {
             WrapPanel pnl = new WrapPanel();

@@ -23,43 +23,24 @@ namespace MediaServer
             {
                 if (domainPath.Count == 0)
                 {
-                    domainPath.Add("BusinessImage", "/BusinessImage/");//商家后台上传图片
-                    domainPath.Add("UserAvatar", "/Avatar/");//用户头像
-                    domainPath.Add("ChatAudio", "/ChatAudio/");
-                    domainPath.Add("ChatVideo", "/ChatVideo/");
-                    domainPath.Add("ChatImage", "/ChatImage/");
-                    domainPath.Add("Advertisement", "/Advertisement/");
-                    domainPath.Add("StaffAvatar", "/StaffAvatar/");//职工头像
-                    domainPath.Add("BusinessAvatar", "/BusinessAvatar/");//店铺logo
-                    domainPath.Add("BusinessShow", "/BusinessShow/");//店铺展示图片
-                    domainPath.Add("BusinessLicense", "/BusinessLicense/");//商家营业执照
-                    domainPath.Add("BusinessLicenseB", "/BusinessLicenseB/");//商家营业执照
-                    domainPath.Add("BusinessChargePersonIdCard", "/BusinessChargePersonIdCard/");//负责人证件照片
-                    domainPath.Add("BusinessChargePersonIdCardB", "/BusinessChargePersonIdCardB/");//负责人证件照片
+                    domainPath["BusinessImage"] = "/BusinessImage/";//商家后台上传图片
+                    domainPath["UserAvatar"] = "/Avatar/";//用户头像
+                    domainPath["ChatAudio"] = "/ChatAudio/";//聊天语音
+                    domainPath["ChatVideo"] = "/ChatVideo/";//聊天视频
+                    domainPath["ChatImage"] = "/ChatImage/";//聊天图片
+                    domainPath["Advertisement"] = "/Advertisement/";//广告
+                    domainPath["StaffAvatar"] = "/StaffAvatar/";//职工头像
+                    domainPath["BusinessAvatar"] = "/BusinessAvatar/";//店铺logo
+                    domainPath["BusinessShow"] = "/BusinessShow/";//店铺展示图片
+                    domainPath["BusinessLicense"] = "/BusinessLicense/";//商家营业执照
+                    domainPath["BusinessLicenseB"] = "/BusinessLicenseB/";//商家营业执照
+                    domainPath["BusinessChargePersonIdCard"] = "/BusinessChargePersonIdCard/";//负责人证件照片
+                    domainPath["BusinessChargePersonIdCardB"] = "/BusinessChargePersonIdCardB/";//负责人证件照片
                 }
                 return domainPath;
             }
         }
         private static Dictionary<FileType, string> fileExtension = new Dictionary<FileType, string>();//文件扩展名
-
-        public static Dictionary<FileType, string> FileExtension
-        {
-            get
-            {
-                if (fileExtension.Count == 0)
-                {
-                    fileExtension.Add(FileType.voice, ".mp3");
-                    fileExtension.Add(FileType.doc, ".docx");
-                    fileExtension.Add(FileType.image, ".png");
-                    fileExtension.Add(FileType.pdf, ".pdf");
-                    fileExtension.Add(FileType.txt, ".txt");
-                    fileExtension.Add(FileType.video, ".mp4");
-                    fileExtension.Add(FileType.other, "");
-
-                }
-                return fileExtension;
-            }
-        }
 
         /// <summary>
         /// 文件名生成（字符串），无文件类型，通过解析字符串可获取文件类型
@@ -70,8 +51,6 @@ namespace MediaServer
         /// <returns></returns>
         public static string FileNameBuilder(string originalName, string domainType, FileType fileType)
         {
-            
-            string fileExtension = FileExtension[fileType];
             string fileNameGuid = Guid.NewGuid().ToString();
             string fileName = string.Format("{1}{0}{2}{0}{3}{0}{4}",
                 seperator,

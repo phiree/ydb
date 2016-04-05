@@ -121,7 +121,8 @@ namespace Com.Alipay
                 switch (_sign_type)
                 {
                     case "RSA":
-                        isSgin = RSAFromPkcs8.verify(preSignStr, sign, _public_key, _input_charset);
+                        //isSgin = RSAFromPkcs8.verify(preSignStr, sign, _public_key, _input_charset);//web版
+                        isSgin = AlipaySignature.RSACheckV2(inputPara, HttpRuntime.AppDomainAppPath + "/files/rsa_public_key_Ali.pem", _input_charset);//app版
                         break;
                     default:
                         break;

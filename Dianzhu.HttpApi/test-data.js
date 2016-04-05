@@ -1,7 +1,7 @@
 ﻿var need_to_test = [
  //"orm002001", "orm001003", "orm001004", "orm001005","orm00100","orm001007", "orm003005", "orm003006", "orm003007"
 // "orm001006","lct001007"
-//"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
+//"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008","usm001009"
 //"u3rd014008", "ad001006","clm001001"
 //"slf002006", "slf002003", "slf001007","py001007","py001008"
 //"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
@@ -445,12 +445,12 @@ var test_data = [
     {
         "protocol_CODE": "CLM001001",
         "ReqData": {
-            "userID": "2c843b9f-ed19-40c2-99b4-a54500f97205",
-            "pWord": "123",
-            "orderID": "05c43210-7787-40df-8b93-a57901063d4d",
-            "target": "cer",
-            "context": "AABBCCDDSSXXFFGG",
-            "resourcesUrl": "http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png",
+            "userID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
+            "pWord": "123456",
+            "orderID": "043303c7-ff37-489c-9745-a59600fe683d",
+            "target": "store",
+            "context": "明敏",
+            "resourcesUrl": "http://119.29.39.211:8038/GetFile.ashx?fileName\u003d_$_f73f5c8a-70c7-4355-aaa3-aafac3d014f2_$_UserAvatar_$_image",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -680,18 +680,28 @@ var test_data = [
               "stamp_TIMES": "1490192929212",
               "serial_NUMBER": "00147001015869149751"
           },
-          {
-              "protocol_CODE": "ORM001007",
-              "ReqData": {
-                  "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb", //13022222222
-                  "pWord": "1234",
-                  "orderID": "05a6de65-ade2-4458-a272-a5cd00f6ac86",
-                  "pageSize": "50",
-                  "pageNum": "0"
-              },
-              "stamp_TIMES": "1490192929212",
-              "serial_NUMBER": "00147001015869149751"
-          },
+         {
+             "ReqData": {
+
+
+                 "pageNum": "1",
+                 "userID": "b172b145-1461-4e98-a66b-a5ca00f7bdfa",
+                 "orderID": "b1c08b9f-576b-4b23-b713-a5d301012635",
+                 "pageSize": "5",
+                 "pWord": "1234"
+             },
+
+             "serial_NUMBER":
+           "00904309",
+
+
+             "stamp_TIMES": "1458918391808",
+
+             "appName": "Ios",
+             "protocol_CODE": "ORM001007"
+
+
+         },
           {
               "protocol_CODE": "ORM001008",
               "ReqData": {
@@ -772,10 +782,10 @@ var test_data = [
            {
                "protocol_CODE": "ORM003007",
                "ReqData": {
-                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                   "userID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
                    "pWord": "123456",
-                   "orderID": "c7e1c471-16e1-46aa-8e65-a56000fe27fd",
-                   "status": "Assigned",
+                   "orderID": "a602e14a-4ffc-4f07-b0cb-a5d300bfedfb",
+                   "status": "Payed",
                },
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"
@@ -890,6 +900,16 @@ var test_data = [
                          "pWord": "123456",
                          "type": "image",
                          "Resource": "iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII="
+                     },
+                     "stamp_TIMES": "1490192929212",
+                     "serial_NUMBER": "00147001015869149751"
+                 },
+                 //修改密码
+                 {
+                     "protocol_CODE": "USM001009",
+                     "ReqData": {
+                         "userID": "b172b145-1461-4e98-a66b-a5ca00f7bdfa",
+                         "newPWord": "1234",
                      },
                      "stamp_TIMES": "1490192929212",
                      "serial_NUMBER": "00147001015869149751"

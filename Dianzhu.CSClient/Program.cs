@@ -35,7 +35,7 @@ namespace Dianzhu.CSClient
 
             //log
              PHSuit.Logging.Config("Dianzhu.CSClient");
-            log.Debug("Start");
+            log.Debug( "开始启动助理工具");
             
             //prepare parameters for IM instance's constructor
             //init messageadapter
@@ -45,7 +45,7 @@ namespace Dianzhu.CSClient
             string server = Config.Config.GetAppSetting("ImServer");
             string domain= Config.Config.GetAppSetting("ImDomain");
 
-            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,domain, messageAdapter, Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString());
+            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,domain, messageAdapter, Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString());
 
 
             var loginForm = new ViewWPF.FormLogin();
@@ -60,6 +60,7 @@ namespace Dianzhu.CSClient
             //登录成功
             if (result.Value)// == DialogResult.OK)
             {
+                log.Debug("登录成功");
                 IViewChatList viewChatList=null;
                 IViewIdentityList viewIdentityList = null;
                 IViewOrder viewOrder = null;
@@ -93,12 +94,12 @@ namespace Dianzhu.CSClient
                 Presenter.PChatList pChatList = new Presenter.PChatList(viewChatList, viewIdentityList, xmpp);
                 Presenter.IdentityManager pIdentityManager = new Presenter.IdentityManager(pIdentityList, pChatList);
                 Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList);
-                Presenter.PSearch pSearch = new Presenter.PSearch(xmpp,viewSearch, viewSearchResult, viewOrder);
+                Presenter.PSearch pSearch = new Presenter.PSearch(xmpp,viewSearch, viewSearchResult, viewOrder,viewChatList);
                 Presenter.POrder pOrder = new Presenter.POrder(xmpp, viewOrder);
                 Presenter.POrderHistory pOrderHistory = new Presenter.POrderHistory(viewOrderHistory,viewIdentityList);
                 Presenter.PChatSend pChatSend = new Presenter.PChatSend(viewChatSend, viewChatList, xmpp);
-                Presenter.PMain pMain = new Presenter.PMain(new BLLReceptionStatus(),
-                    new BLLReceptionStatusArchieve(), new BLLReceptionChatDD(), new BLLReceptionChat(), xmpp, viewIdentityList);
+                Presenter.PMain pMain = new Presenter.PMain(new BLLReceptionStatus(), new BLLReceptionStatusArchieve(),
+                    new BLLReceptionChatDD(), new BLLReceptionChat(), new BLLIMUserStatus(), xmpp, viewIdentityList);
 
                 if (useWpf)
                 {
@@ -137,7 +138,8 @@ namespace Dianzhu.CSClient
 
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            log.Error(e.ExceptionObject.ToString());
+            
+            log.Error("异常崩溃:"+ e.ExceptionObject.ToString());
             MessageBox.Show(e.ExceptionObject.ToString());
         }
         static string GetVersion()

@@ -18,24 +18,17 @@ public class Push : IHttpHandler
         }
         else
         {
-            switch (appType.ToLower())
-            {
-                case "ios":
+            
                     string deviceToken = context.Request["deviceToken"];
                     string pushNum = context.Request["pushNum"];
                     string notificaitonSound = context.Request["notificaitonSound"];
                     string message = context.Request["message"];
                     log.Debug(string.Format("推送参数为:devicetoken_{0},pushnum{1},sound_{2},message_{3}", deviceToken, pushNum, notificaitonSound, message));
-                    IPush push = new PushIOS(deviceToken, Convert.ToInt16(pushNum), notificaitonSound);
-                    push.Push(message);
+                    IPush push = PushFactory.Create(appType, string.Empty); 
+                    push.Push(message,deviceToken);
                     log.Debug("推送完成");
-                    break;
-                case "android": break;
-                case "wp": break;
-                default:
-                    response = "error:Unknow cliens.";
-                    break;
-            }
+                    
+       
         }
         context.Response.Write(response);
     }
