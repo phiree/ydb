@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Security;
 
 namespace Dianzhu.Model
 {
@@ -37,7 +38,7 @@ namespace Dianzhu.Model
             }
             return null;
         }
-        public virtual int LoginTimes { get; protected set; }
+        public virtual int LoginTimes { get;   set; }
         public virtual Guid Id { get; set; }
         public virtual string UserName { get; set; }
         //用||(双竖线)替换邮箱用户中的@符号
@@ -89,14 +90,32 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string UserType { get; set; }
 
-         
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="oldPassword"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
+        public virtual bool ChangePassword(string oldPassword, string newPassword)
+        {
+            string encryptedOldPsw = FormsAuthentication.HashPasswordForStoringInConfigFile(oldPassword, "MD5");
+            string encryptedNewPsw = FormsAuthentication.HashPasswordForStoringInConfigFile(newPassword, "MD5");
+            if (this.Password != encryptedOldPsw) return false;
+            else {
+                this.Password = encryptedNewPsw;
+                this.PlainPassword = newPassword;
+                return true;
+            }
+
+        }
         
+
     }
     /// <summary>
     /// 商家相关用户.
     /// 
     /// </summary>
-    
+    [Obsolete]
     public class BusinessUser : DZMembership
     {
         /// <summary>

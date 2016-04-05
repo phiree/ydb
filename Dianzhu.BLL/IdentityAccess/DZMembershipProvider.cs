@@ -15,7 +15,7 @@ using FluentValidation;
 namespace Dianzhu.BLL
 {
     /// <summary>
-    /// ddd:domainservice
+    /// ddd:applicationservice
     /// </summary>
     public class DZMembershipProvider : MembershipProvider
     {
@@ -55,11 +55,7 @@ namespace Dianzhu.BLL
 
             DZMembership member = DALMembership.GetMemberByName(username);
 
-            string encryptedOldPsw = FormsAuthentication.HashPasswordForStoringInConfigFile(oldPassword, "MD5");
-            string encryptedNewPsw = FormsAuthentication.HashPasswordForStoringInConfigFile(newPassword, "MD5");
-            if (member.Password != encryptedOldPsw) return false;
-            member.Password = encryptedNewPsw;
-            member.PlainPassword = newPassword;
+            member.ChangePassword(oldPassword, newPassword);
             DALMembership.ChangePassword(member);
             return true;
         }
@@ -207,13 +203,18 @@ namespace Dianzhu.BLL
 
         public override bool ValidateUser(string username, string password)
         {
-
+           
             string encryptedPwd = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
 
-            bool isValid = DALMembership.ValidateUser(username, encryptedPwd);
+           DZMembership member = DALMembership.ValidateUser(username, encryptedPwd);
 
-
-            return isValid;
+            if (member == null) { return false; }
+            else {
+                member.LoginTimes += 1;
+                DALMembership.SaveOrUpdate(member);
+                return true;
+            }
+           
         }
         #endregion
 
