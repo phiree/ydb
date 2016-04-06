@@ -58,7 +58,18 @@ public class ResponseSHM001007 : BaseResponse
                 {
                     for(int i = 0; i < typeList.Count(); i++)
                     {
-                        
+                        switch (typeList[i])
+                        {
+                            case "maxOrder":
+
+                                break;
+                            case "workTime":
+
+                                break;
+                            case "order":
+
+                                break;
+                        }
                     }
                 }
 
