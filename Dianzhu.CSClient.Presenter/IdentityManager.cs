@@ -139,6 +139,8 @@ namespace Dianzhu.CSClient.Presenter
             {
                 throw new Exception("当前列表中存在重复项");
             }
+            log.Debug("更新完成");
+
         }
     }
     public static class DictExtension

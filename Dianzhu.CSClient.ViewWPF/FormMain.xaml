@@ -88,9 +88,9 @@
 
     </Grid>
         <Grid Grid.Row="1">
-            <ScrollViewer x:Name="scrNotice" VerticalScrollBarVisibility="Auto" Grid.Row="0">
+
                 <StackPanel  x:Name="pnlNotice"/>
-            </ScrollViewer>
+            
         </Grid>
     </Grid>
    
