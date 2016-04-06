@@ -16,6 +16,7 @@
                 <Button x:Name="btnSendImage" Content="发送图片" Click="btnSendMedia_Click" />
                 <Button x:Name="btnSendAudio" Content="发送音频" Click="btnSendMedia_Click" />
                 <Button x:Name="btnCaptureImage" Content="截屏" Click="btnCaptureImage_Click" />
+                <Label x:Name="lblSendingMsg" Content="Label"/>
 
             </WrapPanel>
         </StackPanel>
