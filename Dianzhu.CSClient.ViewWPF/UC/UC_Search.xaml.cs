@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
+using System.ComponentModel;
+using System.Threading;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -131,10 +133,32 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync();
+
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                this.btnSearch.Content = "正在搜索......";
+            }));
+
+            Thread.Sleep(1000);
+
+
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             if (Search != null)
             {
                 Search();
             }
+            this.btnSearch.Content = "搜索";
         }
 
         private void cbxSearchTypeF_SelectionChanged(object sender, SelectionChangedEventArgs e)
