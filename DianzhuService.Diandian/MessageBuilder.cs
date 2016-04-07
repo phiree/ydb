@@ -9,10 +9,10 @@ namespace DianzhuService.Diandian
    public  class MessageBuilder
     {
         Message msg;
-        public MessageBuilder Create(string from,string to,string body,string orderId)
+        public MessageBuilder Create(string from, string to, string body, string orderId)
         {
-              msg = new Message(new Jid(to+"@"+GlobalViables.DomainName)
-                ,new Jid(from+"@" +GlobalViables.DomainName), body);
+            msg = new Message(new Jid(to + "@" + GlobalViables.DomainName + "/" + Dianzhu.Model.Enums.enum_XmppResource.YDBan_DianDian)
+              , new Jid(from + "@" + GlobalViables.DomainName + "/" + Dianzhu.Model.Enums.enum_XmppResource.YDBan_DianDian), body);
             msg.SetAttribute("type", "chat");
             var nodeExt = new agsXMPP.Xml.Dom.Element("ext");
             var nodeOrder = new agsXMPP.Xml.Dom.Element("orderID",orderId);
@@ -26,39 +26,6 @@ namespace DianzhuService.Diandian
         {
             msg.SelectSingleElement("ext").Namespace = "ihelper:chat:text";
             return msg;
-        }
-        
-        public Message BuildMedia(string mediaType,string mediaUrl)
-        {
-            var nodeMedia= new agsXMPP.Xml.Dom.Element("msgObj");
-            nodeMedia.SetAttribute("url", mediaUrl);
-
-            nodeMedia.SetAttribute("type", mediaType);
-            msg.SelectSingleElement("ext").AddChild(nodeMedia);
-            msg.SelectSingleElement("ext").Namespace = "ihelper:chat:media";
-            return msg;
-        }
-
-        public IQ BuildIq()
-        {
-            /*<iq from='bard@shakespeare.lit/globe'
-  id='get-online-users-list-1'
-  to='shakespeare.lit'
-  type='set'
-  xml:lang='en'>
-<command xmlns='http://jabber.org/protocol/commands' 
-         action='execute'
-         node='http://jabber.org/protocol/admin#get-online-users-list'/>
-</iq>*/
-
-            IQ iq = new IQ(IqType.set);
-            iq.From = GlobalViables.XMPPConnection.Username + "@" + GlobalViables.DomainName;
-            iq.To = GlobalViables.ServerName;
-            var nodeCommand = new agsXMPP.Xml.Dom.Element("command", string.Empty, "http://jabber.org/protocol/commands");
-            nodeCommand.SetAttribute("action", "execute");
-            nodeCommand.SetAttribute("node", "http://jabber.org/protocol/admin#get-online-users-list");
-            iq.AddChild(nodeCommand);
-            return iq;
         }
     }
 }

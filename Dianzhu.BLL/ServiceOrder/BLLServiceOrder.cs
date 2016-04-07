@@ -318,8 +318,8 @@ namespace Dianzhu.BLL
             new Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> {
                 //正常支付流程订单状态变更
                 { enum_OrderStatus.Created,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed }},
-                { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed }},
-                { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.Created }},
+                { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed ,
+                                                                        enum_OrderStatus.Created}},
                 { enum_OrderStatus.Negotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Payed,
                                                                             enum_OrderStatus.IsEnd }},
                 { enum_OrderStatus.isNegotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
@@ -378,6 +378,9 @@ namespace Dianzhu.BLL
         };
     }
 
+    /// <summary>
+    /// 订单状态历史记录
+    /// </summary>
     public class BLLServiceOrderStateChangeHis
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
