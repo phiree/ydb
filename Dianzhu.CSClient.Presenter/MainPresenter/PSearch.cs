@@ -162,24 +162,11 @@ namespace Dianzhu.CSClient.Presenter
 
         }
         #endregion
-        private void ViewSearch_Search()
+        private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId)
         {
             int total;
-            Guid typeId;
-            if (ServiceTypeThird != null)
-            {
-                typeId = ServiceTypeThird.Id;
-            }
-            else if (ServiceTypeSecond != null)
-            {
-                typeId = ServiceTypeSecond.Id;
-            }
-            else
-            {
-                typeId = ServiceTypeFirst.Id;
-            }
-
-            IList<Model.DZService> services = dalService.SearchService(viewSearch.SearchKeywordPriceMin,viewSearch.SearchKeywordPriceMax,typeId,viewSearch.SearchKeywordTime, 0, 10, out total);
+           
+            IList<Model.DZService> services = dalService.SearchService(minPrice,maxPrice, servieTypeId,targetTime,  0, 10, out total);
             viewSearchResult.SearchedService = services;
         }
     }

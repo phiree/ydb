@@ -18,6 +18,7 @@ namespace Dianzhu.CSClient.Presenter
      /// </summary>
     public  class PMain
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PMain");
         BLLReceptionStatus bllReceptionStatus;
         BLLReceptionChat bllReceptionChat;
         BLLReceptionChatDD bllReceptionChatDD;
@@ -48,15 +49,18 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="num"></param>
         private void SysAssign(int num)
         {
+            log.Debug("-------开始 接收离线消息------");
             IList<ReceptionStatus> rsList = bllReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, num);
             if (rsList.Count > 0)
             {
+                log.Debug("需要接待的离线用户数量:"+rsList.Count);
                 foreach (ReceptionStatus rs in rsList)
                 {
                     #region 接待记录存档
                     SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
                     #endregion
                     rs.CustomerService = GlobalViables.CurrentCustomerService;
+                    log.Debug("保存新分配的接待记录");
                     bllReceptionStatus.SaveByRS(rs);
 
                     CopyDDToChat(rsList.Select(x => x.Customer).ToList());
@@ -109,6 +113,7 @@ namespace Dianzhu.CSClient.Presenter
                     
                 }
             }
+            log.Debug("-------结束 接收离线消息------");
         }
         /// <summary>
         /// 接待记录存档
@@ -118,6 +123,7 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="order"></param>
         private void SaveRSA(DZMembership customer, DZMembership cs, ServiceOrder order)
         {
+            log.Debug("-------开始 接待记录存档------");
             ReceptionStatusArchieve rsa = new ReceptionStatusArchieve
             {
                 Customer = customer,
@@ -125,6 +131,7 @@ namespace Dianzhu.CSClient.Presenter
                 Order = order,
             };
             bllReceptionStatusArchieve.SaveOrUpdate(rsa);
+            log.Debug("-------结束 接待记录存档------");
         }
 
         /// <summary>

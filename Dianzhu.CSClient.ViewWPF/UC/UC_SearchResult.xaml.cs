@@ -36,20 +36,26 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             set
             {
-                searchedService = value;
-                pnlSearchResult.Children.Clear();
-                //foreach (DZService service in searchedService)
-                //{
-                //    LoadServiceToPanel(service);
-                //}Hashtable ht = (Hashtable)list[i];
-                foreach (DZService service in searchedService)
+                this.Dispatcher.Invoke((Action)(() =>
                 {
-                    if (pnlSearchResult.FindName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()))!=null)
+                    searchedService = value;
+                    pnlSearchResult.Children.Clear();
+                    //foreach (DZService service in searchedService)
+                    //{
+                    //    LoadServiceToPanel(service);
+                    //}Hashtable ht = (Hashtable)list[i];
+                    foreach (DZService service in searchedService)
                     {
-                        pnlSearchResult.UnregisterName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()));
-                    }                    
-                    LoadServiceToPanel(service);
-                }
+                        if (pnlSearchResult.FindName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString())) != null)
+                        {
+                            pnlSearchResult.UnregisterName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()));
+                        }
+                        LoadServiceToPanel(service);
+                    }
+
+
+                }));
+                
             }
         }
 
@@ -134,6 +140,13 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             PushServices(services);
             
+        }
+
+        public string LoadingText
+        {
+            set {
+                lblLoadingText.Content = value;
+            }
         }
     }
 }

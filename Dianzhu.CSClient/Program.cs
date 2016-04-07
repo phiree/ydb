@@ -27,6 +27,14 @@ namespace Dianzhu.CSClient
         [STAThread]
         static void Main()
         {
+            PHSuit.Logging.Config("Dianzhu.CSClient");
+            bool isValidConfig=  CheckConfig();
+            if (!isValidConfig)
+            {
+                MessageBox.Show("配置错误,程序即将退出");
+                Application.ExitThread();
+                return;
+            }
             //systemconfig
             AppDomain cDomain = AppDomain.CurrentDomain;
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);
@@ -34,7 +42,7 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
 
             //log
-             PHSuit.Logging.Config("Dianzhu.CSClient");
+           
             log.Debug( "开始启动助理工具");
             
             //prepare parameters for IM instance's constructor
@@ -77,8 +85,9 @@ namespace Dianzhu.CSClient
                     viewChatSend = new ViewWPF.UC_ChatSend();
                     viewOrder = new ViewWPF.UC_Order();
                     viewOrderHistory = new ViewWPF.UC_OrderHistory();
-                    viewSearch = new ViewWPF.UC_Search();
+                    
                     viewSearchResult = new ViewWPF.UC_SearchResult();
+                    viewSearch = new ViewWPF.UC_Search(viewSearchResult);
                     viewNotice = new ViewWPF.UC_Notice();
                 }
                 else
@@ -141,6 +150,32 @@ namespace Dianzhu.CSClient
 
         }
 
+        static bool CheckConfig()
+        {
+            log.Debug("--开始 检查配置是否冲突");
+            //need: openfire服务器 数据库,api服务器,三者目标ip应该相等.
+            bool isValidConfig = false;
+            string connectionString = PHSuit.Security.Decrypt(System.Configuration.ConfigurationManager
+                .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false);
+            System.Text.RegularExpressions.Match m = System.Text.RegularExpressions.Regex.Match(connectionString, @"(?<=data\s+source\=).+?(?=;uid)");
+            string ofserver= Dianzhu.Config.Config.GetAppSetting("ImServer");
+            System.Text.RegularExpressions.Match m2= System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:8037)");
+
+            if (ofserver == m.Value && m.Value == m2.Value)
+            {
+                isValidConfig = true;
+            }
+            else
+            {
+                log.Error(m.Value+","+m2.Value+","+ofserver);
+            }
+
+            return isValidConfig;
+
+
+
+            
+        }
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             

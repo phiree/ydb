@@ -68,7 +68,7 @@ namespace Dianzhu.CSClient.Presenter
             //this.view.IdentityItemActived += new IdentityItemActived(LoadCurrentOrder);
 
             this.view.ButtonNamePrefix =GlobalViables.ButtonNamePrefix;
-            this.view.SearchService += new IView.SearchService(view_SearchService);
+           // this.view.SearchService += new IView.SearchService(view_SearchService);
             this.view.SelectService += View_SelectService;
             this.view.SendPayLink += new IView.SendPayLink(view_SendPayLink);
             this.view.CreateOrder += new CreateOrder(view_CreateOrder);
