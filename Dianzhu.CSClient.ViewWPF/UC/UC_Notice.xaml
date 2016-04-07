@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Label x:Name="lblNotice" Content="" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+         <TextBlock x:Name="contNotice" />
 
     </Grid>
 </UserControl>

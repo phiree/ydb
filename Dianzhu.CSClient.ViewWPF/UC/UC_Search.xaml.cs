@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
+using System.ComponentModel;
+using System.Threading;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -21,8 +23,10 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_Search : UserControl,IView.IViewSearch
     {
-        public UC_Search()
+        IView.IViewSearchResult viewSearchResult;
+        public UC_Search(IView.IViewSearchResult viewSearchResult)
         {
+            this.viewSearchResult = viewSearchResult;
             InitializeComponent();
         }
 
@@ -131,10 +135,54 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync();
+
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Model.ServiceType selectedType = null;
+            DateTime targetTime=DateTime.Now;
+            decimal minPrice=0, maxPrice=0;
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                this.btnSearch.Content = "正在搜索......";
+                this.btnSearch.IsEnabled = false;
+                this.viewSearchResult.LoadingText = "正在搜索服务,请稍后";
+
+                selectedType = (Model.ServiceType)(
+                                    cbxSearchTypeT.SelectedItem == null||cbxSearchTypeT.IsVisible==false ? 
+                                    (cbxSearchTypeS.SelectedItem == null || cbxSearchTypeS.IsVisible == false ? 
+                                    (cbxSearchTypeF.SelectedItem==null|| cbxSearchTypeF.IsVisible == false ? null
+                                    :cbxSearchTypeF.SelectedItem) 
+                                    : cbxSearchTypeS.SelectedItem) 
+                                    : cbxSearchTypeT.SelectedItem
+                                 );
+
+                targetTime =Convert.ToDateTime( this.tbxKeywordTime.Text);
+                minPrice = Convert.ToDecimal(tbxKeywordPriceMin.Text);
+                maxPrice = Convert.ToDecimal(tbxKeywordPriceMax.Text);
+
+            }));
+            
+
             if (Search != null)
             {
-                Search();
+                Search(targetTime,minPrice,maxPrice,selectedType.Id);
             }
+
+
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+           
+            this.btnSearch.Content = "搜索";
+            this.btnSearch.IsEnabled = true;
+            this.viewSearchResult.LoadingText =string.Empty;
         }
 
         private void cbxSearchTypeF_SelectionChanged(object sender, SelectionChangedEventArgs e)

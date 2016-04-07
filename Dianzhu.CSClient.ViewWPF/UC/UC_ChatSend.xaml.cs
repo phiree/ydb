@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using System.IO;
 using RisCaptureLib;
+using System.ComponentModel;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -39,12 +40,24 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             get
             {
-                return tbxTextMessage.Text;
+                string msg = string.Empty;
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    msg= tbxTextMessage.Text;
+
+                }));
+                return msg;
+               
             }
 
             set
             {
-                tbxTextMessage.Text = value;
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    tbxTextMessage.Text = value;
+
+                }));
+               
             }
         }
 
@@ -60,20 +73,32 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        Button btnMediaSender;
         private void btnSendMedia_Click(object sender, RoutedEventArgs e)
+        {
+                btnMediaSender = (Button)sender;
+               SendMedia();
+            
+        }
+
+        private void WorkerSendMedia_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            lblSendingMsg.Content = string.Empty;
+        }
+        Microsoft.Win32.OpenFileDialog dlg;
+        string domain = string.Empty;
+        string mediaType = string.Empty;
+        private void SendMedia()
         {
             if (SendMediaClick != null)
             {
 
                 // Create OpenFileDialog
-                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                 dlg = new Microsoft.Win32.OpenFileDialog();
 
-               
+                Button btn = btnMediaSender;
+             
 
-                Button btn = (Button)sender;
-                string domain = string.Empty;
-                string mediaType = string.Empty;
-              
                 if (btn.Name == "btnSendImage")
                 {
                     // Set filter for file extension and default file extension
@@ -91,17 +116,32 @@ namespace Dianzhu.CSClient.ViewWPF
                 }
 
                 // Display OpenFileDialog by calling ShowDialog method
-                    Nullable<bool> result = dlg.ShowDialog();
+                Nullable<bool> result = dlg.ShowDialog();
 
                 // Get the selected file name and display in a TextBox
                 if (result == true)
                 {
+                    BackgroundWorker workerSendMedia = new BackgroundWorker();
+                    workerSendMedia.DoWork += WorkerSendMedia_DoWork;
+                    workerSendMedia.RunWorkerCompleted += WorkerSendMedia_RunWorkerCompleted;
+                    workerSendMedia.RunWorkerAsync();
                     
-                    byte[] fileData = File.ReadAllBytes(dlg.FileName);
-                    SendMediaClick(fileData,domain,mediaType);
-                    
+
                 }
+               
             }
+        }
+        private void WorkerSendMedia_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                lblSendingMsg.Content = "正在发送,请稍后";
+               
+            }));
+            byte[] fileData = File.ReadAllBytes(dlg.FileName);
+            SendMediaClick(fileData, domain, mediaType);
+
+
         }
 
         #region 截图
@@ -149,8 +189,31 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void BtnSure_Click(object sender, RoutedEventArgs e)
         {
-            SendMediaClick(BitmapSource2ByteArray(bmp), "ChatImage", "image");
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync();
+
+            
+            
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+           
             win.Close();
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            byte[] bytes=null;
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                win.Title = "正在发送,请稍后........";
+                bytes= BitmapSource2ByteArray(bmp);
+            }));
+            SendMediaClick(bytes, "ChatImage", "image");
+
         }
 
         private Byte[] BitmapSource2ByteArray(BitmapSource source)

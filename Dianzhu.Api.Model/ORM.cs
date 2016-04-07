@@ -424,4 +424,40 @@ namespace Dianzhu.Api.Model
         public string status { get; set; }
     }
     #endregion
+
+    #region ORM003008
+
+    public class ReqDataORM003008
+    {
+        public string merchantID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+        public string negotiateAmount { get; set; }
+    }
+
+    public class RespDataORM003008
+    {
+        public string resultStatus { get; set; }
+    }
+
+    #endregion
+
+    #region ORM003009
+
+    public class ReqDataORM003009
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+        public string appraiseValue { get; set; }
+        public string appraiseDocs { get; set; }
+    }
+
+    public class RespDataORM003009
+    {
+        public string resultStatus { get; set; }
+    }
+
+    #endregion
+
 }

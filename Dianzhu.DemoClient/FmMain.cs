@@ -182,8 +182,8 @@ namespace Dianzhu.DemoClient
 
             Presence p = new Presence(ShowType.chat, "Online");
             p.Type = PresenceType.available;
-            p.To = new Jid(csId + "@" + GlobalViables.ServerName);
-            p.From = new Jid(customerId + "@" + GlobalViables.ServerName);
+            p.To = new Jid(csId + "@" + GlobalViables.ServerName + "/" + Model.Enums.enum_XmppResource.YDBan_CustomerService);
+            p.From = new Jid(customerId + "@" + GlobalViables.ServerName + "/" + Model.Enums.enum_XmppResource.YDBan_DemoClient);
             GlobalViables.XMPPConnection.Send(p);
 
             lblLoginStatus.Text = "登录成功";
@@ -347,8 +347,8 @@ namespace Dianzhu.DemoClient
         {
             Presence p = new Presence(ShowType.chat, "Offline");
             p.Type = PresenceType.unavailable;
-            p.To = new Jid(csId + "@" + GlobalViables.ServerName);
-            p.From = new Jid(StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName);
+            p.To = new Jid(csId + "@" + GlobalViables.ServerName + "/" + Model.Enums.enum_XmppResource.YDBan_CustomerService);
+            p.From = new Jid(StringHelper.EnsureOpenfireUserName(tbxUserName.Text) + "@" + GlobalViables.ServerName + "/" + Model.Enums.enum_XmppResource.YDBan_DemoClient);
             GlobalViables.XMPPConnection.Send(p);
         }
 

@@ -61,6 +61,7 @@
     <Compile Include="City.cs" />
     <Compile Include="Resource\ServiceOpenTimeForDay.cs" />
     <Compile Include="ServiceOrder\ServiceOpenTimeForDaySnapShotForOrder.cs" />
+    <Compile Include="ServiceOrder\ServiceOrderAppraise.cs" />
     <Compile Include="ServiceOrder\ServiceOrderDetail.cs" />
     <Compile Include="ServiceOrder\ServiceOrderFactory.cs" />
     <Compile Include="ServiceOrder\ServiceOrderPushedService.cs" />

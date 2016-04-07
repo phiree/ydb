@@ -8,8 +8,12 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel>
+            <Label x:Name="lblLoadingText"></Label>
         <ScrollViewer VerticalScrollBarVisibility="Auto" >
-            <StackPanel  x:Name="pnlSearchResult" VerticalAlignment="Bottom" />
+                
+                <StackPanel  x:Name="pnlSearchResult" VerticalAlignment="Bottom">
+                    
+                </StackPanel>
         </ScrollViewer>
         <WrapPanel>
                 <Label>目标地址:</Label> <TextBox x:Name="tbxTargetAddress" Width="225"></TextBox>

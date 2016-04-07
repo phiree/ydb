@@ -29,7 +29,18 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             set
             {
-                lblNotice.Content = value + Environment.NewLine;
+                Action lamda = () =>
+                {
+                    contNotice.Text += value + ";";
+                };
+                if (!Dispatcher.CheckAccess())
+                {
+                    Dispatcher.Invoke(lamda);
+                }
+                else
+                {
+                    lamda();
+                }
             }
         }
     }

@@ -28,6 +28,8 @@ public class ResponseFactory
                 return new ResponseUSM001008(request);
             case "usm001009":
                 return new ResponseUSM001009(request);
+            case "usm001010":
+                return new ResponseUSM001010(request);
 
             case "vcm001001":
                 return new ResponseVCM001001(request);
@@ -63,6 +65,10 @@ public class ResponseFactory
                 return new ResponseORM003006(request);
             case "orm003007":
                 return new ResponseORM003007(request);
+            case "orm003008":
+                return new ResponseORM003008(request);
+            case "orm003009":
+                return new ResponseORM003009(request);
 
             case "chat001004":
                 return new ResponseCHAT001004(request);
@@ -170,6 +176,9 @@ public class ResponseFactory
                 return new ResponseWTM001005(request);
             case "wtm001006":
                 return new ResponseWTM001006(request);
+
+            case "drm001006":
+                return new ResponseDRM001006(request);
             default:
                 BaseResponse baeResponse = new BaseResponse(request);
                 baeResponse.state_CODE = Dicts.StateCode[1];

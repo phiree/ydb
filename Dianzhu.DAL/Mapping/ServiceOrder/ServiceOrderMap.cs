@@ -7,10 +7,10 @@ using Dianzhu.Model.Enums;
 using FluentNHibernate.Mapping;
 namespace Dianzhu.DAL.Mapping
 {
-   public class ServiceOrderMap:ClassMap<ServiceOrder>
+    public class ServiceOrderMap : ClassMap<ServiceOrder>
     {
-       public ServiceOrderMap()
-       {
+        public ServiceOrderMap()
+        {
             Id(x => x.Id);
             References<DZMembership>(x => x.Customer);
             Map(x => x.OrderCreated);
@@ -22,15 +22,23 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.OrderStatus);
             References<DZMembership>(x => x.CustomerService);
             HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
-            
+
             Map(x => x.NegotiateAmount);
 
             Map(x => x.DepositAmount);
-           
-            
+        }
+    }
 
-         
-
+    public class ServiceOrderAppraiseMap: ClassMap<ServiceOrderAppraise>
+    {
+        public ServiceOrderAppraiseMap()
+        {
+            Id(x => x.Id);
+            Map(x => x.CreateTime);
+            References<DZMembership>(x => x.Order);
+            References<DZMembership>(x => x.Member);
+            Map(x => x.Value);
+            Map(x => x.Content);
         }
     }
 }

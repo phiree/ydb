@@ -128,7 +128,7 @@ namespace Dianzhu.CSClient.WinformView
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            Search();
+           // Search();
         }
     }
 }
