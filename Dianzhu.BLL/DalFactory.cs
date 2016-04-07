@@ -39,6 +39,12 @@ namespace Dianzhu.BLL
         static DALServiceOpenTime dalServiceOpenTime;
         static DALServiceOrderStateChangeHis dalServiceOrderStateChangeHis;
         static DALComplaint dalComplaint;
+        static DALServiceOrderAppraise dalServiceOrderAppraise;
+        public static DALServiceOrderAppraise DALServiceOrderAppraise
+        {
+            get { return dalServiceOrderAppraise ?? new DALServiceOrderAppraise(); }
+            set { dalServiceOrderAppraise = value; }
+        }
         public static DALComplaint DALComplaint
         {
             get { return dalComplaint ?? new DALComplaint(); }

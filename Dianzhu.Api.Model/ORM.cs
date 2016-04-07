@@ -441,4 +441,23 @@ namespace Dianzhu.Api.Model
     }
 
     #endregion
+
+    #region ORM003009
+
+    public class ReqDataORM003009
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+        public string appraiseValue { get; set; }
+        public string appraiseDocs { get; set; }
+    }
+
+    public class RespDataORM003009
+    {
+        public string resultStatus { get; set; }
+    }
+
+    #endregion
+
 }
