@@ -131,5 +131,10 @@ namespace Dianzhu.DAL
                  .List();
             return orderList;
         }
+
+        public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
+        {
+            return Session.QueryOver<ServiceOrder>().Where(x => x.Id == Id).And(x => x.Customer == customer).SingleOrDefault();
+        }
     }
 }

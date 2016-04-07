@@ -109,6 +109,10 @@ namespace Dianzhu.Model.Enums
         /// </summary>
         Created = 1,//已创建,待付款
         /// <summary>
+        /// 等待后台确认订单是否到帐
+        /// </summary>
+        CheckPayWithDesposit = 4,
+        /// <summary>
         /// 已付款,等待上门服务
         /// </summary>
         Payed = 2,
@@ -137,6 +141,10 @@ namespace Dianzhu.Model.Enums
         /// </summary>
         Ended = 26,
         /// <summary>
+        /// 等待后台确认商议价格是否到帐
+        /// </summary>
+        CheckPayWithNegotiate = 27,
+        /// <summary>
         /// 用户支付尾款，订单完成
         /// </summary>
         Finished = 28,
@@ -159,14 +167,6 @@ namespace Dianzhu.Model.Enums
         /// 服务提前时间未到，等待退还定金
         /// </summary>
         WaitingDepositWithCanceled = 31,
-        /// <summary>
-        /// 等待商户审核取消订单请求
-        /// </summary>
-        WaitingCancel = 32,
-        /// <summary>
-        /// 商户审核后，确认可取消，等待支付违约金
-        /// </summary>
-        isCancel = 5,
         /// <summary>
         /// 取消成功, 退款成功
         /// </summary>
@@ -199,6 +199,10 @@ namespace Dianzhu.Model.Enums
         /// </summary>
         WaitingPayWithRefund = 50,
         /// <summary>
+        /// 等待后台确认退款赔偿金是否到帐
+        /// </summary>
+        CheckPayWithRefund = 51,
+        /// <summary>
         /// 理赔完成
         /// </summary>
         EndRefund = 52,
@@ -221,6 +225,10 @@ namespace Dianzhu.Model.Enums
         /// 要求支付赔偿金
         /// </summary>
         NeedPayWithIntervention = 60,
+        /// <summary>
+        /// 等待后台确认介入要求的赔偿金是否到帐
+        /// </summary>
+        CheckPayWithIntervention = 61,
         /// <summary>
         /// 官方介入完成
         /// </summary>
