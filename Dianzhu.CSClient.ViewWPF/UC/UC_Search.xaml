@@ -10,14 +10,14 @@
         <StackPanel>
             <WrapPanel>
                 <Label Content="时间"></Label>
-                <TextBox x:Name="tbxKeywordTime" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="200"/>
+                <TextBox x:Name="tbxKeywordTime" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="2016-4-5 9:00" Width="200"/>
             </WrapPanel>
 
             <WrapPanel>
                 <Label Content="价格"></Label>
-                <TextBox x:Name="tbxKeywordPriceMin" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="100" PreviewTextInput="tbxKeywordPriceMin_PreviewTextInput" TextChanged="tbxKeywordPriceMin_TextChanged"/>
+                <TextBox x:Name="tbxKeywordPriceMin" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" Width="100" PreviewTextInput="tbxKeywordPriceMin_PreviewTextInput" TextChanged="tbxKeywordPriceMin_TextChanged"/>
                 <Label Content="-"></Label>
-                <TextBox x:Name="tbxKeywordPriceMax" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" Width="100" PreviewTextInput="tbxKeywordPriceMin_PreviewTextInput" TextChanged="tbxKeywordPriceMin_TextChanged"/>
+                <TextBox x:Name="tbxKeywordPriceMax" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="999" Width="100" PreviewTextInput="tbxKeywordPriceMin_PreviewTextInput" TextChanged="tbxKeywordPriceMin_TextChanged"/>
             </WrapPanel>
 
             <WrapPanel>

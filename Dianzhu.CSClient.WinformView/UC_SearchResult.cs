@@ -71,6 +71,14 @@ namespace Dianzhu.CSClient.WinformView
             }
         }
 
+        public string LoadingText
+        {
+            set
+            {
+               
+            }
+        }
+
         private void LoadServiceToPanel(DZService service)
         {
             FlowLayoutPanel pnl = new FlowLayoutPanel();

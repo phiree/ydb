@@ -85,8 +85,9 @@ namespace Dianzhu.CSClient
                     viewChatSend = new ViewWPF.UC_ChatSend();
                     viewOrder = new ViewWPF.UC_Order();
                     viewOrderHistory = new ViewWPF.UC_OrderHistory();
-                    viewSearch = new ViewWPF.UC_Search();
+                    
                     viewSearchResult = new ViewWPF.UC_SearchResult();
+                    viewSearch = new ViewWPF.UC_Search(viewSearchResult);
                     viewNotice = new ViewWPF.UC_Notice();
                 }
                 else
