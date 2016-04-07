@@ -16,6 +16,8 @@
             </div>
         </div>
     </div>
+
+    <!--app template-->
 <script type="text/template" id="app_template">
     <div class="app_view">
         <div class="day-tabs"></div>
@@ -105,6 +107,7 @@
     </div>
 </script>
 
+
 <!-- 服务单个商品模版 -->
 <script type="text/template" id="goods_template">
     {% _.each(arrayGoods,function(good){ %}
@@ -118,6 +121,63 @@
 
     </li>
     {% }); %}
+</script>
+
+<!-- 历史单日模板 -->
+<script type="text/template" id="hisMaxOrder">
+    <div class="day-title">
+        <div class="day-info"><span>{%= date %}</span><span class="m-l10">今日剩余&nbsp;{%= reOrder %}/{%= maxOrder %}</span></div>
+        <div class="day-control">
+
+        </div>
+    </div>
+    <div class="time-buckets-wrap">
+        <div class='time-buckets'>
+            <!--注入时间段模版-->
+        </div>
+    </div>
+</script>
+
+<!-- 历史时间段模板 -->
+<script type="text/template" id="hisWorkTimeTmp">
+    <div class="t-b-top">
+        <div class="t-b-time">
+            <p class="t-b-timeStart">{% print( /\d+\:\d+/.exec(startTime)); %}</p>
+            <p class="t-b-timeEnd">{% print( /\d+\:\d+/.exec(endTime)); %}</p>
+        </div>
+        <div class="t-b-switch">
+            <div class="round-checkbox v-m">
+
+            </div>
+            <div class="l-h20">该时段服务开关</div>
+        </div>
+        <div class="t-b-num">
+        </div>
+        <div class="t-b-window">
+            <div class="good-prev"><<</div>
+            <div class="good-list-wrap wt-wrap" data-startTime="{%= startTimeFix %}" data-endTime="{%= endTimeFix %}">
+
+            </div>
+            <div class="good-next"> >> </div>
+        </div>
+    </div>
+    <div class="t-b-edit">
+        <div class="edit-t">
+            <input class="multiDelete" type="button" value="下架货品"/>
+            <input class="multiNum" type="number" value="1" title="填写修改量"/>
+            <input class="multiAdd" type="button" value="上架货品"/>
+        </div>
+        <div class="edit-b">
+            <span class="l-h20">（填写要添加/删除的服务货品数量）</span>
+        </div>
+    </div>
+</script>
+
+<!-- 历史订单模版 -->
+<script type="text/template" id="hisOrderObj">
+        <div class="good-icon-w">
+            <i class="icon"></i>
+        </div>
 </script>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server" >
