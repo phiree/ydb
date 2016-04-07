@@ -57,8 +57,6 @@
     <Compile Include="GlobalViables.cs" />
     <Compile Include="InstantMessageHandler.cs" />
     <Compile Include="LoginPresenter.cs" />
-    <Compile Include="MainPresenter\IM.cs" />
-    <Compile Include="MainPresenter\MainPresenter.cs" />
     <Compile Include="MainPresenter\MessageSender.cs" />
     <Compile Include="MainPresenter\PNotice.cs" />
     <Compile Include="MainPresenter\POrderHistory.cs" />
@@ -70,7 +68,6 @@
     <Compile Include="MainPresenter\POrder.cs" />
     <Compile Include="MainPresenter\PSearch.cs" />
     <Compile Include="MainPresenter\State.cs" />
-    <Compile Include="MainPresenter\View.cs" />
     <Compile Include="MessageLocalStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

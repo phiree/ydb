@@ -9,10 +9,13 @@ namespace Dianzhu.BLL.Reception
 
     /// <summary>
     /// 收到一条消息的处理
-    /// ddd:applicationservice
+    /// ddd: 
     /// </summary>
-    public  class ReceiveMessage
+    public  class ReceptionService
     {
-        
+        public void ReceiveMessage(string message)
+        {
+
+        }
     }
 }

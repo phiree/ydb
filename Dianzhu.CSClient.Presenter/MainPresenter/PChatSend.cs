@@ -92,6 +92,7 @@ namespace Dianzhu.CSClient.Presenter
             iIM.SendMessage(chat);
         }
 
+
  
     }
 

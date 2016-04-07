@@ -23,10 +23,7 @@ namespace Dianzhu.BLL
         {
             DALReception = dal;
         }
-        public void Save(ReceptionBase reception)
-        {
-            DALReception.SaveOrUpdate(reception);
-        }
+      
         
         public IList<ReceptionChat> GetReceptionChatList(DZMembership from, DZMembership to
           ,Guid orderId, DateTime begin, DateTime end,int pageIndex,int pageSize, enum_ChatTarget target, out int rowCount)

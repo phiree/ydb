@@ -7,34 +7,7 @@ using Dianzhu.Model;
  
 namespace Dianzhu.DAL.Mapping
 {
-    public class ReceptionMap : ClassMap<ReceptionBase>
-    {
-        public ReceptionMap()
-        {
-            Id(x => x.Id);
-            HasMany(x => x.ChatHistory).Cascade.All();
-             
-            
-            Map(x => x.IsComplete);
-            References<DZMembership>(x => x.Receiver);
-
-            Map(x => x.SatisfactionRate);
-            References<DZMembership>(x => x.Sender);
-            Map(x => x.TimeBegin);
-            Map(x => x.TimeEnd);
-            
-        }
-    }
-    public class ReceptionCustomerMap : SubclassMap<ReceptionCustomer>
-    {
-        public ReceptionCustomerMap()
-        {
-            HasMany<ServiceOrder>(x => x.Orders);
-            References<CustomerService>(x => x.TransferFrom);
-            HasMany<DZService>(x => x.PushedServices);
-            
-        }
-    }
+    
     public class ReceptionChatMap : ClassMap<ReceptionChat>
     {
         public ReceptionChatMap()
@@ -49,8 +22,7 @@ namespace Dianzhu.DAL.Mapping
             References<ServiceOrder>(x => x.ServiceOrder);
             Map(x => x.ChatType).CustomType<Model.Enums.enum_ChatType>();
             Map(x => x.Version);
-            References<ReceptionBase>(x => x.Reception).Cascade.All().Column("ReceptionBase_id");
-            Map(x => x.ChatTarget).CustomType<Model.Enums.enum_ChatTarget>();
+              Map(x => x.ChatTarget).CustomType<Model.Enums.enum_ChatTarget>();
             Map(x => x.FromResource).CustomType<Model.Enums.enum_XmppResource>();
             Map(x => x.ToResource).CustomType<Model.Enums.enum_XmppResource>();
         }
@@ -70,8 +42,7 @@ namespace Dianzhu.DAL.Mapping
             References<ServiceOrder>(x => x.ServiceOrder);
             Map(x => x.ChatType).CustomType<int>();
             Map(x => x.Version);
-            References<ReceptionBase>(x => x.Reception).Cascade.All().Column("ReceptionBase_id");
-            Map(x => x.IsCopy);
+             Map(x => x.IsCopy);
             Map(x => x.MedialUrl);
             Map(x => x.MediaType);
             Map(x => x.ChatTarget).CustomType<Model.Enums.enum_ChatTarget>();
