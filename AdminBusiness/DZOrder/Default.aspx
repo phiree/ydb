@@ -70,7 +70,7 @@
                                                         <div class="custom-grid">
                                                             <div class="custom-col col-10-1">
                                                                 <div class="order-li">
-                                                                    2015-9-12
+                                                               <%#  Eval("TargetTime") %>
                                                                 </div>
                                                             </div>
                                                             <div class="custom-col col-10-1">
@@ -80,7 +80,7 @@
                                                             </div>
                                                             <div class="custom-col col-10-1">
                                                                 <div class="order-li">
-                                                                    xxxxxx
+                                                                      <%#Eval("ID") %>
                                                                 </div>
                                                             </div>
                                                             <div class="custom-col col-10-1">
