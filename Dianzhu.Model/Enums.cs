@@ -258,6 +258,11 @@ namespace Dianzhu.Model.Enums
 
         CanceledDirectly,//订单已直接取消        
         Aborded=7,//已中止
+
+        /// <summary>
+        /// 未知订单类型
+        /// </summary>
+        Unknow = 100,
     }
     public enum enum_OrderSearchType
     {
@@ -482,6 +487,11 @@ namespace Dianzhu.Model.Enums
         /// 点点
         /// </summary>
         YDBan_DianDian=58,
+
+        /// <summary>
+        /// 未知资源名称
+        /// </summary>
+        Unknow = 100,
     }
 
     /// <summary>

@@ -95,12 +95,12 @@ namespace Dianzhu.BLL
                 ServiceOrder order = payment.Order;
                 switch (order.OrderStatus)
                 {
-                    case Dianzhu.Model.Enums.enum_OrderStatus.Created:
+                    case enum_OrderStatus.Created:
                         //支付定金
-                        bllOrder.OrderFlow_PayDeposit(order);
+                        bllOrder.OrderFlow_ConfirmDeposit(order);
                         break;
-                    case Dianzhu.Model.Enums.enum_OrderStatus.Ended:
-                        bllOrder.OrderFlow_CustomerPayFinalPayment(order);
+                    case enum_OrderStatus.Ended:
+                        bllOrder.OrderFlow_OrderFinished(order);
                         break;
                     default:
                         break;

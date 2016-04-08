@@ -6,6 +6,8 @@ using Dianzhu.Model;
 
 using Dianzhu.DAL;
 using Dianzhu.Model.Enums;
+using Dianzhu.Pay;
+
 namespace Dianzhu.BLL
 {
 
@@ -114,10 +116,19 @@ namespace Dianzhu.BLL
         #region 订单流程变化
 
         /// <summary>
-        /// 用户定金支付完成
+        /// 用户定金支付完成,等待后台确认订单是否到帐
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_PayDeposit(ServiceOrder order)
+        public void OrderFlow_PayDepositAndWaiting(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.CheckPayWithDesposit);
+        }
+
+        /// <summary>
+        /// 后台确认订单到帐
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_ConfirmDeposit(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.Payed);
         }
@@ -206,14 +217,151 @@ namespace Dianzhu.BLL
             ChangeStatus(order, enum_OrderStatus.Appraised);
         }
 
-        //订单状态改变通用方法
-        private void ChangeStatus(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
+        /// <summary>
+        /// 用户申请理赔
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_CustomerRefund(ServiceOrder order)
         {
-            bllServiceOrderStateChangeHis.SaveOrUpdate(order, targetStatus);
+            ChangeStatus(order, enum_OrderStatus.Refund);
+            if (true)//todo：是否在质保期，质保期？？
+            {
+                ChangeStatus(order, enum_OrderStatus.WaitingRefund);
+            }
+        }
+
+        /// <summary>
+        /// 商户裁定理赔
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_BusinessIsRefund(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.isRefund);
+        }
+
+        /// <summary>
+        /// 理赔成功
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_RefundSuccess(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.EndRefund);
+        }
+
+        /// <summary>
+        /// 商户要求支付赔偿金
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.AskPayWithRefund);
+        }
+
+        /// <summary>
+        /// 商户驳回理赔请求
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_BusinessRejectRefund(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.RejectRefund);
+        }
+
+        /// <summary>
+        /// 商户裁定理赔
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_WaitingPayWithRefund(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.WaitingPayWithRefund);
+        }
+
+        /// <summary>
+        /// 用户支付赔偿金
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_CustomerPayRefund(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.CheckPayWithRefund);
+        }
+
+        /// <summary>
+        /// 一点办官方介入
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_YDBInsertIntervention(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.InsertIntervention);
+        }
+
+        /// <summary>
+        /// 等待一点办官方处理
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_YDBHandleWithIntervention(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.HandleWithIntervention);
+        }
+
+        /// <summary>
+        /// 一点办已确认理赔
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_YDBConfirmNeedRefund(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.NeedRefundWithIntervention);
+            //todo:等待退还金额
+        }
+
+        /// <summary>
+        /// 一点办要求用户支付赔偿金
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_NeedPayInternention(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.NeedPayWithIntervention);
+        }
+
+        /// <summary>
+        /// 用户支付赔偿金
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_CustomerPayInternention(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.CheckPayWithIntervention);
+        }
+
+        /// <summary>
+        /// 理赔成功
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_ConfirmInternention(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.EndIntervention);
+        }
+
+        /// <summary>
+        /// 商户裁定理赔
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_ForceStop(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.ForceStop);
+        }
+
+        //订单状态改变通用方法
+        private void ChangeStatus(ServiceOrder order, enum_OrderStatus targetStatus)
+        {
+            enum_OrderStatus oldStatus = order.OrderStatus;
 
             OrderServiceFlow flow = new OrderServiceFlow();
             flow.ChangeStatus(order, targetStatus);
-            
+
+            //保存订单历史记录
+            order.OrderStatus = oldStatus;
+            bllServiceOrderStateChangeHis.SaveOrUpdate(order, targetStatus);
+
+            //更新订单状态
+            order.OrderStatus = targetStatus;
             SaveOrUpdate(order);
 
             log.Debug("调用IMServer,发送订单状态变更通知");
@@ -239,32 +387,35 @@ namespace Dianzhu.BLL
             switch (order.OrderStatus)
             {
                 case enum_OrderStatus.Created:
-                    ChangeStatus(order, enum_OrderStatus.CanceledDirectly); break;
-                case enum_OrderStatus.Payed:
-                    ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
-                    //todo:退还定金
+                    ChangeStatus(order, enum_OrderStatus.EndCancel);
                     break;
-
+                case enum_OrderStatus.Payed:
                 case enum_OrderStatus.Negotiate:
+                case enum_OrderStatus.isNegotiate:
                 case enum_OrderStatus.Assigned:
-                case enum_OrderStatus.Begin:
-                case enum_OrderStatus.IsEnd:
 
-                    //获取确认时间
-                    var negotiateTime = bllServiceOrderStateChangeHis.GetChangeTime(order, enum_OrderStatus.Negotiate);
-                    double timeSpan = (DateTime.Now - negotiateTime).TotalMinutes;
-                    //整个取消
-                    if (order.ServiceOvertimeForCancel <= timeSpan)
+                    ////获取确认时间
+                    //var negotiateTime = bllServiceOrderStateChangeHis.GetChangeTime(order, enum_OrderStatus.Negotiate);
+                    var targetTime = order.Details[0].TargetTime;
+                    if (DateTime.Now <= targetTime)
                     {
-                        //todo:支付赔偿
-                        ChangeStatus(order, enum_OrderStatus.CheckPayWithRefund);
-
+                        double timeSpan = (DateTime.Now - targetTime).TotalMinutes;
+                        //整个取消
+                        if (order.ServiceOvertimeForCancel <= timeSpan)
+                        {
+                            //todo:退还定金
+                            ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
+                        }
+                        else {
+                            //扣除定金，取消成功
+                            ChangeStatus(order, enum_OrderStatus.EndCancel);
+                        }
                     }
-                    else {
-                        //todo:退还定金
-                        ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
+                    else
+                    {
+                        //扣除定金，取消成功
+                        ChangeStatus(order, enum_OrderStatus.EndCancel);
                     }
-                    //  int timeSpan= order.Service.OverTimeForCancel
 
                     break;
 
@@ -293,6 +444,12 @@ namespace Dianzhu.BLL
 
             bllOrderAssignment.SaveOrUpdate(oa);
         }
+        #endregion
+
+        #region http接口方法
+
+        
+
         #endregion
 
     }
@@ -347,7 +504,6 @@ namespace Dianzhu.BLL
 
                 //订单取消状态可从哪些状态变更而来
                 { enum_OrderStatus.Canceled,new List<enum_OrderStatus>() {enum_OrderStatus.Created,
-                                                                           enum_OrderStatus.CheckPayWithDesposit,
                                                                             enum_OrderStatus.Payed,
                                                                              enum_OrderStatus.Negotiate,
                                                                               enum_OrderStatus.isNegotiate,
@@ -361,7 +517,6 @@ namespace Dianzhu.BLL
                { enum_OrderStatus.Refund,new List<enum_OrderStatus>() {enum_OrderStatus.Begin,
                                                                         enum_OrderStatus.IsEnd,
                                                                          enum_OrderStatus.Ended,
-                                                                          enum_OrderStatus.CheckPayWithNegotiate,
                                                                            enum_OrderStatus.Finished,
                                                                             enum_OrderStatus.Appraised}},
 
