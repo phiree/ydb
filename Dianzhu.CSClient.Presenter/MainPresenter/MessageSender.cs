@@ -17,6 +17,7 @@ namespace Dianzhu.CSClient.Presenter
     public partial class MainPresenter
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter");
+        /*
         public void SendMessageWithPush(IInstantMessage.InstantMessage im, ReceptionChat chat)
         {
             //string deviceToken = "8de76c196a605120db39ab58373edf159c1301b43659bd129fcf72b696e2a26c";
@@ -52,6 +53,6 @@ namespace Dianzhu.CSClient.Presenter
 
             }
         }
-
+        */
     }
 }

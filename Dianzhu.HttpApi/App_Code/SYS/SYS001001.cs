@@ -151,8 +151,7 @@ public class ResponseSYS001001:BaseResponse
         chatDD.SendTime = chat.SendTime;
         chatDD.To = chat.To;
         chatDD.From = chat.From;
-        chatDD.Reception = chat.Reception;
-        chatDD.SavedTime = DateTime.Now;
+         chatDD.SavedTime = DateTime.Now;
         chatDD.ChatType = chat.ChatType;
         chatDD.FromResource = chat.FromResource;
         chatDD.ServiceOrder = chat.ServiceOrder;

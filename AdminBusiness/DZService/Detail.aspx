@@ -22,20 +22,24 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">服务名称</span>www.ileechee.com
+                                                <span class="model-pra-t">服务名称</span><%=CurrentService.Name %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">先付定金</span>10%
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">服务类型</span>预定
+                                                <span class="model-pra-t">先付定金</span><%=CurrentService.DepositAmount.ToString("0.00") %>
                                             </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">支付要求</span>先付型服务
+                                                <span class="model-pra-t">服务类型</span><%=CurrentService.ServiceType.ToString() %>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="model-pra">
+                                                <span class="model-pra-t">支付要求</span><%= CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.AliPay?"支付宝"
+                                                                                              :CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.Offline?"线下支付":
+                                                                                              CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.WePay?"微支付":
+                                                                                              CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.Online?"线上支付":
+                                                                                              "不限"%>
                                             </p>
                                         </div>
                                     </div>
@@ -43,7 +47,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">服务介绍</span>www.ileechee.com
+                                                <span class="model-pra-t">服务介绍</span><%=CurrentService.Description %>
                                             </p>
                                         </div>
                                     </div>
@@ -57,32 +61,35 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">服务起步价</span>90
+                                                <span class="model-pra-t">服务起步价</span><%=CurrentService.MinPrice.ToString("#.##") %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">服务对象</span>10%
+                                                <span class="model-pra-t">服务对象</span><%=CurrentService.IsForBusiness?"不限":"对私" %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">是否上门</span>10%
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">服务单价</span>预定
-                                            </p>
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">服务保障</span>先行
-                                            </p>
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">每日最大接单量</span>先行
+                                                <span class="model-pra-t">是否上门</span><%=CurrentService.ServiceMode== Dianzhu.Model.Enums.enum_ServiceMode.ToHouse?"上门":"不上门" %>
                                             </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">付款方式</span>www.ileechee.com
+                                                <span class="model-pra-t">服务单价</span><%=CurrentService.UnitPrice%>/<%=CurrentService.ChargeUnit== Dianzhu.Model.Enums.enum_ChargeUnit.Day?"天":
+                                                                                                                            CurrentService.ChargeUnit== Dianzhu.Model.Enums.enum_ChargeUnit.Hour?"小时":
+                                                                                                                             CurrentService.ChargeUnit== Dianzhu.Model.Enums.enum_ChargeUnit.Month?"月":
+                                                                                                                              CurrentService.ChargeUnit== Dianzhu.Model.Enums.enum_ChargeUnit.Times?"次":"(次)"%>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">提前预约时间</span>www.ileechee.com
+                                                <span class="model-pra-t">服务保障</span><%=CurrentService.IsCompensationAdvance?"是":"否"%>
+                                            </p>
+                                            <p class="model-pra">
+                                                <span class="model-pra-t">每日最大接单量</span><%=CurrentService.MaxOrdersPerDay%>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="model-pra">
+                                                <span class="model-pra-t">付款方式</span>(?)
+                                            </p>
+                                            <p class="model-pra">
+                                                <span class="model-pra-t">提前预约时间</span><%=CurrentService.OrderDelay%>分钟
                                             </p>
                                         </div>
                                     </div>

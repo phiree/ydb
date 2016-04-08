@@ -155,7 +155,7 @@ namespace Dianzhu.CSClient.Presenter
                 copychat.SendTime = chatDD.SendTime;
                 copychat.To = cs;
                 copychat.From = chatDD.From;
-                copychat.Reception = chatDD.Reception;
+                
                 copychat.SavedTime = chatDD.SavedTime;
                 copychat.ChatType = chatDD.ChatType;
                 copychat.FromResource = chatDD.FromResource;

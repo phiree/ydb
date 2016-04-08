@@ -55,15 +55,15 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="order-ctrl t-r">    
-                                                <asp:HyperLink runat="server" ID="PayDepositAmount"></asp:HyperLink>
-                                                <asp:Button runat="server" CommandName="ConfirmOrder" CommandArgument='<%#Eval("Id") %>' ID="btnConfimOrder" CssClass="btn btn-info btn-xs" Text="确认订单"/>
-                                                <asp:TextBox runat="server" CommandName="txtConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="txtConfirmPrice" Width="100"></asp:TextBox>
-                                                <asp:Button runat="server" CommandName="ConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPrice" CssClass="btn btn-info btn-xs" Text="确认价格"/>-
-                                                <asp:Button runat="server" CommandName="ConfirmPriceCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPriceCustomer" CssClass="btn btn-info btn-xs" Text="用户确认价格并开始服务"/>
-                                                <asp:Button runat="server" CommandName="IsEndOrder" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrder" CssClass="btn btn-info btn-xs" Text="订单完成"/>
-                                                <asp:Button runat="server" CommandName="IsEndOrderCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrderCustomer" CssClass="btn btn-info btn-xs" Text="用户确认订单完成"/>
-                                                <asp:HyperLink runat="server" ID="PayFinalPayment"></asp:HyperLink>
-                                                <asp:Button runat="server" ID="Button3" CssClass="btn btn-info btn-xs" Text="指派"/>
+                                                <!--<asp:HyperLink runat="server" ID="PayDepositAmount"></asp:HyperLink>-->
+                                                <!--<asp:Button runat="server" CommandName="ConfirmOrder" CommandArgument='<%#Eval("Id") %>' ID="btnConfimOrder" CssClass="btn btn-info btn-xs" Text="确认订单"/>-->
+                                                <asp:TextBox runat="server" CommandName="txtConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="txtConfirmPrice" Width="100" Visible="false"></asp:TextBox>
+                                                <asp:Button runat="server" CommandName="ConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPrice" CssClass="btn btn-info btn-xs" Visible="false" Text="确认价格"/>
+                                                <!--<asp:Button runat="server" CommandName="ConfirmPriceCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPriceCustomer" CssClass="btn btn-info btn-xs" Text="用户确认价格并开始服务"/>-->
+                                                <!--<asp:Button runat="server" CommandName="IsEndOrder" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrder" CssClass="btn btn-info btn-xs" Text="订单完成"/>-->
+                                                <!--<asp:Button runat="server" CommandName="IsEndOrderCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrderCustomer" CssClass="btn btn-info btn-xs" Text="用户确认订单完成"/>-->
+                                                <!--<asp:HyperLink runat="server" ID="PayFinalPayment"></asp:HyperLink>-->
+                                                <!--<asp:Button runat="server" ID="Button3" CssClass="btn btn-info btn-xs" Text="指派"/>-->
                                             </div>
                                         </div>
                                     </div>

@@ -71,6 +71,7 @@
     <Compile Include="DALComplaint.cs" />
     <Compile Include="DALAdvertisement.cs" />
     <Compile Include="DALPayment.cs" />
+    <Compile Include="DALReception.cs" />
     <Compile Include="DALServiceOpenTime.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />
@@ -134,7 +135,6 @@
     <Compile Include="DALCashTicketAssignDetail.cs" />
     <Compile Include="DALDeviceBind.cs" />
     <Compile Include="DALServiceOrder.cs" />
-    <Compile Include="DALReception.cs" />
     <Compile Include="DALReceptionStatus.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderPushedService.cs" />
   </ItemGroup>
