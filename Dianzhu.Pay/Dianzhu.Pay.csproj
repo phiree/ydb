@@ -53,11 +53,20 @@
     <Compile Include="AliPay\AlipayConfig.cs" />
     <Compile Include="AliPay\AlipayCore.cs" />
     <Compile Include="AliPay\AlipayNotify.cs" />
+    <Compile Include="AliPay\AlipaySignature.cs" />
     <Compile Include="AliPay\AlipaySubmit.cs" />
+    <Compile Include="AliPay\AopException.cs" />
     <Compile Include="AliPay\RSA.cs" />
-    <Compile Include="IPay.cs" />
+    <Compile Include="AliPay\RSACryptoServiceProviderExtension.cs" />
+    <Compile Include="PayCallBack\IPayCallBack.cs" />
+    <Compile Include="PayCallBack\PayCallBackAli.cs" />
+    <Compile Include="PayCallBack\PayCallBackWePay.cs" />
+    <Compile Include="PayRequest\IPay.cs" />
     <Compile Include="IRefund.cs" />
+    <Compile Include="PayRequest\PayAliApp.cs" />
+    <Compile Include="PayRequest\PayAliWeb.cs" />
     <Compile Include="Paylog.cs" />
+    <Compile Include="PayRequest\PayWePay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

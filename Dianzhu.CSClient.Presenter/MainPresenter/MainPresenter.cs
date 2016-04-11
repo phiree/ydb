@@ -68,7 +68,7 @@ namespace Dianzhu.CSClient.Presenter
             //this.view.IdentityItemActived += new IdentityItemActived(LoadCurrentOrder);
 
             this.view.ButtonNamePrefix =GlobalViables.ButtonNamePrefix;
-            this.view.SearchService += new IView.SearchService(view_SearchService);
+           // this.view.SearchService += new IView.SearchService(view_SearchService);
             this.view.SelectService += View_SelectService;
             this.view.SendPayLink += new IView.SendPayLink(view_SendPayLink);
             this.view.CreateOrder += new CreateOrder(view_CreateOrder);
@@ -343,7 +343,7 @@ namespace Dianzhu.CSClient.Presenter
             IDictionary<DZMembership, string> reDicCS = new Dictionary<DZMembership, string>();
             for (int j=0; j< ouSession.Count; j++)
             {
-                if(ouSession[j].ressource.ToLower() == enum_XmppResource.YDBan_Win_CustomerService.ToString() && ouSession[j].username != GlobalViables.CurrentCustomerService.Id.ToString())
+                if(ouSession[j].ressource.ToLower() == enum_XmppResource.YDBan_CustomerService.ToString() && ouSession[j].username != GlobalViables.CurrentCustomerService.Id.ToString())
                 {
                     reDicCS.Add(bllMember.GetUserById(new Guid(ouSession[j].username)), string.Empty);
                 }
@@ -354,7 +354,7 @@ namespace Dianzhu.CSClient.Presenter
         private IList<OnlineUserSession> getOnlineSessionUser()
         {
             IIMSession imSession = new IMSessionsDB();
-            IList<OnlineUserSession> ouSession = imSession.GetOnlineSessionUser(enum_XmppResource.YDBan_Win_CustomerService.ToString());
+            IList<OnlineUserSession> ouSession = imSession.GetOnlineSessionUser(enum_XmppResource.YDBan_CustomerService.ToString());
 
             return ouSession;
         }

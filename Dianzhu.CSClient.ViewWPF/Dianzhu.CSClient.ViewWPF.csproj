@@ -74,6 +74,9 @@
     <Compile Include="UC\UC_MessageVoice.xaml.cs">
       <DependentUpon>UC_MessageVoice.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_Notice.xaml.cs">
+      <DependentUpon>UC_Notice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_Order.xaml.cs">
       <DependentUpon>UC_Order.xaml</DependentUpon>
     </Compile>
@@ -137,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_MessageVoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_Notice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -209,6 +216,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
+      <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
+      <Name>Dianzhu.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.IVew\Dianzhu.CSClient.IView.csproj">
       <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
       <Name>Dianzhu.CSClient.IView</Name>
@@ -220,6 +231,10 @@
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
       <Name>PHSuit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RisCaptureLib\RisCaptureLib.csproj">
+      <Project>{de79c6ab-b5a9-4baf-80fa-22835452785f}</Project>
+      <Name>RisCaptureLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

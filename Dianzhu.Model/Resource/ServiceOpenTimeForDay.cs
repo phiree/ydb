@@ -7,7 +7,10 @@ namespace Dianzhu.Model
 {
     public class ServiceOpenTimeForDay
     {
-         
+        public ServiceOpenTimeForDay()
+        {
+            Enabled = true;
+        }
         public virtual Guid Id { get; set; }
         /// <summary>
         /// 该事件段内的最大接单数量
@@ -15,14 +18,32 @@ namespace Dianzhu.Model
         public virtual int MaxOrderForOpenTime { get;   set; }
         public virtual bool Enabled { get; set; }
         public virtual ServiceOpenTime ServiceOpenTime { get;   set; }
-      
-        public virtual string TimeStart { get; set; }
-        public virtual string TimeEnd { get; set; }
+
+        protected string timeStart;
+        protected string timeEnd;
+        public virtual string TimeStart
+        {
+            get { return timeStart; }
+            set
+            {
+                timeStart = value;
+                PeriodStart = TimeStringToPeriod(timeStart);
+            }
+        }
+        public virtual string TimeEnd
+        {
+            get { return timeEnd; }
+            set
+            {
+                timeEnd = value;
+                PeriodEnd = TimeStringToPeriod(timeEnd);
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
-        public virtual int PeriodStart { get {return TimeStringToPeriod(TimeStart);  } }
-        public virtual int PeriodEnd { get { return TimeStringToPeriod(TimeEnd); } }
+        public virtual int PeriodStart { get { return TimeStringToPeriod(TimeStart); } protected set { } }
+        public virtual int PeriodEnd { get { return TimeStringToPeriod(TimeEnd); } protected set { } }
 
         /// <summary>
         /// 文本格式的时间,转换成分钟,用于计算两个时间之间的间隔分数.

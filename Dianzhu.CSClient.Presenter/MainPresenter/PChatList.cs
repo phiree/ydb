@@ -60,9 +60,8 @@ namespace Dianzhu.CSClient.Presenter
             int rowCount;
             var chatHistory = dalReception
             //.GetListTest();
-            .GetReceptionChatList(serviceOrder.Customer, GlobalViables.CurrentCustomerService,
-           IdentityManager.CurrentIdentity.Id
-            , DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+            .GetReceptionChatList(serviceOrder.Customer, GlobalViables.CurrentCustomerService, Guid.Empty,
+            DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
             viewChatList.ChatList.Clear();
             viewChatList.ChatList = chatHistory;
         }

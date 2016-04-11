@@ -134,4 +134,33 @@ namespace Dianzhu.Api.Model
         public string ResourceUrl { get; set; }
     }
     #endregion
+
+    #region USM001009
+
+    public class ReqDataUSM001009
+    {
+        public string phone { get; set; }
+        public string newPWord { get; set; }
+    }
+
+    public class RespDataUSM001009
+    {
+        public string result { get; set; }
+    }
+
+    #endregion
+
+    #region USM001010
+
+    public class ReqDataUSM001010
+    {
+        public string phone { get; set; }
+    }
+
+    public class RespDataUSM001010
+    {
+        public string result { get; set; }
+    }
+
+    #endregion
 }

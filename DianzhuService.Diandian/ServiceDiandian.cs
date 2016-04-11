@@ -10,10 +10,11 @@ namespace DianzhuService.Diandian
     public partial class ServiceDiandian : ServiceBase
     {
         string csId;
-        string csDisplayName;
         string customerId;
         string orderID;
-      static   log4net.ILog log = GlobalViables.log;
+
+        static log4net.ILog log = GlobalViables.log;
+
         public ServiceDiandian()
         {
             InitializeComponent();
@@ -78,43 +79,45 @@ namespace DianzhuService.Diandian
 
         private void XMPPConnection_OnMessage(object sender, agsc.Message msg)
         {
-            log.Debug("XMPPConnection_OnMessage:"+msg.ToString());
-            //if (InvokeRequired)
-            //{
-            //    BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender, msg });
-            //    return;
-            //}
-            
-            customerId = msg.From.User;
-            string body = msg.Body;
-            string msgObj_url = String.Empty;
-            string msgObj_type = String.Empty;
-            string msgType = msg.SelectSingleElement("ext").Namespace;
-            switch (msgType.ToLower())
+            try
             {
-                case "ihelper:chat:text":
+                log.Debug("XMPPConnection_OnMessage:" + msg.ToString());
+                //if (InvokeRequired)
+                //{
+                //    BeginInvoke(new MessageHandler(XMPPConnection_OnMessage), new object[] { sender, msg });
+                //    return;
+                //}
 
-                    break;
-                case "ihelper:chat:media":
-                    msgObj_url = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("url");
-                    msgObj_type = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("type");
-                    break;
-                default:
-                    log.Warn("请求的类型无法处理，直接返回");
-                    return;
-            }
-            orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
-            //AddLog(msg);
+                customerId = msg.From.User;
+                string body = msg.Body ?? string.Empty;
+                string msgObj_url = String.Empty;
+                string msgObj_type = String.Empty;
+                string msgType = msg.SelectSingleElement("ext").Namespace;
+                switch (msgType.ToLower())
+                {
+                    case "ihelper:chat:text":
 
-            //ReceptionChat chat = new ReceptionChat();
-            //chat.Id = msg.Id;
-            //chat.To = msg.To.User;
-            //chat.From = msg.From.User;
-            //chat.Body = msg.Body;
-            //chat.Ext = msgType;
-            //chat.OrderId = orderID;
+                        break;
+                    case "ihelper:chat:media":
+                        msgObj_url = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("url");
+                        msgObj_type = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("type");
+                        break;
+                    default:
+                        log.Warn("请求的类型无法处理，直接返回");
+                        return;
+                }
+                orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;
+                //AddLog(msg);
 
-            string postData = string.Format(@"{{ 
+                //ReceptionChat chat = new ReceptionChat();
+                //chat.Id = msg.Id;
+                //chat.To = msg.To.User;
+                //chat.From = msg.From.User;
+                //chat.Body = msg.Body;
+                //chat.Ext = msgType;
+                //chat.OrderId = orderID;
+
+                string postData = string.Format(@"{{ 
                     ""protocol_CODE"": ""SYS001001"", //用户信息获取
                     ""ReqData"": {{ 
                                 ""id"": ""{0}"", 
@@ -125,31 +128,38 @@ namespace DianzhuService.Diandian
                                 ""orderID"": ""{5}"", 
                                 ""msgObj_url"": ""{6}"", 
                                 ""msgObj_type"": ""{7}"",
+                                ""from_resource"": ""{9}"",
                            }}, 
                     ""stamp_TIMES"": ""{8}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
-                }}", msg.Id, msg.To.User, msg.From.User, msg.Body, msgType, orderID, msgObj_url, msgObj_type, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
-            log.Debug("开始获取用户信息");
-            Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
-            
-            if (result == null)
-            {
-                log.Error("获取失败，返回值为空");
-            }
-            string code = result["state_CODE"].ToString();
-            if (code != "009000")
-            {
-                return;
-            }
+                }}", msg.Id, msg.To.User, msg.From.User, msg.Body, msgType, orderID, msgObj_url.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), ""), msgObj_type, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString(), msg.From.Resource);
+                log.Debug("开始获取用户信息");
+                Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
 
-            //自动回复消息
-            string reply = "当前没有客服在线，请留言..";
-            csId = msg.To.User;
-            agsc.Message message = new MessageBuilder().Create(csId, customerId, reply, orderID).BuildText();
-            message.Id = Guid.NewGuid().ToString();
-            log.Debug("Sending message:" + message.ToString());
-            GlobalViables.XMPPConnection.Send(message);
-            //AddLog(message);
+                if (result == null)
+                {
+                    log.Error("获取失败，返回值为空");
+                }
+                string code = result["state_CODE"].ToString();
+                if (code != "009000")
+                {
+                    return;
+                }
+
+                //自动回复消息
+                string reply = "当前没有客服在线，请留言..";
+                csId = msg.To.User;
+                agsc.Message message = new MessageBuilder().Create(csId, customerId, reply, orderID).BuildText();
+                message.Id = Guid.NewGuid().ToString();
+                message.To = msg.From;
+                log.Debug("Sending message:" + message.ToString());
+                GlobalViables.XMPPConnection.Send(message);
+                //AddLog(message);
+            }
+            catch (Exception e)
+            {
+                log.Error("Message:"+e.Message+ "&InnerException.Message:" + e.InnerException.Message);
+            }
         }
 
         //private void AddLog(agsc.Message msg)

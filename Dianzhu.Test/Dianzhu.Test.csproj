@@ -85,6 +85,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
@@ -105,15 +106,16 @@
     <Compile Include="BLLTest\OrderFlow.cs" />
     <Compile Include="BLLTest\TestBLLPayment.cs" />
     <Compile Include="BLLTest\TestBLLArea.cs" />
-    <Compile Include="BLLTest\TestBLLReception.cs" />
     <Compile Include="BLLTest\TestBLLReceptionChat.cs" />
     <Compile Include="BLLTest\TestBLLServiceOrder.cs" />
     <Compile Include="BLLTest\TestDZService.cs" />
     <Compile Include="BLLTest\TestReceptionAssign.cs" />
     <Compile Include="CashTicketCreateTest.cs" />
     <Compile Include="cashticket_generator_test.cs" />
+    <Compile Include="DALTest\DALService.cs" />
     <Compile Include="DALTest\MapTest.cs" />
     <Compile Include="DALTest\TestDALReceptionChatDD.cs" />
+    <Compile Include="DiandianTest\DiandianTest.cs" />
     <Compile Include="DianzhuModelTest\ServiceOrderTest.cs" />
     <Compile Include="DianzhuNotifyCenterTest\OrderNotifyTest.cs" />
     <Compile Include="DianzhuPushTest\TestPush.cs" />
@@ -207,6 +209,10 @@
     <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
       <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
       <Name>Dianzhu.Push</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DianzhuService.Diandian\DianzhuService.Diandian.csproj">
+      <Project>{d3820846-bad7-49e9-8bcf-d5ef26579350}</Project>
+      <Name>DianzhuService.Diandian</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>

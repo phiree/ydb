@@ -8,7 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 分配详情
     /// </summary>
-   public class CashTIcketAssignDetail
+   public class CashTicketAssignDetail
     {
        public virtual Guid Id { get; set; }
        public virtual CashTicket CashTicket { get; set; }

@@ -16,15 +16,42 @@ namespace Dianzhu.DemoClient
         public static string MediaUploadUrl = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");
         public static string MediaGetUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl");
         static GlobalViables()
+
         {
+
+
             XMPPConnection = new XmppClientConnection(ServerName);
             XMPPConnection.Server = DomainName;
             XMPPConnection.ConnectServer = ServerName;
-            XMPPConnection.Resource = Model.Enums.enum_XmppResource.YDBan_Win_DemoClient.ToString();
+            XMPPConnection.Resource = Model.Enums.enum_XmppResource.YDBan_DemoClient.ToString();
             XMPPConnection.AutoResolveConnectServer = false;
 
-            
+
         }
-       
+      public  static bool CheckConfig()
+        {
+            log.Debug("--开始 检查配置是否冲突");
+            //need: openfire服务器 数据库,api服务器,三者目标ip应该相等.
+            bool isValidConfig = false;
+           
+             string ofserver = Dianzhu.Config.Config.GetAppSetting("ImServer");
+            System.Text.RegularExpressions.Match m2 = System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:8037)");
+
+            if (ofserver ==  m2.Value)
+            {
+                isValidConfig = true;
+            }
+            else
+            {
+                log.Error(  m2.Value + "," + ofserver);
+            }
+
+            return isValidConfig;
+
+
+
+
+        }
+
     }
 }

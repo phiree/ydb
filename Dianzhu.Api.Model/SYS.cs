@@ -24,6 +24,7 @@ namespace Dianzhu.Api.Model
         public string orderId { get; set; }
         public string msgObj_url { get; set; }
         public string msgObj_type { get; set; }
+        public string from_resource { get; set; }
         //public MsgObj msgObj { get; set; }
     }
     public class MsgObj

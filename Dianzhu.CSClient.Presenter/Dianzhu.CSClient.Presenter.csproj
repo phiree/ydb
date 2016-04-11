@@ -57,9 +57,8 @@
     <Compile Include="GlobalViables.cs" />
     <Compile Include="InstantMessageHandler.cs" />
     <Compile Include="LoginPresenter.cs" />
-    <Compile Include="MainPresenter\IM.cs" />
-    <Compile Include="MainPresenter\MainPresenter.cs" />
     <Compile Include="MainPresenter\MessageSender.cs" />
+    <Compile Include="MainPresenter\PNotice.cs" />
     <Compile Include="MainPresenter\POrderHistory.cs" />
     <Compile Include="MainPresenter\PMain.cs" />
     <Compile Include="MainPresenter\PChatSend.cs" />
@@ -69,7 +68,6 @@
     <Compile Include="MainPresenter\POrder.cs" />
     <Compile Include="MainPresenter\PSearch.cs" />
     <Compile Include="MainPresenter\State.cs" />
-    <Compile Include="MainPresenter\View.cs" />
     <Compile Include="MessageLocalStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -113,6 +111,10 @@
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
+      <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
+      <Name>Dianzhu.Push</Name>
     </ProjectReference>
     <ProjectReference Include="..\MediaServer\MediaServer.csproj">
       <Project>{9920da22-589c-4193-aeaa-363d5c029dfc}</Project>

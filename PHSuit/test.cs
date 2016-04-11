@@ -8,37 +8,41 @@ using System.Text.RegularExpressions;
 
 namespace PHSuit
 {
-     [TestFixture]
-   public class test
+    [TestFixture]
+    public class test
     {
-         [Test]
-         public void test_GetNextDay()
-         {
-             DateTime dt = new DateTime(2009, 10, 2, 3, 10, 12);
-             DateTime nextday = PHCore.GetNextDay(dt);
-             Console.WriteLine(nextday.ToString());
-             Assert.AreEqual(nextday-new DateTime(2009, 10, 3),new TimeSpan(0));
-         }
-         [Test]
-         public void test_GetRandon()
-         {
-            string r= PHCore.GetRandom(10);
+        [Test]
+        public void test_GetNextDay()
+        {
+            DateTime dt = new DateTime(2009, 10, 2, 3, 10, 12);
+            DateTime nextday = PHCore.GetNextDay(dt);
+            Console.WriteLine(nextday.ToString());
+            Assert.AreEqual(nextday - new DateTime(2009, 10, 3), new TimeSpan(0));
+        }
+        [Test]
+        public void test_GetRandon()
+        {
+            string r = PHCore.GetRandom(10);
             Console.WriteLine(r);
             Assert.LessOrEqual(Convert.ToInt64(r), long.MaxValue);
-         }
+        }
         [Test]
         public void parseUrlParam()
         {
-           Assert.AreEqual("alasdf_$_dlaer", PHSuit.StringHelper.ParseUrlParameter("http://asdfesrawer/getfile.ashx?filename=alasdf_$_dlaer","filename"));
+            Assert.AreEqual("alasdf_$_dlaer", PHSuit.StringHelper.ParseUrlParameter("http://asdfesrawer/getfile.ashx?filename=alasdf_$_dlaer", "filename"));
         }
         [Test]
         public void crypttest()
         {
-            string c1 = "data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test";
-          Console.WriteLine("172:"+PHSuit.Security.Encrypt(c1, false));
-            string c2 = "data source=119.29.39.211;uid=ydb;pwd=jsyk2016;database=dianzhu";
-            Console.WriteLine("119:"+PHSuit.Security.Encrypt(c2, false));
-            
+
+            Console.WriteLine("172:" + PHSuit.Security.Encrypt("data source=192.168.1.172;uid=root;pwd=root;database=dianzhu_publish_test", false));
+
+            Console.WriteLine("119:" + PHSuit.Security.Encrypt("data source=119.29.39.211;uid=ydb;pwd=jsyk2016;database=dianzhu", false));
+
+            Console.WriteLine("localhost" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=new", false));
+
+            Console.WriteLine("150:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=dianzhu_test", false));
+
         }
         [Test]
         public void TestIOSPush()
@@ -51,11 +55,11 @@ namespace PHSuit
         [Test]
         public void TestCreateHttp()
         {
-          string response=  HttpHelper.CreateHttpRequest("http://localhost/","get",null);
+            string response = HttpHelper.CreateHttpRequest("http://localhost/", "get", null);
             Assert.IsTrue(response.Length > 0);
             Console.WriteLine(response);
             var postData = new NameValueCollection();
-            postData.Add("name","aa");
+            postData.Add("name", "aa");
             postData.Add("pWord", "pword");
 
             response = HttpHelper.CreateHttpRequest("http://localhost",
@@ -71,14 +75,14 @@ namespace PHSuit
         [Test]
         public void TestLoggerWithNewline()
         {
-          
-     
-            
+
+
+
         }
         [Test]
         public void TestXml2Json()
         {
-            string xml =@"<xml><return_code><![CDATA[SUCCESS]]></return_code>
+            string xml = @"<xml><return_code><![CDATA[SUCCESS]]></return_code>
                     <return_msg><![CDATA[OK]]></return_msg>
             <appid><![CDATA[wxd928d1f351b77449]]></appid> 
    <mch_id><![CDATA[1304996701]]></mch_id>
@@ -88,8 +92,8 @@ namespace PHSuit
 <prepay_id><![CDATA[wx201602031137215b5350a5300317902456]]></prepay_id>
 <trade_type><![CDATA[APP]]></trade_type>
 </xml> ";
-           
-            string json = JsonHelper.Xml2Json(xml,true);
+
+            string json = JsonHelper.Xml2Json(xml, true);
             Console.Write(json);
         }
     }
@@ -109,7 +113,7 @@ namespace PHSuit
         {
             Logging.Config("testing");
             log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.testing");
-            log.Debug("test line1"+Environment.NewLine+"test line2");
+            log.Debug("test line1" + Environment.NewLine + "test line2");
         }
     }
 }

@@ -7,7 +7,7 @@ using Dianzhu.Model.Enums;
 
 namespace Dianzhu.DAL
 {
-    public class DALReception : DALBase<Model.ReceptionBase>
+    public class DALReception : DALBase<Model.ReceptionChat>
     {
          public DALReception()
         {
@@ -18,42 +18,7 @@ namespace Dianzhu.DAL
         {
             
         }
-        /// <summary>
-        /// 查询接待记录
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="timeBegin"></param>
-        /// <param name="timeEnd"></param>
-        /// <param name="limit"></param>
-        /// <returns></returns>
         
-        /// <summary>
-        /// search reception 
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="orderId"></param>
-        /// <param name="timeBegin"></param>
-        /// <param name="timeEnd"></param>
-        /// <param name="pageIndex">base on 0</param>
-        /// <param name="pageSize"></param>
-        /// <param name="rowCount">out</param>
-        /// <returns></returns>
-        public virtual IList<ReceptionBase> GetReceptionList(DZMembership from, DZMembership to, DateTime timeBegin, DateTime timeEnd,
-            int pageIndex,int pageSize,out int rowCount
-            )
-        {
-
-            var result = Session.QueryOver<ReceptionBase>().Where(x => x.TimeBegin >= timeBegin)
-                .And(x => x.TimeBegin <= timeEnd)
-                .And(x => (x.Sender == from && x.Receiver == to) || (x.Sender == to && x.Receiver == from));
-
-            rowCount = result.RowCount();
-            result.OrderBy(x => x.TimeBegin).Desc.Skip(pageIndex*pageSize).Take(pageSize).List();
-            return result.List();
-        }
-
 
         public virtual IList<ReceptionChat> GetListTest()
         {
@@ -169,16 +134,6 @@ namespace Dianzhu.DAL
             }
             return result;
         }
-        private IList<ReceptionChat> BuildChatList(IList<ReceptionBase> list, int limit)
-        {
-            var chatList = new List<ReceptionChat>();
-            foreach (ReceptionBase re in list)
-            {
-                if (chatList.Count > limit)
-                { break; }
-                chatList.AddRange(re.ChatHistory.OrderByDescending(x => x.SavedTime));
-            }
-            return chatList.OrderBy(x => x.SavedTime).ToList();
-        }
+      
     }
 }

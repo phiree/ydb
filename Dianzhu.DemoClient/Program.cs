@@ -17,6 +17,12 @@ namespace Dianzhu.DemoClient
             Application.SetCompatibleTextRenderingDefault(false);
             //获取分配的客服.
              PHSuit.Logging.Config("Dianzhu.DemoClient");
+            bool isValid= GlobalViables.CheckConfig();
+            if (!isValid)
+            {
+                MessageBox.Show("配置冲突,即将退出");
+                return;
+            }
             Application.Run(new FmMain());
         }
     }

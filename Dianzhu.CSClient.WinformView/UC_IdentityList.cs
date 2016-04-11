@@ -109,5 +109,10 @@ namespace Dianzhu.CSClient.WinformView
         {
             SetIdentityButtonStyle(order, em_ButtonStyle.Readed);
         }
+
+        public void SetIdentityLoading(ServiceOrder serviceOrder)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,16 +1,26 @@
 ﻿var need_to_test = [
- //"orm002001", "orm001003", "orm001004", "orm001005","orm00100","orm001007", "orm003005", "orm003006", "orm003007"
-// "orm001006","lct001007"
-//"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008",
+ //"orm002001", "orm001003", "orm001004", "orm001005","orm00100","orm001007", "orm003005", "orm003006", "orm003007","orm003008","orm003009"
+// "orm001006","lct001007","ofp001001"
+//"chat001004", "chat001006", "chat001007"//,"usm001005",//"usm001008","usm001009","usm001010"
 //"u3rd014008", "ad001006","clm001001"
 //"slf002006", "slf002003", "slf001007","py001007","py001008"
 //"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
-"ad001006"
+"orm003007", "orm003008"
 
 ];
 var test_data = [
+
+    /**********************订单出货记录管理*****************************/
+    {
+        "protocol_CODE": "drm001006",
+        "ReqData": {
+            "orderID": "a3423332-12f2-421d-a085-a5c5010e6485",
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
 
     /**********************店铺服务项管理*****************************/
     {
@@ -445,12 +455,12 @@ var test_data = [
     {
         "protocol_CODE": "CLM001001",
         "ReqData": {
-            "userID": "2c843b9f-ed19-40c2-99b4-a54500f97205",
-            "pWord": "123",
-            "orderID": "05c43210-7787-40df-8b93-a57901063d4d",
-            "target": "cer",
-            "context": "AABBCCDDSSXXFFGG",
-            "resourcesUrl": "http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png,http://i-guess.cn/ihelp/userimg/issumao.png",
+            "userID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
+            "pWord": "123456",
+            "orderID": "043303c7-ff37-489c-9745-a59600fe683d",
+            "target": "store",
+            "context": "明敏",
+            "resourcesUrl": "http://119.29.39.211:8038/GetFile.ashx?fileName\u003d_$_f73f5c8a-70c7-4355-aaa3-aafac3d014f2_$_UserAvatar_$_image",
         },
         "stamp_TIMES": 1453520313281,
         "serial_NUMBER": "00147001015869149751"
@@ -550,9 +560,9 @@ var test_data = [
     {
         "protocol_CODE": "OFP001001",
         "ReqData": {
-            "JID": "6F9619FF-8B86-D011-B42D-00C04FC964FF@ydban.cn",
+            "JID": "fa7ef456-0978-4ccd-b664-a594014cbfe7@192.168.1.172/YDBan_IMServer",
             "status": "available",
-            "ipaddress": "192.134.12.44",
+            "ipaddress": "192.168.1.172",
         },
         "stamp_TIMES": "1490192929212",
         "serial_NUMBER": "00147001015869149751"
@@ -680,18 +690,28 @@ var test_data = [
               "stamp_TIMES": "1490192929212",
               "serial_NUMBER": "00147001015869149751"
           },
-          {
-              "protocol_CODE": "ORM001007",
-              "ReqData": {
-                  "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb", //13022222222
-                  "pWord": "1234",
-                  "orderID": "05a6de65-ade2-4458-a272-a5cd00f6ac86",
-                  "pageSize": "50",
-                  "pageNum": "0"
-              },
-              "stamp_TIMES": "1490192929212",
-              "serial_NUMBER": "00147001015869149751"
-          },
+         {
+             "ReqData": {
+
+
+                 "pageNum": "1",
+                 "userID": "b172b145-1461-4e98-a66b-a5ca00f7bdfa",
+                 "orderID": "b1c08b9f-576b-4b23-b713-a5d301012635",
+                 "pageSize": "5",
+                 "pWord": "1234"
+             },
+
+             "serial_NUMBER":
+           "00904309",
+
+
+             "stamp_TIMES": "1458918391808",
+
+             "appName": "Ios",
+             "protocol_CODE": "ORM001007"
+
+
+         },
           {
               "protocol_CODE": "ORM001008",
               "ReqData": {
@@ -769,13 +789,52 @@ var test_data = [
                "serial_NUMBER": "00147001015869149751"
            },
 
+           //用户
            {
                "protocol_CODE": "ORM003007",
                "ReqData": {
-                   "userID": "1cd5ac25-fcc6-432d-bba0-a4f90129edcf",
+                   "userID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
                    "pWord": "123456",
-                   "orderID": "c7e1c471-16e1-46aa-8e65-a56000fe27fd",
-                   "status": "Assigned",
+                   "orderID": "678b87d0-cc74-4b0a-8371-a5d900c042af",
+                   "status": "CheckPayWithNegotiate",
+               },
+               "stamp_TIMES": "1490192929212",
+               "serial_NUMBER": "00147001015869149751"
+           },
+
+           //商家
+           //{
+           //    "protocol_CODE": "ORM003007",
+           //    "ReqData": {
+           //        "userID": "d1df24e9-3c44-4966-927d-a5c5010f91f6",
+           //        "pWord": "123456",
+           //        "orderID": "678b87d0-cc74-4b0a-8371-a5d900c042af",
+           //        "status": "Ended",
+           //    },
+           //    "stamp_TIMES": "1490192929212",
+           //    "serial_NUMBER": "00147001015869149751"
+           //},
+
+           {
+               "protocol_CODE": "ORM003008",
+               "ReqData": {
+                   "merchantID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
+                   "pWord": "123456",
+                   "orderID": "678b87d0-cc74-4b0a-8371-a5d900c042af",
+                   "negotiateAmount": "0.01",
+               },
+               "stamp_TIMES": "1490192929212",
+               "serial_NUMBER": "00147001015869149751"
+           },
+
+           {
+               "protocol_CODE": "ORM003009",
+               "ReqData": {
+                   "userID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
+                   "pWord": "123456",
+                   "orderID": "d4bd4bdd-9740-4d4a-9eee-a593014071a8",
+                   "appraiseValue": "0.5",
+                   "appraiseDocs":"good"
                },
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"
@@ -890,6 +949,25 @@ var test_data = [
                          "pWord": "123456",
                          "type": "image",
                          "Resource": "iVBORw0KGgoAAAANSUhEUgAAAC0AAAAXCAIAAAAQmVEGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABXSURBVEhLY3wro8IwCAATlB5oMOoOVDDqDlQw6g5UMOoOVDBY3IEo1+9/eWLy4QeETWtgKiC/g4cVygGD0XhBBaP1LSoYdQcqGHUHKhh1ByoYHO5gYAAAC3gJsxon5CAAAAAASUVORK5CYII="
+                     },
+                     "stamp_TIMES": "1490192929212",
+                     "serial_NUMBER": "00147001015869149751"
+                 },
+                 //修改密码
+                 {
+                     "protocol_CODE": "USM001009",
+                     "ReqData": {
+                         "phone": "18889387688",
+                         "newPWord": "123456",
+                     },
+                     "stamp_TIMES": "1490192929212",
+                     "serial_NUMBER": "00147001015869149751"
+                 },
+                 //检测电话是否注册
+                 {
+                     "protocol_CODE": "USM001010",
+                     "ReqData": {
+                         "phone": "18889387688",
                      },
                      "stamp_TIMES": "1490192929212",
                      "serial_NUMBER": "00147001015869149751"

@@ -27,6 +27,8 @@ namespace Dianzhu.CSClient
         [STAThread]
         static void Main()
         {
+            PHSuit.Logging.Config("Dianzhu.CSClient");
+           
             //systemconfig
             AppDomain cDomain = AppDomain.CurrentDomain;
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);
@@ -34,9 +36,15 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
 
             //log
-             PHSuit.Logging.Config("Dianzhu.CSClient");
-            log.Debug("Start");
-            
+           
+            log.Debug( "开始启动助理工具");
+            bool isValidConfig = CheckConfig();
+            if (!isValidConfig)
+            {
+                MessageBox.Show("配置错误,程序即将退出");
+                Application.ExitThread();
+                return;
+            }
             //prepare parameters for IM instance's constructor
             //init messageadapter
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
@@ -45,7 +53,7 @@ namespace Dianzhu.CSClient
             string server = Config.Config.GetAppSetting("ImServer");
             string domain= Config.Config.GetAppSetting("ImDomain");
 
-            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,domain, messageAdapter, Model.Enums.enum_XmppResource.YDBan_Win_CustomerService.ToString());
+            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,domain, messageAdapter, Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString());
 
 
             var loginForm = new ViewWPF.FormLogin();
@@ -60,6 +68,7 @@ namespace Dianzhu.CSClient
             //登录成功
             if (result.Value)// == DialogResult.OK)
             {
+                log.Debug("登录成功");
                 IViewChatList viewChatList=null;
                 IViewIdentityList viewIdentityList = null;
                 IViewOrder viewOrder = null;
@@ -67,6 +76,7 @@ namespace Dianzhu.CSClient
                 IViewSearchResult viewSearchResult = null;
                 IViewChatSend viewChatSend = null;
                 IViewOrderHistory viewOrderHistory = null;
+                IViewNotice viewNotice = null;
 
                 if (useWpf)
                 {
@@ -75,8 +85,10 @@ namespace Dianzhu.CSClient
                     viewChatSend = new ViewWPF.UC_ChatSend();
                     viewOrder = new ViewWPF.UC_Order();
                     viewOrderHistory = new ViewWPF.UC_OrderHistory();
-                    viewSearch = new ViewWPF.UC_Search();
+                    
                     viewSearchResult = new ViewWPF.UC_SearchResult();
+                    viewSearch = new ViewWPF.UC_Search(viewSearchResult);
+                    viewNotice = new ViewWPF.UC_Notice();
                 }
                 else
                 {
@@ -92,13 +104,14 @@ namespace Dianzhu.CSClient
                 Presenter.PIdentityList pIdentityList = new Presenter.PIdentityList(viewIdentityList, viewChatList, viewOrder);
                 Presenter.PChatList pChatList = new Presenter.PChatList(viewChatList, viewIdentityList, xmpp);
                 Presenter.IdentityManager pIdentityManager = new Presenter.IdentityManager(pIdentityList, pChatList);
-                Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList);
-                Presenter.PSearch pSearch = new Presenter.PSearch(xmpp,viewSearch, viewSearchResult, viewOrder);
+                Presenter.PNotice pNotice = new Presenter.PNotice(viewNotice);
+                Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList,pNotice);
+                Presenter.PSearch pSearch = new Presenter.PSearch(xmpp,viewSearch, viewSearchResult, viewOrder,viewChatList);
                 Presenter.POrder pOrder = new Presenter.POrder(xmpp, viewOrder);
                 Presenter.POrderHistory pOrderHistory = new Presenter.POrderHistory(viewOrderHistory,viewIdentityList);
                 Presenter.PChatSend pChatSend = new Presenter.PChatSend(viewChatSend, viewChatList, xmpp);
-                Presenter.PMain pMain = new Presenter.PMain(new BLLReceptionStatus(),
-                    new BLLReceptionStatusArchieve(), new BLLReceptionChatDD(), new BLLReceptionChat(), xmpp, viewIdentityList);
+                Presenter.PMain pMain = new Presenter.PMain(new BLLReceptionStatus(), new BLLReceptionStatusArchieve(),
+                    new BLLReceptionChatDD(), new BLLReceptionChat(), new BLLIMUserStatus(), xmpp, viewIdentityList);
 
                 if (useWpf)
                 {
@@ -110,7 +123,9 @@ namespace Dianzhu.CSClient
                         (ViewWPF.UC_Order)viewOrder,
                         (ViewWPF.UC_Search)viewSearch,
                         (ViewWPF.UC_SearchResult)viewSearchResult,
-                        (ViewWPF.UC_OrderHistory)viewOrderHistory);
+                        (ViewWPF.UC_OrderHistory)viewOrderHistory,
+                        (ViewWPF.UC_Notice)viewNotice
+                        );
                     mainForm.Title += "v" + version;
                      
                     mainForm.ShowDialog();
@@ -135,9 +150,36 @@ namespace Dianzhu.CSClient
 
         }
 
+        static bool CheckConfig()
+        {
+            log.Debug("--开始 检查配置是否冲突");
+            //need: openfire服务器 数据库,api服务器,三者目标ip应该相等.
+            bool isValidConfig = false;
+            string connectionString = PHSuit.Security.Decrypt(System.Configuration.ConfigurationManager
+                .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false);
+            System.Text.RegularExpressions.Match m = System.Text.RegularExpressions.Regex.Match(connectionString, @"(?<=data\s+source\=).+?(?=;uid)");
+            string ofserver= Dianzhu.Config.Config.GetAppSetting("ImServer");
+            System.Text.RegularExpressions.Match m2= System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:8037)");
+
+            if (ofserver == m.Value && m.Value == m2.Value)
+            {
+                isValidConfig = true;
+            }
+            else
+            {
+                log.Error(m.Value+","+m2.Value+","+ofserver);
+            }
+            log.Debug("--结束 检查配置是否冲突");
+            return isValidConfig;
+
+
+
+            
+        }
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            log.Error(e.ExceptionObject.ToString());
+            
+            log.Error("异常崩溃:"+ e.ExceptionObject.ToString());
             MessageBox.Show(e.ExceptionObject.ToString());
         }
         static string GetVersion()

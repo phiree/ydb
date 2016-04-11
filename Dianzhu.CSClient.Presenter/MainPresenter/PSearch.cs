@@ -9,32 +9,96 @@ namespace Dianzhu.CSClient.Presenter
 {
    public  class PSearch
     {
-        IView.IViewSearch viewSearch;
-        IView.IViewSearchResult viewSearchResult;
+        IViewSearch viewSearch;
+        IViewSearchResult viewSearchResult;
         IViewOrder viewOrder;
+        IViewChatList viewChatList;
         DAL.DALDZService dalService;
         DAL.DALServiceOrder dalOrder;
         BLL.PushService bllPushService;
         IInstantMessage.InstantMessage iIM;
         BLL.BLLReceptionChat bllReceptionChat;
+        BLL.BLLServiceType bllServcieType;
+        #region 服务类型数据
+        Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
+        IList<ServiceType> ServiceTypeListTmp;
+        ServiceType ServiceTypeFirst;
+        ServiceType ServiceTypeSecond;
+        ServiceType ServiceTypeThird;
+        #endregion
         #region contructor
-        public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,IViewOrder viewOrder)
-            : this(iIM,viewSearch, viewSearchResult,viewOrder, new DAL.DALDZService(),new DAL.DALServiceOrder(),new BLL.PushService(),new BLL.BLLReceptionChat())
+        public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,IViewOrder viewOrder,IViewChatList viewChatList)
+            : this(iIM,viewSearch, viewSearchResult,viewOrder, viewChatList, new DAL.DALDZService(),new DAL.DALServiceOrder(),new BLL.PushService(),new BLL.BLLReceptionChat(),new BLL.BLLServiceType())
         { }
         public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
-            IView.IViewOrder viewOrder,DAL.DALDZService dalService,DAL.DALServiceOrder dalOrder,BLL.PushService bllPushService,BLL.BLLReceptionChat bllReceptionChat)
+            IView.IViewOrder viewOrder, IViewChatList viewChatList,DAL.DALDZService dalService,DAL.DALServiceOrder dalOrder,BLL.PushService bllPushService,BLL.BLLReceptionChat bllReceptionChat, BLL.BLLServiceType bllServcieType)
         {
             this.viewSearch = viewSearch; ;
             this.viewSearchResult = viewSearchResult;
             this.dalService = dalService;
             this.viewOrder = viewOrder;
+            this.viewChatList = viewChatList;
             this.dalOrder = dalOrder;
             this.iIM = iIM;
             this.bllReceptionChat = bllReceptionChat;
+            this.bllServcieType = bllServcieType;
             viewSearch.Search += ViewSearch_Search;
             this.bllPushService = bllPushService;
+
+            this.ServiceTypeListTmp = bllServcieType.GetTopList();
+            this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
+            
+            foreach (ServiceType t in ServiceTypeListTmp)
+            {
+                if (!ServiceTypeCach.ContainsKey(t))
+                {
+                    ServiceTypeCach.Add(t, null);
+                }
+            }
+            viewSearch.ServiceTypeFirst = ServiceTypeListTmp;
+            this.ServiceTypeFirst = new ServiceType();
+            this.ServiceTypeSecond = new ServiceType();
+            this.ServiceTypeThird = new ServiceType();
+
             viewSearchResult.SelectService += ViewSearchResult_SelectService;
             viewSearchResult.PushServices += ViewSearchResult_PushServices;
+            viewSearch.ServiceTypeFirst_Select += ViewSearch_ServiceTypeFirst_Select;
+            viewSearch.ServiceTypeSecond_Select += ViewSearch_ServiceTypeSecond_Select;
+            viewSearch.ServiceTypeThird_Select += ViewSearch_ServiceTypeThird_Select;
+        }
+
+        private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
+        {
+            ServiceTypeThird = type;
+        }
+
+        private void ViewSearch_ServiceTypeSecond_Select(ServiceType type)
+        {
+            if (type != null)
+            {
+                ServiceTypeSecond = type;
+                ServiceTypeThird = null;
+                if (!ServiceTypeCach.ContainsKey(type))
+                {
+                    ServiceTypeCach[type] = type.Children;
+                }
+                viewSearch.ServiceTypeThird = ServiceTypeCach[type];
+            }            
+        }
+
+        private void ViewSearch_ServiceTypeFirst_Select(ServiceType type)
+        {
+            if (type != null)
+            {
+                ServiceTypeFirst = type;
+                ServiceTypeSecond = null;
+                ServiceTypeThird = null;
+                if (ServiceTypeCach[type] == null)
+                {
+                    ServiceTypeCach[type] = type.Children;
+                }
+                viewSearch.ServiceTypeSecond = ServiceTypeCach[type];
+            }
         }
 
         private void ViewSearchResult_PushServices(IList<Model.DZService> pushedServices)
@@ -50,9 +114,9 @@ namespace Dianzhu.CSClient.Presenter
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,1,viewSearchResult.TargetAddress,viewSearchResult.TargetTime ));
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,1,viewSearchResult.TargetAddress,viewSearch.SearchKeywordTime ));
             }
-            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearchResult.TargetAddress, viewSearchResult.TargetTime);
+            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearchResult.TargetAddress, viewSearch.SearchKeywordTime);
 
             //iim发送消息
             ReceptionChat chat = new ReceptionChatPushService
@@ -69,6 +133,9 @@ namespace Dianzhu.CSClient.Presenter
             };
             bllReceptionChat.Save(chat);
             iIM.SendMessage(chat);
+
+            //助理工具显示发送的消息
+            viewChatList.AddOneChat(chat);
 
             //生成新的草稿单并发送给客户端
             ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer);
@@ -95,10 +162,11 @@ namespace Dianzhu.CSClient.Presenter
 
         }
         #endregion
-        private void ViewSearch_Search()
+        private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId)
         {
             int total;
-          IList<Model.DZService> services=  dalService.SearchService(viewSearch.SearchKeyword, 0, 10, out total);
+           
+            IList<Model.DZService> services = dalService.SearchService(minPrice,maxPrice, servieTypeId,targetTime,  0, 10, out total);
             viewSearchResult.SearchedService = services;
         }
     }

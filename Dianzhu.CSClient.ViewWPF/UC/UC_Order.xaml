@@ -15,9 +15,6 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel  x:Name="pnlOrderDetails"/>
             </ScrollViewer>
-            <WrapPanel x:Name="pnlOrderOperation">
-                <Button x:Name="btnPush">推送</Button>
-            </WrapPanel>
         </StackPanel>
 
     </Grid>

@@ -61,10 +61,11 @@ namespace Dianzhu.Model
         /// </summary>
         /// <param name="status"></param>
         /// <returns></returns>
-        public virtual string GetFriendlyStatus(enum_OrderStatus status)
+        public virtual string GetFriendlyStatus()
         {
             string str = String.Empty;
-            switch (status)
+          
+            switch (this.OrderStatus)
             {
                 case enum_OrderStatus.Search: str = "搜索单"; break;
                 case enum_OrderStatus.Draft: str = "草稿单"; break;
@@ -73,7 +74,6 @@ namespace Dianzhu.Model
                 case enum_OrderStatus.Payed: str = "已付款"; break;
                 case enum_OrderStatus.Canceled: str = "客户申请取消订单"; break;
                 case enum_OrderStatus.CanceledDirectly: str = "订单已取消"; break;
-                case enum_OrderStatus.isCancel: str = "客户已取消"; break;
                 case enum_OrderStatus.Aborded: str = "订单已中止"; break;
                 case enum_OrderStatus.Negotiate: str = "商家已确认订单"; break;
                 case enum_OrderStatus.Assigned: str = "等待服务开始"; break;
@@ -83,12 +83,20 @@ namespace Dianzhu.Model
                 case enum_OrderStatus.Finished: str = "订单完成"; break;
                 case enum_OrderStatus.Appraised: str = "用户已评价"; break;
                 case enum_OrderStatus.WaitingDepositWithCanceled: str = "等待退还定金"; break;
-                case enum_OrderStatus.WaitingCancel: str = "用户申请取消订单"; break;
                 default:str = "未知订单类型"; break;
             }
             return str;
         }
 
+        /// <summary>
+        /// 订单概要文本
+        /// </summary>
+        public virtual string GetSummaryString()
+        {
+            return string.Format("订单状态:{5} 用户:{0},定金金额:{1},服务项:{2},商家:{3}, 服务时间:{4}",
+                Customer.DisplayName,DepositAmount, Title,ServiceBusinessName,TargetTime,GetFriendlyStatus()
+                );
+        }
         #endregion
 
 

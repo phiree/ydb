@@ -7,8 +7,29 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TextBox x:Name="tbxKeyword" HorizontalAlignment="Left" Height="23" Margin="10,9,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
-        <Button x:Name="btnSearch" Content="搜索服务" HorizontalAlignment="Left" Margin="215,10,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.036,0.453" Click="btnSearch_Click"/>
+        <StackPanel>
+            <WrapPanel>
+                <Label Content="时间"></Label>
+                <TextBox x:Name="tbxKeywordTime" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="2016-4-5 9:00" Width="200"/>
+            </WrapPanel>
 
+            <WrapPanel>
+                <Label Content="价格"></Label>
+                <TextBox x:Name="tbxKeywordPriceMin" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" Width="100" PreviewTextInput="tbxKeywordPriceMin_PreviewTextInput" TextChanged="tbxKeywordPriceMin_TextChanged"/>
+                <Label Content="-"></Label>
+                <TextBox x:Name="tbxKeywordPriceMax" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="999" Width="100" PreviewTextInput="tbxKeywordPriceMin_PreviewTextInput" TextChanged="tbxKeywordPriceMin_TextChanged"/>
+            </WrapPanel>
+
+            <WrapPanel>
+                <Label Content="类型"></Label>
+                <ComboBox x:Name="cbxSearchTypeF" Width="80" SelectionChanged="cbxSearchTypeF_SelectionChanged"/>
+                <ComboBox x:Name="cbxSearchTypeS" Width="80" SelectionChanged="cbxSearchTypeS_SelectionChanged" Visibility="Hidden"/>
+                <ComboBox x:Name="cbxSearchTypeT" Width="80" SelectionChanged="cbxSearchTypeT_SelectionChanged" Visibility="Hidden"/>
+            </WrapPanel>
+
+            <DockPanel>
+                <Button x:Name="btnSearch" Content="搜索服务" HorizontalAlignment="Right" Width="75" Click="btnSearch_Click"/>
+            </DockPanel>
+        </StackPanel>        
     </Grid>
 </UserControl>

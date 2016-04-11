@@ -44,22 +44,8 @@ namespace Dianzhu.CSClient.Presenter
             currentOrder.Memo = iViewOrder.Memo;
             currentOrder.LatestOrderUpdated = DateTime.Now;
             dalOrder.Update(currentOrder);
-
-            ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis
-            {
-                OrderAmount = currentOrder.OrderAmount,
-                DepositAmount = currentOrder.DepositAmount,
-                NegotiateAmount = currentOrder.NegotiateAmount,
-                Order = currentOrder,
-                Remark = currentOrder.Memo,
-                OldStatus = Model.Enums.enum_OrderStatus.Draft,
-                NewStatus = currentOrder.OrderStatus,
-                Number = 1,
-            };
-            dalHistory.SaveOrUpdate(orderHis);
             
            // View_NoticeOrder();
-           
 
             Payment payment = bllPayment.ApplyPay(currentOrder, Model.Enums.enum_PayTarget.Deposit);
 
