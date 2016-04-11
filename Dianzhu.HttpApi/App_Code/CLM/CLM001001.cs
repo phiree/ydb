@@ -76,7 +76,7 @@ public class ResponseCLM001001 : BaseResponse
             }
             catch (Exception ex)
             {
-                ExceptionLoger.ExceptionLog(ilog,ex);
+                PHSuit.ExceptionLoger.ExceptionLog(ilog,ex);
                 this.state_CODE = Dicts.StateCode[2];
                 this.err_Msg = ex.Message;
                 return;

@@ -115,12 +115,27 @@ namespace Dianzhu.CSClient.MessageAdapter
             ReceptionChat chat = ReceptionChat.Create(chatType);
             var chatFrom = BllMember.GetUserById(new Guid(message.From.User));
             chat.From = chatFrom;
-            chat.FromResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), message.From.Resource);
+            chat.FromResource = enum_XmppResource.Unknow;
+            try
+            {
+                chat.FromResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), message.From.Resource);
+            }
+            catch (Exception e)
+            {
+                ilog.Error("未知的资源名称：" + message.From.Resource);
+            }
             if (!isNotice)
             {
                 var chatTo = BllMember.GetUserById(new Guid(message.To.User));
                 chat.To = chatTo;
-                chat.ToResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), message.To.Resource);
+                if (message.To.Resource != null)
+                {
+                    chat.ToResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), message.To.Resource);
+                }
+                else
+                {
+                    ilog.Error("message中to的资源名为空！");
+                }
             }
             Guid messageId;
             if (Guid.TryParse(message.Id, out messageId))

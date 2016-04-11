@@ -57,22 +57,26 @@ public class ResponseORM003008 : BaseResponse
                 return;
             }
 
+            DZMembership member;
             if (request.NeedAuthenticate)
             {
-                DZMembership member;
                 bool validated = new Account(p).ValidateUser(merchantID, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
                 }
             }
+            else
+            {
+                member = p.GetUserById(merchantID);
+            }
             try
             {
-                ServiceOrder order = bllServiceOrder.GetOne(orderID);
+                ServiceOrder order = bllServiceOrder.GetOrderByIdAndCustomer(orderID, member);
                 if (order == null)
                 {
                     this.state_CODE = Dicts.StateCode[4];
-                    this.err_Msg = "没有对应的订单,请检查传入的orderID";
+                    this.err_Msg = "没有对应的订单!";
                     return;
                 }
 

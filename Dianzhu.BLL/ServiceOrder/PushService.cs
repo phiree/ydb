@@ -68,7 +68,7 @@ namespace Dianzhu.BLL
                 }
                 else
                 {
-                    bllServiceOrder.OrderFlow_PayDeposit(order);
+                    bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
                 }
             }            
         }
