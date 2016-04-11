@@ -14,7 +14,7 @@ namespace Dianzhu.Model
     {
         public CashTicketAssignRecord()
         {
-            AssignDetail = new List<CashTIcketAssignDetail>();
+            AssignDetail = new List<CashTicketAssignDetail>();
         }
         public virtual Guid Id { get; set; }
         /// <summary>
@@ -43,7 +43,7 @@ namespace Dianzhu.Model
         /// 分派结果
         /// </summary>
         public virtual bool IsSuccess { get; set; }
-        public virtual IList<CashTIcketAssignDetail> AssignDetail { get; set; }
+        public virtual IList<CashTicketAssignDetail> AssignDetail { get; set; }
         
        
         

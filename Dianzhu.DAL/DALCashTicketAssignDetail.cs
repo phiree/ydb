@@ -7,7 +7,7 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-   public class DALCashTicketAssignDetail:DALBase<CashTIcketAssignDetail>
+   public class DALCashTicketAssignDetail:DALBase<CashTicketAssignDetail>
     {
         public DALCashTicketAssignDetail()
         {
