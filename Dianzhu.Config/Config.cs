@@ -10,13 +10,13 @@ namespace Dianzhu.Config
     /// </summary>
     public static partial class Config
     {
-        static int num =3;
+        static int num =4;
         #region 服务器定义
-        static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172" };
-        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
-        static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
-        static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
-        static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172" };
+        static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172","192.168.1.150" };
+        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
+        static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
+        static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
+        static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
         #endregion
         #region   部署前，只需要手动修改此处 /
         
@@ -30,31 +30,7 @@ namespace Dianzhu.Config
         static log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Config");
         
 
-        public static string GetAppSetting(string key)
-        {
-            string errMsg = string.Empty;
-            if (DictsAppSettings.ContainsKey(key))
-            {
-                string settingValue = DictsAppSettings[key];
-                if (!string.IsNullOrEmpty(settingValue))
-                {
-
-                }
-                else
-                {
-                    errMsg = "配置节读取结果为空.";
-                    ilog.Warn(errMsg);
-                }
-                return settingValue;
-            }
-            else
-            {
-                errMsg = "配置信息中没有找到对应的key：" + key;
-                ilog.Error(errMsg);
-                throw new System.Exception(errMsg);
-            }
-
-        }
+       
          
 
         static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
@@ -62,6 +38,7 @@ namespace Dianzhu.Config
              ,{ "business.ydban.cn",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
              ,{ "192.168.1.172",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "localhost",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
+               ,{ "192.168.1.150",new KeyValuePair<string,string>("3d9ed306-7b5d-4e0d-8776-a5e50093515f","123456") }
         };
         //通知中心登陆用户账号，不同数据库服务器有不同的值
         //todo: 需要使用 username登陆 而不是id
@@ -70,6 +47,7 @@ namespace Dianzhu.Config
              ,{ "business.ydban.cn",new KeyValuePair<string,string>("c6b13498-2259-4ff3-a75e-a4f90123683c","123456") }
              ,{ "192.168.1.172",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
               ,{ "localhost",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
+              ,{ "192.168.1.150",new KeyValuePair<string,string>("054c400b-4afb-49f3-bbdf-a5e500939c59","123456") }
         };
          
 
@@ -126,6 +104,31 @@ namespace Dianzhu.Config
         static private string BuildHttpUrlString(string server, int port, string path)
         {
             return string.Format("http://{0}:{1}/{2}", server, port, path);
+        }
+        public static string GetAppSetting(string key)
+        {
+            string errMsg = string.Empty;
+            if (DictsAppSettings.ContainsKey(key))
+            {
+                string settingValue = DictsAppSettings[key];
+                if (!string.IsNullOrEmpty(settingValue))
+                {
+
+                }
+                else
+                {
+                    errMsg = "配置节读取结果为空.";
+                    ilog.Warn(errMsg);
+                }
+                return settingValue;
+            }
+            else
+            {
+                errMsg = "配置信息中没有找到对应的key：" + key;
+                ilog.Error(errMsg);
+                throw new System.Exception(errMsg);
+            }
+
         }
 
     }
