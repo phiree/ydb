@@ -10,6 +10,8 @@ using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.BLL;
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
+using System.ComponentModel;
+
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -37,12 +39,32 @@ namespace Dianzhu.CSClient.Presenter
 
         private void IView_IdentityClick(ServiceOrder serviceOrder)
         {
-            IdentityManager.CurrentIdentity = serviceOrder;
-            iView.SetIdentityReaded(serviceOrder);
-            iViewOrder.Order = serviceOrder;
-             
             
+            IdentityManager.CurrentIdentity = serviceOrder;
+            iView.SetIdentityLoading(serviceOrder);
+            BackgroundWorker bgwLoadChatList = new BackgroundWorker();
+            bgwLoadChatList.DoWork += BgwLoadChatList_DoWork;
+            bgwLoadChatList.RunWorkerCompleted += BgwLoadChatList_RunWorkerCompleted;
+            bgwLoadChatList.RunWorkerAsync(serviceOrder);
 
+        }
+
+        private void BgwLoadChatList_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ServiceOrder order = (ServiceOrder)e.Result;
+            iView.SetIdentityReaded(order);
+        }
+
+        private void BgwLoadChatList_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ServiceOrder order =(ServiceOrder) e.Argument;
+            iViewOrder.Order = order;
+            e.Result = order;
+        }
+
+        private void Bgw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
 
