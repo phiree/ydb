@@ -28,13 +28,7 @@ namespace Dianzhu.CSClient
         static void Main()
         {
             PHSuit.Logging.Config("Dianzhu.CSClient");
-            bool isValidConfig=  CheckConfig();
-            if (!isValidConfig)
-            {
-                MessageBox.Show("配置错误,程序即将退出");
-                Application.ExitThread();
-                return;
-            }
+           
             //systemconfig
             AppDomain cDomain = AppDomain.CurrentDomain;
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);
@@ -44,7 +38,13 @@ namespace Dianzhu.CSClient
             //log
            
             log.Debug( "开始启动助理工具");
-            
+            bool isValidConfig = CheckConfig();
+            if (!isValidConfig)
+            {
+                MessageBox.Show("配置错误,程序即将退出");
+                Application.ExitThread();
+                return;
+            }
             //prepare parameters for IM instance's constructor
             //init messageadapter
             IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
