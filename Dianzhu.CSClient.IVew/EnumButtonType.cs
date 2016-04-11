@@ -12,5 +12,6 @@ namespace Dianzhu.CSClient.IView
         Unread,//未读
         Readed,//已读
         Actived,//当前激活
+        Loading,//正在加载
     }
 }

@@ -86,6 +86,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 {
                     Button btn = (Button)objBtn;
                     Color foreColor = Colors.White;
+                    string loadingText = "(加载中)";
                     switch (buttonStyle)
                     {
                         case em_ButtonStyle.Login:
@@ -94,9 +95,12 @@ namespace Dianzhu.CSClient.ViewWPF
                         case em_ButtonStyle.LogOff:
                             foreColor = Colors.Gray;
                             break;
-                        case em_ButtonStyle.Readed: foreColor = Colors.Black; break;
+                        case em_ButtonStyle.Readed: foreColor = Colors.Black;
+                            btn.Content = btn.Content.ToString().Replace(loadingText, string.Empty);
+                            break;
                         case em_ButtonStyle.Unread: foreColor = Colors.Red; break;
                         case em_ButtonStyle.Actived: foreColor = Colors.Yellow; break;
+                        case em_ButtonStyle.Loading: btn.Content = loadingText+btn.Content;  break;
                         default: break;
                     }
                     btn.Foreground = new SolidColorBrush(foreColor);
@@ -113,5 +117,9 @@ namespace Dianzhu.CSClient.ViewWPF
 
         }
 
+        public void SetIdentityLoading(ServiceOrder serviceOrder)
+        {
+            SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Loading);
+        }
     }
 }
