@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RMM.cs" />
     <Compile Include="SHM.cs" />
     <Compile Include="DRM.cs" />
     <Compile Include="WTM.cs" />

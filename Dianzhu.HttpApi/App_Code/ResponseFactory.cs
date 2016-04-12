@@ -16,6 +16,7 @@ public class ResponseFactory
     {
         switch (request.protocol_CODE.ToLower())
         {
+            #region usm
             case "usm001001":
                 return new ResponseUSM001001(request);               
             case "usm001005":
@@ -30,21 +31,27 @@ public class ResponseFactory
                 return new ResponseUSM001009(request);
             case "usm001010":
                 return new ResponseUSM001010(request);
+            #endregion
 
+            #region vcm
             case "vcm001001":
                 return new ResponseVCM001001(request);
             case "vcm001002":
                 return new ResponseVCM001002(request);
             case "vcm001003":
                 return new ResponseVCM001003(request);
+            #endregion
 
+            #region merm
             case "merm001001":
                 return new ResponseMERM001001(request);
             case "merm001003":
                 return new ResponseMERM001003(request);
             case "merm001005":
                 return new ResponseMERM001005(request);
+            #endregion
 
+            #region orm
             case "orm001004":
                 return new ResponseORM001004(request);
             case "orm001006":
@@ -69,50 +76,48 @@ public class ResponseFactory
                 return new ResponseORM003008(request);
             case "orm003009":
                 return new ResponseORM003009(request);
+            #endregion
 
+            #region chat
             case "chat001004":
                 return new ResponseCHAT001004(request);
             case "chat001006":
                 return new ResponseCHAT001006(request);
             case "chat001007":
                 return new ResponseCHAT001007(request);
+            #endregion
 
+            #region lct
             case "lct001007":
                 return new ResponseLCT001007(request);
             case "lct001008":
                 return new ResponseLCT001008(request);
-
-            case "sys001001":
-                return new ResponseSYS001001(request);
-
+            #endregion
+                
+            #region app
             case "app001001":
                 return new ResponseAPP001001(request);
             case "app001002":
                 return new ResponseAPP001002(request);
+            #endregion
 
-            case "ofp001001":
-                return new ResponseOFP001001(request);
-
-            case "u3rd014008":
-                return new ResponseU3RD014008(request);
+            #region slf
             case "slf001007":
                 return new ResponseSLF001007(request);
             case "slf002003":
                 return new ResponseSLF002003(request);
             case "slf002006":
                 return new ResponseSLF002006(request);
-
-            case "ad001006":
-                return new ResponseAD001006(request);
-
+            #endregion
+                
+            #region py
             case "py001007":
                 return new ResponsePY001007(request);
             case "py001008":
                 return new ResponsePY001008(request);
-
-            case "clm001001":
-                return new ResponseCLM001001(request);
-
+            #endregion
+                
+            #region asn
             case "asn001001":
                 return new ResponseASN001001(request);
             case "asn001002":
@@ -129,7 +134,9 @@ public class ResponseFactory
                 return new ResponseASN002001(request);
             case "asn002004":
                 return new ResponseASN002004(request);
+            #endregion
 
+            #region store
             case "store001001":
                 return new ResponseSTORE001001(request);
             case "store001002":
@@ -150,7 +157,9 @@ public class ResponseFactory
                 return new ResponseSTORE002003(request);
             case "store002004":
                 return new ResponseSTORE002004(request);
+            #endregion
 
+            #region svc
             case "svc001001":
                 return new ResponseSVC001001(request);
             case "svc001002":
@@ -163,7 +172,9 @@ public class ResponseFactory
                 return new ResponseSVC001005(request);
             case "svc001006":
                 return new ResponseSVC001006(request);
+            #endregion
 
+            #region wtm
             case "wtm001001":
                 return new ResponseWTM001001(request);
             case "wtm001002":
@@ -176,7 +187,29 @@ public class ResponseFactory
                 return new ResponseWTM001005(request);
             case "wtm001006":
                 return new ResponseWTM001006(request);
+            #endregion
 
+            #region rmm
+            case "rmm001003":
+                return new ResponseRMM001003(request);
+            case "rmm001004":
+                return new ResponseRMM001004(request);
+            case "rmm001005":
+                return new ResponseRMM001005(request);
+            case "rmm001006":
+                return new ResponseRMM001006(request);
+            #endregion
+
+            case "sys001001":
+                return new ResponseSYS001001(request);
+            case "ofp001001":
+                return new ResponseOFP001001(request);
+            case "ad001006":
+                return new ResponseAD001006(request);
+            case "u3rd014008":
+                return new ResponseU3RD014008(request);
+            case "clm001001":
+                return new ResponseCLM001001(request);
             case "drm001006":
                 return new ResponseDRM001006(request);
             default:
