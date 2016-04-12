@@ -7668,6 +7668,12 @@ a.doReg:hover {
 .order-list::-webkit-scrollbar-corner {
   display: none;
 }
+.order-li {
+  overflow: hidden;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .order-row {
   height: 85px;
   line-height: 85px;
