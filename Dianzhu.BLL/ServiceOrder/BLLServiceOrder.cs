@@ -121,7 +121,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_PayDepositAndWaiting(ServiceOrder order)
         {
-            ChangeStatus(order, enum_OrderStatus.CheckPayWithDeposit);
+            ChangeStatus(order, enum_OrderStatus.checkPayWithDeposit);
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_CustomerPayFinalPayment(ServiceOrder order)
         {
-            ChangeStatus(order, enum_OrderStatus.CheckPayWithNegotiate);
+            ChangeStatus(order, enum_OrderStatus.checkPayWithNegotiate);
         }
 
         /// <summary>
@@ -281,7 +281,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_CustomerPayRefund(ServiceOrder order)
         {
-            ChangeStatus(order, enum_OrderStatus.CheckPayWithRefund);
+            ChangeStatus(order, enum_OrderStatus.checkPayWithRefund);
         }
 
         /// <summary>
@@ -327,7 +327,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_CustomerPayInternention(ServiceOrder order)
         {
-            ChangeStatus(order, enum_OrderStatus.CheckPayWithIntervention);
+            ChangeStatus(order, enum_OrderStatus.checkPayWithIntervention);
         }
 
         /// <summary>
@@ -488,9 +488,9 @@ namespace Dianzhu.BLL
             new Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> {
                 //正常支付流程订单状态变更
                 { enum_OrderStatus.Created,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed }},
-                { enum_OrderStatus.CheckPayWithDeposit,new List<enum_OrderStatus>() {enum_OrderStatus.Created}},
+                { enum_OrderStatus.checkPayWithDeposit,new List<enum_OrderStatus>() {enum_OrderStatus.Created}},
                 { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed ,
-                                                                        enum_OrderStatus.CheckPayWithDeposit}},
+                                                                        enum_OrderStatus.checkPayWithDeposit}},
                 { enum_OrderStatus.Negotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Payed,
                                                                             enum_OrderStatus.IsEnd }},
                 { enum_OrderStatus.isNegotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
@@ -499,8 +499,8 @@ namespace Dianzhu.BLL
                 { enum_OrderStatus.IsEnd,new List<enum_OrderStatus>() {enum_OrderStatus.Begin }},
                 { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd ,
                                                                         enum_OrderStatus.Begin}},
-                { enum_OrderStatus.CheckPayWithNegotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Ended }},
-                { enum_OrderStatus.Finished,new List<enum_OrderStatus>() {enum_OrderStatus.CheckPayWithNegotiate }},
+                { enum_OrderStatus.checkPayWithNegotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Ended }},
+                { enum_OrderStatus.Finished,new List<enum_OrderStatus>() {enum_OrderStatus.checkPayWithNegotiate }},
                 { enum_OrderStatus.Appraised,new List<enum_OrderStatus>() {enum_OrderStatus.Finished }},
                 { enum_OrderStatus.EndWarranty,new List<enum_OrderStatus>() {enum_OrderStatus.Appraised }},
 
@@ -528,9 +528,9 @@ namespace Dianzhu.BLL
                { enum_OrderStatus.RejectRefund,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingRefund }},
                { enum_OrderStatus.AskPayWithRefund,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingRefund }},
                { enum_OrderStatus.WaitingPayWithRefund,new List<enum_OrderStatus>() {enum_OrderStatus.AskPayWithRefund }},
-               { enum_OrderStatus.CheckPayWithRefund,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingPayWithRefund }},
+               { enum_OrderStatus.checkPayWithRefund,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingPayWithRefund }},
                { enum_OrderStatus.EndRefund,new List<enum_OrderStatus>() {enum_OrderStatus.isRefund,
-                                                                            enum_OrderStatus.CheckPayWithRefund}},
+                                                                            enum_OrderStatus.checkPayWithRefund}},
                //订单一点办介入状态从哪个状态变更而来
                { enum_OrderStatus.InsertIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.RejectRefund,
                                                                                     enum_OrderStatus.AskPayWithRefund}},
@@ -539,9 +539,9 @@ namespace Dianzhu.BLL
                { enum_OrderStatus.HandleWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.InsertIntervention }},
                { enum_OrderStatus.NeedRefundWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.HandleWithIntervention }},
                { enum_OrderStatus.NeedPayWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.HandleWithIntervention }},
-               { enum_OrderStatus.CheckPayWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.NeedPayWithIntervention }},
+               { enum_OrderStatus.checkPayWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.NeedPayWithIntervention }},
                { enum_OrderStatus.EndIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.NeedRefundWithIntervention,
-                                                                                    enum_OrderStatus.CheckPayWithIntervention}},
+                                                                                    enum_OrderStatus.checkPayWithIntervention}},
                //投诉流程订单状态变更
                { enum_OrderStatus.WaitingComplaints,new List<enum_OrderStatus>() {enum_OrderStatus.Complaints }},
                { enum_OrderStatus.EndComplaints,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingComplaints }},
