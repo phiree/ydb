@@ -27,7 +27,12 @@ namespace Dianzhu.BLL
 
         public IList<DZMembership> GetCustomerListByCS(DZMembership cs,int pageNum,int pageSize,out int totalAmount)
         {
-            return dalRS.GetCustomerListByCS(cs, pageNum, pageSize, out totalAmount);
+            return dalRS.GetCustomerListByCS(cs, pageNum-1, pageSize, out totalAmount);
+        }
+
+        public int GetReceptionAmount(DZMembership member)
+        {
+            return dalRS.GetReceptionAmount(member);
         }
 
     }

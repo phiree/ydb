@@ -334,18 +334,7 @@ namespace Dianzhu.BLL
                 {
                     newMember.RegisterValidateCode = validateCode.ToString();
                 }
-                switch (userType)
-                {
-                    case "cer":
-                        newMember.UserType = Model.Enums.enum_UserType.customerservice.ToString();
-                        break;
-                    case "store":
-                        newMember.UserType = Model.Enums.enum_UserType.business.ToString();
-                        break;
-                    case "user":
-                        newMember.UserType = Model.Enums.enum_UserType.customer.ToString();
-                        break;
-                }
+                
                 DALMembership.Save(newMember);
                 createStatus = MembershipCreateStatus.Success;
                 return newMember;
@@ -379,6 +368,10 @@ namespace Dianzhu.BLL
         {
             return DALMembership.GetAllUsers(pageIndex, pageSize, out totalRecords);
         }
+        public IList<DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecords)
+        {
+            return DALMembership.GetAllCustomer(pageIndex-1, pageSize, out totalRecords);
+        }
         public void UpdateDZMembership(DZMembership member)
         {
 
@@ -396,6 +389,9 @@ namespace Dianzhu.BLL
             return DALMembership.GetMemberByPhone(phone);
         }
         #endregion
+
+
+        //获取用户的接待次数
 
 
     }

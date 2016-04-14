@@ -39,6 +39,10 @@ namespace Dianzhu.Model
             return null;
         }
         public virtual int LoginTimes { get;   set; }
+        /// <summary>
+        /// 呼叫 或者 接收呼叫的次数
+        /// </summary>
+        public virtual int ReceptionTimes { get; set; }
         public virtual Guid Id { get; set; }
         public virtual string UserName { get; set; }
         //用||(双竖线)替换邮箱用户中的@符号
@@ -88,7 +92,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 用户类型
         /// </summary>
-        public virtual string UserType { get; set; }
+        public virtual enum_UserType UserType { get; set; }
 
         /// <summary>
         /// 修改密码
@@ -108,7 +112,17 @@ namespace Dianzhu.Model
             }
 
         }
-        
+        public virtual string  FriendlyUserType
+        {
+            get{
+
+                return UserType == enum_UserType.admin ? "后台管理员" :
+                       UserType == enum_UserType.business ? "商家" :
+                       UserType == enum_UserType.customer ? "客户" :
+                       UserType == enum_UserType.customerservice ? "助理" :
+                       UserType == enum_UserType.staff ? "员工" : "未知类型"; 
+            }
+        }
 
     }
     /// <summary>

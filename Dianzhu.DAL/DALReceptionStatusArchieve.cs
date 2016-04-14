@@ -27,5 +27,23 @@ namespace Dianzhu.DAL
             totalAmount = iquery.RowCount();
             return iquery.Skip((pageNum - 1) * pageSize).Take(pageSize).List().Select(x => x.Customer).ToList();
         }
+        public int GetReceptionAmount(DZMembership member)
+        {
+            
+            var query = Session.QueryOver<ReceptionStatusArchieve>();
+            if (member.UserType == Model.Enums.enum_UserType.customerservice)
+            {
+                query = query.Where(x => x.CustomerService == member);
+            }
+            else if (member.UserType == Model.Enums.enum_UserType.customer)
+            {
+                query = query.Where(x => x.Customer == member);
+            }
+            else
+            {
+                return 0;
+            }
+            return query.RowCount();
+        }
     }
 }
