@@ -88,7 +88,7 @@ public class ResponseORM003007 : BaseResponse
 
                         switch (status)
                         {
-                            case enum_OrderStatus.CheckPayWithDesposit:
+                            case enum_OrderStatus.checkPayWithDeposit:
                                 bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
                                 break;
                             case enum_OrderStatus.Assigned:
@@ -100,13 +100,13 @@ public class ResponseORM003007 : BaseResponse
                             case enum_OrderStatus.Ended:
                                 bllServiceOrder.OrderFlow_CustomerFinish(order);
                                 break;
-                            case enum_OrderStatus.CheckPayWithNegotiate:
+                            case enum_OrderStatus.checkPayWithNegotiate:
                                 bllServiceOrder.OrderFlow_CustomerPayFinalPayment(order);
                                 break;
-                            case enum_OrderStatus.CheckPayWithRefund:
+                            case enum_OrderStatus.checkPayWithRefund:
                                 bllServiceOrder.OrderFlow_CustomerPayRefund(order);
                                 break;
-                            case enum_OrderStatus.CheckPayWithIntervention:
+                            case enum_OrderStatus.checkPayWithIntervention:
                                 bllServiceOrder.OrderFlow_CustomerPayInternention(order);
                                 break;
 

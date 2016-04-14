@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-using Dianzhu.Model.Enums;
 using FluentNHibernate.Mapping;
 namespace Dianzhu.DAL.Mapping
 {
@@ -19,7 +18,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.OrderServerStartTime);
             Map(x => x.OrderServerFinishedTime);
             Map(x => x.Memo);
-            Map(x => x.OrderStatus).CustomType<enum_OrderStatus>();
+            Map(x => x.OrderStatus).CustomType<Model.Enums.enum_OrderStatus>();
             References<DZMembership>(x => x.CustomerService);
             HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
 

@@ -111,7 +111,7 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 等待后台确认订单是否到帐
         /// </summary>
-        CheckPayWithDeposit = 4,
+        checkPayWithDeposit = 4,
         /// <summary>
         /// 已付款,等待上门服务
         /// </summary>
@@ -143,7 +143,7 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 等待后台确认商议价格是否到帐
         /// </summary>
-        CheckPayWithNegotiate = 27,
+        checkPayWithNegotiate = 27,
         /// <summary>
         /// 用户支付尾款，订单完成
         /// </summary>
@@ -201,7 +201,7 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 等待后台确认退款赔偿金是否到帐
         /// </summary>
-        CheckPayWithRefund = 51,
+        checkPayWithRefund = 51,
         /// <summary>
         /// 理赔完成
         /// </summary>
@@ -228,7 +228,7 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 等待后台确认介入要求的赔偿金是否到帐
         /// </summary>
-        CheckPayWithIntervention = 61,
+        checkPayWithIntervention = 61,
         /// <summary>
         /// 官方介入完成
         /// </summary>
@@ -350,9 +350,7 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 客服
         /// </summary>
-        customerservice,
-        staff,//员工
-        admin,//后台管理员
+        customerservice
     }
 
     /// <summary>
