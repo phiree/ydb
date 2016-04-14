@@ -111,7 +111,7 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 等待后台确认订单是否到帐
         /// </summary>
-        CheckPayWithDesposit = 4,
+        CheckPayWithDeposit = 4,
         /// <summary>
         /// 已付款,等待上门服务
         /// </summary>

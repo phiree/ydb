@@ -121,7 +121,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_PayDepositAndWaiting(ServiceOrder order)
         {
-            ChangeStatus(order, enum_OrderStatus.CheckPayWithDesposit);
+            ChangeStatus(order, enum_OrderStatus.CheckPayWithDeposit);
         }
 
         /// <summary>
@@ -382,9 +382,11 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_Canceled(ServiceOrder order)
         {
+            enum_OrderStatus oldStatus = order.OrderStatus;
+
             ChangeStatus(order, enum_OrderStatus.Canceled);
 
-            switch (order.OrderStatus)
+            switch (oldStatus)
             {
                 case enum_OrderStatus.Created:
                     ChangeStatus(order, enum_OrderStatus.EndCancel);
@@ -486,9 +488,9 @@ namespace Dianzhu.BLL
             new Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> {
                 //正常支付流程订单状态变更
                 { enum_OrderStatus.Created,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed }},
-                { enum_OrderStatus.CheckPayWithDesposit,new List<enum_OrderStatus>() {enum_OrderStatus.Created}},
+                { enum_OrderStatus.CheckPayWithDeposit,new List<enum_OrderStatus>() {enum_OrderStatus.Created}},
                 { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed ,
-                                                                        enum_OrderStatus.CheckPayWithDesposit}},
+                                                                        enum_OrderStatus.CheckPayWithDeposit}},
                 { enum_OrderStatus.Negotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Payed,
                                                                             enum_OrderStatus.IsEnd }},
                 { enum_OrderStatus.isNegotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
