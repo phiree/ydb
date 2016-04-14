@@ -21,7 +21,7 @@ public class ResponseORM003009 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        BllServiceOrderAppraise bllServiceOrderAppraise = new BllServiceOrderAppraise();
+        BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
 
         string user_ID = requestData.userID;
         string order_ID = requestData.orderID;

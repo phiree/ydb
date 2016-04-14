@@ -121,7 +121,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_PayDepositAndWaiting(ServiceOrder order)
         {
-            ChangeStatus(order, enum_OrderStatus.CheckPayWithDesposit);
+            ChangeStatus(order, enum_OrderStatus.CheckPayWithDeposit);
         }
 
         /// <summary>
@@ -382,9 +382,11 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_Canceled(ServiceOrder order)
         {
+            enum_OrderStatus oldStatus = order.OrderStatus;
+
             ChangeStatus(order, enum_OrderStatus.Canceled);
 
-            switch (order.OrderStatus)
+            switch (oldStatus)
             {
                 case enum_OrderStatus.Created:
                     ChangeStatus(order, enum_OrderStatus.EndCancel);
@@ -486,9 +488,9 @@ namespace Dianzhu.BLL
             new Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> {
                 //正常支付流程订单状态变更
                 { enum_OrderStatus.Created,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed }},
-                { enum_OrderStatus.CheckPayWithDesposit,new List<enum_OrderStatus>() {enum_OrderStatus.Created}},
+                { enum_OrderStatus.CheckPayWithDeposit,new List<enum_OrderStatus>() {enum_OrderStatus.Created}},
                 { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed ,
-                                                                        enum_OrderStatus.CheckPayWithDesposit}},
+                                                                        enum_OrderStatus.CheckPayWithDeposit}},
                 { enum_OrderStatus.Negotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Payed,
                                                                             enum_OrderStatus.IsEnd }},
                 { enum_OrderStatus.isNegotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
@@ -591,13 +593,45 @@ namespace Dianzhu.BLL
         }
     }
 
-    public class BllServiceOrderAppraise
+    public class BLLServiceOrderAppraise
     {
         public DALServiceOrderAppraise dalServiceOrderAppraise = DALFactory.DALServiceOrderAppraise;
         
         public void Save(ServiceOrderAppraise appraise)
         {
             dalServiceOrderAppraise.Save(appraise);
+        }
+    }
+
+    public class BLLServiceOrderRemind
+    {
+        public DALServiceOrderRemind dalServiceOrderRemind = DALFactory.DALServiceOrderRemind;
+
+        public void SaveOrUpdate(ServiceOrderRemind Remind)
+        {
+            dalServiceOrderRemind.SaveOrUpdate(Remind);
+        }
+
+        public ServiceOrderRemind GetOneByIdAndUserId(Guid Id, Guid UserId)
+        {
+            return dalServiceOrderRemind.GetOneByIdAndUserId(Id, UserId);
+        }
+
+        public int GetSumByUserIdAndDatetime(Guid userId, DateTime startTime, DateTime endTime)
+        {
+            return dalServiceOrderRemind.GetSumByUserIdAndDatetime(userId, startTime, endTime);
+        }
+
+        public IList<ServiceOrderRemind> GetListByUserIdAndDatetime(Guid userId, DateTime startTime, DateTime endTime)
+        {
+            IList<ServiceOrderRemind> remindList = null;
+
+            if (startTime < endTime)
+            {
+                remindList = dalServiceOrderRemind.GetListByUserIdAndDatetime(userId, startTime, endTime);
+            }
+
+            return remindList;
         }
     }
 }

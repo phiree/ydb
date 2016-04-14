@@ -88,7 +88,7 @@ public class ResponseORM003007 : BaseResponse
 
                         switch (status)
                         {
-                            case enum_OrderStatus.CheckPayWithDesposit:
+                            case enum_OrderStatus.CheckPayWithDeposit:
                                 bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
                                 break;
                             case enum_OrderStatus.Assigned:

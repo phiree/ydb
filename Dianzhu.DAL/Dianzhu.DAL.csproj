@@ -78,6 +78,7 @@
     <Compile Include="DALPaymentLog.cs" />
     <Compile Include="DALArea.cs" />
     <Compile Include="DALDZTag.cs" />
+    <Compile Include="DALServiceOrderRemind.cs" />
     <Compile Include="DALServiceOrderAppraise.cs" />
     <Compile Include="IdentityAccess\DALMembership.cs" />
     <Compile Include="DALBase.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Mapping\IdentityAccess\DZRoleMemberMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
+    <Compile Include="Mapping\ServiceOrderRemindMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderPushedServiceMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderDetailMap.cs" />
     <Compile Include="Mapping\StaffServiceTypeMap.cs" />

@@ -35,7 +35,7 @@ public partial class DZOrder_Default : BasePage
         {
             currentPageIndex = int.Parse(paramPage);
         }
-        rpOrderList.DataSource = bllServeiceOrder.GetListForBusiness(CurrentBusiness, currentPageIndex,pager.PageSize,out totalRecord).OrderByDescending(x=>x.LatestOrderUpdated);
+        rpOrderList.DataSource = bllServeiceOrder.GetListForBusiness(CurrentBusiness, currentPageIndex, pager.PageSize, out totalRecord).OrderByDescending(x=>x.OrderCreated);
      
         pager.RecordCount = Convert.ToInt32(totalRecord);
         rpOrderList.DataBind();
