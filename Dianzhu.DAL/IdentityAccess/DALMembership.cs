@@ -118,7 +118,22 @@ namespace Dianzhu.DAL
             return memList;
         }
 
-        
+        public IList<Model.DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecord)
+        {
+            return GetUserList(Model.Enums.enum_UserType.customer, pageIndex, pageSize, out totalRecord);
+        }
+        private IList<Model.DZMembership> GetUserList(Model.Enums.enum_UserType? userType,
+            int pageIndex, int pageSize, out long totalRecord)
+        {
+            var query = Session.QueryOver<Model.DZMembership>().Where(x=>x.Id==x.Id);
+            if (userType.HasValue)
+            {
+                query = query.And(x => x.UserType == userType.Value);
+            }
+
+            totalRecord = query.RowCount();
+            return query.List().Skip(pageIndex*pageSize).Take(pageSize).ToList();
+        }
         //public Model.ScenicAdmin GetScenicAdmin(Guid id)
         //{
         //    IQuery query = session.CreateQuery("select sa from ScenicAdmin sa where sa.Membership.Id='" + id + "'");
@@ -127,10 +142,10 @@ namespace Dianzhu.DAL
         //    return sa.Value;
         //}
 
-         
 
 
-      
+
+
         public void ChangePassword(Model.DZMembership member)
         {
             using (var x = Session.Transaction)

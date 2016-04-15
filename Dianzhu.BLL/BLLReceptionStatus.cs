@@ -381,7 +381,7 @@ namespace Dianzhu.BLL
     /// <summary>
     /// 客服分配策略
     /// </summary>
-    public interface IAssignStratage
+    public abstract class IAssignStratage
     {
         /// <summary>
         /// 将一组用户分配给一组客服
@@ -390,7 +390,13 @@ namespace Dianzhu.BLL
         /// <param name="csList">客服</param>
         /// <param name="diandian">如果所有客服都不在线,则分配给该用户.</param>
         /// <returns></returns>
-        Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList,DZMembership diandian);
+      public  abstract Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian);
+
+        /// <summary>
+        /// 更新客户的呼叫次数
+        /// </summary>
+        /// <param name="customerList"></param>
+         
     }
   
 
@@ -406,7 +412,7 @@ namespace Dianzhu.BLL
         /// <param name="customerList">待分配的客户列表</param>
         /// <param name="csList">在线的客服列表</param>
         /// <returns>分配后的字典表,key 是客户,value 是客服</returns>
-        public Dictionary<DZMembership,DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian)
+        public override Dictionary<DZMembership,DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian)
         {
             Dictionary<DZMembership, DZMembership> assignList = new Dictionary<DZMembership, DZMembership>();
             if (csList.Count == 0)
@@ -444,7 +450,7 @@ namespace Dianzhu.BLL
             dalRS = dal;
         }
 
-        public Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian)
+        public override Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian)
         {
             Dictionary<DZMembership, DZMembership> assignList = new Dictionary<DZMembership, DZMembership>();
             if (csList.Count == 0)
@@ -496,7 +502,7 @@ namespace Dianzhu.BLL
         {
             manuallyCsId = csId;
         }
-        public Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian)
+        public override Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian)
         {
             Dictionary<DZMembership, DZMembership> assignList = new Dictionary<DZMembership, DZMembership>();
              

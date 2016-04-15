@@ -100,6 +100,7 @@
     <Compile Include="BLLServiceProperty.cs" />
     <Compile Include="BLLServicePropertyValue.cs" />
     <Compile Include="Promote\BLLCashTIcketAssignDetail.cs" />
+    <Compile Include="ServiceOrder\OrderFlow.cs" />
     <Compile Include="ServiceOrder\PushService.cs" />
     <Compile Include="SiteConfig.cs" />
     <Compile Include="Validator\ValidatorServiceOpenTimeForDay.cs" />
