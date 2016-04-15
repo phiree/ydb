@@ -22,7 +22,7 @@ public class ResponseUSM001001 : BaseResponse
              requestData.email,
              requestData.pWord,
              out createStatus,
-             Dianzhu.Model.Enums.enum_UserType.customer.ToString());
+             Dianzhu.Model.Enums.enum_UserType.customer);
         if (createStatus == MembershipCreateStatus.DuplicateUserName)
         {
             this.state_CODE = Dicts.StateCode[3];
