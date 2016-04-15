@@ -75,7 +75,8 @@ public class ResponseORM005010 : BaseResponse
                     amount = "50",
                     resourcesUrl = "http://imgsrc.baidu.com/forum/w=580/sign=04e1e17ac5fdfc03e578e3b0e43e87a9/1967c5177f3e67090520527b3dc79f3df9dc5577.jpg",
                     date = "201506162223",
-                    orderStatus = "AskPayWithRefund"
+                    orderStatus = "AskPayWithRefund",
+                    target= "user"
                 };
 
                 IList<RespDataORM_refundStatusObj> refundStatusList = new List<RespDataORM_refundStatusObj>();

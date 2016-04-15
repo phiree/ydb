@@ -218,6 +218,7 @@ namespace Dianzhu.Api.Model
         public string resourcesUrl { get; set; }
         public string date { get; set; }
         public string orderStatus { get; set; }
+        public string target { get; set; }
     }
 
     #endregion
