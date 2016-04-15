@@ -350,15 +350,15 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 客服
         /// </summary>
-        customerservice=3,
+        customerservice=4,
         /// <summary>
         /// 管理员
         /// </summary>
-        admin=4,
+        admin=8,
         /// <summary>
         /// 员工
         /// </summary>
-        staff=5
+        staff=16
 
     }
 
