@@ -43,7 +43,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 string msg = string.Empty;
                 this.Dispatcher.Invoke((Action)(() =>
                 {
-                    msg= tbxTextMessage.Text;
+                    msg= tbxTextMessage.Text.Trim();
 
                 }));
                 return msg;
@@ -67,7 +67,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void btnSendTextMessage_Click(object sender, RoutedEventArgs e)
         {
-            if (SendTextClick != null)
+            if (SendTextClick != null&& MessageText!=string.Empty)
             {
                 SendTextClick();
             }
@@ -110,7 +110,8 @@ namespace Dianzhu.CSClient.ViewWPF
                 else if (btn.Name == "btnSendAudio")
                 {
                     dlg.DefaultExt = ".wma;.mp3";
-                    dlg.Filter = "Audios |*.mp3";
+                    //dlg.Filter = "Audios |*.mp3";
+                    dlg.Filter = "Audios |*.*";
                     domain = "ChatAudio";
                     mediaType = "voice";
                 }
@@ -174,10 +175,10 @@ namespace Dianzhu.CSClient.ViewWPF
             bmp = e.Bmp;
             win = new Window { SizeToContent = SizeToContent.WidthAndHeight, ResizeMode = ResizeMode.NoResize,WindowStartupLocation=WindowStartupLocation.CenterScreen };
 
-            var canvas = new Canvas { Width = bmp.Width, Height = bmp.Height + 50 };
-            var canvasSure = new StackPanel { Width = bmp.Width, Height = bmp.Height + 50 };
-            var imageSure = new Image { Width = bmp.Width, Height = bmp.Height, Source = bmp };
-            var btnSure = new Button { Width = 100, Height = 40,Name="btnSendCapture", Content = "确认" };
+            var canvas = new Canvas { Width = bmp.Width, Height = bmp.Height + 50, MaxHeight = 650, MaxWidth = 800 };
+            var canvasSure = new StackPanel { Width = bmp.Width, Height = bmp.Height + 50, MaxHeight = 650, MaxWidth = 800 };
+            var imageSure = new Image { Width = bmp.Width, Height = bmp.Height, Source = bmp, MaxHeight = 600, MaxWidth = 800 };
+            var btnSure = new Button { Width = 100, Height = 40, Name = "btnSendCapture", Content = "确认" };
             btnSure.Click += BtnSure_Click;
             canvasSure.Children.Add(imageSure);
             canvasSure.Children.Add(btnSure);
@@ -227,5 +228,13 @@ namespace Dianzhu.CSClient.ViewWPF
             return stream.ToArray();
         }
         #endregion
+
+        private void tbxTextMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (SendTextClick != null && MessageText != string.Empty && e.Key == Key.Enter)
+            {
+                SendTextClick();
+            }
+        }
     }
 }
