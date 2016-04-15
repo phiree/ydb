@@ -76,7 +76,7 @@ public class ResponseORM003007 : BaseResponse
                 try
                 {
                     OrderServiceFlow osf = new OrderServiceFlow();
-                    if (member.UserType.ToLower() == "customer")
+                    if (member.UserType == enum_UserType.customer)
                     {
                         ServiceOrder order = bllServiceOrder.GetOrderByIdAndCustomer(orderId, member);
                         if (order == null)
@@ -117,7 +117,7 @@ public class ResponseORM003007 : BaseResponse
                                 return;
                         }
                     }
-                    else if(member.UserType.ToLower() == "business")
+                    else if(member.UserType == enum_UserType.business)
                     {
                         ServiceOrder order = bllServiceOrder.GetOne(orderId);
                         if (order.Details[0].OriginalService.Business.Owner.Id != userId)

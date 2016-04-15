@@ -342,15 +342,24 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 普通用户
         /// </summary>
-        customer,
+        customer=1,
         /// <summary>
         /// 商户
         /// </summary>
-        business,
+        business=2,
         /// <summary>
         /// 客服
         /// </summary>
-        customerservice
+        customerservice=3,
+        /// <summary>
+        /// 管理员
+        /// </summary>
+        admin=4,
+        /// <summary>
+        /// 员工
+        /// </summary>
+        staff=5
+
     }
 
     /// <summary>
