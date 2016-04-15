@@ -138,13 +138,14 @@ namespace Dianzhu.Api.Model
         public string startTime { get; set; }
         public string endTime { get; set; }
         public string deposit { get; set; }
+        public string unitPrice { get; set; }
         public RespDataORM_svcObj Adap(ServiceOrderDetail orderDetail,ServiceOrderPushedService pushService)
         {
             if (orderDetail != null)
             {
-                this.svcID = orderDetail.OriginalService != null ? orderDetail.OriginalService.Id.ToString() : "";
+                this.svcID = orderDetail.OriginalService != null ? orderDetail.OriginalService.Id.ToString() : string.Empty;
                 this.name = orderDetail.ServieSnapShot.ServiceName ?? string.Empty;
-                this.type = orderDetail.OriginalService != null ? orderDetail.OriginalService.ServiceType.ToString() : "";
+                this.type = orderDetail.OriginalService != null ? orderDetail.OriginalService.ServiceType.ToString() : string.Empty;
                 if (orderDetail.TargetTime > DateTime.MinValue)
                 {
                     this.startTime = string.Format("{0:yyyyMMddHHmmss}", orderDetail.TargetTime);
@@ -155,12 +156,13 @@ namespace Dianzhu.Api.Model
                 }
                 this.endTime = string.Empty;
                 this.deposit = orderDetail.ServieSnapShot.DepositAmount.ToString("0.00");
+                this.unitPrice = orderDetail.ServieSnapShot != null ? orderDetail.ServieSnapShot.UnitPrice.ToString("0.00") : string.Empty;
             }
             else if(orderDetail == null && pushService != null)
             {
-                this.svcID = pushService.OriginalService != null ? pushService.OriginalService.Id.ToString() : "";
+                this.svcID = pushService.OriginalService != null ? pushService.OriginalService.Id.ToString() : string.Empty;
                 this.name = pushService.ServiceName ?? string.Empty;
-                this.type = pushService.OriginalService != null ? pushService.OriginalService.ServiceType.ToString() : "";
+                this.type = pushService.OriginalService != null ? pushService.OriginalService.ServiceType.ToString() : string.Empty;
                 if (pushService.TargetTime > DateTime.MinValue)
                 {
                     this.startTime = string.Format("{0:yyyyMMddHHmmss}", pushService.TargetTime);
@@ -171,6 +173,7 @@ namespace Dianzhu.Api.Model
                 }
                 this.endTime = string.Empty;
                 this.deposit = pushService.DepositAmount.ToString("0.00");
+                this.unitPrice = pushService.UnitPrice.ToString("0.00");
             }
             else
             {
@@ -196,6 +199,27 @@ namespace Dianzhu.Api.Model
             return this;
         }
     }
+
+    public class RespDataORM_refundObj
+    {
+        public string refundID { get; set; }
+        public string orderID { get; set; }
+        public string context { get; set; }
+        public string amount { get; set; }
+        public string resourcesUrl { get; set; }
+    }
+
+    public class RespDataORM_refundStatusObj
+    {
+        public string refundStatusID { get; set; }
+        public string orderID { get; set; }
+        public string context { get; set; }
+        public string amount { get; set; }
+        public string resourcesUrl { get; set; }
+        public string date { get; set; }
+        public string orderStatus { get; set; }
+    }
+
     #endregion
 
     #region ORM001004
@@ -456,6 +480,89 @@ namespace Dianzhu.Api.Model
     public class RespDataORM003009
     {
         public string resultStatus { get; set; }
+    }
+
+    #endregion
+
+    #region ORM005001
+
+    public class ReqDataORM005001
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public RespDataORM_refundObj refundObj { get; set; }
+    }
+
+    public class RespDataORM005001
+    {
+        public string refundID { get; set; }
+    }
+
+    #endregion
+
+    #region ORM005007
+
+    public class ReqDataORM005007
+    {
+        public string merchantID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+        public string refundAction { get; set; }
+        public string context { get; set; }
+    }
+
+    public class RespDataORM005007
+    {
+        public string resultStatus { get; set; }
+    }
+
+    #endregion
+
+    #region ORM005008
+
+    public class ReqDataORM005008
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+        public string refundAction { get; set; }
+    }
+
+    public class RespDataORM005008
+    {
+        public string resultStatus { get; set; }
+    }
+
+    #endregion
+
+    #region ORM005009
+
+    public class ReqDataORM005009
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+    }
+
+    public class RespDataORM005009
+    {
+        public string resultStatus { get; set; }
+    }
+
+    #endregion
+
+    #region ORM005010
+
+    public class ReqDataORM005010
+    {
+        public string userID { get; set; }
+        public string pWord { get; set; }
+        public string orderID { get; set; }
+    }
+
+    public class RespDataORM005010
+    {
+        public IList<RespDataORM_refundStatusObj> arrayData { get; set; }
     }
 
     #endregion
