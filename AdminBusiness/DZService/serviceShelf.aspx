@@ -169,21 +169,18 @@
                 <span class="l-h20">（填写要添加/删除的服务货品数量）</span>
             </div>
         </div>
-
 </script>
-
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server" >
     <script src="/js/interfaceAdapter.js"></script>
     <script src="/js/libs/json2.js"></script>
     <script src="/js/libs/underscore.js"></script>
     <script src="/js/libs/backbone.js"></script>
-    <script src="/js/libs/backbone.customAPI.js"></script>
+    <!--测试时的API接口-->
+    <script src="/js/test/backbone.customAPI.test.js"></script>
     <script src="/js/test/mock.js"></script>
     <script src="/js/test/mock.shelf.js"></script>
     <script src="/js/test/mock.workTimeSet.js"></script>
     <script src="/js/event.js"></script>
     <script src="/js/shelf.js"></script>
-    <!--<script src="/js/shelf/MockData.js"></script>-->
-    <!--<script src="/js/shelf/goods.js"></script>-->
 </asp:Content>
