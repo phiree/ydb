@@ -15,7 +15,7 @@ namespace Dianzhu.CSClient.Presenter
     /// </summary>
     public class IdentityManager
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Presenter.IdentityManager");
+        static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Presenter.IdentityManager");
         #region propertys
         /// <summary>
         /// 当前激活的通讯
@@ -67,13 +67,8 @@ namespace Dianzhu.CSClient.Presenter
 
         #region  contructors
       
-        PIdentityList pIdentityList;
-        PChatList pChatList;
-        public IdentityManager(  PIdentityList pIdentityList, PChatList pChatList)
+        public IdentityManager()
         { 
-            this.pIdentityList = pIdentityList;
-            this.pChatList = pChatList;
-            //todo: 可以从历史记录
             InitLoadIdentityList();
 
         }
@@ -92,7 +87,7 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="order"></param>
         /// <returns></returns>
         
-        public void UpdateIdentityList(ServiceOrder order, out IdentityTypeOfOrder type)
+        public static void UpdateIdentityList(ServiceOrder order, out IdentityTypeOfOrder type)
         {
             log.Debug("1开始更新聊天标志的状态.订单:"+order.Id+",用户:"+order.Customer.DisplayName);
             type = IdentityTypeOfOrder.None;

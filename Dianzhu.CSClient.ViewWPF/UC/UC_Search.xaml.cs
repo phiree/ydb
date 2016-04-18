@@ -30,6 +30,24 @@ namespace Dianzhu.CSClient.ViewWPF
             InitializeComponent();
         }
 
+        public string ServicePeople
+        {
+            get { return tbxKeywordPeople.Text.Trim(); }
+            set { tbxKeywordPeople.Text = value; }
+        }
+
+        public string ServicePhone
+        {
+            get { return tbxKeywordPhone.Text.Trim(); }
+            set { tbxKeywordPhone.Text = value; }
+        }
+
+        public string ServiceAddress
+        {
+            get { return tbxKeywordAddress.Text.Trim(); }
+            set { tbxKeywordAddress.Text = value; }
+        }
+
         public DateTime SearchKeywordTime
         {
             get
@@ -131,7 +149,18 @@ namespace Dianzhu.CSClient.ViewWPF
         public event ServiceTypeSecond_Select ServiceTypeSecond_Select;
         public event ServiceTypeThird_Select ServiceTypeThird_Select;
 
-
+        /// <summary>
+        /// 清空数据
+        /// </summary>
+        public void ClearData()
+        {
+            ServicePeople = string.Empty;
+            SearchKeywordTime = DateTime.Now;
+            SearchKeywordPriceMin = 0;
+            SearchKeywordPriceMax = 0;
+            ServicePhone = string.Empty;
+            ServiceAddress = string.Empty;
+        }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {

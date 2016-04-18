@@ -43,7 +43,7 @@ namespace Dianzhu.CSClient.ViewWPF
                 string msg = string.Empty;
                 this.Dispatcher.Invoke((Action)(() =>
                 {
-                    msg= tbxTextMessage.Text.Trim();
+                    msg= tbxTextMessage.Text;
 
                 }));
                 return msg;
@@ -67,7 +67,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void btnSendTextMessage_Click(object sender, RoutedEventArgs e)
         {
-            if (SendTextClick != null&& MessageText!=string.Empty)
+            if (SendTextClick != null && MessageText.Trim() != string.Empty)
             {
                 SendTextClick();
             }
@@ -231,7 +231,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void tbxTextMessage_KeyDown(object sender, KeyEventArgs e)
         {
-            if (SendTextClick != null && MessageText != string.Empty && e.Key == Key.Enter)
+            if (SendTextClick != null && MessageText.Trim() != string.Empty && e.Key == Key.Enter)
             {
                 SendTextClick();
             }

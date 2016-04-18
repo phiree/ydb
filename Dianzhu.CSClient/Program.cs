@@ -103,12 +103,12 @@ namespace Dianzhu.CSClient
                 //初始化Presenter
                 Presenter.PIdentityList pIdentityList = new Presenter.PIdentityList(viewIdentityList, viewChatList, viewOrder);
                 Presenter.PChatList pChatList = new Presenter.PChatList(viewChatList, viewIdentityList, xmpp);
-                Presenter.IdentityManager pIdentityManager = new Presenter.IdentityManager(pIdentityList, pChatList);
+                Presenter.IdentityManager pIdentityManager = new Presenter.IdentityManager();
                 Presenter.PNotice pNotice = new Presenter.PNotice(viewNotice);
-                Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityManager, pIdentityList,pNotice);
-                Presenter.PSearch pSearch = new Presenter.PSearch(xmpp,viewSearch, viewSearchResult, viewOrder,viewChatList);
+                Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityList, pNotice);
+                Presenter.PSearch pSearch = new Presenter.PSearch(xmpp, viewSearch, viewSearchResult, viewOrder, viewChatList);
                 Presenter.POrder pOrder = new Presenter.POrder(xmpp, viewOrder);
-                Presenter.POrderHistory pOrderHistory = new Presenter.POrderHistory(viewOrderHistory,viewIdentityList);
+                Presenter.POrderHistory pOrderHistory = new Presenter.POrderHistory(viewOrderHistory, viewIdentityList);
                 Presenter.PChatSend pChatSend = new Presenter.PChatSend(viewChatSend, viewChatList, xmpp);
                 Presenter.PMain pMain = new Presenter.PMain(new BLLReceptionStatus(), new BLLReceptionStatusArchieve(),
                     new BLLReceptionChatDD(), new BLLReceptionChat(), new BLLIMUserStatus(), xmpp, viewIdentityList);

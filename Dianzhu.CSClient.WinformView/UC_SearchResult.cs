@@ -45,19 +45,6 @@ namespace Dianzhu.CSClient.WinformView
             }
         }
 
-        public string TargetAddress
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public DateTime TargetTime
         {
             get
@@ -76,6 +63,19 @@ namespace Dianzhu.CSClient.WinformView
             set
             {
                
+            }
+        }
+
+        public bool BtnPush
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
             }
         }
 

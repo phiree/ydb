@@ -9,27 +9,42 @@
     <Grid>
         <StackPanel>
             <WrapPanel>
-                <Label Content="时间"></Label>
+                <Label Content="服务对象"></Label>
+                <TextBox x:Name="tbxKeywordPeople" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="王女士" Width="200"/>
+            </WrapPanel>
+
+            <WrapPanel>
+                <Label Content="服务时间"></Label>
                 <TextBox x:Name="tbxKeywordTime" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="2016-4-5 9:00" Width="200"/>
             </WrapPanel>
 
             <WrapPanel>
-                <Label Content="价格"></Label>
+                <Label Content="服务类型"></Label>
+                <ComboBox x:Name="cbxSearchTypeF" Width="80" SelectionChanged="cbxSearchTypeF_SelectionChanged"/>
+                <ComboBox x:Name="cbxSearchTypeS" Width="80" SelectionChanged="cbxSearchTypeS_SelectionChanged" Visibility="Hidden"/>
+                <ComboBox x:Name="cbxSearchTypeT" Width="80" SelectionChanged="cbxSearchTypeT_SelectionChanged" Visibility="Hidden"/>
+            </WrapPanel>
+
+            <WrapPanel>
+                <Label Content="价格区间"></Label>
                 <TextBox x:Name="tbxKeywordPriceMin" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" Width="100" PreviewTextInput="tbxKeywordPriceMin_PreviewTextInput" TextChanged="tbxKeywordPriceMin_TextChanged"/>
                 <Label Content="-"></Label>
                 <TextBox x:Name="tbxKeywordPriceMax" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="999" Width="100" PreviewTextInput="tbxKeywordPriceMin_PreviewTextInput" TextChanged="tbxKeywordPriceMin_TextChanged"/>
             </WrapPanel>
 
             <WrapPanel>
-                <Label Content="类型"></Label>
-                <ComboBox x:Name="cbxSearchTypeF" Width="80" SelectionChanged="cbxSearchTypeF_SelectionChanged"/>
-                <ComboBox x:Name="cbxSearchTypeS" Width="80" SelectionChanged="cbxSearchTypeS_SelectionChanged" Visibility="Hidden"/>
-                <ComboBox x:Name="cbxSearchTypeT" Width="80" SelectionChanged="cbxSearchTypeT_SelectionChanged" Visibility="Hidden"/>
+                <Label Content="联系方式"></Label>
+                <TextBox x:Name="tbxKeywordPhone" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="13688888888" Width="200"/>
+            </WrapPanel>
+
+            <WrapPanel>
+                <Label Content="服务地址"></Label>
+                <TextBox x:Name="tbxKeywordAddress" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="海口国贸路" Width="200"/>
             </WrapPanel>
 
             <DockPanel>
                 <Button x:Name="btnSearch" Content="搜索服务" HorizontalAlignment="Right" Width="75" Click="btnSearch_Click"/>
             </DockPanel>
-        </StackPanel>        
+        </StackPanel>
     </Grid>
 </UserControl>

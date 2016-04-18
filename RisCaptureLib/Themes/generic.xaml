@@ -36,24 +36,29 @@
                                 <RisCaptureLib:MoveThumb Height="4"
                                  Cursor="SizeAll"
                                  VerticalAlignment="Top"
-                                 HorizontalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" 
+                                 ToolTip="双击左键可预览已选择图片,点击右键可取消当前截图"/>
                                 <RisCaptureLib:MoveThumb Width="4"
                                  Cursor="SizeAll"
                                  VerticalAlignment="Stretch"
-                                 HorizontalAlignment="Left"/>
+                                 HorizontalAlignment="Left" 
+                                 ToolTip="双击左键可预览已选择图片,点击右键可取消当前截图"/>
                                 <RisCaptureLib:MoveThumb Width="4"
                                  Cursor="SizeAll"
                                  VerticalAlignment="Stretch"
-                                 HorizontalAlignment="Right"/>
+                                 HorizontalAlignment="Right" 
+                                 ToolTip="双击左键可预览已选择图片,点击右键可取消当前截图"/>
                                 <RisCaptureLib:MoveThumb Height="4"
                                  Cursor="SizeAll"
                                  VerticalAlignment="Bottom"
-                                 HorizontalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" 
+                                 ToolTip="双击左键可预览已选择图片,点击右键可取消当前截图"/>
                                 <RisCaptureLib:MoveThumb Margin="4"
                                  IsMoveByTargetCenter="True"
                                  Cursor="SizeAll"
                                  VerticalAlignment="Stretch"
-                                 HorizontalAlignment="Stretch"/>
+                                 HorizontalAlignment="Stretch" 
+                                 ToolTip="双击左键可预览已选择图片,点击右键可取消当前截图"/>
 
                                 <!--Resize (Corner)-->
                                 <RisCaptureLib:ResizeThumb  x:Name="leftTopResizeThumb"
