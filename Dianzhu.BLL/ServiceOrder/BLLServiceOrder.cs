@@ -464,87 +464,21 @@ namespace Dianzhu.BLL
             return DALServiceOrder.GetServiceOrderAmountWithoutDraft(userid, isCustomerService);
         }
 
+        //查询店铺的所有订单
+        public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId)
+        {
+            return DALServiceOrder.GetAllOrdersForBusiness(businessId);
+        }
+        //查询全部已经完成的订单
+        public IList<ServiceOrder> GetAllCompleteOrdersForBusiness(Guid businessId)
+        {
+            return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);
+        }
+        //查询订单的总金额
+        //查询订单的曝光率.
     }
 
-    /// <summary>
-    /// 订单状态历史记录
-    /// </summary>
-    public class BLLServiceOrderStateChangeHis
-    {
-        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
 
-        DALServiceOrderStateChangeHis dalServiceOrderStateChangeHis = null;
-        public BLLServiceOrderStateChangeHis()
-        {
-            dalServiceOrderStateChangeHis = DALFactory.DALServiceOrderStateChangeHis;
-        }
 
-        public void SaveOrUpdate(ServiceOrder oldOrder,enum_OrderStatus newStatus)
-        {
-            int num = 1;
-            ServiceOrderStateChangeHis oldOrderHis = GetMaxNumberOrderHis(oldOrder);
-            if (oldOrderHis != null)
-            {
-                num = oldOrderHis.Number + 1;
-            }
-            ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis(oldOrder, newStatus, num);
-            dalServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
-        }
 
-        public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
-        {
-            return dalServiceOrderStateChangeHis.GetMaxNumberOrderHis(order);
-        }
-
-        public IList<ServiceOrderStateChangeHis> GetOrderHisList(ServiceOrder order)
-        {
-            return dalServiceOrderStateChangeHis.GetOrderHisList(order);
-        }
-        public DateTime GetChangeTime(ServiceOrder order, enum_OrderStatus status)
-        {
-            return dalServiceOrderStateChangeHis.GetChangeTime(order, status);
-        }
-    }
-
-    public class BLLServiceOrderAppraise
-    {
-        public DALServiceOrderAppraise dalServiceOrderAppraise = DALFactory.DALServiceOrderAppraise;
-        
-        public void Save(ServiceOrderAppraise appraise)
-        {
-            dalServiceOrderAppraise.Save(appraise);
-        }
-    }
-
-    public class BLLServiceOrderRemind
-    {
-        public DALServiceOrderRemind dalServiceOrderRemind = DALFactory.DALServiceOrderRemind;
-
-        public void SaveOrUpdate(ServiceOrderRemind Remind)
-        {
-            dalServiceOrderRemind.SaveOrUpdate(Remind);
-        }
-
-        public ServiceOrderRemind GetOneByIdAndUserId(Guid Id, Guid UserId)
-        {
-            return dalServiceOrderRemind.GetOneByIdAndUserId(Id, UserId);
-        }
-
-        public int GetSumByUserIdAndDatetime(Guid userId, DateTime startTime, DateTime endTime)
-        {
-            return dalServiceOrderRemind.GetSumByUserIdAndDatetime(userId, startTime, endTime);
-        }
-
-        public IList<ServiceOrderRemind> GetListByUserIdAndDatetime(Guid userId, DateTime startTime, DateTime endTime)
-        {
-            IList<ServiceOrderRemind> remindList = null;
-
-            if (startTime < endTime)
-            {
-                remindList = dalServiceOrderRemind.GetListByUserIdAndDatetime(userId, startTime, endTime);
-            }
-
-            return remindList;
-        }
-    }
 }

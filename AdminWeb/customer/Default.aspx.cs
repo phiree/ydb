@@ -15,6 +15,14 @@ public partial class membership_Default : System.Web.UI.Page
         {
             BindList(SortDirection.Ascending,"username");
         }
+        BindSummary();
+    }
+
+    private void BindSummary()
+    {
+        BLLIMUserStatus bllIMUS = new BLLIMUserStatus();
+       var onlineUser= bllIMUS.GetOnlineListByClientName(Dianzhu.Model.Enums.enum_XmppResource.YDBan_User.ToString());
+        lblTotalOnline.Text = onlineUser.Count.ToString();
     }
  
      public SortDirection GetSortDirection(string SortExpression)
@@ -46,7 +54,7 @@ public partial class membership_Default : System.Web.UI.Page
         string cache_key_vmcount = "ck_vmcount";
         IList<VMCustomer> vmList = new List<VMCustomer>();
         var cached_list = System.Web.HttpRuntime.Cache[cache_key];
-        if (!config.EnableCache ||cached_list == null)
+        if (!config.EnableCache || cached_list == null)
         {
 
             IList<DZMembership> list = dzmp.GetAllCustomer(currentPageIndex, pager.PageSize, out totalRecord);
@@ -58,6 +66,7 @@ public partial class membership_Default : System.Web.UI.Page
         {
             vmList = (IList<VMCustomer>)cached_list;
             totalRecord = (long)System.Web.HttpRuntime.Cache[cache_key_vmcount];
+            lblTotalRegister.Text = totalRecord.ToString();
         }
 
       

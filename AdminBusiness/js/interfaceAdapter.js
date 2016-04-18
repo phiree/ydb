@@ -73,11 +73,7 @@
         };
         return tools;
     }();
-
-    var Adapter = function (){
-        return new Adapter();
-    };
-
+    var Adapter = {};
     /**
      *
      * @param protocolCode protocol code

@@ -6,7 +6,16 @@
     用户管理
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <asp:GridView runat="server" AllowSorting="true" OnSorting="gvMember_Sorting" AutoGenerateColumns="false" ID="gvMember">
+    <fieldset><legend>总览</legend>
+        <div>
+           <span>注册总数:</span><asp:Label runat="server" ID="lblTotalRegister"></asp:Label>
+        </div>
+         <div>
+           <span>当前在线:</span><asp:Label runat="server" ID="lblTotalOnline"></asp:Label>
+        </div>
+    </fieldset>
+    
+     <asp:GridView runat="server" AllowSorting="true" OnSorting="gvMember_Sorting" AutoGenerateColumns="false" ID="gvMember">
         <Columns>
             <asp:BoundField HeaderText="用户名" DataField="UserName" SortExpression="UserName" />
             <asp:BoundField HeaderText="电话" DataField="Phone" SortExpression="Phone" />

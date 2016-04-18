@@ -54,10 +54,10 @@ public partial class DZOrder_Default : BasePage
                         return;
                     }
                     string payLinkDepositAmount = bllPayment.BuildPayLink(payMent.Id);
-                    HyperLink hlDepositAmount = e.Item.FindControl("PayDepositAmount") as HyperLink;
-                    hlDepositAmount.Text = "用户订金付款链接：";
-                    hlDepositAmount.NavigateUrl = payLinkDepositAmount;
-                    hlDepositAmount.Visible = true;
+//                    HyperLink hlDepositAmount = e.Item.FindControl("PayDepositAmount") as HyperLink;
+//                    hlDepositAmount.Text = "用户订金付款链接：";
+//                    hlDepositAmount.NavigateUrl = payLinkDepositAmount;
+//                    hlDepositAmount.Visible = true;
                     break;
                 case Dianzhu.Model.Enums.enum_OrderStatus.Payed:
                     Button btnConfimOrder = e.Item.FindControl("btnConfimOrder") as Button;
