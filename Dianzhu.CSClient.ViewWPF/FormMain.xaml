@@ -62,9 +62,9 @@
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
 
-            <ScrollViewer x:Name="scrViewChatList" VerticalScrollBarVisibility="Auto" Grid.Row="0">
-                <StackPanel  x:Name="pnlChatList"/>
-            </ScrollViewer>
+                <Grid Grid.Row="0" x:Name="pnlChatList">
+                    
+                </Grid>
             <WrapPanel x:Name="pnlChatSend" Grid.Row="1"/>
         </Grid>
 
