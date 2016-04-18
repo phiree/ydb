@@ -6,9 +6,9 @@ using System.Web;
 /// <summary>
 /// VMBusiness 的摘要说明
 /// </summary>
-public class VMBusiness
+public class VMShop
 {
-    public VMBusiness()
+    public VMShop()
     {
     }
     public string BusinessName { get; set; }
@@ -18,10 +18,19 @@ public class VMBusiness
     public decimal OrderAmount { get; set; }
     public decimal OrderCount { get; set; }
     public decimal Score { get; set; }
-    public decimal OrderCompleteRate { get; set; }
-    public decimal OrderUncompleteRate { get; set; }
-    public decimal CustomerCancelRate { get; set; }
+    public decimal OrderCompleteCount { get; set; }
+    public decimal OrderCompleteRate { get
+        {
+            return OrderCompleteCount / OrderCount;
+        } }
+    public decimal OrderCancelCount { get; set; }
+    public decimal CustomerCancelCount { get; set; }
     public decimal ExposureRate { get; set; }
     public DateTime RegisterTime { get; set; }
+    public string ServiceTypesDisplay { get {
+            return string.Join(",", ServiceTypes.ToArray());
+        } }
+    
+
 
 }

@@ -160,5 +160,75 @@ namespace Dianzhu.DAL
         {
             return Session.QueryOver<ServiceOrder>().Where(x => x.Id == Id).And(x => x.Customer == customer).SingleOrDefault();
         }
+        public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId)
+        {
+            var query = "select o from ServiceOrder as o "+
+                           " inner join o.Details  as d "+
+                           "  inner join d.OriginalService as s " +
+                            " inner join s.Business as b  " +
+                            " where b.Id='" + businessId+"'";
+           var list=  GetList(query);
+
+            return list;
+        }
+
+        public IList<ServiceOrder> GetAllCompleteOrdersForBusiness(Guid businessId)
+        {
+            var query = "select o from ServiceOrder as o " +
+                           " inner join o.Details  as d " +
+                           "  inner join d.OriginalService as s " +
+                            " inner join s.Business as b  " +
+                            " where b.Id='" + businessId + "'"+
+                            " and ( o.OrderStatus="+(int)enum_OrderStatus.Finished+
+                            " or o.OrderStatus="+(int)enum_OrderStatus.Appraised+" )"
+                            
+                            ;
+
+            var list = GetList(query);
+
+            return list;
+        }
+        /// <summary>
+        /// 用户取消的订单
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <returns></returns>
+        public IList<ServiceOrder> GetCustomerCancelForBusiness(Guid businessId)
+        {
+            var query = "select o from ServiceOrder as o " +
+                           " inner join o.Details  as d " +
+                           "  inner join d.OriginalService as s " +
+                            " inner join s.Business as b  " +
+                            " where b.Id='" + businessId + "'" +
+                            " and ( o.OrderStatus=" + (int)enum_OrderStatus.Finished +
+                            " or o.OrderStatus=" + (int)enum_OrderStatus.Appraised + " )"
+
+                            ;
+
+            var list = GetList(query);
+
+            return list;
+        }
+        /// <summary>
+        /// 商户取消的订单
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <returns></returns>
+        public IList<ServiceOrder> GetBusinessCancelOrdersForBusiness(Guid businessId)
+        {
+            var query = "select o from ServiceOrder as o " +
+                           " inner join o.Details  as d " +
+                           "  inner join d.OriginalService as s " +
+                            " inner join s.Business as b  " +
+                            " where b.Id='" + businessId + "'" +
+                            " and ( o.OrderStatus=" + (int)enum_OrderStatus.Finished +
+                            " or o.OrderStatus=" + (int)enum_OrderStatus.Appraised + " )"
+
+                            ;
+
+            var list = GetList(query);
+
+            return list;
+        }
     }
 }
