@@ -98,8 +98,17 @@
   }
 }
 
+@time-view-height: 100px;
+
 .day-container {
   .model-base-style();
+  &.editing {
+    .time-bucket.noHis {
+      .t-b-edit {
+        height: @time-view-height ;
+      }
+    }
+  }
 }
 
 .day-title {
@@ -125,7 +134,6 @@
   }
 }
 
-@time-view-height: 100px;
 /* 时间段样式 */
 
 .time-buckets-wrap {
@@ -160,7 +168,6 @@
 }
 
 .time-buckets {
-  padding: 10px;
   transition: all 0.3s;
   &::after {
     content: '';
@@ -190,9 +197,20 @@
 }
 
 .time-bucket {
+  border-radius: 8px;
   padding: 10px;
+  margin: 10px;
   overflow: hidden;
-  border-bottom: 1px solid #DEDEDE;
+  border : 2px solid transparent;
+  border-bottom: 2px solid #DEDEDE;
+  transition: all ease 0.3s ;
+  &:hover{
+    border: 2px solid #70E0FF;
+    box-shadow: 0 0 6px 0 #70E0FF;
+  }
+  &.his {
+    background: #eee;
+  }
 }
 
 .t-b-top {
@@ -234,9 +252,9 @@
   float: right;
   text-align: center;
   transition: all 0.3s;
-  &.show {
-    height: @time-view-height;
-  }
+  //&.show {
+  //  height: @time-view-height;
+  //}
   .edit-t {
     margin-top: 30px;
   }
@@ -337,6 +355,7 @@
   }
   .good {
     display: block;
+    border-radius: 5px;
     float: left;
     margin-left: 10px;
     background: #EEEEEE;
