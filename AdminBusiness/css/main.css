@@ -5249,6 +5249,9 @@ a.time-trigger:hover {
   background: #f6f6f6;
   border: 1px solid #C7C7C7;
 }
+.day-container.editing .time-bucket.noHis .t-b-edit {
+  height: 100px;
+}
 .day-title {
   box-shadow: 0 3px 3px #e7e7e7;
   border-bottom: 1px solid #C7C7C7;
@@ -5313,7 +5316,6 @@ a.time-trigger:hover {
   display: none;
 }
 .time-buckets {
-  padding: 10px;
   transition: all 0.3s;
 }
 .time-buckets::after {
@@ -5342,9 +5344,20 @@ a.time-trigger:hover {
   background: #eee;
 }
 .time-bucket {
+  border-radius: 8px;
   padding: 10px;
+  margin: 10px;
   overflow: hidden;
-  border-bottom: 1px solid #DEDEDE;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #DEDEDE;
+  transition: all ease 0.3s ;
+}
+.time-bucket:hover {
+  border: 2px solid #70E0FF;
+  box-shadow: 0 0 6px 0 #70E0FF;
+}
+.time-bucket.his {
+  background: #eee;
 }
 .t-b-top {
   overflow: hidden;
@@ -5380,9 +5393,6 @@ a.time-trigger:hover {
   float: right;
   text-align: center;
   transition: all 0.3s;
-}
-.t-b-edit.show {
-  height: 100px;
 }
 .t-b-edit .edit-t {
   margin-top: 30px;
@@ -5473,6 +5483,7 @@ a.time-trigger:hover {
 }
 .good-list .good {
   display: block;
+  border-radius: 5px;
   float: left;
   margin-left: 10px;
   background: #EEEEEE;
