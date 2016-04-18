@@ -67,7 +67,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void btnSendTextMessage_Click(object sender, RoutedEventArgs e)
         {
-            if (SendTextClick != null&& MessageText!=string.Empty)
+            if (SendTextClick != null && MessageText.Trim() != string.Empty)
             {
                 SendTextClick();
             }
