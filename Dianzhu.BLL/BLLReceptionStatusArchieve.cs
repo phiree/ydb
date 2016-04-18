@@ -34,6 +34,15 @@ namespace Dianzhu.BLL
         {
             return dalRS.GetReceptionAmount(member);
         }
+        /// <summary>
+        /// 活跃天数
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
+        public int GetReceptionDates(DZMembership member)
+        {
+            return dalRS.GetReceptionDates(member);
+        }
 
     }
 }

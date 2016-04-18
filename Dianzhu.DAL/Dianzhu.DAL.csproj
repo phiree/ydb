@@ -123,6 +123,7 @@
     <Compile Include="Mapping\ReceptionChat\ReceptionMap.cs" />
     <Compile Include="Mapping\ServiceOpenTimeMap.cs" />
     <Compile Include="Mapping\ReceptionStatusMap.cs" />
+    <Compile Include="NHCustomDialect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DALCashTicketTemplate.cs" />
     <Compile Include="DALCashTicketCreateRecord.cs" />

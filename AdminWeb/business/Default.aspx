@@ -11,12 +11,14 @@
     <!--商户列表-->
     <asp:GridView AutoGenerateColumns="false" runat="server" ID="gvBusiness">
         <Columns>
-            <asp:HyperLinkField Text="详情" DataNavigateUrlFields="id" DataNavigateUrlFormatString="detail.aspx?id={0}" HeaderStyle-Width="30px"/>
+           
             <asp:BoundField HeaderText="商家名称" DataField="Name" HeaderStyle-Width="150px"/>
             <asp:BoundField HeaderText="商家地址" DataField="Address" HeaderStyle-Width="300px"/>
             <asp:BoundField HeaderText="联系人" DataField="Contact" HeaderStyle-Width="50px"/>
             <asp:BoundField HeaderText="联系电话" DataField="Phone" HeaderStyle-Width="120px"/>
             <asp:BoundField HeaderText="创建时间" DataField="CreatedTime" HeaderStyle-Width="130px"/>
+
+             <asp:HyperLinkField Text="详情" DataNavigateUrlFields="id" DataNavigateUrlFormatString="detail.aspx?id={0}" HeaderStyle-Width="30px"/>
         </Columns>
     </asp:GridView>
 
