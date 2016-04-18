@@ -114,9 +114,9 @@ namespace Dianzhu.CSClient.Presenter
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,1,viewSearchResult.TargetAddress,viewSearch.SearchKeywordTime ));
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,1,viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
             }
-            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearchResult.TargetAddress, viewSearch.SearchKeywordTime);
+            bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
 
             //iim发送消息
             ReceptionChat chat = new ReceptionChatPushService
@@ -145,6 +145,15 @@ namespace Dianzhu.CSClient.Presenter
                                                     <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>", 
                                                     IdentityManager.CurrentIdentity.Customer.Id + "@" + server, IdentityManager.CurrentIdentity.CustomerService.Id, Guid.NewGuid() + "@" + server, newOrder.Id);
             iIM.SendMessage(noticeDraftNew);
+
+            //更新当前订单
+            IdentityTypeOfOrder type;
+            IdentityManager.UpdateIdentityList(newOrder, out type);
+
+            //禁用推送按钮
+            viewSearchResult.BtnPush = false;
+            //清空搜索选项 todo:为了测试方便，先注释掉
+            //viewSearch.ClearData();
         }
 
         private void ViewSearchResult_SelectService(Model.DZService selectedService)
@@ -168,6 +177,11 @@ namespace Dianzhu.CSClient.Presenter
            
             IList<Model.DZService> services = dalService.SearchService(minPrice,maxPrice, servieTypeId,targetTime,  0, 10, out total);
             viewSearchResult.SearchedService = services;
+            if (services.Count > 0)
+            {
+                //启用推送按钮
+                viewSearchResult.BtnPush = true;
+            }
         }
     }
 }
