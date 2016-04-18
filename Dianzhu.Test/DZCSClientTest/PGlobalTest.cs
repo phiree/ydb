@@ -52,22 +52,21 @@ namespace Dianzhu.Test.DZCSClientTest
                 .Build();
 
             //发送第一条消息
-            IdentityManager pg = new IdentityManager( pi, pc);
             IdentityTypeOfOrder type;
-            pg.UpdateIdentityList(order11,out type);
+            IdentityManager.UpdateIdentityList(order11,out type);
             Assert.AreEqual(IdentityTypeOfOrder.NewIdentity, type);
             Assert.AreEqual(null, IdentityManager.CurrentIdentity);
             Assert.AreEqual(1, IdentityManager.CurrentIdentityList.Count);
             Assert.AreEqual(false, IdentityManager.CurrentIdentityList[order11]);
 
 
-            pg.UpdateIdentityList(order12, out type);
+            IdentityManager.UpdateIdentityList(order12, out type);
             Assert.AreEqual(IdentityTypeOfOrder.InList, type);
             Assert.AreEqual(null, IdentityManager.CurrentIdentity);
             Assert.AreEqual(1, IdentityManager.CurrentIdentityList.Count);
             Assert.AreEqual(false, IdentityManager.CurrentIdentityList[order12]);
 
-            pg.UpdateIdentityList(order21, out type);
+            IdentityManager.UpdateIdentityList(order21, out type);
             Assert.AreEqual(IdentityTypeOfOrder.NewIdentity, type);
             Assert.AreEqual(null, IdentityManager.CurrentIdentity);
             Assert.AreEqual(2, IdentityManager.CurrentIdentityList.Count);
