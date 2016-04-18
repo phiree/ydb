@@ -52,14 +52,14 @@ public partial class order_index : System.Web.UI.Page
         Repeater1.DataBind();
 
     }
+    BLLPayment bllPayment = new BLLPayment();
     protected void data_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-            //ServiceOrder so = (ServiceOrder)e.Item.DataItem;
-            //Business bs = so.Service.Business;
-            //if(bs != null)
-            //{ string name = bs.Name;}            
+            ServiceOrder so = (ServiceOrder)e.Item.DataItem;
+            Repeater rptPayment = e.Item.FindControl("rptPayment") as Repeater;
+            
 
         }
 

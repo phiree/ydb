@@ -46,7 +46,7 @@ public partial class membership_Default : System.Web.UI.Page
         string cache_key_vmcount = "ck_vmcount";
         IList<VMCustomer> vmList = new List<VMCustomer>();
         var cached_list = System.Web.HttpRuntime.Cache[cache_key];
-        if (cached_list == null)
+        if (!config.EnableCache ||cached_list == null)
         {
 
             IList<DZMembership> list = dzmp.GetAllCustomer(currentPageIndex, pager.PageSize, out totalRecord);
@@ -92,6 +92,13 @@ public partial class membership_Default : System.Web.UI.Page
             case "ordercount":
                 vmList = direction == SortDirection.Ascending ? vmList.OrderBy(x => x.OrderCount).ToList() : vmList.OrderByDescending(x => x.OrderCount).ToList();
                 break;
+            case "logindates":
+                vmList = direction == SortDirection.Ascending ? vmList.OrderBy(x =>x.LoginDates).ToList() : vmList.OrderByDescending(x => x.LoginDates).ToList();
+                break;
+            case "loginrate":
+                vmList = direction == SortDirection.Ascending ? vmList.OrderBy(x => x.LoginRate).ToList() : vmList.OrderByDescending(x => x.LoginRate).ToList();
+                break;
+             
         }
 
         gvMember.DataSource = vmList;

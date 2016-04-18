@@ -16,6 +16,22 @@
     <link rel="stylesheet" href="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Content/blueprint/print.css"
         type="text/css" media="print" />
     <link href="/css/pager.css" rel="stylesheet" type="text/css" />
+    <style>
+        #leftMenu li {
+        
+         list-style-type:none;
+        }
+        #leftMenu li a {
+        padding-left:25px;
+        
+        }
+        #leftMenu li span {
+            margin-top:20px;
+            display:block;
+        font-size:larger;
+        }
+       
+    </style>
     <!--[if lt IE 8]><link rel="stylesheet" href="/Content/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -33,20 +49,35 @@
             <div class="clear span-24 " id="adminBody">
                 <div class="span-4 last" id="leftMenu">
                     <ul>
+                        <li><span>总览</span></li>
+                        <li><a href="/usersummary">用户总览</a></li>
+
+                        <li><span>客户管理</span></li>
+                        <li><a href="/customer">客户列表</a></li>
+
+                        <li><span>商家管理</span></li>
                         <li><a href="/business">商家列表</a></li>
 
-                        <li>
-                            <ul>
-                                <li><a href="/membership">用户管理</a></li>
-                                <li><a href="/membership/roles">角色管理</a></li>
-                            </ul>
-                        </li>
+                        <li><span>助理管理</span></li>
+                        <li><a href="/customerservice">助理列表</a></li>
+
+                        <li><span>代理管理</span></li>
+                        <li><a href="/agent">代理列表</a></li>
+
+                        <li><span>订单管理</span></li>
                         <li><a href="/order/index.aspx">订单管理</a></li>
+
+                        <li><span>推送管理</span></li>
+                        <li><a href="/advertisement">广告管理</a></li>
+
+                        <li><a href="/test">测试</a></li>
+                        <li><span>系统管理</span></li>
+                        <li><a href="/membership/roles">角色管理</a></li>
+                        <%--  <li><a href="/cashticket/assigner/">手动分配</a></li>--%>
                         <li><a href="/area/">行政区域管理</a></li>
                         <li><a href="/servicetype/">服务类别管理</a></li>
-                        <li><a href="/cashticket/assigner/">手动分配</a></li>
-                        <li><a href="/advertisement">广告管理</a></li>
                         <li><a href="/test">测试</a></li>
+
                     </ul>
                 </div>
                 <div class="span-19 last" id="mainContent">

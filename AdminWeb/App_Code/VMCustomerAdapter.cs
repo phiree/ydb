@@ -27,6 +27,7 @@ public class VMCustomerAdapter
         vm.OrderAmount = bllOrder.GetServiceOrderAmountWithoutDraft(member.Id, false);
         vm.OrderCount = bllOrder.GetServiceOrderCountWithoutDraft(member.Id, false);
         vm.TimeCreated = member.TimeCreated;
+        vm.LoginDates = bllRSA.GetReceptionDates(member);
         vm.UserName = member.UserName;
         return vm;
     }

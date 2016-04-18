@@ -103,19 +103,21 @@ function delInfo()
     
 </td>
 <td><%# Eval("Id")%></td>
-<td><%# Eval("TradeNo")%></td>
+<td> 
+  
+</td>
 <td><%# Eval("OrderStatus")%></td>
 <td><%# Eval("OrderCreated")%></td>
  <td><%# Eval("OrderAmount")%></td>
 <td><%#DataBinder.Eval(Container.DataItem, "Service.Business.Name")%>
 </td>
 <td> <asp:Button ID="delbt" runat="server" Text="删除" CommandName="delete" CommandArgument='<%# Eval("id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')" />
-    <a target="_blank" href="refund/default.aspx?id=<%# Eval("Id")%>&tradeno=<%# Eval("TradeNo")%>&orderamount=<%# Eval("OrderAmount")%>">退款</a>
+    
 </td>
 </tr>
    <asp:Repeater runat="server" ID="rptPayment">
        <ItemTemplate>
-
+       <%# Eval("PayTarget") %>  <a target="_blank" href="refund/default.aspx?id=<%# Eval("Id")%>&tradeno=<%# Eval("TradeNo")%>&orderamount=<%# Eval("OrderAmount")%>">退款</a>
        </ItemTemplate>
    </asp:Repeater>
 
