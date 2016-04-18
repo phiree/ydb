@@ -36,7 +36,13 @@ namespace Dianzhu.Api.Model
                 this.type = enum_ChatType.ReAssign.ToString();
                 this.body = "(Reassign to)" + ((ReceptionChatReAssign)chat).ReAssignedCustomerService.DisplayName;
             }
-            else {
+            else if(chat is ReceptionChatPushService)
+            {
+                this.type = "pushOrder";
+                this.body = string.Empty;
+            }
+            else
+            {
                 this.body = chat.MessageBody;
             }
             return this;

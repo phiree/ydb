@@ -24,6 +24,7 @@ public class ResponseORM001008 : BaseResponse
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
         BLLDZService bllDZService = new BLLDZService();
         PushService bllPushService = new PushService();
+        BLLServiceOrderRemind bllServiceOrderRemind = new BLLServiceOrderRemind();
 
 
         try
@@ -121,6 +122,10 @@ public class ResponseORM001008 : BaseResponse
 
                 RespDataORM001008 respData = new RespDataORM001008();
                 respData.orderObj = orderObj;
+
+                //增加订单提醒
+                ServiceOrderRemind remind = new ServiceOrderRemind(orderObj.svcObj.name,orderObj.storeObj.alias+"提供"+orderObj.svcObj.type, order.Details[0].TargetTime,true, order.Id, order.Customer.Id);
+                bllServiceOrderRemind.SaveOrUpdate(remind);
 
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;                

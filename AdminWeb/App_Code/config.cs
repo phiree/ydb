@@ -15,8 +15,14 @@ using Dianzhu.Model;
 /// </summary>
 public class config
 {
-    public config()
+
+    public static   bool EnableCache = true;
+
+      static config()
     {
+#if DEBUG
+    EnableCache=false;
+#endif
         //
         // TODO: 在此处添加构造函数逻辑
         //

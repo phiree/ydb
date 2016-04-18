@@ -76,7 +76,7 @@ public class ResponseORM003007 : BaseResponse
                 try
                 {
                     OrderServiceFlow osf = new OrderServiceFlow();
-                    if (member.UserType.ToLower() == "customer")
+                    if (member.UserType == enum_UserType.customer)
                     {
                         ServiceOrder order = bllServiceOrder.GetOrderByIdAndCustomer(orderId, member);
                         if (order == null)
@@ -88,7 +88,7 @@ public class ResponseORM003007 : BaseResponse
 
                         switch (status)
                         {
-                            case enum_OrderStatus.CheckPayWithDesposit:
+                            case enum_OrderStatus.checkPayWithDeposit:
                                 bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
                                 break;
                             case enum_OrderStatus.Assigned:
@@ -100,13 +100,13 @@ public class ResponseORM003007 : BaseResponse
                             case enum_OrderStatus.Ended:
                                 bllServiceOrder.OrderFlow_CustomerFinish(order);
                                 break;
-                            case enum_OrderStatus.CheckPayWithNegotiate:
+                            case enum_OrderStatus.checkPayWithNegotiate:
                                 bllServiceOrder.OrderFlow_CustomerPayFinalPayment(order);
                                 break;
-                            case enum_OrderStatus.CheckPayWithRefund:
+                            case enum_OrderStatus.checkPayWithRefund:
                                 bllServiceOrder.OrderFlow_CustomerPayRefund(order);
                                 break;
-                            case enum_OrderStatus.CheckPayWithIntervention:
+                            case enum_OrderStatus.checkPayWithIntervention:
                                 bllServiceOrder.OrderFlow_CustomerPayInternention(order);
                                 break;
 
@@ -117,7 +117,7 @@ public class ResponseORM003007 : BaseResponse
                                 return;
                         }
                     }
-                    else if(member.UserType.ToLower() == "business")
+                    else if(member.UserType == enum_UserType.business)
                     {
                         ServiceOrder order = bllServiceOrder.GetOne(orderId);
                         if (order.Details[0].OriginalService.Business.Owner.Id != userId)

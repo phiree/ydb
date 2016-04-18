@@ -84,6 +84,19 @@ namespace Dianzhu.CSClient.WinformView
             }
         }
 
+        public string ServiceAddress
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public IList<ServiceType> ServiceTypeFirst
         {
             set
@@ -125,6 +138,11 @@ namespace Dianzhu.CSClient.WinformView
         public event ServiceTypeFirst_Select ServiceTypeFirst_Select;
         public event ServiceTypeSecond_Select ServiceTypeSecond_Select;
         public event ServiceTypeThird_Select ServiceTypeThird_Select;
+
+        public void ClearData()
+        {
+            throw new NotImplementedException();
+        }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {

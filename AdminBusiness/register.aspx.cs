@@ -38,7 +38,7 @@ public partial class register : System.Web.UI.Page
           //  bllBusiness.Register(address, description, latitude, longtitude, name, userName, password);
         MembershipCreateStatus createStatus;
         DZMembership newUser =
-           dz.CreateUser(userName, null, null, password, out createStatus, "store");
+           dz.CreateUser(userName, null, null, password, out createStatus, Dianzhu.Model.Enums.enum_UserType.business);
         //如果是电子邮箱,则发送验证邮件
         if (createStatus != MembershipCreateStatus.Success)
         {

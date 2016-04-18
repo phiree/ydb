@@ -22,7 +22,7 @@ public class ResponseMERM001001 : BaseResponse
              requestData.email,
              requestData.pWord,
              out createStatus,
-             Dianzhu.Model.Enums.enum_UserType.business.ToString());
+             Dianzhu.Model.Enums.enum_UserType.business);
         if (createStatus == MembershipCreateStatus.DuplicateUserName)
         {
             this.state_CODE = Dicts.StateCode[3];

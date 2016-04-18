@@ -225,7 +225,7 @@ public class ResponseU3RD014008:BaseResponse
         member.Address = userObj.province + " " + userObj.city;
         member.PlainPassword = userObj.openid;
         member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(userObj.openid, "MD5");
-        member.UserType = enum_UserType.customer.ToString();
+        member.UserType = enum_UserType.customer;
 
         return member;
     }    
@@ -287,7 +287,7 @@ public class ResponseU3RD014008:BaseResponse
         member.Address = userObj.location;
         member.PlainPassword = tokenInfo.uid;
         member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(tokenInfo.uid, "MD5");
-        member.UserType = enum_UserType.customer.ToString();
+        member.UserType = enum_UserType.customer;
 
         return member;
     }
@@ -338,7 +338,7 @@ public class ResponseU3RD014008:BaseResponse
         member.Address = userObj.province + " " + userObj.city;
         member.PlainPassword = openidObj.openid;
         member.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(openidObj.openid, "MD5");
-        member.UserType = enum_UserType.customer.ToString();
+        member.UserType = enum_UserType.customer;
 
         return member;
     }

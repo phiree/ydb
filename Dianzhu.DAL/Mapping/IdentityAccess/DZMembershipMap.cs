@@ -27,7 +27,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.UserNameForOpenFire);
             Map(x => x.RecoveryCode);
             Map(x => x.AvatarUrl);
-            Map(x => x.UserType);
+            Map(x => x.UserType).CustomType<Dianzhu.Model.Enums.enum_UserType>();
         
             
         }

@@ -67,7 +67,31 @@ namespace Dianzhu.DAL
             int rowCount = iqueryover.RowCount();
             return rowCount;
         }
+        /// <summary>
+        /// 除了草稿(draft,draftpushed)之外的订单
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="isCustomerService">是客服的,否则是客户的</param>
+        /// <returns></returns>
+        public int GetServiceOrderCountWithoutDraft(Guid userid,bool isCustomerService)
+        {
+            var iqueryover = Session.QueryOver<ServiceOrder>();
+            iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
+                                        : iqueryover.Where(x => x.Customer.Id == userid);
+            iqueryover = iqueryover.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
+            return iqueryover.RowCount();
+        }
+        public decimal GetServiceOrderAmountWithoutDraft(Guid userid, bool isCustomerService)
+        {
+            var iqueryover = Session.QueryOver<ServiceOrder>();
+            iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
+                                        : iqueryover.Where(x => x.Customer.Id == userid);
+            iqueryover = iqueryover.And(x => (int)x.OrderStatus !=(int) enum_OrderStatus.Draft).And(x=>(int) x.OrderStatus != (int)enum_OrderStatus.DraftPushed);
 
+           return iqueryover.List().Sum(x => x.DepositAmount);
+
+            
+        }
 
         public IList<ServiceOrder> GetServiceOrderList(Guid userId, enum_OrderSearchType searchType, int pageNum, int pageSize)
         {
