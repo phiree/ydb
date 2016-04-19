@@ -66,10 +66,10 @@ public partial class membership_Default : System.Web.UI.Page
         {
             vmList = (IList<VMCustomer>)cached_list;
             totalRecord = (long)System.Web.HttpRuntime.Cache[cache_key_vmcount];
-            lblTotalRegister.Text = totalRecord.ToString();
+           
         }
+        lblTotalRegister.Text = totalRecord.ToString();
 
-      
         switch (sortField.ToLower())
         {
             case "username":
@@ -117,5 +117,18 @@ public partial class membership_Default : System.Web.UI.Page
         
         gvMember.DataBind();
     }
-    
+
+
+    protected void gvMember_DataBound(object sender, EventArgs e)
+    {
+       
+    }
+
+    protected void gvMember_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.Header)
+        {
+            
+        }
+    }
 }
