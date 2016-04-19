@@ -5528,6 +5528,11 @@ a.time-trigger:hover {
 }
 .wt-set-wrap.loading {
   background: url("../images/components/wt-load.gif") no-repeat center;
+  overflow: auto;
+}
+.wt-set-wrap.error {
+  background: url("../images/components/wt-error.jpg") no-repeat center;
+  overflow: auto;
 }
 .wt-set {
   overflow: hidden;
