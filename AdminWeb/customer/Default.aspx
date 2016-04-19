@@ -15,7 +15,7 @@
         </div>
     </fieldset>
     
-     <asp:GridView runat="server" AllowSorting="true" OnSorting="gvMember_Sorting" AutoGenerateColumns="false" ID="gvMember">
+     <asp:GridView  CssClass="tbList" runat="server" AllowSorting="true" OnSorting="gvMember_Sorting" AutoGenerateColumns="false" ID="gvMember">
         <Columns>
             <asp:BoundField HeaderText="用户名" DataField="UserName" SortExpression="UserName" />
             <asp:BoundField HeaderText="电话" DataField="Phone" SortExpression="Phone" />
@@ -38,4 +38,23 @@
         CustomInfoHTML="第 %CurrentPageIndex% / %PageCount%页 共%RecordCount%条"
         ShowCustomInfoSection="Right">
     </UC:AspNetPager>
+    <div><input type="button" id="btnExport2Excel"  value="导出Excel" /></div>
+</asp:Content>
+<asp:Content ContentPlaceHolderID="foot" runat="server">
+    <script>
+        $(function () {
+            $("#btnExport2Excel").click(
+                function () {
+                    $(".tbList").table2excel({
+                        exclude: ".noExl",
+                        name: "客户列表",
+                        filename: "客户列表.xls",
+                        fileext: ".xls",
+
+                    });
+                }
+                );
+			  
+			});
+		</script>
 </asp:Content>
