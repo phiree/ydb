@@ -22,6 +22,7 @@
                                 <div class="model">
                                     <div class="model-h">
                                         <h4>服务列表</h4>
+                                        <input class="btn-r btn-gray-light-sm" type="button" value="全部删除" id="delete_all">
                                     </div>
                                     <div class="model-m no-padding">
                                         <div class="service-list-head">
@@ -82,7 +83,7 @@
                                                                 <input type="checkbox"/>
                                                             </div>
                                                             <div class="custom-col col-static-5">
-
+                                                                <span><%# String.Format("{0:0000}", (Container.ItemIndex + 1)) %></span>
                                                             </div>
                                                             <div class="custom-col col-static-10">
                                                                 <i class="icon service-icon svcType-s-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"></i>

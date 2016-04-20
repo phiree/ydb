@@ -70,12 +70,13 @@
                                                         <div class="custom-grid">
                                                             <div class="custom-col col-10-1">
                                                                 <div class="order-li">
-                                                               <%#  Eval("TargetTime") %>
+                                                               <%#  Eval("TargetTime") 
+                                                                        %>
                                                                 </div>
                                                             </div>
                                                             <div class="custom-col col-10-1">
                                                                 <div class="order-li">
-                                                                    <%#Eval("Title") %>
+                                                                    <%# Eval("Title").ToString().Replace(";", "") %>
                                                                 </div>
                                                             </div>
                                                             <div class="custom-col col-10-1">
