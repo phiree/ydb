@@ -80,6 +80,7 @@
     <Compile Include="DALDZTag.cs" />
     <Compile Include="DALServiceOrderRemind.cs" />
     <Compile Include="DALServiceOrderAppraise.cs" />
+    <Compile Include="Finance\DALSalePoint.cs" />
     <Compile Include="IdentityAccess\DALMembership.cs" />
     <Compile Include="DALBase.cs" />
     <Compile Include="DALPaylog.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="IdentityAccess\DALRole.cs" />
     <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />
+    <Compile Include="Mapping\Finance\SalePointMapping.cs" />
     <Compile Include="Mapping\IdentityAccess\DZRoleMap.cs" />
     <Compile Include="Mapping\IdentityAccess\DZRoleMemberMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
