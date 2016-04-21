@@ -44,8 +44,9 @@ namespace Dianzhu.Test
                              MySQLConfiguration
                             .Standard
                             .ConnectionString(
+                                 PHSuit.Security.Decrypt(
                                  System.Configuration.ConfigurationManager.ConnectionStrings["DianzhuConnectionString"]
-                                 .ConnectionString)
+                                 .ConnectionString,false))
                       )
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
                     .ExposeConfiguration(BuildSchema)

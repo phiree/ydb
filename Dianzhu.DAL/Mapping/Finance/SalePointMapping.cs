@@ -9,8 +9,8 @@ namespace Dianzhu.DAL.Mapping.Finance
     {
         public ServiceTypePointMapping()
         {
-            Id(x => x.Id);
-            References<Model.ServiceType>(x => x.ServiceType);
+            Id(x => x.Id).GeneratedBy.Assigned();
+            References<Model.ServiceType>(x => x.ServiceType).Update();
             Map(x => x.Point);
         }
     }

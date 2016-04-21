@@ -10,7 +10,7 @@ namespace Dianzhu.Config
     /// </summary>
     public static partial class Config
     {
-        static int num =4;
+        static int num =0;
         #region 服务器定义
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172","192.168.1.150" };
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };

@@ -19,7 +19,7 @@ namespace Dianzhu.Test.BLLTest.Finance
                 .TheFirst(1).With(x => x.Parent = level1Type[0])
                 .TheNext(1).With(x=>x.Parent=level1Type[1])
                 .Build();
-            IList<ServiceType> level3Type = Builder<ServiceType>.CreateListOfSize(2)
+            IList<ServiceType> level3Type = Builder<ServiceType>.CreateListOfSize(3)
                 .TheFirst(1).With(x => x.Parent = level2Type[0])
                 .TheNext(1).With(x => x.Parent = level2Type[1])
                 .Build();
@@ -38,10 +38,36 @@ namespace Dianzhu.Test.BLLTest.Finance
          
             BLL.Finance.BLLServiceTypePoint bllPoint = new BLL.Finance.BLLServiceTypePoint(dal);
             dal.Stub(x => x.GetOne(level1Type[0])).Return(points[0]);
-           var pointLv3=  bllPoint.GetPoint(level3Type[0]);
-
+            dal.Stub(x => x.GetOne(level2Type[0])).Return(points[1]);
+            dal.Stub(x => x.GetOne(level3Type[0])).Return(points[2]);
+            var pointLv3=  bllPoint.GetPoint(level3Type[0]);
+            var pointLv2 = bllPoint.GetPoint(level2Type[0]);
             Assert.AreEqual(0.3m, pointLv3);
+            Assert.AreEqual(0.2m, pointLv2);
 
+        }
+        [Test]
+        [ExpectedException]
+        public void GetPointRealData()
+        {
+            
+            Assert.AreEqual(0.1m, GetPoint("a34e88e3-f858-48f7-b79e-2a49bd022c06"));
+            Assert.AreEqual(0.2m, GetPoint("62fc0c8f-6143-48c7-92c0-d3c26e1bd32b"));
+           Assert.AreEqual(0.3m, GetPoint("65ebe9b3-a328-4009-a5a9-b63f1c57fe1c"));
+
+            Assert.AreEqual(0.1m, GetPoint("9cbb5c45-78e1-4964-a9fa-88934256c11c"));
+           
+            Assert.AreEqual(0.1m, GetPoint("583bcc15-3882-489c-8605-e2ac9372f935"));
+        }
+
+        private decimal GetPoint(string typeid)
+        {
+            BLL.Finance.BLLServiceTypePoint bllPoint = new BLL.Finance.BLLServiceTypePoint();
+            BLL.BLLServiceType bllType = new BLL.BLLServiceType();
+            ServiceType type = bllType.GetOne(new Guid(typeid));
+
+            decimal point = bllPoint.GetPoint(type);
+            return point;
         }
     }
 }

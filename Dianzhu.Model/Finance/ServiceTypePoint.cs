@@ -10,9 +10,9 @@ namespace Dianzhu.Model.Finance
     /// </summary>
     public class ServiceTypePoint
     {
-        public Guid Id { get; set; }
-        public ServiceType ServiceType { get; set; }
-        public decimal Point { get; set; }
+        public virtual Guid Id { get; set; }
+        public virtual ServiceType ServiceType { get; set; }
+        public virtual decimal Point { get; set; }
         
     }
 }
