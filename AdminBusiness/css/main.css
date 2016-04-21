@@ -7732,6 +7732,14 @@ a.doReg:hover {
   height: 550px;
   overflow-y: scroll;
 }
+.staffs-container.loading {
+  overflow-y: auto;
+  background: url("../images/load.gif") no-repeat center;
+}
+.staffs-container.error {
+  overflow-y: auto;
+  background: url("../images/error.jpg") no-repeat center;
+}
 .order-status-list {
   position: relative;
   overflow: hidden;
