@@ -93,6 +93,7 @@
             var prams = option ? option : {};
             var _this = this;
             var reqDate = $.extend({}, _this.options.queryData, prams.queryData);
+            var success = option.success;
 
             this.fetch({
                 data : reqDate,
@@ -104,6 +105,7 @@
                     }
                     prams.callback && prams.callback(_this, resp);
                     _this.trigger("load", _this, resp);
+                    success && success();
                 }
             });
 
@@ -463,8 +465,20 @@
             this.render();
 
             snapShot.on("load", function(snapShot, response){
+
                 _this.snapShot = snapShot;
                 _this.buildSnapShot();
+                _this.workTimes._fetch({
+                    reset : true,
+                    url : testUrl.WTM001006,
+                    customApi : true,
+                    protocolCode : "WTM001006",
+                    data : {
+                        "merchantID" : merchantID,
+                        "svcID" : Adapter.getParameterByName("serviceid"),
+                        "week" : _this.reqDate.getDay()
+                    }
+                });
             });
 
             this.workTimes.on("sync", function(collection, response, options){
@@ -505,10 +519,12 @@
                 $tab.on("click", function(){
                     var reqDate = $(this).attr("data-date");
                     var dateObj = new Date();
-                    dateObj.setFullYear(parseInt(reqDate.slice(0, 4)), parseInt(reqDate.slice(4, 6)) - 1, parseInt(reqDate.slice(6, 8)));
 
                     $(this).addClass("active").siblings().removeClass("active");
-                    _this.loadShelf(dateObj)
+
+                    dateObj.setFullYear(parseInt(reqDate.slice(0, 4)), parseInt(reqDate.slice(4, 6)) - 1, parseInt(reqDate.slice(6, 8)));
+                    _this.reqDate = dateObj;
+                    _this.loadShelf()
                 });
 
                 $tabContainer.append($tab);
@@ -521,7 +537,14 @@
         buildWorkTimes : function(collection){
             var _this = this;
             var dateStr = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
-            var orderArray = this.snapShot.orderObjectDic[dateStr];
+            var orderArray = [];
+
+            if (!this.snapShot.orderObjectDic[dateStr]){
+                this.showError();
+                return
+            }
+
+            orderArray = this.snapShot.orderObjectDic[dateStr];
 
             _.each(collection.models, function(model, index, collection){
                 var startTime, endTime, nowTime, workTimeView;
@@ -552,7 +575,15 @@
         },
         buildHisDay : function () {
             var dateStr = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
-            var maxOrderArray = this.snapShot.maxOrderDic[dateStr];
+            var maxOrderArray = [];
+
+            if (!this.snapShot.maxOrderDic[dateStr]){
+                this.showError();
+                return
+            }
+
+            maxOrderArray = this.snapShot.maxOrderDic[dateStr];
+
             for(var i = 0 ; i < maxOrderArray.length ; i++ ) {
                 var workDayModel = new WorkDayModel(maxOrderArray[i]);
                 var workDayView = new WorkDayView({model: workDayModel});
@@ -561,10 +592,18 @@
         },
         buildHisWorkTime : function(){
             var dateStr = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
-            var workTimeArray = this.snapShot.workTimeDic[dateStr];
+            var workTimeArray = [];
             var orderArray = this.snapShot.orderObjectDic[dateStr];
             var nowDate = dateTools.dateFormat();
             var nowTime = dateTools.dateFormat(new Date(), "HHMM");
+
+            if (!this.snapShot.workTimeDic[dateStr]){
+                this.showError();
+                return
+            }
+
+            workTimeArray = this.snapShot.workTimeDic[dateStr];
+
 
             for (var i = 0 ; i < workTimeArray.length ; i++){
                 var hisWorkTimeModel, hisWorkTimeView, startTime, endTime;
@@ -581,10 +620,10 @@
                 }
             }
         },
-        loadShelf : function(reqDateObj){
-            var reqDate = dateTools.dateFormat(reqDateObj, "YYYYMMDD");
-            var reqDay = reqDateObj.getDay();
-
+        loadShelf : function(){
+            var reqDate = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
+            //var reqDay = this.reqDate.getDay();
+            this.$(".day-container").removeClass("error");
             snapShot.load({
                 queryData : {
                     "startTime": reqDate,
@@ -592,17 +631,9 @@
                     "type": "maxOrder|workTime|order"
                 }
             });
-            this.workTimes._fetch({
-                reset : true,
-                url : testUrl.WTM001006,
-                customApi : true,
-                protocolCode : "WTM001006",
-                data : {
-                    "merchantID" : merchantID,
-                    "svcID" : Adapter.getParameterByName("serviceid"),
-                    "week" : reqDay
-                }
-            });
+        },
+        showError : function(){
+            this.$(".day-container").addClass("error");
         }
     });
 
