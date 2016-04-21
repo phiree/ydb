@@ -22,74 +22,53 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">服务项目</span>90
+
+                                                <span class="model-pra-t">服务项目</span><%=CurrentOrder.Description %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">订单号</span>10%
+                                                <span class="model-pra-t">订单号</span><%=CurrentOrder.Id %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">订单属性</span>10%
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">下单时间</span>预定
-                                            </p>
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">订单状态</span>先行
-                                            </p>
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">已付定金</span>先行
+                                                <span class="model-pra-t">订单属性</span>
                                             </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">服务时间</span>www.ileechee.com
+                                                <span class="model-pra-t">下单时间</span><%= CurrentOrder.OrderCreated %>
+                                            </p>
+                                            <p class="model-pra">
+                                                <span class="model-pra-t">订单状态</span><%= CurrentOrder.GetFriendlyStatus() %>
+                                            </p>
+                                            <p class="model-pra">
+                                                <span class="model-pra-t">已付定金</span><%= CurrentOrder.DepositAmount %>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="model-pra">
+                                                <span class="model-pra-t">服务时间</span><%= CurrentOrder.OrderServerStartTime %>
                                             </p>
                                             <p class="model-pra">
                                                 <span class="model-pra-t">订单评分</span>www.ileechee.com
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">订单价格</span>www.ileechee.com
+                                                <span class="model-pra-t">订单价格</span><%=  CurrentOrder.NegotiateAmount %>
                                             </p>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="order-ctrl t-r">    
                                                 <!--<asp:HyperLink runat="server" ID="PayDepositAmount"></asp:HyperLink>-->
-                                                <!--<asp:Button runat="server" CommandName="ConfirmOrder" CommandArgument='<%#Eval("Id") %>' ID="btnConfimOrder" CssClass="btn btn-info btn-xs" Text="确认订单"/>-->
-                                                <asp:TextBox runat="server" CommandName="txtConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="txtConfirmPrice" Width="100" Visible="false"></asp:TextBox>
-                                                <asp:Button runat="server" CommandName="ConfirmPrice" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPrice" CssClass="btn btn-info btn-xs" Visible="false" Text="确认价格"/>
-                                                <!--<asp:Button runat="server" CommandName="ConfirmPriceCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnConfirmPriceCustomer" CssClass="btn btn-info btn-xs" Text="用户确认价格并开始服务"/>-->
-                                                <!--<asp:Button runat="server" CommandName="IsEndOrder" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrder" CssClass="btn btn-info btn-xs" Text="订单完成"/>-->
-                                                <!--<asp:Button runat="server" CommandName="IsEndOrderCustomer" CommandArgument='<%#Eval("Id") %>' ID="btnIsEndOrderCustomer" CssClass="btn btn-info btn-xs" Text="用户确认订单完成"/>-->
-                                                <!--<asp:HyperLink runat="server" ID="PayFinalPayment"></asp:HyperLink>-->
+                                                <asp:Button runat="server" CommandName="ConfirmOrder" OnClick="btnOrderStatusChange_Click"   ID="btnConfirmOrder" CssClass="btn btn-info btn-xs"  Visible="false" Text="确认订单"/>
+                                                <asp:TextBox runat="server" CommandName="txtConfirmPrice"  OnClick="btnOrderStatusChange_Click"   ID="txtConfirmPrice" Width="100" Visible="false"></asp:TextBox>
+                                                <asp:Button runat="server" CommandName="ConfirmPrice"  OnClick="btnOrderStatusChange_Click"   ID="btnConfirmPrice" CssClass="btn btn-info btn-xs" Visible="false" Text="确认价格"/>
+                                                <asp:Button runat="server" CommandName="Assigned"  OnClick="btnOrderStatusChange_Click"  Visible="false"  ID="btnBegin" CssClass="btn btn-info btn-xs" Text="开始服务"/>
+
+                                                <asp:Button runat="server" CommandName="Begin"  OnClick="btnOrderStatusChange_Click"  Visible="false"  ID="btnIsEndOrder" CssClass="btn btn-info btn-xs" Text="订单完成"/>
+           
                                                 <!--<asp:Button runat="server" ID="Button3" CssClass="btn btn-info btn-xs" Text="指派"/>-->
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-hr"></div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">离店时间</span>90
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">入住时间</span>预定
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">房间数</span>www.ileechee.com
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">房间数</span>www.ileechee.com
-                                            </p>
-                                        </div>
-                                    </div>
+                       
                                 </div>
                             </div>
                             <div class="model m-b20">
