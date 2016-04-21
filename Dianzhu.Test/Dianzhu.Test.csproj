@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLTest\Finance\BLLServiceTypePointTest.cs" />
     <Compile Include="BLLTest\OrderFlow.cs" />
     <Compile Include="BLLTest\TestBLLPayment.cs" />
     <Compile Include="BLLTest\TestBLLArea.cs" />

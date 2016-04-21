@@ -8,6 +8,7 @@ using Dianzhu.DAL;
 using System.IO;
 using System.Data;
 using PHSuit;
+using Dianzhu.Model.Finance;
 
 namespace Dianzhu.BLL
 {
@@ -68,13 +69,18 @@ namespace Dianzhu.BLL
             return currentServiceType;
         }
 
-
+        DAL.Finance.DALServiceTypePoint dalPoint = new DAL.Finance.DALServiceTypePoint();
+        BLL.Finance.BLLServiceTypePoint bllPoint = new Finance.BLLServiceTypePoint();
         public void Import(System.IO.Stream excelFileStream)
         {
             PHSuit.ReadExcelToDataTable rtdt = new ReadExcelToDataTable(excelFileStream, false, false, 0);
             string msg;
-            IList<ServiceType> topServiceTypes = ObjectAdapter(rtdt.Read(out msg));
+            IList<ServiceTypePoint> pointList;
+            IList<ServiceType> topServiceTypes = ServiceTypePointAdapter(rtdt.Read(out msg),out pointList);
+            
             DALServiceType.SaveList(topServiceTypes);
+            
+            dalPoint.SaveList(pointList);
 
         }
         public IList<ServiceType> ObjectAdapter(DataTable dtFromExcel)
@@ -94,6 +100,69 @@ namespace Dianzhu.BLL
                         ServiceType s = new ServiceType {Id=gid,Code=code, Name = cellvalue, DeepLevel = i-2, OrderNumber = dtFromExcel.Rows.IndexOf(row) };
                         ServiceTypeFromExcel tfe = new ServiceTypeFromExcel{ServiceType=s, ColIndex=i  };
                         tfeList.Add(tfe);
+                    }
+                }
+
+            }
+            //构建类别之间的父子关系
+            IList<ServiceTypeFromExcel> cacheParents = new List<ServiceTypeFromExcel>();
+
+            foreach (ServiceTypeFromExcel tfe2 in tfeList)
+            {
+                ServiceType currentSt = tfe2.ServiceType;
+                //发现根,清除缓存
+                if (tfe2.ColIndex == 2)
+                {
+                    cacheParents.Clear();
+                    currentSt.Parent = null;
+                    topTypeList.Add(currentSt);
+                }
+                int parentCol = tfe2.ColIndex - 1;
+                ServiceTypeFromExcel parent = cacheParents.LastOrDefault(x => x.ColIndex == parentCol);
+                if (parent != null)
+                {
+                    parent.ServiceType.Children.Add(currentSt);
+                    currentSt.Parent = parent.ServiceType;
+                }
+
+                cacheParents.Add(tfe2);
+
+            }
+            return topTypeList;
+        }
+        public IList<ServiceType> ServiceTypePointAdapter(DataTable dtFromExcel,out IList<ServiceTypePoint> pointList)
+        {
+            List<ServiceType> topTypeList = new List<ServiceType>();
+             pointList = new List<ServiceTypePoint>();
+            List<ServiceTypeFromExcel> tfeList = new List<ServiceTypeFromExcel>();
+            //先构建每行的服务类别 和 该类别的层级(列索引)
+            foreach (DataRow row in dtFromExcel.Rows)
+            {
+                Guid gid = new Guid(row[0].ToString());
+                string code = row[1].ToString();
+                 
+                ServiceType s=null;
+                for (int i = 2; i < 5; i++)
+                {
+                    string cellvalue = row[i].ToString();
+                    
+                    if (!string.IsNullOrEmpty(cellvalue))
+                    {
+                        
+                        s = new ServiceType { Id = gid, Code = code, Name = cellvalue, DeepLevel = i - 2, OrderNumber = dtFromExcel.Rows.IndexOf(row) };
+                       
+                        ServiceTypeFromExcel tfe = new ServiceTypeFromExcel { ServiceType = s, ColIndex = i };
+                        tfeList.Add(tfe);
+                    }
+                }
+                if (s != null)
+                {
+                    string pointValue = row[5].ToString();
+                    if(!string.IsNullOrEmpty(pointValue))
+                    {
+                        decimal point = Convert.ToDecimal(pointValue);
+                        ServiceTypePoint typePoint = new ServiceTypePoint { Id = s.Id, Point = point, ServiceType = s };
+                        pointList.Add(typePoint);
                     }
                 }
 

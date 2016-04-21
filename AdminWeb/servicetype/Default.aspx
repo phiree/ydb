@@ -52,6 +52,5 @@
     </asp:Repeater>
     <hr/>
     <a href="Edit.aspx">增加新类别</a>
-    <asp:FileUpload runat="server" ID="fu" /><asp:Button runat="server" ID="btnUpload"
-        Text="导入" OnClick="btnUpload_Click" />
+    
 </asp:Content>

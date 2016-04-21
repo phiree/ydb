@@ -59,14 +59,14 @@ namespace Dianzhu.Model
 
         public virtual ServiceType TopType {
             get {
-                if (this.DeepLevel == 0)
+                if (this.Parent == null)
                 {
                     return this;
                 }
                 else {
 
                     ServiceType theParent =this.Parent;
-                    while (theParent.DeepLevel != 0)
+                    while (theParent !=null)
                     {
                         theParent = this.Parent.Parent;
                     }
