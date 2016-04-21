@@ -23,13 +23,13 @@
                                         <div class="col-md-4">
                                             <p class="model-pra">
 
-                                                <span class="model-pra-t">服务项目</span><%=CurrentOrder.Description %>
+                                                <span class="model-pra-t">服务项目</span><%=CurrentOrder.Service.Name %>
                                             </p>
                                             <p class="model-pra">
                                                 <span class="model-pra-t">订单号</span><%=CurrentOrder.Id %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">订单属性</span>
+                                                <span class="model-pra-t">订单价格</span><%=  CurrentOrder.NegotiateAmount %>
                                             </p>
                                         </div>
                                         <div class="col-md-4">
@@ -48,10 +48,7 @@
                                                 <span class="model-pra-t">服务时间</span><%= CurrentOrder.OrderServerStartTime %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">订单评分</span>www.ileechee.com
-                                            </p>
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">订单价格</span><%=  CurrentOrder.NegotiateAmount %>
+                                                <span class="model-pra-t">订单备注</span><%= CurrentOrder.Memo %>
                                             </p>
                                         </div>
                                         <div class="col-md-12">
@@ -79,26 +76,22 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">客户姓名</span>www.ileechee.com
+                                                <span class="model-pra-t">客户姓名</span><%= CurrentOrder.Customer.NickName %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">联系方式</span>10%
+                                                <span class="model-pra-t">联系方式</span><%= CurrentOrder.Customer.Phone %>
                                             </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">身份信息</span>预定
+                                                <span class="model-pra-t">身份信息</span><%= CurrentOrder.Customer.DisplayName %>
                                             </p>
                                         </div>
-                                        <div class="col-md-4">
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">备注</span>先付型服务
-                                            </p>
-                                        </div>
+                                      
                                     </div>
                                 </div>
                             </div>
-                            <div class="model m-b20">
+                            <div class="model m-b20 dis-n">
                                 <div class="model-h">
                                     <h4>订单投诉</h4>
                                 </div>
@@ -107,10 +100,9 @@
                                         <div class="col-md-12">
                                             <p class="model-pra">
                                                 <span class="model-pra-t">投诉状态</span>
-
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">投诉理由</span>10%
+                                                <span class="model-pra-t">投诉理由</span>
                                             </p>
                                         </div>
                                     </div>
