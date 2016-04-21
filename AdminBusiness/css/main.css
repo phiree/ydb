@@ -726,6 +726,27 @@ fieldset[disabled] .btn-delete-light.active {
 .btn-gray-light:focus {
   color: #666;
 }
+.btn-gray-light-sm {
+  padding: 2px 4px;
+  color: #666;
+  font-size: 16px;
+  text-shadow: 0 1px 0 #fff;
+  background: #ffffff;
+  border-radius: 5px;
+  font-weight: 600;
+  border: 1px solid #C7C7C7;
+  background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: normal;
+}
+.btn-gray-light-sm:hover,
+.btn-gray-light-sm:focus {
+  color: #666;
+}
 .btn-lg {
   padding: 15px 30px;
   font-size: 16px;
@@ -5249,6 +5270,9 @@ a.time-trigger:hover {
   background: #f6f6f6;
   border: 1px solid #C7C7C7;
 }
+.day-container.editing .time-bucket.noHis .t-b-edit {
+  height: 100px;
+}
 .day-title {
   box-shadow: 0 3px 3px #e7e7e7;
   border-bottom: 1px solid #C7C7C7;
@@ -5313,7 +5337,6 @@ a.time-trigger:hover {
   display: none;
 }
 .time-buckets {
-  padding: 10px;
   transition: all 0.3s;
 }
 .time-buckets::after {
@@ -5342,9 +5365,20 @@ a.time-trigger:hover {
   background: #eee;
 }
 .time-bucket {
+  border-radius: 8px;
   padding: 10px;
+  margin: 10px;
   overflow: hidden;
-  border-bottom: 1px solid #DEDEDE;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #DEDEDE;
+  transition: all ease 0.3s ;
+}
+.time-bucket:hover {
+  border: 2px solid #70E0FF;
+  box-shadow: 0 0 6px 0 #70E0FF;
+}
+.time-bucket.his {
+  background: #eee;
 }
 .t-b-top {
   overflow: hidden;
@@ -5380,9 +5414,6 @@ a.time-trigger:hover {
   float: right;
   text-align: center;
   transition: all 0.3s;
-}
-.t-b-edit.show {
-  height: 100px;
 }
 .t-b-edit .edit-t {
   margin-top: 30px;
@@ -5473,6 +5504,7 @@ a.time-trigger:hover {
 }
 .good-list .good {
   display: block;
+  border-radius: 5px;
   float: left;
   margin-left: 10px;
   background: #EEEEEE;
@@ -5517,6 +5549,11 @@ a.time-trigger:hover {
 }
 .wt-set-wrap.loading {
   background: url("../images/components/wt-load.gif") no-repeat center;
+  overflow: auto;
+}
+.wt-set-wrap.error {
+  background: url("../images/components/wt-error.jpg") no-repeat center;
+  overflow: auto;
 }
 .wt-set {
   overflow: hidden;
@@ -5959,6 +5996,10 @@ a.time-trigger:hover {
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
+}
+.model-h .btn-r {
+  float: right;
+  margin-top: 4px;
 }
 .model-m {
   padding: 22px 28px;

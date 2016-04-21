@@ -366,12 +366,13 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                         },
                         rules: service_validate_rules,
                         messages: service_validate_messages,
-                        invalidHandler: invalidHandler
+                        invalidHandler: invalidHandler,
+                        showErrors: showErrorsHandler
                     }
             );
 
             $(".steps-wrap").stepByStep({
-                stepNextFunc : function(){
+                stepValid : function(){
                     return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
                 }
             });

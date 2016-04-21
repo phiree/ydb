@@ -70,12 +70,13 @@
                                                         <div class="custom-grid">
                                                             <div class="custom-col col-10-1">
                                                                 <div class="order-li">
-                                                               <%#  Eval("TargetTime") %>
+                                                               <%#  Eval("TargetTime") 
+                                                                        %>
                                                                 </div>
                                                             </div>
                                                             <div class="custom-col col-10-1">
                                                                 <div class="order-li">
-                                                                    <%#Eval("Title") %>
+                                                                    <%# Eval("Title").ToString().Replace(";", "") %>
                                                                 </div>
                                                             </div>
                                                             <div class="custom-col col-10-1">
@@ -108,9 +109,6 @@
                                                                     <a href="Detail.aspx?businessId=<%=Request["businessid"] %>&orderId=<%#Eval("Id")%>" class="btn btn-info-light btn-xs">订单详情</a>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div>
-
                                                         </div>
                                                     </div>
                                                 </ItemTemplate>
