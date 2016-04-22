@@ -7,6 +7,11 @@ using Dianzhu.Model;
 using Dianzhu.DAL;
 using Dianzhu.Model.Enums;
 using Dianzhu.Pay;
+using Dianzhu.Pay.RefundRequest;
+using PHSuit;
+using Newtonsoft.Json;
+using System.Web;
+using System.Text.RegularExpressions;
 
 namespace Dianzhu.BLL
 {
@@ -20,17 +25,18 @@ namespace Dianzhu.BLL
 
         DALServiceOrder DALServiceOrder = null;
         DZMembershipProvider membershipProvider = null;
-
+        BLLPayment bllPayment = null;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
 
-        public BLLServiceOrder(DALServiceOrder dalServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, DZMembershipProvider membershipProvider)
+        public BLLServiceOrder(DALServiceOrder dalServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, DZMembershipProvider membershipProvider,BLLPayment bllPayment)
         {
             this.DALServiceOrder = dalServiceOrder;
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
             this.membershipProvider = membershipProvider;
+            this.bllPayment = bllPayment;
         }
 
-        public BLLServiceOrder() : this(new DALServiceOrder(), new BLLServiceOrderStateChangeHis(), new DZMembershipProvider())
+        public BLLServiceOrder() : this(new DALServiceOrder(), new BLLServiceOrderStateChangeHis(), new DZMembershipProvider(),new BLLPayment())
         {
         }
 
@@ -158,7 +164,7 @@ namespace Dianzhu.BLL
         /// 商户已经提交新价格，等待用户确认
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_CustomIsNegotiate(ServiceOrder order)
+        public void OrderFlow_CustomConfirmNegotiate(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.Assigned);
         }
@@ -166,7 +172,7 @@ namespace Dianzhu.BLL
         /// 用户确认协商价格,并确定开始服务
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_CustomerConfirmNegotiate(ServiceOrder order)
+        public void OrderFlow_BusinessStartService(ServiceOrder order)
         {
             order.OrderServerStartTime = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Begin);
@@ -178,7 +184,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessFinish(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
-            ChangeStatus(order, enum_OrderStatus.IsEnd);
+            ChangeStatus(order, enum_OrderStatus.isEnd);
         }
         /// <summary>
         /// 用户确认服务完成。
@@ -401,11 +407,35 @@ namespace Dianzhu.BLL
                     var targetTime = order.Details[0].TargetTime;
                     if (DateTime.Now <= targetTime)
                     {
-                        double timeSpan = (DateTime.Now - targetTime).TotalMinutes;
+                        double timeSpan = (targetTime - DateTime.Now).TotalMinutes;
                         //整个取消
                         if (order.ServiceOvertimeForCancel <= timeSpan)
                         {
                             //todo:退还定金
+                            Payment payment = bllPayment.GetPayedForDeposit(order);
+                            if(payment == null)
+                            {
+                                log.Debug("订单" + order.Id + "没有订金支付项!");
+                                throw new Exception("订单" + order.Id + "没有订金支付项!");
+                            }
+
+                            switch (payment.PayApi)
+                            {
+                                case enum_PayAPI.Alipay:
+                                    IRefund iRefundAliApp = new RefundAliApp(Dianzhu.Config.Config.GetAppSetting("PaySite") + "/RefundCallBack/Alipay/notify_url.aspx", payment.Amount, payment.PlatformTradeNo, payment.Order.Id.ToString(), string.Empty);
+                                    var respDataAliApp = iRefundAliApp.CreateRefundRequest();
+
+                                    string url_AliApp = "	https://openapi.alipay.com/gateway.do";
+                                    string returnstr = HttpHelper.CreateHttpRequest(url_AliApp, "post", respDataAliApp);
+                                    //todo：收到的json有乱码
+                                    RefundReturnAliApp refundReturnAliApp = JsonConvert.DeserializeObject<RefundReturnAliApp>(HttpUtility.UrlDecode(returnstr, Encoding.UTF8));
+                                    string a = Regex.Unescape(returnstr);
+                                    break;
+                                case enum_PayAPI.Wechat:
+
+                                    break;
+                            }
+
                             ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
                         }
                         else {
@@ -478,7 +508,89 @@ namespace Dianzhu.BLL
         //查询订单的曝光率.
     }
 
+    public class RefundReturnAliApp
+    {
+        public RefundReturnResposeAliApp alipay_trade_refund_response { get; set; }
+        public string sign { get; set; }
+    }
 
+    public class RefundReturnResposeAliApp
+    {
+        /// <summary>
+        /// 支付宝交易号
+        /// </summary>
+        public string trade_no { get; set; }
+        /// <summary>
+        /// 商户订单号
+        /// </summary>
+        public string out_trade_no { get; set; }
+        /// <summary>
+        /// 买家支付宝用户号，该参数已废弃，请不要使用
+        /// </summary>
+        public string open_id { get; set; }
+        /// <summary>
+        /// 用户的登录id
+        /// </summary>
+        public string buyer_logon_id { get; set; }
+        /// <summary>
+        /// 本次退款是否发生了资金变化
+        /// </summary>
+        public string fund_change { get; set; }
+        /// <summary>
+        /// 本次发生的退款金额
+        /// </summary>
+        public string refund_fee { get; set; }
+        /// <summary>
+        /// 退款支付时间
+        /// </summary>
+        public string gmt_refund_pay { get; set; }
+        /// <summary>
+        /// 用户的登录id
+        /// </summary>
+        public RefundDetailItemListAliApp refund_detail_item_list { get; set; }
+        /// <summary>
+        /// 交易在支付时候的门店名称
+        /// </summary>
+        public string store_name { get; set; }
+        /// <summary>
+        /// 买家在支付宝的用户id
+        /// </summary>
+        public string buyer_user_id { get; set; }
+        /// <summary>
+        /// 实际退回给用户的金额
+        /// </summary>
+        public string send_back_fee { get; set; }
+        /// <summary>
+        /// 返回码
+        /// </summary>
+        public string code { get; set; }
+        /// <summary>
+        /// 返回消息
+        /// </summary>
+        public string msg { get; set; }
+        /// <summary>
+        /// 错误码
+        /// </summary>
+        public string sub_code { get; set; }
+        /// <summary>
+        /// 错误消息
+        /// </summary>
+        public string sub_msg { get; set; }
+    }
+    /// <summary>
+    /// 退款返回的资金明细类型
+    /// </summary>
+    public class RefundDetailItemListAliApp
+    {
+        /// <summary>
+        /// 支付所使用的渠道
+        /// </summary>
+        public string fund_channel { get; set; }
+        /// <summary>
+        /// 该支付工具类型所使用的金额
+        /// </summary>
+        public string amount { get; set; }
+    }
 
 
 }

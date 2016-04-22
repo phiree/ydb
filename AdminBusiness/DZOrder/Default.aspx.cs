@@ -79,7 +79,7 @@ public partial class DZOrder_Default : BasePage
                     Button btnIsEndOrderCustomer = e.Item.FindControl("btnIsEndOrderCustomer") as Button;
                     btnIsEndOrderCustomer.Visible = true;
                     break;
-                case Dianzhu.Model.Enums.enum_OrderStatus.IsEnd:
+                case Dianzhu.Model.Enums.enum_OrderStatus.isEnd:
                     Button btnIsEndOrderCustomerIs = e.Item.FindControl("btnIsEndOrderCustomer") as Button;
                     btnIsEndOrderCustomerIs.Visible = true;
                     break;
@@ -112,7 +112,7 @@ public partial class DZOrder_Default : BasePage
                     bllServeiceOrder.OrderFlow_BusinessNegotiate(order, price);
                     break;
                 case "confirmpricecustomer":
-                    bllServeiceOrder.OrderFlow_CustomerConfirmNegotiate(order);
+                    bllServeiceOrder.OrderFlow_BusinessStartService(order);
                     break;
                 case "isendorder":
                     bllServeiceOrder.OrderFlow_BusinessFinish(order);
