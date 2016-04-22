@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.Security.Cryptography;
 using System.IO;
 using Newtonsoft.Json;
+using System.Web;
 
 namespace Dianzhu.Pay
 {
@@ -17,13 +18,20 @@ namespace Dianzhu.Pay
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Pay.PayCallBackAli");
 
-
-
-        public bool PayCallBack(object parameters,
+        public string PayCallBack(object parameters,
             out string businessOrderId, out string platformOrderId, out decimal total_amount
             , out string errMsg)
         {
-            NameValueCollection coll = (NameValueCollection)parameters;
+            NameValueCollection coll = new NameValueCollection();
+
+            string[] parameters_str = parameters.ToString().Split('&');
+            string[] item;
+            for (int i = 0; i < parameters_str.Count(); i++)
+            {
+                item = parameters_str[i].Split('=');
+                coll.Add(item[0], HttpUtility.UrlDecode(item[1], Encoding.UTF8));
+            }
+
             //获取订单号
             string total_fee = coll["total_fee"];            //获取总金额
             string subject = coll["subject"];                //商品名称、订单名称
@@ -50,25 +58,33 @@ namespace Dianzhu.Pay
                 total_amount = Convert.ToDecimal(coll["total_fee"]);
                 string trade_status = coll["trade_status"];
                 log.Debug("交易结果:" + trade_status);
-                if (trade_status.ToUpper() == "TRADE_FINISHED" || trade_status.ToUpper() == "TRADE_SUCCESS")
-                {
-                   
-                    return true;
+                if (trade_status.ToUpper() == "TRADE_SUCCESS")
+                {                   
+                    return "TRADE_SUCCESS";
                 }
-
+                else if(trade_status.ToUpper() == "WAIT_BUYER_PAY")
+                {
+                    log.Debug("交易已创建，等待买家付款.支付结果为:" + trade_status);
+                    return "WAIT_BUYER_PAY";
+                }
+                else if(trade_status.ToUpper() == "TRADE_FINISHED")
+                {
+                    log.Debug("交易成功且结束，不可再做任何操作.支付结果为:" + trade_status);
+                    return "TRADE_FINISHED";
+                }
                 else
                 {
-                    errMsg = "支付不成功.支付结果为:" + trade_status;
+                    errMsg = "在指定时间段内未支付.支付结果为:" + trade_status;
                     log.Error(errMsg);
 
-                    return false;
+                    return "TRADE_CLOSED";
                 }
             }
             else
             {
                 errMsg = "支付结果有误.参数验证失败";
                 log.Error(errMsg);
-                return false;
+                return "ERROR";
             }
 
         }

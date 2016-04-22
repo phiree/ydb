@@ -269,6 +269,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.ModelTests", "Dianz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RisCaptureLib", "RisCaptureLib\RisCaptureLib.csproj", "{DE79C6AB-B5A9-4BAF-80FA-22835452785F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTest", "WebTest\WebTest.csproj", "{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -695,6 +697,18 @@ Global
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F}.Release|x86.Build.0 = Release|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|x86.Build.0 = Debug|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|x86.ActiveCfg = Release|Any CPU
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -736,6 +750,7 @@ Global
 		{F399FE2F-05A1-41B6-AB63-C879A1701DC4} = {E4338C9B-90F1-4640-A650-F903E722C878}
 		{6931F336-83BE-4E6C-A945-588D636E5C73} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

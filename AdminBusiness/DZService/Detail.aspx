@@ -35,9 +35,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">支付要求</span><%= CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.AliPay?"支付宝"
-                                                                                              :CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.Offline?"线下支付":
-                                                                                              CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.WePay?"微支付":
+                                                <span class="model-pra-t">支付要求</span><%= CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.Offline?"线下支付":
                                                                                               CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.Online?"线上支付":
                                                                                               "不限"%>
                                             </p>

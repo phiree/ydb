@@ -27,6 +27,7 @@ namespace Com.Alipay
         #region 字段
         public readonly static string paytype = "1";
         public readonly static string partner = "2088021632422534";
+        public readonly static string app_id = "2016012201112719";
         public readonly static string seller_email = "jsyk_company@126.com";
         public readonly static string seller_id = "2088021632422534";
         public readonly static string private_key = @"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAK4+63BQXGjyOdvSyYKHbL/aA71DVV9GYq3ZUqMKiuZRwrCoNjw1OO3OKawIcRXXT6+ks4f5Cmrjiv3cr6uuEfu4AGAT0msS0XUtZFQbKwtuUQTARiO/EwjG4QBiWl5yyjgeaQcBS50XEBIJtG9gc6fKS3lrlgo7339T2AlFIa3NAgMBAAECgYBguZTAeBuUNkJgAJbT2pFHvqIswd/2T4AfuW/iCcwpJmHI5teUfIbpm3QOh3EfCrK1cdwnMtvRkhZp7cOmra5U/qUEPGyM+EyatWUXh1l5CYPLrNK5hWU42KPnPTh1siaSYZAS/gkeOOmnBnWRjk+fycB/o1e3f29JiNynnpiKgQJBANp3xWidBB1xRSHn1ndNlVJb8xbcNeUJWA6Np8lWDhV5XJdWQZ9JQIwSnsOOWhkaSPhKWbC9pE+c1sCfZJH/CPkCQQDMLkJVEn1bmIR5CYCe4D7HVy6mMCd/IXy4Aruj6XgP4XJXEJmK6BHwLjrk5UJ78rr+P/7McSI8Cdmw7e/bwDR1AkEAliheahIKAwaYor5LvYJ40LvccGj5Lixm9tHMcmkQkxfwWSBzSD07/UrLDtRn/vr/DpFj5kPijMnbHVgw8twdWQJBAJ4xWQNAiA9nY3vDePufEgSv71yjAnblIxQOSgL86CCls0jxe4S7uOo1ZzvgxFnz/hzuyCLtpHCP0THbp3LCv+ECQBnbhcKtNiJt9AhpqShJLYBy66GFonI+DoPkt94PgA5DgtzvpyuULcisAroZysjhAjRjlJA2tT7IJ6Vtzt+DhQU=";
@@ -36,9 +37,7 @@ namespace Com.Alipay
         public readonly static string sign_type = "RSA";
         public readonly static string publickey = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCuPutwUFxo8jnb0smCh2y/2gO9Q1VfRmKt2VKjCormUcKwqDY8NTjtzimsCHEV10+vpLOH+Qpq44r93K+rrhH7uABg
 E9JrEtF1LWRUGysLblEEwEYjvxMIxuEAYlpecso4HmkHAUudFxASCbRvYHOnykt5a5YKO99/U9gJRSGtzQIDAQAB";
-
-        public readonly static string appid_WePay = "wxd928d1f351b77449";
-        public readonly static string partnerid_WePay = "1304996701";
+        
         #endregion
 
     }
