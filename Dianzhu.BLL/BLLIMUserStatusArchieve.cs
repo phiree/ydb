@@ -10,9 +10,9 @@ namespace Dianzhu.BLL
     {
         public DALIMUserStatusArchieve DALIMUserStatusArchieve = DALFactory.DALIMUserStatusArchieve;
 
-        public void SaveOrUpdate(IMUserStatusArchieve im)
+        public void Save(IMUserStatusArchieve im)
         {
-            DALIMUserStatusArchieve.SaveOrUpdate(im);
+            DALIMUserStatusArchieve.Save(im);
         }
     }
 }
