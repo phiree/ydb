@@ -110,7 +110,7 @@ namespace Dianzhu.DAL
                
             totalAmount = iquery.RowCount();
 
-            IList<ServiceOrder> list = iquery.List(). OrderByDescending(x=>x.LatestOrderUpdated).Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
+            IList<ServiceOrder> list = GetAllOrdersForBusiness(business.Id).OrderByDescending(x=>x.LatestOrderUpdated).Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
 
             return list;
         }
@@ -159,6 +159,22 @@ namespace Dianzhu.DAL
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
         {
             return Session.QueryOver<ServiceOrder>().Where(x => x.Id == Id).And(x => x.Customer == customer).SingleOrDefault();
+        }
+        public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId,int pageIndex,int pageSize,out int totalRecords)
+        {
+            var query = "select o from ServiceOrder as o " +
+                           " inner join o.Details  as d " +
+                           "  inner join d.OriginalService as s " +
+                            " inner join s.Business as b  " +
+                            " where b.Id='" + businessId + "' "+
+                           
+                      " and ( o.OrderStatus!=" + (int)enum_OrderStatus.Draft +
+                            " or o.OrderStatus!=" + (int)enum_OrderStatus.DraftPushed + " )"
+                            ;
+            
+            var list = GetList(query,pageIndex,pageSize,out totalRecords );
+
+            return list;
         }
         public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId)
         {

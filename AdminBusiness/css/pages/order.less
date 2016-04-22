@@ -32,6 +32,14 @@
 .staffs-container {
   height: 550px;
   overflow-y: scroll;
+  &.loading{
+    overflow-y: auto;
+    background: url("@{base-images-url}load.gif") no-repeat center;
+  }
+  &.error {
+    overflow-y: auto;
+    background: url("@{base-images-url}error.jpg") no-repeat center;
+  }
 }
 
 .order-status-list {

@@ -30,12 +30,8 @@
 
             params = {
             type : 'POST',
-            /* dataType设置为text, 避免返回的数据进行二次转换导致格式变为字符串的parser error的错误*/
-            dataType: 'text',
-
-            /* mock.js 本地测试代码 */
-            //dataType: 'json',
-            //contentType: "application/x-www-form-urlencoded"
+            /* dataType设置为text, 和服务器返回的数据类型一致，避免返回的数据进行二次转换导致格式变为字符串的parser error的错误*/
+            dataType: 'text'
         };
 
         if ( !method ) {
@@ -49,7 +45,6 @@
         if ( options.protocolCode == null ) {
             throw new Error('customApi protocolCode is empty');
         }
-
 
         /**
          * 数据合成仅用两种模式，简化接口传输对数据的处理，避免臃肿：
@@ -71,12 +66,9 @@
         if ( !options.dataFilter ) {
             options.dataFilter = function(rawData, type){
 
-                /* 服务器链接代码 */
+                // json化数据
                 var jsonResp = JSON.parse(rawData);
                 var respObj = Adapter.respUnpack(jsonResp);
-
-                /* mock.js本地测试代码 */
-                //var respObj = Adapter.respUnpack(rawData);
 
                 if ( respObj.respCorrect ){
                     if ( respObj.hasArrayData ){

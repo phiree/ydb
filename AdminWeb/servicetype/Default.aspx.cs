@@ -51,12 +51,7 @@ public partial class servicetype_Default : System.Web.UI.Page
         //gvServiceType.DataSource = bllServiceType.GetAll();
        // gvServiceType.DataBind();
     }
-    protected void btnUpload_Click(object sender, EventArgs e)
-    {
 
-        bllServiceType.Import(fu.PostedFile.InputStream);
-        Notification.Show(Page,"","导入成功",string.Empty);   
-    }
 
 
 }

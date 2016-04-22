@@ -92,7 +92,7 @@ namespace Dianzhu.BLL
 
         public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {
-            return DALServiceOrder.GetListForBusiness(business, pageNum, pageSize, out totalAmount);
+            return DALServiceOrder.GetAllOrdersForBusiness(business.Id, pageNum, pageSize, out totalAmount);
         }
 
         public IList<ServiceOrder> GetListForCustomer(DZMembership customer, int pageNum, int pageSize, out int totalAmount)

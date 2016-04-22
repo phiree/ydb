@@ -44,56 +44,56 @@ public partial class DZOrder_Default : BasePage
     protected void rptOrderList_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             ServiceOrder order = (ServiceOrder)e.Item.DataItem;
-            switch (order.OrderStatus)
-            {
-                case Dianzhu.Model.Enums.enum_OrderStatus.Created:
-                    //获取支付项
-                    Payment payMent = bllPayment.GetPaymentForWaitPay(order);// .ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.Deposit);
-                    if (payMent == null)
-                    {
-                        return;
-                    }
-                    string payLinkDepositAmount = bllPayment.BuildPayLink(payMent.Id);
-//                    HyperLink hlDepositAmount = e.Item.FindControl("PayDepositAmount") as HyperLink;
-//                    hlDepositAmount.Text = "用户订金付款链接：";
-//                    hlDepositAmount.NavigateUrl = payLinkDepositAmount;
-//                    hlDepositAmount.Visible = true;
-                    break;
-                case Dianzhu.Model.Enums.enum_OrderStatus.Payed:
-                    Button btnConfimOrder = e.Item.FindControl("btnConfimOrder") as Button;
-                    btnConfimOrder.Visible = true;
-                    break;
-                case Dianzhu.Model.Enums.enum_OrderStatus.Negotiate:
-                    TextBox txtConfirmPrice = e.Item.FindControl("txtConfirmPrice") as TextBox;
-                    txtConfirmPrice.Visible = true;
-                    Button btnConfirmPrice = e.Item.FindControl("btnConfirmPrice") as Button;
-                    btnConfirmPrice.Visible = true;
-                    break;
-                case Dianzhu.Model.Enums.enum_OrderStatus.Assigned:
-                    Button btnConfirmPriceCustomer = e.Item.FindControl("btnConfirmPriceCustomer") as Button;
-                    btnConfirmPriceCustomer.Visible = true;
-                    break;
-                case Dianzhu.Model.Enums.enum_OrderStatus.Begin:
-                    Button btnIsEndOrder = e.Item.FindControl("btnIsEndOrder") as Button;
-                    btnIsEndOrder.Visible = true;
-                    Button btnIsEndOrderCustomer = e.Item.FindControl("btnIsEndOrderCustomer") as Button;
-                    btnIsEndOrderCustomer.Visible = true;
-                    break;
-                case Dianzhu.Model.Enums.enum_OrderStatus.isEnd:
-                    Button btnIsEndOrderCustomerIs = e.Item.FindControl("btnIsEndOrderCustomer") as Button;
-                    btnIsEndOrderCustomerIs.Visible = true;
-                    break;
-                case Dianzhu.Model.Enums.enum_OrderStatus.Ended:
-                    Payment paymentFinal = bllPayment.GetPaymentForWaitPay(order); //bllPayment.ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.FinalPayment);
-                    string payLinkFinalPayment = bllPayment.BuildPayLink(paymentFinal.Id);
-                    HyperLink hlFinalPayment = e.Item.FindControl("PayFinalPayment") as HyperLink;
-                    hlFinalPayment.Text = "用户尾款付款链接：";
-                    hlFinalPayment.NavigateUrl = payLinkFinalPayment;
-                    hlFinalPayment.Visible = true;
-                    break;
-                default:
-                    return;
-            }
+//            switch (order.OrderStatus)
+//            {
+//                case Dianzhu.Model.Enums.enum_OrderStatus.Created:
+//                    //获取支付项
+//                    Payment payMent = bllPayment.GetPaymentForWaitPay(order);// .ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.Deposit);
+//                    if (payMent == null)
+//                    {
+//                        return;
+//                    }
+//                    string payLinkDepositAmount = bllPayment.BuildPayLink(payMent.Id);
+////                    HyperLink hlDepositAmount = e.Item.FindControl("PayDepositAmount") as HyperLink;
+////                    hlDepositAmount.Text = "用户订金付款链接：";
+////                    hlDepositAmount.NavigateUrl = payLinkDepositAmount;
+////                    hlDepositAmount.Visible = true;
+//                    break;
+//                case Dianzhu.Model.Enums.enum_OrderStatus.Payed:
+////                    Button btnConfimOrder = e.Item.FindControl("btnConfimOrder") as Button;
+////                    btnConfimOrder.Visible = true;
+//                    break;
+//                case Dianzhu.Model.Enums.enum_OrderStatus.Negotiate:
+////                    TextBox txtConfirmPrice = e.Item.FindControl("txtConfirmPrice") as TextBox;
+////                    txtConfirmPrice.Visible = true;
+////                    Button btnConfirmPrice = e.Item.FindControl("btnConfirmPrice") as Button;
+////                    btnConfirmPrice.Visible = true;
+//                    break;
+//                case Dianzhu.Model.Enums.enum_OrderStatus.Assigned:
+//                    Button btnConfirmPriceCustomer = e.Item.FindControl("btnConfirmPriceCustomer") as Button;
+//                    btnConfirmPriceCustomer.Visible = true;
+//                    break;
+//                case Dianzhu.Model.Enums.enum_OrderStatus.Begin:
+//                    Button btnIsEndOrder = e.Item.FindControl("btnIsEndOrder") as Button;
+//                    btnIsEndOrder.Visible = true;
+//                    Button btnIsEndOrderCustomer = e.Item.FindControl("btnIsEndOrderCustomer") as Button;
+//                    btnIsEndOrderCustomer.Visible = true;
+//                    break;
+//                case Dianzhu.Model.Enums.enum_OrderStatus.IsEnd:
+//                    Button btnIsEndOrderCustomerIs = e.Item.FindControl("btnIsEndOrderCustomer") as Button;
+//                    btnIsEndOrderCustomerIs.Visible = true;
+//                    break;
+//                case Dianzhu.Model.Enums.enum_OrderStatus.Ended:
+//                    Payment paymentFinal = bllPayment.GetPaymentForWaitPay(order); //bllPayment.ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.FinalPayment);
+//                    string payLinkFinalPayment = bllPayment.BuildPayLink(paymentFinal.Id);
+//                    HyperLink hlFinalPayment = e.Item.FindControl("PayFinalPayment") as HyperLink;
+//                    hlFinalPayment.Text = "用户尾款付款链接：";
+//                    hlFinalPayment.NavigateUrl = payLinkFinalPayment;
+//                    hlFinalPayment.Visible = true;
+//                    break;
+//                default:
+//                    return;
+//            }
         }
 
     protected void rptOrderList_Command(object sender, RepeaterCommandEventArgs e)

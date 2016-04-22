@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Finance\ServiceTypePoint.cs" />
     <Compile Include="IdentityAccess\emUserType.cs" />
     <Compile Include="ServiceOrderRemind.cs" />
     <Compile Include="Agent\Agent.cs" />
@@ -105,6 +106,7 @@
     <Content Include="ServiceOrder\UL.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="NewFolder1\" />
     <Folder Include="Resource\Agent\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

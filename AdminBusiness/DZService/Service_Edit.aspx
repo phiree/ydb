@@ -180,8 +180,8 @@
                     },
                     rules: service_validate_rules,
                     messages: service_validate_messages,
-//                    invalidHandler: invalidHandler,
-//                    showErrors: showErrorsHandler
+                    invalidHandler: invalidHandler,
+                    showErrors: showErrorsHandler
                 }
             );
 
