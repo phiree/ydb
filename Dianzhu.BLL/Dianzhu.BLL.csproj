@@ -76,6 +76,7 @@
     <Compile Include="BLLPay.cs" />
     <Compile Include="BLLBusinessImage.cs" />
     <Compile Include="Finance\BLLSalePoint.cs" />
+    <Compile Include="Finance\BLLSharePoint.cs" />
     <Compile Include="IdentityAccess\RoleDto.cs" />
     <Compile Include="IdentityAccess\RoleService.cs" />
     <Compile Include="Promote\BLLCashTicket.cs" />

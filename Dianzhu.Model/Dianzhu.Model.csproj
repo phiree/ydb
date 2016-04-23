@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Finance\ServiceTypePoint.cs" />
+    <Compile Include="Finance\SharePoint.cs" />
     <Compile Include="IdentityAccess\emUserType.cs" />
     <Compile Include="ServiceOrderRemind.cs" />
     <Compile Include="Agent\Agent.cs" />
