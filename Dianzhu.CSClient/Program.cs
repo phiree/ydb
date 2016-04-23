@@ -178,9 +178,16 @@ namespace Dianzhu.CSClient
         }
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            
-            log.Error("异常崩溃:"+ e.ExceptionObject.ToString());
-            MessageBox.Show(e.ExceptionObject.ToString());
+            try
+            {
+                log.Error("异常崩溃:" + e.ExceptionObject.ToString());
+
+                MessageBox.Show(e.ExceptionObject.ToString());
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
         static string GetVersion()
         {
