@@ -48,8 +48,8 @@ namespace Dianzhu.Test.BLLTest
             new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.Begin);
             Assert.AreEqual(enum_OrderStatus.Begin, order.OrderStatus);
 
-            new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.IsEnd);
-            Assert.AreEqual(enum_OrderStatus.IsEnd, order.OrderStatus);
+            new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.isEnd);
+            Assert.AreEqual(enum_OrderStatus.isEnd, order.OrderStatus);
 
             new OrderServiceFlow().ChangeStatus(order, Model.Enums.enum_OrderStatus.Ended);
             Assert.AreEqual(enum_OrderStatus.Ended, order.OrderStatus);

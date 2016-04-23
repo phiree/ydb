@@ -440,6 +440,9 @@
                     "merchantID": merchantID,
                     "svcID": Adapter.getParameterByName("serviceid")
                 },
+                error : function(){
+                    _this.$el.removeClass("loading").addClass("error");
+                }
             });
         },
         render : function(){

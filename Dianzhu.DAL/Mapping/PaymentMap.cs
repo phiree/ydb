@@ -16,10 +16,11 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.CreatedTime);
             Map(x => x.LastUpdateTime);
             References<ServiceOrder>(x => x.Order);
-            Map(x => x.PayTarget);
-            Map(x => x.Status);
-         
-
+            Map(x => x.PayTarget).CustomType<Model.Enums.enum_PayTarget>();
+            Map(x => x.Status).CustomType<Model.Enums.enum_PaymentStatus>();
+            Map(x => x.PayApi).CustomType<Model.Enums.enum_PayAPI>();
+            Map(x => x.PlatformTradeNo);
+            Map(x => x.Memo);
         }
     }
   

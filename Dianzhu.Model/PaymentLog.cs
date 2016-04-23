@@ -28,23 +28,13 @@ namespace Dianzhu.Model
         /// <summary>
         /// 金额
         /// </summary>
-        public virtual decimal PayAmount
-        { get; set; }
+        public virtual decimal PayAmount { get; set; }
+
         /// <summary>
         /// 支付记录的类型：发起支付,支付接口回调
         /// </summary>
         public virtual Enums.enum_PaylogType PaylogType { get; set; }
-
-        /// <summary>
-        /// 支付接口类型:支付宝,微信...
-        /// </summary>
-        public virtual Enums.enum_PayAPI PayApi { get; set; }
-
-        /// <summary>
-        /// 款项类型:  定金,尾款..赔偿金..
-        /// </summary>
-        public virtual Enums.enum_PayTarget PayTarget { get; set; }
-
+        
         /// <summary>
         /// 离线,在线支付.
         /// </summary>

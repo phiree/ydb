@@ -92,7 +92,7 @@ public class ResponseORM003007 : BaseResponse
                                 bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
                                 break;
                             case enum_OrderStatus.Assigned:
-                                bllServiceOrder.OrderFlow_CustomIsNegotiate(order);
+                                bllServiceOrder.OrderFlow_CustomConfirmNegotiate(order);
                                 break;
                             case enum_OrderStatus.Canceled:
                                 bllServiceOrder.OrderFlow_Canceled(order);
@@ -133,9 +133,9 @@ public class ResponseORM003007 : BaseResponse
                                 bllServiceOrder.OrderFlow_BusinessConfirm(order);
                                 break;
                             case enum_OrderStatus.Begin:
-                                bllServiceOrder.OrderFlow_CustomerConfirmNegotiate(order);
+                                bllServiceOrder.OrderFlow_BusinessStartService(order);
                                 break;
-                            case enum_OrderStatus.IsEnd:
+                            case enum_OrderStatus.isEnd:
                                 bllServiceOrder.OrderFlow_BusinessFinish(order);
                                 break;
 

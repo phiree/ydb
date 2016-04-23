@@ -28,9 +28,9 @@ namespace Dianzhu.Pay
         /// <param name="total_amoun">支付总额</param>
         /// <param name="errMsg">错误消息</param>
         /// <returns>支付是否成功</returns>
-        bool PayCallBack(object callBackParameters, out string businessOrderId, out string platformOrderId, out decimal total_amoun, out string errMsg);
+        string PayCallBack(object callBackParameters, out string businessOrderId, out string platformOrderId, out decimal total_amoun, out string errMsg);
         //todo: 这两个接口方法要统一成一个.
-       // bool PayCallBack(string  callBackParameters, out string businessOrderId, out string platformOrderId, out decimal total_amoun, out string errMsg);
+        // bool PayCallBack(string  callBackParameters, out string businessOrderId, out string platformOrderId, out decimal total_amoun, out string errMsg);
     }    
   
 

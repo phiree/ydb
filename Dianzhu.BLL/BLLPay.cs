@@ -10,6 +10,7 @@ using System.Web;
 using System.IO;
 using Dianzhu.Pay;
 using System.Collections.Specialized;
+using Dianzhu.Pay.RefundRequest;
 
 namespace Dianzhu.BLL
 {
@@ -63,6 +64,7 @@ namespace Dianzhu.BLL
             paymentLog.ApiString = rawRequestString+"------"+callbackParameters;
             paymentLog.PaylogType = payLogType;
             paymentLog.LogTime = DateTime.Now;
+            paymentLog.PayType = enum_PayType.Online;
             
             log.Debug("保存支付记录");
             bllPaymentLog.SaveOrUpdate(paymentLog);
@@ -71,9 +73,9 @@ namespace Dianzhu.BLL
             string platformOrderId, businessOrderId, errMsg;
             decimal amount;
             log.Debug("开始API回调");
-            bool is_success= ipayCallback.PayCallBack(callbackParameters, out businessOrderId,out platformOrderId,out amount,out errMsg);
-            log.Debug("回调结果:" + is_success);
-            if (is_success == false)
+            string returnstr= ipayCallback.PayCallBack(callbackParameters, out businessOrderId,out platformOrderId,out amount,out errMsg);
+            log.Debug("回调结果:" + returnstr);
+            if (returnstr == "TRADE_CLOSED" || returnstr == "ERROR")
             {
                 log.Error(errMsg);
                 throw new Exception(errMsg);
@@ -86,10 +88,26 @@ namespace Dianzhu.BLL
                 paymentLog.PayAmount = amount;
                 paymentLog.PaymentId = new Guid(businessOrderId);
                 bllPaymentLog.SaveOrUpdate(paymentLog);
+
                 log.Debug("更新支付项");
                 Payment payment= bllPayment.GetOne(new Guid(businessOrderId));
-                payment.Status = enum_PaymentStatus.Success;
+                payment.Status = enum_PaymentStatus.Trade_Success;
+                switch (payLogType)
+                {
+                    case enum_PaylogType.ResultReturnFromAli:
+                    case enum_PaylogType.ResultNotifyFromAli:
+                        payment.PayApi = enum_PayAPI.Alipay;
+                        break;
+                    case enum_PaylogType.ReturnNotifyFromWePay:
+                        payment.PayApi = enum_PayAPI.Wechat;
+                        break;
+                    default:
+                        payment.PayApi = enum_PayAPI.None;
+                        break;
+                }
+                payment.PlatformTradeNo = platformOrderId;
                 bllPayment.SaveOrUpdate(payment);
+
                 //更新订单状态.
                 log.Debug("更新订单状态");
                 ServiceOrder order = payment.Order;
@@ -101,6 +119,12 @@ namespace Dianzhu.BLL
                         break;
                     case enum_OrderStatus.Ended:
                         bllOrder.OrderFlow_OrderFinished(order);
+                        break;
+                    case enum_OrderStatus.WaitingPayWithRefund:
+                        bllOrder.OrderFlow_RefundSuccess(order);
+                        break;
+                    case enum_OrderStatus.NeedPayWithIntervention:
+                        bllOrder.OrderFlow_ConfirmInternention(order);
                         break;
                     default:
                         break;
@@ -119,9 +143,7 @@ namespace Dianzhu.BLL
                 LogTime = DateTime.Now,
                 ApiString = apiString,
                 PayAmount = payment.Amount,
-                PayApi = payApi,
                 PaylogType = paylogType,
-                PayTarget = payTarget,
                 PayType = payType,
                 PaymentId = payment.Id
             };
@@ -134,14 +156,12 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="payApi"></param>
         /// <returns></returns>
-        public string CreateRefundRequest(enum_PayAPI payApi,IList<RefundDetail> details)
+        public NameValueCollection CreateRefundRequest(enum_PayAPI payApi,IList<RefundDetail> details)
         {
             switch (payApi)
             {
                 case enum_PayAPI.Alipay:
-                    IRefund refund= new RefundAli(Dianzhu.Config.Config.GetAppSetting("PaySite")
-                        + "Refund/", details
-                        );
+                    IRefund refund= new RefundAli(Dianzhu.Config.Config.GetAppSetting("PaySite") + "Refund/", details);
                     return refund.CreateRefundRequest();
 
                 case enum_PayAPI.Wechat:

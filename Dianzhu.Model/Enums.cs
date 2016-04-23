@@ -39,8 +39,6 @@ namespace Dianzhu.Model.Enums
     {
         Offline = 1,
         Online = 2,
-        AliPay = 2,
-        WePay = 3,
         None = 4,
     }
     /// <summary>
@@ -87,7 +85,9 @@ namespace Dianzhu.Model.Enums
 
 
     }
-
+    /// <summary>
+    /// 订单状态
+    /// </summary>
     public enum enum_OrderStatus
     {
         /// <summary>
@@ -135,7 +135,7 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 商家确定服务完成（如果用户已经确认完成， 该状态跳过）
         /// </summary>
-        IsEnd = 24,
+        isEnd = 24,
         /// <summary>
         /// 用户确定服务完成
         /// </summary>
@@ -524,8 +524,9 @@ namespace Dianzhu.Model.Enums
     /// </summary>
     public enum enum_PaymentStatus
     {
-        WaitForPay=0,//等待支付
-        Success=1,//支付成功
-        Failed=2,//支付失败
+        Wait_Buyer_Pay = 0,//交易创建，等待买家付款。
+        Trade_Success = 1,//支付成功，且可对该交易做操作，如：多级分润、退款等。
+        Trade_Closed = 2,//在指定时间内未支付时关闭的交易；在交易完成全额退款成功时关闭的交易。
+        Trade_Finished = 3,//交易成功且结束，即不可再做任何操作。
     }
 }
