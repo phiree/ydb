@@ -105,7 +105,7 @@ namespace Dianzhu.Model
         {
             get; protected set;
         }
-        public virtual Guid Id { get;  protected  set; }
+        public virtual Guid Id { get;    set; }
         /// <summary>
         /// 订单的标题
         /// </summary>
@@ -272,6 +272,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual int ServiceOvertimeForCancel
         { get {
+                if (Details.Count == 0) return 0;
                 return Details.Min(x => x.ServieSnapShot.OverTimeForCancel);
             } }
 

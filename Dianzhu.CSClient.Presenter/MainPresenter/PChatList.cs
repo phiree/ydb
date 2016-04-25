@@ -57,22 +57,17 @@ namespace Dianzhu.CSClient.Presenter
             media.Play(mediaUrl, handle);
         }
 
-        private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
+        public void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
-            try
-            {  
-                BackgroundWorker bgwChatHistory = new BackgroundWorker();
-                bgwChatHistory.DoWork += BgwChatHistory_DoWork;
-                bgwChatHistory.RunWorkerCompleted += BgwChatHistory_RunWorkerCompleted;
-                bgwChatHistory.RunWorkerAsync(serviceOrder);
-               
-            }
-            catch (Exception ex)
-            {
-                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
-            }
+            int rowCount;
+            var chatHistory = dalReception
+                   //.GetListTest();
+                   .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
+                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+            viewChatList.ChatList.Clear();
+            viewChatList.ChatList = chatHistory;
         }
-   
+
         private void BgwChatHistory_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             IList<ReceptionChat> chatHistory = (IList<ReceptionChat>)e.Result;

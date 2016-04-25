@@ -37,7 +37,7 @@ namespace Dianzhu.CSClient.Presenter
 
         }
 
-        private void IView_IdentityClick(ServiceOrder serviceOrder)
+        public void IView_IdentityClick(ServiceOrder serviceOrder)
         {
             
             IdentityManager.CurrentIdentity = serviceOrder;
