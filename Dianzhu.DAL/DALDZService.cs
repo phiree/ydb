@@ -44,6 +44,7 @@ namespace Dianzhu.DAL
             {
                 where+= " and service.ServiceType.Id='" + serviceTypeId + "'";
             }
+            where += " and service.Enabled=true";
 
             //var totalquery = Session.QueryOver<DZService>()
             //.
