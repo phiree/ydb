@@ -25,7 +25,7 @@
                                                 <span class="model-pra-t">服务名称</span><%=CurrentService.Name %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">先付定金</span><%=CurrentService.DepositAmount.ToString("0.00") %>
+                                                <span class="model-pra-t">先付订金</span><%=CurrentService.DepositAmount.ToString("0.00") %>
                                             </p>
                                         </div>
                                         <div class="col-md-4">

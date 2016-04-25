@@ -181,9 +181,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="row model-form-group">
-                                                        <div class="col-md-4 model-label-lg">服务定金</div>
+                                                        <div class="col-md-4 model-label-lg">服务订金</div>
                                                         <div class="col-md-8 model-input-unit">
-                                                            <asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxDespoist" data-toggle="tooltip" data-placement="top" title="请填写该服务需支付的定金"></asp:TextBox>
+                                                            <asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxDespoist" data-toggle="tooltip" data-placement="top" title="请填写该服务需支付的订金"></asp:TextBox>
                                                             <em class="unit">元</em>
                                                         </div>
                                                     </div>

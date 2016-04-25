@@ -40,7 +40,7 @@
                                                 <span class="model-pra-t">订单状态</span><%= CurrentOrder.GetFriendlyStatus() %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">已付定金</span><%= CurrentOrder.DepositAmount %>
+                                                <span class="model-pra-t">已付订金</span><%= CurrentOrder.DepositAmount %>
                                             </p>
                                         </div>
                                         <div class="col-md-4">
