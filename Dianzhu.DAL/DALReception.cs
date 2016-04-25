@@ -70,8 +70,10 @@ namespace Dianzhu.DAL
             {
                 receptionChatList = result.OrderBy(x => x.SavedTime).Desc.Skip(pageIndex * pageSize).Take(pageSize).List().OrderBy(x => x.SavedTime).ToList();
             }
-                t.Commit();
-            return receptionChatList;
+                if (t.IsActive) { 
+               t.Commit();
+                }
+                return receptionChatList;
             }
         }
 

@@ -110,11 +110,19 @@ namespace Dianzhu.CSClient.XMPP
             //message-->chat
             //1 转换为chat对象
             log.Debug("receive_msg:"+msg.ToString());
-            Model.ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
-
-            if (IMReceivedMessage != null)
+            try
             {
-                IMReceivedMessage(chat);
+                Model.ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
+
+                if (IMReceivedMessage != null)
+                {
+                    IMReceivedMessage(chat);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("消息解析失败");
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
             }
         }
         void Connection_OnPresence(object sender, Presence pres)
