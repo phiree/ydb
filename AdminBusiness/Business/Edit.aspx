@@ -113,10 +113,10 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-10">
+                                                    <div class="col-md-5">
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺头像</div>
-                                                            <div class="col-md-10 model-input">
+                                                            <div class="col-md-8 model-input">
                                                                 <div >
                                                                     <div class="input-file-box headFile">
                                                                         <input type=file class="input-file-btn file-default" name="upload_file"
@@ -133,10 +133,10 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-10">
+                                                    <div class="col-md-5">
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺图片</div>
-                                                            <div class="col-md-10 model-input">
+                                                            <div class="col-md-8 model-input">
                                                                 <div class="img-list img-list-limit6 clearfix">
                                                                     <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                                                         <ItemTemplate>
