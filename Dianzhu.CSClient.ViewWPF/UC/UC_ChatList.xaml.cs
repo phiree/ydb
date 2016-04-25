@@ -16,6 +16,7 @@ using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using System.Windows.Interop;
 using System.Windows.Controls.Primitives;
+using System.IO;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -108,8 +109,13 @@ namespace Dianzhu.CSClient.ViewWPF
                         case "voice":
                              Button btnAudio = new Button();
                             btnAudio.Content = "播放音频---";
-                            btnAudio.Tag = mediaUrl;
-                            
+                            //btnAudio.Tag = mediaUrl;
+                            //string fileName = ((Model.ReceptionChatMedia)chat).MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+                            //btnAudio.Name = ((Model.ReceptionChatMedia)chat).MedialUrl;
+
+                            //string targetFileName = Environment.CurrentDirectory + "message/media/" + fileName + ".mp3";
+
+                            btnAudio.Tag = chat;
                             btnAudio.Click += BtnAudio_Click;
                             pnlOneChat.Children.Add(btnAudio);
                             break;
@@ -169,12 +175,31 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void BtnAudio_Click(object sender, EventArgs e)
         {
-            if(AudioPlay!=null)
+            //if(AudioPlay!=null)
+            //{
+            //    Window w = Window.GetWindow(this);
+            //    IntPtr windowHandle = new WindowInteropHelper(w).Handle;
+            //    AudioPlay(((Button)sender).Tag, windowHandle);
+            //}
+
+            ReceptionChatMedia chat = (Model.ReceptionChatMedia)(((Button)sender).Tag);
+            string fileName = chat.MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+
+            string targetFileName = Environment.CurrentDirectory + "\\message\\media\\" + fileName + ".mp3";
+
+            if (!File.Exists(targetFileName))
             {
-                Window w = Window.GetWindow(this);
-                IntPtr windowHandle = new WindowInteropHelper(w).Handle;
-                AudioPlay(((Button)sender).Tag, windowHandle);
+                PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
+                PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
+                tomp3.ConvertToMp3(Environment.CurrentDirectory+"\\files\\", Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")+ fileName, targetFileName);
             }
+            //string targetFileName = "C:\\" + ((Button)sender).Name + ".mp3";
+            //PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
+            //tomp3.ConvertToMp3("E:\\projects\\ddddzzzz\\PHSuit\\files\\", (((Button)sender).Tag).ToString(), targetFileName);
+
+            MediaPlayer player = new MediaPlayer();
+            player.Open(new Uri(targetFileName, UriKind.Absolute));
+            player.Play();
         }
         private void LoadBody(string messageBody, Panel pnlContainer)
         {
@@ -233,13 +258,5 @@ namespace Dianzhu.CSClient.ViewWPF
                 currentCustomerService = value;
             }
         }
-
-        //private void pnlChatList_SizeChanged(object sender, SizeChangedEventArgs e)
-        //{
-        //    if (svChatList.ScrollableHeight == svChatList.VerticalOffset)
-        //    {
-        //        svChatList.ScrollToEnd();
-        //    }
-        //}
     }
 }

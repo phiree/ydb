@@ -75,7 +75,15 @@ namespace Dianzhu.CSClient.Presenter
                     chat.ReceiveTime = DateTime.Now;
                     if (chat is Model.ReceptionChatMedia)
                     {
-                        ((Model.ReceptionChatMedia)chat).MedialUrl = ((Model.ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+                        string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                        string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+
+                        ((ReceptionChatMedia)chat).MedialUrl = fileName;
+
+                        string targetFileName = Environment.CurrentDirectory + "\\message\\media\\" + fileName + ".mp3";
+                        PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
+                        PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
+                        tomp3.ConvertToMp3(Environment.CurrentDirectory + "\\files\\", GlobalViables.MediaGetUrl + ((ReceptionChatMedia)chat).MedialUrl, targetFileName);
                     }
                     dalReceptionChat.Save(chat);
                     break;
