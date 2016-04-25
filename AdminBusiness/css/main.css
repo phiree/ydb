@@ -6818,8 +6818,10 @@ a.time-trigger:hover {
 }
 .biz-img {
   float: left;
-  border: 1px solid #7d7d7d;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.44);
+  overflow: hidden;
+  border-radius: 15px;
+  border: 1px solid #B3B3B3;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.44);
 }
 .biz-info {
   float: left;
@@ -6939,10 +6941,8 @@ a.time-trigger:hover {
 .newBiz {
   width: 700px;
   min-height: 450px;
-  background: #ffffff;
-  border: 1px solid #B3B3B3;
   border-radius: 8px;
-  box-shadow: 0 0 18px 5px #B3B3B3;
+  box-shadow: 0 0 18px 5px rgba(127, 127, 127, 0.68);
   overflow: hidden;
 }
 .newBiz-h {
