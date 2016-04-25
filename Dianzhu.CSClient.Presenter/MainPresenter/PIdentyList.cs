@@ -52,7 +52,7 @@ namespace Dianzhu.CSClient.Presenter
         private void BgwLoadChatList_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             ServiceOrder order = (ServiceOrder)e.Result;
-            iView.SetIdentityReaded(order);
+            //iView.SetIdentityReaded(order);
         }
 
         private void BgwLoadChatList_DoWork(object sender, DoWorkEventArgs e)
@@ -62,10 +62,7 @@ namespace Dianzhu.CSClient.Presenter
             e.Result = order;
         }
 
-        private void Bgw_DoWork(object sender, DoWorkEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        
 
 
 

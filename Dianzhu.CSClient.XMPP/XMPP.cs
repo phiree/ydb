@@ -149,8 +149,10 @@ namespace Dianzhu.CSClient.XMPP
         }
         public void SendPresent()
         {
+          
             Presence p = new Presence(ShowType.chat, "Online");
             p.Type = PresenceType.available;
+            log.Debug("send present:"+p.ToString());
             XmppClientConnection.Send(p);
         }
         public void SendMessage(Model.ReceptionChat chat)
@@ -171,10 +173,12 @@ namespace Dianzhu.CSClient.XMPP
         }
         public void Close()
         {
+            log.Debug("xmppconenction close ");
             XmppClientConnection.Close();
         }
         public void OpenConnection(string userName, string password)
         {
+            log.Debug("xmpp open connection:"+userName);
             XmppClientConnection.Open(userName, password);
         }
         public void XmppClientConnection_OnClose(object sender)

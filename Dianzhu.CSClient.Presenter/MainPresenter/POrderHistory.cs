@@ -54,6 +54,11 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewOrderHistory_SearchOrderHistoryClick()
         {
+            //fix #143
+            if (IdentityManager.CurrentIdentity == null)
+            {
+                return;
+            }
             IList<ServiceOrder> searchList = new List<ServiceOrder>();
             if (viewOrderHistory.SearchStr == string.Empty)
             {
