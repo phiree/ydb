@@ -1,1 +1,3 @@
-<message xmlns="jabber:client" type="chat"   to="{0}@{1}"><body>gg</body><active xmlns="http://jabber.org/protocol/chatstates" /><ext xmlns="ihelper:chat:text"><orderID/></ext></message>
+<message xmlns="jabber:client" type="chat"  
+         to="{0}@{1}"><body>gg</body><active xmlns="http://jabber.org/protocol/chatstates" />
+  <ext xmlns="ihelper:chat:text"><orderID/></ext></message>
