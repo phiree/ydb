@@ -24,5 +24,7 @@ namespace Dianzhu.CSClient.IView
         string LoginMessage { set; }
         string ErrorMessage { set; }
 
+        bool ShowDialog();
+
     }
 }

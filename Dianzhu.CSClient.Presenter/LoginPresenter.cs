@@ -29,6 +29,10 @@ namespace Dianzhu.CSClient.Presenter
 
         }
 
+        public bool  ShowDialog()
+        {
+          return  this.loginView.ShowDialog();
+        }
         
 
        void loginView_ViewLogin()
