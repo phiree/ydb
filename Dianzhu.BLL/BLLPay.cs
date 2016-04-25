@@ -113,16 +113,20 @@ namespace Dianzhu.BLL
                 ServiceOrder order = payment.Order;
                 switch (order.OrderStatus)
                 {
+                    case enum_OrderStatus.checkPayWithDeposit:
                     case enum_OrderStatus.Created:
                         //支付定金
                         bllOrder.OrderFlow_ConfirmDeposit(order);
                         break;
+                    case enum_OrderStatus.checkPayWithNegotiate:
                     case enum_OrderStatus.Ended:
                         bllOrder.OrderFlow_OrderFinished(order);
                         break;
+                    case enum_OrderStatus.checkPayWithRefund:
                     case enum_OrderStatus.WaitingPayWithRefund:
                         bllOrder.OrderFlow_RefundSuccess(order);
                         break;
+                    case enum_OrderStatus.checkPayWithIntervention:
                     case enum_OrderStatus.NeedPayWithIntervention:
                         bllOrder.OrderFlow_ConfirmInternention(order);
                         break;

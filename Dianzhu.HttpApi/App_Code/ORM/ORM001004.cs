@@ -26,22 +26,41 @@ public class ResponseORM001004 : BaseResponse
         {
             DZMembershipProvider p = new DZMembershipProvider();
             BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-            string raw_id = requestData.userID;
+            string user_id = requestData.userID;
+            string srvTarget = requestData.target;
+
+            Guid userId;
+            bool isUserId = Guid.TryParse(user_id, out userId);
+            if (!isUserId)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "userId格式有误";
+                return;
+            }
+
             if (request.NeedAuthenticate)
             {
                 DZMembership member;
-                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                bool validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
                 if (!validated)
                 {
+                    this.state_CODE = Dicts.StateCode[2];
+                    this.err_Msg = "用户id或密码有误";
                     return;
                 }
             }
             try
-            {
-                string srvTarget = requestData.target;
-                enum_OrderSearchType searchType = (enum_OrderSearchType)Enum.Parse(typeof(enum_OrderSearchType), srvTarget);
+            {                
+                enum_OrderSearchType searchType;
+                bool isSearchType = Enum.TryParse(srvTarget, out searchType);
+                if (!isSearchType)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "订单状态格式有误";
+                    return;
+                }
 
-                int rowCount = bllServiceOrder.GetServiceOrderCount(new Guid(raw_id), searchType);
+                int rowCount = bllServiceOrder.GetServiceOrderCount(userId, searchType);
                 RespDataORM001004 respData = new RespDataORM001004 { sum = rowCount.ToString() };
                 this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];

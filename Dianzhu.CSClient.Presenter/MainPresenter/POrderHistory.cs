@@ -33,6 +33,8 @@ namespace Dianzhu.CSClient.Presenter
 
             viewOrderHistory.SearchOrderHistoryClick += ViewOrderHistory_SearchOrderHistoryClick;
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
+
+            viewOrderHistory.btnSearchEnabled = IdentityManager.CurrentIdentity == null ? false : true;
         }
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
@@ -45,6 +47,9 @@ namespace Dianzhu.CSClient.Presenter
                 allList.Add(serviceOrder.Customer, orderList);
             }            
             viewOrderHistory.OrderList = orderList;
+
+            if (orderList.Count > 0) { viewOrderHistory.btnSearchEnabled = true; }
+            else { viewOrderHistory.btnSearchEnabled = false; }
         }
 
         private void ViewOrderHistory_SearchOrderHistoryClick()
