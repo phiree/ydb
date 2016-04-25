@@ -26,8 +26,8 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             InitializeComponent();
 
-            UC_OrderHistory_Order order = new UC_OrderHistory_Order();
-            pnlOrderHistory.Children.Add(order);
+            //UC_OrderHistory_Order order = new UC_OrderHistory_Order();
+            //pnlOrderHistory.Children.Add(order);
         }
         
         public event SearchOrderHistoryClick SearchOrderHistoryClick;
@@ -46,14 +46,33 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 orderList = value;
                 pnlOrderHistory.Children.Clear();
-                UC_OrderHistory_Order ucOrder;
-                foreach (ServiceOrder order in orderList)
+
+                if (orderList.Count > 0)
                 {
-                    ucOrder = new UC_OrderHistory_Order();
-                    ucOrder.LoadData(order);
-                    pnlOrderHistory.Children.Add(ucOrder);
+                    UC_OrderHistory_Order ucOrder;
+                    foreach (ServiceOrder order in orderList)
+                    {
+                        ucOrder = new UC_OrderHistory_Order();
+                        ucOrder.LoadData(order);
+                        pnlOrderHistory.Children.Add(ucOrder);
+                    }
+                }
+                else
+                {
+                    Label lblNoOrder = new Label
+                    {
+                        Content = "当前用户没有历史订单!",
+                        Foreground = new SolidColorBrush(Colors.Gray),
+                        Visibility = Visibility.Visible
+                    };
+                    pnlOrderHistory.Children.Add(lblNoOrder);
                 }
             }
+        }
+
+        public bool btnSearchEnabled
+        {
+            set { btnSearchByOrderId.IsEnabled = value; }
         }
 
         private void btnSearchByOrderId_Click(object sender, RoutedEventArgs e)

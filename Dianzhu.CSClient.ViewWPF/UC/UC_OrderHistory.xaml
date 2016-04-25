@@ -16,7 +16,7 @@
             <TextBox x:Name="txtSearchStr" TextWrapping="Wrap" Height="30" Width="300" Background="LightGray" FontSize="15">
                 
             </TextBox>
-            <Button x:Name="btnSearchByOrderId" Content="" Width="30" Background="#FF99EADF" Click="btnSearchByOrderId_Click">
+            <Button x:Name="btnSearchByOrderId" Content="搜索" Width="30" Background="#FF99EADF" Click="btnSearchByOrderId_Click">
                 
             </Button>
 
