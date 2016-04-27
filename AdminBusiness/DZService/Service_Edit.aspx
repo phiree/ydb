@@ -53,7 +53,7 @@
                     <div class="wd-bar">
                         <span>接单时间段：</span>
                         <div class="m-b10">
-                            <input  class="time-pick" type="text" data-role="cStartTime" />-<input class="time-pick" type="text" data-role="cEndTime" />
+                            <input class="time-pick" type="text" data-role="cStartTime" />-<input class="time-pick" type="text" data-role="cEndTime" />
                         </div>
                     </div>
                     <div class="wd-bar">

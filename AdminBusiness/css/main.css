@@ -4905,7 +4905,7 @@ a4526dfc-92d3-44b2-9179-b9081055e7d9 教育培训 16
 }
 .map-search {
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 15px;
   background: rgba(0, 0, 0, 0.35);
   padding: 5px;
@@ -4939,13 +4939,12 @@ a4526dfc-92d3-44b2-9179-b9081055e7d9 教育培训 16
 }
 .map-btn {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
-  text-align: right;
+  bottom: 30px;
+  right: 50px;
 }
 .map-msg {
   position: absolute;
-  bottom: 32px;
+  bottom: 40px;
   left: 20px;
   line-height: 1.6em;
   padding: 0 10px;
@@ -6831,28 +6830,13 @@ a.time-trigger:hover {
   height: 350px;
 }
 /* 店铺编辑，stepByStep的步骤控制样式 */
-.service-steps .step-ctrl.step-1 .step-prev {
+.business-steps .step-ctrl.step-1 .step-prev {
   display: none;
 }
-.service-steps .step-ctrl.step-1 .step-next-save {
+.business-steps .step-ctrl.step-1 .step-save {
   display: none;
 }
-.service-steps .step-ctrl.step-1 .step-complete {
-  display: none;
-}
-.service-steps .step-ctrl.step-2 .step-next {
-  display: none;
-}
-.service-steps .step-ctrl.step-2 .step-complete {
-  display: none;
-}
-.service-steps .step-ctrl.step-3 .step-next {
-  display: none;
-}
-.service-steps .step-ctrl.step-3 .step-next-save {
-  display: none;
-}
-.service-steps .step-ctrl.step-3 .step-cancel {
+.business-steps .step-ctrl.step-2 .step-next {
   display: none;
 }
 #addNewBusiness {
@@ -7898,7 +7882,7 @@ a.doReg:hover {
   color: #FF8D89;
 }
 .order-confirm-txt {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 .order-confirm-btn {
   margin-left: 20px;
@@ -8100,7 +8084,7 @@ a.doReg:hover {
 /* 服务编辑地图样式 */
 #allmap {
   width: 100%;
-  height: 320px;
+  height: 450px;
 }
 .business-radioCf {
   display: inline-block;
@@ -8114,13 +8098,34 @@ a.doReg:hover {
   color: #3AA6DD;
 }
 /* 新建服务时，stepByStep的步骤控制样式 */
-.business-steps .step-ctrl.step-1 .step-prev {
+.service-steps .step-ctrl.step-1 .step-prev {
   display: none;
 }
-.business-steps .step-ctrl.step-1 .step-save {
+.service-steps .step-ctrl.step-1 .step-next-save {
   display: none;
 }
-.business-steps .step-ctrl.step-2 .step-next {
+.service-steps .step-ctrl.step-1 .step-complete {
+  display: none;
+}
+.service-steps .step-ctrl.step-2 .step-next-save {
+  display: none;
+}
+.service-steps .step-ctrl.step-2 .step-complete {
+  display: none;
+}
+.service-steps .step-ctrl.step-3 .step-next {
+  display: none;
+}
+.service-steps .step-ctrl.step-3 .step-complete {
+  display: none;
+}
+.service-steps .step-ctrl.step-4 .step-next {
+  display: none;
+}
+.service-steps .step-ctrl.step-4 .step-next-save {
+  display: none;
+}
+.service-steps .step-ctrl.step-4 .step-cancel {
   display: none;
 }
 /* 服务总览页 */
