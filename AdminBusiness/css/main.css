@@ -7791,6 +7791,24 @@ a.doReg:hover {
   overflow-y: auto;
   background: url("../images/error.jpg") no-repeat center;
 }
+.order-price {
+  text-align: right;
+}
+.order-price-t {
+  margin-right: 8px;
+}
+.order-price-m {
+  color: #67bdf6;
+}
+.order-total-price {
+  font-size: 16px;
+  font-weight: bold;
+  vertical-align: bottom;
+  margin-left: 15px;
+}
+.order-total-price .order-price-m {
+  color: #FF8D89;
+}
 .order-status-list {
   position: relative;
   overflow: hidden;

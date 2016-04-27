@@ -28,9 +28,6 @@
                                             <p class="model-pra">
                                                 <span class="model-pra-t">订单号</span><%=CurrentOrder.Id %>
                                             </p>
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">订单价格</span><%=  CurrentOrder.NegotiateAmount %>
-                                            </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
@@ -39,9 +36,7 @@
                                             <p class="model-pra">
                                                 <span class="model-pra-t">订单状态</span><%= CurrentOrder.GetFriendlyStatus() %>
                                             </p>
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">已付订金</span><%= CurrentOrder.DepositAmount %>
-                                            </p>
+
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
@@ -51,8 +46,16 @@
                                                 <span class="model-pra-t">订单备注</span><%= CurrentOrder.Memo %>
                                             </p>
                                         </div>
+                                    </div>
+                                    <div class="d-hr in"></div>
+                                    <div class="row">
                                         <div class="col-md-12">
-                                            <div class="order-ctrl t-r">    
+                                            <div class="order-price">
+                                                <span class="order-price-t">已付订金:</span><em class="order-price-m"><%= CurrentOrder.DepositAmount.ToString("f2") %>&nbsp;元</em>&nbsp;
+                                                <span class="order-price-t">订单尾款:</span><em class="order-price-m"><%= (CurrentOrder.NegotiateAmount - CurrentOrder.DepositAmount).ToString("f2") %>&nbsp;元</em>&nbsp;
+                                                <span class="order-total-price"><span class="order-price-t">订单总价:</span><em class="order-price-m"><%= CurrentOrder.NegotiateAmount.ToString("f2") %></em>&nbsp;元</span>
+                                            </div>
+                                            <div class="order-ctrl t-r">
                                                 <!--<asp:HyperLink runat="server" ID="PayDepositAmount"></asp:HyperLink>-->
                                                 <asp:Button runat="server" CommandName="ConfirmOrder" OnClick="btnOrderStatusChange_Click"   ID="btnConfirmOrder" CssClass="btn btn-info btn-xs"  Visible="false" Text="确认订单"/>
                                                 <asp:TextBox runat="server" CommandName="txtConfirmPrice"  OnClick="btnOrderStatusChange_Click"   ID="txtConfirmPrice" Width="100" Visible="false"></asp:TextBox>
@@ -60,12 +63,11 @@
                                                 <asp:Button runat="server" CommandName="Assigned"  OnClick="btnOrderStatusChange_Click"  Visible="false"  ID="btnBegin" CssClass="btn btn-info btn-xs" Text="开始服务"/>
 
                                                 <asp:Button runat="server" CommandName="Begin"  OnClick="btnOrderStatusChange_Click"  Visible="false"  ID="btnIsEndOrder" CssClass="btn btn-info btn-xs" Text="订单完成"/>
-           
+
                                                 <!--<asp:Button runat="server" ID="Button3" CssClass="btn btn-info btn-xs" Text="指派"/>-->
                                             </div>
                                         </div>
                                     </div>
-                       
                                 </div>
                             </div>
                             <div class="model m-b20">
@@ -78,16 +80,17 @@
                                             <p class="model-pra">
                                                 <span class="model-pra-t">客户姓名</span><%= CurrentOrder.Customer.NickName %>
                                             </p>
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">联系方式</span><%= CurrentOrder.Customer.Phone %>
-                                            </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
                                                 <span class="model-pra-t">身份信息</span><%= CurrentOrder.Customer.DisplayName %>
                                             </p>
                                         </div>
-                                      
+                                        <div class="col-md-4">
+                                            <p class="model-pra">
+                                                <span class="model-pra-t">联系方式</span><%= CurrentOrder.Customer.Phone %>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -159,48 +162,27 @@
                             <div class="model">
                                 <div class="model-h">
                                     <h4>订单状态</h4>
+                                    
                                 </div>
                                 <div class="model-m">
                                     <div class="order-status-list">
-                                        <div class="status-list-item">
-                                            <div class="status-tip">
-                                                <div class="status-icon">
-                                                    <i class="icon"></i>
+                                        <asp:Repeater runat="server" ID="rptOrderDoneStatus" >
+                                        <ItemTemplate>
+                                            <div class="status-list-item">
+                                                <div class="status-tip">
+                                                    <div class="status-icon">
+                                                        <i class="icon"></i>
+                                                    </div>
+                                                    <div class="status-time">
+                                                        <%# Eval("CreatTime") %>
+                                                    </div>
                                                 </div>
-                                                <div class="status-time">
-                                                    12月8日 11：25
-                                                </div>
+                                                <div class="status-h"><%#Eval("OldStatus") %></div>
+                                                <div class="status-p"><%#Eval("OldStatus") %></div>
                                             </div>
-                                            <div class="status-h">订单已提交</div>
-                                            <div class="status-p">用户已经提交订单，等待商户接单。</div>
-
-                                        </div>
-                                        <div class="status-list-item">
-                                            <div class="status-tip">
-                                                <div class="status-icon">
-
-                                                </div>
-                                                <div class="status-time">
-                                                    12月8日 11：25
-                                                </div>
-                                            </div>
-                                            <div class="status-h">订单已提交</div>
-                                            <div class="status-p">用户已经提交订单，等待商户接单。</div>
-
-                                        </div>
-                                        <div class="status-list-item">
-                                            <div class="status-tip">
-                                                <div class="status-icon">
-
-                                                </div>
-                                                <div class="status-time">
-                                                    12月8日 11：25
-                                                </div>
-                                            </div>
-                                            <div class="status-h">订单已提交</div>
-                                            <div class="status-p">用户已经提交订单，等待商户接单。</div>
-
-                                        </div>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                        
                                     </div>
                                 </div>
                             </div>
