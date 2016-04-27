@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 public partial class DZOrder_Detail : System.Web.UI.Page
 {
     BLLServiceOrder bllServeiceOrder = new BLLServiceOrder();
+    BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
     BLLPayment bllPayment = new BLLPayment();
   public   ServiceOrder CurrentOrder;
 
@@ -19,7 +20,7 @@ public partial class DZOrder_Detail : System.Web.UI.Page
         
         CurrentOrder = bllServeiceOrder.GetOne(new Guid(Request["orderId"]));
         BingData();
-
+        BindDoneStatusData();
     }
 
     //    private void BindData()
@@ -36,6 +37,13 @@ public partial class DZOrder_Detail : System.Web.UI.Page
     //            pager.RecordCount = Convert.ToInt32(totalRecord);
     //            rpOrderList.DataBind();
     //        }
+
+    protected void BindDoneStatusData()
+    {
+        IList<ServiceOrderStateChangeHis> statusList = bllServiceOrderStateChangeHis.GetOrderHisList(CurrentOrder);
+        rptOrderDoneStatus.DataSource = statusList;
+        rptOrderDoneStatus.DataBind();
+    }
 
     protected void btnOrderStatusChange_Click(object sender, EventArgs e)
     {

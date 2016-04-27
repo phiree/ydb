@@ -64,7 +64,7 @@
                                             </div>
                                         </div>
                                         <div class="order-list" id="accordion" role="tablist" aria-multiselectable="true">
-                                            <asp:Repeater runat="server" ID="rpOrderList" OnItemDataBound="rptOrderList_ItemDataBound"  OnItemCommand="rptOrderList_Command">
+                                            <asp:Repeater runat="server" ID="rpOrderList"  >
                                                 <ItemTemplate>
                                                     <div class="order-row">
                                                         <div class="custom-grid">
@@ -127,10 +127,37 @@
                         <div class="col-md-2">
                             <div class="model">
                                 <div class="model-h">
-                                    <h4>订单列表</h4>
+                                    <h4>订单统计</h4>
                                 </div>
                                 <div class="model-m">
+                                    <div class="order-total-card">
+                                        <div class="order-card-t">
+                                            <div class="order-card-icon icon-undone"></div>
+                                            <div class="order-card-tr">
+                                                <p><strong class="order-card-s"><asp:Literal runat="server" ID="liUnDoneOrderCount"></asp:Literal></strong>张</p>
+                                                <p>未完成订单</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-total-card">
+                                        <div class="order-card-t">
+                                            <div class="order-card-icon icon-deal"></div>
 
+                                            <div class="order-card-tr">
+                                                <p><strong class="order-card-s"><asp:Literal runat="server" ID="liDealOrderCount"></asp:Literal></strong>张</p>
+                                                <p>进行中订单</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-total-card">
+                                        <div class="order-card-t">
+                                            <div class="order-card-icon icon-finish"></div>
+                                            <div class="order-card-tr">
+                                                <p><strong class="order-card-s"><asp:Literal runat="server" ID="liFinishOrderCount"></asp:Literal></strong>张</p>
+                                                <p>已完成订单</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

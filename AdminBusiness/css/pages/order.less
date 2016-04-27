@@ -1,3 +1,5 @@
+// 订单列表样式
+// 订单列表样式
 .order-list-head {
   .list-head();
   .custom-col {
@@ -23,7 +25,49 @@
 .order-row {
   .list-li(85px)
 }
+// end 订单列表样式
 
+// 订单统计标签样式
+.order-total-card {
+  padding: 15px 0;
+}
+
+.order-card-t {
+  position: relative;
+  overflow: hidden;
+}
+
+.order-card-s {
+  display: inline-block;
+  font-size: 32px;
+  font-weight: 100;
+  margin-right: 5px;
+}
+
+.order-card-icon {
+  display: inline-block;
+  width: 52px;
+  height: 52px;
+  margin-right: 10px;
+  vertical-align: bottom;
+  &.icon-undone {
+    background: url("@{base-images-url}pages/order/order_side_1.png") no-repeat center;
+  }
+  &.icon-deal {
+    background: url("@{base-images-url}pages/order/order_side_2.png") no-repeat center;
+  }
+  &.icon-finish {
+    background: url("@{base-images-url}pages/order/order_side_3.png") no-repeat center;
+  }
+}
+
+.order-card-tr {
+  display: inline-block;
+  text-align: left;
+}
+// end 订单统计标签样式
+
+// 订单指派员工样式
 .appointWindow {
   width: 1200px;
   height: 600px;
