@@ -36,7 +36,7 @@ namespace Dianzhu.Pay
                     platformOrderId = callbackParameter.transaction_id;
                     total_amount = Convert.ToDecimal(callbackParameter.total_fee);
                     //更新订单 发送订单状态变更通知
-                    return "SUCCESS";
+                    return "TRADE_SUCCESS";
 
                 }
                 else if (result_code.ToUpper() == "FAIL")
