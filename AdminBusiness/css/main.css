@@ -620,6 +620,94 @@ fieldset[disabled] .btn-cancel-light.active {
   color: #afafaf;
   border-color: #afafaf;
 }
+.btn-edit-light {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+  background: #f7f7f7;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f7f7f7, endColorstr=#eaeaea, GradientType=0);
+  /* IE6-9 */
+  color: #87ed90;
+  border: 1px solid #87ed90;
+  text-shadow: none;
+}
+.btn-edit-light:focus,
+.btn-edit-light.focus {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-edit-light:hover {
+  color: #fff;
+  background-color: #bcbcbc;
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-edit-light:visited {
+  color: #fff;
+}
+.btn-edit-light:active,
+.btn-edit-light.active,
+.open > .dropdown-toggle.btn-edit-light {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-edit-light:active:hover,
+.btn-edit-light.active:hover,
+.open > .dropdown-toggle.btn-edit-light:hover,
+.btn-edit-light:active:focus,
+.btn-edit-light.active:focus,
+.open > .dropdown-toggle.btn-edit-light:focus,
+.btn-edit-light:active.focus,
+.btn-edit-light.active.focus,
+.open > .dropdown-toggle.btn-edit-light.focus {
+  color: #fff;
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-edit-light:active,
+.btn-edit-light.active,
+.open > .dropdown-toggle.btn-edit-light {
+  background-image: none;
+}
+.btn-edit-light.disabled,
+.btn-edit-light[disabled],
+fieldset[disabled] .btn-edit-light,
+.btn-edit-light.disabled:hover,
+.btn-edit-light[disabled]:hover,
+fieldset[disabled] .btn-edit-light:hover,
+.btn-edit-light.disabled:focus,
+.btn-edit-light[disabled]:focus,
+fieldset[disabled] .btn-edit-light:focus,
+.btn-edit-light.disabled.focus,
+.btn-edit-light[disabled].focus,
+fieldset[disabled] .btn-edit-light.focus,
+.btn-edit-light.disabled:active,
+.btn-edit-light[disabled]:active,
+fieldset[disabled] .btn-edit-light:active,
+.btn-edit-light.disabled.active,
+.btn-edit-light[disabled].active,
+fieldset[disabled] .btn-edit-light.active {
+  background-color: #afafaf;
+  border-color: transparent;
+}
+.btn-edit-light .badge {
+  color: #afafaf;
+  background-color: #fff;
+}
+.btn-edit-light:hover,
+.btn-edit-light:focus,
+.btn-edit-light:visited {
+  color: #87ed90;
+  border-color: #87ed90;
+}
 .btn-delete-light {
   color: #fff;
   background-color: #afafaf;
