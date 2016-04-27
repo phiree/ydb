@@ -7897,6 +7897,12 @@ a.doReg:hover {
 .order-total-price .order-price-m {
   color: #FF8D89;
 }
+.order-confirm-txt {
+  margin-right: 10px;
+}
+.order-confirm-btn {
+  margin-left: 20px;
+}
 .order-status-list {
   position: relative;
   overflow: hidden;

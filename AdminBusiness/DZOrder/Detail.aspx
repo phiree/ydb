@@ -55,11 +55,22 @@
                                                 <span class="order-price-t">订单尾款:</span><em class="order-price-m"><%= (CurrentOrder.NegotiateAmount - CurrentOrder.DepositAmount).ToString("f2") %>&nbsp;元</em>&nbsp;
                                                 <span class="order-total-price"><span class="order-price-t">订单总价:</span><em class="order-price-m"><%= CurrentOrder.NegotiateAmount.ToString("f2") %></em>&nbsp;元</span>
                                             </div>
+                                        </div>
+                                    </div> 
+                                    <asp:Panel runat="server" ID="ctnrOrderStatus" Visible="false">
+                                        <div class="d-hr in"></div>
+                                    <div class="row">
+                                        <div class="col-md-12">
                                             <div class="order-ctrl t-r">
                                                 <!--<asp:HyperLink runat="server" ID="PayDepositAmount"></asp:HyperLink>-->
                                                 <asp:Button runat="server" CommandName="ConfirmOrder" OnClick="btnOrderStatusChange_Click"   ID="btnConfirmOrder" CssClass="btn btn-info btn-xs"  Visible="false" Text="确认订单"/>
-                                                <asp:TextBox runat="server" CommandName="txtConfirmPrice"  OnClick="btnOrderStatusChange_Click"   ID="txtConfirmPrice" Width="100" Visible="false"></asp:TextBox>
-                                                <asp:Button runat="server" CommandName="ConfirmPrice"  OnClick="btnOrderStatusChange_Click"   ID="btnConfirmPrice" CssClass="btn btn-info btn-xs" Visible="false" Text="确认价格"/>
+                                                <asp:Panel runat="server" ID="panelConfirmPrice" Visible="false">
+                                                    修改订单价格为：
+                                                    <asp:TextBox runat="server" CommandName="txtConfirmPrice" class="order-confirm-txt" OnClick="btnOrderStatusChange_Click"   ID="txtConfirmPrice" Width="100" Visible="false"></asp:TextBox>
+                                                    元
+                                                    <asp:Button runat="server" CommandName="ConfirmPrice" OnClick="btnOrderStatusChange_Click"   ID="btnConfirmPrice" CssClass="btn btn-info btn-xs order-confirm-btn" Visible="false" Text="确认价格"/>
+                                                </asp:Panel>
+                                               
                                                 <asp:Button runat="server" CommandName="Assigned"  OnClick="btnOrderStatusChange_Click"  Visible="false"  ID="btnBegin" CssClass="btn btn-info btn-xs" Text="开始服务"/>
 
                                                 <asp:Button runat="server" CommandName="Begin"  OnClick="btnOrderStatusChange_Click"  Visible="false"  ID="btnIsEndOrder" CssClass="btn btn-info btn-xs" Text="订单完成"/>
@@ -68,6 +79,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    </asp:Panel>
                                 </div>
                             </div>
                             <div class="model m-b20">

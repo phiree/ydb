@@ -44,21 +44,20 @@ public partial class DZOrder_Default : BasePage
 
     private void BindTotalData()
     {
-        // 未处理订单: Created
+        // 未完成订单: Created
         Dianzhu.BLL.BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
-        liUnDoneOrderCount.Text = bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id)
-            .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.Created).Count().ToString();
+        liUnDoneOrderCount.Text = (bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id).Count()
+            -
+            bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id)
+            .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.Finished).Count()).ToString();
 
         // 正在处理订单: checkPayWithDeposit + Payed
-        liDealOrderCount.Text = (bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id)
-            .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.checkPayWithDeposit).Count()
-            +
-            bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id)
-            .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.Payed).Count()).ToString();
+        liDealOrderCount.Text = bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id)
+            .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.Begin).Count().ToString();
 
         // 已完成订单: IsEnd
         liFinishOrderCount.Text = bllOrder.GetAllCompleteOrdersForBusiness(CurrentBusiness.Id)
-            .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.isEnd).Count().ToString();
+            .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.Finished).Count().ToString();
     }
 
     //protected void rptOrderList_ItemDataBound(object sender, RepeaterItemEventArgs e)
