@@ -12,8 +12,9 @@
      * 全局API url设置
      * @type {string}
      */
-    var reqUrl = "http://localhost:806/dianzhuapi.ashx";
-    //var reqUrl = "test.json";
+    //var globalApiUrl = "http://localhost:806/dianzhuapi.ashx";
+    var globalApiUrl = "http://119.29.39.211:8037/dianzhuapi.ashx";
+    //var globalApiUrl = "test.json";
 
 
     var testUrl = {
@@ -39,7 +40,7 @@
             week : "0",
             maxOrder : "0"
         },
-        url : reqUrl,
+        url : globalApiUrl,
         initialize : function(){
 
         },
@@ -106,7 +107,7 @@
          */
         deleteWorkTime : function(){
             this.model.destroy({
-                url : reqUrl,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001002",
                 data : {
@@ -144,7 +145,7 @@
 
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
-                url : reqUrl,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
                 data : {
@@ -167,7 +168,7 @@
 
             /* 通过model自定义的_save函数实现数据保存 */
             this.model._save({
-                url : reqUrl,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001003",
                 data : {
@@ -213,7 +214,7 @@
 
     var WorkDayCollection = Backbone.Collection.extend({
         model : WorkDayModel,
-        url : reqUrl,
+        url : globalApiUrl,
         initialize : function(){
             var _this = this;
         },
@@ -268,7 +269,7 @@
             maxOrderString = maxOrderArr.join();
 
             this._save({
-                url : reqUrl,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "SVC001003",
                 data : {
@@ -316,7 +317,7 @@
             /* 初始化单日内的所有时间段 */
             this.model.workTimes._fetch({
                 reset : true,
-                url : reqUrl,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001006",
                 data : {
@@ -382,7 +383,7 @@
             // 固化增加的时间段
 
             workTimeModel.save(null, {
-                url : reqUrl,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "WTM001001",
                 data : {
@@ -433,7 +434,7 @@
             if (!Adapter.getParameterByName("serviceid")) return;
 
             workDays._fetch({
-                url : reqUrl,
+                url : globalApiUrl,
                 customApi : true,
                 protocolCode : "SVC001005",
                 data : {

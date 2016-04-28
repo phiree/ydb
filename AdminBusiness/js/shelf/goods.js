@@ -15,7 +15,8 @@
         evaluate:    /\{%(.+?)%\}/g
     };
 
-    var reqUrl = "http://localhost:806/dianzhuapi.ashx";
+    //var globalApiUrl = "http://localhost:806/dianzhuapi.ashx";
+    var globalApiUrl = "http://119.29.39.211:8037/dianzhuapi.ashx";
 
     // 时间段Model
     var TimeBucket = Backbone.Model.extend({
@@ -240,7 +241,7 @@
             //不通过set方法，而是通过this属性直接设置timeBuckets属性为一个指向新的Collection的指针,这样是为了view中的listen可以正确的监听Collection对象。
             this.model.timeBuckets = new TimeBuckets();
             //this.model.timeBuckets.url = '/timeBuckets.json';
-            this.model.timeBuckets.url = reqUrl;
+            this.model.timeBuckets.url = globalApiUrl;
             var requestDate = this.model.get('date');
 
             this.listenTo(this.model.timeBuckets, 'add' , this.addTimeBucketView);
@@ -337,7 +338,7 @@
             this.render();
 
             //days.url = '/days.json';
-            days.url = reqUrl;
+            days.url = globalApiUrl;
             days.fetch({
                 customAPI : true,
                 protocolCode : 'slf001007',

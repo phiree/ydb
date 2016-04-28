@@ -23,7 +23,8 @@
      * 全局API url设置
      * @type {string}
      */
-    var urlConfig = "http://localhost:806/dianzhuapi.ashx";
+    //var globalApiUrl = "http://localhost:806/dianzhuapi.ashx";
+    var globalApiUrl = "http://119.29.39.211:8037/dianzhuapi.ashx";
 
     /**
      * 员工model
@@ -33,7 +34,7 @@
      */
     var StaffModel = function(attribute, options){
         options || (options = {});
-        this.url = options.url || urlConfig;
+        this.url = options.url || globalApiUrl;
         this.attribute = attribute || {}
     };
 
@@ -103,7 +104,7 @@
     });
 
     var staffCollection = new StaffCollection([], {
-        url : urlConfig,
+        url : globalApiUrl,
         model : StaffModel
     });
 
@@ -115,7 +116,7 @@
      */
     var AssignModel = function(attribute, options){
         options || (options = {});
-        this.url = options.url || urlConfig;
+        this.url = options.url || globalApiUrl;
         this.attribute = attribute || {}
     };
 
@@ -176,7 +177,7 @@
     });
 
     var assignCollection = new AssignCollection([], {
-        url : urlConfig,
+        url : globalApiUrl,
         model : AssignModel
     });
 
@@ -419,7 +420,7 @@
         var storeID = Adapter.getParameterByName("businessId");
         var orderID = $(this).attr("data-appointTargetId");
         var appModel = new AppModel({
-            url : urlConfig,
+            url : globalApiUrl,
             reqData : {
                 storeID : storeID,
                 orderID : orderID,
