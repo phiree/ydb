@@ -103,14 +103,7 @@ namespace Dianzhu.CSClient.Presenter
             Guid id =new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
             DZMembership diandian = new BLLFactory().BLLMember.GetUserById(id);
             GlobalViables.Diandian = diandian;
-
             loginView.IsLoginSuccess = true;
-
-            //
-
-           
-
-
         }
 
        void loginView_Logined(object sender, EventArgs e)

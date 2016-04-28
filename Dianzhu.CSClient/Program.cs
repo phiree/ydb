@@ -47,25 +47,13 @@ namespace Dianzhu.CSClient
                 Application.ExitThread();
                 return;
             }
-            //prepare parameters for IM instance's constructor
-            //init messageadapter
+           
             var container= Install();
-            //IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
-            //     );
-            ////get im server config
-            //string server = Config.Config.GetAppSetting("ImServer");
-            //string domain= Config.Config.GetAppSetting("ImDomain");
-
-            //IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,domain, messageAdapter, Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString());
-
-
-         //   var loginForm = new CSClient.ViewWPF.FormLogin();
+           
             string version = GetVersion();
           //  loginForm.FormText += "v" + version;
-            Presenter.LoginPresenter loginPresenter = 
-                
-                container.Resolve<Presenter.LoginPresenter>();
-            bool? result = loginPresenter.ShowDialog();// loginForm.ShowDialog();
+            Presenter.LoginPresenter loginPresenter = container.Resolve<Presenter.LoginPresenter>();
+            bool? result = loginPresenter.ShowDialog();
 
 
             bool useWpf = true;

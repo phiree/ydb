@@ -6,11 +6,10 @@ using System.Text;
 namespace Dianzhu.Model
 {
     /// <summary>
-    /// 支付记录
+    /// 退款记录
     /// </summary>
-   public  class Paylog
-    {
-        public class Payment
+  
+        public class Refund
         {
             public virtual Guid Id { get; set; }
             //dingdan
@@ -38,9 +37,6 @@ namespace Dianzhu.Model
 
 
         }
-        public enum PayType
-        {
-            AliPay = 1
-        }
+      
     }
 }
