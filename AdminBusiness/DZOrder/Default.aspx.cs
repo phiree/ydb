@@ -12,6 +12,7 @@ public partial class DZOrder_Default : BasePage
 {
     BLLServiceOrder bllServeiceOrder = new BLLServiceOrder();
     BLLPayment bllPayment = new BLLPayment();
+
     public string merchantID {
         get {
             return System.Web.Security.Membership.GetUser().ProviderUserKey.ToString();
@@ -51,13 +52,26 @@ public partial class DZOrder_Default : BasePage
             bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id)
             .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.Finished).Count()).ToString();
 
-        // 正在处理订单: checkPayWithDeposit + Payed
-        liDealOrderCount.Text = bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id)
-            .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.Begin).Count().ToString();
-
         // 已完成订单: IsEnd
         liFinishOrderCount.Text = bllOrder.GetAllCompleteOrdersForBusiness(CurrentBusiness.Id)
             .Where(x => x.OrderStatus == Dianzhu.Model.Enums.enum_OrderStatus.Finished).Count().ToString();
+    }
+
+    protected void rpt_ItemDataBound(object sender, RepeaterItemEventArgs e) {
+        ServiceOrder order = (ServiceOrder)e.Item.DataItem;
+        Label txtStaffs = e.Item.FindControl("assignStaffs") as Label;
+        BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+        IList<OrderAssignment> list = bllOrderAssignment.GetOAListByOrder(order);
+
+        if (list.LongCount() == 0) {
+            txtStaffs.Text = "尚未指派";
+        }
+
+        foreach (OrderAssignment ass in list)
+        {
+            txtStaffs.Text += ass.AssignedStaff.Name.ToString();
+        }
+
     }
 
     //protected void rptOrderList_ItemDataBound(object sender, RepeaterItemEventArgs e)

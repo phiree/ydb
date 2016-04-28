@@ -381,7 +381,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <!--<script>-->
         <!--function loadBaiduMapScript() {-->
             <!--var script = document.createElement("script");-->
-            <!--script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initialize";-->
+            <!--script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initialize";-->
             <!--document.body.appendChild(script);-->
         <!--}-->
 
@@ -389,7 +389,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
             <!--loadBaiduMapScript();-->
         <!--})-->
     <!--</script>-->
-    <!--<script src="http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW"></script>-->
+    <!--<script src="http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc"></script>-->
     <!--<script src="/js/CityList.js"></script>-->
     <!--<script src="/js/account.js"></script>-->
 </asp:Content>

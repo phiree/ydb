@@ -5,6 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div class="content">
+        <input type="hidden" value="<%=merchantID%>" id="merchantID"/>
         <div class="content-head normal-head">
             <h3>订单详情</h3>
             <a class="btn btn-gray-light fr" role="button" href="/dzorder/default.aspx?">返回</a>
@@ -56,14 +57,18 @@
                                                 <span class="order-total-price"><span class="order-price-t">订单总价:</span><em class="order-price-m"><%= CurrentOrder.NegotiateAmount.ToString("f2") %></em>&nbsp;元</span>
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <asp:Panel runat="server" ID="ctnrOrderStatus" Visible="false">
                                         <div class="d-hr in"></div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="order-ctrl t-r">
                                                 <!--<asp:HyperLink runat="server" ID="PayDepositAmount"></asp:HyperLink>-->
-                                                <asp:Button runat="server" CommandName="ConfirmOrder" OnClick="btnOrderStatusChange_Click"   ID="btnConfirmOrder" CssClass="btn btn-info btn-xs"  Visible="false" Text="确认订单"/>
+                                                <asp:Panel runat="server" ID="panelConfirmOrder" Visible="false">
+                                                    <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="appointToggle" data-appointTargetId='<%= CurrentOrder.Id %>' >
+                                                    <asp:Button runat="server" CommandName="ConfirmOrder" OnClick="btnOrderStatusChange_Click"   ID="btnConfirmOrder" CssClass="btn btn-info btn-xs"  Visible="false" Text="确认订单"/>
+                                                </asp:Panel>
+
                                                 <asp:Panel runat="server" ID="panelConfirmPrice" Visible="false">
                                                     修改订单价格为：
                                                     <asp:TextBox runat="server" CommandName="txtConfirmPrice" class="order-confirm-txt" OnClick="btnOrderStatusChange_Click"   ID="txtConfirmPrice" Width="100" Visible="false"></asp:TextBox>
@@ -193,8 +198,7 @@
                                                 <div class="status-p"><%#Eval("OldStatus") %></div>
                                             </div>
                                         </ItemTemplate>
-                                    </asp:Repeater>
-                                        
+                                        </asp:Repeater>
                                     </div>
                                 </div>
                             </div>
@@ -204,8 +208,56 @@
             </div>
         </div>
     </div>
+    <div id="staffAppointLight" class="appointWindow dis-n">
+        <div class="model">
+            <div class="model-h">
+                <h4>员工指派</h4>
+            </div>
+            <div class="model-m">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="staffsContainer" class="staffs-container">
+                            <!-- 注入#staffs_temlate模版内容 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="model-b">
+                <input id="appointSubmit" class="btn btn-info" type="button" value="确定指派" data-role="appointSubmit" >
+                <input class="btn btn-cancel-light lightClose" type="button" value="取消" >
+            </div>
+        </div>
+    </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bottom" Runat="Server">
+    <script type="text/template" id="staffs_template">
+        <div class="col-md-4">
+            <div class="emp-model">
+                <div class="emp-model-h">
+                    <span>员工编号:&nbsp;</span><span class="emp-code"></span>
+                    <div class='emp-assign-flag'></div>
+                </div>
+                <div class="emp-model-m">
+                    <img class="emp-headImg" src='{%= imgUrl %}'/>
+                    <div class="emp-info">
+                        <p>昵称：{%= alias %}</p>
+                        <p>姓名：{%= alias %}</p>
+                        <p>性别：{%= alias %}</p>
+                        <p>电话：{%= phone %}</p>
+                    </div>
+                </div>
+                <div class="emp-model-b" data-mark="{%= mark %}">
+                    <input class="staffCheckbox" type="checkbox" {% if (mark==="Y") { %} checked {% } %} value="指派" data-role="item" data-itemId="{%= userID %}" id="{%= userID %}" >
+                    <label for="{%= userID %}"></label>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script src="/js/libs/underscore.js"></script>
+    <script src="/js/test/mock.js"></script>
+    <script src="/js/jquery.lightBox_me.js"></script>
+    <script src="/js/interfaceAdapter.js"></script>
+    <script src="/js/appointToOrder.js"></script>
 </asp:Content>

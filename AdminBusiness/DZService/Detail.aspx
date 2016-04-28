@@ -110,7 +110,7 @@
     $(function () {
         function loadBaiduMapScript() {
             var script = document.createElement("script");
-            script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initializeServiceDetailMap";
+            script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initializeServiceDetailMap";
             document.body.appendChild(script);
         }
 

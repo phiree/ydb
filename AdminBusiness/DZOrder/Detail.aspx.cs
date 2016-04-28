@@ -13,7 +13,15 @@ public partial class DZOrder_Detail : System.Web.UI.Page
     BLLServiceOrder bllServeiceOrder = new BLLServiceOrder();
     BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
     BLLPayment bllPayment = new BLLPayment();
-    public   ServiceOrder CurrentOrder;
+    public ServiceOrder CurrentOrder;
+
+    public string merchantID
+    {
+        get
+        {
+            return System.Web.Security.Membership.GetUser().ProviderUserKey.ToString();
+        }
+    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -81,6 +89,7 @@ public partial class DZOrder_Detail : System.Web.UI.Page
         switch (order.OrderStatus)
         {
             case Dianzhu.Model.Enums.enum_OrderStatus.Payed:
+                panelConfirmOrder.Visible = true;
                 ctnrOrderStatus.Visible = true;
                 btnConfirmOrder.Visible = true;
                 break;
