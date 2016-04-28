@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="steps-tip">
                                     <div class="steps-tip-bg">
-                                        <div class="step-tip-h">第三步</div>
+                                        <div class="step-tip-h">第四步</div>
                                         <p>服务时间设置</p>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <p class="cont-input-tip input-tip-fluid"><i class="icon icon-tip m-r10"></i>点击设置按钮，并放置该服务的服务区域。</p>
+                                                <p class="cont-input-tip m-l10 m-b10"><i class="icon icon-tip m-r10"></i>点击设置按钮，并放置该服务的服务区域。</p>
 
                                             </div>
                                         </div>
@@ -216,13 +216,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <!--<div class="row model-form-group">-->
-                                                        <!--<div class="col-md-4 model-label-lg">每小时最大接单量</div>-->
-                                                        <!--<div class="col-md-8 model-input-unit">-->
-                                                            <!--<asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxMaxOrdersPerHour" data-toggle="tooltip" data-placement="top" title="该服务的每小时最大接单量">50</asp:TextBox>-->
-                                                            <!--<em class="unit">单</em>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
                                                     <div class="row model-form-group">
                                                         <div class="col-md-4 model-label-lg">是否上门</div>
                                                         <div class="col-md-8 model-input">

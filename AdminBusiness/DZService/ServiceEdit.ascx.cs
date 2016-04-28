@@ -107,7 +107,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         }
         
         cbxEnable.Checked = CurrentService.Enabled;
-        hiBusinessAreaCode.Value = CurrentService.BusinessAreaCode;
+        hiBusinessAreaCode.Value = CurrentService.BusinessAreaCode.ToString();
         tbxMinPrice.Text = CurrentService.MinPrice.ToString("#.#");
         tbxDespoist.Text = CurrentService.DepositAmount.ToString("0.00");
         tbxUnitPrice.Text = CurrentService.UnitPrice.ToString("#");

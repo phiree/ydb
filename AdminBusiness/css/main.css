@@ -8097,6 +8097,9 @@ a.doReg:hover {
   padding: 3px;
   color: #3AA6DD;
 }
+.tangram-suggestion-main {
+  z-index: 10;
+}
 /* 新建服务时，stepByStep的步骤控制样式 */
 .service-steps .step-ctrl.step-1 .step-prev {
   display: none;
