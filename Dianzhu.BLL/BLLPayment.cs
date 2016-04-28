@@ -103,7 +103,7 @@ namespace Dianzhu.BLL
 
         public string BuildPayLink(Guid  paymentId)
         {
-            return Config.Config.GetAppSetting("PayServerUrl") + "?paymentid=" + paymentId;
+            return Config.Config.GetAppSetting("PaySite") + "Pay/?paymentid=" + paymentId;
         }
         public Payment GetOne(Guid id)
         {

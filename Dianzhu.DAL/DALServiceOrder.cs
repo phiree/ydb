@@ -117,12 +117,18 @@ namespace Dianzhu.DAL
 
         public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)
         {
-            var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.Customer == customer);
-            totalAmount = iquery.RowCount();
+            using (var t = Session.BeginTransaction())
+            {
+                var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.Customer == customer).And(x => x.OrderStatus != enum_OrderStatus.Draft).And(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
+                totalAmount = iquery.RowCount();
 
-            IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
+                IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
 
-            return list;
+              
+                t.Commit();
+                return list;
+            }
+           
         }
 
         /// <summary>

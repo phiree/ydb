@@ -110,8 +110,9 @@ namespace Dianzhu.IM.Test
         {
             conn.Server =server;
             conn.ConnectServer = server;
-            conn.Open(username, password);
             conn.AutoResolveConnectServer = false;
+            conn.Open(username, password);
+          
         }
 
     

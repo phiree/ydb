@@ -75,102 +75,115 @@ namespace Dianzhu.BLL
             log.Debug("开始API回调");
             string returnstr= ipayCallback.PayCallBack(callbackParameters, out businessOrderId,out platformOrderId,out amount,out errMsg);
             log.Debug("回调结果:" + returnstr);
-            if (returnstr == "TRADE_CLOSED" || returnstr == "ERROR")
+            if (returnstr == "ERROR")
             {
                 log.Error(errMsg);
                 throw new Exception(errMsg);
             }
-            else
+            else if (returnstr == "FAIL")
+            {
+                log.Debug("FAIL,更新支付项,paymentId为：" + businessOrderId);
+                Payment payment = bllPayment.GetOne(new Guid(businessOrderId));
+                payment.Status = enum_PaymentStatus.Fail;
+                payment.PayApi = GetPayApi(payLogType);
+                payment.PlatformTradeNo = platformOrderId;
+                bllPayment.SaveOrUpdate(payment);
+            }
+            else if (returnstr == "TRADE_CLOSED")
+            {
+                log.Debug("TRADE_CLOSED,更新支付项,paymentId为：" + businessOrderId);
+                Payment payment = bllPayment.GetOne(new Guid(businessOrderId));
+                payment.Status = enum_PaymentStatus.Trade_Closed;
+                payment.PayApi = GetPayApi(payLogType);
+                payment.PlatformTradeNo = platformOrderId;
+                bllPayment.SaveOrUpdate(payment);
+            }
+            else if(returnstr == "TRADE_FINISHED")
+            {
+                log.Debug("TRADE_FINISHED,更新支付项,paymentId为：" + businessOrderId);
+                Payment payment = bllPayment.GetOne(new Guid(businessOrderId));
+                payment.Status = enum_PaymentStatus.Trade_Finished;
+                payment.PayApi = GetPayApi(payLogType);
+                payment.PlatformTradeNo = platformOrderId;
+                bllPayment.SaveOrUpdate(payment);
+            }
+            else if(returnstr == "WAIT_BUYER_PAY")
+            {
+                log.Debug("回调结果为WAIT_BUYER_PAY，目前不做任何处理");
+            }
+            else if(returnstr == "TRADE_SUCCESS")
             {
                 //todo: they are must be in a single transaction
                 //更新支付记录
-                log.Debug("更新支付记录");
+                log.Debug("TRADE_SUCCESS,更新支付记录,paymentLogId为：" + paymentLog.Id.ToString());
                 paymentLog.PayAmount = amount;
                 paymentLog.PaymentId = new Guid(businessOrderId);
                 bllPaymentLog.SaveOrUpdate(paymentLog);
 
-                log.Debug("更新支付项");
+                log.Debug("TRADE_SUCCESS,更新支付项,paymentId为：" + businessOrderId);
                 Payment payment= bllPayment.GetOne(new Guid(businessOrderId));
-                payment.Status = enum_PaymentStatus.Trade_Success;
-                switch (payLogType)
+                if(payment.Status == enum_PaymentStatus.Trade_Success)
                 {
-                    case enum_PaylogType.ResultReturnFromAli:
-                    case enum_PaylogType.ResultNotifyFromAli:
-                        payment.PayApi = enum_PayAPI.Alipay;
-                        break;
-                    case enum_PaylogType.ReturnNotifyFromWePay:
-                        payment.PayApi = enum_PayAPI.Wechat;
-                        break;
-                    default:
-                        payment.PayApi = enum_PayAPI.None;
-                        break;
+                    log.Debug("当前支付项状态为：" + payment.Status + "，直接返回");
+                    return;
                 }
+                payment.Status = enum_PaymentStatus.Trade_Success;
+                payment.PayApi = GetPayApi(payLogType);
                 payment.PlatformTradeNo = platformOrderId;
                 bllPayment.SaveOrUpdate(payment);
 
                 //更新订单状态.
-                log.Debug("更新订单状态");
+                log.Debug("TRADE_SUCCESS,订单当前状态为：" + payment.Order.OrderStatus.ToString());
+                log.Debug("TRADE_SUCCESS,更新订单状态");
                 ServiceOrder order = payment.Order;
                 switch (order.OrderStatus)
                 {
+                    case enum_OrderStatus.checkPayWithDeposit:
                     case enum_OrderStatus.Created:
                         //支付定金
                         bllOrder.OrderFlow_ConfirmDeposit(order);
                         break;
+                    case enum_OrderStatus.checkPayWithNegotiate:
                     case enum_OrderStatus.Ended:
                         bllOrder.OrderFlow_OrderFinished(order);
                         break;
+                    case enum_OrderStatus.checkPayWithRefund:
                     case enum_OrderStatus.WaitingPayWithRefund:
                         bllOrder.OrderFlow_RefundSuccess(order);
                         break;
+                    case enum_OrderStatus.checkPayWithIntervention:
                     case enum_OrderStatus.NeedPayWithIntervention:
                         bllOrder.OrderFlow_ConfirmInternention(order);
                         break;
                     default:
                         break;
                 }
-
+                log.Debug("TRADE_SUCCESS,订单最新状态为：" + order.OrderStatus.ToString());
             }
             
 
         }
-        public void SavePaymentLog(Payment payment, enum_PayType payType, enum_PaylogType paylogType, enum_PayTarget payTarget, enum_PayAPI payApi, string apiString)
+
+        protected enum_PayAPI GetPayApi(enum_PaylogType payLogType)
         {
-            BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
-
-            PaymentLog paymentLog = new PaymentLog
+            enum_PayAPI payApi;
+            switch (payLogType)
             {
-                LogTime = DateTime.Now,
-                ApiString = apiString,
-                PayAmount = payment.Amount,
-                PaylogType = paylogType,
-                PayType = payType,
-                PaymentId = payment.Id
-            };
-
-            bllPaymentLog.SaveOrUpdate(paymentLog);
-        }
-
-        /// <summary>
-        /// 退款链接 
-        /// </summary>
-        /// <param name="payApi"></param>
-        /// <returns></returns>
-        public NameValueCollection CreateRefundRequest(enum_PayAPI payApi,IList<RefundDetail> details)
-        {
-            switch (payApi)
-            {
-                case enum_PayAPI.Alipay:
-                    IRefund refund= new RefundAli(Dianzhu.Config.Config.GetAppSetting("PaySite") + "Refund/", details);
-                    return refund.CreateRefundRequest();
-
-                case enum_PayAPI.Wechat:
+                case enum_PaylogType.ResultReturnFromAli:
+                case enum_PaylogType.ResultNotifyFromAli:
+                    payApi = enum_PayAPI.Alipay;
+                    break;
+                case enum_PaylogType.ReturnNotifyFromWePay:
+                    payApi = enum_PayAPI.Wechat;
+                    break;
                 default:
-                    throw new NotImplementedException();
+                    payApi = enum_PayAPI.None;
+                    break;
             }
-            
+            return payApi;
         }
-        #region helper
+ 
+            #region helper
         /// <summary>
         /// 获取订单描述的前缀
         /// </summary>

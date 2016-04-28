@@ -14,7 +14,7 @@ namespace Dianzhu.CSClient.MessageAdapter
     /// </summary>
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
-        
+
         static DZMembershipProvider bllMember;
         DZMembershipProvider BllMember
         {
@@ -61,7 +61,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.MessageAdapter");
         public MessageAdapter()
         {
- 
+
         }
         /// <summary>
         /// 将im的 message为 系统设计的格式(chat)
@@ -71,7 +71,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         public Model.ReceptionChat MessageToChat(Message message)
         {
             //收到的消息可能是 openfire服务器 标准的协议，
-            ilog.Debug("receive___" + message.ToString());
+
             //chat or headline
             string messageType = message.GetAttribute("type");
             bool isNotice = messageType == "headline";
@@ -84,33 +84,33 @@ namespace Dianzhu.CSClient.MessageAdapter
             {
                 ilog.Warn("收到标准协议的消息，不存在ext节点");
             }
-            else { 
-            var extNamespace = ext_element.Namespace;
-            
-            switch (extNamespace.ToLower())
-            {
-                case "ihelper:chat:text":
-                    chatType = enum_ChatType.Text;
-                    break;
-                case "ihelper:chat:media":
-                    chatType = enum_ChatType.Media;
-                    break;
-                case "ihelper:notice:system":
-                     
-                case "ihelper:notice:order":
-                     
-                case "ihelper:notice:promote":
-                     
-                case "ihelper:notice:cer:change":
-                    chatType = enum_ChatType.Notice;
-                    break;
-                case "ihelper:chat:userstatus":
-                    chatType = enum_ChatType.UserStatus;
-                    break;
-                default:
-                    throw new Exception("未知的命名空间");
+            else {
+                var extNamespace = ext_element.Namespace;
 
-            }
+                switch (extNamespace.ToLower())
+                {
+                    case "ihelper:chat:text":
+                        chatType = enum_ChatType.Text;
+                        break;
+                    case "ihelper:chat:media":
+                        chatType = enum_ChatType.Media;
+                        break;
+                    case "ihelper:notice:system":
+
+                    case "ihelper:notice:order":
+
+                    case "ihelper:notice:promote":
+
+                    case "ihelper:notice:cer:change":
+                        chatType = enum_ChatType.Notice;
+                        break;
+                    case "ihelper:chat:userstatus":
+                        chatType = enum_ChatType.UserStatus;
+                        break;
+                    default:
+                        throw new Exception("未知的命名空间");
+
+                }
             }
             ReceptionChat chat = ReceptionChat.Create(chatType);
             var chatFrom = BllMember.GetUserById(new Guid(message.From.User));
@@ -148,26 +148,26 @@ namespace Dianzhu.CSClient.MessageAdapter
 
             //如果是
             if (has_ext)
-            { 
-            bool hasOrderId = ext_element.HasTag("orderID");
-            
-            
-            if (hasOrderId)
             {
-                Guid order_ID;
-                var e_orderId = ext_element.SelectSingleElement("orderID").Value;
-                bool isValidGuid = Guid.TryParse(e_orderId, out order_ID);
+                bool hasOrderId = ext_element.HasTag("orderID");
 
-                if (isValidGuid)
+
+                if (hasOrderId)
                 {
-                    var existedServiceOrder = BLLOrder.GetOne(order_ID);
-                    if (existedServiceOrder != null)
-                    {
-                        chat.ServiceOrder = existedServiceOrder;
+                    Guid order_ID;
+                    var e_orderId = ext_element.SelectSingleElement("orderID").Value;
+                    bool isValidGuid = Guid.TryParse(e_orderId, out order_ID);
 
+                    if (isValidGuid)
+                    {
+                        var existedServiceOrder = BLLOrder.GetOne(order_ID);
+                        if (existedServiceOrder != null)
+                        {
+                            chat.ServiceOrder = existedServiceOrder;
+
+                        }
                     }
                 }
-            }
             }
 
 
@@ -212,7 +212,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             msg.Id = chat.Id != Guid.Empty ? chat.Id.ToString() : Guid.NewGuid().ToString();
             //     msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
             IMUserStatus toUserStatus = BLLIMUserStatus.GetIMUSByUserId(chat.To.Id);
-            msg.To = new agsXMPP.Jid(chat.To.Id+"@"+server+"/"+ toUserStatus.ClientName);//发送对象
+            msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server + "/" + toUserStatus.ClientName);//发送对象
             msg.Body = chat.MessageBody;
 
             var nodeActive = new agsXMPP.Xml.Dom.Element("active", string.Empty, "http://jabber.org/protocol/chatstates");
@@ -285,12 +285,12 @@ namespace Dianzhu.CSClient.MessageAdapter
                     extNode.AddChild(storeObj);
                     break;
             }
-           
+
             return msg;
 
 
 
         }
-      
+
     }
 }

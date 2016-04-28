@@ -10,6 +10,7 @@ using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.BLL;
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
+using System.ComponentModel;
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -20,6 +21,7 @@ namespace Dianzhu.CSClient.Presenter
     /// </summary>
     public class PChatList
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PChatList");
         DALReception dalReception;
         IViewChatList viewChatList;
         IViewIdentityList viewIdentityList;
@@ -55,15 +57,44 @@ namespace Dianzhu.CSClient.Presenter
             media.Play(mediaUrl, handle);
         }
 
-        private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
+        public void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
-            int rowCount;
-            var chatHistory = dalReception
-            //.GetListTest();
-            .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
-            DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+            try
+            {
+                int rowCount;
+                var chatHistory = dalReception
+                       //.GetListTest();
+                       .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
+                       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+                viewChatList.ChatList.Clear();
+                viewChatList.ChatList = chatHistory;
+            }
+            catch (Exception ex)
+            {
+                log.Error("加载聊天信息失败");
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+                
+            }
+        }
+
+        private void BgwChatHistory_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            IList<ReceptionChat> chatHistory = (IList<ReceptionChat>)e.Result;
+             
             viewChatList.ChatList.Clear();
             viewChatList.ChatList = chatHistory;
+        }
+
+        private void BgwChatHistory_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ServiceOrder serviceOrder = (ServiceOrder)e.Argument;
+            int rowCount;
+            var chatHistory = dalReception
+                   //.GetListTest();
+                   .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
+                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+            
+            e.Result = chatHistory;
         }
 
         private void ViewCustomerList_CustomerClick(DZMembership customer)

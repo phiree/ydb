@@ -29,7 +29,7 @@ namespace PHSuit
             rootLogger.Level = Level.Debug;
        
             // declare a RollingFileAppender with 5MB per file and max. 10 files
-            RollingFileAppender appenderNH = new RollingFileAppenderRemoveNewLine();
+            RollingFileAppender appenderNH = new RollingFileAppender();
             appenderNH.Name = "RollingLogFileAppenderNHibernate";
             appenderNH.AppendToFile = true;
             appenderNH.MaximumFileSize = "1MB";
@@ -51,7 +51,7 @@ namespace PHSuit
             // declare RollingFileAppender with 5MB per file and max. 10 files
             Logger logger = hierarchy.GetLogger("Dianzhu") as Logger;
 
-            RollingFileAppender appenderMain = new RollingFileAppenderRemoveNewLine();
+            RollingFileAppender appenderMain = new RollingFileAppender();
             appenderMain.Name = "RollingLogFileAppenderMyProgram";
             appenderMain.AppendToFile = true;
             appenderMain.MaximumFileSize = "2MB";

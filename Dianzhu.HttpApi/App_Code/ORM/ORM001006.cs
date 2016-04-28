@@ -57,7 +57,15 @@ public class ResponseORM001006 : BaseResponse
                     this.err_Msg = "分页大小或者分页索引不是数值格式";
                     return;
                 }
-                enum_OrderSearchType searchType = (enum_OrderSearchType)Enum.Parse(typeof(enum_OrderSearchType), srvTarget);
+
+                enum_OrderSearchType searchType;
+                bool isSearchType = Enum.TryParse(srvTarget, out searchType);
+                if (!isSearchType)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "订单状态格式有误";
+                    return;
+                }
 
                 IList<ServiceOrder> orderList = bllServiceOrder.GetServiceOrderList(uid, searchType, pageNum, pageSize);
                 Dictionary<ServiceOrder, ServiceOrderPushedService> dicList = new Dictionary<ServiceOrder, ServiceOrderPushedService>();
