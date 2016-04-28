@@ -10,16 +10,18 @@ namespace Dianzhu.Config
     /// </summary>
     public static partial class Config
     {
-        static int num =0;
+        static int num =3;
+        static int payServerNum = 4;
         #region 服务器定义
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172","192.168.1.150" };
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
         static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
         static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
         static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
+        static string[] PayServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "jsyklan.asuscomm.com" };
         #endregion
         #region   部署前，只需要手动修改此处 /
-        
+
         static string IMServer = IMServers.GetValue(num).ToString();//即时通讯服务器地址
         static string IMDomain = IMDomains.GetValue(num).ToString();//即时通讯服务器地址
         static string HttpApiServer = HttpApiServers.GetValue(num).ToString();//即时通讯服务器地址
@@ -62,14 +64,15 @@ namespace Dianzhu.Config
 
             , {"NoticeSenderId",DictsNotifySenderLogins[IMNotifyServer].Key  }
             , {"NoticeSenderPwd",DictsNotifySenderLogins[IMNotifyServer].Value  }
-            , {"PaySite",BuildHttpUrlString(ApplicationServer, 8168)   }
-           
+
+            , {"PaySite",BuildHttpUrlString(PayServers[payServerNum], 8168)   }
+
             , {"OpenfireRestApiSessionListUrl",BuildHttpUrlString(IMServer, 9090,"plugins/restapi/v1/sessions/")  }
 
             , {"DiandianLoginId",DictsDianDianLogins[IMNotifyServer].Key}
             , {"DiandianLoginPwd",DictsDianDianLogins[IMNotifyServer].Value  }
             , {"APIBaseURL",BuildHttpUrlString(HttpApiServer, 8037,"DianzhuApi.ashx")  }
-            , {"PayServerUrl",BuildHttpUrlString(ApplicationServer, 8168,"Pay/")   }
+            
             , {"NotifyServer",BuildHttpUrlString(IMNotifyServer, 8039, "IMServerAPI.ashx?")   }
             , {"BaiduGeocodingAPI","http://api.map.baidu.com/geocoder/v2/?ak="  }
             , {"BaiduTranAPI","http://api.map.baidu.com/geoconv/v1/?ak="  }
