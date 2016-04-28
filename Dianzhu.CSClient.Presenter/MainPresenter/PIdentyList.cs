@@ -22,6 +22,7 @@ namespace Dianzhu.CSClient.Presenter
     /// </summary>
     public  class PIdentityList
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PIdentityList");
         IViewIdentityList iView;
         IViewChatList iViewChatList;
 
@@ -39,28 +40,22 @@ namespace Dianzhu.CSClient.Presenter
 
         public void IView_IdentityClick(ServiceOrder serviceOrder)
         {
+            try
+            {
+                IdentityManager.CurrentIdentity = serviceOrder;
+                iView.SetIdentityLoading(serviceOrder);
+                
+            }
+            catch (Exception ex)
+            {
+                log.Error("IView_IdentityClick Error,skip");
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+            }
             
-            IdentityManager.CurrentIdentity = serviceOrder;
-            iView.SetIdentityLoading(serviceOrder);
-            BackgroundWorker bgwLoadChatList = new BackgroundWorker();
-            bgwLoadChatList.DoWork += BgwLoadChatList_DoWork;
-            bgwLoadChatList.RunWorkerCompleted += BgwLoadChatList_RunWorkerCompleted;
-            bgwLoadChatList.RunWorkerAsync(serviceOrder);
 
         }
 
-        private void BgwLoadChatList_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ServiceOrder order = (ServiceOrder)e.Result;
-            //iView.SetIdentityReaded(order);
-        }
-
-        private void BgwLoadChatList_DoWork(object sender, DoWorkEventArgs e)
-        {
-            ServiceOrder order =(ServiceOrder) e.Argument;
-            iViewOrder.Order = order;
-            e.Result = order;
-        }
+      
 
         
 

@@ -38,7 +38,8 @@ namespace Dianzhu.CSClient.Presenter
         }
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
-        {
+        {if (IdentityManager.CurrentIdentity == null)
+            { return; }
             //加载历史订单
             int totalAmount;
             IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer, 1, 5, out totalAmount);

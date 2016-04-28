@@ -59,13 +59,22 @@ namespace Dianzhu.CSClient.Presenter
 
         public void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
-            int rowCount;
-            var chatHistory = dalReception
-                   //.GetListTest();
-                   .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
-                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
-            viewChatList.ChatList.Clear();
-            viewChatList.ChatList = chatHistory;
+            try
+            {
+                int rowCount;
+                var chatHistory = dalReception
+                       //.GetListTest();
+                       .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
+                       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+                viewChatList.ChatList.Clear();
+                viewChatList.ChatList = chatHistory;
+            }
+            catch (Exception ex)
+            {
+                log.Error("加载聊天信息失败");
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+                
+            }
         }
 
         private void BgwChatHistory_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
