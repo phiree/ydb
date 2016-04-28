@@ -319,6 +319,54 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource);
     }
+    /// <summary>
+    /// IM 会话状态接口之: openfire的实现
+    /// 通过openfire的restapi插件获取.
+    /// </summary>
+    public class IMSessionsOpenfire : IIMSession
+    {
+        string restApiUrl, restApiSecretKey;
+        public IMSessionsOpenfire(string restApiUrl, string restApiSecretKey)
+        {
+            this.restApiSecretKey = restApiSecretKey;
+            this.restApiUrl = restApiUrl;
+        }
+
+        public IList<OnlineUserSession> GetOnlineSessionUser()
+        {
+            System.Net.WebClient wc = new System.Net.WebClient();
+            Uri uri = new Uri(restApiUrl);
+            string host = uri.Host;
+            wc.Headers.Add("Authorization:" + restApiSecretKey);
+            wc.Headers.Add("Host: " + host);
+            wc.Headers.Add("Accept: application/json");
+            System.IO.Stream returnData = wc.OpenRead(uri);
+            System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
+            string result = reader.ReadToEnd();
+             
+            try
+            {
+                OnlineUserSessionResult sessionResult
+                    = Newtonsoft.Json.JsonConvert
+                    .DeserializeObject<OnlineUserSessionResult>(result);
+                return sessionResult.session;
+            }
+            catch (Exception ex)
+            {
+                OnlineUserSessionResult_OnlyOne sessionResult
+                   = Newtonsoft.Json.JsonConvert
+                   .DeserializeObject<OnlineUserSessionResult_OnlyOne>(result);
+                return new List<OnlineUserSession>(new OnlineUserSession[] { sessionResult.session });
+            }
+
+        }
+        public IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource)
+        {
+            IList<OnlineUserSession> onlineUsers = GetOnlineSessionUser();
+            var filteredByResourceName = onlineUsers.Where(x => x.ressource == xmppResource);
+            return filteredByResourceName.ToList();
+        }
+    }
 
     /// <summary>
     /// 直接查询数据库中用户状态表获取
