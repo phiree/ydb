@@ -3,40 +3,4 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Dianzhu.Model
-{
-    /// <summary>
-    /// 退款记录
-    /// </summary>
-  
-        public class Refund
-        {
-            public virtual Guid Id { get; set; }
-            //dingdan
-            public virtual ServiceOrder Order { get; set; }
-            //支付接口类型: 支付宝/网银等
-            public virtual PayType PayType { get; set; }
-            //支付总额
-            public virtual decimal PayAmount { get; set; }
-
-
-            public virtual DateTime BeginPay { get; set; }
-
-            public virtual string RequestStringToPay
-            {
-                get;
-                set;
-            }
-            public virtual DateTime EndPay { get; set; }
-            public virtual string ReceivedStringFromPay
-            {
-                get;
-                set;
-            }
-            //接口字符串
-
-
-        }
-      
-    }
-}
+ 

@@ -182,44 +182,8 @@ namespace Dianzhu.BLL
             }
             return payApi;
         }
-
-        public void SavePaymentLog(Payment payment, enum_PayType payType, enum_PaylogType paylogType, enum_PayTarget payTarget, enum_PayAPI payApi, string apiString)
-        {
-            BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
-
-            PaymentLog paymentLog = new PaymentLog
-            {
-                LogTime = DateTime.Now,
-                ApiString = apiString,
-                PayAmount = payment.Amount,
-                PaylogType = paylogType,
-                PayType = payType,
-                PaymentId = payment.Id
-            };
-
-            bllPaymentLog.SaveOrUpdate(paymentLog);
-        }
-
-        /// <summary>
-        /// 退款链接 
-        /// </summary>
-        /// <param name="payApi"></param>
-        /// <returns></returns>
-        public NameValueCollection CreateRefundRequest(enum_PayAPI payApi,IList<RefundDetail> details)
-        {
-            switch (payApi)
-            {
-                case enum_PayAPI.Alipay:
-                    IRefund refund= new RefundAli(Dianzhu.Config.Config.GetAppSetting("PaySite") + "Refund/", details);
-                    return refund.CreateRefundRequest();
-
-                case enum_PayAPI.Wechat:
-                default:
-                    throw new NotImplementedException();
-            }
-            
-        }
-        #region helper
+ 
+            #region helper
         /// <summary>
         /// 获取订单描述的前缀
         /// </summary>

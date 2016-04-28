@@ -6,11 +6,5 @@ using System.Text;
 
 namespace Dianzhu.DAL
 {
-    public class DALPaylog : DALBase<Paylog> 
-    {
-        public DALPaylog() { }
-        public DALPaylog(string fortest) : base(fortest) { }
-
-        
-    }
+ 
 }
