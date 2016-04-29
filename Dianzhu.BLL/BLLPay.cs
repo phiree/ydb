@@ -182,8 +182,24 @@ namespace Dianzhu.BLL
             }
             return payApi;
         }
- 
-            #region helper
+        public void SavePaymentLog(Payment payment, enum_PayType payType, enum_PaylogType paylogType, enum_PayTarget payTarget, enum_PayAPI payApi, string apiString)
+        {
+            BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
+
+            PaymentLog paymentLog = new PaymentLog
+            {
+                LogTime = DateTime.Now,
+                ApiString = apiString,
+                PayAmount = payment.Amount,
+                PaylogType = paylogType,
+                PayType = payType,
+                PaymentId = payment.Id
+            };
+
+            bllPaymentLog.SaveOrUpdate(paymentLog);
+        }
+
+        #region helper
         /// <summary>
         /// 获取订单描述的前缀
         /// </summary>
