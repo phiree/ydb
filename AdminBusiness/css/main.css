@@ -5410,6 +5410,10 @@ a.time-trigger:hover {
   overflow-y: scroll;
   position: relative;
 }
+.time-buckets-wrap.tb-close {
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+}
 .time-buckets-wrap::-webkit-scrollbar {
   width: 5px;
   background: transparent;

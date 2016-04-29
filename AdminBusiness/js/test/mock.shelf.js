@@ -6,14 +6,14 @@ Mock.mock(/shm001007.json/, function(){
         "RespData": {
             "snapshotDic": {
                 "maxOrderDic" : {
-                    "20160418" : [{
-                        "date": "20160418",
+                    "20160429" : [{
+                        "date": "20160429",
                         "maxOrder": "10",
                         "reOrder": "5"
                     }],
                 },
                 "workTimeDic": {
-                    "20160418": [
+                    "20160429": [
                         {
                             "workTimeID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
                             "tag": "默认工作时间",
@@ -47,7 +47,7 @@ Mock.mock(/shm001007.json/, function(){
                     ],
                 },
                 "orderObjectDic": {
-                    "20160418": [
+                    "20160429": [
                         {
                             "orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FE",
                             "title": "ABC",

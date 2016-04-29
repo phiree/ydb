@@ -408,10 +408,10 @@
         template : _.template($("#day_template").html(),templateOptions),
         events : {
             'change .day_edit' : "editing",
+            'change .day_enable' : "close",
         },
         initialize : function(){
             var _this = this;
-            this.$el.addClass("loading");
         },
         render : function(){
             this.$el.html(this.template(this.model.toJSON()));
@@ -428,6 +428,13 @@
                 } else {
                     return this.$el.removeClass('editing');
                 }
+            }
+        },
+        close : function(event){
+            if ( event.target && event.target.checked ){
+                return this.$(".time-buckets-wrap").removeClass('tb-close');
+            } else {
+                return this.$(".time-buckets-wrap").addClass('tb-close');
             }
         },
         /*
@@ -621,14 +628,19 @@
             }
         },
         loadShelf : function(){
+            var _this = this;
             var reqDate = dateTools.dateFormat(this.reqDate, "YYYYMMDD");
             //var reqDay = this.reqDate.getDay();
             this.$(".day-container").removeClass("error");
+            this.$(".day-container").addClass("loading");
             snapShot.load({
                 queryData : {
                     "startTime": reqDate,
                     "endTime": reqDate,
                     "type": "maxOrder|workTime|order"
+                },
+                success : function(){
+                    _this.$(".day-container").removeClass("loading");
                 }
             });
         },
