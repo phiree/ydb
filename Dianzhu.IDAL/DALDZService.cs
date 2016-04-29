@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Dianzhu.Model;
+ 
+using System.Collections;
+ 
+
+namespace Dianzhu.DAL
+{
+    public interface IDALDZService 
+    {
+
+          IList<DZService> GetList(Guid businessId, int pageindex, int pagesize, out int totalRecord);
+          IList<DZService> GetOtherList(Guid businessId, Guid serviceId, int pageindex, int pagesize, out int totalRecord);
+          IList<DZService> SearchService(decimal priceMin, decimal priceMax, Guid serviceTypeId, DateTime preOrderTime, int pageindex, int pagesize, out int totalRecord);
+
+          DZService GetOneByBusAndId(Business business, Guid svcId);
+
+          int GetSumByBusiness(Business business);
+
+    }
+}
