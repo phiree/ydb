@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSClient", "CSClient", "{8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}"
 EndProject
@@ -77,8 +77,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.IInstantMessage", "Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj", "{820A465F-51FB-4F8D-8665-B80F9643281B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.XMPP", "Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj", "{125F0D3B-E83C-4743-9944-E82392CBA6C5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.WinformView", "Dianzhu.CSClient.WinformView\Dianzhu.CSClient.WinformView.csproj", "{0550CABB-3957-45CC-8CC6-9FBEA653B20D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.CSClient.IMessageAdapter", "Dianzhu.CSClient.IMessageAdapter\Dianzhu.CSClient.IMessageAdapter.csproj", "{74F0963E-57CA-4D57-899C-D85FF096FE1F}"
 EndProject
@@ -185,6 +183,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "dianzhu_adminbusiness_mvc",
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "53672"
+		SlnRelativePath = "..\publish\dianzhu_adminbusiness_mvc\"
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dlls", "dlls", "{FF82FDAB-C9E3-4C42-ABE8-BB47F4946CAC}"
@@ -414,18 +413,6 @@ Global
 		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{125F0D3B-E83C-4743-9944-E82392CBA6C5}.Release|x86.ActiveCfg = Release|Any CPU
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Debug|Any CPU.Build.0 = Debug|x86
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Debug|x86.ActiveCfg = Debug|x86
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Debug|x86.Build.0 = Debug|x86
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Release|Any CPU.ActiveCfg = Release|x86
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Release|Any CPU.Build.0 = Release|x86
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Release|Mixed Platforms.Build.0 = Release|x86
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Release|x86.ActiveCfg = Release|x86
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D}.Release|x86.Build.0 = Release|x86
 		{74F0963E-57CA-4D57-899C-D85FF096FE1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{74F0963E-57CA-4D57-899C-D85FF096FE1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74F0963E-57CA-4D57-899C-D85FF096FE1F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -726,7 +713,6 @@ Global
 		{5AC8D7DE-A53D-4698-8957-C78D9243A793} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{820A465F-51FB-4F8D-8665-B80F9643281B} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{125F0D3B-E83C-4743-9944-E82392CBA6C5} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
-		{0550CABB-3957-45CC-8CC6-9FBEA653B20D} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{74F0963E-57CA-4D57-899C-D85FF096FE1F} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{A871C9E1-98A4-412F-A1B3-541189A4C4CF} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{D7AA114D-AD19-4399-B152-969D240053C7} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}

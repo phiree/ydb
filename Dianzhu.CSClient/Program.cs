@@ -4,24 +4,24 @@ using System.Linq;
 using System.Windows.Forms;
 using Dianzhu.CSClient.MessageAdapter;
 using log4net;
- 
+
 using System.Deployment;
 using System.Deployment.Application;
 using System.Threading;
 using System.ComponentModel;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
-using ViewWPF=Dianzhu.CSClient.ViewWPF;
+using ViewWPF = Dianzhu.CSClient.ViewWPF;
 using ViewWinForm = Dianzhu.CSClient.WinformView;
-using cw=Castle.Windsor;
-using cmr=Castle.MicroKernel.Registration;
+using cw = Castle.Windsor;
+using cmr = Castle.MicroKernel.Registration;
 namespace Dianzhu.CSClient
 {
     static class Program
     {
-        
+
         static ILog log = LogManager.GetLogger("Dianzhu.CSClient");
-       
+
         static int progressPercent = 0;
         /// <summary>
         /// 应用程序的主入口点。
@@ -30,7 +30,7 @@ namespace Dianzhu.CSClient
         static void Main()
         {
             PHSuit.Logging.Config("Dianzhu.CSClient");
-           
+
             //systemconfig
             AppDomain cDomain = AppDomain.CurrentDomain;
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);
@@ -38,8 +38,8 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
 
             //log
-           
-            log.Debug( "开始启动助理工具");
+
+            log.Debug("开始启动助理工具");
             bool isValidConfig = CheckConfig();
             if (!isValidConfig)
             {
@@ -47,11 +47,11 @@ namespace Dianzhu.CSClient
                 Application.ExitThread();
                 return;
             }
-           
-            var container= Install();
-           
+
+            var container = Install();
+
             string version = GetVersion();
-          //  loginForm.FormText += "v" + version;
+            //  loginForm.FormText += "v" + version;
             Presenter.LoginPresenter loginPresenter = container.Resolve<Presenter.LoginPresenter>();
             bool? result = loginPresenter.ShowDialog();
 
@@ -60,34 +60,30 @@ namespace Dianzhu.CSClient
             //登录成功
             if (result.Value)// == DialogResult.OK)
             {
-                
+
 
                 log.Debug("登录成功");
-                
-                 
+
+
                 Presenter.PIdentityList pIdentityList = container.Resolve<Presenter.PIdentityList>(); ;
                 Presenter.PChatList pChatList = container.Resolve<Presenter.PChatList>();
-                 Presenter.PNotice pNotice = container.Resolve<Presenter.PNotice>();
-              
+                Presenter.PNotice pNotice = container.Resolve<Presenter.PNotice>();
+
                 Presenter.PSearch pSearch = container.Resolve<Presenter.PSearch>();
                 Presenter.POrder pOrder = container.Resolve<Presenter.POrder>();
                 Presenter.POrderHistory pOrderHistory = container.Resolve<Presenter.POrderHistory>();
-                Presenter.PChatSend pChatSend = container.Resolve< Presenter.PChatSend>();
-                
+                Presenter.PChatSend pChatSend = container.Resolve<Presenter.PChatSend>();
 
-                Presenter.InstantMessageHandler imHander = container.Resolve<Presenter.InstantMessageHandler>(new {
-                    pIdentityList=pIdentityList,
-                    pNotice=pNotice
-                });
-                if (useWpf)
-                {
 
-                    var mainForm = container.Resolve<ViewWPF.FormMain>();
-                    mainForm.Title += "v" + version;
-                     
-                    mainForm.ShowDialog();
-                }
-               
+                Presenter.InstantMessageHandler imHander = container.Resolve<Presenter.InstantMessageHandler>();
+
+
+                var mainPresenter = container.Resolve<Presenter.PMain>();
+
+
+                mainPresenter.ShowDialog();
+
+
             }
 
 
@@ -101,9 +97,9 @@ namespace Dianzhu.CSClient
         static Castle.Windsor.WindsorContainer Install()
         {
             var container = new Castle.Windsor.WindsorContainer();
-            container.Register(cmr.Component.For<ViewWPF.FormMain>());
-           
-            
+            container.Register(cmr.Component.For<Presenter.PMain>());
+
+
             container.Register(cmr.Component.For<CSClient.Presenter.LoginPresenter>());
             container.Register(cmr.Component.For<CSClient.Presenter.IdentityManager>());
             container.Register(cmr.Component.For<CSClient.Presenter.PIdentityList>());
@@ -115,8 +111,8 @@ namespace Dianzhu.CSClient
             container.Register(cmr.Component.For<CSClient.Presenter.PSearch>());
             container.Register(cmr.Component.For<Presenter.InstantMessageHandler>());
 
+            container.Register(cmr.Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
             container.Register(cmr.Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());
-
             container.Register(cmr.Component.For<IViewChatList>().ImplementedBy<ViewWPF.UC_ChatList>());
             container.Register(cmr.Component.For<IViewChatSend>().ImplementedBy<ViewWPF.UC_ChatSend>());
             container.Register(cmr.Component.For<IViewIdentityList>().ImplementedBy<ViewWPF.UC_IdentityList>());
@@ -131,14 +127,14 @@ namespace Dianzhu.CSClient
             container.Register(cmr.Component.For<CSClient.IInstantMessage.InstantMessage>().ImplementedBy<XMPP.XMPP>()
                 .DependsOn(cmr.Dependency.OnValue("server", server)
                             , cmr.Dependency.OnValue("domain", domain)
-                            ,cmr.Dependency.OnValue("resourceName", Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())
+                            , cmr.Dependency.OnValue("resourceName", Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())
                             )
                             );
-          
+
             container.Register(cmr.Component.For<CSClient.IMessageAdapter.IAdapter>()
                 .ImplementedBy<CSClient.MessageAdapter.MessageAdapter>()
-                
-                
+
+
                 );
 
 
@@ -153,8 +149,8 @@ namespace Dianzhu.CSClient
             string connectionString = PHSuit.Security.Decrypt(System.Configuration.ConfigurationManager
                 .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false);
             System.Text.RegularExpressions.Match m = System.Text.RegularExpressions.Regex.Match(connectionString, @"(?<=data\s+source\=).+?(?=;uid)");
-            string ofserver= Dianzhu.Config.Config.GetAppSetting("ImServer");
-            System.Text.RegularExpressions.Match m2= System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:8037)");
+            string ofserver = Dianzhu.Config.Config.GetAppSetting("ImServer");
+            System.Text.RegularExpressions.Match m2 = System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:8037)");
 
             if (ofserver == m.Value && m.Value == m2.Value)
             {
@@ -162,14 +158,14 @@ namespace Dianzhu.CSClient
             }
             else
             {
-                log.Error(m.Value+","+m2.Value+","+ofserver);
+                log.Error(m.Value + "," + m2.Value + "," + ofserver);
             }
             log.Debug("--结束 检查配置是否冲突");
             return isValidConfig;
 
 
 
-            
+
         }
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
@@ -195,5 +191,5 @@ namespace Dianzhu.CSClient
     }
 
 
-   // public interface IIdentityManagerFactory
+    // public interface IIdentityManagerFactory
 }
