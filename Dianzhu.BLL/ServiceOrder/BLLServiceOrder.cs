@@ -12,6 +12,7 @@ using PHSuit;
 using Newtonsoft.Json;
 using System.Web;
 using System.Text.RegularExpressions;
+using System.Net;
 
 namespace Dianzhu.BLL
 {
@@ -422,21 +423,61 @@ namespace Dianzhu.BLL
                             switch (payment.PayApi)
                             {
                                 case enum_PayAPI.Alipay:
-                                    IRefund iRefundAliApp = new RefundAliApp(Dianzhu.Config.Config.GetAppSetting("PaySite") + "/RefundCallBack/Alipay/notify_url.aspx", payment.Amount, payment.PlatformTradeNo, payment.Order.Id.ToString(), string.Empty);
+                                    IRefund iRefundAliApp = new RefundAliApp(Dianzhu.Config.Config.GetAppSetting("PaySite") + "RefundCallBack/Alipay/notify_url.aspx", payment.Amount, payment.PlatformTradeNo, payment.Id.ToString(), string.Empty);
                                     var respDataAliApp = iRefundAliApp.CreateRefundRequest();
 
-                                    string url_AliApp = "	https://openapi.alipay.com/gateway.do";
-                                    string returnstr = HttpHelper.CreateHttpRequest(url_AliApp, "post", respDataAliApp);
-                                    //todo：收到的json有乱码
-                                    RefundReturnAliApp refundReturnAliApp = JsonConvert.DeserializeObject<RefundReturnAliApp>(HttpUtility.UrlDecode(returnstr, Encoding.UTF8));
-                                    string a = Regex.Unescape(returnstr);
+                                    string url_AliApp = "https://openapi.alipay.com/gateway.do";
+                                    string returnstrAliApp = HttpHelper.CreateHttpRequest(url_AliApp, "post", respDataAliApp, Encoding.Default);
+                                    
+                                    RefundReturnAliApp refundReturnAliApp = JsonConvert.DeserializeObject<RefundReturnAliApp>(HttpUtility.UrlDecode(returnstrAliApp, Encoding.UTF8));
+                                    string a = Regex.Unescape(returnstrAliApp);
                                     break;
                                 case enum_PayAPI.Wechat:
+                                    string refundNo = "7ce67828ea304b31acfd713c23230001";
+                                    IRefund iRefundWeChat = new RefundWePay(Dianzhu.Config.Config.GetAppSetting("PaySite") + "RefundCallBack/Wepay/notify_url.aspx", payment.Amount, refundNo, payment.PlatformTradeNo, payment.Id.ToString(), string.Empty, payment.Amount);
+                                    var respDataWeChat = iRefundWeChat.CreateRefundRequest();
+
+                                    string respDataXmlWechat = "<xml>";
+                                    
+                                    foreach (string key in respDataWeChat)
+                                    {
+                                        if (key != "key")
+                                        {
+                                            respDataXmlWechat += "<" + key + ">" + respDataWeChat[key] + "</" + key + ">";
+                                        }
+                                    }
+                                    respDataXmlWechat = respDataXmlWechat + "</xml>";
+                                    log.Debug(respDataXmlWechat);
+                                    
+                                    string url_WeChat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+                                    string returnstrWeChat = HttpHelper.CreateHttpRequestPostXml(url_WeChat, respDataXmlWechat,"北京集思优科网络科技有限公司");
+                                    log.Debug(returnstrWeChat);
+
+                                    string jsonWeChat = JsonHelper.Xml2Json(returnstrWeChat, true);
+                                    RefundReturnWeChat refundReturnWeChat = JsonConvert.DeserializeObject<RefundReturnWeChat>(jsonWeChat);
+
+                                    if (refundReturnWeChat.return_code.ToUpper() == "SUCCESS")
+                                    {
+                                        if (refundReturnWeChat.result_code.ToUpper() == "SUCCESS")
+                                        {
+                                            log.Debug("微信返回退款成功");
+                                            log.Debug("更新订单状态");
+                                            ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
+                                        }
+                                        else
+                                        {
+                                            log.Error("err_code:" + refundReturnWeChat.err_code + "err_code_des:" + refundReturnWeChat.err_code_des);
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        log.Error(refundReturnWeChat.return_msg);
+                                        return;
+                                    }
 
                                     break;
                             }
-
-                            ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
                         }
                         else {
                             //扣除定金，取消成功
@@ -507,13 +548,17 @@ namespace Dianzhu.BLL
         //查询订单的总金额
         //查询订单的曝光率.
     }
-
+    /// <summary>
+    /// 支付宝退款返回数据
+    /// </summary>
     public class RefundReturnAliApp
     {
         public RefundReturnResposeAliApp alipay_trade_refund_response { get; set; }
         public string sign { get; set; }
     }
-
+    /// <summary>
+    /// 支付宝退款返回数据中的对象
+    /// </summary>
     public class RefundReturnResposeAliApp
     {
         /// <summary>
@@ -577,6 +622,36 @@ namespace Dianzhu.BLL
         /// </summary>
         public string sub_msg { get; set; }
     }
+    /// <summary>
+    /// 微信退款放回数据
+    /// </summary>
+    public class RefundReturnWeChat
+    {
+        public string return_code { get; set; }
+        public string return_msg { get; set; }
+        public string result_code { get; set; }
+        public string err_code { get; set; }
+        public string err_code_des { get; set; }
+        public string appid { get; set; }
+        public string mch_id { get; set; }
+        public string device_info { get; set; }
+        public string nonce_str { get; set; }
+        public string sign { get; set; }
+        public string transaction_id { get; set; }
+        public string out_trade_no { get; set; }
+        public string out_refund_no { get; set; }
+        public string refund_id { get; set; }
+        public string refund_channel { get; set; }
+        public string refund_fee { get; set; }
+        public string total_fee { get; set; }
+        public string fee_type { get; set; }
+        public string cash_fee { get; set; }
+        public string cash_refund_fee { get; set; }
+        public string coupon_refund_fee { get; set; }
+        public string coupon_refund_count { get; set; }
+        public string coupon_refund_id { get; set; }
+    }
+
     /// <summary>
     /// 退款返回的资金明细类型
     /// </summary>
