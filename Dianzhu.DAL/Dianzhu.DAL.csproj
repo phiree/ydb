@@ -126,6 +126,8 @@
     <Compile Include="Mapping\ServiceOpenTimeMap.cs" />
     <Compile Include="Mapping\ReceptionStatusMap.cs" />
     <Compile Include="NHCustomDialect.cs" />
+    <Compile Include="NHUnitOfWork.cs" />
+    <Compile Include="NHRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DALCashTicketTemplate.cs" />
     <Compile Include="DALCashTicketCreateRecord.cs" />
@@ -153,9 +155,17 @@
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
+      <Project>{43e8ffa6-60e9-40ca-a7a8-cec8008519dd}</Project>
+      <Name>Dianzhu.IDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHSuit\PHSuit.csproj">
+      <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
+      <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

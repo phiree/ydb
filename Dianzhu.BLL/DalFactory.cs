@@ -83,11 +83,11 @@ namespace Dianzhu.BLL
             get { return dalReceptionStatusArchieve ?? new DALReceptionStatusArchieve(); }
             set { dalReceptionStatusArchieve = value; }
         }
-        public static DALAdvertisement DALAdvertisement
-        {
-            get { return dalAdvertisement ?? new DALAdvertisement(); }
-            set { dalAdvertisement = value; }
-        }
+        //public static DALAdvertisement DALAdvertisement
+        //{
+        //    get { return dalAdvertisement ?? new DALAdvertisement(); }
+        //    set { dalAdvertisement = value; }
+        //}
         public static DALIMUserStatusArchieve DALIMUserStatusArchieve
         {
             get { return dalIMUserStatusArchieve ?? new DALIMUserStatusArchieve(); }

@@ -7,18 +7,9 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALArea : DALBase<Model.Area>
+    public class DALArea :DALBase<Model.Area>
     {
         
-        public DALArea()
-        {
-           
-        }
-        //注入依赖,供测试使用;
-        public DALArea(string fortest) : base(fortest)
-        {
-            
-        }
         //protected IDAL.IDALBase<Model.Area> IDALBase
         //{
         //    get { return IDALBase; }

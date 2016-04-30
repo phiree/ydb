@@ -59,7 +59,7 @@ namespace Dianzhu.DAL
                                      .Dialect<NHCustomDialect>()
                           )
                         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
-                       .ExposeConfiguration(BuildSchema)
+                       .ExposeConfiguration(config=>new SchemaUpdate(config).Execute(false, true))
                         .BuildSessionFactory();
                         HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
                      
@@ -69,13 +69,7 @@ namespace Dianzhu.DAL
             }
             return _sessionFactory;
         }
-        private static void BuildSchema(Configuration config)
-        {
-            // this NHibernate tool takes a configuration (with mapping info in)
-            // and exports a database schema from it
-            SchemaUpdate update = new SchemaUpdate(config);
-            //update.Execute(true, true);
-        }
+        
         private static void GetUpdateScript(string ss)
         {
             throw new System.Exception(ss);
