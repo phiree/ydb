@@ -204,10 +204,6 @@
       <Project>{97792986-3421-464a-8711-0fc6eaba9bcb}</Project>
       <Name>Dianzhu.CSClient.ViewWPF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.WinformView\Dianzhu.CSClient.WinformView.csproj">
-      <Project>{0550CABB-3957-45CC-8CC6-9FBEA653B20D}</Project>
-      <Name>Dianzhu.CSClient.WinformView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
       <Project>{125F0D3B-E83C-4743-9944-E82392CBA6C5}</Project>
       <Name>Dianzhu.CSClient.XMPP</Name>
@@ -228,7 +224,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 %28x86 和 x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -97,10 +97,6 @@
       <HintPath>..\packages\TestStack.Dossier.3.1.1\lib\NET40\TestStack.Dossier.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebFormsMvp, Version=1.4.5.0, Culture=neutral, PublicKeyToken=537f18701145dff0, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebFormsMVP.1.4.5.0\lib\WebFormsMvp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLTest\Finance\BLLServiceTypePointTest.cs" />
