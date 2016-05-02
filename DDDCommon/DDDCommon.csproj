@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DDDCommon</RootNamespace>
     <AssemblyName>DDDCommon</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,6 +48,8 @@
     <Compile Include="Specification\ISpecification.cs" />
     <Compile Include="Specification\Negate.cs" />
     <Compile Include="Specification\Or.cs" />
+    <Compile Include="Specification\ParameterReplacer.cs" />
+    <Compile Include="Specification\SpecExprExtensions.cs" />
     <Compile Include="Specification\SpecificationBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

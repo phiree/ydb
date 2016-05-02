@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using DDDCommon;
 using Dianzhu.Model;
 using NHibernate;
 
@@ -28,9 +30,24 @@ namespace Dianzhu.DAL
             repo.Delete(t);
         }
 
+        public IEnumerable<Advertisement> Find(ISpecification<Advertisement> specs)
+        {
+           return repo.Find(specs);
+        }
+
+        public IEnumerable<Advertisement> Find(Expression<Func<Advertisement, bool>> express)
+        {
+            return repo.Find(express);
+        }
+
         public IEnumerable<Advertisement> Find(string where)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Advertisement> Find(ISpecification<Advertisement> specs, int pageIndex, int pageSize, out long totalRecords)
+        {
+            return repo.Find(specs, pageIndex, pageSize, out totalRecords);
         }
 
         public IEnumerable<Advertisement> Find(string where,int pageIndex,int pageSize, out long totalRecords)
@@ -43,28 +60,14 @@ namespace Dianzhu.DAL
             return repo.FindById(identityId);
         }
 
-        //注入依赖,供测试使用;
-
-
-        public IList <Advertisement> GetADList(int pageIndex, int pageSize, out int totalRecord)
+        public long GetRowCount(ISpecification<Advertisement> specs)
         {
-            /*
-            IQueryOver<Advertisement, Advertisement> iquery = Session.QueryOver<Advertisement>();
-            totalRecord = iquery.ToRowCountQuery().FutureValue<int>().Value;
-            return iquery.OrderBy(x => x.Num).Asc.Skip((pageIndex-1) * pageSize).Take(pageSize).List();
-            */
             throw new NotImplementedException();
         }
 
-        public IList<Advertisement> GetADListForUseful()
+        public long GetRowCount(string where)
         {
-            throw new NotImplementedException();
-           // return Session.QueryOver<Advertisement>().Where(x => x.IsUseful == true).OrderBy(x => x.Num).Asc.List();
-        }
-
-        public Advertisement GetByUid(Guid uid)
-        {
-            return repo.FindById(uid);
+            return repo.GetRowCount(where);
         }
     }
 }

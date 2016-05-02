@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Dianzhu.DAL;
 using Dianzhu.Model;
+using System.Linq.Expressions;
+using DDDCommon;
 namespace Dianzhu.BLL
 {
     public class BLLAdvertisement
@@ -24,7 +26,10 @@ namespace Dianzhu.BLL
         public IEnumerable<Advertisement> GetADList(int pageIndex, int pageSize, out long totalRecords)
         {
             iUnitOfWork.BeginTransaction();
-            var list= repo.Find("select adv from Advertisement adv", pageIndex,pageSize ,out totalRecords);
+            DDDCommon.ISpecification<Advertisement> advInPerildSpec = new Model.Resource.Specs.AdvertisementSpec.AdvertisementInPeriod(DateTime.Now);
+            ISpecification<Advertisement> advUsefulSpec = new Model.Resource.Specs.AdvertisementSpec.AdvertisementUseful(true);
+            ISpecification<Advertisement> specs = advInPerildSpec.And<Advertisement>(advUsefulSpec);
+            var list = repo.Find(specs, pageIndex,pageSize ,out totalRecords);
             iUnitOfWork.Commit();
             return list;
             //return repo.GetADList(pageIndex, pageSize,out totalRecords);
@@ -34,8 +39,15 @@ namespace Dianzhu.BLL
         {
             long totalRecords;
             iUnitOfWork.BeginTransaction();
-            var list= repo.Find("select adv from Advertisement adv where IsUseful=1", 1, 999, out totalRecords).ToList();
-            // return DALAdvertisement.GetADListForUseful();
+            ISpecification<Advertisement> advInPerildSpec = new Model.Resource.Specs.AdvertisementSpec.AdvertisementInPeriod(DateTime.Now);
+            ISpecification<Advertisement> advUsefulSpec = new Model.Resource.Specs.AdvertisementSpec.AdvertisementUseful(true);
+            ISpecification<Advertisement> specs = advInPerildSpec.And<Advertisement>(advUsefulSpec);
+
+            // Expression < Func < int, bool>> f = i => i % 2 != 0;
+            // f = f.Not().And(i => i > 0);
+            Expression<Func<Advertisement, bool>> q = i => i.IsUseful;
+             q= q.And(i => i.EndTime > DateTime.Now);
+            var list = repo.Find(q).ToList();
             iUnitOfWork.Commit();
             return list;
         }

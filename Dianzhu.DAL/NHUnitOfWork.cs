@@ -31,7 +31,7 @@ namespace Dianzhu.DAL
                                      .Dialect<NHCustomDialect>()
                           )
                         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
-                       .ExposeConfiguration(config => new SchemaUpdate(config).Execute(false, true))
+                       .ExposeConfiguration(config => new SchemaUpdate(config).Execute(false, false))
                         .BuildSessionFactory();
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
 

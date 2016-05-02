@@ -19,45 +19,39 @@ namespace Dianzhu.BLL
 
     /// <summary>
     /// 订单业务逻辑
+    /// ddd: application service. and domain service.
     /// </summary>
     public class BLLServiceOrder
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
 
         DALServiceOrder DALServiceOrder = null;
+        IDAL.IRepository<ServiceOrder> repoServiceOrder;
+        IDAL.IRepository<DZMembership> repoMembership;
+        IDAL.IRepository<ServiceOrderStateChangeHis> repoOrderStateChangeHistory;
         DZMembershipProvider membershipProvider = null;
         BLLPayment bllPayment = null;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
 
         public BLLServiceOrder(DALServiceOrder dalServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, DZMembershipProvider membershipProvider,BLLPayment bllPayment)
         {
-            this.DALServiceOrder = dalServiceOrder;
+           this.DALServiceOrder = dalServiceOrder;
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
             this.membershipProvider = membershipProvider;
             this.bllPayment = bllPayment;
+        }
+        public BLLServiceOrder(IDAL.IRepository<ServiceOrder> repoServiceOrder)
+        {
+            this.repoServiceOrder = repoServiceOrder;
         }
 
         public BLLServiceOrder() : this(new DALServiceOrder(), new BLLServiceOrderStateChangeHis(), new DZMembershipProvider(),new BLLPayment())
         {
         }
-
-
-
-        public BLLServiceOrder(DALServiceOrder dal)
-        {
-            DALServiceOrder = dal;
-        }
-
-
         #region 基本操作
-
-        public IList<ServiceOrder> GetListForBusiness(object b)
-        {
-            throw new NotImplementedException();
-        }
-
         public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
         {
+            repoServiceOrder.GetRowCount("select * from ");
             return DALServiceOrder.GetServiceOrderCount(userId, searchType);
         }
         public IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize)
