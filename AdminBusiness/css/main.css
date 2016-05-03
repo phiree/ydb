@@ -363,6 +363,86 @@ fieldset[disabled] .btn-info.active {
   color: #64c6f8;
   background-color: #fff;
 }
+/* 创造类按钮 */
+.btn-create {
+  color: #fff;
+  background-color: #26DD3C;
+  border-color: transparent;
+  background: #26DD3C;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #26DD3C 0%, #3DB200 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #26DD3C 0%, #3DB200 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #26DD3C 0%, #3DB200 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#26DD3C, endColorstr=#3DB200, GradientType=0);
+  /* IE6-9 */
+}
+.btn-create:focus,
+.btn-create.focus {
+  color: #fff;
+  background-color: #26DD3C;
+  border-color: transparent;
+}
+.btn-create:hover {
+  color: #fff;
+  background-color: #3ce050;
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-create:visited {
+  color: #fff;
+}
+.btn-create:active,
+.btn-create.active,
+.open > .dropdown-toggle.btn-create {
+  color: #fff;
+  background-color: #26DD3C;
+  border-color: transparent;
+}
+.btn-create:active:hover,
+.btn-create.active:hover,
+.open > .dropdown-toggle.btn-create:hover,
+.btn-create:active:focus,
+.btn-create.active:focus,
+.open > .dropdown-toggle.btn-create:focus,
+.btn-create:active.focus,
+.btn-create.active.focus,
+.open > .dropdown-toggle.btn-create.focus {
+  color: #fff;
+  background-color: #26DD3C;
+  border-color: transparent;
+}
+.btn-create:active,
+.btn-create.active,
+.open > .dropdown-toggle.btn-create {
+  background-image: none;
+}
+.btn-create.disabled,
+.btn-create[disabled],
+fieldset[disabled] .btn-create,
+.btn-create.disabled:hover,
+.btn-create[disabled]:hover,
+fieldset[disabled] .btn-create:hover,
+.btn-create.disabled:focus,
+.btn-create[disabled]:focus,
+fieldset[disabled] .btn-create:focus,
+.btn-create.disabled.focus,
+.btn-create[disabled].focus,
+fieldset[disabled] .btn-create.focus,
+.btn-create.disabled:active,
+.btn-create[disabled]:active,
+fieldset[disabled] .btn-create:active,
+.btn-create.disabled.active,
+.btn-create[disabled].active,
+fieldset[disabled] .btn-create.active {
+  background-color: #26DD3C;
+  border-color: transparent;
+}
+.btn-create .badge {
+  color: #26DD3C;
+  background-color: #fff;
+}
 /* 取消类按钮 */
 .btn-cancel {
   color: #fff;
@@ -4723,6 +4803,203 @@ p.error {
 p.checked {
   background: url("../images//common/validate/right.png") no-repeat 0 50%;
 }
+/*!
+ * Pikaday
+ * Copyright © 2014 David Bushell | BSD & MIT license | http://dbushell.com/
+ */
+.pika-single {
+  z-index: 9999;
+  display: block;
+  position: relative;
+  color: #333;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-bottom-color: #bbb;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/*
+clear child float (pika-lendar), using the famous micro clearfix hack
+http://nicolasgallagher.com/micro-clearfix-hack/
+*/
+.pika-single:before,
+.pika-single:after {
+  content: " ";
+  display: table;
+}
+.pika-single:after {
+  clear: both;
+}
+.pika-single {
+  *zoom: 1;
+}
+.pika-single.is-hidden {
+  display: none;
+}
+.pika-single.is-bound {
+  position: absolute;
+  box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.5);
+}
+.pika-lendar {
+  float: left;
+  width: 240px;
+  margin: 8px;
+}
+.pika-title {
+  position: relative;
+  text-align: center;
+}
+.pika-label {
+  display: inline-block;
+  *display: inline;
+  position: relative;
+  z-index: 9999;
+  overflow: hidden;
+  margin: 0;
+  padding: 5px 3px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: bold;
+  background-color: #fff;
+}
+.pika-title select {
+  cursor: pointer;
+  position: absolute;
+  z-index: 9998;
+  margin: 0;
+  left: 0;
+  top: 5px;
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+.pika-prev,
+.pika-next {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  border: 0;
+  padding: 0;
+  width: 20px;
+  height: 30px;
+  /* hide text using text-indent trick, using width value (it's enough) */
+  text-indent: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 75% 75%;
+  opacity: .5;
+  *position: absolute;
+  *top: 0;
+}
+.pika-prev:hover,
+.pika-next:hover {
+  opacity: 1;
+}
+.pika-prev,
+.is-rtl .pika-next {
+  float: left;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAUklEQVR42u3VMQoAIBADQf8Pgj+OD9hG2CtONJB2ymQkKe0HbwAP0xucDiQWARITIDEBEnMgMQ8S8+AqBIl6kKgHiXqQqAeJepBo/z38J/U0uAHlaBkBl9I4GwAAAABJRU5ErkJggg==');
+  *left: 0;
+}
+.pika-next,
+.is-rtl .pika-prev {
+  float: right;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAU0lEQVR42u3VOwoAMAgE0dwfAnNjU26bYkBCFGwfiL9VVWoO+BJ4Gf3gtsEKKoFBNTCoCAYVwaAiGNQGMUHMkjGbgjk2mIONuXo0nC8XnCf1JXgArVIZAQh5TKYAAAAASUVORK5CYII=');
+  *right: 0;
+}
+.pika-prev.is-disabled,
+.pika-next.is-disabled {
+  cursor: default;
+  opacity: .2;
+}
+.pika-select {
+  display: inline-block;
+  *display: inline;
+}
+.pika-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0;
+}
+.pika-table th,
+.pika-table td {
+  width: 14.285714285714286%;
+  padding: 0;
+}
+.pika-table th {
+  color: #999;
+  font-size: 12px;
+  line-height: 25px;
+  font-weight: bold;
+  text-align: center;
+}
+.pika-button {
+  cursor: pointer;
+  display: block;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  padding: 5px;
+  color: #666;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: right;
+  background: #f5f5f5;
+}
+.pika-week {
+  font-size: 11px;
+  color: #999;
+}
+.is-today .pika-button {
+  color: #33aaff;
+  font-weight: bold;
+}
+.is-selected .pika-button {
+  color: #fff;
+  font-weight: bold;
+  background: #33aaff;
+  box-shadow: inset 0 1px 3px #178fe5;
+  border-radius: 3px;
+}
+.is-inrange .pika-button {
+  background: #D5E9F7;
+}
+.is-startrange .pika-button {
+  color: #fff;
+  background: #6CB31D;
+  box-shadow: none;
+  border-radius: 3px;
+}
+.is-endrange .pika-button {
+  color: #fff;
+  background: #33aaff;
+  box-shadow: none;
+  border-radius: 3px;
+}
+.is-disabled .pika-button,
+.is-outside-current-month .pika-button {
+  pointer-events: none;
+  cursor: default;
+  color: #999;
+  opacity: .3;
+}
+.pika-button:hover {
+  color: #fff;
+  background: #ff8000;
+  box-shadow: none;
+  border-radius: 3px;
+}
+/* styling for abbr */
+.pika-table abbr {
+  border-bottom: none;
+  cursor: help;
+}
 /* components */
 .svcType-s-icon-0b5b0a87-0a41-4412-9889-8abe8aa477f6 {
   background: url("../images/components/svcIcon/svc_s_01.png") no-repeat center;
@@ -5371,8 +5648,7 @@ a.time-trigger:hover {
 .day-title {
   box-shadow: 0 3px 3px #e7e7e7;
   border-bottom: 1px solid #C7C7C7;
-  line-height: 30px;
-  padding: 0 22px;
+  padding: 5px 22px;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
   background: #f7f7f7;
   /* Old browsers */
@@ -6076,8 +6352,7 @@ a.time-trigger:hover {
 .model-h {
   box-shadow: 0 3px 3px #e7e7e7;
   border-bottom: 1px solid #C7C7C7;
-  line-height: 30px;
-  padding: 0 22px;
+  padding: 5px 22px;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
   background: #f7f7f7;
   /* Old browsers */
@@ -7157,9 +7432,7 @@ a.time-trigger:hover {
   margin-bottom: 20px;
 }
 .emp-model-h {
-  height: 30px;
-  padding: 0 15px;
-  line-height: 30px;
+  padding: 5px 15px;
   box-shadow: 0 3px 3px #e7e7e7;
   border-bottom: 1px solid #C7C7C7;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
@@ -7202,7 +7475,7 @@ a.time-trigger:hover {
 .emp-ctrl {
   float: right;
   border: 0;
-  margin-top: 5px;
+  margin-top: -2px;
 }
 .emp-ctrl + .emp-ctrl {
   margin-right: 5px;
@@ -8272,4 +8545,115 @@ a.doReg:hover {
 .secret-cancel-icon {
   float: right;
   margin-top: 5px;
+}
+.fi-remain-txt {
+  display: inline-block;
+  vertical-align: bottom;
+  font-size: 16px;
+}
+.fi-remain-txt strong {
+  font-size: 28px;
+  font-weight: 500;
+  color: red;
+  margin: 0 5px;
+}
+.fi-remain-btns {
+  display: inline-block;
+  vertical-align: bottom;
+}
+.fi-remain-btns .btn {
+  border-radius: 10px;
+  padding: 10px 60px;
+}
+.fi-model {
+  border-radius: 5px;
+  overflow: hidden;
+  background: #f6f6f6;
+  border: 1px solid #C7C7C7;
+}
+.fi-model-h {
+  box-shadow: 0 3px 3px #e7e7e7;
+  border-bottom: 1px solid #C7C7C7;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,eaeaea+100 */
+  background: #f7f7f7;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+  /* IE6-9 */
+  padding: 5px 22px;
+}
+.fi-model-h h4 {
+  color: #444;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+}
+.fi-model-h .btn-r {
+  float: right;
+  margin-top: 4px;
+}
+.fi-h-ctrl {
+  display: inline-block;
+}
+.fi-h-ctrl + .fi-h-ctrl {
+  margin-left: 20px;
+}
+.fi-ctrl-m {
+  display: inline-block;
+}
+.fi-h-txt {
+  width: 150px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  height: 28px;
+  line-height: 26px;
+  padding: 0 5px;
+}
+.fi-h-btn {
+  padding: 5px;
+  border: 1px solid #C7C7C7;
+  border-radius: 5px;
+  background: #f7f7f7;
+  background: -moz-linear-gradient(top, #F9F9F9 0%, #f7f7f7 100%);
+  background: -webkit-linear-gradient(top, #F9F9F9 0%, #f7f7f7 100%);
+  background: linear-gradient(to bottom, #F9F9F9 0%, #f7f7f7 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F9F9F9 ', endColorstr='#f7f7f7', GradientType=0);
+}
+.fi-h-tabs {
+  overflow: hidden;
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: -1px;
+}
+.fi-h-tab {
+  position: relative;
+  z-index: -1;
+  float: left;
+  padding: 0 50px;
+  line-height: 40px;
+  color: #8c8c8c;
+  border: 1px solid #C7C7C7;
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+  background: #f7f7f7;
+  background: -moz-linear-gradient(top, #eaeaea 0%, #E0E0E0 100%);
+  background: -webkit-linear-gradient(top, #eaeaea 0%, #E0E0E0 100%);
+  background: linear-gradient(to bottom, #eaeaea 0%, #E0E0E0 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaeaea', endColorstr='#E0E0E0', GradientType=0);
+}
+.fi-h-tab.active {
+  z-index: 10;
+  background: #f7f7f7;
+  background: -moz-linear-gradient(top, #F9F9F9 0%, #f7f7f7 100%);
+  background: -webkit-linear-gradient(top, #F9F9F9 0%, #f7f7f7 100%);
+  background: linear-gradient(to bottom, #F9F9F9 0%, #f7f7f7 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F9F9F9 ', endColorstr='#f7f7f7', GradientType=0);
+}
+.fi-h-tab + .fi-h-tab {
+  margin-left: 10px;
 }
