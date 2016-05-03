@@ -12,7 +12,7 @@
             <div class="container-fluid animated fadeInUpSmall">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="biz-total-card">
+                        <a class="biz-total-card" href="/DZservice/default.aspx?businessId=<%= CurrentBusiness.Id %>">
                             <div class="biz-card-t">
                                 <strong class="biz-card-tl"><asp:Literal runat="server" ID="liServiceCount"></asp:Literal></strong>
                                 <div class="biz-card-tr">
@@ -21,8 +21,8 @@
                                 </div>
                             </div>
                             <div class="biz-card-b"></div>
-                        </div>
-                        <div class="biz-total-card">
+                        </a>
+                        <a class="biz-total-card">
                             <div class="biz-card-t">
                                 <strong class="biz-card-tl"><asp:Literal runat="server" ID="liAllOrderCount"></asp:Literal></strong>
                                 <div class="biz-card-tr">
@@ -31,8 +31,8 @@
                                 </div>
                             </div>
                             <div class="biz-card-b"></div>
-                        </div>
-                        <div class="biz-total-card">
+                        </a>
+                        <a class="biz-total-card">
                             <div class="biz-card-t">
                                 <strong class="biz-card-tl"><asp:Literal runat="server" ID="liDoneOrderCount"></asp:Literal></strong>
                                 <div class="biz-card-tr">
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="biz-card-b"></div>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <div class="d-hr"></div>
