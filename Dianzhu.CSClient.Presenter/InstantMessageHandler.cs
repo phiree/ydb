@@ -19,19 +19,30 @@ namespace Dianzhu.CSClient.Presenter
         PIdentityList pIdentityList;
         DAL.DALReceptionChat dalReceptionChat;
         PNotice pNotice;
+        PMain pMain;
         public InstantMessageHandler(InstantMessage iIM, 
             PIdentityList pIdentityList,
             DAL.DALReceptionChat dalReceptionChat,
-            PNotice pNotice)
+            PNotice pNotice,PMain pMain)
         {
             this.iIM = iIM;
             this.iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+            this.iIM.IMStreamError += IIM_IMStreamError;
             this.pIdentityList = pIdentityList;
             this.dalReceptionChat = dalReceptionChat;
             this.pNotice = pNotice;
+            this.pMain = pMain;
         }
-        public InstantMessageHandler(InstantMessage iIM,PIdentityList pIdentityList,PNotice pNotice)
-            :this(iIM,pIdentityList,new DAL.DALReceptionChat(),pNotice)
+
+        private void IIM_IMStreamError()
+        {
+            pMain.ShowMessage("错误.同一用户在其他客户端登录,您已被迫下线");
+            pMain.CloseApplication();
+        }
+
+       
+        public InstantMessageHandler(InstantMessage iIM,PIdentityList pIdentityList,PNotice pNotice,PMain pmain)
+            :this(iIM,pIdentityList,new DAL.DALReceptionChat(),pNotice,pmain)
         {
              
 
@@ -43,7 +54,7 @@ namespace Dianzhu.CSClient.Presenter
         /// </summary>
         /// <param name="chat"></param>
         private void IIM_IMReceivedMessage(Model.ReceptionChat chat)
-        {
+        {  
             string errMsg = string.Empty;
             string debugMsg = string.Empty;
             //判断信息类型

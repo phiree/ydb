@@ -15,9 +15,11 @@ namespace Dianzhu.Pay.RefundRequest
     /// </summary>
     public class RefundWePay : IRefund
     {
+        public decimal TotalAmount { get; set; }
         public decimal RefundAmount { get; set; }
         public string PlatformTradeNo { get; set; }
         public string OutTradeNo { get; set; }
+        public string OutRefundNo { get; set; }
         public string OperatorId { get; set; }
 
         IList<RefundDetail> refundDetail;
@@ -31,28 +33,31 @@ namespace Dianzhu.Pay.RefundRequest
         /// </summary>
         /// <param name="notify_url"></param>
         /// <param name="refundDetail"></param>
-        public RefundWePay(string notify_url, IList<RefundDetail> refundDetail,decimal refundAmount, string platformTradeNo, string outTradeNo,string operatorId,decimal totalAmount)
+        public RefundWePay(string notify_url, decimal refundAmount,string refundNo, string platformTradeNo, string outTradeNo,string operatorId,decimal totalAmount)
         {
+            this.TotalAmount = totalAmount;
             this.RefundAmount = refundAmount;
             this.PlatformTradeNo = platformTradeNo;
             this.OutTradeNo = outTradeNo;
+            this.OutRefundNo = refundNo;
             this.OperatorId = operatorId;
-
-            this.refundDetail = refundDetail;
+            
             this.notify_url = notify_url;
 
         }
         public NameValueCollection CreateRefundRequest()
         {
             SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
-            sParaTemp.Add("app_id", ConfigWePay.appid);
+            sParaTemp.Add("appid", ConfigWePay.appid);
             sParaTemp.Add("mch_id", ConfigWePay.mch_id);
             sParaTemp.Add("nonce_str", nonce_str);
-            sParaTemp.Add("out_trade_no", OutTradeNo);
-            sParaTemp.Add("out_refund_no", "");
-            sParaTemp.Add("total_fee", "");
-            sParaTemp.Add("refund_fee", RefundAmount.ToString());
-            sParaTemp.Add("op_user_id", OperatorId);
+            sParaTemp.Add("transaction_id", PlatformTradeNo);
+            sParaTemp.Add("out_trade_no", OutTradeNo.Replace("-",""));
+            sParaTemp.Add("out_refund_no", OutRefundNo);
+            sParaTemp.Add("total_fee", (TotalAmount*100).ToString("0"));
+            sParaTemp.Add("refund_fee", (RefundAmount*100).ToString("0"));
+            //sParaTemp.Add("op_user_id", OperatorId);
+            sParaTemp.Add("op_user_id", ConfigWePay.mch_id);
 
             string sParaStr = string.Empty;
             string sParStrkey = string.Empty;
@@ -76,13 +81,17 @@ namespace Dianzhu.Pay.RefundRequest
                 }
             }
 
-            //sParaTemp.Add("sign", sParaMd5);
+            sParaTemp.Add("sign", sParaMd5);
 
             //建立请求
-            string sHtmlText = sParStrkey + "&sign=" + sParaMd5;
+            //string sHtmlText = sParStrkey + "&sign=" + sParaMd5;
             //return sHtmlText;
 
             NameValueCollection collection = new NameValueCollection();
+            foreach (var item in sParaTemp)
+            {
+                collection.Add(item.Key, item.Value);
+            }
 
             return collection;
         }

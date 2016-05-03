@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace Dianzhu.Pay.RefundRequest
 {
@@ -44,15 +45,25 @@ namespace Dianzhu.Pay.RefundRequest
             sParaTemp.Add("charset", Config.input_charset.ToLower());
             sParaTemp.Add("timestamp", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             sParaTemp.Add("version", "1.0");
+            sParaTemp.Add("sign_type", "RSA");
 
-            sParaTemp.Add("out_trade_no", OutTradeNo);
-            sParaTemp.Add("trade_no", PlatformTradeNo);
-            sParaTemp.Add("refund_amount", RefundAmount.ToString());
-            sParaTemp.Add("operator_id", OperatorId);
+            SortedDictionary<string, object> biz_content_dic = new SortedDictionary<string, object>();
+            //biz_content_dic.Add("out_trade_no", OutTradeNo.Replace("-", ""));
+            biz_content_dic.Add("trade_no", PlatformTradeNo);
+            biz_content_dic.Add("refund_amount", RefundAmount.ToString("0.00"));
+            biz_content_dic.Add("refund_reason", "正常退款");
+            //biz_content_dic.Add("operator_id", OperatorId);
+
+            JavaScriptSerializer json = new JavaScriptSerializer();
+            string biz_content_str = json.Serialize(biz_content_dic);
+
+            //string biz_content_str = string.Empty;
+            //biz_content_str += "{\"refund_amount\":" + RefundAmount.ToString("0.00") + ",\"trade_no\":\"" + PlatformTradeNo + "\"}";
+
+            sParaTemp.Add("biz_content", biz_content_str);
 
             string mysign = AlipaySignature.RSASign(sParaTemp, HttpRuntime.AppDomainAppPath + "/files/rsa_private_key.pem", Config.input_charset);
-            sParaTemp.Add("sign", System.Web.HttpUtility.UrlEncode(mysign));
-            sParaTemp.Add("sign_type", "RSA");
+            sParaTemp.Add("sign", System.Web.HttpUtility.UrlEncode(mysign));            
 
             //string sParaStr = AlipaySignature.GetSignContent(sParaTemp);
 

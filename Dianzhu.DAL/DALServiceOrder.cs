@@ -119,7 +119,7 @@ namespace Dianzhu.DAL
         {
             using (var t = Session.BeginTransaction())
             {
-                var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.Customer == customer).And(x => x.OrderStatus != enum_OrderStatus.Draft).And(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
+                var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.Customer == customer).Where(x => x.OrderStatus != enum_OrderStatus.Draft).Where(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
                 totalAmount = iquery.RowCount();
 
                 IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
