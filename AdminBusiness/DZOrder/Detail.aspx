@@ -35,7 +35,7 @@
                                                 <span class="model-pra-t">下单时间</span><%= CurrentOrder.OrderCreated %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">订单状态</span><%= CurrentOrder.GetFriendlyStatus() %>
+                                                <span class="model-pra-t">订单状态</span><%= CurrentOrder.GetStatusTitleFriendly(CurrentOrder.OrderStatus) %>
                                             </p>
 
                                         </div>
