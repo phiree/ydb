@@ -10,10 +10,10 @@ namespace Dianzhu.BLL
 {
     public class BLLAdvertisement
     {
-        private IDAL.IRepository<Advertisement> repo;
+        private IDALAdvertisement repo;
         private IDAL.IUnitOfWork iUnitOfWork;
 
-        public BLLAdvertisement(IDAL.IRepository<Advertisement> repo, IDAL.IUnitOfWork iUnitOfWork)
+        public BLLAdvertisement(IDALAdvertisement repo, IDAL.IUnitOfWork iUnitOfWork)
         {
             this.repo = repo;
             this.iUnitOfWork = iUnitOfWork;

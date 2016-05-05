@@ -217,10 +217,6 @@
       <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
       <Name>Dianzhu.Push</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.Test.Repository\Dianzhu.Test.Repository.csproj">
-      <Project>{3535f314-9905-4074-b6dd-3130e46f0562}</Project>
-      <Name>Dianzhu.Test.Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DianzhuService.Diandian\DianzhuService.Diandian.csproj">
       <Project>{d3820846-bad7-49e9-8bcf-d5ef26579350}</Project>
       <Name>DianzhuService.Diandian</Name>

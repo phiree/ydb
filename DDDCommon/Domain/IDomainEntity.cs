@@ -5,8 +5,12 @@ using System.Text;
 
 namespace DDDCommon.Domain
 {
-    public interface IDomainEntity
+    public interface IEntity<TPrimaryKey>
     {
-        object Id { get; }
+        TPrimaryKey Id { get; set; }
+    }
+    public class Entity<TPrimaryKey> : IEntity<TPrimaryKey>
+    {
+        public virtual TPrimaryKey Id { get; set; }
     }
 }

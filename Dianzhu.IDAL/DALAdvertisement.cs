@@ -7,10 +7,8 @@ using System.Text;
 
 namespace Dianzhu.DAL
 {
-    public interface IDALArea:IDAL.IRepository<Model.Area,int>
-    {
-
-
+    public interface IDALAdvertisement:IDAL.IRepository<Model.Advertisement,Guid>
+    { 
         
     }
 

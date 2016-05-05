@@ -18,9 +18,7 @@ namespace Dianzhu.DemoClient
         }
         private void LoadAdvList()
         {
-            BLL.BLLAdvertisement bll;
-            long totalRecords;
-            dataGridView1.DataSource = bll.GetADList(0, 10, out totalRecords);
+            
         }
     }
 }

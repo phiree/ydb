@@ -6,7 +6,7 @@ using NUnit.Framework;
 using FizzWare.NBuilder;
 using Rhino.Mocks;
 using Dianzhu.BLL;
-using Dianzhu.Test.Repository;
+ 
 using Dianzhu.DAL;
 namespace Dianzhu.Test.BLLTest
 {

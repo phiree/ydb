@@ -12,12 +12,12 @@ namespace Dianzhu.BLL
 
 
         //暴露 数据库实现,用于单元测试mock
-        public IRepository<Model.Area> repoArea;
+        public IDALArea  repoArea;
       
-        public IUnitOfWork iuw;
-        public BLLArea(IRepository<Model.Area> repoArea, IUnitOfWork iuw) {
+      
+        public BLLArea(IDALArea repoArea) {
             this.repoArea = repoArea;
-            this.iuw = iuw;
+           
         }
  
         /// <summary>
@@ -25,11 +25,12 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="areaid">6位数中的前两位,如浙江的33</param>
         /// <returns>330000,330100,330200------331100</returns>
+       
         public IList<Model.Area> GetArea(int areaid) 
         {
-            iuw.BeginTransaction();
+            //iuw.BeginTransaction();
             Expression<Func<Model.Area, bool>> where = i => i.Id == areaid;
-            iuw.Commit();
+           // iuw.Commit();
             return repoArea.Find(where).ToList();
         }
         /// <summary>
@@ -66,9 +67,9 @@ namespace Dianzhu.BLL
             {
                 Func<Model.Area, bool> where2 = i => i.Code == "" && i.Code == "dd";
             }
-            iuw.BeginTransaction();
+          //  iuw.BeginTransaction();
             var result= repoArea.Find(where).ToList();
-            iuw.Commit();
+          //  iuw.Commit();
             return result;
         }
 
@@ -85,10 +86,10 @@ namespace Dianzhu.BLL
                 return null;
             }
             Expression<Func<Model.Area, bool>> where = i => i.Name == areaname;
-            iuw.BeginTransaction();
+           // iuw.BeginTransaction();
            
             var list= repoArea.FindOne(where);
-            iuw.Commit();
+          //  iuw.Commit();
             return list;
             
         }
@@ -101,18 +102,18 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public IList<Model.Area> GetAreaProvince()
         {
-            iuw.BeginTransaction();
+           // iuw.BeginTransaction();
             Expression<Func<Model.Area, bool>> where = i => i.Code.EndsWith("0000");
             var result= repoArea.Find(where).ToList();
-            iuw.Commit();
+           // iuw.Commit();
             return result;
         }
 
         public Model.Area GetOne(int areaId)
         {
-            iuw.BeginTransaction();
+          //  iuw.BeginTransaction();
             var area = repoArea.FindById(areaId);
-            iuw.Commit();
+          //  iuw.Commit();
             return area;
         }
     }

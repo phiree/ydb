@@ -6,62 +6,61 @@ using System.Text;
 using DDDCommon;
 using NHibernate;
 using NHibernate.Linq;
+using Dianzhu.IDAL;
+using DDDCommon.Domain;
 namespace Dianzhu.DAL
 {
-    public class NHRepository<T> : IDAL.IRepository<T> 
-        where T :class
+    public abstract class NHRepositoryBase<TEntity,TPrimaryKey> :  IRepository<TEntity, TPrimaryKey>
+        where TEntity:Entity<TPrimaryKey>
     {
 
-        private NHUnitOfWork _unitOfWork;
-        private ISession session { get { return _unitOfWork.Session; } }
-        public NHRepository(IDAL.IUnitOfWork iUnitOfWork)
-        {
-            this._unitOfWork = (NHUnitOfWork)iUnitOfWork;
-        }
-        public void Add(T t)
+       
+        private ISession session { get { return NHUnitOfWork.Current.Session; } }
+      
+        public void Add(TEntity t)
         {
             session.Save(t);
         }
 
-        public void Delete(T t)
+        public void Delete(TEntity t)
         {
             session.Delete(t);
         }
 
 
-        public T FindById(object identityId)
+        public TEntity FindById(TPrimaryKey identityId)
         {
-            return session.Get<T>(identityId);
+            return session.Get<TEntity>(identityId);
         }
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> where)
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where)
         {
             long totalRecord;
             return Find(where, 1, 999, out totalRecord);
         }
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> where, int pageIndex, int pageSize, out long totalRecords)
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords)
         {
             
-            var query = session.Query<T>().Where(where);
+            var query = session.Query<TEntity>().Where(where);
             totalRecords = query.Count();
             return query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToFuture();
         }
 
      
-        public long GetRowCount(Expression<Func<T, bool>> where)
+        public long GetRowCount(Expression<Func<TEntity, bool>> where)
         {
-            var query = session.Query<T>().Where(where);
+            var query = session.Query<TEntity>().Where(where);
            long totalRecords = query.Count();
             return totalRecords;
         }
 
-        public T FindOne(Expression<Func<T, bool>> where)
+        public TEntity FindOne(Expression<Func<TEntity, bool>> where)
         {
-            return  session.Query<T>().Where(where).SingleOrDefault();
+            return  session.Query<TEntity>().Where(where).SingleOrDefault();
         }
 
-        public void Update(T t)
+        public void Update(TEntity t)
         {
               session.Update(t);
         }

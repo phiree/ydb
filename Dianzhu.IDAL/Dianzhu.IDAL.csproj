@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALAdvertisement.cs" />
     <Compile Include="DALArea.cs" />
     <Compile Include="DALBusiness.cs" />
     <Compile Include="DALBusinessImage.cs" />
