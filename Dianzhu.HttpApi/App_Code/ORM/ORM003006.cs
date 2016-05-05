@@ -69,6 +69,8 @@ public class ResponseORM003006 : BaseResponse
                 orderStatusObj.status = enum_OrderStatus.Draft.ToString();
                 orderStatusObj.time = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
                 orderStatusObj.lastStatus = "";
+                orderStatusObj.title = order.GetStatusTitleFriendly(enum_OrderStatus.Draft);
+                orderStatusObj.context = order.GetStatusContextFriendly(enum_OrderStatus.Draft);
                 RespOrderStatusList.Add(orderStatusObj);
 
                 IList< ServiceOrderStateChangeHis> OrderStateHisList = bllServiceOrderHis.GetOrderHisList(order);
