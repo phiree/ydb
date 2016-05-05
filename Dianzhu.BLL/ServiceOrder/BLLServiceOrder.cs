@@ -51,7 +51,7 @@ namespace Dianzhu.BLL
         #region 基本操作
         public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
         {
-            repoServiceOrder.GetRowCount("select * from ");
+             
             return DALServiceOrder.GetServiceOrderCount(userId, searchType);
         }
         public IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize)

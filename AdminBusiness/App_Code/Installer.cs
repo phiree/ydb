@@ -13,12 +13,10 @@ using Dianzhu.BLL;
 /// </summary>
 public class Installer
 {
-    static WindsorContainer container;
-    public static WindsorContainer Container
-    {
-        get { return container; }
-    }
-    static Installer()
+   static  WindsorContainer container;
+    public static WindsorContainer Container {
+        get { return container; } }
+     static Installer()
     {
         container = new WindsorContainer();
 
@@ -28,7 +26,7 @@ public class Installer
         container.Register(Component.For(typeof(IRepository<>), typeof(NHRepository<>)).ImplementedBy(typeof(NHRepository<>)));
         container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>().LifestylePerWebRequest());
 
-        container.Register(Component.For<IRepository<Advertisement>>().ImplementedBy<DALAdvertisement>());
+        container.Register(Component.For<IRepository<Advertisement>>() .ImplementedBy<DALAdvertisement>());
         container.Register(Component.For<IRepository<Area>>().ImplementedBy<DALArea>());
 
 

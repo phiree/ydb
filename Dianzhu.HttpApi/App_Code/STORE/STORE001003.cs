@@ -27,7 +27,8 @@ public class ResponseSTORE001003 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
         BLLBusiness bllBusiness = new BLLBusiness();
-        BLLArea bllArea = new BLLArea();
+        BLLArea bllArea = Installer.Container.Resolve<BLLArea>();
+       
         BLLBusinessImage bllBusinessImage = new BLLBusinessImage();
 
         try

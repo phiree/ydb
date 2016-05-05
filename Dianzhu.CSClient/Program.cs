@@ -12,9 +12,13 @@ using System.ComponentModel;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
 using ViewWPF = Dianzhu.CSClient.ViewWPF;
- 
+
 using cw = Castle.Windsor;
 using cmr = Castle.MicroKernel.Registration;
+using Dianzhu.DAL;
+using Dianzhu.IDAL;
+using Dianzhu.Model;
+
 namespace Dianzhu.CSClient
 {
     static class Program
@@ -97,9 +101,14 @@ namespace Dianzhu.CSClient
         static Castle.Windsor.WindsorContainer Install()
         {
             var container = new Castle.Windsor.WindsorContainer();
+            UIInstall(container);
+            RepositoryInstall(container);
+            return container;
+
+        }
+        static void UIInstall(Castle.Windsor.WindsorContainer container)
+        {
             container.Register(cmr.Component.For<Presenter.PMain>());
-
-
             container.Register(cmr.Component.For<CSClient.Presenter.LoginPresenter>());
             container.Register(cmr.Component.For<CSClient.Presenter.IdentityManager>());
             container.Register(cmr.Component.For<CSClient.Presenter.PIdentityList>());
@@ -131,15 +140,19 @@ namespace Dianzhu.CSClient
                             )
                             );
 
-            container.Register(cmr.Component.For<CSClient.IMessageAdapter.IAdapter>()
-                .ImplementedBy<CSClient.MessageAdapter.MessageAdapter>()
+            container.Register(cmr.Component.For<CSClient.IMessageAdapter.IAdapter>().ImplementedBy<CSClient.MessageAdapter.MessageAdapter>());
 
+        }
+        static void RepositoryInstall(Castle.Windsor.WindsorContainer container)
+        {
+            container.Register(cmr.Component.For<BLLAdvertisement>());
+            container.Register(cmr.Component.For<BLLArea>());
 
-                );
+            container.Register(cmr.Component.For(typeof(IRepository<>), typeof(NHRepository<>)).ImplementedBy(typeof(NHRepository<>)));
+            container.Register(cmr.Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
 
-
-            return container;
-
+            container.Register(cmr.Component.For<IRepository<Advertisement>>().ImplementedBy<DALAdvertisement>());
+            container.Register(cmr.Component.For<IRepository<Area>>().ImplementedBy<DALArea>());
         }
         static bool CheckConfig()
         {
@@ -189,7 +202,4 @@ namespace Dianzhu.CSClient
             return myVersion.ToString();
         }
     }
-
-
-    // public interface IIdentityManagerFactory
 }

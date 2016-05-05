@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D90CDF37-7406-4DAE-9AE6-C894D83A796F}</ProjectGuid>
+    <ProjectGuid>{3535F314-9905-4074-B6DD-3130E46F0562}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DDDCommon</RootNamespace>
-    <AssemblyName>DDDCommon</AssemblyName>
+    <RootNamespace>Dianzhu.Test.Repository</RootNamespace>
+    <AssemblyName>Dianzhu.Test.Repository</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,16 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\IDomainEntity.cs" />
+    <Compile Include="MemoryUnitOfWork.cs" />
+    <Compile Include="MemoryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Specification\And.cs" />
-    <Compile Include="Specification\IExtensions.cs" />
-    <Compile Include="Specification\ISpecification.cs" />
-    <Compile Include="Specification\Negate.cs" />
-    <Compile Include="Specification\Or.cs" />
-    <Compile Include="Specification\ParameterReplacer.cs" />
-    <Compile Include="Specification\SpecExprExtensions.cs" />
-    <Compile Include="Specification\SpecificationBase.cs" />
+    <Compile Include="Resource\MemoryRepositoryArea.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
+      <Project>{43e8ffa6-60e9-40ca-a7a8-cec8008519dd}</Project>
+      <Name>Dianzhu.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
+      <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
+      <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Area\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

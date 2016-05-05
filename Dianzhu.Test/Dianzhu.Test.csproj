@@ -42,6 +42,10 @@
       <HintPath>..\packages\Castle.Core.3.3.1\lib\net40-client\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FizzWare.NBuilder, Version=3.0.1.0, Culture=neutral, PublicKeyToken=5651b03e12e42c12, processorArchitecture=MSIL">
       <HintPath>..\packages\NBuilder.3.0.1.1\lib\FizzWare.NBuilder.dll</HintPath>
       <Private>True</Private>
@@ -124,6 +128,7 @@
     <Compile Include="DZCSClientTest\PCustomerListTest.cs" />
     <Compile Include="DZCSClientTest\PIdentityListTest.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
+    <Compile Include="Installer.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />
     <Compile Include="ModelTest\DZServiceTest.cs" />
@@ -192,6 +197,10 @@
       <Project>{2E67AA78-6780-42BD-A3AB-AD953781E511}</Project>
       <Name>Dianzhu.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
+      <Project>{43e8ffa6-60e9-40ca-a7a8-cec8008519dd}</Project>
+      <Name>Dianzhu.IDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>
@@ -207,6 +216,10 @@
     <ProjectReference Include="..\Dianzhu.Push\Dianzhu.Push.csproj">
       <Project>{be142427-1ce4-40f8-ac58-d0509ba05d21}</Project>
       <Name>Dianzhu.Push</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Test.Repository\Dianzhu.Test.Repository.csproj">
+      <Project>{3535f314-9905-4074-b6dd-3130e46f0562}</Project>
+      <Name>Dianzhu.Test.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\DianzhuService.Diandian\DianzhuService.Diandian.csproj">
       <Project>{d3820846-bad7-49e9-8bcf-d5ef26579350}</Project>

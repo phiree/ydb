@@ -10,7 +10,7 @@ public partial class cashticket_assigner_Default : System.Web.UI.Page
 {
 
     BLLBusiness bllBusiness = new BLLBusiness();
-    BLLArea bllArea = new BLLArea();
+    BLLArea bllArea = Installer.Container.Resolve<BLLArea>();
    
     protected void Page_Load(object sender, EventArgs e)
     {

@@ -29,45 +29,35 @@ namespace Dianzhu.DAL
         {
             repo.Delete(t);
         }
-
-        public IEnumerable<Advertisement> Find(ISpecification<Advertisement> specs)
-        {
-           return repo.Find(specs);
-        }
-
-        public IEnumerable<Advertisement> Find(Expression<Func<Advertisement, bool>> express)
-        {
-            return repo.Find(express);
-        }
-
-        public IEnumerable<Advertisement> Find(string where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Advertisement> Find(ISpecification<Advertisement> specs, int pageIndex, int pageSize, out long totalRecords)
-        {
-            return repo.Find(specs, pageIndex, pageSize, out totalRecords);
-        }
-
-        public IEnumerable<Advertisement> Find(string where,int pageIndex,int pageSize, out long totalRecords)
-        {
-            return repo.Find(where,pageIndex,pageSize, out totalRecords);
-        }
-
         public Advertisement FindById(object identityId)
         {
             return repo.FindById(identityId);
         }
 
-        public long GetRowCount(ISpecification<Advertisement> specs)
-        {
-            throw new NotImplementedException();
-        }
 
-        public long GetRowCount(string where)
+        public IEnumerable<Advertisement> Find(Expression<Func<Advertisement, bool>> where)
+        {
+            return repo.Find(where);
+        }
+        
+        public long GetRowCount(Expression<Func<Advertisement, bool>> where)
         {
             return repo.GetRowCount(where);
+        }
+
+        public IEnumerable<Advertisement> Find(Expression<Func<Advertisement, bool>> where, int pageIndex, int pageSize, out long totalRecords)
+        {
+            return repo.Find(where, pageIndex, pageSize, out totalRecords);
+        }
+
+        public Advertisement FindOne(Expression<Func<Advertisement, bool>> where)
+        {
+            return repo.FindOne(where);
+        }
+
+        public void Update(Advertisement t)
+        {
+            repo.Update(t);
         }
     }
 }

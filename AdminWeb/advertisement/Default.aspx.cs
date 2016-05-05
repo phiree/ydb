@@ -8,7 +8,8 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 public partial class advertisement_Default : System.Web.UI.Page
 {
-    BLLAdvertisement bllad = new BLLAdvertisement();
+    BLLAdvertisement bllAd = Installer.Container.Resolve<BLLAdvertisement>();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -18,14 +19,14 @@ public partial class advertisement_Default : System.Web.UI.Page
     }
     private void BindList()
     { 
-        int totalRecord;
+        long totalRecord;
         int currentPageIndex=1;
         string paramPage=Request.Params["page"];
         if(!string.IsNullOrEmpty(paramPage))
         {
          currentPageIndex=int.Parse(paramPage);
         }
-        gvMember.DataSource = bllad.GetADList(currentPageIndex, pager.PageSize, out totalRecord);
+        gvMember.DataSource = bllAd.GetADList(currentPageIndex, pager.PageSize, out totalRecord);
         pager.RecordCount = Convert.ToInt32(totalRecord);
         gvMember.RowDataBound += new GridViewRowEventHandler(gvMember_RowDataBound);
         gvMember.DataBind();

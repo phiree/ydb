@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using DDDCommon;
 using NHibernate;
+using NHibernate.Linq;
 namespace Dianzhu.DAL
 {
     public class NHRepository<T> : IDAL.IRepository<T> 
@@ -27,60 +28,42 @@ namespace Dianzhu.DAL
             session.Delete(t);
         }
 
-        public IEnumerable<T> Find(string where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> Find(string where, int pageIndex, int pageSize, out long totalRecords)
-        {
-
-            string where_rowcount = PHSuit.StringHelper.BuildCountQuery(where);
-            IQuery query_RowCount = session.CreateQuery(where_rowcount);
-            totalRecords = query_RowCount.FutureValue<long>().Value;
-            IQuery query = session.CreateQuery(where);
-            return query.Enumerable<T>();
-
-
-        }
 
         public T FindById(object identityId)
         {
             return session.Get<T>(identityId);
         }
 
-        public long GetRowCount(string where)
+        public IEnumerable<T> Find(Expression<Func<T, bool>> where)
         {
-            string where_rowcount = PHSuit.StringHelper.BuildCountQuery(where);
-            IQuery query_RowCount = session.CreateQuery(where_rowcount);
-            long totalRecords = query_RowCount.FutureValue<long>().Value;
+            long totalRecord;
+            return Find(where, 1, 999, out totalRecord);
+        }
+
+        public IEnumerable<T> Find(Expression<Func<T, bool>> where, int pageIndex, int pageSize, out long totalRecords)
+        {
+            
+            var query = session.Query<T>().Where(where);
+            totalRecords = query.Count();
+            return query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToFuture();
+        }
+
+     
+        public long GetRowCount(Expression<Func<T, bool>> where)
+        {
+            var query = session.Query<T>().Where(where);
+           long totalRecords = query.Count();
             return totalRecords;
         }
 
-        public IEnumerable<T> Find(ISpecification<T> specs, int pageIndex, int pageSize, out long totalRecords)
+        public T FindOne(Expression<Func<T, bool>> where)
         {
-            var query = session.QueryOver<T>().Where(specs.SpecExpression);
-            totalRecords = query.RowCountInt64();
-            return query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).Future();
+            return  session.Query<T>().Where(where).SingleOrDefault();
         }
 
-        public IEnumerable<T> Find(ISpecification<T> specs)
+        public void Update(T t)
         {
-            var query = session.QueryOver<T>().Where(specs.SpecExpression);
-            return query.Future();
-        }
-
-        public long GetRowCount(ISpecification<T> specs)
-        {
-            var query = session.QueryOver<T>().Where(specs.SpecExpression);
-           long totalRecords = query.RowCountInt64();
-            return totalRecords;
-        }
-
-        public IEnumerable<T> Find(Expression<Func<T, bool>> express)
-        {
-            var query = session.QueryOver<T>().Where(express);
-            return query.Future();
+              session.Update(t);
         }
     }
 }

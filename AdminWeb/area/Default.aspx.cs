@@ -11,8 +11,8 @@ using Dianzhu.BLL;
 /// </summary>
 public partial class area_Default : System.Web.UI.Page
 {
- 
-    BLLArea bllArea = new BLLArea();
+
+    BLLArea bllArea = Installer.Container.Resolve<BLLArea>();
     protected void Page_Load(object sender, EventArgs e)
     {
         string code = Request["code"];

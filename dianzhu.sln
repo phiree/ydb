@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSClient", "CSClient", "{8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}"
 EndProject
@@ -183,6 +183,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "dianzhu_adminbusiness_mvc",
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "53672"
+		SlnRelativePath = "..\publish\dianzhu_adminbusiness_mvc\"
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dlls", "dlls", "{FF82FDAB-C9E3-4C42-ABE8-BB47F4946CAC}"
@@ -274,6 +275,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{961BE4AF-A2E3-4B28-A6DA-A0775267EF0E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDDCommon", "DDDCommon\DDDCommon.csproj", "{D90CDF37-7406-4DAE-9AE6-C894D83A796F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Test.Repository", "Dianzhu.Test.Repository\Dianzhu.Test.Repository.csproj", "{3535F314-9905-4074-B6DD-3130E46F0562}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -725,6 +728,18 @@ Global
 		{D90CDF37-7406-4DAE-9AE6-C894D83A796F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D90CDF37-7406-4DAE-9AE6-C894D83A796F}.Release|x86.ActiveCfg = Release|Any CPU
 		{D90CDF37-7406-4DAE-9AE6-C894D83A796F}.Release|x86.Build.0 = Release|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Debug|x86.Build.0 = Debug|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Release|x86.ActiveCfg = Release|Any CPU
+		{3535F314-9905-4074-B6DD-3130E46F0562}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -768,6 +783,7 @@ Global
 		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{43E8FFA6-60E9-40CA-A7A8-CEC8008519DD} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{D90CDF37-7406-4DAE-9AE6-C894D83A796F} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{3535F314-9905-4074-B6DD-3130E46F0562} = {E4338C9B-90F1-4640-A650-F903E722C878}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

@@ -13,19 +13,28 @@ namespace Dianzhu.CSClient.Presenter
      
        IView.ILoginForm loginView;
        InstantMessage instantMessage;
-     
-       public LoginPresenter(IView.ILoginForm loginView, InstantMessage instantMessage
+
+        BLLAdvertisement bllAdv;
+       public LoginPresenter(IView.ILoginForm loginView, InstantMessage instantMessage, BLLAdvertisement bllAdv
 )
        {
 
            this.loginView = loginView;
            this.instantMessage = instantMessage;
+            this.bllAdv = bllAdv;
            loginView.ViewLogin +=new IView.ViewLogin(loginView_ViewLogin);
-           
+            loginView.TestClick += LoginView_TestClick;
             instantMessage.IMError += new IMError(XMPP_IMError);
             instantMessage.IMConnectionError += new IMConnectionError(instantMessage_IMConenctionError);
             instantMessage.IMLogined += new IMLogined(IMLogined);
             instantMessage.IMAuthError += new IMAuthError(XMPP_IMAuthError);
+
+        }
+
+        private void LoginView_TestClick(object sender, EventArgs e)
+        {
+            long totalRecord;
+            var advList = bllAdv.GetADList(1, 10, out totalRecord);
 
         }
 

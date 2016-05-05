@@ -52,6 +52,7 @@
             this.tbxLog = new System.Windows.Forms.RichTextBox();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnAdvList = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -106,6 +107,7 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.tbxOrderId);
+            this.panel1.Controls.Add(this.btnAdvList);
             this.panel1.Controls.Add(this.btnOnlineUsers);
             this.panel1.Controls.Add(this.lblAssignedCS);
             this.panel1.Controls.Add(this.tbxManualAssignedCS);
@@ -289,6 +291,16 @@
             this.pnlChat.TabIndex = 8;
             this.pnlChat.WrapContents = false;
             // 
+            // btnAdvList
+            // 
+            this.btnAdvList.Location = new System.Drawing.Point(686, 9);
+            this.btnAdvList.Name = "btnAdvList";
+            this.btnAdvList.Size = new System.Drawing.Size(75, 23);
+            this.btnAdvList.TabIndex = 8;
+            this.btnAdvList.Text = "AdvertisementList";
+            this.btnAdvList.UseVisualStyleBackColor = true;
+            this.btnAdvList.Click += new System.EventHandler(this.btnAdvList_Click);
+            // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -336,5 +348,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbxManualAssignedCS;
         private System.Windows.Forms.RichTextBox tbxLog;
+        private System.Windows.Forms.Button btnAdvList;
     }
 }

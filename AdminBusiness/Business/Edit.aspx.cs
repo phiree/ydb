@@ -108,8 +108,8 @@ public partial class Business_Edit : BasePage
         b.StaffAmount = int.Parse(selStaffAmount.Value);
         b.ChargePersonIdCardType = (enum_IDCardType)int.Parse(selCardType.Value);
         b.ChargePersonIdCardNo = tbxCardIdNo.Value;
-
-        AddressParser addressParser = new AddressParser(hiAddrId.Value);
+        BLLArea bllArea = Installer.Container.Resolve<BLLArea>();
+        AddressParser addressParser = new AddressParser(hiAddrId.Value, bllArea);
         Area area;
         double latitude;
         double longtitude;
