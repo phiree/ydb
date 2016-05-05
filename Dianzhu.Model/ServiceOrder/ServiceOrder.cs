@@ -186,6 +186,34 @@ namespace Dianzhu.Model
             get; protected set;
         }
         
+        public virtual Business Business {
+            get {
+                if (Details.Count == 0)
+                { return null; }
+                 ;
+                string errMsg;
+                var businessesInOrder=    Details.Select(x => x.OriginalService.Business).ToList();
+                int count = businessesInOrder.Count;
+                if (count == 1)
+                {
+                    return businessesInOrder[0];
+                }
+                else {
+                    if (count > 1)
+                    {
+                        errMsg = "订单内有多个商家";
+                        log.Error(errMsg);
+                        throw new Exception(errMsg);
+                    }
+                    else {
+                        errMsg = "订单内的服务居然没有";
+                        log.Error(errMsg);
+                        throw new Exception(errMsg);
+                    }
+                }
+                 
+            }
+        }
         /// <summary>
         /// 订单的标题
         /// </summary>

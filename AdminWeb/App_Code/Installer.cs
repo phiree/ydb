@@ -28,16 +28,17 @@ public class Installer
         container = new WindsorContainer();
 
         container.Register(Component.For<BLLAdvertisement>());
+        container.Register(Component.For<BLLServiceOrder>());
         container.Register(Component.For<BLLArea>());
-container.Register(Component.For<ISessionFactory>().UsingFactoryMethod(CreateNhSessionFactory).LifestylePerWebRequest());
-
-        container.Register(Component.For(typeof(IRepository<,>), typeof(NHRepositoryBase<,>)).ImplementedBy(typeof(NHRepositoryBase<,>)));
-        container.Register( Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient);
+        container.Register(Component.For<ISessionFactory>().UsingFactoryMethod(CreateNhSessionFactory).LifestylePerWebRequest());
+        container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
+        container.Register(Component.For(typeof(IRepository<,>)).ImplementedBy(typeof(NHRepositoryBase<,>)));
+    //    container.Register( Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient);
 
         container.Register(Component.For<IRepository<Advertisement,Guid>, IDALAdvertisement>().ImplementedBy<DALAdvertisement>());
         container.Register(Component.For<IRepository<Area,int>,IDALArea>().ImplementedBy<DALArea>());
-        container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
-        
+        container.Register(Component.For<IRepository<ServiceOrder, Guid>, IDALServiceOrder>().ImplementedBy<DALServiceOrder>());
+
 
 
     }

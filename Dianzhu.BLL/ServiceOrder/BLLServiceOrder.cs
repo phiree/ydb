@@ -21,29 +21,30 @@ namespace Dianzhu.BLL
     /// <summary>
     /// 订单业务逻辑
     /// </summary>
-    public class BLLServiceOrder
+    public class BLLServiceOrder:IBLLServiceOrder
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
 
-         IDALServiceOrder repoServiceOrder;
-        DALServiceOrder DALServiceOrder;
+        IDALServiceOrder repoServiceOrder;
+       
         DZMembershipProvider membershipProvider = null;
         BLLPayment bllPayment = null;
         BLLRefund bllRefund = null;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
 
-        public BLLServiceOrder(DALServiceOrder dalServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, DZMembershipProvider membershipProvider,BLLPayment bllPayment,BLLRefund bllRefund)
+        public BLLServiceOrder(  BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, DZMembershipProvider membershipProvider,BLLPayment bllPayment,BLLRefund bllRefund,IDALServiceOrder repoServiceOrder)
         {
-            this.DALServiceOrder = dalServiceOrder;
+            this.repoServiceOrder = repoServiceOrder;
+             
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
             this.membershipProvider = membershipProvider;
             this.bllPayment = bllPayment;
             this.bllRefund = bllRefund;
+           
         }
 
-        public BLLServiceOrder() : this(new DALServiceOrder(), new BLLServiceOrderStateChangeHis(), new DZMembershipProvider(),new BLLPayment(),new BLLRefund())
-        {
-        }
+        
+      
  
         #region 基本操作
  
@@ -80,35 +81,74 @@ namespace Dianzhu.BLL
                       ;
                     break;
             }
+            return (int)repoServiceOrder.GetRowCount(where);
 
-
-            return DALServiceOrder.GetServiceOrderCount(userId, searchType);
+           // return DALServiceOrder.GetServiceOrderCount(userId, searchType);
         }
         public IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize)
         {
-            return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
+            var where = PredicateBuilder.True<ServiceOrder>();
+            where = where.And(x => x.Customer.Id == userId);
+
+            switch (searchType)
+            {
+
+                case enum_OrderSearchType.De:
+                    where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
+                         && x.OrderStatus == enum_OrderStatus.Aborded
+                         && x.OrderStatus == enum_OrderStatus.Appraised)
+                        ;
+                    break;
+                case enum_OrderSearchType.Nt:
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Finished
+                         && x.OrderStatus != enum_OrderStatus.Aborded
+                         && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.Search);
+
+                    break;
+                default:
+                case enum_OrderSearchType.ALL:
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Search)
+                      ;
+                    break;
+            }
+            long totalRecord;
+            return repoServiceOrder.Find(where, pageNum, pageSize,out totalRecord).ToList();
+
+           // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
         }
 
         public virtual ServiceOrder GetOne(Guid guid)
         {
-            throw new NotImplementedException();
+            return repoServiceOrder.FindById(guid);
+        
             // return DALServiceOrder.GetOne(guid);
         }
         public void SaveOrUpdate(ServiceOrder order)
         {
-            throw new NotImplementedException();
+            repoServiceOrder.Update(order);
+         
            // order.LatestOrderUpdated = DateTime.Now;
            // DALServiceOrder.SaveOrUpdate(order);
         }
         public IList<ServiceOrder> GetAll() //获取全部订单
         {
-            throw new NotImplementedException();
+            var where = PredicateBuilder.True<ServiceOrder>();
+           return repoServiceOrder.Find(where).ToList();
+            
             ///return DALServiceOrder.GetAll<ServiceOrder>();
         }
 
         public IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status)
         {
-            throw new NotImplementedException();
+            var where = PredicateBuilder.True<ServiceOrder>();
+            where = where.And(x => x.OrderStatus == status);
+            return repoServiceOrder.Find(where).ToList();
+          
             //return DALServiceOrder
             //   .GetAll<ServiceOrder>()
             //   .Where(x => x.OrderStatus == status)
@@ -121,30 +161,75 @@ namespace Dianzhu.BLL
 
         public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {
-            return DALServiceOrder.GetAllOrdersForBusiness(business.Id, pageNum, pageSize, out totalAmount);
+            var where = PredicateBuilder.True<ServiceOrder>();
+            where = where.And(x =>x.Business==business);
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
+
+            long long_totalAmount;
+            var result= repoServiceOrder.Find(where,pageNum,pageSize,out long_totalAmount).ToList();
+            totalAmount = (int)long_totalAmount;
+            return result;
+           // return DALServiceOrder.GetAllOrdersForBusiness(business.Id, pageNum, pageSize, out totalAmount);
         }
 
         public IList<ServiceOrder> GetListForCustomer(DZMembership customer, int pageNum, int pageSize, out int totalAmount)
         {
-            return DALServiceOrder.GetListForCustomer(customer, pageNum, pageSize, out totalAmount);
+            var where = PredicateBuilder.True<ServiceOrder>();
+            where = where.And(x => x.Customer == customer);
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
+
+            long long_totalAmount;
+            var result = repoServiceOrder.Find(where, pageNum, pageSize, out long_totalAmount).ToList();
+            totalAmount = (int)long_totalAmount;
+            return result;
+            //return DALServiceOrder.GetListForCustomer(customer, pageNum, pageSize, out totalAmount);
         }
 
         public void Delete(ServiceOrder order)
         {
-            DALServiceOrder.Delete(order);
+            repoServiceOrder.Delete(order);
+           // DALServiceOrder.Delete(order);
         }
 
         public virtual ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
         {
-            return DALServiceOrder.GetDraftOrder(c, cs);
+            var where = PredicateBuilder.True<ServiceOrder>();
+            where = where.And(x => x.Customer == c&&x.CustomerService==cs&&x.OrderStatus== enum_OrderStatus.Draft);
+            ServiceOrder order = null;
+            try
+            {
+                order = repoServiceOrder.FindOne(where);
+               
+            }
+            catch (Exception ex)
+            {
+                string errMsg = "错误:用户和客服有多张草稿单!";
+                log.Error(errMsg);
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+
+            }
+            return order;
+            
+            
+           // return DALServiceOrder.GetDraftOrder(c, cs);
         }
         public IList<ServiceOrder> GetOrderListByDate(DZService service, DateTime date)
         {
-            return DALServiceOrder.GetOrderListByDate(service, date);
+            var where = PredicateBuilder.True<ServiceOrder>();
+            where = where.And(x => x.Service == service && x.OrderCreated.Date == date.Date);
+
+            return repoServiceOrder.Find(where).ToList();
+
+            //return DALServiceOrder.GetOrderListByDate(service, date);
         }
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
         {
-            return DALServiceOrder.GetOrderByIdAndCustomer(Id, customer);
+            var where = PredicateBuilder.True<ServiceOrder>();
+            where = where.And(x => x.Id==Id && x.Customer ==customer);
+
+            return repoServiceOrder.FindOne(where);
+
+          //  return DALServiceOrder.GetOrderByIdAndCustomer(Id, customer);
         }
         #endregion
 
@@ -612,22 +697,62 @@ namespace Dianzhu.BLL
 
         public int GetServiceOrderCountWithoutDraft(Guid userid, bool isCustomerService)
         {
-            return DALServiceOrder.GetServiceOrderCountWithoutDraft(userid, isCustomerService);
+            var where = PredicateBuilder.True<ServiceOrder>();
+            if (isCustomerService)
+            {
+                where = where.And(x => x.CustomerService.Id == userid);
+            }
+            else
+            {
+                where = where.And(x => x.Customer.Id == userid);
+            }
+            where = where.And(x =>x.OrderStatus!= enum_OrderStatus.Draft&& x.OrderStatus!= enum_OrderStatus.DraftPushed);
+
+            return (int) repoServiceOrder.GetRowCount(where);
+
+           // return DALServiceOrder.GetServiceOrderCountWithoutDraft(userid, isCustomerService);
         }
         public decimal GetServiceOrderAmountWithoutDraft(Guid userid, bool isCustomerService)
         {
-            return DALServiceOrder.GetServiceOrderAmountWithoutDraft(userid, isCustomerService);
-        }
 
+            var where = PredicateBuilder.True<ServiceOrder>();
+            if (isCustomerService)
+            {
+                where = where.And(x => x.CustomerService.Id == userid);
+            }
+            else
+            {
+                where = where.And(x => x.Customer.Id == userid);
+            }
+            where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
+
+            var list = repoServiceOrder.Find(where).ToList();
+            
+            return list.Sum(x => x.DepositAmount);
+         //   return DALServiceOrder.GetServiceOrderAmountWithoutDraft(userid, isCustomerService);
+        }
+      
         //查询店铺的所有订单
         public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId)
         {
-            return DALServiceOrder.GetAllOrdersForBusiness(businessId);
+            var where = PredicateBuilder.True<ServiceOrder>()
+                .And(x=>x.Business.Id==businessId);
+
+            return repoServiceOrder.Find(where).ToList();
+         //   return DALServiceOrder.GetAllOrdersForBusiness(businessId);
         }
         //查询全部已经完成的订单
         public IList<ServiceOrder> GetAllCompleteOrdersForBusiness(Guid businessId)
         {
-            return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);
+            var where = PredicateBuilder.True<ServiceOrder>()
+                .And(x => x.Business.Id == businessId)
+                .And(x=>x.OrderStatus== enum_OrderStatus.Finished|| x.OrderStatus== enum_OrderStatus.Appraised)
+                ;
+            
+
+            return repoServiceOrder.Find(where).ToList();
+
+           // return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);
         }
         //查询订单的总金额
         //查询订单的曝光率.

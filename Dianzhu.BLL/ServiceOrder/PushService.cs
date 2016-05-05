@@ -10,12 +10,12 @@ namespace Dianzhu.BLL
    public  class PushService
     {
         DAL.DALServiceOrderPushedService dalSOP;
-        BLLServiceOrder bllServiceOrder;
+        IBLLServiceOrder bllServiceOrder { get; set; }
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis;
         public PushService(DAL.DALServiceOrderPushedService dalSOP)
         {
             this.dalSOP = dalSOP;
-            this.bllServiceOrder = new BLLServiceOrder();
+            
             this.bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
         }
         public PushService():this(new DAL.DALServiceOrderPushedService())

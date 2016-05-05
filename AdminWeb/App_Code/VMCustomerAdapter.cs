@@ -12,7 +12,8 @@ public class VMCustomerAdapter
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminWeb.VMCustomerAdapter");
     Dianzhu.BLL.DZMembershipProvider bllMember = new Dianzhu.BLL.DZMembershipProvider();
     Dianzhu.BLL.BLLReceptionStatusArchieve bllRSA = new Dianzhu.BLL.BLLReceptionStatusArchieve();
-    Dianzhu.BLL.BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
+  //  Dianzhu.BLL.BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
+  public  Dianzhu.BLL.IBLLServiceOrder bllOrder { get; set; }
     public VMCustomerAdapter()
     {
        
