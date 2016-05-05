@@ -13,11 +13,11 @@ namespace Dianzhu.BLL
 
         //暴露 数据库实现,用于单元测试mock
         public IDALArea  repoArea;
+        private IUnitOfWork iuw;
       
-      
-        public BLLArea(IDALArea repoArea) {
+        public BLLArea(IDALArea repoArea, IUnitOfWork iuw) {
             this.repoArea = repoArea;
-           
+            this.iuw = iuw;
         }
  
         /// <summary>
@@ -28,9 +28,9 @@ namespace Dianzhu.BLL
        
         public IList<Model.Area> GetArea(int areaid) 
         {
-            //iuw.BeginTransaction();
+          iuw.BeginTransaction();
             Expression<Func<Model.Area, bool>> where = i => i.Id == areaid;
-           // iuw.Commit();
+            iuw.Commit();
             return repoArea.Find(where).ToList();
         }
         /// <summary>
@@ -67,9 +67,9 @@ namespace Dianzhu.BLL
             {
                 Func<Model.Area, bool> where2 = i => i.Code == "" && i.Code == "dd";
             }
-          //  iuw.BeginTransaction();
+           iuw.BeginTransaction();
             var result= repoArea.Find(where).ToList();
-          //  iuw.Commit();
+          iuw.Commit();
             return result;
         }
 
@@ -86,10 +86,10 @@ namespace Dianzhu.BLL
                 return null;
             }
             Expression<Func<Model.Area, bool>> where = i => i.Name == areaname;
-           // iuw.BeginTransaction();
+            iuw.BeginTransaction();
            
             var list= repoArea.FindOne(where);
-          //  iuw.Commit();
+             iuw.Commit();
             return list;
             
         }
@@ -102,18 +102,18 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public IList<Model.Area> GetAreaProvince()
         {
-           // iuw.BeginTransaction();
+           iuw.BeginTransaction();
             Expression<Func<Model.Area, bool>> where = i => i.Code.EndsWith("0000");
             var result= repoArea.Find(where).ToList();
-           // iuw.Commit();
+            iuw.Commit();
             return result;
         }
 
         public Model.Area GetOne(int areaId)
         {
-          //  iuw.BeginTransaction();
+             iuw.BeginTransaction();
             var area = repoArea.FindById(areaId);
-          //  iuw.Commit();
+            iuw.Commit();
             return area;
         }
     }

@@ -29,6 +29,7 @@ namespace Dianzhu.BLL
         {
             iUnitOfWork.BeginTransaction();
             repo.Update(ad);
+             
             iUnitOfWork.Commit();
         }
         public IEnumerable<Advertisement> GetADList(int pageIndex, int pageSize, out long totalRecords)
