@@ -67,7 +67,7 @@ namespace Dianzhu.Model
             {
                 case enum_OrderStatus.Search: str = "搜索单"; break;
 
-                case enum_OrderStatus.Draft: str = "草稿类型，待定"; break;
+                case enum_OrderStatus.Draft: str = "草稿"; break;
                 case enum_OrderStatus.DraftPushed: str = "等待选择服务"; break;
                 case enum_OrderStatus.Created: str = "等待支付订金"; break;
                 case enum_OrderStatus.checkPayWithDeposit: str = "已支付订金"; break;
