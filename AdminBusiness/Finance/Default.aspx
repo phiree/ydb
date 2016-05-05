@@ -6,10 +6,10 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="content-head normal-head">
-        <h3>财务管理</h3>
-    </div>
+    <h3>财务管理</h3>
+</div>
     <div class="content-main">
-        <div id="employee-list" class="animated fadeInUpSmall">
+        <div class="animated fadeInUpSmall">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
@@ -23,7 +23,7 @@
                                         <div class="fi-remain-txt">当前账户余额：<strong>888,888.00</strong>元</div>
                                         <!--<div>当前可用余额： 0.00元</div>-->
                                         <div class="fi-remain-btns m-l50">
-                                            <a class="btn btn-info m-r20">充值</a>
+                                            <a href="/Finance/Recharge.aspx" class="btn btn-info m-r20">充值</a>
                                             <a class="btn btn-create">提现</a>
                                         </div>
                                     </div>
@@ -36,9 +36,9 @@
                     <div class="col-md-12">
                         <div class="fi-model-wrap">
                             <div class="fi-h-tabs">
-                              <div class="fi-h-tab active">交易记录</div>
-                              <div class="fi-h-tab">充值记录</div>
-                              <div class="fi-h-tab">提现记录</div>
+                                <div class="fi-h-tab active">交易记录</div>
+                                <div class="fi-h-tab">充值记录</div>
+                                <div class="fi-h-tab">提现记录</div>
                             </div>
                             <div class="fi-model">
                                 <div class="fi-model-h">
