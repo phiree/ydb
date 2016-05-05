@@ -95,11 +95,17 @@ public class ResponseORM003007 : BaseResponse
                                 bllServiceOrder.OrderFlow_CustomConfirmNegotiate(order);
                                 break;
                             case enum_OrderStatus.Canceled:
-                                bllServiceOrder.OrderFlow_Canceled(order);
-                                if (order.OrderStatus != enum_OrderStatus.Canceled)
+                                //bllServiceOrder.OrderFlow_Canceled(order);
+                                if (bllServiceOrder.OrderFlow_Canceled(order))
+                                {
+                                    this.state_CODE = Dicts.StateCode[0];
+                                    this.err_Msg = "订单取消成功";
+                                    return;
+                                }
+                                else
                                 {
                                     this.state_CODE = Dicts.StateCode[1];
-                                    this.err_Msg = "订单取消失败";
+                                    this.err_Msg = "订单取消失败，请稍候再试";
                                     return;
                                 }
                                 break;

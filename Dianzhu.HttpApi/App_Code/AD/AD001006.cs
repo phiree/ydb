@@ -28,9 +28,13 @@ public class ResponseAD001006:BaseResponse
         {
             RequestDataAD001006 requestData = this.request.ReqData.ToObject<RequestDataAD001006>();
 
-            BLLAdvertisement bllAD = Installer.Container.Resolve<BLLAdvertisement>();  // new BLLAdvertisement();
-            IEnumerable<Advertisement> adList = bllAD.GetADListForUseful();            
-            if (adList.Count()> 0)
+ 
+            BLLAdvertisement bllAD = Installer.Container.Resolve<BLLAdvertisement>();
+            IList<Advertisement> adList = bllAD.GetADListForUseful();
+            RespDataAD001006 respData = new RespDataAD001006();
+
+            if (adList.Count > 0)
+ 
             {
                 string datetimeStr = "";
                 foreach(Advertisement ad in adList)
@@ -51,17 +55,20 @@ public class ResponseAD001006:BaseResponse
                 if (datetimeMd5 == requestData.md5.ToLower())
                 {
                     this.state_CODE = Dicts.StateCode[0];
+                    this.RespData = respData;
                     return;
                 }
 
                 this.state_CODE = Dicts.StateCode[0];
-                RespDataAD001006 respData = new RespDataAD001006();
+ 
+             
                 respData.AdapList(adList.ToList());
+ 
                 this.RespData = respData;
                 return;
             }
-            this.state_CODE = Dicts.StateCode[4];
-            this.err_Msg = "当前没有广告！";
+            this.state_CODE = Dicts.StateCode[0];
+            this.RespData = respData;
             return;
         }
         catch (Exception ex)

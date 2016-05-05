@@ -35,6 +35,11 @@ namespace Dianzhu.BLL
             dalServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
         }
 
+        public ServiceOrderStateChangeHis GetOrderHis(ServiceOrder order)
+        {
+            return dalServiceOrderStateChangeHis.GetOrderHis(order);
+        }
+
         public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
         {
             return dalServiceOrderStateChangeHis.GetMaxNumberOrderHis(order);

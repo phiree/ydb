@@ -165,27 +165,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DianzhuService.Diandian", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Config", "Dianzhu.Config\Dianzhu.Config.csproj", "{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "dianzhu_adminbusiness_mvc", "..\publish\dianzhu_adminbusiness_mvc\", "{8F7D2A86-E244-4D57-9BC7-87981FECE50B}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_53672"
-		Debug.AspNetCompiler.PhysicalPath = "..\publish\dianzhu_adminbusiness_mvc\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53672\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_53672"
-		Release.AspNetCompiler.PhysicalPath = "..\publish\dianzhu_adminbusiness_mvc\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53672\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "53672"
-		SlnRelativePath = "..\publish\dianzhu_adminbusiness_mvc\"
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dlls", "dlls", "{FF82FDAB-C9E3-4C42-ABE8-BB47F4946CAC}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.PushServer", "Dianzhu.Web.PushServer\", "{CBE79023-31C6-455F-A6F0-3BFF280F66E8}"
@@ -560,18 +539,6 @@ Global
 		{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}.Release|x86.ActiveCfg = Release|Any CPU
 		{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}.Release|x86.Build.0 = Release|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|x86.Build.0 = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|x86.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|x86.Build.0 = Debug|Any CPU
 		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

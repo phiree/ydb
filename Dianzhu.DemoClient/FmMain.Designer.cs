@@ -37,6 +37,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tbxOrderId = new System.Windows.Forms.TextBox();
+            this.btnAdvList = new System.Windows.Forms.Button();
             this.btnOnlineUsers = new System.Windows.Forms.Button();
             this.lblAssignedCS = new System.Windows.Forms.Label();
             this.tbxManualAssignedCS = new System.Windows.Forms.TextBox();
@@ -52,7 +53,6 @@
             this.tbxLog = new System.Windows.Forms.RichTextBox();
             this.dlgSelectPic = new System.Windows.Forms.OpenFileDialog();
             this.pnlChat = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnAdvList = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -148,6 +148,16 @@
             this.tbxOrderId.Name = "tbxOrderId";
             this.tbxOrderId.Size = new System.Drawing.Size(229, 21);
             this.tbxOrderId.TabIndex = 11;
+            // 
+            // btnAdvList
+            // 
+            this.btnAdvList.Location = new System.Drawing.Point(686, 9);
+            this.btnAdvList.Name = "btnAdvList";
+            this.btnAdvList.Size = new System.Drawing.Size(75, 23);
+            this.btnAdvList.TabIndex = 8;
+            this.btnAdvList.Text = "AdvertisementList";
+            this.btnAdvList.UseVisualStyleBackColor = true;
+            this.btnAdvList.Click += new System.EventHandler(this.btnAdvList_Click);
             // 
             // btnOnlineUsers
             // 
@@ -290,16 +300,6 @@
             this.pnlChat.Size = new System.Drawing.Size(873, 171);
             this.pnlChat.TabIndex = 8;
             this.pnlChat.WrapContents = false;
-            // 
-            // btnAdvList
-            // 
-            this.btnAdvList.Location = new System.Drawing.Point(686, 9);
-            this.btnAdvList.Name = "btnAdvList";
-            this.btnAdvList.Size = new System.Drawing.Size(75, 23);
-            this.btnAdvList.TabIndex = 8;
-            this.btnAdvList.Text = "AdvertisementList";
-            this.btnAdvList.UseVisualStyleBackColor = true;
-            this.btnAdvList.Click += new System.EventHandler(this.btnAdvList_Click);
             // 
             // FmMain
             // 

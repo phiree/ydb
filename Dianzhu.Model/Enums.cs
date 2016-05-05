@@ -530,4 +530,13 @@ namespace Dianzhu.Model.Enums
         Trade_Finished = 3,//交易成功且结束，即不可再做任何操作。
         Fail=4,//交易失败
     }
+
+    /// <summary>
+    /// 退款的状态
+    /// </summary>
+    public enum enum_RefundStatus
+    {
+        Success=1,
+        Fail=2,
+    }
 }

@@ -70,6 +70,8 @@
     <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="BLLDeviceBind.cs" />
+    <Compile Include="BLLRefundLog.cs" />
+    <Compile Include="BLLRefund.cs" />
     <Compile Include="BLLPayment.cs" />
     <Compile Include="BLLServiceOpenTime.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
