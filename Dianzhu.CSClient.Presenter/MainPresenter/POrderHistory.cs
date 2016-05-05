@@ -19,13 +19,14 @@ namespace Dianzhu.CSClient.Presenter
     public  class POrderHistory
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.POrderHistory");
+
         IViewOrderHistory viewOrderHistory;
         IList<ServiceOrder> orderList;
         BLLServiceOrder bllServiceOrder;
         Dictionary<DZMembership, IList<ServiceOrder>> allList;
 
         public POrderHistory() { }
-        public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList)
+        public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList, InstantMessage iIM)
         {
             this.viewOrderHistory = viewOrderHistory;
             this.orderList = new List<ServiceOrder>();
@@ -34,8 +35,34 @@ namespace Dianzhu.CSClient.Presenter
 
             viewOrderHistory.SearchOrderHistoryClick += ViewOrderHistory_SearchOrderHistoryClick;
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
+            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+        }
 
-            viewOrderHistory.btnSearchEnabled = IdentityManager.CurrentIdentity == null ? false : true;
+        private void IIM_IMReceivedMessage(ReceptionChat chat)
+        {
+            string errMsg = string.Empty;
+            string debugMsg = string.Empty;
+            //判断信息类型
+            switch (chat.ChatType)
+            {
+                case Model.Enums.enum_ChatType.UserStatus:
+                    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+
+                    if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+                    {
+                        if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
+                        {
+                            ClearSearchList();
+                        }
+                    }
+
+                    break;
+                default:
+                    errMsg = "尚未实现这种聊天类型:" + chat.ChatType;
+                    log.Error(errMsg);
+                    throw new NotImplementedException(errMsg);
+
+            }
         }
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
@@ -52,9 +79,6 @@ namespace Dianzhu.CSClient.Presenter
                     allList.Add(serviceOrder.Customer, orderList);
                 }
                 viewOrderHistory.OrderList = orderList;
-
-                if (orderList.Count > 0) { viewOrderHistory.btnSearchEnabled = true; }
-                else { viewOrderHistory.btnSearchEnabled = false; }
             }
             catch (Exception ex)
             {
@@ -95,6 +119,14 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 viewOrderHistory.OrderList = searchList;
             }            
+        }
+
+        /// <summary>
+        /// 清楚历史记录面板
+        /// </summary>
+        public void ClearSearchList()
+        {
+            viewOrderHistory.OrderList = null;
         }
     }
 

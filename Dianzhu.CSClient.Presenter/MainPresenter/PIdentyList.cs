@@ -25,17 +25,85 @@ namespace Dianzhu.CSClient.Presenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PIdentityList");
         IViewIdentityList iView;
         IViewChatList iViewChatList;
-
+        DAL.DALReceptionChat dalReceptionChat;
         IViewOrder iViewOrder;
-        public PIdentityList() { }
-        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder)
+        public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList, IViewOrder iViewOrder, InstantMessage iIM)
+            : this(iView, iViewChatList, iViewOrder, iIM, new DALReceptionChat())
+        {
+
+        }
+
+        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, DAL.DALReceptionChat dalReceptionChat)
         {
             this.iView = iView;
             this.iViewOrder = iViewOrder;
             this.iViewChatList = iViewChatList;
+            this.dalReceptionChat = dalReceptionChat;
 
             iView.IdentityClick += IView_IdentityClick;
+            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+        }
 
+        private void IIM_IMReceivedMessage(ReceptionChat chat)
+        {
+            string errMsg = string.Empty;
+            string debugMsg = string.Empty;
+            //判断信息类型
+            switch (chat.ChatType)
+            {
+                case Model.Enums.enum_ChatType.Media:
+                case Model.Enums.enum_ChatType.Text:
+                    //1 更新当前聊天列表
+                    //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
+                    IdentityTypeOfOrder type;
+                    IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
+                    ReceivedMessage(chat, type);
+                    //消息本地化.
+                    chat.ReceiveTime = DateTime.Now;
+                    if (chat is Model.ReceptionChatMedia)
+                    {
+                        string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                        string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+
+                        ((ReceptionChatMedia)chat).MedialUrl = fileName;
+
+                        string targetFileName = Environment.CurrentDirectory + "\\message\\media\\" + fileName + ".mp3";
+                        PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
+                        PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
+                        tomp3.ConvertToMp3(Environment.CurrentDirectory + "\\files\\", GlobalViables.MediaGetUrl + ((ReceptionChatMedia)chat).MedialUrl, targetFileName);
+                    }
+                    dalReceptionChat.Save(chat);
+                    break;
+                case Model.Enums.enum_ChatType.UserStatus:
+                    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+
+                    if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+                    {
+                        if (IdentityManager.CurrentIdentity == chat.ServiceOrder)
+                        {
+                            if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
+                            {
+                                RemoveIdentity(chat.ServiceOrder);
+                            }
+                            else
+                            {
+                                errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
+                                log.Error(errMsg);
+                                throw new NotImplementedException(errMsg);
+                            }
+                        }
+                        else
+                        {
+                            SetSetIdentityLogOff(chat.ServiceOrder);
+                        }
+                    }
+
+                    break;
+                default:
+                    errMsg = "尚未实现这种聊天类型:" + chat.ChatType;
+                    log.Error(errMsg);
+                    throw new NotImplementedException(errMsg);
+            }
         }
 
         public void IView_IdentityClick(ServiceOrder serviceOrder)
@@ -98,6 +166,16 @@ namespace Dianzhu.CSClient.Presenter
         {
             iView.AddIdentity(order);
             iView.SetIdentityUnread(order, 1);
+        }
+
+        public void RemoveIdentity(ServiceOrder order)
+        {
+            iView.RemoveIdentity(order);
+        }
+
+        public void SetSetIdentityLogOff(ServiceOrder order)
+        {
+            iView.SetIdentityLogOff(order);
         }
 
     }

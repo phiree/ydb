@@ -30,7 +30,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             InitializeComponent();
         }
-        IList<ReceptionChat> chatList=new List<ReceptionChat>();
+        IList<ReceptionChat> chatList = new List<ReceptionChat>();
         public IList<ReceptionChat> ChatList
         {
             get
@@ -40,13 +40,32 @@ namespace Dianzhu.CSClient.ViewWPF
 
             set
             {
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
-                //pnlChatList.Children.Clear();
-                foreach (ReceptionChat chat in value)
+                Action lambda = () =>
                 {
-                    AddOneChat(chat);
+                    chatList = value;
+                    ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
 
+                    if (chatList == null)
+                    {
+                        chatList = new List<ReceptionChat>();
+                        return;
+                    }
+                    
+                    //pnlChatList.Children.Clear();
+                    
+                    if (chatList.Count > 0)
+                    {
+                        foreach (ReceptionChat chat in chatList)
+                        {
+                            AddOneChat(chat);
+                        }
+                    }
+                };
+                if (!Dispatcher.CheckAccess())
+                {
+                    Dispatcher.Invoke(lambda);
                 }
+                else { lambda(); }
             }
         }
         

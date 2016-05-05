@@ -13,7 +13,6 @@ namespace Dianzhu.CSClient.IView
     {
         IList<ServiceOrder> OrderList { get; set; }
         string SearchStr { get; set; }
-        bool btnSearchEnabled { set; }
 
         event SearchOrderHistoryClick SearchOrderHistoryClick;
     }

@@ -43,7 +43,34 @@ namespace Dianzhu.CSClient.Presenter
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
             viewChatList.AudioPlay += ViewChatList_AudioPlay;
+            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
 
+        }
+
+        private void IIM_IMReceivedMessage(ReceptionChat chat)
+        {
+            string errMsg = string.Empty;
+            string debugMsg = string.Empty;
+            //判断信息类型
+            switch (chat.ChatType)
+            {
+                case Model.Enums.enum_ChatType.UserStatus:
+                    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+
+                    if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+                    {
+                        if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
+                        {
+                            ClearChatList();
+                        }
+                    }
+
+                    break;
+                default:
+                    errMsg = "尚未实现这种聊天类型:" + chat.ChatType;
+                    log.Error(errMsg);
+                    throw new NotImplementedException(errMsg);
+            }
         }
 
         PHSuit.Media media = new PHSuit.Media();
@@ -114,6 +141,14 @@ namespace Dianzhu.CSClient.Presenter
 
 
 
+        }
+
+        /// <summary>
+        /// 清楚聊天记录
+        /// </summary>
+        public void ClearChatList()
+        {
+            viewChatList.ChatList = null;
         }
     }
 
