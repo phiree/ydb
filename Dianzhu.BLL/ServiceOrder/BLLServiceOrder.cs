@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using Dianzhu.Model;
 
@@ -24,7 +25,8 @@ namespace Dianzhu.BLL
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
 
-        DALServiceOrder DALServiceOrder = null;
+         IDALServiceOrder repoServiceOrder;
+        DALServiceOrder DALServiceOrder;
         DZMembershipProvider membershipProvider = null;
         BLLPayment bllPayment = null;
         BLLRefund bllRefund = null;
@@ -42,24 +44,44 @@ namespace Dianzhu.BLL
         public BLLServiceOrder() : this(new DALServiceOrder(), new BLLServiceOrderStateChangeHis(), new DZMembershipProvider(),new BLLPayment(),new BLLRefund())
         {
         }
-
-
-
-        public BLLServiceOrder(DALServiceOrder dal)
-        {
-            DALServiceOrder = dal;
-        }
-
-
+ 
         #region 基本操作
-
-        public IList<ServiceOrder> GetListForBusiness(object b)
-        {
-            throw new NotImplementedException();
-        }
+ 
 
         public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
         {
+
+            var where = PredicateBuilder.True<ServiceOrder>();
+            where = where.And(x => x.Customer.Id == userId);
+            
+            switch (searchType)
+            {
+
+                case enum_OrderSearchType.De:
+                    where = where.And( x => x.OrderStatus == enum_OrderStatus.Finished
+                          && x.OrderStatus == enum_OrderStatus.Aborded
+                          && x.OrderStatus == enum_OrderStatus.Appraised)
+                        ;
+                    break;
+                case enum_OrderSearchType.Nt:
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Finished
+                         && x.OrderStatus != enum_OrderStatus.Aborded
+                         && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.Search);
+                     
+                    break;
+                default:
+                case enum_OrderSearchType.ALL:
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Search)
+                      ;
+                    break;
+            }
+
+
             return DALServiceOrder.GetServiceOrderCount(userId, searchType);
         }
         public IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize)
@@ -69,24 +91,28 @@ namespace Dianzhu.BLL
 
         public virtual ServiceOrder GetOne(Guid guid)
         {
-            return DALServiceOrder.GetOne(guid);
+            throw new NotImplementedException();
+            // return DALServiceOrder.GetOne(guid);
         }
         public void SaveOrUpdate(ServiceOrder order)
         {
-            order.LatestOrderUpdated = DateTime.Now;
-            DALServiceOrder.SaveOrUpdate(order);
+            throw new NotImplementedException();
+           // order.LatestOrderUpdated = DateTime.Now;
+           // DALServiceOrder.SaveOrUpdate(order);
         }
         public IList<ServiceOrder> GetAll() //获取全部订单
         {
-            return DALServiceOrder.GetAll<ServiceOrder>();
+            throw new NotImplementedException();
+            ///return DALServiceOrder.GetAll<ServiceOrder>();
         }
 
         public IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status)
         {
-            return DALServiceOrder
-               .GetAll<ServiceOrder>()
-               .Where(x => x.OrderStatus == status)
-               .ToList();
+            throw new NotImplementedException();
+            //return DALServiceOrder
+            //   .GetAll<ServiceOrder>()
+            //   .Where(x => x.OrderStatus == status)
+            //   .ToList();
         }
 
         

@@ -11,7 +11,7 @@ namespace Dianzhu.Model
     /// 订单
     /// </summary>
 
-    public class ServiceOrder
+    public class ServiceOrder:DDDCommon.Domain.Entity<Guid>
     {
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model");
@@ -185,7 +185,7 @@ namespace Dianzhu.Model
         {
             get; protected set;
         }
-        public virtual Guid Id { get;    set; }
+        
         /// <summary>
         /// 订单的标题
         /// </summary>

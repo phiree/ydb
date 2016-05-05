@@ -8,25 +8,23 @@ using NHibernate;
 using NHibernate.Criterion;
 namespace Dianzhu.DAL
 {
-    public class DALServiceOrder : DALBase<ServiceOrder>
+    public class DALServiceOrder :NHRepositoryBase<ServiceOrder,Guid>, IDALServiceOrder
     {
         public DALServiceOrder()
         {
 
         }
-        //注入依赖,供测试使用;
-        public DALServiceOrder(string fortest) : base(fortest)
+        public ServiceOrder GetOne(Guid id)
         {
-
+            throw new NotImplementedException();
         }
-        public IList<ServiceOrder> GetListByUser(Guid userId)
+        public void SaveOrUpdate(ServiceOrder order)
         {
-            var iqueryover = GetList(userId, enum_OrderSearchType.ALL);
-            return iqueryover.List();
+            throw new NotImplementedException();
         }
         private IQueryOver<ServiceOrder> GetList(Guid userId, enum_OrderSearchType searchType)
-        {
-            IQueryOver<ServiceOrder, ServiceOrder> iqueryover = Session.QueryOver<ServiceOrder>().Where(x => x.Customer.Id == userId);
+        { 
+            IQueryOver<ServiceOrder, ServiceOrder> iqueryover = Session .QueryOver<ServiceOrder>().Where(x => x.Customer.Id == userId);
 
             switch (searchType)
             {
@@ -177,10 +175,12 @@ namespace Dianzhu.DAL
                       " and ( o.OrderStatus!=" + (int)enum_OrderStatus.Draft +
                             " or o.OrderStatus!=" + (int)enum_OrderStatus.DraftPushed + " )"
                             ;
-            
-            var list = GetList(query,pageIndex,pageSize,out totalRecords );
 
-            return list;
+            throw new NotImplementedException();
+            // var list = GetList(query,pageIndex,pageSize,out totalRecords );
+
+            
+            //return list;
         }
         public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId)
         {
@@ -189,11 +189,13 @@ namespace Dianzhu.DAL
                            "  inner join d.OriginalService as s " +
                             " inner join s.Business as b  " +
                             " where b.Id='" + businessId+"'";
-           var list=  GetList(query);
+            throw new NotImplementedException();
+            // var list=  GetList(query);
 
-            return list;
+            
+            //return list;
         }
-
+ 
         public IList<ServiceOrder> GetAllCompleteOrdersForBusiness(Guid businessId)
         {
             var query = "select o from ServiceOrder as o " +
@@ -206,9 +208,10 @@ namespace Dianzhu.DAL
                             
                             ;
 
-            var list = GetList(query);
+            throw new NotImplementedException();
+            // var list = GetList(query);
 
-            return list;
+           // return list;
         }
         /// <summary>
         /// 用户取消的订单
@@ -227,9 +230,10 @@ namespace Dianzhu.DAL
 
                             ;
 
-            var list = GetList(query);
+            throw new NotImplementedException();
+            //  var list = GetList(query);
 
-            return list;
+           // return list;
         }
         /// <summary>
         /// 商户取消的订单
@@ -248,9 +252,10 @@ namespace Dianzhu.DAL
 
                             ;
 
-            var list = GetList(query);
+            throw new NotImplementedException();
+            // var list = GetList(query);
 
-            return list;
+            //return list;
         }
     }
 }

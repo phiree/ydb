@@ -35,9 +35,10 @@ namespace Dianzhu.BLL
         public IEnumerable<Advertisement> GetADList(int pageIndex, int pageSize, out long totalRecords)
         {
             iUnitOfWork.BeginTransaction();
-            
-            Expression<Func<Advertisement, bool>> where = i => true;
-            var list = repo.Find(where, pageIndex,pageSize ,out totalRecords).ToList();
+
+            var where = PredicateBuilder.True<Advertisement>();
+          
+               var list = repo.Find(where, pageIndex,pageSize ,out totalRecords).ToList();
             iUnitOfWork.Commit();
             return list;
            // return repo.GetADList(pageIndex, pageSize,out totalRecords);

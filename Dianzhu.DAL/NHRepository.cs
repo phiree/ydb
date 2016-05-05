@@ -15,22 +15,22 @@ namespace Dianzhu.DAL
     {
 
        
-        private ISession session { get { return NHUnitOfWork.Current.Session; } }
+        protected ISession Session { get { return NHUnitOfWork.Current.Session; } }
       
         public void Add(TEntity t)
         {
-            session.Save(t);
+            Session.Save(t);
         }
 
         public void Delete(TEntity t)
         {
-            session.Delete(t);
+            Session.Delete(t);
         }
 
 
         public TEntity FindById(TPrimaryKey identityId)
         {
-            return session.Get<TEntity>(identityId);
+            return Session.Get<TEntity>(identityId);
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where)
@@ -42,7 +42,7 @@ namespace Dianzhu.DAL
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords)
         {
             
-            var query = session.Query<TEntity>().Where(where);
+            var query = Session.Query<TEntity>().Where(where);
             totalRecords = query.Count();
             return query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToFuture();
         }
@@ -50,19 +50,19 @@ namespace Dianzhu.DAL
      
         public long GetRowCount(Expression<Func<TEntity, bool>> where)
         {
-            var query = session.Query<TEntity>().Where(where);
+            var query = Session.Query<TEntity>().Where(where);
            long totalRecords = query.Count();
             return totalRecords;
         }
 
         public TEntity FindOne(Expression<Func<TEntity, bool>> where)
         {
-            return  session.Query<TEntity>().Where(where).SingleOrDefault();
+            return  Session.Query<TEntity>().Where(where).SingleOrDefault();
         }
 
         public void Update(TEntity t)
         {
-              session.Update(t);
+              Session.Update(t);
         }
     }
 }
