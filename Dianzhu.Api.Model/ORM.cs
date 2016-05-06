@@ -289,6 +289,7 @@ namespace Dianzhu.Api.Model
     {
         public string refundStatusID { get; set; }
         public string orderID { get; set; }
+        public string title { get; set; }
         public string context { get; set; }
         public string amount { get; set; }
         public string resourcesUrl { get; set; }
