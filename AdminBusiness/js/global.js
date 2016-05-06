@@ -1,65 +1,34 @@
 /**
+ * 全局使用函数
  * Created by LiChang on 2015/5/15.
  */
-//页面最小高度设为100%的方法
 $(function () {
-    $(window).bind("resize", setFluid);
-    $(document).ready(setFluid);
-    function setFluid() {
-        var narHeight = 79,
-            windowHeight = $(window).height(),
-            height = windowHeight - narHeight;
-        $(".content-layout").css("min-height", (height) + "px");
-        $(".content-layout-fluid").css("min-height", (height) + "px");
-    }
-});
-
-$(function () {
-    return $("#menu").length == 0 ? null : $("#menu").metisMenu();
-});
-
-$(function () {
-    if ($('.sidebar').length == 0) {
-        return
-    } else {
-        var sideTop = $('.sidebar').offset().top;
-        if ($('body').scrollTop() >= sideTop) {
-            $('.sidebar').addClass('sidebar-fixed');
-        } else {
-            $('.sidebar').removeClass('sidebar-fixed');
+    // 页面最小高度设为100%
+    (function ($, window, document){
+        $(window).bind("resize", setFluid);
+        $(document).ready(setFluid);
+        function setFluid() {
+            var narHeight = 79,
+                windowHeight = $(window).height(),
+                height = windowHeight - narHeight;
+            $(".content-layout").css("min-height", (height) + "px");
+            $(".content-layout-fluid").css("min-height", (height) + "px");
         }
-        $(window).scroll(function () {
-            if ($('body').scrollTop() >= sideTop) {
-                $('.sidebar').addClass('sidebar-fixed');
-            } else {
-                $('.sidebar').removeClass('sidebar-fixed');
-            }
-        })
-    }
+    })(jQuery, window, document);
 
-});
+    // 应用metisMenu
+    (function ($, window, document){
+        var $menu = $("#menu");
+        !($menu.length == 0) && $menu.metisMenu();
+    })(jQuery, window, document);
 
-$(function () {
-    var url = window.location;
+    // 侧边栏滚动控制
+    (function ($, window, document){
+        var $sidebar = $('.sidebar');
 
-    function urlFiter(url) {
-        var fiter = /[a-zA-z]+:\/\/(\S+?\/){2}/i;
-        if (fiter.exec(url)) {
-            return (fiter.exec(url))[0].toLowerCase();
-        }
-    }
+        if ($sidebar.length == 0) return ;
 
-    var element = $('#menu li a').filter(function () {
-        var thisHref = urlFiter(this.href);
-        var LocalUrl = urlFiter(url);
-
-        return thisHref == LocalUrl || LocalUrl.indexOf(thisHref) == 0;
-    }).addClass('active').parent().addClass('in');
-
-    if (element.is('li')) {
-        element.addClass('active');
-    }
-});
+        var sideTop = $sidebar.offset().top;
 
         if ($('body').scrollTop() >= sideTop) {
             $sidebar.addClass('sidebar-fixed');
@@ -77,79 +46,28 @@ $(function () {
 
     })(jQuery, window, document);
 
-$(function () {
-    var $navBtn = $(".nav-btn-bg:not(.nav-btn-un)");
-    var pageHref = window.location.href;
-    var hrefFiter = /\/\w+/;
+    // 侧边栏链接样式控制
+    (function ($, window, document){
+        var url = window.location;
+        var localUrl = urlFilter(url);
 
-    $navBtn.each(function () {
-        var btnHref = $(this).parent().attr("href");
-        var btnIcon = $(this).find(".nav-btn-icon");
-        var btnTitle = $(this).find(".nav-btn-t");
-        var bgPosition = parseInt(btnIcon.css("background-position-X"));
-        var realHref = btnHref.match(hrefFiter);
-        var currentPage = false;
+        var element = $('#menu').find("li").find("a").filter(function () {
+            var thisHref = urlFilter(this.href);
+            console.log(thisHref)
+            return thisHref == localUrl || localUrl.indexOf(thisHref) == 0;
+        });
 
-        if (pageHref.indexOf(realHref) >= 0) {
-            currentPage = true;
-            $(this).css({
-                borderBottomColor: "#30B5FA"
-            });
-            btnIcon.css({
-                backgroundPositionX: bgPosition - 32
-            });
-            btnTitle.css({
-                color: "#30B5FA"
-            });
-        }
+        element.addClass('active').parent().addClass('in');
 
-        $(this).hover(function () {
-                $(this).css({
-                    borderBottomColor: "#30B5FA"
-                });
-                btnIcon.css({
-                    backgroundPositionX: bgPosition - 32
-                });
-                btnTitle.css({
-                    color: "#30B5FA"
-                });
-            }, function () {
-                if (currentPage) {
-                    return
-                } else {
-                    $(this).css({
-                        borderBottomColor: "transparent"
-                    });
-                    btnIcon.css({
-                        backgroundPositionX: bgPosition
-                    });
-                    btnTitle.css({
-                        color: "#B6CCE3"
-                    });
-                }
+        function urlFilter(url) {
+            var filter = /[a-zA-z]+:\/\/(\S+\.)/;
+            if (filter.exec(url)) {
+                return (filter.exec(url))[0].toLowerCase();
             }
-        );
-
-
-    });
-
-    var $sideArrow = $(".side-arrow")
-    var $sideBtn = $(".side-btn-bg");
-
-    $sideBtn.each(function () {
-        var btnHref = $(this).parent().attr("href");
-        var bgPosition = parseInt($(this).css("background-positionX"));
-        if (pageHref.indexOf(btnHref) >= 0) {
-            var toTop = $(this).position().top
-            $sideArrow.css({
-                top: toTop,
-                display: "inline-block"
-            });
         }
-    });
+    })(jQuery, window, document);
 
 });
-
 
 (function ($) {
     var types = ['DOMMouseScroll', 'mousewheel'];
