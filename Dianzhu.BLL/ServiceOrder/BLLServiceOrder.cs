@@ -31,8 +31,12 @@ namespace Dianzhu.BLL
         BLLPayment bllPayment = null;
         BLLRefund bllRefund = null;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
-
-        public BLLServiceOrder(  BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, DZMembershipProvider membershipProvider,BLLPayment bllPayment,BLLRefund bllRefund,IDALServiceOrder repoServiceOrder)
+        IDAL.IUnitOfWork iuow;
+        public BLLServiceOrder(  BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, 
+            DZMembershipProvider membershipProvider,
+            BLLPayment bllPayment,BLLRefund bllRefund,
+            IDALServiceOrder repoServiceOrder,
+            IDAL.IUnitOfWork iuow)
         {
             this.repoServiceOrder = repoServiceOrder;
              
@@ -40,7 +44,7 @@ namespace Dianzhu.BLL
             this.membershipProvider = membershipProvider;
             this.bllPayment = bllPayment;
             this.bllRefund = bllRefund;
-           
+            this.iuow = iuow;
         }
 
         
@@ -81,8 +85,10 @@ namespace Dianzhu.BLL
                       ;
                     break;
             }
-            return (int)repoServiceOrder.GetRowCount(where);
-
+            iuow.BeginTransaction();
+             int rowCount=(int)repoServiceOrder.GetRowCount(where);
+            iuow.Commit();
+            return rowCount;
            // return DALServiceOrder.GetServiceOrderCount(userId, searchType);
         }
         public IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize)
@@ -137,18 +143,26 @@ namespace Dianzhu.BLL
         }
         public IList<ServiceOrder> GetAll() //获取全部订单
         {
-            var where = PredicateBuilder.True<ServiceOrder>();
-           return repoServiceOrder.Find(where).ToList();
+            iuow.BeginTransaction();
             
+           
+            var where = PredicateBuilder.True<ServiceOrder>();
+           var all= repoServiceOrder.Find(where).ToList();
+            iuow.Commit();
+            return all;
             ///return DALServiceOrder.GetAll<ServiceOrder>();
         }
 
         public IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status)
         {
+        
+
             var where = PredicateBuilder.True<ServiceOrder>();
             where = where.And(x => x.OrderStatus == status);
-            return repoServiceOrder.Find(where).ToList();
-          
+            iuow.BeginTransaction();
+            var allWithstatus =   repoServiceOrder.Find(where).ToList();
+            iuow.Commit();
+            return allWithstatus;
             //return DALServiceOrder
             //   .GetAll<ServiceOrder>()
             //   .Where(x => x.OrderStatus == status)

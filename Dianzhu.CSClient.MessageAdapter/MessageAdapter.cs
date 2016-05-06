@@ -14,7 +14,11 @@ namespace Dianzhu.CSClient.MessageAdapter
     /// </summary>
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
-
+        IBLLServiceOrder bllOrder;
+        public MessageAdapter(IBLLServiceOrder bllOrder)
+        {
+            this.bllOrder = bllOrder;
+        }
         static DZMembershipProvider bllMember;
         DZMembershipProvider BllMember
         {
@@ -35,16 +39,16 @@ namespace Dianzhu.CSClient.MessageAdapter
             }
 
         }
-        static BLLServiceOrder bllOrder;
-        BLLServiceOrder BLLOrder
-        {
-            get
-            {
-                if (bllOrder == null) bllOrder = new BLLServiceOrder();
-                return bllOrder;
-            }
+        //static BLLServiceOrder bllOrder;
+        //BLLServiceOrder BLLOrder
+        //{
+        //    get
+        //    {
+        //        if (bllOrder == null) bllOrder = new BLLServiceOrder();
+        //        return bllOrder;
+        //    }
 
-        }
+        //}
         static BLLIMUserStatus bllIMUserStatus;
         BLLIMUserStatus BLLIMUserStatus
         {
@@ -160,7 +164,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     if (isValidGuid)
                     {
-                        var existedServiceOrder = BLLOrder.GetOne(order_ID);
+                        var existedServiceOrder = bllOrder.GetOne(order_ID);
                         if (existedServiceOrder != null)
                         {
                             chat.ServiceOrder = existedServiceOrder;

@@ -30,6 +30,7 @@ using Com.Alipay;
 /// </summary>
 public partial class notify_url : System.Web.UI.Page
 {
+    public IBLLServiceOrder bllOrder { get; set; }
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -49,8 +50,7 @@ public partial class notify_url : System.Web.UI.Page
             {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //请在这里加上商户的业务逻辑程序代码
-                BLLServiceOrder bllOrder = new BLLServiceOrder();
-                
+                 
                 IList<ServiceOrder> allServiceOrder;
                 
                 ServiceOrder order = null;               

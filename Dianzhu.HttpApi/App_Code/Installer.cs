@@ -8,13 +8,11 @@ using Dianzhu.Model;
 using Dianzhu.IDAL;
 using Dianzhu.DAL;
 using Dianzhu.BLL;
-
-using DDDCommon.Domain;
 using NHibernate;
-using NHibernate.Tool.hbm2ddl;
+using System.Configuration;
+using nhf = FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using FluentNHibernate.Cfg;
-
+using NHibernate.Tool.hbm2ddl;
 /// <summary>
 /// Summary description for Installer
 /// </summary>
@@ -30,26 +28,23 @@ public class Installer
         container = new WindsorContainer();
 
         container.Register(Component.For<BLLAdvertisement>());
+        container.Register(Component.For<BLLServiceOrder>());
         container.Register(Component.For<BLLArea>());
-
-        container.Register(Component.For(typeof(IRepository<,>)).ImplementedBy(typeof(NHRepositoryBase<,>)));
-        container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>().LifestylePerWebRequest());
         container.Register(Component.For<ISessionFactory>().UsingFactoryMethod(CreateNhSessionFactory).LifestylePerWebRequest());
+        container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
+        container.Register(Component.For(typeof(IRepository<,>)).ImplementedBy(typeof(NHRepositoryBase<,>)));
+        //    container.Register( Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient);
 
-        container.Register(Component.For<IRepository<Advertisement, Guid>,IDALAdvertisement>().ImplementedBy<DALAdvertisement>());
-        container.Register(Component.For<IRepository<Area, int>,IDALArea>().ImplementedBy<DALArea>());
-        container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
-            .DependsOn(Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis()))
-             .DependsOn(Dependency.OnValue("membershipProvider", new DZMembershipProvider()))
-              .DependsOn(Dependency.OnValue("bllPayment", new BLLPayment()))
-               .DependsOn(Dependency.OnValue("bllRefund", new BLLRefund()))
+        container.Register(Component.For<IRepository<Advertisement, Guid>, IDALAdvertisement>().ImplementedBy<DALAdvertisement>());
+        container.Register(Component.For<IRepository<Area, int>, IDALArea>().ImplementedBy<DALArea>());
+        container.Register(Component.For<IRepository<ServiceOrder, Guid>, IDALServiceOrder>().ImplementedBy<DALServiceOrder>());
 
-            );
-        //  public BLLServiceOrder(  BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, DZMembershipProvider membershipProvider,BLLPayment bllPayment,BLLRefund bllRefund,IDALServiceOrder repoServiceOrder)
+
+
     }
-            private static ISessionFactory CreateNhSessionFactory()
+    private static ISessionFactory CreateNhSessionFactory()
     {
-        var f =  Fluently.Configure()
+        var f = nhf.Fluently.Configure()
                          .Database(
                               MySQLConfiguration
                              .Standard
@@ -74,8 +69,4 @@ public class Installer
         //update.Execute(true, true);
     }
 
-
-
-
- 
 }

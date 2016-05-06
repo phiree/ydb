@@ -10,11 +10,22 @@ using System.Data;
 
 public partial class order_index : System.Web.UI.Page
 {
-    BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+  //  Dianzhu.IDAL.IUnitOfWork iuow = Installer.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();
+    public IBLLServiceOrder bllServiceOrder = Installer.Container.Resolve<IBLLServiceOrder>();
     ServiceOrder serviceorder;
     public int page;
     string linkStr;//链接字符串
     PagedDataSource pds;
+    protected override void OnInit(EventArgs e)
+    {
+        base.OnInit(e);
+      //  iuow.BeginTransaction();
+    }
+    protected override void OnUnload(EventArgs e)
+    {
+       // iuow.Commit();
+        base.OnUnload(e);
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Request.QueryString["status"] == "" || Request.QueryString["status"] == null)
@@ -37,7 +48,7 @@ public partial class order_index : System.Web.UI.Page
         IList<ServiceOrder> allServiceOrder;
         if (Request.QueryString["status"] == "" || Request.QueryString["status"] == null)
         {
-             allServiceOrder = bllServiceOrder.GetAll().OrderByDescending(x => x.OrderCreated).ToList();
+            allServiceOrder = bllServiceOrder.GetAll().OrderByDescending(x => x.OrderCreated).ToList();
         }
         else
         {
@@ -45,7 +56,7 @@ public partial class order_index : System.Web.UI.Page
             StatusSelect.Value = "index.aspx?status=" + Request.QueryString["status"].ToString();
             Dianzhu.Model.Enums.enum_OrderStatus status = (Dianzhu.Model.Enums.enum_OrderStatus)Enum.Parse(typeof(Dianzhu.Model.Enums.enum_OrderStatus), Request.QueryString["status"].ToString());
             allServiceOrder = bllServiceOrder.GetAllByOrderStatus(status).OrderByDescending(x => x.OrderCreated).ToList();
-            
+
         }
         pds = config.pds(allServiceOrder, page, 10);
         Repeater1.DataSource = pds;
@@ -59,7 +70,7 @@ public partial class order_index : System.Web.UI.Page
         {
             ServiceOrder so = (ServiceOrder)e.Item.DataItem;
             Repeater rptPayment = e.Item.FindControl("rptPayment") as Repeater;
-            
+
 
         }
 
@@ -125,7 +136,7 @@ public partial class order_index : System.Web.UI.Page
     }
     protected void ddlp_SelectedIndexChanged(object sender, EventArgs e)
     {//脚模板中的下拉列表框更改时激发
-        //string pg = Convert.ToString((Convert.ToInt32(((DropDownList)sender).SelectedValue) - 1));//获取列表框当前选中项
+     //string pg = Convert.ToString((Convert.ToInt32(((DropDownList)sender).SelectedValue) - 1));//获取列表框当前选中项
         string pg = Convert.ToString((Convert.ToInt32(((DropDownList)sender).SelectedValue) - 1));
         Response.Redirect(linkStr + "page=" + pg);//页面转向
     }

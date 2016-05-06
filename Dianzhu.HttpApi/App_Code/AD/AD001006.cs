@@ -17,7 +17,7 @@ using Dianzhu.Api.Model;
 public class ResponseAD001006:BaseResponse
 {
     BLLDeviceBind bllDeviceBind;
-
+    BLLAdvertisement bllAD = Installer.Container.Resolve<BLLAdvertisement>();
     public ResponseAD001006(BaseRequest request):base(request)
     {
  
@@ -29,7 +29,7 @@ public class ResponseAD001006:BaseResponse
             RequestDataAD001006 requestData = this.request.ReqData.ToObject<RequestDataAD001006>();
 
  
-            BLLAdvertisement bllAD = Installer.Container.Resolve<BLLAdvertisement>();
+           
             IList<Advertisement> adList = bllAD.GetADListForUseful();
             RespDataAD001006 respData = new RespDataAD001006();
 

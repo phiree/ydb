@@ -28,8 +28,9 @@ public class Installer
         container = new WindsorContainer();
 
         container.Register(Component.For<BLLAdvertisement>());
-        container.Register(Component.For<BLLServiceOrder>());
-        container.Register(Component.For<BLLArea>());
+         container.Register(Component.For<BLLArea>());
+        container.Register(Component.For<VMBusinessAdapter>());
+
         container.Register(Component.For<ISessionFactory>().UsingFactoryMethod(CreateNhSessionFactory).LifestylePerWebRequest());
         container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
         container.Register(Component.For(typeof(IRepository<,>)).ImplementedBy(typeof(NHRepositoryBase<,>)));
@@ -38,6 +39,21 @@ public class Installer
         container.Register(Component.For<IRepository<Advertisement,Guid>, IDALAdvertisement>().ImplementedBy<DALAdvertisement>());
         container.Register(Component.For<IRepository<Area,int>,IDALArea>().ImplementedBy<DALArea>());
         container.Register(Component.For<IRepository<ServiceOrder, Guid>, IDALServiceOrder>().ImplementedBy<DALServiceOrder>());
+        /*
+   public BLLServiceOrde
+   r(  BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, 
+   DZMembershipProvider membershipProvider,
+   BLLPayment bllPayment,
+   BLLRefund bllRefund,
+   IDALServiceOrder repoServiceOrder)
+       
+        */
+        container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
+            .DependsOn(Dependency.OnValue("bllServiceOrderStateChangeHis",new BLLServiceOrderStateChangeHis()))
+            .DependsOn(Dependency.OnValue("membershipProvider", new DZMembershipProvider()))
+            .DependsOn(Dependency.OnValue("bllPayment",  new BLLPayment()))
+            .DependsOn(Dependency.OnValue("bllRefund", new BLLRefund()))
+            );
 
 
 

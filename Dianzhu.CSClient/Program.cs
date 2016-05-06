@@ -157,11 +157,28 @@ namespace Dianzhu.CSClient
             container.Register(cmr.Component.For<ISessionFactory>().UsingFactoryMethod(CreateNhSessionFactory));
 
             container.Register(cmr.Component.For(typeof(IRepository<,>), typeof(NHRepositoryBase<,>)).ImplementedBy(typeof(NHRepositoryBase<,>)));
-            container.Register(cmr.Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient);
+            //container.Register(cmr.Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient);
 
             container.Register(cmr.Component.For<IRepository<Advertisement, Guid>, IDALAdvertisement>().ImplementedBy<DALAdvertisement>());
             container.Register(cmr.Component.For<IRepository<Area, int>, IDALArea>().ImplementedBy<DALArea>());
             container.Register(cmr.Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
+
+            container.Register(cmr.Component.For<IRepository<ServiceOrder, Guid>, IDALServiceOrder>().ImplementedBy<DALServiceOrder>());
+            /*
+       public BLLServiceOrde
+       r(  BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, 
+       DZMembershipProvider membershipProvider,
+       BLLPayment bllPayment,
+       BLLRefund bllRefund,
+       IDALServiceOrder repoServiceOrder)
+
+            */
+            container.Register(cmr.Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
+                .DependsOn(cmr.Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis()))
+                .DependsOn(cmr.Dependency.OnValue("membershipProvider", new DZMembershipProvider()))
+                .DependsOn(cmr.Dependency.OnValue("bllPayment", new BLLPayment()))
+                .DependsOn(cmr.Dependency.OnValue("bllRefund", new BLLRefund()))
+                );
         }
         private static ISessionFactory CreateNhSessionFactory()
         {

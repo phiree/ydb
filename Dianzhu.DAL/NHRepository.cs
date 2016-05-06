@@ -19,18 +19,29 @@ namespace Dianzhu.DAL
       
         public void Add(TEntity t)
         {
-            Session.Save(t);
+
+                Session.Save(t);
+               
+            
+
         }
 
         public void Delete(TEntity t)
         {
-            Session.Delete(t);
+            using (var tra = Session.BeginTransaction())
+            {
+                Session.Delete(t); tra.Commit();
+            }
         }
 
 
         public TEntity FindById(TPrimaryKey identityId)
         {
-            return Session.Get<TEntity>(identityId);
+            
+                var result= Session.Get<TEntity>(identityId);
+              
+                return result;
+            
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where)

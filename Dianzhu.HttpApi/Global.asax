@@ -8,6 +8,7 @@
     {
         // Code that runs on application startup
         PHSuit.Logging.Config("Dianzhu.HttpAPI");
+        var c = Installer.Container;
     }
 
     void Application_End(object sender, EventArgs e)
@@ -19,7 +20,7 @@
     void Application_Error(object sender, EventArgs e)
     {
         // Code that runs when an unhandled error occurs
-        
+
 
         Exception ex = Server.GetLastError();
         if (ex.InnerException != null)
@@ -29,7 +30,7 @@
         log.Error(ex.Message);
     }
 
-   
+
 
     void Session_Start(object sender, EventArgs e)
     {

@@ -1,19 +1,18 @@
 ﻿using System.Reflection;
-
+using Castle.DynamicProxy;
 
 using NHibernate;
-using Castle.DynamicProxy;
- 
+using IInterceptor = Castle.DynamicProxy.IInterceptor;
 using Dianzhu.IDAL;
+using System;
 
 namespace Dianzhu.DAL
 {
     /// <summary>
     /// This interceptor is used to manage transactions.
     /// </summary>
-    public class NhUnitOfWorkInterceptor : Castle.DynamicProxy.IInterceptor
+    public class NhUnitOfWorkInterceptor : IInterceptor
     {
-        
         private readonly ISessionFactory _sessionFactory;
 
         /// <summary>
@@ -84,8 +83,6 @@ namespace Dianzhu.DAL
         }
     }
 
-
-
     public static class UnitOfWorkHelper
     {
         public static bool IsRepositoryMethod(MethodInfo methodInfo)
@@ -93,7 +90,7 @@ namespace Dianzhu.DAL
             return IsRepositoryClass(methodInfo.DeclaringType);
         }
 
-        public static bool IsRepositoryClass(System.Type type)
+        public static bool IsRepositoryClass(Type type)
         {
             return typeof(IRepository).IsAssignableFrom(type);
         }

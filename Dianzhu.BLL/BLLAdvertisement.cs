@@ -46,8 +46,8 @@ namespace Dianzhu.BLL
 
         public IList<Advertisement> GetADListForUseful()
         {
-            long totalRecords;
-          //  iUnitOfWork.BeginTransaction();
+           
+            iUnitOfWork.BeginTransaction();
             //ISpecification<Advertisement> advInPerildSpec = new Model.Resource.Specs.AdvertisementSpec.AdvertisementInPeriod(DateTime.Now);
             //ISpecification<Advertisement> advUsefulSpec = new Model.Resource.Specs.AdvertisementSpec.AdvertisementUseful(true);
             //ISpecification<Advertisement> specs = advInPerildSpec.And<Advertisement>(advUsefulSpec);
@@ -57,7 +57,7 @@ namespace Dianzhu.BLL
             Expression<Func<Advertisement, bool>> q = i => i.IsUseful&&i.EndTime>DateTime.Now&&i.StartTime<=DateTime.Now;
             // q= q.And(i => i.EndTime > DateTime.Now);
             var list = repo.Find(q).ToList();
-           // iUnitOfWork.Commit();
+           iUnitOfWork.Commit();
             return list;
         }
 
