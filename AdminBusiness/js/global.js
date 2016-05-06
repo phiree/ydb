@@ -61,95 +61,21 @@ $(function () {
     }
 });
 
-$(function () {
-    return $('.hour-select').each(function () {
-            var selectList = $(this).find("ul");
-            for (var i = 0; i < 25; i++) {
-                selectList.append("<li><a>" + i + "</a></li>");
-            }
+        if ($('body').scrollTop() >= sideTop) {
+            $sidebar.addClass('sidebar-fixed');
+        } else {
+            $sidebar.removeClass('sidebar-fixed');
         }
-    );
-});
 
-$(function () {
-    return $('.min-select').each(function () {
-            var selectList = $(this).find("ul");
-            for (var i = 0; i < 60; i++) {
-                selectList.append("<li><a>" + i + "</a></li>");
-            }
-        }
-    );
-});
-
-$(function () {
-    return $('.years-select').each(function () {
-            var selectList = $(this).find("ul");
-            for (var i = 0; i < 100; i++) {
-                selectList.append("<li><a>" + i + "</a></li>");
-            }
-        }
-    );
-});
-
-
-$(function () {
-
-    return $('.select').each(function () {
-            $(this).prepend("<cite></cite>");
-
-            var selectList = $(this).find("ul"),
-                selectOption = selectList.find("a"),
-                selectPrint = $(this).find("cite"),
-                selectInput = $(this).find("input");
-
-
-            selectPrint.html(selectOption.eq(0).html());
-            for (var i = 0; i < selectOption.length; i++) {
-                selectOption.eq(i).attr({
-                    value: i,
-                    href: "javascript:void(0)"
-                });
-            }
-
-            if (!selectInput.val()) {
-                selectInput.val(selectOption.eq(0).attr("value"));
+        $(window).scroll(function () {
+            if ($('body').scrollTop() >= sideTop) {
+                $sidebar.addClass('sidebar-fixed');
             } else {
-                selectPrint.html(selectOption.eq(selectInput.val()).html());
+                $sidebar.removeClass('sidebar-fixed');
             }
+        })
 
-            selectPrint.click(function () {
-                if (selectList.css("display") == "none") {
-                    selectList.slideDown("fast");
-
-                } else {
-                    selectList.slideUp("fast");
-                }
-            });
-
-            var mouseOut = true;
-            $(this).bind("mouseover mouseout", function (e) {
-                if (e.type == "mouseover") {
-                    mouseOut = false;
-                } else if (e.type == "mouseout") {
-                    mouseOut = true;
-                }
-            });
-
-            $(document).click(function () {
-                if (mouseOut) {
-                    selectList.hide();
-                }
-            });
-
-            selectOption.click(function () {
-                selectPrint.html($(this).text());
-                selectInput.val($(this).attr("value")).focus().blur();
-                selectList.hide();
-            });
-        }
-    );
-});
-
+    })(jQuery, window, document);
 
 $(function () {
     var $navBtn = $(".nav-btn-bg:not(.nav-btn-un)");

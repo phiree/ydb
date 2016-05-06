@@ -102,6 +102,7 @@
     <script src="/js/baiduMapLib.js"></script>
     <script src="/js/service.js"></script>
     <script src="/js/iptag.js"></script>
+    <script src="/js/select.js"></script>
     <script>
         $(function () {
             $($("form")[0]).validate(
@@ -143,6 +144,8 @@
                     trigger: 'hover'
                 }
             );
+
+            $(".select").customSelect();
 
             (function (){
                 if ( $("#hiTypeId").attr("value") ){ $("#lblSelectedType").removeClass("hide"); }

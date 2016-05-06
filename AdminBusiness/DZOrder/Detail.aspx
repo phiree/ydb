@@ -161,7 +161,6 @@
                                                             <li><a>100%</a></li>
                                                         </ul>
                                                         <input type="hidden" value="0"  />
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -260,4 +259,10 @@
     <script src="/js/jquery.lightBox_me.js"></script>
     <script src="/js/interfaceAdapter.js"></script>
     <script src="/js/appointToOrder.js"></script>
+    <script src="/js/select.js"></script>
+    <script>
+        $(function(){
+            $(".select").customSelect();
+        });
+    </script>
 </asp:Content>

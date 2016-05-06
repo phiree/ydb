@@ -66,9 +66,8 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">从业时间</div>
                                                             <div class="col-md-8 model-input col-md-8 model-input-unit">
-                                                                <div id="yearsSelect" class="select select-fluid years-select" data-toggle="tooltip"
+                                                                <div id="yearsSelect" class="select select-fluid select-static" data-type="num" data-toggle="tooltip"
                                                                      data-placement="top" title="选择你从事该行业的时间">
-                                                                    <ul></ul>
                                                                     <input type="text" class="input-fluid dis-n" runat="server" focusID="yearsSelect"
                                                                            id="tbxBusinessYears" name="workYears"/>
                                                                 </div>
@@ -329,6 +328,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     </script>
     <script src="/js/validation_shop_edit.js"></script>
     <script src="/js/validation_invalidHandler.js"></script>
+    <script src="/js/select.js"></script>
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip(
@@ -349,8 +349,10 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
             });
 
             $('#headImgTrigger').click(function(){
-                $('#headImgBtn').click();
-            })
+                return $('#headImgBtn').click();
+            });
+
+            $(".select").customSelect();
         });
 
         $(function(){
@@ -378,18 +380,4 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
             });
         })
     </script>
-    <!--<script>-->
-        <!--function loadBaiduMapScript() {-->
-            <!--var script = document.createElement("script");-->
-            <!--script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initialize";-->
-            <!--document.body.appendChild(script);-->
-        <!--}-->
-
-        <!--$(document).ready(function () {-->
-            <!--loadBaiduMapScript();-->
-        <!--})-->
-    <!--</script>-->
-    <!--<script src="http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc"></script>-->
-    <!--<script src="/js/CityList.js"></script>-->
-    <!--<script src="/js/account.js"></script>-->
 </asp:Content>

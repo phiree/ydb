@@ -102,6 +102,7 @@
 </script>
 <script src="/js/validation_emp_edit.js"></script>
 <script src="/js/validation_invalidHandler.js"></script>
+<script src="/js/select.js"></script>
 <script>
     $(document).ready(function () {
         $(function () {
@@ -111,6 +112,10 @@
                 trigger: 'hover'
                 }
             )
+
+            $(".headFileBtn").imgLocalPrev();
+
+            $(".select").customSelect();
         });
 
         $($("form")[0]).validate(
@@ -129,6 +134,5 @@
                 }
             );
     });
-    $(".headFileBtn").imgLocalPrev();
     </script>
 </asp:Content>

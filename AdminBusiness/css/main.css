@@ -6834,25 +6834,7 @@ a.time-trigger:hover {
   display: none;
 }
 /*设置下拉选框宽高*/
-.years-select ul {
-  position: absolute;
-  height: 10em;
-  overflow-y: scroll;
-  border: 1px solid #C7C7C7;
-  z-index: 10;
-  background: #fff;
-  display: none;
-}
-.hour-select ul {
-  position: absolute;
-  height: 10em;
-  overflow-y: scroll;
-  border: 1px solid #C7C7C7;
-  z-index: 10;
-  background: #fff;
-  display: none;
-}
-.min-select ul {
+.select-static ul {
   position: absolute;
   height: 10em;
   overflow-y: scroll;
