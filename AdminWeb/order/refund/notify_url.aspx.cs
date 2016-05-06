@@ -72,7 +72,7 @@ public partial class notify_url : System.Web.UI.Page
                 {
                     Response.Write("fail");
                 }
-                order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Aborded;
+                order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.EndCancel;
                 order.OrderCreated = DateTime.Now;
                 order.OrderFinished = DateTime.Now;
                 bllOrder.SaveOrUpdate(order);
