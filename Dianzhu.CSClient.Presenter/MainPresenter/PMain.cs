@@ -30,10 +30,18 @@ namespace Dianzhu.CSClient.Presenter
         private void IIM_IMReceivedMessage(Model.ReceptionChat chat)
         {
             string errMsg = string.Empty;
-            string debugMsg = string.Empty;
             //判断信息类型
             switch (chat.ChatType)
             {
+                //下列状态在其他地方已处理，此处直接跳过
+                case Model.Enums.enum_ChatType.Text:
+                case Model.Enums.enum_ChatType.Media:
+                case Model.Enums.enum_ChatType.BeginPay:
+                case Model.Enums.enum_ChatType.Notice:
+                case Model.Enums.enum_ChatType.ConfirmedService:
+                case Model.Enums.enum_ChatType.Order:
+                    break;
+
                 case Model.Enums.enum_ChatType.PushedService:
                     errMsg = "错误.客服工具不可能收到 PushedService类型的message.";
                     log.Error(errMsg);

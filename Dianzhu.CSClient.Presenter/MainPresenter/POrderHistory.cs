@@ -40,28 +40,18 @@ namespace Dianzhu.CSClient.Presenter
 
         private void IIM_IMReceivedMessage(ReceptionChat chat)
         {
-            string errMsg = string.Empty;
-            string debugMsg = string.Empty;
             //判断信息类型
-            switch (chat.ChatType)
+            if(chat.ChatType== enum_ChatType.UserStatus)
             {
-                case Model.Enums.enum_ChatType.UserStatus:
-                    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+                ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
 
-                    if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+                if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+                {
+                    if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
                     {
-                        if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
-                        {
-                            ClearSearchList();
-                        }
+                        ClearSearchList();
                     }
-
-                    break;
-                default:
-                    errMsg = "尚未实现这种聊天类型:" + chat.ChatType;
-                    log.Error(errMsg);
-                    throw new NotImplementedException(errMsg);
-
+                }
             }
         }
 

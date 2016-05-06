@@ -47,62 +47,54 @@ namespace Dianzhu.CSClient.Presenter
         private void IIM_IMReceivedMessage(ReceptionChat chat)
         {
             string errMsg = string.Empty;
-            string debugMsg = string.Empty;
             //判断信息类型
-            switch (chat.ChatType)
+            if (chat.ChatType == enum_ChatType.Media || chat.ChatType == enum_ChatType.Text)
             {
-                case Model.Enums.enum_ChatType.Media:
-                case Model.Enums.enum_ChatType.Text:
-                    //1 更新当前聊天列表
-                    //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
-                    IdentityTypeOfOrder type;
-                    IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
-                    ReceivedMessage(chat, type);
-                    //消息本地化.
-                    chat.ReceiveTime = DateTime.Now;
-                    if (chat is Model.ReceptionChatMedia)
+                //1 更新当前聊天列表
+                //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
+                IdentityTypeOfOrder type;
+                IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
+                ReceivedMessage(chat, type);
+                //消息本地化.
+                chat.ReceiveTime = DateTime.Now;
+                if (chat is Model.ReceptionChatMedia)
+                {
+                    string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                    string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+
+                    ((ReceptionChatMedia)chat).MedialUrl = fileName;
+
+                    string targetFileName = Environment.CurrentDirectory + "\\message\\media\\" + fileName + ".mp3";
+                    PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
+                    PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
+                    tomp3.ConvertToMp3(Environment.CurrentDirectory + "\\files\\", GlobalViables.MediaGetUrl + ((ReceptionChatMedia)chat).MedialUrl, targetFileName);
+                }
+                dalReceptionChat.Save(chat);
+            }
+            else if (chat.ChatType== enum_ChatType.UserStatus)
+            {
+                ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+
+                if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+                {
+                    if (IdentityManager.CurrentIdentity == chat.ServiceOrder)
                     {
-                        string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
-                        string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
-
-                        ((ReceptionChatMedia)chat).MedialUrl = fileName;
-
-                        string targetFileName = Environment.CurrentDirectory + "\\message\\media\\" + fileName + ".mp3";
-                        PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
-                        PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
-                        tomp3.ConvertToMp3(Environment.CurrentDirectory + "\\files\\", GlobalViables.MediaGetUrl + ((ReceptionChatMedia)chat).MedialUrl, targetFileName);
-                    }
-                    dalReceptionChat.Save(chat);
-                    break;
-                case Model.Enums.enum_ChatType.UserStatus:
-                    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
-
-                    if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
-                    {
-                        if (IdentityManager.CurrentIdentity == chat.ServiceOrder)
+                        if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
                         {
-                            if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
-                            {
-                                RemoveIdentity(chat.ServiceOrder);
-                            }
-                            else
-                            {
-                                errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                                log.Error(errMsg);
-                                throw new NotImplementedException(errMsg);
-                            }
+                            RemoveIdentity(chat.ServiceOrder);
                         }
                         else
                         {
-                            SetSetIdentityLogOff(chat.ServiceOrder);
+                            errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
+                            log.Error(errMsg);
+                            throw new NotImplementedException(errMsg);
                         }
                     }
-
-                    break;
-                default:
-                    errMsg = "尚未实现这种聊天类型:" + chat.ChatType;
-                    log.Error(errMsg);
-                    throw new NotImplementedException(errMsg);
+                    else
+                    {
+                        SetSetIdentityLogOff(chat.ServiceOrder);
+                    }
+                }
             }
         }
 

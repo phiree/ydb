@@ -146,9 +146,6 @@ namespace Dianzhu.CSClient.Presenter
                                                     IdentityManager.CurrentIdentity.Customer.Id + "@" + server, IdentityManager.CurrentIdentity.CustomerService.Id, Guid.NewGuid() + "@" + server, newOrder.Id);
             iIM.SendMessage(noticeDraftNew);
 
-            //将当前通讯改为刚刚生成的草稿单
-            IdentityManager.CurrentIdentity = newOrder;
-
             //更新当前订单
             IdentityTypeOfOrder type;
             IdentityManager.UpdateIdentityList(newOrder, out type);

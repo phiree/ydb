@@ -22,44 +22,35 @@ namespace Dianzhu.CSClient.Presenter
 
         private void IIM_IMReceivedMessage(Model.ReceptionChat chat)
         {
-            string errMsg = string.Empty;
             string debugMsg = string.Empty;
             //判断信息类型
-            switch (chat.ChatType)
+            if(chat.ChatType== Model.Enums.enum_ChatType.BeginPay)
             {
-                case Model.Enums.enum_ChatType.BeginPay:
-                    debugMsg = "用户开始支付";
-                    ShowNotice(debugMsg);
-                    log.Debug(debugMsg);
-                    return;
-
-                case Model.Enums.enum_ChatType.Notice:
-                    debugMsg = "通知:" + chat.MessageBody;
-                    ShowNotice(debugMsg);
-                    log.Debug(debugMsg);
-                    return;
-
-                case Model.Enums.enum_ChatType.ConfirmedService:
-                    debugMsg = "用户已确认服务";
-                    ShowNotice(debugMsg);
-                    log.Debug(debugMsg);
-                    return;
-
-                case Model.Enums.enum_ChatType.Order:
-                    debugMsg = "订单通知" + chat.ServiceOrder.GetSummaryString();
-                    ShowNotice(debugMsg);
-                    break;
-
-                case Model.Enums.enum_ChatType.UserStatus:
-                    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
-                    ShowNotice("用户" + rcus.User.DisplayName + (rcus.Status == Model.Enums.enum_UserStatus.available ? "已上线" : "已下线"));
-                    break;
-
-                default:
-                    errMsg = "尚未实现这种聊天类型:" + chat.ChatType;
-                    log.Error(errMsg);
-                    throw new NotImplementedException(errMsg);
-
+                debugMsg = "用户开始支付";
+                ShowNotice(debugMsg);
+                log.Debug(debugMsg);
+            }
+            else if (chat.ChatType == Model.Enums.enum_ChatType.Notice)
+            {
+                debugMsg = "通知:" + chat.MessageBody;
+                ShowNotice(debugMsg);
+                log.Debug(debugMsg);
+            }
+            else if (chat.ChatType == Model.Enums.enum_ChatType.ConfirmedService)
+            {
+                debugMsg = "用户已确认服务";
+                ShowNotice(debugMsg);
+                log.Debug(debugMsg);
+            }
+            else if (chat.ChatType == Model.Enums.enum_ChatType.Order)
+            {
+                debugMsg = "订单通知" + chat.ServiceOrder.GetSummaryString();
+                ShowNotice(debugMsg);
+            }
+            else if (chat.ChatType == Model.Enums.enum_ChatType.UserStatus)
+            {
+                ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+                ShowNotice("用户" + rcus.User.DisplayName + (rcus.Status == Model.Enums.enum_UserStatus.available ? "已上线" : "已下线"));
             }
         }
 
