@@ -76,6 +76,16 @@ public class ResponseFactory
                 return new ResponseORM003008(request);
             case "orm003009":
                 return new ResponseORM003009(request);
+            case "orm005001":
+                return new ResponseORM005001(request);
+            case "orm005007":
+                return new ResponseORM005007(request);
+            case "orm005008":
+                return new ResponseORM005008(request);
+            case "orm005009":
+                return new ResponseORM005009(request);
+            case "orm005010":
+                return new ResponseORM005010(request);
             #endregion
 
             #region chat
