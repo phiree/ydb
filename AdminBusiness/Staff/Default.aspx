@@ -158,7 +158,6 @@
     <script src="/js/interfaceAdapter.js"></script>
     <script src="/js/test/mock.js"></script>
     <script src="/js/test/mock.staff.js"></script>
-    <!--<script src="/js/appoint.js"></script>-->
     <script src="/js/appointToStaff.js"></script>
     <script>
         $().ready(function(){
