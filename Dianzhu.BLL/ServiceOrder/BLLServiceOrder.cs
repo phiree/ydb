@@ -366,8 +366,8 @@ namespace Dianzhu.BLL
             flow.ChangeStatus(order, targetStatus);
 
             //保存订单历史记录
-            order.OrderStatus = oldStatus;
-            bllServiceOrderStateChangeHis.SaveOrUpdate(order, targetStatus);
+            //order.OrderStatus = oldStatus;
+            bllServiceOrderStateChangeHis.SaveOrUpdate(order, oldStatus);
 
             //更新订单状态
             order.OrderStatus = targetStatus;
