@@ -405,6 +405,7 @@ namespace Dianzhu.BLL
             {
                 case enum_OrderStatus.Created:
                     log.Debug("订单为Created，取消成功");
+                    order.OrderStatus = oldStatus;
                     ChangeStatus(order, enum_OrderStatus.Canceled);
                     ChangeStatus(order, enum_OrderStatus.EndCancel);
                     isCanceled = true;
@@ -532,6 +533,7 @@ namespace Dianzhu.BLL
                         {
                             log.Debug("取消订单时间不在订单保险时间内，取消成功");
                             //扣除定金，取消成功
+                            order.OrderStatus = oldStatus;
                             ChangeStatus(order, enum_OrderStatus.Canceled);
                             ChangeStatus(order, enum_OrderStatus.EndCancel);
                             isCanceled = true;
@@ -541,6 +543,7 @@ namespace Dianzhu.BLL
                     {
                         log.Debug("取消订单时间大于预约时间，取消成功");
                         //扣除定金，取消成功
+                        order.OrderStatus = oldStatus;
                         ChangeStatus(order, enum_OrderStatus.Canceled);
                         ChangeStatus(order, enum_OrderStatus.EndCancel);
                         isCanceled = true;
