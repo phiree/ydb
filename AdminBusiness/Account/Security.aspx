@@ -214,22 +214,19 @@
         $("#lb_changePhone").click(function (e) {
             $('#lightBox_ChangePhone').lightbox_me({
                 centered: true
-            });
-            $("#lightBox_ChangePhone").appendTo($("form:first"));
+            }).appendTo($("form:first"));
         });
 
         $("#lb_changeEmail").click(function (e) {
             $('#lightBox_ChangeEmail').lightbox_me({
                 centered: true
-            });
-            $("#lightBox_ChangeEmail").appendTo($("form:first"));
+            }).appendTo($("form:first"));
         });
 
         $('#passChange').click(function (e) {
             $('#lightBox').lightbox_me({
                 centered: true
-            });
-            $("#lightBox").appendTo($("form:first"));
+            }).appendTo($("form:first"));
         });
 
     });

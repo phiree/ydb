@@ -176,13 +176,11 @@
                     var $card = $this.parents(".emp-model");
                     var $assignFlag = $card.find(".emp-assign-flag");
                     if ( enabled == "True" ) {
-                        $this.val("取消指派");
-                        $this.addClass("assigned").removeClass("noAssign");
+                        $this.val("取消指派").addClass("assigned").removeClass("noAssign");
                         $assignFlag.addClass("assigned").removeClass("noAssign");
                     }
                     else {
-                        $this.val("指派");
-                        $this.removeClass("assigned").addClass("noAssign");
+                        $this.val("指派").removeClass("assigned").addClass("noAssign");
                         $assignFlag.removeClass("assigned").addClass("noAssign");
                     }
                 });

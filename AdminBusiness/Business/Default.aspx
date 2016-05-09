@@ -232,59 +232,41 @@
     </div>
 </body>
 <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
-<script src="/js/bootstrap/js/bootstrap.js"></script>
-<script src="/js/metisMenu/metisMenu.js"></script>
-<script src="/js/global.js"></script>
 <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
 <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js"></script>
+<script src="/js/bootstrap/js/bootstrap.js"></script>
+<script src="/js/global.js"></script>
 <script src="/js/jquery.lightbox_me.js"></script>
 <script src="/js/validation_business_add.js"></script>
 <script src="/js/business.js"></script>
 <script>
     $(function () {
-        if ($("#bizList").find(".biz-list-item").length == 0) {
-            $("#business-new").removeClass("hide");
-        } else {
-            $("#business-list").removeClass("hide");
-        }
-    });
+        (function (){
+            if ($("#bizList").find(".biz-list-item").length == 0) {
+                $("#business-new").removeClass("hide");
+            } else {
+                $("#business-list").removeClass("hide");
+            }
 
-    $(function () {
-        $("#addNewBusiness").click(function (e) {
-            $('#newBusslightBox').lightbox_me({
-                centered: true
+            if ( !($("#hiCreateID").attr("value") === "true")) {
+                $("#firstAddMsg").removeClass("hide");
+            }
+        })();
+
+        (function(){
+            var $lightBox = $('#newBusslightBox');
+            $("#addNewBusiness, #firstAddBusiness").click(function (e) {
+                e.preventDefault();
+                $lightBox.lightbox_me({centered: true}).appendTo($("form:first"));
             });
-            $("#newBusslightBox").appendTo($("form:first"));
-            e.preventDefault();
-        });
+        })();
 
-        $("#firstAddBusiness").click(function (e) {
-            $('#newBusslightBox').lightbox_me({
-                centered: true
-            });
-            $("#newBusslightBox").appendTo($("form:first"));
-            e.preventDefault();
-        });
-
-        if ($("#hiCreateID").attr("value") == "true") {
-            return;
-        } else {
-            $("#firstAddMsg").removeClass("hide");
-            return;
-        }
-    });
-
-    $(function () {
-        $("#menu").metisMenu();
         $('[data-toggle="tooltip"]').tooltip(
-                {
-                    placement: 'right',
-                    delay: {show : 500, hide : 0},
-                    trigger: 'hover'
-                }
-        );
-    });
-
+            {
+                placement: 'right',
+                delay: {show : 500, hide : 0},
+                trigger: 'hover'
+            }
         );
     });
 </script>
@@ -302,9 +284,11 @@
 <%if (!Request.IsLocal)
     { %>
 <script>
-    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-    document.write(unescape("%3Cspan id='cnzz_stat_icon_1256240621' style='display:none'%3E%3C/span%3E%3Cscript src='"
-            + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256240621%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    (function(){
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1256240621' style='display:none'%3E%3C/span%3E%3Cscript src='"
+                + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256240621%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    })();
 </script>
 <% }%>
 </html>

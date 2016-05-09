@@ -221,17 +221,13 @@
                         },
                         data:[
                             {value:0, name:'已完成订单'},
-                            {value:0, name:'未完成订单'},
+                            {value:0, name:'未完成订单'}
                         ]
                     }
                 ]
             };
-
-
-
             myChart.setOption(option);
         })()
-
     </script>
 </asp:Content>
 

@@ -319,9 +319,8 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
     <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" ></script>
     <script src="/js/jquery.form.min.js"></script>
-    <script src="/js/navigator.sayswho.js"></script>
-    <script src="/js/stepByStep.js"></script>
     <script src="/js/jquery.lightbox_me.js"></script>
+    <script src="/js/stepByStep.js"></script>
     <script src="/js/imgUpload.js"></script>
     <script src="/js/validation_shop_edit.js"></script>
     <script src="/js/select.js"></script>
