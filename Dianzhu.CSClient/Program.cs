@@ -48,7 +48,7 @@ namespace Dianzhu.CSClient
                 return;
             }
 
-             Install();
+           var container=  Install();
 
             string version = GetVersion();
             //  loginForm.FormText += "v" + version;
@@ -90,10 +90,10 @@ namespace Dianzhu.CSClient
             //mainForm.ShowDialog();
 
         }
-        static Castle.Windsor.WindsorContainer container;
-        static void Install()
+      //  static Castle.Windsor.WindsorContainer container;
+        static Castle.Windsor.WindsorContainer Install()
         {
-              container = new Castle.Windsor.WindsorContainer();
+           var   container = new Castle.Windsor.WindsorContainer();
             //Presenter
             container.Register(cmr.Component.For<Presenter.PMain>());
             container.Register(cmr.Component.For<CSClient.Presenter.LoginPresenter>());
@@ -137,7 +137,7 @@ namespace Dianzhu.CSClient
 
                 );
 
-
+            return container;
             
 
         }

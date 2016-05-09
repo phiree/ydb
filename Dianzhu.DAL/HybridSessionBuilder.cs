@@ -41,8 +41,7 @@ namespace Dianzhu.DAL
 
         private ISessionFactory getSessionFactory()
         {
-            lock (__lock)
-            {
+            
                 if (_sessionFactory == null)
                 {
 
@@ -66,7 +65,7 @@ namespace Dianzhu.DAL
                     
                 }
 
-            }
+            
             return _sessionFactory;
         }
         private static void BuildSchema(Configuration config)
@@ -74,7 +73,7 @@ namespace Dianzhu.DAL
             // this NHibernate tool takes a configuration (with mapping info in)
             // and exports a database schema from it
             SchemaUpdate update = new SchemaUpdate(config);
-            update.Execute(true, true);
+          //  update.Execute(true, true);
         }
         private static void GetUpdateScript(string ss)
         {

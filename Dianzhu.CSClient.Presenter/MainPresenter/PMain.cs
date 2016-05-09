@@ -85,7 +85,7 @@ namespace Dianzhu.CSClient.Presenter
         public void CloseApplication()
         {
 
-            bllLoginLog.MemberLogoff(IdentityManager.CurrentIdentity.CustomerService, string.Empty);
+             bllLoginLog.MemberLogoff(IdentityManager.CurrentIdentity.CustomerService, string.Empty);
             viewMainForm.CloseApplication();
         }
     }
