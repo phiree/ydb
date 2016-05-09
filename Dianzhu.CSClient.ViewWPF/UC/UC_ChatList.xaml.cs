@@ -214,6 +214,7 @@ namespace Dianzhu.CSClient.ViewWPF
             }
 
             player.Open(new Uri(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + fileName));
+            player.MediaEnded += Player_MediaEnded;
 
             if (isPlay)
             {
@@ -226,6 +227,12 @@ namespace Dianzhu.CSClient.ViewWPF
                 isPlay = true;
             }
         }
+
+        private void Player_MediaEnded(object sender, EventArgs e)
+        {
+            fileName = string.Empty;
+        }
+
         private void LoadBody(string messageBody, Panel pnlContainer)
         {
             bool containsUrls;
