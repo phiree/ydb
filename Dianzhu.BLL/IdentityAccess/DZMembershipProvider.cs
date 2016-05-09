@@ -323,12 +323,16 @@ namespace Dianzhu.BLL
             else
             {
                 var password_cred = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
-                DZMembership newMember = new DZMembership { UserName = savedUserName, Password = password_cred,
-                  Email=userEmail,
-                   Phone=userPhone,
-                   NickName=savedUserName,
-                    PlainPassword=password,
-                     UserNameForOpenFire=userNameForOpenfire
+                DZMembership newMember = new DZMembership
+                {
+                    UserName = savedUserName,
+                    Password = password_cred,
+                    Email = userEmail,
+                    Phone = userPhone,
+                    NickName = savedUserName,
+                    PlainPassword = password,
+                    UserNameForOpenFire = userNameForOpenfire,
+                    UserType = Model.Enums.enum_UserType.customer,
                 };
                 if (validateCode != Guid.Empty)
                 {

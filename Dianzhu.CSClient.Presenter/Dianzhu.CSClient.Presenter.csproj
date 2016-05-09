@@ -55,12 +55,12 @@
   <ItemGroup>
     <Compile Include="BLLFactory.cs" />
     <Compile Include="GlobalViables.cs" />
-    <Compile Include="InstantMessageHandler.cs" />
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="MainPresenter\MessageSender.cs" />
+    <Compile Include="MainPresenter\PMain.cs" />
     <Compile Include="MainPresenter\PNotice.cs" />
     <Compile Include="MainPresenter\POrderHistory.cs" />
-    <Compile Include="MainPresenter\PMain.cs" />
+    <Compile Include="MainPresenter\PMain_Backup.cs" />
     <Compile Include="MainPresenter\PChatSend.cs" />
     <Compile Include="MainPresenter\PChatList.cs" />
     <Compile Include="MainPresenter\PIdentyList.cs" />

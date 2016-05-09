@@ -294,6 +294,20 @@
   text-shadow: none;
 }
 
+.btn-edit-light {
+  .button-variant(#fff, #afafaf, transparent);
+  .h-gradient(#f7f7f7; #eaeaea );
+  &:hover,
+  &:focus,
+  &:visited {
+    color: #87ed90;
+    border-color: #87ed90;
+  }
+  color: #87ed90;
+  border: 1px solid #87ed90;
+  text-shadow: none;
+}
+
 .btn-delete-light {
   .button-variant(#fff, #afafaf, transparent);
   .h-gradient(#f7f7f7; #eaeaea );
@@ -312,6 +326,16 @@
 @btn-gray-h-padding : 25px;
 .btn-gray-light {
   .btn_gray(@btn-gray-v-padding, @btn-gray-h-padding);
+}
+
+
+@btn-gray-sm-v-padding : 2px;
+@btn-gray-sm-h-padding : 4px;
+.btn-gray-light-sm {
+  .btn_gray(@btn-gray-sm-v-padding, @btn-gray-sm-h-padding);
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: normal;
 }
 
 // Button Sizes

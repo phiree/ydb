@@ -62,7 +62,10 @@ namespace Com.Alipay
             //int nLen = prestr.Length;
             //prestr.Remove(nLen-1,1);
 
-            return prestr.ToString().TrimEnd('&');
+            string returnStr = prestr.ToString();
+            returnStr = returnStr.TrimEnd('&');
+
+            return returnStr;
         }
 
         /// <summary>

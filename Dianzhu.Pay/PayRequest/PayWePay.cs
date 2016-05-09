@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.Security.Cryptography;
 using System.IO;
 using Newtonsoft.Json;
+using Dianzhu.Pay.WePay;
 
 namespace Dianzhu.Pay
 {
@@ -44,8 +45,8 @@ namespace Dianzhu.Pay
         public string CreatePayRequest()
         {
             SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
-            sParaTemp.Add("appid", "wxd928d1f351b77449");
-            sParaTemp.Add("mch_id", "1304996701");
+            sParaTemp.Add("appid", ConfigWePay.appid);
+            sParaTemp.Add("mch_id", ConfigWePay.mch_id);
             sParaTemp.Add("nonce_str", nonce_str);
             sParaTemp.Add("body", PaySubjectPre + PaySubject);
             sParaTemp.Add("out_trade_no", PaymentId.Replace("-", ""));
@@ -94,8 +95,8 @@ namespace Dianzhu.Pay
         {
             int times = (int)(DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1))).TotalSeconds;
             SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
-            sParaTemp.Add("appid", Config.appid_WePay);
-            sParaTemp.Add("partnerid", Config.partnerid_WePay);
+            sParaTemp.Add("appid", ConfigWePay.appid);
+            sParaTemp.Add("partnerid", ConfigWePay.mch_id);
             sParaTemp.Add("prepayid", prepayid);
             sParaTemp.Add("package", @"Sign=WXPay");
             sParaTemp.Add("noncestr", nonce_str);

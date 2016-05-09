@@ -12,19 +12,21 @@ using FizzWare.NBuilder;
 using Dianzhu.Model;
 namespace Dianzhu.Test.DZCSClientTest
 {
-    /*
+   
     [TestFixture]
     public class PCustomerListTest
     {
         IViewIdentityList viewCustomerList;
         InstantMessage iIM;
         IViewChatList viewChatList;
+        IViewOrder viewOrder;
         [SetUp]
         public void setup()
         {
             viewCustomerList = MockRepository.GenerateStub<IViewIdentityList>();
             iIM = MockRepository.GenerateStub<InstantMessage>();
             viewChatList = MockRepository.GenerateStub<IViewChatList>();
+            viewOrder=MockRepository.GenerateStub<IViewOrder>();
 
         }
         [Test]
@@ -46,34 +48,39 @@ namespace Dianzhu.Test.DZCSClientTest
                 .TheNext(1).With(x => x.From = order21.Customer).And(x => x.ServiceOrder =order21)//不同用户，新订单
                 .TheNext(1).With(x => x.From = order11.Customer).And(x => x.ServiceOrder = order11)//已有用户的订单        
                 .Build();
-            PIdentityList pCustomerList = new PIdentityList(viewCustomerList, viewChatList);
+            PIdentityList pCustomerList = new PIdentityList(viewCustomerList, viewChatList,viewOrder,iIM);
+            IdentityTypeOfOrder identityTypeOfOrder;
+            IdentityManager.UpdateIdentityList(order11, out identityTypeOfOrder);
+
             //发送第一条消息
-            pCustomerList.ReceivedMessage(chats[0]);
-            Assert.AreEqual(order11, PGlobal.CurrentIdentity);
-            Assert.AreEqual(1,PGlobal.CurrentIdentityList.Count);
-            Assert.AreEqual(order11, PGlobal.CurrentIdentityList[0]);
+            pCustomerList.ReceivedMessage(chats[0], identityTypeOfOrder);
+            Assert.AreEqual(order11, IdentityManager.CurrentIdentity);
+            Assert.AreEqual(1, IdentityManager.CurrentIdentityList.Count);
+            // Assert.AreEqual(order11, IdentityManager.CurrentIdentityList.Keys.);
 
-            pCustomerList.ReceivedMessage(chats[1]);
-            Assert.AreEqual(order11, PGlobal.CurrentIdentity,null);
-            Assert.AreEqual(1, PGlobal.CurrentIdentityList.Count);
-            Assert.AreEqual(order11, PGlobal.CurrentIdentityList[0]);
 
-            pCustomerList.ReceivedMessage(chats[2]);
-            Assert.AreEqual(order12,PGlobal.CurrentIdentity);
-            Assert.AreEqual(1, PGlobal.CurrentIdentityList.Count);
-            Assert.AreEqual(order12, PGlobal.CurrentIdentityList[0]);
+            IdentityManager.UpdateIdentityList(order12, out identityTypeOfOrder);
 
-            pCustomerList.ReceivedMessage(chats[3]);
-            Assert.AreEqual(order12, PGlobal.CurrentIdentity);
-            Assert.AreEqual(2, PGlobal.CurrentIdentityList.Count);
-            Assert.AreEqual(order12, PGlobal.CurrentIdentityList[0]);
-            Assert.AreEqual(order21, PGlobal.CurrentIdentityList[1]);
+            pCustomerList.ReceivedMessage(chats[2], identityTypeOfOrder);
+            Assert.AreEqual(order12, IdentityManager.CurrentIdentity);
+            Assert.AreEqual(1, IdentityManager.CurrentIdentityList.Count);
+            //Assert.AreEqual(order12, IdentityManager.CurrentIdentityList[0]);
 
-            pCustomerList.ReceivedMessage(chats[4]);
-            Assert.AreEqual(order11, PGlobal.CurrentIdentity);
-            Assert.AreEqual(2, PGlobal.CurrentIdentityList.Count);
-            Assert.AreEqual(order21, PGlobal.CurrentIdentityList[0]);
-            Assert.AreEqual(order11, PGlobal.CurrentIdentityList[1]);
+            pCustomerList.ReceivedMessage(chats[3], identityTypeOfOrder);
+            Assert.AreEqual(order12, IdentityManager.CurrentIdentity);
+            Assert.AreEqual(2, IdentityManager.CurrentIdentityList.Count);
+            Assert.AreEqual(order12, IdentityManager.CurrentIdentityList.Keys.ElementAt(0));
+            Assert.AreEqual(order21, IdentityManager.CurrentIdentityList.Keys.ElementAt(1));
+
+
+            IdentityManager.UpdateIdentityList(order21, out identityTypeOfOrder);
+
+
+            pCustomerList.ReceivedMessage(chats[4],identityTypeOfOrder);
+            Assert.AreEqual(order11, IdentityManager.CurrentIdentity);
+            Assert.AreEqual(2, IdentityManager.CurrentIdentityList.Count);
+            Assert.AreEqual(order21, IdentityManager.CurrentIdentityList.Keys.ElementAt(0));
+            Assert.AreEqual(order11, IdentityManager.CurrentIdentityList.Keys.ElementAt(1));
 
             //Assert.AreEqual(null, pCustomerList.CurrentCustomer);
             //var members = Builder<DZMembership>.CreateListOfSize(5).Build();
@@ -128,5 +135,5 @@ namespace Dianzhu.Test.DZCSClientTest
             //Assert.AreEqual(10, viewChatList.ChatList.Count);
         }
 
-    }*/
+    } 
 }

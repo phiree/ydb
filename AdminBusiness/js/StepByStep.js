@@ -37,61 +37,58 @@
     $.extend(StepByStep.prototype, {
         init: function(){
             var defaultStep = this.options.defaultStep;
-            this.build();
-            this._delegate();
-            if ( typeof defaultStep === "function" && defaultStep ){
-                defaultStep = defaultStep();
-            }
-            if (typeof defaultStep === "string") defaultStep = parseInt(defaultStep);
+            this.build()._delegate();
+
+            if ( typeof defaultStep === "function" && defaultStep ){ defaultStep = defaultStep(); }
+            if ( typeof defaultStep === "string" ) defaultStep = parseInt(defaultStep);
             this.doneStep = (( defaultStep - 1 ) < 0) ? 0 : defaultStep;
             this.setStep(defaultStep);
+
             return this;
         },
-        build: function(){
-             this.$stepTips = this.$ele.find(this.options.stepTipsSelect);
-             this.$stepList = this.$ele.find(this.options.stepListSelect);
-             this.$stepLines = this.$ele.find(this.options.stepLinesSelect);
-             this.$stepCtrl = this.$ele.find(this.options.stepCtrlSelect);
-             this.$stepPrev = this.$ele.find(this.options.stepPrevSelect);
-             this.$stepNext = this.$ele.find(this.options.stepNextSelect);
-             this.totalStep = this.$stepList.find(this.options.stepItemSelect).length;
+        build: function () {
+            this.$stepTips = this.$ele.find(this.options.stepTipsSelect);
+            this.$stepList = this.$ele.find(this.options.stepListSelect);
+            this.$stepLines = this.$ele.find(this.options.stepLinesSelect);
+            this.$stepCtrl = this.$ele.find(this.options.stepCtrlSelect);
+            this.$stepPrev = this.$ele.find(this.options.stepPrevSelect);
+            this.$stepNext = this.$ele.find(this.options.stepNextSelect);
+            this.totalStep = this.$stepList.find(this.options.stepItemSelect).length;
+            return this
         },
-        _delegate: function(){
+        _delegate: function () {
             var _this = this;
+
             this.$stepPrev.on("click", function(){
                 _this.curStep = _this.$stepList.find(_this.options.curStepSelect).index();
                 if ( _this.curStep > 0 ){
                     _this.setStep( _this.curStep - 1 );
                 }
-                if ( _this.options.stepPrevFunc && typeof _this.options.stepPrevFunc === "function" ) _this.options.stepPrevFunc();
+                if ( _this.options.stepPrevFunc && typeof _this.options.stepPrevFunc === "function" ) _this.options.stepPrevFunc(_this.curStep - 1);
             });
+
             this.$stepNext.on("click", function(){
                 _this.curStep = _this.$stepList.find(_this.options.curStepSelect).index();
                 if ( typeof _this.options.stepValid === "function" && _this.options.stepValid ){
-                    if ( _this.options.stepValid() ){
-                        stepNext();
-                    }
+                    if (_this.options.stepValid() ){ stepNext(); }
                 } else {
                     stepNext();
-                    if ( _this.options.stepNextFunc && typeof _this.options.stepNextFunc === "function" ) _this.options.stepNextFunc();
                 }
+            });
 
-                function stepNext(){
-                    if ( _this.curStep < _this.totalStep ){
-                        _this.setStep(_this.curStep + 1);
-                    }
+            function stepNext(){
+                if ( _this.curStep < _this.totalStep ){
+                    _this.setStep(_this.curStep + 1);
+                    if ( _this.options.stepNextFunc && typeof _this.options.stepNextFunc === "function" ) _this.options.stepNextFunc(_this.curStep + 1);
                 }
-            })
+            }
         },
         setStep : function(step){
             var $steps = this.$stepList.find(this.options.stepItemSelect);
 
             $steps.eq(step).addClass("cur-step").siblings().removeClass("cur-step");
 
-            this._setStepTips(step);
-            this._setStepLines(step);
-            this._setStepCtrl(step);
-
+            this._setStepTips(step)._setStepLines(step)._setStepCtrl(step);
         },
         _setStepTips: function(step){
             var doneStep;
@@ -99,6 +96,7 @@
             var $tips = this.$stepTips.find(this.options.stepTipSelect);
             $tips.eq(step).addClass("cur-step").siblings().removeClass("cur-step").removeClass("done-step")
                 .slice(0 , doneStep ).addClass("done-step");
+            return this;
         },
         _setStepLines: function(step){
             var $lines = this.$stepLines.find(this.options.stepLinesSelect);
@@ -117,6 +115,7 @@
                     $lines.find('.steps-line').removeClass("cur-step");
                 }
             }
+            return this;
         },
         _setStepCtrl: function(step){
             // 步骤控制区域样式控制，设置当前为第几步
@@ -126,6 +125,8 @@
             } else {
                 this.$stepCtrl.addClass("step-" + (step + 1));
             }
+
+            return this;
         }
     });
 

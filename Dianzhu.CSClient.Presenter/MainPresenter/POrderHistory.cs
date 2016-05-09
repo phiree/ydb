@@ -18,13 +18,15 @@ namespace Dianzhu.CSClient.Presenter
      /// </summary>
     public  class POrderHistory
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.POrderHistory");
+
         IViewOrderHistory viewOrderHistory;
         IList<ServiceOrder> orderList;
         BLLServiceOrder bllServiceOrder;
         Dictionary<DZMembership, IList<ServiceOrder>> allList;
 
         public POrderHistory() { }
-        public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList)
+        public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList, InstantMessage iIM)
         {
             this.viewOrderHistory = viewOrderHistory;
             this.orderList = new List<ServiceOrder>();
@@ -33,22 +35,55 @@ namespace Dianzhu.CSClient.Presenter
 
             viewOrderHistory.SearchOrderHistoryClick += ViewOrderHistory_SearchOrderHistoryClick;
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
+            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+        }
+
+        private void IIM_IMReceivedMessage(ReceptionChat chat)
+        {
+            //判断信息类型
+            if(chat.ChatType== enum_ChatType.UserStatus)
+            {
+                ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+
+                if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+                {
+                    if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
+                    {
+                        ClearSearchList();
+                    }
+                }
+            }
         }
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
-            //加载历史订单
-            int totalAmount;
-            IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer, 1, 5, out totalAmount);
-            if (!allList.ContainsKey(serviceOrder.Customer))
+            try
             {
-                allList.Add(serviceOrder.Customer, orderList);
-            }            
-            viewOrderHistory.OrderList = orderList;
+                if (IdentityManager.CurrentIdentity == null)
+                { return; }
+                //加载历史订单
+                int totalAmount;
+                IList<ServiceOrder> orderList = bllServiceOrder.GetListForCustomer(serviceOrder.Customer, 1, 5, out totalAmount);
+                if (!allList.ContainsKey(serviceOrder.Customer))
+                {
+                    allList.Add(serviceOrder.Customer, orderList);
+                }
+                viewOrderHistory.OrderList = orderList;
+            }
+            catch (Exception ex)
+            {
+                log.Error("异常");
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+            }
         }
 
         private void ViewOrderHistory_SearchOrderHistoryClick()
         {
+            //fix #143
+            if (IdentityManager.CurrentIdentity == null)
+            {
+                return;
+            }
             IList<ServiceOrder> searchList = new List<ServiceOrder>();
             if (viewOrderHistory.SearchStr == string.Empty)
             {
@@ -74,6 +109,14 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 viewOrderHistory.OrderList = searchList;
             }            
+        }
+
+        /// <summary>
+        /// 清楚历史记录面板
+        /// </summary>
+        public void ClearSearchList()
+        {
+            viewOrderHistory.OrderList = null;
         }
     }
 

@@ -4,22 +4,24 @@ using System.Linq;
 using System.Windows.Forms;
 using Dianzhu.CSClient.MessageAdapter;
 using log4net;
- 
+
 using System.Deployment;
 using System.Deployment.Application;
 using System.Threading;
 using System.ComponentModel;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
-using ViewWPF=Dianzhu.CSClient.ViewWPF;
+using ViewWPF = Dianzhu.CSClient.ViewWPF;
 using ViewWinForm = Dianzhu.CSClient.WinformView;
+using cw = Castle.Windsor;
+using cmr = Castle.MicroKernel.Registration;
 namespace Dianzhu.CSClient
 {
     static class Program
     {
-        
+
         static ILog log = LogManager.GetLogger("Dianzhu.CSClient");
-       
+
         static int progressPercent = 0;
         /// <summary>
         /// 应用程序的主入口点。
@@ -28,7 +30,7 @@ namespace Dianzhu.CSClient
         static void Main()
         {
             PHSuit.Logging.Config("Dianzhu.CSClient");
-           
+
             //systemconfig
             AppDomain cDomain = AppDomain.CurrentDomain;
             cDomain.UnhandledException += new UnhandledExceptionEventHandler(cDomain_UnhandledException);
@@ -36,8 +38,8 @@ namespace Dianzhu.CSClient
             Application.SetCompatibleTextRenderingDefault(false);
 
             //log
-           
-            log.Debug( "开始启动助理工具");
+
+            log.Debug("开始启动助理工具");
             bool isValidConfig = CheckConfig();
             if (!isValidConfig)
             {
@@ -45,101 +47,40 @@ namespace Dianzhu.CSClient
                 Application.ExitThread();
                 return;
             }
-            //prepare parameters for IM instance's constructor
-            //init messageadapter
-            IMessageAdapter.IAdapter messageAdapter = new MessageAdapter.MessageAdapter(
-                 );
-            //get im server config
-            string server = Config.Config.GetAppSetting("ImServer");
-            string domain= Config.Config.GetAppSetting("ImDomain");
 
-            IInstantMessage.InstantMessage xmpp = new XMPP.XMPP(server,domain, messageAdapter, Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString());
+            var container = Install();
 
-
-            var loginForm = new ViewWPF.FormLogin();
             string version = GetVersion();
-            loginForm.FormText += "v" + version;
-            Presenter.LoginPresenter loginPresenter =
-            new Presenter.LoginPresenter(loginForm, xmpp);
-            bool? result = loginForm.ShowDialog();
+            //  loginForm.FormText += "v" + version;
+            Presenter.LoginPresenter loginPresenter = container.Resolve<Presenter.LoginPresenter>();
+            bool? result = loginPresenter.ShowDialog();
 
 
             bool useWpf = true;
             //登录成功
             if (result.Value)// == DialogResult.OK)
             {
+
+
                 log.Debug("登录成功");
-                IViewChatList viewChatList=null;
-                IViewIdentityList viewIdentityList = null;
-                IViewOrder viewOrder = null;
-                IViewSearch viewSearch = null;
-                IViewSearchResult viewSearchResult = null;
-                IViewChatSend viewChatSend = null;
-                IViewOrderHistory viewOrderHistory = null;
-                IViewNotice viewNotice = null;
 
-                if (useWpf)
-                {
-                    viewIdentityList = new ViewWPF.UC_IdentityList();
-                    viewChatList = new ViewWPF.UC_ChatList();
-                    viewChatSend = new ViewWPF.UC_ChatSend();
-                    viewOrder = new ViewWPF.UC_Order();
-                    viewOrderHistory = new ViewWPF.UC_OrderHistory();
-                    
-                    viewSearchResult = new ViewWPF.UC_SearchResult();
-                    viewSearch = new ViewWPF.UC_Search(viewSearchResult);
-                    viewNotice = new ViewWPF.UC_Notice();
-                }
-                else
-                {
-                     viewChatList = new WinformView.UC_ChatList();
-                     viewIdentityList = new WinformView.UC_IdentityList();
-                     viewOrder = new WinformView.UC_Order();
-                     viewSearch = new WinformView.UC_Search();
-                     viewSearchResult = new WinformView.UC_SearchResult();
-                    
 
-                }
-                //初始化Presenter
-                Presenter.PIdentityList pIdentityList = new Presenter.PIdentityList(viewIdentityList, viewChatList, viewOrder);
-                Presenter.PChatList pChatList = new Presenter.PChatList(viewChatList, viewIdentityList, xmpp);
-                Presenter.IdentityManager pIdentityManager = new Presenter.IdentityManager();
-                Presenter.PNotice pNotice = new Presenter.PNotice(viewNotice);
-                Presenter.InstantMessageHandler imHander = new Presenter.InstantMessageHandler(xmpp, pIdentityList, pNotice);
-                Presenter.PSearch pSearch = new Presenter.PSearch(xmpp, viewSearch, viewSearchResult, viewOrder, viewChatList);
-                Presenter.POrder pOrder = new Presenter.POrder(xmpp, viewOrder);
-                Presenter.POrderHistory pOrderHistory = new Presenter.POrderHistory(viewOrderHistory, viewIdentityList);
-                Presenter.PChatSend pChatSend = new Presenter.PChatSend(viewChatSend, viewChatList, xmpp);
-                Presenter.PMain pMain = new Presenter.PMain(new BLLReceptionStatus(), new BLLReceptionStatusArchieve(),
-                    new BLLReceptionChatDD(), new BLLReceptionChat(), new BLLIMUserStatus(), xmpp, viewIdentityList);
+                Presenter.PIdentityList pIdentityList = container.Resolve<Presenter.PIdentityList>(); ;
+                Presenter.PChatList pChatList = container.Resolve<Presenter.PChatList>();
+                Presenter.PNotice pNotice = container.Resolve<Presenter.PNotice>();
 
-                if (useWpf)
-                {
+                Presenter.PSearch pSearch = container.Resolve<Presenter.PSearch>();
+                Presenter.POrder pOrder = container.Resolve<Presenter.POrder>();
+                Presenter.POrderHistory pOrderHistory = container.Resolve<Presenter.POrderHistory>();
+                Presenter.PChatSend pChatSend = container.Resolve<Presenter.PChatSend>();
+                
 
-                    
-                    var mainForm = new ViewWPF.FormMain((ViewWPF.UC_IdentityList)viewIdentityList,
-                        (ViewWPF.UC_ChatList)viewChatList,
-                        (ViewWPF.UC_ChatSend)viewChatSend,
-                        (ViewWPF.UC_Order)viewOrder,
-                        (ViewWPF.UC_Search)viewSearch,
-                        (ViewWPF.UC_SearchResult)viewSearchResult,
-                        (ViewWPF.UC_OrderHistory)viewOrderHistory,
-                        (ViewWPF.UC_Notice)viewNotice
-                        );
-                    mainForm.Title += "v" + version;
-                     
-                    mainForm.ShowDialog();
-                }
-                else {
-                   
-                    var mainForm2 = new WinformView.FormMain2((ViewWinForm.UC_ChatList)viewChatList, 
-                        (ViewWinForm.UC_IdentityList) viewIdentityList,
-                        
-                        (ViewWinForm.UC_Order) viewOrder,
-                        (ViewWinForm.UC_Search) viewSearch,
-                        (ViewWinForm.UC_SearchResult) viewSearchResult);
-                    mainForm2.ShowDialog();
-                }
+                var mainPresenter = container.Resolve<Presenter.PMain>();
+
+
+                mainPresenter.ShowDialog();
+
+
             }
 
 
@@ -150,6 +91,52 @@ namespace Dianzhu.CSClient
 
         }
 
+        static Castle.Windsor.WindsorContainer Install()
+        {
+            var container = new Castle.Windsor.WindsorContainer();
+            container.Register(cmr.Component.For<Presenter.PMain>());
+
+
+            container.Register(cmr.Component.For<CSClient.Presenter.LoginPresenter>());
+            container.Register(cmr.Component.For<CSClient.Presenter.IdentityManager>());
+            container.Register(cmr.Component.For<CSClient.Presenter.PIdentityList>());
+            container.Register(cmr.Component.For<CSClient.Presenter.PChatList>());
+            container.Register(cmr.Component.For<CSClient.Presenter.PChatSend>());
+            container.Register(cmr.Component.For<CSClient.Presenter.PNotice>());
+            container.Register(cmr.Component.For<CSClient.Presenter.POrder>());
+            container.Register(cmr.Component.For<CSClient.Presenter.POrderHistory>());
+            container.Register(cmr.Component.For<CSClient.Presenter.PSearch>());
+
+            container.Register(cmr.Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
+            container.Register(cmr.Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());
+            container.Register(cmr.Component.For<IViewChatList>().ImplementedBy<ViewWPF.UC_ChatList>());
+            container.Register(cmr.Component.For<IViewChatSend>().ImplementedBy<ViewWPF.UC_ChatSend>());
+            container.Register(cmr.Component.For<IViewIdentityList>().ImplementedBy<ViewWPF.UC_IdentityList>());
+            container.Register(cmr.Component.For<IViewNotice>().ImplementedBy<ViewWPF.UC_Notice>());
+            container.Register(cmr.Component.For<IViewOrder>().ImplementedBy<ViewWPF.UC_Order>());
+            container.Register(cmr.Component.For<IViewOrderHistory>().ImplementedBy<ViewWPF.UC_OrderHistory>());
+            container.Register(cmr.Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
+            container.Register(cmr.Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
+
+            string server = Config.Config.GetAppSetting("ImServer");
+            string domain = Config.Config.GetAppSetting("ImDomain");
+            container.Register(cmr.Component.For<CSClient.IInstantMessage.InstantMessage>().ImplementedBy<XMPP.XMPP>()
+                .DependsOn(cmr.Dependency.OnValue("server", server)
+                            , cmr.Dependency.OnValue("domain", domain)
+                            , cmr.Dependency.OnValue("resourceName", Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())
+                            )
+                            );
+
+            container.Register(cmr.Component.For<CSClient.IMessageAdapter.IAdapter>()
+                .ImplementedBy<CSClient.MessageAdapter.MessageAdapter>()
+
+
+                );
+
+
+            return container;
+
+        }
         static bool CheckConfig()
         {
             log.Debug("--开始 检查配置是否冲突");
@@ -158,8 +145,8 @@ namespace Dianzhu.CSClient
             string connectionString = PHSuit.Security.Decrypt(System.Configuration.ConfigurationManager
                 .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false);
             System.Text.RegularExpressions.Match m = System.Text.RegularExpressions.Regex.Match(connectionString, @"(?<=data\s+source\=).+?(?=;uid)");
-            string ofserver= Dianzhu.Config.Config.GetAppSetting("ImServer");
-            System.Text.RegularExpressions.Match m2= System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:8037)");
+            string ofserver = Dianzhu.Config.Config.GetAppSetting("ImServer");
+            System.Text.RegularExpressions.Match m2 = System.Text.RegularExpressions.Regex.Match(Dianzhu.Config.Config.GetAppSetting("APIBaseURL"), "(?<=https?://).+?(?=:8037)");
 
             if (ofserver == m.Value && m.Value == m2.Value)
             {
@@ -167,20 +154,27 @@ namespace Dianzhu.CSClient
             }
             else
             {
-                log.Error(m.Value+","+m2.Value+","+ofserver);
+                log.Error(m.Value + "," + m2.Value + "," + ofserver);
             }
             log.Debug("--结束 检查配置是否冲突");
             return isValidConfig;
 
 
 
-            
+
         }
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            
-            log.Error("异常崩溃:"+ e.ExceptionObject.ToString());
-            MessageBox.Show(e.ExceptionObject.ToString());
+            try
+            {
+                log.Error("异常崩溃:" + e.ExceptionObject.ToString());
+
+                MessageBox.Show(e.ExceptionObject.ToString());
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
         static string GetVersion()
         {
@@ -191,4 +185,7 @@ namespace Dianzhu.CSClient
             return myVersion.ToString();
         }
     }
+
+
+    // public interface IIdentityManagerFactory
 }

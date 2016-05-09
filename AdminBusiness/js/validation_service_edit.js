@@ -90,7 +90,7 @@ service_validate_rules[name_prefix + "tbxDespoist"] = {
 
 service_validate_messages[name_prefix + "tbxDespoist"] =
 {
-    required: "请填写定金",
+    required: "请填写订金",
     range: "请输入1-20000之间的价格"
 };
 

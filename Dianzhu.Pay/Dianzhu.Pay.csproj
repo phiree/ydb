@@ -42,11 +42,11 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -62,12 +62,16 @@
     <Compile Include="PayCallBack\PayCallBackAli.cs" />
     <Compile Include="PayCallBack\PayCallBackWePay.cs" />
     <Compile Include="PayRequest\IPay.cs" />
-    <Compile Include="IRefund.cs" />
+    <Compile Include="RefundRequest\IRefund.cs" />
     <Compile Include="PayRequest\PayAliApp.cs" />
     <Compile Include="PayRequest\PayAliWeb.cs" />
     <Compile Include="Paylog.cs" />
     <Compile Include="PayRequest\PayWePay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefundRequest\RefundWePay.cs" />
+    <Compile Include="RefundRequest\RefundAliApp.cs" />
+    <Compile Include="RefundRequest\RefundAli.cs" />
+    <Compile Include="WePay\WePayConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -78,6 +82,9 @@
       <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
       <Name>PHSuit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RefundCallBack\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

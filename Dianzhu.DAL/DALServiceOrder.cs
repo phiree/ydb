@@ -34,18 +34,26 @@ namespace Dianzhu.DAL
                 case enum_OrderSearchType.De:
                     iqueryover = iqueryover.Where(
                         x => x.OrderStatus == enum_OrderStatus.Finished
-                        && x.OrderStatus == enum_OrderStatus.Aborded
-                        && x.OrderStatus == enum_OrderStatus.Appraised
+                        || x.OrderStatus == enum_OrderStatus.Appraised
+                        || x.OrderStatus == enum_OrderStatus.EndWarranty
+                        || x.OrderStatus == enum_OrderStatus.EndCancel
+                        || x.OrderStatus == enum_OrderStatus.EndRefund
+                        || x.OrderStatus == enum_OrderStatus.EndIntervention
+                        || x.OrderStatus == enum_OrderStatus.ForceStop
                         );
                     break;
                 case enum_OrderSearchType.Nt:
                     iqueryover = iqueryover.Where(
-                        x => x.OrderStatus != enum_OrderStatus.Draft
+                        x => x.OrderStatus != enum_OrderStatus.Search
+                         && x.OrderStatus != enum_OrderStatus.Draft
                          && x.OrderStatus != enum_OrderStatus.DraftPushed
                          && x.OrderStatus != enum_OrderStatus.Finished
-                         && x.OrderStatus != enum_OrderStatus.Aborded
                          && x.OrderStatus != enum_OrderStatus.Appraised
-                         && x.OrderStatus != enum_OrderStatus.Search
+                         && x.OrderStatus != enum_OrderStatus.EndWarranty
+                         && x.OrderStatus != enum_OrderStatus.EndCancel
+                         && x.OrderStatus != enum_OrderStatus.EndRefund
+                         && x.OrderStatus != enum_OrderStatus.EndIntervention
+                         && x.OrderStatus != enum_OrderStatus.ForceStop
                     );
                     break;
                 default:
@@ -117,12 +125,18 @@ namespace Dianzhu.DAL
 
         public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)
         {
-            var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.Customer == customer);
-            totalAmount = iquery.RowCount();
+            using (var t = Session.BeginTransaction())
+            {
+                var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.Customer == customer).Where(x => x.OrderStatus != enum_OrderStatus.Draft).Where(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
+                totalAmount = iquery.RowCount();
 
-            IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
+                IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
 
-            return list;
+              
+                t.Commit();
+                return list;
+            }
+           
         }
 
         /// <summary>

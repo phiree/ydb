@@ -66,7 +66,7 @@ namespace Dianzhu.Model
                 else {
 
                     ServiceType theParent =this.Parent;
-                    while (theParent !=null)
+                    while (theParent.DeepLevel !=0)
                     {
                         theParent = this.Parent.Parent;
                     }

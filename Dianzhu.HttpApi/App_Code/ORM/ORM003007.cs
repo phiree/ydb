@@ -92,10 +92,22 @@ public class ResponseORM003007 : BaseResponse
                                 bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
                                 break;
                             case enum_OrderStatus.Assigned:
-                                bllServiceOrder.OrderFlow_CustomIsNegotiate(order);
+                                bllServiceOrder.OrderFlow_CustomConfirmNegotiate(order);
                                 break;
                             case enum_OrderStatus.Canceled:
-                                bllServiceOrder.OrderFlow_Canceled(order);
+                                //bllServiceOrder.OrderFlow_Canceled(order);
+                                if (bllServiceOrder.OrderFlow_Canceled(order))
+                                {
+                                    this.state_CODE = Dicts.StateCode[0];
+                                    this.err_Msg = "订单取消成功";
+                                    return;
+                                }
+                                else
+                                {
+                                    this.state_CODE = Dicts.StateCode[1];
+                                    this.err_Msg = "订单取消失败，请稍候再试";
+                                    return;
+                                }
                                 break;
                             case enum_OrderStatus.Ended:
                                 bllServiceOrder.OrderFlow_CustomerFinish(order);
@@ -133,9 +145,9 @@ public class ResponseORM003007 : BaseResponse
                                 bllServiceOrder.OrderFlow_BusinessConfirm(order);
                                 break;
                             case enum_OrderStatus.Begin:
-                                bllServiceOrder.OrderFlow_CustomerConfirmNegotiate(order);
+                                bllServiceOrder.OrderFlow_BusinessStartService(order);
                                 break;
-                            case enum_OrderStatus.IsEnd:
+                            case enum_OrderStatus.isEnd:
                                 bllServiceOrder.OrderFlow_BusinessFinish(order);
                                 break;
 

@@ -79,7 +79,7 @@ public class ResponseOFP001001 : BaseResponse
                 imUSA.IpAddress = imOld.IpAddress;
                 imUSA.OFIpAddress = imOld.OFIpAddress;
                 imUSA.ClientName = imOld.ClientName;
-                bllIMUserStatusArchieve.SaveOrUpdate(imUSA);
+                bllIMUserStatusArchieve.Save(imUSA);
 
                 //更新用户状态
                 imOld.Status = currentIM.Status;
@@ -87,7 +87,7 @@ public class ResponseOFP001001 : BaseResponse
                 imOld.OFIpAddress = ofIp;
                 imOld.ClientName = clientName;
                 imOld.LastModifyTime = DateTime.Now;
-                bllIMUserStatus.SaveOrUpdate(imOld);
+                bllIMUserStatus.Update(imOld);
             }
             else
             {
@@ -96,7 +96,7 @@ public class ResponseOFP001001 : BaseResponse
                 currentIM.OFIpAddress = ofIp;
                 currentIM.ClientName = clientName;
                 currentIM.LastModifyTime = DateTime.Now;
-                bllIMUserStatus.SaveOrUpdate(currentIM);
+                bllIMUserStatus.Save(currentIM);
             }
 
             //更新当前接待类

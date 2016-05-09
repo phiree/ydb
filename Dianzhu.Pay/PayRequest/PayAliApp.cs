@@ -45,7 +45,7 @@ namespace Dianzhu.Pay
             sParaTemp.Add("seller_id", Config.seller_id);
             sParaTemp.Add("body", PayMemo);
             sParaTemp.Add("total_fee", string.Format("{0:F2}", PayAmount));
-            sParaTemp.Add("app_id", "2016012201112719");
+            sParaTemp.Add("app_id", Config.app_id);
             
             string mysign = AlipaySignature.RSASign(sParaTemp, HttpRuntime.AppDomainAppPath + "/files/rsa_private_key.pem", Config.input_charset);
             sParaTemp.Add("sign",System.Web.HttpUtility.UrlEncode(mysign));

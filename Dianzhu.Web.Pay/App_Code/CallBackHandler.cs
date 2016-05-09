@@ -28,16 +28,20 @@ public partial class CallBackHandler : System.Web.UI.Page
         log.Debug("-------------------支付完成,回调开始------------------");
       
         string rawUrl = Request.RawUrl;
+        log.Debug("回调地址：" + rawUrl);
         IPayCallBack payCallBack=null;
         enum_PaylogType payLogType= enum_PaylogType.None;
+        enum_PayAPI payApi;
         if (rawUrl.ToLower().StartsWith("/paycallback/wepay"))
         {
+            payApi = enum_PayAPI.Wechat;
             log.Debug("微支付回调开始");
             payCallBack = new PayCallBackWePay();
             payLogType = enum_PaylogType.ReturnNotifyFromWePay;
         }
         else if (rawUrl.ToLower().StartsWith("/paycallback/alipay"))
         {
+            payApi = enum_PayAPI.Alipay;
             log.Debug("支付宝回调开始");
             //保存支付接口返回的原始数据
             if (rawUrl.ToLower().Contains("return_url"))
@@ -51,6 +55,7 @@ public partial class CallBackHandler : System.Web.UI.Page
         }
         else
         {
+            payApi = enum_PayAPI.None;
             errMsg = "错误的回调页面: " + rawUrl;
             log.Error(errMsg);
             Response.Write(errMsg);
@@ -90,8 +95,17 @@ public partial class CallBackHandler : System.Web.UI.Page
             }
             else
             {
-                log.Debug("异步调用成功");
-                Response.Write("success");
+                log.Debug(payApi + "异步调用成功");
+                if (payApi == enum_PayAPI.Alipay)
+                {
+                    Response.Write("success");
+                }
+                else
+                {
+                    string xml = @"<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+                    Response.ContentType = "text/xml";
+                    Response.Write(xml);
+                }
             }
         }
         catch (Exception ex)

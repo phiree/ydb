@@ -110,11 +110,19 @@ namespace Dianzhu.CSClient.XMPP
             //message-->chat
             //1 转换为chat对象
             log.Debug("receive_msg:"+msg.ToString());
-            Model.ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
-
-            if (IMReceivedMessage != null)
+            try
             {
-                IMReceivedMessage(chat);
+                Model.ReceptionChat chat = messageAdapter.MessageToChat(msg);// new Model.ReceptionChat();// MessageAdapter.MessageToChat(msg);
+
+                if (IMReceivedMessage != null)
+                {
+                    IMReceivedMessage(chat);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("消息解析失败");
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
             }
         }
         void Connection_OnPresence(object sender, Presence pres)
@@ -149,8 +157,10 @@ namespace Dianzhu.CSClient.XMPP
         }
         public void SendPresent()
         {
+          
             Presence p = new Presence(ShowType.chat, "Online");
             p.Type = PresenceType.available;
+            log.Debug("send present:"+p.ToString());
             XmppClientConnection.Send(p);
         }
         public void SendMessage(Model.ReceptionChat chat)
@@ -171,10 +181,12 @@ namespace Dianzhu.CSClient.XMPP
         }
         public void Close()
         {
+            log.Debug("xmppconenction close ");
             XmppClientConnection.Close();
         }
         public void OpenConnection(string userName, string password)
         {
+            log.Debug("xmpp open connection:"+userName);
             XmppClientConnection.Open(userName, password);
         }
         public void XmppClientConnection_OnClose(object sender)

@@ -47,7 +47,14 @@ business_validate_messages["tbxAddress"] =
 //tbxContactPhone
 business_validate_rules["tbxContactPhone"] =
 {
-    phone: true
+    //phone: true
+    required: true
+};
+
+business_validate_messages["tbxContactPhone"] =
+{
+    //phone: true
+    required: "请输入联系方式"
 };
 
 //serviceScope

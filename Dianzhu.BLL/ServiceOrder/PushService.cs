@@ -59,6 +59,9 @@ namespace Dianzhu.BLL
 
                 order.CreatedFromDraft();
 
+                //保存订单历史记录
+                bllServiceOrderStateChangeHis.SaveOrUpdate(order, enum_OrderStatus.DraftPushed);
+
                 PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);
 
                 if (order.DepositAmount>0)

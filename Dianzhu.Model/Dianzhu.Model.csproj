@@ -55,6 +55,8 @@
     <Compile Include="Finance\ServiceTypePoint.cs" />
     <Compile Include="Finance\SharePoint.cs" />
     <Compile Include="IdentityAccess\emUserType.cs" />
+    <Compile Include="Payment\RefundLog.cs" />
+    <Compile Include="Payment\Refund.cs" />
     <Compile Include="ServiceOrderRemind.cs" />
     <Compile Include="Agent\Agent.cs" />
     <Compile Include="Complaint.cs" />
@@ -72,7 +74,7 @@
     <Compile Include="ServiceOrder\ServiceSnapShotForOrder.cs" />
     <Compile Include="StaffServiceType.cs" />
     <Compile Include="OrderAssignment.cs" />
-    <Compile Include="PaymentLog.cs" />
+    <Compile Include="Payment\PaymentLog.cs" />
     <Compile Include="Area.cs" />
     <Compile Include="CashTIcketAssignDetail.cs" />
     <Compile Include="CashTicketTemplate.cs" />
@@ -85,13 +87,12 @@
     <Compile Include="CashTicketCreateRecord.cs" />
     <Compile Include="CashTicket.cs" />
     <Compile Include="IdentityAccess\DZMembership.cs" />
-    <Compile Include="Paylog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CashTicketAssignRecord.cs" />
     <Compile Include="Reception\Reception.cs" />
     <Compile Include="Reception\ReceptionStatus.cs" />
     <Compile Include="Resource\ServiceOpenTime.cs" />
-    <Compile Include="Payment.cs" />
+    <Compile Include="Payment\Payment.cs" />
     <Compile Include="ServiceOrderStateChangeHis.cs" />
     <Compile Include="ServiceProperty.cs" />
     <Compile Include="ServiceOrder\ServiceOrder.cs" />

@@ -16,6 +16,7 @@ using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using System.Windows.Interop;
 using System.Windows.Controls.Primitives;
+using System.IO;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -29,7 +30,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             InitializeComponent();
         }
-        IList<ReceptionChat> chatList=new List<ReceptionChat>();
+        IList<ReceptionChat> chatList = new List<ReceptionChat>();
         public IList<ReceptionChat> ChatList
         {
             get
@@ -39,13 +40,32 @@ namespace Dianzhu.CSClient.ViewWPF
 
             set
             {
-                ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
-                //pnlChatList.Children.Clear();
-                foreach (ReceptionChat chat in value)
+                Action lambda = () =>
                 {
-                    AddOneChat(chat);
+                    chatList = value;
+                    ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
 
+                    if (chatList == null)
+                    {
+                        chatList = new List<ReceptionChat>();
+                        return;
+                    }
+                    
+                    //pnlChatList.Children.Clear();
+                    
+                    if (chatList.Count > 0)
+                    {
+                        foreach (ReceptionChat chat in chatList)
+                        {
+                            AddOneChat(chat);
+                        }
+                    }
+                };
+                if (!Dispatcher.CheckAccess())
+                {
+                    Dispatcher.Invoke(lambda);
                 }
+                else { lambda(); }
             }
         }
         
@@ -108,8 +128,13 @@ namespace Dianzhu.CSClient.ViewWPF
                         case "voice":
                              Button btnAudio = new Button();
                             btnAudio.Content = "播放音频---";
-                            btnAudio.Tag = mediaUrl;
-                            
+                            //btnAudio.Tag = mediaUrl;
+                            //string fileName = ((Model.ReceptionChatMedia)chat).MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+                            //btnAudio.Name = ((Model.ReceptionChatMedia)chat).MedialUrl;
+
+                            //string targetFileName = Environment.CurrentDirectory + "message/media/" + fileName + ".mp3";
+
+                            btnAudio.Tag = chat;
                             btnAudio.Click += BtnAudio_Click;
                             pnlOneChat.Children.Add(btnAudio);
                             break;
@@ -167,15 +192,47 @@ namespace Dianzhu.CSClient.ViewWPF
             ((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
         }
 
+        MediaPlayer player = new MediaPlayer();
+        bool isPlay = false;
+        string fileName = string.Empty;
         private void BtnAudio_Click(object sender, EventArgs e)
         {
-            if(AudioPlay!=null)
+            //if(AudioPlay!=null)
+            //{
+            //    Window w = Window.GetWindow(this);
+            //    IntPtr windowHandle = new WindowInteropHelper(w).Handle;
+            //    AudioPlay(((Button)sender).Tag, windowHandle);
+            //}
+
+            ReceptionChatMedia chat = (Model.ReceptionChatMedia)(((Button)sender).Tag);
+            string chatFlieName= chat.MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+
+            if (string.IsNullOrEmpty(fileName) || fileName != chatFlieName)
             {
-                Window w = Window.GetWindow(this);
-                IntPtr windowHandle = new WindowInteropHelper(w).Handle;
-                AudioPlay(((Button)sender).Tag, windowHandle);
+                fileName = chatFlieName;
+                isPlay = true;
+            }
+
+            player.Open(new Uri(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + fileName));
+            player.MediaEnded += Player_MediaEnded;
+
+            if (isPlay)
+            {
+                player.Play();
+                isPlay = false;
+            }
+            else
+            {
+                player.Pause();
+                isPlay = true;
             }
         }
+
+        private void Player_MediaEnded(object sender, EventArgs e)
+        {
+            fileName = string.Empty;
+        }
+
         private void LoadBody(string messageBody, Panel pnlContainer)
         {
             bool containsUrls;
@@ -233,13 +290,5 @@ namespace Dianzhu.CSClient.ViewWPF
                 currentCustomerService = value;
             }
         }
-
-        //private void pnlChatList_SizeChanged(object sender, SizeChangedEventArgs e)
-        //{
-        //    if (svChatList.ScrollableHeight == svChatList.VerticalOffset)
-        //    {
-        //        svChatList.ScrollToEnd();
-        //    }
-        //}
     }
 }

@@ -70,7 +70,9 @@
   <ItemGroup>
     <Compile Include="DALComplaint.cs" />
     <Compile Include="DALAdvertisement.cs" />
+    <Compile Include="DALRefund.cs" />
     <Compile Include="DALPayment.cs" />
+    <Compile Include="DALRefundLog.cs" />
     <Compile Include="DALReception.cs" />
     <Compile Include="DALServiceOpenTime.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
@@ -101,6 +103,8 @@
     <Compile Include="Mapping\IdentityAccess\DZRoleMemberMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
+    <Compile Include="Mapping\RefundLogMap.cs" />
+    <Compile Include="Mapping\RefundMap.cs" />
     <Compile Include="Mapping\ServiceOrderRemindMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderPushedServiceMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderDetailMap.cs" />

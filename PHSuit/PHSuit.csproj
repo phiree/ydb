@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmrConvertToMp3.cs" />
     <Compile Include="ExceptionLoger.cs" />
     <Compile Include="HttpHelper.cs" />
     <Compile Include="IOHelper.cs" />
@@ -114,11 +115,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="files\ffmpeg.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="lib\JdSoft.Apns.Notifications.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="files\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

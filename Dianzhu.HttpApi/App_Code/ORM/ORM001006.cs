@@ -23,6 +23,8 @@ public class ResponseORM001006 : BaseResponse
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
         PushService bllPushService = new PushService();
+        BLLDZService bllDZService = new BLLDZService();
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
         string raw_id = requestData.userID;
 
         try
@@ -57,7 +59,15 @@ public class ResponseORM001006 : BaseResponse
                     this.err_Msg = "分页大小或者分页索引不是数值格式";
                     return;
                 }
-                enum_OrderSearchType searchType = (enum_OrderSearchType)Enum.Parse(typeof(enum_OrderSearchType), srvTarget);
+
+                enum_OrderSearchType searchType;
+                bool isSearchType = Enum.TryParse(srvTarget, out searchType);
+                if (!isSearchType)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "订单状态格式有误";
+                    return;
+                }
 
                 IList<ServiceOrder> orderList = bllServiceOrder.GetServiceOrderList(uid, searchType, pageNum, pageSize);
                 Dictionary<ServiceOrder, ServiceOrderPushedService> dicList = new Dictionary<ServiceOrder, ServiceOrderPushedService>();
@@ -75,9 +85,34 @@ public class ResponseORM001006 : BaseResponse
                     }
                 }
 
-                RespDataORM001006 respData = new RespDataORM001006();
-
+                RespDataORM001006 respData = new RespDataORM001006();         
                 respData.AdapList(dicList);
+
+                ServiceOrderStateChangeHis orderHis;
+                IList<DZTag> tagsList = new List<DZTag>();//标签
+                foreach (KeyValuePair<ServiceOrder, ServiceOrderPushedService> item in dicList)
+                {
+                    orderHis = bllServiceOrderStateChangeHis.GetOrderHis(item.Key);
+
+                    if (item.Key.Details.Count > 0)
+                    {
+                        tagsList = bllDZService.GetServiceTags(item.Key.Details[0].OriginalService);
+                    }
+                    else
+                    {
+                        tagsList = bllDZService.GetServiceTags(item.Value.OriginalService);
+                    }
+
+                    foreach (var obj in respData.arrayData)
+                    {
+                        if (obj.orderID == item.Key.Id.ToString())
+                        {
+                            obj.svcObj.SetTag(obj.svcObj, tagsList);
+                            obj.SetOrderStatusObj(obj, orderHis);
+                            break;
+                        }
+                    }
+                }
 
                 this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];

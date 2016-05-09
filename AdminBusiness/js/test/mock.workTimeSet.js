@@ -29,21 +29,30 @@ Mock.mock(/test.001006.json/, function(){
                 {
                     "workTimeID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
                     "tag": "默认工作时间",
-                    "startTime": "07:00",
-                    "endTime": "19:00",
-                    "week": "1",
-                    "open": "Y",
-                    "maxOrder": "60"
+                    "startTime": "08:00",
+                    "endTime": "12:00",
+                    "week": "2",
+                    "open": "N",
+                    "maxOrder": "8",
                 },
                 {
-                    "workTimeID": "6F9619FF-8B86-D011-B42D-00C04FC964FE",
+                    "workTimeID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
                     "tag": "默认工作时间",
-                    "startTime": "07:00",
+                    "startTime": "14:00",
                     "endTime": "19:00",
                     "week": "2",
                     "open": "N",
-                    "maxOrder": "60"
-                }
+                    "maxOrder": "7",
+                },
+                {
+                    "workTimeID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                    "tag": "默认工作时间",
+                    "startTime": "20:00",
+                    "endTime": "23:00",
+                    "week": "1",
+                    "open": "Y",
+                    "maxOrder": "5",
+                },
             ]
         },
         "stamp_TIMES": "1490192929335",

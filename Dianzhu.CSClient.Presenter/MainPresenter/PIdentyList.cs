@@ -22,50 +22,97 @@ namespace Dianzhu.CSClient.Presenter
     /// </summary>
     public  class PIdentityList
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PIdentityList");
         IViewIdentityList iView;
         IViewChatList iViewChatList;
-
+        DAL.DALReceptionChat dalReceptionChat;
         IViewOrder iViewOrder;
-        public PIdentityList() { }
-        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder)
+        public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList, IViewOrder iViewOrder, InstantMessage iIM)
+            : this(iView, iViewChatList, iViewOrder, iIM, new DALReceptionChat())
+        {
+
+        }
+
+        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, DAL.DALReceptionChat dalReceptionChat)
         {
             this.iView = iView;
             this.iViewOrder = iViewOrder;
             this.iViewChatList = iViewChatList;
+            this.dalReceptionChat = dalReceptionChat;
 
             iView.IdentityClick += IView_IdentityClick;
-
+            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
         }
 
-        private void IView_IdentityClick(ServiceOrder serviceOrder)
+        private void IIM_IMReceivedMessage(ReceptionChat chat)
         {
+            string errMsg = string.Empty;
+            //判断信息类型
+            if (chat.ChatType == enum_ChatType.Media || chat.ChatType == enum_ChatType.Text)
+            {
+                //1 更新当前聊天列表
+                //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
+                IdentityTypeOfOrder type;
+                IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
+                ReceivedMessage(chat, type);
+                //消息本地化.
+                chat.ReceiveTime = DateTime.Now;
+                if (chat is Model.ReceptionChatMedia)
+                {
+                    string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                    string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+
+                    ((ReceptionChatMedia)chat).MedialUrl = fileName;
+                }
+                dalReceptionChat.Save(chat);
+            }
+            else if (chat.ChatType== enum_ChatType.UserStatus)
+            {
+                ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+
+                if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+                {
+                    if (IdentityManager.CurrentIdentity == chat.ServiceOrder)
+                    {
+                        if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
+                        {
+                            RemoveIdentity(chat.ServiceOrder);
+                        }
+                        else
+                        {
+                            errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
+                            log.Error(errMsg);
+                            throw new NotImplementedException(errMsg);
+                        }
+                    }
+                    else
+                    {
+                        SetSetIdentityLogOff(chat.ServiceOrder);
+                    }
+                }
+            }
+        }
+
+        public void IView_IdentityClick(ServiceOrder serviceOrder)
+        {
+            try
+            {
+                IdentityManager.CurrentIdentity = serviceOrder;
+                iView.SetIdentityLoading(serviceOrder);
+                
+            }
+            catch (Exception ex)
+            {
+                log.Error("IView_IdentityClick Error,skip");
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+            }
             
-            IdentityManager.CurrentIdentity = serviceOrder;
-            iView.SetIdentityLoading(serviceOrder);
-            BackgroundWorker bgwLoadChatList = new BackgroundWorker();
-            bgwLoadChatList.DoWork += BgwLoadChatList_DoWork;
-            bgwLoadChatList.RunWorkerCompleted += BgwLoadChatList_RunWorkerCompleted;
-            bgwLoadChatList.RunWorkerAsync(serviceOrder);
 
         }
 
-        private void BgwLoadChatList_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ServiceOrder order = (ServiceOrder)e.Result;
-            iView.SetIdentityReaded(order);
-        }
+      
 
-        private void BgwLoadChatList_DoWork(object sender, DoWorkEventArgs e)
-        {
-            ServiceOrder order =(ServiceOrder) e.Argument;
-            iViewOrder.Order = order;
-            e.Result = order;
-        }
-
-        private void Bgw_DoWork(object sender, DoWorkEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        
 
 
 
@@ -106,6 +153,16 @@ namespace Dianzhu.CSClient.Presenter
         {
             iView.AddIdentity(order);
             iView.SetIdentityUnread(order, 1);
+        }
+
+        public void RemoveIdentity(ServiceOrder order)
+        {
+            iView.RemoveIdentity(order);
+        }
+
+        public void SetSetIdentityLogOff(ServiceOrder order)
+        {
+            iView.SetIdentityLogOff(order);
         }
 
     }

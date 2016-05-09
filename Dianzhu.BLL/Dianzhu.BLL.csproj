@@ -69,6 +69,8 @@
     <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="BLLDeviceBind.cs" />
+    <Compile Include="BLLRefundLog.cs" />
+    <Compile Include="BLLRefund.cs" />
     <Compile Include="BLLPayment.cs" />
     <Compile Include="BLLServiceOpenTime.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
@@ -82,10 +84,11 @@
     <Compile Include="Promote\BLLCashTicket.cs" />
     <Compile Include="Promote\BLLCashticketCreateRecord.cs" />
     <Compile Include="Promote\BLLCashTicketTemplate.cs" />
-    <Compile Include="BLLReceptionChatDD.cs" />
-    <Compile Include="BLLReceptionChat.cs" />
-    <Compile Include="BLLReceptionStatusArchieve.cs" />
-    <Compile Include="BLLReceptionStatus.cs" />
+    <Compile Include="Reception\BLLReception.cs" />
+    <Compile Include="Reception\BLLReceptionChat.cs" />
+    <Compile Include="Reception\BLLReceptionChatDD.cs" />
+    <Compile Include="Reception\BLLReceptionStatus.cs" />
+    <Compile Include="Reception\BLLReceptionStatusArchieve.cs" />
     <Compile Include="Reception\ReceiveMessage.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrder.cs" />
     <Compile Include="BLLServiceType.cs" />
@@ -116,7 +119,6 @@
     <Compile Include="BLLOrderAssignment.cs" />
     <Compile Include="BLLDZTag.cs" />
     <Compile Include="Validator\ValidatorDZMemership.cs" />
-    <Compile Include="BLLReception.cs" />
     <Compile Include="ReceptionAssigner.cs" />
   </ItemGroup>
   <ItemGroup>

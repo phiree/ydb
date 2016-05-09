@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.Model;
 using System.Diagnostics;
+using System.Collections.Concurrent;
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -50,7 +51,7 @@ namespace Dianzhu.CSClient.Presenter
 
             }
         }
-        static Dictionary<ServiceOrder, bool> currentIdentityList = new Dictionary<ServiceOrder, bool>();
+        static ConcurrentDictionary<ServiceOrder, bool> currentIdentityList = new ConcurrentDictionary<ServiceOrder, bool>();
         /// <summary>
         /// 通讯列表, bool 表示 是否是激活.
         /// </summary>
@@ -58,7 +59,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             get
             {
-                return currentIdentityList;
+                return null;// currentIdentityList.ToDictionary()
             }
 
         }
@@ -81,12 +82,17 @@ namespace Dianzhu.CSClient.Presenter
         }
         #endregion
 
+        public static bool DeleteIdentity(ServiceOrder order)
+        {
+            bool isExactive;
+            return currentIdentityList.TryRemove(order, out isExactive);
+        }
+
         /// <summary>
         /// 当前订单的类型.
         /// </summary>
         /// <param name="order"></param>
-        /// <returns></returns>
-        
+        /// <returns></returns>        
         public static void UpdateIdentityList(ServiceOrder order, out IdentityTypeOfOrder type)
         {
             log.Debug("1开始更新聊天标志的状态.订单:"+order.Id+",用户:"+order.Customer.DisplayName);
@@ -128,11 +134,17 @@ namespace Dianzhu.CSClient.Presenter
             {
                 log.Debug("1.2 新用户");
                 type = IdentityTypeOfOrder.NewIdentity;
-                currentIdentityList.Add(order, false);
+                
+                bool newIdentityAdded= currentIdentityList.TryAdd(order,false);
+                if (!newIdentityAdded)
+                {
+                    log.Warn("新用户插入失败");
+                }
             }
             else
             {
-                throw new Exception("当前列表中存在重复项");
+                log.Error("当前列表中存在重复项");
+                 
             }
             log.Debug("更新完成");
 
