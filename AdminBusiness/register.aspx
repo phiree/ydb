@@ -84,18 +84,6 @@
 <script src="/js/jquery.placeholder.min.js"></script>
 <script>$('input, textarea').placeholder();</script>
 <![endif]-->
-<script>
-    $($("form")[0]).validate(
-        {
-            ignore:[],
-            errorElement: "div",
-            errorLabelContainer: ".login_err_msg ul",
-            wrapper: "li",
-            rules: reg_validate_rules,
-            messages: reg_validate_messages
-        }
-    );
-</script>
 <%if (!Request.IsLocal){ %>
 <script>
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");

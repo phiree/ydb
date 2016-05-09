@@ -285,16 +285,6 @@
         );
     });
 
-    $(function () {
-        $($("form")[0]).validate(
-                {
-                    errorElement: "p",
-                    errorPlacement: function (error, element) {
-                        error.appendTo(element.parent());
-                    },
-                    rules: business_validate_rules,
-                    messages: business_validate_messages
-                }
         );
     });
 </script>

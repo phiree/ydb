@@ -97,9 +97,6 @@
 <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js'></script>
 <script src="/js/jquery.form.min.js"></script>
 <script src="/js/imgLocalPrev.js" ></script>
-<script>
-    var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
-</script>
 <script src="/js/validation_emp_edit.js"></script>
 <script src="/js/select.js"></script>
 <script>
@@ -110,27 +107,12 @@
                 delay: {show : 500, hide : 100},
                 trigger: 'hover'
                 }
-            )
+            );
 
             $(".headFileBtn").imgLocalPrev();
 
             $(".select").customSelect();
         });
-
-        $($("form")[0]).validate(
-                {
-                    errorElement: "p",
-                    errorPlacement: function (error, element) {
-                        if ($(element).attr("id") == "ContentPlaceHolder1_Gender1") {
-                            error.appendTo((element.parent()).parent());
-                        } else {
-                            error.appendTo(element.parent());
-                        }
-                    },
-                    rules: service_validate_rules,
-                    messages: service_validate_messages,
-                }
-            );
     });
     </script>
 </asp:Content>

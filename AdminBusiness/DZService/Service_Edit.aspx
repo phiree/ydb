@@ -90,9 +90,6 @@
     <script src="/js/stepByStep.js"></script>
     <script src="/js/CascadeCheck.js"></script>
     <script src="/js/timePick.js"></script>
-    <script>
-        var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$ctl00$';
-    </script>
     <script src="/js/validation_service_edit.js"></script>
     <script src="/js/test/mock.js"></script>
     <script src="/js/test/mock.workTimeset.js"></script>
@@ -104,18 +101,6 @@
     <script src="/js/select.js"></script>
     <script>
         $(function () {
-            $($("form")[0]).validate(
-                {
-                    ignore:[],
-                    errorElement: "p",
-                    errorPlacement: function(error, element) {
-                        error.appendTo( element.parent() );
-                    },
-                    rules: service_validate_rules,
-                    messages: service_validate_messages
-                }
-            );
-
             $(".steps-wrap").stepByStep({
                 defaultStep : function(){
                     if ( Adapter.getParameterByName("step")){
