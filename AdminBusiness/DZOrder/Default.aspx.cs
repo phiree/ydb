@@ -10,7 +10,9 @@ using System.Web.UI.WebControls;
 
 public partial class DZOrder_Default : BasePage
 {
-    BLLServiceOrder bllServeiceOrder = new BLLServiceOrder();
+    Dianzhu.BLL.IBLLServiceOrder bllOrder = Installer.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
+
+    //   BLLServiceOrder bllServeiceOrder = new BLLServiceOrder();
     BLLPayment bllPayment = new BLLPayment();
 
     public string merchantID {
@@ -37,16 +39,16 @@ public partial class DZOrder_Default : BasePage
         {
             currentPageIndex = int.Parse(paramPage);
         }
-        rpOrderList.DataSource = bllServeiceOrder.GetListForBusiness(CurrentBusiness, currentPageIndex, pager.PageSize, out totalRecord).OrderByDescending(x=>x.OrderCreated);
+        rpOrderList.DataSource = bllOrder.GetListForBusiness(CurrentBusiness, currentPageIndex, pager.PageSize, out totalRecord).OrderByDescending(x=>x.OrderCreated);
      
         pager.RecordCount = Convert.ToInt32(totalRecord);
         rpOrderList.DataBind();
     }
-
+   
     private void BindTotalData()
     {
         // 未完成订单: Created
-        Dianzhu.BLL.BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
+       // Dianzhu.BLL.BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
         liUnDoneOrderCount.Text = (bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id).Count()
             -
             bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id)

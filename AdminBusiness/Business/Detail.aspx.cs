@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 public partial class Business_Detail :BasePage
 {
+    Dianzhu.BLL.IBLLServiceOrder bllOrder = Installer.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if(!IsPostBack)
@@ -15,7 +16,7 @@ public partial class Business_Detail :BasePage
          BindLicense();
          BindShow();
          BindCharge();
-         Dianzhu.BLL.BLLServiceOrder bllOrder= new Dianzhu.BLL.BLLServiceOrder();
+      //   Dianzhu.BLL.BLLServiceOrder bllOrder= new Dianzhu.BLL.BLLServiceOrder();
          Dianzhu.BLL.BLLDZService bllService = new Dianzhu.BLL.BLLDZService();
          liAllOrderCount.Text=  bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id).Count.ToString();
          liDoneOrderCount.Text = bllOrder.GetAllCompleteOrdersForBusiness(CurrentBusiness.Id).Count.ToString();
