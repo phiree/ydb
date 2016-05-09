@@ -123,6 +123,10 @@ namespace Dianzhu.Model
                        UserType == enum_UserType.staff ? "员工" : "未知类型"; 
             }
         }
+        /// <summary>
+        /// 用户所在城市
+        /// </summary>
+        public string UserCity { get; set; }
 
     }
     /// <summary>

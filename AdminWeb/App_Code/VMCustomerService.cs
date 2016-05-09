@@ -6,9 +6,9 @@ using System.Web;
 /// <summary>
 /// VMAgent 的摘要说明
 /// </summary>
-public class VMAgent
+public class VMCustomerService
 {
-    public VMAgent()
+    public VMCustomerService()
     {
         //
         // TODO: 在此处添加构造函数逻辑
