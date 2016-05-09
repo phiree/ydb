@@ -25,6 +25,7 @@ public class Installer
     }
     static Installer()
     {
+        
         container = new WindsorContainer();
 
         container.Register(Component.For<BLLAdvertisement>());

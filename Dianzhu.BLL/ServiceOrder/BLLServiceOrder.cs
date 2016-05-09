@@ -143,12 +143,12 @@ namespace Dianzhu.BLL
         }
         public IList<ServiceOrder> GetAll() //获取全部订单
         {
-            iuow.BeginTransaction();
+           // iuow.BeginTransaction();
             
            
             var where = PredicateBuilder.True<ServiceOrder>();
            var all= repoServiceOrder.Find(where).ToList();
-            iuow.Commit();
+           // iuow.Commit();
             return all;
             ///return DALServiceOrder.GetAll<ServiceOrder>();
         }

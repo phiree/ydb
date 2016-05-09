@@ -16,7 +16,7 @@ namespace Dianzhu.Dependency
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Kernel.ComponentRegistered += Kernel_ComponentRegistered;
+           // container.Kernel.ComponentRegistered += Kernel_ComponentRegistered;
 
             //Register all components
             container.Register(
@@ -25,8 +25,8 @@ namespace Dianzhu.Dependency
                 Component.For<ISessionFactory>().UsingFactoryMethod(CreateNhSessionFactory).LifeStyle.Singleton,
 
                 //Unitofwork interceptor
-                Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient,
-
+              //  Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient,
+                Component.For<Dianzhu.IDAL.IUnitOfWork>().ImplementedBy<Dianzhu.DAL.NHUnitOfWork>(),
                 //All repoistories
                // Classes.FromAssembly(Assembly.GetAssembly(typeof(NhPersonRepository))).InSameNamespaceAs<NhPersonRepository>().WithService.DefaultInterfaces().LifestyleTransient(),
                  Classes.FromAssembly(Assembly.GetAssembly(typeof(Dianzhu.DAL.IDALAdvertisement))).InSameNamespaceAs<Dianzhu.DAL.IDALAdvertisement>().WithService.DefaultInterfaces().LifestyleTransient(),
