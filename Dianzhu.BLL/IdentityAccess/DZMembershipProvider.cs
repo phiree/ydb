@@ -332,7 +332,7 @@ namespace Dianzhu.BLL
                     NickName = savedUserName,
                     PlainPassword = password,
                     UserNameForOpenFire = userNameForOpenfire,
-                    UserType = Model.Enums.enum_UserType.customer,
+                    UserType = userType,
                 };
                 if (validateCode != Guid.Empty)
                 {

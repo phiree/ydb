@@ -24,7 +24,7 @@ public class VMBusinessAdapter
         vmShop.CityName = business.AreaBelongTo==null?string.Empty: business.AreaBelongTo.Name;
         vmShop.Score = 0;
         vmShop.ShopName = business.Name;
-
+        vmShop.ServiceTypes = business.ServiceType.Select(x=>x.Name).ToList();
         vmShop.ServiceTypes = business.ServiceType.Select(x => x.Name).ToList();
         vmShop.RegisterTime = business.CreatedTime;
 
