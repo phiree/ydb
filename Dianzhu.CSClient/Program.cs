@@ -48,7 +48,7 @@ namespace Dianzhu.CSClient
                 return;
             }
 
-            var container = Install();
+             Install();
 
             string version = GetVersion();
             //  loginForm.FormText += "v" + version;
@@ -56,7 +56,7 @@ namespace Dianzhu.CSClient
             bool? result = loginPresenter.ShowDialog();
 
 
-            bool useWpf = true;
+          
             //登录成功
             if (result.Value)// == DialogResult.OK)
             {
@@ -90,13 +90,12 @@ namespace Dianzhu.CSClient
             //mainForm.ShowDialog();
 
         }
-
-        static Castle.Windsor.WindsorContainer Install()
+        static Castle.Windsor.WindsorContainer container;
+        static void Install()
         {
-            var container = new Castle.Windsor.WindsorContainer();
+              container = new Castle.Windsor.WindsorContainer();
+            //Presenter
             container.Register(cmr.Component.For<Presenter.PMain>());
-
-
             container.Register(cmr.Component.For<CSClient.Presenter.LoginPresenter>());
             container.Register(cmr.Component.For<CSClient.Presenter.IdentityManager>());
             container.Register(cmr.Component.For<CSClient.Presenter.PIdentityList>());
@@ -106,7 +105,11 @@ namespace Dianzhu.CSClient
             container.Register(cmr.Component.For<CSClient.Presenter.POrder>());
             container.Register(cmr.Component.For<CSClient.Presenter.POrderHistory>());
             container.Register(cmr.Component.For<CSClient.Presenter.PSearch>());
+            //bll
+            container.Register(cmr.Component.For<IBLLMembershipLoginLog>().ImplementedBy<BLL.BLLMembershipLoginLog>());
 
+
+            //Iview
             container.Register(cmr.Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
             container.Register(cmr.Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());
             container.Register(cmr.Component.For<IViewChatList>().ImplementedBy<ViewWPF.UC_ChatList>());
@@ -118,6 +121,7 @@ namespace Dianzhu.CSClient
             container.Register(cmr.Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
             container.Register(cmr.Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
 
+            //other
             string server = Config.Config.GetAppSetting("ImServer");
             string domain = Config.Config.GetAppSetting("ImDomain");
             container.Register(cmr.Component.For<CSClient.IInstantMessage.InstantMessage>().ImplementedBy<XMPP.XMPP>()
@@ -134,7 +138,7 @@ namespace Dianzhu.CSClient
                 );
 
 
-            return container;
+            
 
         }
         static bool CheckConfig()
@@ -173,7 +177,7 @@ namespace Dianzhu.CSClient
             }
             catch (Exception ex)
             {
-
+               
             }
         }
         static string GetVersion()

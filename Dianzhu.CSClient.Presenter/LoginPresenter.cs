@@ -13,11 +13,13 @@ namespace Dianzhu.CSClient.Presenter
      
        IView.ILoginForm loginView;
        InstantMessage instantMessage;
-     
-       public LoginPresenter(IView.ILoginForm loginView, InstantMessage instantMessage
+
+        IBLLMembershipLoginLog bllLoginLog;
+       public LoginPresenter(IView.ILoginForm loginView, InstantMessage instantMessage, IBLLMembershipLoginLog bllLoginLog
+            
 )
        {
-
+            this.bllLoginLog = bllLoginLog;
            this.loginView = loginView;
            this.instantMessage = instantMessage;
            loginView.ViewLogin +=new IView.ViewLogin(loginView_ViewLogin);
@@ -102,8 +104,10 @@ namespace Dianzhu.CSClient.Presenter
 
             Guid id =new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
             DZMembership diandian = new BLLFactory().BLLMember.GetUserById(id);
+
             GlobalViables.Diandian = diandian;
             loginView.IsLoginSuccess = true;
+            bllLoginLog.MemberLogin(customerService, string.Empty);
         }
 
        void loginView_Logined(object sender, EventArgs e)

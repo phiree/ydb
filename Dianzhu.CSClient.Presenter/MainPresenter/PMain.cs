@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Dianzhu.BLL;
 namespace Dianzhu.CSClient.Presenter
 {
    public  class PMain
@@ -13,10 +13,11 @@ namespace Dianzhu.CSClient.Presenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PMain");
 
         IView.IViewMainForm viewMainForm;
-        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM)
+        IBLLMembershipLoginLog bllLoginLog;
+        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM,IBLLMembershipLoginLog bllLoginLog)
         {
             this.viewMainForm = viewMainForm;
-
+            this.bllLoginLog = bllLoginLog;
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             iIM.IMStreamError += IIM_IMStreamError;
         }
@@ -83,6 +84,8 @@ namespace Dianzhu.CSClient.Presenter
         }
         public void CloseApplication()
         {
+
+            bllLoginLog.MemberLogoff(IdentityManager.CurrentIdentity.CustomerService, string.Empty);
             viewMainForm.CloseApplication();
         }
     }

@@ -10,12 +10,21 @@ namespace Dianzhu.Model
     /// </summary>
   public  class MembershipLoginLog
     {
-        public Guid Id { get; set;}
-        public DZMembership Membership { get; set; }
-        public DateTime LogTime { get; set; }
-        public enumLoginLogType LogType { get; set; }
+        public MembershipLoginLog()
+        { }
+        public MembershipLoginLog(DZMembership membership,enumLoginLogType logType,string memo)
+        {
+            LogTime = DateTime.Now;
+            Membership = membership;
+            logType = logType;
+            Memo = memo;
+        }
+        public virtual Guid Id { get; protected set; }
+        public virtual DZMembership Membership { get; protected set; }
+        public virtual DateTime LogTime { get; protected set; }
+        public virtual enumLoginLogType LogType { get; protected set; }
         //备注
-        public string Memo { get; set; }
+        public virtual string Memo { get; protected set; }
     }
     /// <summary>
     /// 类型.

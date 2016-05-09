@@ -126,7 +126,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 用户所在城市
         /// </summary>
-        public string UserCity { get; set; }
+        public virtual string UserCity { get; set; }
 
     }
     /// <summary>
