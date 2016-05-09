@@ -94,7 +94,6 @@
         var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$ctl00$';
     </script>
     <script src="/js/validation_service_edit.js"></script>
-    <script src="/js/validation_invalidHandler.js"></script>
     <script src="/js/test/mock.js"></script>
     <script src="/js/test/mock.workTimeset.js"></script>
     <script src="/js/workTimeSet.js"></script>
@@ -113,9 +112,7 @@
                         error.appendTo( element.parent() );
                     },
                     rules: service_validate_rules,
-                    messages: service_validate_messages,
-                    invalidHandler: invalidHandler,
-                    showErrors: showErrorsHandler
+                    messages: service_validate_messages
                 }
             );
 

@@ -101,7 +101,6 @@
     var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
 </script>
 <script src="/js/validation_emp_edit.js"></script>
-<script src="/js/validation_invalidHandler.js"></script>
 <script src="/js/select.js"></script>
 <script>
     $(document).ready(function () {
@@ -130,7 +129,6 @@
                     },
                     rules: service_validate_rules,
                     messages: service_validate_messages,
-                    invalidHandler: invalidHandler
                 }
             );
     });

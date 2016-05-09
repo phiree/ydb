@@ -317,7 +317,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
-    <script src = "<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" ></script>
+    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" ></script>
     <script src="/js/jquery.form.min.js"></script>
     <script src="/js/navigator.sayswho.js"></script>
     <script src="/js/stepByStep.js"></script>
@@ -327,7 +327,6 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
         var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
     </script>
     <script src="/js/validation_shop_edit.js"></script>
-    <script src="/js/validation_invalidHandler.js"></script>
     <script src="/js/select.js"></script>
     <script>
         $(function () {
@@ -341,9 +340,11 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
             $('.file-default').imgUpload({
                 limitNum: 1
             });
+
             $('.file-limit-2').imgUpload({
                 limitNum: 2
             });
+
             $('.file-limit-6').imgUpload({
                 limitNum: 6
             });
@@ -353,9 +354,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
             });
 
             $(".select").customSelect();
-        });
 
-        $(function(){
             $($("form")[0]).validate(
                     {
                         errorElement: "p",
@@ -367,9 +366,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                             }
                         },
                         rules: service_validate_rules,
-                        messages: service_validate_messages,
-                        invalidHandler: invalidHandler,
-                        showErrors: showErrorsHandler
+                        messages: service_validate_messages
                     }
             );
 
@@ -378,6 +375,6 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                     return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
                 }
             });
-        })
+        });
     </script>
 </asp:Content>
