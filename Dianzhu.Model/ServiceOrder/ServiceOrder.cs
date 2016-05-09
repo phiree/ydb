@@ -249,6 +249,11 @@ namespace Dianzhu.Model
         public virtual DateTime OrderCreated { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public virtual DateTime OrderConfirmTime { get; set; }
+
+        /// <summary>
         /// 最近的更新时间
         /// </summary>
         public virtual DateTime LatestOrderUpdated { get; set; }
@@ -380,7 +385,7 @@ namespace Dianzhu.Model
                 this.DepositAmount += detail.ServieSnapShot.DepositAmount;
             }
             this.OrderStatus = enum_OrderStatus.Created;
-
+            this.OrderConfirmTime = DateTime.Now;
         }
         /// <summary>
         /// 获取支付总额
