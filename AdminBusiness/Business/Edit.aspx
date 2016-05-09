@@ -323,9 +323,6 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <script src="/js/stepByStep.js"></script>
     <script src="/js/jquery.lightbox_me.js"></script>
     <script src="/js/imgUpload.js"></script>
-    <script>
-        var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
-    </script>
     <script src="/js/validation_shop_edit.js"></script>
     <script src="/js/select.js"></script>
     <script>
@@ -354,21 +351,6 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
             });
 
             $(".select").customSelect();
-
-            $($("form")[0]).validate(
-                    {
-                        errorElement: "p",
-                        errorPlacement: function (error, element) {
-                            if ($(element).attr("name") == name_prefix + "tbxBusinessYears") {
-                                error.appendTo((element.parent()).parent());
-                            } else {
-                                error.appendTo(element.parent());
-                            }
-                        },
-                        rules: service_validate_rules,
-                        messages: service_validate_messages
-                    }
-            );
 
             $(".steps-wrap").stepByStep({
                 stepValid : function(){
