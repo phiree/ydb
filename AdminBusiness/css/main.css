@@ -8529,7 +8529,10 @@ a.doReg:hover {
 }
 .secret-cancel-icon {
   float: right;
-  margin-top: 5px;
+  margin-top: -2px;
+}
+.secret-warn {
+  color: #FF8661;
 }
 .fi-remain-txt {
   display: inline-block;
