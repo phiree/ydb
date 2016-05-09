@@ -47,9 +47,9 @@ namespace Dianzhu.Api.Model
             //todo: serviceorder change
             this.title = order.Title ?? string.Empty;
             this.status = order.OrderStatus.ToString() ?? string.Empty;
-            if (order.OrderCreated > DateTime.MinValue)
+            if (order.OrderConfirmTime > DateTime.MinValue)
             {
-                this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+                this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderConfirmTime);
             }
             else
             {
@@ -57,7 +57,7 @@ namespace Dianzhu.Api.Model
             }
             if (order.OrderFinished > DateTime.MinValue)
             {
-                this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+                this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderFinished);
             }
             else
             {
@@ -287,13 +287,13 @@ namespace Dianzhu.Api.Model
 
     public class RespDataORM_refundStatusObj
     {
-        public string refundStatusID { get; set; }
-        public string orderID { get; set; }
+        //public string refundStatusID { get; set; }
+        //public string orderID { get; set; }
         public string title { get; set; }
         public string context { get; set; }
         public string amount { get; set; }
         public string resourcesUrl { get; set; }
-        public string date { get; set; }
+        public string time { get; set; }
         public string orderStatus { get; set; }
         public string target { get; set; }
     }
