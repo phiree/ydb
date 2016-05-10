@@ -14,20 +14,20 @@ namespace Dianzhu.Model
         /// <summary>
         /// 代理商代理的区域
         /// </summary>
-        public Area Area { get; set; }
+        public virtual Area Area { get; set; }
 
         /// <summary>
         /// 发展的商家(只要是同一地区的商家即属于该代理)
         /// </summary>
-        
+
         /// <summary>
         /// 分润
         /// </summary>
-        public decimal ProfitPercent { get; set; }
+        public virtual decimal SharePoint { get; set; }
         /// <summary>
         /// 个人信息
         /// </summary>
-        public AgentMemberInfo MemberInfo { get; set; }
+        public virtual AgentMemberInfo MemberInfo { get; set; }
 
 
     }
