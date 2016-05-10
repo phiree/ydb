@@ -12,49 +12,49 @@
     }, "请勿输入特殊字符");
 
     var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
-    var service_validate_rules = {};
-    var service_validate_messages = {};
+    var emp_validae_rules = {};
+    var emp_validae_messages = {};
 
     // 编号
-    service_validate_rules[name_prefix + "Code"] =
+    emp_validae_rules[name_prefix + "Code"] =
     {
         required: true,
         code: true,
         maxlength: 100
     };
 
-    service_validate_messages[name_prefix + "Code"] =
+    emp_validae_messages[name_prefix + "Code"] =
     {
         required: "请填写编号",
         maxlength: "请勿超过100个字符"
     };
 
     //姓名
-    service_validate_rules[name_prefix + "Name"] =
+    emp_validae_rules[name_prefix + "Name"] =
     {
         required: true,
         maxlength: 50
     };
-    service_validate_messages[name_prefix + "Name"] =
+    emp_validae_messages[name_prefix + "Name"] =
     {
         required: "请填写姓名",
         maxlength: "不能超过50个字符"
     };
 
     //昵称
-    service_validate_rules[name_prefix + "NickName"] =
+    emp_validae_rules[name_prefix + "NickName"] =
     {
         required: true,
         maxlength: 50
     };
-    service_validate_messages[name_prefix + "NickName"] =
+    emp_validae_messages[name_prefix + "NickName"] =
     {
         required: "请填写昵称",
         maxlength: "不能超过50个字符"
     };
 
 
-    service_validate_rules[name_prefix + "Phone"] =
+    emp_validae_rules[name_prefix + "Phone"] =
     {
         phone: true
     };
@@ -70,8 +70,8 @@
                     error.appendTo(element.parent());
                 }
             },
-            rules: service_validate_rules,
-            messages: service_validate_messages,
+            rules: emp_validae_rules,
+            messages: emp_validae_messages,
         }
     );
 });
