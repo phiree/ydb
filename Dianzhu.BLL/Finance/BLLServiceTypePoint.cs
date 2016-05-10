@@ -8,6 +8,9 @@ namespace Dianzhu.BLL.Finance
 {
    public  class BLLServiceTypePoint
     {
+        /// <summary>
+        /// 服务类别的提成比例
+        /// </summary>
         public BLLServiceTypePoint() : this(new DAL.Finance.DALServiceTypePoint()) { }
         public BLLServiceTypePoint(string fortest) { }
         DAL.Finance.DALServiceTypePoint dalServiceTypePoint;
@@ -30,7 +33,8 @@ namespace Dianzhu.BLL.Finance
                 }
                 else
                 {
-                    throw new Exception("该服务类型的扣点比例未设置:"+serviceType.Name);
+                   
+                   throw new Exception("该服务类型的扣点比例未设置:"+serviceType.Name);
                 }
             }
             else
@@ -38,6 +42,9 @@ namespace Dianzhu.BLL.Finance
                 return serviceTypePoint.Point;
             }
         }
-
+      public  IList<Dianzhu.Model.Finance.ServiceTypePoint> GetAll()
+        {
+            return dalServiceTypePoint.GetAll< Dianzhu.Model.Finance.ServiceTypePoint>();
+        }
     }
 }
