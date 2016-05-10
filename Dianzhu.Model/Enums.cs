@@ -354,8 +354,8 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 员工
         /// </summary>
-        staff=16
-
+        staff=16,
+            agent=32
     }
 
     /// <summary>

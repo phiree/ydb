@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Dianzhu.Model.Finance;
+using Dianzhu.DAL.Finance;
 namespace Dianzhu.BLL.Finance
 {
     
@@ -18,6 +19,19 @@ namespace Dianzhu.BLL.Finance
             this.dalSharePoint = dalSharePoint;
             this.dalDefaultSharePoint = dalDefaultSharePoint;
         }
+        public  void Save(DefaultSharePoint defaultSharePoint)
+        {
+           var sharePoint= dalDefaultSharePoint.GetDefaultSharePoint(defaultSharePoint.UserType);
+            if (sharePoint == null)
+            {
+                dalDefaultSharePoint.Save(defaultSharePoint);
+            }
+            else
+            {
+                sharePoint.Point = defaultSharePoint.Point;
+                dalDefaultSharePoint.Update(sharePoint);
+            }
+        }
         public decimal GetSharePoint(Model.DZMembership member)
         {
             decimal point = dalSharePoint.GetSharePoint(member).Point;
@@ -31,6 +45,13 @@ namespace Dianzhu.BLL.Finance
             }
             return finalPoint;
         }
-        
+        public IList<Dianzhu.Model.Finance.DefaultSharePoint> GetAll()
+        {
+            return dalDefaultSharePoint.GetAll<Dianzhu.Model.Finance.DefaultSharePoint>();
+        }
+        public DefaultSharePoint GetOne(Guid id)
+        {
+            return dalDefaultSharePoint.GetOne(id);
+        }
     }
 }
