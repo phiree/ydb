@@ -6848,92 +6848,76 @@ a.time-trigger:hover {
 }
 /* 图片上传框样式 */
 .input-file-box {
+  float: left;
   position: relative;
-  width: 140px;
-  height: 140px;
-  /*overflow: hidden;*/
-}
-.input-file-box ul li a {
-  display: none;
-}
-.input-file-btn {
-  position: absolute;
-  z-index: 4;
-  width: 140px;
-  height: 140px;
-  opacity: 0;
-  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-}
-.input-file-bg {
-  position: absolute;
   z-index: 1;
-  background: url("../images/components/inputFile/input_bg_140_140.png") no-repeat center;
+  margin: 0 10px 10px 0;
   width: 140px;
   height: 140px;
-}
-.input-file-mark {
-  position: absolute;
-  z-index: 3;
-  width: 140px;
-  height: 140px;
-  background: url("../images/components/inputFile/ajax-loader.gif") no-repeat center;
-  display: none;
 }
 .input-file-hover {
   font-style: normal;
   position: absolute;
   bottom: 0;
-  z-index: 5;
+  z-index: 12;
   width: 140px;
   height: 30px;
   line-height: 30px;
   color: #fff;
   background: rgba(112, 112, 112, 0.69);
-  background: #707070 \9;
+  background: #656565 \9;
   text-align: center;
-  /*display: none;*/
+  display: none;
+}
+.input-file-btn {
+  position: absolute;
+  z-index: 10;
+  width: 140px;
+  height: 140px;
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+.input-file-mark {
+  position: absolute;
+  z-index: 8;
+  width: 140px;
+  height: 140px;
+  background: url("../images/components/inputFile/ajax-loader.gif") no-repeat center;
+  display: none;
+}
+.input-file-fg {
+  position: absolute;
+  z-index: 6;
+  width: 140px;
+  height: 140px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px #656565;
 }
 .input-file-pre {
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   width: 140px;
   height: 140px;
   border: 0 none;
+  border-radius: 10px;
+}
+.input-file-bg {
+  position: absolute;
+  z-index: 2;
+  background: url("../images/components/inputFile/input_bg_140_140.png") no-repeat center;
+  width: 140px;
+  height: 140px;
+  border-radius: 10px;
 }
 /* 头像 */
 .headImage {
-  width: 128px;
-  height: 128px;
   overflow: hidden;
   display: inline-block;
 }
-.headImage .input-file-btn {
-  width: 128px;
-  height: 128px;
-}
-.headImage .input-file-bg {
-  width: 128px;
-  height: 128px;
-}
-.headImage .input-file-mark {
-  width: 128px;
-  height: 128px;
-}
-.headImage .input-file-box {
-  width: 128px;
-  height: 128px;
-}
-.headImage .input-file-hover {
-  width: 128px;
-}
 .download-img-pre {
   float: left;
-  display: block;
-  width: 90px;
-  height: 90px;
-  line-height: 90px;
   position: relative;
-  text-align: center;
+  margin: 0 10px 10px 0;
 }
 .download-img-delete {
   position: absolute;
@@ -6941,24 +6925,43 @@ a.time-trigger:hover {
   height: 18px;
   right: 2px;
   top: 2px;
-  z-index: 2;
+  z-index: 12;
   border: 0;
   background: url("../images/components/inputFile/delete_icon_91.png") no-repeat center;
 }
 .download-img-show {
   display: block;
-  /*border: 1px solid #dbe6f2 ;*/
-  background: #cccccc;
-  border-radius: 3px;
-  width: 90px;
-  height: 90px;
-  line-height: 90px;
+  position: relative;
+  overflow: hidden;
+  background: #ccc;
+  border-radius: 10px;
+}
+.download-img-show:before {
+  content: "";
+  display: block;
   position: absolute;
-  top: 0;
-  left: 0;
+  z-index: 10;
+  width: 140px;
+  height: 140px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px #656565;
 }
 .download-img-show img {
-  vertical-align: baseline;
+  width: 138px;
+  height: 138px;
+}
+.detail-img {
+  min-height: 142px;
+  overflow: hidden;
+}
+.detail-img .detail-img-item {
+  float: left;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  min-width: 122px;
+  min-height: 122px;
+  margin: 10px;
 }
 /*可滑动开关样式*/
 .round-checkbox {
@@ -7094,6 +7097,11 @@ a.time-trigger:hover {
 .biz-detail-wrap {
   min-height: 350px;
   overflow: hidden;
+}
+.business-detail-face {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #ccc;
 }
 #biz-total-chart {
   width: 100%;

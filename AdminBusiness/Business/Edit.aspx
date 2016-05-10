@@ -116,19 +116,9 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺头像</div>
                                                             <div class="col-md-8 model-input">
-                                                                <div >
-                                                                    <div class="input-file-box headFile">
-                                                                        <input type=file class="input-file-btn file-default" name="upload_file"
-                                                                               businessId="<%=b.Id %>" imageType="businessavater" id="headImgBtn"/>
-                                                                        <i class="input-file-bg"
-                                                                           style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=240&height=240&tt=3)":"../images/components/inputFile/input_bg_140_140.png" %>'></i>
-                                                                        <i class="input-file-mark"></i>
-                                                                        <i class="input-file-hover dis-n">修改头像</i>
-                                                                        <img style="top:auto;left:auto;position:inherit;" class="input-file-pre"
-                                                                             src="../images/components/inputFile/input_transparent.png"/>
-                                                                    </div>
+                                                                <div id="businessavater">
+                                                                    <input type="file" class="input-file-btn" data-list="#buiniessShow" data-single="true" data-limit="1" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businessavater"}' data-preview="<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=140&height=140&tt=3":"../images/components/inputFile/input_bg_140_140.png" %>"/>
                                                                 </div>
-                                                                <!--<input class="btn btn-info" type="button" value="上传店铺头像" id="headImgTrigger"/>-->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -136,29 +126,23 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺图片</div>
                                                             <div class="col-md-8 model-input">
-                                                                <div class="img-list img-list-limit6 clearfix">
+                                                                <div id="buiniessShow" class="clearfix">
                                                                     <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                                                         <ItemTemplate>
-                                                                            <div class="download-img-pre m-b10 m-r10 fl">
+                                                                            <div class="download-img-pre" data-count="input-file">
                                                                                 <asp:Button Text=" " formnovalidate CssClass="cancel download-img-delete"
                                                                                             runat="server" CommandName="delete"
                                                                                             ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static"
                                                                                             CommandArgument='<%#Eval("Id") %>'/>
                                                                                 <a class="download-img-show"
                                                                                    href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=3'
+                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=3'
                                                                                          id="imgLicence"/>
                                                                                 </a>
                                                                             </div>
                                                                         </ItemTemplate>
                                                                     </asp:Repeater>
-                                                                    <div class="input-file-box fl m-b10 m-r10 dis-n">
-                                                                        <input type=file class="input-file-btn file-limit-6" name="input-file-btn-show"
-                                                                               businessId="<%=b.Id %>" imageType="businessshow"/>
-                                                                        <i class="input-file-bg"></i>
-                                                                        <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
-                                                                    </div>
+                                                                    <input type="file" class="input-file-btn" data-list="#buiniessShow" data-limit="6" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businessshow"}' />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -214,11 +198,11 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">负责人证件</div>
                                                             <div class="col-md-8 model-input">
-                                                                <div class="img-list img-list-limit2 clearfix">
+                                                                <div id="chargePerson" class="clearfix">
                                                                     <asp:Repeater runat="server" ID="rptChargePersonIdCards"
                                                                                   OnItemCommand="rpt_show_ItemCommand">
                                                                         <ItemTemplate>
-                                                                            <div class="download-img-pre m-b10 m-r10 fl">
+                                                                            <div class="download-img-pre" data-count="input-file">
 
                                                                                 <asp:Button Text=" " ID="ibCharge" CssClass="cancel download-img-delete"
                                                                                             runat="server" CommandName="delete"
@@ -226,19 +210,13 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                             CommandArgument='<%#Eval("Id") %>'/>
                                                                                 <a class="download-img-show"
                                                                                    href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=3'
+                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=3'
                                                                                          class="imgCharge"/>
                                                                                 </a>
                                                                             </div>
                                                                         </ItemTemplate>
                                                                     </asp:Repeater>
-                                                                    <div class="input-file-box m-b10 m-r10 fl dis-n">
-                                                                        <input type=file class="input-file-btn file-limit-2" businessId="<%=b.Id %>"
-                                                                               imageType="businesschargeperson"/>
-                                                                        <i class="input-file-bg"></i>
-                                                                        <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
-                                                                    </div>
+                                                                        <input type="file" class="input-file-btn" data-list="#chargePerson" data-limit="2" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businesschargeperson"}' />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -247,11 +225,10 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">营业执照</div>
                                                             <div class="col-md-8 model-input">
-                                                                <div class="img-list img-list-limit2 clearfix">
+                                                                <div id="businessLicense" class="clearfix">
                                                                     <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
                                                                         <ItemTemplate>
-                                                                            <div class="download-img-pre m-r10 m-b10 fl">
-
+                                                                            <div class="download-img-pre" data-count="input-file">
                                                                                 <asp:Button ID="img" Text=" " formnovalidate
                                                                                             CssClass="cancel download-img-delete" runat="server"
                                                                                             CommandName="delete"
@@ -259,19 +236,13 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                             ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
                                                                                 <a class="download-img-show"
                                                                                    href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=3'
+                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=3'
                                                                                          class="imgCharge"/>
                                                                                 </a>
                                                                             </div>
                                                                         </ItemTemplate>
                                                                     </asp:Repeater>
-                                                                    <div class="input-file-box m-r10 m-b10 dis-n fl">
-                                                                        <input type=file class="input-file-btn file-limit-2" name="input-file-btn-license"
-                                                                               businessId="<%=b.Id %>" imageType="businesslicense"/>
-                                                                        <i class="input-file-bg"></i>
-                                                                        <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
-                                                                    </div>
+                                                                    <input type="file" class="input-file-btn" data-list="#businessLicense" data-limit="2" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businesslicense"}' />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -321,7 +292,8 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
     <script src="/js/jquery.form.min.js"></script>
     <script src="/js/jquery.lightbox_me.js"></script>
     <script src="/js/stepByStep.js"></script>
-    <script src="/js/imgUpload.js"></script>
+    <!--<script src="/js/imgUpload.js"></script>-->
+    <script src="/js/imageUpload.js"></script>
     <script src="/js/validation_shop_edit.js"></script>
     <script src="/js/select.js"></script>
     <script>
@@ -333,17 +305,8 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                 }
             );
 
-            $('.file-default').imgUpload({
-                limitNum: 1
-            });
+            $('.input-file-btn').imageUpload();
 
-            $('.file-limit-2').imgUpload({
-                limitNum: 2
-            });
-
-            $('.file-limit-6').imgUpload({
-                limitNum: 6
-            });
 
             $('#headImgTrigger').click(function(){
                 return $('#headImgBtn').click();
