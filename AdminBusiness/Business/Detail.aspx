@@ -119,10 +119,10 @@
                                 <h4>店铺图片</h4>
                             </div>
                             <div class="model-m">
-                                <div class="p-20 detail-img">
-                                    <asp:Repeater runat="server" ID="rptCharge">
+                                <div class="detail-img">
+                                    <asp:Repeater runat="server" ID="rptShow">
                                         <ItemTemplate>
-                                            <a class="m-r20" data-lightbox="lb_charge"
+                                            <a class="detail-img-item" data-lightbox="lb_show"
                                                href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img
                                                     src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3'/>
                                             </a>
@@ -138,10 +138,10 @@
                                 <h4>负责人证件照</h4>
                             </div>
                             <div class="model-m">
-                                <div class="p-20 detail-img">
-                                    <asp:Repeater runat="server" ID="rptShow">
+                                <div class="detail-img">
+                                    <asp:Repeater runat="server" ID="rptCharge">
                                         <ItemTemplate>
-                                            <a class="" data-lightbox="lb_show"
+                                            <a class="detail-img-item" data-lightbox="lb_charge"
                                                href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img
                                                     src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3'/>
                                             </a>
@@ -157,10 +157,10 @@
                                 <h4>营业执照</h4>
                             </div>
                             <div class="model-m">
-                                <div class="p-20 detail-img">
+                                <div class="detail-img">
                                     <asp:Repeater runat="server" ID="rptImageLicense">
                                         <ItemTemplate>
-                                            <a class="m-r20" data-lightbox="lb_license"
+                                            <a class="detail-img-item" data-lightbox="lb_license"
                                                href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img
                                                     src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3'/>
                                             </a>
@@ -176,6 +176,7 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
+    <script src="/js/lightbox.js"></script>
     <script src="/js/echarts.simple.min.js"></script>
     <script>
         (function (){
@@ -227,6 +228,10 @@
                 ]
             };
             myChart.setOption(option);
+            lightbox.option({
+                'resizeDuration': 200,
+                'albumLabel': "图片 %1 / %2"
+            });
         })()
     </script>
 </asp:Content>
