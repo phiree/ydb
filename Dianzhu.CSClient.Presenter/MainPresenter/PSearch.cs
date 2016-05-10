@@ -44,18 +44,8 @@ namespace Dianzhu.CSClient.Presenter
             this.bllServcieType = bllServcieType;
             viewSearch.Search += ViewSearch_Search;
             this.bllPushService = bllPushService;
+            LoadTypes();
 
-            this.ServiceTypeListTmp = bllServcieType.GetTopList();
-            this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
-            
-            foreach (ServiceType t in ServiceTypeListTmp)
-            {
-                if (!ServiceTypeCach.ContainsKey(t))
-                {
-                    ServiceTypeCach.Add(t, null);
-                }
-            }
-            viewSearch.ServiceTypeFirst = ServiceTypeListTmp;
             this.ServiceTypeFirst = new ServiceType();
             this.ServiceTypeSecond = new ServiceType();
             this.ServiceTypeThird = new ServiceType();
@@ -65,8 +55,25 @@ namespace Dianzhu.CSClient.Presenter
             viewSearch.ServiceTypeFirst_Select += ViewSearch_ServiceTypeFirst_Select;
             viewSearch.ServiceTypeSecond_Select += ViewSearch_ServiceTypeSecond_Select;
             viewSearch.ServiceTypeThird_Select += ViewSearch_ServiceTypeThird_Select;
+           
         }
+        private void LoadTypes()
+        {
+            System.Threading.Thread.Sleep(1000);
+            if (this.ServiceTypeListTmp != null) { return; }
 
+            this.ServiceTypeListTmp = bllServcieType.GetTopList();
+            this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
+
+            foreach (ServiceType t in ServiceTypeListTmp)
+            {
+                if (!ServiceTypeCach.ContainsKey(t))
+                {
+                    ServiceTypeCach.Add(t, null);
+                }
+            }
+            viewSearch.ServiceTypeFirst = ServiceTypeListTmp;
+        }
         private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
         {
             ServiceTypeThird = type;

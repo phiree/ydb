@@ -41,7 +41,8 @@ namespace Dianzhu.DAL
 
         private ISessionFactory getSessionFactory()
         {
-            
+            lock(__lock)
+            { 
                 if (_sessionFactory == null)
                 {
 
@@ -64,8 +65,8 @@ namespace Dianzhu.DAL
                      
                     
                 }
+            }
 
-            
             return _sessionFactory;
         }
         private static void BuildSchema(Configuration config)
