@@ -116,8 +116,8 @@
                                         </div>
                                     </div>
                                     <div class="model-b">
-                                        <UC:AspNetPager runat="server" UrlPaging="true" ID="pager" CssClass="anpager"
-                                                        CurrentPageButtonClass="cpb" PageSize="10"
+                                        <UC:AspNetPager runat="server" UrlPaging="true" ID="pager" CssClass="anpager" AlwaysShow="true"
+                                                        CurrentPageButtonClass="cpb" PageSize="100"
                                                         CustomInfoHTML="第 %CurrentPageIndex% / %PageCount%页 共%RecordCount%条"
                                                         ShowCustomInfoSection="Right">
                                         </UC:AspNetPager>
