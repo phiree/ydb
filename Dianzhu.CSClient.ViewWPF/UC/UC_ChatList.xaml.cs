@@ -206,6 +206,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
             ReceptionChatMedia chat = (Model.ReceptionChatMedia)(((Button)sender).Tag);
             string chatFlieName= chat.MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+            chatFlieName += ".mp3";
 
             if (string.IsNullOrEmpty(fileName) || fileName != chatFlieName)
             {
