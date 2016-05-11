@@ -72,7 +72,7 @@ namespace Dianzhu.Api.Model
                 {
                     this.showImgUrls += Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + bi.ImageName + ",";
                 }
-                this.showImgUrls.TrimEnd(',');
+                this.showImgUrls = this.showImgUrls.TrimEnd(',');
             }
             else
             {

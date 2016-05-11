@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using System.Web;
+
 namespace MediaServer
 {
     /// <summary>
@@ -35,7 +37,18 @@ namespace MediaServer
             fs.Write(fileData, 0, fileData.Length);
             fs.Flush();
             fs.Close();
-            return  fileName;
+
+            if(fileType== FileType.voice)
+            {
+                string targetFileName = localSavePathRoot + relativePath + fileName + ".mp3";
+                PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
+                PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
+                tomp3.ConvertToMp3(HttpContext.Current.Server.MapPath("\\files\\"), fullLocalPath, targetFileName);
+
+                fileName += ".mp3";
+            }
+
+            return fileName;
         }
 
         public static string UploadFromUrl(string url, string originalName, string localSavePathRoot, string domainType, FileType fileType)

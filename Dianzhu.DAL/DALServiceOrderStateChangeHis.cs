@@ -26,6 +26,13 @@ namespace Dianzhu.DAL
             return iqueryover;
         }
 
+        public ServiceOrderStateChangeHis GetOrderHis(ServiceOrder order)
+        {
+            var query = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).And(x => x.NewStatus == order.OrderStatus);
+            var item = GetOneByQuery(query);
+            return item;
+        }
+
         public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
         {
             var query = Query(order);

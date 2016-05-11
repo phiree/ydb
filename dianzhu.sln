@@ -165,27 +165,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DianzhuService.Diandian", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Config", "Dianzhu.Config\Dianzhu.Config.csproj", "{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "dianzhu_adminbusiness_mvc", "..\publish\dianzhu_adminbusiness_mvc\", "{8F7D2A86-E244-4D57-9BC7-87981FECE50B}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_53672"
-		Debug.AspNetCompiler.PhysicalPath = "..\publish\dianzhu_adminbusiness_mvc\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53672\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_53672"
-		Release.AspNetCompiler.PhysicalPath = "..\publish\dianzhu_adminbusiness_mvc\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53672\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "53672"
-		SlnRelativePath = "..\publish\dianzhu_adminbusiness_mvc\"
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dlls", "dlls", "{FF82FDAB-C9E3-4C42-ABE8-BB47F4946CAC}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dianzhu.Web.PushServer", "Dianzhu.Web.PushServer\", "{CBE79023-31C6-455F-A6F0-3BFF280F66E8}"
@@ -267,8 +246,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.ModelTests", "Dianzhu.ModelTests\Dianzhu.ModelTests.csproj", "{688908D9-E111-4095-9209-ACEB7F400FED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RisCaptureLib", "RisCaptureLib\RisCaptureLib.csproj", "{DE79C6AB-B5A9-4BAF-80FA-22835452785F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTest", "WebTest\WebTest.csproj", "{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -552,18 +529,6 @@ Global
 		{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}.Release|x86.ActiveCfg = Release|Any CPU
 		{489E4EB5-E576-4AB0-9B45-FB015A8C84F5}.Release|x86.Build.0 = Release|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Debug|x86.Build.0 = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|x86.ActiveCfg = Debug|Any CPU
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B}.Release|x86.Build.0 = Debug|Any CPU
 		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBE79023-31C6-455F-A6F0-3BFF280F66E8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -684,18 +649,6 @@ Global
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F}.Release|x86.Build.0 = Release|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Debug|x86.Build.0 = Debug|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|x86.ActiveCfg = Release|Any CPU
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -725,7 +678,6 @@ Global
 		{1BAAD173-A641-435A-AD03-0CD0146674B9} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{D3820846-BAD7-49E9-8BCF-D5EF26579350} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{489E4EB5-E576-4AB0-9B45-FB015A8C84F5} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
-		{8F7D2A86-E244-4D57-9BC7-87981FECE50B} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{CBE79023-31C6-455F-A6F0-3BFF280F66E8} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 		{BE142427-1CE4-40F8-AC58-D0509BA05D21} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
 		{1E9AFB04-A32C-4FE9-8673-59E9F8F38DB6} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
@@ -736,7 +688,6 @@ Global
 		{F399FE2F-05A1-41B6-AB63-C879A1701DC4} = {E4338C9B-90F1-4640-A650-F903E722C878}
 		{6931F336-83BE-4E6C-A945-588D636E5C73} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
-		{8F5C2AFF-4EA3-48C1-BA65-A7958E3FEEAE} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi

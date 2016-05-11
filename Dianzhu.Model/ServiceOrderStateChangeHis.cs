@@ -18,18 +18,18 @@ namespace Dianzhu.Model
         /// <summary>
         /// 构造
         /// </summary>
-        /// <param name="oldOrder"></param>
-        /// <param name="newStatus"></param>
+        /// <param name="order"></param>
+        /// <param name="oldStatus"></param>
         /// <param name="num"></param>
-        public ServiceOrderStateChangeHis(ServiceOrder oldOrder, enum_OrderStatus newStatus,int num)
+        public ServiceOrderStateChangeHis(ServiceOrder order, enum_OrderStatus oldStatus,int num)
         {
-            this.Order = oldOrder;
-            this.OldStatus = oldOrder.OrderStatus;
-            this.NewStatus = newStatus;
-            this.OrderAmount = oldOrder.OrderAmount;
-            this.DepositAmount = oldOrder.DepositAmount;
-            this.NegotiateAmount = oldOrder.NegotiateAmount;
-            this.Remark = oldOrder.Memo;
+            this.Order = order;
+            this.OldStatus = oldStatus;
+            this.NewStatus = order.OrderStatus;
+            this.OrderAmount = order.OrderAmount;
+            this.DepositAmount = order.DepositAmount;
+            this.NegotiateAmount = order.NegotiateAmount;
+            this.Remark = order.Memo;
             this.CreatTime = DateTime.Now;
             //this.Controller=
             this.Number = num;

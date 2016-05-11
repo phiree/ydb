@@ -23,6 +23,8 @@ public class ResponseORM001005 : BaseResponse
         DZMembershipProvider p = new DZMembershipProvider();
         BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
         PushService bllPushService = new PushService();
+        BLLDZService bllDZService = new BLLDZService();
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
         string raw_id = requestData.userID;
 
         try
@@ -48,15 +50,35 @@ public class ResponseORM001005 : BaseResponse
                 }
                 IList<ServiceOrderPushedService> pushServiceList = bllPushService.GetPushedServicesForOrder(order);
                 RespDataORM_Order respData = new RespDataORM_Order();
+                IList<DZTag> tagsList = new List<DZTag>();//标签
                 if (pushServiceList.Count > 0)
                 {
+                    if (order.Details.Count > 0)
+                    {
+                        tagsList = bllDZService.GetServiceTags(order.Details[0].OriginalService);
+                    }
+                    else
+                    {
+                        tagsList = bllDZService.GetServiceTags(pushServiceList[0].OriginalService);
+                    }
+
                     respData.Adap(order, pushServiceList[0]);
                 }
                 else
                 {
+                    if (order.Details.Count > 0)
+                    {
+                        tagsList = bllDZService.GetServiceTags(order.Details[0].OriginalService);
+                    }
+
                     respData.Adap(order, null);
                 }
-                
+
+                respData.orderObj.svcObj.SetTag(respData.orderObj.svcObj, tagsList);
+
+                ServiceOrderStateChangeHis orderHis = bllServiceOrderStateChangeHis.GetOrderHis(order);
+                respData.orderObj.SetOrderStatusObj(respData.orderObj, orderHis);
+
                 this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];
 

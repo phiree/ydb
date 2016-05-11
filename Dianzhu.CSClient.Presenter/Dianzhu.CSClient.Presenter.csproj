@@ -55,7 +55,6 @@
   <ItemGroup>
     <Compile Include="BLLFactory.cs" />
     <Compile Include="GlobalViables.cs" />
-    <Compile Include="InstantMessageHandler.cs" />
     <Compile Include="LoginPresenter.cs" />
     <Compile Include="MainPresenter\MessageSender.cs" />
     <Compile Include="MainPresenter\PMain.cs" />

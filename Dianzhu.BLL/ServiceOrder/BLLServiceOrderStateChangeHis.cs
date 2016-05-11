@@ -23,16 +23,21 @@ namespace Dianzhu.BLL
             dalServiceOrderStateChangeHis = DALFactory.DALServiceOrderStateChangeHis;
         }
 
-        public void SaveOrUpdate(ServiceOrder oldOrder, enum_OrderStatus newStatus)
+        public void SaveOrUpdate(ServiceOrder order, enum_OrderStatus oldStatus)
         {
             int num = 1;
-            ServiceOrderStateChangeHis oldOrderHis = GetMaxNumberOrderHis(oldOrder);
+            ServiceOrderStateChangeHis oldOrderHis = GetMaxNumberOrderHis(order);
             if (oldOrderHis != null)
             {
                 num = oldOrderHis.Number + 1;
             }
-            ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis(oldOrder, newStatus, num);
+            ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis(order, oldStatus, num);
             dalServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
+        }
+
+        public ServiceOrderStateChangeHis GetOrderHis(ServiceOrder order)
+        {
+            return dalServiceOrderStateChangeHis.GetOrderHis(order);
         }
 
         public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
