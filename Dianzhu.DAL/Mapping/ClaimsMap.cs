@@ -6,13 +6,15 @@ using FluentNHibernate.Mapping;
 using Dianzhu.Model;
 namespace Dianzhu.DAL.Mapping
 {
-    public class ComplaintMap : ClassMap<Complaint>
+    public class ClaimsMap : ClassMap<Claims>
     {
-        public ComplaintMap() {
+        public ClaimsMap() {
             Id(x => x.Id);
             References<ServiceOrder>(x => x.Order);
             Map(x => x.Target).CustomType<Model.Enums.enum_ChatTarget>();
+            Map(x => x.Status).CustomType<Model.Enums.enum_OrderStatus>();
             Map(x => x.Context);
+            Map(x => x.Amount);
             Map(x => x.ResourcesUrl).Length(1000);
             Map(x => x.CreatTime);
             Map(x => x.Result);
