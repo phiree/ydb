@@ -78,8 +78,18 @@ namespace Dianzhu.Model
         /// 序号
         /// </summary>
         public virtual int Number { get; set; }
-    }  
- 
-     
+        #region 临时数据，不需存储
+        /// <summary>
+        /// 上个状态中文名
+        /// </summary>
+        public virtual string OldStatusStr { get; set; }
+        /// <summary>
+        /// 当前状态中文名
+        /// </summary>
+        public virtual string OldStatusCon { get; set; }
+        #endregion
+    }
+
+
 
 }

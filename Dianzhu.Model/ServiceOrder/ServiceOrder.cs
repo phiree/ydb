@@ -408,8 +408,12 @@ namespace Dianzhu.Model
             }
         }
 
-       
-        
+        #region 临时数据
+        /// <summary>
+        /// 订单状态中文名
+        /// </summary>
+        public virtual string OrderStatusStr{ get; set; }
+        #endregion
 
     }
 

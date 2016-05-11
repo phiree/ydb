@@ -8165,31 +8165,34 @@ a.doReg:hover {
 }
 .order-status-list {
   position: relative;
+  overflow-y: scroll;
+  height: 450px;
+}
+.status-list-item {
+  position: relative;
+  margin-bottom: 50px;
+}
+.status-list-item::after {
+  position: absolute;
+  top: 50px;
+  left: 25px;
+  content: "";
+  height: 100%;
+  border-left: 2px solid #ccc;
+}
+.status-list-item:last-of-type {
   overflow: hidden;
 }
-.order-status-list::before {
+.status-list-item:last-of-type::before {
   content: "";
   position: absolute;
-  bottom: 80px;
+  bottom: 0;
   left: 25px;
   margin-left: -4px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: #ccc;
-}
-.order-status-list::after {
-  position: absolute;
-  top: 0;
-  left: 25px;
-  margin-top: -80px;
-  content: "";
-  height: 100%;
-  border-left: 2px solid #ccc;
-}
-.status-list-item {
-  position: relative;
-  margin-bottom: 50px;
 }
 .status-tip {
   position: relative;

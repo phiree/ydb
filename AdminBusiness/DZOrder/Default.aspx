@@ -101,7 +101,7 @@
                                                             </div>
                                                             <div class="custom-col col-10-2">
                                                                 <div class="order-li">
-                                                                    <%#Eval("OrderStatus") %>
+                                                                    <%#Eval("OrderStatusStr") %>
                                                                 </div>
                                                             </div>
                                                             <div class="custom-col col-10-1">

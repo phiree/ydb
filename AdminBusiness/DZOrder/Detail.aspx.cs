@@ -33,25 +33,15 @@ public partial class DZOrder_Detail : System.Web.UI.Page
         BindDoneStatusData();
     }
 
-    //    private void BindData()
-    //        {
-    //            int totalRecord;
-    //            int currentPageIndex = 1;
-    //            string paramPage = Request.Params["page"];
-    //            if (!string.IsNullOrEmpty(paramPage))
-    //            {
-    //                currentPageIndex = int.Parse(paramPage);
-    //            }
-    //            rpOrderList.DataSource = bllServeiceOrder.GetListForBusiness(CurrentBusiness, currentPageIndex,pager.PageSize,out totalRecord).OrderByDescending(x=>x.LatestOrderUpdated);
-    //
-    //            pager.RecordCount = Convert.ToInt32(totalRecord);
-    //            rpOrderList.DataBind();
-    //        }
-
     protected void BindDoneStatusData()
     {
-        IList<ServiceOrderStateChangeHis> statusList = bllServiceOrderStateChangeHis.GetOrderHisList(CurrentOrder);
+        IOrderedEnumerable<ServiceOrderStateChangeHis> statusList = bllServiceOrderStateChangeHis.GetOrderHisList(CurrentOrder).OrderByDescending(x => x.CreatTime);
         rptOrderDoneStatus.DataSource = statusList;
+        foreach(ServiceOrderStateChangeHis item in statusList)
+        {
+            item.OldStatusStr = item.Order.GetStatusTitleFriendly(item.OldStatus);
+            item.OldStatusCon = item.Order.GetStatusContextFriendly(item.OldStatus);
+        }
         rptOrderDoneStatus.DataBind();
     }
 
@@ -82,32 +72,42 @@ public partial class DZOrder_Detail : System.Web.UI.Page
 
     protected void BingData()
     {
+        // 订单状态控制区
+        panelOrderStatus.Visible = false;
+
+        // 确认订单控制
+        panelConfirmOrder.Visible = false;
         btnConfirmOrder.Visible = false;
+        // 确认价格控制
+        panelConfirmPrice.Visible = false;
         txtConfirmPrice.Visible = false;
         btnConfirmPrice.Visible = false;
+        // 服务开始控制
         btnBegin.Visible = false;
+        // 订单完成控制
         btnIsEndOrder.Visible = false;
+
         ServiceOrder order = CurrentOrder;
         switch (order.OrderStatus)
         {
             case Dianzhu.Model.Enums.enum_OrderStatus.Payed:
+                panelOrderStatus.Visible = true;
                 panelConfirmOrder.Visible = true;
-                ctnrOrderStatus.Visible = true;
                 btnConfirmOrder.Visible = true;
                 break;
             case Dianzhu.Model.Enums.enum_OrderStatus.Negotiate:
-                ctnrOrderStatus.Visible = true;
+                panelOrderStatus.Visible = true;
                 panelConfirmPrice.Visible = true;
                 txtConfirmPrice.Visible = true;
                 btnConfirmPrice.Visible = true;
                 break;
-            case Dianzhu.Model.Enums.enum_OrderStatus.Begin:
-                ctnrOrderStatus.Visible = true;
-                btnIsEndOrder.Visible = true;
-                break;
             case Dianzhu.Model.Enums.enum_OrderStatus.Assigned:
-                ctnrOrderStatus.Visible = true;
+                panelOrderStatus.Visible = true;
                 btnBegin.Visible = true;
+                break;
+            case Dianzhu.Model.Enums.enum_OrderStatus.Begin:
+                panelOrderStatus.Visible = true;
+                btnIsEndOrder.Visible = true;
                 break;
             default:
                 return;
