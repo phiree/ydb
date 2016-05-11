@@ -649,6 +649,10 @@ namespace Dianzhu.BLL
 
         #endregion
 
+        public enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order, enum_OrderStatus status)
+        {
+            return bllServiceOrderStateChangeHis.GetOrderStatusPrevious(order, status);
+        }
 
         public int GetServiceOrderCountWithoutDraft(Guid userid, bool isCustomerService)
         {

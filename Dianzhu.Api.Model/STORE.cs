@@ -79,6 +79,11 @@ namespace Dianzhu.Api.Model
                 this.showImgUrls = "";
             }
 
+            this.identity = string.Empty;
+            this.url = string.Empty;
+            this.vintage = string.Empty;
+            this.headCount = string.Empty;
+
             return this;
         }
     }

@@ -44,8 +44,6 @@ namespace MediaServer
                 PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
                 PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
                 tomp3.ConvertToMp3(HttpContext.Current.Server.MapPath("\\files\\"), fullLocalPath, targetFileName);
-
-                fileName += ".mp3";
             }
 
             return fileName;
