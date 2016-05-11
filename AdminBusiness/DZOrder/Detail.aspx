@@ -8,7 +8,7 @@
         <input type="hidden" value="<%=merchantID%>" id="merchantID"/>
         <div class="content-head normal-head">
             <h3>订单详情</h3>
-            <a class="btn btn-gray-light fr" role="button" href="/dzorder/default.aspx?">返回</a>
+            <a class="btn btn-gray-light fr" role="button" href="/dzorder/default.aspx?businessId=<%= CurrentBusiness.Id %>">返回</a>
         </div>
         <div class="content-main">
             <div class="animated fadeInUpSmall">

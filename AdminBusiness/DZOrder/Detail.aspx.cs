@@ -10,10 +10,12 @@ using System.Web.UI.WebControls;
 
 public partial class DZOrder_Detail : System.Web.UI.Page
 {
+    BLLBusiness bllBusiness = new BLLBusiness();
     BLLServiceOrder bllServeiceOrder = new BLLServiceOrder();
     BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
     BLLPayment bllPayment = new BLLPayment();
     public ServiceOrder CurrentOrder;
+    public Business CurrentBusiness;
 
     public string merchantID
     {
@@ -25,7 +27,7 @@ public partial class DZOrder_Detail : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        CurrentBusiness = bllBusiness.GetOne(new Guid(Request["businessId"]));
         CurrentOrder = bllServeiceOrder.GetOne(new Guid(Request["orderId"]));
         BingData();
         BindDoneStatusData();
