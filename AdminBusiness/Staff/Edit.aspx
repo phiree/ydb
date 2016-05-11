@@ -22,13 +22,8 @@
                                     <div class="emp-head-upload">
                                         <div class="emp-head-text">上传新头像</div>
                                         <div class="headImage">
-                                            <div class="input-file-box headFile">
-                                                <input type=file class="input-file-btn file-default headFileBtn" runat="server"
-                                                       id="empheadimg" name="empheadimg"/>
-                                                <i class="input-file-bg" style='background-image:url(<%=StaffAvatarUrl%>)'></i>
-                                                <i class="input-file-mark"></i>
-                                                <!--<i class="input-file-hover">修改头像</i>-->
-                                                <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
+                                            <div class="input-file-box">
+                                                <input type="file" class="input-file-btn" runat="server" id="empheadimg" name="empheadimg" data-local="true"/>
                                             </div>
                                         </div>
                                         <p class="img-tips">图片格式为PNG/JPG大小限制为2M一下</p>
@@ -96,7 +91,7 @@
 <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
 <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js'></script>
 <script src="/js/jquery.form.min.js"></script>
-<script src="/js/imgLocalPrev.js" ></script>
+<script src="/js/imageUpload.js"></script>
 <script src="/js/validation_emp_edit.js"></script>
 <script src="/js/select.js"></script>
 <script>
@@ -109,7 +104,9 @@
                 }
             );
 
-            $(".headFileBtn").imgLocalPrev();
+            $(".input-file-btn").imageUpload();
+
+//            $(".headFileBtn").imgLocalPrev();
 
             $(".select").customSelect();
         });

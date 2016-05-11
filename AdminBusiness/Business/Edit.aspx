@@ -117,7 +117,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                             <div class="col-md-4 model-label">店铺头像</div>
                                                             <div class="col-md-8 model-input">
                                                                 <div id="businessavater">
-                                                                    <input type="file" class="input-file-btn" data-list="#buiniessShow" data-single="true" data-limit="1" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businessavater"}' data-preview="<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=140&height=140&tt=3":"../images/components/inputFile/input_bg_140_140.png" %>"/>
+                                                                    <input type="file" class="input-file-btn" data-list="#businessavater" data-single="true" data-limit="1" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businessavater"}' data-preview="<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=140&height=140&tt=3":"../images/components/inputFile/input_bg_140_140.png" %>"/>
                                                                 </div>
                                                             </div>
                                                         </div>
