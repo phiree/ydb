@@ -29,9 +29,10 @@
             this.limit = this.$el.attr("data-limit") && parseInt(this.$el.attr("data-limit")) || this.options.limit;
             this.size = this.$el.attr("data-size") && parseInt(this.$el.attr("data-size")) * 1024 * 1024 || this.options.size;
             this.params = this.$el.attr("data-params") && JSON.parse(this.$el.attr("data-params")) || this.options.params;
-            this.single = typeof this.$el.attr("data-single") === "string" || this.options.single;
+            this.single = typeof this.$el.attr("data-single") === "string" && this.$el.attr("data-single") === "true" || this.options.single;
             this.preview = typeof this.$el.attr("data-preview") === "string" && this.$el.attr("data-preview") || this.options.params;
-            this.$list = this.$el.attr("data-list") &&  $(this.$el.attr("data-list")) || this.options.list;
+            this.local = typeof this.$el.attr("data-local") === "string" && this.$el.attr("data-local") === "true" || this.options.local;
+            this.$list = this.$el.attr("data-list") &&  $(this.$el.attr("data-list")) || this.options.list || this.$el.parent();
 
 
             this.init();
@@ -39,14 +40,16 @@
 
         _ImageUpload.DEFAULTS = {
             limit : 2,
-            size : 2,
+            size : 2 * 1024 * 1024,
             createNew : true,
-            single : false
+            single : false,
+            local : false
         };
 
         _ImageUpload.prototype.init = function(){
             // 如果指定列表里的input-file元素大于limit,则直接返回
-            if ( !this.single && this.$list.find('[data-count="input-file"]').length >= this.limit) {
+            if ( this.$list.find('[data-count="input-file"]').length >= this.limit) {
+                this.$el.remove();
                 return
             }
 
@@ -110,35 +113,12 @@
                 }
             }
 
-            this._uploadForm();
-        };
-
-        /**
-         * 上传图片的本地预览
-         * @private
-         */
-        _ImageUpload.prototype._setPreview = function(){
-            var preview = this.$preview.get(0);
-            var ele = this.el;
-
-            // DOM files属性支持检测
-            if ( typeof ele.files !== "undefined" && ele.files.length ){
-                preview.src = window.URL.createObjectURL(ele.files[0]);
-            } else {
-                // 不支持files的IE用AlphaImageLoader来获取图片路径
-                var imageSrc;
-                ele.select();
-                ele.blur();
-                imageSrc = document.selection.createRange().text;
-
-                try {
-                    preview.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
-                    preview.filter.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imageSrc;
-                } catch (e){
-                    return;
-                }
-                document.selection.empty();
+            if ( this.local ){
+                this._setPreview();
+                return;
             }
+
+            this._uploadForm();
         };
 
         /**
@@ -153,7 +133,11 @@
                 $inputType,
                 _this = this;
 
-            $form = $("<form></form>");
+            $form = $("<form></form>").css({
+                "height" : "0px",
+                "overflow" : "hidden",
+                "position" : "relative"
+            });
             $inputId = $("<input>");
             $inputType = $("<input>");
 
@@ -185,6 +169,11 @@
                 success: function (data) {
                     _this._setPreview();
                     _this.$mark.hide();
+
+                    if ( _this.single ){
+                        _this.$inputBox.prepend(_this.$el);
+                    }
+
                     if ( !_this.single && _this.options.createNew) {
                         // 新建另外一个新的文件控件
                         _this.createNew();
@@ -200,6 +189,34 @@
                     alert("上次失败，请重新上传");
                 }
             })
+        };
+
+        /**
+         * 上传图片的本地预览
+         * @private
+         */
+        _ImageUpload.prototype._setPreview = function(){
+            var preview = this.$preview.get(0);
+            var ele = this.el;
+
+            // DOM files属性支持检测
+            if ( typeof ele.files !== "undefined" && ele.files.length ){
+                preview.src = window.URL.createObjectURL(ele.files[0]);
+            } else {
+                // 不支持files的IE用AlphaImageLoader来获取图片路径
+                var imageSrc;
+                ele.select();
+                ele.blur();
+                imageSrc = document.selection.createRange().text;
+
+                try {
+                    preview.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    preview.filter.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imageSrc;
+                } catch (e){
+                    return;
+                }
+                document.selection.empty();
+            }
         };
 
         _ImageUpload.prototype._reset = function(){
