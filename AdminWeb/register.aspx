@@ -11,6 +11,7 @@
         <div><asp:RadioButtonList runat="server" ID="rblUserType">
             <asp:ListItem Value="4">客服</asp:ListItem>
              <asp:ListItem Value="1">客户</asp:ListItem>
+            <asp:ListItem Value="32">代理商</asp:ListItem>
              </asp:RadioButtonList></div>
         <div>
             <asp:Button runat="server" ID="btnRegister" Text="注册" OnClick="btnRegister_Click" />

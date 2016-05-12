@@ -5,9 +5,9 @@ using System.Text;
 using FluentNHibernate.Mapping;
 namespace Dianzhu.DAL.Mapping.Finance
 {
-    public class ServiceTypePointMapping:ClassMap<Model.Finance.ServiceTypePoint>
+    public class ServiceTypePointMap:ClassMap<Model.Finance.ServiceTypePoint>
     {
-        public ServiceTypePointMapping()
+        public ServiceTypePointMap()
         {
             Id(x => x.Id).GeneratedBy.Assigned();
             References<Model.ServiceType>(x => x.ServiceType).Update();

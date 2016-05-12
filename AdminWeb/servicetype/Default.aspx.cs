@@ -11,6 +11,7 @@ using PHSuit;
 public partial class servicetype_Default : System.Web.UI.Page
 {
     BLLServiceType bllServiceType = new BLLServiceType();
+    Dianzhu.BLL.Finance.BLLServiceTypePoint bllPoint = new Dianzhu.BLL.Finance.BLLServiceTypePoint();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -31,11 +32,15 @@ public partial class servicetype_Default : System.Web.UI.Page
     void r_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         ServiceType st = e.Item.DataItem as ServiceType;
+        
+       
         HyperLink hy = e.Item.Controls[1] as HyperLink;
-        hy.NavigateUrl = "edit.aspx?id=" + st.Code;
+        hy.NavigateUrl = "edit.aspx?id=" + st.Id;
         hy.Style.Add("font-size", 24 - (st.DeepLevel * 2) + "px");
         hy.Style.Add("color","#"+colors[st.DeepLevel] +"");
-        
+
+         
+
         hy.Text = st.Name;
         if (st.Children.Count > 0)
         {
