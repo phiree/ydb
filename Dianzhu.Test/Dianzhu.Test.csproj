@@ -161,6 +161,10 @@
     <None Include="TestFiles\商务服务类最新版-表格.xls" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
+      <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
+      <Name>DDDCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
       <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
       <Name>Dianzhu.BLL</Name>
