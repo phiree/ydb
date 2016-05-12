@@ -122,7 +122,7 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-7">
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺图片</div>
                                                             <div class="col-md-8 model-input">
