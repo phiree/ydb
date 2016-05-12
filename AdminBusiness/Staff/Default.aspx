@@ -38,7 +38,7 @@
                                             </div>
                                             <div class="emp-model-b">
                                                 <!--<input type="button" staffId='<%#Eval("id") %>' class='btnAssign emp-assign <%# (bool)Eval("IsAssigned")?"assigned":"noAssign" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/>-->
-                                                <input type="button" class="emp-assign" value="指派" data-role="appointToggle" data-appointTargetId='<%#Eval("id") %>' >
+                                                <input type="button" class="emp-assign" value="指派" data-role="appointToggle" data-appointTargetId='<%#Eval("id") %>'>
                                             </div>
                                         </div>
                                         <!--end emp-model-->
@@ -156,34 +156,32 @@
     <script src="/js/libs/underscore.js"></script>
     <script src="/js/jquery.lightBox_me.js"></script>
     <script src="/js/interfaceAdapter.js"></script>
-    <script src="/js/test/mock.js"></script>
-    <script src="/js/test/mock.staff.js"></script>
     <script src="/js/appointToStaff.js"></script>
     <script>
         $().ready(function(){
             $('[rel="tooltip"]').tooltip();
         });
 
-        $(".btnAssign").click(function () {
-            var $this = $(this);
-            $.post("/ajaxservice/changestaffInfo.ashx",
-                {
-                    "changed_field": "assign",
-                    "changed_value": false,
-                    "id": $this.attr("staffId")
-                }, function (data) {
-                    var enabled = data.data;
-                    var $card = $this.parents(".emp-model");
-                    var $assignFlag = $card.find(".emp-assign-flag");
-                    if ( enabled == "True" ) {
-                        $this.val("取消指派").addClass("assigned").removeClass("noAssign");
-                        $assignFlag.addClass("assigned").removeClass("noAssign");
-                    }
-                    else {
-                        $this.val("指派").removeClass("assigned").addClass("noAssign");
-                        $assignFlag.removeClass("assigned").addClass("noAssign");
-                    }
-                });
-        });
+//        $(".btnAssign").click(function () {
+//            var $this = $(this);
+//            $.post("/ajaxservice/changestaffInfo.ashx",
+//                {
+//                    "changed_field": "assign",
+//                    "changed_value": false,
+//                    "id": $this.attr("staffId")
+//                }, function (data) {
+//                    var enabled = data.data;
+//                    var $card = $this.parents(".emp-model");
+//                    var $assignFlag = $card.find(".emp-assign-flag");
+//                    if ( enabled == "True" ) {
+//                        $this.val("取消指派").addClass("assigned").removeClass("noAssign");
+//                        $assignFlag.addClass("assigned").removeClass("noAssign");
+//                    }
+//                    else {
+//                        $this.val("指派").removeClass("assigned").addClass("noAssign");
+//                        $assignFlag.removeClass("assigned").addClass("noAssign");
+//                    }
+//                });
+//        });
     </script>
 </asp:Content>
