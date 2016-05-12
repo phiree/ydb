@@ -192,7 +192,7 @@
                                                         <%# Eval("CreatTime") %>
                                                     </div>
                                                 </div>
-                                                <div class="status-h"><%#Eval("OldStatusStr") %></div>
+                                                <div class="status-h"><%#Eval("NewStatusStr") %></div>
                                             </div>
                                         </ItemTemplate>
                                         </asp:Repeater>

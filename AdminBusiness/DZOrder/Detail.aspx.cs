@@ -39,8 +39,8 @@ public partial class DZOrder_Detail : System.Web.UI.Page
         rptOrderDoneStatus.DataSource = statusList;
         foreach(ServiceOrderStateChangeHis item in statusList)
         {
+            item.NewStatusStr = item.Order.GetStatusTitleFriendly(item.NewStatus);
             item.OldStatusStr = item.Order.GetStatusTitleFriendly(item.OldStatus);
-            item.OldStatusCon = item.Order.GetStatusContextFriendly(item.OldStatus);
         }
         rptOrderDoneStatus.DataBind();
     }

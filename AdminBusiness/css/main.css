@@ -8050,7 +8050,7 @@ a.doReg:hover {
   border-left: 1px solid #ccc;
 }
 .order-list {
-  height: 600px;
+  height: 550px;
   overflow-x: auto;
   margin-bottom: 0;
 }
@@ -8081,6 +8081,10 @@ a.doReg:hover {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.order-li.order-li-time {
+  line-height: 1.6em;
+  padding: 22px 0 0 0;
+}
 .order-row {
   height: 85px;
   line-height: 85px;
@@ -8091,7 +8095,18 @@ a.doReg:hover {
   border-bottom: 1px solid #ddd;
 }
 .order-total-card {
-  padding: 15px 0;
+  padding: 15px;
+  display: inline-block;
+  box-shadow: 0 0 3px #e7e7e7;
+  border: 1px solid #C7C7C7;
+  background: #f7f7f7;
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #eaeaea 100%);
+  background: linear-gradient(to bottom, #f7f7f7 0%, #eaeaea 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea', GradientType=0);
+}
+.order-total-card + .order-total-card {
+  margin-left: 18px;
 }
 .order-card-t {
   position: relative;
