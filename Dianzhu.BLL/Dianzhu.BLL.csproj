@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressParser.cs" />
     <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLArea.cs" />
     <Compile Include="BLLBusiness.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="BLLIMUserStatus.cs" />
     <Compile Include="BLLPay.cs" />
     <Compile Include="BLLBusinessImage.cs" />
+    <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Finance\BLLSalePoint.cs" />
     <Compile Include="IdentityAccess\RoleDto.cs" />
     <Compile Include="IdentityAccess\RoleService.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Reception\BLLReceptionStatus.cs" />
     <Compile Include="Reception\BLLReceptionStatusArchieve.cs" />
     <Compile Include="Reception\ReceiveMessage.cs" />
+    <Compile Include="ServiceOrder\IBLLServiceOrder.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrder.cs" />
     <Compile Include="BLLServiceType.cs" />
     <Compile Include="CashTicketAssigner.cs" />
@@ -94,7 +97,6 @@
     <Compile Include="DALFactory.cs" />
     <Compile Include="IdentityAccess\DZMembershipProvider.cs" />
     <Compile Include="DZRoleProvidercs.cs" />
-    <Compile Include="FormModel\FormBusiness.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BLLDZService.cs" />
@@ -112,7 +114,6 @@
     <Compile Include="Validator\ValidatorBusiness.cs" />
     <Compile Include="Validator\ValidatorStaff.cs" />
     <Compile Include="Validator\ValidatorDZService.cs" />
-    <Compile Include="AddressParser.cs" />
     <Compile Include="BLLOrderAssignment.cs" />
     <Compile Include="BLLDZTag.cs" />
     <Compile Include="Validator\ValidatorDZMemership.cs" />

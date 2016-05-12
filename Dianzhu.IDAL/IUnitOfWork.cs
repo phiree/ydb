@@ -9,5 +9,12 @@ namespace Dianzhu.IDAL
     {
         void BeginTransaction();
         void Commit();
+        void Rollback();
+    }
+
+    [AttributeUsage(AttributeTargets.Method)]
+    public class UnitOfWorkAttribute : Attribute
+    {
+
     }
 }

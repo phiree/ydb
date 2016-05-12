@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALAdvertisement.cs" />
     <Compile Include="DALArea.cs" />
     <Compile Include="DALBusiness.cs" />
     <Compile Include="DALBusinessImage.cs" />
@@ -57,9 +58,9 @@
     <Compile Include="DALReceptionChatDD.cs" />
     <Compile Include="DALReceptionStatus.cs" />
     <Compile Include="DALReceptionStatusArchieve.cs" />
-    <Compile Include="DALServiceOrder.cs" />
-    <Compile Include="DALServiceOrderRemind.cs" />
-    <Compile Include="DALServiceOrderStateChangeHis.cs" />
+    <Compile Include="ServiceOrder\DALServiceOrder.cs" />
+    <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />
+    <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />
     <Compile Include="DALServiceProperty.cs" />
     <Compile Include="DALServiceType.cs" />
     <Compile Include="DALStaff.cs" />

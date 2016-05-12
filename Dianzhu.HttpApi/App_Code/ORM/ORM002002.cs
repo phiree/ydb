@@ -15,13 +15,14 @@ using Dianzhu.Api.Model;
 public class ResponseORM002002 : BaseResponse
 {
     public ResponseORM002002(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataORM002002 requestData = this.request.ReqData.ToObject<ReqDataORM002002>();
 
  
         DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllOrder = new BLLServiceOrder();
+     
         string raw_id = requestData.userID;
 
         try

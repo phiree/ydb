@@ -8,12 +8,12 @@ namespace Dianzhu.Model
     /// <summary>
     /// 城市
     /// </summary>
-    public class Advertisement
+    public class Advertisement:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 主键
         /// </summary>
-        public virtual Guid Id { get; set; }
+      
         /// <summary>
         /// 图片地址
         /// </summary>

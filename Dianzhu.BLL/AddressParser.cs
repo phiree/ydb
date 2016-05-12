@@ -10,10 +10,11 @@ namespace Dianzhu.BLL
     public class AddressParser
     {
         public string rawAddressFromMapApi;
-        BLLArea bllArea = new BLLArea();
-        public AddressParser(string rawAddressFromMapApi)
+        BLLArea bllArea;
+        public AddressParser(string rawAddressFromMapApi,BLLArea bllArea)
         {
             this.rawAddressFromMapApi = rawAddressFromMapApi;
+            this.bllArea = bllArea;
         }
         public void ParseAddress(out Area area, out double latitude, out double longtitude)
         {

@@ -12,9 +12,18 @@ using System.ComponentModel;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
 using ViewWPF = Dianzhu.CSClient.ViewWPF;
- 
+
 using cw = Castle.Windsor;
 using cmr = Castle.MicroKernel.Registration;
+using Dianzhu.DAL;
+using Dianzhu.IDAL;
+using Dianzhu.Model;
+using NHibernate;
+using DDDCommon.Domain;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using NHibernate.Tool.hbm2ddl;
+
 namespace Dianzhu.CSClient
 {
     static class Program
@@ -97,9 +106,14 @@ namespace Dianzhu.CSClient
         static Castle.Windsor.WindsorContainer Install()
         {
             var container = new Castle.Windsor.WindsorContainer();
+            UIInstall(container);
+            RepositoryInstall(container);
+            return container;
+
+        }
+        static void UIInstall(Castle.Windsor.WindsorContainer container)
+        {
             container.Register(cmr.Component.For<Presenter.PMain>());
-
-
             container.Register(cmr.Component.For<CSClient.Presenter.LoginPresenter>());
             container.Register(cmr.Component.For<CSClient.Presenter.IdentityManager>());
             container.Register(cmr.Component.For<CSClient.Presenter.PIdentityList>());
@@ -131,15 +145,66 @@ namespace Dianzhu.CSClient
                             )
                             );
 
-            container.Register(cmr.Component.For<CSClient.IMessageAdapter.IAdapter>()
-                .ImplementedBy<CSClient.MessageAdapter.MessageAdapter>()
+            container.Register(cmr.Component.For<CSClient.IMessageAdapter.IAdapter>().ImplementedBy<CSClient.MessageAdapter.MessageAdapter>());
 
+        }
+        static void RepositoryInstall(Castle.Windsor.WindsorContainer container)
+        {
+            container.Register(cmr.Component.For<BLLAdvertisement>());
+            container.Register(cmr.Component.For<BLLArea>());
 
+            
+            container.Register(cmr.Component.For<ISessionFactory>().UsingFactoryMethod(CreateNhSessionFactory));
+
+            container.Register(cmr.Component.For(typeof(IRepository<,>), typeof(NHRepositoryBase<,>)).ImplementedBy(typeof(NHRepositoryBase<,>)));
+            //container.Register(cmr.Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient);
+
+            container.Register(cmr.Component.For<IRepository<Advertisement, Guid>, IDALAdvertisement>().ImplementedBy<DALAdvertisement>());
+            container.Register(cmr.Component.For<IRepository<Area, int>, IDALArea>().ImplementedBy<DALArea>());
+            container.Register(cmr.Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
+
+            container.Register(cmr.Component.For<IRepository<ServiceOrder, Guid>, IDALServiceOrder>().ImplementedBy<DALServiceOrder>());
+            /*
+       public BLLServiceOrde
+       r(  BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, 
+       DZMembershipProvider membershipProvider,
+       BLLPayment bllPayment,
+       BLLRefund bllRefund,
+       IDALServiceOrder repoServiceOrder)
+
+            */
+            container.Register(cmr.Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
+                .DependsOn(cmr.Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis()))
+                .DependsOn(cmr.Dependency.OnValue("membershipProvider", new DZMembershipProvider()))
+                .DependsOn(cmr.Dependency.OnValue("bllPayment", new BLLPayment()))
+                .DependsOn(cmr.Dependency.OnValue("bllRefund", new BLLRefund()))
                 );
-
-
-            return container;
-
+        }
+        private static ISessionFactory CreateNhSessionFactory()
+        {
+            var f = Fluently.Configure()
+                             .Database(
+                                  MySQLConfiguration
+                                 .Standard
+                                 .ConnectionString(
+                                    PHSuit.Security.Decrypt(
+                                    System.Configuration.ConfigurationManager
+                                    .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false)
+                                          )
+                                          .Dialect<NHCustomDialect>()
+                               )
+                             .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
+                            .ExposeConfiguration(BuildSchema)
+                             .BuildSessionFactory();
+            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+            return f;
+        }
+        private static void BuildSchema(NHibernate.Cfg.Configuration config)
+        {
+            // this NHibernate tool takes a configuration (with mapping info in)
+            // and exports a database schema from it
+            SchemaUpdate update = new SchemaUpdate(config);
+            //update.Execute(true, true);
         }
         static bool CheckConfig()
         {
@@ -189,7 +254,4 @@ namespace Dianzhu.CSClient
             return myVersion.ToString();
         }
     }
-
-
-    // public interface IIdentityManagerFactory
 }

@@ -444,5 +444,12 @@ namespace Dianzhu.DemoClient
             IQ iq = new MessageBuilder().BuildIq();
             GlobalViables.XMPPConnection.Send(iq);
         }
+
+        private void btnAdvList_Click(object sender, EventArgs e)
+        {
+
+            AdvList adv = new AdvList();
+            adv.ShowDialog();
+        }
     }
 }

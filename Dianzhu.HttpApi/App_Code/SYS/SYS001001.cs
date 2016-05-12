@@ -14,8 +14,7 @@ public class ResponseSYS001001:BaseResponse
 {
     BLLReceptionChatDD bllReceptionChatDD;
     DZMembershipProvider bllMember;
-    BLLServiceOrder bllOrder;
-
+    public IBLLServiceOrder bllOrder { get; set; }
     public ResponseSYS001001(BaseRequest request):base(request)
     {
         //
@@ -28,8 +27,7 @@ public class ResponseSYS001001:BaseResponse
 
         bllReceptionChatDD = new BLLReceptionChatDD();
         bllMember = new DZMembershipProvider();
-        bllOrder = new BLLServiceOrder();
-
+      
         try
         {
             ReceptionChat chat = reqDataToChat(requestData);

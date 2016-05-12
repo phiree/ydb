@@ -15,13 +15,14 @@ using Dianzhu.Api.Model;
 public class ResponseORM001005 : BaseResponse
 {
     public ResponseORM001005(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataORM001005 requestData = this.request.ReqData.ToObject<ReqDataORM001005>();
 
         //todo:用户验证的复用.
         DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+       
         PushService bllPushService = new PushService();
         string raw_id = requestData.userID;
 

@@ -102,6 +102,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdvList.Designer.cs">
+      <DependentUpon>AdvList.cs</DependentUpon>
+    </Compile>
     <Compile Include="API.cs" />
     <Compile Include="FileUploader.cs" />
     <Compile Include="FmMain.cs">
@@ -133,6 +139,9 @@
       <DependentUpon>ShowFullImage.cs</DependentUpon>
     </Compile>
     <Compile Include="StringHelper.cs" />
+    <EmbeddedResource Include="AdvList.resx">
+      <DependentUpon>AdvList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FmMain.resx">
       <DependentUpon>FmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -167,6 +176,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
+      <Project>{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}</Project>
+      <Name>Dianzhu.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>

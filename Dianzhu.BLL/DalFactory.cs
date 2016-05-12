@@ -174,13 +174,7 @@ namespace Dianzhu.BLL
             get { return dalCashTicketCreateRecord ?? new DALCashTicketCreateRecord(); }
             set { dalCashTicketCreateRecord = value; }
         }
-        public static DALArea DALArea
-        {
-            get{
-                return dalArea ?? new DALArea();
-            }
-            set { dalArea = value; }
-        }
+        
 
         public static DALBusiness DALBusiness
         {

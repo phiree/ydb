@@ -5,82 +5,75 @@ using System.Linq.Expressions;
 using System.Text;
 using DDDCommon;
 using NHibernate;
+using NHibernate.Linq;
+using Dianzhu.IDAL;
+using DDDCommon.Domain;
 namespace Dianzhu.DAL
 {
-    public class NHRepository<T> : IDAL.IRepository<T> 
-        where T :class
+    public abstract class NHRepositoryBase<TEntity,TPrimaryKey> :  IRepository<TEntity, TPrimaryKey>
+        where TEntity:Entity<TPrimaryKey>
     {
 
-        private NHUnitOfWork _unitOfWork;
-        private ISession session { get { return _unitOfWork.Session; } }
-        public NHRepository(IDAL.IUnitOfWork iUnitOfWork)
-        {
-            this._unitOfWork = (NHUnitOfWork)iUnitOfWork;
-        }
-        public void Add(T t)
-        {
-            session.Save(t);
-        }
-
-        public void Delete(T t)
-        {
-            session.Delete(t);
-        }
-
-        public IEnumerable<T> Find(string where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> Find(string where, int pageIndex, int pageSize, out long totalRecords)
+       
+        protected ISession Session { get { return NHUnitOfWork.Current.Session; } }
+      
+        public void Add(TEntity t)
         {
 
-            string where_rowcount = PHSuit.StringHelper.BuildCountQuery(where);
-            IQuery query_RowCount = session.CreateQuery(where_rowcount);
-            totalRecords = query_RowCount.FutureValue<long>().Value;
-            IQuery query = session.CreateQuery(where);
-            return query.Enumerable<T>();
-
+                Session.Save(t);
+               
+            
 
         }
 
-        public T FindById(object identityId)
+        public void Delete(TEntity t)
         {
-            return session.Get<T>(identityId);
+            using (var tra = Session.BeginTransaction())
+            {
+                Session.Delete(t); tra.Commit();
+            }
         }
 
-        public long GetRowCount(string where)
+
+        public TEntity FindById(TPrimaryKey identityId)
         {
-            string where_rowcount = PHSuit.StringHelper.BuildCountQuery(where);
-            IQuery query_RowCount = session.CreateQuery(where_rowcount);
-            long totalRecords = query_RowCount.FutureValue<long>().Value;
+            
+                var result= Session.Get<TEntity>(identityId);
+              
+                return result;
+            
+        }
+
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where)
+        {
+            long totalRecord;
+            return Find(where, 1, 999, out totalRecord);
+        }
+
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords)
+        {
+            
+            var query = Session.Query<TEntity>().Where(where);
+            totalRecords = query.Count();
+            return query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToFuture();
+        }
+
+     
+        public long GetRowCount(Expression<Func<TEntity, bool>> where)
+        {
+            var query = Session.Query<TEntity>().Where(where);
+           long totalRecords = query.Count();
             return totalRecords;
         }
 
-        public IEnumerable<T> Find(ISpecification<T> specs, int pageIndex, int pageSize, out long totalRecords)
+        public TEntity FindOne(Expression<Func<TEntity, bool>> where)
         {
-            var query = session.QueryOver<T>().Where(specs.SpecExpression);
-            totalRecords = query.RowCountInt64();
-            return query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).Future();
+            return  Session.Query<TEntity>().Where(where).SingleOrDefault();
         }
 
-        public IEnumerable<T> Find(ISpecification<T> specs)
+        public void Update(TEntity t)
         {
-            var query = session.QueryOver<T>().Where(specs.SpecExpression);
-            return query.Future();
-        }
-
-        public long GetRowCount(ISpecification<T> specs)
-        {
-            var query = session.QueryOver<T>().Where(specs.SpecExpression);
-           long totalRecords = query.RowCountInt64();
-            return totalRecords;
-        }
-
-        public IEnumerable<T> Find(Expression<Func<T, bool>> express)
-        {
-            var query = session.QueryOver<T>().Where(express);
-            return query.Future();
+              Session.Update(t);
         }
     }
 }

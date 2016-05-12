@@ -8,6 +8,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 public partial class test_Default : System.Web.UI.Page
 {
+    public IBLLServiceOrder bllOrder = Installer.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -15,7 +16,7 @@ public partial class test_Default : System.Web.UI.Page
     protected void btnCreateOrder_Click(object sender,EventArgs e)
     {
         DZMembershipProvider bllMembership = new DZMembershipProvider();
-        BLLServiceOrder bllOrder = new BLLServiceOrder();
+        
         BLLDZService bllService = new BLLDZService();
         BLLPayment bllPayment = new BLLPayment();
 

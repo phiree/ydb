@@ -21,15 +21,15 @@ namespace Dianzhu.CSClient.Presenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.POrderHistory");
         IViewOrderHistory viewOrderHistory;
         IList<ServiceOrder> orderList;
-        BLLServiceOrder bllServiceOrder;
+        IBLLServiceOrder bllServiceOrder;
         Dictionary<DZMembership, IList<ServiceOrder>> allList;
 
         public POrderHistory() { }
-        public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList)
+        public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList,IBLLServiceOrder bllServiceOrder)
         {
             this.viewOrderHistory = viewOrderHistory;
             this.orderList = new List<ServiceOrder>();
-            this.bllServiceOrder = new BLLServiceOrder();
+            this.bllServiceOrder = bllServiceOrder;
             this.allList = new Dictionary<DZMembership, IList<ServiceOrder>>();
 
             viewOrderHistory.SearchOrderHistoryClick += ViewOrderHistory_SearchOrderHistoryClick;

@@ -11,7 +11,7 @@ namespace Dianzhu.Model
     /// 订单
     /// </summary>
 
-    public class ServiceOrder
+    public class ServiceOrder:DDDCommon.Domain.Entity<Guid>
     {
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model");
@@ -105,7 +105,35 @@ namespace Dianzhu.Model
         {
             get; protected set;
         }
-        public virtual Guid Id { get;    set; }
+        
+        public virtual Business Business {
+            get {
+                if (Details.Count == 0)
+                { return null; }
+                 ;
+                string errMsg;
+                var businessesInOrder=    Details.Select(x => x.OriginalService.Business).ToList();
+                int count = businessesInOrder.Count;
+                if (count == 1)
+                {
+                    return businessesInOrder[0];
+                }
+                else {
+                    if (count > 1)
+                    {
+                        errMsg = "订单内有多个商家";
+                        log.Error(errMsg);
+                        throw new Exception(errMsg);
+                    }
+                    else {
+                        errMsg = "订单内的服务居然没有";
+                        log.Error(errMsg);
+                        throw new Exception(errMsg);
+                    }
+                }
+                 
+            }
+        }
         /// <summary>
         /// 订单的标题
         /// </summary>
