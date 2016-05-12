@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Finance\BalanceFlow.cs" />
     <Compile Include="Finance\ServiceTypePoint.cs" />
     <Compile Include="Finance\SharePoint.cs" />
     <Compile Include="IdentityAccess\emUserType.cs" />

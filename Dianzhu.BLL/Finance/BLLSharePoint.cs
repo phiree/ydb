@@ -8,7 +8,7 @@ using Dianzhu.DAL.Finance;
 namespace Dianzhu.BLL.Finance
 {
     
-    public class BLLSharePoint
+    public class BLLSharePoint:IBLLSharePoint
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Bll.Finance.BllSharePoint");
         DAL.Finance.DALSharePoint dalSharePoint;

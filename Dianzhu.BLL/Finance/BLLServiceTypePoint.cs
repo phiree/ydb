@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.BLL.Finance
 {
-   public  class BLLServiceTypePoint
+   public  class BLLServiceTypePoint:IBLLServiceTypePoint
     {
         /// <summary>
         /// 服务类别的提成比例
