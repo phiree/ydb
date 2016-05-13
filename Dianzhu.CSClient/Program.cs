@@ -12,7 +12,7 @@ using System.ComponentModel;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
 using ViewWPF = Dianzhu.CSClient.ViewWPF;
-using ViewWinForm = Dianzhu.CSClient.WinformView;
+
 using cw = Castle.Windsor;
 using cmr = Castle.MicroKernel.Registration;
 namespace Dianzhu.CSClient
