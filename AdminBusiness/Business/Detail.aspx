@@ -14,7 +14,7 @@
                     <div class="col-md-12">
                         <a class="biz-total-card" href="/DZservice/default.aspx?businessId=<%= CurrentBusiness.Id %>">
                             <div class="biz-card-t">
-                                <strong class="biz-card-tl"><asp:Literal runat="server" ID="liServiceCount"></asp:Literal></strong>
+                                <strong class="biz-card-tl"><%= ServiceCount %></strong>
                                 <div class="biz-card-tr">
                                     <p>个</p>
                                     <p>服务</p>
@@ -24,7 +24,7 @@
                         </a>
                         <a class="biz-total-card">
                             <div class="biz-card-t">
-                                <strong class="biz-card-tl"><asp:Literal runat="server" ID="liAllOrderCount"></asp:Literal></strong>
+                                <strong class="biz-card-tl"><%= AllOrderCount %></strong>
                                 <div class="biz-card-tr">
                                     <p>张</p>
                                     <p>订单</p>
@@ -34,7 +34,7 @@
                         </a>
                         <a class="biz-total-card">
                             <div class="biz-card-t">
-                                <strong class="biz-card-tl"><asp:Literal runat="server" ID="liDoneOrderCount"></asp:Literal></strong>
+                                <strong class="biz-card-tl"><%= DoneOrderCount %></strong>
                                 <div class="biz-card-tr">
                                     <p>张</p>
                                     <p>已完成订单</p>
@@ -120,14 +120,16 @@
                             </div>
                             <div class="model-m">
                                 <div class="detail-img">
-                                    <asp:Repeater runat="server" ID="rptShow">
-                                        <ItemTemplate>
-                                            <a class="detail-img-item" data-lightbox="lb_show"
-                                               href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img
-                                                    src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3'/>
-                                            </a>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
+                                    <div>
+                                        <asp:Repeater runat="server" ID="rptShow">
+                                            <ItemTemplate>
+                                                <a class="detail-img-item" data-lightbox="lb_show"
+                                                   href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'> <img
+                                                        src='/ImageHandler.ashx?imagename=<%#Eval("ImageName")%>&width=120&height=120&tt=3'/>
+                                                </a>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -221,8 +223,8 @@
                             }
                         },
                         data:[
-                            {value:0, name:'已完成订单'},
-                            {value:0, name:'未完成订单'}
+                            { value: <%= DoneOrderCount %>, name: '已完成订单' },
+                            { value: <%= AllOrderCount %> - <%= DoneOrderCount %>, name: '未完成订单' }
                         ]
                     }
                 ]

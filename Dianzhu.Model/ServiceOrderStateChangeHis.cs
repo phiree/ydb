@@ -84,9 +84,17 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string OldStatusStr { get; set; }
         /// <summary>
-        /// 当前状态中文名
+        /// 上个状态中文内容
         /// </summary>
         public virtual string OldStatusCon { get; set; }
+        /// <summary>
+        /// 当前状态中文名
+        /// </summary>
+        public virtual string NewStatusStr { get; set; }
+        /// <summary>
+        /// 当前状态中文内容
+        /// </summary>
+        public virtual string NewStatusCon { get; set; }
         #endregion
     }
 
