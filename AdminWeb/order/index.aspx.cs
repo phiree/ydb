@@ -19,11 +19,11 @@ public partial class order_index : System.Web.UI.Page
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
-         iuow.BeginTransaction();
+      //   iuow.BeginTransaction();
     }
     protected override void OnUnload(EventArgs e)
     {
-        iuow.Commit();
+      //  iuow.Commit();
         base.OnUnload(e);
     }
     protected void Page_Load(object sender, EventArgs e)

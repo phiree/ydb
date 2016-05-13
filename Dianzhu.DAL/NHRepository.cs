@@ -15,7 +15,14 @@ namespace Dianzhu.DAL
     {
 
        
-        protected ISession Session { get { return NHUnitOfWork.Current.Session; } }
+        protected ISession Session {
+
+            get {
+                return new HybridSessionBuilder().GetSession();
+            }
+        //    get { return NHUnitOfWork.Current.Session; }
+
+        }
       
         public void Add(TEntity t)
         {
