@@ -6,7 +6,7 @@ using System.Text;
 using Dianzhu;
  
 using System.Net.Mail;
-namespace Dianzhu.DAL
+namespace Dianzhu.IDAL
 {
     public interface IDALMembership 
     {

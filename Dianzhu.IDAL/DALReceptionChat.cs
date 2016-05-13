@@ -7,7 +7,7 @@ using Dianzhu.Model;
 using System.Collections;
  
 
-namespace Dianzhu.DAL
+namespace Dianzhu.IDAL
 {
     public interface IDALReceptionChat 
 

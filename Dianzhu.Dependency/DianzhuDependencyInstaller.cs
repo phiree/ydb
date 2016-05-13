@@ -9,14 +9,17 @@ using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using HibernatingRhinos.Profiler.Appender.NHibernate;
 using System.Configuration;
-
+using Dianzhu.IDAL;
+using Dianzhu.DAL;
+using Dianzhu.Model;
+using System;
 namespace Dianzhu.Dependency
 {
     public class DianzhuDependencyInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-           // container.Kernel.ComponentRegistered += Kernel_ComponentRegistered;
+            // container.Kernel.ComponentRegistered += Kernel_ComponentRegistered;
 
             //Register all components
             container.Register(
@@ -24,15 +27,22 @@ namespace Dianzhu.Dependency
                 //Nhibernate session factory
                 Component.For<ISessionFactory>().UsingFactoryMethod(CreateNhSessionFactory).LifeStyle.Singleton,
 
+                Component.For(typeof(Dianzhu.IDAL.IRepository<,>)).ImplementedBy(typeof(Dianzhu.DAL.NHRepositoryBase<,>)),
                 //Unitofwork interceptor
               //  Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient,
                 Component.For<Dianzhu.IDAL.IUnitOfWork>().ImplementedBy<Dianzhu.DAL.NHUnitOfWork>(),
+                  Component.For<IDALArea,NHRepositoryBase<Area,int>>().ImplementedBy<DALArea>(),
+                 Component.For<IDALAdvertisement, NHRepositoryBase<Advertisement, Guid>>().ImplementedBy<DALAdvertisement>(),
+                  Component.For<IDALServiceOrder, NHRepositoryBase<ServiceOrder, Guid>>().ImplementedBy<DALServiceOrder>(),
+
                 //All repoistories
-               // Classes.FromAssembly(Assembly.GetAssembly(typeof(NhPersonRepository))).InSameNamespaceAs<NhPersonRepository>().WithService.DefaultInterfaces().LifestyleTransient(),
-                 Classes.FromAssembly(Assembly.GetAssembly(typeof(Dianzhu.DAL.IDALAdvertisement))).InSameNamespaceAs<Dianzhu.DAL.IDALAdvertisement>().WithService.DefaultInterfaces().LifestyleTransient(),
+                // Classes.FromAssembly(Assembly.GetAssembly(typeof(NhPersonRepository))).InSameNamespaceAs<NhPersonRepository>().WithService.DefaultInterfaces().LifestyleTransient(),
+                //Classes.FromAssembly(Assembly.GetAssembly(typeof( IDALAdvertisement))).InSameNamespaceAs<Dianzhu.DAL.IDALAdvertisement>()
+                // .WithService.DefaultInterfaces().LifestyleTransient(),
 
                 //All services
-                Classes.FromAssembly(Assembly.GetAssembly(typeof(Dianzhu.BLL.IBLLServiceOrder))).InSameNamespaceAs<Dianzhu.BLL.IBLLServiceOrder>().WithService.DefaultInterfaces().LifestyleTransient()
+                Classes.FromAssembly(Assembly.GetAssembly(typeof(Dianzhu.BLL.IBLLServiceOrder)))
+                .InSameNamespaceAs<Dianzhu.BLL.IBLLServiceOrder>().WithService.DefaultInterfaces().LifestyleTransient()
 
                 );
         }

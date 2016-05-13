@@ -6,13 +6,13 @@ using System.Text;
 using DDDCommon;
 using Dianzhu.Model;
 using NHibernate;
-
+using Dianzhu.IDAL;
 namespace Dianzhu.DAL
 {
     /// <summary>
     /// nhibernate implenmenting
     /// </summary>
-    public class DALAdvertisement:NHRepositoryBase<Advertisement,Guid>, Dianzhu.DAL.IDALAdvertisement
+    public class DALAdvertisement:NHRepositoryBase<Advertisement,Guid>,  IDALAdvertisement
     {
         
     }

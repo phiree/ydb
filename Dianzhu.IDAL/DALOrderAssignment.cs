@@ -5,7 +5,7 @@ using System.Text;
 using Dianzhu.Model;
 using Dianzhu.Model.Enums;
  
-namespace Dianzhu.DAL
+namespace Dianzhu.IDAL
 {
     public interface IDALOrderAssignment  
     {

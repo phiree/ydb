@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 using System.Web;
 using System.Text.RegularExpressions;
 using System.Net;
-
+using Dianzhu.IDAL;
 namespace Dianzhu.BLL
 {
 
