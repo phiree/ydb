@@ -163,14 +163,10 @@
                     var enabled = data.data;
                     if (enabled == "True") {
                         $(that).html("禁用");
-//                        $($(that).parent().parent()).find(".service-status").html("已启用");
-//                        $($(that).parent().parent()).find(".service-status").removeClass("theme-color-delete").addClass("theme-color-right");
                         $(that).removeClass("btn-info-light").addClass("btn-delete-light");
                     }
                     else {
                         $(that).html("启用");
-//                        $($(that).parent().parent()).find(".service-status").html("已禁用");
-//                        $($(that).parent().parent()).find(".service-status").removeClass("theme-color-right").addClass("theme-color-delete");
                         $(that).addClass("btn-info-light").removeClass("btn-delete-light");
                     }
 
@@ -184,17 +180,13 @@
                e.preventDefault();
            });
 
-           function readTypeData() {
+           // 显示已设置服务类型
+           (function() {
                var hiTypeValue = $("#hiTypeId").attr("value");
-               if (hiTypeValue != undefined) {
-                   $("#lblSelectedType").removeClass("dis-n");
-                   $("#lblSelectedType").addClass("d-inb");
-               } else {
-                   return;
+               if ( typeof hiTypeValue !== "undefined") {
+                   $("#lblSelectedType").removeClass("dis-n").addClass("d-inb");
                }
-           };
-
-           readTypeData();
+           })();
 
            $(".spServiceArea").each(function () {
                var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());

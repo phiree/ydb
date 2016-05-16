@@ -1,105 +1,91 @@
 @input-file-width: 140px;
 @input-file-height: 140px;
+@ipnut-file-border-radius: 10px;
 
 /* 图片上传框样式 */
 .input-file-box {
+  float: left;
   position: relative;
-  width: @input-file-width;
-  height: @input-file-height;
-  /*overflow: hidden;*/
-}
-
-.input-file-box ul li a {
-  display: none;
-}
-
-.input-file-btn {
-  position: absolute;
-  z-index: 4;
-  width: @input-file-width;
-  height: @input-file-height;
-  opacity: 0;
-  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-}
-
-.input-file-bg {
-  position: absolute;
   z-index: 1;
-  background: url("@{base-images-url}components/inputFile/input_bg_140_140.png") no-repeat center;
+  margin: 0 10px 10px 0;
   width: @input-file-width;
   height: @input-file-height;
-}
-
-.input-file-mark {
-  position: absolute;
-  z-index: 3;
-  width: @input-file-width;
-  height: @input-file-height;
-  background: url("@{base-images-url}components/inputFile/ajax-loader.gif") no-repeat center;
-  display: none;
 }
 
 .input-file-hover {
   font-style: normal;
   position: absolute;
   bottom: 0;
-  z-index: 5;
+  z-index: 12;
   width: @input-file-width;
   height: 30px;
   line-height: 30px;
   color: #fff;
   background: rgba(112, 112, 112, 0.69);
-  background: #707070 \9;
+  background: #656565 \9;
   text-align: center;
-  /*display: none;*/
+  display: none;
+}
+
+.input-file-btn {
+  position: absolute;
+  z-index: 10;
+  width: @input-file-width;
+  height: @input-file-height;
+  opacity: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+.input-file-mark {
+  position: absolute;
+  z-index: 8;
+  width: @input-file-width;
+  height: @input-file-height;
+  background: url("@{base-images-url}components/inputFile/ajax-loader.gif") no-repeat center;
+  display: none;
+}
+
+.input-file-fg {
+  position: absolute;
+  z-index: 6;
+  width: @input-file-width;
+  height: @input-file-height;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px #656565;
 }
 
 .input-file-pre {
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   width: @input-file-width;
   height: @input-file-height;
   border: 0 none;
+  border-radius: @ipnut-file-border-radius;
 }
 
-@headImage-width: 128px;
-@headImage-height: 128px;
+.input-file-bg {
+  position: absolute;
+  z-index: 2;
+  background: url("@{base-images-url}components/inputFile/input_bg_140_140.png") no-repeat center;
+  width: @input-file-width;
+  height: @input-file-height;
+  border-radius: @ipnut-file-border-radius;
+}
 
 /* 头像 */
 .headImage {
-  width: @headImage-width;
-  height: @headImage-width;
   overflow: hidden;
   display: inline-block;
-  .input-file-btn {
-    width: @headImage-width;
-    height: @headImage-width;
-  }
-  .input-file-bg {
-    width: @headImage-width;
-    height: @headImage-width;
-  }
-  .input-file-mark {
-    width: @headImage-width;
-    height: @headImage-width;
-  }
-  .input-file-box {
-    width: @headImage-width;
-    height: @headImage-width;
-  }
-  .input-file-hover {
-    width: @headImage-width;
-  }
 }
+
+// 编辑页面图片已上传预览
+@download-img-width: 140px;
+@download-img-height: 140px;
 
 .download-img-pre {
   float: left;
-  display: block;
-  width: 90px;
-  height: 90px;
-  line-height: 90px;
   position: relative;
-  text-align: center;
+  margin : 0 10px 10px 0;
 }
 
 .download-img-delete {
@@ -108,24 +94,45 @@
   height: 18px;
   right: 2px;
   top: 2px;
-  z-index: 2;
+  z-index: 12;
   border: 0;
   background: url("@{base-images-url}components/inputFile/delete_icon_91.png") no-repeat center;
 }
 
 .download-img-show {
   display: block;
-  /*border: 1px solid #dbe6f2 ;*/
-  background: #cccccc;
-  border-radius: 3px;
-  width: 90px;
-  height: 90px;
-  line-height: 90px;
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
+  overflow: hidden;
+  background: #ccc;
+  border-radius: 10px;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 10;
+    width: @download-img-width;
+    height: @download-img-height;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px #656565;
+  }
 }
 
 .download-img-show img {
-  vertical-align: baseline;
+  width: @download-img-width - 2px ;
+  height: @download-img-height - 2px ;
+}
+
+// 图片展示样式
+.detail-img {
+  min-height: 142px;
+  overflow: hidden;
+  .detail-img-item {
+    float: left;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    min-width: 122px;
+    min-height: 122px;
+    margin: 10px;
+  }
 }

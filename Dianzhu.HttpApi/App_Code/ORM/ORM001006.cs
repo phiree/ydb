@@ -25,27 +25,37 @@ public class ResponseORM001006 : BaseResponse
         PushService bllPushService = new PushService();
         BLLDZService bllDZService = new BLLDZService();
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
-        string raw_id = requestData.userID;
+        string user_id = requestData.userID;
 
         try
         {
-            Guid uid = new Guid(PHSuit.StringHelper.InsertToId(raw_id));
-            DZMembership member = p.GetUserById(uid);
+            Guid userId;
+            bool isUserId = Guid.TryParse(user_id, out userId);
+            if (!isUserId)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "用户Id格式有误";
+                return;
+            }
+
+            DZMembership member;
             if (request.NeedAuthenticate)
             {
+                bool validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
+                if (!validated)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                member = p.GetUserById(userId);
                 if (member == null)
                 {
                     this.state_CODE = Dicts.StateCode[8];
                     this.err_Msg = "用户不存在,可能是传入的uid有误";
                     return;
-                } 
-            }
-            //验证用户的密码
-            if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(requestData.pWord, "MD5"))
-            {
-                this.state_CODE = Dicts.StateCode[9];
-                this.err_Msg = "用户密码错误";
-                return;
+                }
             }
             try
             {
@@ -69,7 +79,7 @@ public class ResponseORM001006 : BaseResponse
                     return;
                 }
 
-                IList<ServiceOrder> orderList = bllServiceOrder.GetServiceOrderList(uid, searchType, pageNum, pageSize);
+                IList<ServiceOrder> orderList = bllServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
                 Dictionary<ServiceOrder, ServiceOrderPushedService> dicList = new Dictionary<ServiceOrder, ServiceOrderPushedService>();
                 IList<ServiceOrderPushedService> pushServiceList = new List<ServiceOrderPushedService>();
                 foreach(ServiceOrder order in orderList)

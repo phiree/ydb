@@ -8,6 +8,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="secret-layout-fixed">
         <div class="content">
+            <input id="currentUserId" type="hidden" value="<%=CurrentUser.Id %>"/>
             <div class="content-head normal-head">
                 <h3>账号安全</h3>
             </div>
@@ -15,7 +16,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-9">
-                            <div class="model">
+                            <div class="model m-b20">
                                 <div class="model-h">
                                     <h4>您的基础信息</h4>
                                 </div>
@@ -38,7 +39,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row model-row">
+                    <div class="row">
                         <div class="col-md-9">
                             <div class="model">
                                 <div class="model-h">
@@ -196,7 +197,7 @@
                     <span>修改电话</span> <i class="lightClose icon delete-icon secret-cancel-icon"></i>
                 </div>
                 <div class="model-m">
-                    新电话:<input type="text" id="tbxNewPhone" />
+                    新电话:&nbsp;<input type="text" id="tbxNewPhone" />
                     <input type="button" class="btnChange secret-btn" id="btnChangePhone" change_field="phone" value="保存"  />
                 </div>
             </div>
@@ -207,34 +208,28 @@
     <script src="/js/jquery.lightbox_me.js"></script>
     <script src="/js/jquery.form.min.js"></script>
     <script>
-
+    $(function(){
         $('.secret-layout-fixed').parent('.content-layout').css({marginLeft:0});
 
         $("#lb_changePhone").click(function (e) {
             $('#lightBox_ChangePhone').lightbox_me({
                 centered: true
-            });
-            $("#lightBox_ChangePhone").appendTo($("form:first"));
+            }).appendTo($("form:first"));
         });
 
         $("#lb_changeEmail").click(function (e) {
             $('#lightBox_ChangeEmail').lightbox_me({
                 centered: true
-            });
-            $("#lightBox_ChangeEmail").appendTo($("form:first"));
+            }).appendTo($("form:first"));
         });
 
         $('#passChange').click(function (e) {
             $('#lightBox').lightbox_me({
                 centered: true
-            });
-            $("#lightBox").appendTo($("form:first"));
+            }).appendTo($("form:first"));
         });
 
-        var changed_data = {};
-        changed_data["id"] = "<%=CurrentUser.Id %>";
-
+    });
     </script>
     <script src="/js/security.js"></script>
-
 </asp:Content>

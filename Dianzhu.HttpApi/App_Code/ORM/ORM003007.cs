@@ -100,15 +100,13 @@ public class ResponseORM003007 : BaseResponse
                                 {
                                     this.state_CODE = Dicts.StateCode[0];
                                     this.err_Msg = "订单取消成功";
-                                    return;
                                 }
                                 else
                                 {
                                     this.state_CODE = Dicts.StateCode[1];
                                     this.err_Msg = "订单取消失败，请稍候再试";
-                                    return;
                                 }
-                                break;
+                                return;
                             case enum_OrderStatus.Ended:
                                 bllServiceOrder.OrderFlow_CustomerFinish(order);
                                 break;

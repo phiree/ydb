@@ -14,6 +14,7 @@ namespace MediaServer
     /// </summary>
     public class FileUploader
     {
+        static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.MediaServer.FileUploader");
         /// <summary>
         /// 
         /// </summary>
@@ -44,8 +45,9 @@ namespace MediaServer
                 PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
                 PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
                 tomp3.ConvertToMp3(HttpContext.Current.Server.MapPath("\\files\\"), fullLocalPath, targetFileName);
-
-                fileName += ".mp3";
+                log.Debug("appliacitonPath:" + HttpContext.Current.Server.MapPath("\\files\\"));
+                log.Debug("fullLocalPath:" + fullLocalPath);
+                log.Debug("targetFileName:" + targetFileName);
             }
 
             return fileName;

@@ -62,6 +62,13 @@ namespace Dianzhu.DAL
             return item.CreatTime;
         }
 
+        public enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order,enum_OrderStatus status)
+        {
+            var query = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).And(x => x.NewStatus == status);
+            var item = GetOneByQuery(query).OldStatus;
+            return item;
+        }
+
         /// <summary>
         /// 更新为该状态时的时间
         /// </summary>

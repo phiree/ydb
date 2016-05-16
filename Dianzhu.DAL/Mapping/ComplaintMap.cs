@@ -13,7 +13,7 @@ namespace Dianzhu.DAL.Mapping
             References<ServiceOrder>(x => x.Order);
             Map(x => x.Target).CustomType<Model.Enums.enum_ChatTarget>();
             Map(x => x.Context);
-            Map(x => x.ResourcesUrl);
+            Map(x => x.ResourcesUrl).Length(1000);
             Map(x => x.CreatTime);
             Map(x => x.Result);
             References<DZMembership>(x => x.Operator);
