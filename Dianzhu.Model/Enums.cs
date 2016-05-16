@@ -30,6 +30,7 @@ namespace Dianzhu.Model.Enums
         Deposit=1,//订金
         FinalPayment=2,//尾款
         Compensation=3,//赔偿金
+        None=99,
 
     }
     /// <summary>

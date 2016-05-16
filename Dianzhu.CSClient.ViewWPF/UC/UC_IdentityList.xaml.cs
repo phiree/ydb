@@ -22,6 +22,8 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_IdentityList : UserControl, IViewIdentityList
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_IdentityList");
+
         public UC_IdentityList()
         {
             InitializeComponent();
@@ -73,6 +75,34 @@ namespace Dianzhu.CSClient.ViewWPF
                 {                    
                     pnlIdentityList.Children.Remove(btnIdentity);
                     pnlIdentityList.UnregisterName(btnIdentity.Name);
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
+        public void UpdateIdentityBtnName(Guid oldOrder, Guid newOrder)
+        {
+            Action lambda = () =>
+            {
+                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrder.ToString());
+                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.ToString());
+                Button btnOldIdentity = (Button)pnlIdentityList.FindName(ctrOldlName);
+                if (btnOldIdentity != null)
+                {
+                    //注销
+                    pnlIdentityList.UnregisterName(btnOldIdentity.Name);
+
+                    //重新注册
+                    btnOldIdentity.Name = ctrNewlName;
+                    pnlIdentityList.RegisterName(btnOldIdentity.Name, btnOldIdentity);
+                }
+                else
+                {
+                    log.Error("错误：按钮不应该为null");
                 }
             };
             if (!Dispatcher.CheckAccess())

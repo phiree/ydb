@@ -76,6 +76,16 @@ namespace Dianzhu.BLL
             order.LatestOrderUpdated = DateTime.Now;
             DALServiceOrder.SaveOrUpdate(order);
         }
+        public void Save(ServiceOrder order)
+        {
+            order.LatestOrderUpdated = DateTime.Now;
+            DALServiceOrder.Save(order);
+        }
+        public void Update(ServiceOrder order)
+        {
+            order.LatestOrderUpdated = DateTime.Now;
+            DALServiceOrder.Update(order);
+        }
         public IList<ServiceOrder> GetAll() //获取全部订单
         {
             return DALServiceOrder.GetAll<ServiceOrder>();
@@ -156,9 +166,10 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessNegotiate(ServiceOrder order, decimal negotiateAmount)
         {
             order.NegotiateAmount = negotiateAmount;
-            if (negotiateAmount < order.DepositAmount)
+            if (negotiateAmount <= order.DepositAmount)
             {
                 log.Warn("协商价格小于订金");
+                throw new Exception("协商价格小于等于订金");
             }
 
             ChangeStatus(order, enum_OrderStatus.isNegotiate);
@@ -197,6 +208,8 @@ namespace Dianzhu.BLL
         {
             order.OrderServerFinishedTime = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Ended);
+
+            bllPayment.ApplyPay(order, enum_PayTarget.FinalPayment);
         }
         /// <summary>
         /// 用户支付尾款
