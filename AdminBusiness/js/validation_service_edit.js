@@ -100,16 +100,16 @@
     //预约时间
     service_validate_rules[name_prefix + "tbxOrderDelay"] =
     {
-        integer: "请填写整数价格",
-        required: true,
-        range: [1, 1440]
+        //integer: "请填写整数价格",
+        //required: true,
+        //range: [1, 1440]
 
     };
     service_validate_messages[name_prefix + "tbxOrderDelay"] =
     {
-        integer: "请填写整数分钟",
-        required: "请填写预约时长",
-        range: "请输入1-1440之间的数字"
+        //integer: "请选择分钟",
+        //required: "请填写预约时长",
+        //range: "请输入1-1440之间的数字"
     };
 
     $($("form")[0]).validate(
