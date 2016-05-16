@@ -40,8 +40,15 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public void CloseApplication()
         {
-             CloseApplication();
-            
+            Action lambda = () =>
+            {
+                this.Close();
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
         }
 
         public void ShowMessage(string message)

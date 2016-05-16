@@ -88,6 +88,16 @@ namespace Dianzhu.CSClient.Presenter
                     else
                     {
                         SetSetIdentityLogOff(chat.ServiceOrder);
+                        if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
+                        {
+                            RemoveIdentity(chat.ServiceOrder);
+                        }
+                        else
+                        {
+                            errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
+                            log.Error(errMsg);
+                            throw new NotImplementedException(errMsg);
+                        }
                     }
                 }
             }

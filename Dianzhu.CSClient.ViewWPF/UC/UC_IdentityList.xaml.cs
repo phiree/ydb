@@ -112,11 +112,15 @@ namespace Dianzhu.CSClient.ViewWPF
                             break;
                         case em_ButtonStyle.LogOff:
                             foreColor = Colors.Gray;
+                            //btn.Visibility = Visibility.Collapsed;
+                            pnlIdentityList.Children.Remove(btn);
                             break;
                         case em_ButtonStyle.Readed: foreColor = Colors.Black;
                             btn.Content = btn.Content.ToString().Replace(loadingText, string.Empty);
                             break;
-                        case em_ButtonStyle.Unread: foreColor = Colors.Red; break;
+                        case em_ButtonStyle.Unread:
+                            foreColor = Colors.Red;
+                            break;
                         case em_ButtonStyle.Actived: foreColor = Colors.Yellow; break;
                         case em_ButtonStyle.Loading: btn.Content = loadingText+btn.Content;  break;
                         default: break;
