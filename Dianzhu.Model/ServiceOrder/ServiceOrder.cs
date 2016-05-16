@@ -78,7 +78,7 @@ namespace Dianzhu.Model
                 case enum_OrderStatus.Negotiate: str = "商家已确认订单"; break;
                 case enum_OrderStatus.Assigned: str = "等待服务开始"; break;
                 case enum_OrderStatus.Begin: str = "服务已开始"; break;
-                case enum_OrderStatus.IsEnd: str = "商家确定服务完成"; break;
+                case enum_OrderStatus.isEnd: str = "商家确定服务完成"; break;
                 case enum_OrderStatus.Ended: str = "用户确定服务完成"; break;
                 case enum_OrderStatus.Finished: str = "订单完成"; break;
                 case enum_OrderStatus.Appraised: str = "用户已评价"; break;
@@ -105,7 +105,7 @@ namespace Dianzhu.Model
         {
             get; protected set;
         }
-        public virtual Guid Id { get;  protected  set; }
+        public virtual Guid Id { get;    set; }
         /// <summary>
         /// 订单的标题
         /// </summary>
@@ -272,6 +272,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual int ServiceOvertimeForCancel
         { get {
+                if (Details.Count == 0) return 0;
                 return Details.Min(x => x.ServieSnapShot.OverTimeForCancel);
             } }
 
@@ -326,7 +327,8 @@ namespace Dianzhu.Model
             }
         }
 
-
+       
+        
 
     }
 

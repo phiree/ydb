@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLTest\Finance\BLLServiceTypePointTest.cs" />
     <Compile Include="BLLTest\OrderFlow.cs" />
     <Compile Include="BLLTest\TestBLLPayment.cs" />
     <Compile Include="BLLTest\TestBLLArea.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="DZCSClientTest\MessageBuildTest.cs" />
     <Compile Include="DZCSClientTest\PGlobalTest.cs" />
     <Compile Include="DZCSClientTest\PCustomerListTest.cs" />
+    <Compile Include="DZCSClientTest\PIdentityListTest.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />

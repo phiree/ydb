@@ -67,7 +67,7 @@ namespace Dianzhu.BLL
 
                 //验证该支付项的状态
                 //todo:如果 支付成功 
-                if (payment.Status == enum_PaymentStatus.Success)
+                if (payment.Status == enum_PaymentStatus.Trade_Success)
                 {
                     errMsg = "该项已经支付完成";
                     log.Error(errMsg);
@@ -82,9 +82,8 @@ namespace Dianzhu.BLL
                     log.Warn(errMsg);
                     //申请金额和之前的不一致, 需要警告
                 }
-                payment.Amount = payAmount;
-                payment.LastUpdateTime = DateTime.Now;
-                dal.Update(payment);
+                payment.Amount = payAmount;                
+                Update(payment);
                 
 
             }
@@ -104,7 +103,7 @@ namespace Dianzhu.BLL
 
         public string BuildPayLink(Guid  paymentId)
         {
-            return Config.Config.GetAppSetting("PayServerUrl") + "?paymentid=" + paymentId;
+            return Config.Config.GetAppSetting("PaySite") + "Pay/?paymentid=" + paymentId;
         }
         public Payment GetOne(Guid id)
         {
@@ -112,16 +111,27 @@ namespace Dianzhu.BLL
         }
         public void SaveOrUpdate(Payment payment)
         {
+            payment.LastUpdateTime = DateTime.Now;
             dal.SaveOrUpdate(payment);
         }
         public void Update(Payment payment)
         {
+            payment.LastUpdateTime = DateTime.Now;
             dal.Update(payment);
         }
 
         public Payment GetPaymentForWaitPay(ServiceOrder order)
         {
             return dal.GetPaymentForWaitPay(order);
+        }
+        /// <summary>
+        /// 查询订单支付的订金
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        public Payment GetPayedForDeposit(ServiceOrder order)
+        {
+            return dal.GetPayedForDeposit(order);
         }
     }
 }

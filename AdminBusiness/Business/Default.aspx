@@ -88,14 +88,14 @@
                                                                     </div>
                                                                     <div class="biz-info m-b10">
                                                                         <div class="m-b10">
+                                                                            <div class="biz-info-h">店铺地址</div>
+                                                                            <div class="biz-info-d">
+                                                                                <%#Eval("Address")%></div>
+                                                                        </div>
+                                                                        <div class="m-b10">
                                                                             <div class="biz-info-h">店铺电话</div>
                                                                             <div class="biz-info-d d-p">
                                                                                 <%#Eval("Phone")%></div>
-                                                                        </div>
-                                                                        <div class="m-b10">
-                                                                            <div class="biz-info-h">详细地址</div>
-                                                                            <div class="biz-info-d">
-                                                                                <%#Eval("Address")%></div>
                                                                         </div>
                                                                         <div>
                                                                             <div class="biz-info-h">店铺介绍</div>
@@ -301,7 +301,7 @@
 <script>
     function loadBaiduMapScript() {
         var script = document.createElement("script");
-        script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initialize";
+        script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initialize";
         document.body.appendChild(script);
     }
 

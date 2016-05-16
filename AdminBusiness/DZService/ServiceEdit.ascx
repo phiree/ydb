@@ -10,7 +10,7 @@
     </div>
     <div class="content-main">
         <div class="container-fluid animated fadeInUpSmall">
-            <div class="steps-wrap steps-3 service-steps">
+            <div class="steps-wrap steps-4 service-steps">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="steps-show">
@@ -24,12 +24,18 @@
                                 <div class="steps-tip">
                                     <div class="steps-tip-bg">
                                         <div class="step-tip-h">第二步</div>
-                                        <p>服务价格信息</p>
+                                        <p>服务范围设置</p>
                                     </div>
                                 </div>
                                 <div class="steps-tip">
                                     <div class="steps-tip-bg">
                                         <div class="step-tip-h">第三步</div>
+                                        <p>服务价格信息</p>
+                                    </div>
+                                </div>
+                                <div class="steps-tip">
+                                    <div class="steps-tip-bg">
+                                        <div class="step-tip-h">第四步</div>
                                         <p>服务时间设置</p>
                                     </div>
                                 </div>
@@ -61,7 +67,7 @@
                                                         <div class="col-md-4 model-label">服务类型</div>
                                                         <div class="col-md-8 model-input">
                                                             <div>
-                                                                <input id="setSerType" class="btn btn-info" type="button" value="请选择服务信息" />
+                                                                <input id="setSerType" class="btn btn-info btn-xs" type="button" value="请选择服务信息" />
                                                                 <input class="dis-n" type="text" runat="server" focusid="setSerType" id="hiTypeId" />
                                                                 <asp:Label CssClass="business-radioCf text-ellipsis hide" runat="server" ID="lblSelectedType"></asp:Label>
                                                                 <div id="serLightContainer" class="serLightContainer dis-n">
@@ -97,55 +103,65 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="row model-form-group">
-                                                        <div class="col-md-4 model-label">
-                                                            服务范围
-                                                        </div>
-                                                        <div class="col-md-9 model-input">
-                                                            <div class="map-container">
-                                                                <div id="allmap"></div>
-                                                                <!--百度地图API商圈功能-->
-                                                                <!--<div id="city-container"></div>-->
-                                                                <!--百度地图API输入功能-->
-                                                                <div id="r-result" class="map-search dis-n">
-                                                                    请输入服务点位置：<input type="text" id="suggestId" class="map-search-input" size="20" value="百度" /></div>
-                                                                <div id="searchResultPanel" style="border: 1px solid #C0C0C0; width: 150px; height: auto;display: none;"></div>
-                                                                <div id="radius-container" class="map-radius-result dis-n">
-                                                                    <span>服务半径：</span>
-                                                                    <select id="ser-radius" class="map-radius-select">
-                                                                        <option value="1000">1000</option>
-                                                                        <option value="1500">1500</option>
-                                                                        <option value="2000">2000</option>
-                                                                        <option value="3000">3000</option>
-                                                                        <option value="4000">4000</option>
-                                                                    </select>
-                                                                    <span>m</span>
-                                                                </div>
-                                                                <!--<div id="add-sp">添加新服务点<input type="button" id="addSP" value="+" /><span id="addError">当前服务点未设置，无法添加新服务点</span></div>-->
-                                                                <!--<div id="del-sp">删除服务点<input type="button" id="delSP" value="删除" /><span id="delError">请至少设置一个服务点</span></div>-->
-                                                                <div class="map-btn">
-                                                                    <input type="button" class="dis-n btn btn-info" id="saveSP" value="确定" />
-                                                                    <input type="button" class="btn btn-info" id="editSP" value="设置服务区域" />
-                                                                </div>
-                                                                <div class="map-msg">
-                                                                    <span id="saveMsg" class="dis-n">请设置服务区域</span>
-                                                                    <div>
-                                                                        <span id="saveAddress"></span><span id="saveRadius"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <input id="hiBusinessAreaCode" class="dis-n" runat="server" snsi type="text">
-                                                            <p class="cont-input-tip input-tip-fluid"><i class="icon icon-tip m-r10"></i>点击设置按钮，并放置该服务的服务区域。</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--服务设置第二步-->
+                            <!--服务设置地二步-->
+                            <div class="steps-step">
+                                <div class="model">
+                                    <div class="model-h">
+                                        <h4>服务范围设置</h4>
+                                    </div>
+                                    <div class="model-m no-padding">
+                                        <div class="row">
+                                            <div class="col-md-12 model-input">
+                                                <div class="map-container">
+                                                    <div id="allmap"></div>
+                                                    <!--百度地图API商圈功能-->
+                                                    <!--<div id="city-container"></div>-->
+                                                    <!--百度地图API输入功能-->
+                                                    <div id="r-result" class="map-search dis-n">
+                                                        请输入服务点位置：<input type="text" id="suggestId" class="map-search-input" size="20" value="百度" /></div>
+                                                    <div id="searchResultPanel" style="border: 1px solid #C0C0C0; width: 150px; height: auto;display: none;"></div>
+                                                    <div id="radius-container" class="map-radius-result dis-n">
+                                                        <span>服务半径：</span>
+                                                        <select id="ser-radius" class="map-radius-select">
+                                                            <option value="1000">1000</option>
+                                                            <option value="1500">1500</option>
+                                                            <option value="2000">2000</option>
+                                                            <option value="3000">3000</option>
+                                                            <option value="4000">4000</option>
+                                                        </select>
+                                                        <span>m</span>
+                                                    </div>
+                                                    <!--<div id="add-sp">添加新服务点<input type="button" id="addSP" value="+" /><span id="addError">当前服务点未设置，无法添加新服务点</span></div>-->
+                                                    <!--<div id="del-sp">删除服务点<input type="button" id="delSP" value="删除" /><span id="delError">请至少设置一个服务点</span></div>-->
+                                                    <div class="map-btn">
+                                                        <input type="button" class="dis-n btn btn-info btn-xs" id="saveSP" value="确定" />
+                                                        <input type="button" class="btn btn-info btn-xs" id="editSP" value="设置服务区域" />
+                                                    </div>
+                                                    <div class="map-msg">
+                                                        <span id="saveMsg" class="dis-n">请设置服务区域</span>
+                                                        <div>
+                                                            <span id="saveAddress"></span><span id="saveRadius"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input id="hiBusinessAreaCode" class="dis-n" runat="server" snsi type="text">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p class="cont-input-tip m-l10 m-b10"><i class="icon icon-tip m-r10"></i>点击设置按钮，并放置该服务的服务区域。</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--服务设置第三步-->
                             <div class="steps-step" >
                                 <div class="model">
                                     <div class="model-h">
@@ -181,9 +197,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="row model-form-group">
-                                                        <div class="col-md-4 model-label-lg">服务定金</div>
+                                                        <div class="col-md-4 model-label-lg">服务订金</div>
                                                         <div class="col-md-8 model-input-unit">
-                                                            <asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxDespoist" data-toggle="tooltip" data-placement="top" title="请填写该服务需支付的定金"></asp:TextBox>
+                                                            <asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxDespoist" data-toggle="tooltip" data-placement="top" title="请填写该服务需支付的订金"></asp:TextBox>
                                                             <em class="unit">元</em>
                                                         </div>
                                                     </div>
@@ -200,13 +216,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <!--<div class="row model-form-group">-->
-                                                        <!--<div class="col-md-4 model-label-lg">每小时最大接单量</div>-->
-                                                        <!--<div class="col-md-8 model-input-unit">-->
-                                                            <!--<asp:TextBox CssClass="input-fluid" snsi runat="server" ID="tbxMaxOrdersPerHour" data-toggle="tooltip" data-placement="top" title="该服务的每小时最大接单量">50</asp:TextBox>-->
-                                                            <!--<em class="unit">单</em>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
                                                     <div class="row model-form-group">
                                                         <div class="col-md-4 model-label-lg">是否上门</div>
                                                         <div class="col-md-8 model-input">
@@ -267,7 +276,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--服务设置第三部-->
+
+                            <!--服务设置第四步-->
                             <div class="steps-step">
                                 <div class="model">
                                     <div class="model-h">

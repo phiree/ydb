@@ -20,6 +20,8 @@ namespace Dianzhu.CSClient.IView
         void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount);
         //设置为已读
         void SetIdentityReaded(ServiceOrder serviceOrder);
+        //
+        void SetIdentityLoading(ServiceOrder serviceOrder);
         
     }
     /// <summary>

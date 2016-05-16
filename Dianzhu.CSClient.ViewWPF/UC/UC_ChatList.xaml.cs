@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 using System.Windows.Interop;
+using System.Windows.Controls.Primitives;
+using System.IO;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -38,7 +40,8 @@ namespace Dianzhu.CSClient.ViewWPF
 
             set
             {
-                pnlChatList.Children.Clear();
+                ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
+                //pnlChatList.Children.Clear();
                 foreach (ReceptionChat chat in value)
                 {
                     AddOneChat(chat);
@@ -96,6 +99,7 @@ namespace Dianzhu.CSClient.ViewWPF
                             MediaElement chatImageGif = new MediaElement();
                             chatImageGif.Name = chat.MessageBody;
                             chatImageGif.Width = 300;
+                            chatImageGif.MaxHeight = 300;
                             chatImageGif.LoadedBehavior = MediaState.Play;
                             chatImageGif.Source = new Uri(mediaUrl);
                             chatImageGif.MediaEnded += ChatImageGif_MediaEnded;
@@ -105,8 +109,13 @@ namespace Dianzhu.CSClient.ViewWPF
                         case "voice":
                              Button btnAudio = new Button();
                             btnAudio.Content = "播放音频---";
-                            btnAudio.Tag = mediaUrl;
-                            
+                            //btnAudio.Tag = mediaUrl;
+                            //string fileName = ((Model.ReceptionChatMedia)chat).MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+                            //btnAudio.Name = ((Model.ReceptionChatMedia)chat).MedialUrl;
+
+                            //string targetFileName = Environment.CurrentDirectory + "message/media/" + fileName + ".mp3";
+
+                            btnAudio.Tag = chat;
                             btnAudio.Click += BtnAudio_Click;
                             pnlOneChat.Children.Add(btnAudio);
                             break;
@@ -145,12 +154,9 @@ namespace Dianzhu.CSClient.ViewWPF
                 //对当前窗体已存在控件的操作
 
                 // WindowNotification();
-                pnlChatList.Children.Add(pnlOneChat);
-                
-               // svChatList.ScrollToBottom();
-                //svChatList.UpdateLayout();
-                //svChatList.ScrollToVerticalOffset(svChatList.ScrollableHeight);
-                //pnlChat.ScrollControlIntoView(pnlOneChat);
+                ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(pnlOneChat);
+                //pnlChatList.Children.Add(pnlOneChat);
+
             };
             if (!Dispatcher.CheckAccess())
             {
@@ -169,12 +175,31 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void BtnAudio_Click(object sender, EventArgs e)
         {
-            if(AudioPlay!=null)
+            //if(AudioPlay!=null)
+            //{
+            //    Window w = Window.GetWindow(this);
+            //    IntPtr windowHandle = new WindowInteropHelper(w).Handle;
+            //    AudioPlay(((Button)sender).Tag, windowHandle);
+            //}
+
+            ReceptionChatMedia chat = (Model.ReceptionChatMedia)(((Button)sender).Tag);
+            string fileName = chat.MedialUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+
+            string targetFileName = Environment.CurrentDirectory + "\\message\\media\\" + fileName + ".mp3";
+
+            if (!File.Exists(targetFileName))
             {
-                Window w = Window.GetWindow(this);
-                IntPtr windowHandle = new WindowInteropHelper(w).Handle;
-                AudioPlay(((Button)sender).Tag, windowHandle);
+                PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
+                PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
+                tomp3.ConvertToMp3(Environment.CurrentDirectory+"\\files\\", Dianzhu.Config.Config.GetAppSetting("MediaGetUrl")+ fileName, targetFileName);
             }
+            //string targetFileName = "C:\\" + ((Button)sender).Name + ".mp3";
+            //PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
+            //tomp3.ConvertToMp3("E:\\projects\\ddddzzzz\\PHSuit\\files\\", (((Button)sender).Tag).ToString(), targetFileName);
+
+            MediaPlayer player = new MediaPlayer();
+            player.Open(new Uri(targetFileName, UriKind.Absolute));
+            player.Play();
         }
         private void LoadBody(string messageBody, Panel pnlContainer)
         {
@@ -232,85 +257,6 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 currentCustomerService = value;
             }
-        }
-
-        private void svChatList_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            ScrollViewer scv = (ScrollViewer)sender;
-            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
-            e.Handled = true;
-        }
-
-        private void Grid_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            Grid  g = (Grid)sender;
-            ScrollViewer scv =(ScrollViewer) g.FindName("svChatList");
-            svChatList_MouseWheel(scv, e);
-        }
-
-        private void pnlChatList_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            StackPanel g = (StackPanel)sender;
-            ScrollViewer scv = (ScrollViewer)g.FindName("svChatList");
-            svChatList_MouseWheel(scv, e);
-        }
-
-        private void svChatList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            ScrollViewer scv = (ScrollViewer)sender;
-            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
-            e.Handled = true;
-        }
-
-        private void svChatList_MouseWheel_1(object sender, MouseWheelEventArgs e)
-        {
-
-        }
-    }
-
-    public class ScrollViewerExtensions
-    {
-        public static readonly DependencyProperty AlwaysScrollToEndProperty = DependencyProperty.RegisterAttached("AlwaysScrollToEnd", typeof(bool), typeof(ScrollViewerExtensions), new PropertyMetadata(false, AlwaysScrollToEndChanged));
-        private static bool _autoScroll;
-
-        private static void AlwaysScrollToEndChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            ScrollViewer scroll = sender as ScrollViewer;
-            if (scroll != null)
-            {
-                bool alwaysScrollToEnd = (e.NewValue != null) && (bool)e.NewValue;
-                if (alwaysScrollToEnd)
-                {
-                    scroll.ScrollToEnd();
-                    scroll.ScrollChanged += ScrollChanged;
-                }
-                else { scroll.ScrollChanged -= ScrollChanged; }
-            }
-            else { throw new InvalidOperationException("The attached AlwaysScrollToEnd property can only be applied to ScrollViewer instances."); }
-        }
-
-        public static bool GetAlwaysScrollToEnd(ScrollViewer scroll)
-        {
-            if (scroll == null) { throw new ArgumentNullException("scroll"); }
-            return (bool)scroll.GetValue(AlwaysScrollToEndProperty);
-        }
-
-        public static void SetAlwaysScrollToEnd(ScrollViewer scroll, bool alwaysScrollToEnd)
-        {
-            if (scroll == null) { throw new ArgumentNullException("scroll"); }
-            scroll.SetValue(AlwaysScrollToEndProperty, alwaysScrollToEnd);
-        }
-
-        private static void ScrollChanged(object sender, ScrollChangedEventArgs e)
-        {
-            ScrollViewer scroll = sender as ScrollViewer;
-            if (scroll == null) { throw new InvalidOperationException("The attached AlwaysScrollToEnd property can only be applied to ScrollViewer instances."); }
-
-            // User scroll event : set or unset autoscroll mode
-            if (e.ExtentHeightChange == 0) { _autoScroll = scroll.VerticalOffset == scroll.ScrollableHeight; }
-
-            // Content scroll event : autoscroll eventually
-            if (_autoScroll && e.ExtentHeightChange != 0) { scroll.ScrollToVerticalOffset(scroll.ExtentHeight); }
         }
     }
 }

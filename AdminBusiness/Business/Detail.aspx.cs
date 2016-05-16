@@ -11,9 +11,15 @@ public partial class Business_Detail :BasePage
     {
         if(!IsPostBack)
         {
+         int totalRecords = 999;
          BindLicense();
          BindShow();
          BindCharge();
+         Dianzhu.BLL.BLLServiceOrder bllOrder= new Dianzhu.BLL.BLLServiceOrder();
+         Dianzhu.BLL.BLLDZService bllService = new Dianzhu.BLL.BLLDZService();
+         liAllOrderCount.Text=  bllOrder.GetAllOrdersForBusiness(CurrentBusiness.Id).Count.ToString();
+         liDoneOrderCount.Text = bllOrder.GetAllCompleteOrdersForBusiness(CurrentBusiness.Id).Count.ToString();
+         liServiceCount.Text = bllService.GetServiceByBusiness(CurrentBusiness.Id, 1, 999, out totalRecords).Count.ToString();
         }
     }
     private void BindLicense()

@@ -59,16 +59,23 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public string TargetAddress
+        public bool BtnPush
         {
-            get
-            {
-                return tbxTargetAddress.Text;
-            }
-
+            get { return btnPush.IsEnabled; }
             set
             {
-                tbxTargetAddress.Text = value;
+                Action lambda = () =>
+                {
+                    btnPush.IsEnabled = value;
+                };
+                if (!Dispatcher.CheckAccess())
+                {
+                    Dispatcher.Invoke(lambda);
+                }
+                else
+                {
+                    lambda();
+                }
             }
         }
 

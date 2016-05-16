@@ -55,11 +55,11 @@
         <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
     </div>
 </div>
-<!--<script>-->
-    <!--(function (){-->
-        <!--setTimeout(function(){-->
-            <!--window.location.href = document.getElementById("doReg").getAttribute("href");-->
-        <!--},3000);-->
-    <!--})()-->
-<!--</script>-->
+<script>
+    (function (){
+        setTimeout(function(){
+            window.location.href = document.getElementById("doReg").getAttribute("href");
+        },3000);
+    })()
+</script>
 </body>

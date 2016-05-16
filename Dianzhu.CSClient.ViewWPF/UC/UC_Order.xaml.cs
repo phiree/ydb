@@ -57,15 +57,27 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             set
             {
-                 lblOrderStatus.Content = value.OrderStatus.ToString();
-                pnlOrderDetails.Children.Clear();
-                foreach (ServiceOrderDetail detail in value.Details)
+                Action lamda = () =>
                 {
-                    UC_OrderDetail ucDetail = new UC_OrderDetail();
-                    ucDetail.LoadData(detail);
-                    pnlOrderDetails.Children.Add(ucDetail);
+                    lblOrderStatus.Content = value.OrderStatus.ToString();
+                    pnlOrderDetails.Children.Clear();
+                    foreach (ServiceOrderDetail detail in value.Details)
+                    {
+                        UC_OrderDetail ucDetail = new UC_OrderDetail();
+                        ucDetail.LoadData(detail);
+                        pnlOrderDetails.Children.Add(ucDetail);
 
+                    }
+                };
+                 if (!Dispatcher.CheckAccess())
+                {
+                    Dispatcher.Invoke(lamda);
                 }
+                else
+                {
+                    lamda();
+                }
+               
             }
         }
 

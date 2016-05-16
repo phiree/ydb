@@ -67,7 +67,31 @@ namespace Dianzhu.DAL
             int rowCount = iqueryover.RowCount();
             return rowCount;
         }
+        /// <summary>
+        /// 除了草稿(draft,draftpushed)之外的订单
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="isCustomerService">是客服的,否则是客户的</param>
+        /// <returns></returns>
+        public int GetServiceOrderCountWithoutDraft(Guid userid,bool isCustomerService)
+        {
+            var iqueryover = Session.QueryOver<ServiceOrder>();
+            iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
+                                        : iqueryover.Where(x => x.Customer.Id == userid);
+            iqueryover = iqueryover.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
+            return iqueryover.RowCount();
+        }
+        public decimal GetServiceOrderAmountWithoutDraft(Guid userid, bool isCustomerService)
+        {
+            var iqueryover = Session.QueryOver<ServiceOrder>();
+            iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
+                                        : iqueryover.Where(x => x.Customer.Id == userid);
+            iqueryover = iqueryover.And(x => (int)x.OrderStatus !=(int) enum_OrderStatus.Draft).And(x=>(int) x.OrderStatus != (int)enum_OrderStatus.DraftPushed);
 
+           return iqueryover.List().Sum(x => x.DepositAmount);
+
+            
+        }
 
         public IList<ServiceOrder> GetServiceOrderList(Guid userId, enum_OrderSearchType searchType, int pageNum, int pageSize)
         {
@@ -86,19 +110,25 @@ namespace Dianzhu.DAL
                
             totalAmount = iquery.RowCount();
 
-            IList<ServiceOrder> list = iquery.List(). OrderByDescending(x=>x.LatestOrderUpdated).Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
+            IList<ServiceOrder> list = GetAllOrdersForBusiness(business.Id).OrderByDescending(x=>x.LatestOrderUpdated).Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
 
             return list;
         }
 
         public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)
         {
-            var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.Customer == customer);
-            totalAmount = iquery.RowCount();
+            using (var t = Session.BeginTransaction())
+            {
+                var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.Customer == customer).Where(x => x.OrderStatus != enum_OrderStatus.Draft).Where(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
+                totalAmount = iquery.RowCount();
 
-            IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
+                IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
 
-            return list;
+              
+                t.Commit();
+                return list;
+            }
+           
         }
 
         /// <summary>
@@ -135,6 +165,92 @@ namespace Dianzhu.DAL
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
         {
             return Session.QueryOver<ServiceOrder>().Where(x => x.Id == Id).And(x => x.Customer == customer).SingleOrDefault();
+        }
+        public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId,int pageIndex,int pageSize,out int totalRecords)
+        {
+            var query = "select o from ServiceOrder as o " +
+                           " inner join o.Details  as d " +
+                           "  inner join d.OriginalService as s " +
+                            " inner join s.Business as b  " +
+                            " where b.Id='" + businessId + "' "+
+                           
+                      " and ( o.OrderStatus!=" + (int)enum_OrderStatus.Draft +
+                            " or o.OrderStatus!=" + (int)enum_OrderStatus.DraftPushed + " )"
+                            ;
+            
+            var list = GetList(query,pageIndex,pageSize,out totalRecords );
+
+            return list;
+        }
+        public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId)
+        {
+            var query = "select o from ServiceOrder as o "+
+                           " inner join o.Details  as d "+
+                           "  inner join d.OriginalService as s " +
+                            " inner join s.Business as b  " +
+                            " where b.Id='" + businessId+"'";
+           var list=  GetList(query);
+
+            return list;
+        }
+
+        public IList<ServiceOrder> GetAllCompleteOrdersForBusiness(Guid businessId)
+        {
+            var query = "select o from ServiceOrder as o " +
+                           " inner join o.Details  as d " +
+                           "  inner join d.OriginalService as s " +
+                            " inner join s.Business as b  " +
+                            " where b.Id='" + businessId + "'"+
+                            " and ( o.OrderStatus="+(int)enum_OrderStatus.Finished+
+                            " or o.OrderStatus="+(int)enum_OrderStatus.Appraised+" )"
+                            
+                            ;
+
+            var list = GetList(query);
+
+            return list;
+        }
+        /// <summary>
+        /// 用户取消的订单
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <returns></returns>
+        public IList<ServiceOrder> GetCustomerCancelForBusiness(Guid businessId)
+        {
+            var query = "select o from ServiceOrder as o " +
+                           " inner join o.Details  as d " +
+                           "  inner join d.OriginalService as s " +
+                            " inner join s.Business as b  " +
+                            " where b.Id='" + businessId + "'" +
+                            " and ( o.OrderStatus=" + (int)enum_OrderStatus.Finished +
+                            " or o.OrderStatus=" + (int)enum_OrderStatus.Appraised + " )"
+
+                            ;
+
+            var list = GetList(query);
+
+            return list;
+        }
+        /// <summary>
+        /// 商户取消的订单
+        /// </summary>
+        /// <param name="businessId"></param>
+        /// <returns></returns>
+        public IList<ServiceOrder> GetBusinessCancelOrdersForBusiness(Guid businessId)
+        {
+            var query = "select o from ServiceOrder as o " +
+                           " inner join o.Details  as d " +
+                           "  inner join d.OriginalService as s " +
+                            " inner join s.Business as b  " +
+                            " where b.Id='" + businessId + "'" +
+                            " and ( o.OrderStatus=" + (int)enum_OrderStatus.Finished +
+                            " or o.OrderStatus=" + (int)enum_OrderStatus.Appraised + " )"
+
+                            ;
+
+            var list = GetList(query);
+
+            return list;
         }
     }
 }

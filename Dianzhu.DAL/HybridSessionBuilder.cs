@@ -56,6 +56,7 @@ namespace Dianzhu.DAL
                                System.Configuration.ConfigurationManager
                                .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false)
                                      )
+                                     .Dialect<NHCustomDialect>()
                           )
                         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
                        .ExposeConfiguration(BuildSchema)

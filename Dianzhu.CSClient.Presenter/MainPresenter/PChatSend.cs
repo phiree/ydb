@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-using Dianzhu.CSClient.IView; 
+using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.BLL;
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
+using log4net;
+
 namespace Dianzhu.CSClient.Presenter
 {
      /// <summary>
@@ -20,6 +22,8 @@ namespace Dianzhu.CSClient.Presenter
      /// </summary>
     public  class PChatSend
     {
+        ILog log = LogManager.GetLogger("Dianzhu.CSClient");
+
         DALReceptionChat dalReceptionChat;
         IView.IViewChatList viewChatList;
         IViewChatSend viewChatSend;
@@ -70,26 +74,34 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewChatSend_SendTextClick()
         {
-          
-            if (IdentityManager.CurrentIdentity==null)
-            { return; }
-            string messageText =viewChatSend.MessageText;
-            if (string.IsNullOrEmpty(messageText) ) return;
 
-            ReceptionChat chat = new ReceptionChat
+            try
             {
-                ChatType = Model.Enums.enum_ChatType.Text,
-                From = GlobalViables.CurrentCustomerService,
-                To = IdentityManager.CurrentIdentity.Customer,
-                MessageBody = messageText,
-                SendTime = DateTime.Now,
-                SavedTime = DateTime.Now,
-                ServiceOrder = IdentityManager.CurrentIdentity
-            };
-            viewChatSend.MessageText = string.Empty;            
-            viewChatList.AddOneChat(chat);
-            dalReceptionChat.Save(chat);
-            iIM.SendMessage(chat);
+                if (IdentityManager.CurrentIdentity == null)
+                { return; }
+                string messageText = viewChatSend.MessageText;
+                if (string.IsNullOrEmpty(messageText)) return;
+
+                ReceptionChat chat = new ReceptionChat
+                {
+                    ChatType = Model.Enums.enum_ChatType.Text,
+                    From = GlobalViables.CurrentCustomerService,
+                    To = IdentityManager.CurrentIdentity.Customer,
+                    MessageBody = messageText,
+                    SendTime = DateTime.Now,
+                    SavedTime = DateTime.Now,
+                    ServiceOrder = IdentityManager.CurrentIdentity
+                };
+                viewChatSend.MessageText = string.Empty;
+                viewChatList.AddOneChat(chat);
+                dalReceptionChat.Save(chat);
+                iIM.SendMessage(chat);
+            }
+            catch (Exception e)
+            {
+                log.Error(e.Message);
+                return;
+            }
         }
 
 

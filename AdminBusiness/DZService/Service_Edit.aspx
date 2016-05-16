@@ -53,7 +53,7 @@
                     <div class="wd-bar">
                         <span>接单时间段：</span>
                         <div class="m-b10">
-                            <input  class="time-pick" type="text" data-role="cStartTime" />-<input class="time-pick" type="text" data-role="cEndTime" />
+                            <input class="time-pick" type="text" data-role="cStartTime" />-<input class="time-pick" type="text" data-role="cEndTime" />
                         </div>
                     </div>
                     <div class="wd-bar">
@@ -98,18 +98,55 @@
     <script src="/js/test/mock.js"></script>
     <script src="/js/test/mock.workTimeset.js"></script>
     <script src="/js/workTimeSet.js"></script>
+    <script src="/js/CityList.js"></script>
+    <script src="/js/baiduMapLib.js"></script>
+    <script src="/js/service.js"></script>
+    <script src="/js/iptag.js"></script>
     <script>
         $(function () {
-            (function (){
-                var hiTypeValue = $("#hiTypeId").attr("value");
-                if ( typeof hiTypeValue === "undefined" ) {
-                    return;
-                } else {
-                    $("#lblSelectedType").removeClass("hide");
+            $($("form")[0]).validate(
+                {
+                    ignore:[],
+                    errorElement: "p",
+                    errorPlacement: function(error, element) {
+                        error.appendTo( element.parent() );
+                    },
+                    rules: service_validate_rules,
+                    messages: service_validate_messages,
+                    invalidHandler: invalidHandler,
+                    showErrors: showErrorsHandler
                 }
-            })();
+            );
+
+            $(".steps-wrap").stepByStep({
+                defaultStep : function(){
+                    if ( Adapter.getParameterByName("step")){
+                        return parseInt(Adapter.getParameterByName("step")) - 1
+                    } else {
+                        return 0;
+                    }
+                },
+                stepValid : function(){
+                    return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
+                },
+                stepNextFunc : function(step){
+                    if (step == "1"){
+                        // TODO: 简单粗暴的修复服务初始化时服务点不居中的问题，待重构解决。
+                        initializeService();
+                    }
+                }
+            });
+
+            $('[data-toggle="tooltip"]').tooltip(
+                {
+                    delay: {show : 500, hide : 100},
+                    trigger: 'hover'
+                }
+            );
 
             (function (){
+                if ( $("#hiTypeId").attr("value") ){ $("#lblSelectedType").removeClass("hide"); }
+
                 $('#serChoiceContainer').cascadeCheck({
                     localData : true,
                     data : typeList,
@@ -162,57 +199,16 @@
                     e.preventDefault();
                 });
             })();
-
-
-            $('[data-toggle="tooltip"]').tooltip(
-                {
-                    delay: {show : 500, hide : 100},
-                    trigger: 'hover'
-                }
-            );
-
-            $($("form")[0]).validate(
-                {
-                    ignore:[],
-                    errorElement: "p",
-                    errorPlacement: function(error, element) {
-                        error.appendTo( element.parent() );
-                    },
-                    rules: service_validate_rules,
-                    messages: service_validate_messages,
-//                    invalidHandler: invalidHandler,
-//                    showErrors: showErrorsHandler
-                }
-            );
-
-            (function (){
-                $(".steps-wrap").stepByStep({
-                    defaultStep : function(){
-                        if ( Adapter.getParameterByName("step")){
-                            return parseInt(Adapter.getParameterByName("step")) - 1
-                        } else {
-                            return 0;
-                        }
-                    },
-                    stepValid : function(){
-                        return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
-                    }
-                });
-            })();
         });
         function loadBaiduMapScript() {
             var script = document.createElement("script");
-            script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initializeService";
+            script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initializeService";
             document.body.appendChild(script);
         }
 
         $(document).ready(function(){
             loadBaiduMapScript();
-        })
+        });
     </script>
-    <script src="/js/CityList.js"></script>
-    <script src="/js/baiduMapLib.js"></script>
-    <script src="/js/service.js"></script>
-    <script src="/js/iptag.js"></script>
 </asp:Content>
 

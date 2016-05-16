@@ -30,50 +30,56 @@ namespace Dianzhu.CSClient.ViewWPF
             InitializeComponent();
         }
 
+        public string ServicePeople
+        {
+            get { return tbxKeywordPeople.Text.Trim(); }
+            set { tbxKeywordPeople.Text = value; }
+        }
+
+        public string ServicePhone
+        {
+            get { return tbxKeywordPhone.Text.Trim(); }
+            set { tbxKeywordPhone.Text = value; }
+        }
+
+        public string ServiceAddress
+        {
+            get { return tbxKeywordAddress.Text.Trim(); }
+            set { tbxKeywordAddress.Text = value; }
+        }
+        
         public DateTime SearchKeywordTime
         {
             get
             {
-                try
-                {
-                    return DateTime.Parse(tbxKeywordTime.Text);
-                }
-                catch (Exception)
-                {
-                    return DateTime.Parse("1970-01-01 00:00:00");
-                }
+                DateTime searchKeywordTime;
+                DateTime.TryParse(tbxKeywordTime.Text, out searchKeywordTime);
+                
+                return searchKeywordTime;
             }
             set { tbxKeywordTime.Text = value.ToString(); }
         }
-
+        
         public decimal SearchKeywordPriceMin
         {
             get
             {
-                try
-                {
-                    return decimal.Parse(tbxKeywordPriceMin.Text.Trim());
-                }
-                catch(Exception)
-                {
-                    return 0;
-                }
+                decimal searchKeywordPriceMin;
+                decimal.TryParse(tbxKeywordPriceMin.Text.Trim(), out searchKeywordPriceMin);
+
+                return searchKeywordPriceMin;
             }
             set { tbxKeywordPriceMin.Text = value.ToString(); }
         }
-
+        
         public decimal SearchKeywordPriceMax
         {
             get
             {
-                try
-                {
-                    return decimal.Parse(tbxKeywordPriceMax.Text.Trim());
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
+                decimal searchKeywordPriceMax;
+                decimal.TryParse(tbxKeywordPriceMax.Text.Trim(), out searchKeywordPriceMax);
+
+                return searchKeywordPriceMax;
             }
             set { tbxKeywordPriceMax.Text = value.ToString(); }
         }
@@ -131,15 +137,32 @@ namespace Dianzhu.CSClient.ViewWPF
         public event ServiceTypeSecond_Select ServiceTypeSecond_Select;
         public event ServiceTypeThird_Select ServiceTypeThird_Select;
 
-
+        /// <summary>
+        /// 清空数据
+        /// </summary>
+        public void ClearData()
+        {
+            ServicePeople = string.Empty;
+            SearchKeywordTime = DateTime.Now;
+            SearchKeywordPriceMin = 0;
+            SearchKeywordPriceMax = 0;
+            ServicePhone = string.Empty;
+            ServiceAddress = string.Empty;
+        }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += Worker_DoWork;
-            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.RunWorkerAsync();
-
+            if (SearchKeywordTime < DateTime.Now)
+            {
+                MessageBox.Show("预约时间不得小于当前时间!");
+            }
+            else
+            {
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += Worker_DoWork;
+                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                worker.RunWorkerAsync();
+            }
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
@@ -162,9 +185,9 @@ namespace Dianzhu.CSClient.ViewWPF
                                     : cbxSearchTypeT.SelectedItem
                                  );
 
-                targetTime =Convert.ToDateTime( this.tbxKeywordTime.Text);
-                minPrice = Convert.ToDecimal(tbxKeywordPriceMin.Text);
-                maxPrice = Convert.ToDecimal(tbxKeywordPriceMax.Text);
+                targetTime = SearchKeywordTime;
+                minPrice = SearchKeywordPriceMin;
+                maxPrice = SearchKeywordPriceMax;
 
             }));
             

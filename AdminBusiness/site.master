@@ -20,6 +20,7 @@
 <body>
     <div class="wrap">
         <form id="form1" runat="server">
+            <input id="hiApiUrl" type="hidden" value="<%= Dianzhu.Config.Config.GetAppSetting("APIBaseURL") %>">
             <!--top-->
             <div class="navbar navbar-default navbar-static-top" role="navigation">
                 <div class="container-fluid">

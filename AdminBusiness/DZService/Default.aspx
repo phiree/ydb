@@ -22,15 +22,11 @@
                                 <div class="model">
                                     <div class="model-h">
                                         <h4>服务列表</h4>
+                                        <!--<input class="btn-r btn-gray-light-sm" type="button" value="全部删除" id="delete_all">-->
                                     </div>
                                     <div class="model-m no-padding">
                                         <div class="service-list-head">
                                             <div class="custom-grid">
-                                                <div class="custom-col col-static-3">
-                                                    <div class="l-b">
-                                                        <input type="checkbox" />
-                                                    </div>
-                                                </div>
                                                 <div class="custom-col col-static-5">
                                                     <div class="l-b">
                                                         编号
@@ -38,19 +34,19 @@
                                                 </div>
                                                 <div class="custom-col col-static-10">
                                                     <div class="l-b">
-                                                        服务图标
-                                                    </div>
-                                                </div>
-                                                <div class="custom-col col-static-10">
-                                                    <div class="l-b">
                                                         服务名称
                                                     </div>
                                                 </div>
-                                                <div class="custom-col col-static-10">
+                                                <div class="custom-col col-static-20">
                                                     <div class="l-b">
                                                         服务类型
                                                     </div>
                                                 </div>
+                                                <!--<div class="custom-col col-static-10">-->
+                                                    <!--<div class="l-b">-->
+                                                        <!--服务类型-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
                                                 <div class="custom-col col-static-20">
                                                     <div class="l-b">
                                                         服务区域
@@ -78,21 +74,19 @@
                                                 <ItemTemplate>
                                                     <div class="service-row">
                                                         <div class="custom-grid" >
-                                                            <div class="custom-col col-static-3">
-                                                                <input type="checkbox"/>
-                                                            </div>
                                                             <div class="custom-col col-static-5">
-
-                                                            </div>
-                                                            <div class="custom-col col-static-10">
-                                                                <i class="icon service-icon svcType-s-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"></i>
+                                                                <span><%# String.Format("{0:0000}", (Container.ItemIndex + 1)) %></span>
                                                             </div>
                                                             <div class="custom-col col-static-10">
                                                                 <%#Eval("Name") %>
                                                             </div>
-                                                            <div class="custom-col col-static-10">
-                                                                <span class="text-ellipsis"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></span>
+                                                            <div class="custom-col col-static-20">
+                                                                <i class="icon service-icon svcType-s-icon-<%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.TopType.Id  %>"></i>                                                                <span class=""><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></span>
+
                                                             </div>
+                                                            <!--<div class="custom-col col-static-10">-->
+                                                                <!--<span class="text-ellipsis"><%#((Dianzhu.Model.DZService)GetDataItem()).ServiceType.Name  %></span>-->
+                                                            <!--</div>-->
                                                             <div class="custom-col col-static-20">
                                                                 <span class="spServiceArea text-ellipsis" ></span><input type="hidden" id="hiServiceArea" class="hiServiceArea" value='<%#((Dianzhu.Model.DZService)GetDataItem()).BusinessAreaCode %>' />
                                                             </div>
@@ -108,11 +102,11 @@
                                                                 <!--<span class="t-c service-status <%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"theme-color-right":"theme-color-delete" %>" serid='<%#Eval("Id") %>'> <%# ((bool)Eval("Enabled"))?"已启用":"已禁用" %></span>-->
                                                                 <a collapse-ignore="true" class="t-c <%# ((bool)Eval("Enabled"))?"btn btn-delete-light btn-xs":"btn btn-info-light btn-xs" %> enable-service" serid='<%#Eval("Id") %>' > <%# ((bool)Eval("Enabled"))?"禁用":"启用" %></a>
 
-                                                                <a class="btn btn-cancel-light btn-xs" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%#Eval("Id") %>" >
-                                                                <i class="icon icon-service-edit" title="编辑" collapse-ignore="true"></i>
+                                                                <a class="btn btn-info-light btn-xs" href="/dzservice/service_edit.aspx?businessid=<%=Request["businessid"]%>&serviceid=<%#Eval("Id") %>" >编辑
+                                                                <!--<i class="icon icon-service-edit" title="编辑" collapse-ignore="true"></i>-->
                                                                 </a>
-                                                                <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-cancel-light btn-xs" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript: return confirm('警告：\n数据一旦被删除将无法还原！')" >
-                                                                    <i class="icon icon-service-delete" title="删除" collapse-ignore="true"></i>
+                                                                <asp:LinkButton ID="LinkButton1" runat="server" class="btn btn-cancel-light btn-xs" CommandArgument='<%# Eval("Id")%>' OnCommand="delbt_Command" OnClientClick="javascript: return confirm('警告：\n数据一旦被删除将无法还原！')" >删除
+                                                                    <!--<i class="icon icon-service-delete" title="删除" collapse-ignore="true"></i>-->
                                                                 </asp:LinkButton>
                                                             </div>
                                                         </div>
@@ -218,7 +212,7 @@
     <!--<script>-->
         <!--function loadBaiduMapScript() {-->
           <!--var script = document.createElement("script");-->
-          <!--script.src = "http://api.map.baidu.com/api?v=2.0&ak=wMCvOKib7TV9tkVBUKGCLAQW&callback=initializeService";-->
+          <!--script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initializeService";-->
           <!--document.body.appendChild(script);-->
         <!--}-->
 

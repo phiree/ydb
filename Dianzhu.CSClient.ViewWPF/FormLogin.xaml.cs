@@ -186,5 +186,15 @@ namespace Dianzhu.CSClient.ViewWPF
         {
 
         }
+
+        bool ILoginForm.ShowDialog()
+        {
+           bool? result= ShowDialog();
+            if (result.HasValue)
+            {
+                return result.Value;
+            }
+            else { return false; }
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.OrderNumber);
             References<ServiceType>(x => x.Parent);
             HasMany<ServiceType>(x => x.Children).Cascade.All().Inverse();
-            HasMany<ServiceProperty>(x => x.Properties);
+           // HasMany<ServiceProperty>(x => x.Properties);
             
 
         }

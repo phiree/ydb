@@ -33,7 +33,16 @@ namespace Dianzhu.DAL
 
         public virtual Payment GetPaymentForWaitPay(ServiceOrder order)
         {
-            return Session.QueryOver<Payment>().Where(x => x.Order == order).And(x => x.Status == Model.Enums.enum_PaymentStatus.WaitForPay).SingleOrDefault();
+            return Session.QueryOver<Payment>().Where(x => x.Order == order).And(x => x.Status == Model.Enums.enum_PaymentStatus.Wait_Buyer_Pay).SingleOrDefault();
+        }
+        /// <summary>
+        /// 查询订单支付的订金
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        public virtual Payment GetPayedForDeposit(ServiceOrder order)
+        {
+            return Session.QueryOver<Payment>().Where(x => x.Order == order).And(x => x.Status == Model.Enums.enum_PaymentStatus.Trade_Success).SingleOrDefault();
         }
     }
 }

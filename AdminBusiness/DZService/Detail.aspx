@@ -24,22 +24,10 @@
                                             <p class="model-pra">
                                                 <span class="model-pra-t">服务名称</span><%=CurrentService.Name %>
                                             </p>
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">先付定金</span><%=CurrentService.DepositAmount.ToString("0.00") %>
-                                            </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">服务类型</span><%=CurrentService.ServiceType.ToString() %>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">支付要求</span><%= CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.AliPay?"支付宝"
-                                                                                              :CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.Offline?"线下支付":
-                                                                                              CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.WePay?"微支付":
-                                                                                              CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.Online?"线上支付":
-                                                                                              "不限"%>
+                                                <span class="model-pra-t">服务类型</span><%=CurrentService.ServiceType.ToString().Replace(">", "-") %>
                                             </p>
                                         </div>
                                     </div>
@@ -61,32 +49,34 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">服务起步价</span><%=CurrentService.MinPrice.ToString("#.##") %>
+                                                <span class="model-pra-t">服务起步价</span><%=CurrentService.MinPrice.ToString("f2") %>元
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">服务对象</span><%=CurrentService.IsForBusiness?"不限":"对私" %>
+                                                <span class="model-pra-t">先付订金</span><%=CurrentService.DepositAmount.ToString("f2") %>元
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">是否上门</span><%=CurrentService.ServiceMode== Dianzhu.Model.Enums.enum_ServiceMode.ToHouse?"上门":"不上门" %>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p class="model-pra">
-                                                <span class="model-pra-t">服务单价</span><%=CurrentService.UnitPrice%>/<%=CurrentService.ChargeUnit== Dianzhu.Model.Enums.enum_ChargeUnit.Day?"天":
+                                                <span class="model-pra-t">服务单价</span><%=CurrentService.UnitPrice.ToString("f2") %>元/<%=CurrentService.ChargeUnit== Dianzhu.Model.Enums.enum_ChargeUnit.Day?"天":
                                                                                                                             CurrentService.ChargeUnit== Dianzhu.Model.Enums.enum_ChargeUnit.Hour?"小时":
                                                                                                                              CurrentService.ChargeUnit== Dianzhu.Model.Enums.enum_ChargeUnit.Month?"月":
                                                                                                                               CurrentService.ChargeUnit== Dianzhu.Model.Enums.enum_ChargeUnit.Times?"次":"(次)"%>
                                             </p>
+                                        </div>
+                                        <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">服务保障</span><%=CurrentService.IsCompensationAdvance?"是":"否"%>
+                                                <span class="model-pra-t">服务保障</span><%=CurrentService.IsCompensationAdvance?"已加入服务保障":"未参加服务保障"%>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">每日最大接单量</span><%=CurrentService.MaxOrdersPerDay%>
+                                                <span class="model-pra-t">服务对象</span><%=CurrentService.IsForBusiness?"不限":"私人/个体" %>
+                                            </p>
+                                            <p class="model-pra">
+                                                <span class="model-pra-t">是否上门</span><%=CurrentService.ServiceMode== Dianzhu.Model.Enums.enum_ServiceMode.ToHouse?"提供上门服务":"不提供上门" %>
                                             </p>
                                         </div>
                                         <div class="col-md-4">
                                             <p class="model-pra">
-                                                <span class="model-pra-t">付款方式</span>(?)
+                                                <span class="model-pra-t">付款方式</span><%= CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.Offline?"线下支付":
+                                                                                              CurrentService.AllowedPayType== Dianzhu.Model.Enums.enum_PayType.Online?"线上支付":
+                                                                                              "线上/线下"%>
                                             </p>
                                             <p class="model-pra">
                                                 <span class="model-pra-t">提前预约时间</span><%=CurrentService.OrderDelay%>分钟
@@ -101,8 +91,11 @@
                                 <div class="model-h">
                                     <h4>服务范围</h4>
                                 </div>
-                                <div class="model-m">
+                                <div class="model-m no-padding">
+                                    <input type="hidden" name="hiServiceArea" id="hiServiceArea" value=<%= CurrentService.BusinessAreaCode %> />
+                                    <div id="serviceArea">
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -114,13 +107,34 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
 <script>
-//    $(function () {
-//
-//        $(".spServiceArea").each(function () {
-//            var jsonServiceArea = $.parseJSON($(this).siblings(".hiServiceArea").val());
-//            $(this).html(jsonServiceArea.serPointAddress);
-//        });
-//     });
+    $(function () {
+        function loadBaiduMapScript() {
+            var script = document.createElement("script");
+            script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initializeServiceDetailMap";
+            document.body.appendChild(script);
+        }
+
+        $(document).ready(function(){
+            loadBaiduMapScript();
+        })
+     });
+</script>
+<script src="/js/baiduMapLib.js"></script>
+<script>
+    function initializeServiceDetailMap(){
+        var objServiceArea = $.parseJSON($("#hiServiceArea").val());
+        var $serviceMap = $("#serviceArea");
+        var  map = new BMap.Map("serviceArea", {enableMapClick: false});
+        var point = new  BMap.Point(objServiceArea.serPointCirle.lng, objServiceArea.serPointCirle.lat);
+        var marker = new BMap.Marker(point); // 创建点
+        var circle = new BMap.Circle(point,objServiceArea.serPointCirle.radius, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+        map.disableDoubleClickZoom();
+        map.disableDragging();
+
+        map.centerAndZoom(point, 15);
+        map.addOverlay(marker);
+        map.addOverlay(circle);
+    }
 </script>
 </asp:Content>
 

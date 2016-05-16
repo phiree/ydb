@@ -16,8 +16,7 @@
                 </StackPanel>
         </ScrollViewer>
         <WrapPanel>
-                <Label>目标地址:</Label> <TextBox x:Name="tbxTargetAddress" Width="225"></TextBox>
-                <Button x:Name="btnPush" Click="btnPush_Click">推送</Button>
+                <Button x:Name="btnPush" Click="btnPush_Click" IsEnabled="False">推送</Button>
         </WrapPanel>
         </StackPanel>
     </Grid>

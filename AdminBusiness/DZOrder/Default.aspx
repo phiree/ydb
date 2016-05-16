@@ -48,7 +48,7 @@
                                                 </div>
                                                 <div class="custom-col col-10-1">
                                                     <div class="l-b">
-                                                        员工指派
+                                                        指派员工
                                                     </div>
                                                 </div>
                                                 <div class="custom-col col-10-2">
@@ -64,18 +64,19 @@
                                             </div>
                                         </div>
                                         <div class="order-list" id="accordion" role="tablist" aria-multiselectable="true">
-                                            <asp:Repeater runat="server" ID="rpOrderList" OnItemDataBound="rptOrderList_ItemDataBound"  OnItemCommand="rptOrderList_Command">
+                                            <asp:Repeater runat="server" ID="rpOrderList" OnItemDataBound="rpt_ItemDataBound" >
                                                 <ItemTemplate>
                                                     <div class="order-row">
                                                         <div class="custom-grid">
                                                             <div class="custom-col col-10-1">
                                                                 <div class="order-li">
-                                                               <%#  Eval("TargetTime") %>
+                                                               <%#  Eval("TargetTime") 
+                                                                        %>
                                                                 </div>
                                                             </div>
                                                             <div class="custom-col col-10-1">
                                                                 <div class="order-li">
-                                                                    <%#Eval("Title") %>
+                                                                    <%# Eval("Title").ToString().Replace(";", "") %>
                                                                 </div>
                                                             </div>
                                                             <div class="custom-col col-10-1">
@@ -95,7 +96,7 @@
                                                             </div>
                                                             <div class="custom-col col-10-1">
                                                                 <div class="order-li">
-                                                                    <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="appointToggle" data-appointTargetId='<%#Eval("Id") %>' >
+                                                                    <asp:Label runat="server" ID="assignStaffs"></asp:Label>
                                                                 </div>
                                                             </div>
                                                             <div class="custom-col col-10-2">
@@ -105,12 +106,9 @@
                                                             </div>
                                                             <div class="custom-col col-10-1">
                                                                 <div class="order-li">
-                                                                    <a href="Detail.aspx?businessId=<%=Request["businessid"] %>" class="btn btn-info-light btn-xs">订单详情</a>
+                                                                    <a href="Detail.aspx?businessId=<%=Request["businessid"] %>&orderId=<%#Eval("Id")%>" class="btn btn-info-light btn-xs">订单详情</a>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div>
-
                                                         </div>
                                                     </div>
                                                 </ItemTemplate>
@@ -119,7 +117,7 @@
                                     </div>
                                     <div class="model-b">
                                         <UC:AspNetPager runat="server" UrlPaging="true" ID="pager" CssClass="anpager"
-                                                        CurrentPageButtonClass="cpb" PageSize="5"
+                                                        CurrentPageButtonClass="cpb" PageSize="10"
                                                         CustomInfoHTML="第 %CurrentPageIndex% / %PageCount%页 共%RecordCount%条"
                                                         ShowCustomInfoSection="Right">
                                         </UC:AspNetPager>
@@ -129,10 +127,27 @@
                         <div class="col-md-2">
                             <div class="model">
                                 <div class="model-h">
-                                    <h4>订单列表</h4>
+                                    <h4>订单统计</h4>
                                 </div>
                                 <div class="model-m">
-
+                                    <div class="order-total-card">
+                                        <div class="order-card-t">
+                                            <div class="order-card-icon icon-undone"></div>
+                                            <div class="order-card-tr">
+                                                <p><strong class="order-card-s"><asp:Literal runat="server" ID="liUnDoneOrderCount"></asp:Literal></strong>张</p>
+                                                <p>未完成订单</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-total-card">
+                                        <div class="order-card-t">
+                                            <div class="order-card-icon icon-finish"></div>
+                                            <div class="order-card-tr">
+                                                <p><strong class="order-card-s"><asp:Literal runat="server" ID="liFinishOrderCount"></asp:Literal></strong>张</p>
+                                                <p>已完成订单</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -141,57 +156,8 @@
             </div>
         </div>
     </div>
-    <div id="staffAppointLight" class="appointWindow dis-n">
-        <div class="model">
-            <div class="model-h">
-                <h4>员工指派</h4>
-            </div>
-            <div class="model-m">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="staffsContainer" class="staffs-container">
-                            <!-- 注入#staffs_temlate模版内容 -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="model-b">
-                <input id="appointSubmit" class="btn btn-info" type="button" value="确定指派" data-role="appointSubmit" >
-                <input class="btn btn-cancel-light lightClose" type="button" value="取消" >
-            </div>
-        </div>
-    </div>
-    <script type="text/template" id="staffs_template">
-                <div class="col-md-4">
-                    <div class="emp-model">
-                        <div class="emp-model-h">
-                            <span>员工编号:&nbsp;</span><span class="emp-code"></span>
-                            <div class='emp-assign-flag'></div>
-                        </div>
-                        <div class="emp-model-m">
-                            <img class="emp-headImg" src='{%= imgUrl %}'/>
-                            <div class="emp-info">
-                                <p>昵称：{%= alias %}</p>
-                                <p>姓名：{%= alias %}</p>
-                                <p>性别：{%= alias %}</p>
-                                <p>电话：{%= phone %}</p>
-                            </div>
-                        </div>
-                        <div class="emp-model-b" data-mark="{%= mark %}">
-                            <input class="staffCheckbox" type="checkbox" {% if (mark==="Y") { %} checked {% } %} value="指派" data-role="item" data-itemId="{%= userID %}" id="{%= userID %}" >
-                            <label for="{%= userID %}"></label>
-                        </div>
-                    </div>
-                </div>
-    </script>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="bottom" Runat="Server">
-    <script src="/js/libs/underscore.js"></script>
-    <script src="/js/test/mock.js"></script>
-    <script src="/js/jquery.lightBox_me.js"></script>
-    <script src="/js/interfaceAdapter.js"></script>
-    <script src="/js/appointToOrder.js"></script>
 </asp:Content>

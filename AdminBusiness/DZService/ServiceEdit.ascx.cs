@@ -107,7 +107,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         }
         
         cbxEnable.Checked = CurrentService.Enabled;
-        hiBusinessAreaCode.Value = CurrentService.BusinessAreaCode;
+        hiBusinessAreaCode.Value = CurrentService.BusinessAreaCode.ToString();
         tbxMinPrice.Text = CurrentService.MinPrice.ToString("#.#");
         tbxDespoist.Text = CurrentService.DepositAmount.ToString("0.00");
         tbxUnitPrice.Text = CurrentService.UnitPrice.ToString("#");
@@ -274,7 +274,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
             //  Response.Redirect("/dzservice/default.aspx?&businessid="+Request["businessid"]);
             //             PHSuit.Notification.Alert(Page, "保存成功", redirectUrl);
             //   Response.Redirect(redirectUrl);//PHSuit.Notification.Show(Page, "", "保存成功", Request.RawUrl);
-            Response.Redirect("/dzservice/Service_Edit.aspx?&businessid=" + Request["businessid"] + "&serviceid=" + CurrentService.Id + "&step=3" );
+            Response.Redirect("/dzservice/Service_Edit.aspx?&businessid=" + Request["businessid"] + "&serviceid=" + CurrentService.Id + "&step=4" );
         }   
         else
         {

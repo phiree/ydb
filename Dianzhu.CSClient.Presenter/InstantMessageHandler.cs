@@ -16,24 +16,22 @@ namespace Dianzhu.CSClient.Presenter
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Present.InstantMessageHandler");
         InstantMessage iIM;
-        IdentityManager identityManager;
         PIdentityList pIdentityList;
         DAL.DALReceptionChat dalReceptionChat;
         PNotice pNotice;
         public InstantMessageHandler(InstantMessage iIM, 
-            IdentityManager identityManager, PIdentityList pIdentityList,
+            PIdentityList pIdentityList,
             DAL.DALReceptionChat dalReceptionChat,
             PNotice pNotice)
         {
             this.iIM = iIM;
             this.iIM.IMReceivedMessage += IIM_IMReceivedMessage;
-            this.identityManager = identityManager;
             this.pIdentityList = pIdentityList;
             this.dalReceptionChat = dalReceptionChat;
             this.pNotice = pNotice;
         }
-        public InstantMessageHandler(InstantMessage iIM,IdentityManager identityManager,PIdentityList pIdentityList,PNotice pNotice)
-            :this(iIM,identityManager,pIdentityList,new DAL.DALReceptionChat(),pNotice)
+        public InstantMessageHandler(InstantMessage iIM,PIdentityList pIdentityList,PNotice pNotice)
+            :this(iIM,pIdentityList,new DAL.DALReceptionChat(),pNotice)
         {
              
 
@@ -56,7 +54,11 @@ namespace Dianzhu.CSClient.Presenter
                     pNotice.ShowNotice(debugMsg);
                     log.Debug(debugMsg);
                     return;
-                    
+                case Model.Enums.enum_ChatType.Notice:
+                    debugMsg = "通知:" + chat.MessageBody;
+                    pNotice.ShowNotice(debugMsg);
+                    log.Debug(debugMsg);
+                    return;
                 case Model.Enums.enum_ChatType.ConfirmedService:
                     debugMsg = "用户已确认服务";
                     pNotice.ShowNotice(debugMsg);
@@ -67,13 +69,21 @@ namespace Dianzhu.CSClient.Presenter
                     //1 更新当前聊天列表
                     //2 判断消息 和 聊天列表,当前聊天项的关系(是当前聊天项 但是需要修改订单 非激活的列表, 新聊天.
                     IdentityTypeOfOrder type;
-                    identityManager.UpdateIdentityList(chat.ServiceOrder, out type);
+                    IdentityManager.UpdateIdentityList(chat.ServiceOrder, out type);
                     pIdentityList.ReceivedMessage(chat, type);
                     //消息本地化.
                     chat.ReceiveTime = DateTime.Now;
                     if (chat is Model.ReceptionChatMedia)
                     {
-                        ((Model.ReceptionChatMedia)chat).MedialUrl = ((Model.ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+                        string mediaUrl = ((ReceptionChatMedia)chat).MedialUrl;
+                        string fileName = ((ReceptionChatMedia)chat).MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
+
+                        ((ReceptionChatMedia)chat).MedialUrl = fileName;
+
+                        string targetFileName = Environment.CurrentDirectory + "\\message\\media\\" + fileName + ".mp3";
+                        PHSuit.IOHelper.EnsureFileDirectory(targetFileName);
+                        PHSuit.MediaConvert tomp3 = new PHSuit.MediaConvert();
+                        tomp3.ConvertToMp3(Environment.CurrentDirectory + "\\files\\", GlobalViables.MediaGetUrl + ((ReceptionChatMedia)chat).MedialUrl, targetFileName);
                     }
                     dalReceptionChat.Save(chat);
                     break;

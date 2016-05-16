@@ -14,7 +14,10 @@ namespace Dianzhu.CSClient.IView
         DateTime SearchKeywordTime { get; set; }
         decimal SearchKeywordPriceMin { get; set; }
         decimal SearchKeywordPriceMax { get; set; }
-        
+        string ServiceAddress { get; set; }
+
+        void ClearData();
+
         event SearchService Search;
         #region 服务类型相关属性及委托
         IList<ServiceType> ServiceTypeFirst { set; }
@@ -37,8 +40,8 @@ namespace Dianzhu.CSClient.IView
         IList<DZService> SearchedService { get; set; }
         event SelectService SelectService;
         event PushServices PushServices;
-        string TargetAddress { get; set;}
         string LoadingText { set; }
+        bool BtnPush { get; set; }
     }
    
     public delegate void SelectService(DZService selectedService);

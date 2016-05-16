@@ -23,7 +23,7 @@
      * 全局API url设置
      * @type {string}
      */
-    var urlConfig = "http://localhost:806/dianzhuapi.ashx";
+    var globalApiUrl = document.getElementById("hiApiUrl").value;
 
     /**
      * 员工model
@@ -33,7 +33,7 @@
      */
     var StaffModel = function(attribute, options){
         options || (options = {});
-        this.url = options.url || urlConfig;
+        this.url = options.url || globalApiUrl;
         this.attribute = attribute || {}
     };
 
@@ -91,11 +91,6 @@
                         callback(_this.models);
                     }
                 },
-                error : function(XMLHttpRequest, textStatus, errorThrown){
-                    console.log(XMLHttpRequest);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                }
             });
 
         },
@@ -108,7 +103,7 @@
     });
 
     var staffCollection = new StaffCollection([], {
-        url : urlConfig,
+        url : globalApiUrl,
         model : StaffModel
     });
 
@@ -120,7 +115,7 @@
      */
     var AssignModel = function(attribute, options){
         options || (options = {});
-        this.url = options.url || urlConfig;
+        this.url = options.url || globalApiUrl;
         this.attribute = attribute || {}
     };
 
@@ -167,9 +162,7 @@
                     }
                 },
                 error : function(XMLHttpRequest, textStatus, errorThrown){
-                    console.log(XMLHttpRequest);
-                    console.log(textStatus);
-                    console.log(errorThrown);
+
                 }
             });
 
@@ -183,7 +176,7 @@
     });
 
     var assignCollection = new AssignCollection([], {
-        url : urlConfig,
+        url : globalApiUrl,
         model : AssignModel
     });
 
@@ -223,20 +216,21 @@
 
         },
 
-        sync : function(options, callback){
+        sync : function(options){
             var _this = this;
             var staffSync;
             var assignSync;
-            var options = options || {};
+            var option = options || {};
 
             staffSync = staffCollection.sync();
 
             assignSync = assignCollection.sync({
-                reqData : options.reqData
+                reqData : option.reqData
             }, "select");
 
             // 用when方法来延迟执行
-            $.when(staffSync, assignSync).done(function(argStaff, argAssign){
+            $.when(staffSync, assignSync)
+                .done(function(argStaff, argAssign){
                 if (argStaff[1] === "success" && argAssign[1] === "success" ){
                     _this.staffs = staffCollection.models;
                     _this.assign = assignCollection.models;
@@ -244,7 +238,10 @@
                 } else {
                     throw new Error("date request error")
                 }
-                callback && callback(_this.models);
+                option.success && option.success(_this.models);
+            })
+                .fail(function(){
+                option.error && option.error()
             });
         },
         reset : function(){
@@ -382,17 +379,24 @@
             var reqData = this.model.reqData;
 
             _this.$container.children().remove();
+            _this.$container.addClass("loading");
             itemCollection.sync({
-                reqData : reqData
-            }, function(models){
-                $.each(models, function(index, model){
-                    var $itemView = new ItemView({
-                        model : model,
-                        template : "#staffs_template"
-                    }).render().$el;
+                reqData : reqData,
+                success : function(models){
+                    _this.$container.removeClass("loading");
+                    $.each(models, function(index, model){
+                        var $itemView = new ItemView({
+                            model : model,
+                            template : "#staffs_template"
+                        }).render().$el;
 
-                    _this.$container.append($itemView);
-                })
+                        _this.$container.append($itemView);
+                    })
+                },
+                error : function () {
+                    _this.$container.removeClass("loading");
+                    _this.$container.addClass("error");
+                }
             });
         },
         _delegate : function(){
@@ -415,7 +419,7 @@
         var storeID = Adapter.getParameterByName("businessId");
         var orderID = $(this).attr("data-appointTargetId");
         var appModel = new AppModel({
-            url : urlConfig,
+            url : globalApiUrl,
             reqData : {
                 storeID : storeID,
                 orderID : orderID,

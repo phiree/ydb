@@ -10,9 +10,14 @@ namespace Dianzhu.BLL
     {
         public DALIMUserStatus DALIMUserStatus = DALFactory.DALIMUserStatus;
 
-        public void SaveOrUpdate(IMUserStatus im)
+        public void Save(IMUserStatus im)
         {
-            DALIMUserStatus.SaveOrUpdate(im);
+            DALIMUserStatus.Save(im);
+        }
+
+        public void Update(IMUserStatus im)
+        {
+            DALIMUserStatus.Update(im);
         }
 
         public IMUserStatus GetIMUSByUserId(Guid userId)

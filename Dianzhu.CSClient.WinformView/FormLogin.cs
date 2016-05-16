@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Dianzhu.Model;
 
 using System.Text.RegularExpressions;
+using Dianzhu.CSClient.IView;
 
 namespace Dianzhu.CSClient.WinformView
 {
@@ -146,6 +147,11 @@ namespace Dianzhu.CSClient.WinformView
             form1.InstanceRef = this;
             form1.Show();
 
+        }
+
+        bool ILoginForm.ShowDialog()
+        {
+            throw new NotImplementedException();
         }
     }
 }

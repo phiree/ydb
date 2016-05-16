@@ -7,6 +7,12 @@ using Dianzhu.Model;
 using Dianzhu.DAL;
 using Dianzhu.Model.Enums;
 using Dianzhu.Pay;
+using Dianzhu.Pay.RefundRequest;
+using PHSuit;
+using Newtonsoft.Json;
+using System.Web;
+using System.Text.RegularExpressions;
+using System.Net;
 
 namespace Dianzhu.BLL
 {
@@ -20,17 +26,18 @@ namespace Dianzhu.BLL
 
         DALServiceOrder DALServiceOrder = null;
         DZMembershipProvider membershipProvider = null;
-
+        BLLPayment bllPayment = null;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
 
-        public BLLServiceOrder(DALServiceOrder dalServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, DZMembershipProvider membershipProvider)
+        public BLLServiceOrder(DALServiceOrder dalServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, DZMembershipProvider membershipProvider,BLLPayment bllPayment)
         {
             this.DALServiceOrder = dalServiceOrder;
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
             this.membershipProvider = membershipProvider;
+            this.bllPayment = bllPayment;
         }
 
-        public BLLServiceOrder() : this(new DALServiceOrder(), new BLLServiceOrderStateChangeHis(), new DZMembershipProvider())
+        public BLLServiceOrder() : this(new DALServiceOrder(), new BLLServiceOrderStateChangeHis(), new DZMembershipProvider(),new BLLPayment())
         {
         }
 
@@ -86,7 +93,7 @@ namespace Dianzhu.BLL
 
         public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {
-            return DALServiceOrder.GetListForBusiness(business, pageNum, pageSize, out totalAmount);
+            return DALServiceOrder.GetAllOrdersForBusiness(business.Id, pageNum, pageSize, out totalAmount);
         }
 
         public IList<ServiceOrder> GetListForCustomer(DZMembership customer, int pageNum, int pageSize, out int totalAmount)
@@ -121,7 +128,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_PayDepositAndWaiting(ServiceOrder order)
         {
-            ChangeStatus(order, enum_OrderStatus.CheckPayWithDesposit);
+            ChangeStatus(order, enum_OrderStatus.checkPayWithDeposit);
         }
 
         /// <summary>
@@ -158,7 +165,7 @@ namespace Dianzhu.BLL
         /// 商户已经提交新价格，等待用户确认
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_CustomIsNegotiate(ServiceOrder order)
+        public void OrderFlow_CustomConfirmNegotiate(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.Assigned);
         }
@@ -166,7 +173,7 @@ namespace Dianzhu.BLL
         /// 用户确认协商价格,并确定开始服务
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_CustomerConfirmNegotiate(ServiceOrder order)
+        public void OrderFlow_BusinessStartService(ServiceOrder order)
         {
             order.OrderServerStartTime = DateTime.Now;
             ChangeStatus(order, enum_OrderStatus.Begin);
@@ -178,7 +185,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessFinish(ServiceOrder order)
         {
             order.OrderServerFinishedTime = DateTime.Now;
-            ChangeStatus(order, enum_OrderStatus.IsEnd);
+            ChangeStatus(order, enum_OrderStatus.isEnd);
         }
         /// <summary>
         /// 用户确认服务完成。
@@ -195,7 +202,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_CustomerPayFinalPayment(ServiceOrder order)
         {
-            ChangeStatus(order, enum_OrderStatus.CheckPayWithNegotiate);
+            ChangeStatus(order, enum_OrderStatus.checkPayWithNegotiate);
         }
 
         /// <summary>
@@ -281,7 +288,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_CustomerPayRefund(ServiceOrder order)
         {
-            ChangeStatus(order, enum_OrderStatus.CheckPayWithRefund);
+            ChangeStatus(order, enum_OrderStatus.checkPayWithRefund);
         }
 
         /// <summary>
@@ -327,7 +334,7 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_CustomerPayInternention(ServiceOrder order)
         {
-            ChangeStatus(order, enum_OrderStatus.CheckPayWithIntervention);
+            ChangeStatus(order, enum_OrderStatus.checkPayWithIntervention);
         }
 
         /// <summary>
@@ -382,9 +389,11 @@ namespace Dianzhu.BLL
         /// <param name="order"></param>
         public void OrderFlow_Canceled(ServiceOrder order)
         {
+            enum_OrderStatus oldStatus = order.OrderStatus;
+
             ChangeStatus(order, enum_OrderStatus.Canceled);
 
-            switch (order.OrderStatus)
+            switch (oldStatus)
             {
                 case enum_OrderStatus.Created:
                     ChangeStatus(order, enum_OrderStatus.EndCancel);
@@ -399,12 +408,76 @@ namespace Dianzhu.BLL
                     var targetTime = order.Details[0].TargetTime;
                     if (DateTime.Now <= targetTime)
                     {
-                        double timeSpan = (DateTime.Now - targetTime).TotalMinutes;
+                        double timeSpan = (targetTime - DateTime.Now).TotalMinutes;
                         //整个取消
                         if (order.ServiceOvertimeForCancel <= timeSpan)
                         {
                             //todo:退还定金
-                            ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
+                            Payment payment = bllPayment.GetPayedForDeposit(order);
+                            if(payment == null)
+                            {
+                                log.Debug("订单" + order.Id + "没有订金支付项!");
+                                throw new Exception("订单" + order.Id + "没有订金支付项!");
+                            }
+
+                            switch (payment.PayApi)
+                            {
+                                case enum_PayAPI.Alipay:
+                                    IRefund iRefundAliApp = new RefundAliApp(Dianzhu.Config.Config.GetAppSetting("PaySite") + "RefundCallBack/Alipay/notify_url.aspx", payment.Amount, payment.PlatformTradeNo, payment.Id.ToString(), string.Empty);
+                                    var respDataAliApp = iRefundAliApp.CreateRefundRequest();
+
+                                    string url_AliApp = "https://openapi.alipay.com/gateway.do";
+                                    string returnstrAliApp = HttpHelper.CreateHttpRequest(url_AliApp, "post", respDataAliApp, Encoding.Default);
+                                    
+                                    RefundReturnAliApp refundReturnAliApp = JsonConvert.DeserializeObject<RefundReturnAliApp>(HttpUtility.UrlDecode(returnstrAliApp, Encoding.UTF8));
+                                    string a = Regex.Unescape(returnstrAliApp);
+                                    break;
+                                case enum_PayAPI.Wechat:
+                                    string refundNo = "7ce67828ea304b31acfd713c23230001";
+                                    IRefund iRefundWeChat = new RefundWePay(Dianzhu.Config.Config.GetAppSetting("PaySite") + "RefundCallBack/Wepay/notify_url.aspx", payment.Amount, refundNo, payment.PlatformTradeNo, payment.Id.ToString(), string.Empty, payment.Amount);
+                                    var respDataWeChat = iRefundWeChat.CreateRefundRequest();
+
+                                    string respDataXmlWechat = "<xml>";
+                                    
+                                    foreach (string key in respDataWeChat)
+                                    {
+                                        if (key != "key")
+                                        {
+                                            respDataXmlWechat += "<" + key + ">" + respDataWeChat[key] + "</" + key + ">";
+                                        }
+                                    }
+                                    respDataXmlWechat = respDataXmlWechat + "</xml>";
+                                    log.Debug(respDataXmlWechat);
+                                    
+                                    string url_WeChat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+                                    string returnstrWeChat = HttpHelper.CreateHttpRequestPostXml(url_WeChat, respDataXmlWechat,"北京集思优科网络科技有限公司");
+                                    log.Debug(returnstrWeChat);
+
+                                    string jsonWeChat = JsonHelper.Xml2Json(returnstrWeChat, true);
+                                    RefundReturnWeChat refundReturnWeChat = JsonConvert.DeserializeObject<RefundReturnWeChat>(jsonWeChat);
+
+                                    if (refundReturnWeChat.return_code.ToUpper() == "SUCCESS")
+                                    {
+                                        if (refundReturnWeChat.result_code.ToUpper() == "SUCCESS")
+                                        {
+                                            log.Debug("微信返回退款成功");
+                                            log.Debug("更新订单状态");
+                                            ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
+                                        }
+                                        else
+                                        {
+                                            log.Error("err_code:" + refundReturnWeChat.err_code + "err_code_des:" + refundReturnWeChat.err_code_des);
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        log.Error(refundReturnWeChat.return_msg);
+                                        return;
+                                    }
+
+                                    break;
+                            }
                         }
                         else {
                             //扣除定金，取消成功
@@ -448,156 +521,151 @@ namespace Dianzhu.BLL
 
         #region http接口方法
 
-        
+
 
         #endregion
 
+
+        public int GetServiceOrderCountWithoutDraft(Guid userid, bool isCustomerService)
+        {
+            return DALServiceOrder.GetServiceOrderCountWithoutDraft(userid, isCustomerService);
+        }
+        public decimal GetServiceOrderAmountWithoutDraft(Guid userid, bool isCustomerService)
+        {
+            return DALServiceOrder.GetServiceOrderAmountWithoutDraft(userid, isCustomerService);
+        }
+
+        //查询店铺的所有订单
+        public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId)
+        {
+            return DALServiceOrder.GetAllOrdersForBusiness(businessId);
+        }
+        //查询全部已经完成的订单
+        public IList<ServiceOrder> GetAllCompleteOrdersForBusiness(Guid businessId)
+        {
+            return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);
+        }
+        //查询订单的总金额
+        //查询订单的曝光率.
     }
     /// <summary>
-    /// 订单状态变更控制.
+    /// 支付宝退款返回数据
     /// </summary>
-    public class OrderServiceFlow
+    public class RefundReturnAliApp
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL");
-
+        public RefundReturnResposeAliApp alipay_trade_refund_response { get; set; }
+        public string sign { get; set; }
+    }
+    /// <summary>
+    /// 支付宝退款返回数据中的对象
+    /// </summary>
+    public class RefundReturnResposeAliApp
+    {
         /// <summary>
-        /// 确保目标状态是可以执行的.
+        /// 支付宝交易号
         /// </summary>
-
-        public void ChangeStatus(ServiceOrder order, Model.Enums.enum_OrderStatus targetStatus)
-        {
-
-            bool validated = dictAvailabelStatus[targetStatus].Contains(order.OrderStatus);
-            if (validated)
-            {
-                order.OrderStatus = targetStatus;
-            }
-            else
-            {
-                string errMsg = string.Format("不合法的状态变更{0}->{1}", order.OrderStatus, targetStatus);
-                log.Error(errMsg);
-                throw new Exception(errMsg);
-            }
-
-        }
-
-        //状态对应表. key:状态, value:该状态可以从哪些状态转变而来.
-        static Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> dictAvailabelStatus =
-            new Dictionary<enum_OrderStatus, IList<enum_OrderStatus>> {
-                //正常支付流程订单状态变更
-                { enum_OrderStatus.Created,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed }},
-                { enum_OrderStatus.CheckPayWithDesposit,new List<enum_OrderStatus>() {enum_OrderStatus.Created}},
-                { enum_OrderStatus.Payed,new List<enum_OrderStatus>() {enum_OrderStatus.DraftPushed ,
-                                                                        enum_OrderStatus.CheckPayWithDesposit}},
-                { enum_OrderStatus.Negotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Payed,
-                                                                            enum_OrderStatus.IsEnd }},
-                { enum_OrderStatus.isNegotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Negotiate }},
-                { enum_OrderStatus.Assigned,new List<enum_OrderStatus>() {enum_OrderStatus.isNegotiate }},
-                { enum_OrderStatus.Begin,new List<enum_OrderStatus>() {enum_OrderStatus.Assigned }},
-                { enum_OrderStatus.IsEnd,new List<enum_OrderStatus>() {enum_OrderStatus.Begin }},
-                { enum_OrderStatus.Ended,new List<enum_OrderStatus>() {enum_OrderStatus.IsEnd ,
-                                                                        enum_OrderStatus.Begin}},
-                { enum_OrderStatus.CheckPayWithNegotiate,new List<enum_OrderStatus>() {enum_OrderStatus.Ended }},
-                { enum_OrderStatus.Finished,new List<enum_OrderStatus>() {enum_OrderStatus.CheckPayWithNegotiate }},
-                { enum_OrderStatus.Appraised,new List<enum_OrderStatus>() {enum_OrderStatus.Finished }},
-                { enum_OrderStatus.EndWarranty,new List<enum_OrderStatus>() {enum_OrderStatus.Appraised }},
-
-                //订单取消状态可从哪些状态变更而来
-                { enum_OrderStatus.Canceled,new List<enum_OrderStatus>() {enum_OrderStatus.Created,
-                                                                            enum_OrderStatus.Payed,
-                                                                             enum_OrderStatus.Negotiate,
-                                                                              enum_OrderStatus.isNegotiate,
-                                                                               enum_OrderStatus.Assigned}},
-                //取消流程订单状态变更
-               { enum_OrderStatus.WaitingDepositWithCanceled,new List<enum_OrderStatus>() {enum_OrderStatus.Canceled}},
-               { enum_OrderStatus.EndCancel,new List<enum_OrderStatus>() { enum_OrderStatus.WaitingDepositWithCanceled,
-                                                                            enum_OrderStatus.Canceled}},
-
-               //订单理赔状态可从哪些状态变更而来
-               { enum_OrderStatus.Refund,new List<enum_OrderStatus>() {enum_OrderStatus.Begin,
-                                                                        enum_OrderStatus.IsEnd,
-                                                                         enum_OrderStatus.Ended,
-                                                                           enum_OrderStatus.Finished,
-                                                                            enum_OrderStatus.Appraised}},
-
-               //理赔流程订单状态变更
-               { enum_OrderStatus.WaitingRefund,new List<enum_OrderStatus>() {enum_OrderStatus.Refund }},
-               { enum_OrderStatus.isRefund,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingRefund }},
-               { enum_OrderStatus.RejectRefund,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingRefund }},
-               { enum_OrderStatus.AskPayWithRefund,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingRefund }},
-               { enum_OrderStatus.WaitingPayWithRefund,new List<enum_OrderStatus>() {enum_OrderStatus.AskPayWithRefund }},
-               { enum_OrderStatus.CheckPayWithRefund,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingPayWithRefund }},
-               { enum_OrderStatus.EndRefund,new List<enum_OrderStatus>() {enum_OrderStatus.isRefund,
-                                                                            enum_OrderStatus.CheckPayWithRefund}},
-               //订单一点办介入状态从哪个状态变更而来
-               { enum_OrderStatus.InsertIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.RejectRefund,
-                                                                                    enum_OrderStatus.AskPayWithRefund}},
-
-               //介入流程订单状态变更
-               { enum_OrderStatus.HandleWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.InsertIntervention }},
-               { enum_OrderStatus.NeedRefundWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.HandleWithIntervention }},
-               { enum_OrderStatus.NeedPayWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.HandleWithIntervention }},
-               { enum_OrderStatus.CheckPayWithIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.NeedPayWithIntervention }},
-               { enum_OrderStatus.EndIntervention,new List<enum_OrderStatus>() {enum_OrderStatus.NeedRefundWithIntervention,
-                                                                                    enum_OrderStatus.CheckPayWithIntervention}},
-               //投诉流程订单状态变更
-               { enum_OrderStatus.WaitingComplaints,new List<enum_OrderStatus>() {enum_OrderStatus.Complaints }},
-               { enum_OrderStatus.EndComplaints,new List<enum_OrderStatus>() {enum_OrderStatus.WaitingComplaints }},
-
-               //强制终止状态的变更
-               { enum_OrderStatus.ForceStop,new List<enum_OrderStatus>() {enum_OrderStatus.Ended,
-                                                                          enum_OrderStatus.WaitingPayWithRefund,
-                                                                           enum_OrderStatus.NeedPayWithIntervention}},
-        };
+        public string trade_no { get; set; }
+        /// <summary>
+        /// 商户订单号
+        /// </summary>
+        public string out_trade_no { get; set; }
+        /// <summary>
+        /// 买家支付宝用户号，该参数已废弃，请不要使用
+        /// </summary>
+        public string open_id { get; set; }
+        /// <summary>
+        /// 用户的登录id
+        /// </summary>
+        public string buyer_logon_id { get; set; }
+        /// <summary>
+        /// 本次退款是否发生了资金变化
+        /// </summary>
+        public string fund_change { get; set; }
+        /// <summary>
+        /// 本次发生的退款金额
+        /// </summary>
+        public string refund_fee { get; set; }
+        /// <summary>
+        /// 退款支付时间
+        /// </summary>
+        public string gmt_refund_pay { get; set; }
+        /// <summary>
+        /// 用户的登录id
+        /// </summary>
+        public RefundDetailItemListAliApp refund_detail_item_list { get; set; }
+        /// <summary>
+        /// 交易在支付时候的门店名称
+        /// </summary>
+        public string store_name { get; set; }
+        /// <summary>
+        /// 买家在支付宝的用户id
+        /// </summary>
+        public string buyer_user_id { get; set; }
+        /// <summary>
+        /// 实际退回给用户的金额
+        /// </summary>
+        public string send_back_fee { get; set; }
+        /// <summary>
+        /// 返回码
+        /// </summary>
+        public string code { get; set; }
+        /// <summary>
+        /// 返回消息
+        /// </summary>
+        public string msg { get; set; }
+        /// <summary>
+        /// 错误码
+        /// </summary>
+        public string sub_code { get; set; }
+        /// <summary>
+        /// 错误消息
+        /// </summary>
+        public string sub_msg { get; set; }
+    }
+    /// <summary>
+    /// 微信退款放回数据
+    /// </summary>
+    public class RefundReturnWeChat
+    {
+        public string return_code { get; set; }
+        public string return_msg { get; set; }
+        public string result_code { get; set; }
+        public string err_code { get; set; }
+        public string err_code_des { get; set; }
+        public string appid { get; set; }
+        public string mch_id { get; set; }
+        public string device_info { get; set; }
+        public string nonce_str { get; set; }
+        public string sign { get; set; }
+        public string transaction_id { get; set; }
+        public string out_trade_no { get; set; }
+        public string out_refund_no { get; set; }
+        public string refund_id { get; set; }
+        public string refund_channel { get; set; }
+        public string refund_fee { get; set; }
+        public string total_fee { get; set; }
+        public string fee_type { get; set; }
+        public string cash_fee { get; set; }
+        public string cash_refund_fee { get; set; }
+        public string coupon_refund_fee { get; set; }
+        public string coupon_refund_count { get; set; }
+        public string coupon_refund_id { get; set; }
     }
 
     /// <summary>
-    /// 订单状态历史记录
+    /// 退款返回的资金明细类型
     /// </summary>
-    public class BLLServiceOrderStateChangeHis
+    public class RefundDetailItemListAliApp
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
-
-        DALServiceOrderStateChangeHis dalServiceOrderStateChangeHis = null;
-        public BLLServiceOrderStateChangeHis()
-        {
-            dalServiceOrderStateChangeHis = DALFactory.DALServiceOrderStateChangeHis;
-        }
-
-        public void SaveOrUpdate(ServiceOrder oldOrder,enum_OrderStatus newStatus)
-        {
-            int num = 1;
-            ServiceOrderStateChangeHis oldOrderHis = GetMaxNumberOrderHis(oldOrder);
-            if (oldOrderHis != null)
-            {
-                num = oldOrderHis.Number + 1;
-            }
-            ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis(oldOrder, newStatus, num);
-            dalServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
-        }
-
-        public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
-        {
-            return dalServiceOrderStateChangeHis.GetMaxNumberOrderHis(order);
-        }
-
-        public IList<ServiceOrderStateChangeHis> GetOrderHisList(ServiceOrder order)
-        {
-            return dalServiceOrderStateChangeHis.GetOrderHisList(order);
-        }
-        public DateTime GetChangeTime(ServiceOrder order, enum_OrderStatus status)
-        {
-            return dalServiceOrderStateChangeHis.GetChangeTime(order, status);
-        }
+        /// <summary>
+        /// 支付所使用的渠道
+        /// </summary>
+        public string fund_channel { get; set; }
+        /// <summary>
+        /// 该支付工具类型所使用的金额
+        /// </summary>
+        public string amount { get; set; }
     }
 
-    public class BllServiceOrderAppraise
-    {
-        public DALServiceOrderAppraise dalServiceOrderAppraise = DALFactory.DALServiceOrderAppraise;
-        
-        public void Save(ServiceOrderAppraise appraise)
-        {
-            dalServiceOrderAppraise.Save(appraise);
-        }
-    }
+
 }

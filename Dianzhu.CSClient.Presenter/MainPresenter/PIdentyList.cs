@@ -10,6 +10,8 @@ using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.BLL;
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
+using System.ComponentModel;
+
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -20,6 +22,7 @@ namespace Dianzhu.CSClient.Presenter
     /// </summary>
     public  class PIdentityList
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PIdentityList");
         IViewIdentityList iView;
         IViewChatList iViewChatList;
 
@@ -35,15 +38,26 @@ namespace Dianzhu.CSClient.Presenter
 
         }
 
-        private void IView_IdentityClick(ServiceOrder serviceOrder)
+        public void IView_IdentityClick(ServiceOrder serviceOrder)
         {
-            IdentityManager.CurrentIdentity = serviceOrder;
-            iView.SetIdentityReaded(serviceOrder);
-            iViewOrder.Order = serviceOrder;
-             
+            try
+            {
+                IdentityManager.CurrentIdentity = serviceOrder;
+                iView.SetIdentityLoading(serviceOrder);
+                
+            }
+            catch (Exception ex)
+            {
+                log.Error("IView_IdentityClick Error,skip");
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+            }
             
 
         }
+
+      
+
+        
 
 
 

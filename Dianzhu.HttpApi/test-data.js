@@ -7,10 +7,59 @@
 //"asn001001","asn001002","asn001003","asn001004","asn001005","asn001006","asn002001","asn002004",
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
-"orm003007", "orm003008"
+//"rmm001003","rmm001004","rmm001005","rmm001006",
+"ad001006"
 
 ];
 var test_data = [
+
+    /**********************订单提醒管理*****************************/
+    {
+        "protocol_CODE": "rmm001003",
+        "ReqData": {
+            "userID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
+            "pWord": "123456",
+            "remindID": "853d578e-6790-4c0d-8190-a5e600f09d12",
+            "open": "Y"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "rmm001004",
+        "ReqData": {
+            "userID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
+            "pWord": "123456",
+            "startTime": "20160401",
+            "endTime": "20160410"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "rmm001005",
+        "ReqData": {
+            "userID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
+            "pWord": "123456",
+            "remindID": "cb6c2f43-778f-49cb-b58d-a5e600f12cab"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
+
+    {
+        "protocol_CODE": "rmm001006",
+        "ReqData": {
+            "userID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
+            "pWord": "123456",
+            "startTime": "20160401",
+            "endTime": "20160410"
+        },
+        "stamp_TIMES": 1453520313281,
+        "serial_NUMBER": "00147001015869149751"
+    },
 
     /**********************订单出货记录管理*****************************/
     {
@@ -628,8 +677,8 @@ var test_data = [
      {
          "protocol_CODE": "CHAT001006",
          "ReqData": {
-             "userID": "2aed4349-f4e8-4dcb-88a4-a59301132feb",
-             "pWord": "1234",
+             "userID": "d100f9c8-c02f-44f8-96e3-a5e501180240",
+             "pWord": "123456",
              "orderID": "",
              "target": "cer",
              "pageNum": 0,

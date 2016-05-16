@@ -7,6 +7,13 @@ using System.Web.UI.WebControls;
 
 public partial class DZService_ServiceShelf : System.Web.UI.Page
 {
+
+    public string merchantID {
+        get {
+            return System.Web.Security.Membership.GetUser().ProviderUserKey.ToString();
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
