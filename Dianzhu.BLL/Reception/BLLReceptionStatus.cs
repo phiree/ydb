@@ -175,7 +175,7 @@ namespace Dianzhu.BLL
             this.dalMember = dalMember;
         }
         public ReceptionAssigner(IIMSession imSession)
-            : this(new AssignSrratageByAssNum(new DALReceptionStatus()),
+            : this(new AssignStratageRandom(),
                  imSession,
                  new DALReceptionStatus(),
                  new DALMembership())
@@ -474,13 +474,14 @@ namespace Dianzhu.BLL
             Dictionary<DZMembership, DZMembership> assignList = new Dictionary<DZMembership, DZMembership>();
             if (csList.Count == 0)
             {
-                //r如果没有在线客服 怎么处理
-                throw new Exception("客服离线");
+                //如果没有在线客服 怎么处理
+                //throw new Exception("客服离线");
 
-                //foreach (DZMembership customer in customerList)
-                //{
-                //    assignList.Add(customer, diandian);
-                //}
+                //如果没有在线客服，分配给点点
+                foreach (DZMembership customer in customerList)
+                {
+                    assignList.Add(customer, diandian);
+                }
             }
             else
             {
