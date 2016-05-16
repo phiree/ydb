@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="BLLClaims.cs" />
     <Compile Include="Agent\AgentService.cs" />
     <Compile Include="Agent\IAgentService.cs" />
     <Compile Include="BLLComplaint.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Finance\IBalanceFlowService.cs" />
     <Compile Include="Finance\IBLLServiceTypePoint.cs" />
     <Compile Include="Finance\BLLServiceTypePoint.cs" />
+     <Compile Include="Finance\BLLSalePoint.cs" />
     <Compile Include="Finance\IBLLSharePoint.cs" />
     <Compile Include="Finance\BLLSharePoint.cs" />
     <Compile Include="Finance\IOrderShare.cs" />

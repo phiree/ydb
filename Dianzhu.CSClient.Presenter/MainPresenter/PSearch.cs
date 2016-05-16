@@ -9,6 +9,7 @@ namespace Dianzhu.CSClient.Presenter
 {
    public  class PSearch
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PSearch");
         IViewSearch viewSearch;
         IViewSearchResult viewSearchResult;
         IViewOrder viewOrder;
@@ -118,6 +119,10 @@ namespace Dianzhu.CSClient.Presenter
             {
                 return;
             }
+
+            //禁用推送按钮
+            viewSearchResult.BtnPush = false;
+
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {
@@ -140,6 +145,7 @@ namespace Dianzhu.CSClient.Presenter
             };
             bllReceptionChat.Save(chat);
             iIM.SendMessage(chat);
+            log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //助理工具显示发送的消息
             viewChatList.AddOneChat(chat);
@@ -147,6 +153,7 @@ namespace Dianzhu.CSClient.Presenter
             //生成新的草稿单并发送给客户端
             ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer);
             dalOrder.SaveOrUpdate(newOrder);
+            log.Debug("新草稿订单的id：" + newOrder.Id.ToString());
             string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
             string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
                                                     <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>", 
@@ -155,10 +162,10 @@ namespace Dianzhu.CSClient.Presenter
 
             //更新当前订单
             IdentityTypeOfOrder type;
+            log.Debug("更新当前订单");
             IdentityManager.UpdateIdentityList(newOrder, out type);
-
-            //禁用推送按钮
-            viewSearchResult.BtnPush = false;
+            log.Debug("当前订单的id：" + IdentityManager.CurrentIdentity.Id.ToString());
+            
             //清空搜索选项 todo:为了测试方便，先注释掉
             //viewSearch.ClearData();
         }

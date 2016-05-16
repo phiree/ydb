@@ -53,5 +53,10 @@ namespace Dianzhu.BLL
         {
             return dalServiceOrderStateChangeHis.GetChangeTime(order, status);
         }
+
+        public enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order, enum_OrderStatus status)
+        {
+            return dalServiceOrderStateChangeHis.GetOrderStatusPrevious(order, status);
+        }
     }
 }

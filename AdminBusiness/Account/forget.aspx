@@ -57,8 +57,8 @@
         <a href="http://www.miibeian.gov.cn/">琼ICP备15000297号-4</a> Copyright © 2015 All Rights Reserved
     </div>
 </div>
-    <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js'></script>
     <!--[if lte IE 9]>
+    <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js'></script>
     <script src="/js/jquery.placeholder.min.js"></script>
     <script>$('input').placeholder();</script>
     <![endif]-->

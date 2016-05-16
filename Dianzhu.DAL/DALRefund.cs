@@ -19,6 +19,9 @@ namespace Dianzhu.DAL
             
         }
 
-
+        public Refund GetRefundByPlatformTradeNo(string platformTradeNo)
+        {
+            return Session.QueryOver<Refund>().Where(x => x.PlatformTradeNo == platformTradeNo).SingleOrDefault();
+        }
     }
 }

@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALMembershipLoginLog.cs" />
+    <Compile Include="DALClaims.cs" />
     <Compile Include="DALComplaint.cs" />
     <Compile Include="DALAdvertisement.cs" />
     <Compile Include="DALRefund.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Mapping\Finance\SharePointMap.cs" />
     <Compile Include="Mapping\Finance\DefaultSharePointMap.cs" />
     <Compile Include="Mapping\MembershipLoginLogMap.cs" />
+    <Compile Include="Mapping\ClaimsMap.cs" />
     <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\Finance\SalePointMapping.cs" />
