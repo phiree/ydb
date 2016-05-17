@@ -113,7 +113,14 @@ namespace Dianzhu.CSClient.MessageAdapter
                 }
             }
             ReceptionChat chat = ReceptionChat.Create(chatType);
-            var chatFrom = BllMember.GetUserById(new Guid(message.From.User));
+            Guid fromUser;
+            bool isFromUser = Guid.TryParse(message.From.User, out fromUser);
+            if (!isFromUser)
+            {
+                ilog.Error("发送用户的id有误，发送用户id为：" + message.From.User + "发送用户资源名为：" + message.From.Resource);
+                throw new Exception("发送用户的id有误");
+            }
+            var chatFrom = BllMember.GetUserById(fromUser);
             chat.From = chatFrom;
             chat.FromResource = enum_XmppResource.Unknow;
             try
@@ -211,8 +218,17 @@ namespace Dianzhu.CSClient.MessageAdapter
             msg.SetAttribute("type", "chat");
             msg.Id = chat.Id != Guid.Empty ? chat.Id.ToString() : Guid.NewGuid().ToString();
             //     msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
-            IMUserStatus toUserStatus = BLLIMUserStatus.GetIMUSByUserId(chat.To.Id);
-            msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server + "/" + toUserStatus.ClientName);//发送对象
+
+            try
+            {
+                IMUserStatus toUserStatus = BLLIMUserStatus.GetIMUSByUserId(chat.To.Id);
+                msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server + "/" + toUserStatus.ClientName);//发送对象
+            }
+            catch (Exception e)
+            {
+                ilog.Error(e.Message);
+            }
+
             msg.Body = chat.MessageBody;
 
             var nodeActive = new agsXMPP.Xml.Dom.Element("active", string.Empty, "http://jabber.org/protocol/chatstates");
