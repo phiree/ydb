@@ -73,10 +73,10 @@
     </div>
 </body>
 <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js'></script>
-<script src="/js/jquery.validate.js"></script>
-<script src="/js/validation_recovery.js"></script>
+<script src="/js/plugins/jquery.validate.js"></script>
+<script src="/js/apps/validation/validation_recovery.js?v=1.0.0"></script>
 <!--[if lte IE 9]>
-<script src="/js/jquery.placeholder.min.js"></script>
+<script src="/js/plugins/jquery.placeholder.min.js"></script>
 <script>$('input, textarea').placeholder();</script>
 <![endif]-->
 </html>

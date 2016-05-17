@@ -153,9 +153,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bottom" runat="Server">
     <script src="/js/libs/underscore.js"></script>
-    <script src="/js/jquery.lightBox_me.js"></script>
-    <script src="/js/interfaceAdapter.js"></script>
-    <script src="/js/appointToStaff.js"></script>
+    <script src="/js/plugins/jquery.lightbox_me.js"></script>
+    <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
+    <script src="/js/apps/appointToStaff.js?v=1.0.0"></script>
     <script>
         $().ready(function(){
             $('[rel="tooltip"]').tooltip();

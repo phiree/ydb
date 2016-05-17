@@ -178,8 +178,8 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
-    <script src="/js/lightbox.js"></script>
-    <script src="/js/echarts.simple.min.js"></script>
+    <script src="/js/plugins/lightbox.js"></script>
+    <script src="/js/plugins/echarts.simple.min.js"></script>
     <script>
         (function (){
             var myChart = echarts.init(document.getElementById("biz-total-chart"));

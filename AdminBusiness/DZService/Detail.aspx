@@ -134,6 +134,6 @@
         })
      });
 </script>
-<script src="/js/baiduMapLib.js"></script>
+<script src="/js/libs/baiduMapLib.js"></script>
 </asp:Content>
 

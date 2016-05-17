@@ -12,7 +12,7 @@
     <link href='http://api.youziku.com/webfont/CSS/568e353ff629d80f4cd910a7' rel='stylesheet' type='text/css' />
     <link rel="Stylesheet" href="/css/main.css" type="text/css" />
     <!--[if lte IE 9]>
-    <script src="./js/respond.min.js"></script>
+    <script src="./js/plugins/respond.min.js"></script>
     <![endif]-->
 </head>
 <body class="register-body">
@@ -76,12 +76,12 @@
     </div>
 </div>
 <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
-<script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
+<script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"v></script>
 <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js"></script>
-<script src="/js/jquery.form.min.js"></script>
-<script src="/js/validation_reg.js"></script>
+<script src="/js/plugins/jquery.form.min.js"></script>
+<script src="/js/apps/validation/validation_reg.js?v=1.0.0"></script>
 <!--[if lte IE 9]>
-<script src="/js/jquery.placeholder.min.js"></script>
+<script src="/js/plugins/jquery.placeholder.min.js"></script>
 <script>$('input, textarea').placeholder();</script>
 <![endif]-->
 <%if (!Request.IsLocal){ %>

@@ -135,7 +135,7 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bottom" runat="Server">
-    <script src="/js/pikaday.js"></script>
+    <script src="/js/plugins/pikaday.js"></script>
     <script>
         $(function(){
             var pickerStart = new Pikaday(
