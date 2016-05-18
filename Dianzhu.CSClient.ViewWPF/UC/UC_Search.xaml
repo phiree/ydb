@@ -33,6 +33,11 @@
             </WrapPanel>
 
             <WrapPanel>
+                <Label Content="购买数量"></Label>
+                <TextBox x:Name="tbxUnitAmount" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="1" Width="100" PreviewTextInput="tbxKeywordPriceMin_PreviewTextInput" TextChanged="tbxKeywordPriceMin_TextChanged"/>
+            </WrapPanel>
+
+            <WrapPanel>
                 <Label Content="联系方式"></Label>
                 <TextBox x:Name="tbxKeywordPhone" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="13688888888" Width="200"/>
             </WrapPanel>
