@@ -110,10 +110,13 @@ namespace Dianzhu.BLL
         public void UpdateOrder(DZMembership c,DZMembership cs,ServiceOrder order)
         {
             ReceptionStatus re = dalRS.GetOneByCustomerAndCS(cs, c);
-            re.Order = order;
-            re.LastUpdateTime = DateTime.Now;
+            if (re != null)
+            {
+                re.Order = order;
+                re.LastUpdateTime = DateTime.Now;
 
-            dalRS.Update(re);
+                dalRS.Update(re);
+            }
         }
 
         /// <summary>
