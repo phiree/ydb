@@ -40,15 +40,22 @@ namespace Dianzhu.Model
             {
                 ServiceOrderDetail detail = new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
                 Details.Add(detail);
+                Business = service.Business;
             }
             else if (existedService.Count() == 1)
             {
                 ServiceOrderDetail detail = Details[0];
-                detail.UnitAmount+=unitAmount;// new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
+                detail.UnitAmount += unitAmount;// new ServiceOrderDetail(service, unitAmount, targetAddress, targetTime);
                 detail.TargetAddress = targetAddress;
                 detail.TargetTime = targetTime;
-                
+                Business = service.Business;
+
             }
+            else if (existedService.Count() > 1)
+            {
+
+            }
+
            
         }
         public virtual void RemoveDetail(DZService service)
@@ -185,34 +192,36 @@ namespace Dianzhu.Model
         {
             get; protected set;
         }
-        
+        private Business business;
         public virtual Business Business {
             get {
-                if (Details.Count == 0)
-                { return null; }
-                 ;
-                string errMsg;
-                var businessesInOrder=    Details.Select(x => x.OriginalService.Business).ToList();
-                int count = businessesInOrder.Count;
-                if (count == 1)
-                {
-                    return businessesInOrder[0];
-                }
-                else {
-                    if (count > 1)
-                    {
-                        errMsg = "订单内有多个商家";
-                        log.Error(errMsg);
-                        throw new Exception(errMsg);
-                    }
-                    else {
-                        errMsg = "订单内的服务居然没有";
-                        log.Error(errMsg);
-                        throw new Exception(errMsg);
-                    }
-                }
+                return business;
+                //if (Details.Count == 0)
+                //{ return null; }
+                // ;
+                //string errMsg;
+                //var businessesInOrder=    Details.Select(x => x.OriginalService.Business).ToList();
+                //int count = businessesInOrder.Count;
+                //if (count == 1)
+                //{
+                //    return businessesInOrder[0];
+                //}
+                //else {
+                //    if (count > 1)
+                //    {
+                //        errMsg = "订单内有多个商家";
+                //        log.Error(errMsg);
+                //        throw new Exception(errMsg);
+                //    }
+                //    else {
+                //        errMsg = "订单内的服务居然没有";
+                //        log.Error(errMsg);
+                //        throw new Exception(errMsg);
+                //    }
+                //}
                  
             }
+           protected set { business = value; }
         }
         /// <summary>
         /// 订单的标题
@@ -275,6 +284,11 @@ namespace Dianzhu.Model
         /// 下单时间
         /// </summary>
         public virtual DateTime OrderCreated { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual DateTime OrderConfirmTime { get; set; }
 
         /// <summary>
         /// 最近的更新时间
@@ -408,7 +422,7 @@ namespace Dianzhu.Model
                 this.DepositAmount += detail.ServieSnapShot.DepositAmount;
             }
             this.OrderStatus = enum_OrderStatus.Created;
-
+            this.OrderConfirmTime = DateTime.Now;
         }
         /// <summary>
         /// 获取支付总额
@@ -431,8 +445,12 @@ namespace Dianzhu.Model
             }
         }
 
-       
-        
+        #region 临时数据
+        /// <summary>
+        /// 订单状态中文名
+        /// </summary>
+        public virtual string OrderStatusStr{ get; set; }
+        #endregion
 
     }
 

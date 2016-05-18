@@ -6,9 +6,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+
 public partial class advertisement_Default : System.Web.UI.Page
 {
-    BLLAdvertisement bllAd = Installer.Container.Resolve<BLLAdvertisement>();
+    BLLAdvertisement bllAd =Installer.Container.Resolve<BLLAdvertisement>();
 
     protected void Page_Load(object sender, EventArgs e)
     {

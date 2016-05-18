@@ -28,6 +28,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
             //UC_OrderHistory_Order order = new UC_OrderHistory_Order();
             //pnlOrderHistory.Children.Add(order);
+            btnSearchEnabled = false;
         }
         
         public event SearchOrderHistoryClick SearchOrderHistoryClick;
@@ -44,33 +45,56 @@ namespace Dianzhu.CSClient.ViewWPF
             get { return orderList; }
             set
             {
-                orderList = value;
-                pnlOrderHistory.Children.Clear();
+                Action lambda = () =>
+                {
+                    orderList = value;
+                    pnlOrderHistory.Children.Clear();
 
-                if (orderList.Count > 0)
-                {
-                    UC_OrderHistory_Order ucOrder;
-                    foreach (ServiceOrder order in orderList)
+                    if (orderList == null)
                     {
-                        ucOrder = new UC_OrderHistory_Order();
-                        ucOrder.LoadData(order);
-                        pnlOrderHistory.Children.Add(ucOrder);
+                        orderList = new List<ServiceOrder>();
+                        ShowNullListLable();
+                        return;
                     }
-                }
-                else
-                {
-                    Label lblNoOrder = new Label
+
+                    if (orderList.Count > 0)
                     {
-                        Content = "当前用户没有历史订单!",
-                        Foreground = new SolidColorBrush(Colors.Gray),
-                        Visibility = Visibility.Visible
-                    };
-                    pnlOrderHistory.Children.Add(lblNoOrder);
+                        UC_OrderHistory_Order ucOrder;
+                        foreach (ServiceOrder order in orderList)
+                        {
+                            ucOrder = new UC_OrderHistory_Order();
+                            ucOrder.LoadData(order);
+                            pnlOrderHistory.Children.Add(ucOrder);
+                        }
+                        btnSearchEnabled = true;
+                    }
+                    else
+                    {
+                        ShowNullListLable();
+                    }
+                };
+                if (!Dispatcher.CheckAccess())
+                {
+                    Dispatcher.Invoke(lambda);
                 }
+                else { lambda(); }
             }
         }
+        //显示当查询列表为空时的提示语
+        private void ShowNullListLable()
+        {
+            btnSearchEnabled = false;
 
-        public bool btnSearchEnabled
+            Label lblNoOrder = new Label
+            {
+                Content = "当前用户没有历史订单!",
+                Foreground = new SolidColorBrush(Colors.Gray),
+                Visibility = Visibility.Visible
+            };
+            pnlOrderHistory.Children.Add(lblNoOrder);
+        }
+
+        private bool btnSearchEnabled
         {
             set { btnSearchByOrderId.IsEnabled = value; }
         }

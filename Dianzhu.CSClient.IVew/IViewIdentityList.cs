@@ -16,13 +16,16 @@ namespace Dianzhu.CSClient.IView
         void AddIdentity(ServiceOrder  serviceOrder);
         //删除一个用户
         void RemoveIdentity(ServiceOrder serviceOrder);
+        void UpdateIdentityBtnName(Guid oldOrder, Guid newOrder);
         //设置为未读
         void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount);
         //设置为已读
         void SetIdentityReaded(ServiceOrder serviceOrder);
         //
         void SetIdentityLoading(ServiceOrder serviceOrder);
-        
+        //用户离线
+        void SetIdentityLogOff(ServiceOrder serviceOrder);
+
     }
     /// <summary>
     /// 点击用户按钮的委托.

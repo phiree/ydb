@@ -101,7 +101,7 @@ public class ResponseORM002001 : BaseResponse
                     {
                     orderToReturn = ServiceOrderFactory.CreateDraft( assignedPair[member], member);
                        
-                        bllOrder.SaveOrUpdate(orderToReturn);
+                        bllOrder.Update(orderToReturn);
                     }
                 //}
                 ilog.Debug("7");

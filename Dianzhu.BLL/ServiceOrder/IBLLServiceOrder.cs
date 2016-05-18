@@ -32,7 +32,7 @@ namespace Dianzhu.BLL
         IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize);
 
           ServiceOrder GetOne(Guid guid);
-        void SaveOrUpdate(ServiceOrder order);
+        void Update(ServiceOrder order);
         IList<ServiceOrder> GetAll();
 
         IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status);
@@ -223,6 +223,7 @@ namespace Dianzhu.BLL
         IList<ServiceOrder> GetAllCompleteOrdersForBusiness(Guid businessId);
         //查询订单的总金额
         //查询订单的曝光率.
+        void Save(ServiceOrder order);
     }
  
 

@@ -13,14 +13,13 @@ using Dianzhu.IDAL;
 using Dianzhu.DAL;
 using Dianzhu.Model;
 using System;
-namespace Dianzhu.Dependency
+namespace Dianzhu.DependencyInstaller
 {
     public class DianzhuDependencyInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            // container.Kernel.ComponentRegistered += Kernel_ComponentRegistered;
-
+            
             //Register all components
             container.Register(
 

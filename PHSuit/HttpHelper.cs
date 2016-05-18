@@ -78,7 +78,13 @@ namespace PHSuit
 
                 X509Store store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
                 store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
-                X509Certificate2 cert = store.Certificates.Find(X509FindType.FindBySubjectName, certName, false)[0];
+                X509Certificate2Collection coll = store.Certificates.Find(X509FindType.FindBySubjectName, certName, false);
+                if (coll.Count <= 0)
+                {
+                    throw new Exception("未找到证书");
+                }
+
+                X509Certificate2 cert = coll[0];
 
                 byte[] bytes;
                 bytes = System.Text.Encoding.UTF8.GetBytes(requestXml);

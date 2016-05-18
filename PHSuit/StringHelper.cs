@@ -365,9 +365,12 @@ namespace PHSuit
         {
             Regex r1 = new Regex(@"<!\[cdata\[.*?\]\]\>", RegexOptions.IgnoreCase);
             Regex r2 = new Regex(@"(?<=<!\[cdata\[).*?(?=\]\])", RegexOptions.IgnoreCase);
+            Regex r3 = new Regex(@"\<\?.+\?\>", RegexOptions.IgnoreCase);
             MatchCollection m1 = r1.Matches(xml);
             MatchCollection m2 = r2.Matches(xml);
-            
+
+            xml = r3.Replace(xml, string.Empty);
+
             for (int i = 0; i < m1.Count; i++)
             {
                 xml = xml.Replace(m1[i].Value, m2[i].Value);
@@ -387,13 +390,7 @@ namespace PHSuit
                 xmlDoc.DocumentElement. AppendChild(n);
             }
 
-            //if (removeRoot)
-            //{
-            //    xml = xmlDoc.InnerXml.Replace("<xml>", string.Empty)
-            //        .Replace("</xml>", string.Empty);
-
-            //}
-            string json = Newtonsoft.Json.JsonConvert.SerializeXmlNode(xmlDoc, Newtonsoft.Json.Formatting.Indented, true);
+            string json = Newtonsoft.Json.JsonConvert.SerializeXmlNode(xmlDoc, Newtonsoft.Json.Formatting.Indented, removeRoot);
             return json;
         }
     }

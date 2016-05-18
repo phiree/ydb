@@ -103,7 +103,7 @@ namespace DianzhuService.Diandian
                         msgObj_type = msg.SelectSingleElement("ext").SelectSingleElement("msgObj").GetAttribute("type");
                         break;
                     default:
-                        log.Warn("请求的类型无法处理，直接返回");
+                        log.Warn("请求的类型" + msgType.ToLower() + "无法处理，直接返回");
                         return;
                 }
                 orderID = msg.SelectSingleElement("ext").SelectSingleElement("orderID").Value;

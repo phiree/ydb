@@ -30,6 +30,7 @@ namespace Dianzhu.Model.Enums
         Deposit=1,//订金
         FinalPayment=2,//尾款
         Compensation=3,//赔偿金
+        None=99,
 
     }
     /// <summary>
@@ -254,11 +255,7 @@ namespace Dianzhu.Model.Enums
         /// 固定时间内未支付赔偿金，强制终止
         /// </summary>
         ForceStop = 70,
-
-
-        CanceledDirectly,//订单已直接取消        
-        Aborded=7,//已中止
-
+        
         /// <summary>
         /// 未知订单类型
         /// </summary>

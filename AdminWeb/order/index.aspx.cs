@@ -10,7 +10,6 @@ using System.Data;
 
 public partial class order_index : System.Web.UI.Page
 {
-   Dianzhu.IDAL.IUnitOfWork iuow = Installer.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();
     public IBLLServiceOrder bllServiceOrder = Installer.Container.Resolve<IBLLServiceOrder>();
     ServiceOrder serviceorder;
     public int page;
@@ -19,12 +18,10 @@ public partial class order_index : System.Web.UI.Page
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
-      //   iuow.BeginTransaction();
-    }
+         }
     protected override void OnUnload(EventArgs e)
     {
-      //  iuow.Commit();
-        base.OnUnload(e);
+         base.OnUnload(e);
     }
     protected void Page_Load(object sender, EventArgs e)
     {

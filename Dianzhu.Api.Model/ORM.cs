@@ -47,9 +47,9 @@ namespace Dianzhu.Api.Model
             //todo: serviceorder change
             this.title = order.Title ?? string.Empty;
             this.status = order.OrderStatus.ToString() ?? string.Empty;
-            if (order.OrderCreated > DateTime.MinValue)
+            if (order.OrderConfirmTime > DateTime.MinValue)
             {
-                this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+                this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderConfirmTime);
             }
             else
             {
@@ -57,7 +57,7 @@ namespace Dianzhu.Api.Model
             }
             if (order.OrderFinished > DateTime.MinValue)
             {
-                this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+                this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderFinished);
             }
             else
             {
@@ -287,14 +287,25 @@ namespace Dianzhu.Api.Model
 
     public class RespDataORM_refundStatusObj
     {
-        public string refundStatusID { get; set; }
-        public string orderID { get; set; }
+        //public string refundStatusID { get; set; }
+        //public string orderID { get; set; }
+        public string title { get; set; }
         public string context { get; set; }
         public string amount { get; set; }
         public string resourcesUrl { get; set; }
-        public string date { get; set; }
+        public string time { get; set; }
         public string orderStatus { get; set; }
         public string target { get; set; }
+    }
+
+    public enum enum_refundAction
+    {
+        reject=1,           //拒绝理赔
+        askPay =2,          //要求支付赔偿金
+        refund =4,          //同意理赔要求
+        agree =8,           //同意商户处理
+        cancel =16,         //放弃理赔
+        intervention =32,   //要求介入
     }
 
     #endregion
@@ -436,41 +447,22 @@ namespace Dianzhu.Api.Model
         }
     }
     #endregion
+    
+    #region ORM002003
 
-    #region ORM002002
-    public class ReqDataORM002002
+    public class ReqDataORM002003
     {
-
         public string userID { get; set; }
         public string pWord { get; set; }
         public string orderID { get; set; }
-
-
     }
-    public class RespDataORM002002
+
+    public class RespDataORM002003
     {
-        public RespDataORM002002()
-        {
-            orderID = string.Empty;
-        }
-        public string orderID { get; set; }
-        public RespDataORM002002_payObj payObj { get; set; }
-
+        public string targetID { get; set; }
+        public RespDataORM_storeObj storeObj { get; set;}
     }
-    public class RespDataORM002002_payObj
-    {
-        public string type { get; set; }
 
-        public string url { get; set; }
-        public RespDataORM002002_payObj Adap(ServiceOrder order)
-        {
-            this.type = "alipay";
-           //todo: use payment.buildpaylink instead;
-           // this.url = order.p BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayServer"), enum_PayTarget.Deposit);
-
-            return this;
-        }
-    }
     #endregion
 
     #region ORM003005
@@ -572,7 +564,7 @@ namespace Dianzhu.Api.Model
 
     public class RespDataORM005001
     {
-        public string refundID { get; set; }
+        public string resultStatus { get; set; }
     }
 
     #endregion
@@ -583,9 +575,8 @@ namespace Dianzhu.Api.Model
     {
         public string merchantID { get; set; }
         public string pWord { get; set; }
-        public string orderID { get; set; }
+        public RespDataORM_refundObj refundObj { get; set; }
         public string refundAction { get; set; }
-        public string context { get; set; }
     }
 
     public class RespDataORM005007

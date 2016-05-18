@@ -13,6 +13,7 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             References<DZMembership>(x => x.Customer);
             Map(x => x.OrderCreated);
+            Map(x => x.OrderConfirmTime);
             Map(x => x.LatestOrderUpdated);
             Map(x => x.OrderFinished);
             Map(x => x.OrderServerStartTime);
@@ -21,7 +22,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.OrderStatus).CustomType<Model.Enums.enum_OrderStatus>();
             References<DZMembership>(x => x.CustomerService);
             HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
-
+            References<Business>(x => x.Business);
             Map(x => x.NegotiateAmount);
 
             Map(x => x.DepositAmount);

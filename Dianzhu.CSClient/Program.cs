@@ -82,10 +82,7 @@ namespace Dianzhu.CSClient
                 Presenter.POrder pOrder = container.Resolve<Presenter.POrder>();
                 Presenter.POrderHistory pOrderHistory = container.Resolve<Presenter.POrderHistory>();
                 Presenter.PChatSend pChatSend = container.Resolve<Presenter.PChatSend>();
-
-
-                Presenter.InstantMessageHandler imHander = container.Resolve<Presenter.InstantMessageHandler>();
-
+                
 
                 var mainPresenter = container.Resolve<Presenter.PMain>();
 
@@ -123,7 +120,6 @@ namespace Dianzhu.CSClient
             container.Register(cmr.Component.For<CSClient.Presenter.POrder>());
             container.Register(cmr.Component.For<CSClient.Presenter.POrderHistory>());
             container.Register(cmr.Component.For<CSClient.Presenter.PSearch>());
-            container.Register(cmr.Component.For<Presenter.InstantMessageHandler>());
 
             container.Register(cmr.Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
             container.Register(cmr.Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());

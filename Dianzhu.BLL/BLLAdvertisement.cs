@@ -12,9 +12,8 @@ namespace Dianzhu.BLL
     public class BLLAdvertisement
     {
         private IDALAdvertisement repo;
-        private IDAL.IUnitOfWork iUnitOfWork;
-
-        public BLLAdvertisement(IDALAdvertisement repo, IDAL.IUnitOfWork iUnitOfWork)
+     
+        public BLLAdvertisement(IDALAdvertisement repo )
         {
             this.repo = repo;
          //   this.iUnitOfWork = iUnitOfWork;

@@ -206,9 +206,7 @@
                                                     <div class="row model-form-group">
                                                         <div class="col-md-4 model-label-lg">提前预约时间</div>
                                                         <div class="col-md-8 model-input-unit">
-                                                            <div class="select select-fluid min-select" data-toggle="tooltip" data-placement="top" title="请填写该服务的提前预约的时间（0为无需预约）">
-                                                                <ul>
-                                                                </ul>
+                                                            <div class="select select-fluid select-static" data-type="minute" data-toggle="tooltip" data-placement="top" title="请选择该服务的提前预约的时间">
                                                                 <asp:TextBox runat="server" snsi CssClass="input-fluid dis-n" ID="tbxOrderDelay">60</asp:TextBox>
                                                             </div>
                                                             <em class="unit">分钟</em>

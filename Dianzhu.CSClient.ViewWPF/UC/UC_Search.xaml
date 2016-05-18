@@ -15,7 +15,7 @@
 
             <WrapPanel>
                 <Label Content="服务时间"></Label>
-                <TextBox x:Name="tbxKeywordTime" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="2016-4-5 9:00" Width="200"/>
+                <TextBox x:Name="tbxKeywordTime" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="2016-5-20 9:00" Width="200"/>
             </WrapPanel>
 
             <WrapPanel>

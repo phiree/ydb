@@ -109,7 +109,7 @@ public class ResponseORM001008 : BaseResponse
                 //{
                 //    detail.Selected = detail.OriginalService == service;
                 //}
-                bllServiceOrder.SaveOrUpdate(order);
+                bllServiceOrder.Update(order);
                 IList<ServiceOrderPushedService> pushServiceList = bllPushService.GetPushedServicesForOrder(order);
                 RespDataORM_orderObj orderObj = new RespDataORM_orderObj();
                 IList<DZTag> tagsList = new List<DZTag>();//标签

@@ -76,7 +76,7 @@ public class ResponseU3RD014008:BaseResponse
                         string urlUserWeChat = Dianzhu.Config.Config.GetAppSetting("WeChatUserInfoUrl");
                         Uri uriUserWeChat = new Uri(urlUserWeChat + "access_token=" + refreshTokenObjWeChat.access_token + "&openid=" + refreshTokenObjWeChat.openid);
                         string resultuser = HttpHelper.CreateHttpRequest(uriUserWeChat.ToString(), "get", null);
-                        WechatRespUserinfo userObjWeChat = JsonConvert.DeserializeObject<WechatRespUserinfo>(resultuser);
+                        WechatRespUserinfo userObjWeChat = JsonConvert.DeserializeObject<WechatRespUserinfo>(HttpUtility.UrlDecode(resultuser, System.Text.Encoding.UTF8));
 
                         DZMembershipWeChat wechatMember = ConvertToWechatMember(refreshTokenObjWeChat, userObjWeChat);
                         bllMember.CreateUserForU3rd(wechatMember);

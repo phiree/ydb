@@ -32,7 +32,7 @@ namespace Dianzhu.BLL
         public void Push(ServiceOrder order, IList<ServiceOrderPushedService> services, string targetAddress, DateTime targetTime)
         {
             order.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
-            bllServiceOrder.SaveOrUpdate(order);
+            bllServiceOrder.Update(order);
 
             foreach (ServiceOrderPushedService service in services)
             {
@@ -58,6 +58,9 @@ namespace Dianzhu.BLL
                 order.AddDetailFromIntelService(s.OriginalService, 1, s.TargetAddress, s.TargetTime);
 
                 order.CreatedFromDraft();
+
+                //保存订单历史记录
+                bllServiceOrderStateChangeHis.SaveOrUpdate(order, enum_OrderStatus.DraftPushed);
 
                 PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);
 

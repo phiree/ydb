@@ -6,9 +6,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+
 public partial class test_Default : System.Web.UI.Page
 {
-    public IBLLServiceOrder bllOrder = Installer.Container.Resolve<IBLLServiceOrder>();
+    public IBLLServiceOrder bllOrder =Installer.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -34,7 +35,7 @@ public partial class test_Default : System.Web.UI.Page
         order.CreatedFromDraft();
         order.LatestOrderUpdated = DateTime.Now;
         order.DepositAmount = 0.01m;
-        bllOrder.SaveOrUpdate(order);
+        bllOrder.Save(order);
         bllPayment.ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.Deposit);
         lblCreateOrderResult.Text = "创建成功";
 

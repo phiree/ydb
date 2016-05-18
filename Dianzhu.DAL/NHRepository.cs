@@ -26,10 +26,12 @@ namespace Dianzhu.DAL
       
         public void Add(TEntity t)
         {
-
+            using (var tr = Session.BeginTransaction())
+            { 
                 Session.Save(t);
-               
-            
+                tr.Commit();
+            }
+
 
         }
 
@@ -44,8 +46,13 @@ namespace Dianzhu.DAL
 
         public TEntity FindById(TPrimaryKey identityId)
         {
-            
-                var result= Session.Get<TEntity>(identityId);
+            TEntity result;
+            using (var tr = Session.BeginTransaction())
+            {
+                  result = Session.Get<TEntity>(identityId);
+                tr.Commit();
+            }
+           
               
                 return result;
             
@@ -59,28 +66,48 @@ namespace Dianzhu.DAL
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords)
         {
-            
-            var query = Session.Query<TEntity>().Where(where);
-            totalRecords = query.Count();
-            return query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToFuture();
+            IEnumerable<TEntity> result;
+            using (var tr = Session.BeginTransaction())
+            {
+                var query = Session.Query<TEntity>().Where(where);
+                totalRecords = query.Count();
+                result= query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToFuture();
+                tr.Commit();
+            }
+            return result;
         }
 
      
         public long GetRowCount(Expression<Func<TEntity, bool>> where)
         {
-            var query = Session.Query<TEntity>().Where(where);
-           long totalRecords = query.Count();
+            long totalRecords;
+            using (var tr = Session.BeginTransaction())
+            {
+                var query = Session.Query<TEntity>().Where(where);
+                  totalRecords = query.Count();
+                tr.Commit();
+            }
             return totalRecords;
         }
 
         public TEntity FindOne(Expression<Func<TEntity, bool>> where)
-        {
-            return  Session.Query<TEntity>().Where(where).SingleOrDefault();
+        { TEntity result;
+            using (var tr = Session.BeginTransaction())
+            {
+                result= Session.Query<TEntity>().Where(where).SingleOrDefault();
+                tr.Commit();
+            }
+            return result;
         }
 
         public void Update(TEntity t)
         {
-              Session.Update(t);
+            using (var tr = Session.BeginTransaction())
+            {
+                Session.Update(t);
+
+                tr.Commit();
+            }
         }
     }
 }

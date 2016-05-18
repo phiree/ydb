@@ -40,29 +40,20 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public void CloseApplication()
         {
-             CloseApplication();
-            
+            Action lambda = () =>
+            {
+                this.Close();
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
         }
 
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);
         }
-
-       
-        //public FormMain(UC_IdentityList ucIdentityList,UC_ChatList ucChatList,UC_ChatSend ucChatSend,
-        //    UC_Order ucOrder, UC_Search ucSearch,UC_SearchResult ucSearchResult,UC_OrderHistory ucOrderHistory,
-        //    UC_Notice ucNotice)
-        //{
-        //    InitializeComponent();
-        //    pnlNotice.Children.Add(ucNotice);
-        //    pnlCustomerList.Children.Add(ucIdentityList);
-        //    pnlSearch.Children.Add(ucSearch);
-        //    pnlChatList.Children.Add(ucChatList);
-        //    pnlSearchResult.Children.Add(ucSearchResult);
-        //    pnlOrder.Children.Add(ucOrder);
-        //    pnlChatSend.Children.Add(ucChatSend);
-        //    pnlOrderHistory.Children.Add(ucOrderHistory);
-        //}
     }
 }

@@ -24,6 +24,7 @@ namespace Dianzhu.Api.Model
         public string url { get; set; }
         public string vintage { get; set; }
         public string headCount { get; set; }
+        public string appraise { get; set; }
         public RespDataSTORE_storeObj Adapt(Business business)
         {
             //if (business.Owner.Id != Guid.Empty)
@@ -78,6 +79,12 @@ namespace Dianzhu.Api.Model
             {
                 this.showImgUrls = "";
             }
+
+            this.identity = string.Empty;
+            this.url = string.Empty;
+            this.vintage = string.Empty;
+            this.headCount = string.Empty;
+            this.appraise = "3.5";
 
             return this;
         }
