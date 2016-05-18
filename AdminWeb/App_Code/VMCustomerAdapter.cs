@@ -12,11 +12,11 @@ public class VMCustomerAdapter
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminWeb.VMCustomerAdapter");
     Dianzhu.BLL.DZMembershipProvider bllMember = new Dianzhu.BLL.DZMembershipProvider();
     Dianzhu.BLL.BLLReceptionStatusArchieve bllRSA = new Dianzhu.BLL.BLLReceptionStatusArchieve();
-  //  Dianzhu.BLL.BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
-  public  Dianzhu.BLL.IBLLServiceOrder bllOrder { get; set; }
-    public VMCustomerAdapter()
+    //  Dianzhu.BLL.BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
+    private Dianzhu.BLL.IBLLServiceOrder bllOrder;
+    public VMCustomerAdapter(IBLLServiceOrder bllOrder)
     {
-       
+        this.bllOrder = bllOrder;
         
     }
     string errMsg;

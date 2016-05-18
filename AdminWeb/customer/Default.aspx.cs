@@ -56,9 +56,9 @@ public partial class membership_Default : System.Web.UI.Page
         var cached_list = System.Web.HttpRuntime.Cache[cache_key];
         if (!config.EnableCache || cached_list == null)
         {
-
+            var VMCustomerAdapter = Installer.Container.Resolve<VMCustomerAdapter>();
             IList<DZMembership> list = dzmp.GetAllCustomer(currentPageIndex, pager.PageSize, out totalRecord);
-            vmList = new VMCustomerAdapter().AdaptList(list);
+            vmList = VMCustomerAdapter.AdaptList(list);
             System.Web.HttpRuntime.Cache.Insert(cache_key, vmList);
             System.Web.HttpRuntime.Cache.Insert(cache_key_vmcount, totalRecord);
         }

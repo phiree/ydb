@@ -9,6 +9,8 @@
         // 在应用程序启动时运行的代码
         PHSuit.Logging.Config("Dianzhu.AdminWeb");
         //InitializeWindsor();
+
+       // var container = Installer.Container;
     }
 
     void Application_End(object sender, EventArgs e)
