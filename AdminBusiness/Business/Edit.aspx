@@ -168,6 +168,8 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                        data-toggle="tooltip" data-placement="top" title="请填写店铺负责人姓名"/>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-5">
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">证件类型</div>
                                                             <div class="col-md-8 model-input">
@@ -180,9 +182,6 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                    </div>
-                                                    <div class="col-md-5">
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">证件号码</div>
                                                             <div class="col-md-8 model-input">

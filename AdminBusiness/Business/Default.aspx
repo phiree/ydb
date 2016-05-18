@@ -154,11 +154,11 @@
                     <div class="content-main">
                         <div class="animated fadeInUpSmall" >
                             <div class="empty-biz">
-                                <a id="firstAddBusiness" class="empty-biz-add">点击创建新店铺 <strong>+</strong></a>
                                 <div class="empty-biz-icon"></div>
-                                <p id="firstAddMsg" class="empty-biz-msg hide">
-                                    感谢您的使用一点办，为了给您提供更好的服务，建议您进入&nbsp;<a style="text-decoration:underline;" href="/account/security.aspx?businessId=<%=Request["businessid"] %>">帐号安全</a>&nbsp;绑定您的手机号码。
-                                </p>
+                                <a id="firstAddBusiness" class="empty-biz-add">点击创建新店铺 <strong>+</strong></a>
+                                <!--<p id="firstAddMsg" class="empty-biz-msg hide">-->
+                                    <!--感谢您的使用一点办，为了给您提供更好的服务，建议您进入&nbsp;<a style="text-decoration:underline;" href="/account/security.aspx?businessId=<%=Request["businessid"] %>">帐号安全</a>&nbsp;绑定您的手机号码。-->
+                                <!--</p>-->
                             </div>
                         </div>
                     </div>
