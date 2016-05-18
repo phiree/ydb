@@ -54,7 +54,6 @@ $(function () {
 
         var element = $('#menu').find("li").find("a").filter(function () {
             var thisHref = urlFilter(this.href);
-            console.log(thisHref)
             return thisHref == localUrl || localUrl.indexOf(thisHref) == 0;
         });
 
