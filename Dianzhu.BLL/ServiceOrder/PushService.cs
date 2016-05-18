@@ -55,7 +55,7 @@ namespace Dianzhu.BLL
             if (l.Count > 0)
             {
                 ServiceOrderPushedService s = l.Single(x => x.OriginalService == selectedService);
-                order.AddDetailFromIntelService(s.OriginalService, 1, s.TargetAddress, s.TargetTime);
+                order.AddDetailFromIntelService(s.OriginalService, s.UnitAmount, s.TargetAddress, s.TargetTime);
 
                 order.CreatedFromDraft();
 
