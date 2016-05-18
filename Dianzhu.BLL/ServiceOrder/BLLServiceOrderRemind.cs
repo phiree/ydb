@@ -32,7 +32,7 @@ namespace Dianzhu.BLL
 
         public IList<ServiceOrderRemind> GetListByUserIdAndDatetime(Guid userId, DateTime startTime, DateTime endTime)
         {
-            IList<ServiceOrderRemind> remindList = null;
+            IList<ServiceOrderRemind> remindList = new List<ServiceOrderRemind>();
 
             if (startTime < endTime)
             {
