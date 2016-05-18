@@ -28,17 +28,4 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.DepositAmount);
         }
     }
-
-    public class ServiceOrderAppraiseMap: ClassMap<ServiceOrderAppraise>
-    {
-        public ServiceOrderAppraiseMap()
-        {
-            Id(x => x.Id);
-            Map(x => x.CreateTime);
-            References<DZMembership>(x => x.Order);
-            References<DZMembership>(x => x.Member);
-            Map(x => x.Value);
-            Map(x => x.Content);
-        }
-    }
 }
