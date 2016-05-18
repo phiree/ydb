@@ -106,6 +106,7 @@
     <Compile Include="Mapping\RefundLogMap.cs" />
     <Compile Include="Mapping\RefundMap.cs" />
     <Compile Include="Mapping\ServiceOrderRemindMap.cs" />
+    <Compile Include="Mapping\ServiceOrder\ServiceOrderAppraiseMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderPushedServiceMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderDetailMap.cs" />
     <Compile Include="Mapping\StaffServiceTypeMap.cs" />
