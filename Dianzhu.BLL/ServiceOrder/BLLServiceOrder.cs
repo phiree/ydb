@@ -178,9 +178,18 @@ namespace Dianzhu.BLL
         /// 商户已经提交新价格，等待用户确认
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_CustomConfirmNegotiate(ServiceOrder order)
+        public void OrderFlow_CustomerConfirmNegotiate(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.Assigned);
+        }
+        /// <summary>
+        /// 用户不同意协商价格
+        /// </summary>
+        /// <param name="order"></param>
+        public void OrderFlow_CustomerDisagreeNegotiate(ServiceOrder order)
+        {
+            order.NegotiateAmount = order.OrderAmount;
+            ChangeStatus(order, enum_OrderStatus.Negotiate);
         }
         /// <summary>
         /// 用户确认协商价格,并确定开始服务

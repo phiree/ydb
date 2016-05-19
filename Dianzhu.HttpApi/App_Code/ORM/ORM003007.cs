@@ -91,8 +91,11 @@ public class ResponseORM003007 : BaseResponse
                             case enum_OrderStatus.checkPayWithDeposit:
                                 bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
                                 break;
+                            case enum_OrderStatus.Negotiate:
+                                bllServiceOrder.OrderFlow_CustomerDisagreeNegotiate(order);
+                                break;
                             case enum_OrderStatus.Assigned:
-                                bllServiceOrder.OrderFlow_CustomConfirmNegotiate(order);
+                                bllServiceOrder.OrderFlow_CustomerConfirmNegotiate(order);
                                 break;
                             case enum_OrderStatus.Canceled:
                                 //bllServiceOrder.OrderFlow_Canceled(order);
