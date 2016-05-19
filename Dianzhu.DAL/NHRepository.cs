@@ -71,7 +71,7 @@ namespace Dianzhu.DAL
             {
                 var query = Session.Query<TEntity>().Where(where);
                 totalRecords = query.Count();
-                result= query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToFuture();
+                result= query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
                 tr.Commit();
             }
             return result;

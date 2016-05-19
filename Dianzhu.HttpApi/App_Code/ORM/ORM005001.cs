@@ -13,8 +13,9 @@ using Dianzhu.Api.Model;
 /// </summary>
 public class ResponseORM005001 : BaseResponse
 {
+    IBLLServiceOrder bllServiceOrder = Installer.Container.Resolve<IBLLServiceOrder>();
     public ResponseORM005001(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+   
     protected override void BuildRespData()
     {
         ReqDataORM005001 requestData = this.request.ReqData.ToObject<ReqDataORM005001>();
@@ -24,7 +25,7 @@ public class ResponseORM005001 : BaseResponse
 
         BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
 
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+       
         BLLClaims bllClaims = new BLLClaims();
 
 

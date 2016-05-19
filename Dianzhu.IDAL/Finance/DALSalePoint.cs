@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Dianzhu.IDAL.Finance
 {
-    public interface IDALServiceTypePoint
+    public interface IDALServiceTypePoint:IRepository<Dianzhu.Model.Finance.ServiceTypePoint,Guid>
     {
-         Model.Finance.ServiceTypePoint GetOne(Model.ServiceType serviceType);
+        
         
     }
 }

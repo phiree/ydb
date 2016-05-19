@@ -27,7 +27,7 @@ namespace Dianzhu.BLL
 
         #region 基本操作
 
-
+   
          int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType);
         IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize);
 
@@ -212,8 +212,8 @@ namespace Dianzhu.BLL
         void AssignStaff(ServiceOrder order, Staff staff);
         void DeassignStaff(ServiceOrder order, Staff staff);
         #endregion
- 
 
+        enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order, enum_OrderStatus status);
         int GetServiceOrderCountWithoutDraft(Guid userid, bool isCustomerService);
         decimal GetServiceOrderAmountWithoutDraft(Guid userid, bool isCustomerService);
 

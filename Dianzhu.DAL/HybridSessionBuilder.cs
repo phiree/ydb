@@ -27,11 +27,11 @@ namespace Dianzhu.DAL
         
         public ISession GetSession()
         {
-            ISessionFactory factory = getSessionFactory();
-                if (!CurrentSessionContext.HasBind(factory))
-            {
-                CurrentSessionContext.Bind(factory.OpenSession());
-            }
+             ISessionFactory factory = getSessionFactory();
+            //    if (!CurrentSessionContext.HasBind(factory))
+            //{
+            //    CurrentSessionContext.Bind(factory.OpenSession());
+            //}
             ISession session = 
                 //factory.GetCurrentSession(); 
                 getExistingOrNewSession(factory);
@@ -75,7 +75,7 @@ namespace Dianzhu.DAL
                           )
                         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
                        .ExposeConfiguration(BuildSchema)
-                       .CurrentSessionContext<ThreadStaticSessionContext>()
+                     //  .CurrentSessionContext<ThreadStaticSessionContext>()
                         .BuildSessionFactory();
                         HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
                      

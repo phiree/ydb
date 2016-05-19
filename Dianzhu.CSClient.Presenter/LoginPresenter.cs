@@ -17,7 +17,8 @@ namespace Dianzhu.CSClient.Presenter
         BLLAdvertisement bllAdv;
         IBLLServiceOrder bllServiceOrder;
         public LoginPresenter(IView.ILoginForm loginView, InstantMessage instantMessage, BLLAdvertisement bllAdv,
-            IBLLServiceOrder bllServiceOrder,Dianzhu.IDAL.IUnitOfWork iuow
+            IBLLServiceOrder bllServiceOrder
+            //,Dianzhu.IDAL.IUnitOfWork iuow
  )
         {
             this.bllServiceOrder = bllServiceOrder;
@@ -30,7 +31,7 @@ namespace Dianzhu.CSClient.Presenter
             instantMessage.IMConnectionError += new IMConnectionError(instantMessage_IMConenctionError);
             instantMessage.IMLogined += new IMLogined(IMLogined);
             instantMessage.IMAuthError += new IMAuthError(XMPP_IMAuthError);
-            this.iuow= iuow;
+           // this.iuow= iuow;
         }
 
         private void LoginView_TestClick(object sender, EventArgs e)

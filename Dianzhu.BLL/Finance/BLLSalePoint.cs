@@ -17,11 +17,11 @@ namespace Dianzhu.BLL.Finance
         }
         public void Add(Model.Finance.ServiceTypePoint serviceTypePoint)
         {
-            dalServiceTypePoint.SaveOrUpdate(serviceTypePoint);
+            dalServiceTypePoint.Add(serviceTypePoint);
         }
         public decimal GetPoint(Model.ServiceType serviceType)
         {
-             var serviceTypePoint= dalServiceTypePoint.GetOne(serviceType);
+             var serviceTypePoint= dalServiceTypePoint.GetOneByServiceType(serviceType);
             if (serviceTypePoint == null)
             {
                 if (serviceType.Parent != null)

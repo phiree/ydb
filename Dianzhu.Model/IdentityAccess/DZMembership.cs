@@ -11,7 +11,7 @@ namespace Dianzhu.Model
     /// 基本的用户类.
     /// </summary>
   
-    public class DZMembership
+    public class DZMembership:DDDCommon.Domain.Entity<Guid>
     {
         public DZMembership()
         {

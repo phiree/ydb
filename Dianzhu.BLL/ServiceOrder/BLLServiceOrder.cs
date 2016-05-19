@@ -29,21 +29,24 @@ namespace Dianzhu.BLL
        
         DZMembershipProvider membershipProvider = null;
         BLLPayment bllPayment = null;
-        BLLRefund bllRefund = null;
+       
+        IDALRefund dalRefund;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
        
         public BLLServiceOrder(  BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, 
             DZMembershipProvider membershipProvider,
-            BLLPayment bllPayment,BLLRefund bllRefund,
+            BLLPayment bllPayment, 
+            IDALRefund dalRefund,
             IDALServiceOrder repoServiceOrder 
+            
              )
         {
             this.repoServiceOrder = repoServiceOrder;
-             
+            this.dalRefund = dalRefund;
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
             this.membershipProvider = membershipProvider;
             this.bllPayment = bllPayment;
-            this.bllRefund = bllRefund;
+           
             
         }
 
@@ -574,7 +577,7 @@ namespace Dianzhu.BLL
                                     {
                                         log.Debug("支付宝退款开始");
                                         Refund refundAliApp = new Refund(payment.Order, payment, payment.Amount, payment.Amount, "取消订单退还支付宝订金", payment.PlatformTradeNo, enum_RefundStatus.Fail, string.Empty);
-                                        bllRefund.Save(refundAliApp);
+                                        dalRefund.Add(refundAliApp);
 
                                         string refund_no = DateTime.Now.ToString("yyyyMMdd") + refundAliApp.Id.ToString().Substring(0, 10);
 
@@ -618,7 +621,7 @@ namespace Dianzhu.BLL
 
                                             log.Debug("更新支付宝退款记录");
                                             refundAliApp.RefundStatus = enum_RefundStatus.Success;
-                                            bllRefund.Update(refundAliApp);
+                                            dalRefund.Update(refundAliApp);
 
                                             isCanceled = true;
                                         }
@@ -640,7 +643,7 @@ namespace Dianzhu.BLL
                                     {
                                         log.Debug("微信退款开始");
                                         Refund refundWeChat = new Refund(payment.Order, payment, payment.Amount, payment.Amount, "取消订单退还微支付订金", payment.PlatformTradeNo, enum_RefundStatus.Fail, string.Empty);
-                                        bllRefund.Save(refundWeChat);
+                                        dalRefund.Add(refundWeChat);
 
                                         //string refundNo = refundWeChat.Id.ToString().Replace("-", "");
 
@@ -696,7 +699,7 @@ namespace Dianzhu.BLL
 
                                                 log.Debug("更新微信退款记录");
                                                 refundWeChat.RefundStatus = enum_RefundStatus.Success;
-                                                bllRefund.Update(refundWeChat);
+                                                dalRefund.Update(refundWeChat);
 
                                                 isCanceled = true;
                                             }
