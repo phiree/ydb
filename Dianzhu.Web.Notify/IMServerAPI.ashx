@@ -7,6 +7,8 @@ using Dianzhu.Model;
 public class IMServerAPI : IHttpHandler {
 
     log4net.ILog log = log4net.LogManager.GetLogger("debug");
+           IBLLServiceOrder bllOrder =Dianzhu.DependencyInstaller.Installer.Container.Resolve<IBLLServiceOrder>();
+                  
     public void ProcessRequest(HttpContext context)
     {
         string type = context.Request["type"];
@@ -26,8 +28,7 @@ public class IMServerAPI : IHttpHandler {
                 bool isGuid = Guid.TryParse(strOrderId, out orderId);
                 if (isGuid)
                 {
-                    BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
-                    ServiceOrder order = bllOrder.GetOne(orderId);
+                   ServiceOrder order = bllOrder.GetOne(orderId);
                     imNotify.SendOrderChangedNotify(order);
                 }
                 else

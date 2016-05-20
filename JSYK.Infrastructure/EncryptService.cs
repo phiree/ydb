@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
-using System.Configuration;
+using System.Threading.Tasks;
+using Dianzhu.BLL;
 using System.Security.Cryptography;
-namespace PHSuit
-{
-    public class Security
-    {
-        const string SecretKey = "1qaz2wsx3edc4rfv";
 
-        public static string Encrypt(string toEncrypt, bool useHashing)
+namespace JSYK.Infrastructure
+{
+    public class EncryptService : IEncryptService
+    {
+      
+        const string SecretKey = "1qaz2wsx3edc4rfv";
+        const bool useHashing = false;
+        public   string Encrypt(string toEncrypt)
         {
             byte[] keyArray;
             byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
 
-            System.Configuration.AppSettingsReader settingsReader =
-                                                new AppSettingsReader();
-            // Get the key from config file
-
+            
             string key = SecretKey;
             //System.Windows.Forms.MessageBox.Show(key);
             //If hashing use get hashcode regards to your key
@@ -55,15 +54,14 @@ namespace PHSuit
             //Return the encrypted data into unreadable string format
             return Convert.ToBase64String(resultArray, 0, resultArray.Length);
         }
-        public static string Decrypt(string cipherString, bool useHashing)
+        public   string Decrypt(string cipherString)
         {
             byte[] keyArray;
             //get the byte code of the string
 
             byte[] toEncryptArray = Convert.FromBase64String(cipherString);
 
-            System.Configuration.AppSettingsReader settingsReader =
-                                                new AppSettingsReader();
+            
             //Get your key from config file to open the lock!
             string key = SecretKey;
 
@@ -120,7 +118,7 @@ namespace PHSuit
                 }
 
                 // Return the hexadecimal string.
-                result= sBuilder.ToString();
+                result = sBuilder.ToString();
             }
             return result;
 

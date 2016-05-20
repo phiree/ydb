@@ -20,7 +20,7 @@ namespace Dianzhu.IDAL
         /// <param name="userNames"></param>
         /// <returns></returns>
           IList<Model.DZMembership> GetList(string[] userNames);
-          Model.DZMembership ValidateUser(string username, string password);
+          Model.DZMembership ValidateUser(string username, string encryptedPassword);
 
 
           Model.DZMembership GetMemberByName(string username);
@@ -38,11 +38,12 @@ namespace Dianzhu.IDAL
 
         
           IList<Model.DZMembership> GetAllUsers(int pageIndex, int pageSize, out long totalRecord);
+        IList<Model.DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecord);
 
-        
 
 
-      IList<Model.DZMembership> GetAll();
+
+        IList<Model.DZMembership> GetAll();
           Model.BusinessUser CreateBusinessUser(string username, string password, Model.Business business);
         
         

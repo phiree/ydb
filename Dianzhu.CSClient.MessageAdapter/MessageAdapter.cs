@@ -11,24 +11,29 @@ namespace Dianzhu.CSClient.MessageAdapter
     /// <summary>
     /// Convert between IM message and ReceptionChat
     /// todo:需要区分 聊天记录, 和 系统消息.
+    /// ddd:DomainService
     /// </summary>
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
-        IBLLServiceOrder bllOrder;
-        public MessageAdapter(IBLLServiceOrder bllOrder)
+       // IBLLServiceOrder bllOrder;
+        IDAL.IDALServiceOrder dalOrder;
+        IDAL.IDALMembership dalMembership;
+        public MessageAdapter(IBLLServiceOrder bllOrder,IDAL.IDALServiceOrder dalOrder,IDAL.IDALMembership dalMembership)
         {
-            this.bllOrder = bllOrder;
+           // this.bllOrder = bllOrder;
+            this.dalOrder = dalOrder;
+            this.dalMembership = dalMembership;
         }
         static DZMembershipProvider bllMember;
-        DZMembershipProvider BllMember
-        {
-            get
-            {
-                if (bllMember == null) bllMember = new DZMembershipProvider();
-                return bllMember;
-            }
+        //DZMembershipProvider BllMember
+        //{
+        //    get
+        //    {
+        //        if (bllMember == null) bllMember = new DZMembershipProvider();
+        //        return bllMember;
+        //    }
 
-        }
+        //}
         static BLLDZService bllDZService;
         BLLDZService BllDZService
         {
@@ -124,7 +129,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                 ilog.Error("发送用户的id有误，发送用户id为：" + message.From.User + "发送用户资源名为：" + message.From.Resource);
                 throw new Exception("发送用户的id有误");
             }
-            var chatFrom = BllMember.GetUserById(fromUser);
+            var chatFrom = dalMembership.FindById(fromUser);
             chat.From = chatFrom;
             chat.FromResource = enum_XmppResource.Unknow;
             try
@@ -137,7 +142,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             }
             if (!isNotice)
             {
-                var chatTo = BllMember.GetUserById(new Guid(message.To.User));
+                var chatTo = dalMembership.FindById(new Guid(message.To.User));
                 chat.To = chatTo;
                 if (message.To.Resource != null)
                 {
@@ -171,7 +176,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     if (isValidGuid)
                     {
-                        var existedServiceOrder = bllOrder.GetOne(order_ID);
+                        var existedServiceOrder = dalOrder.FindById(order_ID);
                         if (existedServiceOrder != null)
                         {
                             chat.ServiceOrder = existedServiceOrder;
@@ -199,7 +204,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     var userStatusNode = ext_element.SelectSingleElement("msgObj");
                     var userId = userStatusNode.GetAttribute("userId");
                     var status = userStatusNode.GetAttribute("status");
-                    ((ReceptionChatUserStatus)chat).User = BllMember.GetUserById(new Guid(userId));
+                    ((ReceptionChatUserStatus)chat).User = dalMembership.FindById(new Guid(userId));
                     ((ReceptionChatUserStatus)chat).Status = (enum_UserStatus)Enum.Parse(typeof(enum_UserStatus), status, true); ;
                 }
             }

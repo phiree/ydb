@@ -21,6 +21,7 @@ public partial class RefundCallBackHandler : System.Web.UI.Page
 
 
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
+    BLLRefund bllRefund = Dianzhu
     string errMsg;
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -68,7 +69,7 @@ public partial class RefundCallBackHandler : System.Web.UI.Page
         try
         {
             //BLLPay bllPay = new BLLPay();
-            BLLRefund bllRefund = new BLLRefund();
+           
 
             object parameters = null;
             log.Debug("回调参数:");

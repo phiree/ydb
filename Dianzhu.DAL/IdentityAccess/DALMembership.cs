@@ -45,6 +45,7 @@ namespace Dianzhu.DAL
         {
             //IQuery query =   Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
             // Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
+            
             var member = FindOne(x => x.UserName == username && x.Password == password);
             return member;
         }
@@ -102,9 +103,14 @@ namespace Dianzhu.DAL
             var result = Find(where, pageIndex, pageSize, out totalRecord).ToList();
             return result;
         }
-  
+        public IList<DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecords)
+        {
+            Expression<Func<Model.DZMembership, bool>> where = i => i.UserType== enum_UserType.customer;
+            var result = Find(where, pageIndex, pageSize, out totalRecords).ToList();
+            return result;
+        }
 
-      
+
         public IList<Model.DZMembership> GetAll()
         {
             return Find(x => true).ToList();

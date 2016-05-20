@@ -64,11 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
- 
     <Compile Include="AddressParser.cs" />
- 
     <Compile Include="BLLClaims.cs" />
- 
     <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLArea.cs" />
     <Compile Include="BLLBusiness.cs" />
@@ -82,6 +79,10 @@
     <Compile Include="BLLIMUserStatus.cs" />
     <Compile Include="BLLPay.cs" />
     <Compile Include="BLLBusinessImage.cs" />
+    <Compile Include="IEmailService.cs" />
+    <Compile Include="IEncryptService.cs" />
+    <Compile Include="IdentityAccess\ILoginService.cs" />
+    <Compile Include="IdentityAccess\LoginDto.cs" />
     <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Finance\BLLSalePoint.cs" />
     <Compile Include="IdentityAccess\RoleDto.cs" />

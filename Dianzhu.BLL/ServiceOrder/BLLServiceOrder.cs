@@ -27,14 +27,16 @@ namespace Dianzhu.BLL
 
         IDALServiceOrder repoServiceOrder;
        
-        DZMembershipProvider membershipProvider = null;
+      //  DZMembershipProvider membershipProvider = null;
+        IDALMembership dalMembership;
         BLLPayment bllPayment = null;
        
         IDALRefund dalRefund;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
        
         public BLLServiceOrder(  BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, 
-            DZMembershipProvider membershipProvider,
+          //  DZMembershipProvider membershipProvider,
+            IDALMembership dalMembership,
             BLLPayment bllPayment, 
             IDALRefund dalRefund,
             IDALServiceOrder repoServiceOrder 
@@ -44,8 +46,9 @@ namespace Dianzhu.BLL
             this.repoServiceOrder = repoServiceOrder;
             this.dalRefund = dalRefund;
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
-            this.membershipProvider = membershipProvider;
+           // this.membershipProvider = membershipProvider;
             this.bllPayment = bllPayment;
+            this.dalMembership = dalMembership;
            
             
         }
@@ -300,7 +303,8 @@ namespace Dianzhu.BLL
         /// 商户已经提交新价格，等待用户确认
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_CustomerConfirmNegotiate(ServiceOrder order)
+        
+        public void OrderFlow_CustomConfirmNegotiate(ServiceOrder order)
         {
             ChangeStatus(order, enum_OrderStatus.Assigned);
         }
@@ -858,6 +862,8 @@ namespace Dianzhu.BLL
 
            // return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);
         }
+
+       
         //查询订单的总金额
         //查询订单的曝光率.
     }

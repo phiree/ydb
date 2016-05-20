@@ -6,21 +6,33 @@ using Dianzhu.CSClient.IInstantMessage;
 
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Dianzhu.BLL.IdentityAccess;
 namespace Dianzhu.CSClient.Presenter
 {
+    /// <summary>
+    /// ddd:  在应用程序中暴露领域是个严重错误..应该通过 ApplicationService接口和 Dto与之沟通.
+    /// 
+    /// </summary>
     public class LoginPresenter
     {
 
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.LoginPresenter");
         IView.ILoginForm loginView;
         InstantMessage instantMessage;
         Dianzhu.IDAL.IUnitOfWork iuow;
         BLLAdvertisement bllAdv;
         IBLLServiceOrder bllServiceOrder;
+        IEncryptService encryptService;
+        IDAL.IDALMembership dalMembership;
         public LoginPresenter(IView.ILoginForm loginView, InstantMessage instantMessage, BLLAdvertisement bllAdv,
-            IBLLServiceOrder bllServiceOrder
+            IBLLServiceOrder bllServiceOrder,IDAL.IDALMembership dalMembership 
+            ,IEncryptService encryptService
             //,Dianzhu.IDAL.IUnitOfWork iuow
  )
         {
+            this.encryptService = encryptService;
+            this.dalMembership = dalMembership;
+           // this.loginService = loginService;
             this.bllServiceOrder = bllServiceOrder;
             this.loginView = loginView;
             this.instantMessage = instantMessage;
@@ -63,18 +75,17 @@ namespace Dianzhu.CSClient.Presenter
             loginView.LoginButtonText = "正在登录,请稍后";
             loginView.LoginButtonEnabled = false;
             loginView.LoginMessage = string.Empty;
-            BLLFactory bllFactory = new BLLFactory();
-            DZMembershipProvider bllmember = bllFactory.BLLMember;
-
-            DZMembership member = bllmember.GetUserByName(loginView.UserName);
-            if (member == null)
+            string encryptPassword = encryptService.GetMD5Hash(loginView.Password);
+              var member=dalMembership.ValidateUser(loginView.UserName, encryptPassword);
+            //DZMembership member = dalme.GetUserByName(loginView.UserName);
+            if (member != null)
             {
-                XMPP_IMAuthError();
+                instantMessage.OpenConnection(member.Id.ToString()
+                      , loginView.Password);
             }
             else
             {
-                instantMessage.OpenConnection(member.Id.ToString()
-                    , loginView.Password);
+                XMPP_IMAuthError();
             }
 
         }
@@ -121,12 +132,16 @@ namespace Dianzhu.CSClient.Presenter
         void IMLogined(string jidUser)
         {
 
-            DZMembership customerService = new BLLFactory().BLLMember.GetUserById(new Guid(jidUser));
+            DZMembership customerService = dalMembership.FindById(new Guid(jidUser));
             //GlobalViables.CurrentCustomerService = customerService;
             GlobalViables.CurrentCustomerService = customerService;
 
             Guid id = new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
-            DZMembership diandian = new BLLFactory().BLLMember.GetUserById(id);
+            DZMembership diandian = dalMembership.FindById(id);
+            if (diandian == null)
+            {
+                log.Error("点点获取失败");
+            }
             GlobalViables.Diandian = diandian;
             loginView.IsLoginSuccess = true;
         }
