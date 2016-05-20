@@ -7,14 +7,14 @@ using Dianzhu.Model;
 public class IMServerAPI : IHttpHandler {
 
     log4net.ILog log = log4net.LogManager.GetLogger("debug");
-           IBLLServiceOrder bllOrder =Dianzhu.DependencyInstaller.Installer.Container.Resolve<IBLLServiceOrder>();
-                  
+    IBLLServiceOrder bllOrder =Dianzhu.DependencyInstaller.Installer.Container.Resolve<IBLLServiceOrder>();
+
     public void ProcessRequest(HttpContext context)
     {
         string type = context.Request["type"];
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
         = (Dianzhu.CSClient.IInstantMessage.InstantMessage)context.Application["im"];
-        Dianzhu.NotifyCenter.IMNotify imNotify = new Dianzhu.NotifyCenter.IMNotify(im);
+        Dianzhu.NotifyCenter.IMNotify imNotify = Installer.Container.Resolve<Dianzhu.NotifyCenter.IMNotify>();
         switch (type.ToLower())
         {
             case "systemnotice":
@@ -28,7 +28,7 @@ public class IMServerAPI : IHttpHandler {
                 bool isGuid = Guid.TryParse(strOrderId, out orderId);
                 if (isGuid)
                 {
-                   ServiceOrder order = bllOrder.GetOne(orderId);
+                    ServiceOrder order = bllOrder.GetOne(orderId);
                     imNotify.SendOrderChangedNotify(order);
                 }
                 else

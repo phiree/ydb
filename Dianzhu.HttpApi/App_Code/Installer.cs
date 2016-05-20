@@ -27,8 +27,9 @@ public class Installer
     {
 
         container = Dianzhu.DependencyInstaller.Installer.Container;
+        //ResponseORM002001
+        container.Register(Component.For<ResponseORM002001>());
 
-         
 
     }
 
