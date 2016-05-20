@@ -19,6 +19,7 @@ namespace Dianzhu.IM.Test
             InitializeComponent();
        
             conn = new a.XmppClientConnection();
+            conn.Resource = "YDBan_User";
             conn.OnLogin += Conn_OnLogin;
             conn.OnError += Conn_OnError;
             conn.OnAuthError += Conn_OnAuthError;

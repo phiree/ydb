@@ -125,7 +125,7 @@ namespace Dianzhu.CSClient.Presenter
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,1,viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount,viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
             }
             bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
 
@@ -185,7 +185,7 @@ namespace Dianzhu.CSClient.Presenter
                 
                 return;
             }
-            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, 1, "实施服务的地点", DateTime.Now);
+            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, viewSearch.UnitAmount, "实施服务的地点", DateTime.Now);
             viewOrder.Order = IdentityManager.CurrentIdentity;
             bllServiceOrder.Update(IdentityManager.CurrentIdentity);
 

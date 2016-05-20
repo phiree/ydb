@@ -89,12 +89,8 @@ public class ResponseRMM001006 : BaseResponse
 
                 IList<RespDataRMM_remindObj> objList = new List<RespDataRMM_remindObj>();
                 RespDataRMM001006 respData = new RespDataRMM001006();
+                respData.AdaptList(remindList);
 
-                if (remindList.Count > 0)
-                {
-                    respData.AdaptList(remindList);
-                }
-                
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;
             }
