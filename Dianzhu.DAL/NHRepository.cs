@@ -58,15 +58,15 @@ namespace Dianzhu.DAL
             
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where)
+        public IList<TEntity> Find(Expression<Func<TEntity, bool>> where)
         {
             long totalRecord;
             return Find(where, 1, 999, out totalRecord);
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords)
+        public IList<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords)
         {
-            IEnumerable<TEntity> result;
+            IList<TEntity> result;
             using (var tr = Session.BeginTransaction())
             {
                 var query = Session.Query<TEntity>().Where(where);

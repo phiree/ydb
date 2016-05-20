@@ -25,7 +25,7 @@ public class ResponseORM002003 : BaseResponse
         ReqDataORM002003 requestData = this.request.ReqData.ToObject<ReqDataORM002003>();
 
  
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
         BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
       
         BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();

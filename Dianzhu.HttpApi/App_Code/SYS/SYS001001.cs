@@ -26,8 +26,9 @@ public class ResponseSYS001001:BaseResponse
         ReqDataSYS001001 requestData = this.request.ReqData.ToObject<ReqDataSYS001001>();
 
         bllReceptionChatDD = new BLLReceptionChatDD();
-        bllMember = new DZMembershipProvider();
-      
+        bllMember = Installer.Container.Resolve<DZMembershipProvider>();
+
+
         try
         {
             ReceptionChat chat = reqDataToChat(requestData);

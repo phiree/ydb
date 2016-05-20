@@ -863,7 +863,12 @@ namespace Dianzhu.BLL
            // return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);
         }
 
-       
+        public void OrderFlow_CustomDisagreeNegotiate(ServiceOrder order)
+        {
+            throw new NotImplementedException();
+        }
+
+
         //查询订单的总金额
         //查询订单的曝光率.
     }

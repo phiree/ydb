@@ -9,7 +9,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 店铺基类.泛指可以提供服务的单位,可以是公司 也可以是个人
     /// </summary>
-    public class Business_Abs
+    public class Business_Abs:DDDCommon.Domain.Entity<Guid>
     {
         public Business_Abs()
         {

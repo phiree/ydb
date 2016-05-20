@@ -28,7 +28,8 @@ public class ResponseU3RD014008:BaseResponse
     {
         ReqDataU3RD014008 requestData = this.request.ReqData.ToObject<ReqDataU3RD014008>();
 
-        bllMember = new DZMembershipProvider();
+        bllMember = Installer.Container.Resolve<DZMembershipProvider>();
+
 
         try
         {

@@ -45,7 +45,8 @@ namespace Dianzhu.DAL
         {
             //IQuery query =   Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
             // Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
-            
+
+            var test = FindOne(x => ((DZMembershipQQ)x).OpenId == "4298A4AF0296BB6DE817D54DBE7FD20F");
             var member = FindOne(x => x.UserName == username && x.Password == password);
             return member;
         }

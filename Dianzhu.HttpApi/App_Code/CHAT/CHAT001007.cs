@@ -21,7 +21,7 @@ public class ResponseCHAT001007:BaseResponse
     protected override void BuildRespData()
     {
         ReqDataCHAT001007 requestData = this.request.ReqData.ToObject<ReqDataCHAT001007>();
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
         string raw_id = requestData.userID;
         DZMembership member;
         if (request.NeedAuthenticate)

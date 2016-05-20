@@ -18,6 +18,10 @@ using Newtonsoft.Json;
 public class ResponseSTORE001003 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
+    DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+    BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
+    BLLBusinessImage bllBusinessImage = Installer.Container.Resolve<BLLBusinessImage>();
+    BLLArea bllArea = Installer.Container.Resolve<BLLArea>();
 
     public ResponseSTORE001003(BaseRequest request) : base(request) { }
     protected override void BuildRespData()
@@ -25,12 +29,7 @@ public class ResponseSTORE001003 : BaseResponse
         ReqDataSTORE001003 requestData = this.request.ReqData.ToObject<ReqDataSTORE001003>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLBusiness bllBusiness = new BLLBusiness();
-        BLLArea bllArea = Installer.Container.Resolve<BLLArea>();
-       
-        BLLBusinessImage bllBusinessImage = new BLLBusinessImage();
-
+    
         try
         {
             string raw_id = requestData.merchantID;
@@ -171,7 +170,7 @@ public class ResponseSTORE001003 : BaseResponse
                 }
 
                 //bllStaff.Update(staff);
-                bllBusiness.Updte(store);
+                bllBusiness.Update(store);
 
                 RespDataSTORE001003 respData = new RespDataSTORE001003(storeID.ToString());
                 this.state_CODE = Dicts.StateCode[0];

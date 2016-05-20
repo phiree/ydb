@@ -27,8 +27,8 @@ namespace Dianzhu.BLL
 
         #region 基本操作
 
-   
-         int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType);
+  
+        int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType);
         IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize);
 
           ServiceOrder GetOne(Guid guid);
@@ -79,6 +79,7 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="order"></param>
         void OrderFlow_CustomConfirmNegotiate(ServiceOrder order);
+        void OrderFlow_CustomDisagreeNegotiate(ServiceOrder order);
         /// <summary>
         /// 用户确认协商价格,并确定开始服务
         /// </summary>

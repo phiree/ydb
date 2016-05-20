@@ -23,9 +23,9 @@ public class ResponseSTORE002003 : BaseResponse
         ReqDataSTORE002003 requestData = this.request.ReqData.ToObject<ReqDataSTORE002003>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLBusiness bllBusiness = new BLLBusiness();
-        BLLBusinessImage bllBusinessImage = new BLLBusinessImage();
+        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+        BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
+        BLLBusinessImage bllBusinessImage = Installer.Container.Resolve<BLLBusinessImage>();
 
         try
         {

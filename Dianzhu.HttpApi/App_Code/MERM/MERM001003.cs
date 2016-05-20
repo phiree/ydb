@@ -17,7 +17,7 @@ public class ResponseMERM001003 : BaseResponse
     {
         ReqDataMERM001003 requestData = this.request.ReqData.ToObject<ReqDataMERM001003>();
 
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
         string raw_id = requestData.userID;
 
         try
@@ -126,7 +126,7 @@ public class ResponseMERM001003 : BaseResponse
         catch (Exception e)
         {
             this.state_CODE = Dicts.StateCode[1];
-            this.err_Msg = e.Message+e.InnerException==null?string.Empty:e.InnerException.Message;
+            PHSuit.ExceptionLoger.ExceptionLog(Log, e);
 
         }
 

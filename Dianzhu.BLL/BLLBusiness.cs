@@ -8,6 +8,8 @@ using Dianzhu.Model;
 using System.Web.Security;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using System.Linq.Expressions;
+
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -15,68 +17,68 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLBusiness
     {
-        public DALBusiness DALBusiness = DALFactory.DALBusiness;
-       
-        public DALMembership dalMembership = DALFactory.DALMembership;
-
+         IDAL.IDALBusiness dalBusiness;
+        IDAL.IDALMembership dalMembership;
+        public BLLBusiness(IDAL.IDALBusiness dalBusiness,
+        IDAL.IDALMembership dalMembership)
+        {
+            this.dalMembership = dalMembership;
+            this.dalBusiness = dalBusiness;
+        }
          
 
         public IList<Business> GetAll()
         {
-            return DALBusiness.GetAll<Business>();
+            return dalBusiness.Find(x => true);
         }
         public Business GetOne(Guid id)
         {
-            return DALBusiness.GetOne(id);
+            return dalBusiness.FindById(id);
         }
-        public void Updte(Business business)
+        public void Update(Business business)
         {
-            DALBusiness.Update(business);
+            dalBusiness.Update(business);
         }
         public void Delete(Business business)
         {
-            DALBusiness.Delete(business);
+            dalBusiness.Delete(business);
         }
-        public void SaveOrUpdate(Business business)
+        public void Add(Business business)
         {
-            DALBusiness.SaveOrUpdate(business);
+            dalBusiness.Add(business);
         }
-        /// <summary>
-        /// 根据条件返回商户列表
-        /// </summary>
-        /// <param name="query">查询语句</param>
-        /// <param name="pageIndex">分页数</param>
-        /// <param name="pageSize">每页数量</param>
-        /// <param name="totalRecords">符合条件的总数</param>
-        /// <returns></returns>
-        public IList<Business> GetList(string query, int pageIndex, int pageSize, out int totalRecords)
-        {
-            return DALBusiness.GetList(query, pageIndex, pageSize, out totalRecords);
-        }
+        
+        
         public IList<Area> GetAreasOfBusiness()
         {
-            return DALBusiness.GetAreasOfBusiness();
+            return dalBusiness.GetDistinctAreasOfBusiness();
         }
         public IList<Business> GetBusinessInSameCity(Area area)
         {
-            return DALBusiness.GetBusinessInSameCity(area);
+            return dalBusiness.GetBusinessInSameCity(area);
         }
         public void SaveList(IList<Business> businesses)
         {
-            DALBusiness.SaveList(businesses);
+            dalBusiness.SaveList(businesses);
         }
         public Business GetBusinessByPhone(string phone)
         {
-            return DALBusiness.GetBusinessByPhone(phone);
+            return dalBusiness.FindOne(x => x.Phone == phone);
         }
         public Business GetBusinessByEmail(string email)
         {
-            return DALBusiness.GetBusinessByEmail(email);
+            return dalBusiness.FindOne(x => x.Email == email);
         }
 
         public int GetEnableSum(DZMembership member)
         {
-            return DALBusiness.GetEnableSum(member);
+           // return DALBusiness.GetEnableSum(member);
+            // x.Owner == member).And(x => x.Enabled == true)
+            Expression<Func<Model.Business, bool>> sameOwner = i => i.Owner.Id ==member.Id;
+            Expression<Func<Model.Business, bool>> isEnabled = i => i.Enabled;
+
+            int result=(int) dalBusiness.GetRowCount(DDDCommon.SpecExprExtensions.And(sameOwner,isEnabled) );
+            return result;
         }
 
         /// <summary>
@@ -84,23 +86,17 @@ namespace Dianzhu.BLL
         /// </summary>
         public IList<Business> GetBusinessListByOwner(Guid memberId)
         {
-            return DALBusiness.GetBusinessListByOwner(memberId);
+            return dalBusiness.Find(x => x.Owner.Id == memberId);
+       //     return DALBusiness.GetBusinessListByOwner(memberId);
         }
         //如果图片保存不是通过编辑 Business 对象来完成的(比如 通过ajax mediaserver)
-
-        public void UploadImage()
-        {
-
-        }
-
-        public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
-        {
-            return DALBusiness.GetListByPage(pageIndex, pageSize, out totalRecord);
-        }
+ 
+       
 
         public Business GetBusinessByIdAndOwner(Guid id, Guid ownerId)
         {
-            return DALBusiness.GetBusinessByIdAndOwner(id, ownerId);
+            return dalBusiness.FindOne(x => x.Id == id && x.Owner.Id == ownerId);
+          //  return DALBusiness.GetBusinessByIdAndOwner(id, ownerId);
         }
     }
 

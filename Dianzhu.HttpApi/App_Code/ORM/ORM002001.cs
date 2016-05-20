@@ -23,7 +23,7 @@ public class ResponseORM002001 : BaseResponse
         ReqDataORM002001 requestData = this.request.ReqData.ToObject<ReqDataORM002001>();
 
  
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
         BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
       
         string raw_id = requestData.userID;
