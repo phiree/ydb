@@ -15,9 +15,9 @@ namespace Dianzhu.BLL
         public IDALArea  repoArea;
         private IUnitOfWork iuw;
       
-        public BLLArea(IDALArea repoArea, IUnitOfWork iuw) {
+        public BLLArea(IDALArea repoArea) {
             this.repoArea = repoArea;
-            this.iuw = iuw;
+           // this.iuw = iuw;
         }
  
         /// <summary>

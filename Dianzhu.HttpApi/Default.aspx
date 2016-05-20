@@ -11,7 +11,9 @@
 
     <form id="form1" runat="server">
     <input type="button" value="全部接口" onclick="textall()" />
-        <input type="text" id="tbxProcole" /><button value="测试" onclick="btnTestSpecificProtocal"></button>
+        <br />
+      <label for="tbxProcole">输入协议编号(逗号分隔):</label>  <input type="text" id="tbxProcole" />
+        <button value="测试"  type="button" onclick="btnTestSpecificProtocal()">测试</button>
     <div> 
         <div id="dvResults">
         </div>
@@ -25,9 +27,10 @@
             need_to_test: need_to_test,
             test_all:false,
             begin: function () {
+                this.clearlog();
                 for (var i = 0; i < this.requestArray.length; i++) {
                     var data = this.requestArray[i];
-                    if (!this.test_all && $.inArray(data.protocol_CODE.toLowerCase(), need_to_test)<0)
+                    if (!this.test_all && $.inArray(data.protocol_CODE.toLowerCase(),this.need_to_test)<0)
                     { continue; }
                     var data_str = JSON.stringify(data, null, 4);
                     $.ajax({
@@ -48,18 +51,20 @@
             }, //begin
             writelog: function (msg) {
                 $("#dvResults").append(msg);
-            } //writelog
+            }, //writelog
+            clearlog: function () { $("#dvResults").html("");}
         };  //apitest
 
         apiTest.begin();
         function textall() {
             apiTest.test_all = true;
             apiTest.begin();
-        }
-        function btnTestSpecificProtocal()
-        {
-
-        }
+        };
+        function btnTestSpecificProtocal() {
+            apiTest.test_all = false;
+            apiTest.need_to_test = $("#tbxProcole").val().toLowerCase().split(',');
+            apiTest.begin();
+        };
     </script>
 </body>
 </html>

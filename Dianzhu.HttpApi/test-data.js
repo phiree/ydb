@@ -901,7 +901,7 @@ var test_data = [
                   {
                       "protocol_CODE": "MERM001003",
                       "ReqData": {
-                          "userID": "c0896508-e699-4bd6-8bd4-a53600f72844",
+                          "userID": "19794c46-4274-43f6-b764-a6090131cf6f",
                           "pWord": "a1124653910",
                           "alias": "13666",
                           
