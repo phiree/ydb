@@ -69,6 +69,10 @@
       <Project>{74F0963E-57CA-4D57-899C-D85FF096FE1F}</Project>
       <Name>Dianzhu.CSClient.IMessageAdapter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
+      <Project>{43e8ffa6-60e9-40ca-a7a8-cec8008519dd}</Project>
+      <Name>Dianzhu.IDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>
       <Name>Dianzhu.Model</Name>

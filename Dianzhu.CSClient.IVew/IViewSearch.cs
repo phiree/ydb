@@ -15,6 +15,7 @@ namespace Dianzhu.CSClient.IView
         decimal SearchKeywordPriceMin { get; set; }
         decimal SearchKeywordPriceMax { get; set; }
         string ServiceAddress { get; set; }
+        int UnitAmount { get; set; }
 
         void ClearData();
 

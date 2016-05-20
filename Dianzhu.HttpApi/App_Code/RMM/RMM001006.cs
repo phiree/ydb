@@ -22,7 +22,7 @@ public class ResponseRMM001006 : BaseResponse
         ReqDataRMM001006 requestData = this.request.ReqData.ToObject<ReqDataRMM001006>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
         BLLServiceOrderRemind bllServcieOrderRemind = new BLLServiceOrderRemind();
         string user_id = requestData.userID;
         string start_time = requestData.startTime;
@@ -89,12 +89,8 @@ public class ResponseRMM001006 : BaseResponse
 
                 IList<RespDataRMM_remindObj> objList = new List<RespDataRMM_remindObj>();
                 RespDataRMM001006 respData = new RespDataRMM001006();
+                respData.AdaptList(remindList);
 
-                if (remindList.Count > 0)
-                {
-                    respData.AdaptList(remindList);
-                }
-                
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;
             }

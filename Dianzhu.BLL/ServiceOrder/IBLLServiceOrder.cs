@@ -27,12 +27,12 @@ namespace Dianzhu.BLL
 
         #region 基本操作
 
-
-         int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType);
+  
+        int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType);
         IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize);
 
           ServiceOrder GetOne(Guid guid);
-        void SaveOrUpdate(ServiceOrder order);
+        void Update(ServiceOrder order);
         IList<ServiceOrder> GetAll();
 
         IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status);
@@ -79,6 +79,7 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="order"></param>
         void OrderFlow_CustomConfirmNegotiate(ServiceOrder order);
+        void OrderFlow_CustomDisagreeNegotiate(ServiceOrder order);
         /// <summary>
         /// 用户确认协商价格,并确定开始服务
         /// </summary>
@@ -212,8 +213,8 @@ namespace Dianzhu.BLL
         void AssignStaff(ServiceOrder order, Staff staff);
         void DeassignStaff(ServiceOrder order, Staff staff);
         #endregion
- 
 
+        enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order, enum_OrderStatus status);
         int GetServiceOrderCountWithoutDraft(Guid userid, bool isCustomerService);
         decimal GetServiceOrderAmountWithoutDraft(Guid userid, bool isCustomerService);
 
@@ -223,6 +224,7 @@ namespace Dianzhu.BLL
         IList<ServiceOrder> GetAllCompleteOrdersForBusiness(Guid businessId);
         //查询订单的总金额
         //查询订单的曝光率.
+        void Save(ServiceOrder order);
     }
  
 

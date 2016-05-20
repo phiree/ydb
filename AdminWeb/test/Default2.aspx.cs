@@ -34,7 +34,7 @@ public partial class test_Default : System.Web.UI.Page
         order.CreatedFromDraft();
         order.LatestOrderUpdated = DateTime.Now;
         order.DepositAmount = 0.01m;
-        bllOrder.SaveOrUpdate(order);
+        bllOrder.Save(order);
         bllPayment.ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.Deposit);
         lblCreateOrderResult.Text = "创建成功";
 

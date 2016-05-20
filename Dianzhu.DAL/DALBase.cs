@@ -227,7 +227,7 @@ namespace Dianzhu.DAL
                     IQuery qryCount = session.CreateQuery(queryCount);
                     totalRecords = (int)qryCount.UniqueResult<long>();
                 }
-                returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
+                returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).List<T>();
 
                 t.Commit();
 

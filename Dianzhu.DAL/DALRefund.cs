@@ -7,18 +7,13 @@ using NHibernate.Criterion;
 
 namespace Dianzhu.DAL
 {
-    public class DALRefund : DALBase<Refund>
+    public class DALRefund : NHRepositoryBase<Refund, Guid>, IDAL.IDALRefund
     {
-         public DALRefund()
-        {
-             
-        }
-        //注入依赖,供测试使用;
-         public DALRefund(string fortest):base(fortest)
-        {
-            
-        }
+         
 
-
+        public Refund GetRefundByPlatformTradeNo(string platformTradeNo)
+        {
+            return FindOne( x => x.PlatformTradeNo == platformTradeNo);
+        }
     }
 }

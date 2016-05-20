@@ -16,15 +16,18 @@ using Dianzhu.Api.Model;
 public class ResponseORM002003 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
-    public ResponseORM002003(BaseRequest request) : base(request) { }
+    IBLLServiceOrder bllOrder = Installer.Container.Resolve<IBLLServiceOrder>();
+    public ResponseORM002003(BaseRequest request) : base(request) {
+         
+    }
     protected override void BuildRespData()
     {
         ReqDataORM002003 requestData = this.request.ReqData.ToObject<ReqDataORM002003>();
 
  
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
         BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-        BLLServiceOrder bllOrder = new BLLServiceOrder();
+      
         BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
         string raw_id = requestData.userID;
         string reqOrderId = requestData.orderID;

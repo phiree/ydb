@@ -8,7 +8,7 @@ using System;
 using Dianzhu.DAL;
 using Dianzhu.IDAL;
 
-namespace Dianzhu.Dependency
+namespace Dianzhu.DependencyInstaller
 {
     /// <summary>
     /// This interceptor is used to manage transactions.

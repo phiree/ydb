@@ -22,6 +22,8 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_IdentityList : UserControl, IViewIdentityList
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_IdentityList");
+
         public UC_IdentityList()
         {
             InitializeComponent();
@@ -68,6 +70,34 @@ namespace Dianzhu.CSClient.ViewWPF
             throw new NotImplementedException();
         }
 
+        public void UpdateIdentityBtnName(Guid oldOrder, Guid newOrder)
+        {
+            Action lambda = () =>
+            {
+                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrder.ToString());
+                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.ToString());
+                Button btnOldIdentity = (Button)pnlIdentityList.FindName(ctrOldlName);
+                if (btnOldIdentity != null)
+                {
+                    //注销
+                    pnlIdentityList.UnregisterName(btnOldIdentity.Name);
+
+                    //重新注册
+                    btnOldIdentity.Name = ctrNewlName;
+                    pnlIdentityList.RegisterName(btnOldIdentity.Name, btnOldIdentity);
+                }
+                else
+                {
+                    log.Error("错误：按钮不应该为null");
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
         public void SetIdentityReaded(ServiceOrder serviceOrder)
         {
             SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Readed);
@@ -94,11 +124,15 @@ namespace Dianzhu.CSClient.ViewWPF
                             break;
                         case em_ButtonStyle.LogOff:
                             foreColor = Colors.Gray;
+                            //btn.Visibility = Visibility.Collapsed;
+                            pnlIdentityList.Children.Remove(btn);
                             break;
                         case em_ButtonStyle.Readed: foreColor = Colors.Black;
                             btn.Content = btn.Content.ToString().Replace(loadingText, string.Empty);
                             break;
-                        case em_ButtonStyle.Unread: foreColor = Colors.Red; break;
+                        case em_ButtonStyle.Unread:
+                            foreColor = Colors.Red;
+                            break;
                         case em_ButtonStyle.Actived: foreColor = Colors.Yellow; break;
                         case em_ButtonStyle.Loading: btn.Content = loadingText+btn.Content;  break;
                         default: break;

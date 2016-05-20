@@ -110,10 +110,13 @@ namespace Dianzhu.BLL
         public void UpdateOrder(DZMembership c,DZMembership cs,ServiceOrder order)
         {
             ReceptionStatus re = dalRS.GetOneByCustomerAndCS(cs, c);
-            re.Order = order;
-            re.LastUpdateTime = DateTime.Now;
+            if (re != null)
+            {
+                re.Order = order;
+                re.LastUpdateTime = DateTime.Now;
 
-            dalRS.Update(re);
+                dalRS.Update(re);
+            }
         }
 
         /// <summary>
@@ -147,9 +150,9 @@ namespace Dianzhu.BLL
     /// </summary>
     public class ReceptionAssigner
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.ReceptionAssigner");
 
-         
-        
+
         //被排除的客服.
         public DZMembership excluedCustomerService { get; set; }
         //待分配客户列表
@@ -164,10 +167,10 @@ namespace Dianzhu.BLL
         //IM会话.
         IIMSession imSession;
         DAL.DALReceptionStatus dalRS;
-        DAL.DALMembership dalMember;
+        IDAL.IDALMembership dalMember;
         public ReceptionAssigner(IAssignStratage stratage,IIMSession imSession
             , DALReceptionStatus dalRS
-            , DALMembership dalMember) 
+            , IDAL.IDALMembership dalMember) 
         {
             this.stratage = stratage;
             this.imSession = imSession;
@@ -175,7 +178,7 @@ namespace Dianzhu.BLL
             this.dalMember = dalMember;
         }
         public ReceptionAssigner(IIMSession imSession)
-            : this(new AssignSrratageByAssNum(new DALReceptionStatus()),
+            : this(new AssignStratageRandom(),
                  imSession,
                  new DALReceptionStatus(),
                  new DALMembership())
@@ -201,7 +204,7 @@ namespace Dianzhu.BLL
                      //convert sesionUser to dzmembership
                     foreach (OnlineUserSession user in imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString()))
                     {
-                        DZMembership cs = dalMember.GetOne(new Guid( user.username));
+                        DZMembership cs = dalMember.FindById(new Guid( user.username));
                         customerServiceList.Add(cs);
                     }
                 }
@@ -220,7 +223,7 @@ namespace Dianzhu.BLL
                     string errMsg = string.Empty;
                     if (onlineUsers.Count == 1)
                     {
-                        diandian = dalMember.GetOne(new Guid(onlineUsers[0].username));
+                        diandian = dalMember.FindById(new Guid(onlineUsers[0].username));
                     }
                     else if (onlineUsers.Count == 0)
                     {
@@ -256,6 +259,11 @@ namespace Dianzhu.BLL
             Dictionary < DZMembership,DZMembership> assigned= stratage.Assign(new List<DZMembership>(new DZMembership[] { customer})
                 , CustomerServiceList,Diandian);
             //获取用户的接待记录.应该为空,但是当用户异常退出时会删除失败,保留了历史数据.
+            foreach(KeyValuePair<DZMembership,DZMembership> item in assigned)
+            {
+                log.Debug("数据中用户id：" + item.Key.Id.ToString());
+                log.Debug("数据中客服id：" + item.Value.Id.ToString());
+            }
             dalRS.DeleteAllCustomerAssign(customer);
              ReceptionStatus newRs = new ReceptionStatus
                 {
@@ -263,8 +271,10 @@ namespace Dianzhu.BLL
                     CustomerService = assigned[customer],
                     LastUpdateTime = DateTime.Now
                 };
+            log.Debug("待分配的用户id：" + customer.Id.ToString());
+            log.Debug("待分配的客服id：" + assigned[customer].Id.ToString());
             
-            dalRS.SaveOrUpdate(newRs);
+            dalRS.Save(newRs);
 
             return assigned;
         }
@@ -453,6 +463,7 @@ namespace Dianzhu.BLL
     /// </summary>
     public class AssignStratageRandom : IAssignStratage
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.AssignStratageRandom");
         static Random r = new Random();
         /// <summary>
         /// 为一组客户分配客服
@@ -462,16 +473,18 @@ namespace Dianzhu.BLL
         /// <returns>分配后的字典表,key 是客户,value 是客服</returns>
         public override Dictionary<DZMembership,DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian)
         {
+            log.Debug("调用随机分配");
             Dictionary<DZMembership, DZMembership> assignList = new Dictionary<DZMembership, DZMembership>();
             if (csList.Count == 0)
             {
-                //r如果没有在线客服 怎么处理
-                throw new Exception("客服离线");
+                //如果没有在线客服 怎么处理
+                //throw new Exception("客服离线");
 
-                //foreach (DZMembership customer in customerList)
-                //{
-                //    assignList.Add(customer, diandian);
-                //}
+                //如果没有在线客服，分配给点点
+                foreach (DZMembership customer in customerList)
+                {
+                    assignList.Add(customer, diandian);
+                }
             }
             else
             {
@@ -492,6 +505,7 @@ namespace Dianzhu.BLL
 
     public class AssignSrratageByAssNum : IAssignStratage
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.AssignSrratageByAssNum");
         DALReceptionStatus dalRS;
         public AssignSrratageByAssNum(DALReceptionStatus dal)
         {
@@ -516,15 +530,20 @@ namespace Dianzhu.BLL
                 //emergency:点点账户是否登录 影响到 客服是否分配， 需要改善。 
                 //todo:后面可继续优化，当前是取客服接待人数最少的分配
                 var csDBList = dalRS.GetCSMinCount(diandian);
+                log.Debug("receptionstatus中按接待人数最少查询出的数组的数量是：" + csDBList.Count);
                 foreach (DZMembership customer in customerList)
                 {
+                    log.Debug("待分配用户id：" + customer.Id.ToString());
                     //assignList.Add(customer, dalRS.GetCSMinCount());
                     if (csList.Count > csDBList.Count)
                     {
+                        log.Debug("客服列表用户数量大于已分配列表中客服的数量");
                         foreach(DZMembership cs in csList)
                         {
+                            log.Debug("待分配客服列表中第一个客服id：" + cs.Id.ToString());
                             if (!csDBList.Contains(cs))
                             {
+                                log.Debug("当前已分配列表中没有该客服，将用户分配给该客服");
                                 assignList.Add(customer, cs);
                                 break;
                             }
@@ -532,7 +551,9 @@ namespace Dianzhu.BLL
                     }
                     else
                     {
-                        assignList.Add(customer, csList[0]);
+                        log.Debug("直接分配");
+                        log.Debug("待分配的客服id：" + csDBList[0].Id.ToString());
+                        assignList.Add(customer, csDBList[0]);
                     }
                 }
             }
@@ -545,6 +566,7 @@ namespace Dianzhu.BLL
     /// </summary>
     public class AssignStratageManually : IAssignStratage
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.AssignStratageManually");
         Guid manuallyCsId =Guid.Empty;
         public AssignStratageManually(Guid csId)
         {
@@ -552,6 +574,7 @@ namespace Dianzhu.BLL
         }
         public override Dictionary<DZMembership, DZMembership> Assign(IList<DZMembership> customerList, IList<DZMembership> csList, DZMembership diandian)
         {
+            log.Debug("调用手动分配");
             Dictionary<DZMembership, DZMembership> assignList = new Dictionary<DZMembership, DZMembership>();
              
                 var assign = csList.Single(x => x.Id == manuallyCsId);

@@ -22,7 +22,7 @@ public class ResponseORM003007 : BaseResponse
         ReqDataORM003007 requestData = this.request.ReqData.ToObject<ReqDataORM003007>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
          string user_id = requestData.userID;
         string order_id = requestData.orderID;
 
@@ -90,6 +90,9 @@ public class ResponseORM003007 : BaseResponse
                         {
                             case enum_OrderStatus.checkPayWithDeposit:
                                 bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
+                                break;
+                            case enum_OrderStatus.Negotiate:
+                                bllServiceOrder.OrderFlow_CustomDisagreeNegotiate(order);
                                 break;
                             case enum_OrderStatus.Assigned:
                                 bllServiceOrder.OrderFlow_CustomConfirmNegotiate(order);

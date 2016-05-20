@@ -21,7 +21,7 @@ public class ResponseORM001005 : BaseResponse
         ReqDataORM001005 requestData = this.request.ReqData.ToObject<ReqDataORM001005>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
        
         PushService bllPushService = new PushService();
         string raw_id = requestData.userID;

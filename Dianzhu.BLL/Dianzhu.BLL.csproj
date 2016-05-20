@@ -65,17 +65,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressParser.cs" />
+    <Compile Include="BLLClaims.cs" />
     <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLArea.cs" />
     <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="BLLDeviceBind.cs" />
+    <Compile Include="BLLRefundLog.cs" />
+    <Compile Include="BLLRefund.cs" />
     <Compile Include="BLLPayment.cs" />
     <Compile Include="BLLServiceOpenTime.cs" />
     <Compile Include="BLLIMUserStatusArchieve.cs" />
     <Compile Include="BLLIMUserStatus.cs" />
     <Compile Include="BLLPay.cs" />
     <Compile Include="BLLBusinessImage.cs" />
+    <Compile Include="IEmailService.cs" />
+    <Compile Include="IEncryptService.cs" />
+    <Compile Include="IdentityAccess\ILoginService.cs" />
+    <Compile Include="IdentityAccess\LoginDto.cs" />
     <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Finance\BLLSalePoint.cs" />
     <Compile Include="IdentityAccess\RoleDto.cs" />

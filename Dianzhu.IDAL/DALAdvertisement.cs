@@ -5,7 +5,7 @@ using System.Text;
 
  
 
-namespace Dianzhu.DAL
+namespace Dianzhu.IDAL
 {
     public interface IDALAdvertisement:IDAL.IRepository<Model.Advertisement,Guid>
     { 

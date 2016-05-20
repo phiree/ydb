@@ -36,13 +36,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="model-form model-form-noTop">
-                                        <div class="row model-form-group">
-                                            <div class="col-md-4 model-label">员工昵称</div>
-                                            <div class="col-md-8 model-input">
-                                                <asp:TextBox ID="NickName" CssClass="input-fluid" runat="server" data-toggle="tooltip"
-                                                             data-placement="top" title="请填写员工昵称"></asp:TextBox>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="row model-form-group">
                                             <div class="col-md-4 model-label">员工编号</div>
                                             <div class="col-md-8 model-input">

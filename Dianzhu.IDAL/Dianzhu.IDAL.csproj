@@ -58,6 +58,7 @@
     <Compile Include="DALReceptionChatDD.cs" />
     <Compile Include="DALReceptionStatus.cs" />
     <Compile Include="DALReceptionStatusArchieve.cs" />
+    <Compile Include="DALRefund.cs" />
     <Compile Include="ServiceOrder\DALServiceOrder.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />

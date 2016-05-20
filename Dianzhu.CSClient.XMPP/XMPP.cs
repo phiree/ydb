@@ -37,6 +37,21 @@ namespace Dianzhu.CSClient.XMPP
         {
             get { return domain; }
         }
+
+        string resourceName;
+        public string ClientName
+        {
+            get
+            {
+                return resourceName;
+            }
+
+            set
+            {
+                resourceName = value;
+            }
+        }
+
         public XMPP(string server,string domain, IMessageAdapter.IAdapter messageAdapter, string resourceName) : this(server,domain, messageAdapter)
         {
             XmppClientConnection.Resource = resourceName;

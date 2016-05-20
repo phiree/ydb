@@ -15,9 +15,11 @@ namespace Dianzhu.BLL
     {
        
        public DALBusinessImage DALBusinessImage=DALFactory.DALBusinessImage;
-       public BLLBusiness BLLBusiness = new BLLBusiness();
-
-       
+     IDAL.IDALBusiness dalBusiness;
+        public BLLBusinessImage(IDAL.IDALBusiness dalBusiness)
+        {
+            this.dalBusiness = dalBusiness;
+        }
        public void Delete(Guid biId)
        {
            BusinessImage bi = DALBusinessImage.GetOne(biId);
@@ -30,7 +32,7 @@ namespace Dianzhu.BLL
        }
        public string  Save(Guid businessId,System.Web.HttpPostedFileBase imageFile, Dianzhu.Model.Enums.enum_ImageType imageType)
        {
-           Business b = BLLBusiness.GetOne(businessId);
+           Business b = dalBusiness.FindById(businessId);
            string savedPath = string.Empty;
            string imageName=string.Empty;
            if (imageFile != null && imageFile.ContentLength != 0)
@@ -47,7 +49,7 @@ namespace Dianzhu.BLL
                };
                b.BusinessImages.Add(biImage);
            }
-           BLLBusiness.Updte(b);
+           dalBusiness.Update(b);
            return "/media/business/original/" + imageName;
        }
 

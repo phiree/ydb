@@ -8,7 +8,9 @@
     {
         // 在应用程序启动时运行的代码
         PHSuit.Logging.Config("Dianzhu.AdminWeb");
-        InitializeWindsor();
+        //InitializeWindsor();
+
+       // var container = Installer.Container;
     }
 
     void Application_End(object sender, EventArgs e)
@@ -63,7 +65,7 @@
     private void InitializeWindsor()
     {
         _windsorContainer = new WindsorContainer();
-        _windsorContainer.Install(FromAssembly.Containing<Dianzhu.Dependency.DianzhuDependencyInstaller>());
+        _windsorContainer.Install(FromAssembly.Containing<Dianzhu.DependencyInstaller.DianzhuDependencyInstaller>());
         _windsorContainer.Install(FromAssembly.This());
 
         //ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(_windsorContainer.Kernel));

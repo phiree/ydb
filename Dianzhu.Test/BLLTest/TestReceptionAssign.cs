@@ -49,10 +49,10 @@ namespace Dianzhu.Test.BLLTest
                 .TheFirst(1).With(x=>x.username=Guid.NewGuid().ToString())
                 .TheNext(1).With(x => x.username =Guid.NewGuid().ToString())
                 .Build();
-            dalMemberMock.Stub(x => x.GetOne(new Guid(onlineUsers[0].username))).Return(
+            dalMemberMock.Stub(x => x.FindById(new Guid(onlineUsers[0].username))).Return(
                 Builder<DZMembership>.CreateNew().With(x=>x.UserName="b"). Build()
                 );
-            dalMemberMock.Stub(x => x.GetOne(new Guid(onlineUsers[1].username))).Return(
+            dalMemberMock.Stub(x => x.FindById(new Guid(onlineUsers[1].username))).Return(
                 Builder<DZMembership>.CreateNew().With(z=>z.UserName="a"). Build()
                 );
             sessionMock.Stub(x => x.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())).Return(onlineUsers);

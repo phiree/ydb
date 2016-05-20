@@ -75,7 +75,7 @@ public partial class notify_url : System.Web.UI.Page
                 order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Aborded;
                 order.OrderCreated = DateTime.Now;
                 order.OrderFinished = DateTime.Now;
-                bllOrder.SaveOrUpdate(order);
+                bllOrder.Update(order);
 
                 //保存接收数据
                 BLLPaymentLog bllPaymentLog = new BLLPaymentLog();

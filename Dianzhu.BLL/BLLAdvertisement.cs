@@ -6,40 +6,38 @@ using Dianzhu.DAL;
 using Dianzhu.Model;
 using System.Linq.Expressions;
 using DDDCommon;
+using Dianzhu.IDAL;
 namespace Dianzhu.BLL
 {
     public class BLLAdvertisement
     {
         private IDALAdvertisement repo;
-        private IDAL.IUnitOfWork iUnitOfWork;
-
-        public BLLAdvertisement(IDALAdvertisement repo, IDAL.IUnitOfWork iUnitOfWork)
+     
+        public BLLAdvertisement(IDALAdvertisement repo )
         {
             this.repo = repo;
-            this.iUnitOfWork = iUnitOfWork;
+         //   this.iUnitOfWork = iUnitOfWork;
         }
         
         public void Save(Advertisement ad)
         {
-            iUnitOfWork.BeginTransaction();
+          //  iUnitOfWork.BeginTransaction();
             repo.Add(ad);
-            iUnitOfWork.Commit();
+          //  iUnitOfWork.Commit();
         }
         public void Update(Advertisement ad)
         {
-            iUnitOfWork.BeginTransaction();
+         //   iUnitOfWork.BeginTransaction();
             repo.Update(ad);
              
-            iUnitOfWork.Commit();
+       //     iUnitOfWork.Commit();
         }
         public IEnumerable<Advertisement> GetADList(int pageIndex, int pageSize, out long totalRecords)
         {
-            iUnitOfWork.BeginTransaction();
-
+            
             var where = PredicateBuilder.True<Advertisement>();
           
                var list = repo.Find(where, pageIndex,pageSize ,out totalRecords).ToList();
-            iUnitOfWork.Commit();
             return list;
            // return repo.GetADList(pageIndex, pageSize,out totalRecords);
         }
@@ -47,8 +45,7 @@ namespace Dianzhu.BLL
         public IList<Advertisement> GetADListForUseful()
         {
            
-            iUnitOfWork.BeginTransaction();
-            //ISpecification<Advertisement> advInPerildSpec = new Model.Resource.Specs.AdvertisementSpec.AdvertisementInPeriod(DateTime.Now);
+          //ISpecification<Advertisement> advInPerildSpec = new Model.Resource.Specs.AdvertisementSpec.AdvertisementInPeriod(DateTime.Now);
             //ISpecification<Advertisement> advUsefulSpec = new Model.Resource.Specs.AdvertisementSpec.AdvertisementUseful(true);
             //ISpecification<Advertisement> specs = advInPerildSpec.And<Advertisement>(advUsefulSpec);
 
@@ -57,15 +54,12 @@ namespace Dianzhu.BLL
             Expression<Func<Advertisement, bool>> q = i => i.IsUseful&&i.EndTime>DateTime.Now&&i.StartTime<=DateTime.Now;
             // q= q.And(i => i.EndTime > DateTime.Now);
             var list = repo.Find(q).ToList();
-           iUnitOfWork.Commit();
-            return list;
+           return list;
         }
 
         public Advertisement GetByUid(Guid uid)
         {
-            iUnitOfWork.BeginTransaction();
-            var aa= repo.FindById(uid);
-            iUnitOfWork.Commit();
+           var aa= repo.FindById(uid);
                 return aa;
         }
     }

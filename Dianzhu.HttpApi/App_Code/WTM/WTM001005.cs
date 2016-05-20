@@ -24,8 +24,8 @@ public class ResponseWTM001005 : BaseResponse
         ReqDataWTM001005 requestData = this.request.ReqData.ToObject<ReqDataWTM001005>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLBusiness bllBusiness = new BLLBusiness();
+        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+        BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
         BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = new BLLServiceOpenTimeForDay();
 
         try

@@ -58,12 +58,12 @@
                             };
                             break;
                         case "hour" :
-                            for (var i = 0; i < 60; i++) {
+                            for (var i = 0; i < 25; i++) {
                                 $list.append("<li><a>" + i + "</a></li>");
                             };
                             break;
                         case "minute" :
-                            for (var i = 0; i < 25; i++) {
+                            for (var i = 0; i <= 60; i += 5) {
                                 $list.append("<li><a>" + i + "</a></li>");
                             };
                             break;

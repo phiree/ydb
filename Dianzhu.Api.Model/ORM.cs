@@ -72,11 +72,21 @@ namespace Dianzhu.Api.Model
             {
                 this.svcObj = new RespDataORM_svcObj().Adap(order.Details[0], null);
                 this.storeObj = new RespDataORM_storeObj().Adap(order.Details[0].OriginalService.Business);
+
+                if (order.NegotiateAmount <= 0)
+                {
+                    this.orderAmount = this.negotiateAmount = (order.Details[0].UnitAmount * order.Details[0].OriginalService.UnitPrice).ToString("0.00");
+                }
             }
             else if (order.Details.Count == 0 && pushSevice != null)
             {
                 this.svcObj = new RespDataORM_svcObj().Adap(null, pushSevice);
                 this.storeObj = new RespDataORM_storeObj().Adap(pushSevice.OriginalService.Business);
+
+                if (order.NegotiateAmount <= 0)
+                {
+                    this.orderAmount = this.negotiateAmount = (pushSevice.UnitAmount * pushSevice.OriginalService.UnitPrice).ToString("0.00");
+                }
             }
             else
             {
@@ -469,11 +479,18 @@ namespace Dianzhu.Api.Model
 
     #region ORM003009
 
+    public class ReqDataORM003009_item
+    {
+        public enum_ChatTarget target { get; set; }
+        public decimal value { get; set; }
+    }
+
     public class ReqDataORM003009
     {
         public string userID { get; set; }
         public string pWord { get; set; }
         public string orderID { get; set; }
+        public string target { get; set; }
         public string appraiseValue { get; set; }
         public string appraiseDocs { get; set; }
     }

@@ -80,7 +80,7 @@ namespace Dianzhu.BLL
             
             DALServiceType.SaveList(topServiceTypes);
             
-            dalPoint.SaveList(pointList);
+             dalPoint.SaveList(pointList);
 
         }
         public IList<ServiceType> ObjectAdapter(DataTable dtFromExcel)

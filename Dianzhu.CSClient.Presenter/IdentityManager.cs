@@ -92,7 +92,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             log.Debug("1开始更新聊天标志的状态.订单:"+order.Id+",用户:"+order.Customer.DisplayName);
             type = IdentityTypeOfOrder.None;
-            var existedCustomer = currentIdentityList.Where(x => x.Key.Customer == order.Customer);
+            var existedCustomer = currentIdentityList.Where(x => x.Key.Customer.Id == order.Customer.Id);
            
             if (existedCustomer.Count() == 1)
             {
@@ -114,7 +114,7 @@ namespace Dianzhu.CSClient.Presenter
                 else {
                     log.Debug("1.1.2订单不一样");
                     DictExtension.RenameKey(currentIdentityList, existedOrder.Key, order);
-                    log.Debug("" + order.Customer.DisplayName);
+                    log.Debug("用户名：" + order.Customer.DisplayName);
                     if (existedOrder.Value == true)
                     {
                         type = IdentityTypeOfOrder.CurrentCustomer;

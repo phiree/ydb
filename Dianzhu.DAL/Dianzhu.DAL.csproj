@@ -108,6 +108,7 @@
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
     <Compile Include="Mapping\ServiceOrderRemindMap.cs" />
+    <Compile Include="Mapping\ServiceOrder\ServiceOrderAppraiseMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderPushedServiceMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderDetailMap.cs" />
     <Compile Include="Mapping\StaffServiceTypeMap.cs" />

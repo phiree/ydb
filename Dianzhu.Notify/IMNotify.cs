@@ -19,14 +19,16 @@ namespace Dianzhu.NotifyCenter
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
         private Dianzhu.CSClient.IInstantMessage.InstantMessage im = null;
-
+        IDAL.IDALMembership dalMembership;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="im">通讯接口</param>
-        public IMNotify(InstantMessage im)
+        public IMNotify(InstantMessage im,IDAL.IDALMembership dalMembership)
         {
             this.im = im;
+            
+            this.dalMembership = dalMembership;
             //
             // TODO: Add constructor logic here
             //
@@ -117,10 +119,10 @@ namespace Dianzhu.NotifyCenter
 
         public void SendRessaginMessage(Guid csId)
         {
-            DZMembershipProvider bllDZMembership = new DZMembershipProvider();
+           
             BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-            DZMembership cs = bllDZMembership.GetUserById(csId);
-            DZMembership imMember = bllDZMembership.GetUserById(new Guid( Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
+            DZMembership cs = dalMembership.FindById(csId);
+            DZMembership imMember = dalMembership.FindById(new Guid( Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
             IIMSession imSession = new IMSessionsDB();
             ReceptionAssigner assigner = new ReceptionAssigner(imSession);
@@ -150,10 +152,10 @@ namespace Dianzhu.NotifyCenter
 
         public void SendCustomLogoffMessage(Guid csId)
         {
-            DZMembershipProvider bllDZMembership = new DZMembershipProvider();
+           
             BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
             ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
-            DZMembership imMember = bllDZMembership.GetUserById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
+            DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
             IIMSession imSession = new IMSessionsDB();
 
@@ -172,10 +174,9 @@ namespace Dianzhu.NotifyCenter
 
         public void SendCustomLoginMessage(Guid csId)
         {
-            DZMembershipProvider bllDZMembership = new DZMembershipProvider();
-            BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
+             BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
             ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
-            DZMembership imMember = bllDZMembership.GetUserById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
+            DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
             IIMSession imSession = new IMSessionsDB();
 

@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 
-namespace Dianzhu.DAL
+namespace Dianzhu.IDAL
 {
-    public interface IDALBusiness
+    public interface IDALBusiness:IRepository<Business,Guid>
     {
 
 
 
-        IList<Area> GetAreasOfBusiness();
+        IList<Area> GetDistinctAreasOfBusiness();
         IList<Business> GetBusinessInSameCity(Area area);
         Business GetBusinessByPhone(string phone);
         Business GetBusinessByEmail(string email);
         Business GetBusinessByIdAndOwner(Guid Id, Guid ownerId);
+        void SaveList(IList<Business> businesses);
         /// <summary>
         /// 全部已经启用的商铺
         /// </summary>

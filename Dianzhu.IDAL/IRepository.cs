@@ -14,8 +14,8 @@ namespace Dianzhu.IDAL
         TEntity FindById(TPrimaryKey identityId);
 
         TEntity FindOne(Expression<Func<TEntity, bool>> where);
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where);
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords);
+        IList<TEntity> Find(Expression<Func<TEntity, bool>> where);
+        IList<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords);
         long GetRowCount(Expression<Func<TEntity, bool>> where);
 
 

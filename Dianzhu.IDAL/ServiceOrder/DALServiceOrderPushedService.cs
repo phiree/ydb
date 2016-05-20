@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Dianzhu.Model;
-namespace Dianzhu.DAL
+namespace Dianzhu.IDAL
 {
 
     public interface IDALServiceOrderPushedService

@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.Dependency</RootNamespace>
     <AssemblyName>Dianzhu.Dependency</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,15 +67,41 @@
   <ItemGroup>
     <Compile Include="Dependency\NhUnitOfWorkInterceptor.cs" />
     <Compile Include="DianzhuDependencyInstaller.cs" />
+    <Compile Include="Installer.cs" />
+    <Compile Include="RepositoryInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
+      <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
+      <Name>DDDCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
       <Project>{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}</Project>
       <Name>Dianzhu.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
+      <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
+      <Name>Dianzhu.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.IInstantMessage\Dianzhu.CSClient.IInstantMessage.csproj">
+      <Project>{820a465f-51fb-4f8d-8665-b80f9643281b}</Project>
+      <Name>Dianzhu.CSClient.IInstantMessage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.IMessageAdapter\Dianzhu.CSClient.IMessageAdapter.csproj">
+      <Project>{74f0963e-57ca-4d57-899c-d85ff096fe1f}</Project>
+      <Name>Dianzhu.CSClient.IMessageAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.MessageAdapter\Dianzhu.CSClient.MessageAdapter.csproj">
+      <Project>{a871c9e1-98a4-412f-a1b3-541189a4c4cf}</Project>
+      <Name>Dianzhu.CSClient.MessageAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.CSClient.XMPP\Dianzhu.CSClient.XMPP.csproj">
+      <Project>{125f0d3b-e83c-4743-9944-e82392cba6c5}</Project>
+      <Name>Dianzhu.CSClient.XMPP</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2e67aa78-6780-42bd-a3ab-ad953781e511}</Project>
@@ -87,6 +114,14 @@
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
       <Name>Dianzhu.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JSYK.Infrastructure\JSYK.Infrastructure.csproj">
+      <Project>{7ce433bf-0692-4d37-ace9-e1984391cd3b}</Project>
+      <Name>JSYK.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHSuit\PHSuit.csproj">
+      <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
+      <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

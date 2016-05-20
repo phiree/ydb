@@ -8,13 +8,14 @@ using log4net;
 using System.Deployment;
 using System.Deployment.Application;
 using System.Threading;
-using System.ComponentModel;
+using scm=System.ComponentModel;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
 using ViewWPF = Dianzhu.CSClient.ViewWPF;
 
 using cw = Castle.Windsor;
-using cmr = Castle.MicroKernel.Registration;
+using  Castle.MicroKernel.Registration;
+
 using Dianzhu.DAL;
 using Dianzhu.IDAL;
 using Dianzhu.Model;
@@ -28,7 +29,7 @@ namespace Dianzhu.CSClient
 {
     static class Program
     {
-
+        
         static ILog log = LogManager.GetLogger("Dianzhu.CSClient");
 
         static int progressPercent = 0;
@@ -82,10 +83,7 @@ namespace Dianzhu.CSClient
                 Presenter.POrder pOrder = container.Resolve<Presenter.POrder>();
                 Presenter.POrderHistory pOrderHistory = container.Resolve<Presenter.POrderHistory>();
                 Presenter.PChatSend pChatSend = container.Resolve<Presenter.PChatSend>();
-
-
-                Presenter.InstantMessageHandler imHander = container.Resolve<Presenter.InstantMessageHandler>();
-
+                
 
                 var mainPresenter = container.Resolve<Presenter.PMain>();
 
@@ -105,107 +103,48 @@ namespace Dianzhu.CSClient
 
         static Castle.Windsor.WindsorContainer Install()
         {
-            var container = new Castle.Windsor.WindsorContainer();
+            var container = Dianzhu.DependencyInstaller.Installer.Container;
+            string server = Config.Config.GetAppSetting("ImServer");
+            string domain = Config.Config.GetAppSetting("ImDomain");
+            container.Register( Component.For<CSClient.IInstantMessage.InstantMessage>().ImplementedBy<Dianzhu.CSClient.XMPP.XMPP>()
+                                .DependsOn(
+                                  Dependency.OnValue("server", server)
+                                , Dependency.OnValue("domain", domain)
+                                , Dependency.OnValue("resourceName", Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())
+                                )
+                            );
             UIInstall(container);
-            RepositoryInstall(container);
             return container;
 
         }
         static void UIInstall(Castle.Windsor.WindsorContainer container)
         {
-            container.Register(cmr.Component.For<Presenter.PMain>());
-            container.Register(cmr.Component.For<CSClient.Presenter.LoginPresenter>());
-            container.Register(cmr.Component.For<CSClient.Presenter.IdentityManager>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PIdentityList>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PChatList>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PChatSend>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PNotice>());
-            container.Register(cmr.Component.For<CSClient.Presenter.POrder>());
-            container.Register(cmr.Component.For<CSClient.Presenter.POrderHistory>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PSearch>());
-            container.Register(cmr.Component.For<Presenter.InstantMessageHandler>());
+            container.Register(Component.For<Presenter.PMain>());
+            container.Register(Component.For<CSClient.Presenter.LoginPresenter>());
+            container.Register(Component.For<CSClient.Presenter.IdentityManager>());
+            container.Register(Component.For<CSClient.Presenter.PIdentityList>());
+            container.Register(Component.For<CSClient.Presenter.PChatList>());
+            container.Register(Component.For<CSClient.Presenter.PChatSend>());
+            container.Register(Component.For<CSClient.Presenter.PNotice>());
+            container.Register(Component.For<CSClient.Presenter.POrder>());
+            container.Register(Component.For<CSClient.Presenter.POrderHistory>());
+            container.Register(Component.For<CSClient.Presenter.PSearch>());
 
-            container.Register(cmr.Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
-            container.Register(cmr.Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());
-            container.Register(cmr.Component.For<IViewChatList>().ImplementedBy<ViewWPF.UC_ChatList>());
-            container.Register(cmr.Component.For<IViewChatSend>().ImplementedBy<ViewWPF.UC_ChatSend>());
-            container.Register(cmr.Component.For<IViewIdentityList>().ImplementedBy<ViewWPF.UC_IdentityList>());
-            container.Register(cmr.Component.For<IViewNotice>().ImplementedBy<ViewWPF.UC_Notice>());
-            container.Register(cmr.Component.For<IViewOrder>().ImplementedBy<ViewWPF.UC_Order>());
-            container.Register(cmr.Component.For<IViewOrderHistory>().ImplementedBy<ViewWPF.UC_OrderHistory>());
-            container.Register(cmr.Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
-            container.Register(cmr.Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
+            container.Register(Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
+            container.Register(Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());
+            container.Register(Component.For<IViewChatList>().ImplementedBy<ViewWPF.UC_ChatList>());
+            container.Register(Component.For<IViewChatSend>().ImplementedBy<ViewWPF.UC_ChatSend>());
+            container.Register(Component.For<IViewIdentityList>().ImplementedBy<ViewWPF.UC_IdentityList>());
+            container.Register(Component.For<IViewNotice>().ImplementedBy<ViewWPF.UC_Notice>());
+            container.Register(Component.For<IViewOrder>().ImplementedBy<ViewWPF.UC_Order>());
+            container.Register(Component.For<IViewOrderHistory>().ImplementedBy<ViewWPF.UC_OrderHistory>());
+            container.Register(Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
+            container.Register(Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
 
-            string server = Config.Config.GetAppSetting("ImServer");
-            string domain = Config.Config.GetAppSetting("ImDomain");
-            container.Register(cmr.Component.For<CSClient.IInstantMessage.InstantMessage>().ImplementedBy<XMPP.XMPP>()
-                .DependsOn(cmr.Dependency.OnValue("server", server)
-                            , cmr.Dependency.OnValue("domain", domain)
-                            , cmr.Dependency.OnValue("resourceName", Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())
-                            )
-                            );
-
-            container.Register(cmr.Component.For<CSClient.IMessageAdapter.IAdapter>().ImplementedBy<CSClient.MessageAdapter.MessageAdapter>());
-
+           
+          
         }
-        static void RepositoryInstall(Castle.Windsor.WindsorContainer container)
-        {
-            container.Register(cmr.Component.For<BLLAdvertisement>());
-            container.Register(cmr.Component.For<BLLArea>());
-
-            
-            container.Register(cmr.Component.For<ISessionFactory>().UsingFactoryMethod(CreateNhSessionFactory));
-
-            container.Register(cmr.Component.For(typeof(IRepository<,>), typeof(NHRepositoryBase<,>)).ImplementedBy(typeof(NHRepositoryBase<,>)));
-            //container.Register(cmr.Component.For<NhUnitOfWorkInterceptor>().LifeStyle.Transient);
-
-            container.Register(cmr.Component.For<IRepository<Advertisement, Guid>, IDALAdvertisement>().ImplementedBy<DALAdvertisement>());
-            container.Register(cmr.Component.For<IRepository<Area, int>, IDALArea>().ImplementedBy<DALArea>());
-            container.Register(cmr.Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
-
-            container.Register(cmr.Component.For<IRepository<ServiceOrder, Guid>, IDALServiceOrder>().ImplementedBy<DALServiceOrder>());
-            /*
-       public BLLServiceOrde
-       r(  BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis, 
-       DZMembershipProvider membershipProvider,
-       BLLPayment bllPayment,
-       BLLRefund bllRefund,
-       IDALServiceOrder repoServiceOrder)
-
-            */
-            container.Register(cmr.Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
-                .DependsOn(cmr.Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis()))
-                .DependsOn(cmr.Dependency.OnValue("membershipProvider", new DZMembershipProvider()))
-                .DependsOn(cmr.Dependency.OnValue("bllPayment", new BLLPayment()))
-                .DependsOn(cmr.Dependency.OnValue("bllRefund", new BLLRefund()))
-                );
-        }
-        private static ISessionFactory CreateNhSessionFactory()
-        {
-            var f = Fluently.Configure()
-                             .Database(
-                                  MySQLConfiguration
-                                 .Standard
-                                 .ConnectionString(
-                                    PHSuit.Security.Decrypt(
-                                    System.Configuration.ConfigurationManager
-                                    .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false)
-                                          )
-                                          .Dialect<NHCustomDialect>()
-                               )
-                             .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
-                            .ExposeConfiguration(BuildSchema)
-                             .BuildSessionFactory();
-            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
-            return f;
-        }
-        private static void BuildSchema(NHibernate.Cfg.Configuration config)
-        {
-            // this NHibernate tool takes a configuration (with mapping info in)
-            // and exports a database schema from it
-            SchemaUpdate update = new SchemaUpdate(config);
-            //update.Execute(true, true);
-        }
+       
         static bool CheckConfig()
         {
             log.Debug("--开始 检查配置是否冲突");

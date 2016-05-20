@@ -29,7 +29,7 @@ namespace Dianzhu.CSClient.IInstantMessage
     /// </summary>
     public interface InstantMessage
     {
-
+        string ClientName { get; set; }
         string Server { get; }
         string Domain { get; }
         void OpenConnection(string userName, string password);

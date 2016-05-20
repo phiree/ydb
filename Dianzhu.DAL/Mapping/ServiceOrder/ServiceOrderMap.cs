@@ -21,23 +21,10 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.OrderStatus).CustomType<Model.Enums.enum_OrderStatus>();
             References<DZMembership>(x => x.CustomerService);
             HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
-
+            References<Business>(x => x.Business);
             Map(x => x.NegotiateAmount);
 
             Map(x => x.DepositAmount);
-        }
-    }
-
-    public class ServiceOrderAppraiseMap: ClassMap<ServiceOrderAppraise>
-    {
-        public ServiceOrderAppraiseMap()
-        {
-            Id(x => x.Id);
-            Map(x => x.CreateTime);
-            References<DZMembership>(x => x.Order);
-            References<DZMembership>(x => x.Member);
-            Map(x => x.Value);
-            Map(x => x.Content);
         }
     }
 }

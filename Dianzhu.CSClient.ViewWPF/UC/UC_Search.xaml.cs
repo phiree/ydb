@@ -47,7 +47,18 @@ namespace Dianzhu.CSClient.ViewWPF
             get { return tbxKeywordAddress.Text.Trim(); }
             set { tbxKeywordAddress.Text = value; }
         }
-        
+
+        public int UnitAmount
+        {
+            get
+            {
+                int amount = 1;
+                int.TryParse(tbxUnitAmount.Text, out amount);
+                return amount;
+            }
+            set { tbxUnitAmount.Text = value.ToString(); }
+        }
+
         public DateTime SearchKeywordTime
         {
             get
@@ -148,6 +159,7 @@ namespace Dianzhu.CSClient.ViewWPF
             SearchKeywordPriceMax = 0;
             ServicePhone = string.Empty;
             ServiceAddress = string.Empty;
+            UnitAmount = 1;
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)

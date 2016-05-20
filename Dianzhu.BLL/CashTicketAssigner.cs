@@ -14,17 +14,18 @@ namespace Dianzhu.BLL
     /// </summary>
     public class CashTicketAssigner_Task
     {
-        BLLBusiness bllBusiness = new BLLBusiness();
+         
+            IDAL.IDALBusiness dalBusiness;
         private static readonly ILog log = LogManager.GetLogger("Dianzhu.BLL");
-        public CashTicketAssigner_Task()
+        public CashTicketAssigner_Task(IDAL.IDALBusiness dalBusiness)
         {
-            IList<Area> areas = bllBusiness.GetAreasOfBusiness();
+            IList<Area> areas = dalBusiness.GetDistinctAreasOfBusiness();
             foreach (Area area in areas)
             {
-                var businesses=bllBusiness.GetBusinessInSameCity(area);
+                var businesses= dalBusiness.GetBusinessInSameCity(area);
                 CashTicketAssignForArea cta_area = new CashTicketAssignForArea(area, businesses);
                 CashTicketAssignRecord ctar= cta_area.Assign();
-                bllBusiness.SaveList(businesses);
+                dalBusiness.SaveList(businesses);
                 ctar.TimeEnd = DateTime.Now;
 
             }

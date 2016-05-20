@@ -5,7 +5,7 @@ using System.Text;
 
  
 
-namespace Dianzhu.DAL
+namespace Dianzhu.IDAL
 {
     public interface IDALArea:IDAL.IRepository<Model.Area,int>
     {

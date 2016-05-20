@@ -13,15 +13,21 @@ using Dianzhu.Api.Model;
 /// </summary>
 public class ResponseORM005001 : BaseResponse
 {
+    IBLLServiceOrder bllServiceOrder = Installer.Container.Resolve<IBLLServiceOrder>();
     public ResponseORM005001(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllServiceOrder { get; set; }
+   
     protected override void BuildRespData()
     {
         ReqDataORM005001 requestData = this.request.ReqData.ToObject<ReqDataORM005001>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+
         BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
+
+       
+        BLLClaims bllClaims = new BLLClaims();
+
 
         string user_ID = requestData.userID;
 
@@ -35,7 +41,9 @@ public class ResponseORM005001 : BaseResponse
         RespDataORM_refundObj refundObj = requestData.refundObj;
         string order_ID = refundObj.orderID;
         string amount_str = refundObj.amount;
-
+        string context = refundObj.context;
+        string amountStr = refundObj.amount;
+        string resourcesUrl = refundObj.resourcesUrl;
 
         try
         {
@@ -57,14 +65,11 @@ public class ResponseORM005001 : BaseResponse
                 return;
             }
 
-            try
-            {
-                amount = decimal.Parse(amount_str);
-            }
-            catch (Exception e)
+            bool isAmount = decimal.TryParse(amountStr, out amount);
+            if (!isAmount)
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "请提交正确价格!";
+                this.err_Msg = "提交价格的格式有误";
                 return;
             }
 
@@ -89,10 +94,21 @@ public class ResponseORM005001 : BaseResponse
             }
             try
             {
-                //todo:理赔还未处理
+                ServiceOrder order = bllServiceOrder.GetOrderByIdAndCustomer(orderID, member);
+                if (order == null)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "该订单不存在";
+                    return;
+                }
+
+                bllServiceOrder.OrderFlow_CustomerRefund(order);
+
+                Claims claims = new Claims(order, context, amount, resourcesUrl, order.OrderStatus, enum_ChatTarget.cer, string.Empty);
+                bllClaims.Save(claims);
 
                 RespDataORM005001 respData = new RespDataORM005001();
-                respData.refundID = new Guid().ToString();
+                respData.resultStatus = order.OrderStatus.ToString();
 
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;

@@ -6,6 +6,7 @@ using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 using NHibernate;
 using NHibernate.Criterion;
+using Dianzhu.IDAL;
 namespace Dianzhu.DAL
 {
     public class DALServiceOrder :NHRepositoryBase<ServiceOrder,Guid>, IDALServiceOrder
