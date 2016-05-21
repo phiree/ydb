@@ -89,6 +89,7 @@ public class ResponseORM005001 : BaseResponse
             try
             {
                 ServiceOrder order = bllServiceOrder.GetOrderByIdAndCustomer(orderID, member);
+                enum_OrderStatus oldStatus = order.OrderStatus;
                 if (order == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -96,9 +97,15 @@ public class ResponseORM005001 : BaseResponse
                     return;
                 }
 
-                bllServiceOrder.OrderFlow_CustomerRefund(order);
+                if (!bllServiceOrder.OrderFlow_CustomerRefund(order,amount))
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "提交理赔失败";
+                    return;
+                }
 
-                Claims claims = new Claims(order, context, amount, resourcesUrl, order.OrderStatus, enum_ChatTarget.cer, string.Empty);
+                Claims claims = new Claims(order, oldStatus, member);
+                claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.user, member);
                 bllClaims.Save(claims);
 
                 RespDataORM005001 respData = new RespDataORM005001();

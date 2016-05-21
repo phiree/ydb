@@ -9,14 +9,14 @@ namespace Dianzhu.DAL
 {
     public class DALPayment : DALBase<Model.Payment>
     {
-         public DALPayment()
+        public DALPayment()
         {
-             
+
         }
         //注入依赖,供测试使用;
-         public DALPayment(string fortest):base(fortest)
+        public DALPayment(string fortest) : base(fortest)
         {
-            
+
         }
 
         /// <summary>
@@ -40,9 +40,9 @@ namespace Dianzhu.DAL
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        public virtual Payment GetPayedForDeposit(ServiceOrder order)
+        public virtual Payment GetPayedByTarget(ServiceOrder order, Model.Enums.enum_PayTarget payTarget)
         {
-            return Session.QueryOver<Payment>().Where(x => x.Order == order).And(x => x.Status == Model.Enums.enum_PaymentStatus.Trade_Success).SingleOrDefault();
+            return Session.QueryOver<Payment>().Where(x => x.Order == order).And(x => x.PayTarget == payTarget).And(x => x.Status == Model.Enums.enum_PaymentStatus.Trade_Success).SingleOrDefault();
         }
     }
 }

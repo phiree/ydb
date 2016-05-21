@@ -131,7 +131,16 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public Payment GetPayedForDeposit(ServiceOrder order)
         {
-            return dal.GetPayedForDeposit(order);
+            return dal.GetPayedByTarget(order, enum_PayTarget.Deposit);
+        }
+        /// <summary>
+        /// 查询订单支付的尾款
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        public Payment GetPayedForFinal(ServiceOrder order)
+        {
+            return dal.GetPayedByTarget(order, enum_PayTarget.FinalPayment);
         }
     }
 }
