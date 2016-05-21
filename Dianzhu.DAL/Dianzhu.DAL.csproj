@@ -76,9 +76,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALClaims.cs" />
     <Compile Include="DALComplaint.cs" />
     <Compile Include="DALAdvertisement.cs" />
+    <Compile Include="DALRefund.cs" />
     <Compile Include="DALPayment.cs" />
+    <Compile Include="DALRefundLog.cs" />
     <Compile Include="DALReception.cs" />
     <Compile Include="DALServiceOpenTime.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
@@ -100,6 +103,7 @@
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="IdentityAccess\DALRoleMember.cs" />
     <Compile Include="IdentityAccess\DALRole.cs" />
+    <Compile Include="Mapping\ClaimsMap.cs" />
     <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />
     <Compile Include="Mapping\Finance\SalePointMapping.cs" />
@@ -107,6 +111,8 @@
     <Compile Include="Mapping\IdentityAccess\DZRoleMemberMap.cs" />
     <Compile Include="Mapping\IMUserStatusMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
+    <Compile Include="Mapping\RefundLogMap.cs" />
+    <Compile Include="Mapping\RefundMap.cs" />
     <Compile Include="Mapping\ServiceOrderRemindMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderAppraiseMap.cs" />
     <Compile Include="Mapping\ServiceOrder\ServiceOrderPushedServiceMap.cs" />

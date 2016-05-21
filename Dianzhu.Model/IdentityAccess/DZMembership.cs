@@ -124,6 +124,7 @@ namespace Dianzhu.Model
             }
         }
 
+        public string UserCity { get; set; }
     }
     /// <summary>
     /// 商家相关用户.

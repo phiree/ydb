@@ -35,6 +35,7 @@ namespace Dianzhu.Api.Model
         public string address { get; set; }
         public string km { get; set; }
         public string deliverySum { get; set; }
+        public RespDataORM_orderStatusObj orderStatusObj { get; set; }
         // public string paylink { get; set; }
         public RespDataORM_svcObj svcObj { get; set; }
         public RespDataORM_UserObj userObj { get; set; }
@@ -46,9 +47,9 @@ namespace Dianzhu.Api.Model
             //todo: serviceorder change
             this.title = order.Title ?? string.Empty;
             this.status = order.OrderStatus.ToString() ?? string.Empty;
-            if (order.OrderCreated > DateTime.MinValue)
+            if (order.OrderConfirmTime > DateTime.MinValue)
             {
-                this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+                this.startTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderConfirmTime);
             }
             else
             {
@@ -56,7 +57,7 @@ namespace Dianzhu.Api.Model
             }
             if (order.OrderFinished > DateTime.MinValue)
             {
-                this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+                this.endTime = string.Format("{0:yyyyMMddHHmmss}", order.OrderFinished);
             }
             else
             {
@@ -67,6 +68,7 @@ namespace Dianzhu.Api.Model
             this.negotiateAmount = order.NegotiateAmount.ToString("0.00");
             this.address = order.TargetAddress ?? string.Empty;
             this.km = string.Empty;
+            this.deliverySum = "0";//todo:出货记录不明确
 
             if (order.Details.Count > 0)
             {
@@ -107,6 +109,15 @@ namespace Dianzhu.Api.Model
             //this.deliverySum
 
             return this;
+        }
+
+        public RespDataORM_orderObj SetOrderStatusObj(RespDataORM_orderObj orderObj, ServiceOrderStateChangeHis orderHis)
+        {
+            if (orderHis != null)
+            {
+                orderObj.orderStatusObj = new RespDataORM_orderStatusObj().Adap(orderHis);
+            }
+            return orderObj;
         }
     }
 
@@ -149,13 +160,39 @@ namespace Dianzhu.Api.Model
         public string endTime { get; set; }
         public string deposit { get; set; }
         public string unitPrice { get; set; }
+        public string introduce { get; set; }
+        public string area { get; set; }
+        public string startAt { get; set; }
+        public string appointmentTime { get; set; }
+        public string tag { get; set; }
+        public string chargeUnit { get; set; }
         public RespDataORM_svcObj Adap(ServiceOrderDetail orderDetail,ServiceOrderPushedService pushService)
         {
             if (orderDetail != null)
             {
-                this.svcID = orderDetail.OriginalService != null ? orderDetail.OriginalService.Id.ToString() : string.Empty;
+                if (orderDetail.OriginalService != null)
+                {
+                    this.svcID = orderDetail.OriginalService.Id.ToString();
+                    this.type = orderDetail.OriginalService.ServiceType.ToString();
+                    this.introduce = orderDetail.OriginalService.Description;
+                    this.area = orderDetail.OriginalService.GetServiceArea();
+                    this.startAt = orderDetail.OriginalService.MinPrice.ToString("0.00");
+                    this.appointmentTime = orderDetail.OriginalService.OrderDelay.ToString();
+                    this.chargeUnit = orderDetail.OriginalService.ChargeUnitFriendlyName;
+                }
+                else
+                {
+                    this.svcID = string.Empty;
+                    this.type = string.Empty;
+                    this.introduce = string.Empty;
+                    this.area = string.Empty;
+                    this.startAt = "0";
+                    this.appointmentTime = string.Empty;
+                    this.tag = string.Empty;
+                    this.chargeUnit = string.Empty;
+                }
+                
                 this.name = orderDetail.ServieSnapShot.ServiceName ?? string.Empty;
-                this.type = orderDetail.OriginalService != null ? orderDetail.OriginalService.ServiceType.ToString() : string.Empty;
                 if (orderDetail.TargetTime > DateTime.MinValue)
                 {
                     this.startTime = string.Format("{0:yyyyMMddHHmmss}", orderDetail.TargetTime);
@@ -170,9 +207,29 @@ namespace Dianzhu.Api.Model
             }
             else if(orderDetail == null && pushService != null)
             {
-                this.svcID = pushService.OriginalService != null ? pushService.OriginalService.Id.ToString() : string.Empty;
+                if (pushService.OriginalService != null)
+                {
+                    this.svcID = pushService.OriginalService.Id.ToString();
+                    this.type = pushService.OriginalService.ServiceType.ToString();
+                    this.introduce = pushService.OriginalService.Description;
+                    this.area = pushService.OriginalService.GetServiceArea();
+                    this.startAt = pushService.OriginalService.MinPrice.ToString("0.00");
+                    this.appointmentTime = pushService.OriginalService.OrderDelay.ToString();                    
+                    this.chargeUnit = pushService.OriginalService.ChargeUnitFriendlyName;
+                }
+                else
+                {
+                    this.svcID = string.Empty;
+                    this.type = string.Empty;
+                    this.introduce = string.Empty;
+                    this.area = string.Empty;
+                    this.startAt = "0";
+                    this.appointmentTime = string.Empty;
+                    this.tag = string.Empty;
+                    this.chargeUnit = string.Empty;
+                }
+                
                 this.name = pushService.ServiceName ?? string.Empty;
-                this.type = pushService.OriginalService != null ? pushService.OriginalService.ServiceType.ToString() : string.Empty;
                 if (pushService.TargetTime > DateTime.MinValue)
                 {
                     this.startTime = string.Format("{0:yyyyMMddHHmmss}", pushService.TargetTime);
@@ -192,7 +249,22 @@ namespace Dianzhu.Api.Model
 
             return this;
         }
-
+        public RespDataORM_svcObj SetTag(RespDataORM_svcObj svcObj, IList<DZTag> tags)
+        {
+            if (svcObj != null && tags.Count > 0)
+            {
+                foreach (DZTag tag in tags)
+                {
+                    this.tag += tag.Text + ",";
+                }
+                this.tag = this.tag.TrimEnd(',');
+            }
+            else
+            {
+                this.tag = string.Empty;
+            }
+            return this;
+        }
     }
 
     public class RespDataORM_orderStatusObj
@@ -200,11 +272,15 @@ namespace Dianzhu.Api.Model
         public string status { get; set; }
         public string time { get; set; }
         public string lastStatus { get; set; }
+        public string title { get; set; }
+        public string context { get; set; }
         public RespDataORM_orderStatusObj Adap(ServiceOrderStateChangeHis orderHis)
         {
             this.status = orderHis.NewStatus.ToString();
             this.time = string.Format("{0:yyyyMMddHHmmss}", orderHis.CreatTime);
             this.lastStatus = orderHis.OldStatus.ToString() ?? string.Empty;
+            this.title = orderHis.Order.GetStatusTitleFriendly(orderHis.NewStatus);
+            this.context = orderHis.Order.GetStatusContextFriendly(orderHis.NewStatus);
 
             return this;
         }
@@ -221,14 +297,25 @@ namespace Dianzhu.Api.Model
 
     public class RespDataORM_refundStatusObj
     {
-        public string refundStatusID { get; set; }
-        public string orderID { get; set; }
+        //public string refundStatusID { get; set; }
+        //public string orderID { get; set; }
+        public string title { get; set; }
         public string context { get; set; }
         public string amount { get; set; }
         public string resourcesUrl { get; set; }
-        public string date { get; set; }
+        public string time { get; set; }
         public string orderStatus { get; set; }
         public string target { get; set; }
+    }
+
+    public enum enum_refundAction
+    {
+        reject=1,           //拒绝理赔
+        askPay =2,          //要求支付赔偿金
+        refund =4,          //同意理赔要求
+        agree =8,           //同意商户处理
+        cancel =16,         //放弃理赔
+        intervention =32,   //要求介入
     }
 
     #endregion
@@ -370,41 +457,22 @@ namespace Dianzhu.Api.Model
         }
     }
     #endregion
+    
+    #region ORM002003
 
-    #region ORM002002
-    public class ReqDataORM002002
+    public class ReqDataORM002003
     {
-
         public string userID { get; set; }
         public string pWord { get; set; }
         public string orderID { get; set; }
-
-
     }
-    public class RespDataORM002002
+
+    public class RespDataORM002003
     {
-        public RespDataORM002002()
-        {
-            orderID = string.Empty;
-        }
-        public string orderID { get; set; }
-        public RespDataORM002002_payObj payObj { get; set; }
-
+        public string targetID { get; set; }
+        public RespDataORM_storeObj storeObj { get; set;}
     }
-    public class RespDataORM002002_payObj
-    {
-        public string type { get; set; }
 
-        public string url { get; set; }
-        public RespDataORM002002_payObj Adap(ServiceOrder order)
-        {
-            this.type = "alipay";
-           //todo: use payment.buildpaylink instead;
-           // this.url = order.p BuildPayLink(Dianzhu.Config.Config.GetAppSetting("PayServer"), enum_PayTarget.Deposit);
-
-            return this;
-        }
-    }
     #endregion
 
     #region ORM003005
@@ -513,7 +581,7 @@ namespace Dianzhu.Api.Model
 
     public class RespDataORM005001
     {
-        public string refundID { get; set; }
+        public string resultStatus { get; set; }
     }
 
     #endregion
@@ -524,9 +592,8 @@ namespace Dianzhu.Api.Model
     {
         public string merchantID { get; set; }
         public string pWord { get; set; }
-        public string orderID { get; set; }
+        public RespDataORM_refundObj refundObj { get; set; }
         public string refundAction { get; set; }
-        public string context { get; set; }
     }
 
     public class RespDataORM005007

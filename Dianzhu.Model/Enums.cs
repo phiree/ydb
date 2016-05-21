@@ -255,11 +255,7 @@ namespace Dianzhu.Model.Enums
         /// 固定时间内未支付赔偿金，强制终止
         /// </summary>
         ForceStop = 70,
-
-
-        CanceledDirectly,//订单已直接取消        
-        Aborded=7,//已中止
-
+        
         /// <summary>
         /// 未知订单类型
         /// </summary>
@@ -530,5 +526,14 @@ namespace Dianzhu.Model.Enums
         Trade_Closed = 2,//在指定时间内未支付时关闭的交易；在交易完成全额退款成功时关闭的交易。
         Trade_Finished = 3,//交易成功且结束，即不可再做任何操作。
         Fail=4,//交易失败
+    }
+
+    /// <summary>
+    /// 退款的状态
+    /// </summary>
+    public enum enum_RefundStatus
+    {
+        Success=1,
+        Fail=2,
     }
 }

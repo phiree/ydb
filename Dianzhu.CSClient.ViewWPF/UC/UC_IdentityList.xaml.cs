@@ -67,7 +67,21 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public void RemoveIdentity(ServiceOrder serviceOrder)
         {
-            throw new NotImplementedException();
+            Action lambda = () =>
+            {
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
+                Button btnIdentity = (Button)pnlIdentityList.FindName(ctrlName);
+                if (btnIdentity != null)
+                {                    
+                    pnlIdentityList.Children.Remove(btnIdentity);
+                    pnlIdentityList.UnregisterName(btnIdentity.Name);
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
         }
 
         public void UpdateIdentityBtnName(Guid oldOrder, Guid newOrder)
@@ -106,6 +120,10 @@ namespace Dianzhu.CSClient.ViewWPF
         public void SetIdentityUnread(ServiceOrder serviceOrder, int messageAmount)
         {
             SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Unread);
+        }
+        public void SetIdentityLogOff(ServiceOrder serviceOrder)
+        {
+            SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.LogOff);
         }
         private void SetIdentityButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
         {

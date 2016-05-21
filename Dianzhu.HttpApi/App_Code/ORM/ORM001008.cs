@@ -26,7 +26,7 @@ public class ResponseORM001008 : BaseResponse
         BLLDZService bllDZService = new BLLDZService();
         PushService bllPushService = new PushService();
         BLLServiceOrderRemind bllServiceOrderRemind = new BLLServiceOrderRemind();
-
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
 
         try
         {
@@ -112,14 +112,34 @@ public class ResponseORM001008 : BaseResponse
                 bllServiceOrder.Update(order);
                 IList<ServiceOrderPushedService> pushServiceList = bllPushService.GetPushedServicesForOrder(order);
                 RespDataORM_orderObj orderObj = new RespDataORM_orderObj();
+                IList<DZTag> tagsList = new List<DZTag>();//标签
                 if (pushServiceList.Count > 0)
                 {
                     orderObj.Adap(order, pushServiceList[0]);
+
+                    if (order.Details.Count > 0)
+                    {
+                        tagsList = bllDZService.GetServiceTags(order.Details[0].OriginalService);
+                    }
+                    else
+                    {
+                        tagsList = bllDZService.GetServiceTags(pushServiceList[0].OriginalService);
+                    }
                 }
                 else
                 {
                     orderObj.Adap(order, null);
-                }                
+
+                    if (order.Details.Count > 0)
+                    {
+                        tagsList = bllDZService.GetServiceTags(order.Details[0].OriginalService);
+                    }
+                }
+
+                orderObj.svcObj.SetTag(orderObj.svcObj, tagsList);
+
+                ServiceOrderStateChangeHis orderHis = bllServiceOrderStateChangeHis.GetOrderHis(order);
+                orderObj.SetOrderStatusObj(orderObj, orderHis);
 
                 RespDataORM001008 respData = new RespDataORM001008();
                 respData.orderObj = orderObj;

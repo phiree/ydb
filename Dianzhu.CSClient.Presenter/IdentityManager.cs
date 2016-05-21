@@ -82,12 +82,17 @@ namespace Dianzhu.CSClient.Presenter
         }
         #endregion
 
+        public static bool DeleteIdentity(ServiceOrder order)
+        {
+            bool isExactive;
+            return currentIdentityList.TryRemove(order, out isExactive);
+        }
+
         /// <summary>
         /// 当前订单的类型.
         /// </summary>
         /// <param name="order"></param>
-        /// <returns></returns>
-        
+        /// <returns></returns>        
         public static void UpdateIdentityList(ServiceOrder order, out IdentityTypeOfOrder type)
         {
             log.Debug("1开始更新聊天标志的状态.订单:"+order.Id+",用户:"+order.Customer.DisplayName);

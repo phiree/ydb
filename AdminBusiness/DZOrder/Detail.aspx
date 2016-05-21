@@ -8,7 +8,7 @@
         <input type="hidden" value="<%=merchantID%>" id="merchantID"/>
         <div class="content-head normal-head">
             <h3>订单详情</h3>
-            <a class="btn btn-gray-light fr" role="button" href="/dzorder/default.aspx?">返回</a>
+            <a class="btn btn-gray-light fr" role="button" href="/dzorder/default.aspx?businessId=<%= CurrentBusiness.Id %>">返回</a>
         </div>
         <div class="content-main">
             <div class="animated fadeInUpSmall">
@@ -35,7 +35,7 @@
                                                 <span class="model-pra-t">下单时间</span><%= CurrentOrder.OrderCreated %>
                                             </p>
                                             <p class="model-pra">
-                                                <span class="model-pra-t">订单状态</span><%= CurrentOrder.GetFriendlyStatus() %>
+                                                <span class="model-pra-t">订单状态</span><%= CurrentOrder.GetStatusTitleFriendly(CurrentOrder.OrderStatus) %>
                                             </p>
 
                                         </div>
@@ -58,29 +58,28 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <asp:Panel runat="server" ID="ctnrOrderStatus" Visible="false">
-                                        <div class="d-hr in"></div>
+                                    <asp:Panel runat="server" ID="panelOrderStatus" Visible="false">
+                                    <div class="d-hr in"></div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="order-ctrl t-r">
                                                 <!--<asp:HyperLink runat="server" ID="PayDepositAmount"></asp:HyperLink>-->
+                                                <!-- 确认订单控制 -->
                                                 <asp:Panel runat="server" ID="panelConfirmOrder" Visible="false">
                                                     <input class="btn btn-info btn-xs" type="button" value="指派员工" data-role="appointToggle" data-appointTargetId='<%= CurrentOrder.Id %>' >
-                                                    <asp:Button runat="server" CommandName="ConfirmOrder" OnClick="btnOrderStatusChange_Click"   ID="btnConfirmOrder" CssClass="btn btn-info btn-xs"  Visible="false" Text="确认订单"/>
+                                                    <asp:Button runat="server" CommandName="ConfirmOrder" OnClick="btnOrderStatusChange_Click"   ID="btnConfirmOrder" CssClass="btn btn-info btn-xs" Visible="false" Text="确认订单"/>
                                                 </asp:Panel>
-
+                                                <!-- 确认价格控制 -->
                                                 <asp:Panel runat="server" ID="panelConfirmPrice" Visible="false">
                                                     修改订单价格为：
-                                                    <asp:TextBox runat="server" CommandName="txtConfirmPrice" class="order-confirm-txt" OnClick="btnOrderStatusChange_Click"   ID="txtConfirmPrice" Width="100" Visible="false"></asp:TextBox>
+                                                    <asp:TextBox runat="server" CommandName="txtConfirmPrice" class="order-confirm-txt" OnClick="btnOrderStatusChange_Click" ID="txtConfirmPrice" Width="100" Visible="false"></asp:TextBox>
                                                     元
-                                                    <asp:Button runat="server" CommandName="ConfirmPrice" OnClick="btnOrderStatusChange_Click"   ID="btnConfirmPrice" CssClass="btn btn-info btn-xs order-confirm-btn" Visible="false" Text="确认价格"/>
+                                                    <asp:Button runat="server" CommandName="ConfirmPrice" OnClick="btnOrderStatusChange_Click" ID="btnConfirmPrice" CssClass="btn btn-info btn-xs order-confirm-btn" Visible="false" Text="确认价格"/>
                                                 </asp:Panel>
-                                               
+                                                <!--服务开始控制-->
                                                 <asp:Button runat="server" CommandName="Assigned"  OnClick="btnOrderStatusChange_Click"  Visible="false"  ID="btnBegin" CssClass="btn btn-info btn-xs" Text="开始服务"/>
-
-                                                <asp:Button runat="server" CommandName="Begin"  OnClick="btnOrderStatusChange_Click"  Visible="false"  ID="btnIsEndOrder" CssClass="btn btn-info btn-xs" Text="订单完成"/>
-
-                                                <!--<asp:Button runat="server" ID="Button3" CssClass="btn btn-info btn-xs" Text="指派"/>-->
+                                                <!--订单完成控制-->
+                                                <asp:Button runat="server" CommandName="Begin"  OnClick="btnOrderStatusChange_Click"  Visible="false"  ID="btnIsEndOrder" CssClass="btn btn-info btn-xs" Text="完成订单"/>
                                             </div>
                                         </div>
                                     </div>
@@ -161,7 +160,6 @@
                                                             <li><a>100%</a></li>
                                                         </ul>
                                                         <input type="hidden" value="0"  />
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -194,8 +192,7 @@
                                                         <%# Eval("CreatTime") %>
                                                     </div>
                                                 </div>
-                                                <div class="status-h"><%#Eval("OldStatus") %></div>
-                                                <div class="status-p"><%#Eval("OldStatus") %></div>
+                                                <div class="status-h"><%#Eval("NewStatusStr") %></div>
                                             </div>
                                         </ItemTemplate>
                                         </asp:Repeater>
@@ -260,4 +257,10 @@
     <script src="/js/jquery.lightBox_me.js"></script>
     <script src="/js/interfaceAdapter.js"></script>
     <script src="/js/appointToOrder.js"></script>
+    <script src="/js/select.js"></script>
+    <script>
+        $(function(){
+            $(".select").customSelect();
+        });
+    </script>
 </asp:Content>

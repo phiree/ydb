@@ -81,5 +81,14 @@ namespace Dianzhu.BLL
         {
             return DALDZService.SearchService(priceMin, priceMax, typeId, datetime, pageIndex, pagesize, out total);
         }
+        /// <summary>
+        /// 获取当前服务的标签
+        /// </summary>
+        /// <param name="service"></param>
+        /// <returns></returns>
+        public IList<DZTag> GetServiceTags(DZService service)
+        {
+            return new BLLDZTag().GetTagForService(service.Id);
+        }
     }
 }
