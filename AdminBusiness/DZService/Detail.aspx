@@ -107,21 +107,6 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
 <script>
-    function initializeServiceDetailMap(){
-        var objServiceArea = $.parseJSON($("#hiServiceArea").val());
-        var map = new BMap.Map("serviceArea", {enableMapClick: false});
-        var point = new  BMap.Point(objServiceArea.serPointCirle.lng, objServiceArea.serPointCirle.lat);
-        var marker = new BMap.Marker(point); // 创建点
-        var circle = new BMap.Circle(point,objServiceArea.serPointCirle.radius, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
-        map.disableDoubleClickZoom();
-        map.disableDragging();
-
-        map.centerAndZoom(point, 15);
-        map.addOverlay(marker);
-        map.addOverlay(circle);
-    }
-</script>
-<script>
     $(function () {
         function loadBaiduMapScript() {
             var script = document.createElement("script");
@@ -135,5 +120,21 @@
      });
 </script>
 <script src="/js/baiduMapLib.js"></script>
+<script>
+    function initializeServiceDetailMap(){
+        var objServiceArea = $.parseJSON($("#hiServiceArea").val());
+        var $serviceMap = $("#serviceArea");
+        var  map = new BMap.Map("serviceArea", {enableMapClick: false});
+        var point = new  BMap.Point(objServiceArea.serPointCirle.lng, objServiceArea.serPointCirle.lat);
+        var marker = new BMap.Marker(point); // 创建点
+        var circle = new BMap.Circle(point,objServiceArea.serPointCirle.radius, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+        map.disableDoubleClickZoom();
+        map.disableDragging();
+
+        map.centerAndZoom(point, 15);
+        map.addOverlay(marker);
+        map.addOverlay(circle);
+    }
+</script>
 </asp:Content>
 

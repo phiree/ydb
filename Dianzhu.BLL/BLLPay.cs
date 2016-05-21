@@ -232,4 +232,13 @@ namespace Dianzhu.BLL
             DALPaymentLog.SaveOrUpdate(PaymentLog);
         }
     }
+
+    public class BLLRefund
+    {
+        public string CreateRefundRequest(enum_PayAPI payApi )
+        {
+            // IRefund refund=
+          return  string.Empty;
+        }
+    }
 }

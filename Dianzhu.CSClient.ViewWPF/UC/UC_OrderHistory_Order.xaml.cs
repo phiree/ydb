@@ -33,7 +33,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             //lbOrderNum.Content = order.OrderNum;
 
-            lbOrderStatus.Content = order.GetStatusTitleFriendly(order.OrderStatus);
+            lbOrderStatus.Content = order.GetFriendlyStatus();
             if(order.OrderStatus != enum_OrderStatus.Search)
             {
                 lbOrdeSvcName.Content = order.Details.Count > 0 ? order.Details[0].ServieSnapShot.ServiceName : string.Empty;

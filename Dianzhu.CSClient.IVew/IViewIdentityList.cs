@@ -23,9 +23,7 @@ namespace Dianzhu.CSClient.IView
         void SetIdentityReaded(ServiceOrder serviceOrder);
         //
         void SetIdentityLoading(ServiceOrder serviceOrder);
-        //用户离线
-        void SetIdentityLogOff(ServiceOrder serviceOrder);
-
+        
     }
     /// <summary>
     /// 点击用户按钮的委托.

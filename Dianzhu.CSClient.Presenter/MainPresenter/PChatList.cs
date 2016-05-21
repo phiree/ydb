@@ -43,25 +43,7 @@ namespace Dianzhu.CSClient.Presenter
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
             viewChatList.AudioPlay += ViewChatList_AudioPlay;
-            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
 
-        }
-
-        private void IIM_IMReceivedMessage(ReceptionChat chat)
-        {
-            //判断信息类型
-            if(chat.ChatType== enum_ChatType.UserStatus)
-            {
-                ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
-
-                if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
-                {
-                    if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
-                    {
-                        ClearChatList();
-                    }
-                }
-            }
         }
 
         PHSuit.Media media = new PHSuit.Media();
@@ -132,14 +114,6 @@ namespace Dianzhu.CSClient.Presenter
 
 
 
-        }
-
-        /// <summary>
-        /// 清楚聊天记录
-        /// </summary>
-        public void ClearChatList()
-        {
-            viewChatList.ChatList = null;
         }
     }
 

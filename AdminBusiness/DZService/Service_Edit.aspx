@@ -90,7 +90,11 @@
     <script src="/js/stepByStep.js"></script>
     <script src="/js/CascadeCheck.js"></script>
     <script src="/js/timePick.js"></script>
+    <script>
+        var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$ctl00$';
+    </script>
     <script src="/js/validation_service_edit.js"></script>
+    <script src="/js/validation_invalidHandler.js"></script>
     <script src="/js/test/mock.js"></script>
     <script src="/js/test/mock.workTimeset.js"></script>
     <script src="/js/workTimeSet.js"></script>
@@ -98,9 +102,22 @@
     <script src="/js/baiduMapLib.js"></script>
     <script src="/js/service.js"></script>
     <script src="/js/iptag.js"></script>
-    <script src="/js/select.js"></script>
     <script>
         $(function () {
+            $($("form")[0]).validate(
+                {
+                    ignore:[],
+                    errorElement: "p",
+                    errorPlacement: function(error, element) {
+                        error.appendTo( element.parent() );
+                    },
+                    rules: service_validate_rules,
+                    messages: service_validate_messages,
+                    invalidHandler: invalidHandler,
+                    showErrors: showErrorsHandler
+                }
+            );
+
             $(".steps-wrap").stepByStep({
                 defaultStep : function(){
                     if ( Adapter.getParameterByName("step")){
@@ -126,8 +143,6 @@
                     trigger: 'hover'
                 }
             );
-
-            $(".select").customSelect();
 
             (function (){
                 if ( $("#hiTypeId").attr("value") ){ $("#lblSelectedType").removeClass("hide"); }

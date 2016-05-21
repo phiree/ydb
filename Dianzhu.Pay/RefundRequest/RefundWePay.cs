@@ -53,7 +53,7 @@ namespace Dianzhu.Pay.RefundRequest
             sParaTemp.Add("nonce_str", nonce_str);
             sParaTemp.Add("transaction_id", PlatformTradeNo);
             sParaTemp.Add("out_trade_no", OutTradeNo.Replace("-",""));
-            sParaTemp.Add("out_refund_no", OutRefundNo.Replace("-",""));
+            sParaTemp.Add("out_refund_no", OutRefundNo);
             sParaTemp.Add("total_fee", (TotalAmount*100).ToString("0"));
             sParaTemp.Add("refund_fee", (RefundAmount*100).ToString("0"));
             //sParaTemp.Add("op_user_id", OperatorId);

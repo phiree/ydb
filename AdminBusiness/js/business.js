@@ -25,7 +25,10 @@ function initialize(){
         geoc.getPoint(strAddress, function(point){
             if(point){
                 geoc.getLocation(point,function(result){
+                    //console.log(result);
+
                     $('#hiAddrId').attr("value",JSON.stringify(result.addressComponents));
+
                 });
             } else {
                 myCity.get(function(result){
@@ -33,6 +36,7 @@ function initialize(){
                         $('#hiAddrId').attr("value",JSON.stringify(result.addressComponents));
                     });
                 });
+                //confirm("请输入详细有效的地址");
             }
         });
     }

@@ -1,1 +1,1 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true"  ClassName="RefundCallBackHandler" Inherits="RefundCallBackHandler" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true"  ClassName="CallBackHandler" Inherits="CallBackHandler" %>

@@ -58,9 +58,9 @@ public partial class Staff_Edit : BasePage
         if(avatarList.Count>0)
         {
             StaffAvatarUrl = "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(avatarList[0].ImageName) + "&width=90&height=90&tt=3";
+      
         }
-        empheadimg.Attributes["data-preview"] = StaffAvatarUrl;
-        hiGender.Value = s.Gender == "男" ? "0" : "1";
+       hiGender.Value = s.Gender == "男" ? "0" : "1";
         
     }
     private void UpdateForm()

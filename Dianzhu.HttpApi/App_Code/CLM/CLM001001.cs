@@ -56,7 +56,7 @@ public class ResponseCLM001001 : BaseResponse
             }
             try
             {
-                ServiceOrder order = bllServiceOrder.GetOne(orderId);
+                ServiceOrder order = bllServiceOrder.GetOne(new Guid(requestData.orderID));
                 if (order == null)
                 {
                     this.state_CODE = Dicts.StateCode[4];

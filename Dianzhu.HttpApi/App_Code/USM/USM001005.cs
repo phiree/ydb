@@ -38,13 +38,6 @@ public class ResponseUSM001005 : BaseResponse
             {
                 return;
             }
-
-            if(member.UserType!= Dianzhu.Model.Enums.enum_UserType.customer)
-            {
-                this.state_CODE = Dicts.StateCode[8];
-                this.err_Msg = "该用户不是普通用户，登录失败";
-                return;
-            }
         }
         
         this.state_CODE = Dicts.StateCode[0];

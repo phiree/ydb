@@ -56,7 +56,7 @@ namespace Dianzhu.NotifyCenter
         /// 订单消息
         /// </summary>
         /// <param name="order"></param>
-        public void SendOrderChangedNotify(ServiceOrder order)
+        public void SendOrderChangedNotify(Dianzhu.Model.ServiceOrder order)
         {
             var extNode = new agsXMPP.Xml.Dom.Element("ext");
             extNode.Namespace = "ihelper:notice:order";
@@ -71,7 +71,7 @@ namespace Dianzhu.NotifyCenter
 
             ags.Message msg= BuildNotice(
                  order.Customer.Id + "@" + im.Domain,
-                 "订单状态已变为:" + order.GetStatusTitleFriendly(order.OrderStatus),
+                 "订单状态已变为:" + order.GetFriendlyStatus(),
                  extNode
                  );
             //发送给客户

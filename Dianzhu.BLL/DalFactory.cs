@@ -41,12 +41,6 @@ namespace Dianzhu.BLL
         static DALComplaint dalComplaint;
         static DALServiceOrderAppraise dalServiceOrderAppraise;
         static DALServiceOrderRemind dalServiceOrderRemind;
-        static DALClaims dalClaims;
-        public static DALClaims DALClaims
-        {
-            get { return dalClaims ?? new DALClaims(); }
-            set { dalClaims = value; }
-        }
         public static DALServiceOrderRemind DALServiceOrderRemind
         {
             get { return dalServiceOrderRemind ?? new DALServiceOrderRemind(); }

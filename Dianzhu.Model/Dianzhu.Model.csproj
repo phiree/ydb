@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Claims.cs" />
     <Compile Include="Finance\ServiceTypePoint.cs" />
     <Compile Include="IdentityAccess\emUserType.cs" />
     <Compile Include="Payment\RefundLog.cs" />

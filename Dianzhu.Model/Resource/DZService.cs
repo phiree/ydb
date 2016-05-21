@@ -119,25 +119,6 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual enum_ChargeUnit ChargeUnit { get; set; }
         /// <summary>
-        /// 计费单位英文转化为中文
-        /// </summary>
-        public virtual string ChargeUnitFriendlyName
-        {
-            get
-            {
-                string unit = string.Empty;
-                switch (this.ChargeUnit)
-                {
-                    case enum_ChargeUnit.Day: unit = "天"; break;
-                    case enum_ChargeUnit.Hour: unit = "时"; break;
-                    case enum_ChargeUnit.Month: unit = "月"; break;
-                    case enum_ChargeUnit.Times: unit = "次"; break;
-                    default: unit = "未知计费单位类型"; break;
-                }
-                return unit;
-            }
-        }
-        /// <summary>
         /// 一口价
         /// </summary>
         public virtual decimal FixedPrice { get; set; }

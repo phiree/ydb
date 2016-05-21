@@ -33,7 +33,7 @@ namespace Dianzhu.Model
            {
                r += v.PropertyValue + ",";
            }
-           return r = r.TrimEnd(',');
+           return r.TrimEnd(',');
        }
     }
 }

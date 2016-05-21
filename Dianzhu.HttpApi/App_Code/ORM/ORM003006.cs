@@ -66,13 +66,11 @@ public class ResponseORM003006 : BaseResponse
                 List<RespDataORM_orderStatusObj> RespOrderStatusList = new List<RespDataORM_orderStatusObj>();
 
                 RespDataORM_orderStatusObj orderStatusObj = null;
-                //orderStatusObj = new RespDataORM_orderStatusObj();
-                //orderStatusObj.status = enum_OrderStatus.Draft.ToString();
-                //orderStatusObj.time = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
-                //orderStatusObj.lastStatus = "";
-                //orderStatusObj.title = order.GetStatusTitleFriendly(enum_OrderStatus.Draft);
-                //orderStatusObj.context = order.GetStatusContextFriendly(enum_OrderStatus.Draft);
-                //RespOrderStatusList.Add(orderStatusObj);
+                orderStatusObj = new RespDataORM_orderStatusObj();
+                orderStatusObj.status = enum_OrderStatus.Draft.ToString();
+                orderStatusObj.time = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+                orderStatusObj.lastStatus = "";
+                RespOrderStatusList.Add(orderStatusObj);
 
                 IList< ServiceOrderStateChangeHis> OrderStateHisList = bllServiceOrderHis.GetOrderHisList(order);
                 if (OrderStateHisList != null)

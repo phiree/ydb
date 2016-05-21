@@ -64,114 +64,33 @@ namespace Dianzhu.Model
         }
 
         /// <summary>
-        /// 订单状态的标题
+        /// 将英文状态转换为中文
         /// </summary>
-        public virtual string GetStatusTitleFriendly(enum_OrderStatus status)
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public virtual string GetFriendlyStatus()
         {
-            string str = string.Empty;
-
-            switch (status)
+            string str = String.Empty;
+          
+            switch (this.OrderStatus)
             {
                 case enum_OrderStatus.Search: str = "搜索单"; break;
-
-                case enum_OrderStatus.Draft: str = "草稿"; break;
-                case enum_OrderStatus.DraftPushed: str = "等待选择服务"; break;
-                case enum_OrderStatus.Created: str = "等待支付订金"; break;
-                case enum_OrderStatus.checkPayWithDeposit: str = "已支付订金"; break;
-                case enum_OrderStatus.Payed: str = "系统已确认定金支付"; break;
-                case enum_OrderStatus.Negotiate: str = "服务已确认"; break;
-                case enum_OrderStatus.isNegotiate: str = "新价格生成"; break;
-                case enum_OrderStatus.Assigned: str = "价格已更新"; break;
-                case enum_OrderStatus.Begin: str = "服务中"; break;
-                case enum_OrderStatus.isEnd: str = "服务完成"; break;
-                case enum_OrderStatus.Ended: str = "服务已确认完成"; break;
-                case enum_OrderStatus.checkPayWithNegotiate: str = "已支付尾款"; break;
+                case enum_OrderStatus.Draft: str = "草稿单"; break;
+                case enum_OrderStatus.DraftPushed: str = "推送服务的草稿单"; break;
+                case enum_OrderStatus.Created: str = "等待付款"; break;
+                case enum_OrderStatus.Payed: str = "已付款"; break;
+                case enum_OrderStatus.Canceled: str = "客户申请取消订单"; break;
+                case enum_OrderStatus.CanceledDirectly: str = "订单已取消"; break;
+                case enum_OrderStatus.Aborded: str = "订单已中止"; break;
+                case enum_OrderStatus.Negotiate: str = "商家已确认订单"; break;
+                case enum_OrderStatus.Assigned: str = "等待服务开始"; break;
+                case enum_OrderStatus.Begin: str = "服务已开始"; break;
+                case enum_OrderStatus.isEnd: str = "商家确定服务完成"; break;
+                case enum_OrderStatus.Ended: str = "用户确定服务完成"; break;
                 case enum_OrderStatus.Finished: str = "订单完成"; break;
-                case enum_OrderStatus.Appraised: str = "已评价"; break;
-                case enum_OrderStatus.EndWarranty: str = "订单已完结"; break;
-
-                case enum_OrderStatus.Canceled: str = "取消中"; break;
-                case enum_OrderStatus.WaitingDepositWithCanceled: str = "取消即将成功"; break;
-                case enum_OrderStatus.EndCancel: str = "取消成功"; break;
-
-                case enum_OrderStatus.Refund: str = "理赔中"; break;
-                case enum_OrderStatus.WaitingRefund: str = "审核中"; break;
-                case enum_OrderStatus.isRefund: str = "审核通过"; break;
-                case enum_OrderStatus.RejectRefund: str = "审核驳回"; break;
-                case enum_OrderStatus.AskPayWithRefund: str = "审核暂停"; break;
-                case enum_OrderStatus.WaitingPayWithRefund: str = "等待支付违约金"; break;
-                case enum_OrderStatus.checkPayWithRefund: str = "已支付违约金"; break;
-                case enum_OrderStatus.EndRefund: str = "理赔完成"; break;
-
-                case enum_OrderStatus.InsertIntervention: str = "一点办介入并提交凭证"; break;
-                case enum_OrderStatus.HandleWithIntervention: str = "官方处理中"; break;
-                case enum_OrderStatus.NeedRefundWithIntervention: str = "官方处理:理赔通过"; break;
-                case enum_OrderStatus.NeedPayWithIntervention: str = "官方处理:理赔暂停"; break;
-                case enum_OrderStatus.checkPayWithIntervention: str = "已支付违约金"; break;
-                case enum_OrderStatus.EndIntervention: str = "官方介入完成"; break;
-
-                case enum_OrderStatus.ForceStop: str = "已终止"; break;
-                case enum_OrderStatus.Complaints: str = "投诉中"; break;
-                case enum_OrderStatus.WaitingComplaints: str = "审核投诉中"; break;
-                case enum_OrderStatus.EndComplaints: str = "投诉完成"; break;
-
-                default: str = "未知订单类型"; break;
-            }
-            return str;
-        }
-        /// <summary>
-        /// 订单状态的内容
-        /// </summary>
-        public virtual string GetStatusContextFriendly(enum_OrderStatus status)
-        {
-            string str = string.Empty;
-
-            switch (status)
-            {
-                case enum_OrderStatus.Search: str = "搜索单"; break;
-
-                case enum_OrderStatus.Draft: str = "未生成订单"; break;
-                case enum_OrderStatus.DraftPushed: str = "小助理已推荐服务"; break;
-                case enum_OrderStatus.Created: str = "新的订单已经生成"; break;
-                case enum_OrderStatus.checkPayWithDeposit: str = "请等待系统确认"; break;
-                case enum_OrderStatus.Payed: str = "等待店家确认服务"; break;
-                case enum_OrderStatus.Negotiate: str = "店家马上会为您服务"; break;
-                case enum_OrderStatus.isNegotiate: str = "店家已更新价格，请您确认"; break;
-                case enum_OrderStatus.Assigned: str = "等待店家开始服务"; break;
-                case enum_OrderStatus.Begin: str = "店家已开始服务，请确认是否开始"; break;
-                case enum_OrderStatus.isEnd: str = "服务已完成，请确认是否满足您的需求"; break;
-                case enum_OrderStatus.Ended: str = "等待您支付尾款"; break;
-                case enum_OrderStatus.checkPayWithNegotiate: str = "等待系统确认"; break;
-                case enum_OrderStatus.Finished: str = "订单已完成，请对服务做出评价，订单将在2天后关闭"; break;
-                case enum_OrderStatus.Appraised: str = "感谢您对服务做出的评价，这将帮助我们做得更好"; break;
-                case enum_OrderStatus.EndWarranty: str = "非常感谢您对我们的支持"; break;
-
-                case enum_OrderStatus.Canceled: str = "已提交取消订单请求"; break;
-                case enum_OrderStatus.WaitingDepositWithCanceled: str = "取消请求已被受理，请系统等待返还订金"; break;
-                case enum_OrderStatus.EndCancel: str = "订单已被取消了"; break;
-
-                case enum_OrderStatus.Refund: str = "已提交理赔的请求"; break;
-                case enum_OrderStatus.WaitingRefund: str = "等待店家审核理赔请求"; break;
-                case enum_OrderStatus.isRefund: str = "理赔请求已通过，等待返还理赔金额"; break;
-                case enum_OrderStatus.RejectRefund: str = "理赔请求被驳回，您可申请一点办进行介入或取消理赔"; break;
-                case enum_OrderStatus.AskPayWithRefund: str = "理赔请求被暂停，店家要求支付违约金"; break;
-                case enum_OrderStatus.WaitingPayWithRefund: str = "您已同意理赔并支付违约金"; break;
-                case enum_OrderStatus.checkPayWithRefund: str = "等待系统收账"; break;
-                case enum_OrderStatus.EndRefund: str = "非常感谢您对我们的支持"; break;
-
-                case enum_OrderStatus.InsertIntervention: str = "一点办已介入，请提交凭证"; break;
-                case enum_OrderStatus.HandleWithIntervention: str = "官方已收集凭证，正在处理"; break;
-                case enum_OrderStatus.NeedRefundWithIntervention: str = "官方已处理完成，同意此次理赔请求"; break;
-                case enum_OrderStatus.NeedPayWithIntervention: str = "官方已处理完成，认定需要支付违约金"; break;
-                case enum_OrderStatus.checkPayWithIntervention: str = "等待系统收账"; break;
-                case enum_OrderStatus.EndIntervention: str = "非常感谢您对我们的支持"; break;
-
-                case enum_OrderStatus.ForceStop: str = "很抱歉，因超时未支付赔偿金，此订单已被终止"; break;
-                case enum_OrderStatus.Complaints: str = "已提交投诉申请"; break;
-                case enum_OrderStatus.WaitingComplaints: str = "等待审核投诉"; break;
-                case enum_OrderStatus.EndComplaints: str = "非常感谢您对我们的支持"; break;
-
-                default: str = "未知订单类型"; break;
+                case enum_OrderStatus.Appraised: str = "用户已评价"; break;
+                case enum_OrderStatus.WaitingDepositWithCanceled: str = "等待退还定金"; break;
+                default:str = "未知订单类型"; break;
             }
             return str;
         }
@@ -182,7 +101,8 @@ namespace Dianzhu.Model
         public virtual string GetSummaryString()
         {
             return string.Format("订单状态:{5} 用户:{0},定金金额:{1},服务项:{2},商家:{3}, 服务时间:{4}",
-                Customer.DisplayName,DepositAmount, Title,ServiceBusinessName,TargetTime,GetStatusTitleFriendly(this.OrderStatus));
+                Customer.DisplayName,DepositAmount, Title,ServiceBusinessName,TargetTime,GetFriendlyStatus()
+                );
         }
         #endregion
 
@@ -286,11 +206,6 @@ namespace Dianzhu.Model
         public virtual DateTime OrderCreated { get; set; }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public virtual DateTime OrderConfirmTime { get; set; }
-
-        /// <summary>
         /// 最近的更新时间
         /// </summary>
         public virtual DateTime LatestOrderUpdated { get; set; }
@@ -383,6 +298,10 @@ namespace Dianzhu.Model
         
         //创建此订单的客服.
         public virtual DZMembership CustomerService { get; set; }
+
+         
+        
+        //草稿单转为正式单之后
       
 
         /// <summary>
@@ -422,7 +341,7 @@ namespace Dianzhu.Model
                 this.DepositAmount += detail.ServieSnapShot.DepositAmount;
             }
             this.OrderStatus = enum_OrderStatus.Created;
-            this.OrderConfirmTime = DateTime.Now;
+
         }
         /// <summary>
         /// 获取支付总额
@@ -445,12 +364,8 @@ namespace Dianzhu.Model
             }
         }
 
-        #region 临时数据
-        /// <summary>
-        /// 订单状态中文名
-        /// </summary>
-        public virtual string OrderStatusStr{ get; set; }
-        #endregion
+       
+        
 
     }
 

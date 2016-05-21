@@ -26,10 +26,5 @@ namespace Dianzhu.BLL
         {
             dal.Save(r);
         }
-
-        public void Update(RefundLog r)
-        {
-            dal.Update(r);
-        }
     }
 }

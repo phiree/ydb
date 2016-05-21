@@ -84,13 +84,23 @@
 <script src="/js/jquery.placeholder.min.js"></script>
 <script>$('input, textarea').placeholder();</script>
 <![endif]-->
+<script>
+    $($("form")[0]).validate(
+        {
+            ignore:[],
+            errorElement: "div",
+            errorLabelContainer: ".login_err_msg ul",
+            wrapper: "li",
+            rules: reg_validate_rules,
+            messages: reg_validate_messages
+        }
+    );
+</script>
 <%if (!Request.IsLocal){ %>
 <script>
-    (function (){
-        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-        document.write(unescape("%3Cspan id='cnzz_stat_icon_1256240621' style='display:none'%3E%3C/span%3E%3Cscript src='"
-                + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256240621%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-    })();
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1256240621' style='display:none'%3E%3C/span%3E%3Cscript src='"
+            + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256240621%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <% }%>
 </body>

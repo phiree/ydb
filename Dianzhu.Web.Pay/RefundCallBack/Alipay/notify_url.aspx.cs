@@ -22,7 +22,19 @@ public partial class notify_url : System.Web.UI.Page
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-    }
+        log.Debug("----------------回调开始------------------");
+        log.Debug("支付完成，AliPay回调 notifyurl");
+        //保存支付接口返回的原始数据
+        BLLPay bllPay = new BLLPay();
+        try {
+            bllPay.ReceiveAPICallBack(Dianzhu.Model.Enums.enum_PaylogType.ResultNotifyFromAli, new PayCallBackAli(), Request.RawUrl,  Request.QueryString);
+            Response.Write("success");
+        }
+        catch {
+            Response.Write("fail");
+        }
+        log.Debug("----------------回调结束------------------");
 
+    }
+ 
 }

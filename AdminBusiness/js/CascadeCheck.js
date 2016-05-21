@@ -150,8 +150,7 @@
         _submit : function(){
 
             if ( this.options.submitTarget !== null && $(this.options.submitTarget).length ){
-                // focus and blur to make the validate.js work normal.
-                $(this.options.submitTarget).attr('value', this._checkId).focus().blur();
+                $(this.options.submitTarget).attr('value', this._checkId );
             }
 
             if ( typeof this.options.submitCallback === 'function'){

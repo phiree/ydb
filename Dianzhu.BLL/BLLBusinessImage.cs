@@ -23,17 +23,12 @@ namespace Dianzhu.BLL
        public void Delete(Guid biId)
        {
            BusinessImage bi = DALBusinessImage.GetOne(biId);
-            if (bi == null) { return; }
            string filePath = HttpContext.Current.Server.MapPath(SiteConfig.BusinessImagePath+"/original/")+bi.ImageName;
-
-            if (filePath != null) {
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
-                }
-                DALBusinessImage.Delete(bi);
-            }
-
+           if (File.Exists(filePath))
+           {
+               File.Delete(filePath);
+           }
+           DALBusinessImage.Delete(bi);
        }
        public string  Save(Guid businessId,System.Web.HttpPostedFileBase imageFile, Dianzhu.Model.Enums.enum_ImageType imageType)
        {

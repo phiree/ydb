@@ -1,5 +1,5 @@
 /**
- * 员工指派订单插件，模拟backbone的MVC方式实现。
+ * 订单指派订单插件，模拟backbone的MVC方式实现。
  * @template AdminBusiness\DZOrder\Default.aspx#orders_template
  * @depends interfaceAdapter.js
  */
@@ -54,8 +54,8 @@
         this.model = options.model || OrderModel;
         this.url = options.url ;
         this.reqObj = {
-            userID : options.merchantID ? options.merchantID : merchantID,
-            target : "ALL",
+            userID : options.storeID ? options.storeID : Adapter.getParameterByName("businessId"),
+            target : "Nt",
             pageSize : "999",
             pageNum : "1"
         };
@@ -111,8 +111,7 @@
     });
 
     var orderCollection = new OrderCollection([], {
-        url : globalApiUrl,
-        //url : "/order.json",
+        url : "/order.json",
         model : OrderModel
     });
 
@@ -188,8 +187,8 @@
     });
 
     var assignCollection = new AssignCollection([], {
-        url : globalApiUrl,
-        //url : "/assign.json",
+        //url : globalApiUrl,
+        url : "/assign.json",
         model : AssignModel
     });
 
@@ -421,8 +420,8 @@
     $(document).on('click.appoint', '[data-role="appointToggle"]', function (e) {
         var storeID = Adapter.getParameterByName("businessId");
         //var orderID = $(this).attr("data-appointTargetId");
-        var userID = $(this).attr("data-appointTargetId");
-        //var userID = "6F9619FF-8B86-D011-B42D-00C04FC964FF";
+        //var userID = $(this).attr("data-appointTargetId");
+        var userID = "6F9619FF-8B86-D011-B42D-00C04FC964FF";
         var appModel = new AppModel({
             url : globalApiUrl,
             reqData : {

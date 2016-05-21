@@ -62,8 +62,6 @@
     <Compile Include="PayCallBack\PayCallBackAli.cs" />
     <Compile Include="PayCallBack\PayCallBackWePay.cs" />
     <Compile Include="PayRequest\IPay.cs" />
-    <Compile Include="RefundCallBack\IRefundCallBack.cs" />
-    <Compile Include="RefundCallBack\RefundCallBackAli.cs" />
     <Compile Include="RefundRequest\IRefund.cs" />
     <Compile Include="PayRequest\PayAliApp.cs" />
     <Compile Include="PayRequest\PayAliWeb.cs" />
@@ -85,7 +83,9 @@
       <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="RefundCallBack\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

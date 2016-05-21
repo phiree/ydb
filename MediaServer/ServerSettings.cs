@@ -23,19 +23,19 @@ namespace MediaServer
             {
                 if (domainPath.Count == 0)
                 {
-                    domainPath["BusinessImage"] = "BusinessImage\\";//商家后台上传图片
-                    domainPath["UserAvatar"] = "Avatar\\";//用户头像
-                    domainPath["ChatAudio"] = "ChatAudio\\";//聊天语音
-                    domainPath["ChatVideo"] = "ChatVideo\\";//聊天视频
-                    domainPath["ChatImage"] = "ChatImage\\";//聊天图片
-                    domainPath["Advertisement"] = "Advertisement\\";//广告
-                    domainPath["StaffAvatar"] = "StaffAvatar\\";//职工头像
-                    domainPath["BusinessAvatar"] = "BusinessAvatar\\";//店铺logo
-                    domainPath["BusinessShow"] = "BusinessShow\\";//店铺展示图片
-                    domainPath["BusinessLicense"] = "BusinessLicense\\";//商家营业执照
-                    domainPath["BusinessLicenseB"] = "BusinessLicenseB\\";//商家营业执照
-                    domainPath["BusinessChargePersonIdCard"] = "BusinessChargePersonIdCard\\";//负责人证件照片
-                    domainPath["BusinessChargePersonIdCardB"] = "BusinessChargePersonIdCardB\\";//负责人证件照片
+                    domainPath["BusinessImage"] = "/BusinessImage/";//商家后台上传图片
+                    domainPath["UserAvatar"] = "/Avatar/";//用户头像
+                    domainPath["ChatAudio"] = "/ChatAudio/";//聊天语音
+                    domainPath["ChatVideo"] = "/ChatVideo/";//聊天视频
+                    domainPath["ChatImage"] = "/ChatImage/";//聊天图片
+                    domainPath["Advertisement"] = "/Advertisement/";//广告
+                    domainPath["StaffAvatar"] = "/StaffAvatar/";//职工头像
+                    domainPath["BusinessAvatar"] = "/BusinessAvatar/";//店铺logo
+                    domainPath["BusinessShow"] = "/BusinessShow/";//店铺展示图片
+                    domainPath["BusinessLicense"] = "/BusinessLicense/";//商家营业执照
+                    domainPath["BusinessLicenseB"] = "/BusinessLicenseB/";//商家营业执照
+                    domainPath["BusinessChargePersonIdCard"] = "/BusinessChargePersonIdCard/";//负责人证件照片
+                    domainPath["BusinessChargePersonIdCardB"] = "/BusinessChargePersonIdCardB/";//负责人证件照片
                 }
                 return domainPath;
             }
