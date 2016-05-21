@@ -36,7 +36,7 @@ public partial class business_Default : System.Web.UI.Page
         string query = "select b from Business b";
        
         IList<VMShop> allBusiness = vmBusinessAdapter.
-            AdaptList(bllBusiness.GetListByPage(currentPageIndex - 1, pager.PageSize, out totalRecord));
+            AdaptList(bllBusiness.GetListByPage(currentPageIndex, pager.PageSize, out totalRecord));
         gvBusiness.DataSource = allBusiness;
         //gvBusiness.DataBind();
         pager.RecordCount = (int)totalRecord;

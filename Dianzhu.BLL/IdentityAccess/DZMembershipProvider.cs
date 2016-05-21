@@ -385,7 +385,7 @@ namespace Dianzhu.BLL
         }
         public IList<DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecords)
         {
-            return DALMembership.GetAllCustomer(pageIndex - 1, pageSize, out totalRecords);
+            return DALMembership.GetAllCustomer(pageIndex, pageSize, out totalRecords);
         }
 
     }
