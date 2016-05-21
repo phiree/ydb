@@ -85,10 +85,6 @@
       <Project>{125f0d3b-e83c-4743-9944-e82392cba6c5}</Project>
       <Name>Dianzhu.CSClient.XMPP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
-      <Project>{43e8ffa6-60e9-40ca-a7a8-cec8008519dd}</Project>
-      <Name>Dianzhu.IDAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
       <Name>Dianzhu.Model</Name>

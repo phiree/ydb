@@ -7,8 +7,6 @@ using System.Web.UI.WebControls;
 
 public partial class SendSysNotice : System.Web.UI.Page
 {
-    Dianzhu.NotifyCenter.IMNotify notify = Installer.Container.Resolve<Dianzhu.NotifyCenter.IMNotify>();
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -18,7 +16,9 @@ public partial class SendSysNotice : System.Web.UI.Page
     }
     protected void btnSend_Click(object sender, EventArgs e)
     {
-      
+        Dianzhu.NotifyCenter.IMNotify notify = new Dianzhu.NotifyCenter.IMNotify(
+           (Dianzhu.CSClient.IInstantMessage.InstantMessage)Application["im"]
+            );
         notify.SendSysNoitification(tbxContent.Text);
         lblResult.Text = "发送完成";
     }
