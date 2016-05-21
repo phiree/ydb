@@ -29,7 +29,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         //{
         //    get
         //    {
-        //        if (bllMember == null) bllMember = new DZMembershipProvider();
+        //        if (bllMember == null) bllMember = Installer.Container.Resolve<DZMembershipProvider>();
         //        return bllMember;
         //    }
 
@@ -49,7 +49,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         //{
         //    get
         //    {
-        //        if (bllOrder == null) bllOrder = new BLLServiceOrder();
+        //        if (bllOrder == null) bllOrder =Installer.Container.Resolve<BLLServiceOrder>();
         //        return bllOrder;
         //    }
 

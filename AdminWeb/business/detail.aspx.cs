@@ -9,7 +9,7 @@ using Dianzhu.BLL;
 public partial class business_detail : System.Web.UI.Page
 {
     Business b;
-    BLLBusiness bllBusiness = new BLLBusiness();
+    BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
     protected void Page_Load(object sender, EventArgs e)
     {
         string paramId = Request.Params["id"];
@@ -43,7 +43,7 @@ public partial class business_detail : System.Web.UI.Page
     protected void btnApprove_Click(object sender, EventArgs e)
     {
         b.IsApplyApproved = !b.IsApplyApproved;
-        bllBusiness.Updte(b);
+        bllBusiness.Update(b);
         PHSuit.Notification.Show(Page, "", "操作成功", Request.RawUrl);
     }
 }

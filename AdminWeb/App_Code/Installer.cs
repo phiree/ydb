@@ -27,8 +27,7 @@ public class Installer
     {
 
         container = Dianzhu.DependencyInstaller.Installer.Container;
-
-        container.Register(Component.For<VMBusinessAdapter>());
+       
         container.Register(Component.For<VMCustomerAdapter>());
 
     }

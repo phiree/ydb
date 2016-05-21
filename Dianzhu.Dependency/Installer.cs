@@ -46,7 +46,13 @@ namespace Dianzhu.DependencyInstaller
 
 
             /**********applicationService********/
+            container.Register(Component.For<BLLBusiness>());
+            container.Register(Component.For<BLLBusinessImage>());
+            container.Register(Component.For<DZMembershipProvider>());
+            container.Register(Component.For<BLLAdvertisement>());
+            container.Register(Component.For<BLLArea>());
 
+            container.Register(Component.For<CashTicketAssigner_Task>());
             container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
                                .DependsOn(Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis()))
                                .DependsOn(Dependency.OnValue("bllPayment", new BLLPayment()))

@@ -46,7 +46,7 @@ namespace Dianzhu.BLL
         public void ReceiveAPICallBack(enum_PaylogType payLogType, IRefundCallBack irefundCallback, string rawRequestString, object callbackParameters)
         {
             BLLRefundLog bllRefundLog = new BLLRefundLog();
-            //BLLServiceOrder bllOrder = new BLLServiceOrder();
+            //BLLServiceOrder bllOrder =Installer.Container.Resolve<BLLServiceOrder>();
             //获取回调参数 如果是get , 如果是post?
 
             //保存记录

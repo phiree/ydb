@@ -12,7 +12,7 @@ public partial class verify : System.Web.UI.Page
     {
         string userId = Request.Params["userId"];
         string verifyCode = Request.Params["verifyCode"];
-        DZMembershipProvider dz = new DZMembershipProvider();
+        DZMembershipProvider dz = Installer.Container.Resolve<DZMembershipProvider>();
        DZMembership member=  dz.GetUserById(new Guid(userId));
        if (member == null)
        { Response.Write("请求参数有误,请确认URL地址是否有误."); }

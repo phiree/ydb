@@ -6,9 +6,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Dianzhu.IDAL;
 public partial class Business_Default : BasePage
 {
-    BLLBusiness bllBusiness = new BLLBusiness();
+    IDALBusiness dalBusiness = Installer.Container.Resolve<IDALBusiness>();
     BLLDZService bllService = new BLLDZService();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -27,7 +28,7 @@ public partial class Business_Default : BasePage
     protected void BindBusinessList()
     {
 
-        var businessList = bllBusiness.GetBusinessListByOwner(CurrentUser.Id).Where(x=>x.Enabled);
+        var businessList = dalBusiness.GetBusinessListByOwner(CurrentUser.Id).Where(x=>x.Enabled);
         
         rptBusinessList.DataSource = businessList;
         // rptBusinessList.ItemCommand+=new RepeaterCommandEventHandler(rptBusinessList_ItemCommand);
@@ -69,7 +70,7 @@ public partial class Business_Default : BasePage
         
         b.Description = tbxDescription.Value;
         b.CreatedTime = DateTime.Now;
-        bllBusiness.SaveOrUpdate(b);
+        dalBusiness.Add(b);
 
         Response.Redirect("/business/detail.aspx?businessid="+b.Id);
     }
@@ -79,9 +80,9 @@ public partial class Business_Default : BasePage
         {
             string strBusinessId = e.CommandArgument.ToString();
             Guid businessId = new Guid(strBusinessId);
-            Business b = bllBusiness.GetOne(businessId);
+            Business b = dalBusiness.FindById(businessId);
             b.Enabled = false;
-            bllBusiness.SaveOrUpdate(b);
+            dalBusiness.Update(b);
             BindBusinessList();
         }
     }

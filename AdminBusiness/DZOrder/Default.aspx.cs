@@ -12,7 +12,7 @@ public partial class DZOrder_Default : BasePage
 {
     Dianzhu.BLL.IBLLServiceOrder bllOrder = Installer.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
 
-    //   BLLServiceOrder bllServeiceOrder = new BLLServiceOrder();
+    //   BLLServiceOrder bllServeiceOrder =Installer.Container.Resolve<BLLServiceOrder>();
     BLLPayment bllPayment = new BLLPayment();
 
     public string merchantID {
@@ -40,7 +40,7 @@ public partial class DZOrder_Default : BasePage
             currentPageIndex = int.Parse(paramPage);
         }
 
-        rpOrderList.DataSource = bllServeiceOrder.GetListForBusiness(CurrentBusiness, currentPageIndex, pager.PageSize, out totalRecord).OrderByDescending(x=>x.OrderCreated);
+        var IOrderList = bllOrder.GetListForBusiness(CurrentBusiness, currentPageIndex, pager.PageSize, out totalRecord).OrderByDescending(x=>x.OrderCreated);
            
         rpOrderList.DataSource = IOrderList;
         foreach (ServiceOrder item in IOrderList) {

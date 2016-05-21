@@ -10,7 +10,7 @@ using Dianzhu.BLL;
 public class BasePage:System.Web.UI.Page
 {
     DZMembership currentUser;
-    BLLBusiness bllBusiness = new BLLBusiness();
+    BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
     bool needBusiness = true;
     public bool NeedBusiness { get; set; }
     public DZMembership CurrentUser
@@ -40,7 +40,7 @@ public class BasePage:System.Web.UI.Page
         }
     }
     
-    DZMembershipProvider mp = new DZMembershipProvider();
+    DZMembershipProvider mp = Installer.Container.Resolve<DZMembershipProvider>();
 	public BasePage()
 	{
 		//

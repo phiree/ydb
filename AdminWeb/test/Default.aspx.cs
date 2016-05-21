@@ -16,7 +16,7 @@ public partial class test_Default : System.Web.UI.Page
     }
     protected void btnCreateOrder_Click(object sender,EventArgs e)
     {
-        DZMembershipProvider bllMembership = new DZMembershipProvider();
+        DZMembershipProvider bllMembership = Installer.Container.Resolve<DZMembershipProvider>();
         
         BLLDZService bllService = new BLLDZService();
         BLLPayment bllPayment = new BLLPayment();

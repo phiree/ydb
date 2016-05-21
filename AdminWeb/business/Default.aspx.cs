@@ -20,7 +20,7 @@ public partial class business_Default : System.Web.UI.Page
 
     private void BindBusinesses()
     {
-        //BLLBusiness bllBusiness = new BLLBusiness();
+        //BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
         //IList<Business> allBusiness = bllBusiness.GetAll();
         //gvBusiness.DataSource = allBusiness;
         //gvBusiness.DataBind();
@@ -32,7 +32,7 @@ public partial class business_Default : System.Web.UI.Page
         {
             currentPageIndex = int.Parse(paramPage);
         }
-        BLLBusiness bllBusiness = new BLLBusiness();
+        BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
         string query = "select b from Business b";
        
         IList<VMShop> allBusiness = vmBusinessAdapter.

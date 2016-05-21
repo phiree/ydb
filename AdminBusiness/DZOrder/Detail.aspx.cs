@@ -11,8 +11,8 @@ using System.Web.UI.WebControls;
 public partial class DZOrder_Detail : System.Web.UI.Page
 {
     Dianzhu.BLL.IBLLServiceOrder bllServeiceOrder = Installer.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
-    BLLBusiness bllBusiness = new BLLBusiness();
-   // BLLServiceOrder bllServeiceOrder = new BLLServiceOrder();
+    BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
+   // BLLServiceOrder bllServeiceOrder =Installer.Container.Resolve<BLLServiceOrder>();
     BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
     BLLPayment bllPayment = new BLLPayment();
     public ServiceOrder CurrentOrder;

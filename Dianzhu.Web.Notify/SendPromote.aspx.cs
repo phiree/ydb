@@ -16,9 +16,7 @@ public partial class SendPromote : System.Web.UI.Page
     }
     protected void btnSend_Click(object sender, EventArgs e)
     {
-        Dianzhu.NotifyCenter.IMNotify notify = new Dianzhu.NotifyCenter.IMNotify(
-           (Dianzhu.CSClient.IInstantMessage.InstantMessage)Application["im"]
-            );
+        Dianzhu.NotifyCenter.IMNotify notify = Installer.Container.Resolve<Dianzhu.NotifyCenter.IMNotify>();
         Uri uri;
         try
         {

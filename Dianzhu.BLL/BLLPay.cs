@@ -20,7 +20,7 @@ namespace Dianzhu.BLL
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLPay");
         BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
         BLLPayment bllPayment = new BLLPayment();
-        //BLLServiceOrder bllOrder = new BLLServiceOrder();
+        //BLLServiceOrder bllOrder =Installer.Container.Resolve<BLLServiceOrder>();
         IBLLServiceOrder bllOrder { get; set; }
         public IPayRequest CreatePayAPI(enum_PayAPI payApi, ServiceOrder order, enum_PayTarget payTarget)
         {

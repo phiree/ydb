@@ -98,6 +98,10 @@ namespace Dianzhu.BLL
             return dalBusiness.FindOne(x => x.Id == id && x.Owner.Id == ownerId);
           //  return DALBusiness.GetBusinessByIdAndOwner(id, ownerId);
         }
+        public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
+        {
+            return dalBusiness.Find(x => true, pageIndex, pageSize, out totalRecord);
+        }
     }
 
 }

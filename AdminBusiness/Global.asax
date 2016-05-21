@@ -19,7 +19,8 @@
 
     void timer_ticket_assigner_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
-        var cc = new Dianzhu.BLL.CashTicketAssigner_Task();
+       Dianzhu.BLL.CashTicketAssigner_Task cc = Installer.Container.Resolve< Dianzhu.BLL.CashTicketAssigner_Task>();
+        cc.Assign();
     }
 
 

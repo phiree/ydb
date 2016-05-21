@@ -10,7 +10,7 @@ using PHSuit;
 using System.Web.Security;
 public partial class CashTicketTemplateEdit :BasePage
 {
-    DZMembershipProvider dzp = new DZMembershipProvider();
+    DZMembershipProvider dzp = Installer.Container.Resolve<DZMembershipProvider>();
     private bool IsNew=true;
     CashTicketTemplate currentCashTicketTemplate=new CashTicketTemplate();
     BLLCashTicketTemplate bllctt = new BLLCashTicketTemplate();

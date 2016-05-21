@@ -8,7 +8,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 public partial class membership_Default : System.Web.UI.Page
 {
-    DZMembershipProvider dzmp = new DZMembershipProvider();
+    DZMembershipProvider dzmp = Installer.Container.Resolve<DZMembershipProvider>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

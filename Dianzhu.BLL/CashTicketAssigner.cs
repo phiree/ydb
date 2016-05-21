@@ -19,12 +19,15 @@ namespace Dianzhu.BLL
         private static readonly ILog log = LogManager.GetLogger("Dianzhu.BLL");
         public CashTicketAssigner_Task(IDAL.IDALBusiness dalBusiness)
         {
+            this.dalBusiness = dalBusiness;
+        }
+        public void Assign() {
             IList<Area> areas = dalBusiness.GetDistinctAreasOfBusiness();
             foreach (Area area in areas)
             {
-                var businesses= dalBusiness.GetBusinessInSameCity(area);
+                var businesses = dalBusiness.GetBusinessInSameCity(area);
                 CashTicketAssignForArea cta_area = new CashTicketAssignForArea(area, businesses);
-                CashTicketAssignRecord ctar= cta_area.Assign();
+                CashTicketAssignRecord ctar = cta_area.Assign();
                 dalBusiness.SaveList(businesses);
                 ctar.TimeEnd = DateTime.Now;
 
