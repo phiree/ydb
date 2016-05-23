@@ -11,6 +11,6 @@ namespace Dianzhu.BLL.Finance
     /// </summary>
     public interface IOrderShare
     {
-        void Share(Dianzhu.Model.ServiceOrder order);
+        IList<Dianzhu.Model.Finance.BalanceFlow> Share(Dianzhu.Model.ServiceOrder order);
     }
 }

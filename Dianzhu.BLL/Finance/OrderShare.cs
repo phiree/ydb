@@ -28,8 +28,10 @@ namespace Dianzhu.BLL.Finance
         /// 订单分成
         /// </summary>
         /// <param name="order"></param>
-        public void Share(ServiceOrder order)
+        /// <returns>分成详情.</returns>
+        public IList<Dianzhu.Model.Finance.BalanceFlow> Share(ServiceOrder order)
         {
+            IList<Model.Finance.BalanceFlow> balanceFlows = new List<Model.Finance.BalanceFlow>();
             //- 获取该订单总的分账额度
             //-- 循环订单明细,获取每种服务的类型(目前只支持一个订单一个服务)
 
@@ -68,7 +70,7 @@ namespace Dianzhu.BLL.Finance
                     FlowType = Model.Finance.enumFlowType.OrderShare
 
                 };
-                balanceService.Save(flowAgent);
+                balanceFlows.Add(flowAgent);
             }
             Dianzhu.Model.Finance.BalanceFlow flowCustomerService = new Model.Finance.BalanceFlow
             {
@@ -79,8 +81,8 @@ namespace Dianzhu.BLL.Finance
                 FlowType = Model.Finance.enumFlowType.OrderShare
 
             };
-            balanceService.Save(flowCustomerService);
-          
+            balanceFlows.Add(flowCustomerService);
+            return balanceFlows;
         }
 
         

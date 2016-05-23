@@ -55,17 +55,21 @@ namespace Dianzhu.Test.BLLTest.Finance
             order.CustomerService = customerService;
             //agent
             var agent = fix.Create<DZMembership>();
-            //
+            //该类别分成0.3
             IBLLServiceTypePoint.Stub(x => x.GetPoint(serviceType)).Return(0.3m);
+            //该区域的代理是agent
             IAgentService.Stub(x => x.GetAreaAgent(area)).Return(agent);
+            //该代理的分成比是0.4
             IBLLSharePoint.Stub(x => x.GetSharePoint(agent)).Return(0.4m);
+            //该客服的分成比是0.3
             IBLLSharePoint.Stub(x => x.GetSharePoint(customerService)).Return(0.3m);
             
 
 
 
             OrderShare ordershare = new OrderShare(IBLLServiceTypePoint,IBLLSharePoint,IAgentService,IBalanceFlowService);
-            ordershare.Share(order);
+          IList<BalanceFlow> flows= ordershare.Share(order);
+            
 
             
             
