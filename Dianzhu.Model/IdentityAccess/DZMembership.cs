@@ -128,7 +128,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual string UserCity { get; set; }
 
-        public string UserCity { get; set; }
+        
     }
     /// <summary>
     /// 商家相关用户.
