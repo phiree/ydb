@@ -15,8 +15,9 @@ namespace Dianzhu.Model
     {
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model");
+
         
-       internal ServiceOrder()
+       public ServiceOrder()
         {
             OrderStatus = enum_OrderStatus.Draft;
             OrderCreated = DateTime.Now;

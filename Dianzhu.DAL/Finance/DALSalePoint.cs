@@ -22,5 +22,9 @@ namespace Dianzhu.DAL.Finance
                 Add(p);
             }
         }
+        public IList<Dianzhu.Model.Finance.ServiceTypePoint> GetAll()
+        {
+            return Find(x => true);
+        }
     }
 }

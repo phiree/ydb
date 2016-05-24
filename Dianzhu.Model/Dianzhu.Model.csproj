@@ -52,9 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Claims.cs" />
+    <Compile Include="Finance\BalanceFlow.cs" />
     <Compile Include="Finance\ServiceTypePoint.cs" />
+    <Compile Include="Finance\SharePoint.cs" />
     <Compile Include="IdentityAccess\emUserType.cs" />
+    <Compile Include="MembershipLoginLog.cs" />
+    <Compile Include="Claims.cs" />
     <Compile Include="Payment\RefundLog.cs" />
     <Compile Include="Payment\Refund.cs" />
     <Compile Include="Resource\Specs\AdvertisementSpec\AdvertisementInPeriod.cs" />

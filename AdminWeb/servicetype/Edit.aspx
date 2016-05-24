@@ -15,6 +15,14 @@
                 <asp:TextBox runat="server" ID="tbxName"></asp:TextBox>
             </td>
         </tr>
+         <tr>
+            <td>
+                分成比例
+            </td>
+            <td>
+                <asp:Label runat="server" ID="lblPoint"></asp:Label>
+            </td>
+        </tr>
         <tr>
             <td>
                 父类

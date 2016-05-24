@@ -6,10 +6,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
+using Dianzhu.BLL.Finance;
 public partial class servicetype_Edit : System.Web.UI.Page
 {
     private Guid TypeId=Guid.Empty;
     BLLServiceType bllServiceType = new BLLServiceType();
+    BLLServiceTypePoint bllPoint = new BLLServiceTypePoint();
     private bool IsNew {
         get {
             return TypeId == Guid.Empty;
@@ -27,7 +29,7 @@ public partial class servicetype_Edit : System.Web.UI.Page
        
         if (!IsPostBack)
         {
-            LoadInitData();
+          //  LoadInitData();
             LoadForm();
         }
     }
@@ -43,6 +45,7 @@ public partial class servicetype_Edit : System.Web.UI.Page
     {
         tbxName.Text = CurrentServiceType.Name;
         lblParentName.Text = CurrentServiceType.Parent==null?"无":CurrentServiceType.Parent.Name;
+        lblPoint.Text = bllPoint.GetPoint(CurrentServiceType).ToString("0.00");
     }
     private void UpdateForm()
     {
