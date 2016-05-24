@@ -99,10 +99,6 @@
       <Project>{97792986-3421-464a-8711-0fc6eaba9bcb}</Project>
       <Name>Dianzhu.CSClient.ViewWPF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.WinformView\Dianzhu.CSClient.WinformView.csproj">
-      <Project>{0550cabb-3957-45cc-8cc6-9fbea653b20d}</Project>
-      <Name>Dianzhu.CSClient.WinformView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2e67aa78-6780-42bd-a3ab-ad953781e511}</Project>
       <Name>Dianzhu.DAL</Name>

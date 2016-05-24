@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALMembershipLoginLog.cs" />
     <Compile Include="DALClaims.cs" />
     <Compile Include="DALComplaint.cs" />
     <Compile Include="DALAdvertisement.cs" />
@@ -83,7 +84,10 @@
     <Compile Include="DALDZTag.cs" />
     <Compile Include="DALServiceOrderRemind.cs" />
     <Compile Include="DALServiceOrderAppraise.cs" />
+    <Compile Include="Finance\DALDefaultSharePoint.cs" />
     <Compile Include="Finance\DALSalePoint.cs" />
+    <Compile Include="Finance\DALBalanceFlow.cs" />
+    <Compile Include="Finance\DALSharePoint.cs" />
     <Compile Include="IdentityAccess\DALMembership.cs" />
     <Compile Include="DALBase.cs" />
     <Compile Include="DALPaylog.cs" />
@@ -95,6 +99,11 @@
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="IdentityAccess\DALRoleMember.cs" />
     <Compile Include="IdentityAccess\DALRole.cs" />
+    <Compile Include="Mapping\Finance\BalanceFlowMap.cs" />
+    <Compile Include="Mapping\IdentityAccess\AgentMap.cs" />
+    <Compile Include="Mapping\Finance\SharePointMap.cs" />
+    <Compile Include="Mapping\Finance\DefaultSharePointMap.cs" />
+    <Compile Include="Mapping\MembershipLoginLogMap.cs" />
     <Compile Include="Mapping\ClaimsMap.cs" />
     <Compile Include="Mapping\ComplaintMap.cs" />
     <Compile Include="Mapping\AdvertisementMap.cs" />

@@ -695,6 +695,8 @@ namespace Dianzhu.BLL
         {
             return DALServiceOrder.GetAllCompleteOrdersForBusiness(businessId);
         }
+        
+
         //查询订单的总金额
         //查询订单的曝光率.
     }

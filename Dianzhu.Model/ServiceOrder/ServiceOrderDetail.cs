@@ -15,7 +15,7 @@ namespace Dianzhu.Model
     {
 
         #region constructor
-        protected ServiceOrderDetail()
+        public ServiceOrderDetail()
         {
             
         }

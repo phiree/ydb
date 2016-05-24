@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Dianzhu.BLL;
 namespace Dianzhu.CSClient.Presenter
 {
     public class PMain
@@ -23,14 +23,14 @@ namespace Dianzhu.CSClient.Presenter
         IView.IViewMainForm viewMainForm;
         InstantMessage iIM;
         IViewIdentityList iViewIdentityList;
-
-        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList)
-            : this(viewMainForm, iIM, iViewIdentityList, new BLLReceptionStatus(), new BLLReceptionChat(), new BLLReceptionChatDD(), new BLLReceptionStatusArchieve(), new BLLIMUserStatus())
+        IBLLMembershipLoginLog bllLoginLog;
+        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM,IBLLMembershipLoginLog bllLoginLog, IViewIdentityList iViewIdentityList)
+            : this(viewMainForm, iIM, iViewIdentityList, bllLoginLog,new BLLReceptionStatus(), new BLLReceptionChat(), new BLLReceptionChatDD(), new BLLReceptionStatusArchieve(), new BLLIMUserStatus())
         {
 
         }
 
-        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList, BLLReceptionStatus bllReceptionStatus, BLLReceptionChat bllReceptionChat, BLLReceptionChatDD bllReceptionChatDD, BLLReceptionStatusArchieve bllReceptionStatusArchieve, BLLIMUserStatus bllIMUserStatus)
+        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,BLLReceptionStatus bllReceptionStatus, BLLReceptionChat bllReceptionChat, BLLReceptionChatDD bllReceptionChatDD, BLLReceptionStatusArchieve bllReceptionStatusArchieve, BLLIMUserStatus bllIMUserStatus)
         {
             this.viewMainForm = viewMainForm;
             this.iIM = iIM;
@@ -40,7 +40,7 @@ namespace Dianzhu.CSClient.Presenter
             this.bllReceptionChatDD = bllReceptionChatDD;
             this.bllReceptionStatusArchieve = bllReceptionStatusArchieve;
             this.bllIMUserStatus = bllIMUserStatus;
-
+            this.bllLoginLog = bllLoginLog;
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             iIM.IMStreamError += IIM_IMStreamError;
             SysAssign(3);
@@ -241,6 +241,8 @@ namespace Dianzhu.CSClient.Presenter
         }
         public void CloseApplication()
         {
+
+             bllLoginLog.MemberLogoff(IdentityManager.CurrentIdentity.CustomerService, string.Empty);
             viewMainForm.CloseApplication();
         }
     }
