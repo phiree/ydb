@@ -7,7 +7,7 @@ using System.Text;
 namespace Dianzhu.Model
 {
     /// <summary>
-    /// 投诉类
+    /// 理赔详情
     /// </summary>
     public class ClaimsDetails
     {
@@ -49,7 +49,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual Claims Claims { get; set; }
         /// <summary>
-        /// 投诉内容
+        /// 内容
         /// </summary>
         public virtual string Context { get; set; }
         /// <summary>
@@ -57,7 +57,7 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual decimal Amount { get; set; }
         /// <summary>
-        /// 投诉的图片链接
+        /// 图片链接
         /// </summary>
         public virtual string ResourcesUrl { get; set; }
         /// <summary>

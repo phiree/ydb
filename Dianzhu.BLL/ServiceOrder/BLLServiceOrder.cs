@@ -254,7 +254,7 @@ namespace Dianzhu.BLL
         /// 用户申请理赔
         /// </summary>
         /// <param name="order"></param>
-        public bool OrderFlow_CustomerRefund(ServiceOrder order,decimal refundAmount)
+        public bool OrderFlow_CustomerRefund(ServiceOrder order,bool isNeedRefund, decimal refundAmount)
         {
             bool refund = false;
             enum_OrderStatus oldStatus = order.OrderStatus;
@@ -273,20 +273,23 @@ namespace Dianzhu.BLL
             }
             else
             {
-                //查询尾款
-                Payment payment = bllPayment.GetPayedForFinal(order);
-                if (payment == null)
+                if (isNeedRefund)
                 {
-                    log.Debug("订单" + order.Id + "没有尾款支付项");
-                    throw new Exception("订单" + order.Id + "没有尾款支付项");
+                    //查询尾款
+                    Payment payment = bllPayment.GetPayedForFinal(order);
+                    if (payment == null)
+                    {
+                        log.Debug("订单" + order.Id + "没有尾款支付项");
+                        throw new Exception("订单" + order.Id + "没有尾款支付项");
+                    }
+
+                    if (refundAmount > payment.Amount)
+                    {
+                        log.Debug("订单理赔金额不得大于订单尾款，订单id：" + order.Id.ToString());
+                        throw new Exception("订单理赔金额不得大于订单尾款，订单id：" + order.Id.ToString());
+                    }
                 }
 
-                if (refundAmount > payment.Amount)
-                {
-                    log.Debug("订单理赔金额不得大于订单尾款，订单id：" + order.Id.ToString());
-                    throw new Exception("订单理赔金额不得大于订单尾款，订单id：" + order.Id.ToString());
-                }
-                
                 ChangeStatus(order, enum_OrderStatus.Refund);
                 ChangeStatus(order, enum_OrderStatus.WaitingRefund);
 
@@ -300,7 +303,7 @@ namespace Dianzhu.BLL
         /// 商户裁定理赔
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_BusinessIsRefund(ServiceOrder order, string context, decimal amount, string resourcesUrl, DZMembership member)
+        public void OrderFlow_BusinessIsRefund(ServiceOrder order, DZMembership member)
         {
             enum_OrderStatus oldStatus = order.OrderStatus;
             log.Debug("当前订单状态:" + oldStatus.ToString());
@@ -347,7 +350,8 @@ namespace Dianzhu.BLL
                 ChangeStatus(order, enum_OrderStatus.isRefund);
                 OrderFlow_RefundSuccess(order);
 
-                claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.store, member);
+                log.Debug("记录商户操作");
+                claims.AddDetailsFromClaims(claims, string.Empty, 0, string.Empty, enum_ChatTarget.store, member);
                 bllClaims.Update(claims);
             }
             else
@@ -370,8 +374,20 @@ namespace Dianzhu.BLL
         /// 商户要求支付赔偿金
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order)
+        public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order,string context,decimal amount,string resourcesUrl,DZMembership member)
         {
+            log.Debug("查询订单的理赔");
+            Claims claims = bllClaims.GetOneByOrder(order);
+            if (claims == null)
+            {
+                log.Error("订单没有对应的理赔");
+                throw new Exception("订单没有对应的理赔");
+            }
+
+            log.Debug("记录商户操作");
+            claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.store, member);
+            bllClaims.Update(claims);
+
             ChangeStatus(order, enum_OrderStatus.AskPayWithRefund);
         }
 
@@ -379,17 +395,56 @@ namespace Dianzhu.BLL
         /// 商户驳回理赔请求
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_BusinessRejectRefund(ServiceOrder order)
+        public void OrderFlow_BusinessRejectRefund(ServiceOrder order,DZMembership member)
         {
+            log.Debug("查询订单的理赔");
+            Claims claims = bllClaims.GetOneByOrder(order);
+            if (claims == null)
+            {
+                log.Error("订单没有对应的理赔");
+                throw new Exception("订单没有对应的理赔");
+            }
+
+            log.Debug("记录商户操作");
+            claims.AddDetailsFromClaims(claims, string.Empty, 0, string.Empty, enum_ChatTarget.store, member);
+            bllClaims.Update(claims);
+
             ChangeStatus(order, enum_OrderStatus.RejectRefund);
         }
 
         /// <summary>
-        /// 商户裁定理赔
+        /// 用户同意支付赔偿金
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_WaitingPayWithRefund(ServiceOrder order)
+        public void OrderFlow_WaitingPayWithRefund(ServiceOrder order,DZMembership member)
         {
+            log.Debug("查询订单的理赔");
+            Claims claims = bllClaims.GetOneByOrder(order);
+            if (claims == null)
+            {
+                log.Error("订单没有对应的理赔");
+                throw new Exception("订单没有对应的理赔");
+            }
+
+            log.Debug("查询理赔详情");
+            IList<ClaimsDetails> cdList = claims.ClaimsDatailsList.OrderByDescending(x => x.LastUpdateTime).Where(x => x.Target == enum_ChatTarget.store).ToList();
+            ClaimsDetails claimsDetails;
+            if (cdList.Count > 0)
+            {
+                claimsDetails = cdList[0];
+            }
+            else
+            {
+                log.Error("该订单没有理赔");
+                throw new Exception("该订单没有理赔");
+            }
+
+            bllPayment.ApplyPay(order, enum_PayTarget.Compensation);
+
+            log.Debug("记录用户操作");
+            claims.AddDetailsFromClaims(claims, string.Empty, 0, string.Empty, enum_ChatTarget.user, member);
+            bllClaims.Update(claims);
+
             ChangeStatus(order, enum_OrderStatus.WaitingPayWithRefund);
         }
 

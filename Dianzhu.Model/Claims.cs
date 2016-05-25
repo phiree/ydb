@@ -7,7 +7,7 @@ using System.Text;
 namespace Dianzhu.Model
 {
     /// <summary>
-    /// 投诉类
+    /// 理赔
     /// </summary>
     public class Claims
     {

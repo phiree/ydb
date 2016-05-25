@@ -11,13 +11,15 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLPayment
     {
+        BLLClaims bllClaims = null;
         DAL.DALPayment dal;
         string errMsg = string.Empty;
-        public BLLPayment(DAL.DALPayment dal)
+        public BLLPayment(DAL.DALPayment dal,BLLClaims bllClaims)
         {
             this.dal = dal;
+            this.bllClaims = bllClaims;
         }
-        public BLLPayment():this(new DAL.DALPayment())
+        public BLLPayment():this(new DAL.DALPayment(), new BLLClaims())
         {
         }
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL");
@@ -51,7 +53,6 @@ namespace Dianzhu.BLL
             }
             if (!applyIsValid)
             {
-
                 throw new Exception(errMsg);
             }
             //获取该订单已经申请过的项目.
@@ -75,7 +76,7 @@ namespace Dianzhu.BLL
                 }
 
                 //该支付项已经创建,验证其金额是否有变化
-                var payAmount = order.GetPayAmount(payTarget);
+                var payAmount = GetPayAmount(order, payTarget);
                 if (payAmount != payment.Amount)
                 {
                     errMsg =string.Format( "本次申请金额和上次不一样. 本次:{0},上次:{1}",payment.Amount,payAmount);
@@ -89,7 +90,7 @@ namespace Dianzhu.BLL
             }
             else if (paymentCount == 0)
             {
-                payment = new Payment { Amount=order.GetPayAmount(payTarget), Order=order, PayTarget= payTarget};
+                payment = new Payment { Amount=GetPayAmount(order, payTarget), Order=order, PayTarget= payTarget};
                 dal.Save(payment);
             }
             else //已经存在多项
@@ -141,6 +142,52 @@ namespace Dianzhu.BLL
         public Payment GetPayedForFinal(ServiceOrder order)
         {
             return dal.GetPayedByTarget(order, enum_PayTarget.FinalPayment);
+        }
+
+        /// <summary>
+        /// 获取支付总额
+        /// </summary>
+        /// <param name="payTarget">支付类型</param>
+        /// <returns></returns>
+        public decimal GetPayAmount(ServiceOrder order, enum_PayTarget payTarget)
+        {
+            if (payTarget == enum_PayTarget.Deposit)
+            {
+                return order.DepositAmount;
+            }
+            else if (payTarget == enum_PayTarget.FinalPayment)
+            {
+                return order.NegotiateAmount - order.DepositAmount;
+            }
+            else if (payTarget == enum_PayTarget.Compensation)
+            {
+                log.Debug("查询订单的理赔");
+                Claims claims = bllClaims.GetOneByOrder(order);
+                if (claims == null)
+                {
+                    log.Error("订单没有对应的理赔");
+                    throw new Exception("订单没有对应的理赔");
+                }
+
+                log.Debug("查询理赔详情");
+                IList<ClaimsDetails> cdList = claims.ClaimsDatailsList.OrderByDescending(x => x.LastUpdateTime).Where(x => x.Target == enum_ChatTarget.store).ToList();
+                ClaimsDetails claimsDetails;
+                if (cdList.Count > 0)
+                {
+                    claimsDetails = cdList[0];
+                }
+                else
+                {
+                    log.Error("该订单没有理赔");
+                    throw new Exception("该订单没有理赔");
+                }
+
+                return claimsDetails.Amount;
+            }
+            else
+            {
+                throw new Exception("没有计算公式");
+            }
         }
     }
 }

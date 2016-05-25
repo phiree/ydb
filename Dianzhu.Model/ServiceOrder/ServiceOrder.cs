@@ -387,26 +387,6 @@ namespace Dianzhu.Model
             this.OrderStatus = enum_OrderStatus.Created;
             this.OrderConfirmTime = DateTime.Now;
         }
-        /// <summary>
-        /// 获取支付总额
-        /// </summary>
-        /// <param name="payTarget">支付类型</param>
-        /// <returns></returns>
-        public virtual decimal GetPayAmount(enum_PayTarget payTarget)
-        {
-            if (payTarget == enum_PayTarget.Deposit)
-            {
-                return this.DepositAmount;
-            }
-            else if (payTarget == enum_PayTarget.FinalPayment)
-            {
-                return this.NegotiateAmount - DepositAmount;
-            }
-            else
-            {
-                throw new Exception("没有计算公式");
-            }
-        }
 
         #region 临时数据
         /// <summary>

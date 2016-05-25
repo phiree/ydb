@@ -101,11 +101,12 @@ public class ResponseORM005007 : BaseResponse
                 switch (action)
                 {
                     case enum_refundAction.refund:
-                        bllServiceOrder.OrderFlow_BusinessIsRefund(order, string.Empty, 0, string.Empty, member);
+                        bllServiceOrder.OrderFlow_BusinessIsRefund(order, member);
                         status = order.OrderStatus;
                         break;
                     case enum_refundAction.reject:
-                        status = bllServiceOrder.GetOrderStatusPrevious(order, enum_OrderStatus.Refund);
+                        bllServiceOrder.OrderFlow_BusinessRejectRefund(order,member);
+                        status = order.OrderStatus;
                         break;
                     case enum_refundAction.askPay:
                         decimal refundAmount;
@@ -115,6 +116,15 @@ public class ResponseORM005007 : BaseResponse
                             this.err_Msg = "理赔金额有误";
                             return;
                         }
+
+                        if (refundAmount <= 0)
+                        {
+                            this.state_CODE = Dicts.StateCode[1];
+                            this.err_Msg = "赔偿金额必须大于零";
+                            return;
+                        }
+
+                        bllServiceOrder.OrderFlow_BusinessAskPayWithRefund(order, refundObj.context, refundAmount, refundObj.resourcesUrl, member);
 
                         status = order.OrderStatus;
                         break;
