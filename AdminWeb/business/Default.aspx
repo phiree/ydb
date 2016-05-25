@@ -17,17 +17,17 @@
     </fieldset>
    
     <div>
-    <asp:GridView AutoGenerateColumns="false" runat="server" ID="gvBusiness">
+    <asp:GridView AutoGenerateColumns="false" runat="server" ID="gvBusiness"  AllowSorting="true" OnSorting="gvBusiness_Sorting" >
         <Columns>
            
-            <asp:BoundField HeaderText="商家名称" DataField="BusinessName" HeaderStyle-Width="150px"/>
-             <asp:BoundField HeaderText="所在城市" DataField="CityName" HeaderStyle-Width="50px"/>
-            <asp:BoundField HeaderText="得分" DataField="Score" HeaderStyle-Width="120px"/>
-            <asp:BoundField HeaderText="服务类别" DataField="ServiceTypesDisplay" HeaderStyle-Width="130px"/>
-            <asp:BoundField HeaderText="注册时间" DataField="RegisterTime" HeaderStyle-Width="130px"/>
-            <asp:BoundField HeaderText="订单总数" DataField="OrderCount" HeaderStyle-Width="130px"/>
-            <asp:BoundField HeaderText="完成总数" DataField="OrderCompleteCount" HeaderStyle-Width="130px"/>
-            <asp:BoundField HeaderText="取消总数" DataField="OrderCompleteCount" HeaderStyle-Width="130px"/>
+            <asp:BoundField HeaderText="商家名称" DataField="BusinessName" HeaderStyle-Width="150px" SortExpression="BusinessName"/>
+             <asp:BoundField HeaderText="所在城市" DataField="CityName" HeaderStyle-Width="50px" SortExpression="CityName"/>
+            <asp:BoundField HeaderText="得分" DataField="Score" HeaderStyle-Width="120px" SortExpression="Score"/>
+            <asp:BoundField HeaderText="服务类别" DataField="ServiceTypesDisplay" HeaderStyle-Width="130px" SortExpression="ServiceTypesDisplay"/>
+            <asp:BoundField HeaderText="注册时间" DataField="RegisterTime" HeaderStyle-Width="130px" SortExpression="RegisterTime"/>
+            <asp:BoundField HeaderText="订单总数" DataField="OrderCount" HeaderStyle-Width="130px" SortExpression="OrderCount"/>
+            <asp:BoundField HeaderText="完成总数" DataField="OrderCompleteCount" HeaderStyle-Width="130px" SortExpression="OrderCompleteCount"/>
+            <asp:BoundField HeaderText="取消总数" DataField="OrderCancelCount" HeaderStyle-Width="130px" SortExpression="OrderCancelCount"/>
 
           </Columns>
     </asp:GridView>

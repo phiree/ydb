@@ -78,6 +78,11 @@ public partial class order_detail : System.Web.UI.Page
             Dianzhu.BLL.Agent.AgentService agentService =new Dianzhu.BLL.Agent.AgentService();
             Dianzhu.BLL.Finance.OrderShare os = new Dianzhu.BLL.Finance.OrderShare(bllServiceTypePoint, bllSharePoint, agentService, balanceService);
             IList < Dianzhu.Model.Finance.BalanceFlow > shareFlow= os.Share(serviceorder);
+
+            var typePoint = bllServiceTypePoint.GetPoint(serviceorder.Details[0].OriginalService.ServiceType);
+            var sharedAmount = serviceorder.NegotiateAmount * typePoint;
+            lblShareAmount.Text = sharedAmount.ToString();
+
             foreach (Dianzhu.Model.Finance.BalanceFlow bf in shareFlow)
             {
                 if (bf.Member == serviceorder.CustomerService)
@@ -91,7 +96,7 @@ public partial class order_detail : System.Web.UI.Page
             }
         }
         try {
-            lblPlatformShare.Text = (decimal.Parse(lblGetPayAmount.Text) - decimal.Parse(lblCustomerServiceShare.Text) - decimal.Parse(lblAgentShare.Text)).ToString();
+            lblPlatformShare.Text = (decimal.Parse(lblShareAmount.Text) - decimal.Parse(lblCustomerServiceShare.Text) - decimal.Parse(lblAgentShare.Text)).ToString();
         }
         catch { }
     }

@@ -108,10 +108,15 @@
             <td>
                 <asp:Label ID="lblNegotiateAmount" runat="server" Text=""></asp:Label></td>
         </tr>
-        <tr>
+       <tr>
             <td>支付总额：</td>
             <td>
                 <asp:Label ID="lblGetPayAmount" runat="server" Text="0"></asp:Label></td>
+        </tr>
+         <tr>
+            <td>分成总额：</td>
+            <td>
+                <asp:Label ID="lblShareAmount" runat="server" Text="0"></asp:Label></td>
         </tr>
          <tr>
             <td>助理分成：</td>
