@@ -46,7 +46,7 @@ public class ResponseORM005007 : BaseResponse
             }
 
             enum_refundAction action;
-            bool isAction = Enum.TryParse<enum_refundAction>(refundAction, out action);
+            bool isAction = Enum.TryParse(refundAction, out action);
             if (!isAction)
             {
                 this.state_CODE = Dicts.StateCode[1];
@@ -75,7 +75,13 @@ public class ResponseORM005007 : BaseResponse
             }
             try
             {
-                //todo:理赔还未处理
+                if(member.UserType!= enum_UserType.business)
+                {
+                    this.state_CODE = Dicts.StateCode[4];
+                    this.err_Msg = "该账号不是商户";
+                    return;
+                }
+
                 ServiceOrder order = bllServiceOrder.GetOne(orderID);
                 if (order == null)
                 {
@@ -84,15 +90,43 @@ public class ResponseORM005007 : BaseResponse
                     return;
                 }
 
+                if (order.Details[0].OriginalService.Business.Owner.Id != member.Id)
+                {
+                    this.state_CODE = Dicts.StateCode[4];
+                    this.err_Msg = "该订单不属于该用商户";
+                    return;
+                }
+
                 enum_OrderStatus status;
                 switch (action)
                 {
                     case enum_refundAction.refund:
-                        bllServiceOrder.OrderFlow_RefundSuccess(order);
+                        bllServiceOrder.OrderFlow_BusinessIsRefund(order, member);
                         status = order.OrderStatus;
                         break;
                     case enum_refundAction.reject:
-                        status = bllServiceOrder.GetOrderStatusPrevious(order, enum_OrderStatus.Refund);
+                        bllServiceOrder.OrderFlow_BusinessRejectRefund(order,member);
+                        status = order.OrderStatus;
+                        break;
+                    case enum_refundAction.askPay:
+                        decimal refundAmount;
+                        if (!decimal.TryParse(refundObj.amount, out refundAmount))
+                        {
+                            this.state_CODE = Dicts.StateCode[1];
+                            this.err_Msg = "理赔金额有误";
+                            return;
+                        }
+
+                        if (refundAmount <= 0)
+                        {
+                            this.state_CODE = Dicts.StateCode[1];
+                            this.err_Msg = "赔偿金额必须大于零";
+                            return;
+                        }
+
+                        bllServiceOrder.OrderFlow_BusinessAskPayWithRefund(order, refundObj.context, refundAmount, refundObj.resourcesUrl, member);
+
+                        status = order.OrderStatus;
                         break;
                     default:
                         this.state_CODE = Dicts.StateCode[4];

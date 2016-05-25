@@ -19,6 +19,9 @@ namespace Dianzhu.DAL
             
         }
         
-        
+        public Claims GetOneByOrder(ServiceOrder order)
+        {
+            return Session.QueryOver<Claims>().Where(x => x.Order == order).SingleOrDefault();
+        }
     }
 }
