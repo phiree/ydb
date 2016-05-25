@@ -112,7 +112,7 @@ function delInfo()
 <td><%#DataBinder.Eval(Container.DataItem, "Service.Business.Name")%>
 </td>
 <td> <asp:Button ID="delbt" runat="server" Text="删除" CommandName="delete" CommandArgument='<%# Eval("id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')" />
-    
+    <a href='<%# "detail.aspx?ID="+Eval("Id").ToString()%>'>详情</a>
 </td>
 </tr>
    <asp:Repeater runat="server" ID="rptPayment">

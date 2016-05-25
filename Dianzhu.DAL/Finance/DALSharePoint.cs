@@ -13,7 +13,7 @@ namespace Dianzhu.DAL.Finance
 
         public SharePoint GetSharePoint(Model.DZMembership membership)
         {
-            string query = "select s from Sharepoint s inner join s.Membership m where m.Id='" + membership.Id + "'";
+            string query = "select s from SharePoint s inner join s.Membership m where m.Id='" + membership.Id + "'";
             SharePoint settedPoint= GetOneByQuery(query);
             return settedPoint;
         }
