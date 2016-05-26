@@ -131,4 +131,9 @@ public partial class membership_Default : System.Web.UI.Page
             
         }
     }
+
+    protected void btnToExcel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ToExcel.aspx?intSize="+pager.RecordCount.ToString ());
+    }
 }

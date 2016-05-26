@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="business_Default" %>
+﻿<%@ Page Language="C#"  MasterPageFile="~/admin.master"  AutoEventWireup="true" CodeFile="ToExcel.aspx.cs" Inherits="business_ToExcel" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -17,7 +17,7 @@
     </fieldset>
    
     <div>
-    <asp:GridView CssClass="tbList" AutoGenerateColumns="false" runat="server" ID="gvBusiness"  AllowSorting="true" OnSorting="gvBusiness_Sorting" >
+    <asp:GridView CssClass="tbList" AutoGenerateColumns="false" runat="server" ID="gvBusiness"  >
         <Columns>
            
             <asp:BoundField HeaderText="商家名称" DataField="BusinessName" HeaderStyle-Width="150px" SortExpression="BusinessName"/>
@@ -32,14 +32,10 @@
           </Columns>
     </asp:GridView>
 
-    <UC:AspNetPager runat="server" UrlPaging="true" ID="pager" CssClass="anpager"
-        CurrentPageButtonClass="cpb" PageSize="10"
-        CustomInfoHTML="第 %CurrentPageIndex% / %PageCount%页 共%RecordCount%条"
-        ShowCustomInfoSection="Right">
-    </UC:AspNetPager></div>
+    </div>
 
-     <%--<input type="button" id="btnExport2Excel" value="导出Excel" />--%>
-   <asp:Button ID="btnToExcel" runat="server" Text="ToExcel" OnClick="btnToExcel_Click" />
+     <input type="button" id="btnExport2Excel" value="导出Excel" />
+   <asp:Button ID="btnBack" runat="server" Text="返回" OnClick="btnBack_Click" />
 </asp:Content>
 
 
@@ -62,4 +58,3 @@
         });
     </script>
 </asp:Content>
-

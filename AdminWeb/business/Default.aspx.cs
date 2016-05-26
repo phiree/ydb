@@ -124,6 +124,11 @@ public partial class business_Default : System.Web.UI.Page
         return (SortDirection)ViewState[SortExpression];
     }
 
+    protected void btnToExcel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ToExcel.aspx?intSize=" + pager.RecordCount.ToString());
+    }
+
     //void gvBusiness_RowDataBound(object sender, GridViewRowEventArgs e)
     //{
     //    if (e.Row.RowType == DataControlRowType.DataRow)
