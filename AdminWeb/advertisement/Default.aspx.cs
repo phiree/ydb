@@ -9,7 +9,7 @@ using Dianzhu.BLL;
 
 public partial class advertisement_Default : System.Web.UI.Page
 {
-    BLLAdvertisement bllAd =Installer.Container.Resolve<BLLAdvertisement>();
+    BLLAdvertisement bllAd = Bootstrap.Container.Resolve<BLLAdvertisement>();
 
     protected void Page_Load(object sender, EventArgs e)
     {

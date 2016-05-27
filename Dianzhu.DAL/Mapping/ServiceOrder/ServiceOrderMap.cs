@@ -21,7 +21,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Memo);
             Map(x => x.OrderStatus).CustomType<Model.Enums.enum_OrderStatus>();
             References<DZMembership>(x => x.CustomerService);
-            HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
+            HasMany<ServiceOrderDetail>(x => x.Details).Not.LazyLoad().Cascade.All();
             References<Business>(x => x.Business);
             Map(x => x.NegotiateAmount);
 

@@ -33,9 +33,9 @@ namespace Dianzhu.BLL
 
           ServiceOrder GetOne(Guid guid);
         void Update(ServiceOrder order);
-        IList<ServiceOrder> GetAll();
+        IList<ServiceOrder> GetAll(int pageIndex,int pageSize,out long totalRecords);
 
-        IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status);
+        IList<ServiceOrder> GetAllByOrderStatus(Dianzhu.Model.Enums.enum_OrderStatus status, int pageIndex, int pageSize, out long totalRecords);
 
 
 

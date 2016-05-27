@@ -10,52 +10,46 @@ using Dianzhu.IDAL;
 using DDDCommon.Domain;
 namespace Dianzhu.DAL
 {
-    public abstract class NHRepositoryBase<TEntity,TPrimaryKey> :  IRepository<TEntity, TPrimaryKey>
-        where TEntity:Entity<TPrimaryKey>
+    public abstract class NHRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
+        where TEntity : Entity<TPrimaryKey>
     {
 
-       
-        protected ISession Session {
-
-            get {
+        protected ISession Session
+        {
+            get
+            {
                 return new HybridSessionBuilder().GetSession();
             }
-        //    get { return NHUnitOfWork.Current.Session; }
+            ////    get { return NHUnitOfWork.Current.Session; }
 
         }
-      
+
         public void Add(TEntity t)
         {
-            using (var tr = Session.BeginTransaction())
-            { 
-                Session.Save(t);
-                tr.Commit();
-            }
+
+            Session.Save(t);
 
 
         }
 
         public void Delete(TEntity t)
         {
-            using (var tra = Session.BeginTransaction())
-            {
-                Session.Delete(t); tra.Commit();
-            }
+
+            Session.Delete(t);
+
         }
 
 
         public TEntity FindById(TPrimaryKey identityId)
         {
             TEntity result;
-            using (var tr = Session.BeginTransaction())
-            {
-                  result = Session.Get<TEntity>(identityId);
-                tr.Commit();
-            }
-           
-              
-                return result;
-            
+
+            result = Session.Get<TEntity>(identityId);
+
+
+
+            return result;
+
         }
 
         public IList<TEntity> Find(Expression<Func<TEntity, bool>> where)
@@ -67,47 +61,40 @@ namespace Dianzhu.DAL
         public IList<TEntity> Find(Expression<Func<TEntity, bool>> where, int pageIndex, int pageSize, out long totalRecords)
         {
             IList<TEntity> result;
-            using (var tr = Session.BeginTransaction())
-            {
-                var query = Session.Query<TEntity>().Where(where);
-                totalRecords = query.Count();
-                result= query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-                tr.Commit();
-            }
+
+            var query = Session.Query<TEntity>().Where(where);
+            totalRecords = query.Count();
+            result = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+
             return result;
         }
 
-     
+
         public long GetRowCount(Expression<Func<TEntity, bool>> where)
         {
             long totalRecords;
-            using (var tr = Session.BeginTransaction())
-            {
-                var query = Session.Query<TEntity>().Where(where);
-                  totalRecords = query.Count();
-                tr.Commit();
-            }
+
+            var query = Session.Query<TEntity>().Where(where);
+            totalRecords = query.Count();
+
             return totalRecords;
         }
 
         public TEntity FindOne(Expression<Func<TEntity, bool>> where)
-        { TEntity result;
-            using (var tr = Session.BeginTransaction())
-            {
-                result= Session.Query<TEntity>().Where(where).SingleOrDefault();
-                tr.Commit();
-            }
+        {
+            TEntity result;
+
+            result = Session.Query<TEntity>().Where(where).SingleOrDefault();
+
             return result;
         }
 
         public void Update(TEntity t)
         {
-            using (var tr = Session.BeginTransaction())
-            {
-                Session.Update(t);
 
-                tr.Commit();
-            }
+            Session.Update(t);
+
+
         }
     }
 }

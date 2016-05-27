@@ -10,5 +10,6 @@ namespace Dianzhu.DAL
 {
     public class DALArea :NHRepositoryBase<Area,int>,IDALArea
     {
+        
     }
 }

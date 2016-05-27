@@ -11,10 +11,5 @@ namespace Dianzhu.IDAL
         void Commit();
         void Rollback();
     }
-
-    [AttributeUsage(AttributeTargets.Method)]
-    public class UnitOfWorkAttribute : Attribute
-    {
-
-    }
+ 
 }

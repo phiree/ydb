@@ -8,7 +8,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 public partial class business_Default : System.Web.UI.Page
 {
-    VMBusinessAdapter vmBusinessAdapter =  Installer.Container.Resolve<VMBusinessAdapter>();
+    VMBusinessAdapter vmBusinessAdapter = Bootstrap.Container.Resolve<VMBusinessAdapter>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -32,7 +32,7 @@ public partial class business_Default : System.Web.UI.Page
         {
             currentPageIndex = int.Parse(paramPage);
         }
-        BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
+        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         string query = "select b from Business b";
        
         IList<VMShop> allBusiness = vmBusinessAdapter.

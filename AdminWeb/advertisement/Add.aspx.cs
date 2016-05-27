@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using MediaServer;
 public partial class advertisement_Add : System.Web.UI.Page
 {
-    BLLAdvertisement bllAd = Installer.Container.Resolve<BLLAdvertisement>();
+    BLLAdvertisement bllAd = Bootstrap.Container.Resolve<BLLAdvertisement>();
 
     Guid id = Guid.Empty;
     string imgUrlOld = string.Empty;

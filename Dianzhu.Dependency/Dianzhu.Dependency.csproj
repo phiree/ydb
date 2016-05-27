@@ -65,10 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dependency\NhUnitOfWorkInterceptor.cs" />
-    <Compile Include="DianzhuDependencyInstaller.cs" />
     <Compile Include="Installer.cs" />
-    <Compile Include="RepositoryInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

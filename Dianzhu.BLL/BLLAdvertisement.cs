@@ -12,32 +12,34 @@ namespace Dianzhu.BLL
     public class BLLAdvertisement
     {
         private IDALAdvertisement repo;
-     
-        public BLLAdvertisement(IDALAdvertisement repo )
+       // IUnitOfWork iuow;
+        public BLLAdvertisement(IDALAdvertisement repo ,IUnitOfWork iuow)
         {
             this.repo = repo;
+           // this.iuow = iuow;
          //   this.iUnitOfWork = iUnitOfWork;
         }
         
         public void Save(Advertisement ad)
         {
-          //  iUnitOfWork.BeginTransaction();
+           // iuow.BeginTransaction();
             repo.Add(ad);
-          //  iUnitOfWork.Commit();
+           // iuow.Commit();
         }
         public void Update(Advertisement ad)
         {
-         //   iUnitOfWork.BeginTransaction();
+           // iuow.BeginTransaction();
             repo.Update(ad);
-             
-       //     iUnitOfWork.Commit();
+
+           // iuow.Commit();
         }
         public IEnumerable<Advertisement> GetADList(int pageIndex, int pageSize, out long totalRecords)
         {
-            
+           // iuow.BeginTransaction();
             var where = PredicateBuilder.True<Advertisement>();
           
                var list = repo.Find(where, pageIndex,pageSize ,out totalRecords).ToList();
+           // iuow.Commit();
             return list;
            // return repo.GetADList(pageIndex, pageSize,out totalRecords);
         }
@@ -59,7 +61,9 @@ namespace Dianzhu.BLL
 
         public Advertisement GetByUid(Guid uid)
         {
+           // iuow.BeginTransaction();
            var aa= repo.FindById(uid);
+           // iuow.Commit();
                 return aa;
         }
     }

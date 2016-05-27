@@ -2,15 +2,15 @@
 <%@ Import Namespace="Castle.Windsor" %>
 <%@ Import Namespace="Castle.Windsor.Installer" %>
 <script runat="server">
-
+    public static IWindsorContainer container;
     //  Dianzhu.IDAL.IUnitOfWork uow = Installer.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();
     void Application_Start(object sender, EventArgs e)
     {
         // 在应用程序启动时运行的代码
         PHSuit.Logging.Config("Dianzhu.AdminWeb");
         //InitializeWindsor();
-
-       // var container = Installer.Container;
+        Bootstrap.Boot(); 
+        // var container = Installer.Container;
     }
 
     void Application_End(object sender, EventArgs e)
@@ -60,14 +60,6 @@
             // UnitOfWork.Current.Transaction.Rollback();
         }
     }
-    private WindsorContainer _windsorContainer;
 
-    private void InitializeWindsor()
-    {
-        _windsorContainer = new WindsorContainer();
-        _windsorContainer.Install(FromAssembly.Containing<Dianzhu.DependencyInstaller.DianzhuDependencyInstaller>());
-        _windsorContainer.Install(FromAssembly.This());
 
-        //ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(_windsorContainer.Kernel));
-    }
 </script>
