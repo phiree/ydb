@@ -57,11 +57,11 @@ namespace Dianzhu.CSClient
                 return;
             }
 
-            var container = Install();
+             Bootstrap.Boot();
 
             string version = GetVersion();
             //  loginForm.FormText += "v" + version;
-            Presenter.LoginPresenter loginPresenter = container.Resolve<Presenter.LoginPresenter>();
+            Presenter.LoginPresenter loginPresenter = Bootstrap.Container.Resolve<Presenter.LoginPresenter>();
             bool? result = loginPresenter.ShowDialog();
 
 
@@ -74,17 +74,17 @@ namespace Dianzhu.CSClient
                 log.Debug("登录成功");
 
 
-                Presenter.PIdentityList pIdentityList = container.Resolve<Presenter.PIdentityList>(); ;
-                Presenter.PChatList pChatList = container.Resolve<Presenter.PChatList>();
-                Presenter.PNotice pNotice = container.Resolve<Presenter.PNotice>();
+                Presenter.PIdentityList pIdentityList = Bootstrap.Container.Resolve<Presenter.PIdentityList>(); ;
+                Presenter.PChatList pChatList = Bootstrap.Container.Resolve<Presenter.PChatList>();
+                Presenter.PNotice pNotice = Bootstrap.Container.Resolve<Presenter.PNotice>();
 
-                Presenter.PSearch pSearch = container.Resolve<Presenter.PSearch>();
-                Presenter.POrder pOrder = container.Resolve<Presenter.POrder>();
-                Presenter.POrderHistory pOrderHistory = container.Resolve<Presenter.POrderHistory>();
-                Presenter.PChatSend pChatSend = container.Resolve<Presenter.PChatSend>();
+                Presenter.PSearch pSearch = Bootstrap.Container.Resolve<Presenter.PSearch>();
+                Presenter.POrder pOrder = Bootstrap.Container.Resolve<Presenter.POrder>();
+                Presenter.POrderHistory pOrderHistory = Bootstrap.Container.Resolve<Presenter.POrderHistory>();
+                Presenter.PChatSend pChatSend = Bootstrap.Container.Resolve<Presenter.PChatSend>();
                 
 
-                var mainPresenter = container.Resolve<Presenter.PMain>();
+                var mainPresenter = Bootstrap.Container.Resolve<Presenter.PMain>();
 
 
                 mainPresenter.ShowDialog();
@@ -100,40 +100,7 @@ namespace Dianzhu.CSClient
 
         }
 
-        static Castle.Windsor.WindsorContainer Install()
-        {
-            var container = Dianzhu.DependencyInstaller.Installer.Container;
-            UIInstall(container);
-            return container;
-
-        }
-        static void UIInstall(Castle.Windsor.WindsorContainer container)
-        {
-            container.Register(cmr.Component.For<Presenter.PMain>());
-            container.Register(cmr.Component.For<CSClient.Presenter.LoginPresenter>());
-            container.Register(cmr.Component.For<CSClient.Presenter.IdentityManager>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PIdentityList>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PChatList>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PChatSend>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PNotice>());
-            container.Register(cmr.Component.For<CSClient.Presenter.POrder>());
-            container.Register(cmr.Component.For<CSClient.Presenter.POrderHistory>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PSearch>());
-
-            container.Register(cmr.Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
-            container.Register(cmr.Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());
-            container.Register(cmr.Component.For<IViewChatList>().ImplementedBy<ViewWPF.UC_ChatList>());
-            container.Register(cmr.Component.For<IViewChatSend>().ImplementedBy<ViewWPF.UC_ChatSend>());
-            container.Register(cmr.Component.For<IViewIdentityList>().ImplementedBy<ViewWPF.UC_IdentityList>());
-            container.Register(cmr.Component.For<IViewNotice>().ImplementedBy<ViewWPF.UC_Notice>());
-            container.Register(cmr.Component.For<IViewOrder>().ImplementedBy<ViewWPF.UC_Order>());
-            container.Register(cmr.Component.For<IViewOrderHistory>().ImplementedBy<ViewWPF.UC_OrderHistory>());
-            container.Register(cmr.Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
-            container.Register(cmr.Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
-
-           
-          
-        }
+ 
        
         static bool CheckConfig()
         {

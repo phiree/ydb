@@ -51,7 +51,7 @@ namespace Dianzhu.CSClient.Presenter
 
             long totalRecord;
             var advList = bllAdv.GetADList(1, 10, out totalRecord);
-            var orderList = bllServiceOrder.GetAll();
+            var orderList = bllServiceOrder.GetAll(1,10,out totalRecord);
             foreach (ServiceOrder order in orderList)
             {
                 var amount = order.OrderAmount;
@@ -69,7 +69,7 @@ namespace Dianzhu.CSClient.Presenter
         }
 
 
-        void loginView_ViewLogin()
+       public  void loginView_ViewLogin()
         {
 
             loginView.LoginButtonText = "正在登录,请稍后";

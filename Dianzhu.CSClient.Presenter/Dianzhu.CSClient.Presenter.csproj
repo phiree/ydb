@@ -56,7 +56,6 @@
     <Compile Include="BLLFactory.cs" />
     <Compile Include="GlobalViables.cs" />
     <Compile Include="LoginPresenter.cs" />
-    <Compile Include="MainPresenter\MessageSender.cs" />
     <Compile Include="MainPresenter\PMain.cs" />
     <Compile Include="MainPresenter\PNotice.cs" />
     <Compile Include="MainPresenter\POrderHistory.cs" />
