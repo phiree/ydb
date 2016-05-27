@@ -122,6 +122,7 @@
     <Compile Include="DianzhuNotifyCenterTest\OrderNotifyTest.cs" />
     <Compile Include="DianzhuPushTest\TestPush.cs" />
     <Compile Include="dianzhu_test.cs" />
+    <Compile Include="DZCSClientTest\LoginPresenterTest.cs" />
     <Compile Include="DZCSClientTest\MainPresenterTest.cs" />
     <Compile Include="DZCSClientTest\MessageAdapterTest\MessageAdapterTest.cs" />
     <Compile Include="DZCSClientTest\MessageBuildTest.cs" />
@@ -201,6 +202,10 @@
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2E67AA78-6780-42BD-A3AB-AD953781E511}</Project>
       <Name>Dianzhu.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Dependency\Dianzhu.Dependency.csproj">
+      <Project>{f5f67c69-f9ee-4222-9f83-91c816fc686c}</Project>
+      <Name>Dianzhu.Dependency</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
       <Project>{43e8ffa6-60e9-40ca-a7a8-cec8008519dd}</Project>
