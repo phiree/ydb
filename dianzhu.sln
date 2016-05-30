@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSClient", "CSClient", "{8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}"
 EndProject
@@ -246,6 +246,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.ModelTests", "Dianzhu.ModelTests\Dianzhu.ModelTests.csproj", "{688908D9-E111-4095-9209-ACEB7F400FED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RisCaptureLib", "RisCaptureLib\RisCaptureLib.csproj", "{DE79C6AB-B5A9-4BAF-80FA-22835452785F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.ApplicationService", "Dianzhu.ApplicationService\Dianzhu.ApplicationService.csproj", "{417AC2D5-58E5-4CBC-B14F-C5747274A846}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dianzhu.Web.RestfulApi", "Dianzhu.Web.RestfulApi\Dianzhu.Web.RestfulApi.csproj", "{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -649,6 +653,30 @@ Global
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F}.Release|x86.Build.0 = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Debug|x86.Build.0 = Debug|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|x86.ActiveCfg = Release|Any CPU
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846}.Release|x86.Build.0 = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Debug|x86.Build.0 = Debug|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|x86.ActiveCfg = Release|Any CPU
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -688,6 +716,8 @@ Global
 		{F399FE2F-05A1-41B6-AB63-C879A1701DC4} = {E4338C9B-90F1-4640-A650-F903E722C878}
 		{6931F336-83BE-4E6C-A945-588D636E5C73} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
 		{DE79C6AB-B5A9-4BAF-80FA-22835452785F} = {8C7F0677-6F4E-4C27-B896-6D299BC5E4FA}
+		{417AC2D5-58E5-4CBC-B14F-C5747274A846} = {5FD3A571-E4B7-413C-A0A3-7725A70CCC15}
+		{CF4ADBB5-A9FA-4C1B-9684-7B4A67BFF972} = {9997B328-FAC6-4192-84BE-BA83D2870CD4}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TourGuideExam.vsmdi
