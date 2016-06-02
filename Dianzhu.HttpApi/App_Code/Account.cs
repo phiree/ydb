@@ -13,7 +13,7 @@ using Newtonsoft.Json.Linq;
 /// </summary>
 public class Account
 {
-    DZMembershipProvider bllMember = Installer.Container.Resolve<DZMembershipProvider>();
+    DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
     public Account()
     {  }
     public Account(DZMembershipProvider bllMember)

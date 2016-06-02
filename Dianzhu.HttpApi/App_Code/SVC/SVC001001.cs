@@ -24,8 +24,8 @@ public class ResponseSVC001001 : BaseResponse
         ReqDataSVC001001 requestData = this.request.ReqData.ToObject<ReqDataSVC001001>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
-        BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>(); BLLDZService bllDZService = new BLLDZService();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>(); BLLDZService bllDZService = new BLLDZService();
         BLLServiceType bllServiceType = new BLLServiceType();
         BLLDZTag bllDZTag = new BLLDZTag();
 

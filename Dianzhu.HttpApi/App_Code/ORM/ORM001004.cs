@@ -25,7 +25,7 @@ public class ResponseORM001004 : BaseResponse
 
         try
         {
-            DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+            DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
            
             string user_id = requestData.userID;
             string srvTarget = requestData.target;

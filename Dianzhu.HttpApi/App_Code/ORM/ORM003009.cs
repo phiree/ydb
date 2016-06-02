@@ -20,7 +20,7 @@ public class ResponseORM003009 : BaseResponse
         ReqDataORM003009 requestData = this.request.ReqData.ToObject<ReqDataORM003009>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
          BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
 
         string user_ID = requestData.userID;

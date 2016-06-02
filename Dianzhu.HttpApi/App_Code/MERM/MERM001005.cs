@@ -18,7 +18,7 @@ public class ResponseMERM001005 : BaseResponse
         ReqDataMERM001005 requestData = this.request.ReqData.ToObject<ReqDataMERM001005>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
        
 
         try

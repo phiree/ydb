@@ -23,8 +23,8 @@ public class ResponseSTORE001005 : BaseResponse
         ReqDataSTORE001005 requestData = this.request.ReqData.ToObject<ReqDataSTORE001005>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
-        BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         try
         {
             string store_id = requestData.storeID;

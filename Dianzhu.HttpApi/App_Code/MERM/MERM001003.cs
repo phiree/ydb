@@ -17,7 +17,7 @@ public class ResponseMERM001003 : BaseResponse
     {
         ReqDataMERM001003 requestData = this.request.ReqData.ToObject<ReqDataMERM001003>();
 
-        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         string raw_id = requestData.userID;
 
         try

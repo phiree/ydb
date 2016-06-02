@@ -18,7 +18,7 @@ public class ResponseUSM001003 : BaseResponse
         ReqDataUSM001003 requestData = this.request.ReqData.ToObject<ReqDataUSM001003>();
 
           string raw_id = requestData.userID;
-          DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+          DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         try
         {
             DZMembership member;

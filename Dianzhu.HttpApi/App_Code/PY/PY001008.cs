@@ -22,7 +22,7 @@ public class ResponsePY001008 : BaseResponse
         ReqDataPY001008 requestData = this.request.ReqData.ToObject<ReqDataPY001008>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
          BLLPayment bllPayment = new BLLPayment();
 
         string raw_id = requestData.userID;

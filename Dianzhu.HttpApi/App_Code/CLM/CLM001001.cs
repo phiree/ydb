@@ -22,7 +22,7 @@ public class ResponseCLM001001 : BaseResponse
         ReqDataCLM001001 requestData = this.request.ReqData.ToObject<ReqDataCLM001001>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLComplaint bllComplaint = new BLLComplaint();
         string raw_id = requestData.userID;
 

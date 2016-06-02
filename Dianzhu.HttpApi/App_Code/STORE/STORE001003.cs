@@ -18,10 +18,10 @@ using Newtonsoft.Json;
 public class ResponseSTORE001003 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
-    DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
-    BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
-    BLLBusinessImage bllBusinessImage = Installer.Container.Resolve<BLLBusinessImage>();
-    BLLArea bllArea = Installer.Container.Resolve<BLLArea>();
+    DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
+    BLLBusinessImage bllBusinessImage = Bootstrap.Container.Resolve<BLLBusinessImage>();
+    BLLArea bllArea = Bootstrap.Container.Resolve<BLLArea>();
 
     public ResponseSTORE001003(BaseRequest request) : base(request) { }
     protected override void BuildRespData()

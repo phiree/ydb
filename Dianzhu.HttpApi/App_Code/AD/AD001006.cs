@@ -17,7 +17,7 @@ using Dianzhu.Api.Model;
 public class ResponseAD001006:BaseResponse
 {
     BLLDeviceBind bllDeviceBind;
-    BLLAdvertisement bllAD = Installer.Container.Resolve<BLLAdvertisement>();
+    BLLAdvertisement bllAD = Bootstrap.Container.Resolve<BLLAdvertisement>();
     public ResponseAD001006(BaseRequest request):base(request)
     {
  

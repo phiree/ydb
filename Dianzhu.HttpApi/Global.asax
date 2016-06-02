@@ -9,9 +9,9 @@
         // Code that runs on application startup
         PHSuit.Logging.Config("Dianzhu.HttpAPI");
         // var c = Installer.Container;
-       // var container = Dianzhu.DependencyInstaller.Installer.Container;
-
-       // Installer.InstallAPI(container);
+        // var container = Dianzhu.DependencyInstaller.Installer.Container;
+        Bootstrap.Boot();
+        // Installer.InstallAPI(container);
     }
 
     void Application_End(object sender, EventArgs e)

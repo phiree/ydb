@@ -19,7 +19,7 @@ public class ResponseUSM001010 : BaseResponse
     {
         ReqDataUSM001010 requestData = this.request.ReqData.ToObject<ReqDataUSM001010>();
 
-        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
 
         try
         {

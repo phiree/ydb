@@ -16,7 +16,7 @@ using Dianzhu.Api.Model;
 public class ResponseORM002003 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
-    IBLLServiceOrder bllOrder = Installer.Container.Resolve<IBLLServiceOrder>();
+    IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     public ResponseORM002003(BaseRequest request) : base(request) {
          
     }
@@ -25,7 +25,7 @@ public class ResponseORM002003 : BaseResponse
         ReqDataORM002003 requestData = this.request.ReqData.ToObject<ReqDataORM002003>();
 
  
-        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
       
         BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();

@@ -18,7 +18,7 @@ public class ResponseVCM001002 : BaseResponse
         ReqDataVCM001002 requestData = this.request.ReqData.ToObject<ReqDataVCM001002>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = Installer.Container.Resolve<DZMembershipProvider>();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLCashTicket bllCashTicket = new BLLCashTicket();
         string raw_id = requestData.uid;
 
