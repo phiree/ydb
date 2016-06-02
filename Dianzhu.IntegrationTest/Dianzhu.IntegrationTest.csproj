@@ -67,10 +67,12 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="BatchTest\create_test_membership_data.sql" />
     <None Include="..\AdminBusiness\config\connectionstrings.config">
       <Link>config\connectionstrings.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="BatchTest\lauch.bat" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +91,10 @@
     <ProjectReference Include="..\Dianzhu.Dependency\Dianzhu.Dependency.csproj">
       <Project>{f5f67c69-f9ee-4222-9f83-91c816fc686c}</Project>
       <Name>Dianzhu.Dependency</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHSuit\PHSuit.csproj">
+      <Project>{0122c6d5-6348-4b65-88b7-3c43a6e642f3}</Project>
+      <Name>PHSuit</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

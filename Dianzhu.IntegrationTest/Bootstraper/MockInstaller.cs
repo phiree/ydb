@@ -18,7 +18,7 @@ namespace Dianzhu.IntegrationTest.Bootstraper
            container.Register(Component.For<ILoginForm>().ImplementedBy<LoginView>().DependsOn(
                 Dependency.OnValue("username","aa@aa.aa"),
                 Dependency.OnValue("plainPassword","123456")
-                ));
+                ).LifestyleTransient());
            
         }
     }

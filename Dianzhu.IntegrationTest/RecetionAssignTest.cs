@@ -15,6 +15,7 @@ namespace Dianzhu.IntegrationTest
         public void Setup()
         {
             Bootstraper.Bootstrap.Boot();
+            PHSuit.Logging.Config("abcdefa");
         }
         public void BatchCSClientLogin()
         { }
@@ -22,7 +23,12 @@ namespace Dianzhu.IntegrationTest
         public void OpenfireLogin()
         {
             LoginPresenter loginPresenter = Bootstraper.Bootstrap.Container.Resolve<LoginPresenter>();
-            loginPresenter.loginView_ViewLogin();
+
+            loginPresenter.Login("aa@aa.aa","123456");
+
+            loginPresenter.Login("f@f.f", "123456");
+
+             
         }
     }
 }

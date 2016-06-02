@@ -36,7 +36,7 @@ namespace Dianzhu.CSClient
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             PHSuit.Logging.Config("Dianzhu.CSClient");
 
@@ -62,6 +62,7 @@ namespace Dianzhu.CSClient
             string version = GetVersion();
             //  loginForm.FormText += "v" + version;
             Presenter.LoginPresenter loginPresenter = Bootstrap.Container.Resolve<Presenter.LoginPresenter>();
+            loginPresenter.Args = args;
             bool? result = loginPresenter.ShowDialog();
 
 

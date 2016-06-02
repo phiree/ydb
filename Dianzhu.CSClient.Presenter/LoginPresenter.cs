@@ -7,6 +7,8 @@ using Dianzhu.CSClient.IInstantMessage;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.BLL.IdentityAccess;
+using System.Threading;
+
 namespace Dianzhu.CSClient.Presenter
 {
     /// <summary>
@@ -24,6 +26,7 @@ namespace Dianzhu.CSClient.Presenter
         IBLLServiceOrder bllServiceOrder;
         IEncryptService encryptService;
         IDAL.IDALMembership dalMembership;
+        public string[] Args { get; set; }
         public LoginPresenter(IView.ILoginForm loginView, InstantMessage instantMessage, BLLAdvertisement bllAdv,
             IBLLServiceOrder bllServiceOrder,IDAL.IDALMembership dalMembership 
             ,IEncryptService encryptService
@@ -65,28 +68,50 @@ namespace Dianzhu.CSClient.Presenter
 
         public bool ShowDialog()
         {
+           
+                if (Args.Length == 2)
+                {
+                    string userName = Args[0];
+                    string password = Args[1];
+                    Login(userName, password);
+                AutoResetEvent waitHandle = new AutoResetEvent(false);
+                IMLogined eventHandler = delegate (string userid)
+                {
+                    waitHandle.Set();  // signal that the finished event was raised
+                };
+                instantMessage.IMLogined += eventHandler;
+                waitHandle.WaitOne();
+                return true;
+                }
+            
+
             return this.loginView.ShowDialog();
         }
+        
 
-
-       public  void loginView_ViewLogin()
+        public async void Login(string username, string plainPassword)
         {
-
-            loginView.LoginButtonText = "正在登录,请稍后";
-            loginView.LoginButtonEnabled = false;
-            loginView.LoginMessage = string.Empty;
-            string encryptPassword = encryptService.GetMD5Hash(loginView.Password);
-              var member=dalMembership.ValidateUser(loginView.UserName, encryptPassword);
+            string encryptPassword = encryptService.GetMD5Hash(plainPassword);
+            var member = dalMembership.ValidateUser(username, encryptPassword);
             //DZMembership member = dalme.GetUserByName(loginView.UserName);
             if (member != null)
             {
-                instantMessage.OpenConnection(member.Id.ToString()
+                 instantMessage.OpenConnection(member.Id.ToString()
                       , loginView.Password);
             }
             else
             {
                 XMPP_IMAuthError();
             }
+        }
+       public  void loginView_ViewLogin()
+        {
+
+            loginView.LoginButtonText = "正在登录,请稍后";
+            loginView.LoginButtonEnabled = false;
+            loginView.LoginMessage = string.Empty;
+
+            Login(loginView.UserName, loginView.Password);
 
         }
 
@@ -143,7 +168,10 @@ namespace Dianzhu.CSClient.Presenter
                 log.Error("点点获取失败");
             }
             GlobalViables.Diandian = diandian;
+            if(Args.Length==0)
+            { 
             loginView.IsLoginSuccess = true;
+            }
         }
 
         void loginView_Logined(object sender, EventArgs e)

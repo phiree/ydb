@@ -21,7 +21,7 @@ namespace Dianzhu.IntegrationTest.Bootstraper
         {
             set
             {
-                throw new NotImplementedException();
+                 
             }
         }
 
@@ -34,7 +34,7 @@ namespace Dianzhu.IntegrationTest.Bootstraper
 
             set
             {
-                throw new NotImplementedException();
+                
             }
         }
 
@@ -42,7 +42,10 @@ namespace Dianzhu.IntegrationTest.Bootstraper
         {
             set
             {
-                throw new NotImplementedException();
+
+               
+                // else { lambda(); }
+
             }
         }
 
@@ -91,7 +94,7 @@ namespace Dianzhu.IntegrationTest.Bootstraper
 
         public bool ShowDialog()
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

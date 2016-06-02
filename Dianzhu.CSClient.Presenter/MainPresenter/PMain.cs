@@ -35,6 +35,7 @@ namespace Dianzhu.CSClient.Presenter
         public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,BLLReceptionStatus bllReceptionStatus, BLLReceptionChat bllReceptionChat, BLLReceptionChatDD bllReceptionChatDD, BLLReceptionStatusArchieve bllReceptionStatusArchieve, BLLIMUserStatus bllIMUserStatus)
         {
             this.viewMainForm = viewMainForm;
+            this.viewMainForm.FormTitle = GlobalViables.CurrentCustomerService.DisplayName;
             this.iIM = iIM;
             this.iViewIdentityList = iViewIdentityList;
             this.bllReceptionStatus = bllReceptionStatus;
