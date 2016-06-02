@@ -52,14 +52,24 @@ namespace Dianzhu.DAL
             // .Where(Restrictions.On<DZService>(x => x.Name).IsLike(string.Format("%{0}%", keywords))
             // || Restrictions.On<DZService>(x => x.Description).IsLike(string.Format("%{0}%", keywords))
             // ); 
-            IQuery query = Session.CreateQuery(queryStr + where);
-            totalRecord = query.List().Count;
 
-            var result = query.List<DZService>()
-                .Skip(pageindex * pagesize).Take(pagesize);
+            IList<DZService> list;
+            using (var t = Session.BeginTransaction())
+            {
+                IQuery query = Session.CreateQuery(queryStr + where);
+                totalRecord = query.List().Count;
+
+                var result = query.List<DZService>()
+                    .Skip(pageindex * pagesize).Take(pagesize);
+
+                list= result.ToList();
+
+                t.Commit();
+            }
+
 
             //query.wrap
-            return result.ToList();
+            return list;
         }
 
         public DZService GetOneByBusAndId(Business business, Guid svcId)

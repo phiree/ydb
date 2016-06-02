@@ -20,7 +20,7 @@ namespace Dianzhu.Test.BLLTest
         {
             List<Model.Area> areaList = new List<Model.Area> { new Model.Area { AreaOrder = 1, Code = "110000", Id = 1, MetaDescription = "desp11", Name = "Beijing", SeoName = "BJ" } };
 
-            bllArea = Installer.Container.Resolve<BLLArea>();
+            bllArea = Bootstrap.Container.Resolve<BLLArea>();
         }
         [Test]
         public void GetArea()

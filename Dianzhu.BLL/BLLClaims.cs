@@ -17,7 +17,13 @@ namespace Dianzhu.BLL
 
         public void Update(Claims c)
         {
+            c.LastUpdateTime = DateTime.Now;
             DALClaims.Update(c);
+        }
+
+        public Claims GetOneByOrder(ServiceOrder order)
+        {
+            return DALClaims.GetOneByOrder(order);
         }
     }
 }

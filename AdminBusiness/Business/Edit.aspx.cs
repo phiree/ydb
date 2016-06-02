@@ -13,9 +13,9 @@ using Dianzhu.IDAL;
 public partial class Business_Edit : BasePage
 {
     public Business b = new Business();
-    IDALBusiness dalBusiness = Installer.Container.Resolve<IDALBusiness>();
+    IDALBusiness dalBusiness = Bootstrap.Container.Resolve<IDALBusiness>();
     
-    BLLBusinessImage bllBi =Installer.Container.Resolve<BLLBusinessImage>();
+    BLLBusinessImage bllBi =Bootstrap.Container.Resolve<BLLBusinessImage>();
     bool IsNew {get;set;}
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -109,7 +109,7 @@ public partial class Business_Edit : BasePage
         b.StaffAmount = int.Parse(selStaffAmount.Value);
         b.ChargePersonIdCardType = (enum_IDCardType)int.Parse(selCardType.Value);
         b.ChargePersonIdCardNo = tbxCardIdNo.Value;
-        BLLArea bllArea = Installer.Container.Resolve<BLLArea>();
+        BLLArea bllArea = Bootstrap.Container.Resolve<BLLArea>();
         AddressParser addressParser = new AddressParser(hiAddrId.Value, bllArea);
         Area area;
         double latitude;

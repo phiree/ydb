@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 public partial class Business_Detail :BasePage
 {
  
-    Dianzhu.BLL.IBLLServiceOrder bllOrder = Installer.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
+    Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
  
 
     public string AllOrderCount;

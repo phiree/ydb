@@ -3,7 +3,7 @@
 <%@ Import Namespace="Castle.Windsor.Installer" %>
 <script runat="server">
     public static IWindsorContainer container;
-    //  Dianzhu.IDAL.IUnitOfWork uow = Installer.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();
+    //  Dianzhu.IDAL.IUnitOfWork uow = Bootstrap.Container.Resolve<Dianzhu.IDAL.IUnitOfWork>();
     void Application_Start(object sender, EventArgs e)
     {
         // 在应用程序启动时运行的代码

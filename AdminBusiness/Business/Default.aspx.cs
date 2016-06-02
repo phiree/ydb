@@ -9,7 +9,7 @@ using Dianzhu.BLL;
 using Dianzhu.IDAL;
 public partial class Business_Default : BasePage
 {
-    IDALBusiness dalBusiness = Installer.Container.Resolve<IDALBusiness>();
+    IDALBusiness dalBusiness = Bootstrap.Container.Resolve<IDALBusiness>();
     BLLDZService bllService = new BLLDZService();
     protected void Page_Load(object sender, EventArgs e)
     {

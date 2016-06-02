@@ -117,13 +117,13 @@ namespace Dianzhu.BLL
         /// 用户申请理赔
         /// </summary>
         /// <param name="order"></param>
-        void OrderFlow_CustomerRefund(ServiceOrder order);
+        bool OrderFlow_CustomerRefund(ServiceOrder order,bool isNeedRefund,decimal refundAmount);
 
         /// <summary>
         /// 商户裁定理赔
         /// </summary>
         /// <param name="order"></param>
-        void OrderFlow_BusinessIsRefund(ServiceOrder order);
+        void OrderFlow_BusinessIsRefund(ServiceOrder order,DZMembership member);
 
         /// <summary>
         /// 理赔成功
@@ -135,19 +135,19 @@ namespace Dianzhu.BLL
         /// 商户要求支付赔偿金
         /// </summary>
         /// <param name="order"></param>
-        void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order);
+        void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, string resourcesUrl, DZMembership member);
 
         /// <summary>
         /// 商户驳回理赔请求
         /// </summary>
         /// <param name="order"></param>
-        void OrderFlow_BusinessRejectRefund(ServiceOrder order);
+        void OrderFlow_BusinessRejectRefund(ServiceOrder order,DZMembership member);
 
         /// <summary>
         /// 商户裁定理赔
         /// </summary>
         /// <param name="order"></param>
-        void OrderFlow_WaitingPayWithRefund(ServiceOrder order);
+        void OrderFlow_WaitingPayWithRefund(ServiceOrder order,DZMembership member);
 
         /// <summary>
         /// 用户支付赔偿金

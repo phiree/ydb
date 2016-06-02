@@ -10,9 +10,9 @@ using System.Web.UI.WebControls;
 
 public partial class DZOrder_Detail : System.Web.UI.Page
 {
-    Dianzhu.BLL.IBLLServiceOrder bllServeiceOrder = Installer.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
-    BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
-   // BLLServiceOrder bllServeiceOrder =Installer.Container.Resolve<BLLServiceOrder>();
+    Dianzhu.BLL.IBLLServiceOrder bllServeiceOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
+    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
+   // BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
     BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
     BLLPayment bllPayment = new BLLPayment();
     public ServiceOrder CurrentOrder;

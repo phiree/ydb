@@ -8,14 +8,14 @@ using Dianzhu.NotifyCenter;
 public class IMServerAPI : IHttpHandler {
 
     log4net.ILog log = log4net.LogManager.GetLogger("debug");
-    IBLLServiceOrder bllOrder =Dianzhu.DependencyInstaller.Installer.Container.Resolve<IBLLServiceOrder>();
+    IBLLServiceOrder bllOrder =Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
     public void ProcessRequest(HttpContext context)
     {
         string type = context.Request["type"];
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
         = (Dianzhu.CSClient.IInstantMessage.InstantMessage)context.Application["im"];
-        Dianzhu.NotifyCenter.IMNotify imNotify = Installer.Container.Resolve<IMNotify>();
+        Dianzhu.NotifyCenter.IMNotify imNotify = Bootstrap.Container.Resolve<IMNotify>();
         switch (type.ToLower())
         {
             case "systemnotice":

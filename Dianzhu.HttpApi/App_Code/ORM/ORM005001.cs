@@ -73,6 +73,13 @@ public class ResponseORM005001 : BaseResponse
                 return;
             }
 
+            if (amount <= 0)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "提交价格需为大于零的数";
+                return;
+            }
+
             DZMembership member;
             if (request.NeedAuthenticate)
             {
@@ -95,6 +102,7 @@ public class ResponseORM005001 : BaseResponse
             try
             {
                 ServiceOrder order = bllServiceOrder.GetOrderByIdAndCustomer(orderID, member);
+                enum_OrderStatus oldStatus = order.OrderStatus;
                 if (order == null)
                 {
                     this.state_CODE = Dicts.StateCode[1];
@@ -102,9 +110,34 @@ public class ResponseORM005001 : BaseResponse
                     return;
                 }
 
-                bllServiceOrder.OrderFlow_CustomerRefund(order);
+                bool isNeesRefund = false;
+                if (order.OrderStatus == enum_OrderStatus.Begin ||
+                     order.OrderStatus == enum_OrderStatus.isEnd ||
+                      order.OrderStatus == enum_OrderStatus.Ended)
+                {
+                    isNeesRefund = false;
+                }
+                else if (order.OrderStatus == enum_OrderStatus.Finished ||
+                          order.OrderStatus == enum_OrderStatus.Appraised)
+                {
+                    isNeesRefund = true;
+                }
+                else
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "该订单状态无法提交理赔";
+                    return;
+                }
 
-                Claims claims = new Claims(order, context, amount, resourcesUrl, order.OrderStatus, enum_ChatTarget.cer, string.Empty);
+                if (!bllServiceOrder.OrderFlow_CustomerRefund(order,isNeesRefund, amount))
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "提交理赔失败";
+                    return;
+                }
+
+                Claims claims = new Claims(order, oldStatus, member);
+                claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.user, member);
                 bllClaims.Save(claims);
 
                 RespDataORM005001 respData = new RespDataORM005001();

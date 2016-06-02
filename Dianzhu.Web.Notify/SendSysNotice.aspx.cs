@@ -16,7 +16,7 @@ public partial class SendSysNotice : System.Web.UI.Page
     }
     protected void btnSend_Click(object sender, EventArgs e)
     {
-        Dianzhu.NotifyCenter.IMNotify notify = Installer.Container.Resolve<Dianzhu.NotifyCenter.IMNotify>();
+        Dianzhu.NotifyCenter.IMNotify notify = Bootstrap.Container.Resolve<Dianzhu.NotifyCenter.IMNotify>();
         notify.SendSysNoitification(tbxContent.Text);
         lblResult.Text = "发送完成";
     }

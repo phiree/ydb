@@ -40,8 +40,13 @@ public partial class DZOrder_Default : BasePage
             currentPageIndex = int.Parse(paramPage);
         }
 
-        var IOrderList = bllOrder.GetListForBusiness(CurrentBusiness, currentPageIndex, pager.PageSize, out totalRecord)
-             .OrderByDescending(x => x.LatestOrderUpdated);
+<<<<<<< HEAD
+        var IOrderList = bllOrder.GetListForBusiness(CurrentBusiness, currentPageIndex, pager.PageSize, out totalRecord).OrderByDescending(x=>x.OrderCreated);
+           
+=======
+        IOrderedEnumerable<ServiceOrder> IOrderList = bllServeiceOrder.GetListForBusiness(CurrentBusiness, currentPageIndex, pager.PageSize, out totalRecord)
+            .OrderByDescending(x => x.LatestOrderUpdated);
+>>>>>>> origin/develop
         rpOrderList.DataSource = IOrderList;
         foreach (ServiceOrder item in IOrderList) {
             item.OrderStatusStr = item.GetStatusTitleFriendly(item.OrderStatus);

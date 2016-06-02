@@ -29,7 +29,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         //{
         //    get
         //    {
-        //        if (bllMember == null) bllMember = Installer.Container.Resolve<DZMembershipProvider>();
+        //        if (bllMember == null) bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
         //        return bllMember;
         //    }
 
@@ -49,7 +49,7 @@ namespace Dianzhu.CSClient.MessageAdapter
         //{
         //    get
         //    {
-        //        if (bllOrder == null) bllOrder =Installer.Container.Resolve<BLLServiceOrder>();
+        //        if (bllOrder == null) bllOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
         //        return bllOrder;
         //    }
 
@@ -304,7 +304,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                  }*/
                     var storeObj = new agsXMPP.Xml.Dom.Element("storeObj");
 
-                    storeObj.SetAttribute("userID", service.OriginalService.Business.Owner.Id.ToString());
+                    storeObj.SetAttribute("userID", service.OriginalService.Business.Id.ToString());
                     storeObj.SetAttribute("alias", service.OriginalService.Business.Name);
                     storeObj.SetAttribute("imgUrl", service.OriginalService.Business.BusinessAvatar.ImageName);
                     extNode.AddChild(storeObj);

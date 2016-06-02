@@ -9,7 +9,7 @@ using Dianzhu.BLL;
 public partial class business_detail : System.Web.UI.Page
 {
     Business b;
-    BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
+    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
     protected void Page_Load(object sender, EventArgs e)
     {
         string paramId = Request.Params["id"];

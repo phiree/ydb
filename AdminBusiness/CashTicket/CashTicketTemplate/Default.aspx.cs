@@ -9,7 +9,7 @@ using Dianzhu.Model;
 public partial class CashTicket_Default :BasePage
 {
     BLLCashTicketTemplate bll = new BLLCashTicketTemplate();
-    BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
+    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

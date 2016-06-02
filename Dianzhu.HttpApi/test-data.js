@@ -9,7 +9,7 @@
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
 //"rmm001003","rmm001004","rmm001005","rmm001006",
-"orm001005", "orm002003", "orm005001"
+"ad001006"
 
 ];
 var test_data = [
@@ -876,14 +876,31 @@ var test_data = [
                    "userID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
                    "pWord": "123456",
                    "refundObj": {
-                       "orderID": "54c2e71e-ee0b-4e51-b38b-a60200d92aec",
+                       "orderID": "ef18fe19-8de0-4bcb-9db7-a60c00ba2d60",
                        "context": "打碎人家的花瓶惹",
-                       "amount": "100.50",
-                       "resourcesUrl": "http://ydban.cn:8038/getfile.ashx?fileName=ｗ_jpg_$_eec27fc1-59f0-4703-b15f-d198fd2444e5_$_ChatImage_$_image"
+                       "amount": "0.02",
+                       "resourcesUrl": "http://olpic.tgbusdata.cn/uploads/allimg/130830/166-130S0162224.jpg"
                    }
                },
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"
+           },
+
+           {
+               "protocol_CODE": "ORM005007",
+               "ReqData": {
+                   "merchantID": "a1a69409-7d8c-4ec9-834b-a60901284465",
+                   "pWord": "123456",
+                   "refundAction": "refund",
+                   "refundObj": {
+                       "orderID": "ef18fe19-8de0-4bcb-9db7-a60c00ba2d60",
+                       "context": "同意",
+                       "amount": "1",
+                       "resourcesUrl": "http://olpic.tgbusdata.cn/uploads/allimg/130830/166-130S0162224.jpg"
+                   }
+               },
+               "stamp_TIMES": "1490192929222",
+               "serial_NUMBER": "00147001015869149756"
            },
 
         /*******************商家******************/
@@ -901,7 +918,7 @@ var test_data = [
                   {
                       "protocol_CODE": "MERM001003",
                       "ReqData": {
-                          "userID": "19794c46-4274-43f6-b764-a6090131cf6f",
+                          "userID": "c0896508-e699-4bd6-8bd4-a53600f72844",
                           "pWord": "a1124653910",
                           "alias": "13666",
                           

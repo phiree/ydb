@@ -116,6 +116,9 @@ public class ResponseORM003007 : BaseResponse
                             case enum_OrderStatus.checkPayWithNegotiate:
                                 bllServiceOrder.OrderFlow_CustomerPayFinalPayment(order);
                                 break;
+                            case enum_OrderStatus.WaitingPayWithRefund:
+                                bllServiceOrder.OrderFlow_WaitingPayWithRefund(order, member);
+                                break;
                             case enum_OrderStatus.checkPayWithRefund:
                                 bllServiceOrder.OrderFlow_CustomerPayRefund(order);
                                 break;

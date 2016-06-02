@@ -48,7 +48,10 @@ public class ResponseORM002001 : BaseResponse
             
                 ilog.Debug("1");
                 RespDataORM002001 respData = new RespDataORM002001();
-                IIMSession imSession = new IMSessionsDB();
+                //IIMSession imSession = new IMSessionsDB();
+                IIMSession imSession = new IMSessionsOpenfire(
+                      Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl"),
+                      Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey"));
                 ilog.Debug("2");
                 ReceptionAssigner ra = new ReceptionAssigner(imSession);
                 if (!string.IsNullOrEmpty(requestData.manualAssignedCsId))

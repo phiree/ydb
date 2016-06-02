@@ -48,7 +48,7 @@ namespace Dianzhu.Test.DianzhuNotifyCenterTest
                 System.Threading.Thread.Sleep(3000);
 
             }
-            Dianzhu.NotifyCenter.IMNotify on = Installer.Container.Resolve<Dianzhu.NotifyCenter.IMNotify>();
+            Dianzhu.NotifyCenter.IMNotify on = Bootstrap.Container.Resolve<Dianzhu.NotifyCenter.IMNotify>();
             ServiceOrder order = Builder<ServiceOrder>.CreateNew()
                 .With(x=>x.Customer=Builder<DZMembership>.CreateNew().With(y=>y.Id=new Guid("1cd5ac25-fcc6-432d-bba0-a4f90129edcf")).Build())
                 .With(x => x.CustomerService = Builder<DZMembership>.CreateNew().With(z => z.Id = new Guid("d53147d9-1a1e-4df8-b4d0-a4f90129ad25")).Build())

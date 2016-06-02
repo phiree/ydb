@@ -9,8 +9,8 @@ using Dianzhu.Model;
 public partial class cashticket_assigner_Default : System.Web.UI.Page
 {
 
-    BLLBusiness bllBusiness = Installer.Container.Resolve<BLLBusiness>();
-    BLLArea bllArea = Installer.Container.Resolve<BLLArea>();
+    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
+    BLLArea bllArea = Bootstrap.Container.Resolve<BLLArea>();
    
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -47,7 +47,7 @@ public partial class cashticket_assigner_Default : System.Web.UI.Page
         GetData();
         //CashTicketAssignForArea cashticketAssignerArea = new CashTicketAssignForArea(Area, Businesses);
         //cashticketAssignerArea.Assign();
-        CashTicketAssigner_Task task = Installer.Container.Resolve<CashTicketAssigner_Task>();
+        CashTicketAssigner_Task task = Bootstrap.Container.Resolve<CashTicketAssigner_Task>();
         task.Assign();
     }
     protected void ddlArea_SelectedIndexChanged(object sender, EventArgs e)

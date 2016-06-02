@@ -8,7 +8,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 public partial class membership_Default : System.Web.UI.Page
 {
-    DZMembershipProvider dzmp = Installer.Container.Resolve<DZMembershipProvider>();
+    DZMembershipProvider dzmp = Bootstrap.Container.Resolve<DZMembershipProvider>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -56,7 +56,7 @@ public partial class membership_Default : System.Web.UI.Page
         var cached_list = System.Web.HttpRuntime.Cache[cache_key];
         if (!config.EnableCache || cached_list == null)
         {
-            var VMCustomerAdapter = Installer.Container.Resolve<VMCustomerAdapter>();
+            var VMCustomerAdapter = Bootstrap.Container.Resolve<VMCustomerAdapter>();
             IList<DZMembership> list = dzmp.GetAllCustomer(currentPageIndex, pager.PageSize, out totalRecord);
             vmList = VMCustomerAdapter.AdaptList(list);
             System.Web.HttpRuntime.Cache.Insert(cache_key, vmList);
@@ -130,5 +130,10 @@ public partial class membership_Default : System.Web.UI.Page
         {
             
         }
+    }
+
+    protected void btnToExcel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ToExcel.aspx?intSize="+pager.RecordCount.ToString ());
     }
 }

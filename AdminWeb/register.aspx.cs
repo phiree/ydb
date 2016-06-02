@@ -8,7 +8,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 public partial class register : System.Web.UI.Page
 {
-    DZMembershipProvider bllMember = Installer.Container.Resolve<DZMembershipProvider>();
+    DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
     protected void Page_Load(object sender, EventArgs e)
     {
 

@@ -8,7 +8,7 @@ using Dianzhu.Model.Enums;
 using System.IO;
 public class FileUploader : IHttpHandler {
 
-    BLLBusinessImage bllBusinessImage =Installer.Container.Resolve<BLLBusinessImage>();
+    BLLBusinessImage bllBusinessImage =Bootstrap.Container.Resolve<BLLBusinessImage>();
     public void ProcessRequest (HttpContext context) {
         context.Response.ContentType = "text/plain";
         

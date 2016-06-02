@@ -13,7 +13,7 @@ using Dianzhu.BLL;
 public partial class area_Default : System.Web.UI.Page
 {
 
-    BLLArea bllArea =  Installer.Container.Resolve<BLLArea>();
+    BLLArea bllArea = Bootstrap.Container.Resolve<BLLArea>();
     protected void Page_Load(object sender, EventArgs e)
     {
         string code = Request["code"];

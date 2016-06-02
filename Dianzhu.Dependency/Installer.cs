@@ -26,6 +26,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<DZMembershipProvider>());
             container.Register(Component.For<BLLBusiness>());
             container.Register(Component.For<BLLBusinessImage>());
+            container.Register(Component.For<BLLRefund>());
 
         }
     }
@@ -54,7 +55,10 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
                                .DependsOn(Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis()))
                                .DependsOn(Dependency.OnValue("bllPayment", new BLLPayment()))
-                               );
+                               .DependsOn(Dependency.OnValue("bllClaims",new BLLClaims()))
+                               
+                               )
+                               ;
 
 
         }

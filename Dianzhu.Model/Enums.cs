@@ -375,7 +375,15 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 查询所有的类型
         /// </summary>
-        all
+        all,
+        /// <summary>
+        /// 用户
+        /// </summary>
+        user,
+        /// <summary>
+        /// 系统
+        /// </summary>
+        system,
     }
     /// <summary>
     /// 用户的在线状态

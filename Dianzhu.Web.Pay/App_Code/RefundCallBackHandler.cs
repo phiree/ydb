@@ -21,7 +21,7 @@ public partial class RefundCallBackHandler : System.Web.UI.Page
 
 
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
-    BLLRefund bllRefund = Installer.Container.Resolve<BLLRefund>();
+    BLLRefund bllRefund = Bootstrap.Container.Resolve<BLLRefund>();
     string errMsg;
     protected void Page_Load(object sender, EventArgs e)
     {

@@ -7,7 +7,7 @@ using Dianzhu.Model;
 using System.Web.Security;
 public class changepassword : IHttpHandler {
 
-    DZMembershipProvider dzp = Installer.Container.Resolve<DZMembershipProvider>();
+    DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
     BLLStaff bllStaff = new BLLStaff();
     public void ProcessRequest (HttpContext context) {
         context.Response.ContentType = "application/json";

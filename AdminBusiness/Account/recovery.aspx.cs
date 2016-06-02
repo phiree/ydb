@@ -10,7 +10,7 @@ using System.Web.Security;
 public partial class ForgetPassword : System.Web.UI.Page
 {
 
-    DZMembershipProvider bllMember = Installer.Container.Resolve<DZMembershipProvider>();
+    DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
     DZMembership member;
     protected void Page_Load(object sender, EventArgs e)
     {
