@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
- 
+using Dianzhu.Model;
 namespace JSYK.Domain.InstantMessage
 {
     public delegate void IMLogined(string jidUser);
@@ -42,10 +42,10 @@ namespace JSYK.Domain.InstantMessage
         void Close();
         event IMConnectionError IMConnectionError;
 
-        void SendMessage(Model.ReceptionChat chat);
+        void SendMessage(ReceptionChat chat);
         void SendMessage(string xml);
         
-        event IMReceivedMessage IMReceivedMessage;
+       // event IMReceivedMessage IMReceivedMessage;
         event IMIQ IMIQ;
 
         event IMStreamError IMStreamError;//登录相同账号冲突错误

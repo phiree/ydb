@@ -414,7 +414,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 店铺的一些图片
     /// </summary>
-    public class BusinessImage
+    public class BusinessImage:DDDCommon.Domain.Entity<Guid>
     {
         public BusinessImage()
         {

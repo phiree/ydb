@@ -6,7 +6,7 @@ using Dianzhu.Model;
  
 namespace Dianzhu.IDAL
 {
-    public interface IDALBusinessImage 
+    public interface IDALBusinessImage:IDAL.IRepository<BusinessImage,Guid>
     {
 
 

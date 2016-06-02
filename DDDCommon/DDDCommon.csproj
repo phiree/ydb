@@ -49,6 +49,7 @@
     <Compile Include="Specification\Negate.cs" />
     <Compile Include="Specification\Or.cs" />
     <Compile Include="Specification\ParameterReplacer.cs" />
+    <Compile Include="Specification\PredicateBuilder.cs" />
     <Compile Include="Specification\SpecExprExtensions.cs" />
     <Compile Include="Specification\SpecificationBase.cs" />
   </ItemGroup>

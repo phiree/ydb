@@ -14,6 +14,7 @@ using System.Web;
 using System.Text.RegularExpressions;
 using System.Net;
 using Dianzhu.IDAL;
+using DDDCommon;
 namespace Dianzhu.BLL
 {
 

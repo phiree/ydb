@@ -96,5 +96,13 @@ namespace Dianzhu.DAL
 
 
         }
+
+        public void SaveList(IList<TEntity> list)
+        {
+            foreach (TEntity t in list)
+            {
+                Add(t);
+            }
+        }
     }
 }

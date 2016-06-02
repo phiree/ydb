@@ -105,7 +105,7 @@ namespace Dianzhu.BLL
              CashTicket ticket= validCashTickets.First();
              ticket.UserAssigned = customer;
 
-             BLLCashTicket.SaveOrUpdate(ticket);
+             BLLCashTicket.Update(ticket);
              return ticket;
         }
         

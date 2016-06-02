@@ -41,6 +41,8 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<IRepository<Refund, Guid>, IDALRefund>().ImplementedBy<DALRefund>());
             container.Register(Component.For<IRepository<DZMembership, Guid>, IDALMembership>().ImplementedBy<DALMembership>());
             container.Register(Component.For<IRepository<Business, Guid>, IDALBusiness>().ImplementedBy<DALBusiness>());
+            container.Register(Component.For<IRepository<BusinessImage, Guid>, IDALBusinessImage>().ImplementedBy<DALBusinessImage>());
+
             container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
 
         }

@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-
-public static class PredicateBuilder2
+namespace DDDCommon
+{ 
+public static class PredicateBuilder
 {
     public static Expression<Func<T, bool>> True<T>() { return f => true; }
     public static Expression<Func<T, bool>> False<T>() { return f => false; }
@@ -23,4 +24,5 @@ public static class PredicateBuilder2
         return Expression.Lambda<Func<T, bool>>
               (Expression.AndAlso(expr1.Body, invokedExpr), expr1.Parameters);
     }
+}
 }

@@ -7,7 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.Model.Enums;
 namespace Dianzhu.IDAL
 {
-   public interface IDALCashTicket 
+   public interface IDALCashTicket :IDAL.IRepository<CashTicket, Guid>
     {
 
 
