@@ -7,11 +7,29 @@ namespace Dianzhu.Model
 {
     public class RefreshToken
     {
-        public string Id { get; set; }
-        public string Subject { get; set; }
-        public string ClientId { get; set; }
-        public DateTime IssuedUtc { get; set; }
-        public DateTime ExpiresUtc { get; set; }
-        public string ProtectedTicket { get; set; }
+        /// <summary>
+        /// RefreshToken值，且为主键
+        /// </summary>
+        public virtual string Id { get; set; }
+        /// <summary>
+        /// 客户端的使用用户
+        /// </summary>
+        public virtual string Subject { get; set; }
+        /// <summary>
+        /// 客户端ID
+        /// </summary>
+        public virtual string ClientId { get; set; }
+        /// <summary>
+        /// RefreshToken发布时间
+        /// </summary>
+        public virtual DateTime IssuedUtc { get; set; }
+        /// <summary>
+        /// RefreshToken到期时间
+        /// </summary>
+        public virtual DateTime ExpiresUtc { get; set; }
+        /// <summary>
+        /// RefreshToken保护票据
+        /// </summary>
+        public virtual string ProtectedTicket { get; set; }
     }
 }

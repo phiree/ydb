@@ -544,4 +544,14 @@ namespace Dianzhu.Model.Enums
         Success=1,
         Fail=2,
     }
+
+    /// <summary>
+    /// 访问接口的客户端类型，主要区分js客户端和非js客户端
+    /// </summary>
+    public enum ApplicationTypes
+    {
+        JavaScript = 0,
+        NativeConfidential = 1
+    };
+
 }
