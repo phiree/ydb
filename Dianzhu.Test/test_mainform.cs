@@ -38,7 +38,8 @@ namespace Dianzhu.Test
 
             BLLDZService bllDZService = Builder<BLLDZService>.CreateNew().
                 With(x => x.DALDZService = DALDZService).Build();
-             InstantMessage xmpp = MockRepository.GenerateStub<InstantMessage>();
+           // IMainFormView view = MockRepository.GenerateStub<IMainFormView>();
+            InstantMessage xmpp = MockRepository.GenerateStub<InstantMessage>();
 
             Dianzhu.CSClient.IMessageAdapter.IAdapter adapter = MockRepository.GenerateStub<Dianzhu.CSClient.IMessageAdapter.IAdapter>();
 
@@ -53,8 +54,8 @@ namespace Dianzhu.Test
             //     ,MockRepository.GenerateMock<BLLReceptionStatus>()
             //     );
            // formController.ReceiveMessage("a@a.a", "hello", "/pic.png",string.Empty);
-          //  string result = view.ToString();
-          //  Assert.AreEqual("hello", result);
+           // string result = view.ToString();
+           // Assert.AreEqual("hello", result);
         }
     }
 }

@@ -8,6 +8,9 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 public partial class business_Default : System.Web.UI.Page
 {
+    VMBusinessAdapter vmBusinessAdapter = Bootstrap.Container.Resolve<VMBusinessAdapter>();
+    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
+    IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -19,7 +22,7 @@ public partial class business_Default : System.Web.UI.Page
 
     private void BindBusinesses()
     {
-        //BLLBusiness bllBusiness = new BLLBusiness();
+        //BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         //IList<Business> allBusiness = bllBusiness.GetAll();
         //gvBusiness.DataSource = allBusiness;
         //gvBusiness.DataBind();
@@ -31,10 +34,11 @@ public partial class business_Default : System.Web.UI.Page
         {
             currentPageIndex = int.Parse(paramPage);
         }
-        BLLBusiness bllBusiness = new BLLBusiness();
+        
         string query = "select b from Business b";
-        IList<VMShop> allBusiness = new VMBusinessAdapter(new BLLServiceOrder()).
-            AdaptList(bllBusiness.GetListByPage(currentPageIndex - 1, pager.PageSize, out totalRecord));
+       
+        IList<VMShop> allBusiness = vmBusinessAdapter.
+            AdaptList(bllBusiness.GetListByPage(currentPageIndex, pager.PageSize, out totalRecord));
         gvBusiness.DataSource = allBusiness;
         //gvBusiness.DataBind();
         pager.RecordCount = (int)totalRecord;
@@ -56,9 +60,9 @@ public partial class business_Default : System.Web.UI.Page
         {
             currentPageIndex = int.Parse(paramPage);
         }
-        BLLBusiness bllBusiness = new BLLBusiness();
+       
         string query = "select b from Business b";
-        IList<VMShop> allBusiness = new VMBusinessAdapter(new BLLServiceOrder()).
+        IList<VMShop> allBusiness = new VMBusinessAdapter(bllServiceOrder).
             AdaptList(bllBusiness.GetListByPage(currentPageIndex - 1, pager.PageSize, out totalRecord));
 
         switch (sortField.ToLower())

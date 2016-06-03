@@ -10,12 +10,13 @@ using Dianzhu.BLL;
 public class VMCustomerAdapter
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminWeb.VMCustomerAdapter");
-    Dianzhu.BLL.DZMembershipProvider bllMember = new Dianzhu.BLL.DZMembershipProvider();
+    Dianzhu.BLL.DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
     Dianzhu.BLL.BLLReceptionStatusArchieve bllRSA = new Dianzhu.BLL.BLLReceptionStatusArchieve();
-    Dianzhu.BLL.BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
-    public VMCustomerAdapter()
+    //  Dianzhu.BLL.BLLServiceOrder bllOrder = new Dianzhu.BLL.BLLServiceOrder();
+    private Dianzhu.BLL.IBLLServiceOrder bllOrder;
+    public VMCustomerAdapter(IBLLServiceOrder bllOrder)
     {
-       
+        this.bllOrder = bllOrder;
         
     }
     string errMsg;

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Dianzhu.CSClient;
 using NUnit.Framework;
 using Rhino.Mocks;
 using FizzWare.NBuilder;

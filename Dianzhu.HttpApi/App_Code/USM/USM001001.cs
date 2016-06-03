@@ -15,7 +15,7 @@ public class ResponseUSM001001 : BaseResponse
     protected override void BuildRespData()
     {        
         ReqDataUSM requestData = request.ReqData.ToObject<ReqDataUSM>();
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         MembershipCreateStatus createStatus;
         DZMembership newMember = p.CreateUser(string.Empty,
              requestData.phone,

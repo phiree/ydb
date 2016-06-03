@@ -15,6 +15,15 @@ using ViewWPF = Dianzhu.CSClient.ViewWPF;
 
 using cw = Castle.Windsor;
 using cmr = Castle.MicroKernel.Registration;
+using Dianzhu.DAL;
+using Dianzhu.IDAL;
+using Dianzhu.Model;
+using NHibernate;
+using DDDCommon.Domain;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using NHibernate.Tool.hbm2ddl;
+
 namespace Dianzhu.CSClient
 {
     static class Program
@@ -27,7 +36,7 @@ namespace Dianzhu.CSClient
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             PHSuit.Logging.Config("Dianzhu.CSClient");
 
@@ -48,15 +57,16 @@ namespace Dianzhu.CSClient
                 return;
             }
 
-           var container=  Install();
+             Bootstrap.Boot();
 
             string version = GetVersion();
             //  loginForm.FormText += "v" + version;
-            Presenter.LoginPresenter loginPresenter = container.Resolve<Presenter.LoginPresenter>();
+            Presenter.LoginPresenter loginPresenter = Bootstrap.Container.Resolve<Presenter.LoginPresenter>();
+            loginPresenter.Args = args;
             bool? result = loginPresenter.ShowDialog();
 
 
-          
+            bool useWpf = true;
             //登录成功
             if (result.Value)// == DialogResult.OK)
             {
@@ -65,17 +75,17 @@ namespace Dianzhu.CSClient
                 log.Debug("登录成功");
 
 
-                Presenter.PIdentityList pIdentityList = container.Resolve<Presenter.PIdentityList>(); ;
-                Presenter.PChatList pChatList = container.Resolve<Presenter.PChatList>();
-                Presenter.PNotice pNotice = container.Resolve<Presenter.PNotice>();
+                Presenter.PIdentityList pIdentityList = Bootstrap.Container.Resolve<Presenter.PIdentityList>(); ;
+                Presenter.PChatList pChatList = Bootstrap.Container.Resolve<Presenter.PChatList>();
+                Presenter.PNotice pNotice = Bootstrap.Container.Resolve<Presenter.PNotice>();
 
-                Presenter.PSearch pSearch = container.Resolve<Presenter.PSearch>();
-                Presenter.POrder pOrder = container.Resolve<Presenter.POrder>();
-                Presenter.POrderHistory pOrderHistory = container.Resolve<Presenter.POrderHistory>();
-                Presenter.PChatSend pChatSend = container.Resolve<Presenter.PChatSend>();
+                Presenter.PSearch pSearch = Bootstrap.Container.Resolve<Presenter.PSearch>();
+                Presenter.POrder pOrder = Bootstrap.Container.Resolve<Presenter.POrder>();
+                Presenter.POrderHistory pOrderHistory = Bootstrap.Container.Resolve<Presenter.POrderHistory>();
+                Presenter.PChatSend pChatSend = Bootstrap.Container.Resolve<Presenter.PChatSend>();
                 
 
-                var mainPresenter = container.Resolve<Presenter.PMain>();
+                var mainPresenter = Bootstrap.Container.Resolve<Presenter.PMain>();
 
 
                 mainPresenter.ShowDialog();
@@ -90,57 +100,9 @@ namespace Dianzhu.CSClient
             //mainForm.ShowDialog();
 
         }
-      //  static Castle.Windsor.WindsorContainer container;
-        static Castle.Windsor.WindsorContainer Install()
-        {
-           var   container = new Castle.Windsor.WindsorContainer();
-            //Presenter
-            container.Register(cmr.Component.For<Presenter.PMain>());
-            container.Register(cmr.Component.For<CSClient.Presenter.LoginPresenter>());
-            container.Register(cmr.Component.For<CSClient.Presenter.IdentityManager>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PIdentityList>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PChatList>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PChatSend>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PNotice>());
-            container.Register(cmr.Component.For<CSClient.Presenter.POrder>());
-            container.Register(cmr.Component.For<CSClient.Presenter.POrderHistory>());
-            container.Register(cmr.Component.For<CSClient.Presenter.PSearch>());
-            //bll
-            container.Register(cmr.Component.For<IBLLMembershipLoginLog>().ImplementedBy<BLL.BLLMembershipLoginLog>());
 
-
-            //Iview
-            container.Register(cmr.Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
-            container.Register(cmr.Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());
-            container.Register(cmr.Component.For<IViewChatList>().ImplementedBy<ViewWPF.UC_ChatList>());
-            container.Register(cmr.Component.For<IViewChatSend>().ImplementedBy<ViewWPF.UC_ChatSend>());
-            container.Register(cmr.Component.For<IViewIdentityList>().ImplementedBy<ViewWPF.UC_IdentityList>());
-            container.Register(cmr.Component.For<IViewNotice>().ImplementedBy<ViewWPF.UC_Notice>());
-            container.Register(cmr.Component.For<IViewOrder>().ImplementedBy<ViewWPF.UC_Order>());
-            container.Register(cmr.Component.For<IViewOrderHistory>().ImplementedBy<ViewWPF.UC_OrderHistory>());
-            container.Register(cmr.Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
-            container.Register(cmr.Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
-
-            //other
-            string server = Config.Config.GetAppSetting("ImServer");
-            string domain = Config.Config.GetAppSetting("ImDomain");
-            container.Register(cmr.Component.For<CSClient.IInstantMessage.InstantMessage>().ImplementedBy<XMPP.XMPP>()
-                .DependsOn(cmr.Dependency.OnValue("server", server)
-                            , cmr.Dependency.OnValue("domain", domain)
-                            , cmr.Dependency.OnValue("resourceName", Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())
-                            )
-                            );
-
-            container.Register(cmr.Component.For<CSClient.IMessageAdapter.IAdapter>()
-                .ImplementedBy<CSClient.MessageAdapter.MessageAdapter>()
-
-
-                );
-
-            return container;
-            
-
-        }
+ 
+       
         static bool CheckConfig()
         {
             log.Debug("--开始 检查配置是否冲突");
@@ -177,7 +139,7 @@ namespace Dianzhu.CSClient
             }
             catch (Exception ex)
             {
-               
+
             }
         }
         static string GetVersion()
@@ -189,7 +151,4 @@ namespace Dianzhu.CSClient
             return myVersion.ToString();
         }
     }
-
-
-    // public interface IIdentityManagerFactory
 }

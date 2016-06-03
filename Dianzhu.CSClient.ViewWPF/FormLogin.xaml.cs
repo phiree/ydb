@@ -171,6 +171,7 @@ namespace Dianzhu.CSClient.ViewWPF
         }
 
         public event ViewLogin ViewLogin;
+        public event EventHandler TestClick;
 
         private void tbxPassword_KeyDown(object sender, KeyEventArgs e)
         {
@@ -195,6 +196,11 @@ namespace Dianzhu.CSClient.ViewWPF
                 return result.Value;
             }
             else { return false; }
+        }
+
+        private void btnTest_Click(object sender, RoutedEventArgs e)
+        {
+            TestClick(sender, e);
         }
     }
 }

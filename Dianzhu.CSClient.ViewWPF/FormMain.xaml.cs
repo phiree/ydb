@@ -55,5 +55,6 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             MessageBox.Show(message);
         }
+        public string FormTitle { set { this.Title = value; } }
     }
 }

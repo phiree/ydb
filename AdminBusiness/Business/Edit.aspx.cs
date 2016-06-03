@@ -9,12 +9,13 @@ using Dianzhu.BLL;
 using System.Web.UI.HtmlControls;
 using Dianzhu.Model.Enums;
 using System.IO;
+using Dianzhu.IDAL;
 public partial class Business_Edit : BasePage
 {
     public Business b = new Business();
-    BLLBusiness bllBusiness = new BLLBusiness();
+    IDALBusiness dalBusiness = Bootstrap.Container.Resolve<IDALBusiness>();
     
-    BLLBusinessImage bllBi = new BLLBusinessImage();
+    BLLBusinessImage bllBi =Bootstrap.Container.Resolve<BLLBusinessImage>();
     bool IsNew {get;set;}
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -24,7 +25,7 @@ public partial class Business_Edit : BasePage
         {
             businessId = new Guid(strBusinessId);
             IsNew = false;
-            b = bllBusiness.GetOne(businessId.Value);
+            b = dalBusiness.FindById(businessId.Value);
             
         }
         else
@@ -108,8 +109,8 @@ public partial class Business_Edit : BasePage
         b.StaffAmount = int.Parse(selStaffAmount.Value);
         b.ChargePersonIdCardType = (enum_IDCardType)int.Parse(selCardType.Value);
         b.ChargePersonIdCardNo = tbxCardIdNo.Value;
-
-        AddressParser addressParser = new AddressParser(hiAddrId.Value);
+        BLLArea bllArea = Bootstrap.Container.Resolve<BLLArea>();
+        AddressParser addressParser = new AddressParser(hiAddrId.Value, bllArea);
         Area area;
         double latitude;
         double longtitude;
@@ -125,8 +126,12 @@ public partial class Business_Edit : BasePage
     {
         UpdateForm();
         //图片使用ajax上传,
-        bllBusiness.SaveOrUpdate(b);
-
+        if (IsNew)
+        {
+            dalBusiness.Add(b);
+        }
+        else
+        { dalBusiness.Update(b); }
         Response.Redirect("/business/detail.aspx?businessid=" + b.Id);
        // Page.ClientScript.RegisterClientScriptBlock(typeof(string), "", @"<script language='javascript' defer>alert('提交成功！');window.document.location.href='" + Request.UrlReferrer.ToString() + "';</script>");
 

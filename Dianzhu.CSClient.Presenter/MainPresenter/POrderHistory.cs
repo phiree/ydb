@@ -7,7 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.IInstantMessage;
-using Dianzhu.BLL;
+ 
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
 namespace Dianzhu.CSClient.Presenter
@@ -22,15 +22,16 @@ namespace Dianzhu.CSClient.Presenter
 
         IViewOrderHistory viewOrderHistory;
         IList<ServiceOrder> orderList;
-        BLLServiceOrder bllServiceOrder;
+        IBLLServiceOrder bllServiceOrder;
         Dictionary<DZMembership, IList<ServiceOrder>> allList;
+           public POrderHistory() { }
 
-        public POrderHistory() { }
-        public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList, InstantMessage iIM)
+        public POrderHistory(IViewOrderHistory viewOrderHistory,IViewIdentityList viewIdentityList,IBLLServiceOrder bllServiceOrder,IInstantMessage.InstantMessage iIM)
+
         {
             this.viewOrderHistory = viewOrderHistory;
             this.orderList = new List<ServiceOrder>();
-            this.bllServiceOrder = new BLLServiceOrder();
+            this.bllServiceOrder = bllServiceOrder;
             this.allList = new Dictionary<DZMembership, IList<ServiceOrder>>();
 
             viewOrderHistory.SearchOrderHistoryClick += ViewOrderHistory_SearchOrderHistoryClick;

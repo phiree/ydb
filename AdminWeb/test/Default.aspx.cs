@@ -6,16 +6,18 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
+
 public partial class test_Default : System.Web.UI.Page
 {
+    public IBLLServiceOrder bllOrder =Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
     protected void btnCreateOrder_Click(object sender,EventArgs e)
     {
-        DZMembershipProvider bllMembership = new DZMembershipProvider();
-        BLLServiceOrder bllOrder = new BLLServiceOrder();
+        DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        
         BLLDZService bllService = new BLLDZService();
         BLLPayment bllPayment = new BLLPayment();
 
@@ -33,7 +35,7 @@ public partial class test_Default : System.Web.UI.Page
         order.CreatedFromDraft();
         order.LatestOrderUpdated = DateTime.Now;
         order.DepositAmount = 0.01m;
-        bllOrder.SaveOrUpdate(order);
+        bllOrder.Save(order);
         bllPayment.ApplyPay(order, Dianzhu.Model.Enums.enum_PayTarget.Deposit);
         lblCreateOrderResult.Text = "创建成功";
 

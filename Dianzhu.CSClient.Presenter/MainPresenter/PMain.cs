@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.BLL;
+
 namespace Dianzhu.CSClient.Presenter
 {
     public class PMain
@@ -21,6 +21,8 @@ namespace Dianzhu.CSClient.Presenter
         BLLReceptionStatusArchieve bllReceptionStatusArchieve;
         BLLIMUserStatus bllIMUserStatus;
         IView.IViewMainForm viewMainForm;
+ 
+
         InstantMessage iIM;
         IViewIdentityList iViewIdentityList;
         IBLLMembershipLoginLog bllLoginLog;
@@ -33,6 +35,7 @@ namespace Dianzhu.CSClient.Presenter
         public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,BLLReceptionStatus bllReceptionStatus, BLLReceptionChat bllReceptionChat, BLLReceptionChatDD bllReceptionChatDD, BLLReceptionStatusArchieve bllReceptionStatusArchieve, BLLIMUserStatus bllIMUserStatus)
         {
             this.viewMainForm = viewMainForm;
+            this.viewMainForm.FormTitle = GlobalViables.CurrentCustomerService.DisplayName;
             this.iIM = iIM;
             this.iViewIdentityList = iViewIdentityList;
             this.bllReceptionStatus = bllReceptionStatus;
@@ -241,7 +244,6 @@ namespace Dianzhu.CSClient.Presenter
         }
         public void CloseApplication()
         {
-
              bllLoginLog.MemberLogoff(IdentityManager.CurrentIdentity.CustomerService, string.Empty);
             viewMainForm.CloseApplication();
         }

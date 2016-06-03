@@ -144,4 +144,5 @@ function delInfo()
         </table>
         </FooterTemplate>
 </asp:Repeater>
+    <UC:AspNetPager runat="server" ID="pager"   UrlPaging="true"></UC:AspNetPager>
 </asp:Content>

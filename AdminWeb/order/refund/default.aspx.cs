@@ -33,6 +33,7 @@ using Dianzhu.Pay;
 /// </summary>
 public partial class _Default : System.Web.UI.Page 
 {
+    public IBLLServiceOrder bllOrder { get; set; }
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -49,7 +50,7 @@ public partial class _Default : System.Web.UI.Page
                 
             }
 
-            BLLServiceOrder bllOrder = new BLLServiceOrder();
+           
             ServiceOrder order = null;
             Guid orderId;
             bool isOrderGuid = Guid.TryParse(Request["id"], out orderId);

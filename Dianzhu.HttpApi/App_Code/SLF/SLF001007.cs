@@ -18,6 +18,7 @@ public class ResponseSLF001007:BaseResponse
         // TODO: Add constructor logic here
         //
     }
+    public IBLLServiceOrder bllOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataSLF001007 requestData = this.request.ReqData.ToObject<ReqDataSLF001007>();
@@ -36,8 +37,7 @@ public class ResponseSLF001007:BaseResponse
 
         //todo: 使用 ninject,注入依赖.
         BLLDZService bllService = new BLLDZService();
-        BLLServiceOrder bllOrder = new BLLServiceOrder();
-        DZService service = bllService.GetOne(serviceId);
+         DZService service = bllService.GetOne(serviceId);
 
         if (service == null)
         {

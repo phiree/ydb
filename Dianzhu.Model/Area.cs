@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using DDDCommon.Domain;
 
 namespace Dianzhu.Model
 {
-    public class Area
+    public class Area:Entity<int>
     {
-        public virtual int Id { get; set; }
+       
         public virtual string Name { get; set; }
         public virtual string SeoName { get; set; }
         public virtual string Code { get; set; }
@@ -39,7 +37,7 @@ namespace Dianzhu.Model
             }
         }
 
-     
+        
     }
     public enum AreaLevel
     {

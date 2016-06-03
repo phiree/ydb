@@ -18,7 +18,7 @@ namespace Dianzhu.CSClient.Presenter
         IViewChatList viewChatList;
         IViewIdentityList viewIdentityList;
         BLLDZService bllService;
-        BLLServiceOrder bllServiceOrder;
+        IBLLServiceOrder bllServiceOrder;
         PushService bllPushService;
         IInstantMessage.InstantMessage iIM;
         BLLReceptionChat bllReceptionChat;
@@ -32,11 +32,11 @@ namespace Dianzhu.CSClient.Presenter
         ServiceType ServiceTypeThird;
         #endregion
         #region contructor
-        public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,IViewOrder viewOrder,IViewChatList viewChatList,IViewIdentityList viewIdentityList)
-            : this(iIM,viewSearch, viewSearchResult,viewOrder, viewChatList, viewIdentityList, new BLLDZService(),new BLLServiceOrder(),new PushService(),new BLLReceptionChat(),new BLLServiceType(),new BLLReceptionStatus())
+        public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,IViewOrder viewOrder,IViewChatList viewChatList,IViewIdentityList viewIdentityList,IBLLServiceOrder bllServiceOrder)
+            : this(iIM,viewSearch, viewSearchResult,viewOrder, viewChatList, viewIdentityList, new BLLDZService(), bllServiceOrder, new PushService(),new BLLReceptionChat(),new BLLServiceType(),new BLLReceptionStatus())
         { }
         public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
-            IView.IViewOrder viewOrder, IViewChatList viewChatList,IViewIdentityList viewIdentityList, BLLDZService bllService, BLLServiceOrder bllServiceOrder, PushService bllPushService,BLLReceptionChat bllReceptionChat, BLLServiceType bllServcieType,BLLReceptionStatus bllReceptionStatus)
+            IView.IViewOrder viewOrder, IViewChatList viewChatList,IViewIdentityList viewIdentityList, BLLDZService bllService, IBLLServiceOrder bllServiceOrder, PushService bllPushService,BLLReceptionChat bllReceptionChat, BLLServiceType bllServcieType,BLLReceptionStatus bllReceptionStatus)
         {
             this.viewSearch = viewSearch; ;
             this.viewSearchResult = viewSearchResult;

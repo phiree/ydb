@@ -89,11 +89,11 @@ namespace Dianzhu.BLL
             get { return dalReceptionStatusArchieve ?? new DALReceptionStatusArchieve(); }
             set { dalReceptionStatusArchieve = value; }
         }
-        public static DALAdvertisement DALAdvertisement
-        {
-            get { return dalAdvertisement ?? new DALAdvertisement(); }
-            set { dalAdvertisement = value; }
-        }
+        //public static DALAdvertisement DALAdvertisement
+        //{
+        //    get { return dalAdvertisement ?? new DALAdvertisement(); }
+        //    set { dalAdvertisement = value; }
+        //}
         public static DALIMUserStatusArchieve DALIMUserStatusArchieve
         {
             get { return dalIMUserStatusArchieve ?? new DALIMUserStatusArchieve(); }
@@ -180,13 +180,7 @@ namespace Dianzhu.BLL
             get { return dalCashTicketCreateRecord ?? new DALCashTicketCreateRecord(); }
             set { dalCashTicketCreateRecord = value; }
         }
-        public static DALArea DALArea
-        {
-            get{
-                return dalArea ?? new DALArea();
-            }
-            set { dalArea = value; }
-        }
+        
 
         public static DALBusiness DALBusiness
         {

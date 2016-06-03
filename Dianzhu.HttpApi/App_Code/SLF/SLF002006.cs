@@ -18,6 +18,7 @@ public class ResponseSLF002006:BaseResponse
         // TODO: Add constructor logic here
         //
     }
+    public IBLLServiceOrder bllOrder { get; set; }
     protected override void BuildRespData()
     {
         try
@@ -52,7 +53,6 @@ public class ResponseSLF002006:BaseResponse
             ServiceOpenTime openDay = service.OpenTimes.Single(x => x.DayOfWeek == paramDate.DayOfWeek);
             IList<ServiceOpenTimeForDay> openTimes = openDay.OpenTimeForDay;
             //获取当前时间段的订单数量
-            BLLServiceOrder bllOrder = new BLLServiceOrder();
             IList<ServiceOrder> orderList = bllOrder.GetOrderListByDate(service, paramDate);
             IList<RespDataSLF00206_arrayData> result = new List<RespDataSLF00206_arrayData>();
             foreach (ServiceOpenTimeForDay openTime in openTimes)

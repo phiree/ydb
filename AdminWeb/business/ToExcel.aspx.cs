@@ -9,6 +9,8 @@ using Dianzhu.Model;
 
 public partial class business_ToExcel : System.Web.UI.Page
 {
+    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
+    IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -33,9 +35,9 @@ public partial class business_ToExcel : System.Web.UI.Page
         {
             currentPageIndex = int.Parse(paramPage);
         }
-        BLLBusiness bllBusiness = new BLLBusiness();
+        
         string query = "select b from Business b";
-        IList<VMShop> allBusiness = new VMBusinessAdapter(new BLLServiceOrder()).
+        IList<VMShop> allBusiness = new VMBusinessAdapter(bllServiceOrder).
             AdaptList(bllBusiness.GetListByPage(currentPageIndex - 1, intSize, out totalRecord));
         gvBusiness.DataSource = allBusiness;
         //gvBusiness.DataBind();

@@ -11,8 +11,8 @@ using Newtonsoft.Json.Linq;
 /// </summary>
 public class BaseResponse
 {
-    
-    
+
+    protected log4net.ILog Log;
     public string protocol_CODE { get; set; }
     public string state_CODE { get; set; }
     //public string RespData { get; set; }
@@ -23,6 +23,7 @@ public class BaseResponse
     protected BaseRequest request;
     public BaseResponse(BaseRequest request)
     {
+         Log= log4net.LogManager.GetLogger("Dianzhu.HttpApi."+this.GetType().ToString());
         this.err_Msg = string.Empty;
         this.request = request;
         this.protocol_CODE = request.protocol_CODE;

@@ -37,9 +37,9 @@ namespace Dianzhu.Test.BLLTest.Finance
          
          
             BLL.Finance.BLLServiceTypePoint bllPoint = new BLL.Finance.BLLServiceTypePoint(dal);
-            dal.Stub(x => x.GetOne(level1Type[0])).Return(points[0]);
-            dal.Stub(x => x.GetOne(level2Type[0])).Return(points[1]);
-            dal.Stub(x => x.GetOne(level3Type[0])).Return(points[2]);
+            dal.Stub(x => x.GetOneByServiceType(level1Type[0])).Return(points[0]);
+            dal.Stub(x => x.GetOneByServiceType(level2Type[0])).Return(points[1]);
+            dal.Stub(x => x.GetOneByServiceType(level3Type[0])).Return(points[2]);
             var pointLv3=  bllPoint.GetPoint(level3Type[0]);
             var pointLv2 = bllPoint.GetPoint(level2Type[0]);
             Assert.AreEqual(0.3m, pointLv3);

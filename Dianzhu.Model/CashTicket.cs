@@ -9,7 +9,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 生成的现金券
     /// </summary>
-    public class CashTicket {
+    public class CashTicket :DDDCommon.Domain.Entity<Guid>{
         /// <summary>
         /// 生成操作的记录。
         /// </summary>
