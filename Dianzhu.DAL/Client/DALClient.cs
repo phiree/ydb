@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NHibernate;
 
-namespace Dianzhu.DAL.Client
+namespace Dianzhu.DAL
 {
     public class DALClient : DALBase<Model.Client>
     {
