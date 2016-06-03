@@ -112,7 +112,6 @@
     <Content Include="ServiceOrder\UL.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="NewFolder1\" />
     <Folder Include="Resource\Agent\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

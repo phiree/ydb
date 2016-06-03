@@ -1,47 +1,123 @@
-﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC.UC_ShelfService"
+﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC_ShelfService"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF.UC"
+             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Border Margin="5" BorderBrush="Gray" BorderThickness="1" CornerRadius="3">
-            <Grid Background="LightGray">
+             d:DesignHeight="260" d:DesignWidth="198">
+    <UserControl.Resources>
+        <Style x:Key="TextBlockName" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="TextTrimming" Value="WordEllipsis"/>
+            <Setter Property="FontFamily" Value="微软雅黑"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="#FF808080"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Height="260" Width="198">
+        <Border x:Name="borderShelf" Margin="0,16,12,0" BorderBrush="#FFcccccc" Background="#FFcccccc" BorderThickness="1" CornerRadius="1">
+            <Grid MouseEnter="StackPanel_MouseEnter" MouseLeave="Grid_MouseLeave">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Background="Gray">
-                    <Label x:Name="lblServiceAmount" FontSize="22" Margin="5,0,0,0">1</Label>
+                <Grid Grid.Row="0">
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop x:Name="title_min" Color="#FFd7dbde" Offset="0"></GradientStop>
+                            <GradientStop x:Name="title_max" Color="#FFd6dbdf" Offset="1"></GradientStop>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Label Padding="0">
+                        <TextBlock x:Name="tbkServiceNo"  Style="{DynamicResource TextBlockName}" FontSize="20" Margin="2,0" Text="1"/>
+                    </Label>
+
+                    <WrapPanel HorizontalAlignment="Right">
+                        <Label Margin="12,0">
+                            <TextBlock x:Name="tbkIsVerify" Style="{DynamicResource TextBlockName}" Foreground="#FF227dc5" Text="已验证"/>
+                        </Label>
+                    </WrapPanel>
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <Image x:Name="imgServiceType" Width="150" HorizontalAlignment="Right"></Image>
-                </Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FFfdfdfd" Offset="0"></GradientStop>
+                            <GradientStop Color="#FFfcfdff" Offset="1"></GradientStop>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="62"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Grid Grid.Row="2">
-                    <StackPanel>
-                        <Label FontSize="18" Margin="5">美容中心</Label>
-                        <WrapPanel Margin="5,0,5,0">
-                            <Label Foreground="Gray">单价</Label>
-                            <Label x:Name="lblServiceUnitPrice" Foreground="Blue">360元</Label>
-                        </WrapPanel>
+                    <Grid Grid.Row="0">
+                        <Image x:Name="imgServiceType" Source="pack://siteoforigin:,,,/Resources/1.jpg" Margin="8"></Image>
+                    </Grid>
 
-                        <WrapPanel Margin="5,0,5,0">
-                            <Label Foreground="Gray">评价</Label>
+                    <Grid Grid.Row="1">
+                        <StackPanel>
+                            <WrapPanel Margin="16,0,0,8">
+                                <Label Padding="0">
+                                    <TextBlock x:Name="tbkServiceName" Style="{DynamicResource TextBlockName}" FontWeight="Bold" Text="美容中心"/>
+                                </Label>
+                            </WrapPanel>
 
-                        </WrapPanel>
+                            <WrapPanel Margin="16,0,0,8">
+                                <Label Padding="0">
+                                    <TextBlock Style="{DynamicResource TextBlockName}" Text="评价"/>
+                                </Label>
+                                <Label Padding="0" Margin="8,0">
+                                    <TextBlock Style="{DynamicResource TextBlockName}">★★★</TextBlock>
+                                </Label>
+                            </WrapPanel>
 
-                        <WrapPanel Margin="5,0,5,0">
-                            <Label Foreground="Gray">时间</Label>
-                            <Label x:Name="lblServiceStartTime">2016-03-08 12:00</Label>
-                        </WrapPanel>
-                    </StackPanel>
-                </Grid>
+                            <WrapPanel Margin="16,0,0,8">
+                                <Label Padding="0">
+                                    <TextBlock Style="{DynamicResource TextBlockName}" Text="时间"/>
+                                </Label>
+                                <Label x:Name="lblServiceStartTime" Padding="0" Margin="8,0,8,0">
+                                    <TextBlock x:Name="tbkServiceTime" Style="{DynamicResource TextBlockName}" Text="08:00-12:00"/>
+                                </Label>
+                                <Label Padding="0" FontSize="12">
+                                    <TextBlock Style="{DynamicResource TextBlockName}" Text="(工作日)"/>
+                                </Label>
+                            </WrapPanel>
+
+                            <WrapPanel Margin="16,0,0,8">
+                                <Label Padding="0" FontSize="12">
+                                    <TextBlock Style="{DynamicResource TextBlockName}" Text="参考价格"/>
+                                </Label>
+                                <Label x:Name="lblServiceUnitPrice" Padding="0" Margin="8,0,8,0">
+                                    <TextBlock x:Name="tbkServiceUnitPrice" Style="{DynamicResource TextBlockName}" Foreground="#FF227dc5" Text="360.00"/>
+                                </Label>
+                                <Label Padding="0" FontSize="12">
+                                    <TextBlock Style="{DynamicResource TextBlockName}" Text="元/次"/>
+                                </Label>
+                            </WrapPanel>
+
+                            <WrapPanel Margin="16,0,0,8">
+                                <Label Padding="0" FontSize="12">
+                                    <TextBlock Style="{DynamicResource TextBlockName}" Text="预付金额"/>
+                                </Label>
+                                <Label x:Name="lblServiceDepositPrice" Padding="0" Margin="8,0,8,0">
+                                    <TextBlock x:Name="tbkServiceDepPrice" Style="{DynamicResource TextBlockName}" Foreground="#FF227dc5" Text="360.00"/>
+                                </Label>
+                                <Label Padding="0" FontSize="12">
+                                    <TextBlock Style="{DynamicResource TextBlockName}" Text="元"/>
+                                </Label>
+                            </WrapPanel>
+
+                            <Button x:Name="btnSendService" Width="152" Height="24" Background="#FF2bb7aa" Visibility="Collapsed" Click="btnSendService_Click">
+                                <TextBlock Style="{DynamicResource TextBlockName}" Foreground="White" FontSize="10" Text="推 送"/>
+                            </Button>
+
+                        </StackPanel>
+                    </Grid>
+                </Grid>                
             </Grid>
         </Border>
     </Grid>

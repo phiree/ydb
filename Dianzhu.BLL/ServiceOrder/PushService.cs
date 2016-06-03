@@ -22,6 +22,13 @@ namespace Dianzhu.BLL
         {
 
         }
+        public void Push(ServiceOrder order, ServiceOrderPushedService service, string targetAddress, DateTime targetTime)
+        {
+            IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
+            serviceOrderPushedServices.Add(service);
+
+            Push(order, serviceOrderPushedServices, targetAddress, targetTime);
+        }
         /// <summary>
         /// 为某个订单推送服务.
         /// </summary>
@@ -38,7 +45,6 @@ namespace Dianzhu.BLL
             {
                 dalSOP.Save(service);
             }
-            
         }
         public IList<ServiceOrderPushedService> GetPushedServicesForOrder(ServiceOrder order)
         {

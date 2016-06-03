@@ -145,6 +145,7 @@ namespace Dianzhu.Model
         {
             this.ChatType = enum_ChatType.PushedService;
         }
+        public virtual ServiceOrderPushedService PushedService { get; set; }
         public virtual IList<ServiceOrderPushedService> PushedServices { get; set; }
     }
 }

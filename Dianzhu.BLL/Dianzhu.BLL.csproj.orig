@@ -64,11 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="AddressParser.cs" />
-=======
     <Compile Include="BLLClaims.cs" />
->>>>>>> origin/feature/FEdevV2fix
     <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLArea.cs" />
     <Compile Include="BLLBusiness.cs" />

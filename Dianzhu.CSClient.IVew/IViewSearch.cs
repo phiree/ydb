@@ -42,7 +42,7 @@ namespace Dianzhu.CSClient.IView
         event SelectService SelectService;
         event PushServices PushServices;
         string LoadingText { set; }
-        bool BtnPush { get; set; }
+        //bool BtnPush { get; set; }
     }
    
     public delegate void SelectService(DZService selectedService);

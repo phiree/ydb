@@ -52,6 +52,7 @@
     <Compile Include="IViewNotice.cs" />
     <Compile Include="IViewChatSend.cs" />
     <Compile Include="IViewOrderHistory.cs" />
+    <Compile Include="IViewShelfService.cs" />
     <Compile Include="IViewSearch.cs" />
     <Compile Include="IViewOrder.cs" />
     <Compile Include="IViewChatList.cs" />

@@ -1,0 +1,169 @@
+﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC_SearchNew"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="358" d:DesignWidth="441">
+    <UserControl.Resources>
+        <Style x:Key="TextBlockKey" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="微软雅黑"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="#FF808080"/>
+            <Setter Property="Margin" Value="0,0,12,0"/>
+        </Style>
+        
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="TextBoxValue" TargetType="{x:Type TextBox}">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="304"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="FontFamily" Value="微软雅黑"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="#FF808080"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#FFe7ecf0" Offset="0"></GradientStop>
+                <GradientStop Color="#FFdee2e5" Offset="1"></GradientStop>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" VerticalAlignment="Center">
+            <Label Margin="26,0,0,0">
+                <TextBlock FontFamily="微软雅黑" FontWeight="Bold" Foreground="#FF6f6f6f" FontSize="14" Text="订单编辑"></TextBlock>
+            </Label>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Border BorderThickness="1" BorderBrush="#FFdee2e5">
+                <StackPanel Margin="26,10">
+                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                        <Label>
+                            <TextBlock Text="服务对象" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                        </Label>
+                        <TextBox x:Name="tbxKeywordPeople" Text="王女士" Style="{DynamicResource TextBoxValue}"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                        <Label>
+                            <TextBlock Text="服务时间" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                        </Label>
+                        <!--<DatePicker Width="142"/>-->
+                        <TextBox x:Name="tbxKeywordTime" Text="2016-5-20 9:00" Style="{DynamicResource TextBoxValue}"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                        <Label>
+                            <TextBlock Text="服务类型" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                        </Label>
+                        <ComboBox x:Name="cbxSearchTypeF" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeF_SelectionChanged"/>
+                        <ComboBox x:Name="cbxSearchTypeS" Width="100" Margin="0,0,2,0" SelectionChanged="cbxSearchTypeS_SelectionChanged" Visibility="Collapsed"/>
+                        <ComboBox x:Name="cbxSearchTypeT" Width="100" SelectionChanged="cbxSearchTypeT_SelectionChanged" Visibility="Collapsed"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                        <Label>
+                            <TextBlock Text="价格区间" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                        </Label><!--￥-->
+                        <TextBox x:Name="tbxKeywordPriceMin" Text="100"  Style="{DynamicResource TextBoxValue}" Width="142"/>
+                        <Label>
+                            <TextBlock Text="-" Style="{DynamicResource TextBlockKey}" Margin="2,0,3,0"></TextBlock>
+                        </Label>
+                        <TextBox x:Name="tbxKeywordPriceMax" Text="200"  Style="{DynamicResource TextBoxValue}" Width="142"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                        <Label>
+                            <TextBlock Text="联系方式" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                        </Label>
+                        <TextBox x:Name="tbxKeywordPhone" Text="1580000000" Style="{DynamicResource TextBoxValue}"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                        <Label>
+                            <TextBlock Text="服务数量" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                        </Label>
+                        <TextBox x:Name="tbxUnitAmount" Text="1" Style="{DynamicResource TextBoxValue}"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0,1" VerticalAlignment="Center">
+                        <Label>
+                            <TextBlock Text="服务地址" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                        </Label>
+                        <TextBox x:Name="tbxKeywordAddress" Text="XXXXX" Style="{DynamicResource TextBoxValue}"/>
+                    </WrapPanel>
+
+                    <WrapPanel Margin="0,3" VerticalAlignment="Center">
+                        <Label Foreground="Gray" Padding="0" Margin="5,0,0,0">
+                             <TextBlock Text="备" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                        </Label>
+                        <Label Padding="0" Opacity="0">
+                             <TextBlock Text="" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                        </Label>
+                        <Label Foreground="Gray" Padding="0" Margin="0,0,5,0">
+                             <TextBlock Text="注" Style="{DynamicResource TextBlockKey}"></TextBlock>
+                        </Label>
+                        
+                        <TextBox x:Name="tbxKeywordMemo" Text="XXX" Style="{DynamicResource TextBoxValue}" Height="46" VerticalScrollBarVisibility="Auto"/>
+                    </WrapPanel>
+
+                    <WrapPanel HorizontalAlignment="Center" Margin="0,20,0,0">
+                        <Border CornerRadius="3" Background="#FF2bb7aa" Width="126" Height="24">
+                            <Button x:Name="btnSearch" Width="124" Height="22" BorderThickness="0" Background="Transparent">
+                                <TextBlock Text="生 成" Style="{DynamicResource TextBlockKey}" Foreground="White"></TextBlock>
+                            </Button>
+                        </Border>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

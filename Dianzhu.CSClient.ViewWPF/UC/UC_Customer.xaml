@@ -33,7 +33,7 @@
                                 </Canvas.Background>
                             </Canvas>
                         </Grid>
-                        
+
                     </Grid>
 
                     <Grid Grid.Column="1">
@@ -53,7 +53,7 @@
                 </Grid>
             </Grid>
         </Border>
-        
+
         <Grid Background="Red" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Grid.Clip>
                 <EllipseGeometry RadiusX="10" RadiusY="10" Center="10,10"></EllipseGeometry>

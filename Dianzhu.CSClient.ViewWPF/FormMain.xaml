@@ -4,94 +4,271 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
-        xmlns:UC="clr-namespace:Dianzhu.CSClient.ViewWPF.UC" x:Class="Dianzhu.CSClient.ViewWPF.FormMain"
+        xmlns:UC="clr-namespace:Dianzhu.CSClient.ViewWPF" 
+        x:Class="Dianzhu.CSClient.ViewWPF.FormMain"
         mc:Ignorable="d"
-        Title="一点办客服工具" WindowStartupLocation="CenterScreen" Background="White">
-    <Grid >
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-        </Grid.RowDefinitions>
-         <Grid Grid.Row="0" ShowGridLines="True" UseLayoutRounding="True" Grid.IsSharedSizeScope="True">
+        Title="一点办客服工具" WindowStartupLocation="CenterScreen" Height="900" Width="1600" WindowStyle="None" AllowsTransparency="True">
+
+    <Window.Resources>
+        <ControlTemplate  x:Key="CornerButton" TargetType="{x:Type Button}">
+            <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="10">
+                <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+        </ControlTemplate>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Color x:Key="Button.Border.Left">#FF13242e</Color>
+        <Color x:Key="Button.Border.Right">#FF172734</Color>
+        <Color x:Key="Button.Background.Left">#FF13242e</Color>
+        <Color x:Key="Button.Background.Right">#FF172734</Color>
+        <Style x:Key="ButtonOperate" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Height" Value="108"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#FF264257" Offset="0"></GradientStop>
+                                    <GradientStop Color="#FF172734" Offset="1"></GradientStop>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#FF264257" Offset="0"></GradientStop>
+                                    <GradientStop Color="#FF172734" Offset="1"></GradientStop>
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                <Setter Property="Foreground" Value="#FFdedede"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="{StaticResource Button.Border.Left}" Offset="0"></GradientStop>
+                                            <GradientStop Color="{StaticResource Button.Border.Right}" Offset="1"></GradientStop>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="BorderBrush" TargetName="border">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="{StaticResource Button.Background.Left}" Offset="0"></GradientStop>
+                                            <GradientStop Color="{StaticResource Button.Background.Right}" Offset="1"></GradientStop>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" Value="#FFfefefe"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TextBlockOperate" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="FontFamily" Value="黑体"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*" MinWidth="280" MaxWidth="400"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="0.8*" MinWidth="60" MaxWidth="180"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="6*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="4*" MinWidth="100" MaxWidth="520"/>
+            <ColumnDefinition Width="140"/>
+            <ColumnDefinition Width="1460"/>
         </Grid.ColumnDefinitions>
 
-        <GridSplitter x:Name="gridSplitter1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5"/>
-        <GridSplitter x:Name="gridSplitter2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5"/>
-        <GridSplitter x:Name="gridSplitter3" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5"/>
+        <!--侧边栏-->
+        <Grid Grid.Column="0">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#FF264257" Offset="0"></GradientStop>
+                    <GradientStop Color="#FF172734" Offset="1"></GradientStop>
+                </LinearGradientBrush>
+            </Grid.Background>
 
-        <Grid ShowGridLines="True" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" MinHeight="300" MaxHeight="400"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="3*"/>
-            </Grid.RowDefinitions>
-            <GridSplitter x:Name="gridSplitter4" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5"/>
-
-            <Grid ShowGridLines="True" Grid.Row="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <WrapPanel x:Name="pnlSearch" Grid.Row="0" VerticalAlignment="Center"/>
-                <WrapPanel  x:Name="pnlSearchResult" Grid.Row="1"/>
-
-            </Grid>
-            <Grid ShowGridLines="True" Grid.Row="1">
-
-                <WrapPanel x:Name="pnlOrder" VerticalAlignment="Center"/>
-            </Grid>
-
-        </Grid>
-
-        <Grid ShowGridLines="True" Grid.Column="2">
-            <StackPanel x:Name="pnlCustomerList"/>
-        </Grid>
-
-        <Grid ShowGridLines="True" Grid.Column="4">
-            <Grid.RowDefinitions>
+                <RowDefinition Height="110"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="110"/>
             </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" x:Name="pnlChatList">
-                    
+            <Grid Grid.Row="0">
+                <Image x:Name="imgDZLogo" Height="50" Width="50" Source="pack://siteoforigin:,,,/Resources/1.jpg"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <StackPanel DockPanel.Dock="Top">
+                    <Button x:Name="btnWorkDesktop" Style="{DynamicResource ButtonOperate}">
+                        <StackPanel>
+                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/1.jpg"/>
+                            <TextBlock Text="工作台" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnCSInfo" Style="{DynamicResource ButtonOperate}">
+                        <StackPanel>
+                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/1.jpg"/>
+                            <TextBlock Text="客服信息" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnSystemOperate" Style="{DynamicResource ButtonOperate}">
+                        <StackPanel>
+                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/1.jpg"/>
+                            <TextBlock Text="系统设置" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Button x:Name="btnClosedForm" Style="{DynamicResource ButtonOperate}">
+                    <StackPanel>
+                        <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/1.jpg"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Grid>
+        <!--**********************************************************************************-->
+
+        <!--主要操作区域-->
+        <Grid Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#FF172734" Offset="0"></GradientStop>
+                    <GradientStop Color="#FF34707b" Offset="0.8"></GradientStop>
+                    <GradientStop Color="#FF2c546d" Offset="1"></GradientStop>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="38"/>
+                <RowDefinition Height="58"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="434"/>
+            </Grid.RowDefinitions>
+
+            <!--窗体控制按钮-->
+            <Grid Grid.Row="0">
+                <WrapPanel VerticalAlignment="Center">
+                    <Button Content="开始接单" Width="150" Height="25"></Button>
+                    <Button Content="开始接单" Width="150" Height="25"></Button>
+                </WrapPanel>
+                <WrapPanel HorizontalAlignment="Right">
+                    <Canvas Height="30" Width="30">
+                        <Canvas.Clip>
+                            <EllipseGeometry RadiusX="15" RadiusY="15" Center="15,15"></EllipseGeometry>
+                        </Canvas.Clip>
+                        <Canvas.Background>
+                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/logourl.png"></ImageBrush>
+                        </Canvas.Background>
+                    </Canvas>
+                    <Label Content="我是助理" VerticalAlignment="Center" Margin="0,0,30,0" Foreground="White"></Label>
+                    <Button x:Name="btnWindowsMin" Width="25" Margin="5" Template="{StaticResource CornerButton}">
+                        <TextBlock FontSize="20" Foreground="White" Text="—"></TextBlock>
+                    </Button>
+                    <Button x:Name="btnWindowsClosed" Width="25" Margin="5" Template="{StaticResource CornerButton}">
+                        <TextBlock FontSize="20" Foreground="White" Text="X"></TextBlock>
+                    </Button>
+                </WrapPanel>
+            </Grid>
+
+            <!--用户接待列表-->
+            <WrapPanel Grid.Row="1">
+                <Grid x:Name="pnlCustomerList"/>
+            </WrapPanel>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="441"/>
+                </Grid.ColumnDefinitions>
+
+                <!--订单编辑-->
+                <Grid Grid.Column="1">
+                    <Grid x:Name="pnlSearch"/>
                 </Grid>
-            <WrapPanel x:Name="pnlChatSend" Grid.Row="1"/>
-        </Grid>
 
-        <Grid ShowGridLines="True" Grid.Column="6">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" MinHeight="190" MaxHeight="380"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <GridSplitter x:Name="gridSplitter6" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="5"/>
-
-            <Grid ShowGridLines="True" Grid.Row="0" x:Name="pnlTest">
-                
+                <!--服务货架-->
+                <Grid Grid.Column="0">
+                    <Grid x:Name="pnlSearchResult"/>
+                </Grid>
             </Grid>
 
-            <Grid ShowGridLines="True" Grid.Row="2" x:Name="pnlOrderHistory"/>
+            <Grid Grid.Row="3" Background="#FFe7ecf0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="26"/>
+                    <ColumnDefinition Width="442"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="518"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="442"/>
+                </Grid.ColumnDefinitions>
 
+                <!--操作手册/服务商-->
+                <Grid Grid.Column="1">
+                    <Grid x:Name="pnlNotice"/>
+                    <Grid x:Name="pnlOrder"/>
+                </Grid>
+
+                <!--聊天区域-->
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="104"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="pnlChatList" Grid.Row="0"/>
+                    <Grid x:Name="pnlChatSend" Grid.Row="1"/>
+                </Grid>
+
+                <!--历史订单/用户资料-->
+                <Grid Grid.Column="5">
+                    <Grid x:Name="pnlOrderHistory"/>
+                </Grid>
+            </Grid>
         </Grid>
-
-
+        <!--**********************************************************************************-->
 
     </Grid>
-        <Grid Grid.Row="1">
-
-                <StackPanel  x:Name="pnlNotice"/>
-            
-        </Grid>
-    </Grid>
-   
 </Window>

@@ -15,7 +15,7 @@
                     <Grid Width="100" Height="28" Background="LightBlue">
                         <WrapPanel>
                             <Label x:Name="lblMessageMinutes" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock Foreground="White" FontSize="16">9</TextBlock>
+                                <TextBlock Foreground="White" FontSize="16">9"</TextBlock>
                             </Label>
                             <MediaElement x:Name="mediaVoice" LoadedBehavior="Play" Width="25" Height="25" Source="pack://siteoforigin:,,,/Resources/voice.gif" MediaEnded="mediaVoice_MediaEnded"></MediaElement>
                         </WrapPanel>
