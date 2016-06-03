@@ -13,8 +13,8 @@
     <!--有字库连接-->
     <link href='http://api.youziku.com/webfont/CSS/568e353ff629d80f4cd910a7' rel='stylesheet' type='text/css' />
     <!--[if lte IE 9]>
-        <script src="/js/html5shiv.min.js"></script>
-        <script src="/js/respond.min.js"></script>
+        <script src="/js/plugins/html5shiv.min.js"></script>
+        <script src="/js/plugins/respond.min.js"></script>
     <![endif]-->
 </head>
 <body>
@@ -154,11 +154,11 @@
                     <div class="content-main">
                         <div class="animated fadeInUpSmall" >
                             <div class="empty-biz">
-                                <a id="firstAddBusiness" class="empty-biz-add">点击创建新店铺 <strong>+</strong></a>
                                 <div class="empty-biz-icon"></div>
-                                <p id="firstAddMsg" class="empty-biz-msg hide">
-                                    感谢您的使用一点办，为了给您提供更好的服务，建议您进入&nbsp;<a style="text-decoration:underline;" href="/account/security.aspx?businessId=<%=Request["businessid"] %>">帐号安全</a>&nbsp;绑定您的手机号码。
-                                </p>
+                                <a id="firstAddBusiness" class="empty-biz-add">点击创建新店铺 <strong>+</strong></a>
+                                <!--<p id="firstAddMsg" class="empty-biz-msg hide">-->
+                                    <!--感谢您的使用一点办，为了给您提供更好的服务，建议您进入&nbsp;<a style="text-decoration:underline;" href="/account/security.aspx?businessId=<%=Request["businessid"] %>">帐号安全</a>&nbsp;绑定您的手机号码。-->
+                                <!--</p>-->
                             </div>
                         </div>
                     </div>
@@ -234,11 +234,11 @@
 <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
 <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
 <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js"></script>
-<script src="/js/bootstrap/js/bootstrap.js"></script>
-<script src="/js/global.js"></script>
-<script src="/js/jquery.lightbox_me.js"></script>
-<script src="/js/validation_business_add.js"></script>
-<script src="/js/business.js"></script>
+<script src="/js/vendors/bootstrap.js"></script>
+<script src="/js/apps/global.js?v=1.0.0"></script>
+<script src="/js/plugins/jquery.lightbox_me.js"></script>
+<script src="/js/apps/validation/validation_business_add.js?v=1.0.0"></script>
+<script src="/js/apps/pages/business.js?v=1.0.0"></script>
 <script>
     $(function () {
         (function (){
