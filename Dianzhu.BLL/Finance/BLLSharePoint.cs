@@ -38,16 +38,20 @@ namespace Dianzhu.BLL.Finance
  
         public decimal GetSharePoint(Model.DZMembership member)
         {
-            decimal point = dalSharePoint.GetSharePoint(member).Point;
-            decimal defaultPoint = dalDefaultSharePoint.GetDefaultSharePoint(member.UserType).Point;
-            decimal finalPoint= point > 0 ? point : defaultPoint > 0 ? defaultPoint : 0;
+            var memberPoint = dalSharePoint.GetSharePoint(member);
+            decimal defaultPoint=0;
+            if (memberPoint==null)
+            { 
+              defaultPoint = dalDefaultSharePoint.GetDefaultSharePoint(member.UserType).Point;
+            }
+          
             string errMsg = string.Empty;
-            if (finalPoint == 0) {
+            if (defaultPoint == 0) {
                 errMsg = "该用户及其对应的用户类型未设置分成比例" + member.DisplayName;
                 log.Error(errMsg);
                 throw new Exception(errMsg);
             }
-            return finalPoint;
+            return defaultPoint;
         }
  
         public IList<Dianzhu.Model.Finance.DefaultSharePoint> GetAll()

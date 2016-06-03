@@ -7,7 +7,7 @@ using System.Text;
 namespace Dianzhu.Model
 {
     /// <summary>
-    /// 投诉类
+    /// 理赔
     /// </summary>
     public class Claims
     {
@@ -23,25 +23,20 @@ namespace Dianzhu.Model
         /// 初始化
         /// </summary>
         /// <param name="order"></param>
-        /// <param name="context"></param>
-        /// <param name="amount"></param>
-        /// <param name="resourcesUrl"></param>
         /// <param name="status"></param>
-        /// <param name="target"></param>
-        /// <param name="reuslt"></param>
-        public Claims(ServiceOrder order,string context,decimal amount,string resourcesUrl,enum_OrderStatus status,enum_ChatTarget target,string reuslt)
+        /// <param name="applicant"></param>
+        public Claims(ServiceOrder order,enum_OrderStatus status,DZMembership applicant)
         {
             this.CreatTime = this.LastUpdateTime = DateTime.Now;
 
             this.Order = order;
-            this.Context = context;
-            this.Amount = amount;
-            this.ResourcesUrl = resourcesUrl;
             this.Status = status;
-            this.Target = target;
-            this.Result = reuslt;
+            this.Applicant = applicant;
+
+            ClaimsDatailsList = new List<ClaimsDetails>();
         }
 
+        #region 属性
         /// <summary>
         /// 主键
         /// </summary>
@@ -51,18 +46,6 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual ServiceOrder Order { get; set; }
         /// <summary>
-        /// 投诉内容
-        /// </summary>
-        public virtual string Context { get; set; }
-        /// <summary>
-        /// 金额
-        /// </summary>
-        public virtual decimal Amount { get; set; }
-        /// <summary>
-        /// 投诉的图片链接
-        /// </summary>
-        public virtual string ResourcesUrl { get; set; }
-        /// <summary>
         /// 创建时间
         /// </summary>
         public virtual DateTime CreatTime { get; set; }
@@ -71,20 +54,32 @@ namespace Dianzhu.Model
         /// </summary>
         public virtual enum_OrderStatus Status { get; set; }
         /// <summary>
-        /// 提交本次理赔的目标
-        /// </summary>
-        public virtual enum_ChatTarget Target { get; set; }
-        /// <summary>
-        /// 处理结果
-        /// </summary>
-        public virtual string Result { get; set; }
-        /// <summary>
         /// 操作人员
         /// </summary>
-        public virtual DZMembership Operator { get; set; }
+        public virtual DZMembership Applicant { get; set; }
         /// <summary>
         /// 最后更新时间
         /// </summary>
         public virtual DateTime LastUpdateTime { get; set; }
+        /// <summary>
+        /// 理赔详情
+        /// </summary>
+        public virtual IList<ClaimsDetails> ClaimsDatailsList { get; protected set; }
+        #endregion
+
+        /// <summary>
+        /// 增加理赔详情
+        /// </summary>
+        /// <param name="claims"></param>
+        /// <param name="context"></param>
+        /// <param name="amount"></param>
+        /// <param name="resourcesUrl"></param>
+        /// <param name="target"></param>
+        /// <param name="member"></param>
+        public virtual void AddDetailsFromClaims(Claims claims, string context, decimal amount, string resourcesUrl, enum_ChatTarget target, DZMembership member)
+        {
+            ClaimsDetails claimsDetails = new ClaimsDetails(claims, context, amount, resourcesUrl, target, member);
+            ClaimsDatailsList.Add(claimsDetails);
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace Dianzhu.BLL
         {
 
 
-            decimal payAmount = order.GetPayAmount(payTarget);
+            decimal payAmount = bllPayment.GetPayAmount(order, payTarget);
             string paySubject = order.Title;
             string paySubjectPre = GetPreSubject(payTarget, order);
             Payment payment = bllPayment.ApplyPay(order, payTarget);

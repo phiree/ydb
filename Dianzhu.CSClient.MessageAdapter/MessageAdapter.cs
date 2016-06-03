@@ -295,7 +295,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                  }*/
                     var storeObj = new agsXMPP.Xml.Dom.Element("storeObj");
 
-                    storeObj.SetAttribute("userID", service.OriginalService.Business.Owner.Id.ToString());
+                    storeObj.SetAttribute("userID", service.OriginalService.Business.Id.ToString());
                     storeObj.SetAttribute("alias", service.OriginalService.Business.Name);
                     storeObj.SetAttribute("imgUrl", service.OriginalService.Business.BusinessAvatar.ImageName);
                     extNode.AddChild(storeObj);

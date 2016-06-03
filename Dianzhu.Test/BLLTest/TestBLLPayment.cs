@@ -21,6 +21,7 @@ namespace Dianzhu.Test.BLLTest
         public void ApplyPay()
         {
             var dal = MockRepository.GenerateStub<DALPayment>(string.Empty);
+            var bllClaims = MockRepository.GenerateStub<BLLClaims>(string.Empty);
             DZService service = Builder<DZService>.CreateNew()
                 .With(x => x.DepositAmount = 1)
                 
@@ -37,7 +38,7 @@ namespace Dianzhu.Test.BLLTest
             order.AddDetailFromIntelService(service, 12, "targetAddress", DateTime.Now);
             Guid payId = Guid.NewGuid();
             dal.Stub(x => x.GetPaymentsForOrder(order)).Return(new List<Payment>());
-            BLLPayment bll = new BLLPayment(dal);
+            BLLPayment bll = new BLLPayment(dal,bllClaims);
              Payment payment= bll.ApplyPay(order, Model.Enums.enum_PayTarget.Deposit);
             string payLink = bll.BuildPayLink(payment.Id);
             Console.WriteLine(payLink);
