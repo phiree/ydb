@@ -33,7 +33,8 @@ public class Bootstrap
         container.Install(new Dianzhu.DependencyInstaller.InstallerApplicationService(),
             new Dianzhu.DependencyInstaller.InstallerComponent(),
             new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
-            new Dianzhu.DependencyInstaller.InstallerRepository()
+            new Dianzhu.DependencyInstaller.InstallerRepository(),
+            new InstallerApi()
            
             );
         

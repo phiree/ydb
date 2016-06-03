@@ -17,8 +17,9 @@ public class ResponseORM002003 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
     IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
-    public ResponseORM002003(BaseRequest request) : base(request) {
-         
+    IIMSession imSession;
+    public ResponseORM002003(BaseRequest request,IIMSession imSession) : base(request) {
+        this.imSession = imSession;
     }
     protected override void BuildRespData()
     {
@@ -88,7 +89,7 @@ public class ResponseORM002003 : BaseResponse
                 }
 
                 ilog.Debug("开始分配客服");
-                IIMSession imSession = new IMSessionsDB();
+               
                 ReceptionAssigner ra = new ReceptionAssigner(imSession);
                 Guid targetId = Guid.Empty;
                 IList<OrderAssignment> orderAssList = bllOrderAssignment.GetOAListByOrder(order);

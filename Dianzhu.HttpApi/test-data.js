@@ -9,7 +9,7 @@
 //"store001001","store001002","store001003","store001004","store001005","store001006","store002001","store002004",
 //"wtm001001",,"wtm001002","wtm001004","wtm001005","wtm001006"
 //"rmm001003","rmm001004","rmm001005","rmm001006",
-"ad001006"
+"ofp001001"
 
 ];
 var test_data = [
@@ -608,16 +608,15 @@ var test_data = [
 
     /************** 实时汇报用户的状态 *****************/
 
-    {
-        "protocol_CODE": "OFP001001",
-        "ReqData": {
-            "JID": "fa7ef456-0978-4ccd-b664-a594014cbfe7@192.168.1.172/YDBan_IMServer",
-            "status": "available",
-            "ipaddress": "192.168.1.172",
-        },
-        "stamp_TIMES": "1490192929212",
-        "serial_NUMBER": "00147001015869149751"
+{
+    "protocol_CODE": "OFP001001",
+    "ReqData": {
+        "Jid": "79180e97-27e6-11e6-adb9-001a7dda7106@localhost/YDBan_DemoClient",
+        "status": "available",
+        "ipaddress": "0:0:0:0:0:0:0:1"
     },
+    "stamp_TIMES": 1464916385592
+},
 
     /************** APP 设备认证 *****************/
 
@@ -791,7 +790,7 @@ var test_data = [
                "ReqData": {
                    "userID": "1d789c3d-962b-473a-8bb0-a594009cf2c0",
                    "pWord": "123456",
-                   "orderID": "478776eb-daa3-445a-963f-a60200c2c9dc",
+                   "orderID": "08aedd6e-5723-4f4a-b7f3-a60b01125856",
                },
                "stamp_TIMES": "1490192929212",
                "serial_NUMBER": "00147001015869149751"

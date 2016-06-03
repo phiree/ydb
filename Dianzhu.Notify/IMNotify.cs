@@ -21,13 +21,15 @@ namespace Dianzhu.NotifyCenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
         private Dianzhu.CSClient.IInstantMessage.InstantMessage im = null;
         IDALMembership dalMembership;
+        IIMSession imSession;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="im">通讯接口</param>
-        public IMNotify(InstantMessage im,IDALMembership dalMembership)
+        public IMNotify(InstantMessage im,IDALMembership dalMembership,IIMSession imSession)
         {
+            this.imSession = imSession;
             this.dalMembership = dalMembership;
             this.im = im;
             //
@@ -125,8 +127,7 @@ namespace Dianzhu.NotifyCenter
             DZMembership cs = dalMembership.FindById(csId);
             DZMembership imMember = dalMembership.FindById(new Guid( Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-            IIMSession imSession = new IMSessionsDB();
-            ReceptionAssigner assigner = new ReceptionAssigner(imSession);
+             ReceptionAssigner assigner = new ReceptionAssigner(imSession);
             Dictionary<DZMembership, DZMembership> reassignList = assigner.AssignCSLogoff(cs);
             //将新分配的客服发送给客户端.
             foreach (KeyValuePair<DZMembership, DZMembership> r in reassignList)
@@ -157,8 +158,7 @@ namespace Dianzhu.NotifyCenter
             ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-            IIMSession imSession = new IMSessionsDB();
-
+           
             ReceptionChat rc = new ReceptionChatUserStatus
             {
                 From = imMember,
@@ -178,8 +178,7 @@ namespace Dianzhu.NotifyCenter
             ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-            IIMSession imSession = new IMSessionsDB();
-
+        
             ReceptionChat rc = new ReceptionChatUserStatus
             {
                 From = imMember,
