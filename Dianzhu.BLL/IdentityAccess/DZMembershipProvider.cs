@@ -13,6 +13,9 @@ using System.Net;
 using Dianzhu.BLL.Validator;
 using FluentValidation;
 using Dianzhu.IDAL;
+using System.Runtime.Remoting.Contexts;
+using Castle.Windsor;
+
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -20,6 +23,15 @@ namespace Dianzhu.BLL
     /// </summary>
     public class DZMembershipProvider : MembershipProvider
     {
+        public DZMembershipProvider() {
+            DALMembership = new DALMembership();
+            var containerAccessor =System.Web.HttpContext.Current.ApplicationInstance as IContainerAccessor;
+            var container = containerAccessor.Container;
+            this.DALMembership = container.Resolve<IDALMembership>();
+            this.encryptService = container.Resolve<IEncryptService>();
+            this.emailService = container.Resolve<IEmailService>();
+
+        }
         IDALMembership DALMembership = null;
         IEncryptService encryptService;
         IEmailService emailService;
