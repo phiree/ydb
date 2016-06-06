@@ -11,7 +11,7 @@ namespace Dianzhu.CSClient.IView
     /// </summary>
     public interface IViewShelfService
     {
-        event PushShelfService PushService;
+        event PushShelfService PushShelfService;
     }
 
     public delegate void PushShelfService(DZService pushedService);

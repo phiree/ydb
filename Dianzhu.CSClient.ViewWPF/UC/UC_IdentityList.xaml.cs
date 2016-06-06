@@ -36,16 +36,24 @@ namespace Dianzhu.CSClient.ViewWPF
             Action lambda = () =>
             {
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-                Button btnIdentity =(Button) pnlIdentityList.FindName(ctrlName);
-                if (btnIdentity == null)
+                //Button btnIdentity =(Button) pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                //if (btnIdentity == null)
+                if (ucIdentity == null)
                 {
-                    btnIdentity = new Button { Content = serviceOrder.Customer.DisplayName };
-                    btnIdentity.Tag = serviceOrder;
+                    //btnIdentity = new Button { Content = serviceOrder.Customer.DisplayName };
+                    ucIdentity = new UC_Customer(serviceOrder.Customer);
+                    //btnIdentity.Tag = serviceOrder;
+                    ucIdentity.btnCustomer.Tag = serviceOrder;
 
-                    btnIdentity.Name = ctrlName;
-                    btnIdentity.Click += BtnIdentity_Click;
-                    pnlIdentityList.Children.Add(btnIdentity);
-                    pnlIdentityList.RegisterName(btnIdentity.Name, btnIdentity);
+                    //btnIdentity.Name = ctrlName;
+                    ucIdentity.Name = ctrlName;
+                    //btnIdentity.Click += BtnIdentity_Click;
+                    ucIdentity.btnCustomer.Click += BtnIdentity_Click;
+                    //pnlIdentityList.Children.Add(btnIdentity);
+                    pnlIdentityList.Children.Add(ucIdentity);
+                    //pnlIdentityList.RegisterName(btnIdentity.Name, btnIdentity);
+                    pnlIdentityList.RegisterName(ucIdentity.Name, ucIdentity);
                 }
             };
             if (!Dispatcher.CheckAccess())
@@ -132,7 +140,8 @@ namespace Dianzhu.CSClient.ViewWPF
                 var objBtn = pnlIdentityList.FindName(PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString()));
                 if (objBtn != null)
                 {
-                    Button btn = (Button)objBtn;
+                    //Button btn = (Button)objBtn;
+                    UC_Customer ucCustomer = (UC_Customer)objBtn;
                     Color foreColor = Colors.White;
                     string loadingText = "(加载中)";
                     switch (buttonStyle)
@@ -143,19 +152,27 @@ namespace Dianzhu.CSClient.ViewWPF
                         case em_ButtonStyle.LogOff:
                             foreColor = Colors.Gray;
                             //btn.Visibility = Visibility.Collapsed;
-                            pnlIdentityList.Children.Remove(btn);
+                            //pnlIdentityList.Children.Remove(btn);
+                            pnlIdentityList.Children.Remove(ucCustomer);
                             break;
-                        case em_ButtonStyle.Readed: foreColor = Colors.Black;
-                            btn.Content = btn.Content.ToString().Replace(loadingText, string.Empty);
+                        case em_ButtonStyle.Readed:
+                            foreColor = Colors.Black;
+                            //btn.Content = btn.Content.ToString().Replace(loadingText, string.Empty);
                             break;
                         case em_ButtonStyle.Unread:
                             foreColor = Colors.Red;
+                            ucCustomer.CustomerUnread();
                             break;
-                        case em_ButtonStyle.Actived: foreColor = Colors.Yellow; break;
-                        case em_ButtonStyle.Loading: btn.Content = loadingText+btn.Content;  break;
+                        case em_ButtonStyle.Actived:
+                            foreColor = Colors.Yellow;
+                            break;
+                        case em_ButtonStyle.Loading:
+                            //btn.Content = loadingText+btn.Content;
+                            ucCustomer.CustomerCurrent();
+                            break;
                         default: break;
                     }
-                    btn.Foreground = new SolidColorBrush(foreColor);
+                    //btn.Foreground = new SolidColorBrush(foreColor);
                 }
             };
             if (!Dispatcher.CheckAccess())

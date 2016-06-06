@@ -73,7 +73,8 @@ namespace Dianzhu.CSClient
                 Presenter.POrder pOrder = container.Resolve<Presenter.POrder>();
                 Presenter.POrderHistory pOrderHistory = container.Resolve<Presenter.POrderHistory>();
                 Presenter.PChatSend pChatSend = container.Resolve<Presenter.PChatSend>();
-                
+                Presenter.PShelfService pShelfService = container.Resolve<Presenter.PShelfService>();
+
 
                 var mainPresenter = container.Resolve<Presenter.PMain>();
 
@@ -105,6 +106,7 @@ namespace Dianzhu.CSClient
             container.Register(cmr.Component.For<CSClient.Presenter.POrder>());
             container.Register(cmr.Component.For<CSClient.Presenter.POrderHistory>());
             container.Register(cmr.Component.For<CSClient.Presenter.PSearch>());
+            container.Register(cmr.Component.For<CSClient.Presenter.PShelfService>());
             //bll
             container.Register(cmr.Component.For<IBLLMembershipLoginLog>().ImplementedBy<BLL.BLLMembershipLoginLog>());
 
@@ -120,6 +122,7 @@ namespace Dianzhu.CSClient
             container.Register(cmr.Component.For<IViewOrderHistory>().ImplementedBy<ViewWPF.UC_OrderHistory>());
             container.Register(cmr.Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
             container.Register(cmr.Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
+            container.Register(cmr.Component.For<IViewShelfService>().ImplementedBy<ViewWPF.UC_ShelfService>());
 
             //other
             string server = Config.Config.GetAppSetting("ImServer");

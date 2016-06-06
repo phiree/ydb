@@ -127,6 +127,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public event SelectService SelectService;
         public event PushServices PushServices;
+        public event PushShelfService PushShelfService;
 
         private void btnPush_Click(object sender, RoutedEventArgs e)
         {

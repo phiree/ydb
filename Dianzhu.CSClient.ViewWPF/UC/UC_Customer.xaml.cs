@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Dianzhu.Model;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -20,9 +21,62 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_Customer : UserControl
     {
-        public UC_Customer()
+        public UC_Customer(DZMembership customer)
         {
             InitializeComponent();
+
+            LoadData(customer);
+        }
+
+        public void LoadData(DZMembership customer)
+        {
+            tbkCustomerNames.Text = customer.DisplayName;
+            if (customer.AvatarUrl != null)
+            {
+                imgSource.ImageSource = new BitmapImage(new Uri(customer.AvatarUrl, UriKind.Absolute));
+            }
+            else
+            {
+                imgSource.ImageSource = new BitmapImage(new Uri("pack://siteoforigin:,,,/Resources/logourl.png", UriKind.Absolute));
+            }
+        }
+
+        public void ClearData()
+        {
+            tbkCustomerNames.Text = string.Empty;
+            imgSource.ImageSource = new BitmapImage(new Uri("pack://siteoforigin:,,,/Resources/logourl.png", UriKind.Absolute));
+        }
+
+        public void CustomerNormal()
+        {
+            SetCustomerBorder("#FFd1d1d1", "#FF777779");
+
+            tbkCustomerStatus.Text = "等待中";
+            tbkCustomerMinutes.Visibility = Visibility.Visible;
+            tbkCustomerMinutes.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4b7799"));
+        }
+
+        public void CustomerCurrent()
+        {
+            SetCustomerBorder("#FF7db2dc", "#FF477597");
+            tbkCustomerStatus.Text = "当前接待中...";
+
+            tbkCustomerMinutes.Visibility = Visibility.Collapsed;
+        }
+
+        public void CustomerUnread()
+        {
+            SetCustomerBorder("#FFfb8384", "#FFe85454");
+
+            tbkCustomerStatus.Text = "等待中";
+            tbkCustomerMinutes.Visibility = Visibility.Visible;
+            tbkCustomerMinutes.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFf65f5f"));
+        }
+
+        public void SetCustomerBorder(string colorUp, string colorDown)
+        {
+            borderUp.Color = (Color)ColorConverter.ConvertFromString(colorUp);
+            borderDown.Color = (Color)ColorConverter.ConvertFromString(colorDown);
         }
     }
 }

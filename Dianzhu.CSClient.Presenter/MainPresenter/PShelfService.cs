@@ -31,16 +31,17 @@ namespace Dianzhu.CSClient.Presenter
             this.iIM = iIM;
             this.viewSearch = viewSearch;
             this.viewShelfService = viewShelfService;
+            this.viewChatList = viewChatList;
             this.viewIdentityList = viewIdentityList;
             this.bllPushService = bllPushService;
             this.bllReceptionChat = bllReceptionChat;
             this.bllServiceOrder = bllServiceOrder;
             this.bllReceptionStatus = bllReceptionStatus;
 
-            viewShelfService.PushService += ViewShelfService_PushService;
+            viewShelfService.PushShelfService += ViewShelfService_PushShelfService;
         }
 
-        private void ViewShelfService_PushService(DZService pushedService)
+        private void ViewShelfService_PushShelfService(DZService pushedService)
         {
             if (pushedService == null)
             {

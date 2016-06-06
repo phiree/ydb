@@ -20,7 +20,7 @@ namespace Dianzhu.CSClient.ViewWPF
     /// <summary>
     /// UC_ShelfService.xaml 的交互逻辑
     /// </summary>
-    public partial class UC_ShelfService : UserControl
+    public partial class UC_ShelfService : UserControl,IView.IViewShelfService
     {
         public UC_ShelfService()
         {
@@ -87,7 +87,7 @@ namespace Dianzhu.CSClient.ViewWPF
         public event PushShelfService PushShelfService;
         private void btnSendService_Click(object sender, RoutedEventArgs e)
         {
-            PushShelfService((DZService)this.Tag);
+            PushShelfService((DZService)this.btnSendService.Tag);
         }
     }
 }

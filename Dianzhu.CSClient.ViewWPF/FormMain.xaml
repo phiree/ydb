@@ -189,7 +189,7 @@
             </Grid.RowDefinitions>
 
             <!--窗体控制按钮-->
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Background="Transparent" MouseDown="Grid_MouseDown">
                 <WrapPanel VerticalAlignment="Center">
                     <Button Content="开始接单" Width="150" Height="25"></Button>
                     <Button Content="开始接单" Width="150" Height="25"></Button>
@@ -204,10 +204,20 @@
                         </Canvas.Background>
                     </Canvas>
                     <Label Content="我是助理" VerticalAlignment="Center" Margin="0,0,30,0" Foreground="White"></Label>
-                    <Button x:Name="btnWindowsMin" Width="25" Margin="5" Template="{StaticResource CornerButton}">
+                    <Button x:Name="btnWindowsMin" Width="25" Margin="5" Template="{StaticResource CornerButton}" Click="btnWindowsMin_Click">
+                        <Button.ToolTip>
+                            <Grid>
+                                <TextBlock Text="最小化"/>
+                            </Grid>
+                        </Button.ToolTip>
                         <TextBlock FontSize="20" Foreground="White" Text="—"></TextBlock>
                     </Button>
-                    <Button x:Name="btnWindowsClosed" Width="25" Margin="5" Template="{StaticResource CornerButton}">
+                    <Button x:Name="btnWindowsClosed" Width="25" Margin="5" Template="{StaticResource CornerButton}" Click="btnWindowsClosed_Click" >
+                        <Button.ToolTip>
+                            <Grid>
+                                <TextBlock Text="关闭"/>
+                            </Grid>
+                        </Button.ToolTip>
                         <TextBlock FontSize="20" Foreground="White" Text="X"></TextBlock>
                     </Button>
                 </WrapPanel>
