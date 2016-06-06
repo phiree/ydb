@@ -7,9 +7,9 @@ using Dianzhu.DAL;
 
 namespace Dianzhu.BLL.Client
 {
-    public class BLLRefreshToken
+    public class BLLRefreshToken:IBLLRefreshToken
     {
-        DALRefreshToken dalrefreshtoken;
+        DALRefreshToken dalrefreshtoken = new DALRefreshToken();
         /// <summary>
         /// 添加新的RefreshToken
         /// </summary>

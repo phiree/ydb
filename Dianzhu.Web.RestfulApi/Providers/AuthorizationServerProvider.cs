@@ -2,20 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Dianzhu.ApplicationService;
+using Dianzhu.Model;
+using Dianzhu.BLL;
 
 namespace Dianzhu.Web.RestfulApi
 {
     internal class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        ApplicationService.Client.IClientService iclientservice;
+        ApplicationService.User.IUserService iuserservice;
+        public AuthorizationServerProvider(ApplicationService.Client.IClientService iclientservice,
+        ApplicationService.User.IUserService iuserservice)
+        {
+            this.iclientservice = iclientservice;
+            this.iuserservice = iuserservice;
+        }
+
+        public AuthorizationServerProvider()
+        {
+        }
+
+
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             string clientId = string.Empty;
             string clientSecret = string.Empty;
-            ClientDTO client = null;
+            ClientDTO clientdto = null;
 
             if (!context.TryGetBasicCredentials(out clientId, out clientSecret))
             {
@@ -31,42 +48,43 @@ namespace Dianzhu.Web.RestfulApi
                 return Task.FromResult<object>(null);
             }
 
-            //using (Client.ClientService _repo = new AuthRepository())
-            //{
-            //    client = _repo.FindClient(context.ClientId);
-            //}
+            using (ApplicationService.Client.IClientService iclientservice = new ApplicationService.Client.ClientService(new BLL.Client.BLLClient (),new BLL.Client.BLLRefreshToken()))
+            {
+                clientdto = iclientservice.FindClient(context.ClientId);
+            }
 
-            if (client == null)
+            if (clientdto == null)
             {
                 context.SetError("invalid_clientId", string.Format("Client '{0}' is not registered in the system.", context.ClientId));
                 return Task.FromResult<object>(null);
             }
 
-            //if (client.ApplicationType == ApplicationTypes.NativeConfidential)
-            //{
-            //    if (string.IsNullOrWhiteSpace(clientSecret))
-            //    {
-            //        context.SetError("invalid_clientId", "Client secret should be sent.");
-            //        return Task.FromResult<object>(null);
-            //    }
-            //    else
-            //    {
-            //        if (client.Secret != clientSecret)//if (client.Secret != Helper.GetHash(clientSecret))
-            //        {
-            //            context.SetError("invalid_clientId", "Client secret is invalid.");
-            //            return Task.FromResult<object>(null);
-            //        }
-            //    }
-            //}
+            if (clientdto.ApplicationType == Model.Enums.ApplicationTypes.NativeConfidential)
+            {
+                if (string.IsNullOrWhiteSpace(clientSecret))
+                {
+                    context.SetError("invalid_clientId", "Client secret should be sent.");
+                    return Task.FromResult<object>(null);
+                }
+                else
+                {
+                    if (clientdto.Secret != clientSecret)//if (client.Secret != Helper.GetHash(clientSecret))
+                    {
+                        context.SetError("invalid_clientId", "Client secret is invalid.");
+                        return Task.FromResult<object>(null);
+                    }
+                }
+            }
 
-            if (!client.Active)
+            if (!clientdto.Active)
             {
                 context.SetError("invalid_clientId", "Client is inactive.");
                 return Task.FromResult<object>(null);
             }
 
-            context.OwinContext.Set<string>("as:clientAllowedOrigin", client.AllowedOrigin);
-            context.OwinContext.Set<string>("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
+            //context.OwinContext.Set<string>("as:ApplicationType", clientdto.ApplicationType.ToString ());
+            context.OwinContext.Set<string>("as:clientAllowedOrigin", clientdto.AllowedOrigin);
+            context.OwinContext.Set<string>("as:clientRefreshTokenLifeTime", clientdto.RefreshTokenLifeTime.ToString());
 
             context.Validated();
             return Task.FromResult<object>(null);
@@ -81,34 +99,34 @@ namespace Dianzhu.Web.RestfulApi
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
-            //using (AuthRepository _repo = new AuthRepository())
-            //{
-            //    UserModel user = _repo.FindUser(context.UserName, context.Password);
+            using (ApplicationService.User.IUserService iuserservice = new ApplicationService.User.UserService(new DZMembershipProvider()))
+            {
+                //UserModel user = _repo.FindUser(context.UserName, context.Password);
 
-            //    if (user == null)
-            //    {
-            //        context.SetError("invalid_grant", "The user name or password is incorrect.");
-            //        return;
-            //    }
-            //}
+                if (!iuserservice.ValidateUser (context.UserName, context.Password))
+                {
+                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    return;
+                }
+            }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
             identity.AddClaim(new Claim("sub", context.UserName));
 
-            //var props = new AuthenticationProperties(new Dictionary<string, string>
-            //    {
-            //        {
-            //            "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
-            //        },
-            //        {
-            //            "userName", context.UserName
-            //        }
-            //    });
+            var props = new AuthenticationProperties(new Dictionary<string, string>
+                {
+                    {
+                        "as:client_id", (context.ClientId == null) ? string.Empty : context.ClientId
+                    },
+                    {
+                        "userName", context.UserName
+                    }
+                });
 
-            //var ticket = new AuthenticationTicket(identity, props);
-            //context.Validated(ticket);
+            var ticket = new AuthenticationTicket(identity, props);
+            context.Validated(ticket);
 
         }
 
@@ -140,8 +158,8 @@ namespace Dianzhu.Web.RestfulApi
             //}
             //newIdentity.AddClaim(new Claim(ClaimTypes.Role, "user1"));
 
-            //var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
-            //context.Validated(newTicket);
+            var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
+            context.Validated(newTicket);
 
             return Task.FromResult<object>(null);
         }

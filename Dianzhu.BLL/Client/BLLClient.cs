@@ -9,7 +9,7 @@ namespace Dianzhu.BLL.Client
 {
     public class BLLClient : IBLLClient
     {
-        DALClient dalclient;
+        DALClient dalclient=new DALClient();
         /// <summary>
         /// 注册客户端
         /// </summary>

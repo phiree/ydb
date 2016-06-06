@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.ApplicationService.User
 {
-    public interface IUserService
+    public interface IUserService:IDisposable
     {
         /// <summary>
         /// 验证用户名密码验证

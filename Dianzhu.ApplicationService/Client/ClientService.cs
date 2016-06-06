@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.BLL.Client;
+using AutoMapper;
 
 namespace Dianzhu.ApplicationService.Client
 {
-    public class ClientService
+    public class ClientService:IClientService
     {
         IBLLClient ibllclient;
         IBLLRefreshToken ibllrefreshtoken;
@@ -21,8 +22,9 @@ namespace Dianzhu.ApplicationService.Client
         /// 注册客户端
         /// </summary>
         /// <param name="client"></param>
-        public void RegisterClient(Model.Client client)
+        public void RegisterClient(ClientDTO clientdto)
         {
+            Model.Client client= Mapper.Map<ClientDTO, Model.Client>(clientdto);
             ibllclient.RegisterClient(client);
         }
 
@@ -31,9 +33,11 @@ namespace Dianzhu.ApplicationService.Client
         /// </summary>
         /// <param name="clientId"></param>
         /// <returns></returns>
-        public Model.Client FindClient(string clientId)
+        public ClientDTO FindClient(string clientId)
         {
-            return ibllclient.FindClient(clientId);
+            Model.Client client= ibllclient.FindClient(clientId);
+            ClientDTO clientdto = Mapper.Map<Model.Client, ClientDTO>(client);
+            return clientdto;
         }
 
         /// <summary>
@@ -80,6 +84,12 @@ namespace Dianzhu.ApplicationService.Client
         public IList<Model.RefreshToken> GetAllRefreshTokens()
         {
             return ibllrefreshtoken.GetAllRefreshTokens();
+        }
+
+        public void Dispose()
+        {
+            //ibllclient.Dispose();
+            //ibllrefreshtoken.Dispose();
         }
     }
 }

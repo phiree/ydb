@@ -8,7 +8,7 @@ using System.Configuration;
 
 namespace Dianzhu.ApplicationService.User
 {
-    public class UserService
+    public class UserService:IUserService
     {
         DZMembershipProvider dzmsp;
         public UserService(DZMembershipProvider dzmsp)
@@ -25,6 +25,11 @@ namespace Dianzhu.ApplicationService.User
         public bool ValidateUser(string username, string password)
         {
             return dzmsp.ValidateUser(username, password);
+        }
+
+        public void Dispose()
+        {
+            //dzmsp.Dispose();
         }
     }
 }

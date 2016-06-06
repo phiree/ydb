@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.ApplicationService.Client
 {
-    public interface IClientService
+    public interface IClientService:IDisposable
     {
         /// <summary>
         /// 注册客户端
         /// </summary>
         /// <param name="client"></param>
-        void RegisterClient(Model.Client client);
+        void RegisterClient(ClientDTO clientdto);
 
         /// <summary>
         /// 根据Id获取客户端数据
         /// </summary>
         /// <param name="clientId"></param>
         /// <returns></returns>
-        Model.Client FindClient(string clientId);
+        ClientDTO FindClient(string clientId);
 
         /// <summary>
         /// 添加新的RefreshToken
