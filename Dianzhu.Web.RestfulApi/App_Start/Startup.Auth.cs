@@ -12,7 +12,6 @@ namespace Dianzhu.Web.RestfulApi
 {
     public partial class Startup
     {
-
         /// <summary>
         /// 配置路由
         /// </summary>
@@ -36,8 +35,9 @@ namespace Dianzhu.Web.RestfulApi
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),//token路径设置
-                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(60),//token过期时间设置
-                Provider = new AuthorizationServerProvider()
+                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(600),//token过期时间设置
+                Provider = new AuthorizationServerProvider(),
+                RefreshTokenProvider = new RefreshTokenProvider()
             };
             app.UseOAuthAuthorizationServer(OauthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());

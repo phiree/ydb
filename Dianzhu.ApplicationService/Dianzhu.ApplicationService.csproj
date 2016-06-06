@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.ApplicationService</RootNamespace>
     <AssemblyName>Dianzhu.ApplicationService</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=4.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.4.2.0\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AutoMapper.EF6, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -71,6 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Mapping\AutoMapperConfiguration.cs" />
+    <Compile Include="Mapping\DtoToModelMappingProfile.cs" />
+    <Compile Include="Mapping\ModelToDtoMappingProfile.cs" />
     <Compile Include="ModeDTO\Client\ClientDTO.cs" />
     <Compile Include="ModeDTO\Client\RefreshTokenDTO.cs" />
     <Compile Include="ModeDTO\Identity\customerServicesObj.cs" />
@@ -86,6 +89,8 @@
     <Compile Include="Service\IServiceService.cs" />
     <Compile Include="Service\ServiceService.cs" />
     <Compile Include="Staff\StaffService.cs" />
+    <Compile Include="User\IUserService.cs" />
+    <Compile Include="User\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
