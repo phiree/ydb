@@ -3,40 +3,57 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dianzhu.DAL;
 
 namespace Dianzhu.BLL.Client
 {
-    public interface IBLLRefreshToken
+    public class BLLRefreshToken
     {
+        DALRefreshToken dalrefreshtoken;
         /// <summary>
         /// 添加新的RefreshToken
         /// </summary>
         /// <param name="token"></param>
-        void AddRefreshToken(Model.RefreshToken token);
+        public void AddRefreshToken(Model.RefreshToken token)
+        {
+            dalrefreshtoken.AddRefreshToken(token);
+        }
 
         /// <summary>
         /// 根据Id删除RefreshToken
         /// </summary>
         /// <param name="refreshTokenId"></param>
-        void RemoveRefreshToken(string refreshTokenId);
+        public void RemoveRefreshToken(string refreshTokenId)
+        {
+            dalrefreshtoken.RemoveRefreshToken(refreshTokenId);
+        }
 
         /// <summary>
         /// 删除RefreshToken
         /// </summary>
         /// <param name="refreshtoken"></param>
-        void RemoveRefreshToken(Model.RefreshToken refreshtoken);
+        public void RemoveRefreshToken(Model.RefreshToken refreshtoken)
+        {
+            dalrefreshtoken.RemoveRefreshToken(refreshtoken);
+        }
 
         /// <summary>
         /// 根据Id获取RefreshToken
         /// </summary>
         /// <param name="refreshTokenId"></param>
         /// <returns></returns>
-        Model.RefreshToken FindRefreshToken(string refreshTokenId);
+        public Model.RefreshToken FindRefreshToken(string refreshTokenId)
+        {
+            return dalrefreshtoken.FindRefreshToken(refreshTokenId);
+        }
 
         /// <summary>
         /// 获取所有的RefreshToken
         /// </summary>
         /// <returns></returns>
-        IList<Model.RefreshToken> GetAllRefreshTokens();
+        public IList<Model.RefreshToken> GetAllRefreshTokens()
+        {
+            return dalrefreshtoken.GetAllRefreshTokens();
+        }
     }
 }

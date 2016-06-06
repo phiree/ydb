@@ -26,12 +26,12 @@ namespace Dianzhu.Web.RestfulApi
             {
                 //Remove the comments from the below line context.SetError, and invalidate context 
                 //if you want to force sending clientId/secrects once obtain access tokens. 
-                context.Validated();
-                //context.SetError("invalid_clientId", "ClientId should be sent.");
+                //context.Validated();
+                context.SetError("invalid_clientId", "ClientId should be sent.");
                 return Task.FromResult<object>(null);
             }
 
-            //using (AuthRepository _repo = new AuthRepository())
+            //using (Client.ClientService _repo = new AuthRepository())
             //{
             //    client = _repo.FindClient(context.ClientId);
             //}

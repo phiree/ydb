@@ -6,7 +6,7 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    class DALRefreshToken : DALBase<Model.RefreshToken>
+    public class DALRefreshToken : DALBase<Model.RefreshToken>
     {
         public DALRefreshToken()
         {

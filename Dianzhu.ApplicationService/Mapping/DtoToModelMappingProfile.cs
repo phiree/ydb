@@ -19,7 +19,7 @@ namespace Dianzhu.ApplicationService.Mapping
 
         protected override void Configure()
         {
-            Mapper.CreateMap<ClientDTO, Client>();
+            Mapper.CreateMap<ClientDTO, Model.Client>();
             Mapper.CreateMap<RefreshTokenDTO, RefreshToken>();
             Mapper.CreateMap<userObj, DZMembership>();
 
