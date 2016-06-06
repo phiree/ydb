@@ -6,25 +6,24 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.ApplicationService
 {
-    public class customerServicesObj
+    public class locationObj
     {
-
         /// <summary>
-        /// 员工ID
+        ///经度（百度地图坐标系（BD-09））
         /// </summary>
         /// <type>string</type>
-        public string id { get; set; }
+        public string longitude { get; set; }
 
         /// <summary>
-        /// 昵称
+        ///维度（百度地图坐标系（BD-09））
         /// </summary>
         /// <type>string</type>
-        public string alias { get; set; }
+        public string latitude { get; set; }
 
         /// <summary>
-        ///头像
+        ///地址字符串
         /// </summary>
         /// <type>string</type>
-        public string imgUrl { get; set; }
-    }
+        public string address { get; set; }
+    } 
 }
