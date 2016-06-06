@@ -19,7 +19,7 @@ public class ResponseUSM001007 : BaseResponse
     {
         ReqDataUSM001007 requestData = this.request.ReqData.ToObject<ReqDataUSM001007>();
 
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         string raw_id = requestData.userID;
 
         try

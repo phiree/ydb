@@ -38,6 +38,14 @@ namespace Dianzhu.CSClient.ViewWPF
             pnlOrderHistory.Children.Add( (UC_OrderHistory)viewOrderHistory);
         }
 
+        public string FormTitle
+        {
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public void CloseApplication()
         {
             Action lambda = () =>

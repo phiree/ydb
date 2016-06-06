@@ -74,5 +74,6 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             main.WindowState = WindowState.Minimized;
         }
+        public string FormTitle { set { this.Title = value; } }
     }
 }

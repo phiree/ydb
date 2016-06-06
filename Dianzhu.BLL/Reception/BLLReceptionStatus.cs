@@ -167,10 +167,10 @@ namespace Dianzhu.BLL
         //IM会话.
         IIMSession imSession;
         DAL.DALReceptionStatus dalRS;
-        DAL.DALMembership dalMember;
+        IDAL.IDALMembership dalMember;
         public ReceptionAssigner(IAssignStratage stratage,IIMSession imSession
             , DALReceptionStatus dalRS
-            , DALMembership dalMember) 
+            , IDAL.IDALMembership dalMember) 
         {
             this.stratage = stratage;
             this.imSession = imSession;
@@ -204,7 +204,7 @@ namespace Dianzhu.BLL
                      //convert sesionUser to dzmembership
                     foreach (OnlineUserSession user in imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString()))
                     {
-                        DZMembership cs = dalMember.GetOne(new Guid( user.username));
+                        DZMembership cs = dalMember.FindById(new Guid( user.username));
                         customerServiceList.Add(cs);
                     }
                 }
@@ -223,7 +223,7 @@ namespace Dianzhu.BLL
                     string errMsg = string.Empty;
                     if (onlineUsers.Count == 1)
                     {
-                        diandian = dalMember.GetOne(new Guid(onlineUsers[0].username));
+                        diandian = dalMember.FindById(new Guid(onlineUsers[0].username));
                     }
                     else if (onlineUsers.Count == 0)
                     {

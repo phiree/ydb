@@ -55,12 +55,16 @@ namespace PHSuit
             }
             return responseString;
         }
-
         public static string CreateHttpRequestPostXml(string url, string parasXml)
+        {
+            return CreateHttpRequestPostXml(url, parasXml, new WebHeaderCollection());
+        }
+        public static string CreateHttpRequestPostXml(string url, string parasXml,WebHeaderCollection headers)
         {
             var responseString = string.Empty;
             using (var wb = new WebClient())
             {
+                wb.Headers = headers;
                 wb.Encoding = Encoding.UTF8;
 
                 responseString = wb.UploadString(url, "POST", parasXml);

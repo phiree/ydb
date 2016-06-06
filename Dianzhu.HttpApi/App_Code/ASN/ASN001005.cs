@@ -20,8 +20,8 @@ public class ResponseASN001005 : BaseResponse
         ReqDataASN001005 requestData = this.request.ReqData.ToObject<ReqDataASN001005>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLBusiness bllBusiness = new BLLBusiness();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         BLLStaff bllStaff = new BLLStaff();
 
         try

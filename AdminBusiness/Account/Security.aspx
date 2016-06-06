@@ -205,8 +205,8 @@
 
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" runat="Server">
-    <script src="/js/jquery.lightbox_me.js"></script>
-    <script src="/js/jquery.form.min.js"></script>
+    <script src="/js/plugins/jquery.lightbox_me.js"></script>
+    <script src="/js/plugins/jquery.form.min.js"></script>
     <script>
     $(function(){
         $('.secret-layout-fixed').parent('.content-layout').css({marginLeft:0});
@@ -231,5 +231,5 @@
 
     });
     </script>
-    <script src="/js/security.js"></script>
+    <script src="/js/apps/pages/security.js"></script>
 </asp:Content>

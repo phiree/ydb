@@ -19,14 +19,14 @@ namespace Dianzhu.CSClient.Presenter
         IViewIdentityList viewIdentityList;
         PushService bllPushService;
         BLLReceptionChat bllReceptionChat;
-        BLLServiceOrder bllServiceOrder;
+        IBLLServiceOrder bllServiceOrder;
         BLLReceptionStatus bllReceptionStatus;
 
-        public PShelfService(IInstantMessage.InstantMessage iIM,IViewSearch viewSearch, IViewShelfService viewShelfService, IViewChatList viewChatList, IViewIdentityList viewIdentityList) 
-            : this(iIM, viewSearch, viewShelfService, viewChatList, viewIdentityList, new PushService(),new BLLReceptionChat(),new BLLServiceOrder(),new BLLReceptionStatus())
+        public PShelfService(IInstantMessage.InstantMessage iIM,IViewSearch viewSearch, IViewShelfService viewShelfService, IViewChatList viewChatList, IViewIdentityList viewIdentityList, IBLLServiceOrder bllServiceOrder) 
+            : this(iIM, viewSearch, viewShelfService, viewChatList, viewIdentityList, bllServiceOrder, new PushService(),new BLLReceptionChat(),new BLLReceptionStatus())
         { }
 
-        public PShelfService(IInstantMessage.InstantMessage iIM,IViewSearch viewSearch, IViewShelfService viewShelfService, IViewChatList viewChatList, IViewIdentityList viewIdentityList, PushService bllPushService, BLLReceptionChat bllReceptionChat, BLLServiceOrder bllServiceOrder, BLLReceptionStatus bllReceptionStatus)
+        public PShelfService(IInstantMessage.InstantMessage iIM,IViewSearch viewSearch, IViewShelfService viewShelfService, IViewChatList viewChatList, IViewIdentityList viewIdentityList, IBLLServiceOrder bllServiceOrder, PushService bllPushService, BLLReceptionChat bllReceptionChat,  BLLReceptionStatus bllReceptionStatus)
         {
             this.iIM = iIM;
             this.viewSearch = viewSearch;

@@ -16,15 +16,15 @@ public class ResponseASN002001 : BaseResponse
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
     public ResponseASN002001(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataASN002001 requestData = this.request.ReqData.ToObject<ReqDataASN002001>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLBusiness bllBusiness = new BLLBusiness();
-        BLLStaff bllStaff = new BLLStaff();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>(); BLLStaff bllStaff = new BLLStaff();
+
         BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
 
         try
@@ -57,7 +57,7 @@ public class ResponseASN002001 : BaseResponse
                 if (!validated)
                 {
                     return;
-                } 
+                }
             }
             try
             {
@@ -88,7 +88,7 @@ public class ResponseASN002001 : BaseResponse
                         order = bllServiceOrder.GetOne(new Guid(obj.orderID));
                         if (order != null)
                         {
-                            oa = bllOrderAssignment.FindByOrderAndStaff(order,staff);
+                            oa = bllOrderAssignment.FindByOrderAndStaff(order, staff);
                             if (oa == null)
                             {
                                 oa = new OrderAssignment();
@@ -125,7 +125,7 @@ public class ResponseASN002001 : BaseResponse
                     else
                     {
                         arrayError.Add(obj);
-                    }                    
+                    }
                 }
 
                 RespDataASN002001 respData = new RespDataASN002001();

@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/adminBusiness.master" AutoEventWireup="true" CodeFile="Detail.aspx.cs" Inherits="Business_Detail" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <!--<link rel="Stylesheet" href="/js/lightbox/css/lightbox.css"/>-->
-    <!--<link rel="Stylesheet" href="/css/business.css"/>-->
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageDesc" Runat="Server">
 </asp:Content>
@@ -178,8 +176,8 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server">
-    <script src="/js/lightbox.js"></script>
-    <script src="/js/echarts.simple.min.js"></script>
+    <script src="/js/plugins/lightbox.js"></script>
+    <script src="/js/plugins/echarts.simple.min.js"></script>
     <script>
         (function (){
             var myChart = echarts.init(document.getElementById("biz-total-chart"));

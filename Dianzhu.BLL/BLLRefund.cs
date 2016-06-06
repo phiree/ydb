@@ -13,22 +13,23 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLRefund
     {
-        DAL.DALRefund dal;
+        IDAL.IDALRefund dal;
         
         string errMsg = string.Empty;
-
-        public BLLRefund(DAL.DALRefund dal)
+        IDAL.IDALServiceOrder dalServiceOrder;
+        
+        public BLLRefund(IDAL.IDALRefund dal, IDAL.IDALServiceOrder dalServiceOrder)
         {
             this.dal = dal;
+            this.dalServiceOrder = dalServiceOrder;
+          
         }
-        public BLLRefund():this(new DAL.DALRefund())
-        {
-        }
+        
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLRefund");
         
         public void Save(Refund r)
         {
-            dal.Save(r);
+            dal.Add(r);
         }
 
         public void Update(Refund r)
@@ -45,7 +46,7 @@ namespace Dianzhu.BLL
         public void ReceiveAPICallBack(enum_PaylogType payLogType, IRefundCallBack irefundCallback, string rawRequestString, object callbackParameters)
         {
             BLLRefundLog bllRefundLog = new BLLRefundLog();
-            BLLServiceOrder bllOrder = new BLLServiceOrder();
+            //BLLServiceOrder bllOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
             //获取回调参数 如果是get , 如果是post?
 
             //保存记录

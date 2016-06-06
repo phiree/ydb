@@ -15,13 +15,14 @@ using Dianzhu.Api.Model;
 public class ResponseORM001008 : BaseResponse
 {
     public ResponseORM001008(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataORM001008 requestData = this.request.ReqData.ToObject<ReqDataORM001008>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+      
         BLLDZService bllDZService = new BLLDZService();
         PushService bllPushService = new PushService();
         BLLServiceOrderRemind bllServiceOrderRemind = new BLLServiceOrderRemind();
@@ -108,7 +109,7 @@ public class ResponseORM001008 : BaseResponse
                 //{
                 //    detail.Selected = detail.OriginalService == service;
                 //}
-                bllServiceOrder.SaveOrUpdate(order);
+                bllServiceOrder.Update(order);
                 IList<ServiceOrderPushedService> pushServiceList = bllPushService.GetPushedServicesForOrder(order);
                 RespDataORM_orderObj orderObj = new RespDataORM_orderObj();
                 IList<DZTag> tagsList = new List<DZTag>();//标签

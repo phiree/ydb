@@ -42,11 +42,6 @@
                                                         服务类型
                                                     </div>
                                                 </div>
-                                                <!--<div class="custom-col col-static-10">-->
-                                                    <!--<div class="l-b">-->
-                                                        <!--服务类型-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
                                                 <div class="custom-col col-static-20">
                                                     <div class="l-b">
                                                         服务区域
@@ -137,9 +132,8 @@
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
-    <script src="/js/ServiceType.js?v=20150901"></script>
-    <!--<script src="/js/ServiceSelect.js"></script>-->
-    <script src="/js/jquery.lightbox_me.js"></script>
+    <script src="/js/core/ServiceType.js?v=20160517"></script>
+    <script src="/js/plugins/jquery.lightbox_me.js"></script>
     <script >
     $(function(){
         if ( $(".service-list").children(".service-row").length == 0 ){

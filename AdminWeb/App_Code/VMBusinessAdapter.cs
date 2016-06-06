@@ -10,8 +10,8 @@ using Dianzhu.Model;
 public class VMBusinessAdapter
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminWeb.VMBusinessAdapter");
-    Dianzhu.BLL.BLLServiceOrder bllOrder;
-    public VMBusinessAdapter(BLLServiceOrder bllOrder)
+    Dianzhu.BLL.IBLLServiceOrder bllOrder;
+    public VMBusinessAdapter(IBLLServiceOrder bllOrder)
     {
         this.bllOrder = bllOrder;
     }
@@ -24,7 +24,7 @@ public class VMBusinessAdapter
         vmShop.CityName = business.AreaBelongTo==null?string.Empty: business.AreaBelongTo.Name;
         vmShop.Score = 0;
         vmShop.ShopName = business.Name;
-        vmShop.ServiceTypes = business.ServiceType.Select(x=>x.Name).ToList();
+
         vmShop.ServiceTypes = business.ServiceType.Select(x => x.Name).ToList();
         vmShop.RegisterTime = business.CreatedTime;
 

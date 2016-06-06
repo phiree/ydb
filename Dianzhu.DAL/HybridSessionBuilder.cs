@@ -27,13 +27,14 @@ namespace Dianzhu.DAL
         
         public ISession GetSession()
         {
-            ISessionFactory factory = getSessionFactory();
-                if (!CurrentSessionContext.HasBind(factory))
-            {
-                CurrentSessionContext.Bind(factory.OpenSession());
-            }
-            ISession session = factory.GetCurrentSession(); 
-                //getExistingOrNewSession(factory);
+             ISessionFactory factory = getSessionFactory();
+            //    if (!CurrentSessionContext.HasBind(factory))
+            //{
+            //    CurrentSessionContext.Bind(factory.OpenSession());
+            //}
+            ISession session = 
+                //factory.GetCurrentSession(); 
+                getExistingOrNewSession(factory);
 
             return session;
         }
@@ -55,8 +56,10 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         private ISessionFactory getSessionFactory()
         {
-            lock(__lock)
-            { 
+ 
+            lock (__lock)
+            {
+ 
                 if (_sessionFactory == null)
                 {
 
@@ -74,14 +77,15 @@ namespace Dianzhu.DAL
                           )
                         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
                        .ExposeConfiguration(BuildSchema)
-                       .CurrentSessionContext<ThreadStaticSessionContext>()
+                     //  .CurrentSessionContext<ThreadStaticSessionContext>()
                         .BuildSessionFactory();
                         HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
                      
                     
                 }
             }
-
+ 
+ 
             return _sessionFactory;
         }
         private static void BuildSchema(Configuration config)
@@ -89,11 +93,9 @@ namespace Dianzhu.DAL
             // this NHibernate tool takes a configuration (with mapping info in)
             // and exports a database schema from it
             SchemaUpdate update = new SchemaUpdate(config);
-          //update.Execute(true, true);
-        }
-        private static void GetUpdateScript(string ss)
-        {
-            throw new System.Exception(ss);
+ 
+            //update.Execute(true, true);
+ 
         }
         private ISession getExistingOrNewSession(ISessionFactory factory)
         {

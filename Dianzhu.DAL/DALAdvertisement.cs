@@ -1,39 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using DDDCommon;
 using Dianzhu.Model;
 using NHibernate;
-
+using Dianzhu.IDAL;
 namespace Dianzhu.DAL
 {
-    public class DALAdvertisement : DALBase<Advertisement>
+    /// <summary>
+    /// nhibernate implenmenting
+    /// </summary>
+    public class DALAdvertisement:NHRepositoryBase<Advertisement,Guid>,  IDALAdvertisement
     {
-         public DALAdvertisement()
-        {
-             
-        }
-        //注入依赖,供测试使用;
-         public DALAdvertisement(string fortest):base(fortest)
-        {
-            
-        }
         
-        public IList <Advertisement> GetADList(int pageIndex, int pageSize, out int totalRecord)
-        {
-            IQueryOver<Advertisement, Advertisement> iquery = Session.QueryOver<Advertisement>();
-            totalRecord = iquery.ToRowCountQuery().FutureValue<int>().Value;
-            return iquery.OrderBy(x => x.Num).Asc.Skip((pageIndex-1) * pageSize).Take(pageSize).List();
-        }
-
-        public IList<Advertisement> GetADListForUseful()
-        {
-            return Session.QueryOver<Advertisement>().Where(x => x.IsUseful == true).OrderBy(x => x.Num).Asc.List();
-        }
-
-        public Advertisement GetByUid(Guid uid)
-        {
-            return Session.QueryOver<Advertisement>().Where(x => x.Id == uid).SingleOrDefault();
-        }
     }
 }

@@ -25,7 +25,7 @@ public class ResponseLCT001008 : BaseResponse
     {
         ReqDataLCT001008 requestData = this.request.ReqData.ToObject<ReqDataLCT001008>();
 
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         string raw_id = requestData.userID;
 
         try

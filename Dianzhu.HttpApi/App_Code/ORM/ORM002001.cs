@@ -17,14 +17,15 @@ public class ResponseORM002001 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
     public ResponseORM002001(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected override void BuildRespData()
     {
         ReqDataORM002001 requestData = this.request.ReqData.ToObject<ReqDataORM002001>();
 
  
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-        BLLServiceOrder bllOrder = new BLLServiceOrder();
+      
         string raw_id = requestData.userID;
 
         try
@@ -103,7 +104,7 @@ public class ResponseORM002001 : BaseResponse
                     {
                     orderToReturn = ServiceOrderFactory.CreateDraft( assignedPair[member], member);
                        
-                        bllOrder.SaveOrUpdate(orderToReturn);
+                        bllOrder.Save(orderToReturn);
                     }
                 //}
                 ilog.Debug("7");

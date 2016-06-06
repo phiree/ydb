@@ -25,7 +25,7 @@ namespace Dianzhu.DemoClient
             get { return tbxOrderId.Text; }
             set { tbxOrderId.Text = value; }
         }
-        public FmMain()
+        public FmMain(string[] args)
         {
 
             InitializeComponent();
@@ -44,6 +44,11 @@ namespace Dianzhu.DemoClient
             GlobalViables.XMPPConnection.OnIq += XMPPConnection_OnIq;
             GlobalViables.XMPPConnection.OnStreamError += XMPPConnection_OnStreamError;
             GlobalViables.XMPPConnection.OnClose += XMPPConnection_OnClose;
+
+            if (args.Length == 2)
+            {
+                Login(args[0], args[1]);
+            }
         }
 
         private void XMPPConnection_OnClose(object sender)
@@ -65,7 +70,7 @@ namespace Dianzhu.DemoClient
         {
             //MessageBox.Show("socket error");
         }
-        private void GetCustomerInfo(string userName)
+        private void GetCustomerInfo(string userName,string password)
         {
             string postData = string.Format(@"{{ 
                     ""protocol_CODE"": ""USM001005"", //用户信息获取
@@ -75,7 +80,7 @@ namespace Dianzhu.DemoClient
                                 }}, 
                     ""stamp_TIMES"": ""{2}"", 
                     ""serial_NUMBER"": ""00147001015869149751"" 
-                }}", tbxUserName.Text, tbxPwd.Text, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
+                }}", userName, password, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
             customerId = result["RespData"]["userObj"]["userID"].ToString();
 
@@ -187,6 +192,7 @@ namespace Dianzhu.DemoClient
             GlobalViables.XMPPConnection.Send(p);
 
             lblLoginStatus.Text = "登录成功";
+            tbxUserName.Text = conn.Username;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -195,18 +201,18 @@ namespace Dianzhu.DemoClient
             GlobalViables.log.Debug("Close connection");
             //bug:关闭当前登录后，不能再监听原来的事件。
             //GlobalViables.XMPPConnection.Close();//关闭当前登录
+            Login(tbxUserName.Text, tbxPwd.Text);
             
-            string userName = tbxUserName.Text;
-            string userNameForOpenfire = userName;
-            if (Regex.IsMatch(userName, @"^[^\.@]+@[^\.@]+\.[^\.@]+$"))
-            {
-                userNameForOpenfire = userName.Replace("@", "||");
-            }
-            GlobalViables.log.Debug("获取用户信息开始");
-            GetCustomerInfo(userName);
-            GlobalViables.log.Debug("连接openfire服务器");
-            GlobalViables.XMPPConnection.Open(customerId, tbxPwd.Text);
 
+        }
+        private void Login(string userName, string password)
+        {
+            
+            
+            GlobalViables.log.Debug("获取用户信息开始");
+            GetCustomerInfo(userName,password);
+            GlobalViables.log.Debug("连接openfire服务器");
+            GlobalViables.XMPPConnection.Open(customerId, password);
         }
         /// <summary>
         /// 增加一条聊天记录
@@ -443,6 +449,13 @@ namespace Dianzhu.DemoClient
         {
             IQ iq = new MessageBuilder().BuildIq();
             GlobalViables.XMPPConnection.Send(iq);
+        }
+
+        private void btnAdvList_Click(object sender, EventArgs e)
+        {
+
+            AdvList adv = new AdvList();
+            adv.ShowDialog();
         }
     }
 }

@@ -5,7 +5,7 @@
 
     void Application_Start(object sender, EventArgs e)
     {
-
+        Bootstrap.Boot();
 
         //在应用程序启动时运行的代码
         PHSuit.Logging.Config("Dianzhu.AdminBusiness");
@@ -19,7 +19,8 @@
 
     void timer_ticket_assigner_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
-        var cc = new Dianzhu.BLL.CashTicketAssigner_Task();
+        Dianzhu.BLL.CashTicketAssigner_Task cc = Bootstrap.Container.Resolve< Dianzhu.BLL.CashTicketAssigner_Task>();
+        cc.Assign();
     }
 
 

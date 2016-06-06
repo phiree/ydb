@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using Dianzhu.BLL;
 using Dianzhu.Model;
@@ -8,6 +9,7 @@ using System.Net;
 using Dianzhu.Model.Enums;
 using System.Security.Cryptography;
 using System.Text;
+using Castle.Windsor;
 using Dianzhu.Api.Model;
 /// <summary>
 /// Summary description for AD001006
@@ -15,12 +17,10 @@ using Dianzhu.Api.Model;
 public class ResponseAD001006:BaseResponse
 {
     BLLDeviceBind bllDeviceBind;
-
+    BLLAdvertisement bllAD = Bootstrap.Container.Resolve<BLLAdvertisement>();
     public ResponseAD001006(BaseRequest request):base(request)
     {
-        //
-        // TODO: Add constructor logic here
-        //
+ 
     }
     protected override void BuildRespData()
     {
@@ -28,11 +28,13 @@ public class ResponseAD001006:BaseResponse
         {
             RequestDataAD001006 requestData = this.request.ReqData.ToObject<RequestDataAD001006>();
 
-            BLLAdvertisement bllAD = new BLLAdvertisement();
+ 
+           
             IList<Advertisement> adList = bllAD.GetADListForUseful();
             RespDataAD001006 respData = new RespDataAD001006();
 
             if (adList.Count > 0)
+ 
             {
                 string datetimeStr = "";
                 foreach(Advertisement ad in adList)
@@ -58,7 +60,10 @@ public class ResponseAD001006:BaseResponse
                 }
 
                 this.state_CODE = Dicts.StateCode[0];
-                respData.AdapList(adList);
+ 
+             
+                respData.AdapList(adList.ToList());
+ 
                 this.RespData = respData;
                 return;
             }

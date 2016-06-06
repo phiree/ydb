@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 
+
 namespace Dianzhu.CSClient.ViewWPF
 {
     /// <summary>

@@ -16,15 +16,19 @@ using Dianzhu.Api.Model;
 public class ResponseORM002003 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
-    public ResponseORM002003(BaseRequest request) : base(request) { }
+    IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+    IIMSession imSession;
+    public ResponseORM002003(BaseRequest request,IIMSession imSession) : base(request) {
+        this.imSession = imSession;
+    }
     protected override void BuildRespData()
     {
         ReqDataORM002003 requestData = this.request.ReqData.ToObject<ReqDataORM002003>();
 
  
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-        BLLServiceOrder bllOrder = new BLLServiceOrder();
+      
         BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
         string raw_id = requestData.userID;
         string reqOrderId = requestData.orderID;
@@ -85,7 +89,7 @@ public class ResponseORM002003 : BaseResponse
                 }
 
                 ilog.Debug("开始分配客服");
-                IIMSession imSession = new IMSessionsDB();
+               
                 ReceptionAssigner ra = new ReceptionAssigner(imSession);
                 Guid targetId = Guid.Empty;
                 IList<OrderAssignment> orderAssList = bllOrderAssignment.GetOAListByOrder(order);

@@ -19,7 +19,7 @@ public class ResponseUSM001009 : BaseResponse
     {
         ReqDataUSM001009 requestData = this.request.ReqData.ToObject<ReqDataUSM001009>();
 
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         string newPWord = requestData.newPWord;
 
         try

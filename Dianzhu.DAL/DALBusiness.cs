@@ -6,40 +6,39 @@ using Dianzhu.Model;
 using NHibernate;
 namespace Dianzhu.DAL
 {
-    public class DALBusiness :DALBase<Business>
+    public class DALBusiness : NHRepositoryBase<Business, Guid>, IDAL.IDALBusiness
     {
-        public DALBusiness():base()
-        {
-            
-        }
-        //调用基类带参构造函数,避免初始化hibernatesession.
-        public DALBusiness(string fortest):base(fortest)
-        {
-            
-        }
 
-        public void CreateBusinessAndUser(string code)
+
+        public IList<Area> GetDistinctAreasOfBusiness()
         {
-            throw new NotImplementedException();
-        }
-        public IList<Area> GetAreasOfBusiness()
-        {
-            string sql = "select  distinct b.AreaBelongTo from Business b";
-            IQuery query = Session.CreateQuery(sql);
-           IList<Area> result= query.List<Area>();
-           return result;
-            
+            IList<Area> result;
+            using (var tr = Session.BeginTransaction())
+            {
+                string sql = "select  distinct b.AreaBelongTo from Business b";
+                IQuery query = Session.CreateQuery(sql);
+                result = query.List<Area>();
+                tr.Commit();
+            }
+            return result;
+
         }
         public IList<Business> GetBusinessInSameCity(Area area)
         {
-            string sql = "select  b from Business   b"+
+            IList<Business> result;
+            using (var tr = Session.BeginTransaction())
+            {
+                string sql = "select  b from Business   b" +
                          "   inner join b.AreaBelongTo  a  "
-                         +"left join fetch b.CashTicketTemplates ct "
-                          +"   where a.Code like '%" + area.Code.Substring(0,4)+"%'";
-            
-            IQuery query = Session.CreateQuery(sql);
-            var result = query.List<Business>();
-            
+                         + "left join fetch b.CashTicketTemplates ct "
+                          + "   where a.Code like '%" + area.Code.Substring(0, 4) + "%'";
+
+                IQuery query = Session.CreateQuery(sql);
+                 result = query.List<Business>();
+
+                tr.Commit();
+            }
+
             return result;
         }
         public Business GetBusinessByPhone(string phone)
@@ -85,9 +84,17 @@ namespace Dianzhu.DAL
             return busList;
         }
 
-         public int GetEnableSum(DZMembership member)
+        public int GetEnableSum(DZMembership member)
         {
             return Session.QueryOver<Business>().Where(x => x.Owner == member).And(x => x.Enabled == true).RowCount();
+        }
+
+        public void SaveList(IList<Business> businesses)
+        {
+            foreach (Business b in businesses)
+            {
+                Session.Save(b);
+            }
         }
     }
 }

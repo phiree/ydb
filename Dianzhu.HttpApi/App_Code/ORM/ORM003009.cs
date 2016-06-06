@@ -14,14 +14,14 @@ using Dianzhu.Api.Model;
 public class ResponseORM003009 : BaseResponse
 {
     public ResponseORM003009(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataORM003009 requestData = this.request.ReqData.ToObject<ReqDataORM003009>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+         BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
 
         string user_ID = requestData.userID;
         string order_ID = requestData.orderID;

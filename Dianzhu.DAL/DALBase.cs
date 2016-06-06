@@ -12,7 +12,6 @@ using MySql.Data.MySqlClient;
 
 namespace Dianzhu.DAL
 {
-    
     /// <summary>
     ///  hibernat的 基础的CURD 实现.
     /// ISession 注入依赖
@@ -25,12 +24,9 @@ namespace Dianzhu.DAL
     /// <typeparam name="T"></typeparam>
     public class DALBase<T>
     {
-        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.DAL.DALBase");
         public DALBase()
         {
-            log.Debug("获取session");
             session = new HybridSessionBuilder().GetSession();
-
         }
         public DALBase(string fortestonly)
         { }
@@ -51,14 +47,12 @@ namespace Dianzhu.DAL
         }
         public virtual void Save(T o)
         {
-            log.Debug("Save "+o.GetType());
+
             using (var t = session.BeginTransaction())
             {
-                log.Debug("Begin transaction " + o.GetType());
                 session.Save(o);
-                log.Debug("Saved " + o.GetType());
+
                 t.Commit();
-                log.Debug("Commited " + o.GetType());
             }
 
 
@@ -230,8 +224,8 @@ namespace Dianzhu.DAL
                 {
                     //queryCount =phsu.StringHelper.BuildCountQuery(query);
 
-                    //IQuery qryCount = session.CreateQuery(queryCount);
-                   // totalRecords = (int)qryCount.UniqueResult<long>();
+                    IQuery qryCount = session.CreateQuery(queryCount);
+                    totalRecords = (int)qryCount.UniqueResult<long>();
                 }
                 returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).List<T>();
 

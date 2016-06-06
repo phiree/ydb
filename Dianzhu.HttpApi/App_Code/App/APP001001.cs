@@ -13,7 +13,7 @@ using Dianzhu.Api.Model;
 public class ResponseAPP001001:BaseResponse
 {
     BLLDeviceBind bllDeviceBind;
-    DZMembershipProvider bllMembership;
+    DZMembershipProvider bllMembership = Bootstrap.Container.Resolve<DZMembershipProvider>();
     
     DZMembership member;
 
@@ -28,7 +28,7 @@ public class ResponseAPP001001:BaseResponse
         ReqDataAPP001001 requestData = this.request.ReqData.ToObject<ReqDataAPP001001>();
 
         bllDeviceBind = new BLLDeviceBind();
-        bllMembership = new DZMembershipProvider();
+        
 
         Guid uuId;
         Guid userId;

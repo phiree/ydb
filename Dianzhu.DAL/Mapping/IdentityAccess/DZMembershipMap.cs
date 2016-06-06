@@ -28,7 +28,6 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.RecoveryCode);
             Map(x => x.AvatarUrl);
             Map(x => x.UserType).CustomType<Dianzhu.Model.Enums.enum_UserType>();
-
             Map(x => x.UserCity);
         
             

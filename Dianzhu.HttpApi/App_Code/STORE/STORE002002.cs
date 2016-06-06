@@ -23,9 +23,8 @@ public class ResponseSTORE002002 : BaseResponse
         ReqDataSTORE002002 requestData = this.request.ReqData.ToObject<ReqDataSTORE002002>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLBusiness bllBusiness = new BLLBusiness();
-
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         try
         {
             string raw_id = requestData.merchantID;
@@ -89,7 +88,7 @@ public class ResponseSTORE002002 : BaseResponse
                 };
 
                 b.BusinessImages.Add(bImage);
-                bllBusiness.SaveOrUpdate(b);
+                bllBusiness.Update(b);
 
                 RespDataSTORE002002 respData = new RespDataSTORE002002();
                 respData.imgUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + savedFileName;
