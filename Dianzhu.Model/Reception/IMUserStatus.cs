@@ -9,7 +9,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 用户的IM 状态
     /// </summary>
-    public class IMUserStatus
+    public class IMUserStatus:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 主键

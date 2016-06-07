@@ -8,7 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 订单分配详情.
     /// </summary>
-    public   class OrderAssignment
+    public   class OrderAssignment:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 构造，初始化分配时间和是否有效

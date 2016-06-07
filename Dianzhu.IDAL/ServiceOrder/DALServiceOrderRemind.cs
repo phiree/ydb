@@ -7,7 +7,7 @@ using Dianzhu.Model.Enums;
  
 namespace Dianzhu.IDAL
 {
-    public interface IDALServiceOrderRemind 
+    public interface IDALServiceOrderRemind :IRepository<ServiceOrderRemind,Guid>
     {
 
           ServiceOrderRemind GetOneByIdAndUserId(Guid Id, Guid UserId)

@@ -8,7 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 订单提醒
     /// </summary>
-    public class ServiceOrderRemind
+    public class ServiceOrderRemind:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 默认构造

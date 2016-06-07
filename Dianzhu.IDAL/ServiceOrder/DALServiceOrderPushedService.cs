@@ -6,7 +6,7 @@ using Dianzhu.Model;
 namespace Dianzhu.IDAL
 {
 
-    public interface IDALServiceOrderPushedService
+    public interface IDALServiceOrderPushedService:IRepository<ServiceOrderPushedService,Guid>
 
     {
         IList<ServiceOrderPushedService> FindByOrder(ServiceOrder order);

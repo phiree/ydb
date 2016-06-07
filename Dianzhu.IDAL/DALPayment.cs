@@ -7,7 +7,7 @@ using Dianzhu.Model;
 
 namespace Dianzhu.IDAL
 {
-    public interface IDALPayment 
+    public interface IDALPayment :IRepository<Payment,Guid>
 
     {
 

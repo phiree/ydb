@@ -11,7 +11,7 @@ namespace Dianzhu.Model
     /// 订单明细. 包含服务项快照
     /// </summary>
 
-    public class ServiceOrderPushedService
+    public class ServiceOrderPushedService:DDDCommon.Domain.Entity<Guid>
     {
 
         #region constructor

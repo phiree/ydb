@@ -8,7 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 用户和角色的对应关系
     /// </summary>
-   public  class RoleMember
+   public  class RoleMember:DDDCommon.Domain.Entity<Guid>
     {
         public virtual Guid Id { get; set; }
         public virtual DZMembership Member { get; set; }

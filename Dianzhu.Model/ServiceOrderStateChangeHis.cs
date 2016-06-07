@@ -6,7 +6,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 订单状态变化记录
     /// </summary>
-    public class ServiceOrderStateChangeHis
+    public class ServiceOrderStateChangeHis:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 构造
