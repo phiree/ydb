@@ -14,22 +14,25 @@ namespace Dianzhu.Web.RestfulApi
 {
     internal class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        ApplicationService.Client.IClientService iclientservice;
-        ApplicationService.User.IUserService iuserservice;
-        public AuthorizationServerProvider(ApplicationService.Client.IClientService iclientservice,
-        ApplicationService.User.IUserService iuserservice)
-        {
-            this.iclientservice = iclientservice;
-            this.iuserservice = iuserservice;
-        }
+        //ApplicationService.Client.IClientService iclientservice;
+        //ApplicationService.User.IUserService iuserservice;
+        //public AuthorizationServerProvider(ApplicationService.Client.IClientService iclientservice,
+        //ApplicationService.User.IUserService iuserservice)
+        //{
+        //    this.iclientservice = iclientservice;
+        //    this.iuserservice = iuserservice;
+        //}
 
-        public AuthorizationServerProvider()
-        {
-        }
+        //public AuthorizationServerProvider()
+        //{
+        //}
 
+
+        
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
+            ApplicationService.Client.IClientService iclientservice = Bootstrap.Container.Resolve<ApplicationService.Client.IClientService>();
             string clientId = string.Empty;
             string clientSecret = string.Empty;
             ClientDTO clientdto = null;
@@ -48,10 +51,11 @@ namespace Dianzhu.Web.RestfulApi
                 return Task.FromResult<object>(null);
             }
 
-            using (ApplicationService.Client.IClientService iclientservice = new ApplicationService.Client.ClientService(new BLL.Client.BLLClient (),new BLL.Client.BLLRefreshToken()))
-            {
-                clientdto = iclientservice.FindClient(context.ClientId);
-            }
+            //using (ApplicationService.Client.IClientService iclientservice = new ApplicationService.Client.ClientService(new BLL.Client.BLLClient (),new BLL.Client.BLLRefreshToken()))
+            //{
+            clientdto = iclientservice.FindClient(context.ClientId);
+            //}
+
 
             if (clientdto == null)
             {
@@ -93,14 +97,15 @@ namespace Dianzhu.Web.RestfulApi
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
 
+            ApplicationService.User.IUserService iuserservice = Bootstrap.Container.Resolve<ApplicationService.User.IUserService>();
             var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
 
             if (allowedOrigin == null) allowedOrigin = "*";
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
-            using (ApplicationService.User.IUserService iuserservice = new ApplicationService.User.UserService(new DZMembershipProvider()))
-            {
+            //using (ApplicationService.User.IUserService iuserservice = new ApplicationService.User.UserService(new DZMembershipProvider()))
+            //{
                 //UserModel user = _repo.FindUser(context.UserName, context.Password);
 
                 if (!iuserservice.ValidateUser (context.UserName, context.Password))
@@ -108,7 +113,7 @@ namespace Dianzhu.Web.RestfulApi
                     context.SetError("invalid_grant", "The user name or password is incorrect.");
                     return;
                 }
-            }
+            //}
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));

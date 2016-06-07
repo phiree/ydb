@@ -44,9 +44,10 @@ namespace Dianzhu.ApplicationService.Client
         /// 添加新的RefreshToken
         /// </summary>
         /// <param name="token"></param>
-        public void AddRefreshToken(Model.RefreshToken token)
+        public bool AddRefreshToken(RefreshTokenDTO tokendto)
         {
-            ibllrefreshtoken.AddRefreshToken(token);
+            Model.RefreshToken token = Mapper.Map<RefreshTokenDTO, Model.RefreshToken>(tokendto);
+            return ibllrefreshtoken.AddRefreshToken(token);
         }
 
         /// <summary>
@@ -62,8 +63,9 @@ namespace Dianzhu.ApplicationService.Client
         /// 删除RefreshToken
         /// </summary>
         /// <param name="refreshtoken"></param>
-        public void RemoveRefreshToken(Model.RefreshToken refreshtoken)
+        public void RemoveRefreshToken(RefreshTokenDTO tokendto)
         {
+            Model.RefreshToken refreshtoken = Mapper.Map<RefreshTokenDTO, Model.RefreshToken>(tokendto);
             ibllrefreshtoken.RemoveRefreshToken(refreshtoken);
         }
 
@@ -72,18 +74,22 @@ namespace Dianzhu.ApplicationService.Client
         /// </summary>
         /// <param name="refreshTokenId"></param>
         /// <returns></returns>
-        public Model.RefreshToken FindRefreshToken(string refreshTokenId)
+        public RefreshTokenDTO FindRefreshToken(string refreshTokenId)
         {
-            return ibllrefreshtoken.FindRefreshToken(refreshTokenId);
+            Model.RefreshToken refreshtoken= ibllrefreshtoken.FindRefreshToken(refreshTokenId);
+            RefreshTokenDTO tokendto = Mapper.Map< Model.RefreshToken, RefreshTokenDTO>(refreshtoken);
+            return tokendto;
         }
 
         /// <summary>
         /// 获取所有的RefreshToken
         /// </summary>
         /// <returns></returns>
-        public IList<Model.RefreshToken> GetAllRefreshTokens()
+        public IList<RefreshTokenDTO> GetAllRefreshTokens()
         {
-            return ibllrefreshtoken.GetAllRefreshTokens();
+            IList < Model.RefreshToken > refreshtoken = ibllrefreshtoken.GetAllRefreshTokens();
+            IList < RefreshTokenDTO> tokendto = Mapper.Map< IList<Model.RefreshToken>, IList< RefreshTokenDTO> >(refreshtoken);
+            return tokendto;
         }
 
         public void Dispose()

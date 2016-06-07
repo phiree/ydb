@@ -17,6 +17,9 @@ namespace Dianzhu.ApplicationService.Mapping
 
         protected override void Configure()
         {
+            Mapper.CreateMap<Model.Client,ClientDTO > ();
+            Mapper.CreateMap<Model.RefreshToken,RefreshTokenDTO > ();
+            Mapper.CreateMap<Model.DZMembership,userObj>();
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();
             //Mapper.CreateMap<FocusFormModel, Focus>();

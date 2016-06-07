@@ -25,7 +25,7 @@ namespace Dianzhu.ApplicationService.Client
         /// 添加新的RefreshToken
         /// </summary>
         /// <param name="token"></param>
-        void AddRefreshToken(Model.RefreshToken token);
+        bool AddRefreshToken(RefreshTokenDTO tokendto);
 
         /// <summary>
         /// 根据Id删除RefreshToken
@@ -37,19 +37,19 @@ namespace Dianzhu.ApplicationService.Client
         /// 删除RefreshToken
         /// </summary>
         /// <param name="refreshtoken"></param>
-        void RemoveRefreshToken(Model.RefreshToken refreshtoken);
+        void RemoveRefreshToken(RefreshTokenDTO tokendto);
 
         /// <summary>
         /// 根据Id获取RefreshToken
         /// </summary>
         /// <param name="refreshTokenId"></param>
         /// <returns></returns>
-        Model.RefreshToken FindRefreshToken(string refreshTokenId);
+        RefreshTokenDTO  FindRefreshToken(string refreshTokenId);
 
         /// <summary>
         /// 获取所有的RefreshToken
         /// </summary>
         /// <returns></returns>
-        IList<Model.RefreshToken> GetAllRefreshTokens();
+        IList<RefreshTokenDTO> GetAllRefreshTokens();
     }
 }

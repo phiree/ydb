@@ -12,7 +12,7 @@ namespace Dianzhu.BLL.Client
         /// 添加新的RefreshToken
         /// </summary>
         /// <param name="token"></param>
-        void AddRefreshToken(Model.RefreshToken token);
+        bool AddRefreshToken(Model.RefreshToken token);
 
         /// <summary>
         /// 根据Id删除RefreshToken

@@ -17,7 +17,7 @@ namespace Dianzhu.DAL
         /// 添加新的RefreshToken
         /// </summary>
         /// <param name="token"></param>
-        public void AddRefreshToken(Model.RefreshToken token)
+        public bool AddRefreshToken(Model.RefreshToken token)
         {
             using (var x = Session.Transaction)
             {
@@ -30,8 +30,15 @@ namespace Dianzhu.DAL
                     Session.Delete(existingToken);
                 }
 
-                Session.Save(token);
+                //Session.Save(token);
+                bool b = true;
+                try
+                {
+                    Session.Save(token);
+                }
+                catch { b = false; }
                 x.Commit();
+                return b;
             }
         }
 

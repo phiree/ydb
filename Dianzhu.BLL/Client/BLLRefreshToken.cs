@@ -14,9 +14,9 @@ namespace Dianzhu.BLL.Client
         /// 添加新的RefreshToken
         /// </summary>
         /// <param name="token"></param>
-        public void AddRefreshToken(Model.RefreshToken token)
+        public bool AddRefreshToken(Model.RefreshToken token)
         {
-            dalrefreshtoken.AddRefreshToken(token);
+            return dalrefreshtoken.AddRefreshToken(token);
         }
 
         /// <summary>
