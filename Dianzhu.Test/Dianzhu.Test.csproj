@@ -42,6 +42,10 @@
       <HintPath>..\packages\Castle.Core.3.3.1\lib\net40-client\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FizzWare.NBuilder, Version=3.0.1.0, Culture=neutral, PublicKeyToken=5651b03e12e42c12, processorArchitecture=MSIL">
       <HintPath>..\packages\NBuilder.3.0.1.1\lib\FizzWare.NBuilder.dll</HintPath>
       <Private>True</Private>
@@ -97,10 +101,6 @@
       <HintPath>..\packages\TestStack.Dossier.3.1.1\lib\NET40\TestStack.Dossier.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebFormsMvp, Version=1.4.5.0, Culture=neutral, PublicKeyToken=537f18701145dff0, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebFormsMVP.1.4.5.0\lib\WebFormsMvp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLTest\Finance\BLLOrderShare.cs" />
@@ -112,6 +112,7 @@
     <Compile Include="BLLTest\TestBLLServiceOrder.cs" />
     <Compile Include="BLLTest\TestDZService.cs" />
     <Compile Include="BLLTest\TestReceptionAssign.cs" />
+    <Compile Include="Bootstrap.cs" />
     <Compile Include="CashTicketCreateTest.cs" />
     <Compile Include="cashticket_generator_test.cs" />
     <Compile Include="DALTest\DALService.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="DianzhuNotifyCenterTest\OrderNotifyTest.cs" />
     <Compile Include="DianzhuPushTest\TestPush.cs" />
     <Compile Include="dianzhu_test.cs" />
+    <Compile Include="DZCSClientTest\LoginPresenterTest.cs" />
     <Compile Include="DZCSClientTest\MainPresenterTest.cs" />
     <Compile Include="DZCSClientTest\MessageAdapterTest\MessageAdapterTest.cs" />
     <Compile Include="DZCSClientTest\MessageBuildTest.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="DZCSClientTest\PCustomerListTest.cs" />
     <Compile Include="DZCSClientTest\PIdentityListTest.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
+    <Compile Include="Installer.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />
     <Compile Include="ModelTest\DZServiceTest.cs" />
@@ -161,6 +164,10 @@
     <None Include="TestFiles\商务服务类最新版-表格.xls" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
+      <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
+      <Name>DDDCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
       <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
       <Name>Dianzhu.BLL</Name>
@@ -196,6 +203,14 @@
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">
       <Project>{2E67AA78-6780-42BD-A3AB-AD953781E511}</Project>
       <Name>Dianzhu.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Dependency\Dianzhu.Dependency.csproj">
+      <Project>{f5f67c69-f9ee-4222-9f83-91c816fc686c}</Project>
+      <Name>Dianzhu.Dependency</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.IDAL\Dianzhu.IDAL.csproj">
+      <Project>{43e8ffa6-60e9-40ca-a7a8-cec8008519dd}</Project>
+      <Name>Dianzhu.IDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Model\Dianzhu.Model.csproj">
       <Project>{84187F7C-DD53-4895-A7FF-191E76756009}</Project>

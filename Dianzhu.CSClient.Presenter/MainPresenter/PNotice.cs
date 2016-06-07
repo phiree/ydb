@@ -16,7 +16,7 @@ namespace Dianzhu.CSClient.Presenter
         public PNotice(IView.IViewNotice viewNotice, InstantMessage iIM)
         {
             this.viewNotice = viewNotice;
-
+            
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
         }
 

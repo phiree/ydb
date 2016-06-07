@@ -6,7 +6,7 @@
     {
        
         PHSuit.Logging.Config("Dianzhu.Web.Pay");
-        
+        Bootstrap.Boot();
     }
 
     void Application_End(object sender, EventArgs e)

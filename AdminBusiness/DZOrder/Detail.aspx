@@ -253,11 +253,11 @@
         </div>
     </script>
     <script src="/js/libs/underscore.js"></script>
-    <script src="/js/test/mock.js"></script>
-    <script src="/js/jquery.lightBox_me.js"></script>
-    <script src="/js/interfaceAdapter.js"></script>
-    <script src="/js/appointToOrder.js"></script>
-    <script src="/js/select.js"></script>
+    <script src="/js/mock/mock.js"></script>
+    <script src="/js/plugins/jquery.lightbox_me.js"></script>
+    <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
+    <script src="/js/apps/appointToOrder.js?v=1.0.0"></script>
+    <script src="/js/components/select.js?v=1.0.0"></script>
     <script>
         $(function(){
             $(".select").customSelect();

@@ -6923,8 +6923,8 @@ a.time-trigger:hover {
   position: absolute;
   width: 18px;
   height: 18px;
-  right: 2px;
-  top: 2px;
+  right: 5px;
+  top: 5px;
   z-index: 12;
   border: 0;
   background: url("../images/components/inputFile/delete_icon_91.png") no-repeat center;
@@ -7373,7 +7373,7 @@ a.time-trigger:hover {
 /* 空店铺时添加样式 */
 .empty-biz {
   text-align: center;
-  padding-top: 80px;
+  padding-top: 100px;
   min-height: 600px;
 }
 .empty-biz-add {

@@ -168,6 +168,8 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                        data-toggle="tooltip" data-placement="top" title="请填写店铺负责人姓名"/>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-5">
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">证件类型</div>
                                                             <div class="col-md-8 model-input">
@@ -180,9 +182,6 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                    </div>
-                                                    <div class="col-md-5">
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">证件号码</div>
                                                             <div class="col-md-8 model-input">
@@ -289,13 +288,12 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
     <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" ></script>
-    <script src="/js/jquery.form.min.js"></script>
-    <script src="/js/jquery.lightbox_me.js"></script>
-    <script src="/js/stepByStep.js"></script>
-    <!--<script src="/js/imgUpload.js"></script>-->
-    <script src="/js/imageUpload.js"></script>
-    <script src="/js/validation_shop_edit.js"></script>
-    <script src="/js/select.js"></script>
+    <script src="/js/plugins/jquery.form.min.js"></script>
+    <script src="/js/plugins/jquery.lightbox_me.js"></script>
+    <script src="/js/widgets/stepByStep.js?v=1.0.0"></script>
+    <script src="/js/components/imageUpload.js?v=1.0.0"></script>
+    <script src="/js/apps/validation/validation_shop_edit.js?v=1.0.0"></script>
+    <script src="/js/components/select.js?v=1.0.0"></script>
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip(

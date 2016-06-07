@@ -14,14 +14,17 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLCashTicket
     {
-       
-        public DALCashTicket DALCashTicket=DALFactory.DALCashTicket;
 
+        IDAL.IDALCashTicket dalCashTicket;
+        public BLLCashTicket(IDAL.IDALCashTicket dalCashTicket)
+        {
+            this.dalCashTicket = dalCashTicket;
+        }
         public DALCashTicketCreateRecord DALCashTicketCreateRecord = DALFactory.DALCashTicketCreateRecord;
 
         public CashTicket GetOne(Guid id)
         {
-            return DALCashTicket.GetOne(id);
+            return dalCashTicket.FindById(id);
         }
         public BLLCashTicket()
         {
@@ -54,23 +57,23 @@ namespace Dianzhu.BLL
 
         public IList<CashTicket> GetListForBusiness(Guid businessId)
         {
-            return DALCashTicket.GetCashTicketListForBusiness(businessId);
+            return dalCashTicket.GetCashTicketListForBusiness(businessId);
         }
-        public void SaveOrUpdate(CashTicket cashticket)
+        public void Update(CashTicket cashticket)
         {
-            DALCashTicket.SaveOrUpdate(cashticket);
+            dalCashTicket.Update(cashticket);
         }
         public IList<CashTicket> GetListForCustomer(Guid memebrId)
         {
-            return DALCashTicket.GetListForCustomer(memebrId);
+            return dalCashTicket.GetListForCustomer(memebrId);
         }
         public int GetCount(Guid memberid, enum_CashTicketSearchType searchType)
         {
-            return DALCashTicket.GetCount(memberid, searchType);
+            return dalCashTicket.GetCount(memberid, searchType);
         }
         public IList<CashTicket> GetCashTicketList(Guid memberId, enum_CashTicketSearchType searchType, int pageIndex, int pageSize)
         {
-            return DALCashTicket.GetCashTicketList(memberId, searchType, pageIndex, pageSize);
+            return dalCashTicket.GetCashTicketList(memberId, searchType, pageIndex, pageSize);
         }
 
         

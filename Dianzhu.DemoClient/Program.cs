@@ -11,7 +11,7 @@ namespace Dianzhu.DemoClient
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -23,7 +23,7 @@ namespace Dianzhu.DemoClient
                 MessageBox.Show("配置冲突,即将退出");
                 return;
             }
-            Application.Run(new FmMain());
+            Application.Run(new FmMain(args));
         }
     }
 }

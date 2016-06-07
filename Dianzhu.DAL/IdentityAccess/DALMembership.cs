@@ -4,36 +4,27 @@ using System.Linq;
 using System.Text;
 using NHibernate;
 using Dianzhu;
- 
+
 using System.Net.Mail;
+using Dianzhu.IDAL;
+using Dianzhu.Model;
+using Dianzhu.Model.Enums;
+using System.Linq.Expressions;
+
 namespace Dianzhu.DAL
 {
-    public class DALMembership :DALBase<Model.DZMembership>
+    public class DALMembership : NHRepositoryBase<Model.DZMembership, Guid>, IDAL.IDALMembership// DALBase<Model.DZMembership>
     {
-        public DALMembership()
-        {
-             
-        }
-        //注入依赖,供测试使用;
-    public DALMembership(string fortest):base(fortest)
-        {
-            
-        }
-         
+
+
         public void CreateUser(Model.DZMembership user)
         {
-            Save(user);
+            Add(user);
         }
 
-        public void CreateUpdateMember(Model.DZMembership member)
-        {
-
-            SaveOrUpdate(member);
-             
-        }
         /// <summary>
         ///ddd:domainservice
-        ///通过名字获取列表 属于 领域服务.
+        ///通过名字获取列表 属于 应用服务.
         /// </summary>
         /// <param name="userNames"></param>
         /// <returns></returns>
@@ -52,136 +43,98 @@ namespace Dianzhu.DAL
         }
         public Model.DZMembership ValidateUser(string username, string password)
         {
-               IQuery query = Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
-                Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
-              return member;
+            //IQuery query =   Session.CreateQuery("select u from DZMembership as u where u.UserName='" + username + "' and u.Password='" + password + "'");
+            // Model.DZMembership member = query.FutureValue<Model.DZMembership>().Value;
+
+            var test = FindOne(x => ((DZMembershipQQ)x).OpenId == "4298A4AF0296BB6DE817D54DBE7FD20F");
+            var member = FindOne(x => x.UserName == username && x.Password == password);
+            return member;
         }
 
 
         public Model.DZMembership GetMemberByName(string username)
         {
-            if (string.IsNullOrEmpty(username)) return null;
-            username = username.Replace("||", "@");
-            Model.DZMembership user = null;
-            Action a = () => {
-                user = Session.QueryOver<Model.DZMembership>().Where(x=>x.UserName== username).FutureValue().Value;
-               // user = query.UniqueResult<Model.DZMembership>();
-            };
-            TransactionCommit(a);
+
+            var user = FindOne(x => x.UserName == username);
+            //  TransactionCommit(a);
             return user;
-           
+
         }
 
-       
 
-         
+
+
         public Model.DZMembership GetMemberById(Guid memberId)
         {
-            Model.DZMembership member=null;
-            IQuery query = Session.CreateQuery("select m from  DZMembership as m where Id='" + memberId + "'");
-
-            Action a = () => { member = query.UniqueResult<Model.DZMembership>(); };
-            TransactionCommit(a);
+            var member = FindOne(x => x.Id == memberId);
             return member;
         }
         public Model.DZMembership GetMemberByEmail(string email)
         {
-          return  Session.QueryOver<Model.DZMembership>().Where(x => x.Email == email).SingleOrDefault();
+            //return  Session.QueryOver<Model.DZMembership>().Where(x => x.Email == email).SingleOrDefault();
+            var member = FindOne(x => x.Email == email);
+            return member;
         }
         public Model.DZMembership GetMemberByWechatOpenId(string openid)
         {
-            return Session.QueryOver<Model.DZMembershipWeChat>().Where(x => x.OpenId == openid).SingleOrDefault();
+            // return Session.QueryOver<Model.DZMembershipWeChat>().Where(x => x.OpenId == openid).SingleOrDefault();
+            var member = FindOne(x => ((Dianzhu.Model.DZMembershipWeChat)x).OpenId == openid);
+            return member;
         }
         public Model.DZMembership GetMemberByQQOpenId(string openid)
         {
-            return Session.QueryOver<Model.DZMembershipQQ>().Where(x => x.OpenId == openid).SingleOrDefault();
+            //  return Session.QueryOver<Model.DZMembershipQQ>().Where(x => x.OpenId == openid).SingleOrDefault();
+            var member = FindOne(x => ((Dianzhu.Model.DZMembershipQQ)x).OpenId == openid);
+            return member;
         }
         public Model.DZMembership GetMemberBySinaWeiboUid(long uid)
         {
-            return Session.QueryOver<Model.DZMembershipSinaWeibo>().Where(x => x.UId == uid).SingleOrDefault();
+            //return Session.QueryOver<Model.DZMembershipSinaWeibo>().Where(x => x.UId == uid).SingleOrDefault();
+            var member = FindOne(x => ((Dianzhu.Model.DZMembershipSinaWeibo)x).UId == uid);
+            return member;
         }
         public Model.DZMembership GetMemberByPhone(string phone)
-        { return Session.QueryOver<Model.DZMembership>().Where(x => x.Phone == phone).SingleOrDefault(); }
+        { return FindOne(x => x.Phone == phone); }
 
-        public IList<Model.DZMembership> GetAllUsers()
-        {
-            IQuery query = Session.CreateQuery("select u from DZMembership u ");
-            return query.List<Model.DZMembership>();
-        }
 
         public IList<Model.DZMembership> GetAllUsers(int pageIndex, int pageSize, out long totalRecord)
         {
-            IQuery qry = Session.CreateQuery("select u from DZMembership u order by u.TimeCreated desc");
-            IQuery qryTotal = Session.CreateQuery("select count(*) from DZMembership u ");
-            List<Model.DZMembership> memList = qry.List<Model.DZMembership>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
-            totalRecord = qryTotal.UniqueResult<long>();
-            return memList;
-        }
 
-        public IList<Model.DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecord)
+            Expression<Func<Model.DZMembership, bool>> where = i => true;
+            var result = Find(where, pageIndex, pageSize, out totalRecord).ToList();
+            return result;
+        }
+        public IList<DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecords)
         {
-            return GetUserList(Model.Enums.enum_UserType.customer, pageIndex, pageSize, out totalRecord);
-        }
-        private IList<Model.DZMembership> GetUserList(Model.Enums.enum_UserType? userType,
-            int pageIndex, int pageSize, out long totalRecord)
-        {
-            var query = Session.QueryOver<Model.DZMembership>().Where(x=>x.Id==x.Id);
-            if (userType.HasValue)
-            {
-                query = query.And(x => x.UserType == userType.Value);
-            }
-
-            totalRecord = query.RowCount();
-            return query.List().Skip(pageIndex*pageSize).Take(pageSize).ToList();
-        }
-        //public Model.ScenicAdmin GetScenicAdmin(Guid id)
-        //{
-        //    IQuery query = session.CreateQuery("select sa from ScenicAdmin sa where sa.Membership.Id='" + id + "'");
-        //    IFutureValue<Model.ScenicAdmin> sa = query.FutureValue<Model.ScenicAdmin>();
-        //    if (sa == null) return null;
-        //    return sa.Value;
-        //}
-
-
-
-
-
-        public void ChangePassword(Model.DZMembership member)
-        {
-            using (var x = Session.Transaction)
-            {
-                x.Begin();
-                Session.Update(member);
-                x.Commit();
-            }
-
+            Expression<Func<Model.DZMembership, bool>> where = i => i.UserType== enum_UserType.customer;
+            var result = Find(where, pageIndex, pageSize, out totalRecords).ToList();
+            return result;
         }
 
 
-        public Model.BusinessUser GetBusinessUser(Guid id)
-        {
-            IQuery query = Session.CreateQuery("select m from  BusinessUser as m where Id='" + id + "'");
-            Model.BusinessUser member = query.UniqueResult<Model.BusinessUser>();
-            return member;
-        }
         public IList<Model.DZMembership> GetAll()
         {
-            return GetAll<Model.DZMembership>();
+            return Find(x => true).ToList();
         }
         public Model.BusinessUser CreateBusinessUser(string username, string password, Model.Business business)
         {
-            
-            Model.BusinessUser member =  new Model.BusinessUser
-            { UserName = username, Password = password, TimeCreated = DateTime.Now, BelongTo = business,
-             LastLoginTime=DateTime.Now,
-            RegisterValidateCode=Guid.NewGuid().ToString(),IsRegisterValidated=false};
-            Save(member);
+
+            Model.BusinessUser member = new Model.BusinessUser
+            {
+                UserName = username,
+                Password = password,
+                TimeCreated = DateTime.Now,
+                BelongTo = business,
+                LastLoginTime = DateTime.Now,
+                RegisterValidateCode = Guid.NewGuid().ToString(),
+                IsRegisterValidated = false
+            };
+            Add(member);
 
             //send validation email
 
             return member;
         }
-        
-        
+ 
     }
 }

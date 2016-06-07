@@ -11,7 +11,7 @@ namespace Dianzhu.Model
     /// 基本的用户类.
     /// </summary>
   
-    public class DZMembership
+    public class DZMembership:DDDCommon.Domain.Entity<Guid>
     {
         public DZMembership()
         {
@@ -124,11 +124,11 @@ namespace Dianzhu.Model
             }
         }
         /// <summary>
-        /// 用户所在城市
+        /// 用户所属城市
         /// </summary>
         public virtual string UserCity { get; set; }
-
-        
+ 
+ 
     }
     /// <summary>
     /// 商家相关用户.

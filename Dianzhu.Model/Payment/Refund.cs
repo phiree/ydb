@@ -9,7 +9,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 退款项. 每个订单可能有多次退款项
     /// </summary>
-    public class Refund
+    public class Refund:DDDCommon.Domain.Entity<Guid>
     {
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model");

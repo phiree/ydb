@@ -37,6 +37,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tbxOrderId = new System.Windows.Forms.TextBox();
+            this.btnAdvList = new System.Windows.Forms.Button();
             this.btnOnlineUsers = new System.Windows.Forms.Button();
             this.lblAssignedCS = new System.Windows.Forms.Label();
             this.tbxManualAssignedCS = new System.Windows.Forms.TextBox();
@@ -106,6 +107,7 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.tbxOrderId);
+            this.panel1.Controls.Add(this.btnAdvList);
             this.panel1.Controls.Add(this.btnOnlineUsers);
             this.panel1.Controls.Add(this.lblAssignedCS);
             this.panel1.Controls.Add(this.tbxManualAssignedCS);
@@ -146,6 +148,16 @@
             this.tbxOrderId.Name = "tbxOrderId";
             this.tbxOrderId.Size = new System.Drawing.Size(229, 21);
             this.tbxOrderId.TabIndex = 11;
+            // 
+            // btnAdvList
+            // 
+            this.btnAdvList.Location = new System.Drawing.Point(686, 9);
+            this.btnAdvList.Name = "btnAdvList";
+            this.btnAdvList.Size = new System.Drawing.Size(75, 23);
+            this.btnAdvList.TabIndex = 8;
+            this.btnAdvList.Text = "AdvertisementList";
+            this.btnAdvList.UseVisualStyleBackColor = true;
+            this.btnAdvList.Click += new System.EventHandler(this.btnAdvList_Click);
             // 
             // btnOnlineUsers
             // 
@@ -336,5 +348,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbxManualAssignedCS;
         private System.Windows.Forms.RichTextBox tbxLog;
+        private System.Windows.Forms.Button btnAdvList;
     }
 }

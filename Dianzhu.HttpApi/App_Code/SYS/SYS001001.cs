@@ -14,8 +14,7 @@ public class ResponseSYS001001:BaseResponse
 {
     BLLReceptionChatDD bllReceptionChatDD;
     DZMembershipProvider bllMember;
-    BLLServiceOrder bllOrder;
-
+    public IBLLServiceOrder bllOrder { get; set; }
     public ResponseSYS001001(BaseRequest request):base(request)
     {
         //
@@ -27,8 +26,8 @@ public class ResponseSYS001001:BaseResponse
         ReqDataSYS001001 requestData = this.request.ReqData.ToObject<ReqDataSYS001001>();
 
         bllReceptionChatDD = new BLLReceptionChatDD();
-        bllMember = new DZMembershipProvider();
-        bllOrder = new BLLServiceOrder();
+        bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
+
 
         try
         {

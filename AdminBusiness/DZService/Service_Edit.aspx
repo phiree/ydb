@@ -80,25 +80,25 @@
     <script src="/js/libs/json2.js"></script>
     <script src="/js/libs/underscore.js"></script>
     <script src="/js/libs/backbone.js"></script>
-    <script src="/js/libs/backbone.customApi.js"></script>
-    <script src="/js/interfaceAdapter.js"></script>
+    <script src="/js/core/backbone.customApi.js?v=1.0.0"></script>
+    <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
     <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
     <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js' ></script>
-    <script src="/js/jquery.form.min.js"></script>
-    <script src="/js/jquery.lightbox_me.js"></script>
-    <script src="/js/ServiceType.js"></script>
-    <script src="/js/stepByStep.js"></script>
-    <script src="/js/CascadeCheck.js"></script>
-    <script src="/js/timePick.js"></script>
-    <script src="/js/validation_service_edit.js"></script>
-    <script src="/js/test/mock.js"></script>
-    <script src="/js/test/mock.workTimeset.js"></script>
-    <script src="/js/workTimeSet.js"></script>
-    <script src="/js/CityList.js"></script>
-    <script src="/js/baiduMapLib.js"></script>
-    <script src="/js/service.js"></script>
-    <script src="/js/iptag.js"></script>
-    <script src="/js/select.js"></script>
+    <script src="/js/plugins/jquery.form.min.js"></script>
+    <script src="/js/plugins/jquery.lightbox_me.js"></script>
+    <script src="/js/core/ServiceType.js?v=20160517"></script>
+    <script src="/js/widgets/stepByStep.js?v=1.0.0"></script>
+    <script src="/js/widgets/CascadeCheck.js?v=1.0.0"></script>
+    <script src="/js/components/timePick.js?v=1.0.0"></script>
+    <script src="/js/apps/validation/validation_service_edit.js?v=1.0.0"></script>
+    <script src="/js/mock/mock.js"></script>
+    <script src="/js/mock/mock.workTimeset.js"></script>
+    <script src="/js/apps/workTimeSet.js?v=1.0.0"></script>
+    <script src="/js/vendors/CityList.js"></script>
+    <script src="/js/libs/baiduMapLib.js"></script>
+    <script src="/js/apps/pages/service.js?v=1.0.0"></script>
+    <script src="/js/components/iptag.js?v=1.0.0"></script>
+    <script src="/js/components/select.js?v=1.0.0"></script>
     <script>
         $(function () {
             $(".steps-wrap").stepByStep({

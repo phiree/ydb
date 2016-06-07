@@ -7,6 +7,7 @@
     static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
     void Application_Start(object sender, EventArgs e)
     {
+        Bootstrap.Boot();
         //Code that runs on application startup
         //init xmpp conenction 
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.

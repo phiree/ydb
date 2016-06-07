@@ -10,7 +10,7 @@ using System.Data;
 
 public partial class order_detail : System.Web.UI.Page
 {
-    BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+    IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     ServiceOrder serviceorder;
 
     string strID;//链接字符串

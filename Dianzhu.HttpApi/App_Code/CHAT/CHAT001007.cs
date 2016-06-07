@@ -17,10 +17,11 @@ public class ResponseCHAT001007:BaseResponse
         // TODO: Add constructor logic here
         //
     }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataCHAT001007 requestData = this.request.ReqData.ToObject<ReqDataCHAT001007>();
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         string raw_id = requestData.userID;
         DZMembership member;
         if (request.NeedAuthenticate)
@@ -37,7 +38,7 @@ public class ResponseCHAT001007:BaseResponse
         }
         BLLReception bllReception = new BLLReception();
         BLLReceptionChat bllReceptionChat = new BLLReceptionChat();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+        
         int rowCount;
         Guid orderId = Guid.Empty;
 

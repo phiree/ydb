@@ -9,7 +9,8 @@ using Dianzhu.Model;
 
 public partial class customer_ToExcel : System.Web.UI.Page
 {
-    DZMembershipProvider dzmp = new DZMembershipProvider();
+    DZMembershipProvider dzmp = Bootstrap.Container.Resolve<DZMembershipProvider>();
+    VMCustomerAdapter vmcAdapter = Bootstrap.Container.Resolve<VMCustomerAdapter>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -56,7 +57,7 @@ public partial class customer_ToExcel : System.Web.UI.Page
         {
 
             IList<DZMembership> list = dzmp.GetAllCustomer(currentPageIndex, intSize, out totalRecord);
-            vmList = new VMCustomerAdapter().AdaptList(list);
+            vmList = vmcAdapter.AdaptList(list);
             System.Web.HttpRuntime.Cache.Insert(cache_key, vmList);
             System.Web.HttpRuntime.Cache.Insert(cache_key_vmcount, totalRecord);
         }

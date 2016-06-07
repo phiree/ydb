@@ -11,5 +11,6 @@ namespace Dianzhu.CSClient.IView
         void ShowMessage(string message);
         void CloseApplication();
         bool? ShowDialog();
+        string FormTitle { set; }
     }
 }

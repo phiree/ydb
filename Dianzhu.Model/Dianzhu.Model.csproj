@@ -66,10 +66,12 @@
     <Compile Include="Claims.cs" />
     <Compile Include="Payment\RefundLog.cs" />
     <Compile Include="Payment\Refund.cs" />
+    <Compile Include="Resource\Specs\AdvertisementSpec\AdvertisementInPeriod.cs" />
+    <Compile Include="Resource\Specs\AdvertisementSpec\AdvertisementUseful.cs" />
     <Compile Include="ServiceOrderRemind.cs" />
     <Compile Include="Agent\Agent.cs" />
     <Compile Include="Complaint.cs" />
-    <Compile Include="Advertisement.cs" />
+    <Compile Include="Resource\Advertisement.cs" />
     <Compile Include="IdentityAccess\MembershipFactory.cs" />
     <Compile Include="IdentityAccess\RoleMember.cs" />
     <Compile Include="Reception\IMUserStatus.cs" />
@@ -119,6 +121,12 @@
   <ItemGroup>
     <Folder Include="NewFolder1\" />
     <Folder Include="Resource\Agent\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
+      <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
+      <Name>DDDCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

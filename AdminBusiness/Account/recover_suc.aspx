@@ -12,7 +12,7 @@
     <link href='http://api.youziku.com/webfont/CSS/568e353ff629d80f4cd910a7' rel='stylesheet' type='text/css' />
     <link rel="Stylesheet" href="/css/main.css" type="text/css" />
     <!--[if lte IE 9]>
-    <script src="/js/respond.min.js"></script>
+    <script src="/js/plugins/respond.min.js"></script>
     <![endif]-->
 </head>
 <body class="register-body">
