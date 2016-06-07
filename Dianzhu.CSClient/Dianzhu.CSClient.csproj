@@ -49,6 +49,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -158,14 +159,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Content Include="..\AdminBusiness\config\connectionstrings.config">
-      <Link>config\connectionstrings.config</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="App.config">
       <SubType>Designer</SubType>
       <TransformOnBuild>true</TransformOnBuild>
     </None>
+    <Content Include="..\AdminBusiness\config\connectionstrings.config">
+      <Link>config\connectionstrings.config</Link>
+    </Content>
     <Content Include="favicon.ico" />
     <None Include="App.Debug.config">
       <DependentUpon>App.config</DependentUpon>

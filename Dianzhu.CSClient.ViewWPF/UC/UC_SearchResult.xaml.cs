@@ -44,13 +44,21 @@ namespace Dianzhu.CSClient.ViewWPF
                     //{
                     //    LoadServiceToPanel(service);
                     //}Hashtable ht = (Hashtable)list[i];
+                    UC_ShelfService shelfService;
+                    int num = 1;
                     foreach (DZService service in searchedService)
                     {
                         if (pnlSearchResult.FindName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString())) != null)
                         {
                             pnlSearchResult.UnregisterName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()));
                         }
-                        LoadServiceToPanel(service);
+                        //LoadServiceToPanel(service);
+                        shelfService = new UC_ShelfService();
+                        shelfService.LoadData(service, num);
+
+                        pnlSearchResult.Children.Add(shelfService);
+
+                        num++;
                     }
 
 
@@ -59,25 +67,25 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public bool BtnPush
-        {
-            get { return btnPush.IsEnabled; }
-            set
-            {
-                Action lambda = () =>
-                {
-                    btnPush.IsEnabled = value;
-                };
-                if (!Dispatcher.CheckAccess())
-                {
-                    Dispatcher.Invoke(lambda);
-                }
-                else
-                {
-                    lambda();
-                }
-            }
-        }
+        //public bool BtnPush
+        //{
+        //    get { return btnPush.IsEnabled; }
+        //    set
+        //    {
+        //        Action lambda = () =>
+        //        {
+        //            btnPush.IsEnabled = value;
+        //        };
+        //        if (!Dispatcher.CheckAccess())
+        //        {
+        //            Dispatcher.Invoke(lambda);
+        //        }
+        //        else
+        //        {
+        //            lambda();
+        //        }
+        //    }
+        //}
 
         private void LoadServiceToPanel(DZService service)
         {

@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC.UC_ScrollView"
+﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC_ScrollView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF.UC"
+             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
     <Grid>
@@ -49,17 +49,8 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type RepeatButton}">
-                            <Border x:Name="Border" CornerRadius="2" BorderBrush="DarkSlateGray" BorderThickness="1">
-                                <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStop Offset="0" Color="White"/>
-                                            <GradientStop Offset="1" Color="#CDCDCD"/>
-                                        </LinearGradientBrush.GradientStops>
-                                    </LinearGradientBrush>
-                                </Border.Background>
-                                <Path HorizontalAlignment="Center" VerticalAlignment="Center" Fill="DarkSlateBlue" Data="{Binding Path=Content,
-                       RelativeSource={RelativeSource TemplatedParent}}"  />
+                            <Border x:Name="Border" CornerRadius="2" BorderBrush="DarkSlateGray">
+                                <Path HorizontalAlignment="Center" VerticalAlignment="Center" Fill="White" Data="{Binding Path=Content,RelativeSource={RelativeSource TemplatedParent}}"/>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
@@ -112,21 +103,19 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Thumb}">
-                            <Border x:Name="border" CornerRadius="3" BorderBrush="Silver" BorderThickness="1">
+                            <Border x:Name="border" Width="12" CornerRadius="4" BorderBrush="#4CBFBFBF" BorderThickness="0,0,2,2" Margin="0,0,-2,0">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStop Offset="0" Color="LightSteelBlue"/>
-                                            <GradientStop Offset="1" Color="White"/>
-                                        </LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#FFf0f2f1" Offset="0"></GradientStop>
+                                        <GradientStop Color="#FFDDDDDD" Offset="1"></GradientStop>
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
-                            <ControlTemplate.Triggers>
+                            <!--<ControlTemplate.Triggers>
                                 <Trigger Property="IsDragging" Value="True">
                                     <Setter Property="Background" TargetName="border" Value="#7F7F7F"/>
                                 </Trigger>
-                            </ControlTemplate.Triggers>
+                            </ControlTemplate.Triggers>-->
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -135,20 +124,31 @@
 
             <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
                 <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
-                <Setter Property="Background" Value="#FBFBFB" />
+                <Setter Property="Background" Value="#FFE9EBEA" />
                 <Setter Property="Width" Value="16" />
-                <Setter Property="MinWidth" Value="16" />
+                <Setter Property="MinWidth" Value="16"/>
+                <Setter Property="Margin" Value="1"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ScrollBar}">
                             <Grid>
+                                <Grid.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Color="#FFc0c0c0" Offset="0"></GradientStop>
+                                        <GradientStop Color="#FFcecece" Offset="0.2"></GradientStop>
+                                        <GradientStop Color="#FFcecece" Offset="0.8"></GradientStop>
+                                        <GradientStop Color="#FFc0c0c0" Offset="1"></GradientStop>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="16" />
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="16" />
                                 </Grid.RowDefinitions>
                                 <RepeatButton Grid.Row="0" Style="{DynamicResource ScrollBar_LineButton}" Command="ScrollBar.LineUpCommand" Content="M 0 4 L 7 4 L 3.5 0 Z" />
-                                <Border Grid.Row="1" BorderBrush="DarkBlue" BorderThickness="1" Background="{TemplateBinding Background}" CornerRadius="2" />
+                                <Border Grid.Row="1" BorderThickness="0" BorderBrush="#4CBFBFBF" CornerRadius="5"/>
+
                                 <Track Grid.Row="1" Name="PART_Track" IsDirectionReversed="true">
                                     <Track.DecreaseRepeatButton>
                                         <RepeatButton Style="{StaticResource ScrollBar_PageButton}"/>
@@ -203,7 +203,7 @@
             </Style>
         </Grid.Resources>
 
-        <ScrollViewer x:Name="sc" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="0" Grid.Column="0">
+        <ScrollViewer x:Name="sc" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="0" Grid.Column="0">
             <StackPanel x:Name="StackPanel" CanVerticallyScroll="True" SizeChanged="sp_SizeChanged">
                 
             </StackPanel>

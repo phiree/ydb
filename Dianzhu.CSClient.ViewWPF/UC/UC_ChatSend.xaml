@@ -4,21 +4,97 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
-             mc:Ignorable="d" d:DesignWidth="300" Height="52.258">
-    <Grid>
-        <StackPanel>
-            <WrapPanel>
-                <TextBox x:Name="tbxTextMessage"   VerticalAlignment="Top" Width="200" KeyDown="tbxTextMessage_KeyDown"/>
-                <Button x:Name="btnSendTextMessage" Content="发送"   Width="75" Click="btnSendTextMessage_Click"/>
+             mc:Ignorable="d" 
+             d:DesignHeight="109" d:DesignWidth="518">
 
-            </WrapPanel>
-            <WrapPanel>
-                <Button x:Name="btnSendImage" Content="发送图片" Click="btnSendMedia_Click" />
-                <Button x:Name="btnSendAudio" Content="发送音频" Click="btnSendMedia_Click" Visibility="Collapsed"/>
-                <Button x:Name="btnCaptureImage" Content="截屏" Click="btnCaptureImage_Click" />
-                <Label x:Name="lblSendingMsg" Content="Label"/>
+    <Control.Resources>
+        <ControlTemplate  x:Key="ImageButton" TargetType="{x:Type Button}">
+            <Border BorderBrush="LightGray" BorderThickness="0"  Margin="12,0,0,0">
+                <Grid  Width="16" Height="16" Background="{TemplateBinding Background}">
+                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+        </ControlTemplate>
 
-            </WrapPanel>
-        </StackPanel>
+        <ControlTemplate  x:Key="SendButton" TargetType="{x:Type Button}">
+            <Border Background="#FF9da6ad" Margin="0,0,24,8" CornerRadius="3">
+                <Grid  Width="72" Height="24" Background="Transparent">
+                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+        </ControlTemplate>
+
+        <Style x:Key="ChatText" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid x:Name="grid" Height="55">
+                            <Border Grid.Column="1" x:Name="Bd" BorderThickness="0" SnapsToDevicePixels="true" Margin="16,16,0,7">
+                                <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Control.Resources>
+
+    <Grid Background="#FFfafafa">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="22"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <WrapPanel VerticalAlignment="Center">
+                    <Button x:Name="btnPhizImage" Template="{StaticResource ImageButton}" Visibility="Collapsed"></Button>
+                    <Button x:Name="btnSendImage" Template="{StaticResource ImageButton}" Click="btnSendMedia_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/1.jpg"></ImageBrush>
+                        </Button.Background>
+                        <Button.ToolTip>
+                            <StackPanel>
+                                <TextBlock Text="图片" Padding="0"></TextBlock>
+                            </StackPanel>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button x:Name="btnCaptureImage" Template="{StaticResource ImageButton}" Click="btnCaptureImage_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/logourl.png"></ImageBrush>
+                        </Button.Background>
+                        <Button.ToolTip>
+                            <StackPanel>
+                                <TextBlock Text="截图" Padding="0"></TextBlock>
+                            </StackPanel>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button x:Name="btnVoiceImage" Template="{StaticResource ImageButton}" Visibility="Collapsed"></Button>
+                </WrapPanel>
+
+                <WrapPanel HorizontalAlignment="Right">
+                    <Button>
+                        <TextBlock FontFamily="微软雅黑" FontWeight="Regular" FontSize="10">快捷回复</TextBlock>
+                    </Button>
+                </WrapPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <TextBox x:Name="tbxTextMessage" Style="{StaticResource ChatText}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="微软雅黑" FontWeight="Regular" Foreground="#FF323232" MaxLength="200" KeyDown="tbxTextMessage_KeyDown"></TextBox>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid HorizontalAlignment="Left">
+                    <Label x:Name="lblSendingMsg"></Label>
+                </Grid>
+
+                <Grid HorizontalAlignment="Right">
+                    <Button x:Name="btnSendTextMessage" Template="{StaticResource SendButton}" Click="btnSendTextMessage_Click">
+                        <TextBlock Foreground="White" Margin="-20,0,0,0" FontFamily="微软雅黑" FontWeight="Regular">发送</TextBlock>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

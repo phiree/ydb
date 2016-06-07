@@ -129,7 +129,7 @@ namespace Dianzhu.CSClient.Presenter
             }
 
             //禁用推送按钮
-            viewSearchResult.BtnPush = false;
+            //viewSearchResult.BtnPush = false;
 
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
@@ -208,11 +208,11 @@ namespace Dianzhu.CSClient.Presenter
            
             IList<Model.DZService> services = bllService.SearchService(minPrice,maxPrice, servieTypeId,targetTime,  0, 10, out total);
             viewSearchResult.SearchedService = services;
-            if (services.Count > 0)
-            {
-                //启用推送按钮
-                viewSearchResult.BtnPush = true;
-            }
+            //if (services.Count > 0)
+            //{
+            //    //启用推送按钮
+            //    viewSearchResult.BtnPush = true;
+            //}
         }
     }
 }

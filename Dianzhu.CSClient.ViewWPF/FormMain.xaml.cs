@@ -23,9 +23,11 @@ namespace Dianzhu.CSClient.ViewWPF
     public partial class FormMain : Window,IViewMainForm
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF");
+        Window main;
+
         public FormMain(IViewIdentityList viewIdentityList, IView.IViewChatList viewChatList, IViewChatSend viewChatSend,
             IViewOrder viewOrder, IViewSearch viewSearch, IViewSearchResult viewSearchResult, IViewOrderHistory viewOrderHistory,
-            IViewNotice viewNotice)
+            IViewNotice viewNotice,IViewShelfService viewShelfService)
         {
             InitializeComponent();
             pnlNotice.Children.Add((UC_Notice) viewNotice);
@@ -36,6 +38,8 @@ namespace Dianzhu.CSClient.ViewWPF
             pnlOrder.Children.Add((UC_Order)viewOrder);
             pnlChatSend.Children.Add((UC_ChatSend)viewChatSend);
             pnlOrderHistory.Children.Add( (UC_OrderHistory)viewOrderHistory);
+
+            main = System.Windows.Window.GetWindow(this) as FormMain;
         }
 
         public void CloseApplication()
@@ -54,6 +58,21 @@ namespace Dianzhu.CSClient.ViewWPF
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            main.DragMove();
+        }
+
+        private void btnWindowsClosed_Click(object sender, RoutedEventArgs e)
+        {
+            main.Close();
+        }
+
+        private void btnWindowsMin_Click(object sender, RoutedEventArgs e)
+        {
+            main.WindowState = WindowState.Minimized;
         }
         public string FormTitle { set { this.Title = value; } }
     }
