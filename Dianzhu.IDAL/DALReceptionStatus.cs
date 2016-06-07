@@ -10,7 +10,7 @@ namespace Dianzhu.IDAL
     /// <summary>
     ///
     /// </summary>
-    public interface IDALReceptionStatus  
+    public interface IDALReceptionStatus  :IRepository<ReceptionStatus,Guid>
 
     {
 
