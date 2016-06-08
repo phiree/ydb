@@ -7,7 +7,7 @@ using Dianzhu.Model;
 
 namespace Dianzhu.IDAL
 {
-   public interface IDALCashTicketTemplate
+   public interface IDALCashTicketTemplate:IRepository<CashTicketTemplate,Guid>
     {
 
           IList<CashTicketTemplate> GetListByBusiness(Business business);

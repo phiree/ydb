@@ -26,17 +26,20 @@ namespace Dianzhu.DAL
 
         public void Add(TEntity t)
         {
-
+            using(var tr=Session.BeginTransaction())
+            { 
             Session.Save(t);
-
+                tr.Commit();
+            }
 
         }
 
         public void Delete(TEntity t)
         {
-
-            Session.Delete(t);
-
+            using (var tr = Session.BeginTransaction())
+            {
+                Session.Delete(t);
+            }
         }
 
 
@@ -44,7 +47,14 @@ namespace Dianzhu.DAL
         {
             TEntity result;
 
-            result = Session.Get<TEntity>(identityId);
+
+            using (var tr = Session.BeginTransaction())
+            {
+
+                result = Session.Get<TEntity>(identityId); 
+                tr.Commit();
+            }
+
 
 
 
@@ -62,9 +72,16 @@ namespace Dianzhu.DAL
         {
             IList<TEntity> result;
 
-            var query = Session.Query<TEntity>().Where(where);
-            totalRecords = query.Count();
-            result = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+
+            using (var tr = Session.BeginTransaction())
+            {
+
+                var query = Session.Query<TEntity>().Where(where);
+                totalRecords = query.Count();
+                result = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList(); 
+                tr.Commit();
+            }
+
 
             return result;
         }
@@ -74,8 +91,15 @@ namespace Dianzhu.DAL
         {
             long totalRecords;
 
-            var query = Session.Query<TEntity>().Where(where);
-            totalRecords = query.Count();
+
+            using (var tr = Session.BeginTransaction())
+            {
+
+                var query = Session.Query<TEntity>().Where(where);
+                totalRecords = query.Count();   
+                tr.Commit();
+            }
+
 
             return totalRecords;
         }
@@ -84,7 +108,14 @@ namespace Dianzhu.DAL
         {
             TEntity result;
 
-            result = Session.Query<TEntity>().Where(where).SingleOrDefault();
+
+            using (var tr = Session.BeginTransaction())
+            {
+
+                result = Session.Query<TEntity>().Where(where).SingleOrDefault(); 
+                tr.Commit();
+            }
+
 
             return result;
         }
@@ -92,7 +123,14 @@ namespace Dianzhu.DAL
         public void Update(TEntity t)
         {
 
-            Session.Update(t);
+
+            using (var tr = Session.BeginTransaction())
+            {
+
+                Session.Update(t); 
+                tr.Commit();
+            }
+
 
 
         }

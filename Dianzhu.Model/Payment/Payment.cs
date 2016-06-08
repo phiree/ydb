@@ -10,7 +10,7 @@ namespace Dianzhu.Model
     /// 支付项. 每个订单可能有多个支付项(订金,尾款,赔偿等)
     /// </summary>
     
-    public class Payment
+    public class Payment:DDDCommon.Domain.Entity<Guid>
     {
 
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model");

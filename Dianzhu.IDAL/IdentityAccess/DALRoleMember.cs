@@ -6,7 +6,7 @@ using Dianzhu.Model;
  
 namespace Dianzhu.IDAL.IdentityAccess
 {
-   public   interface IDALRoleMember 
+   public   interface IDALRoleMember :IRepository<RoleMember,Guid>
     {
 
 

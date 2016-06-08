@@ -7,7 +7,7 @@ using Dianzhu.Model.Enums;
  
 namespace Dianzhu.IDAL
 {
-    public interface IDALServiceOrderStateChangeHis 
+    public interface IDALServiceOrderStateChangeHis :IRepository<ServiceOrderStateChangeHis,Guid>
     {
 
 

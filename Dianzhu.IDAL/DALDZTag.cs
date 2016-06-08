@@ -7,7 +7,7 @@ using Dianzhu.Model;
 
 namespace Dianzhu.IDAL
 {
-    public interface IDALDZTag 
+    public interface IDALDZTag :IRepository<DZTag,Guid>
     {
 
           IList<DZTag> GetTagsForService(Guid serviceId);

@@ -7,7 +7,7 @@ using Dianzhu.Model;
 
 namespace Dianzhu.IDAL
 {
-    public interface IDALDeviceBind  
+    public interface IDALDeviceBind  :IRepository<DeviceBind,Guid>
     {
 
           void UpdateBindStatus(DZMembership member, string appToken, string appName);

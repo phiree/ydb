@@ -1021,6 +1021,22 @@ namespace Dianzhu.BLL
             throw new NotImplementedException();
         }
 
+        public IList<ServiceOrder> GetOrdersForShare()
+        {
+            var where = PredicateBuilder.True<ServiceOrder>()
+            
+               .And(x => x.OrderStatus == enum_OrderStatus.Finished || x.OrderStatus == enum_OrderStatus.Appraised)
+               ;
+
+
+            return repoServiceOrder.Find(where).ToList();
+        }
+
+        public void OrderFlow_Shared(ServiceOrder order)
+        {
+            ChangeStatus(order, enum_OrderStatus.Shared);
+        }
+
 
         //查询订单的总金额
         //查询订单的曝光率.

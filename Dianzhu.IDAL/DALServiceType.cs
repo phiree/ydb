@@ -6,7 +6,7 @@ using Dianzhu.Model;
  
 namespace Dianzhu.IDAL
 {
-    public interface IDALServiceType 
+    public interface IDALServiceType :IRepository<ServiceType,Guid>
     {
 
           IList<ServiceType> GetTopList()

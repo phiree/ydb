@@ -7,7 +7,7 @@ using Dianzhu.Model;
 
 namespace Dianzhu.IDAL
 {
-    public interface IDALReceptionChatDD  
+    public interface IDALReceptionChatDD  :IRepository<ReceptionChatDD,Guid>
 
     {
 

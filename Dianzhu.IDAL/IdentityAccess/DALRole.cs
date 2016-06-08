@@ -6,7 +6,7 @@ using Dianzhu.Model;
  
 namespace Dianzhu.IDAL.IdentityAccess
 {
-   public   interface IDALRole {
+   public   interface IDALRole:IRepository<DZRole,Guid> {
 
           DZRole GetByName(string roleName);
           void CreateRole(string roleName);

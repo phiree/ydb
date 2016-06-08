@@ -9,7 +9,7 @@ namespace Dianzhu.Model
     /// 服务类型
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
-    public class ServiceType
+    public class ServiceType:DDDCommon.Domain.Entity<Guid>
     {
         public ServiceType()
         {

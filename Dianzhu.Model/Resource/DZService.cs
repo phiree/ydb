@@ -8,7 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 具体某项服务的定义
     /// </summary>
-    public class DZService
+    public class DZService:DDDCommon.Domain.Entity<Guid>
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model.DZService");
         public DZService()
@@ -51,7 +51,7 @@ namespace Dianzhu.Model
 
         }
 
-        public virtual Guid Id { get; set; }
+       
 
         #region  属性
         /// <summary>
