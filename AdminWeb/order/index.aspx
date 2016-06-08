@@ -80,7 +80,7 @@ function delInfo()
         <option value="index.aspx?status=IsCanceled">IsCanceled</option>
        <option value="index.aspx?status=Finished">Finished</option>
        <option value="index.aspx?status=Aborded">Aborded</option>
-       <option value="index.aspx?status=Appraise">Appraise</option>
+       <option value="index.aspx?status=Appraised">Appraised</option>
     </select>
 </div>
  <asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="data_ItemDataBound">

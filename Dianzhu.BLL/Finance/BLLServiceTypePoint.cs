@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.BLL.Finance
 {
+    /// <summary>
+    /// 服务类型分成比
+    /// </summary>
    public  class BLLServiceTypePoint:IBLLServiceTypePoint
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BllServiceTypePoint");
         /// <summary>
         /// 服务类别的提成比例
         /// </summary>
@@ -22,6 +26,7 @@ namespace Dianzhu.BLL.Finance
         {
             dalServiceTypePoint.Add(serviceTypePoint);
         }
+        string errmsg;
         public decimal GetPoint(Model.ServiceType serviceType)
         {
              var serviceTypePoint= dalServiceTypePoint.GetOneByServiceType(serviceType);
@@ -33,8 +38,10 @@ namespace Dianzhu.BLL.Finance
                 }
                 else
                 {
+                    errmsg = "该服务类型的扣点比例未设置:" + serviceType.Name+"("+serviceType.Id+")";
+                   log.Error(errmsg);
+                   throw new Exception("该服务类型的扣点比例未设置:" + serviceType.Name);
                    
-                   throw new Exception("该服务类型的扣点比例未设置:"+serviceType.Name);
                 }
             }
             else

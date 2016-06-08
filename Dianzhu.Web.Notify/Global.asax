@@ -12,7 +12,7 @@
         //init xmpp conenction 
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
         PHSuit.Logging.Config("Dianzhu.Web.Notify");
-        _SetupRefreshJob();
+    //   PHSuit.HttpHelper. _SetupRefreshJob(HttpContext.Current.Request.UserHostAddress);
         string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
         string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
 
@@ -34,6 +34,13 @@
         im.OpenConnection(noticesenderId, noticesenderPwd);
         Application["IM"] = im;
     }
+     void Application_BeginRequest(Object source, EventArgs e)
+    {
+        HttpApplication app = (HttpApplication)source;
+        PHSuit.FirstRequestInitialisation.Initialise(app.Context);
+    }
+
+   
     void IMClosed()
     {
         log.Warn("Closed");

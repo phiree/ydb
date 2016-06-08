@@ -13,6 +13,7 @@ using System.Configuration;
 using nhf = FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
+using Dianzhu.BLL.Finance;
 using Castle.MicroKernel.SubSystems.Configuration;
 
 namespace Dianzhu.DependencyInstaller
@@ -27,6 +28,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLBusiness>());
             container.Register(Component.For<BLLBusinessImage>());
             container.Register(Component.For<BLLRefund>());
+           // container.Register(Component.For<OrderShare>());
 
         }
     }
@@ -51,6 +53,14 @@ namespace Dianzhu.DependencyInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            //finance
+            container.Register(Component.For<IBLLSharePoint>().ImplementedBy< BLLSharePoint>());
+            container.Register(Component.For<IBLLServiceTypePoint>().ImplementedBy<BLLServiceTypePoint>());
+            container.Register(Component.For<IOrderShare>().ImplementedBy<OrderShare>());
+            container.Register(Component.For<IBalanceFlowService>().ImplementedBy<BalanceFlowService>());
+            //agent
+            container.Register(Component.For<Dianzhu.BLL.Agent.IAgentService>().ImplementedBy<Dianzhu.BLL.Agent.AgentService>());
+
             container.Register(Component.For<IBLLMembershipLoginLog>().ImplementedBy<BLLMembershipLoginLog>());
             container.Register(Component.For<IIMSession>().ImplementedBy<IMSessionsDB>());
             container.Register(Component.For<IIMSession>().ImplementedBy<IMSessionsOpenfire>()
