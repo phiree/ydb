@@ -52,8 +52,10 @@ namespace Dianzhu.CSClient.ViewWPF
             SetCustomerBorder("#FFd1d1d1", "#FF777779");
 
             tbkCustomerStatus.Text = "等待中";
-            tbkCustomerMinutes.Visibility = Visibility.Visible;
-            tbkCustomerMinutes.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4b7799"));
+            //tbkCustomerMinutes.Visibility = Visibility.Visible;
+            //tbkCustomerMinutes.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4b7799"));
+
+            TimeControl.Visibility = Visibility.Visible;
         }
 
         public void CustomerCurrent()
@@ -61,7 +63,10 @@ namespace Dianzhu.CSClient.ViewWPF
             SetCustomerBorder("#FF7db2dc", "#FF477597");
             tbkCustomerStatus.Text = "当前接待中...";
 
-            tbkCustomerMinutes.Visibility = Visibility.Collapsed;
+            //tbkCustomerMinutes.Visibility = Visibility.Collapsed;
+
+            TimeControl.Visibility = Visibility.Collapsed;
+            TimeControl.StopTimer();
         }
 
         public void CustomerUnread()
@@ -69,8 +74,10 @@ namespace Dianzhu.CSClient.ViewWPF
             SetCustomerBorder("#FFfb8384", "#FFe85454");
 
             tbkCustomerStatus.Text = "等待中";
-            tbkCustomerMinutes.Visibility = Visibility.Visible;
-            tbkCustomerMinutes.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFf65f5f"));
+            //tbkCustomerMinutes.Visibility = Visibility.Visible;
+            //tbkCustomerMinutes.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFf65f5f"));
+
+            TimeControl.Visibility = Visibility.Visible;
         }
 
         public void SetCustomerBorder(string colorUp, string colorDown)

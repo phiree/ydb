@@ -79,11 +79,15 @@ namespace Dianzhu.CSClient.ViewWPF
             Action lambda = () =>
             {
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-                Button btnIdentity = (Button)pnlIdentityList.FindName(ctrlName);
-                if (btnIdentity != null)
+                //Button btnIdentity = (Button)pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                //if (btnIdentity != null)
+                if (ucIdentity != null)
                 {                    
-                    pnlIdentityList.Children.Remove(btnIdentity);
-                    pnlIdentityList.UnregisterName(btnIdentity.Name);
+                    //pnlIdentityList.Children.Remove(btnIdentity);
+                    pnlIdentityList.Children.Remove(ucIdentity);
+                    //pnlIdentityList.UnregisterName(btnIdentity.Name);
+                    pnlIdentityList.UnregisterName(ucIdentity.Name);
                 }
             };
             if (!Dispatcher.CheckAccess())
