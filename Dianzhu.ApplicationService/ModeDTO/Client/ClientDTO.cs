@@ -11,6 +11,7 @@ namespace Dianzhu.ApplicationService
     public class ClientDTO
     {
         [Key]
+        [MaxLength(50)]
         public string Id { get; set; }
         [Required]
         public string Secret { get; set; }

@@ -37,7 +37,7 @@ namespace Dianzhu.Web.RestfulApi
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),//token路径设置
-                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(600),//token过期时间设置
+                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(7200),//token过期时间设置
                 Provider = new AuthorizationServerProvider(),
                 RefreshTokenProvider = new RefreshTokenProvider()
             };

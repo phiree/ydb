@@ -17,9 +17,14 @@ namespace Dianzhu.ApplicationService.Mapping
 
         protected override void Configure()
         {
-            Mapper.CreateMap<Model.Client,ClientDTO > ();
-            Mapper.CreateMap<Model.RefreshToken,RefreshTokenDTO > ();
-            Mapper.CreateMap<Model.DZMembership,userObj>();
+            Mapper.CreateMap<Model.Client,ClientDTO > ()
+     .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            Mapper.CreateMap<Model.RefreshToken,RefreshTokenDTO > ()
+     .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            Mapper.CreateMap<Model.DZMembership,userObj>()
+            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.UserName))
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl))
+     .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();
             //Mapper.CreateMap<FocusFormModel, Focus>();

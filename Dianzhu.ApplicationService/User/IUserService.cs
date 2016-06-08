@@ -15,5 +15,12 @@ namespace Dianzhu.ApplicationService.User
         /// <param name="password"></param>
         /// <returns></returns>
          bool ValidateUser(string username, string password);
+
+        /// <summary>
+        /// 根据userID获取user
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        userObj GetUserById(string userID);
     }
 }
