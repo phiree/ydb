@@ -13,12 +13,11 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Users
     [Authorize]
     public class UsersController : ApiController
     {
-        //  private AuthRepository _repo = null;
         private ApplicationService.User.IUserService iuserservice = null;
         public UsersController()
         {
-            // _repo = new AuthRepository();
-            iuserservice = Bootstrap.Container.Resolve<ApplicationService.User.IUserService>();
+            //this.iuserservice = iuserservice;
+            iuserservice= Bootstrap.Container.Resolve<ApplicationService.User.IUserService>();
         }
 
         /// <summary>

@@ -20,6 +20,7 @@ public class InstallerRestfulApi : IWindsorInstaller
 {
     public void Install(IWindsorContainer container, IConfigurationStore store)
     {
+        //container.Register(Component.For<Dianzhu.Web.RestfulApi.Controllers.Users.UsersController>());
         container.Register(Component.For<DALClient>());
         container.Register(Component.For<DALRefreshToken>());
         container.Register(Component.For<Dianzhu.BLL.Client.IBLLClient>().ImplementedBy<Dianzhu.BLL.Client.BLLClient>());
