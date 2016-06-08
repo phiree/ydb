@@ -6,25 +6,13 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.ApplicationService
 {
-    public class orderStatusObj
+    public class remindObj
     {
         /// <summary>
-        /// 状态字符串
+        /// 提醒ID
         /// </summary>
         /// <type>string</type>
-        public string status { get; set; }
-
-        /// <summary>
-        /// 生成时间
-        /// </summary>
-        /// <type>string</type>
-        public string createTime { get; set; }
-
-        /// <summary>
-        /// 对应的上一状态
-        /// </summary>
-        /// <type>string</type>
-        public string lastStatus { get; set; }
+        public string id { get; set; }
 
         /// <summary>
         /// 标题
@@ -33,9 +21,27 @@ namespace Dianzhu.ApplicationService
         public string title { get; set; }
 
         /// <summary>
-        /// 详细描述
+        /// 提醒时间（yyyyMMddHHmmss）
+        /// </summary>
+        /// <type>string</type>
+        public string time { get; set; }
+
+        /// <summary>
+        /// 描述
         /// </summary>
         /// <type>string</type>
         public string content { get; set; }
+
+        /// <summary>
+        /// 是否开启（true Or false）
+        /// </summary>
+        /// <type>boolean</type>
+        public bool bOpen { get; set; }
+
+        /// <summary>
+        /// 关联的订单ID
+        /// </summary>
+        /// <type>string</type>
+        public string orderID { get; set; }
     }
 }

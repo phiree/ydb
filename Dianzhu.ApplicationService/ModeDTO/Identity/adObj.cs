@@ -6,36 +6,30 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.ApplicationService
 {
-    public class orderStatusObj
+    public class adObj
     {
         /// <summary>
-        /// 状态字符串
+        /// 图片Url
         /// </summary>
         /// <type>string</type>
-        public string status { get; set; }
+        public string imgUrl { get; set; }
 
         /// <summary>
-        /// 生成时间
+        /// 广告的链接
         /// </summary>
         /// <type>string</type>
-        public string createTime { get; set; }
+        public string url { get; set; }
 
         /// <summary>
-        /// 对应的上一状态
+        /// 序号
         /// </summary>
         /// <type>string</type>
-        public string lastStatus { get; set; }
+        public string num { get; set; }
 
         /// <summary>
-        /// 标题
+        /// 更新该广告的时间（yyyyMMddHHmmss）
         /// </summary>
         /// <type>string</type>
-        public string title { get; set; }
-
-        /// <summary>
-        /// 详细描述
-        /// </summary>
-        /// <type>string</type>
-        public string content { get; set; }
+        public string updateTime { get; set; }
     }
 }
