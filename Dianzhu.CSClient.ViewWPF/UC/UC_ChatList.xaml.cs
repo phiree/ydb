@@ -29,7 +29,19 @@ namespace Dianzhu.CSClient.ViewWPF
         public UC_ChatList()
         {
             InitializeComponent();
+
+            ((StackPanel)svChatList.FindName("StackPanel")).SizeChanged += UC_ChatList_SizeChanged;
         }
+
+        private void UC_ChatList_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ScrollViewer sc = ((ScrollViewer)svChatList.FindName("ScrollViewer"));
+            if (sc.ScrollableHeight == sc.VerticalOffset)
+            {
+                sc.ScrollToEnd();
+            }
+        }
+
         IList<ReceptionChat> chatList = new List<ReceptionChat>();
         public IList<ReceptionChat> ChatList
         {
@@ -55,6 +67,12 @@ namespace Dianzhu.CSClient.ViewWPF
                     
                     if (chatList.Count > 0)
                     {
+                        Button btn = new Button();
+                        btn.Content = "查看更多";
+                        btn.Click += Btn_Click;
+
+                        ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(btn);//加载更多按钮
+
                         foreach (ReceptionChat chat in chatList)
                         {
                             AddOneChat(chat);
@@ -68,7 +86,23 @@ namespace Dianzhu.CSClient.ViewWPF
                 else { lambda(); }
             }
         }
-        
+
+        public void ShowNoMoreLabel()
+        {
+            Label lbl = new Label();
+            lbl.Content = "——没有更多消息了——";
+            lbl.HorizontalAlignment = HorizontalAlignment.Center;
+
+            ((StackPanel)svChatList.FindName("StackPanel")).Children.RemoveAt(0);
+            ((StackPanel)svChatList.FindName("StackPanel")).Children.Insert(0, lbl);
+        }
+
+
+        private void Btn_Click(object sender, RoutedEventArgs e)
+        {
+            BtnMoreChat();
+        }
+
         public void AddOneChat(ReceptionChat chat)
         {
             Action lamda = () =>
@@ -278,6 +312,7 @@ namespace Dianzhu.CSClient.ViewWPF
         DZMembership currentCustomerService;
 
         public event AudioPlay AudioPlay;
+        public event BtnMoreChat BtnMoreChat;
 
         public DZMembership CurrentCustomerService
         {

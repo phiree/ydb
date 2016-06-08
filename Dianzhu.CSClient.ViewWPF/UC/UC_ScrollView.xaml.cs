@@ -27,9 +27,9 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void sp_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (sc.ScrollableHeight == sc.VerticalOffset)
+            if (ScrollViewer.ScrollableHeight == ScrollViewer.VerticalOffset)
             {
-                sc.ScrollToEnd();
+                ScrollViewer.ScrollToEnd();
             }
         }
     }

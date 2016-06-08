@@ -85,7 +85,7 @@ namespace Dianzhu.CSClient.ViewWPF
         //显示当查询列表为空时的提示语
         private void ShowNullListLable()
         {
-            btnSearchEnabled = false;
+            //btnSearchEnabled = false;
 
             Label lblNoOrder = new Label
             {

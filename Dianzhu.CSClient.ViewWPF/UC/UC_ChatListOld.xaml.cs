@@ -262,6 +262,11 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        public void ShowNoMoreLabel()
+        {
+            throw new NotImplementedException();
+        }
+
         public string MessageText
         {
             get
@@ -278,6 +283,7 @@ namespace Dianzhu.CSClient.ViewWPF
         DZMembership currentCustomerService;
 
         public event AudioPlay AudioPlay;
+        public event BtnMoreChat BtnMoreChat;
 
         public DZMembership CurrentCustomerService
         {

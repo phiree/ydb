@@ -85,6 +85,10 @@ namespace Dianzhu.CSClient.Presenter
             {
                 return;
             }
+            if (allList[IdentityManager.CurrentIdentity.Customer].Count == 0)
+            {
+                return;
+            }
             IList<ServiceOrder> searchList = new List<ServiceOrder>();
             if (viewOrderHistory.SearchStr == string.Empty)
             {

@@ -203,8 +203,8 @@
             </Style>
         </Grid.Resources>
 
-        <ScrollViewer x:Name="sc" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="0" Grid.Column="0">
-            <StackPanel x:Name="StackPanel" CanVerticallyScroll="True" SizeChanged="sp_SizeChanged">
+        <ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="0" Grid.Column="0">
+            <StackPanel x:Name="StackPanel" CanVerticallyScroll="True">
                 
             </StackPanel>
         </ScrollViewer>

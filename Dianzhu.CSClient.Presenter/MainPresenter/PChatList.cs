@@ -26,6 +26,7 @@ namespace Dianzhu.CSClient.Presenter
         IViewChatList viewChatList;
         IViewIdentityList viewIdentityList;
         InstantMessage iIM;
+        Dictionary<Guid, IList<ReceptionChat>> chatHistoryAll;
         public PChatList() { }
         public PChatList(IView.IViewChatList viewChatList, IViewIdentityList viewCustomerList, InstantMessage iIM)
             : this(viewChatList, viewCustomerList, new DALReception(), iIM)
@@ -43,8 +44,29 @@ namespace Dianzhu.CSClient.Presenter
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
             viewChatList.AudioPlay += ViewChatList_AudioPlay;
+            viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
 
+            chatHistoryAll = new Dictionary<Guid, IList<ReceptionChat>>();
+        }
+
+        private void ViewChatList_BtnMoreChat()
+        {
+            var chatHistory = dalReception.GetReceptionChatListByTargetIdAndSize(IdentityManager.CurrentIdentity.Customer, null, Guid.Empty,
+                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 20, chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id][0],"Y", enum_ChatTarget.all);
+
+            if (chatHistory.Count == 0)
+            {
+                viewChatList.ShowNoMoreLabel();
+                return;
+            }
+
+            foreach(ReceptionChat chat in chatHistory.OrderByDescending(x=>x.SavedTime))
+            {
+                chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Insert(0, chat);
+            }
+
+            viewChatList.ChatList = chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id];
         }
 
         private void IIM_IMReceivedMessage(ReceptionChat chat)
@@ -79,13 +101,21 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
+                if (chatHistoryAll.ContainsKey(serviceOrder.Customer.Id))
+                {
+                    viewChatList.ChatList = chatHistoryAll[serviceOrder.Customer.Id];
+                    return;
+                }
+
                 int rowCount;
                 var chatHistory = dalReception
                        //.GetListTest();
                        .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
                        DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
-                viewChatList.ChatList.Clear();
+                //viewChatList.ChatList.Clear();
                 viewChatList.ChatList = chatHistory;
+
+                chatHistoryAll[serviceOrder.Customer.Id] = chatHistory;
             }
             catch (Exception ex)
             {
