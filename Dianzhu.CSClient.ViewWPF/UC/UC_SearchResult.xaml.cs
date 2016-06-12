@@ -53,9 +53,9 @@ namespace Dianzhu.CSClient.ViewWPF
                             pnlSearchResult.UnregisterName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()));
                         }
                         //LoadServiceToPanel(service);
-                        shelfService = new UC_ShelfService();
-                        shelfService.LoadData(service, num);
-
+                        shelfService = new UC_ShelfService(service);
+                        // shelfService.LoadData(service, num);
+                        shelfService.PushShelfService += ShelfService_PushShelfService;
                         pnlSearchResult.Children.Add(shelfService);
 
                         num++;
@@ -65,6 +65,11 @@ namespace Dianzhu.CSClient.ViewWPF
                 }));
                 
             }
+        }
+
+        private void ShelfService_PushShelfService(DZService pushedService)
+        {
+            PushServices(new List<DZService>() { pushedService });
         }
 
         //public bool BtnPush
@@ -155,6 +160,11 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             PushServices(services);
             
+        }
+
+        public void AddSearchItem(IViewShelfService service)
+        {
+            pnlSearchResult.Children.Add((UIElement)service);
         }
 
         public string LoadingText

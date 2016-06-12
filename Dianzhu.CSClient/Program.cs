@@ -83,6 +83,7 @@ namespace Dianzhu.CSClient
                 Presenter.POrder pOrder = Bootstrap.Container.Resolve<Presenter.POrder>();
                 Presenter.POrderHistory pOrderHistory = Bootstrap.Container.Resolve<Presenter.POrderHistory>();
                 Presenter.PChatSend pChatSend = Bootstrap.Container.Resolve<Presenter.PChatSend>();
+               // Presenter.PShelfService pShelfService = Bootstrap.Container.Resolve<Presenter.PShelfService>();
                 
 
                 var mainPresenter = Bootstrap.Container.Resolve<Presenter.PMain>();
@@ -132,7 +133,7 @@ namespace Dianzhu.CSClient
         static void cDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             try
-            {
+            { 
                 log.Error("异常崩溃:" + e.ExceptionObject.ToString());
 
                 MessageBox.Show(e.ExceptionObject.ToString());

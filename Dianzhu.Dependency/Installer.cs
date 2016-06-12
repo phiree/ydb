@@ -28,6 +28,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLBusiness>());
             container.Register(Component.For<BLLBusinessImage>());
             container.Register(Component.For<BLLRefund>());
+            container.Register(Component.For<PushService>());
            // container.Register(Component.For<OrderShare>());
 
         }

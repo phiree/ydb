@@ -20,16 +20,16 @@ namespace Dianzhu.CSClient.ViewWPF
     /// <summary>
     /// UC_ShelfService.xaml 的交互逻辑
     /// </summary>
-    public partial class UC_ShelfService : UserControl,IView.IViewShelfService
+    public partial class UC_ShelfService : UserControl, IView.IViewShelfService
     {
-        public UC_ShelfService()
+        public UC_ShelfService(DZService service)
         {
             InitializeComponent();
-
-            ClearData();
+            LoadData(service,1);
+           // ClearData();
         }
 
-        public void LoadData(DZService service,int num)
+        public void LoadData(DZService service, int num)
         {
             btnSendService.Tag = service;
 
@@ -55,7 +55,7 @@ namespace Dianzhu.CSClient.ViewWPF
             //borderShelf.BorderBrush = new SolidColorBrush(Color.FromRgb(0x28,0x4d,0x68));//用16进制转换
             //borderShelf.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF284d68"));//直接识别字符串
 
-            IsMouseEnter(true,"#FFffffff", "#FFffffff", "#FF4b779a", "#FF284d68");
+            IsMouseEnter(true, "#FFffffff", "#FFffffff", "#FF4b779a", "#FF284d68");
         }
 
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
@@ -63,7 +63,7 @@ namespace Dianzhu.CSClient.ViewWPF
             IsMouseEnter(false, "#FF6f6f6f", "#FF227dc5", "#FFd7dbde", "#FFd6dbdf");
         }
 
-        public void IsMouseEnter(bool isEnter,string colorNo,string colorVerify, string colorMin,string colorMax)
+        public void IsMouseEnter(bool isEnter, string colorNo, string colorVerify, string colorMin, string colorMax)
         {
             if (isEnter)
             {
@@ -87,7 +87,10 @@ namespace Dianzhu.CSClient.ViewWPF
         public event PushShelfService PushShelfService;
         private void btnSendService_Click(object sender, RoutedEventArgs e)
         {
-            PushShelfService((DZService)this.btnSendService.Tag);
+            if (PushShelfService != null)
+            {
+                PushShelfService((DZService)this.btnSendService.Tag);
+            }
         }
     }
 }

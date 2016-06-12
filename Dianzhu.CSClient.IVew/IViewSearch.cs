@@ -42,10 +42,12 @@ namespace Dianzhu.CSClient.IView
         event SelectService SelectService;
         event PushServices PushServices;
         string LoadingText { set; }
+        void AddSearchItem(IViewShelfService service);
         //bool BtnPush { get; set; }
     }
    
     public delegate void SelectService(DZService selectedService);
     public delegate void PushServices(IList<DZService> pushedServices);
+
 
 }

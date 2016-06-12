@@ -127,7 +127,7 @@ namespace Dianzhu.DAL
             using (var tr = Session.BeginTransaction())
             {
 
-                Session.Update(t); 
+                Session.Merge(t); 
                 tr.Commit();
             }
 

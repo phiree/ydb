@@ -103,7 +103,8 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrder.ToString());
                 string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.ToString());
-                Button btnOldIdentity = (Button)pnlIdentityList.FindName(ctrOldlName);
+                
+                UC_Customer btnOldIdentity = (UC_Customer)pnlIdentityList.FindName(ctrOldlName);
                 if (btnOldIdentity != null)
                 {
                     //注销

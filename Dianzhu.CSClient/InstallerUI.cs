@@ -24,7 +24,7 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<CSClient.Presenter.POrder>());
             container.Register(Component.For<CSClient.Presenter.POrderHistory>());
             container.Register(Component.For<CSClient.Presenter.PSearch>());
-            container.Register(Component.For<CSClient.Presenter.PShelfService>());
+          //  container.Register(Component.For<CSClient.Presenter.PShelfService>());
 
             container.Register(Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
             container.Register(Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());
@@ -36,7 +36,7 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<IViewOrderHistory>().ImplementedBy<ViewWPF.UC_OrderHistory>());
             container.Register(Component.For<IViewSearch>().ImplementedBy<ViewWPF.UC_Search>());
             container.Register(Component.For<IViewSearchResult>().ImplementedBy<ViewWPF.UC_SearchResult>());
-            container.Register(Component.For<IViewShelfService>().ImplementedBy<ViewWPF.UC_ShelfService>());
+           // container.Register(Component.For<IViewShelfService>().ImplementedBy<ViewWPF.UC_ShelfService>());
         }
     }
 }

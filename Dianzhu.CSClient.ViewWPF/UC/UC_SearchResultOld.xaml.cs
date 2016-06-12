@@ -150,6 +150,11 @@ namespace Dianzhu.CSClient.ViewWPF
             
         }
 
+        public void AddSearchItem(IViewShelfService service)
+        {
+            throw new NotImplementedException();
+        }
+
         public string LoadingText
         {
             set {

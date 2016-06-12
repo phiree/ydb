@@ -27,7 +27,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public FormMain(IViewIdentityList viewIdentityList, IView.IViewChatList viewChatList, IViewChatSend viewChatSend,
             IViewOrder viewOrder, IViewSearch viewSearch, IViewSearchResult viewSearchResult, IViewOrderHistory viewOrderHistory,
-            IViewNotice viewNotice,IViewShelfService viewShelfService)
+            IViewNotice viewNotice )
         {
             InitializeComponent();
             pnlNotice.Children.Add((UC_Notice) viewNotice);
