@@ -94,10 +94,10 @@ namespace Dianzhu.CSClient.Presenter
             string encryptPassword = encryptService.GetMD5Hash(plainPassword);
             var member = dalMembership.ValidateUser(username, encryptPassword);
             //DZMembership member = dalme.GetUserByName(loginView.UserName);
-            if (member != null)
+            if (member != null && member.UserType == Model.Enums.enum_UserType.customerservice)
             {
-                 instantMessage.OpenConnection(member.Id.ToString()
-                      , loginView.Password);
+                instantMessage.OpenConnection(member.Id.ToString()
+                     , loginView.Password);
             }
             else
             {
