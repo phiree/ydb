@@ -23,7 +23,7 @@ public class ResponseORM001007 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         
-        PushService pushService = new PushService();
+        PushService pushService = Bootstrap.Container.Resolve<PushService>();
         BLLDZTag bllDZTag = new BLLDZTag();
         string raw_id = requestData.userID;
         string order_id = requestData.orderID;

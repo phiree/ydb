@@ -24,7 +24,7 @@ public class ResponseORM001008 : BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
       
         BLLDZService bllDZService = new BLLDZService();
-        PushService bllPushService = new PushService();
+        PushService bllPushService = Bootstrap.Container.Resolve<PushService>();
         BLLServiceOrderRemind bllServiceOrderRemind = new BLLServiceOrderRemind();
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
 
