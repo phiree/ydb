@@ -12,12 +12,12 @@ namespace Dianzhu.ApplicationService
         /// 开始时间（yyyyMMdd）
         /// </summary>
         /// <type>string</type>
-        public string longitude { get; set; }
+        public string startTime { get; set; }
 
         /// <summary>
         /// 结束时间（yyyyMMdd）
         /// </summary>
         /// <type>string</type>
-        public string latitude { get; set; }
+        public string endTime { get; set; }
     }
 }
