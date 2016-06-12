@@ -26,6 +26,8 @@ public class ResponseASN002004 : BaseResponse
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>(); BLLStaff bllStaff = new BLLStaff();
          BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+
         try
         {
             string merchant_id = requestData.merchantID;

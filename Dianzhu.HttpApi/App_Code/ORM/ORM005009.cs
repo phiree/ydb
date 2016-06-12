@@ -19,6 +19,7 @@ public class ResponseORM005009 : BaseResponse
     {
         ReqDataORM005009 requestData = this.request.ReqData.ToObject<ReqDataORM005009>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
       

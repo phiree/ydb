@@ -26,7 +26,7 @@ namespace Dianzhu.CSClient.Presenter
         IViewChatList viewChatList;
         IViewIdentityList viewIdentityList;
         InstantMessage iIM;
-        Dictionary<Guid, IList<ReceptionChat>> chatHistoryAll;
+        public static Dictionary<Guid, IList<ReceptionChat>> chatHistoryAll;
         public PChatList() { }
         public PChatList(IView.IViewChatList viewChatList, IViewIdentityList viewCustomerList, InstantMessage iIM)
             : this(viewChatList, viewCustomerList, new DALReception(), iIM)

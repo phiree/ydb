@@ -30,17 +30,18 @@ namespace Dianzhu.BLL
         IDALMembership repoMembership;
       
         BLLPayment bllPayment = null;
-        BLLRefund bllRefund = null;
+        IDALRefund bllRefund = null;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
         BLLClaims bllClaims = null;
 
         public BLLServiceOrder(IDAL.IDALServiceOrder repoServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis,
-           IDALMembership repoMembership, BLLPayment bllPayment ,BLLClaims bllClaims)
+           IDALMembership repoMembership, IDALRefund bllRefund, BLLPayment bllPayment ,BLLClaims bllClaims)
         {
             this.repoServiceOrder = repoServiceOrder;
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
             this.repoMembership = repoMembership;
             this.bllPayment = bllPayment;
+            this.bllRefund = bllRefund;
             
             this.bllClaims = bllClaims;
         }
@@ -774,7 +775,7 @@ namespace Dianzhu.BLL
                     {
                         log.Debug("支付宝退款开始");
                         Refund refundAliApp = new Refund(payment.Order, payment, payment.Amount, refundAmount, refundReason, payment.PlatformTradeNo, enum_RefundStatus.Fail, string.Empty);
-                        bllRefund.Save(refundAliApp);
+                        bllRefund.Add(refundAliApp);
 
                         string refund_no = DateTime.Now.ToString("yyyyMMdd") + refundAliApp.Id.ToString().Substring(0, 10);
 
@@ -838,7 +839,7 @@ namespace Dianzhu.BLL
                     {
                         log.Debug("微信退款开始");
                         Refund refundWeChat = new Refund(payment.Order, payment, payment.Amount, refundAmount, refundReason, payment.PlatformTradeNo, enum_RefundStatus.Fail, string.Empty);
-                        bllRefund.Save(refundWeChat);
+                        bllRefund.Add(refundWeChat);
 
                         //string refundNo = refundWeChat.Id.ToString().Replace("-", "");
 
