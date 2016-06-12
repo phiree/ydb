@@ -7,10 +7,10 @@ using System.Web.Http;
 using Dianzhu.ApplicationService;
 using System.Threading.Tasks;
 
-namespace Dianzhu.Web.RestfulApi.Controllers.Users
+namespace Dianzhu.Web.RestfulApi.Controllers.USER
 {
 
-    [Authorize]
+    //[Authorize]
     public class UsersController : ApiController
     {
         private ApplicationService.User.IUserService iuserservice = null;
@@ -29,19 +29,33 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Users
         {
             try
             {
-                userObj userobj = iuserservice.GetUserById(id);
-                if (userobj == null)
+                //userObj userobj = iuserservice.GetUserById(id);
+                //if (userobj == null)
+                //{
+                //    return NotFound();
+                //}
+                //else
+                //{
+                //    return Ok(userobj);
+                //}
+                //return Ok(iuserservice.GetUserById(id));
+                return Json(iuserservice.GetUserById(id));
+            }
+            catch(Exception ex)
+            {
+                //return InternalServerError();
+                common_Trait_400_Rsponses res_Error = new common_Trait_400_Rsponses();
+                if (ex.Message == "009004")
                 {
-                    return NotFound();
+                    res_Error.errCode = "009004";
+                    res_Error.errString = "没有找到数据！";
                 }
                 else
                 {
-                    return Ok(userobj);
+                    res_Error.errCode = "009001";
+                    res_Error.errString = ex.Message;
                 }
-            }
-            catch
-            {
-                return InternalServerError();
+                return Content(HttpStatusCode.BadRequest, res_Error);
             }
         }
 
