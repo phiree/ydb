@@ -131,6 +131,7 @@
     <Compile Include="DZCSClientTest\PCustomerListTest.cs" />
     <Compile Include="DZCSClientTest\PIdentityListTest.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
+    <Compile Include="InfraStructureTest\Class1.cs" />
     <Compile Include="Installer.cs" />
     <Compile Include="jsonconvert_test.cs" />
     <Compile Include="jsontest.cs" />
@@ -231,6 +232,10 @@
     <ProjectReference Include="..\DianzhuService.Diandian\DianzhuService.Diandian.csproj">
       <Project>{d3820846-bad7-49e9-8bcf-d5ef26579350}</Project>
       <Name>DianzhuService.Diandian</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JSYK.Infrastructure\JSYK.Infrastructure.csproj">
+      <Project>{7ce433bf-0692-4d37-ace9-e1984391cd3b}</Project>
+      <Name>JSYK.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\PHSuit\PHSuit.csproj">
       <Project>{0122C6D5-6348-4B65-88B7-3C43A6E642F3}</Project>

@@ -15,45 +15,16 @@ namespace Dianzhu.CSClient.MessageAdapter
     /// </summary>
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
-       // IBLLServiceOrder bllOrder;
+        
         IDAL.IDALServiceOrder dalOrder;
         IDAL.IDALMembership dalMembership;
-        public MessageAdapter(IBLLServiceOrder bllOrder,IDAL.IDALServiceOrder dalOrder,IDAL.IDALMembership dalMembership)
+        public MessageAdapter(IDAL.IDALServiceOrder dalOrder,IDAL.IDALMembership dalMembership)
         {
            // this.bllOrder = bllOrder;
             this.dalOrder = dalOrder;
             this.dalMembership = dalMembership;
         }
-        static DZMembershipProvider bllMember;
-        //DZMembershipProvider BllMember
-        //{
-        //    get
-        //    {
-        //        if (bllMember == null) bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        //        return bllMember;
-        //    }
-
-        //}
-        static BLLDZService bllDZService;
-        BLLDZService BllDZService
-        {
-            get
-            {
-                if (bllDZService == null) bllDZService = new BLLDZService();
-                return bllDZService;
-            }
-
-        }
-        //static BLLServiceOrder bllOrder;
-        //BLLServiceOrder BLLOrder
-        //{
-        //    get
-        //    {
-        //        if (bllOrder == null) bllOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
-        //        return bllOrder;
-        //    }
-
-        //}
+ 
         static BLLIMUserStatus bllIMUserStatus;
         BLLIMUserStatus BLLIMUserStatus
         {
