@@ -65,6 +65,8 @@ namespace Dianzhu.CSClient.Presenter
                     ((ReceptionChatMedia)chat).MedialUrl = fileName;
                 }
                 dalReceptionChat.Save(chat);
+
+                PChatList.chatHistoryAll[chat.From.Id].Add(chat);
             }
             else if (chat.ChatType== enum_ChatType.UserStatus)
             {

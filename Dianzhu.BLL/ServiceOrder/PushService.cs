@@ -61,7 +61,7 @@ namespace Dianzhu.BLL
             IList<ServiceOrderPushedService> l = GetPushedServicesForOrder(order);
             if (l.Count > 0)
             {
-                ServiceOrderPushedService s = l.Single(x => x.OriginalService == selectedService);
+                ServiceOrderPushedService s = l.Single(x => x.OriginalService.Id == selectedService.Id);
                 order.AddDetailFromIntelService(s.OriginalService, s.UnitAmount, s.TargetAddress, s.TargetTime);
 
                 order.CreatedFromDraft();

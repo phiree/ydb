@@ -18,10 +18,12 @@ public class ResponseSLF001007:BaseResponse
         // TODO: Add constructor logic here
         //
     }
-    public IBLLServiceOrder bllOrder { get; set; }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataSLF001007 requestData = this.request.ReqData.ToObject<ReqDataSLF001007>();
+
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
         string service_Id = requestData.serviceId;
 
@@ -64,7 +66,7 @@ public class ResponseSLF001007:BaseResponse
             ServiceOpenTime op = service.OpenTimes.Single(x => x.DayOfWeek == dt.DayOfWeek);
 
             RespDataSLF00107_Obj obj = new RespDataSLF00107_Obj().Adapt(dt, op);
-            obj.dayDoneOrder=   bllOrder.GetOrderListByDate(service, dt).Count;
+            obj.dayDoneOrder=   bllServiceOrder.GetOrderListByDate(service, dt).Count;
             openTimes.Add(obj);
         }
 

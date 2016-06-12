@@ -33,6 +33,8 @@ namespace Dianzhu.CSClient.ViewWPF
             tbkCustomerNames.Text = customer.DisplayName;
             if (customer.AvatarUrl != null)
             {
+                customer.AvatarUrl = customer.AvatarUrl.Replace(Dianzhu.Config.Config.GetAppSetting("MediaGetUrl"), "");
+                customer.AvatarUrl = Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + customer.AvatarUrl;
                 imgSource.ImageSource = new BitmapImage(new Uri(customer.AvatarUrl, UriKind.Absolute));
             }
             else

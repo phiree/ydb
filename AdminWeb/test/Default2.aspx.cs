@@ -8,7 +8,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 public partial class test_Default : System.Web.UI.Page
 {
-    public IBLLServiceOrder bllOrder { get; set; }
+    IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
     {
 

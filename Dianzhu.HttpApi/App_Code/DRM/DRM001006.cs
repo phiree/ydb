@@ -19,9 +19,8 @@ public class ResponseDRM001006 : BaseResponse
     protected override void BuildRespData()
     {
         ReqDataDRM001006 requestData = this.request.ReqData.ToObject<ReqDataDRM001006>();
-
-        //todo:用户验证的复用
-       
+        
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         BLLDZTag bllDZTag = new BLLDZTag();
 
         string order_id = requestData.orderID;

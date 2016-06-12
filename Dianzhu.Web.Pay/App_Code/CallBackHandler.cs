@@ -63,7 +63,7 @@ public partial class CallBackHandler : System.Web.UI.Page
         }
         try
         {
-            BLLPay bllPay = new BLLPay();
+            BLLPay bllPay = Bootstrap.Container.Resolve<BLLPay>();
 
             object parameters = null;
             log.Debug("回调参数:");

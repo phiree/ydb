@@ -404,19 +404,19 @@
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\1.jpg">
+    <Content Include="Resources\1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\logourl.png">
+    <Content Include="Resources\logourl.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\voice.gif">
+    <Content Include="Resources\voice.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

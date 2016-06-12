@@ -44,7 +44,7 @@ public class Account
             return false;
         }
         //验证用户的密码
-        if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"))
+        if (member.Password != FormsAuthentication.HashPasswordForStoringInConfigFile(password.ToUpper(), "MD5"))
         {
             response.state_CODE = Dicts.StateCode[9];
             response.err_Msg = "用户密码错误";

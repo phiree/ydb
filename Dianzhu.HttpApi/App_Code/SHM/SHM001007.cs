@@ -20,6 +20,7 @@ public class ResponseSHM001007 : BaseResponse
     {
         ReqDataSHM001007 requestData = this.request.ReqData.ToObject<ReqDataSHM001007>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用
         BLLDZTag bllDZTag = new BLLDZTag();
 

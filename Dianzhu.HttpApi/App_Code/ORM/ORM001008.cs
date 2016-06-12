@@ -28,6 +28,8 @@ public class ResponseORM001008 : BaseResponse
         BLLServiceOrderRemind bllServiceOrderRemind = new BLLServiceOrderRemind();
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+
         try
         {
             string raw_id = requestData.userID;

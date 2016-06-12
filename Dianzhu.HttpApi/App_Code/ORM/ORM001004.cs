@@ -19,9 +19,8 @@ public class ResponseORM001004 : BaseResponse
     protected override void BuildRespData()
     {
         ReqDataORM001004 requestData = this.request.ReqData.ToObject<ReqDataORM001004>();
-
-        //todo:用户验证的复用.
-
+        
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
         try
         {
