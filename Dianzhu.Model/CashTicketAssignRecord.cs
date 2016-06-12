@@ -10,7 +10,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 现金券分派给商家的记录 
     /// </summary>
-    public  class CashTicketAssignRecord
+    public  class CashTicketAssignRecord:DDDCommon.Domain.Entity<Guid>
     {
         public CashTicketAssignRecord()
         {

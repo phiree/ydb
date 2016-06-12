@@ -7,28 +7,45 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALDZTag : DALBase<Model.DZTag>
+    public class DALDZTag : NHRepositoryBase<DZTag,Guid>,IDAL.IDALDZTag
     {
-          public DALDZTag()
-        {
-             
-        }
-        //注入依赖,供测试使用;
-          public DALDZTag(string fortest):base(fortest)
-        {
-            
-        }
+       
         public IList<DZTag> GetTagsForService(Guid serviceId)
         {
-            return Session.QueryOver<DZTag>().Where(x => x.ForPK == serviceId.ToString()).List();
+
+            using (var tr = Session.BeginTransaction())
+            {
+
+                var result = Session.QueryOver<DZTag>().Where(x => x.ForPK == serviceId.ToString()).List();
+                tr.Commit();
+                return result; 
+               
+            }
+
         }
         public IList<DZTag> GetTagsForBusiness(Guid businessId)
         {
-            return Session.QueryOver<DZTag>().Where(x => x.ForPK3 == businessId.ToString()).List();
+            using (var tr = Session.BeginTransaction())
+            {
+
+                var result = Session.QueryOver<DZTag>().Where(x => x.ForPK3 == businessId.ToString()).List();
+                tr.Commit();
+                return result;
+
+            }
+            
         }
         public IList<DZTag> GetTagsForBusinessAndTypeId(Guid businessId, Guid typeId)
         {
-            return Session.QueryOver<DZTag>().Where(x => x.ForPK3 == businessId.ToString()).And(x=>x.ForPK2==typeId.ToString()).List();
+            using (var tr = Session.BeginTransaction())
+            {
+
+                var result =    Session.QueryOver<DZTag>().Where(x => x.ForPK3 == businessId.ToString()).And(x => x.ForPK2 == typeId.ToString()).List();
+                tr.Commit();
+                return result;
+
+            }
+            
         }
     }
 }

@@ -7,17 +7,14 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALComplaint : DALBase<Complaint>
+    public class DALComplaint : NHRepositoryBase<Complaint,Guid>
     {
          public DALComplaint()
         {
              
         }
         //注入依赖,供测试使用;
-         public DALComplaint(string fortest):base(fortest)
-        {
-            
-        }
+         
         
         
     }
