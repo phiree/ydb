@@ -6,7 +6,7 @@ using Dianzhu.Model;
 using NHibernate;
 namespace Dianzhu.DAL
 {
-    public class DALBusinessImage : NHRepositoryBase<BusinessImage, Guid>,IDAL.IRepository<BusinessImage,Guid>
+    public class DALBusinessImage : NHRepositoryBase<BusinessImage, Guid>,IDAL.IDALBusinessImage
     {
          
        
