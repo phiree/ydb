@@ -12,7 +12,7 @@ namespace Dianzhu.BLL
 
         public void Save(IMUserStatus im)
         {
-            DALIMUserStatus.Save(im);
+            DALIMUserStatus.Add(im);
         }
 
         public void Update(IMUserStatus im)

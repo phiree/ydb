@@ -9,7 +9,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 投诉类
     /// </summary>
-    public class Complaint
+    public class Complaint:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 构造函数

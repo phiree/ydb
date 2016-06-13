@@ -8,7 +8,7 @@ using Dianzhu.Model.Enums;
 using DDDCommon;
 namespace Dianzhu.DAL
 {
-   public class DALCashTicket:DAL.NHRepositoryBase<CashTicket,Guid>,IDAL.IRepository<CashTicket,Guid>
+   public class DALCashTicket:DAL.NHRepositoryBase<CashTicket,Guid>,IDAL.IDALCashTicket
     {
 
 

@@ -15,13 +15,7 @@ namespace Dianzhu.DAL.Finance
             var result = FindOne(x => x.ServiceType.Id == serviceType.Id);
             return result;
         }
-        public void SaveList(IList<ServiceTypePoint> list)
-        {
-            foreach (ServiceTypePoint p in list)
-            {
-                Add(p);
-            }
-        }
+       
         public IList<Dianzhu.Model.Finance.ServiceTypePoint> GetAll()
         {
             return Find(x => true);

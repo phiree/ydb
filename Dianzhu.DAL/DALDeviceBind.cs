@@ -7,18 +7,14 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALDeviceBind : DALBase<DeviceBind>
+    public class DALDeviceBind :NHRepositoryBase<DeviceBind,Guid>,IDAL.IDALDeviceBind
     {
          public DALDeviceBind()
         {
              
         }
         //注入依赖,供测试使用;
-         public DALDeviceBind(string fortest):base(fortest)
-        {
-            
-        }
-
+         
         public void UpdateBindStatus(DZMembership member, string appToken, string appName)
         {
             //解除所有 apptoken  和 member的绑定
@@ -29,7 +25,7 @@ namespace Dianzhu.DAL
 
             //记录本次绑定
             DeviceBind newDb = new DeviceBind { DZMembership = member, AppName = appName, BindChangedTime = DateTime.Now, AppToken = appToken, IsBinding = true };
-            Save(newDb);
+            Add(newDb);
 
         }
 

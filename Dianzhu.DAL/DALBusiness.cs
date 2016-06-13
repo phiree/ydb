@@ -43,20 +43,41 @@ namespace Dianzhu.DAL
         }
         public Business GetBusinessByPhone(string phone)
         {
-            Business b = Session.QueryOver<Business>().Where(x => x.Phone == phone).SingleOrDefault();
+            using (var tr = Session.BeginTransaction())
+            {
+                Business b = Session.QueryOver<Business>().Where(x => x.Phone == phone).SingleOrDefault();
+                tr.Commit();
+                return b;
+            }
+                
 
-            return b;
+            
         }
         public Business GetBusinessByEmail(string email)
         {
-            Business b = Session.QueryOver<Business>().Where(x => x.Email == email).SingleOrDefault();
 
-            return b;
+            using (var tr = Session.BeginTransaction())
+            {
+
+                Business b = Session.QueryOver<Business>().Where(x => x.Email == email).SingleOrDefault();
+                tr.Commit();
+                return b; 
+               
+            }
+
         }
 
         public Business GetBusinessByIdAndOwner(Guid Id, Guid ownerId)
         {
-            return Session.QueryOver<Business>().Where(x => x.Id == Id).And(x => x.Owner.Id == ownerId).SingleOrDefault();
+
+            using (var tr = Session.BeginTransaction())
+            {
+
+                Business business = Session.QueryOver<Business>().Where(x => x.Id == Id).And(x => x.Owner.Id == ownerId).SingleOrDefault(); 
+                tr.Commit();
+                return business;
+            }
+
         }
         /// <summary>
         /// 全部已经启用的商铺
@@ -64,7 +85,16 @@ namespace Dianzhu.DAL
         /// <param name="ownerId"></param>
         public IList<Business> GetBusinessListByOwner(Guid ownerId)
         {
-            return Session.QueryOver<Business>().Where(x => x.Owner.Id == ownerId).And(x => x.Enabled == true).List();
+            using (var tr = Session.BeginTransaction())
+            {
+
+
+                var result = Session.QueryOver<Business>().Where(x => x.Owner.Id == ownerId).And(x => x.Enabled == true).List();
+                tr.Commit();
+                return result; 
+              
+            }
+
         }
 
         /// <summary>
@@ -76,17 +106,34 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
         {
-            //IQuery qry = Session.CreateQuery("select b from Business b order by b.CreatedTime desc");
-            IQuery qryTotal = Session.CreateQuery("select count(*) from Business b ");
-            //IList<Business> busList = qry.Future<Business>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
-            IList<Business> busList = Session.QueryOver<Business>().Where(x => x.Enabled == true).OrderBy(x => x.CreatedTime).Desc.List();
-            totalRecord = qryTotal.FutureValue<long>().Value;
-            return busList;
+
+            using (var tr = Session.BeginTransaction())
+            {
+
+                //IQuery qry = Session.CreateQuery("select b from Business b order by b.CreatedTime desc");
+                IQuery qryTotal = Session.CreateQuery("select count(*) from Business b ");
+                //IList<Business> busList = qry.Future<Business>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
+                IList<Business> busList = Session.QueryOver<Business>().Where(x => x.Enabled == true).OrderBy(x => x.CreatedTime).Desc.List();
+                totalRecord = qryTotal.FutureValue<long>().Value;
+                tr.Commit();
+                return busList; 
+             
+            }
+
         }
 
         public int GetEnableSum(DZMembership member)
         {
-            return Session.QueryOver<Business>().Where(x => x.Owner == member).And(x => x.Enabled == true).RowCount();
+            using (var tr = Session.BeginTransaction())
+            {
+
+
+                int result = Session.QueryOver<Business>().Where(x => x.Owner == member).And(x => x.Enabled == true).RowCount();
+               
+                tr.Commit();
+                return result;
+            }
+
         }
 
         public void SaveList(IList<Business> businesses)

@@ -171,7 +171,7 @@ namespace Dianzhu.BLL
         {
             get
             {
-                return dalDZService == null ? forTest ? new DALDZService(""): new DALDZService(): dalDZService;
+                return dalDZService == null ? forTest ? new DALDZService(): new DALDZService(): dalDZService;
             }
             set { dalDZService = value; }
         }

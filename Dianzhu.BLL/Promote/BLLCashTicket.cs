@@ -44,7 +44,7 @@ namespace Dianzhu.BLL
                 record.CashTickets = ticketListCreated;
                 record.CashTicketTemplate = tt;
                 record.TimeCreated = DateTime.Now;
-                DALCashTicketCreateRecord.Save(record);
+                DALCashTicketCreateRecord.Add(record);
 
 
             }
