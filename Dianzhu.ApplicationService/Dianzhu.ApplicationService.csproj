@@ -54,6 +54,10 @@
     <Reference Include="Dianzhu.BLL">
       <HintPath>..\Dianzhu.BLL\bin\Debug\Dianzhu.BLL.dll</HintPath>
     </Reference>
+    <Reference Include="Dianzhu.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dianzhu.Config\bin\Debug\Dianzhu.Config.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -66,12 +70,17 @@
       <HintPath>..\packages\Mono.Reflection.1.0.0.0\lib\Mono.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,9 +89,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="City\CityService.cs" />
+    <Compile Include="City\ICityService.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Client\ClientService.cs" />
     <Compile Include="Client\IClientService.cs" />
+    <Compile Include="Common\baiduMap.cs" />
     <Compile Include="Common\common_Trait_400_Rsponses.cs" />
     <Compile Include="Common\common_Trait_AdFiltering.cs" />
     <Compile Include="Common\common_Trait_AssignFiltering.cs" />
@@ -101,6 +113,7 @@
     <Compile Include="Common\common_Trait_StoreFiltering.cs" />
     <Compile Include="Common\common_Trait_UserFiltering.cs" />
     <Compile Include="Common\common_Trait_WorkTimeFiltering.cs" />
+    <Compile Include="Common\utils.cs" />
     <Compile Include="Dicts.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\DtoToModelMappingProfile.cs" />

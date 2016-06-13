@@ -17,6 +17,31 @@ namespace Dianzhu.ApplicationService
      public class utils
     {
         /// <summary>
+        /// 根据经纬度获取城市
+        /// </summary>
+        /// <param name="lng">经度</param>
+        /// <param name="lat">纬度</param>
+        /// <returns></returns>
+        public static string GetCity(string lng, string lat)
+        {
+            //string lng = location.longitude;//经度
+            //string lat = location.latitude;//纬度
+            string tran_url = Dianzhu.Config.Config.GetAppSetting("BaiduTranAPI") +
+                Dianzhu.Config.Config.GetAppSetting("BaiduTranAK") +
+                "&coords=" + lat + "," + lng + "&from=3&to=5";
+            string tran_return = utils.Get_Http(tran_url, 1000000);
+            RespTran obj = utils.Deserialize<RespTran>(tran_return);
+
+            double tran_lng = obj.result[0].x;//转换后经度
+            double tran_lat = obj.result[0].y;//转换后纬度
+            string geo_url = Dianzhu.Config.Config.GetAppSetting("BaiduGeocodingAPI") +
+                Dianzhu.Config.Config.GetAppSetting("BaiduGeocodingAK") +
+                "&output=json&pois=0&location=" + tran_lng + "," + tran_lat;
+            string geo_return = Regex.Unescape(utils.Get_Http(geo_url, 1000000));
+            return geo_return;
+        }
+
+        /// <summary>
         /// 只转换每个汉字首字母（大写）
         /// </summary>
         /// <param name="strText"></param>
@@ -65,7 +90,7 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <param name="strUrl">指定URL路径地址</param>
         /// <param name="timeout">超时时间设置</param>
-        private string Get_Http(string strUrl, int timeout)
+        public static string Get_Http(string strUrl, int timeout)
         {
             string strResult;
             try

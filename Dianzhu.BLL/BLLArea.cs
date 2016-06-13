@@ -94,6 +94,35 @@ namespace Dianzhu.BLL
             
         }
 
+        /// <summary>
+        /// 根据areacode获得city
+        /// </summary>
+        /// <param name="areacode">code代码</param>
+        /// <returns>area实体</returns>
+        public Model.Area GetCityByAreaCode(string areacode)
+        {
+            if (string.IsNullOrEmpty(areacode))
+            {
+                return null;
+            }
+            Expression<Func<Model.Area, bool>> where = i => i.Code == areacode && !i.Code.EndsWith("0000") && i.Code.EndsWith("00");
+            var list = repoArea.FindOne(where);
+            return list;
+
+        }
+
+        /// <summary>
+        /// 获得所有city
+        /// </summary>
+        /// <returns>area实体list</returns>
+        public IList<Model.Area> GetAllCity()
+        {
+            Expression<Func<Model.Area, bool>> where = i =>  !i.Code.EndsWith("0000") && i.Code.EndsWith("00");
+            var list = repoArea.Find(where).ToList(); ;
+            return list;
+
+        }
+
 
 
         /// <summary>
