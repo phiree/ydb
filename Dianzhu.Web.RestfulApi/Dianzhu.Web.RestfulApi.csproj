@@ -243,6 +243,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Client\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LOCATION\LocationsController.cs" />
     <Compile Include="Controllers\SNAPSHOT\SnapshotsController.cs" />
     <Compile Include="Controllers\USER\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

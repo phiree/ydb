@@ -48,7 +48,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
                 if (ex.Message == "009004")
                 {
                     res_Error.errCode = "009004";
-                    res_Error.errString = "没有找到数据！";
+                    res_Error.errString = "没有找到符合条件的数据！";
                 }
                 else
                 {
