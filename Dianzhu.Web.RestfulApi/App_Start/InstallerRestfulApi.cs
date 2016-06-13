@@ -27,5 +27,6 @@ public class InstallerRestfulApi : IWindsorInstaller
         container.Register(Component.For<Dianzhu.BLL.Client.IBLLRefreshToken>().ImplementedBy<Dianzhu.BLL.Client.BLLRefreshToken>());
         container.Register(Component.For<Dianzhu.ApplicationService.Client.IClientService>().ImplementedBy<Dianzhu.ApplicationService.Client.ClientService>());
         container.Register(Component.For<Dianzhu.ApplicationService.User.IUserService>().ImplementedBy<Dianzhu.ApplicationService.User.UserService>());
+        container.Register(Component.For<Dianzhu.ApplicationService.City.ICityService>().ImplementedBy<Dianzhu.ApplicationService.City.CityService>());
     }
 }

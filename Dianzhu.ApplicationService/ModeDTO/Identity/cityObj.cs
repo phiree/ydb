@@ -18,7 +18,15 @@ namespace Dianzhu.ApplicationService
         /// 城市关键字母（如“A”）
         /// </summary>
         /// <type>string</type>
-        public string key { get; set; }
+        public string key
+        {
+            get
+            {
+                string spell = utils.GetChineseSpell(name);
+                return spell.Substring(0, 1);
+            }
+            set { }
+        }
 
         /// <summary>
         /// 城市代码

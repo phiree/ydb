@@ -18,13 +18,19 @@ namespace Dianzhu.ApplicationService.Mapping
         protected override void Configure()
         {
             Mapper.CreateMap<Model.Client,ClientDTO > ()
-     .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
             Mapper.CreateMap<Model.RefreshToken,RefreshTokenDTO > ()
-     .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
             Mapper.CreateMap<Model.DZMembership,userObj>()
             .ForMember(x => x.alias, opt => opt.MapFrom(source => source.UserName))
             .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl))
-     .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<Model.Area, cityObj>()
+            .ForMember(x => x.name, opt => opt.MapFrom(source => source.Name.Substring(source.Name.IndexOf('省')+1)))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();
             //Mapper.CreateMap<FocusFormModel, Focus>();

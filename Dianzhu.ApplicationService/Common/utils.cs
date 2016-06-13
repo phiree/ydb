@@ -16,6 +16,29 @@ namespace Dianzhu.ApplicationService
 {
      public class utils
     {
+
+        /// <summary>
+        /// 接口异常结果返回
+        /// </summary>
+        /// <param name="ex">异常</param>
+        /// <returns></returns>
+        public static common_Trait_400_Rsponses SetRes_Error(Exception ex)
+        {
+            common_Trait_400_Rsponses res_Error = new common_Trait_400_Rsponses();
+            if (ex.Message == "009004")
+            {
+                res_Error.errCode = "009004";
+                res_Error.errString = "没有找到符合条件的数据！";
+            }
+            else
+            {
+                res_Error.errCode = "009001";
+                res_Error.errString = ex.Message;
+            }
+            return res_Error;
+        }
+
+
         /// <summary>
         /// 根据经纬度获取城市
         /// </summary>

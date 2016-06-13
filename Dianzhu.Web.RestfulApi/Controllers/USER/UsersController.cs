@@ -43,19 +43,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
             }
             catch(Exception ex)
             {
-                //return InternalServerError();
-                common_Trait_400_Rsponses res_Error = new common_Trait_400_Rsponses();
-                if (ex.Message == "009004")
-                {
-                    res_Error.errCode = "009004";
-                    res_Error.errString = "没有找到符合条件的数据！";
-                }
-                else
-                {
-                    res_Error.errCode = "009001";
-                    res_Error.errString = ex.Message;
-                }
-                return Content(HttpStatusCode.BadRequest, res_Error);
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
             }
         }
 
