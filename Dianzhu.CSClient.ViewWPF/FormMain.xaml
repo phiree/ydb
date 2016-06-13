@@ -135,26 +135,28 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <Image x:Name="imgDZLogo" Height="50" Width="50" Source="pack://siteoforigin:,,,/Resources/1.jpg"/>
+                <Border CornerRadius="5">
+                    <Image x:Name="imgDZLogo" Height="50" Width="50" Source="pack://siteoforigin:,,,/Resources/logourl.png"/>
+                </Border>
             </Grid>
 
             <Grid Grid.Row="1">
                 <StackPanel DockPanel.Dock="Top">
                     <Button x:Name="btnWorkDesktop" Style="{DynamicResource ButtonOperate}">
                         <StackPanel>
-                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/1.jpg"/>
+                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/work.png"/>
                             <TextBlock Text="工作台" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnCSInfo" Style="{DynamicResource ButtonOperate}">
                         <StackPanel>
-                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/1.jpg"/>
+                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/ass.png"/>
                             <TextBlock Text="客服信息" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnSystemOperate" Style="{DynamicResource ButtonOperate}">
                         <StackPanel>
-                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/1.jpg"/>
+                            <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/set.png"/>
                             <TextBlock Text="系统设置" HorizontalAlignment="Center" Margin="2" Style="{DynamicResource TextBlockOperate}" Foreground="#FFdedede"/>
                         </StackPanel>
                     </Button>
@@ -162,9 +164,9 @@
             </Grid>
 
             <Grid Grid.Row="2">
-                <Button x:Name="btnClosedForm" Style="{DynamicResource ButtonOperate}">
+                <Button x:Name="btnClosedForm" Style="{DynamicResource ButtonOperate}" Click="btnWindowsClosed_Click">
                     <StackPanel>
-                        <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/1.jpg"/>
+                        <Image Height="60" Width="60" Source="pack://siteoforigin:,,,/Resources/exit.png"/>
                     </StackPanel>
                 </Button>
             </Grid>
@@ -191,8 +193,8 @@
             <!--窗体控制按钮-->
             <Grid Grid.Row="0" Background="Transparent" MouseDown="Grid_MouseDown">
                 <WrapPanel VerticalAlignment="Center">
-                    <Button Content="开始接单" Width="150" Height="25"></Button>
-                    <Button Content="开始接单" Width="150" Height="25"></Button>
+                    <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
+                    <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
                 </WrapPanel>
                 <WrapPanel HorizontalAlignment="Right">
                     <Canvas Height="30" Width="30">

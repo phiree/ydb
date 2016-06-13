@@ -42,7 +42,8 @@ namespace PHSuit
             Console.WriteLine("localhost" + ":" + PHSuit.Security.Encrypt("data source=localhost;uid=root;pwd=root;database=new", false));
 
             Console.WriteLine("150:" + PHSuit.Security.Encrypt("data source=192.168.1.150;uid=ydb;pwd=jsyk2016;database=dianzhu_test", false));
-            Console.WriteLine("115:" + PHSuit.Security.Encrypt("data source=business.ydban.cn;uid=ydb;pwd=jsyk2016;database=dianzhu", false));
+            Console.WriteLine("business.ydban.cn:" + PHSuit.Security.Encrypt("data source=business.ydban.cn;uid=ydb;pwd=jsyk2016;database=dianzhu", false));
+            Console.WriteLine("115:" + PHSuit.Security.Encrypt("data source=115.159.72.236;uid=ydb;pwd=jsyk2016;database=dianzhu", false));
 
         }
         [Test]
