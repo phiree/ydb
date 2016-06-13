@@ -6,7 +6,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using Dianzhu.CSClient.IView;
 using Dianzhu.CSClient.IInstantMessage;
-using Dianzhu.CSClient.ViewModel;
+ 
 using System.Collections;
 
 namespace Dianzhu.CSClient.Presenter

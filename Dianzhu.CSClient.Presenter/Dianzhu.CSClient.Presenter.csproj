@@ -102,10 +102,6 @@
       <Project>{755eea8c-9d5e-406e-83dd-36b3ba4eb158}</Project>
       <Name>Dianzhu.CSClient.IView</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Dianzhu.CSClient.ViewModel\Dianzhu.CSClient.ViewModel.csproj">
-      <Project>{D7AA114D-AD19-4399-B152-969D240053C7}</Project>
-      <Name>Dianzhu.CSClient.ViewModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.CSClient.ViewWPF\Dianzhu.CSClient.ViewWPF.csproj">
       <Project>{97792986-3421-464a-8711-0fc6eaba9bcb}</Project>
       <Name>Dianzhu.CSClient.ViewWPF</Name>
