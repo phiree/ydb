@@ -11,17 +11,41 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
 {
     public class ComplaintsController : ApiController
     {
+
+        private ApplicationService.Complaint.IComplaintService icomplaintservice = null;
+        public ComplaintsController()
+        {
+            //this.iuserservice = iuserservice;
+            icomplaintservice = Bootstrap.Container.Resolve<ApplicationService.Complaint.IComplaintService>();
+        }
+
         /// <summary>
         /// 新建投诉
         /// </summary>
-        /// <param name="filter">接口通用筛选器</param>
-        /// <param name="location">location筛选器</param>
+        /// <param name="complaintobj">投诉信息</param>
         /// <returns></returns>
         public IHttpActionResult PostCreateComplaint([FromBody]complaintObj complaintobj)
         {
             try
             {
-                return Json("dd");
+                return Json(icomplaintservice.AddComplaint(complaintobj));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 新建投诉
+        /// </summary>
+        /// <param name="complaintobj">投诉信息</param>
+        /// <returns></returns>
+        public IHttpActionResult GetComplaints([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_ComplainFiltering complaint)
+        {
+            try
+            {
+                return Json(icomplaintservice.GetComplaints(filter, complaint));
             }
             catch (Exception ex)
             {

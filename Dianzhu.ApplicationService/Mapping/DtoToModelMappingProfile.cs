@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dianzhu.Model;
+using Dianzhu.DAL;
 
 
 namespace Dianzhu.ApplicationService.Mapping
@@ -19,6 +20,7 @@ namespace Dianzhu.ApplicationService.Mapping
 
         protected override void Configure()
         {
+
             Mapper.CreateMap<ClientDTO, Model.Client>()
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
@@ -32,6 +34,12 @@ namespace Dianzhu.ApplicationService.Mapping
 
             Mapper.CreateMap<cityObj, Model.Area>()
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<complaintObj, Model.Complaint>()
+            .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(new Guid(source.orderID))))
+            .ForMember(x => x.Operator, opt => opt.MapFrom(source => new DAL.DALMembership().FindById(new Guid(source.senderID))))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
 
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();

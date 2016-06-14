@@ -31,6 +31,11 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.Area, cityObj>()
             .ForMember(x => x.name, opt => opt.MapFrom(source => source.Name.Substring(source.Name.IndexOf('省')+1)))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<Model.Complaint, complaintObj>()
+            .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.Order.Id))
+            .ForMember(x => x.senderID, opt => opt.MapFrom(source => source.Operator.Id))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();
             //Mapper.CreateMap<FocusFormModel, Focus>();

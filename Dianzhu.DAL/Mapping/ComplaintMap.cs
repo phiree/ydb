@@ -12,8 +12,12 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             References<ServiceOrder>(x => x.Order);
             Map(x => x.Target).CustomType<Model.Enums.enum_ChatTarget>();
-            Map(x => x.Context);
-            Map(x => x.ResourcesUrl).Length(1000);
+            Map(x => x.Content);
+
+            //20160614_longphui_modify
+            Map(x => x.ResourcesUrl);//.Length(1000);
+            Map(x => x.Status);
+
             Map(x => x.CreatTime);
             Map(x => x.Result);
             References<DZMembership>(x => x.Operator);

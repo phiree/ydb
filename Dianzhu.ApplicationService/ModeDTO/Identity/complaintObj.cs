@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dianzhu.Model;
 
 namespace Dianzhu.ApplicationService
 {
@@ -24,7 +25,7 @@ namespace Dianzhu.ApplicationService
         /// 投诉的目标("customerService":[客服]，"store":[商铺])
         /// </summary>
         /// <type>string</type>
-        public string target { get; set; }
+        public Model.Enums.enum_ComplaintTarget target { get; set; }
 
         /// <summary>
         /// 描述

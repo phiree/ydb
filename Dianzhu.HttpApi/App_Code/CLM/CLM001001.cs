@@ -72,9 +72,12 @@ public class ResponseCLM001001 : BaseResponse
 
                 Complaint complaint = new Complaint();
                 complaint.Order = order;
-                complaint.Target = (enum_ChatTarget)Enum.Parse(typeof(enum_ChatTarget), requestData.target);
-                complaint.Context = requestData.context;
-                complaint.ResourcesUrl = requestData.resourcesUrl;
+                complaint.Target = (enum_ComplaintTarget)Enum.Parse(typeof(enum_ComplaintTarget), requestData.target);
+                complaint.Content = requestData.context;
+
+                //20160614_longphui_modify
+                complaint.ResourcesUrl = requestData.resourcesUrl.Split(',').ToList();// requestData.resourcesUrl;
+
                 complaint.Operator = order.Customer;
                 bllComplaint.SaveOrUpdate(complaint);
 

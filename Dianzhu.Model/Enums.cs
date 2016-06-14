@@ -558,4 +558,19 @@ namespace Dianzhu.Model.Enums
         NativeConfidential = 1
     };
 
+    /// <summary>
+    /// 投诉目标类型
+    /// </summary>
+    public enum enum_ComplaintTarget
+    {
+        /// <summary>
+        /// 客服
+        /// </summary>
+        customerService,
+        /// <summary>
+        /// 店铺
+        /// </summary>
+        store
+    }
+
 }

@@ -114,6 +114,8 @@
     <Compile Include="Common\common_Trait_UserFiltering.cs" />
     <Compile Include="Common\common_Trait_WorkTimeFiltering.cs" />
     <Compile Include="Common\utils.cs" />
+    <Compile Include="Complaint\ComplaintService.cs" />
+    <Compile Include="Complaint\IComplaintService.cs" />
     <Compile Include="Dicts.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\DtoToModelMappingProfile.cs" />
@@ -142,6 +144,8 @@
     <Compile Include="ModeDTO\Identity\storeObj.cs" />
     <Compile Include="ModeDTO\Identity\userObj.cs" />
     <Compile Include="ModeDTO\Identity\workTimeObj.cs" />
+    <Compile Include="Order\IOrderService.cs" />
+    <Compile Include="Order\OrderService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\IServiceService.cs" />
     <Compile Include="Service\ServiceService.cs" />
