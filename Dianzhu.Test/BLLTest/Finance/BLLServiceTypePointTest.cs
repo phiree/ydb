@@ -47,7 +47,7 @@ namespace Dianzhu.Test.BLLTest.Finance
 
         }
         [Test]
-        [ExpectedException]
+        
         public void GetPointRealData()
         {
             

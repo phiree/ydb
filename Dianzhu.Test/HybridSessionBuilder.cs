@@ -51,6 +51,7 @@ namespace Dianzhu.Test
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
+                    HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
                 }
             }
             return _sessionFactory;
