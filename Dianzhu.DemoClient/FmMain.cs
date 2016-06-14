@@ -18,6 +18,7 @@ namespace Dianzhu.DemoClient
 {
     public partial class FmMain : Form
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.DemoClient");
         string csId;
         string csDisplayName;
         string customerId;
@@ -83,6 +84,7 @@ namespace Dianzhu.DemoClient
                 }}", userName, password, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
             customerId = result["RespData"]["userObj"]["userID"].ToString();
+            this.Text= result["RespData"]["userObj"]["name"].ToString();
 
         }
         public void GetCustomerService(string username,string password ,string manualAssignedCS)
@@ -303,6 +305,7 @@ namespace Dianzhu.DemoClient
                     break;
 
                 default:
+                    log.Warn("未知的聊天类型:" + message);
                     MessageBox.Show("未知的聊天类型");
                     break;
             }
