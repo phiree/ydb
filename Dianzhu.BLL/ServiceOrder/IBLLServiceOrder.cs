@@ -112,7 +112,11 @@ namespace Dianzhu.BLL
         /// </summary>
         /// <param name="order"></param>
         void OrderFlow_CustomerAppraise(ServiceOrder order);
-
+        /// <summary>
+        /// 订单已经分成.
+        /// </summary>
+        /// <param name="order"></param>
+        void OrderFlow_Shared(ServiceOrder order);
         /// <summary>
         /// 用户申请理赔
         /// </summary>
@@ -225,6 +229,8 @@ namespace Dianzhu.BLL
         //查询订单的总金额
         //查询订单的曝光率.
         void Save(ServiceOrder order);
+        //查询可以分账的订单
+        IList<ServiceOrder> GetOrdersForShare();
     }
  
 

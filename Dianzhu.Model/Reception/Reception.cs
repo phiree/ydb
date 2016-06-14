@@ -10,7 +10,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 接待中的聊天记录.
     /// </summary>
-    public class ReceptionChat
+    public class ReceptionChat:DDDCommon.Domain.Entity<Guid>
     {
         public ReceptionChat()
         {
@@ -82,7 +82,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 记录点点的接待记录
     /// </summary>
-    public class ReceptionChatDD
+    public class ReceptionChatDD:DDDCommon.Domain.Entity<Guid>
     {
         public virtual Guid Id { get; set; }
         public virtual DateTime SavedTime { get; set; }//保存的时间, 作为排序依据.
@@ -145,6 +145,7 @@ namespace Dianzhu.Model
         {
             this.ChatType = enum_ChatType.PushedService;
         }
+        public virtual ServiceOrderPushedService PushedService { get; set; }
         public virtual IList<ServiceOrderPushedService> PushedServices { get; set; }
     }
 }

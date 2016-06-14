@@ -31,7 +31,7 @@ namespace Dianzhu.BLL
 
         public virtual   DZService GetOne(Guid serviceId)
         {
-            return DALDZService.GetOne(serviceId);
+            return DALDZService.FindById(serviceId);
         }
         public DZService GetOneByBusAndId(Business business, Guid svcId)
         {
@@ -66,12 +66,12 @@ namespace Dianzhu.BLL
             }
 
             service.LastModifiedTime = DateTime.Now;
-            DALDZService.SaveOrUpdate(service);
+            DALDZService.Update(service);
         }
 
         public IList<DZService> GetAll()
         {
-            return DALDZService.GetAll<DZService>();
+            return DALDZService.Find(x => true) ;
         }
         public void Delete(DZService dz)
         {

@@ -78,7 +78,7 @@ namespace Dianzhu.DAL
         public Model.DZMembership GetMemberByWechatOpenId(string openid)
         {
             // return Session.QueryOver<Model.DZMembershipWeChat>().Where(x => x.OpenId == openid).SingleOrDefault();
-            var member = FindOne(x => ((Dianzhu.Model.DZMembershipWeChat)x).OpenId == openid);
+            var member = FindOne(x => ((Dianzhu.Model.DZMembershipWeChat)x).WeChatOpenId == openid);
             return member;
         }
         public Model.DZMembership GetMemberByQQOpenId(string openid)

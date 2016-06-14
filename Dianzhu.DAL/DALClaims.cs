@@ -7,17 +7,9 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALClaims : DALBase<Claims>
+    public class DALClaims :NHRepositoryBase<Claims,Guid>
     {
-         public DALClaims()
-        {
-             
-        }
-        //注入依赖,供测试使用;
-         public DALClaims(string fortest):base(fortest)
-        {
-            
-        }
+         
         
         public Claims GetOneByOrder(ServiceOrder order)
         {

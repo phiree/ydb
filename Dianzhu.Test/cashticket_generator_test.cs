@@ -16,7 +16,7 @@ using FizzWare.NBuilder;
 
 namespace Dianzhu.Test
 {
-    [TestFixture, Ignore]
+    [TestFixture]
     public class cashticket_generator_test
     {
         Business b1;

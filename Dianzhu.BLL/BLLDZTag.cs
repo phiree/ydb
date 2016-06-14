@@ -33,13 +33,13 @@ namespace Dianzhu.BLL
             dzTag.Text = text;
             dzTag.OriginalText = text;
             dzTag.CreateDate = DateTime.Now;
-            dalTag.Save(dzTag);
+            dalTag.Add(dzTag);
             return dzTag;
         }
         //删除tag 
         public void DeleteTag(Guid tagId)
         {
-            DZTag tag = dalTag.GetOne(tagId);
+            DZTag tag = dalTag.FindById(tagId);
             dalTag.Delete(tag);
         }
         /// <summary>

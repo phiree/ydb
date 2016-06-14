@@ -15,6 +15,7 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate.Tool.hbm2ddl;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor.Installer;
+using Dianzhu.DependencyInstaller;
 /// <summary>
 /// Summary description for Installer
 /// </summary>

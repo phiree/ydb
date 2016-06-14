@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC_OrderHistory_OrderNew"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="122" d:DesignWidth="441">
+    <UserControl.Resources>
+        <Style x:Key="TextBlockHisOrderKey" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="WordEllipsis"/>
+            <Setter Property="FontFamily" Value="微软雅黑"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="#FF8a8a8a"/>
+        </Style>
+
+        <Style x:Key="TextBlockHisOrderValue" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="WordEllipsis"/>
+            <Setter Property="FontFamily" Value="微软雅黑"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="#FF363636"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+        </Style>
+        <Style x:Key="LabelAll" TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Label}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#FFfafafa">
+        <Border BorderThickness="0,0,0,1" BorderBrush="#FFdee2e5" Margin="22,12,2,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <StackPanel>
+                        <WrapPanel>
+                            <Label Style="{DynamicResource LabelAll}">
+                                <TextBlock x:Name="lbOrderName" Text="汽车维修美容中心" FontSize="14" FontWeight="Bold" Foreground="#FF808080" Style="{DynamicResource TextBlockHisOrderKey}"></TextBlock>
+                            </Label>
+                        </WrapPanel>
+
+                        <WrapPanel>
+                            <Label Style="{DynamicResource LabelAll}">
+                                <TextBlock Text="服务地址" Style="{DynamicResource TextBlockHisOrderKey}"/>
+                            </Label>
+                            <Label Style="{DynamicResource LabelAll}">
+                                <TextBlock x:Name="lbOrderAddress" Text="海南省海口市XX" Style="{DynamicResource TextBlockHisOrderValue}" MaxWidth="198"/>
+                            </Label>
+                        </WrapPanel>
+
+                        <WrapPanel>
+                            <Label Style="{DynamicResource LabelAll}">
+                                <TextBlock Text="服务内容" Style="{DynamicResource TextBlockHisOrderKey}"/>
+                            </Label>
+                            <Label Style="{DynamicResource LabelAll}">
+                                <TextBlock x:Name="lbOrdeSvcName" Text="上门洗车" Style="{DynamicResource TextBlockHisOrderValue}" MaxWidth="198"/>
+                            </Label>
+                        </WrapPanel>
+
+                        <WrapPanel>
+                            <Label Style="{DynamicResource LabelAll}">
+                                <TextBlock Text="开始时间" Style="{DynamicResource TextBlockHisOrderKey}"/>
+                            </Label>
+                            <Label Style="{DynamicResource LabelAll}">
+                                <TextBlock x:Name="lbOrderStartTime" Text="2016-01-01 09:00" Style="{DynamicResource TextBlockHisOrderValue}" MaxWidth="198"/>
+                            </Label>
+                        </WrapPanel>
+
+                        <WrapPanel>
+                            <Label Style="{DynamicResource LabelAll}">
+                                <TextBlock Text="结束时间" Style="{DynamicResource TextBlockHisOrderKey}"/>
+                            </Label>
+                            <Label Style="{DynamicResource LabelAll}">
+                                <TextBlock x:Name="lbOrderEndTime" Text="2016-01-01 12:00" Style="{DynamicResource TextBlockHisOrderValue}" MaxWidth="198"/>
+                            </Label>
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <StackPanel Margin="10,12,24,0">
+                        <WrapPanel HorizontalAlignment="Right">
+                            <Label VerticalAlignment="Bottom">
+                                <TextBlock Text="￥" Style="{DynamicResource TextBlockHisOrderKey}" FontSize="14" Foreground="#FFf65f5f" FontWeight="Bold"/>
+                            </Label>
+                            <Label VerticalAlignment="Bottom" Padding="0">
+                                <TextBlock x:Name="lbOrderTotalAmount" Text="202120" Style="{DynamicResource TextBlockHisOrderKey}" FontSize="24" Foreground="#FFf65f5f" FontWeight="Bold"/>
+                            </Label>
+                        </WrapPanel>
+
+                        <Border Background="#FF9da6ad" CornerRadius="2" Height="18" HorizontalAlignment="Right">
+                            <Grid Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0">
+                                <Label Padding="0">
+                                    <TextBlock x:Name="lbOrderStatus" Text="已完成" Style="{DynamicResource TextBlockHisOrderKey}" Foreground="White" FontSize="10" Margin="0,-1,0,0"/>
+                                </Label>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

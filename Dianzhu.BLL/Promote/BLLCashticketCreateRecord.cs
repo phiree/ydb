@@ -18,7 +18,7 @@ namespace Dianzhu.BLL
         }
         public CashTicketCreateRecord GetOne(Guid id)
         {
-            return DALCashTicketCreateRecord.GetOne(id);
+            return DALCashTicketCreateRecord.FindById(id);
         }
 
         private bool CheckRule(Business business, int year, int month, int amountCreated, CashTicketTemplate cashticketTemplate, out string message)

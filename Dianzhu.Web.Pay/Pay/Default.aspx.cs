@@ -53,7 +53,7 @@ public partial class Pay_Default : System.Web.UI.Page
             payAPI = enum_PayAPI.Wechat;
         }
         
-        BLLPay bllPay = new BLLPay();
+        BLLPay bllPay = Bootstrap.Container.Resolve<BLLPay>();
         string requestString=string.Empty;
         //在线支付
         if (payType == enum_PayType.Online)

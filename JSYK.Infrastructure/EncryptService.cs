@@ -96,7 +96,7 @@ namespace JSYK.Infrastructure
             //Release resources held by TripleDes Encryptor                
             tdes.Clear();
             //return the Clear decrypted TEXT
-            return UTF8Encoding.UTF8.GetString(resultArray);
+            return UTF8Encoding.UTF8.GetString(resultArray).ToUpper();
         }
 
         public string GetMD5Hash(string input)

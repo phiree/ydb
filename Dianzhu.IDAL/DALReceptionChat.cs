@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace Dianzhu.IDAL
 {
-    public interface IDALReceptionChat 
+    public interface IDALReceptionChat :IRepository<ReceptionChat,Guid>
 
     {
 

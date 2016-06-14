@@ -33,11 +33,11 @@ using Dianzhu.Pay;
 /// </summary>
 public partial class _Default : System.Web.UI.Page 
 {
-    public IBLLServiceOrder bllOrder { get; set; }
+    IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        BLLPay bllPay = new BLLPay();
+        BLLPay bllPay = Bootstrap.Container.Resolve<BLLPay>();
         
         
         if (!IsPostBack)

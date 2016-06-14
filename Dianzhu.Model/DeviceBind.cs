@@ -9,7 +9,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 设备绑定
     /// </summary>
-   public  class DeviceBind
+   public  class DeviceBind : DDDCommon.Domain.Entity<Guid>
     {
         public virtual Guid Id { get; set; }
         public virtual DZMembership DZMembership { get; set; }

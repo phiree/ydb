@@ -270,7 +270,7 @@ namespace Dianzhu.BLL
             }
             else
             {
-                var password_cred =encryptService.GetMD5Hash(password);
+                var password_cred = encryptService.GetMD5Hash(password).ToUpper();
                 DZMembership newMember = new DZMembership
                 {
                     UserName = savedUserName,
@@ -293,6 +293,10 @@ namespace Dianzhu.BLL
             }
         }
         public void CreateUserForU3rd(DZMembership member)
+        {
+            DALMembership.Add(member);
+        }
+        public void UpdateUserForU3rd(DZMembership member)
         {
             DALMembership.Update(member);
         }

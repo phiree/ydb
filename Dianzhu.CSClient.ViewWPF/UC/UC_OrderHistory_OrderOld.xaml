@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Dianzhu.CSClient.ViewWPF.UC_OrderHistory_OrderOld"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dianzhu.CSClient.ViewWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="500">
+    <Grid Background="LightGray">
+        <WrapPanel>
+            <WrapPanel Width="500">
+                <Image x:Name="image" Height="35" Width="35"/>
+                <Label x:Name="lbOrderName" VerticalAlignment="Center">                    
+                    <TextBlock FontSize="17">
+                        高压蓝枫健康理念家政
+                    </TextBlock>
+                </Label>
+                
+            </WrapPanel>
+            
+            <WrapPanel Width="250">
+                <Label Margin="5" Foreground="Gray">订单编号</Label>
+                <Label Margin="5" x:Name="lbOrderNum" Width="170">YDB354546564</Label>
+            </WrapPanel>
+
+            <WrapPanel Width="250">
+                <Label Margin="5" Foreground="Gray">订单状态</Label>
+                <Label Margin="5" x:Name="lbOrderStatus" Foreground="Red" Width="170">已完成</Label>
+            </WrapPanel>
+
+            <WrapPanel Width="250">
+                <Label Margin="5" Foreground="Gray">服务名称</Label>
+                <Label Margin="5" x:Name="lbOrdeSvcName" Width="170">家政服务</Label>
+            </WrapPanel>
+
+            <WrapPanel Width="250">
+                <Label Margin="5" Foreground="Gray">上门时间</Label>
+                <Label Margin="5" x:Name="lbOrderStartTime" Width="170">2016-01-01 10:00</Label>
+            </WrapPanel>
+
+            <WrapPanel Width="250">
+                <Label Margin="5" Foreground="Gray">预付金额</Label>
+                <Label Margin="5,5,0,5" x:Name="lbOrdrDepositAmount" Width="170">100元</Label>
+            </WrapPanel>
+
+            <WrapPanel Width="250">
+                <Label Margin="5,5,0,5" Foreground="Gray" Padding="5,5,0,5">总</Label>
+                <Label Margin="0,5,0,5" Padding="0,5,0,5" Opacity="0">总价</Label>
+                <Label Margin="0,5,5,5" Foreground="Gray" Padding="0,5,5,5">价</Label>
+                <Label Margin="5,5,0,5" x:Name="lbOrderTotalAmount" Width="170">300元</Label>
+            </WrapPanel>
+
+            <WrapPanel>
+                <Label Margin="5" Foreground="Gray">服务地点</Label>
+                <Label Margin="5" x:Name="lbOrderAddress" Width="420">海涯大厦12A</Label>
+            </WrapPanel>
+
+            <WrapPanel Width="500" Height="2" Background="Gray"></WrapPanel>
+        </WrapPanel>
+    </Grid>
+</UserControl>

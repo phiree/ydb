@@ -41,8 +41,13 @@ namespace Dianzhu.BLL.Finance
             var memberPoint = dalSharePoint.GetSharePoint(member);
             decimal defaultPoint=0;
             if (memberPoint==null)
-            { 
-              defaultPoint = dalDefaultSharePoint.GetDefaultSharePoint(member.UserType).Point;
+            {
+                DefaultSharePoint defaultSharePoint = dalDefaultSharePoint.GetDefaultSharePoint(member.UserType);
+                if (defaultSharePoint != null)
+                {
+                    defaultPoint = defaultSharePoint.Point;
+                }
+              
             }
           
             string errMsg = string.Empty;

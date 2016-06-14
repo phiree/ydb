@@ -21,7 +21,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         {
             try
             {
-                return Json(icityservice.GetAllCity(filter, location));
+                return Json("dd");
             }
             catch (Exception ex)
             {

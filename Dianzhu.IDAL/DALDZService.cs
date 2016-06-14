@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace Dianzhu.IDAL
 {
-    public interface IDALDZService 
+    public interface IDALDZService :IRepository<DZService,Guid>
     {
 
           IList<DZService> GetList(Guid businessId, int pageindex, int pagesize, out int totalRecord);

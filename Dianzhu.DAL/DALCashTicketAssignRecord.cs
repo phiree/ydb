@@ -7,16 +7,13 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-   public class DALCashTicketAssignRecord:DALBase<CashTicketAssignRecord>
+   public class DALCashTicketAssignRecord:NHRepositoryBase<CashTicketAssignRecord,Guid>
     {
          public DALCashTicketAssignRecord()
         {
              
         }
         //注入依赖,供测试使用;
-         public DALCashTicketAssignRecord(string fortest):base(fortest)
-        {
-            
-        }
+        
     }
 }

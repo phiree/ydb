@@ -7,7 +7,7 @@ using Dianzhu.Model;
 
 namespace Dianzhu.IDAL
 {
-    public interface IDALIMUserStatus  
+    public interface IDALIMUserStatus :IRepository<IMUserStatus,Guid> 
     {
 
 

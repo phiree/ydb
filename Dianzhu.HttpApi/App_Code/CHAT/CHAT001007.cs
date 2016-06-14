@@ -22,6 +22,9 @@ public class ResponseCHAT001007:BaseResponse
     {
         ReqDataCHAT001007 requestData = this.request.ReqData.ToObject<ReqDataCHAT001007>();
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+
         string raw_id = requestData.userID;
         DZMembership member;
         if (request.NeedAuthenticate)

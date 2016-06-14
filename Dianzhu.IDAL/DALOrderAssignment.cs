@@ -7,7 +7,7 @@ using Dianzhu.Model.Enums;
  
 namespace Dianzhu.IDAL
 {
-    public interface IDALOrderAssignment  
+    public interface IDALOrderAssignment  :IRepository<OrderAssignment,Guid>
     {
 
 

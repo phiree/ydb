@@ -19,7 +19,7 @@ namespace Dianzhu.BLL
 
         public void SaveOrUpdate(DeviceBind db)
         {
-            DALDeviceBind.SaveOrUpdate(db);
+            DALDeviceBind.Update(db);
         }
 
         public void Delete(DeviceBind db)

@@ -48,7 +48,8 @@ namespace Dianzhu.CSClient.ViewWPF
                 Action lambda = () =>
                 {
                     orderList = value;
-                    pnlOrderHistory.Children.Clear();
+                    //pnlOrderHistory.Children.Clear();
+                    ((StackPanel)svChatList.FindName("StackPanel")).Children.Clear();
 
                     if (orderList == null)
                     {
@@ -64,7 +65,8 @@ namespace Dianzhu.CSClient.ViewWPF
                         {
                             ucOrder = new UC_OrderHistory_Order();
                             ucOrder.LoadData(order);
-                            pnlOrderHistory.Children.Add(ucOrder);
+                            //pnlOrderHistory.Children.Add(ucOrder);
+                            ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(ucOrder);
                         }
                         btnSearchEnabled = true;
                     }
@@ -83,7 +85,7 @@ namespace Dianzhu.CSClient.ViewWPF
         //显示当查询列表为空时的提示语
         private void ShowNullListLable()
         {
-            btnSearchEnabled = false;
+            //btnSearchEnabled = false;
 
             Label lblNoOrder = new Label
             {
@@ -91,7 +93,8 @@ namespace Dianzhu.CSClient.ViewWPF
                 Foreground = new SolidColorBrush(Colors.Gray),
                 Visibility = Visibility.Visible
             };
-            pnlOrderHistory.Children.Add(lblNoOrder);
+            //pnlOrderHistory.Children.Add(lblNoOrder);
+            ((StackPanel)svChatList.FindName("StackPanel")).Children.Add(lblNoOrder);
         }
 
         private bool btnSearchEnabled

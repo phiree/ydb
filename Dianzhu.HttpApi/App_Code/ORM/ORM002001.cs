@@ -17,12 +17,12 @@ public class ResponseORM002001 : BaseResponse
 {
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
     public ResponseORM002001(BaseRequest request) : base(request) { }
-    public IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataORM002001 requestData = this.request.ReqData.ToObject<ReqDataORM002001>();
 
- 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
       
@@ -45,7 +45,13 @@ public class ResponseORM002001 : BaseResponse
             }
             try
             {
-            
+                if(member == null)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "该用户不存在";
+                    return;
+                }
+
                 ilog.Debug("1");
                 RespDataORM002001 respData = new RespDataORM002001();
                 //IIMSession imSession = new IMSessionsDB();
@@ -99,12 +105,12 @@ public class ResponseORM002001 : BaseResponse
                 ServiceOrder orderToReturn = null;
                 //if (isValidGuid)
                 //{
-                orderToReturn = bllOrder.GetDraftOrder(member, assignedPair[member]);
+                orderToReturn = bllServiceOrder.GetDraftOrder(member, assignedPair[member]);
                     if (orderToReturn == null)
                     {
                     orderToReturn = ServiceOrderFactory.CreateDraft( assignedPair[member], member);
                        
-                        bllOrder.Save(orderToReturn);
+                        bllServiceOrder.Save(orderToReturn);
                     }
                 //}
                 ilog.Debug("7");
@@ -125,7 +131,7 @@ public class ResponseORM002001 : BaseResponse
                 //        , 0
                 //        , 0);
                 //     orderToReturn.CustomerService = assignedPair[member];
-                //     bllOrder.SaveOrUpdate(orderToReturn);
+                //     bllServiceOrder.SaveOrUpdate(orderToReturn);
                 // }
                 respData.orderID = orderToReturn.Id.ToString();
                 ilog.Debug("8");

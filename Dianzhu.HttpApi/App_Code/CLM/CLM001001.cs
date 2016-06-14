@@ -21,6 +21,8 @@ public class ResponseCLM001001 : BaseResponse
     {
         ReqDataCLM001001 requestData = this.request.ReqData.ToObject<ReqDataCLM001001>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLComplaint bllComplaint = new BLLComplaint();

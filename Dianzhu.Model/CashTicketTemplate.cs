@@ -10,7 +10,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 现金券模板
     /// </summary>
-    public  class CashTicketTemplate
+    public  class CashTicketTemplate:DDDCommon.Domain.Entity<Guid>
     {
          
         public virtual Guid Id { get; set; }

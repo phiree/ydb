@@ -20,10 +20,11 @@ public class ResponseORM001007 : BaseResponse
     {
         ReqDataORM001007 requestData = this.request.ReqData.ToObject<ReqDataORM001007>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         
-        PushService pushService = new PushService();
+        PushService pushService = Bootstrap.Container.Resolve<PushService>();
         BLLDZTag bllDZTag = new BLLDZTag();
         string raw_id = requestData.userID;
         string order_id = requestData.orderID;

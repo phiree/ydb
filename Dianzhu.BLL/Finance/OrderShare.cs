@@ -7,11 +7,16 @@ using Dianzhu.Model;
 
 namespace Dianzhu.BLL.Finance
 {
+    /// <summary>
+    /// 分账服务.
+    /// </summary>
     public class OrderShare : IOrderShare
     {
+
         IBLLServiceTypePoint bllServiceTypePoint;
         IBalanceFlowService balanceService;
         IBLLSharePoint bllSharePoint;
+        
         Agent.IAgentService agentService;
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.Finance.OrderShare");
         public OrderShare(IBLLServiceTypePoint bllServiceTypePoint,
@@ -25,7 +30,7 @@ namespace Dianzhu.BLL.Finance
             this.balanceService = balanceService;
         }
         /// <summary>
-        /// 订单分成
+        /// 订单分成,should be domain service
         /// </summary>
         /// <param name="order"></param>
         /// <returns>分成详情.</returns>
@@ -34,7 +39,7 @@ namespace Dianzhu.BLL.Finance
             IList<Model.Finance.BalanceFlow> balanceFlows = new List<Model.Finance.BalanceFlow>();
             //- 获取该订单总的分账额度
             //-- 循环订单明细,获取每种服务的类型(目前只支持一个订单一个服务)
-
+            log.Debug("开始分账:" + order.Id);
             string errMsg = string.Empty;
             if (order.Details.Count != 1)
             {
@@ -82,9 +87,21 @@ namespace Dianzhu.BLL.Finance
 
             };
             balanceFlows.Add(flowCustomerService);
+            log.Debug("结束分账:" + order.Id);
             return balanceFlows;
         }
 
+        /// <summary>
+        /// ddd: should be application service
+        /// </summary>
+        public void ShareOrder(ServiceOrder order)
+        {
+            IList<Model.Finance.BalanceFlow> balanceFlow = Share(order);
+            foreach (Model.Finance.BalanceFlow bf in balanceFlow)
+            {
+                balanceService.Save(bf);
+            }
+        }
         
     }
 }

@@ -22,6 +22,12 @@ namespace Dianzhu.BLL
         BLLPayment bllPayment = new BLLPayment();
         //BLLServiceOrder bllOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
         IBLLServiceOrder bllOrder { get; set; }
+
+        public BLLPay(IBLLServiceOrder bllOrder)
+        {
+            this.bllOrder = bllOrder;
+        }
+
         public IPayRequest CreatePayAPI(enum_PayAPI payApi, ServiceOrder order, enum_PayTarget payTarget)
         {
 

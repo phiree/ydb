@@ -41,14 +41,24 @@ namespace Dianzhu.CSClient.Presenter
             }
             set
             {
-
-                foreach (var key in currentIdentityList.Keys.ToList())
+                if (currentIdentityList.Keys.Select(x=>x.Id).Contains(value.Id))
                 {
-                    currentIdentityList[key] = false;
+                    foreach (var key in currentIdentityList.Keys.ToList())
+                    {
+                        if (key.Id == value.Id)
+                        {
+                            currentIdentityList[key] = true;
+                        }
+                        else
+                        {
+                            currentIdentityList[key] = false;
+                        }
+                    }
                 }
-
-                currentIdentityList[value] = true;
-
+                else
+                {
+                    currentIdentityList[value] = true;
+                }
             }
         }
         static ConcurrentDictionary<ServiceOrder, bool> currentIdentityList = new ConcurrentDictionary<ServiceOrder, bool>();

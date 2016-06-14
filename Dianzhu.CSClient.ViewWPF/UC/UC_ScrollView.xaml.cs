@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Dianzhu.CSClient.ViewWPF.UC
+namespace Dianzhu.CSClient.ViewWPF
 {
     /// <summary>
     /// UC_ScrollView.xaml 的交互逻辑
@@ -27,9 +27,9 @@ namespace Dianzhu.CSClient.ViewWPF.UC
 
         private void sp_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (sc.ScrollableHeight == sc.VerticalOffset)
+            if (ScrollViewer.ScrollableHeight == ScrollViewer.VerticalOffset)
             {
-                sc.ScrollToEnd();
+                ScrollViewer.ScrollToEnd();
             }
         }
     }

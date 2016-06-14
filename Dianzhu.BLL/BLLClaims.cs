@@ -12,7 +12,7 @@ namespace Dianzhu.BLL
 
         public void Save(Claims c)
         {
-            DALClaims.Save(c);
+            DALClaims.Add(c);
         }
 
         public void Update(Claims c)
