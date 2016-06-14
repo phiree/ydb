@@ -47,6 +47,7 @@
     <Compile Include="DALCashTicket.cs" />
     <Compile Include="DalCashTicketCreateRecord.cs" />
     <Compile Include="DalCashTicketTemplate.cs" />
+    <Compile Include="DALComplaint.cs" />
     <Compile Include="DALDeviceBind.cs" />
     <Compile Include="DALDZService.cs" />
     <Compile Include="DALDZTag.cs" />

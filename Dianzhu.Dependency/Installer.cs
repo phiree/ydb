@@ -32,6 +32,9 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLPay>());
             // container.Register(Component.For<OrderShare>());
 
+            //20160614_longphui_add
+            container.Register(Component.For<BLLComplaint>());
+
         }
     }
     public class InstallerRepository : IWindsorInstaller
@@ -49,6 +52,8 @@ namespace Dianzhu.DependencyInstaller
 
             container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
 
+            //20160614_longphui_add
+            container.Register(Component.For<IRepository<Complaint, Guid>, IDALComplaint>().ImplementedBy<DALComplaint>());
         }
     }
     public class InstallerApplicationService : IWindsorInstaller

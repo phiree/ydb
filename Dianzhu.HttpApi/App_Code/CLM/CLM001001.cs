@@ -25,7 +25,11 @@ public class ResponseCLM001001 : BaseResponse
 
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        BLLComplaint bllComplaint = new BLLComplaint();
+
+        //20160314_longphui_modify
+        BLLComplaint bllComplaint = Bootstrap.Container.Resolve<BLLComplaint>();// new BLLComplaint();
+
+
         string raw_id = requestData.userID;
 
         try
