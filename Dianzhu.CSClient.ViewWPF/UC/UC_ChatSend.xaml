@@ -49,10 +49,19 @@
 
             <Grid Grid.Row="0">
                 <WrapPanel VerticalAlignment="Center">
-                    <Button x:Name="btnPhizImage" Template="{StaticResource ImageButton}" Visibility="Collapsed"></Button>
+                    <Button x:Name="btnPhizImage" Template="{StaticResource ImageButton}" Visibility="Collapsed">
+                        <Button.Background>
+                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/1.png"></ImageBrush>
+                        </Button.Background>
+                        <Button.ToolTip>
+                            <StackPanel>
+                                <TextBlock Text="图片" Padding="0"></TextBlock>
+                            </StackPanel>
+                        </Button.ToolTip>
+                    </Button>
                     <Button x:Name="btnSendImage" Template="{StaticResource ImageButton}" Click="btnSendMedia_Click">
                         <Button.Background>
-                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/1.jpg"></ImageBrush>
+                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/3.png"></ImageBrush>
                         </Button.Background>
                         <Button.ToolTip>
                             <StackPanel>
@@ -62,7 +71,7 @@
                     </Button>
                     <Button x:Name="btnCaptureImage" Template="{StaticResource ImageButton}" Click="btnCaptureImage_Click">
                         <Button.Background>
-                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/logourl.png"></ImageBrush>
+                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/2.png"></ImageBrush>
                         </Button.Background>
                         <Button.ToolTip>
                             <StackPanel>
@@ -70,10 +79,19 @@
                             </StackPanel>
                         </Button.ToolTip>
                     </Button>
-                    <Button x:Name="btnVoiceImage" Template="{StaticResource ImageButton}" Visibility="Collapsed"></Button>
+                    <Button x:Name="btnVoiceImage" Template="{StaticResource ImageButton}" Visibility="Collapsed">
+                        <Button.Background>
+                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/4.png"></ImageBrush>
+                        </Button.Background>
+                        <Button.ToolTip>
+                            <StackPanel>
+                                <TextBlock Text="图片" Padding="0"></TextBlock>
+                            </StackPanel>
+                        </Button.ToolTip>
+                    </Button>
                 </WrapPanel>
 
-                <WrapPanel HorizontalAlignment="Right">
+                <WrapPanel HorizontalAlignment="Right" Visibility="Collapsed">
                     <Button>
                         <TextBlock FontFamily="微软雅黑" FontWeight="Regular" FontSize="10">快捷回复</TextBlock>
                     </Button>

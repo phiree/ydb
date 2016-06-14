@@ -294,6 +294,10 @@ namespace Dianzhu.BLL
         }
         public void CreateUserForU3rd(DZMembership member)
         {
+            DALMembership.Add(member);
+        }
+        public void UpdateUserForU3rd(DZMembership member)
+        {
             DALMembership.Update(member);
         }
         public DZMembership GetUserByWechatOpenId(string openid)

@@ -56,7 +56,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.AccessToken);
             Map(x => x.ExpiresIn);
             Map(x => x.RefreshToken);
-            Map(x => x.OpenId);
+            Map(x => x.WeChatOpenId);
             Map(x => x.Scope);
             Map(x => x.Unionid);
             Map(x => x.NickName);
