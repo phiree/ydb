@@ -297,5 +297,18 @@ namespace Dianzhu.CSClient.ViewWPF
                 currentCustomerService = value;
             }
         }
+
+        public string ChatListCustomerName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

@@ -172,7 +172,7 @@ namespace Dianzhu.CSClient.Presenter
             iIM.SendMessage(noticeDraftNew);
 
             //获取之前orderid
-            Guid oldOrderId = IdentityManager.CurrentIdentity.Id;
+            ServiceOrder oldOrder = IdentityManager.CurrentIdentity;
 
             //更新当前订单
             IdentityTypeOfOrder type;
@@ -181,7 +181,7 @@ namespace Dianzhu.CSClient.Presenter
             log.Debug("当前订单的id：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //更新view
-            viewIdentityList.UpdateIdentityBtnName(oldOrderId, IdentityManager.CurrentIdentity.Id);
+            viewIdentityList.UpdateIdentityBtnName(oldOrder, IdentityManager.CurrentIdentity);
 
             //更新接待分配表
             bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);

@@ -197,14 +197,18 @@ namespace Dianzhu.BLL
       
         protected IList<DZMembership> CustomerServiceList 
         {
-            get { 
-                if (customerServiceList == null)
+            get {
+                if (customerServiceList != null && customerServiceList.Count > 0)
+                {
+
+                }
+                else
                 {
                     customerServiceList = new List<DZMembership>();
-                     //convert sesionUser to dzmembership
+                    //convert sesionUser to dzmembership
                     foreach (OnlineUserSession user in imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString()))
                     {
-                        DZMembership cs = dalMember.FindById(new Guid( user.username));
+                        DZMembership cs = dalMember.FindById(new Guid(user.username));
                         customerServiceList.Add(cs);
                     }
                 }
