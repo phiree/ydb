@@ -73,7 +73,7 @@ namespace Dianzhu.ApplicationService.City
                         {
                             intsize = int.Parse(filter.pageSize);
                             intnum = int.Parse(filter.pageNum);
-                            if (intsize <= 0 && intnum < 1)
+                            if (intsize <= 0 || intnum < 1)
                             {
                                 throw new Exception("分页参数pageSize,pageNum错误！");
                             }

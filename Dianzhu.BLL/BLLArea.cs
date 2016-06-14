@@ -86,6 +86,9 @@ namespace Dianzhu.BLL
             {
                 return null;
             }
+            //byte[] srcarr = Encoding.Default.GetBytes(areaname);
+            //byte[] desarr = Encoding.Convert(Encoding.Default, Encoding.UTF8, srcarr);
+            //string s = Encoding.UTF8.GetString(desarr, 0, desarr.Length);
             Expression<Func<Model.Area, bool>> where = i => i.Name == areaname;
          //   iuw.BeginTransaction();
            
