@@ -33,26 +33,27 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             //lbOrderNum.Content = order.OrderNum;
 
-            lbOrderStatus.Content = order.GetFriendlyStatus();
+            lbOrderStatus.Text = order.GetStatusTitleFriendly(order.OrderStatus);
             if(order.OrderStatus != enum_OrderStatus.Search)
             {
-                lbOrdeSvcName.Content = order.Details.Count > 0 ? order.Details[0].ServieSnapShot.ServiceName : string.Empty;
-                lbOrdrDepositAmount.Content = order.DepositAmount.ToString("0:00");
-                lbOrderTotalAmount.Content = order.OrderAmount.ToString("0:00");
-                lbOrderAddress.Content = order.TargetAddress;
+                lbOrdeSvcName.Text = order.Details.Count > 0 ? order.Details[0].ServieSnapShot.ServiceName : string.Empty;
+                //lbOrdrDepositAmount.Content = order.DepositAmount.ToString("0.00");
+                lbOrderTotalAmount.Text = order.OrderAmount.ToString("0.00");
+                lbOrderAddress.Text = order.TargetAddress;
             }            
-            lbOrderStartTime.Content = order.OrderServerStartTime.ToString("yyyy-MM-dd HH:mm:ss");
+            lbOrderStartTime.Text = order.OrderServerStartTime.ToString("yyyy-MM-dd HH:mm:ss");
+            lbOrderEndTime.Text = order.OrderServerFinishedTime.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         private void ClearData()
         {
-            lbOrderNum.Content = string.Empty;
-            lbOrderStatus.Content = string.Empty;
-            lbOrdeSvcName.Content = string.Empty;
-            lbOrdrDepositAmount.Content = string.Empty;
-            lbOrderTotalAmount.Content = string.Empty;
-            lbOrderAddress.Content = string.Empty;
-            lbOrderStartTime.Content = string.Empty;
+            //lbOrderNum.Content = string.Empty;
+            lbOrderStatus.Text = string.Empty;
+            lbOrdeSvcName.Text = string.Empty;
+            //lbOrdrDepositAmount.Content = string.Empty;
+            lbOrderTotalAmount.Text = string.Empty;
+            lbOrderAddress.Text = string.Empty;
+            lbOrderStartTime.Text = string.Empty;
         }
     }
 }

@@ -16,16 +16,17 @@ public class ResponseASN002004 : BaseResponse
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
     public ResponseASN002004(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataASN002004 requestData = this.request.ReqData.ToObject<ReqDataASN002004>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLBusiness bllBusiness = new BLLBusiness();
-        BLLStaff bllStaff = new BLLStaff();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>(); BLLStaff bllStaff = new BLLStaff();
+         BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
         try
         {

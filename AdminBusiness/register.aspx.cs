@@ -10,8 +10,8 @@ using System.Web.Security;
 using System.Text.RegularExpressions;
 public partial class register : System.Web.UI.Page
 {
-    BLLBusiness bllBusiness = new BLLBusiness();
-    DZMembershipProvider dz = new DZMembershipProvider();
+    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
+    DZMembershipProvider dz = Bootstrap.Container.Resolve<DZMembershipProvider>();
     protected void Page_Load(object sender, EventArgs e)
     {
         BrowserCheck.CheckVersion();

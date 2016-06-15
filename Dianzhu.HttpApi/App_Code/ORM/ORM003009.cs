@@ -14,18 +14,20 @@ using Dianzhu.Api.Model;
 public class ResponseORM003009 : BaseResponse
 {
     public ResponseORM003009(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataORM003009 requestData = this.request.ReqData.ToObject<ReqDataORM003009>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+         BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
 
         string user_ID = requestData.userID;
         string order_ID = requestData.orderID;
-        string appraise_Value = requestData.appraiseValue;
+        string targetStr = requestData.target;
+        string appraiseValueStr = requestData.appraiseValue;
         string appraiseDocs = requestData.appraiseDocs;
 
         try
@@ -48,23 +50,71 @@ public class ResponseORM003009 : BaseResponse
                 return;
             }
 
-            try
+            string[] targetList = targetStr.Split('|');
+            string[] valueList = appraiseValueStr.Split('|');
+
+            IList<ReqDataORM003009_item> itemList = new List<ReqDataORM003009_item>();
+            ReqDataORM003009_item item;
+            if (targetList.Count() == 2 && valueList.Count() == 2)
             {
-                appraiseValue = decimal.Parse(appraise_Value);
+                for (int i = 0; i < 2; i++)
+                {
+                    enum_ChatTarget target;
+                    if(!Enum.TryParse(targetList[i],out target))
+                    {
+                        this.state_CODE = Dicts.StateCode[1];
+                        this.err_Msg = "请传入正确的评价对象";
+                        return;
+                    }
+
+                    decimal appValue;
+                    if (!decimal.TryParse(valueList[0], out appValue))
+                    {
+                        this.state_CODE = Dicts.StateCode[1];
+                        this.err_Msg = "请输入正确价格";
+                        return;
+                    }
+                    if (appValue < 0 || appValue > 5 || appValue % 5 != 0)
+                    {
+                        this.state_CODE = Dicts.StateCode[1];
+                        this.err_Msg = "请输入正确价格";
+                        return;
+                    }
+
+                    item = new ReqDataORM003009_item();
+                    item.target = target;
+                    item.value = appValue;
+                    itemList.Add(item);
+                }
             }
-            catch (Exception e)
+            else
             {
                 this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "请输入正确价格!";
+                this.err_Msg = "target或appraiseValue有误";
                 return;
             }
 
-            if (appraiseValue < 0 || appraiseValue > 5)
-            {
-                this.state_CODE = Dicts.StateCode[1];
-                this.err_Msg = "评价值应在(0-5)之间!";
-                return;
-            }
+            //bool isAppraiseValue = decimal.TryParse(appraise_Value, out appraiseValue);
+            //if (!isAppraiseValue)
+            //{
+            //    this.state_CODE = Dicts.StateCode[1];
+            //    this.err_Msg = "请输入正确价格!";
+            //    return;
+            //}
+
+            //if (appraiseValue < 0 || appraiseValue > 5)
+            //{
+            //    this.state_CODE = Dicts.StateCode[1];
+            //    this.err_Msg = "评价值应在(0-5)之间!";
+            //    return;
+            //}
+
+            //if (appraiseValue % 5 != 0)
+            //{
+            //    this.state_CODE = Dicts.StateCode[1];
+            //    this.err_Msg = "评价值有误!";
+            //    return;
+            //}
 
             DZMembership member;
             if (request.NeedAuthenticate)
@@ -95,10 +145,14 @@ public class ResponseORM003009 : BaseResponse
                     return;
                 }
 
-                bllServiceOrder.OrderFlow_CustomerAppraise(order);
+                ServiceOrderAppraise appraise;
+                foreach (ReqDataORM003009_item obj in itemList)
+                {
+                    appraise = new ServiceOrderAppraise(order, obj.target, obj.value, appraiseDocs);
+                    bllServiceOrderAppraise.Save(appraise);
+                }
 
-                ServiceOrderAppraise appraise = new ServiceOrderAppraise(order, member, appraiseValue, appraiseDocs);
-                bllServiceOrderAppraise.Save(appraise);
+                bllServiceOrder.OrderFlow_CustomerAppraise(order);
 
                 string resultStatus = order.OrderStatus.ToString();
 

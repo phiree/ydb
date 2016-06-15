@@ -10,15 +10,15 @@ namespace Dianzhu.Config
     /// </summary>
     public static partial class Config
     {
-        static int num =3;
-        static int payServerNum = 4;
+        static int num =0;
+        static int payServerNum = 0;
         #region 服务器定义
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172","192.168.1.150" };
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
-        static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
-        static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
-        static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
-        static string[] PayServers = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "jsyklan.asuscomm.com" };
+        static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150" };
+        static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150" };
+        static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150" };
+        static string[] PayServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "jsyklan.asuscomm.com" };
         #endregion
         #region   部署前，只需要手动修改此处 /
 
@@ -37,18 +37,18 @@ namespace Dianzhu.Config
 
         static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
               { "119.29.39.211",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
-             ,{ "business.ydban.cn",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
+             ,{ "115.159.72.236",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
              ,{ "192.168.1.172",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
-            ,{ "localhost",new KeyValuePair<string,string>("dcb39ea9-6637-4450-85ab-a5f00107117d","1") }
+            ,{ "localhost",new KeyValuePair<string,string>("09be8ea0-f353-4527-81d8-a604009fc5d2","123456") }
                ,{ "192.168.1.150",new KeyValuePair<string,string>("3d9ed306-7b5d-4e0d-8776-a5e50093515f","123456") }
         };
         //通知中心登陆用户账号，不同数据库服务器有不同的值
         //todo: 需要使用 username登陆 而不是id
         static Dictionary<string, KeyValuePair<string, string>> DictsNotifySenderLogins = new Dictionary<string, KeyValuePair<string, string>>() {
               { "119.29.39.211",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-             ,{ "business.ydban.cn",new KeyValuePair<string,string>("c6b13498-2259-4ff3-a75e-a4f90123683c","123456") }
+             ,{ "115.159.72.236",new KeyValuePair<string,string>("c6b13498-2259-4ff3-a75e-a4f90123683c","123456") }
              ,{ "192.168.1.172",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-              ,{ "localhost",new KeyValuePair<string,string>("0092b35c-c288-4268-9d58-a5f001075cf1","1") }
+              ,{ "localhost",new KeyValuePair<string,string>("30d16607-fbac-41a3-b4de-a60500c19756","198989") }
               ,{ "192.168.1.150",new KeyValuePair<string,string>("054c400b-4afb-49f3-bbdf-a5e500939c59","123456") }
         };
          

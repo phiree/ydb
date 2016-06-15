@@ -8,7 +8,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 public partial class forget : System.Web.UI.Page
 {
-    DZMembershipProvider bllMember = new DZMembershipProvider();
+    DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Request.IsLocal)

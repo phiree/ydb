@@ -22,13 +22,8 @@
                                     <div class="emp-head-upload">
                                         <div class="emp-head-text">上传新头像</div>
                                         <div class="headImage">
-                                            <div class="input-file-box headFile">
-                                                <input type=file class="input-file-btn file-default headFileBtn" runat="server"
-                                                       id="empheadimg" name="empheadimg"/>
-                                                <i class="input-file-bg" style='background-image:url(<%=StaffAvatarUrl%>)'></i>
-                                                <i class="input-file-mark"></i>
-                                                <!--<i class="input-file-hover">修改头像</i>-->
-                                                <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
+                                            <div class="input-file-box">
+                                                <input type="file" class="input-file-btn" runat="server" id="empheadimg" name="empheadimg" data-local="true"/>
                                             </div>
                                         </div>
                                         <p class="img-tips">图片格式为PNG/JPG大小限制为2M一下</p>
@@ -36,13 +31,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="model-form model-form-noTop">
-                                        <div class="row model-form-group">
-                                            <div class="col-md-4 model-label">员工昵称</div>
-                                            <div class="col-md-8 model-input">
-                                                <asp:TextBox ID="NickName" CssClass="input-fluid" runat="server" data-toggle="tooltip"
-                                                             data-placement="top" title="请填写员工昵称"></asp:TextBox>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="row model-form-group">
                                             <div class="col-md-4 model-label">员工编号</div>
                                             <div class="col-md-8 model-input">
@@ -95,13 +84,10 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" runat="server">
 <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js'></script>
 <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js'></script>
-<script src="/js/jquery.form.min.js"></script>
-<script src="/js/imgLocalPrev.js" ></script>
-<script>
-    var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
-</script>
-<script src="/js/validation_emp_edit.js"></script>
-<script src="/js/validation_invalidHandler.js"></script>
+<script src="/js/plugins/jquery.form.min.js"></script>
+<script src="/js/components/imageUpload.js?v=1.0.0"></script>
+<script src="/js/apps/validation/validation_emp_edit.js?v=1.0.0"></script>
+<script src="/js/components/select.js?v=1.0.0"></script>
 <script>
     $(document).ready(function () {
         $(function () {
@@ -110,25 +96,12 @@
                 delay: {show : 500, hide : 100},
                 trigger: 'hover'
                 }
-            )
-        });
-
-        $($("form")[0]).validate(
-                {
-                    errorElement: "p",
-                    errorPlacement: function (error, element) {
-                        if ($(element).attr("id") == "ContentPlaceHolder1_Gender1") {
-                            error.appendTo((element.parent()).parent());
-                        } else {
-                            error.appendTo(element.parent());
-                        }
-                    },
-                    rules: service_validate_rules,
-                    messages: service_validate_messages,
-                    invalidHandler: invalidHandler
-                }
             );
+
+            $(".input-file-btn").imageUpload();
+
+            $(".select").customSelect();
+        });
     });
-    $(".headFileBtn").imgLocalPrev();
     </script>
 </asp:Content>

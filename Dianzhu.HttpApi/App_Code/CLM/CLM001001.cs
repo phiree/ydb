@@ -16,13 +16,15 @@ public class ResponseCLM001001 : BaseResponse
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
     public ResponseCLM001001(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataCLM001001 requestData = this.request.ReqData.ToObject<ReqDataCLM001001>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLComplaint bllComplaint = new BLLComplaint();
         string raw_id = requestData.userID;
 
@@ -56,7 +58,7 @@ public class ResponseCLM001001 : BaseResponse
             }
             try
             {
-                ServiceOrder order = bllServiceOrder.GetOne(new Guid(requestData.orderID));
+                ServiceOrder order = bllServiceOrder.GetOne(orderId);
                 if (order == null)
                 {
                     this.state_CODE = Dicts.StateCode[4];

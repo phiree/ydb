@@ -44,13 +44,21 @@ namespace Dianzhu.CSClient.ViewWPF
                     //{
                     //    LoadServiceToPanel(service);
                     //}Hashtable ht = (Hashtable)list[i];
+                    UC_ShelfService shelfService;
+                    int num = 1;
                     foreach (DZService service in searchedService)
                     {
                         if (pnlSearchResult.FindName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString())) != null)
                         {
                             pnlSearchResult.UnregisterName(PHSuit.StringHelper.SafeNameForWpfControl(service.Id.ToString()));
                         }
-                        LoadServiceToPanel(service);
+                        //LoadServiceToPanel(service);
+                        shelfService = new UC_ShelfService(service);
+                        // shelfService.LoadData(service, num);
+                        shelfService.PushShelfService += ShelfService_PushShelfService;
+                        pnlSearchResult.Children.Add(shelfService);
+
+                        num++;
                     }
 
 
@@ -59,25 +67,30 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        public bool BtnPush
+        private void ShelfService_PushShelfService(DZService pushedService)
         {
-            get { return btnPush.IsEnabled; }
-            set
-            {
-                Action lambda = () =>
-                {
-                    btnPush.IsEnabled = value;
-                };
-                if (!Dispatcher.CheckAccess())
-                {
-                    Dispatcher.Invoke(lambda);
-                }
-                else
-                {
-                    lambda();
-                }
-            }
+            PushServices(new List<DZService>() { pushedService });
         }
+
+        //public bool BtnPush
+        //{
+        //    get { return btnPush.IsEnabled; }
+        //    set
+        //    {
+        //        Action lambda = () =>
+        //        {
+        //            btnPush.IsEnabled = value;
+        //        };
+        //        if (!Dispatcher.CheckAccess())
+        //        {
+        //            Dispatcher.Invoke(lambda);
+        //        }
+        //        else
+        //        {
+        //            lambda();
+        //        }
+        //    }
+        //}
 
         private void LoadServiceToPanel(DZService service)
         {
@@ -147,6 +160,11 @@ namespace Dianzhu.CSClient.ViewWPF
             }
             PushServices(services);
             
+        }
+
+        public void AddSearchItem(IViewShelfService service)
+        {
+            pnlSearchResult.Children.Add((UIElement)service);
         }
 
         public string LoadingText

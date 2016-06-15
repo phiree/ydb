@@ -10,26 +10,26 @@ using NHibernate.Transform;
 
 namespace Dianzhu.DAL
 {
-    public class DALDZService : DALBase<DZService>
+    public class DALDZService : NHRepositoryBase<DZService,Guid>,IDAL.IDALDZService
     {
-        public DALDZService() { }
-        [Obsolete("just for test ,don't use it outside testing code.")]
-        public DALDZService(string fortest):base(fortest)
-        {
-        }
+        
         public IList<DZService> GetList(Guid businessId,  int pageindex, int pagesize, out int totalRecord)
         {
-            string where = "s.Business.Id='" + businessId + "' and s.IsDeleted=false";
-            return  GetList("select s from DZService s where "
-                +where +" order by s.LastModifiedTime desc",
-                pageindex, pagesize, out totalRecord);
+            long lnTotalRecord;
+            IList<DZService> serviceList= Find(x => x.Business.Id == businessId, pageindex, pagesize, out lnTotalRecord);
+            totalRecord = (int)lnTotalRecord;
+            return serviceList;
+            
         }
         public IList<DZService> GetOtherList(Guid businessId,Guid serviceId, int pageindex, int pagesize, out int totalRecord)
         {
-            string where = "s.Business.Id='" + businessId + "' and s.Id!='"+serviceId+"' and s.IsDeleted=false";
-            return GetList("select s from DZService s where "
-                + where + " order by s.LastModifiedTime desc",
-                pageindex, pagesize, out totalRecord);
+            long lnTotalRecord;
+            
+            IList<DZService> serviceList = Find(x => x.Business.Id == businessId&&x.Id==serviceId&&x.IsDeleted==false,
+                pageindex, pagesize, out lnTotalRecord);
+            totalRecord = (int)lnTotalRecord;
+            return serviceList;
+            
         }
         public IList<DZService> SearchService(decimal priceMin,decimal priceMax,Guid serviceTypeId,DateTime preOrderTime, int pageindex, int pagesize, out int totalRecord)
         {
@@ -52,14 +52,24 @@ namespace Dianzhu.DAL
             // .Where(Restrictions.On<DZService>(x => x.Name).IsLike(string.Format("%{0}%", keywords))
             // || Restrictions.On<DZService>(x => x.Description).IsLike(string.Format("%{0}%", keywords))
             // ); 
-            IQuery query = Session.CreateQuery(queryStr + where);
-            totalRecord = query.List().Count;
 
-            var result = query.List<DZService>()
-                .Skip(pageindex * pagesize).Take(pagesize);
+            IList<DZService> list;
+            using (var t = Session.BeginTransaction())
+            {
+                IQuery query = Session.CreateQuery(queryStr + where);
+                totalRecord = query.List().Count;
+
+                var result = query.List<DZService>()
+                    .Skip(pageindex * pagesize).Take(pagesize);
+
+                list= result.ToList();
+
+                t.Commit();
+            }
+
 
             //query.wrap
-            return result.ToList();
+            return list;
         }
 
         public DZService GetOneByBusAndId(Business business, Guid svcId)

@@ -63,8 +63,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public event SendTextClick SendTextClick;
         public event SendMediaClick SendMediaClick;
-        public event MediaMessageSent Captured;
-
+        
         private void btnSendTextMessage_Click(object sender, RoutedEventArgs e)
         {
             if (SendTextClick != null && MessageText.Trim() != string.Empty)

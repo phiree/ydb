@@ -13,9 +13,9 @@ using Newtonsoft.Json.Linq;
 /// </summary>
 public class Account
 {
-    DZMembershipProvider bllMember = new DZMembershipProvider();
+    DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
     public Account()
-    { bllMember = new DZMembershipProvider(); }
+    {  }
     public Account(DZMembershipProvider bllMember)
     {
         this.bllMember = bllMember;

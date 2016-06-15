@@ -66,9 +66,8 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">从业时间</div>
                                                             <div class="col-md-8 model-input col-md-8 model-input-unit">
-                                                                <div id="yearsSelect" class="select select-fluid years-select" data-toggle="tooltip"
+                                                                <div id="yearsSelect" class="select select-fluid select-static" data-type="num" data-toggle="tooltip"
                                                                      data-placement="top" title="选择你从事该行业的时间">
-                                                                    <ul></ul>
                                                                     <input type="text" class="input-fluid dis-n" runat="server" focusID="yearsSelect"
                                                                            id="tbxBusinessYears" name="workYears"/>
                                                                 </div>
@@ -117,49 +116,33 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺头像</div>
                                                             <div class="col-md-8 model-input">
-                                                                <div >
-                                                                    <div class="input-file-box headFile">
-                                                                        <input type=file class="input-file-btn file-default" name="upload_file"
-                                                                               businessId="<%=b.Id %>" imageType="businessavater" id="headImgBtn"/>
-                                                                        <i class="input-file-bg"
-                                                                           style='background-image:url(<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=240&height=240&tt=3)":"../images/components/inputFile/input_bg_140_140.png" %>'></i>
-                                                                        <i class="input-file-mark"></i>
-                                                                        <i class="input-file-hover dis-n">修改头像</i>
-                                                                        <img style="top:auto;left:auto;position:inherit;" class="input-file-pre"
-                                                                             src="../images/components/inputFile/input_transparent.png"/>
-                                                                    </div>
+                                                                <div id="businessavater">
+                                                                    <input type="file" class="input-file-btn" data-list="#businessavater" data-single="true" data-limit="1" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businessavater"}' data-preview="<%=b.BusinessAvatar.Id!=Guid.Empty?"/ImageHandler.ashx?imagename="+HttpUtility.UrlEncode(b.BusinessAvatar.ImageName)+"&width=140&height=140&tt=3":"../images/components/inputFile/input_bg_140_140.png" %>"/>
                                                                 </div>
-                                                                <!--<input class="btn btn-info" type="button" value="上传店铺头像" id="headImgTrigger"/>-->
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-7">
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">店铺图片</div>
                                                             <div class="col-md-8 model-input">
-                                                                <div class="img-list img-list-limit6 clearfix">
+                                                                <div id="buiniessShow" class="clearfix">
                                                                     <asp:Repeater runat="server" ID="rpt_show" OnItemCommand="rpt_show_ItemCommand">
                                                                         <ItemTemplate>
-                                                                            <div class="download-img-pre m-b10 m-r10 fl">
+                                                                            <div class="download-img-pre" data-count="input-file">
                                                                                 <asp:Button Text=" " formnovalidate CssClass="cancel download-img-delete"
                                                                                             runat="server" CommandName="delete"
                                                                                             ImageUrl="/image/myshop/shop_icon_91.png" ClientIDMode="Static"
                                                                                             CommandArgument='<%#Eval("Id") %>'/>
                                                                                 <a class="download-img-show"
                                                                                    href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=3'
+                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=3'
                                                                                          id="imgLicence"/>
                                                                                 </a>
                                                                             </div>
                                                                         </ItemTemplate>
                                                                     </asp:Repeater>
-                                                                    <div class="input-file-box fl m-b10 m-r10 dis-n">
-                                                                        <input type=file class="input-file-btn file-limit-6" name="input-file-btn-show"
-                                                                               businessId="<%=b.Id %>" imageType="businessshow"/>
-                                                                        <i class="input-file-bg"></i>
-                                                                        <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
-                                                                    </div>
+                                                                    <input type="file" class="input-file-btn" data-list="#buiniessShow" data-limit="6" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businessshow"}' />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -185,6 +168,8 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                        data-toggle="tooltip" data-placement="top" title="请填写店铺负责人姓名"/>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-5">
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">证件类型</div>
                                                             <div class="col-md-8 model-input">
@@ -197,9 +182,6 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                    </div>
-                                                    <div class="col-md-5">
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">证件号码</div>
                                                             <div class="col-md-8 model-input">
@@ -215,11 +197,11 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">负责人证件</div>
                                                             <div class="col-md-8 model-input">
-                                                                <div class="img-list img-list-limit2 clearfix">
+                                                                <div id="chargePerson" class="clearfix">
                                                                     <asp:Repeater runat="server" ID="rptChargePersonIdCards"
                                                                                   OnItemCommand="rpt_show_ItemCommand">
                                                                         <ItemTemplate>
-                                                                            <div class="download-img-pre m-b10 m-r10 fl">
+                                                                            <div class="download-img-pre" data-count="input-file">
 
                                                                                 <asp:Button Text=" " ID="ibCharge" CssClass="cancel download-img-delete"
                                                                                             runat="server" CommandName="delete"
@@ -227,19 +209,13 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                             CommandArgument='<%#Eval("Id") %>'/>
                                                                                 <a class="download-img-show"
                                                                                    href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=3'
+                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=3'
                                                                                          class="imgCharge"/>
                                                                                 </a>
                                                                             </div>
                                                                         </ItemTemplate>
                                                                     </asp:Repeater>
-                                                                    <div class="input-file-box m-b10 m-r10 fl dis-n">
-                                                                        <input type=file class="input-file-btn file-limit-2" businessId="<%=b.Id %>"
-                                                                               imageType="businesschargeperson"/>
-                                                                        <i class="input-file-bg"></i>
-                                                                        <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
-                                                                    </div>
+                                                                        <input type="file" class="input-file-btn" data-list="#chargePerson" data-limit="2" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businesschargeperson"}' />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -248,11 +224,10 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                         <div class="row model-form-group">
                                                             <div class="col-md-4 model-label">营业执照</div>
                                                             <div class="col-md-8 model-input">
-                                                                <div class="img-list img-list-limit2 clearfix">
+                                                                <div id="businessLicense" class="clearfix">
                                                                     <asp:Repeater runat="server" ID="rptLicenseImages" OnItemCommand="rpt_show_ItemCommand">
                                                                         <ItemTemplate>
-                                                                            <div class="download-img-pre m-r10 m-b10 fl">
-
+                                                                            <div class="download-img-pre" data-count="input-file">
                                                                                 <asp:Button ID="img" Text=" " formnovalidate
                                                                                             CssClass="cancel download-img-delete" runat="server"
                                                                                             CommandName="delete"
@@ -260,19 +235,13 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                                                                                             ClientIDMode="Static" CommandArgument='<%#Eval("Id") %>'/>
                                                                                 <a class="download-img-show"
                                                                                    href='<%#Config.BusinessImagePath+"/original/"+Eval("ImageName") %>'>
-                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=90&height=90&tt=3'
+                                                                                    <img src='/ImageHandler.ashx?imagename=<%#HttpUtility.UrlEncode(Eval("ImageName").ToString())%>&width=140&height=140&tt=3'
                                                                                          class="imgCharge"/>
                                                                                 </a>
                                                                             </div>
                                                                         </ItemTemplate>
                                                                     </asp:Repeater>
-                                                                    <div class="input-file-box m-r10 m-b10 dis-n fl">
-                                                                        <input type=file class="input-file-btn file-limit-2" name="input-file-btn-license"
-                                                                               businessId="<%=b.Id %>" imageType="businesslicense"/>
-                                                                        <i class="input-file-bg"></i>
-                                                                        <i class="input-file-mark"></i>
-                                                                        <img class="input-file-pre" src="../images/components/inputFile/input_transparent.png"/>
-                                                                    </div>
+                                                                    <input type="file" class="input-file-btn" data-list="#businessLicense" data-limit="2" data-size="2" data-params='{"businessId":"<%=b.Id %>", "imageType":"businesslicense"}' />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -318,17 +287,13 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="bottom" runat="server">
     <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/jquery.validate.js"></script>
-    <script src = "<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" ></script>
-    <script src="/js/jquery.form.min.js"></script>
-    <script src="/js/navigator.sayswho.js"></script>
-    <script src="/js/stepByStep.js"></script>
-    <script src="/js/jquery.lightbox_me.js"></script>
-    <script src="/js/imgUpload.js"></script>
-    <script>
-        var name_prefix = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolder1$';
-    </script>
-    <script src="/js/validation_shop_edit.js"></script>
-    <script src="/js/validation_invalidHandler.js"></script>
+    <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>/static/Scripts/additional-methods.js" ></script>
+    <script src="/js/plugins/jquery.form.min.js"></script>
+    <script src="/js/plugins/jquery.lightbox_me.js"></script>
+    <script src="/js/widgets/stepByStep.js?v=1.0.0"></script>
+    <script src="/js/components/imageUpload.js?v=1.0.0"></script>
+    <script src="/js/apps/validation/validation_shop_edit.js?v=1.0.0"></script>
+    <script src="/js/components/select.js?v=1.0.0"></script>
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip(
@@ -338,58 +303,20 @@ CodeFile="Edit.aspx.cs" Inherits="Business_Edit"  %>
                 }
             );
 
-            $('.file-default').imgUpload({
-                limitNum: 1
-            });
-            $('.file-limit-2').imgUpload({
-                limitNum: 2
-            });
-            $('.file-limit-6').imgUpload({
-                limitNum: 6
-            });
+            $('.input-file-btn').imageUpload();
+
 
             $('#headImgTrigger').click(function(){
-                $('#headImgBtn').click();
-            })
-        });
+                return $('#headImgBtn').click();
+            });
 
-        $(function(){
-            $($("form")[0]).validate(
-                    {
-                        errorElement: "p",
-                        errorPlacement: function (error, element) {
-                            if ($(element).attr("name") == name_prefix + "tbxBusinessYears") {
-                                error.appendTo((element.parent()).parent());
-                            } else {
-                                error.appendTo(element.parent());
-                            }
-                        },
-                        rules: service_validate_rules,
-                        messages: service_validate_messages,
-                        invalidHandler: invalidHandler,
-                        showErrors: showErrorsHandler
-                    }
-            );
+            $(".select").customSelect();
 
             $(".steps-wrap").stepByStep({
                 stepValid : function(){
                     return $('.steps-wrap').find('.cur-step').find('input,textarea,select').valid();
                 }
             });
-        })
+        });
     </script>
-    <!--<script>-->
-        <!--function loadBaiduMapScript() {-->
-            <!--var script = document.createElement("script");-->
-            <!--script.src = "http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc&callback=initialize";-->
-            <!--document.body.appendChild(script);-->
-        <!--}-->
-
-        <!--$(document).ready(function () {-->
-            <!--loadBaiduMapScript();-->
-        <!--})-->
-    <!--</script>-->
-    <!--<script src="http://api.map.baidu.com/api?v=2.0&ak=n7GnSlMbBkmS3BrmO0lOKKceafpO5TZc"></script>-->
-    <!--<script src="/js/CityList.js"></script>-->
-    <!--<script src="/js/account.js"></script>-->
 </asp:Content>

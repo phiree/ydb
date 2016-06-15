@@ -9,8 +9,8 @@ using Dianzhu.Model;
 using System.Text.RegularExpressions;
 public partial class Account_Security :BasePage
 {
-    DZMembershipProvider dzp = new DZMembershipProvider();
-    BLLBusinessImage bllBi = new BLLBusinessImage();
+    DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
+    BLLBusinessImage bllBi =Bootstrap.Container.Resolve<BLLBusinessImage>();
     protected void Page_Load(object sender, EventArgs e)
     {
         NeedBusiness = false;

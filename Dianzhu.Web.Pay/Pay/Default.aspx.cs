@@ -13,7 +13,7 @@ using Dianzhu.Pay;
 public partial class Pay_Default : System.Web.UI.Page
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
-    BLLServiceOrder bllOrder = new BLLServiceOrder();
+    BLLServiceOrder bllOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
     BLLPayment bllPayment = new BLLPayment();
     ServiceOrder order = null;
     Payment payment = null;
@@ -53,7 +53,7 @@ public partial class Pay_Default : System.Web.UI.Page
             payAPI = enum_PayAPI.Wechat;
         }
         
-        BLLPay bllPay = new BLLPay();
+        BLLPay bllPay = Bootstrap.Container.Resolve<BLLPay>();
         string requestString=string.Empty;
         //在线支付
         if (payType == enum_PayType.Online)

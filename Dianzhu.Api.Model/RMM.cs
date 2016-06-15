@@ -14,13 +14,15 @@ namespace Dianzhu.Api.Model
         public string time { get; set; }
         public string content { get; set; }
         public string open { get; set; }
+        public string orderID { get; set; }
         public RespDataRMM_remindObj Adapt(ServiceOrderRemind remind)
         {
             this.remindID = remind.Id.ToString();
             this.title = remind.Title ?? string.Empty;
-            this.time = remind.RemindTime.ToString();
+            this.time = remind.RemindTime.ToString("yyyyMMddHHmmss");
             this.content = remind.Content ?? string.Empty;
             this.open = remind.Open == true ? "Y" : "N";
+            this.orderID = remind.OrderId.ToString();
 
             return this;
         }

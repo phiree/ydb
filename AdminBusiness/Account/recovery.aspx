@@ -73,67 +73,10 @@
     </div>
 </body>
 <script src='<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js'></script>
-<script src="/js/jquery.validate.js"></script>
-<script>
-    $.validator.setDefaults({
-        ignore: [],
-    });
-
-    $.validator.addMethod("pwd", function (value, element) {
-        return value == "" ? true : /^[A-Za-z0-9_-]+$/.test(value);
-    }, "密码格式错误");
-
-    $.validator.addMethod("pwdConfirm", function (value, element) {
-        return $("#tbxPasswordConfirm").val() == $("#tbxPassword").val() ? true : false
-    }, "两次输入的密码不一致");
-
-    var pass_validate_rules ={};
-    var pass_validate_messages={};
-
-
-    //tbxPassword
-    pass_validate_rules["tbxPassword"]=
-    {
-        required: true,
-        minlength: 6,
-        maxlength: 20,
-        pwd: true
-
-    };
-    pass_validate_messages["tbxPassword"]=
-    {
-        required: "请填写密码",
-        minlength: "不能少于6个字符",
-        maxlength: "不能超过20个字符"
-    };
-
-    //tbxPasswordConfirm
-    pass_validate_rules["tbxPasswordConfirm"]=
-    {
-        required: true,
-        minlength: 6,
-        maxlength: 20,
-        pass:true,
-        passConfirm: true
-    };
-    pass_validate_messages["tbxPasswordConfirm"]=
-    {
-        required: "请再次输入密码",
-    };
-
-    $($("form")[0]).validate(
-            {
-                errorElement: "div",
-                errorLabelContainer: ".login_err_msg ul",
-                wrapper: "li",
-                rules: pass_validate_rules,
-                messages: pass_validate_messages
-            }
-
-    );
-</script>
+<script src="/js/plugins/jquery.validate.js"></script>
+<script src="/js/apps/validation/validation_recovery.js?v=1.0.0"></script>
 <!--[if lte IE 9]>
-<script src="/js/jquery.placeholder.min.js"></script>
+<script src="/js/plugins/jquery.placeholder.min.js"></script>
 <script>$('input, textarea').placeholder();</script>
 <![endif]-->
 </html>

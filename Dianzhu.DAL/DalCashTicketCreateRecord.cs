@@ -6,17 +6,9 @@ using Dianzhu.Model;
 using NHibernate;
 namespace Dianzhu.DAL
 {
-    public class DALCashTicketCreateRecord : DALBase<CashTicketCreateRecord>
+    public class DALCashTicketCreateRecord :NHRepositoryBase<CashTicketCreateRecord,Guid>,IDAL.IDALCashTicketCreateRecord
     {
-        public DALCashTicketCreateRecord()
-        {
-             
-        }
-        //注入依赖,供测试使用;
-        public DALCashTicketCreateRecord(string fortest):base(fortest)
-        {
-            
-        }
+        
         public IList<CashTicketCreateRecord> GetMonthRecord(Business_Abs business,int year,int month)
         {
              DateTime beginDate=new DateTime(year,month,1);

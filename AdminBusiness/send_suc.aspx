@@ -52,6 +52,4 @@
         </div>
     </div>
 </body>
-<script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
-<!--<script src="js/login_reg.js"></script>-->
 </html>

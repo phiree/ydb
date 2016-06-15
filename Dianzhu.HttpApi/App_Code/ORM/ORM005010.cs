@@ -14,14 +14,15 @@ using Dianzhu.Api.Model;
 public class ResponseORM005010 : BaseResponse
 {
     public ResponseORM005010(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataORM005010 requestData = this.request.ReqData.ToObject<ReqDataORM005010>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+      
         string user_ID = requestData.userID;
         string order_ID = requestData.orderID;
 
@@ -69,14 +70,15 @@ public class ResponseORM005010 : BaseResponse
 
                 RespDataORM_refundStatusObj refundStatusObj = new RespDataORM_refundStatusObj
                 {
-                    refundStatusID = "6F9619FF-8B86-D011-B42D-00C04FC964FF",
-                    orderID = "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                    //refundStatusID = "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                    //orderID = "6F9619FF-8B86-D011-B42D-00C04FC964FF",
+                    title = "赔赔赔",
                     context = "弄坏我花瓶，赔我钱",
                     amount = "50",
                     resourcesUrl = "http://imgsrc.baidu.com/forum/w=580/sign=04e1e17ac5fdfc03e578e3b0e43e87a9/1967c5177f3e67090520527b3dc79f3df9dc5577.jpg",
-                    date = "201506162223",
+                    time = "201506162223",
                     orderStatus = "AskPayWithRefund",
-                    target= "user"
+                    target = "user"
                 };
 
                 IList<RespDataORM_refundStatusObj> refundStatusList = new List<RespDataORM_refundStatusObj>();

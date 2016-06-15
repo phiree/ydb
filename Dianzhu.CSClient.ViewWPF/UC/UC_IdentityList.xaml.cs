@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
 
+
 namespace Dianzhu.CSClient.ViewWPF
 {
     /// <summary>
@@ -22,6 +23,8 @@ namespace Dianzhu.CSClient.ViewWPF
     /// </summary>
     public partial class UC_IdentityList : UserControl, IViewIdentityList
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.ViewWPF.UC_IdentityList");
+
         public UC_IdentityList()
         {
             InitializeComponent();
@@ -34,16 +37,24 @@ namespace Dianzhu.CSClient.ViewWPF
             Action lambda = () =>
             {
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
-                Button btnIdentity =(Button) pnlIdentityList.FindName(ctrlName);
-                if (btnIdentity == null)
+                //Button btnIdentity =(Button) pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                //if (btnIdentity == null)
+                if (ucIdentity == null)
                 {
-                    btnIdentity = new Button { Content = serviceOrder.Customer.DisplayName };
-                    btnIdentity.Tag = serviceOrder;
+                    //btnIdentity = new Button { Content = serviceOrder.Customer.DisplayName };
+                    ucIdentity = new UC_Customer(serviceOrder.Customer);
+                    //btnIdentity.Tag = serviceOrder;
+                    ucIdentity.btnCustomer.Tag = serviceOrder;
 
-                    btnIdentity.Name = ctrlName;
-                    btnIdentity.Click += BtnIdentity_Click;
-                    pnlIdentityList.Children.Add(btnIdentity);
-                    pnlIdentityList.RegisterName(btnIdentity.Name, btnIdentity);
+                    //btnIdentity.Name = ctrlName;
+                    ucIdentity.Name = ctrlName;
+                    //btnIdentity.Click += BtnIdentity_Click;
+                    ucIdentity.btnCustomer.Click += BtnIdentity_Click;
+                    //pnlIdentityList.Children.Add(btnIdentity);
+                    pnlIdentityList.Children.Add(ucIdentity);
+                    //pnlIdentityList.RegisterName(btnIdentity.Name, btnIdentity);
+                    pnlIdentityList.RegisterName(ucIdentity.Name, ucIdentity);
                 }
             };
             if (!Dispatcher.CheckAccess())
@@ -65,7 +76,57 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public void RemoveIdentity(ServiceOrder serviceOrder)
         {
-            throw new NotImplementedException();
+            Action lambda = () =>
+            {
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
+                //Button btnIdentity = (Button)pnlIdentityList.FindName(ctrlName);
+                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+                //if (btnIdentity != null)
+                if (ucIdentity != null)
+                {                    
+                    //pnlIdentityList.Children.Remove(btnIdentity);
+                    pnlIdentityList.Children.Remove(ucIdentity);
+                    //pnlIdentityList.UnregisterName(btnIdentity.Name);
+                    pnlIdentityList.UnregisterName(ucIdentity.Name);
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
+        public void UpdateIdentityBtnName(ServiceOrder oldOrder, ServiceOrder newOrder)
+        {
+            Action lambda = () =>
+            {
+                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrder.Id.ToString());
+                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.Id.ToString());
+                
+                UC_Customer btnOldIdentity = (UC_Customer)pnlIdentityList.FindName(ctrOldlName);
+                if (btnOldIdentity != null)
+                {
+                    //注销
+                    pnlIdentityList.UnregisterName(btnOldIdentity.Name);
+
+                    //重新注册
+                    btnOldIdentity.Name = ctrNewlName;
+                    pnlIdentityList.RegisterName(btnOldIdentity.Name, btnOldIdentity);
+
+                    //更新按钮的tag
+                    btnOldIdentity.btnCustomer.Tag = newOrder;
+                }
+                else
+                {
+                    log.Error("错误：按钮不应该为null");
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
         }
 
         public void SetIdentityReaded(ServiceOrder serviceOrder)
@@ -77,6 +138,10 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Unread);
         }
+        public void SetIdentityLogOff(ServiceOrder serviceOrder)
+        {
+            SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.LogOff);
+        }
         private void SetIdentityButtonStyle(ServiceOrder order, em_ButtonStyle buttonStyle)
         {
             Action lambda = () =>
@@ -84,7 +149,8 @@ namespace Dianzhu.CSClient.ViewWPF
                 var objBtn = pnlIdentityList.FindName(PHSuit.StringHelper.SafeNameForWpfControl(order.Id.ToString()));
                 if (objBtn != null)
                 {
-                    Button btn = (Button)objBtn;
+                    //Button btn = (Button)objBtn;
+                    UC_Customer ucCustomer = (UC_Customer)objBtn;
                     Color foreColor = Colors.White;
                     string loadingText = "(加载中)";
                     switch (buttonStyle)
@@ -94,16 +160,28 @@ namespace Dianzhu.CSClient.ViewWPF
                             break;
                         case em_ButtonStyle.LogOff:
                             foreColor = Colors.Gray;
+                            //btn.Visibility = Visibility.Collapsed;
+                            //pnlIdentityList.Children.Remove(btn);
+                            pnlIdentityList.Children.Remove(ucCustomer);
                             break;
-                        case em_ButtonStyle.Readed: foreColor = Colors.Black;
-                            btn.Content = btn.Content.ToString().Replace(loadingText, string.Empty);
+                        case em_ButtonStyle.Readed:
+                            foreColor = Colors.Black;
+                            //btn.Content = btn.Content.ToString().Replace(loadingText, string.Empty);
                             break;
-                        case em_ButtonStyle.Unread: foreColor = Colors.Red; break;
-                        case em_ButtonStyle.Actived: foreColor = Colors.Yellow; break;
-                        case em_ButtonStyle.Loading: btn.Content = loadingText+btn.Content;  break;
+                        case em_ButtonStyle.Unread:
+                            foreColor = Colors.Red;
+                            ucCustomer.CustomerUnread();
+                            break;
+                        case em_ButtonStyle.Actived:
+                            foreColor = Colors.Yellow;
+                            break;
+                        case em_ButtonStyle.Loading:
+                            //btn.Content = loadingText+btn.Content;
+                            ucCustomer.CustomerCurrent();
+                            break;
                         default: break;
                     }
-                    btn.Foreground = new SolidColorBrush(foreColor);
+                    //btn.Foreground = new SolidColorBrush(foreColor);
                 }
             };
             if (!Dispatcher.CheckAccess())

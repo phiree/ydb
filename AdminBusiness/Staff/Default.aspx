@@ -30,15 +30,14 @@
                                                 <img class="emp-headImg" src=' <%# ((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")) == null ? "/images/common/emp-headicon.png" : "/ImageHandler.ashx?imagename=" + HttpUtility.UrlEncode(((Dianzhu.Model.BusinessImage)Eval("AvatarCurrent")).ImageName) + "&width=120&height=120&tt=3)"%>  '/>
                                                 <div class="emp-info">
                                                     <p>姓名：<%#Eval("Name") %></p>
-                                                    <p>工龄：</p>
+                                                    <p>工龄：<%#Eval("Code") %></p>
                                                     <p>性别：<%#Eval("Gender")%></p>
                                                     <p>电话：<%#Eval("Phone")%></p>
-                                                    <p>特长技能：</p>
                                                 </div>
                                             </div>
                                             <div class="emp-model-b">
                                                 <!--<input type="button" staffId='<%#Eval("id") %>' class='btnAssign emp-assign <%# (bool)Eval("IsAssigned")?"assigned":"noAssign" %>' value='<%# (bool)Eval("IsAssigned")?"取消指派":"指派" %>'/>-->
-                                                <input type="button" class="emp-assign" value="指派" data-role="appointToggle" data-appointTargetId='<%#Eval("id") %>' >
+                                                <input type="button" class="emp-assign" value="指派" data-role="appointToggle" data-appointTargetId='<%#Eval("id") %>'>
                                             </div>
                                         </div>
                                         <!--end emp-model-->
@@ -154,39 +153,34 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bottom" runat="Server">
     <script src="/js/libs/underscore.js"></script>
-    <script src="/js/jquery.lightBox_me.js"></script>
-    <script src="/js/interfaceAdapter.js"></script>
-    <script src="/js/test/mock.js"></script>
-    <script src="/js/test/mock.staff.js"></script>
-    <!--<script src="/js/appoint.js"></script>-->
-    <script src="/js/appointToStaff.js"></script>
+    <script src="/js/plugins/jquery.lightbox_me.js"></script>
+    <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
+    <script src="/js/apps/appointToStaff.js?v=1.0.0"></script>
     <script>
         $().ready(function(){
             $('[rel="tooltip"]').tooltip();
         });
 
-        $(".btnAssign").click(function () {
-            var $this = $(this);
-            $.post("/ajaxservice/changestaffInfo.ashx",
-                {
-                    "changed_field": "assign",
-                    "changed_value": false,
-                    "id": $this.attr("staffId")
-                }, function (data) {
-                    var enabled = data.data;
-                    var $card = $this.parents(".emp-model");
-                    var $assignFlag = $card.find(".emp-assign-flag");
-                    if ( enabled == "True" ) {
-                        $this.val("取消指派");
-                        $this.addClass("assigned").removeClass("noAssign");
-                        $assignFlag.addClass("assigned").removeClass("noAssign");
-                    }
-                    else {
-                        $this.val("指派");
-                        $this.removeClass("assigned").addClass("noAssign");
-                        $assignFlag.removeClass("assigned").addClass("noAssign");
-                    }
-                });
-        });
+//        $(".btnAssign").click(function () {
+//            var $this = $(this);
+//            $.post("/ajaxservice/changestaffInfo.ashx",
+//                {
+//                    "changed_field": "assign",
+//                    "changed_value": false,
+//                    "id": $this.attr("staffId")
+//                }, function (data) {
+//                    var enabled = data.data;
+//                    var $card = $this.parents(".emp-model");
+//                    var $assignFlag = $card.find(".emp-assign-flag");
+//                    if ( enabled == "True" ) {
+//                        $this.val("取消指派").addClass("assigned").removeClass("noAssign");
+//                        $assignFlag.addClass("assigned").removeClass("noAssign");
+//                    }
+//                    else {
+//                        $this.val("指派").removeClass("assigned").addClass("noAssign");
+//                        $assignFlag.removeClass("assigned").addClass("noAssign");
+//                    }
+//                });
+//        });
     </script>
 </asp:Content>

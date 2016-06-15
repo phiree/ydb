@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JPush\AuthorizationHeader.cs" />
     <Compile Include="JPush\Config.cs" />
     <Compile Include="JPush\JPushResponse.cs" />
     <Compile Include="JPush\JPushRequest.cs" />

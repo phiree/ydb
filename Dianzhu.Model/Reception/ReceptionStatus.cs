@@ -8,7 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 当前接待情况.
     /// </summary>
-  public   class ReceptionStatus
+  public   class ReceptionStatus:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 构造
@@ -49,7 +49,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 当前接待情况.
     /// </summary>
-    public class ReceptionStatusArchieve
+    public class ReceptionStatusArchieve:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 构造

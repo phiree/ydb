@@ -20,10 +20,14 @@ namespace Dianzhu.CSClient.IView
         /// </summary>
         DZMembership CurrentCustomerService { get; set; }
        event AudioPlay AudioPlay;
+        event BtnMoreChat BtnMoreChat;
 
+        void ShowNoMoreLabel();
+
+        string ChatListCustomerName { get; set; }
     }
     public delegate void AudioPlay(object audioTag, IntPtr handler);
 
-
+    public delegate void BtnMoreChat();
 
 }

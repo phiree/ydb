@@ -14,13 +14,15 @@ using Dianzhu.Api.Model;
 public class ResponseORM003006 : BaseResponse
 {
     public ResponseORM003006(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataORM003006 requestData = this.request.ReqData.ToObject<ReqDataORM003006>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+    
         BLLServiceOrderStateChangeHis bllServiceOrderHis = new BLLServiceOrderStateChangeHis();
         string raw_id = requestData.userID;
 
@@ -65,11 +67,13 @@ public class ResponseORM003006 : BaseResponse
                 List<RespDataORM_orderStatusObj> RespOrderStatusList = new List<RespDataORM_orderStatusObj>();
 
                 RespDataORM_orderStatusObj orderStatusObj = null;
-                orderStatusObj = new RespDataORM_orderStatusObj();
-                orderStatusObj.status = enum_OrderStatus.Draft.ToString();
-                orderStatusObj.time = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
-                orderStatusObj.lastStatus = "";
-                RespOrderStatusList.Add(orderStatusObj);
+                //orderStatusObj = new RespDataORM_orderStatusObj();
+                //orderStatusObj.status = enum_OrderStatus.Draft.ToString();
+                //orderStatusObj.time = string.Format("{0:yyyyMMddHHmmss}", order.OrderCreated);
+                //orderStatusObj.lastStatus = "";
+                //orderStatusObj.title = order.GetStatusTitleFriendly(enum_OrderStatus.Draft);
+                //orderStatusObj.context = order.GetStatusContextFriendly(enum_OrderStatus.Draft);
+                //RespOrderStatusList.Add(orderStatusObj);
 
                 IList< ServiceOrderStateChangeHis> OrderStateHisList = bllServiceOrderHis.GetOrderHisList(order);
                 if (OrderStateHisList != null)

@@ -9,6 +9,7 @@ namespace Dianzhu.CSClient.IView
     /// 登录界面接口定义
     /// </summary>
     public delegate void ViewLogin();
+   
     public interface ILoginForm
     {
         string FormText { get; set; }
@@ -18,7 +19,7 @@ namespace Dianzhu.CSClient.IView
         bool LoginButtonEnabled { set; }
         // when send login (click login button)
         event ViewLogin ViewLogin;
-         
+        event EventHandler TestClick;
 
         bool IsLoginSuccess { set; }
         string LoginMessage { set; }

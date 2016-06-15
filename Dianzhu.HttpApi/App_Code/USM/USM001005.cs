@@ -15,7 +15,7 @@ public class ResponseUSM001005 : BaseResponse
     protected override void BuildRespData()
     {
         ReqDataUSM requestData = request.ReqData.ToObject<ReqDataUSM>();
-        DZMembershipProvider p = new DZMembershipProvider();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         DZMembership member;
         bool validated;
 
@@ -36,6 +36,13 @@ public class ResponseUSM001005 : BaseResponse
             validated = new Account(p).ValidateUser(userName, requestData.pWord, this, out member);
             if (!validated)
             {
+                return;
+            }
+
+            if(member.UserType!= Dianzhu.Model.Enums.enum_UserType.customer)
+            {
+                this.state_CODE = Dicts.StateCode[8];
+                this.err_Msg = "该用户不是普通用户，登录失败";
                 return;
             }
         }

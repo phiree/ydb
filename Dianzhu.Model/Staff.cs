@@ -8,7 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 商家职员信息
     /// </summary>
-    public class Staff
+    public class Staff:DDDCommon.Domain.Entity<Guid>
     {
         public Staff()
         {

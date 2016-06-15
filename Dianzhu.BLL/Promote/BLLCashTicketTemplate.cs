@@ -45,7 +45,7 @@ namespace Dianzhu.BLL
                  ValidDate=PHCore.GetNextDay(DateTime.Now),
                  Enabled=true,
             };
-            DALCashTicketTemplate.Save(ctt);
+            DALCashTicketTemplate.Add(ctt);
             return ctt;
         }
         public void Update(CashTicketTemplate t)
@@ -58,17 +58,17 @@ namespace Dianzhu.BLL
         }
         public CashTicketTemplate GetOne(Guid id)
         {
-            return DALCashTicketTemplate.GetOne(id);
+            return DALCashTicketTemplate.FindById(id);
         }
 
         public void SaveOrUpdate(CashTicketTemplate ctt)
         {
-            DALCashTicketTemplate.SaveOrUpdate(ctt);
+            DALCashTicketTemplate.Update(ctt);
         
         }
         public IList<CashTicketTemplate> GetAll()
         {
-            return DALCashTicketTemplate.GetAll<CashTicketTemplate>();
+            return DALCashTicketTemplate.Find(x=>true);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Dianzhu.BLL
              CashTicket ticket= validCashTickets.First();
              ticket.UserAssigned = customer;
 
-             BLLCashTicket.SaveOrUpdate(ticket);
+             BLLCashTicket.Update(ticket);
              return ticket;
         }
         

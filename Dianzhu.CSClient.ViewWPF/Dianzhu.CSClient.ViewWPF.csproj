@@ -52,9 +52,36 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.8.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.8\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.8.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.8\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.8.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.8\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.8.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.8\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=2.8.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.8\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.8.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.8\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FlashInTaskBar.cs" />
+    <Compile Include="FormMainOld.xaml.cs">
+      <DependentUpon>FormMainOld.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.xaml.cs">
       <DependentUpon>FormMain.xaml</DependentUpon>
     </Compile>
@@ -62,14 +89,40 @@
       <DependentUpon>FormMainNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalVariable.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_Business.xaml.cs">
       <DependentUpon>UC_Business.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_ChatListOld.xaml.cs">
+      <DependentUpon>UC_ChatListOld.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_ChatListNew.xaml.cs">
+      <DependentUpon>UC_ChatListNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_ChatSendOld.xaml.cs">
+      <DependentUpon>UC_ChatSendOld.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_ChatSend.xaml.cs">
       <DependentUpon>UC_ChatSend.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_Customer.xaml.cs">
-      <DependentUpon>UC_Customer.xaml</DependentUpon>
+    <Compile Include="UC\UC_ChatSendNew.xaml.cs">
+      <DependentUpon>UC_ChatSendNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_CustomerOld.xaml.cs">
+      <DependentUpon>UC_CustomerOld.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_CustomerNew.xaml.cs">
+      <DependentUpon>UC_CustomerNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_IdentityListOld.xaml.cs">
+      <DependentUpon>UC_IdentityListOld.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_IdentityListNew.xaml.cs">
+      <DependentUpon>UC_IdentityListNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_MessageVoice.xaml.cs">
       <DependentUpon>UC_MessageVoice.xaml</DependentUpon>
@@ -83,11 +136,23 @@
     <Compile Include="UC\UC_OrderEdit.xaml.cs">
       <DependentUpon>UC_OrderEdit.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_OrderHistoryOld.xaml.cs">
+      <DependentUpon>UC_OrderHistoryOld.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_OrderHistory.xaml.cs">
       <DependentUpon>UC_OrderHistory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_OrderHistoryNew.xaml.cs">
+      <DependentUpon>UC_OrderHistoryNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_OrderHistory_OrderOld.xaml.cs">
+      <DependentUpon>UC_OrderHistory_OrderOld.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_OrderHistory_Order.xaml.cs">
       <DependentUpon>UC_OrderHistory_Order.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_OrderHistory_OrderNew.xaml.cs">
+      <DependentUpon>UC_OrderHistory_OrderNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_PushService.xaml.cs">
       <DependentUpon>UC_PushService.xaml</DependentUpon>
@@ -95,8 +160,17 @@
     <Compile Include="UC\UC_ScrollView.xaml.cs">
       <DependentUpon>UC_ScrollView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_SearchOld.xaml.cs">
+      <DependentUpon>UC_SearchOld.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_Search.xaml.cs">
       <DependentUpon>UC_Search.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_SearchNew.xaml.cs">
+      <DependentUpon>UC_SearchNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_SearchResultOld.xaml.cs">
+      <DependentUpon>UC_SearchResultOld.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_SearchResult.xaml.cs">
       <DependentUpon>UC_SearchResult.xaml</DependentUpon>
@@ -104,10 +178,23 @@
     <Compile Include="UC\UC_OrderDetail.xaml.cs">
       <DependentUpon>UC_OrderDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_SearchResultNew.xaml.cs">
+      <DependentUpon>UC_SearchResultNew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\UC_ShelfService.xaml.cs">
       <DependentUpon>UC_ShelfService.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\UC_Customer.xaml.cs">
+      <DependentUpon>UC_Customer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_TimerControl.xaml.cs">
+      <DependentUpon>UC_TimerControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="FormLogin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FormMainOld.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -126,19 +213,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\UC_ChatListOld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UC\UC_ChatList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_ChatListNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_ChatSendOld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UC\UC_ChatSend.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_Customer.xaml">
+    <Page Include="UC\UC_ChatSendNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\UC_CustomerOld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UC\UC_CustomerNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_IdentityListOld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UC\UC_IdentityList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_IdentityListNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -158,11 +273,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\UC_OrderHistoryOld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UC\UC_OrderHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\UC_OrderHistoryNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_OrderHistory_OrderOld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UC\UC_OrderHistory_Order.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_OrderHistory_OrderNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,9 +305,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\UC_SearchOld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UC\UC_Search.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_SearchNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_SearchResultOld.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UC\UC_SearchResult.xaml">
       <SubType>Designer</SubType>
@@ -186,7 +329,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\UC_SearchResultNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UC\UC_ShelfService.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_Customer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_TimerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -201,11 +356,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -213,9 +363,11 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -223,6 +375,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">
+      <Project>{d90cdf37-7406-4dae-9ae6-c894d83a796f}</Project>
+      <Name>DDDCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">
       <Project>{489e4eb5-e576-4ab0-9b45-fb015a8c84f5}</Project>
       <Name>Dianzhu.Config</Name>
@@ -248,15 +404,47 @@
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\logourl.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\voice.gif">
+    <Content Include="Resources\1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="Resources\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\work.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image1.png" />
+    <Content Include="Resources\ass.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\exit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\logourl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\set.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\voice.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

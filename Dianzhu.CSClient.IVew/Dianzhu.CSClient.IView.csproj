@@ -48,16 +48,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumButtonType.cs" />
+    <Compile Include="IViewMainForm.cs" />
     <Compile Include="IViewNotice.cs" />
     <Compile Include="IViewChatSend.cs" />
     <Compile Include="IViewOrderHistory.cs" />
+    <Compile Include="IViewShelfService.cs" />
     <Compile Include="IViewSearch.cs" />
     <Compile Include="IViewOrder.cs" />
     <Compile Include="IViewChatList.cs" />
     <Compile Include="IViewIdentityList.cs" />
     <Compile Include="ILoginForm.cs" />
-    <Compile Include="IMainFormView.cs" />
-    <Compile Include="IScreenCaptureForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

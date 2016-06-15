@@ -26,11 +26,11 @@ namespace Dianzhu.Model
         /// <param name="member"></param>
         /// <param name="value"></param>
         /// <param name="content"></param>
-        public ServiceOrderAppraise(ServiceOrder order,DZMembership member,decimal value,string content)
+        public ServiceOrderAppraise(ServiceOrder order, enum_ChatTarget target,decimal value,string content)
         {
             this.CreateTime = DateTime.Now;
             this.Order = order;
-            this.Member = member;
+            this.Tatget = target;
             this.Value = value;
             this.Content = content;
         }
@@ -51,7 +51,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// 用户
         /// </summary>
-        public virtual DZMembership Member { get; set; }
+        public virtual enum_ChatTarget Tatget { get; set; }
         /// <summary>
         /// 评价值
         /// </summary>

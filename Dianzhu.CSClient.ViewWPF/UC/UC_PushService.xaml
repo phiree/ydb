@@ -50,7 +50,7 @@
                                 <WrapPanel>
                                     <Label>参考价格</Label>
                                     <Label x:Name="lblUnitPrice" Foreground="Blue" Padding="5,5,0,5">288.00</Label>
-                                    <Label Padding="0,5,5,5">元/次</Label>
+                                    <Label Padding="0,5,5,5">元</Label>
                                 </WrapPanel>
 
                                 <WrapPanel>

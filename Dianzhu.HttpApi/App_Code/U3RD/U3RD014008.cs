@@ -28,7 +28,8 @@ public class ResponseU3RD014008:BaseResponse
     {
         ReqDataU3RD014008 requestData = this.request.ReqData.ToObject<ReqDataU3RD014008>();
 
-        bllMember = new DZMembershipProvider();
+        bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
+
 
         try
         {
@@ -76,10 +77,18 @@ public class ResponseU3RD014008:BaseResponse
                         string urlUserWeChat = Dianzhu.Config.Config.GetAppSetting("WeChatUserInfoUrl");
                         Uri uriUserWeChat = new Uri(urlUserWeChat + "access_token=" + refreshTokenObjWeChat.access_token + "&openid=" + refreshTokenObjWeChat.openid);
                         string resultuser = HttpHelper.CreateHttpRequest(uriUserWeChat.ToString(), "get", null);
-                        WechatRespUserinfo userObjWeChat = JsonConvert.DeserializeObject<WechatRespUserinfo>(resultuser);
+                        WechatRespUserinfo userObjWeChat = JsonConvert.DeserializeObject<WechatRespUserinfo>(HttpUtility.UrlDecode(resultuser, System.Text.Encoding.UTF8));
 
-                        DZMembershipWeChat wechatMember = ConvertToWechatMember(refreshTokenObjWeChat, userObjWeChat);
-                        bllMember.CreateUserForU3rd(wechatMember);
+                        bool isAddWechat;
+                        DZMembershipWeChat wechatMember = ConvertToWechatMember(refreshTokenObjWeChat, userObjWeChat, out isAddWechat);
+                        if (isAddWechat)
+                        {
+                            bllMember.CreateUserForU3rd(wechatMember);
+                        }
+                        else
+                        {
+                            bllMember.UpdateUserForU3rd(wechatMember);
+                        }
 
                         userObj.Adapt(wechatMember);
                         pwd = wechatMember.PlainPassword;
@@ -124,8 +133,16 @@ public class ResponseU3RD014008:BaseResponse
                         string resultUserinfoWeibo = HttpHelper.CreateHttpRequest(uriWeiboUserinfo.ToString(), "get", null);
                         WeiboRespUserinfo userinfoWeibo = JsonConvert.DeserializeObject<WeiboRespUserinfo>(resultUserinfoWeibo);
 
-                        DZMembershipSinaWeibo sinaWeiboMember = ConvertToSinaWeiboMember(respTokenObjWeibo, tokeninfoWeibo, userinfoWeibo);
-                        bllMember.CreateUserForU3rd(sinaWeiboMember);
+                        bool isAddWeibo;
+                        DZMembershipSinaWeibo sinaWeiboMember = ConvertToSinaWeiboMember(respTokenObjWeibo, tokeninfoWeibo, userinfoWeibo,out isAddWeibo);
+                        if (isAddWeibo)
+                        {
+                            bllMember.CreateUserForU3rd(sinaWeiboMember);
+                        }
+                        else
+                        {
+                            bllMember.UpdateUserForU3rd(sinaWeiboMember);
+                        }
 
                         userObj.Adapt(sinaWeiboMember);
                         pwd = sinaWeiboMember.PlainPassword;
@@ -152,14 +169,22 @@ public class ResponseU3RD014008:BaseResponse
                         string resultUserinfoQQ = HttpHelper.CreateHttpRequest(uriQQUserinfo.ToString(), "get", null);
                         QQRespUserinfo UserinfoObjQQ = JsonConvert.DeserializeObject<QQRespUserinfo>(resultUserinfoQQ);
 
-                        DZMembershipQQ qqMember = ConvertToQQMember(refreshOpenidObj, UserinfoObjQQ);
+                        bool isAddQQ;
+                        DZMembershipQQ qqMember = ConvertToQQMember(refreshOpenidObj, UserinfoObjQQ,out isAddQQ);
                         if (UserinfoObjQQ.ret < 0)
                         {
                             this.state_CODE = Dicts.StateCode[0];
                             this.err_Msg = "ret:" + UserinfoObjQQ.ret + ";msg:" + UserinfoObjQQ.msg;
                             return;
                         }
-                        bllMember.CreateUserForU3rd(qqMember);
+                        if (isAddQQ)
+                        {
+                            bllMember.CreateUserForU3rd(qqMember);
+                        }
+                        else
+                        {
+                            bllMember.UpdateUserForU3rd(qqMember);
+                        }
 
                         userObj.Adapt(qqMember);
                         pwd = qqMember.PlainPassword;
@@ -193,12 +218,15 @@ public class ResponseU3RD014008:BaseResponse
         }
     }
 
-    private DZMembershipWeChat ConvertToWechatMember(WechatRespTokenObj tokenObj, WechatRespUserinfo userObj)
+    private DZMembershipWeChat ConvertToWechatMember(WechatRespTokenObj tokenObj, WechatRespUserinfo userObj, out bool isAdd)
     {
+        isAdd = false;
+
         DZMembershipWeChat member = (DZMembershipWeChat)bllMember.GetUserByWechatOpenId(tokenObj.openid);
         if (member == null)
         {
             member = (DZMembershipWeChat)DZMembership.Create(enum_LoginType.WeChat);
+            isAdd = true;
         }
         else
         {
@@ -209,7 +237,7 @@ public class ResponseU3RD014008:BaseResponse
         member.AccessToken = tokenObj.access_token;
         member.ExpiresIn = tokenObj.expires_in;
         member.RefreshToken = tokenObj.refresh_token;
-        member.OpenId = tokenObj.openid;
+        member.WeChatOpenId = tokenObj.openid;
         member.Scope = tokenObj.scope;
         member.Unionid = userObj.unionid;
         member.Nickname = userObj.nickname;
@@ -230,12 +258,15 @@ public class ResponseU3RD014008:BaseResponse
         return member;
     }    
 
-    private DZMembershipSinaWeibo ConvertToSinaWeiboMember(WeiboRespTokenObj tokenObj, WeiboRequestTokenInfo tokenInfo, WeiboRespUserinfo userObj)
+    private DZMembershipSinaWeibo ConvertToSinaWeiboMember(WeiboRespTokenObj tokenObj, WeiboRequestTokenInfo tokenInfo, WeiboRespUserinfo userObj, out bool isAdd)
     {
+        isAdd = false;
+
         DZMembershipSinaWeibo member = (DZMembershipSinaWeibo)bllMember.GetUserBySinaWeiboUId(long.Parse(tokenInfo.uid));
         if (member == null)
         {
             member = (DZMembershipSinaWeibo)DZMembership.Create(enum_LoginType.SinaWeiBo);
+            isAdd = true;
         }
         else
         {
@@ -292,12 +323,15 @@ public class ResponseU3RD014008:BaseResponse
         return member;
     }
 
-    private DZMembershipQQ ConvertToQQMember(QQRespOpenid openidObj, QQRespUserinfo userObj)
+    private DZMembershipQQ ConvertToQQMember(QQRespOpenid openidObj, QQRespUserinfo userObj,out bool isAdd)
     {
+        isAdd = false;
+
         DZMembershipQQ member = (DZMembershipQQ)bllMember.GetUserByQQOpenId(openidObj.openid);
         if (member == null)
         {
             member = (DZMembershipQQ)DZMembership.Create(enum_LoginType.TencentQQ);
+            isAdd = true;
         }
         else
         {

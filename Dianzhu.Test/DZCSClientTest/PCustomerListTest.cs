@@ -48,7 +48,7 @@ namespace Dianzhu.Test.DZCSClientTest
                 .TheNext(1).With(x => x.From = order21.Customer).And(x => x.ServiceOrder =order21)//不同用户，新订单
                 .TheNext(1).With(x => x.From = order11.Customer).And(x => x.ServiceOrder = order11)//已有用户的订单        
                 .Build();
-            PIdentityList pCustomerList = new PIdentityList(viewCustomerList, viewChatList,viewOrder);
+            PIdentityList pCustomerList = new PIdentityList(viewCustomerList, viewChatList,viewOrder,iIM);
             IdentityTypeOfOrder identityTypeOfOrder;
             IdentityManager.UpdateIdentityList(order11, out identityTypeOfOrder);
 

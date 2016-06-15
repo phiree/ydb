@@ -14,8 +14,7 @@ public class ResponseSYS001001:BaseResponse
 {
     BLLReceptionChatDD bllReceptionChatDD;
     DZMembershipProvider bllMember;
-    BLLServiceOrder bllOrder;
-
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     public ResponseSYS001001(BaseRequest request):base(request)
     {
         //
@@ -26,9 +25,10 @@ public class ResponseSYS001001:BaseResponse
     {
         ReqDataSYS001001 requestData = this.request.ReqData.ToObject<ReqDataSYS001001>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         bllReceptionChatDD = new BLLReceptionChatDD();
-        bllMember = new DZMembershipProvider();
-        bllOrder = new BLLServiceOrder();
+        bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
+
 
         try
         {
@@ -79,7 +79,7 @@ public class ResponseSYS001001:BaseResponse
         chat.Id = new Guid(reqData.id);
         chat.To = bllMember.GetUserById(new Guid(reqData.to));
         chat.From = bllMember.GetUserById(new Guid(reqData.from));
-        chat.ServiceOrder = bllOrder.GetOne(new Guid(reqData.orderId));
+        chat.ServiceOrder = bllServiceOrder.GetOne(new Guid(reqData.orderId));
         chat.MessageBody = reqData.body;
         chat.FromResource = (enum_XmppResource)Enum.Parse(typeof(enum_XmppResource), reqData.from_resource);
         chat.ReceiveTime = DateTime.Now;

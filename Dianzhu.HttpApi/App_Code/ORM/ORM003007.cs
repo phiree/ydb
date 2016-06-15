@@ -14,16 +14,17 @@ using Dianzhu.Api.Model;
 public class ResponseORM003007 : BaseResponse
 {
     public ResponseORM003007(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
 
         ReqDataORM003007 requestData = this.request.ReqData.ToObject<ReqDataORM003007>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        string user_id = requestData.userID;
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+         string user_id = requestData.userID;
         string order_id = requestData.orderID;
 
         try
@@ -91,23 +92,33 @@ public class ResponseORM003007 : BaseResponse
                             case enum_OrderStatus.checkPayWithDeposit:
                                 bllServiceOrder.OrderFlow_PayDepositAndWaiting(order);
                                 break;
+                            case enum_OrderStatus.Negotiate:
+                                bllServiceOrder.OrderFlow_CustomDisagreeNegotiate(order);
+                                break;
                             case enum_OrderStatus.Assigned:
                                 bllServiceOrder.OrderFlow_CustomConfirmNegotiate(order);
                                 break;
                             case enum_OrderStatus.Canceled:
-                                bllServiceOrder.OrderFlow_Canceled(order);
-                                if (order.OrderStatus != enum_OrderStatus.Canceled)
+                                //bllServiceOrder.OrderFlow_Canceled(order);
+                                if (bllServiceOrder.OrderFlow_Canceled(order))
+                                {
+                                    this.state_CODE = Dicts.StateCode[0];
+                                    this.err_Msg = "订单取消成功";
+                                }
+                                else
                                 {
                                     this.state_CODE = Dicts.StateCode[1];
-                                    this.err_Msg = "订单取消失败";
-                                    return;
+                                    this.err_Msg = "订单取消失败，请稍候再试";
                                 }
-                                break;
+                                return;
                             case enum_OrderStatus.Ended:
                                 bllServiceOrder.OrderFlow_CustomerFinish(order);
                                 break;
                             case enum_OrderStatus.checkPayWithNegotiate:
                                 bllServiceOrder.OrderFlow_CustomerPayFinalPayment(order);
+                                break;
+                            case enum_OrderStatus.WaitingPayWithRefund:
+                                bllServiceOrder.OrderFlow_WaitingPayWithRefund(order, member);
                                 break;
                             case enum_OrderStatus.checkPayWithRefund:
                                 bllServiceOrder.OrderFlow_CustomerPayRefund(order);

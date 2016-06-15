@@ -6,22 +6,15 @@ using Dianzhu.Model;
 using NHibernate;
 namespace Dianzhu.DAL
 {
-    public class DALBusinessImage : DALBase<BusinessImage>
+    public class DALBusinessImage : NHRepositoryBase<BusinessImage, Guid>,IDAL.IDALBusinessImage
     {
          
-         public DALBusinessImage()
-        {
-             
-        }
-        //注入依赖,供测试使用;
-         public DALBusinessImage(string fortest):base(fortest)
-        {
-            
-        }
+       
 
         public BusinessImage FindBusImageByName(string imgName)
         {
-            return Session.QueryOver<BusinessImage>().Where(x => x.ImageName == imgName).SingleOrDefault();
+            return FindOne(x => x.ImageName == imgName);
+            
         }
       
     }

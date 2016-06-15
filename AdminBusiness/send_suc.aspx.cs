@@ -9,7 +9,7 @@ using Dianzhu.BLL;
 using System.Web.Security;
 public partial class register : System.Web.UI.Page
 {
-    BLLBusiness bllBusiness = new BLLBusiness();
+    BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
     
     protected void Page_Load(object sender, EventArgs e)
     {

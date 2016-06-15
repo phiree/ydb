@@ -15,11 +15,12 @@ public class DianzhuApi : IHttpHandler,IRequiresSessionState
         context.Response.ContentType = "application/json";
         context.Response.ContentEncoding = Encoding.UTF8;
         string jsonStr = new StreamReader(context.Request.InputStream).ReadToEnd();
-         Guid rid = Guid.NewGuid();
+        Guid rid = Guid.NewGuid();
         ilog.Debug("Request("+rid+"):"+ PHSuit.JsonHelper.FormatJson( jsonStr));
         BaseRequest request = JsonConvert.DeserializeObject<BaseRequest>(jsonStr);
-       
-        BaseResponse response = ResponseFactory.GetApiResponse(request);
+
+        ResponseFactory responseFactory = Bootstrap.Container.Resolve<ResponseFactory>();
+        BaseResponse response= responseFactory.GetApiResponse(request);
         string jsonResponse = response.BuildJsonResponse();
         context.Response.Write(jsonResponse);
         ilog.Debug("Resonse("+rid+"):"+PHSuit.JsonHelper.FormatJson(jsonResponse));

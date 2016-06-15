@@ -11,40 +11,22 @@ namespace Dianzhu.CSClient.MessageAdapter
     /// <summary>
     /// Convert between IM message and ReceptionChat
     /// todo:需要区分 聊天记录, 和 系统消息.
+    /// ddd:DomainService
     /// </summary>
     public class MessageAdapter : IMessageAdapter.IAdapter
     {
-
-        static DZMembershipProvider bllMember;
-        DZMembershipProvider BllMember
+        
+        IDAL.IDALServiceOrder dalOrder;
+        IDAL.IDALMembership dalMembership;
+        IDAL.IDALIMUserStatus dalIMUserStatus;
+        public MessageAdapter(IDAL.IDALServiceOrder dalOrder,IDAL.IDALMembership dalMembership, IDAL.IDALIMUserStatus dalIMUserStatus)
         {
-            get
-            {
-                if (bllMember == null) bllMember = new DZMembershipProvider();
-                return bllMember;
-            }
-
+           // this.bllOrder = bllOrder;
+            this.dalOrder = dalOrder;
+            this.dalMembership = dalMembership;
+            this.dalIMUserStatus = dalIMUserStatus;
         }
-        static BLLDZService bllDZService;
-        BLLDZService BllDZService
-        {
-            get
-            {
-                if (bllDZService == null) bllDZService = new BLLDZService();
-                return bllDZService;
-            }
-
-        }
-        static BLLServiceOrder bllOrder;
-        BLLServiceOrder BLLOrder
-        {
-            get
-            {
-                if (bllOrder == null) bllOrder = new BLLServiceOrder();
-                return bllOrder;
-            }
-
-        }
+ 
         static BLLIMUserStatus bllIMUserStatus;
         BLLIMUserStatus BLLIMUserStatus
         {
@@ -113,7 +95,14 @@ namespace Dianzhu.CSClient.MessageAdapter
                 }
             }
             ReceptionChat chat = ReceptionChat.Create(chatType);
-            var chatFrom = BllMember.GetUserById(new Guid(message.From.User));
+            Guid fromUser;
+            bool isFromUser = Guid.TryParse(message.From.User, out fromUser);
+            if (!isFromUser)
+            {
+                ilog.Error("发送用户的id有误，发送用户id为：" + message.From.User + "发送用户资源名为：" + message.From.Resource);
+                throw new Exception("发送用户的id有误");
+            }
+            var chatFrom = dalMembership.FindById(fromUser);
             chat.From = chatFrom;
             chat.FromResource = enum_XmppResource.Unknow;
             try
@@ -126,7 +115,7 @@ namespace Dianzhu.CSClient.MessageAdapter
             }
             if (!isNotice)
             {
-                var chatTo = BllMember.GetUserById(new Guid(message.To.User));
+                var chatTo = dalMembership.FindById(new Guid(message.To.User));
                 chat.To = chatTo;
                 if (message.To.Resource != null)
                 {
@@ -160,7 +149,7 @@ namespace Dianzhu.CSClient.MessageAdapter
 
                     if (isValidGuid)
                     {
-                        var existedServiceOrder = BLLOrder.GetOne(order_ID);
+                        var existedServiceOrder = dalOrder.FindById(order_ID);
                         if (existedServiceOrder != null)
                         {
                             chat.ServiceOrder = existedServiceOrder;
@@ -188,7 +177,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                     var userStatusNode = ext_element.SelectSingleElement("msgObj");
                     var userId = userStatusNode.GetAttribute("userId");
                     var status = userStatusNode.GetAttribute("status");
-                    ((ReceptionChatUserStatus)chat).User = BllMember.GetUserById(new Guid(userId));
+                    ((ReceptionChatUserStatus)chat).User = dalMembership.FindById(new Guid(userId));
                     ((ReceptionChatUserStatus)chat).Status = (enum_UserStatus)Enum.Parse(typeof(enum_UserStatus), status, true); ;
                 }
             }
@@ -211,8 +200,17 @@ namespace Dianzhu.CSClient.MessageAdapter
             msg.SetAttribute("type", "chat");
             msg.Id = chat.Id != Guid.Empty ? chat.Id.ToString() : Guid.NewGuid().ToString();
             //     msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
-            IMUserStatus toUserStatus = BLLIMUserStatus.GetIMUSByUserId(chat.To.Id);
-            msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server + "/" + toUserStatus.ClientName);//发送对象
+            //用户最新的客户端名称. 应该通过restfulapi获取, 弃用数据库数据.
+            try
+            {
+                IMUserStatus toUserStatus = dalIMUserStatus.GetIMUSByUserId(chat.To.Id);
+                msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server + "/" + toUserStatus.ClientName);//发送对象
+            }
+            catch (Exception e)
+            {
+                ilog.Error(e.Message);
+            }
+
             msg.Body = chat.MessageBody;
 
             var nodeActive = new agsXMPP.Xml.Dom.Element("active", string.Empty, "http://jabber.org/protocol/chatstates");
@@ -279,7 +277,7 @@ namespace Dianzhu.CSClient.MessageAdapter
                  }*/
                     var storeObj = new agsXMPP.Xml.Dom.Element("storeObj");
 
-                    storeObj.SetAttribute("userID", service.OriginalService.Business.Owner.Id.ToString());
+                    storeObj.SetAttribute("userID", service.OriginalService.Business.Id.ToString());
                     storeObj.SetAttribute("alias", service.OriginalService.Business.Name);
                     storeObj.SetAttribute("imgUrl", service.OriginalService.Business.BusinessAvatar.ImageName);
                     extNode.AddChild(storeObj);

@@ -48,7 +48,10 @@
         ShowCustomInfoSection="Right">
     </UC:AspNetPager>
     <div>
-        <input type="button" id="btnExport2Excel" value="导出Excel" /></div>
+        <%--<input type="button" id="btnExport2Excel" value="ToExcel" />--%>
+        <asp:Button ID="btnToExcel" runat="server" Text="ToExcel" OnClick="btnToExcel_Click" />
+
+    </div>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="foot" runat="server">
     <script>
@@ -59,20 +62,20 @@
             }
         };
 
-        $(function () {
-            $("#btnExport2Excel").click(
-                function () {
-                    $(".tbList").table2excel({
-                        exclude: ".noExl",
-                        name: "客户列表",
-                        filename: "客户列表.xls",
-                        fileext: ".xls",
+        //$(function () {
+        //    $("#btnExport2Excel").click(
+        //        function () {
+        //            $(".tbList").table2excel({
+        //                exclude: ".noExl",
+        //                name: "客户列表",
+        //                filename: "客户列表.xls",
+        //                fileext: ".xls",
 
-                    });
-                }
-            );
+        //            });
+        //        }
+        //    );
 
             
-        });
+        //});
     </script>
 </asp:Content>

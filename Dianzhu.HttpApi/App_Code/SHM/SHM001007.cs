@@ -15,12 +15,13 @@ using Dianzhu.Api.Model;
 public class ResponseSHM001007 : BaseResponse
 {
     public ResponseSHM001007(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataSHM001007 requestData = this.request.ReqData.ToObject<ReqDataSHM001007>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
         BLLDZTag bllDZTag = new BLLDZTag();
 
         string start_Time = requestData.stratTime;

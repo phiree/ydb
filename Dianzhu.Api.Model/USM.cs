@@ -27,7 +27,7 @@ namespace Dianzhu.Api.Model
                 ? string.Empty
                 : Dianzhu.Config.Config.GetAppSetting("MediaGetUrl") + membership.AvatarUrl;
             this.address = membership.Address ?? "";
-            this.name = membership.NickName ?? "";
+            this.name =  membership.NickName ?? membership.UserName??"";
             return this;
         }
     }

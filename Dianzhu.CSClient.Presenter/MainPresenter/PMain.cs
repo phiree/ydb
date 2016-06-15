@@ -1,48 +1,54 @@
-﻿using System;
+﻿using Dianzhu.BLL;
+using Dianzhu.CSClient.IInstantMessage;
+using Dianzhu.CSClient.IView;
+using Dianzhu.Model;
+using Dianzhu.Model.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.Model;
-using Dianzhu.BLL;
-using Dianzhu.CSClient.IView;
-using Dianzhu.CSClient.IInstantMessage;
-using Dianzhu.BLL;
-using Dianzhu.Model.Enums;
-using Dianzhu.DAL;
+
 namespace Dianzhu.CSClient.Presenter
 {
-     /// <summary>
-     ///  和组件无关的逻辑
-     ///  1)客服登录之后,从点点拉取用户
-     /// </summary>
-    public  class PMain
+    public class PMain
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PMain");
+
         BLLReceptionStatus bllReceptionStatus;
         BLLReceptionChat bllReceptionChat;
         BLLReceptionChatDD bllReceptionChatDD;
         BLLReceptionStatusArchieve bllReceptionStatusArchieve;
         BLLIMUserStatus bllIMUserStatus;
+        IView.IViewMainForm viewMainForm;
+ 
+
         InstantMessage iIM;
         IViewIdentityList iViewIdentityList;
-        public PMain(BLLReceptionStatus bllReceptionStatus,
-            BLLReceptionStatusArchieve bllReceptionStatusArchieve,
-             BLLReceptionChatDD bllReceptionChatDD,
-             BLLReceptionChat bllReceptionChat,
-             BLLIMUserStatus bllIMUserStatus,
-            InstantMessage iIM,
-            IViewIdentityList iViewIdentityList)
+        IBLLMembershipLoginLog bllLoginLog;
+        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM,IBLLMembershipLoginLog bllLoginLog, IViewIdentityList iViewIdentityList)
+            : this(viewMainForm, iIM, iViewIdentityList, bllLoginLog,new BLLReceptionStatus(), new BLLReceptionChat(), new BLLReceptionChatDD(), new BLLReceptionStatusArchieve(), new BLLIMUserStatus())
         {
-            this.bllReceptionStatus = bllReceptionStatus;
-            this.bllReceptionStatusArchieve = bllReceptionStatusArchieve;
+
+        }
+
+        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,BLLReceptionStatus bllReceptionStatus, BLLReceptionChat bllReceptionChat, BLLReceptionChatDD bllReceptionChatDD, BLLReceptionStatusArchieve bllReceptionStatusArchieve, BLLIMUserStatus bllIMUserStatus)
+        {
+            this.viewMainForm = viewMainForm;
+            this.viewMainForm.FormTitle = GlobalViables.CurrentCustomerService.DisplayName;
             this.iIM = iIM;
             this.iViewIdentityList = iViewIdentityList;
-            this.bllReceptionChatDD = bllReceptionChatDD;
+            this.bllReceptionStatus = bllReceptionStatus;
             this.bllReceptionChat = bllReceptionChat;
+            this.bllReceptionChatDD = bllReceptionChatDD;
+            this.bllReceptionStatusArchieve = bllReceptionStatusArchieve;
             this.bllIMUserStatus = bllIMUserStatus;
+            this.bllLoginLog = bllLoginLog;
+            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+            iIM.IMStreamError += IIM_IMStreamError;
             SysAssign(3);
         }
+
         /// <summary>
         /// 系统按数量分配用户给在线客服
         /// </summary>
@@ -53,7 +59,7 @@ namespace Dianzhu.CSClient.Presenter
             IList<ReceptionStatus> rsList = bllReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, num);
             if (rsList.Count > 0)
             {
-                log.Debug("需要接待的离线用户数量:"+rsList.Count);
+                log.Debug("需要接待的离线用户数量:" + rsList.Count);
                 foreach (ReceptionStatus rs in rsList)
                 {
                     #region 接待记录存档
@@ -75,7 +81,7 @@ namespace Dianzhu.CSClient.Presenter
                     rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
 
                     //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
-                   // SaveMessage(rChatReAss, true);
+                    // SaveMessage(rChatReAss, true);
                     iIM.SendMessage(rChatReAss);
 
                     //ClientState.OrderList.Add(rs.Order);
@@ -110,11 +116,12 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 catch (Exception)
                 {
-                    
+
                 }
             }
             log.Debug("-------结束 接收离线消息------");
         }
+
         /// <summary>
         /// 接待记录存档
         /// </summary>
@@ -149,13 +156,13 @@ namespace Dianzhu.CSClient.Presenter
             foreach (ReceptionChatDD chatDD in chatDDList)
             {
                 copychat = ReceptionChat.Create(chatDD.ChatType);
-              //  copychat.Id = chatDD.Id;
+                //  copychat.Id = chatDD.Id;
                 copychat.MessageBody = chatDD.MessageBody;
                 copychat.ReceiveTime = chatDD.ReceiveTime;
                 copychat.SendTime = chatDD.SendTime;
                 copychat.To = cs;
                 copychat.From = chatDD.From;
-                
+
                 copychat.SavedTime = chatDD.SavedTime;
                 copychat.ChatType = chatDD.ChatType;
                 copychat.FromResource = chatDD.FromResource;
@@ -170,14 +177,75 @@ namespace Dianzhu.CSClient.Presenter
                 chatDD.IsCopy = true;
                 bllReceptionChat.Save(copychat);
 
-               
+
                 bllReceptionChatDD.Save(chatDD);
             }
         }
 
+        private void IIM_IMStreamError()
+        {
+            ShowMessage("错误.同一用户在其他客户端登录,您已被迫下线");
+            CloseApplication();
+        }
 
+        private void IIM_IMReceivedMessage(Model.ReceptionChat chat)
+        {
+            string errMsg = string.Empty;
+            //判断信息类型
+            switch (chat.ChatType)
+            {
+                //下列状态在其他地方已处理，此处直接跳过
+                case Model.Enums.enum_ChatType.Text:
+                case Model.Enums.enum_ChatType.Media:
+                case Model.Enums.enum_ChatType.BeginPay:
+                case Model.Enums.enum_ChatType.Notice:
+                case Model.Enums.enum_ChatType.ConfirmedService:
+                case Model.Enums.enum_ChatType.Order:
+                    break;
 
+                case Model.Enums.enum_ChatType.PushedService:
+                    errMsg = "错误.客服工具不可能收到 PushedService类型的message.";
+                    log.Error(errMsg);
+                    throw new NotImplementedException(errMsg);
 
+                case Model.Enums.enum_ChatType.ReAssign:
+                    errMsg = "错误.客服工具不可能收到 ReAssign类型的message.";
+                    log.Error(errMsg);
+                    throw new NotImplementedException(errMsg);
+
+                case Model.Enums.enum_ChatType.UserStatus:
+                    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+
+                    if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+                    {
+                        if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
+                        {
+                            ShowMessage("该用户已下线");
+                        }
+                    }
+
+                    break;
+
+                default:
+                    errMsg = "尚未实现这种聊天类型:" + chat.ChatType;
+                    log.Error(errMsg);
+                    throw new NotImplementedException(errMsg);
+
+            }
+        }
+
+        public bool? ShowDialog()
+        {
+            return viewMainForm.ShowDialog();
+        }
+        public void ShowMessage(string message)
+        {
+            viewMainForm.ShowMessage(message);
+        }
+        public void CloseApplication()
+        {
+             bllLoginLog.MemberLogoff(IdentityManager.CurrentIdentity.CustomerService, string.Empty);
+            viewMainForm.CloseApplication();
+        }
     }
-
 }

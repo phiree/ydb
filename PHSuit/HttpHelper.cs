@@ -7,11 +7,14 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Web;
+using System.Web.Caching;
 
 namespace PHSuit
 {
     public class HttpHelper
     {
+        static log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.HttpHelper");
         public static string CreateHttpRequest(string url, string type, NameValueCollection paras)
         {
             var responseString = string.Empty;
@@ -55,12 +58,16 @@ namespace PHSuit
             }
             return responseString;
         }
-
         public static string CreateHttpRequestPostXml(string url, string parasXml)
+        {
+            return CreateHttpRequestPostXml(url, parasXml, new WebHeaderCollection());
+        }
+        public static string CreateHttpRequestPostXml(string url, string parasXml,WebHeaderCollection headers)
         {
             var responseString = string.Empty;
             using (var wb = new WebClient())
             {
+                wb.Headers = headers;
                 wb.Encoding = Encoding.UTF8;
 
                 responseString = wb.UploadString(url, "POST", parasXml);
@@ -78,7 +85,13 @@ namespace PHSuit
 
                 X509Store store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
                 store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
-                X509Certificate2 cert = store.Certificates.Find(X509FindType.FindBySubjectName, certName, false)[0];
+                X509Certificate2Collection coll = store.Certificates.Find(X509FindType.FindBySubjectName, certName, false);
+                if (coll.Count <= 0)
+                {
+                    throw new Exception("未找到证书");
+                }
+
+                X509Certificate2 cert = coll[0];
 
                 byte[] bytes;
                 bytes = System.Text.Encoding.UTF8.GetBytes(requestXml);
@@ -122,6 +135,89 @@ namespace PHSuit
                 return true;
             return false;
         }
+        public static void _SetupRefreshJob(string refreshurl)
+        {
 
+            //remove a previous job
+            log.Debug("Begin Refres");
+            Action remove = null;
+            if (HttpContext.Current != null)
+            {
+                remove = HttpContext.Current.Cache["Refresh"] as Action;
+            }
+            if (remove is Action)
+            {
+                HttpContext.Current.Cache.Remove("Refresh");
+                remove.EndInvoke(null);
+            }
+
+            //get the worker
+            Action work = () =>
+            {
+                while (true)
+                {
+                    System.Threading.Thread.Sleep(10000);
+                    System.Net.WebClient refresh = new System.Net.WebClient();
+                    try
+                    {
+                        log.Debug("    Begin request");
+                        refresh.UploadString(refreshurl+"?refresh=1", string.Empty);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        log.Error(ex.Message);
+                    }
+                    finally
+                    {
+                        refresh.Dispose();
+                    }
+                }
+            };
+
+            log.Debug("Invoke.");
+            work.BeginInvoke(null, null);
+
+            //add this job to the cache
+            if (HttpContext.Current != null)
+            {
+                HttpContext.Current.Cache.Add(
+                "Refresh",
+                work,
+                null,
+                Cache.NoAbsoluteExpiration,
+                Cache.NoSlidingExpiration,
+                CacheItemPriority.Normal,
+                (s, o, r) => { _SetupRefreshJob(refreshurl); }
+                );
+            }
+        }
+
+    }
+    public static class FirstRequestInitialisation
+    {
+        private static string host = null;
+        private static Object s_lock = new Object();
+
+        // Initialise only on the first request
+        public static void Initialise(HttpContext context)
+        {
+            
+            if (string.IsNullOrEmpty(host))
+            {
+                lock (s_lock)
+                {
+                    if (string.IsNullOrEmpty(host))
+                    {
+                        var uri = context.Request.Url;
+                        host = uri.GetLeftPart(UriPartial.Authority);
+
+                        PHSuit.HttpHelper._SetupRefreshJob(host);
+                    }
+                }
+            }
+
+
+        }
     }
 }

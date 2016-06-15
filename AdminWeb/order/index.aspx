@@ -80,7 +80,7 @@ function delInfo()
         <option value="index.aspx?status=IsCanceled">IsCanceled</option>
        <option value="index.aspx?status=Finished">Finished</option>
        <option value="index.aspx?status=Aborded">Aborded</option>
-       <option value="index.aspx?status=Appraise">Appraise</option>
+       <option value="index.aspx?status=Appraised">Appraised</option>
     </select>
 </div>
  <asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="data_ItemDataBound">
@@ -112,7 +112,7 @@ function delInfo()
 <td><%#DataBinder.Eval(Container.DataItem, "Service.Business.Name")%>
 </td>
 <td> <asp:Button ID="delbt" runat="server" Text="删除" CommandName="delete" CommandArgument='<%# Eval("id")%>' OnCommand="delbt_Command" OnClientClick="javascript:return confirm('警告：\n数据一旦被删除将无法还原！')" />
-    
+    <a href='<%# "detail.aspx?ID="+Eval("Id").ToString()%>'>详情</a>
 </td>
 </tr>
    <asp:Repeater runat="server" ID="rptPayment">
@@ -144,4 +144,5 @@ function delInfo()
         </table>
         </FooterTemplate>
 </asp:Repeater>
+    <UC:AspNetPager runat="server" ID="pager"   UrlPaging="true"></UC:AspNetPager>
 </asp:Content>

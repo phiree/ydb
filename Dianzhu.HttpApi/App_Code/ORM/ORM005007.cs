@@ -14,16 +14,17 @@ using Dianzhu.Api.Model;
 public class ResponseORM005007 : BaseResponse
 {
     public ResponseORM005007(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataORM005007 requestData = this.request.ReqData.ToObject<ReqDataORM005007>();
 
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         string merchant_ID = requestData.merchantID;
-        string order_ID = requestData.orderID;
+        RespDataORM_refundObj refundObj = requestData.refundObj;
+        string refundAction = requestData.refundAction;
 
         try
         {
@@ -36,11 +37,20 @@ public class ResponseORM005007 : BaseResponse
                 return;
             }
 
-            bool isOrderId = Guid.TryParse(order_ID, out orderID);
+            bool isOrderId = Guid.TryParse(refundObj.orderID, out orderID);
             if (!isOrderId)
             {
                 this.state_CODE = Dicts.StateCode[1];
                 this.err_Msg = "orderId格式有误";
+                return;
+            }
+
+            enum_refundAction action;
+            bool isAction = Enum.TryParse(refundAction, out action);
+            if (!isAction)
+            {
+                this.state_CODE = Dicts.StateCode[1];
+                this.err_Msg = "动作枚举格式有误";
                 return;
             }
 
@@ -65,10 +75,67 @@ public class ResponseORM005007 : BaseResponse
             }
             try
             {
-                //todo:理赔还未处理
+                if(member.UserType!= enum_UserType.business)
+                {
+                    this.state_CODE = Dicts.StateCode[4];
+                    this.err_Msg = "该账号不是商户";
+                    return;
+                }
+
+                ServiceOrder order = bllServiceOrder.GetOne(orderID);
+                if (order == null)
+                {
+                    this.state_CODE = Dicts.StateCode[1];
+                    this.err_Msg = "该订单不存在";
+                    return;
+                }
+
+                if (order.Details[0].OriginalService.Business.Owner.Id != member.Id)
+                {
+                    this.state_CODE = Dicts.StateCode[4];
+                    this.err_Msg = "该订单不属于该用商户";
+                    return;
+                }
+
+                enum_OrderStatus status;
+                switch (action)
+                {
+                    case enum_refundAction.refund:
+                        bllServiceOrder.OrderFlow_BusinessIsRefund(order, member);
+                        status = order.OrderStatus;
+                        break;
+                    case enum_refundAction.reject:
+                        bllServiceOrder.OrderFlow_BusinessRejectRefund(order,member);
+                        status = order.OrderStatus;
+                        break;
+                    case enum_refundAction.askPay:
+                        decimal refundAmount;
+                        if (!decimal.TryParse(refundObj.amount, out refundAmount))
+                        {
+                            this.state_CODE = Dicts.StateCode[1];
+                            this.err_Msg = "理赔金额有误";
+                            return;
+                        }
+
+                        if (refundAmount <= 0)
+                        {
+                            this.state_CODE = Dicts.StateCode[1];
+                            this.err_Msg = "赔偿金额必须大于零";
+                            return;
+                        }
+
+                        bllServiceOrder.OrderFlow_BusinessAskPayWithRefund(order, refundObj.context, refundAmount, refundObj.resourcesUrl, member);
+
+                        status = order.OrderStatus;
+                        break;
+                    default:
+                        this.state_CODE = Dicts.StateCode[4];
+                        this.err_Msg = "暂未支持该类型";
+                        return;
+                }
 
                 RespDataORM005007 respData = new RespDataORM005007();
-                respData.resultStatus = "isRefund";
+                respData.resultStatus = status.ToString();
 
                 this.state_CODE = Dicts.StateCode[0];
                 this.RespData = respData;

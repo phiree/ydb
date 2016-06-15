@@ -11,7 +11,7 @@ namespace Dianzhu.Model
     /// 基本的用户类.
     /// </summary>
   
-    public class DZMembership
+    public class DZMembership:DDDCommon.Domain.Entity<Guid>
     {
         public DZMembership()
         {
@@ -123,7 +123,12 @@ namespace Dianzhu.Model
                        UserType == enum_UserType.staff ? "员工" : "未知类型"; 
             }
         }
-
+        /// <summary>
+        /// 用户所属城市
+        /// </summary>
+        public virtual string UserCity { get; set; }
+ 
+ 
     }
     /// <summary>
     /// 商家相关用户.
@@ -167,7 +172,7 @@ namespace Dianzhu.Model
         public virtual string AccessToken { get; set; }//接口调用凭证
         public virtual int ExpiresIn { get; set; }//access_token接口调用凭证超时时间，单位（秒）
         public virtual string RefreshToken { get; set; }//用户刷新access_token
-        public virtual string OpenId { get; set; }//授权用户唯一标识
+        public virtual string WeChatOpenId { get; set; }//授权用户唯一标识
         public virtual string Scope { get; set; }//用户授权的作用域，使用逗号（,）分隔
         public virtual string Unionid { get; set; }//当且仅当该移动应用已获得该用户的userinfo授权时，才会出现该字段
         public virtual string Nickname { get; set; }//普通用户昵称

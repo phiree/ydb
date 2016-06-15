@@ -10,8 +10,8 @@ using Dianzhu.Model;
 public class VMBusinessAdapter
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.AdminWeb.VMBusinessAdapter");
-    Dianzhu.BLL.BLLServiceOrder bllOrder;
-    public VMBusinessAdapter(BLLServiceOrder bllOrder)
+    Dianzhu.BLL.IBLLServiceOrder bllOrder;
+    public VMBusinessAdapter(IBLLServiceOrder bllOrder)
     {
         this.bllOrder = bllOrder;
     }

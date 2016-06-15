@@ -12,7 +12,7 @@ namespace Dianzhu.BLL
 
         public void SaveOrUpdate(Complaint ad)
         {
-            DALComplaint.SaveOrUpdate(ad);
+            DALComplaint.Update(ad);
         }
     }
 }

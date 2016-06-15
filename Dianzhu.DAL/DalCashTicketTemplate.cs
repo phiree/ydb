@@ -7,20 +7,12 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-   public class DALCashTicketTemplate:DALBase<CashTicketTemplate>
+   public class DALCashTicketTemplate:NHRepositoryBase<CashTicketTemplate,Guid>,IDAL.IDALCashTicketTemplate
     {
-        public DALCashTicketTemplate()
-        {
-            
-        }
-        //注入依赖,供测试使用;
-        public DALCashTicketTemplate(string fortest):base(fortest)
-        {
-            
-        }
+        
        public IList<CashTicketTemplate> GetListByBusiness(Business business)
        {
-           return GetList("select t from CashTicketTemplate  t where  Owner.Id='" + business.Id+"'");
+           return Find(x=>x.Business.Id==business.Id);
 
        }
     }

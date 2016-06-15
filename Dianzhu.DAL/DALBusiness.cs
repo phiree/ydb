@@ -6,58 +6,78 @@ using Dianzhu.Model;
 using NHibernate;
 namespace Dianzhu.DAL
 {
-    public class DALBusiness :DALBase<Business>
+    public class DALBusiness : NHRepositoryBase<Business, Guid>, IDAL.IDALBusiness
     {
-        public DALBusiness():base()
-        {
-            
-        }
-        //调用基类带参构造函数,避免初始化hibernatesession.
-        public DALBusiness(string fortest):base(fortest)
-        {
-            
-        }
 
-        public void CreateBusinessAndUser(string code)
+
+        public IList<Area> GetDistinctAreasOfBusiness()
         {
-            throw new NotImplementedException();
-        }
-        public IList<Area> GetAreasOfBusiness()
-        {
-            string sql = "select  distinct b.AreaBelongTo from Business b";
-            IQuery query = Session.CreateQuery(sql);
-           IList<Area> result= query.List<Area>();
-           return result;
-            
+            IList<Area> result;
+            using (var tr = Session.BeginTransaction())
+            {
+                string sql = "select  distinct b.AreaBelongTo from Business b";
+                IQuery query = Session.CreateQuery(sql);
+                result = query.List<Area>();
+                tr.Commit();
+            }
+            return result;
+
         }
         public IList<Business> GetBusinessInSameCity(Area area)
         {
-            string sql = "select  b from Business   b"+
+            IList<Business> result;
+            using (var tr = Session.BeginTransaction())
+            {
+                string sql = "select  b from Business   b" +
                          "   inner join b.AreaBelongTo  a  "
-                         +"left join fetch b.CashTicketTemplates ct "
-                          +"   where a.Code like '%" + area.Code.Substring(0,4)+"%'";
-            
-            IQuery query = Session.CreateQuery(sql);
-            var result = query.List<Business>();
-            
+                         + "left join fetch b.CashTicketTemplates ct "
+                          + "   where a.Code like '%" + area.Code.Substring(0, 4) + "%'";
+
+                IQuery query = Session.CreateQuery(sql);
+                 result = query.List<Business>();
+
+                tr.Commit();
+            }
+
             return result;
         }
         public Business GetBusinessByPhone(string phone)
         {
-            Business b = Session.QueryOver<Business>().Where(x => x.Phone == phone).SingleOrDefault();
+            using (var tr = Session.BeginTransaction())
+            {
+                Business b = Session.QueryOver<Business>().Where(x => x.Phone == phone).SingleOrDefault();
+                tr.Commit();
+                return b;
+            }
+                
 
-            return b;
+            
         }
         public Business GetBusinessByEmail(string email)
         {
-            Business b = Session.QueryOver<Business>().Where(x => x.Email == email).SingleOrDefault();
 
-            return b;
+            using (var tr = Session.BeginTransaction())
+            {
+
+                Business b = Session.QueryOver<Business>().Where(x => x.Email == email).SingleOrDefault();
+                tr.Commit();
+                return b; 
+               
+            }
+
         }
 
         public Business GetBusinessByIdAndOwner(Guid Id, Guid ownerId)
         {
-            return Session.QueryOver<Business>().Where(x => x.Id == Id).And(x => x.Owner.Id == ownerId).SingleOrDefault();
+
+            using (var tr = Session.BeginTransaction())
+            {
+
+                Business business = Session.QueryOver<Business>().Where(x => x.Id == Id).And(x => x.Owner.Id == ownerId).SingleOrDefault(); 
+                tr.Commit();
+                return business;
+            }
+
         }
         /// <summary>
         /// 全部已经启用的商铺
@@ -65,7 +85,16 @@ namespace Dianzhu.DAL
         /// <param name="ownerId"></param>
         public IList<Business> GetBusinessListByOwner(Guid ownerId)
         {
-            return Session.QueryOver<Business>().Where(x => x.Owner.Id == ownerId).And(x => x.Enabled == true).List();
+            using (var tr = Session.BeginTransaction())
+            {
+
+
+                var result = Session.QueryOver<Business>().Where(x => x.Owner.Id == ownerId).And(x => x.Enabled == true).List();
+                tr.Commit();
+                return result; 
+              
+            }
+
         }
 
         /// <summary>
@@ -77,17 +106,42 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<Business> GetListByPage(int pageIndex, int pageSize, out long totalRecord)
         {
-            //IQuery qry = Session.CreateQuery("select b from Business b order by b.CreatedTime desc");
-            IQuery qryTotal = Session.CreateQuery("select count(*) from Business b ");
-            //IList<Business> busList = qry.Future<Business>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
-            IList<Business> busList = Session.QueryOver<Business>().Where(x => x.Enabled == true).OrderBy(x => x.CreatedTime).Desc.List();
-            totalRecord = qryTotal.FutureValue<long>().Value;
-            return busList;
+
+            using (var tr = Session.BeginTransaction())
+            {
+
+                //IQuery qry = Session.CreateQuery("select b from Business b order by b.CreatedTime desc");
+                IQuery qryTotal = Session.CreateQuery("select count(*) from Business b ");
+                //IList<Business> busList = qry.Future<Business>().Skip(pageIndex * pageSize).Take(pageSize).ToList();
+                IList<Business> busList = Session.QueryOver<Business>().Where(x => x.Enabled == true).OrderBy(x => x.CreatedTime).Desc.List();
+                totalRecord = qryTotal.FutureValue<long>().Value;
+                tr.Commit();
+                return busList; 
+             
+            }
+
         }
 
-         public int GetEnableSum(DZMembership member)
+        public int GetEnableSum(DZMembership member)
         {
-            return Session.QueryOver<Business>().Where(x => x.Owner == member).And(x => x.Enabled == true).RowCount();
+            using (var tr = Session.BeginTransaction())
+            {
+
+
+                int result = Session.QueryOver<Business>().Where(x => x.Owner == member).And(x => x.Enabled == true).RowCount();
+               
+                tr.Commit();
+                return result;
+            }
+
+        }
+
+        public void SaveList(IList<Business> businesses)
+        {
+            foreach (Business b in businesses)
+            {
+                Session.Save(b);
+            }
         }
     }
 }

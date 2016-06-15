@@ -13,7 +13,7 @@ namespace Dianzhu.Test.BLLTest
     public class TestBLLServiceOrder
     {
         [Test]
-        [ExpectedException(typeof(Exception))]
+       
         public void CreateOrderFromDraftWithoutEssentialInfo()
         {
             //var order = new ServiceOrder();

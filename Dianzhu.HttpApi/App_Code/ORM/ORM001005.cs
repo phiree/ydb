@@ -15,14 +15,18 @@ using Dianzhu.Api.Model;
 public class ResponseORM001005 : BaseResponse
 {
     public ResponseORM001005(BaseRequest request) : base(request) { }
+    public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
     {
         ReqDataORM001005 requestData = this.request.ReqData.ToObject<ReqDataORM001005>();
 
         //todo:用户验证的复用.
-        DZMembershipProvider p = new DZMembershipProvider();
-        BLLServiceOrder bllServiceOrder = new BLLServiceOrder();
-        PushService bllPushService = new PushService();
+        DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
+        bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+       
+        PushService bllPushService =  Bootstrap.Container.Resolve<PushService>();
+        BLLDZService bllDZService = new BLLDZService();
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
         string raw_id = requestData.userID;
 
         try
@@ -48,15 +52,35 @@ public class ResponseORM001005 : BaseResponse
                 }
                 IList<ServiceOrderPushedService> pushServiceList = bllPushService.GetPushedServicesForOrder(order);
                 RespDataORM_Order respData = new RespDataORM_Order();
+                IList<DZTag> tagsList = new List<DZTag>();//标签
                 if (pushServiceList.Count > 0)
                 {
+                    if (order.Details.Count > 0)
+                    {
+                        tagsList = bllDZService.GetServiceTags(order.Details[0].OriginalService);
+                    }
+                    else
+                    {
+                        tagsList = bllDZService.GetServiceTags(pushServiceList[0].OriginalService);
+                    }
+
                     respData.Adap(order, pushServiceList[0]);
                 }
                 else
                 {
+                    if (order.Details.Count > 0)
+                    {
+                        tagsList = bllDZService.GetServiceTags(order.Details[0].OriginalService);
+                    }
+
                     respData.Adap(order, null);
                 }
-                
+
+                respData.orderObj.svcObj.SetTag(respData.orderObj.svcObj, tagsList);
+
+                ServiceOrderStateChangeHis orderHis = bllServiceOrderStateChangeHis.GetOrderHis(order);
+                respData.orderObj.SetOrderStatusObj(respData.orderObj, orderHis);
+
                 this.RespData = respData;
                 this.state_CODE = Dicts.StateCode[0];
 

@@ -12,6 +12,10 @@ using System.Configuration;
 using System.Net;
 using Dianzhu.BLL.Validator;
 using FluentValidation;
+using Dianzhu.IDAL;
+using System.Runtime.Remoting.Contexts;
+using Castle.Windsor;
+
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -19,12 +23,23 @@ namespace Dianzhu.BLL
     /// </summary>
     public class DZMembershipProvider : MembershipProvider
     {
-        DALMembership DALMembership = null;
         public DZMembershipProvider() {
-           DALMembership = DALFactory.DALMembership;
+            DALMembership = new DALMembership();
+            var containerAccessor =System.Web.HttpContext.Current.ApplicationInstance as IContainerAccessor;
+            var container = containerAccessor.Container;
+            this.DALMembership = container.Resolve<IDALMembership>();
+            this.encryptService = container.Resolve<IEncryptService>();
+            this.emailService = container.Resolve<IEmailService>();
+
         }
-        public DZMembershipProvider(DALMembership dal) {
+        IDALMembership DALMembership = null;
+        IEncryptService encryptService;
+        IEmailService emailService;
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL.DZMembershipProvider");
+        public DZMembershipProvider(IDALMembership dal,IEncryptService encryptService,IEmailService emailService) {
             DALMembership = dal;
+            this.encryptService = encryptService;
+            this.emailService = emailService;
         }
         
         #region override of membership provider
@@ -56,7 +71,7 @@ namespace Dianzhu.BLL
             DZMembership member = DALMembership.GetMemberByName(username);
 
             member.ChangePassword(oldPassword, newPassword);
-            DALMembership.ChangePassword(member);
+            DALMembership.Update(member);
             return true;
         }
 
@@ -70,7 +85,7 @@ namespace Dianzhu.BLL
             DZMembership user = new DZMembership
             {
                 UserName = username,
-                Password = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5"),
+                Password =encryptService.GetMD5Hash(password),
                 TimeCreated = DateTime.Now
             };
             DALMembership.CreateUser(user);
@@ -204,14 +219,14 @@ namespace Dianzhu.BLL
         public override bool ValidateUser(string username, string password)
         {
            
-            string encryptedPwd = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
+            string encryptedPwd =encryptService.GetMD5Hash(password);
 
            DZMembership member = DALMembership.ValidateUser(username, encryptedPwd);
 
             if (member == null) { return false; }
             else {
                 member.LoginTimes += 1;
-                DALMembership.SaveOrUpdate(member);
+                DALMembership.Update(member);
                 return true;
             }
            
@@ -219,75 +234,8 @@ namespace Dianzhu.BLL
         #endregion
 
         #region additional method for user
-        public BusinessUser GetBusinessUser(Guid id)
-        {
-            return DALMembership.GetBusinessUser(id);
-        }
-        public IList<DZMembership> GetAll()
-        {
-            return DALMembership.GetAll();
-        }
-        public DZMembership CreateBusinessUser(string username, string password, Business b)
-        {
-            string encrypted = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
-            DZMembership member = DALMembership.CreateBusinessUser(username, encrypted, b);
-            
-            
-            return member;
-        }
-        public bool SendValidationMail(string to,string verifyUrl)
-        {
-            string subjecst = "一点办验证邮件";
-            bool sendSuccess = true;
-            string body = "感谢您加入一点办.请点击下面的连接验证您的注册邮箱.</br>"
-                        + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
-                            + verifyUrl + "'>点击验证</a><br/><br/><br/>"
-                        + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
-                        + verifyUrl;
-                ;
-                try
-                {
-                    PHSuit.EmailHelper.SendEmail(to, subjecst, body);
-                }
-                catch (Exception ex)
-                {
-                    sendSuccess = false;
-                }
-                return sendSuccess;
-            //SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-            //SmtpClient client = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port);
-            //client.Credentials = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
-            //MailMessage mail = new MailMessage(smtpSection.From, "550700860@qq.com");
-            //mail.Subject = "this is a test email.";
-            //mail.Body = "this is my test email body";
-            //client.Send(mail);
-        }
-        public bool SendRecoveryMail(string to, string recoveryUrl)
-        {
-            string subjecst = "一点办--密码重置邮件";
-            bool sendSuccess = true;
-            string body = "您已申请密码重置.请点击下面的连接重置您的密码.</br>"
-                        + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
-                        + recoveryUrl + "'>点击验证</a><br/><br/><br/>"
-                        + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
-                        + recoveryUrl;
-            try
-            {
-                PHSuit.EmailHelper.SendEmail(to, subjecst, body);
-            }
-            catch (Exception ex)
-            {
-                sendSuccess = false;
-            }
-            return sendSuccess;
-            //SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-            //SmtpClient client = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port);
-            //client.Credentials = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
-            //MailMessage mail = new MailMessage(smtpSection.From, "550700860@qq.com");
-            //mail.Subject = "this is a test email.";
-            //mail.Body = "this is my test email body";
-            //client.Send(mail);
-        }
+       
+        
         public DZMembership CreateUser(string userName, string userPhone, string userEmail, string password, out MembershipCreateStatus createStatus, Dianzhu.Model.Enums.enum_UserType userType)
         {
             createStatus = MembershipCreateStatus.ProviderError;
@@ -322,7 +270,7 @@ namespace Dianzhu.BLL
             }
             else
             {
-                var password_cred = FormsAuthentication.HashPasswordForStoringInConfigFile(password, "MD5");
+                var password_cred = encryptService.GetMD5Hash(password).ToUpper();
                 DZMembership newMember = new DZMembership
                 {
                     UserName = savedUserName,
@@ -339,14 +287,18 @@ namespace Dianzhu.BLL
                     newMember.RegisterValidateCode = validateCode.ToString();
                 }
                 
-                DALMembership.Save(newMember);
+                DALMembership.Add(newMember);
                 createStatus = MembershipCreateStatus.Success;
                 return newMember;
             }
         }
         public void CreateUserForU3rd(DZMembership member)
         {
-            DALMembership.SaveOrUpdate(member);
+            DALMembership.Add(member);
+        }
+        public void UpdateUserForU3rd(DZMembership member)
+        {
+            DALMembership.Update(member);
         }
         public DZMembership GetUserByWechatOpenId(string openid)
         {
@@ -366,16 +318,13 @@ namespace Dianzhu.BLL
         }
         public virtual DZMembership GetUserById(Guid id)
         {
-            return DALMembership.GetOne(id);
+            return DALMembership.FindById(id);
         }
         public IList<DZMembership> GetAllDZMembers(int pageIndex, int pageSize, out long totalRecords)
         {
             return DALMembership.GetAllUsers(pageIndex, pageSize, out totalRecords);
         }
-        public IList<DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecords)
-        {
-            return DALMembership.GetAllCustomer(pageIndex-1, pageSize, out totalRecords);
-        }
+      
         public void UpdateDZMembership(DZMembership member)
         {
 
@@ -395,8 +344,65 @@ namespace Dianzhu.BLL
         #endregion
 
 
-        //获取用户的接待次数
-
+        public bool SendValidationMail(string to, string verifyUrl)
+        {
+            string subjecst = "一点办验证邮件";
+            bool sendSuccess = true;
+            string body = "感谢您加入一点办.请点击下面的连接验证您的注册邮箱.</br>"
+                        + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
+                            + verifyUrl + "'>点击验证</a><br/><br/><br/>"
+                        + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
+                        + verifyUrl;
+            ;
+            try
+            {
+                emailService.SendEmail(to, subjecst, body);
+            }
+            catch (Exception ex)
+            {
+                sendSuccess = false;
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+                
+            }
+            return sendSuccess;
+            //SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+            //SmtpClient client = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port);
+            //client.Credentials = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
+            //MailMessage mail = new MailMessage(smtpSection.From, "550700860@qq.com");
+            //mail.Subject = "this is a test email.";
+            //mail.Body = "this is my test email body";
+            //client.Send(mail);
+        }
+        public bool SendRecoveryMail(string to, string recoveryUrl)
+        {
+            string subjecst = "一点办--密码重置邮件";
+            bool sendSuccess = true;
+            string body = "您已申请密码重置.请点击下面的连接重置您的密码.</br>"
+                        + "<a style='border:solid 1px #999;margin:20px;padding:10px 40px; background-color:#eee' href='"
+                        + recoveryUrl + "'>点击验证</a><br/><br/><br/>"
+                        + "如果你无法点击此链接,请将下面的网址粘贴到浏览器地址栏.<br/><br/><br/>"
+                        + recoveryUrl;
+            try
+            {
+                emailService.SendEmail(to, subjecst, body);
+            }
+            catch (Exception ex)
+            {
+                sendSuccess = false;
+            }
+            return sendSuccess;
+            //SmtpSection smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+            //SmtpClient client = new SmtpClient(smtpSection.Network.Host, smtpSection.Network.Port);
+            //client.Credentials = new NetworkCredential(smtpSection.Network.UserName, smtpSection.Network.Password);
+            //MailMessage mail = new MailMessage(smtpSection.From, "550700860@qq.com");
+            //mail.Subject = "this is a test email.";
+            //mail.Body = "this is my test email body";
+            //client.Send(mail);
+        }
+        public IList<DZMembership> GetAllCustomer(int pageIndex, int pageSize, out long totalRecords)
+        {
+            return DALMembership.GetAllCustomer(pageIndex, pageSize, out totalRecords);
+        }
 
     }
 

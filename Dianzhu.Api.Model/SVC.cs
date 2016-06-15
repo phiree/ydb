@@ -28,6 +28,7 @@ namespace Dianzhu.Api.Model
         public string tag { get; set; }
         public string open { get; set; }
         public string maxOrderString { get; set; }
+        public string chargeUnit { get; set; }
         public RespDataSVC_svcObj Adapt(DZService service, IList<DZTag> tags)
         {
             //this.storeID = service.Business.Id.ToString();
@@ -64,6 +65,7 @@ namespace Dianzhu.Api.Model
             {
                 this.maxOrderString = "";
             }
+            this.chargeUnit = service.ChargeUnit.ToString();
             return this;
 
         }

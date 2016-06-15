@@ -30,6 +30,7 @@ using Com.Alipay;
 /// </summary>
 public partial class notify_url : System.Web.UI.Page
 {
+    IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -49,8 +50,7 @@ public partial class notify_url : System.Web.UI.Page
             {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //请在这里加上商户的业务逻辑程序代码
-                BLLServiceOrder bllOrder = new BLLServiceOrder();
-                
+                 
                 IList<ServiceOrder> allServiceOrder;
                 
                 ServiceOrder order = null;               
@@ -72,10 +72,10 @@ public partial class notify_url : System.Web.UI.Page
                 {
                     Response.Write("fail");
                 }
-                order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.Aborded;
+                order.OrderStatus = Dianzhu.Model.Enums.enum_OrderStatus.EndCancel;
                 order.OrderCreated = DateTime.Now;
                 order.OrderFinished = DateTime.Now;
-                bllOrder.SaveOrUpdate(order);
+                bllOrder.Update(order);
 
                 //保存接收数据
                 BLLPaymentLog bllPaymentLog = new BLLPaymentLog();

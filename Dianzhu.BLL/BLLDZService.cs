@@ -31,7 +31,7 @@ namespace Dianzhu.BLL
 
         public virtual   DZService GetOne(Guid serviceId)
         {
-            return DALDZService.GetOne(serviceId);
+            return DALDZService.FindById(serviceId);
         }
         public DZService GetOneByBusAndId(Business business, Guid svcId)
         {
@@ -66,20 +66,29 @@ namespace Dianzhu.BLL
             }
 
             service.LastModifiedTime = DateTime.Now;
-            DALDZService.SaveOrUpdate(service);
+            DALDZService.Update(service);
         }
 
         public IList<DZService> GetAll()
         {
-            return DALDZService.GetAll<DZService>();
+            return DALDZService.Find(x => true) ;
         }
         public void Delete(DZService dz)
         {
             DALDZService.Delete(dz);
         }
-        public IList<DZService> Search(decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime, int pageIndex, int pagesize, out int total)
+        public IList<DZService> SearchService(decimal priceMin, decimal priceMax, Guid typeId, DateTime datetime, int pageIndex, int pagesize, out int total)
         {
             return DALDZService.SearchService(priceMin, priceMax, typeId, datetime, pageIndex, pagesize, out total);
+        }
+        /// <summary>
+        /// 获取当前服务的标签
+        /// </summary>
+        /// <param name="service"></param>
+        /// <returns></returns>
+        public IList<DZTag> GetServiceTags(DZService service)
+        {
+            return new BLLDZTag().GetTagForService(service.Id);
         }
     }
 }

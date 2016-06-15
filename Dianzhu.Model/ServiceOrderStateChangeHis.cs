@@ -6,7 +6,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 订单状态变化记录
     /// </summary>
-    public class ServiceOrderStateChangeHis
+    public class ServiceOrderStateChangeHis:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 构造
@@ -18,18 +18,18 @@ namespace Dianzhu.Model
         /// <summary>
         /// 构造
         /// </summary>
-        /// <param name="oldOrder"></param>
-        /// <param name="newStatus"></param>
+        /// <param name="order"></param>
+        /// <param name="oldStatus"></param>
         /// <param name="num"></param>
-        public ServiceOrderStateChangeHis(ServiceOrder oldOrder, enum_OrderStatus newStatus,int num)
+        public ServiceOrderStateChangeHis(ServiceOrder order, enum_OrderStatus oldStatus,int num)
         {
-            this.Order = oldOrder;
-            this.OldStatus = oldOrder.OrderStatus;
-            this.NewStatus = newStatus;
-            this.OrderAmount = oldOrder.OrderAmount;
-            this.DepositAmount = oldOrder.DepositAmount;
-            this.NegotiateAmount = oldOrder.NegotiateAmount;
-            this.Remark = oldOrder.Memo;
+            this.Order = order;
+            this.OldStatus = oldStatus;
+            this.NewStatus = order.OrderStatus;
+            this.OrderAmount = order.OrderAmount;
+            this.DepositAmount = order.DepositAmount;
+            this.NegotiateAmount = order.NegotiateAmount;
+            this.Remark = order.Memo;
             this.CreatTime = DateTime.Now;
             //this.Controller=
             this.Number = num;
@@ -78,8 +78,26 @@ namespace Dianzhu.Model
         /// 序号
         /// </summary>
         public virtual int Number { get; set; }
-    }  
- 
-     
+        #region 临时数据，不需存储
+        /// <summary>
+        /// 上个状态中文名
+        /// </summary>
+        public virtual string OldStatusStr { get; set; }
+        /// <summary>
+        /// 上个状态中文内容
+        /// </summary>
+        public virtual string OldStatusCon { get; set; }
+        /// <summary>
+        /// 当前状态中文名
+        /// </summary>
+        public virtual string NewStatusStr { get; set; }
+        /// <summary>
+        /// 当前状态中文内容
+        /// </summary>
+        public virtual string NewStatusCon { get; set; }
+        #endregion
+    }
+
+
 
 }

@@ -11,8 +11,8 @@
     <title>商家后台主页</title>
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
     <!--[if lte IE 9]>
-    <script src="/js/html5shiv.min.js"></script>
-    <script src="/js/respond.min.js"></script>
+    <script src="/js/plugins/html5shiv.min.js"></script>
+    <script src="/js/plugins/respond.min.js"></script>
     <![endif]-->
     <asp:ContentPlaceHolder ID="head" runat="Server">
     </asp:ContentPlaceHolder>
@@ -84,17 +84,84 @@
     </div>
 </body>
     <script src="<% =Dianzhu.Config.Config.GetAppSetting("cdnroot")%>static/Scripts/jquery-1.11.3.min.js"></script>
-    <script src="/js/bootstrap/js/bootstrap.js"></script>
-    <script src="/js/metisMenu/metisMenu.js"></script>
-    <script src="/js/global.js"></script>
+    <script src="/js/vendors/bootstrap.js"></script>
+    <script src="/js/plugins/metisMenu.js?v=1.0.0"></script>
+    <script src="/js/apps/global.js?v=1.0.0"></script>
+    <script src="/js/plugins/bootstrap-notify.js"></script>
+    <!--<script src="/js/mock/mock.js"></script>-->
+    <!--<script src="/js/core/Dianzhu.notify.js"></script>-->
+    <!--<script>-->
+        <!--Mock.mockjax(jQuery);-->
+        <!--Mock.mock(/notify.json/, function(){-->
+            <!--return {-->
+                <!--arrayData : [-->
+                    <!--{-->
+                        <!--"orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",-->
+                        <!--"orderStatusObj": {-->
+                            <!--"status": "Payed",-->
+                            <!--"time": "20151116120000",-->
+                            <!--"lastStatus": "Created",-->
+                            <!--"title": "订单已生成",-->
+                            <!--"context": "等待用户支付订金"-->
+                        <!--}-->
+                    <!--},-->
+                    <!--{-->
+                        <!--"orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",-->
+                        <!--"orderStatusObj": {-->
+                            <!--"status": "Payed",-->
+                            <!--"time": "20151116120000",-->
+                            <!--"lastStatus": "Created",-->
+                            <!--"title": "订单已生成",-->
+                            <!--"context": "等待用户支付订金"-->
+                        <!--}-->
+                    <!--},-->
+                    <!--{-->
+                        <!--"orderID": "6F9619FF-8B86-D011-B42D-00C04FC964FF",-->
+                        <!--"orderStatusObj": {-->
+                            <!--"status": "Payed",-->
+                            <!--"time": "20151116120000",-->
+                            <!--"lastStatus": "Created",-->
+                            <!--"title": "订单已生成",-->
+                            <!--"context": "等待用户支付订金"-->
+                        <!--}-->
+                    <!--}-->
+                <!--]-->
+            <!--}-->
+        <!--});-->
+        <!--(function(){-->
+            <!--var polling = Dianzhu.notify.polling;-->
+            <!--var reqData = {};-->
+            <!--var globalApiUrl = "/notify.json";-->
+
+            <!--polling({-->
+                <!--url : globalApiUrl,-->
+                <!--reqData : reqData,-->
+                <!--callback : function(data){-->
+                    <!--for ( var i = 0 ; i < data.arrayData.length; i++ ){-->
+                        <!--var notify = $.notify('...',{-->
+                            <!--delay: 3000-->
+                        <!--});-->
+                        <!--var statusObj = data.arrayData[i];-->
+                        <!--var id = statusObj.orderID;-->
+                        <!--var statusTitle = statusObj.orderStatusObj.title;-->
+                        <!--notify.update({'type': 'success', 'message': '订单号为' + '&nbsp;<strong>' + id + '&nbsp;</strong>&nbsp;' + '的订单状态变更为' +  '&nbsp;<strong>' + statusTitle + '&nbsp;</strong>' });-->
+                    <!--}-->
+                <!--},-->
+                <!--delay : 5000-->
+            <!--});-->
+
+        <!--})()-->
+    <!--</script>-->
     <%if (!Request.IsLocal){ %>
     <script>
-      var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-      document.write(unescape("%3Cspan id='cnzz_stat_icon_1256240621' style='display:none'%3E%3C/span%3E%3Cscript src='"
-          + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256240621%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <% }%>
+        (function (){
+            var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+            document.write(unescape("%3Cspan id='cnzz_stat_icon_1256240621' style='display:none'%3E%3C/span%3E%3Cscript src='"
+                    + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256240621%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+        })();
+    </script>
+    <% }%>
 <asp:ContentPlaceHolder id="bottom" runat="Server">
-    </asp:ContentPlaceHolder>
+</asp:ContentPlaceHolder>
 
 </html>

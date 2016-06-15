@@ -18,7 +18,7 @@ namespace Dianzhu.Test.BLLTest
         {
             
             var dal = MockRepository.GenerateStub<DALDZService>(string.Empty);
-            dal.Stub(x => x.GetOne(Guid.Empty)).Return(
+            dal.Stub(x => x.FindById(Guid.Empty)).Return(
                 new DZService { Name="service1"}
                 );
             

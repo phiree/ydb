@@ -1,0 +1,232 @@
+// 财务管理样式
+
+// 余额样式
+.fi-remain-txt{
+  display: inline-block;
+  vertical-align: bottom;
+  font-size: 16px;
+  strong {
+    font-size: 28px;
+    font-weight: 500;
+    color: red;
+    margin: 0 5px;
+  }
+}
+// end 余额样式
+
+// 充值按钮样式
+.fi-remain-btns {
+  display: inline-block;
+  vertical-align: bottom;
+  .btn {
+    border-radius: 10px;
+    padding: 10px 60px;
+  }
+}
+// end 充值按钮样式
+
+// 财务列表
+.fi-model{
+  .model;
+}
+// end 财务列表
+
+// 列表标题
+.fi-model-h {
+  .model-h;
+  padding: 5px 22px;
+}
+// end 列表标题
+
+// 财务列表控制
+.fi-h-ctrl {
+  display: inline-block;
+  + .fi-h-ctrl{
+    margin-left: 20px;
+  }
+}
+
+.fi-ctrl-m{
+  display: inline-block;
+}
+
+.fi-h-txt {
+  width: 150px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  height: 28px;
+  line-height: 26px;
+  padding: 0 5px;
+}
+
+.fi-h-btn {
+  padding: 5px;
+  border: 1px solid #C7C7C7;
+  border-radius: 5px;
+  background: #f7f7f7;
+  background: -moz-linear-gradient(top, #F9F9F9  0%, #f7f7f7 100%);
+  background: -webkit-linear-gradient(top, #F9F9F9  0%, #f7f7f7 100%);
+  background: linear-gradient(to bottom, #F9F9F9  0%, #f7f7f7 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F9F9F9 ', endColorstr='#f7f7f7', GradientType=0);
+}
+// end 财务列表控制
+
+// 财务列表标签
+.fi-h-tabs {
+  overflow: hidden;
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: -1px;
+}
+
+.fi-h-tab {
+  position: relative;
+  z-index: -1;
+  float: left;
+  padding: 0 50px;
+  line-height: 40px;
+  color: #8c8c8c;
+  border: 1px solid #C7C7C7;
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+  background: #f7f7f7;
+  background: -moz-linear-gradient(top, #eaeaea 0%, #E0E0E0 100%);
+  background: -webkit-linear-gradient(top, #eaeaea 0%, #E0E0E0 100%);
+  background: linear-gradient(to bottom, #eaeaea 0%, #E0E0E0 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eaeaea', endColorstr='#E0E0E0', GradientType=0);
+  &.active {
+    z-index: 10;
+    background: #f7f7f7;
+    background: -moz-linear-gradient(top, #F9F9F9  0%, #f7f7f7 100%);
+    background: -webkit-linear-gradient(top, #F9F9F9  0%, #f7f7f7 100%);
+    background: linear-gradient(to bottom, #F9F9F9  0%, #f7f7f7 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F9F9F9 ', endColorstr='#f7f7f7', GradientType=0);
+  }
+  + .fi-h-tab{
+    margin-left: 10px;
+  }
+}
+// end 财务列表标签
+
+// 充值页面
+.recharge-meths {
+  ._method {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    &:last-of-type{
+      border: 0;
+    }
+  }
+}
+
+// 绑定银行卡样式
+.bind-cards {
+  overflow: hidden;
+  padding: 10px 20px;
+  ._card_w {
+    float: left;
+
+    + ._card_w {
+      margin-left: 20px;
+    }
+  }
+  ._card_radio {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    &:checked {
+      + ._card{
+        box-shadow: 0 0 10px #52C4FF;
+        border: 1px solid #52C4FF;
+      }
+    }
+  }
+  ._card {
+    display: block;
+    overflow: hidden;
+    max-width: 100%;
+    margin-bottom: 0;
+    position: relative;
+    width: 250px;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    &._more {
+      border: 1px dashed #ccc;
+      text-align: center;
+      line-height: 100px;
+      margin-left: 20px;
+      float: left;
+    }
+  }
+  ._icon {
+    display: block;
+    background: #CCCCCC;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    margin-top: -25px;
+  }
+  ._info {
+    line-height: 1.6em;
+    display: block;
+    position: absolute;
+    left: 70px;
+    top: 50%;
+    margin-top: -30px;
+  }
+}
+
+// 更多银行卡样式
+.more-cards {
+  overflow: hidden;
+  padding: 10px 20px;
+  ._card_w {
+    float: left;
+
+    + ._card_w {
+      margin-left: 20px;
+    }
+  }
+  ._card_radio {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    position: absolute;
+  }
+  ._card {
+    display: block;
+    float: left;
+    position: relative;
+    width: 250px;
+    height: 80px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    + ._card {
+      margin-left: 20px;
+    }
+  }
+  ._icon {
+    display: block;
+    background: #CCCCCC;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    margin-top: -25px;
+  }
+  ._info {
+    line-height: 1.6em;
+    display: block;
+    position: absolute;
+    left: 70px;
+    top: 50%;
+    margin-top: -18px;
+    font-size: 22px;
+  }
+}

@@ -29,7 +29,8 @@ public class ResponsePY001007:BaseResponse
     {
         ReqDataPY001007 requestData = this.request.ReqData.ToObject<ReqDataPY001007>();
 
-        DZMembershipProvider bllMember = new DZMembershipProvider();
+        DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
+
 
         try
         {

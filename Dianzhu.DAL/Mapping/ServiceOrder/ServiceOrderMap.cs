@@ -13,6 +13,7 @@ namespace Dianzhu.DAL.Mapping
             Id(x => x.Id);
             References<DZMembership>(x => x.Customer);
             Map(x => x.OrderCreated);
+            Map(x => x.OrderConfirmTime);
             Map(x => x.LatestOrderUpdated);
             Map(x => x.OrderFinished);
             Map(x => x.OrderServerStartTime);
@@ -20,24 +21,11 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Memo);
             Map(x => x.OrderStatus).CustomType<Model.Enums.enum_OrderStatus>();
             References<DZMembership>(x => x.CustomerService);
-            HasMany<ServiceOrderDetail>(x => x.Details).Cascade.All();
-
+            HasMany<ServiceOrderDetail>(x => x.Details).Not.LazyLoad().Cascade.All();
+            References<Business>(x => x.Business);
             Map(x => x.NegotiateAmount);
 
             Map(x => x.DepositAmount);
-        }
-    }
-
-    public class ServiceOrderAppraiseMap: ClassMap<ServiceOrderAppraise>
-    {
-        public ServiceOrderAppraiseMap()
-        {
-            Id(x => x.Id);
-            Map(x => x.CreateTime);
-            References<DZMembership>(x => x.Order);
-            References<DZMembership>(x => x.Member);
-            Map(x => x.Value);
-            Map(x => x.Content);
         }
     }
 }

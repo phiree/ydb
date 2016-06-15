@@ -5,20 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.CSClient.IView;
 using Dianzhu.Model;
+using Dianzhu.BLL;
+
 namespace Dianzhu.CSClient.Presenter
 {
    public  class PSearch
     {
+        log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PSearch");
         IViewSearch viewSearch;
         IViewSearchResult viewSearchResult;
         IViewOrder viewOrder;
         IViewChatList viewChatList;
-        DAL.DALDZService dalService;
-        DAL.DALServiceOrder dalOrder;
-        BLL.PushService bllPushService;
+        IViewIdentityList viewIdentityList;
+        BLLDZService bllService;
+        IBLLServiceOrder bllServiceOrder;
+        PushService bllPushService;
         IInstantMessage.InstantMessage iIM;
-        BLL.BLLReceptionChat bllReceptionChat;
-        BLL.BLLServiceType bllServcieType;
+        BLLReceptionChat bllReceptionChat;
+        BLLServiceType bllServcieType;
+        BLLReceptionStatus bllReceptionStatus;
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
         IList<ServiceType> ServiceTypeListTmp;
@@ -27,35 +32,32 @@ namespace Dianzhu.CSClient.Presenter
         ServiceType ServiceTypeThird;
         #endregion
         #region contructor
-        public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,IViewOrder viewOrder,IViewChatList viewChatList)
-            : this(iIM,viewSearch, viewSearchResult,viewOrder, viewChatList, new DAL.DALDZService(),new DAL.DALServiceOrder(),new BLL.PushService(),new BLL.BLLReceptionChat(),new BLL.BLLServiceType())
+        public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
+            IViewOrder viewOrder,IViewChatList viewChatList,IViewIdentityList viewIdentityList,
+            IBLLServiceOrder bllServiceOrder,PushService pushService)
+            : this(iIM,viewSearch, viewSearchResult,viewOrder, viewChatList, viewIdentityList, new BLLDZService(), bllServiceOrder,pushService,  new BLLReceptionChat(),new BLLServiceType(),new BLLReceptionStatus())
         { }
         public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
-            IView.IViewOrder viewOrder, IViewChatList viewChatList,DAL.DALDZService dalService,DAL.DALServiceOrder dalOrder,BLL.PushService bllPushService,BLL.BLLReceptionChat bllReceptionChat, BLL.BLLServiceType bllServcieType)
+            IView.IViewOrder viewOrder, IViewChatList viewChatList,IViewIdentityList viewIdentityList,
+            BLLDZService bllService, IBLLServiceOrder bllServiceOrder, PushService bllPushService,BLLReceptionChat bllReceptionChat, BLLServiceType bllServcieType,BLLReceptionStatus bllReceptionStatus)
         {
             this.viewSearch = viewSearch; ;
             this.viewSearchResult = viewSearchResult;
-            this.dalService = dalService;
+            this.bllService = bllService;
             this.viewOrder = viewOrder;
             this.viewChatList = viewChatList;
-            this.dalOrder = dalOrder;
+            this.bllServiceOrder = bllServiceOrder;
             this.iIM = iIM;
             this.bllReceptionChat = bllReceptionChat;
             this.bllServcieType = bllServcieType;
             viewSearch.Search += ViewSearch_Search;
             this.bllPushService = bllPushService;
-
-            this.ServiceTypeListTmp = bllServcieType.GetTopList();
-            this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
-            
-            foreach (ServiceType t in ServiceTypeListTmp)
-            {
-                if (!ServiceTypeCach.ContainsKey(t))
-                {
-                    ServiceTypeCach.Add(t, null);
-                }
-            }
-            viewSearch.ServiceTypeFirst = ServiceTypeListTmp;
+ 
+            this.bllReceptionStatus = bllReceptionStatus;
+            this.viewIdentityList = viewIdentityList;
+ 
+            LoadTypes();
+ 
             this.ServiceTypeFirst = new ServiceType();
             this.ServiceTypeSecond = new ServiceType();
             this.ServiceTypeThird = new ServiceType();
@@ -65,8 +67,25 @@ namespace Dianzhu.CSClient.Presenter
             viewSearch.ServiceTypeFirst_Select += ViewSearch_ServiceTypeFirst_Select;
             viewSearch.ServiceTypeSecond_Select += ViewSearch_ServiceTypeSecond_Select;
             viewSearch.ServiceTypeThird_Select += ViewSearch_ServiceTypeThird_Select;
+           
         }
+        private void LoadTypes()
+        {
+            System.Threading.Thread.Sleep(1000);
+            if (this.ServiceTypeListTmp != null) { return; }
 
+            this.ServiceTypeListTmp = bllServcieType.GetTopList();
+            this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
+
+            foreach (ServiceType t in ServiceTypeListTmp)
+            {
+                if (!ServiceTypeCach.ContainsKey(t))
+                {
+                    ServiceTypeCach.Add(t, null);
+                }
+            }
+            viewSearch.ServiceTypeFirst = ServiceTypeListTmp;
+        }
         private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
         {
             ServiceTypeThird = type;
@@ -111,10 +130,14 @@ namespace Dianzhu.CSClient.Presenter
             {
                 return;
             }
+
+            //禁用推送按钮
+            //viewSearchResult.BtnPush = false;
+
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {
-                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,1,viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
+                serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount,viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
             }
             bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
 
@@ -133,25 +156,36 @@ namespace Dianzhu.CSClient.Presenter
             };
             bllReceptionChat.Save(chat);
             iIM.SendMessage(chat);
+            log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //助理工具显示发送的消息
             viewChatList.AddOneChat(chat);
 
             //生成新的草稿单并发送给客户端
             ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(GlobalViables.CurrentCustomerService,IdentityManager.CurrentIdentity.Customer);
-            dalOrder.SaveOrUpdate(newOrder);
+            bllServiceOrder.Save(newOrder);
+            log.Debug("新草稿订单的id：" + newOrder.Id.ToString());
             string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
             string noticeDraftNew = string.Format(@"<message xmlns = ""jabber:client"" type = ""headline"" id = ""{2}"" to = ""{0}"" from = ""{1}"">
                                                     <active xmlns = ""http://jabber.org/protocol/chatstates""></active><ext xmlns=""ihelper:notice:draft:new""><orderID>{3}</orderID></ext></message>", 
                                                     IdentityManager.CurrentIdentity.Customer.Id + "@" + server, IdentityManager.CurrentIdentity.CustomerService.Id, Guid.NewGuid() + "@" + server, newOrder.Id);
             iIM.SendMessage(noticeDraftNew);
 
+            //获取之前orderid
+            ServiceOrder oldOrder = IdentityManager.CurrentIdentity;
+
             //更新当前订单
             IdentityTypeOfOrder type;
+            log.Debug("更新当前订单");
             IdentityManager.UpdateIdentityList(newOrder, out type);
+            log.Debug("当前订单的id：" + IdentityManager.CurrentIdentity.Id.ToString());
 
-            //禁用推送按钮
-            viewSearchResult.BtnPush = false;
+            //更新view
+            viewIdentityList.UpdateIdentityBtnName(oldOrder, IdentityManager.CurrentIdentity);
+
+            //更新接待分配表
+            bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
+            
             //清空搜索选项 todo:为了测试方便，先注释掉
             //viewSearch.ClearData();
         }
@@ -163,9 +197,9 @@ namespace Dianzhu.CSClient.Presenter
                 
                 return;
             }
-            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, 1, "实施服务的地点", DateTime.Now);
+            IdentityManager.CurrentIdentity.AddDetailFromIntelService(selectedService, viewSearch.UnitAmount, "实施服务的地点", DateTime.Now);
             viewOrder.Order = IdentityManager.CurrentIdentity;
-            dalOrder.Update(IdentityManager.CurrentIdentity);
+            bllServiceOrder.Update(IdentityManager.CurrentIdentity);
 
             
 
@@ -175,13 +209,18 @@ namespace Dianzhu.CSClient.Presenter
         {
             int total;
            
-            IList<Model.DZService> services = dalService.SearchService(minPrice,maxPrice, servieTypeId,targetTime,  0, 10, out total);
+            IList<Model.DZService> services = bllService.SearchService(minPrice,maxPrice, servieTypeId,targetTime,  0, 10, out total);
+            
             viewSearchResult.SearchedService = services;
-            if (services.Count > 0)
+            foreach (DZService s in services)
             {
-                //启用推送按钮
-                viewSearchResult.BtnPush = true;
+                
             }
+            //if (services.Count > 0)
+            //{
+            //    //启用推送按钮
+            //    viewSearchResult.BtnPush = true;
+            //}
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Dianzhu.CSClient.IView
         decimal SearchKeywordPriceMin { get; set; }
         decimal SearchKeywordPriceMax { get; set; }
         string ServiceAddress { get; set; }
+        int UnitAmount { get; set; }
 
         void ClearData();
 
@@ -41,10 +42,12 @@ namespace Dianzhu.CSClient.IView
         event SelectService SelectService;
         event PushServices PushServices;
         string LoadingText { set; }
-        bool BtnPush { get; set; }
+        void AddSearchItem(IViewShelfService service);
+        //bool BtnPush { get; set; }
     }
    
     public delegate void SelectService(DZService selectedService);
     public delegate void PushServices(IList<DZService> pushedServices);
+
 
 }

@@ -30,6 +30,7 @@ namespace Dianzhu.Model.Enums
         Deposit=1,//订金
         FinalPayment=2,//尾款
         Compensation=3,//赔偿金
+        None=99,
 
     }
     /// <summary>
@@ -156,6 +157,10 @@ namespace Dianzhu.Model.Enums
         /// 已过质保期
         /// </summary>
         EndWarranty = 36,
+        /// <summary>
+        /// 已经分账.
+        /// </summary>
+        Shared=37,
         #endregion
 
         #region 取消流程订单状态
@@ -254,11 +259,7 @@ namespace Dianzhu.Model.Enums
         /// 固定时间内未支付赔偿金，强制终止
         /// </summary>
         ForceStop = 70,
-
-
-        CanceledDirectly,//订单已直接取消        
-        Aborded=7,//已中止
-
+        
         /// <summary>
         /// 未知订单类型
         /// </summary>
@@ -358,8 +359,8 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 员工
         /// </summary>
-        staff=16
-
+        staff=16,
+            agent=32
     }
 
     /// <summary>
@@ -378,7 +379,15 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 查询所有的类型
         /// </summary>
-        all
+        all,
+        /// <summary>
+        /// 用户
+        /// </summary>
+        user,
+        /// <summary>
+        /// 系统
+        /// </summary>
+        system,
     }
     /// <summary>
     /// 用户的在线状态
@@ -529,5 +538,14 @@ namespace Dianzhu.Model.Enums
         Trade_Closed = 2,//在指定时间内未支付时关闭的交易；在交易完成全额退款成功时关闭的交易。
         Trade_Finished = 3,//交易成功且结束，即不可再做任何操作。
         Fail=4,//交易失败
+    }
+
+    /// <summary>
+    /// 退款的状态
+    /// </summary>
+    public enum enum_RefundStatus
+    {
+        Success=1,
+        Fail=2,
     }
 }

@@ -41,6 +41,12 @@ namespace Dianzhu.BLL
         static DALComplaint dalComplaint;
         static DALServiceOrderAppraise dalServiceOrderAppraise;
         static DALServiceOrderRemind dalServiceOrderRemind;
+        static DALClaims dalClaims;
+        public static DALClaims DALClaims
+        {
+            get { return dalClaims ?? new DALClaims(); }
+            set { dalClaims = value; }
+        }
         public static DALServiceOrderRemind DALServiceOrderRemind
         {
             get { return dalServiceOrderRemind ?? new DALServiceOrderRemind(); }
@@ -83,11 +89,11 @@ namespace Dianzhu.BLL
             get { return dalReceptionStatusArchieve ?? new DALReceptionStatusArchieve(); }
             set { dalReceptionStatusArchieve = value; }
         }
-        public static DALAdvertisement DALAdvertisement
-        {
-            get { return dalAdvertisement ?? new DALAdvertisement(); }
-            set { dalAdvertisement = value; }
-        }
+        //public static DALAdvertisement DALAdvertisement
+        //{
+        //    get { return dalAdvertisement ?? new DALAdvertisement(); }
+        //    set { dalAdvertisement = value; }
+        //}
         public static DALIMUserStatusArchieve DALIMUserStatusArchieve
         {
             get { return dalIMUserStatusArchieve ?? new DALIMUserStatusArchieve(); }
@@ -165,7 +171,7 @@ namespace Dianzhu.BLL
         {
             get
             {
-                return dalDZService == null ? forTest ? new DALDZService(""): new DALDZService(): dalDZService;
+                return dalDZService == null ? forTest ? new DALDZService(): new DALDZService(): dalDZService;
             }
             set { dalDZService = value; }
         }
@@ -174,13 +180,7 @@ namespace Dianzhu.BLL
             get { return dalCashTicketCreateRecord ?? new DALCashTicketCreateRecord(); }
             set { dalCashTicketCreateRecord = value; }
         }
-        public static DALArea DALArea
-        {
-            get{
-                return dalArea ?? new DALArea();
-            }
-            set { dalArea = value; }
-        }
+        
 
         public static DALBusiness DALBusiness
         {

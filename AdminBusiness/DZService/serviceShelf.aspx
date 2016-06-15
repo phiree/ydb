@@ -172,15 +172,15 @@
 </script>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="bottom" Runat="Server" >
-    <script src="/js/interfaceAdapter.js"></script>
+    <script src="/js/core/interfaceAdapter.js?v=1.0.0"></script>
     <script src="/js/libs/json2.js"></script>
     <script src="/js/libs/underscore.js"></script>
     <script src="/js/libs/backbone.js"></script>
     <!--测试时的API接口-->
-    <script src="/js/test/backbone.customAPI.test.js"></script>
-    <script src="/js/test/mock.js"></script>
-    <script src="/js/test/mock.shelf.js"></script>
-    <script src="/js/test/mock.workTimeSet.js"></script>
-    <script src="/js/event.js"></script>
-    <script src="/js/shelf.js"></script>
+    <script src="/js/mock/backbone.customAPI.test.js"></script>
+    <script src="/js/mock/mock.js"></script>
+    <script src="/js/mock/mock.shelf.js"></script>
+    <script src="/js/mock/mock.workTimeSet.js"></script>
+    <script src="/js/core/event.js?v=1.0.0"></script>
+    <script src="/js/apps/shelf.js?v=1.0.0"></script>
 </asp:Content>

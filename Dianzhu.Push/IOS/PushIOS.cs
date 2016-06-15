@@ -22,7 +22,7 @@ namespace Dianzhu.Push
             get {
 #if DEBUG
                 log.Debug("使用测试版证书");
-                // return   AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark.p12";
+                return   AppDomain.CurrentDomain.BaseDirectory + @"files\aps_development_Mark.p12";
 #endif
                 log.Debug("使用正式版证书");
                 return  AppDomain.CurrentDomain.BaseDirectory+ @"files\aps_production_Mark.p12";
@@ -48,7 +48,7 @@ namespace Dianzhu.Push
             bool sandbox = false;
 
 #if DEBUG
-           // sandbox=true;
+             sandbox=true;
 #endif
             //Put your device token in here
             //ipod
