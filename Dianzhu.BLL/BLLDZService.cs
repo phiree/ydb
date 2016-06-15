@@ -63,10 +63,16 @@ namespace Dianzhu.BLL
             if (service.Id == Guid.Empty)
             {
                 service.CreatedTime = DateTime.Now;
+                DALDZService.Add(service);
+            }
+            else
+            {
+                service.LastModifiedTime = DateTime.Now;
+
+                DALDZService.Update(service);
             }
 
-            service.LastModifiedTime = DateTime.Now;
-            DALDZService.Update(service);
+           
         }
 
         public IList<DZService> GetAll()
