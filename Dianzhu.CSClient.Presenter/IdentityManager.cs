@@ -57,6 +57,11 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 else
                 {
+                    foreach (var key in currentIdentityList.Keys.ToList())
+                    {
+                        currentIdentityList[key] = false;
+                    }
+
                     currentIdentityList[value] = true;
                 }
             }
@@ -113,7 +118,7 @@ namespace Dianzhu.CSClient.Presenter
             {
                 log.Debug("1.1存在用户");
                 var existedOrder = existedCustomer.First();
-                if (existedOrder.Key == order)
+                if (existedOrder.Key.Id == order.Id)
                 {
                     log.Debug("1.1.1订单一样:" + order.Id);
                     if (existedOrder.Value == true)
@@ -128,7 +133,22 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 else {
                     log.Debug("1.1.2订单不一样");
-                    DictExtension.RenameKey(currentIdentityList, existedOrder.Key, order);
+                    //DictExtension.RenameKey(currentIdentityList, existedOrder.Key, order);
+
+                    foreach(var key in currentIdentityList.Keys.ToList())
+                    {
+                        bool isRemove = false;
+                        if (key.Id == existedOrder.Key.Id)
+                        {
+                            currentIdentityList.TryRemove(key, out isRemove);
+                        }
+                        if (isRemove)
+                        {
+                            break;
+                        }
+                    }
+                    currentIdentityList[order] = true; 
+
                     log.Debug("用户名：" + order.Customer.DisplayName);
                     if (existedOrder.Value == true)
                     {

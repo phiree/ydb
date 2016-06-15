@@ -101,6 +101,8 @@ namespace Dianzhu.CSClient.Presenter
         {
             try
             {
+                viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
+
                 if (chatHistoryAll.ContainsKey(serviceOrder.Customer.Id))
                 {
                     viewChatList.ChatList = chatHistoryAll[serviceOrder.Customer.Id];

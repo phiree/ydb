@@ -97,12 +97,12 @@ namespace Dianzhu.CSClient.ViewWPF
             else { lambda(); }
         }
 
-        public void UpdateIdentityBtnName(Guid oldOrder, Guid newOrder)
+        public void UpdateIdentityBtnName(ServiceOrder oldOrder, ServiceOrder newOrder)
         {
             Action lambda = () =>
             {
-                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrder.ToString());
-                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.ToString());
+                string ctrOldlName = PHSuit.StringHelper.SafeNameForWpfControl(oldOrder.Id.ToString());
+                string ctrNewlName = PHSuit.StringHelper.SafeNameForWpfControl(newOrder.Id.ToString());
                 
                 UC_Customer btnOldIdentity = (UC_Customer)pnlIdentityList.FindName(ctrOldlName);
                 if (btnOldIdentity != null)
@@ -113,6 +113,9 @@ namespace Dianzhu.CSClient.ViewWPF
                     //重新注册
                     btnOldIdentity.Name = ctrNewlName;
                     pnlIdentityList.RegisterName(btnOldIdentity.Name, btnOldIdentity);
+
+                    //更新按钮的tag
+                    btnOldIdentity.btnCustomer.Tag = newOrder;
                 }
                 else
                 {

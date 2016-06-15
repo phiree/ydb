@@ -23,6 +23,8 @@ namespace Dianzhu.CSClient.IView
         event BtnMoreChat BtnMoreChat;
 
         void ShowNoMoreLabel();
+
+        string ChatListCustomerName { get; set; }
     }
     public delegate void AudioPlay(object audioTag, IntPtr handler);
 

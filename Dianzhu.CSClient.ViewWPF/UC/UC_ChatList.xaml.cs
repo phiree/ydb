@@ -33,6 +33,15 @@ namespace Dianzhu.CSClient.ViewWPF
             ((StackPanel)svChatList.FindName("StackPanel")).SizeChanged += UC_ChatList_SizeChanged;
         }
 
+        public string ChatListCustomerName
+        {
+            get { return lblUserName.Content.ToString(); }
+            set
+            {
+                lblUserName.Content = value;
+            }
+        }
+
         private void UC_ChatList_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ScrollViewer sc = ((ScrollViewer)svChatList.FindName("ScrollViewer"));
