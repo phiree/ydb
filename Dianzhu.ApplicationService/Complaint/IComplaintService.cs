@@ -25,6 +25,6 @@ namespace Dianzhu.ApplicationService.Complaint
         /// 统计投诉的数量
         /// </summary>
         /// <returns>area实体list</returns>
-        int GetComplaintsCount(common_Trait_Filtering filter, common_Trait_ComplainFiltering complaint);
+        long GetComplaintsCount( common_Trait_ComplainFiltering complaint);
     }
 }

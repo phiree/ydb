@@ -77,36 +77,9 @@ namespace Dianzhu.ApplicationService.Complaint
         /// 统计投诉的数量
         /// </summary>
         /// <returns>area实体list</returns>
-        public int GetComplaintsCount(common_Trait_Filtering filter, common_Trait_ComplainFiltering complaint)
+        public long GetComplaintsCount(common_Trait_ComplainFiltering complaint)
         {
-            return 6;
-            //    IList<Model.Complaint> listcomplaint = null;
-
-            //    int intsize = 0;
-            //    int intnum = 0;
-            //    if (filter.pageSize != null && filter.pageNum != null)
-            //    {
-            //        try
-            //        {
-            //            intsize = int.Parse(filter.pageSize);
-            //            intnum = int.Parse(filter.pageNum);
-            //            if (intsize <= 0 || intnum < 1)
-            //            {
-            //                throw new Exception("分页参数pageSize,pageNum错误！");
-            //            }
-            //        }
-            //        catch
-            //        {
-            //            throw new Exception("分页参数pageSize,pageNum错误！");
-            //        }
-            //    }
-            //    listcomplaint = bllcomplaint.GetComplaints(intsize, intnum, complaint.orderID, complaint.storeID, complaint.customerServiceID);
-            //    if (listcomplaint == null)
-            //    {
-            //        throw new Exception(Dicts.StateCode[4]);
-            //    }
-            //    IList<complaintObj> complaintobj = Mapper.Map<IList<Model.Complaint>, IList<complaintObj>>(listcomplaint);
-            //    return complaintobj;
+            return bllcomplaint.GetComplaintsCount(complaint.orderID, complaint.storeID, complaint.customerServiceID); 
 
         }
     }

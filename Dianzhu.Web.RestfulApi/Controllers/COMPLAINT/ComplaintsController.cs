@@ -62,11 +62,11 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         /// <returns></returns>
         ///[HttpGet]
         [ActionName("count")]
-        public IHttpActionResult GetComplaintsCount([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_ComplainFiltering complaint)
+        public IHttpActionResult GetComplaintsCount([FromUri]common_Trait_ComplainFiltering complaint)
         {
             try
             {
-                return Json(icomplaintservice.GetComplaintsCount(filter, complaint));
+                return Json(icomplaintservice.GetComplaintsCount(complaint));
             }
             catch (Exception ex)
             {

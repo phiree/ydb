@@ -89,6 +89,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ADs\ADsService.cs" />
+    <Compile Include="ADs\IADsService.cs" />
     <Compile Include="City\CityService.cs" />
     <Compile Include="City\ICityService.cs" />
     <Compile Include="Class1.cs" />

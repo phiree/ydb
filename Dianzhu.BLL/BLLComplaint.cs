@@ -60,6 +60,30 @@ namespace Dianzhu.BLL
         }
 
         /// <summary>
+        /// 统计投诉的数量
+        /// </summary>
+        /// <returns>area实体list</returns>
+        public long GetComplaintsCount(string orderID, string storeID, string customerServiceID)
+        {
+            var where = PredicateBuilder.True<Complaint>();
+            if (orderID != null && orderID != "")
+            {
+                where = where.And(x => x.Order.Id == new Guid(orderID));
+            }
+            if (storeID != null && storeID != "")
+            {
+                where = where.And(x => x.Order.Business.Id == new Guid(storeID));
+            }
+            if (customerServiceID != null && customerServiceID != "")
+            {
+                where = where.And(x => x.Order.CustomerService.Id == new Guid(customerServiceID));
+            }
+            long count= dalComplaint.GetRowCount(where) ;
+            return count;
+
+        }
+
+        /// <summary>
         /// 条件读取投诉
         /// </summary>
         /// <returns>area实体list</returns>

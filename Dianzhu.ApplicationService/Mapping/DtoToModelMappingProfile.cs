@@ -40,6 +40,10 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.Operator, opt => opt.MapFrom(source => new DAL.DALMembership().FindById(new Guid(source.senderID))))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
+            Mapper.CreateMap<adObj, Model.Advertisement>()
+            .ForMember(x => x.LastUpdateTime, opt => opt.MapFrom(source => source.updateTime))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
 
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();

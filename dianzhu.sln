@@ -224,7 +224,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		getUserState.jar = getUserState.jar
 		Local.testsettings = Local.testsettings
 		升级日志.txt = 升级日志.txt
-		..\YDBan_DevelopmentDocument\YDB_流程图\docs\2设计\构架\项目构架2.png = ..\YDBan_DevelopmentDocument\YDB_流程图\docs\2设计\构架\项目构架2.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{E4338C9B-90F1-4640-A650-F903E722C878}"
