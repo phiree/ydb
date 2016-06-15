@@ -41,11 +41,32 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         /// </summary>
         /// <param name="complaintobj">投诉信息</param>
         /// <returns></returns>
+        [ActionName("list")]
         public IHttpActionResult GetComplaints([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_ComplainFiltering complaint)
         {
             try
             {
                 return Json(icomplaintservice.GetComplaints(filter, complaint));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+
+        /// <summary>
+        /// 新建投诉
+        /// </summary>
+        /// <param name="complaintobj">投诉信息</param>
+        /// <returns></returns>
+        ///[HttpGet]
+        [ActionName("count")]
+        public IHttpActionResult GetComplaintsCount([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_ComplainFiltering complaint)
+        {
+            try
+            {
+                return Json(icomplaintservice.GetComplaintsCount(filter, complaint));
             }
             catch (Exception ex)
             {

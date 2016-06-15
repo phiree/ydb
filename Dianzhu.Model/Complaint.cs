@@ -60,6 +60,6 @@ namespace Dianzhu.Model
         /// 该投诉的状态
         /// </summary>
         /// <type>string</type>
-        public string Status { get; set; }
+        public virtual enum_ComplaintStatus Status { get; set; }
     }
 }

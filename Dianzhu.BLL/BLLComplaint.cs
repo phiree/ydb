@@ -41,21 +41,31 @@ namespace Dianzhu.BLL
         public IList<Model.Complaint> GetComplaints(int pagesize, int pagenum, string orderID, string storeID,string customerServiceID)
         {
             var where = PredicateBuilder.True<Complaint>();
-            if(orderID!="")
+            if(orderID!=null && orderID != "")
             {
                 where = where.And(x => x.Order.Id == new Guid(orderID));
             }
-            if (storeID != "")
+            if (storeID != null && storeID != "")
             {
                 where = where.And(x => x.Order.Business.Id== new Guid(storeID));
             }
-            if (storeID != "")
+            if (customerServiceID != null && customerServiceID != "")
             {
                 where = where.And(x => x.Order.CustomerService.Id== new Guid(customerServiceID));
             }
             long t = 0;
             var list = pagesize == 0 ? dalComplaint.Find(where).ToList() : dalComplaint.Find(where, pagenum, pagesize, out t).ToList();
             return list;
+
+        }
+
+        /// <summary>
+        /// 条件读取投诉
+        /// </summary>
+        /// <returns>area实体list</returns>
+        public Model.Complaint GetComplaintById(Guid Id)
+        {
+            return dalComplaint.FindById(Id);
 
         }
     }

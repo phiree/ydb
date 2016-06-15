@@ -43,7 +43,7 @@ namespace Dianzhu.ApplicationService
         /// 该投诉的状态
         /// </summary>
         /// <type>string</type>
-        public string status { get; set; }
+        public Model.Enums.enum_ComplaintStatus status { get; set; }
         
     }
 }

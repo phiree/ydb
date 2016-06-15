@@ -573,4 +573,24 @@ namespace Dianzhu.Model.Enums
         store
     }
 
+    /// <summary>
+    /// 投诉状态，就是订单中的投诉状态
+    /// </summary>
+    public enum enum_ComplaintStatus
+    {
+        /// <summary>
+        /// 已提交投诉申请
+        /// </summary>
+        Complaints = 64,
+        /// <summary>
+        /// 等待官方审核投诉
+        /// </summary>
+        WaitingComplaints = 66,
+        /// <summary>
+        /// 投诉完成
+        /// </summary>
+        EndComplaints = 68,
+    }
+
+
 }

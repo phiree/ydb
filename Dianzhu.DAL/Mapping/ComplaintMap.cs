@@ -15,8 +15,11 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Content);
 
             //20160614_longphui_modify
-            Map(x => x.ResourcesUrl);//.Length(1000);
-            Map(x => x.Status);
+            //Map(x => x.ResourcesUrl);//.Length(1000);
+            HasMany(x => x.ResourcesUrl)
+            .Cascade.AllDeleteOrphan().KeyColumn("ResourcesUrlId").EntityName("ResourcesUrl").Elemen‌​t("ResourcesUrl");
+            //HasMany<string>(x => x.ResourcesUrl).Cascade.AllDeleteOrphan();
+            Map(x => x.Status).CustomType<Model.Enums.enum_ComplaintStatus>();
 
             Map(x => x.CreatTime);
             Map(x => x.Result);
