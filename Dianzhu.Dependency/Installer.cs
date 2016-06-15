@@ -46,6 +46,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<IRepository<DZMembership, Guid>, IDALMembership>().ImplementedBy<DALMembership>());
             container.Register(Component.For<IRepository<Business, Guid>, IDALBusiness>().ImplementedBy<DALBusiness>());
             container.Register(Component.For<IRepository<BusinessImage, Guid>, IDALBusinessImage>().ImplementedBy<DALBusinessImage>());
+            container.Register(Component.For<IRepository<IMUserStatus, Guid>, IDALIMUserStatus>().ImplementedBy<DALIMUserStatus>());
 
             container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
 
@@ -86,14 +87,16 @@ namespace Dianzhu.DependencyInstaller
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             //iadapter
-            container.Register(Component.For<CSClient.IMessageAdapter.IAdapter>().ImplementedBy<CSClient.MessageAdapter.MessageAdapter>());
+            container.Register(Component.For<CSClient.MessageAdapter.MessageAdapter,CSClient.IMessageAdapter.IAdapter>().ImplementedBy<CSClient.MessageAdapter.MessageAdapter>());
 
             //instantmessage
             string server = Config.Config.GetAppSetting("ImServer");
             string domain = Config.Config.GetAppSetting("ImDomain");
             container.Register(Component.For<CSClient.IInstantMessage.InstantMessage>().ImplementedBy<Dianzhu.CSClient.XMPP.XMPP>()
                                 .DependsOn(
-                                  Dependency.OnValue("server", server)
+                                    
+                                  Dependency.OnValue("server", server),
+                                  Dependency.OnValue("messageAdapter", container.Resolve<CSClient.IMessageAdapter.IAdapter>())
                                 , Dependency.OnValue("domain", domain)
                                 , Dependency.OnValue("resourceName", Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())
                                 )
