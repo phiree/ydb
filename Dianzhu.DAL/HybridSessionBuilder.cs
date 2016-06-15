@@ -100,7 +100,7 @@ namespace Dianzhu.DAL
             // and exports a database schema from it
             SchemaUpdate update = new SchemaUpdate(config);
 
-            update.Execute(true, true);
+            //update.Execute(true, true);
 
         }
         private ISession getExistingOrNewSession(ISessionFactory factory)
