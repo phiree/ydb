@@ -23,7 +23,7 @@
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <Label x:Name="lblUserName" Content="隔壁老王"></Label>
+                    <Label x:Name="lblUserName" Content=""></Label>
                 </Grid>
 
                 <Grid Grid.Row="1">

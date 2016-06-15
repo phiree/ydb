@@ -14,7 +14,7 @@ namespace Dianzhu.Config
         static int payServerNum = 0;
         #region 服务器定义
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172","192.168.1.150" };
-        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150" };
+        static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
         static string[] ApplicationServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150" };
         static string[] HttpApiServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150" };
         static string[] IMNotifyServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172", "192.168.1.150" };
@@ -37,7 +37,7 @@ namespace Dianzhu.Config
 
         static Dictionary<string, KeyValuePair<string, string>> DictsDianDianLogins = new Dictionary<string, KeyValuePair<string, string>>() {
               { "119.29.39.211",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
-             ,{ "115.159.72.236",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","diandian") }
+             ,{ "115.159.72.236",new KeyValuePair<string,string>("dc73ba0f-91a4-4e14-b17a-a567009dfd6a","123456") }
              ,{ "192.168.1.172",new KeyValuePair<string,string>("c64d9dda-4f6e-437b-89d2-a591012d8c65","123456") }
             ,{ "localhost",new KeyValuePair<string,string>("09be8ea0-f353-4527-81d8-a604009fc5d2","123456") }
                ,{ "192.168.1.150",new KeyValuePair<string,string>("3d9ed306-7b5d-4e0d-8776-a5e50093515f","123456") }

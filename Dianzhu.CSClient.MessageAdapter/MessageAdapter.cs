@@ -18,11 +18,13 @@ namespace Dianzhu.CSClient.MessageAdapter
         
         IDAL.IDALServiceOrder dalOrder;
         IDAL.IDALMembership dalMembership;
-        public MessageAdapter(IDAL.IDALServiceOrder dalOrder,IDAL.IDALMembership dalMembership)
+        IDAL.IDALIMUserStatus dalIMUserStatus;
+        public MessageAdapter(IDAL.IDALServiceOrder dalOrder,IDAL.IDALMembership dalMembership, IDAL.IDALIMUserStatus dalIMUserStatus)
         {
            // this.bllOrder = bllOrder;
             this.dalOrder = dalOrder;
             this.dalMembership = dalMembership;
+            this.dalIMUserStatus = dalIMUserStatus;
         }
  
         static BLLIMUserStatus bllIMUserStatus;
@@ -198,10 +200,10 @@ namespace Dianzhu.CSClient.MessageAdapter
             msg.SetAttribute("type", "chat");
             msg.Id = chat.Id != Guid.Empty ? chat.Id.ToString() : Guid.NewGuid().ToString();
             //     msg.From = new agsXMPP.Jid(chat.From.Id + "@" + server);
-
+            //用户最新的客户端名称. 应该通过restfulapi获取, 弃用数据库数据.
             try
             {
-                IMUserStatus toUserStatus = BLLIMUserStatus.GetIMUSByUserId(chat.To.Id);
+                IMUserStatus toUserStatus = dalIMUserStatus.GetIMUSByUserId(chat.To.Id);
                 msg.To = new agsXMPP.Jid(chat.To.Id + "@" + server + "/" + toUserStatus.ClientName);//发送对象
             }
             catch (Exception e)
