@@ -40,6 +40,9 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<Model.Advertisement, adObj>()
             .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LastUpdateTime))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<Model.DeviceBind, appObj>()
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();
             //Mapper.CreateMap<FocusFormModel, Focus>();

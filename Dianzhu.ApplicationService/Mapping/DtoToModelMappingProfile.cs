@@ -44,6 +44,10 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.LastUpdateTime, opt => opt.MapFrom(source => source.updateTime))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
+            Mapper.CreateMap<appObj, Model.DeviceBind>()
+            .ForMember(x => x.AppName, opt => opt.MapFrom(source => source.appName .ToString ()))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
 
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();

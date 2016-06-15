@@ -39,9 +39,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         /// <summary>
         /// 新建投诉
         /// </summary>
-        /// <param name="complaintobj">投诉信息</param>
+        /// <param name="complaint">查询条件</param>
         /// <returns></returns>
-        [ActionName("list")]
+        ///[ActionName("list")]
         public IHttpActionResult GetComplaints([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_ComplainFiltering complaint)
         {
             try
@@ -58,14 +58,19 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         /// <summary>
         /// 新建投诉
         /// </summary>
-        /// <param name="complaintobj">投诉信息</param>
+        /// <param name="complaint">查询条件</param>
         /// <returns></returns>
         ///[HttpGet]
-        [ActionName("count")]
+        ///[ActionName("count")]
+        [Route("api/Complaints/count")]
         public IHttpActionResult GetComplaintsCount([FromUri]common_Trait_ComplainFiltering complaint)
         {
             try
             {
+                if (complaint==null)
+                {
+                    complaint = new common_Trait_ComplainFiltering();
+                }
                 return Json(icomplaintservice.GetComplaintsCount(complaint));
             }
             catch (Exception ex)

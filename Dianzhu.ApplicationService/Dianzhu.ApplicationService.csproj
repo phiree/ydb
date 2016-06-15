@@ -91,6 +91,8 @@
   <ItemGroup>
     <Compile Include="ADs\ADsService.cs" />
     <Compile Include="ADs\IADsService.cs" />
+    <Compile Include="Apps\AppsService.cs" />
+    <Compile Include="Apps\IAppsService.cs" />
     <Compile Include="City\CityService.cs" />
     <Compile Include="City\ICityService.cs" />
     <Compile Include="Class1.cs" />
@@ -168,7 +170,9 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

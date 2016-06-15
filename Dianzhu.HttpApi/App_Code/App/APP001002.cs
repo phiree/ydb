@@ -24,7 +24,9 @@ public class ResponseAPP001002:BaseResponse
     {
         ReqDataAPP001002 requestData = this.request.ReqData.ToObject<ReqDataAPP001002>();
 
-        bllDeviceBind = new BLLDeviceBind();
+        //20160615_longphui_modify
+        //bllDeviceBind = new BLLDeviceBind();
+        bllDeviceBind = Bootstrap.Container.Resolve<BLLDeviceBind>();
 
         Guid uuId;
 

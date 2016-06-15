@@ -593,4 +593,36 @@ namespace Dianzhu.Model.Enums
     }
 
 
+    /// <summary>
+    /// 平台标识类型
+    /// </summary>
+    public enum enum_appName
+    {
+        /// <summary>
+        /// IOS用户版
+        /// </summary>
+        IOS_User,
+        /// <summary>
+        /// IOS商户版
+        /// </summary>
+        IOS_Merchant,
+        /// <summary>
+        /// IOS客服版
+        /// </summary>
+        IOS_CustomerService,
+        /// <summary>
+        /// Android用户版
+        /// </summary>
+        Android_User,
+        /// <summary>
+        /// Android商户版
+        /// </summary>
+        Android_Merchant,
+        /// <summary>
+        /// Android客户版
+        /// </summary>
+        Android_CustomerService,
+    }
+
+
 }
