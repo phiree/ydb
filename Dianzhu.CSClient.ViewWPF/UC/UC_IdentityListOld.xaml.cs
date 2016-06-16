@@ -183,5 +183,10 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             throw new NotImplementedException();
         }
+
+        public void IdentityLogOnShowMsgAndTimer(ServiceOrder serviceOrder, string msg)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
