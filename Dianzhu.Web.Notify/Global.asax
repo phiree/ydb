@@ -12,12 +12,15 @@
         //init xmpp conenction 
         //防止网站被iis喀嚓,导致发送通知的用户从openfire掉线.
         PHSuit.Logging.Config("Dianzhu.Web.Notify");
-    //   PHSuit.HttpHelper. _SetupRefreshJob(HttpContext.Current.Request.UserHostAddress);
+        //   PHSuit.HttpHelper. _SetupRefreshJob(HttpContext.Current.Request.UserHostAddress);
         string server = Dianzhu.Config.Config.GetAppSetting("ImServer");
         string domain = Dianzhu.Config.Config.GetAppSetting("ImDomain");
 
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
-            = new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.Model.Enums.enum_XmppResource.YDBan_IMServer.ToString());
+            = Bootstrap.Container.Resolve<Dianzhu.CSClient.IInstantMessage.InstantMessage>
+            //();
+            (new { resourceName = Dianzhu.Model.Enums.enum_XmppResource.YDBan_IMServer.ToString() });
+        //= new Dianzhu.CSClient.XMPP.XMPP(server, domain,adapter, Dianzhu.Model.Enums.enum_XmppResource.YDBan_IMServer.ToString());
         //login in
         string noticesenderId = Dianzhu.Config.Config.GetAppSetting("NoticeSenderId");
 
@@ -34,13 +37,13 @@
         im.OpenConnection(noticesenderId, noticesenderPwd);
         Application["IM"] = im;
     }
-     void Application_BeginRequest(Object source, EventArgs e)
+    void Application_BeginRequest(Object source, EventArgs e)
     {
         HttpApplication app = (HttpApplication)source;
         PHSuit.FirstRequestInitialisation.Initialise(app.Context);
     }
 
-   
+
     void IMClosed()
     {
         log.Warn("Closed");

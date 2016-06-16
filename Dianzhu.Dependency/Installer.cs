@@ -46,6 +46,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<IRepository<DZMembership, Guid>, IDALMembership>().ImplementedBy<DALMembership>());
             container.Register(Component.For<IRepository<Business, Guid>, IDALBusiness>().ImplementedBy<DALBusiness>());
             container.Register(Component.For<IRepository<BusinessImage, Guid>, IDALBusinessImage>().ImplementedBy<DALBusinessImage>());
+            container.Register(Component.For<IRepository<IMUserStatus, Guid>, IDALIMUserStatus>().ImplementedBy<DALIMUserStatus>());
 
             container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
 
@@ -93,7 +94,8 @@ namespace Dianzhu.DependencyInstaller
             string domain = Config.Config.GetAppSetting("ImDomain");
             container.Register(Component.For<CSClient.IInstantMessage.InstantMessage>().ImplementedBy<Dianzhu.CSClient.XMPP.XMPP>()
                                 .DependsOn(
-                                  Dependency.OnValue("server", server)
+                                    
+                                  Dependency.OnValue("server", server) 
                                 , Dependency.OnValue("domain", domain)
                                 , Dependency.OnValue("resourceName", Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())
                                 )
