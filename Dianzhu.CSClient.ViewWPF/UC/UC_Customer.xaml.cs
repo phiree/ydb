@@ -67,6 +67,17 @@ namespace Dianzhu.CSClient.ViewWPF
 
             //tbkCustomerMinutes.Visibility = Visibility.Collapsed;
 
+            TimeControlCollapsed();
+        }
+
+        public void TimeControlVisibility()
+        {
+            TimeControl.Visibility = Visibility.Visible;
+            TimeControl.StartTimer();
+        }
+
+        public void TimeControlCollapsed()
+        {
             TimeControl.Visibility = Visibility.Collapsed;
             TimeControl.StopTimer();
         }

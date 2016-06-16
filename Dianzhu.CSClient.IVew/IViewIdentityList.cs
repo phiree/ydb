@@ -25,6 +25,9 @@ namespace Dianzhu.CSClient.IView
         void SetIdentityLoading(ServiceOrder serviceOrder);
         //用户离线
         void SetIdentityLogOff(ServiceOrder serviceOrder);
+        void IdentityLogOffShowMsg(ServiceOrder serviceOrder);
+        void IdentityLogOnShowMsg(ServiceOrder serviceOrder,string msg);
+        void IdentityLogOnShowMsgAndTimer(ServiceOrder serviceOrder, string msg);
 
     }
     /// <summary>
