@@ -46,7 +46,7 @@ namespace Dianzhu.Config
         //todo: 需要使用 username登陆 而不是id
         static Dictionary<string, KeyValuePair<string, string>> DictsNotifySenderLogins = new Dictionary<string, KeyValuePair<string, string>>() {
               { "119.29.39.211",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
-             ,{ "115.159.72.236",new KeyValuePair<string,string>("c6b13498-2259-4ff3-a75e-a4f90123683c","123456") }
+             ,{ "115.159.72.236",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
              ,{ "192.168.1.172",new KeyValuePair<string,string>("fa7ef456-0978-4ccd-b664-a594014cbfe7","123456") }
               ,{ "localhost",new KeyValuePair<string,string>("30d16607-fbac-41a3-b4de-a60500c19756","198989") }
               ,{ "192.168.1.150",new KeyValuePair<string,string>("054c400b-4afb-49f3-bbdf-a5e500939c59","123456") }
