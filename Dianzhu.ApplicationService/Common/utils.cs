@@ -14,7 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Dianzhu.ApplicationService
 {
-     public class utils
+    public class utils
     {
 
         /// <summary>
@@ -37,6 +37,76 @@ namespace Dianzhu.ApplicationService
             }
             return res_Error;
         }
+
+        /// <summary>
+        /// 判断分页参数是否正确
+        /// </summary>
+        /// <param name="filtert">通用筛选器</param>
+        /// <returns></returns>
+        public static int[] CheckFilter(common_Trait_Filtering filter)
+        {
+            int[] page = { 0, 0 };
+            if (filter.pageSize != null && filter.pageNum != null)
+            {
+                try
+                {
+                    page[0] = int.Parse(filter.pageSize);
+                    page[1] = int.Parse(filter.pageNum);
+                    if (page[0] <= 0 || page[1] < 1)
+                    {
+                        throw new Exception("分页参数pageSize,pageNum错误！");
+                    }
+                }
+                catch
+                {
+                    throw new Exception("分页参数pageSize,pageNum错误！");
+                }
+            }
+            return page;
+        }
+
+        /// <summary>
+        /// 判断Guid
+        /// </summary>
+        /// <param name="strGuidID">GuidID</param>
+        /// <param name="strError">错误信息</param>
+        /// <returns></returns>
+        public static Guid CheckGuidID(string strGuidID, string strError)
+        {
+            if (strGuidID == null ||  strGuidID == "")
+                return Guid.Empty;
+            Guid GuidID;
+            bool guididisGuid = Guid.TryParse(strGuidID, out GuidID);
+            if (!guididisGuid)
+            {
+                throw new Exception(strError+"格式有误");
+            }
+            return GuidID;
+        }
+
+        /// <summary>
+        /// 判断DateTime
+        /// </summary>
+        /// <param name="strDateTime">DateTime</param>
+        /// <param name="strError">错误信息</param>
+        /// <returns></returns>
+        public static DateTime CheckDateTime(string strDateTime,string strType, string strError)
+        {
+            if (strDateTime == null || strDateTime == "")
+                return DateTime.MinValue;
+            DateTime dt;
+            try
+            {
+                string stime = DateTime.ParseExact(strDateTime, strType, null).ToString("yyyy-MM-dd HH:mm:ss");
+                dt = DateTime.Parse(stime);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(strError + "格式有误");
+            }
+            return dt;
+        }
+
 
 
         /// <summary>

@@ -247,6 +247,7 @@
     <Compile Include="Controllers\COMPLAINT\ComplaintsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CITY\CitysController.cs" />
+    <Compile Include="Controllers\REMIND\RemindsController.cs" />
     <Compile Include="Controllers\SNAPSHOT\SnapshotsController.cs" />
     <Compile Include="Controllers\USER\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

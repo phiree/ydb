@@ -23,7 +23,12 @@ public class ResponseRMM001004 : BaseResponse
 
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        BLLServiceOrderRemind bllServcieOrderRemind = new BLLServiceOrderRemind();
+
+        //20150616_longphui_modify
+        //BLLServiceOrderRemind bllServcieOrderRemind = new BLLServiceOrderRemind();
+        BLLServiceOrderRemind bllServiceOrderRemind = Bootstrap.Container.Resolve<BLLServiceOrderRemind>();
+
+
         string user_id = requestData.userID;
         string start_time = requestData.startTime;
         string end_time = requestData.endTime;
@@ -85,7 +90,7 @@ public class ResponseRMM001004 : BaseResponse
             }
             try
             {
-                int sum = bllServcieOrderRemind.GetSumByUserIdAndDatetime(userId, startTime, endTime);
+                int sum = bllServiceOrderRemind.GetSumByUserIdAndDatetime(userId, startTime, endTime);
 
                 RespDataRMM001004 respData = new RespDataRMM001004();
                 respData.sum = sum.ToString();

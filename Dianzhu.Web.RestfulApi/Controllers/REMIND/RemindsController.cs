@@ -6,26 +6,67 @@ using System.Net.Http;
 using System.Web.Http;
 using Dianzhu.ApplicationService;
 
-namespace Dianzhu.Web.RestfulApi.Controllers.APP
+namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
 {
-    public class AppsController : ApiController
+    public class RemindsController : ApiController
     {
-        private ApplicationService.App.IAppService iapps = null;
-        public AppsController()
+
+        private ApplicationService.Remind.IRemindService iremind = null;
+        public RemindsController()
         {
             //this.iuserservice = iuserservice;
-            iapps = Bootstrap.Container.Resolve<ApplicationService.App.IAppService>();
+            iremind = Bootstrap.Container.Resolve<ApplicationService.Remind.IRemindService>();
         }
 
         /// <summary>
-        /// 注册设备,userID 为空，表示匿名注册  , [FromBody]appObj appobj
+        /// 根据ID获取提醒
         /// </summary>
         /// <returns>area实体list</returns>
-        public IHttpActionResult PostDeviceBind(string id, [FromBody]appObj appobj)
+        public IHttpActionResult GetRemindById(string id)
         {
             try
             {
-                return Json(iapps.PostDeviceBind(id, appobj));
+                return Json(iremind.GetRemindById(id));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+
+        }
+
+        /// <summary>
+        /// 条件读取提醒
+        /// </summary>
+        /// <returns>area实体list</returns>
+        public IHttpActionResult GetReminds([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_RemindFiltering remind)
+        {
+            try
+            {
+                return Json(iremind.GetReminds(filter, remind));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+
+        }
+
+        /// <summary>
+        /// 统计投诉的数量
+        /// </summary>
+        /// <returns>area实体list</returns>
+        [Route("api/Reminds/count")]
+        public IHttpActionResult GetRemindsCount([FromUri]common_Trait_RemindFiltering remind)
+        {
+            try
+            {
+
+                if (remind == null)
+                {
+                    remind = new common_Trait_RemindFiltering();
+                }
+                return Json(iremind.GetRemindsCount(remind));
             }
             catch (Exception ex)
             {
@@ -33,36 +74,5 @@ namespace Dianzhu.Web.RestfulApi.Controllers.APP
             }
         }
 
-        /// <summary>
-        /// 删除设备
-        /// </summary>
-        /// <returns>area实体list</returns>
-        public IHttpActionResult DeleteDeviceBind(string id)
-        {
-            try
-            {
-                return Json(iapps.DeleteDeviceBind(id));
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
-            }
-        }
-
-        /// <summary>
-        /// 更新设备推送计数
-        /// </summary>
-        /// <returns>area实体list</returns>
-        public IHttpActionResult PatchDeviceBind(string id, [FromBody]Common_Body pushCount)
-        {
-            try
-            {
-                return Json(iapps.PatchDeviceBind(id, pushCount.pushCount));
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
-            }
-        }
     }
 }

@@ -38,6 +38,9 @@ namespace Dianzhu.DependencyInstaller
             //20160615_longphui_add
             container.Register(Component.For<BLLDeviceBind>());
 
+            //20160616_longphui_add
+            container.Register(Component.For<BLLServiceOrderRemind>());
+
         }
     }
     public class InstallerRepository : IWindsorInstaller
@@ -61,6 +64,9 @@ namespace Dianzhu.DependencyInstaller
 
             //20160615_longphui_add
             container.Register(Component.For<IRepository<DeviceBind, Guid>, IDALDeviceBind>().ImplementedBy<DALDeviceBind>());
+
+            //20160616_longphui_add
+            container.Register(Component.For<IRepository<ServiceOrderRemind, Guid>, IDALServiceOrderRemind>().ImplementedBy<DALServiceOrderRemind>());
         }
     }
     public class InstallerApplicationService : IWindsorInstaller

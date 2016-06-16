@@ -38,20 +38,20 @@ namespace Dianzhu.BLL
         /// 条件读取投诉
         /// </summary>
         /// <returns>area实体list</returns>
-        public IList<Model.Complaint> GetComplaints(int pagesize, int pagenum, string orderID, string storeID,string customerServiceID)
+        public IList<Model.Complaint> GetComplaints(int pagesize, int pagenum, Guid orderID, Guid storeID, Guid customerServiceID)
         {
             var where = PredicateBuilder.True<Complaint>();
-            if(orderID!=null && orderID != "")
+            if(orderID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Id == new Guid(orderID));
+                where = where.And(x => x.Order.Id == orderID);
             }
-            if (storeID != null && storeID != "")
+            if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Business.Id== new Guid(storeID));
+                where = where.And(x => x.Order.Business.Id== storeID);
             }
-            if (customerServiceID != null && customerServiceID != "")
+            if (customerServiceID != Guid.Empty)
             {
-                where = where.And(x => x.Order.CustomerService.Id== new Guid(customerServiceID));
+                where = where.And(x => x.Order.CustomerService.Id== customerServiceID);
             }
             long t = 0;
             var list = pagesize == 0 ? dalComplaint.Find(where).ToList() : dalComplaint.Find(where, pagenum, pagesize, out t).ToList();
@@ -63,24 +63,23 @@ namespace Dianzhu.BLL
         /// 统计投诉的数量
         /// </summary>
         /// <returns>area实体list</returns>
-        public long GetComplaintsCount(string orderID, string storeID, string customerServiceID)
+        public long GetComplaintsCount(Guid orderID, Guid storeID, Guid customerServiceID)
         {
             var where = PredicateBuilder.True<Complaint>();
-            if (orderID != null && orderID != "")
+            if (orderID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Id == new Guid(orderID));
+                where = where.And(x => x.Order.Id == orderID);
             }
-            if (storeID != null && storeID != "")
+            if (storeID != Guid.Empty)
             {
-                where = where.And(x => x.Order.Business.Id == new Guid(storeID));
+                where = where.And(x => x.Order.Business.Id == storeID);
             }
-            if (customerServiceID != null && customerServiceID != "")
+            if (customerServiceID != Guid.Empty)
             {
-                where = where.And(x => x.Order.CustomerService.Id == new Guid(customerServiceID));
+                where = where.And(x => x.Order.CustomerService.Id == customerServiceID);
             }
             long count= dalComplaint.GetRowCount(where) ;
             return count;
-
         }
 
         /// <summary>

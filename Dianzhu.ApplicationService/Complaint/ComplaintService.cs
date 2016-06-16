@@ -44,26 +44,8 @@ namespace Dianzhu.ApplicationService.Complaint
         public IList<complaintObj> GetComplaints(common_Trait_Filtering filter, common_Trait_ComplainFiltering complaint)
         {
             IList<Model.Complaint> listcomplaint = null;
-
-            int intsize = 0;
-            int intnum = 0;
-            if (filter.pageSize != null && filter.pageNum != null)
-            {
-                try
-                {
-                    intsize = int.Parse(filter.pageSize);
-                    intnum = int.Parse(filter.pageNum);
-                    if (intsize <= 0 || intnum < 1)
-                    {
-                        throw new Exception("分页参数pageSize,pageNum错误！");
-                    }
-                }
-                catch
-                {
-                    throw new Exception("分页参数pageSize,pageNum错误！");
-                }
-            }
-            listcomplaint = bllcomplaint.GetComplaints(intsize, intnum,complaint.orderID,complaint.storeID,complaint.customerServiceID);
+            int[] page = utils.CheckFilter(filter);
+            listcomplaint = bllcomplaint.GetComplaints(page[0], page[1],utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID"));
             if (listcomplaint == null)
             {
                 throw new Exception(Dicts.StateCode[4]);
@@ -77,9 +59,11 @@ namespace Dianzhu.ApplicationService.Complaint
         /// 统计投诉的数量
         /// </summary>
         /// <returns>area实体list</returns>
-        public long GetComplaintsCount(common_Trait_ComplainFiltering complaint)
+        public countObj GetComplaintsCount(common_Trait_ComplainFiltering complaint)
         {
-            return bllcomplaint.GetComplaintsCount(complaint.orderID, complaint.storeID, complaint.customerServiceID); 
+            countObj c = new countObj();
+            c.count = bllcomplaint.GetComplaintsCount(utils.CheckGuidID(complaint.orderID, "orderID"), utils.CheckGuidID(complaint.storeID, "storeID"), utils.CheckGuidID(complaint.customerServiceID, "customerServiceID")).ToString();
+            return c; 
 
         }
     }

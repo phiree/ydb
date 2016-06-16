@@ -8,17 +8,17 @@ using NHibernate;
 using NHibernate.Criterion;
 namespace Dianzhu.DAL
 {
-    public class DALServiceOrderRemind : DALBase<ServiceOrderRemind>
+    public class DALServiceOrderRemind : NHRepositoryBase<ServiceOrderRemind, Guid>, IDAL.IDALServiceOrderRemind//: DALBase<ServiceOrderRemind>
     {
         public DALServiceOrderRemind()
         {
 
         }
         //注入依赖,供测试使用;
-        public DALServiceOrderRemind(string fortest) : base(fortest)
-        {
+        //public DALServiceOrderRemind(string fortest) : base(fortest)
+        //{
 
-        }
+        //}
 
         public ServiceOrderRemind GetOneByIdAndUserId(Guid Id,Guid UserId)
         {

@@ -48,6 +48,11 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.AppName, opt => opt.MapFrom(source => source.appName .ToString ()))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
+            Mapper.CreateMap<remindObj, Model.ServiceOrderRemind>()
+            .ForMember(x => x.RemindTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.time, "yyyyMMddHHmmss", "remindObj.time")))
+            .ForMember(x => x.Open, opt => opt.MapFrom(source => source.bOpen))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
 
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();

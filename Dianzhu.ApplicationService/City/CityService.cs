@@ -65,25 +65,8 @@ namespace Dianzhu.ApplicationService.City
                 }
                 else
                 {
-                    int intsize = 0;
-                    int intnum = 0;
-                    if (filter.pageSize != null && filter.pageNum != null)
-                    {
-                        try
-                        {
-                            intsize = int.Parse(filter.pageSize);
-                            intnum = int.Parse(filter.pageNum);
-                            if (intsize <= 0 || intnum < 1)
-                            {
-                                throw new Exception("分页参数pageSize,pageNum错误！");
-                            }
-                        }
-                        catch
-                        {
-                            throw new Exception("分页参数pageSize,pageNum错误！");
-                        }
-                    }
-                    listarea = bllarea.GetAllCity(intsize,intnum);
+                    int[] page = utils.CheckFilter(filter);
+                    listarea = bllarea.GetAllCity(page[0],page[1]);
                 }
             }
             if (listarea == null)
