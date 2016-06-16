@@ -173,5 +173,15 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             SetIdentityButtonStyle(serviceOrder, em_ButtonStyle.Loading);
         }
+
+        public void IdentityLogOffShowMsg(ServiceOrder serviceOrder)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void IdentityLogOnShowMsg(ServiceOrder serviceOrder, string msg)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

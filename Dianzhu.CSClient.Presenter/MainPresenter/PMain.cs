@@ -214,15 +214,15 @@ namespace Dianzhu.CSClient.Presenter
                     throw new NotImplementedException(errMsg);
 
                 case Model.Enums.enum_ChatType.UserStatus:
-                    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+                    //ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
 
-                    if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
-                    {
-                        if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
-                        {
-                            ShowMessage("该用户已下线");
-                        }
-                    }
+                    //if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+                    //{
+                    //    if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
+                    //    {
+                    //        ShowMessage("该用户已下线");
+                    //    }
+                    //}
 
                     break;
 

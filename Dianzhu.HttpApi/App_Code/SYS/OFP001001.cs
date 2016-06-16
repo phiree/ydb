@@ -150,7 +150,7 @@ public class ResponseOFP001001 : BaseResponse
                         bllReceptionStatusArchieve.SaveOrUpdate(RSToRsa(rs));
 
                         //删掉接待关系
-                        bllReceptionStatus.Delete(rs);
+                        //bllReceptionStatus.Delete(rs);
                     }
                     else
                     {

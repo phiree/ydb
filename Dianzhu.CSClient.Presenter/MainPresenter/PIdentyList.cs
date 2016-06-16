@@ -74,33 +74,82 @@ namespace Dianzhu.CSClient.Presenter
 
                 if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
                 {
-                    if (IdentityManager.CurrentIdentity == chat.ServiceOrder)
+                    IdentityLogOffShowMsg(chat.ServiceOrder);
+
+                    //if (IdentityManager.CurrentIdentity.Id == chat.ServiceOrder.Id)
+                    //{
+                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
+                    //    {
+                    //        //RemoveIdentity(chat.ServiceOrder);
+                    //        IdentityLogOffShowMsg(chat.ServiceOrder);
+                    //    }
+                    //    else
+                    //    {
+                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
+                    //        log.Error(errMsg);
+                    //        throw new NotImplementedException(errMsg);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //SetSetIdentityLogOff(chat.ServiceOrder);
+                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
+                    //    {
+                    //        //RemoveIdentity(chat.ServiceOrder);
+                    //        IdentityLogOffShowMsg(chat.ServiceOrder);
+                    //    }
+                    //    else
+                    //    {
+                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
+                    //        log.Error(errMsg);
+                    //        throw new NotImplementedException(errMsg);
+                    //    }
+                    //}
+                }
+                else
+                {
+                    if (IdentityManager.CurrentIdentity == null)
                     {
-                        if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
-                        {
-                            RemoveIdentity(chat.ServiceOrder);
-                        }
-                        else
-                        {
-                            errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                            log.Error(errMsg);
-                            throw new NotImplementedException(errMsg);
-                        }
+                        IdentityLogOnShowMsgAndTimer(chat.ServiceOrder, "等待中");
                     }
                     else
                     {
-                        SetSetIdentityLogOff(chat.ServiceOrder);
-                        if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
+                        if (IdentityManager.CurrentIdentity.Id == chat.ServiceOrder.Id)
                         {
-                            RemoveIdentity(chat.ServiceOrder);
+                            IdentityLogOnShowMsg(chat.ServiceOrder, "当前接待中...");
                         }
                         else
                         {
-                            errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
-                            log.Error(errMsg);
-                            throw new NotImplementedException(errMsg);
+                            IdentityLogOnShowMsgAndTimer(chat.ServiceOrder, "等待中");
                         }
                     }
+                    //if (IdentityManager.CurrentIdentity.Id == chat.ServiceOrder.Id)
+                    //{
+                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
+                    //    {
+                    //        IdentityLogOnShowMsg(chat.ServiceOrder,"当前接待中...");
+                    //    }
+                    //    else
+                    //    {
+                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
+                    //        log.Error(errMsg);
+                    //        throw new NotImplementedException(errMsg);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    SetSetIdentityLogOff(chat.ServiceOrder);
+                    //    if (IdentityManager.DeleteIdentity(chat.ServiceOrder))
+                    //    {
+                    //        IdentityLogOnShowMsg(chat.ServiceOrder,"等待中");
+                    //    }
+                    //    else
+                    //    {
+                    //        errMsg = "用户没有对应的订单，收到该通知暂时不处理.";
+                    //        log.Error(errMsg);
+                    //        throw new NotImplementedException(errMsg);
+                    //    }
+                    //}
                 }
             }
         }
@@ -170,6 +219,21 @@ namespace Dianzhu.CSClient.Presenter
         public void RemoveIdentity(ServiceOrder order)
         {
             iView.RemoveIdentity(order);
+        }
+
+        protected void IdentityLogOffShowMsg(ServiceOrder order)
+        {
+            iView.IdentityLogOffShowMsg(order);
+        }
+
+        protected void IdentityLogOnShowMsg(ServiceOrder order,string msg)
+        {
+            iView.IdentityLogOnShowMsg(order,msg);
+        }
+
+        protected void IdentityLogOnShowMsgAndTimer(ServiceOrder order,string msg)
+        {
+            iView.IdentityLogOnShowMsgAndTimer(order, msg);
         }
 
         public void SetSetIdentityLogOff(ServiceOrder order)

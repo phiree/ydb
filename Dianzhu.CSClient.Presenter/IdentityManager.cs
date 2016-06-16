@@ -99,8 +99,16 @@ namespace Dianzhu.CSClient.Presenter
 
         public static bool DeleteIdentity(ServiceOrder order)
         {
-            bool isExactive;
-            return currentIdentityList.TryRemove(order, out isExactive);
+            bool isExactive = false;
+            foreach(var key in currentIdentityList.Keys)
+            {
+                if (key.Id == order.Id)
+                {
+                    currentIdentityList.TryRemove(key, out isExactive);
+                    break;
+                }
+            }
+            return isExactive;
         }
 
         /// <summary>
