@@ -20,7 +20,6 @@ namespace Dianzhu.Model
             CreatedTime =LastUpdateTime=  DateTime.Now;
             //Amount = Order.GetAmount(PayTarget);
         }
-        public virtual Guid Id { get; set; }
 
         /// <summary>
         /// 订单

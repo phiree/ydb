@@ -22,21 +22,16 @@ namespace Dianzhu.CSClient.Presenter
     public class PChatList
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PChatList");
-        DALReception dalReception;
+        IDAL.IDALReceptionChat dalReceptionChat;
         IViewChatList viewChatList;
         IViewIdentityList viewIdentityList;
         InstantMessage iIM;
-        public static Dictionary<Guid, IList<ReceptionChat>> chatHistoryAll;
-        public PChatList() { }
-        public PChatList(IView.IViewChatList viewChatList, IViewIdentityList viewCustomerList, InstantMessage iIM)
-            : this(viewChatList, viewCustomerList, new DALReception(), iIM)
-        {
-
-        }
-        public PChatList(IViewChatList viewChatList, IViewIdentityList viewCustomerList, DALReception dalReception, InstantMessage iIM)
+        public static Dictionary<Guid, IList<ReceptionChat>> chatHistoryAll;        
+        
+        public PChatList(IViewChatList viewChatList, IViewIdentityList viewCustomerList,IDAL.IDALReceptionChat dalReceptionChat, InstantMessage iIM)
         {
             this.viewChatList = viewChatList;
-            this.dalReception = dalReception;
+            this.dalReceptionChat = dalReceptionChat;
             //     viewCustomerList.IdentityClick += ViewCustomerList_CustomerClick;
             this.iIM = iIM;
             //   this.iIM.IMReceivedMessage += IIM_IMReceivedMessage;
@@ -59,10 +54,10 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewChatList_BtnMoreChat()
         {
-            var chatHistory = dalReception.GetReceptionChatListByTargetIdAndSize(IdentityManager.CurrentIdentity.Customer, null, Guid.Empty,
+            var chatHistory = dalReceptionChat.GetReceptionChatListByTargetIdAndSize(IdentityManager.CurrentIdentity.Customer, null, Guid.Empty,
                    DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 20, chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id][0],"Y", enum_ChatTarget.all);
 
-            if (chatHistory.Count == 0)
+            if (chatHistory.Count() == 0)
             {
                 viewChatList.ShowNoMoreLabel();
                 return;
@@ -117,7 +112,7 @@ namespace Dianzhu.CSClient.Presenter
                 }
 
                 int rowCount;
-                var chatHistory = dalReception
+                var chatHistory = dalReceptionChat
                        //.GetListTest();
                        .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
                        DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
@@ -146,7 +141,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             ServiceOrder serviceOrder = (ServiceOrder)e.Argument;
             int rowCount;
-            var chatHistory = dalReception
+            var chatHistory = dalReceptionChat
                    //.GetListTest();
                    .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
                    DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
@@ -158,7 +153,7 @@ namespace Dianzhu.CSClient.Presenter
         {
 
             int rowCount;
-            var chatHistory = dalReception
+            var chatHistory = dalReceptionChat
             //.GetListTest();
             .GetReceptionChatList(customer, GlobalViables.CurrentCustomerService,
            IdentityManager.CurrentIdentity.Id

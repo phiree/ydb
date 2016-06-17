@@ -8,13 +8,7 @@ using NHibernate;
 namespace Dianzhu.DAL
 {
     public class DALDeviceBind :NHRepositoryBase<DeviceBind,Guid>,IDAL.IDALDeviceBind
-    {
-         public DALDeviceBind()
-        {
-             
-        }
-        //注入依赖,供测试使用;
-         
+    {         
         public void UpdateBindStatus(DZMembership member, string appToken, string appName)
         {
             //解除所有 apptoken  和 member的绑定
@@ -31,11 +25,11 @@ namespace Dianzhu.DAL
 
         public DeviceBind getDevBindByUUID(Guid uuid)
         {
-            return Session.QueryOver<DeviceBind>().Where(x => x.AppUUID == uuid).And(x=>x.IsBinding==true).SingleOrDefault();
+            return FindOne(x => x.AppUUID == uuid && x.IsBinding == true);
         }
         public DeviceBind getDevBindByUserID(DZMembership user)
         {
-            return Session.QueryOver<DeviceBind>().Where(x => x.DZMembership == user).And(x => x.IsBinding == true).SingleOrDefault();
+            return FindOne(x => x.DZMembership.Id == user.Id && x.IsBinding == true);
         }
     }
 }

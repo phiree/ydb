@@ -8,13 +8,8 @@ namespace Dianzhu.Model
     /// <summary>
     /// 支付记录.
     /// </summary>
-    public class PaymentLog
+    public class PaymentLog : DDDCommon.Domain.Entity<Guid>
     {
-        /// <summary>
-        /// 主键
-        /// </summary>
-        public virtual Guid Id { get; set; }
-
         /// <summary>
         /// 请求参数 // api回调参数
         /// </summary>

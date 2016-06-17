@@ -8,18 +8,8 @@ using NHibernate;
 using NHibernate.Criterion;
 namespace Dianzhu.DAL
 {
-    public class DALServiceOrderAppraise : DALBase<ServiceOrderAppraise>
+    public class DALServiceOrderAppraise : NHRepositoryBase<ServiceOrderAppraise,Guid>,IDAL.IDALServiceOrderAppraise
     {
-        public DALServiceOrderAppraise()
-        {
-
-        }
-        //注入依赖,供测试使用;
-        public DALServiceOrderAppraise(string fortest) : base(fortest)
-        {
-
-        }
-
         
     }
 }

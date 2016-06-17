@@ -7,18 +7,8 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALPaymentLog : DALBase<Model.PaymentLog>
+    public class DALPaymentLog : NHRepositoryBase<Model.PaymentLog,Guid>,IDAL.IDALPaymentLog
     {
-        
-        public DALPaymentLog()
-        {
-           
-        }
-        //注入依赖,供测试使用;
-        public DALPaymentLog(string fortest):base(fortest)
-        {
-
-        }
 
     }
 }

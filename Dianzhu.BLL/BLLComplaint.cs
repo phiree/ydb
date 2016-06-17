@@ -8,11 +8,16 @@ namespace Dianzhu.BLL
 {
     public class BLLComplaint
     {
-        public DALComplaint DALComplaint = DALFactory.DALComplaint;
+        public IDAL.IDALComplaint DALComplaint;
 
-        public void SaveOrUpdate(Complaint ad)
+        public BLLComplaint(IDAL.IDALComplaint dal)
         {
-            DALComplaint.Update(ad);
+            DALComplaint = dal;
+        }
+
+        public void Save(Complaint c)
+        {
+            DALComplaint.Add(c);
         }
     }
 }

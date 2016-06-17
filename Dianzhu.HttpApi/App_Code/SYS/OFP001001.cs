@@ -62,8 +62,8 @@ public class ResponseOFP001001 : BaseResponse
                 return;
             }
 
-            BLLIMUserStatus bllIMUserStatus = new BLLIMUserStatus();
-            BLLIMUserStatusArchieve bllIMUserStatusArchieve = new BLLIMUserStatusArchieve();
+            BLLIMUserStatus bllIMUserStatus = Bootstrap.Container.Resolve<BLLIMUserStatus>();
+            BLLIMUserStatusArchieve bllIMUserStatusArchieve = Bootstrap.Container.Resolve<BLLIMUserStatusArchieve>();
             IMUserStatus currentIM = reqDataToImData(requestData);
             BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
             BLLReceptionStatusArchieve bllReceptionStatusArchieve = new BLLReceptionStatusArchieve();

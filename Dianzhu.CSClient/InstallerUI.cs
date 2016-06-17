@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dianzhu.CSClient.IView;
+using Dianzhu.BLL;
+using Dianzhu.IDAL;
+
 namespace Dianzhu.CSClient
 {
     public class InstallerUI : IWindsorInstaller
@@ -14,17 +17,35 @@ namespace Dianzhu.CSClient
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
 
-            container.Register(Component.For<Presenter.PMain>());
+            container.Register(Component.For<Presenter.PMain>().DependsOn(
+                Dependency.OnValue("bllReceptionStatus", new BLLReceptionStatus()),
+                Dependency.OnValue("bllReceptionChat", new BLLReceptionChat(container.Resolve<IDALReceptionChat>())),
+                Dependency.OnValue("bllReceptionChatDD", new BLLReceptionChatDD(container.Resolve<IDALReceptionChatDD>())),
+                Dependency.OnValue("bllReceptionStatusArchieve", new BLLReceptionStatusArchieve()),
+                Dependency.OnValue("bllIMUserStatus", new BLLIMUserStatus(container.Resolve<IDALIMUserStatus>()))
+                ));
             container.Register(Component.For<CSClient.Presenter.LoginPresenter>());
             container.Register(Component.For<CSClient.Presenter.IdentityManager>());
             container.Register(Component.For<CSClient.Presenter.PIdentityList>());
             container.Register(Component.For<CSClient.Presenter.PChatList>());
             container.Register(Component.For<CSClient.Presenter.PChatSend>());
             container.Register(Component.For<CSClient.Presenter.PNotice>());
-            container.Register(Component.For<CSClient.Presenter.POrder>());
+            container.Register(Component.For<CSClient.Presenter.POrder>().DependsOn(
+                Dependency.OnValue("dalHistory",new DAL.DALServiceOrderStateChangeHis()),
+                Dependency.OnValue("dalOrder", new DAL.DALServiceOrder()),
+                Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>()))
+                ));
             container.Register(Component.For<CSClient.Presenter.POrderHistory>());
-            container.Register(Component.For<CSClient.Presenter.PSearch>());
-          //  container.Register(Component.For<CSClient.Presenter.PShelfService>());
+            container.Register(Component.For<CSClient.Presenter.PSearch>().DependsOn(
+                Dependency.OnValue("bllService",new BLLDZService(container.Resolve<IDALDZService>(),container.Resolve<IDALDZTag>())),
+                Dependency.OnValue("bllPushService", new PushService(new DAL.DALServiceOrderPushedService(), container.Resolve<IBLLServiceOrder>(),new BLLPayment(container.Resolve<IDALPayment>(),container.Resolve<IDALClaims>()),new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))),
+                Dependency.OnValue("bllReceptionChat", new BLLReceptionChat(container.Resolve<IDALReceptionChat>())),
+                Dependency.OnValue("bllServcieType", new BLLServiceType()),
+                Dependency.OnValue("bllReceptionStatus", new BLLReceptionStatus())
+
+                ));
+
+            // DAL.DALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis
 
             container.Register(Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
             container.Register(Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());

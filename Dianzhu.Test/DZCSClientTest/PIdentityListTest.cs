@@ -22,8 +22,9 @@ namespace Dianzhu.Test.DZCSClientTest
             var viewChatList =  MockRepository.GenerateStub<IViewChatList>();
             viewChatList.ChatList = Builder<ReceptionChat>.CreateListOfSize(1).Build();
             var viewOrder = MockRepository.GenerateStub<IViewOrder>();
+            var dalReceptionChat= MockRepository.GenerateStub<IDAL.IDALReceptionChat>();
 
-            PChatList pChatList = new PChatList(viewChatList, viewCustomerList, new DAL.DALReception(), iIM);
+            PChatList pChatList = new PChatList(viewChatList, viewCustomerList, dalReceptionChat, iIM);
 
             IList<DZMembership> members = Builder<DZMembership>.CreateListOfSize(3)
                  .TheFirst(1).With(x => x.Id = new Guid("f197a81d-c984-4894-b21c-a5f00106e08b"))

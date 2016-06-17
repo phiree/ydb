@@ -24,6 +24,7 @@ public class ResponseCHAT001007:BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
 
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+        BLLReceptionChat bllReceptionChat = Bootstrap.Container.Resolve<BLLReceptionChat>();
 
         string raw_id = requestData.userID;
         DZMembership member;
@@ -39,8 +40,6 @@ public class ResponseCHAT001007:BaseResponse
         {
             member = p.GetUserById(new Guid(raw_id));
         }
-        BLLReception bllReception = new BLLReception();
-        BLLReceptionChat bllReceptionChat = new BLLReceptionChat();
         
         int rowCount;
         Guid orderId = Guid.Empty;
@@ -101,7 +100,7 @@ public class ResponseCHAT001007:BaseResponse
             }
         }
 
-        IList<ReceptionChat> chatList = bllReception.GetReceptionChatListByTargetIdAndSize(member, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetChat, requestData.low, chatTarget);
+        IList<ReceptionChat> chatList = bllReceptionChat.GetReceptionChatListByTargetIdAndSize(member, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageSize, targetChat, requestData.low, chatTarget);
 
         try
         {

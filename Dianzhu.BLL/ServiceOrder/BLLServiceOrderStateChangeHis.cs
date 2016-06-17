@@ -17,13 +17,13 @@ namespace Dianzhu.BLL
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
 
-        DALServiceOrderStateChangeHis dalServiceOrderStateChangeHis = null;
-        public BLLServiceOrderStateChangeHis()
+        IDAL.IDALServiceOrderStateChangeHis dalServiceOrderStateChangeHis;
+        public BLLServiceOrderStateChangeHis(IDAL.IDALServiceOrderStateChangeHis dal)
         {
-            dalServiceOrderStateChangeHis = DALFactory.DALServiceOrderStateChangeHis;
+            dalServiceOrderStateChangeHis = dal;
         }
 
-        public void SaveOrUpdate(ServiceOrder order, enum_OrderStatus oldStatus)
+        public void Save(ServiceOrder order, enum_OrderStatus oldStatus)
         {
             int num = 1;
             ServiceOrderStateChangeHis oldOrderHis = GetMaxNumberOrderHis(order);
@@ -32,7 +32,7 @@ namespace Dianzhu.BLL
                 num = oldOrderHis.Number + 1;
             }
             ServiceOrderStateChangeHis orderHis = new ServiceOrderStateChangeHis(order, oldStatus, num);
-            dalServiceOrderStateChangeHis.SaveOrUpdate(orderHis);
+            dalServiceOrderStateChangeHis.Add(orderHis);
         }
 
         public ServiceOrderStateChangeHis GetOrderHis(ServiceOrder order)

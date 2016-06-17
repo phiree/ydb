@@ -13,7 +13,7 @@ public partial class DZOrder_Default : BasePage
     Dianzhu.BLL.IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
 
     //   BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
-    BLLPayment bllPayment = new BLLPayment();
+    BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
 
     public string merchantID {
         get {
@@ -69,7 +69,7 @@ public partial class DZOrder_Default : BasePage
     protected void rpt_ItemDataBound(object sender, RepeaterItemEventArgs e) {
         ServiceOrder order = (ServiceOrder)e.Item.DataItem;
         Label txtStaffs = e.Item.FindControl("assignStaffs") as Label;
-        BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+        BLLOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<BLLOrderAssignment>();
         IList<OrderAssignment> list = bllOrderAssignment.GetOAListByOrder(order);
 
         if (list.LongCount() == 0) {

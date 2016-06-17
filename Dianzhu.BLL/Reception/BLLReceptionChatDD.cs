@@ -16,15 +16,14 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLReceptionChatDD
     {
-        public DALReceptionChatDD DALReceptionChatDD = null;
-        public BLLReceptionChatDD() { DALReceptionChatDD = DALFactory.DALReceptionChatDD; }
-        public BLLReceptionChatDD(DALReceptionChatDD dalDD)
+        public IDAL.IDALReceptionChatDD DALReceptionChatDD;
+        public BLLReceptionChatDD(IDAL.IDALReceptionChatDD dal)
         {
-            DALReceptionChatDD = dalDD;
+            DALReceptionChatDD = dal;
         }
         public void Save(ReceptionChatDD chatDD)
         {
-            DALReceptionChatDD.Save(chatDD);
+            DALReceptionChatDD.Add(chatDD);
         }
 
         public IList<ReceptionChatDD> GetChatDDListByOrder(IList<DZMembership> list)

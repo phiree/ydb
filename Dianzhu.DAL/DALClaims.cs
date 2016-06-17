@@ -7,13 +7,11 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALClaims :NHRepositoryBase<Claims,Guid>
+    public class DALClaims :NHRepositoryBase<Claims,Guid>,IDAL.IDALClaims
     {
-         
-        
         public Claims GetOneByOrder(ServiceOrder order)
         {
-            return Session.QueryOver<Claims>().Where(x => x.Order == order).SingleOrDefault();
+            return FindOne(x => x.Order.Id == order.Id);
         }
     }
 }

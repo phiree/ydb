@@ -39,7 +39,6 @@ namespace Dianzhu.Model
             chat.ChatType = chatType;
             return chat;
         }
-        public virtual Guid Id { get; set; }
      
         //保存的时间, 作为排序依据.
         public virtual DateTime SavedTime { get; set; }

@@ -24,13 +24,11 @@ namespace Dianzhu.CSClient.Presenter
     {
         ILog log = LogManager.GetLogger("Dianzhu.CSClient");
 
-        DALReceptionChat dalReceptionChat;
+        IDAL.IDALReceptionChat dalReceptionChat;
         IView.IViewChatList viewChatList;
         IViewChatSend viewChatSend;
         InstantMessage iIM;
-        public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList, InstantMessage iIM):this(viewChatSend,viewChatList,iIM,new DALReceptionChat())
-        { }
-        public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,InstantMessage iIM, DALReceptionChat dalReceptionChat)
+        public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,InstantMessage iIM,IDAL.IDALReceptionChat dalReceptionChat)
         {
             this.viewChatList = viewChatList;
             this.dalReceptionChat = dalReceptionChat;
@@ -69,7 +67,7 @@ namespace Dianzhu.CSClient.Presenter
             viewChatList.AddOneChat(chat);
 
             chat.MedialUrl = chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
-            dalReceptionChat.Save(chat);
+            dalReceptionChat.Add(chat);
 
             PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
         }
@@ -96,7 +94,7 @@ namespace Dianzhu.CSClient.Presenter
                 };
                 viewChatSend.MessageText = string.Empty;
                 viewChatList.AddOneChat(chat);
-                dalReceptionChat.Save(chat);
+                dalReceptionChat.Add(chat);
                 iIM.SendMessage(chat);
 
                 PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);

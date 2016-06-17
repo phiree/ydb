@@ -13,8 +13,8 @@ using Dianzhu.Pay;
 public partial class Pay_Default : System.Web.UI.Page
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Pay");
-    BLLServiceOrder bllOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
-    BLLPayment bllPayment = new BLLPayment();
+    BLLServiceOrder bllOrder = Bootstrap.Container.Resolve<BLLServiceOrder>();
+    BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
     ServiceOrder order = null;
     Payment payment = null;
     public Payment Payment

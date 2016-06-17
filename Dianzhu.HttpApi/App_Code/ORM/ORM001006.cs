@@ -23,9 +23,9 @@ public class ResponseORM001006 : BaseResponse
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-          PushService bllPushService = Bootstrap.Container.Resolve<PushService>();
-        BLLDZService bllDZService = new BLLDZService();
-        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
+        PushService bllPushService = Bootstrap.Container.Resolve<PushService>();
+        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
         string user_id = requestData.userID;
 
         try

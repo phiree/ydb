@@ -28,7 +28,6 @@ namespace Dianzhu.CSClient.Presenter
             this.dalOrder = dalOrder;
             this.iIM = iIM;
         }
-        public POrder(IInstantMessage.InstantMessage iIM, IViewOrder iViewOrder):this(iIM, iViewOrder,new DAL.DALServiceOrderStateChangeHis(),new DAL.DALServiceOrder(), new BLL.BLLPayment()){}
 
         /// <summary>
         /// 创建订单.

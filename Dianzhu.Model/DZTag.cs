@@ -10,7 +10,6 @@ namespace Dianzhu.Model
     /// </summary>
     public class DZTag:DDDCommon.Domain.Entity<Guid>
     {
-        public virtual Guid Id { get; set; }
         /// <summary>
         /// 标签文本
         /// </summary>

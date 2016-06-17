@@ -26,19 +26,6 @@ namespace Dianzhu.CSClient.MessageAdapter
             this.dalMembership = dalMembership;
             this.dalIMUserStatus = dalIMUserStatus;
         }
- 
-        static BLLIMUserStatus bllIMUserStatus;
-        BLLIMUserStatus BLLIMUserStatus
-        {
-            get
-            {
-                if (bllIMUserStatus == null) bllIMUserStatus = new BLLIMUserStatus();
-                return bllIMUserStatus;
-            }
-
-        }
-
-
 
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.CSClient.MessageAdapter");
         public MessageAdapter()

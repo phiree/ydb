@@ -22,7 +22,7 @@ public class ResponseSHM001007 : BaseResponse
 
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用
-        BLLDZTag bllDZTag = new BLLDZTag();
+        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
 
         string start_Time = requestData.stratTime;
         string end_Time = requestData.endTime;

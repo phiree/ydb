@@ -7,6 +7,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.Api.Model;
 using Newtonsoft.Json;
+using Dianzhu.IDAL;
 
 /// <summary>
 /// 删除员工
@@ -25,7 +26,7 @@ public class ResponseASN002001 : BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>(); BLLStaff bllStaff = new BLLStaff();
 
-        BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+        IDALOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<IDALOrderAssignment>();
 
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
@@ -115,7 +116,7 @@ public class ResponseASN002001 : BaseResponse
                                     continue;
                             }
 
-                            bllOrderAssignment.SaveOrUpdate(oa);
+                            bllOrderAssignment.Add(oa);
 
                             bllStaff.SaveOrUpdate(staff);
                         }

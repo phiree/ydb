@@ -6,12 +6,11 @@ using Dianzhu.Model;
 namespace Dianzhu.DAL
 {
 
-   public class DALServiceOrderPushedService:DAL.DALBase<ServiceOrderPushedService>
+   public class DALServiceOrderPushedService:NHRepositoryBase<ServiceOrderPushedService,Guid>,IDAL.IDALServiceOrderPushedService
     {
         public virtual IList<ServiceOrderPushedService> FindByOrder(ServiceOrder order)
         {
-            var query = Session.QueryOver<ServiceOrderPushedService>().Where(x => x.ServiceOrder == order);
-            return GetList(query);
+            return Find(x => x.ServiceOrder.Id == order.Id);
         }
     }
 }

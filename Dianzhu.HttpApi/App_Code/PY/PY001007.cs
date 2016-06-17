@@ -30,7 +30,7 @@ public class ResponsePY001007:BaseResponse
         ReqDataPY001007 requestData = this.request.ReqData.ToObject<ReqDataPY001007>();
 
         DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
-
+        BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
 
         try
         {
@@ -53,8 +53,7 @@ public class ResponsePY001007:BaseResponse
                 this.err_Msg = "payId格式有误";
                 return;
             }
-
-            BLLPayment bllPayment = new BLLPayment();
+            
             Payment payment = bllPayment.GetOne(payId);
 
             if (payment == null)

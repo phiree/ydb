@@ -11,16 +11,13 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLPayment
     {
-        BLLClaims bllClaims = null;
-        DAL.DALPayment dal;
+        IDAL.IDALPayment dal;
+        IDAL.IDALClaims dalClaims;
         string errMsg = string.Empty;
-        public BLLPayment(DAL.DALPayment dal,BLLClaims bllClaims)
+        public BLLPayment(IDAL.IDALPayment dal, IDAL.IDALClaims dalClaims)
         {
             this.dal = dal;
-            this.bllClaims = bllClaims;
-        }
-        public BLLPayment():this(new DAL.DALPayment(), new BLLClaims())
-        {
+            this.dalClaims = dalClaims;
         }
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLL");
         /// <summary>
@@ -91,7 +88,7 @@ namespace Dianzhu.BLL
             else if (paymentCount == 0)
             {
                 payment = new Payment { Amount=GetPayAmount(order, payTarget), Order=order, PayTarget= payTarget};
-                dal.Save(payment);
+                dal.Add(payment);
             }
             else //已经存在多项
             {
@@ -108,16 +105,14 @@ namespace Dianzhu.BLL
         }
         public Payment GetOne(Guid id)
         {
-            return dal.GetOne(id);
+            return dal.FindById(id);
         }
-        public void SaveOrUpdate(Payment payment)
+        public void Save(Payment payment)
         {
-            payment.LastUpdateTime = DateTime.Now;
-            dal.SaveOrUpdate(payment);
+            dal.Add(payment);
         }
         public void Update(Payment payment)
         {
-            payment.LastUpdateTime = DateTime.Now;
             dal.Update(payment);
         }
 
@@ -162,7 +157,7 @@ namespace Dianzhu.BLL
             else if (payTarget == enum_PayTarget.Compensation)
             {
                 log.Debug("查询订单的理赔");
-                Claims claims = bllClaims.GetOneByOrder(order);
+                Claims claims = dalClaims.GetOneByOrder(order);
                 if (claims == null)
                 {
                     log.Error("订单没有对应的理赔");

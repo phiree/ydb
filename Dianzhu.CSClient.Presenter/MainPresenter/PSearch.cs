@@ -32,11 +32,7 @@ namespace Dianzhu.CSClient.Presenter
         ServiceType ServiceTypeThird;
         #endregion
         #region contructor
-        public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
-            IViewOrder viewOrder,IViewChatList viewChatList,IViewIdentityList viewIdentityList,
-            IBLLServiceOrder bllServiceOrder,PushService pushService)
-            : this(iIM,viewSearch, viewSearchResult,viewOrder, viewChatList, viewIdentityList, new BLLDZService(), bllServiceOrder,pushService,  new BLLReceptionChat(),new BLLServiceType(),new BLLReceptionStatus())
-        { }
+        
         public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IView.IViewOrder viewOrder, IViewChatList viewChatList,IViewIdentityList viewIdentityList,
             BLLDZService bllService, IBLLServiceOrder bllServiceOrder, PushService bllPushService,BLLReceptionChat bllReceptionChat, BLLServiceType bllServcieType,BLLReceptionStatus bllReceptionStatus)

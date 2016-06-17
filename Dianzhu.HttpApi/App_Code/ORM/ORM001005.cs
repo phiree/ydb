@@ -25,8 +25,8 @@ public class ResponseORM001005 : BaseResponse
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
        
         PushService bllPushService =  Bootstrap.Container.Resolve<PushService>();
-        BLLDZService bllDZService = new BLLDZService();
-        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
+        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
         string raw_id = requestData.userID;
 
         try

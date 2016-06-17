@@ -24,7 +24,7 @@ public class ResponsePY001008 : BaseResponse
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-         BLLPayment bllPayment = new BLLPayment();
+        BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
 
         string raw_id = requestData.userID;
         string order_id = requestData.orderID;

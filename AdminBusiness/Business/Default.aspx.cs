@@ -10,7 +10,7 @@ using Dianzhu.IDAL;
 public partial class Business_Default : BasePage
 {
     IDALBusiness dalBusiness = Bootstrap.Container.Resolve<IDALBusiness>();
-    BLLDZService bllService = new BLLDZService();
+    BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
     protected void Page_Load(object sender, EventArgs e)
     {
         BrowserCheck.CheckVersion();

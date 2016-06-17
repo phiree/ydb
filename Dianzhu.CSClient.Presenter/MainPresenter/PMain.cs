@@ -25,12 +25,7 @@ namespace Dianzhu.CSClient.Presenter
 
         InstantMessage iIM;
         IViewIdentityList iViewIdentityList;
-        IBLLMembershipLoginLog bllLoginLog;
-        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM,IBLLMembershipLoginLog bllLoginLog, IViewIdentityList iViewIdentityList)
-            : this(viewMainForm, iIM, iViewIdentityList, bllLoginLog,new BLLReceptionStatus(), new BLLReceptionChat(), new BLLReceptionChatDD(), new BLLReceptionStatusArchieve(), new BLLIMUserStatus())
-        {
-
-        }
+        IBLLMembershipLoginLog bllLoginLog;        
 
         public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,BLLReceptionStatus bllReceptionStatus, BLLReceptionChat bllReceptionChat, BLLReceptionChatDD bllReceptionChatDD, BLLReceptionStatusArchieve bllReceptionStatusArchieve, BLLIMUserStatus bllIMUserStatus)
         {

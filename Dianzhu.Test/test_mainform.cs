@@ -29,15 +29,15 @@ namespace Dianzhu.Test
         public void sdfsdfsd()
         {
             DAL.DALMembership dalmember = Builder<DAL.DALMembership>.CreateNew().Build();
-            DAL.DALReception DALReception = Builder<DAL.DALReception>.CreateNew().Build();
+            DAL.DALReceptionChat DALReception = Builder<DAL.DALReceptionChat>.CreateNew().Build();
             DAL.DALDZService DALDZService = Builder<DAL.DALDZService>.CreateNew().Build();
             DZMembershipProvider bllMember = Builder<DZMembershipProvider>.CreateNew().Build();
 
-            BLLReception bllReception = Builder<BLLReception>.CreateNew()
-             .With(x => x.DALReception = DALReception).Build();
+            BLLReceptionChat bllReception = Builder<BLLReceptionChat>.CreateNew()
+             .With(x => x.DALReceptionChat = DALReception).Build();
 
-            BLLDZService bllDZService = Builder<BLLDZService>.CreateNew().
-                With(x => x.DALDZService = DALDZService).Build();
+            //BLLDZService bllDZService = Builder<BLLDZService>.CreateNew().
+            //    With(x => x.DALDZService = DALDZService).Build();
            // IMainFormView view = MockRepository.GenerateStub<IMainFormView>();
             InstantMessage xmpp = MockRepository.GenerateStub<InstantMessage>();
 

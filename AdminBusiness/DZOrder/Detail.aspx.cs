@@ -12,9 +12,9 @@ public partial class DZOrder_Detail : System.Web.UI.Page
 {
     Dianzhu.BLL.IBLLServiceOrder bllServeiceOrder = Bootstrap.Container.Resolve<Dianzhu.BLL.IBLLServiceOrder>();
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-   // BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
-    BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
-    BLLPayment bllPayment = new BLLPayment();
+    // BLLServiceOrder bllServeiceOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
+    BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
+    BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
     public ServiceOrder CurrentOrder;
     public Business CurrentBusiness;
 

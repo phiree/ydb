@@ -20,11 +20,11 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     }
 
     private Guid ServiceId = Guid.Empty;
-    BLLDZService bllService = new BLLDZService();
+    BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
     BLLServiceType bllServiceType = new BLLServiceType();
     BLLServiceProperty bllServiceProperty = new BLLServiceProperty();
     BLLServicePropertyValue bllServicePropertyValue = new BLLServicePropertyValue();
-    BLLDZTag bllTag = new BLLDZTag();
+    BLLDZTag bllTag = Bootstrap.Container.Resolve<BLLDZTag>();
     public IList<ServiceProperty> TypeProperties = new List<ServiceProperty>();
     private bool IsNew { get { return ServiceId == Guid.Empty; } }
 

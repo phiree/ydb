@@ -81,6 +81,7 @@
     <Compile Include="BLLBusiness.cs" />
     <Compile Include="BLLAdvertisement.cs" />
     <Compile Include="BLLDeviceBind.cs" />
+    <Compile Include="BLLPaymentLog.cs" />
     <Compile Include="BLLMembershipLoginLog.cs" />
     <Compile Include="BLLRefundLog.cs" />
     <Compile Include="BLLRefund.cs" />
@@ -108,7 +109,6 @@
     <Compile Include="Promote\BLLCashTicket.cs" />
     <Compile Include="Promote\BLLCashticketCreateRecord.cs" />
     <Compile Include="Promote\BLLCashTicketTemplate.cs" />
-    <Compile Include="Reception\BLLReception.cs" />
     <Compile Include="Reception\BLLReceptionChat.cs" />
     <Compile Include="Reception\BLLReceptionChatDD.cs" />
     <Compile Include="Reception\BLLReceptionStatus.cs" />

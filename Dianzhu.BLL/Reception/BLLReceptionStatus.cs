@@ -387,12 +387,17 @@ namespace Dianzhu.BLL
     /// </summary>
     public class IMSessionsDB : IIMSession
     {
+        IDAL.IDALIMUserStatus dalIMUserStatus;
+        public IMSessionsDB(IDAL.IDALIMUserStatus dal)
+        {
+            dalIMUserStatus = dal;
+        }
+
         public IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource)
         {
             IList<OnlineUserSession> resultList=new List<OnlineUserSession>();
-            BLLIMUserStatus bllIMUserStatus = new BLLIMUserStatus();
 
-            IList<IMUserStatus> imList =  bllIMUserStatus.GetOnlineListByClientName(xmppResource);
+            IList<IMUserStatus> imList = dalIMUserStatus.GetOnlineListByClientName(xmppResource);
             if (imList.Count > 0)
             {
                 OnlineUserSession onlineUserSession;

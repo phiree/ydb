@@ -7,19 +7,8 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALMembershipLoginLog : DALBase<Model.MembershipLoginLog>
+    public class DALMembershipLoginLog : NHRepositoryBase<Model.MembershipLoginLog,Guid>,IDAL.IDALMembershipLoginLog
     {
-        
-        public DALMembershipLoginLog()
-        {
-           
-        }
-        //注入依赖,供测试使用;
-        public DALMembershipLoginLog(string fortest) : base(fortest)
-        {
-            
-        }
-       
        
     }
 }

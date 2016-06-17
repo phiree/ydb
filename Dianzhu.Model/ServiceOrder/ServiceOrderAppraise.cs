@@ -11,7 +11,7 @@ namespace Dianzhu.Model
     /// 订单明细. 包含服务项快照
     /// </summary>
     
-    public class ServiceOrderAppraise
+    public class ServiceOrderAppraise:DDDCommon.Domain.Entity<Guid>
     {
 
         #region constructor
@@ -35,11 +35,7 @@ namespace Dianzhu.Model
             this.Content = content;
         }
         #endregion
-
-        /// <summary>
-        /// ID
-        /// </summary>
-        public virtual Guid Id { get; set; }
+        
         /// <summary>
         /// 评价时间
         /// </summary>

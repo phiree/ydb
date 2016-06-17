@@ -24,10 +24,10 @@ public class ResponseORM005001 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
 
-        BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
+        BLLServiceOrderAppraise bllServiceOrderAppraise = Bootstrap.Container.Resolve<BLLServiceOrderAppraise>();
 
        
-        BLLClaims bllClaims = new BLLClaims();
+        BLLClaims bllClaims = Bootstrap.Container.Resolve<BLLClaims>();
 
 
         string user_ID = requestData.userID;

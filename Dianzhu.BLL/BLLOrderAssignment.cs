@@ -8,11 +8,11 @@ namespace Dianzhu.BLL
 {
     public class BLLOrderAssignment
     {
-        public DALOrderAssignment DALOrderAssignment = DALFactory.DALOrderAssignment;
+        public IDAL.IDALOrderAssignment DALOrderAssignment;
 
-        public void SaveOrUpdate(OrderAssignment db)
+        public BLLOrderAssignment(IDAL.IDALOrderAssignment dal)
         {
-            DALOrderAssignment.SaveOrUpdate(db);
+            DALOrderAssignment = dal;
         }
 
         public OrderAssignment FindByOrderAndStaff(ServiceOrder order,Staff staff)

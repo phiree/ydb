@@ -8,11 +8,16 @@ namespace Dianzhu.BLL
 {
     public class BLLIMUserStatusArchieve
     {
-        public DALIMUserStatusArchieve DALIMUserStatusArchieve = DALFactory.DALIMUserStatusArchieve;
+        public IDAL.IDALIMUserStatusArchieve DALIMUserStatusArchieve;
+
+        public BLLIMUserStatusArchieve(IDAL.IDALIMUserStatusArchieve dal)
+        {
+            DALIMUserStatusArchieve = dal;
+        }
 
         public void Save(IMUserStatusArchieve im)
         {
-            DALIMUserStatusArchieve.Save(im);
+            DALIMUserStatusArchieve.Add(im);
         }
     }
 }
