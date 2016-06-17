@@ -34,6 +34,17 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLServiceOpenTime>());
             // container.Register(Component.For<OrderShare>());
 
+            //20160614_longphui_add
+            container.Register(Component.For<BLLComplaint>());
+
+            //20160615_longphui_add
+            container.Register(Component.For<BLLDeviceBind>());
+
+            //20160616_longphui_add
+            container.Register(Component.For<BLLServiceOrderRemind>());
+            container.Register(Component.For<BLLOrderAssignment>());
+            container.Register(Component.For<BLLStaff>());
+
         }
     }
     public class InstallerRepository : IWindsorInstaller
@@ -87,6 +98,15 @@ namespace Dianzhu.DependencyInstaller
 
             container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
 
+            //20160614_longphui_add
+            container.Register(Component.For<IRepository<Complaint, Guid>, IDALComplaint>().ImplementedBy<DALComplaint>());
+
+            //20160615_longphui_add
+            container.Register(Component.For<IRepository<DeviceBind, Guid>, IDALDeviceBind>().ImplementedBy<DALDeviceBind>());
+
+            //20160616_longphui_add
+            container.Register(Component.For<IRepository<ServiceOrderRemind, Guid>, IDALServiceOrderRemind>().ImplementedBy<DALServiceOrderRemind>());
+            container.Register(Component.For<IRepository<OrderAssignment, Guid>, IDALOrderAssignment>().ImplementedBy<DALOrderAssignment>());
         }
     }
     public class InstallerApplicationService : IWindsorInstaller

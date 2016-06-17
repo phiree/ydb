@@ -43,6 +43,7 @@ namespace Dianzhu.DAL
         }
 
 
+
         public TEntity FindById(TPrimaryKey identityId)
         {
             TEntity result;

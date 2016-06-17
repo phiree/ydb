@@ -17,8 +17,9 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.AssignedTime);
             Map(x => x.DeAssignedTime);
             Map(x => x.Enabled);
-            
-            
+            Map(x => x.CreateTime);
+
+
         }
     }
   

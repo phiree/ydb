@@ -73,6 +73,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\DALClient.cs" />
+    <Compile Include="Client\DALRefreshToken.cs" />
     <Compile Include="DALMembershipLoginLog.cs" />
     <Compile Include="DALClaims.cs" />
     <Compile Include="DALComplaint.cs" />
@@ -105,6 +107,8 @@
     <Compile Include="IdentityAccess\DALRoleMember.cs" />
     <Compile Include="IdentityAccess\DALRole.cs" />
     <Compile Include="Mapping\ClaimsDetailsMap.cs" />
+    <Compile Include="Mapping\Client\ClientMap.cs" />
+    <Compile Include="Mapping\Client\RefreshTokenMap.cs" />
     <Compile Include="Mapping\Finance\BalanceFlowMap.cs" />
     <Compile Include="Mapping\IdentityAccess\AgentMap.cs" />
     <Compile Include="Mapping\Finance\SharePointMap.cs" />

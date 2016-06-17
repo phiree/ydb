@@ -34,8 +34,12 @@ namespace Dianzhu.BLL
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
         BLLClaims bllClaims = null;
 
+        //20160616_longphui_add
+        BLLOrderAssignment bllOrderAssignment = null;
+
+
         public BLLServiceOrder(IDAL.IDALServiceOrder repoServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis,
-           IDALMembership repoMembership, IDALRefund bllRefund, BLLPayment bllPayment ,BLLClaims bllClaims)
+           IDALMembership repoMembership, IDALRefund bllRefund, BLLPayment bllPayment ,BLLClaims bllClaims,BLLOrderAssignment bllOrderAssignment)
         {
             this.repoServiceOrder = repoServiceOrder;
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
@@ -44,6 +48,9 @@ namespace Dianzhu.BLL
             this.bllRefund = bllRefund;
             
             this.bllClaims = bllClaims;
+
+            //20160616_longphui_add
+            this.bllOrderAssignment = bllOrderAssignment;
         }
 
         public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
@@ -928,7 +935,7 @@ namespace Dianzhu.BLL
         #region 分配工作人员
         public void AssignStaff(ServiceOrder order, Staff staff)
         {
-            BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+            //BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
             OrderAssignment oa = new OrderAssignment();
             oa.Order = order;
             oa.AssignedStaff = staff;
@@ -937,7 +944,7 @@ namespace Dianzhu.BLL
         }
         public void DeassignStaff(ServiceOrder order, Staff staff)
         {
-            BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+            //BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
             OrderAssignment oa = bllOrderAssignment.FindByOrderAndStaff(order, staff);
             oa.DeAssignedTime = DateTime.Now;
             oa.Enabled = false;

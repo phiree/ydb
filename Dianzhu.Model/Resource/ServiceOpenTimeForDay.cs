@@ -12,6 +12,12 @@ namespace Dianzhu.Model
             Enabled = true;
         }
         public virtual Guid Id { get; set; }
+
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public virtual string Tag { get; set; }
+
         /// <summary>
         /// 该事件段内的最大接单数量
         /// </summary>

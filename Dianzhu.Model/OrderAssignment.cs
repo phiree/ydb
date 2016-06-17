@@ -15,7 +15,7 @@ namespace Dianzhu.Model
         /// </summary>
         public OrderAssignment()
         {
-            CreatTime = DateTime.Now;
+            CreateTime = DateTime.Now;
             Enabled = true;
         }
 
@@ -44,6 +44,6 @@ namespace Dianzhu.Model
         /// <summary>
         /// 保存时间
         /// </summary>
-        public virtual DateTime CreatTime { get; set; }
+        public virtual DateTime CreateTime { get; set; }
     }
 }

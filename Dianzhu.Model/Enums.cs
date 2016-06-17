@@ -548,4 +548,81 @@ namespace Dianzhu.Model.Enums
         Success=1,
         Fail=2,
     }
+
+    /// <summary>
+    /// 访问接口的客户端类型，主要区分js客户端和非js客户端
+    /// </summary>
+    public enum ApplicationTypes
+    {
+        JavaScript = 0,
+        NativeConfidential = 1
+    };
+
+    /// <summary>
+    /// 投诉目标类型
+    /// </summary>
+    public enum enum_ComplaintTarget
+    {
+        /// <summary>
+        /// 客服
+        /// </summary>
+        customerService,
+        /// <summary>
+        /// 店铺
+        /// </summary>
+        store
+    }
+
+    /// <summary>
+    /// 投诉状态，就是订单中的投诉状态
+    /// </summary>
+    public enum enum_ComplaintStatus
+    {
+        /// <summary>
+        /// 已提交投诉申请
+        /// </summary>
+        Complaints = 64,
+        /// <summary>
+        /// 等待官方审核投诉
+        /// </summary>
+        WaitingComplaints = 66,
+        /// <summary>
+        /// 投诉完成
+        /// </summary>
+        EndComplaints = 68,
+    }
+
+
+    /// <summary>
+    /// 平台标识类型
+    /// </summary>
+    public enum enum_appName
+    {
+        /// <summary>
+        /// IOS用户版
+        /// </summary>
+        IOS_User,
+        /// <summary>
+        /// IOS商户版
+        /// </summary>
+        IOS_Merchant,
+        /// <summary>
+        /// IOS客服版
+        /// </summary>
+        IOS_CustomerService,
+        /// <summary>
+        /// Android用户版
+        /// </summary>
+        Android_User,
+        /// <summary>
+        /// Android商户版
+        /// </summary>
+        Android_Merchant,
+        /// <summary>
+        /// Android客户版
+        /// </summary>
+        Android_CustomerService,
+    }
+
+
 }

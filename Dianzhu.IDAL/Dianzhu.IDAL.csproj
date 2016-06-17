@@ -47,6 +47,7 @@
     <Compile Include="DALCashTicket.cs" />
     <Compile Include="DalCashTicketCreateRecord.cs" />
     <Compile Include="DalCashTicketTemplate.cs" />
+    <Compile Include="DALComplaint.cs" />
     <Compile Include="DALDeviceBind.cs" />
     <Compile Include="DALDZService.cs" />
     <Compile Include="DALDZTag.cs" />
@@ -60,7 +61,9 @@
     <Compile Include="DALReceptionStatusArchieve.cs" />
     <Compile Include="DALRefundLog.cs" />
     <Compile Include="DALRefund.cs" />
+ 
     <Compile Include="IDALServiceOpenTime.cs" />
+ 
     <Compile Include="ServiceOrder\DALServiceOrder.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />

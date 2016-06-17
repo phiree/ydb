@@ -8,17 +8,17 @@ using NHibernate;
 using NHibernate.Criterion;
 namespace Dianzhu.DAL
 {
-    public class DALOrderAssignment : DALBase<OrderAssignment>
+    public class DALOrderAssignment : NHRepositoryBase<OrderAssignment, Guid>, IDAL.IDALOrderAssignment//: DALBase<OrderAssignment>
     {
         public DALOrderAssignment()
         {
 
         }
         //注入依赖,供测试使用;
-        public DALOrderAssignment(string fortest) : base(fortest)
-        {
+        //public DALOrderAssignment(string fortest) : base(fortest)
+        //{
 
-        }
+        //}
 
         public OrderAssignment FindByOrderAndStaff(ServiceOrder order, Staff staff)
         {
