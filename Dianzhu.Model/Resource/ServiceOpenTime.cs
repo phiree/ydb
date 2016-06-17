@@ -8,7 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 服务每天参数设定
     /// </summary>
-    public class ServiceOpenTime
+    public class ServiceOpenTime:DDDCommon.Domain.Entity<Guid>
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model.ServiceOpenTime");
         public ServiceOpenTime()

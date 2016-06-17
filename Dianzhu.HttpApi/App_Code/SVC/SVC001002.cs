@@ -28,7 +28,7 @@ public class ResponseSVC001002 : BaseResponse
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
 
         BLLDZService bllDZService = new BLLDZService();
-        BLLServiceType bllServiceType = new BLLServiceType();
+        BLLServiceType bllServiceType = Bootstrap.Container.Resolve < BLLServiceType>();
         BLLDZTag bllDZTag = new BLLDZTag();
 
         try

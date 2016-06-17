@@ -9,7 +9,7 @@ using System.Web.Security;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using System.Linq.Expressions;
-
+using DDDCommon;
 namespace Dianzhu.BLL
 {
     /// <summary>
@@ -77,7 +77,8 @@ namespace Dianzhu.BLL
             Expression<Func<Model.Business, bool>> sameOwner = i => i.Owner.Id ==member.Id;
             Expression<Func<Model.Business, bool>> isEnabled = i => i.Enabled;
 
-            int result=(int) dalBusiness.GetRowCount(DDDCommon.SpecExprExtensions.And(sameOwner,isEnabled) );
+            var where = PredicateBuilder.And(sameOwner, isEnabled);
+            int result=(int) dalBusiness.GetRowCount(where);
             return result;
         }
 

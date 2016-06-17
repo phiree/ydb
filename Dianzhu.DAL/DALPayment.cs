@@ -26,7 +26,8 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public virtual IList<Payment> GetPaymentsForOrder(ServiceOrder order)
         {
-            var list = Session.QueryOver<Payment>().Where(x => x.Order == order).List();
+
+            var list = GetList(Session.QueryOver<Payment>().Where(x => x.Order == order));
 
             return list;
         }

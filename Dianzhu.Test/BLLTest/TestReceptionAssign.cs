@@ -37,9 +37,9 @@ namespace Dianzhu.Test.BLLTest
                 .Build();
             dalMock.Expect(x=>x.DeleteAllCustomerAssign(new DZMembership()));
 
-            dalMock.Expect(x=>x.SaveOrUpdate(new ReceptionStatus()));
+            dalMock.Expect(x=>x.Add(new ReceptionStatus()));
             dalMock.Expect(x =>x.Delete(new ReceptionStatus()));
-            dalMock.Expect(x =>x.Save(new ReceptionStatus()));
+            dalMock.Expect(x =>x.Add(new ReceptionStatus()));
             dalMock.Stub(x => x.GetListByCustomerService(new DZMembership())).Return(
                 Builder<ReceptionStatus>.CreateListOfSize(1).Build()
                 );

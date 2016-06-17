@@ -14,34 +14,43 @@ namespace Dianzhu.BLL
 {
     public class BLLServiceType
     {
-        public DALServiceType DALServiceType=DALFactory.DALServiceType;
+        IDAL.IDALServiceType dalServiceType;
 
-         
+        public BLLServiceType(IDAL.IDALServiceType dalServiceType)
+        {
+            this.dalServiceType = dalServiceType;
+        }
+
+        public void Save(ServiceType serviceType)
+        {
+            dalServiceType.Add(serviceType);
+        }
+        public void Update(ServiceType serviceType)
+        {
+            dalServiceType.Update(serviceType);
+        }
         public ServiceType GetOne(Guid id)
         {
-            return DALServiceType.GetOne(id);
+            return dalServiceType.FindById(id);
         }
 
         public ServiceType GetOneByName(string name, int level)
         {
-            return DALServiceType.GetOneByName(name, level);
+            return dalServiceType.GetOneByName(name, level);
         }
 
         public IList<ServiceType> GetAll()
         {
-            return DALServiceType.GetAll<ServiceType>();
+            return dalServiceType.Find(x => true); 
         }
-        public void SaveOrUpdate(ServiceType serviceType)
-        {
-            DALServiceType.SaveOrUpdate(serviceType);
-        }
+         
         /// <summary>
         /// 获取最顶层的类型
         /// </summary>
         /// <returns></returns>
         public IList<ServiceType> GetTopList()
         {
-            return DALServiceType.GetTopList();
+            return dalServiceType.GetTopList();
         }
         /// <summary>
         /// 保存
@@ -50,24 +59,7 @@ namespace Dianzhu.BLL
         /// <param name="parentId">所属分类ID</param>
         /// <param name="values">属性值, 多个用逗号分隔</param>
         /// <returns></returns>
-        public ServiceType Create(string propertyName, Guid serviceTypeId, string values)
-        {
-
-
-            ServiceType currentServiceType = GetOne(serviceTypeId);
-            ServiceProperty serviceProperty = new ServiceProperty { Name = propertyName, ServiceType = currentServiceType };
-
-            IList<ServicePropertyValue> propertyValues = new List<ServicePropertyValue>();
-            string[] arrPropertyValues = values.Split(',');
-            foreach (string value in arrPropertyValues)
-            {
-                ServicePropertyValue propertyValue = new ServicePropertyValue { PropertyValue = value, ServiceProperty = serviceProperty };
-                propertyValues.Add(propertyValue);
-            }
-            serviceProperty.Values = propertyValues;
-            SaveOrUpdate(currentServiceType);
-            return currentServiceType;
-        }
+        
 
         DAL.Finance.DALServiceTypePoint dalPoint = new DAL.Finance.DALServiceTypePoint();
         BLL.Finance.BLLServiceTypePoint bllPoint = new Finance.BLLServiceTypePoint();
@@ -78,7 +70,7 @@ namespace Dianzhu.BLL
             IList<ServiceTypePoint> pointList;
             IList<ServiceType> topServiceTypes = ServiceTypePointAdapter(rtdt.Read(out msg),out pointList);
             
-            DALServiceType.SaveList(topServiceTypes);
+            dalServiceType.SaveList(topServiceTypes);
             
              dalPoint.SaveList(pointList);
 

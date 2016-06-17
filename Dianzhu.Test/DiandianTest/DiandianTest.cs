@@ -9,7 +9,7 @@ using Dianzhu.DAL;
 using NUnit.Framework;
 using FizzWare.NBuilder;
 using agsXMPP.protocol.client;
-using DianzhuService.Diandian;
+ 
 
 namespace Dianzhu.Test.DiandianTest
 {

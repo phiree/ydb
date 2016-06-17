@@ -23,8 +23,25 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<CSClient.Presenter.PNotice>());
             container.Register(Component.For<CSClient.Presenter.POrder>());
             container.Register(Component.For<CSClient.Presenter.POrderHistory>());
-            container.Register(Component.For<CSClient.Presenter.PSearch>());
-          //  container.Register(Component.For<CSClient.Presenter.PShelfService>());
+            /* 
+            BLLDZService bllService, IBLLServiceOrder bllServiceOrder, PushService bllPushService,
+            BLLReceptionChat bllReceptionChat, BLLServiceType bllServcieType,BLLReceptionStatus bllReceptionStatus*/
+
+            container.Register(Component.For<CSClient.Presenter.PSearch>().DependsOn(
+                  Dependency.OnValue("bllService", new BLL.BLLDZService()),
+                Dependency.OnValue("bllServiceType", new BLL.BLLServiceType(container.Resolve<IDAL.IDALServiceType>())),
+                Dependency.OnValue("PushService", new BLL.PushService(container.Resolve<BLL.IBLLServiceOrder>())),
+                Dependency.OnValue("bllReceptionChat", new BLL.BLLReceptionChat()),
+                 Dependency.OnValue("bllReceptionStatus", new BLL.BLLReceptionStatus())
+
+
+
+                ));
+            /*
+                 BLLDZService bllService,  PushService bllPushService,
+            BLLReceptionChat bllReceptionChat, BLLServiceType bllServcieType,BLLReceptionStatus bllReceptionStatus)
+            */
+            //  container.Register(Component.For<CSClient.Presenter.PShelfService>());
 
             container.Register(Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
             container.Register(Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());

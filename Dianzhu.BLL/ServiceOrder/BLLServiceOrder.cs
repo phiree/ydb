@@ -60,6 +60,7 @@ namespace Dianzhu.BLL
 
                          && x.OrderStatus == enum_OrderStatus.Appraised)
                         ;
+                   
                     break;
                 case enum_OrderSearchType.Nt:
                     where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft

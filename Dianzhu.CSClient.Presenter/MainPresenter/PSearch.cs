@@ -22,7 +22,7 @@ namespace Dianzhu.CSClient.Presenter
         PushService bllPushService;
         IInstantMessage.InstantMessage iIM;
         BLLReceptionChat bllReceptionChat;
-        BLLServiceType bllServcieType;
+        BLLServiceType bllServiceType;
         BLLReceptionStatus bllReceptionStatus;
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
@@ -32,14 +32,11 @@ namespace Dianzhu.CSClient.Presenter
         ServiceType ServiceTypeThird;
         #endregion
         #region contructor
-        public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
-            IViewOrder viewOrder,IViewChatList viewChatList,IViewIdentityList viewIdentityList,
-            IBLLServiceOrder bllServiceOrder,PushService pushService)
-            : this(iIM,viewSearch, viewSearchResult,viewOrder, viewChatList, viewIdentityList, new BLLDZService(), bllServiceOrder,pushService,  new BLLReceptionChat(),new BLLServiceType(),new BLLReceptionStatus())
-        { }
+         
         public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IView.IViewOrder viewOrder, IViewChatList viewChatList,IViewIdentityList viewIdentityList,
-            BLLDZService bllService, IBLLServiceOrder bllServiceOrder, PushService bllPushService,BLLReceptionChat bllReceptionChat, BLLServiceType bllServcieType,BLLReceptionStatus bllReceptionStatus)
+            BLLDZService bllService, IBLLServiceOrder bllServiceOrder, PushService bllPushService,
+            BLLReceptionChat bllReceptionChat, BLLServiceType bllServiceType,BLLReceptionStatus bllReceptionStatus)
         {
             this.viewSearch = viewSearch; ;
             this.viewSearchResult = viewSearchResult;
@@ -49,7 +46,7 @@ namespace Dianzhu.CSClient.Presenter
             this.bllServiceOrder = bllServiceOrder;
             this.iIM = iIM;
             this.bllReceptionChat = bllReceptionChat;
-            this.bllServcieType = bllServcieType;
+            this.bllServiceType = bllServiceType;
             viewSearch.Search += ViewSearch_Search;
             this.bllPushService = bllPushService;
  
@@ -74,7 +71,7 @@ namespace Dianzhu.CSClient.Presenter
             System.Threading.Thread.Sleep(1000);
             if (this.ServiceTypeListTmp != null) { return; }
 
-            this.ServiceTypeListTmp = bllServcieType.GetTopList();
+            this.ServiceTypeListTmp = bllServiceType.GetTopList();
             this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
 
             foreach (ServiceType t in ServiceTypeListTmp)

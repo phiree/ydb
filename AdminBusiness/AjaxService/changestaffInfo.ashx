@@ -32,7 +32,7 @@ public class changepassword : IHttpHandler {
         if (is_valid)
         {
           var result= new  FluentValidation.Results.ValidationResult();
-           bllStaff.SaveOrUpdate(staff);
+           bllStaff.Update(staff);
         }
         
         context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\",\"data\":\""+staff.IsAssigned+"\"}");

@@ -6,17 +6,8 @@ using Dianzhu.Model;
 using NHibernate;
 namespace Dianzhu.DAL
 {
-    public class DALServiceOpenTime :DALBase<ServiceOpenTime>
+    public class DALServiceOpenTime :NHRepositoryBase<ServiceOpenTime,Guid>,IDAL.IDALServiceOpenTime
     {
-        public DALServiceOpenTime():base()
-        {
-            
-        }
-        //调用基类带参构造函数,避免初始化hibernatesession.
-        public DALServiceOpenTime(string fortest):base(fortest)
-        {
-            
-        }
         
 
         

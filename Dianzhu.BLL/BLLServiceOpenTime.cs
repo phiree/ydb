@@ -17,19 +17,20 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLServiceOpenTime
     {
-        public DALServiceOpenTime DALServiceOpenTime = null;
-        public BLLServiceOpenTime() { DALServiceOpenTime = DALFactory.DALServiceOpenTime; }
-        public BLLServiceOpenTime(DALServiceOpenTime dal)
+        public IDAL.IDALServiceOpenTime  DALServiceOpenTime = null;
+       
+        public BLLServiceOpenTime(IDAL.IDALServiceOpenTime dal)
         {
             DALServiceOpenTime = dal;
         }
         public ServiceOpenTime GetOne( Guid id  )
         {
-            return DALServiceOpenTime.GetOne(id);
+            return DALServiceOpenTime.FindById(id);
         }
-        public void SaveOrUpdate(ServiceOpenTime sot)
+        
+        public void Update(ServiceOpenTime sot)
         {
-            DALServiceOpenTime.SaveOrUpdate(sot);
+            DALServiceOpenTime.Update(sot);
         }
         
     }

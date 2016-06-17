@@ -8,7 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 支付记录.
     /// </summary>
-    public class RefundLog
+    public class RefundLog:DDDCommon.Domain.Entity<Guid>
     {
         protected RefundLog()
         {

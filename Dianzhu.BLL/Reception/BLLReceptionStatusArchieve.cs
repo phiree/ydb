@@ -19,11 +19,11 @@ namespace Dianzhu.BLL
         {
             this.dalRS = DALFactory.DALReceptionStatusArchieve;
         }
-
-        public void SaveOrUpdate(ReceptionStatusArchieve rsa)
+        public void Save(ReceptionStatusArchieve rsa)
         {
-            dalRS.SaveOrUpdate(rsa);
+            dalRS.Add(rsa);
         }
+         
 
         public IList<DZMembership> GetCustomerListByCS(DZMembership cs,int pageNum,int pageSize,out int totalAmount)
         {

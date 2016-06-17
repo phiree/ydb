@@ -36,7 +36,7 @@ public class TabSelection : IHttpHandler {
 
     private string  GetServiceTypeList(string parentId)
     {
-        BLLServiceType bll=new BLLServiceType();
+        BLLServiceType bll= Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
         IList<ServiceType> list=new List<ServiceType>();
         if (parentId == "0")
         {
