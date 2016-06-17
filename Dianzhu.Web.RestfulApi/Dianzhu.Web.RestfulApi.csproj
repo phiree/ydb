@@ -203,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\NewFolder1\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -250,8 +251,10 @@
     <Compile Include="Controllers\CITY\CitysController.cs" />
     <Compile Include="Controllers\REMIND\RemindsController.cs" />
     <Compile Include="Controllers\SNAPSHOT\SnapshotsController.cs" />
+    <Compile Include="Controllers\USER\MerchantsController.cs" />
     <Compile Include="Controllers\USER\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WORKTIME\WorkTimesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

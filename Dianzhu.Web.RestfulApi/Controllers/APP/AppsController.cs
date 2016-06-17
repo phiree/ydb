@@ -20,7 +20,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.APP
         /// <summary>
         /// 注册设备,userID 为空，表示匿名注册  , [FromBody]appObj appobj
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="id"></param>
+        /// <param name="appobj"></param>
+        /// <returns></returns>
         public IHttpActionResult PostDeviceBind(string id, [FromBody]appObj appobj)
         {
             try
@@ -36,7 +38,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.APP
         /// <summary>
         /// 删除设备
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IHttpActionResult DeleteDeviceBind(string id)
         {
             try
@@ -52,7 +55,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.APP
         /// <summary>
         /// 更新设备推送计数
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="id"></param>
+        /// <param name="pushCount"></param>
+        /// <returns></returns>
         public IHttpActionResult PatchDeviceBind(string id, [FromBody]Common_Body pushCount)
         {
             try

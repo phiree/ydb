@@ -22,7 +22,8 @@ namespace Dianzhu.ApplicationService.Assign
         /// <summary>
         /// 新建指派
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="assignobj"></param>
+        /// <returns></returns>
         public assignObj PostAssign(assignObj assignobj)
         {
             Model.OrderAssignment oa= Mapper.Map<assignObj, Model.OrderAssignment>(assignobj);
@@ -68,7 +69,9 @@ namespace Dianzhu.ApplicationService.Assign
         /// <summary>
         /// 条件读取指派
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="filter"></param>
+        /// <param name="assign"></param>
+        /// <returns></returns>
         public IList<assignObj> GetAssigns(common_Trait_Filtering filter, common_Trait_AssignFiltering assign)
         {
             IList<Model.OrderAssignment> listassign = null;
@@ -85,7 +88,8 @@ namespace Dianzhu.ApplicationService.Assign
         /// <summary>
         /// 统计指派的数量
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="assign"></param>
+        /// <returns></returns>
         public countObj GetAssignsCount(common_Trait_AssignFiltering assign)
         {
             countObj c = new countObj();

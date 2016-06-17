@@ -12,24 +12,30 @@ namespace Dianzhu.ApplicationService.Remind
         /// <summary>
         /// 条件读取提醒
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="filter"></param>
+        /// <param name="remind"></param>
+        /// <returns></returns>
         IList<remindObj> GetReminds(common_Trait_Filtering filter, common_Trait_RemindFiltering remind);
 
         /// <summary>
         /// 统计投诉的数量
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="remind"></param>
+        /// <returns></returns>
         countObj GetRemindsCount(common_Trait_RemindFiltering remind);
 
         /// <summary>
         /// 根据ID获取提醒
         /// </summary>
+        /// <param name="remindID"></param>
+        /// <returns></returns>
         remindObj GetRemindById(string remindID);
 
         /// <summary>
         /// 根据ID删除提醒
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="remindID"></param>
+        /// <returns></returns>
         object DeleteRemindById(string remindID);
     }
 }

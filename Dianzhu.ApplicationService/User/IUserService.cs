@@ -14,13 +14,21 @@ namespace Dianzhu.ApplicationService.User
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-         bool ValidateUser(string username, string password);
+        bool ValidateUser(string username, string password);
 
         /// <summary>
         /// 根据userID获取user
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
-        userObj GetUserById(string userID);
+        userObj GetUserById(string userID, string userType);
+
+        /// <summary>
+        /// 根据用户信息获取user
+        /// </summary>
+        /// <param name="userFilter"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        userObj GetUserByInfo(common_Trait_UserFiltering userFilter, string userType);
     }
 }

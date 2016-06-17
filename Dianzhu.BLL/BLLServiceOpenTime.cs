@@ -5,6 +5,7 @@ using System.Text;
 
 using Dianzhu.Model;
 using Dianzhu.DAL;
+using Dianzhu.IDAL;
 using Dianzhu.BLL.Validator;
 using FluentValidation;
 using FluentValidation.Results;
@@ -17,19 +18,27 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLServiceOpenTime
     {
-        public DALServiceOpenTime DALServiceOpenTime = null;
-        public BLLServiceOpenTime() { DALServiceOpenTime = DALFactory.DALServiceOpenTime; }
+        //20160617_longphui_modify
+        //public DALServiceOpenTime DALServiceOpenTime = null;
+        IDALServiceOpenTime DALServiceOpenTime = null;
+        public BLLServiceOpenTime(IDALServiceOpenTime DALServiceOpenTime)
+        {
+            //DALServiceOpenTime = DALFactory.DALServiceOpenTime;
+            this.DALServiceOpenTime = DALServiceOpenTime;
+        }
         public BLLServiceOpenTime(DALServiceOpenTime dal)
         {
             DALServiceOpenTime = dal;
         }
         public ServiceOpenTime GetOne( Guid id  )
         {
-            return DALServiceOpenTime.GetOne(id);
+            //return DALServiceOpenTime.GetOne(id);
+            return DALServiceOpenTime.FindById(id);
         }
         public void SaveOrUpdate(ServiceOpenTime sot)
         {
-            DALServiceOpenTime.SaveOrUpdate(sot);
+            //DALServiceOpenTime.SaveOrUpdate(sot);
+            DALServiceOpenTime.Update(sot);
         }
         
     }
@@ -38,15 +47,22 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLServiceOpenTimeForDay
     {
-        public DALServiceOpenTimeForDay DALServiceOpenTimeForDay = null;
-        public BLLServiceOpenTimeForDay() { DALServiceOpenTimeForDay = DALFactory.DALServiceOpenTimeForDay; }
+        //20160617_longphui_modify
+        //public DALServiceOpenTimeForDay DALServiceOpenTimeForDay = null;
+        IDALServiceOpenTimeForDay DALServiceOpenTimeForDay = null;
+        public BLLServiceOpenTimeForDay(IDALServiceOpenTimeForDay DALServiceOpenTimeForDay)
+        {
+            //DALServiceOpenTimeForDay = DALFactory.DALServiceOpenTimeForDay;
+            this.DALServiceOpenTimeForDay = DALServiceOpenTimeForDay;
+        }
         public BLLServiceOpenTimeForDay(DALServiceOpenTimeForDay dal)
         {
             DALServiceOpenTimeForDay = dal;
         }
         public ServiceOpenTimeForDay GetOne(Guid id)
         {
-            return DALServiceOpenTimeForDay.GetOne(id);
+            //return DALServiceOpenTimeForDay.GetOne(id);
+            return DALServiceOpenTimeForDay.FindById(id);
         }
         public void Delete(ServiceOpenTimeForDay sotForDay)
         {

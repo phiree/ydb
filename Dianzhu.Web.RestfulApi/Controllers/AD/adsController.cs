@@ -20,7 +20,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.AD
         /// <summary>
         /// 条件读取广告
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="adf"></param>
+        /// <returns></returns>
         public IHttpActionResult GetADs([FromUri]common_Trait_AdFiltering adf)
         {
             try

@@ -40,7 +40,9 @@ namespace Dianzhu.ApplicationService.Complaint
         /// <summary>
         /// 条件读取投诉
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="filter"></param>
+        /// <param name="complaint"></param>
+        /// <returns></returns>
         public IList<complaintObj> GetComplaints(common_Trait_Filtering filter, common_Trait_ComplainFiltering complaint)
         {
             IList<Model.Complaint> listcomplaint = null;
@@ -58,7 +60,8 @@ namespace Dianzhu.ApplicationService.Complaint
         /// <summary>
         /// 统计投诉的数量
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="complaint"></param>
+        /// <returns></returns>
         public countObj GetComplaintsCount(common_Trait_ComplainFiltering complaint)
         {
             countObj c = new countObj();

@@ -36,11 +36,36 @@ namespace Dianzhu.ApplicationService.User
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
-        public userObj GetUserById(string userID)
+        public userObj GetUserById(string userID,string userType)
         {
-            Dianzhu.Model.DZMembership dzm =dzmsp .GetUserById(new Guid(userID));
+            Dianzhu.Model.DZMembership dzm =dzmsp .GetUserById(utils.CheckGuidID(userID, "userID"));
             userObj userobj = null;
-            if (dzm.UserType.ToString()== "customer")//customer=1
+            if (dzm.UserType.ToString()== userType)//customer=1"customer"
+            {
+                userobj = Mapper.Map<Dianzhu.Model.DZMembership, userObj>(dzm);
+            }
+            if (userobj == null)
+            {
+                throw new Exception(Dicts.StateCode[4]);
+            }
+            return userobj;
+        }
+
+        /// <summary>
+        /// 根据用户信息获取user
+        /// </summary>
+        /// <param name="userFilter"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        public userObj GetUserByInfo(common_Trait_UserFiltering userFilter, string userType)
+        {
+            if ((userFilter.alias == null || userFilter.alias == "") && (userFilter.email == null || userFilter.email == "") && (userFilter.phone == null || userFilter.phone == ""))
+            {
+                throw new Exception("至少要传入用户名、手机号码和邮箱三个中的一个！");
+            }
+            Dianzhu.Model.DZMembership dzm = dzmsp.GetUserByInfo(userFilter.alias, userFilter.email, userFilter.phone);
+            userObj userobj = null;
+            if (dzm.UserType.ToString() == userType)//customer=1"customer"
             {
                 userobj = Mapper.Map<Dianzhu.Model.DZMembership, userObj>(dzm);
             }

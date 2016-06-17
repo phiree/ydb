@@ -17,14 +17,17 @@ namespace Dianzhu.ApplicationService.Complaint
         /// <summary>
         /// 条件读取投诉
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="filter"></param>
+        /// <param name="complaint"></param>
+        /// <returns></returns>
         IList<complaintObj> GetComplaints(common_Trait_Filtering filter, common_Trait_ComplainFiltering complaint);
 
 
         /// <summary>
         /// 统计投诉的数量
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="complaint"></param>
+        /// <returns></returns>
         countObj GetComplaintsCount( common_Trait_ComplainFiltering complaint);
     }
 }

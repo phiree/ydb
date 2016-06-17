@@ -24,6 +24,10 @@ namespace Dianzhu.BLL
             DALOrderAssignment.Update(db);
         }
 
+        /// <summary>
+        /// 新建指派
+        /// </summary>
+        /// <param name="db"></param>
         public void Save(OrderAssignment db)
         {
             //DALOrderAssignment.SaveOrUpdate(db);
@@ -54,11 +58,16 @@ namespace Dianzhu.BLL
         {
             return DALOrderAssignment.FindById(AssignId);
         }
-
+        
         /// <summary>
         /// 条件读取指派
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="pagesize"></param>
+        /// <param name="pagenum"></param>
+        /// <param name="staffID"></param>
+        /// <param name="orderID"></param>
+        /// <param name="storeID"></param>
+        /// <returns></returns>
         public IList<Model.OrderAssignment> GetAssigns(int pagesize, int pagenum, Guid staffID, Guid orderID, Guid storeID)
         {
             var where = PredicateBuilder.True<OrderAssignment>();
@@ -79,10 +88,15 @@ namespace Dianzhu.BLL
             return list;
 
         }
+        
 
         /// <summary>
         /// 统计指派的数量
         /// </summary>
+        /// <param name="staffID"></param>
+        /// <param name="orderID"></param>
+        /// <param name="storeID"></param>
+        /// <returns></returns>
         public long GetAssignsCount(Guid staffID, Guid orderID, Guid storeID)
         {
             var where = PredicateBuilder.True<OrderAssignment>();

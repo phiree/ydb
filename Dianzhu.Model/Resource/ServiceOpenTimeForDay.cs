@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDCommon.Domain;
 
 namespace Dianzhu.Model
 {
-    public class ServiceOpenTimeForDay
+    public class ServiceOpenTimeForDay : Entity<Guid>
     {
         public ServiceOpenTimeForDay()
         {

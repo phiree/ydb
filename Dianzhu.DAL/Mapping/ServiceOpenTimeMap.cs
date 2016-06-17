@@ -26,8 +26,10 @@ namespace Dianzhu.DAL.Mapping
         public ServiceOpenTimeForDayMap()
         {
             Id(x => x.Id);
-            
-           
+
+            //20160617_longphui_add
+            Map(x => x.Tag);
+
             Map(x => x.TimeEnd);
             Map(x => x.TimeStart);
             Map(x => x.PeriodEnd);
