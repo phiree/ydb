@@ -147,7 +147,7 @@ public class ResponseOFP001001 : BaseResponse
                         VisitIMServerApi(imServerAPIInvokeUrlUn);
 
                         //接待关系存档
-                        bllReceptionStatusArchieve.SaveOrUpdate(RSToRsa(rs));
+                        bllReceptionStatusArchieve.Save(RSToRsa(rs));
 
                         //删掉接待关系
                         //bllReceptionStatus.Delete(rs);

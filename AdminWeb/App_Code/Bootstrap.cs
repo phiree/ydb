@@ -37,6 +37,7 @@ public class Bootstrap
             new Dianzhu.DependencyInstaller.InstallerApplicationService(),
             new InstallerAdminWeb()
             );
+
         
 
     }

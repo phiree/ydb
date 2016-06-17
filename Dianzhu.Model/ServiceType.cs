@@ -13,7 +13,7 @@ namespace Dianzhu.Model
     {
         public ServiceType()
         {
-            Properties = new List<ServiceProperty>();
+            
             Children = new List<ServiceType>();
            
         }
@@ -55,8 +55,7 @@ namespace Dianzhu.Model
         /// 排序
         /// </summary>
         public virtual int OrderNumber { get; set; }
-        public virtual IList<ServiceProperty> Properties { get; set; }
-
+       
         public virtual ServiceType TopType {
             get {
                 if (this.Parent == null)

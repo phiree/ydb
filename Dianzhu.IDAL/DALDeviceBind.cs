@@ -12,7 +12,10 @@ namespace Dianzhu.IDAL
 
           void UpdateBindStatus(DZMembership member, string appToken, string appName);
 
-          DeviceBind getDevBindByUUID(Guid uuid);
+
+        void SaveOrUpdate(DeviceBind devicebind);
+
+        DeviceBind getDevBindByUUID(Guid uuid);
           DeviceBind getDevBindByUserID(DZMembership user);
     }
 }

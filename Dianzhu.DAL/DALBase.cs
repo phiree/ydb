@@ -185,8 +185,9 @@ namespace Dianzhu.DAL
         {
             using (var t = session.BeginTransaction())
             {
+                var list= queryOver.List();
                 t.Commit();
-                return queryOver.List();
+                return list;
             }
         }
 

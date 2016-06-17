@@ -22,7 +22,9 @@ public class ResponseAPP001002:BaseResponse
     {
         ReqDataAPP001002 requestData = this.request.ReqData.ToObject<ReqDataAPP001002>();
 
+ 
         BLLDeviceBind bllDeviceBind = Bootstrap.Container.Resolve<BLLDeviceBind>();
+ 
 
         Guid uuId;
 

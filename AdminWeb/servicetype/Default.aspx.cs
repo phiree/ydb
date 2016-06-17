@@ -10,7 +10,7 @@ using PHSuit;
 
 public partial class servicetype_Default : System.Web.UI.Page
 {
-    BLLServiceType bllServiceType = new BLLServiceType();
+    BLLServiceType bllServiceType =  Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
     Dianzhu.BLL.Finance.BLLServiceTypePoint bllPoint = new Dianzhu.BLL.Finance.BLLServiceTypePoint();
     protected void Page_Load(object sender, EventArgs e)
     {

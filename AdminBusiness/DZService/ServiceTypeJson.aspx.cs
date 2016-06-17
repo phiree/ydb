@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using System.IO;
 public partial class DZService_ServiceTypeJson : System.Web.UI.Page
 {
-    BLLServiceType bllType = new BLLServiceType();
+    BLLServiceType bllType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
     protected void Page_Load(object sender, EventArgs e)
     {
      var list=   bllType.GetAll();

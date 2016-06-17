@@ -27,10 +27,16 @@ public class ResponseWTM001003 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
+ 
         BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
-        BLLServiceType bllServiceType = new BLLServiceType();
+ 
         BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
-        BLLServiceOpenTime bllServiceOpenTime = new BLLServiceOpenTime();
+    
+ 
+        BLLServiceType bllServiceType = Bootstrap.Container.Resolve < BLLServiceType>();
+   
+        BLLServiceOpenTime bllServiceOpenTime = Bootstrap.Container.Resolve < BLLServiceOpenTime>();
+ 
         BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = new BLLServiceOpenTimeForDay();
 
         try

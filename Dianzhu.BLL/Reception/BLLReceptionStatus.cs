@@ -73,7 +73,7 @@ namespace Dianzhu.BLL
             ReceptionStatus or = dalRS.GetOneByCustomerAndCS(cs, c);
             if (or == null)
             {
-                dalRS.Save(r);
+                dalRS.Add(r);
             }
             else
             {
@@ -278,7 +278,7 @@ namespace Dianzhu.BLL
             log.Debug("待分配的用户id：" + customer.Id.ToString());
             log.Debug("待分配的客服id：" + assigned[customer].Id.ToString());
             
-            dalRS.Save(newRs);
+            dalRS.Add(newRs);
 
             return assigned;
         }
@@ -308,7 +308,7 @@ namespace Dianzhu.BLL
                     Order = new BLLReceptionStatus().GetOrder(pair.Key, customerservice).Order,
                     LastUpdateTime = DateTime.Now
                 };
-                dalRS.Save(rs);
+                dalRS.Add(rs);
             }
 
             // delete old assign to database

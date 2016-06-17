@@ -73,7 +73,7 @@ public class ResponseASN001002 : BaseResponse
                 }
 
                 staff.Enable = false;
-                bllStaff.SaveOrUpdate(staff);
+                bllStaff.Update(staff);
 
                 string result = "N";
                 if (!staff.Enable)

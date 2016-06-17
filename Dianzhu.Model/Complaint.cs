@@ -30,15 +30,15 @@ namespace Dianzhu.Model
         /// <summary>
         /// 投诉目标
         /// </summary>
-        public virtual enum_ChatTarget Target { get; set; }
+        public virtual enum_ComplaintTarget Target { get; set; }
         /// <summary>
         /// 投诉内容
         /// </summary>
-        public virtual string Context { get; set; }
+        public virtual string Content { get; set; }
         /// <summary>
         /// 投诉的图片链接
         /// </summary>
-        public virtual string ResourcesUrl { get; set; }
+        public virtual IList<string> ResourcesUrl { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -55,5 +55,11 @@ namespace Dianzhu.Model
         /// 最后更新时间
         /// </summary>
         public virtual DateTime LastUpdateTime { get; set; }
+
+        /// <summary>
+        /// 该投诉的状态
+        /// </summary>
+        /// <type>string</type>
+        public virtual enum_ComplaintStatus Status { get; set; }
     }
 }

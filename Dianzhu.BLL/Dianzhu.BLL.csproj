@@ -91,6 +91,10 @@
     <Compile Include="BLLIMUserStatus.cs" />
     <Compile Include="BLLPay.cs" />
     <Compile Include="BLLBusinessImage.cs" />
+    <Compile Include="Client\BLLClient.cs" />
+    <Compile Include="Client\BLLRefreshToken.cs" />
+    <Compile Include="Client\IBLLClient.cs" />
+    <Compile Include="Client\IBLLRefreshToken.cs" />
     <Compile Include="Finance\BanlanceFlow.cs" />
     <Compile Include="Finance\IBalanceFlowService.cs" />
     <Compile Include="Finance\IBLLServiceTypePoint.cs" />
@@ -103,7 +107,6 @@
     <Compile Include="IEncryptService.cs" />
     <Compile Include="IdentityAccess\ILoginService.cs" />
     <Compile Include="IdentityAccess\LoginDto.cs" />
-    <Compile Include="PredicateBuilder.cs" />
     <Compile Include="IdentityAccess\RoleDto.cs" />
     <Compile Include="IdentityAccess\RoleService.cs" />
     <Compile Include="Promote\BLLCashTicket.cs" />
@@ -126,8 +129,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BLLDZService.cs" />
     <Compile Include="BLLStaff.cs" />
-    <Compile Include="BLLServiceProperty.cs" />
-    <Compile Include="BLLServicePropertyValue.cs" />
     <Compile Include="Promote\BLLCashTIcketAssignDetail.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrderAppraise.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrderStateChangeHis.cs" />

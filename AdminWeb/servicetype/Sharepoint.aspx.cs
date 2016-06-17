@@ -14,7 +14,7 @@ public partial class servicetype_Sharepoint : System.Web.UI.Page
     /// 服务类别的分成列表
     /// </summary>
     BLLServiceTypePoint bLLServiceTypePoint = new BLLServiceTypePoint();
-    BLLServiceType bllType = new BLLServiceType();
+    BLLServiceType bllType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
     protected void Page_Load(object sender, EventArgs e)
     {
          

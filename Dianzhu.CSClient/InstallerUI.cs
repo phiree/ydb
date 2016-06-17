@@ -36,16 +36,18 @@ namespace Dianzhu.CSClient
                 Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>()))
                 ));
             container.Register(Component.For<CSClient.Presenter.POrderHistory>());
+ 
             container.Register(Component.For<CSClient.Presenter.PSearch>().DependsOn(
                 Dependency.OnValue("bllService",new BLLDZService(container.Resolve<IDALDZService>(),container.Resolve<IDALDZTag>())),
                 Dependency.OnValue("bllPushService", new PushService(new DAL.DALServiceOrderPushedService(), container.Resolve<IBLLServiceOrder>(),new BLLPayment(container.Resolve<IDALPayment>(),container.Resolve<IDALClaims>()),new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))),
                 Dependency.OnValue("bllReceptionChat", new BLLReceptionChat(container.Resolve<IDALReceptionChat>())),
-                Dependency.OnValue("bllServcieType", new BLLServiceType()),
+                Dependency.OnValue("bllServcieType", new BLLServiceType(container.Resolve<IDALServiceType>())),
                 Dependency.OnValue("bllReceptionStatus", new BLLReceptionStatus())
 
                 ));
 
             // DAL.DALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis
+ 
 
             container.Register(Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
             container.Register(Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());

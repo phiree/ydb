@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDCommon.Domain;
 
 namespace Dianzhu.Model
 {
     /// <summary>
     /// 服务每天参数设定
     /// </summary>
-    public class ServiceOpenTime
+ 
+    public class ServiceOpenTime : Entity<Guid>
+ 
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model.ServiceOpenTime");
         public ServiceOpenTime()

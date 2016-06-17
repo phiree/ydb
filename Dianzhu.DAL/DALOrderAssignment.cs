@@ -8,8 +8,10 @@ using NHibernate;
 using NHibernate.Criterion;
 namespace Dianzhu.DAL
 {
+ 
     public class DALOrderAssignment : NHRepositoryBase<OrderAssignment,Guid>,IDAL.IDALOrderAssignment
     {
+ 
         public OrderAssignment FindByOrderAndStaff(ServiceOrder order, Staff staff)
         {
             return FindOne(x => x.Order.Id == order.Id && x.AssignedStaff == staff);

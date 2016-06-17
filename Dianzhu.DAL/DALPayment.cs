@@ -16,7 +16,9 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public virtual IList<Payment> GetPaymentsForOrder(ServiceOrder order)
         {
+ 
             return Find(x => x.Order.Id == order.Id);
+ 
         }
 
         public virtual Payment GetPaymentForWaitPay(ServiceOrder order)

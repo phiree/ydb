@@ -13,7 +13,7 @@ namespace Dianzhu.Model
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Model.DZService");
         public DZService()
         {
-            PropertyValues = new List<ServicePropertyValue>();
+            
             Enabled = true;
             IsDeleted = false;
             InitOpenTimes();
@@ -74,10 +74,7 @@ namespace Dianzhu.Model
         /// 详细描述
         /// </summary>
         public virtual string Description { get; set; }
-        /// <summary>
-        /// 类别属性的值.
-        /// </summary>
-        public virtual IList<ServicePropertyValue> PropertyValues { get; set; }
+        
         /// <summary>
         /// 每日接单总量
         /// </summary>       
@@ -218,7 +215,7 @@ namespace Dianzhu.Model
             newService.Business = Business;
             newService.ServiceType = ServiceType;
             newService.Description = Description;
-            newService.PropertyValues = PropertyValues;
+            
             newService.BusinessAreaCode = BusinessAreaCode;
             newService.MinPrice = MinPrice;
             newService.UnitPrice = UnitPrice;

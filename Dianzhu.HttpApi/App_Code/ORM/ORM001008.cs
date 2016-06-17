@@ -25,8 +25,10 @@ public class ResponseORM001008 : BaseResponse
       
         BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
         PushService bllPushService = Bootstrap.Container.Resolve<PushService>();
-        BLLServiceOrderRemind bllServiceOrderRemind = new BLLServiceOrderRemind();
+
+        BLLServiceOrderRemind bllServiceOrderRemind = Bootstrap.Container.Resolve<BLLServiceOrderRemind>();
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
+ 
 
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 

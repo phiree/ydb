@@ -47,11 +47,11 @@
     <Compile Include="DALCashTicket.cs" />
     <Compile Include="DalCashTicketAssignDetail.cs" />
     <Compile Include="DALPaymentLog.cs" />
-    <Compile Include="DALComplaint.cs" />
     <Compile Include="DALClaims.cs" />
     <Compile Include="DalCashTicketAssignRecord.cs" />
     <Compile Include="DalCashTicketCreateRecord.cs" />
     <Compile Include="DalCashTicketTemplate.cs" />
+    <Compile Include="DALComplaint.cs" />
     <Compile Include="DALDeviceBind.cs" />
     <Compile Include="DALDZService.cs" />
     <Compile Include="DALDZTag.cs" />
@@ -64,12 +64,13 @@
     <Compile Include="DALReceptionChatDD.cs" />
     <Compile Include="DALReceptionStatus.cs" />
     <Compile Include="DALReceptionStatusArchieve.cs" />
+    <Compile Include="DALRefundLog.cs" />
     <Compile Include="DALRefund.cs" />
+    <Compile Include="IDALServiceOpenTime.cs" />
     <Compile Include="ServiceOrder\DALServiceOrder.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderAppraise.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />
-    <Compile Include="DALServiceProperty.cs" />
     <Compile Include="DALServiceType.cs" />
     <Compile Include="DALStaff.cs" />
     <Compile Include="Finance\DALSalePoint.cs" />

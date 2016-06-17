@@ -20,8 +20,6 @@ namespace Dianzhu.BLL
         static DALBusinessImage dalBusinessImage;
         static DALCashTicketCreateRecord dalCashTicketCreateRecord;
         static DALDZService dalDZService;
-        static DALServiceProperty dalServiceProperty;
-        static DALServicePropertyValue dalServicePropertyValue;
         static DALServiceType dalServiceType;
         static DALStaff dalStaff;
         static DALDeviceBind dalDeviceBind;
@@ -148,16 +146,7 @@ namespace Dianzhu.BLL
             get { return dalServiceType ?? new DALServiceType(); }
             set { dalServiceType = value; }
         }
-        public static DALServicePropertyValue DALServicePropertyValue
-        {
-            get { return dalServicePropertyValue ?? new DALServicePropertyValue(); }
-            set { dalServicePropertyValue = value; }
-        }
-        public static DALServiceProperty DALServiceProperty
-        {
-            get { return dalServiceProperty ?? new DALServiceProperty(); }
-            set { dalServiceProperty = value; }
-        }
+       
         public static DALDZService DALDZService
         {
             get

@@ -26,7 +26,9 @@ public class ResponseASN002001 : BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>(); BLLStaff bllStaff = new BLLStaff();
 
+ 
         IDALOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<IDALOrderAssignment>();
+ 
 
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
@@ -118,7 +120,7 @@ public class ResponseASN002001 : BaseResponse
 
                             bllOrderAssignment.Add(oa);
 
-                            bllStaff.SaveOrUpdate(staff);
+                            bllStaff.Update(staff);
                         }
                         else
                         {

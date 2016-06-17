@@ -23,6 +23,29 @@ namespace Dianzhu.DAL
 
         }
 
+
+        public void SaveOrUpdate(DeviceBind devicebind)
+        {
+            //解除之前所有 apptoken  和 member的绑定
+            string unbind_sql = "update DeviceBind db set db.IsBinding=0,db.BindChangedTime='" + devicebind.BindChangedTime.ToString("yyyy-MM-dd HH:mm:ss")
+                                + "' where db.IsBinding=1 and( ";
+            if (devicebind.DZMembership == null)
+            {
+                unbind_sql += "db.DZMembership.Id is null " ;
+            }
+            else
+            {
+                unbind_sql += "db.DZMembership.Id='" + devicebind.DZMembership.Id+"'";
+            }
+            unbind_sql += " or  db.AppToken='" + devicebind.AppToken + "')";
+            IQuery query = Session.CreateQuery(unbind_sql);
+            query.ExecuteUpdate();
+
+            //记录本次绑定
+            Add(devicebind);
+
+        }
+
         public DeviceBind getDevBindByUUID(Guid uuid)
         {
             return FindOne(x => x.AppUUID == uuid && x.IsBinding == true);

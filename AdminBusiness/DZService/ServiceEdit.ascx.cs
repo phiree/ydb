@@ -20,12 +20,14 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     }
 
     private Guid ServiceId = Guid.Empty;
+
     BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
-    BLLServiceType bllServiceType = new BLLServiceType();
-    BLLServiceProperty bllServiceProperty = new BLLServiceProperty();
-    BLLServicePropertyValue bllServicePropertyValue = new BLLServicePropertyValue();
+    
+    
     BLLDZTag bllTag = Bootstrap.Container.Resolve<BLLDZTag>();
-    public IList<ServiceProperty> TypeProperties = new List<ServiceProperty>();
+ 
+    BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+
     private bool IsNew { get { return ServiceId == Guid.Empty; } }
 
     public DZService CurrentService = new DZService();//当前的服务 对象.
@@ -84,17 +86,9 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
-            ServiceProperty p = e.Item.DataItem as ServiceProperty;
-            RadioButtonList rbl = e.Item.FindControl("rblValues") as RadioButtonList;
-            rbl.DataSource = p.Values;
-            rbl.DataTextField = "PropertyValue";
-            rbl.DataValueField = "Id";
-            rbl.DataBind();
-            ServicePropertyValue selectedValue = CurrentService.PropertyValues.SingleOrDefault(x => x.ServiceProperty == p);
-            if (selectedValue != null)
-            {
-                rbl.SelectedValue = selectedValue.Id.ToString();
-            }
+           
+             
+           
         }
     }
     public void LoadForm()
@@ -184,9 +178,7 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
         Guid gid = new Guid(hiTypeId.Value);
         ServiceType = bllServiceType.GetOne(gid);
         CurrentService.ServiceType = ServiceType;
-        IList<ServicePropertyValue> values = new List<ServicePropertyValue>();
-       
-        CurrentService.PropertyValues = values;
+        
         CurrentService.BusinessAreaCode = hiBusinessAreaCode.Value;
         CurrentService.ChargeUnit = (enum_ChargeUnit)(Convert.ToInt32(rblChargeUnit.Value));
 //        CurrentService.ChargeUnit = (enum_ChargeUnit)(Convert.ToInt32(rblChargeUnit.SelectedValue));
