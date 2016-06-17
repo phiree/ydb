@@ -74,6 +74,68 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        public void IdentityLogOnShowMsg(ServiceOrder serviceOrder,string msg)
+        {
+            Action lambda = () =>
+            {
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
+
+                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+
+                if (ucIdentity != null)
+                {
+                    ucIdentity.tbkCustomerStatus.Text = msg;
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
+        public void IdentityLogOnShowMsgAndTimer(ServiceOrder serviceOrder, string msg)
+        {
+            Action lambda = () =>
+            {
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
+
+                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+
+                if (ucIdentity != null)
+                {
+                    ucIdentity.tbkCustomerStatus.Text = msg;
+                    ucIdentity.TimeControlVisibility();
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
+        public void IdentityLogOffShowMsg(ServiceOrder serviceOrder)
+        {
+            Action lambda = () =>
+            {
+                string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
+
+                UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
+
+                if (ucIdentity != null)
+                {
+                    ucIdentity.tbkCustomerStatus.Text = "该用户已下线";
+                    ucIdentity.TimeControlCollapsed();
+                }
+            };
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(lambda);
+            }
+            else { lambda(); }
+        }
+
         public void RemoveIdentity(ServiceOrder serviceOrder)
         {
             Action lambda = () =>

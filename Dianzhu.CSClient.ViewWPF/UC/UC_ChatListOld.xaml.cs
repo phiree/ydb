@@ -284,6 +284,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public event AudioPlay AudioPlay;
         public event BtnMoreChat BtnMoreChat;
+        public event TimerTick TimerTick;
 
         public DZMembership CurrentCustomerService
         {

@@ -42,18 +42,18 @@ namespace Dianzhu.CSClient.Presenter
         private void IIM_IMReceivedMessage(ReceptionChat chat)
         {
             //判断信息类型
-            if(chat.ChatType== enum_ChatType.UserStatus)
-            {
-                ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+            //if(chat.ChatType== enum_ChatType.UserStatus)
+            //{
+            //    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
 
-                if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
-                {
-                    if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
-                    {
-                        ClearSearchList();
-                    }
-                }
-            }
+            //    if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+            //    {
+            //        if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
+            //        {
+            //            ClearSearchList();
+            //        }
+            //    }
+            //}
         }
 
         private void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)

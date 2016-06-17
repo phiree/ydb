@@ -17,6 +17,7 @@ using Dianzhu.Model;
 using System.Windows.Interop;
 using System.Windows.Controls.Primitives;
 using System.IO;
+using System.Windows.Threading;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -210,6 +211,15 @@ namespace Dianzhu.CSClient.ViewWPF
                 }
                 LoadBody(chat.MessageBody, pnlOneChat);
 
+                //增加计时器，超过时间后清理界面
+                DispatcherTimer timer;
+                if (chat.ReceiveTime!=DateTime.Parse("0001-01-01 00:00:00"))
+                {
+                    timer = new DispatcherTimer();
+                    timer.Interval = TimeSpan.FromMilliseconds(1000*60);
+                    timer.Tick += Timer_Tick;
+                    timer.Start();
+                }
 
                 //bye bye. you are abandoned. 2015-9-2
 
@@ -228,6 +238,11 @@ namespace Dianzhu.CSClient.ViewWPF
             {
                 lamda();
             }
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            TimerTick();
         }
 
         private void ChatImageGif_MediaEnded(object sender, RoutedEventArgs e)
@@ -322,6 +337,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public event AudioPlay AudioPlay;
         public event BtnMoreChat BtnMoreChat;
+        public event TimerTick TimerTick;
 
         public DZMembership CurrentCustomerService
         {

@@ -107,7 +107,7 @@ namespace Dianzhu.DependencyInstaller
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             //iadapter
-            container.Register(Component.For<CSClient.MessageAdapter.MessageAdapter,CSClient.IMessageAdapter.IAdapter>().ImplementedBy<CSClient.MessageAdapter.MessageAdapter>());
+            container.Register(Component.For<CSClient.IMessageAdapter.IAdapter>().ImplementedBy<CSClient.MessageAdapter.MessageAdapter>());
 
             //instantmessage
             string server = Config.Config.GetAppSetting("ImServer");
@@ -115,8 +115,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<CSClient.IInstantMessage.InstantMessage>().ImplementedBy<Dianzhu.CSClient.XMPP.XMPP>()
                                 .DependsOn(
                                     
-                                  Dependency.OnValue("server", server),
-                                  Dependency.OnValue("messageAdapter", container.Resolve<CSClient.IMessageAdapter.IAdapter>())
+                                  Dependency.OnValue("server", server) 
                                 , Dependency.OnValue("domain", domain)
                                 , Dependency.OnValue("resourceName", Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString())
                                 )

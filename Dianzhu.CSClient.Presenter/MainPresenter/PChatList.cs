@@ -45,9 +45,16 @@ namespace Dianzhu.CSClient.Presenter
             viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
             viewChatList.AudioPlay += ViewChatList_AudioPlay;
             viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
+            viewChatList.TimerTick += ViewChatList_TimerTick;
+
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
 
             chatHistoryAll = new Dictionary<Guid, IList<ReceptionChat>>();
+        }
+
+        private void ViewChatList_TimerTick()
+        {
+            //清理用户数据
         }
 
         private void ViewChatList_BtnMoreChat()
@@ -72,18 +79,18 @@ namespace Dianzhu.CSClient.Presenter
         private void IIM_IMReceivedMessage(ReceptionChat chat)
         {
             //判断信息类型
-            if(chat.ChatType== enum_ChatType.UserStatus)
-            {
-                ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
+            //if(chat.ChatType== enum_ChatType.UserStatus)
+            //{
+            //    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
 
-                if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
-                {
-                    if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
-                    {
-                        ClearChatList();
-                    }
-                }
-            }
+            //    if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
+            //    {
+            //        if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
+            //        {
+            //            ClearChatList();
+            //        }
+            //    }
+            //}
         }
 
         PHSuit.Media media = new PHSuit.Media();
