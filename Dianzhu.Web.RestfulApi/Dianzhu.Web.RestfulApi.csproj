@@ -54,7 +54,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Dianzhu.ApplicationService">
-      <HintPath>..\Dianzhu.ApplicationService\bin\Debug\Dianzhu.ApplicationService.dll</HintPath>
+      <HintPath>..\Dianzhu.ApplicationService\obj\Debug\Dianzhu.ApplicationService.dll</HintPath>
     </Reference>
     <Reference Include="Dianzhu.BLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
