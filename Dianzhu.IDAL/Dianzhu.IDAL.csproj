@@ -60,6 +60,7 @@
     <Compile Include="DALReceptionStatus.cs" />
     <Compile Include="DALReceptionStatusArchieve.cs" />
     <Compile Include="DALRefund.cs" />
+    <Compile Include="DALServiceOpenTime.cs" />
     <Compile Include="ServiceOrder\DALServiceOrder.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />

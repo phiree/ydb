@@ -36,8 +36,8 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<complaintObj, Model.Complaint>()
-            .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(new Guid(source.orderID))))
-            .ForMember(x => x.Operator, opt => opt.MapFrom(source => new DAL.DALMembership().FindById(new Guid(source.senderID))))
+            .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(utils.CheckGuidID(source.orderID, "orderID"))))
+            .ForMember(x => x.Operator, opt => opt.MapFrom(source => new DAL.DALMembership().FindById(utils.CheckGuidID(source.senderID, "senderID"))))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<adObj, Model.Advertisement>()
@@ -51,6 +51,17 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<remindObj, Model.ServiceOrderRemind>()
             .ForMember(x => x.RemindTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.time, "yyyyMMddHHmmss", "remindObj.time")))
             .ForMember(x => x.Open, opt => opt.MapFrom(source => source.bOpen))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<assignObj, Model.OrderAssignment>()
+            .ForMember(x => x.Order, opt => opt.MapFrom(source => new DAL.DALServiceOrder().FindById(utils.CheckGuidID(source.orderID, "orderID"))))
+            .ForMember(x => x.AssignedStaff, opt => opt.MapFrom(source => new DAL.DALOrderAssignment().FindById(utils.CheckGuidID(source.staffID, "staffID"))))
+            .ForMember(x => x.CreateTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.createTime, "yyyyMMddHHmmss", "remindObj.time")))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<workTimeObj, Model.ServiceOpenTimeForDay>()
+            .ForMember(x => x.MaxOrderForOpenTime, opt => opt.MapFrom(source => source.maxCountOrder))
+            .ForMember(x => x.Enabled, opt => opt.MapFrom(source => source.bOpen))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
 

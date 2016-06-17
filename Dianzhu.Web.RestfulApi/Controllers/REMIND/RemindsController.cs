@@ -10,7 +10,6 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
 {
     public class RemindsController : ApiController
     {
-
         private ApplicationService.Remind.IRemindService iremind = null;
         public RemindsController()
         {
@@ -27,6 +26,23 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
             try
             {
                 return Json(iremind.GetRemindById(id));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+
+        }
+
+        /// <summary>
+        /// 根据ID删除提醒
+        /// </summary>
+        /// <returns>area实体list</returns>
+        public IHttpActionResult DeleteRemindById(string id)
+        {
+            try
+            {
+                return Json(iremind.DeleteRemindById(id));
             }
             catch (Exception ex)
             {

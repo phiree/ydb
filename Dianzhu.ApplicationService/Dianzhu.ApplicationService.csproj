@@ -93,6 +93,8 @@
     <Compile Include="ADs\IADsService.cs" />
     <Compile Include="App\AppService.cs" />
     <Compile Include="App\IAppService.cs" />
+    <Compile Include="Assign\AssignService.cs" />
+    <Compile Include="Assign\IAssignService.cs" />
     <Compile Include="City\CityService.cs" />
     <Compile Include="City\ICityService.cs" />
     <Compile Include="Class1.cs" />
@@ -160,6 +162,8 @@
     <Compile Include="Staff\StaffService.cs" />
     <Compile Include="User\IUserService.cs" />
     <Compile Include="User\UserService.cs" />
+    <Compile Include="WorkTime\IWorkTimeService.cs" />
+    <Compile Include="WorkTime\WorkTimeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dianzhu.DAL\Dianzhu.DAL.csproj">

@@ -48,6 +48,17 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.time, opt => opt.MapFrom(source => source.RemindTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Open))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<Model.OrderAssignment, assignObj>()
+            .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.Order.Id))
+            .ForMember(x => x.staffID, opt => opt.MapFrom(source => source.AssignedStaff.Id))
+            .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreateTime.ToString("yyyyMMddHHmmss")))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap< Model.ServiceOpenTimeForDay, workTimeObj>()
+            .ForMember(x => x.maxCountOrder , opt => opt.MapFrom(source => source.MaxOrderForOpenTime))
+            .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Enabled ))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();
             //Mapper.CreateMap<FocusFormModel, Focus>();

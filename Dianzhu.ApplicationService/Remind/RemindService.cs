@@ -23,7 +23,7 @@ namespace Dianzhu.ApplicationService.Remind
         {
             IList<Model.ServiceOrderRemind> listremind = null;
             int[] page = utils.CheckFilter(filter);
-            listremind = bllremind.GetReminds(page[0], page[1], utils.CheckGuidID(remind.orderID, "orderID"), Guid.Empty, utils.CheckDateTime(remind.startTime,"yyyyMMdd", "startTime"), utils.CheckDateTime(remind.endTime, "yyyyMMdd", "startTime"));
+            listremind = bllremind.GetReminds(page[0], page[1], utils.CheckGuidID(remind.orderID, "orderID"), utils.CheckGuidID(filter.userID, "orderID"), utils.CheckDateTime(remind.startTime,"yyyyMMdd", "startTime"), utils.CheckDateTime(remind.endTime, "yyyyMMdd", "startTime"));
             if (listremind == null)
             {
                 throw new Exception(Dicts.StateCode[4]);
@@ -52,6 +52,22 @@ namespace Dianzhu.ApplicationService.Remind
             Model.ServiceOrderRemind remind = bllremind.GetRemindById(utils.CheckGuidID(remindID, "remindID"));
             remindObj remindobj = Mapper.Map<Model.ServiceOrderRemind, remindObj>(remind);
             return remindobj;
+        }
+
+        /// <summary>
+        /// 根据ID删除提醒
+        /// </summary>
+        /// <returns>area实体list</returns>
+        public object DeleteRemindById(string remindID)
+        {
+            Guid guid = utils.CheckGuidID(remindID, "remindID");
+            Model.ServiceOrderRemind remind = bllremind.GetRemindById(guid);
+            if (remind == null)
+            {
+                throw new Exception("该提醒不存在！");
+            }
+            bllremind.DeleteRemindById(remind);
+            return "删除成功！";
         }
     }
 }

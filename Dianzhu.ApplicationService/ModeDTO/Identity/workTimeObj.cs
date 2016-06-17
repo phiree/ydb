@@ -30,7 +30,7 @@ namespace Dianzhu.ApplicationService
         /// 结束时间（HH:mm）
         /// </summary>
         /// <type>string</type>
-        public string content { get; set; }
+        public string endTime { get; set; }
 
         /// <summary>
         /// 星期数（1~7 周一~周日）

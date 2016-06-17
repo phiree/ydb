@@ -36,12 +36,18 @@ namespace Dianzhu.ApplicationService
         /// 排序的字段依据
         /// </summary>
         /// <type>string</type>
-        public bool sortby { get; set; }
+        public string sortby { get; set; }
 
         /// <summary>
         /// 设置起始的ID（包含）
         /// </summary>
         /// <type>string</type>
-        public bool baseID { get; set; }
+        public string baseID { get; set; }
+
+        /// <summary>
+        /// 临时用于查询的用户名
+        /// </summary>
+        /// <type>string</type>
+        public string userID { get; set; }
     }
 }

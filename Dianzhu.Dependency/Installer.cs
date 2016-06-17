@@ -40,6 +40,8 @@ namespace Dianzhu.DependencyInstaller
 
             //20160616_longphui_add
             container.Register(Component.For<BLLServiceOrderRemind>());
+            container.Register(Component.For<BLLOrderAssignment>());
+            container.Register(Component.For<BLLStaff>());
 
         }
     }
@@ -67,6 +69,7 @@ namespace Dianzhu.DependencyInstaller
 
             //20160616_longphui_add
             container.Register(Component.For<IRepository<ServiceOrderRemind, Guid>, IDALServiceOrderRemind>().ImplementedBy<DALServiceOrderRemind>());
+            container.Register(Component.For<IRepository<OrderAssignment, Guid>, IDALOrderAssignment>().ImplementedBy<DALOrderAssignment>());
         }
     }
     public class InstallerApplicationService : IWindsorInstaller

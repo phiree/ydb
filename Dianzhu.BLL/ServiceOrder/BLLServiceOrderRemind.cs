@@ -111,10 +111,16 @@ namespace Dianzhu.BLL
         /// </summary>
         public Model.ServiceOrderRemind GetRemindById(Guid RemindId)
         {
-            //  iuw.BeginTransaction();
             var remind = dalServiceOrderRemind.FindById(RemindId);
-            //  iuw.Commit();
             return remind;
+        }
+
+        /// <summary>
+        /// 根据ID删除提醒
+        /// </summary>
+        public void DeleteRemindById(Model.ServiceOrderRemind remind)
+        {
+            dalServiceOrderRemind.Delete(remind);
         }
 
     }

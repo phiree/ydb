@@ -25,5 +25,11 @@ namespace Dianzhu.ApplicationService.Remind
         /// 根据ID获取提醒
         /// </summary>
         remindObj GetRemindById(string remindID);
+
+        /// <summary>
+        /// 根据ID删除提醒
+        /// </summary>
+        /// <returns>area实体list</returns>
+        object DeleteRemindById(string remindID);
     }
 }
