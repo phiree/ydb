@@ -38,16 +38,17 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<CSClient.Presenter.POrderHistory>());
  
             container.Register(Component.For<CSClient.Presenter.PSearch>().DependsOn(
-                Dependency.OnValue("bllService",new BLLDZService(container.Resolve<IDALDZService>(),container.Resolve<IDALDZTag>())),
-                Dependency.OnValue("bllPushService", new PushService(new DAL.DALServiceOrderPushedService(), container.Resolve<IBLLServiceOrder>(),new BLLPayment(container.Resolve<IDALPayment>(),container.Resolve<IDALClaims>()),new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))),
+                Dependency.OnValue("bllService", new BLLDZService(container.Resolve<IDALDZService>(), container.Resolve<IDALDZTag>())),
+                Dependency.OnValue("bllPushService", new PushService(container.Resolve<IDALServiceOrderPushedService>(), container.Resolve<IBLLServiceOrder>(),new BLLPayment(container.Resolve<IDALPayment>(),container.Resolve<IDALClaims>()),new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))),
                 Dependency.OnValue("bllReceptionChat", new BLLReceptionChat(container.Resolve<IDALReceptionChat>())),
                 Dependency.OnValue("bllServcieType", new BLLServiceType(container.Resolve<IDALServiceType>())),
                 Dependency.OnValue("bllReceptionStatus", new BLLReceptionStatus())
 
                 ));
 
-            // DAL.DALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis
- 
+            // PushService bllPushService, BLLReceptionChat bllReceptionChat, BLLServiceType bllServiceType,BLLReceptionStatus bllReceptionStatus
+            //IDAL.IDALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis
+
 
             container.Register(Component.For<IView.IViewMainForm>().ImplementedBy<ViewWPF.FormMain>());
             container.Register(Component.For<IView.ILoginForm>().ImplementedBy<ViewWPF.FormLogin>());

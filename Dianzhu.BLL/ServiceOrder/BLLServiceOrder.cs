@@ -186,7 +186,7 @@ namespace Dianzhu.BLL
         public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Business == business);
+            where = where.And(x => x.Business.Id == business.Id);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
 
             long long_totalAmount;
