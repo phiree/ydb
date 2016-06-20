@@ -28,9 +28,9 @@ public class ResponseSVC001003 : BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         BLLDZService bllDZService = new BLLDZService();
-        BLLServiceType bllServiceType = new BLLServiceType();
+        BLLServiceType bllServiceType =Bootstrap.Container.Resolve<BLLServiceType>();
         BLLDZTag bllDZTag = new BLLDZTag();
-        BLLServiceOpenTime bllServiceOpenTime = new BLLServiceOpenTime();
+        BLLServiceOpenTime bllServiceOpenTime = Bootstrap.Container.Resolve <BLLServiceOpenTime>();
 
         try
         {
@@ -176,7 +176,7 @@ public class ResponseSVC001003 : BaseResponse
                             default:
                                 break;
                         }
-                        bllServiceOpenTime.SaveOrUpdate(sot);
+                        bllServiceOpenTime.Update(sot);
                     }
                     svcObj.maxOrderString = "Y";
 

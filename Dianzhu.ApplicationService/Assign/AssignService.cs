@@ -53,7 +53,7 @@ namespace Dianzhu.ApplicationService.Assign
             oa.AssignedStaff = staff;
 
             bllassign.Save(oa);
-            bllstaff.SaveOrUpdate(staff);
+            bllstaff.Update(staff);
             oa = bllassign.GetAssignById(oa.Id);
             if (oa != null && oa.CreateTime == dt)
             {

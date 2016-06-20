@@ -34,7 +34,7 @@ public partial class Staff_Default : BasePage
             index = int.Parse(strIndex);
         }
        
-        IList<Staff> staffList=bllStaff.GetList(b.Id, Guid.Empty,index, pager.PageSize, out total);
+        IList<Staff> staffList=bllStaff.GetListByBusiness(b.Id, index, pager.PageSize, out total);
         pager.RecordCount = total;
         rptStaff.DataSource = staffList;
         rptStaff.DataBind();

@@ -17,8 +17,8 @@ public partial class Staff_Edit : BasePage
     public string StaffAvatarUrl = "/images/components/inputFile/input_head_default_128_128.png";
     BLLStaff bllStaff = new BLLStaff();
     ServiceType ServiceType = new ServiceType();
-    BLLServiceType bllServiceType = new BLLServiceType();
-    
+    BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -89,7 +89,13 @@ public partial class Staff_Edit : BasePage
     protected void btnOK_Click(object sender, EventArgs e)
     {
         UpdateForm();
-        bllStaff.SaveOrUpdate(s);
+        if (IsNew)
+        { bllStaff.Save(s); }
+        else
+        {
+            bllStaff.Update(s);
+        }
+         
         StaffId = s.Id;
         UploadImage();
         Response.Redirect("/staff/default.aspx?businessid="+Request["businessId"]);

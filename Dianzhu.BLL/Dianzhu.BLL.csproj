@@ -106,7 +106,6 @@
     <Compile Include="IEncryptService.cs" />
     <Compile Include="IdentityAccess\ILoginService.cs" />
     <Compile Include="IdentityAccess\LoginDto.cs" />
-    <Compile Include="PredicateBuilder.cs" />
     <Compile Include="IdentityAccess\RoleDto.cs" />
     <Compile Include="IdentityAccess\RoleService.cs" />
     <Compile Include="Promote\BLLCashTicket.cs" />
@@ -130,8 +129,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BLLDZService.cs" />
     <Compile Include="BLLStaff.cs" />
-    <Compile Include="BLLServiceProperty.cs" />
-    <Compile Include="BLLServicePropertyValue.cs" />
     <Compile Include="Promote\BLLCashTIcketAssignDetail.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrderAppraise.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrderStateChangeHis.cs" />

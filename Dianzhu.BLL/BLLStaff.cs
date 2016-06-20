@@ -15,28 +15,21 @@ namespace Dianzhu.BLL
         public DALStaff DALStaff = DALFactory.DALStaff;
 
 
-        public IList<Staff> GetList(Guid businessId, Guid serviceTypeId, int pageindex, int pagesize, out int totalRecords)
-        {
+       
 
-            return DALStaff.GetList(businessId, serviceTypeId, pageindex, pagesize, out totalRecords);
-        }
-
-        public void SaveOrUpdate(Staff staff)
-        {
-            DALStaff.SaveOrUpdate(staff);
-        }
+        
         public void Delete(Staff staff)
         {
             DALStaff.Delete(staff);
         }
         public Staff GetOne(Guid id)
         {
-            return DALStaff.GetOne(id);
+            return DALStaff.FindById(id);
         }
 
         public void Save(Staff staff)
         {
-            DALStaff.Save(staff);
+            DALStaff.Add(staff);
         }
 
         public void Update(Staff staff)
@@ -67,7 +60,7 @@ namespace Dianzhu.BLL
                 s.StaffAvatar.Add(biImage);
                 //s.BusinessImages.Add(biImage);
             }
-            SaveOrUpdate(s);
+            Update(s);
             return "/media/business/original/" + imageName;
         }
 
@@ -79,6 +72,14 @@ namespace Dianzhu.BLL
         public IList<Staff> GetAllListByBusiness(Business business)
         {
             return DALStaff.GetAllListByBusiness(business);
+        }
+
+        public IList<Staff> GetListByBusiness(Guid businessId, int pageIndex, int pageSize, out int totalRecord)
+        {
+            long longTotalRecord;
+            var list = DALStaff.Find(x => x.Belongto.Id == businessId, pageIndex, pageSize, out longTotalRecord);
+            totalRecord = (int)longTotalRecord;
+            return list;
         }
     }
 }

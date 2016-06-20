@@ -18,7 +18,7 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Description);
             References<ServiceType>(x => x.ServiceType).Not.LazyLoad();
             //References<ServiceType>(x => x.ServiceType);
-            HasMany<ServicePropertyValue>(x => x.PropertyValues);
+           
             Map(x => x.BusinessAreaCode).Length(2000);
             Map(x => x.ChargeUnit).CustomType<int>();
             Map(x => x.FixedPrice);

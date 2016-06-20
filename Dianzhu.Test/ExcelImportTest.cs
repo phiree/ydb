@@ -28,7 +28,7 @@ namespace Dianzhu.Test
             string outMsg;
             System.Data.DataTable table=rtd.Read(out outMsg);
             Assert.AreEqual("一、缴费充值", table.Rows[0][0].ToString());
-            BLLServiceType importor = new BLL.BLLServiceType();
+            BLLServiceType importor = Bootstrap.Container.Resolve < BLLServiceType>();
             IList<ServiceType> topTypeList = importor.ObjectAdapter(table);
             Assert.AreEqual(16,topTypeList.Count);
             Assert.AreEqual(10,topTypeList[0].Children[0].Children.Count);

@@ -16,6 +16,114 @@ namespace Dianzhu.ApplicationService
 {
     public class utils
     {
+        /// <summary>
+        /// 星期数验证
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static DayOfWeek CheckWeek(string str)
+        {
+            DayOfWeek week = new DayOfWeek();
+            switch ( str.ToLower())
+            {
+                case "0":
+                    week = DayOfWeek.Sunday;
+                    break;
+                case "1":
+                    week = DayOfWeek.Monday;
+                    break;
+                case "2":
+                    week = DayOfWeek.Tuesday;
+                    break;
+                case "3":
+                    week = DayOfWeek.Wednesday;
+                    break;
+                case "4":
+                    week = DayOfWeek.Thursday;
+                    break;
+                case "5":
+                    week = DayOfWeek.Friday;
+                    break;
+                case "6":
+                    week = DayOfWeek.Saturday;
+                    break;
+                case "7":
+                    week = DayOfWeek.Sunday;
+                    break;
+                case "monday":
+                    week = DayOfWeek.Monday;
+                    break;
+                case "tuesday":
+                    week = DayOfWeek.Tuesday;
+                    break;
+                case "wednesday":
+                    week = DayOfWeek.Wednesday;
+                    break;
+                case "thursday":
+                    week = DayOfWeek.Thursday;
+                    break;
+                case "friday":
+                    week = DayOfWeek.Friday;
+                    break;
+                case "saturday":
+                    week = DayOfWeek.Saturday;
+                    break;
+                case "sunday":
+                    week = DayOfWeek.Sunday;
+                    break;
+                case "星期一":
+                    week = DayOfWeek.Monday;
+                    break;
+                case "星期二":
+                    week = DayOfWeek.Tuesday;
+                    break;
+                case "星期三":
+                    week = DayOfWeek.Wednesday;
+                    break;
+                case "星期四":
+                    week = DayOfWeek.Thursday;
+                    break;
+                case "星期五":
+                    week = DayOfWeek.Friday;
+                    break;
+                case "星期六":
+                    week = DayOfWeek.Saturday;
+                    break;
+                case "星期日":
+                    week = DayOfWeek.Sunday;
+                    break;
+                case "星期天":
+                    week = DayOfWeek.Sunday;
+                    break;
+                case "周一":
+                    week = DayOfWeek.Monday;
+                    break;
+                case "周二":
+                    week = DayOfWeek.Tuesday;
+                    break;
+                case "周三":
+                    week = DayOfWeek.Wednesday;
+                    break;
+                case "周四":
+                    week = DayOfWeek.Thursday;
+                    break;
+                case "周五":
+                    week = DayOfWeek.Friday;
+                    break;
+                case "周六":
+                    week = DayOfWeek.Saturday;
+                    break;
+                case "周天":
+                    week = DayOfWeek.Sunday;
+                    break;
+                case "周日":
+                    week = DayOfWeek.Sunday;
+                    break;
+                default:
+                    throw new FormatException("星期数错误，必须为:1~7 或 monday~sunday 或 周一~周日 或 星期一~星期天！");
+            }
+            return week;
+        }
 
         /// <summary>
         /// 接口异常结果返回
@@ -54,12 +162,12 @@ namespace Dianzhu.ApplicationService
                     page[1] = int.Parse(filter.pageNum);
                     if (page[0] <= 0 || page[1] < 1)
                     {
-                        throw new Exception("分页参数pageSize,pageNum错误！");
+                        throw new FormatException("分页参数pageSize,pageNum错误！");
                     }
                 }
                 catch
                 {
-                    throw new Exception("分页参数pageSize,pageNum错误！");
+                    throw new FormatException("分页参数pageSize,pageNum错误！");
                 }
             }
             return page;
@@ -79,7 +187,7 @@ namespace Dianzhu.ApplicationService
             bool guididisGuid = Guid.TryParse(strGuidID, out GuidID);
             if (!guididisGuid)
             {
-                throw new Exception(strError+"格式有误");
+                throw new FormatException(strError+"格式有误");
             }
             return GuidID;
         }
@@ -102,7 +210,7 @@ namespace Dianzhu.ApplicationService
             }
             catch (Exception e)
             {
-                throw new Exception(strError + "格式有误");
+                throw new FormatException(strError + "格式有误");
             }
             return dt;
         }

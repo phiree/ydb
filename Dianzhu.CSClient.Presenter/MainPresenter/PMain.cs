@@ -137,7 +137,7 @@ namespace Dianzhu.CSClient.Presenter
                 CustomerService = cs,
                 Order = order,
             };
-            bllReceptionStatusArchieve.SaveOrUpdate(rsa);
+            bllReceptionStatusArchieve.Save(rsa);
             log.Debug("-------结束 接待记录存档------");
         }
 

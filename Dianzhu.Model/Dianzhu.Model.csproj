@@ -66,8 +66,6 @@
     <Compile Include="Claims.cs" />
     <Compile Include="Payment\RefundLog.cs" />
     <Compile Include="Payment\Refund.cs" />
-    <Compile Include="Resource\Specs\AdvertisementSpec\AdvertisementInPeriod.cs" />
-    <Compile Include="Resource\Specs\AdvertisementSpec\AdvertisementUseful.cs" />
     <Compile Include="ServiceOrderRemind.cs" />
     <Compile Include="Agent\Agent.cs" />
     <Compile Include="Complaint.cs" />
@@ -105,10 +103,8 @@
     <Compile Include="Resource\ServiceOpenTime.cs" />
     <Compile Include="Payment\Payment.cs" />
     <Compile Include="ServiceOrderStateChangeHis.cs" />
-    <Compile Include="ServiceProperty.cs" />
     <Compile Include="ServiceOrder\ServiceOrder.cs" />
     <Compile Include="ServiceType.cs" />
-    <Compile Include="ServiceTypePropertyValue.cs" />
     <Compile Include="Staff.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resource\Agent\" />
+    <Folder Include="Resource\Specs\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DDDCommon\DDDCommon.csproj">

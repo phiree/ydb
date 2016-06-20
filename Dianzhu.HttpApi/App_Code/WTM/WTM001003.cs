@@ -28,10 +28,13 @@ public class ResponseWTM001003 : BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         BLLDZService bllDZService = new BLLDZService();
-        BLLServiceType bllServiceType = new BLLServiceType();
+        BLLServiceType bllServiceType = Bootstrap.Container.Resolve < BLLServiceType>();
         BLLDZTag bllDZTag = new BLLDZTag();
-        BLLServiceOpenTime bllServiceOpenTime = new BLLServiceOpenTime();
-        BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = new BLLServiceOpenTimeForDay();
+        BLLServiceOpenTime bllServiceOpenTime = Bootstrap.Container.Resolve < BLLServiceOpenTime>();
+
+        //20160620_longphui_modify
+        //BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = new BLLServiceOpenTimeForDay();
+        BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = Bootstrap.Container.Resolve<BLLServiceOpenTimeForDay>();
 
         try
         {

@@ -143,8 +143,6 @@
     <Compile Include="Mapping\OrderAssignment.cs" />
     <Compile Include="Mapping\PaymentMap.cs" />
     <Compile Include="Mapping\StaffMap.cs" />
-    <Compile Include="Mapping\ServicePropertyMap.cs" />
-    <Compile Include="Mapping\ServicePropertyValueMap.cs" />
     <Compile Include="Mapping\CashTicketAssignRecord.cs" />
     <Compile Include="Mapping\DeviceBindMap.cs" />
     <Compile Include="Mapping\DZTagMap.cs" />
@@ -161,8 +159,6 @@
     <Compile Include="DALServiceType.cs" />
     <Compile Include="DALDZService.cs" />
     <Compile Include="DALStaff.cs" />
-    <Compile Include="DALServiceProperty.cs" />
-    <Compile Include="DALServicePropertyValue.cs" />
     <Compile Include="DALBusinessImage.cs" />
     <Compile Include="DALCashTicketAssignRecord.cs" />
     <Compile Include="DALCashTicketAssignDetail.cs" />

@@ -54,7 +54,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Dianzhu.ApplicationService">
-      <HintPath>..\Dianzhu.ApplicationService\bin\Debug\Dianzhu.ApplicationService.dll</HintPath>
+      <HintPath>..\Dianzhu.ApplicationService\obj\Debug\Dianzhu.ApplicationService.dll</HintPath>
     </Reference>
     <Reference Include="Dianzhu.BLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -63,6 +63,10 @@
     <Reference Include="Dianzhu.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dianzhu.Model\bin\Debug\Dianzhu.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>

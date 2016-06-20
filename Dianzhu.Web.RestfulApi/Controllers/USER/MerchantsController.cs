@@ -46,5 +46,17 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
             }
         }
 
+        public IHttpActionResult PostUserByInfo([FromBody]common_Trait_UserFiltering userFilter)
+        {
+            try
+            {
+                return Json(iuserservice.GetUserByInfo(userFilter, "business"));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
     }
 }

@@ -21,9 +21,12 @@ public class ResponseSLF002003:BaseResponse
     protected override void BuildRespData()
     {
         ReqDataSLF002003 requestData = this.request.ReqData.ToObject<ReqDataSLF002003>();
-         
+
         //todo: 使用 ninject,注入依赖.
-        BLLServiceOpenTimeForDay bllOpentime = new BLLServiceOpenTimeForDay();
+
+        //20160620_longphui_modify
+        //BLLServiceOpenTimeForDay bllOpentime = new BLLServiceOpenTimeForDay();
+        BLLServiceOpenTimeForDay bllOpentime = Bootstrap.Container.Resolve<BLLServiceOpenTimeForDay>();
 
         string open_Id = requestData.openTimeForDayId;
 

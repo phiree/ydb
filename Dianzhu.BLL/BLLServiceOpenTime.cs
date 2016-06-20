@@ -26,16 +26,13 @@ namespace Dianzhu.BLL
             //DALServiceOpenTime = DALFactory.DALServiceOpenTime;
             this.DALServiceOpenTime = DALServiceOpenTime;
         }
-        public BLLServiceOpenTime(DALServiceOpenTime dal)
-        {
-            DALServiceOpenTime = dal;
-        }
         public ServiceOpenTime GetOne( Guid id  )
         {
             //return DALServiceOpenTime.GetOne(id);
             return DALServiceOpenTime.FindById(id);
         }
-        public void SaveOrUpdate(ServiceOpenTime sot)
+        
+        public void Update(ServiceOpenTime sot)
         {
             //DALServiceOpenTime.SaveOrUpdate(sot);
             DALServiceOpenTime.Update(sot);
@@ -55,10 +52,10 @@ namespace Dianzhu.BLL
             //DALServiceOpenTimeForDay = DALFactory.DALServiceOpenTimeForDay;
             this.DALServiceOpenTimeForDay = DALServiceOpenTimeForDay;
         }
-        public BLLServiceOpenTimeForDay(DALServiceOpenTimeForDay dal)
-        {
-            DALServiceOpenTimeForDay = dal;
-        }
+        //public BLLServiceOpenTimeForDay(DALServiceOpenTimeForDay dal)
+        //{
+        //    DALServiceOpenTimeForDay = dal;
+        //}
         public ServiceOpenTimeForDay GetOne(Guid id)
         {
             //return DALServiceOpenTimeForDay.GetOne(id);

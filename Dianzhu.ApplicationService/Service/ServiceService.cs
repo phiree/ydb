@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.ApplicationService.Service
 {
-    class ServiceService
+    public class ServiceService: IServiceService
     {
     }
 }

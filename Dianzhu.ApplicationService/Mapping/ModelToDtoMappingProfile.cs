@@ -18,47 +18,54 @@ namespace Dianzhu.ApplicationService.Mapping
         protected override void Configure()
         {
             Mapper.CreateMap<Model.Client,ClientDTO > ()
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.RefreshToken,RefreshTokenDTO > ()
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.DZMembership,userObj>()
             .ForMember(x => x.alias, opt => opt.MapFrom(source => source.UserName))
             .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl))
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Area, cityObj>()
             .ForMember(x => x.name, opt => opt.MapFrom(source => source.Name.Substring(source.Name.IndexOf('省')+1)))
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Complaint, complaintObj>()
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.Order.Id))
             .ForMember(x => x.senderID, opt => opt.MapFrom(source => source.Operator.Id))
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.Advertisement, adObj>()
             .ForMember(x => x.updateTime, opt => opt.MapFrom(source => source.LastUpdateTime))
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.DeviceBind, appObj>()
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.ServiceOrderRemind, remindObj>()
             .ForMember(x => x.time, opt => opt.MapFrom(source => source.RemindTime.ToString("yyyyMMddHHmmss")))
             .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Open))
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.OrderAssignment, assignObj>()
             .ForMember(x => x.orderID, opt => opt.MapFrom(source => source.Order.Id))
             .ForMember(x => x.staffID, opt => opt.MapFrom(source => source.AssignedStaff.Id))
             .ForMember(x => x.createTime, opt => opt.MapFrom(source => source.CreateTime.ToString("yyyyMMddHHmmss")))
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap< Model.ServiceOpenTimeForDay, workTimeObj>()
             .ForMember(x => x.maxCountOrder , opt => opt.MapFrom(source => source.MaxOrderForOpenTime))
             .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Enabled ))
-            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+            .ForMember(x => x.startTime, opt => opt.MapFrom(source => source.TimeStart))
+            .ForMember(x => x.endTime, opt => opt.MapFrom(source => source.TimeEnd))
+            .ForAllMembers(opt => opt.NullSubstitute(""));
+
+            //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+
+
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();
             //Mapper.CreateMap<FocusFormModel, Focus>();

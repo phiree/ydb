@@ -119,7 +119,7 @@ public class ResponseASN002001 : BaseResponse
 
                             bllOrderAssignment.SaveOrUpdate(oa);
 
-                            bllStaff.SaveOrUpdate(staff);
+                            bllStaff.Update(staff);
                         }
                         else
                         {

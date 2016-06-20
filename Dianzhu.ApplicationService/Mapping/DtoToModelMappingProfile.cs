@@ -62,6 +62,8 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<workTimeObj, Model.ServiceOpenTimeForDay>()
             .ForMember(x => x.MaxOrderForOpenTime, opt => opt.MapFrom(source => source.maxCountOrder))
             .ForMember(x => x.Enabled, opt => opt.MapFrom(source => source.bOpen))
+            .ForMember(x => x.TimeStart, opt => opt.MapFrom(source => source.startTime))
+            .ForMember(x => x.TimeEnd, opt => opt.MapFrom(source => source.endTime))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
 

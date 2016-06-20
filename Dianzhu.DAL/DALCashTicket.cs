@@ -52,6 +52,7 @@ namespace Dianzhu.DAL
                    break;
            }
             System.Linq.Expressions.Expression<Func<CashTicket, bool>> expFinal = PredicateBuilder.And(expUser, expSearchType);
+            
             return Find(expFinal) ;
        }
        public IList<CashTicket> GetCashTicketList(Guid userId, enum_CashTicketSearchType searchType, int pageNum, int pageSize)

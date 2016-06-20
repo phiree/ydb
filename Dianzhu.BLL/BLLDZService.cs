@@ -5,6 +5,7 @@ using System.Text;
 
 using Dianzhu.Model;
 using Dianzhu.DAL;
+using Dianzhu.IDAL;
 using Dianzhu.BLL.Validator;
 using FluentValidation;
 using FluentValidation.Results;
@@ -14,12 +15,22 @@ namespace Dianzhu.BLL
 {
     public class BLLDZService
     {
-        public DALDZService DALDZService = null;
-        public BLLDZService() {DALDZService= DALFactory.DALDZService; }
-        public BLLDZService(DALDZService dal)
+        //20160618_longphui_modify
+        //public DALDZService DALDZService = null;
+        //public BLLDZService() {DALDZService= DALFactory.DALDZService; }
+        //public BLLDZService(DALDZService dal)
+        //{
+        //    DALDZService = dal;
+        //}
+        public IDALDZService DALDZService = null;
+        public BLLDZService() { DALDZService = DALFactory.DALDZService; }
+        public BLLDZService(IDALDZService dal)
         {
             DALDZService = dal;
         }
+
+
+
         public IList<DZService> GetServiceByBusiness(Guid businessId, int pageindex, int pagesize, out int totalRecords)
         {
             return DALDZService.GetList(businessId , pageindex, pagesize, out totalRecords);
