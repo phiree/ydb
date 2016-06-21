@@ -121,6 +121,10 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
         {
             try
             {
+                if (worktimeobj == null)
+                {
+                    worktimeobj = new workTimeObj();
+                }
                 return Json(iworktime.PatchWorkTime(storeID, serviceID, workTimeID, worktimeobj));
             }
             catch (Exception ex)

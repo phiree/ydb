@@ -34,5 +34,7 @@ public class InstallerRestfulApi : IWindsorInstaller
         container.Register(Component.For<Dianzhu.ApplicationService.Remind.IRemindService>().ImplementedBy<Dianzhu.ApplicationService.Remind.RemindService>());
         container.Register(Component.For<Dianzhu.ApplicationService.Assign.IAssignService>().ImplementedBy<Dianzhu.ApplicationService.Assign.AssignService>());
         container.Register(Component.For<Dianzhu.ApplicationService.WorkTime.IWorkTimeService>().ImplementedBy<Dianzhu.ApplicationService.WorkTime.WorkTimeService>());
+        container.Register(Component.For<Dianzhu.ApplicationService.Service.IServiceService>().ImplementedBy<Dianzhu.ApplicationService.Service.ServiceService>());
+        container.Register(Component.For<Dianzhu.ApplicationService.Staff.IStaffService>().ImplementedBy<Dianzhu.ApplicationService.Staff.StaffService>());
     }
 }

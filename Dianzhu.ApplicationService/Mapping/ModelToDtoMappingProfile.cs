@@ -24,7 +24,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             Mapper.CreateMap<Model.DZMembership,userObj>()
-            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.UserName))
+            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.NickName))
             .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.AvatarUrl))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
@@ -60,6 +60,26 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Enabled ))
             .ForMember(x => x.startTime, opt => opt.MapFrom(source => source.TimeStart))
             .ForMember(x => x.endTime, opt => opt.MapFrom(source => source.TimeEnd))
+            .ForAllMembers(opt => opt.NullSubstitute(""));
+
+            Mapper.CreateMap<Model.DZService, servicesObj>()
+           .ForMember(x => x.introduce, opt => opt.MapFrom(source => source.Description))
+           .ForMember(x => x.startAt, opt => opt.MapFrom(source => source.MinPrice))
+           .ForMember(x => x.deposit, opt => opt.MapFrom(source => source.DepositAmount))
+           .ForMember(x => x.appointmentTime, opt => opt.MapFrom(source => source.OrderDelay))
+           .ForMember(x => x.bDoorService, opt => opt.MapFrom(source => source.ServiceMode.ToString()== "ToHouse" ?true  : false))
+           .ForMember(x => x.eServiceTarget, opt => opt.MapFrom(source =>source.IsForBusiness? "all": "company"))
+           .ForMember(x => x.eSupportPayWay, opt => opt.MapFrom(source => source.AllowedPayType))
+           .ForMember(x => x.bOpen, opt => opt.MapFrom(source => source.Enabled))
+           .ForMember(x => x.maxCount, opt => opt.MapFrom(source => source.MaxOrdersPerDay))
+            .ForAllMembers(opt => opt.NullSubstitute(""));
+
+            Mapper.CreateMap<Model.Staff, staffObj>()
+            .ForMember(x => x.alias, opt => opt.MapFrom(source => source.NickName))
+            .ForMember(x => x.imgUrl, opt => opt.MapFrom(source => source.Photo))
+            .ForMember(x => x.sex, opt => opt.MapFrom(source => source.Gender=="女"?true:false))
+            .ForMember(x => x.realName, opt => opt.MapFrom(source => source.Name))
+            .ForMember(x => x.identity, opt => opt.MapFrom(source => source.Code))
             .ForAllMembers(opt => opt.NullSubstitute(""));
 
             //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));

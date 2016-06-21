@@ -163,6 +163,7 @@
     <Compile Include="Remind\RemindService.cs" />
     <Compile Include="Service\IServiceService.cs" />
     <Compile Include="Service\ServiceService.cs" />
+    <Compile Include="Staff\IStaffService.cs" />
     <Compile Include="Staff\StaffService.cs" />
     <Compile Include="User\IUserService.cs" />
     <Compile Include="User\UserService.cs" />
