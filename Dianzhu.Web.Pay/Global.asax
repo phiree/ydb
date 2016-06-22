@@ -36,6 +36,16 @@
         // or SQLServer, the event is not raised.
 
     }
+        void Application_BeginRequest(Object source, EventArgs e)
+    {
+         
+ 
+        NHibernateUnitOfWork.UnitOfWork.Start();
+    }
+    void Application_EndRequest(object sender, EventArgs e)
+    {
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+    }
     //keep site alive
     private static void _SetupRefreshJob()
     {

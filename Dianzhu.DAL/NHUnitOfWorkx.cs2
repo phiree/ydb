@@ -1,0 +1,141 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using NHibernate;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using PHSuit;
+using NHibernate.Tool.hbm2ddl;
+using NHibernate.Cfg;
+using System.Web;
+using log4net;
+using NHibernate.Context;
+ 
+using HibernatingRhinos.Profiler.Appender.NHibernate;
+using System.Data;
+
+namespace Dianzhu.DAL
+{
+    public class NHUnitOfWork_backup : IDAL.IUnitOfWork
+    {
+
+
+        private static ISessionFactory _sessionFactory;
+        [ThreadStatic]
+        private static ISession _session;
+      
+         
+
+
+        static NHUnitOfWork_backup()
+        {
+           BuildSessionFactory();
+        }
+        private static readonly object __lock = new object();
+        static void BuildSessionFactory()
+        {
+            lock (__lock)
+            {
+
+                if (_sessionFactory == null)
+                {
+
+
+                    _sessionFactory = Fluently.Configure()
+                      .Database(
+                           MySQLConfiguration
+                          .Standard
+                          .ConnectionString(
+
+                             System.Configuration.ConfigurationManager
+                             .ConnectionStrings["DianzhuConnectionString"].ConnectionString)
+
+                                   .Dialect<NHCustomDialect>()
+                        )
+                      .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
+                     .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(true, true))
+                      //  .CurrentSessionContext<ThreadStaticSessionContext>()
+                      .BuildSessionFactory();
+                    HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+
+
+                }
+            }
+            
+        }
+
+        public  ISession Session
+        {
+            get
+            {
+                _session = getExistingOrNewSession();
+                if (!_session.Transaction.IsActive)
+                {
+                    _session.BeginTransaction();
+                }
+
+                return _session;
+            }
+        }
+        private ISession getExistingOrNewSession( )
+        {
+
+            ///for web 
+            ///
+            if (HttpContext.Current != null)
+            {
+                _session = HttpContext.Current.Items[GetType().FullName] as ISession;
+                if (_session == null)
+                {
+                    _session = openSessionAndAddToContext( );
+                }
+                else if (!_session.IsOpen)
+                {
+                    _session = openSessionAndAddToContext( );
+                }
+            }
+            else {
+                if (_session == null)
+                {
+                    _session = _sessionFactory.OpenSession();
+                }
+                else if (!_session.IsOpen)
+                {
+                    _session = _sessionFactory.OpenSession();
+                }
+            }
+
+
+
+            return _session; ;
+        }
+        private ISession openSessionAndAddToContext()
+        {
+            ISession session = _sessionFactory.OpenSession();
+            HttpContext.Current.Items.Remove(GetType().FullName);
+            HttpContext.Current.Items.Add(GetType().FullName, session);
+            return session;
+        }
+      
+
+        public  void End()
+        {
+            using (_session.Transaction)
+            {
+                try
+                {
+                    _session.Transaction.Commit();
+                    _session.Dispose();
+                }
+                catch (Exception)
+                {
+                    _session.Transaction.Rollback();
+                    throw;
+                }
+
+            }
+        }
+    }
+
+}

@@ -65,21 +65,12 @@
     {
         HttpApplication app = (HttpApplication)source;
         PHSuit.FirstRequestInitialisation.Initialise(app.Context);
+ 
+        NHibernateUnitOfWork.UnitOfWork.Start();
     }
-
-    // Do all of your work ( Read, insert, update, delete )
-
-    void Application_EndRequest()
+    void Application_EndRequest(object sender, EventArgs e)
     {
-        //  uow.Commit();
-        try
-        {
-            // UnitOfWork.Current.Transaction.Commit();
-        }
-        catch( Exception e )
-        {
-            // UnitOfWork.Current.Transaction.Rollback();
-        }
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
     }
 
 

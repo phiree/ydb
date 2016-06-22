@@ -13,11 +13,11 @@ namespace Dianzhu.BLL
 
         //暴露 数据库实现,用于单元测试mock
         public IDALArea  repoArea;
-        private IUnitOfWork iuw;
+        
       
-        public BLLArea(IDALArea repoArea) {
+        public BLLArea(IDALArea repoArea )  {
             this.repoArea = repoArea;
-           // this.iuw = iuw;
+           
         }
  
         /// <summary>
@@ -28,6 +28,7 @@ namespace Dianzhu.BLL
        
         public IList<Model.Area> GetArea(int areaid) 
         {
+            
          // iuw.BeginTransaction();
             Expression<Func<Model.Area, bool>> where = i => i.Id == areaid;
         //    iuw.Commit();

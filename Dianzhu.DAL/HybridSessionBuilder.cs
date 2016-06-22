@@ -44,14 +44,7 @@ namespace Dianzhu.DAL
 
             return _currentSession;
         }
-
-        public Configuration GetConfiguration()
-        {
-            var configuration = new Configuration();
-            configuration.Configure();
-            return configuration;
-        }
-
+  
         private static readonly object __lock = new object();
 
 

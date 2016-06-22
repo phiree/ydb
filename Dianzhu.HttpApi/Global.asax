@@ -13,7 +13,17 @@
         Bootstrap.Boot();
         // Installer.InstallAPI(container);
     }
+    void Application_BeginRequest(Object source, EventArgs e)
+    {
 
+         NHibernateUnitOfWork.UnitOfWork.Start();
+
+    }
+    void Application_EndRequest(object sender, EventArgs e)
+    {
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+        NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+    }
     void Application_End(object sender, EventArgs e)
     {
         //  Code that runs on application shutdown

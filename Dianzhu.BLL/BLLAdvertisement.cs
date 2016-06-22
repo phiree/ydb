@@ -13,7 +13,7 @@ namespace Dianzhu.BLL
     {
         private IDALAdvertisement repo;
        // IUnitOfWork iuow;
-        public BLLAdvertisement(IDALAdvertisement repo ,IUnitOfWork iuow)
+        public BLLAdvertisement(IDALAdvertisement repo )
         {
             this.repo = repo;
            // this.iuow = iuow;

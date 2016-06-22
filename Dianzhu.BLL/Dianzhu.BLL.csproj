@@ -73,9 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressParser.cs" />
-    <Compile Include="BLLClaims.cs" />
     <Compile Include="Agent\AgentService.cs" />
     <Compile Include="Agent\IAgentService.cs" />
+    <Compile Include="BLLClaims.cs" />
     <Compile Include="BLLComplaint.cs" />
     <Compile Include="BLLArea.cs" />
     <Compile Include="BLLBusiness.cs" />
@@ -117,6 +117,7 @@
     <Compile Include="Reception\BLLReceptionStatus.cs" />
     <Compile Include="Reception\BLLReceptionStatusArchieve.cs" />
     <Compile Include="Reception\ReceiveMessage.cs" />
+    <Compile Include="ServiceBase.cs" />
     <Compile Include="ServiceOrder\IBLLServiceOrder.cs" />
     <Compile Include="ServiceOrder\BLLServiceOrder.cs" />
     <Compile Include="BLLServiceType.cs" />

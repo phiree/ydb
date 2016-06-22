@@ -126,7 +126,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<IRepository<ServiceOrderRemind, Guid>, IDALServiceOrderRemind>().ImplementedBy<DALServiceOrderRemind>());
  
 
-            container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());
+          //  container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork_backup>());
 
  
            

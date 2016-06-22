@@ -83,4 +83,12 @@ public class Global:HttpApplication, IContainerAccessor
         //设置为 StateServer 或 SQLServer，则不会引发该事件。
 
     }
+    void Application_BeginRequest(object sender, EventArgs e)
+    {
+        NHibernateUnitOfWork.UnitOfWork.Start();
+    }
+    void Application_EndRequest(object sender, EventArgs e)
+    {
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+    }
 }

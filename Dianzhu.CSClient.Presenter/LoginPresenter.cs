@@ -91,6 +91,10 @@ namespace Dianzhu.CSClient.Presenter
 
         public async void Login(string username, string plainPassword)
         {
+            if (!NHibernateUnitOfWork.UnitOfWork.IsStarted)
+            {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+            }
             string encryptPassword = encryptService.GetMD5Hash(plainPassword);
             var member = dalMembership.ValidateUser(username, encryptPassword);
             //DZMembership member = dalme.GetUserByName(loginView.UserName);
@@ -103,6 +107,9 @@ namespace Dianzhu.CSClient.Presenter
             {
                 XMPP_IMAuthError();
             }
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+            
         }
        public  void loginView_ViewLogin()
         {
@@ -110,6 +117,8 @@ namespace Dianzhu.CSClient.Presenter
             loginView.LoginButtonText = "正在登录,请稍后";
             loginView.LoginButtonEnabled = false;
             loginView.LoginMessage = string.Empty;
+
+           
 
             Login(loginView.UserName, loginView.Password);
 
@@ -156,6 +165,10 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="jidUser"></param>
         void IMLogined(string jidUser)
         {
+            if (!NHibernateUnitOfWork.UnitOfWork.IsStarted)
+            {
+                NHibernateUnitOfWork.UnitOfWork.Start();
+            }
 
             DZMembership customerService = dalMembership.FindById(new Guid(jidUser));
             //GlobalViables.CurrentCustomerService = customerService;
@@ -172,6 +185,9 @@ namespace Dianzhu.CSClient.Presenter
             { 
             loginView.IsLoginSuccess = true;
             }
+
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         void loginView_Logined(object sender, EventArgs e)

@@ -106,6 +106,17 @@
         // or SQLServer, the event is not raised.
 
     }
+    void Application_BeginRequest(Object source, EventArgs e)
+    {
+        HttpApplication app = (HttpApplication)source;
+        PHSuit.FirstRequestInitialisation.Initialise(app.Context);
+
+        NHibernateUnitOfWork.UnitOfWork.Start();
+    }
+    void Application_EndRequest(object sender, EventArgs e)
+    {
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+    }
     private static void _SetupRefreshJob()
     {
 
