@@ -18,7 +18,8 @@ namespace Dianzhu.CSClient.IView
         event SendMediaClick SendMediaClick;
          
         string MessageText { get; set; }
-        
+
+        string MessageTimer { get; set; }
     }
     public delegate void SendTextClick();
     public delegate void SendMediaClick(byte[] fileData, string domainType, string mediaType);

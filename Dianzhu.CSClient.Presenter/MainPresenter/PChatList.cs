@@ -24,18 +24,21 @@ namespace Dianzhu.CSClient.Presenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PChatList");
         IDAL.IDALReceptionChat dalReceptionChat;
         IViewChatList viewChatList;
+        IViewChatSend viewChatSend;
         IViewIdentityList viewIdentityList;
         InstantMessage iIM;
         public static Dictionary<Guid, IList<ReceptionChat>> chatHistoryAll;        
         
-        public PChatList(IViewChatList viewChatList, IViewIdentityList viewCustomerList,IDAL.IDALReceptionChat dalReceptionChat, InstantMessage iIM)
+        public PChatList(IViewChatList viewChatList,IViewChatSend viewChatSend, IViewIdentityList viewCustomerList,IDAL.IDALReceptionChat dalReceptionChat, InstantMessage iIM)
         {
             this.viewChatList = viewChatList;
+            this.viewChatSend = viewChatSend;
             this.dalReceptionChat = dalReceptionChat;
             //     viewCustomerList.IdentityClick += ViewCustomerList_CustomerClick;
             this.iIM = iIM;
             //   this.iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             this.viewIdentityList = viewCustomerList;
+
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
             viewChatList.AudioPlay += ViewChatList_AudioPlay;
@@ -74,18 +77,10 @@ namespace Dianzhu.CSClient.Presenter
         private void IIM_IMReceivedMessage(ReceptionChat chat)
         {
             //判断信息类型
-            //if(chat.ChatType== enum_ChatType.UserStatus)
-            //{
-            //    ReceptionChatUserStatus rcus = (ReceptionChatUserStatus)chat;
-
-            //    if (rcus.Status == Model.Enums.enum_UserStatus.unavailable)
-            //    {
-            //        if (IdentityManager.CurrentIdentity == null || IdentityManager.CurrentIdentity == chat.ServiceOrder)
-            //        {
-            //            ClearChatList();
-            //        }
-            //    }
-            //}
+            if (chat.ChatType == enum_ChatType.Media || chat.ChatType == enum_ChatType.Text)
+            {
+                chatHistoryAll[chat.From.Id].Add(chat);
+            }
         }
 
         PHSuit.Media media = new PHSuit.Media();
