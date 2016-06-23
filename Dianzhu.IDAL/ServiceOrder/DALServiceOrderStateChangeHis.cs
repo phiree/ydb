@@ -31,8 +31,8 @@ namespace Dianzhu.IDAL
         //    return null;
         //}
 
-        ServiceOrderStateChangeHis GetOrderHis(ServiceOrder order);
+        //ServiceOrderStateChangeHis GetOrderHis(ServiceOrder order);
 
-        enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order, enum_OrderStatus status);
+        //enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order, enum_OrderStatus status);
     }
 }

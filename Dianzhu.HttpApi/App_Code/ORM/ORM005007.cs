@@ -124,7 +124,10 @@ public class ResponseORM005007 : BaseResponse
                             return;
                         }
 
-                        bllServiceOrder.OrderFlow_BusinessAskPayWithRefund(order, refundObj.context, refundAmount, refundObj.resourcesUrl, member);
+                        //20160623_longphui_modify
+                        string[] resourcesUrls = refundObj.resourcesUrl.Split(',');
+
+                        bllServiceOrder.OrderFlow_BusinessAskPayWithRefund(order, refundObj.context, refundAmount, resourcesUrls.ToList(), member);
 
                         status = order.OrderStatus;
                         break;

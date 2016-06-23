@@ -8,7 +8,12 @@ using System.Web.Security;
 public class changepassword : IHttpHandler {
 
     DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
-    BLLStaff bllStaff = new BLLStaff();
+
+    //20160623_longphui_modify
+    //BLLStaff bllStaff = new BLLStaff();
+    BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
+
+
     public void ProcessRequest (HttpContext context) {
         context.Response.ContentType = "application/json";
 

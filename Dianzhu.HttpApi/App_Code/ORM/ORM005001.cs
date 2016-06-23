@@ -137,8 +137,11 @@ public class ResponseORM005001 : BaseResponse
                     return;
                 }
 
+                //20160623_longphui_modify
+                string[] resourcesUrls = resourcesUrl.Split(',');
+
                 Claims claims = new Claims(order, oldStatus, member);
-                claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.user, member);
+                claims.AddDetailsFromClaims(claims, context, amount, resourcesUrls.ToList(), enum_ChatTarget.user, member);
                 bllClaims.Save(claims);
 
                 RespDataORM005001 respData = new RespDataORM005001();

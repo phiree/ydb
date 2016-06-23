@@ -569,7 +569,7 @@ namespace Dianzhu.BLL
                 log.Debug("记录商户操作");
 
                 claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
-                bllClaims.Update(claims);
+                dalClaims.Update(claims);
             }
             else
             {
@@ -625,7 +625,7 @@ namespace Dianzhu.BLL
             log.Debug("记录商户操作");
 
             claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
-            bllClaims.Update(claims);
+            dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.RejectRefund);
         }
@@ -661,7 +661,7 @@ namespace Dianzhu.BLL
 
             log.Debug("记录用户操作");
             claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.user, member);
-            bllClaims.Update(claims);
+            dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.WaitingPayWithRefund);
         }

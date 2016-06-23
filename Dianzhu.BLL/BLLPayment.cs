@@ -89,12 +89,7 @@ namespace Dianzhu.BLL
             else if (paymentCount == 0)
             {
                 payment = new Payment { Amount=GetPayAmount(order, payTarget), Order=order, PayTarget= payTarget};
-<<<<<<< HEAD
 
-                //20160621_longphui_modify
-                //dal.Save(payment);
-=======
->>>>>>> develop
                 dal.Add(payment);
             }
             else //已经存在多项
@@ -112,24 +107,16 @@ namespace Dianzhu.BLL
         }
         public Payment GetOne(Guid id)
         {
-<<<<<<< HEAD
-            //20160621_longphui_modify
-            //return dal.GetOne(id);
-=======
->>>>>>> develop
+
             return dal.FindById(id);
         }
         public void Save(Payment payment)
         {
-<<<<<<< HEAD
             payment.LastUpdateTime = DateTime.Now;
 
-            //20160621_longphui_modify
-            //dal.SaveOrUpdate(payment);
-            dal.Update(payment);
-=======
+
+
             dal.Add(payment);
->>>>>>> develop
         }
         public void Update(Payment payment)
         {

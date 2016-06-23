@@ -15,9 +15,9 @@ namespace Dianzhu.BLL
 {
     public class BLLDZService
     {
-        public IDALDZService DALDZService = null;
-        public BLLDZService() { DALDZService = DALFactory.DALDZService; }
         IDAL.IDALDZService DALDZService;
+        public BLLDZService() { DALDZService = DALFactory.DALDZService; }
+       
         IDAL.IDALDZTag DALDZTag;
      
         public BLLDZService(IDAL.IDALDZService dal,IDAL.IDALDZTag dalTag)
