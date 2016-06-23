@@ -9,6 +9,8 @@ using Dianzhu.BLL;
 /// </summary>
 public class BasePage:System.Web.UI.Page
 {
+    log4net.ILog log = log4net.LogManager.GetLogger("Web.AdminBusiness.BasePage");
+
     DZMembership currentUser;
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
     bool needBusiness = true;
@@ -34,7 +36,8 @@ public class BasePage:System.Web.UI.Page
 
             }
             else {
-                throw new Exception("没有这个店铺");
+                log.Error("businessId为空或格式有误，request[\"business\"]=" + strBusinessId);
+                Response.Redirect("/");
             }
             return b;
         }
