@@ -10,6 +10,7 @@ namespace Dianzhu.BLL
 {
     public class BLLDeviceBind
     {
+ 
         //20150615_longphui_modify
         //public DALDeviceBind DALDeviceBind = DALFactory.DALDeviceBind;
         private IDALDeviceBind DALDeviceBind;
@@ -17,10 +18,20 @@ namespace Dianzhu.BLL
         {
             this.DALDeviceBind = DALDeviceBind;
         }
-
+ 
         public void UpdateDeviceBindStatus(DZMembership member,string appToken,string appName)
         { 
          DALDeviceBind.UpdateBindStatus(member, appToken, appName);
+        }
+
+        public void Save(DeviceBind db)
+        {
+            DALDeviceBind.Add(db);
+        }
+
+        public void Update(DeviceBind db)
+        {
+            DALDeviceBind.Update(db);
         }
 
         public void SaveOrUpdate(DeviceBind db)
@@ -28,10 +39,7 @@ namespace Dianzhu.BLL
             DALDeviceBind.Update(db);
         }
 
-        public void SaveOrUpdate1(DeviceBind db)
-        {
-            DALDeviceBind.SaveOrUpdate(db);
-        }
+ 
 
         public void Delete(DeviceBind db)
         {

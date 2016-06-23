@@ -20,9 +20,12 @@ namespace Dianzhu.BLL
             // this.iuw = iuw;
         }
 
-        public void SaveOrUpdate(Complaint ad)
+       
+
+        public void Save(Complaint c)
         {
-            dalComplaint.Update(ad);
+ 
+            dalComplaint.Update(c);
         }
 
         /// <summary>
@@ -90,6 +93,7 @@ namespace Dianzhu.BLL
         {
             return dalComplaint.FindById(Id);
 
+ 
         }
     }
 }

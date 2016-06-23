@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dianzhu.Test</RootNamespace>
     <AssemblyName>Dianzhu.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -180,7 +180,7 @@
       <Name>DDDCommon</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.BLL\Dianzhu.BLL.csproj">
-      <Project>{0974351E-8B26-4B3C-8C4D-7D6F0354BA2C}</Project>
+      <Project>{0974351e-8b26-4b3c-8c4d-7d6f0354ba2c}</Project>
       <Name>Dianzhu.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dianzhu.Config\Dianzhu.Config.csproj">

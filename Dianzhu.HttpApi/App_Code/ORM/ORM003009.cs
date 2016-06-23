@@ -22,7 +22,7 @@ public class ResponseORM003009 : BaseResponse
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-         BLLServiceOrderAppraise bllServiceOrderAppraise = new BLLServiceOrderAppraise();
+        BLLServiceOrderAppraise bllServiceOrderAppraise = Bootstrap.Container.Resolve<BLLServiceOrderAppraise>();
 
         string user_ID = requestData.userID;
         string order_ID = requestData.orderID;

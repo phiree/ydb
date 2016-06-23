@@ -25,7 +25,6 @@ namespace Dianzhu.BLL
         static DALDeviceBind dalDeviceBind;
         static DALServiceOrder dalServiceOrder;
         static DALDZTag dalDZTag;
-        static DALReception dalReception;
         static DALReceptionStatus dalReceptionStatus;
         static DALReceptionChat dalReceptionChat;
         static DALPaymentLog dalPaymentLog;
@@ -121,14 +120,6 @@ namespace Dianzhu.BLL
         {
             get { return dalReceptionStatus ?? new DALReceptionStatus(); }
             set { dalReceptionStatus = value; }
-        }
-        public static DALReception DALReception
-        {
-            get
-            {
-                return dalReception == null ? forTest ? new DALReception("") : new DALReception() : dalReception;
-            }
-            set { dalReception = value; }
         }
         public static DALDZTag DALDZTag
         {

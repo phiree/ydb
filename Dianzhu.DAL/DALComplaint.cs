@@ -8,15 +8,11 @@ using Dianzhu.IDAL;
 
 namespace Dianzhu.DAL
 {
-    public class DALComplaint : NHRepositoryBase<Complaint,Guid>, IDALComplaint
+ 
+    public class DALComplaint : NHRepositoryBase<Complaint,Guid>,IDAL.IDALComplaint
+ 
+ 
     {
-         public DALComplaint()
-        {
-             
-        }
-        //注入依赖,供测试使用;
-         
-        
-        
+
     }
 }

@@ -78,6 +78,12 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
+                if (serviceOrder == null)
+                {
+                    log.Debug("没有订单");
+                    return;
+                }
+
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
 
                 UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);
@@ -98,6 +104,11 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             Action lambda = () =>
             {
+                if (serviceOrder == null)
+                {
+                    log.Debug("没有订单");
+                    return;
+                }
                 string ctrlName = PHSuit.StringHelper.SafeNameForWpfControl(serviceOrder.Id.ToString());
 
                 UC_Customer ucIdentity = (UC_Customer)pnlIdentityList.FindName(ctrlName);

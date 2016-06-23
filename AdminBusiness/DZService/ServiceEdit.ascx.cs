@@ -20,11 +20,14 @@ public partial class DZService_ServiceEdit : System.Web.UI.UserControl
     }
 
     private Guid ServiceId = Guid.Empty;
-    BLLDZService bllService = new BLLDZService();
+
+    BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
+    
+    
+    BLLDZTag bllTag = Bootstrap.Container.Resolve<BLLDZTag>();
+ 
     BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
 
-    BLLDZTag bllTag = new BLLDZTag();
- 
     private bool IsNew { get { return ServiceId == Guid.Empty; } }
 
     public DZService CurrentService = new DZService();//当前的服务 对象.

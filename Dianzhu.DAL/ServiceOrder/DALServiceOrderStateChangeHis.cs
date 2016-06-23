@@ -8,19 +8,9 @@ using NHibernate;
 using NHibernate.Criterion;
 namespace Dianzhu.DAL
 {
-    //20160622_longphui_modify
-    public class DALServiceOrderStateChangeHis : NHRepositoryBase<ServiceOrderStateChangeHis, Guid>, IDAL.IDALServiceOrderStateChangeHis //DALBase<ServiceOrderStateChangeHis>
+
+    public class DALServiceOrderStateChangeHis : NHRepositoryBase<ServiceOrderStateChangeHis,Guid>,IDAL.IDALServiceOrderStateChangeHis
     {
-        public DALServiceOrderStateChangeHis()
-        {
-
-        }
-        //注入依赖,供测试使用;
-        //public DALServiceOrderStateChangeHis(string fortest) : base(fortest)
-        //{
-
-        //}
-
         public IQueryOver<ServiceOrderStateChangeHis> Query(ServiceOrder order)
         {
             IQueryOver<ServiceOrderStateChangeHis, ServiceOrderStateChangeHis> iqueryover = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).OrderBy(x => x.Number).Desc;
@@ -29,49 +19,47 @@ namespace Dianzhu.DAL
 
         public ServiceOrderStateChangeHis GetOrderHis(ServiceOrder order)
         {
-            //20160622_longphui_modify
-            var query = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).And(x => x.NewStatus == order.OrderStatus);
-            DALBase<ServiceOrderStateChangeHis> b = new DALBase<ServiceOrderStateChangeHis>();
-            var item = b.GetOneByQuery(query);
-            return item;
+            return FindOne(x => x.Order.Id == order.Id && x.NewStatus == order.OrderStatus);
         }
 
         public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
         {
-            var query = Query(order);
-            IList<ServiceOrderStateChangeHis> orderList = query.Take(1).List();
-            if (orderList.Count > 0)
+            using (var tr = Session.BeginTransaction())
             {
-                return orderList[0];
+                var query = Query(order);
+                IList<ServiceOrderStateChangeHis> orderList = query.Take(1).List();
+                tr.Commit();
+                if (orderList.Count > 0)
+                {
+                    return orderList[0];
+                }
+                return null;
             }
-            return null;
         }
 
         public IList<ServiceOrderStateChangeHis> GetOrderHisList(ServiceOrder order)
         {
-            var query = Query(order);
-            IList<ServiceOrderStateChangeHis> orderList = query.List().OrderBy(x => x.Number).ToList();
-            if (orderList.Count > 0)
+            using (var tr = Session.BeginTransaction())
             {
-                return orderList;
+                var query = Query(order);
+                IList<ServiceOrderStateChangeHis> orderList = query.List().OrderBy(x => x.Number).ToList();
+                tr.Commit();
+                if (orderList.Count > 0)
+                {
+                    return orderList;
+                }
+                return null;
             }
-            return null;
         }
 
         public DateTime GetChangeTime(ServiceOrder order, enum_OrderStatus status)
         {
-            var query = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).And(x => x.NewStatus == status);
-            DALBase<ServiceOrderStateChangeHis> b = new DALBase<ServiceOrderStateChangeHis>();
-            var item = b.GetOneByQuery(query);
-            return item.CreatTime;
+            return FindOne(x => x.Order.Id == order.Id && x.NewStatus == status).CreatTime;
         }
 
         public enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order,enum_OrderStatus status)
         {
-            var query = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).And(x => x.NewStatus == status);
-            DALBase<ServiceOrderStateChangeHis> b = new DALBase<ServiceOrderStateChangeHis>();
-            var item = b.GetOneByQuery(query).OldStatus;
-            return item;
+            return FindOne(x => x.Order.Id == order.Id && x.NewStatus == status).OldStatus;
         }
 
         /// <summary>

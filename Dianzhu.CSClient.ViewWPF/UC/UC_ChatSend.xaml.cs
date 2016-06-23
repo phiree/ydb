@@ -61,6 +61,12 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        public string MessageTimer
+        {
+            get { return timerMsg.Text; }
+            set { timerMsg.Text = value; }
+        }
+
         public event SendTextClick SendTextClick;
         public event SendMediaClick SendMediaClick;
         

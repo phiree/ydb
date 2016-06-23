@@ -10,6 +10,7 @@ namespace Dianzhu.BLL
 {
     public class BLLOrderAssignment
     {
+ 
         //20150616_longphui_modify
         //public DALOrderAssignment DALOrderAssignment = DALFactory.DALOrderAssignment;
         private IDALOrderAssignment DALOrderAssignment;
@@ -17,12 +18,7 @@ namespace Dianzhu.BLL
         {
             this.DALOrderAssignment = DALOrderAssignment;
         }
-
-        public void SaveOrUpdate(OrderAssignment db)
-        {
-            //DALOrderAssignment.SaveOrUpdate(db);
-            DALOrderAssignment.Update(db);
-        }
+ 
 
         /// <summary>
         /// 新建指派
@@ -32,6 +28,7 @@ namespace Dianzhu.BLL
         {
             //DALOrderAssignment.SaveOrUpdate(db);
             DALOrderAssignment.Add(db);
+ 
         }
 
         public OrderAssignment FindByOrderAndStaff(ServiceOrder order,Staff staff)

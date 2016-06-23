@@ -98,7 +98,7 @@
     <Compile Include="IdentityAccess\DZMembership.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CashTicketAssignRecord.cs" />
-    <Compile Include="Reception\Reception.cs" />
+    <Compile Include="Reception\ReceptionChat.cs" />
     <Compile Include="Reception\ReceptionStatus.cs" />
     <Compile Include="Resource\ServiceOpenTime.cs" />
     <Compile Include="Payment\Payment.cs" />

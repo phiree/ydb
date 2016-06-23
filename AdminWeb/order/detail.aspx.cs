@@ -59,7 +59,7 @@ public partial class order_detail : System.Web.UI.Page
         lblOrderAmount.Text = serviceorder.OrderAmount.ToString();
         lblDepositAmount.Text = serviceorder.DepositAmount.ToString();
         lblNegotiateAmount.Text = serviceorder.NegotiateAmount.ToString();
-        BLLPayment bllPayment = new BLLPayment();
+        BLLPayment bllPayment = Bootstrap.Container.Resolve<BLLPayment>();
         Payment payment = bllPayment.GetOne(id);
         if (payment == null)
         {

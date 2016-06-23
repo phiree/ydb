@@ -25,7 +25,8 @@ public class ResponseORM001007 : BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         
         PushService pushService = Bootstrap.Container.Resolve<PushService>();
-        BLLDZTag bllDZTag = new BLLDZTag();
+        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
+
         string raw_id = requestData.userID;
         string order_id = requestData.orderID;
 

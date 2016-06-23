@@ -28,29 +28,35 @@ namespace Dianzhu.BLL
         IDALServiceOrder repoServiceOrder = null;
 
         IDALMembership repoMembership;
+        IDALOrderAssignment repoOrderAssignment;
       
         BLLPayment bllPayment = null;
         IDALRefund bllRefund = null;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = null;
-        BLLClaims bllClaims = null;
+        IDALClaims dalClaims;
 
         //20160616_longphui_add
         BLLOrderAssignment bllOrderAssignment = null;
 
 
         public BLLServiceOrder(IDAL.IDALServiceOrder repoServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis,
-           IDALMembership repoMembership, IDALRefund bllRefund, BLLPayment bllPayment ,BLLClaims bllClaims,BLLOrderAssignment bllOrderAssignment)
+ 
+           IDALMembership repoMembership, IDALRefund bllRefund, IDALOrderAssignment repoOrderAssignment, BLLPayment bllPayment ,IDALClaims dalClaims)
+ 
+ 
         {
             this.repoServiceOrder = repoServiceOrder;
             this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
             this.repoMembership = repoMembership;
+            this.repoOrderAssignment = repoOrderAssignment;
+
             this.bllPayment = bllPayment;
             this.bllRefund = bllRefund;
-            
-            this.bllClaims = bllClaims;
-
-            //20160616_longphui_add
-            this.bllOrderAssignment = bllOrderAssignment;
+ 
+            this.dalClaims = dalClaims;
+ 
+ 
+ 
         }
 
         public int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType)
@@ -272,7 +278,7 @@ namespace Dianzhu.BLL
         public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {
             var where = PredicateBuilder.True<ServiceOrder>();
-            where = where.And(x => x.Business == business);
+            where = where.And(x => x.Business.Id == business.Id);
             where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
 
             long long_totalAmount;
@@ -526,7 +532,7 @@ namespace Dianzhu.BLL
 
             log.Debug("开始退还尾款");
             log.Debug("查询订单的理赔");
-            Claims claims = bllClaims.GetOneByOrder(order);
+            Claims claims = dalClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -561,6 +567,7 @@ namespace Dianzhu.BLL
                 OrderFlow_RefundSuccess(order);
 
                 log.Debug("记录商户操作");
+
                 claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
                 bllClaims.Update(claims);
             }
@@ -587,7 +594,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, DZMembership member)
         {
             log.Debug("查询订单的理赔");
-            Claims claims = bllClaims.GetOneByOrder(order);
+            Claims claims = dalClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -596,7 +603,7 @@ namespace Dianzhu.BLL
 
             log.Debug("记录商户操作");
             claims.AddDetailsFromClaims(claims, context, amount, resourcesUrl, enum_ChatTarget.store, member);
-            bllClaims.Update(claims);
+            dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.AskPayWithRefund);
         }
@@ -608,7 +615,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_BusinessRejectRefund(ServiceOrder order, DZMembership member)
         {
             log.Debug("查询订单的理赔");
-            Claims claims = bllClaims.GetOneByOrder(order);
+            Claims claims = dalClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -616,6 +623,7 @@ namespace Dianzhu.BLL
             }
 
             log.Debug("记录商户操作");
+
             claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
             bllClaims.Update(claims);
 
@@ -629,7 +637,7 @@ namespace Dianzhu.BLL
         public void OrderFlow_WaitingPayWithRefund(ServiceOrder order, DZMembership member)
         {
             log.Debug("查询订单的理赔");
-            Claims claims = bllClaims.GetOneByOrder(order);
+            Claims claims = dalClaims.GetOneByOrder(order);
             if (claims == null)
             {
                 log.Error("订单没有对应的理赔");
@@ -741,7 +749,7 @@ namespace Dianzhu.BLL
 
             //保存订单历史记录
             //order.OrderStatus = oldStatus;
-            bllServiceOrderStateChangeHis.SaveOrUpdate(order, oldStatus);
+            bllServiceOrderStateChangeHis.Save(order, oldStatus);
 
             //更新订单状态
             order.OrderStatus = targetStatus;
@@ -1027,21 +1035,22 @@ namespace Dianzhu.BLL
         #region 分配工作人员
         public void AssignStaff(ServiceOrder order, Staff staff)
         {
-            //BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+ 
             OrderAssignment oa = new OrderAssignment();
             oa.Order = order;
             oa.AssignedStaff = staff;
 
-            bllOrderAssignment.SaveOrUpdate(oa);
+            repoOrderAssignment.Add(oa);
         }
         public void DeassignStaff(ServiceOrder order, Staff staff)
         {
-            //BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
-            OrderAssignment oa = bllOrderAssignment.FindByOrderAndStaff(order, staff);
+ 
+            OrderAssignment oa = repoOrderAssignment.FindByOrderAndStaff(order, staff);
+ 
             oa.DeAssignedTime = DateTime.Now;
             oa.Enabled = false;
 
-            bllOrderAssignment.SaveOrUpdate(oa);
+            repoOrderAssignment.Update(oa);
         }
         #endregion
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
  
-namespace Dianzhu.IDAL.IdentityAccess
+namespace Dianzhu.IDAL
 {
    public   interface IDALRoleMember :IRepository<RoleMember,Guid>
     {

@@ -15,18 +15,15 @@ namespace Dianzhu.BLL
 {
     public class BLLDZService
     {
-        //20160618_longphui_modify
-        //public DALDZService DALDZService = null;
-        //public BLLDZService() {DALDZService= DALFactory.DALDZService; }
-        //public BLLDZService(DALDZService dal)
-        //{
-        //    DALDZService = dal;
-        //}
         public IDALDZService DALDZService = null;
         public BLLDZService() { DALDZService = DALFactory.DALDZService; }
-        public BLLDZService(IDALDZService dal)
+        IDAL.IDALDZService DALDZService;
+        IDAL.IDALDZTag DALDZTag;
+     
+        public BLLDZService(IDAL.IDALDZService dal,IDAL.IDALDZTag dalTag)
         {
             DALDZService = dal;
+            DALDZTag = dalTag;
         }
 
 
@@ -58,6 +55,10 @@ namespace Dianzhu.BLL
             IList<DZService> businessServices = DALDZService.GetList(businessId, 0, 9999, out totalRecord);
             IList<ServiceType> serviceTypeList = businessServices.Select(x => x.ServiceType.TopType).Distinct().ToList();
             return serviceTypeList;
+        }
+        public void Save(DZService service)
+        {
+            DALDZService.Add(service);
         }
         public void Update(DZService service)
         {
@@ -106,7 +107,7 @@ namespace Dianzhu.BLL
         /// <returns></returns>
         public IList<DZTag> GetServiceTags(DZService service)
         {
-            return new BLLDZTag().GetTagForService(service.Id);
+            return DALDZTag.GetTagsForService(service.Id);
         }
 
         /// <summary>

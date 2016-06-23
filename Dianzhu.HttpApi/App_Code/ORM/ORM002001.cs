@@ -26,14 +26,23 @@ public class ResponseORM002001 : BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
       
-        string raw_id = requestData.userID;
+        string user_id = requestData.userID;
+
+        Guid userId;
+        bool isUser = Guid.TryParse(user_id, out userId);
+        if (!isUser)
+        {
+            this.state_CODE = Dicts.StateCode[1];
+            this.err_Msg = "id有误";
+            return;
+        }
 
         try
         {
             DZMembership member;
             if (request.NeedAuthenticate)
             {
-                bool validated = new Account(p).ValidateUser(new Guid(raw_id), requestData.pWord, this, out member);
+                bool validated = new Account(p).ValidateUser(userId, requestData.pWord, this, out member);
                 if (!validated)
                 {
                     return;
@@ -41,7 +50,7 @@ public class ResponseORM002001 : BaseResponse
             }
             else
             {
-                member = p.GetUserById(new Guid(raw_id));
+                member = p.GetUserById(userId);
             }
             try
             {
@@ -72,7 +81,17 @@ public class ResponseORM002001 : BaseResponse
                     }
                 }
                 ilog.Debug("开始分配客服");
-                Dictionary<DZMembership, DZMembership> assignedPair = ra.AssignCustomerLogin(member);
+                ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
+                Dictionary<DZMembership, DZMembership> assignedPair = new Dictionary<DZMembership, DZMembership>();
+                if (rs == null)
+                {
+                    assignedPair = ra.AssignCustomerLogin(member);
+                }
+                else
+                {
+                    assignedPair.Add(rs.Customer, rs.CustomerService);
+                }
+                
                 if (assignedPair.Count == 0)
                 {
                     this.state_CODE = Dicts.StateCode[4];

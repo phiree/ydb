@@ -35,7 +35,7 @@ public class ResponseCHAT001006:BaseResponse
         {
             member = p.GetUserById(new Guid(raw_id));
         }
-        BLLReception bllReception = new BLLReception();
+        BLLReceptionChat bllReceptionChat = Bootstrap.Container.Resolve<BLLReceptionChat>();
         int rowCount;
         Guid orderId;
         string target = requestData.target; 
@@ -63,7 +63,7 @@ public class ResponseCHAT001006:BaseResponse
 
         if (requestData.orderID == "")
         {
-            chatList = bllReception.GetReceptionChatList(member, null, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
+            chatList = bllReceptionChat.GetReceptionChatList(member, null, Guid.Empty, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
         }
         else
         {
@@ -75,7 +75,7 @@ public class ResponseCHAT001006:BaseResponse
                 return;
             }
 
-            chatList = bllReception.GetReceptionChatList(member, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
+            chatList = bllReceptionChat.GetReceptionChatList(member, null, orderId, DateTime.MinValue, DateTime.MaxValue, pageIndex, pageSize, chatTarget, out rowCount);
         }
         
         try

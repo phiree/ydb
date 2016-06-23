@@ -9,19 +9,17 @@ namespace Dianzhu.BLL
 {
    public  class PushService
     {
-        DAL.DALServiceOrderPushedService dalSOP;
-        IBLLServiceOrder bllServiceOrder { get; set; }
+        IDAL.IDALServiceOrderPushedService dalSOP;
+        BLLPayment bllPayment;
+        IBLLServiceOrder bllServiceOrder;
         BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis;
-        public PushService(DAL.DALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder)
+        public PushService(IDAL.IDALServiceOrderPushedService dalSOP,IBLLServiceOrder bllServiceOrder, BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis)
         {
             this.dalSOP = dalSOP;
             this.bllServiceOrder = bllServiceOrder;
-            
-            this.bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
-        }
-        public PushService(IBLLServiceOrder bllServiceOrder):this(new DAL.DALServiceOrderPushedService(),bllServiceOrder)
-        {
+            this.bllPayment = bllPayment;
 
+            this.bllServiceOrderStateChangeHis = bllServiceOrderStateChangeHis;
         }
         public void Push(ServiceOrder order, ServiceOrderPushedService service, string targetAddress, DateTime targetTime)
         {
@@ -44,7 +42,7 @@ namespace Dianzhu.BLL
 
             foreach (ServiceOrderPushedService service in services)
             {
-                dalSOP.Save(service);
+                dalSOP.Add(service);
             }
         }
         public IList<ServiceOrderPushedService> GetPushedServicesForOrder(ServiceOrder order)
@@ -67,13 +65,12 @@ namespace Dianzhu.BLL
                 order.CreatedFromDraft();
 
                 //保存订单历史记录
-                bllServiceOrderStateChangeHis.SaveOrUpdate(order, enum_OrderStatus.DraftPushed);
+                bllServiceOrderStateChangeHis.Save(order, enum_OrderStatus.DraftPushed);
 
                 PHSuit.HttpHelper.CreateHttpRequest(Dianzhu.Config.Config.GetAppSetting("NotifyServer") + "type=ordernotice&orderId=" + order.Id.ToString(), "get", null);
 
                 if (order.DepositAmount>0)
                 {
-                    BLLPayment bllPayment = new BLLPayment();
                     Payment payment = bllPayment.ApplyPay(order, enum_PayTarget.Deposit);
                 }
                 else

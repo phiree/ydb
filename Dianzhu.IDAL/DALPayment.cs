@@ -13,6 +13,7 @@ namespace Dianzhu.IDAL
 
         IList<Payment> GetPaymentsForOrder(ServiceOrder order);
 
+
         Payment GetPaymentForWaitPay(ServiceOrder order);
         /// <summary>
         /// 查询订单支付的订金
@@ -20,6 +21,7 @@ namespace Dianzhu.IDAL
         /// <param name="order"></param>
         /// <returns></returns>
         Payment GetPayedForDeposit(ServiceOrder order);
+
 
         /// <summary>
         /// 查询订单支付的订金

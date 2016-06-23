@@ -8,42 +8,36 @@ using NHibernate;
 using NHibernate.Criterion;
 namespace Dianzhu.DAL
 {
-    public class DALOrderAssignment : NHRepositoryBase<OrderAssignment, Guid>, IDAL.IDALOrderAssignment//: DALBase<OrderAssignment>
+ 
+    public class DALOrderAssignment : NHRepositoryBase<OrderAssignment,Guid>,IDAL.IDALOrderAssignment
     {
-        public DALOrderAssignment()
-        {
-
-        }
-        //注入依赖,供测试使用;
-        //public DALOrderAssignment(string fortest) : base(fortest)
-        //{
-
-        //}
-
+ 
         public OrderAssignment FindByOrderAndStaff(ServiceOrder order, Staff staff)
         {
-            return Session.QueryOver<OrderAssignment>().Where(x => x.Order == order).And(x => x.AssignedStaff == staff).SingleOrDefault();
+            return FindOne(x => x.Order.Id == order.Id && x.AssignedStaff == staff);
         }
 
         public IList<OrderAssignment> GetOAListByOrder(ServiceOrder order)
         {
-            return Session.QueryOver<OrderAssignment>().Where(x => x.Order == order).And(x=>x.Enabled==true).List();
+            return Find(x => x.Order.Id == order.Id && x.Enabled == true);
         }
 
         public IList<OrderAssignment> GetOAListByStaff(Staff staff)
         {
-            return Session.QueryOver<OrderAssignment>().Where(x => x.AssignedStaff == staff).And(x => x.Enabled == true).List();
+            return Find(x => x.AssignedStaff.Id == staff.Id && x.Enabled == true);
         }
 
         public IList<OrderAssignment> GetAllListForAssign(Guid businessId)
         {
-            string sql = "select oa from OrderAssignment oa " +
-                " inner join oa.AssignedStaff s " +
-                " where oa.Enabled=true And s.Belongto = '" + businessId + "'";
+            return Find(x => x.AssignedStaff.Belongto.Id == businessId && x.Enabled == true);
 
-            IQuery iquery = Session.CreateQuery(sql);
+            //string sql = "select oa from OrderAssignment oa " +
+            //    " inner join oa.AssignedStaff s " +
+            //    " where oa.Enabled=true And s.Belongto = '" + businessId + "'";
 
-            return iquery.List<OrderAssignment>();
+            //IQuery iquery = Session.CreateQuery(sql);
+
+            //return iquery.List<OrderAssignment>();
         }
     }
 }

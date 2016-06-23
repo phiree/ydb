@@ -8,7 +8,12 @@ namespace Dianzhu.BLL
 {
     public class BLLIMUserStatus
     {
-        public DALIMUserStatus DALIMUserStatus = DALFactory.DALIMUserStatus;
+        public IDAL.IDALIMUserStatus DALIMUserStatus;
+
+        public BLLIMUserStatus(IDAL.IDALIMUserStatus dal)
+        {
+            DALIMUserStatus = dal;
+        }
 
         public void Save(IMUserStatus im)
         {

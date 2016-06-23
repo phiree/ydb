@@ -25,6 +25,7 @@ public class ResponseSLF002006:BaseResponse
         {
             ReqDataSLF002006 requestData = this.request.ReqData.ToObject<ReqDataSLF002006>();
 
+            BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
             bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 
             string service_Id = requestData.serviceId;
@@ -40,7 +41,7 @@ public class ResponseSLF002006:BaseResponse
             }
 
             //todo: 使用 ninject,注入依赖.
-            BLLDZService bllService = new BLLDZService();
+            
             DZService service = bllService.GetOne(serviceId);
 
             if (service == null)

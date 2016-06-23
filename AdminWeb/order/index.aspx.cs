@@ -74,7 +74,6 @@ public partial class order_index : BasePage
 
     }
     //long totalRecord
-    BLLPayment bllPayment = new BLLPayment();
     protected void data_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)

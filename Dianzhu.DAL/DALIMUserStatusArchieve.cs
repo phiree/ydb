@@ -7,17 +7,8 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALIMUserStatusArchieve : DALBase<IMUserStatusArchieve>
+    public class DALIMUserStatusArchieve : NHRepositoryBase<IMUserStatusArchieve,Guid>,IDAL.IDALIMUserStatusArchieve
     {
-         public DALIMUserStatusArchieve()
-        {
-             
-        }
-        //注入依赖,供测试使用;
-         public DALIMUserStatusArchieve(string fortest):base(fortest)
-        {
-            
-        }
 
     }
 }

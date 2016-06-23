@@ -23,14 +23,12 @@ public class ResponseORM001008 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
       
-        BLLDZService bllDZService = new BLLDZService();
+        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
         PushService bllPushService = Bootstrap.Container.Resolve<PushService>();
 
-        //20150616_longphui_modify
-        //BLLServiceOrderRemind bllServcieOrderRemind = new BLLServiceOrderRemind();
         BLLServiceOrderRemind bllServiceOrderRemind = Bootstrap.Container.Resolve<BLLServiceOrderRemind>();
-
-        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = new BLLServiceOrderStateChangeHis();
+        BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis = Bootstrap.Container.Resolve<BLLServiceOrderStateChangeHis>();
+ 
 
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
 

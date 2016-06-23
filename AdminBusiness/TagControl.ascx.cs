@@ -8,7 +8,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 public partial class TagControl : System.Web.UI.UserControl
 {
-    BLLDZTag bllTag = new BLLDZTag();
+    BLLDZTag bllTag = Bootstrap.Container.Resolve<BLLDZTag>();
     public string ServiceId { get; set; }
     public string BusinessId { get; set; }
     public string ServiceTypeId { get; set; }

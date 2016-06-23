@@ -25,7 +25,7 @@ namespace Dianzhu.CSClient.Presenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PIdentityList");
         IViewIdentityList iView;
         IViewChatList iViewChatList;
-        DAL.DALReceptionChat dalReceptionChat;
+        IDAL.IDALReceptionChat dalReceptionChat;
         IViewOrder iViewOrder;
         public PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList, IViewOrder iViewOrder, InstantMessage iIM)
             : this(iView, iViewChatList, iViewOrder, iIM, new DALReceptionChat())
@@ -33,7 +33,7 @@ namespace Dianzhu.CSClient.Presenter
 
         }
 
-        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, DAL.DALReceptionChat dalReceptionChat)
+        public  PIdentityList(IViewIdentityList iView, IViewChatList iViewChatList,IViewOrder iViewOrder, InstantMessage iIM, IDAL.IDALReceptionChat dalReceptionChat)
         {
             this.iView = iView;
             this.iViewOrder = iViewOrder;
@@ -64,9 +64,7 @@ namespace Dianzhu.CSClient.Presenter
 
                     ((ReceptionChatMedia)chat).MedialUrl = fileName;
                 }
-                dalReceptionChat.Save(chat);
-
-                PChatList.chatHistoryAll[chat.From.Id].Add(chat);
+                dalReceptionChat.Add(chat);
             }
             else if (chat.ChatType== enum_ChatType.UserStatus)
             {

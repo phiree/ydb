@@ -15,7 +15,13 @@ namespace Dianzhu.BLL
     }
     public class BLLMembershipLoginLog : IBLLMembershipLoginLog
     {
-        DALMembershipLoginLog dalLoginLog = new DALMembershipLoginLog();
+        IDAL.IDALMembershipLoginLog dalLoginLog;
+
+        public BLLMembershipLoginLog(IDAL.IDALMembershipLoginLog dal)
+        {
+            dalLoginLog = dal;
+        }
+
         /// <summary>
         /// 用户登录记录
         /// </summary>
@@ -24,13 +30,13 @@ namespace Dianzhu.BLL
         public void MemberLogin(DZMembership memeber, string memo)
         {
             MembershipLoginLog log = new MembershipLoginLog(memeber, enumLoginLogType.Login, memo);
-            dalLoginLog.Save(log);
+            dalLoginLog.Add(log);
         }
 
         public void MemberLogoff(DZMembership member, string memo)
         {
             MembershipLoginLog log = new MembershipLoginLog(member, enumLoginLogType.Logoff, memo);
-            dalLoginLog.Save(log);
+            dalLoginLog.Add(log);
         }
     }
 }

@@ -18,10 +18,11 @@ namespace Dianzhu.CSClient
         public static void Boot()
         {
             container = new WindsorContainer();
-            container.Install(new Dianzhu.DependencyInstaller.InstallerApplicationService(),
+            container.Install(
                 new Dianzhu.DependencyInstaller.InstallerComponent(),
                 new Dianzhu.DependencyInstaller.InstallerInfrstructure(),
                 new Dianzhu.DependencyInstaller.InstallerRepository(),
+                new Dianzhu.DependencyInstaller.InstallerApplicationService(),
                 new InstallerUI()
                 );
 

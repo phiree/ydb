@@ -26,7 +26,7 @@ public class ResponseSYS001001:BaseResponse
         ReqDataSYS001001 requestData = this.request.ReqData.ToObject<ReqDataSYS001001>();
 
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
-        bllReceptionChatDD = new BLLReceptionChatDD();
+        bllReceptionChatDD = Bootstrap.Container.Resolve<BLLReceptionChatDD>();
         bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
 
 

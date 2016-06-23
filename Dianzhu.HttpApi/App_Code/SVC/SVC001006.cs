@@ -26,8 +26,8 @@ public class ResponseSVC001006 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        BLLDZService bllDZService = new BLLDZService();
-        BLLDZTag bllDZTag = new BLLDZTag();
+        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
 
         try
         {

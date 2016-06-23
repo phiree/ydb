@@ -29,12 +29,12 @@ namespace Dianzhu.BLL.IdentityAccess
         public string GetRoleName(string id)
         {
             Guid guidId = new Guid(id);
-            DZRole role = dalRole.GetOne(guidId);
+            DZRole role = dalRole.FindById(guidId);
             return role.Name;
         }
         public IList<RoleDto> GetAllRolesDto()
         {
-            IList<DZRole> all = dalRole.GetAll<DZRole>();
+            IList<DZRole> all = dalRole.Find(x=>true);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<DZRole, RoleDto>());
             var mapper = config.CreateMapper();
             IList<RoleDto> dtos = new List<RoleDto>();
@@ -52,13 +52,14 @@ namespace Dianzhu.BLL.IdentityAccess
             if (string.IsNullOrEmpty(id))
             {
                 role = new DZRole { Name = rolename };
+                dalRole.Add(role);
             }
             else
             {
-                role = dalRole.GetOne(new Guid( id));
+                role = dalRole.FindById(new Guid(id));
                 role.Name = rolename;
+                dalRole.Update(role);
             }
-            dalRole.SaveOrUpdate(role);
         }
          
         public override string ApplicationName

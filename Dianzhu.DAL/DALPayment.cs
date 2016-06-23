@@ -8,19 +8,10 @@ using Dianzhu.IDAL;
 
 namespace Dianzhu.DAL
 {
-    public class DALPayment : NHRepositoryBase<Payment, Guid>, IDALPayment//: DALBase<Model.Payment>
+
+
+    public class DALPayment : NHRepositoryBase<Payment,Guid>,IDAL.IDALPayment
     {
-
-        public DALPayment()
-        {
-
-        }
-        //注入依赖,供测试使用;
-        //public DALPayment(string fortest) : base(fortest)
-        //{
-
-        //}
-
         /// <summary>
         /// 获取一个订单已经创建的支付项.
         /// </summary>
@@ -28,15 +19,12 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public virtual IList<Payment> GetPaymentsForOrder(ServiceOrder order)
         {
-            //20160621_longphui_modify
-            //var list = GetList(Session.QueryOver<Payment>().Where(x => x.Order == order));
-            IList<Payment> list = Find((x => x.Order == order));
-            return list;
+            return Find(x => x.Order.Id == order.Id);
         }
 
         public virtual Payment GetPaymentForWaitPay(ServiceOrder order)
         {
-            return Session.QueryOver<Payment>().Where(x => x.Order == order).And(x => x.Status == Model.Enums.enum_PaymentStatus.Wait_Buyer_Pay).SingleOrDefault();
+            return FindOne(x => x.Order.Id == order.Id && x.Status == Model.Enums.enum_PaymentStatus.Wait_Buyer_Pay);
         }
         /// <summary>
         /// 查询订单支付的订金
@@ -45,7 +33,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public virtual Payment GetPayedByTarget(ServiceOrder order, Model.Enums.enum_PayTarget payTarget)
         {
-            return Session.QueryOver<Payment>().Where(x => x.Order == order).And(x => x.PayTarget == payTarget).And(x => x.Status == Model.Enums.enum_PaymentStatus.Trade_Success).SingleOrDefault();
+            return FindOne(x => x.Order.Id == order.Id && x.PayTarget == payTarget && x.Status == Model.Enums.enum_PaymentStatus.Trade_Success);
         }
 
         /// <summary>

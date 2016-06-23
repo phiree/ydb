@@ -12,16 +12,12 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLDZTag
     {
-        DALDZTag dalTag =null;// DALFactory.DALDZTag;
+        IDAL.IDALDZTag dalTag;// DALFactory.DALDZTag;
 
         //增加一个Tag
-        public BLLDZTag(DAL.DALDZTag dal)
+        public BLLDZTag(IDAL.IDALDZTag dal)
         {
             dalTag = dal;
-        }
-        public BLLDZTag():this(DALFactory.DALDZTag)
-        { 
-        
         }
         
         public DZTag AddTag(string text, string serviceId, string businessId, string serviceTypeId)

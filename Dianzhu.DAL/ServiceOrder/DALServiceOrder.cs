@@ -11,21 +11,13 @@ namespace Dianzhu.DAL
 {
     public class DALServiceOrder :NHRepositoryBase<ServiceOrder,Guid>, IDALServiceOrder
     {
-        public DALServiceOrder()
-        {
-
-        }
         public ServiceOrder GetOne(Guid id)
         {
-            throw new NotImplementedException();
-        }
-        public void SaveOrUpdate(ServiceOrder order)
-        {
-            throw new NotImplementedException();
+            return FindById(id);
         }
         private IQueryOver<ServiceOrder> GetList(Guid userId, enum_OrderSearchType searchType)
-        { 
-            IQueryOver<ServiceOrder, ServiceOrder> iqueryover = Session .QueryOver<ServiceOrder>().Where(x => x.Customer.Id == userId);
+        {
+            IQueryOver<ServiceOrder, ServiceOrder> iqueryover = Session.QueryOver<ServiceOrder>().Where(x => x.Customer.Id == userId);
 
             switch (searchType)
             {
@@ -70,9 +62,13 @@ namespace Dianzhu.DAL
         }
         public int GetServiceOrderCount(Guid userId, enum_OrderSearchType searchType)
         {
-            var iqueryover = GetList(userId, searchType);
-            int rowCount = iqueryover.RowCount();
-            return rowCount;
+            using (var tr = Session.BeginTransaction())
+            {
+                var iqueryover = GetList(userId, searchType);
+                int rowCount = iqueryover.RowCount();
+                tr.Commit();
+                return rowCount;
+            }
         }
         /// <summary>
         /// 除了草稿(draft,draftpushed)之外的订单
@@ -82,44 +78,60 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public int GetServiceOrderCountWithoutDraft(Guid userid,bool isCustomerService)
         {
-            var iqueryover = Session.QueryOver<ServiceOrder>();
-            iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
-                                        : iqueryover.Where(x => x.Customer.Id == userid);
-            iqueryover = iqueryover.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
-            return iqueryover.RowCount();
+            //todo:
+            using (var tr = Session.BeginTransaction())
+            {
+                var iqueryover = Session.QueryOver<ServiceOrder>();
+                iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
+                                            : iqueryover.Where(x => x.Customer.Id == userid);
+                iqueryover = iqueryover.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
+                tr.Commit();
+                return iqueryover.RowCount();
+            }
         }
         public decimal GetServiceOrderAmountWithoutDraft(Guid userid, bool isCustomerService)
         {
-            var iqueryover = Session.QueryOver<ServiceOrder>();
-            iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
-                                        : iqueryover.Where(x => x.Customer.Id == userid);
-            iqueryover = iqueryover.And(x => (int)x.OrderStatus !=(int) enum_OrderStatus.Draft).And(x=>(int) x.OrderStatus != (int)enum_OrderStatus.DraftPushed);
+            //todo:
+            using (var tr = Session.BeginTransaction())
+            {
+                var iqueryover = Session.QueryOver<ServiceOrder>();
+                iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
+                                            : iqueryover.Where(x => x.Customer.Id == userid);
+                iqueryover = iqueryover.And(x => (int)x.OrderStatus != (int)enum_OrderStatus.Draft).And(x => (int)x.OrderStatus != (int)enum_OrderStatus.DraftPushed);
 
-           return iqueryover.List().Sum(x => x.DepositAmount);
-
-            
+                tr.Commit();
+                return iqueryover.List().Sum(x => x.DepositAmount);
+            }
         }
 
         public IList<ServiceOrder> GetServiceOrderList(Guid userId, enum_OrderSearchType searchType, int pageNum, int pageSize)
         {
-            var iqueryover = GetList(userId, searchType);
-            var result = iqueryover.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
-            return result;
+            using (var tr = Session.BeginTransaction())
+            {
+                var iqueryover = GetList(userId, searchType);
+                var result = iqueryover.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
+                tr.Commit();
+                return result;
+            }
         }
 
-        public IList<ServiceOrder> GetListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
+        public IList<ServiceOrder> GetOrderListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
         {
-            var iquery = Session.QueryOver<ServiceOrder>()
-             //   .Where(a => a.Details.Select(x => x.OriginalService).Select(y => y.Business).Contains(business));
-            ;
-                //.JoinQueryOver(x => x.Service)
-                //.JoinQueryOver(y => y.Business)
-               
-            totalAmount = iquery.RowCount();
+            //var iquery = Session.QueryOver<ServiceOrder>()
+            // //   .Where(a => a.Details.Select(x => x.OriginalService).Select(y => y.Business).Contains(business));
+            //;
+            //.JoinQueryOver(x => x.Service)
+            //.JoinQueryOver(y => y.Business)
 
-            IList<ServiceOrder> list = GetAllOrdersForBusiness(business.Id).OrderByDescending(x=>x.LatestOrderUpdated).Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
+            using (var tr = Session.BeginTransaction())
+            {
+                totalAmount = (int)GetRowCount(x => true);
 
-            return list;
+                IList<ServiceOrder> list = GetAllOrdersForBusiness(business.Id).OrderByDescending(x => x.LatestOrderUpdated).Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
+
+                tr.Commit();
+                return list;
+            }
         }
 
         public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)
@@ -145,54 +157,37 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public ServiceOrder GetDraftOrder(DZMembership c, DZMembership cs)
         {
-            var order = Session.QueryOver<ServiceOrder>().
-                Where(x => x.Customer == c).
-                And(x => x.CustomerService == cs).
-                And(x => x.OrderStatus == enum_OrderStatus.Draft).List();
-
-            if (order.Count > 0)
-            {
-                return (ServiceOrder)order[0];
-            }
-            else
-            {
-                return null;
-            }
+            return FindOne(x => x.Customer.Id == c.Id && x.CustomerService.Id == cs.Id && x.OrderStatus == enum_OrderStatus.Draft);
         }
 
         public IList<ServiceOrder> GetOrderListByDate(DZService service, DateTime dateTime)
         {
-            var orderList = Session.QueryOver<ServiceOrder>()
-                 .Where(x => x.Service == service)
-                 .And(x => x.OrderCreated.Date == dateTime.Date)
-                 .List();
-            return orderList;
+            return Find(x => x.Service.Id == service.Id && x.OrderCreated.Date == dateTime.Date);
         }
 
         public ServiceOrder GetOrderByIdAndCustomer(Guid Id, DZMembership customer)
         {
-            return Session.QueryOver<ServiceOrder>().Where(x => x.Id == Id).And(x => x.Customer == customer).SingleOrDefault();
+            return FindOne(x => x.Id == Id && x.Customer.Id == customer.Id);
         }
-        public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId,int pageIndex,int pageSize,out int totalRecords)
-        {
-            var query = "select o from ServiceOrder as o " +
-                           " inner join o.Details  as d " +
-                           "  inner join d.OriginalService as s " +
-                            " inner join s.Business as b  " +
-                            " where b.Id='" + businessId + "' "+
-                           
-                      " and ( o.OrderStatus!=" + (int)enum_OrderStatus.Draft +
-                            " or o.OrderStatus!=" + (int)enum_OrderStatus.DraftPushed + " )"
-                            ;
+        //public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId, int pageIndex, int pageSize, out int totalRecords)
+        //{
+        //    var query = "select o from ServiceOrder as o " +
+        //                   " inner join o.Details  as d " +
+        //                   "  inner join d.OriginalService as s " +
+        //                    " inner join s.Business as b  " +
+        //                    " where b.Id='" + businessId + "' " +
 
-            throw new NotImplementedException();
-            // var list = GetList(query,pageIndex,pageSize,out totalRecords );
+        //              " and ( o.OrderStatus!=" + (int)enum_OrderStatus.Draft +
+        //                    " or o.OrderStatus!=" + (int)enum_OrderStatus.DraftPushed + " )"
+        //                    ;
 
-            
-            //return list;
-        }
+        //    var list = GetList(query, pageIndex, pageSize, out totalRecords);
+
+        //    return list;
+        //}
         public IList<ServiceOrder> GetAllOrdersForBusiness(Guid businessId)
         {
+            //todo:
             var query = "select o from ServiceOrder as o "+
                            " inner join o.Details  as d "+
                            "  inner join d.OriginalService as s " +
@@ -207,6 +202,7 @@ namespace Dianzhu.DAL
  
         public IList<ServiceOrder> GetAllCompleteOrdersForBusiness(Guid businessId)
         {
+            //todo:
             var query = "select o from ServiceOrder as o " +
                            " inner join o.Details  as d " +
                            "  inner join d.OriginalService as s " +
@@ -229,6 +225,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<ServiceOrder> GetCustomerCancelForBusiness(Guid businessId)
         {
+            //todo:
             var query = "select o from ServiceOrder as o " +
                            " inner join o.Details  as d " +
                            "  inner join d.OriginalService as s " +
@@ -251,6 +248,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<ServiceOrder> GetBusinessCancelOrdersForBusiness(Guid businessId)
         {
+            //todo:
             var query = "select o from ServiceOrder as o " +
                            " inner join o.Details  as d " +
                            "  inner join d.OriginalService as s " +

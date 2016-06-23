@@ -12,8 +12,6 @@ using Dianzhu.Api.Model;
 /// </summary>
 public class ResponseAPP001002:BaseResponse
 {
-    BLLDeviceBind bllDeviceBind;
-
     public ResponseAPP001002(BaseRequest request):base(request)
     {
         //
@@ -24,9 +22,9 @@ public class ResponseAPP001002:BaseResponse
     {
         ReqDataAPP001002 requestData = this.request.ReqData.ToObject<ReqDataAPP001002>();
 
-        //20160615_longphui_modify
-        //bllDeviceBind = new BLLDeviceBind();
-        bllDeviceBind = Bootstrap.Container.Resolve<BLLDeviceBind>();
+ 
+        BLLDeviceBind bllDeviceBind = Bootstrap.Container.Resolve<BLLDeviceBind>();
+ 
 
         Guid uuId;
 
@@ -42,7 +40,7 @@ public class ResponseAPP001002:BaseResponse
 
             DeviceBind obj = bllDeviceBind.getDevBindByUUID(uuId);
             obj.PushAmount = 0;
-            bllDeviceBind.SaveOrUpdate(obj);
+            bllDeviceBind.Update(obj);
 
             this.state_CODE = Dicts.StateCode[0];
             return;

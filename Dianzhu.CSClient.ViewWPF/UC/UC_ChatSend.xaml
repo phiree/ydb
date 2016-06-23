@@ -91,9 +91,9 @@
                     </Button>
                 </WrapPanel>
 
-                <WrapPanel HorizontalAlignment="Right" Visibility="Collapsed">
+                <WrapPanel HorizontalAlignment="Right">
                     <Button>
-                        <TextBlock FontFamily="微软雅黑" FontWeight="Regular" FontSize="10">快捷回复</TextBlock>
+                        <TextBlock x:Name="timerMsg" FontFamily="微软雅黑" FontWeight="Regular" FontSize="10"></TextBlock>
                     </Button>
                 </WrapPanel>
             </Grid>

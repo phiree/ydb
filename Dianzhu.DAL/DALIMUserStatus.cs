@@ -12,27 +12,12 @@ namespace Dianzhu.DAL
 
         public IMUserStatus GetIMUSByUserId(Guid userId)
         {
-            using (var tr = Session.BeginTransaction())
-            {
-                var result = Session.QueryOver<IMUserStatus>().Where(x => x.UserID == userId).SingleOrDefault();
-
-                tr.Commit();
-                return result;
-            }
-
-
+            return FindOne(x => x.UserID == userId);
         }
 
         public IList<IMUserStatus> GetOnlineListByClientName(string name)
         {
-            using (var tr = Session.BeginTransaction())
-            {
-                var result = Session.QueryOver<IMUserStatus>().Where(x => x.ClientName == name).And(x => x.Status == Model.Enums.enum_UserStatus.available).List();
-
-                tr.Commit();
-                return result;
-            }
-
+            return Find(x => x.ClientName == name && x.Status == Model.Enums.enum_UserStatus.available);
         }
 
     }

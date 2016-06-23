@@ -82,7 +82,6 @@
     <Compile Include="DALRefund.cs" />
     <Compile Include="DALPayment.cs" />
     <Compile Include="DALRefundLog.cs" />
-    <Compile Include="DALReception.cs" />
     <Compile Include="DALServiceOpenTime.cs" />
     <Compile Include="DALIMUserStatusArchieve.cs" />
     <Compile Include="DALIMUserStatus.cs" />

@@ -27,9 +27,15 @@ public class ResponseSVC001002 : BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
 
-        BLLDZService bllDZService = new BLLDZService();
+ 
+        BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
+       
+        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
+ 
+       
         BLLServiceType bllServiceType = Bootstrap.Container.Resolve < BLLServiceType>();
-        BLLDZTag bllDZTag = new BLLDZTag();
+         
+ 
 
         try
         {

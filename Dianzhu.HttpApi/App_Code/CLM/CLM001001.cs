@@ -25,11 +25,9 @@ public class ResponseCLM001001 : BaseResponse
 
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-
-        //20160314_longphui_modify
-        BLLComplaint bllComplaint = Bootstrap.Container.Resolve<BLLComplaint>();// new BLLComplaint();
-
-
+ 
+        BLLComplaint bllComplaint = Bootstrap.Container.Resolve<BLLComplaint>();
+ 
         string raw_id = requestData.userID;
 
         try
@@ -79,7 +77,7 @@ public class ResponseCLM001001 : BaseResponse
                 complaint.ResourcesUrl = requestData.resourcesUrl.Split(',').ToList();// requestData.resourcesUrl;
 
                 complaint.Operator = order.Customer;
-                bllComplaint.SaveOrUpdate(complaint);
+                bllComplaint.Save(complaint);
 
                 this.state_CODE = Dicts.StateCode[0];
             }

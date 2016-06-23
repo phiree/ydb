@@ -46,7 +46,7 @@ namespace Dianzhu.ApplicationService.App
             DateTime dt= DateTime.Now;
             devicebind.SaveTime = dt;
             devicebind.BindChangedTime = dt;
-            blldevicebind.SaveOrUpdate1(devicebind);
+            blldevicebind.Update(devicebind);
             devicebind = blldevicebind.getDevBindByUUID(uuId);
             if (devicebind!=null && devicebind.BindChangedTime == dt)
             {

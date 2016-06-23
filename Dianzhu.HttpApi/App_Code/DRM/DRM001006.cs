@@ -21,7 +21,7 @@ public class ResponseDRM001006 : BaseResponse
         ReqDataDRM001006 requestData = this.request.ReqData.ToObject<ReqDataDRM001006>();
         
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
-        BLLDZTag bllDZTag = new BLLDZTag();
+        BLLDZTag bllDZTag = Bootstrap.Container.Resolve<BLLDZTag>();
 
         string order_id = requestData.orderID;
 

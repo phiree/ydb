@@ -28,14 +28,10 @@ public class ResponseORM002003 : BaseResponse
  
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-
-
-        //20160617_longphui_moddify
-        //BLLOrderAssignment bllOrderAssignment = new BLLOrderAssignment();
+ 
+      
         BLLOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<BLLOrderAssignment>();
-
-
-
+ 
         string raw_id = requestData.userID;
         string reqOrderId = requestData.orderID;
 

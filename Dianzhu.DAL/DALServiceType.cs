@@ -12,7 +12,7 @@ namespace Dianzhu.DAL
 
         public IList<ServiceType> GetTopList()
         {
-             return Find(x=>x.Parent==null);
+            return Find(x=>x.Parent==null);
         }
         public ServiceType GetOneByCode(string code)
         {

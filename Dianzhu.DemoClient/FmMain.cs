@@ -330,7 +330,7 @@ namespace Dianzhu.DemoClient
                     break;
 
                 case "ihelper:notice:order":
-                    lblMessage.Text += message.Body;
+                    //lblMessage.Text += message.Body;
                     break;
 
                 default:

@@ -50,7 +50,7 @@ namespace Dianzhu.Model
         /// 呼叫 或者 接收呼叫的次数
         /// </summary>
         public virtual int ReceptionTimes { get; set; }
-        public virtual Guid Id { get; set; }
+        //public virtual Guid Id { get; set; }
         public virtual string UserName { get; set; }
         //用||(双竖线)替换邮箱用户中的@符号
         public virtual string UserNameForOpenFire { get; set; }

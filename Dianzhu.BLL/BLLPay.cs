@@ -11,6 +11,7 @@ using System.IO;
 using Dianzhu.Pay;
 using System.Collections.Specialized;
 using Dianzhu.Pay.RefundRequest;
+using Dianzhu.IDAL;
 
 namespace Dianzhu.BLL
 {
@@ -18,14 +19,17 @@ namespace Dianzhu.BLL
     public class BLLPay
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLPay");
-        BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
-        BLLPayment bllPayment = new BLLPayment();
+        
+        BLLPayment bllPayment;
         //BLLServiceOrder bllOrder =Bootstrap.Container.Resolve<BLLServiceOrder>();
-        IBLLServiceOrder bllOrder { get; set; }
+        IBLLServiceOrder bllOrder;
+        IDALPaymentLog bllPaymentLog;
 
-        public BLLPay(IBLLServiceOrder bllOrder)
+        public BLLPay(IBLLServiceOrder bllOrder, IDALPaymentLog bllPaymentLog,BLLPayment bllPayment)
         {
             this.bllOrder = bllOrder;
+            this.bllPaymentLog = bllPaymentLog;
+            this.bllPayment = bllPayment;
         }
 
         public IPayRequest CreatePayAPI(enum_PayAPI payApi, ServiceOrder order, enum_PayTarget payTarget)
@@ -74,7 +78,7 @@ namespace Dianzhu.BLL
             paymentLog.PayType = enum_PayType.Online;
             
             log.Debug("保存支付记录");
-            bllPaymentLog.SaveOrUpdate(paymentLog);
+            bllPaymentLog.Add(paymentLog);
 
             //处理订单流程
             string platformOrderId, businessOrderId, errMsg;
@@ -94,7 +98,7 @@ namespace Dianzhu.BLL
                 payment.Status = enum_PaymentStatus.Fail;
                 payment.PayApi = GetPayApi(payLogType);
                 payment.PlatformTradeNo = platformOrderId;
-                bllPayment.SaveOrUpdate(payment);
+                bllPayment.Update(payment);
             }
             else if (returnstr == "TRADE_CLOSED")
             {
@@ -103,7 +107,7 @@ namespace Dianzhu.BLL
                 payment.Status = enum_PaymentStatus.Trade_Closed;
                 payment.PayApi = GetPayApi(payLogType);
                 payment.PlatformTradeNo = platformOrderId;
-                bllPayment.SaveOrUpdate(payment);
+                bllPayment.Update(payment);
             }
             else if(returnstr == "TRADE_FINISHED")
             {
@@ -112,7 +116,7 @@ namespace Dianzhu.BLL
                 payment.Status = enum_PaymentStatus.Trade_Finished;
                 payment.PayApi = GetPayApi(payLogType);
                 payment.PlatformTradeNo = platformOrderId;
-                bllPayment.SaveOrUpdate(payment);
+                bllPayment.Update(payment);
             }
             else if(returnstr == "WAIT_BUYER_PAY")
             {
@@ -125,7 +129,7 @@ namespace Dianzhu.BLL
                 log.Debug("TRADE_SUCCESS,更新支付记录,paymentLogId为：" + paymentLog.Id.ToString());
                 paymentLog.PayAmount = amount;
                 paymentLog.PaymentId = new Guid(businessOrderId);
-                bllPaymentLog.SaveOrUpdate(paymentLog);
+                bllPaymentLog.Update(paymentLog);
 
                 log.Debug("TRADE_SUCCESS,更新支付项,paymentId为：" + businessOrderId);
                 Payment payment= bllPayment.GetOne(new Guid(businessOrderId));
@@ -137,7 +141,7 @@ namespace Dianzhu.BLL
                 payment.Status = enum_PaymentStatus.Trade_Success;
                 payment.PayApi = GetPayApi(payLogType);
                 payment.PlatformTradeNo = platformOrderId;
-                bllPayment.SaveOrUpdate(payment);
+                bllPayment.Update(payment);
 
                 //更新订单状态.
                 log.Debug("TRADE_SUCCESS,订单当前状态为：" + payment.Order.OrderStatus.ToString());
@@ -191,8 +195,6 @@ namespace Dianzhu.BLL
         }
         public void SavePaymentLog(Payment payment, enum_PayType payType, enum_PaylogType paylogType, enum_PayTarget payTarget, enum_PayAPI payApi, string apiString)
         {
-            BLLPaymentLog bllPaymentLog = new BLLPaymentLog();
-
             PaymentLog paymentLog = new PaymentLog
             {
                 LogTime = DateTime.Now,
@@ -203,7 +205,7 @@ namespace Dianzhu.BLL
                 PaymentId = payment.Id
             };
 
-            bllPaymentLog.SaveOrUpdate(paymentLog);
+            bllPaymentLog.Add(paymentLog);
         }
 
         #region helper
@@ -227,15 +229,5 @@ namespace Dianzhu.BLL
             return preSubject;
         }
         #endregion
-    }
-    public class BLLPaymentLog
-    {
-
-        public DALPaymentLog DALPaymentLog = DALFactory.DALPaymentLog;
-
-        public void SaveOrUpdate(PaymentLog PaymentLog)
-        {
-            DALPaymentLog.SaveOrUpdate(PaymentLog);
-        }
     }
 }

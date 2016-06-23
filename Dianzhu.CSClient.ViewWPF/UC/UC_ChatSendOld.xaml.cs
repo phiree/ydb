@@ -61,6 +61,27 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
+        public string MessageTimer
+        {
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        string IViewChatSend.MessageTimer
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public event SendTextClick SendTextClick;
         public event SendMediaClick SendMediaClick;
         

@@ -12,10 +12,6 @@ namespace Dianzhu.Model
     public class IMUserStatus:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
-        /// 主键
-        /// </summary>
-        public virtual Guid Id { get; set; }
-        /// <summary>
         /// 口传递进来的原始ID(可能包含服务器域名, 资源名等)
         /// </summary>
         public virtual string UserIdRaw { get; set; }
@@ -49,7 +45,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 用户的IM 状态
     /// </summary>
-    public class IMUserStatusArchieve
+    public class IMUserStatusArchieve:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 构造函数
@@ -59,11 +55,7 @@ namespace Dianzhu.Model
         {
             ArchieveTime = DateTime.Now;
         }
-
-        /// <summary>
-        /// 主键
-        /// </summary>
-        public virtual Guid Id { get; set; }
+                
         /// <summary>
         /// 口传递进来的原始ID(可能包含服务器域名, 资源名等)
         /// </summary>

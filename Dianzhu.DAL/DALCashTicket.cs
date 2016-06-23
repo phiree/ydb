@@ -10,9 +10,6 @@ namespace Dianzhu.DAL
 {
    public class DALCashTicket:DAL.NHRepositoryBase<CashTicket,Guid>,IDAL.IDALCashTicket
     {
-
-
-       
         public  bool CheckTicketCodeExists(string code)
        {
            

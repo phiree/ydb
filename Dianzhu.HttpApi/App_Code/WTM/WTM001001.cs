@@ -27,8 +27,6 @@ public class ResponseWTM001001 : BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
 
-        //20160620_longphui_modify
-        //BLLDZService bllDZService = new BLLDZService();
         BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
 
         try

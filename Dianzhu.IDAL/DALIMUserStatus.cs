@@ -7,11 +7,8 @@ using Dianzhu.Model;
 
 namespace Dianzhu.IDAL
 {
-    public interface IDALIMUserStatus :IRepository<IMUserStatus,Guid> 
+    public interface IDALIMUserStatus :IRepository<IMUserStatus,Guid>
     {
-
-
-
           IMUserStatus GetIMUSByUserId(Guid userId);
  
           IList<IMUserStatus> GetOnlineListByClientName(string name);

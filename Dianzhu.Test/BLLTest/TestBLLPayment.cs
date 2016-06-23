@@ -21,7 +21,7 @@ namespace Dianzhu.Test.BLLTest
         public void ApplyPay()
         {
             var dal = MockRepository.GenerateStub<DALPayment>(string.Empty);
-            var bllClaims = MockRepository.GenerateStub<BLLClaims>(string.Empty);
+            var bllClaims = MockRepository.GenerateStub<DALClaims>(string.Empty);
             DZService service = Builder<DZService>.CreateNew()
                 .With(x => x.DepositAmount = 1)
                 
