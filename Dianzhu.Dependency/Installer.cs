@@ -51,6 +51,14 @@ namespace Dianzhu.DependencyInstaller
             //20160617_longphui_add
             container.Register(Component.For<BLLDZService>());
 
+            //20160621_longphui_add
+            container.Register(Component.For<BLLPayment>());
+            container.Register(Component.For<BLLReceptionChat>());
+
+            //20160622_longphui_add
+            container.Register(Component.For<BLLServiceOrderStateChangeHis>());
+            container.Register(Component.For<BLLServiceOrderAppraise>());
+
 
         }
     }
@@ -108,6 +116,14 @@ namespace Dianzhu.DependencyInstaller
 
             //20160617_longphui_add
             container.Register(Component.For<IRepository<ServiceOpenTimeForDay, Guid>, IDALServiceOpenTimeForDay>().ImplementedBy<DALServiceOpenTimeForDay>());
+
+
+            //20160621_longphui_add
+            container.Register(Component.For<IRepository<Payment, Guid>, IDALPayment>().ImplementedBy<DALPayment>());
+            container.Register(Component.For<IRepository<ReceptionChat, Guid>, IDALReceptionChat>().ImplementedBy<DALReceptionChat>());
+
+            //20160622_longphui_add
+            container.Register(Component.For<IRepository<ServiceOrderStateChangeHis, Guid>, IDALServiceOrderStateChangeHis>().ImplementedBy<DALServiceOrderStateChangeHis>());
 
 
             container.Register(Component.For<IUnitOfWork>().ImplementedBy<NHUnitOfWork>());

@@ -34,11 +34,24 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
             }
         }
 
-        public IHttpActionResult GetUserByInfo([FromUri]common_Trait_UserFiltering userFilter)
+        /// <summary>
+        /// 条件读取用户合集
+        /// </summary>
+        /// <param name="userFilter"></param>
+        /// <returns></returns>
+        public IHttpActionResult GetUsers([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_UserFiltering userFilter)
         {
             try
             {
-                return Json(iuserservice.GetUserByInfo(userFilter, "business"));
+                if (filter == null)
+                {
+                    filter = new common_Trait_Filtering();
+                }
+                if (userFilter == null)
+                {
+                    userFilter = new common_Trait_UserFiltering();
+                }
+                return Json(iuserservice.GetUsers(filter, userFilter, "business"));
             }
             catch (Exception ex)
             {
@@ -46,11 +59,76 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
             }
         }
 
-        public IHttpActionResult PostUserByInfo([FromBody]common_Trait_UserFiltering userFilter)
+        /// <summary>
+        /// 统计商户数量
+        /// </summary>
+        /// <param name="userFilter"></param>
+        /// <returns></returns>
+        [Route("api/users/count")]
+        public IHttpActionResult GetUsersCount([FromUri]common_Trait_UserFiltering userFilter)
         {
             try
             {
-                return Json(iuserservice.GetUserByInfo(userFilter, "business"));
+                if (userFilter == null)
+                {
+                    userFilter = new common_Trait_UserFiltering();
+                }
+                return Json(iuserservice.GetUsersCount(userFilter, "business"));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        //public IHttpActionResult PostUserByInfo([FromBody]common_Trait_UserFiltering userFilter)
+        //{
+        //    try
+        //    {
+        //        return Json(iuserservice.GetUserByInfo(userFilter, "business"));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+        //    }
+        //}
+
+        /// <summary>
+        /// 修改商户信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="userChangeBody"></param>
+        /// <returns></returns>
+        public IHttpActionResult PatchUser(string id, [FromBody]UserChangeBody userChangeBody)
+        {
+            try
+            {
+                if (userChangeBody == null)
+                {
+                    userChangeBody = new UserChangeBody();
+                }
+                return Json(iuserservice.PatchUser(id, userChangeBody, "business"));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
+        }
+
+        /// <summary>
+        /// 注册新商户
+        /// </summary>
+        /// <param name="userBody"></param>
+        /// <returns></returns>
+        public IHttpActionResult PostUser([FromBody]Common_Body userBody)
+        {
+            try
+            {
+                if (userBody == null)
+                {
+                    userBody = new Common_Body();
+                }
+                return Json(iuserservice.PostUser(userBody, "business"));
             }
             catch (Exception ex)
             {

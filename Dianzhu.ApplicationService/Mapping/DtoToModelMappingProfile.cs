@@ -86,6 +86,26 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForMember(x => x.Code, opt => opt.MapFrom(source => source.identity))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
+            Mapper.CreateMap<storeObj, Model.Business>()
+            .ForMember(x => x.Name, opt => opt.MapFrom(source => source.alias))
+            .ForMember(x => x.Description, opt => opt.MapFrom(source => source.introduction))
+            .ForMember(x => x.Phone, opt => opt.MapFrom(source => source.storePhone))
+            .ForMember(x => x.Contact, opt => opt.MapFrom(source => source.linkMan))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+
+            Mapper.CreateMap<payObj, Model.Payment>()
+            .ForMember(x => x.Status, opt => opt.MapFrom(source => source.payStatus))
+            .ForMember(x => x.PayTarget, opt => opt.MapFrom(source => source.type))
+            .ForMember(x => x.LastUpdateTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.updateTime, "yyyyMMddHHmmss", "remindObj.time")))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<chatObj, Model.ReceptionChat>()
+            .ForMember(x => x.MessageBody, opt => opt.MapFrom(source => source.body))
+            .ForMember(x => x.ChatType, opt => opt.MapFrom(source => source.type))
+            .ForMember(x => x.SendTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.sendTime, "yyyyMMddHHmmss", "remindObj.time")))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
 
             //Mapper.CreateMap<CommentFormModel, Comment>();
             //Mapper.CreateMap<GroupFormModel, Group>();

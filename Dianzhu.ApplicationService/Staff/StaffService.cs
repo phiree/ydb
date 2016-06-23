@@ -34,6 +34,7 @@ namespace Dianzhu.ApplicationService.Staff
             Model.Staff staff = Mapper.Map<staffObj, Model.Staff>(staffobj);
             staff.Enable = true;
             staff.IsAssigned = false;
+            staff.Photo = utils.DownloadToMediaserver(staff.Photo, string.Empty, "StaffAvatar", "image");
             bllStaff.Save(staff);
             staff = bllStaff.GetOne(staff.Id);
             if (staff != null)
@@ -134,7 +135,8 @@ namespace Dianzhu.ApplicationService.Staff
             }
             if (staff2.Photo != null && staff2.Photo != staff1.Photo)
             {
-                staff1.Photo = staff2.Photo;
+                //staff1.Photo = staff2.Photo;
+                staff1.Photo = utils.DownloadToMediaserver(staff2.Photo, string.Empty, "StaffAvatar", "image");
             }
             if (staff2.Name != null && staff2.Name != staff1.Name)
             {
@@ -168,13 +170,15 @@ namespace Dianzhu.ApplicationService.Staff
         public object DeleteStaff(string storeID, string staffID)
         {
             Model.Staff staff = null;
-            staff = bllStaff.GetStaff(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(staffID, "staffID"));
+            Guid guidStore = utils.CheckGuidID(storeID, "storeID");
+            Guid guidStaff = utils.CheckGuidID(staffID, "staffID");
+            staff = bllStaff.GetStaff(guidStore, guidStaff);
             if (staff == null)
             {
                 throw new Exception("该员工不在职！");
             }
             bllStaff.Delete(staff);
-            staff = bllStaff.GetStaff(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(staffID, "staffID"));
+            staff = bllStaff.GetStaff(guidStore, guidStaff);
             if (staff == null)
             {
                 return "删除成功！";

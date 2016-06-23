@@ -11,6 +11,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.Script.Serialization;
 using System.Text.RegularExpressions;
+using System.Collections.Specialized;
+using PHSuit;
 
 namespace Dianzhu.ApplicationService
 {
@@ -327,6 +329,25 @@ namespace Dianzhu.ApplicationService
         {
             JavaScriptSerializer json = new JavaScriptSerializer();
             return json.Deserialize<T>(data);
+        }
+
+        public static string DownloadToMediaserver(string fileUrl,string strOriginalName,string strDomainType,string strFileType)
+        {
+            //string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");
+            //var respData = new NameValueCollection();
+            //respData.Add("fileUrl", HttpUtility.UrlEncode(fileUrl));
+            //respData.Add("originalName", string.Empty);
+            //respData.Add("domainType", "StaffAvatar");
+            //respData.Add("fileType", "image");
+
+            string url = Dianzhu.Config.Config.GetAppSetting("MediaUploadUrl");
+            var respData = new NameValueCollection();
+            respData.Add("fileUrl", HttpUtility.UrlEncode(fileUrl));
+            respData.Add("originalName", strOriginalName);
+            respData.Add("domainType", strDomainType);
+            respData.Add("fileType", strFileType);
+
+            return HttpHelper.CreateHttpRequest(url.ToString(), "post", respData);
         }
     }
 }

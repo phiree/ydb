@@ -58,7 +58,9 @@ namespace Dianzhu.ApplicationService.Service
             if (dzservice != null && dzservice.CreatedTime == dt)
             {
                 servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
-                //servicesobj.location= dzservice.Business.l
+                servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
+                servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
+                servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI;
             }
             else
             {
@@ -93,6 +95,12 @@ namespace Dianzhu.ApplicationService.Service
                 throw new Exception(Dicts.StateCode[4]);
             }
             IList<servicesObj> serviceobj = Mapper.Map<IList<Model.DZService>, IList<servicesObj>>(dzservice);
+            for (int i = 0; i < serviceobj.Count; i++)
+            {
+                serviceobj[i].location.longitude = dzservice[i].Business.Longitude.ToString();
+                serviceobj[i].location.latitude = dzservice[i].Business.Latitude.ToString();
+                serviceobj[i].location.address = dzservice[i].Business.RawAddressFromMapAPI;
+            }
             return serviceobj;
         }
 
@@ -125,6 +133,9 @@ namespace Dianzhu.ApplicationService.Service
             Model.DZService dzservice = null;
             dzservice = bllDZService.GetService(utils.CheckGuidID(storeID, "storeID"), utils.CheckGuidID(serviceID, "serviceID"));
             servicesObj servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
+            servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
+            servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
+            servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI;
             return servicesobj;
         }
 
@@ -221,7 +232,9 @@ namespace Dianzhu.ApplicationService.Service
             if (dzservice != null && dzservice.LastModifiedTime == dt)
             {
                 servicesobj = Mapper.Map<Model.DZService, servicesObj>(dzservice);
-                //servicesobj.location= dzservice.Business.l
+                servicesobj.location.longitude = dzservice.Business.Longitude.ToString();
+                servicesobj.location.latitude = dzservice.Business.Latitude.ToString();
+                servicesobj.location.address = dzservice.Business.RawAddressFromMapAPI;
             }
             else
             {

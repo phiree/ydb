@@ -267,9 +267,9 @@ namespace Dianzhu.Model.Enums
     }
     public enum enum_OrderSearchType
     {
+        ALL,//全部
         Nt,//未完成的服务
-        De,//完成的服务
-        ALL//全部
+        De//完成的服务
     }
     public enum enum_CashTicketSearchType
     {
@@ -529,6 +529,22 @@ namespace Dianzhu.Model.Enums
     }
 
     /// <summary>
+    /// 注册平台
+    /// </summary>
+    public enum enum_PlatFormType
+    {
+        /// <summary>
+        /// 系统
+        /// </summary>
+        system = 0,
+
+        //第三方登录用户
+        WeChat = 1,
+        SinaWeiBo = 2,
+        TencentQQ = 3,
+    }
+
+    /// <summary>
     /// 支付状态
     /// </summary>
     public enum enum_PaymentStatus
@@ -622,6 +638,41 @@ namespace Dianzhu.Model.Enums
         /// Android客户版
         /// </summary>
         Android_CustomerService,
+    }
+
+    /// <summary>
+    /// 理赔动作类型
+    /// </summary>
+    public enum enum_RefundAction
+    {
+        /// <summary>
+        /// 提交理赔请求
+        /// </summary>
+        submit=0,
+        /// <summary>
+        /// 店铺同意理赔要求
+        /// </summary>
+        refund=4,
+        /// <summary>
+        /// 店铺拒绝理赔
+        /// </summary>
+        reject=1,
+        /// <summary>
+        /// 店铺要求支付赔偿金
+        /// </summary>
+        askPay=2,
+        /// <summary>
+        /// 用户同意商户处理
+        /// </summary>
+        agree=8,
+        /// <summary>
+        /// 用户放弃理赔
+        /// </summary>
+        cancel=16,
+        /// <summary>
+        /// 用户要求官方介入
+        /// </summary>
+        intervention=32,
     }
 
 

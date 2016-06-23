@@ -70,6 +70,9 @@
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MediaServer">
+      <HintPath>..\MediaServer\bin\Debug\MediaServer.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Reflection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Reflection.1.0.0.0\lib\Mono.Reflection.dll</HintPath>
       <Private>True</Private>
@@ -77,6 +80,10 @@
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="PHSuit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PHSuit\bin\Debug\PHSuit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -99,6 +106,8 @@
     <Compile Include="App\IAppService.cs" />
     <Compile Include="Assign\AssignService.cs" />
     <Compile Include="Assign\IAssignService.cs" />
+    <Compile Include="Chat\ChatService.cs" />
+    <Compile Include="Chat\IChatService.cs" />
     <Compile Include="City\CityService.cs" />
     <Compile Include="City\ICityService.cs" />
     <Compile Include="Class1.cs" />
@@ -124,6 +133,11 @@
     <Compile Include="Common\common_Trait_StoreFiltering.cs" />
     <Compile Include="Common\common_Trait_UserFiltering.cs" />
     <Compile Include="Common\common_Trait_WorkTimeFiltering.cs" />
+    <Compile Include="Common\LoginBySinaWeiBo.cs" />
+    <Compile Include="Common\LoginByTencentQQ.cs" />
+    <Compile Include="Common\LoginByWeChat.cs" />
+    <Compile Include="Common\U3RD_Model.cs" />
+    <Compile Include="Common\UserChangeBody.cs" />
     <Compile Include="Common\utils.cs" />
     <Compile Include="Complaint\ComplaintService.cs" />
     <Compile Include="Complaint\IComplaintService.cs" />
@@ -158,6 +172,8 @@
     <Compile Include="ModeDTO\Identity\workTimeObj.cs" />
     <Compile Include="Order\IOrderService.cs" />
     <Compile Include="Order\OrderService.cs" />
+    <Compile Include="Pay\IPayService.cs" />
+    <Compile Include="Pay\PayService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Remind\IRemindService.cs" />
     <Compile Include="Remind\RemindService.cs" />
@@ -165,6 +181,8 @@
     <Compile Include="Service\ServiceService.cs" />
     <Compile Include="Staff\IStaffService.cs" />
     <Compile Include="Staff\StaffService.cs" />
+    <Compile Include="Store\IStoreService.cs" />
+    <Compile Include="Store\StoreService.cs" />
     <Compile Include="User\IUserService.cs" />
     <Compile Include="User\UserService.cs" />
     <Compile Include="WorkTime\IWorkTimeService.cs" />
@@ -180,9 +198,7 @@
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config">

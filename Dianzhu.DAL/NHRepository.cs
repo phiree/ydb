@@ -34,6 +34,21 @@ namespace Dianzhu.DAL
 
         }
 
+        /// <summary>
+        /// 仿DALBase.Save(T o, object id)
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="id"></param>
+        public void Add(TEntity t, TPrimaryKey id)
+        {
+            using (var tr = Session.BeginTransaction())
+            {
+                Session.Save(t,id);
+                tr.Commit();
+            }
+
+        }
+
         public void Delete(TEntity t)
         {
             using (var tr = Session.BeginTransaction())
@@ -148,6 +163,25 @@ namespace Dianzhu.DAL
             {
                 Add(t);
             }
+        }
+
+        /// <summary>
+        /// 仿DALBase. void SaveOrUpdate(T o)
+        /// </summary>
+        /// <param name="t"></param>
+        public void SaveOrUpdate(TEntity t)
+        {
+            if (Session.Transaction.IsActive)
+            { Session.SaveOrUpdate(t); }
+            else
+            {
+                using (var t1 = Session.BeginTransaction())
+                {
+                    Session.SaveOrUpdate(t); t1.Commit();
+
+                }
+            }
+
         }
     }
 }

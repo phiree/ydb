@@ -282,6 +282,7 @@ namespace Dianzhu.BLL
                     PlainPassword = password,
                     UserNameForOpenFire = userNameForOpenfire,
                     UserType = Model.Enums.enum_UserType.customer,
+                    PlatForm= Model.Enums.enum_PlatFormType.system
                 };
                 if (validateCode != Guid.Empty)
                 {
@@ -343,12 +344,23 @@ namespace Dianzhu.BLL
             return DALMembership.GetMemberByPhone(phone);
         }
 
-        public DZMembership GetUserByInfo(string name, string email, string phone)
+        /// <summary>
+        /// 根据用户信息获取user
+        /// </summary>
+        /// <param name="pagesize"></param>
+        /// <param name="pagenum"></param>
+        /// <param name="name"></param>
+        /// <param name="email"></param>
+        /// <param name="phone"></param>
+        /// <param name="platform"></param>
+        /// <returns></returns>
+        public IList<DZMembership> GetUsers(int pagesize,int pagenum,string name, string email, string phone,string platform,string userType)
         {
             var where = PredicateBuilder.True<DZMembership>();
+            where = where.And(x => x.UserType.ToString() == userType);
             if (name != null && name !="")
             {
-                where = where.And(x => x.UserName == name);
+                where = where.And(x => x.DisplayName .Contains(name));
             }
             if (email != null && email != "")
             {
@@ -358,7 +370,46 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.Phone == phone);
             }
-            return DALMembership.FindOne(where);
+            if (platform != null && platform != "")
+            {
+                where = where.And(x => x.PlatForm.ToString() == platform);
+            }
+            long t = 0;
+            var list = pagesize == 0 ? DALMembership.Find(where).ToList() : DALMembership.Find(where, pagenum, pagesize, out t).ToList();
+            return list;
+        }
+
+        /// <summary>
+        /// 统计用户数量
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="email"></param>
+        /// <param name="phone"></param>
+        /// <param name="platform"></param>
+        /// <param name="userType"></param>
+        /// <returns></returns>
+        public long GetUsersCount(string name, string email, string phone, string platform, string userType)
+        {
+            var where = PredicateBuilder.True<DZMembership>();
+            where = where.And(x => x.UserType.ToString() == userType);
+            if (name != null && name != "")
+            {
+                where = where.And(x => x.DisplayName.Contains(name));
+            }
+            if (email != null && email != "")
+            {
+                where = where.And(x => x.Email == email);
+            }
+            if (phone != null && phone != "")
+            {
+                where = where.And(x => x.Phone == phone);
+            }
+            if (platform != null && platform != "")
+            {
+                where = where.And(x => x.PlatForm.ToString() == platform);
+            }
+            long count = DALMembership.GetRowCount(where);
+            return count;
         }
         #endregion
 

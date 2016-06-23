@@ -14,7 +14,12 @@ namespace Dianzhu.DAL.Mapping
             Map(x => x.Target).CustomType<Model.Enums.enum_ChatTarget>();
             Map(x => x.Context);
             Map(x => x.Amount);
-            Map(x => x.ResourcesUrl).Length(1000);
+
+            //20160622_longphui_modify
+            //Map(x => x.ResourcesUrl).Length(1000);
+            HasMany(x => x.ResourcesUrl)
+            .Cascade.AllDeleteOrphan().KeyColumn("ResourcesUrlId").EntityName("ResourcesUrl").Elemen‌​t("ResourcesUrl");
+
             Map(x => x.CreatTime);
             References(x => x.Member);
             Map(x => x.LastUpdateTime);

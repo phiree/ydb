@@ -8,17 +8,18 @@ using NHibernate;
 using NHibernate.Criterion;
 namespace Dianzhu.DAL
 {
-    public class DALServiceOrderStateChangeHis : DALBase<ServiceOrderStateChangeHis>
+    //20160622_longphui_modify
+    public class DALServiceOrderStateChangeHis : NHRepositoryBase<ServiceOrderStateChangeHis, Guid>, IDAL.IDALServiceOrderStateChangeHis //DALBase<ServiceOrderStateChangeHis>
     {
         public DALServiceOrderStateChangeHis()
         {
 
         }
         //注入依赖,供测试使用;
-        public DALServiceOrderStateChangeHis(string fortest) : base(fortest)
-        {
+        //public DALServiceOrderStateChangeHis(string fortest) : base(fortest)
+        //{
 
-        }
+        //}
 
         public IQueryOver<ServiceOrderStateChangeHis> Query(ServiceOrder order)
         {
@@ -28,8 +29,10 @@ namespace Dianzhu.DAL
 
         public ServiceOrderStateChangeHis GetOrderHis(ServiceOrder order)
         {
+            //20160622_longphui_modify
             var query = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).And(x => x.NewStatus == order.OrderStatus);
-            var item = GetOneByQuery(query);
+            DALBase<ServiceOrderStateChangeHis> b = new DALBase<ServiceOrderStateChangeHis>();
+            var item = b.GetOneByQuery(query);
             return item;
         }
 
@@ -58,14 +61,16 @@ namespace Dianzhu.DAL
         public DateTime GetChangeTime(ServiceOrder order, enum_OrderStatus status)
         {
             var query = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).And(x => x.NewStatus == status);
-            var item = GetOneByQuery(query);
+            DALBase<ServiceOrderStateChangeHis> b = new DALBase<ServiceOrderStateChangeHis>();
+            var item = b.GetOneByQuery(query);
             return item.CreatTime;
         }
 
         public enum_OrderStatus GetOrderStatusPrevious(ServiceOrder order,enum_OrderStatus status)
         {
             var query = Session.QueryOver<ServiceOrderStateChangeHis>().Where(x => x.Order == order).And(x => x.NewStatus == status);
-            var item = GetOneByQuery(query).OldStatus;
+            DALBase<ServiceOrderStateChangeHis> b = new DALBase<ServiceOrderStateChangeHis>();
+            var item = b.GetOneByQuery(query).OldStatus;
             return item;
         }
 

@@ -9,27 +9,38 @@ using NHibernate.Transform;
 
 namespace Dianzhu.DAL
 {
-    public class DALReceptionChat : DALBase<Model.ReceptionChat>
+    public class DALReceptionChat : NHRepositoryBase<ReceptionChat, Guid>, IDAL.IDALReceptionChat //: DALBase<Model.ReceptionChat>
     {
          public DALReceptionChat()
         {
              
         }
         //注入依赖,供测试使用;
-         public DALReceptionChat(string fortest):base(fortest)
-        {
+        // public DALReceptionChat(string fortest):base(fortest)
+        //{
             
-        }
+        //}
 
         public new void Save(ReceptionChat chat)
         {
+            //20160621_longphui_modify
+            //if (chat.Id != Guid.Empty)
+            //{
+            //    base.Save(chat, chat.Id);
+            //}
+            //else {
+            //    base.Save(chat);
+            //}
             if (chat.Id != Guid.Empty)
             {
-                base.Save(chat, chat.Id);
+                Add(chat, chat.Id);
             }
-            else {
-                base.Save(chat);
+            else
+            {
+                Add(chat);
             }
+
+
             //if (chat.Id != null)
             //{ Session.Save(chat, chat.Id); }
             //else {

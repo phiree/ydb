@@ -22,9 +22,16 @@ namespace Dianzhu.ApplicationService
         public string alias { get; set; }
 
         /// <summary>
-        ///头像
+        /// 头像
         /// </summary>
         /// <type>string</type>
         public string imgUrl { get; set; }
+
+        /// <summary>
+        /// 草稿订单 ID
+        /// </summary>
+        /// <type>string</type>
+        public string draftOrderID { get; set; }
+
     }
 }
