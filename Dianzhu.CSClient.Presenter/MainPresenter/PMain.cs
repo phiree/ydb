@@ -82,7 +82,10 @@ namespace Dianzhu.CSClient.Presenter
                     //ClientState.OrderList.Add(rs.Order);
                     ClientState.customerList.Add(rs.Customer);
                     //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
-                    iViewIdentityList.AddIdentity(rs.Order);
+                    if (rs.Order != null)
+                    {
+                        iViewIdentityList.AddIdentity(rs.Order);
+                    }                    
                 }
             }
             else

@@ -196,6 +196,11 @@
                     <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
                     <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
                 </WrapPanel>
+                <WrapPanel>
+                    <Label>
+                        <TextBlock Text="假装有版本号：20160622" Foreground="White"/>
+                    </Label>
+                </WrapPanel>
                 <WrapPanel HorizontalAlignment="Right">
                     <Canvas Height="30" Width="30">
                         <Canvas.Clip>
