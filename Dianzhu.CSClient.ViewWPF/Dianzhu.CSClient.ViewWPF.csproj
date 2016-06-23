@@ -98,32 +98,8 @@
     <Compile Include="UC\UC_Business.xaml.cs">
       <DependentUpon>UC_Business.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_ChatListOld.xaml.cs">
-      <DependentUpon>UC_ChatListOld.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_ChatListNew.xaml.cs">
-      <DependentUpon>UC_ChatListNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_ChatSendOld.xaml.cs">
-      <DependentUpon>UC_ChatSendOld.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UC\UC_ChatSend.xaml.cs">
       <DependentUpon>UC_ChatSend.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_ChatSendNew.xaml.cs">
-      <DependentUpon>UC_ChatSendNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_CustomerOld.xaml.cs">
-      <DependentUpon>UC_CustomerOld.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_CustomerNew.xaml.cs">
-      <DependentUpon>UC_CustomerNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_IdentityListOld.xaml.cs">
-      <DependentUpon>UC_IdentityListOld.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_IdentityListNew.xaml.cs">
-      <DependentUpon>UC_IdentityListNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_MessageVoice.xaml.cs">
       <DependentUpon>UC_MessageVoice.xaml</DependentUpon>
@@ -137,23 +113,11 @@
     <Compile Include="UC\UC_OrderEdit.xaml.cs">
       <DependentUpon>UC_OrderEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_OrderHistoryOld.xaml.cs">
-      <DependentUpon>UC_OrderHistoryOld.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UC\UC_OrderHistory.xaml.cs">
       <DependentUpon>UC_OrderHistory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_OrderHistoryNew.xaml.cs">
-      <DependentUpon>UC_OrderHistoryNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_OrderHistory_OrderOld.xaml.cs">
-      <DependentUpon>UC_OrderHistory_OrderOld.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UC\UC_OrderHistory_Order.xaml.cs">
       <DependentUpon>UC_OrderHistory_Order.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_OrderHistory_OrderNew.xaml.cs">
-      <DependentUpon>UC_OrderHistory_OrderNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_PushService.xaml.cs">
       <DependentUpon>UC_PushService.xaml</DependentUpon>
@@ -161,26 +125,14 @@
     <Compile Include="UC\UC_ScrollView.xaml.cs">
       <DependentUpon>UC_ScrollView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UC\UC_SearchOld.xaml.cs">
-      <DependentUpon>UC_SearchOld.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UC\UC_Search.xaml.cs">
       <DependentUpon>UC_Search.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_SearchNew.xaml.cs">
-      <DependentUpon>UC_SearchNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_SearchResultOld.xaml.cs">
-      <DependentUpon>UC_SearchResultOld.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_SearchResult.xaml.cs">
       <DependentUpon>UC_SearchResult.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_OrderDetail.xaml.cs">
       <DependentUpon>UC_OrderDetail.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UC\UC_SearchResultNew.xaml.cs">
-      <DependentUpon>UC_SearchResultNew.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_ShelfService.xaml.cs">
       <DependentUpon>UC_ShelfService.xaml</DependentUpon>
@@ -214,47 +166,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_ChatListOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UC\UC_ChatList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_ChatListNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_ChatSendOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UC\UC_ChatSend.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_ChatSendNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_CustomerOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UC\UC_CustomerNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_IdentityListOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UC\UC_IdentityList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_IdentityListNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -274,27 +194,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_OrderHistoryOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UC\UC_OrderHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_OrderHistoryNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_OrderHistory_OrderOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UC\UC_OrderHistory_Order.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_OrderHistory_OrderNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -306,31 +210,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UC\UC_SearchOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UC\UC_Search.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_SearchNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_SearchResultOld.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UC\UC_SearchResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\UC_OrderDetail.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UC\UC_SearchResultNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
