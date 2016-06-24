@@ -83,15 +83,15 @@ public class ResponseORM002001 : BaseResponse
                 ilog.Debug("开始分配客服");
                 ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
                 Dictionary<DZMembership, DZMembership> assignedPair = new Dictionary<DZMembership, DZMembership>();
-                if (rs == null)
-                {
-                    assignedPair = ra.AssignCustomerLogin(member);
-                }
-                else
+                if (rs != null && rs.CustomerService.UserType == enum_UserType.customerservice)
                 {
                     assignedPair.Add(rs.Customer, rs.CustomerService);
                 }
-                
+                else
+                {
+                    assignedPair = ra.AssignCustomerLogin(member);
+                }
+
                 if (assignedPair.Count == 0)
                 {
                     this.state_CODE = Dicts.StateCode[4];
