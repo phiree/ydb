@@ -84,6 +84,11 @@ namespace Dianzhu.DemoClient
                     ""serial_NUMBER"": ""00147001015869149751"" 
                 }}", userName, password, (DateTime.Now - new DateTime(1970, 1, 1)).TotalMilliseconds.ToString());
             Newtonsoft.Json.Linq.JObject result = API.GetApiResult(postData);
+            if (result["state_CODE"].ToString() != "009000")
+            {
+                MessageBox.Show(result["err_Msg"].ToString());
+                return;
+            }
             customerId = result["RespData"]["userObj"]["userID"].ToString();
             pwd = password;
             this.Text= result["RespData"]["userObj"]["name"].ToString();

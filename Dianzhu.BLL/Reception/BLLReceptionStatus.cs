@@ -20,6 +20,10 @@ namespace Dianzhu.BLL
             this.dalRS = DALFactory.DALReceptionStatus;
         }
        
+        public IList<ReceptionStatus> GetAllList()
+        {
+            return dalRS.Find(x => true);
+        }
       
         /// <summary>
         /// 客服下线,将用户分配给其他客服.

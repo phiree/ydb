@@ -53,10 +53,11 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLServiceOrderStateChangeHis>());
 
             // , BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis
- 
- 
 
-       
+
+
+
+            container.Register(Component.For<BLLReceptionStatus>());
 
             //20160616_longphui_add
             container.Register(Component.For<BLLServiceOrderRemind>());
