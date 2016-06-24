@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -79,6 +80,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatImageShow.xaml.cs">
+      <DependentUpon>ChatImageShow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FlashInTaskBar.cs" />
     <Compile Include="FormMain.xaml.cs">
       <DependentUpon>FormMain.xaml</DependentUpon>
@@ -91,6 +95,9 @@
     </Compile>
     <Compile Include="UC\UC_Business.xaml.cs">
       <DependentUpon>UC_Business.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\UC_ChatImageNoraml.xaml.cs">
+      <DependentUpon>UC_ChatImageNoraml.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\UC_ChatSend.xaml.cs">
       <DependentUpon>UC_ChatSend.xaml</DependentUpon>
@@ -137,6 +144,10 @@
     <Compile Include="UC\UC_TimerControl.xaml.cs">
       <DependentUpon>UC_TimerControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="ChatImageShow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FormLogin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -149,6 +160,10 @@
       <DependentUpon>FormLogin.xaml</DependentUpon>
     </Compile>
     <Page Include="UC\UC_Business.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\UC_ChatImageNoraml.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
