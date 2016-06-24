@@ -23,7 +23,7 @@ $(function (){
     {
         required: true,
         minlength: 6,
-        maxlength: 20,
+        maxlength: 16,
         pwd: true
 
     };
@@ -31,7 +31,7 @@ $(function (){
     {
         required: "请填写密码",
         minlength: "不能少于6个字符",
-        maxlength: "不能超过20个字符"
+        maxlength: "不能超过16个字符"
     };
 
     //tbxPasswordConfirm
@@ -39,7 +39,7 @@ $(function (){
     {
         required: true,
         minlength: 6,
-        maxlength: 20,
+        maxlength: 16,
         pass:true,
         passConfirm: true
     };
