@@ -28,18 +28,11 @@ public class Global:HttpApplication, IContainerAccessor
         //在应用程序启动时运行的代码
         PHSuit.Logging.Config("Dianzhu.AdminBusiness");
 
-        System.Timers.Timer timer_ticket_assigner = new System.Timers.Timer();
-        timer_ticket_assigner.Interval = 1000 * 60 * 60;
-        timer_ticket_assigner.Elapsed += new System.Timers.ElapsedEventHandler(timer_ticket_assigner_Elapsed);
-        timer_ticket_assigner.Start();
+        
 
     }
 
-    void timer_ticket_assigner_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-    {
-        Dianzhu.BLL.CashTicketAssigner_Task cc = Bootstrap.Container.Resolve<Dianzhu.BLL.CashTicketAssigner_Task>();
-        cc.Assign();
-    }
+ 
 
 
     void Application_End(object sender, EventArgs e)

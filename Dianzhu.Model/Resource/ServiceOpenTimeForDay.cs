@@ -5,14 +5,13 @@ using System.Text;
 
 namespace Dianzhu.Model
 {
-    public class ServiceOpenTimeForDay
+    public class ServiceOpenTimeForDay:DDDCommon.Domain.Entity<Guid>
     {
         public ServiceOpenTimeForDay()
         {
             Enabled = true;
         }
-        public virtual Guid Id { get; set; }
-
+      
         /// <summary>
         /// 标签
         /// </summary>

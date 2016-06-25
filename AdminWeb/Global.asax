@@ -63,8 +63,8 @@
     }
     void Application_BeginRequest(Object source, EventArgs e)
     {
-        HttpApplication app = (HttpApplication)source;
-        PHSuit.FirstRequestInitialisation.Initialise(app.Context);
+       // HttpApplication app = (HttpApplication)source;
+       // PHSuit.FirstRequestInitialisation.Initialise(app.Context);
  
         NHibernateUnitOfWork.UnitOfWork.Start();
     }

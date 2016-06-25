@@ -6,21 +6,16 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALClient : DALBase<Model.Client>
+    public class DALClient : Dianzhu.DAL.NHRepositoryBase<Model.Client,string>,IDAL.IDALClient
     {
-
-        public DALClient()
-        {
-
-        }
-
+ 
         /// <summary>
         /// 注册客户端
         /// </summary>
         /// <param name="client"></param>
         public void RegisterClient(Model.Client client)
         {
-            Save(client);
+           Add(client);
         }
 
         /// <summary>
@@ -30,11 +25,9 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public Model.Client FindClient(string clientId)
         {
-            Model.Client client = null;
-            IQuery query = Session.CreateQuery("select m from  Client as m where Id='" + clientId + "'");
-            Action a = () => { client = query.UniqueResult<Model.Client>(); };
-            TransactionCommit(a);
-            return client;
+           
+           return FindOne(x => x.Id == clientId);
+            
         }
 
 

@@ -39,12 +39,12 @@ namespace Dianzhu.CSClient.Presenter
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
             viewChatList.AudioPlay += ViewChatList_AudioPlay;
-            viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
+           // viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
             viewChatList.TimerTick += ViewChatList_TimerTick;
 
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
 
-            chatHistoryAll = new Dictionary<Guid, IList<ReceptionChat>>();
+           // chatHistoryAll = new Dictionary<Guid, IList<ReceptionChat>>();
         }
 
         private void ViewChatList_TimerTick()
@@ -101,32 +101,38 @@ namespace Dianzhu.CSClient.Presenter
 
         public void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
-            try
+            Action ac = () =>
             {
-                viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
-
-                if (chatHistoryAll.ContainsKey(serviceOrder.Customer.Id))
+                try
                 {
-                    viewChatList.ChatList = chatHistoryAll[serviceOrder.Customer.Id];
-                    return;
+                    viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
+
+                    //if (chatHistoryAll.ContainsKey(serviceOrder.Customer.Id))
+                    //{
+                    //    viewChatList.ChatList = chatHistoryAll[serviceOrder.Customer.Id];
+                    //    return;
+                    //}
+
+                    int rowCount;
+                    var chatHistory = dalReceptionChat
+                           //.GetListTest();
+                           .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
+                           DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+                    //viewChatList.ChatList.Clear();
+                    viewChatList.ChatList = chatHistory;
+
+                  //  chatHistoryAll[serviceOrder.Customer.Id] = chatHistory;
                 }
+                catch (Exception ex)
+                {
+                    log.Error("加载聊天信息失败");
+                    PHSuit.ExceptionLoger.ExceptionLog(log, ex);
 
-                int rowCount;
-                var chatHistory = dalReceptionChat
-                       //.GetListTest();
-                       .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
-                       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
-                //viewChatList.ChatList.Clear();
-                viewChatList.ChatList = chatHistory;
+                }
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
 
-                chatHistoryAll[serviceOrder.Customer.Id] = chatHistory;
-            }
-            catch (Exception ex)
-            {
-                log.Error("加载聊天信息失败");
-                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
-                
-            }
+
         }
 
         private void BgwChatHistory_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

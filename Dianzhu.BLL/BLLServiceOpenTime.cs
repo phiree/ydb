@@ -39,15 +39,15 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLServiceOpenTimeForDay
     {
-        public DALServiceOpenTimeForDay DALServiceOpenTimeForDay = null;
-        public BLLServiceOpenTimeForDay() { DALServiceOpenTimeForDay = DALFactory.DALServiceOpenTimeForDay; }
-        public BLLServiceOpenTimeForDay(DALServiceOpenTimeForDay dal)
+         IDAL.IDALServiceOpenTimeForDay DALServiceOpenTimeForDay = null;
+        
+        public BLLServiceOpenTimeForDay(IDAL.IDALServiceOpenTimeForDay DALServiceOpenTimeForDay)
         {
-            DALServiceOpenTimeForDay = dal;
+          this.  DALServiceOpenTimeForDay = DALServiceOpenTimeForDay;
         }
         public ServiceOpenTimeForDay GetOne(Guid id)
         {
-            return DALServiceOpenTimeForDay.GetOne(id);
+            return DALServiceOpenTimeForDay.FindById(id);
         }
         public void Delete(ServiceOpenTimeForDay sotForDay)
         {

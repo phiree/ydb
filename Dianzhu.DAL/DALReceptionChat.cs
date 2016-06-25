@@ -29,8 +29,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<ReceptionChat> FindChatByOrder(ServiceOrder order)
         {
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 string sql = @"SELECT * 
                     FROM receptionchat r 
                     LEFT JOIN receptionchatdd rdd ON rdd.ReceptionChat_id = r.Id 
@@ -75,23 +74,22 @@ namespace Dianzhu.DAL
 
                         chatList.Add(chat);
                     }
-                    tr.Commit();
+                     
                     return chatList;
                 }
                 else
                 {
-                    tr.Commit();
+                   
                     return null;
                 }
-            }
+           
         }
         public virtual IList<ReceptionChat> GetReceptionChatList(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
             int pageIndex, int pageSize, enum_ChatTarget target, out int rowCount
             )
         {
 
-            using (var t = Session.BeginTransaction())
-            {
+          
                 var result = BuildReceptionChatQuery(from, to, orderId, timeBegin, timeEnd);
                 if (orderId != Guid.Empty)
                 {
@@ -118,19 +116,15 @@ namespace Dianzhu.DAL
                 {
                     receptionChatList = result.OrderBy(x => x.SavedTime).Desc.Skip(pageIndex * pageSize).Take(pageSize).List().OrderBy(x => x.SavedTime).ToList();
                 }
-                if (t.IsActive)
-                {
-                    t.Commit();
-                }
+               
                 return receptionChatList;
-            }
+           
         }
 
         public virtual IList<ReceptionChat> GetReceptionChatListByTargetIdAndSize(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd,
              int pageSize, ReceptionChat targetChat, string low, enum_ChatTarget target)
         {
-            using (var t = Session.BeginTransaction())
-            {
+            
                 var result = Session.QueryOver<ReceptionChat>();
                 switch (target)
                 {
@@ -167,15 +161,14 @@ namespace Dianzhu.DAL
 
                 IList<ReceptionChat> receptionChatList = new List<ReceptionChat>();
                 receptionChatList = result.Take(pageSize).List().OrderBy(x => x.SavedTime).ToList();
-                t.Commit();
+               
                 return receptionChatList;
-            }
+            
         }
 
         private IQueryOver<ReceptionChat, ReceptionChat> BuildReceptionChatQuery(DZMembership from, DZMembership to, Guid orderId, DateTime timeBegin, DateTime timeEnd)
         {
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 var result = Session.QueryOver<ReceptionChat>().Where(x => x.SavedTime >= timeBegin)
                 .And(x => x.SavedTime <= timeEnd);
                 if (to != null)
@@ -194,10 +187,10 @@ namespace Dianzhu.DAL
                     result = result.And(x => x.ServiceOrder.Id == orderId);
                 }
 
-                tr.Commit();
+              
 
                 return result;
-            }
+            
         }
     }
 }

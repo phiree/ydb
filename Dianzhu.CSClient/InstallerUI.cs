@@ -17,13 +17,7 @@ namespace Dianzhu.CSClient
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
 
-            container.Register(Component.For<Presenter.PMain>().DependsOn(
-                Dependency.OnValue("bllReceptionStatus", new BLLReceptionStatus()),
-                Dependency.OnValue("bllReceptionChat", new BLLReceptionChat(container.Resolve<IDALReceptionChat>())),
-                Dependency.OnValue("bllReceptionChatDD", new BLLReceptionChatDD(container.Resolve<IDALReceptionChatDD>())),
-                Dependency.OnValue("bllReceptionStatusArchieve", new BLLReceptionStatusArchieve()),
-                Dependency.OnValue("bllIMUserStatus", new BLLIMUserStatus(container.Resolve<IDALIMUserStatus>()))
-                ));
+            container.Register(Component.For<Presenter.PMain>());
             container.Register(Component.For<CSClient.Presenter.LoginPresenter>());
             container.Register(Component.For<CSClient.Presenter.IdentityManager>());
             container.Register(Component.For<CSClient.Presenter.PIdentityList>());
@@ -38,11 +32,10 @@ namespace Dianzhu.CSClient
             container.Register(Component.For<CSClient.Presenter.POrderHistory>());
  
             container.Register(Component.For<CSClient.Presenter.PSearch>().DependsOn(
-                Dependency.OnValue("bllService", new BLLDZService(container.Resolve<IDALDZService>(), container.Resolve<IDALDZTag>())),
+               
                 Dependency.OnValue("bllPushService", new PushService(container.Resolve<IDALServiceOrderPushedService>(), container.Resolve<IBLLServiceOrder>(),new BLLPayment(container.Resolve<IDALPayment>(),container.Resolve<IDALClaims>()),new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))),
-                Dependency.OnValue("bllReceptionChat", new BLLReceptionChat(container.Resolve<IDALReceptionChat>())),
-                Dependency.OnValue("bllServcieType", new BLLServiceType(container.Resolve<IDALServiceType>())),
-                Dependency.OnValue("bllReceptionStatus", new BLLReceptionStatus())
+ 
+                Dependency.OnValue("bllReceptionStatus", container.Resolve<BLLReceptionStatus>())
 
                 ));
 

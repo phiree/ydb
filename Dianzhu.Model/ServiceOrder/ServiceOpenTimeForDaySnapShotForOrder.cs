@@ -8,7 +8,7 @@ namespace Dianzhu.Model
     /// <summary>
     /// 服务时间项的快照
     /// </summary>
-   public  class ServiceOpenTimeForDaySnapShotForOrder
+   public  class ServiceOpenTimeForDaySnapShotForOrder:DDDCommon.Domain.Entity<Guid>
     {
         /// <summary>
         /// 最大接单量

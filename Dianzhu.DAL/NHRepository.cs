@@ -19,8 +19,9 @@ namespace Dianzhu.DAL
         {
             get
             {
-
-                return NHibernateUnitOfWork.UnitOfWork.CurrentSession;
+             //   return new Dianzhu.DAL_Hyber.HybridSessionBuilder().GetSession();
+              //  return DianzhuUW.Session;
+                   return NHibernateUnitOfWork.UnitOfWork.CurrentSession;
             }
             ////    get { return NHUnitOfWork.Current.Session; }
 
@@ -121,7 +122,7 @@ namespace Dianzhu.DAL
 
 
             
-                Session.Merge(t); 
+                Session.Update(t); 
               
 
 

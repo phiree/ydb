@@ -5,6 +5,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using NHibernate.Tool.hbm2ddl;
 
 namespace NHibernateUnitOfWork
 {
@@ -12,7 +13,7 @@ namespace NHibernateUnitOfWork
     {
         private const string Default_HibernateConfig = "hibernate.cfg.xml";
 
-         
+         [ThreadStatic]
         private static ISession _currentSession;
         private ISessionFactory _sessionFactory;
         private Configuration _configuration;
@@ -56,6 +57,7 @@ namespace NHibernateUnitOfWork
 
                         )
                       .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.AreaMap>())
+                       .ExposeConfiguration(config=> new SchemaUpdate(config).Execute(false, false))
                       .BuildConfiguration();
                       
 

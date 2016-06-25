@@ -67,8 +67,7 @@ namespace Dianzhu.DAL.IdentityAccess
         #region query
         public bool IsUserInRole(string username, string roleName)
         {
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 var query = Session.QueryOver<RoleMember>()
                 .Where(x => x.Role.Name == roleName)
                 .And(x => x.Member.UserName == username);
@@ -77,20 +76,19 @@ namespace Dianzhu.DAL.IdentityAccess
                 {
                     throw new Exception("重复的用户-角色对应数据");
                 }
-                tr.Commit();
+               
                 return aa == 1;
-            }
+             
         }
         public IList<DZRole> GetRolesForUser(string username)
         {
-            using (var tr = Session.BeginTransaction())
-            {
+           
                 var query = Session.QueryOver<RoleMember>()
                 .Where(x => x.Member.UserName == username);
                 var r = query.Select(x => x.Role).List<DZRole>();
-                tr.Commit();
+               
                 return r;
-            }
+            
         }
         #endregion
 

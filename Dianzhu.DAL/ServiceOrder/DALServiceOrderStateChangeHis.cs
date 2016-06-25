@@ -23,32 +23,30 @@ namespace Dianzhu.DAL
 
         public ServiceOrderStateChangeHis GetMaxNumberOrderHis(ServiceOrder order)
         {
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 var query = Query(order);
                 IList<ServiceOrderStateChangeHis> orderList = query.Take(1).List();
-                tr.Commit();
+              
                 if (orderList.Count > 0)
                 {
                     return orderList[0];
                 }
                 return null;
-            }
+             
         }
 
         public IList<ServiceOrderStateChangeHis> GetOrderHisList(ServiceOrder order)
         {
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 var query = Query(order);
                 IList<ServiceOrderStateChangeHis> orderList = query.List().OrderBy(x => x.Number).ToList();
-                tr.Commit();
+               
                 if (orderList.Count > 0)
                 {
                     return orderList;
                 }
                 return null;
-            }
+           
         }
 
         public DateTime GetChangeTime(ServiceOrder order, enum_OrderStatus status)

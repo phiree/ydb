@@ -34,17 +34,15 @@ namespace Dianzhu.DAL
         /// <param name="num"></param>
         /// <returns></returns>
         public IList<ServiceOrder> GetCustomListDistinctFrom(int num)
-        {
-            using (var tr = Session.BeginTransaction())
-            {
+        { 
                 var cList = Session.QueryOver<ReceptionChatDD>().SelectList(
                 list => list
                 .Select(Projections.Distinct(Projections.Property<ReceptionChatDD>(x => x.ServiceOrder)))).Where(x => x.IsCopy == false).Take(num).List<ServiceOrder>();
 
-                tr.Commit();
+               
 
                 return cList;
-            }
+          
         }
     }
 }

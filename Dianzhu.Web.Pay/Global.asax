@@ -67,7 +67,7 @@
                 System.Net.WebClient refresh = new System.Net.WebClient();
                 try
                 {
-                    refresh.UploadString("http://localhost:8168", string.Empty);
+                    refresh.UploadString("http://localhost:8168?fromPaySite", string.Empty);
                 }
                 catch (Exception ex)
                 {

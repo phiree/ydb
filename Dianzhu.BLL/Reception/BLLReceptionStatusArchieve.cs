@@ -10,15 +10,12 @@ namespace Dianzhu.BLL
     public class BLLReceptionStatusArchieve
     {
 
-        DAL.DALReceptionStatusArchieve dalRS;
-        public BLLReceptionStatusArchieve(DALReceptionStatusArchieve dalRsA)
+        IDAL.IDALReceptionStatusArchieve dalRS;
+        public BLLReceptionStatusArchieve(IDAL.IDALReceptionStatusArchieve dalRsA)
         {
             this.dalRS = dalRsA;
         }
-        public BLLReceptionStatusArchieve()
-        {
-            this.dalRS = DALFactory.DALReceptionStatusArchieve;
-        }
+        
         public void Save(ReceptionStatusArchieve rsa)
         {
             dalRS.Add(rsa);

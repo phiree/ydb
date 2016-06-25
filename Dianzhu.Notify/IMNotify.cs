@@ -22,16 +22,17 @@ namespace Dianzhu.NotifyCenter
         private Dianzhu.CSClient.IInstantMessage.InstantMessage im = null;
         IDALMembership dalMembership;
         IIMSession imSession;
-
+        IDALReceptionStatus dalReceptionStatus;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="im">通讯接口</param>
-        public IMNotify(InstantMessage im,IDALMembership dalMembership,IIMSession imSession)
+        public IMNotify(InstantMessage im,IDALMembership dalMembership,IIMSession imSession, IDALReceptionStatus dalReceptionStatus)
         {
             this.imSession = imSession;
             this.dalMembership = dalMembership;
             this.im = im;
+            this.dalReceptionStatus = dalReceptionStatus;
             //
             // TODO: Add constructor logic here
             //
@@ -123,8 +124,7 @@ namespace Dianzhu.NotifyCenter
         public void SendRessaginMessage(Guid csId)
         {
           
-            BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-            DZMembership cs = dalMembership.FindById(csId);
+           DZMembership cs = dalMembership.FindById(csId);
             DZMembership imMember = dalMembership.FindById(new Guid( Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
              ReceptionAssigner assigner = new ReceptionAssigner(imSession);
@@ -132,7 +132,7 @@ namespace Dianzhu.NotifyCenter
             //将新分配的客服发送给客户端.
             foreach (KeyValuePair<DZMembership, DZMembership> r in reassignList)
             {
-                ServiceOrder order = bllReceptionStatus.GetOrder(r.Key, r.Value).Order;
+                ServiceOrder order = dalReceptionStatus. GetOrder(r.Key, r.Value).Order;
                 if (order.OrderStatus != enum_OrderStatus.Draft)
                 {
                     ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(r.Value,r.Key);
@@ -154,8 +154,8 @@ namespace Dianzhu.NotifyCenter
 
         public void SendCustomLogoffMessage(Guid csId)
         {
-               BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-            ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
+             
+            ReceptionStatus rs = dalReceptionStatus.GetOneByCustomer(csId);
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
            
@@ -174,8 +174,8 @@ namespace Dianzhu.NotifyCenter
 
         public void SendCustomLoginMessage(Guid csId)
         {
-            BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-            ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
+            
+            ReceptionStatus rs = dalReceptionStatus.GetOneByCustomer(csId);
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
         

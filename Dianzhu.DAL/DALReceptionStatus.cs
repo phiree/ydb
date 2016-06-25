@@ -59,6 +59,7 @@ namespace Dianzhu.DAL
             foreach (ReceptionStatus rs in rsList)
             {
                 Session.Delete(rs);
+                Session.Flush();
             }
         }
         public virtual void DeleteAllCustomerServiceAssign(DZMembership customerService)
@@ -73,13 +74,13 @@ namespace Dianzhu.DAL
         public virtual IList<DZMembership> GetCSMinCount(DZMembership diandian)
         {
             
-            using(var tr = Session.BeginTransaction()) { 
+            
              var  result = Session.QueryOver<ReceptionStatus>().Select(
                 Projections.Group<ReceptionStatus>(e => e.CustomerService),
                 Projections.Count<ReceptionStatus>(e => e.CustomerService)).
                 Where(e => e.CustomerService != diandian).
                 OrderBy(Projections.Count<ReceptionStatus>(e => e.CustomerService)).Asc.List<object[]>();
-                tr.Commit();
+              
                 IList<DZMembership> dzList = new List<DZMembership>();
                 if (result.Count > 0)
                 {
@@ -91,7 +92,7 @@ namespace Dianzhu.DAL
 
                 return dzList;
 
-            }
+          
          
         }
 

@@ -62,13 +62,12 @@ namespace Dianzhu.DAL
         }
         public int GetServiceOrderCount(Guid userId, enum_OrderSearchType searchType)
         {
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 var iqueryover = GetList(userId, searchType);
                 int rowCount = iqueryover.RowCount();
-                tr.Commit();
+                
                 return rowCount;
-            }
+           
         }
         /// <summary>
         /// 除了草稿(draft,draftpushed)之外的订单
@@ -79,40 +78,37 @@ namespace Dianzhu.DAL
         public int GetServiceOrderCountWithoutDraft(Guid userid,bool isCustomerService)
         {
             //todo:
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 var iqueryover = Session.QueryOver<ServiceOrder>();
                 iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
                                             : iqueryover.Where(x => x.Customer.Id == userid);
                 iqueryover = iqueryover.And(x => x.OrderStatus != enum_OrderStatus.Draft && x.OrderStatus != enum_OrderStatus.DraftPushed);
-                tr.Commit();
+              
                 return iqueryover.RowCount();
-            }
+            
         }
         public decimal GetServiceOrderAmountWithoutDraft(Guid userid, bool isCustomerService)
         {
             //todo:
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 var iqueryover = Session.QueryOver<ServiceOrder>();
                 iqueryover = isCustomerService ? iqueryover.Where(x => x.CustomerService.Id == userid)
                                             : iqueryover.Where(x => x.Customer.Id == userid);
                 iqueryover = iqueryover.And(x => (int)x.OrderStatus != (int)enum_OrderStatus.Draft).And(x => (int)x.OrderStatus != (int)enum_OrderStatus.DraftPushed);
 
-                tr.Commit();
+               
                 return iqueryover.List().Sum(x => x.DepositAmount);
-            }
+            
         }
 
         public IList<ServiceOrder> GetServiceOrderList(Guid userId, enum_OrderSearchType searchType, int pageNum, int pageSize)
         {
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 var iqueryover = GetList(userId, searchType);
                 var result = iqueryover.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
-                tr.Commit();
+               
                 return result;
-            }
+           
         }
 
         public IList<ServiceOrder> GetOrderListForBusiness(Business business, int pageNum, int pageSize, out int totalAmount)
@@ -123,30 +119,28 @@ namespace Dianzhu.DAL
             //.JoinQueryOver(x => x.Service)
             //.JoinQueryOver(y => y.Business)
 
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 totalAmount = (int)GetRowCount(x => true);
 
                 IList<ServiceOrder> list = GetAllOrdersForBusiness(business.Id).OrderByDescending(x => x.LatestOrderUpdated).Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
 
-                tr.Commit();
+             
                 return list;
-            }
+            
         }
 
         public IList<ServiceOrder> GetListForCustomer(DZMembership customer,int pageNum,int pageSize,out int totalAmount)
         {
-            using (var t = Session.BeginTransaction())
-            {
+            
                 var iquery = Session.QueryOver<ServiceOrder>().Where(x => x.Customer == customer).Where(x => x.OrderStatus != enum_OrderStatus.Draft).Where(x => x.OrderStatus != enum_OrderStatus.DraftPushed);
                 totalAmount = iquery.RowCount();
 
                 IList<ServiceOrder> list = iquery.OrderBy(x => x.OrderFinished).Desc.Skip((pageNum - 1) * pageSize).Take(pageSize).List();
 
               
-                t.Commit();
+               
                 return list;
-            }
+           
            
         }
 

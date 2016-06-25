@@ -6,40 +6,33 @@ using NHibernate;
 
 namespace Dianzhu.DAL
 {
-    public class DALRefreshToken : DALBase<Model.RefreshToken>
+    public class DALRefreshToken : NHRepositoryBase<Model.RefreshToken,string>,IDAL.IDALRefreshToken
     {
-        public DALRefreshToken()
-        {
-
-        }
-
+       
         /// <summary>
         /// 添加新的RefreshToken
         /// </summary>
         /// <param name="token"></param>
         public bool AddRefreshToken(Model.RefreshToken token)
         {
-            using (var x = Session.Transaction)
-            {
-                x.Begin();
-
+            
                 //判断某客户端的某个用户是否已经生成RefreshToken,若存在就先删除、后添加
-                var existingToken = Session.QueryOver<Model.RefreshToken>().Where(r => r.Subject == token.Subject && r.ClientId == token.ClientId).SingleOrDefault();
+                var existingToken =FindOne(r => r.Subject == token.Subject && r.ClientId == token.ClientId);
                 if (existingToken != null)
                 {
-                    Session.Delete(existingToken);
+                     Delete(existingToken);
                 }
 
                 //Session.Save(token);
                 bool b = true;
                 try
                 {
-                    Session.Save(token);
+                    Add(token);
                 }
                 catch { b = false; }
-                x.Commit();
+               
                 return b;
-            }
+            
         }
 
         /// <summary>
@@ -48,7 +41,7 @@ namespace Dianzhu.DAL
         /// <param name="refreshTokenId"></param>
         public void RemoveRefreshToken(string refreshTokenId)
         {
-            var existingToken = Session.QueryOver<Model.RefreshToken>().Where(r => r.Id == refreshTokenId).SingleOrDefault();
+            var existingToken = FindOne(r => r.Id == refreshTokenId);
             Delete(existingToken);
         }
 
@@ -68,11 +61,8 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public Model.RefreshToken FindRefreshToken(string refreshTokenId)
         {
-            Model.RefreshToken refreshtoken = null;
-            IQuery query = Session.CreateQuery("select m from  RefreshToken as m where Id='" + refreshTokenId + "'");
-            Action a = () => { refreshtoken = query.UniqueResult<Model.RefreshToken>(); };
-            TransactionCommit(a);
-            return refreshtoken;
+         
+            return FindOne(x => x.Id == refreshTokenId);
         }
 
         /// <summary>
@@ -81,8 +71,8 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public IList<Model.RefreshToken> GetAllRefreshTokens()
         {
-            IQuery query = Session.CreateQuery("select r from RefreshToken r ");
-            return query.List<Model.RefreshToken>();
+             
+            return Find(x => true);
         }
     }
 }

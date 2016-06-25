@@ -91,26 +91,26 @@ namespace Dianzhu.CSClient.Presenter
 
         public async void Login(string username, string plainPassword)
         {
-            if (!NHibernateUnitOfWork.UnitOfWork.IsStarted)
+
+           Action ac=()=>
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();
-            }
-            string encryptPassword = encryptService.GetMD5Hash(plainPassword);
-            var member = dalMembership.ValidateUser(username, encryptPassword);
-            //DZMembership member = dalme.GetUserByName(loginView.UserName);
-            if (member != null && member.UserType == Model.Enums.enum_UserType.customerservice)
-            {
-                instantMessage.OpenConnection(member.Id.ToString()
-                     , loginView.Password);
-            }
-            else
-            {
-                XMPP_IMAuthError();
-            }
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
-            
-        }
+
+                string encryptPassword = encryptService.GetMD5Hash(plainPassword);
+                var member = dalMembership.ValidateUser(username, encryptPassword);
+                //DZMembership member = dalme.GetUserByName(loginView.UserName);
+                if (member != null && member.UserType == Model.Enums.enum_UserType.customerservice)
+                {
+                    instantMessage.OpenConnection(member.Id.ToString()
+                         , loginView.Password);
+                }
+                else
+                {
+                    XMPP_IMAuthError();
+                }
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
+
+    }
        public  void loginView_ViewLogin()
         {
 
@@ -149,45 +149,37 @@ namespace Dianzhu.CSClient.Presenter
             loginView.LoginButtonText = "重新登录";
             loginView.LoginMessage = "用户名/密码错误,请重试.";
         }
-        BLLReceptionStatus bllReceptionStatus;
-        BLLReceptionStatus BLLReceptionStatus
-        {
-            get
-            {
-                if (bllReceptionStatus == null)
-                    bllReceptionStatus = new BLLReceptionStatus();
-                return bllReceptionStatus;
-            }
-        }
+   
         /// <summary>
         /// 登录成功后触发
         /// </summary>
         /// <param name="jidUser"></param>
         void IMLogined(string jidUser)
         {
-            if (!NHibernateUnitOfWork.UnitOfWork.IsStarted)
+            Action ac = () =>
             {
-                NHibernateUnitOfWork.UnitOfWork.Start();
-            }
 
-            DZMembership customerService = dalMembership.FindById(new Guid(jidUser));
-            //GlobalViables.CurrentCustomerService = customerService;
-            GlobalViables.CurrentCustomerService = customerService;
+                DZMembership customerService = dalMembership.FindById(new Guid(jidUser));
 
-            Guid id = new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
-            DZMembership diandian = dalMembership.FindById(id);
-            if (diandian == null)
-            {
-                log.Error("点点获取失败");
-            }
-            GlobalViables.Diandian = diandian;
-            if(Args.Length==0)
-            { 
-            loginView.IsLoginSuccess = true;
-            }
+                GlobalViables.CurrentCustomerService = customerService;
 
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+                Guid id = new Guid(Dianzhu.Config.Config.GetAppSetting("DiandianLoginId"));
+                DZMembership diandian = dalMembership.FindById(id);
+                if (diandian == null)
+                {
+                    log.Error("点点获取失败");
+                }
+                GlobalViables.Diandian = diandian;
+                if (Args.Length == 0)
+                {
+                    loginView.IsLoginSuccess = true;
+                }
+            };
+
+            NHibernateUnitOfWork.With.Transaction(ac);
+
+
+
         }
 
         void loginView_Logined(object sender, EventArgs e)

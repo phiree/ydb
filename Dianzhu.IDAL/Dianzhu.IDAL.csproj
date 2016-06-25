@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALAdvertisement.cs" />
+    <Compile Include="DALRefreshToken.cs" />
+    <Compile Include="DALClient.cs" />
     <Compile Include="DALArea.cs" />
     <Compile Include="DALBusiness.cs" />
     <Compile Include="DALBusinessImage.cs" />
@@ -66,6 +68,11 @@
     <Compile Include="DALReceptionStatusArchieve.cs" />
     <Compile Include="DALRefundLog.cs" />
     <Compile Include="DALRefund.cs" />
+    <Compile Include="Finance\DALBalanceFlow.cs" />
+    <Compile Include="Finance\DALDefaultSharePoint.cs" />
+    <Compile Include="Finance\DALSharePoint.cs" />
+    <Compile Include="IDALServiceOpenTimeForDaySnapshot.cs" />
+    <Compile Include="IDALServiceOpenTimeForDay.cs" />
     <Compile Include="IDALServiceOpenTime.cs" />
     <Compile Include="ServiceOrder\DALServiceOrder.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderAppraise.cs" />
@@ -73,7 +80,7 @@
     <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />
     <Compile Include="DALServiceType.cs" />
     <Compile Include="DALStaff.cs" />
-    <Compile Include="Finance\DALSalePoint.cs" />
+    <Compile Include="Finance\DALServiceTypePoint.cs" />
     <Compile Include="IdentityAccess\DALMembership.cs" />
     <Compile Include="IdentityAccess\DALRole.cs" />
     <Compile Include="IdentityAccess\DALRoleMember.cs" />

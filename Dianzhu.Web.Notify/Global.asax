@@ -37,11 +37,7 @@
         im.OpenConnection(noticesenderId, noticesenderPwd);
         Application["IM"] = im;
     }
-    void Application_BeginRequest(Object source, EventArgs e)
-    {
-        HttpApplication app = (HttpApplication)source;
-        PHSuit.FirstRequestInitialisation.Initialise(app.Context);
-    }
+ 
 
 
     void IMClosed()
@@ -138,7 +134,7 @@
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(10000);
+                System.Threading.Thread.Sleep(1000*60*10);
                 System.Net.WebClient refresh = new System.Net.WebClient();
                 try
                 {

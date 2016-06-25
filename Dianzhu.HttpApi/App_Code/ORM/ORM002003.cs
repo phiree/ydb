@@ -15,6 +15,7 @@ using Dianzhu.Api.Model;
 
 public class ResponseORM002003 : BaseResponse
 {
+    //todo: 这个接口是不是弃用了?
     log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.HttpApi");
     IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     IIMSession imSession;
@@ -27,9 +28,8 @@ public class ResponseORM002003 : BaseResponse
 
  
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
- 
-      
+        BLLReceptionStatus bllReceptionStatus = Bootstrap.Container.Resolve<BLLReceptionStatus>();
+
         BLLOrderAssignment bllOrderAssignment = Bootstrap.Container.Resolve<BLLOrderAssignment>();
  
         string raw_id = requestData.userID;
@@ -91,8 +91,8 @@ public class ResponseORM002003 : BaseResponse
                 }
 
                 ilog.Debug("开始分配客服");
-               
-                ReceptionAssigner ra = new ReceptionAssigner(imSession);
+
+              
                 Guid targetId = Guid.Empty;
                 IList<OrderAssignment> orderAssList = bllOrderAssignment.GetOAListByOrder(order);
                 if (orderAssList.Count > 0)
@@ -103,8 +103,7 @@ public class ResponseORM002003 : BaseResponse
                 {
                     targetId = order.Details[0].OriginalService.Business.Owner.Id;
                 }
-                IAssignStratage ias = new AssignStratageManually(targetId);
-                ra = new ReceptionAssigner(ias, imSession);
+               
 
                 RespDataORM002003 respData = new RespDataORM002003();
                 RespDataORM_storeObj storeObj = new RespDataORM_storeObj().Adap(order.Details[0].OriginalService.Business);

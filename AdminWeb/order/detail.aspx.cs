@@ -11,6 +11,10 @@ using System.Data;
 public partial class order_detail : System.Web.UI.Page
 {
     IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
+    Dianzhu.BLL.Finance.BLLServiceTypePoint bllServiceTypePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.BLLServiceTypePoint>();
+    Dianzhu.BLL.Finance.BalanceFlowService balanceService = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.BalanceFlowService>();
+    Dianzhu.BLL.Finance.BLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.BLLSharePoint>();
+    Dianzhu.BLL.Agent.AgentService agentService = new Dianzhu.BLL.Agent.AgentService();
     ServiceOrder serviceorder;
 
     string strID;//链接字符串
@@ -72,10 +76,7 @@ public partial class order_detail : System.Web.UI.Page
         lblTitle.Text = serviceorder.Title;
         if (lblOrderStatus.Text == "Finished")
         {
-            Dianzhu.BLL.Finance.BLLServiceTypePoint bllServiceTypePoint = new Dianzhu.BLL.Finance.BLLServiceTypePoint();
-            Dianzhu.BLL.Finance.BalanceFlowService balanceService=new Dianzhu.BLL.Finance.BalanceFlowService ();
-            Dianzhu.BLL.Finance.BLLSharePoint bllSharePoint=new Dianzhu.BLL.Finance.BLLSharePoint ();
-            Dianzhu.BLL.Agent.AgentService agentService =new Dianzhu.BLL.Agent.AgentService();
+        
             Dianzhu.BLL.Finance.OrderShare os = new Dianzhu.BLL.Finance.OrderShare(bllServiceTypePoint, bllSharePoint, agentService, balanceService);
             IList < Dianzhu.Model.Finance.BalanceFlow > shareFlow= os.Share(serviceorder);
 

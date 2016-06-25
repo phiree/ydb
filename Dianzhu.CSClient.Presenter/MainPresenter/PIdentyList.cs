@@ -66,7 +66,7 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 dalReceptionChat.Add(chat);
 
-                PChatList.chatHistoryAll[chat.From.Id].Add(chat);
+              //  PChatList.chatHistoryAll[chat.From.Id].Add(chat);
             }
             else if (chat.ChatType== enum_ChatType.UserStatus)
             {

@@ -24,7 +24,7 @@ public class ResponseORM002001 : BaseResponse
 
         bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
-        BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
+        BLLReceptionStatus bllReceptionStatus =      Bootstrap.Container.Resolve<BLLReceptionStatus>();
       
         string raw_id = requestData.userID;
 
@@ -55,22 +55,9 @@ public class ResponseORM002001 : BaseResponse
                 ilog.Debug("1");
                 RespDataORM002001 respData = new RespDataORM002001();
                 //IIMSession imSession = new IMSessionsDB();
-                IIMSession imSession = new IMSessionsOpenfire(
-                      Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl"),
-                      Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey"));
-                ilog.Debug("2");
-                ReceptionAssigner ra = new ReceptionAssigner(imSession);
-                if (!string.IsNullOrEmpty(requestData.manualAssignedCsId))
-                {
-                    ilog.Debug("客户端手动指定客服" + requestData.manualAssignedCsId);
-                    Guid mcsid = Guid.Empty;
-                    bool isGuid = Guid.TryParse(requestData.manualAssignedCsId, out mcsid);
-                    if (isGuid)
-                    {
-                        IAssignStratage ias = new AssignStratageManually(mcsid);
-                        ra = new ReceptionAssigner(ias, imSession);
-                    }
-                }
+               
+                ReceptionAssigner ra = Bootstrap.Container.Resolve<ReceptionAssigner>("OpenFireRestAssigner");
+                 
                 ilog.Debug("开始分配客服");
                 Dictionary<DZMembership, DZMembership> assignedPair = ra.AssignCustomerLogin(member);
                 if (assignedPair.Count == 0)

@@ -27,7 +27,7 @@ public class ResponseWTM001002 : BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
         BLLDZService bllDZService = Bootstrap.Container.Resolve<BLLDZService>();
-        BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = new BLLServiceOpenTimeForDay();
+        BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = Bootstrap.Container.Resolve<BLLServiceOpenTimeForDay>();
 
         try
         {

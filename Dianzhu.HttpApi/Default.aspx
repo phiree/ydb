@@ -59,8 +59,7 @@
         function textall() {
             apiTest.test_all = true;
             apiTest.begin();
-            apiTest.begin();
-            apiTest.begin();
+            
         };
         function btnTestSpecificProtocal() {
             apiTest.test_all = false;

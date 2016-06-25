@@ -23,7 +23,7 @@ public partial class finance_SharePoint : System.Web.UI.Page
         }
 
     }
-    BLLSharePoint bllSharePoint = new BLLSharePoint();
+    BLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<BLLSharePoint>();
     private void BindSharePoint()
     {
         var list = bllSharePoint.GetAll();

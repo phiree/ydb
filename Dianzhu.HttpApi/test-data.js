@@ -13,7 +13,27 @@
 
 ];
 var test_data = [
-
+    {
+        // 
+        "protocol_CODE":  "ORM002001",
+     
+        "ReqData":  {
+         
+            "userID":  "1d789c3d-962b-473a-8bb0-a594009cf2c0",
+         
+            "pWord":  "123456",
+         
+            "orderID":  "",
+        
+            "manualAssignedCsId": ""   
+                    
+        },
+     
+        "stamp_TIMES":  "1466782993228.76",
+     
+        "serial_NUMBER":  "00147001015869149751" 
+                
+    },
     /**********************订单提醒管理*****************************/
     {
         "protocol_CODE": "rmm001003",

@@ -10,15 +10,15 @@ namespace Dianzhu.BLL
 {
     public class ServiceBase
     {
-        protected IUnitOfWork unitOfWork;
-        public ServiceBase(Dianzhu.IDAL.IUnitOfWork unitOfWork)
-        {
-            this.unitOfWork = unitOfWork;
-        }
+        //protected IUnitOfWork unitOfWork;
+        //public ServiceBase(Dianzhu.IDAL.IUnitOfWork unitOfWork)
+        //{
+        //    this.unitOfWork = unitOfWork;
+        //}
 
-        public void End()
-        {
-            this.unitOfWork.End();
-        }
+        //public void End()
+        //{
+        //    this.unitOfWork.End();
+        //}
     }
 }

@@ -89,13 +89,14 @@
     <Compile Include="DALArea.cs" />
     <Compile Include="DALDZTag.cs" />
     <Compile Include="Finance\DALDefaultSharePoint.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="NHUnitOfWork.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderAppraise.cs" />
     <Compile Include="Finance\DALSalePoint.cs" />
     <Compile Include="Finance\DALBalanceFlow.cs" />
     <Compile Include="Finance\DALSharePoint.cs" />
     <Compile Include="IdentityAccess\DALMembership.cs" />
-    <Compile Include="DALBase.cs" />
     <Compile Include="DALPaylog.cs" />
     <Compile Include="DALReceptionChatDD.cs" />
     <Compile Include="DALReceptionChat.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="ServiceOrder\DALServiceOrderPushedService.cs" />
     <Compile Include="UnitOfWork\GenericTransaction.cs" />
     <Compile Include="UnitOfWork\IGenericTransaction.cs" />
+    <Compile Include="UnitOfWork\DianzhuUW.cs" />
     <Compile Include="UnitOfWork\ILocalData.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="UnitOfWork\IUnitOfWorkFactory.cs" />

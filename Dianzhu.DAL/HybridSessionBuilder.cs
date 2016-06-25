@@ -13,40 +13,53 @@ using System.Security.Cryptography;
 using System.Text;
 using NHibernate.Context;
 
-namespace Dianzhu.DAL
+namespace Dianzhu.DAL_Hyber
 {
     /// <summary>
     /// Nhibernate Session工厂.
     /// </summary>
-    public class HybridSessionBuilder
+    public class HybridSessionBuilder 
     {
-        [ThreadStatic]
-        private static ISession _currentSession;
+        
         private static ISessionFactory _sessionFactory;
 
-
+        public HybridSessionBuilder()
+        {
+            _sessionFactory = getSessionFactory();
+        }
         public ISession GetSession()
         {
-
-            if (_currentSession == null)
+            ISession session=null;
+            if (HttpContext.Current != null)
             {
+                 session = GetExistingWebSession();
+                if (session == null || !session.IsOpen)
+                {
+                    session = openSessionAndAddToContext();
+                }
+                else
+                {
+                    throw new Exception("Session Error");
+                } 
 
-
-                ISessionFactory factory = getSessionFactory();
-                //    if (!CurrentSessionContext.HasBind(factory))
-                //{
-                //    CurrentSessionContext.Bind(factory.OpenSession());
-                //}
-                _currentSession =
-                    //factory.GetCurrentSession(); 
-                    getExistingOrNewSession(factory);
+                return session;
             }
 
-            return _currentSession;
-        }
-  
-        private static readonly object __lock = new object();
+            if (session == null || !session.IsOpen)
+            {
+                session = _sessionFactory.OpenSession();
+            }
+            else
+            {
+                throw new Exception("Session Error");
+            }
 
+            return session; 
+
+        }
+ 
+        
+        private static readonly object __lock = new object();
 
         /// <summary>
         /// 多线程的单件模式
@@ -68,11 +81,11 @@ namespace Dianzhu.DAL
                            MySQLConfiguration
                           .Standard
                           .ConnectionString(
-                               Decrypt(
+                           PHSuit.Security.Decrypt(
                              System.Configuration.ConfigurationManager
                              .ConnectionStrings["DianzhuConnectionString"].ConnectionString, false)
                                    )
-                                   .Dialect<NHCustomDialect>()
+                                  
                         )
                       .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dianzhu.DAL.Mapping.CashTicketMap>())
                      .ExposeConfiguration(BuildSchema)
@@ -96,43 +109,15 @@ namespace Dianzhu.DAL
             //update.Execute(true, true);
 
         }
-        private ISession getExistingOrNewSession(ISessionFactory factory)
-        {
-            if (HttpContext.Current != null)
-            {
-                ISession session = GetExistingWebSession();
-                if (session == null)
-                {
-                    session = openSessionAndAddToContext(factory);
-                }
-                else if (!session.IsOpen)
-                {
-                    session = openSessionAndAddToContext(factory);
-                }
-
-                return session;
-            }
-
-            if (_currentSession == null)
-            {
-                _currentSession = factory.OpenSession();
-            }
-            else if (!_currentSession.IsOpen)
-            {
-                _currentSession = factory.OpenSession();
-            }
-
-            return _currentSession;
-        }
-
+        
         public ISession GetExistingWebSession()
         {
             return HttpContext.Current.Items[GetType().FullName] as ISession;
         }
 
-        private ISession openSessionAndAddToContext(ISessionFactory factory)
+        private ISession openSessionAndAddToContext( )
         {
-            ISession session = factory.OpenSession();
+            ISession session = _sessionFactory.OpenSession();
             HttpContext.Current.Items.Remove(GetType().FullName);
             HttpContext.Current.Items.Add(GetType().FullName, session);
             return session;
@@ -143,48 +128,6 @@ namespace Dianzhu.DAL
             var builder = new HybridSessionBuilder();
             builder.GetSession().Dispose();
         }
-        public static string Decrypt(string cipherString, bool useHashing)
-        {
-            byte[] keyArray;
-            //get the byte code of the string
-
-            byte[] toEncryptArray = Convert.FromBase64String(cipherString);
-
-            //Get your key from config file to open the lock!
-            string key = "1qaz2wsx3edc4rfv";
-
-            if (useHashing)
-            {
-                //if hashing was used get the hash code with regards to your key
-                MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
-                keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
-                //release any resource held by the MD5CryptoServiceProvider
-
-                hashmd5.Clear();
-            }
-            else
-            {
-                //if hashing was not implemented get the byte code of the key
-                keyArray = UTF8Encoding.UTF8.GetBytes(key);
-            }
-
-            TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();
-            //set the secret key for the tripleDES algorithm
-            tdes.Key = keyArray;
-            //mode of operation. there are other 4 modes. 
-            //We choose ECB(Electronic code Book)
-
-            tdes.Mode = CipherMode.ECB;
-            //padding mode(if any extra byte added)
-            tdes.Padding = PaddingMode.PKCS7;
-
-            ICryptoTransform cTransform = tdes.CreateDecryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(
-                                 toEncryptArray, 0, toEncryptArray.Length);
-            //Release resources held by TripleDes Encryptor                
-            tdes.Clear();
-            //return the Clear decrypted TEXT
-            return UTF8Encoding.UTF8.GetString(resultArray);
-        }
+        
     }
 }

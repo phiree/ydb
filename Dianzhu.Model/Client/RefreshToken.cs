@@ -5,13 +5,12 @@ using System.Text;
 
 namespace Dianzhu.Model
 {
-    public class RefreshToken
+    public class RefreshToken:DDDCommon.Domain.Entity<string>
     {
         /// <summary>
         /// RefreshToken值，且为主键
         /// </summary>
-        public virtual string Id { get; set; }
-        /// <summary>
+     
         /// 客户端的使用用户
         /// </summary>
         public virtual string Subject { get; set; }

@@ -5,17 +5,16 @@ using System.Text;
 using Dianzhu.Model.Finance;
 namespace Dianzhu.DAL.Finance
 {
-   public  class DALSharePoint:DALBase<Model.Finance.SharePoint>
+   public  class DALSharePoint:NHRepositoryBase<SharePoint,Guid>,IDAL.Finance.IDALSharePoint
     {
         
-        public DALSharePoint(string fortest) : base(fortest) { }
-        public DALSharePoint() { }
+       
 
         public SharePoint GetSharePoint(Model.DZMembership membership)
         {
-            string query = "select s from SharePoint s inner join s.Membership m where m.Id='" + membership.Id + "'";
-            SharePoint settedPoint= GetOneByQuery(query);
-            return settedPoint;
+             
+
+            return FindOne(x => x.Membership.Id == membership.Id);
         }
     }
 }

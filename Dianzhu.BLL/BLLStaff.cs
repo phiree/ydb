@@ -12,29 +12,32 @@ namespace Dianzhu.BLL
 {
     public class BLLStaff
     {
-        public DALStaff DALStaff = DALFactory.DALStaff;
+        public IDAL.IDALStaff dalStaff;
 
 
-       
 
+        public BLLStaff(IDAL.IDALStaff dalStaff)
+        {
+            this.dalStaff = dalStaff;
+        }
         
         public void Delete(Staff staff)
         {
-            DALStaff.Delete(staff);
+            dalStaff.Delete(staff);
         }
         public Staff GetOne(Guid id)
         {
-            return DALStaff.FindById(id);
+            return dalStaff.FindById(id);
         }
 
         public void Save(Staff staff)
         {
-            DALStaff.Add(staff);
+            dalStaff.Add(staff);
         }
 
         public void Update(Staff staff)
         {
-            DALStaff.Update(staff);
+            dalStaff.Update(staff);
         }
 
         public string Save(Guid StaffId, System.Web.HttpPostedFile imageFile, Dianzhu.Model.Enums.enum_ImageType imageType)
@@ -66,18 +69,18 @@ namespace Dianzhu.BLL
 
         public int GetEnableSum(Business business)
         {
-            return DALStaff.GetEnableSum(business);
+            return dalStaff.GetEnableSum(business);
         }
 
         public IList<Staff> GetAllListByBusiness(Business business)
         {
-            return DALStaff.GetAllListByBusiness(business);
+            return dalStaff.GetAllListByBusiness(business);
         }
 
         public IList<Staff> GetListByBusiness(Guid businessId, int pageIndex, int pageSize, out int totalRecord)
         {
             long longTotalRecord;
-            var list = DALStaff.Find(x => x.Belongto.Id == businessId, pageIndex, pageSize, out longTotalRecord);
+            var list = dalStaff.Find(x => x.Belongto.Id == businessId, pageIndex, pageSize, out longTotalRecord);
             totalRecord = (int)longTotalRecord;
             return list;
         }

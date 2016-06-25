@@ -37,7 +37,7 @@ public class ResponseWTM001003 : BaseResponse
    
         BLLServiceOpenTime bllServiceOpenTime = Bootstrap.Container.Resolve < BLLServiceOpenTime>();
  
-        BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = new BLLServiceOpenTimeForDay();
+        BLLServiceOpenTimeForDay bllServiceOpenTimeForDay = Bootstrap.Container.Resolve<BLLServiceOpenTimeForDay>();
 
         try
         {
