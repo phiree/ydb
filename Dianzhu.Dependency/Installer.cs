@@ -52,8 +52,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLServiceType>());
 
 
-            container.Register(Component.For<ReceptionAssigner>().Named("OpenFireRestAssigner").DependsOn(Dependency.OnComponent<IIMSession,IMSessionsOpenfire>()));
-            container.Register(Component.For<BLLReceptionChat>());
+           container.Register(Component.For<BLLReceptionChat>());
             container.Register(Component.For<BLLReceptionChatDD>());
             container.Register(Component.For<BLLReceptionStatus>());
             container.Register(Component.For<BLLReceptionStatusArchieve>());
@@ -62,7 +61,9 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<BLLServiceOrderAppraise>());
             
             container.Register(Component.For<BLLServiceOrderStateChangeHis>());
-         
+
+          
+
             // , BLLPayment bllPayment,BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis
 
 
@@ -162,6 +163,7 @@ namespace Dianzhu.DependencyInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Register(Component.For<IAssignStratage>().ImplementedBy<AssignStratageRandom>());
             container.Register(Component.For<PushService>().DependsOn(
                 Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>())),
                 Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>()))
@@ -181,7 +183,8 @@ namespace Dianzhu.DependencyInstaller
                                 .DependsOn(Dependency.OnValue("restApiUrl", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiSessionListUrl")))
                                 .DependsOn(Dependency.OnValue("restApiSecretKey", Dianzhu.Config.Config.GetAppSetting("OpenfireRestApiAuthKey")))
                 );
-          
+
+            container.Register(Component.For<ReceptionAssigner>().Named("OpenFireRestAssigner").DependsOn(Dependency.OnComponent<IIMSession, IMSessionsOpenfire>()));
 
             container.Register(Component.For<IBLLServiceOrder>().ImplementedBy<BLLServiceOrder>()
                                .DependsOn(Dependency.OnValue("bllServiceOrderStateChangeHis", new BLLServiceOrderStateChangeHis(container.Resolve<IDALServiceOrderStateChangeHis>())))
@@ -191,7 +194,7 @@ namespace Dianzhu.DependencyInstaller
                                )
                                ;
             //todo: 暂时只使用随机分配.
-            container.Register(Component.For<IAssignStratage>().ImplementedBy<AssignStratageRandom>());
+          
             container.Register(Component.For<BLLPay>().DependsOn(Dependency.OnValue("bllPayment", new BLLPayment(container.Resolve<IDALPayment>(), container.Resolve<IDALClaims>()))));
             
             // IDAL.IDALServiceOrder repoServiceOrder, BLLServiceOrderStateChangeHis bllServiceOrderStateChangeHis,

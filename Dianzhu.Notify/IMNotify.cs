@@ -21,18 +21,20 @@ namespace Dianzhu.NotifyCenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
         private Dianzhu.CSClient.IInstantMessage.InstantMessage im = null;
         IDALMembership dalMembership;
-        IIMSession imSession;
+        
+        Dianzhu.BLL.ReceptionAssigner assigner;
         IDALReceptionStatus dalReceptionStatus;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="im">通讯接口</param>
-        public IMNotify(InstantMessage im,IDALMembership dalMembership,IIMSession imSession, IDALReceptionStatus dalReceptionStatus)
+        public IMNotify(InstantMessage im,IDALMembership dalMembership , IDALReceptionStatus dalReceptionStatus,ReceptionAssigner assigner)
         {
-            this.imSession = imSession;
+         
             this.dalMembership = dalMembership;
             this.im = im;
             this.dalReceptionStatus = dalReceptionStatus;
+            this.assigner = assigner;
             //
             // TODO: Add constructor logic here
             //
@@ -127,7 +129,7 @@ namespace Dianzhu.NotifyCenter
            DZMembership cs = dalMembership.FindById(csId);
             DZMembership imMember = dalMembership.FindById(new Guid( Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-             ReceptionAssigner assigner = new ReceptionAssigner(imSession);
+             
             Dictionary<DZMembership, DZMembership> reassignList = assigner.AssignCSLogoff(cs);
             //将新分配的客服发送给客户端.
             foreach (KeyValuePair<DZMembership, DZMembership> r in reassignList)

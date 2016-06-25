@@ -113,6 +113,10 @@
       <Project>{84187f7c-dd53-4895-a7ff-191e76756009}</Project>
       <Name>Dianzhu.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dianzhu.Notify\Dianzhu.Notify.csproj">
+      <Project>{1baad173-a641-435a-ad03-0cd0146674b9}</Project>
+      <Name>Dianzhu.Notify</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JSYK.Infrastructure\JSYK.Infrastructure.csproj">
       <Project>{7ce433bf-0692-4d37-ace9-e1984391cd3b}</Project>
       <Name>JSYK.Infrastructure</Name>
