@@ -73,6 +73,7 @@ namespace Dianzhu.CSClient.Presenter
             System.Threading.Thread.Sleep(1000);
             if (this.ServiceTypeListTmp != null) { return; }
 
+          
             this.ServiceTypeListTmp = dalServiceType.GetTopList();
             this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
 
@@ -94,22 +95,47 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewSearch_ServiceTypeSecond_Select(ServiceType type)
         {
-            if (type != null)
+            Action ac = () => { 
+            try
             {
-                ServiceTypeSecond = type;
-                ServiceTypeThird = null;
-                if (!ServiceTypeCach.ContainsKey(type))
+                if (type != null)
                 {
-                    ServiceTypeCach[type] = type.Children;
+                        if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
+                        { 
+
+                            NHibernateUnitOfWork.UnitOfWork.CurrentSession.Load(type,type.Id);
+                        }
+                    ServiceTypeSecond = type;
+                    ServiceTypeThird = null;
+                    if (!ServiceTypeCach.ContainsKey(type))
+                    {
+                        ServiceTypeCach[type] = type.Children;
+                    }
+                    viewSearch.ServiceTypeThird = ServiceTypeCach[type];
                 }
-                viewSearch.ServiceTypeThird = ServiceTypeCach[type];
-            }            
+            }
+            catch {
+
+            }
+            };
+            if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
+            {
+                ac();
+            }
+            else
+            {
+                NHibernateUnitOfWork.With.Transaction(ac);
+            }
+
         }
 
         private void ViewSearch_ServiceTypeFirst_Select(ServiceType type)
         {
+            Action ac = () => { 
             if (type != null)
             {
+                NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
+
                 ServiceTypeFirst = type;
                 ServiceTypeSecond = null;
                 ServiceTypeThird = null;
@@ -119,6 +145,8 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 viewSearch.ServiceTypeSecond = ServiceTypeCach[type];
             }
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
         }
 
         private void ViewSearchResult_PushServices(IList<Model.DZService> pushedServices)
