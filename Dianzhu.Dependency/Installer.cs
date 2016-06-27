@@ -69,6 +69,7 @@ namespace Dianzhu.DependencyInstaller
 
 
 
+ 
 
             //20160616_longphui_add
             container.Register(Component.For<BLLServiceOrderRemind>());

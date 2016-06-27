@@ -19,7 +19,7 @@ namespace Dianzhu.DAL
          {
           // 
 
-            return Find(x => x.CustomerService == customerService);
+            return Find(x => x.CustomerService.Id == customerService.Id);
          }
         public virtual DZMembership GetListByCustomerServiceId(Guid csid)
         {
@@ -43,7 +43,7 @@ namespace Dianzhu.DAL
 
             ReceptionStatus result = null;
             
-            var resultList = Find(x => x.Customer == customer && x.CustomerService == customerService);
+            var resultList = Find(x => x.Customer.Id == customer.Id && x.CustomerService.Id == customerService.Id);
             if (resultList.Count >= 1)
             {
                 result = resultList[0];
@@ -100,13 +100,13 @@ namespace Dianzhu.DAL
         {
            
 
-            return Find(x => x.CustomerService == diandian).OrderBy(x => x.LastUpdateTime).Take(num).ToList();
+            return Find(x => x.CustomerService.Id == diandian.Id).OrderBy(x => x.LastUpdateTime).Take(num).ToList();
         }
 
         public virtual ReceptionStatus GetOrder(DZMembership c,DZMembership cs)
         {
          
-            return FindOne(x => x.Customer == c && x.CustomerService == cs);
+            return FindOne(x => x.Customer.Id == c.Id && x.CustomerService.Id == cs.Id);
         }
 
         public virtual ReceptionStatus GetOneByCustomer(Guid customerId)

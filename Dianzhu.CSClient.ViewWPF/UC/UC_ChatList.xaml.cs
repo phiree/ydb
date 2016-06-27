@@ -17,7 +17,6 @@ using Dianzhu.Model;
 using System.Windows.Interop;
 using System.Windows.Controls.Primitives;
 using System.IO;
-using System.Windows.Threading;
 
 namespace Dianzhu.CSClient.ViewWPF
 {
@@ -159,13 +158,15 @@ namespace Dianzhu.CSClient.ViewWPF
                             //chatImage.Source = chatImageBitmap;
                             //pnlOneChat.Children.Add(chatImage);
 
-                            MediaElement chatImageGif = new MediaElement();
-                            chatImageGif.Name = chat.MessageBody;
-                            chatImageGif.Width = 300;
-                            chatImageGif.MaxHeight = 300;
-                            chatImageGif.LoadedBehavior = MediaState.Play;
-                            chatImageGif.Source = new Uri(mediaUrl);
-                            chatImageGif.MediaEnded += ChatImageGif_MediaEnded;
+                            //MediaElement chatImageGif = new MediaElement();
+                            //chatImageGif.Name = chat.MessageBody;
+                            //chatImageGif.Width = 300;
+                            //chatImageGif.MaxHeight = 300;
+                            //chatImageGif.LoadedBehavior = MediaState.Play;
+                            //chatImageGif.Source = new Uri(mediaUrl);
+                            //chatImageGif.MediaEnded += ChatImageGif_MediaEnded;
+
+                            UC_ChatImageNoraml chatImageGif = new UC_ChatImageNoraml(new Uri(mediaUrl));
                             pnlOneChat.Children.Add(chatImageGif);
 
                             break;
@@ -210,17 +211,7 @@ namespace Dianzhu.CSClient.ViewWPF
                     return;
                 }
                 LoadBody(chat.MessageBody, pnlOneChat);
-
-                //增加计时器，超过时间后清理界面
-                DispatcherTimer timer;
-                if (chat.ReceiveTime!=DateTime.Parse("0001-01-01 00:00:00"))
-                {
-                    timer = new DispatcherTimer();
-                    timer.Interval = TimeSpan.FromMilliseconds(1000*60);
-                    timer.Tick += Timer_Tick;
-                    timer.Start();
-                }
-
+                
                 //bye bye. you are abandoned. 2015-9-2
 
                 //对当前窗体已存在控件的操作
@@ -240,15 +231,10 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            TimerTick();
-        }
-
-        private void ChatImageGif_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            ((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
-        }
+        //private void ChatImageGif_MediaEnded(object sender, RoutedEventArgs e)
+        //{
+        //    ((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
+        //}
 
         MediaPlayer player = new MediaPlayer();
         bool isPlay = false;

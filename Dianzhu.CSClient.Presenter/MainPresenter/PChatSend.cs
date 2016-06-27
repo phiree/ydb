@@ -11,6 +11,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model.Enums;
 using Dianzhu.DAL;
 using log4net;
+using System.Windows.Threading;
 
 namespace Dianzhu.CSClient.Presenter
 {
@@ -28,16 +29,34 @@ namespace Dianzhu.CSClient.Presenter
         IView.IViewChatList viewChatList;
         IViewChatSend viewChatSend;
         InstantMessage iIM;
-        public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,InstantMessage iIM,IDAL.IDALReceptionChat dalReceptionChat)
+        IViewIdentityList viewIdentityList;
+        IViewOrderHistory viewOrderHistory;
+
+        DispatcherTimer timerLable;
+        ServiceOrder order;
+        
+        public PChatSend(IViewChatSend viewChatSend, IView.IViewChatList viewChatList,InstantMessage iIM,IDAL.IDALReceptionChat dalReceptionChat,IViewIdentityList viewIdentityList,IViewOrderHistory viewOrderHistory)
         {
             this.viewChatList = viewChatList;
             this.dalReceptionChat = dalReceptionChat;
             this.viewChatSend = viewChatSend;
             //     viewCustomerList.IdentityClick += ViewCustomerList_CustomerClick;
             this.iIM = iIM;
+            this.viewIdentityList = viewIdentityList;
+            this.viewOrderHistory = viewOrderHistory;
+
             this.viewChatSend.SendTextClick += ViewChatSend_SendTextClick;
             this.viewChatSend.SendMediaClick += ViewChatSend_SendMediaClick;
-               
+
+            iIM.IMReceivedMessage += IIM_IMReceivedMessage;
+        }
+
+        private void IIM_IMReceivedMessage(ReceptionChat chat)
+        {
+            if (timerLable != null)
+            {
+                timerLable.Stop();
+            }
         }
 
         private void ViewChatSend_SendMediaClick(byte[] fileData, string domainType, string mediaType)
@@ -62,6 +81,12 @@ namespace Dianzhu.CSClient.Presenter
 
             iIM.SendMessage(chat);
 
+            //临时存放订单
+            order = IdentityManager.CurrentIdentity;
+
+            //重新开始计时
+            InitTimer();
+
             viewChatSend.MessageText = string.Empty;
             chat.MedialUrl = fileName;
             viewChatList.AddOneChat(chat);
@@ -74,8 +99,10 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewChatSend_SendTextClick()
         {
+ 
 
             Action ac = () => { 
+ 
             try
             {
                 if (IdentityManager.CurrentIdentity == null)
@@ -98,7 +125,15 @@ namespace Dianzhu.CSClient.Presenter
                 dalReceptionChat.Add(chat);
                 iIM.SendMessage(chat);
 
-              //  PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+ 
+                //临时存放订单
+                order = IdentityManager.CurrentIdentity;
+
+                //重新开始计时
+                InitTimer();
+
+                PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+ 
             }
             catch (Exception e)
             {
@@ -109,8 +144,46 @@ namespace Dianzhu.CSClient.Presenter
             NHibernateUnitOfWork.With.Transaction(ac);
         }
 
+        private void InitTimer()
+        {
+            second = 15;
+            //viewChatSend.MessageTimer = second.ToString();            
 
- 
+            if (timerLable != null)
+            {
+                timerLable.Stop();
+            }
+
+            timerLable = new DispatcherTimer();
+            timerLable.Interval = new TimeSpan(1, 0, 1);//时间控制
+            timerLable.Tick += Timer_Tick;
+            timerLable.Start();
+        }
+
+        int second = 0;
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (second > 0)
+            {
+                second--;
+            }
+            else
+            {
+                second = 15;
+                timerLable.Stop();
+                
+                if (order.Id == IdentityManager.CurrentIdentity.Id)
+                {
+                    viewChatList.ChatList = null;
+                    viewOrderHistory.OrderList = null;
+                }
+
+                viewIdentityList.RemoveIdentity(order);
+                IdentityManager.DeleteIdentity(order);
+            }
+
+            //viewChatSend.MessageTimer = second.ToString();
+        }
     }
 
 }

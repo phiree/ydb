@@ -134,7 +134,15 @@ namespace Dianzhu.NotifyCenter
             //将新分配的客服发送给客户端.
             foreach (KeyValuePair<DZMembership, DZMembership> r in reassignList)
             {
+ 
                 ServiceOrder order = dalReceptionStatus. GetOrder(r.Key, r.Value).Order;
+ 
+                if (order == null)
+                {
+                    log.Debug("没有订单");
+                    return;
+                }
+ 
                 if (order.OrderStatus != enum_OrderStatus.Draft)
                 {
                     ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(r.Value,r.Key);

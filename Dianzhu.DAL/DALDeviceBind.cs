@@ -11,11 +11,16 @@ namespace Dianzhu.DAL
     {         
         public void UpdateBindStatus(DZMembership member, string appToken, string appName)
         {
-            //解除所有 apptoken  和 member的绑定
-            string unbind_sql = "update DeviceBind db set db.IsBinding=0 where db.DZMembership.Id='" + member.Id
-                                + "' or  db.AppToken='"+ appToken + "'";
-            IQuery query = Session.CreateQuery(unbind_sql);
-            query.ExecuteUpdate();
+            using (var t = Session.BeginTransaction())
+            {
+                //解除所有 apptoken  和 member的绑定
+                string unbind_sql = "update DeviceBind db set db.IsBinding=0 where db.DZMembership.Id='" + member.Id
+                                + "' or  db.AppToken='" + appToken + "'";
+                IQuery query = Session.CreateQuery(unbind_sql);
+                query.ExecuteUpdate();
+
+                t.Commit();
+            }
 
             //记录本次绑定
             DeviceBind newDb = new DeviceBind { DZMembership = member, AppName = appName, BindChangedTime = DateTime.Now, AppToken = appToken, IsBinding = true };
@@ -26,20 +31,25 @@ namespace Dianzhu.DAL
 
         public void SaveOrUpdate(DeviceBind devicebind)
         {
-            //解除之前所有 apptoken  和 member的绑定
-            string unbind_sql = "update DeviceBind db set db.IsBinding=0,db.BindChangedTime='" + devicebind.BindChangedTime.ToString("yyyy-MM-dd HH:mm:ss")
+            using (var t = Session.BeginTransaction())
+            {
+                //解除之前所有 apptoken  和 member的绑定
+                string unbind_sql = "update DeviceBind db set db.IsBinding=0,db.BindChangedTime='" + devicebind.BindChangedTime.ToString("yyyy-MM-dd HH:mm:ss")
                                 + "' where db.IsBinding=1 and( ";
-            if (devicebind.DZMembership == null)
-            {
-                unbind_sql += "db.DZMembership.Id is null " ;
+                if (devicebind.DZMembership == null)
+                {
+                    unbind_sql += "db.DZMembership.Id is null ";
+                }
+                else
+                {
+                    unbind_sql += "db.DZMembership.Id='" + devicebind.DZMembership.Id + "'";
+                }
+                unbind_sql += " or  db.AppToken='" + devicebind.AppToken + "')";
+                IQuery query = Session.CreateQuery(unbind_sql);
+                query.ExecuteUpdate();
+
+                t.Commit();
             }
-            else
-            {
-                unbind_sql += "db.DZMembership.Id='" + devicebind.DZMembership.Id+"'";
-            }
-            unbind_sql += " or  db.AppToken='" + devicebind.AppToken + "')";
-            IQuery query = Session.CreateQuery(unbind_sql);
-            query.ExecuteUpdate();
 
             //记录本次绑定
             Add(devicebind);

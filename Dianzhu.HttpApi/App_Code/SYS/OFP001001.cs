@@ -65,8 +65,14 @@ public class ResponseOFP001001 : BaseResponse
             BLLIMUserStatus bllIMUserStatus = Bootstrap.Container.Resolve<BLLIMUserStatus>();
             BLLIMUserStatusArchieve bllIMUserStatusArchieve = Bootstrap.Container.Resolve<BLLIMUserStatusArchieve>();
             IMUserStatus currentIM = reqDataToImData(requestData);
+ 
             BLLReceptionStatus bllReceptionStatus = Bootstrap.Container.Resolve<BLLReceptionStatus>(); 
             BLLReceptionStatusArchieve bllReceptionStatusArchieve = Bootstrap.Container.Resolve<BLLReceptionStatusArchieve>();
+ 
+           
+        
+            DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
+ 
 
             IMUserStatus imOld = bllIMUserStatus.GetIMUSByUserId(userId);
             if (imOld != null)//有数据执行更新操作
@@ -100,38 +106,48 @@ public class ResponseOFP001001 : BaseResponse
             }
 
             //更新当前接待类
-            bool isCustom = false;//是否为用户
-            ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
-            DZMembership cs = bllReceptionStatus.GetCustomListByCSId(userId);
-            if (rs != null && cs != null)
+            //bool isCustom = false;//是否为用户
+
+            DZMembership member = bllMember.GetUserById(userId);
+            if (member == null)
             {
-                //log
-                ilog.Error("同时存在客服和用户数据！访问参数UserId为：" + userId + "，作为用户对应的ReceptionStatusId为：" + rs.Id + "，作为客服对应的其中一条ReceptionStatusId为：" + cs.Id);
+                ilog.Error("该用户不存在！访问参数UserId为：" + userId);
                 this.state_CODE = Dicts.StateCode[4];
-                this.err_Msg = "同时存在客服和用户数据！";
+                this.err_Msg = "该用户不存在";
                 return;
             }
-            else if (rs == null && cs ==null)
-            {
-                //log
-                ilog.Error("没有客服或用户数据！访问参数UserId为：" + userId);
-                this.state_CODE = Dicts.StateCode[4];
-                this.err_Msg = "没有客服或用户数据！";
-                return;
-            }
-            else if (rs != null && cs == null)
-            {
-                isCustom = true;
-            }
-            else if (rs == null && cs != null)
-            {
-                isCustom = false;
-            }
+
+            //ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
+            //DZMembership cs = bllReceptionStatus.GetCustomListByCSId(userId);
+            //if (rs != null && cs != null)
+            //{
+            //    //log
+            //    ilog.Error("同时存在客服和用户数据！访问参数UserId为：" + userId + "，作为用户对应的ReceptionStatusId为：" + rs.Id + "，作为客服对应的其中一条ReceptionStatusId为：" + cs.Id);
+            //    this.state_CODE = Dicts.StateCode[4];
+            //    this.err_Msg = "同时存在客服和用户数据！";
+            //    return;
+            //}
+            //else if (rs == null && cs ==null)
+            //{
+            //    //log
+            //    ilog.Error("没有客服或用户数据！访问参数UserId为：" + userId);
+            //    this.state_CODE = Dicts.StateCode[4];
+            //    this.err_Msg = "没有客服或用户数据！";
+            //    return;
+            //}
+            //else if (rs != null && cs == null)
+            //{
+            //    isCustom = true;
+            //}
+            //else if (rs == null && cs != null)
+            //{
+            //    isCustom = false;
+            //}
 
             switch (currentIM.Status)
             {
                 case enum_UserStatus.available:
-                    if (isCustom)
+                    if (member.UserType == enum_UserType.customer)
                     {
                         //用户上线后，通知客服工具
                         string imServerAPIInvokeUrl = "type=customlogin&userId=" + userId;
@@ -140,13 +156,14 @@ public class ResponseOFP001001 : BaseResponse
                     break;
                 case enum_UserStatus.unavailable:
                     string imServerAPIInvokeUrlUn = string.Empty;
-                    if (isCustom)
+                    if (member.UserType == enum_UserType.customer)
                     {
                         //用户下线后，通知客服工具
                         imServerAPIInvokeUrlUn = "type=customlogoff&userId=" + userId;
                         VisitIMServerApi(imServerAPIInvokeUrlUn);
 
                         //接待关系存档
+                        ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
                         bllReceptionStatusArchieve.Save(RSToRsa(rs));
 
                         //删掉接待关系

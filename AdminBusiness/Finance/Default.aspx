@@ -23,8 +23,8 @@
                                         <div class="fi-remain-txt">当前账户余额：<strong>888,888.00</strong>元</div>
                                         <!--<div>当前可用余额： 0.00元</div>-->
                                         <div class="fi-remain-btns m-l50">
-                                            <a href="/Finance/Recharge.aspx" class="btn btn-info m-r20">充值</a>
-                                            <a href="/Finance/withDraw.aspx" class="btn btn-create">提现</a>
+                                            <a href="/Finance/Recharge.aspx?businessid=<%=Request["businessid"]%>" class="btn btn-info m-r20">充值</a>
+                                            <a href="/Finance/withDraw.aspx?businessid=<%=Request["businessid"]%>" class="btn btn-create">提现</a>
                                         </div>
                                     </div>
                                 </div>

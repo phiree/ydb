@@ -7,7 +7,7 @@
         xmlns:UC="clr-namespace:Dianzhu.CSClient.ViewWPF" 
         x:Class="Dianzhu.CSClient.ViewWPF.FormMain"
         mc:Ignorable="d"
-        Title="一点办客服工具" WindowStartupLocation="CenterScreen" Height="900" Width="1600" WindowStyle="None" AllowsTransparency="True">
+        Title="一点办客服工具" WindowStartupLocation="CenterScreen" Height="900" Width="1600" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize">
 
     <Window.Resources>
         <ControlTemplate  x:Key="CornerButton" TargetType="{x:Type Button}">
@@ -195,6 +195,11 @@
                 <WrapPanel VerticalAlignment="Center">
                     <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
                     <Button Content="开始接单" Width="150" Height="25" Visibility="Collapsed"></Button>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label>
+                        <TextBlock Text="假装有版本号：20160622" Foreground="White"/>
+                    </Label>
                 </WrapPanel>
                 <WrapPanel HorizontalAlignment="Right">
                     <Canvas Height="30" Width="30">

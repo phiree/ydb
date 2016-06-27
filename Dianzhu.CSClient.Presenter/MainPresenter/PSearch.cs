@@ -185,6 +185,10 @@ namespace Dianzhu.CSClient.Presenter
             };
             dalReceptionChat.Add(chat);
             iIM.SendMessage(chat);
+
+            //加到缓存数组中
+            PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //助理工具显示发送的消息

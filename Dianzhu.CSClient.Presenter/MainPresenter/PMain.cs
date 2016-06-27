@@ -62,6 +62,7 @@ namespace Dianzhu.CSClient.Presenter
                 IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, num);
                 if (rsList.Count > 0)
                 {
+ 
                     log.Debug("需要接待的离线用户数量:" + rsList.Count);
                     foreach (ReceptionStatus rs in rsList)
                     {
@@ -89,9 +90,14 @@ namespace Dianzhu.CSClient.Presenter
 
                         //ClientState.OrderList.Add(rs.Order);
                         ClientState.customerList.Add(rs.Customer);
-                        //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                    //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
+                    if (rs.Order != null)
+                    {
                         iViewIdentityList.AddIdentity(rs.Order);
                     }
+                   
+                    }
+ 
                 }
                 else
                 {

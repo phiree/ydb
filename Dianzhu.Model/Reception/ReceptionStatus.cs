@@ -42,7 +42,14 @@ namespace Dianzhu.Model
         /// 最后接待订单
         /// </summary>
         public virtual ServiceOrder Order { get; set; }
-        
+
+        #region 临时存放，不用映射到数据库
+        public virtual string CSId { get; set; }
+        public virtual string CSName { get; set; }
+        public virtual string CustomerId { get; set; }
+        public virtual string CustomerName { get; set; }
+        #endregion
+
     }
 
 

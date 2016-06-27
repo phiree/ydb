@@ -17,6 +17,10 @@ namespace Dianzhu.BLL
         }
         
        
+        public IList<ReceptionStatus> GetAllList()
+        {
+            return dalRS.Find(x => true);
+        }
       
         /// <summary>
         /// 客服下线,将用户分配给其他客服.
@@ -182,12 +186,12 @@ namespace Dianzhu.BLL
         protected IList<DZMembership> CustomerServiceList 
         {
             get {
-                if (customerServiceList != null && customerServiceList.Count > 0)
-                {
+                //if (customerServiceList != null && customerServiceList.Count > 0)
+                //{
 
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     customerServiceList = new List<DZMembership>();
                     //convert sesionUser to dzmembership
                     foreach (OnlineUserSession user in imSession.GetOnlineSessionUser(Model.Enums.enum_XmppResource.YDBan_CustomerService.ToString()))
@@ -195,7 +199,7 @@ namespace Dianzhu.BLL
                         DZMembership cs = dalMember.FindById(new Guid(user.username));
                         customerServiceList.Add(cs);
                     }
-                }
+                //}
                 return customerServiceList;
             }
         }
@@ -275,7 +279,7 @@ namespace Dianzhu.BLL
         public virtual Dictionary<DZMembership, DZMembership> AssignCSLogoff(DZMembership customerservice)
         {
             //remove cs from list
-            CustomerServiceList.Remove(customerservice);
+            //CustomerServiceList.Remove(customerservice);
             //get customers recepted by the cs , from database
             IList<ReceptionStatus> customerWithCS = dalRS.GetListByCustomerService(customerservice);
 
@@ -339,6 +343,7 @@ namespace Dianzhu.BLL
             wc.Headers.Add("Authorization:" + restApiSecretKey);
             wc.Headers.Add("Host: " + host);
             wc.Headers.Add("Accept: application/json");
+            //System.Threading.Thread.Sleep(2000);
             System.IO.Stream returnData = wc.OpenRead(uri);
             System.IO.StreamReader reader = new System.IO.StreamReader(returnData);
             string result = reader.ReadToEnd();
@@ -362,6 +367,10 @@ namespace Dianzhu.BLL
         public IList<OnlineUserSession> GetOnlineSessionUser(string xmppResource)
         {
             IList<OnlineUserSession> onlineUsers = GetOnlineSessionUser();
+            if (onlineUsers == null)
+            {
+                return null;
+            }
             var filteredByResourceName = onlineUsers.Where(x => x.ressource == xmppResource);
             return filteredByResourceName.ToList();
         }
