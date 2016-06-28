@@ -319,7 +319,7 @@ namespace Dianzhu.ApplicationService.Order
             {
                 throw new Exception("该订单没有确定的服务！");
             }
-            ReceptionAssigner ra = new ReceptionAssigner(imSession);
+            //ReceptionAssigner ra = new ReceptionAssigner(imSession);
             Guid targetId = Guid.Empty;
             IList<OrderAssignment> orderAssList = bllOrderAssignment.GetOAListByOrder(order);
             if (orderAssList.Count > 0)

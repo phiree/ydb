@@ -20,8 +20,7 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLReceptionChat
     {
-
-        public BLLReceptionChat() { DALReceptionChat = DALFactory.DALReceptionChat; }
+        
         public IDAL.IDALReceptionChat DALReceptionChat;
         public BLLReceptionChat(IDAL.IDALReceptionChat dal)
         {

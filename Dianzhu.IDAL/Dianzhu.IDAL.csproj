@@ -46,13 +46,8 @@
     <Compile Include="DALArea.cs" />
     <Compile Include="DALBusiness.cs" />
     <Compile Include="DALBusinessImage.cs" />
-    <Compile Include="DALCashTicket.cs" />
-    <Compile Include="DalCashTicketAssignDetail.cs" />
     <Compile Include="DALPaymentLog.cs" />
     <Compile Include="DALClaims.cs" />
-    <Compile Include="DalCashTicketAssignRecord.cs" />
-    <Compile Include="DalCashTicketCreateRecord.cs" />
-    <Compile Include="DalCashTicketTemplate.cs" />
     <Compile Include="DALComplaint.cs" />
     <Compile Include="DALDeviceBind.cs" />
     <Compile Include="DALDZService.cs" />

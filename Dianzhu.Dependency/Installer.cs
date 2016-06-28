@@ -109,12 +109,7 @@ namespace Dianzhu.DependencyInstaller
             container.Register(Component.For<IRepository<Business, Guid>, IDALBusiness>().ImplementedBy<DALBusiness>());
             container.Register(Component.For<IRepository<BusinessImage, Guid>, IDALBusinessImage>().ImplementedBy<DALBusinessImage>());
 
-
-            container.Register(Component.For<IRepository<CashTicket, Guid>, IDALCashTicket>().ImplementedBy<DALCashTicket>());
-            container.Register(Component.For<IRepository<CashTicketAssignDetail, Guid>,IDALCashTicketAssignDetail>().ImplementedBy<DALCashTicketAssignDetail>());
-            container.Register(Component.For<IRepository<CashTicketAssignRecord, Guid>,IDALCashTicketAssignRecord>().ImplementedBy<DALCashTicketAssignRecord>());
-            container.Register(Component.For<IRepository<CashTicketCreateRecord, Guid>, IDALCashTicketCreateRecord>().ImplementedBy<DALCashTicketCreateRecord>());
-            container.Register(Component.For<IRepository<CashTicketTemplate, Guid>, IDALCashTicketTemplate>().ImplementedBy<DALCashTicketTemplate>());
+            
 
             container.Register(Component.For<IRepository<Claims, Guid>, IDALClaims>().ImplementedBy<DALClaims>());
             container.Register(Component.For<IRepository<Complaint, Guid>, IDALComplaint>().ImplementedBy<DALComplaint>());

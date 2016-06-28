@@ -132,7 +132,7 @@ namespace Dianzhu.BLL
                 where = where.And(x => x.Name == realName);
             }
             long t = 0;
-            var list = pagesize == 0 ? DALStaff.Find(where).ToList() : DALStaff.Find(where, pagenum, pagesize, out t).ToList();
+            var list = pagesize == 0 ? dalStaff.Find(where).ToList() : dalStaff.Find(where, pagenum, pagesize, out t).ToList();
             return list;
         }
 
@@ -177,7 +177,7 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.Name == realName);
             }
-            long count = DALStaff.GetRowCount(where);
+            long count = dalStaff.GetRowCount(where);
             return count;
         }
 
@@ -198,7 +198,7 @@ namespace Dianzhu.BLL
             {
                 where = where.And(x => x.Belongto.Id == storeID);
             }
-            Staff staff = DALStaff.FindOne(where);
+            Staff staff = dalStaff.FindOne(where);
             return staff;
         }
     }
