@@ -153,15 +153,11 @@
     <None Include="NHUnitOfWorkx.cs2" />
     <Compile Include="NHRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DALCashTicketTemplate.cs" />
-    <Compile Include="DALCashTicketCreateRecord.cs" />
     <Compile Include="DALBusiness.cs" />
     <Compile Include="DALServiceType.cs" />
     <Compile Include="DALDZService.cs" />
     <Compile Include="DALStaff.cs" />
     <Compile Include="DALBusinessImage.cs" />
-    <Compile Include="DALCashTicketAssignRecord.cs" />
-    <Compile Include="DALCashTicketAssignDetail.cs" />
     <Compile Include="DALDeviceBind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrder.cs" />
     <Compile Include="DALReceptionStatus.cs" />
@@ -180,7 +176,6 @@
     <Compile Include="UnitOfWork\With.Transaction.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DALCashTicket.cs" />
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>

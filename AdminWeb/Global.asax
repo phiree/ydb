@@ -15,8 +15,8 @@
         Bootstrap.Boot();
         System.Timers.Timer timerOrderShare = new System.Timers.Timer(60000);
         timerOrderShare.Elapsed += new System.Timers.ElapsedEventHandler(timerOrderShare_Elapsed);
-       timerOrderShare.Start();
-       // timerOrderShare_Elapsed(null, null);
+        timerOrderShare.Start();
+        // timerOrderShare_Elapsed(null, null);
         // var container = Installer.Container;
     }
     void timerOrderShare_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -26,11 +26,14 @@
         Dianzhu.BLL.Finance.IOrderShare orderShare = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IOrderShare>();
         IList<Dianzhu.Model.ServiceOrder> ordersForShare= bllOrder.GetOrdersForShare();
         log.Debug("批量分账开始,需要分账的订单数量:" + ordersForShare.Count);
+        Action a = () => { 
         foreach (ServiceOrder order in ordersForShare)
         {
             orderShare.ShareOrder(order);
             bllOrder.OrderFlow_Shared(order);
         }
+        };
+        NHibernateUnitOfWork.With.Transaction(a);
         log.Debug("批量分账结束");
     }
     void Application_End(object sender, EventArgs e)
@@ -63,14 +66,14 @@
     }
     void Application_BeginRequest(Object source, EventArgs e)
     {
-       // HttpApplication app = (HttpApplication)source;
-       // PHSuit.FirstRequestInitialisation.Initialise(app.Context);
- 
-        NHibernateUnitOfWork.UnitOfWork.Start();
+        // HttpApplication app = (HttpApplication)source;
+        // PHSuit.FirstRequestInitialisation.Initialise(app.Context);
+
+        //   NHibernateUnitOfWork.UnitOfWork.Start();
     }
     void Application_EndRequest(object sender, EventArgs e)
     {
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+        // NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
     }
 
 
