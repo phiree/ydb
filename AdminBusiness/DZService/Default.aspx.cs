@@ -32,14 +32,17 @@ public partial class DZService_Default : BasePage
     {
         int totalRecords;
         //处理太简单粗暴,需要优化.
+ 
      rptServiceList.DataSource = bllService.GetServiceByBusiness(CurrentBusiness.Id, 0, 999, out totalRecords);
+        System.Diagnostics.Debug.WriteLine("----------------------------------");
+ 
         rptServiceList.ItemDataBound += RptServiceList_ItemDataBound;
         rptServiceList.DataBind();
     }
 
     private void RptServiceList_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        if (e.Item.ItemType == ListItemType.Item)
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
             DZService service = e.Item.DataItem as DZService;
 

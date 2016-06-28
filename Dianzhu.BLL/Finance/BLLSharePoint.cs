@@ -13,10 +13,9 @@ namespace Dianzhu.BLL.Finance
  
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Bll.Finance.BllSharePoint");
-        DAL.Finance.DALSharePoint dalSharePoint;
-        DAL.Finance.DALDefaultSharePoint dalDefaultSharePoint;
-        public BLLSharePoint() : this(new DAL.Finance.DALSharePoint(), new DAL.Finance.DALDefaultSharePoint()) { }
-        public BLLSharePoint(DAL.Finance.DALSharePoint dalSharePoint, DAL.Finance.DALDefaultSharePoint dalDefaultSharePoint)
+        IDAL.Finance.IDALSharePoint dalSharePoint;
+        IDAL.Finance.IDALDefaultSharePoint dalDefaultSharePoint;
+          public BLLSharePoint(IDAL.Finance.IDALSharePoint dalSharePoint, IDAL.Finance.IDALDefaultSharePoint dalDefaultSharePoint)
         {
             this.dalSharePoint = dalSharePoint;
             this.dalDefaultSharePoint = dalDefaultSharePoint;
@@ -27,7 +26,7 @@ namespace Dianzhu.BLL.Finance
            var sharePoint= dalDefaultSharePoint.GetDefaultSharePoint(defaultSharePoint.UserType);
             if (sharePoint == null)
             {
-                dalDefaultSharePoint.Save(defaultSharePoint);
+                dalDefaultSharePoint.Add(defaultSharePoint);
             }
             else
             {
@@ -61,11 +60,11 @@ namespace Dianzhu.BLL.Finance
  
         public IList<Dianzhu.Model.Finance.DefaultSharePoint> GetAll()
         {
-            return dalDefaultSharePoint.GetAll<Dianzhu.Model.Finance.DefaultSharePoint>();
+            return dalDefaultSharePoint.Find(x=>true);
         }
         public DefaultSharePoint GetOne(Guid id)
         {
-            return dalDefaultSharePoint.GetOne(id);
+            return dalDefaultSharePoint.FindById(id);
         }
  
     }

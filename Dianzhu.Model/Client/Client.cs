@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Dianzhu.Model
 {
-    public class Client
+    public class Client:DDDCommon.Domain.Entity<string>
     {
         /// <summary>
         /// 客户端ID,主键
         /// </summary>
-        public virtual string Id { get; set; }
+      
         /// <summary>
         /// 客户端密码
         /// </summary>

@@ -44,12 +44,9 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLServiceOpenTimeForDay
     {
-        //20160617_longphui_modify
-        //public DALServiceOpenTimeForDay DALServiceOpenTimeForDay = null;
         IDALServiceOpenTimeForDay DALServiceOpenTimeForDay = null;
         public BLLServiceOpenTimeForDay(IDALServiceOpenTimeForDay DALServiceOpenTimeForDay)
         {
-            //DALServiceOpenTimeForDay = DALFactory.DALServiceOpenTimeForDay;
             this.DALServiceOpenTimeForDay = DALServiceOpenTimeForDay;
         }
         //public BLLServiceOpenTimeForDay(DALServiceOpenTimeForDay dal)
@@ -58,7 +55,6 @@ namespace Dianzhu.BLL
         //}
         public ServiceOpenTimeForDay GetOne(Guid id)
         {
-            //return DALServiceOpenTimeForDay.GetOne(id);
             return DALServiceOpenTimeForDay.FindById(id);
         }
         public void Delete(ServiceOpenTimeForDay sotForDay)

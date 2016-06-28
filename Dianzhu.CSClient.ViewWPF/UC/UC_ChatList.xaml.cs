@@ -158,13 +158,15 @@ namespace Dianzhu.CSClient.ViewWPF
                             //chatImage.Source = chatImageBitmap;
                             //pnlOneChat.Children.Add(chatImage);
 
-                            MediaElement chatImageGif = new MediaElement();
-                            chatImageGif.Name = chat.MessageBody;
-                            chatImageGif.Width = 300;
-                            chatImageGif.MaxHeight = 300;
-                            chatImageGif.LoadedBehavior = MediaState.Play;
-                            chatImageGif.Source = new Uri(mediaUrl);
-                            chatImageGif.MediaEnded += ChatImageGif_MediaEnded;
+                            //MediaElement chatImageGif = new MediaElement();
+                            //chatImageGif.Name = chat.MessageBody;
+                            //chatImageGif.Width = 300;
+                            //chatImageGif.MaxHeight = 300;
+                            //chatImageGif.LoadedBehavior = MediaState.Play;
+                            //chatImageGif.Source = new Uri(mediaUrl);
+                            //chatImageGif.MediaEnded += ChatImageGif_MediaEnded;
+
+                            UC_ChatImageNoraml chatImageGif = new UC_ChatImageNoraml(new Uri(mediaUrl));
                             pnlOneChat.Children.Add(chatImageGif);
 
                             break;
@@ -229,10 +231,10 @@ namespace Dianzhu.CSClient.ViewWPF
             }
         }
 
-        private void ChatImageGif_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            ((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
-        }
+        //private void ChatImageGif_MediaEnded(object sender, RoutedEventArgs e)
+        //{
+        //    ((MediaElement)sender).Position = ((MediaElement)sender).Position.Add(TimeSpan.FromMilliseconds(1));
+        //}
 
         MediaPlayer player = new MediaPlayer();
         bool isPlay = false;

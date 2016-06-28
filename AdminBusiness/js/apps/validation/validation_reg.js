@@ -38,7 +38,7 @@ $(function(){
     {
         required: true,
         minlength: 6,
-        maxlength: 20,
+        maxlength: 16,
         pwd: true
     };
 
@@ -46,7 +46,7 @@ $(function(){
     {
         required: "请填写密码",
         minlength: "密码不能少于6个字符",
-        maxlength: "密码不能超过20个字符"
+        maxlength: "密码不能超过16个字符"
     };
 
     // 确认密码

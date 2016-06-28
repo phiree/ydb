@@ -24,9 +24,7 @@ public class ResponseSLF002003:BaseResponse
 
         //todo: 使用 ninject,注入依赖.
 
-        //20160620_longphui_modify
-        //BLLServiceOpenTimeForDay bllOpentime = new BLLServiceOpenTimeForDay();
-        BLLServiceOpenTimeForDay bllOpentime = Bootstrap.Container.Resolve<BLLServiceOpenTimeForDay>();
+        BLLServiceOpenTimeForDay bllOpentime =  Bootstrap.Container.Resolve<BLLServiceOpenTimeForDay>(); 
 
         string open_Id = requestData.openTimeForDayId;
 

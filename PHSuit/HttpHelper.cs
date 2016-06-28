@@ -156,7 +156,7 @@ namespace PHSuit
             {
                 while (true)
                 {
-                    System.Threading.Thread.Sleep(10000);
+                    System.Threading.Thread.Sleep(1000*60*10);
                     System.Net.WebClient refresh = new System.Net.WebClient();
                     try
                     {

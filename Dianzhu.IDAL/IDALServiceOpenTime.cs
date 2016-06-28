@@ -9,7 +9,5 @@ namespace Dianzhu.IDAL
     {
     }
 
-    public interface IDALServiceOpenTimeForDay : IRepository<Model.ServiceOpenTimeForDay, Guid>
-    {
-    }
+    
 }

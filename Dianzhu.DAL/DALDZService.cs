@@ -52,8 +52,7 @@ namespace Dianzhu.DAL
             // ); 
 
             IList<DZService> list;
-            using (var t = Session.BeginTransaction())
-            {
+            
                 IQuery query = Session.CreateQuery(queryStr + where);
                 totalRecord = query.List().Count;
 
@@ -62,8 +61,7 @@ namespace Dianzhu.DAL
 
                 list = result.ToList();
 
-                t.Commit();
-            }
+               
             //query.wrap
 
             return list;

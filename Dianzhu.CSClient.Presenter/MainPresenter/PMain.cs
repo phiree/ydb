@@ -15,33 +15,40 @@ namespace Dianzhu.CSClient.Presenter
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.CSClient.Presenter.PMain");
 
-        BLLReceptionStatus bllReceptionStatus;
-        BLLReceptionChat bllReceptionChat;
-        BLLReceptionChatDD bllReceptionChatDD;
-        BLLReceptionStatusArchieve bllReceptionStatusArchieve;
-        BLLIMUserStatus bllIMUserStatus;
+        IDAL.IDALReceptionStatus dalReceptionStatus;
+        IDAL.IDALReceptionChat dalReceptionChat;
+        IDAL.IDALReceptionChatDD dalReceptionChatDD;
+        IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve;
+        IDAL.IDALIMUserStatus dalIMUserStatus;
         IView.IViewMainForm viewMainForm;
- 
+
 
         InstantMessage iIM;
         IViewIdentityList iViewIdentityList;
-        IBLLMembershipLoginLog bllLoginLog;        
+        IBLLMembershipLoginLog bllLoginLog;
 
-        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,BLLReceptionStatus bllReceptionStatus, BLLReceptionChat bllReceptionChat, BLLReceptionChatDD bllReceptionChatDD, BLLReceptionStatusArchieve bllReceptionStatusArchieve, BLLIMUserStatus bllIMUserStatus)
+        public PMain(IView.IViewMainForm viewMainForm, InstantMessage iIM, IViewIdentityList iViewIdentityList, IBLLMembershipLoginLog bllLoginLog,
+            IDAL.IDALReceptionStatus dalReceptionStatus, IDAL.IDALReceptionStatusArchieve dalReceptionStatusArchieve,
+             IDAL.IDALReceptionChatDD dalReceptionChatDD, IDAL.IDALReceptionChat dalReceptionChat,
+              IDAL.IDALIMUserStatus dalIMUserStatus)
         {
             this.viewMainForm = viewMainForm;
             this.viewMainForm.FormTitle = GlobalViables.CurrentCustomerService.DisplayName;
             this.iIM = iIM;
             this.iViewIdentityList = iViewIdentityList;
-            this.bllReceptionStatus = bllReceptionStatus;
-            this.bllReceptionChat = bllReceptionChat;
-            this.bllReceptionChatDD = bllReceptionChatDD;
-            this.bllReceptionStatusArchieve = bllReceptionStatusArchieve;
-            this.bllIMUserStatus = bllIMUserStatus;
+            this.dalReceptionStatus = dalReceptionStatus;
+            this.dalReceptionChat = dalReceptionChat;
+            this.dalReceptionChatDD = dalReceptionChatDD;
+            this.dalReceptionStatusArchieve = dalReceptionStatusArchieve;
+            this.dalIMUserStatus = dalIMUserStatus;
             this.bllLoginLog = bllLoginLog;
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             iIM.IMStreamError += IIM_IMStreamError;
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            // NHibernateUnitOfWork.With.Transaction( ()=>SysAssign(3));
             SysAssign(3);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         /// <summary>
@@ -50,75 +57,79 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="num"></param>
         private void SysAssign(int num)
         {
-            log.Debug("-------开始 接收离线消息------");
-            IList<ReceptionStatus> rsList = bllReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, num);
-            if (rsList.Count > 0)
-            {
-                log.Debug("需要接待的离线用户数量:" + rsList.Count);
-                foreach (ReceptionStatus rs in rsList)
+           
+                log.Debug("-------开始 接收离线消息------");
+                IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, num);
+                if (rsList.Count > 0)
                 {
-                    #region 接待记录存档
-                    SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
-                    #endregion
-                    rs.CustomerService = GlobalViables.CurrentCustomerService;
-                    log.Debug("保存新分配的接待记录");
-                    bllReceptionStatus.SaveByRS(rs);
+ 
+                    log.Debug("需要接待的离线用户数量:" + rsList.Count);
+                    foreach (ReceptionStatus rs in rsList)
+                    {
+                        #region 接待记录存档
+                        SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
+                        #endregion
+                        rs.CustomerService = GlobalViables.CurrentCustomerService;
+                        log.Debug("保存新分配的接待记录");
+                        dalReceptionStatus.Update(rs);
 
-                    CopyDDToChat(rsList.Select(x => x.Customer).ToList());
+                        CopyDDToChat(rsList.Select(x => x.Customer).ToList());
 
-                    ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
-                    rChatReAss.From = GlobalViables.Diandian;
-                    rChatReAss.To = rs.Customer;
-                    rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
-                    rChatReAss.ReAssignedCustomerService = rs.CustomerService;
-                    rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
-                    rChatReAss.ServiceOrder = rs.Order;
-                    rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
+                        ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
+                        rChatReAss.From = GlobalViables.Diandian;
+                        rChatReAss.To = rs.Customer;
+                        rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
+                        rChatReAss.ReAssignedCustomerService = rs.CustomerService;
+                        rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
+                        rChatReAss.ServiceOrder = rs.Order;
+                        rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
 
-                    //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
-                    // SaveMessage(rChatReAss, true);
-                    iIM.SendMessage(rChatReAss);
+                        //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+                        // SaveMessage(rChatReAss, true);
+                        iIM.SendMessage(rChatReAss);
 
-                    //ClientState.OrderList.Add(rs.Order);
-                    ClientState.customerList.Add(rs.Customer);
+                        //ClientState.OrderList.Add(rs.Order);
+                        ClientState.customerList.Add(rs.Customer);
                     //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
                     if (rs.Order != null)
                     {
                         iViewIdentityList.AddIdentity(rs.Order);
-                    }                    
+                    }
+                   
+                    }
+ 
                 }
-            }
-            else
-            {
-                try
+                else
                 {
-                    IList<ServiceOrder> orderCList = bllReceptionChatDD.GetCustomListDistinctFrom(num);
-                    if (orderCList.Count > 0)
+                    try
                     {
-                        IList<DZMembership> logoffCList = new List<DZMembership>();
-                        foreach (ServiceOrder order in orderCList)
+                        IList<ServiceOrder> orderCList = dalReceptionChatDD.GetCustomListDistinctFrom(num);
+                        if (orderCList.Count > 0)
                         {
-                            if (!logoffCList.Contains(order.Customer))
+                            IList<DZMembership> logoffCList = new List<DZMembership>();
+                            foreach (ServiceOrder order in orderCList)
                             {
-                                logoffCList.Add(order.Customer);
-                            }
+                                if (!logoffCList.Contains(order.Customer))
+                                {
+                                    logoffCList.Add(order.Customer);
+                                }
 
-                            //按订单显示按钮
-                            //ClientState.OrderList.Add(order);
-                            ClientState.customerList.Add(order.Customer);
-                            //view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
-                            iViewIdentityList.AddIdentity(order);
+                                //按订单显示按钮
+                                //ClientState.OrderList.Add(order);
+                                ClientState.customerList.Add(order.Customer);
+                                //view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
+                                iViewIdentityList.AddIdentity(order);
+                            }
+                            CopyDDToChat(logoffCList);
                         }
-                        CopyDDToChat(logoffCList);
+                    }
+                    catch (Exception)
+                    {
+
                     }
                 }
-                catch (Exception)
-                {
-
-                }
-            }
-            log.Debug("-------结束 接收离线消息------");
-        }
+            
+    }
 
         /// <summary>
         /// 接待记录存档
@@ -135,7 +146,7 @@ namespace Dianzhu.CSClient.Presenter
                 CustomerService = cs,
                 Order = order,
             };
-            bllReceptionStatusArchieve.Save(rsa);
+            dalReceptionStatusArchieve.Add(rsa);
             log.Debug("-------结束 接待记录存档------");
         }
 
@@ -146,11 +157,11 @@ namespace Dianzhu.CSClient.Presenter
         private void CopyDDToChat(IList<DZMembership> cList)
         {
             //查询点点聊天记录表中该用户的聊天记录
-            IList<ReceptionChatDD> chatDDList = bllReceptionChatDD.GetChatDDListByOrder(cList);
+            IList<ReceptionChatDD> chatDDList = dalReceptionChatDD.GetChatDDListByOrder(cList);
 
             ReceptionChat copychat;
             DZMembership cs = GlobalViables.CurrentCustomerService;
-            IMUserStatus userStatus = bllIMUserStatus.GetIMUSByUserId(GlobalViables.CurrentCustomerService.Id);
+            IMUserStatus userStatus = dalIMUserStatus.GetIMUSByUserId(GlobalViables.CurrentCustomerService.Id);
             foreach (ReceptionChatDD chatDD in chatDDList)
             {
                 copychat = ReceptionChat.Create(chatDD.ChatType);
@@ -173,10 +184,10 @@ namespace Dianzhu.CSClient.Presenter
                     ((ReceptionChatMedia)copychat).MediaType = chatDD.MediaType;
                 }
                 chatDD.IsCopy = true;
-                bllReceptionChat.Save(copychat);
+                dalReceptionChat.Add(copychat);
 
 
-                bllReceptionChatDD.Save(chatDD);
+                dalReceptionChatDD.Add(chatDD);
             }
         }
 

@@ -23,8 +23,6 @@ public class ResponseASN001006 : BaseResponse
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
 
-        //20160623_longphui_modify
-        //BLLStaff bllStaff = new BLLStaff();
         BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
 
         try

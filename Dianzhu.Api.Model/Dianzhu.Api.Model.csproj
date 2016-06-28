@@ -47,7 +47,6 @@
     <Compile Include="DRM.cs" />
     <Compile Include="WTM.cs" />
     <Compile Include="STORE.cs" />
-    <Compile Include="VCM.cs" />
     <Compile Include="U3RD.cs" />
     <Compile Include="SYS.cs" />
     <Compile Include="SVC.cs" />

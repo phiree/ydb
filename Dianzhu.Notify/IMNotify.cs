@@ -21,17 +21,20 @@ namespace Dianzhu.NotifyCenter
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.Web.Notify");
         private Dianzhu.CSClient.IInstantMessage.InstantMessage im = null;
         IDALMembership dalMembership;
-        IIMSession imSession;
-
+        
+        Dianzhu.BLL.ReceptionAssigner assigner;
+        IDALReceptionStatus dalReceptionStatus;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="im">通讯接口</param>
-        public IMNotify(InstantMessage im,IDALMembership dalMembership,IIMSession imSession)
+        public IMNotify(InstantMessage im,IDALMembership dalMembership , IDALReceptionStatus dalReceptionStatus,ReceptionAssigner assigner)
         {
-            this.imSession = imSession;
+         
             this.dalMembership = dalMembership;
             this.im = im;
+            this.dalReceptionStatus = dalReceptionStatus;
+            this.assigner = assigner;
             //
             // TODO: Add constructor logic here
             //
@@ -123,21 +126,23 @@ namespace Dianzhu.NotifyCenter
         public void SendRessaginMessage(Guid csId)
         {
           
-            BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-            DZMembership cs = dalMembership.FindById(csId);
+           DZMembership cs = dalMembership.FindById(csId);
             DZMembership imMember = dalMembership.FindById(new Guid( Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
-             ReceptionAssigner assigner = new ReceptionAssigner(imSession);
+             
             Dictionary<DZMembership, DZMembership> reassignList = assigner.AssignCSLogoff(cs);
             //将新分配的客服发送给客户端.
             foreach (KeyValuePair<DZMembership, DZMembership> r in reassignList)
             {
-                ServiceOrder order = bllReceptionStatus.GetOrder(r.Key, r.Value).Order;
+ 
+                ServiceOrder order = dalReceptionStatus. GetOrder(r.Key, r.Value).Order;
+ 
                 if (order == null)
                 {
                     log.Debug("没有订单");
                     return;
                 }
+ 
                 if (order.OrderStatus != enum_OrderStatus.Draft)
                 {
                     ServiceOrder newOrder = ServiceOrderFactory.CreateDraft(r.Value,r.Key);
@@ -159,8 +164,8 @@ namespace Dianzhu.NotifyCenter
 
         public void SendCustomLogoffMessage(Guid csId)
         {
-               BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-            ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
+             
+            ReceptionStatus rs = dalReceptionStatus.GetOneByCustomer(csId);
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
            
@@ -179,8 +184,8 @@ namespace Dianzhu.NotifyCenter
 
         public void SendCustomLoginMessage(Guid csId)
         {
-            BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-            ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(csId);
+            
+            ReceptionStatus rs = dalReceptionStatus.GetOneByCustomer(csId);
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
         

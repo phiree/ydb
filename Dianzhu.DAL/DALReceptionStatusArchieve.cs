@@ -62,11 +62,9 @@ namespace Dianzhu.DAL
                         WHERE r.Customer.Id = '" + member.Id+"'";
             var query = Session.CreateQuery(querystr);
             int result = 0;
-            using (var tr = Session.BeginTransaction())
-            { 
+            
              result=   (int)query.FutureValue<long>().Value;
-                tr.Commit();
-            }
+              
             return result;
 
 

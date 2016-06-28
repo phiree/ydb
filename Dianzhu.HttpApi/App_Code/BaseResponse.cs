@@ -30,6 +30,7 @@ public class BaseResponse
         this.serial_NUMBER = request.serial_NUMBER;
         BuildRespData();
         this.stamp_TIMES = GetStampTimes();
+     //   Dianzhu.DAL.DianzhuUW.EndSession();
 
     }
     public virtual string BuildJsonResponse()

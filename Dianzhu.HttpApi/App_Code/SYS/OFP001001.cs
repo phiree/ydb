@@ -65,9 +65,14 @@ public class ResponseOFP001001 : BaseResponse
             BLLIMUserStatus bllIMUserStatus = Bootstrap.Container.Resolve<BLLIMUserStatus>();
             BLLIMUserStatusArchieve bllIMUserStatusArchieve = Bootstrap.Container.Resolve<BLLIMUserStatusArchieve>();
             IMUserStatus currentIM = reqDataToImData(requestData);
-            BLLReceptionStatus bllReceptionStatus = new BLLReceptionStatus();
-            BLLReceptionStatusArchieve bllReceptionStatusArchieve = new BLLReceptionStatusArchieve();
+ 
+            BLLReceptionStatus bllReceptionStatus = Bootstrap.Container.Resolve<BLLReceptionStatus>(); 
+            BLLReceptionStatusArchieve bllReceptionStatusArchieve = Bootstrap.Container.Resolve<BLLReceptionStatusArchieve>();
+ 
+           
+        
             DZMembershipProvider bllMember = Bootstrap.Container.Resolve<DZMembershipProvider>();
+ 
 
             IMUserStatus imOld = bllIMUserStatus.GetIMUSByUserId(userId);
             if (imOld != null)//有数据执行更新操作

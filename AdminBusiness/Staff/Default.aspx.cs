@@ -8,8 +8,6 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 public partial class Staff_Default : BasePage
 {
-    //20160623_longphui_modify
-    //BLLStaff bllStaff = new BLLStaff();
     BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
 
     public string merchantID {

@@ -36,6 +36,16 @@
         // or SQLServer, the event is not raised.
 
     }
+        void Application_BeginRequest(Object source, EventArgs e)
+    {
+         
+ 
+        NHibernateUnitOfWork.UnitOfWork.Start();
+    }
+    void Application_EndRequest(object sender, EventArgs e)
+    {
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+    }
     //keep site alive
     private static void _SetupRefreshJob()
     {
@@ -57,7 +67,7 @@
                 System.Net.WebClient refresh = new System.Net.WebClient();
                 try
                 {
-                    refresh.UploadString("http://localhost:8168", string.Empty);
+                    refresh.UploadString("http://localhost:8168?fromPaySite", string.Empty);
                 }
                 catch (Exception ex)
                 {

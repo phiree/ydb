@@ -15,11 +15,8 @@ public partial class Staff_Edit : BasePage
     private bool IsNew { get { return StaffId == Guid.Empty; } }//新增. 或者 编辑
     Staff s = new Staff();
     public string StaffAvatarUrl = "/images/components/inputFile/input_head_default_128_128.png";
-    
-    //20160623_longphui_modify
-    //BLLStaff bllStaff = new BLLStaff();
-    BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
 
+    BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
     ServiceType ServiceType = new ServiceType();
     BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
 

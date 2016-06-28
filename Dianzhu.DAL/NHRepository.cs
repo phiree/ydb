@@ -13,12 +13,15 @@ namespace Dianzhu.DAL
     public abstract class NHRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
         where TEntity : Entity<TPrimaryKey>
     {
-
+ 
+        
         protected ISession Session
         {
             get
             {
-                return new HybridSessionBuilder().GetSession();
+             //   return new Dianzhu.DAL_Hyber.HybridSessionBuilder().GetSession();
+              //  return DianzhuUW.Session;
+                   return NHibernateUnitOfWork.UnitOfWork.CurrentSession;
             }
             ////    get { return NHUnitOfWork.Current.Session; }
 
@@ -26,11 +29,9 @@ namespace Dianzhu.DAL
 
         public void Add(TEntity t)
         {
-            using(var tr=Session.BeginTransaction())
-            { 
+             
             Session.Save(t);
-                tr.Commit();
-            }
+                
 
         }
 
@@ -51,10 +52,9 @@ namespace Dianzhu.DAL
 
         public void Delete(TEntity t)
         {
-            using (var tr = Session.BeginTransaction())
-            {
+            
                 Session.Delete(t);
-            }
+            
         }
 
 
@@ -64,13 +64,10 @@ namespace Dianzhu.DAL
             TEntity result;
 
 
-            using (var tr = Session.BeginTransaction())
-            {
+           
 
                 result = Session.Get<TEntity>(identityId); 
-                tr.Commit();
-            }
-
+               
 
 
 
@@ -89,9 +86,7 @@ namespace Dianzhu.DAL
             IList<TEntity> result;
 
 
-            using (var tr = Session.BeginTransaction())
-            {
-
+            
                 var query = Session.Query<TEntity>().Where(where);
                 totalRecords = query.Count();
 
@@ -101,8 +96,7 @@ namespace Dianzhu.DAL
                 }
 
                 result = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList(); 
-                tr.Commit();
-            }
+                
 
 
             return result;
@@ -114,13 +108,11 @@ namespace Dianzhu.DAL
             long totalRecords;
 
 
-            using (var tr = Session.BeginTransaction())
-            {
+            
 
                 var query = Session.Query<TEntity>().Where(where);
                 totalRecords = query.Count();   
-                tr.Commit();
-            }
+                
 
 
             return totalRecords;
@@ -131,21 +123,17 @@ namespace Dianzhu.DAL
             TEntity result;
 
 
-            using (var tr = Session.BeginTransaction())
-            {
+            
 
                 result = Session.Query<TEntity>().Where(where).SingleOrDefault(); 
-                tr.Commit();
-            }
-
+                
+            
 
             return result;
         }
 
         public void Update(TEntity t)
         {
-
-
             using (var tr = Session.BeginTransaction())
             {
 

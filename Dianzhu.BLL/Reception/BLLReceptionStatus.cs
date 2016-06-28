@@ -10,16 +10,17 @@ namespace Dianzhu.BLL
     public class BLLReceptionStatus
     {
         
-        DAL.DALReceptionStatus dalRS;
-        public BLLReceptionStatus(DALReceptionStatus dalRs)
+        IDAL.IDALReceptionStatus dalRS;
+        public BLLReceptionStatus(IDAL.IDALReceptionStatus dalRs)
         {
             this.dalRS = dalRs;
         }
-        public BLLReceptionStatus()
-        {
-            this.dalRS = DALFactory.DALReceptionStatus;
-        }
+        
        
+        public IList<ReceptionStatus> GetAllList()
+        {
+            return dalRS.Find(x => true);
+        }
       
         /// <summary>
         /// 客服下线,将用户分配给其他客服.
@@ -166,10 +167,10 @@ namespace Dianzhu.BLL
         IAssignStratage stratage;
         //IM会话.
         IIMSession imSession;
-        DAL.DALReceptionStatus dalRS;
+        IDAL.IDALReceptionStatus dalRS;
         IDAL.IDALMembership dalMember;
         public ReceptionAssigner(IAssignStratage stratage,IIMSession imSession
-            , DALReceptionStatus dalRS
+            , IDAL.IDALReceptionStatus dalRS
             , IDAL.IDALMembership dalMember) 
         {
             this.stratage = stratage;
@@ -177,22 +178,9 @@ namespace Dianzhu.BLL
             this.dalRS = dalRS;
             this.dalMember = dalMember;
         }
-        public ReceptionAssigner(IIMSession imSession)
-            : this(new AssignStratageRandom(),
-                 imSession,
-                 new DALReceptionStatus(),
-                 new DALMembership())
-        {
+       
 
-        }
-        public ReceptionAssigner(IAssignStratage stratage,IIMSession imSession)
-            :this(stratage,
-                 imSession,
-                 new DALReceptionStatus(),
-                 new DALMembership())
-        {
-             
-        }
+       
         
       
         protected IList<DZMembership> CustomerServiceList 
@@ -282,6 +270,7 @@ namespace Dianzhu.BLL
 
             return assigned;
         }
+        
         /// <summary>
         /// 客服下线
         /// </summary>
@@ -305,7 +294,7 @@ namespace Dianzhu.BLL
                 {
                     Customer = pair.Key,
                     CustomerService = pair.Value,
-                    Order = new BLLReceptionStatus().GetOrder(pair.Key, customerservice).Order,
+                    Order = dalRS.GetOrder(pair.Key, customerservice).Order,
                     LastUpdateTime = DateTime.Now
                 };
                 dalRS.Add(rs);

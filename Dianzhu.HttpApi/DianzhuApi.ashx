@@ -12,6 +12,8 @@ public class DianzhuApi : IHttpHandler,IRequiresSessionState
 
     public void ProcessRequest(HttpContext context)
     {
+
+       
         context.Response.ContentType = "application/json";
         context.Response.ContentEncoding = Encoding.UTF8;
         string jsonStr = new StreamReader(context.Request.InputStream).ReadToEnd();
@@ -24,6 +26,7 @@ public class DianzhuApi : IHttpHandler,IRequiresSessionState
         string jsonResponse = response.BuildJsonResponse();
         context.Response.Write(jsonResponse);
         ilog.Debug("Resonse("+rid+"):"+PHSuit.JsonHelper.FormatJson(jsonResponse));
+       
     }
     public bool IsReusable
     {

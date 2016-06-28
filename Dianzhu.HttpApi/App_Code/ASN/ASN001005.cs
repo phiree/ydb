@@ -22,11 +22,7 @@ public class ResponseASN001005 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-
-        //20160623_longphui_modify
-        //BLLStaff bllStaff = new BLLStaff();
         BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
-
         try
         {
             string merchant_id = requestData.merchantID;

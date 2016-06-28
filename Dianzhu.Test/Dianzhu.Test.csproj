@@ -118,8 +118,6 @@
     <Compile Include="BLLTest\TestDZService.cs" />
     <Compile Include="BLLTest\TestReceptionAssign.cs" />
     <Compile Include="Bootstrap.cs" />
-    <Compile Include="CashTicketCreateTest.cs" />
-    <Compile Include="cashticket_generator_test.cs" />
     <Compile Include="DALTest\DALService.cs" />
     <Compile Include="DALTest\MapTest.cs" />
     <Compile Include="DALTest\SessionAsynTest.cs" />

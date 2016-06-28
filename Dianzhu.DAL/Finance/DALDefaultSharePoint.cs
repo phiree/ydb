@@ -5,17 +5,16 @@ using System.Text;
 using Dianzhu.Model.Finance;
 namespace Dianzhu.DAL.Finance
 {
-   public  class DALDefaultSharePoint:DALBase<Model.Finance.DefaultSharePoint>
+   public  class DALDefaultSharePoint:NHRepositoryBase<DefaultSharePoint,Guid>,IDAL.Finance.IDALDefaultSharePoint
     {
         
-        public DALDefaultSharePoint(string fortest) : base(fortest) { }
-        public DALDefaultSharePoint() { }
+        
 
         public DefaultSharePoint GetDefaultSharePoint(Model.Enums.enum_UserType userType)
         {
-            string query = "select s from DefaultSharePoint s where s.UserType=" + (int)userType;
-            DefaultSharePoint defaultPoint= GetOneByQuery(query);
-            return defaultPoint;
+            
+
+            return FindOne(x => x.UserType == userType);
 
             
         }

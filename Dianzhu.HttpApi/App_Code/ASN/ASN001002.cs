@@ -22,10 +22,8 @@ public class ResponseASN001002 : BaseResponse
         //todo:用户验证的复用.
         DZMembershipProvider p = Bootstrap.Container.Resolve<DZMembershipProvider>();
         BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
-        
-        //20160623_longphui_modify
-        //BLLStaff bllStaff = new BLLStaff();
-        BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>(); 
+
+        BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
 
         try
         {

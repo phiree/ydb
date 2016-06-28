@@ -9,11 +9,7 @@ public class changepassword : IHttpHandler {
 
     DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
 
-    //20160623_longphui_modify
-    //BLLStaff bllStaff = new BLLStaff();
     BLLStaff bllStaff = Bootstrap.Container.Resolve<BLLStaff>();
-
-
     public void ProcessRequest (HttpContext context) {
         context.Response.ContentType = "application/json";
 
@@ -29,21 +25,21 @@ public class changepassword : IHttpHandler {
 
                 staff.IsAssigned = !staff.IsAssigned;
                 break;
-            
+
             default:
                 is_valid = false;
                 break;
         }
         if (is_valid)
         {
-          var result= new  FluentValidation.Results.ValidationResult();
-           bllStaff.Update(staff);
+            var result= new  FluentValidation.Results.ValidationResult();
+            bllStaff.Update(staff);
         }
-        
+
         context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\",\"data\":\""+staff.IsAssigned+"\"}");
-      
+
     }
- 
+
     public bool IsReusable {
         get {
             return false;

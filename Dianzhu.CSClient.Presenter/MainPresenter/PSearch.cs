@@ -17,12 +17,12 @@ namespace Dianzhu.CSClient.Presenter
         IViewOrder viewOrder;
         IViewChatList viewChatList;
         IViewIdentityList viewIdentityList;
-        BLLDZService bllService;
+        IDAL.IDALDZService dalDzService;
         IBLLServiceOrder bllServiceOrder;
         PushService bllPushService;
         IInstantMessage.InstantMessage iIM;
-        BLLReceptionChat bllReceptionChat;
-        BLLServiceType bllServiceType;
+        IDAL.IDALReceptionChat dalReceptionChat;
+        IDAL.IDALServiceType dalServiceType;
         BLLReceptionStatus bllReceptionStatus;
         #region 服务类型数据
         Dictionary<ServiceType, IList<ServiceType>> ServiceTypeCach;
@@ -35,18 +35,19 @@ namespace Dianzhu.CSClient.Presenter
  
         public PSearch(IInstantMessage.InstantMessage iIM, IView.IViewSearch viewSearch, IView.IViewSearchResult viewSearchResult,
             IView.IViewOrder viewOrder, IViewChatList viewChatList,IViewIdentityList viewIdentityList,
-            BLLDZService bllService, IBLLServiceOrder bllServiceOrder, PushService bllPushService,
-            BLLReceptionChat bllReceptionChat, BLLServiceType bllServiceType,BLLReceptionStatus bllReceptionStatus)
+            IDAL.IDALDZService dalDzService, IBLLServiceOrder bllServiceOrder,IDAL.IDALReceptionChat dalReceptionChat, IDAL.IDALServiceType dalServiceType, 
+                    
+                    PushService bllPushService, BLLReceptionStatus bllReceptionStatus)
         {
             this.viewSearch = viewSearch; ;
             this.viewSearchResult = viewSearchResult;
-            this.bllService = bllService;
+            this.dalDzService = dalDzService;
             this.viewOrder = viewOrder;
             this.viewChatList = viewChatList;
             this.bllServiceOrder = bllServiceOrder;
             this.iIM = iIM;
-            this.bllReceptionChat = bllReceptionChat;
-            this.bllServiceType = bllServiceType;
+            this.dalReceptionChat = dalReceptionChat;
+            this.dalServiceType = dalServiceType;
             viewSearch.Search += ViewSearch_Search;
             this.bllPushService = bllPushService;
  
@@ -68,10 +69,12 @@ namespace Dianzhu.CSClient.Presenter
         }
         private void LoadTypes()
         {
+            Action ac = () => { 
             System.Threading.Thread.Sleep(1000);
             if (this.ServiceTypeListTmp != null) { return; }
 
-            this.ServiceTypeListTmp = bllServiceType.GetTopList();
+          
+            this.ServiceTypeListTmp = dalServiceType.GetTopList();
             this.ServiceTypeCach = new Dictionary<ServiceType, IList<ServiceType>>();
 
             foreach (ServiceType t in ServiceTypeListTmp)
@@ -82,6 +85,8 @@ namespace Dianzhu.CSClient.Presenter
                 }
             }
             viewSearch.ServiceTypeFirst = ServiceTypeListTmp;
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
         }
         private void ViewSearch_ServiceTypeThird_Select(ServiceType type)
         {
@@ -90,22 +95,47 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewSearch_ServiceTypeSecond_Select(ServiceType type)
         {
-            if (type != null)
+            Action ac = () => { 
+            try
             {
-                ServiceTypeSecond = type;
-                ServiceTypeThird = null;
-                if (!ServiceTypeCach.ContainsKey(type))
+                if (type != null)
                 {
-                    ServiceTypeCach[type] = type.Children;
+                        if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
+                        { 
+
+                            NHibernateUnitOfWork.UnitOfWork.CurrentSession.Load(type,type.Id);
+                        }
+                    ServiceTypeSecond = type;
+                    ServiceTypeThird = null;
+                    if (!ServiceTypeCach.ContainsKey(type))
+                    {
+                        ServiceTypeCach[type] = type.Children;
+                    }
+                    viewSearch.ServiceTypeThird = ServiceTypeCach[type];
                 }
-                viewSearch.ServiceTypeThird = ServiceTypeCach[type];
-            }            
+            }
+            catch {
+
+            }
+            };
+            if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
+            {
+                ac();
+            }
+            else
+            {
+                NHibernateUnitOfWork.With.Transaction(ac);
+            }
+
         }
 
         private void ViewSearch_ServiceTypeFirst_Select(ServiceType type)
         {
+            Action ac = () => { 
             if (type != null)
             {
+                NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
+
                 ServiceTypeFirst = type;
                 ServiceTypeSecond = null;
                 ServiceTypeThird = null;
@@ -115,6 +145,8 @@ namespace Dianzhu.CSClient.Presenter
                 }
                 viewSearch.ServiceTypeSecond = ServiceTypeCach[type];
             }
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
         }
 
         private void ViewSearchResult_PushServices(IList<Model.DZService> pushedServices)
@@ -151,8 +183,12 @@ namespace Dianzhu.CSClient.Presenter
                 SavedTime = DateTime.Now,
 
             };
-            bllReceptionChat.Save(chat);
+            dalReceptionChat.Add(chat);
             iIM.SendMessage(chat);
+
+            //加到缓存数组中
+            PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
             //助理工具显示发送的消息
@@ -206,7 +242,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             int total;
            
-            IList<Model.DZService> services = bllService.SearchService(minPrice,maxPrice, servieTypeId,targetTime,  0, 10, out total);
+            IList<Model.DZService> services = dalDzService.SearchService(minPrice,maxPrice, servieTypeId,targetTime,  0, 10, out total);
             
             viewSearchResult.SearchedService = services;
             foreach (DZService s in services)

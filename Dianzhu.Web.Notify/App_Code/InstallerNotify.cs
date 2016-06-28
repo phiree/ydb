@@ -25,9 +25,11 @@ public class  InstallerNofity : IWindsorInstaller
     public void Install(IWindsorContainer container, IConfigurationStore store)
     {   
         
-        container.Register(Component.For<IMNotify>()
-            .DependsOn(Dependency.OnComponent<IIMSession,IMSessionsOpenfire>())
-            );
-        
+        //container.Register(Component.For<IMNotify>()
+        //    .DependsOn(Dependency.OnComponent<IIMSession,IMSessionsOpenfire>())
+        //    );
+        container.Register(Component.For<Dianzhu.NotifyCenter.IMNotify>().DependsOn(Dependency.OnValue("assigner",container.Resolve<ReceptionAssigner>("OpenFireRestAssigner"))));
+
+
     }
 }

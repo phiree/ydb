@@ -94,11 +94,15 @@ namespace Dianzhu.CSClient.Presenter
             chat.MedialUrl = chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
             dalReceptionChat.Add(chat);
 
-            PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+          //  PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
         }
 
         private void ViewChatSend_SendTextClick()
         {
+ 
+
+            Action ac = () => { 
+ 
             try
             {
                 if (IdentityManager.CurrentIdentity == null)
@@ -121,6 +125,7 @@ namespace Dianzhu.CSClient.Presenter
                 dalReceptionChat.Add(chat);
                 iIM.SendMessage(chat);
 
+ 
                 //临时存放订单
                 order = IdentityManager.CurrentIdentity;
 
@@ -128,12 +133,15 @@ namespace Dianzhu.CSClient.Presenter
                 InitTimer();
 
                 PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+ 
             }
             catch (Exception e)
             {
                 log.Error(e.Message);
                 return;
             }
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
         }
 
         private void InitTimer()

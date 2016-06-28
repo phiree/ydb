@@ -9,9 +9,9 @@ namespace Dianzhu.Model.Finance
     /// <summary>
     /// 资金流水线
     /// </summary>
-   public  class BalanceFlow
+   public  class BalanceFlow:DDDCommon.Domain.Entity<Guid>
     {
-        public virtual Guid Id { get; set; }
+        
         public virtual Dianzhu.Model.DZMembership Member { get; set; }
        
         /// <summary>

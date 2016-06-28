@@ -35,7 +35,7 @@ namespace Dianzhu.Test.DALTest
         {
             for (int i = 0; i < 10; i++)
             {
-                 ISession session = new DAL.HybridSessionBuilder().GetSession();
+                 ISession session = new DAL_Hyber.HybridSessionBuilder().GetSession();
 
                 Advertisement adv = new Advertisement() { Id = Guid.NewGuid() };
                 using (var tr = session.BeginTransaction())
@@ -56,7 +56,7 @@ namespace Dianzhu.Test.DALTest
         ISession session;
         public ISession GetSession()
         {
-            return new DAL.HybridSessionBuilder().GetSession();
+            return new DAL_Hyber.HybridSessionBuilder().GetSession();
         }
     }
 }

@@ -13,7 +13,27 @@
         Bootstrap.Boot();
         // Installer.InstallAPI(container);
     }
-
+    NHibernate.ITransaction tr;
+    void Application_BeginRequest(Object source, EventArgs e)
+    {
+        log.Debug("request begin-------------------------------------------");
+        //log.Debug("StartUnitofWork");
+        //tr=  Dianzhu.DAL.DianzhuUW.Session.BeginTransaction();
+        //NHibernateUnitOfWork.UnitOfWork.Start();
+        //log.Debug("UnitOfWork Started");
+    }
+    void Application_EndRequest(object sender, EventArgs e)
+    {
+        //if(Dianzhu.DAL.DianzhuUW.Session!=null)
+        //{ 
+        //Dianzhu.DAL.DianzhuUW.EndSession();
+        //    }
+        //  NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+       // Dianzhu.DAL_Hyber.HybridSessionBuilder.ResetSession();
+        log.Debug("dispose");
+        // NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
+        log.Debug("request ended-------------------------------------------");
+    }
     void Application_End(object sender, EventArgs e)
     {
         //  Code that runs on application shutdown

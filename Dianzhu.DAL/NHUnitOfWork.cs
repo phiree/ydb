@@ -3,78 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NHibernate;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
-using PHSuit;
-using NHibernate.Tool.hbm2ddl;
-using NHibernate.Cfg;
-using log4net;
-using NHibernate.Context;
-using System.Configuration;
-using HibernatingRhinos.Profiler.Appender.NHibernate;
-using System.Data;
-
 namespace Dianzhu.DAL
 {
-    public class NHUnitOfWork : IDAL.IUnitOfWork
+   public  class NHUnitOfWork : IUnitOfWork
     {
-
-
-        ISession Session
-        {
-            get { return new HybridSessionBuilder().GetSession();  }
-        }
-        private ITransaction _transaction;
-        public NHUnitOfWork( )
-        {
-
-           // Session =
-            
-           // _transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted);
-        }
        
-        
-
-        
-
-        public void BeginTransaction()
+        public NHUnitOfWork()
         {
-
-          
-
-            _transaction = Session.BeginTransaction();
+            // = new DAL_Hyber.HybridSessionBuilder().GetSession();
+        }
+        public  void BeginTransaction()
+        {
+            new DAL_Hyber.HybridSessionBuilder().GetSession().BeginTransaction(System.Data.IsolationLevel.Unspecified);
         }
 
-        public void Commit()
+        public void End()
         {
-            try
-            {
-                _transaction.Commit();
-            }
-            catch(Exception ex)
-            {
-                _transaction.Rollback();
-                throw;
-            }
-            finally
-            {
-                Session.Dispose();
-
-            }
+            DAL_Hyber.HybridSessionBuilder.ResetSession();
         }
-        public void Rollback()
+
+        public void FlushTransaction()
         {
-            try
+            var tr = new DAL_Hyber.HybridSessionBuilder().GetSession().Transaction;
+            
+            if (tr.IsActive)
             {
-                _transaction.Rollback();
-            }
-            finally
-            {
-                Session.Dispose();
+                try
+                {
+                    tr.Commit();
+                }
+                catch
+                {
+                    tr.Rollback();
+                    throw;
+                }
+                finally {
+                    tr.Dispose();
+                }
             }
         }
 
         
     }
-
 }

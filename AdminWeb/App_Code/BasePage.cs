@@ -14,10 +14,5 @@ public class BasePage:System.Web.UI.Page
 		//TODO: 在此处添加构造函数逻辑
 		//
 	}
-    unitofwork uf;
-    public unitofwork UnitOfWork {
-        get {
-            return uf=uf ??new unitofwork();
-        }
-    }
+     
 }

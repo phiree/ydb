@@ -36,14 +36,7 @@ public class ResponseFactory
                 return new ResponseUSM001010(request);
             #endregion
 
-            #region vcm
-            case "vcm001001":
-                return new ResponseVCM001001(request);
-            case "vcm001002":
-                return new ResponseVCM001002(request);
-            case "vcm001003":
-                return new ResponseVCM001003(request);
-            #endregion
+ 
 
             #region merm
             case "merm001001":

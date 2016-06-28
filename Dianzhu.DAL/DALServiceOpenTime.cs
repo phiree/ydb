@@ -20,17 +20,9 @@ namespace Dianzhu.DAL
         //}
         
     }
-    public class DALServiceOpenTimeForDay : NHRepositoryBase<ServiceOpenTimeForDay, Guid>,  IDALServiceOpenTimeForDay//: DALBase<ServiceOpenTimeForDay>
+
+    public class DALServiceOpenTimeForDay : NHRepositoryBase<ServiceOpenTimeForDay,Guid>,IDAL.IDALServiceOpenTimeForDay
     {
-        public DALServiceOpenTimeForDay() //: base()
-        {
-
-        }
-        //调用基类带参构造函数,避免初始化hibernatesession.
-        //public DALServiceOpenTimeForDay(string fortest) : base(fortest)
-        //{
-
-        //}
         
 
 
