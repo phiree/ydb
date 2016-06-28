@@ -218,6 +218,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\InstallerRestfulApi.cs" />
+    <Compile Include="App_Start\jwt\DefaultJsonSerializer.cs" />
+    <Compile Include="App_Start\jwt\IJsonSerializer.cs" />
+    <Compile Include="App_Start\jwt\JWT.cs" />
+    <Compile Include="App_Start\jwt\SignatureVerificationException.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
