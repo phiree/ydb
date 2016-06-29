@@ -94,6 +94,8 @@ namespace Dianzhu.Config
             , {"SecurityKey","1qaz2wsx3edc4rfv"  }//系统内部加密密钥
             , {"business_image_root","/media/business/"  }//图片保存
             , {"OpenfireRestApiAuthKey","an4P0ja6v3rykV4H"  }
+
+            , {"IsAutoAssignCustomer","false"  }
         };
 
         static private string BuildHttpUrlString(string server)
