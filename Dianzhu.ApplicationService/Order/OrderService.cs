@@ -256,7 +256,7 @@ namespace Dianzhu.ApplicationService.Order
 
             //增加订单提醒
             ServiceOrderRemind remind = new ServiceOrderRemind(strName, strAlias + "提供" + strType, order.Details[0].TargetTime, true, order.Id, order.Customer.Id);
-            bllServiceOrderRemind.SaveOrUpdate(remind);
+            bllServiceOrderRemind.Save(remind);
 
             orderObj orderobj = Mapper.Map<Model.ServiceOrder, orderObj>(order);
             changeObj(orderobj, order);
