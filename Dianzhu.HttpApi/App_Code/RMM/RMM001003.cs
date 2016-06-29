@@ -103,7 +103,7 @@ public class ResponseRMM001003 : BaseResponse
                 }
 
                 remind.Open = isOpen;
-                bllServiceOrderRemind.SaveOrUpdate(remind);
+                bllServiceOrderRemind.Update(remind);
 
                 this.state_CODE = Dicts.StateCode[0];
             }

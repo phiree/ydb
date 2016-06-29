@@ -44,9 +44,11 @@ namespace Dianzhu.CSClient.Presenter
             this.bllLoginLog = bllLoginLog;
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
             iIM.IMStreamError += IIM_IMStreamError;
-          
-             NHibernateUnitOfWork.With.Transaction( ()=>SysAssign(3));
-            
+            NHibernateUnitOfWork.UnitOfWork.Start();
+            // NHibernateUnitOfWork.With.Transaction( ()=>SysAssign(3));
+            SysAssign(3);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.DisposeUnitOfWork(null);
         }
 
         /// <summary>

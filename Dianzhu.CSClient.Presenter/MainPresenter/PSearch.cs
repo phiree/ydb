@@ -151,6 +151,7 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewSearchResult_PushServices(IList<Model.DZService> pushedServices)
         {
+          
             if (pushedServices.Count == 0)
             {
                 return;
@@ -159,13 +160,16 @@ namespace Dianzhu.CSClient.Presenter
             {
                 return;
             }
-
+            
             //禁用推送按钮
             //viewSearchResult.BtnPush = false;
 
+            NHibernateUnitOfWork.UnitOfWork.Start();
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {
+                NHibernateUnitOfWork.UnitOfWork.Current.Refresh(service);//来自上个session，需刷新
+
                 serviceOrderPushedServices.Add(new ServiceOrderPushedService(IdentityManager.CurrentIdentity,service,viewSearch.UnitAmount,viewSearch.ServiceAddress, viewSearch.SearchKeywordTime ));
             }
             bllPushService.Push(IdentityManager.CurrentIdentity, serviceOrderPushedServices, viewSearch.ServiceAddress, viewSearch.SearchKeywordTime);
@@ -187,7 +191,10 @@ namespace Dianzhu.CSClient.Presenter
             iIM.SendMessage(chat);
 
             //加到缓存数组中
-            PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+            if (PChatList.chatHistoryAll != null)
+            {
+                PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+            }
 
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 
@@ -206,6 +213,7 @@ namespace Dianzhu.CSClient.Presenter
 
             //获取之前orderid
             ServiceOrder oldOrder = IdentityManager.CurrentIdentity;
+            bllServiceOrder.Update(oldOrder);
 
             //更新当前订单
             IdentityTypeOfOrder type;
@@ -218,9 +226,12 @@ namespace Dianzhu.CSClient.Presenter
 
             //更新接待分配表
             bllReceptionStatus.UpdateOrder(IdentityManager.CurrentIdentity.Customer, GlobalViables.CurrentCustomerService, newOrder);
-            
+
             //清空搜索选项 todo:为了测试方便，先注释掉
             //viewSearch.ClearData();
+
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
         }
 
         private void ViewSearchResult_SelectService(Model.DZService selectedService)
@@ -240,15 +251,24 @@ namespace Dianzhu.CSClient.Presenter
         #endregion
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId)
         {
-            int total;
-           
-            IList<Model.DZService> services = dalDzService.SearchService(minPrice,maxPrice, servieTypeId,targetTime,  0, 10, out total);
-            
-            viewSearchResult.SearchedService = services;
-            foreach (DZService s in services)
+            Action a = () =>
             {
-                
-            }
+                int total;
+
+                IList<Model.DZService> services = dalDzService.SearchService(minPrice, maxPrice, servieTypeId, targetTime, 0, 10, out total);
+                foreach (DZService service in services)
+                {
+                    
+                }
+                viewSearchResult.SearchedService = services;
+            };
+
+            NHibernateUnitOfWork.With.Transaction(a);
+
+            //foreach (DZService s in services)
+            //{
+
+            //}
             //if (services.Count > 0)
             //{
             //    //启用推送按钮

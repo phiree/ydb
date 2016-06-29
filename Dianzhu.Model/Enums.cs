@@ -359,8 +359,23 @@ namespace Dianzhu.Model.Enums
         /// <summary>
         /// 员工
         /// </summary>
-        staff=16,
-            agent=32
+        staff = 16,
+        /// <summary>
+        /// 代理商
+        /// </summary>
+        agent = 32,
+        /// <summary>
+        /// 点点
+        /// </summary>
+        diandian = 64,
+        /// <summary>
+        /// 通知服务器
+        /// </summary>
+        notify = 128,
+        /// <summary>
+        /// openfire服务器
+        /// </summary>
+        openfire = 256
     }
 
     /// <summary>

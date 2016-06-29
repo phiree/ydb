@@ -85,5 +85,10 @@ namespace NHibernateUnitOfWork
                 tx.Dispose();
             }
         }
+
+        public void Refresh(object obj)
+        {
+            Session.Refresh(obj);
+        }
     }
 }

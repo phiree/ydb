@@ -59,15 +59,7 @@ namespace Dianzhu.CSClient
 
              Bootstrap.Boot();
 
-            IDALBusiness dalb = Bootstrap.Container.Resolve<IDAL.IDALBusiness>();
-
-
-            Action a = () => { dalb.Find(x => true); };
-
-            NHibernateUnitOfWork.With.Transaction(a);
-            NHibernateUnitOfWork.With.Transaction(a);
-
-
+            
 
 
             string version = GetVersion();

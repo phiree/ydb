@@ -4,7 +4,7 @@
 
     void Application_Start(object sender, EventArgs e)
     {
-       
+
         PHSuit.Logging.Config("Dianzhu.Web.Pay");
         Bootstrap.Boot();
     }
@@ -36,10 +36,10 @@
         // or SQLServer, the event is not raised.
 
     }
-        void Application_BeginRequest(Object source, EventArgs e)
+    void Application_BeginRequest(Object source, EventArgs e)
     {
-         
- 
+
+
         NHibernateUnitOfWork.UnitOfWork.Start();
     }
     void Application_EndRequest(object sender, EventArgs e)

@@ -12,6 +12,8 @@ public class IMServerAPI : IHttpHandler {
 
     public void ProcessRequest(HttpContext context)
     {
+        NHibernateUnitOfWork.UnitOfWork.Start();
+
         string type = context.Request["type"];
         Dianzhu.CSClient.IInstantMessage.InstantMessage im
         = (Dianzhu.CSClient.IInstantMessage.InstantMessage)context.Application["im"];
@@ -83,6 +85,7 @@ public class IMServerAPI : IHttpHandler {
         //get order or create new order
         // return cs,and order 
 
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
     }
 
     public bool IsReusable

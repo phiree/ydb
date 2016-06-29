@@ -74,6 +74,11 @@ public class ResponseORM002001 : BaseResponse
                 {
                     assignedPair.Add(rs.Customer, rs.CustomerService);
                 }
+                else if (rs != null && rs.CustomerService.UserType == enum_UserType.diandian)
+                {
+                    bllReceptionStatus.Delete(rs);
+                    assignedPair = ra.AssignCustomerLogin(member);
+                }
                 else
                 {
                     assignedPair = ra.AssignCustomerLogin(member);
