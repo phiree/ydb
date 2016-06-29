@@ -25,8 +25,7 @@ namespace Dianzhu.Model
         /// <summary>
         /// id
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        public virtual Guid Id { get; set; }
+         
         /// <summary>
         /// 自定义编码
         /// </summary>

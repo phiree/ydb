@@ -13,5 +13,6 @@ namespace Dianzhu.IDAL.Finance
 
 
           IList<Dianzhu.Model.Finance.ServiceTypePoint> GetAll();
+        void SaveList(IList<ServiceTypePoint> list);
     }
 }

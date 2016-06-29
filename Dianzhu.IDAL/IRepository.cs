@@ -9,7 +9,7 @@ namespace Dianzhu.IDAL
     public interface IRepository<TEntity, TPrimaryKey>:IRepository where TEntity : Entity<TPrimaryKey>
     {
         void Add(TEntity t);
-        void SaveList(IList<TEntity> list);
+       
         void Delete(TEntity t);
         void Update(TEntity t);
         TEntity FindById(TPrimaryKey identityId);
