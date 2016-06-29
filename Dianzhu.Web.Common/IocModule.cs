@@ -30,17 +30,19 @@ namespace Dianzhu.Web.Common
 
         private void Error(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+           
         }
 
         private void EndRequest(object sender, EventArgs e)
         {
-            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         }
 
         private void BeginRequest(object sender, EventArgs e)
         {
-            //NHibernateUnitOfWork.UnitOfWork.Start();
+            NHibernateUnitOfWork.UnitOfWork.Start();
         }
+
+        
     }
 }
