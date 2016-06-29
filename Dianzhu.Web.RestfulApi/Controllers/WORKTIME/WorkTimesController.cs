@@ -8,6 +8,7 @@ using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
 {
+    [HMACAuthentication]
     public class WorkTimesController : ApiController
     {
         private ApplicationService.WorkTime.IWorkTimeService iworktime = null;

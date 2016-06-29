@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JWT
+namespace Dianzhu.ApplicationService.JWT
 {
 	public class SignatureVerificationException : Exception
 	{

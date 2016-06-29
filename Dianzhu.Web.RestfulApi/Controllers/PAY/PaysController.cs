@@ -8,6 +8,7 @@ using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.PAY
 {
+    [HMACAuthentication]
     public class PaysController : ApiController
     {
         private ApplicationService.Pay.IPayService ipay = null;

@@ -8,6 +8,7 @@ using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.CHAT
 {
+    [HMACAuthentication]
     public class ChatsController : ApiController
     {
         private ApplicationService.Chat.IChatService ichat = null;

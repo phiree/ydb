@@ -19,5 +19,13 @@ namespace Dianzhu.Web.RestfulApi
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            NHibernateUnitOfWork.UnitOfWork.Start();
+        }
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+        }
     }
 }

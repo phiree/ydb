@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.USER
 {
+    [HMACAuthentication]
 
     //[Authorize]
     public class UsersController : ApiController

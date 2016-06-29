@@ -8,6 +8,7 @@ using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.STORE
 {
+    [HMACAuthentication]
     public class StoresController : ApiController
     {
         private ApplicationService.Store.IStoreService istore = null;

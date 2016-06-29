@@ -8,6 +8,7 @@ using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.STAFF
 {
+    [HMACAuthentication]
     public class StaffsController : ApiController
     {
         private ApplicationService.Staff.IStaffService istaff = null;

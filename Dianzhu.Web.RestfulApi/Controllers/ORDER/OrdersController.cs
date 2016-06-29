@@ -9,6 +9,7 @@ using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
 {
+    [HMACAuthentication]
     public class OrdersController : ApiController
     {
 

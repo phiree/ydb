@@ -63,6 +63,7 @@
     <Compile Include="DALReceptionStatusArchieve.cs" />
     <Compile Include="DALRefundLog.cs" />
     <Compile Include="DALRefund.cs" />
+    <Compile Include="DALUserToken.cs" />
     <Compile Include="Finance\DALBalanceFlow.cs" />
     <Compile Include="Finance\DALDefaultSharePoint.cs" />
     <Compile Include="Finance\DALSharePoint.cs" />

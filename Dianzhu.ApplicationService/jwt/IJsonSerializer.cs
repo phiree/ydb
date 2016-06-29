@@ -1,4 +1,4 @@
-﻿namespace JWT
+﻿namespace Dianzhu.ApplicationService.JWT
 {
     /// <summary>
     /// Provides JSON Serialize and Deserialize.  Allows custom serializers used.

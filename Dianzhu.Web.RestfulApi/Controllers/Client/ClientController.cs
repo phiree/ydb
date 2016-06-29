@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.Client
 {
-    [RoutePrefix("api/Client")]
+    [HMACAuthentication]
+    //[RoutePrefix("api/Client")]
     public class ClientController : ApiController
     {
         //  private AuthRepository _repo = null;
         private ApplicationService.Client.IClientService iclientservice  = null;
+        
         public ClientController()
         {
             // _repo = new AuthRepository();
@@ -21,7 +23,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
         }
 
         [AllowAnonymous]
-        [Route("Register")]
+        [Route("api/Client/Register")]
         public async Task<IHttpActionResult> Register(ClientDTO client)
         {
             if (!ModelState.IsValid)
@@ -31,6 +33,26 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
             iclientservice.RegisterClient(client);
 
             return Ok();
+        }
+
+        
+        [Route("api/Token")]
+        public IHttpActionResult PostToken([FromBody]Customer customer)
+        {
+            try
+            {
+                if (customer == null)
+                {
+                    customer = new Customer();
+                }
+                HMACAuthenticationAttribute hmac = new HMACAuthenticationAttribute();
+                string apiKey = hmac.getAllowedApps(Request.Headers.GetValues("appName").FirstOrDefault());
+                return Json(iclientservice.CreateToken(customer.username, customer.password, apiKey, "http://"+Request.RequestUri.Authority));
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, utils.SetRes_Error(ex));
+            }
         }
     }
 }

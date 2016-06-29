@@ -1,6 +1,6 @@
 ﻿using System.Web.Script.Serialization;
 
-namespace JWT
+namespace Dianzhu.ApplicationService.JWT
 {
     /// <summary>
     /// JSON Serializer using JavaScriptSerializer

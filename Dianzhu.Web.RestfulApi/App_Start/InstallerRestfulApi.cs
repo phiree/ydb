@@ -20,11 +20,9 @@ public class InstallerRestfulApi : IWindsorInstaller
 {
     public void Install(IWindsorContainer container, IConfigurationStore store)
     {
-        //container.Register(Component.For<Dianzhu.Web.RestfulApi.Controllers.Users.UsersController>());
-        container.Register(Component.For<DALClient>());
-        container.Register(Component.For<DALRefreshToken>());
-        container.Register(Component.For<Dianzhu.BLL.Client.IBLLClient>().ImplementedBy<Dianzhu.BLL.Client.BLLClient>());
-        container.Register(Component.For<Dianzhu.BLL.Client.IBLLRefreshToken>().ImplementedBy<Dianzhu.BLL.Client.BLLRefreshToken>());
+        ////container.Register(Component.For<Dianzhu.Web.RestfulApi.Controllers.Users.UsersController>());
+        //container.Register(Component.For<Dianzhu.BLL.Client.IBLLClient>().ImplementedBy<Dianzhu.BLL.Client.BLLClient>());
+        //container.Register(Component.For<Dianzhu.BLL.Client.IBLLRefreshToken>().ImplementedBy<Dianzhu.BLL.Client.BLLRefreshToken>());
         container.Register(Component.For<Dianzhu.ApplicationService.Client.IClientService>().ImplementedBy<Dianzhu.ApplicationService.Client.ClientService>());
         container.Register(Component.For<Dianzhu.ApplicationService.User.IUserService>().ImplementedBy<Dianzhu.ApplicationService.User.UserService>());
         container.Register(Component.For<Dianzhu.ApplicationService.City.ICityService>().ImplementedBy<Dianzhu.ApplicationService.City.CityService>());

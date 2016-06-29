@@ -615,29 +615,40 @@ namespace Dianzhu.Model.Enums
     public enum enum_appName
     {
         /// <summary>
-        /// IOS用户版
+        /// IOS用户版 IOS_User
+        /// security_key:NoJBn3npJIvre2fC2SQL5aQGNB/3l73XXSqNZYdY6HU
         /// </summary>
-        IOS_User,
+        UI3f4185e97b3E4a4496594eA3b904d60d,
         /// <summary>
-        /// IOS商户版
+        /// IOS商户版 IOS_Merchant
+        /// security_key:h7lVzFNKU5Nlp7iCSVIyfs2bEgCzA2aFnQsJwia8utE
         /// </summary>
-        IOS_Merchant,
+        MI354d5aaa55Ff42fba7716C4e70e015f2,
         /// <summary>
-        /// IOS客服版
+        /// IOS客服版 IOS_CustomerService
+        /// security_key:Ce6QgbBcwFxbB9yCAI5BEJ95L7RJi8AeQ9REYxvp79Q
         /// </summary>
-        IOS_CustomerService,
+        CI5baFa6180f5d4b9D85026073884c3566,
         /// <summary>
-        /// Android用户版
+        /// Android用户版 Android_User
+        /// security_key:WDcajjuVXA6TToFfm1MWhFFgn6bsXTt8VNsGLjcqGMg
         /// </summary>
-        Android_User,
+        UA811Cd5343a1a41e4beB35227868541f8,
         /// <summary>
-        /// Android商户版
+        /// Android商户版 Android_Merchant
+        /// security_key:3xhBie885/2f6dWg4O5rh7bUpcsgldeQxnwsx6f9638
         /// </summary>
-        Android_Merchant,
+        MAA6096436548346B0b70ffb58A9b0426d,
         /// <summary>
-        /// Android客户版
+        /// Android客户版 Android_CustomerService
+        /// security_key:suSjG+pPCu0gwXOqamNdp0zE3sY29vcHJHe1S429hNU
         /// </summary>
-        Android_CustomerService,
+        CA660838f88147463CAF3a52bae6c30cbd,
+        /// <summary>
+        /// js客户端
+        /// security_key:FJXTdZVLhmFLHO5M3Xweo5kHRmLH3qFdRzLyGFZLeBc
+        /// </summary>
+        JS1adBF8cbaf594d1ab2f1A68755e70440,
     }
 
     /// <summary>

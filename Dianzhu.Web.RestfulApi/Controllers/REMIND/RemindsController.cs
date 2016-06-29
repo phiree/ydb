@@ -8,6 +8,7 @@ using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
 {
+    [HMACAuthentication]
     public class RemindsController : ApiController
     {
         private ApplicationService.Remind.IRemindService iremind = null;

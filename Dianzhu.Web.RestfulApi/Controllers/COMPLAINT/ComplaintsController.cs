@@ -9,6 +9,7 @@ using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
 {
+    [HMACAuthentication]
     public class ComplaintsController : ApiController
     {
 
