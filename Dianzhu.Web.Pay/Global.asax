@@ -40,11 +40,11 @@
     {
 
 
-        NHibernateUnitOfWork.UnitOfWork.Start();
+        //NHibernateUnitOfWork.UnitOfWork.Start();
     }
     void Application_EndRequest(object sender, EventArgs e)
     {
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+        //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
     }
     //keep site alive
     private static void _SetupRefreshJob()
