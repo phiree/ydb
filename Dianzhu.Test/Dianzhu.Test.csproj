@@ -124,7 +124,6 @@
     <Compile Include="Bootstrap.cs" />
     <Compile Include="DALTest\DALService.cs" />
     <Compile Include="DALTest\MapTest.cs" />
-    <Compile Include="DALTest\SessionAsynTest.cs" />
     <Compile Include="DALTest\TestDALReceptionChatDD.cs" />
     <Compile Include="DALTest\UnitOfWorkTest.cs" />
     <Compile Include="DiandianTest\DiandianTest.cs" />
