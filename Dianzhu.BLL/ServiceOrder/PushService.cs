@@ -38,7 +38,7 @@ namespace Dianzhu.BLL
         public void Push(ServiceOrder order, IList<ServiceOrderPushedService> services, string targetAddress, DateTime targetTime)
         {
             order.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
-            bllServiceOrder.Update(order);
+           
 
             foreach (ServiceOrderPushedService service in services)
             {
@@ -57,7 +57,11 @@ namespace Dianzhu.BLL
         public void SelectServiceAndCreate(ServiceOrder order, DZService selectedService)
         {
             IList<ServiceOrderPushedService> l = GetPushedServicesForOrder(order);
-            if (l.Count > 0)
+            if (l.Count > 1)
+            {
+                throw new Exception("包含多个推送服务");
+            }
+            else if (l.Count == 1)
             {
                 ServiceOrderPushedService s = l.Single(x => x.OriginalService.Id == selectedService.Id);
                 order.AddDetailFromIntelService(s.OriginalService, s.UnitAmount, s.TargetAddress, s.TargetTime);

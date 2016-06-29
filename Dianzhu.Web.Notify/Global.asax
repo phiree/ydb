@@ -37,7 +37,7 @@
         im.OpenConnection(noticesenderId, noticesenderPwd);
         Application["IM"] = im;
     }
- 
+
 
 
     void IMClosed()
@@ -104,14 +104,14 @@
     }
     void Application_BeginRequest(Object source, EventArgs e)
     {
-        HttpApplication app = (HttpApplication)source;
-        PHSuit.FirstRequestInitialisation.Initialise(app.Context);
+        //HttpApplication app = (HttpApplication)source;
+        //PHSuit.FirstRequestInitialisation.Initialise(app.Context);
 
-        NHibernateUnitOfWork.UnitOfWork.Start();
+        //NHibernateUnitOfWork.UnitOfWork.Start();
     }
     void Application_EndRequest(object sender, EventArgs e)
     {
-        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+        //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
     }
     private static void _SetupRefreshJob()
     {

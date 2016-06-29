@@ -105,7 +105,6 @@
     <Compile Include="DALReceptionStatusArchieve.cs" />
     <Compile Include="DALOrderAssignment.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderStateChangeHis.cs" />
-    <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="IdentityAccess\DALRoleMember.cs" />
     <Compile Include="IdentityAccess\DALRole.cs" />
     <Compile Include="Mapping\ClaimsDetailsMap.cs" />
@@ -152,7 +151,6 @@
     <Compile Include="Mapping\ServiceOpenTimeMap.cs" />
     <Compile Include="Mapping\ReceptionStatusMap.cs" />
     <Compile Include="NHCustomDialect.cs" />
-    <None Include="NHUnitOfWorkx.cs2" />
     <Compile Include="NHRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DALBusiness.cs" />

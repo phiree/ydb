@@ -24,9 +24,13 @@ namespace Dianzhu.BLL
             this.dalServiceOrderRemind = dalServiceOrderRemind;
         }
 
-        public void SaveOrUpdate(ServiceOrderRemind Remind)
+        public void Save(ServiceOrderRemind Remind)
         {
-            //dalServiceOrderRemind.SaveOrUpdate(Remind);
+            dalServiceOrderRemind.Add(Remind);
+        }
+
+        public void Update(ServiceOrderRemind Remind)
+        {
             dalServiceOrderRemind.Update(Remind);
         }
 

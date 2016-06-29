@@ -8,6 +8,7 @@ namespace NHibernateUnitOfWork
         void Flush();
         bool IsInActiveTransaction { get; }
 
+        void Refresh(object obj);
         IGenericTransaction BeginTransaction();
         IGenericTransaction BeginTransaction(IsolationLevel isolationLevel);
         void TransactionalFlush();

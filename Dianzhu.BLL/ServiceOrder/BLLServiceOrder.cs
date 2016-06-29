@@ -824,7 +824,9 @@ namespace Dianzhu.BLL
                                 log.Debug("更新订单状态");
                                 //order.OrderStatus = oldStatus;
                                 ChangeStatus(order, enum_OrderStatus.Canceled);
+                                NHibernateUnitOfWork.UnitOfWork.Current.Flush();
                                 ChangeStatus(order, enum_OrderStatus.WaitingDepositWithCanceled);
+                                NHibernateUnitOfWork.UnitOfWork.Current.Flush();
                                 ChangeStatus(order, enum_OrderStatus.EndCancel);
 
                                 isCanceled = true;
