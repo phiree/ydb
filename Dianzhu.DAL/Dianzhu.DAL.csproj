@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Client\DALClient.cs" />
     <Compile Include="Client\DALRefreshToken.cs" />
+    <Compile Include="Client\DALUserToken.cs" />
     <Compile Include="DALMembershipLoginLog.cs" />
     <Compile Include="DALClaims.cs" />
     <Compile Include="DALComplaint.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="DALDZTag.cs" />
     <Compile Include="Finance\DALDefaultSharePoint.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Mapping\Client\UserTokenMap.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderRemind.cs" />
     <Compile Include="ServiceOrder\DALServiceOrderAppraise.cs" />
     <Compile Include="Finance\DALSalePoint.cs" />

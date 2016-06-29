@@ -45,7 +45,7 @@ namespace Dianzhu.ApplicationService
         ///性别（女：true,男：false）
         /// </summary>
         /// <type>boolean</type>
-        public string sex { get; set; }
+        public bool sex { get; set; }
 
         /// <summary>
         ///特长描述

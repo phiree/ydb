@@ -100,6 +100,51 @@ namespace Dianzhu.BLL
         {
             return dalBusiness.Find(x => true, pageIndex, pageSize, out totalRecord);
         }
+
+        /// <summary>
+        /// 条件读取店铺
+        /// </summary>
+        /// <param name="pagesize"></param>
+        /// <param name="pagenum"></param>
+        /// <param name="alias"></param>
+        /// <param name="ownerId"></param>
+        /// <returns></returns>
+        public IList<Business> GetStores(int pagesize, int pagenum, string alias, Guid ownerId)
+        {
+            var where = PredicateBuilder.True<Business>();
+            if (ownerId != Guid.Empty)
+            {
+                where = where.And(x => x.Owner.Id == ownerId);
+            }
+            if (alias != null && alias != "")
+            {
+                where = where.And(x => x.Name.Contains(alias));
+            }
+            long t = 0;
+            var list = pagesize == 0 ? dalBusiness.Find(where).ToList() : dalBusiness.Find(where, pagenum, pagesize, out t).ToList();
+            return list;
+        }
+
+        /// <summary>
+        /// 统计店铺数量
+        /// </summary>
+        /// <param name="alias"></param>
+        /// <param name="ownerId"></param>
+        /// <returns></returns>
+        public long GetStoresCount(string alias, Guid ownerId)
+        {
+            var where = PredicateBuilder.True<Business>();
+            if (ownerId != Guid.Empty)
+            {
+                where = where.And(x => x.Owner.Id == ownerId);
+            }
+            if (alias != null && alias != "")
+            {
+                where = where.And(x => x.Name.Contains(alias));
+            }
+            long count = dalBusiness.GetRowCount(where);
+            return count;
+        }
     }
 
 }

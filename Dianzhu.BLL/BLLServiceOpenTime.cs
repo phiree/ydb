@@ -5,6 +5,7 @@ using System.Text;
 
 using Dianzhu.Model;
 using Dianzhu.DAL;
+using Dianzhu.IDAL;
 using Dianzhu.BLL.Validator;
 using FluentValidation;
 using FluentValidation.Results;
@@ -17,19 +18,23 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLServiceOpenTime
     {
-        public IDAL.IDALServiceOpenTime  DALServiceOpenTime = null;
-       
-        public BLLServiceOpenTime(IDAL.IDALServiceOpenTime dal)
+        //20160617_longphui_modify
+        //public DALServiceOpenTime DALServiceOpenTime = null;
+        IDALServiceOpenTime DALServiceOpenTime = null;
+        public BLLServiceOpenTime(IDALServiceOpenTime DALServiceOpenTime)
         {
-            DALServiceOpenTime = dal;
+            //DALServiceOpenTime = DALFactory.DALServiceOpenTime;
+            this.DALServiceOpenTime = DALServiceOpenTime;
         }
         public ServiceOpenTime GetOne( Guid id  )
         {
+            //return DALServiceOpenTime.GetOne(id);
             return DALServiceOpenTime.FindById(id);
         }
         
         public void Update(ServiceOpenTime sot)
         {
+            //DALServiceOpenTime.SaveOrUpdate(sot);
             DALServiceOpenTime.Update(sot);
         }
         
@@ -39,12 +44,15 @@ namespace Dianzhu.BLL
     /// </summary>
     public class BLLServiceOpenTimeForDay
     {
-         IDAL.IDALServiceOpenTimeForDay DALServiceOpenTimeForDay = null;
-        
-        public BLLServiceOpenTimeForDay(IDAL.IDALServiceOpenTimeForDay DALServiceOpenTimeForDay)
+        IDALServiceOpenTimeForDay DALServiceOpenTimeForDay = null;
+        public BLLServiceOpenTimeForDay(IDALServiceOpenTimeForDay DALServiceOpenTimeForDay)
         {
-          this.  DALServiceOpenTimeForDay = DALServiceOpenTimeForDay;
+            this.DALServiceOpenTimeForDay = DALServiceOpenTimeForDay;
         }
+        //public BLLServiceOpenTimeForDay(DALServiceOpenTimeForDay dal)
+        //{
+        //    DALServiceOpenTimeForDay = dal;
+        //}
         public ServiceOpenTimeForDay GetOne(Guid id)
         {
             return DALServiceOpenTimeForDay.FindById(id);

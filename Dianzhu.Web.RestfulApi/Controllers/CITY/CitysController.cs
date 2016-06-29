@@ -9,6 +9,7 @@ using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.LOCATION
 {
+    [HMACAuthentication]
     public class CitysController : ApiController
     {
 

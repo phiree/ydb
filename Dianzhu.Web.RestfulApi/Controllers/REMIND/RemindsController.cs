@@ -8,6 +8,7 @@ using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
 {
+    [HMACAuthentication]
     public class RemindsController : ApiController
     {
         private ApplicationService.Remind.IRemindService iremind = null;
@@ -20,7 +21,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
         /// <summary>
         /// 根据ID获取提醒
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IHttpActionResult GetRemindById(string id)
         {
             try
@@ -37,7 +39,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
         /// <summary>
         /// 根据ID删除提醒
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IHttpActionResult DeleteRemindById(string id)
         {
             try
@@ -54,7 +57,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
         /// <summary>
         /// 条件读取提醒
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="filter"></param>
+        /// <param name="remind"></param>
+        /// <returns></returns>
         public IHttpActionResult GetReminds([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_RemindFiltering remind)
         {
             try
@@ -71,7 +76,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.REMIND
         /// <summary>
         /// 统计投诉的数量
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="remind"></param>
+        /// <returns></returns>
         [Route("api/Reminds/count")]
         public IHttpActionResult GetRemindsCount([FromUri]common_Trait_RemindFiltering remind)
         {

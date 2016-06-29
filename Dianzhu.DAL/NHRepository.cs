@@ -35,6 +35,18 @@ namespace Dianzhu.DAL
 
         }
 
+        /// <summary>
+        /// 仿DALBase.Save(T o, object id)
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="id"></param>
+        public void Add(TEntity t, TPrimaryKey id)
+        {
+           
+                Session.Save(t,id);
+                
+        }
+
         public void Delete(TEntity t)
         {
             
@@ -119,16 +131,18 @@ namespace Dianzhu.DAL
 
         public void Update(TEntity t)
         {
-
-
             
+
                 Session.Update(t); 
-              
+             
 
 
 
         }
 
-      
+        public void SaveOrUpdate(TEntity t)
+        {
+            Session.SaveOrUpdate(t);
+        }
     }
 }

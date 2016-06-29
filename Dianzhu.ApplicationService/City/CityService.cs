@@ -18,8 +18,8 @@ namespace Dianzhu.ApplicationService.City
         /// <summary>
         /// 根据areacode获得city
         /// </summary>
-        /// <param name="areacode">code代码</param>
-        /// <returns>area实体</returns>
+        /// <param name="areacode"></param>
+        /// <returns></returns>
         public cityObj GetCityByAreaCode(string areacode)
         {
             Model.Area area = bllarea.GetCityByAreaCode(areacode);
@@ -30,7 +30,9 @@ namespace Dianzhu.ApplicationService.City
         /// <summary>
         /// 获得所有city,或根据经纬度与areacode获取城市
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="filter"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
         public IList<cityObj> GetAllCity(common_Trait_Filtering filter,common_Trait_LocationFiltering location)
         {
             IList<Model.Area> listarea=null;

@@ -8,6 +8,7 @@ using Dianzhu.ApplicationService;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
 {
+    [HMACAuthentication]
     public class AssignsController : ApiController
     {
         private ApplicationService.Assign.IAssignService iassign = null;
@@ -20,7 +21,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
         /// <summary>
         /// 新建指派
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="assignobj"></param>
+        /// <returns></returns>
         public IHttpActionResult PostAssign([FromBody]assignObj assignobj)
         {
             try
@@ -36,7 +38,9 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
         /// <summary>
         /// 条件读取指派
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="filter"></param>
+        /// <param name="assign"></param>
+        /// <returns></returns>
         public IHttpActionResult GetAssigns([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_AssignFiltering assign)
         {
             try
@@ -52,7 +56,8 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
         /// <summary>
         /// 统计指派的数量
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="assign"></param>
+        /// <returns></returns>
         [Route("api/Assigns/count")]
         public IHttpActionResult GetAssignsCount([FromUri]common_Trait_AssignFiltering assign)
         {

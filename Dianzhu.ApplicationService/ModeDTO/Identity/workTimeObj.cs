@@ -37,6 +37,7 @@ namespace Dianzhu.ApplicationService
         /// </summary>
         /// <type>string</type>
         public string week { get; set; }
+        //public DayOfWeek week1 { get; set; }
 
         /// <summary>
         /// 是否开启（true Or false）

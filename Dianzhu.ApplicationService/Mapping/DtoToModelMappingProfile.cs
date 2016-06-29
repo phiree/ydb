@@ -28,7 +28,7 @@ namespace Dianzhu.ApplicationService.Mapping
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
             Mapper.CreateMap<userObj, DZMembership>()
-            .ForMember(x => x.UserName, opt => opt.MapFrom(source => source.alias))
+            .ForMember(x => x.NickName, opt => opt.MapFrom(source => source.alias))
             .ForMember(x => x.AvatarUrl, opt => opt.MapFrom(source => source.imgUrl))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
@@ -62,6 +62,48 @@ namespace Dianzhu.ApplicationService.Mapping
             Mapper.CreateMap<workTimeObj, Model.ServiceOpenTimeForDay>()
             .ForMember(x => x.MaxOrderForOpenTime, opt => opt.MapFrom(source => source.maxCountOrder))
             .ForMember(x => x.Enabled, opt => opt.MapFrom(source => source.bOpen))
+            .ForMember(x => x.TimeStart, opt => opt.MapFrom(source => source.startTime))
+            .ForMember(x => x.TimeEnd, opt => opt.MapFrom(source => source.endTime))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<servicesObj, Model.DZService>()
+            .ForMember(x => x.Description, opt => opt.MapFrom(source => source.introduce))
+            .ForMember(x => x.MinPrice, opt => opt.MapFrom(source => decimal.Parse(source.startAt)))
+            .ForMember(x => x.DepositAmount, opt => opt.MapFrom(source => decimal.Parse(source.deposit)))
+            .ForMember(x => x.OrderDelay, opt => opt.MapFrom(source => Int32.Parse(source.appointmentTime)))
+            .ForMember(x => x.ServiceMode, opt => opt.MapFrom(source => source.bDoorService? "ToHouse" : "NotToHouse"))
+            .ForMember(x => x.IsForBusiness, opt => opt.MapFrom(source => (source.eServiceTarget=="all")))
+            .ForMember(x => x.AllowedPayType, opt => opt.MapFrom(source => source.eSupportPayWay))
+            .ForMember(x => x.Enabled, opt => opt.MapFrom(source => source.bOpen))
+            .ForMember(x => x.MaxOrdersPerDay, opt => opt.MapFrom(source => Int32.Parse(source.maxCount)))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<staffObj, Model.Staff>()
+            .ForMember(x => x.NickName, opt => opt.MapFrom(source => source.alias))
+            .ForMember(x => x.Photo, opt => opt.MapFrom(source => source.imgUrl))
+            .ForMember(x => x.Gender, opt => opt.MapFrom(source => source.sex?"女":"男"))
+            .ForMember(x => x.Name, opt => opt.MapFrom(source => source.realName))
+            .ForMember(x => x.Code, opt => opt.MapFrom(source => source.identity))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<storeObj, Model.Business>()
+            .ForMember(x => x.Name, opt => opt.MapFrom(source => source.alias))
+            .ForMember(x => x.Description, opt => opt.MapFrom(source => source.introduction))
+            .ForMember(x => x.Phone, opt => opt.MapFrom(source => source.storePhone))
+            .ForMember(x => x.Contact, opt => opt.MapFrom(source => source.linkMan))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+
+            Mapper.CreateMap<payObj, Model.Payment>()
+            .ForMember(x => x.Status, opt => opt.MapFrom(source => source.payStatus))
+            .ForMember(x => x.PayTarget, opt => opt.MapFrom(source => source.type))
+            .ForMember(x => x.LastUpdateTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.updateTime, "yyyyMMddHHmmss", "remindObj.time")))
+            .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
+
+            Mapper.CreateMap<chatObj, Model.ReceptionChat>()
+            .ForMember(x => x.MessageBody, opt => opt.MapFrom(source => source.body))
+            .ForMember(x => x.ChatType, opt => opt.MapFrom(source => source.type))
+            .ForMember(x => x.SendTime, opt => opt.MapFrom(source => utils.CheckDateTime(source.sendTime, "yyyyMMddHHmmss", "remindObj.time")))
             .ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull));
 
 

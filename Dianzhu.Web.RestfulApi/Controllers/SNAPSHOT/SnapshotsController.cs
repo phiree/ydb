@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Dianzhu.Web.RestfulApi.Controllers.SNAPSHOT
 {
+    [HMACAuthentication]
     public class SnapshotsController : ApiController
     {
         public IHttpActionResult GetSnapshots([FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_SnapshotFiltering sna)

@@ -28,7 +28,7 @@ namespace Dianzhu.Model
         /// <param name="resourcesUrl"></param>
         /// <param name="target"></param>
         /// <param name="member">提交理赔的用户</param>
-        public ClaimsDetails(Claims claims, string context,decimal amount,string resourcesUrl,enum_ChatTarget target,DZMembership member)
+        public ClaimsDetails(Claims claims, string context,decimal amount,IList<string> resourcesUrl,enum_ChatTarget target,DZMembership member)
         {
             this.CreatTime = this.LastUpdateTime = DateTime.Now;
 
@@ -59,7 +59,9 @@ namespace Dianzhu.Model
         /// <summary>
         /// 图片链接
         /// </summary>
-        public virtual string ResourcesUrl { get; set; }
+        /// 20160622_longphui_modify
+        ///public virtual string ResourcesUrl { get; set; }
+        public virtual IList<string> ResourcesUrl { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>

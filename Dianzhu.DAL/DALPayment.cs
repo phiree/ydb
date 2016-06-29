@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using Dianzhu.Model;
 using NHibernate.Criterion;
+using Dianzhu.IDAL;
 
 namespace Dianzhu.DAL
 {
+
+
     public class DALPayment : NHRepositoryBase<Payment,Guid>,IDAL.IDALPayment
     {
         /// <summary>
@@ -16,9 +19,7 @@ namespace Dianzhu.DAL
         /// <returns></returns>
         public virtual IList<Payment> GetPaymentsForOrder(ServiceOrder order)
         {
- 
             return Find(x => x.Order.Id == order.Id);
- 
         }
 
         public virtual Payment GetPaymentForWaitPay(ServiceOrder order)
@@ -33,6 +34,16 @@ namespace Dianzhu.DAL
         public virtual Payment GetPayedByTarget(ServiceOrder order, Model.Enums.enum_PayTarget payTarget)
         {
             return FindOne(x => x.Order.Id == order.Id && x.PayTarget == payTarget && x.Status == Model.Enums.enum_PaymentStatus.Trade_Success);
+        }
+
+        /// <summary>
+        /// 查询订单支付的订金
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        public virtual Payment GetPayedForDeposit(ServiceOrder order)
+        {
+            return new Payment();
         }
     }
 }

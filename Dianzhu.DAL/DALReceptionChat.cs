@@ -10,8 +10,47 @@ using Dianzhu.Model.Enums;
 
 namespace Dianzhu.DAL
 {
-    public class DALReceptionChat : NHRepositoryBase<ReceptionChat,Guid>,IDAL.IDALReceptionChat
+    public class DALReceptionChat : NHRepositoryBase<ReceptionChat, Guid>, IDAL.IDALReceptionChat //: DALBase<Model.ReceptionChat>
     {
+         public DALReceptionChat()
+        {
+             
+        }
+        //注入依赖,供测试使用;
+        // public DALReceptionChat(string fortest):base(fortest)
+        //{
+            
+        //}
+
+        public new void Save(ReceptionChat chat)
+        {
+            //20160621_longphui_modify
+            //if (chat.Id != Guid.Empty)
+            //{
+            //    base.Save(chat, chat.Id);
+            //}
+            //else {
+            //    base.Save(chat);
+            //}
+            if (chat.Id != Guid.Empty)
+            {
+                Add(chat, chat.Id);
+            }
+            else
+            {
+                Add(chat);
+            }
+
+
+            //if (chat.Id != null)
+            //{ Session.Save(chat, chat.Id); }
+            //else {
+            //    Session.Save(chat);
+            //}
+            //return chat;
+        }
+
+
         /// <summary>
         /// 根据订单获取聊天记录列表
         /// </summary>

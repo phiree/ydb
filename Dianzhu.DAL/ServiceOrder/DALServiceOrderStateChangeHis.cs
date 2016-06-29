@@ -8,6 +8,7 @@ using NHibernate;
 using NHibernate.Criterion;
 namespace Dianzhu.DAL
 {
+
     public class DALServiceOrderStateChangeHis : NHRepositoryBase<ServiceOrderStateChangeHis,Guid>,IDAL.IDALServiceOrderStateChangeHis
     {
         public IQueryOver<ServiceOrderStateChangeHis> Query(ServiceOrder order)

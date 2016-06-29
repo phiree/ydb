@@ -31,7 +31,7 @@ namespace Dianzhu.ApplicationService
         /// 图片资源Url数组
         /// </summary>
         /// <type>array[string]</type>
-        public string resourcesUrls { get; set; }
+        public IList<string> resourcesUrls { get; set; }
 
         /// <summary>
         /// 生成的时间（yyyyMMddHHmmss）
@@ -48,7 +48,7 @@ namespace Dianzhu.ApplicationService
         /// <summary>
         /// 提交本次理赔的目标（"customerService":客服，"store":店铺，"user":用户，"system":系统）
         /// </summary>
-        /// <type>boolean</type>
-        public bool action { get; set; }
+        /// <type>string</type>
+        public string target { get; set; }
     }
 }

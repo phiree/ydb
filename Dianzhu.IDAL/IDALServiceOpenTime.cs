@@ -8,4 +8,6 @@ namespace Dianzhu.IDAL
    public interface IDALServiceOpenTime:IRepository<Model.ServiceOpenTime,Guid>
     {
     }
+
+    
 }

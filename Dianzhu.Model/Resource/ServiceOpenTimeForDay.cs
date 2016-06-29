@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDCommon.Domain;
 
 namespace Dianzhu.Model
 {
@@ -58,6 +59,10 @@ namespace Dianzhu.Model
         /// <returns></returns>
         private int TimeStringToPeriod(string time)
         {
+            if (time == null)
+            {
+                int c = 0;
+            }
             string[] arr = time.Split(new char[] { ':', '：' });
             if (arr.Length != 2)
             {

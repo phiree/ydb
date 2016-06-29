@@ -15,6 +15,7 @@ namespace Dianzhu.Model
     {
         public DZMembership()
         {
+            PlatForm = enum_PlatFormType.system;
             IsRegisterValidated = false;
              LastLoginTime=  TimeCreated = DateTime.Now;
             
@@ -23,16 +24,22 @@ namespace Dianzhu.Model
         {
             switch (type)
             {
-                case enum_LoginType.original:break;
+                case enum_LoginType.original:
+                    DZMembership newOriginal = new DZMembership();
+                    newOriginal.PlatForm = enum_PlatFormType.system;
+                    return newOriginal;
 
                 case enum_LoginType.WeChat:
                     DZMembership newUserWechat = new DZMembershipWeChat();
+                    newUserWechat.PlatForm = enum_PlatFormType.WeChat;
                     return newUserWechat;
                 case enum_LoginType.SinaWeiBo:
                     DZMembership newUserSinaWeibo = new DZMembershipSinaWeibo();
+                    newUserSinaWeibo.PlatForm = enum_PlatFormType.SinaWeiBo;
                     return newUserSinaWeibo;
                 case enum_LoginType.TencentQQ:
                     DZMembership newUserQQ = new DZMembershipQQ();
+                    newUserQQ.PlatForm = enum_PlatFormType.TencentQQ;
                     return newUserQQ;
 
             }
@@ -57,6 +64,12 @@ namespace Dianzhu.Model
         public virtual string  Phone{ get; set; }
         public virtual string NickName { get; set; }
         public virtual string Address { get; set; }
+
+        /// <summary>
+        /// 注册平台
+        /// </summary>
+        public virtual enum_PlatFormType PlatForm { get; set; }
+
         /// <summary>
         /// 注册验证码(邮箱验证链接,手机验证码)
         /// </summary>

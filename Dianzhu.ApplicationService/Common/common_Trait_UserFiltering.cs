@@ -29,8 +29,8 @@ namespace Dianzhu.ApplicationService
         /// <summary>
         /// 注册的平台（"WeChat":[微信]，"SinaWeiBo":[新浪微博]，"TencentQQ":[腾讯QQ]，"system":[系统]）
         /// </summary>
-        /// <type>boolean</type>
-        public bool ascending { get; set; }
+        /// <type>string</type>
+        public string ascending { get; set; }
         
     }
 }

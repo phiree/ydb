@@ -18,7 +18,9 @@ namespace Dianzhu.ApplicationService.Remind
         /// <summary>
         /// 条件读取提醒
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="filter"></param>
+        /// <param name="remind"></param>
+        /// <returns></returns>
         public IList<remindObj> GetReminds(common_Trait_Filtering filter, common_Trait_RemindFiltering remind)
         {
             IList<Model.ServiceOrderRemind> listremind = null;
@@ -36,7 +38,8 @@ namespace Dianzhu.ApplicationService.Remind
         /// <summary>
         /// 统计投诉的数量
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="remind"></param>
+        /// <returns></returns>
         public countObj GetRemindsCount(common_Trait_RemindFiltering remind)
         {
             countObj c = new countObj();
@@ -47,6 +50,8 @@ namespace Dianzhu.ApplicationService.Remind
         /// <summary>
         /// 根据ID获取提醒
         /// </summary>
+        /// <param name="remindID"></param>
+        /// <returns></returns>
         public remindObj GetRemindById(string remindID)
         {
             Model.ServiceOrderRemind remind = bllremind.GetRemindById(utils.CheckGuidID(remindID, "remindID"));
@@ -57,7 +62,8 @@ namespace Dianzhu.ApplicationService.Remind
         /// <summary>
         /// 根据ID删除提醒
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="remindID"></param>
+        /// <returns></returns>
         public object DeleteRemindById(string remindID)
         {
             Guid guid = utils.CheckGuidID(remindID, "remindID");

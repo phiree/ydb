@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dianzhu.Model;
 
 using Dianzhu.DAL;
+using Dianzhu.IDAL;
 using Dianzhu.Model.Enums;
 using Dianzhu.Pay;
 namespace Dianzhu.BLL
@@ -16,12 +17,15 @@ namespace Dianzhu.BLL
     public class BLLServiceOrderStateChangeHis
     {
         log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.BLLServiceOrder");
-
-        IDAL.IDALServiceOrderStateChangeHis dalServiceOrderStateChangeHis;
-        public BLLServiceOrderStateChangeHis(IDAL.IDALServiceOrderStateChangeHis dal)
+        
+        //20160622_longphui_modify
+        //DALServiceOrderStateChangeHis dalServiceOrderStateChangeHis = null;
+        IDALServiceOrderStateChangeHis dalServiceOrderStateChangeHis;
+        public BLLServiceOrderStateChangeHis(IDALServiceOrderStateChangeHis dalServiceOrderStateChangeHis)
         {
-            dalServiceOrderStateChangeHis = dal;
+            this.dalServiceOrderStateChangeHis = dalServiceOrderStateChangeHis;
         }
+        
 
         public void Save(ServiceOrder order, enum_OrderStatus oldStatus)
         {

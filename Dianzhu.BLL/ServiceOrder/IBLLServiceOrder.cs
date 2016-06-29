@@ -31,7 +31,25 @@ namespace Dianzhu.BLL
         int GetServiceOrderCount(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType);
         IList<ServiceOrder> GetServiceOrderList(Guid userId, Dianzhu.Model.Enums.enum_OrderSearchType searchType, int pageNum, int pageSize);
 
-          ServiceOrder GetOne(Guid guid);
+        /// <summary>
+        /// 查询订单合集
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNum"></param>
+        /// <param name="searchType"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        IList<ServiceOrder> GetOrders(int pageSize, int pageNum, Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status);
+
+        /// <summary>
+        /// 查询订单数量
+        /// </summary>
+        /// <param name="searchType"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        long GetOrdersCount(Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status);
+
+        ServiceOrder GetOne(Guid guid);
         void Update(ServiceOrder order);
         IList<ServiceOrder> GetAll(int pageIndex,int pageSize,out long totalRecords);
 
@@ -139,7 +157,7 @@ namespace Dianzhu.BLL
         /// 商户要求支付赔偿金
         /// </summary>
         /// <param name="order"></param>
-        void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, string resourcesUrl, DZMembership member);
+        void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, DZMembership member);
 
         /// <summary>
         /// 商户驳回理赔请求

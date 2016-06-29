@@ -68,6 +68,13 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MediaServer">
+      <HintPath>..\MediaServer\bin\Debug\MediaServer.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Reflection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Reflection.1.0.0.0\lib\Mono.Reflection.dll</HintPath>
       <Private>True</Private>
@@ -76,10 +83,15 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PHSuit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PHSuit\bin\Debug\PHSuit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
@@ -97,6 +109,8 @@
     <Compile Include="App\IAppService.cs" />
     <Compile Include="Assign\AssignService.cs" />
     <Compile Include="Assign\IAssignService.cs" />
+    <Compile Include="Chat\ChatService.cs" />
+    <Compile Include="Chat\IChatService.cs" />
     <Compile Include="City\CityService.cs" />
     <Compile Include="City\ICityService.cs" />
     <Compile Include="Class1.cs" />
@@ -122,15 +136,26 @@
     <Compile Include="Common\common_Trait_StoreFiltering.cs" />
     <Compile Include="Common\common_Trait_UserFiltering.cs" />
     <Compile Include="Common\common_Trait_WorkTimeFiltering.cs" />
+    <Compile Include="Common\LoginBySinaWeiBo.cs" />
+    <Compile Include="Common\LoginByTencentQQ.cs" />
+    <Compile Include="Common\LoginByWeChat.cs" />
+    <Compile Include="Common\U3RD_Model.cs" />
+    <Compile Include="Common\UserChangeBody.cs" />
     <Compile Include="Common\utils.cs" />
     <Compile Include="Complaint\ComplaintService.cs" />
     <Compile Include="Complaint\IComplaintService.cs" />
     <Compile Include="Dicts.cs" />
+    <Compile Include="jwt\DefaultJsonSerializer.cs" />
+    <Compile Include="jwt\IJsonSerializer.cs" />
+    <Compile Include="jwt\JWT.cs" />
+    <Compile Include="jwt\SignatureVerificationException.cs" />
     <Compile Include="Mapping\AutoMapperConfiguration.cs" />
     <Compile Include="Mapping\DtoToModelMappingProfile.cs" />
     <Compile Include="Mapping\ModelToDtoMappingProfile.cs" />
     <Compile Include="ModeDTO\Client\ClientDTO.cs" />
+    <Compile Include="ModeDTO\Client\Customer.cs" />
     <Compile Include="ModeDTO\Client\RefreshTokenDTO.cs" />
+    <Compile Include="ModeDTO\Client\UserTokentDTO.cs" />
     <Compile Include="ModeDTO\Identity\adObj.cs" />
     <Compile Include="ModeDTO\Identity\appObj.cs" />
     <Compile Include="ModeDTO\Identity\appraiseObj.cs" />
@@ -156,12 +181,17 @@
     <Compile Include="ModeDTO\Identity\workTimeObj.cs" />
     <Compile Include="Order\IOrderService.cs" />
     <Compile Include="Order\OrderService.cs" />
+    <Compile Include="Pay\IPayService.cs" />
+    <Compile Include="Pay\PayService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Remind\IRemindService.cs" />
     <Compile Include="Remind\RemindService.cs" />
     <Compile Include="Service\IServiceService.cs" />
     <Compile Include="Service\ServiceService.cs" />
+    <Compile Include="Staff\IStaffService.cs" />
     <Compile Include="Staff\StaffService.cs" />
+    <Compile Include="Store\IStoreService.cs" />
+    <Compile Include="Store\StoreService.cs" />
     <Compile Include="User\IUserService.cs" />
     <Compile Include="User\UserService.cs" />
     <Compile Include="WorkTime\IWorkTimeService.cs" />

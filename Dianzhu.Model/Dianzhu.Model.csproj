@@ -58,6 +58,7 @@
     <Compile Include="ClaimsDetails.cs" />
     <Compile Include="Client\Client.cs" />
     <Compile Include="Client\RefreshToken.cs" />
+    <Compile Include="Client\UserToken.cs" />
     <Compile Include="Finance\BalanceFlow.cs" />
     <Compile Include="Finance\ServiceTypePoint.cs" />
     <Compile Include="Finance\SharePoint.cs" />

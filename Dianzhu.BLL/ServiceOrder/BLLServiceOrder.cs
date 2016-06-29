@@ -135,6 +135,98 @@ namespace Dianzhu.BLL
             // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
         }
 
+        /// <summary>
+        /// 查询订单合集
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNum"></param>
+        /// <param name="searchType"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public IList<ServiceOrder> GetOrders(int pageSize, int pageNum,  Dianzhu.Model.Enums.enum_OrderSearchType searchType,string status)
+        {
+            var where = PredicateBuilder.True<ServiceOrder>();
+            if(status!=null && status!="")
+            {
+                where = where.And(x => x.OrderStatus.ToString() == status);
+            }
+
+            switch (searchType)
+            {
+
+                case enum_OrderSearchType.De:
+                    where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
+
+                         && x.OrderStatus == enum_OrderStatus.Appraised)
+                        ;
+                    break;
+                case enum_OrderSearchType.Nt:
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Finished
+
+                         && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.Search);
+
+                    break;
+                default:
+                case enum_OrderSearchType.ALL:
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Search)
+                      ;
+                    break;
+            }
+            long totalRecord;
+            return repoServiceOrder.Find(where, pageNum, pageSize, out totalRecord).ToList();
+
+            // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
+        }
+
+        /// <summary>
+        /// 查询订单数量
+        /// </summary>
+        /// <param name="searchType"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public long GetOrdersCount(Dianzhu.Model.Enums.enum_OrderSearchType searchType, string status)
+        {
+            var where = PredicateBuilder.True<ServiceOrder>();
+            if (status != null && status != "")
+            {
+                where = where.And(x => x.OrderStatus.ToString() == status);
+            }
+
+            switch (searchType)
+            {
+
+                case enum_OrderSearchType.De:
+                    where = where.And(x => x.OrderStatus == enum_OrderStatus.Finished
+
+                         && x.OrderStatus == enum_OrderStatus.Appraised)
+                        ;
+                    break;
+                case enum_OrderSearchType.Nt:
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Finished
+
+                         && x.OrderStatus != enum_OrderStatus.Appraised
+                         && x.OrderStatus != enum_OrderStatus.Search);
+
+                    break;
+                default:
+                case enum_OrderSearchType.ALL:
+                    where = where.And(x => x.OrderStatus != enum_OrderStatus.Draft
+                         && x.OrderStatus != enum_OrderStatus.DraftPushed
+                         && x.OrderStatus != enum_OrderStatus.Search)
+                      ;
+                    break;
+            }
+            long count = repoServiceOrder.GetRowCount(where);
+            return count;
+        }
+
         public virtual ServiceOrder GetOne(Guid guid)
         {
             return repoServiceOrder.FindById(guid);
@@ -475,7 +567,8 @@ namespace Dianzhu.BLL
                 OrderFlow_RefundSuccess(order);
 
                 log.Debug("记录商户操作");
-                claims.AddDetailsFromClaims(claims, string.Empty, 0, string.Empty, enum_ChatTarget.store, member);
+
+                claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
                 dalClaims.Update(claims);
             }
             else
@@ -498,7 +591,7 @@ namespace Dianzhu.BLL
         /// 商户要求支付赔偿金
         /// </summary>
         /// <param name="order"></param>
-        public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, string resourcesUrl, DZMembership member)
+        public void OrderFlow_BusinessAskPayWithRefund(ServiceOrder order, string context, decimal amount, IList<string> resourcesUrl, DZMembership member)
         {
             log.Debug("查询订单的理赔");
             Claims claims = dalClaims.GetOneByOrder(order);
@@ -530,7 +623,8 @@ namespace Dianzhu.BLL
             }
 
             log.Debug("记录商户操作");
-            claims.AddDetailsFromClaims(claims, string.Empty, 0, string.Empty, enum_ChatTarget.store, member);
+
+            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.store, member);
             dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.RejectRefund);
@@ -566,7 +660,7 @@ namespace Dianzhu.BLL
             bllPayment.ApplyPay(order, enum_PayTarget.Compensation);
 
             log.Debug("记录用户操作");
-            claims.AddDetailsFromClaims(claims, string.Empty, 0, string.Empty, enum_ChatTarget.user, member);
+            claims.AddDetailsFromClaims(claims, string.Empty, 0, null, enum_ChatTarget.user, member);
             dalClaims.Update(claims);
 
             ChangeStatus(order, enum_OrderStatus.WaitingPayWithRefund);

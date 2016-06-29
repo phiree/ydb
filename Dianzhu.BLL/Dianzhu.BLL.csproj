@@ -93,6 +93,7 @@
     <Compile Include="BLLBusinessImage.cs" />
     <Compile Include="Client\BLLClient.cs" />
     <Compile Include="Client\BLLRefreshToken.cs" />
+    <Compile Include="Client\BLLUserToken.cs" />
     <Compile Include="Client\IBLLClient.cs" />
     <Compile Include="Client\IBLLRefreshToken.cs" />
     <Compile Include="Finance\BanlanceFlow.cs" />

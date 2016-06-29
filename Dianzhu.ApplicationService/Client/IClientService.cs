@@ -9,6 +9,16 @@ namespace Dianzhu.ApplicationService.Client
     public interface IClientService:IDisposable
     {
         /// <summary>
+        /// 创建Token值
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="strPath"></param>
+        /// <returns></returns>
+        UserTokentDTO CreateToken(string username, string password, string apiKey, string strPath);
+
+        /// <summary>
         /// 注册客户端
         /// </summary>
         /// <param name="client"></param>

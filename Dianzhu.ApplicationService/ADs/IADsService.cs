@@ -11,7 +11,8 @@ namespace Dianzhu.ApplicationService.ADs
         /// <summary>
         /// 条件读取广告
         /// </summary>
-        /// <returns>area实体list</returns>
+        /// <param name="adf"></param>
+        /// <returns></returns>
         IList<adObj> GetADs(common_Trait_AdFiltering adf);
     }
 }

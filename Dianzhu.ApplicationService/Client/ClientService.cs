@@ -3,19 +3,74 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dianzhu.BLL.Client;
+using Dianzhu.BLL;
 using AutoMapper;
 
 namespace Dianzhu.ApplicationService.Client
 {
     public class ClientService:IClientService
     {
-        IBLLClient ibllclient;
-        IBLLRefreshToken ibllrefreshtoken;
-        public ClientService(IBLLClient ibllclient, IBLLRefreshToken ibllrefreshtoken)
+        BLL.Client.IBLLClient ibllclient;
+        BLL.Client.IBLLRefreshToken ibllrefreshtoken;
+        BLL.Client.BLLUserToken bllusertoken = null;
+        DZMembershipProvider dzmp = null;
+        BLL.BLLStaff bllstaff = null;
+        public ClientService(BLL.Client.BLLUserToken bllusertoken, DZMembershipProvider dzmp, BLL.BLLStaff bllstaff)
         {
-            this.ibllclient = ibllclient;
-            this.ibllrefreshtoken = ibllrefreshtoken;
+            //this.ibllclient = ibllclient;
+            //this.ibllrefreshtoken = ibllrefreshtoken;
+            this.bllusertoken = bllusertoken;
+            this.dzmp = dzmp;
+            this.bllstaff = bllstaff;
+        }
+
+        /// <summary>
+        /// 创建Token值
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="strPath"></param>
+        /// <returns></returns>
+        public UserTokentDTO CreateToken(string username,string password,string apiKey,string strPath)
+        {
+            if (!dzmp.ValidateUser(username, password))
+            {
+                throw new Exception("用户名或密码错误！");
+            }
+            Model.DZMembership dzm = dzmp.GetUserByName(username);
+            string userUri = "";
+            switch (dzm.UserType.ToString())
+            {
+                case "customer":
+                    userUri = strPath+"/api/customers/" +dzm.Id;
+                    break;
+                case "business":
+                    userUri = strPath + "/api/merchants/" + dzm.Id;
+                    break;
+                case "staff":
+                    Model.Staff staff = new Model.Staff();
+                    userUri = strPath + "/api/stores/" + staff.Belongto.Id+"/staffs/" + staff.Id;
+                    break;
+                default:
+                    throw new Exception("用户类型不正确！");
+            }
+            Customer customer = new Customer();
+            customer.username = username;
+            customer.password = password;
+            UserTokentDTO usertokendto = new UserTokentDTO();
+            usertokendto.UserUri = userUri;
+            usertokendto.Token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
+            Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.Token, Flag = 1, CreatedTime = DateTime.UtcNow };
+            if (bllusertoken.addToken(usertoken))
+            {
+                throw new Exception("Token保存失败！");
+            }
+            DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
+            TimeSpan currentTs = DateTime.UtcNow - epochStart;
+            string requestTimeStamp = currentTs.TotalSeconds.ToString ();
+            System.Runtime.Caching.MemoryCache.Default.Add(usertokendto.Token, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(172800));
+            return usertokendto;
         }
 
         /// <summary>

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Dianzhu.Model;
 using Dianzhu.DAL;
+using Dianzhu.IDAL;
 using Dianzhu.BLL.Validator;
 using FluentValidation;
 using FluentValidation.Results;
 using System.Collections;
+using DDDCommon;
 
 namespace Dianzhu.BLL
 {
@@ -22,6 +23,9 @@ namespace Dianzhu.BLL
             DALDZService = dal;
             DALDZTag = dalTag;
         }
+
+
+
         public IList<DZService> GetServiceByBusiness(Guid businessId, int pageindex, int pagesize, out int totalRecords)
         {
             return DALDZService.GetList(businessId , pageindex, pagesize, out totalRecords);
@@ -93,6 +97,7 @@ namespace Dianzhu.BLL
         {
             return DALDZService.SearchService(priceMin, priceMax, typeId, datetime, pageIndex, pagesize, out total);
         }
+
         /// <summary>
         /// 获取当前服务的标签
         /// </summary>
@@ -101,6 +106,102 @@ namespace Dianzhu.BLL
         public IList<DZTag> GetServiceTags(DZService service)
         {
             return DALDZTag.GetTagsForService(service.Id);
+        }
+
+        /// <summary>
+        /// 条件读取店铺
+        /// </summary>
+        /// <param name="pagesize"></param>
+        /// <param name="pagenum"></param>
+        /// <param name="typeId"></param>
+        /// <param name="strName"></param>
+        /// <param name="introduce"></param>
+        /// <param name="startAt"></param>
+        /// <param name="storeID"></param>
+        /// <returns></returns>
+        public IList<DZService> GetServices(int pagesize, int pagenum, Guid typeId, string strName, string introduce, decimal startAt, Guid storeID)
+        {
+            var where = PredicateBuilder.True<DZService>();
+            if (typeId != Guid.Empty)
+            {
+                where = where.And(x => x.ServiceType.Id == typeId);
+            }
+            if (storeID != Guid.Empty)
+            {
+                where = where.And(x => x.Business.Id == storeID);
+            }
+            if (strName != null && strName != "")
+            {
+                where = where.And(x => x.Name == strName);
+            }
+            if (introduce != null && introduce != "")
+            {
+                where = where.And(x => x.Description.Contains(introduce));
+            }
+            if (startAt != -1)
+            {
+                where = where.And(x => x.MinPrice==startAt);
+            }
+            long t = 0;
+            var list = pagesize == 0 ? DALDZService.Find(where).ToList() : DALDZService.Find(where, pagenum, pagesize, out t).ToList();
+            return list;
+        }
+
+        /// <summary>
+        /// 统计服务的数量
+        /// </summary>
+        /// <param name="typeId"></param>
+        /// <param name="strName"></param>
+        /// <param name="introduce"></param>
+        /// <param name="startAt"></param>
+        /// <param name="storeID"></param>
+        /// <returns></returns>
+        public long GetServicesCount(Guid typeId, string strName, string introduce, decimal startAt, Guid storeID)
+        {
+            var where = PredicateBuilder.True<DZService>();
+            if (typeId != Guid.Empty)
+            {
+                where = where.And(x => x.ServiceType.Id == typeId);
+            }
+            if (storeID != Guid.Empty)
+            {
+                where = where.And(x => x.Business.Id == storeID);
+            }
+            if (strName != null && strName != "")
+            {
+                where = where.And(x => x.Name == strName);
+            }
+            if (introduce != null && introduce != "")
+            {
+                where = where.And(x => x.Description.Contains(introduce));
+            }
+            if (startAt != -1)
+            {
+                where = where.And(x => x.MinPrice == startAt);
+            }
+            long count = DALDZService.GetRowCount(where);
+            return count;
+        }
+
+        /// <summary>
+        ///  读取服务 根据ID
+        /// </summary>
+        /// <param name="storeID"></param>
+        /// <param name="serviceID"></param>
+        /// <returns></returns>
+        public DZService GetService(Guid storeID, Guid serviceID)
+        {
+            var where = PredicateBuilder.True<DZService>();
+            if (serviceID != Guid.Empty)
+            {
+                where = where.And(x => x.Id == serviceID);
+            }
+            if (storeID != Guid.Empty)
+            {
+                where = where.And(x => x.Business.Id == storeID);
+            }
+            DZService dzservie = DALDZService.FindOne(where);
+            return dzservie;
         }
     }
 }
