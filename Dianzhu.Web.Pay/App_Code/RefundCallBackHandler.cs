@@ -16,7 +16,7 @@ using Dianzhu.Model;
 using Dianzhu.Pay;
 using Dianzhu.Model.Enums;
 using System.Web.Script.Serialization;
-public partial class RefundCallBackHandler : System.Web.UI.Page
+public partial class RefundCallBackHandler :BasePage
 {
 
 

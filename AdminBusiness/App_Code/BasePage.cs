@@ -7,7 +7,7 @@ using Dianzhu.BLL;
 /// <summary>
 ///BasePage 的摘要说明
 /// </summary>
-public class BasePage:System.Web.UI.Page
+public class BasePage:Dianzhu.Web.Common.BasePage// System.Web.UI.Page
 {
     log4net.ILog log = log4net.LogManager.GetLogger("Web.AdminBusiness.BasePage");
 

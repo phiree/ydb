@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Finance_Default : System.Web.UI.Page
+public partial class Finance_Default : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

@@ -6,7 +6,7 @@ using System.Web;
 /// <summary>
 ///BasePage 的摘要说明
 /// </summary>
-public class BasePage:System.Web.UI.Page
+public class BasePage:Dianzhu.Web.Common.BasePage
 {
 	public BasePage()
 	{

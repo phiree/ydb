@@ -8,7 +8,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using Newtonsoft.Json;
 using System.IO;
-public partial class DZService_ServiceTypeJson : System.Web.UI.Page
+public partial class DZService_ServiceTypeJson : BasePage
 {
     BLLServiceType bllType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
     protected void Page_Load(object sender, EventArgs e)

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
-public partial class test_Default : System.Web.UI.Page
+public partial class test_Default : BasePage
 {
     IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)

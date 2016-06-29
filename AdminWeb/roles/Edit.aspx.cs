@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
-public partial class membership_roles_Edit : System.Web.UI.Page
+public partial class membership_roles_Edit : BasePage
 {
     
     private bool isNew;

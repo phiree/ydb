@@ -8,7 +8,7 @@ using Dianzhu.BLL;
 using Dianzhu.Model;
 using System.Data;
 
-public partial class order_detail : System.Web.UI.Page
+public partial class order_detail : BasePage
 {
     IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     Dianzhu.BLL.Finance.BLLServiceTypePoint bllServiceTypePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.BLLServiceTypePoint>();

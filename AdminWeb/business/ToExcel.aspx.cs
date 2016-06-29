@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 
-public partial class business_ToExcel : System.Web.UI.Page
+public partial class business_ToExcel : BasePage
 {
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
     IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();

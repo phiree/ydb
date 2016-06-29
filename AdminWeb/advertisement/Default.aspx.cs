@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 
-public partial class advertisement_Default : System.Web.UI.Page
+public partial class advertisement_Default :BasePage
 {
     BLLAdvertisement bllAd = Bootstrap.Container.Resolve<BLLAdvertisement>();
 

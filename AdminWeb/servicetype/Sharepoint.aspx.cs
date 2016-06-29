@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.BLL.Finance;
 using Dianzhu.Model.Finance;
-public partial class servicetype_Sharepoint : System.Web.UI.Page
+public partial class servicetype_Sharepoint : BasePage
 {
 
     /// <summary>
