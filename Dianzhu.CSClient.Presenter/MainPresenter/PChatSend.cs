@@ -63,6 +63,7 @@ namespace Dianzhu.CSClient.Presenter
         {
             if (IdentityManager.CurrentIdentity == null) return;
 
+            Action ac = () => { 
             string s = Convert.ToBase64String(fileData);
             string fileName = MediaServer.HttpUploader.Upload(GlobalViables.MediaUploadUrl, s, domainType, mediaType);
 
@@ -93,8 +94,9 @@ namespace Dianzhu.CSClient.Presenter
 
             chat.MedialUrl = chat.MedialUrl.Replace(GlobalViables.MediaGetUrl, "");
             dalReceptionChat.Add(chat);
-
-          //  PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
+            //  PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
         }
 
         private void ViewChatSend_SendTextClick()
