@@ -33,7 +33,7 @@
             bllOrder.OrderFlow_Shared(order);
         }
         };
-        NHibernateUnitOfWork.With.Transaction(a);
+     //   NHibernateUnitOfWork.With.Transaction(a);
         log.Debug("批量分账结束");
     }
     void Application_End(object sender, EventArgs e)
