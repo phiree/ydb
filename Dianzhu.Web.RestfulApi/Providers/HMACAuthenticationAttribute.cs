@@ -21,7 +21,7 @@ namespace Dianzhu.Web.RestfulApi
     public class HMACAuthenticationAttribute : Attribute, IAuthenticationFilter
     {
         private static Dictionary<string, string> allowedApps = new Dictionary<string, string>();
-        private readonly UInt64 requestMaxAgeInSeconds = 300;  //5 mins
+        private readonly UInt64 requestMaxAgeInSeconds = 3000;  //5 mins
         private readonly string authenticationScheme = "amx";
         /// <summary>
         /// 设定appName和security_key
@@ -148,7 +148,7 @@ namespace Dianzhu.Web.RestfulApi
             {
                 return false;
             }
-            if (req.RequestUri.AbsolutePath.ToLower() != "/api/token")
+            if (req.Method==HttpMethod.Post && (req.RequestUri.AbsolutePath.ToLower() != "/api/token" || req.RequestUri.AbsolutePath.ToLower() != "/api/customers" || req.RequestUri.AbsolutePath.ToLower() != "/api/merchants"))
             {
                 if (!System.Runtime.Caching.MemoryCache.Default.Contains(token))
                 {
@@ -191,8 +191,11 @@ namespace Dianzhu.Web.RestfulApi
             {
                 return true;
             }
-            DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
-            TimeSpan currentTs = DateTime.UtcNow - epochStart;
+            //unixtime防止跨时区调用
+            //DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
+            //TimeSpan currentTs = DateTime.UtcNow - epochStart;
+            DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
+            TimeSpan currentTs = DateTime.Now - epochStart;
             var serverTotalSeconds = Convert.ToUInt64(currentTs.TotalSeconds);
             var requestTotalSeconds = Convert.ToUInt64(requestTimeStamp);
             if ((serverTotalSeconds - requestTotalSeconds) > requestMaxAgeInSeconds)
@@ -214,6 +217,9 @@ namespace Dianzhu.Web.RestfulApi
             {
                 byte[] hash = null;
                 var content = await httpContent.ReadAsByteArrayAsync();
+                //string str = Encoding.Default.GetString(content);
+                //string signatureRawData = await httpContent.ReadAsStringAsync();
+                //byte[] signature = Encoding.UTF8.GetBytes(signatureRawData);
                 if (content.Length != 0)
                 {
                     hash = md5.ComputeHash(content);

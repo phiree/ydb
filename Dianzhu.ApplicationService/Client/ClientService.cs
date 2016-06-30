@@ -61,13 +61,13 @@ namespace Dianzhu.ApplicationService.Client
             UserTokentDTO usertokendto = new UserTokentDTO();
             usertokendto.UserUri = userUri;
             usertokendto.Token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
-            Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.Token, Flag = 1, CreatedTime = DateTime.UtcNow };
+            Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.Token, Flag = 1, CreatedTime = DateTime.Now };
             if (bllusertoken.addToken(usertoken))
             {
                 throw new Exception("Token保存失败！");
             }
-            DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
-            TimeSpan currentTs = DateTime.UtcNow - epochStart;
+            DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
+            TimeSpan currentTs = DateTime.Now - epochStart;
             string requestTimeStamp = currentTs.TotalSeconds.ToString ();
             System.Runtime.Caching.MemoryCache.Default.Add(usertokendto.Token, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(172800));
             return usertokendto;
