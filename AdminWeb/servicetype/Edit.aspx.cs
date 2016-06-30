@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
 using Dianzhu.BLL.Finance;
-public partial class servicetype_Edit : System.Web.UI.Page
+public partial class servicetype_Edit : BasePage
 {
     private Guid TypeId=Guid.Empty;
     BLLServiceType bllServiceType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();

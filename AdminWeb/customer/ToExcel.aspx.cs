@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Dianzhu.BLL;
 using Dianzhu.Model;
 
-public partial class customer_ToExcel : System.Web.UI.Page
+public partial class customer_ToExcel : BasePage
 {
     DZMembershipProvider dzmp = Bootstrap.Container.Resolve<DZMembershipProvider>();
     VMCustomerAdapter vmcAdapter = Bootstrap.Container.Resolve<VMCustomerAdapter>();

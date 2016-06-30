@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using MediaServer;
-public partial class advertisement_Add : System.Web.UI.Page
+public partial class advertisement_Add : BasePage
 {
     BLLAdvertisement bllAd = Bootstrap.Container.Resolve<BLLAdvertisement>();
 

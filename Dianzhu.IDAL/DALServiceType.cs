@@ -14,5 +14,9 @@ namespace Dianzhu.IDAL
 
         ServiceType GetOneByName(string name, int level);
 
+    
+
+        void SaveList(IList<ServiceType> typeList);
+
     }
 }

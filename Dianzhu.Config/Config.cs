@@ -10,8 +10,8 @@ namespace Dianzhu.Config
     /// </summary>
     public static partial class Config
     {
-        static int num =3;
-        static int payServerNum =4;
+        static int num =0;
+        static int payServerNum =0;
         #region 服务器定义
         static string[] IMServers = new string[] { "localhost", "119.29.39.211", "115.159.72.236", "192.168.1.172","192.168.1.150" };
         static string[] IMDomains = new string[] { "localhost", "119.29.39.211", "business.ydban.cn", "192.168.1.172", "192.168.1.150" };
@@ -94,6 +94,8 @@ namespace Dianzhu.Config
             , {"SecurityKey","1qaz2wsx3edc4rfv"  }//系统内部加密密钥
             , {"business_image_root","/media/business/"  }//图片保存
             , {"OpenfireRestApiAuthKey","an4P0ja6v3rykV4H"  }
+
+            , {"IsAutoAssignCustomer","false"  }
         };
 
         static private string BuildHttpUrlString(string server)

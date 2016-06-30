@@ -26,7 +26,7 @@ using Com.Alipay;
 /// 该页面调试工具请使用写文本函数logResult。
 /// 如果没有收到该页面返回的 success 信息，支付宝会在24小时内按一定的时间策略重发通知
 /// </summary>
-public partial class notify_url : System.Web.UI.Page
+public partial class notify_url : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

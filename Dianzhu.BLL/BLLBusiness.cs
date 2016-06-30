@@ -57,10 +57,7 @@ namespace Dianzhu.BLL
         {
             return dalBusiness.GetBusinessInSameCity(area);
         }
-        public void SaveList(IList<Business> businesses)
-        {
-            dalBusiness.SaveList(businesses);
-        }
+        
         public Business GetBusinessByPhone(string phone)
         {
             return dalBusiness.FindOne(x => x.Phone == phone);

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-public partial class membership_Default : System.Web.UI.Page
+public partial class membership_Default : BasePage
 {
     DZMembershipProvider dzmp = Bootstrap.Container.Resolve<DZMembershipProvider>();
     protected void Page_Load(object sender, EventArgs e)

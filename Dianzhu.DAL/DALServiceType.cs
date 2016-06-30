@@ -25,5 +25,12 @@ namespace Dianzhu.DAL
             return Session.QueryOver<ServiceType>().Where(x => x.DeepLevel == level).And(x => x.Name == name).SingleOrDefault();
         }
 
+        public void SaveList(IList<ServiceType> typeList)
+        {
+            foreach (ServiceType type in typeList)
+            {
+                Session.SaveOrUpdate(type);
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-public partial class business_detail : System.Web.UI.Page
+public partial class business_detail : BasePage
 {
     Business b;
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();

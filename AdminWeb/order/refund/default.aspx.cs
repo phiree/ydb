@@ -31,7 +31,7 @@ using Dianzhu.Pay;
 /// 
 /// 如果不想使用扩展功能请把扩展功能参数赋空值。
 /// </summary>
-public partial class _Default : System.Web.UI.Page 
+public partial class _Default : BasePage 
 {
     IBLLServiceOrder bllOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
     protected void Page_Load(object sender, EventArgs e)

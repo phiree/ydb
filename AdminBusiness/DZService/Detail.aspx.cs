@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dianzhu.Model;
 using Dianzhu.BLL;
-public partial class DZService_Detail : System.Web.UI.Page
+public partial class DZService_Detail : BasePage
 {
     public DZService CurrentService = new DZService();
     BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
