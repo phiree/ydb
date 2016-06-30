@@ -20,6 +20,7 @@ namespace Dianzhu.Web.RestfulApi
 {
     public class HMACAuthenticationAttribute : Attribute, IAuthenticationFilter
     {
+        log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.HMACAuthenticationAttribute");
         private static Dictionary<string, string> allowedApps = new Dictionary<string, string>();
         private readonly UInt64 requestMaxAgeInSeconds = 3000;  //5 mins
         private readonly string authenticationScheme = "amx";
@@ -63,6 +64,7 @@ namespace Dianzhu.Web.RestfulApi
             if (req.Headers.TryGetValues("stamp_TIMES", out keyValue))
             {
                 stamp_TIMES = keyValue.FirstOrDefault();
+                ilog.Debug("Request(stamp_TIMES):" + stamp_TIMES);
             }
             else
             {
@@ -71,6 +73,7 @@ namespace Dianzhu.Web.RestfulApi
             if (req.Headers.TryGetValues("appName", out keyValue))
             {
                 appName = keyValue.FirstOrDefault();
+                ilog.Debug("Request(appName):" + appName);
             }
             else
             {
@@ -79,10 +82,12 @@ namespace Dianzhu.Web.RestfulApi
             if (req.Headers.TryGetValues("token", out keyValue))
             {
                 token = keyValue.FirstOrDefault();
+                ilog.Debug("Request(token):" + token);
             }
             if (req.Headers.TryGetValues("sign", out keyValue))
             {
                 sign = keyValue.FirstOrDefault();
+                ilog.Debug("Request(sign):" + sign);
             }
             else
             {
@@ -144,6 +149,7 @@ namespace Dianzhu.Web.RestfulApi
                 return false;
             }
             var sharedKey = allowedApps[appName];
+            ilog.Debug("Request(apiKey):" + sharedKey);
             if (isReplayRequest(sign, stamp_TIMES))
             {
                 return false;
@@ -166,6 +172,7 @@ namespace Dianzhu.Web.RestfulApi
             if (hash != null)
             {
                 requestContentBase64String = Convert.ToBase64String(hash);
+                ilog.Debug("Create(requestContentBase64String):" + requestContentBase64String);
             }
             string data = String.Format("{0}{1}{2}{3}{4}", appName, token, requestContentBase64String, stamp_TIMES, requestUri);
             var secretKeyBytes = Convert.FromBase64String(sharedKey);
@@ -174,6 +181,7 @@ namespace Dianzhu.Web.RestfulApi
             {
                 byte[] signatureBytes = hmac.ComputeHash(signature);
                 string tt = Convert.ToBase64String(signatureBytes);
+                ilog.Debug("Create(sign):" + tt);
                 return (sign.Equals(tt, StringComparison.Ordinal));
             }
 
@@ -197,6 +205,7 @@ namespace Dianzhu.Web.RestfulApi
             DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
             TimeSpan currentTs = DateTime.Now - epochStart;
             var serverTotalSeconds = Convert.ToUInt64(currentTs.TotalSeconds);
+            ilog.Debug("Create(stamp_TIMES):" + serverTotalSeconds.ToString());
             var requestTotalSeconds = Convert.ToUInt64(requestTimeStamp);
             if ((serverTotalSeconds - requestTotalSeconds) > requestMaxAgeInSeconds)
             {
