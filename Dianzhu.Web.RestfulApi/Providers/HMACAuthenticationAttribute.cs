@@ -205,6 +205,7 @@ namespace Dianzhu.Web.RestfulApi
             DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
             TimeSpan currentTs = DateTime.Now - epochStart;
             var serverTotalSeconds = Convert.ToUInt64(currentTs.TotalSeconds);
+            ilog.Debug("Create(stamp_TIMES):" + serverTotalSeconds.ToString());
             var requestTotalSeconds = Convert.ToUInt64(requestTimeStamp);
             if ((serverTotalSeconds - requestTotalSeconds) > requestMaxAgeInSeconds)
             {
