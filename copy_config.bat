@@ -5,5 +5,6 @@ copy /Y connectionstrings.config .\dianzhu.web.notify\config\connectionstrings.c
 copy /Y connectionstrings.config .\dianzhu.web.pay\config\connectionstrings.config
 copy /Y connectionstrings.config .\dianzhu.csclient\config\connectionstrings.config
 copy /Y connectionstrings.config .\dianzhu.test\config\connectionstrings.config
+copy /Y connectionstrings.config .\dianzhu.Web.RestfulApi\config\connectionstrings.config
 
 pause
