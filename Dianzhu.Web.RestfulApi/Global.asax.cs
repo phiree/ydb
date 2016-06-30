@@ -13,6 +13,9 @@ namespace Dianzhu.Web.RestfulApi
     {
         protected void Application_Start()
         {
+            // 在应用程序启动时运行的代码
+            PHSuit.Logging.Config("Dianzhu.Web.RestfulApi");
+
             AreaRegistration.RegisterAllAreas();
             //GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
