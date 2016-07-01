@@ -103,7 +103,7 @@ namespace Dianzhu.CSClient.Presenter
                         if (NHibernateUnitOfWork.UnitOfWork.IsStarted)
                         { 
 
-                            NHibernateUnitOfWork.UnitOfWork.CurrentSession.Load(type,type.Id);
+                            NHibernateUnitOfWork.UnitOfWork.CurrentSession.Refresh(type);
                         }
                     ServiceTypeSecond = type;
                     ServiceTypeThird = null;
