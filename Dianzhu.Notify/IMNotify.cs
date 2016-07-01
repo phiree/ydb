@@ -162,10 +162,15 @@ namespace Dianzhu.NotifyCenter
             }
         }
 
-        public void SendCustomLogoffMessage(Guid csId)
+        public void SendCustomLogoffMessage(Guid cId)
         {
              
-            ReceptionStatus rs = dalReceptionStatus.GetOneByCustomer(csId);
+            ReceptionStatus rs = dalReceptionStatus.GetOneByCustomer(cId);
+            if (rs == null)
+            {
+                log.Debug("ReceptionStatus为空，用户id为：" + cId);
+                return;
+            }
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
            
@@ -182,10 +187,15 @@ namespace Dianzhu.NotifyCenter
             im.SendMessage(rc);
         }
 
-        public void SendCustomLoginMessage(Guid csId)
+        public void SendCustomLoginMessage(Guid cId)
         {
             
-            ReceptionStatus rs = dalReceptionStatus.GetOneByCustomer(csId);
+            ReceptionStatus rs = dalReceptionStatus.GetOneByCustomer(cId);
+            if (rs == null)
+            {
+                log.Debug("ReceptionStatus为空，用户id为：" + cId);
+                return;
+            }
             DZMembership imMember = dalMembership.FindById(new Guid(Dianzhu.Config.Config.GetAppSetting("NoticeSenderId")));
             //通过 IMServer 给客服发送消息
         

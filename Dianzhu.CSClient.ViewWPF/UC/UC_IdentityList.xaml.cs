@@ -68,9 +68,14 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (IdentityClick != null)
             {
-                ServiceOrder order = (ServiceOrder)((Button)sender).Tag;
-                IdentityClick(order);
-                SetIdentityReaded(order);
+                Action ac = () =>
+                {
+                    ServiceOrder order = (ServiceOrder)((Button)sender).Tag;
+                    NHibernateUnitOfWork.UnitOfWork.Current.Refresh(order);
+                    IdentityClick(order);
+                    SetIdentityReaded(order);
+                };
+                NHibernateUnitOfWork.With.Transaction(ac);
             }
         }
 
