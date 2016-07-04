@@ -67,6 +67,7 @@ namespace Dianzhu.BLL
                 order.AddDetailFromIntelService(s.OriginalService, s.UnitAmount, s.TargetAddress, s.TargetTime);
 
                 order.CreatedFromDraft();
+                NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
 
                 //保存订单历史记录
                 bllServiceOrderStateChangeHis.Save(order, enum_OrderStatus.DraftPushed);
