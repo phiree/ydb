@@ -68,11 +68,14 @@ public class ResponseORM002001 : BaseResponse
                 ReceptionAssigner ra = Bootstrap.Container.Resolve<ReceptionAssigner>("OpenFireRestAssigner");
                  
                 ilog.Debug("开始分配客服");
+                ServiceOrder orderToReturn = null;//分配的订单
                 ReceptionStatus rs = bllReceptionStatus.GetOneByCustomer(userId);
                 Dictionary<DZMembership, DZMembership> assignedPair = new Dictionary<DZMembership, DZMembership>();
                 if (rs != null && rs.CustomerService.UserType == enum_UserType.customerservice)
                 {
                     assignedPair.Add(rs.Customer, rs.CustomerService);
+
+                    orderToReturn = rs.Order;
                 }
                 else if (rs != null && rs.CustomerService.UserType == enum_UserType.diandian)
                 {
@@ -113,16 +116,20 @@ public class ResponseORM002001 : BaseResponse
                 ilog.Debug("6");
                 //bool hasOrder = false;
                 //bool needNewOrder = false;
-                ServiceOrder orderToReturn = null;
+
                 //if (isValidGuid)
                 //{
-                orderToReturn = bllServiceOrder.GetDraftOrder(member, assignedPair[member]);
-                    if (orderToReturn == null)
-                    {
-                    orderToReturn = ServiceOrderFactory.CreateDraft( assignedPair[member], member);
-                       
-                        bllServiceOrder.Save(orderToReturn);
-                    }
+                if (orderToReturn == null)
+                {
+                    orderToReturn = bllServiceOrder.GetDraftOrder(member, assignedPair[member]);
+                }
+                
+                if (orderToReturn == null)
+                {
+                    orderToReturn = ServiceOrderFactory.CreateDraft(assignedPair[member], member);
+
+                    bllServiceOrder.Save(orderToReturn);
+                }
                 //}
                 ilog.Debug("7");
                 // if (!hasOrder||needNewOrder)
