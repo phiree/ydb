@@ -71,7 +71,7 @@ public partial class Business_Default : BasePage
         b.Description = tbxDescription.Value;
         b.CreatedTime = DateTime.Now;
         dalBusiness.Add(b);
-
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         Response.Redirect("/business/detail.aspx?businessid="+b.Id);
     }
     protected void rptBusinessList_ItemCommand(object sender, RepeaterCommandEventArgs e)

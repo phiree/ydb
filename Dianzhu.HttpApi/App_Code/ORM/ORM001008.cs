@@ -14,6 +14,8 @@ using Dianzhu.Api.Model;
 /// </summary>
 public class ResponseORM001008 : BaseResponse
 {
+    log4net.ILog log = log4net.LogManager.GetLogger("Dianzhu.HttpApi.ORM001008");
+
     public ResponseORM001008(BaseRequest request) : base(request) { }
     public IBLLServiceOrder bllServiceOrder { get; set; }
     protected override void BuildRespData()
@@ -105,6 +107,7 @@ public class ResponseORM001008 : BaseResponse
                 {
                     this.state_CODE = Dicts.StateCode[1];
                     this.err_Msg = "该订单不是已推送的服务单！";
+                    log.Error("该订单不是已推送的服务单！该订单Id:" + order.Id + "该订单当前状态:" + order.OrderStatus);
                     return;
                 }
 

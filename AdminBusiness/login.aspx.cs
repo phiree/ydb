@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
-public partial class login : BasePage
+public partial class login : Dianzhu.Web.Common.BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

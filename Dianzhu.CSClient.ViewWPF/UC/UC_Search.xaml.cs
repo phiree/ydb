@@ -206,7 +206,11 @@ namespace Dianzhu.CSClient.ViewWPF
 
             if (Search != null)
             {
-                Search(targetTime,minPrice,maxPrice,selectedType.Id);
+                Action ac = () =>
+                {
+                    Search(targetTime,minPrice,maxPrice,selectedType.Id);
+                };
+                NHibernateUnitOfWork.With.Transaction(ac);
             }
 
 

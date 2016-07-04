@@ -99,6 +99,7 @@ public partial class Staff_Edit : BasePage
          
         StaffId = s.Id;
         UploadImage();
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
         Response.Redirect("/staff/default.aspx?businessid="+Request["businessId"]);
        
 

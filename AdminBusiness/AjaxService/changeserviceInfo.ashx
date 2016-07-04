@@ -10,6 +10,8 @@ public class changepassword : IHttpHandler {
     DZMembershipProvider dzp = Bootstrap.Container.Resolve<DZMembershipProvider>();
     BLLDZService bllService = Bootstrap.Container.Resolve<BLLDZService>();
     public void ProcessRequest (HttpContext context) {
+
+        Action ac = () => {
         context.Response.ContentType = "application/json";
 
         string change_field = context.Request["changed_field"];
@@ -34,8 +36,10 @@ public class changepassword : IHttpHandler {
             var result= new  FluentValidation.Results.ValidationResult();
             bllService.SaveOrUpdate(service,out result);
         }
+       
+        context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\",\"data\":\""+service.Enabled+"\"}");  };
 
-        context.Response.Write("{\"result\":\""+is_valid+"\",\"msg\":\""+errMsg+"\",\"data\":\""+service.Enabled+"\"}");
+            NHibernateUnitOfWork.With.Transaction(ac);
 
     }
 

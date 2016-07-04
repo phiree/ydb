@@ -69,7 +69,14 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void ShelfService_PushShelfService(DZService pushedService)
         {
-            PushServices(new List<DZService>() { pushedService });
+            Action ac = () =>
+            {
+                //NHibernateUnitOfWork.UnitOfWork.Start();
+                PushServices(new List<DZService>() { pushedService });
+                //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+                //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
         }
 
         //public bool BtnPush
