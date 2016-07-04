@@ -43,14 +43,14 @@ namespace Dianzhu.ApplicationService.Client
             switch (dzm.UserType.ToString())
             {
                 case "customer":
-                    userUri = strPath+"/api/customers/" +dzm.Id;
+                    userUri = strPath+"/api/v1/customers/" +dzm.Id;
                     break;
                 case "business":
-                    userUri = strPath + "/api/merchants/" + dzm.Id;
+                    userUri = strPath + "/api/v1/merchants/" + dzm.Id;
                     break;
                 case "staff":
                     Model.Staff staff = new Model.Staff();
-                    userUri = strPath + "/api/stores/" + staff.Belongto.Id+"/staffs/" + staff.Id;
+                    userUri = strPath + "/api/v1/stores/" + staff.Belongto.Id+"/staffs/" + staff.Id;
                     break;
                 default:
                     throw new Exception("用户类型不正确！");

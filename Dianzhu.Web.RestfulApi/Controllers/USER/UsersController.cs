@@ -115,7 +115,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         /// </summary>
         /// <param name="userBody"></param>
         /// <returns></returns>
-        [Route("api/user3rds")]
+        [Route("api/v1/user3rds")]
         public IHttpActionResult PostUser3rds([FromBody]U3RD_Model u3rd_Model)
         {
             try
@@ -137,7 +137,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         /// </summary>
         /// <param name="userFilter"></param>
         /// <returns></returns>
-        [Route("api/users/count")]
+        [Route("api/v1/users/count")]
         public IHttpActionResult GetUsersCount([FromUri]common_Trait_UserFiltering userFilter)
         {
             try
@@ -182,7 +182,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.USER
         /// <param name="userID"></param>
         /// <param name="code"></param>
         /// <returns></returns>
-        [Route("api/users/{userID}/currentGeolocation")]
+        [Route("api/v1/users/{userID}/currentGeolocation")]
         public IHttpActionResult PatchCurrentGeolocation(string userID,[FromBody]string code)
         {
             try

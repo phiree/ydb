@@ -22,7 +22,7 @@ namespace Dianzhu.Web.RestfulApi
     {
         log4net.ILog ilog = log4net.LogManager.GetLogger("Dianzhu.Web.RestfulApi.HMACAuthenticationAttribute");
         private static Dictionary<string, string> allowedApps = new Dictionary<string, string>();
-        private readonly UInt64 requestMaxAgeInSeconds = 3000;  //5 mins
+        private readonly Int64 requestMaxAgeInSeconds = 300000;  //5 mins
         private readonly string authenticationScheme = "amx";
         /// <summary>
         /// 设定appName和security_key
@@ -154,7 +154,9 @@ namespace Dianzhu.Web.RestfulApi
             {
                 return false;
             }
-            if (req.Method==HttpMethod.Post && (req.RequestUri.AbsolutePath.ToLower() != "/api/token" || req.RequestUri.AbsolutePath.ToLower() != "/api/customers" || req.RequestUri.AbsolutePath.ToLower() != "/api/merchants"))
+
+            ilog.Debug("Request(RequestUri):" + req.RequestUri.AbsolutePath.ToLower());
+            if (req.Method==HttpMethod.Post && req.RequestUri.AbsolutePath.ToLower() != "/api/authorization" && req.RequestUri.AbsolutePath.ToLower() != "/api/customers" && req.RequestUri.AbsolutePath.ToLower() != "/api/merchants")
             {
                 if (!System.Runtime.Caching.MemoryCache.Default.Contains(token))
                 {
@@ -165,22 +167,34 @@ namespace Dianzhu.Web.RestfulApi
                         //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                         return false;
                     }
+                    System.Runtime.Caching.MemoryCache.Default.Add(token, stamp_TIMES, DateTimeOffset.UtcNow.AddSeconds(172800));
                     //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
                 }
             }
             byte[] hash = await ComputeHash(req.Content);
             if (hash != null)
             {
-                requestContentBase64String = Convert.ToBase64String(hash);
+                //string str = Encoding.Default.GetString(hash);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hash.Length; i++)
+                { sb.Append(hash[i].ToString("x2")); }
+                requestContentBase64String = sb.ToString();
+                //byte[] baseBuffer = Encoding.UTF8.GetBytes(sb.ToString()); //把转码后的MD5 32位密文转成byte[ ] txtNeed.Text = Convert.ToBase64String(baseBuffer); //这个要注意，不要在newbuffer就转，你解密的时候会乱码（有时候）
+                //requestContentBase64String = Convert.ToBase64String(baseBuffer);
                 ilog.Debug("Create(requestContentBase64String):" + requestContentBase64String);
             }
             string data = String.Format("{0}{1}{2}{3}{4}", appName, token, requestContentBase64String, stamp_TIMES, requestUri);
-            var secretKeyBytes = Convert.FromBase64String(sharedKey);
+            //var secretKeyBytes = Convert.FromBase64String(sharedKey);
+            byte[] signature22 = Encoding.UTF8.GetBytes(sharedKey);
             byte[] signature = Encoding.UTF8.GetBytes(data);
-            using (HMACSHA256 hmac = new HMACSHA256(secretKeyBytes))
+            using (HMACSHA256 hmac = new HMACSHA256(signature22))
             {
                 byte[] signatureBytes = hmac.ComputeHash(signature);
-                string tt = Convert.ToBase64String(signatureBytes);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < signatureBytes.Length; i++)
+                { sb.Append(signatureBytes[i].ToString("x2")); }
+                byte[] baseBuffer = Encoding.UTF8.GetBytes(sb.ToString());
+                string tt = Convert.ToBase64String(baseBuffer);
                 ilog.Debug("Create(sign):" + tt);
                 return (sign.Equals(tt, StringComparison.Ordinal));
             }
@@ -204,14 +218,30 @@ namespace Dianzhu.Web.RestfulApi
             //TimeSpan currentTs = DateTime.UtcNow - epochStart;
             DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
             TimeSpan currentTs = DateTime.Now - epochStart;
-            var serverTotalSeconds = Convert.ToUInt64(currentTs.TotalSeconds);
+            //var serverTotalSeconds = Convert.ToUInt64(currentTs.TotalSeconds);
+            var serverTotalSeconds = Convert.ToInt64(currentTs.TotalMilliseconds);//.TotalSeconds
             ilog.Debug("Create(stamp_TIMES):" + serverTotalSeconds.ToString());
-            var requestTotalSeconds = Convert.ToUInt64(requestTimeStamp);
-            if ((serverTotalSeconds - requestTotalSeconds) > requestMaxAgeInSeconds)
+            //var requestTotalSeconds = Convert.ToUInt64(requestTimeStamp);
+            var requestTotalSeconds = Convert.ToInt64(requestTimeStamp);
+            ilog.Debug("Request(stamp_TIMES1):" + requestTotalSeconds.ToString());
+            ilog.Debug("Request(requestMaxAgeInSeconds):" + requestMaxAgeInSeconds.ToString());
+            ilog.Debug("Check(bool):" + (serverTotalSeconds - requestTotalSeconds).ToString());
+            ilog.Debug("Check(bool1):" + ((serverTotalSeconds - requestTotalSeconds) > requestMaxAgeInSeconds).ToString());
+            if ((serverTotalSeconds - requestTotalSeconds) > 120000)
             {
+                ilog.Debug("Create(stamp_TIMES2):" + serverTotalSeconds.ToString());
                 return true;
             }
-            System.Runtime.Caching.MemoryCache.Default.Add(nonce, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(requestMaxAgeInSeconds));
+            ilog.Debug("Create(stamp_TIMES3):" + serverTotalSeconds.ToString());
+            try
+            {
+                System.Runtime.Caching.MemoryCache.Default.Add(nonce, requestTimeStamp, DateTimeOffset.UtcNow.AddSeconds(requestMaxAgeInSeconds));
+            }
+            catch (Exception ex)
+            {
+                ilog.Error("Cache(sgin):" + ex.Message);
+            }
+            ilog.Debug("Create(stamp_TIMES4):" + serverTotalSeconds.ToString());
             return false;
         }
 
@@ -220,20 +250,28 @@ namespace Dianzhu.Web.RestfulApi
         /// </summary>
         /// <param name="httpContent"></param>
         /// <returns></returns>
-        private static async Task<byte[]> ComputeHash(HttpContent httpContent)
+        private async Task<byte[]> ComputeHash(HttpContent httpContent)
         {
+            //MD5 md = new MD5CryptoServiceProvider();
+            //MD5 md5 =MD5.Create()
             using (MD5 md5 = MD5.Create())
             {
+                //MD5 md5 = new MD5CryptoServiceProvider();
                 byte[] hash = null;
                 var content = await httpContent.ReadAsByteArrayAsync();
-                //string str = Encoding.Default.GetString(content);
+                string str = Encoding.Default.GetString(content);
+                ilog.Debug("Request(httpContent):" + str.ToString());
                 //string signatureRawData = await httpContent.ReadAsStringAsync();
-                //byte[] signature = Encoding.UTF8.GetBytes(signatureRawData);
+                //byte[] signature = Encoding.UTF8.GetBytes(str);
+
+                //byte[] result = md5.ComputeHash(System.Text.Encoding.Default.GetBytes(str));
                 if (content.Length != 0)
                 {
                     hash = md5.ComputeHash(content);
+
                 }
                 return hash;
+                //return result;
             }
         }
     }

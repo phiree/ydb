@@ -24,7 +24,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         /// <param name="filter"></param>
         /// <param name="payfilter"></param>
         /// <returns></returns>
-        [Route("api/Orders/{orderID}/Pays")]
+        [Route("api/v1/Orders/{orderID}/Pays")]
         public IHttpActionResult GetPays(string orderID, [FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_PayFiltering payfilter)
         {
             try
@@ -51,7 +51,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         /// <param name="orderID"></param>
         /// <param name="payfilter"></param>
         /// <returns></returns>
-        [Route("api/Orders/{orderID}/Pays/count")]
+        [Route("api/v1/Orders/{orderID}/Pays/count")]
         public IHttpActionResult GetPaysCount(string orderID, [FromUri]common_Trait_PayFiltering payfilter)
         {
             try
@@ -74,7 +74,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         /// <param name="orderID"></param>
         /// <param name="payID"></param>
         /// <returns></returns>
-        [Route("api/Orders/{orderID}/Pays/{payID}")]
+        [Route("api/v1/Orders/{orderID}/Pays/{payID}")]
         public IHttpActionResult GetPay(string orderID, string payID)
         {
             try
@@ -94,7 +94,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         /// <param name="payID"></param>
         /// <param name="payobj"></param>
         /// <returns></returns>
-        [Route("api/Orders/{orderID}/Pays/{payID}")]
+        [Route("api/v1/Orders/{orderID}/Pays/{payID}")]
         public IHttpActionResult PatchPay(string orderID, string payID,[FromBody]payObj payobj)
         {
             try
@@ -114,7 +114,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.PAY
         /// <param name="payID"></param>
         /// <param name="payTarget"></param>
         /// <returns></returns>
-        [Route("api/Orders/{orderID}/Pays/{payID}/pay3rdString")]
+        [Route("api/v1/Orders/{orderID}/Pays/{payID}/pay3rdString")]
         public IHttpActionResult GetPay3rd(string orderID, string payID, [FromUri]string payTarget)
         {
             try

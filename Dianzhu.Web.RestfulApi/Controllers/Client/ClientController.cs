@@ -23,7 +23,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
         }
 
         [AllowAnonymous]
-        [Route("api/Client/Register")]
+        [Route("api/v1/Client/Register")]
         public async Task<IHttpActionResult> Register(ClientDTO client)
         {
             if (!ModelState.IsValid)
@@ -36,7 +36,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
         }
 
         
-        [Route("api/Token")]
+        [Route("api/v1/authorization")]//authorization//Token
         public IHttpActionResult PostToken([FromBody]Customer customer)
         {
             try

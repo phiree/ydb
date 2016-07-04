@@ -24,7 +24,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.CHAT
         /// <param name="filter"></param>
         /// <param name="chatfilter"></param>
         /// <returns></returns>
-        [Route("api/orders/{orderID}/Chats")]
+        [Route("api/v1/orders/{orderID}/Chats")]
         public IHttpActionResult GetChats(string orderID, [FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_ChatFiltering chatfilter)
         {
             try
@@ -51,7 +51,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.CHAT
         /// <param name="orderID"></param>
         /// <param name="chatfilter"></param>
         /// <returns></returns>
-        [Route("api/orders/{orderID}/Chats/count")]
+        [Route("api/v1/orders/{orderID}/Chats/count")]
         public IHttpActionResult GetChatsCount(string orderID,  [FromUri]common_Trait_ChatFiltering chatfilter)
         {
             try
