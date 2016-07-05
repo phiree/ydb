@@ -23,7 +23,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
         /// </summary>
         /// <param name="worktimeobj"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services/{serviceID}/WorkTimes")]
+        [Route("api/v1/stores/{storeID}/services/{serviceID}/WorkTimes")]
         public IHttpActionResult PostWorkTime(string storeID,string serviceID, [FromBody]workTimeObj worktimeobj)
         {
             try
@@ -48,7 +48,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
         /// <param name="serviceID"></param>
         /// <param name="worktime"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services/{serviceID}/WorkTimes")]
+        [Route("api/v1/stores/{storeID}/services/{serviceID}/WorkTimes")]
         public IHttpActionResult GetWorkTimes(string storeID, string serviceID, [FromUri]common_Trait_WorkTimeFiltering worktime)
         {
             try
@@ -72,7 +72,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
         /// <param name="serviceID"></param>
         /// <param name="worktime"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services/{serviceID}/WorkTimes/count")]
+        [Route("api/v1/stores/{storeID}/services/{serviceID}/WorkTimes/count")]
         public IHttpActionResult GetWorkTimesCount(string storeID, string serviceID, [FromUri]common_Trait_WorkTimeFiltering worktime)
         {
             try
@@ -96,7 +96,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
         /// <param name="serviceID"></param>
         /// <param name="workTimeID"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services/{serviceID}/WorkTimes/{workTimeID}")]
+        [Route("api/v1/stores/{storeID}/services/{serviceID}/WorkTimes/{workTimeID}")]
         public IHttpActionResult GetWorkTime(string storeID, string serviceID,string workTimeID)
         {
             try
@@ -117,7 +117,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
         /// <param name="workTimeID"></param>
         /// <param name="worktimeobj"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services/{serviceID}/WorkTimes/{workTimeID}")]
+        [Route("api/v1/stores/{storeID}/services/{serviceID}/WorkTimes/{workTimeID}")]
         public IHttpActionResult PatchWorkTime(string storeID, string serviceID, string workTimeID, [FromBody]workTimeObj worktimeobj)
         {
             try
@@ -141,7 +141,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.WORKTIME
         /// <param name="serviceID"></param>
         /// <param name="workTimeID"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services/{serviceID}/WorkTimes/{workTimeID}")]
+        [Route("api/v1/stores/{storeID}/services/{serviceID}/WorkTimes/{workTimeID}")]
         public IHttpActionResult DeleteWorkTime(string storeID, string serviceID, string workTimeID)
         {
             try

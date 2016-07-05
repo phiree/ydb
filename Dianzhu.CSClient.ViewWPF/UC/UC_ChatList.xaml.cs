@@ -109,7 +109,15 @@ namespace Dianzhu.CSClient.ViewWPF
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
-            BtnMoreChat();
+            if (BtnMoreChat==null)
+            {
+                return;
+            }
+            Action ac = () =>
+            {
+                BtnMoreChat();
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
         }
 
         public void AddOneChat(ReceptionChat chat)

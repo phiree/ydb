@@ -23,7 +23,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
         /// </summary>
         /// <param name="servicesobj"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services")]
+        [Route("api/v1/stores/{storeID}/services")]
         public IHttpActionResult PostService(string storeID,[FromBody]servicesObj servicesobj)
         {
             try
@@ -47,7 +47,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
         /// <param name="filter"></param>
         /// <param name="servicefilter"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services")]
+        [Route("api/v1/stores/{storeID}/services")]
         public IHttpActionResult GetServices(string storeID, [FromUri]common_Trait_Filtering filter, [FromUri]common_Trait_ServiceFiltering servicefilter)
         {
             try
@@ -74,7 +74,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
         /// <param name="storeID"></param>
         /// <param name="servicefilter"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services/count")]
+        [Route("api/v1/stores/{storeID}/services/count")]
         public IHttpActionResult GetServicesCount(string storeID, [FromUri]common_Trait_ServiceFiltering servicefilter)
         {
             try
@@ -97,7 +97,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services/{serviceID}")]
+        [Route("api/v1/stores/{storeID}/services/{serviceID}")]
         public IHttpActionResult GetService(string storeID, string serviceID)
         {
             try
@@ -117,7 +117,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
         /// <param name="serviceID"></param>
         /// <param name="servicesobj"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services/{serviceID}")]
+        [Route("api/v1/stores/{storeID}/services/{serviceID}")]
         public IHttpActionResult PatchService(string storeID, string serviceID,[FromBody]servicesObj servicesobj)
         {
             try
@@ -140,7 +140,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.SERVICE
         /// <param name="storeID"></param>
         /// <param name="serviceID"></param>
         /// <returns></returns>
-        [Route("api/stores/{storeID}/services/{serviceID}")]
+        [Route("api/v1/stores/{storeID}/services/{serviceID}")]
         public IHttpActionResult DeleteService(string storeID, string serviceID)
         {
             try

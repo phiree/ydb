@@ -50,7 +50,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// </summary>
         /// <param name="orderfilter"></param>
         /// <returns></returns>
-        [Route("api/orders/count")]
+        [Route("api/v1/orders/count")]
         public IHttpActionResult GetOrdersCount([FromUri]common_Trait_OrderFiltering orderfilter)
         {
             try
@@ -89,7 +89,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        [Route("api/orders/{orderID}/allStatusList")]
+        [Route("api/v1/orders/{orderID}/allStatusList")]
         public IHttpActionResult GetAllStatusList(string orderID)
         {
             try
@@ -126,7 +126,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="orderID"></param>
         /// <param name="serviceID"></param>
         /// <returns></returns>
-        [Route("api/orders/{orderID}/confirmService")]
+        [Route("api/v1/orders/{orderID}/confirmService")]
         public IHttpActionResult PutConfirmService(string orderID, [FromBody]string serviceID)
         {
             try
@@ -145,7 +145,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="orderID"></param>
         /// <param name="appraiseobj"></param>
         /// <returns></returns>
-        [Route("api/orders/{orderID}/appraise")]
+        [Route("api/v1/orders/{orderID}/appraise")]
         public IHttpActionResult PutAppraisee(string orderID, [FromBody]appraiseObj appraiseobj)
         {
             try
@@ -167,7 +167,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        [Route("api/orders/{orderID}/linkMan")]
+        [Route("api/v1/orders/{orderID}/linkMan")]
         public IHttpActionResult GettLinkMan(string orderID)
         {
             try
@@ -186,7 +186,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="orderID"></param>
         /// <param name="newStatus"></param>
         /// <returns></returns>
-        [Route("api/orders/{orderID}/currentStatus")]
+        [Route("api/v1/orders/{orderID}/currentStatus")]
         public IHttpActionResult PatchCurrentStatus(string orderID, [FromBody]string newStatus)
         {
             try
@@ -205,7 +205,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="orderID"></param>
         /// <param name="refundfilter"></param>
         /// <returns></returns>
-        [Route("api/orders/{orderID}/refunds")]
+        [Route("api/v1/orders/{orderID}/refunds")]
         public IHttpActionResult GetRefundStatus(string orderID, [FromUri]common_Trait_RefundFiltering refundfilter)
         {
             try
@@ -228,7 +228,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="orderID"></param>
         /// <param name="refundobj"></param>
         /// <returns></returns>
-        [Route("api/orders/{orderID}/refunds")]
+        [Route("api/v1/orders/{orderID}/refunds")]
         public IHttpActionResult PostRefundAction(string orderID, [FromBody]refundObj refundobj)
         {
             try
@@ -250,7 +250,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// </summary>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        [Route("api/orders/{orderID}/forman")]
+        [Route("api/v1/orders/{orderID}/forman")]
         public IHttpActionResult GetForman(string orderID)
         {
             try
@@ -269,7 +269,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ORDER
         /// <param name="orderID"></param>
         /// <param name="staffID"></param>
         /// <returns></returns>
-        [Route("api/orders/{orderID}/forman")]
+        [Route("api/v1/orders/{orderID}/forman")]
         public IHttpActionResult PatchForman(string orderID,[FromUri]string staffID)
         {
             try

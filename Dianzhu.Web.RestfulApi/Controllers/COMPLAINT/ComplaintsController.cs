@@ -63,7 +63,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.COMPLAINT
         /// <returns></returns>
         ///[HttpGet]
         ///[ActionName("count")]
-        [Route("api/Complaints/count")]
+        [Route("api/v1/Complaints/count")]
         public IHttpActionResult GetComplaintsCount([FromUri]common_Trait_ComplainFiltering complaint)
         {
             try

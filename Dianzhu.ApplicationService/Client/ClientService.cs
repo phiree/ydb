@@ -43,23 +43,23 @@ namespace Dianzhu.ApplicationService.Client
             switch (dzm.UserType.ToString())
             {
                 case "customer":
-                    userUri = strPath+"/api/customers/" +dzm.Id;
+                    userUri = strPath+"/api/v1/customers/" +dzm.Id;
                     break;
                 case "business":
-                    userUri = strPath + "/api/merchants/" + dzm.Id;
+                    userUri = strPath + "/api/v1/merchants/" + dzm.Id;
                     break;
                 case "staff":
                     Model.Staff staff = new Model.Staff();
-                    userUri = strPath + "/api/stores/" + staff.Belongto.Id+"/staffs/" + staff.Id;
+                    userUri = strPath + "/api/v1/stores/" + staff.Belongto.Id+"/staffs/" + staff.Id;
                     break;
                 default:
                     throw new Exception("用户类型不正确！");
             }
             Customer customer = new Customer();
-            customer.username = username;
+            customer.loginName = username;
             customer.password = password;
             UserTokentDTO usertokendto = new UserTokentDTO();
-            usertokendto.UserUri = userUri;
+            usertokendto.userEndpoint = userUri;
             usertokendto.Token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
             Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.Token, Flag = 1, CreatedTime = DateTime.Now };
             if (bllusertoken.addToken(usertoken))

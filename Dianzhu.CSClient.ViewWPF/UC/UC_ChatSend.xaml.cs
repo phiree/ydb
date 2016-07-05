@@ -74,7 +74,7 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (SendTextClick != null && MessageText.Trim() != string.Empty)
             {
-                SendTextClick();
+                SendText();
             }
         }
 
@@ -145,9 +145,11 @@ namespace Dianzhu.CSClient.ViewWPF
                
             }));
             byte[] fileData = File.ReadAllBytes(dlg.FileName);
-            SendMediaClick(fileData, domain, mediaType);
 
-
+            Action ac = () => {
+                SendMediaClick(fileData, domain, mediaType);
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
         }
 
         #region 截图
@@ -218,8 +220,12 @@ namespace Dianzhu.CSClient.ViewWPF
                 win.Title = "正在发送,请稍后........";
                 bytes= BitmapSource2ByteArray(bmp);
             }));
-            SendMediaClick(bytes, "ChatImage", "image");
 
+            Action ac = () =>
+            {
+                SendMediaClick(bytes, "ChatImage", "image");
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
         }
 
         private Byte[] BitmapSource2ByteArray(BitmapSource source)
@@ -238,8 +244,17 @@ namespace Dianzhu.CSClient.ViewWPF
         {
             if (SendTextClick != null && MessageText.Trim() != string.Empty && e.Key == Key.Enter)
             {
-                SendTextClick();
+                SendText();
             }
+        }
+
+        private void SendText()
+        {
+            Action ac = () =>
+            {
+                SendTextClick();
+            };
+            NHibernateUnitOfWork.With.Transaction(ac);
         }
     }
 }

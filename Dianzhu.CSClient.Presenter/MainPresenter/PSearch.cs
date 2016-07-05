@@ -164,7 +164,7 @@ namespace Dianzhu.CSClient.Presenter
             //禁用推送按钮
             //viewSearchResult.BtnPush = false;
 
-            NHibernateUnitOfWork.UnitOfWork.Start();
+            //NHibernateUnitOfWork.UnitOfWork.Start();
             IList<ServiceOrderPushedService> serviceOrderPushedServices = new List<ServiceOrderPushedService>();
             foreach (DZService service in pushedServices)
             {
@@ -213,6 +213,8 @@ namespace Dianzhu.CSClient.Presenter
 
             //获取之前orderid
             ServiceOrder oldOrder = IdentityManager.CurrentIdentity;
+            //NHibernateUnitOfWork.UnitOfWork.Current.Refresh(oldOrder);//来自上个session，需刷新
+            //oldOrder.OrderStatus = Model.Enums.enum_OrderStatus.DraftPushed;
             bllServiceOrder.Update(oldOrder);
 
             //更新当前订单
@@ -230,8 +232,8 @@ namespace Dianzhu.CSClient.Presenter
             //清空搜索选项 todo:为了测试方便，先注释掉
             //viewSearch.ClearData();
 
-            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
-            NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
+            //NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+            //NHibernateUnitOfWork.UnitOfWork.Current.Dispose();
         }
 
         private void ViewSearchResult_SelectService(Model.DZService selectedService)
@@ -251,8 +253,8 @@ namespace Dianzhu.CSClient.Presenter
         #endregion
         private void ViewSearch_Search(DateTime targetTime, decimal minPrice, decimal maxPrice, Guid servieTypeId)
         {
-            Action a = () =>
-            {
+            //Action a = () =>
+            //{
                 int total;
 
                 IList<Model.DZService> services = dalDzService.SearchService(minPrice, maxPrice, servieTypeId, targetTime, 0, 10, out total);
@@ -261,9 +263,9 @@ namespace Dianzhu.CSClient.Presenter
                     
                 }
                 viewSearchResult.SearchedService = services;
-            };
+            //};
 
-            NHibernateUnitOfWork.With.Transaction(a);
+            //NHibernateUnitOfWork.With.Transaction(a);
 
             //foreach (DZService s in services)
             //{

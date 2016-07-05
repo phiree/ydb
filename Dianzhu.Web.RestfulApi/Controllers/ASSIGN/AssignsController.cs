@@ -58,7 +58,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.ASSIGN
         /// </summary>
         /// <param name="assign"></param>
         /// <returns></returns>
-        [Route("api/Assigns/count")]
+        [Route("api/v1/Assigns/count")]
         public IHttpActionResult GetAssignsCount([FromUri]common_Trait_AssignFiltering assign)
         {
             try

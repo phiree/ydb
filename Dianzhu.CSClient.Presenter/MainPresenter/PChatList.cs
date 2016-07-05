@@ -42,7 +42,7 @@ namespace Dianzhu.CSClient.Presenter
             viewIdentityList.IdentityClick += ViewIdentityList_IdentityClick;
             viewChatList.CurrentCustomerService = GlobalViables.CurrentCustomerService;
             viewChatList.AudioPlay += ViewChatList_AudioPlay;
-           // viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
+            viewChatList.BtnMoreChat += ViewChatList_BtnMoreChat;
             viewChatList.TimerTick += ViewChatList_TimerTick;
 
             iIM.IMReceivedMessage += IIM_IMReceivedMessage;
@@ -57,8 +57,14 @@ namespace Dianzhu.CSClient.Presenter
 
         private void ViewChatList_BtnMoreChat()
         {
+            //ReceptionChat chatOldest = dalReceptionChat.FindById(chatOldestId);
+            //if (chatOldest == null)
+            //{
+            //    return;
+            //}
+
             var chatHistory = dalReceptionChat.GetReceptionChatListByTargetIdAndSize(IdentityManager.CurrentIdentity.Customer, null, Guid.Empty,
-                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 20, chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id][0],"Y", enum_ChatTarget.all);
+                   DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 10, viewChatList.ChatList[0], "Y", enum_ChatTarget.all).OrderByDescending(x=>x.SavedTime).ToList();
 
             if (chatHistory.Count() == 0)
             {
@@ -66,12 +72,23 @@ namespace Dianzhu.CSClient.Presenter
                 return;
             }
 
-            foreach(ReceptionChat chat in chatHistory.OrderByDescending(x=>x.SavedTime))
+            //viewChatList.ChatOldestId = chatHistory[0].Id;
+
+            //foreach(ReceptionChat chat in chatHistory.OrderByDescending(x=>x.SavedTime))
+            //{
+            //    chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Insert(0, chat);
+            //}
+
+            var list = viewChatList.ChatList;
+
+            foreach (var item in chatHistory)
             {
-                chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Insert(0, chat);
+                list.Insert(0, item);
             }
 
-            viewChatList.ChatList = chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id];
+            viewChatList.ChatList = list;
+
+            //viewChatList.ChatList = chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id];
         }
 
         private void IIM_IMReceivedMessage(ReceptionChat chat)
@@ -99,38 +116,37 @@ namespace Dianzhu.CSClient.Presenter
 
         public void ViewIdentityList_IdentityClick(ServiceOrder serviceOrder)
         {
-            Action ac = () =>
+            try
             {
-                try
-                {
-                    viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
+                viewChatList.ChatListCustomerName = serviceOrder.Customer.DisplayName;
 
-                    //if (chatHistoryAll.ContainsKey(serviceOrder.Customer.Id))
-                    //{
-                    //    viewChatList.ChatList = chatHistoryAll[serviceOrder.Customer.Id];
-                    //    return;
-                    //}
+                //if (chatHistoryAll.ContainsKey(serviceOrder.Customer.Id))
+                //{
+                //    viewChatList.ChatList = chatHistoryAll[serviceOrder.Customer.Id];
+                //    return;
+                //}
 
-                    int rowCount;
-                    var chatHistory = dalReceptionChat
-                           //.GetListTest();
-                           .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
-                           DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
-                    //viewChatList.ChatList.Clear();
-                    viewChatList.ChatList = chatHistory;
+                int rowCount;
+                var chatHistory = dalReceptionChat
+                       //.GetListTest();
+                       .GetReceptionChatList(serviceOrder.Customer, null, Guid.Empty,
+                       DateTime.Now.AddMonths(-1), DateTime.Now.AddDays(1), 0, 20, enum_ChatTarget.all, out rowCount);
+                //viewChatList.ChatList.Clear();
+                viewChatList.ChatList = chatHistory;
 
-                  //  chatHistoryAll[serviceOrder.Customer.Id] = chatHistory;
-                }
-                catch (Exception ex)
-                {
-                    log.Error("加载聊天信息失败");
-                    PHSuit.ExceptionLoger.ExceptionLog(log, ex);
+                //if (chatHistory != null)
+                //{
+                //    viewChatList.ChatOldestId = chatHistory[0].Id;
+                //}                
 
-                }
-            };
-            NHibernateUnitOfWork.With.Transaction(ac);
+                //  chatHistoryAll[serviceOrder.Customer.Id] = chatHistory;
+            }
+            catch (Exception ex)
+            {
+                log.Error("加载聊天信息失败");
+                PHSuit.ExceptionLoger.ExceptionLog(log, ex);
 
-
+            }
         }
 
         private void BgwChatHistory_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
