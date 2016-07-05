@@ -35,7 +35,9 @@ namespace Dianzhu.Web.Common
 
         private void EndRequest(object sender, EventArgs e)
         {
-            if (!httpApplication.Request.CurrentExecutionFilePath.EndsWith(".aspx"))
+            if (!httpApplication.Request.CurrentExecutionFilePath.EndsWith(".aspx")
+                && !httpApplication.Request.CurrentExecutionFilePath.EndsWith(".ashx")
+                )
             {
                 return;
             }
@@ -45,7 +47,9 @@ namespace Dianzhu.Web.Common
 
         private void BeginRequest(object sender, EventArgs e)
         {
-            if (!httpApplication.Request.CurrentExecutionFilePath.EndsWith(".aspx"))
+            if (!httpApplication.Request.CurrentExecutionFilePath.EndsWith(".aspx")
+               && !httpApplication.Request.CurrentExecutionFilePath.EndsWith(".ashx")
+               )
             {
                 return;
             }
