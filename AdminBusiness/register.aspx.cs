@@ -8,7 +8,7 @@ using Dianzhu.Model;
 using Dianzhu.BLL;
 using System.Web.Security;
 using System.Text.RegularExpressions;
-public partial class register : Dianzhu.Web.Common.BasePage
+public partial class register :BasePage
 {
     BLLBusiness bllBusiness = Bootstrap.Container.Resolve<BLLBusiness>();
     DZMembershipProvider dz = Bootstrap.Container.Resolve<DZMembershipProvider>();

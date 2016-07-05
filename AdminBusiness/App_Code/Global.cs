@@ -18,7 +18,7 @@ public class Global:HttpApplication, IContainerAccessor
 
     public IWindsorContainer Container
     {
-        get { return container; }
+        get { return container;      }
     }
     void Application_Start(object sender, EventArgs e)
     {
@@ -62,19 +62,28 @@ public class Global:HttpApplication, IContainerAccessor
 
     }
 
-    void Session_Start(object sender, EventArgs e)
+    /*
+    void Application_BeginRequest(object sender, EventArgs e)
     {
-        //在新会话启动时运行的代码
+        if (!Request.CurrentExecutionFilePath.EndsWith(".aspx"))
+        {
+            return;
+        }
+        NHibernateUnitOfWork.UnitOfWork.Start();
 
     }
 
-    void Session_End(object sender, EventArgs e)
+    void Application_EndRequest(object sender, EventArgs e)
     {
+        if (!Request.CurrentExecutionFilePath.EndsWith(".aspx"))
+        {
+            return;
+        }
         //在会话结束时运行的代码。 
         // 注意: 只有在 Web.config 文件中的 sessionstate 模式设置为
         // InProc 时，才会引发 Session_End 事件。如果会话模式 
         //设置为 StateServer 或 SQLServer，则不会引发该事件。
+        NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
+    }*/
 
-    }
- 
 }
