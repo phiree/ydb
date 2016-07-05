@@ -86,14 +86,14 @@ public class ResponseAPP001001:BaseResponse
                     uuid.AppName = devB.AppName;
                     uuid.AppToken = devB.AppToken;
                     uuid.BindChangedTime = DateTime.Now;
-                    bllDeviceBind.Save(uuid);
+                    bllDeviceBind.Update(uuid);
                 }
                 else
                 {
                     devB.IsBinding = true;
                     devB.BindChangedTime = DateTime.Now;
                     devB.SaveTime = DateTime.Now;
-                    bllDeviceBind.Update(devB);
+                    bllDeviceBind.Save(devB);
                 }
             }
             else if (requestData.mark == "N")
@@ -103,7 +103,7 @@ public class ResponseAPP001001:BaseResponse
                 {
                     uuid.IsBinding = false;
                     uuid.BindChangedTime = DateTime.Now;
-                    bllDeviceBind.Save(uuid);
+                    bllDeviceBind.Update(uuid);
                 }
                 else
                 {

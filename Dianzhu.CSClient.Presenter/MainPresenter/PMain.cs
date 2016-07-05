@@ -58,79 +58,85 @@ namespace Dianzhu.CSClient.Presenter
         /// <param name="num"></param>
         private void SysAssign(int num)
         {
-           
-                log.Debug("-------开始 接收离线消息------");
-                IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, num);
-                if (rsList.Count > 0)
+
+            log.Debug("-------开始 接收离线消息------");
+            IList<ReceptionStatus> rsList = dalReceptionStatus.GetRSListByDiandian(GlobalViables.Diandian, num);
+            if (rsList.Count > 0)
+            {
+
+                log.Debug("需要接待的离线用户数量:" + rsList.Count);
+                foreach (ReceptionStatus rs in rsList)
                 {
- 
-                    log.Debug("需要接待的离线用户数量:" + rsList.Count);
-                    foreach (ReceptionStatus rs in rsList)
-                    {
-                        #region 接待记录存档
-                        SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
-                        #endregion
-                        rs.CustomerService = GlobalViables.CurrentCustomerService;
-                        log.Debug("保存新分配的接待记录");
-                        dalReceptionStatus.Update(rs);
+                    #region 接待记录存档
+                    SaveRSA(rs.Customer, rs.CustomerService, rs.Order);
+                    #endregion
+                    rs.CustomerService = GlobalViables.CurrentCustomerService;
+                    log.Debug("保存新分配的接待记录");
+                    dalReceptionStatus.Update(rs);
 
-                        CopyDDToChat(rsList.Select(x => x.Customer).ToList());
+                    CopyDDToChat(rsList.Select(x => x.Customer).ToList());
 
-                        ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
-                        rChatReAss.From = GlobalViables.Diandian;
-                        rChatReAss.To = rs.Customer;
-                        rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
-                        rChatReAss.ReAssignedCustomerService = rs.CustomerService;
-                        rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
-                        rChatReAss.ServiceOrder = rs.Order;
-                        rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
+                    ReceptionChatReAssign rChatReAss = new ReceptionChatReAssign();
+                    rChatReAss.From = GlobalViables.Diandian;
+                    rChatReAss.To = rs.Customer;
+                    rChatReAss.MessageBody = "客服" + rs.CustomerService.DisplayName + "已上线";
+                    rChatReAss.ReAssignedCustomerService = rs.CustomerService;
+                    rChatReAss.SavedTime = rChatReAss.SendTime = DateTime.Now;
+                    rChatReAss.ServiceOrder = rs.Order;
+                    rChatReAss.ChatType = Model.Enums.enum_ChatType.ReAssign;
 
-                        //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
-                        // SaveMessage(rChatReAss, true);
-                        iIM.SendMessage(rChatReAss);
+                    //SendMessage(rChatReAss);//保存更换记录，发送消息并且在界面显示
+                    // SaveMessage(rChatReAss, true);
+                    iIM.SendMessage(rChatReAss);
 
-                        //ClientState.OrderList.Add(rs.Order);
-                        ClientState.customerList.Add(rs.Customer);
+                    //ClientState.OrderList.Add(rs.Order);
+                    ClientState.customerList.Add(rs.Customer);
                     //view.AddCustomerButtonWithStyle(rs.Order, em_ButtonStyle.Unread);
                     if (rs.Order != null)
                     {
                         iViewIdentityList.AddIdentity(rs.Order);
                     }
-                   
-                    }
- 
                 }
-                else
+
+            }
+            else
+            {
+                try
                 {
-                    try
+                    IList<ServiceOrder> orderCList = dalReceptionChatDD.GetCustomListDistinctFrom(num);
+                    if (orderCList.Count > 0)
                     {
-                        IList<ServiceOrder> orderCList = dalReceptionChatDD.GetCustomListDistinctFrom(num);
-                        if (orderCList.Count > 0)
+                        IList<DZMembership> logoffCList = new List<DZMembership>();
+                        foreach (ServiceOrder order in orderCList)
                         {
-                            IList<DZMembership> logoffCList = new List<DZMembership>();
-                            foreach (ServiceOrder order in orderCList)
+                            ReceptionStatus rs;
+                            if (!logoffCList.Contains(order.Customer))
                             {
-                                if (!logoffCList.Contains(order.Customer))
-                                {
-                                    logoffCList.Add(order.Customer);
-                                }
+                                logoffCList.Add(order.Customer);
 
-                                //按订单显示按钮
-                                //ClientState.OrderList.Add(order);
-                                ClientState.customerList.Add(order.Customer);
-                                //view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
-                                iViewIdentityList.AddIdentity(order);
+                                rs = new ReceptionStatus();
+                                rs.Customer = order.Customer;
+                                rs.CustomerService = GlobalViables.CurrentCustomerService;
+                                rs.Order = order;
+                                dalReceptionStatus.Add(rs);
                             }
-                            CopyDDToChat(logoffCList);
-                        }
-                    }
-                    catch (Exception)
-                    {
 
+                            //按订单显示按钮
+                            //ClientState.OrderList.Add(order);
+                            ClientState.customerList.Add(order.Customer);
+                            //view.AddCustomerButtonWithStyle(order, em_ButtonStyle.Unread);
+                            iViewIdentityList.AddIdentity(order);
+                        }
+                        CopyDDToChat(logoffCList);
                     }
                 }
-            
-    }
+                catch (Exception)
+                {
+
+                }
+            }
+
+        }
 
         /// <summary>
         /// 接待记录存档

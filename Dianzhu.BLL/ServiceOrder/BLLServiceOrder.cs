@@ -754,6 +754,7 @@ namespace Dianzhu.BLL
             //更新订单状态
             order.OrderStatus = targetStatus;
             Update(order);
+            NHibernateUnitOfWork.UnitOfWork.Current.TransactionalFlush();
             log.Debug("当前订单状态为:" + targetStatus);
 
             log.Debug("调用IMServer,发送订单状态变更通知");
