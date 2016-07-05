@@ -56,10 +56,10 @@ namespace Dianzhu.ApplicationService.Client
                     throw new Exception("用户类型不正确！");
             }
             Customer customer = new Customer();
-            customer.username = username;
+            customer.loginName = username;
             customer.password = password;
             UserTokentDTO usertokendto = new UserTokentDTO();
-            usertokendto.UserUri = userUri;
+            usertokendto.userEndpoint = userUri;
             usertokendto.Token= JWT.JsonWebToken.Encode(customer, apiKey, JWT.JwtHashAlgorithm.HS256);
             Model.UserToken usertoken = new Model.UserToken { UserID = dzm.Id.ToString(), Token = usertokendto.Token, Flag = 1, CreatedTime = DateTime.Now };
             if (bllusertoken.addToken(usertoken))

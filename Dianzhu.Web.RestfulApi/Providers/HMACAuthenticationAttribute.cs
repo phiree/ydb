@@ -55,6 +55,40 @@ namespace Dianzhu.Web.RestfulApi
         public Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
             var req = context.Request;
+
+            // 获取远程客户端的浏览器信息
+            //HttpBrowserCapabilities httpbc = System.Web.HttpContext.Current.Request.Browser;
+            //string strInfo = "您好，您正在使用   " + httpbc.Browser + "   v. " + httpbc.Version + ",你的运行平台是   " + httpbc.Platform;
+            ////获取远程客户端的ip主机地址 
+            //strInfo = System.Web.HttpContext.Current.Request.UserHostAddress;
+            ////获取远程客户端的DNS名称 
+            //strInfo = System.Web.HttpContext.Current.Request.UserHostName;
+            ////客户端上次请求的URL路径 
+            //strInfo = System.Web.HttpContext.Current.Request.UrlReferrer.ToString();
+            ////当前请求的URl 
+            //strInfo = System.Web.HttpContext.Current.Request.Url.ToString();
+            ////客户端浏览器的原始用户代理信息 
+            //strInfo = System.Web.HttpContext.Current.Request.UserAgent;
+            string str = HttpContext.Current.Request.UserHostAddress;
+            string IP4Address = String.Empty;
+            foreach (IPAddress IPA in Dns.GetHostAddresses(HttpContext.Current.Request.UserHostAddress))
+            {
+                if (IPA.AddressFamily.ToString() == "InterNetwork")
+                {
+                    IP4Address = IPA.ToString();
+                    break;
+                }
+            }
+            foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
+            {
+                if (IPA.AddressFamily.ToString() == "InterNetwork")
+                {
+                    IP4Address = IPA.ToString();
+                    break;
+                }
+            }
+
+
             bool b = true;
             string stamp_TIMES = "";
             string appName = "";
@@ -214,10 +248,10 @@ namespace Dianzhu.Web.RestfulApi
                 return true;
             }
             //unixtime防止跨时区调用
-            //DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
-            //TimeSpan currentTs = DateTime.UtcNow - epochStart;
-            DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
-            TimeSpan currentTs = DateTime.Now - epochStart;
+            DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
+            TimeSpan currentTs = DateTime.UtcNow - epochStart;
+            //DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Local);
+            //TimeSpan currentTs = DateTime.Now - epochStart;
             //var serverTotalSeconds = Convert.ToUInt64(currentTs.TotalSeconds);
             var serverTotalSeconds = Convert.ToInt64(currentTs.TotalMilliseconds);//.TotalSeconds
             ilog.Debug("Create(stamp_TIMES):" + serverTotalSeconds.ToString());
@@ -227,7 +261,7 @@ namespace Dianzhu.Web.RestfulApi
             ilog.Debug("Request(requestMaxAgeInSeconds):" + requestMaxAgeInSeconds.ToString());
             ilog.Debug("Check(bool):" + (serverTotalSeconds - requestTotalSeconds).ToString());
             ilog.Debug("Check(bool1):" + ((serverTotalSeconds - requestTotalSeconds) > requestMaxAgeInSeconds).ToString());
-            if ((serverTotalSeconds - requestTotalSeconds) > 120000)
+            if (Math.Abs(serverTotalSeconds - requestTotalSeconds) > 120000)
             {
                 ilog.Debug("Create(stamp_TIMES2):" + serverTotalSeconds.ToString());
                 return true;

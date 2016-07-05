@@ -47,7 +47,7 @@ namespace Dianzhu.Web.RestfulApi.Controllers.Client
                 }
                 HMACAuthenticationAttribute hmac = new HMACAuthenticationAttribute();
                 string apiKey = hmac.getAllowedApps(Request.Headers.GetValues("appName").FirstOrDefault());
-                return Json(iclientservice.CreateToken(customer.username, customer.password, apiKey, "http://"+Request.RequestUri.Authority));
+                return Json(iclientservice.CreateToken(customer.loginName, customer.password, apiKey, "http://"+Request.RequestUri.Authority));
             }
             catch (Exception ex)
             {
