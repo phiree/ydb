@@ -178,7 +178,8 @@ namespace Dianzhu.BLL
                     break;
             }
             long totalRecord;
-            return repoServiceOrder.Find(where, pageNum, pageSize, out totalRecord).ToList();
+            var list = pageSize == 0 ? repoServiceOrder.Find(where).ToList() : repoServiceOrder.Find(where, pageNum, pageSize, out totalRecord).ToList();
+            return list;
 
             // return DALServiceOrder.GetServiceOrderList(userId, searchType, pageNum, pageSize);
         }

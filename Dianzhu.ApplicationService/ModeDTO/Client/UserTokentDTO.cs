@@ -8,7 +8,7 @@ namespace Dianzhu.ApplicationService
 {
     public class UserTokentDTO
     {
-        public string Token { get; set; }
+        public string token { get; set; }
         public string userEndpoint { get; set; }
     }
 }
