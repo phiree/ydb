@@ -11,9 +11,9 @@ using System.Data;
 public partial class order_detail : BasePage
 {
     IBLLServiceOrder bllServiceOrder = Bootstrap.Container.Resolve<IBLLServiceOrder>();
-    Dianzhu.BLL.Finance.BLLServiceTypePoint bllServiceTypePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.BLLServiceTypePoint>();
-    Dianzhu.BLL.Finance.BalanceFlowService balanceService = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.BalanceFlowService>();
-    Dianzhu.BLL.Finance.BLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.BLLSharePoint>();
+    Dianzhu.BLL.Finance.IBLLServiceTypePoint bllServiceTypePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLServiceTypePoint>();
+    Dianzhu.BLL.Finance.IBalanceFlowService balanceService = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBalanceFlowService>();
+    Dianzhu.BLL.Finance.IBLLSharePoint bllSharePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLSharePoint>();
     Dianzhu.BLL.Agent.AgentService agentService = new Dianzhu.BLL.Agent.AgentService();
     ServiceOrder serviceorder;
 
