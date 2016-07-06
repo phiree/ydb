@@ -104,7 +104,8 @@ namespace Dianzhu.CSClient.Presenter
             {
                 if (key.Id == order.Id)
                 {
-                    currentIdentityList.TryRemove(key, out isExactive);
+                    bool value;
+                    isExactive = currentIdentityList.TryRemove(key, out value);
                     break;
                 }
             }

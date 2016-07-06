@@ -96,10 +96,10 @@ namespace Dianzhu.CSClient.Presenter
             //判断信息类型
             if (chat.ChatType == enum_ChatType.Media || chat.ChatType == enum_ChatType.Text)
             {
-                if (chatHistoryAll.Count > 0)
-                {
-                    chatHistoryAll[chat.From.Id].Add(chat);
-                }                
+                //if (chatHistoryAll.Count > 0)
+                //{
+                //    chatHistoryAll[chat.From.Id].Add(chat);
+                //}                
             }
         }
 

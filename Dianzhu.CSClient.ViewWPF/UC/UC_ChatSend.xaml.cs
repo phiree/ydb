@@ -69,7 +69,8 @@ namespace Dianzhu.CSClient.ViewWPF
 
         public event SendTextClick SendTextClick;
         public event SendMediaClick SendMediaClick;
-        
+        public event FinalChatTimerSend FinalChatTimerSend;
+
         private void btnSendTextMessage_Click(object sender, RoutedEventArgs e)
         {
             if (SendTextClick != null && MessageText.Trim() != string.Empty)
@@ -148,6 +149,7 @@ namespace Dianzhu.CSClient.ViewWPF
 
             Action ac = () => {
                 SendMediaClick(fileData, domain, mediaType);
+                FinalChatTimerSend();
             };
             NHibernateUnitOfWork.With.Transaction(ac);
         }
@@ -253,6 +255,7 @@ namespace Dianzhu.CSClient.ViewWPF
             Action ac = () =>
             {
                 SendTextClick();
+                FinalChatTimerSend();
             };
             NHibernateUnitOfWork.With.Transaction(ac);
         }
