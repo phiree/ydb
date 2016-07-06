@@ -191,10 +191,10 @@ namespace Dianzhu.CSClient.Presenter
             iIM.SendMessage(chat);
 
             //加到缓存数组中
-            if (PChatList.chatHistoryAll != null)
-            {
-                PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
-            }
+            //if (PChatList.chatHistoryAll != null)
+            //{
+            //    PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat);
+            //}
 
             log.Debug("推送的订单：" + IdentityManager.CurrentIdentity.Id.ToString());
 

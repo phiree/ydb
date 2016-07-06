@@ -128,7 +128,7 @@ namespace Dianzhu.CSClient.Presenter
                 //重新开始计时
                 InitTimer();
 
-                PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat); 
+                //PChatList.chatHistoryAll[IdentityManager.CurrentIdentity.Customer.Id].Add(chat); 
             }
             catch (Exception e)
             {

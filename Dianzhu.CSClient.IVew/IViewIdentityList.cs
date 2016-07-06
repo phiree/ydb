@@ -29,10 +29,17 @@ namespace Dianzhu.CSClient.IView
         void IdentityLogOnShowMsg(ServiceOrder serviceOrder,string msg);
         void IdentityLogOnShowMsgAndTimer(ServiceOrder serviceOrder, string msg);
 
+        void IdleTimerStart(Guid orderId);
+        void IdleTimerStop(Guid orderId);
+        event FinalChatTimerTick FinalChatTimerTick;
     }
     /// <summary>
     /// 点击用户按钮的委托.
     /// </summary>
     /// <param name="customer"></param>
     public delegate void IdentityClick(ServiceOrder serviceOrder);
+    /// <summary>
+    /// 客服发消息后在指定时间内触发的事件
+    /// </summary>
+    public delegate void FinalChatTimerTick(Guid orderId);
 }
