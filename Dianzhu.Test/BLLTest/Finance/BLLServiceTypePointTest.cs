@@ -62,7 +62,7 @@ namespace Dianzhu.Test.BLLTest.Finance
 
         private decimal GetPoint(string typeid)
         {
-            BLL.Finance.BLLServiceTypePoint bllPoint = new BLL.Finance.BLLServiceTypePoint();
+            BLL.Finance.IBLLServiceTypePoint bllPoint = Bootstrap.Container.Resolve<BLL.Finance.IBLLServiceTypePoint>();
             BLL.BLLServiceType bllType = Bootstrap.Container.Resolve < BLL.BLLServiceType>();
             ServiceType type = bllType.GetOne(new Guid(typeid));
 

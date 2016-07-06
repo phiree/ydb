@@ -13,7 +13,7 @@ public partial class servicetype_Sharepoint : BasePage
     /// <summary>
     /// 服务类别的分成列表
     /// </summary>
-    BLLServiceTypePoint bLLServiceTypePoint = new BLLServiceTypePoint();
+    Dianzhu.BLL.Finance.IBLLServiceTypePoint bLLServiceTypePoint = Bootstrap.Container.Resolve<Dianzhu.BLL.Finance.IBLLServiceTypePoint>();
     BLLServiceType bllType = Bootstrap.Container.Resolve<Dianzhu.BLL.BLLServiceType>();
     protected void Page_Load(object sender, EventArgs e)
     {
